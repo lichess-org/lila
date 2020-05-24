@@ -195,7 +195,7 @@ final class Tournament(
           val teamId   = ctx.body.body.\("team").asOpt[String]
           teamId
             .?? {
-              env.team.teamRepo.isLeader(_, me.id)
+              env.team.cached.isLeader(_, me.id)
             }
             .flatMap { isLeader =>
               api.joinWithResult(id, me, password, teamId, getUserTeamIds, isLeader) flatMap { result =>

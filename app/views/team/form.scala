@@ -68,9 +68,9 @@ object form {
               form3.select(
                 f,
                 Seq(
-                  Team.ChatFor.NONE    -> "Disabled",
-                  Team.ChatFor.LEADERS -> "Leaders only",
-                  Team.ChatFor.MEMBERS -> "All members"
+                  Team.ChatFor.NONE    -> "No chat",
+                  Team.ChatFor.LEADERS -> "Team leaders",
+                  Team.ChatFor.MEMBERS -> "Team members"
                 )
               )
             },

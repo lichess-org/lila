@@ -64,6 +64,8 @@ case class Swiss(
     if (minutes < 60) s"${minutes}m"
     else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
   }
+
+  def roundInfo = Swiss.RoundInfo(teamId, settings.chatFor)
 }
 
 object Swiss {
@@ -85,12 +87,21 @@ object Swiss {
       nbRounds: Int,
       rated: Boolean,
       description: Option[String] = None,
-      hasChat: Boolean = true,
+      chatFor: ChatFor = ChatFor.default,
       roundInterval: FiniteDuration
   ) {
     lazy val intervalSeconds = roundInterval.toSeconds.toInt
     def manualRounds         = intervalSeconds == Swiss.RoundInterval.manual
     def dailyInterval        = (!manualRounds && intervalSeconds >= 24 * 3600) option intervalSeconds / 3600 / 24
+  }
+
+  type ChatFor = Int
+  object ChatFor {
+    val NONE    = 0
+    val LEADERS = 10
+    val MEMBERS = 20
+    val ALL     = 30
+    val default = MEMBERS
   }
 
   object RoundInterval {
@@ -106,4 +117,9 @@ object Swiss {
   def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
 
   case class PastAndNext(past: List[Swiss], next: List[Swiss])
+
+  case class RoundInfo(
+      teamId: TeamID,
+      chatFor: ChatFor
+  )
 }

@@ -127,7 +127,7 @@ private object BsonHandlers {
         nbRounds = r.get[Int]("n"),
         rated = r.boolO("r") | true,
         description = r.strO("d"),
-        hasChat = r.boolO("c") | true,
+        chatFor = r.intO("c") | Swiss.ChatFor.default,
         roundInterval = (r.intO("i") | 60).seconds
       )
     def writes(w: BSON.Writer, s: Swiss.Settings) =
@@ -135,7 +135,7 @@ private object BsonHandlers {
         "n" -> s.nbRounds,
         "r" -> (!s.rated).option(false),
         "d" -> s.description,
-        "c" -> (!s.hasChat).option(false),
+        "c" -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
         "i" -> s.roundInterval.toSeconds.toInt
       )
   }

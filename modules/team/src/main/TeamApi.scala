@@ -217,7 +217,10 @@ final class TeamApi(
       }
     } getOrElse Set.empty
     memberRepo.filterUserIdsInTeam(team.id, leaders) flatMap { ids =>
-      ids.nonEmpty ?? teamRepo.setLeaders(team.id, ids).void
+      ids.nonEmpty ?? {
+        cached.leaders.put(team.id, fuccess(ids))
+        teamRepo.setLeaders(team.id, ids).void
+      }
     }
   }
 

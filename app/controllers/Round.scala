@@ -9,6 +9,7 @@ import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.game.{ Pov, Game => GameModel, PgnDump }
 import lila.tournament.{ Tournament => Tour }
+import lila.swiss.Swiss.{ Id => SwissId }
 import lila.user.{ User => UserModel }
 import views._
 
@@ -17,7 +18,8 @@ final class Round(
     gameC: => Game,
     challengeC: => Challenge,
     analyseC: => Analyse,
-    tournamentC: => Tournament
+    tournamentC: => Tournament,
+    swissC: => Swiss
 ) extends LilaController(env)
     with TheftPrevention {
 
@@ -247,7 +249,14 @@ final class Round(
         case (_, Some(sid), _) =>
           env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).dmap(toEventChat(s"simul/$sid"))
         case (_, _, Some(sid)) =>
-          env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).dmap(toEventChat(s"swiss/$sid"))
+          env.swiss.api
+            .roundInfo(SwissId(sid))
+            .flatMap { _ ?? swissC.canHaveChat }
+            .flatMap {
+              _ ?? {
+                env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).dmap(toEventChat(s"swiss/$sid"))
+              }
+            }
         case _ =>
           game.hasChat ?? {
             env.chat.api.playerChat.findIf(Chat.Id(game.id), !game.justCreated) map { chat =>

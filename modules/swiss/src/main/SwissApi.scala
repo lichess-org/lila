@@ -73,7 +73,7 @@ final class SwissApi(
         nbRounds = data.nbRounds,
         rated = data.rated | true,
         description = data.description,
-        hasChat = data.hasChat | true,
+        chatFor = data.realChatFor,
         roundInterval = data.realRoundInterval
       )
     )
@@ -83,37 +83,37 @@ final class SwissApi(
 
   def update(swiss: Swiss, data: SwissForm.SwissData): Funit =
     Sequencing(swiss.id)(byId) { old =>
-      colls.swiss.update
-        .one(
-          $id(old.id),
-          old.copy(
-            name = data.name | old.name,
-            clock = data.clock,
-            variant = data.realVariant,
-            startsAt = data.startsAt.ifTrue(old.isCreated) | old.startsAt,
-            nextRoundAt =
-              if (old.isCreated) Some(data.startsAt | old.startsAt)
-              else old.nextRoundAt,
-            settings = old.settings.copy(
-              nbRounds = data.nbRounds,
-              rated = data.rated | old.settings.rated,
-              description = data.description,
-              hasChat = data.hasChat | old.settings.hasChat,
-              roundInterval =
-                if (data.roundInterval.isDefined) data.realRoundInterval
-                else old.settings.roundInterval
-            )
-          ) pipe { s =>
-            if (
-              s.isStarted && s.nbOngoing == 0 && (s.nextRoundAt.isEmpty || old.settings.manualRounds) && !s.settings.manualRounds
-            )
-              s.copy(nextRoundAt = DateTime.now.plusSeconds(s.settings.roundInterval.toSeconds.toInt).some)
-            else if (s.settings.manualRounds && !old.settings.manualRounds)
-              s.copy(nextRoundAt = none)
-            else s
-          } pipe addFeaturable
-        )
-        .void >>- socket.reload(swiss.id)
+      val swiss =
+        old.copy(
+          name = data.name | old.name,
+          clock = data.clock,
+          variant = data.realVariant,
+          startsAt = data.startsAt.ifTrue(old.isCreated) | old.startsAt,
+          nextRoundAt =
+            if (old.isCreated) Some(data.startsAt | old.startsAt)
+            else old.nextRoundAt,
+          settings = old.settings.copy(
+            nbRounds = data.nbRounds,
+            rated = data.rated | old.settings.rated,
+            description = data.description orElse old.settings.description,
+            chatFor = data.chatFor | old.settings.chatFor,
+            roundInterval =
+              if (data.roundInterval.isDefined) data.realRoundInterval
+              else old.settings.roundInterval
+          )
+        ) pipe { s =>
+          if (
+            s.isStarted && s.nbOngoing == 0 && (s.nextRoundAt.isEmpty || old.settings.manualRounds) && !s.settings.manualRounds
+          )
+            s.copy(nextRoundAt = DateTime.now.plusSeconds(s.settings.roundInterval.toSeconds.toInt).some)
+          else if (s.settings.manualRounds && !old.settings.manualRounds)
+            s.copy(nextRoundAt = none)
+          else s
+        }
+      colls.swiss.update.one($id(old.id), addFeaturable(swiss)).void >>- {
+        cache.roundInfo.put(swiss.id, fuccess(swiss.roundInfo.some))
+        socket.reload(swiss.id)
+      }
     }
 
   def scheduleNextRound(swiss: Swiss, date: DateTime): Funit =
@@ -383,6 +383,8 @@ final class SwissApi(
     else if (swiss.isCreated) destroy(swiss)
     else funit
   } >>- cache.featuredInTeam.invalidate(swiss.teamId)
+
+  def roundInfo = cache.roundInfo.get _
 
   private def recomputeAndUpdateAll(id: Swiss.Id): Funit =
     scoring(id).flatMap {

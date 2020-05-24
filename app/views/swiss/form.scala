@@ -34,6 +34,9 @@ object form {
               fields.roundInterval,
               fields.startsAt
             ),
+            form3.split(
+              fields.chatFor
+            ),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
@@ -65,6 +68,9 @@ object form {
             form3.split(
               fields.roundInterval,
               swiss.isCreated option fields.startsAt
+            ),
+            form3.split(
+              fields.chatFor
             ),
             form3.globalError(form),
             form3.actions(
@@ -99,7 +105,12 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
       )
     }
   def nbRounds =
-    form3.group(form("nbRounds"), "Number of rounds", half = true)(
+    form3.group(
+      form("nbRounds"),
+      "Number of rounds",
+      help = raw("An odd number of rounds allows optimal color balance.").some,
+      half = true
+    )(
       form3.input(_, typ = "number")
     )
 
@@ -141,4 +152,17 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
       frag("Tournament start date"),
       half = true
     )(form3.flatpickr(_))
+
+  def chatFor =
+    form3.group(form("chatFor"), frag("Tournament chat"), half = true) { f =>
+      form3.select(
+        f,
+        Seq(
+          Swiss.ChatFor.NONE    -> "No chat",
+          Swiss.ChatFor.LEADERS -> "Only team leaders",
+          Swiss.ChatFor.MEMBERS -> "Only team members",
+          Swiss.ChatFor.ALL     -> "All Lichess players"
+        )
+      )
+    }
 }
