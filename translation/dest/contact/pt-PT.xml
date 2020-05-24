@@ -22,4 +22,11 @@
   <string name="doNotAskByEmailToReopen">Não nos peças para reabrirmos uma conta por e-mail, não o faremos.</string>
   <string name="wantChangeUsername">Quero mudar o meu nome de utilizador</string>
   <string name="changeUsernameCase">Visita esta página para alterares as maiúsculas para minúsculas ou vice-versa do teu nome de utilizador</string>
+  <string name="cantChangeMore">Não podemos mudar mais do que trocar maiúsculas/minúsculas. Por razões técnicas, é totalmente impossível.</string>
+  <string name="orCloseAccount">No entanto, podes fechar tua conta atual e criar uma nova.</string>
+  <string name="wantClearHistory">Quero limpar o meu histórico ou pontuação</string>
+  <string name="cantClearHistory">Não é possível limpar o teu histórico de jogos, histórico de problemas ou pontuações.</string>
+  <string name="wantReport">Quero denunciar um jogador</string>
+  <string name="cheating">fazer batota</string>
+  <string name="sandbagging">perder de propósito</string>
 </resources>
