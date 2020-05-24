@@ -175,11 +175,13 @@ object show {
               views.html.team.request.list(info.requests, t.some)
             ),
             div(cls := "team-show__tour-forum")(
-              info.tours.next.nonEmpty option frag(
+              (info.tours.nonEmpty) option frag(
                 st.section(cls := "team-show__tour team-tournaments")(
                   h2(a(href := routes.Team.tournaments(t.id))(trans.tournaments())),
                   table(cls := "slist")(
-                    tournaments.renderList(info.tours.next)
+                    tournaments.renderList(
+                      info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
+                    )
                   )
                 )
               ),
