@@ -29,4 +29,18 @@
   <string name="wantReport">Quero denunciar um jogador</string>
   <string name="cheating">fazer batota</string>
   <string name="sandbagging">perder de propósito</string>
+  <string name="trolling">provocar</string>
+  <string name="insults">insultos</string>
+  <string name="otherReason">uma outra razão</string>
+  <string name="toReportAPlayer">Para denunciar um jogador de %s, usa o formulário de denúncia</string>
+  <string name="youCanAlsoReachReportPage">Também podes aceder a essa página clicando no butão de denúncia %s numa página de perfil.</string>
+  <string name="doNotReportInForum">Não denuncies jogadores no fórum.</string>
+  <string name="doNotSendReportEmails">Não nos envies e-mails de denúnica.</string>
+  <string name="doNotMessageModerators">Não envies mensagens a moderadores.</string>
+  <string name="onlyReports">Só denunciar jogadores através do formulário de denúnica é que é eficaz.</string>
+  <string name="wantReportBug">Quero reportar um erro</string>
+  <string name="reportBugInForum">Na secção Feedback do Lichess no fórum</string>
+  <string name="reportWebsiteIssue">Como um problema no site do Lichess no GitHub</string>
+  <string name="reportMobileIssue">Como um problema no aplicação móvel do Lichess no GitHub</string>
+  <string name="reportBugInDiscord">No servidor Lichess Discord</string>
 </resources>
