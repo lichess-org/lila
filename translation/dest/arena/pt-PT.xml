@@ -33,10 +33,10 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   <string name="otherRules">Outras regras importantes</string>
   <string name="thereIsACountdown">Existe um tempo limite para a primeira jogada. Se um jogador não a fizer dentro deste tempo, a vitória irá para o seu oponente.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Ao empatar o jogo na primeira jogada nenhum dos jogadores irá ganhar pontos.</item>
-    <item quantity="other">Ao empatar o jogo nas primeiras %s jogadas, nenhum dos jogadores irá ganhar pontos.</item>
+    <item quantity="one">Ao empatar o jogo na primeira jogada, nenhum dos jogadores ganha pontos.</item>
+    <item quantity="other">Ao empatar o jogo nas primeiras %s jogadas, nenhum dos jogadores ganha pontos.</item>
   </plurals>
   <string name="thisIsPrivate">Este é um torneio privado</string>
-  <string name="shareUrl">Partilha este URL para que as pessoas possam entrar: %s</string>
+  <string name="shareUrl">Partilha este link para que as pessoas possam entrar: %s</string>
   <string name="drawStreak">Sequência de empates: Quando um jogador tem empates consecutivos numa arena, apenas o primeiro sorteio resultará em um ponto, ou empates que duraram mais de %s movimentos. A sequência de empates só pode ser quebrada por uma vitória, não por uma perda ou empate.</string>
 </resources>
