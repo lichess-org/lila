@@ -29,8 +29,11 @@ Gioca in fretta e ritorna nella lobby per aver la possibilità di giocare numero
   <string name="howDoesItEnd">Come finisce?</string>
   <string name="howDoesItEndAnswer">Il torneo ha un limite di tempo che scorre alla rovescia. Quando il conteggio raggiunge lo zero, le classifiche del torneo sono bloccate e il vincitore annunciato. Le sfide in corso continueranno, tuttavia non concorreranno alla classifica del torneo.</string>
   <string name="otherRules">Altre regole importanti.</string>
-  <string name="otherRulesAnswer">Sei obbligato a fare la prima mossa entro 20 secondi dall\'inzio del tuo turno. Se non lo farai perderai automaticamente la partita per abbandono.
-Pareggiare la partita entro le prime 10 mosse non farà percepire nessun punto a nessuno dei due giocatori.</string>
+  <string name="thereIsACountdown">Se non fai la prima mossa entro il conto alla rovescia, il tuo avversario vincerà la partita per forfait.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Pattare la partita entro la prima mossa non assegnerà punti né a te né al tuo avversario.</item>
+    <item quantity="other">Pattare la partita entro le prime %s mosse non assegnerà punti né a te né al tuo avversario.</item>
+  </plurals>
   <string name="thisIsPrivate">Questo è un torneo privato</string>
   <string name="shareUrl">Condividi questo URL per permettere alle persone di unirsi: %s</string>
 </resources>

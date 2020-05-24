@@ -32,8 +32,11 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
   <string name="howDoesItEndAnswer">Het toernooi heeft een klok die naar beneden telt. Wanneer die nul bereikt, wordt het klassement van het toernooi bevroren en wordt de winnaar aangeduid.
 Partijen die nog aan de gang zijn, moeten uitgespeeld worden, maar ze tellen niet meer mee voor het toernooi.</string>
   <string name="otherRules">Andere belangrijke regels.</string>
-  <string name="otherRulesAnswer">Je bent verplicht om je eerste zet te maken voordat de timer tot nul is afgeteld. Als je geen zet maakt binnen deze tijd, wint je tegenstander de partij.
-Een remise binnen de eerste 10 zetten van de partij levert geen van beide spelers punten op.</string>
+  <string name="thereIsACountdown">Er wordt afgeteld tot je je eerste zet doet. Als je binnen deze tijd geen zet doet, verlies je de partij.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Als een partij binnen %s zetten in remise eindigt, levert dit voor geen van beide spelers punten op.</item>
+    <item quantity="other">Als een partij binnen %s zetten in remise eindigt, levert dit voor geen van beide spelers punten op.</item>
+  </plurals>
   <string name="thisIsPrivate">Dit is een privétoernooi</string>
   <string name="shareUrl">Deel deze URL om mensen deel te laten nemen: %s</string>
 </resources>
