@@ -350,7 +350,6 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="colorPlaysCapture">%s to move; play the longest capture sequence</string>
   <string name="retry">Retry</string>
   <string name="reconnecting">Reconnecting</string>
-  <string name="onlineFriends">Online friends</string>
   <string name="noFriendsOnline">No friends online</string>
   <string name="findFriends">Find friends</string>
   <string name="favoriteOpponents">Favorite opponents</string>

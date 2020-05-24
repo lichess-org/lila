@@ -370,7 +370,12 @@
   <string name="captcha.fail">Пожалуйста, решите капчу.</string>
   <string name="retry">Повторить</string>
   <string name="reconnecting">Переподключение</string>
-  <string name="onlineFriends">Друзья онлайн</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s друзей онлайн</item>
+    <item quantity="few">%s друга онлайн</item>
+    <item quantity="many">%s друзей онлайн</item>
+    <item quantity="other">%s друзей онлайн</item>
+  </plurals>
   <string name="noFriendsOnline">Нет друзей онлайн</string>
   <string name="findFriends">Найти друзей</string>
   <string name="favoriteOpponents">Предпочитаемые соперники</string>

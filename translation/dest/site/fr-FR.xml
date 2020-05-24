@@ -324,7 +324,10 @@
   <string name="clickOnTheBoardToMakeYourMove">Cliquez sur l\'échiquier pour jouer un coup, et prouver que vous êtes humain.</string>
   <string name="retry">Réessayer</string>
   <string name="reconnecting">Reconnexion en cours</string>
-  <string name="onlineFriends">Amis en ligne</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s ami en ligne</item>
+    <item quantity="other">%s amis en ligne</item>
+  </plurals>
   <string name="noFriendsOnline">Aucun ami en ligne</string>
   <string name="findFriends">Trouver des amis</string>
   <string name="favoriteOpponents">Adversaires préférés</string>

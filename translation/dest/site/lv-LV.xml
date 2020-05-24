@@ -374,7 +374,11 @@ spēles tērzētavu un URL saiti, kas dos pieeju citiem.</string>
   <string name="colorPlaysCapture">%s taisa gājienu; atrodi vairākuma sitienu</string>
   <string name="retry">Mēģināt vēlreiz</string>
   <string name="reconnecting">Atjauno savienojumu</string>
-  <string name="onlineFriends">Tiešsaistes draugi</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="zero">%s draugu tiešsaistē</item>
+    <item quantity="one">%s draugs tiešsaistē</item>
+    <item quantity="other">%s draugi tiešsaistē</item>
+  </plurals>
   <string name="noFriendsOnline">Neviena tiešsaistes drauga</string>
   <string name="findFriends">Meklēt draugus</string>
   <string name="favoriteOpponents">Biežākie pretinieki</string>

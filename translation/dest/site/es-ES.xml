@@ -320,7 +320,10 @@
   <string name="captcha.fail">Por favor, resuelva el captcha.</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
-  <string name="onlineFriends">Amigos conectados</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amigo conectado</item>
+    <item quantity="other">%s amigos conectados</item>
+  </plurals>
   <string name="noFriendsOnline">Ningún amigo conectado</string>
   <string name="findFriends">Encontrar amigos</string>
   <string name="favoriteOpponents">Oponentes favoritos</string>

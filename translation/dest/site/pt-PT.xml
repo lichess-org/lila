@@ -324,7 +324,10 @@
   </plurals>
   <string name="retry">Tentar novamente</string>
   <string name="reconnecting">Reconectando</string>
-  <string name="onlineFriends">Amigos online</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amigo online</item>
+    <item quantity="other">%s amigos online</item>
+  </plurals>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>
   <string name="favoriteOpponents">Oponentes favoritos</string>

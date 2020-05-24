@@ -258,7 +258,12 @@
   <string name="importGameExplanation">Vložení partie ve formátu PDN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
   <string name="retry">Zkusit znovu</string>
   <string name="reconnecting">Připojování</string>
-  <string name="onlineFriends">Přátelé online</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s kamarád online</item>
+    <item quantity="few">%s kamarádi online</item>
+    <item quantity="many">%s kamarádů online</item>
+    <item quantity="other">%s kamarádů online</item>
+  </plurals>
   <string name="noFriendsOnline">Žádní přátelé nejsou online</string>
   <string name="findFriends">Najít přátele</string>
   <string name="favoriteOpponents">Oblíbení soupeři</string>

@@ -376,7 +376,10 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="colorPlaysCapture">%s aan zet; speel de langste slagzet</string>
   <string name="retry">Probeer opnieuw</string>
   <string name="reconnecting">Opnieuw aan het verbinden</string>
-  <string name="onlineFriends">Online vrienden</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s vriend online</item>
+    <item quantity="other">%s vrienden online</item>
+  </plurals>
   <string name="noFriendsOnline">Geen vrienden online</string>
   <string name="findFriends">Vind vrienden</string>
   <string name="favoriteOpponents">Favoriete tegenstanders</string>
