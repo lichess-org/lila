@@ -39,12 +39,24 @@ $board-files-64: (
 );
 
 @each $color, $file in $board-files-100 {
-  .#{$color} .is2d .is100 cg-board {
-    background-image: url(../images/board/#{$file});
+  .#{$color} .is2d .is100 {
+    cg-board {
+      background-image: url(../images/board/#{$file});
+    }
+    square, piece {
+      width: 10.0%;
+      height: 10.0%;
+    }
   }
 }
 @each $color, $file in $board-files-64 {
-  .#{$color} .is2d .is64 cg-board {
-    background-image: url(../images/board/#{$file});
+  .#{$color} .is2d .is64 {
+    cg-board {
+      background-image: url(../images/board/#{$file});
+    }
+    square, piece {
+      width: 12.5%;
+      height: 12.5%;
+    }
   }
 }

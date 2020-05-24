@@ -4,6 +4,7 @@ import { ForecastCtrl, ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pdnExport';
 import { bind, dataIcon, spinner } from '../util';
+import * as cg from 'draughtsground/types';
 import { read, write } from 'draughtsground/fen'
 import { key2pos } from 'draughtsground/util'
 import { calcCaptKey } from 'draughtsground/board'
@@ -50,10 +51,11 @@ function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
     if (node.uci && node.uci.length >= 6 && currentFen) {
       let uci = node.uci, orig = uci.slice(0, 2);
       const pieces = read(currentFen), origPiece = pieces[orig];
+      const boardSize = (ctrl.data.game.variant.board === '64' ? [8, 8] : [10, 10]) as cg.BoardSize; // TODO: key -> size?
       while (uci.length >= 4) {
         delete pieces[orig];
-        const origPos = key2pos(orig), dest = uci.slice(2, 4), destPos = key2pos(dest),
-          captKey = calcCaptKey(pieces, origPos[0], origPos[1], destPos[0], destPos[1]);
+        const origPos = key2pos(orig, boardSize), dest = uci.slice(2, 4), destPos = key2pos(dest, boardSize),
+          captKey = calcCaptKey(pieces, boardSize, origPos[0], origPos[1], destPos[0], destPos[1]);
         if (!captKey) break;
         const captPiece = pieces[captKey];
         pieces[captKey] = {

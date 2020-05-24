@@ -124,18 +124,18 @@ function renderShape(state: State, { shape, current, hash }: Shape, brushes: Dra
   let el: SVGElement;
   if (shape.piece) el = renderPiece(
     state.drawable.pieces.baseUrl,
-    orient(key2pos(shape.orig), state.orientation),
+    orient(key2pos(shape.orig, state.boardSize), state.orientation),
     shape.piece,
     bounds);
   else {
-    const orig = orient(key2pos(shape.orig), state.orientation);
+    const orig = orient(key2pos(shape.orig, state.boardSize), state.orientation);
     if (shape.orig && shape.dest) {
       let brush: DrawBrush = brushes[shape.brush];
       if (shape.modifiers) brush = makeCustomBrush(brush, shape.modifiers);
       el = renderArrow(
         brush,
         orig,
-        orient(key2pos(shape.dest), state.orientation),
+        orient(key2pos(shape.dest, state.boardSize), state.orientation),
         current,
         arrowDests[shape.dest] > 1,
         bounds);

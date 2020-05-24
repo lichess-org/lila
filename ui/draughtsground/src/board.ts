@@ -60,7 +60,7 @@ export function unsetPredrop(state: State): void {
   }
 }
 
-export function calcCaptKey(pieces: cg.Pieces, startX: number, startY: number, destX: number, destY: number): cg.Key | undefined {
+export function calcCaptKey(pieces: cg.Pieces, boardSize: cg.BoardSize, startX: number, startY: number, destX: number, destY: number): cg.Key | undefined {
 
   const xDiff: number = destX - startX, yDiff: number = destY - startY;
 
@@ -74,13 +74,13 @@ export function calcCaptKey(pieces: cg.Pieces, startX: number, startY: number, d
   const captPos = [startX + xStep, startY + yStep] as cg.Pos;
   if (captPos === undefined) return undefined;
 
-  const captKey: cg.Key = pos2key(captPos);
+  const captKey: cg.Key = pos2key(captPos, boardSize);
 
   const piece: cg.Piece | undefined = pieces[captKey];
   if (piece !== undefined && piece.role !== 'ghostman' && piece.role !== 'ghostking')
     return captKey
   else
-    return calcCaptKey(pieces, startX + xStep, startY + yStep, destX, destY)
+    return calcCaptKey(pieces, boardSize, startX + xStep, startY + yStep, destX, destY)
 
 }
 
@@ -95,10 +95,10 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
 
   if (orig === dest || !state.pieces[orig]) return false;
 
-  const isCapture = (state.movable.captLen && state.movable.captLen > 0);
+  const isCapture = (state.movable.captLen && state.movable.captLen > 0), bs = state.boardSize;
   const captureUci = isCapture && state.movable.captureUci && inArray(state.movable.captureUci, (uci: string) => uci.slice(0, 2) === orig && uci.slice(-2) === dest);
-  const origPos: cg.Pos = key2pos(orig), destPos: cg.Pos = captureUci ? key2pos(captureUci.slice(2, 4) as cg.Key) : key2pos(dest);
-  const captKey: cg.Key | undefined = isCapture ? calcCaptKey(state.pieces, origPos[0], origPos[1], destPos[0], destPos[1]) : undefined;
+  const origPos: cg.Pos = key2pos(orig, bs), destPos: cg.Pos = captureUci ? key2pos(captureUci.slice(2, 4) as cg.Key, bs) : key2pos(dest, bs);
+  const captKey: cg.Key | undefined = isCapture ? calcCaptKey(state.pieces, bs, origPos[0], origPos[1], destPos[0], destPos[1]) : undefined;
   const captPiece: cg.Piece | undefined = (isCapture && captKey) ? state.pieces[captKey] : undefined;
   const origPiece = state.pieces[orig];
 
@@ -106,7 +106,7 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
   callUserFunction(state.events.move, orig, dest, captPiece);
 
   const captured = captureUci ? (captureUci.length - 2) / 2 : 1;
-  const finalDest = captureUci ? key2pos(captureUci.slice(captureUci.length - 2) as cg.Key) : destPos;
+  const finalDest = captureUci ? key2pos(captureUci.slice(captureUci.length - 2) as cg.Key, bs) : destPos;
   const promotable = (!state.movable.captLen || state.movable.captLen <= captured) && origPiece.role === 'man' && ((origPiece.color === 'white' && finalDest[1] === 1) || (origPiece.color === 'black' && finalDest[1] === 10));
   
   const destPiece = (!state.movable.free && promotable) ? {
@@ -118,8 +118,8 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
   if (captureUci && captKey) {
     delete state.pieces[captKey];
     for (let s = 2; s + 4 <= captureUci.length; s += 2) {
-      const nextOrig = key2pos(captureUci.slice(s, s + 2) as cg.Key), nextDest = key2pos(captureUci.slice(s + 2, s + 4) as cg.Key);
-      const nextCapt = calcCaptKey(state.pieces, nextOrig[0], nextOrig[1], nextDest[0], nextDest[1]);
+      const nextOrig = key2pos(captureUci.slice(s, s + 2) as cg.Key, bs), nextDest = key2pos(captureUci.slice(s + 2, s + 4) as cg.Key, bs);
+      const nextCapt = calcCaptKey(state.pieces, bs, nextOrig[0], nextOrig[1], nextDest[0], nextDest[1]);
       if (nextCapt) {
         delete state.pieces[nextCapt];
       }
@@ -390,12 +390,12 @@ export function stop(state: State): void {
   cancelMove(state);
 }
 
-export function getKeyAtDomPos(pos: cg.NumberPair, asWhite: boolean, bounds: ClientRect): cg.Key | undefined {
+export function getKeyAtDomPos(pos: cg.NumberPair, boardSize: cg.BoardSize, asWhite: boolean, bounds: ClientRect): cg.Key | undefined {
 
-  let row = Math.ceil(10 * ((pos[1] - bounds.top) / bounds.height));
-  if (!asWhite) row = 11 - row;
-  let col = Math.ceil(10 * ((pos[0] - bounds.left) / bounds.width));
-  if (!asWhite) col = 11 - col;
+  let row = Math.ceil(boardSize[1] * ((pos[1] - bounds.top) / bounds.height));
+  if (!asWhite) row = (boardSize[1] + 1) - row;
+  let col = Math.ceil(boardSize[0] * ((pos[0] - bounds.left) / bounds.width));
+  if (!asWhite) col = (boardSize[0] + 1) - col;
 
   // on odd rows we skip fields 1,3,5 etc and on even rows 2,4,6 etc
   if (row % 2 !== 0) {
@@ -405,15 +405,15 @@ export function getKeyAtDomPos(pos: cg.NumberPair, asWhite: boolean, bounds: Cli
     if (col % 2 === 0) return undefined;
     else col = (col + 1) / 2;
   }
-  return (col > 0 && col < 6 && row > 0 && row < 11) ? pos2key([col, row]) : undefined;
+  return (col > 0 && col <= boardSize[0] / 2 && row > 0 && row <= boardSize[1]) ? pos2key([col, row], boardSize) : undefined;
 }
 
-export function unusedFieldAtDomPos(pos: cg.NumberPair, asWhite: boolean, bounds: ClientRect): boolean {
+export function unusedFieldAtDomPos(pos: cg.NumberPair, boardSize: cg.BoardSize, asWhite: boolean, bounds: ClientRect): boolean {
 
-  let row = Math.ceil(10 * ((pos[1] - bounds.top) / bounds.height));
-  if (!asWhite) row = 11 - row;
-  let col = Math.ceil(10 * ((pos[0] - bounds.left) / bounds.width));
-  if (!asWhite) col = 11 - col;
+  let row = Math.ceil(boardSize[1] * ((pos[1] - bounds.top) / bounds.height));
+  if (!asWhite) row = (boardSize[1] + 1) - row;
+  let col = Math.ceil(boardSize[0] * ((pos[0] - bounds.left) / bounds.width));
+  if (!asWhite) col = (boardSize[0] + 1) - col;
 
   if (row % 2 !== 0) {
     if (col % 2 !== 0) return true;

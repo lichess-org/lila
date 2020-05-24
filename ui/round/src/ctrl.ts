@@ -14,7 +14,6 @@ import { countGhosts } from 'draughtsground/fen';
 import { ClockController } from './clock/clockCtrl';
 import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
-import atomic = require('./atomic');
 import sound = require('./sound');
 import util = require('./util');
 import xhr = require('./xhr');
@@ -160,12 +159,8 @@ export default class RoundController {
   };
 
   private onMove = (_: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
-    if (captured) {
-      if (this.data.game.variant.key === 'atomic') {
-        sound.explode();
-        atomic.capture(this, dest);
-      } else sound.capture();
-    } else sound.move();
+    if (captured) sound.capture();
+    else sound.move();
   };
 
   private isSimulHost = () => {
@@ -348,15 +343,6 @@ export default class RoundController {
         const keys = util.uci2move(o.uci);
         this.draughtsground.move(keys![0], keys![1]);
       }
-      if (o.enpassant) {
-        const p = o.enpassant, pieces: cg.PiecesDiff = {};
-        pieces[p.key] = undefined;
-        this.draughtsground.setPieces(pieces);
-        if (d.game.variant.key === 'atomic') {
-          atomic.enpassant(this, p.key, p.color);
-          sound.explode();
-        } else sound.capture();
-      }
       this.draughtsground.set({
         turnColor: d.game.player,
         movable: {
@@ -402,10 +388,10 @@ export default class RoundController {
         decSimulToMove(this.trans);
     }
     if (!this.replaying() && playedColor != d.player.color) {
-      // atrocious hack to prevent race condition
+      // TODO: atrocious hack to prevent race condition
       // with explosions and premoves
       // https://github.com/ornicar/lila/issues/343
-      const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
+      const premoveDelay = 1;
       setTimeout(() => {
         if (!this.draughtsground.playPremove()) {
           this.showYourMoveNotification();

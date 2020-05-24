@@ -78,7 +78,7 @@ function renderFieldnumbers(element: HTMLElement, s: State, bounds: ClientRect) 
   for (let f = 1; f <= 50; f++) {
     const field = createEl('fieldnumber', 'black');
     field.textContent = f.toString();
-    const coords = posToTranslateAbs(bounds)(key2pos(allKeys[f - 1]), asWhite, 0);
+    const coords = posToTranslateAbs(bounds, s.boardSize)(key2pos(allKeys[f - 1], s.boardSize), asWhite, 0);
     translateAbs(field, [coords["0"], coords["1"]]);
     element.appendChild(field);
   }

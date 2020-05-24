@@ -19,7 +19,8 @@ interface SquareClasses { [key: string]: string }
 // in case of bugs, blame @veloce
 export default function render(s: State): void {
   const asWhite: boolean = whitePov(s),
-    posToTranslate = s.dom.relative ? util.posToTranslateRel : util.posToTranslateAbs(s.dom.bounds()),
+    bs = s.boardSize,
+    posToTranslate = s.dom.relative ? util.posToTranslateRel(s.boardSize) : util.posToTranslateAbs(s.dom.bounds(), s.boardSize),
     translate = s.dom.relative ? util.translateRel : util.translateAbs,
     boardEl: HTMLElement = s.dom.elements.board,
     pieces: cg.Pieces = s.pieces,
@@ -61,7 +62,7 @@ export default function render(s: State): void {
       // if piece not being dragged anymore, remove dragging style
       if (el.cgDragging && (!curDrag || curDrag.orig !== k)) {
         el.classList.remove('dragging');
-        translate(el, posToTranslate(key2pos(k), asWhite, 0));
+        translate(el, posToTranslate(key2pos(k, bs), asWhite, 0));
         el.cgDragging = false;
       }
       if (el.classList.contains('temporary') && tempPiece) {
@@ -76,7 +77,7 @@ export default function render(s: State): void {
         // (otherwise it could animate a captured piece)
         if (anim && el.cgAnimating && elPieceName === pieceNameOf(pieceAtKey)) {
           animDoubleKey = undefined; // only needed to get the animation started
-          const pos = key2pos(k);
+          const pos = key2pos(k, bs);
           pos[0] += anim[2];
           pos[1] += anim[3];
           if (curAnim && curAnim.plan.nextPlan && curAnim.plan.nextPlan.anims[k] && !util.isObjectEmpty(curAnim.plan.nextPlan.anims[k])) {
@@ -105,8 +106,8 @@ export default function render(s: State): void {
             else if (pieceAtKey.role === 'man')
               el.className = el.className.replace('king', 'man');
           }
-          translate(el, posToTranslate(key2pos(k), asWhite, 0));
-          if (s.addPieceZIndex) el.style.zIndex = posZIndex(key2pos(k), asWhite);
+          translate(el, posToTranslate(key2pos(k, bs), asWhite, 0));
+          if (s.addPieceZIndex) el.style.zIndex = posZIndex(key2pos(k, bs), asWhite);
         }
 
         // same piece: flag as same. Exception for capture ending on the start square, as no pieces are added or removed
@@ -140,7 +141,7 @@ export default function render(s: State): void {
     if (!sameSquares[sk]) {
       sMvdset = movedSquares[squares[sk]];
       sMvd = sMvdset && sMvdset.pop();
-      const translation = posToTranslate(key2pos(sk as cg.Key), asWhite, 0);
+      const translation = posToTranslate(key2pos(sk as cg.Key, bs), asWhite, 0);
       if (sMvd) {
         sMvd.cgKey = sk as cg.Key;
         translate(sMvd, translation);
@@ -169,7 +170,7 @@ export default function render(s: State): void {
       if (pMvd) {
         // apply dom changes
         pMvd.cgKey = k;
-        const pos = key2pos(k);
+        const pos = key2pos(k, bs);
         if (s.addPieceZIndex) pMvd.style.zIndex = posZIndex(pos, asWhite);
         let shift: number;
         if (anim) {
@@ -191,7 +192,7 @@ export default function render(s: State): void {
 
         const pieceName = pieceNameOf(p),
           pieceNode = createEl('piece', pieceName) as cg.PieceNode,
-          pos = key2pos(k);
+          pos = key2pos(k, bs);
 
         pieceNode.cgPiece = pieceName;
         pieceNode.cgKey = k;
@@ -221,7 +222,7 @@ export default function render(s: State): void {
     if (tempPiece && !samePieces[k]) {
       const pieceName = pieceNameOf(tempPiece) + " temporary",
         pieceNode = createEl('piece', pieceName) as cg.PieceNode,
-        pos = key2pos(k);
+        pos = key2pos(k, bs);
       pieceNode.cgPiece = pieceName;
       pieceNode.cgKey = k;
       translate(pieceNode, posToTranslate(pos, asWhite, 0));
