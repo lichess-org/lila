@@ -629,7 +629,9 @@ Vienā līnijā  - tikai vienu norādi.</string>
   <string name="xCommentedY">%1$s sniedza komentāru %2$s</string>
   <string name="victory">Uzvara!</string>
   <string name="defeat">Zaudējums</string>
-  <string name="xVsYinZ">%1$s pret %2$s %3$s</string>
+  <string name="victoryVsYInZ">%1$s pret %2$s %3$s</string>
+  <string name="defeatVsYInZ">%1$s pret %2$s %3$s</string>
+  <string name="drawVsYInZ">%1$s pret %2$s %3$s</string>
   <string name="timeline">Laika grafiks</string>
   <string name="seeAllTournaments">Skatīt visus turnīrus</string>
   <string name="starting">Sāksies:</string>
