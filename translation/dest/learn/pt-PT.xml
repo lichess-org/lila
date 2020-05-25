@@ -32,26 +32,26 @@ Tu precisas de ambos!</string>
   <string name="queenComplete">Parabéns! As rainhas não têm segredos para ti.</string>
   <string name="theKing">O rei</string>
   <string name="theMostImportantPiece">A peça mais importante</string>
-  <string name="kingIntro">Tu es o rei. Se pereces em batalha, o jogo está perdido.</string>
+  <string name="kingIntro">Tu és o rei. Se cais em batalha, o jogo está perdido.</string>
   <string name="theKingIsSlow">O rei é lento.</string>
   <string name="lastOne">Último!</string>
   <string name="kingComplete">Tu podes agora comandar o comandante!</string>
   <string name="theKnight">O cavalo</string>
   <string name="itMovesInAnLShape">Mexe-se em forma de L</string>
-  <string name="knightIntro">Aquí está um desafio para ti. O cavalo é... uma peça manhosa.</string>
+  <string name="knightIntro">Aqui está um desafio para ti. O cavalo é... uma peça manhosa.</string>
   <string name="knightsHaveAFancyWay">Os cavalos têm uma maneira divertida
-de ir saltando!</string>
+de saltar por aí!</string>
   <string name="knightsCanJumpOverObstacles">Os cavalos podem saltar obstáculos.
 Escapa e vence as estrelas!</string>
   <string name="knightComplete">Parabéns! Já dominas o cavalo.</string>
   <string name="thePawn">O peão</string>
   <string name="itMovesForwardOnly">Mexe-se só para a frente</string>
-  <string name="pawnIntro">Os peões sao fracos, mas podem juntar muito potencial.</string>
-  <string name="pawnsMoveOneSquareOnly">Os peões mexem-se só uma casa.
-Mas quando chegam ao final do tabuleiro, eles transformam-se na peça mais forte!</string>
+  <string name="pawnIntro">Os peões são fracos, mas têm muito potencial.</string>
+  <string name="pawnsMoveOneSquareOnly">Os peões andam só uma casa de cada vez.
+Mas quando chegam ao final do tabuleiro, transformam-se numa peça mais forte!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Na maioria das vezes promover a rainha é o melhor.
 Mas às vezes um cavalo é mais útil!</string>
-  <string name="pawnsMoveForward">Peões mexem-se para a frente,
+  <string name="pawnsMoveForward">Os peões mexem-se para a frente,
 mas comem na diagonal!</string>
   <string name="captureThenPromote">Come, depois promove!</string>
   <string name="useAllThePawns">Usa todos os peões!
@@ -60,7 +60,7 @@ Não é necessário promover.</string>
   <string name="grabAllTheStarsNoNeedToPromote">Apanha todas as estrelas!
 Não é necessário promover.</string>
   <string name="pawnComplete">Parabéns! Os peões já não têm segredos para ti.</string>
-  <string name="pawnPromotion">Promover o peão</string>
+  <string name="pawnPromotion">Promoção do peão</string>
   <string name="yourPawnReachedTheEndOfTheBoard">O teu peão alcançou o final do tabuleiro!</string>
   <string name="itNowPromotesToAStrongerPiece">Agora promove-se a uma peça mais forte.</string>
   <string name="selectThePieceYouWant">Escolhe a peça que queres!</string>
