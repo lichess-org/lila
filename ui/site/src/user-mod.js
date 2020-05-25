@@ -1,41 +1,39 @@
 var tablesort = require('tablesort');
 
 function streamLoad(opts) {
-  var source = new EventSource(opts.url), first = true;
-  source.addEventListener('message', function(e) {
-    var newHtml = e.data;
-    if (!newHtml) return;
-    if (first) {
-      first = false;
-      opts.node.innerHTML = newHtml;
-    } else {
-      opts.node.innerHTML += newHtml;
-    }
+  let source = new EventSource(opts.url);
+  source.addEventListener('message', e => {
+    if (!e.data) return;
+    opts.node.innerHTML += e.data;
     opts.callback();
   });
-  source.onerror = function() { source.close(); };
+  source.onerror = () => source.close();
 }
 
-var $toggle = $('.user-show .mod-zone-toggle');
-var $zone = $('.user-show .mod-zone');
+let $toggle = $('.user-show .mod-zone-toggle');
+let $zone = $('.user-show .mod-zone');
 
 function loadZone() {
-  $('.user-show').css('overflow', 'visible'); // required for mz_menu to be displayed
   $zone.html(lichess.spinnerHtml).removeClass('none');
   $('#main-wrap').addClass('full-screen-force');
+  $zone.html('');
   streamLoad({
     node: $zone[0],
     url: $toggle.attr('href'),
-    callback: lichess.debounce(function() {
-      userMod($zone);
-    }, 300)
+    callback: lichess.debounce(() => userMod($zone), 300)
   });
-	window.addEventListener('scroll', onScroll);
+  window.addEventListener('scroll', onScroll);
+  scrollTo('.mod-zone');
 }
 function unloadZone() {
   $zone.addClass('none');
   $('#main-wrap').removeClass('full-screen-force');
-	window.removeEventListener('scroll', onScroll);
+  window.removeEventListener('scroll', onScroll);
+  scrollTo('#top');
+}
+
+function scrollTo(el) {
+  window.scrollTo(0, document.querySelector(el).offsetTop);
 }
 
 $toggle.click(function() {
@@ -48,10 +46,20 @@ function userMod($zone) {
 
   lichess.pubsub.emit('content_loaded');
 
-  $('#mz_menu .mz_plan').toggleClass('disabled', !$('#mz_plan').length);
+  $('#mz_menu > a:not(.available)').each(function() {
+    $(this).toggleClass('available', !!$($(this).attr('href')).length);
+  });
+  $('#mz_menu > a:not(.hotkey)').each(function(i) {
+    const id = this.href.replace(/.+(#\w+)$/, '$1'), n = '' + (i + 1);
+    $(this).addClass('hotkey').prepend(`<i>${n}</i>`);
+    Mousetrap.bind(n, () => {
+      console.log(id, n);
+      scrollTo(id);
+    });
+  });
 
-  $zone.find('form.xhr').submit(function() {
-    $(this).find('input').attr('disabled', true);
+  $zone.find('form.xhr:not(.ready)').submit(function() {
+    $(this).addClass('ready').find('input').attr('disabled', true);
     $.ajax({
       ...lichess.formAjax($(this)),
       success: function(html) {
@@ -78,28 +86,6 @@ function userMod($zone) {
       });
   }
 
-  (function(){
-    var cleanNumber = function(i) {
-      return i.replace(/[^\-?0-9.]/g, '');
-    },
-
-    compareNumber = function(a, b) {
-      a = parseFloat(a);
-      b = parseFloat(b);
-
-      a = isNaN(a) ? 0 : a;
-      b = isNaN(b) ? 0 : b;
-
-      return a - b;
-    };
-
-    tablesort.extend('number', function(item) {
-      return item.match(/^[-+]?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/); // Number
-    }, function(a, b) {
-      return compareNumber(cleanNumber(b), cleanNumber(a));
-    });
-  }());
-
   $zone.find('#mz_others table').each(function() {
     tablesort(this, {
       descending: true
@@ -109,7 +95,30 @@ function userMod($zone) {
 
 const onScroll = e => requestAnimationFrame(() => {
   if ($zone.hasClass('none')) return;
-  $zone.toggleClass('stick-menu', window.scrollY > 220);
+  $zone.toggleClass('stick-menu', window.scrollY > 200);
 });
 
+(function(){
+  var cleanNumber = function(i) {
+    return i.replace(/[^\-?0-9.]/g, '');
+  },
+
+  compareNumber = function(a, b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
+
+    a = isNaN(a) ? 0 : a;
+    b = isNaN(b) ? 0 : b;
+
+    return a - b;
+  };
+
+  tablesort.extend('number', function(item) {
+    return item.match(/^[-+]?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/); // Number
+  }, function(a, b) {
+    return compareNumber(cleanNumber(b), cleanNumber(a));
+  });
+}());
+
 if (location.search.startsWith('?mod')) $toggle.click();
+Mousetrap.bind('m', () => $toggle.click());

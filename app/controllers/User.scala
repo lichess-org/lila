@@ -321,32 +321,38 @@ final class User(
     if (HTTPRequest isEventSource ctx.req) renderModZone(username)
     else fuccess(modC.redirect(username))
 
-  private def modZoneSegment[A](fu: Fu[Option[A]], name: String, user: UserModel): Source[A, _] =
+  private def modZoneSegment(fu: Fu[Frag], name: String, user: UserModel): Source[Frag, _] =
     Source futureSource {
       fu.monSuccess(_.mod zoneSegment name)
         .logFailure(lila.log("modZoneSegment").branch(s"$name ${user.id}"))
-        .map(_.fold(Source.empty[A])(Source.single))
+        .map(Source.single)
     }
 
   protected[controllers] def renderModZone(username: String)(implicit ctx: Context): Fu[Result] = {
     env.user.repo withEmails username orFail s"No such user $username" map {
       case UserModel.WithEmails(user, emails) =>
-        val parts =
-          env.mod.logApi.userHistory(user.id).logTimeIfGt(s"$username logApi.userHistory", 2 seconds) zip
-            env.plan.api.recentChargesOf(user).logTimeIfGt(s"$username plan.recentChargesOf", 2 seconds) zip
-            env.report.api.byAndAbout(user, 20).logTimeIfGt(s"$username report.byAndAbout", 2 seconds) zip
-            env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 2 seconds) zip
-            env.playban.api.getRageSit(user.id) flatMap {
-            case history ~ charges ~ reports ~ pref ~ rageSit =>
-              env.user.lightUserApi
-                .preloadMany(reports.userIds)
-                .logTimeIfGt(s"$username lightUserApi.preloadMany", 2 seconds) inject
-                html.user.mod.parts(user, history, charges, reports, pref, rageSit).some
+        import html.user.{ mod => view }
+        import lila.app.ui.ScalatagsExtensions.LilaFragZero
+
+        val modLog = env.mod.logApi.userHistory(user.id).map(view.modLog)
+
+        val plan = env.plan.api.recentChargesOf(user).map(view.plan).dmap(~_)
+
+        val reportLog = env.report.api
+          .byAndAbout(user, 20)
+          .flatMap { rs =>
+            env.user.lightUserApi.preloadMany(rs.userIds) inject rs
           }
+          .map(view.reportLog(user))
+
+        val prefs = env.pref.api.getPref(user).map(view.prefs)
+
+        val rageSit = env.playban.api.getRageSit(user.id).map(view.showRageSit)
+
         val actions = env.user.repo.isErased(user) map { erased =>
-          html.user.mod.actions(user, emails, erased).some
+          html.user.mod.actions(user, emails, erased)
         }
-        val spyFu = env.security.userSpy(user).logTimeIfGt(s"$username security.userSpy", 2 seconds)
+        val spyFu = env.security.userSpy(user)
         val others = spyFu flatMap { spy =>
           val familyUserIds = user.id :: spy.otherUserIds.toList
           (isGranted(_.ModNote) ?? env.user.noteApi
@@ -355,29 +361,33 @@ final class User(
             env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
             lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy.otherUsers) map {
             case notes ~ bans ~ othersWithEmail =>
-              html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans).some
+              html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans)
           }
         }
         val identification = spyFu map { spy =>
-          (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) option
+          (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) ??
             html.user.mod.identification(spy, env.security.printBan.blocks)
         }
         val irwin = env.irwin.api.reports.withPovs(user) map {
           _ ?? { reps =>
-            html.irwin.report(reps).some
+            html.irwin.report(reps)
           }
         }
         val assess = env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
           _ ?? { as =>
             env.user.lightUserApi
-              .preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(as).some
+              .preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(as)
           }
         }
         implicit val extractor = EventSource.EventDataExtractor[Frag](_.render)
         Ok.chunked {
             Source.single(html.user.mod.menu(user)) merge
-              modZoneSegment(parts, "parts", user) merge
               modZoneSegment(actions, "actions", user) merge
+              modZoneSegment(modLog, "modLog", user) merge
+              modZoneSegment(plan, "plan", user) merge
+              modZoneSegment(reportLog, "reportLog", user) merge
+              modZoneSegment(prefs, "prefs", user) merge
+              modZoneSegment(rageSit, "rageSit", user) merge
               modZoneSegment(others, "others", user) merge
               modZoneSegment(identification, "identification", user) merge
               modZoneSegment(irwin, "irwin", user) merge

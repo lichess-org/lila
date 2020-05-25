@@ -16,17 +16,13 @@ object mod {
 
   def menu(u: User)(implicit ctx: Context) =
     div(id := "mz_menu")(
-      a(href := "#mz_actions")("Actions"),
-      canViewRoles(u) option a(href := "#mz_roles")("Roles"),
+      a(href := "#mz_actions")("Overview"),
       a(href := "#mz_irwin")("Irwin"),
       a(href := "#mz_assessments")("Evaluation"),
-      a(href := "#mz_plan", cls := "mz_plan")("Patron"),
       a(href := "#mz_mod_log")("Mod log"),
-      a(href := "#mz_reports_out")("Reports sent"),
-      a(href := "#mz_reports_in")("Reports received"),
+      a(href := "#mz_reports")("Reports"),
       a(href := "#mz_others")("Accounts"),
-      a(href := "#mz_identification")("Identification"),
-      a(href := "#us_profile")("Profile")
+      a(href := "#mz_identification")("Identification")
     )
 
   def actions(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context): Frag =
@@ -189,23 +185,6 @@ object mod {
       )
     )
 
-  def parts(
-      u: User,
-      history: List[lila.mod.Modlog],
-      charges: List[lila.plan.Charge],
-      reports: lila.report.Report.ByAndAbout,
-      pref: lila.pref.Pref,
-      rageSit: RageSit
-  )(implicit ctx: Context) =
-    frag(
-      roles(u),
-      prefs(pref),
-      plan(charges),
-      showRageSit(rageSit),
-      modLog(history),
-      reportLog(u, reports)
-    )
-
   def roles(u: User)(implicit ctx: Context) =
     canViewRoles(u) option div(cls := "mz_roles")(
       (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
@@ -238,7 +217,7 @@ object mod {
       span(cls := "text inline")(rageSit.counterView)
     )
 
-  def plan(charges: List[lila.plan.Charge])(implicit ctx: Context) =
+  def plan(charges: List[lila.plan.Charge])(implicit ctx: Context): Option[Frag] =
     charges.headOption.map { firstCharge =>
       div(id := "mz_plan")(
         strong(cls := "text", dataIcon := patronIconChar)(
@@ -287,9 +266,9 @@ object mod {
       )
     )
 
-  def reportLog(u: User, reports: lila.report.Report.ByAndAbout)(implicit lang: Lang) =
-    frag(
-      div(id := "mz_reports_out", cls := "mz_reports")(
+  def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(implicit lang: Lang) =
+    div(id := "mz_reports")(
+      div(cls := "mz_reports mz_reports--out")(
         strong(cls := "text", dataIcon := "!")(
           s"Reports sent by ${u.username}",
           reports.by.isEmpty option ": nothing to show."
@@ -308,7 +287,7 @@ object mod {
           }
         }
       ),
-      div(id := "mz_reports_in", cls := "mz_reports")(
+      div(cls := "mz_reports mz_reports--in")(
         strong(cls := "text", dataIcon := "!")(
           s"Reports concerning ${u.username}",
           reports.about.isEmpty option ": nothing to show."

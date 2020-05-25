@@ -93,7 +93,7 @@ object header {
             a(
               cls := "btn-rack__btn mod-zone-toggle",
               href := routes.User.mod(u.username),
-              titleOrText("Mod zone"),
+              titleOrText("Mod zone (Hotkey: m)"),
               dataIcon := ""
             ),
           a(

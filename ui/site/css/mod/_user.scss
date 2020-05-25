@@ -13,41 +13,43 @@
   }
 }
 
-#mz_actions { order: 1; }
-#mz_roles { order: 2; }
-#mz_preferences { order: 3; }
-#mz_irwin { order: 4; }
-#mz_assessments { order: 5; }
-#mz_plan { order: 6; }
-#mz_mod_log { order: 7; }
-#mz_reports_out { order: 8; }
-#mz_reports_in { order: 9; }
-#mz_others { order: 10; }
-#mz_identification { order: 11; }
+#mz_actions { order: 1 }
+#mz_sitdccounter { order: 2 }
+#mz_roles { order: 3 }
+#mz_preferences { order: 4 }
+#mz_plan { order: 5 }
+#mz_irwin { order: 6 }
+#mz_assessments { order: 7 }
+#mz_mod_log { order: 8 }
+#mz_reports { order: 9 }
+#mz_others { order: 10 }
+#mz_identification { order: 11 }
 
 #mz_menu {
-  @extend %flex-center;
-  border-bottom: 3px solid $c-brag;
-  height: 4em;
+  @extend %flex-center, %box-neat-top;
+  position: fixed;
+  bottom: 0;
+  background: $c-brag;
+  z-index: 1;
+  // border-top: 1px solid $c-brag;
+  // border-width: 3px 2px 0 2px;
   padding: 0;
   a {
-    padding: .9em 1.2em;
-    color: $c-font;
+    padding: 1.2em 1.2em;
+    color: $c-brag-over;
     font-size: 1.1em;
-    &.disabled {
-      opacity: 0.6;
+    font-weight: bold;
+    opacity: 0.5;
+    &.available {
+      opacity: 1;
     }
     &:not(.disabled):hover {
-      color: $c-brag;
+      background: mix(white, $c-brag, 20%);
     }
-  }
-  .mod-zone.stick-menu & {
-    @extend %box-neat;
-    position: fixed;
-    top: 0;
-    height: auto;
-    background: $c-bg-box;
-    z-index: 1;
+    i {
+      margin-right: .3em;
+      opacity: .5;
+    }
   }
 }
 
@@ -172,20 +174,26 @@
     color: $c-link;
   }
 }
-.mz_reports form {
-  display: block;
-  padding: 0 10px;
-}
-.mz_reports button {
-  padding: 0;
-  margin-left: -2px;
-}
-.mz_reports button:not(:hover) {
-  border-color: transparent;
-  background: transparent;
-}
-.mz_reports button strong {
-  display: inline;
+#mz_reports {
+  @extend %flex-wrap;
+  .mz_reports {
+    flex: 1 0 50ch;
+  }
+  form {
+    display: block;
+    padding: 0 10px;
+  }
+  button {
+    padding: 0;
+    margin-left: -2px;
+    &:not(:hover) {
+      border-color: transparent;
+      background: transparent;
+    }
+    strong {
+      display: inline;
+    }
+  }
 }
 #mz_assessments table {
   margin-top: 10px;
