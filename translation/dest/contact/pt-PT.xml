@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Contacto</string>
-  <string name="contactLichess">Contactar Lichess</string>
+  <string name="contactLichess">Contactar o Lichess</string>
   <string name="whatCanWeHelpYouWith">Como te podemos ajudar?</string>
   <string name="visitThisPage">Visita esta página para resolveres o problema</string>
   <string name="iCantLogIn">Não consigo iniciar sessão</string>
@@ -67,4 +67,14 @@
   <string name="accountLost">No entanto, se usaste assistência de computador, mesmo que só uma vez, a tua conta está perdida, infelizmente.</string>
   <string name="doNotDeny">Não negues ter feito batota. Se quiseres ter permissão para criar uma nova conta, simplesmente admite o que fizeste, e mostra que compreendeste que foi um erro.</string>
   <string name="otherRestriction">Outra restrição</string>
+  <string name="collaboration">Colaboração, legislação, comércio</string>
+  <string name="monetizing">Monetização do Lichess</string>
+  <string name="buyingLichess">Comprar o Lichess</string>
+  <string name="authorizationToUse">Autorização para utilizar o Lichess</string>
+  <string name="welcomeToUse">És bem-vindo para utilizar o Lichess para a tua atividade, mesmo que seja comercial.</string>
+  <string name="videosAndBooks">Podes mostrá-lo em vídeo teus e podes imprimir capturas de ecrã do Lichess em livros teus.</string>
+  <string name="creditAppreciated">O crédito é apreciado mas não exigido.</string>
+  <string name="noneOfTheAbove">Nenhuma das anteriores</string>
+  <string name="sendEmailAt">Envia-nos um e-mail para %s.</string>
+  <string name="explainYourRequest">Por favor, explica o teu pedido de forma clara e completa. Menciona o teu nome de utilizador no Lichess e qualquer outra informação que nos possa nos ajudar a te ajudar.</string>
 </resources>
