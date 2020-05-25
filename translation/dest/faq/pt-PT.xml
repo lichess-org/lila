@@ -10,6 +10,12 @@
   <string name="whyIsLilaCalledLila">Do mesmo modo, o código fonte do Lichess, %1$s, significa li[chess em sca]la, mostrando que o Lichess é fundamentalmente escrito em %2$s, uma linguagem de programação intuitiva.</string>
   <string name="howCanIContributeToLichess">Como posso contribuir para o Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">O Lichess depende totalmente de doações de \"patrons\" e dos esforços de uma equipa de voluntários.</string>
-  <string name="findMoreAndSeeHowHelp">Podes encontrar mais sobre %1$s (incluindo um %2$s). Se quiseres ajudar o Lichess voluntariando o teu tempo e capacidades, há várias %3$s.</string>
+  <string name="findMoreAndSeeHowHelp">Podes encontrar mais sobre %1$s (incluindo uma %2$s). Se quiseres ajudar o Lichess voluntariando o teu tempo e capacidades, há várias %3$s.</string>
   <string name="beingAPatron">ser um \"patron\"</string>
+  <string name="breakdownOfOurCosts">repartição dos nossos custos</string>
+  <string name="otherWaysToHelp">outras formas de ajudar</string>
+  <string name="areThereWebsitesBasedOnLichess">Existem sites baseados no Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Sim. De facto, o Lichess tem inspirado outros sites open-source que usam o nosso %1$s, %2$s ou %3$s.</string>
+  <string name="fairPlay">Jogo Justo</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Por que é que estou marcado por manipulação artificial da pontuação (perder de propósito ou fazer batota) ou ajuda do computador?</string>
 </resources>
