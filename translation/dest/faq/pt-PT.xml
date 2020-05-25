@@ -91,4 +91,21 @@ Finalmente, há um título honorário %2$s.</string>
   <string name="verificationForm">formulário de verificação</string>
   <string name="canIbecomeLM">Posso obter o título de Mestre do Lichess (LM)?</string>
   <string name="noUpperCaseDot">Não.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico não é oficial e só existe no Lichess.
+
+Raramente o premiamos a jogadores altamente notáveis que são bons cidadãos do Lichess, a nosso critério. Tu não obténs o título de LM, o título LM obtém-te a ti. Se te qualificares, receberás uma mensagem nossa a respeito da nossa escolha e poderás aceitar ou recusar.
+
+Não perguntes pelo título LM.</string>
+  <string name="whatUsernameCanIchoose">O que é que o meu nome de utilizador pode ser?</string>
+  <string name="usernamesNotOffensive">Geralmente, os nomes de utilizador não devem ser: ofensivos, imitações de alguém, ou publicitários.
+
+Podes ler mais sobre as %1$s.</string>
+  <string name="guidelines">orientações</string>
+  <string name="uniqueTrophies">Troféus únicos</string>
+  <string name="ownerUniqueTrophies">Esse troféu é único na história dos Lichess, ninguém para além de %1$s o terá.</string>
+  <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar 100%% dos jogos de %s no modo frenético.</string>
+  <string name="aHourlyBulletTournament">um torneio horário de Bullet</string>
+  <string name="goldenZeeExplanation">ZugAddict estava fazer uma stream e nas últimas 2 horas tinha estado a tentar derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-lhe que se ele o isso na stream, ele teria um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
+  <string name="lichessRatings">Pontuações no Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Qual é o sistema de pontuação que o Lichess utiliza?</string>
 </resources>
