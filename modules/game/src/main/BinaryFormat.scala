@@ -167,7 +167,7 @@ object BinaryFormat {
 
   object piece {
 
-    private val groupedPos: Map[String, Array[(Pos, Pos)]] = Board.boardSizes.map { size =>
+    private val groupedPos: Map[String, Array[(PosMotion, PosMotion)]] = Board.BoardSize.all.map { size =>
       size.key -> getGroupedPos(size)
     }(breakOut)
 

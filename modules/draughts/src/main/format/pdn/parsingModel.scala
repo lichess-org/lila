@@ -53,7 +53,7 @@ case class Std(
   def move(situation: Situation, iteratedCapts: Boolean = false, forbiddenUci: Option[List[String]] = None, captures: Option[List[Pos]] = None): Valid[draughts.Move] =
     situation.board.pieces.foldLeft(none[draughts.Move]) {
       case (None, (pos, piece)) if piece.color == situation.color && pos == src =>
-        val a = Actor(piece, pos, situation.board)
+        val a = Actor(piece, situation.board.posAt(pos), situation.board)
         val m = a.validMoves.find { m => m.dest == dest && (!iteratedCapts || m.situationAfter.ghosts == 0) }
         if (m.isEmpty && capture && iteratedCapts)
           a.capturesFinal.find { m => m.dest == dest && captures.fold(true)(m.capture.contains) && !forbiddenUci.fold(false)(_.contains(m.toUci.uci)) }

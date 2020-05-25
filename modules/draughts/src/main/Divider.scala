@@ -101,7 +101,7 @@ object Divider {
             else black = black + 1
           }
         }
-        mix + score(white, black, region.head.y)
+        mix + score(white, black, board.posAt(region.head).y)
     }
   }
 }

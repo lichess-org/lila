@@ -175,7 +175,7 @@ abstract class Variant private[variant] (
 
   protected def menOnPromotionRank(board: Board, color: Color) = {
     board.pieces.exists {
-      case (pos, Piece(c, r)) if c == color && r == Man && pos.y == color.promotableManY => true
+      case (pos, Piece(c, r)) if c == color && r == Man && board.promotablePos(pos, color) => true
       case _ => false
     }
   }
@@ -198,10 +198,7 @@ abstract class Variant private[variant] (
 
   lazy val rolesByPdn: Map[Char, Role] = roles.map { r => (r.pdn, r) }(breakOut)
 
-  def isUnmovedPawn(color: Color, pos: Pos) = pos.y == color.fold(2, 7)
-
   val captureDirs: Directions = List((Actor.UpLeft, _.moveUpLeft), (Actor.UpRight, _.moveUpRight), (Actor.DownLeft, _.moveDownLeft), (Actor.DownRight, _.moveDownRight))
-
   val moveDirsColor: Map[Color, Directions] = Map(White -> List((Actor.UpLeft, _.moveUpLeft), (Actor.UpRight, _.moveUpRight)), Black -> List((Actor.DownLeft, _.moveDownLeft), (Actor.DownRight, _.moveDownRight)))
   val moveDirsAll: Directions = moveDirsColor(White) ::: moveDirsColor(Black)
 

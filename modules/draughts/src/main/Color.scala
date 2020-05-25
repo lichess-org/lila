@@ -8,9 +8,6 @@ sealed trait Color {
 
   val unary_! : Color
 
-  val promotableManY: Int
-  val backrankY: Int
-
   val letter: Char
   val name: String
 
@@ -53,9 +50,6 @@ object Color {
 
     lazy val unary_! = Black
 
-    val promotableManY = 1
-    val backrankY = 10
-
     val letter = 'W'
     val name = "white"
 
@@ -65,9 +59,6 @@ object Color {
   case object Black extends Color {
 
     val unary_! = White
-
-    val promotableManY = 10
-    val backrankY = 1
 
     val letter = 'B'
     val name = "black"

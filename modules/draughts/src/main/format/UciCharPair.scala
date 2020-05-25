@@ -24,8 +24,7 @@ object UciCharPair {
     val charShift = 35 // Start at Char(35) == '#'
     val voidChar = 33.toChar // '!'. We skipped Char(34) == '"'.
 
-    // NOTE: Assumes Pos100 is the biggest boardsize
-    val pos2charMap: Map[Pos, Char] = Pos100.all.map { pos =>
+    val pos2charMap: Map[Pos, Char] = Board.BoardSize.max.all.map { pos =>
       pos -> (pos.hashCode + charShift).toChar
     }(breakOut)
 

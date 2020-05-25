@@ -62,9 +62,9 @@ object Uci
       }
     }
 
-    def piotr(move: String, boardSize: Board.BoardSize) = for {
-      orig ← move.headOption flatMap boardSize.pos.piotr
-      dest ← move lift 1 flatMap boardSize.pos.piotr
+    def piotr(move: String) = for {
+      orig ← move.headOption flatMap Board.BoardSize.max.piotr
+      dest ← move lift 1 flatMap Board.BoardSize.max.piotr
       promotion = move lift 2 flatMap Role.promotable
     } yield Move(orig, dest, promotion)
 
@@ -85,7 +85,7 @@ object Uci
 
   def apply(move: String, boardSize: Board.BoardSize): Option[Uci] = Uci.Move(move, boardSize)
 
-  def piotr(move: String, boardSize: Board.BoardSize): Option[Uci] = Uci.Move.piotr(move, boardSize)
+  def piotr(move: String): Option[Uci] = Uci.Move.piotr(move)
 
   def readList(moves: String, boardSize: Board.BoardSize): Option[List[Uci]] =
     moves.split(' ').toList.map(apply(_, boardSize)).sequence
@@ -93,8 +93,8 @@ object Uci
   def writeList(moves: List[Uci]): String =
     moves.map(_.uci) mkString " "
 
-  def readListPiotr(moves: String, boardSize: Board.BoardSize): Option[List[Uci]] =
-    moves.split(' ').toList.map(piotr(_, boardSize)).sequence
+  def readListPiotr(moves: String): Option[List[Uci]] =
+    moves.split(' ').toList.map(piotr).sequence
 
   def writeListPiotr(moves: List[Uci]): String =
     moves.map(_.piotr) mkString " "

@@ -3,39 +3,42 @@ package draughts
 import scala.collection.breakOut
 
 sealed trait Pos {
-  val x: Int;
-  val y: Int;
   val piotr: Char;
   val piotrStr: String;
   val key: String;
   val shortKey: String;
   val fieldNumber: Int;
-  val moveDownLeft: Option[Pos];
-  val moveDownRight: Option[Pos];
-  val moveUpLeft: Option[Pos];
-  val moveUpRight: Option[Pos];
-  val moveDown: Option[Pos];
-  val moveUp: Option[Pos];
-  val moveLeft: Option[Pos];
-  val moveRight: Option[Pos];
 }
 
-sealed case class Pos100 private (x: Int, y: Int) extends Pos {
+sealed trait PosMotion extends Pos {
+  val x: Int;
+  val y: Int;
+  val moveDownLeft: Option[PosMotion];
+  val moveDownRight: Option[PosMotion];
+  val moveUpLeft: Option[PosMotion];
+  val moveUpRight: Option[PosMotion];
+  val moveDown: Option[PosMotion];
+  val moveUp: Option[PosMotion];
+  val moveLeft: Option[PosMotion];
+  val moveRight: Option[PosMotion];
+}
+
+sealed case class Pos100 private (x: Int, y: Int) extends PosMotion {
 
   import Pos100.{ posAt, movesDown, movesUp, movesHorizontal }
 
   val fieldNumber = 5 * (y - 1) + x
   val piotr = Piotr.byField(fieldNumber)
 
-  lazy val moveDownLeft: Option[Pos] = movesDown.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
-  lazy val moveDownRight: Option[Pos] = movesDown.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
-  lazy val moveUpLeft: Option[Pos] = movesUp.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
-  lazy val moveUpRight: Option[Pos] = movesUp.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
+  lazy val moveDownLeft = movesDown.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
+  lazy val moveDownRight = movesDown.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
+  lazy val moveUpLeft = movesUp.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
+  lazy val moveUpRight = movesUp.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
 
-  lazy val moveDown: Option[Pos] = movesDown.get(fieldNumber).map(_(2)).filter(_ > 0) flatMap posAt
-  lazy val moveUp: Option[Pos] = movesUp.get(fieldNumber).map(_(2)).filter(_ > 0) flatMap posAt
-  lazy val moveLeft: Option[Pos] = movesHorizontal.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
-  lazy val moveRight: Option[Pos] = movesHorizontal.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
+  lazy val moveDown = movesDown.get(fieldNumber).map(_(2)).filter(_ > 0) flatMap posAt
+  lazy val moveUp = movesUp.get(fieldNumber).map(_(2)).filter(_ > 0) flatMap posAt
+  lazy val moveLeft = movesHorizontal.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
+  lazy val moveRight = movesHorizontal.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
 
   val key = f"${fieldNumber}%02d"
   val shortKey = fieldNumber.toString
@@ -43,25 +46,24 @@ sealed case class Pos100 private (x: Int, y: Int) extends Pos {
 
   override val toString = key
   override val hashCode = fieldNumber - 1
-
 }
 
-sealed case class Pos64 private (x: Int, y: Int) extends Pos {
+sealed case class Pos64 private (x: Int, y: Int) extends PosMotion {
 
   import Pos64.{ posAt, movesDown, movesUp, movesHorizontal }
 
   val fieldNumber = 4 * (y - 1) + x
   val piotr = Piotr.byField(fieldNumber)
 
-  lazy val moveDownLeft: Option[Pos] = movesDown.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
-  lazy val moveDownRight: Option[Pos] = movesDown.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
-  lazy val moveUpLeft: Option[Pos] = movesUp.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
-  lazy val moveUpRight: Option[Pos] = movesUp.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
+  lazy val moveDownLeft = movesDown.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
+  lazy val moveDownRight = movesDown.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
+  lazy val moveUpLeft = movesUp.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
+  lazy val moveUpRight = movesUp.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
 
-  lazy val moveDown: Option[Pos] = movesDown.get(fieldNumber).map(_(2)).filter(_ > 0) flatMap posAt
-  lazy val moveUp: Option[Pos] = movesUp.get(fieldNumber).map(_(2)).filter(_ > 0) flatMap posAt
-  lazy val moveLeft: Option[Pos] = movesHorizontal.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
-  lazy val moveRight: Option[Pos] = movesHorizontal.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
+  lazy val moveDown = movesDown.get(fieldNumber).map(_(2)).filter(_ > 0) flatMap posAt
+  lazy val moveUp = movesUp.get(fieldNumber).map(_(2)).filter(_ > 0) flatMap posAt
+  lazy val moveLeft = movesHorizontal.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
+  lazy val moveRight = movesHorizontal.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
 
   val key = f"${fieldNumber}%02d"
   val shortKey = fieldNumber.toString
@@ -69,16 +71,15 @@ sealed case class Pos64 private (x: Int, y: Int) extends Pos {
 
   override val toString = key
   override val hashCode = fieldNumber - 1
-
 }
 
 sealed trait BoardPos {
   val boardKey: String;
-  val all: List[Pos];
-  def posAt(x: Int, y: Int): Option[Pos];
-  def posAt(field: Int): Option[Pos];
-  def posAt(field: String): Option[Pos];
-  def piotr(c: Char): Option[Pos]
+  val all: List[PosMotion];
+  def posAt(x: Int, y: Int): Option[PosMotion];
+  def posAt(field: Int): Option[PosMotion];
+  def posAt(field: String): Option[PosMotion];
+  def piotr(c: Char): Option[PosMotion]
 }
 
 object Pos100 extends BoardPos {
@@ -235,19 +236,19 @@ object Pos100 extends BoardPos {
     50 -> Array(49, -1)
   )
 
-  val posCache = new Array[Some[Pos]](50)
+  val posCache = new Array[Some[PosMotion]](50)
 
-  def posAt(x: Int, y: Int): Option[Pos] =
+  def posAt(x: Int, y: Int): Option[PosMotion] =
     if (x < 1 || x > 5 || y < 1 || y > 10) None
     else posCache(x + 5 * y - 6)
 
-  def posAt(field: Int): Option[Pos] =
+  def posAt(field: Int): Option[PosMotion] =
     if (field < 1 || field > 50) None
     else posCache(field - 1)
 
-  def posAt(field: String): Option[Pos] = parseIntOption(field).flatMap(posAt)
+  def posAt(field: String): Option[PosMotion] = parseIntOption(field).flatMap(posAt)
 
-  def piotr(c: Char): Option[Pos] = allPiotrs get c
+  def piotr(c: Char): Option[PosMotion] = allPiotrs get c
 
   private[this] def createPos(x: Int, y: Int): Pos100 = {
     val pos = new Pos100(x, y)
@@ -308,9 +309,9 @@ object Pos100 extends BoardPos {
 
   val all = posCache.toList.flatten
 
-  val allKeys: Map[String, Pos] = all.map { pos => pos.key -> pos }(breakOut)
+  val allKeys: Map[String, PosMotion] = all.map { pos => pos.key -> pos }(breakOut)
 
-  val allPiotrs: Map[Char, Pos] = all.map { pos => pos.piotr -> pos }(breakOut)
+  val allPiotrs: Map[Char, PosMotion] = all.map { pos => pos.piotr -> pos }(breakOut)
 
   val boardKey = "100"
 }
@@ -417,19 +418,19 @@ object Pos64 extends BoardPos {
     32 -> Array(31, -1)
   )
 
-  val posCache = new Array[Some[Pos]](32)
+  val posCache = new Array[Some[PosMotion]](32)
 
-  def posAt(x: Int, y: Int): Option[Pos] =
+  def posAt(x: Int, y: Int): Option[PosMotion] =
     if (x < 1 || x > 4 || y < 1 || y > 8) None
     else posCache(x + 4 * y - 5)
 
-  def posAt(field: Int): Option[Pos] =
+  def posAt(field: Int): Option[PosMotion] =
     if (field < 1 || field > 32) None
     else posCache(field - 1)
 
-  def posAt(field: String): Option[Pos] = parseIntOption(field).flatMap(posAt)
+  def posAt(field: String): Option[PosMotion] = parseIntOption(field).flatMap(posAt)
 
-  def piotr(c: Char): Option[Pos] = allPiotrs get c
+  def piotr(c: Char): Option[PosMotion] = allPiotrs get c
 
   private[this] def createPos(x: Int, y: Int): Pos64 = {
     val pos = new Pos64(x, y)
@@ -472,9 +473,9 @@ object Pos64 extends BoardPos {
 
   val all = posCache.toList.flatten
 
-  val allKeys: Map[String, Pos] = all.map { pos => pos.key -> pos }(breakOut)
+  val allKeys: Map[String, PosMotion] = all.map { pos => pos.key -> pos }(breakOut)
 
-  val allPiotrs: Map[Char, Pos] = all.map { pos => pos.piotr -> pos }(breakOut)
+  val allPiotrs: Map[Char, PosMotion] = all.map { pos => pos.piotr -> pos }(breakOut)
 
   val boardKey = "64"
 }

@@ -52,7 +52,7 @@ private[round] final class RoundDuct(
     case DraughtsnetPlay(uci, taken, currentFen) => handle { game =>
       if (taken.length > 2) {
         val boardSize = game.variant.boardSize
-        val takenList = (for { c <- 0 until taken.length by 2 } yield boardSize.pos.posAt(taken.slice(c, c + 2))).flatten.toList
+        val takenList: List[Pos] = (for { c <- 0 until taken.length by 2 } yield boardSize.pos.posAt(taken.slice(c, c + 2))).flatten.toList
         val takenSet = takenList.toSet
         val validMoves = game.variant.validMovesFrom(game.situation, uci.origDest._1, finalSquare = true)
         validMoves.find(

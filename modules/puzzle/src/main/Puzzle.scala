@@ -96,7 +96,7 @@ object Puzzle {
   import reactivemongo.bson._
   import lidraughts.db.BSON
   import BSON.BSONJodaDateTimeHandler
-  private val lineBSONHandlers = new BSONHandler[BSONDocument, Lines] {
+  private implicit val linesBSONHandler = new BSONHandler[BSONDocument, Lines] {
     private def readMove(move: String) = draughts.Piotr.doublePiotrToKey(move take 2) match {
       case Some(m) => s"$m${move drop 2}"
       case _ => sys error s"Invalid piotr move notation: $move"

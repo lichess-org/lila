@@ -1,7 +1,7 @@
 package lidraughts.app
 package templating
 
-import draughts.{ Color, Board, Pos }
+import draughts.{ Color, Board, Pos, PosMotion }
 import lidraughts.api.Context
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.game.Pov
@@ -17,18 +17,20 @@ trait DraughtsgroundHelper {
   def draughtsground(board: Board, orient: Color, lastMove: List[Pos] = Nil)(implicit ctx: Context): Frag = wrap {
     cgBoard {
       raw {
-        def addX(p: Pos) = if (p.y % 2 != 0) -0.5 else -1.0
-        def top(p: Pos) = orient.fold(p.y - 1, 10 - p.y) * 10.0
-        def left(p: Pos) = orient.fold(addX(p) + p.x, 4.5 - (addX(p) + p.x)) * 20.0
+        def addX(p: PosMotion) = if (p.y % 2 != 0) -0.5 else -1.0
+        def top(p: PosMotion) = orient.fold(p.y - 1, 10 - p.y) * 10.0
+        def left(p: PosMotion) = orient.fold(addX(p) + p.x, 4.5 - (addX(p) + p.x)) * 20.0
         val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
-          s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
+          val pm = board.posAt(pos)
+          s"""<square class="last-move" style="top:${top(pm)}%;left:${left(pm)}%"></square>"""
         } mkString ""
         val pieces =
           if (ctx.pref.isBlindfold) ""
           else board.pieces.map {
             case (pos, piece) =>
               val klass = s"${piece.color.name} ${piece.role.name}"
-              s"""<piece class="$klass" style="top:${top(pos)}%;left:${left(pos)}%"></piece>"""
+              val pm = board.posAt(pos)
+              s"""<piece class="$klass" style="top:${top(pm)}%;left:${left(pm)}%"></piece>"""
           } mkString ""
         s"$highlights$pieces"
       }

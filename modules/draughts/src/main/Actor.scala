@@ -5,7 +5,7 @@ import scala.annotation.tailrec
 
 case class Actor(
     piece: Piece,
-    pos: Pos,
+    pos: PosMotion,
     board: Board
 ) {
 
@@ -42,7 +42,7 @@ case class Actor(
   def is(p: Piece): Boolean = p == piece
 
   private def maybePromote(m: Move): Option[Move] =
-    if (m.dest.y == m.color.promotableManY)
+    if (board.promotablePos(m.dest, m.color))
       (m.after promote m.dest) map { b2 =>
         m.copy(after = b2, promotion = Some(King))
       }
@@ -61,7 +61,7 @@ case class Actor(
     val buf = new ArrayBuffer[Move]
     var bestCaptureValue = 0
 
-    def walkCaptures(walkDir: Direction, curBoard: Board, curPos: Pos, destPos: Option[Pos], destBoard: Option[Board], allSquares: List[Pos], allTaken: List[Pos], captureValue: Int): Unit =
+    def walkCaptures(walkDir: Direction, curBoard: Board, curPos: PosMotion, destPos: Option[PosMotion], destBoard: Option[Board], allSquares: List[Pos], allTaken: List[Pos], captureValue: Int): Unit =
       walkDir._2(curPos).fold() {
         nextPos =>
           curBoard(nextPos) match {
@@ -116,7 +116,7 @@ case class Actor(
     val buf = new ArrayBuffer[Move]
 
     @tailrec
-    def addAll(p: Pos, dir: Direction): Unit = {
+    def addAll(p: PosMotion, dir: Direction): Unit = {
       dir._2(p) match {
         case None => () // past end of board
         case Some(to) => board.pieces.get(to) match {
@@ -145,7 +145,7 @@ case class Actor(
     val maxCache = 1600
 
     @tailrec
-    def walkUntilCapture(walkDir: Direction, curBoard: Board, curPos: Pos, destPos: Option[Pos], destBoard: Option[Board], allSquares: List[Pos], allTaken: List[Pos], captureValue: Int): Int =
+    def walkUntilCapture(walkDir: Direction, curBoard: Board, curPos: PosMotion, destPos: Option[PosMotion], destBoard: Option[Board], allSquares: List[Pos], allTaken: List[Pos], captureValue: Int): Int =
       if (cacheExtraCapts.size > maxCache) 0
       else walkDir._2(curPos) match {
         case Some(nextPos) =>
@@ -173,7 +173,7 @@ case class Actor(
         case _ => captureValue
       }
 
-    def walkAfterCapture(walkDir: Direction, curBoard: Board, curPos: Pos, destPos: Option[Pos], destBoard: Option[Board], allSquares: List[Pos], newTaken: List[Pos], newCaptureValue: Int): Int = {
+    def walkAfterCapture(walkDir: Direction, curBoard: Board, curPos: PosMotion, destPos: Option[PosMotion], destBoard: Option[Board], allSquares: List[Pos], newTaken: List[Pos], newCaptureValue: Int): Int = {
       val captsHash = curBoard.pieces.hashCode() + walkDir._1
       val cachedExtraCapts = cacheExtraCapts.get(captsHash)
       if (cacheExtraCapts.size > maxCache) 0

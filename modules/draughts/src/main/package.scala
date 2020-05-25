@@ -24,7 +24,7 @@ package object draughts
   val White = Color.White
   val Black = Color.Black
 
-  type Direction = (Int, Pos => Option[Pos])
+  type Direction = (Int, PosMotion => Option[PosMotion])
   type Directions = List[Direction]
 
   type PieceMap = Map[Pos, Piece]

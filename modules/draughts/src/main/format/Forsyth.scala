@@ -153,8 +153,6 @@ object Forsyth {
     case KingMoves(white, black, whiteKing, blackKing) => s"+$black${blackKing.fold("")(_.toString)}+$white${whiteKing.fold("")(_.toString)}"
   }
 
-  private implicit val posOrdering = Ordering.by[Pos, Int](_.x)
-
   def exportBoard(board: Board): String = {
     val fenW = new scala.collection.mutable.StringBuilder(60)
     val fenB = new scala.collection.mutable.StringBuilder(60)

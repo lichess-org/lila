@@ -1,5 +1,7 @@
 package draughts
 
+import Board.BoardSize
+
 object Piotr {
 
   val all = List(
@@ -17,14 +19,13 @@ object Piotr {
 
   def byField(field: Int) = all(field - 1)
 
-  // Note: assumes Pos100 is the biggest board
-  def keyToPiotr(key: String) = Pos100.posAt(key) map (_.piotr)
+  def keyToPiotr(key: String) = BoardSize.max.posAt(key) map (_.piotr)
   def doubleKeyToPiotr(key: String) = for {
     a ← keyToPiotr(key take 2)
     b ← keyToPiotr(key drop 2)
   } yield s"$a$b"
   def doublePiotrToKey(piotrs: String) = for {
-    a ← Pos100.piotr(piotrs.head)
-    b ← Pos100.piotr(piotrs(1))
+    a ← BoardSize.max.piotr(piotrs.head)
+    b ← BoardSize.max.piotr(piotrs(1))
   } yield s"${a.key}${b.key}"
 }
