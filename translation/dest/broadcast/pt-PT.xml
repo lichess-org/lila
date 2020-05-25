@@ -17,4 +17,5 @@
   <string name="startDateHelp">Opcional, se souberes quando começa o evento</string>
   <string name="credits">Credita a fonte</string>
   <string name="cloneBroadcast">Clonar a transmissão</string>
+  <string name="resetBroadcast">Repor a transmissão</string>
 </resources>
