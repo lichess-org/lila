@@ -101,7 +101,7 @@ function syncShapes(state: State, shapes: Shape[], brushes: DrawBrushes, arrowDe
   toRemove.forEach(el => root.removeChild(el));
   // insert shapes that are not yet in dom
   shapes.forEach(sc => {
-    if (!hashesInDom[sc.hash]) root.appendChild(renderShape(state, sc, brushes, arrowDests, bounds));
+    if (!hashesInDom[sc.hash]) root.appendChild(renderShape(state, sc, brushes, arrowDests, bounds, state.boardSize));
   });
 }
 
@@ -120,36 +120,39 @@ function modifiersHash(m: DrawModifiers): Hash {
   return '' + (m.lineWidth || '');
 }
 
-function renderShape(state: State, { shape, current, hash }: Shape, brushes: DrawBrushes, arrowDests: ArrowDests, bounds: ClientRect): SVGElement {
+function renderShape(state: State, { shape, current, hash }: Shape, brushes: DrawBrushes, arrowDests: ArrowDests, bounds: ClientRect, boardSize: cg.BoardSize): SVGElement {
   let el: SVGElement;
   if (shape.piece) el = renderPiece(
     state.drawable.pieces.baseUrl,
-    orient(key2pos(shape.orig, state.boardSize), state.orientation),
+    orient(key2pos(shape.orig, state.boardSize), state.orientation, boardSize),
     shape.piece,
-    bounds);
+    bounds,
+    boardSize);
   else {
-    const orig = orient(key2pos(shape.orig, state.boardSize), state.orientation);
+    const orig = orient(key2pos(shape.orig, state.boardSize), state.orientation, boardSize);
     if (shape.orig && shape.dest) {
       let brush: DrawBrush = brushes[shape.brush];
       if (shape.modifiers) brush = makeCustomBrush(brush, shape.modifiers);
       el = renderArrow(
         brush,
         orig,
-        orient(key2pos(shape.dest, state.boardSize), state.orientation),
+        orient(key2pos(shape.dest, state.boardSize), state.orientation, boardSize),
         current,
         arrowDests[shape.dest] > 1,
-        bounds);
+        bounds,
+        boardSize);
     }
-    else el = renderCircle(brushes[shape.brush], orig, current, bounds);
+    else el = renderCircle(brushes[shape.brush], orig, current, bounds, boardSize);
   }
   el.setAttribute('cgHash', hash);
   return el;
 }
 
-function renderCircle(brush: DrawBrush, pos: cg.Pos, current: boolean, bounds: ClientRect): SVGElement {
-  const o = pos2px(pos, bounds),
-  widths = circleWidth(bounds),
-  radius = (bounds.width + bounds.height) / 40;
+function renderCircle(brush: DrawBrush, pos: cg.Pos, current: boolean, bounds: ClientRect, boardSize: cg.BoardSize): SVGElement {
+  const o = pos2px(pos, bounds, boardSize),
+  widths = circleWidth(bounds, boardSize),
+  radius = (bounds.width + bounds.height) / (2 * (boardSize[0] + boardSize[1]));
+  console.log('circle: ' + radius)
   return setAttributes(createElement('circle'), {
     stroke: brush.color,
     'stroke-width': widths[current ? 0 : 1],
@@ -161,10 +164,10 @@ function renderCircle(brush: DrawBrush, pos: cg.Pos, current: boolean, bounds: C
   });
 }
 
-function renderArrow(brush: DrawBrush, orig: cg.Pos, dest: cg.Pos, current: boolean, shorten: boolean, bounds: ClientRect): SVGElement {
-  const m = arrowMargin(bounds, shorten && !current),
-  a = pos2px(orig, bounds),
-  b = pos2px(dest, bounds),
+function renderArrow(brush: DrawBrush, orig: cg.Pos, dest: cg.Pos, current: boolean, shorten: boolean, bounds: ClientRect, boardSize: cg.BoardSize): SVGElement {
+  const m = arrowMargin(bounds, shorten && !current, boardSize),
+  a = pos2px(orig, bounds, boardSize),
+  b = pos2px(dest, bounds, boardSize),
   dx = b[0] - a[0],
   dy = b[1] - a[1],
   angle = Math.atan2(dy, dx),
@@ -172,7 +175,7 @@ function renderArrow(brush: DrawBrush, orig: cg.Pos, dest: cg.Pos, current: bool
   yo = Math.sin(angle) * m;
   return setAttributes(createElement('line'), {
     stroke: brush.color,
-    'stroke-width': lineWidth(brush, current, bounds),
+    'stroke-width': lineWidth(brush, current, bounds, boardSize),
     'stroke-linecap': 'round',
     'marker-end': 'url(#arrowhead-' + brush.key + ')',
     opacity: opacity(brush, current),
@@ -183,9 +186,9 @@ function renderArrow(brush: DrawBrush, orig: cg.Pos, dest: cg.Pos, current: bool
   });
 }
 
-function renderPiece(baseUrl: string, pos: cg.Pos, piece: DrawShapePiece, bounds: ClientRect): SVGElement {
-  const o = pos2px(pos, bounds),
-  size = bounds.width / 10 * (piece.scale || 1),
+function renderPiece(baseUrl: string, pos: cg.Pos, piece: DrawShapePiece, bounds: ClientRect, boardSize: cg.BoardSize): SVGElement {
+  const o = pos2px(pos, bounds, boardSize),
+  size = bounds.width / boardSize[0] * (piece.scale || 1),
   name = piece.color[0] + piece.role[0].toUpperCase();
   return setAttributes(createElement('image'), {
     className: `${piece.role} ${piece.color}`,
@@ -219,8 +222,8 @@ function setAttributes(el: SVGElement, attrs: { [key: string]: any }): SVGElemen
   return el;
 }
 
-function orient(pos: cg.Pos, color: cg.Color): cg.Pos {
-  return color === 'white' ? pos : [6 - pos[0], 11 - pos[1]];
+function orient(pos: cg.Pos, color: cg.Color, boardSize: cg.BoardSize): cg.Pos {
+  return color === 'white' ? pos : [(boardSize[0] / 2 + 1) - pos[0], (boardSize[1] + 1) - pos[1]];
 }
 
 function makeCustomBrush(base: DrawBrush, modifiers: DrawModifiers): DrawBrush {
@@ -233,23 +236,24 @@ function makeCustomBrush(base: DrawBrush, modifiers: DrawModifiers): DrawBrush {
   return brush as DrawBrush;
 }
 
-function circleWidth(bounds: ClientRect): [number, number] {
-  const base = bounds.width / 512;
+function circleWidth(bounds: ClientRect, boardSize: cg.BoardSize): [number, number] {
+  const factor = 512 * boardSize[0] / 10, base = bounds.width / factor;
   return [3 * base, 4 * base];
 }
 
-function lineWidth(brush: DrawBrush, current: boolean, bounds: ClientRect): number {
-  return (brush.lineWidth || 10) * (current ? 0.85 : 1) / 512 * bounds.width;
+function lineWidth(brush: DrawBrush, current: boolean, bounds: ClientRect, boardSize: cg.BoardSize): number {
+  const factor = 512 * boardSize[0] / 10;
+  return (brush.lineWidth || 10) * (current ? 0.85 : 1) / factor * bounds.width;
 }
 
 function opacity(brush: DrawBrush, current: boolean): number {
   return (brush.opacity || 1) * (current ? 0.9 : 1);
 }
 
-function arrowMargin(bounds: ClientRect, shorten: boolean): number {
-  return (shorten ? 20 : 10) / 512 * bounds.width;
+function arrowMargin(bounds: ClientRect, shorten: boolean, boardSize: cg.BoardSize): number {
+  return boardSize[0] * (shorten ? 2 : 1) / 512 * bounds.width;
 }
 
-function pos2px(pos: cg.Pos, bounds: ClientRect): cg.NumberPair {
-  return [(2 * pos[0] - (pos[1] % 2 !== 0 ? 0.5 : 1.5)) * bounds.width / 10, (pos[1] - 0.5) * bounds.height / 10];
+function pos2px(pos: cg.Pos, bounds: ClientRect, boardSize: cg.BoardSize): cg.NumberPair {
+  return [(2 * pos[0] - (pos[1] % 2 !== 0 ? 0.5 : 1.5)) * bounds.width / boardSize[0], (pos[1] - 0.5) * bounds.height / boardSize[1]];
 }

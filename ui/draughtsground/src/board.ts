@@ -107,7 +107,11 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
 
   const captured = captureUci ? (captureUci.length - 2) / 2 : 1;
   const finalDest = captureUci ? key2pos(captureUci.slice(captureUci.length - 2) as cg.Key, bs) : destPos;
-  const promotable = (!state.movable.captLen || state.movable.captLen <= captured) && origPiece.role === 'man' && ((origPiece.color === 'white' && finalDest[1] === 1) || (origPiece.color === 'black' && finalDest[1] === 10));
+  const promotable = (!state.movable.captLen || state.movable.captLen <= captured) && 
+                      origPiece.role === 'man' && (
+                        (origPiece.color === 'white' && finalDest[1] === 1) || 
+                        (origPiece.color === 'black' && finalDest[1] === state.boardSize[1])
+                      );
   
   const destPiece = (!state.movable.free && promotable) ? {
       role: 'king',
@@ -271,7 +275,7 @@ export function selectSquare(state: State, key: cg.Key, force?: boolean): void {
 export function setSelected(state: State, key: cg.Key): void {
   state.selected = key;
   if (isPremovable(state, key)) {
-    state.premovable.dests = premove(state.pieces, key, state.premovable.variant);
+    state.premovable.dests = premove(state.pieces, state.boardSize, key, state.premovable.variant);
   }
   else state.premovable.dests = undefined;
 }
@@ -316,7 +320,7 @@ function isPremovable(state: State, orig: cg.Key): boolean {
 function canPremove(state: State, orig: cg.Key, dest: cg.Key): boolean {
   return orig !== dest &&
     isPremovable(state, orig) &&
-    containsX(premove(state.pieces, orig, state.premovable.variant), dest);
+    containsX(premove(state.pieces, state.boardSize, orig, state.premovable.variant), dest);
 }
 
 function canPredrop(state: State, orig: cg.Key, dest: cg.Key): boolean {

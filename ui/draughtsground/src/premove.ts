@@ -1,14 +1,18 @@
 import * as cg from './types'
-import { field2key, movesDown, movesUp, movesHorizontal } from './util'
+import { field2key, movesDown100, movesUp100, movesHorizontal100, movesDown64, movesUp64, movesHorizontal64 } from './util'
 
-export default function premove(pieces: cg.Pieces, key: cg.Key, variant?: string): cg.Key[] {
+export default function premove(pieces: cg.Pieces, boardSize: cg.BoardSize, key: cg.Key, variant?: string): cg.Key[] {
 
   const piece = pieces[key],
     field: number = Number(key);
 
   if (piece === undefined || isNaN(field)) return new Array<cg.Key>();
 
-  const frisianVariant = variant && (variant === "frisian" || variant === "frysk");
+  const frisianVariant = variant && (variant === "frisian" || variant === "frysk"),
+    is100 = boardSize[0] === 10,
+    movesUp = is100 ? movesUp100 : movesUp64,
+    movesDown = is100 ? movesDown100 : movesDown64,
+    movesHorizontal = is100 ? movesHorizontal100 : movesHorizontal64;
 
   const dests: cg.Key[] = new Array<cg.Key>();
   switch (piece.role) {

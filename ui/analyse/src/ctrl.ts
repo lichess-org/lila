@@ -307,7 +307,7 @@ export default class AnalyseCtrl {
   getDests: () => void = throttle(800, () => {
     const gamebook = this.gamebookPlay();
     if (this.embed && gamebook && !defined(this.node.dests)) {
-      let dests = calcDests(this.node.fen, this.data.game.variant.key);
+      let dests = calcDests(this.node.fen, this.data.game.variant);
       if (dests.length > 1 && dests[0] === '#') {
         const nextUci = gamebook.nextUci();
         if (nextUci && nextUci.length >= 4) {
@@ -530,7 +530,7 @@ export default class AnalyseCtrl {
      const fenParts = this.node.fen.split(':');
      var fen = this.node.fen[0] + ":" + boardFen;
      if (fenParts.length > 3) fen += ":" + fenParts.slice(3).join(':');
-     const dests = calcDests(fen, this.data.game.variant.key);
+     const dests = calcDests(fen, this.data.game.variant);
      return dests.length > 1 && dests[0] === "#";
   }
 
@@ -577,13 +577,13 @@ export default class AnalyseCtrl {
         if (fenParts.length > 3)
           treeNode.fen += ":" + fenParts.slice(3).join(':');
         if (treeNode.captLen > 0) {
-          treeNode.dests = calcDests(treeNode.fen, this.data.game.variant.key);
+          treeNode.dests = calcDests(treeNode.fen, this.data.game.variant);
           treeNode.dests = "#" + treeNode.captLen.toString() + treeNode.dests.substr(2);
         } else
           treeNode.dests = undefined;
       }
       if (!treeNode.dests) {
-        treeNode.dests = calcDests(treeNode.fen, this.data.game.variant.key);
+        treeNode.dests = calcDests(treeNode.fen, this.data.game.variant);
         if (treeNode.dests.length > 1 && treeNode.dests[0] === '#') {
           const nextChild = gamebook.peekNextChild();
           if (nextChild && nextChild.uci && nextChild.uci.length > 4) {
