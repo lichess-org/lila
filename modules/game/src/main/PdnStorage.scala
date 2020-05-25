@@ -42,7 +42,7 @@ private object PdnStorage {
           case (k, v) => chessPos(k).map(_ -> chessPiece(v))
         }.toMap,
         positionHashes = decoded.positionHashes,
-        lastMove = Option(decoded.lastUci).flatMap(l => Uci.apply(l, draughts.variant.Standard.boardSize)),
+        lastMove = Option(decoded.lastUci) flatMap Uci.apply,
         format = Huffman
       )
     }

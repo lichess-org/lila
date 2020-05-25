@@ -1,8 +1,6 @@
 package draughts
 package format
 
-import scala.collection.mutable.ListBuffer
-
 sealed trait Uci {
 
   def uci: String
@@ -45,8 +43,8 @@ object Uci
 
   object Move {
 
-    def apply(move: String, boardSize: Board.BoardSize): Option[Move] = {
-      def posAt(f: String) = boardSize.pos.posAt(f)
+    def apply(move: String): Option[Move] = {
+      def posAt(f: String) = Board.BoardSize.max.posAt(f)
       if (move.length >= 6) {
         val capts = (for { c <- 2 until move.length by 2 } yield posAt(move.slice(c, c + 2))).toList.flatten
         for {
@@ -68,9 +66,9 @@ object Uci
       promotion = move lift 2 flatMap Role.promotable
     } yield Move(orig, dest, promotion)
 
-    def fromStrings(origS: String, destS: String, promS: Option[String], boardSize: Board.BoardSize) = for {
-      orig ← boardSize.pos.posAt(origS)
-      dest ← boardSize.pos.posAt(destS)
+    def fromStrings(origS: String, destS: String, promS: Option[String]) = for {
+      orig ← Board.BoardSize.max.posAt(origS)
+      dest ← Board.BoardSize.max.posAt(destS)
       promotion = Role promotable promS
     } yield Move(orig, dest, promotion)
 
@@ -80,15 +78,15 @@ object Uci
 
   def apply(move: draughts.Move, withCaptures: Boolean) = Uci.Move(move.orig, move.dest, move.promotion, withCaptures ?? move.capture)
 
-  def combine(uci1: Uci, uci2: Uci, boardSize: Board.BoardSize) = apply(uci1.uci + uci2.uci.drop(2), boardSize).getOrElse(Uci.Move(uci1.origDest._1, uci2.origDest._2))
+  def combine(uci1: Uci, uci2: Uci) = apply(uci1.uci + uci2.uci.drop(2)).getOrElse(Uci.Move(uci1.origDest._1, uci2.origDest._2))
   def combineSan(san1: String, san2: String) = san1.substring(0, san1.indexOf('x')) + san2.substring(san2.indexOf('x'))
 
-  def apply(move: String, boardSize: Board.BoardSize): Option[Uci] = Uci.Move(move, boardSize)
+  def apply(move: String): Option[Uci] = Uci.Move(move)
 
   def piotr(move: String): Option[Uci] = Uci.Move.piotr(move)
 
-  def readList(moves: String, boardSize: Board.BoardSize): Option[List[Uci]] =
-    moves.split(' ').toList.map(apply(_, boardSize)).sequence
+  def readList(moves: String): Option[List[Uci]] =
+    moves.split(' ').toList.map(apply).sequence
 
   def writeList(moves: List[Uci]): String =
     moves.map(_.uci) mkString " "

@@ -108,11 +108,11 @@ object TreeBuilder {
             if (mergeCapts && g.situation.ghosts > 0) truncateGhosts(rest, mergeCapts)
             else rest.foldLeft(makeBranch(i + 1, g, m)) {
               case (node, ((g, m), i)) =>
-                val shortUci = Uci(m.uci.shortUci, g.board.variant.boardSize).get
+                val shortUci = Uci(m.uci.shortUci).get
                 if (mergeCapts && node.move.uci.origDest._1 == shortUci.origDest._2)
                   node.copy(
                     id = UciCharPair.combine(m.uci, node.move.uci),
-                    move = Uci.WithSan(Uci(m.uci.uci.take(2) + node.move.uci.uci, g.board.variant.boardSize).get, Uci.combineSan(m.san, node.move.san))
+                    move = Uci.WithSan(Uci(m.uci.uci.take(2) + node.move.uci.uci).get, Uci.combineSan(m.san, node.move.san))
                   )
                 else makeBranch(i + 1, g, m) prependChild node
             } some

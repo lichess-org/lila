@@ -37,7 +37,7 @@ case class Puzzle(
 
   def initialMove: Uci.Move = history.lastOption flatMap {
     uci =>
-      val rawUci = Uci.Move.apply(uci, variant.boardSize)
+      val rawUci = Uci.Move.apply(uci)
       if (rawUci.isEmpty) rawUci
       else
         Forsyth.<<@(variant, fen).fold(rawUci) {

@@ -86,7 +86,7 @@ object DraughtsHistory {
     lastMove: Option[String], // 0510 etc
     variant: Variant
   ): DraughtsHistory = DraughtsHistory(
-    lastMove = lastMove flatMap (lm => Uci.apply(lm, variant.boardSize)),
+    lastMove = lastMove flatMap Uci.apply,
     positionHashes = Array(),
     variant = variant
   )

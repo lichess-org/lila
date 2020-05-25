@@ -98,7 +98,7 @@ final class JsonView(
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
     import draughts.format._
     val fullSolution: List[Uci.Move] = (Line solution puzzle.lines).map { uci =>
-      Uci.Move(uci, puzzle.variant.boardSize) err s"Invalid puzzle solution UCI $uci"
+      Uci.Move(uci) err s"Invalid puzzle solution UCI $uci"
     }
     val solution =
       if (fullSolution.isEmpty) {

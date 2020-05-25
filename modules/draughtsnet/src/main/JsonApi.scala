@@ -69,7 +69,7 @@ object JsonApi {
     ) extends Request with Result
 
     case class MoveResult(bestmove: String, taken: String) {
-      def uci(boardSize: draughts.Board.BoardSize): Option[Uci] = Uci(bestmove, boardSize)
+      def uci: Option[Uci] = Uci(bestmove)
     }
 
     case class PostCommentary(
@@ -221,7 +221,7 @@ object JsonApi {
     implicit val PostMoveReads = Json.reads[Request.PostMove]
     implicit val ScoreReads = Json.reads[Request.Evaluation.Score]
     implicit val uciListReads = Reads.of[String] map { str =>
-      ~Uci.readList(str, draughts.Board.D100)
+      ~Uci.readList(str)
     }
 
     implicit val EvaluationReads: Reads[Request.Evaluation] = (

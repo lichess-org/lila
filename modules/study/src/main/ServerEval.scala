@@ -32,7 +32,7 @@ object ServerEval {
             initialFen = chapter.root.fen.value.some,
             variant = chapter.setup.variant,
             finalSquare = true
-          ).toOption.map(_.map(u => draughts.format.Uci.apply(u, chapter.setup.variant.boardSize)).flatten) | List.empty,
+          ).toOption.map(_.map(draughts.format.Uci.apply).flatten) | List.empty,
           userId = userId
         )
       }

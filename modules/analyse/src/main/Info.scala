@@ -1,7 +1,8 @@
 package lidraughts.analyse
 
-import draughts.{ Board, Color }
+import draughts.Color
 import draughts.format.Uci
+
 import lidraughts.tree.Eval
 
 case class Info(
@@ -65,7 +66,7 @@ object Info {
     case Array(cp) => Info(ply, Eval(strCp(cp), None, None)).some
     case Array(cp, ma) => Info(ply, Eval(strCp(cp), strWin(ma), None)).some
     case Array(cp, ma, va) => Info(ply, Eval(strCp(cp), strWin(ma), None), va.split(' ').toList).some
-    case Array(cp, ma, va, be) => Info(ply, Eval(strCp(cp), strWin(ma), Uci.Move.piotr(be)), va.split(' ').toList).some
+    case Array(cp, ma, va, be) => Info(ply, Eval(strCp(cp), strWin(ma), Uci.Move piotr be), va.split(' ').toList).some
     case _ => none
   }
 

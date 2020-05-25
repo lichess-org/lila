@@ -29,7 +29,7 @@ object BSONHandlers {
   implicit val CentisBSONHandler = intIsoHandler(Iso.centisIso)
 
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
-    def read(bsonStr: BSONString): Pos = draughts.Pos100.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
+    def read(bsonStr: BSONString): Pos = draughts.Board.BoardSize.max.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
     def write(x: Pos) = BSONString(x.key)
   }
   implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, draughts.Color] {
@@ -61,7 +61,7 @@ object BSONHandlers {
   }
 
   implicit val UciHandler = new BSONHandler[BSONString, Uci] {
-    def read(bs: BSONString): Uci = Uci(bs.value, draughts.Board.D100) err s"Bad UCI: ${bs.value}"
+    def read(bs: BSONString): Uci = Uci(bs.value) err s"Bad UCI: ${bs.value}"
     def write(x: Uci) = BSONString(x.uci)
   }
 

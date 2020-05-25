@@ -167,11 +167,12 @@ object BinaryFormat {
 
   object piece {
 
-    private val groupedPos: Map[String, Array[(PosMotion, PosMotion)]] = Board.BoardSize.all.map { size =>
-      size.key -> getGroupedPos(size)
+    import Board.BoardSize
+    private val groupedPos: Map[BoardSize, Array[(PosMotion, PosMotion)]] = BoardSize.all.map { size =>
+      size -> getGroupedPos(size)
     }(breakOut)
 
-    private def getGroupedPos(size: Board.BoardSize) = size.pos.all grouped 2 collect {
+    private def getGroupedPos(size: BoardSize) = size.pos.all grouped 2 collect {
       case List(p1, p2) => (p1, p2)
     } toArray
 
@@ -179,7 +180,7 @@ object BinaryFormat {
       def posInt(pos: Pos): Int = (pieces get pos).fold(0) { piece =>
         piece.color.fold(0, 8) + roleToInt(piece.role)
       }
-      ByteArray(groupedPos(variant.boardSize.key) map {
+      ByteArray(groupedPos(variant.boardSize) map {
         case (p1, p2) => ((posInt(p1) << 4) + posInt(p2)).toByte
       })
     }

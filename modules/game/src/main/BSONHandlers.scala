@@ -49,7 +49,7 @@ object BSONHandlers {
           pdnMoves = PdnStorage.OldBin.decode(r bytesD F.oldPdn, playedPlies),
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
           positionHashes = r.getO[draughts.PositionHash](F.positionHashes) | Array.empty,
-          lastMove = r strO F.historyLastMove flatMap { lm => Uci.apply(lm, gameVariant.boardSize) },
+          lastMove = r strO F.historyLastMove flatMap Uci.apply,
           format = PdnStorage.OldBin
         )
       }

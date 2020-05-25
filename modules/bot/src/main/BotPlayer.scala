@@ -19,7 +19,7 @@ final class BotPlayer(
 
   def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
     lidraughts.common.Future.delay((pov.game.hasAi ?? 500) millis) {
-      Uci(uciStr, pov.game.variant.boardSize).fold(fufail[Unit](s"Invalid UCI: $uciStr")) { uci =>
+      Uci(uciStr).fold(fufail[Unit](s"Invalid UCI: $uciStr")) { uci =>
         lidraughts.mon.bot.moves(me.username)()
         if (!pov.isMyTurn) fufail("Not your turn, or game already over")
         else {

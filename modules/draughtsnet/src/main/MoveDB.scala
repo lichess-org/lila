@@ -85,7 +85,7 @@ private final class MoveDB(
       case PostResult(moveId, client, data, measurement) =>
         coll get moveId match {
           case None => Monitor.notFound(moveId, client)
-          case Some(move) if move isAcquiredBy client => data.move.uci(draughts.Board.D100) match {
+          case Some(move) if move isAcquiredBy client => data.move.uci match {
             case Some(uci) =>
               coll -= move.id
               Monitor.move(move, client)

@@ -28,7 +28,7 @@ case class AnaMove(
 
   def branch: Valid[Branch] = {
     val oldGame = draughts.DraughtsGame(variant.some, fen.some)
-    val captures = uci.flatMap(u => Uci.Move.apply(u, variant.boardSize)).flatMap(_.capture)
+    val captures = uci.flatMap(Uci.Move.apply).flatMap(_.capture)
     oldGame(
       orig = orig,
       dest = dest,

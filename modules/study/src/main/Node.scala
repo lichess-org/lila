@@ -108,7 +108,7 @@ case class Node(
   def mergeCapture(n: Node): Node = copy(
     id = UciCharPair(id.a, n.id.b),
     ply = n.ply,
-    move = Uci.WithSan(Uci.combine(move.uci, n.move.uci, draughts.Board.D100), Uci.combineSan(move.san, n.move.san)),
+    move = Uci.WithSan(Uci.combine(move.uci, n.move.uci), Uci.combineSan(move.san, n.move.san)),
     fen = n.fen,
     shapes = shapes ++ n.shapes,
     comments = comments ++ n.comments,

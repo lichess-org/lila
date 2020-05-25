@@ -79,8 +79,8 @@ object Divider {
 
   private val mixednessRegions: List[List[Pos]] = {
     for {
-      y <- 1 to 9
-      x <- 1 to 4
+      y <- 1 to 7
+      x <- 1 to 7
     } yield {
       for {
         dy <- 0 to 1

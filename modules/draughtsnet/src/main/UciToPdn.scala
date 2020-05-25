@@ -43,8 +43,6 @@ private object UciToPdn {
 
   def apply(replay: Replay, analysis: Analysis): WithErrors[Analysis] = {
 
-    val boardSize = replay.setup.board.variant.boardSize
-
     val pliesWithAdviceAndVariation: Set[Int] = analysis.advices.collect {
       case a if a.info.hasVariation => a.ply
     }(scala.collection.breakOut)
@@ -57,7 +55,7 @@ private object UciToPdn {
     def uciToPdn(ply: Int, variation: List[String]): Valid[List[PdnMove]] = for {
       situation ← if (ply == replay.setup.startedAtTurn + 1) success(replay.setup.situation)
       else replay moveAtPly ply map (_.situationBefore) toValid "No move found"
-      ucis ← variation.map(u => Uci.apply(u, boardSize)).sequence toValid "Invalid UCI moves " + variation
+      ucis ← variation.map(Uci.apply).sequence toValid "Invalid UCI moves " + variation
       moves ← mk(situation, ucis, Nil, Nil) toValid "Invalid variation " + variation
     } yield moves._2.reverse map Dumper.apply
 
