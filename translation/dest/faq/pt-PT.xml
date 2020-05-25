@@ -134,6 +134,7 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
 
 É melhor pensar nas pontuações como valores \"relativos\" (em vez de valores \"absolutos\"): numa amostra de jogadores, as suas diferenças de pontuações ajudam a estimar quem vai ganhar/empatar/perder, e com que frequência. Dizer \"Eu tenho uma pontuação de X.\" não tem significado a não ser que existam outros jogadores com os quais possamos comparar as pontuações.</string>
   <string name="howToHideRatingWhilePlaying">Como é que posso esconder as pontuações enquanto jogo?</string>
-  <string name="enableZenMode">Ativando o modo zen nas %1$s ou clicando na tecla %2$s durante o jogo.</string>
+  <string name="enableZenMode">Ativando o modo zen nas %1$s ou clicando na tecla %2$s durante a partida.</string>
   <string name="displayPreferences">definições de apresentação</string>
+  <string name="connexionLostCanIGetMyRatingBack">Perdi uma partida por atraso/desconexão. Posso ter a minha pontuação de volta?</string>
 </resources>
