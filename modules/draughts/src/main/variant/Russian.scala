@@ -2,7 +2,7 @@ package draughts
 package variant
 
 case object Russian extends Variant(
-  id = 1,
+  id = 11,
   gameType = 25,
   key = "russian",
   name = "Russian",

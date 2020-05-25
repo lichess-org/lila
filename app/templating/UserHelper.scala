@@ -27,7 +27,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType.Frisian,
     PerfType.Frysk,
     PerfType.Antidraughts,
-    PerfType.Breakthrough
+    PerfType.Breakthrough,
+    PerfType.Russian
   )
 
   def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char)(implicit ctx: Context): Frag =

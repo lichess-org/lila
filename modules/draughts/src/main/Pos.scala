@@ -252,7 +252,7 @@ object Pos100 extends BoardPos {
 
   private[this] def createPos(x: Int, y: Int): Pos100 = {
     val pos = new Pos100(x, y)
-    posCache(pos.fieldNumber) = Some(pos)
+    posCache(pos.hashCode) = Some(pos)
     pos
   }
 
@@ -434,7 +434,7 @@ object Pos64 extends BoardPos {
 
   private[this] def createPos(x: Int, y: Int): Pos64 = {
     val pos = new Pos64(x, y)
-    posCache(pos.fieldNumber) = Some(pos)
+    posCache(pos.hashCode) = Some(pos)
     pos
   }
 

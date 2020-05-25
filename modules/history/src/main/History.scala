@@ -9,6 +9,7 @@ case class History(
     frysk: RatingsMap,
     antidraughts: RatingsMap,
     breakthrough: RatingsMap,
+    russian: RatingsMap,
     ultraBullet: RatingsMap,
     bullet: RatingsMap,
     blitz: RatingsMap,
@@ -29,6 +30,7 @@ case class History(
     case PerfType.Frysk => frysk
     case PerfType.Antidraughts => antidraughts
     case PerfType.Breakthrough => breakthrough
+    case PerfType.Russian => russian
     case PerfType.Puzzle => puzzle(Standard)
     case PerfType.PuzzleFrisian => puzzle(Frisian)
     case PerfType.UltraBullet => ultraBullet
@@ -57,6 +59,7 @@ object History {
         frysk = ratingsMap("frysk"),
         antidraughts = ratingsMap("antidraughts"),
         breakthrough = ratingsMap("breakthrough"),
+        russian = ratingsMap("russian"),
         ultraBullet = ratingsMap("ultraBullet"),
         bullet = ratingsMap("bullet"),
         blitz = ratingsMap("blitz"),

@@ -123,7 +123,7 @@ object DataForm {
   }
   val positionDefault = StartingPosition.initial.fen
 
-  val validVariants = List(Standard, Frisian, Frysk, Antidraughts, Breakthrough)
+  val validVariants = List(Standard, Frisian, Frysk, Antidraughts, Breakthrough, Russian)
 
   def guessVariant(from: String): Option[Variant] = validVariants.find { v =>
     v.key == from || parseIntOption(from).exists(v.id ==)
