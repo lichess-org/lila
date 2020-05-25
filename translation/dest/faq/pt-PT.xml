@@ -28,5 +28,15 @@
   <string name="youCannotApply">Não possível candidatar-se a moderador. Se virmos alguém que consideramos que seria um bom moderador, contactá-lo(a)-emos diretamente.</string>
   <string name="isCorrespondenceDifferent">Os jogos por correspondência são diferentes do xadrez normal?</string>
   <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos de correspondência é que é permitido utilizar um livro de aberturas. A utilização da ajuda de computadores continua a ser proibida e utilizá-la resultará em ser marcado por utilizar a ajuda de computador. Embora a ICCF permita a utilização de computadores, o Lichess não o permite.</string>
-  <string name="gameplay">Modo de Jogo</string>
+  <string name="gameplay">Jogabilidade</string>
+  <string name="howBulletBlitzEtcDecided">Como é que Bullet, Blitz e outros controlos de tempo são decididos?</string>
+  <string name="basedOnGameDuration">Os controlos de tempo do Lichess baseiam-se na duração estimada do jogo = %1$s
+Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segundos.</string>
+  <string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
+  <string name="whatVariantsCanIplay">Que variantes posso jogar no Lichess?</string>
+  <string name="lichessSupportChessAnd">O Lichess suporta o xadrez normal e %1$s.</string>
+  <string name="eightVariants">8 variantes de xadrez</string>
+  <string name="whatIsACPL">O que é a perda média de centésimas de peão (ACPL)?</string>
 </resources>
