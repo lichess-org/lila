@@ -137,4 +137,13 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
   <string name="enableZenMode">Ativando o modo zen nas %1$s ou clicando na tecla %2$s durante a partida.</string>
   <string name="displayPreferences">definições de apresentação</string>
   <string name="connexionLostCanIGetMyRatingBack">Perdi uma partida por atraso/desconexão. Posso ter a minha pontuação de volta?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Infelizmente, não podemos devolver a pontuação de partidas perdidas por atraso/desconexão, quer o problema tenha sido da tua parte ou da nossa parte. No entanto, o último é muito raro. Nota também que, quando o Lichess reinicia e perdes um jogo por tempo por causa disso, nós abortamos o jogo para evitar uma derrota injusta.</string>
+  <string name="howToThreeDots">Como é que...</string>
+  <string name="enableDisableNotificationPopUps">Ativo ou desativo as notificações pop-up?</string>
+  <string name="viewSiteInformationPopUp">Vejo a informação pop-up do site</string>
+  <string name="lichessCanOptionnalySendPopUps">O Lichess pode enviar notificações pop-up opcionalmente, por exemplo, quando é tua vez ou quando recebeste uma mensagem privada.
+
+Clica no ícone de cadeado ao lado do endereço lichess.org na barra de URL do teu navegador.
+
+De seguida, seleciona se quereres permitir ou bloquear as notificações do Lichess.</string>
 </resources>
