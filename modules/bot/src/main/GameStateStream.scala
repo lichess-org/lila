@@ -10,7 +10,7 @@ import lila.chat.Chat
 import lila.chat.UserLine
 import lila.common.Bus
 import lila.game.actorApi.{ AbortedBy, FinishGame, MoveGameEvent }
-import lila.game.Game
+import lila.game.{ Game, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.BotConnected
 import lila.round.actorApi.round.QuietFlag
@@ -29,7 +29,11 @@ final class GameStateStream(
 
   def apply(init: Game.WithInitialFen, as: chess.Color, u: lila.user.User)(implicit
       lang: Lang
-  ): Source[Option[JsObject], _] =
+  ): Source[Option[JsObject], _] = {
+
+    // kill previous one if any
+    Bus.publish(PoisonPill, uniqChan(init.game pov as))
+
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(
         Props(mkActor(init, as, User(u.id, u.isBot), queue)),
@@ -39,6 +43,9 @@ final class GameStateStream(
         actor ! PoisonPill
       }
     }
+  }
+
+  private def uniqChan(pov: Pov) = s"gameStreamFor:${pov.fullId}"
 
   private def mkActor(
       init: Game.WithInitialFen,
@@ -57,6 +64,7 @@ final class GameStateStream(
         s"boardDrawOffer:${id}",
         "finishGame",
         "abortGame",
+        uniqChan(init.game pov as),
         Chat chanOf Chat.Id(id)
       ) :::
         user.isBot.option(Chat chanOf Chat.Id(s"$id/w")).toList

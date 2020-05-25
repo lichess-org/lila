@@ -17,13 +17,6 @@ final class PlayApi(
 
   implicit private def autoReqLang(implicit req: RequestHeader) = reqLang(req)
 
-  private val BotGameStreamConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
-    name = "Bot game API concurrency per user",
-    key = "botGame.concurrency.limit.user",
-    ttl = 20.minutes,
-    maxConcurrency = 8
-  )
-
   // bot endpoints
 
   def botGameStream(id: String) =
@@ -76,9 +69,7 @@ final class PlayApi(
 
     def gameStream(me: UserModel, pov: Pov)(implicit lang: Lang) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
-        BotGameStreamConcurrencyLimitPerUser(me.id)(
-          env.bot.gameStateStream(wf, pov.color, me)
-        )(apiC.sourceToNdJsonOption)
+        apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color, me))
       }
 
     def move(me: UserModel, pov: Pov, uci: String, offeringDraw: Option[Boolean]) =

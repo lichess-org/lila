@@ -56,6 +56,7 @@ final class EventStream(
       )
 
       var lastSetSeenAt = me.seenAt | me.createdAt
+      var online        = true
 
       override def preStart(): Unit = {
         super.preStart()
@@ -66,6 +67,7 @@ final class EventStream(
         super.postStop()
         Bus.unsubscribe(self, classifiers)
         queue.complete()
+        online = false
       }
 
       self ! SetOnline
@@ -81,9 +83,11 @@ final class EventStream(
           }
 
           context.system.scheduler.scheduleOnce(6 second) {
-            // gotta send a message to check if the client has disconnected
-            queue offer None
-            self ! SetOnline
+            if (online) {
+              // gotta send a message to check if the client has disconnected
+              queue offer None
+              self ! SetOnline
+            }
           }
 
         case StartGame(game) => queue offer toJson(game).some
