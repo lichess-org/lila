@@ -123,4 +123,10 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
   <string name="ratingDeviationMorethanOneHundredTen">Concretamente, significa que o desvio do Glicko-2 é maior do que 110. O desvio é o nível de confiança que o sistema tem na pontuação. Quando mais baixo for o desvio, mais estável é a pontuação.</string>
   <string name="howDoLeaderoardsWork">Como é que funcionam as posições e as tabelas de liderança?</string>
   <string name="inOrderToAppearsYouMust">Para entrares na %1$s, tens de:</string>
+  <string name="ratingLeaderboards">tabela de liderança</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">ter jogado pelo menos 30 partidas a valer pontos num dado modo,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">ter jogado uma partida a valer pontos na última semana nesse modo,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">ter um desvio de pontuação menor que %1$s no xadrez normal e menor que %2$s nas variantes,</string>
+  <string name="beInTopTen">estar entre os 10 melhores (que satisfazem as condições acima) nesse modo.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">O segundo requisito é para que jogadores que já não usam as suas contas não estejam a preencher as tabelas de liderança.</string>
 </resources>
