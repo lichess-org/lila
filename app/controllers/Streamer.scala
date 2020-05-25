@@ -96,10 +96,17 @@ final class Streamer(
                 api.update(sws.streamer, data, isGranted(_.Streamers)) flatMap { change =>
                   change.list foreach { env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
                   change.feature foreach { env.mod.logApi.streamerFeature(lila.report.Mod(me), s.user.id, _) }
-                  data.approval.flatMap(_.quick).isDefined.??(env.streamer.pager.nextRequestId) map {
-                    nextId =>
-                      val next = if (sws.streamer is me) "" else s"?u=${nextId.fold(sws.user.id)(_.value)}"
-                      Redirect(s"${routes.Streamer.edit().url}${next}")
+                  if (data.approval.flatMap(_.quick).isDefined)
+                    env.streamer.pager.nextRequestId map { nextId =>
+                      Redirect {
+                        nextId.fold(s"${routes.Streamer.index()}?requests=1") { id =>
+                          s"${routes.Streamer.edit().url}?u=$id"
+                        }
+                      }
+                    }
+                  else {
+                    val next = if (sws.streamer is me) "" else s"?u=${sws.user.id}"
+                    Redirect(s"${routes.Streamer.edit().url}${next}").fuccess
                   }
                 }
             )
