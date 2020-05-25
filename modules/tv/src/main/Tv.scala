@@ -121,6 +121,12 @@ object Tv {
       secondsSinceLastMove = freshBlitz,
       filters = Seq(variant(V.Breakthrough), noBot)
     )
+    case object Russian extends Channel(
+      name = V.Russian.name,
+      icon = P.Russian.iconChar.toString,
+      secondsSinceLastMove = freshBlitz,
+      filters = Seq(variant(V.Russian), noBot)
+    )
     case object UltraBullet extends Channel(
       name = S.UltraBullet.name,
       icon = P.UltraBullet.iconChar.toString,

@@ -34,6 +34,7 @@ final class HistoryApi(coll: Coll) {
       game.ratingVariant.frysk.option("frysk" -> perfs.frysk),
       game.ratingVariant.antidraughts.option("antidraughts" -> perfs.antidraughts),
       game.ratingVariant.breakthrough.option("breakthrough" -> perfs.breakthrough),
+      game.ratingVariant.russian.option("russian" -> perfs.russian),
       (isStd && game.speed == Speed.UltraBullet).option("ultraBullet" -> perfs.ultraBullet),
       (isStd && game.speed == Speed.Bullet).option("bullet" -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz" -> perfs.blitz),

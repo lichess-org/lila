@@ -24,6 +24,7 @@ abstract class Variant private[variant] (
   def frysk = this == Frysk
   def antidraughts = this == Antidraughts
   def breakthrough = this == Breakthrough
+  def russian = this == Russian
   def fromPosition = this == FromPosition
 
   def frisianVariant = frisian || frysk

@@ -114,7 +114,8 @@ trait BaseConfig {
       draughts.variant.Frisian.id :+
       draughts.variant.Frysk.id :+
       draughts.variant.Antidraughts.id :+
-      draughts.variant.Breakthrough.id
+      draughts.variant.Breakthrough.id :+
+      draughts.variant.Russian.id
   val variantsWithFenAndVariants =
     variantsWithVariants :+ FromPosition.id
 

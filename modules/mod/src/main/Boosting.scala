@@ -22,7 +22,8 @@ final class BoostingApi(
     variant.Frisian,
     variant.Frysk,
     variant.Antidraughts,
-    variant.Breakthrough
+    variant.Breakthrough,
+    variant.Russian
   )
 
   def getBoostingRecord(id: String): Fu[Option[BoostingRecord]] =

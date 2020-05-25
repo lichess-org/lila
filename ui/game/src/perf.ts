@@ -9,6 +9,7 @@ export const perf = {
     frisian: "'",
     frysk: "_",
     antidraughts: "@",
-    breakthrough: ""
+    breakthrough: "",
+    russian: ""
   }
 };

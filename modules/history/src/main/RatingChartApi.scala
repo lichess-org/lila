@@ -41,7 +41,7 @@ final class RatingChartApi(
       lidraughts.common.String.html.safeJsonValue {
         Json.toJson {
           import lidraughts.rating.PerfType._
-          List(Bullet, Blitz, Rapid, Classical, Correspondence, Frisian, Frysk, Antidraughts, Breakthrough, Puzzle, PuzzleFrisian, UltraBullet) map { pt =>
+          List(Bullet, Blitz, Rapid, Classical, Correspondence, Frisian, Frysk, Antidraughts, Breakthrough, Russian, Puzzle, PuzzleFrisian, UltraBullet) map { pt =>
             Json.obj(
               "name" -> pt.name,
               "points" -> ratingsMapToJson(user, history(pt))

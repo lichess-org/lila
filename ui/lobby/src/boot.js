@@ -250,6 +250,8 @@ module.exports = function(cfg, element) {
           break;
         case '9':
           key = 'breakthrough'
+        case '11':
+          key = 'russian'
           break;
       }
       $ratings.hide().filter('.' + key).show();
