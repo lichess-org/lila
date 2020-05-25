@@ -18,10 +18,14 @@ final class Lobby(
   )
 
   def home =
-    OpenCache { implicit ctx =>
+    Open { implicit ctx =>
       pageHit
       negotiate(
-        html = keyPages.home(Results.Ok).dmap(NoCache),
+        html = env.pageCache { () =>
+          keyPages.homeHtml.dmap { html =>
+            NoCache(Ok(html))
+          }
+        } dmap env.lilaCookie.ensure(ctx.req),
         api = _ =>
           fuccess {
             val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config

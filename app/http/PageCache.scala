@@ -6,24 +6,21 @@ import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.common.HTTPRequest
+import lila.api.Context
 import lila.i18n.I18nLangPicker
 
 final class PageCache(security: lila.security.SecurityApi, cacheApi: lila.memo.CacheApi) {
 
-  private val cache = cacheApi.notLoading[String, Result](32, "pageCache") {
+  private val cache = cacheApi.notLoading[String, Result](16, "pageCache") {
     _.expireAfterWrite(1.seconds).buildAsync()
   }
 
-  def apply(req: RequestHeader)(compute: () => Fu[Result]): Fu[Result] =
-    qualifiesWithLang(req).fold(compute()) { lang =>
-      cache.getFuture(s"${HTTPRequest actionName req}($lang)", _ => compute())
-    }
-
-  private def qualifiesWithLang(req: RequestHeader): Option[String] =
-    security.reqSessionId(req).isEmpty ?? {
-      val lang = I18nLangPicker(req).language
-      langs(lang) option lang
-    }
+  def apply(compute: () => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    if (ctx.isAnon && langs(ctx.lang.language)) {
+      val cacheKey = s"${HTTPRequest actionName ctx.req}(${ctx.lang.language})"
+      cache.getFuture(cacheKey, _ => compute())
+    } else
+      compute()
 
   private val langs =
     Set("en", "ru", "tr", "de", "es", "fr", "pt", "it", "pl", "ar", "fa", "id", "nl", "nb", "sv")

@@ -105,13 +105,6 @@ abstract private[controllers] class LilaController(val env: Env)
       reqToCtx(req) flatMap f
     }
 
-  protected def OpenCache(f: Context => Fu[Result]): Action[Unit] =
-    Action.async(parse.empty) { req =>
-      env.pageCache(req) { () =>
-        handleOpen(f, req)
-      }
-    }
-
   protected def AnonOrScoped(selectors: OAuthScope.Selector*)(
       anon: RequestHeader => Fu[Result],
       scoped: RequestHeader => UserModel => Fu[Result]
