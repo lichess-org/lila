@@ -2,15 +2,22 @@ package draughts
 
 import scala.collection.breakOut
 
-sealed trait Pos {
-  val piotr: Char;
-  val piotrStr: String;
-  val key: String;
-  val shortKey: String;
-  val fieldNumber: Int;
+sealed abstract class Pos(val fieldNumber: Int) {
+
+  val piotr = Piotr.byField(fieldNumber)
+  val key = f"${fieldNumber}%02d"
+  val shortKey = fieldNumber.toString
+  val piotrStr = piotr.toString
+
+  override val toString = key
+  override val hashCode = fieldNumber - 1
+  override def equals(other: Any) = other match {
+    case u: Pos => fieldNumber == u.fieldNumber
+    case _ => false
+  }
 }
 
-sealed trait PosMotion extends Pos {
+sealed abstract class PosMotion(field: Int) extends Pos(field) {
   val x: Int;
   val y: Int;
   val moveDownLeft: Option[PosMotion];
@@ -23,13 +30,10 @@ sealed trait PosMotion extends Pos {
   val moveRight: Option[PosMotion];
 }
 
-sealed case class Pos100 private (x: Int, y: Int) extends PosMotion {
+sealed case class Pos100 private (x: Int, y: Int) extends PosMotion(5 * (y - 1) + x) {
 
   import Pos100.{ posAt, movesDown, movesUp, movesHorizontal }
 
-  val fieldNumber = 5 * (y - 1) + x
-  val piotr = Piotr.byField(fieldNumber)
-
   lazy val moveDownLeft = movesDown.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
   lazy val moveDownRight = movesDown.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
   lazy val moveUpLeft = movesUp.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
@@ -39,22 +43,12 @@ sealed case class Pos100 private (x: Int, y: Int) extends PosMotion {
   lazy val moveUp = movesUp.get(fieldNumber).map(_(2)).filter(_ > 0) flatMap posAt
   lazy val moveLeft = movesHorizontal.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
   lazy val moveRight = movesHorizontal.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
-
-  val key = f"${fieldNumber}%02d"
-  val shortKey = fieldNumber.toString
-  val piotrStr = piotr.toString
-
-  override val toString = key
-  override val hashCode = fieldNumber - 1
 }
 
-sealed case class Pos64 private (x: Int, y: Int) extends PosMotion {
+sealed case class Pos64 private (x: Int, y: Int) extends PosMotion(4 * (y - 1) + x) {
 
   import Pos64.{ posAt, movesDown, movesUp, movesHorizontal }
 
-  val fieldNumber = 4 * (y - 1) + x
-  val piotr = Piotr.byField(fieldNumber)
-
   lazy val moveDownLeft = movesDown.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
   lazy val moveDownRight = movesDown.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
   lazy val moveUpLeft = movesUp.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
@@ -64,13 +58,6 @@ sealed case class Pos64 private (x: Int, y: Int) extends PosMotion {
   lazy val moveUp = movesUp.get(fieldNumber).map(_(2)).filter(_ > 0) flatMap posAt
   lazy val moveLeft = movesHorizontal.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
   lazy val moveRight = movesHorizontal.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
-
-  val key = f"${fieldNumber}%02d"
-  val shortKey = fieldNumber.toString
-  val piotrStr = piotr.toString
-
-  override val toString = key
-  override val hashCode = fieldNumber - 1
 }
 
 sealed trait BoardPos {
