@@ -225,13 +225,13 @@ em dois movimentos!</string>
   <string name="outstanding">Excecional!</string>
   <string name="wayToGo">Boa!</string>
   <string name="yesYesYes">Sim, sim, sim!</string>
-  <string name="youreGoodAtThis">Tu és bom nisto!</string>
-  <string name="nailedIt">Acertou em cheio.</string>
-  <string name="rightOn">Certeiro!</string>
-  <string name="stageXComplete">Estágio %s completo</string>
+  <string name="youreGoodAtThis">És bom nisto!</string>
+  <string name="nailedIt">Acertaste em cheio.</string>
+  <string name="rightOn">Assim mesmo!</string>
+  <string name="stageXComplete">Fase %s completa</string>
   <string name="yourScore">A tua pontuação</string>
   <string name="next">Seguinte</string>
   <string name="backToMenu">Voltar ao menu</string>
   <string name="puzzleFailed">Exercício falhado!</string>
-  <string name="retry">De novo</string>
+  <string name="retry">Tentar novamente</string>
 </resources>
