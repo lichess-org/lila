@@ -47,4 +47,11 @@ Este valor pode ser utilizado como indicador da qualidade do jogo. Quando menos 
 
 A análise de xadrez no Lichess é feita pelo Stockfish.</string>
   <string name="insufficientMaterial">Perder por tempo, empatar e material insuficiente</string>
+  <string name="lichessFollowFIDErules">No caso de um jogador ficar sem tempo, geralmente, esse jogador perderá o jogo. Contudo, o jogo é empatado se a posição for uma tal que o oponente não consegue fazer xeque-mate por qualquer sequência legal de movimentos (%1$s).
+
+Em casos raros, isto pode ser difícil de detetar automaticamente (linhas forçadas, fortalezas). Por norma, ficamos sempre do lado do jogador que não ficou sem tempo.
+
+Nota que pode ser possível fazer xeque-mate somente com um cavalo ou bispo, se o oponente tiver uma peça que possa bloquear o seu rei.</string>
+  <string name="linkToFIDErules">manual da FIDE §6.9, PDF</string>
+  <string name="discoveringEnPassant">Por que é que um peão captura outro quando ele já passou? (en passant)</string>
 </resources>
