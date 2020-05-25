@@ -69,7 +69,7 @@ export const posToTranslateAbs = (bounds: ClientRect, boardSize: cg.BoardSize) =
 };
 
 export const posToTranslateRel = (boardSize: cg.BoardSize) => {
-  return (pos: cg.Pos, asWhite: boolean, shift: number) => posToTranslateBase(pos, boardSize, asWhite, boardSize[0] * 2, boardSize[1], shift);
+  return (pos: cg.Pos, asWhite: boolean, shift: number) => posToTranslateBase(pos, boardSize, asWhite, 2 * 100 / boardSize[0], 100 / boardSize[1], shift);
 }
 /**
  * Modifies dom element style with asolute value (translate attribute, amount of pixels)

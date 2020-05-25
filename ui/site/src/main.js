@@ -193,10 +193,12 @@
       var lastMove = lm && [lm.slice(-4, -2), lm.slice(-2)];
       var color = $this.data('color') || lidraughts.readServerFen($(this).data('y'));
       var ground = $this.data('draughtsground');
+      var board = $this.data('board');
       var playable = !!$this.data('playable');
       var resizable = !!$this.data('resizable');
       var config = {
         coordinates: 0,
+        boardSize: board ? board.split('x').map(s => parseInt(s)) : undefined,
         viewOnly: !playable,
         resizable: resizable,
         fen: $this.data('fen') || lidraughts.readServerFen($this.data('z')),

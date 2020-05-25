@@ -20,12 +20,13 @@ export default function(ctrl: LobbyController) {
         key: pov.gameId,
         attrs: { href: '/' + pov.fullId }
       }, [
-        h('div.mini-board.cg-wrap.is2d.is' + pov.variant.board, {
+        h('div.mini-board.cg-wrap.is2d.is' + pov.variant.board.key, {
           hook: {
             insert(vnode) {
               const lm = String(pov.lastMove);
               Draughtsground(vnode.elm as HTMLElement, {
                 coordinates: 0,
+                boardSize: pov.variant.board.size,
                 drawable: { enabled: false, visible: false },
                 resizable: false,
                 viewOnly: true,

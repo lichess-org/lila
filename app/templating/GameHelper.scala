@@ -13,8 +13,6 @@ import lidraughts.user.{ User, UserContext, Title }
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with DraughtsgroundHelper =>
 
   private val dataLive = attr("data-live")
-  private val dataColor = attr("data-color")
-  private val dataFen = attr("data-fen")
   private val dataLastmove = attr("data-lastmove")
   private val dataResult = attr("data-result")
 
@@ -231,8 +229,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val cssClass = isLive ?? ("live mini-board-" + game.id)
     val variant = game.variant.key
     val tag = if (withLink) a else span
-    val boardSize = s"is${pov.game.variant.boardSize.key}"
-    val classes = s"mini-board mini-board-${game.id} cg-wrap parse-fen is2d $boardSize $cssClass $variant"
+    val boardClass = s"is${pov.game.variant.boardSize.key}"
+    val boardSize = s"${pov.game.variant.boardSize.width}x${pov.game.variant.boardSize.height}"
+    val classes = s"mini-board mini-board-${game.id} cg-wrap parse-fen is2d $boardClass $cssClass $variant"
     tag(
       href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
       title := withTitle.option(gameTitle(game, pov.color)),
@@ -240,6 +239,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       dataLive := isLive.option(game.id),
       dataColor := pov.color.name,
       dataFen := Forsyth.exportBoard(game.board),
+      dataBoard := boardSize,
       dataLastmove := ~game.lastMoveKeys,
       dataResult := withResult.option(game.resultChar)
     )(cgWrapContent)
@@ -248,17 +248,19 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def gameFenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false): Frag = {
     val isLive = pov.game.isBeingPlayed
     val variant = pov.game.variant.key
-    val boardSize = s"is${pov.game.variant.boardSize.key}"
+    val boardClass = s"is${pov.game.variant.boardSize.key}"
+    val boardSize = s"${pov.game.variant.boardSize.width}x${pov.game.variant.boardSize.height}"
     a(
       href := (if (tv) routes.Tv.index() else routes.Round.watcher(pov.gameId, pov.color.name)),
       title := gameTitle(pov.game, pov.color),
       cls := List(
-        s"mini-board mini-board-${pov.gameId} cg-wrap parse-fen is2d $boardSize $variant" -> true,
+        s"mini-board mini-board-${pov.gameId} cg-wrap parse-fen is2d $boardClass $variant" -> true,
         s"live mini-board-${pov.gameId}" -> isLive
       ),
       dataLive := isLive.option(pov.gameId),
       dataColor := pov.color.name,
       dataFen := Forsyth.exportBoard(pov.game.board),
+      dataBoard := boardSize,
       dataLastmove := ~pov.game.lastMoveKeys,
       target := blank.option("_blank")
     )(cgWrapContent)

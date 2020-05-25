@@ -16,6 +16,7 @@ object bits {
     cls := s"mini-board cg-wrap parse-fen is2d is${p.variant.boardSize.key}",
     dataColor := p.color.name,
     dataFen := fen,
+    dataBoard := s"${p.variant.boardSize.width}x${p.variant.boardSize.height}",
     dataLastmove := lastMove
   )(cgWrapContent)
 
