@@ -29,7 +29,7 @@ final private[setup] class Processor(
   }
 
   def apiAi(config: ApiAiConfig, me: User): Fu[Pov] = {
-    val pov = config.autoVariant pov me.some
+    val pov = config pov me.some
     (gameRepo insertDenormalized pov.game) >>-
       onStart(pov.gameId) >> {
       pov.game.player.isAi ?? fishnetPlayer(pov.game)

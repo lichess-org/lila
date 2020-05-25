@@ -81,5 +81,5 @@ object ApiAiConfig extends BaseConfig {
       color = Color.orDefault(~c),
       level = l,
       fen = pos map FEN
-    )
+    ).autoVariant
 }
