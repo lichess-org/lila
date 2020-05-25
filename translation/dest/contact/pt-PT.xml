@@ -61,4 +61,10 @@
   <string name="reportErrorPage">Se encontras uma página de erro, podes reportá-lo:</string>
   <string name="banAppeal">Apelar a um banimento ou restrição de IP</string>
   <string name="engineAppeal">Marcado por fazer batota ou usar a ajuda do computador</string>
+  <string name="sendAppealTo">Podes enviar um apelo para %s.</string>
+  <string name="falsePositives">Às vezes ocorrem marcações incorretas, e lamentamos que isso aconteça.</string>
+  <string name="ifLegit">Se o teu apelo for legítimo, levantaremos o banimento o mais rápido possível.</string>
+  <string name="accountLost">No entanto, se usaste assistência de computador, mesmo que só uma vez, a tua conta está perdida, infelizmente.</string>
+  <string name="doNotDeny">Não negues ter feito batota. Se quiseres ter permissão para criar uma nova conta, simplesmente admite o que fizeste, e mostra que compreendeste que foi um erro.</string>
+  <string name="otherRestriction">Outra restrição</string>
 </resources>
