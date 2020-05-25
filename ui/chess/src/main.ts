@@ -12,7 +12,7 @@ export function decomposeUci(uci: Uci): [Key, Key, string] {
 
 export function renderEval(e: number): string {
   e = Math.max(Math.min(Math.round(e / 10) / 10, 99), -99);
-  return (e > 0 ? '+' : '') + e;
+  return (e > 0 ? '+' : '') + e.toFixed(1);
 }
 
 export interface Dests {
