@@ -61,7 +61,6 @@ sealed case class Pos64 private (x: Int, y: Int) extends PosMotion(4 * (y - 1) +
 }
 
 sealed trait BoardPos {
-  val boardKey: String;
   val all: List[PosMotion];
   def posAt(x: Int, y: Int): Option[PosMotion];
   def posAt(field: Int): Option[PosMotion];
@@ -300,7 +299,6 @@ object Pos100 extends BoardPos {
 
   val allPiotrs: Map[Char, PosMotion] = all.map { pos => pos.piotr -> pos }(breakOut)
 
-  val boardKey = "100"
 }
 
 object Pos64 extends BoardPos {
@@ -464,5 +462,4 @@ object Pos64 extends BoardPos {
 
   val allPiotrs: Map[Char, PosMotion] = all.map { pos => pos.piotr -> pos }(breakOut)
 
-  val boardKey = "64"
 }

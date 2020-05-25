@@ -178,11 +178,17 @@ declare type Ply = number;
 
 interface Variant {
   key: VariantKey
-  board: string
+  board: BoardData
   name: string
   short: string
   title?: string
   gameType?: string
+}
+
+declare type BoardSize = [number, number]
+interface BoardData {
+  key: string
+  size: BoardSize
 }
 
 interface Paginator<A> {

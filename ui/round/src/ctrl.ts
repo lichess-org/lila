@@ -158,7 +158,7 @@ export default class RoundController {
       this.moveOn.timeOutGame(0);
   };
 
-  private onMove = (_: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
+  private onMove = (_orig: cg.Key, _dest: cg.Key, captured?: cg.Piece) => {
     if (captured) sound.capture();
     else sound.move();
   };

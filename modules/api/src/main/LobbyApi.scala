@@ -46,7 +46,10 @@ final class LobbyApi(
     "variant" -> Json.obj(
       "key" -> pov.game.variant.key,
       "name" -> pov.game.variant.name,
-      "board" -> pov.game.variant.boardSize.key
+      "board" -> Json.obj(
+        "key" -> pov.game.variant.boardSize.key,
+        "size" -> pov.game.variant.boardSize.sizes
+      )
     ),
     "speed" -> pov.game.speed.key,
     "perf" -> lidraughts.game.PerfPicker.key(pov.game),

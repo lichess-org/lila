@@ -77,7 +77,10 @@ object JsonView {
       "name" -> v.name,
       "short" -> v.shortName,
       "gameType" -> v.gameType,
-      "board" -> v.boardSize.key
+      "board" -> Json.obj(
+        "key" -> v.boardSize.key,
+        "size" -> v.boardSize.sizes
+      )
     )
   }
 

@@ -53,7 +53,7 @@ export function main(ctrl: RoundController): VNode {
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
 
-  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app.variant-' + d.game.variant.key, {
+  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app.variant-' + d.game.variant.key + '.is' + ctrl.data.game.variant.board.key, {
     class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) },
     hook: util.onInsert(gridHacks.start)
   }, [

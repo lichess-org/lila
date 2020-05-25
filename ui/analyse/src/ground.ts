@@ -47,7 +47,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     couldDraw = !window.lidraughts.hasTouchEvents;
   const config = {
     turnColor: opts.turnColor,
-    boardSize: (d.game.variant.board === '64' ? [8, 8] : [10, 10]) as cg.BoardSize, // TODO: key -> size?
+    boardSize: d.game.variant.board.size,
     fen: opts.fen,
     lastMove: opts.lastMove,
     captureLength: opts.captureLength,

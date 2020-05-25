@@ -161,7 +161,8 @@ object Board {
       val width: Int,
       val height: Int
   ) {
-    def key = pos.boardKey
+    val key = (width * height).toString
+    val sizes = List(width, height)
 
     val fields = (width * height) / 2
     val promotableYWhite = 1
