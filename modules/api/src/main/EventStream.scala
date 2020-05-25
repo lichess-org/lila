@@ -28,7 +28,11 @@ final class EventStream(
       me: User,
       gamesInProgress: List[Game],
       challenges: List[Challenge]
-  ): Source[Option[JsObject], _] =
+  ): Source[Option[JsObject], _] = {
+
+    // kill previous one if any
+    Bus.publish(PoisonPill, s"eventStreamFor:${me.id}")
+
     blueprint mapMaterializedValue { queue =>
       gamesInProgress map toJson map some foreach queue.offer
       challenges map toJson map some foreach queue.offer
@@ -39,6 +43,7 @@ final class EventStream(
         actor ! PoisonPill
       }
     }
+  }
 
   private def mkActor(me: User, queue: SourceQueueWithComplete[Option[JsObject]]) =
     new Actor {
@@ -46,6 +51,7 @@ final class EventStream(
       val classifiers = List(
         s"userStartGame:${me.id}",
         s"rematchFor:${me.id}",
+        s"eventStreamFor:${me.id}",
         "challenge"
       )
 
@@ -59,6 +65,7 @@ final class EventStream(
       override def postStop() = {
         super.postStop()
         Bus.unsubscribe(self, classifiers)
+        queue.complete()
       }
 
       self ! SetOnline

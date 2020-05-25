@@ -310,19 +310,11 @@ final class Api(
     jsonStreamWithKeepAlive(env.game.gamesByUsersStream(userIds))(req).fuccess
   }
 
-  private val EventStreamConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
-    name = "Event Stream API concurrency per user",
-    key = "eventStream.concurrency.limit.user",
-    ttl = 20.minutes,
-    maxConcurrency = 1
-  )
   def eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ => me =>
       env.round.proxyRepo.urgentGames(me) flatMap { povs =>
         env.challenge.api.createdByDestId(me.id) map { challenges =>
-          EventStreamConcurrencyLimitPerUser(me.id)(
-            env.api.eventStream(me, povs.map(_.game), challenges)
-          )(sourceToNdJsonOption)
+          sourceToNdJsonOption(env.api.eventStream(me, povs.map(_.game), challenges))
         }
       }
     }
