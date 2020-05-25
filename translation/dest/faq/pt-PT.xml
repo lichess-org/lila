@@ -130,4 +130,10 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
   <string name="beInTopTen">estar entre os 10 melhores (que satisfazem as condições acima) nesse modo.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">O segundo requisito é para que jogadores que já não usam as suas contas não estejam a preencher as tabelas de liderança.</string>
   <string name="whyAreRatingHigher">Por que é que as pontuações são maiores quando comparadas a outros sites e organizações como por exemplo, FIDE, USCF e ICC?</string>
+  <string name="whyAreRatingHigherExplanation">É melhor não pensar nas pontuações como números absolutos, ou compará-las com outras organizações. Organizações diferentes tem níveis diferentes de jogadores, diferentes sistemas de pontuação (Elo, Glicko, Glicko-2, ou uma versão modificada dos supracitados). Estes fatores afetam os número absolutos (pontuações).
+
+É melhor pensar nas pontuações como valores \"relativos\" (em vez de valores \"absolutos\"): numa amostra de jogadores, as suas diferenças de pontuações ajudam a estimar quem vai ganhar/empatar/perder, e com que frequência. Dizer \"Eu tenho uma pontuação de X.\" não tem significado a não ser que existam outros jogadores com os quais possamos comparar as pontuações.</string>
+  <string name="howToHideRatingWhilePlaying">Como é que posso esconder as pontuações enquanto jogo?</string>
+  <string name="enableZenMode">Ativando o modo zen nas %1$s ou clicando na tecla %2$s durante o jogo.</string>
+  <string name="displayPreferences">definições de apresentação</string>
 </resources>
