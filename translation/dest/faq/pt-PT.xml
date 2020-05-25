@@ -80,4 +80,15 @@ Vê o %3$s deste lance para o praticares.</string>
   <string name="configure">configurar</string>
   <string name="accounts">Contas</string>
   <string name="titlesAvailableOnLichess">Que títulos existem no Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">O Lichess reconhece todos os título FIDE obtidos OTB (\"over the board\", em jogos presenciais), assim como %1$s.
+Aqui está uma lista dos títulos FIDE:</string>
+  <string name="showYourTitle">Se tiveres um título OTB, podes candidatar-te para que o tenhas mostrado na tua conta se completares este %1$s, incluindo uma imagem clara de uma documento/cartão identificativo e uma foto de ti a segurares nesse documento/cartão.
+
+Uma verificação como jogador com título no Lichess dá aceasso a jogar em eventos de Arena de Título.
+
+Finalmente, há um título honorário %2$s.</string>
+  <string name="asWellAsManyNMtitles">muitos títulos de mestres nacionais</string>
+  <string name="verificationForm">formulário de verificação</string>
+  <string name="canIbecomeLM">Posso obter o título de Mestre do Lichess (LM)?</string>
+  <string name="noUpperCaseDot">Não.</string>
 </resources>
