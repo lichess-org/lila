@@ -58,9 +58,11 @@ Nota que pode ser possível fazer xeque-mate somente com um cavalo ou bispo, se 
 
 É descrita na secção 3.7 (d) das %2$s:
 
-\"A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture.\"
-
-Um peão que ocupe uma casa na mesma linha e numa fila adjacente a um peão do oponente que acabou de avançar duas casas num movimento da sua casa original pode capturar este peão do oponente como se o último apenas tivesse avançado uma casa. Esta captura só é legal no movimento imediatamente após este avanço [do peão do oponente] e chama-se captura \'en passant\'.
+\"Um peão ocupando uma casa na mesma coluna adjacente ao peão do adversário
+que acaba de avançar duas casas num único lance vindo de sua casa original
+pode capturar este peão adversário como se aquele se tivesse movido apenas uma
+casa. Esta captura somente é legal no lance seguinte deste avanço e é chamada
+de captura \'na passagem\' ou \'en passant\';\"
 
 Vê o %3$s deste movimento para o praticares.</string>
   <string name="goodIntroduction">boa introdução</string>
@@ -69,4 +71,7 @@ Vê o %3$s deste movimento para o praticares.</string>
   <string name="threefoldRepetition">Repetição tripla</string>
   <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lichess implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 (d) do %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetição tripla</string>
+  <string name="handBookPDF">manual (PDF)</string>
+  <string name="notRepeatedMoves">Nós não repetimos lances. Por que é que o jogo foi empatado por repetição?</string>
+  <string name="repeatedPositionsThatMatters">A repetição tripla é sobre %1$s repetidas, não lances. A repetição não de ocorrer consecutivamente.</string>
 </resources>
