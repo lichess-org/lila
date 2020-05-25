@@ -54,4 +54,11 @@
   <string name="castlingImported">Se importaste o jogo, ou começaste a partir de uma posição, certifica-te que definiste corretamente os direitos de roque.</string>
   <string name="insufficientMaterial">Material insuficiente para fazer xeque-mate</string>
   <string name="fideMate">De acordo com as Leis do xadrez da FIDE §6.9, se um xeque-mate é possível com alguma sequência legal de movimentos, então o jogo não é um empate</string>
+  <string name="knightMate">É possível fazer xeque-mate apenas com um cavaleiro ou um bispo, se o adversário tiver mais do que um rei no tabuleiro.</string>
+  <string name="noRatingPoints">Não foram atribuídos pontos</string>
+  <string name="ratedGame">Certifica-te que jogaste uma partida a valer pontos. Jogos amigáveis não afetam as pontuações dos jogadores.</string>
+  <string name="errorPage">Página de erro</string>
+  <string name="reportErrorPage">Se encontras uma página de erro, podes reportá-lo:</string>
+  <string name="banAppeal">Apelar a um banimento ou restrição de IP</string>
+  <string name="engineAppeal">Marcado por fazer batota ou usar a ajuda do computador</string>
 </resources>
