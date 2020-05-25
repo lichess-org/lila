@@ -41,7 +41,7 @@ Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segu
   <string name="whatIsACPL">O que é a perda média de centésimas de peão (ACPL)?</string>
   <string name="acplExplanation">Uma centésima de peão é a unidade de medida usada no xadrez para a representação da vantagem. Uma centésima de peão é igual a 1/100 de um peão. Portanto, 100 centésimas de peão = 1 peão. Estes valores não têm um papel formal no jogo mas são úteis para os jogadores, e essenciais para muitos computadores de xadrez, para avaliar posições.
 
-A jogada considerada melhor, pelo computador corresponde a uma perda de zero centésimas de peão, mas movimentos mais \"fracos\" resultarão numa deterioração da posição, medida em centésimas de peão.
+O lance considerado melhor, pelo computador corresponde a uma perda de zero centésimas de peão, mas lances mais \"fracos\" resultarão numa deterioração da posição, medida em centésimas de peão.
 
 Este valor pode ser utilizado como indicador da qualidade do jogo. Quando menos centésimas de peão alguém perder por jogada, mais forte o jogo.
 
@@ -64,7 +64,7 @@ pode capturar este peão adversário como se aquele se tivesse movido apenas uma
 casa. Esta captura somente é legal no lance seguinte deste avanço e é chamada
 de captura \'na passagem\' ou \'en passant\';\"
 
-Vê o %3$s deste movimento para o praticares.</string>
+Vê o %3$s deste lance para o praticares.</string>
   <string name="goodIntroduction">boa introdução</string>
   <string name="officialRulesPDF">regras oficiais (PDF)</string>
   <string name="lichessTraining">treino do Lichess</string>
@@ -74,4 +74,10 @@ Vê o %3$s deste movimento para o praticares.</string>
   <string name="handBookPDF">manual (PDF)</string>
   <string name="notRepeatedMoves">Nós não repetimos lances. Por que é que o jogo foi empatado por repetição?</string>
   <string name="repeatedPositionsThatMatters">A repetição tripla é sobre %1$s repetidas, não lances. A repetição não de ocorrer consecutivamente.</string>
+  <string name="positions">posições</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Nós repetimos uma posição três vezes. Por que é que o jogo não foi empatado?</string>
+  <string name="threeFoldHasToBeClaimed">As repetições têm de ser reivindicadas por um dos jogadores. Podes fazê-lo clicando no botão que é mostrado, ou oferecendo empate antes do teu último lance que levaria à repetição tripla. Também podes %1$s o Lichess para que as repetições sejam reivindicadas automaticamente. Para além disso, repetições quíntuplas acabam o jogo imediatamente, sempre.</string>
+  <string name="configure">configurar</string>
+  <string name="accounts">Contas</string>
+  <string name="titlesAvailableOnLichess">Que títulos existem no Lichess?</string>
 </resources>
