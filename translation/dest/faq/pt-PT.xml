@@ -129,4 +129,5 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
   <string name="ratingDeviationLowerThanXinChessYinVariants">ter um desvio de pontuação menor que %1$s no xadrez normal e menor que %2$s nas variantes,</string>
   <string name="beInTopTen">estar entre os 10 melhores (que satisfazem as condições acima) nesse modo.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">O segundo requisito é para que jogadores que já não usam as suas contas não estejam a preencher as tabelas de liderança.</string>
+  <string name="whyAreRatingHigher">Por que é que as pontuações são maiores quando comparadas a outros sites e organizações como por exemplo, FIDE, USCF e ICC?</string>
 </resources>
