@@ -24,4 +24,10 @@
   <string name="losingStreak">Derrotas consecutivas</string>
   <string name="longestStreak">Sequência mais longa: %s</string>
   <string name="currentStreak">Sequência atual: %s</string>
+  <string name="bestRated">Vitórias com melhor classificação</string>
+  <string name="worstRated">Derrotas com pior classificação</string>
+  <string name="gamesInARow">Partidas jogadas de seguida</string>
+  <string name="lessThanOneHour">Menos que uma hora entre partidas</string>
+  <string name="maxTimePlaying">Tempo máximo passado a jogar</string>
+  <string name="now">agora</string>
 </resources>
