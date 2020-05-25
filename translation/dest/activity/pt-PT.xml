@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="activity">Actividade</string>
+  <string name="activity">Atividade</string>
   <string name="hostedALiveStream">Criou uma livestream</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Contribuiu para o lichess.org por %1$s meses como %2$s</item>
@@ -59,10 +59,10 @@
     <item quantity="other">Competiu em %s torneios</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Qualificado #%1$s (por cima dos %2$s%%) com %3$s jogo em %4$s</item>
-    <item quantity="other">Qualificado #%1$s (por cima dos %2$s%%) com %3$s jogos em %4$s</item>
+    <item quantity="one">Qualificado #%1$s (nos %2$s%% melhores) com %3$s jogo em %4$s</item>
+    <item quantity="other">Qualificado #%1$s (nos %2$s%% melhores) com %3$s jogos em %4$s</item>
   </plurals>
-  <string name="signedUp">Registado no lichess.org</string>
+  <string name="signedUp">Registou-se no lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Entrou na equipa %s</item>
     <item quantity="other">Entrou nas equipas %s</item>
