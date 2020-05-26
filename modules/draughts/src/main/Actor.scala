@@ -8,8 +8,6 @@ case class Actor(
     board: Board
 ) {
 
-  import Actor._
-
   lazy val validMoves: List[Move] = if (captures.nonEmpty) captures else noncaptures
   lazy val allMoves: List[Move] = captures ::: noncaptures
   lazy val noncaptures: List[Move] = noncaptureMoves()
@@ -21,6 +19,14 @@ case class Actor(
    * Same as captures, but giving the final destination square instead of the first.
    */
   lazy val capturesFinal: List[Move] = captureMoves(true)
+
+  def captureLength = captures.foldLeft(0) {
+    case (max, move) =>
+      move.capture.fold(max) { jumps =>
+        if (jumps.length > max) jumps.length
+        else max
+      }
+  }
 
   private def noncaptureMoves(): List[Move] = piece.role match {
     case Man => shortRangeMoves(board.variant.moveDirsColor(color))
@@ -61,19 +67,19 @@ case class Actor(
     @tailrec
     def addAll(p: PosMotion, dir: Direction): Unit = {
       dir._2(p) match {
-        case None => () // past end of board
-        case Some(to) => board.pieces.get(to) match {
-          case None =>
-            board.move(pos, to).foreach { buf += move(to, _, None, None) }
-            addAll(to, dir)
-          case Some(pc) => ()
-        }
+        case Some(to) =>
+          board.pieces.get(to) match {
+            case None =>
+              board.move(pos, to).foreach { buf += move(to, _, None, None) }
+              addAll(to, dir)
+            case _ => // occupied
+          }
+        case _ => // past end of board
       }
     }
 
     dirs foreach { addAll(pos, _) }
     buf.toList
-
   }
 
   def move(

@@ -302,10 +302,8 @@ abstract class Variant private[variant] (
    * This removes any reaining ghostpieces if the capture sequence has ended
    */
   def finalizeBoard(board: Board, uci: format.Uci.Move, captured: Option[List[Piece]], remainingCaptures: Int): Board = {
-    if (remainingCaptures > 0)
-      board
-    else
-      board.withoutGhosts
+    if (remainingCaptures > 0) board
+    else board.withoutGhosts
   }
 
   protected def menOnPromotionRank(board: Board, color: Color) = {

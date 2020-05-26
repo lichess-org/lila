@@ -1,6 +1,7 @@
 package draughts
 package variant
 
+import scala.annotation.tailrec
 import scala.collection.breakOut
 
 case object Russian extends Variant(
@@ -70,6 +71,69 @@ case object Russian extends Variant(
 
     captureDirs.foreach {
       walkCaptures(_, actor.board, actor.pos, None, None, Nil, Nil)
+    }
+    buf.toList
+  }
+
+  override def longRangeCaptures(actor: Actor, finalSquare: Boolean): List[Move] = {
+    val buf = new scala.collection.mutable.ArrayBuffer[Move]
+
+    @tailrec
+    def walkUntilCapture(walkDir: Direction, curBoard: Board, curPos: PosMotion, destPos: Option[PosMotion], destBoard: Option[Board], allSquares: List[Pos], allTaken: List[Pos]): Int =
+      walkDir._2(curPos) match {
+        case Some(nextPos) =>
+          curBoard(nextPos) match {
+            case None =>
+              curBoard.move(curPos, nextPos) match {
+                case Some(boardAfter) =>
+                  walkUntilCapture(walkDir, boardAfter, nextPos, destPos, destBoard, allSquares, allTaken)
+                case _ => 0
+              }
+            case Some(captPiece) if captPiece.isNot(actor.color) && !captPiece.isGhost =>
+              walkDir._2(nextPos) match {
+                case Some(landingPos) if curBoard(landingPos).isEmpty =>
+                  curBoard.taking(curPos, landingPos, nextPos) match {
+                    case Some(boardAfter) =>
+                      walkAfterCapture(walkDir, boardAfter, landingPos, destPos, destBoard, allSquares, nextPos :: allTaken, true)
+                    case _ => 0
+                  }
+                case _ => 0
+              }
+            case _ => 0
+          }
+        case _ => 0
+      }
+
+    def walkAfterCapture(walkDir: Direction, curBoard: Board, curPos: PosMotion, destPos: Option[PosMotion], destBoard: Option[Board], allSquares: List[Pos], newTaken: List[Pos], justTaken: Boolean): Int = {
+      val newSquares = curPos :: allSquares
+      val opposite = Variant.oppositeDirs(walkDir._1)
+      val extraCaptures = captureDirs.foldLeft(0) {
+        case (total, captDir) =>
+          if (captDir._1 == opposite) total
+          else walkUntilCapture(captDir, curBoard, curPos, destPos.getOrElse(curPos).some, destBoard.getOrElse(curBoard).some, newSquares, newTaken)
+      }
+      val moreExtraCaptures = walkDir._2(curPos) match {
+        case Some(nextPos) =>
+          curBoard.move(curPos, nextPos) match {
+            case Some(boardAfter) =>
+              walkAfterCapture(walkDir, boardAfter, nextPos, destPos, destBoard, allSquares, newTaken, false)
+            case _ => 0
+          }
+        case _ => 0
+      }
+      val totalExtraCaptures = extraCaptures + moreExtraCaptures
+      if (totalExtraCaptures == 0) {
+        if (finalSquare)
+          buf += actor.move(curPos, curBoard.withoutGhosts, newSquares, newTaken)
+        else
+          buf += actor.move(destPos.getOrElse(curPos), destBoard.getOrElse(curBoard), newSquares, newTaken)
+      }
+      if (justTaken) totalExtraCaptures + 1
+      else totalExtraCaptures
+    }
+
+    captureDirs.foreach {
+      walkUntilCapture(_, actor.board, actor.pos, None, None, Nil, Nil)
     }
     buf.toList
   }

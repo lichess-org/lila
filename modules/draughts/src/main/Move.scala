@@ -32,7 +32,7 @@ case class Move(
       h1.copy(lastMove = Some(toUci))
     }
 
-    def remainingCaptures = situationBefore.captureLengthFrom(orig).getOrElse(0) - 1
+    def remainingCaptures = board.actorAt(dest).map(_.captureLength).getOrElse(0)
     board.variant.finalizeBoard(board, toUci, taken flatMap before.apply, finalSquare.fold(0, remainingCaptures)) updateHistory { h =>
       // Update position hashes last, only after updating the board,
       h.copy(positionHashes = board.variant.updatePositionHashes(board, this, h.positionHashes))
