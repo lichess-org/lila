@@ -9,7 +9,10 @@
   <string name="hereWeGo">Jen ni iru!</string>
   <string name="allStreamers">Ĉiuj filmprezentistoj</string>
   <string name="editPage">Redakti paĝon de filmprezentisto</string>
+  <string name="yourPage">Via filmprezentista paĝo</string>
+  <string name="downloadKit">Elŝutu filmprezentistan ilaron</string>
   <string name="xIsStreaming">%s elsendas</string>
+  <string name="rules">Filmprezentistaj reguloj</string>
   <string name="perk3">Sciigu viajn Lichess sekvantojn.</string>
   <string name="twitchUsername">Via uzantnomo aŭ URL de Twitch</string>
   <string name="optionalOrEmpty">Laŭvola. Lasu malplena se neniu</string>
