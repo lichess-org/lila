@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessStreamers">Lichess filmprezentistoj</string>
+  <string name="lichessStreamer">Lichess filmkomentisto</string>
+  <string name="currentlyStreaming">Nun filmelsendas: %s</string>
   <string name="doYouHaveStream">Ĉu vi havas Twitch aŭ YouTube kanalon?</string>
   <string name="hereWeGo">Jen ni iru!</string>
   <string name="xIsStreaming">%s elsendas</string>
