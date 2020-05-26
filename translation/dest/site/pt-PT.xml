@@ -342,14 +342,14 @@
   <string name="continueFromHere">Continuar a partir daqui</string>
   <string name="toStudy">Estudo</string>
   <string name="importGame">Importar partida</string>
-  <string name="importGameExplanation">Quando copias o PGN de um jogo, tens acesso a navegar pela repetição, análise de computador, sala de chat e link de partilha.</string>
+  <string name="importGameExplanation">Coloca aqui o PGN de um jogo, para teres acesso a navegar pela repetição, análise de computador, sala de conversação e link de partilha.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Este é um \"CAPTCHA\" de xadrez.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer a sua jogada, provando que é humano.</string>
-  <string name="captcha.fail">Por favor, resolva o captcha.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Clica no tabuleiro para fazeres a tua jogada, provando que és humano.</string>
+  <string name="captcha.fail">Por favor, resolve o captcha.</string>
   <string name="notACheckmate">Não é xeque-mate.</string>
   <string name="whiteCheckmatesInOneMove">As brancas dão mate em um movimento</string>
   <string name="blackCheckmatesInOneMove">As pretas dão mate em um movimento</string>
@@ -396,9 +396,9 @@
   <string name="standing">Classificações</string>
   <string name="createANewTournament">Criar um torneio</string>
   <string name="tournamentCalendar">Calendário de torneios</string>
-  <string name="conditionOfEntry">Condições para participar:</string>
-  <string name="advancedSettings">Definições avançadas</string>
-  <string name="safeTournamentName">Escolha um nome adequado para o torneio.</string>
+  <string name="conditionOfEntry">Condições de participação:</string>
+  <string name="advancedSettings">Configurações avançadas</string>
+  <string name="safeTournamentName">Escolhe um nome totalmente seguro para o torneio.</string>
   <string name="inappropriateNameWarning">Até uma linguagem ligeiramente inadequada pode levar a fechar a sua conta.</string>
   <string name="emptyTournamentName">Deixe em branco e será atribuído um nome aleatório de um jogador notável ao torneio.</string>
   <string name="recommendNotTouching">Recomendamos não mecher nestas.</string>
