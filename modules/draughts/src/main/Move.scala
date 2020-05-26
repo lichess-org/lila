@@ -10,7 +10,7 @@ case class Move(
     after: Board,
     capture: Option[List[Pos]],
     taken: Option[List[Pos]],
-    promotion: Option[PromotableRole],
+    promotion: Option[PromotableRole] = None,
     metrics: MoveMetrics = MoveMetrics()
 ) {
 

@@ -1,6 +1,7 @@
 package draughts
 package variant
 
+import scala.annotation.tailrec
 import scala.collection.breakOut
 
 case object Frisian extends Variant(
@@ -15,16 +16,14 @@ case object Frisian extends Variant(
 ) {
 
   def pieces = Standard.pieces
+  def moveDirsColor = Standard.moveDirsColor
 
-  override val captureDirs: Directions = List((Actor.UpLeft, _.moveUpLeft), (Actor.UpRight, _.moveUpRight), (Actor.Up, _.moveUp), (Actor.DownLeft, _.moveDownLeft), (Actor.DownRight, _.moveDownRight), (Actor.Down, _.moveDown), (Actor.Left, _.moveLeft), (Actor.Right, _.moveRight))
+  val captureDirs: Directions = List((Variant.UpLeft, _.moveUpLeft), (Variant.UpRight, _.moveUpRight), (Variant.Up, _.moveUp), (Variant.DownLeft, _.moveDownLeft), (Variant.DownRight, _.moveDownRight), (Variant.Down, _.moveDown), (Variant.Left, _.moveLeft), (Variant.Right, _.moveRight))
 
-  @inline
-  override def captureValue(board: Board, taken: List[Pos]) = taken.foldLeft(0) {
-    (t, p) => t + captureValue(board, p)
+  override def getCaptureValue(board: Board, taken: List[Pos]) = taken.foldLeft(0) {
+    (t, p) => t + getCaptureValue(board, p)
   }
-
-  @inline
-  override def captureValue(board: Board, taken: Pos) =
+  override def getCaptureValue(board: Board, taken: Pos) =
     board(taken) match {
       case Some(piece) if piece.role == King => 199
       case Some(piece) if piece.role == Man => 100
@@ -39,7 +38,7 @@ case object Frisian extends Variant(
     for (actor <- situation.actors) {
       val capts = if (finalSquare) actor.capturesFinal else actor.captures
       if (capts.nonEmpty) {
-        val lineValue = capts.head.taken.fold(0)(captureValue(situation.board, _))
+        val lineValue = capts.head.taken.fold(0)(getCaptureValue(situation.board, _))
         if (lineValue > bestLineValue) {
           bestLineValue = lineValue
           captureMap = Map(actor.pos -> capts)

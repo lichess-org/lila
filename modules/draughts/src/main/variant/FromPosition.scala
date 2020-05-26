@@ -13,4 +13,6 @@ case object FromPosition extends Variant(
 ) {
 
   def pieces = Standard.pieces
+  def captureDirs = Standard.captureDirs
+  def moveDirsColor = Standard.moveDirsColor
 }

@@ -13,16 +13,16 @@ case object Frysk extends Variant(
 ) {
 
   val pieces = Variant.symmetricBackrank(Vector(Man, Man, Man, Man, Man), boardSize)
-  override def initialFen = "W:W46,47,48,49,50:B1,2,3,4,5:H0:F1"
 
-  override val captureDirs: Directions = Frisian.captureDirs
+  def captureDirs = Frisian.captureDirs
+  def moveDirsColor = Frisian.moveDirsColor
 
-  @inline
-  override def captureValue(board: Board, taken: List[Pos]) = Frisian.captureValue(board, taken)
-  @inline
-  override def captureValue(board: Board, taken: Pos) = Frisian.captureValue(board, taken)
+  override val initialFen = "W:W46,47,48,49,50:B1,2,3,4,5:H0:F1"
 
   override def validMoves(situation: Situation, finalSquare: Boolean = false): Map[Pos, List[Move]] = Frisian.validMoves(situation, finalSquare)
+  override def shortRangeCaptures(actor: Actor, finalSquare: Boolean): List[Move] = Frisian.shortRangeCaptures(actor, finalSquare)
+  override def longRangeCaptures(actor: Actor, finalSquare: Boolean): List[Move] = Frisian.longRangeCaptures(actor, finalSquare)
+
   override def finalizeBoard(board: Board, uci: format.Uci.Move, captured: Option[List[Piece]], remainingCaptures: Int): Board = Frisian.finalizeBoard(board, uci, captured, remainingCaptures)
   override def updatePositionHashes(board: Board, move: Move, hash: draughts.PositionHash): PositionHash = Frisian.updatePositionHashes(board, move, hash)
 

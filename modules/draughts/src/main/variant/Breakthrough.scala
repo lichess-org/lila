@@ -13,6 +13,8 @@ case object Breakthrough extends Variant(
 ) {
 
   def pieces = Standard.pieces
+  def captureDirs = Standard.captureDirs
+  def moveDirsColor = Standard.moveDirsColor
 
   // Win on promotion
   override def specialEnd(situation: Situation) =
