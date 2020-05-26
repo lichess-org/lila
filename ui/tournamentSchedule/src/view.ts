@@ -1,5 +1,9 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { checkboxInput, textInput } from 'common/inputs';
+import { Ctrl } from './ctrl';
+import { Tournament } from './interfaces';
+import { bind } from '../../common/src/util';
 
 const scale = 8;
 let now: number, startTime: number, stopTime: number;
@@ -74,10 +78,10 @@ function fitLane(lane, tour2) {
 
 // splits lanes that have collisions, but keeps
 // groups separate by not compacting existing lanes
-function splitOverlaping(lanes) {
-  let ret: any[] = [], i: number;
+function splitOverlaping(lanes: Tournament[][]) {
+  let ret: Tournament[][] = [], i: number;
   lanes.forEach(lane => {
-    var newLanes: any[] = [
+    var newLanes: Tournament[][] = [
       []
     ];
     lane.forEach(tour => {
@@ -96,7 +100,7 @@ function splitOverlaping(lanes) {
   return ret;
 }
 
-function tournamentClass(tour) {
+function tournamentClass(tour: Tournament) {
   const finished = tour.status === 30,
     userCreated = tour.createdBy !== 'lichess',
     classes = {
@@ -121,7 +125,7 @@ function iconOf(tour, perfIcon) {
 
 let mousedownAt: number[] | undefined;
 
-function renderTournament(ctrl, tour) {
+function renderTournament(ctrl: Ctrl, tour) {
   let width = tour.minutes * scale;
   const left = leftPos(tour.startsAt);
   // moves content into viewport, for long tourneys and marathons
@@ -154,7 +158,7 @@ function renderTournament(ctrl, tour) {
           tour.rated ? ctrl.trans('ratedTournament') : ctrl.trans('casualTournament')
         ]),
         tour.nbPlayers ? h('span.nb-players', {
-          attrs: { 'data-icon': 'r' }
+          attrs: {'data-icon': 'r'}
         }, tour.nbPlayers) : null
       ])
     ])
@@ -185,14 +189,34 @@ function renderTimeline() {
 
 // converts Date to "%H:%M" with leading zeros
 function timeString(time) {
-  return ('0' + time.getHours()).slice(-2) + ":" + ('0' + time.getMinutes()).slice(-2);
+  return ('0' + time.getHours()).slice(-2) + ':' + ('0' + time.getMinutes()).slice(-2);
 }
 
 function isSystemTournament(t) {
   return !!t.schedule;
 }
 
-export default function(ctrl) {
+function tourFilter(ctrl: Ctrl, startTime: number) {
+  return function(tour: Tournament) {
+    if (tour.finishesAt <= startTime)
+      return false;
+
+    if (!ctrl.showUserCreated && tour.createdBy !== 'lichess')
+      return false;
+
+    if (ctrl.selectedPerf !== null && ctrl.selectedPerf !== tour.perf.key)
+      return false;
+
+    if (ctrl.filter.length === 0)
+      return true;
+
+    return [tour.createdBy, tour.fullName, tour.perf.name, displayClock(tour.clock)].some(
+      str => str.toLowerCase().includes(ctrl.filter)
+    );
+  };
+}
+
+export default function(ctrl: Ctrl) {
   now = Date.now();
   startTime = now - 3 * 60 * 60 * 1000;
   stopTime = startTime + 10 * 60 * 60 * 1000;
@@ -204,10 +228,12 @@ export default function(ctrl) {
     teamBattles: any[] = [],
     userTours: any[] = [];
 
-  data.finished
-    .concat(data.started)
-    .concat(data.created)
-    .filter(t => t.finishesAt > startTime)
+  const allTours = data.finished.concat(data.started).concat(data.created);
+  const tournamentPerfs = data.perfs.filter(perf => {
+    return allTours.some(tour => tour.perf.key === perf.key);
+  });
+
+  allTours.filter(tourFilter(ctrl, startTime))
     .forEach(t => {
       if (isSystemTournament(t)) systemTours.push(t);
       else if (t.major) majorTours.push(t);
@@ -224,6 +250,34 @@ export default function(ctrl) {
   ).filter(lane => lane.length > 0);
 
   return h('div.tour-chart', [
+    h('div.tour-chart__filters', [
+      h('div.tour-chart__filters__perf',
+        tournamentPerfs.map(perf =>
+          h('span.icon', {
+            attrs: {
+              class: `icon ${ctrl.selectedPerf === perf.key ? 'active' : ''}`,
+              'data-icon': perf.icon,
+              title: perf.name
+            },
+            hook: bind('click', () => ctrl.togglePerfVisibility(perf.key), ctrl.redraw)
+          })
+        )
+      ),
+      h('div.tour-chart__filters__right', [
+        checkboxInput({
+          id: 'user-created',
+          name: 'User created',
+          checked: ctrl.showUserCreated,
+          change(_v) { ctrl.showUserCreated = !ctrl.showUserCreated; }
+        }, ctrl.trans, ctrl.redraw),
+        textInput({
+          id: 'search-filter',
+          value: ctrl.filter,
+          placeholder: 'Search...',
+          input(v) { ctrl.filter = v.toLowerCase(); }
+        }, ctrl.redraw)
+     ])
+    ]),
     h('div.tour-chart__inner.dragscroll.', {
       hook: {
         insert: vnode => {

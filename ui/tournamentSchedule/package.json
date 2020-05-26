@@ -17,6 +17,7 @@
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
+    "common": "2.0.0",
     "dragscroll": "^0.0.8",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   }

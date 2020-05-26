@@ -19,7 +19,8 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
     } yield Json.obj(
       "created"  -> created,
       "started"  -> started,
-      "finished" -> finished
+      "finished" -> finished,
+      "perfs"    -> JsArray(PerfType.all.map(perfJson))
     )
 
   private def visibleJson(implicit lang: Lang): PartialFunction[Tournament, Fu[JsObject]] = {

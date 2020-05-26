@@ -1,4 +1,5 @@
 import view from './view';
+import { Ctrl } from './ctrl';
 
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
@@ -12,14 +13,13 @@ dragscroll // required to include the dependency :( :( :(
 
 export function app(element: HTMLElement, env: any) {
 
-  let vnode: VNode, ctrl = {
-    data: () => env.data,
-    trans: window.lichess.trans(env.i18n)
-  };
+  let vnode: VNode, ctrl: Ctrl
 
   function redraw() {
     vnode = patch(vnode || element, view(ctrl));
   }
+
+  ctrl = new Ctrl(env, redraw)
 
   redraw();
 

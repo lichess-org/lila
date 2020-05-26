@@ -21,6 +21,29 @@ $c-tour-battle: hsl(49, 74%, 37%);
     padding-top: 120px;
     opacity: 0.7;
   }
+  &__filters {
+    @extend %flex-between;
+    padding: 0 10px 10px 10px;
+    &__right {
+      @extend %flex-wrap;
+      @include breakpoint($mq-not-x-small) {
+        display: none;
+      }
+      .user-created {
+        @extend %flex-center;
+        label {
+          margin-right: 5px;
+        }
+      }
+    }
+    .icon {
+      font-size: 2.4em;
+      cursor: pointer;
+      &.active {
+        color: orange;
+      }
+    }
+  }
   &__inner {
     position: relative;
     overflow-x: scroll;
