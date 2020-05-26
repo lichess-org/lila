@@ -95,8 +95,8 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
   <string name="openingExplorer">Opening ontdekker</string>
   <string name="xOpeningExplorer">%s opening ontdekker</string>
-  <string name="winPreventedBy50MoveRule">Oorwinning gekelder deur 50-skuif reël</string>
-  <string name="lossSavedBy50MoveRule">Verloor gekelder deur 50-skuif reël</string>
+  <string name="winPreventedBy50MoveRule">Oorwinning gekelder deur 50-skuifreël</string>
+  <string name="lossSavedBy50MoveRule">Verloor voorkom deur 50-skuifreël</string>
   <string name="allSet">Gereed!</string>
   <string name="importPgn">Voer PGN in</string>
   <string name="delete">Skrap</string>
@@ -104,7 +104,7 @@
   <string name="replayMode">Oorspeel modus</string>
   <string name="realtimeReplay">Ware Tyd</string>
   <string name="byCPL">Met CPL</string>
-  <string name="openStudy">Ope Studie</string>
+  <string name="openStudy">Open studie</string>
   <string name="enable">Aktief</string>
   <string name="bestMoveArrow">Beste skuif pyl</string>
   <string name="evaluationGauge">Evaluering meter</string>
@@ -112,7 +112,7 @@
   <string name="cpus">CPU</string>
   <string name="memory">Geheue</string>
   <string name="infiniteAnalysis">Oneindige analise</string>
-  <string name="removesTheDepthLimit">Verwyder diepte limiet, en hou jou rekenaar warm</string>
+  <string name="removesTheDepthLimit">Verwyder dieptelimiet, en hou jou rekenaar warm</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <string name="mistake">Fout</string>
@@ -147,10 +147,10 @@
   <string name="games">Spelle</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s het \'n boodskap gepos in forum %2$s</string>
-  <string name="latestForumPosts">Laaste forum plasings</string>
+  <string name="latestForumPosts">Jongste forumplasings</string>
   <string name="players">Spelers</string>
   <string name="friends">Vriende</string>
-  <string name="discussions">Gesprek</string>
+  <string name="discussions">Gesprekke</string>
   <string name="today">Vandag</string>
   <string name="yesterday">Gister</string>
   <string name="minutesPerSide">Minute per kant</string>
@@ -160,7 +160,7 @@
   <string name="realTime">Intyds</string>
   <string name="correspondence">Korrespondensie</string>
   <string name="daysPerTurn">Dae per beurt</string>
-  <string name="oneDay">Eendag</string>
+  <string name="oneDay">Een dag</string>
   <plurals name="nbDays">
     <item quantity="one">%s dag</item>
     <item quantity="other">%s dae</item>
@@ -175,8 +175,8 @@
   <string name="username">Gebruiker naam</string>
   <string name="usernameOrEmail">Gebruikersnaam of e-pos</string>
   <string name="changeUsername">Verander gebruikersnaam</string>
-  <string name="changeUsernameNotSame">Slegs die hoof/kleinletters kan verander. Byvoorbeeld \"johndoe\" na \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Verander jou gebruikersnaam. Dit kan slegs een keer gedoen word, en jy kan net die hoof/kleinletters in die gebruikersnaam verander.</string>
+  <string name="changeUsernameNotSame">Slegs die hoof-/kleinletters kan verander. Byvoorbeeld \"pietsmit\" na \"PietSmit\".</string>
+  <string name="changeUsernameDescription">Verander jou gebruikersnaam. Dit kan slegs een keer gedoen word, en jy kan net die hoof-/kleinletters in die gebruikersnaam verander.</string>
   <string name="password">Wagwoord</string>
   <string name="changePassword">Verander wagwoord</string>
   <string name="changeEmail">Verander e-pos</string>
@@ -195,8 +195,8 @@
   </plurals>
   <string name="gamesPlayed">Spelle gespeel</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s spelle met jou</item>
-    <item quantity="other">%s spelle met jou</item>
+    <item quantity="one">%s spel teen jou</item>
+    <item quantity="other">%s spelle teen jou</item>
   </plurals>
   <string name="cancel">Kanseleer</string>
   <string name="timeOut">Tyd verstreke</string>
