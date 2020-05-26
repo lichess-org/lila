@@ -238,9 +238,9 @@
   <string name="play">Jogar</string>
   <string name="inbox">Caixa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
-  <string name="loginToChat">Inicie sessão para poder conversar</string>
-  <string name="youHaveBeenTimedOut">Tu foste desconectado.</string>
-  <string name="spectatorRoom">Sala do espectador</string>
+  <string name="loginToChat">Inicia sessão para poderes conversar</string>
+  <string name="youHaveBeenTimedOut">Foste impedido de conversar por agora.</string>
+  <string name="spectatorRoom">Sala dos espectadores</string>
   <string name="composeMessage">Escrever mensagem</string>
   <string name="noNewMessages">Nenhuma mensagem nova</string>
   <string name="subject">Assunto</string>
@@ -250,7 +250,7 @@
   <string name="freeOnlineChess">Xadrez Online Gratuito</string>
   <string name="spectators">Espectadores:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s classificado</item>
+    <item quantity="one">%s partida a valer pontos</item>
     <item quantity="other">%s classificados</item>
   </plurals>
   <plurals name="nbWins">
@@ -270,16 +270,16 @@
     <item quantity="other">%s a jogar</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
-  <string name="ratingRange">Classificação entre</string>
+  <string name="ratingRange">Pontuação entre</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Este jogador usa a ajuda de computador</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador aumentou o a sua pontuação de maneira artificial</string>
-  <string name="openingExplorerAndTablebase">Explorador de aberturas &amp; tabela</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador aumentou/diminuiu a sua pontuação de forma artificial</string>
+  <string name="openingExplorerAndTablebase">Explorador de aberturas &amp; tabelas de finais</string>
   <string name="takeback">Voltar jogada</string>
-  <string name="proposeATakeback">Propor cancelar movimento</string>
+  <string name="proposeATakeback">Propor cancelar o movimento</string>
   <string name="takebackPropositionSent">Proposta de cancelar movimento enviada</string>
   <string name="takebackPropositionDeclined">Proposta de voltar jogada recusada</string>
   <string name="takebackPropositionAccepted">Proposta de cancelamento aceite</string>
