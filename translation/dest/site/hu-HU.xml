@@ -21,6 +21,9 @@
   <string name="createAGame">Játék létrehozása</string>
   <string name="whiteIsVictorious">Világos nyert</string>
   <string name="blackIsVictorious">Sötét nyert</string>
+  <string name="youPlayTheWhitePieces">Fehérrel fogsz játszani</string>
+  <string name="youPlayTheBlackPieces">Sötéttel fogsz játszani</string>
+  <string name="itsYourTurn">Te következel</string>
   <string name="kingInTheCenter">Király a centrumban</string>
   <string name="threeChecks">Három sakk</string>
   <string name="raceFinished">A verseny befejeződött</string>
@@ -94,7 +97,7 @@
   <string name="delete">Töröl</string>
   <string name="deleteThisImportedGame">Törlöd ezt az importált játszmát?</string>
   <string name="replayMode">Visszajátszás</string>
-  <string name="realtimeReplay">Valósidő</string>
+  <string name="realtimeReplay">Valós idejű</string>
   <string name="byCPL">CPL-ek</string>
   <string name="openStudy">Tanulmány megnyitása</string>
   <string name="enable">Bekapcsolva</string>
@@ -141,6 +144,8 @@
   <string name="xPostedInForumY">%1$s írt a következő témába: %2$s</string>
   <string name="latestForumPosts">Friss bejegyzések</string>
   <string name="players">Játékosok</string>
+  <string name="friends">Barátok</string>
+  <string name="discussions">Beszélgetések</string>
   <string name="minutesPerSide">Perc játékosonként</string>
   <string name="variant">Variáns</string>
   <string name="variants">Variánsok</string>
@@ -169,7 +174,7 @@
   <string name="passwordReset">Jelszó visszaállítása</string>
   <string name="forgotPassword">Elfelejtetted a jelszavad?</string>
   <string name="rank">Rang</string>
-  <string name="rankX">Helyezés: %s.</string>
+  <string name="rankX">Helyezés: %s</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s feladvány</item>
     <item quantity="other">%s feladvány</item>
@@ -208,7 +213,7 @@
   <string name="rematch">Visszavágó</string>
   <string name="rematchOfferSent">Visszavágó felajánlva</string>
   <string name="rematchOfferSentWhite">Világos visszavágót szeretne</string>
-  <string name="rematchOfferSentBlack">Sötét visszavágóra hív</string>
+  <string name="rematchOfferSentBlack">Sötét visszavágót szeretne</string>
   <string name="rematchOfferAccepted">Visszavágó elfogadva</string>
   <string name="rematchOfferCanceled">Visszavágó lemondva</string>
   <string name="rematchOfferDeclined">Visszavágó elutasítva</string>
