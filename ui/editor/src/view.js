@@ -284,7 +284,7 @@ module.exports = function(ctrl) {
     style: 'cursor: ' + makeCursor(ctrl.selected())
   }, [
     sparePieces(ctrl, color, 'black', 'top'),
-    m('div.main-board', [
+    m('div.main-board.is' + ctrl.boardSizeKey(), [
       draughtsground(ctrl),
       m('div.board-resize', {
         config: function(el, isUpdate) {

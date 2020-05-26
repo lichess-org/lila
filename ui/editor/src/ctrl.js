@@ -64,7 +64,7 @@ module.exports = function(cfg) {
 
   this.clearBoard = function() {
     this.draughtsground.set({
-        fen: 'W:W:B'
+      fen: 'W:W:B'
     });
     this.onChange();
   }.bind(this);
@@ -83,8 +83,23 @@ module.exports = function(cfg) {
 
   this.changeVariant = function(variant) {
     this.data.variant = variant;
+    this.draughtsground = undefined; // recreate from view
     m.redraw();
   }.bind(this);
+
+  this.variants64 = ['russian'];
+  this.boardSize = function() {
+    if (this.variants64.includes(this.data.variant)) return [8, 8];
+    else return [10, 10];
+  }
+  this.boardSizeKey = function() {
+    if (this.variants64.includes(this.data.variant)) return '64';
+    else return '100';
+  }
+  this.boardBackrankBlack = function() {
+    if (this.variants64.includes(this.data.variant)) return ['29', '30', '31', '32'];
+    else return ['46', '47', '48', '49', '50'];
+  }
 
   this.positionLooksLegit = function() {
     var pieces = this.draughtsground ? this.draughtsground.state.pieces : fenRead(this.cfg.fen);
@@ -92,16 +107,17 @@ module.exports = function(cfg) {
       white: 0,
       black: 0
     };
+    var backrankBlack = this.boardBackrankBlack();
     for (var pos in pieces) {
-        if (pieces[pos] && (pieces[pos].role === 'king' || pieces[pos].role === 'man')) {
-            if (pieces[pos].role === 'man') {
-                if (pieces[pos].color === 'white' && (pos === "01" || pos === "02" || pos === "03" || pos === "04" || pos === "05"))
-                    return false;
-                else if (pieces[pos].color === 'black' && (pos === "46" || pos === "47" || pos === "48" || pos === "49" || pos === "50"))
-                    return false;
-            }
-            totals[pieces[pos].color]++;
+      if (pieces[pos] && (pieces[pos].role === 'king' || pieces[pos].role === 'man')) {
+        if (pieces[pos].role === 'man') {
+          if (pieces[pos].color === 'white' && (pos === '01' || pos === '02' || pos === '03' || pos === '04' || pos === '05'))
+            return false;
+          else if (pieces[pos].color === 'black' && backrankBlack.includes(pos))
+            return false;
         }
+        totals[pieces[pos].color]++;
+      }
     }
     return totals.white !== 0 && totals.black !== 0 && (totals.white + totals.black) < 50;
   }.bind(this);

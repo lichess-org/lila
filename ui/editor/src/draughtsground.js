@@ -5,9 +5,11 @@ var util = require('draughtsground/util');
 module.exports = function(ctrl) {
   return m('div.cg-wrap', {
     config: function(el, isUpdate) {
-      if (isUpdate) return;
+      if (isUpdate && ctrl.draughtsground) return;
       ctrl.draughtsground = Draughtsground(el, makeConfig(ctrl));
-      bindEvents(el, ctrl);
+      if (!isUpdate) {
+        bindEvents(el, ctrl);
+      }
     }
   });
 }
@@ -135,6 +137,7 @@ function deletePiece(ctrl, key) {
 function makeConfig(ctrl) {
   return {
     fen: ctrl.cfg.fen,
+    boardSize: ctrl.boardSize(),
     orientation: ctrl.options.orientation || 'white',
     coordinates: ctrl.embed ? 0 : ctrl.cfg.coords,
     addPieceZIndex: ctrl.cfg.is3d,
