@@ -20,6 +20,7 @@ abstract class Variant private[variant] (
   def pieces: Map[Pos, Piece]
   def captureDirs: Directions
   def moveDirsColor: Map[Color, Directions]
+  def moveDirsAll: Directions
 
   def standard = this == Standard
   def frisian = this == Frisian
@@ -50,7 +51,6 @@ abstract class Variant private[variant] (
     }(breakOut)
 
   def validMoves(situation: Situation, finalSquare: Boolean = false): Map[Pos, List[Move]] = {
-
     var bestLineValue = 0
     var captureMap = Map[Pos, List[Move]]()
     for (actor <- situation.actors) {
@@ -65,23 +65,18 @@ abstract class Variant private[variant] (
       }
     }
 
-    if (captureMap.nonEmpty)
-      captureMap
-    else
-      situation.actors.collect {
-        case actor if actor.noncaptures.nonEmpty =>
-          actor.pos -> actor.noncaptures
-      }(breakOut)
-
+    if (captureMap.nonEmpty) captureMap
+    else situation.actors.collect {
+      case actor if actor.noncaptures.nonEmpty =>
+        actor.pos -> actor.noncaptures
+    }(breakOut)
   }
 
   def validMovesFrom(situation: Situation, pos: Pos, finalSquare: Boolean = false): List[Move] = situation.actorAt(pos) match {
     case Some(actor) => {
       val captures = if (finalSquare) actor.capturesFinal else actor.captures
-      if (captures.nonEmpty)
-        captures
-      else
-        actor.noncaptures
+      if (captures.nonEmpty) captures
+      else actor.noncaptures
     }
     case _ => Nil
   }
@@ -334,8 +329,6 @@ abstract class Variant private[variant] (
 
   val roles = List(Man, King)
   lazy val rolesByPdn: Map[Char, Role] = roles.map { r => (r.pdn, r) }(breakOut)
-
-  val moveDirsAll: Directions = moveDirsColor(White) ::: moveDirsColor(Black)
 
   override def toString = s"Variant($name)"
 

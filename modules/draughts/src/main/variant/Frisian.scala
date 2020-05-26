@@ -17,6 +17,7 @@ case object Frisian extends Variant(
 
   def pieces = Standard.pieces
   def moveDirsColor = Standard.moveDirsColor
+  def moveDirsAll = Standard.moveDirsAll
 
   val captureDirs: Directions = List((Variant.UpLeft, _.moveUpLeft), (Variant.UpRight, _.moveUpRight), (Variant.Up, _.moveUp), (Variant.DownLeft, _.moveDownLeft), (Variant.DownRight, _.moveDownRight), (Variant.Down, _.moveDown), (Variant.Left, _.moveLeft), (Variant.Right, _.moveRight))
 

@@ -11,8 +11,10 @@ case object Standard extends Variant(
   standardInitialPosition = true,
   boardSize = Board.D100
 ) {
+  import Variant._
 
-  val pieces: Map[Pos, Piece] = Variant.symmetricFourRank(Vector(Man, Man, Man, Man, Man), boardSize)
-  val captureDirs: Directions = List((Variant.UpLeft, _.moveUpLeft), (Variant.UpRight, _.moveUpRight), (Variant.DownLeft, _.moveDownLeft), (Variant.DownRight, _.moveDownRight))
-  val moveDirsColor: Map[Color, Directions] = Map(White -> List((Variant.UpLeft, _.moveUpLeft), (Variant.UpRight, _.moveUpRight)), Black -> List((Variant.DownLeft, _.moveDownLeft), (Variant.DownRight, _.moveDownRight)))
+  val pieces: Map[Pos, Piece] = symmetricFourRank(Vector(Man, Man, Man, Man, Man), boardSize)
+  val captureDirs: Directions = List((UpLeft, _.moveUpLeft), (UpRight, _.moveUpRight), (DownLeft, _.moveDownLeft), (DownRight, _.moveDownRight))
+  val moveDirsColor: Map[Color, Directions] = Map(White -> List((UpLeft, _.moveUpLeft), (UpRight, _.moveUpRight)), Black -> List((DownLeft, _.moveDownLeft), (DownRight, _.moveDownRight)))
+  val moveDirsAll: Directions = moveDirsColor(White) ::: moveDirsColor(Black)
 }

@@ -16,6 +16,7 @@ case object Frysk extends Variant(
 
   def captureDirs = Frisian.captureDirs
   def moveDirsColor = Frisian.moveDirsColor
+  def moveDirsAll = Frisian.moveDirsAll
 
   override val initialFen = "W:W46,47,48,49,50:B1,2,3,4,5:H0:F1"
 

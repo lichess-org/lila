@@ -15,6 +15,7 @@ case object Antidraughts extends Variant(
   def pieces = Standard.pieces
   def captureDirs = Standard.captureDirs
   def moveDirsColor = Standard.moveDirsColor
+  def moveDirsAll = Standard.moveDirsAll
 
   // Only difference is that you win when you run out of moves (no pieces or all blocked)
   override def winner(situation: Situation): Option[Color] =
