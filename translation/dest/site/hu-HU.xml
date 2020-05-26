@@ -799,4 +799,7 @@
     <item quantity="one">és %s változat mentése</item>
     <item quantity="other">és %s változat mentése</item>
   </plurals>
+  <string name="why">Miért?</string>
+  <string name="subscribe">Feliratkozás</string>
+  <string name="unsubscribe">Leiratkozás</string>
 </resources>
