@@ -187,7 +187,12 @@ object form {
           frag("Arena streaks"),
           help = frag("After 2 wins, consecutive wins grant 4 points instead of 2.").some,
           half = true
-        )
+        ),
+        input(
+          tpe := "hidden",
+          st.name := form("streakable").name,
+          value := "false"
+        ) // hack to allow disabling streaks
       )
     )
 

@@ -70,6 +70,8 @@ case class Tournament(
 
   def isScheduled = schedule.isDefined
 
+  def isRated = mode == Mode.Rated
+
   def finishesAt = startsAt plusMinutes minutes
 
   def secondsToStart = (startsAt.getSeconds - nowSeconds).toInt atLeast 0

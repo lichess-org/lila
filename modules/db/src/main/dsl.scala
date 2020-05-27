@@ -108,6 +108,11 @@ trait dsl {
     $doc("$unset" -> $doc((Seq(field) ++ fields).map(k => (k, BSONString("")))))
   }
 
+  def $unset(fields: Seq[String]): Bdoc =
+    fields.nonEmpty ?? {
+      $doc("$unset" -> $doc(fields.map(k => (k, BSONString("")))))
+    }
+
   def $setBoolOrUnset(field: String, value: Boolean): Bdoc = {
     if (value) $set(field -> true) else $unset(field)
   }
