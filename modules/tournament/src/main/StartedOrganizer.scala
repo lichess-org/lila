@@ -59,8 +59,7 @@ final private class StartedOrganizer(
     if (tour.secondsToFinish <= 0) api finish tour inject 0
     else if (!tour.isScheduled && tour.nbPlayers < 30 && Random.nextInt(10) == 0) {
       playerRepo nbActiveUserIds tour.id flatMap { nb =>
-        if (nb < 2) api finish tour inject 0
-        else startPairing(tour)
+        (nb >= 2) ?? startPairing(tour)
       }
     } else startPairing(tour)
 
