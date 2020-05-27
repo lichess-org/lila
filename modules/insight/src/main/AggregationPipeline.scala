@@ -20,8 +20,8 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         import Entry.{ BSONFields => F }
         import Storage._
 
-        val sampleGames    = Sample(10_1000)
-        val sampleMoves    = Sample(200_1000).some
+        val sampleGames    = Sample(10_000)
+        val sampleMoves    = Sample(200_000).some
         val unwindMoves    = UnwindField(F.moves).some
         val sortNb         = Sort(Descending("nb")).some
         def limit(nb: Int) = Limit(nb).some
@@ -142,7 +142,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             }
           }.distinct.map(_ -> BSONBoolean(true)))).some
 
-        Match(
+        val pipeline = Match(
           selectUserId(user.id) ++
             gameMatcher ++
             (dimension == Dimension.Opening).??($doc(F.eco $exists true)) ++
@@ -245,6 +245,8 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             case _         => Nil
           })).flatten
         }
+        // pipeline._2.map(identity).foreach(println)
+        pipeline
       }
     }
 }

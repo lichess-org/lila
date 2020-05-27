@@ -101,8 +101,8 @@ final private class PovToEntry(
         case (e, i) if (i % 2) == pivot => e
       }
     }
-    movetimes.zip(roles).zip(boards).zipWithIndex.map {
-      case tenths ~ role ~ board ~ i =>
+    movetimes.zip(roles).zip(boards).zip(from.pov.player.blurs.booleans).zipWithIndex.map {
+      case tenths ~ role ~ board ~ blur ~ i =>
         val ply      = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
         val opportunism = from.advices.get(ply - 1) flatMap {
@@ -130,7 +130,8 @@ final private class PovToEntry(
           cpl = cpDiffs lift i,
           material = board.materialImbalance * from.pov.color.fold(1, -1),
           opportunism = opportunism,
-          luck = luck
+          luck = luck,
+          blur = blur
         )
     }
   }

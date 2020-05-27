@@ -12,14 +12,16 @@ object AggregationClusters {
     }
 
   private def single[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
-    aggDocs flatMap { doc =>
-      for {
-        x     <- doc.getAsOpt[X]("_id")(question.dimension.bson)
-        value <- doc.double("v")
-        nb    <- doc.int("nb")
-        ids   <- doc.getAsOpt[List[String]]("ids")
-      } yield Cluster(x, Insight.Single(Point(value)), nb, ids)
-    }
+    for {
+      doc   <- aggDocs
+      x     <- getId[X](doc)(question.dimension.bson)
+      value <- doc.double("v")
+      nb    <- doc.int("nb")
+      ids   <- doc.getAsOpt[List[String]]("ids")
+    } yield Cluster(x, Insight.Single(Point(value)), nb, ids)
+
+  private def getId[X](doc: Bdoc)(reader: BSONReader[X]): Option[X] =
+    doc.get("_id") flatMap reader.readOpt
 
   private case class StackEntry(metric: BSONValue, v: BSONNumberLike)
   implicit private val StackEntryBSONReader = Macros.reader[StackEntry]
@@ -27,9 +29,8 @@ object AggregationClusters {
   private def stacked[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
     aggDocs flatMap { doc =>
       val metricValues = Metric valuesOf question.metric
-      // println(lila.db.BSON debug doc)
       for {
-        x     <- doc.getAsOpt[X]("_id")(question.dimension.bson)
+        x     <- getId[X](doc)(question.dimension.bson)
         stack <- doc.getAsOpt[List[StackEntry]]("stack")
         points = metricValues.map {
           case Metric.MetricValue(id, name) =>

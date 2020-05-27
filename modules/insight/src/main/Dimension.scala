@@ -168,6 +168,15 @@ object Dimension {
         raw("Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=9.")
       )
 
+  case object Blur
+      extends Dimension[Blur](
+        "blur",
+        "Move blur",
+        F.moves("b"),
+        Move,
+        raw("Whether a window blur happened before that move or not.")
+      )
+
   def requiresStableRating(d: Dimension[_]) =
     d match {
       case OpponentStrength => true
@@ -190,6 +199,7 @@ object Dimension {
       case MyCastling | OpCastling => lila.insight.Castling.all
       case QueenTrade              => lila.insight.QueenTrade.all
       case MaterialRange           => lila.insight.MaterialRange.all
+      case Blur                    => lila.insight.Blur.all
     }
 
   def valueByKey[X](d: Dimension[X], key: String): Option[X] =
@@ -208,6 +218,7 @@ object Dimension {
       case MyCastling | OpCastling => key.toIntOption flatMap lila.insight.Castling.byId.get
       case QueenTrade              => lila.insight.QueenTrade(key == "true").some
       case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
+      case Blur                    => lila.insight.Blur(key == "true").some
     }
 
   def valueToJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): play.api.libs.json.JsObject = {
@@ -233,6 +244,7 @@ object Dimension {
       case MyCastling | OpCastling => v.id
       case QueenTrade              => v.id
       case MaterialRange           => v.id
+      case Blur                    => v.id
     }).toString
 
   def valueJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): JsValue =
@@ -251,6 +263,7 @@ object Dimension {
       case MyCastling | OpCastling => JsString(v.name)
       case QueenTrade              => JsString(v.name)
       case MaterialRange           => JsString(v.name)
+      case Blur                    => JsString(v.name)
     }
 
   def filtersOf[X](d: Dimension[X], selected: List[X]): Bdoc =

@@ -50,6 +50,13 @@ private object BSONHandlers {
   )
   implicit val QueenTradeBSONHandler = BSONBooleanHandler.as[QueenTrade](QueenTrade.apply, _.id)
 
+  private val BSONBooleanNullHandler = quickHandler[Boolean](
+    { case BSONBoolean(v) => v; case BSONNull => false },
+    v => if (v) BSONBoolean(true) else BSONNull
+  )
+
+  implicit val BlurBSONHandler = BSONBooleanNullHandler.as[Blur](Blur.apply, _.id)
+
   implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
 
   implicit val PeriodBSONHandler = intIsoHandler(lila.common.Iso.int[Period](Period.apply, _.days))
@@ -66,7 +73,8 @@ private object BSONHandlers {
           cpl = r.intO("c"),
           material = r.int("i"),
           opportunism = r.boolO("o"),
-          luck = r.boolO("l")
+          luck = r.boolO("l"),
+          blur = r.boolD("b")
         )
       def writes(w: BSON.Writer, b: Move) =
         BSONDocument(
@@ -78,7 +86,8 @@ private object BSONHandlers {
           "c" -> b.cpl,
           "i" -> b.material,
           "o" -> b.opportunism,
-          "l" -> b.luck
+          "l" -> b.luck,
+          "b" -> w.boolO(b.blur)
         )
     }
 

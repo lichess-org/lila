@@ -67,7 +67,8 @@ case class Move(
     cpl: Option[Int],  // eval diff caused by the move, relative to player, mate ~= 10
     material: Int,     // material imbalance, relative to player
     opportunism: Option[Boolean],
-    luck: Option[Boolean]
+    luck: Option[Boolean],
+    blur: Boolean
 )
 
 sealed abstract class Termination(val id: Int, val name: String)
@@ -212,4 +213,12 @@ object MaterialRange {
   val byId = all map { p =>
     (p.id, p)
   } toMap
+}
+
+sealed abstract class Blur(val id: Boolean, val name: String)
+object Blur {
+  object Yes extends Blur(true, "Blur")
+  object No  extends Blur(false, "No blur")
+  val all                     = List(Yes, No)
+  def apply(v: Boolean): Blur = if (v) Yes else No
 }
