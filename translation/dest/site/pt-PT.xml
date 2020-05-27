@@ -44,10 +44,10 @@
   <string name="talkInChat">Por favor, sê gentil na conversação!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira pessoa que aceder a este link jogará contra ti.</string>
   <string name="whiteResigned">Brancas desistiram</string>
-  <string name="blackResigned">Pretas desistiram</string>
+  <string name="blackResigned">As pretas desistiram</string>
   <string name="whiteLeftTheGame">Brancas deixaram a partida</string>
   <string name="blackLeftTheGame">As pretas deixaram a partida</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Partilha este link para convidar espectadores</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Partilha este link para convidares espectadores a verem a partida</string>
   <string name="theComputerAnalysisHasFailed">A análise do computador falhou</string>
   <string name="viewTheComputerAnalysis">Ver a análise do computador</string>
   <string name="requestAComputerAnalysis">Solicitar uma análise do computador</string>
@@ -533,9 +533,9 @@
   <string name="clockInitialTime">Tempo inicial no relógio</string>
   <string name="clockIncrement">Incremento no relógio</string>
   <string name="privacy">Privacidade</string>
-  <string name="letOtherPlayersFollowYou">Permitir que outros jogadores sigam você</string>
-  <string name="letOtherPlayersChallengeYou">Permitir que outros jogadores desafiem você</string>
-  <string name="letOtherPlayersInviteYouToStudy">Permitir que outros jogadores te convidem para estudar</string>
+  <string name="letOtherPlayersFollowYou">Permitir que outros jogadores te sigam</string>
+  <string name="letOtherPlayersChallengeYou">Permitir que outros jogadores te desafiem</string>
+  <string name="letOtherPlayersInviteYouToStudy">Permitir que outros jogadores te convidem para estudos</string>
   <string name="sound">Som</string>
   <string name="none">Nenhum</string>
   <string name="fast">Rápido</string>
