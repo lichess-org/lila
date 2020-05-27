@@ -3,6 +3,7 @@ package variant
 
 import scala.annotation.tailrec
 import scala.collection.breakOut
+import scala.collection.mutable.ArrayBuffer
 
 case object Russian extends Variant(
   id = 11,
@@ -36,30 +37,41 @@ case object Russian extends Variant(
     }(breakOut)
   }
 
+  def promoteOrSame(m: Move): Move =
+    maybePromote(m) getOrElse m
+
   override def shortRangeCaptures(actor: Actor, finalSquare: Boolean): List[Move] = {
-    val buf = new scala.collection.mutable.ArrayBuffer[Move]
+    val buf = new ArrayBuffer[Move]
+    val color = actor.color
 
     def walkCaptures(walkDir: Direction, curBoard: Board, curPos: PosMotion, firstSquare: Option[PosMotion], firstBoard: Option[Board], allSquares: List[PosMotion], allTaken: List[PosMotion]): Int =
       walkDir._2(curPos).fold(0) {
         nextPos =>
           curBoard(nextPos) match {
-            case Some(captPiece) if captPiece.isNot(actor.color) && !captPiece.isGhost =>
+            case Some(captPiece) if captPiece.isNot(color) && !captPiece.isGhost =>
               walkDir._2(nextPos) match {
                 case Some(landingPos) if curBoard(landingPos).isEmpty =>
-                  curBoard.taking(curPos, landingPos, nextPos).fold(0) { boardAfter =>
+                  curBoard.taking(curPos, landingPos, nextPos).fold(0) { newBoard =>
+                    val promotion = promotablePos(landingPos, color)
+                    val boardAfter = promotion.fold(newBoard promote landingPos, none) getOrElse newBoard
                     val newSquares = landingPos :: allSquares
                     val newTaken = nextPos :: allTaken
                     val opposite = Variant.oppositeDirs(walkDir._1)
                     val extraCaptures = captureDirs.foldLeft(0) {
                       case (total, captDir) =>
                         if (captDir._1 == opposite) total
-                        else total + walkCaptures(captDir, boardAfter, landingPos, firstSquare.getOrElse(landingPos).some, firstBoard.getOrElse(boardAfter).some, newSquares, newTaken)
+                        else {
+                          total + promotion.fold(
+                            innerLongRangeCaptures(buf, actor, boardAfter, landingPos, captDir, finalSquare, firstSquare.getOrElse(landingPos).some, firstBoard.getOrElse(boardAfter).some, newSquares, newTaken),
+                            walkCaptures(captDir, boardAfter, landingPos, firstSquare.getOrElse(landingPos).some, firstBoard.getOrElse(boardAfter).some, newSquares, newTaken)
+                          )
+                        }
                     }
                     if (extraCaptures == 0) {
-                      if (finalSquare)
-                        buf += actor.move(landingPos, boardAfter.withoutGhosts, newSquares, newTaken)
-                      else
-                        buf += actor.move(firstSquare.getOrElse(landingPos), firstBoard.getOrElse(boardAfter), newSquares, newTaken)
+                      val newMove =
+                        if (finalSquare) promoteOrSame(actor.move(landingPos, boardAfter.withoutGhosts, newSquares, newTaken))
+                        else promoteOrSame(actor.move(firstSquare.getOrElse(landingPos), firstBoard.getOrElse(boardAfter), newSquares, newTaken))
+                      buf += newMove
                     }
                     extraCaptures + 1
                   }
@@ -76,17 +88,24 @@ case object Russian extends Variant(
   }
 
   override def longRangeCaptures(actor: Actor, finalSquare: Boolean): List[Move] = {
-    val buf = new scala.collection.mutable.ArrayBuffer[Move]
+    val buf = new ArrayBuffer[Move]
+    captureDirs.foreach {
+      innerLongRangeCaptures(buf, actor, actor.board, actor.pos, _, finalSquare, None, None, Nil, Nil)
+    }
+    buf.toList
+  }
+
+  private def innerLongRangeCaptures(buf: ArrayBuffer[Move], actor: Actor, initBoard: Board, initPos: PosMotion, initDir: Direction, finalSquare: Boolean, initFirstSquare: Option[PosMotion], initFirstBoard: Option[Board], initAllSquares: List[PosMotion], initAllTaken: List[PosMotion]): Int = {
 
     @tailrec
-    def walkUntilCapture(walkDir: Direction, curBoard: Board, curPos: PosMotion, destPos: Option[PosMotion], destBoard: Option[Board], allSquares: List[Pos], allTaken: List[Pos]): Int =
+    def walkUntilCapture(walkDir: Direction, curBoard: Board, curPos: PosMotion, firstSquare: Option[PosMotion], firstBoard: Option[Board], allSquares: List[Pos], allTaken: List[Pos]): Int =
       walkDir._2(curPos) match {
         case Some(nextPos) =>
           curBoard(nextPos) match {
             case None =>
               curBoard.move(curPos, nextPos) match {
                 case Some(boardAfter) =>
-                  walkUntilCapture(walkDir, boardAfter, nextPos, destPos, destBoard, allSquares, allTaken)
+                  walkUntilCapture(walkDir, boardAfter, nextPos, firstSquare, firstBoard, allSquares, allTaken)
                 case _ => 0
               }
             case Some(captPiece) if captPiece.isNot(actor.color) && !captPiece.isGhost =>
@@ -94,7 +113,7 @@ case object Russian extends Variant(
                 case Some(landingPos) if curBoard(landingPos).isEmpty =>
                   curBoard.taking(curPos, landingPos, nextPos) match {
                     case Some(boardAfter) =>
-                      walkAfterCapture(walkDir, boardAfter, landingPos, destPos, destBoard, allSquares, nextPos :: allTaken, true)
+                      walkAfterCapture(walkDir, boardAfter, landingPos, firstSquare, firstBoard, allSquares, nextPos :: allTaken, true, 0)
                     case _ => 0
                   }
                 case _ => 0
@@ -104,38 +123,35 @@ case object Russian extends Variant(
         case _ => 0
       }
 
-    def walkAfterCapture(walkDir: Direction, curBoard: Board, curPos: PosMotion, destPos: Option[PosMotion], destBoard: Option[Board], allSquares: List[Pos], newTaken: List[Pos], justTaken: Boolean): Int = {
+    def walkAfterCapture(walkDir: Direction, curBoard: Board, curPos: PosMotion, firstSquare: Option[PosMotion], firstBoard: Option[Board], allSquares: List[Pos], newTaken: List[Pos], justTaken: Boolean, currentCaptures: Int): Int = {
       val newSquares = curPos :: allSquares
       val opposite = Variant.oppositeDirs(walkDir._1)
       val extraCaptures = captureDirs.foldLeft(0) {
         case (total, captDir) =>
           if (captDir._1 == opposite) total
-          else walkUntilCapture(captDir, curBoard, curPos, destPos.getOrElse(curPos).some, destBoard.getOrElse(curBoard).some, newSquares, newTaken)
+          else total + walkUntilCapture(captDir, curBoard, curPos, firstSquare.getOrElse(curPos).some, firstBoard.getOrElse(curBoard).some, newSquares, newTaken)
       }
       val moreExtraCaptures = walkDir._2(curPos) match {
         case Some(nextPos) =>
           curBoard.move(curPos, nextPos) match {
             case Some(boardAfter) =>
-              walkAfterCapture(walkDir, boardAfter, nextPos, destPos, destBoard, allSquares, newTaken, false)
+              walkAfterCapture(walkDir, boardAfter, nextPos, firstSquare, firstBoard, allSquares, newTaken, false, currentCaptures + extraCaptures)
             case _ => 0
           }
         case _ => 0
       }
-      val totalExtraCaptures = extraCaptures + moreExtraCaptures
-      if (totalExtraCaptures == 0) {
+      val totalCaptures = currentCaptures + extraCaptures + moreExtraCaptures
+      if (totalCaptures == 0) {
         if (finalSquare)
           buf += actor.move(curPos, curBoard.withoutGhosts, newSquares, newTaken)
         else
-          buf += actor.move(destPos.getOrElse(curPos), destBoard.getOrElse(curBoard), newSquares, newTaken)
+          buf += actor.move(firstSquare.getOrElse(curPos), firstBoard.getOrElse(curBoard), newSquares, newTaken)
       }
-      if (justTaken) totalExtraCaptures + 1
-      else totalExtraCaptures
+      if (justTaken) totalCaptures + 1
+      else totalCaptures
     }
 
-    captureDirs.foreach {
-      walkUntilCapture(_, actor.board, actor.pos, None, None, Nil, Nil)
-    }
-    buf.toList
+    walkUntilCapture(initDir, initBoard, initPos, initFirstSquare, initFirstBoard, initAllSquares, initAllTaken)
   }
 
   override def validSide(board: Board, strict: Boolean)(color: Color) = {

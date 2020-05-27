@@ -110,6 +110,16 @@ abstract class Variant private[variant] (
 
   }
 
+  def promotablePos(pos: PosMotion, color: Color) =
+    pos.y == color.fold(boardSize.promotableYWhite, boardSize.promotableYBlack)
+
+  def maybePromote(m: Move): Option[Move] =
+    if (promotablePos(m.after.posAt(m.dest), m.color))
+      (m.after promote m.dest) map { b2 =>
+        m.copy(after = b2, promotion = Some(King))
+      }
+    else Some(m)
+
   def shortRangeCaptures(actor: Actor, finalSquare: Boolean): List[Move] = {
     val buf = new scala.collection.mutable.ArrayBuffer[Move]
     var bestCaptureValue = 0
@@ -153,7 +163,7 @@ abstract class Variant private[variant] (
     }
 
     buf.flatMap { m =>
-      if (finalSquare || m.capture.exists(_.length == 1)) actor.maybePromote(m)
+      if (finalSquare || m.capture.exists(_.length == 1)) maybePromote(m)
       else m.some
     } toList
   }
@@ -308,7 +318,7 @@ abstract class Variant private[variant] (
 
   protected def menOnPromotionRank(board: Board, color: Color) = {
     board.pieces.exists {
-      case (pos, Piece(c, r)) if c == color && r == Man && board.promotablePos(pos, color) => true
+      case (pos, Piece(c, r)) if c == color && r == Man && promotablePos(board.posAt(pos), color) => true
       case _ => false
     }
   }

@@ -30,9 +30,6 @@ case class Board(
   def posAt(field: Int): Option[PosMotion] = variant.boardSize.pos.posAt(field)
   def posAt(pos: Pos): PosMotion = variant.boardSize.pos.posAt(pos.fieldNumber).get
 
-  def promotablePos(pos: Pos, color: Color) =
-    posAt(pos).y == color.fold(variant.boardSize.promotableYWhite, variant.boardSize.promotableYBlack)
-
   lazy val actors: Map[Pos, Actor] = pieces map {
     case (pos, piece) => (pos, Actor(piece, posAt(pos), this))
   }

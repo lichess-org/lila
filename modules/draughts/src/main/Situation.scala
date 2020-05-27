@@ -40,10 +40,7 @@ case class Situation(board: Board, color: Color) {
   def movesFrom(pos: Pos, finalSquare: Boolean = false): List[Move] = board.variant.validMovesFrom(this, pos, finalSquare)
 
   def captureLengthFrom(pos: Pos): Option[Int] =
-    movesFrom(pos) match {
-      case head :: _ => head.capture.fold(none[Int])(_.length.some)
-      case _ => none
-    }
+    actorAt(pos).map(_.captureLength)
 
   lazy val allDestinations: Map[Pos, List[Pos]] = validMoves mapValues { _ map (_.dest) }
   lazy val allDestinationsFinal: Map[Pos, List[Pos]] = validMovesFinal mapValues { _ map (_.dest) }

@@ -46,17 +46,10 @@ case class Actor(
   def is(c: Color): Boolean = c == piece.color
   def is(p: Piece): Boolean = p == piece
 
-  def maybePromote(m: Move): Option[Move] =
-    if (board.promotablePos(m.dest, m.color))
-      (m.after promote m.dest) map { b2 =>
-        m.copy(after = b2, promotion = Some(King))
-      }
-    else Some(m)
-
   private def shortRangeMoves(dirs: Directions): List[Move] =
     dirs flatMap { _._2(pos) } flatMap { to =>
       board.pieces.get(to) match {
-        case None => board.move(pos, to) map { move(to, _, None, None) } flatMap maybePromote
+        case None => board.move(pos, to) map { move(to, _, None, None) } flatMap board.variant.maybePromote
         case Some(_) => Nil
       }
     }
