@@ -175,7 +175,7 @@
   <string name="username">Nome de utilizador</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
   <string name="changeUsername">Alterar o nome de utilizador</string>
-  <string name="changeUsernameNotSame">Só lhe é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
+  <string name="changeUsernameNotSame">Só te é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Altera o teu nome de utilizador. Isso só pode ser feito uma vez e só poderás trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="password">Palavra-passe</string>
   <string name="changePassword">Alterar a palavra-passe</string>
@@ -208,7 +208,7 @@
   <string name="blackOffersDraw">As pretas propõem empate</string>
   <string name="whiteDeclinesDraw">As brancas recusam o empate</string>
   <string name="blackDeclinesDraw">As pretas recusam o empate</string>
-  <string name="yourOpponentOffersADraw">O teu adversário propõe empate</string>
+  <string name="yourOpponentOffersADraw">O teu oponente propõe empate</string>
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
   <string name="playingRightNow">A jogar neste momento</string>
