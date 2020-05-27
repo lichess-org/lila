@@ -30,7 +30,7 @@
   <string name="youCanUseOpeningBookNoEngine">Lichess\'te, yazışma satrancı kurallarındaki temel fark, bir açılış kitabına izin verilmesidir. Motorların kullanımı hala yasaktır ve motor yardımı alırsanız hesabınız işaretlenecektir. ICCF yazışmalarda motor kullanımına izin verse de, Lichess buna izin vermez.</string>
   <string name="gameplay">Oynanış</string>
   <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri neye göre karar veriliyor?</string>
-  <string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor.
+  <string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor = %1$s
 Örneğin, bir 5+3 blitz oyununun yaklaşık süresi 5 x 60 + 40 x 3 = 420 saniyedir.</string>
   <string name="durationFormula">(zaman) + 40 x (arttırma)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
