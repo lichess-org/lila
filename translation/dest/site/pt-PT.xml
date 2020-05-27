@@ -557,18 +557,18 @@
   <string name="defeat">Derrota</string>
   <string name="victoryVsYInZ">%1$s contra %2$s em %3$s</string>
   <string name="defeatVsYInZ">%1$s contra %2$s em %3$s</string>
-  <string name="drawVsYInZ">%1$s com %2$s em %3$s</string>
-  <string name="timeline">Linha do tempo</string>
-  <string name="starting">Iniciando:</string>
+  <string name="drawVsYInZ">%1$s contra %2$s em %3$s</string>
+  <string name="timeline">Cronologia</string>
+  <string name="starting">Começa às:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>
-  <string name="yourCityRegionOrDepartment">Sua cidade, região ou divisão territorial.</string>
+  <string name="yourCityRegionOrDepartment">A tua cidade, região ou província.</string>
   <string name="biographyDescription">Fala-nos de ti, do que gostas no xadrez, as tuas aberturas favoritas, jogos, jogadores…</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Máximo: %s caracteres.</item>
-    <item quantity="other">Máximo: %s caracteres.</item>
+    <item quantity="one">Máximo: %s carácter.</item>
+    <item quantity="other">Máximo: %s carácteres.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s bloqueados</item>
+    <item quantity="one">%s bloqueado</item>
     <item quantity="other">%s bloqueados</item>
   </plurals>
   <string name="listBlockedPlayers">Sua lista de bloqueados</string>
