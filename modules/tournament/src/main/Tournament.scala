@@ -26,6 +26,7 @@ case class Tournament(
     conditions: Condition.All,
     teamBattle: Option[TeamBattle] = None,
     noBerserk: Boolean = false,
+    noStreak: Boolean = false,
     schedule: Option[Schedule],
     nbPlayers: Int,
     createdAt: DateTime,
@@ -112,6 +113,7 @@ case class Tournament(
     else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
 
   def berserkable = !noBerserk && clock.berserkable
+  def streakable  = !noStreak
 
   def clockStatus =
     secondsToFinish pipe { s =>

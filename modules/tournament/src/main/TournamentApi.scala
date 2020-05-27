@@ -115,6 +115,7 @@ final class TournamentApi(
       password = data.password,
       position = DataForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant),
       noBerserk = !(~berserkable),
+      noStreak = !(~streakable),
       teamBattle = old.teamBattle,
       description = description,
       hasChat = data.hasChat | true
@@ -433,7 +434,7 @@ final class TournamentApi(
         cached.sheet.update(tour, userId) map { sheet =>
           player.copy(
             score = sheet.total,
-            fire = sheet.onFire,
+            fire = tour.streakable && sheet.onFire,
             rating = perf.fold(player.rating)(_.intRating),
             provisional = perf.fold(player.provisional)(_.provisional),
             performance = {

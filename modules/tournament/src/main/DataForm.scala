@@ -32,6 +32,7 @@ final class DataForm {
       conditions = Condition.DataForm.AllSetup.default,
       teamBattleByTeam = teamBattleId,
       berserkable = true.some,
+      streakable = true.some,
       description = none,
       hasChat = true.some
     )
@@ -52,6 +53,7 @@ final class DataForm {
       conditions = Condition.DataForm.AllSetup(tour.conditions),
       teamBattleByTeam = none,
       berserkable = tour.berserkable.some,
+      streakable = tour.streakable.some,
       description = tour.description,
       hasChat = tour.hasChat.some
     )
@@ -90,6 +92,7 @@ final class DataForm {
         "conditions"       -> Condition.DataForm.all,
         "teamBattleByTeam" -> optional(nonEmptyText),
         "berserkable"      -> optional(boolean),
+        "streakable"       -> optional(boolean),
         "description"      -> optional(nonEmptyText),
         "hasChat"          -> optional(boolean)
       )(TournamentSetup.apply)(TournamentSetup.unapply)
@@ -159,6 +162,7 @@ private[tournament] case class TournamentSetup(
     conditions: Condition.DataForm.AllSetup,
     teamBattleByTeam: Option[String],
     berserkable: Option[Boolean],
+    streakable: Option[Boolean],
     description: Option[String],
     hasChat: Option[Boolean]
 ) {

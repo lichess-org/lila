@@ -14,6 +14,10 @@ object Sheet {
   case object V1 extends Version
   case object V2 extends Version // second draw gives zero point
 
+  sealed trait Streakable
+  case object Streaks   extends Streakable
+  case object NoStreaks extends Streakable
+
   sealed abstract class Flag(val id: Int)
   case object Double        extends Flag(3)
   case object StreakStarter extends Flag(2)
@@ -62,9 +66,10 @@ object Sheet {
 
   val emptySheet = Sheet(Nil)
 
-  def apply(userId: String, pairings: Pairings, version: Version): Sheet =
+  def apply(userId: String, pairings: Pairings, version: Version, streakable: Streakable): Sheet =
     Sheet {
-      val nexts = (pairings drop 1 map some) :+ None
+      val streaks = streakable == Streaks
+      val nexts   = (pairings drop 1 map some) :+ None
       pairings.zip(nexts).foldLeft(List.empty[Score]) {
         case (scores, (p, n)) =>
           val berserk = if (p berserkOf userId) {
@@ -75,7 +80,7 @@ object Sheet {
             case None =>
               Score(
                 ResDraw,
-                if (isOnFire(scores)) Double
+                if (streaks && isOnFire(scores)) Double
                 else if (version != V1 && !p.longGame && isDrawStreak(scores)) Null
                 else Normal,
                 berserk
@@ -83,8 +88,9 @@ object Sheet {
             case Some(w) if userId == w =>
               Score(
                 ResWin,
-                if (isOnFire(scores)) Double
-                else if (scores.headOption ?? (_.flag == StreakStarter)) StreakStarter
+                if (!streaks) Normal
+                else if (isOnFire(scores)) Double
+                else if (scores.headOption.exists(_.flag == StreakStarter)) StreakStarter
                 else
                   n match {
                     case None                                 => StreakStarter

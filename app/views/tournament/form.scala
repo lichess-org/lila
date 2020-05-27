@@ -181,7 +181,13 @@ object form {
           tpe := "hidden",
           st.name := form("hasChat").name,
           value := "false"
-        ) // hack to allow disabling chat
+        ), // hack to allow disabling chat
+        form3.checkbox(
+          form("streakable"),
+          frag("Arena streaks"),
+          help = frag("After 2 wins, consecutive wins grant 4 points instead of 2.").some,
+          half = true
+        )
       )
     )
 

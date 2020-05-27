@@ -319,7 +319,7 @@ final class JsonView(
                 case rp @ RankedPlayer(_, player) =>
                   for {
                     sheet <- cached.sheet(tour, player.userId)
-                    json  <- playerJson(lightUserApi, sheet.some, rp)
+                    json  <- playerJson(lightUserApi, sheet.some, rp, tour.streakable)
                   } yield json ++ Json
                     .obj(
                       "nb" -> sheetNbs(sheet)
@@ -458,14 +458,16 @@ object JsonView {
 
   def playerJson(
       lightUserApi: LightUserApi,
-      sheets: Map[String, arena.Sheet]
+      sheets: Map[String, arena.Sheet],
+      streakable: Boolean
   )(rankedPlayer: RankedPlayer)(implicit ec: ExecutionContext): Fu[JsObject] =
-    playerJson(lightUserApi, sheets get rankedPlayer.player.userId, rankedPlayer)
+    playerJson(lightUserApi, sheets get rankedPlayer.player.userId, rankedPlayer, streakable)
 
   private[tournament] def playerJson(
       lightUserApi: LightUserApi,
       sheet: Option[arena.Sheet],
-      rankedPlayer: RankedPlayer
+      rankedPlayer: RankedPlayer,
+      streakable: Boolean
   )(implicit ec: ExecutionContext): Fu[JsObject] = {
     val p = rankedPlayer.player
     lightUserApi async p.userId map { light =>
@@ -475,7 +477,7 @@ object JsonView {
           "rank"   -> rankedPlayer.rank,
           "rating" -> p.rating,
           "score"  -> p.score,
-          "sheet"  -> sheet.map(sheetJson)
+          "sheet"  -> sheet.map(sheetJson(streakable))
         )
         .add("title" -> light.flatMap(_.title))
         .add("provisional" -> p.provisional)
@@ -484,13 +486,13 @@ object JsonView {
     }
   }
 
-  private[tournament] def sheetJson(s: arena.Sheet) =
+  private[tournament] def sheetJson(streakable: Boolean)(s: arena.Sheet) =
     Json
       .obj(
         "scores" -> s.scores.reverse.map(sheetScoreJson),
         "total"  -> s.total
       )
-      .add("fire" -> s.onFire)
+      .add("fire" -> (streakable && s.onFire))
 
   private[tournament] def sheetScoreJson(score: arena.Sheet.Score) =
     if (score.flag == arena.Sheet.Normal) JsNumber(score.value)
