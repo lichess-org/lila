@@ -467,7 +467,7 @@
   <string name="keepGoing">Devam et...</string>
   <string name="puzzleFailed">Bulmaca çözülemedi</string>
   <string name="butYouCanKeepTrying">ama denemeye devam edebilirsin.</string>
-  <string name="success">Başarılı</string>
+  <string name="success">Başarı</string>
   <string name="wasThisPuzzleAnyGood">Bu bulmacayı nasıl buldun?</string>
   <string name="pleaseVotePuzzle">Okları kullanarak oylayın, lichess\'in gelişmesine yardımcı olun.</string>
   <string name="thankYou">Teşekkürler!</string>
