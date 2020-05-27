@@ -158,7 +158,6 @@ object Player {
     val rating            = "e"
     val ratingDiff        = "d"
     val provisional       = "p"
-    val blursNb           = "b"
     val blursBits         = "l"
     val holdAlert         = "h"
     val berserk           = "be"
@@ -205,8 +204,7 @@ object Player {
                 rating = r intO rating flatMap ratingRange(userId),
                 ratingDiff = r intO ratingDiff flatMap ratingDiffRange(userId),
                 provisional = r boolD provisional,
-                blurs = r.getO[Blurs.Bits](blursBits) orElse r
-                  .getO[Blurs.Nb](blursNb) getOrElse blursZero.zero,
+                blurs = r.getD[Blurs](blursBits, blursZero.zero),
                 berserk = r boolD berserk,
                 name = r strO name
               )
@@ -221,7 +219,7 @@ object Player {
           rating            -> p.rating,
           ratingDiff        -> p.ratingDiff,
           provisional       -> w.boolO(p.provisional),
-          blursBits         -> (!p.blurs.isEmpty).??(BlursBSONWriter writeOpt p.blurs),
+          blursBits         -> p.blurs.nonEmpty.??(BlursBSONHandler writeOpt p.blurs),
           name              -> p.name
         )
       }
