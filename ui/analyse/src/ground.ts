@@ -59,7 +59,8 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       free: false,
       color: opts.movable!.color,
       dests: opts.movable!.dests,
-      showDests: pref.destination
+      showDests: pref.destination,
+      variant: d.game.variant.key,
     },
     events: {
       move: ctrl.userMove,

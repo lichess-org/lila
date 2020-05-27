@@ -35,6 +35,7 @@ export interface Config {
     }; // valid moves. {"a2" ["a3" "a4"] "b1" ["a3" "c3"]}
     showDests?: boolean; // whether to add the move-dest class on squares
     captureUci?: Array<string>; // possible multicaptures, when played by clicking to the final square (or first ambiguity)
+    variant?: string; // game variant, to determine motion rules
     events?: {
       after?: (orig: cg.Key, dest: cg.Key, metadata: cg.MoveMetadata) => void; // called after the move has been played
       afterNewPiece?: (role: cg.Role, key: cg.Key, metadata: cg.MoveMetadata) => void; // called after a new piece is dropped on the board

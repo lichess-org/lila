@@ -144,7 +144,8 @@ function makeConfig(ctrl) {
     movable: {
       free: true,
       color: 'both',
-      dropOff: 'trash'
+      dropOff: 'trash',
+      variant: ctrl.data.variant
     },
     animation: {
       duration: ctrl.cfg.animation.duration

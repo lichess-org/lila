@@ -42,6 +42,7 @@ export function makeConfig(ctrl: RoundController): Config {
       color: playing ? data.player.color : undefined,
       dests: playing ? util.parsePossibleMoves(data.possibleMoves) : {},
       showDests: !noAssistance && data.pref.destination,
+      variant: data.game.variant.key,
       events: {
         after: hooks.onUserMove
       }

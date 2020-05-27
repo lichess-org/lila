@@ -105,13 +105,14 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
   if (dest == state.selected) unselect(state);
   callUserFunction(state.events.move, orig, dest, captPiece);
 
-  const captured = captureUci ? (captureUci.length - 2) / 2 : 1;
-  const finalDest = captureUci ? key2pos(captureUci.slice(captureUci.length - 2) as cg.Key, bs) : destPos;
-  const promotable = (!state.movable.captLen || state.movable.captLen <= captured) && 
-                      origPiece.role === 'man' && (
-                        (origPiece.color === 'white' && finalDest[1] === 1) || 
-                        (origPiece.color === 'black' && finalDest[1] === state.boardSize[1])
-                      );
+  const captured = captureUci ? (captureUci.length - 2) / 2 : 1,
+    finalDest = captureUci ? key2pos(captureUci.slice(captureUci.length - 2) as cg.Key, bs) : destPos,
+    variant = (state.movable && state.movable.variant) || (state.premovable && state.premovable.variant),
+    promotable = (variant === 'russian' || !state.movable.captLen || state.movable.captLen <= captured) && 
+                  origPiece.role === 'man' && (
+                    (origPiece.color === 'white' && finalDest[1] === 1) || 
+                    (origPiece.color === 'black' && finalDest[1] === state.boardSize[1])
+                  );
   
   const destPiece = (!state.movable.free && promotable) ? {
       role: 'king',

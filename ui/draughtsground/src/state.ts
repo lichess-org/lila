@@ -36,6 +36,7 @@ export interface State {
     dests?: cg.Dests; // valid moves. {"a2" ["a3" "a4"] "b1" ["a3" "c3"]}
     captLen?: number;
     captureUci?: Array<string>
+    variant?: string; // game variant, to determine motion rules
     showDests: boolean; // whether to add the move-dest class on squares
     events: {
       after?: (orig: cg.Key, dest: cg.Key, metadata: cg.MoveMetadata) => void; // called after the move has been played

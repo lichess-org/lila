@@ -94,8 +94,8 @@ function ghostPiece(piece: cg.Piece): cg.Piece {
     return { role: piece.role, color: piece.color, promoted: piece.promoted, kingMoves: piece.kingMoves };
 }
 
-function isPromotable(p: AnimPiece): boolean {
-  return (p.piece.color === 'white' && p.pos[1] === 1) || (p.piece.color === 'black' && p.pos[1] === 10);
+function isPromotable(p: AnimPiece, boardSize: cg.BoardSize): boolean {
+  return (p.piece.color === 'white' && p.pos[1] === 1) || (p.piece.color === 'black' && p.pos[1] === boardSize[1]);
 }
 
 function computePlan(prevPieces: cg.Pieces, current: State, fadeOnly: boolean = false, noCaptSequences: boolean = false): AnimPlan {
@@ -181,13 +181,13 @@ function computePlan(prevPieces: cg.Pieces, current: State, fadeOnly: boolean = 
       newP.piece.color === p.piece.color &&
       (
         newP.piece.role === p.piece.role ||
-        (p.piece.role === 'man' && newP.piece.role === 'king' && isPromotable(newP)) ||
-        (p.piece.role === 'king' && newP.piece.role === 'man' && isPromotable(p))
+        (p.piece.role === 'man' && newP.piece.role === 'king' && isPromotable(newP, bs)) ||
+        (p.piece.role === 'king' && newP.piece.role === 'man' && isPromotable(p, bs))
       )
     ));
     if (preP && !fadeOnly) {
       samePieces[preP.key] = true;
-      const tempRole: cg.Role | undefined = (preP.piece.role === 'man' && newP.piece.role === 'king' && isPromotable(newP)) ? 'man' : undefined;
+      const tempRole: cg.Role | undefined = (preP.piece.role === 'man' && newP.piece.role === 'king' && isPromotable(newP, bs)) ? 'man' : undefined;
       if (captAnim && current.lastMove && current.lastMove[animateFrom] === preP.key && current.lastMove[current.lastMove.length - 1] === newP.key) {
 
         let lastPos: cg.Pos = util.key2pos(current.lastMove[animateFrom + 1], bs), newPos: cg.Pos;

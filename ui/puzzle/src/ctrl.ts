@@ -109,7 +109,8 @@ export default function (opts, redraw: () => void): Controller {
       color: (dests && Object.keys(dests).length > 0) ? color : null,
       dests: dests || {},
       captLen: readCaptureLength(node.dests),
-      captureUci: (opts.pref.fullCapture && node.destsUci && node.destsUci.length) ? node.destsUci : undefined
+      captureUci: (opts.pref.fullCapture && node.destsUci && node.destsUci.length) ? node.destsUci : undefined,
+      variant: data.puzzle.variant.key
     } : {
         color: null,
         dests: {}
