@@ -147,7 +147,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       id: scalachessId(move),
       uci: makeUci(move),
       san,
-      check: check ? makeSquare(check) : undefined,
+      check: defined(check) ? makeSquare(check) : undefined,
       children: []
     }, vm.path);
   }
