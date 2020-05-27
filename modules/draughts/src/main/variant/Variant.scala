@@ -92,12 +92,20 @@ abstract class Variant private[variant] (
   def move(situation: Situation, from: Pos, to: Pos, promotion: Option[PromotableRole], finalSquare: Boolean = false, forbiddenUci: Option[List[String]] = None, captures: Option[List[Pos]] = None, partialCaptures: Boolean = false): Valid[Move] = {
 
     // Find the move in the variant specific list of valid moves
-    def findMove(from: Pos, to: Pos) = validMovesFrom(situation, from, finalSquare).find { m =>
-      if (forbiddenUci.fold(false)(_.contains(m.toUci.uci))) false
-      else if (m.dest == to && captures.fold(true)(m.capture.contains)) true
-      else partialCaptures && m.capture.isDefined && captures.fold(false) { capts =>
-        m.capture.get.endsWith(capts)
+    def findMove(from: Pos, to: Pos) = {
+      val moves = validMovesFrom(situation, from, finalSquare)
+      val exactMatch = moves.find { m =>
+        if (forbiddenUci.fold(false)(_.contains(m.toUci.uci))) false
+        else m.dest == to && captures.fold(true)(m.capture.contains)
       }
+      if (exactMatch.isEmpty && partialCaptures && captures.isDefined) {
+        moves.find { m =>
+          if (forbiddenUci.fold(false)(_.contains(m.toUci.uci))) false
+          else m.capture.isDefined && captures.fold(false) { capts =>
+            m.capture.get.endsWith(capts)
+          }
+        }
+      } else exactMatch
     }
 
     for {

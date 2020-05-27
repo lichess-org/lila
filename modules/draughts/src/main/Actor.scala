@@ -20,6 +20,8 @@ case class Actor(
    */
   lazy val capturesFinal: List[Move] = captureMoves(true)
 
+  def getCaptures(finalSquare: Boolean) = if (finalSquare) capturesFinal else captures
+
   def captureLength = captures.foldLeft(0) {
     case (max, move) =>
       move.capture.fold(max) { jumps =>

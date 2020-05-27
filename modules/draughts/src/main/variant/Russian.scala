@@ -26,8 +26,8 @@ case object Russian extends Variant(
 
   override def validMoves(situation: Situation, finalSquare: Boolean = false): Map[Pos, List[Move]] = {
     val captures: Map[Pos, List[Move]] = situation.actors.collect {
-      case actor if actor.captures.nonEmpty =>
-        actor.pos -> actor.captures
+      case actor if actor.getCaptures(finalSquare).nonEmpty =>
+        actor.pos -> actor.getCaptures(finalSquare)
     }(breakOut)
 
     if (captures.nonEmpty) captures
@@ -69,7 +69,7 @@ case object Russian extends Variant(
                     }
                     if (extraCaptures == 0) {
                       val newMove =
-                        if (finalSquare) promoteOrSame(actor.move(landingPos, boardAfter.withoutGhosts, newSquares, newTaken))
+                        if (finalSquare) actor.move(landingPos, boardAfter.withoutGhosts, newSquares, newTaken)
                         else promoteOrSame(actor.move(firstSquare.getOrElse(landingPos), firstBoard.getOrElse(boardAfter), newSquares, newTaken))
                       buf += newMove
                     }
