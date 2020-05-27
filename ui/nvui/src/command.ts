@@ -1,5 +1,5 @@
 import { renderPieceKeys, renderPiecesOn } from './draughts';
-import { Pieces } from 'draughtsground/types';
+import { BoardSize, Pieces } from 'draughtsground/types';
 
 export const commands = {
   piece: {
@@ -10,8 +10,8 @@ export const commands = {
   },
   scan: {
     help: '/scan:Read pieces on a horizontal line. Example: /scan 4, /scan 10.',
-    apply(c: string, pieces: Pieces, reverse?: boolean): string | undefined {
-      return tryC(c, /^scan ([1-9]|10)$/i, p => renderPiecesOn(pieces, parseInt(p), reverse));
+    apply(c: string, pieces: Pieces, boardSize: BoardSize, reverse?: boolean): string | undefined {
+      return tryC(c, /^scan ([1-9]|10)$/i, p => renderPiecesOn(pieces, boardSize, parseInt(p), reverse));
     }
   }
 };

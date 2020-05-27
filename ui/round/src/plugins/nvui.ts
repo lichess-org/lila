@@ -105,7 +105,7 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
           game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
         )),
         h('h2', 'Board'),
-        h('pre.board', renderBoard(ctrl.draughtsground.state.pieces, ctrl.data.player.color)),
+        h('pre.board', renderBoard(ctrl.draughtsground.state.pieces, ctrl.draughtsground.state.boardSize, ctrl.data.player.color)),
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
@@ -156,10 +156,11 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
   else if (c == 'draw') $('.nvui button.draw-yes').click();
   else if (c == 'takeback') $('.nvui button.takeback-yes').click();
   else {
-    const pieces = ctrl.draughtsground.state.pieces;
+    const pieces = ctrl.draughtsground.state.pieces,
+      boardSize = ctrl.draughtsground.state.boardSize;
     notify(
       commands.piece.apply(c, pieces) ||
-      commands.scan.apply(c, pieces, ctrl.data.player.color !== 'white') ||
+      commands.scan.apply(c, pieces, boardSize, ctrl.data.player.color !== 'white') ||
       `Invalid command: ${c}`
     );
   }

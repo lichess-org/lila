@@ -82,10 +82,10 @@ export function renderPieceKeys(pieces: Pieces, p: string): string {
   return `${name}: ${res.length ? res.sort().map(key => key[0] === '0' ? key.slice(1) : key).join(', ') : 'none'}`;
 }
 
-export function renderPiecesOn(pieces: Pieces, lineNumber: number, reverse?: boolean): string {
+export function renderPiecesOn(pieces: Pieces, boardSize: [number, number], lineNumber: number, reverse?: boolean): string {
   let res: string[] = [], piece: Piece | undefined;
   for (let k of allKeys) {
-    if (key2pos(k)[1] === lineNumber) {
+    if (key2pos(k, boardSize)[1] === lineNumber) {
       piece = pieces[k];
       res.push(piece ? `${piece.color} ${roleName(piece.role)}` : 'empty');
     }
@@ -108,13 +108,13 @@ export function renderPiecesOn(pieces: Pieces, lineNumber: number, reverse?: boo
    46    47    48    49    50
  */
 
-export function renderBoard(pieces: Pieces, pov: Color): string {
+export function renderBoard(pieces: Pieces, boardSize: [number, number], pov: Color): string {
   const white = pov === 'white',
     board = [white ? ['  ', ...filesTop] : [...filesTop, '  ']];
-  for(let y = 1; y <= 10; y++) {
+  for(let y = 1; y <= boardSize[1]; y++) {
     let line = [];
-    for(let x = 0; x < 10; x++) {
-      const piece = (x % 2 !== y % 2) ? undefined : pieces[pos2key([(x - y % 2) / 2 + 1, y])];
+    for(let x = 0; x < boardSize[0]; x++) {
+      const piece = (x % 2 !== y % 2) ? undefined : pieces[pos2key([(x - y % 2) / 2 + 1, y], boardSize)];
       if (piece) {
         const letter = letters[piece.role];
         line.push(piece.color === 'white' ? letter.toUpperCase() : letter);

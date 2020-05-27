@@ -87,7 +87,7 @@ window.lidraughts.AnalyseNVUI = function(redraw: Redraw) {
           h('h2', 'Computer analysis'),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
           h('h2', 'Board'),
-          h('pre.board', renderBoard(ctrl.draughtsground.state.pieces, ctrl.data.player.color)),
+          h('pre.board', renderBoard(ctrl.draughtsground.state.pieces, ctrl.draughtsground.state.boardSize, ctrl.data.player.color)),
           h('div.content', {
             hook: {
               insert: vnode => {
@@ -126,10 +126,11 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, $input
 }
 
 function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string) {
-  const pieces = ctrl.draughtsground.state.pieces;
+  const pieces = ctrl.draughtsground.state.pieces,
+    boardSize = ctrl.draughtsground.state.boardSize;
   notify(
     commands.piece.apply(c, pieces) ||
-    commands.scan.apply(c, pieces, ctrl.data.player.color !== 'white') ||
+    commands.scan.apply(c, pieces, boardSize, ctrl.data.player.color !== 'white') ||
     `Invalid command: ${c}`
   );
 }
