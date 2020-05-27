@@ -813,18 +813,18 @@
   <string name="addCurrentVariation">Adicionar a variante atual</string>
   <string name="playVariationToCreateConditionalPremoves">Joga uma variante para criares movimentos antecipados condicionais</string>
   <string name="noConditionalPremoves">Sem movimentos antecipados condicionais</string>
-  <string name="playX">Jogar %s</string>
+  <string name="playX">Joga %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">e guarda %s variante de movimentos antecipados</item>
     <item quantity="other">e guarda %s variantes de movimentos antecipados</item>
   </plurals>
-  <string name="sorry">Desculpe :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Tivemos que o banir por um tempo.</string>
-  <string name="timeoutExpires">O tempo expira %s.</string>
+  <string name="sorry">Desculpa :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Tivemos de te banir por algum tempo.</string>
+  <string name="timeoutExpires">O banimento expira %s.</string>
   <string name="why">Porquê?</string>
-  <string name="pleasantChessExperience">O nosso objectivo é proporcionar uma experiência agradável de xadrez a todos os jogadores.</string>
-  <string name="goodPractice">Para isso, temos de assegurar que todos os jogadores seguem boas práticas.</string>
-  <string name="potentialProblem">Quando um potencial problema é detectado exibimos esta mensagem.</string>
+  <string name="pleasantChessExperience">Tencionamos proporcionar uma experiência de xadrez agradável a todos.</string>
+  <string name="goodPractice">Para isso, temos de nos assegurar que todos os jogadores seguem boas práticas.</string>
+  <string name="potentialProblem">Quando um potencial problema é detetado, exibimos esta mensagem.</string>
   <string name="howToAvoidThis">Como evitar isto?</string>
   <string name="playEveryGame">Jogue cada jogo que começar.</string>
   <string name="tryToWin">Tente ganhar (ou pelo menos empatar) cada partida que jogar.</string>
