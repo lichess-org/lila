@@ -1,5 +1,5 @@
 import { State } from './state'
-import { setSelected } from './board'
+import { setSelected, boardFields } from './board'
 import { readKingMoves, read as fenRead } from './fen'
 import { DrawShape, DrawBrush } from './draw'
 import * as cg from './types'
@@ -104,7 +104,7 @@ export function configure(state: State, config: Config) {
   if (config.fen) {
 
     // if a fen was provided, replace the pieces
-    state.pieces = fenRead(config.fen);
+    state.pieces = fenRead(config.fen, boardFields(state));
     state.drawable.shapes = [];
     
     // show kingmoves for frisian variants
@@ -140,7 +140,8 @@ export function configure(state: State, config: Config) {
 };
 
 export function setKingMoves(state: State, kingMoves: cg.KingMoves) {
-  for (let f = 1; f <= 50; f++) {
+  const fields = boardFields(state);
+  for (let f = 1; f <= fields; f++) {
     const key = (f < 10 ? '0' + f.toString() : f.toString()) as cg.Key,
       piece = state.pieces[key];
     if (piece && piece.kingMoves)

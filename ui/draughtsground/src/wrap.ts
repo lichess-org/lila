@@ -1,6 +1,7 @@
 import { State } from './state'
 import { colors, translateAway, translateAbs, posToTranslateAbs, key2pos, createEl, allKeys } from './util'
 import { createElement as createSVG } from './svg'
+import { boardFields } from './board'
 import { Elements} from './types'
 
 const files: number[] = [46, 47, 48, 49, 50];
@@ -75,7 +76,7 @@ export default function wrap(element: HTMLElement, s: State, relative: boolean):
 
 function renderFieldnumbers(element: HTMLElement, s: State, bounds: ClientRect) {
   const asWhite = s.orientation !== 'black',
-    count = (s.boardSize[0] * s.boardSize[1]) / 2;
+    count = boardFields(s);
   for (let f = 1; f <= count; f++) {
     const field = createEl('fieldnumber', 'black');
     field.textContent = f.toString();

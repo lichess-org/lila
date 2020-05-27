@@ -427,6 +427,10 @@ export function unusedFieldAtDomPos(pos: cg.NumberPair, boardSize: cg.BoardSize,
   return false;
 }
 
+export function boardFields(s: State): number {
+  return s.boardSize[0] * s.boardSize[1] / 2;
+}
+
 export function whitePov(s: State): boolean {
   return s.orientation === 'white';
 }
