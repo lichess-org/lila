@@ -20,7 +20,7 @@ function studyButton(ctrl, fen) {
       value: ctrl.bottomColor()
     }),
     m('input[type=hidden][name=variant]', {
-      value: ctrl.data.variant
+      value: ctrl.data.variant.key
     }),
     m('input[type=hidden][name=fen]', {
       value: fen
@@ -48,18 +48,17 @@ function controls(ctrl, fen) {
       children: [pos.eco ? pos.eco + " " + pos.name : pos.name]
     };
   };
-  var variant2option = function(key, name) {
+  var variant2option = function(variant) {
     return {
       tag: 'option',
       attrs: {
-        value: key,
-        selected: ctrl.data.variant == key
+        value: variant.key,
+        selected: ctrl.data.variant.key == variant.key
       },
-      children: [name]
+      children: [variant.name]
     };
   };
   var looksLegit = ctrl.positionLooksLegit();
-  var puzzleVariant = (ctrl.data.variant === 'standard' || ctrl.data.variant === 'frisian');
   return m('div.board-editor__tools', [
     ctrl.embed ? null : m('div', [
       ctrl.data.positions ? m('select.positions', {
@@ -97,14 +96,8 @@ function controls(ctrl, fen) {
             onchange: function(e) {
               ctrl.changeVariant(e.target.value);
             }
-          }, [
-            variant2option('standard', 'Standard'),
-            variant2option('frisian', 'Frisian'),
-            variant2option('frysk', 'Frysk!'),
-            variant2option('antidraughts', 'Antidraughts'),
-            variant2option('breakthrough', 'Breakthrough'),
-            variant2option('russian', 'Russian')
-          ])
+          }, 
+          ctrl.data.variants.map(variant2option))
         ])
       ])
     ]),
@@ -123,21 +116,21 @@ function controls(ctrl, fen) {
           }
         }, ctrl.trans.noarg('flipBoard')),
         looksLegit ? m('a.button.button-empty.text[data-icon="A"]', {
-          href: editor.makeUrl('/analysis/' + (ctrl.data.variant !== 'standard' ? ctrl.data.variant + '/' : ''), fen),
+          href: editor.makeUrl('/analysis/' + (ctrl.data.variant.key !== 'standard' ? ctrl.data.variant.key + '/' : ''), fen),
           rel: 'nofollow'
         }, ctrl.trans.noarg('analysis')) : m('span.button.button-empty.disabled.text[data-icon="A"]', {
           rel: 'nofollow'
         }, ctrl.trans.noarg('analysis')),
-        ctrl.data.puzzleEditor ? ((looksLegit && puzzleVariant) ? m('a.button.button-empty.text[data-icon="-"]', {
-          href: editor.makeUrl('/analysis/puzzle/' + (ctrl.data.variant !== 'standard' ? ctrl.data.variant + '/' : ''), fen),
+        ctrl.data.puzzleEditor ? ((looksLegit && ctrl.data.variant.puzzle) ? m('a.button.button-empty.text[data-icon="-"]', {
+          href: editor.makeUrl('/analysis/puzzle/' + (ctrl.data.variant.key !== 'standard' ? ctrl.data.variant.key + '/' : ''), fen),
           rel: 'nofollow'
         }, 'Puzzle editor')  : m('span.button.button-empty.disabled.text[data-icon="-"]', {
           rel: 'nofollow'
         }, 'Puzzle editor')) : null,
         m('a.button.button-empty', {
-          class: (looksLegit && ctrl.data.variant === 'standard') ? '' : 'disabled',
+          class: (looksLegit && ctrl.data.variant.key === 'standard') ? '' : 'disabled',
           onclick: function() {
-            if (ctrl.positionLooksLegit() && ctrl.data.variant === 'standard') $.modal($('.continue-with'));
+            if (ctrl.positionLooksLegit() && ctrl.data.variant.key === 'standard') $.modal($('.continue-with'));
           }
         },
           m('span.text[data-icon=U]', ctrl.trans.noarg('continueFromHere'))),
@@ -172,7 +165,7 @@ function inputs(ctrl, fen) {
     m('p', [
       m('strong.name', 'URL'),
       m('input.copyable.autoselect[readonly][spellCheck=false]', {
-        value: editor.makeUrl(ctrl.data.baseUrl + (ctrl.data.variant !== 'standard' ? ctrl.data.variant + '/' : ''), fen)
+        value: editor.makeUrl(ctrl.data.baseUrl + (ctrl.data.variant.key !== 'standard' ? ctrl.data.variant.key + '/' : ''), fen)
       })
     ])
   ]);
@@ -284,7 +277,7 @@ module.exports = function(ctrl) {
     style: 'cursor: ' + makeCursor(ctrl.selected())
   }, [
     sparePieces(ctrl, color, 'black', 'top'),
-    m('div.main-board.is' + ctrl.boardSizeKey(), [
+    m('div.main-board.is' + ctrl.data.variant.board.key, [
       draughtsground(ctrl),
       m('div.board-resize', {
         config: function(el, isUpdate) {

@@ -48,7 +48,7 @@ object userAnalysis {
           views.html.base.bits.mselect(
             "analyse-variant",
             span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
-            draughts.variant.Variant.all.filter(draughts.variant.FromPosition !=).map { v =>
+            draughts.variant.Variant.allVariants.map { v =>
               a(
                 dataIcon := iconByVariant(v),
                 cls := (pov.game.variant == v).option("current"),

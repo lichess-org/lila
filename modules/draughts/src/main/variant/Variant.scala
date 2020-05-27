@@ -359,6 +359,8 @@ object Variant {
   val byId = all map { v => (v.id, v) } toMap
   val byKey = all map { v => (v.key, v) } toMap
 
+  val allVariants = all.filter(FromPosition !=)
+
   val default = Standard
 
   def apply(id: Int): Option[Variant] = byId get id

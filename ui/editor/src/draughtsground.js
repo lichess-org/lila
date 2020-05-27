@@ -137,7 +137,7 @@ function deletePiece(ctrl, key) {
 function makeConfig(ctrl) {
   return {
     fen: ctrl.cfg.fen,
-    boardSize: ctrl.boardSize(),
+    boardSize: ctrl.data.variant.board.size,
     orientation: ctrl.options.orientation || 'white',
     coordinates: ctrl.embed ? 0 : ctrl.cfg.coords,
     addPieceZIndex: ctrl.cfg.is3d,

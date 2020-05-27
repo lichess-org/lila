@@ -15,7 +15,7 @@ module.exports = function(cfg) {
   this.selected = m.prop('pointer');
 
   this.extraPositions = [{
-      fen: 'W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20',
+      fen: 'start',
       name: this.trans('startPosition')
   }, {
       fen: 'W:W:B',
@@ -56,7 +56,7 @@ module.exports = function(cfg) {
 
   this.startPosition = function() {
     this.draughtsground.set({
-      fen: 'start'
+      fen: this.data.variant.initialFen
     });
     this.data.color('w');
     this.onChange();
@@ -72,46 +72,44 @@ module.exports = function(cfg) {
   this.loadNewFen = function(fen) {
     if (fen === 'prompt') {
       fen = prompt('Paste FEN position').trim();
-      if (!fen) return;
+    } else if (fen === 'start') {
+      fen = this.data.variant.initialFen;
     }
-    this.changeFen(fen);
+    if (fen) {
+      this.changeFen(fen);
+    }
   }.bind(this);
 
   this.changeFen = function(fen) {
-    window.location = editor.makeUrl(this.data.baseUrl + (this.data.variant !== 'standard' ? this.data.variant + '/' : ''), fen);
+    window.location = editor.makeUrl(this.data.baseUrl + (this.data.variant.key !== 'standard' ? this.data.variant.key + '/' : ''), fen);
   }.bind(this);
 
-  this.changeVariant = function(variant) {
-    this.data.variant = variant;
-    this.draughtsground = undefined; // recreate from view
-    m.redraw();
+  this.changeVariant = function(key) {
+    const variant = this.data.variants.find(v => v.key === key);
+    if (variant) {
+      this.data.variant = variant;
+      this.draughtsground = undefined; // recreated from view
+      m.redraw();
+    }
   }.bind(this);
-
-  this.variants64 = ['russian'];
-  this.boardSize = function() {
-    if (this.variants64.includes(this.data.variant)) return [8, 8];
-    else return [10, 10];
-  }
-  this.boardSizeKey = function() {
-    if (this.variants64.includes(this.data.variant)) return '64';
-    else return '100';
-  }
-  this.boardBackrankBlack = function() {
-    if (this.variants64.includes(this.data.variant)) return ['29', '30', '31', '32'];
-    else return ['46', '47', '48', '49', '50'];
-  }
 
   this.positionLooksLegit = function() {
-    var pieces = this.draughtsground ? this.draughtsground.state.pieces : fenRead(this.cfg.fen);
-    var totals = {
-      white: 0,
-      black: 0
-    };
-    var backrankBlack = this.boardBackrankBlack();
-    for (var pos in pieces) {
+    const pieces = this.draughtsground ? this.draughtsground.state.pieces : fenRead(this.cfg.fen),
+      totals = { white: 0, black: 0 },
+      boardSize = this.data.variant.board.size,
+      fields = boardSize[0] * boardSize[1] / 2,
+      width = boardSize[0] / 2,
+      backrankWhite = [], backrankBlack = [];
+    for (let i = 1; i <= width; i++) {
+      backrankWhite.push(i < 10 ? '0' +  i.toString() :  i.toString());
+    }
+    for (let i = fields - width + 1; i <= fields; i++) {
+      backrankBlack.push(i < 10 ? '0' +  i.toString() :  i.toString());
+    }
+    for (let pos in pieces) {
       if (pieces[pos] && (pieces[pos].role === 'king' || pieces[pos].role === 'man')) {
         if (pieces[pos].role === 'man') {
-          if (pieces[pos].color === 'white' && (pos === '01' || pos === '02' || pos === '03' || pos === '04' || pos === '05'))
+          if (pieces[pos].color === 'white' && backrankWhite.includes(pos))
             return false;
           else if (pieces[pos].color === 'black' && backrankBlack.includes(pos))
             return false;
@@ -119,7 +117,7 @@ module.exports = function(cfg) {
         totals[pieces[pos].color]++;
       }
     }
-    return totals.white !== 0 && totals.black !== 0 && (totals.white + totals.black) < 50;
+    return totals.white !== 0 && totals.black !== 0 && (totals.white + totals.black) < fields;
   }.bind(this);
 
   this.setOrientation = function(o) {

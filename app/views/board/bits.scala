@@ -6,6 +6,7 @@ import scala.concurrent.duration.Duration
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
+import lidraughts.game.JsonView.variantWriter
 
 import controllers.routes
 
@@ -18,14 +19,25 @@ object bits {
   )(implicit ctx: Context) = Json.obj(
     "fen" -> fen.split(":").take(3).mkString(":"),
     "coords" -> ctx.pref.coords,
-    "variant" -> sit.board.variant.key,
+    "variant" -> variantJson(sit.board.variant),
+    "variants" -> draughts.variant.Variant.allVariants.map(variantJson),
     "baseUrl" -> s"$netBaseUrl${routes.Editor.parse("")}",
     "color" -> sit.color.letter.toString,
     "animation" -> Json.obj(
       "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
     ),
     "i18n" -> i18nJsObject(translations)(ctxLang(ctx))
-  )
+  ).add("puzzleEditor" -> isGranted(_.CreatePuzzles).option(true))
+
+  def variantJson(v: draughts.variant.Variant)(implicit ctx: Context) = Json.obj(
+    "key" -> v.key,
+    "name" -> v.name,
+    "board" -> Json.obj(
+      "key" -> v.boardSize.key,
+      "size" -> v.boardSize.sizes
+    ),
+    "initialFen" -> v.initialFen
+  ).add("puzzle" -> lidraughts.pref.Pref.puzzleVariants.contains(v).option(true))
 
   private val translations = List(
     trans.setTheBoard,

@@ -6,6 +6,7 @@ function init(cfg) {
     baseUrl: cfg.baseUrl,
     positions: cfg.positions,
     variant: cfg.variant,
+    variants: cfg.variants,
     i18n: cfg.i18n,
     puzzleEditor: cfg.puzzleEditor
   };
