@@ -184,5 +184,6 @@
   <string name="create">Cruthaigh</string>
   <string name="language">Teanga</string>
   <string name="perfRatingX">Rátáil: %s</string>
+  <string name="computerThinking">An ríomhaire ag machnamh ...</string>
   <string name="ultraBulletDesc">Cluichí ar luas gan chiall; níos lú ná 30 soicind</string>
 </resources>
