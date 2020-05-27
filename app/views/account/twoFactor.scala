@@ -41,7 +41,10 @@ object twoFactor {
           qrCode,
           div(cls := "form-group explanation")(enterPassword()),
           form3.hidden(form("secret")),
-          form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "current-password"),
+          form3.passwordModified(form("passwd"), trans.password())(
+            autofocus,
+            autocomplete := "current-password"
+          ),
           form3.group(form("token"), authenticationCode())(
             form3.input(_)(pattern := "[0-9]{6}", autocomplete := "one-time-code", required)
           ),
