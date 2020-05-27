@@ -2,6 +2,7 @@ var editor = require('./editor');
 var m = require('mithril');
 var keyboard = require('./keyboard');
 var fenRead = require('draughtsground/fen').read;
+var fenCompare = require('draughts').fenCompare;
 
 module.exports = function(cfg) {
 
@@ -86,19 +87,24 @@ module.exports = function(cfg) {
 
   this.changeVariant = function(key) {
     const variant = this.data.variants.find(v => v.key === key);
-    if (variant) {
-      this.data.variant = variant;
-      this.draughtsground = undefined; // recreated from view
-      m.redraw();
+    if (!variant) return;
+    const newSize = variant.board.size[0] !== this.data.variant.board.size[0] || variant.board.size[1] !== this.data.variant.board.size[1],
+      changeInitial = variant.initialFen !== this.data.variant.initialFen && fenCompare(this.computeFen(), this.data.variant.initialFen);
+    if (newSize || changeInitial) {
+      // recreate draughtsground on startingposition with new boardsize
+      this.cfg.fen = variant.initialFen;
+      this.draughtsground = undefined;
     }
+    this.data.variant = variant;
+    m.redraw();
   }.bind(this);
 
   this.positionLooksLegit = function() {
-    const pieces = this.draughtsground ? this.draughtsground.state.pieces : fenRead(this.cfg.fen),
-      totals = { white: 0, black: 0 },
+    const totals = { white: 0, black: 0 },
       boardSize = this.data.variant.board.size,
       fields = boardSize[0] * boardSize[1] / 2,
       width = boardSize[0] / 2,
+      pieces = this.draughtsground ? this.draughtsground.state.pieces : fenRead(this.cfg.fen, fields),
       backrankWhite = [], backrankBlack = [];
     for (let i = 1; i <= width; i++) {
       backrankWhite.push(i < 10 ? '0' +  i.toString() :  i.toString());
