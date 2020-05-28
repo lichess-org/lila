@@ -1,6 +1,5 @@
 package lila.memo
 
-import ornicar.scalalib.Zero
 import scala.concurrent.duration.FiniteDuration
 
 /**
