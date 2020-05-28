@@ -54,7 +54,7 @@ final class JsonView {
           Json.toJson(D.MaterialRange: Dimension[_]),
           Json.toJson(D.Phase: Dimension[_])
         ) ::: {
-          asMod ?? List(Json.toJson(D.Blur: Dimension[_]))
+          asMod ?? List(Json.toJson(D.Blur: Dimension[_]), Json.toJson(D.TimeVariance: Dimension[_]))
         }
       ),
       Categ(
@@ -66,47 +66,51 @@ final class JsonView {
       )
     )
 
+    val metricCategs = List(
+      Categ(
+        "Setup",
+        List(
+          Json.toJson(M.OpponentRating: Metric)
+        )
+      ),
+      Categ(
+        "Move",
+        List(
+          Json.toJson(M.Movetime: Metric),
+          Json.toJson(M.PieceRole: Metric),
+          Json.toJson(M.Material: Metric),
+          Json.toJson(M.NbMoves: Metric)
+        ) ++ {
+          asMod ?? List(
+            Json.toJson(M.Blurs: Metric),
+            Json.toJson(M.TimeVariance: Metric)
+          )
+        }
+      ),
+      Categ(
+        "Evaluation",
+        List(
+          Json.toJson(M.MeanCpl: Metric),
+          Json.toJson(M.Opportunism: Metric),
+          Json.toJson(M.Luck: Metric)
+        )
+      ),
+      Categ(
+        "Result",
+        List(
+          Json.toJson(M.Termination: Metric),
+          Json.toJson(M.Result: Metric),
+          Json.toJson(M.RatingDiff: Metric)
+        )
+      )
+    )
+
     Json.obj(
       "dimensionCategs" -> dimensionCategs,
       "metricCategs"    -> metricCategs,
       "presets"         -> { if (asMod) Preset.forMod else Preset.base }
     )
   }
-
-  private val metricCategs = List(
-    Categ(
-      "Setup",
-      List(
-        Json.toJson(M.OpponentRating: Metric)
-      )
-    ),
-    Categ(
-      "Move",
-      List(
-        Json.toJson(M.Movetime: Metric),
-        Json.toJson(M.PieceRole: Metric),
-        Json.toJson(M.Material: Metric),
-        Json.toJson(M.NbMoves: Metric),
-        Json.toJson(M.Blurs: Metric)
-      )
-    ),
-    Categ(
-      "Evaluation",
-      List(
-        Json.toJson(M.MeanCpl: Metric),
-        Json.toJson(M.Opportunism: Metric),
-        Json.toJson(M.Luck: Metric)
-      )
-    ),
-    Categ(
-      "Result",
-      List(
-        Json.toJson(M.Termination: Metric),
-        Json.toJson(M.Result: Metric),
-        Json.toJson(M.RatingDiff: Metric)
-      )
-    )
-  )
 
   private object writers {
 

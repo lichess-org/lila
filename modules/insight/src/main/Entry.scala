@@ -68,7 +68,8 @@ case class Move(
     material: Int,     // material imbalance, relative to player
     opportunism: Option[Boolean],
     luck: Option[Boolean],
-    blur: Boolean
+    blur: Boolean,
+    timeCv: Option[Float] // time coefficient variation
 )
 
 sealed abstract class Termination(val id: Int, val name: String)
@@ -221,4 +222,21 @@ object Blur {
   object No  extends Blur(false, "No blur")
   val all                     = List(Yes, No)
   def apply(v: Boolean): Blur = if (v) Yes else No
+}
+
+sealed abstract class TimeVariance(val id: Float, val name: String) {
+  lazy val intFactored = (id * TimeVariance.intFactor).toInt
+}
+object TimeVariance {
+  case object VeryConsistent  extends TimeVariance(0.25f, "Very consistent")
+  case object QuiteConsistent extends TimeVariance(0.4f, "Quite consistent")
+  case object Medium          extends TimeVariance(0.6f, "Medium")
+  case object QuiteVariable   extends TimeVariance(0.75f, "Quite variable")
+  case object VeryVariable    extends TimeVariance(1f, "Very variable")
+  val all = List(VeryConsistent, QuiteConsistent, Medium, QuiteVariable, VeryVariable)
+  val byId = all map { p =>
+    (p.id, p)
+  } toMap
+  def apply(v: Float) = all.find(_.id >= v) | VeryVariable
+  val intFactor: Int  = 100_000 // multiply variance by that to get an Int for storage
 }

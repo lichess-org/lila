@@ -57,6 +57,11 @@ private object BSONHandlers {
 
   implicit val BlurBSONHandler = BSONBooleanNullHandler.as[Blur](Blur.apply, _.id)
 
+  implicit val TimeVarianceBSONHandler = BSONIntegerHandler.as[TimeVariance](
+    i => TimeVariance(i.toFloat / TimeVariance.intFactor),
+    v => (v.id * TimeVariance.intFactor).toInt
+  )
+
   implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
 
   implicit val PeriodBSONHandler = intIsoHandler(lila.common.Iso.int[Period](Period.apply, _.days))
@@ -74,7 +79,8 @@ private object BSONHandlers {
           material = r.int("i"),
           opportunism = r.boolO("o"),
           luck = r.boolO("l"),
-          blur = r.boolD("b")
+          blur = r.boolD("b"),
+          timeCv = r.intO("v").map(v => v.toFloat / TimeVariance.intFactor)
         )
       def writes(w: BSON.Writer, b: Move) =
         BSONDocument(
@@ -87,7 +93,8 @@ private object BSONHandlers {
           "i" -> b.material,
           "o" -> b.opportunism,
           "l" -> b.luck,
-          "b" -> w.boolO(b.blur)
+          "b" -> w.boolO(b.blur),
+          "v" -> b.timeCv.map(v => (v * TimeVariance.intFactor).toInt)
         )
     }
 

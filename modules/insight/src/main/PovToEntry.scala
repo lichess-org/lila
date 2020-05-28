@@ -4,7 +4,7 @@ import scala.util.chaining._
 import scalaz.NonEmptyList
 
 import chess.format.FEN
-import chess.{ Board, Role }
+import chess.{ Board, Centis, Role, Stats }
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov }
 
@@ -23,7 +23,7 @@ final private class PovToEntry(
       division: chess.Division,
       moveAccuracy: Option[List[Int]],
       boards: NonEmptyList[Board],
-      movetimes: NonEmptyList[Int],
+      movetimes: NonEmptyList[Centis],
       advices: Map[Ply, Advice]
   )
 
@@ -57,7 +57,7 @@ final private class PovToEntry(
                   )
                   .toOption
                   .flatMap(_.toNel)
-              movetimes <- game.moveTimes(pov.color).flatMap(_.map(_.roundTenths).toNel)
+              movetimes <- game.moveTimes(pov.color).flatMap(_.toNel)
             } yield RichPov(
               pov = pov,
               provisional = provisional,
@@ -101,8 +101,9 @@ final private class PovToEntry(
         case (e, i) if (i % 2) == pivot => e
       }
     }
-    movetimes.zip(roles).zip(boards).zip(from.pov.player.blurs.booleans).zipWithIndex.map {
-      case tenths ~ role ~ board ~ blur ~ i =>
+    val timeCvs = slidingMoveTimesCvs(movetimes)
+    movetimes.zip(roles).zip(boards).zip(from.pov.player.blurs.booleans).zip(timeCvs).zipWithIndex.map {
+      case movetime ~ role ~ board ~ blur ~ timeCv ~ i =>
         val ply      = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
         val opportunism = from.advices.get(ply - 1) flatMap {
@@ -123,7 +124,7 @@ final private class PovToEntry(
         }
         Move(
           phase = Phase.of(from.division, ply),
-          tenths = tenths,
+          tenths = movetime.roundTenths,
           role = role,
           eval = prevInfo.flatMap(_.cp).map(_.ceiled.centipawns),
           mate = prevInfo.flatMap(_.mate).map(_.moves),
@@ -131,9 +132,21 @@ final private class PovToEntry(
           material = board.materialImbalance * from.pov.color.fold(1, -1),
           opportunism = opportunism,
           luck = luck,
-          blur = blur
+          blur = blur,
+          timeCv = timeCv.some
         )
     }
+  }
+
+  private def slidingMoveTimesCvs(movetimes: Seq[Centis]): Iterator[Float] =
+    movetimes.iterator
+      .sliding(14)
+      .map(a => a.toList.sorted.drop(1).dropRight(1))
+      .flatMap(a => coefVariation(a.map(_.centis + 10)))
+
+  private def coefVariation(a: List[Int]): Option[Float] = {
+    val s = Stats(a)
+    s.stdDev.map { _ / s.mean }
   }
 
   private def queenTrade(from: RichPov) =

@@ -158,6 +158,17 @@ object Metric {
         raw("How often moves are preceded by a window blur.")
       )
 
+  case object TimeVariance
+      extends Metric(
+        "timeVariance",
+        "Time variance",
+        F moves "v",
+        Move,
+        Move,
+        Average,
+        raw("Low variance means consistent move times")
+      )
+
   val all = List(
     MeanCpl,
     Movetime,
@@ -170,7 +181,8 @@ object Metric {
     Opportunism,
     Luck,
     Material,
-    Blurs
+    Blurs,
+    TimeVariance
   )
   val byKey = all map { p =>
     (p.key, p)

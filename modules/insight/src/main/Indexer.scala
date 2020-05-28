@@ -86,9 +86,9 @@ final private class Indexer(
       gameRepo
         .sortedCursor(query, Query.sortChronological)
         .documentSource()
-        .throttle(400, 1 second)
+        .throttle(600, 1 second)
         .take(maxGames)
-        .mapAsync(8)(toEntry)
+        .mapAsync(16)(toEntry)
         .via(LilaStream.collect)
         .zipWithIndex
         .map { case (e, i) => e.copy(number = fromNumber + i.toInt) }

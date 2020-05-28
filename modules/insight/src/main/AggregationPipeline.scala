@@ -59,10 +59,24 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             }
           )
         )
+        lazy val timeVarianceIdDispatcher =
+          TimeVariance.all.reverse
+            .drop(1)
+            .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)) {
+              case (acc, tvi) =>
+                $doc(
+                  "$cond" -> $arr(
+                    $doc("$lte" -> $arr("$" + F.moves("v"), tvi.intFactored)),
+                    tvi.intFactored,
+                    acc
+                  )
+                )
+            }
         def dimensionGroupId(dim: Dimension[_]): BSONValue =
           dim match {
             case Dimension.MovetimeRange => movetimeIdDispatcher
             case Dimension.MaterialRange => materialIdDispatcher
+            case Dimension.TimeVariance  => timeVarianceIdDispatcher
             case d                       => BSONString("$" + d.dbKey)
           }
         sealed trait Grouping
@@ -249,6 +263,21 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                 sampleMoves
               ) :::
                 groupMulti(dimension, F.moves("r"))
+            case M.TimeVariance =>
+              List(
+                projectForMove,
+                unwindMoves,
+                matchMoves(),
+                sampleMoves
+              ) :::
+                group(
+                  dimension,
+                  GroupFunction(
+                    "$avg",
+                    $doc("$divide" -> $arr("$" + F.moves("v"), TimeVariance.intFactor))
+                  )
+                ) :::
+                List(includeSomeGameIds.some)
           }) ::: (dimension match {
             case D.Opening => List(sortNb, limit(12))
             case _         => Nil
