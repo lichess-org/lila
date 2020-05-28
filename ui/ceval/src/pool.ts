@@ -40,6 +40,7 @@ class WebWorker extends AbstractWorker {
     this.worker.addEventListener('message', e => {
       protocol.received(e.data);
     }, true);
+    protocol.init();
     return Promise.resolve(protocol);
   }
 
@@ -73,9 +74,10 @@ class ThreadedWasmWorker extends AbstractWorker {
 
   boot(): Promise<Protocol> {
     if (!ThreadedWasmWorker.global) ThreadedWasmWorker.global = window.lichess.loadScript(this.url, {sameDomain: true}).then(() => window['Stockfish']()).then(sf => {
+      this.sf = sf;
       const protocol = new Protocol(this.send.bind(this), this.workerOpts);
-      const listener = protocol.received.bind(protocol);
-      sf.addMessageListener(listener);
+      sf.addMessageListener(protocol.received.bind(protocol));
+      protocol.init();
       return {
         sf,
         protocol
