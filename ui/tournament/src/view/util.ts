@@ -30,13 +30,14 @@ export function dataIcon(icon: string): Attrs {
 }
 
 export function miniBoard(game) {
-  return h('a.mini-board.parse-fen.is2d.mini-board-' + game.id, {
+  return h('a.mini-board.parse-fen.is2d.mini-board-' + game.id + '.is' + game.board.key, {
     key: game.id,
     attrs: {
       href: '/' + game.id + (game.color === 'white' ? '' : '/black'),
       'data-color': game.color,
       'data-fen': game.fen,
-      'data-lastmove': game.lastMove
+      'data-lastmove': game.lastMove,
+      'data-board': `${game.board.size[0]}x${game.board.size[1]}`
     },
     hook: {
       insert(vnode) {

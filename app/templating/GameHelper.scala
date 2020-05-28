@@ -226,7 +226,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   )(implicit ctx: UserContext): Frag = {
     val game = pov.game
     val isLive = withLive && game.isBeingPlayed
-    val cssClass = isLive ?? ("live mini-board-" + game.id)
+    val cssClass = isLive ?? "live"
     val variant = game.variant.key
     val tag = if (withLink) a else span
     val boardClass = s"is${pov.game.variant.boardSize.key}"

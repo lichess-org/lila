@@ -67,7 +67,7 @@ object mini {
       (u.lameOrTroll || u.disabled) option span(cls := "upt__mod__marks")(mod.userMarks(u, None))
     ),
     (!ctx.pref.isBlindfold) ?? playing map { pov =>
-      frag(
+      div(cls := "is2d")(
         gameFen(pov),
         div(cls := "upt__game-legend")(
           i(dataIcon := pov.game.perfType.map(_.iconChar.toString), cls := "text")(

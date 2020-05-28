@@ -262,7 +262,11 @@ final class JsonView(
       }).name,
       "lastMove" -> ~game.lastMoveKeys,
       "white" -> ofPlayer(featured.white, game player draughts.White),
-      "black" -> ofPlayer(featured.black, game player draughts.Black)
+      "black" -> ofPlayer(featured.black, game player draughts.Black),
+      "board" -> Json.obj(
+        "key" -> game.variant.boardSize.key,
+        "size" -> game.variant.boardSize.sizes
+      )
     )
   }
 
