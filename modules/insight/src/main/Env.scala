@@ -41,6 +41,6 @@ final class Env(
 
   lila.common.Bus.subscribeFun("analysisReady", "cheatReport") {
     case lila.analyse.actorApi.AnalysisReady(game, _)        => api updateGame game
-    case lila.hub.actorApi.report.CheatReportCreated(userId) => api ensureV2 userId
+    case lila.hub.actorApi.report.CheatReportCreated(userId) => api ensureLatest userId
   }
 }

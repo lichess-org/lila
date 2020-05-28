@@ -21,7 +21,7 @@ case class UserCache(
 object UserCache {
 
   def make(userId: User.ID, count: Int, ecos: Set[String]) =
-    UserCache(userId, count, ecos, DateTime.now, 2.some)
+    UserCache(userId, count, ecos, DateTime.now, latestVersion.some)
 }
 
 final private class UserCacheApi(coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
