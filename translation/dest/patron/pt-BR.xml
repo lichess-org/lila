@@ -37,7 +37,7 @@ Em seguida, pagamos um desenvolvedor em tempo integral: %s, o fundador do Liches
   <string name="changeMonthlySupport">Posso mudar/cancelar meu suporte mensal?</string>
   <string name="changeOrContact">Sim, a qualquer momento, a partir desta página.
 Ou você pode %s.</string>
-  <string name="contactSupport">entre em contato com o suporte Lichess</string>
+  <string name="contactSupport">entrar em contato com o suporte do Lichess</string>
   <string name="otherMethods">Outros métodos de doação?</string>
   <string name="bankTransfers">Também aceitamos transferências bancárias</string>
   <string name="bitcoin">E aqui está nosso endereço bitcoin: %s</string>
