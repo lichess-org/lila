@@ -225,8 +225,8 @@ final class Tournament(
   def form =
     Auth { implicit ctx => me =>
       NoLameOrBot {
-        teamC.teamsIBelongTo(me) map { teams =>
-          Ok(html.tournament.form.create(forms.create(me), teams))
+        env.team.teamRepo.enabledTeamsByLeader(me.id) map { teams =>
+          Ok(html.tournament.form.create(forms.create(me), teams.map(_.light)))
         }
       }
     }
@@ -291,7 +291,7 @@ final class Tournament(
                 err => BadRequest(html.tournament.form.create(err, teams)).fuccess,
                 setup =>
                   rateLimitCreation(me, setup.isPrivate, ctx.req) {
-                    api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
+                    api.createTournament(setup, me, teams, getLeaderTeamIds) map { tour =>
                       Redirect {
                         if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
                         else routes.Tournament.show(tour.id)
@@ -320,12 +320,12 @@ final class Tournament(
         setup =>
           rateLimitCreation(me, setup.isPrivate, req) {
             teamC.teamsIBelongTo(me) flatMap { teams =>
-              api.createTournament(setup, me, teams, getUserTeamIds, andJoin = false) flatMap { tour =>
+              api.createTournament(setup, me, teams, getLeaderTeamIds, andJoin = false) flatMap { tour =>
                 jsonView(
                   tour,
                   none,
                   none,
-                  getUserTeamIds,
+                  getLeaderTeamIds,
                   env.team.getTeamName,
                   none,
                   none,
@@ -480,4 +480,7 @@ final class Tournament(
 
   private def getUserTeamIds(user: lila.user.User): Fu[List[TeamID]] =
     env.team.cached.teamIdsList(user.id)
+
+  private def getLeaderTeamIds(user: lila.user.User): Fu[List[TeamID]] =
+    env.team.teamRepo.enabledTeamIdsByLeader(user.id)
 }
