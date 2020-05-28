@@ -91,9 +91,20 @@ function inArray(arr: string[], predicate: Function) {
   return undefined
 }
 
-export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | boolean {
+export function baseMove(state: State, orig: cg.Key, dest: cg.Key, finishCapture?: Boolean): cg.Piece | boolean {
 
-  if (orig === dest || !state.pieces[orig]) return false;
+  if (orig === dest || !state.pieces[orig]) {
+    // remove any remaining ghost pieces if capture sequence is done
+    if (finishCapture) {
+      for (let i = 0; i < allKeys.length; i++) {
+        const k = allKeys[i], pc = state.pieces[k];
+        if (pc && (pc.role === 'ghostking' || pc.role === 'ghostman'))
+          delete state.pieces[k];
+      }
+      if (dest == state.selected) unselect(state);
+    }
+    return false;
+  }
 
   const isCapture = (state.movable.captLen && state.movable.captLen > 0), bs = state.boardSize;
   const captureUci = isCapture && state.movable.captureUci && inArray(state.movable.captureUci, (uci: string) => uci.slice(0, 2) === orig && uci.slice(-2) === dest);
@@ -138,7 +149,7 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
       delete state.pieces[captKey]
 
       //Show a ghostpiece when we capture more than once
-      if (state.movable.captLen !== undefined && state.movable.captLen > 1) {
+      if (!finishCapture && state.movable.captLen !== undefined && state.movable.captLen > 1) {
         if (captRole === 'man') {
           state.pieces[captKey] = {
             role: 'ghostman',
@@ -153,9 +164,9 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
       } else {
         //Remove any remaing ghost pieces if capture sequence is done
         for (let i = 0; i < allKeys.length; i++) {
-          const pc = state.pieces[allKeys[i]];
-          if (pc !== undefined && (pc.role === 'ghostking' || pc.role === 'ghostman'))
-            delete state.pieces[allKeys[i]];
+          const k = allKeys[i], pc = state.pieces[k];
+          if (pc && (pc.role === 'ghostking' || pc.role === 'ghostman'))
+            delete state.pieces[k];
         }
       }
     }

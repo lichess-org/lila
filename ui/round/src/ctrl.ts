@@ -308,9 +308,8 @@ export default class RoundController {
 
   apiMove = (o: ApiMove): void => {
     const d = this.data,
-      playing = this.isPlaying();
-
-    const ghosts = countGhosts(o.fen);
+      playing = this.isPlaying(),
+      ghosts = countGhosts(o.fen);
 
     d.game.turns = o.ply;
     d.game.player = o.ply % 2 === 0 ? 'white' : 'black';
@@ -325,7 +324,6 @@ export default class RoundController {
     this.playerByColor('black').offeringDraw = o.bDraw;
 
     d.possibleMoves = activeColor ? o.dests : undefined;
-    d.possibleDrops = activeColor ? o.drops : undefined;
     d.captureLength = o.captLen;
 
     this.setTitle();
@@ -341,7 +339,7 @@ export default class RoundController {
       }, o.uci.substr(o.uci.length - 2, 2) as cg.Key);
       else {
         const keys = util.uci2move(o.uci);
-        this.draughtsground.move(keys![0], keys![1]);
+        this.draughtsground.move(keys![0], keys![1], ghosts === 0);
       }
       this.draughtsground.set({
         turnColor: d.game.player,

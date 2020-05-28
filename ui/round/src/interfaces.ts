@@ -48,7 +48,6 @@ export interface RoundData extends GameData {
   pref: Pref;
   steps: Step[];
   possibleMoves?: EncodedDests;
-  possibleDrops?: string;
   captureLength?: number
   forecastCount?: number;
   crazyhouse?: CrazyData;
@@ -116,7 +115,6 @@ export interface Step {
 
 export interface ApiMove extends Step {
   dests: EncodedDests;
-  captLen?: number
   clock?: {
     white: Seconds;
     black: Seconds;

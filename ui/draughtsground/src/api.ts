@@ -25,7 +25,7 @@ export interface Api {
   toggleOrientation(): void;
 
   // perform a move programmatically
-  move(orig: cg.Key, dest: cg.Key): void;
+  move(orig: cg.Key, dest: cg.Key, finishCapture?: Boolean): void;
 
   // add and/or remove arbitrary pieces on the board
   setPieces(pieces: cg.PiecesDiff): void;
@@ -117,8 +117,8 @@ export function start(state: State, redrawAll: cg.Redraw): Api {
       }
     },
 
-    move(orig, dest) {
-      anim(state => board.baseMove(state, orig, dest), state);
+    move(orig, dest, finishCapture?: Boolean) {
+      anim(state => board.baseMove(state, orig, dest, finishCapture), state);
     },
 
     newPiece(piece, key) {

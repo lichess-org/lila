@@ -6,13 +6,11 @@ export function mergeSteps(steps: Step[]): Step[] {
   if (steps.length == 0) return mergedSteps;
   else mergedSteps.push(steps[0]);
 
-  if (steps.length == 1) return mergedSteps;;
+  if (steps.length == 1) return mergedSteps;
 
   for (let i = 1; i < steps.length; i++) {
     const step = steps[i - 1];
-    if (step.captLen === undefined) {
-      mergedSteps.push(steps[i]);
-    } else if (step.captLen < 2 || step.ply < steps[i].ply) {
+    if (step.captLen === undefined || step.captLen < 2 || step.ply < steps[i].ply) {
       // Captures split over multiple steps have the same ply. If a multicapture is reported in one step, the ply does increase
       mergedSteps.push(steps[i]);
     } else {
@@ -24,7 +22,7 @@ export function mergeSteps(steps: Step[]): Step[] {
         mergeStep(originalStep, steps[i]);
       }
       if (countGhosts(originalStep.fen) > 0)
-          originalStep.ply++;
+        originalStep.ply++;
       mergedSteps.push(originalStep);
     }
   }
