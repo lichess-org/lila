@@ -929,7 +929,7 @@
   <string name="correspondenceDesc">משחקים לפי תורות: יותר מיום עבור תור</string>
   <string name="puzzleDesc">מאמן טקטיקות שחמט</string>
   <string name="important">חשוב</string>
-  <string name="yourQuestionMayHaveBeenAnswered">כנראה שלשאלה שלך כבר יש תשובה</string>
+  <string name="yourQuestionMayHaveBeenAnswered">כנראה שלשאלה שלך כבר יש %1$s</string>
   <string name="inTheFAQ">בשאלות הנפוצות</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">בשביל לדווח על משתמש שרימה או התנהג לא יפה</string>
   <string name="useTheReportForm">השתמש בטופס הדוח</string>
