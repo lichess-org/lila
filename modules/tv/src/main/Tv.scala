@@ -149,6 +149,7 @@ object Tv {
       Best,
       Bullet, Blitz, Rapid, Classical,
       Frisian, Frysk, Antidraughts, Breakthrough,
+      Russian,
       UltraBullet,
       Computer
     )
