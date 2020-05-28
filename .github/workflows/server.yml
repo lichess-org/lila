@@ -33,10 +33,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/cache@v1
+    - uses: actions/cache@v2
       with:
-        path: ~/.sbt
-        key: ${{ runner.os }}-openjdk13-20200416-sbt
+        path: |
+          ~/.sbt
+          ~/.ivy2/cache
+        key: ${{ runner.os }}-sbt-${{ hashFiles('**/project/build.properties') }}-${{ hashFiles('**/build.sbt') }}-${{ hashFiles('**/project/Dependencies.scala') }}
     - uses: actions/setup-java@v1
       with:
         java-version: 13.0.2
