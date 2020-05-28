@@ -10,22 +10,27 @@ import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
 import lila.common.LilaStream
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 final private class Indexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
+    userRepo: UserRepo,
     storage: Storage
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val workQueue =
     new lila.hub.DuctSequencer(maxSize = 64, timeout = 1 minute, name = "insightIndexer")
 
-  def all(user: User): Funit =
+  def all(userId: User.ID): Funit =
     workQueue {
-      storage.fetchLast(user.id) flatMap {
-        case None    => fromScratch(user)
-        case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
+      userRepo byId userId flatMap {
+        _ ?? { user =>
+          storage.fetchLast(user.id) flatMap {
+            case None    => fromScratch(user)
+            case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
+          }
+        }
       }
     }
 
@@ -81,9 +86,9 @@ final private class Indexer(
       gameRepo
         .sortedCursor(query, Query.sortChronological)
         .documentSource()
-        .throttle(300, 1 second)
+        .throttle(400, 1 second)
         .take(maxGames)
-        .mapAsync(4)(toEntry)
+        .mapAsync(8)(toEntry)
         .via(LilaStream.collect)
         .zipWithIndex
         .map { case (e, i) => e.copy(number = fromNumber + i.toInt) }

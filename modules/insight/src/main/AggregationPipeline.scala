@@ -188,6 +188,15 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
               ) :::
                 group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("l"), 1, 0)))) :::
                 List(AddFields(gameIdsSlice ++ toPercent).some)
+            case M.Blurs =>
+              List(
+                projectForMove,
+                unwindMoves,
+                matchMoves(),
+                sampleMoves
+              ) :::
+                group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("b"), 1, 0)))) :::
+                List(AddFields(gameIdsSlice ++ toPercent).some)
             case M.NbMoves =>
               List(
                 projectForMove,
@@ -245,7 +254,6 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             case _         => Nil
           })).flatten
         }
-        // pipeline._2.map(identity).foreach(println)
         pipeline
       }
     }

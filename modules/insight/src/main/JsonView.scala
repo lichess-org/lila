@@ -11,7 +11,7 @@ final class JsonView {
   case class Categ(name: String, items: List[JsValue])
   implicit private val categWrites = Json.writes[Categ]
 
-  def ui(ecos: Set[String])(implicit lang: Lang) = {
+  def ui(ecos: Set[String], asMod: Boolean)(implicit lang: Lang) = {
 
     val openingJson = Json.obj(
       "key"         -> D.Opening.key,
@@ -52,9 +52,10 @@ final class JsonView {
           Json.toJson(D.PieceRole: Dimension[_]),
           Json.toJson(D.MovetimeRange: Dimension[_]),
           Json.toJson(D.MaterialRange: Dimension[_]),
-          Json.toJson(D.Phase: Dimension[_]),
-          Json.toJson(D.Blur: Dimension[_])
-        )
+          Json.toJson(D.Phase: Dimension[_])
+        ) ::: {
+          asMod ?? List(Json.toJson(D.Blur: Dimension[_]))
+        }
       ),
       Categ(
         "Result",
@@ -68,7 +69,7 @@ final class JsonView {
     Json.obj(
       "dimensionCategs" -> dimensionCategs,
       "metricCategs"    -> metricCategs,
-      "presets"         -> Preset.all
+      "presets"         -> { if (asMod) Preset.forMod else Preset.base }
     )
   }
 
@@ -85,7 +86,8 @@ final class JsonView {
         Json.toJson(M.Movetime: Metric),
         Json.toJson(M.PieceRole: Metric),
         Json.toJson(M.Material: Metric),
-        Json.toJson(M.NbMoves: Metric)
+        Json.toJson(M.NbMoves: Metric),
+        Json.toJson(M.Blurs: Metric)
       )
     ),
     Categ(

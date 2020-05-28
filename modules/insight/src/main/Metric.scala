@@ -147,6 +147,17 @@ object Metric {
         Dimension.MaterialRange.description
       )
 
+  case object Blurs
+      extends Metric(
+        "blurs",
+        "Blurs",
+        F moves "b",
+        Move,
+        Move,
+        Percent,
+        raw("How often moves are preceded by a window blur.")
+      )
+
   val all = List(
     MeanCpl,
     Movetime,
@@ -158,7 +169,8 @@ object Metric {
     PieceRole,
     Opportunism,
     Luck,
-    Material
+    Material,
+    Blurs
   )
   val byKey = all map { p =>
     (p.key, p)

@@ -8,7 +8,30 @@ object Preset {
 
   import lila.insight.{ Dimension => D, Metric => M }
 
-  val all = List(
+  private val filterBlitzPlus = List(
+    Filter(D.Perf, List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical))
+  )
+
+  val forMod = List(
+    Preset(
+      "ACPL by date",
+      Question(D.Date, M.MeanCpl, filterBlitzPlus)
+    ),
+    Preset(
+      "Blurs by date",
+      Question(D.Date, M.Blurs, filterBlitzPlus)
+    ),
+    Preset(
+      "ACPL by blur",
+      Question(D.Blur, M.MeanCpl, filterBlitzPlus)
+    ),
+    Preset(
+      "Blurs by result",
+      Question(D.Result, M.Blurs, filterBlitzPlus)
+    )
+  )
+
+  val base = List(
     Preset(
       "Do I gain more rating points against weaker or stronger opponents?",
       Question(D.OpponentStrength, M.RatingDiff, Nil)

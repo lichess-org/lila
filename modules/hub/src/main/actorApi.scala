@@ -50,6 +50,7 @@ package report {
   case class Shutup(userId: String, text: String, major: Boolean)
   case class Booster(winnerId: String, loserId: String)
   case class AutoFlag(suspectId: String, resource: String, text: String)
+  case class CheatReportCreated(userId: String)
 }
 
 package security {

@@ -11,6 +11,7 @@ import lila.db.DbConfig.uriLoader
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
+    userRepo: lila.user.UserRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
@@ -38,7 +39,8 @@ final class Env(
 
   lazy val api = wire[InsightApi]
 
-  lila.common.Bus.subscribeFun("analysisReady") {
-    case lila.analyse.actorApi.AnalysisReady(game, _) => api updateGame game
+  lila.common.Bus.subscribeFun("analysisReady", "cheatReport") {
+    case lila.analyse.actorApi.AnalysisReady(game, _)        => api updateGame game
+    case lila.hub.actorApi.report.CheatReportCreated(userId) => api ensureV2 userId
   }
 }

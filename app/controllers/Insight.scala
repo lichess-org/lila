@@ -11,7 +11,7 @@ final class Insight(env: Env) extends LilaController(env) {
   def refresh(username: String) =
     Open { implicit ctx =>
       Accessible(username) { user =>
-        env.insight.api indexAll user inject Ok
+        env.insight.api indexAll user.id inject Ok
       }
     }
 
@@ -39,7 +39,7 @@ final class Insight(env: Env) extends LilaController(env) {
                 u = user,
                 cache = cache,
                 prefId = prefId,
-                ui = env.insight.jsonView.ui(cache.ecos),
+                ui = env.insight.jsonView.ui(cache.ecos, asMod = isGranted(_.ViewBlurs)),
                 question = env.insight.jsonView.question(metric, dimension, filters),
                 stale = s == Stale
               )
