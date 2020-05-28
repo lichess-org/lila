@@ -37,12 +37,12 @@ object Step {
       "ply" -> ply,
       "uci" -> move.map(_.shortUciString),
       "san" -> move.map(_.san),
-      "fen" -> fen
+      "fen" -> fen,
+      "captLen" -> ~captLen
     ).add("dests", dests.map {
         _.map {
           case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
         }.mkString(" ")
       })
-      .add("captLen", captLen)
   }
 }

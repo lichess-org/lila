@@ -64,7 +64,7 @@ object TreeBuilder {
         val root = Root(
           ply = init.turns,
           fen = fen,
-          captureLength = init.situation.allMovesCaptureLength,
+          captureLength = init.situation.allMovesCaptureLength.some,
           opening = openingOf(fen),
           clock = withClocks.flatMap(_.headOption),
           eval = infos lift 0 map makeEval
@@ -79,7 +79,7 @@ object TreeBuilder {
             ply = g.turns,
             move = m,
             fen = fen,
-            captureLength = if (g.situation.ghosts > 0) g.situation.captureLengthFrom(m.uci.origDest._2) else g.situation.allMovesCaptureLength,
+            captureLength = if (g.situation.ghosts > 0) g.situation.captureLengthFrom(m.uci.origDest._2) else g.situation.allMovesCaptureLength.some,
             opening = openingOf(fen),
             clock = withClocks flatMap (_ lift (index - 1)),
             eval = info map makeEval,

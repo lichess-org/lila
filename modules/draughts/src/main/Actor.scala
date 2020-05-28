@@ -12,23 +12,19 @@ case class Actor(
   lazy val allMoves: List[Move] = captures ::: noncaptures
   lazy val noncaptures: List[Move] = noncaptureMoves()
   lazy val captures: List[Move] = captureMoves(false)
+  lazy val capturesFinal: List[Move] = captureMoves(true)
 
   lazy val allDestinations: List[Pos] = allMoves map (_.dest)
 
-  /**
-   * Same as captures, but giving the final destination square instead of the first.
-   */
-  lazy val capturesFinal: List[Move] = captureMoves(true)
-
-  def getCaptures(finalSquare: Boolean) = if (finalSquare) capturesFinal else captures
-
-  def captureLength = captures.foldLeft(0) {
+  lazy val captureLength = captures.foldLeft(0) {
     case (max, move) =>
       move.capture.fold(max) { jumps =>
         if (jumps.length > max) jumps.length
         else max
       }
   }
+
+  def getCaptures(finalSquare: Boolean) = if (finalSquare) capturesFinal else captures
 
   private def noncaptureMoves(): List[Move] = piece.role match {
     case Man => shortRangeMoves(board.variant.moveDirsColor(color))

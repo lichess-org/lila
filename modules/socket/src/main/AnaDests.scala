@@ -31,8 +31,8 @@ case class AnaDests(
   private lazy val validMoves =
     AnaDests.validMoves(sit, orig, ~fullCapture)
 
-  lazy val captureLength =
-    orig.fold(sit.allMovesCaptureLength)(sit.captureLengthFrom)
+  lazy val captureLength: Int =
+    orig.fold(sit.allMovesCaptureLength)(~sit.captureLengthFrom(_))
 
   private val truncatedMoves =
     (!isInitial && ~fullCapture && ~captureLength > 1) option AnaDests.truncateMoves(validMoves)
@@ -42,7 +42,8 @@ case class AnaDests(
     else sit.playable(false) ?? {
       val truncatedDests = truncatedMoves.map { _ mapValues { _ flatMap (uci => variant.boardSize.pos.posAt(uci.takeRight(2))) } }
       val destStr = destString(truncatedDests.getOrElse(validMoves mapValues { _ map (_.dest) }))
-      captureLength.fold(destStr)(capts => "#" + capts.toString + " " + destStr)
+      if (captureLength > 0) s"#$captureLength $destStr"
+      else destStr
     }
 
   val destsUci: Option[List[String]] =

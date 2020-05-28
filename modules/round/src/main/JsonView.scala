@@ -84,7 +84,7 @@ final class JsonView(
               "socket" -> s"/$fullId/socket/v$apiVersion",
               "round" -> s"/$fullId"
             ),
-            "captureLength" -> ~captureLength(pov),
+            "captureLength" -> captureLength(pov),
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
               "coords" -> pref.coords,
@@ -321,18 +321,12 @@ final class JsonView(
       }
     }
 
-  private def possibleDrops(pov: Pov): Option[JsValue] = (pov.game playableBy pov.player) ?? {
-    pov.game.situation.drops map { drops =>
-      JsString(drops.map(_.key).mkString)
-    }
-  }
-
-  private def captureLength(pov: Pov): Option[Int] =
+  private def captureLength(pov: Pov): Int =
     if (pov.game.situation.ghosts > 0) {
       val move = pov.game.pdnMoves(pov.game.pdnMoves.length - 1)
       val destPos = pov.game.variant.boardSize.pos.posAt(move.substring(move.lastIndexOf('x') + 1))
       destPos match {
-        case Some(dest) => pov.game.situation.captureLengthFrom(dest)
+        case Some(dest) => ~pov.game.situation.captureLengthFrom(dest)
         case _ => pov.game.situation.allMovesCaptureLength
       }
     } else

@@ -14,12 +14,16 @@ case class Situation(board: Board, color: Color) {
   lazy val validMoves: Map[Pos, List[Move]] = board.variant.validMoves(this)
   lazy val validMovesFinal: Map[Pos, List[Move]] = board.variant.validMoves(this, true)
 
-  lazy val allCaptures: Map[Pos, List[Move]] = board.variant.allCaptures(this)
+  lazy val allCaptures: Map[Pos, List[Move]] = actors.collect {
+    case actor if actor.captures.nonEmpty =>
+      actor.pos -> actor.captures
+  }(breakOut)
 
-  lazy val allMovesCaptureLength: Option[Int] =
-    if (validMoves exists (_._2 exists (_.captures)))
-      Some(validMoves.head._2.head.capture.fold(0)(_.length))
-    else None
+  lazy val allMovesCaptureLength: Int =
+    actors.foldLeft(0) {
+      case (max, actor) =>
+        Math.max(actor.captureLength, max)
+    }
 
   lazy val allAmbiguities: Int =
     board.variant.validMoves(this, true).filter(posMoves =>

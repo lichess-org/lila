@@ -42,7 +42,7 @@ case class AnaMove(
           val movable = game.situation playable false
           val fen = draughts.format.Forsyth >> game
           val sit = game.situation
-          val captLen = if (sit.ghosts > 0) sit.captureLengthFrom(dest) else sit.allMovesCaptureLength
+          val captLen = if (sit.ghosts > 0) sit.captureLengthFrom(dest) else sit.allMovesCaptureLength.some
           val validMoves = AnaDests.validMoves(sit, game.situation.ghosts > 0 option dest, ~fullCapture)
           val truncatedMoves = (~fullCapture && ~captLen > 1) option AnaDests.truncateMoves(validMoves)
           val truncatedDests = truncatedMoves.map { _ mapValues { _ flatMap (uci => variant.boardSize.pos.posAt(uci.takeRight(2))) } }

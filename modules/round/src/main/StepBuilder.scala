@@ -25,7 +25,7 @@ object StepBuilder {
             move = none,
             fen = Forsyth >> init,
             dests = None,
-            captLen = init.situation.allMovesCaptureLength
+            captLen = init.situation.allMovesCaptureLength.some
           )
           val moveSteps = games.map {
             case (g, m) =>
@@ -34,7 +34,7 @@ object StepBuilder {
                 move = Step.Move(m.uci, m.san).some,
                 fen = Forsyth >> g,
                 dests = None,
-                captLen = if (g.situation.ghosts > 0) g.situation.captureLengthFrom(m.uci.origDest._2) else g.situation.allMovesCaptureLength
+                captLen = if (g.situation.ghosts > 0) g.situation.captureLengthFrom(m.uci.origDest._2) else g.situation.allMovesCaptureLength.some
               )
           }
           (initStep :: moveSteps).map(_.toJson)

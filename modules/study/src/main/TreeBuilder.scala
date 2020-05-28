@@ -21,9 +21,9 @@ object TreeBuilder {
     }
     val captLen = situation match {
       case Some(sit) => sit.playable(false) ?? sit.allMovesCaptureLength
-      case _ => None
+      case _ => 0
     }
-    makeRoot(root, variant).copy(dests = dests.some, captureLength = captLen)
+    makeRoot(root, variant).copy(dests = dests.some, captureLength = captLen.some)
   }
 
   def toBranch(node: Node, variant: Variant): tree.Branch =

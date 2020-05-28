@@ -42,7 +42,7 @@ object Event {
         "fen" -> fen,
         "ply" -> state.turns,
         "dests" -> PossibleMoves.oldJson(possibleMoves),
-        "captLen" -> captLen.getOrElse(0).toString
+        "captLen" -> ~captLen
       ).add("clock" -> clock.map(_.data))
         .add("status" -> state.status)
         .add("winner" -> state.winner)
@@ -84,7 +84,7 @@ object Event {
       state = state,
       clock = clock,
       possibleMoves = if (situation.ghosts > 0) Map(move.dest -> situation.destinationsFrom(move.dest)) else situation.allDestinations,
-      captLen = if (situation.ghosts > 0) situation.captureLengthFrom(move.dest) else situation.allMovesCaptureLength
+      captLen = if (situation.ghosts > 0) situation.captureLengthFrom(move.dest) else situation.allMovesCaptureLength.some
     )
   }
 

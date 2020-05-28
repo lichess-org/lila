@@ -44,12 +44,6 @@ abstract class Variant private[variant] (
   def getCaptureValue(board: Board, taken: List[Pos]) = taken.length
   def getCaptureValue(board: Board, taken: Pos) = 1
 
-  def allCaptures(situation: Situation): Map[Pos, List[Move]] =
-    situation.actors.collect {
-      case actor if actor.captures.nonEmpty =>
-        actor.pos -> actor.captures
-    }(breakOut)
-
   def validMoves(situation: Situation, finalSquare: Boolean = false): Map[Pos, List[Move]] = {
     var bestLineValue = 0
     var captureMap = Map[Pos, List[Move]]()

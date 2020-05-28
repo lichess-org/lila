@@ -15,7 +15,7 @@ object TreeBuilder {
         val root = tree.Root(
           ply = init.turns,
           fen = fen,
-          captureLength = init.situation.allMovesCaptureLength,
+          captureLength = init.situation.allMovesCaptureLength.some,
           opening = FullOpeningDB findByFen fen
         )
         def makeBranch(index: Int, g: draughts.DraughtsGame, m: Uci.WithSan) = {
@@ -25,7 +25,7 @@ object TreeBuilder {
             ply = g.turns,
             move = m,
             fen = fen,
-            captureLength = if (g.situation.ghosts > 0) g.situation.captureLengthFrom(m.uci.origDest._2) else g.situation.allMovesCaptureLength,
+            captureLength = if (g.situation.ghosts > 0) g.situation.captureLengthFrom(m.uci.origDest._2) else g.situation.allMovesCaptureLength.some,
             opening = FullOpeningDB findByFen fen
           )
         }
