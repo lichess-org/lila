@@ -124,7 +124,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
     path = opts.parentPath + node.id,
     content: MaybeVNodes = [
       withIndex ? moveView.renderIndex(renderPly, true) : null,
-      (node.expandedSan ? node.expandedSan : node.san!)
+      node.alg || node.san!
     ],
     classes = nodeClasses(ctx, path);
   if (opts.conceal) classes[opts.conceal as string] = true;

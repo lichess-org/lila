@@ -193,7 +193,7 @@ export default class AnalyseCtrl {
     this.ongoing = !this.synthetic && game.playable(data);
 
     const prevTree = merge && this.tree.root;
-    this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
+    this.tree = makeTree(treeOps.reconstruct(this.data.treeParts, this.coordSystem()));
     if (prevTree) this.tree.merge(prevTree);
 
     this.actionMenu = new ActionMenuCtrl();
@@ -506,6 +506,13 @@ export default class AnalyseCtrl {
     });
   }
 
+  isAlgebraic(): boolean {
+    return this.data.pref.coordSystem === 1 && this.data.game.variant.board.key === '64';
+  }
+  coordSystem(): number {
+    return this.isAlgebraic() ? 1 : 0;
+  }
+
   changeFen(fen: Fen): void {
     this.redirecting = true;
     window.location.href = '/analysis/' + (this.data.puzzleEditor ? 'puzzle/' : '') + this.data.game.variant.key + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
@@ -654,7 +661,7 @@ export default class AnalyseCtrl {
   }
 
   addNode(node: Tree.Node, path: Tree.Path) {
-    const newPath = this.tree.addNode(node, path, this.data.puzzleEditor);
+    const newPath = this.tree.addNode(node, path, this.data.puzzleEditor, this.coordSystem());
     if (!newPath) {
       console.log("Can't addNode", node, path);
       return this.redraw();

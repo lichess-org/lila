@@ -1,5 +1,5 @@
 import { countGhosts } from 'draughtsground/fen'
-import { fenCompare } from 'draughts'
+import { fenCompare, san2alg } from 'draughts'
 
 export function withMainlineChild<T>(node: Tree.Node, f: (node: Tree.Node) => T): T | undefined {
   const next = node.children[0];
@@ -90,7 +90,7 @@ export function countChildrenAndComments(node: Tree.Node) {
   return count;
 }
 
-export function copyNode(node: Tree.Node, copyChildren: boolean = false): Tree.Node {
+export function copyNode(node: Tree.Node, copyChildren: boolean = false, coordSystem?: number): Tree.Node {
   return {
     id: node.id,
     ply: node.ply,
@@ -114,6 +114,7 @@ export function copyNode(node: Tree.Node, copyChildren: boolean = false): Tree.N
     shapes: node.shapes,
     comp: node.comp,
     san: node.san,
+    alg: coordSystem === 1 ? san2alg(node.san) : undefined,
     threefold: node.threefold,
     fail: node.fail,
     puzzle: node.puzzle
@@ -157,7 +158,7 @@ export function mergeExpandedNodes(parent: Tree.Node): Tree.Node {
   return mergedParent;
 }
 
-export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, mergeChildren = false) {
+export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, mergeChildren = false, coordSystem?: number) {
 
   if (curNode.mergedNodes)
     curNode.mergedNodes.push(copyNode(newNode));
@@ -174,6 +175,9 @@ export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, mergeChildren
     const curX = curNode.san.indexOf('x'), newX = newNode.san.indexOf('x');
     if (curX != -1 && newX != -1)
       curNode.san = curNode.san.slice(0, curX) + newNode.san.slice(newX);
+  }
+  if (coordSystem) {
+    curNode.alg = san2alg(curNode.san);
   }
 
   if (curNode.uci && newNode.uci) {
@@ -220,15 +224,15 @@ export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, mergeChildren
 
 }
 
-export function reconstruct(parts: any): Tree.Node {
-  const root = copyNode(parts[0], true), nb = parts.length;
+export function reconstruct(parts: any, coordSystem?: number): Tree.Node {
+  const root = copyNode(parts[0], true, coordSystem), nb = parts.length;
   let node = root, i: number;
   root.id = '';
   for (i = 1; i < nb; i++) {
-    const n = copyNode(parts[i], true);
+    const n = copyNode(parts[i], true, coordSystem);
     const ghosts = countGhosts(node.fen);
     if (ghosts !== 0) {
-      mergeNodes(node, n, true);
+      mergeNodes(node, n, true, coordSystem);
       node.ply = n.ply;
     } else {
       if (countGhosts(n.fen) !== 0)

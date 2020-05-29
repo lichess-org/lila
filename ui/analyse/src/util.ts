@@ -67,7 +67,7 @@ export function nodeFullName(node: Tree.Node) {
   const renderPly = (node.displayPly ? node.displayPly : node.ply);
   if (node.san) return plyToTurn(renderPly) + (
     renderPly % 2 === 1 ? '.' : '...'
-  ) + ' ' + (node.expandedSan ? node.expandedSan! : node.san!);
+  ) + ' ' + (node.alg || node.san!);
   return 'Initial position';
 }
 

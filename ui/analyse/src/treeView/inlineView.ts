@@ -91,7 +91,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
     content: MaybeVNodes = [
       opts.withIndex || (node.displayPly ? node.displayPly : node.ply) & 1 ? moveView.renderIndex((node.displayPly ? node.displayPly : node.ply), true) : null,
-      (node.expandedSan ? node.expandedSan : node.san!)
+      node.alg || node.san!
     ];
   if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
   return h('move', {

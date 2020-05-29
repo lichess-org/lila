@@ -1,13 +1,9 @@
 import { State } from './state'
-import { colors, translateAway, translateAbs, posToTranslateAbs, key2pos, createEl, allKeys } from './util'
+import { colors, translateAway, translateAbs, posToTranslateAbs, key2pos, createEl, allKeys, san2alg } from './util'
+import { ranksRev as allRanks, files as allFiles } from './util'
 import { createElement as createSVG } from './svg'
 import { boardFields } from './board'
 import { Elements} from './types'
-
-const files: number[] = [46, 47, 48, 49, 50];
-const filesBlack: number[] = [1, 2, 3, 4, 5];
-const ranks: number[] = [5, 15, 25, 35, 45];
-const ranksBlack: number[] = [6, 16, 26, 36, 46];
 
 export default function wrap(element: HTMLElement, s: State, relative: boolean): Elements {
 
@@ -48,15 +44,30 @@ export default function wrap(element: HTMLElement, s: State, relative: boolean):
 
   if (s.coordinates) {
     if (s.coordinates === 2) {
-      if (s.orientation === 'black') {
-        container.appendChild(renderCoords(ranksBlack, 'ranks black'));
-        container.appendChild(renderCoords(filesBlack, 'files black'));
+      if (s.coordSystem === 1) {
+        container.appendChild(renderCoords(allRanks, 'ranks is64' + (s.orientation === 'black' ? ' black' : '')));
+        container.appendChild(renderCoords(allFiles, 'files is64' + (s.orientation === 'black' ? ' black' : '')));
+      } else if (s.orientation === 'black') {
+        const filesBlack: number[] = [], ranksBlack: number[] = [],
+          rankBase = s.boardSize[0] / 2,
+          fileSteps = s.boardSize[1] / 2;
+        for (let i = 1; i <= rankBase; i++) filesBlack.push(i);
+        for (let i = 0; i < fileSteps; i++) ranksBlack.push(rankBase + s.boardSize[0] * i + 1);
+        container.appendChild(renderCoords(ranksBlack, 'ranks is100 black'));
+        container.appendChild(renderCoords(filesBlack, 'files is100 black'));
       } else {
-        container.appendChild(renderCoords(ranks, 'ranks'));
-        container.appendChild(renderCoords(files, 'files'));
+        const files: number[] = [], ranks: number[] = [],
+          rankBase = s.boardSize[0] / 2,
+          fields = s.boardSize[0] * s.boardSize[1] / 2,
+          fileSteps = s.boardSize[1] / 2;
+        for (let i = fields - rankBase + 1; i <= fields; i++) files.push(i);
+        for (let i = 0; i < fileSteps; i++) ranks.push(rankBase + s.boardSize[0] * i);
+        container.appendChild(renderCoords(ranks, 'ranks is100'));
+        container.appendChild(renderCoords(files, 'files is100'));
       }
-    } else if (!relative && s.coordinates === 1)
+    } else if (!relative && s.coordinates === 1) {
       renderFieldnumbers(container, s, board.getBoundingClientRect());
+    }
   }
 
   let ghost: HTMLElement | undefined;
@@ -78,10 +89,10 @@ function renderFieldnumbers(element: HTMLElement, s: State, bounds: ClientRect) 
   const asWhite = s.orientation !== 'black',
     count = boardFields(s);
   for (let f = 1; f <= count; f++) {
-    const field = createEl('fieldnumber', 'black');
-    field.textContent = f.toString();
+    const field = createEl('fieldnumber', 'black'), san = f.toString();
+    field.textContent = s.coordSystem === 1 ? san2alg[san] : san ;
     const coords = posToTranslateAbs(bounds, s.boardSize)(key2pos(allKeys[f - 1], s.boardSize), asWhite, 0);
-    translateAbs(field, [coords["0"], coords["1"]]);
+    translateAbs(field, [coords['0'], coords['1']]);
     element.appendChild(field);
   }
 }

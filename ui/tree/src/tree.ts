@@ -2,7 +2,7 @@ import * as treePath from './path';
 import * as ops from './ops';
 import { defined } from 'common';
 import { countGhosts } from 'draughtsground/fen'
-import { readCaptureLength } from 'draughts';
+import { readCaptureLength, san2alg } from 'draughts';
 
 export type MaybeNode = Tree.Node | undefined;
 
@@ -15,7 +15,7 @@ export interface TreeWrapper {
   getOpening(nodeList: Tree.Node[]): Tree.Opening | undefined;
   updateAt(path: Tree.Path, update: (node: Tree.Node) => void): MaybeNode;
   setAmbs(node: Tree.Node, parent: Tree.Node): void;
-  addNode(node: Tree.Node, path: Tree.Path, puzzleEditor: Boolean): Tree.Path | undefined;
+  addNode(node: Tree.Node, path: Tree.Path, puzzleEditor: Boolean, coordSystem?: number): Tree.Path | undefined;
   addNodes(nodes: Tree.Node[], path: Tree.Path): Tree.Path | undefined;
   addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[], destsUci?: Uci[]): MaybeNode;
   setShapes(shapes: Tree.Shape[], path: Tree.Path): MaybeNode;
@@ -151,7 +151,7 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   // returns new path
-  function addNode(newNode: Tree.Node, path: Tree.Path, puzzleEditor: Boolean = false): Tree.Path | undefined {
+  function addNode(newNode: Tree.Node, path: Tree.Path, puzzleEditor: Boolean = false, coordSystem?: number): Tree.Path | undefined {
 
     var newPath = path + newNode.id;
     var existing = nodeAtPathOrNull(newPath);
@@ -185,7 +185,7 @@ export function build(root: Tree.Node): TreeWrapper {
       const nodeIndex = parent ? getChildIndex(parent, curNode) : -1;
 
       //Merge new node properties with head of line curnode
-      ops.mergeNodes(curNode, newNode);
+      ops.mergeNodes(curNode, newNode, false, coordSystem);
       newNode.uci = curNode.uci; //Pass back new uci to determine accurate path (no ambiguities)
 
       //If the capture sequence is now equal to another same level sibling in all relevant ways we remove the current node as it is a duplicate
@@ -232,6 +232,10 @@ export function build(root: Tree.Node): TreeWrapper {
           return path.substr(0, path.length - 2) + existing.id;
         }
       }
+    }
+
+    if (coordSystem) {
+      newNode.alg = san2alg(newNode.san);
     }
 
     return updateAt(path, function (parent: Tree.Node) {

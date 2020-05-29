@@ -34,7 +34,7 @@ export function renderIndex(ply: Ply, withDots?: boolean): VNode {
 
 export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
   const ev: any = cevalView.getBestEval({client: node.ceval, server: node.eval}) || {};
-  return [h('san', (node.expandedSan ? node.expandedSan! : node.san!))]
+  return [h('san', node.alg || node.san!)]
     .concat((node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : [])
     .concat(ctx.showEval ? (
       defined(ev.cp) ? [renderEval(normalizeEval(ev.cp))] : (

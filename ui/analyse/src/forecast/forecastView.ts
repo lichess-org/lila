@@ -86,7 +86,7 @@ function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
           displayPly: node.displayPly,
           fen: node.fen,
           uci: node.uci!,
-          san: (node.expandedSan ? node.expandedSan : node.san!)
+          san: node.alg || node.san!
         });
     }
     if (expandedNodes.length) {

@@ -13,6 +13,7 @@ export interface Config {
   lastMove?: cg.Key[]; // squares part of the last move ["c3", "c4"]
   selected?: cg.Key; // square currently selected "a1"
   coordinates?: number; // include coords attributes
+  coordSystem?: number; // coordinate system (0 = fieldnumbers, 1 = algebraic)
   viewOnly?: boolean; // don't bind events: the user will never be able to move pieces around
   disableContextMenu?: boolean; // because who needs a context menu on a draughtsboard
   resizable?: boolean; // listens to draughtsground.resize on document.body to clear bounds cache
