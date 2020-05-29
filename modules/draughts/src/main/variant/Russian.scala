@@ -154,6 +154,35 @@ case object Russian extends Variant(
     walkUntilCapture(initDir, initBoard, initPos, initFirstSquare, initFirstBoard, initAllSquares, initAllTaken)
   }
 
+  override def finalizeBoard(board: Board, uci: format.Uci.Move, captured: Option[List[Piece]], remainingCaptures: Int): Board = {
+    if (remainingCaptures > 0) board
+    else {
+      val whiteActors = board.actorsOf(Color.White)
+      val blackActors = board.actorsOf(Color.Black)
+      val whiteKings = whiteActors.count(_.piece is King)
+      val blackKings = blackActors.count(_.piece is King)
+      val whitePieces = whiteActors.size
+      val blackPieces = blackActors.size
+      def loneKing(strongPieces: Int, strongKings: Int, weakKing: Actor) =
+        strongPieces == 3 && strongKings >= 1 && weakKing.onLongDiagonal
+      val whiteLoneKing =
+        if (whiteKings == 1 && whitePieces == 1 && blackKings >= 1) {
+          loneKing(blackPieces, blackKings, whiteActors.head)
+        } else false
+      val blackLoneKing =
+        if (blackKings == 1 && blackPieces == 1 && whiteKings >= 1) {
+          loneKing(whitePieces, whiteKings, blackActors.head)
+        } else false
+      if (whiteLoneKing || blackLoneKing) {
+        board updateHistory { h =>
+          // "abuse" kingmove counter to count the amount of moves made on the long
+          // diagonal by the side with a lone king against 3 (see 7.2.7)
+          h.withKingMove(Color(whiteLoneKing), None, true)
+        } withoutGhosts
+      } else board.withoutGhosts
+    }
+  }
+
   override def maxDrawingMoves(board: Board): Option[Int] = {
     val whiteActors = board.actorsOf(Color.White)
     val blackActors = board.actorsOf(Color.Black)
@@ -162,7 +191,7 @@ case object Russian extends Variant(
     val whitePieces = whiteActors.size
     val blackPieces = blackActors.size
 
-    def singleKing(strongPieces: Int, strongKings: Int, weakKing: Actor) = {
+    def singleKing(strongPieces: Int, strongKings: Int, weakKing: Actor, weakColor: Color) = {
       // weak side:   pieces == 1, kings == 1
       // strong side: pieces <= 2, kings >= 1
       //    7.2.8 => 5
@@ -173,15 +202,18 @@ case object Russian extends Variant(
       // strong side: kings >= 1
       //    7.2.5 => 15
       if (strongPieces <= 2 && strongKings >= 1) Some(10) // 7.2.8
-      else if (strongPieces == 3 && strongKings >= 1 && weakKing.onLongDiagonal) Some(10) // 7.2.7
-      else if (strongPieces >= 3 && strongKings == strongPieces) Some(30) // 7.2.4
+      else if (strongPieces == 3 && strongKings >= 1 && weakKing.onLongDiagonal) {
+        // 7.2.7: only draw after 5 kingmoves on the long diagonal have been recorded
+        if (board.history.kingMoves(weakColor) >= 10) Some(10)
+        else Some(30)
+      } else if (strongPieces >= 3 && strongKings == strongPieces) Some(30) // 7.2.4
       else Some(30) // 7.2.5
     }
     val singleKingDraw =
       if (whiteKings == 1 && whitePieces == 1 && blackKings >= 1) {
-        singleKing(blackPieces, blackKings, whiteActors.head)
+        singleKing(blackPieces, blackKings, whiteActors.head, Color.white)
       } else if (blackKings == 1 && blackPieces == 1 && whiteKings >= 1) {
-        singleKing(whitePieces, whiteKings, blackActors.head)
+        singleKing(whitePieces, whiteKings, blackActors.head, Color.black)
       } else None
 
     if (singleKingDraw.isDefined) singleKingDraw
@@ -215,7 +247,7 @@ case object Russian extends Variant(
           newHash // 7.2.5 and 7.2.4 both reset on capture or non-king move (in the latter case because the game is over, or it switches to 7.2.8). promotion check is included to prevent that a move promoting a man is counted as a king move
         else if (drawingMoves == 60 && (move.captures || move.promotes))
           newHash // 7.2.6 resets on capture or promotion (30 move case overlaps with previous condition)
-        else // 7.2.7 is unclear - what to do when long diagonal is left and reentered? we count from start of piece configuration, so reentering long diagonal is immediate draw after 10 ply
+        else // 7.2.7 is unclear - we count total moves on long diagonal from start of piece configuration, so reentering long diagonal enough times before ply 30 still draws (leaving the diagonal is dumb anyway)
           newHash ++ hash // 7.2.8 never resets once activated
       case _ => newHash
     }

@@ -64,7 +64,7 @@ object GameDiff {
         d(positionHashes, _.history.positionHashes, w.bytes)
         d(historyLastMove, _.history.lastMove.map(_.uci) | "", w.str)
         // since variants are always OldBin
-        if (a.variant.frisianVariant)
+        if (a.variant.frisianVariant || a.variant.russian)
           dOpt(kingMoves, _.history.kingMoves, (o: KingMoves) => o.nonEmpty option { BSONHandlers.kingMovesWriter write o })
       }
       case f @ PdnStorage.Huffman => {
