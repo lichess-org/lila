@@ -55,13 +55,13 @@
   <string name="previous">पिछला</string>
   <string name="next">अगला</string>
   <string name="last">अंतिम</string>
-  <string name="shareAndExport">बांटे &amp; भेजें</string>
+  <string name="shareAndExport">शेयर &amp; एक्सपोर्ट करें</string>
   <string name="cloneStudy">प्रतिलिपि</string>
   <string name="studyPgn">PGN का अध्ययन करें</string>
   <string name="chapterPgn">अध्याय PGN</string>
   <string name="studyUrl">अध्ययन का URL</string>
   <string name="currentChapterUrl">वर्तमान अध्याय URL</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">आप अध्याय को जोड़ने के लिए इसे फ़ोरम में लगा कर सकते हैं</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">आप अध्याय को जोड़ने के लिए इसे फ़ोरम में जोर सकते हैं</string>
   <string name="startAtInitialPosition">प्रारंभिक स्थिति में शुरू करें</string>
   <string name="startAtX">%s से प्रारंभ करें</string>
   <string name="embedThisChapter">इस अध्याय को अपनी वेबसाइट या ब्लॉग में जोड़े</string>
