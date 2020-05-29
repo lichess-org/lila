@@ -140,6 +140,7 @@ function makeConfig(ctrl) {
     boardSize: ctrl.data.variant.board.size,
     orientation: ctrl.options.orientation || 'white',
     coordinates: ctrl.embed ? 0 : ctrl.cfg.coords,
+    coordSystem: ctrl.coordSystem(),
     addPieceZIndex: ctrl.cfg.is3d,
     movable: {
       free: true,

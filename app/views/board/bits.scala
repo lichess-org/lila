@@ -28,6 +28,7 @@ object bits {
     ),
     "i18n" -> i18nJsObject(translations)(ctxLang(ctx))
   ).add("puzzleEditor" -> isGranted(_.CreatePuzzles).option(true))
+    .add("coordSystem" -> (ctx.pref.coordSystem != lidraughts.pref.Pref.CoordSystem.FIELDNUMBERS).option(ctx.pref.coordSystem))
 
   def variantJson(v: draughts.variant.Variant)(implicit ctx: Context) = Json.obj(
     "key" -> v.key,

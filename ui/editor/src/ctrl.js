@@ -81,6 +81,15 @@ module.exports = function(cfg) {
     }
   }.bind(this);
 
+  this.isAlgebraic = function() {
+    return this.cfg.coordSystem === 1 && this.data.variant.board.key === '64';
+  }.bind(this);
+
+  this.coordSystem = function() {
+    return this.isAlgebraic() ? 1 : 0;
+  }.bind(this);
+
+
   this.changeFen = function(fen) {
     window.location = editor.makeUrl(this.data.baseUrl + (this.data.variant.key !== 'standard' ? this.data.variant.key + '/' : ''), fen);
   }.bind(this);
