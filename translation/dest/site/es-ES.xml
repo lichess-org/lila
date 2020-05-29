@@ -494,7 +494,7 @@
   <string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
   <string name="boardHighlights">Destacar casillas del tablero (último movimiento y jaque)</string>
   <string name="pieceDestinations">Destino de las piezas (movimientos válidos y anticipados)</string>
-  <string name="boardCoordinates">Coordenadas del tablero (1-50)</string>
+  <string name="boardCoordinates">Coordenadas del tablero (1-50, a1-h8)</string>
   <string name="moveListWhilePlaying">Lista de movimientos durante la partida</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>
   <string name="never">Nunca</string>

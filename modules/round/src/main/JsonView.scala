@@ -243,7 +243,8 @@ final class JsonView(
         .add("destination" -> (pref.destination && !pref.isBlindfold))
         .add("draughtsResult" -> pref.draughtsResult)
         .add("showKingMoves" -> pref.kingMoves)
-        .add("fullCapture" -> ((pref.fullCapture == Pref.FullCapture.YES) option true)),
+        .add("fullCapture" -> (pref.fullCapture == Pref.FullCapture.YES).option(true))
+        .add("coordSystem" -> (pref.coordSystem != Pref.CoordSystem.FIELDNUMBERS).option(pref.coordSystem)),
       "path" -> pov.game.turns,
       "userAnalysis" -> true
     ).add("evalPut" -> me.??(evalCache.shouldPut))

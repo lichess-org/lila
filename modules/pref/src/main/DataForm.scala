@@ -24,6 +24,7 @@ object DataForm {
       "coords" -> checkedNumber(Pref.Coords.choices),
       "replay" -> checkedNumber(Pref.Replay.choices),
       "gameResult" -> checkedNumber(Pref.GameResult.choices),
+      "coordSystem" -> checkedNumber(Pref.CoordSystem.choices),
       "zen" -> optional(booleanNumber),
       "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices)),
       "blindfold" -> checkedNumber(Pref.Blindfold.choices)
@@ -60,6 +61,7 @@ object DataForm {
       coords: Int,
       replay: Int,
       gameResult: Int,
+      coordSystem: Int,
       zen: Option[Int],
       resizeHandle: Option[Int],
       blindfold: Int
@@ -107,6 +109,7 @@ object DataForm {
       coords = display.coords,
       replay = display.replay,
       gameResult = display.gameResult,
+      coordSystem = display.coordSystem,
       blindfold = display.blindfold,
       challenge = challenge,
       message = message,
@@ -135,6 +138,7 @@ object DataForm {
         coords = pref.coords,
         replay = pref.replay,
         gameResult = pref.gameResult,
+        coordSystem = pref.coordSystem,
         captured = if (pref.captured) 1 else 0,
         kingMoves = if (pref.kingMoves) 1 else 0,
         blindfold = pref.blindfold,

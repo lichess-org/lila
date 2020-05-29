@@ -462,7 +462,7 @@
   <string name="newPasswordAgain">Шинэ нэвтрэх үгээ дахин оруулна уу</string>
   <string name="boardHighlights">Хийгдсэн нүүдлүүдийг тодотгох (сүүлчийн нүүдэл)</string>
   <string name="pieceDestinations">Хөлгийн нүүдэл үзүүлэх (зөвшөөрөгдсөн нүүдэл, урьдчилсан нүүдэл)</string>
-  <string name="boardCoordinates">Солбилцолын тэмдэглэлүүдийг үзүүлэх (1-50)</string>
+  <string name="boardCoordinates">Солбилцолын тэмдэглэлүүдийг үзүүлэх (1-50, a1-h8)</string>
   <string name="moveListWhilePlaying">Хийгдсэн нүүдлүүдийн жагсаалтыг хажуу талд харуулах</string>
   <string name="tenthsOfSeconds">1/10 секунд</string>
   <string name="never">Хэзээ ч үгүй</string>

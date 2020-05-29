@@ -509,9 +509,8 @@
   <string name="newPasswordAgain">Nova senha (novamente)</string>
   <string name="boardHighlights">Luzes do tabuleiro</string>
   <string name="pieceDestinations">Destino das peças (movimentos válidos e pré-movimentos)</string>
-  <string name="boardCoordinates">Coordenadas do tabuleiro (1-50)</string>
+  <string name="boardCoordinates">Coordenadas do tabuleiro (1-50, a1-h8)</string>
   <string name="moveListWhilePlaying">Lista de movimentos</string>
-  <string name="pdnPieceNotation">Anotação de movimentos</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
   <string name="never">Nunca</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Quando o tempo remanescente for menor do que 10 segundos</string>

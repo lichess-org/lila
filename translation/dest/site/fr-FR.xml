@@ -492,7 +492,7 @@
   <string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
   <string name="boardHighlights">Mettre en évidence les cases (dernier coup)</string>
   <string name="pieceDestinations">Cases de destination (coups et pré-coups légaux)</string>
-  <string name="boardCoordinates">Coordonnées (1-50)</string>
+  <string name="boardCoordinates">Coordonnées (1-50, a1-h8)</string>
   <string name="moveListWhilePlaying">Liste des coups durant la partie</string>
   <string name="tenthsOfSeconds">Dixièmes de seconde</string>
   <string name="never">Jamais</string>

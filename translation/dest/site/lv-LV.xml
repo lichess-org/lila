@@ -587,10 +587,9 @@ Vienā līnijā  - tikai vienu norādi.</string>
   <string name="newPasswordAgain">Jaunā parole (atkārtoti)</string>
   <string name="boardHighlights">Izgaismojumi uz dēlīša (pēdējais gājiens un sitiena lauciņi)</string>
   <string name="pieceDestinations">Kauliņu galamērķi (atļauti gājieni vai priekšgājieni)</string>
-  <string name="boardCoordinates">Galdiņa koordinātas (1-50)</string>
+  <string name="boardCoordinates">Galdiņa koordinātas (1-50, a1-h8)</string>
   <string name="moveListWhilePlaying">Gājienu saraksts spēles laikā</string>
   <string name="notationGameResult">Spēles rezultāts pēc notācijas (balto uzvara • neizšķirts • melno uzvara)</string>
-  <string name="pdnPieceNotation">Gājienu notācija</string>
   <string name="draughtsClock">Dambretes pulkstenis</string>
   <string name="clockInitialTime">Sākotnējais laiks uz pulksteņa</string>
   <string name="tenthsOfSeconds">Sekunžu desmitdaļas</string>

@@ -27,6 +27,7 @@ case class Pref(
     coords: Int,
     replay: Int,
     gameResult: Int,
+    coordSystem: Int,
     challenge: Int,
     message: Int,
     studyInvite: Int,
@@ -265,6 +266,16 @@ object Pref {
     )
   }
 
+  object CoordSystem {
+    val FIELDNUMBERS = 0
+    val ALGEBRAIC = 1
+
+    val choices = Seq(
+      FIELDNUMBERS -> "Fieldnumbers",
+      ALGEBRAIC -> "Algebraic"
+    )
+  }
+
   object ClockTenths {
     val NEVER = 0
     val LOWTIME = 1
@@ -361,6 +372,7 @@ object Pref {
     coords = Coords.OUTSIDE,
     replay = Replay.ALWAYS,
     gameResult = GameResult.DRAUGHTS,
+    coordSystem = CoordSystem.FIELDNUMBERS,
     clockTenths = ClockTenths.LOWTIME,
     challenge = Challenge.ALWAYS,
     message = Message.ALWAYS,

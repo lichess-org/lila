@@ -419,7 +419,6 @@
   <string name="newPasswordAgain">Nové heslo (znovu)</string>
   <string name="pieceDestinations">Možnosti figur (možné tahy a předtahy)</string>
   <string name="moveListWhilePlaying">Seznam tahů během hry</string>
-  <string name="pdnPieceNotation">Označení figur v notaci</string>
   <string name="tenthsOfSeconds">Desetiny sekund</string>
   <string name="never">Nikdy</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Když zbývající čas &lt; 10 sekund</string>

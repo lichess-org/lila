@@ -64,12 +64,16 @@ object pref {
             radios(form("display.destination"), booleanChoices)
           ),
           setting(
+            trans.moveListWhilePlaying(),
+            radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
+          ),
+          setting(
             trans.boardCoordinates(),
             radios(form("display.coords"), translatedBoardCoordinateChoices)
           ),
           setting(
-            trans.moveListWhilePlaying(),
-            radios(form("display.replay"), translatedMoveListWhilePlayingChoices)
+            trans.coordinateSystem(),
+            radios(form("display.coordSystem"), translatedCoordinateSystemChoices)
           ),
           setting(
             trans.notationGameResult(),

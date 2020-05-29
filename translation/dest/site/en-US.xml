@@ -534,9 +534,8 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="newPasswordAgain">New password (again)</string>
   <string name="boardHighlights">Board highlights (last move and captures)</string>
   <string name="pieceDestinations">Piece destinations (valid moves and premoves)</string>
-  <string name="boardCoordinates">Board coordinates (1-50)</string>
+  <string name="boardCoordinates">Board coordinates (1-50, a1-h8)</string>
   <string name="moveListWhilePlaying">Move list while playing</string>
-  <string name="pdnPieceNotation">Move notation</string>
   <string name="draughtsClock">Draughts clock</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
   <string name="never">Never</string>

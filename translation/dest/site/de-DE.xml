@@ -491,7 +491,7 @@
   <string name="newPasswordAgain">Neues Passwort (wiederholen)</string>
   <string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Vorauszüge)</string>
   <string name="pieceDestinations">Zielfelder markieren (gültige Züge und Vorauszüge)</string>
-  <string name="boardCoordinates">Brettkoordinaten (1-50)</string>
+  <string name="boardCoordinates">Brettkoordinaten (1-50, a1-h8)</string>
   <string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
   <string name="tenthsOfSeconds">Zehntelsekunden</string>
   <string name="never">Nie</string>

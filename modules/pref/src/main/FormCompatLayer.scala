@@ -36,6 +36,7 @@ object FormCompatLayer {
         "coords",
         "replay",
         "gameResult",
+        "coordSystem",
         "blindfold"
       ))
 
