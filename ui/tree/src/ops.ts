@@ -224,6 +224,20 @@ export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, mergeChildren
 
 }
 
+function updateChildren(node: Tree.Node, coordSystem?: number) {
+  node.children.forEach(function (child: Tree.Node) {
+    if (countGhosts(child.fen) !== 0) {
+      child.displayPly = child.ply + 1;
+    }
+    if (coordSystem) {
+      child.alg = san2alg(child.san);
+    }
+    if (child.children) {
+      updateChildren(child, coordSystem);
+    }
+  });
+}
+
 export function reconstruct(parts: any, coordSystem?: number): Tree.Node {
   const root = copyNode(parts[0], true, coordSystem), nb = parts.length;
   let node = root, i: number;
@@ -238,10 +252,7 @@ export function reconstruct(parts: any, coordSystem?: number): Tree.Node {
       if (countGhosts(n.fen) !== 0)
         n.displayPly = n.ply + 1;
       if (node.children) {
-        node.children.forEach(function (child: Tree.Node) {
-          if (countGhosts(child.fen) !== 0)
-            child.displayPly = child.ply + 1;
-        });
+        updateChildren(node, coordSystem);
         node.children.unshift(n);
       } else node.children = [n];
       node = n;
