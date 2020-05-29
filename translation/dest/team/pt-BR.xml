@@ -15,6 +15,10 @@
   <string name="anyoneCanJoin">Aberto a todos</string>
   <string name="aConfirmationIsRequiredToJoin">É necessária confirmação para entrar</string>
   <string name="joiningPolicy">Política de entrada</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Líder da equipe</item>
+    <item quantity="other">Líderes da equipe</item>
+  </plurals>
   <string name="teamBestPlayers">Melhores jogadores</string>
   <string name="teamRecentMembers">Últimos membros</string>
   <string name="kickSomeone">Expulse alguém da equipe</string>
@@ -31,4 +35,11 @@
   <string name="teamTournamentOverview">Um torneio de Arena em que apenas membros da sua equipe podem participar</string>
   <string name="messageAllMembers">Mensagem para todos os membros</string>
   <string name="messageAllMembersOverview">Enviar uma mensagem privada para todos os membros da equipe</string>
+  <string name="messageAllMembersLongDescription">Enviar uma mensagem privada para todos os membros da equipa.
+Podes usar isto para chamar jogadores para participar num torneio ou batalha de equipas.
+Os jogadores que não gostam de receber as tuas mensagens podem sair da equipa.</string>
+  <string name="teamsIlead">Equipas que eu lidero</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Talvez queiras enviar um link de algum destes futuros torneios.</string>
+  <string name="usersWhoCanManageThisTeam">Utilizadores que gerem esta equipa</string>
+  <string name="leadersChat">Chat dos líderes</string>
 </resources>
