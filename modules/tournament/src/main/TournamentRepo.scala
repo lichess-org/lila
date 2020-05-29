@@ -308,7 +308,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       $id(tour.id),
       $set(tournamentHandler.write(tour)) ++ $unset(
         List(
-          tour.conditions.titled.isEmpty option "conditions.titled",
+          // tour.conditions.titled.isEmpty option "conditions.titled",
           tour.isRated option "mode",
           tour.berserkable option "noBerserk",
           tour.streakable option "noStreak",
