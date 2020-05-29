@@ -412,9 +412,16 @@ final class Team(
       JsonOptionOk {
         api team id flatMap {
           _ ?? { team =>
-            ctx.userId.?? { api.belongsTo(id, _) } map { joined =>
-              env.team.jsonView.teamWrites.writes(team) ++ Json.obj("joined" -> joined)
-            } dmap some
+            for {
+              joined    <- ctx.userId.?? { api.belongsTo(id, _) }
+              requested <- ctx.userId.ifFalse(joined).?? { env.team.requestRepo.exists(id, _) }
+            } yield {
+              env.team.jsonView.teamWrites.writes(team) ++ Json
+                .obj(
+                  "joined"    -> joined,
+                  "requested" -> requested
+                )
+            }.some
           }
         }
       }
