@@ -244,11 +244,11 @@ export function build(root: Tree.Node): TreeWrapper {
 
   }
 
-  function addNodes(nodes: Tree.Node[], path: Tree.Path): Tree.Path | undefined {
+  function addNodes(nodes: Tree.Node[], path: Tree.Path, puzzleEditor: Boolean = false, coordSystem?: number): Tree.Path | undefined {
     var node = nodes[0];
     if (!node) return path;
-    const newPath = addNode(node, path);
-    return newPath ? addNodes(nodes.slice(1), newPath) : undefined;
+    const newPath = addNode(node, path, puzzleEditor, coordSystem);
+    return newPath ? addNodes(nodes.slice(1), newPath, puzzleEditor, coordSystem) : undefined;
   }
 
   function deleteNodeAt(path: Tree.Path): void {

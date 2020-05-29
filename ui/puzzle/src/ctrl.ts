@@ -44,7 +44,7 @@ export default function (opts, redraw: () => void): Controller {
 
   function initiate(fromData) {
     data = fromData;
-    tree = treeBuild(data.game.treeParts ? treeOps.reconstruct(data.game.treeParts) : ({
+    tree = treeBuild(data.game.treeParts ? treeOps.reconstruct(data.game.treeParts, coordSystem()) : ({
       id: "",
       ply: data.history.ply - 1,
       fen: data.puzzle.fen,
@@ -124,7 +124,8 @@ export default function (opts, redraw: () => void): Controller {
         enabled: false,
         variant: data.puzzle.variant.key
       },
-      check: !!node.check,
+      boardSize: data.puzzle.variant.board.size,
+      coordSystem: coordSystem(),
       lastMove: uciToLastMove(node.uci)
     };
     if (node.ply >= vm.initialNode.ply) {
@@ -174,6 +175,14 @@ export default function (opts, redraw: () => void): Controller {
     socket.sendAnaMove(move);
   };
 
+  function isAlgebraic(): boolean {
+    return opts.pref.coordSystem === 1 && data.puzzle.variant.board.key === '64';
+  }
+  
+  function coordSystem(): number {
+    return isAlgebraic() ? 1 : 0;
+  }
+
   var getDests = throttle(800, function () {
     if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath) && (vm.node.destreq || 0) < 3) {
       const dests: any = {
@@ -192,7 +201,7 @@ export default function (opts, redraw: () => void): Controller {
   };
 
   var addNode = function (node, path) {
-    var newPath = tree.addNode(node, path);
+    var newPath = tree.addNode(node, path, false, coordSystem());
     if (newPath) { // path can be undefined when solution is clicked in the middle of opponent capt sequence
       const ghosts = countGhosts(node.fen);
       const playedMyself = jump(newPath);

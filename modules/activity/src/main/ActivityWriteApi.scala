@@ -52,6 +52,12 @@ final class ActivityWriteApi(
             rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
           )
         })
+        else if (res.variant.russian) $set(ActivityFields.puzzlesRussian -> {
+          ~a.puzzlesRussian + Score.make(
+            res = res.result.win.some,
+            rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
+          )
+        })
         else $set(ActivityFields.puzzles -> {
           ~a.puzzles + Score.make(
             res = res.result.win.some,

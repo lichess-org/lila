@@ -20,7 +20,8 @@ object activity {
             a.patron map renderPatron,
             a.practice map renderPractice,
             a.puzzles map renderPuzzles,
-            a.puzzlesFrisian map renderFrisianPuzzles,
+            a.puzzlesFrisian map { p => renderVariantPuzzles(p, draughts.variant.Frisian) },
+            a.puzzlesRussian map { p => renderVariantPuzzles(p, draughts.variant.Russian) },
             a.games map renderGames,
             a.posts map renderPosts,
             a.corresMoves map {
@@ -84,12 +85,12 @@ object activity {
       )
     )
 
-  private def renderFrisianPuzzles(p: Puzzles)(implicit ctx: Context) =
+  private def renderVariantPuzzles(p: Puzzles, v: draughts.variant.Variant)(implicit ctx: Context) =
     entryTag(
       iconTag(""),
       scoreFrag(p.score),
       div(
-        trans.activity.solvedNbVariantPuzzles.plural(p.score.size, p.score.size, draughts.variant.Frisian.name),
+        trans.activity.solvedNbVariantPuzzles.plural(p.score.size, p.score.size, v.name),
         p.score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
       )
     )

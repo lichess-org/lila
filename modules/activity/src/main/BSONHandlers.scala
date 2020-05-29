@@ -109,6 +109,7 @@ private object BSONHandlers {
     val posts = "p"
     val puzzles = "z"
     val puzzlesFrisian = "zf"
+    val puzzlesRussian = "zr"
     val learn = "l"
     val practice = "r"
     val simuls = "s"
@@ -130,6 +131,7 @@ private object BSONHandlers {
       posts = r.getO[Posts](posts),
       puzzles = r.getO[Puzzles](puzzles),
       puzzlesFrisian = r.getO[Puzzles](puzzlesFrisian),
+      puzzlesRussian = r.getO[Puzzles](puzzlesRussian),
       learn = r.getO[Learn](learn),
       practice = r.getO[Practice](practice),
       simuls = r.getO[Simuls](simuls),
@@ -147,6 +149,7 @@ private object BSONHandlers {
       posts -> o.posts,
       puzzles -> o.puzzles,
       puzzlesFrisian -> o.puzzlesFrisian,
+      puzzlesRussian -> o.puzzlesRussian,
       learn -> o.learn,
       practice -> o.practice,
       simuls -> o.simuls,

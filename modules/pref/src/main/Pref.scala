@@ -1,6 +1,6 @@
 package lidraughts.pref
 
-import draughts.variant.{ Variant, Standard, Frisian }
+import draughts.variant.{ Variant, Standard, Frisian, Russian }
 
 case class Pref(
     _id: String, // user id
@@ -343,7 +343,7 @@ object Pref {
   object Zen extends BooleanPref {
   }
 
-  val puzzleVariants: List[Variant] = List(Standard, Frisian)
+  val puzzleVariants: List[Variant] = List(Standard, Frisian, Russian)
 
   def create(id: String) = default.copy(_id = id)
 

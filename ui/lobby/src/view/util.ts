@@ -31,7 +31,7 @@ export function spinner() {
 export const perfIcons = {
   'Blitz':')',
   'Breakthrough':'',
-  'Russian':'',
+  'Russian':'',
   'UltraBullet':'{',
   'Bullet':'T',
   'Classical':'+',
@@ -40,7 +40,6 @@ export const perfIcons = {
   'Antidraughts':'@',
   'Frysk!':'_',
   'Atomic':'>',
-  'Crazyhouse':'',
   'Frisian':'\'',
   'Correspondence':';',
   'King of the Hill':'('

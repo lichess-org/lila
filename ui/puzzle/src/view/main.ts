@@ -100,7 +100,7 @@ export default function(ctrl: Controller): VNode {
       side.puzzleBox(ctrl),
       side.userBox(ctrl)
     ]),
-    h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
+    h('div.puzzle__board.main-board.is' + ctrl.getData().puzzle.variant.board.key + (ctrl.pref.blindfold ? '.blindfold' : ''), {
       hook: hasTouchEvents ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       draughtsground(ctrl)

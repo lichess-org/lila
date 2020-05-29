@@ -126,7 +126,7 @@ function puzzleGlyph(ctx, node): VNode | undefined {
 export function renderMove(ctx, node): MaybeVNodes {
   const ev = node.eval || node.ceval || {};
   return [
-    node.san,
+    node.alg || node.san,
     defined(ev.cp) ? renderEval(normalizeEval(ev.cp)) : (
       defined(ev.win) ? renderEval('#' + ev.win) : null
     ),
@@ -148,7 +148,7 @@ function renderVariationMoveOf(ctx, node, opts): VNode {
     class: classes
   }, [
     withIndex ? renderIndex(node.ply, true) : null,
-    node.san,
+    node.alg || node.san,
     puzzleGlyph(ctx, node)
   ]);
 }

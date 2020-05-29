@@ -19,14 +19,17 @@ function makeConfig(ctrl): CgConfig {
     fen: opts.fen,
     orientation: opts.orientation,
     turnColor: opts.turnColor,
+    boardSize: opts.boardSize,
     lastMove: opts.lastMove,
     coordinates: ctrl.pref.coords,
+    coordSystem: opts.coordSystem,
     addPieceZIndex: ctrl.pref.is3d,
     movable: {
       free: false,
       color: opts.movable.color,
       dests: opts.movable.dests,
-      showDests: ctrl.pref.destination
+      showDests: ctrl.pref.destination,
+      variant: opts.movable.variant
     },
     draggable: {
       enabled: ctrl.pref.moveEvent > 0,

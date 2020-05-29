@@ -509,7 +509,7 @@ export default class AnalyseCtrl {
   isAlgebraic(): boolean {
     return this.data.pref.coordSystem === 1 && this.data.game.variant.board.key === '64';
   }
-  
+
   coordSystem(): number {
     return this.isAlgebraic() ? 1 : 0;
   }
@@ -706,7 +706,6 @@ export default class AnalyseCtrl {
   }
 
   generatePuzzleJson(): string {
-
     const nodesUci = new Array<string[]>();
     treeOps.allVariationsNodeList(this.tree.root).map(variation => treeOps.expandMergedNodes(variation)).forEach(
       moves => {
@@ -726,7 +725,6 @@ export default class AnalyseCtrl {
         nodesUci.push(movesUci)
       }
     );
-
     return JSON.stringify({
       category: "Puzzles",
       last_pos: this.tree.root.fen,
@@ -734,8 +732,7 @@ export default class AnalyseCtrl {
       move_list: nodesUci.map(variation => variation.slice(1)),
       game_id: "custom"
     });
-
-};
+  };
 
   expandVariations(path: Tree.Path): void {
     const node = this.tree.nodeAtPath(path);
@@ -743,15 +740,16 @@ export default class AnalyseCtrl {
     const parentPath = treePath.init(path), parent = this.tree.nodeAtPath(parentPath);
     if (!parent) return;
     for (const alt of node.missingAlts) {
-      var copy = treeOps.copyNode(node);
+      var copy = treeOps.copyNode(node, false, this.coordSystem());
       copy.uci = alt.uci;
       copy.children = node.children;
       this.tree.setAmbs(copy, parent);
-      this.tree.addNode(copy, parentPath, this.data.puzzleEditor);
+      this.tree.addNode(copy, parentPath, this.data.puzzleEditor, this.coordSystem());
     }
-    for (const c of parent.children)
+    for (const c of parent.children) {
       if (draughtsUtil.fenCompare(node.fen, c.fen))
         c.missingAlts = [];
+    }
   }
 
   promote(path: Tree.Path, toMainline: boolean): void {

@@ -102,6 +102,7 @@ final class JsonView(
       .add("games", a.games)
       .add("puzzles", a.puzzles)
       .add("puzzlesFrisian", a.puzzlesFrisian)
+      .add("puzzlesRussian", a.puzzlesRussian)
       .add("tournaments", a.tours)
       .add("practice", a.practice.map(_.toList.sortBy(-_._2) map {
         case (study, nb) => Json.obj(

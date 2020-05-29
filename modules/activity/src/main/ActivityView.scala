@@ -16,6 +16,7 @@ case class ActivityView(
     games: Option[Games] = None,
     puzzles: Option[Puzzles] = None,
     puzzlesFrisian: Option[Puzzles] = None,
+    puzzlesRussian: Option[Puzzles] = None,
     practice: Option[Map[PracticeStudy, Int]] = None,
     simuls: Option[List[Simul]] = None,
     patron: Option[Patron] = None,

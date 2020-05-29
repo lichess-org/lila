@@ -3,6 +3,7 @@ package lidraughts.puzzle
 import draughts.format.{ Uci, UciCharPair }
 import play.api.libs.json._
 import lidraughts.game.GameRepo
+import lidraughts.game.JsonView.boardSizeWriter
 import lidraughts.tree
 
 final class JsonView(
@@ -52,7 +53,8 @@ final class JsonView(
     "moveEvent" -> p.moveEvent,
     "highlight" -> p.highlight,
     "showKingMoves" -> p.kingMoves
-  ).add("fullCapture" -> ((p.fullCapture == lidraughts.pref.Pref.FullCapture.YES) option true))
+  ).add("fullCapture" -> (p.fullCapture == lidraughts.pref.Pref.FullCapture.YES).option(true))
+    .add("coordSystem" -> (p.coordSystem != lidraughts.pref.Pref.CoordSystem.FIELDNUMBERS).option(p.coordSystem))
 
   def batch(puzzles: List[Puzzle], userInfos: UserInfos, variant: draughts.variant.Variant): Fu[JsObject] = for {
     games <- GameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
@@ -129,7 +131,8 @@ final class JsonView(
       "key" -> v.key,
       "name" -> v.name,
       "short" -> v.shortName,
-      "gameType" -> v.gameType
+      "gameType" -> v.gameType,
+      "board" -> v.boardSize
     )
   }
 }

@@ -113,7 +113,7 @@ object PerfType {
     key = "russian",
     name = draughts.variant.Russian.name,
     title = "Russian draughts",
-    iconChar = ''
+    iconChar = ''
   )
 
   case object Puzzle extends PerfType(
@@ -132,7 +132,15 @@ object PerfType {
     iconChar = ''
   )
 
-  val all: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Standard, Frisian, Frysk, Antidraughts, Breakthrough, Russian, Puzzle, PuzzleFrisian)
+  case object PuzzleRussian extends PerfType(
+    20,
+    key = "puzzlerussian",
+    name = "Russian training",
+    title = "Russian training puzzles",
+    iconChar = '-'
+  )
+
+  val all: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Standard, Frisian, Frysk, Antidraughts, Breakthrough, Russian, Puzzle, PuzzleFrisian, PuzzleRussian)
   val byKey = all map { p => (p.key, p) } toMap
   val byId = all map { p => (p.id, p) } toMap
 
@@ -148,7 +156,7 @@ object PerfType {
   def id2key(id: Perf.ID): Option[Perf.Key] = byId get id map (_.key)
 
   val nonPuzzle: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Frisian, Frysk, Antidraughts, Breakthrough, Russian)
-  val nonGame: List[PerfType] = List(Puzzle, PuzzleFrisian)
+  val nonGame: List[PerfType] = List(Puzzle, PuzzleFrisian, PuzzleRussian)
   val leaderboardable: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, UltraBullet, Frisian, Frysk, Antidraughts, Breakthrough, Russian)
   val variants: List[PerfType] = List(Frisian, Frysk, Antidraughts, Breakthrough, Russian)
   val variantsPlus: List[PerfType] = List(Standard, Frisian, Frysk, Antidraughts, Breakthrough, Russian)
@@ -186,6 +194,7 @@ object PerfType {
   def puzzlePerf(variant: draughts.variant.Variant): Option[PerfType] = variant match {
     case draughts.variant.Standard => Puzzle.some
     case draughts.variant.Frisian => PuzzleFrisian.some
+    case draughts.variant.Russian => PuzzleRussian.some
     case _ => none
   }
 

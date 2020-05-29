@@ -88,7 +88,6 @@ final class JsonView(
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
               "coords" -> pref.coords,
-              "coordSystem" -> pref.coordSystem,
               "resizeHandle" -> pref.resizeHandle,
               "replay" -> pref.replay,
               "clockTenths" -> pref.clockTenths,
@@ -103,6 +102,7 @@ final class JsonView(
               .add("enablePremove" -> pref.premove)
               .add("showCaptured" -> pref.captured)
               .add("showKingMoves" -> pref.kingMoves)
+              .add("coordSystem" -> (pref.coordSystem != Pref.CoordSystem.FIELDNUMBERS).option(pref.coordSystem))
               .add("draughtsResult" -> pref.draughtsResult)
               .add("submitMove" -> {
                 import Pref.SubmitMove._
@@ -178,7 +178,6 @@ final class JsonView(
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
               "coords" -> pref.coords,
-              "coordSystem" -> pref.coordSystem,
               "resizeHandle" -> pref.resizeHandle,
               "replay" -> pref.replay,
               "clockTenths" -> pref.clockTenths
@@ -240,7 +239,6 @@ final class JsonView(
       "pref" -> Json.obj(
         "animationDuration" -> animationDuration(pov, pref),
         "coords" -> pref.coords,
-        "coordSystem" -> pref.coordSystem,
         "moveEvent" -> pref.moveEvent,
         "resizeHandle" -> pref.resizeHandle
       ).add("highlight" -> (pref.highlight || pref.isBlindfold))
@@ -289,8 +287,7 @@ final class JsonView(
       "orientation" -> orientation.name,
       "pref" -> Json.obj(
         "animationDuration" -> animationDuration(pov, pref),
-        "coords" -> pref.coords,
-        "coordSystem" -> pref.coordSystem
+        "coords" -> pref.coords
       ).add("highlight" -> (pref.highlight || pref.isBlindfold))
         .add("destination" -> (pref.destination && !pref.isBlindfold))
         .add("draughtsResult" -> pref.draughtsResult)

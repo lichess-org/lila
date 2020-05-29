@@ -329,7 +329,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
           ctrl.tree.promoteAt(newPath, true);
         }
       }
-      const newPath = ctrl.tree.addNode(node, position.path, false);
+      const newPath = ctrl.tree.addNode(node, position.path, false, ctrl.coordSystem());
       if (!newPath) return xhrReload();
       const dests = (ctrl.data.pref.fullCapture && d.f) ? d.f : d.d;
       ctrl.tree.addDests(dests, newPath, d.o, undefined, d.u);

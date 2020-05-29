@@ -3,7 +3,7 @@ package lidraughts.puzzle
 import akka.actor.{ ActorSelection, ActorSystem }
 import com.typesafe.config.Config
 import lidraughts.db.dsl.Coll
-import draughts.variant.{ Variant, Standard, Frisian }
+import draughts.variant.{ Variant, Standard, Frisian, Russian }
 
 final class Env(
     config: Config,
@@ -18,12 +18,16 @@ final class Env(
   private val settings = new {
     val CollectionPuzzle = config getString "collection.puzzle"
     val CollectionPuzzleFrisian = config getString "collection.puzzle_frisian"
+    val CollectionPuzzleRussian = config getString "collection.puzzle_russian"
     val CollectionRound = config getString "collection.round"
     val CollectionRoundFrisian = config getString "collection.round_frisian"
+    val CollectionRoundRussian = config getString "collection.round_russian"
     val CollectionVote = config getString "collection.vote"
     val CollectionVoteFrisian = config getString "collection.vote_frisian"
+    val CollectionVoteRussian = config getString "collection.vote_russian"
     val CollectionHead = config getString "collection.head"
     val CollectionHeadFrisian = config getString "collection.head_frisian"
+    val CollectionHeadRussian = config getString "collection.head_russian"
     val ApiToken = config getString "api.token"
     val AnimationDuration = config duration "animation.duration"
     val PuzzleIdMin = config getInt "selector.puzzle_id_min"
@@ -96,10 +100,10 @@ final class Env(
     }
   }
 
-  private[puzzle] lazy val puzzleColl: Map[Variant, Coll] = Map(Standard -> db(CollectionPuzzle), Frisian -> db(CollectionPuzzleFrisian))
-  private[puzzle] lazy val roundColl: Map[Variant, Coll] = Map(Standard -> db(CollectionRound), Frisian -> db(CollectionRoundFrisian))
-  private[puzzle] lazy val voteColl: Map[Variant, Coll] = Map(Standard -> db(CollectionVote), Frisian -> db(CollectionVoteFrisian))
-  private[puzzle] lazy val headColl: Map[Variant, Coll] = Map(Standard -> db(CollectionHead), Frisian -> db(CollectionHeadFrisian))
+  private[puzzle] lazy val puzzleColl: Map[Variant, Coll] = Map(Standard -> db(CollectionPuzzle), Frisian -> db(CollectionPuzzleFrisian), Russian -> db(CollectionPuzzleRussian))
+  private[puzzle] lazy val roundColl: Map[Variant, Coll] = Map(Standard -> db(CollectionRound), Frisian -> db(CollectionRoundFrisian), Russian -> db(CollectionRoundRussian))
+  private[puzzle] lazy val voteColl: Map[Variant, Coll] = Map(Standard -> db(CollectionVote), Frisian -> db(CollectionVoteFrisian), Russian -> db(CollectionVoteRussian))
+  private[puzzle] lazy val headColl: Map[Variant, Coll] = Map(Standard -> db(CollectionHead), Frisian -> db(CollectionHeadFrisian), Russian -> db(CollectionHeadRussian))
 }
 
 object Env {

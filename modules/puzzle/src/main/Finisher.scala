@@ -37,6 +37,7 @@ private[puzzle] final class Finisher(
           )
           val perfType = puzzle.variant match {
             case draughts.variant.Frisian => PerfType.PuzzleFrisian
+            case draughts.variant.Russian => PerfType.PuzzleRussian
             case _ => PerfType.Puzzle
           }
           historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf, puzzleType = perfType)

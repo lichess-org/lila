@@ -1,6 +1,6 @@
 package lidraughts.history
 
-import draughts.variant.{ Variant, Standard, Frisian }
+import draughts.variant.{ Variant, Standard, Frisian, Russian }
 import lidraughts.rating.PerfType
 
 case class History(
@@ -33,6 +33,7 @@ case class History(
     case PerfType.Russian => russian
     case PerfType.Puzzle => puzzle(Standard)
     case PerfType.PuzzleFrisian => puzzle(Frisian)
+    case PerfType.PuzzleRussian => puzzle(Russian)
     case PerfType.UltraBullet => ultraBullet
     case x => sys error s"No history for perf $x"
   }
@@ -66,7 +67,11 @@ object History {
         rapid = ratingsMap("rapid"),
         classical = ratingsMap("classical"),
         correspondence = ratingsMap("correspondence"),
-        puzzle = Map(Standard -> ratingsMap("puzzle"), Frisian -> ratingsMap("puzzlefrisian"))
+        puzzle = Map(
+          Standard -> ratingsMap("puzzle"),
+          Frisian -> ratingsMap("puzzlefrisian"),
+          Russian -> ratingsMap("puzzlerussian")
+        )
       )
     }
   }

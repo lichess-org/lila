@@ -41,7 +41,7 @@ object side {
             ratingProgress(perf.progress),
             " ",
             span(
-              if (perfType.key == "puzzle" || perfType.key == "puzzlefrisian") trans.nbPuzzles(perf.nb, perf.nb.localize)
+              if (perfType.key == "puzzle" || perfType.key == "puzzlefrisian" || perfType.key == "puzzlerussian") trans.nbPuzzles(perf.nb, perf.nb.localize)
               else trans.nbGames(perf.nb, perf.nb.localize)
             )
           ),
@@ -70,7 +70,8 @@ object side {
         showPerf(u.perfs.russian, PerfType.Russian),
         br,
         u.noBot option showPerf(u.perfs.puzzle(draughts.variant.Standard), PerfType.Puzzle),
-        u.noBot option showNonEmptyPerf(u.perfs.puzzle(draughts.variant.Frisian), PerfType.PuzzleFrisian)
+        u.noBot option showNonEmptyPerf(u.perfs.puzzle(draughts.variant.Frisian), PerfType.PuzzleFrisian),
+        u.noBot option showNonEmptyPerf(u.perfs.puzzle(draughts.variant.Russian), PerfType.PuzzleRussian)
       )
     )
   }

@@ -3,7 +3,7 @@ package lidraughts.user
 import org.joda.time.DateTime
 
 import draughts.Speed
-import draughts.variant.{ Variant, Standard, Frisian }
+import draughts.variant.{ Variant, Standard, Frisian, Russian }
 import lidraughts.db.BSON
 import lidraughts.rating.{ Perf, PerfType, Glicko }
 
@@ -37,7 +37,8 @@ case class Perfs(
     "classical" -> classical,
     "correspondence" -> correspondence,
     "puzzle" -> puzzle(Standard),
-    "puzzlefrisian" -> puzzle(Frisian)
+    "puzzlefrisian" -> puzzle(Frisian),
+    "puzzlerussian" -> puzzle(Russian)
   )
 
   def bestPerf: Option[(PerfType, Perf)] = {
@@ -103,7 +104,8 @@ case class Perfs(
     "classical" -> classical,
     "correspondence" -> correspondence,
     "puzzle" -> puzzle(Standard),
-    "puzzlefrisian" -> puzzle(Frisian)
+    "puzzlefrisian" -> puzzle(Frisian),
+    "puzzlerussian" -> puzzle(Russian)
   )
 
   def ratingMap: Map[String, Int] = perfsMap mapValues (_.intRating)
@@ -127,6 +129,7 @@ case class Perfs(
     case PerfType.Russian => russian
     case PerfType.Puzzle => puzzle(Standard)
     case PerfType.PuzzleFrisian => puzzle(Frisian)
+    case PerfType.PuzzleRussian => puzzle(Russian)
   }
 
   def inShort = perfs map {
@@ -206,7 +209,11 @@ case object Perfs {
         rapid = perf("rapid"),
         classical = perf("classical"),
         correspondence = perf("correspondence"),
-        puzzle = Map(Standard -> perf("puzzle"), Frisian -> perf("puzzlefrisian"))
+        puzzle = Map(
+          Standard -> perf("puzzle"),
+          Frisian -> perf("puzzlefrisian"),
+          Russian -> perf("puzzlerussian")
+        )
       )
     }
 
@@ -226,7 +233,8 @@ case object Perfs {
       "classical" -> notNew(o.classical),
       "correspondence" -> notNew(o.correspondence),
       "puzzle" -> notNew(o.puzzle(Standard)),
-      "puzzlefrisian" -> notNew(o.puzzle(Frisian))
+      "puzzlefrisian" -> notNew(o.puzzle(Frisian)),
+      "puzzlerussian" -> notNew(o.puzzle(Russian))
     )
   }
 
