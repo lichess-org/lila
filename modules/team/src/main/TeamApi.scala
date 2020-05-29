@@ -100,19 +100,30 @@ final class TeamApi(
       case (request, user) => RequestWithUser(request, user)
     }
 
-  def join(teamId: Team.ID, me: User): Fu[Option[Requesting]] =
+  def join(teamId: Team.ID, me: User, msg: Option[String]): Fu[Option[Requesting]] =
     teamRepo.coll.byId[Team](teamId) flatMap {
       _ ?? { team =>
         if (team.open) doJoin(team, me) inject Joined(team).some
-        else fuccess(Motivate(team).some)
+        else
+          msg.fold(fuccess[Option[Requesting]](Motivate(team).some)) { txt =>
+            createRequest(team, me, txt) inject Joined(team).some
+          }
       }
     }
 
-  def joinApi(teamId: Team.ID, me: User, oAuthAppOwner: Option[User.ID]): Fu[Option[Requesting]] =
+  def joinApi(
+      teamId: Team.ID,
+      me: User,
+      oAuthAppOwner: Option[User.ID],
+      msg: Option[String]
+  ): Fu[Option[Requesting]] =
     teamRepo.coll.byId[Team](teamId) flatMap {
       _ ?? { team =>
         if (team.open || oAuthAppOwner.contains(team.createdBy)) doJoin(team, me) inject Joined(team).some
-        else fuccess(Motivate(team).some)
+        else
+          msg.fold(fuccess[Option[Requesting]](Motivate(team).some)) { txt =>
+            createRequest(team, me, txt) inject Joined(team).some
+          }
       }
     }
 
@@ -128,10 +139,10 @@ final class TeamApi(
       requested <- requestRepo.exists(team.id, user.id)
     } yield !belongs && !requested
 
-  def createRequest(team: Team, setup: RequestSetup, user: User): Funit =
+  def createRequest(team: Team, user: User, msg: String): Funit =
     requestable(team, user) flatMap {
       _ ?? {
-        val request = Request.make(team = team.id, user = user.id, message = setup.message)
+        val request = Request.make(team = team.id, user = user.id, message = msg)
         requestRepo.coll.insert.one(request).void >>- (cached.nbRequests invalidate team.createdBy)
       }
     }

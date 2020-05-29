@@ -217,7 +217,7 @@ final class Team(
     }
 
   def join(id: String) =
-    AuthOrScoped(_.Team.Write)(
+    AuthOrScopedBody(_.Team.Write)(
       auth = implicit ctx =>
         me =>
           api countTeamsOf me flatMap { nb =>
@@ -228,34 +228,48 @@ final class Team(
               )
             else
               negotiate(
-                html = api.join(id, me) flatMap {
+                html = api.join(id, me, none) flatMap {
                   case Some(Joined(team))   => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
                   case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
                   case _                    => notFound(ctx)
                 },
-                api = _ =>
-                  api.join(id, me) flatMap {
-                    case Some(Joined(_)) => jsonOkResult.fuccess
-                    case Some(Motivate(_)) =>
-                      BadRequest(
-                        jsonError("This team requires confirmation.")
-                      ).fuccess
-                    case _ => notFoundJson("Team not found")
-                  }
+                api = _ => {
+                  implicit val body = ctx.body
+                  forms.apiRequest.bindFromRequest
+                    .fold(
+                      newJsonFormError,
+                      msg =>
+                        api.join(id, me, msg) flatMap {
+                          case Some(Joined(_)) => jsonOkResult.fuccess
+                          case Some(Motivate(_)) =>
+                            BadRequest(
+                              jsonError("This team requires confirmation.")
+                            ).fuccess
+                          case _ => notFoundJson("Team not found")
+                        }
+                    )
+                }
               )
           },
-      scoped = req =>
-        me =>
-          env.oAuth.server.fetchAppAuthor(req) flatMap {
-            api.joinApi(id, me, _)
-          } flatMap {
-            case Some(Joined(_)) => jsonOkResult.fuccess
-            case Some(Motivate(_)) =>
-              Forbidden(
-                jsonError("This team requires confirmation, and is not owned by the oAuth app owner.")
-              ).fuccess
-            case _ => notFoundJson("Team not found")
-          }
+      scoped = implicit req =>
+        me => {
+          implicit val lang = reqLang
+          forms.apiRequest.bindFromRequest
+            .fold(
+              newJsonFormError,
+              msg =>
+                env.oAuth.server.fetchAppAuthor(req) flatMap {
+                  api.joinApi(id, me, _, msg)
+                } flatMap {
+                  case Some(Joined(_)) => jsonOkResult.fuccess
+                  case Some(Motivate(_)) =>
+                    Forbidden(
+                      jsonError("This team requires confirmation, and is not owned by the oAuth app owner.")
+                    ).fuccess
+                  case _ => notFoundJson("Team not found")
+                }
+            )
+        }
     )
 
   def requests =
@@ -281,7 +295,8 @@ final class Team(
             forms.anyCaptcha map { captcha =>
               BadRequest(html.team.request.requestForm(team, err, captcha))
             },
-          setup => api.createRequest(team, setup, me) inject Redirect(routes.Team.show(team.id)).flashSuccess
+          setup =>
+            api.createRequest(team, me, setup.message) inject Redirect(routes.Team.show(team.id)).flashSuccess
         )
       }
     }
@@ -464,5 +479,8 @@ You received this message because you are part of the team lichess.org${routes.T
     }
 
   private[controllers] def teamsIBelongTo(me: lila.user.User): Fu[List[LightTeam]] =
+    api mine me map { _.map(_.light) }
+
+  private[controllers] def teamsILead(me: lila.user.User): Fu[List[LightTeam]] =
     api mine me map { _.map(_.light) }
 }

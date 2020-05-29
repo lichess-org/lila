@@ -64,6 +64,8 @@ final private[team] class DataForm(
     move = ""
   )
 
+  val apiRequest = Form(single("message" -> optional(text(minLength = 30, maxLength = 2000))))
+
   val processRequest = Form(
     tuple(
       "process" -> nonEmptyText,
