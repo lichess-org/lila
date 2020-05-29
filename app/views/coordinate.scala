@@ -63,7 +63,7 @@ object coordinate {
                 )
               )
             ),
-            div(cls := "coord-trainer__board main-board")(
+            div(cls := "coord-trainer__board main-board is100")(
               div(cls := "next_coord", id := "next_coord0"),
               div(cls := "next_coord", id := "next_coord1"),
               div(cls := "next_coord", id := "next_coord2"),

@@ -690,7 +690,6 @@ object Game {
     draughts.variant.Frysk,
     draughts.variant.Antidraughts,
     draughts.variant.Breakthrough,
-    draughts.variant.Russian,
     draughts.variant.FromPosition
   )
 

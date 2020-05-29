@@ -147,7 +147,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     li.pubsub.emit('chat.writeable', data.features.chat);
     li.pubsub.emit('chat.permissions', {local: canContribute});
     li.pubsub.emit('palantir.toggle', data.features.chat && !!members.myMember());
-    const computer: boolean = !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
+    const computer: boolean = data.chapter.setup.variant.key !== 'russian' && !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
     if (!data.chapter.features.explorer) ctrl.explorer.disable();
