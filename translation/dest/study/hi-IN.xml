@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="private">निजी</string>
+  <string name="private">गोपनीय</string>
   <string name="myStudies">मेरे अध्ययन</string>
-  <string name="studiesIContributeTo">जिन अध्ययनों में मेरा योगदान है</string>
+  <string name="studiesIContributeTo">मेरे योगदान वाले अध्ययन</string>
   <string name="myPublicStudies">मेरे सार्वजनिक अध्ययन</string>
   <string name="myPrivateStudies">मेरे निजी अध्ययन</string>
   <string name="myFavoriteStudies">मेरे पसंदीदा अध्ययन</string>
@@ -34,7 +34,7 @@
   <string name="searchByUsername">उपयोगकर्ता के नाम से खोजें</string>
   <string name="spectator">दर्शक</string>
   <string name="contributor">सहयोगी</string>
-  <string name="kick">बाहर निकले</string>
+  <string name="kick">बाहर निकालें</string>
   <string name="leaveTheStudy">अध्ययन छोड़े</string>
   <string name="youAreNowAContributor">अब आप एक योगदानकर्ता हैं</string>
   <string name="youAreNowASpectator">अब आप एक दर्शक हैं</string>
