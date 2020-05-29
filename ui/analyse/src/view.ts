@@ -309,7 +309,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars,
     intro = relayIntro(ctrl);
-  return h('main.analyse.variant-' + ctrl.data.game.variant.key + '.is' + ctrl.data.game.variant.board.key, {
+  return h('main.analyse.variant-' + ctrl.data.game.variant.key, {
     hook: {
       insert: vn => {
         forceInnerCoords(ctrl, needsInnerCoords);
@@ -339,7 +339,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
   }, [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     study ? studyView.overboard(study) : null,
-    intro || h(addChapterId(study, 'div.analyse__board.main-board'), {
+    intro || h(addChapterId(study, 'div.analyse__board.main-board.is' + ctrl.data.game.variant.board.key), {
       hook: (window.lidraughts.hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       ...(clocks || []),

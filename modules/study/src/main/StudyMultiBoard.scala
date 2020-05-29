@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 import draughts.Color
 import draughts.format.pdn.{ Tag, Tags }
 import draughts.format.{ FEN, Uci }
+import draughts.variant.{ Variant, Standard }
 
 import BSONHandlers._
 import JsonView._
@@ -17,6 +18,7 @@ import lidraughts.common.paginator.{ Paginator, PaginatorJson }
 import lidraughts.db.dsl._
 import lidraughts.db.paginator.{ Adapter, MapReduceAdapter }
 import lidraughts.game.BSONHandlers.FENBSONHandler
+import lidraughts.game.JsonView.boardSizeWriter
 
 final class StudyMultiBoard(
     runCommand: lidraughts.db.RunCommand,
@@ -50,7 +52,7 @@ final class StudyMultiBoard(
         sort = $sort asc "order",
         runCommand = runCommand,
         command = $doc(
-          "map" -> """var node = this.root, child, tagPrefixes = ['White','Black','Result'], result = {name:this.name,orientation:this.setup.orientation,tags:this.tags.filter(t => tagPrefixes.find(p => t.startsWith(p)))};
+          "map" -> """var node = this.root, child, tagPrefixes = ['White','Black','Result'], result = {name:this.name,orientation:this.setup.orientation,variant:this.setup.variant,tags:this.tags.filter(t => tagPrefixes.find(p => t.startsWith(p)))};
 if (result.tags.length > 1) { while(child = node.n[0]) { node = child }; }
 result.fen = node.f;
 result.uci = node.u;
@@ -70,6 +72,7 @@ emit(this._id, result)""",
     def read(result: BSONDocument) = {
       val doc = result.getAs[List[Bdoc]]("value").flatMap(_.headOption) err "No mapReduce value?!"
       val tags = doc.getAs[Tags]("tags")
+      val variant = doc.getAs[Double]("variant") flatMap { id => Variant(id.toInt) } getOrElse Standard
       ChapterPreview(
         id = result.getAs[Chapter.Id]("_id") err "Preview missing id",
         name = doc.getAs[Chapter.Name]("name") err "Preview missing name",
@@ -77,7 +80,8 @@ emit(this._id, result)""",
         orientation = doc.getAs[Color]("orientation") getOrElse Color.White,
         fen = doc.getAs[FEN]("fen") err "Preview missing FEN",
         lastMove = doc.getAs[Uci]("uci"),
-        result = tags.flatMap(_(_.Result))
+        result = tags.flatMap(_(_.Result)),
+        board = variant.boardSize
       )
     }
   }
@@ -104,7 +108,8 @@ object StudyMultiBoard {
       orientation: Color,
       fen: FEN,
       lastMove: Option[Uci],
-      result: Option[String]
+      result: Option[String],
+      board: draughts.Board.BoardSize
   )
 
   object ChapterPreview {

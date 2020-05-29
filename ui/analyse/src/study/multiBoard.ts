@@ -162,11 +162,12 @@ function uciToLastMove(lm?: string): Key[] | undefined {
 }
 
 function makeCg(preview: ChapterPreview): VNode {
-  return h('div.mini-board.cg-wrap.is2d', {
+  return h('div.mini-board.cg-wrap.is2d.is' + preview.board.key, {
     hook: {
       insert(vnode) {
         const cg = Draughtsground(vnode.elm as HTMLElement, {
           coordinates: 0,
+          boardSize: preview.board.size,
           drawable: { enabled: false, visible: false },
           resizable: false,
           viewOnly: true,

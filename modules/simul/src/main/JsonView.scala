@@ -6,6 +6,7 @@ import draughts.format.{ FEN, Forsyth }
 import lidraughts.common.LightUser
 import lidraughts.evalCache.JsonHandlers.gameEvalJson
 import lidraughts.evaluation.{ Display, PlayerAssessment }
+import lidraughts.game.JsonView.boardSizeWriter
 import lidraughts.game.{ Game, GameRepo, Rewind }
 import lidraughts.pref.Pref
 import lidraughts.user.User
@@ -232,7 +233,8 @@ final class JsonView(
     "status" -> g.status.id,
     "fen" -> (draughts.format.Forsyth exportBoard g.board),
     "lastMove" -> ~g.lastMoveKeys,
-    "orient" -> g.playerByUserId(hostId).map(_.color)
+    "orient" -> g.playerByUserId(hostId).map(_.color),
+    "board" -> g.variant.boardSize
   )
 
   private def pairingJson(games: List[Game], hostId: String, fmjd: Option[ShowFmjdRating])(p: SimulPairing): Fu[Option[JsObject]] =

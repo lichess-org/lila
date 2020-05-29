@@ -6,6 +6,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lidraughts.common.{ Lang, LightUser }
+import lidraughts.game.JsonView.boardSizeWriter
 import lidraughts.game.{ LightPov, Game }
 import lidraughts.hub.lightTeam._
 import lidraughts.pref.Pref
@@ -256,17 +257,11 @@ final class JsonView(
     Json.obj(
       "id" -> game.id,
       "fen" -> (draughts.format.Forsyth exportBoard game.board),
-      "color" -> (game.variant match {
-        //case draughts.variant.RacingKings => draughts.White
-        case _ => game.firstColor
-      }).name,
+      "color" -> game.firstColor.name,
       "lastMove" -> ~game.lastMoveKeys,
       "white" -> ofPlayer(featured.white, game player draughts.White),
       "black" -> ofPlayer(featured.black, game player draughts.Black),
-      "board" -> Json.obj(
-        "key" -> game.variant.boardSize.key,
-        "size" -> game.variant.boardSize.sizes
-      )
+      "board" -> game.variant.boardSize
     )
   }
 

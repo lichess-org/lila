@@ -17,10 +17,11 @@ function miniPairing(ctrl) {
       href: '/' + game.id + '/' + game.orient
     }, [
       m('span', {
-        class: 'mini-board mini-board-' + game.id + ' parse-fen is2d',
+        class: 'mini-board mini-board-' + game.id + ' parse-fen is2d is' + game.board.key,
         'data-color': game.orient,
         'data-fen': game.fen,
         'data-lastmove': game.lastMove,
+        'data-board': `${game.board.size[0]}x${game.board.size[1]}`,
         config: function(el, isUpdate) {
           if (!isUpdate) lidraughts.parseFen($(el));
         }

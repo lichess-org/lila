@@ -39,30 +39,34 @@ $board-files-64: (
 );
 
 @each $color, $file in $board-files-100 {
-  .#{$color} .is2d .is100 {
-    cg-board {
-      background-image: url(../images/board/#{$file});
-    }
-    square, piece {
-      width: 10.0%;
-      height: 10.0%;
-    }
-    fieldnumber {
-      width: 10%;
+  .#{$color} .is2d {
+    .is100, &.is100 {
+      cg-board {
+        background-image: url(../images/board/#{$file});
+      }
+      square, piece {
+        width: 10.0%;
+        height: 10.0%;
+      }
+      fieldnumber {
+        width: 10%;
+      }
     }
   }
 }
 @each $color, $file in $board-files-64 {
-  .#{$color} .is2d .is64 {
-    cg-board {
-      background-image: url(../images/board/#{$file});
-    }
-    square, piece {
-      width: 12.5%;
-      height: 12.5%;
-    }
-    fieldnumber {
-      width: 12.5%;
+  .#{$color} .is2d {
+    .is64, &.is64 {
+      cg-board {
+        background-image: url(../images/board/#{$file});
+      }
+      square, piece {
+        width: 12.5%;
+        height: 12.5%;
+      }
+      fieldnumber {
+        width: 12.5%;
+      }
     }
   }
 }

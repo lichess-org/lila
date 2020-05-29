@@ -200,6 +200,7 @@ export interface ChapterPreview {
   fen: string
   lastMove?: string
   result?: string
+  board: BoardData
 }
 
 export interface ChapterPreviewPlayer {

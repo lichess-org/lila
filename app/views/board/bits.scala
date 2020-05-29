@@ -6,7 +6,7 @@ import scala.concurrent.duration.Duration
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.game.JsonView.variantWriter
+import lidraughts.game.JsonView.boardSizeWriter
 
 import controllers.routes
 
@@ -32,10 +32,7 @@ object bits {
   def variantJson(v: draughts.variant.Variant)(implicit ctx: Context) = Json.obj(
     "key" -> v.key,
     "name" -> v.name,
-    "board" -> Json.obj(
-      "key" -> v.boardSize.key,
-      "size" -> v.boardSize.sizes
-    ),
+    "board" -> v.boardSize,
     "initialFen" -> v.initialFen
   ).add("puzzle" -> lidraughts.pref.Pref.puzzleVariants.contains(v).option(true))
 
