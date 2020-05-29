@@ -61,7 +61,6 @@ case object Frisian extends Variant(
         case actor if actor.noncaptures.nonEmpty =>
           actor.pos -> actor.noncaptures
       }(breakOut)
-
   }
 
   override def finalizeBoard(board: Board, uci: format.Uci.Move, captured: Option[List[Piece]], remainingCaptures: Int): Board = {
@@ -94,6 +93,12 @@ case object Frisian extends Variant(
     }
   }
 
+  override def maxDrawingMoves(board: Board): Option[Int] =
+    if (board.pieces.size <= 3 && board.roleCount(Man) == 0) {
+      if (board.pieces.size == 3) Some(14)
+      else Some(4)
+    } else None
+
   /**
    * Update position hashes for frisian drawing rules:
    * - When one player has two kings and the other one, the game is drawn after both players made 7 moves.
@@ -103,8 +108,10 @@ case object Frisian extends Variant(
     val newHash = Hash(Situation(board, !move.piece.color))
     maxDrawingMoves(board) match {
       case Some(drawingMoves) =>
-        if (drawingMoves == 14 && move.captures) newHash //7 move rule resets only when another piece disappears, activating the "2-move rule"
-        else newHash ++ hash //2 move rule never resets once activated
+        if (drawingMoves == 14 && move.captures)
+          newHash // 7 move rule resets only when another piece disappears, activating the "2-move rule"
+        else
+          newHash ++ hash // 2 move rule never resets once activated
       case _ => newHash
     }
   }

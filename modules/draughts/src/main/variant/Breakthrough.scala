@@ -27,7 +27,11 @@ case object Breakthrough extends Variant(
     else if (situation.board.kingPosOf(Black).isDefined) Black.some
     else None
 
-  // No drawing rules
+  override def maxDrawingMoves(board: Board): Option[Int] = None
+
+  /**
+   * No drawing rules
+   */
   override def updatePositionHashes(board: Board, move: Move, hash: draughts.PositionHash): PositionHash =
     Hash(Situation(board, !move.piece.color))
 

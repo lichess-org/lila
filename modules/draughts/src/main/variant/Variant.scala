@@ -274,13 +274,7 @@ abstract class Variant private[variant] (
     if (situation.checkMate || specialEnd(situation)) Some(!situation.color) else None
 
   def specialEnd(situation: Situation) = false
-
   def specialDraw(situation: Situation) = false
-
-  /**
-   * Returns the amount of moves until a draw is reached given the material on the board.
-   */
-  def maxDrawingMoves(board: Board) = InsufficientWinningMaterial(board)
 
   // Some variants have an extra effect on the board on a move. For example, in Atomic, some
   // pieces surrounding a capture explode
@@ -293,18 +287,41 @@ abstract class Variant private[variant] (
   def addVariantEffect(move: Move): Move = move
 
   /**
+   * Returns the amount of moves until a draw is reached given the material on the board.
+   */
+  def maxDrawingMoves(board: Board): Option[Int] =
+    if (board.pieces.size <= 4) {
+      val whitePieces = board.piecesOf(Color.White)
+      val blackPieces = board.piecesOf(Color.Black)
+      val whiteKings = whitePieces.count(_._2.role == King)
+      if (whitePieces.size == 1 && whiteKings == 1) {
+        if (blackPieces.count(_._2.role == King) == 0) Some(50)
+        else if (blackPieces.size <= 2) Some(10)
+        else Some(32)
+      } else if (blackPieces.size == 1 && blackPieces.count(_._2.role == King) == 1) {
+        if (whiteKings == 0) Some(50)
+        else if (whitePieces.size <= 2) Some(10)
+        else Some(32)
+      } else Some(50)
+    } else Some(50)
+
+  /**
    * Update position hashes for standard drawing rules:
+   * - The game is drawn if three (or more) times the same position is repeated, with each time the same player having to move.
    * - The game is drawn when both players make 25 consecutive king moves without capturing.
    * - When one player has only a king left, and the other player three pieces including at least one king (three kings, two kings and a man, or one king and two men), the game is drawn after both players made 16 moves.
-   * - When one player has only a king left, and the other player  player two pieces or less, including at least one king (one king, two kings, or one king and a man), the game is drawn after both players made 5 moves.
+   * - When one player has only a king left, and the other player two pieces or less, including at least one king (one king, two kings, or one king and a man), the game is drawn after both players made 5 moves.
    */
   def updatePositionHashes(board: Board, move: Move, hash: draughts.PositionHash): PositionHash = {
     val newHash = Hash(Situation(board, !move.piece.color))
     maxDrawingMoves(board) match {
       case Some(drawingMoves) =>
-        if (drawingMoves == 50 && (move.captures || move.piece.isNot(King) || move.promotes)) newHash //25-move rule resets on capture or non-king move. promotion check is included to prevent that a move promoting a man is counted as a king move
-        else if (drawingMoves == 32 && move.captures) newHash //16 move rule resets only when another piece disappears, activating the 5-move rule
-        else newHash ++ hash //5 move rule never resets once activated
+        if (drawingMoves == 50 && (move.captures || move.piece.isNot(King) || move.promotes))
+          newHash // 25-move rule resets on capture or non-king move. promotion check is included to prevent that a move promoting a man is counted as a king move
+        else if (drawingMoves == 32 && move.captures)
+          newHash // 16 move rule resets only when another piece disappears, activating the 5-move rule
+        else
+          newHash ++ hash // 5 move rule never resets once activated
       case _ => newHash
     }
   }

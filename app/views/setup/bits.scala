@@ -26,7 +26,7 @@ private object bits {
               case Some(vf) if limitKings && vf.tooManyKings =>
                 p(cls := "errortext")(trans.tooManyKings())
               case Some(vf) =>
-                val boardSize = vf.situation.board.variant.boardSize
+                val boardSize = vf.situation.board.boardSize
                 div(
                   cls := s"mini-board cg-wrap parse-fen is2d is${boardSize.key}",
                   dataColor := vf.color.name,

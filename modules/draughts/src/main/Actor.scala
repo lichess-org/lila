@@ -44,6 +44,9 @@ case class Actor(
   def is(c: Color): Boolean = c == piece.color
   def is(p: Piece): Boolean = p == piece
 
+  def onLongDiagonal: Boolean =
+    (pos.x + ((pos.y + 1) / 2 - 1)) % (board.boardSize.width / 2) == 0
+
   private def shortRangeMoves(dirs: Directions): List[Move] =
     dirs flatMap { _._2(pos) } flatMap { to =>
       board.pieces.get(to) match {

@@ -25,6 +25,8 @@ case object Frysk extends Variant(
   override def longRangeCaptures(actor: Actor, finalSquare: Boolean): List[Move] = Frisian.longRangeCaptures(actor, finalSquare)
 
   override def finalizeBoard(board: Board, uci: format.Uci.Move, captured: Option[List[Piece]], remainingCaptures: Int): Board = Frisian.finalizeBoard(board, uci, captured, remainingCaptures)
+
+  override def maxDrawingMoves(board: Board): Option[Int] = Frisian.maxDrawingMoves(board)
   override def updatePositionHashes(board: Board, move: Move, hash: draughts.PositionHash): PositionHash = Frisian.updatePositionHashes(board, move, hash)
 
   override protected def validSide(board: Board, strict: Boolean)(color: Color) = {

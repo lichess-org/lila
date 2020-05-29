@@ -158,7 +158,7 @@ object Forsyth {
     val fenB = new scala.collection.mutable.StringBuilder(60)
     fenW.append(White.letter)
     fenB.append(Black.letter)
-    for (f <- 1 to board.variant.boardSize.fields) {
+    for (f <- 1 to board.boardSize.fields) {
       board(f).fold() { piece =>
         if (piece is White) {
           if (fenW.length > 1) fenW append ','
@@ -177,7 +177,7 @@ object Forsyth {
   }
 
   def compressedBoard(board: Board): String = {
-    def posAt(f: Int) = board.variant.boardSize.pos.posAt(f)
+    def posAt(f: Int) = board.boardSize.pos.posAt(f)
     // roles as numbers to prevent conflict with position piotrs
     def roleId(piece: Piece) = piece.role match {
       case Man => '1'
@@ -188,7 +188,7 @@ object Forsyth {
     val fenW = new scala.collection.mutable.StringBuilder(30)
     val fenB = new scala.collection.mutable.StringBuilder(30)
     fenB.append('0')
-    for (f <- 1 to board.variant.boardSize.fields) {
+    for (f <- 1 to board.boardSize.fields) {
       board(f).fold() { piece =>
         if (piece is White) {
           if (piece isNot Man) fenW append roleId(piece)
@@ -205,7 +205,7 @@ object Forsyth {
 
   def exportScanPosition(sit: Option[Situation]): String = sit.fold("") {
     situation =>
-      val fields = situation.board.variant.boardSize.fields
+      val fields = situation.board.boardSize.fields
       val pos = new scala.collection.mutable.StringBuilder(fields + 1)
       pos.append(situation.color.letter.toUpper)
 
