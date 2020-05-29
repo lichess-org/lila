@@ -2,7 +2,7 @@
 <resources>
   <string name="private">Privado</string>
   <string name="myStudies">Meus estudos</string>
-  <string name="studiesIContributeTo">Estudos para os quais contribui</string>
+  <string name="studiesIContributeTo">Estudos para os quais contribuí</string>
   <string name="myPublicStudies">Meus estudos públicos</string>
   <string name="myPrivateStudies">Meus estudos privados</string>
   <string name="myFavoriteStudies">Meus estudos favoritos</string>
