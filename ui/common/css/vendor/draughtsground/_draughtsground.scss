@@ -104,16 +104,12 @@ piece {
 
 cg-helper {
   position: absolute;
-  width: 10.0%;
-  padding-bottom: 10.0%;
   display: table; /* hack: round to full pixel size in chrome */
   bottom: 0;
 }
 
 cg-container {
   position: absolute;
-  width: 1000%;
-  height: 1000%;
   display: block;
   bottom: 0;
 }

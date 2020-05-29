@@ -51,6 +51,14 @@ $board-files-64: (
       fieldnumber {
         width: 10%;
       }
+      cg-helper {
+        width: 10.0%;
+        padding-bottom: 10.0%;
+      }
+      cg-container {
+        width: 1000%;
+        height: 1000%;
+      }
     }
   }
 }
@@ -66,6 +74,14 @@ $board-files-64: (
       }
       fieldnumber {
         width: 12.5%;
+      }
+      cg-helper {
+        width: 12.5%;
+        padding-bottom: 12.5%;
+      }
+      cg-container {
+        width: 800%;
+        height: 800%;
       }
     }
   }
