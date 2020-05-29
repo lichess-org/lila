@@ -215,7 +215,7 @@ case object Russian extends Variant(
           newHash // 7.2.5 and 7.2.4 both reset on capture or non-king move (in the latter case because the game is over, or it switches to 7.2.8). promotion check is included to prevent that a move promoting a man is counted as a king move
         else if (drawingMoves == 60 && (move.captures || move.promotes))
           newHash // 7.2.6 resets on capture or promotion (30 move case overlaps with previous condition)
-        else // TODO: 7.2.7 is unclear, count 5 from entering long diagonal, or from start of piece configuration?
+        else // 7.2.7 is unclear - what to do when long diagonal is left and reentered? we count from start of piece configuration, so reentering long diagonal is immediate draw after 10 ply
           newHash ++ hash // 7.2.8 never resets once activated
       case _ => newHash
     }
