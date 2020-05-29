@@ -41,9 +41,9 @@ Ou você pode %s.</string>
   <string name="otherMethods">Outros métodos de doação?</string>
   <string name="bankTransfers">Também aceitamos transferências bancárias</string>
   <string name="bitcoin">E aqui está nosso endereço bitcoin: %s</string>
-  <string name="patronFeatures">Alguns recursos são reservados a Patronos?</string>
+  <string name="patronFeatures">Alguns recursos são exclusivos para Patronos?</string>
   <string name="noPatronFeatures">Não, porque Lichess é totalmente gratuito, para sempre e para todos. É uma promessa.
-No entanto, Patronos têm direitos de honra com um novo ícone de perfil legal.</string>
+No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil.</string>
   <string name="featuresComparison">Veja a comparação detalhada de recursos</string>
   <plurals name="patronForMonths">
     <item quantity="one">Patrono Lichess por um mês</item>
