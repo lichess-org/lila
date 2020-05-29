@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Confirme sua conta em lichess.org, %s</string>
+  <string name="emailConfirm_subject">Confirme sua conta lichess.org, %s</string>
   <string name="emailConfirm_click">Clique no link para habilitar sua conta Lichess:</string>
   <string name="emailConfirm_ignore">Se você não se registrou no Lichess esta mensagem pode ser ignorada com segurança.</string>
   <string name="passwordReset_subject">Redefina sua senha em lichess.org, %s</string>
