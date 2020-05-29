@@ -35,7 +35,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
 function renderMove(step: Step, curPly: number, orEmpty: boolean) {
   return step ? h(moveTag, {
     class: { active: step.ply === curPly }
-  }, step.san) : (orEmpty ? h(moveTag, '…') : undefined);
+  }, step.alg || step.san) : (orEmpty ? h(moveTag, '…') : undefined);
 }
 
 export function renderResult(ctrl: RoundController): VNode | undefined {

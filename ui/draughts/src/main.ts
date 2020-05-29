@@ -4,21 +4,20 @@ import { san2alg as san2algMap } from 'draughtsground/util';
 export const initialFen: Fen = 'W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20:H0:F1';
 
 export function decomposeUci(uci: Uci): Key[] {
-  const uciArray: Key[] = new Array<Key>();
+  const ucis: Key[] = [];
   if (uci.length > 1) {
       for (let i = 0; i < uci.length; i += 2) {
-        uciArray.push(uci.substr(i, 2) as Key);
+        ucis.push(uci.substr(i, 2) as Key);
       }
   }
-  return uciArray;
+  return ucis;
 }
 
 export function san2alg(san?: string): string | undefined {
   if (!san) return undefined
-  const capture = san.includes('x'),
-    fields = san.split(capture ? 'x' : '-'),
-    algs = fields.map(f => san2algMap[f]);
-  return algs.join(capture ? ':' : '-');
+  const capture = san.indexOf('x'),
+    split = capture === -1 ? san.indexOf('-') : capture;
+  return san2algMap[san.slice(0, split)] + (capture === -1 ? '-' : ':') + san2algMap[san.slice(split + 1)];
 }
 
 export function renderEval(e: number): string {

@@ -88,6 +88,7 @@ final class JsonView(
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
               "coords" -> pref.coords,
+              "coordSystem" -> pref.coordSystem,
               "resizeHandle" -> pref.resizeHandle,
               "replay" -> pref.replay,
               "clockTenths" -> pref.clockTenths,
@@ -177,6 +178,7 @@ final class JsonView(
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
               "coords" -> pref.coords,
+              "coordSystem" -> pref.coordSystem,
               "resizeHandle" -> pref.resizeHandle,
               "replay" -> pref.replay,
               "clockTenths" -> pref.clockTenths
@@ -185,7 +187,8 @@ final class JsonView(
               .add("destination" -> (pref.destination && !pref.isBlindfold))
               .add("showCaptured" -> pref.captured)
               .add("showKingMoves" -> pref.kingMoves)
-              .add("fullCapture" -> ((pref.fullCapture == Pref.FullCapture.YES) option true))
+              .add("fullCapture" -> (pref.fullCapture == Pref.FullCapture.YES).option(true))
+              .add("coordSystem" -> (pref.coordSystem != Pref.CoordSystem.FIELDNUMBERS).option(pref.coordSystem))
               .add("draughtsResult" -> pref.draughtsResult),
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           ).add("evalPut" -> me.??(evalCache.shouldPut))
@@ -237,6 +240,7 @@ final class JsonView(
       "pref" -> Json.obj(
         "animationDuration" -> animationDuration(pov, pref),
         "coords" -> pref.coords,
+        "coordSystem" -> pref.coordSystem,
         "moveEvent" -> pref.moveEvent,
         "resizeHandle" -> pref.resizeHandle
       ).add("highlight" -> (pref.highlight || pref.isBlindfold))
@@ -285,12 +289,14 @@ final class JsonView(
       "orientation" -> orientation.name,
       "pref" -> Json.obj(
         "animationDuration" -> animationDuration(pov, pref),
-        "coords" -> pref.coords
+        "coords" -> pref.coords,
+        "coordSystem" -> pref.coordSystem
       ).add("highlight" -> (pref.highlight || pref.isBlindfold))
         .add("destination" -> (pref.destination && !pref.isBlindfold))
         .add("draughtsResult" -> pref.draughtsResult)
         .add("showKingMoves" -> pref.kingMoves)
-        .add("fullCapture" -> ((pref.fullCapture == Pref.FullCapture.YES) option true)),
+        .add("fullCapture" -> (pref.fullCapture == Pref.FullCapture.YES).option(true))
+        .add("coordSystem" -> (pref.coordSystem != Pref.CoordSystem.FIELDNUMBERS).option(pref.coordSystem)),
       "path" -> pov.game.turns,
       "userAnalysis" -> true,
       "puzzleEditor" -> true

@@ -509,6 +509,7 @@ export default class AnalyseCtrl {
   isAlgebraic(): boolean {
     return this.data.pref.coordSystem === 1 && this.data.game.variant.board.key === '64';
   }
+  
   coordSystem(): number {
     return this.isAlgebraic() ? 1 : 0;
   }

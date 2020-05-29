@@ -24,6 +24,7 @@ export function makeConfig(ctrl: RoundController): Config {
     lastMove: util.uci2move(step.uci),
     captureLength: data.captureLength,
     coordinates: data.pref.coords,
+    coordSystem: data.pref.coordSystem,
     addPieceZIndex: ctrl.data.pref.is3d,
     highlight: {
       lastMove: data.pref.highlight,

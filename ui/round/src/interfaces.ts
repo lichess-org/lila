@@ -110,6 +110,7 @@ export interface Step {
   fen: Fen;
   san: San;
   uci: Uci;
+  alg?: string
   captLen?: number;
 }
 
@@ -162,6 +163,7 @@ export interface Pref {
   clockTenths: 0 | 1 | 2;
   confirmResign: boolean;
   coords: 0 | 1 | 2;
+  coordSystem: 0 | 1;
   destination: boolean;
   enablePremove: boolean;
   highlight: boolean;

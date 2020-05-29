@@ -74,8 +74,7 @@ export default class RoundController {
 
   constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
 
-    opts.data.steps = round.mergeSteps(opts.data.steps);
-
+    opts.data.steps = round.mergeSteps(opts.data.steps, this.isAlgebraic(opts.data) ? 1 : 0);
     round.massage(opts.data);
 
     const d = this.data = opts.data;
@@ -222,6 +221,14 @@ export default class RoundController {
     );
   };
 
+  private isAlgebraic = (d: RoundData): boolean => {
+    return d.pref.coordSystem === 1 && d.game.variant.board.key === '64';
+  }
+  
+  coordSystem = (): number => {
+    return this.isAlgebraic(this.data) ? 1 : 0;
+  }
+
   isLate = () => this.replaying() && status.playing(this.data);
 
   playerAt = (position: Position) =>
@@ -359,7 +366,7 @@ export default class RoundController {
       fen: o.fen,
       san: o.san,
       uci: o.uci
-    });
+    }, this.coordSystem());
 
     this.justDropped = undefined;
     this.justCaptured = undefined;
@@ -409,7 +416,7 @@ export default class RoundController {
   }
 
   reload = (d: RoundData): void => {
-    d.steps = round.mergeSteps(d.steps);
+    d.steps = round.mergeSteps(d.steps, this.coordSystem());
     if (d.steps.length !== this.data.steps.length) this.ply = d.steps[d.steps.length - 1].ply;
     round.massage(d);
     this.data = d;

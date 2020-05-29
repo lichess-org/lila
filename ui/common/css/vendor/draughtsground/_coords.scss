@@ -67,16 +67,22 @@ fieldnumber {
       top: 0;
       width: 12px;
       text-align: left;
-      coord {
+      &.is100 coord {
         transform: translateY(18%);
+      }
+      &.is64 coord {
+        transform: translateY(36%);
       }
     }
     &.files {
       bottom: -15px;
       left: 0;
       text-align: center;
-      coord {
+      &.is100 coord {
         transform: translateX(-26%);
+      }
+      &.is64 coord {
+        transform: translateX(-4%);
       }
     }
     coord {
