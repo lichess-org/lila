@@ -718,6 +718,7 @@
   </plurals>
   <string name="opening">開局</string>
   <string name="middlegame">中場</string>
+  <string name="endgame">殘局</string>
   <string name="registerToSendChallenges">請登入以挑戰您的朋友</string>
   <string name="youCannotChallengeX">您不能挑戰%s</string>
   <string name="xDoesNotAcceptChallenges">%s不接受挑戰</string>
