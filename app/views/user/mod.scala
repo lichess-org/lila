@@ -258,7 +258,7 @@ object mod {
               " ",
               e.details,
               " ",
-              momentFromNowOnce(e.date)
+              momentFromNowServer(e.date)
             )
           }
         ),
@@ -280,7 +280,7 @@ object mod {
               " ",
               userIdLink(r.user.some),
               " ",
-              momentFromNowOnce(atom.at),
+              momentFromNowServer(atom.at),
               ": ",
               shorten(atom.text, 200)
             )
@@ -301,7 +301,7 @@ object mod {
                   "By ",
                   userIdLink(atom.by.value.some),
                   " ",
-                  momentFromNowOnce(atom.at),
+                  momentFromNowServer(atom.at),
                   ": ",
                   shorten(atom.text, 200)
                 )
@@ -527,8 +527,8 @@ object mod {
                     )
                   )
                 } getOrElse td(dataSort := 0),
-                td(dataSort := o.createdAt.getMillis)(momentFromNowOnce(o.createdAt)),
-                td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowOnce))
+                td(dataSort := o.createdAt.getMillis)(momentFromNowServer(o.createdAt)),
+                td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer))
               )
           }
         )
@@ -556,7 +556,7 @@ object mod {
                       )(
                         tag("ip")(ip.ip.value.value),
                         " ",
-                        momentFromNowOnce(ip.ip.date)
+                        momentFromNowServer(ip.ip.date)
                       ),
                       ip.proxy option span(cls := "proxy")("PROXY")
                     )
@@ -571,7 +571,7 @@ object mod {
         strong(spy.uas.size, " User agent(s)"),
         ul(
           spy.uas.sorted.map { ua =>
-            li(ua.value, " ", momentFromNowOnce(ua.date))
+            li(ua.value, " ", momentFromNowServer(ua.date))
           }
         )
       ),
@@ -583,7 +583,7 @@ object mod {
               a(href := routes.Mod.print(fp.value.value), cls := printBlock(fp.value) option "blocked")(
                 fp.value.value,
                 " ",
-                momentFromNowOnce(fp.date)
+                momentFromNowServer(fp.date)
               )
             )
           }

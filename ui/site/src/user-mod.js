@@ -74,18 +74,6 @@ function userMod($zone) {
     $(this).parent('form').submit();
   });
 
-  var $modLog = $zone.find('#mz_mod_log ul').children();
-
-  if ($modLog.length > 20) {
-    var list = $modLog.slice(20);
-    list.addClass('modlog-hidden').hide()
-      .first().before('<a id="modlog-show">Show all ' + $modLog.length + ' mod log entries...</a>');
-      $zone.find('#modlog-show').click(function() {
-        $zone.find('.modlog-hidden').show();
-        $(this).remove();
-      });
-  }
-
   $zone.find('#mz_others table').each(function() {
     tablesort(this, {
       descending: true

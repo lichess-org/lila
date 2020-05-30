@@ -84,8 +84,8 @@ final class GarbageCollector(
         }
     }
 
-  private def badOtherAccounts(accounts: Set[User]): Option[List[User]] = {
-    val others = accounts.toList
+  private def badOtherAccounts(accounts: List[User]): Option[List[User]] = {
+    val others = accounts
       .sortBy(-_.createdAt.getSeconds)
       .takeWhile(_.createdAt.isAfter(DateTime.now minusDays 10))
       .take(4)
