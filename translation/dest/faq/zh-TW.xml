@@ -3,6 +3,7 @@
   <string name="faqAbbreviation">常見問題</string>
   <string name="frequentlyAskedQuestions">常見問題</string>
   <string name="whyIsLichessCalledLichess">為什麼要叫Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess來自\'直播/光明/自由\'(live/light/libre) 加上\'國際象棋\'(chess) 的組合，讀做%1$s。</string>
   <string name="otherWaysToHelp">其他尋求幫助的方法</string>
   <string name="fairPlay">公平的下棋</string>
   <string name="positions">位置</string>
