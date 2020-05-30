@@ -21,6 +21,11 @@
   <string name="rookComplete">恭喜！你已經懂得如何使用城堡了。</string>
   <string name="theBishop">象</string>
   <string name="itMovesDiagonally">它以斜線移動</string>
+  <string name="bishopIntro">接下來我們來學如何控制主教的移動。</string>
+  <string name="youNeedBothBishops">淺色一個主教
+深色一個主教
+你全都要</string>
+  <string name="bishopComplete">恭喜！你現在知道如何掌握你的主教了。</string>
   <string name="theQueen">后</string>
   <string name="queenCombinesRookAndBishop">后 = 車 + 象</string>
   <string name="theKing">王</string>
