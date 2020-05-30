@@ -20,7 +20,7 @@
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
-  <string name="blackIsVictorious">As pretas ganharam</string>
+  <string name="blackIsVictorious">as pretas ganham</string>
   <string name="youPlayTheWhitePieces">Tu jogas com as peças brancas</string>
   <string name="youPlayTheBlackPieces">Tu jogas com as peças pretas</string>
   <string name="itsYourTurn">É a tua vez!</string>
@@ -594,7 +594,7 @@
   <string name="playOnline">Jogar online</string>
   <string name="playOffline">Jogar offline</string>
   <string name="allowAnalytics">Permitir estatísticas anónimas</string>
-  <string name="shareGameURL">Compartilhar o link do jogo</string>
+  <string name="shareGameURL">Partilhar o link do jogo</string>
   <string name="error.required">Este campo tem de ser preenchido</string>
   <string name="error.email">Este endereço de e-mail é inválido</string>
   <string name="error.email_acceptable">Este endereço de e-mail não é aceitável. Por favor verifica-o e tenta outra vez.</string>
