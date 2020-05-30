@@ -283,7 +283,7 @@
   <string name="takebackPropositionSent">Proposta de voltar uma jogada atrás enviada</string>
   <string name="takebackPropositionDeclined">Proposta de voltar uma jogada atrás recusada</string>
   <string name="takebackPropositionAccepted">Proposta de voltar uma jogada atrás aceite</string>
-  <string name="takebackPropositionCanceled">Proposta de cancelar o lance cancelada</string>
+  <string name="takebackPropositionCanceled">Proposta de voltar a jogada atrás cancelada</string>
   <string name="yourOpponentProposesATakeback">O seu oponente propõe voltar uma jogada atrás</string>
   <string name="bookmarkThisGame">Adicionar esta partida às favoritas</string>
   <string name="tournament">Torneio</string>
@@ -562,7 +562,7 @@
   <string name="starting">Começa às:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>
   <string name="yourCityRegionOrDepartment">A tua cidade, região ou província.</string>
-  <string name="biographyDescription">Fala-nos de ti, do que gostas no xadrez, as tuas aberturas favoritas, jogos, jogadores…</string>
+  <string name="biographyDescription">Fala de ti, do que gostas no xadrez, das tuas aberturas favoritas, jogos, jogadores...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Máximo: %s carácter.</item>
     <item quantity="other">Máximo: %s carácteres.</item>
