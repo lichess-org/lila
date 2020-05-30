@@ -45,6 +45,17 @@
   <string name="knightComplete">恭喜！你現在已經精通了騎士的用法。</string>
   <string name="thePawn">兵</string>
   <string name="itMovesForwardOnly">它只向前移動</string>
+  <string name="pawnIntro">士兵也許弱小，但它們的潛能比你想的還多。</string>
+  <string name="pawnsMoveOneSquareOnly">士兵一次只能動一格。
+但當它們抵達棋盤的另一側，它們可以變成更強大的棋子！</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">大多數的情況，升變成皇后是最好的選擇。
+但偶爾升變成騎士是個更棒的主意！</string>
+  <string name="pawnsMoveForward">士兵直走
+斜著吃棋</string>
+  <string name="captureThenPromote">吃棋，然後升變！</string>
+  <string name="useAllThePawns">使用你全部的士兵！
+不需要升變。</string>
+  <string name="aPawnOnTheSecondRank">在第二排的士兵可以一次動兩格！</string>
   <string name="itNowPromotesToAStrongerPiece">它將升級為更強大的棋子。</string>
   <string name="selectThePieceYouWant">選擇您要的棋子。</string>
   <string name="fundamentals">基礎</string>
