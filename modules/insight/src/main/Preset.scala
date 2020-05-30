@@ -28,6 +28,18 @@ object Preset {
     Preset(
       "Blurs by result",
       Question(D.Result, M.Blurs, filterBlitzPlus)
+    ),
+    Preset(
+      "ACPL by time variance",
+      Question(D.TimeVariance, M.MeanCpl, Nil)
+    ),
+    Preset(
+      "Blur by time variance",
+      Question(D.TimeVariance, M.Blurs, filterBlitzPlus)
+    ),
+    Preset(
+      "Time variance by date",
+      Question(D.Date, M.TimeVariance, Nil)
     )
   )
 
