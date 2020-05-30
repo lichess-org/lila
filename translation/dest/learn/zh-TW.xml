@@ -56,12 +56,21 @@
   <string name="useAllThePawns">使用你全部的士兵！
 不需要升變。</string>
   <string name="aPawnOnTheSecondRank">在第二排的士兵可以一次動兩格！</string>
+  <string name="grabAllTheStarsNoNeedToPromote">取得全部的星星！
+不需要升變。</string>
+  <string name="pawnComplete">恭喜！士兵對你來說已經毫無秘密可言了。</string>
+  <string name="pawnPromotion">士兵的升變</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">你的士兵走到了棋盤的最底端！</string>
   <string name="itNowPromotesToAStrongerPiece">它將升級為更強大的棋子。</string>
   <string name="selectThePieceYouWant">選擇您要的棋子。</string>
   <string name="fundamentals">基礎</string>
   <string name="capture">吃子</string>
   <string name="takeTheEnemyPieces">吃掉敵方的棋子</string>
+  <string name="captureIntro">找出對手毫無防禦的棋子，並將它吃掉！</string>
   <string name="takeTheBlackPieces">吃掉黑棋！</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">吃掉黑棋！
+然後不要失去你自己的棋子。</string>
+  <string name="captureComplete">恭喜！你現在懂得使用各種棋子了！</string>
   <string name="protection">保護</string>
   <string name="keepYourPiecesSafe">保護您的棋</string>
   <string name="combat">攻防</string>
