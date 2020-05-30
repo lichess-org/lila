@@ -82,17 +82,19 @@ final private class Indexer(
             logger.warn(e.getMessage, e)
           } map (_.toOption)
         }
-      val query = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
+      val query      = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
+      val bulkInsert = 50
+      val perSecond  = 800
       gameRepo
         .sortedCursor(query, Query.sortChronological)
         .documentSource()
         .take(maxGames)
         .mapAsync(16)(toEntry)
         .via(LilaStream.collect)
-        .throttle(800, 1 second)
         .zipWithIndex
         .map { case (e, i) => e.copy(number = fromNumber + i.toInt) }
-        .grouped(50)
+        .grouped(bulkInsert)
+        .throttle(perSecond / bulkInsert, 1 second)
         .map(storage.bulkInsert)
         .toMat(Sink.ignore)(Keep.right)
         .run

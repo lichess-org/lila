@@ -148,7 +148,10 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         def matchMoves(extraMatcher: Bdoc = $empty) =
           combineDocs(extraMatcher :: question.filters.collect {
             case f if f.dimension.isInMove => f.matcher
-          }).some.filterNot(_.isEmpty) map Match
+          } ::: (dimension match {
+            case D.TimeVariance => List($doc(F.moves("v") $exists true))
+            case _              => Nil
+          })).some.filterNot(_.isEmpty) map Match
         def projectForMove =
           Project(BSONDocument({
             metric.dbKey :: dimension.dbKey :: filters.collect {
@@ -188,7 +191,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
               List(
                 projectForMove,
                 unwindMoves,
-                matchMoves($doc(F.moves("o") -> $doc("$exists" -> true))),
+                matchMoves($doc(F.moves("o") $exists true)),
                 sampleMoves
               ) :::
                 group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("o"), 1, 0)))) :::
@@ -267,7 +270,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
               List(
                 projectForMove,
                 unwindMoves,
-                matchMoves(),
+                matchMoves($doc(F.moves("v") $exists true)),
                 sampleMoves
               ) :::
                 group(

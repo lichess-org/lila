@@ -101,8 +101,12 @@ final private class PovToEntry(
         case (e, i) if (i % 2) == pivot => e
       }
     }
+    val blurs = {
+      val bools = from.pov.player.blurs.booleans
+      bools ++ Array.fill(movetimes.size - bools.size)(false)
+    }
     val timeCvs = slidingMoveTimesCvs(movetimes)
-    movetimes.zip(roles).zip(boards).zip(from.pov.player.blurs.booleans).zip(timeCvs).zipWithIndex.map {
+    movetimes.zip(roles).zip(boards).zip(blurs).zip(timeCvs).zipWithIndex.map {
       case movetime ~ role ~ board ~ blur ~ timeCv ~ i =>
         val ply      = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
@@ -133,18 +137,28 @@ final private class PovToEntry(
           opportunism = opportunism,
           luck = luck,
           blur = blur,
-          timeCv = timeCv.some
+          timeCv = timeCv
         )
     }
   }
 
-  private def slidingMoveTimesCvs(movetimes: Seq[Centis]): Iterator[Float] =
-    movetimes.iterator
-      .sliding(14)
-      .map(a => a.toList.sorted.drop(1).dropRight(1))
-      .flatMap(a => coefVariation(a.map(_.centis + 10)))
+  private def slidingMoveTimesCvs(movetimes: Seq[Centis]): Seq[Option[Float]] = {
+    val sliding = 13 // should be odd
+    val nb      = movetimes.size
+    if (nb < sliding) Vector.fill(nb)(none[Float])
+    else {
+      val sides = Vector.fill(sliding / 2)(none[Float])
+      val cvs = movetimes
+        .sliding(sliding)
+        .map { a =>
+          // drop outliers
+          coefVariation(a.map(_.centis + 10).toSeq.sorted.drop(1).dropRight(1))
+        }
+      sides ++ cvs ++ sides
+    }
+  }
 
-  private def coefVariation(a: List[Int]): Option[Float] = {
+  private def coefVariation(a: Seq[Int]): Option[Float] = {
     val s = Stats(a)
     s.stdDev.map { _ / s.mean }
   }
