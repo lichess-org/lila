@@ -10,7 +10,7 @@
   <string name="chessPieces">棋子</string>
   <string name="theRook">車</string>
   <string name="itMovesInStraightLines">它以直線移動</string>
-  <string name="rookIntro">城堡是一個強大的棋子，你準備好來指揮它了嗎?</string>
+  <string name="rookIntro">城堡是一個強大的棋子，你準備好來指揮它了嗎？</string>
   <string name="rookGoal">點擊城堡
 將它移動到星星的位置</string>
   <string name="grabAllTheStars">吃掉所有的星星！</string>
@@ -32,10 +32,17 @@
   <string name="queenComplete">恭喜！皇后對你來說已經毫無秘密可言了。</string>
   <string name="theKing">王</string>
   <string name="theMostImportantPiece">最重要的棋子</string>
-  <string name="kingIntro">你就是國王。如果你輸了這場戰鬥，你就輸了這一局棋賽</string>
+  <string name="kingIntro">你就是國王。如果你輸了這場戰鬥，你就輸了這一局棋賽。</string>
+  <string name="theKingIsSlow">國王很慢，不是普通的慢。</string>
   <string name="lastOne">最後一步!</string>
+  <string name="kingComplete">現在連國王都要聽令於你了！</string>
   <string name="theKnight">馬</string>
   <string name="itMovesInAnLShape">它以L字形方式移動</string>
+  <string name="knightIntro">給你一個小挑戰，騎士是一個．．．比較特別的棋子。</string>
+  <string name="knightsHaveAFancyWay">騎士可以用華麗的方式跳來跳去！</string>
+  <string name="knightsCanJumpOverObstacles">騎士可以跳過障礙物！
+逃跑並征服那些星星！</string>
+  <string name="knightComplete">恭喜！你現在已經精通了騎士的用法。</string>
   <string name="thePawn">兵</string>
   <string name="itMovesForwardOnly">它只向前移動</string>
   <string name="itNowPromotesToAStrongerPiece">它將升級為更強大的棋子。</string>
