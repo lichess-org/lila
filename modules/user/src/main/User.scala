@@ -120,6 +120,7 @@ case class User(
   def addRole(role: String) = copy(roles = role :: roles)
 
   def isVerified = roles.exists(_ contains "ROLE_VERIFIED")
+  def isApiHog   = roles.exists(_ contains "ROLE_API_HOG")
 }
 
 object User {
@@ -186,6 +187,7 @@ object User {
     def isKid      = ~kid
     def isTroll    = marks.exists(_.troll)
     def isVerified = roles.exists(_ contains "ROLE_VERIFIED")
+    def isApiHog   = roles.exists(_ contains "ROLE_API_HOG")
   }
   case class Contacts(orig: Contact, dest: Contact)
 

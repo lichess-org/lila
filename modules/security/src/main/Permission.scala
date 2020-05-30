@@ -59,6 +59,7 @@ object Permission {
   case object Prismic               extends Permission("PRISMIC", "Prismic preview")
   case object MonitoredMod          extends Permission("MONITORED_MOD", "Monitored mod")
   case object StudyAdmin            extends Permission("STUDY_ADMIN", "Study admin")
+  case object ApiHog                extends Permission("API_HOG", "API hog")
 
   case object LichessTeam
       extends Permission(
@@ -209,7 +210,8 @@ object Permission {
       Beta,
       Prismic,
       Coach,
-      Teacher
+      Teacher,
+      ApiHog
     ),
     "Badge" -> List(
       Developer,
@@ -230,7 +232,8 @@ object Permission {
     case (_, perms) => perms
   }.toSet
 
-  lazy val nonModPermissions: Set[Permission] = Set(Beta, Prismic, Coach, Teacher, Developer, Verified)
+  lazy val nonModPermissions: Set[Permission] =
+    Set(Beta, Prismic, Coach, Teacher, Developer, Verified, ApiHog)
 
   lazy val modPermissions: Set[Permission] = all diff nonModPermissions
 

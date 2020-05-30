@@ -23,15 +23,22 @@ final private class MsgSecurity(
   import BsonHandlers._
   import MsgSecurity._
 
+  private object limitCost {
+    val normal                 = 25
+    val verified               = 5
+    val hog                    = 1
+    def apply(u: User.Contact) = if (u.isApiHog) hog else if (u.isVerified) verified else normal
+  }
+
   private val CreateLimitPerUser = new RateLimit[User.ID](
-    credits = 20 * 5,
+    credits = 20 * limitCost.normal,
     duration = 24 hour,
     name = "PM creates per user",
     key = "msg_create.user"
   )
 
   private val ReplyLimitPerUser = new RateLimit[User.ID](
-    credits = 20 * 5,
+    credits = 20 * limitCost.normal,
     duration = 1 minute,
     name = "PM replies per user",
     key = "msg_reply.user"
@@ -69,8 +76,7 @@ final private class MsgSecurity(
       if (unlimited) fuccess(none)
       else {
         val limiter = if (isNew) CreateLimitPerUser else ReplyLimitPerUser
-        val cost    = if (user.isVerified) 1 else 5
-        !limiter(user.id, cost = cost)(true)(false) ?? fuccess(Limit.some)
+        !limiter(user.id, cost = limitCost(user))(true)(false) ?? fuccess(Limit.some)
       }
 
     private def isSpam(text: String): Fu[Option[Verdict]] =

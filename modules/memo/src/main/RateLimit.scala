@@ -30,23 +30,25 @@ final class RateLimit[K](
     apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg") {} {}) }(default)
 
   def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(default: => A): A =
-    storage getIfPresent k match {
-      case None =>
-        storage.put(k, cost -> makeClearAt)
-        op
-      case Some((a, clearAt)) if a < credits =>
-        storage.put(k, (a + cost) -> clearAt)
-        op
-      case Some((_, clearAt)) if nowMillis > clearAt =>
-        storage.put(k, cost -> makeClearAt)
-        op
-      case _ if enforce =>
-        if (log) logger.info(s"$credits/$duration $k cost: $cost $msg")
-        monitor.increment()
-        default
-      case _ =>
-        op
-    }
+    if (cost < 1) op
+    else
+      storage getIfPresent k match {
+        case None =>
+          storage.put(k, cost -> makeClearAt)
+          op
+        case Some((a, clearAt)) if a < credits =>
+          storage.put(k, (a + cost) -> clearAt)
+          op
+        case Some((_, clearAt)) if nowMillis > clearAt =>
+          storage.put(k, cost -> makeClearAt)
+          op
+        case _ if enforce =>
+          if (log) logger.info(s"$credits/$duration $k cost: $cost $msg")
+          monitor.increment()
+          default
+        case _ =>
+          op
+      }
 }
 
 object RateLimit {
