@@ -73,7 +73,18 @@
   <string name="captureComplete">恭喜！你現在懂得使用各種棋子了！</string>
   <string name="protection">保護</string>
   <string name="keepYourPiecesSafe">保護您的棋</string>
+  <string name="protectionIntro">找出被對手攻擊的棋子，並保護它們！</string>
+  <string name="protectionComplete">恭喜！沒被吃掉棋子相當於賺了一個棋子！</string>
+  <string name="escape">你受到攻擊了！
+逃離這個威脅！</string>
+  <string name="noEscape">你逃不掉了！
+但你可以防禦！</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">別讓對手吃掉
+任何未受保護的棋子！</string>
   <string name="combat">攻防</string>
+  <string name="captureAndDefendPieces">吃子與防禦</string>
+  <string name="combatIntro">優秀的戰士會知道如何同時攻擊和防禦！</string>
+  <string name="combatComplete">恭喜！你現在懂得使用棋子戰鬥了！</string>
   <string name="checkInOne">一步將</string>
   <string name="attackTheOpponentsKing">攻擊敵王</string>
   <string name="defendYourKing">保護您的國王</string>
