@@ -133,12 +133,12 @@ final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurr
       .find(
         $doc(
           "user" -> user.id,
-          "date" $gt user.createdAt
+          "date" $gt (user.createdAt atLeast DateTime.now.minusYears(1))
         ),
         $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
       )
       .sort($sort desc "date")
-      .list[Info]()(InfoReader)
+      .list[Info](1000)(InfoReader)
 
   // remains of never-confirmed accounts that got cleaned up
   private[security] def deletePreviousSessions(user: User) =
