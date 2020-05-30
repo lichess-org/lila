@@ -484,7 +484,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def isManaged(id: ID): Fu[Boolean] = email(id).dmap(_.exists(_.isNoReply))
 
   def setBot(user: User): Funit =
-    if (user.count.game > 0) fufail("You already have games played. Make a new account.")
+    if (user.count.game > 0)
+      fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
     else coll.updateField($id(user.id), F.title, Title.BOT).void
 
   private def botSelect(v: Boolean) =
