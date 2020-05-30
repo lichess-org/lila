@@ -149,8 +149,11 @@
   <string name="list">Liosta</string>
   <string name="winner">Buaiteoir</string>
   <string name="createdBy">Cruthaithe ag</string>
+  <string name="standByX">Fan ort %s, ag roinnt imreoirí ina bpéirí, bí réidh!</string>
+  <string name="performance">Caighdeán imeartha</string>
   <string name="country">Tír</string>
   <string name="bestMove">Bogadh is fearr!</string>
+  <string name="success">D\'éirigh leat</string>
   <string name="thankYou">Go raibh maith agat!</string>
   <string name="name">Ainm</string>
   <string name="description">Cur síos</string>
@@ -163,6 +166,7 @@
   <string name="other">Eile</string>
   <string name="notes">Nótaí</string>
   <string name="sound">Fuaim</string>
+  <string name="slow">Mall</string>
   <string name="always">I gcónaí</string>
   <string name="difficultyEasy">Éasca</string>
   <string name="difficultyNormal">Gnáth</string>
@@ -180,5 +184,8 @@
   <string name="watchGames">Féach ar chluichí</string>
   <string name="watch">Féach</string>
   <string name="create">Cruthaigh</string>
+  <string name="language">Teanga</string>
   <string name="perfRatingX">Rátáil: %s</string>
+  <string name="computerThinking">An ríomhaire ag machnamh ...</string>
+  <string name="ultraBulletDesc">Cluichí ar luas gan chiall; níos lú ná 30 soicind</string>
 </resources>

@@ -40,7 +40,7 @@
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">A obtenu %s nouveau suiveur</item>
-    <item quantity="other">A gagné %s nouveau suiveur</item>
+    <item quantity="other">A gagné %s nouveaux suiveurs</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">A hébergé %s simultanée</item>

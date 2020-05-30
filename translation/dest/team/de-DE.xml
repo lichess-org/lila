@@ -19,8 +19,8 @@
     <item quantity="one">Teamleiter</item>
     <item quantity="other">Teamleiter</item>
   </plurals>
-  <string name="teamBestPlayers">Beste Spieler der Gruppe</string>
-  <string name="teamRecentMembers">Neueste Gruppenmitglieder</string>
+  <string name="teamBestPlayers">Beste Spieler des Teams</string>
+  <string name="teamRecentMembers">Neueste Teammitglieder</string>
   <string name="kickSomeone">Entferne jemanden aus dem Team</string>
   <string name="whoToKick">Wen möchtest du aus dem Team entfernen?</string>
   <plurals name="xJoinRequests">
