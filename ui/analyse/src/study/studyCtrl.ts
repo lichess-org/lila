@@ -182,7 +182,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
     const merge = !vm.mode.write && sameChapter;
     ctrl.reloadData(d.analysis, merge);
-    vm.gamebookOverride = undefined;
+    if (vm.gamebookOverride !== 'play')
+      vm.gamebookOverride = undefined;
     configureAnalysis();
     vm.loading = false;
 
