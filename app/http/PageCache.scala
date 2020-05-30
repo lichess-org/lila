@@ -16,11 +16,16 @@ final class PageCache(security: lila.security.SecurityApi, cacheApi: lila.memo.C
   }
 
   def apply(compute: () => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    if (ctx.isAnon && langs(ctx.lang.language)) {
-      val cacheKey = s"${HTTPRequest actionName ctx.req}(${ctx.lang.language})"
-      cache.getFuture(cacheKey, _ => compute())
-    } else
+    if (ctx.isAnon && langs(ctx.lang.language) && defaultPrefs(ctx.req))
+      cache.getFuture(cacheKey(ctx), _ => compute())
+    else
       compute()
+
+  private def cacheKey(ctx: Context) =
+    s"${HTTPRequest actionName ctx.req}(${ctx.lang.language})"
+
+  private def defaultPrefs(req: RequestHeader) =
+    lila.pref.RequestPref.fromRequest(req) == lila.pref.Pref.default
 
   private val langs =
     Set("en", "ru", "tr", "de", "es", "fr", "pt", "it", "pl", "ar", "fa", "id", "nl", "nb", "sv")
