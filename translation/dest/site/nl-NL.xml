@@ -969,6 +969,7 @@ Een URL per regel</string>
   </plurals>
   <string name="middlegame">Middenspel</string>
   <string name="endgame">Eindspel</string>
+  <string name="randomOpeningFromX">Willekeurige opening uit %s</string>
   <string name="registerToSendChallenges">Maak een account aan om spelers uit de dagen.</string>
   <string name="youCannotChallengeX">Je kan %s niet uitdagen.</string>
   <string name="xDoesNotAcceptChallenges">%s accepteert geen uitdagingen.</string>

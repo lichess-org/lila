@@ -15,7 +15,6 @@ case object Breakthrough extends Variant(
   def pieces = Standard.pieces
   def initialFen = Standard.initialFen
   def startingPosition = Standard.startingPosition
-  val openings = Nil
 
   def captureDirs = Standard.captureDirs
   def moveDirsColor = Standard.moveDirsColor

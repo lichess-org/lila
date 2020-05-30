@@ -31,7 +31,7 @@ object side {
                 tour.variant.name
               )
             } else tour.perfType.map(_.name),
-            (!tour.position.initialVariant(tour.variant)) ?? s"$separator ${trans.thematic.txt()}",
+            tour.isThematic ?? s"$separator ${trans.thematic.txt()}",
             separator,
             tour.durationString
           ),
@@ -78,15 +78,21 @@ object side {
       )),
       tour.noBerserk option div(cls := "text", dataIcon := "`")(trans.noBerserkAllowed()),
       !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
-      (!tour.isStarted || (tour.isScheduled && !tour.position.initialVariant(tour.variant))) option absClientDateTime(tour.startsAt),
-      !tour.position.initialVariant(tour.variant) option p(cls := "opening")(
-        tour.position.url.fold(openingPosition(tour.position)) { url =>
-          a(target := "_blank", href := url)(
-            openingPosition(tour.position)
+      (!tour.isStarted || (tour.isScheduled && tour.isThematic)) option absClientDateTime(tour.startsAt),
+      tour.isThematic option p(cls := "opening")(
+        tour.openingTable.fold(frag(
+          tour.position.url.fold(openingPosition(tour.position)) { url =>
+            a(target := "_blank", href := url)(
+              openingPosition(tour.position)
+            )
+          },
+          separator,
+          a(href := routes.UserAnalysis.parse(tour.variant.key + "/" + tour.position.fen.replace(" ", "_")))(trans.analysis())
+        )) { table =>
+          trans.randomOpeningFromX(
+            a(target := "_blank", href := table.url)(table.name)
           )
-        },
-        separator,
-        a(href := routes.UserAnalysis.parse(tour.variant.key + "/" + tour.position.fen.replace(" ", "_")))(trans.analysis())
+        }
       )
     ),
     streamers.toList map views.html.streamer.bits.contextual,

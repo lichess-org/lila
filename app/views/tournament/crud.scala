@@ -33,32 +33,34 @@ object crud {
 
   def create(form: Form[_])(implicit ctx: Context) = layout(
     title = "New tournament",
-    css = "mod.form"
+    css = "mod.form",
+    evenMoreJs = jsTag("tournamentForm.js")
   ) {
-    div(cls := "crud page-menu__content box box-pad")(
-      h1("New tournament"),
-      postForm(cls := "form3", action := routes.TournamentCrud.create)(inForm(form))
-    )
-  }
+      div(cls := "crud page-menu__content box box-pad")(
+        h1("New tournament"),
+        postForm(cls := "form3", action := routes.TournamentCrud.create)(inForm(form))
+      )
+    }
 
   def edit(tour: Tournament, form: Form[_])(implicit ctx: Context) = layout(
     title = tour.fullName,
-    css = "mod.form"
+    css = "mod.form",
+    evenMoreJs = jsTag("tournamentForm.js")
   ) {
-    div(cls := "crud edit page-menu__content box box-pad")(
-      div(cls := "box__top")(
-        h1(
-          a(href := routes.Tournament.show(tour.id))(tour.fullName),
-          " ",
-          span("Created by ", usernameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
+      div(cls := "crud edit page-menu__content box box-pad")(
+        div(cls := "box__top")(
+          h1(
+            a(href := routes.Tournament.show(tour.id))(tour.fullName),
+            " ",
+            span("Created by ", usernameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
+          ),
+          st.form(cls := "box__top__actions", action := routes.TournamentCrud.clone(tour.id), method := "get")(
+            form3.submit("Clone", "g".some, klass = "button-green")
+          )
         ),
-        st.form(cls := "box__top__actions", action := routes.TournamentCrud.clone(tour.id), method := "get")(
-          form3.submit("Clone", "g".some, klass = "button-green")
-        )
-      ),
-      postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form))
-    )
-  }
+        postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form))
+      )
+    }
 
   private def inForm(form: Form[_])(implicit ctx: Context) = frag(
     form3.split(
@@ -82,7 +84,8 @@ object crud {
       form3.group(form("clockTime"), raw("Clock time"), half = true)(form3.select(_, DataForm.clockTimeChoices)),
       form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(form3.select(_, DataForm.clockIncrementChoices))
     ),
-    form3.group(form("position"), trans.startPosition())(tournament.form.startingPosition(_, draughts.variant.Standard)),
+    startPosition(form, draughts.variant.Standard),
+    startPosition(form, draughts.variant.Russian),
 
     hr,
     h2("Conditions of entry"),
@@ -90,6 +93,11 @@ object crud {
     form3.group(form("password"), raw("Password (optional)"))(form3.input(_)),
     form3.action(form3.submit(trans.apply()))
   )
+
+  private def startPosition(form: Form[_], v: draughts.variant.Variant)(implicit ctx: Context) =
+    form3.group(form("position_" + v.key), trans.startPosition(), klass = "position-" + v.key)(
+      views.html.tournament.form.startingPosition(_, v)
+    )
 
   def index(tours: Paginator[Tournament])(implicit ctx: Context) = layout(
     title = "Tournament manager",

@@ -4,7 +4,7 @@ import org.joda.time.{ DateTime, Duration, Interval }
 import ornicar.scalalib.Random
 
 import draughts.Clock.{ Config => ClockConfig }
-import draughts.{ Speed, Mode, StartingPosition }
+import draughts.{ Speed, Mode, StartingPosition, OpeningTable }
 import lidraughts.game.PerfPicker
 import lidraughts.rating.PerfType
 import lidraughts.user.User
@@ -18,6 +18,7 @@ case class Tournament(
     minutes: Int,
     variant: draughts.variant.Variant,
     position: StartingPosition,
+    openingTable: Option[OpeningTable],
     mode: Mode,
     password: Option[String] = None,
     conditions: Condition.All,
@@ -51,6 +52,8 @@ case class Tournament(
     case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
     case _ => false
   }
+
+  def isThematic = openingTable.isDefined || !position.initialVariant(variant)
 
   def isShield = schedule.map(_.freq) has Schedule.Freq.Shield
 
@@ -136,6 +139,7 @@ object Tournament {
     system: System,
     variant: draughts.variant.Variant,
     position: StartingPosition,
+    openingTable: Option[OpeningTable],
     mode: Mode,
     password: Option[String],
     waitMinutes: Int,
@@ -157,6 +161,7 @@ object Tournament {
     nbPlayers = 0,
     variant = variant,
     position = position,
+    openingTable = openingTable,
     mode = mode,
     password = password,
     conditions = Condition.All.empty,
@@ -180,6 +185,7 @@ object Tournament {
     nbPlayers = 0,
     variant = sched.variant,
     position = sched.position,
+    openingTable = none,
     mode = Mode.Rated,
     conditions = sched.conditions,
     schedule = Some(sched),

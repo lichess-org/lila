@@ -147,6 +147,12 @@ object form {
         value := variant.initialFen,
         field.value.has(variant.initialFen) option selected
       )(trans.startPosition()),
+      variant.openingTables.map { table =>
+        option(
+          value := table.key,
+          field.value.has(table.key) option selected
+        )(trans.randomOpeningFromX(table.name))
+      },
       variant.openings.map { categ =>
         optgroup(attr("label") := categ.name)(
           categ.positions.map { v =>

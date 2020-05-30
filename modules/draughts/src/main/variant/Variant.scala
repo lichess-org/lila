@@ -20,7 +20,8 @@ abstract class Variant private[variant] (
   def pieces: Map[Pos, Piece]
   def initialFen: String
   def startingPosition: StartingPosition
-  def openings: List[StartingPosition.Category]
+  val openings: List[StartingPosition.Category] = Nil
+  val openingTables: List[OpeningTable] = Nil
 
   def captureDirs: Directions
   def moveDirsColor: Map[Color, Directions]
@@ -357,7 +358,6 @@ abstract class Variant private[variant] (
   def valid(board: Board, strict: Boolean) = Color.all forall validSide(board, strict)_
 
   def openingByFen = openingFenIndex.get _
-
   lazy val allOpenings: IndexedSeq[StartingPosition] = openings.flatMap(_.positions).toIndexedSeq
   private lazy val openingFenIndex: Map[String, StartingPosition] = allOpenings.map { p =>
     p.fen -> p

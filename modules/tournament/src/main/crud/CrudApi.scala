@@ -4,6 +4,7 @@ package crud
 import BSONHandlers._
 import org.joda.time.DateTime
 
+import draughts.variant.{ Russian, Standard }
 import lidraughts.common.paginator.Paginator
 import lidraughts.db.dsl._
 import lidraughts.db.paginator.Adapter
@@ -22,7 +23,8 @@ final class CrudApi {
     clockIncrement = tour.clock.incrementSeconds,
     minutes = tour.minutes,
     variant = tour.variant.id,
-    position = tour.position.fen,
+    positionStandard = if (tour.variant.standard) tour.openingTable.fold(tour.position.fen)(_.key).some else Standard.initialFen.some,
+    positionRussian = if (tour.variant.russian) tour.openingTable.fold(tour.position.fen)(_.key).some else Russian.initialFen.some,
     date = tour.startsAt,
     image = ~tour.spotlight.flatMap(_.iconImg),
     headline = tour.spotlight.??(_.headline),
@@ -60,8 +62,9 @@ final class CrudApi {
     clock = draughts.Clock.Config(0, 0),
     minutes = 0,
     system = System.Arena,
-    variant = draughts.variant.Standard,
-    position = draughts.variant.Standard.startingPosition,
+    variant = Standard,
+    position = Standard.startingPosition,
+    openingTable = none,
     mode = draughts.Mode.Rated,
     password = None,
     waitMinutes = 0,
@@ -73,6 +76,11 @@ final class CrudApi {
   private def updateTour(tour: Tournament, data: CrudForm.Data) = {
     import data._
     val clock = draughts.Clock.Config((clockTime * 60).toInt, clockIncrement)
+    val position = realVariant match {
+      case Standard => positionStandard
+      case Russian => positionRussian
+      case _ => none
+    }
     tour.copy(
       name = name,
       clock = clock,
@@ -93,7 +101,8 @@ final class CrudApi {
         iconFont = none,
         iconImg = image.some.filter(_.nonEmpty)
       ).some,
-      position = DataForm.startingPosition(data.position, realVariant),
+      position = DataForm.startingPosition(position | realVariant.initialFen, realVariant),
+      openingTable = position.flatMap(draughts.OpeningTable.byKey).filter(realVariant.openingTables.contains),
       noBerserk = !data.berserkable,
       password = password
     ) |> { tour =>

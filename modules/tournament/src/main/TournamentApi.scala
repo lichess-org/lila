@@ -65,6 +65,7 @@ final class TournamentApi(
       system = System.Arena,
       variant = setup.realVariant,
       position = DataForm.startingPosition(position | setup.realVariant.initialFen, setup.realVariant),
+      openingTable = position.flatMap(draughts.OpeningTable.byKey).filter(setup.realVariant.openingTables.contains),
       berserkable = setup.berserkable | true,
       description = setup.description
     ) |> { tour =>
@@ -93,6 +94,7 @@ final class TournamentApi(
       variant = realVariant,
       startsAt = startDate | old.startsAt,
       position = DataForm.startingPosition(position | realVariant.initialFen, realVariant),
+      openingTable = position.flatMap(draughts.OpeningTable.byKey).filter(realVariant.openingTables.contains),
       noBerserk = !(~berserkable),
       description = description
     ) |> { tour =>

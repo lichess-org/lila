@@ -993,6 +993,7 @@ One URL per line</string>
   <string name="opening">Opening</string>
   <string name="middlegame">Middlegame</string>
   <string name="endgame">Endgame</string>
+  <string name="randomOpeningFromX">Random opening from %s</string>
   <string name="registerToSendChallenges">Please register to send challenges.</string>
   <string name="youCannotChallengeX">You cannot challenge %s.</string>
   <string name="xDoesNotAcceptChallenges">%s does not accept challenges.</string>

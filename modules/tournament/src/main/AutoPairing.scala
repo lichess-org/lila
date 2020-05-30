@@ -20,10 +20,11 @@ final class AutoPairing(
       daysPerTurn = none
     )
     val variant = if (tour.variant.standard && !tour.position.initialStandard) draughts.variant.FromPosition else tour.variant
+    val opening = tour.openingTable.fold(tour.position) { _.randomOpening }
     val game = Game.make(
       draughts = draughts.DraughtsGame(
         variantOption = Some(variant),
-        fen = tour.position.some.filterNot(_.initialVariant(variant)).map(_.fen)
+        fen = opening.some.filterNot(_.initialVariant(variant)).map(_.fen)
       ) |> { g =>
           val turns = g.player.fold(0, 1)
           g.copy(
