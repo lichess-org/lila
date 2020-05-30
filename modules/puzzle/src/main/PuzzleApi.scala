@@ -111,7 +111,7 @@ final private[puzzle] class PuzzleApi(
               upsert = true
             )
             .void
-            .nevermind
+            .recover(lila.db.recoverDuplicateKey { _ => () })
         } zip
           puzzleColl {
             _.update
