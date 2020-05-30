@@ -70,7 +70,7 @@ case class Swiss(
 
 object Swiss {
 
-  val maxPlayers = 500
+  val maxPlayers = 600
 
   case class Id(value: String) extends AnyVal with StringValue
   case class Round(value: Int) extends AnyVal with IntValue
