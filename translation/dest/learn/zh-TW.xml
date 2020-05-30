@@ -10,9 +10,15 @@
   <string name="chessPieces">棋子</string>
   <string name="theRook">車</string>
   <string name="itMovesInStraightLines">它以直線移動</string>
+  <string name="rookIntro">城堡是一個強大的棋子，你準備好來指揮它了嗎?</string>
+  <string name="rookGoal">點擊城堡
+將它移動到星星的位置</string>
   <string name="grabAllTheStars">吃掉所有的星星！</string>
   <string name="theFewerMoves">移動的步數越少，
 贏得的點數越多！</string>
+  <string name="useTwoRooks">兩個城堡
+快還要更快！</string>
+  <string name="rookComplete">恭喜！你已經懂得如何使用城堡了。</string>
   <string name="theBishop">象</string>
   <string name="itMovesDiagonally">它以斜線移動</string>
   <string name="theQueen">后</string>
