@@ -28,8 +28,11 @@
   <string name="bishopComplete">恭喜！你現在知道如何掌握你的主教了。</string>
   <string name="theQueen">后</string>
   <string name="queenCombinesRookAndBishop">后 = 車 + 象</string>
+  <string name="queenIntro">最強大的棋子上場！皇后登場！</string>
+  <string name="queenComplete">恭喜！皇后對你來說已經毫無秘密可言了。</string>
   <string name="theKing">王</string>
   <string name="theMostImportantPiece">最重要的棋子</string>
+  <string name="kingIntro">你就是國王。如果你輸了這場戰鬥，你就輸了這一局棋賽</string>
   <string name="lastOne">最後一步!</string>
   <string name="theKnight">馬</string>
   <string name="itMovesInAnLShape">它以L字形方式移動</string>
