@@ -61,7 +61,7 @@
   <string name="goDeeper">Aprofundar</string>
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
-  <string name="toggleLocalEvaluation">Ligar/Desligar a avaliação local</string>
+  <string name="toggleLocalEvaluation">Ligar/desligar a avaliação local</string>
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Tornar variante principal</string>
   <string name="deleteFromHere">Eliminar a partir de aqui</string>
@@ -486,7 +486,7 @@
     <item quantity="one">%s jogo a decorrer</item>
     <item quantity="other">%s jogos a decorrer</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após a jogada</string>
   <string name="autoSwitch">Alternar automaticamente</string>
   <string name="puzzles">Problemas</string>
   <string name="latestUpdates">Atualizações mais recentes</string>
@@ -498,7 +498,7 @@
   <string name="help">Ajuda:</string>
   <string name="createANewTopic">Criar um novo tópico</string>
   <string name="topics">Tópicos</string>
-  <string name="posts">Postagens</string>
+  <string name="posts">Publicações</string>
   <string name="lastPost">Última publicação</string>
   <string name="views">Visualizações</string>
   <string name="replies">Respostas</string>
@@ -522,7 +522,7 @@
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Perguntas e Respostas</string>
   <string name="notes">Notas</string>
-  <string name="typePrivateNotesHere">Escreva notas privadas aqui</string>
+  <string name="typePrivateNotesHere">Escreve notas privadas aqui</string>
   <string name="invalidUsernameOrPassword">Nome de utilizador ou palavra-passe incorretos</string>
   <string name="incorrectPassword">Palavra-passe incorreta</string>
   <string name="invalidAuthenticationCode">Código de autenticação inválido</string>
