@@ -145,7 +145,7 @@ object Tournament {
   ) = Tournament(
     id = makeId,
     name = name | {
-      if (position.initial) GreatPlayer.randomName
+      if (position.name.isEmpty || position.initialVariant(variant)) GreatPlayer.randomName
       else position.shortName
     },
     status = Status.Created,

@@ -12,12 +12,11 @@ import views._
 object Editor extends LidraughtsController {
 
   private lazy val positionsJson = lidraughts.common.String.html.safeJsonValue {
-    JsArray(draughts.StartingPosition.all map { p =>
+    JsArray(draughts.variant.Standard.allOpenings map { p =>
       Json.obj(
-        "eco" -> p.eco,
-        "name" -> p.name,
+        "code" -> p.code,
         "fen" -> p.fen
-      )
+      ).add("name", p.name)
     })
   }
 

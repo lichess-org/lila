@@ -31,7 +31,7 @@ object side {
                 tour.variant.name
               )
             } else tour.perfType.map(_.name),
-            (!tour.position.initial) ?? s"$separator ${trans.thematic.txt()}",
+            (!tour.position.initialVariant(tour.variant)) ?? s"$separator ${trans.thematic.txt()}",
             separator,
             tour.durationString
           ),
@@ -78,16 +78,22 @@ object side {
       )),
       tour.noBerserk option div(cls := "text", dataIcon := "`")(trans.noBerserkAllowed()),
       !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
-      (!tour.isStarted || (tour.isScheduled && !tour.position.initial)) option absClientDateTime(tour.startsAt),
-      !tour.position.initial option p(
-        a(target := "_blank", href := tour.position.url)(
-          strong(tour.position.eco), " ", tour.position.name
-        ),
+      (!tour.isStarted || (tour.isScheduled && !tour.position.initialVariant(tour.variant))) option absClientDateTime(tour.startsAt),
+      !tour.position.initialVariant(tour.variant) option p(cls := "opening")(
+        tour.position.url.fold(openingPosition(tour.position)) { url =>
+          a(target := "_blank", href := url)(
+            openingPosition(tour.position)
+          )
+        },
         separator,
-        a(href := routes.UserAnalysis.parse(tour.position.fen.replace(" ", "_")))(trans.analysis())
+        a(href := routes.UserAnalysis.parse(tour.variant.key + "/" + tour.position.fen.replace(" ", "_")))(trans.analysis())
       )
     ),
     streamers.toList map views.html.streamer.bits.contextual,
     chat option views.html.chat.frag
+  )
+
+  private def openingPosition(position: draughts.StartingPosition) = frag(
+    strong(position.code), " ", position.name
   )
 }

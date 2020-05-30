@@ -16,6 +16,10 @@ case object Frisian extends Variant(
 ) {
 
   def pieces = Standard.pieces
+  def initialFen = Standard.initialFen
+  def startingPosition = Standard.startingPosition
+  val openings = Nil
+
   def moveDirsColor = Standard.moveDirsColor
   def moveDirsAll = Standard.moveDirsAll
 

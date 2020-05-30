@@ -17,7 +17,7 @@ case class Schedule(
 
   def name = freq match {
     case m @ Schedule.Freq.ExperimentalMarathon => m.name
-    case _ if variant.standard && position.initial =>
+    case _ if variant.standard && position.initialStandard =>
       (conditions.minRating, conditions.maxRating) match {
         case (None, None) => s"${freq.toString} ${speed.toString}"
         case (Some(min), _) => s"Elite ${speed.toString}"

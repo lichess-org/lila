@@ -3,6 +3,7 @@ package tournament
 
 import play.api.data.{ Field, Form }
 
+import draughts.variant.{ Variant, Standard, Russian }
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -28,7 +29,8 @@ object form {
           postForm(cls := "form3", action := routes.Tournament.create)(
             fields.name,
             form3.split(fields.rated, fields.variant),
-            fields.startPosition,
+            fields.startPosition(Standard),
+            fields.startPosition(Russian),
             fields.clock,
             form3.split(
               form3.group(form("minutes"), trans.duration(), half = true)(form3.select(_, DataForm.minuteChoices)),
@@ -71,7 +73,8 @@ object form {
             fields.name,
             !tour.isStarted option fields.startDate(false),
             form3.split(fields.rated, fields.variant),
-            fields.startPosition,
+            fields.startPosition(Standard),
+            fields.startPosition(Russian),
             fields.clock,
             form3.split(
               if (DataForm.minutes contains tour.minutes) form3.group(form("minutes"), trans.duration(), half = true)(form3.select(_, DataForm.minuteChoices))
@@ -135,16 +138,16 @@ object form {
     }
   )
 
-  def startingPosition(field: Field)(implicit ctx: Context) = st.select(
+  def startingPosition(field: Field, variant: Variant)(implicit ctx: Context) = st.select(
     id := form3.id(field),
     name := field.name,
     cls := "form-control"
   )(
       option(
-        value := draughts.StartingPosition.initial.fen,
-        field.value.has(draughts.StartingPosition.initial.fen) option selected
-      )(draughts.StartingPosition.initial.name),
-      draughts.StartingPosition.categories.map { categ =>
+        value := variant.initialFen,
+        field.value.has(variant.initialFen) option selected
+      )(trans.startPosition()),
+      variant.openings.map { categ =>
         optgroup(attr("label") := categ.name)(
           categ.positions.map { v =>
             option(value := v.fen, field.value.has(v.fen) option selected)(v.fullName)
@@ -181,9 +184,9 @@ final private class TourFields(me: User, form: Form[_])(implicit ctx: Context) {
     form3.group(form("variant"), trans.variant(), half = true)(
       form3.select(_, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
     )
-  def startPosition =
-    form3.group(form("position"), trans.startPosition(), klass = "position")(
-      views.html.tournament.form.startingPosition(_)
+  def startPosition(v: Variant) =
+    form3.group(form("position_" + v.key), trans.startPosition(), klass = "position position-" + v.key)(
+      views.html.tournament.form.startingPosition(_, v)
     )
   def clock =
     form3.split(

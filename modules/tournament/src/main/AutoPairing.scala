@@ -19,13 +19,11 @@ final class AutoPairing(
       variant = tour.ratingVariant,
       daysPerTurn = none
     )
+    val variant = if (tour.variant.standard && !tour.position.initialStandard) draughts.variant.FromPosition else tour.variant
     val game = Game.make(
       draughts = draughts.DraughtsGame(
-        variantOption = Some {
-          if (tour.position.initial) tour.variant
-          else draughts.variant.FromPosition
-        },
-        fen = tour.position.some.filterNot(_.initial).map(_.fen)
+        variantOption = Some(variant),
+        fen = tour.position.some.filterNot(_.initialVariant(variant)).map(_.fen)
       ) |> { g =>
           val turns = g.player.fold(0, 1)
           g.copy(

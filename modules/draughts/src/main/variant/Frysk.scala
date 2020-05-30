@@ -13,12 +13,13 @@ case object Frysk extends Variant(
 ) {
 
   val pieces = Variant.symmetricBackrank(Vector(Man, Man, Man, Man, Man), boardSize)
+  val initialFen = "W:W46,47,48,49,50:B1,2,3,4,5:H0:F1"
+  val startingPosition = StartingPosition("---", initialFen, "", "Initial position".some)
+  val openings = Nil
 
   def captureDirs = Frisian.captureDirs
   def moveDirsColor = Frisian.moveDirsColor
   def moveDirsAll = Frisian.moveDirsAll
-
-  override val initialFen = "W:W46,47,48,49,50:B1,2,3,4,5:H0:F1"
 
   override def validMoves(situation: Situation, finalSquare: Boolean = false): Map[Pos, List[Move]] = Frisian.validMoves(situation, finalSquare)
   override def shortRangeCaptures(actor: Actor, finalSquare: Boolean): List[Move] = Frisian.shortRangeCaptures(actor, finalSquare)

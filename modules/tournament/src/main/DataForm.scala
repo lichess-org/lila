@@ -8,6 +8,7 @@ import play.api.data.validation.{ Constraint, Constraints }
 
 import draughts.Mode
 import draughts.StartingPosition
+import draughts.variant.{ Variant, Standard, Russian }
 import lidraughts.common.Form._
 import lidraughts.common.Form.ISODateTime._
 import lidraughts.user.User
@@ -25,7 +26,8 @@ final class DataForm {
     waitMinutes = waitMinuteDefault.some,
     startDate = none,
     variant = draughts.variant.Standard.id.toString.some,
-    position = StartingPosition.initial.fen.some,
+    positionStandard = Standard.initialFen.some,
+    positionRussian = Russian.initialFen.some,
     password = None,
     mode = none,
     rated = true.some,
@@ -42,7 +44,8 @@ final class DataForm {
     waitMinutes = none,
     startDate = tour.startsAt.some,
     variant = tour.variant.id.toString.some,
-    position = tour.position.fen.some,
+    positionStandard = if (tour.variant.standard) tour.position.fen.some else Standard.initialFen.some,
+    positionRussian = if (tour.variant.russian) tour.position.fen.some else Russian.initialFen.some,
     mode = none,
     rated = tour.mode.rated.some,
     password = tour.password,
@@ -75,7 +78,8 @@ final class DataForm {
     "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
     "startDate" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
     "variant" -> optional(text.verifying(v => guessVariant(v).isDefined)),
-    "position" -> optional(nonEmptyText),
+    "position_standard" -> optional(nonEmptyText),
+    "position_russian" -> optional(nonEmptyText),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
     "rated" -> optional(boolean),
     "password" -> optional(nonEmptyText),
@@ -117,12 +121,6 @@ object DataForm {
   val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
   val waitMinuteDefault = 5
 
-  val positions = StartingPosition.allWithInitial.map(_.fen)
-  val positionChoices = StartingPosition.allWithInitial.map { p =>
-    p.fen -> p.fullName
-  }
-  val positionDefault = StartingPosition.initial.fen
-
   val validVariants = List(Standard, Frisian, Frysk, Antidraughts, Breakthrough, Russian)
 
   def guessVariant(from: String): Option[Variant] = validVariants.find { v =>
@@ -130,7 +128,7 @@ object DataForm {
   }
 
   def startingPosition(fen: String, variant: Variant): StartingPosition =
-    Thematic.byFen(fen).ifTrue(variant.standard) | StartingPosition.initial
+    variant.openingByFen(fen) | variant.startingPosition
 }
 
 private[tournament] case class TournamentSetup(
@@ -141,7 +139,8 @@ private[tournament] case class TournamentSetup(
     waitMinutes: Option[Int],
     startDate: Option[DateTime],
     variant: Option[String],
-    position: Option[String],
+    positionStandard: Option[String],
+    positionRussian: Option[String], // NOTE: Safe for variants without standard initial position (i.e. 64 squares)
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],

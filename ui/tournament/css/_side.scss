@@ -50,6 +50,9 @@
       }
     }
   }
+  p.opening {
+    margin-top: 1em;
+  }
   .description {
     @extend %break-word;
   }

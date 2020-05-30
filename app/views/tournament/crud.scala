@@ -82,7 +82,7 @@ object crud {
       form3.group(form("clockTime"), raw("Clock time"), half = true)(form3.select(_, DataForm.clockTimeChoices)),
       form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(form3.select(_, DataForm.clockIncrementChoices))
     ),
-    form3.group(form("position"), trans.startPosition())(tournament.form.startingPosition(_)),
+    form3.group(form("position"), trans.startPosition())(tournament.form.startingPosition(_, draughts.variant.Standard)),
 
     hr,
     h2("Conditions of entry"),

@@ -1,9 +1,11 @@
 $(function() {
 
   var $variant = $('#form3-variant');
-  var $position = $('.form3 .position');
+  var $positionStandard = $('.form3 .position-standard');
+  var $positionRussian = $('.form3 .position-russian');
   function showPosition() {
-    $position.toggleNone($variant.val() == 1);
+    $positionStandard.toggleNone($variant.val() == 1);
+    $positionRussian.toggleNone($variant.val() == 11);
   };
   $variant.on('change', showPosition);
   showPosition();

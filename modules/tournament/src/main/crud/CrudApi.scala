@@ -61,7 +61,7 @@ final class CrudApi {
     minutes = 0,
     system = System.Arena,
     variant = draughts.variant.Standard,
-    position = draughts.StartingPosition.initial,
+    position = draughts.variant.Standard.startingPosition,
     mode = draughts.Mode.Rated,
     password = None,
     waitMinutes = 0,
@@ -83,7 +83,7 @@ final class CrudApi {
         freq = Schedule.Freq.Unique,
         speed = Schedule.Speed.fromClock(clock),
         variant = realVariant,
-        position = draughts.StartingPosition.initial,
+        position = realVariant.startingPosition,
         at = date
       ).some,
       spotlight = Spotlight(

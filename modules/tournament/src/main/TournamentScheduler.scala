@@ -76,9 +76,9 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
 
       val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
 
-      val std = StartingPosition.initial
+      val std = draughts.variant.Standard.startingPosition
       def opening(offset: Int) = {
-        val positions = StartingPosition.featurable
+        val positions = Nil //StartingPosition.featurable
         positions((today.getDayOfYear + offset) % positions.size)
       }
 

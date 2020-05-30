@@ -51,7 +51,7 @@ final class ScheduleJsonView(lightUser: LightUser.Getter) {
     "perf" -> tour.perfType.map(perfJson)
   ).add("hasMaxRating", tour.conditions.maxRating.isDefined)
     .add("private", tour.isPrivate)
-    .add("position", tour.position.some.filterNot(_.initial) map positionJson)
+    .add("position", tour.position.some.filterNot(_.initialVariant(tour.variant)) map positionJson)
     .add("schedule", tour.schedule map scheduleJson)
 
   private def fullJson(tour: Tournament): Fu[JsObject] = for {

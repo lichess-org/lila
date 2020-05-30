@@ -48,6 +48,11 @@ final class TournamentApi(
   private val bus = system.lidraughtsBus
 
   def createTournament(setup: TournamentSetup, me: User, myTeams: List[(String, String)], getUserTeamIds: User => Fu[TeamIdList]): Fu[Tournament] = {
+    val position = setup.realVariant match {
+      case draughts.variant.Standard => setup.positionStandard
+      case draughts.variant.Russian => setup.positionRussian
+      case _ => none
+    }
     val tour = Tournament.make(
       by = Right(me),
       name = DataForm.canPickName(me) ?? setup.name,
@@ -59,7 +64,7 @@ final class TournamentApi(
       password = setup.password,
       system = System.Arena,
       variant = setup.realVariant,
-      position = DataForm.startingPosition(setup.position | draughts.StartingPosition.initial.fen, setup.realVariant),
+      position = DataForm.startingPosition(position | setup.realVariant.initialFen, setup.realVariant),
       berserkable = setup.berserkable | true,
       description = setup.description
     ) |> { tour =>
@@ -74,6 +79,11 @@ final class TournamentApi(
 
   def update(old: Tournament, data: TournamentSetup, me: User, myTeams: List[(String, String)]): Funit = {
     import data._
+    val position = realVariant match {
+      case draughts.variant.Standard => positionStandard
+      case draughts.variant.Russian => positionRussian
+      case _ => none
+    }
     val tour = old.copy(
       name = (DataForm.canPickName(me) ?? name) | old.name,
       clock = clockConfig,
@@ -82,7 +92,7 @@ final class TournamentApi(
       password = password,
       variant = realVariant,
       startsAt = startDate | old.startsAt,
-      position = DataForm.startingPosition(position | draughts.StartingPosition.initial.fen, realVariant),
+      position = DataForm.startingPosition(position | realVariant.initialFen, realVariant),
       noBerserk = !(~berserkable),
       description = description
     ) |> { tour =>
