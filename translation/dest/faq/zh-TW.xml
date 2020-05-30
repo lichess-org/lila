@@ -6,6 +6,9 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess來自\'直播/光明/自由\'(live/light/libre) 加上\'國際象棋\'(chess) 的組合，讀做%1$s。</string>
   <string name="hearItPronouncedBySpecialist">聽聽看標準發音</string>
   <string name="whyLiveLightLibre">直播(live)，無時無刻都有人在下棋，而每一場棋局也都被觀賞。光明及自由(light and libre) 代表Lichess是開源軟體及不被版權蟑螂影響</string>
+  <string name="whyIsLilaCalledLila">相同的，Lichess的原始碼 %1$s 代表Li[chess in sca]la，整個Lichess是用 %2$s 此直觀式語言所寫成</string>
+  <string name="howCanIContributeToLichess">我可以怎樣來幫助Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess能夠順利運作是因為有許多人的贊助以及一群自願者的努力。</string>
   <string name="otherWaysToHelp">其他尋求幫助的方法</string>
   <string name="fairPlay">公平的下棋</string>
   <string name="positions">位置</string>
