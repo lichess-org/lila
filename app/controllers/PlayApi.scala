@@ -53,9 +53,8 @@ final class PlayApi(
 
   def boardMove(id: String, uci: String, offeringDraw: Option[Boolean]) =
     Scoped(_.Board.Play) { _ => me =>
-      WithPovAsBoard(id, me) { pov =>
-        env.slack.api.boardApiMove(pov.fullId, me)
-        impl.move(me, pov, uci, offeringDraw)
+      WithPovAsBoard(id, me) {
+        impl.move(me, _, uci, offeringDraw)
       }
     }
 
