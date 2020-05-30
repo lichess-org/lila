@@ -268,9 +268,46 @@ final class SwissApi(
           )
         }
       }
-      .flatMap {
-        _.map { withdraw(_, userId) }.sequenceFu
+      .flatMap { kickFromSwissIds(userId, _) }
+
+  private[swiss] def kickLame(userId: User.ID) =
+    Bus
+      .ask[List[TeamID]]("teamJoinedBy")(lila.hub.actorApi.team.TeamIdsJoinedBy(userId, _))
+      .flatMap { teamIds =>
+        colls.swiss.aggregateList(100) { framework =>
+          import framework._
+          Match($doc("teamId" $in teamIds, "featurable" -> true)) -> List(
+            PipelineOperator(
+              $doc(
+                "$lookup" -> $doc(
+                  "as"   -> "player",
+                  "from" -> colls.player.name,
+                  "let"  -> $doc("s" -> "$_id"),
+                  "pipeline" -> $arr(
+                    $doc(
+                      "$match" -> $doc(
+                        "$expr" -> $doc(
+                          "$and" -> $arr(
+                            $doc("$eq" -> $arr("$u", userId)),
+                            $doc("$eq" -> $arr("$s", "$$s"))
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            ),
+            Match("player" $ne $arr()),
+            Project($id(true))
+          )
+        }
       }
+      .map(_.flatMap(_.getAsOpt[Swiss.Id]("_id")))
+      .flatMap { kickFromSwissIds(userId, _) }
+
+  private def kickFromSwissIds(userId: User.ID, swissIds: Seq[Swiss.Id]): Funit =
+    swissIds.map { withdraw(_, userId) }.sequenceFu.void
 
   def withdraw(id: Swiss.Id, userId: User.ID): Funit =
     Sequencing(id)(notFinishedById) { swiss =>
