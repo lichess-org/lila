@@ -117,10 +117,10 @@
   <string name="exerciseYourTacticalSkills">練習您的戰術</string>
   <string name="videos">影片</string>
   <string name="watchInstructiveChessVideos">觀看教學影片</string>
-  <string name="playPeople">與人類玩</string>
+  <string name="playPeople">與玩家對弈</string>
   <string name="opponentsFromAroundTheWorld">世界各地的對手</string>
-  <string name="playMachine">與電腦玩</string>
-  <string name="testYourSkillsWithTheComputer">看您多強</string>
+  <string name="playMachine">與電腦下棋</string>
+  <string name="testYourSkillsWithTheComputer">用電腦挑戰你的技術</string>
   <string name="letsGo">讓我們開始吧!</string>
   <string name="stageX">階段 %s</string>
   <string name="awesome">真棒！</string>
@@ -128,6 +128,8 @@
   <string name="greatJob">做得好！</string>
   <string name="perfect">完美!</string>
   <string name="outstanding">優秀！</string>
+  <string name="nailedIt">正確！</string>
+  <string name="rightOn">很不錯！</string>
   <string name="stageXComplete">階段 %s 成功</string>
   <string name="yourScore">您的分數</string>
   <string name="next">繼續</string>
