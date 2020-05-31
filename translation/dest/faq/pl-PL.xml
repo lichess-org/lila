@@ -102,7 +102,8 @@ Nie proś nas o przyznanie tytułu LM.</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">rozegrać co najmniej 30 rankingowych partii w danym rankingu,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">rozegrać rankingową partię w ciągu ostatniego tygodnia dla tego rankingu,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">mieć w szachach standardowych odchylenie rankingu niższe niż %1$s, i niższe niż %2$s w wariantach,</string>
-  <string name="beInTopTen">bądź w pierwszej 10 w tym rankingu.</string>
+  <string name="beInTopTen">być w pierwszej 10 w tym rankingu.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Gracze, którzy zaprzestali korzystać ze swoich kont, zostają usunięci z tabel z najlepszymi graczami.</string>
   <string name="whyAreRatingHigher">Dlaczego rankingi na Lichess są wyższe w porównaniu z rankingami na innych portalach szachowych i rankingami w organizacjach, takimi jak FIDE, USCF i ICC?</string>
   <string name="howToHideRatingWhilePlaying">Jak ukryć ranking przeciwnika podczas gry?</string>
   <string name="enableZenMode">Włącz tryb Zen w ustawieniach %1$s, lub naciśnij klawisz \'%2$s\' podczas rozgrywki.</string>
