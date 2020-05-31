@@ -414,6 +414,7 @@
   <string name="biography">個人簡介</string>
   <string name="country">國家</string>
   <string name="socialMediaLinks">官方社群連結</string>
+  <string name="inlineNotation">棋譜集中顯示</string>
   <string name="watchLichessTV">觀看Lichess TV</string>
   <string name="previouslyOnLichessTV">過去的Lichess TV直播</string>
   <string name="onlinePlayers">在線棋手</string>
@@ -479,6 +480,7 @@
   <string name="troll">钓鱼</string>
   <string name="other">其他</string>
   <string name="reportDescriptionHelp">附上游戏的网址解释该用户的行为问题</string>
+  <string name="error.provideOneCheatedGameLink">請提供至少一局作弊棋局的連結。</string>
   <string name="by">%s作</string>
   <string name="thisTopicIsNowClosed">本话题已关闭。</string>
   <string name="theming">主题</string>
@@ -493,9 +495,12 @@
   <string name="currentPassword">目前密碼</string>
   <string name="newPassword">新密碼</string>
   <string name="newPasswordAgain">重複新密碼</string>
+  <string name="clockInitialTime">棋鐘起始時間</string>
+  <string name="clockIncrement">加秒</string>
   <string name="privacy">隱私</string>
   <string name="letOtherPlayersFollowYou">允许其他玩家关注</string>
   <string name="letOtherPlayersChallengeYou">允许其他玩家挑战</string>
+  <string name="letOtherPlayersInviteYouToStudy">允許其他棋手邀請你參加研討</string>
   <string name="sound">聲音</string>
   <string name="none">無</string>
   <string name="fast">快</string>
@@ -619,8 +624,12 @@
   <string name="tournamentMayHaveBeenCanceled">它可能已被取消，假如所有的对手在比赛开始之前离开。</string>
   <string name="returnToTournamentsHomepage">返回比赛主页</string>
   <string name="weeklyPerfTypeRatingDistribution">本月%s的分数分布</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="other">本周%1$s位棋手下了%2$s模式的棋局</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">您的%1$s分数是%2$s分。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您比%1$s的%2$s棋手更强。</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s比%3$s之中的%2$s棋手強。</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有准确的%s评级。</string>
   <string name="yourRating">您的評分</string>
   <string name="cumulative">平均累積</string>
