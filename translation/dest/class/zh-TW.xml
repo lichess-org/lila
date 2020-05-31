@@ -37,5 +37,10 @@
   <string name="progress">進度</string>
   <string name="noStudents">這個課程內還沒有學生</string>
   <string name="noRemovedStudents">沒有被移除的學生</string>
+  <string name="winrate">勝率</string>
   <string name="na">N/A</string>
+  <string name="news">課程通知</string>
+  <string name="editNews">編輯通知</string>
+  <string name="notifyAllStudents">提醒所有的學生</string>
+  <string name="nothingHere">這裡還沒有任何東西</string>
 </resources>
