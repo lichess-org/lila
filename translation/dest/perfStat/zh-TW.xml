@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="perfStats">%s戰績</string>
+  <string name="viewTheGames">查看遊戲紀錄</string>
+  <string name="provisional">臨時</string>
   <string name="totalGames">總計棋局</string>
 </resources>
