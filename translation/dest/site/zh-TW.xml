@@ -141,7 +141,7 @@
   <string name="games">棋局</string>
   <string name="forum">論壇</string>
   <string name="xPostedInForumY">%1$s發帖：%2$s</string>
-  <string name="latestForumPosts">最新論壇帖子</string>
+  <string name="latestForumPosts">最新論壇貼文</string>
   <string name="players">棋手</string>
   <string name="friends">朋友</string>
   <string name="discussions">對話</string>
@@ -273,7 +273,7 @@
   <string name="tournaments">錦標賽</string>
   <string name="tournamentPoints">錦標賽得分</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="other">%s比赛得分</item>
+    <item quantity="other">%s錦標賽得分</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="other">%s個研究</item>
@@ -468,7 +468,7 @@
   <string name="help">幫助：</string>
   <string name="createANewTopic">新话题</string>
   <string name="topics">话题</string>
-  <string name="posts">帖子</string>
+  <string name="posts">貼文</string>
   <string name="lastPost">最近帖子</string>
   <string name="views">浏览</string>
   <string name="replies">回复</string>
@@ -575,7 +575,7 @@
   <string name="whiteCastlingKingside">白方短易位</string>
   <string name="blackCastlingKingside">黑方短易位</string>
   <plurals name="nbForumPosts">
-    <item quantity="other">%s个论坛帖子</item>
+    <item quantity="other">%s個論壇貼文</item>
   </plurals>
   <string name="tpTimeSpentPlaying">花在下棋上的时间：%s</string>
   <string name="watchGames">觀看對局直播</string>
@@ -659,7 +659,7 @@
   <string name="withFriends">與好友分享</string>
   <string name="withEverybody">與所有人分享</string>
   <string name="youHaveAlreadyRegisteredTheEmail">您已經用過 %s 來註冊 Lichess 賬戶</string>
-  <string name="kidMode">受限模式</string>
+  <string name="kidMode">兒童模式</string>
   <string name="kidModeExplanation">考量安全，在兒童模式中，網站上全部的文字交流將會被關閉。開啟此模式來保護你的孩子及學生不被網路上的人傷害。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">在兒童模式下，Lichess的標誌會有一個%s圖示，讓你知道你的孩子是安全的。</string>
   <string name="enableKidMode">啟用兒童模式</string>
