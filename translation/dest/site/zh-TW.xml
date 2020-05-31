@@ -85,7 +85,11 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">在%s步內將死對手</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="other">下次吃子或走兵出現在%s步後（重置50步計數器）</item>
+  </plurals>
   <string name="noGameFound">未找到遊戲</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">試著從偏好設置中加入更多棋局</string>
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="xOpeningExplorer">%s開局瀏覽器</string>
   <string name="winPreventedBy50MoveRule">在不違反50步和局規則下贏得這局棋</string>
@@ -100,6 +104,7 @@
   <string name="openStudy">打開研究視窗</string>
   <string name="enable">開啟</string>
   <string name="bestMoveArrow">最佳移動的箭頭</string>
+  <string name="evaluationGauge">棋力估計表</string>
   <string name="multipleLines">路線分析線</string>
   <string name="cpus">CPU數</string>
   <string name="memory">記憶體</string>
@@ -767,6 +772,9 @@
   <string name="yourXRatingIsTooFarFromY">您的%1$s評分與%2$s相差太遠</string>
   <string name="cannotChallengeDueToProvisionalXRating">由於您的%s積分不夠穩定，無法進行挑戰。</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s只接受好友的挑戰</string>
+  <string name="conditionalPremoves">預設棋譜</string>
+  <string name="addCurrentVariation">加入現有變化</string>
+  <string name="noConditionalPremoves">無預設棋譜</string>
   <string name="playX">移動至%s</string>
   <string name="sorry">抱歉:(</string>
   <string name="weHadToTimeYouOutForAWhile">您被封鎖了，在一陣子的時間內將不能下棋</string>
