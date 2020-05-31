@@ -149,6 +149,8 @@
   <string name="player">Imreoir</string>
   <string name="list">Liosta</string>
   <string name="winner">Buaiteoir</string>
+  <string name="wins">Buanna</string>
+  <string name="losses">Cailliúintí</string>
   <string name="createdBy">Cruthaithe ag</string>
   <string name="standByX">Fan ort %s, ag roinnt imreoirí ina bpéirí, bí réidh!</string>
   <string name="youArePlaying">Tá tú ag imirt!</string>
@@ -162,6 +164,7 @@
   <string name="draws">Comhscóir</string>
   <string name="nextXTournament">An chéad chomórtas %s eile:</string>
   <string name="averageOpponent">Meanghrádú na gcéilí imeartha</string>
+  <string name="membersOnly">Baill amháin</string>
   <string name="country">Tír</string>
   <string name="bestMove">Bogadh is fearr!</string>
   <string name="success">D\'éirigh leat</string>
