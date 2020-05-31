@@ -12,7 +12,7 @@ import scala.util.chaining._
 import lila.chat.Chat
 import lila.common.{ Bus, GreatPlayer, LightUser }
 import lila.db.dsl._
-import lila.game.Game
+import lila.game.{ Game, Pov }
 import lila.hub.LightTeam.TeamID
 import lila.round.actorApi.round.QuietFlag
 import lila.user.{ User, UserRepo }
@@ -253,6 +253,28 @@ final class SwissApi(
     rankingApi(swiss) map {
       _ get userId map { rank =>
         (Math.floor(rank / 10) + 1).toInt
+      }
+    }
+
+  def gameView(pov: Pov): Fu[Option[GameView]] =
+    (pov.game.swissId.map(Swiss.Id.apply) ?? byId) flatMap {
+      _ ?? { swiss =>
+        getGameRanks(swiss, pov.game) dmap {
+          GameView(swiss, _).some
+        }
+      }
+    }
+
+  private def getGameRanks(swiss: Swiss, game: Game): Fu[Option[GameRanks]] =
+    ~ {
+      game.whitePlayer.userId.ifTrue(swiss.isStarted) flatMap { whiteId =>
+        game.blackPlayer.userId map { blackId =>
+          rankingApi(swiss) map { ranking =>
+            ranking.get(whiteId) |@| ranking.get(blackId) apply {
+              case (whiteR, blackR) => GameRanks(whiteR, blackR)
+            }
+          }
+        }
       }
     }
 
