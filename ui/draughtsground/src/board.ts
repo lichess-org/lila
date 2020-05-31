@@ -133,12 +133,22 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key, finishCapture
 
   if (captureUci && captKey) {
     delete state.pieces[captKey];
+    const maybePromote = destPiece.role === 'man' && variant === 'russian',
+      promoteAt = origPiece.color === 'white' ? 1 : state.boardSize[1];
+    let doPromote = false;
     for (let s = 2; s + 4 <= captureUci.length; s += 2) {
-      const nextOrig = key2pos(captureUci.slice(s, s + 2) as cg.Key, bs), nextDest = key2pos(captureUci.slice(s + 2, s + 4) as cg.Key, bs);
-      const nextCapt = calcCaptKey(state.pieces, bs, nextOrig[0], nextOrig[1], nextDest[0], nextDest[1]);
+      const nextOrig = key2pos(captureUci.slice(s, s + 2) as cg.Key, bs), 
+        nextDest = key2pos(captureUci.slice(s + 2, s + 4) as cg.Key, bs),
+        nextCapt = calcCaptKey(state.pieces, bs, nextOrig[0], nextOrig[1], nextDest[0], nextDest[1]);
       if (nextCapt) {
         delete state.pieces[nextCapt];
       }
+      if (maybePromote && nextOrig[1] === promoteAt) {
+        doPromote = true;
+      }
+    }
+    if (doPromote) {
+      destPiece.role = 'king';
     }
     state.pieces[dest] = destPiece;
   } else {
@@ -184,7 +194,6 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key, finishCapture
 
   callUserFunction(state.events.change);
   return captPiece || true;
-
 }
 
 export function baseNewPiece(state: State, piece: cg.Piece, key: cg.Key, force?: boolean): boolean {
