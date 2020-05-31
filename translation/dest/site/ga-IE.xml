@@ -157,6 +157,10 @@
   <string name="performance">Caighdeán imeartha</string>
   <string name="tournamentComplete">Comórtas críochnaithe</string>
   <string name="movesPlayed">Bogaidh imeartha</string>
+  <string name="whiteWins">Buanna ag bán</string>
+  <string name="blackWins">Buanna ag dubh</string>
+  <string name="draws">Comhscóir</string>
+  <string name="nextXTournament">An chéad chomórtas %s eile:</string>
   <string name="country">Tír</string>
   <string name="bestMove">Bogadh is fearr!</string>
   <string name="success">D\'éirigh leat</string>
