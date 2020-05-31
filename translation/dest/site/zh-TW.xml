@@ -683,6 +683,7 @@
   <string name="usernameCharsInvalid">使用者名稱只能包含字母、 數字、 底線和短劃線。</string>
   <string name="usernameUnacceptable">此使用者名稱不可用</string>
   <string name="directlySupportLichess">直接支持Lichess</string>
+  <string name="playChessInStyle">下棋也要穿得好看</string>
   <string name="chessBasics">基本知識</string>
   <string name="coaches">教練</string>
   <string name="invalidPgn">無效的PGN</string>
