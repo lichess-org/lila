@@ -51,8 +51,8 @@
   <string name="theComputerAnalysisHasFailed">A análise do computador falhou</string>
   <string name="viewTheComputerAnalysis">Ver a análise do computador</string>
   <string name="requestAComputerAnalysis">Solicitar uma análise do computador</string>
-  <string name="computerAnalysis">Análise do computador</string>
-  <string name="computerAnalysisAvailable">Análise de Computador disponível</string>
+  <string name="computerAnalysis">Análise de computador</string>
+  <string name="computerAnalysisAvailable">Análise de computador disponível</string>
   <string name="analysis">Análise</string>
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">A usar a análise do servidor</string>
@@ -173,7 +173,7 @@
   <string name="rating">Pontuação</string>
   <string name="ratingStats">Estatísticas de pontuação</string>
   <string name="username">Nome de utilizador</string>
-  <string name="usernameOrEmail">Nome ou email do usuário</string>
+  <string name="usernameOrEmail">Nome ou e-mail do utilizador</string>
   <string name="changeUsername">Alterar o nome de utilizador</string>
   <string name="changeUsernameNotSame">Só te é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Altera o teu nome de utilizador. Isso só pode ser feito uma vez e só poderás trocar as letras de minúscula para maiúscula e vice-versa.</string>
