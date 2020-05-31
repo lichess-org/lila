@@ -101,7 +101,7 @@ Podes ler mais sobre as %1$s.</string>
   <string name="ownerUniqueTrophies">Esse troféu é único na história dos Lichess, ninguém para além de %1$s o terá.</string>
   <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar 100%% dos jogos de %s no modo frenético.</string>
   <string name="aHourlyBulletTournament">um torneio horário de Bullet</string>
-  <string name="goldenZeeExplanation">ZugAddict estava fazer uma stream e nas últimas 2 horas tinha estado a tentar derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-lhe que se ele o isso na stream, ele teria um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
+  <string name="goldenZeeExplanation">ZugAddict estava fazer uma stream e nas últimas 2 horas tinha estado a tentar derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-lhe que se ele o fizesse na stream, ele teria um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
   <string name="lichessRatings">Pontuações no Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Qual é o sistema de pontuação que o Lichess utiliza?</string>
   <string name="ratingSystemUsedByLichess">As pontuações são calculadas utilizando o sistema de pontuaçao Glicko-2 desenvolvido por Mark Glickman. Este é um sistema de pontuação muito popular e é utilizado por uma número considerável de organizações de xadrez (a FIDE é um contraexemplo notável, já que eles ainda usam o sistema de pontuação ELO).
