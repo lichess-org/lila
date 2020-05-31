@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doar</string>
-  <string name="lichessPatron">\"Patron\" do Lichess</string>
+  <string name="lichessPatron">Patrono do Lichess</string>
   <string name="freeAccount">Conta gratuita</string>
-  <string name="becomePatron">Torna-te um \"Patron\" do Lichess</string>
-  <string name="xBecamePatron">%s tornou-se um \"Patron\" do Lichess</string>
-  <string name="newPatrons">Novos \"Patrons\"</string>
+  <string name="becomePatron">Torna-te um patrono do Lichess</string>
+  <string name="xBecamePatron">%s tornou-se um patrono do Lichess</string>
+  <string name="newPatrons">Novos patronos</string>
   <string name="freeChess">Xadrez grátis para todos, para sempre!</string>
   <string name="noAdsNoSubs">Sem anúncios, sem subscrições; mas open-source e paixão.</string>
   <string name="thankYou">Obrigado pela tua doação!</string>
@@ -15,13 +15,13 @@
   <string name="weAreNonProfit">Nós somos uma associação sem fins lucrativos porque acreditamos que todos devem ter acesso a uma plataforma de xadrez gratuita e de nível mundial.</string>
   <string name="weRelyOnSupport">Contamos com o apoio de pessoas como tu para o tornar possível. Se gostas de usar o Lichess, por favor considera apoiar-nos através de uma doação ao te tornares \"Patron\"!</string>
   <string name="lifetime">Vitalícia</string>
-  <string name="payLifetimeOnce">Paga %s uma vez. Sê um \"Patron\" do Lichess para sempre!</string>
-  <string name="lifetimePatron">\"Patron\" Vitalício do Lichess</string>
+  <string name="payLifetimeOnce">Paga %s uma vez. Sê um patrono do Lichess para sempre!</string>
+  <string name="lifetimePatron">Patrono vitalício do Lichess</string>
   <string name="makeExtraDonation">Fazer uma doação extra?</string>
   <string name="monthly">Mensal</string>
   <string name="recurringBilling">Faturamento periódico, a renovar as suas asas de \"Patron\" todos os meses.</string>
   <string name="onetime">Uma vez</string>
-  <string name="singleDonation">Uma única doação que lhe concede as asas de \"Patron\" por um mês.</string>
+  <string name="singleDonation">Uma única doação que lhe concede as asas de patrono por um mês.</string>
   <string name="otherAmount">Outro</string>
   <string name="pleaseEnterAmount">Por favor, insira uma quantia em USD</string>
   <string name="withCreditCard">Cartão de crédito</string>
@@ -40,14 +40,14 @@ Ou podes %s.</string>
   <string name="contactSupport">contactar o suporte do Lichess</string>
   <string name="otherMethods">Outros métodos de doação?</string>
   <string name="bankTransfers">Também aceitamos transferências bancárias</string>
-  <string name="bitcoin">E aqui está o nosso endereço de \"bitcoin\": %s</string>
-  <string name="patronFeatures">Há funcionalidades exclusivas para \"Patrons\"?</string>
+  <string name="bitcoin">E aqui está o nosso endereço de bitcoin: %s</string>
+  <string name="patronFeatures">Há funcionalidades exclusivas para patronos\"?</string>
   <string name="noPatronFeatures">Não, porque o Lichess é totalmente gratuito, para sempre e para todos. É uma promessa.
-No entanto, os \"Patrons\" têm direito a um novo ícone de perfil fixe.</string>
+No entanto, os patronos têm direito a um novo ícone de perfil fixe.</string>
   <string name="featuresComparison">Vê a comparação de funcionalidades detalhada</string>
   <plurals name="patronForMonths">
-    <item quantity="one">\"Patron\" do Lichess por um mês</item>
-    <item quantity="other">\"Patron\" do Lichess por %s meses</item>
+    <item quantity="one">Patrono do Lichess por um mês</item>
+    <item quantity="other">Patrono do Lichess por %s meses</item>
   </plurals>
   <string name="youSupportWith">Suportas o lichess.org com %s por mês.</string>
   <string name="tyvm">Muito obrigado pela tua ajuda. És de mais!</string>
