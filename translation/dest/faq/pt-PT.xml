@@ -58,11 +58,7 @@ Nota que pode ser possível fazer xeque-mate somente com um cavalo ou bispo, se 
 
 É descrita na secção 3.7 (d) das %2$s:
 
-\"Um peão ocupando uma casa na mesma coluna adjacente ao peão do adversário
-que acaba de avançar duas casas num único lance vindo de sua casa original
-pode capturar este peão adversário como se aquele se tivesse movido apenas uma
-casa. Esta captura somente é legal no lance seguinte deste avanço e é chamada
-de captura \'na passagem\' ou \'en passant\';\"
+\"Um peão ocupando uma casa na mesma coluna adjacente ao peão do adversário que acaba de avançar duas casas num único lance vindo de sua casa original pode capturar este peão adversário como se aquele se tivesse movido apenas uma casa. Esta captura somente é legal no lance seguinte deste avanço e é chamada de captura \'na passagem\' ou \'en passant\';\"
 
 Vê o %3$s deste lance para o praticares.</string>
   <string name="goodIntroduction">boa introdução</string>
