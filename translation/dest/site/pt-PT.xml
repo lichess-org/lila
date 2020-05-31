@@ -19,7 +19,7 @@
   <string name="black">Pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
-  <string name="whiteIsVictorious">Brancas vencem</string>
+  <string name="whiteIsVictorious">as brancas ganham</string>
   <string name="blackIsVictorious">as pretas ganham</string>
   <string name="youPlayTheWhitePieces">Tu jogas com as peças brancas</string>
   <string name="youPlayTheBlackPieces">Tu jogas com as peças pretas</string>
@@ -43,9 +43,9 @@
   <string name="forceDraw">Reivindicar empate</string>
   <string name="talkInChat">Por favor, sê gentil na conversação!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira pessoa que aceder a este link jogará contra ti.</string>
-  <string name="whiteResigned">Brancas desistiram</string>
+  <string name="whiteResigned">As brancas desistiram</string>
   <string name="blackResigned">As pretas desistiram</string>
-  <string name="whiteLeftTheGame">Brancas deixaram a partida</string>
+  <string name="whiteLeftTheGame">As brancas deixaram a partida</string>
   <string name="blackLeftTheGame">As pretas deixaram a partida</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Partilha este link para convidares espectadores a verem a partida</string>
   <string name="theComputerAnalysisHasFailed">A análise do computador falhou</string>
@@ -179,7 +179,7 @@
   <string name="changeUsernameDescription">Altera o teu nome de utilizador. Isso só pode ser feito uma vez e só poderás trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="password">Palavra-passe</string>
   <string name="changePassword">Alterar a palavra-passe</string>
-  <string name="changeEmail">Alterar email</string>
+  <string name="changeEmail">Alterar o e-mail</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinir a palavra-passe</string>
   <string name="forgotPassword">Esqueceste-te da tua palavra-passe?</string>
@@ -417,14 +417,14 @@
   <string name="standByX">Aguarda %s, emparelhando jogadores, prepara-te!</string>
   <string name="youArePlaying">Estás a jogar!</string>
   <string name="winRate">Percentagem de vitórias</string>
-  <string name="berserkRate">Percentagem frenético</string>
+  <string name="berserkRate">Modo frenético</string>
   <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio terminado</string>
   <string name="movesPlayed">Movimentos feitos</string>
   <string name="whiteWins">Vitórias com brancas</string>
   <string name="blackWins">Vitórias com pretas</string>
   <string name="draws">Empates</string>
-  <string name="nextXTournament">Próximo torneio %s:</string>
+  <string name="nextXTournament">Próximo torneio de %s:</string>
   <string name="averageOpponent">Pontuação média oponentes</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
@@ -764,7 +764,7 @@
   </plurals>
   <string name="practiceWithComputer">Praticar com o computador</string>
   <string name="anotherWasX">Outro seria %s</string>
-  <string name="bestWasX">O melhor era %s</string>
+  <string name="bestWasX">%s seria melhor</string>
   <string name="youBrowsedAway">Saíste</string>
   <string name="resumePractice">Continuar a prática</string>
   <string name="theGameIsADraw">O jogo é um empate.</string>
