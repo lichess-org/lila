@@ -2,9 +2,14 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
+import reactivemongo.api.bson.{ BSONHandler, Macros }
 
 import lila.common.{ EmailAddress, IpAddress }
 import lila.user.User
+
+case class AuthInfo(user: User.ID, fp: Option[FingerHash], date: DateTime) {
+  def isOld = date isBefore DateTime.now.minusHours(12)
+}
 
 case class FingerPrintedUser(user: User, fp: Option[FingerHash]) {
   def hasFingerPrint = fp.isDefined

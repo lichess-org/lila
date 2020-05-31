@@ -140,7 +140,7 @@ final class Env(
       _          <- tournament.api.withdrawAll(u)
       _          <- plan.api.cancel(u).nevermind
       _          <- lobby.seekApi.removeByUser(u)
-      _          <- security.store.disconnect(u.id)
+      _          <- security.store.closeAllSessionsOf(u.id)
       _          <- push.webSubscriptionApi.unsubscribeByUser(u)
       _          <- streamer.api.demote(u.id)
       _          <- coach.api.remove(u.id)

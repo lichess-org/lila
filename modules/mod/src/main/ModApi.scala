@@ -102,7 +102,8 @@ final class ModApi(
       _ <- userRepo.setIpBan(sus.user.id, sus.user.marks.ipban)
       _ <- logApi.ban(mod, sus)
       _ <-
-        if (sus.user.marks.ipban) firewall.blockIps(spy.rawIps) >> securityStore.disconnect(sus.user.id)
+        if (sus.user.marks.ipban)
+          firewall.blockIps(spy.rawIps) >> securityStore.closeAllSessionsOf(sus.user.id)
         else firewall unblockIps spy.rawIps
     } yield ()
 

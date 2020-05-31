@@ -390,7 +390,7 @@ final class Auth(
                   }
                 } >>
                 env.user.repo.disableTwoFactor(user.id) >>
-                env.security.store.disconnect(user.id) >>
+                env.security.store.closeAllSessionsOf(user.id) >>
                 env.push.webSubscriptionApi.unsubscribeByUser(user) >>
                 authenticateUser(user) >>-
                 lila.mon.user.auth.passwordResetConfirm("success").increment()
