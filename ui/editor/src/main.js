@@ -14,7 +14,8 @@ module.exports = function(element, config) {
 
   return {
     getFen: controller.computeFen,
-    setOrientation: controller.setOrientation
+    setOrientation: controller.setOrientation,
+    changeVariant: controller.changeVariant
   };
 };
 

@@ -236,7 +236,10 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               attrs: { 'for': 'chapter-variant' }
             }, trans.noarg('variant')),
             h('select#chapter-variant.form-control', {
-              attrs: { disabled: gameOrPdn }
+              attrs: { disabled: gameOrPdn },
+              hook: bind('change', e => {
+                ctrl.vm.editor && ctrl.vm.editor.changeVariant((e.target as HTMLInputElement).value);
+              })
             }, gameOrPdn ? [
               h('option', trans.noarg('automatic'))
             ] :
