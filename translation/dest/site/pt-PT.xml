@@ -122,7 +122,7 @@
   <string name="moveTimes">Tempo das jogadas</string>
   <string name="flipBoard">Inverter o tabuleiro</string>
   <string name="threefoldRepetition">Repetição tripla</string>
-  <string name="claimADraw">Reivindicar empate</string>
+  <string name="claimADraw">Declarar empate</string>
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
   <plurals name="nbPlayers">
