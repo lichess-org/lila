@@ -335,7 +335,7 @@
   <string name="reset">Voltar ao original</string>
   <string name="apply">Aplicar</string>
   <string name="save">Guardar</string>
-  <string name="leaderboard">Quadro de classificações</string>
+  <string name="leaderboard">Tabela de liderança</string>
   <string name="pasteTheFenStringHere">Coloca a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Coloca a notação PGN aqui</string>
   <string name="fromPosition">A partir de uma posição</string>
