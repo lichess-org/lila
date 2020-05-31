@@ -57,6 +57,9 @@ Zobacz nasze %3$s, aby poćwiczyć ten specjalny ruch.</string>
   <string name="threefoldRepetitionExplanation">Jeśli pozycja występuje trzykrotnie, gracze mogą zgłosić remis poprzez %1$s. Lichess wprowadza oficjalne zasady FIDE, opisane w Artykule 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>
   <string name="handBookPDF">podręcznik (pdf)</string>
+  <string name="notRepeatedMoves">Nie powtórzyliśmy posunięć. Dlaczego gra mimo to została uznana za remisową?</string>
+  <string name="repeatedPositionsThatMatters">Trzykrotne powtórzenie dotyczy powtarzania się %1$s, a nie ruchów. Powtórzenia nie muszą wystąpić jedno po drugim.</string>
+  <string name="positions">pozycji</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Powtórzyliśmy trzykrotnie pozycję. Dlaczego partia nie została zremisowana?</string>
   <string name="accounts">Konta</string>
   <string name="titlesAvailableOnLichess">Jakie szachowe tytuły uznawane są przez Lichess?</string>
