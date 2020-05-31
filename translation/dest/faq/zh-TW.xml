@@ -37,6 +37,8 @@
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">有哪些變體是在Lichess上玩得到的？</string>
+  <string name="lichessSupportChessAnd">Lichess上有標準國際象棋和%1$s</string>
+  <string name="eightVariants">8種變體</string>
   <string name="positions">位置</string>
   <string name="accounts">帳戶</string>
   <string name="noUpperCaseDot">不行</string>
