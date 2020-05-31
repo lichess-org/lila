@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">為什麼要叫Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess來自\'直播/光明/自由\'(live/light/libre) 加上\'國際象棋\'(chess) 的組合，讀做%1$s。</string>
   <string name="hearItPronouncedBySpecialist">聽聽看標準發音</string>
-  <string name="whyLiveLightLibre">直播(live)，無時無刻都有人在下棋，而每一場棋局也都被觀賞。光明及自由(light and libre) 代表Lichess是開源軟體及不被版權蟑螂影響</string>
+  <string name="whyLiveLightLibre">直播(live)，無時無刻都有人在下棋，而每一場棋局也都被觀賞。光明及自由(light and libre) 代表Lichess是開源軟體及不被版權蟑螂影響。</string>
   <string name="whyIsLilaCalledLila">相同的，Lichess的原始碼 %1$s 代表Li[chess in sca]la，整個Lichess是用 %2$s 此直觀式語言所寫成</string>
   <string name="howCanIContributeToLichess">我可以怎樣來幫助Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess能夠順利運作是因為有許多人的贊助以及一群自願者的努力。</string>
@@ -20,6 +20,11 @@
   <string name="cheatDetectionMethods">Lichess有強大的檢測方式以及非常徹底的過程來檢閱每一個證據，並作出判決。這過程通常需要很多的仲裁人並可能花上一段時間。
 除了標記，我們將不會公布個案的細節及辦決過程。這樣可能會導致鑽漏洞的情形更容易出現，以及產生許多無意義的辯論。這些時間及精力應該花在更重要的案件上。用戶可以通過電子郵件%1$s來上訴，但裁決被推翻的情況很少出現。</string>
   <string name="whenAmIEligibleRatinRefund">我什麼時候可以有資格自動取回與作弊者對弈的積分？</string>
+  <string name="ratingRefundExplanation">在一個棋手被標記的一分鐘後，他們最近的40局積分賽將在3天內無效。如過你是他們這幾局的對手並且積分不是浮動的狀態，你輸掉的積分(輸局或和局) 將會退回，退回的積分上限基於你的最高積分及在那些棋局之後的積分變化。
+(例如：你如果在那些棋局之後積分大幅提升，你可能就不會拿回那些積分或是只拿回一部分)。且退回的積分永遠不會超過150分。</string>
+  <string name="preventLeavingGameWithoutResigning">對那些沒有認輸就離開棋局的棋手會怎麼處理？</string>
+  <string name="leavingGameWithoutResigningExplanation">如果你的對手經常放棄／中離棋局，他們會受到＂禁止對弈＂的懲罰。代表他們暫時無法對弈。這不會顯示在他們的個人資料上。如果情況未改善，每次懲罰的時間將會延長，並有可能導致帳號被封鎖。</string>
+  <string name="howCanIBecomeModerator">我要如何成為一個仲裁者？</string>
   <string name="positions">位置</string>
   <string name="accounts">帳戶</string>
   <string name="noUpperCaseDot">不行</string>
