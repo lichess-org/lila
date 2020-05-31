@@ -98,13 +98,14 @@
   border-left: 3px solid rgba(56,147,232,0.8)!important;
 }
 .mod-zone time {
-  opacity: 0.7;
+  opacity: .7;
+  white-space: nowrap;
 }
 .mod-zone form {
   display: inline;
 }
 #mz_identification {
-  @extend %flex-center-nowrap;
+  @extend %flex-wrap;
   > div {
     flex: 1 1 auto;
     max-height: 40vh;
@@ -115,6 +116,7 @@
     }
   }
   .spy_ips {
+    white-space: nowrap;
     > ul > li {
       list-style: inside disc;
     }
@@ -128,9 +130,14 @@
     }
   }
   .spy_fps {
+    white-space: nowrap;
     li {
       font-family: monospace;
     }
+  }
+  .spy_uas {
+    flex: 0 1 60%;
+    white-space: wrap;
   }
   .blocked {
     color: red;
@@ -177,14 +184,18 @@
     flex: 1 0 50ch;
     max-height: 50vh;
     overflow-y: auto;
+    &:first-child {
+      margin-right: 1em;
+    }
   }
   form {
     display: block;
-    padding: 0 10px;
+    > .user-link {
+    }
   }
   button {
+    white-space: nowrap;
     padding: 0;
-    margin-left: -2px;
     &:not(:hover) {
       border-color: transparent;
       background: transparent;
