@@ -116,7 +116,23 @@
 它們在城堡旁邊。</string>
   <string name="placeTheBishops">換主教了！
 它們在騎士旁邊。</string>
+  <string name="placeTheQueen">再來是皇后！
+它在跟它相同顏色的格子上。</string>
+  <string name="placeTheKing">再來是國王了！
+就在皇后旁邊。</string>
+  <string name="pawnsFormTheFrontLine">士兵在最前線。
+請任意走一步棋來繼續。</string>
+  <string name="boardSetupComplete">恭喜！你已經知道該如何準備一場國際象棋了。</string>
+  <string name="castling">王車易位</string>
   <string name="theSpecialKingMove">國王特殊移動</string>
+  <string name="castlingIntro">讓國王被安全的保護著，並讓城堡加入戰場。</string>
+  <string name="castleKingSide">移動國王兩格來進行短易位。</string>
+  <string name="castleQueenSide">移動國王兩格來進行長易位。</string>
+  <string name="theKnightIsInTheWay">騎士擋住路了！移動它，然後進行短易位。</string>
+  <string name="castleKingSideMovePiecesFirst">進行短易位！但你要先把擋住路的棋子移開。</string>
+  <string name="castleQueenSideMovePiecesFirst">進行長易位！但你還是要先把擋住路的棋子移開。</string>
+  <string name="youCannotCastleIfMoved">如果你的國王或是城堡移動過，你就不能進行王車易位。</string>
+  <string name="youCannotCastleIfAttacked">如果你的國王被攻擊你就不能進行王車易位，先應將再進行王車易位！</string>
   <string name="theGameIsADraw">這是一場平局</string>
   <string name="advanced">高級</string>
   <string name="pieceValue">棋子的價值</string>
