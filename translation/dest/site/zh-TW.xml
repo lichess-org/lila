@@ -279,6 +279,12 @@
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">≥ %s 個已評分的棋局</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">≥ %1$s %2$s 積分賽</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="other">你需要再下%1$s局%2$s模式的積分棋局</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="other">您需要再下%s盤會評分的棋局</item>
   </plurals>
@@ -374,8 +380,11 @@
   <string name="winStreak">連勝</string>
   <string name="createdBy">創建者：</string>
   <string name="tournamentIsStarting">錦標賽即將開始</string>
+  <string name="tournamentPairingsAreNowClosed">此錦標賽的對手配對已結束。</string>
+  <string name="standByX">%s準備好，你馬上要開始對棋了！</string>
   <string name="youArePlaying">等待對手中</string>
   <string name="winRate">勝率</string>
+  <string name="berserkRate">快棋率</string>
   <string name="performance">表現</string>
   <string name="tournamentComplete">錦標賽結束</string>
   <string name="movesPlayed">步數</string>
@@ -615,6 +624,7 @@
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有准确的%s评级。</string>
   <string name="yourRating">您的評分</string>
   <string name="cumulative">平均累積</string>
+  <string name="glicko2Rating">Glicko-2 積分</string>
   <string name="checkYourEmail">請檢查您的電子郵件</string>
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到您的邮箱. 点击邮件中的链接以激活您的账号.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">若您沒收到郵件，請檢查您的其他收件箱，例如垃圾箱、促銷、社交等。</string>
@@ -636,6 +646,8 @@
   <string name="withEverybody">與所有人分享</string>
   <string name="youHaveAlreadyRegisteredTheEmail">您已經用過 %s 來註冊 Lichess 賬戶</string>
   <string name="kidMode">受限模式</string>
+  <string name="kidModeExplanation">考量安全，在兒童模式中，網站上全部的文字交流將會被關閉。開啟此模式來保護你的孩子及學生不被網路上的人傷害。</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">在兒童模式下，Lichess的標誌會有一個%s圖示，讓你知道你的孩子是安全的。</string>
   <string name="enableKidMode">啟用兒童模式</string>
   <string name="disableKidMode">停用兒童模式</string>
   <string name="security">資訊安全相關設定</string>
