@@ -149,6 +149,10 @@
   <string name="player">Imreoir</string>
   <string name="list">Liosta</string>
   <string name="winner">Buaiteoir</string>
+  <string name="tournamentCalendar">Féilire na gcomórtas</string>
+  <string name="join">Glac páirt</string>
+  <string name="withdraw">Éirigh as</string>
+  <string name="points">Pointí</string>
   <string name="wins">Buanna</string>
   <string name="losses">Cailliúintí</string>
   <string name="createdBy">Cruthaithe ag</string>
@@ -197,7 +201,10 @@
   <string name="tpTimeSpentPlaying">Am caite ag imirt: %s</string>
   <string name="watchGames">Féach ar chluichí</string>
   <string name="watch">Féach</string>
+  <string name="about">Faoi</string>
+  <string name="aboutX">Faoi %s</string>
   <string name="create">Cruthaigh</string>
+  <string name="lichessTournaments">Comórtais Lichess</string>
   <string name="language">Teanga</string>
   <string name="perfRatingX">Rátáil: %s</string>
   <string name="computerThinking">An ríomhaire ag machnamh ...</string>
