@@ -14,4 +14,11 @@
   <string name="otherWaysToHelp">其他尋求幫助的方法</string>
   <string name="fairPlay">公平的下棋</string>
   <string name="positions">位置</string>
+  <string name="accounts">帳戶</string>
+  <string name="noUpperCaseDot">不行</string>
+  <string name="lichessRatings">Lichess 評分</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess 使用什麼評分機制?</string>
+  <string name="ratingLeaderboards">評分排行表</string>
+  <string name="connexionLostCanIGetMyRatingBack">我因為斷線或lag而導致我輸了。我可以加回我的分數嗎?</string>
+  <string name="howToThreeDots">如何...</string>
 </resources>
