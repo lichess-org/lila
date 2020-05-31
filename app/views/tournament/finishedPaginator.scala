@@ -41,7 +41,7 @@ object finishedPaginator {
           t.clock.show,
           " • ",
           if (t.variant.exotic) t.variant.name else t.perfType.map(_.name),
-          !t.isThematic option frag(" • ", trans.thematic()),
+          t.isThematic option frag(" • ", trans.thematic()),
           " • ",
           t.mode.fold(trans.casualTournament, trans.ratedTournament)(),
           " • ",
