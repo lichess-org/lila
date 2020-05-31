@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="hourlyRapidArena">Arena Horária de Semi-rápidas</string>
-  <string name="hourlyRapid">Semi-rápidas Horárias</string>
+  <string name="hourlyRapid">Semi-rápida Horária</string>
   <string name="hourlyXArena">Arena Horária de %s</string>
   <string name="hourlyX">%s Horário</string>
   <string name="dailyRapidArena">Arena Diária de Semi-rápidas</string>
@@ -17,25 +17,25 @@
   <string name="easternXArena">Arena Oriental de %s</string>
   <string name="easternX">%s Oriental</string>
   <string name="weeklyRapidArena">Arena Semanal de Semi-rápidas</string>
-  <string name="weeklyRapid">Semi-rápidas Semanais</string>
+  <string name="weeklyRapid">Semi-rápida Semanal</string>
   <string name="weeklyClassicalArena">Arena Semanal de Clássicas</string>
   <string name="weeklyClassical">Clássica Semanal</string>
   <string name="weeklyXArena">Arena Semanal de %s</string>
   <string name="weeklyX">%s Semanal</string>
   <string name="monthlyRapidArena">Arena Mensal de Semi-rápidas</string>
-  <string name="monthlyRapid">Semi-rápidas Mensais</string>
+  <string name="monthlyRapid">Semi-rápida Mensal</string>
   <string name="monthlyClassicalArena">Arena Mensal de Clássicas</string>
-  <string name="monthlyClassical">Clássicas Mensais</string>
+  <string name="monthlyClassical">Clássica Mensal</string>
   <string name="monthlyXArena">Arena Mensal de %s</string>
   <string name="monthlyX">%s Mensal</string>
   <string name="yearlyRapidArena">Arena Anual de Semi-rápidas</string>
-  <string name="yearlyRapid">Semi-rápidas Anuais</string>
+  <string name="yearlyRapid">Semi-rápida Anual</string>
   <string name="yearlyClassicalArena">Arena Anual de Clássicas</string>
-  <string name="yearlyClassical">Clássicas Anuais</string>
+  <string name="yearlyClassical">Clássica Anual</string>
   <string name="yearlyXArena">Arena Anual de %s</string>
   <string name="yearlyX">%s Anual</string>
   <string name="rapidShieldArena">Arena Escudo de Semi-rápidas</string>
-  <string name="rapidShield">Semi-rápidas Escudo</string>
+  <string name="rapidShield">Escudo de Semi-rápidas</string>
   <string name="classicalShieldArena">Arena Escudo de Clássicas</string>
   <string name="xShieldArena">Arena Escudo de %s</string>
   <string name="xShield">%s Escudo</string>
