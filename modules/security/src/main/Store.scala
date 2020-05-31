@@ -182,6 +182,9 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
   def ipsAndFps(userIds: List[User.ID], max: Int = 100): Fu[List[IpAndFp]] =
     coll.ext.find($doc("user" $in userIds)).list[IpAndFp](max, ReadPreference.secondaryPreferred)
 
+  def ips(user: User): Fu[Set[IpAddress]] =
+    coll.distinctEasy[IpAddress, Set]("ip", $doc("user" -> user.id))
+
   private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
     coll.secondaryPreferred.exists(
       $doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7))

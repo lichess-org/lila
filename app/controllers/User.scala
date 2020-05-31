@@ -334,6 +334,8 @@ final class User(
         import html.user.{ mod => view }
         import lila.app.ui.ScalatagsExtensions.LilaFragZero
 
+        val nbOthers = getInt("nbOthers") | 100
+
         val modLog = env.mod.logApi.userHistory(user.id).map(view.modLog)
 
         val plan = env.plan.api.recentChargesOf(user).map(view.plan).dmap(~_)
@@ -352,7 +354,7 @@ final class User(
         val actions = env.user.repo.isErased(user) map { erased =>
           html.user.mod.actions(user, emails, erased)
         }
-        val spyFu = env.security.userSpy(user)
+        val spyFu = env.security.userSpy(user, nbOthers)
         val others = spyFu flatMap { spy =>
           val familyUserIds = user.id :: spy.otherUserIds.toList
           (isGranted(_.ModNote) ?? env.user.noteApi
@@ -361,7 +363,7 @@ final class User(
             env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
             lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy.otherUsers) map {
             case notes ~ bans ~ othersWithEmail =>
-              html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans)
+              html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans, nbOthers)
           }
         }
         val identification = spyFu map { spy =>

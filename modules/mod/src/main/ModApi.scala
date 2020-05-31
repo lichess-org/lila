@@ -9,7 +9,7 @@ import lila.user.{ LightUserApi, Title, User, UserRepo }
 final class ModApi(
     userRepo: UserRepo,
     logApi: ModlogApi,
-    userSpyApi: lila.security.UserSpyApi,
+    sessionStore: lila.security.Store,
     firewall: Firewall,
     reportApi: lila.report.ReportApi,
     reporter: lila.hub.actors.Report,
@@ -97,14 +97,14 @@ final class ModApi(
 
   def setBan(mod: Mod, prev: Suspect, value: Boolean): Funit =
     for {
-      spy <- userSpyApi(prev.user)
+      ips <- sessionStore ips prev.user
       sus = prev.set(_.withMarks(_.set(_.Ipban, value)))
       _ <- userRepo.setIpBan(sus.user.id, sus.user.marks.ipban)
       _ <- logApi.ban(mod, sus)
       _ <-
         if (sus.user.marks.ipban)
-          firewall.blockIps(spy.rawIps) >> securityStore.closeAllSessionsOf(sus.user.id)
-        else firewall unblockIps spy.rawIps
+          firewall.blockIps(ips) >> securityStore.closeAllSessionsOf(sus.user.id)
+        else firewall unblockIps ips
     } yield ()
 
   def garbageCollect(sus: Suspect, ipBan: Boolean): Funit =

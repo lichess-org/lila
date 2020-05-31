@@ -53,7 +53,7 @@ final class GarbageCollector(
     data match {
       case ApplyData(user, ip, email, req) =>
         for {
-          spy    <- userSpy(user)
+          spy    <- userSpy(user, 300)
           ipSusp <- ipTrust.isSuspicious(ip)
         } yield {
           val printOpt = spy.prints.headOption

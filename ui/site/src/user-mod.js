@@ -1,27 +1,30 @@
 var tablesort = require('tablesort');
 
-function streamLoad(opts) {
-  let source = new EventSource(opts.url);
+let $toggle = $('.user-show .mod-zone-toggle');
+let $zone = $('.user-show .mod-zone');
+let nbOthers = 50;
+
+function streamLoad() {
+  const source = new EventSource($toggle.attr('href') + '?nbOthers=' + nbOthers);
+  const callback = lichess.debounce(() => userMod($zone), 300);
   source.addEventListener('message', e => {
     if (!e.data) return;
-    opts.node.innerHTML += e.data;
-    opts.callback();
+    const html = $('<output>').append($.parseHTML(e.data));
+    html.find('.mz-section').each(function() {
+      const prev = $('#' + this.id);
+      if (prev.length) prev.replaceWith($(this));
+      else $zone.append($(this).clone());
+    });
+    callback();
   });
   source.onerror = () => source.close();
 }
-
-let $toggle = $('.user-show .mod-zone-toggle');
-let $zone = $('.user-show .mod-zone');
 
 function loadZone() {
   $zone.html(lichess.spinnerHtml).removeClass('none');
   $('#main-wrap').addClass('full-screen-force');
   $zone.html('');
-  streamLoad({
-    node: $zone[0],
-    url: $toggle.attr('href'),
-    callback: lichess.debounce(() => userMod($zone), 300)
-  });
+  streamLoad();
   window.addEventListener('scroll', onScroll);
   scrollTo('.mod-zone');
 }
@@ -30,6 +33,9 @@ function unloadZone() {
   $('#main-wrap').removeClass('full-screen-force');
   window.removeEventListener('scroll', onScroll);
   scrollTo('#top');
+}
+function reloadZone() {
+  streamLoad();
 }
 
 function scrollTo(el) {
@@ -77,6 +83,12 @@ function userMod($zone) {
   $zone.find('#mz_others table').each(function() {
     tablesort(this, {
       descending: true
+    });
+  });
+  $zone.find('#mz_others .more-others:not(.ready)').each(function() {
+    $(this).addClass('.ready').click(() => {
+      nbOthers = 1000;
+      reloadZone();
     });
   });
 }

@@ -46,12 +46,12 @@ final class UserSpyApi(
 
   import UserSpy._
 
-  def apply(user: User): Fu[UserSpy] =
+  def apply(user: User, maxOthers: Int): Fu[UserSpy] =
     store.chronoInfoByUser(user) flatMap { infos =>
       val ips    = distinctRecent(infos.map(_.datedIp))
       val prints = distinctRecent(infos.flatMap(_.datedFp))
-      nextUsers("ip", ips.map(_.value.value).toList, user) zip
-        nextUsers("fp", prints.map(_.value.value).toList, user) zip
+      nextUsers("ip", ips.map(_.value.value).toList, user, maxOthers) zip
+        nextUsers("fp", prints.map(_.value.value).toList, user, maxOthers) zip
         ip2proxy.keepProxies(ips.map(_.value).toList) map {
         case sharingIp ~ sharingFingerprint ~ proxies =>
           UserSpy(
@@ -67,24 +67,11 @@ final class UserSpyApi(
     }
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
-    store.coll.secondaryPreferred.exists(
-      $doc("user" -> u.id, "fp" $exists true)
-    )
+    store.coll.secondaryPreferred.exists($doc("user" -> u.id, "fp" $exists true))
 
-  private def nextValues(field: String)(userId: User.ID): Fu[Set[String]] =
-    store.coll
-      .find(
-        $doc("user" -> userId),
-        $doc(field -> true).some
-      )
-      .list[Bdoc](500, ReadPreference.secondaryPreferred)
-      .map {
-        _.view.flatMap(_ string field).to(Set)
-      }
-
-  private def nextUsers(field: String, values: Seq[String], user: User): Fu[List[User]] =
+  private def nextUsers(field: String, values: Seq[String], user: User, max: Int): Fu[List[User]] =
     values.nonEmpty ?? store.coll
-      .aggregateList(1000, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+      .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
         Match(
           $doc(
@@ -95,6 +82,7 @@ final class UserSpyApi(
         ) -> List(
           Group(BSONNull)("uid" -> AddFieldToSet("user")),
           UnwindField("uid"),
+          Limit(max),
           PipelineOperator(
             $doc(
               "$lookup" -> $doc(
@@ -118,8 +106,7 @@ final class UserSpyApi(
 
   def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] =
     for {
-      ips <- nextValues("ip")(userId)
-      fps <- nextValues("fp")(userId)
+      (ips, fps) <- nextValues("ip", userId, 100) zip nextValues("fp", userId, 100)
       users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[User.ID, Set](
         "user",
         $doc(
@@ -129,6 +116,9 @@ final class UserSpyApi(
         )
       )
     } yield users
+
+  private def nextValues(field: String, userId: User.ID, max: Int): Fu[Set[String]] =
+    store.coll.secondaryPreferred.distinctEasy[String, Set](field, $doc("user" -> userId))
 }
 
 object UserSpy {
@@ -152,6 +142,7 @@ object UserSpy {
 
   case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[User.ID, EmailAddress]) {
     def emailValueOf(u: User) = emails.get(u.id).map(_.value)
+    def size                  = others.size
   }
 
   def withMeSortedWithEmails(

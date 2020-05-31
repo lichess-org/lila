@@ -14,8 +14,10 @@ import controllers.routes
 
 object mod {
 
+  private def mzSection(key: String) = div(id := s"mz_$key", cls := "mz-section")
+
   def menu(u: User)(implicit ctx: Context) =
-    div(id := "mz_menu")(
+    mzSection("menu")(
       a(href := "#mz_actions")("Overview"),
       a(href := "#mz_irwin")("Irwin"),
       a(href := "#mz_assessments")("Evaluation"),
@@ -26,7 +28,7 @@ object mod {
     )
 
   def actions(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context): Frag =
-    div(id := "mz_actions")(
+    mzSection("actions")(
       isGranted(_.UserEvaluate) option div(cls := "btn-rack")(
         postForm(action := routes.Mod.spontaneousInquiry(u.username), title := "Start an inquiry")(
           submitButton(cls := "btn-rack__btn inquiry")(i)
@@ -187,13 +189,13 @@ object mod {
 
   def prefs(u: User)(pref: lila.pref.Pref)(implicit ctx: Context) =
     frag(
-      canViewRoles(u) option div(id := "mz_roles")(
+      canViewRoles(u) option mzSection("roles")(
         (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
           strong(cls := "text inline", dataIcon := " ")("Permissions: "),
           if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.name).mkString(", ")
         )
       ),
-      div(id := "mz_preferences")(
+      mzSection("preferences")(
         strong(cls := "text inline", dataIcon := "%")("Notable preferences:"),
         ul(
           (pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) option li("keyboard moves"),
@@ -212,14 +214,14 @@ object mod {
     )
 
   def showRageSit(rageSit: RageSit) =
-    div(id := "mz_sitdccounter")(
+    mzSection("sitdccounter")(
       strong(cls := "text inline")("Ragesit counter: "),
       span(cls := "text inline")(rageSit.counterView)
     )
 
   def plan(charges: List[lila.plan.Charge])(implicit ctx: Context): Option[Frag] =
     charges.headOption.map { firstCharge =>
-      div(id := "mz_plan")(
+      mzSection("plan")(
         strong(cls := "text", dataIcon := patronIconChar)(
           "Patron payments",
           isGranted(_.PayPal) option {
@@ -243,7 +245,7 @@ object mod {
     }
 
   def modLog(history: List[lila.mod.Modlog])(implicit lang: Lang) =
-    div(id := "mz_mod_log")(
+    mzSection("mod_log")(
       strong(cls := "text", dataIcon := "!")(
         "Moderation history",
         history.isEmpty option ": nothing to show"
@@ -267,7 +269,7 @@ object mod {
     )
 
   def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(implicit lang: Lang) =
-    div(id := "mz_reports")(
+    mzSection("reports")(
       div(cls := "mz_reports mz_reports--out")(
         strong(cls := "text", dataIcon := "!")(
           s"Reports sent by ${u.username}",
@@ -314,7 +316,7 @@ object mod {
     )
 
   def assessments(pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(implicit ctx: Context): Frag =
-    div(id := "mz_assessments")(
+    mzSection("assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
         p(cls := "text", dataIcon := "j")(
           "ACPL in games with blurs is ",
@@ -469,9 +471,10 @@ object mod {
       spy: lila.security.UserSpy,
       othersWithEmail: lila.security.UserSpy.WithMeSortedWithEmails,
       notes: List[lila.user.Note],
-      bans: Map[String, Int]
+      bans: Map[String, Int],
+      max: Int
   )(implicit ctx: Context): Frag =
-    div(id := "mz_others")(
+    mzSection("others")(
       table(cls := "slist")(
         thead(
           tr(
@@ -532,6 +535,9 @@ object mod {
               )
           }
         )
+      ),
+      (max < 1000 && max <= othersWithEmail.size) option button(cls := "button more-others")(
+        "Load more users"
       )
     )
 
@@ -539,7 +545,7 @@ object mod {
       spy: lila.security.UserSpy,
       printBlock: FingerHash => Boolean
   ): Frag =
-    div(id := "mz_identification")(
+    mzSection("identification")(
       div(cls := "spy_ips")(
         strong(spy.ips.size, " IP addresses"),
         ul(

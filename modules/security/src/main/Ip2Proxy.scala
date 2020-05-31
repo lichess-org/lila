@@ -69,7 +69,8 @@ final class Ip2Proxy(
   private val cache: AsyncLoadingCache[IpAddress, Boolean] = cacheApi.scaffeine
     .expireAfterWrite(1 days)
     .buildAsyncFuture { ip =>
-      ws.url(checkUrl)
+      checkUrl.nonEmpty ?? ws
+        .url(checkUrl)
         .addQueryStringParameters("ip" -> ip.value)
         .get()
         .withTimeout(2 seconds)
