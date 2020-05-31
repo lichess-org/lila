@@ -129,6 +129,7 @@
   <string name="timeOut">As am</string>
   <string name="accept">Glac</string>
   <string name="decline">Diúltaigh</string>
+  <string name="finished">Críochnaithe</string>
   <string name="standard">Caighdeán</string>
   <string name="unlimited">Neamhtheoranta</string>
   <string name="mode">Modh</string>
@@ -150,6 +151,7 @@
   <string name="winner">Buaiteoir</string>
   <string name="createdBy">Cruthaithe ag</string>
   <string name="standByX">Fan ort %s, ag roinnt imreoirí ina bpéirí, bí réidh!</string>
+  <string name="youArePlaying">Tá tú ag imirt!</string>
   <string name="performance">Caighdeán imeartha</string>
   <string name="country">Tír</string>
   <string name="bestMove">Bogadh is fearr!</string>
