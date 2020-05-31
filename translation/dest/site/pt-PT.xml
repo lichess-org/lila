@@ -37,7 +37,7 @@
     <item quantity="one">O teu oponente deixou a partida. Podes reivindicar vitória em %s segundo.</item>
     <item quantity="other">O teu adversário abandonou a partida. Podes reivindicar vitória em %s segundos.</item>
   </plurals>
-  <string name="opponentLeftChoices">O outro jogador pode ter deixado a partida. Você pode proclamar vitória, declarar empate ou aguardar.</string>
+  <string name="opponentLeftChoices">O teu oponente deixou a partida. Podes reivindicar vitória, declarar empate ou aguardar.</string>
   <string name="makeYourOpponentResign">Obrigar o oponente a desistir</string>
   <string name="forceResignation">Reivindicar vitória</string>
   <string name="forceDraw">Reivindicar empate</string>
@@ -94,7 +94,7 @@
   <string name="noGameFound">Nenhum jogo encontrado</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>
-  <string name="xOpeningExplorer">Explorador de aberturas para %s</string>
+  <string name="xOpeningExplorer">Explorador de aberturas de %s</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota evitada pela regra dos 50 movimentos</string>
   <string name="allSet">Tudo a postos!</string>
@@ -184,7 +184,7 @@
   <string name="passwordReset">Redefinir a palavra-passe</string>
   <string name="forgotPassword">Esqueceste-te da tua palavra-passe?</string>
   <string name="rank">Classificação</string>
-  <string name="rankX">Classificação: %s</string>
+  <string name="rankX">Posição: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">As posições são atualizadas a cada minuto</item>
     <item quantity="other">As posições são atualizadas a cada %s minutos</item>
@@ -227,7 +227,7 @@
   <string name="thisGameIsRated">Esta partida vale pontos</string>
   <string name="rematch">Desforra</string>
   <string name="rematchOfferSent">Pedido de desforra enviado</string>
-  <string name="rematchOfferSentWhite">Brancas querem desforra</string>
+  <string name="rematchOfferSentWhite">As brancas propõem desforra</string>
   <string name="rematchOfferSentBlack">As pretas propõem desforra</string>
   <string name="rematchOfferAccepted">Pedido de desforra aceite</string>
   <string name="rematchOfferCanceled">Pedido de desforra cancelado</string>
@@ -600,7 +600,7 @@
   <string name="error.email_acceptable">Este endereço de e-mail não é aceitável. Por favor verifica-o e tenta outra vez.</string>
   <string name="error.email_unique">Este endereço de e-mail já foi usado</string>
   <string name="error.email_different">Este já é o teu e-mail</string>
-  <string name="ifRatingIsPlusMinusX">Se a tua pontuação for ± %s</string>
+  <string name="ifRatingIsPlusMinusX">Se a pontuação for ± %s</string>
   <string name="onlyFriends">Apenas amigos</string>
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
