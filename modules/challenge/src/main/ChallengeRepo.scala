@@ -74,7 +74,14 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
 
   private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
     coll.ext
-      .find(selectCreated ++ selectClock ++ $doc("seenAt" $lt date))
+      .find(
+        selectCreated ++ selectClock ++ $doc(
+          "seenAt" -> $doc(
+            $lt(date),
+            $exists(true) // hitting partial index
+          )
+        )
+      )
       .list[Challenge](max)
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
