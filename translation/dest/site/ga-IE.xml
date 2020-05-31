@@ -152,7 +152,11 @@
   <string name="createdBy">Cruthaithe ag</string>
   <string name="standByX">Fan ort %s, ag roinnt imreoirí ina bpéirí, bí réidh!</string>
   <string name="youArePlaying">Tá tú ag imirt!</string>
+  <string name="winRate">Ráta bua</string>
+  <string name="berserkRate">Ráta berserk</string>
   <string name="performance">Caighdeán imeartha</string>
+  <string name="tournamentComplete">Comórtas críochnaithe</string>
+  <string name="movesPlayed">Bogaidh imeartha</string>
   <string name="country">Tír</string>
   <string name="bestMove">Bogadh is fearr!</string>
   <string name="success">D\'éirigh leat</string>
