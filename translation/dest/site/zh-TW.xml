@@ -469,7 +469,7 @@
   <string name="createANewTopic">新话题</string>
   <string name="topics">话题</string>
   <string name="posts">貼文</string>
-  <string name="lastPost">最近帖子</string>
+  <string name="lastPost">最近貼文</string>
   <string name="views">浏览</string>
   <string name="replies">回复</string>
   <string name="replyToThisTopic">回复此话题</string>
