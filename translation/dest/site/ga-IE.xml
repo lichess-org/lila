@@ -161,6 +161,7 @@
   <string name="blackWins">Buanna ag dubh</string>
   <string name="draws">Comhscóir</string>
   <string name="nextXTournament">An chéad chomórtas %s eile:</string>
+  <string name="averageOpponent">Meanghrádú na gcéilí imeartha</string>
   <string name="country">Tír</string>
   <string name="bestMove">Bogadh is fearr!</string>
   <string name="success">D\'éirigh leat</string>
