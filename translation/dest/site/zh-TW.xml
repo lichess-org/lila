@@ -82,9 +82,14 @@
   <string name="recentGames">最近的棋局</string>
   <string name="topGames">評分最高的棋局</string>
   <string name="masterDbExplanation">兩百萬局來自%2$s到%3$s年國際棋聯積分%1$s以上的棋手對局棋譜</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="other">在%s步內將死對手</item>
+  </plurals>
   <string name="noGameFound">未找到遊戲</string>
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="xOpeningExplorer">%s開局瀏覽器</string>
+  <string name="winPreventedBy50MoveRule">在不違反50步和局規則下贏得這局棋</string>
+  <string name="lossSavedBy50MoveRule">藉由50步和局規則來避免輸掉棋局</string>
   <string name="allSet">一切就緒！</string>
   <string name="importPgn">匯入PGN</string>
   <string name="delete">刪除</string>
@@ -289,6 +294,7 @@
   <string name="siteDescription">界面清新的免費在線國際象棋平台。不用註冊，沒有廣告，無需插件。快來與電腦、朋友和陌生人一起對戰吧！</string>
   <string name="xJoinedTeamY">%1$s加入%2$s隊</string>
   <string name="xCreatedTeamY">%1$s組建%2$s隊</string>
+  <string name="xStartedStreaming">%s開始直播</string>
   <string name="averageElo">平均級別</string>
   <string name="location">所在地</string>
   <string name="filterGames">篩選棋局</string>
@@ -302,11 +308,13 @@
   <string name="continueFromHere">从此處繼續</string>
   <string name="toStudy">研究</string>
   <string name="importGame">導入棋局</string>
+  <string name="importGameExplanation">貼上PGN棋譜後可以重播棋局，使用電腦分析、對局聊天室及取得此棋局的分享連結。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">已導入%s盤棋局</item>
   </plurals>
   <string name="thisIsAChessCaptcha">這是一個國際象棋驗證碼。</string>
   <string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明您是人類。</string>
+  <string name="captcha.fail">請完成驗證。</string>
   <string name="notACheckmate">沒有將死</string>
   <string name="whiteCheckmatesInOneMove">白方一步將死</string>
   <string name="retry">重試</string>
