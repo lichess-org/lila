@@ -674,16 +674,16 @@
   <string name="everybodyGetsAllFeaturesForFree">每個人都能免費使用所有功能</string>
   <string name="zeroAdvertisement">沒有廣告</string>
   <string name="fullFeatured">功能全面</string>
-  <string name="phoneAndTablet">手机和平板电脑</string>
+  <string name="phoneAndTablet">手機和平板電腦</string>
   <string name="bulletBlitzClassical">快棋與慢棋</string>
-  <string name="correspondenceChess">通讯赛</string>
+  <string name="correspondenceChess">通訊賽</string>
   <string name="onlineAndOfflinePlay">線上或離線下棋</string>
   <string name="viewTheSolution">看解答</string>
-  <string name="followAndChallengeFriends">添加和挑战朋友</string>
+  <string name="followAndChallengeFriends">添加好友並與他們對戰</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">支援%s種語言！</item>
   </plurals>
-  <string name="gameAnalysis">象棋分析研究</string>
+  <string name="gameAnalysis">棋局分析研究</string>
   <string name="xHostsY">%1$s主持%2$s</string>
   <string name="xJoinsY">%1$s加入%2$s</string>
   <string name="xLikesY">%1$s對%2$s按讚</string>
