@@ -29,8 +29,8 @@
   <string name="whenReady">Quando estiveres pronto para ser listado como um streamer do Lichess, %s</string>
   <string name="requestReview">solicitar uma revisão de um moderador</string>
   <string name="anotherLanguage">Se a tua stream estiver num idioma que não o inglês, inclui a etiqueta correta da língua (%s), entre parênteses retos, no início do título da stream.
-Por exemplo, podes incluir \"[RU]\" para russo, \"[TR]\" para turco, \"[FR]\" para Francês, etc.
-Coloca isto no título do stream na página Twitch ou YouTube, não nas configurações da stream no Lichess.
+Por exemplo, podes incluir \"[PT]\" para português, \"[FR]\" para francês, \"[DE]\" para alemão etc.
+Coloca isto no título da stream na página Twitch ou YouTube, não nas configurações da stream no Lichess.
 Se a tua stream estiver em inglês, não há necessidade de incluir uma etiqueta de idioma.</string>
   <string name="twitchUsername">O teu nome de utilizador ou link na Twitch</string>
   <string name="optionalOrEmpty">Opcional. Deixa em branco se não existir</string>
