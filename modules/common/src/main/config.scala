@@ -27,9 +27,11 @@ object config {
 
   case class MaxPerSecond(value: Int) extends AnyVal with IntValue
 
-  case class NetDomain(value: String)   extends AnyVal with StringValue
+  case class NetDomain(value: String) extends AnyVal with StringValue {
+    def hostname = value.split(':').head
+  }
   case class AssetDomain(value: String) extends AnyVal with StringValue
-  case class RateLimit(value: Boolean)  extends AnyVal
+  case class RateLimit(value: Boolean) extends AnyVal
 
   case class NetConfig(
       domain: NetDomain,
