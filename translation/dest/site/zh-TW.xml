@@ -365,6 +365,7 @@
   <string name="recommendNotTouching">我們建議您不要調整這些數據</string>
   <string name="fewerPlayers">如果你設定入場限制，你的錦標賽選手會比較少。</string>
   <string name="showAdvancedSettings">顯示進階設定</string>
+  <string name="makePrivateTournament">把錦標賽設定為私人，並設定密碼來限制進入。</string>
   <string name="join">加入</string>
   <string name="withdraw">離開</string>
   <string name="points">分數</string>
@@ -377,6 +378,7 @@
   <string name="winRate">勝率</string>
   <string name="performance">表現</string>
   <string name="tournamentComplete">錦標賽結束</string>
+  <string name="movesPlayed">步數</string>
   <string name="whiteWins">白方獲勝</string>
   <string name="blackWins">黑方獲勝</string>
   <string name="draws">和棋</string>
@@ -395,6 +397,7 @@
   <string name="profileCompletion">個人檔案完成度:%s</string>
   <string name="xRating">%s評分</string>
   <string name="ifNoneLeaveEmpty">如果沒有，請留空</string>
+  <string name="gameCompletionRate">棋局完成率：%s</string>
   <string name="profile">資料</string>
   <string name="editProfile">編輯資料</string>
   <string name="firstName">名</string>
@@ -682,6 +685,8 @@
   <string name="directlySupportLichess">直接支持Lichess</string>
   <string name="chessBasics">基本知識</string>
   <string name="coaches">教練</string>
+  <string name="invalidPgn">無效的PGN</string>
+  <string name="invalidFen">無效的FEN</string>
   <string name="error.minLength">%s 字以上</string>
   <string name="error.maxLength">不超過 %s 字</string>
   <string name="error.min">必須起碼 %s 字或以上</string>
@@ -711,6 +716,7 @@
   <string name="learnFromThisMistake">從您的失誤中學習</string>
   <string name="skipThisMove">跳過這一步</string>
   <string name="next">下一個</string>
+  <string name="xWasPlayed">走了%s</string>
   <string name="findBetterMoveForWhite">找出白方的最佳著法</string>
   <string name="findBetterMoveForBlack">找出黑方的最佳著法</string>
   <string name="resumeLearning">回復學習</string>
