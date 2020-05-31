@@ -81,9 +81,15 @@
   <string name="averageRatingX">平均評分: %s</string>
   <string name="recentGames">最近的棋局</string>
   <string name="topGames">評分最高的棋局</string>
+  <string name="masterDbExplanation">兩百萬局來自%2$s到%3$s年國際棋聯積分%1$s以上的棋手對局棋譜</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="other">在%s步內將死對手</item>
+  </plurals>
   <string name="noGameFound">未找到遊戲</string>
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="xOpeningExplorer">%s開局瀏覽器</string>
+  <string name="winPreventedBy50MoveRule">在不違反50步和局規則下贏得這局棋</string>
+  <string name="lossSavedBy50MoveRule">藉由50步和局規則來避免輸掉棋局</string>
   <string name="allSet">一切就緒！</string>
   <string name="importPgn">匯入PGN</string>
   <string name="delete">刪除</string>
@@ -288,6 +294,7 @@
   <string name="siteDescription">界面清新的免費在線國際象棋平台。不用註冊，沒有廣告，無需插件。快來與電腦、朋友和陌生人一起對戰吧！</string>
   <string name="xJoinedTeamY">%1$s加入%2$s隊</string>
   <string name="xCreatedTeamY">%1$s組建%2$s隊</string>
+  <string name="xStartedStreaming">%s開始直播</string>
   <string name="averageElo">平均級別</string>
   <string name="location">所在地</string>
   <string name="filterGames">篩選棋局</string>
@@ -301,13 +308,16 @@
   <string name="continueFromHere">从此處繼續</string>
   <string name="toStudy">研究</string>
   <string name="importGame">導入棋局</string>
+  <string name="importGameExplanation">貼上PGN棋譜後可以重播棋局，使用電腦分析、對局聊天室及取得此棋局的分享連結。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">已導入%s盤棋局</item>
   </plurals>
   <string name="thisIsAChessCaptcha">這是一個國際象棋驗證碼。</string>
   <string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明您是人類。</string>
+  <string name="captcha.fail">請完成驗證。</string>
   <string name="notACheckmate">沒有將死</string>
   <string name="whiteCheckmatesInOneMove">白方一步將死</string>
+  <string name="blackCheckmatesInOneMove">黑方一步棋將死對手</string>
   <string name="retry">重試</string>
   <string name="reconnecting">重新連接中</string>
   <plurals name="nbFriendsOnline">
@@ -315,6 +325,7 @@
   </plurals>
   <string name="noFriendsOnline">沒有好友在線</string>
   <string name="findFriends">好友建議</string>
+  <string name="favoriteOpponents">最喜歡的對手</string>
   <string name="follow">關注</string>
   <string name="following">已關注</string>
   <string name="unfollow">取消關注</string>
@@ -349,8 +360,12 @@
   <string name="conditionOfEntry">加入限制:</string>
   <string name="advancedSettings">高級設定</string>
   <string name="safeTournamentName">幫錦標賽挑選一個適合的名字</string>
+  <string name="inappropriateNameWarning">即便只是一點點的違規都有可能導致您的帳號被封鎖。</string>
+  <string name="emptyTournamentName">若不填入錦標賽的名稱，將會用一位著名的棋手名字來做為錦標賽名稱。</string>
   <string name="recommendNotTouching">我們建議您不要調整這些數據</string>
+  <string name="fewerPlayers">如果你設定入場限制，你的錦標賽選手會比較少。</string>
   <string name="showAdvancedSettings">顯示進階設定</string>
+  <string name="makePrivateTournament">把錦標賽設定為私人，並設定密碼來限制進入。</string>
   <string name="join">加入</string>
   <string name="withdraw">離開</string>
   <string name="points">分數</string>
@@ -363,6 +378,7 @@
   <string name="winRate">勝率</string>
   <string name="performance">表現</string>
   <string name="tournamentComplete">錦標賽結束</string>
+  <string name="movesPlayed">步數</string>
   <string name="whiteWins">白方獲勝</string>
   <string name="blackWins">黑方獲勝</string>
   <string name="draws">和棋</string>
@@ -381,6 +397,7 @@
   <string name="profileCompletion">個人檔案完成度:%s</string>
   <string name="xRating">%s評分</string>
   <string name="ifNoneLeaveEmpty">如果沒有，請留空</string>
+  <string name="gameCompletionRate">棋局完成率：%s</string>
   <string name="profile">資料</string>
   <string name="editProfile">編輯資料</string>
   <string name="firstName">名</string>
@@ -666,8 +683,11 @@
   <string name="usernameCharsInvalid">使用者名稱只能包含字母、 數字、 底線和短劃線。</string>
   <string name="usernameUnacceptable">此使用者名稱不可用</string>
   <string name="directlySupportLichess">直接支持Lichess</string>
+  <string name="playChessInStyle">下棋也要穿得好看</string>
   <string name="chessBasics">基本知識</string>
   <string name="coaches">教練</string>
+  <string name="invalidPgn">無效的PGN</string>
+  <string name="invalidFen">無效的FEN</string>
   <string name="error.minLength">%s 字以上</string>
   <string name="error.maxLength">不超過 %s 字</string>
   <string name="error.min">必須起碼 %s 字或以上</string>
@@ -697,6 +717,7 @@
   <string name="learnFromThisMistake">從您的失誤中學習</string>
   <string name="skipThisMove">跳過這一步</string>
   <string name="next">下一個</string>
+  <string name="xWasPlayed">走了%s</string>
   <string name="findBetterMoveForWhite">找出白方的最佳著法</string>
   <string name="findBetterMoveForBlack">找出黑方的最佳著法</string>
   <string name="resumeLearning">回復學習</string>

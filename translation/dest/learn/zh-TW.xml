@@ -102,17 +102,84 @@
   <string name="mateInOne">一步將</string>
   <string name="defeatTheOpponentsKing">攻擊敵方的國王</string>
   <string name="mateInOneIntro">如果你的對手無法應將，這局勝利將由你拿下。</string>
+  <string name="attackYourOpponentsKing">用一種對手不能防禦的方式攻擊對手！</string>
+  <string name="mateInOneComplete">恭喜！這就是你贏得棋局的方式！</string>
   <string name="intermediate">中級</string>
+  <string name="boardSetup">開局擺設</string>
+  <string name="howTheGameStarts">如何準備一場棋局</string>
+  <string name="boardSetupIntro">兩方對峙，準備開戰。</string>
+  <string name="thisIsTheInitialPosition">這就是每一盤國際象棋開局的擺法！
+請任意走一步棋來繼續。</string>
+  <string name="firstPlaceTheRooks">首先來擺城堡！
+它們待在角落。</string>
+  <string name="thenPlaceTheKnights">接下來是騎士！
+它們在城堡旁邊。</string>
+  <string name="placeTheBishops">換主教了！
+它們在騎士旁邊。</string>
+  <string name="placeTheQueen">再來是皇后！
+它在跟它相同顏色的格子上。</string>
+  <string name="placeTheKing">再來是國王了！
+就在皇后旁邊。</string>
+  <string name="pawnsFormTheFrontLine">士兵在最前線。
+請任意走一步棋來繼續。</string>
+  <string name="boardSetupComplete">恭喜！你已經知道該如何準備一場國際象棋了。</string>
+  <string name="castling">王車易位</string>
   <string name="theSpecialKingMove">國王特殊移動</string>
+  <string name="castlingIntro">讓國王被安全的保護著，並讓城堡加入戰場。</string>
+  <string name="castleKingSide">移動國王兩格來進行短易位。</string>
+  <string name="castleQueenSide">移動國王兩格來進行長易位。</string>
+  <string name="theKnightIsInTheWay">騎士擋住路了！移動它，然後進行短易位。</string>
+  <string name="castleKingSideMovePiecesFirst">進行短易位！但你要先把擋住路的棋子移開。</string>
+  <string name="castleQueenSideMovePiecesFirst">進行長易位！但你還是要先把擋住路的棋子移開。</string>
+  <string name="youCannotCastleIfMoved">如果你的國王或是城堡移動過，你就不能進行王車易位。</string>
+  <string name="youCannotCastleIfAttacked">如果你的國王被攻擊你就不能進行王車易位，先應將再進行王車易位！</string>
+  <string name="findAWayToCastleKingSide">找出可以進行短易位的方式！</string>
+  <string name="findAWayToCastleQueenSide">找出可以進行長易位的方式！</string>
+  <string name="castlingComplete">恭喜！大多數的時候，你應該都要進行王車易位。</string>
+  <string name="enPassant">吃過路兵</string>
+  <string name="theSpecialPawnMove">士兵的特殊走法</string>
+  <string name="enPassantIntro">如果對手的士兵走了兩格，你可以吃掉它，就像它只走了一格一樣。</string>
+  <string name="blackJustMovedThePawnByTwoSquares">黑方的士兵剛剛走了兩格！請吃過路兵。</string>
+  <string name="enPassantOnlyWorksImmediately">只有在對手移動了士兵的下一步可以吃過路兵。</string>
+  <string name="enPassantOnlyWorksOnFifthRank">你的士兵必須在第五行才可以吃過路兵，</string>
+  <string name="takeAllThePawnsEnPassant">以吃過路兵的方式拿下對手全部的士兵！</string>
+  <string name="enPassantComplete">恭喜！你現在知道怎麼吃過路兵了。</string>
+  <string name="stalemate">逼和</string>
   <string name="theGameIsADraw">這是一場平局</string>
+  <string name="stalemateIntro">當一個人沒有被將軍，但沒有任何一步棋合法，這就是逼和。沒人贏也沒人輸。</string>
+  <string name="stalemateGoal">使黑方逼和：
+黑方沒有棋步合法並且沒有被將軍。</string>
+  <string name="stalemateComplete">恭喜！逼和比你被將死好！</string>
   <string name="advanced">高級</string>
   <string name="pieceValue">棋子的價值</string>
+  <string name="evaluatePieceStrength">對棋子的價值進行評估</string>
+  <string name="pieceValueIntro">移動能力越強的價值越高！
+皇后 = 9
+城堡 = 5
+主教 = 3
+騎士 = 3
+士兵 = 1
+國王無價！你失去國王就輸了棋局。</string>
+  <string name="queenOverBishop">吃掉價值高的棋子！
+皇后　&gt;　主教</string>
+  <string name="takeThePieceWithTheHighestValue">吃掉價值高的棋子！</string>
+  <string name="pieceValueComplete">恭喜！你知道各棋子的價值了！
+皇后 = 9
+城堡 = 5
+主教 = 3
+騎士 = 3
+士兵 = 1</string>
+  <string name="checkInTwo">兩步將</string>
   <string name="twoMovesToGiveCheck">走兩步棋並將軍對方</string>
+  <string name="checkInTwoIntro">找出可以兩步將軍對手的正確組合！</string>
   <string name="checkInTwoGoal">二步將軍敵方的王！</string>
+  <string name="checkInTwoComplete">恭喜！你將軍了你的對手，迫使對手應將！</string>
   <string name="whatNext">下一步</string>
+  <string name="youKnowHowToPlayChess">恭喜！你現在會玩國際象棋了！你想成為更出色的棋手嗎？</string>
   <string name="register">註冊</string>
   <string name="getAFreeLichessAccount">獲得免費的 Lichess 賬戶</string>
   <string name="practice">練習</string>
+  <string name="learnCommonChessPositions">學習常見的棋子局面</string>
   <string name="puzzles">謎題</string>
   <string name="exerciseYourTacticalSkills">練習您的戰術</string>
   <string name="videos">影片</string>
@@ -128,6 +195,9 @@
   <string name="greatJob">做得好！</string>
   <string name="perfect">完美!</string>
   <string name="outstanding">優秀！</string>
+  <string name="wayToGo">還不錯！</string>
+  <string name="yesYesYes">對！就是這樣！</string>
+  <string name="youreGoodAtThis">你很有潛力！</string>
   <string name="nailedIt">正確！</string>
   <string name="rightOn">很不錯！</string>
   <string name="stageXComplete">階段 %s 成功</string>
