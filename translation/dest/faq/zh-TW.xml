@@ -14,7 +14,9 @@
   <string name="breakdownOfOurCosts">經費收支</string>
   <string name="otherWaysToHelp">其他尋求幫助的方法</string>
   <string name="areThereWebsitesBasedOnLichess">有基於Lichess的網頁嗎？</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">有的，Lichess的確有啟發其他使用我們%1$s、%2$s或是%3$s的開源網站。</string>
   <string name="fairPlay">公平的下棋</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">為什麼我被警告有人為操控積分(例如：送分) 或是有電腦輔助？</string>
   <string name="positions">位置</string>
   <string name="accounts">帳戶</string>
   <string name="noUpperCaseDot">不行</string>
