@@ -5,6 +5,7 @@ import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.{ BSONHandler, Macros }
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
+import scala.concurrent.blocking
 import scala.util.Random
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
@@ -21,7 +22,9 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
     _.expireAfterWrite(1 minute)
       .maximumSize(65536)
       .buildAsyncFuture[String, Option[AuthInfo]] { id =>
-        coll.find($doc("_id" -> id, "up" -> true), authInfoProjection.some).one[AuthInfo]
+        coll
+          .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)
+          .one[AuthInfo]
       }
   }
 
@@ -33,13 +36,19 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
     authCache.put(sessionId, fuccess(info.some))
   }
 
-  implicit private val AuthInfoReader    = Macros.reader[AuthInfo]
-  private val authInfoProjection         = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
-  private def uncache(sessionId: String) = authCache.put(sessionId, fuccess(none))
+  implicit private val AuthInfoReader = Macros.reader[AuthInfo]
+  private val authInfoProjection      = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
+  private def uncache(sessionId: String) =
+    blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: User.ID): Funit =
-    coll.distinctEasy[String, Seq]("_id", $doc("user" -> userId, "up" -> true)) map {
-      _ foreach uncache
+    coll.distinctEasy[String, Seq]("_id", $doc("user" -> userId)) map { ids =>
+      blocking {
+        ids foreach blockingUncache
+      }
     }
+  // blocks loading values! https://github.com/ben-manes/caffeine/issues/148
+  private def blockingUncache(sessionId: String) =
+    authCache.underlying.synchronous.invalidate(sessionId)
 
   def save(
       sessionId: String,
@@ -114,8 +123,15 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
     FingerHash(fp) match {
-      case None       => fufail(s"Can't hash $id's fingerprint $fp")
-      case Some(hash) => coll.updateField($id(id), "fp", hash) >>- uncache(id) inject hash
+      case None => fufail(s"Can't hash $id's fingerprint $fp")
+      case Some(hash) =>
+        coll.updateField($id(id), "fp", hash) >>- {
+          authInfo(id) foreach {
+            _ foreach { i =>
+              authCache.put(id, fuccess(i.copy(fp = hash.some).some))
+            }
+          }
+        } inject hash
     }
 
   def chronoInfoByUser(user: User): Fu[List[Info]] =
