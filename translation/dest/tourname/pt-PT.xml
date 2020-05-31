@@ -37,6 +37,7 @@
   <string name="rapidShieldArena">Arena Escudo de Semi-rápidas</string>
   <string name="rapidShield">Escudo de Semi-rápidas</string>
   <string name="classicalShieldArena">Arena Escudo de Clássicas</string>
+  <string name="classicalShield">Escudo de Clássicas</string>
   <string name="xShieldArena">Arena Escudo de %s</string>
   <string name="xShield">%s Escudo</string>
   <string name="openingRapidArena">Arena de Semi-rápidas %s</string>
