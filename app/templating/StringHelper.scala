@@ -2,6 +2,7 @@ package lila.app
 package templating
 
 import play.api.i18n.Lang
+import scala.language.implicitConversions
 
 import ui.ScalatagsTemplate._
 

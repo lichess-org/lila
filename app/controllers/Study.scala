@@ -3,6 +3,7 @@ package controllers
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
+import scala.language.implicitConversions
 
 import lila.api.Context
 import lila.app._

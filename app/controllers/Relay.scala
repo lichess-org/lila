@@ -4,6 +4,7 @@ import play.api.mvc._
 import play.api.data.Form
 import play.api.libs.json._
 import scala.annotation.nowarn
+import scala.language.implicitConversions
 
 import lila.api.Context
 import lila.app._

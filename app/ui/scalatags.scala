@@ -2,6 +2,7 @@ package lila.app
 package ui
 
 import ornicar.scalalib.Zero
+import scala.language.implicitConversions
 
 import scalatags.Text.all._
 import scalatags.text.Builder

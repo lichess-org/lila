@@ -1,6 +1,8 @@
 package lila.app
 package templating
 
+import scala.language.implicitConversions
+
 import lila.common.paginator.Paginator
 
 trait PaginatorHelper {

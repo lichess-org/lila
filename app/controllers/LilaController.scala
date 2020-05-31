@@ -7,6 +7,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsObject, JsString, Json, Writes }
 import play.api.mvc._
 import scala.annotation.nowarn
+import scala.language.implicitConversions
 import scalatags.Text.Frag
 
 import lila.api.{ BodyContext, Context, HeaderContext, PageData }
