@@ -589,7 +589,7 @@
   <string name="aboutX">關於 %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s是一個免費的(%2$s)，開放性的，無廣告，開放資源的網站</string>
   <string name="really">真的</string>
-  <string name="contribute">协助</string>
+  <string name="contribute">協助</string>
   <string name="termsOfService">服務條款</string>
   <string name="sourceCode">原始碼</string>
   <string name="simultaneousExhibitions">車輪戰</string>
@@ -776,6 +776,9 @@
   <string name="addCurrentVariation">加入現有變化</string>
   <string name="noConditionalPremoves">無預設棋譜</string>
   <string name="playX">移動至%s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="other">以儲存%s列預走的棋步</item>
+  </plurals>
   <string name="sorry">抱歉:(</string>
   <string name="weHadToTimeYouOutForAWhile">您被封鎖了，在一陣子的時間內將不能下棋</string>
   <string name="timeoutExpires">封鎖結束至%s</string>
