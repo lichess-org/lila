@@ -29,8 +29,8 @@
   <string name="isCorrespondenceDifferent">Os jogos por correspondência são diferentes do xadrez normal?</string>
   <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos de correspondência é que é permitido utilizar um livro de aberturas. A utilização da ajuda de computadores continua a ser proibida e utilizá-la resultará em ser marcado por utilizar a ajuda de computador. Embora a ICCF permita a utilização de computadores, o Lichess não o permite.</string>
   <string name="gameplay">Jogabilidade</string>
-  <string name="howBulletBlitzEtcDecided">Como é que Bullet, Blitz e outros controlos de tempo são decididos?</string>
-  <string name="basedOnGameDuration">Os controlos de tempo do Lichess baseiam-se na duração estimada do jogo = %1$s
+  <string name="howBulletBlitzEtcDecided">Como é que Bullet, Blitz e outros ritmos de jogo são decididos?</string>
+  <string name="basedOnGameDuration">Os ritmos de jogo do Lichess baseiam-se na duração estimada do jogo = %1$s
 Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segundos.</string>
   <string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
@@ -89,11 +89,11 @@ Finalmente, há um título honorário %2$s.</string>
   <string name="noUpperCaseDot">Não.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico não é oficial e só existe no Lichess.
 
-Raramente o premiamos a jogadores altamente notáveis que são bons cidadãos do Lichess, a nosso critério. Tu não obténs o título de LM, o título LM obtém-te a ti. Se te qualificares, receberás uma mensagem nossa a respeito da nossa escolha e poderás aceitar ou recusar.
+Raramente, premiamo-lo a jogadores altamente notáveis que são bons cidadãos do Lichess, a nosso critério. Tu não obténs o título de LM, o título LM obtém-te a ti. Se te qualificares, receberás uma mensagem nossa a respeito da nossa escolha e poderás aceitar ou recusar.
 
 Não perguntes pelo título LM.</string>
   <string name="whatUsernameCanIchoose">O que é que o meu nome de utilizador pode ser?</string>
-  <string name="usernamesNotOffensive">Geralmente, os nomes de utilizador não devem ser: ofensivos, imitações de alguém, ou publicitários.
+  <string name="usernamesNotOffensive">Geralmente, os nomes de utilizador não devem ser: ofensivos, imitações de alguém ou publicitários.
 
 Podes ler mais sobre as %1$s.</string>
   <string name="guidelines">orientações</string>
