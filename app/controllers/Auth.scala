@@ -385,9 +385,7 @@ final class Auth(
             HasherRateLimit(user.username, ctx.req) { _ =>
               env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
                 env.user.repo.setEmailConfirmed(user.id).flatMap {
-                  _ ?? { e =>
-                    welcome(user, e)
-                  }
+                  _ ?? { welcome(user, _) }
                 } >>
                 env.user.repo.disableTwoFactor(user.id) >>
                 env.security.store.closeAllSessionsOf(user.id) >>
