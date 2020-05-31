@@ -76,7 +76,7 @@
   <string name="winning">Jogada vantajosa</string>
   <string name="losing">Perdendo</string>
   <string name="drawn">Empatado</string>
-  <string name="unknown">Desconhecido</string>
+  <string name="unknown">Desconhecidos</string>
   <string name="database">Base de dados</string>
   <string name="whiteDrawBlack">Brancas / Empate / Pretas</string>
   <string name="averageRatingX">Pontuação média: %s</string>
@@ -417,7 +417,7 @@
   <string name="standByX">Aguarda %s, estamos a emparelhar jogadores, prepara-te!</string>
   <string name="youArePlaying">Estás a jogar!</string>
   <string name="winRate">Taxa de vitórias</string>
-  <string name="berserkRate">Modo frenético</string>
+  <string name="berserkRate">Taxa de partidas frenéticas</string>
   <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio terminado</string>
   <string name="movesPlayed">Movimentos feitos</string>
@@ -582,7 +582,7 @@
   <string name="signedOut">Terminaste sessão</string>
   <string name="loginSuccessful">Iniciaste sessão</string>
   <string name="playOnTheBoardOffline">Contra um amigo</string>
-  <string name="playOfflineComputer">Computador</string>
+  <string name="playOfflineComputer">Contra o computador</string>
   <string name="opponent">Oponente</string>
   <string name="learnMenu">Aprender</string>
   <string name="studyMenu">Estudos</string>
