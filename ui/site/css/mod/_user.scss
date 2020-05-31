@@ -10,8 +10,8 @@
 }
 
 #mz_actions { order: 1 }
-#mz_sitdccounter { order: 2; flex: 1 1 auto; }
-#mz_roles { order: 3; flex: 1 1 auto; }
+#mz_roles { order: 2; flex: 1 1 auto; }
+#mz_sitdccounter { order: 3; flex: 1 1 auto; }
 #mz_preferences { order: 4; flex: 1 1 auto; }
 #mz_plan { order: 5; flex: 1 1 auto; }
 #mz_irwin { order: 6 }
@@ -104,14 +104,17 @@
   display: inline;
 }
 #mz_identification {
+  @extend %flex-center-nowrap;
   > div {
-    max-height: 20em;
+    flex: 1 1 auto;
+    max-height: 40vh;
     overflow: auto;
+    margin-right: 1%;
+    &:last-child {
+      margin: 0;
+    }
   }
   .spy_ips {
-    float: left;
-    margin-left: 1%;
-    width: 31%;
     > ul > li {
       list-style: inside disc;
     }
@@ -124,12 +127,7 @@
       font-family: monospace;
     }
   }
-  .spy_uas {
-    margin-left: 34%;
-  }
   .spy_fps {
-    margin-left: 34%;
-    max-height: 8em;
     li {
       font-family: monospace;
     }
@@ -288,15 +286,8 @@
     .title img {
       height: 50px;
       width: 50px;
-      opacity: 0.9;
+      opacity: .7;
       margin-right: 8px;
-    }
-    @keyframes brain-glow {
-      20% { transform: scale(0.95); }
-      45% { transform: scale(1); }
-    }
-    .title img {
-      animation: brain-glow 1.5s ease-in-out infinite;
     }
     .infos {
       font-size: .9em;

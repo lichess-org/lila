@@ -345,7 +345,7 @@ final class User(
           }
           .map(view.reportLog(user))
 
-        val prefs = env.pref.api.getPref(user).map(view.prefs)
+        val prefs = env.pref.api.getPref(user) map view.prefs(user)
 
         val rageSit = env.playban.api.getRageSit(user.id).map(view.showRageSit)
 

@@ -160,8 +160,15 @@ object UserSpy {
       others: List[OtherUser]
   )(implicit ec: scala.concurrent.ExecutionContext): Fu[WithMeSortedWithEmails] =
     userRepo.emailMap(me.id :: others.map(_.user.id)) map { emailMap =>
+      val now = nowSeconds
       WithMeSortedWithEmails(
-        (OtherUser(me, true, true) :: others).sortBy(-_.user.createdAt.getMillis),
+        (OtherUser(me, true, true) :: others).sortBy { u =>
+          now - (u.user.createdAt.getMillis / 1000) - {
+            u.byFingerprint ?? 1_200_000_000
+          } - {
+            u.byIp ?? 600_000_000
+          }
+        },
         emailMap
       )
     }

@@ -83,7 +83,7 @@ object irwin {
           "Hunter"
         ),
         div(cls := "infos")(
-          p("Updated ", momentFromNow(report.report.date))
+          p("Updated ", momentFromNowServer(report.report.date))
         ),
         div(cls := "assess text")(
           strong(cls := percentClass(report.report.activation))(report.report.activation, "%"),
@@ -122,7 +122,7 @@ object irwin {
                     },
                     shortClockName(pov.game.clock.map(_.config)),
                     " ",
-                    momentFromNowOnce(pov.game.createdAt)
+                    momentFromNowServer(pov.game.createdAt)
                   )
                 ),
                 td(

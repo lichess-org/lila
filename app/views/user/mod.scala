@@ -185,27 +185,27 @@ object mod {
       )
     )
 
-  def roles(u: User)(implicit ctx: Context) =
-    canViewRoles(u) option div(cls := "mz_roles")(
-      (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
-        strong(cls := "text inline", dataIcon := " ")("Mod permissions: "),
-        if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.name).mkString(", ")
-      )
-    )
-
-  def prefs(pref: lila.pref.Pref) =
-    div(id := "mz_preferences")(
-      strong(cls := "text inline", dataIcon := "%")("Notable preferences:"),
-      ul(
-        (pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) option li("keyboard moves"),
-        pref.botCompatible option li(
-          strong(
-            a(
-              cls := "text",
-              dataIcon := "j",
-              href := lila.common.String.base64
-                .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
-            )("BOT-COMPATIBLE SETTINGS")
+  def prefs(u: User)(pref: lila.pref.Pref)(implicit ctx: Context) =
+    frag(
+      canViewRoles(u) option div(id := "mz_roles")(
+        (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
+          strong(cls := "text inline", dataIcon := " ")("Permissions: "),
+          if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.name).mkString(", ")
+        )
+      ),
+      div(id := "mz_preferences")(
+        strong(cls := "text inline", dataIcon := "%")("Notable preferences:"),
+        ul(
+          (pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) option li("keyboard moves"),
+          pref.botCompatible option li(
+            strong(
+              a(
+                cls := "text",
+                dataIcon := "j",
+                href := lila.common.String.base64
+                  .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
+              )("BOT-COMPATIBLE SETTINGS")
+            )
           )
         )
       )
@@ -235,7 +235,7 @@ object mod {
         ),
         ul(
           charges.map { c =>
-            li(c.cents.usd.toString, " with ", c.serviceName, " on ", absClientDateTime(c.date))
+            li(c.cents.usd.toString, " with ", c.serviceName, " on ", showDateTimeUTC(c.date), " UTC")
           }
         ),
         br
@@ -503,7 +503,7 @@ object mod {
                 else td,
                 if (dox) td(othersWithEmail emailValueOf o)
                 else td,
-                td(dataSort := (byIp ?? 3) + (byFp ?? 1))(
+                td(dataSort := (byIp ?? 1) + (byFp ?? 3))(
                   if (o == u) "-"
                   else List(byIp option "IP", byFp option "Print").flatten.mkString(", ")
                 ),
@@ -567,14 +567,6 @@ object mod {
           }
         )
       ),
-      div(cls := "spy_uas")(
-        strong(spy.uas.size, " User agent(s)"),
-        ul(
-          spy.uas.sorted.map { ua =>
-            li(ua.value, " ", momentFromNowServer(ua.date))
-          }
-        )
-      ),
       div(cls := "spy_fps")(
         strong(pluralize("Fingerprint", spy.prints.size)),
         ul(
@@ -586,6 +578,14 @@ object mod {
                 momentFromNowServer(fp.date)
               )
             )
+          }
+        )
+      ),
+      div(cls := "spy_uas")(
+        strong(spy.uas.size, " User agent(s)"),
+        ul(
+          spy.uas.sorted.map { ua =>
+            li(ua.value, " ", momentFromNowServer(ua.date))
           }
         )
       )
