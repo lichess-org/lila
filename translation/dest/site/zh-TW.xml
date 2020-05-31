@@ -545,7 +545,7 @@
   <string name="watchGames">觀看對局直播</string>
   <string name="tpTimeSpentOnTV">花在Lichess TV觀看直播的時間：%s</string>
   <string name="watch">觀看</string>
-  <string name="videoLibrary">视频库</string>
+  <string name="videoLibrary">影片庫</string>
   <string name="streamersMenu">實況主</string>
   <string name="mobileApp">行動應用程式</string>
   <string name="webmasters">網站管理員</string>
@@ -718,10 +718,13 @@
   </plurals>
   <string name="opening">開局</string>
   <string name="middlegame">中場</string>
+  <string name="endgame">殘局</string>
   <string name="registerToSendChallenges">請登入以挑戰您的朋友</string>
   <string name="youCannotChallengeX">您不能挑戰%s</string>
   <string name="xDoesNotAcceptChallenges">%s不接受挑戰</string>
   <string name="yourXRatingIsTooFarFromY">您的%1$s評分與%2$s相差太遠</string>
+  <string name="cannotChallengeDueToProvisionalXRating">由於您的%s積分不夠穩定，無法進行挑戰。</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s只接受好友的挑戰</string>
   <string name="playX">移動至%s</string>
   <string name="sorry">抱歉:(</string>
   <string name="weHadToTimeYouOutForAWhile">您被封鎖了，在一陣子的時間內將不能下棋</string>

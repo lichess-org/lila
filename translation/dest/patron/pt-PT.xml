@@ -12,8 +12,8 @@
   <string name="youHaveLifetime">Tens um conta \"Patron\" vitalícia. Isso é bem fixe!</string>
   <string name="patronUntil">Tens uma conta \"Patron\" até %s.</string>
   <string name="ifNotRenewed">Se não for renovado, serás despromovido a conta gratuita.</string>
-  <string name="weAreNonProfit">Nós omos uma associação sem fins lucrativos porque acreditamos que todos devem ter acesso a uma plataforma de xadrez gratuita e de nível mundial.</string>
-  <string name="weRelyOnSupport">Nós contamos com o apoio de pessoas como tu para o tornar possível. Se gostas de usar o Lichess, por favor considera apoiar-nos através de uma doação ao te tornares \"Patron\"!</string>
+  <string name="weAreNonProfit">Nós somos uma associação sem fins lucrativos porque acreditamos que todos devem ter acesso a uma plataforma de xadrez gratuita e de nível mundial.</string>
+  <string name="weRelyOnSupport">Contamos com o apoio de pessoas como tu para o tornar possível. Se gostas de usar o Lichess, por favor considera apoiar-nos através de uma doação ao te tornares \"Patron\"!</string>
   <string name="lifetime">Vitalícia</string>
   <string name="payLifetimeOnce">Paga %s uma vez. Sê um \"Patron\" do Lichess para sempre!</string>
   <string name="lifetimePatron">\"Patron\" Vitalício do Lichess</string>
@@ -26,7 +26,7 @@
   <string name="pleaseEnterAmount">Por favor, insira uma quantia em USD</string>
   <string name="withCreditCard">Cartão de crédito</string>
   <string name="withPaypal">PayPal</string>
-  <string name="weAreSmallTeam">Somos uma pequena equipa pelo que o teu apoio faz uma grande diferença!</string>
+  <string name="weAreSmallTeam">Somos uma equipa pequena pelo que o teu apoio faz uma grande diferença!</string>
   <string name="celebratedPatrons">Os gloriosos \"Patrons\" que tornam o Lichess possível</string>
   <string name="whereMoneyGoes">Para onde vai o dinheiro?</string>
   <string name="serversAndDeveloper">Em primeiro lugar, para servidores poderosos.

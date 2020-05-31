@@ -8,36 +8,100 @@
   <string name="youWillLoseAllYourProgress">您的進度將會被清空！</string>
   <string name="play">玩！</string>
   <string name="chessPieces">棋子</string>
-  <string name="theRook">車</string>
+  <string name="theRook">城堡</string>
   <string name="itMovesInStraightLines">它以直線移動</string>
+  <string name="rookIntro">城堡是一個強大的棋子，你準備好來指揮它了嗎？</string>
+  <string name="rookGoal">點擊城堡
+將它移動到星星的位置</string>
   <string name="grabAllTheStars">吃掉所有的星星！</string>
   <string name="theFewerMoves">移動的步數越少，
 贏得的點數越多！</string>
-  <string name="theBishop">象</string>
+  <string name="useTwoRooks">兩個城堡
+快還要更快！</string>
+  <string name="rookComplete">恭喜！你已經懂得如何使用城堡了。</string>
+  <string name="theBishop">主教</string>
   <string name="itMovesDiagonally">它以斜線移動</string>
+  <string name="bishopIntro">接下來我們來學如何控制主教的移動。</string>
+  <string name="youNeedBothBishops">淺色一個主教
+深色一個主教
+你全都要</string>
+  <string name="bishopComplete">恭喜！你現在知道如何掌握你的主教了。</string>
   <string name="theQueen">后</string>
   <string name="queenCombinesRookAndBishop">后 = 車 + 象</string>
-  <string name="theKing">王</string>
+  <string name="queenIntro">最強大的棋子上場！皇后登場！</string>
+  <string name="queenComplete">恭喜！皇后對你來說已經毫無秘密可言了。</string>
+  <string name="theKing">國王</string>
   <string name="theMostImportantPiece">最重要的棋子</string>
+  <string name="kingIntro">你就是國王。如果你輸了這場戰鬥，你就輸了這一局棋賽。</string>
+  <string name="theKingIsSlow">國王很慢，不是普通的慢。</string>
   <string name="lastOne">最後一步!</string>
-  <string name="theKnight">馬</string>
+  <string name="kingComplete">現在連國王都要聽令於你了！</string>
+  <string name="theKnight">騎士</string>
   <string name="itMovesInAnLShape">它以L字形方式移動</string>
-  <string name="thePawn">兵</string>
+  <string name="knightIntro">給你一個小挑戰，騎士是一個．．．比較特別的棋子。</string>
+  <string name="knightsHaveAFancyWay">騎士可以用華麗的方式跳來跳去！</string>
+  <string name="knightsCanJumpOverObstacles">騎士可以跳過障礙物！
+逃跑並征服那些星星！</string>
+  <string name="knightComplete">恭喜！你現在已經精通了騎士的用法。</string>
+  <string name="thePawn">士兵</string>
   <string name="itMovesForwardOnly">它只向前移動</string>
+  <string name="pawnIntro">士兵也許弱小，但它們的潛能比你想的還多。</string>
+  <string name="pawnsMoveOneSquareOnly">士兵一次只能動一格。
+但當它們抵達棋盤的另一側，它們可以變成更強大的棋子！</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">大多數的情況，升變成皇后是最好的選擇。
+但偶爾升變成騎士是個更棒的主意！</string>
+  <string name="pawnsMoveForward">士兵直走
+斜著吃棋</string>
+  <string name="captureThenPromote">吃棋，然後升變！</string>
+  <string name="useAllThePawns">使用你全部的士兵！
+不需要升變。</string>
+  <string name="aPawnOnTheSecondRank">在第二排的士兵可以一次動兩格！</string>
+  <string name="grabAllTheStarsNoNeedToPromote">取得全部的星星！
+不需要升變。</string>
+  <string name="pawnComplete">恭喜！士兵對你來說已經毫無秘密可言了。</string>
+  <string name="pawnPromotion">士兵的升變</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">你的士兵走到了棋盤的最底端！</string>
   <string name="itNowPromotesToAStrongerPiece">它將升級為更強大的棋子。</string>
   <string name="selectThePieceYouWant">選擇您要的棋子。</string>
   <string name="fundamentals">基礎</string>
   <string name="capture">吃子</string>
   <string name="takeTheEnemyPieces">吃掉敵方的棋子</string>
+  <string name="captureIntro">找出對手毫無防禦的棋子，並將它吃掉！</string>
   <string name="takeTheBlackPieces">吃掉黑棋！</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">吃掉黑棋！
+然後不要失去你自己的棋子。</string>
+  <string name="captureComplete">恭喜！你現在懂得使用各種棋子了！</string>
   <string name="protection">保護</string>
   <string name="keepYourPiecesSafe">保護您的棋</string>
+  <string name="protectionIntro">找出被對手攻擊的棋子，並保護它們！</string>
+  <string name="protectionComplete">恭喜！沒被吃掉棋子相當於賺了一個棋子！</string>
+  <string name="escape">你受到攻擊了！
+逃離這個威脅！</string>
+  <string name="noEscape">你逃不掉了！
+但你可以防禦！</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">別讓對手吃掉
+任何未受保護的棋子！</string>
   <string name="combat">攻防</string>
+  <string name="captureAndDefendPieces">吃子與防禦</string>
+  <string name="combatIntro">優秀的戰士會知道如何同時攻擊和防禦！</string>
+  <string name="combatComplete">恭喜！你現在懂得使用棋子戰鬥了！</string>
   <string name="checkInOne">一步將</string>
   <string name="attackTheOpponentsKing">攻擊敵王</string>
+  <string name="checkInOneIntro">攻擊對手的國王來將軍對方，對手一定要應將！</string>
+  <string name="checkInOneGoal">只用一步來攻擊對手的國王！</string>
+  <string name="checkInOneComplete">恭喜！你將軍了你的對手，迫使對手應將！</string>
+  <string name="outOfCheck">應將</string>
   <string name="defendYourKing">保護您的國王</string>
+  <string name="outOfCheckIntro">你被將軍了！你必須逃跑或是防禦。</string>
+  <string name="escapeWithTheKing">讓你的國王逃跑！</string>
+  <string name="theKingCannotEscapeButBlock">國王逃不掉了，但你可以阻擋攻擊！</string>
+  <string name="youCanGetOutOfCheckByTaking">你可以藉由吃掉攻擊的棋子來應將。</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">騎士越過了你的防線來將你軍了！</string>
+  <string name="escapeOrBlock">讓國王逃跑，或是阻擋攻擊！</string>
+  <string name="outOfCheckComplete">恭喜！你的國王永遠不會被吃掉，但請確保你不會被將軍！</string>
   <string name="mateInOne">一步將</string>
   <string name="defeatTheOpponentsKing">攻擊敵方的國王</string>
+  <string name="mateInOneIntro">如果你的對手無法應將，這局勝利將由你拿下。</string>
   <string name="intermediate">中級</string>
   <string name="theSpecialKingMove">國王特殊移動</string>
   <string name="theGameIsADraw">這是一場平局</string>
@@ -53,10 +117,10 @@
   <string name="exerciseYourTacticalSkills">練習您的戰術</string>
   <string name="videos">影片</string>
   <string name="watchInstructiveChessVideos">觀看教學影片</string>
-  <string name="playPeople">與人類玩</string>
+  <string name="playPeople">與玩家對弈</string>
   <string name="opponentsFromAroundTheWorld">世界各地的對手</string>
-  <string name="playMachine">與電腦玩</string>
-  <string name="testYourSkillsWithTheComputer">看您多強</string>
+  <string name="playMachine">與電腦下棋</string>
+  <string name="testYourSkillsWithTheComputer">用電腦挑戰你的技術</string>
   <string name="letsGo">讓我們開始吧!</string>
   <string name="stageX">階段 %s</string>
   <string name="awesome">真棒！</string>
@@ -64,6 +128,8 @@
   <string name="greatJob">做得好！</string>
   <string name="perfect">完美!</string>
   <string name="outstanding">優秀！</string>
+  <string name="nailedIt">正確！</string>
+  <string name="rightOn">很不錯！</string>
   <string name="stageXComplete">階段 %s 成功</string>
   <string name="yourScore">您的分數</string>
   <string name="next">繼續</string>
