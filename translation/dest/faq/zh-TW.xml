@@ -11,7 +11,9 @@
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess能夠順利運作是因為有許多人的贊助以及一群自願者的努力。</string>
   <string name="findMoreAndSeeHowHelp">你可以在這找到更多關於 %1$s和%2$s的細節。如果你願意貢獻你的時間及技術在Lichess，這裡有更多的 %3$s。</string>
   <string name="beingAPatron">成為贊助者</string>
+  <string name="breakdownOfOurCosts">經費收支</string>
   <string name="otherWaysToHelp">其他尋求幫助的方法</string>
+  <string name="areThereWebsitesBasedOnLichess">有基於Lichess的網頁嗎？</string>
   <string name="fairPlay">公平的下棋</string>
   <string name="positions">位置</string>
   <string name="accounts">帳戶</string>
