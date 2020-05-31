@@ -16,12 +16,14 @@
   <string name="weRelyOnSupport">אנחנו תלויים בתומכים כמוך על מנת להפוך את זה לאפשרי. אם את/ה נהנה/ית מליצ\'ס, בבקשה תשקול/י לתמוך בנו על ידי תרומה ולהפוך לתומך!</string>
   <string name="lifetime">לכל החיים</string>
   <string name="payLifetimeOnce">שלם %s פעם אחת. הפוך לתומך לכל החיים!</string>
+  <string name="lifetimePatron">פטרון לכל החיים</string>
   <string name="makeExtraDonation">תרום תרומה נוספת?</string>
   <string name="monthly">חודשי</string>
   <string name="recurringBilling">חשבון מחזורי, יחדש את כנפי התומך שלך מדי חודש.</string>
   <string name="onetime">חד פעמי</string>
   <string name="singleDonation">תרומה חד פעמית תעניק לך כנפי תורם לחודש אחד.</string>
   <string name="otherAmount">אחר</string>
+  <string name="pleaseEnterAmount">בבקשה הכנס סכום בUSD (דולר ארה\"ב)</string>
   <string name="withCreditCard">כרטיס אשראי</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">אנחנו צוות קטן, לכן התמיכה שלך תהיה משמעותית מאוד!</string>
