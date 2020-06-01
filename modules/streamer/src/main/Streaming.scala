@@ -104,7 +104,7 @@ final private class Streaming(
       }
       val futureTwitchStreamers: Fu[List[Streamer.Twitch]] =
         if (allTwitchStreamers.size > maxIds)
-          api.mostRecentlySeenIds(allTwitchStreamers.map(_._1), maxIds) map { ids =>
+          api.priorityDetection(allTwitchStreamers.view.map(_._1).toSet, maxIds) map { ids =>
             allTwitchStreamers collect {
               case (streamerId, twitch) if ids(streamerId) => twitch
             }
