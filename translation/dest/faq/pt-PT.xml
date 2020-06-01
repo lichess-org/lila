@@ -9,7 +9,7 @@
   <string name="whyLiveLightLibre">\"Live\" (vida, direto), porque os jogos são jogados e vistos em tempo real 24/7; \"light\" (leve) e \"libre\" (livre) uma vez que o Lichess é open-source e está livre de lixo proprietário que infesta outros sites.</string>
   <string name="whyIsLilaCalledLila">Do mesmo modo, o código fonte do Lichess, %1$s, significa li[chess em sca]la, mostrando que o Lichess é fundamentalmente escrito em %2$s, uma linguagem de programação intuitiva.</string>
   <string name="howCanIContributeToLichess">Como posso contribuir para o Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">O Lichess depende totalmente de doações de \"patrons\" e dos esforços de uma equipa de voluntários.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">O Lichess depende totalmente de doações de patronos e dos esforços de uma equipa de voluntários.</string>
   <string name="findMoreAndSeeHowHelp">Podes encontrar mais sobre %1$s (incluindo uma %2$s). Se quiseres ajudar o Lichess voluntariando o teu tempo e capacidades, há várias %3$s.</string>
   <string name="beingAPatron">ser um \"patron\"</string>
   <string name="breakdownOfOurCosts">repartição dos nossos custos</string>
@@ -29,8 +29,8 @@
   <string name="isCorrespondenceDifferent">Os jogos por correspondência são diferentes do xadrez normal?</string>
   <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos de correspondência é que é permitido utilizar um livro de aberturas. A utilização da ajuda de computadores continua a ser proibida e utilizá-la resultará em ser marcado por utilizar a ajuda de computador. Embora a ICCF permita a utilização de computadores, o Lichess não o permite.</string>
   <string name="gameplay">Jogabilidade</string>
-  <string name="howBulletBlitzEtcDecided">Como é que Bullet, Blitz e outros controlos de tempo são decididos?</string>
-  <string name="basedOnGameDuration">Os controlos de tempo do Lichess baseiam-se na duração estimada do jogo = %1$s
+  <string name="howBulletBlitzEtcDecided">Como é que Bullet, Blitz e outros ritmos de jogo são decididos?</string>
+  <string name="basedOnGameDuration">Os ritmos de jogo do Lichess baseiam-se na duração estimada do jogo = %1$s
 Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segundos.</string>
   <string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
@@ -58,11 +58,7 @@ Nota que pode ser possível fazer xeque-mate somente com um cavalo ou bispo, se 
 
 É descrita na secção 3.7 (d) das %2$s:
 
-\"Um peão ocupando uma casa na mesma coluna adjacente ao peão do adversário
-que acaba de avançar duas casas num único lance vindo de sua casa original
-pode capturar este peão adversário como se aquele se tivesse movido apenas uma
-casa. Esta captura somente é legal no lance seguinte deste avanço e é chamada
-de captura \'na passagem\' ou \'en passant\';\"
+\"Um peão ocupando uma casa na mesma coluna adjacente ao peão do adversário que acaba de avançar duas casas num único lance vindo de sua casa original pode capturar este peão adversário como se aquele se tivesse movido apenas uma casa. Esta captura somente é legal no lance seguinte deste avanço e é chamada de captura \'na passagem\' ou \'en passant\';\"
 
 Vê o %3$s deste lance para o praticares.</string>
   <string name="goodIntroduction">boa introdução</string>
@@ -84,7 +80,7 @@ Vê o %3$s deste lance para o praticares.</string>
 Aqui está uma lista dos títulos FIDE:</string>
   <string name="showYourTitle">Se tiveres um título OTB, podes candidatar-te para que o tenhas mostrado na tua conta se completares este %1$s, incluindo uma imagem clara de uma documento/cartão identificativo e uma foto de ti a segurares nesse documento/cartão.
 
-Uma verificação como jogador com título no Lichess dá aceasso a jogar em eventos de Arena de Título.
+Uma verificação como jogador com título no Lichess dá acesso a jogar em eventos de Arena de Título.
 
 Finalmente, há um título honorário %2$s.</string>
   <string name="asWellAsManyNMtitles">muitos títulos de mestres nacionais</string>
@@ -93,11 +89,11 @@ Finalmente, há um título honorário %2$s.</string>
   <string name="noUpperCaseDot">Não.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico não é oficial e só existe no Lichess.
 
-Raramente o premiamos a jogadores altamente notáveis que são bons cidadãos do Lichess, a nosso critério. Tu não obténs o título de LM, o título LM obtém-te a ti. Se te qualificares, receberás uma mensagem nossa a respeito da nossa escolha e poderás aceitar ou recusar.
+Raramente, premiamo-lo a jogadores altamente notáveis que são bons cidadãos do Lichess, a nosso critério. Tu não obténs o título de LM, o título LM obtém-te a ti. Se te qualificares, receberás uma mensagem nossa a respeito da nossa escolha e poderás aceitar ou recusar.
 
 Não perguntes pelo título LM.</string>
   <string name="whatUsernameCanIchoose">O que é que o meu nome de utilizador pode ser?</string>
-  <string name="usernamesNotOffensive">Geralmente, os nomes de utilizador não devem ser: ofensivos, imitações de alguém, ou publicitários.
+  <string name="usernamesNotOffensive">Geralmente, os nomes de utilizador não devem ser: ofensivos, imitações de alguém ou publicitários.
 
 Podes ler mais sobre as %1$s.</string>
   <string name="guidelines">orientações</string>
@@ -105,16 +101,16 @@ Podes ler mais sobre as %1$s.</string>
   <string name="ownerUniqueTrophies">Esse troféu é único na história dos Lichess, ninguém para além de %1$s o terá.</string>
   <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar 100%% dos jogos de %s no modo frenético.</string>
   <string name="aHourlyBulletTournament">um torneio horário de Bullet</string>
-  <string name="goldenZeeExplanation">ZugAddict estava fazer uma stream e nas últimas 2 horas tinha estado a tentar derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-lhe que se ele o isso na stream, ele teria um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
+  <string name="goldenZeeExplanation">ZugAddict estava fazer uma stream e nas últimas 2 horas tinha estado a tentar derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-lhe que se ele o fizesse na stream, ele teria um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
   <string name="lichessRatings">Pontuações no Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Qual é o sistema de pontuação que o Lichess utiliza?</string>
-  <string name="ratingSystemUsedByLichess">As pontuações são calculadas utilizando o sistema de pontuaçao Glicko-2 desenvolvido por Mark Glickman. Este é um sistema de pontuação muito popular e é utilizado por uma número considerável de organizações de xadrez (a FIDE é um contraexemplo notável, já que eles ainda usam o sistema de pontuação ELO).
+  <string name="ratingSystemUsedByLichess">As pontuações são calculadas utilizando o sistema de pontuaçao Glicko-2 desenvolvido por Mark Glickman. Este é um sistema de pontuação muito popular e é utilizado por um número considerável de organizações de xadrez (a FIDE é um contraexemplo notável, já que eles ainda usam o sistema de pontuação ELO).
 
 Fundamentalmente, as pontuações do Glicko usam \"intervalos de confianças\" quando calculam e representam a tua pontuação. Quando começas a usar o site, a tua pontuação começa em 1500 ± 700. O \"1500\" representa a tua pontuação e o \"700\" representa o intervalo de confiança.
 
 Basicamente, o sistema tem 90% de certeza que a tua pontuação está algures entre 800 e 2200. É incrivelmente incerto. Consequentemente, quando um jogador está a começar, a sua pontuação vai mudar drasticamente, potencialmente várias centenas de pontos de uma vez. Mas depois de algumas partidas contra jogadores estabelecidos, o intervalo de confiança vai diminuir e o número de pontos ganhados/perdidos após cada jogo será menor
 
-Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confiança aumentará. Isto permite-te ganhar/perder pontos mais rapidamente para corresponder às mudanças no teu nível ao longo do tempo.</string>
+Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confiança aumenta. Isto permite-te ganhar/perder pontos mais rapidamente para corresponder às mudanças no teu nível ao longo do tempo.</string>
   <string name="whatIsProvisionalRating">Por que é que há um ponto de interrogação (?) depois da minha pontuação?</string>
   <string name="provisionalRatingExplanation">O ponto de interrogação significa que a pontuação é provisória. As razões incluem:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">O jogador ainda não terminou um número suficiente de jogos a valer pontos contra %1$s na categoria de pontuação em questão.</string>

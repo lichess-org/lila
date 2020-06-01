@@ -64,7 +64,7 @@
   </plurals>
   <string name="signedUp">Registou-se no lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Entrou na equipa %s</item>
-    <item quantity="other">Entrou nas equipas %s</item>
+    <item quantity="one">Entrou em %s equipa</item>
+    <item quantity="other">Entrou em %s equipas</item>
   </plurals>
 </resources>

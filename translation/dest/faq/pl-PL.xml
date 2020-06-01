@@ -57,7 +57,12 @@ Zobacz nasze %3$s, aby poćwiczyć ten specjalny ruch.</string>
   <string name="threefoldRepetitionExplanation">Jeśli pozycja występuje trzykrotnie, gracze mogą zgłosić remis poprzez %1$s. Lichess wprowadza oficjalne zasady FIDE, opisane w Artykule 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>
   <string name="handBookPDF">podręcznik (pdf)</string>
+  <string name="notRepeatedMoves">Nie powtórzyliśmy posunięć. Dlaczego gra mimo to została uznana za remisową?</string>
+  <string name="repeatedPositionsThatMatters">Trzykrotne powtórzenie dotyczy powtarzania się %1$s, a nie ruchów. Powtórzenia nie muszą wystąpić jedno po drugim.</string>
+  <string name="positions">pozycji</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Powtórzyliśmy trzykrotnie pozycję. Dlaczego partia nie została zremisowana?</string>
+  <string name="threeFoldHasToBeClaimed">Trzykrotne powtórzenie pozycji musi zostać zgłoszone przez jednego z graczy. Możesz to zrobić naciskając pokazujący się w takiej sytuacji przycisk, lub oferując przeciwnikowi remis przed wykonaniem ruchu będącego końcowym powtórzeniem. Możesz również %1$s Lichess tak, aby automatycznie zgłaszał za Ciebie trzykrotne powtórzenie pozycji. Dodatkowo, pięciokrotne powtórzenie się pozycji zawsze natychmiast kończy grę.</string>
+  <string name="configure">skonfigurować</string>
   <string name="accounts">Konta</string>
   <string name="titlesAvailableOnLichess">Jakie szachowe tytuły uznawane są przez Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess uznaje wszystkie tytuły FIDE zdobyte w grze na prawdziwej szachownicy (OTB - over the board) oraz %1$s. Oto lista tytułów FIDE:</string>
@@ -94,7 +99,11 @@ Nie proś nas o przyznanie tytułu LM.</string>
   <string name="howDoLeaderoardsWork">Jak działają rankingi i tabele najlepszych graczy?</string>
   <string name="inOrderToAppearsYouMust">Aby dostać się na %1$s musisz:</string>
   <string name="ratingLeaderboards">listę najlepszych graczy</string>
-  <string name="beInTopTen">bądź w pierwszej 10 w tym rankingu.</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">rozegrać co najmniej 30 rankingowych partii w danym rankingu,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">rozegrać rankingową partię w ciągu ostatniego tygodnia dla tego rankingu,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">mieć w szachach standardowych odchylenie rankingu niższe niż %1$s, i niższe niż %2$s w wariantach,</string>
+  <string name="beInTopTen">być w pierwszej 10 w tym rankingu.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Gracze, którzy zaprzestali korzystać ze swoich kont, zostają usunięci z tabel z najlepszymi graczami.</string>
   <string name="whyAreRatingHigher">Dlaczego rankingi na Lichess są wyższe w porównaniu z rankingami na innych portalach szachowych i rankingami w organizacjach, takimi jak FIDE, USCF i ICC?</string>
   <string name="howToHideRatingWhilePlaying">Jak ukryć ranking przeciwnika podczas gry?</string>
   <string name="enableZenMode">Włącz tryb Zen w ustawieniach %1$s, lub naciśnij klawisz \'%2$s\' podczas rozgrywki.</string>

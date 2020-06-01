@@ -17,17 +17,17 @@
   <string name="mostPopular">Mais popular</string>
   <string name="addNewChapter">Adicionar um novo capítulo</string>
   <plurals name="nbChapters">
-    <item quantity="one">%s Capítulo</item>
-    <item quantity="other">%s Capítulos</item>
+    <item quantity="one">%s capítulo</item>
+    <item quantity="other">%s capítulos</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Partida</item>
-    <item quantity="other">%s Partidas</item>
+    <item quantity="one">%s partida</item>
+    <item quantity="other">%s partidas</item>
   </plurals>
   <string name="addMembers">Adicionar membros</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s Membro</item>
-    <item quantity="other">%s Membros</item>
+    <item quantity="one">%s membro</item>
+    <item quantity="other">%s membros</item>
   </plurals>
   <string name="inviteToTheStudy">Convidar para o estudo</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Por favor, convida apenas pessoas que conheças e que querem participar ativamente neste estudo.</string>
@@ -51,10 +51,10 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros do SYNC permanecem na mesma posição</string>
   <string name="shareChanges">Partilha as alterações com espectadores e guarda-as no servidor</string>
   <string name="playing">A ser jogado</string>
-  <string name="first">Primeiro</string>
+  <string name="first">Primeira</string>
   <string name="previous">Anterior</string>
   <string name="next">Seguinte</string>
-  <string name="last">Último</string>
+  <string name="last">Última</string>
   <string name="shareAndExport">Partilhar &amp; exportar</string>
   <string name="cloneStudy">Clonar</string>
   <string name="studyPgn">PGN do estudo</string>
@@ -67,7 +67,7 @@
   <string name="embedThisChapter">Incorporar este capítulo no teu site ou blog</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Lê mais sobre incorporar um capítulo de um estudo</string>
   <string name="open">Abrir</string>
-  <string name="xBroughtToYouByY">%1$s trazido para si por %2$s</string>
+  <string name="xBroughtToYouByY">%1$s trazido a si por %2$s</string>
   <string name="studyNotFound">Estudo não encontrado</string>
   <string name="editChapter">Editar capítulo</string>
   <string name="newChapter">Novo capítulo</string>

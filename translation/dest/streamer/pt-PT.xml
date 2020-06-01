@@ -29,15 +29,15 @@
   <string name="whenReady">Quando estiveres pronto para ser listado como um streamer do Lichess, %s</string>
   <string name="requestReview">solicitar uma revisão de um moderador</string>
   <string name="anotherLanguage">Se a tua stream estiver num idioma que não o inglês, inclui a etiqueta correta da língua (%s), entre parênteses retos, no início do título da stream.
-Por exemplo, podes incluir \"[RU]\" para russo, \"[TR]\" para turco, \"[FR]\" para Francês, etc.
-Coloca isto no título do stream na página Twitch ou YouTube, não nas configurações da stream no Lichess.
+Por exemplo, podes incluir \"[PT]\" para português, \"[FR]\" para francês, \"[DE]\" para alemão etc.
+Coloca isto no título da stream na página Twitch ou YouTube, não nas configurações da stream no Lichess.
 Se a tua stream estiver em inglês, não há necessidade de incluir uma etiqueta de idioma.</string>
   <string name="twitchUsername">O teu nome de utilizador ou link na Twitch</string>
   <string name="optionalOrEmpty">Opcional. Deixa em branco se não existir</string>
   <string name="youtubeChannel">O ID ou link do teu canal de YouTube</string>
   <string name="streamerName">O teu nome de streamer no Lichess</string>
   <plurals name="keepItShort">
-    <item quantity="one">Mantem-no curto: %s caráctere no máximo</item>
+    <item quantity="one">Mantem-no curto: %s carácter no máximo</item>
     <item quantity="other">Mantem-no curto: %s carácteres no máximo</item>
   </plurals>
   <string name="visibility">Visível na página de streamers</string>
@@ -48,9 +48,9 @@ Se a tua stream estiver em inglês, não há necessidade de incluir uma etiqueta
   <string name="xStreamerPicture">imagem do streamer %s</string>
   <string name="changePicture">Alterar/apagar a tua imagem</string>
   <string name="uploadPicture">Adicionar uma imagem</string>
-  <string name="deletePicture">Apagar imagem</string>
+  <string name="deletePicture">Apagar a imagem</string>
   <string name="maxSize">Tamanho máximo: %s</string>
-  <string name="installBlocker">Instalar um bloqueador de malware!</string>
+  <string name="installBlocker">Instala um bloqueador de malware!</string>
   <string name="beSafe">Mantém-te seguro contra anúncios e rastreadores
 infestando a Twitch e o YouTube.
 O Lichess recomenda uBlock Origin, que é gratuito e open-source.</string>

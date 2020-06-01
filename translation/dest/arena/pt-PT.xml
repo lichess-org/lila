@@ -22,11 +22,11 @@ O modo Frenético não está disponível para jogos com tempo inicial de zero (0
 
 O modo Frenético apenas dá pontos extra se jogares um mínimo 7 movimentos no jogo.</string>
   <string name="howIsTheWinnerDecided">Como se decide o vencedor?</string>
-  <string name="howIsTheWinnerDecidedAnswer">O(s) jogadores com mais pontos no fim do tempo do torneio será(ão) anunciado(s) vencedor(es) do torneio.
+  <string name="howIsTheWinnerDecidedAnswer">O jogador(es) com mais pontos no final do tempo do torneio serão anunciados como vencedor(es).
 
-Quando dois ou mais jogadores têm o mesmo número de pontos, a performance no torneio é o critério de desempate.</string>
+Quando dois ou mais jogadores tiverem o mesmo número de pontos, o desempenho no torneio é o critério de desempate.</string>
   <string name="howDoesPairingWork">Como é que funciona o emparelhamento?</string>
-  <string name="howDoesPairingWorkAnswer">No inicio do torneio, os jogadores são emparelhados com base na sua pontuação. Assim que terminares um jogo, voltarás ao vestíbulo do torneio: então, serás emparelhado com um jogador com uma classificação próxima à tua. Isto garante o mínimo tempo de espera, contudo poderás não jogar contra todos os jogadores no torneio.
+  <string name="howDoesPairingWorkAnswer">No inicio do torneio, os jogadores são emparelhados com base na sua pontuação. Assim que terminares um jogo, volta ao vestíbulo do torneio: então, serás emparelhado com um jogador com uma classificação próxima à tua. Isto garante o mínimo tempo de espera, contudo poderás não jogar contra todos os jogadores no torneio.
 Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais pontos.</string>
   <string name="howDoesItEnd">Como é que termina?</string>
   <string name="howDoesItEndAnswer">O torneio tem um relógio de contagem decrescente. Quando chega a zero, as classificações do torneio são congeladas, e o vencedor é anunciado. Os jogos a decorrer têm de ser terminados, contudo, estes não contam para o torneio.</string>
@@ -38,5 +38,5 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   </plurals>
   <string name="thisIsPrivate">Este é um torneio privado</string>
   <string name="shareUrl">Partilha este link para que as pessoas possam entrar: %s</string>
-  <string name="drawStreak">Sequência de empates: Quando um jogador tem empates consecutivos numa arena, apenas o primeiro sorteio resultará em um ponto, ou empates que duraram mais de %s movimentos. A sequência de empates só pode ser quebrada por uma vitória, não por uma perda ou empate.</string>
+  <string name="drawStreak">Sequência de empates: Quando um jogador tem empates consecutivos numa arena, apenas o primeiro resultará em um ponto, ou empates que duraram mais de %s movimentos. A sequência de empates só pode ser quebrada por uma vitória, não por uma derrota ou empate.</string>
 </resources>

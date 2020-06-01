@@ -37,7 +37,7 @@ Tu precisas de ambos!</string>
   <string name="lastOne">Último!</string>
   <string name="kingComplete">Tu podes agora comandar o comandante!</string>
   <string name="theKnight">O cavalo</string>
-  <string name="itMovesInAnLShape">Mexe-se em forma de L</string>
+  <string name="itMovesInAnLShape">Move-se em forma de L</string>
   <string name="knightIntro">Aqui está um desafio para ti. O cavalo é... uma peça manhosa.</string>
   <string name="knightsHaveAFancyWay">Os cavalos têm uma maneira divertida
 de saltar por aí!</string>
@@ -45,7 +45,7 @@ de saltar por aí!</string>
 Escapa e vence as estrelas!</string>
   <string name="knightComplete">Parabéns! Já dominas o cavalo.</string>
   <string name="thePawn">O peão</string>
-  <string name="itMovesForwardOnly">Mexe-se só para a frente</string>
+  <string name="itMovesForwardOnly">Move-se só para a frente</string>
   <string name="pawnIntro">Os peões são fracos, mas têm muito potencial.</string>
   <string name="pawnsMoveOneSquareOnly">Os peões andam só uma casa de cada vez.
 Mas quando chegam ao final do tabuleiro, transformam-se numa peça mais forte!</string>
