@@ -62,15 +62,21 @@ final class StreamerApi(
         if (ids.exists(candidateIds.contains)) cache.candidateIds.invalidateUnit
       }
 
-  private[streamer] def mostRecentlySeenIds(ids: List[Streamer.Id], max: Int): Fu[Set[Streamer.Id]] =
+  private def toIds(docs: Seq[Bdoc]): Set[Streamer.Id] =
+    docs.view.flatMap { _.getAsOpt[Streamer.Id]("_id") }.toSet
+
+  private[streamer] def priorityDetection(ids: Set[Streamer.Id], max: Int): Fu[Set[Streamer.Id]] =
     coll.ext
-      .find($inIds(ids))
-      .sort($doc("seenAt" -> -1))
-      .list[Bdoc](max) dmap {
-      _ flatMap {
-        _.getAsOpt[Streamer.Id]("_id")
-      }
-    } dmap (_.toSet)
+      .find($inIds(ids) ++ $doc("liveAt" $gt DateTime.now.minusDays(10)), $id(true))
+      .sort($doc("approval.autoFeatured" -> -1, "liveAt" -> -1))
+      .list[Bdoc](max) dmap toIds flatMap { recentLive =>
+      if (recentLive.size >= max || recentLive.size >= ids.size) fuccess(recentLive)
+      else
+        coll.ext
+          .find($inIds(ids -- recentLive), $id(true))
+          .sort($doc("seenAt" -> -1))
+          .list[Bdoc](max - recentLive.size) dmap toIds dmap { recentLive ++ _ }
+    }
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
