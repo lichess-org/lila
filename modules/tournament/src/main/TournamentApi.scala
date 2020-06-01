@@ -603,12 +603,21 @@ final class TournamentApi(
 
   def notableFinished = cached.notableFinishedCache.get {}
 
+  // when loading /tournament
   def fetchVisibleTournaments: Fu[VisibleTournaments] =
     tournamentRepo.publicCreatedSorted(6 * 60).flatMap(filterMajor) zip
       tournamentRepo.publicStarted.flatMap(filterMajor) zip
       notableFinished map {
       case ((created, started), finished) =>
         VisibleTournaments(created, started, finished)
+    }
+
+  // when updating /tournament
+  def fetchUpdateTournaments: Fu[VisibleTournaments] =
+    tournamentRepo.scheduledCreatedSorted(6 * 60) zip
+      tournamentRepo.scheduledStarted map {
+      case (created, started) =>
+        VisibleTournaments(created, started, Nil)
     }
 
   private def filterMajor(tours: List[Tournament]): Fu[List[Tournament]] =
@@ -704,7 +713,7 @@ final class TournamentApi(
           15 seconds,
           { (_: Debouncer.Nothing) =>
             implicit val lang = lila.i18n.defaultLang
-            fetchVisibleTournaments flatMap apiJsonView.apply foreach { json =>
+            fetchUpdateTournaments flatMap apiJsonView.apply foreach { json =>
               Bus.publish(
                 SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
                 "sendToFlag"

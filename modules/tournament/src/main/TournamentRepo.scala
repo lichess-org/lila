@@ -185,11 +185,21 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   def publicCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] =
     coll.ext
-      .find(
-        startingSoonSelect(aheadMinutes) ++ $doc("password" $exists false)
-      )
+      .find(startingSoonSelect(aheadMinutes) ++ $doc("password" $exists false))
       .sort($doc("startsAt" -> 1))
       .list[Tournament](none)
+
+  def scheduledCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] =
+    coll.ext
+      .find(startingSoonSelect(aheadMinutes) ++ scheduledSelect)
+      .sort($doc("startsAt" -> 1))
+      .list[Tournament](none)
+
+  def scheduledStarted: Fu[List[Tournament]] =
+    coll.ext
+      .find(startedSelect ++ scheduledSelect)
+      .sort($doc("startsAt" -> -1))
+      .list[Tournament]()
 
   private[tournament] def shouldStartCursor =
     coll.ext
