@@ -3,6 +3,7 @@ package lila.forum
 import actorApi._
 import org.joda.time.DateTime
 import scala.util.chaining._
+import reactivemongo.api.ReadPreference
 
 import lila.common.Bus
 import lila.common.paginator._
@@ -222,16 +223,18 @@ final class PostApi(
       }
     }
 
-  private def nbByUser(userId: String) = env.postRepo.coll.countSel($doc("userId" -> userId))
+  def allUserIds(topicId: Topic.ID) = env.postRepo allUserIdsByTopicId topicId
+
+  def nbByUser(userId: String) = env.postRepo.coll.countSel($doc("userId" -> userId))
 
   private def recentUserIds(topic: Topic, newPostNumber: Int) =
     env.postRepo.coll
       .distinctEasy[User.ID, List](
         "userId",
         $doc(
-          "topicId" -> topicId,
+          "topicId" -> topic.id,
           "number" $gt (newPostNumber - 10),
-          "createdAt" $gt DatTime.now.minusDays(5)
+          "createdAt" $gt DateTime.now.minusDays(5)
         ),
         ReadPreference.secondaryPreferred
       )

@@ -102,6 +102,9 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
   def idsByTopicId(topicId: String): Fu[List[String]] =
     coll.distinctEasy[String, List]("_id", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
 
+  def allUserIdsByTopicId(topicId: String): Fu[List[User.ID]] =
+    coll.distinctEasy[User.ID, List]("userId", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
+
   def cursor =
     coll.ext
       .find($empty)
