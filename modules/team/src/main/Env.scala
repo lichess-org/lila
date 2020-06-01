@@ -50,10 +50,12 @@ final class Env(
 
   lazy val getTeamName = new GetTeamName(cached.blockingTeamName)
 
-  lila.common.Bus.subscribeFun("shadowban", "teamIsLeader", "teamJoinedBy") {
+  lila.common.Bus.subscribeFun("shadowban", "teamIsLeader", "teamJoinedBy", "teamIsLeaderOf") {
     case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
     case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
       promise completeWith cached.isLeader(teamId, userId)
+    case lila.hub.actorApi.team.IsLeaderOf(leaderId, memberId, promise) =>
+      promise completeWith api.isLeaderOf(leaderId, memberId)
     case lila.hub.actorApi.team.TeamIdsJoinedBy(userId, promise) =>
       promise completeWith cached.teamIdsList(userId)
   }

@@ -7,6 +7,7 @@ import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.report.AutoFlag
 import lila.hub.actorApi.clas.IsTeacherOf
+import lila.hub.actorApi.team.IsLeaderOf
 import lila.memo.RateLimit
 import lila.shutup.Analyser
 import lila.user.User
@@ -50,7 +51,7 @@ final private class MsgSecurity(
       may.post(contacts, isNew) flatMap {
         case false => fuccess(Block)
         case _ =>
-          isLimited(contacts.orig, isNew, unlimited) orElse
+          isLimited(contacts, isNew, unlimited) orElse
             isSpam(text) orElse
             isTroll(contacts) orElse
             isDirt(contacts.orig, text, isNew) getOrElse
@@ -72,12 +73,19 @@ final private class MsgSecurity(
         case _ =>
       }
 
-    private def isLimited(user: User.Contact, isNew: Boolean, unlimited: Boolean): Fu[Option[Verdict]] =
+    private def isLimited(contacts: User.Contacts, isNew: Boolean, unlimited: Boolean): Fu[Option[Verdict]] =
       if (unlimited) fuccess(none)
-      else {
-        val limiter = if (isNew) CreateLimitPerUser else ReplyLimitPerUser
-        !limiter(user.id, cost = limitCost(user))(true)(false) ?? fuccess(Limit.some)
+      else if (isNew) {
+        isLeaderOf(contacts) >>| isTeacherOf(contacts)
+      } map {
+        case true => none
+        case _ =>
+          CreateLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(Limit.some)
       }
+      else
+        fuccess {
+          ReplyLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(Limit.some)
+        }
 
     private def isSpam(text: String): Fu[Option[Verdict]] =
       spam.detect(text) ?? fuccess(Spam.some)
@@ -126,13 +134,16 @@ final private class MsgSecurity(
       )
 
     private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
-      if (contacts.orig.isKid && isNew) isTeacherOf(contacts.dest.id, contacts.orig.id)
+      if (contacts.orig.isKid && isNew) isTeacherOf(contacts)
       else if (!contacts.dest.isKid) fuTrue
-      else isTeacherOf(contacts.orig.id, contacts.dest.id)
-
-    private def isTeacherOf(t: User.ID, s: User.ID) =
-      Bus.ask[Boolean]("clas") { IsTeacherOf(t, s, _) }
+      else isTeacherOf(contacts)
   }
+
+  private def isTeacherOf(contacts: User.Contacts) =
+    Bus.ask[Boolean]("clas") { IsTeacherOf(contacts.orig.id, contacts.dest.id, _) }
+
+  private def isLeaderOf(contacts: User.Contacts) =
+    Bus.ask[Boolean]("teamIsLeaderOf") { IsLeaderOf(contacts.orig.id, contacts.dest.id, _) }
 }
 
 private object MsgSecurity {

@@ -235,6 +235,11 @@ final class TeamApi(
     }
   }
 
+  def isLeaderOf(leader: User.ID, member: User.ID) =
+    cached.teamIdsList(member) flatMap { teamIds =>
+      teamIds.nonEmpty ?? teamRepo.coll.exists($inIds(teamIds) ++ $doc("leaders" -> leader))
+    }
+
   def enable(team: Team): Funit =
     teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
 
