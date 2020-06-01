@@ -566,7 +566,8 @@ case class Game(
       case Rapid => 30
       case _ => 35
     }
-    base
+    if (isTournament && variant.russian && metadata.simulPairing.isDefined) base + 10
+    else base
   }
 
   def expirable =
@@ -634,7 +635,9 @@ case class Game(
     case _ => None
   }
 
-  def withTournamentId(id: String) = copy(metadata = metadata.copy(tournamentId = id.some))
+  def withTournamentId(id: String, tableId: Option[Int]) =
+    if (tableId.isDefined) copy(metadata = metadata.copy(tournamentId = id.some, simulPairing = tableId))
+    else copy(metadata = metadata.copy(tournamentId = id.some))
 
   def withSimul(id: String, pairing: Int) = copy(metadata = metadata.copy(simulId = id.some, simulPairing = pairing.some))
 

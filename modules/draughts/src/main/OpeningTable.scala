@@ -4,7 +4,10 @@ case class OpeningTable(key: String, name: String, url: String, positions: List[
 
   lazy val shuffled = new scala.util.Random(475592).shuffle(positions).toIndexedSeq
 
-  def randomOpening: StartingPosition = shuffled(scala.util.Random.nextInt(shuffled.size))
+  def randomOpening: (Int, StartingPosition) = {
+    val index = scala.util.Random.nextInt(shuffled.size)
+    index -> shuffled(index)
+  }
 }
 
 object OpeningTable {
