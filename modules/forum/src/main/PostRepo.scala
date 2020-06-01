@@ -99,9 +99,6 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
 
   def sortQuery = $sort.createdAsc
 
-  def userIdsByTopicId(topicId: String): Fu[List[String]] =
-    coll.distinctEasy[User.ID, List]("userId", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
-
   def idsByTopicId(topicId: String): Fu[List[String]] =
     coll.distinctEasy[String, List]("_id", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
 
