@@ -32,7 +32,7 @@ final class Tournament(
       .buildAsyncFuture { _ =>
         for {
           visible   <- api.fetchVisibleTournaments
-          scheduled <- repo.scheduledDedup
+          scheduled <- repo.allScheduledDedup
         } yield (visible, scheduled)
       }
   }
@@ -44,7 +44,9 @@ final class Tournament(
           (visible, scheduled) <- upcomingCache.getUnit
           finished             <- api.notableFinished
           winners              <- env.tournament.winners.all
-          scheduleJson         <- env.tournament apiJsonView visible
+          teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
+          teamVisible          <- repo.visibleForTeams(teamIds, 5 * 60)
+          scheduleJson         <- env.tournament.apiJsonView(visible add teamVisible)
         } yield NoCache {
           pageHit
           Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
@@ -383,7 +385,7 @@ final class Tournament(
       negotiate(
         html = notFound,
         api = _ =>
-          env.tournament.cached.promotable.getUnit.nevermind map {
+          env.tournament.cached.onHomepage.getUnit.nevermind map {
             lila.tournament.Spotlight.select(_, ctx.me, 4)
           } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
       )

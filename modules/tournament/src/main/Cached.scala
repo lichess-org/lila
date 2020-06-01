@@ -29,9 +29,9 @@ final private[tournament] class Cached(
     expireAfter = Syncache.ExpireAfterAccess(20 minutes)
   )
 
-  val promotable = cacheApi.unit[List[Tournament]] {
+  val onHomepage = cacheApi.unit[List[Tournament]] {
     _.refreshAfterWrite(2 seconds)
-      .buildAsyncFuture(_ => tournamentRepo.promotable)
+      .buildAsyncFuture(_ => tournamentRepo.onHomepage)
   }
 
   def ranking(tour: Tournament): Fu[Ranking] =
