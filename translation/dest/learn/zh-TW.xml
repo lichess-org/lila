@@ -99,7 +99,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">騎士越過了你的防線來將你軍了！</string>
   <string name="escapeOrBlock">讓國王逃跑，或是阻擋攻擊！</string>
   <string name="outOfCheckComplete">恭喜！你的國王永遠不會被吃掉，但請確保你不會被將軍！</string>
-  <string name="mateInOne">一步將</string>
+  <string name="mateInOne">一步將死</string>
   <string name="defeatTheOpponentsKing">攻擊敵方的國王</string>
   <string name="mateInOneIntro">如果你的對手無法應將，這局勝利將由你拿下。</string>
   <string name="attackYourOpponentsKing">用一種對手不能防禦的方式攻擊對手！</string>
