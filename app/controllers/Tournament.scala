@@ -45,8 +45,9 @@ final class Tournament(
           finished             <- api.notableFinished
           winners              <- env.tournament.winners.all
           teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
-          teamVisible          <- repo.visibleForTeams(teamIds, 5 * 60)
-          scheduleJson         <- env.tournament.apiJsonView(visible add teamVisible)
+          allTeamIds = (env.featuredTeamsSetting.get().value ++ teamIds).distinct
+          teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
+          scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
         } yield NoCache {
           pageHit
           Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))

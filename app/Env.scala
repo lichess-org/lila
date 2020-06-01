@@ -106,6 +106,11 @@ final class Env(
     text =
       "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
   )
+  lazy val featuredTeamsSetting = memo.settingStore[Strings](
+    "featuredTeams",
+    default = Strings(Nil),
+    text = "Team IDs that always get their tournaments visible on /tournament".some
+  )
 
   lazy val preloader     = wire[mashup.Preload]
   lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
