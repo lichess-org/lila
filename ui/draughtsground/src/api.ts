@@ -18,8 +18,8 @@ export interface Api {
   state: State;
 
   // get the position as a FEN string (only contains pieces, no flags)
-  // e.g. rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR
-  getFen(): cg.FEN;
+  // e.g. W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+  getFen(algebraic?: boolean): cg.FEN;
 
   // change the view angle
   toggleOrientation(): void;
@@ -101,7 +101,7 @@ export function start(state: State, redrawAll: cg.Redraw): Api {
 
     state,
 
-    getFen: () => fenWrite(state.pieces),
+    getFen: (algebraic?: boolean) => fenWrite(state.pieces, board.boardFields(state), algebraic),
 
     toggleOrientation,
 

@@ -1,5 +1,5 @@
 import * as cg from './types'
-import { allKeys } from './util'
+import { allKeys, algebraicKeys } from './util'
 
 export const initial: cg.FEN = 'W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20';
 
@@ -47,11 +47,11 @@ export function read(fen: cg.FEN, fields?: number): cg.Pieces {
   return pieces;
 }
 
-export function write(pieces: cg.Pieces, fields?: number): cg.FEN {
+export function write(pieces: cg.Pieces, fields?: number, algebraic?: boolean): cg.FEN {
   const max = fields || 50;
   let fenW = 'W', fenB = 'B';
   for (let f = 1; f <= max; f++) {
-    const fStr = f.toString(), piece = pieces[allKeys[f - 1]];
+    const key = allKeys[f - 1], piece = pieces[key];
     if (!piece) continue;
     if (piece.color === 'white') {
       if (fenW.length > 1) fenW += ',';
@@ -61,7 +61,8 @@ export function write(pieces: cg.Pieces, fields?: number): cg.FEN {
         fenW += 'G';
       else if (piece.role === 'ghostking')
         fenW += 'P';
-      fenW += fStr;
+      if (algebraic) fenW += algebraicKeys[f - 1];
+      else fenW += f.toString();
     } else {
       if (fenB.length > 1) fenB += ',';
       if (piece.role === 'king')
@@ -70,10 +71,53 @@ export function write(pieces: cg.Pieces, fields?: number): cg.FEN {
         fenB += 'G';
       else if (piece.role === 'ghostking')
         fenB += 'P';
-      fenB += fStr;
+      if (algebraic) fenB += algebraicKeys[f - 1];
+      else fenB += f.toString();
     }
   }
   return fenW + ':' + fenB;
+}
+
+export function algebraicFen(fen: cg.FEN, fields?: number): string {
+  if (!fen) return fen;
+  if (fen === 'start') fen = initial;
+  let fenOut = '', fenW = 'W', fenB = 'B';
+  for (let fenPart of fen.split(':')) {
+    let first = fenPart.slice(0, 1), clr: boolean;
+    if (first === 'W') clr = true;
+    else if (first === 'B') clr = false;
+    else continue;
+    if (fenPart.length === 1) {
+      fenOut = first;
+      continue;
+    }
+    const fenPieces = fenPart.slice(1).split(',');
+    for (let fenPiece of fenPieces) {
+      if (!fenPiece) continue;
+      let field, role = fenPiece.slice(0, 1);
+      switch (role) {
+        case 'K':
+        case 'G':
+        case 'P':
+          field = parseInt(fenPiece.slice(1));
+          break;
+        default:
+          field = parseInt(fenPiece);
+          role = '';
+          break;
+      }
+      if (field && (!fields || field <= fields)) {
+        if (clr) {
+          if (fenW.length > 1) fenW += ',';
+          fenW += role + algebraicKeys[field - 1];
+        } else {
+          if (fenB.length > 1) fenB += ',';
+          fenB += role + algebraicKeys[field - 1];
+        }
+      }
+    }
+  }
+  return (fenOut ? fenOut + ':' + fenW : fenW) + ':' + fenB;
 }
 
 export function countGhosts(fen: cg.FEN): number {

@@ -4,6 +4,7 @@ import { bind, baseUrl } from '../util';
 import { prop } from 'common';
 import { renderIndexAndMove } from '../moveView';
 import { StudyData, StudyChapterMeta } from './interfaces';
+import { algebraicFen } from 'draughtsground/fen';
 
 function fromPly(ctrl): VNode {
   const renderedMove = renderIndexAndMove({
@@ -25,7 +26,7 @@ function fromPly(ctrl): VNode {
   ]));
 }
 
-export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, redraw: () => void, trans: Trans) {
+export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, redraw: () => void, trans: Trans, isAlgebraic: () => boolean) {
   const withPly = prop(false);
   return {
     studyId: data.id,
@@ -37,7 +38,8 @@ export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, cu
     withPly,
     cloneable: data.features.cloneable,
     redraw,
-    trans
+    trans,
+    isAlgebraic
   }
 }
 
@@ -122,7 +124,7 @@ export function view(ctrl): VNode {
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
-            value: ctrl.currentNode().fen
+            value: ctrl.isAlgebraic() ? algebraicFen(ctrl.currentNode().fen) : ctrl.currentNode().fen
           },
         })
       ])
