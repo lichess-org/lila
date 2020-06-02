@@ -15,9 +15,9 @@
   <string name="downloadKit">Descarrega o \"kit\" de streamer</string>
   <string name="xIsStreaming">%s está a transmitir</string>
   <string name="rules">Regras de streaming</string>
-  <string name="rule1">Incluir a palavra-chave \"lichess.org\" no título da sua stream quando transmitir no Lichess.</string>
-  <string name="rule2">Remover a palavra-chave quando transmite algo não relacionado com o Lichess.</string>
-  <string name="rule3">O Lichess detetará a sua transmissão automaticamente e ativará as seguintes regalias:</string>
+  <string name="rule1">Incluir a palavra-chave \"lichess.org\" no título da stream quando transmitir no Lichess.</string>
+  <string name="rule2">Remover a palavra-chave quando transmitir algo não relacionado com o Lichess.</string>
+  <string name="rule3">O Lichess detetará a tua stream automaticamente e ativará as seguintes regalias:</string>
   <string name="perks">Benefícios de transmitir com a palavra-chave</string>
   <string name="perk1">Obténs um ícone de streamer flamejante no teu perfil do Lichess.</string>
   <string name="perk2">Chegas ao topo da lista de streamers.</string>
