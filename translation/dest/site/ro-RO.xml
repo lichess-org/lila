@@ -898,4 +898,6 @@
   <string name="joinTheTeamXToPost">Alăturați-vă echipei %1$s, pentru a posta pe acest forum</string>
   <string name="teamNamedX">echipa %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Încă nu puteți posta în forumuri. Jucați câteva partide!</string>
+  <string name="subscribe">Abonați-vă</string>
+  <string name="unsubscribe">Dezabonați-vă</string>
 </resources>
