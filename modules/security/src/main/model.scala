@@ -2,7 +2,6 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import reactivemongo.api.bson.{ BSONHandler, Macros }
 
 import lila.common.{ EmailAddress, IpAddress }
 import lila.user.User
