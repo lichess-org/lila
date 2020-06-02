@@ -1,7 +1,7 @@
 var draughtsground = require('./draughtsground');
 var dragNewPiece = require('draughtsground/drag').dragNewPiece;
 var eventPosition = require('draughtsground/util').eventPosition;
-var algebraicFen = require('draughtsground/fen').algebraicFen;
+var toggleCoordinates = require('draughtsground/fen').toggleCoordinates;
 var resizeHandle = require('common/resize').default;
 var editor = require('./editor');
 var m = require('mithril');
@@ -287,6 +287,6 @@ module.exports = function(ctrl) {
       })
     ]),
     controls(ctrl, fen),
-    inputs(ctrl, ctrl.isAlgebraic() ? algebraicFen(fen) : fen)
+    inputs(ctrl, toggleCoordinates(fen, ctrl.isAlgebraic()))
   ]);
 };

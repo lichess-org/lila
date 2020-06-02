@@ -2,7 +2,7 @@ import AnalyseCtrl from './ctrl';
 import { defined } from 'common';
 import { baseUrl } from './util';
 import { AnalyseData } from './interfaces';
-import { algebraicFen } from 'draughtsground/fen';
+import { toggleCoordinates } from 'draughtsground/fen';
 
 export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
@@ -34,7 +34,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     li.pubsub.on('analysis.change', (fen: Fen, _, mainlinePly: Ply | false) => {
       let chart, point, $chart = $("#acpl-chart");
       if (fen && fen !== lastFen) {
-        inputFen.value = ctrl.isAlgebraic() ? algebraicFen(fen) :fen;
+        inputFen.value = toggleCoordinates(fen, ctrl.isAlgebraic());
         lastFen = fen;
       }
       if ($chart.length) {

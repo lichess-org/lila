@@ -31,7 +31,7 @@ import relayIntro from './study/relay/relayIntroView';
 import renderPlayerBars from './study/playerBars';
 import serverSideUnderboard from './serverSideUnderboard';
 import * as gridHacks from './gridHacks';
-import { algebraicFen } from 'draughtsground/fen';
+import { toggleCoordinates } from 'draughtsground/fen';
 
 const li = window.lidraughts;
 
@@ -101,7 +101,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
       h('input.copyable.autoselect.analyse__underboard__fen', {
         attrs: {
           spellCheck: false,
-          value: ctrl.isAlgebraic() ? algebraicFen(ctrl.node.fen) : ctrl.node.fen
+          value: ctrl.isAlgebraic() ? toggleCoordinates(ctrl.node.fen, true) : ctrl.node.fen
         },
         hook: bind('change', e => {
           const value = (e.target as HTMLInputElement).value;

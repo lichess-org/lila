@@ -4,7 +4,7 @@ import { bind, baseUrl } from '../util';
 import { prop } from 'common';
 import { renderIndexAndMove } from '../moveView';
 import { StudyData, StudyChapterMeta } from './interfaces';
-import { algebraicFen } from 'draughtsground/fen';
+import { toggleCoordinates } from 'draughtsground/fen';
 
 function fromPly(ctrl): VNode {
   const renderedMove = renderIndexAndMove({
@@ -124,7 +124,7 @@ export function view(ctrl): VNode {
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
-            value: ctrl.isAlgebraic() ? algebraicFen(ctrl.currentNode().fen) : ctrl.currentNode().fen
+            value: ctrl.isAlgebraic() ? toggleCoordinates(ctrl.currentNode().fen, true) : ctrl.currentNode().fen
           },
         })
       ])

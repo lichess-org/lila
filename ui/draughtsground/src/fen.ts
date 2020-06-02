@@ -16,28 +16,32 @@ export function read(fen: cg.FEN, fields?: number): cg.Pieces {
     const fenPieces = fenPart.slice(1).split(',');
     for (let fenPiece of fenPieces) {
       if (!fenPiece) continue;
-      let fieldNumber, role: cg.Role;
+      let fieldStr, role: cg.Role;
       switch (fenPiece.slice(0, 1)) {
         case 'K':
           role = 'king';
-          fieldNumber = fenPiece.slice(1);
+          fieldStr = fenPiece.slice(1);
           break;
         case 'G':
           role = 'ghostman';
-          fieldNumber = fenPiece.slice(1);
+          fieldStr = fenPiece.slice(1);
           break;
         case 'P':
           role = 'ghostking';
-          fieldNumber = fenPiece.slice(1);
+          fieldStr = fenPiece.slice(1);
           break;
         default:
           role = 'man';
-          fieldNumber = fenPiece;
+          fieldStr = fenPiece;
           break;
       }
-      if (fieldNumber.length === 1) fieldNumber = '0' + fieldNumber;
-      if (!fields || parseInt(fieldNumber) <= fields) {
-        pieces[fieldNumber as cg.Key] = {
+      if (fieldStr.length === 1) fieldStr = '0' + fieldStr;
+      let fieldNumber = parseInt(fieldStr);
+      if (!fieldNumber) {
+        fieldNumber = algebraicKeys.indexOf(fieldStr) + 1;
+      }
+      if (fieldNumber && (!fields || fieldNumber <= fields)) {
+        pieces[fieldStr as cg.Key] = {
           color: clr,
           role
         };
@@ -78,7 +82,7 @@ export function write(pieces: cg.Pieces, fields?: number, algebraic?: boolean): 
   return fenW + ':' + fenB;
 }
 
-export function algebraicFen(fen: cg.FEN, fields?: number): string {
+export function toggleCoordinates(fen: cg.FEN, algebraic: boolean, fields?: number): string {
   if (!fen) return fen;
   if (fen === 'start') fen = initial;
   let fenOut = '', fenW = 'W', fenB = 'B';
@@ -94,25 +98,43 @@ export function algebraicFen(fen: cg.FEN, fields?: number): string {
     const fenPieces = fenPart.slice(1).split(',');
     for (let fenPiece of fenPieces) {
       if (!fenPiece) continue;
-      let field, role = fenPiece.slice(0, 1);
+      let fieldStr, role = fenPiece.slice(0, 1);
       switch (role) {
         case 'K':
         case 'G':
         case 'P':
-          field = parseInt(fenPiece.slice(1));
+          fieldStr = fenPiece.slice(1);
           break;
         default:
-          field = parseInt(fenPiece);
+          fieldStr = fenPiece;
           role = '';
           break;
       }
-      if (field && (!fields || field <= fields)) {
-        if (clr) {
-          if (fenW.length > 1) fenW += ',';
-          fenW += role + algebraicKeys[field - 1];
-        } else {
-          if (fenB.length > 1) fenB += ',';
-          fenB += role + algebraicKeys[field - 1];
+      if (algebraic) {
+        const fieldNumber = parseInt(fieldStr);
+        if (fieldNumber && (!fields || fieldNumber <= fields)) {
+          if (clr) {
+            if (fenW.length > 1) fenW += ',';
+            fenW += role + algebraicKeys[fieldNumber - 1];
+          } else {
+            if (fenB.length > 1) fenB += ',';
+            fenB += role + algebraicKeys[fieldNumber - 1];
+          }
+        } else if (!fieldNumber && algebraicKeys.includes(fieldStr)) {
+          return fen; // assume the FEN is already algebraic
+        }
+      } else {
+        const coordIndex = algebraicKeys.indexOf(fieldStr);
+        if (coordIndex !== -1 && (!fields || coordIndex < fields)) {
+          if (clr) {
+            if (fenW.length > 1) fenW += ',';
+            fenW += role + (coordIndex + 1).toString();
+          } else {
+            if (fenB.length > 1) fenB += ',';
+            fenB += role + (coordIndex + 1).toString();
+          }
+        } else if (coordIndex === -1 && parseInt(fieldStr)) {
+          return fen; // assume the FEN is already fieldnumbers
         }
       }
     }

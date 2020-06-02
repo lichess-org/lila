@@ -3,7 +3,7 @@ import { h } from 'snabbdom'
 import { initialFen } from 'draughts';
 import { MaybeVNodes } from './interfaces';
 import { ops as treeOps } from 'tree';
-import { algebraicFen } from 'draughtsground/fen';
+import { toggleCoordinates } from 'draughtsground/fen';
 
 interface PdnNode {
   ply: Ply;
@@ -21,7 +21,7 @@ function renderNodesTxt(nodes: PdnNode[]): string {
     if (node.ply === 0) return;
     if (node.ply % 2 === 1) s += ((node.ply + 1) / 2) + '. '
     else s += '';
-    s += (node.alg || node.san!) + ((i + 9) % 8 === 0 ? '\n' : ' ');
+    s += (node.alg ? node.alg.replace(':', 'x') : node.san!) + ((i + 9) % 8 === 0 ? '\n' : ' ');
   });
   return s.trim();
 }
@@ -35,9 +35,9 @@ export function renderFullTxt(ctrl: AnalyseCtrl, fromNode?: boolean): string {
   }
   if (fromNode) {
     const fen = ctrl.tree.nodeAtPath(ctrl.path.slice(0, -2)).fen;
-    tags.push(['FEN', ctrl.isAlgebraic() ? algebraicFen(fen) : fen]);
+    tags.push(['FEN', toggleCoordinates(fen, ctrl.isAlgebraic())]);
   } else if (g.initialFen && g.initialFen !== initialFen)
-    tags.push(['FEN',ctrl.isAlgebraic() ? algebraicFen(g.initialFen) : g.initialFen]);
+    tags.push(['FEN', toggleCoordinates(g.initialFen, ctrl.isAlgebraic())]);
   if (tags.length)
     txt = tags.map(function (t) {
       return '[' + t[0] + ' "' + t[1] + '"]';

@@ -405,6 +405,13 @@ object Pos64 extends BoardPos {
 
   val posCache = new Array[Some[PosMotion]](32)
 
+  private lazy val algebraicIndex: Map[String, PosMotion] = posCache.map { p =>
+    val pos = p.get
+    val algY = 9 - pos.y
+    val algX = pos.x * 2 - algY % 2
+    s"${(96 + algX).toChar}$algY" -> pos
+  }(scala.collection.breakOut)
+
   def posAt(x: Int, y: Int): Option[PosMotion] =
     if (x < 1 || x > 4 || y < 1 || y > 8) None
     else posCache(x + 4 * y - 5)
@@ -413,7 +420,8 @@ object Pos64 extends BoardPos {
     if (field < 1 || field > 32) None
     else posCache(field - 1)
 
-  def posAt(field: String): Option[PosMotion] = parseIntOption(field).flatMap(posAt)
+  def posAt(field: String): Option[PosMotion] =
+    parseIntOption(field).fold(algebraicIndex get field)(posAt)
 
   def piotr(c: Char): Option[PosMotion] = allPiotrs get c
 
