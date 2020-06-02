@@ -497,7 +497,7 @@ object mod {
         ),
         tbody(
           othersWithEmail.others.map {
-            case lila.security.UserSpy.OtherUser(o, byIp, byFp) =>
+            case other @ lila.security.UserSpy.OtherUser(o, _, _) =>
               val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
               val userNotes =
                 notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
@@ -506,9 +506,15 @@ object mod {
                 else td,
                 if (dox) td(othersWithEmail emailValueOf o)
                 else td,
-                td(dataSort := (byIp ?? 1) + (byFp ?? 3))(
-                  if (o == u) "-"
-                  else List(byIp option "IP", byFp option "Print").flatten.mkString(", ")
+                td(
+                  // show prints and ips separately
+                  dataSort := other.score + (other.ips.nonEmpty ?? 1000000) + (other.fps.nonEmpty ?? 3000000)
+                )(
+                  List(other.ips.size -> "IP", other.fps.size -> "Print")
+                    .collect {
+                      case (nb, name) if nb > 0 => s"$nb $name"
+                    }
+                    .mkString(", ")
                 ),
                 td(dataSort := o.count.game)(o.count.game.localize),
                 markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id))),

@@ -12,28 +12,23 @@ case class UserSpy(
     ips: List[UserSpy.IPData],
     uas: List[Store.Dated[String]],
     prints: List[Store.Dated[FingerHash]],
-    usersSharingIp: List[User],
-    usersSharingFingerprint: List[User]
+    otherUsers: List[UserSpy.OtherUser]
 ) {
 
   import UserSpy.OtherUser
 
   def rawIps = ips map (_.ip.value)
+  def rawFps = prints map (_.value)
 
   def ipsByLocations: List[(Location, List[UserSpy.IPData])] =
     ips.sortBy(_.ip).groupBy(_.location).toList.sortBy(_._1.comparable)
 
-  lazy val otherUsers: List[OtherUser] = {
-    val ipIds = usersSharingIp.view.map(_.id).toSet
-    val fpIds = usersSharingFingerprint.view.map(_.id).toSet
-    usersSharingIp.map { u =>
-      OtherUser(u, true, fpIds contains u.id)
-    } ++ usersSharingFingerprint.filterNot(u => ipIds.contains(u.id)).map {
-      OtherUser(_, false, true)
-    }
-  }
-
   def otherUserIds = otherUsers.map(_.user.id)
+
+  def usersSharingIp =
+    otherUsers.collect {
+      case OtherUser(user, ips, _) if ips.nonEmpty => user
+    }
 }
 
 final class UserSpyApi(
@@ -48,20 +43,18 @@ final class UserSpyApi(
 
   def apply(user: User, maxOthers: Int): Fu[UserSpy] =
     store.chronoInfoByUser(user) flatMap { infos =>
-      val ips    = distinctRecent(infos.map(_.datedIp))
-      val prints = distinctRecent(infos.flatMap(_.datedFp))
-      nextUsers("ip", ips.map(_.value.value).toList, user, maxOthers) zip
-        nextUsers("fp", prints.map(_.value.value).toList, user, maxOthers) zip
+      val ips = distinctRecent(infos.map(_.datedIp))
+      val fps = distinctRecent(infos.flatMap(_.datedFp))
+      fetchOtherUsers(user, ips.map(_.value).toList, fps.map(_.value).toList, maxOthers) zip
         ip2proxy.keepProxies(ips.map(_.value).toList) map {
-        case sharingIp ~ sharingFingerprint ~ proxies =>
+        case otherUsers ~ proxies =>
           UserSpy(
             ips = ips.map { ip =>
               IPData(ip, firewall blocksIp ip.value, geoIP orUnknown ip.value, proxies(ip.value))
             }.toList,
             uas = distinctRecent(infos.map(_.datedUa)).toList,
-            prints = prints.toList,
-            usersSharingIp = sharingIp,
-            usersSharingFingerprint = sharingFingerprint
+            prints = fps.toList,
+            otherUsers = otherUsers
           )
       }
     }
@@ -69,25 +62,50 @@ final class UserSpyApi(
   private[security] def userHasPrint(u: User): Fu[Boolean] =
     store.coll.secondaryPreferred.exists($doc("user" -> u.id, "fp" $exists true))
 
-  private def nextUsers(field: String, values: Seq[String], user: User, max: Int): Fu[List[User]] =
-    values.nonEmpty ?? store.coll
+  private def fetchOtherUsers(
+      user: User,
+      ips: Seq[IpAddress],
+      fps: Seq[FingerHash],
+      max: Int
+  ): Fu[List[OtherUser]] =
+    ips.nonEmpty ?? store.coll
       .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
+        import FingerHash.fpHandler
         Match(
           $doc(
-            field $in values,
+            $or(
+              "ip" $in ips,
+              "fp" $in fps
+            ),
             "user" $ne user.id,
             "date" $gt DateTime.now.minusYears(1)
           )
         ) -> List(
-          Group(BSONNull)("uid" -> AddFieldToSet("user")),
-          UnwindField("uid"),
+          GroupField("user")(
+            "ips" -> AddFieldToSet("ip"),
+            "fps" -> AddFieldToSet("fp")
+          ),
+          AddFields(
+            $doc(
+              "nbIps" -> $doc("$size" -> "$ips"),
+              "nbFps" -> $doc("$size" -> "$fps")
+            )
+          ),
+          AddFields(
+            $doc(
+              "score" -> $doc(
+                "$add" -> $arr("$nbIps", "$nbFps", $doc("$multiply" -> $arr("$nbIps", "$nbFps")))
+              )
+            )
+          ),
+          Sort(Descending("score")),
           Limit(max),
           PipelineOperator(
             $doc(
               "$lookup" -> $doc(
                 "from"         -> userRepo.coll.name,
-                "localField"   -> "uid",
+                "localField"   -> "_id",
                 "foreignField" -> "_id",
                 "as"           -> "user"
               )
@@ -101,7 +119,9 @@ final class UserSpyApi(
         for {
           doc  <- docs
           user <- doc.getAsOpt[User]("user")
-        } yield user
+          ips  <- doc.getAsOpt[Set[IpAddress]]("ips")
+          fps  <- doc.getAsOpt[Set[FingerHash]]("fps")
+        } yield OtherUser(user, ips, fps)
       }
 
   def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] =
@@ -125,7 +145,11 @@ object UserSpy {
 
   import Store.Dated
 
-  case class OtherUser(user: User, byIp: Boolean, byFingerprint: Boolean)
+  case class OtherUser(user: User, ips: Set[IpAddress], fps: Set[FingerHash]) {
+    val nbIps = ips.size
+    val nbFps = fps.size
+    val score = nbIps + nbFps + nbIps * nbFps
+  }
 
   // distinct values, keeping the most recent of duplicated values
   // assumes all is sorted by most recent first
@@ -148,18 +172,11 @@ object UserSpy {
   def withMeSortedWithEmails(
       userRepo: UserRepo,
       me: User,
-      others: List[OtherUser]
+      spy: UserSpy
   )(implicit ec: scala.concurrent.ExecutionContext): Fu[WithMeSortedWithEmails] =
-    userRepo.emailMap(me.id :: others.map(_.user.id)) map { emailMap =>
-      val now = nowSeconds
+    userRepo.emailMap(me.id :: spy.otherUsers.map(_.user.id)) map { emailMap =>
       WithMeSortedWithEmails(
-        (OtherUser(me, true, true) :: others).sortBy { u =>
-          now - (u.user.createdAt.getMillis / 1000) - {
-            u.byFingerprint ?? 1_200_000_000
-          } - {
-            u.byIp ?? 600_000_000
-          }
-        },
+        (OtherUser(me, spy.rawIps.toSet, spy.rawFps.toSet) :: spy.otherUsers),
         emailMap
       )
     }

@@ -361,7 +361,7 @@ final class User(
             .forMod(familyUserIds)
             .logTimeIfGt(s"$username noteApi.forMod", 2 seconds)) zip
             env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
-            lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy.otherUsers) map {
+            lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy) map {
             case notes ~ bans ~ othersWithEmail =>
               html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans, nbOthers)
           }
