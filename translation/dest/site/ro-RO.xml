@@ -891,4 +891,11 @@
   <string name="yourQuestionMayHaveBeenAnswered">Este posibil ca întrebarea dvs. să aibă deja un răspuns %1$s</string>
   <string name="inTheFAQ">în F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Pentru a raporta un utilizator pentru trișare sau comportament inadecvat, %1$s</string>
+  <string name="useTheReportForm">folosiți formularul de raportare</string>
+  <string name="toRequestSupport">Pentru a solicita asistență, %1$s</string>
+  <string name="tryTheContactPage">încercați pagina de contact</string>
+  <string name="thisTopicIsArchived">Acest subiect a fost arhivat și nu mai acceptă răspunsuri.</string>
+  <string name="joinTheTeamXToPost">Alăturați-vă echipei %1$s, pentru a posta pe acest forum</string>
+  <string name="teamNamedX">echipa %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Încă nu puteți posta în forumuri. Jucați câteva partide!</string>
 </resources>
