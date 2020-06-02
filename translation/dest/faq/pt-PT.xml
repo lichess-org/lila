@@ -11,12 +11,12 @@
   <string name="howCanIContributeToLichess">Como posso contribuir para o Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">O Lichess depende totalmente de doações de patronos e dos esforços de uma equipa de voluntários.</string>
   <string name="findMoreAndSeeHowHelp">Podes encontrar mais sobre %1$s (incluindo uma %2$s). Se quiseres ajudar o Lichess voluntariando o teu tempo e capacidades, há várias %3$s.</string>
-  <string name="beingAPatron">ser um \"patron\"</string>
+  <string name="beingAPatron">ser um patrono</string>
   <string name="breakdownOfOurCosts">repartição dos nossos custos</string>
   <string name="otherWaysToHelp">outras formas de ajudar</string>
   <string name="areThereWebsitesBasedOnLichess">Existem sites baseados no Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sim. De facto, o Lichess tem inspirado outros sites open-source que usam o nosso %1$s, %2$s ou %3$s.</string>
-  <string name="fairPlay">Jogo Justo</string>
+  <string name="fairPlay">Jogo justo</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Por que é que estou marcado por manipulação artificial da pontuação (perder de propósito ou fazer batota) ou ajuda do computador?</string>
   <string name="cheatDetectionMethods">O Lichess tem fortes métodos de detenção de batota e um um processo minucioso de rever todas as provas e tomar uma decisão. Frequentemente, este processo envolve vários moderadores e pode levar muito tempo. Para além de marcarmos o jogador, não nos alongamos em detalhes para cada caso individual. Fazê-lo só tornaria mais fácil evitar ser detetado no futuro e levaria a debates inúteis. Este tempo e esforço podem ser melhor espregues em outras situações importantes. Os utilizador podem enviar-nos um email para %1$s, mas as decisões raramente são alteradas.</string>
   <string name="whenAmIEligibleRatinRefund">Quando é que recebo devoluções automáticas de pontuação por causa de batoteiros?</string>
@@ -137,7 +137,7 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
   <string name="howToThreeDots">Como é que...</string>
   <string name="enableDisableNotificationPopUps">Ativo ou desativo as notificações pop-up?</string>
   <string name="viewSiteInformationPopUp">Vejo a informação pop-up do site</string>
-  <string name="lichessCanOptionnalySendPopUps">O Lichess pode enviar notificações pop-up opcionalmente, por exemplo, quando é tua vez ou quando recebeste uma mensagem privada.
+  <string name="lichessCanOptionnalySendPopUps">O Lichess pode enviar notificações pop-up opcionalmente, por exemplo, quando for tua vez ou quando tiveres recebido uma mensagem privada.
 
 Clica no ícone de cadeado ao lado do endereço lichess.org na barra de URL do teu navegador.
 
