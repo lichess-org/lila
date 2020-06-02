@@ -16,7 +16,7 @@ final class PageCache(security: lila.security.SecurityApi, cacheApi: lila.memo.C
   }
 
   def apply(compute: () => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    if (ctx.isAnon && langs(ctx.lang.language) && defaultPrefs(ctx.req))
+    if (ctx.isAnon && langs(ctx.lang.language) && defaultPrefs(ctx.req) && !hasCookies(ctx.req))
       cache.getFuture(cacheKey(ctx), _ => compute())
     else
       compute()
@@ -29,4 +29,7 @@ final class PageCache(security: lila.security.SecurityApi, cacheApi: lila.memo.C
 
   private val langs =
     Set("en", "ru", "tr", "de", "es", "fr", "pt", "it", "pl", "ar", "fa", "id", "nl", "nb", "sv")
+
+  private def hasCookies(req: RequestHeader) =
+    lila.security.EmailConfirm.cookie.has(req)
 }
