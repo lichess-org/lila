@@ -71,6 +71,7 @@ object Forsyth {
       case _ => None
     }
   }
+
   /**
    * Only cares about pieces positions on the board (second and third part of FEN string)
    */
@@ -88,9 +89,9 @@ object Forsyth {
               for (field <- fields.split(',')) {
                 if (field.nonEmpty)
                   field.charAt(0) match {
-                    case 'K' => posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, King))) }
-                    case 'G' => posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, GhostMan))) }
-                    case 'P' => posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, GhostKing))) }
+                    case 'K' => posAt(field.drop(1)).foreach { pos => allFields.+=((pos, Piece(color, King))) }
+                    case 'G' => posAt(field.drop(1)).foreach { pos => allFields.+=((pos, Piece(color, GhostMan))) }
+                    case 'P' => posAt(field.drop(1)).foreach { pos => allFields.+=((pos, Piece(color, GhostKing))) }
                     case _ => posAt(field).fold() { pos => allFields.+=((pos, Piece(color, Man))) }
                   }
               }
@@ -99,6 +100,11 @@ object Forsyth {
       Board(allFields, variant).some
     }
   }
+
+  def toAlgebraic(variant: Variant, rawSource: String): Option[String] =
+    <<<@(variant, rawSource) map {
+      case parsed @ SituationPlus(situation, _) => doExport(DraughtsGame(situation, turns = parsed.turns), algebraic = true)
+    }
 
   def countGhosts(rawSource: String): Int = read(rawSource) { fen =>
     fen.split(':').filter(_.nonEmpty).foldLeft(0) {
@@ -132,10 +138,12 @@ object Forsyth {
     case SituationPlus(situation, _) => >>(DraughtsGame(situation, turns = parsed.turns))
   }
 
-  def >>(game: DraughtsGame): String = {
+  def >>(game: DraughtsGame): String = doExport(game, algebraic = false)
+
+  private def doExport(game: DraughtsGame, algebraic: Boolean): String = {
     List(
       game.player.letter.toUpper,
-      exportBoard(game.board),
+      exportBoard(game.board, algebraic),
       "H" + game.halfMoveClock.toString,
       "F" + game.fullMoveNumber.toString
     ) ::: {
@@ -153,7 +161,7 @@ object Forsyth {
     case KingMoves(white, black, whiteKing, blackKing) => s"+$black${blackKing.fold("")(_.toString)}+$white${whiteKing.fold("")(_.toString)}"
   }
 
-  def exportBoard(board: Board): String = {
+  def exportBoard(board: Board, algebraic: Boolean = false): String = {
     val fenW = new scala.collection.mutable.StringBuilder(60)
     val fenB = new scala.collection.mutable.StringBuilder(60)
     fenW.append(White.letter)
@@ -163,11 +171,13 @@ object Forsyth {
         if (piece is White) {
           if (fenW.length > 1) fenW append ','
           if (piece isNot Man) fenW append piece.forsyth
-          fenW append f
+          if (algebraic) board.boardSize.pos.algebraic(f) foreach fenW.append
+          else fenW append f
         } else {
           if (fenB.length > 1) fenB append ','
           if (piece isNot Man) fenB append piece.forsyth
-          fenB append f
+          if (algebraic) board.boardSize.pos.algebraic(f) foreach fenB.append
+          else fenB append f
         }
       }
     }

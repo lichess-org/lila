@@ -31,6 +31,7 @@ object Analyse extends LidraughtsController {
   def replay(pov: Pov, userTv: Option[lidraughts.user.User], userTvGameId: Option[String] = None)(implicit ctx: Context) =
     if (HTTPRequest isBot ctx.req) replayBot(pov)
     else GameRepo initialFen pov.gameId flatMap { initialFen =>
+      val pdnFlags = PdnDump.WithFlags(clocks = false, draughtsResult = ctx.pref.draughtsResult, algebraic = ctx.pref.isAlgebraic(pov.game.variant))
       Game.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
         (env.analyser get pov.game) zip
           Env.draughtsnet.api.gameIdExists(pov.gameId) zip
@@ -38,7 +39,7 @@ object Analyse extends LidraughtsController {
           Round.getWatcherChat(pov.game) zip
           (ctx.noBlind ?? Env.game.crosstableApi.withMatchup(pov.game)) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
-          Env.api.pdnDump(pov.game, initialFen, analysis = none, PdnDump.WithFlags(clocks = false, draughtsResult = ctx.pref.draughtsResult)) zip
+          Env.api.pdnDump(pov.game, initialFen, analysis = none, pdnFlags) zip
           isGranted(_.Hunter).??(Env.mod.cheatList.get(pov.game).map(some)) flatMap {
             case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pdn ~ onCheatList =>
               Env.api.roundApi.review(pov, lidraughts.api.Mobile.Api.currentVersion,

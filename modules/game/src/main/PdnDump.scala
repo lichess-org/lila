@@ -19,7 +19,7 @@ final class PdnDump(
       Parser.full(pdni.pdn).toOption
     }
     val tagsFuture =
-      if (flags.tags) tags(game, initialFen, imported, flags.draughtsResult, withOpening = flags.opening)
+      if (flags.tags) tags(game, initialFen, imported, flags.draughtsResult, flags.opening, flags.algebraic)
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val turns = flags.moves ?? {
@@ -47,7 +47,7 @@ final class PdnDump(
     p.aiLevel.fold(u.fold(p.name | lidraughts.user.User.anonymous)(_.name))("lidraughts AI level " + _)
 
   private val customStartPosition: Set[draughts.variant.Variant] =
-    Set(draughts.variant.Frysk, draughts.variant.FromPosition)
+    Set(draughts.variant.Russian, draughts.variant.Frysk, draughts.variant.FromPosition)
 
   private def eventOf(game: Game) = {
     val perf = game.perfType.fold("Standard")(_.name)
@@ -68,10 +68,15 @@ final class PdnDump(
     initialFen: Option[FEN],
     imported: Option[ParsedPdn],
     draughtsResult: Boolean,
+    algebraic: Boolean,
     withOpening: Boolean
   ): Fu[Tags] = gameLightUsers(game) map {
     case (wu, bu) => Tags {
       val importedDate = imported.flatMap(_.tags(_.Date))
+      def convertedFen = initialFen.flatMap { fen =>
+        if (algebraic) Forsyth.toAlgebraic(game.variant, fen.value) map FEN
+        else fen.some
+      }
       List[Option[Tag]](
         Tag(_.Event, imported.flatMap(_.tags(_.Event)) | { if (game.imported) "Import" else eventOf(game) }).some,
         Tag(_.Site, gameUrl(game.id)).some,
@@ -103,8 +108,7 @@ final class PdnDump(
           }
         }).some
       ).flatten ::: customStartPosition(game.variant).??(List(
-          Tag(_.FEN, initialFen.fold("?")(_.value))
-        //Tag("SetUp", "1")
+          Tag(_.FEN, convertedFen.fold("?")(_.value))
         ))
     }
   }
@@ -142,7 +146,8 @@ object PdnDump {
       evals: Boolean = true,
       opening: Boolean = true,
       literate: Boolean = false,
-      draughtsResult: Boolean = true
+      draughtsResult: Boolean = true,
+      algebraic: Boolean = false
   )
 
   def result(game: Game, draughtsResult: Boolean) =

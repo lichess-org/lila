@@ -231,7 +231,7 @@ private[api] final class GameApi(
         initialFen = initialFen,
         variant = g.variant
       ).toOption map { boards =>
-        JsArray(boards map draughts.format.Forsyth.exportBoard map JsString.apply)
+        JsArray(boards map { draughts.format.Forsyth.exportBoard(_, withFlags.algebraic) } map JsString.apply)
       }
     },
     "winner" -> g.winnerColor.map(_.name),
@@ -248,6 +248,7 @@ object GameApi {
       opening: Boolean = false,
       moveTimes: Boolean = false,
       blurs: Boolean = false,
+      algebraic: Boolean = false,
       token: Option[String] = none
   ) {
 
