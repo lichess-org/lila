@@ -521,12 +521,12 @@ final class User(
                 ctx.me.ifTrue(getBool("friend")) match {
                   case Some(follower) =>
                     env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
-                      case Nil     => env.user.repo userIdsLike term
+                      case Nil     => env.user.cached userIdsLike term
                       case userIds => fuccess(userIds)
                     }
                   case None if getBool("teacher") =>
                     env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.dbKey)
-                  case None => env.user.repo userIdsLike term
+                  case None => env.user.cached userIdsLike term
                 }
             }
           } flatMap { userIds =>

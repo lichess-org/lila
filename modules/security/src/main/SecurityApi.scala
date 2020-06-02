@@ -100,8 +100,7 @@ final class SecurityApi(
     firewall.accepts(req) ?? reqSessionId(req) ?? { sessionId =>
       store.authInfo(sessionId) flatMap {
         _ ?? { d =>
-          if (d.isOld) store.setNow(sessionId, d)
-          userRepo byId d.user dmap { _ map { FingerPrintedUser(_, d.fp) } }
+          userRepo byId d.user dmap { _ map { FingerPrintedUser(_, d.hasFp) } }
         }
       }
     }
