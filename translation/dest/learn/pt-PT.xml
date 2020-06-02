@@ -158,8 +158,8 @@ fazer o roque do lado da rainha!</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">O movimento especial do peão</string>
   <string name="enPassantIntro">Quando um peão do adversário avança duas casas, podes capturá-lo com um peão como se ele só tivesse avançado uma casa.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">As negras avançaram o peão
-duas casas!
+  <string name="blackJustMovedThePawnByTwoSquares">As pretas acabaram de
+avançar o peão duas casas!
 Captura-o en passant.</string>
   <string name="enPassantOnlyWorksImmediately">O en passant apenas funciona
 imediatamente depois do adversário
