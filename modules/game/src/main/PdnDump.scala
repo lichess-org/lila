@@ -26,7 +26,7 @@ final class PdnDump(
         val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
         val moves2 = if (fenSituation.exists(_.situation.color.black)) ".." +: game.pdnMovesConcat else game.pdnMovesConcat
         makeTurns(
-          moves2,
+          if (flags.algebraic) san2alg(moves2, game.variant.boardSize.pos) else moves2,
           fenSituation.map(_.fullMoveNumber) | 1,
           flags.clocks ?? ~game.bothClockStates(true),
           game.startColor
@@ -34,6 +34,14 @@ final class PdnDump(
       }
       Pdn(ts, turns)
     }
+  }
+
+  private def san2alg(moves: PdnMoves, boardPos: draughts.BoardPos) = moves map { move =>
+    val capture = move.contains('x')
+    val fields = if (capture) move.split("x") else move.split("-")
+    val algebraicFields = fields.flatMap { boardPos.algebraic(_) }
+    val sep = if (capture) "x" else "-"
+    algebraicFields mkString sep
   }
 
   private def gameUrl(id: String) = s"$netBaseUrl/$id"

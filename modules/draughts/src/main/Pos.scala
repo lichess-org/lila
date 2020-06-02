@@ -61,12 +61,13 @@ sealed case class Pos64 private (x: Int, y: Int) extends PosMotion(4 * (y - 1) +
 }
 
 sealed trait BoardPos {
-  val all: List[PosMotion];
-  def posAt(x: Int, y: Int): Option[PosMotion];
-  def posAt(field: Int): Option[PosMotion];
-  def posAt(field: String): Option[PosMotion];
+  val all: List[PosMotion]
+  def posAt(x: Int, y: Int): Option[PosMotion]
+  def posAt(field: Int): Option[PosMotion]
+  def posAt(field: String): Option[PosMotion]
   def piotr(c: Char): Option[PosMotion]
   def algebraic(field: Int): Option[String]
+  def algebraic(field: String): Option[String] = parseIntOption(field) flatMap algebraic
 }
 
 object Pos100 extends BoardPos {
@@ -233,7 +234,7 @@ object Pos100 extends BoardPos {
     if (field < 1 || field > 50) None
     else posCache(field - 1)
 
-  def posAt(field: String): Option[PosMotion] = parseIntOption(field).flatMap(posAt)
+  def posAt(field: String): Option[PosMotion] = parseIntOption(field) flatMap posAt
 
   def piotr(c: Char): Option[PosMotion] = allPiotrs get c
 
