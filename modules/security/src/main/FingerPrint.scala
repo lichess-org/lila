@@ -30,7 +30,5 @@ object FingerHash {
     if (str.size % 2 != 0) s"${str}0" else str
   }
 
-  val impersonate = FingerHash("imperson")
-
   implicit val fingerHashIso = Iso.string[FingerHash](FingerHash.apply, _.value)
 }

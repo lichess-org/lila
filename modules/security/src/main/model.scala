@@ -6,13 +6,9 @@ import play.api.mvc.RequestHeader
 import lila.common.{ EmailAddress, IpAddress }
 import lila.user.User
 
-case class AuthInfo(user: User.ID, fp: Option[FingerHash], date: DateTime) {
-  def isOld = date isBefore DateTime.now.minusHours(12)
-}
+case class AuthInfo(user: User.ID, hasFp: Boolean)
 
-case class FingerPrintedUser(user: User, fp: Option[FingerHash]) {
-  def hasFingerPrint = fp.isDefined
-}
+case class FingerPrintedUser(user: User, hasFingerPrint: Boolean)
 
 case class UserSession(
     _id: String,
