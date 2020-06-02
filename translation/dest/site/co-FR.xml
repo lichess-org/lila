@@ -19,4 +19,7 @@
   <string name="randomColor">U latu aleatoriu</string>
   <string name="createAGame">Crea un ghjocu</string>
   <string name="whiteIsVictorious">U biancu hè vittore</string>
+  <string name="blackIsVictorious">U neru hè vittore</string>
+  <string name="youPlayTheWhitePieces">Ghjucassi à i pezzi bianchi</string>
+  <string name="youPlayTheBlackPieces">Ghjucassi à i pezzi neri</string>
 </resources>
