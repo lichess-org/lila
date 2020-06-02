@@ -29,7 +29,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
             _.flatMap { doc =>
               if (doc.getAsOpt[DateTime]("date").fold(true)(_ isBefore DateTime.now.minusHours(12)))
                 coll.updateFieldUnchecked($id(id), "date", DateTime.now)
-              AuthInfoReader readOpt doc
+              doc.getAsOpt[User.ID]("user") map { AuthInfo(_, doc.contains("fp")) }
             }
           }
       }
@@ -37,8 +37,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
   def authInfo(sessionId: String) = authCache get sessionId
 
-  implicit private val AuthInfoReader = Macros.reader[AuthInfo]
-  private val authInfoProjection      = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
+  private val authInfoProjection = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
   private def uncache(sessionId: String) =
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: User.ID): Funit =

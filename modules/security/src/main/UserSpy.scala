@@ -64,19 +64,19 @@ final class UserSpyApi(
 
   private def fetchOtherUsers(
       user: User,
-      ips: Seq[IpAddress],
-      fps: Seq[FingerHash],
+      ipSeq: Seq[IpAddress],
+      fpSeq: Seq[FingerHash],
       max: Int
   ): Fu[List[OtherUser]] =
-    ips.nonEmpty ?? store.coll
+    ipSeq.nonEmpty ?? store.coll
       .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
         import FingerHash.fpHandler
         Match(
           $doc(
             $or(
-              "ip" $in ips,
-              "fp" $in fps
+              "ip" $in ipSeq,
+              "fp" $in fpSeq
             ),
             "user" $ne user.id,
             "date" $gt DateTime.now.minusYears(1)
