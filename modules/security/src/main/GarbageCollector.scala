@@ -11,7 +11,6 @@ import lila.user.User
 final class GarbageCollector(
     userSpy: UserSpyApi,
     ipTrust: IpTrust,
-    printBan: PrintBan,
     slack: lila.slack.SlackApi,
     noteApi: lila.user.NoteApi,
     isArmed: () => Boolean
@@ -59,10 +58,10 @@ final class GarbageCollector(
           val printOpt = spy.prints.headOption
           logger.debug(s"apply ${data.user.username} print=${printOpt}")
           Bus.publish(
-            lila.security.UserSignup(user, email, req, printOpt.map(_.value), ipSusp),
+            lila.security.UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
             "userSignup"
           )
-          printOpt.map(_.value) filter printBan.blocks match {
+          printOpt.filter(_.banned).map(_.fp.value) match {
             case Some(print) => collect(user, email, ipBan = false, msg = s"Print ban: ${print.value}")
             case _ =>
               badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>

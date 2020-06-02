@@ -6,7 +6,7 @@ case class FingerPrint(value: String) extends AnyVal {
   def hash: Option[FingerHash] = FingerHash(this)
 }
 
-case class FingerHash(value: String) extends AnyVal
+case class FingerHash(value: String) extends AnyVal with StringValue
 
 object FingerHash {
 

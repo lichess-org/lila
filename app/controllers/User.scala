@@ -368,7 +368,7 @@ final class User(
         }
         val identification = spyFu map { spy =>
           (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) ??
-            html.user.mod.identification(spy, env.security.printBan.blocks)
+            html.user.mod.identification(spy)
         }
         val irwin = env.irwin.api.reports.withPovs(user) map {
           _ ?? { reps =>

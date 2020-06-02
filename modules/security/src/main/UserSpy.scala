@@ -10,15 +10,15 @@ import lila.user.{ User, UserRepo }
 
 case class UserSpy(
     ips: List[UserSpy.IPData],
+    prints: List[UserSpy.FPData],
     uas: List[Store.Dated[String]],
-    prints: List[Store.Dated[FingerHash]],
     otherUsers: List[UserSpy.OtherUser]
 ) {
 
   import UserSpy.OtherUser
 
   def rawIps = ips map (_.ip.value)
-  def rawFps = prints map (_.value)
+  def rawFps = prints map (_.fp.value)
 
   def ipsByLocations: List[(Location, List[UserSpy.IPData])] =
     ips.sortBy(_.ip).groupBy(_.location).toList.sortBy(_._1.comparable)
@@ -36,7 +36,8 @@ final class UserSpyApi(
     store: Store,
     userRepo: UserRepo,
     geoIP: GeoIP,
-    ip2proxy: Ip2Proxy
+    ip2proxy: Ip2Proxy,
+    printBan: PrintBan
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import UserSpy._
@@ -45,15 +46,39 @@ final class UserSpyApi(
     store.chronoInfoByUser(user) flatMap { infos =>
       val ips = distinctRecent(infos.map(_.datedIp))
       val fps = distinctRecent(infos.flatMap(_.datedFp))
-      fetchOtherUsers(user, ips.map(_.value).toList, fps.map(_.value).toList, maxOthers) zip
+      fetchOtherUsers(user, ips.map(_.value).toSet, fps.map(_.value).toSet, maxOthers) zip
         ip2proxy.keepProxies(ips.map(_.value).toList) map {
         case otherUsers ~ proxies =>
+          val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) {
+            case (acc, other) =>
+              other.ips.foldLeft(acc) {
+                case (acc, ip) => acc.updated(ip, acc.getOrElse(ip, Set.empty) + other.user)
+              }
+          }
+          val othersByFp = otherUsers.foldLeft(Map.empty[FingerHash, Set[User]]) {
+            case (acc, other) =>
+              other.fps.foldLeft(acc) {
+                case (acc, fp) => acc.updated(fp, acc.getOrElse(fp, Set.empty) + other.user)
+              }
+          }
           UserSpy(
             ips = ips.map { ip =>
-              IPData(ip, firewall blocksIp ip.value, geoIP orUnknown ip.value, proxies(ip.value))
+              IPData(
+                ip,
+                firewall blocksIp ip.value,
+                geoIP orUnknown ip.value,
+                proxies(ip.value),
+                Alts(othersByIp.getOrElse(ip.value, Set.empty))
+              )
+            }.toList,
+            prints = fps.map { fp =>
+              FPData(
+                fp,
+                printBan blocks fp.value,
+                Alts(othersByFp.getOrElse(fp.value, Set.empty))
+              )
             }.toList,
             uas = distinctRecent(infos.map(_.datedUa)).toList,
-            prints = fps.toList,
             otherUsers = otherUsers
           )
       }
@@ -64,19 +89,19 @@ final class UserSpyApi(
 
   private def fetchOtherUsers(
       user: User,
-      ipSeq: Seq[IpAddress],
-      fpSeq: Seq[FingerHash],
+      ipSet: Set[IpAddress],
+      fpSet: Set[FingerHash],
       max: Int
   ): Fu[List[OtherUser]] =
-    ipSeq.nonEmpty ?? store.coll
+    ipSet.nonEmpty ?? store.coll
       .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
         import FingerHash.fpHandler
         Match(
           $doc(
             $or(
-              "ip" $in ipSeq,
-              "fp" $in fpSeq
+              "ip" $in ipSet,
+              "fp" $in fpSet
             ),
             "user" $ne user.id,
             "date" $gt DateTime.now.minusYears(1)
@@ -121,7 +146,7 @@ final class UserSpyApi(
           user <- doc.getAsOpt[User]("user")
           ips  <- doc.getAsOpt[Set[IpAddress]]("ips")
           fps  <- doc.getAsOpt[Set[FingerHash]]("fps")
-        } yield OtherUser(user, ips, fps)
+        } yield OtherUser(user, ips intersect ipSet, fps intersect fpSet)
       }
 
   def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] =
@@ -162,7 +187,27 @@ object UserSpy {
       .view
       .map { case (v, date) => Dated(v, date) }
 
-  case class IPData(ip: Dated[IpAddress], blocked: Boolean, location: Location, proxy: Boolean)
+  case class Alts(users: Set[User]) {
+    def boosters = users.count(_.marks.boost)
+    def engines  = users.count(_.marks.engine)
+    def trolls   = users.count(_.marks.troll)
+    def alts     = users.count(_.marks.alt)
+    def cleans   = users.count(_.marks.clean)
+  }
+
+  case class IPData(
+      ip: Dated[IpAddress],
+      blocked: Boolean,
+      location: Location,
+      proxy: Boolean,
+      alts: Alts
+  )
+
+  case class FPData(
+      fp: Dated[FingerHash],
+      banned: Boolean,
+      alts: Alts
+  )
 
   case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[User.ID, EmailAddress]) {
     def emailValueOf(u: User) = emails.get(u.id).map(_.value)

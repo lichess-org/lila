@@ -453,6 +453,8 @@ object mod {
 
   private val sortNumberTh = th(attr("data-sort-method") := "number")
   private val dataSort     = attr("data-sort")
+  private val dataIps      = attr("data-ips")
+  private val dataFps      = attr("data-fps")
   private val playban      = iconTag("p")
   private val alt          = raw("A")
   private val shadowban    = iconTag("c")
@@ -501,7 +503,11 @@ object mod {
               val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
               val userNotes =
                 notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
-              tr(o == u option (cls := "same"))(
+              tr(
+                o == u option (cls := "same"),
+                dataIps := other.ips.mkString(","),
+                dataFps := other.fps.map(_.value).mkString(",")
+              )(
                 if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
                 else td,
                 if (dox) td(othersWithEmail emailValueOf o)
@@ -547,10 +553,7 @@ object mod {
       )
     )
 
-  def identification(
-      spy: lila.security.UserSpy,
-      printBlock: FingerHash => Boolean
-  ): Frag =
+  def identification(spy: lila.security.UserSpy): Frag =
     mzSection("identification")(
       div(cls := "spy_ips")(
         strong(spy.ips.size, " IP addresses"),
@@ -582,12 +585,12 @@ object mod {
       div(cls := "spy_fps")(
         strong(pluralize("Fingerprint", spy.prints.size)),
         ul(
-          spy.prints.sorted.map { fp =>
+          spy.prints.sortBy(_.fp).map { fp =>
             li(
-              a(href := routes.Mod.print(fp.value.value), cls := printBlock(fp.value) option "blocked")(
-                fp.value.value,
+              a(href := routes.Mod.print(fp.fp.value.value), cls := fp.banned option "blocked")(
+                fp.fp.value,
                 " ",
-                momentFromNowServer(fp.date)
+                momentFromNowServer(fp.fp.date)
               )
             )
           }

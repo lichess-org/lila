@@ -32,6 +32,7 @@ case class UserMarks(value: List[UserMark]) extends AnyVal {
   def alt                   = apply(UserMark.Alt)
 
   def nonEmpty = value.nonEmpty option this
+  def clean    = value.isEmpty
 
   def set(sel: UserMark.type => UserMark, v: Boolean) =
     UserMarks {
