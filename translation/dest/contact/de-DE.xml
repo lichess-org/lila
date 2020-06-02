@@ -27,9 +27,9 @@
   <string name="wantClearHistory">Ich möchte meinen Verlauf oder meine Wertung löschen</string>
   <string name="cantClearHistory">Es ist nicht möglich deinen Spiel-, Puzzleverlauf oder deine Wertung zu löschen.</string>
   <string name="wantReport">Ich möchte einen Spieler melden</string>
-  <string name="cheating">Betrügen</string>
+  <string name="cheating">Betrügens</string>
   <string name="sandbagging">absichtlichen Verlierens</string>
-  <string name="trolling">Trollen</string>
+  <string name="trolling">Trollens</string>
   <string name="insults">Beleidigungen</string>
   <string name="otherReason">ein anderer Grund</string>
   <string name="toReportAPlayer">Benutze das Meldeformular, um einen Spieler wegen %s zu melden</string>
