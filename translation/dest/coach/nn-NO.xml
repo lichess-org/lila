@@ -11,7 +11,12 @@
   <string name="rating">Rating</string>
   <string name="hourlyRate">Timepris</string>
   <string name="availability">Tilgjengelegheit</string>
-  <string name="accepting">Aksepterar nye elevar</string>
-  <string name="notAccepting">Tek ikkje nye elevar</string>
+  <string name="accepting">Open for nye elevar</string>
+  <string name="notAccepting">Tek for tida ikkje nye elevar</string>
+  <string name="xCoachesStudents">%s trenar sjakkelevar</string>
+  <string name="viewXProfile">Sjå %s sin Lichess-profil</string>
+  <string name="sendPM">Send ei privat melding</string>
+  <string name="aboutMe">Om meg</string>
+  <string name="playingExperience">Erfaring som spelar</string>
   <string name="describeExperienceWith">Fortel korleis det er å ha %s som trenar</string>
 </resources>
