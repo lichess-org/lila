@@ -2,7 +2,7 @@ var tablesort = require('tablesort');
 
 let $toggle = $('.user-show .mod-zone-toggle');
 let $zone = $('.user-show .mod-zone');
-let nbOthers = 50;
+let nbOthers = 100;
 
 function streamLoad() {
   const source = new EventSource($toggle.attr('href') + '?nbOthers=' + nbOthers);
