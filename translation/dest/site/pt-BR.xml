@@ -21,12 +21,12 @@
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
   <string name="blackIsVictorious">Pretas vencem</string>
-  <string name="youPlayTheWhitePieces">Você joga com as brancas</string>
-  <string name="youPlayTheBlackPieces">Você joga com as pretas</string>
+  <string name="youPlayTheWhitePieces">Você joga com as peças brancas</string>
+  <string name="youPlayTheBlackPieces">Você joga com as peças pretas</string>
   <string name="itsYourTurn">É a sua vez!</string>
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Três xeques</string>
-  <string name="raceFinished">Corrida encerrada</string>
+  <string name="raceFinished">Corrida terminada</string>
   <string name="variantEnding">Fim da variante</string>
   <string name="newOpponent">Novo oponente</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Seu oponente quer jogar uma nova partida contra você</string>
