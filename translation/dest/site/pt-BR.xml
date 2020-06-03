@@ -37,7 +37,7 @@
     <item quantity="one">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundo.</item>
     <item quantity="other">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundos.</item>
   </plurals>
-  <string name="opponentLeftChoices">O outro jogador pode ter deixado a partida. Você pode proclamar vitória, declarar empate ou aguardar.</string>
+  <string name="opponentLeftChoices">O seu adversário deixou a partida. Você pode reivindicar vitória, declarar empate ou aguardar.</string>
   <string name="makeYourOpponentResign">Declarar vitória</string>
   <string name="forceResignation">Reivindicar vitória</string>
   <string name="forceDraw">Reivindicar empate</string>
