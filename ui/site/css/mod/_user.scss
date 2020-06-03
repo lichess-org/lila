@@ -18,8 +18,8 @@
 #mz_assessments { order: 7 }
 #mz_mod_log { order: 8 }
 #mz_reports { order: 9 }
-#mz_others { order: 10 }
-#mz_identification { order: 11 }
+#mz_identification { order: 10 }
+#mz_others { order: 11 }
 
 #mz_menu {
   @extend %flex-center, %box-neat-top;
@@ -107,12 +107,18 @@
 #mz_identification {
   @extend %flex-wrap;
   > div {
-    flex: 1 1 auto;
+    flex: 1 1 33.33%;
     max-height: 40vh;
     overflow: auto;
-    margin-right: 1%;
     &:last-child {
       margin: 0;
+    }
+  }
+  .slist td {
+    padding: 0;
+    &:first-child {
+      padding-left: 1em;
+      width: 0%;
     }
   }
   .spy_ips {
@@ -131,17 +137,20 @@
   }
   .spy_fps {
     white-space: nowrap;
-    li {
+    a {
       font-family: monospace;
+    }
+    .blocked {
+      a, .button { color: $c-bad; }
+    }
+    i {
+      margin-left: 1ch;
     }
   }
   .spy_uas {
-    flex: 0 1 60%;
+    padding-left: 1em;
     white-space: wrap;
-  }
-  .blocked {
-    color: red;
-    font-weight: bold;
+    max-height: 20vh;
   }
 }
 .mod-zone .proxy {

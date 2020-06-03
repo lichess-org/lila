@@ -188,11 +188,12 @@ object UserSpy {
       .map { case (v, date) => Dated(v, date) }
 
   case class Alts(users: Set[User]) {
-    def boosters = users.count(_.marks.boost)
-    def engines  = users.count(_.marks.engine)
-    def trolls   = users.count(_.marks.troll)
-    def alts     = users.count(_.marks.alt)
-    def cleans   = users.count(_.marks.clean)
+    lazy val boosters = users.count(_.marks.boost)
+    lazy val engines  = users.count(_.marks.engine)
+    lazy val trolls   = users.count(_.marks.troll)
+    lazy val alts     = users.count(_.marks.alt)
+    lazy val cleans   = users.count(_.marks.clean)
+    def score         = boosters + engines + trolls + alts - cleans
   }
 
   case class IPData(

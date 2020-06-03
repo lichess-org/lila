@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
-import lila.security.{ FingerHash, Permission }
+import lila.security.{ FingerHash, Permission, UserSpy }
 import lila.playban.RageSit
 import lila.user.User
 
@@ -23,8 +23,8 @@ object mod {
       a(href := "#mz_assessments")("Evaluation"),
       a(href := "#mz_mod_log")("Mod log"),
       a(href := "#mz_reports")("Reports"),
-      a(href := "#mz_others")("Accounts"),
-      a(href := "#mz_identification")("Identification")
+      a(href := "#mz_identification")("Identification"),
+      a(href := "#mz_others")("Accounts")
     )
 
   def actions(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context): Frag =
@@ -451,27 +451,28 @@ object mod {
       )
     )
 
-  private val sortNumberTh = th(attr("data-sort-method") := "number")
-  private val dataSort     = attr("data-sort")
-  private val dataIps      = attr("data-ips")
-  private val dataFps      = attr("data-fps")
-  private val playban      = iconTag("p")
-  private val alt          = raw("A")
-  private val shadowban    = iconTag("c")
-  private val boosting     = iconTag("9")
-  private val engine       = iconTag("n")
-  private val ipban        = iconTag("2")
-  private val closed       = iconTag("k")
-  private val reportban    = iconTag("!")
-  private val notesText    = iconTag("m")
+  private val sortNumberTh    = th(attr("data-sort-method") := "number")
+  private val dataSort        = attr("data-sort")
+  private val dataIps         = attr("data-ips")
+  private val dataFps         = attr("data-fps")
+  private val playban         = iconTag("p")
+  private val alt: Frag       = i("A")
+  private val shadowban: Frag = iconTag("c")
+  private val boosting: Frag  = iconTag("9")
+  private val engine: Frag    = iconTag("n")
+  private val ipban: Tag      = iconTag("2")
+  private val clean: Frag     = iconTag("r")
+  private val closed          = iconTag("k")
+  private val reportban       = iconTag("!")
+  private val notesText       = iconTag("m")
   private def markTd(nb: Int, content: => Frag) =
     if (nb > 0) td(cls := "i", dataSort := nb)(content)
     else td
 
   def otherUsers(
       u: User,
-      spy: lila.security.UserSpy,
-      othersWithEmail: lila.security.UserSpy.WithMeSortedWithEmails,
+      spy: UserSpy,
+      othersWithEmail: UserSpy.WithMeSortedWithEmails,
       notes: List[lila.user.Note],
       bans: Map[String, Int],
       max: Int
@@ -499,7 +500,7 @@ object mod {
         ),
         tbody(
           othersWithEmail.others.map {
-            case other @ lila.security.UserSpy.OtherUser(o, _, _) =>
+            case other @ UserSpy.OtherUser(o, _, _) =>
               val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
               val userNotes =
                 notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
@@ -553,7 +554,7 @@ object mod {
       )
     )
 
-  def identification(spy: lila.security.UserSpy): Frag =
+  def identification(spy: UserSpy): Frag =
     mzSection("identification")(
       div(cls := "spy_ips")(
         strong(spy.ips.size, " IP addresses"),
@@ -583,17 +584,30 @@ object mod {
         )
       ),
       div(cls := "spy_fps")(
-        strong(pluralize("Fingerprint", spy.prints.size)),
-        ul(
-          spy.prints.sortBy(_.fp).map { fp =>
-            li(
-              a(href := routes.Mod.print(fp.fp.value.value), cls := fp.banned option "blocked")(
-                fp.fp.value,
-                " ",
-                momentFromNowServer(fp.fp.date)
-              )
+        table(cls := "slist")(
+          thead(
+            tr(
+              th(strong(pluralize("Print", spy.prints.size))),
+              sortNumberTh("Alts"),
+              sortNumberTh("Date"),
+              th
             )
-          }
+          ),
+          tbody(
+            spy.prints.sortBy(_.fp).map { fp =>
+              tr(cls := fp.banned option "blocked")(
+                td(a(href := routes.Mod.print(fp.fp.value.value))(fp.fp.value)),
+                td(dataSort := fp.alts.score)(altMarks(fp.alts)),
+                td(dataSort := fp.fp.date.getMillis)(momentFromNowServer(fp.fp.date)),
+                td(
+                  button(
+                    cls := "button button-empty",
+                    href := routes.Mod.printBan(!fp.banned, fp.fp.value.value)
+                  )("BAN")
+                )
+              )
+            }
+          )
         )
       ),
       div(cls := "spy_uas")(
@@ -605,6 +619,18 @@ object mod {
         )
       )
     )
+
+  private def altMarks(alts: UserSpy.Alts) =
+    List[(Int, Frag)](
+      alts.boosters -> boosting,
+      alts.engines  -> engine,
+      alts.trolls   -> shadowban,
+      alts.alts     -> alt,
+      alts.cleans   -> clean
+    ) collect {
+      case (nb, tag) if nb > 3 => frag(tag, "*", nb)
+      case (nb, tag) if nb > 0 => frag(List.fill(nb)(tag))
+    }
 
   def userMarks(o: User, playbans: Option[Int]) =
     div(cls := "user_marks")(
