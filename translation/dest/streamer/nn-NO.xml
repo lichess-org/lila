@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Lichess-strøymarar</string>
+  <string name="lichessStreamer">Lichess-strøymar</string>
+  <string name="live">DIREKTESENDING!</string>
+  <string name="offline">FRÅKOPLA</string>
+  <string name="currentlyStreaming">Sender no: %s</string>
+  <string name="lastStream">Siste sending %s</string>
+  <string name="becomeStreamer">Bli en Lichess-strøymar</string>
+  <string name="doYouHaveStream">Har du ein kanal på Twitch eller YouTube?</string>
+</resources>
