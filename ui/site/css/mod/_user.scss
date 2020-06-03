@@ -136,17 +136,23 @@
       font-family: monospace;
     }
     .blocked {
-      a, 
+      a,
       .button { color: $c-bad; }
     }
     .button {
       padding: .4em 1em;
+      color: $c-good;
+      &-discouraging {
+        color: $c-font-dimmer;
+      }
     }
     i {
       margin-left: 1ch;
     }
-    &.spy_filter tbody tr:hover {
-      background: mix($c-brag, $c-bg-box, 20%);
+    &.spy_filter {
+      tbody tr:hover {
+        background: mix($c-brag, $c-bg-box, 20%);
+      }
     }
   }
   .spy_ips a {
@@ -416,8 +422,4 @@
 #mz_mod_log {
   max-height: 50vh;
   overflow-y: auto;
-}
-
-#main-wrap.very-long {
-  margin-bottom: 100vh;
 }

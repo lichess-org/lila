@@ -551,7 +551,9 @@ object mod {
       )
     )
 
-  def identification(spy: UserSpy): Frag =
+  def identification(spy: UserSpy)(implicit ctx: Context): Frag = {
+    val canIpBan = isGranted(_.IpBan)
+    val canFpBan = isGranted(_.PrintBan)
     mzSection("identification")(
       div(cls := "spy_uas")(
         table(cls := "slist slist--sort")(
@@ -617,19 +619,22 @@ object mod {
               sortNumberTh("Alts"),
               th,
               sortNumberTh("Date"),
-              th
+              canIpBan option th
             )
           ),
           tbody(
-            spy.ips.sortBy(-_.ip.date.getMillis).map { ip =>
+            spy.ips.sortBy(-_.alts.score).map { ip =>
               tr(cls := ip.blocked option "blocked", title := ip.location.toString)(
                 td(a(ip.ip.value)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
                 td(ip.proxy option span(cls := "proxy")("PROXY")),
                 td(dataSort := ip.ip.date.getMillis)(momentFromNowServer(ip.ip.date)),
-                td(
+                canIpBan option td(
                   button(
-                    cls := "button button-empty",
+                    cls := List(
+                      "button button-empty" -> true,
+                      "button-discouraging" -> (ip.alts.cleans > 0)
+                    ),
                     href := routes.Mod.singleIpBan(!ip.blocked, ip.ip.value.value)
                   )("BAN")
                 )
@@ -645,18 +650,21 @@ object mod {
               th(pluralize("Print", spy.prints.size)),
               sortNumberTh("Alts"),
               sortNumberTh("Date"),
-              th
+              canFpBan option th
             )
           ),
           tbody(
-            spy.prints.sortBy(_.fp).map { fp =>
+            spy.prints.sortBy(-_.alts.score).map { fp =>
               tr(cls := fp.banned option "blocked")(
                 td(a(href := routes.Mod.print(fp.fp.value.value))(fp.fp.value)),
                 td(dataSort := fp.alts.score)(altMarks(fp.alts)),
                 td(dataSort := fp.fp.date.getMillis)(momentFromNowServer(fp.fp.date)),
-                td(
+                canFpBan option td(
                   button(
-                    cls := "button button-empty",
+                    cls := List(
+                      "button button-empty" -> true,
+                      "button-discouraging" -> (fp.alts.cleans > 0)
+                    ),
                     href := routes.Mod.printBan(!fp.banned, fp.fp.value.value)
                   )("BAN")
                 )
@@ -666,6 +674,7 @@ object mod {
         )
       )
     )
+  }
 
   private def parts(ps: Option[String]*) = ps.flatten.distinct mkString " "
 

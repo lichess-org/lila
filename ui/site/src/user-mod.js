@@ -22,7 +22,7 @@ function streamLoad() {
 
 function loadZone() {
   $zone.html(lichess.spinnerHtml).removeClass('none');
-  $('#main-wrap').addClass('full-screen-force very-long');
+  $('#main-wrap').addClass('full-screen-force');
   $zone.html('');
   streamLoad();
   window.addEventListener('scroll', onScroll);
@@ -30,7 +30,7 @@ function loadZone() {
 }
 function unloadZone() {
   $zone.addClass('none');
-  $('#main-wrap').removeClass('full-screen-force very-long');
+  $('#main-wrap').removeClass('full-screen-force');
   window.removeEventListener('scroll', onScroll);
   scrollTo('#top');
 }
@@ -83,9 +83,12 @@ function userMod($zone) {
     });
   });
 
-  makeReady('#mz_others table', el =>
-    tablesort(el, { descending: true })
-  );
+  makeReady('#mz_others', el => {
+    $(el).height($(el).height());
+  });
+  makeReady('#mz_others table', el => {
+    tablesort(el, { descending: true });
+  });
   makeReady('#mz_identification .spy_filter', el => {
     $(el).find('.button').click(function() {
       $.post($(this).attr('href'));
