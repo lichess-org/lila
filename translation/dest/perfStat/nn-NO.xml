@@ -25,4 +25,9 @@
   <string name="longestStreak">Lengste rekke: %s</string>
   <string name="currentStreak">Noverande rekke: %s</string>
   <string name="bestRated">Beste sigrar</string>
+  <string name="worstRated">Verste tap</string>
+  <string name="gamesInARow">Parti spelt på rad</string>
+  <string name="lessThanOneHour">Mindre enn ein time mellom partia</string>
+  <string name="maxTimePlaying">Lengste speletid</string>
+  <string name="now">no</string>
 </resources>
