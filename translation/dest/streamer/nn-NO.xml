@@ -40,4 +40,12 @@ Om du strøymer på engelsk treng du ikkje merke språket.</string>
     <item quantity="one">Maksimum %s teikn</item>
     <item quantity="other">Maksimum %s teikn</item>
   </plurals>
+  <string name="visibility">Synleg på videokanal-sida</string>
+  <string name="whenApproved">Når stadfesta av moderatorane</string>
+  <string name="headline">Overskrift</string>
+  <string name="tellUsAboutTheStream">Fortel om videokanalen din i ei setning</string>
+  <string name="longDescription">Lang utgreiing</string>
+  <string name="xStreamerPicture">%s profilbilete</string>
+  <string name="changePicture">Endre/slette profilbiletet</string>
+  <string name="uploadPicture">Last opp eit bilete</string>
 </resources>
