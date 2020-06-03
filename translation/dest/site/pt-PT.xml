@@ -38,7 +38,7 @@
     <item quantity="other">O teu adversário abandonou a partida. Podes reivindicar vitória em %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">O teu oponente deixou a partida. Podes reivindicar vitória, declarar empate ou aguardar.</string>
-  <string name="makeYourOpponentResign">Obrigar o oponente a desistir</string>
+  <string name="makeYourOpponentResign">Obrigar o teu adversário a desistir</string>
   <string name="forceResignation">Reivindicar vitória</string>
   <string name="forceDraw">Reivindicar empate</string>
   <string name="talkInChat">Por favor, sê gentil na conversação!</string>
