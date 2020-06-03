@@ -39,7 +39,7 @@ function reloadZone() {
 }
 
 function scrollTo(el) {
-  window.scrollTo(0, document.querySelector(el).offsetTop);
+  window.scrollTo(0, document.querySelector(el).offsetTop + 50);
 }
 
 $toggle.click(function() {
@@ -59,10 +59,7 @@ function userMod($zone) {
     $(el).find('a').each(function(i) {
       const id = this.href.replace(/.+(#\w+)$/, '$1'), n = '' + (i + 1);
       $(this).prepend(`<i>${n}</i>`);
-      Mousetrap.bind(n, () => {
-        console.log(id, n);
-        scrollTo(id);
-      });
+      Mousetrap.bind(n, () => scrollTo(id));
     });
   });
 

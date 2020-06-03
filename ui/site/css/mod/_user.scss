@@ -113,9 +113,14 @@
     &:last-child {
       margin: 0;
     }
+    border: $border;
   }
   .slist {
+    border: none;
     margin: 0;
+    thead th {
+      border-width: 0 0 1px 0;
+    }
     td {
       padding: 0;
       &:first-child {
@@ -131,7 +136,11 @@
       font-family: monospace;
     }
     .blocked {
-      a, .button { color: $c-bad; }
+      a, 
+      .button { color: $c-bad; }
+    }
+    .button {
+      padding: .4em 1em;
     }
     i {
       margin-left: 1ch;
@@ -149,14 +158,12 @@
       min-height: 100%;
     }
     td {
-      padding: .5em 0;
+      padding: .4em 0;
     }
   }
 }
 .mod-zone .proxy {
-  font-weight: strong;
-  color: $c-bad;
-  margin-left: 10px;
+  color: $c-brag;
 }
 .mod-zone strong {
   display: block;
@@ -169,15 +176,25 @@
   max-height: 100px;
   overflow: auto;
 }
-#mz_others .slist td:first-child {
-  padding-left: 10px;
-}
-#mz_others .i {
-  padding: 0;
-  i {
-    margin: 0;
-    &::before {
-      margin-right: 0;
+#mz_others {
+  max-height: 60vh;
+  padding-top: 0;
+  overflow-y: auto;
+  .slist {
+    td:first-child {
+      padding-left: 10px;
+    }
+    thead th:first-child {
+      font-weight: bold;
+    }
+  }
+  .i {
+    padding: 0;
+    i {
+      margin: 0;
+      &::before {
+        margin-right: 0;
+      }
     }
   }
 }

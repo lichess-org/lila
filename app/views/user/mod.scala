@@ -23,8 +23,7 @@ object mod {
       a(href := "#mz_assessments")("Evaluation"),
       a(href := "#mz_mod_log")("Mod log"),
       a(href := "#mz_reports")("Reports"),
-      a(href := "#mz_identification")("Identification"),
-      a(href := "#mz_others")("Accounts")
+      a(href := "#identification_screen")("Identification")
     )
 
   def actions(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context): Frag =
@@ -607,7 +606,7 @@ object mod {
           )
         )
       ),
-      div(cls := "spy_ips")(
+      div(id := "identification_screen", cls := "spy_ips")(
         table(cls := "slist spy_filter slist--sort")(
           thead(
             tr(
@@ -675,7 +674,7 @@ object mod {
       alts.alts     -> alt,
       alts.cleans   -> clean
     ) collect {
-      case (nb, tag) if nb > 3 => frag(tag, "*", nb)
+      case (nb, tag) if nb > 4 => frag(List.fill(3)(tag), "+", nb - 3)
       case (nb, tag) if nb > 0 => frag(List.fill(nb)(tag))
     }
 
