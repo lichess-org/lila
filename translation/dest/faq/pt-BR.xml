@@ -137,7 +137,7 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
   <string name="howToThreeDots">Como é que...</string>
   <string name="enableDisableNotificationPopUps">Ativo ou desativo as notificações pop-up?</string>
   <string name="viewSiteInformationPopUp">Vejo a informação pop-up do site</string>
-  <string name="lichessCanOptionnalySendPopUps">O Lichess pode enviar notificações pop-up opcionalmente, por exemplo, quando é tua vez ou quando recebeste uma mensagem privada.
+  <string name="lichessCanOptionnalySendPopUps">O Lichess pode enviar notificações pop-up opcionalmente, por exemplo, quando for tua vez ou quando tiveres recebido uma mensagem privada.
 
 Clica no ícone de cadeado ao lado do endereço lichess.org na barra de URL do teu navegador.
 
