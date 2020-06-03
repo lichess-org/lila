@@ -652,7 +652,7 @@ i %3$s</string>
   <string name="tournamentFAQ">Spørsmål og svar knytta til arenaturnering</string>
   <string name="tournamentOfficial">Offisiell</string>
   <string name="timeBeforeTournamentStarts">Tid til turneringa startar</string>
-  <string name="averageCentipawnLoss">Gjennomsnittlege centibondetap</string>
+  <string name="averageCentipawnLoss">Gjennomsnittleg centibondetap</string>
   <string name="keyboardShortcuts">Snarvegar på tastaturet</string>
   <string name="keyMoveBackwardOrForward">flytt att og fram</string>
   <string name="keyGoToStartOrEnd">gå til byrjinga/slutten</string>
