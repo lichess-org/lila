@@ -211,8 +211,8 @@
   <string name="yourOpponentOffersADraw">Motspelaren tilbyr remis</string>
   <string name="accept">Godta</string>
   <string name="decline">Avslå</string>
-  <string name="playingRightNow">Spelast nett no</string>
-  <string name="eventInProgress">Spelast nett no</string>
+  <string name="playingRightNow">Pågår</string>
+  <string name="eventInProgress">Pågår</string>
   <string name="finished">Slutt</string>
   <string name="finishesX">endar %s</string>
   <string name="abortGame">Avbryt partiet</string>
@@ -266,8 +266,8 @@
     <item quantity="other">%s remisar</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s løpande parti</item>
-    <item quantity="other">%s løpande parti</item>
+    <item quantity="one">%s pågår</item>
+    <item quantity="other">%s pågår</item>
   </plurals>
   <string name="exportGames">Eksporter parti</string>
   <string name="ratingRange">Ratingspenn</string>
@@ -484,12 +484,12 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="thisPuzzleIsCorrect">Denne oppgåva er korrekt og interessant</string>
   <string name="thisPuzzleIsWrong">Denne oppgåva er feil eller keisam</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s parti spelast</item>
-    <item quantity="other">%s parti spelast</item>
+    <item quantity="one">%s parti pågår</item>
+    <item quantity="other">%s parti pågår</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Gå automatisk til neste parti etter trekk</string>
   <string name="autoSwitch">Hopp automatisk til neste parti</string>
-  <string name="puzzles">Oppgåver</string>
+  <string name="puzzles">Sjakknøtter</string>
   <string name="latestUpdates">Siste oppdateringar</string>
   <string name="tournamentWinners">Turneringsvinnarar</string>
   <string name="name">Namn</string>
