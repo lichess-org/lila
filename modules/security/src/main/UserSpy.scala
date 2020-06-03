@@ -198,7 +198,11 @@ object UserSpy {
     lazy val trolls   = users.count(_.marks.troll)
     lazy val alts     = users.count(_.marks.alt)
     lazy val cleans   = users.count(_.marks.clean)
-    def score         = boosters + engines + trolls + alts - cleans
+    def score =
+      (boosters + engines + trolls + alts) match {
+        case 0    => -999999 // rank empty alts last
+        case bads => bads - cleans
+      }
   }
 
   case class IPData(
