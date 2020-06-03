@@ -22,7 +22,7 @@ function streamLoad() {
 
 function loadZone() {
   $zone.html(lichess.spinnerHtml).removeClass('none');
-  $('#main-wrap').addClass('full-screen-force');
+  $('#main-wrap').addClass('full-screen-force very-long');
   $zone.html('');
   streamLoad();
   window.addEventListener('scroll', onScroll);
@@ -30,7 +30,7 @@ function loadZone() {
 }
 function unloadZone() {
   $zone.addClass('none');
-  $('#main-wrap').removeClass('full-screen-force');
+  $('#main-wrap').removeClass('full-screen-force very-long');
   window.removeEventListener('scroll', onScroll);
   scrollTo('#top');
 }
@@ -55,12 +55,14 @@ function userMod($zone) {
   $('#mz_menu > a:not(.available)').each(function() {
     $(this).toggleClass('available', !!$($(this).attr('href')).length);
   });
-  makeReady('#mz_menu > a', (el, i) => {
-    const id = el.href.replace(/.+(#\w+)$/, '$1'), n = '' + (i + 1);
-    $(el).prepend(`<i>${n}</i>`);
-    Mousetrap.bind(n, () => {
-      console.log(id, n);
-      scrollTo(id);
+  makeReady('#mz_menu', el => {
+    $(el).find('a').each(function(i) {
+      const id = this.href.replace(/.+(#\w+)$/, '$1'), n = '' + (i + 1);
+      $(this).prepend(`<i>${n}</i>`);
+      Mousetrap.bind(n, () => {
+        console.log(id, n);
+        scrollTo(id);
+      });
     });
   });
 
@@ -87,12 +89,21 @@ function userMod($zone) {
   makeReady('#mz_others table', el =>
     tablesort(el, { descending: true })
   );
-  makeReady('.spy_fps table', el => {
+  makeReady('#mz_identification table', el => {
     tablesort(el, { descending: true });
     $(el).find('.button').click(function() {
       $.post($(this).attr('href'));
       $(this).parent().parent().toggleClass('blocked');
       return false;
+    });
+    $(el).find('tr').on('mouseenter', function() {
+      const v = $(this).find('td:first').text();
+      $('#mz_others tbody tr').each(function() {
+        $(this).toggleClass('none', !($(this).data('tags') || '').includes(v));
+      });
+    });
+    $(el).on('mouseleave', function() {
+      $('#mz_others tbody tr').removeClass('none');
     });
   });
   makeReady('#mz_others .more-others', el => {
@@ -105,7 +116,7 @@ function userMod($zone) {
 
 function makeReady(selector, f) {
   $zone.find(selector + ':not(.ready)').each(function(i) {
-    f($(this).addClass('.ready')[0], i);
+    f($(this).addClass('ready')[0], i);
   });
 }
 

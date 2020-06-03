@@ -114,28 +114,17 @@
       margin: 0;
     }
   }
-  .slist td {
-    padding: 0;
-    &:first-child {
-      padding-left: 1em;
-      width: 0%;
+  .slist {
+    tbody td {
+      padding: 0;
+      &:first-child {
+        padding-left: 1em;
+        width: 0%;
+      }
     }
-  }
-  .spy_ips {
-    white-space: nowrap;
-    > ul > li {
-      list-style: inside disc;
-    }
-    ul p {
+    thead th:first-child {
       font-weight: bold;
-      display: inline;
     }
-    li li {
-      margin-left: 1em;
-      font-family: monospace;
-    }
-  }
-  .spy_fps {
     white-space: nowrap;
     a {
       font-family: monospace;
@@ -146,6 +135,12 @@
     i {
       margin-left: 1ch;
     }
+    tr:hover {
+      background: mix($c-brag, $c-bg-box, 20%);
+    }
+  }
+  .spy_ips a {
+    letter-spacing: -1px;
   }
   .spy_uas {
     padding-left: 1em;
@@ -399,4 +394,8 @@
 #mz_mod_log {
   max-height: 50vh;
   overflow-y: auto;
+}
+
+#main-wrap.very-long {
+  margin-bottom: 100vh;
 }

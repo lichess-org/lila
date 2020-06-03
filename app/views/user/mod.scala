@@ -453,8 +453,7 @@ object mod {
 
   private val sortNumberTh    = th(attr("data-sort-method") := "number")
   private val dataSort        = attr("data-sort")
-  private val dataIps         = attr("data-ips")
-  private val dataFps         = attr("data-fps")
+  private val dataTags        = attr("data-tags")
   private val playban         = iconTag("p")
   private val alt: Frag       = i("A")
   private val shadowban: Frag = iconTag("c")
@@ -504,11 +503,10 @@ object mod {
               val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
               val userNotes =
                 notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
-              tr(
-                o == u option (cls := "same"),
-                dataIps := other.ips.mkString(","),
-                dataFps := other.fps.map(_.value).mkString(",")
-              )(
+              val row =
+                if (o == u) tr(cls := "same")
+                else tr(dataTags := s"${other.ips.mkString(" ")} ${other.fps.mkString(" ")}")
+              row(
                 if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
                 else td,
                 if (dox) td(othersWithEmail emailValueOf o)
@@ -557,37 +555,39 @@ object mod {
   def identification(spy: UserSpy): Frag =
     mzSection("identification")(
       div(cls := "spy_ips")(
-        strong(spy.ips.size, " IP addresses"),
-        ul(
-          spy.ipsByLocations.map {
-            case (location, ips) => {
-              li(
-                p(location.toString),
-                ul(
-                  ips.map { ip =>
-                    li(cls := "ip")(
-                      a(
-                        cls := List("address" -> true, "blocked" -> ip.blocked),
-                        href := routes.Mod.singleIp(ip.ip.value.value)
-                      )(
-                        tag("ip")(ip.ip.value.value),
-                        " ",
-                        momentFromNowServer(ip.ip.date)
-                      ),
-                      ip.proxy option span(cls := "proxy")("PROXY")
-                    )
-                  }
+        table(cls := "slist")(
+          thead(
+            tr(
+              th(pluralize("IP", spy.prints.size)),
+              sortNumberTh("Alts"),
+              th,
+              sortNumberTh("Date"),
+              th
+            )
+          ),
+          tbody(
+            spy.ips.sortBy(-_.ip.date.getMillis).map { ip =>
+              tr(cls := ip.blocked option "blocked", title := ip.location.toString)(
+                td(a(ip.ip.value)),
+                td(dataSort := ip.alts.score)(altMarks(ip.alts)),
+                td(ip.proxy option span(cls := "proxy")("PROXY")),
+                td(dataSort := ip.ip.date.getMillis)(momentFromNowServer(ip.ip.date)),
+                td(
+                  button(
+                    cls := "button button-empty",
+                    href := routes.Mod.singleIpBan(!ip.blocked, ip.ip.value.value)
+                  )("BAN")
                 )
               )
             }
-          }
+          )
         )
       ),
       div(cls := "spy_fps")(
         table(cls := "slist")(
           thead(
             tr(
-              th(strong(pluralize("Print", spy.prints.size))),
+              th(pluralize("Print", spy.prints.size)),
               sortNumberTh("Alts"),
               sortNumberTh("Date"),
               th
@@ -611,11 +611,23 @@ object mod {
         )
       ),
       div(cls := "spy_uas")(
-        strong(spy.uas.size, " User agent(s)"),
-        ul(
-          spy.uas.sorted.map { ua =>
-            li(ua.value, " ", momentFromNowServer(ua.date))
-          }
+        table(cls := "slist")(
+          thead(
+            tr(
+              th(pluralize("User Agent", spy.uas.size)),
+              sortNumberTh("Date"),
+              th
+            )
+          ),
+          tbody(
+            spy.uas.map { ua =>
+              tr(
+                td(ua.value.toString),
+                td(dataSort := ua.date.getMillis)(momentFromNowServer(ua.date)),
+                td
+              )
+            }
+          )
         )
       )
     )

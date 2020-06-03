@@ -3,6 +3,8 @@ package lila.security
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
+import org.uaparser.scala.{ Parser => UAParser }
+import org.uaparser.scala.Client
 
 import lila.common.{ EmailAddress, IpAddress }
 import lila.db.dsl._
@@ -11,7 +13,7 @@ import lila.user.{ User, UserRepo }
 case class UserSpy(
     ips: List[UserSpy.IPData],
     prints: List[UserSpy.FPData],
-    uas: List[Store.Dated[String]],
+    uas: List[Store.Dated[Client]],
     otherUsers: List[UserSpy.OtherUser]
 ) {
 
@@ -19,9 +21,6 @@ case class UserSpy(
 
   def rawIps = ips map (_.ip.value)
   def rawFps = prints map (_.fp.value)
-
-  def ipsByLocations: List[(Location, List[UserSpy.IPData])] =
-    ips.sortBy(_.ip).groupBy(_.location).toList.sortBy(_._1.comparable)
 
   def otherUserIds = otherUsers.map(_.user.id)
 
@@ -78,7 +77,7 @@ final class UserSpyApi(
                 Alts(othersByFp.getOrElse(fp.value, Set.empty))
               )
             }.toList,
-            uas = distinctRecent(infos.map(_.datedUa)).toList,
+            uas = distinctRecent(infos.map(_.datedUa map parseUa)).toList,
             otherUsers = otherUsers
           )
       }
@@ -86,6 +85,8 @@ final class UserSpyApi(
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
     store.coll.secondaryPreferred.exists($doc("user" -> u.id, "fp" $exists true))
+
+  private val parseUa = UAParser.default.parse _
 
   private def fetchOtherUsers(
       user: User,
