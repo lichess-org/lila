@@ -32,4 +32,12 @@
 Start til dømes strøymetittelen med \"[NN]\" om du strøymer på nynorsk eller \"[NB]\" om du strøymer på bokmål, osb.
 Bruk denne språk-taggen i strømmetittelen din på Twitch eller YouTube, ikke i Lichess-innstillingene dine.
 Om du strøymer på engelsk treng du ikkje merke språket.</string>
+  <string name="twitchUsername">Brukarnamnet ditt eller URLen din på Twitch</string>
+  <string name="optionalOrEmpty">Valfri. Kan vera tom</string>
+  <string name="youtubeChannel">YouTube-kanal-ID eller URL</string>
+  <string name="streamerName">Strøymarnamn på Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Maksimum %s teikn</item>
+    <item quantity="other">Maksimum %s teikn</item>
+  </plurals>
 </resources>
