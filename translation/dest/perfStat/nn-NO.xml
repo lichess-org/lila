@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">%s-statistikk</string>
+  <string name="viewTheGames">Syn partia</string>
+  <string name="provisional">mellombels</string>
+  <string name="notEnoughRatedGames">For få rata parti til at ei stabil rating kan bereknas.</string>
+  <string name="progressOverLastXGames">Endring over de siste %s partia:</string>
+  <string name="ratingDeviation">Ratingavvik: %s.</string>
+  <string name="ratingDeviationHelp">Eit lågare verde tyder at ratinga er meir stabil. Over %s blir ratinga rekna som mellombels.</string>
+</resources>
