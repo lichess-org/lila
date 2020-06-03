@@ -23,5 +23,6 @@
   <string name="bestSkills">Sterke sider</string>
   <string name="teachingMethod">Undervisningsmetode</string>
   <string name="publicStudies">Offentlege studiar</string>
+  <string name="youtubeVideos">YouTube-videoar</string>
   <string name="describeExperienceWith">Fortel korleis det er å ha %s som trenar</string>
 </resources>
