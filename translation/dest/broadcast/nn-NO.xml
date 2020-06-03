@@ -9,4 +9,6 @@
   <string name="eventName">Namn på arrangement</string>
   <string name="eventDescription">Kort omtale av arrangementet</string>
   <string name="fullDescription">Full omtale av arrangementet</string>
+  <string name="fullDescriptionHelp">Valfri lang omtale av overføringa. %1$s er tilgjengeleg. Omtalen må vera kortare enn %2$s teikn.</string>
+  <string name="sourceUrl">Kjeldelenke</string>
 </resources>
