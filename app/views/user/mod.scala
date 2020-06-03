@@ -595,14 +595,17 @@ object mod {
             )
           ),
           tbody(
-            spy.distinctLocations.map { loc =>
-              tr(
-                td(loc.value.country),
-                td(loc.value.region),
-                td(loc.value.city),
-                td(dataSort := loc.date.getMillis)(momentFromNowServer(loc.date))
-              )
-            }.toList
+            spy.distinctLocations.toList
+              .sortBy(-_.date.getMillis)
+              .map { loc =>
+                tr(
+                  td(loc.value.country),
+                  td(loc.value.region),
+                  td(loc.value.city),
+                  td(dataSort := loc.date.getMillis)(momentFromNowServer(loc.date))
+                )
+              }
+              .toList
           )
         )
       ),
