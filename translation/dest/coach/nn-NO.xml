@@ -18,5 +18,10 @@
   <string name="sendPM">Send ei privat melding</string>
   <string name="aboutMe">Om meg</string>
   <string name="playingExperience">Erfaring som spelar</string>
+  <string name="teachingExperience">Erfaring som trenar</string>
+  <string name="otherExperiences">Anna erfaring</string>
+  <string name="bestSkills">Sterke sider</string>
+  <string name="teachingMethod">Undervisningsmetode</string>
+  <string name="publicStudies">Offentlege studiar</string>
   <string name="describeExperienceWith">Fortel korleis det er å ha %s som trenar</string>
 </resources>
