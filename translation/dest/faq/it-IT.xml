@@ -31,13 +31,13 @@
   <string name="youCanUseOpeningBookNoEngine">Su Lichess, la principale differenza nelle regole per gli scacchi per corrispondenza è che è consentito un libro di apertura. L\'uso dei motori è ancora proibito e comporterà la loro segnalazione per l\'assistenza del motore. Sebbene ICCF consenta l\'uso del motore in corrispondenza, Lichess no.</string>
   <string name="gameplay">Dinamica di gioco</string>
   <string name="howBulletBlitzEtcDecided">Come vengono decisi Bullet, Blitz e altri controlli temporali?</string>
-  <string name="basedOnGameDuration">I controlli del tempo Lichess si basano sulla durata stimata del gioco =% 1 $ s
+  <string name="basedOnGameDuration">I controlli del tempo Lichess si basano sulla durata stimata del gioco = %1$s
 Ad esempio, la durata stimata di una partita 5 + 3 è 5 × 60 + 40 × 3 = 420 secondi.</string>
   <string name="durationFormula">(ora iniziale dell\'orologio) + 40 × (incremento dell\'orologio)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤% 1 $ ss =% 2 $ s</string>
   <string name="superiorThanXsEqualYtimeControl">≥% 1 $ ss =% 2 $ s</string>
   <string name="whatVariantsCanIplay">Quali varianti posso giocare su Lichess?</string>
-  <string name="lichessSupportChessAnd">Lichess supporta gli scacchi standard e% 1 $ s.</string>
+  <string name="lichessSupportChessAnd">Lichess supporta gli scacchi standard e %1$s.</string>
   <string name="eightVariants">8 varianti di scacchi</string>
   <string name="whatIsACPL">Qual è la perdita media di centipawn (ACPL)?</string>
   <string name="acplExplanation">Il centopiedi è l\'unità di misura utilizzata negli scacchi come rappresentazione del vantaggio. Un centopiedi equivale a 1/100 di un pedone. Pertanto 100 centopiedi = 1 pedone. Questi valori non svolgono alcun ruolo formale nel gioco ma sono utili ai giocatori ed essenziali negli scacchi al computer per la valutazione delle posizioni.
@@ -55,22 +55,20 @@ In rari casi può essere difficile decidere automaticamente (linee forzate, fort
 Nota che può essere possibile accoppiarsi con un singolo cavaliere o vescovo se l\'avversario ha un pezzo che potrebbe bloccare il re.</string>
   <string name="linkToFIDErules">Manuale FIDE §6.9, PDF</string>
   <string name="discoveringEnPassant">Perché una pedina può catturare un\'altra pedina quando è già passata? (en passant)</string>
-  <string name="explainingEnPassant">Questa è una mossa legale conosciuta come \"en passant\". L\'articolo di Wikipedia fornisce% 1 $ s.
+  <string name="explainingEnPassant">Questa è una mossa legale conosciuta come \"en passant\". L\'articolo di Wikipedia fornisce %1$s.
 
-È descritto nella sezione 3.7 (d) di% 2 $ s:
+È descritto nella sezione 3.7 (d) di %2$s:
 
 \"Una pedina che occupa un quadrato dello stesso rango e su un file adiacente alla pedina di un avversario che ha appena avanzato due quadrati in una mossa dal suo quadrato originale può catturare il pedone di questo avversario come se quest\'ultimo fosse stato spostato di un solo quadrato. Questo la cattura è legale solo in movimento dopo questo anticipo ed è chiamata cattura \"en passant\". \"
 
-Vedi% 3 $ s su questa mossa per un po \'di pratica con esso.</string>
+Vedi %3$s su questa mossa per un po \'di pratica con esso.</string>
   <string name="goodIntroduction">buona introduzione</string>
   <string name="officialRulesPDF">regole ufficiali (PDF)</string>
   <string name="lichessTraining">Allenamento Lichess</string>
   <string name="threefoldRepetition">Triplice ripetizione</string>
-  <string name="threefoldRepetitionExplanation">Se una posizione si verifica tre volte, i giocatori possono richiedere un pareggio di% 1 $ s. Lichess attua le regole FIDE ufficiali, come descritto nell\'Articolo 9.2 (d) di% 2 $ s.</string>
   <string name="threefoldRepetitionLowerCase">triplice ripetizione</string>
   <string name="handBookPDF">manuale (PDF)</string>
   <string name="notRepeatedMoves">Non abbiamo ripetuto le mosse. Perché il gioco è stato ancora disegnato dalla ripetizione?</string>
-  <string name="repeatedPositionsThatMatters">La triplice ripetizione è circa% 1 $ s ripetuta, non mosse. La ripetizione non deve avvenire consecutivamente.</string>
   <string name="positions">posizioni</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Abbiamo ripetuto una posizione tre volte. Perché il gioco non è stato disegnato?</string>
   <string name="threeFoldHasToBeClaimed">La ripetizione deve essere rivendicata da uno dei giocatori. Puoi farlo premendo il pulsante che appare, o offrendo una patta prima di ripetere la tua mossa finale. Puoi anche %1$s Lichess per reclamare automaticamente le tre ripetizioni. Inoltre, le cinque ripetizioni terminano sempre il gioco.</string>

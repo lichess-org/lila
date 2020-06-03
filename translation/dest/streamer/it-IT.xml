@@ -29,7 +29,7 @@
   <string name="whenReady">Quando sei pronto per essere inserito nell\'elenco dei Lichess streamer, %s</string>
   <string name="requestReview">richiedi la revisione di un moderatore</string>
   <string name="anotherLanguage">Se il tuo stream è in una lingua diversa dall\'inglese, aggiungi il tag di lingua corretto (%s), racchiuso tra parentesi quadre, all\'inizio del titolo dello stream.
-Per esempio, si può aggiungere \"[IT]\" per l\'italiano, \"[FR]\" per il francese, \"[RU]\" per il russo, ecc.
+Per esempio, si può aggiungere \"[IT]\" per l\'italiano, \"[FR]\" per il francese, \"[DE]\" per il tedesco, ecc.
 Metti il tag nel titolo dello stream nella pagina di Twitch o YouTube, non nelle impostazioni dello stream su Lichess.
 Se lo stream è in inglese, non è necessario aggiungere un tag di lingua.</string>
   <string name="twitchUsername">Il tuo nome utente Twitch o URL</string>

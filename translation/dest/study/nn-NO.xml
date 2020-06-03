@@ -21,13 +21,13 @@
     <item quantity="other">%s kapittel</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Parti</item>
+    <item quantity="one">%s parti</item>
     <item quantity="other">%s parti</item>
   </plurals>
   <string name="addMembers">Legg til medlemar</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s Medlem</item>
-    <item quantity="other">%s Medlemar</item>
+    <item quantity="one">%s medlem</item>
+    <item quantity="other">%s medlemar</item>
   </plurals>
   <string name="inviteToTheStudy">Inviter til studien</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Inviter berre folk du kjenner og som aktivt ynskjer å delta i studien.</string>
