@@ -107,15 +107,16 @@
 #mz_identification {
   @extend %flex-wrap;
   > div {
-    flex: 1 1 33.33%;
-    max-height: 40vh;
+    flex: 1 1 50%;
+    max-height: 30vh;
     overflow: auto;
     &:last-child {
       margin: 0;
     }
   }
   .slist {
-    tbody td {
+    margin: 0;
+    td {
       padding: 0;
       &:first-child {
         padding-left: 1em;
@@ -135,17 +136,21 @@
     i {
       margin-left: 1ch;
     }
-    tr:hover {
+    &.spy_filter tbody tr:hover {
       background: mix($c-brag, $c-bg-box, 20%);
     }
   }
   .spy_ips a {
     letter-spacing: -1px;
   }
-  .spy_uas {
-    padding-left: 1em;
-    white-space: wrap;
-    max-height: 20vh;
+  .spy_uas, .spy_locs {
+    height: 20vh;
+    .slist {
+      min-height: 100%;
+    }
+    td {
+      padding: .5em 0;
+    }
   }
 }
 .mod-zone .proxy {

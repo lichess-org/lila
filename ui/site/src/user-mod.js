@@ -89,8 +89,7 @@ function userMod($zone) {
   makeReady('#mz_others table', el =>
     tablesort(el, { descending: true })
   );
-  makeReady('#mz_identification table', el => {
-    tablesort(el, { descending: true });
+  makeReady('#mz_identification .spy_filter', el => {
     $(el).find('.button').click(function() {
       $.post($(this).attr('href'));
       $(this).parent().parent().toggleClass('blocked');
@@ -106,6 +105,9 @@ function userMod($zone) {
       $('#mz_others tbody tr').removeClass('none');
     });
   });
+  makeReady('#mz_identification .slist--sort', el => {
+    tablesort(el, { descending: true });
+  }, 'ready-sort');
   makeReady('#mz_others .more-others', el => {
     $(el).addClass('.ready').click(() => {
       nbOthers = 1000;
@@ -114,9 +116,10 @@ function userMod($zone) {
   });
 }
 
-function makeReady(selector, f) {
-  $zone.find(selector + ':not(.ready)').each(function(i) {
-    f($(this).addClass('ready')[0], i);
+function makeReady(selector, f, cls) {
+  cls = cls || 'ready';
+  $zone.find(selector + `:not(.${cls})`).each(function(i) {
+    f($(this).addClass(cls)[0], i);
   });
 }
 

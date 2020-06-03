@@ -13,7 +13,7 @@ import lila.user.{ User, UserRepo }
 case class UserSpy(
     ips: List[UserSpy.IPData],
     prints: List[UserSpy.FPData],
-    uas: List[Store.Dated[Client]],
+    uas: List[Store.Dated[UserSpy.UaAndClient]],
     otherUsers: List[UserSpy.OtherUser]
 ) {
 
@@ -28,6 +28,8 @@ case class UserSpy(
     otherUsers.collect {
       case OtherUser(user, ips, _) if ips.nonEmpty => user
     }
+
+  def distinctLocations = UserSpy.distinctRecent(ips.map(_.datedLocation))
 }
 
 final class UserSpyApi(
@@ -77,7 +79,9 @@ final class UserSpyApi(
                 Alts(othersByFp.getOrElse(fp.value, Set.empty))
               )
             }.toList,
-            uas = distinctRecent(infos.map(_.datedUa map parseUa)).toList,
+            uas = distinctRecent(infos.map(_.datedUa map { ua =>
+              UaAndClient(ua, parseUa(ua))
+            })).toList,
             otherUsers = otherUsers
           )
       }
@@ -203,13 +207,20 @@ object UserSpy {
       location: Location,
       proxy: Boolean,
       alts: Alts
-  )
+  ) {
+    def datedLocation = Dated(location, ip.date)
+  }
 
   case class FPData(
       fp: Dated[FingerHash],
       banned: Boolean,
       alts: Alts
   )
+
+  case class UaAndClient(ua: String, client: Client) {
+    def mobile = ua contains "Mobile"
+    def app    = ua contains "lichobile"
+  }
 
   case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[User.ID, EmailAddress]) {
     def emailValueOf(u: User) = emails.get(u.id).map(_.value)

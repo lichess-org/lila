@@ -554,8 +554,61 @@ object mod {
 
   def identification(spy: UserSpy): Frag =
     mzSection("identification")(
+      div(cls := "spy_uas")(
+        table(cls := "slist slist--sort")(
+          thead(
+            tr(
+              th(pluralize("Device", spy.uas.size)),
+              th("OS"),
+              th("Client"),
+              sortNumberTh("Date"),
+              th("Flag")
+            )
+          ),
+          tbody(
+            spy.uas
+              .sortBy(-_.date.getMillis)
+              .map { ua =>
+                import ua.value.client._
+                tr(
+                  td(if (device.family == "Other") "Computer" else device.family),
+                  td(parts(os.family.some, os.major)),
+                  td(parts(userAgent.family.some, userAgent.major)),
+                  td(dataSort := ua.date.getMillis)(momentFromNowServer(ua.date)),
+                  td(
+                    if (ua.value.app) "APP"
+                    else if (ua.value.mobile) "MOB"
+                    else ""
+                  )
+                )
+              }
+          )
+        )
+      ),
+      div(cls := "spy_locs")(
+        table(cls := "slist slist--sort")(
+          thead(
+            tr(
+              th("Country"),
+              th("Region"),
+              th("City"),
+              sortNumberTh("Date")
+            )
+          ),
+          tbody(
+            spy.distinctLocations.map { loc =>
+              tr(
+                td(loc.value.country),
+                td(loc.value.region),
+                td(loc.value.city),
+                td(dataSort := loc.date.getMillis)(momentFromNowServer(loc.date))
+              )
+            }.toList
+          )
+        )
+      ),
       div(cls := "spy_ips")(
-        table(cls := "slist")(
+        table(cls := "slist spy_filter slist--sort")(
           thead(
             tr(
               th(pluralize("IP", spy.prints.size)),
@@ -584,7 +637,7 @@ object mod {
         )
       ),
       div(cls := "spy_fps")(
-        table(cls := "slist")(
+        table(cls := "slist spy_filter slist--sort")(
           thead(
             tr(
               th(pluralize("Print", spy.prints.size)),
@@ -609,28 +662,10 @@ object mod {
             }
           )
         )
-      ),
-      div(cls := "spy_uas")(
-        table(cls := "slist")(
-          thead(
-            tr(
-              th(pluralize("User Agent", spy.uas.size)),
-              sortNumberTh("Date"),
-              th
-            )
-          ),
-          tbody(
-            spy.uas.map { ua =>
-              tr(
-                td(ua.value.toString),
-                td(dataSort := ua.date.getMillis)(momentFromNowServer(ua.date)),
-                td
-              )
-            }
-          )
-        )
       )
     )
+
+  private def parts(ps: Option[String]*) = ps.flatten.distinct mkString " "
 
   private def altMarks(alts: UserSpy.Alts) =
     List[(Int, Frag)](
