@@ -129,7 +129,7 @@
     <item quantity="one">%s spelar</item>
     <item quantity="other">%s spelarar</item>
   </plurals>
-  <string name="currentGames">Parti som blir spelt nett no</string>
+  <string name="currentGames">Pågåande parti</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s parti</item>
@@ -372,8 +372,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="followsYou">Fylgjer deg</string>
   <string name="xStartedFollowingY">%1$s byrja å fylgja %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s fylgjesven</item>
-    <item quantity="other">%s følgjesvener</item>
+    <item quantity="one">%s fylgjar</item>
+    <item quantity="other">%s fylgjarar</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s fylgjer</item>
@@ -827,7 +827,7 @@ i %3$s</string>
   <string name="timeoutExpires">Timeouten tek slutt %s.</string>
   <string name="why">Kvifor?</string>
   <string name="pleasantChessExperience">Vi freistar å gje alle ei god sjakk-oppleving.</string>
-  <string name="goodPractice">For å oppnå det må vi sikre at alle spelarar følgjer god praksis.</string>
+  <string name="goodPractice">For å oppnå det må vi sikre at alle spelarane respekterar god praksis.</string>
   <string name="potentialProblem">Når eit potensielt problem blir oppdaga syner vi denne meldinga.</string>
   <string name="howToAvoidThis">Korleis unngå dette?</string>
   <string name="playEveryGame">Spel alle parti du startar.</string>
