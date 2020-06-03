@@ -29,12 +29,12 @@
   <string name="raceFinished">Corrida terminada</string>
   <string name="variantEnding">Fim da variante</string>
   <string name="newOpponent">Novo oponente</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">O teu oponente quer jogar uma nova partida contra ti</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">O teu adversário quer jogar uma nova partida contra ti</string>
   <string name="joinTheGame">Entrar no jogo</string>
   <string name="whitePlays">Jogam as brancas</string>
   <string name="blackPlays">Jogam as pretas</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">O teu oponente deixou a partida. Podes reivindicar vitória em %s segundo.</item>
+    <item quantity="one">O teu adversário deixou a partida. Podes reivindicar vitória em %s segundo.</item>
     <item quantity="other">O teu adversário abandonou a partida. Podes reivindicar vitória em %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">O teu oponente deixou a partida. Podes reivindicar vitória, declarar empate ou aguardar.</string>
