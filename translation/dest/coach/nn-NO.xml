@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessCoaches">Lichess-trenarar</string>
+  <string name="lichessCoach">Lichess-trenar</string>
+  <string name="areYouCoach">Er du ein god sjakktrenar med ein %s?</string>
+  <string name="nmOrFideTitle">NM- eller FIDE-tittel</string>
+  <string name="confirmTitle">Stadfest tittelen din her, så går vi gjennom søknaden.</string>
+  <string name="sendApplication">Send oss ein e-post på %s, så vil vi vurdere søknaden din.</string>
+  <string name="location">Stad</string>
+  <string name="languages">Språk</string>
+  <string name="rating">Rating</string>
+  <string name="hourlyRate">Timepris</string>
+  <string name="availability">Tilgjengelegheit</string>
+  <string name="accepting">Aksepterar nye elevar</string>
+  <string name="notAccepting">Tek ikkje nye elevar</string>
   <string name="describeExperienceWith">Fortel korleis det er å ha %s som trenar</string>
 </resources>
