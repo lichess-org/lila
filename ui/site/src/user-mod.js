@@ -1,7 +1,7 @@
 var tablesort = require('tablesort');
 
-let $toggle = $('.user-show .mod-zone-toggle');
-let $zone = $('.user-show .mod-zone');
+let $toggle = $('.mod-zone-toggle');
+let $zone = $('.mod-zone');
 let nbOthers = 100;
 
 function streamLoad() {
@@ -39,7 +39,8 @@ function reloadZone() {
 }
 
 function scrollTo(el) {
-  window.scrollTo(0, document.querySelector(el).offsetTop + 50);
+  const offset = $('#inquiry').length ? -50 : 50;
+  window.scrollTo(0, document.querySelector(el).offsetTop + offset);
 }
 
 $toggle.click(function() {

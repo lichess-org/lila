@@ -555,6 +555,31 @@ object mod {
     val canIpBan = isGranted(_.IpBan)
     val canFpBan = isGranted(_.PrintBan)
     mzSection("identification")(
+      div(cls := "spy_locs")(
+        table(cls := "slist slist--sort")(
+          thead(
+            tr(
+              th("Country"),
+              th("Region"),
+              th("City"),
+              sortNumberTh("Date")
+            )
+          ),
+          tbody(
+            spy.distinctLocations.toList
+              .sortBy(-_.date.getMillis)
+              .map { loc =>
+                tr(
+                  td(loc.value.country),
+                  td(loc.value.region),
+                  td(loc.value.city),
+                  td(dataSort := loc.date.getMillis)(momentFromNowServer(loc.date))
+                )
+              }
+              .toList
+          )
+        )
+      ),
       div(cls := "spy_uas")(
         table(cls := "slist slist--sort")(
           thead(
@@ -583,31 +608,6 @@ object mod {
                   )
                 )
               }
-          )
-        )
-      ),
-      div(cls := "spy_locs")(
-        table(cls := "slist slist--sort")(
-          thead(
-            tr(
-              th("Country"),
-              th("Region"),
-              th("City"),
-              sortNumberTh("Date")
-            )
-          ),
-          tbody(
-            spy.distinctLocations.toList
-              .sortBy(-_.date.getMillis)
-              .map { loc =>
-                tr(
-                  td(loc.value.country),
-                  td(loc.value.region),
-                  td(loc.value.city),
-                  td(dataSort := loc.date.getMillis)(momentFromNowServer(loc.date))
-                )
-              }
-              .toList
           )
         )
       ),

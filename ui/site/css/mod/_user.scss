@@ -238,6 +238,8 @@
   }
 }
 #mz_assessments {
+  max-height: 60vh;
+  overflow-y: auto;
   table {
     margin-top: 10px;
   }
@@ -302,6 +304,8 @@
 }
 
 #mz_irwin {
+  max-height: 60vh;
+  overflow-y: auto;
   header {
     margin-top: 10px;
     display: flex;
