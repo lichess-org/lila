@@ -453,7 +453,6 @@ object mod {
   private val shadowban: Frag = iconTag("c")
   private val boosting: Frag  = iconTag("9")
   private val engine: Frag    = iconTag("n")
-  private val ipban: Tag      = iconTag("2")
   private val clean: Frag     = iconTag("r")
   private val closed          = iconTag("k")
   private val reportban       = iconTag("!")
@@ -483,7 +482,6 @@ object mod {
             sortNumberTh(shadowban)(cls := "i", title := "Shadowban"),
             sortNumberTh(boosting)(cls := "i", title := "Boosting"),
             sortNumberTh(engine)(cls := "i", title := "Engine"),
-            sortNumberTh(ipban)(cls := "i", title := "IP ban"),
             sortNumberTh(closed)(cls := "i", title := "Closed"),
             sortNumberTh(reportban)(cls := "i", title := "Reportban"),
             sortNumberTh(notesText)(cls := "i", title := "Notes"),
