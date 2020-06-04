@@ -141,7 +141,6 @@ object search {
                 u.marks.boost option mark("BOOSTER"),
                 u.marks.troll option mark("SHADOWBAN")
               ),
-              td(u.marks.ipban option mark("IPBAN")),
               td(u.disabled option mark("CLOSED")),
               td(momentFromNow(u.createdAt)),
               td(u.seenAt.map(momentFromNow(_)))

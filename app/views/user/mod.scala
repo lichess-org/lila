@@ -116,11 +116,6 @@ object mod {
         }
       ),
       div(cls := "btn-rack")(
-        isGranted(_.IpBan) option {
-          postForm(action := routes.Mod.ipBan(u.username, !u.marks.ipban), cls := "xhr")(
-            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.ipban))("IP ban")
-          )
-        },
         if (u.enabled) {
           isGranted(_.CloseAccount) option {
             postForm(
@@ -526,7 +521,6 @@ object mod {
                 markTd(o.marks.troll ?? 1, shadowban),
                 markTd(o.marks.boost ?? 1, boosting),
                 markTd(o.marks.engine ?? 1, engine),
-                markTd(o.marks.ipban ?? 1, ipban(cls := "is-red")),
                 markTd(o.disabled ?? 1, closed),
                 markTd(o.marks.reportban ?? 1, reportban),
                 userNotes.nonEmpty option {
@@ -625,7 +619,7 @@ object mod {
           tbody(
             spy.ips.sortBy(-_.alts.score).map { ip =>
               tr(cls := ip.blocked option "blocked", title := ip.location.toString)(
-                td(a(ip.ip.value)),
+                td(a(href := routes.Mod.singleIp(ip.ip.value.value))(ip.ip.value)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
                 td(ip.proxy option span(cls := "proxy")("PROXY")),
                 td(dataSort := ip.ip.date.getMillis)(momentFromNowServer(ip.ip.date)),
@@ -698,7 +692,6 @@ object mod {
       o.marks.troll option shadowban,
       o.marks.boost option boosting,
       o.marks.engine option engine,
-      o.marks.ipban option ipban,
       o.disabled option closed,
       o.marks.reportban option reportban
     )
