@@ -13,7 +13,7 @@ import lila.user.{ User, UserRepo }
 case class UserSpy(
     ips: List[UserSpy.IPData],
     prints: List[UserSpy.FPData],
-    uas: List[Store.Dated[UserSpy.UaAndClient]],
+    uas: List[Dated[UserSpy.UaAndClient]],
     otherUsers: List[UserSpy.OtherUser]
 ) {
 
@@ -29,7 +29,7 @@ case class UserSpy(
       case OtherUser(user, ips, _) if ips.nonEmpty => user
     }
 
-  def distinctLocations = UserSpy.distinctRecent(ips.map(_.datedLocation))
+  def distinctLocations = UserSpy.distinctRecent(ips.map(_.datedLocation).sortBy(-_.seconds))
 }
 
 final class UserSpyApi(
@@ -172,8 +172,6 @@ final class UserSpyApi(
 }
 
 object UserSpy {
-
-  import Store.Dated
 
   case class OtherUser(user: User, ips: Set[IpAddress], fps: Set[FingerHash]) {
     val nbIps = ips.size

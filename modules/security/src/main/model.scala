@@ -6,6 +6,12 @@ import play.api.mvc.RequestHeader
 import lila.common.{ EmailAddress, IpAddress }
 import lila.user.User
 
+case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {
+  def compare(other: Dated[V]) = other.date compareTo date
+  def map[X](f: V => X)        = copy(value = f(value))
+  def seconds                  = date.getSeconds
+}
+
 case class AuthInfo(user: User.ID, hasFp: Boolean)
 
 case class FingerPrintedUser(user: User, hasFingerPrint: Boolean)

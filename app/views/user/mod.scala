@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
-import lila.security.{ FingerHash, Permission, UserSpy }
+import lila.security.{ Dated, FingerHash, Permission, UserSpy }
 import lila.playban.RageSit
 import lila.user.User
 
@@ -473,7 +473,7 @@ object mod {
       table(cls := "slist")(
         thead(
           tr(
-            th(spy.otherUsers.size, " similar user(s)"),
+            th(pluralize("linked user", spy.otherUsers.size)),
             th("Email"),
             sortNumberTh("Same"),
             th("Games"),
@@ -495,10 +495,10 @@ object mod {
               val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
               val userNotes =
                 notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
-              val row =
-                if (o == u) tr(cls := "same")
-                else tr(dataTags := s"${other.ips.mkString(" ")} ${other.fps.mkString(" ")}")
-              row(
+              tr(
+                dataTags := s"${other.ips.mkString(" ")} ${other.fps.mkString(" ")}",
+                cls := (o == u) option "same"
+              )(
                 if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
                 else td,
                 if (dox) td(othersWithEmail emailValueOf o)
@@ -559,7 +559,7 @@ object mod {
           ),
           tbody(
             spy.distinctLocations.toList
-              .sortBy(-_.date.getMillis)
+              .sortBy(-_.seconds)
               .map { loc =>
                 tr(
                   td(loc.value.country),
@@ -585,7 +585,7 @@ object mod {
           ),
           tbody(
             spy.uas
-              .sortBy(-_.date.getMillis)
+              .sortBy(-_.seconds)
               .map { ua =>
                 import ua.value.client._
                 tr(
@@ -611,17 +611,17 @@ object mod {
               sortNumberTh("Alts"),
               th,
               sortNumberTh("Date"),
-              canIpBan option th
+              canIpBan option sortNumberTh
             )
           ),
           tbody(
             spy.ips.sortBy(-_.alts.score).map { ip =>
-              tr(cls := ip.blocked option "blocked", title := ip.location.toString)(
+              tr(cls := ip.blocked option "blocked")(
                 td(a(href := routes.Mod.singleIp(ip.ip.value.value))(ip.ip.value)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
                 td(ip.proxy option span(cls := "proxy")("PROXY")),
                 td(dataSort := ip.ip.date.getMillis)(momentFromNowServer(ip.ip.date)),
-                canIpBan option td(
+                canIpBan option td(dataSort := (9999 - ip.alts.cleans))(
                   button(
                     cls := List(
                       "button button-empty" -> true,
@@ -642,7 +642,7 @@ object mod {
               th(pluralize("Print", spy.prints.size)),
               sortNumberTh("Alts"),
               sortNumberTh("Date"),
-              canFpBan option th
+              canFpBan option sortNumberTh
             )
           ),
           tbody(
@@ -651,7 +651,7 @@ object mod {
                 td(a(href := routes.Mod.print(fp.fp.value.value))(fp.fp.value)),
                 td(dataSort := fp.alts.score)(altMarks(fp.alts)),
                 td(dataSort := fp.fp.date.getMillis)(momentFromNowServer(fp.fp.date)),
-                canFpBan option td(
+                canFpBan option td(dataSort := (9999 - fp.alts.cleans))(
                   button(
                     cls := List(
                       "button button-empty" -> true,
