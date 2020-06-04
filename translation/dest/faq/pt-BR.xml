@@ -78,11 +78,11 @@ Veja o %3$s sobre este movimento para praticá-lo.</string>
   <string name="titlesAvailableOnLichess">Que títulos existem no Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">O Lichess reconhece todos os título FIDE obtidos OTB (\"over the board\", em jogos presenciais), assim como %1$s.
 Aqui está uma lista dos títulos FIDE:</string>
-  <string name="showYourTitle">Se tiveres um título OTB, podes candidatar-te para que o tenhas mostrado na tua conta se completares este %1$s, incluindo uma imagem clara de uma documento/cartão identificativo e uma foto de ti a segurares nesse documento/cartão.
+  <string name="showYourTitle">Se você tem um título OTB, você pode se candidatar para tê-lo exibido na sua conta, completando o %1$s, incluindo uma imagem nítida de um documento/cartão de identificação e uma selfie de você segurando o documento/cartão.
 
-Uma verificação como jogador com título no Lichess dá acesso a jogar em eventos de Arena de Título.
+Verificar-se como um jogador com título no Lichess dá acesso a jogos nos eventos da Arena Titular.
 
-Finalmente, há um título honorário %2$s.</string>
+Finalmente há um título honorário %2$s.</string>
   <string name="asWellAsManyNMtitles">muitos títulos de mestres nacionais</string>
   <string name="verificationForm">formulário de verificação</string>
   <string name="canIbecomeLM">Posso obter o título de Mestre do Lichess (LM)?</string>
@@ -97,31 +97,31 @@ Não peça pelo título de LM.</string>
   <string name="guidelines">orientações</string>
   <string name="uniqueTrophies">Troféus únicos</string>
   <string name="ownerUniqueTrophies">Esse troféu é único na história dos Lichess, ninguém mais o terá além de %1$s.</string>
-  <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar 100%% dos jogos de %s no modo frenético.</string>
+  <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar freneticamente 100%% dos jogos de %s.</string>
   <string name="aHourlyBulletTournament">um torneio horário de Bullet</string>
-  <string name="goldenZeeExplanation">ZugAddict estava fazer uma stream e nas últimas 2 horas tinha estado a tentar derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-lhe que se ele o fizesse na stream, ele teria um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
+  <string name="goldenZeeExplanation">ZugAddict estava realizando uma stream e, pelas últimas 2 horas, tentava derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-a ele que, se ele conseguisse vencer na stream, ganharia um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
   <string name="lichessRatings">Pontuações no Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Qual é o sistema de pontuação que o Lichess utiliza?</string>
-  <string name="ratingSystemUsedByLichess">As pontuações são calculadas utilizando o sistema de pontuaçao Glicko-2 desenvolvido por Mark Glickman. Este é um sistema de pontuação muito popular e é utilizado por um número considerável de organizações de xadrez (a FIDE é um contraexemplo notável, já que eles ainda usam o sistema de pontuação ELO).
+  <string name="ratingSystemUsedByLichess">As pontuações são calculadas utilizando o sistema de pontuaçao Glicko-2, desenvolvido por Mark Glickman. Este é um sistema de pontuação muito popular e é utilizado por um número considerável de organizações de xadrez (a FIDE é um contraexemplo notável, já que eles ainda usam o sistema de pontuação Elo).
 
-Fundamentalmente, as pontuações do Glicko usam \"intervalos de confianças\" quando calculam e representam a tua pontuação. Quando começas a usar o site, a tua pontuação começa em 1500 ± 700. O \"1500\" representa a tua pontuação e o \"700\" representa o intervalo de confiança.
+Fundamentalmente, as pontuações do Glicko usam \"intervalos de confiança\" quando calculam e representam sua pontuação. Ao começar a usar o site, sua pontuação começa em 1500 ± 700. O \"1500\" representa sua pontuação e o \"700\" representa o intervalo de confiança.
 
-Basicamente, o sistema tem 90% de certeza que a tua pontuação está algures entre 800 e 2200. É incrivelmente incerto. Consequentemente, quando um jogador está a começar, a sua pontuação vai mudar drasticamente, potencialmente várias centenas de pontos de uma vez. Mas depois de algumas partidas contra jogadores estabelecidos, o intervalo de confiança vai diminuir e o número de pontos ganhados/perdidos após cada jogo será menor
+Basicamente, o sistema tem 90% de certeza que sua pontuação está entre 800 e 2200. É incrivelmente incerto. Consequentemente, quando um jogador acabou começar, sua pontuação vai mudar drasticamente, potencialmente várias centenas de pontos de uma vez. Mas depois de algumas partidas contra jogadores estabelecidos, o intervalo de confiança diminui e o número de pontos ganhados/perdidos após cada jogo será menor
 
-Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confiança aumenta. Isto permite-te ganhar/perder pontos mais rapidamente para corresponder às mudanças no teu nível ao longo do tempo.</string>
-  <string name="whatIsProvisionalRating">Por que é que há um ponto de interrogação (?) depois da minha pontuação?</string>
+Outro ponto importante é que, à medida que o tempo passa, o intervalo de confiança aumenta. Isto permite a você ganhar/perder pontos mais rapidamente para corresponder às mudanças no seu nível ao longo do tempo.</string>
+  <string name="whatIsProvisionalRating">Por que é que há um ponto de interrogação (?) depois d uma pontuação?</string>
   <string name="provisionalRatingExplanation">O ponto de interrogação significa que a pontuação é provisória. As razões incluem:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">O jogador ainda não terminou um número suficiente de jogos a valer pontos contra %1$s na categoria de pontuação em questão.</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">O jogador ainda não finalizou um número suficiente de jogos com rating contra %1$s na categoria em questão.</string>
   <string name="similarOpponents">oponentes de nível semelhante</string>
   <string name="notPlayedRecently">O jogador não jogou um número suficiente de partidas recentes. Dependendo do número de partidas que você jogou, pode demorar cerca de um ano de inatividade para que sua pontuação se torne provisória novamente.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Concretamente, significa que o desvio do Glicko-2 é maior do que 110. O desvio é o nível de confiança que o sistema tem na pontuação. Quando mais baixo for o desvio, mais estável é a pontuação.</string>
   <string name="howDoLeaderoardsWork">Como é que funcionam as posições e as tabelas de liderança?</string>
-  <string name="inOrderToAppearsYouMust">Para entrares na %1$s, tens de:</string>
+  <string name="inOrderToAppearsYouMust">Para entrares na %1$s, você deve:</string>
   <string name="ratingLeaderboards">tabela de liderança</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">ter jogado pelo menos 30 partidas a valer pontos num dado modo,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">ter jogado uma partida a valer pontos na última semana nesse modo,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">ter um desvio de pontuação menor que %1$s no xadrez normal e menor que %2$s nas variantes,</string>
-  <string name="beInTopTen">estar entre os 10 melhores (que satisfazem as condições acima) nesse modo.</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">ter jogado pelo menos 30 partidas valendo pontos em uma determinada classificação,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">ter jogado uma partida pontuada na última semana nesse modo,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">tem um desvio de classificação inferior a %1$s, no xadrez padrão, e inferior a %2$s nas variantes,</string>
+  <string name="beInTopTen">esteja entre os 10 melhores desta classificação.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">O segundo requisito existe para que jogadores que já não usam mais suas contas não estejam presentes nas tabelas de liderança.</string>
   <string name="whyAreRatingHigher">Por que as pontuações são maiores quando comparadas a outros sites e organizações, como FIDE, USCF e ICC?</string>
   <string name="whyAreRatingHigherExplanation">É melhor não considerar classificações como números absolutos, ou compará-las com outras organizações. Diferentes organizações têm diferentes níveis de jogadores, diferentes sistemas de classificação (Elo, Glicko, Glicko-2 ou uma versão modificada deles). Estes fatores podem afetar drasticamente os números absolutos (classificações).
