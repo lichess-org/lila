@@ -133,7 +133,10 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function sendMove(orig: Key, dest: Key, promotion?: cg.Role): void {
-    const pos = position();
+    sendMoveAt(vm.path, position(), orig, dest, promotion);
+  }
+
+  function sendMoveAt(path: Tree.Path, pos: Chess, orig: Key, dest: Key, promotion?: cg.Role): void {
     const move = pos.normalizeMove({
       from: parseSquare(orig)!,
       to: parseSquare(dest)!,
@@ -149,7 +152,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       san,
       check: defined(check) ? makeSquare(check) : undefined,
       children: []
-    }, vm.path);
+    }, path);
   }
 
   function uciToLastMove(uci: string | undefined): [Key, Key] | undefined {
@@ -213,8 +216,9 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       }
     } else if (progress && typeof progress != 'string') {
       vm.lastFeedback = 'good';
-      setTimeout(function() {
-        sendMove(progress.orig, progress.dest, progress.promotion);
+      setTimeout(() => {
+        const pos = Chess.fromSetup(parseFen(progress.fen).unwrap()).unwrap();
+        sendMoveAt(progress.path, pos, progress.orig, progress.dest, progress.promotion);
       }, 500);
     }
   }
