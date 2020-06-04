@@ -115,7 +115,7 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
   <string name="provisionalRatingExplanation">O ponto de interrogação significa que a pontuação é provisória. As razões incluem:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">O jogador ainda não terminou um número suficiente de jogos a valer pontos contra %1$s na categoria de pontuação em questão.</string>
   <string name="similarOpponents">oponentes de nível semelhante</string>
-  <string name="notPlayedRecently">O jogador não jogou um número suficiente de partidas recentes. Dependendo do número de jogos que já jogaste, pode demorar cerca de um ano de inatividade para que a tua pontuação se torne provisória novamente.</string>
+  <string name="notPlayedRecently">O jogador não jogou um número suficiente de partidas recentes. Dependendo do número de partidas que você jogou, pode demorar cerca de um ano de inatividade para que sua pontuação se torne provisória novamente.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Concretamente, significa que o desvio do Glicko-2 é maior do que 110. O desvio é o nível de confiança que o sistema tem na pontuação. Quando mais baixo for o desvio, mais estável é a pontuação.</string>
   <string name="howDoLeaderoardsWork">Como é que funcionam as posições e as tabelas de liderança?</string>
   <string name="inOrderToAppearsYouMust">Para entrares na %1$s, tens de:</string>
@@ -124,22 +124,22 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">ter jogado uma partida a valer pontos na última semana nesse modo,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">ter um desvio de pontuação menor que %1$s no xadrez normal e menor que %2$s nas variantes,</string>
   <string name="beInTopTen">estar entre os 10 melhores (que satisfazem as condições acima) nesse modo.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">O segundo requisito é para que jogadores que já não usam as suas contas não estejam a preencher as tabelas de liderança.</string>
-  <string name="whyAreRatingHigher">Por que é que as pontuações são maiores quando comparadas a outros sites e organizações como por exemplo, FIDE, USCF e ICC?</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">O segundo requisito existe para que jogadores que já não usam mais suas contas não estejam presentes nas tabelas de liderança.</string>
+  <string name="whyAreRatingHigher">Por que as pontuações são maiores quando comparadas a outros sites e organizações, como FIDE, USCF e ICC?</string>
   <string name="whyAreRatingHigherExplanation">É melhor não pensar nas pontuações como números absolutos, ou compará-las com outras organizações. Organizações diferentes tem níveis diferentes de jogadores, diferentes sistemas de pontuação (Elo, Glicko, Glicko-2, ou uma versão modificada dos supracitados). Estes fatores afetam os número absolutos (pontuações).
 
 É melhor pensar nas pontuações como valores \"relativos\" (em vez de valores \"absolutos\"): numa amostra de jogadores, as suas diferenças de pontuações ajudam a estimar quem vai ganhar/empatar/perder, e com que frequência. Dizer \"Eu tenho uma pontuação de X.\" não tem significado a não ser que existam outros jogadores com os quais possamos comparar as pontuações.</string>
-  <string name="howToHideRatingWhilePlaying">Como é que posso esconder as pontuações enquanto jogo?</string>
+  <string name="howToHideRatingWhilePlaying">Como ocultar as pontuações enquanto jogo?</string>
   <string name="enableZenMode">Ativando o modo zen nas %1$s ou clicando na tecla %2$s durante a partida.</string>
-  <string name="displayPreferences">definições de apresentação</string>
+  <string name="displayPreferences">preferências de exibição</string>
   <string name="connexionLostCanIGetMyRatingBack">Perdi uma partida por atraso/desconexão. Posso ter a minha pontuação de volta?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Infelizmente, não podemos devolver a pontuação de partidas perdidas por atraso/desconexão, quer o problema tenha sido da tua parte ou da nossa parte. No entanto, o último é muito raro. Nota também que, quando o Lichess reinicia e perdes um jogo por tempo por causa disso, nós abortamos o jogo para evitar uma derrota injusta.</string>
-  <string name="howToThreeDots">Como é que...</string>
-  <string name="enableDisableNotificationPopUps">Ativo ou desativo as notificações pop-up?</string>
-  <string name="viewSiteInformationPopUp">Vejo a informação pop-up do site</string>
-  <string name="lichessCanOptionnalySendPopUps">O Lichess pode enviar notificações pop-up opcionalmente, por exemplo, quando for tua vez ou quando tiveres recebido uma mensagem privada.
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Infelizmente, não podemos devolver a pontuação para jogos perdidos devido ao lag ou à desconexão, independente se o problema aconteceu do seu lado ou do nosso. No entanto, um problema do nosso lado é muito raro. Repare também que quando o Lichess reinicia e você perde tempo por causa disso, abortamos o jogo para evitar uma perda injusta.</string>
+  <string name="howToThreeDots">Como...</string>
+  <string name="enableDisableNotificationPopUps">Ativar ou desativar pop-ups de notificação?</string>
+  <string name="viewSiteInformationPopUp">Ver pop-up de informações do site</string>
+  <string name="lichessCanOptionnalySendPopUps">O Lichess pode opcionalmente enviar notificações pop-up, por exemplo, quando for sua vez de jogar ou quando você receber uma mensagem privada.
 
-Clica no ícone de cadeado ao lado do endereço lichess.org na barra de URL do teu navegador.
+Clique no ícone de cadeado ao lado do endereço do lichess.org na barra de endereço do seu navegador.
 
-De seguida, seleciona se quereres permitir ou bloquear as notificações do Lichess.</string>
+Em seguida, selecione se deve permitir ou bloquear notificações de Lichhess.</string>
 </resources>
