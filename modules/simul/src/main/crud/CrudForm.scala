@@ -40,7 +40,8 @@ object CrudForm {
     "fmjd" -> stringIn(fmjdChoices),
     "drawLimit" -> text(minLength = 0, maxLength = 2)
       .verifying("Enter a value between 0 and 99, or leave empty", mvs => mvs.length == 0 || parseIntOption(mvs).??(m => m >= 0 && m <= 99)),
-    "noAssistance" -> boolean
+    "noAssistance" -> boolean,
+    "team" -> optional(nonEmptyText)
   )(CrudForm.Data.apply)(CrudForm.Data.unapply)) fill empty
 
   case class Data(
@@ -63,7 +64,8 @@ object CrudForm {
       percentage: String,
       fmjd: String,
       drawLimit: String,
-      noAssistance: Boolean
+      noAssistance: Boolean,
+      team: Option[String]
   )
 
   val imageChoices = List(
@@ -113,6 +115,7 @@ object CrudForm {
     percentage = "",
     fmjd = fmjdDefault,
     drawLimit = "",
-    noAssistance = false
+    noAssistance = false,
+    team = none
   )
 }

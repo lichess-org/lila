@@ -42,7 +42,8 @@ final class CrudApi(simulRepo: SimulRepo) {
     percentage = ~simul.targetPct.map(_.toString),
     fmjd = simul.spotlight.flatMap(_.fmjdRating).fold(CrudForm.fmjdDefault)(_.key),
     drawLimit = ~simul.spotlight.flatMap(_.drawLimit).map(_.toString),
-    noAssistance = ~simul.spotlight.flatMap(_.noAssistance)
+    noAssistance = ~simul.spotlight.flatMap(_.noAssistance),
+    team = simul.team
   )
 
   def update(old: Simul, data: CrudForm.Data, host: User, arbiter: Option[User]) = {
@@ -103,6 +104,7 @@ final class CrudApi(simulRepo: SimulRepo) {
       hostTitle = host.title,
       variants = variantList,
       color = color.some,
+      team = team,
       targetPct = parseIntOption(percentage),
       arbiterId = arbiter map { _.id },
       spotlight = Spotlight(
