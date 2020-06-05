@@ -57,7 +57,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
   def objMoves(strMoves: List[StrMove], variant: Variant): Valid[Sans] =
     strMoves.map {
       case StrMove(san, glyphs, comments, variations) => (
-        MoveParser(MovesParser.collapsedSan(san), variant) map { m =>
+        MoveParser(MovesParser.normalizedSan(san), variant) map { m =>
           m withComments comments withVariations {
             variations.map { v =>
               objMoves(v, variant) | Sans.empty
@@ -94,22 +94,25 @@ object Parser extends scalaz.syntax.ToTraverseOps {
     }
 
     //val moveRegex = """0\-0\-0|0\-0|[PQKRBNOoa-h@][QKRBNa-h1-8xOo\-=\+\#\@]{1,6}[\?!□]{0,2}""".r
-    val moveRegex = """(50|[1-4][0-9]|0?[1-9])[\-x](50|[1-4][0-9]|0?[1-9])(x(50|[1-4][0-9]|0?[1-9]))*[\?!□⨀]{0,2}""".r
+    val moveRegex = """(50|[1-4][0-9]|0?[1-9]|[a-h][1-8])[\-x:](50|[1-4][0-9]|0?[1-9]|[a-h][1-8])([x:](50|[1-4][0-9]|0?[1-9]|[a-h][1-8]))*[\?!□⨀]{0,2}""".r
 
     def strMove: Parser[StrMove] = as("move") {
       ((number | commentary)*) ~>
         (moveRegex ~ nagGlyphs ~ rep(commentary) ~ nagGlyphs ~ rep(variation)) <~
         (moveExtras*) ^^ {
           case san ~ glyphs ~ comments ~ glyphs2 ~ variations =>
-            StrMove(collapsedSan(san.trim()), glyphs merge glyphs2, cleanComments(comments), variations)
+            StrMove(normalizedSan(san.trim()), glyphs merge glyphs2, cleanComments(comments), variations)
         }
     }
 
-    def collapsedSan(san: String) = {
-      val capts = san.split('x');
-      if (capts.length > 2)
-        s"${capts.head}x${capts.last}"
-      else san
+    def normalizedSan(san: String) = {
+      val normCapture = if (san.contains(':')) san.replace(":", "x") else san
+      if (normCapture.contains('x')) {
+        val capts = normCapture.split('x')
+        if (capts.length > 2)
+          s"${capts.head}x${capts.last}"
+        else normCapture
+      } else normCapture
     }
 
     def number: Parser[String] = """[1-9]\d*\.+\s*""".r
@@ -153,19 +156,19 @@ object Parser extends scalaz.syntax.ToTraverseOps {
 
   object MoveParser extends RegexParsers with Logging {
 
-    private val MoveR = """^(50|[1-4][0-9]|0?[1-9])(-|x)(50|[1-4][0-9]|0?[1-9])([\?!□⨀]{0,2})$""".r
+    private val MoveR = """^(50|[1-4][0-9]|0?[1-9]|[a-h][1-8])(-|x)(50|[1-4][0-9]|0?[1-9]|[a-h][1-8])([\?!□⨀]{0,2})$""".r
 
     def apply(str: String, variant: Variant): Valid[San] = {
       str match {
         case MoveR(srcR, cptR, dstR, suff) => {
-          val src = parseIntOption(srcR) flatMap variant.boardSize.pos.posAt
-          val dst = parseIntOption(dstR) flatMap variant.boardSize.pos.posAt
+          val src = variant.boardSize.pos.posAt(srcR)
+          val dst = variant.boardSize.pos.posAt(dstR)
           (src, dst) match {
             case (Some(srcP), Some(dstP)) =>
               val parseGlyphs = if (suff.isEmpty) Glyphs.empty
               else parseAll(glyphs, suff) match {
                 case Success(glphs, _) => glphs
-                case err => Glyphs.empty
+                case _ => Glyphs.empty
               }
               succezz(Std(
                 src = srcP,
