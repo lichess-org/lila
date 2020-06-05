@@ -80,8 +80,8 @@ case class Pref(
 
   def draughtsResult = gameResult == Pref.GameResult.DRAUGHTS
 
-  def isAlgebraic(v: Variant) =
-    coordSystem == Pref.CoordSystem.ALGEBRAIC && Pref.algebraicVariants.contains(v)
+  def isAlgebraic(v: Variant) = canAlgebraic && v.boardSize.pos.hasAlgebraic
+  def canAlgebraic = coordSystem == Pref.CoordSystem.ALGEBRAIC
 
   def isBlindfold = blindfold == Pref.Blindfold.YES
 
@@ -347,7 +347,6 @@ object Pref {
   }
 
   val puzzleVariants: List[Variant] = List(Standard, Frisian, Russian)
-  val algebraicVariants: Set[Variant] = Set(Russian)
 
   def create(id: String) = default.copy(_id = id)
 

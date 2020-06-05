@@ -236,7 +236,7 @@ object Simul extends LidraughtsController {
         streamGamesPdn(me, id, GameApiV2.ByIdsConfig(
           ids = simul.gameIds,
           format = GameApiV2.Format.PDN,
-          flags = WithFlags(draughtsResult = ctx.pref.draughtsResult),
+          flags = WithFlags(draughtsResult = ctx.pref.draughtsResult, algebraic = ctx.pref.canAlgebraic),
           perSecond = lidraughts.common.MaxPerSecond(20)
         )).fuccess
       case _ => fuccess(BadRequest)

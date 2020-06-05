@@ -1,6 +1,5 @@
 package lidraughts.api
 
-import draughts.format.FEN
 import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.api.ReadPreference

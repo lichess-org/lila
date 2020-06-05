@@ -9,6 +9,7 @@ import lidraughts.api.GameApiV2
 import lidraughts.app._
 import lidraughts.common.{ MaxPerSecond, HTTPRequest }
 import lidraughts.game.{ GameRepo, Game => GameModel }
+import lidraughts.pref.Pref.{ default => defaultPref }
 import views._
 
 object Game extends LidraughtsController {
@@ -34,7 +35,7 @@ object Game extends LidraughtsController {
         val config = GameApiV2.OneConfig(
           format = if (HTTPRequest acceptsJson ctx.req) GameApiV2.Format.JSON else GameApiV2.Format.PDN,
           imported = getBool("imported"),
-          flags = requestPdnFlags(ctx.req, ctx.pref.draughtsResult, extended = true)
+          flags = requestPdnFlags(ctx.req, ctx.pref.draughtsResult, extended = true, ctx.pref.canAlgebraic)
         )
         lidraughts.mon.export.pdn.game()
         Env.api.gameApiV2.exportOne(game, config) flatMap { content =>
@@ -50,16 +51,16 @@ object Game extends LidraughtsController {
   }
 
   def exportByUser(username: String) = OpenOrScoped()(
-    open = ctx => handleExport(username, ctx.me, ctx.req, ctx.pref.draughtsResult, oauth = false),
-    scoped = req => me => handleExport(username, me.some, req, lidraughts.pref.Pref.default.draughtsResult, oauth = true)
+    open = ctx => handleExport(username, ctx.me, ctx.req, ctx.pref.draughtsResult, ctx.pref.canAlgebraic, oauth = false),
+    scoped = req => me => handleExport(username, me.some, req, defaultPref.draughtsResult, defaultPref.canAlgebraic, oauth = true)
   )
 
   def apiExportByUser(username: String) = AnonOrScoped()(
-    anon = req => handleExport(username, none, req, lidraughts.pref.Pref.default.draughtsResult, oauth = false),
-    scoped = req => me => handleExport(username, me.some, req, lidraughts.pref.Pref.default.draughtsResult, oauth = true)
+    anon = req => handleExport(username, none, req, defaultPref.draughtsResult, defaultPref.canAlgebraic, oauth = false),
+    scoped = req => me => handleExport(username, me.some, req, defaultPref.draughtsResult, defaultPref.canAlgebraic, oauth = true)
   )
 
-  private def handleExport(username: String, me: Option[lidraughts.user.User], req: RequestHeader, draughtsResult: Boolean, oauth: Boolean) =
+  private def handleExport(username: String, me: Option[lidraughts.user.User], req: RequestHeader, draughtsResult: Boolean, algebraicPref: Boolean, oauth: Boolean) =
     lidraughts.user.UserRepo named username flatMap {
       _ ?? { user =>
         Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
@@ -78,7 +79,7 @@ object Game extends LidraughtsController {
                 color = get("color", req) flatMap draughts.Color.apply,
                 analysed = getBoolOpt("analysed", req),
                 ongoing = getBool("ongoing", req),
-                flags = requestPdnFlags(req, draughtsResult, extended = false).copy(
+                flags = requestPdnFlags(req, draughtsResult, extended = false, algebraicPref).copy(
                   literate = false
                 ),
                 perSecond = MaxPerSecond(me match {
@@ -101,11 +102,10 @@ object Game extends LidraughtsController {
 
   def exportByIds = Action.async(parse.tolerantText) { req =>
     Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
-      val format = GameApiV2.Format byRequest req
       val config = GameApiV2.ByIdsConfig(
         ids = req.body.split(',').take(300),
         format = GameApiV2.Format byRequest req,
-        flags = requestPdnFlags(req, lidraughts.pref.Pref.default.draughtsResult, extended = false),
+        flags = requestPdnFlags(req, defaultPref.draughtsResult, extended = false, defaultPref.canAlgebraic),
         perSecond = MaxPerSecond(20)
       )
       Ok.chunked(Env.api.gameApiV2.exportByIds(config)).withHeaders(
@@ -124,7 +124,7 @@ object Game extends LidraughtsController {
       }
     }
 
-  private[controllers] def requestPdnFlags(req: RequestHeader, draughtsResult: Boolean, extended: Boolean) =
+  private[controllers] def requestPdnFlags(req: RequestHeader, draughtsResult: Boolean, extended: Boolean, algebraicPref: Boolean) =
     lidraughts.game.PdnDump.WithFlags(
       moves = getBoolOpt("moves", req) | true,
       tags = getBoolOpt("tags", req) | true,
@@ -132,6 +132,7 @@ object Game extends LidraughtsController {
       evals = getBoolOpt("evals", req) | extended,
       opening = getBoolOpt("opening", req) | extended,
       literate = getBoolOpt("literate", req) | false,
+      algebraic = getBoolOpt("algebraic", req) | algebraicPref,
       draughtsResult = draughtsResult
     )
 

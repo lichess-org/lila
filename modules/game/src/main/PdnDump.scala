@@ -18,15 +18,17 @@ final class PdnDump(
     val imported = game.pdnImport.flatMap { pdni =>
       Parser.full(pdni.pdn).toOption
     }
+    val boardPos = game.variant.boardSize.pos
+    val algebraic = flags.algebraic && boardPos.hasAlgebraic
     val tagsFuture =
-      if (flags.tags) tags(game, initialFen, imported, flags.draughtsResult, flags.opening, flags.algebraic)
+      if (flags.tags) tags(game, initialFen, imported, flags.draughtsResult, algebraic, flags.opening)
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val turns = flags.moves ?? {
         val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
         val moves2 = if (fenSituation.exists(_.situation.color.black)) ".." +: game.pdnMovesConcat else game.pdnMovesConcat
         makeTurns(
-          if (flags.algebraic) san2alg(moves2, game.variant.boardSize.pos) else moves2,
+          if (algebraic) san2alg(moves2, boardPos) else moves2,
           fenSituation.map(_.fullMoveNumber) | 1,
           flags.clocks ?? ~game.bothClockStates(true),
           game.startColor

@@ -220,7 +220,7 @@ object Round extends LidraughtsController with TheftPrevention {
                 }
           else for { // web crawlers don't need the full thing
             initialFen <- GameRepo.initialFen(pov.gameId)
-            pdn <- Env.api.pdnDump(pov.game, initialFen, none, PdnDump.WithFlags(clocks = false, draughtsResult = ctx.pref.draughtsResult))
+            pdn <- Env.api.pdnDump(pov.game, initialFen, none, PdnDump.WithFlags(clocks = false))
           } yield Ok(html.round.watcher.crawler(pov, initialFen, pdn))
         }.mon(_.http.response.watcher.website),
         api = apiVersion => for {

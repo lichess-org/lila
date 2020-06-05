@@ -103,7 +103,7 @@ object Analyse extends LidraughtsController {
     analysis <- env.analyser get pov.game
     simul <- pov.game.simulId ?? Env.simul.repo.find
     crosstable <- Env.game.crosstableApi.withMatchup(pov.game)
-    pdn <- Env.api.pdnDump(pov.game, initialFen, analysis, PdnDump.WithFlags(clocks = false, draughtsResult = ctx.pref.draughtsResult))
+    pdn <- Env.api.pdnDump(pov.game, initialFen, analysis, PdnDump.WithFlags(clocks = false))
   } yield Ok(html.analyse.replayBot(
     pov,
     initialFen,

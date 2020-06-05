@@ -66,6 +66,7 @@ sealed trait BoardPos {
   def posAt(field: Int): Option[PosMotion]
   def posAt(field: String): Option[PosMotion]
   def piotr(c: Char): Option[PosMotion]
+  val hasAlgebraic: Boolean
   def algebraic(field: Int): Option[String]
   def algebraic(field: String): Option[String] = parseIntOption(field) flatMap algebraic
 }
@@ -238,6 +239,7 @@ object Pos100 extends BoardPos {
 
   def piotr(c: Char): Option[PosMotion] = allPiotrs get c
 
+  val hasAlgebraic = false
   def algebraic(field: Int) = posAt(field) map { _.toString }
 
   private[this] def createPos(x: Int, y: Int): Pos100 = {
@@ -436,6 +438,7 @@ object Pos64 extends BoardPos {
 
   def piotr(c: Char): Option[PosMotion] = allPiotrs get c
 
+  val hasAlgebraic = true
   def algebraic(field: Int) = field2alg get field
 
   private[this] def createPos(x: Int, y: Int): Pos64 = {
