@@ -105,6 +105,9 @@ Nie proś nas o przyznanie tytułu LM.</string>
   <string name="beInTopTen">być w pierwszej 10 w tym rankingu.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Gracze, którzy zaprzestali korzystać ze swoich kont, zostają usunięci z tabel z najlepszymi graczami.</string>
   <string name="whyAreRatingHigher">Dlaczego rankingi na Lichess są wyższe w porównaniu z rankingami na innych portalach szachowych i rankingami w organizacjach, takimi jak FIDE, USCF i ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Najlepiej nie myśleć o rankingu jako liczbie bezwzględnej, czy też porównywać ją z rankingami w innych organizacjach. Różne organizacje zrzeszają graczy na różnych poziomach zaawansowania, używają różnych systemów rankingowych (Elo, Glicko, Glicko-2 lub ich zmodyfikowanych wersji). Czynniki te mogą drastycznie wpłynąć na ranking wyliczony w danych warunkach.
+
+Najlepiej myśleć o rankingu jako o „względnej” liczbie: wewnątrz danej puli graczy, ich względne różnice w rankingach pomogą Ci oszacować, kto wygra/zremisuje/przegra i jak często. Stwierdzenie \"mam ranking X\" nic nie oznacza, chyba że istnieją inni gracze, z którymi można porównać tę wartość.</string>
   <string name="howToHideRatingWhilePlaying">Jak ukryć ranking przeciwnika podczas gry?</string>
   <string name="enableZenMode">Włącz tryb Zen w ustawieniach %1$s, lub naciśnij klawisz \'%2$s\' podczas rozgrywki.</string>
   <string name="displayPreferences">widoku partii</string>
