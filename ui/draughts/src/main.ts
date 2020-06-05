@@ -13,6 +13,17 @@ export function decomposeUci(uci: Uci): Key[] {
   return ucis;
 }
 
+export function fenFromTag(tag: string) {
+  if (!tag || !tag.startsWith('[') || !tag.endsWith(']') || !tag.includes('FEN')) {
+    return tag;
+  }
+  const fenStart = tag.indexOf('"'), fenEnd = tag.lastIndexOf('"');
+  if (fenStart === -1 || fenEnd === -1 || fenStart === fenEnd) {
+    return tag;
+  }
+  return tag.slice(fenStart + 1, fenEnd);
+}
+
 export function san2alg(san?: string): string | undefined {
   if (!san) return undefined
   const capture = san.indexOf('x'),
@@ -50,13 +61,12 @@ export function readDests(lines?: string): Dests | null {
 }
 
 export function readCaptureLength(lines?: string): number {
-  if (typeof lines === 'undefined') return 0;
-  if (lines){
+  if (lines) {
     const lineSplit = lines.split(' ');
-    if (lineSplit.length != 0 && lineSplit[0][0] === '#') {
-        const lineRest = lineSplit[0].slice(1);
-        if (!isNaN(Number(lineRest)))
-            return Number(lineRest);
+    if (lineSplit.length && lineSplit[0][0] === '#') {
+        const captLen = parseInt(lineSplit[0].slice(1));
+        if (!isNaN(captLen))
+          return captLen;
     }
   }
   return 0;

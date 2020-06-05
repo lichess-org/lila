@@ -516,7 +516,8 @@ export default class AnalyseCtrl {
 
   changeFen(fen: Fen): void {
     this.redirecting = true;
-    window.location.href = '/analysis/' + (this.data.puzzleEditor ? 'puzzle/' : '') + this.data.game.variant.key + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+    const cleanFen = draughtsUtil.fenFromTag(fen);
+    window.location.href = '/analysis/' + (this.data.puzzleEditor ? 'puzzle/' : '') + this.data.game.variant.key + '/' + encodeURIComponent(cleanFen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {

@@ -1,4 +1,5 @@
 var m = require('mithril');
+var fenFromTag = require('draughts').fenFromTag;
 
 function init(cfg) {
   return {
@@ -17,7 +18,8 @@ function computeFen(data, cgFen) {
 }
 
 function makeUrl(url, fen) {
-  return url + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
+  const cleanFen = fenFromTag(fen);
+  return url + encodeURIComponent(cleanFen).replace(/%20/g, '_').replace(/%2F/g, '/');
 }
 
 module.exports = {
