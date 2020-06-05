@@ -38,6 +38,13 @@ Na przykład, szacowany czas trwania gry 5+3 wynosi 5 * 60 + 40 * 3 = 420 sekund
   <string name="lichessSupportChessAnd">Lichess umożliwia grę w standardowe szachy oraz %1$s.</string>
   <string name="eightVariants">8 wariantów szachów</string>
   <string name="whatIsACPL">Czym jest średnia strata setnej części piona (ACPL - average centipawn loss)?</string>
+  <string name="acplExplanation">Średnia strata setnej części piona (ACPL - average centipawn loss) jest jednostką miary stosowaną w szachach do przedstawienia straty wynikającej z wykonania danego posunięcia. Wartość ta nie odgrywa żadnej formalnej roli podczas rozgrywania partii, ale jest użyteczna dla graczy podczas jej analizy. Silniki szachowe wykorzystują ją natomiast do oceny pozycji podczas samej rozgrywki.
+
+Najlepszy znaleziony podczas analizy komputerowej ruch to brak straty, ale gorsze ruchy powodują pogorszenie się pozycji, które właśnie mierzymy w setnych częściach wartości piona.
+
+Ta wartość może być użyta jako wskaźnik siły gry. Im mniej setnych części piona traconych jest średnio w jednym ruchu, tym siła gry jest większa.
+
+Analiza komputerowa dostępna na Lichess wspierana jest przez silnik szachowy Stockfish.</string>
   <string name="insufficientMaterial">Przegrana z powodu upłynięcia czasu gry, remis i niewystarczający materiał aby zamatować przeciwnika</string>
   <string name="linkToFIDErules">FIDE handbook §6.9, pdf</string>
   <string name="discoveringEnPassant">Dlaczego pion może zbić piona, który ruszył się o dwa pola do przodu i nie jest już pod biciem? (bicie w przelocie)</string>
