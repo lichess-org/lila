@@ -77,25 +77,25 @@ object Tv {
       name = S.Bullet.name,
       icon = P.Bullet.iconChar.toString,
       secondsSinceLastMove = 35,
-      filters = Seq(speed(S.Bullet), standard, noBot)
+      filters = Seq(speed(S.Bullet), rated, standard, noBot)
     )
     case object Blitz extends Channel(
       name = S.Blitz.name,
       icon = P.Blitz.iconChar.toString,
       secondsSinceLastMove = freshBlitz,
-      filters = Seq(speed(S.Blitz), standard, noBot)
+      filters = Seq(speed(S.Blitz), rated, standard, noBot)
     )
     case object Rapid extends Channel(
       name = S.Rapid.name,
       icon = P.Rapid.iconChar.toString,
       secondsSinceLastMove = 60 * 5,
-      filters = Seq(speed(S.Rapid), standard, noBot)
+      filters = Seq(speed(S.Rapid), rated, standard, noBot)
     )
     case object Classical extends Channel(
       name = S.Classical.name,
       icon = P.Classical.iconChar.toString,
       secondsSinceLastMove = 60 * 8,
-      filters = Seq(speed(S.Classical), standard, noBot)
+      filters = Seq(speed(S.Classical), rated, standard, noBot)
     )
     case object Frisian extends Channel(
       name = V.Frisian.name,
@@ -157,6 +157,7 @@ object Tv {
     val byKey = all.map { c => c.key -> c }.toMap
   }
 
+  private def rated = (c: Candidate) => c.game.rated
   private def rated(min: Int) = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
   private def speed(speed: draughts.Speed) = (c: Candidate) => c.game.speed == speed
   private def variant(variant: draughts.variant.Variant) = (c: Candidate) => c.game.variant == variant
