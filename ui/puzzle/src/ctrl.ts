@@ -1,6 +1,5 @@
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
-import { decomposeUci, sanToRole } from 'chess';
 import keyboard from './keyboard';
 import moveTestBuild from './moveTest';
 import mergeSolution from './solution';
@@ -12,14 +11,14 @@ import throttle from 'common/throttle';
 import * as xhr from './xhr';
 import * as speech from './speech';
 import { sound } from './sound';
-import { parseSquare, makeSquare, makeUci } from 'chessops/util';
+import { Role, Move } from 'chessops/types';
+import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
 import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests, scalachessId } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
-import * as cg from 'chessground/types';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, PuzzleVote, MoveTest } from './interfaces';
 
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
@@ -129,19 +128,27 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
-    if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
+    if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
   }
 
-  function sendMove(orig: Key, dest: Key, promotion?: cg.Role): void {
-    sendMoveAt(vm.path, position(), orig, dest, promotion);
+  function playUci(uci: Uci): void {
+    sendMove(parseUci(uci)!);
   }
 
-  function sendMoveAt(path: Tree.Path, pos: Chess, orig: Key, dest: Key, promotion?: cg.Role): void {
-    const move = pos.normalizeMove({
+  function playUserMove(orig: Key, dest: Key, promotion?: Role): void {
+    sendMove({
       from: parseSquare(orig)!,
       to: parseSquare(dest)!,
       promotion,
     });
+  }
+
+  function sendMove(move: Move): void {
+    sendMoveAt(vm.path, position(), move);
+  }
+
+  function sendMoveAt(path: Tree.Path, pos: Chess, move: Move): void {
+    move = pos.normalizeMove(move);
     const san = makeSanAndPlay(pos, move);
     const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
     addNode({
@@ -218,7 +225,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       vm.lastFeedback = 'good';
       setTimeout(() => {
         const pos = Chess.fromSetup(parseFen(progress.fen).unwrap()).unwrap();
-        sendMoveAt(progress.path, pos, progress.orig, progress.dest, progress.promotion);
+        sendMoveAt(progress.path, pos, progress.move);
       }, 500);
     }
   }
@@ -306,12 +313,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       // return n.eval ? n.eval.pvs[0].moves[0] : null;
       return n.eval ? n.eval.best : undefined;
     });
-  }
-
-  function playUci(uci: string): void {
-    const move = decomposeUci(uci);
-    if (!move[2]) sendMove(move[0], move[1])
-    else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
   }
 
   function getCeval() {

@@ -1,5 +1,4 @@
 import { winningChances } from 'ceval';
-import { decomposeUci } from 'chess';
 import { DrawShape } from 'chessground/draw';
 import { Vm } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
@@ -15,10 +14,9 @@ interface Opts {
 }
 
 function makeAutoShapesFromUci(uci: Uci, brush: string, modifiers?: any): DrawShape[] {
-  const move = decomposeUci(uci);
   return [{
-    orig: move[0],
-    dest: move[1],
+    orig: uci.slice(0, 2) as Key,
+    dest: uci.slice(2, 4) as Key,
     brush: brush,
     modifiers: modifiers
   }];

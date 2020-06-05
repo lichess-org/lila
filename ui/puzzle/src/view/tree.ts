@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { defined } from 'common';
 import throttle from 'common/throttle';
-import { renderEval as normalizeEval } from 'chess';
+import { renderEval as normalizeEval } from 'ceval';
 import { path as treePath } from 'tree';
 import { Controller, MaybeVNode, MaybeVNodes } from '../interfaces';
 
