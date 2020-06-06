@@ -8,7 +8,7 @@ object Dumper {
   def apply(data: draughts.Move): String = apply(
     data.situationBefore,
     data,
-    data.afterWithLastMove situationOf !data.color
+    data.afterWithLastMove() situationOf !data.color
   )
 
 }

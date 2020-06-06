@@ -32,8 +32,7 @@ case class Move(
       h1.copy(lastMove = Some(toUci))
     }
 
-    def remainingCaptures = board.actorAt(dest).map(_.captureLength).getOrElse(0)
-    board.variant.finalizeBoard(board, toUci, taken flatMap before.apply, finalSquare.fold(0, remainingCaptures)) updateHistory { h =>
+    board.variant.finalizeBoard(board, toUci, taken flatMap before.apply, situationBefore, finalSquare) updateHistory { h =>
       // Update position hashes last, only after updating the board,
       h.copy(positionHashes = board.variant.updatePositionHashes(board, this, h.positionHashes))
     }
@@ -41,11 +40,12 @@ case class Move(
 
   def applyVariantEffect: Move = before.variant addVariantEffect this
 
-  def afterWithLastMove = after.variant.finalizeBoard(
+  def afterWithLastMove(finalSquare: Boolean = false) = after.variant.finalizeBoard(
     after.copy(history = after.history.withLastMove(toUci)),
     toUci,
     taken flatMap before.apply,
-    situationBefore.captureLengthFrom(orig).getOrElse(0) - 1
+    situationBefore,
+    finalSquare
   )
 
   // does this move capture an opponent piece?

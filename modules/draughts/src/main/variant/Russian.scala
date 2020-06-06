@@ -156,7 +156,8 @@ case object Russian extends Variant(
     walkUntilCapture(initDir, initBoard, initPos, initFirstSquare, initFirstBoard, initAllSquares, initAllTaken)
   }
 
-  override def finalizeBoard(board: Board, uci: format.Uci.Move, captured: Option[List[Piece]], remainingCaptures: Int): Board = {
+  override def finalizeBoard(board: Board, uci: format.Uci.Move, captured: Option[List[Piece]], situationBefore: Situation, finalSquare: Boolean): Board = {
+    val remainingCaptures = board.actorAt(uci.dest).map(_.captureLength).getOrElse(0)
     if (remainingCaptures > 0) board
     else {
       val whiteActors = board.actorsOf(Color.White)
