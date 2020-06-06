@@ -20,15 +20,6 @@ case class FilterConfig(
       ratingRange.toString
     ).some
 
-  def render =
-    play.api.libs.json.Json.obj(
-      "variant"   -> variant.map(_.key),
-      "mode"      -> mode.map(_.id),
-      "speed"     -> speed.map(_.id),
-      "increment" -> increment.map(FilterConfig.Increment.iso.to),
-      "rating"    -> ratingRange.notBroad.map(rr => List(rr.min, rr.max))
-    )
-
   def nonEmpty =
     copy(
       variant = if (variant.isEmpty) FilterConfig.default.variant else variant,
@@ -78,31 +69,4 @@ object FilterConfig {
       increment = i map Increment.iso.from,
       ratingRange = RatingRange orDefault e
     ).nonEmpty
-
-  import reactivemongo.api.bson._
-  import lila.db.BSON
-
-  implicit private[setup] val filterConfigBSONHandler = new BSON[FilterConfig] {
-
-    def reads(r: BSON.Reader): FilterConfig =
-      FilterConfig(
-        variant = r intsD "v" flatMap { chess.variant.Variant(_) },
-        mode = r intsD "m" flatMap { Mode(_) },
-        speed = r intsD "s" flatMap { Speed(_) },
-        increment = r intsD "i" map Increment.iso.from,
-        ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default
-      )
-
-    def writes(w: BSON.Writer, o: FilterConfig) =
-      BSONDocument(
-        "v" -> o.variant.map(_.id),
-        "m" -> o.mode.map(_.id),
-        "s" -> o.speed.map(_.id),
-        "i" -> {
-          if (o.increment.size == 1) o.increment.map(Increment.iso.to).some
-          else None
-        },
-        "e" -> o.ratingRange.toString
-      )
-  }
 }

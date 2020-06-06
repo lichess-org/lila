@@ -36,7 +36,7 @@ final class Setup(
   def aiForm =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req) {
-        forms aiFilled get("fen").map(FEN) map { form =>
+        fuccess(forms aiFilled get("fen").map(FEN)) map { form =>
           html.setup.forms.ai(
             form,
             env.fishnet.aiPerfApi.intRatings,
@@ -57,7 +57,7 @@ final class Setup(
   def friendForm(userId: Option[String]) =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req)
-        forms friendFilled get("fen").map(FEN) flatMap { form =>
+        fuccess(forms friendFilled get("fen").map(FEN)) flatMap { form =>
           val validFen = form("fen").value flatMap ValidFen(false)
           userId ?? env.user.repo.named flatMap {
             case None => Ok(html.setup.forms.friend(form, none, none, validFen)).fuccess
@@ -117,8 +117,7 @@ final class Setup(
                       destUser = destUser,
                       rematchOf = none
                     )
-                    processor.saveFriendConfig(config) >>
-                      (env.challenge.api create challenge) flatMap {
+                    (env.challenge.api create challenge) flatMap {
                       case true =>
                         negotiate(
                           html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
@@ -140,7 +139,7 @@ final class Setup(
     Open { implicit ctx =>
       NoBot {
         if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
-          forms.hookFilled(timeModeString = get("time")) map { html.setup.forms.hook(_) }
+          fuccess(forms.hookFilled(timeModeString = get("time"))) map { html.setup.forms.hook(_) }
         }
         else
           fuccess {
@@ -174,14 +173,15 @@ final class Setup(
               .bindFromRequest
               .fold(
                 jsonFormError,
-                userConfig => {
-                  val config = userConfig withinLimits ctx.me
-                  if (getBool("pool")) processor.saveHookConfig(config) inject hookSaveOnlyResponse
-                  else
-                    (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
-                      processor.hook(config, Sri(sri), HTTPRequest sid req, blocking) map hookResponse
-                    }
-                }
+                userConfig =>
+                  (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
+                    processor.hook(
+                      userConfig withinLimits ctx.me,
+                      Sri(sri),
+                      HTTPRequest sid req,
+                      blocking
+                    ) map hookResponse
+                  }
               )
           }
         }(rateLimitedFu)
@@ -193,16 +193,18 @@ final class Setup(
       NoBot {
         PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
           NoPlaybanOrCurrent {
-            for {
-              config   <- forms.hookConfig
-              game     <- env.game.gameRepo game gameId
-              blocking <- ctx.userId ?? env.relation.api.fetchBlocking
-              hookConfig    = game.fold(config)(config.updateFrom)
-              sameOpponents = game.??(_.userIds)
-              hookResult <-
-                processor
-                  .hook(hookConfig, Sri(sri), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
-            } yield hookResponse(hookResult)
+            env.game.gameRepo game gameId flatMap {
+              _ ?? { game =>
+                for {
+                  blocking <- ctx.userId ?? env.relation.api.fetchBlocking
+                  hookConfig    = lila.setup.HookConfig.default updateFrom game
+                  sameOpponents = game.userIds
+                  hookResult <-
+                    processor
+                      .hook(hookConfig, Sri(sri), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
+                } yield hookResponse(hookResult)
+              }
+            }
           }
         }(rateLimitedFu)
       }
@@ -239,18 +241,7 @@ final class Setup(
 
   def filterForm =
     Open { implicit ctx =>
-      forms.filterFilled map {
-        case (form, filter) => html.setup.filter(form, filter)
-      }
-    }
-
-  def filter =
-    OpenBody { implicit ctx =>
-      implicit val req = ctx.body
-      forms.filter.bindFromRequest.fold[Fu[Result]](
-        _ => BadRequest(()).fuccess,
-        config => JsonOk(processor filter config inject config.render)
-      )
+      fuccess(html.setup.filter(forms.filter))
     }
 
   def validateFen =

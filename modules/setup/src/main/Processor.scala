@@ -11,18 +11,12 @@ final private[setup] class Processor(
     gameRepo: lila.game.GameRepo,
     maxPlaying: Max,
     fishnetPlayer: lila.fishnet.Player,
-    anonConfigRepo: AnonConfigRepo,
-    userConfigRepo: UserConfigRepo,
     onStart: lila.round.OnStart
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def filter(config: FilterConfig)(implicit ctx: UserContext): Funit =
-    saveConfig(_ withFilter config)
-
   def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = {
     val pov = config pov ctx.me
-    saveConfig(_ withAi config) >>
-      (gameRepo insertDenormalized pov.game) >>-
+    (gameRepo insertDenormalized pov.game) >>-
       onStart(pov.gameId) >> {
       pov.game.player.isAi ?? fishnetPlayer(pov.game)
     } inject pov
@@ -44,34 +38,23 @@ final private[setup] class Processor(
   )(implicit ctx: UserContext): Fu[Processor.HookResult] = {
     import Processor.HookResult._
     val config = configBase.fixColor
-    saveConfig(_ withHook config) >> {
-      config.hook(sri, ctx.me, sid, blocking) match {
-        case Left(hook) =>
-          fuccess {
-            Bus.publish(AddHook(hook), "lobbyTrouper")
-            Created(hook.id)
+    config.hook(sri, ctx.me, sid, blocking) match {
+      case Left(hook) =>
+        fuccess {
+          Bus.publish(AddHook(hook), "lobbyTrouper")
+          Created(hook.id)
+        }
+      case Right(Some(seek)) =>
+        ctx.userId.??(gameCache.nbPlaying) dmap { nbPlaying =>
+          if (maxPlaying <= nbPlaying) Refused
+          else {
+            Bus.publish(AddSeek(seek), "lobbyTrouper")
+            Created(seek.id)
           }
-        case Right(Some(seek)) =>
-          ctx.userId.??(gameCache.nbPlaying) dmap { nbPlaying =>
-            if (maxPlaying <= nbPlaying) Refused
-            else {
-              Bus.publish(AddSeek(seek), "lobbyTrouper")
-              Created(seek.id)
-            }
-          }
-        case _ => fuccess(Refused)
-      }
+        }
+      case _ => fuccess(Refused)
     }
   }
-
-  def saveFriendConfig(config: FriendConfig)(implicit ctx: UserContext) =
-    saveConfig(_ withFriend config)
-
-  def saveHookConfig(config: HookConfig)(implicit ctx: UserContext) =
-    saveConfig(_ withHook config)
-
-  private def saveConfig(map: UserConfig => UserConfig)(implicit ctx: UserContext): Funit =
-    ctx.me.fold(anonConfigRepo.update(ctx.req) _)(user => userConfigRepo.update(user) _)(map)
 }
 
 object Processor {

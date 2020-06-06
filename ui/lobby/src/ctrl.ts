@@ -4,14 +4,14 @@ import * as seekRepo from './seekRepo';
 import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
 import * as poolRangeStorage from './poolRangeStorage';
-import { LobbyOpts, LobbyData, Tab, Mode, Sort, Filter, Hook, Seek, Pool, PoolMember } from './interfaces';
+import { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, Seek, Pool, PoolMember } from './interfaces';
 import LobbySocket from './socket';
+import Filter from './filter';
 
 const li = window.lichess;
 
 export default class LobbyController {
 
-  opts: LobbyOpts;
   data: LobbyData;
   playban: any;
   isBot: boolean;
@@ -26,21 +26,20 @@ export default class LobbyController {
   redirecting: boolean = false;
   poolMember?: PoolMember;
   trans: Trans;
-  redraw: () => void;
   pools: Pool[];
+  filter: Filter;
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
   private alreadyWatching: string[] = [];
 
-  constructor(opts: LobbyOpts, redraw: () => void) {
-    this.opts = opts;
+  constructor(readonly opts: LobbyOpts, readonly redraw: () => void) {
     this.data = opts.data;
     this.data.hooks = [];
     this.pools = opts.pools;
     this.playban = opts.playban;
     this.isBot = opts.data.me && opts.data.me.isBot;
-    this.redraw = redraw;
+    this.filter = new Filter(li.storage.make('lobby.filter'), redraw);
 
     hookRepo.initAll(this);
     seekRepo.initAll(this);

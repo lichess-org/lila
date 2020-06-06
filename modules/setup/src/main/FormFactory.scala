@@ -8,17 +8,9 @@ import chess.variant.Variant
 import lila.rating.RatingRange
 import lila.user.UserContext
 
-final class FormFactory(
-    anonConfigRepo: AnonConfigRepo,
-    userConfigRepo: UserConfigRepo
-) {
+final class FormFactory {
 
   import Mappings._
-
-  def filterFilled(implicit ctx: UserContext): Fu[(Form[FilterConfig], FilterConfig)] =
-    filterConfig dmap { f =>
-      filter.fill(f) -> f
-    }
 
   lazy val filter = Form(
     mapping(
@@ -30,13 +22,9 @@ final class FormFactory(
     )(FilterConfig.<<)(_.>>)
   )
 
-  def filterConfig(implicit ctx: UserContext): Fu[FilterConfig] = savedConfig dmap (_.filter)
-
-  def aiFilled(fen: Option[FEN])(implicit ctx: UserContext): Fu[Form[AiConfig]] =
-    aiConfig dmap { config =>
-      ai fill fen.fold(config) { f =>
-        config.copy(fen = f.some, variant = chess.variant.FromPosition)
-      }
+  def aiFilled(fen: Option[FEN]): Form[AiConfig] =
+    ai fill fen.foldLeft(AiConfig.default) {
+      case (config, f) => config.copy(fen = f.some, variant = chess.variant.FromPosition)
     }
 
   lazy val ai = Form(
@@ -54,13 +42,9 @@ final class FormFactory(
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
   )
 
-  def aiConfig(implicit ctx: UserContext): Fu[AiConfig] = savedConfig dmap (_.ai)
-
-  def friendFilled(fen: Option[FEN])(implicit ctx: UserContext): Fu[Form[FriendConfig]] =
-    friendConfig dmap { config =>
-      friend(ctx) fill fen.fold(config) { f =>
-        config.copy(fen = f.some, variant = chess.variant.FromPosition)
-      }
+  def friendFilled(fen: Option[FEN])(implicit ctx: UserContext): Form[FriendConfig] =
+    friend(ctx) fill fen.foldLeft(FriendConfig.default) {
+      case (config, f) => config.copy(fen = f.some, variant = chess.variant.FromPosition)
     }
 
   def friend(ctx: UserContext) =
@@ -79,12 +63,10 @@ final class FormFactory(
         .verifying("invalidFen", _.validFen)
     )
 
-  def friendConfig(implicit ctx: UserContext): Fu[FriendConfig] = savedConfig dmap (_.friend)
+  def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Form[HookConfig] =
+    hook fill HookConfig.default.withTimeModeString(timeModeString)
 
-  def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Fu[Form[HookConfig]] =
-    hookConfig dmap (_ withTimeModeString timeModeString) dmap hook(ctx).fill
-
-  def hook(ctx: UserContext) =
+  def hook(implicit ctx: UserContext) =
     Form(
       mapping(
         "variant"     -> variantWithVariants,
@@ -99,8 +81,6 @@ final class FormFactory(
         .verifying("Invalid clock", _.validClock)
         .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
     )
-
-  def hookConfig(implicit ctx: UserContext): Fu[HookConfig] = savedConfig dmap (_.hook)
 
   lazy val boardApiHook = Form(
     mapping(
@@ -175,7 +155,4 @@ final class FormFactory(
       )(OpenConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
     )
   }
-
-  def savedConfig(implicit ctx: UserContext): Fu[UserConfig] =
-    ctx.me.fold(anonConfigRepo config ctx.req)(userConfigRepo.config)
 }

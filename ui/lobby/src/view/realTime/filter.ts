@@ -1,20 +1,12 @@
 import { h } from 'snabbdom';
 import { bind } from '../util';
-import LobbyController from '../../ctrl';
+import Filter from '../../filter';
 
-function initialize(ctrl: LobbyController, el) {
+function initialize(ctrl: Filter, el: HTMLElement) {
   const $div = $(el),
     $ratingRange = $div.find('.rating-range');
 
-  const save = window.lichess.debounce(function() {
-    const $form = $div.find('form');
-    $.ajax({
-      ...window.lichess.formAjax($form),
-      success: function(filter) {
-        ctrl.setFilter(filter);
-      }
-    });
-  }, 200);
+  const save = () => ctrl.set($div.find('form').serialize());
 
   function changeRatingRange(values) {
     $ratingRange.find('input').val(values[0] + "-" + values[1]);

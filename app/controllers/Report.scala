@@ -98,7 +98,7 @@ final class Report(
 
   def process(id: String) =
     SecureBody(_.SeeReport) { implicit ctx => me =>
-      api.inquiries ofModId me.id flatMap { inquiry =>
+      api byId id flatMap { inquiry =>
         api.process(AsMod(me), id) >> onInquiryClose(inquiry, me, none, force = true)
       }
     }

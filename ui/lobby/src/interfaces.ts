@@ -11,9 +11,6 @@ interface Untyped {
   [key: string]: any;
 }
 
-export interface Filter extends Untyped {
-}
-
 export interface Hook extends Untyped {
 }
 
