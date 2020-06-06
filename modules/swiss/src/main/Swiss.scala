@@ -66,6 +66,8 @@ case class Swiss(
   }
 
   def roundInfo = Swiss.RoundInfo(teamId, settings.chatFor)
+
+  lazy val looksLikePrize = lila.common.String.looksLikePrize(s"$name ${~settings.description}")
 }
 
 object Swiss {
