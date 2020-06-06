@@ -10,11 +10,6 @@ export function decomposeUci(uci: Uci): [Key, Key, string] {
   return [uci.slice(0, 2) as Key, uci.slice(2, 4) as Key, uci.slice(4, 5)];
 }
 
-export function renderEval(e: number): string {
-  e = Math.max(Math.min(Math.round(e / 10) / 10, 99), -99);
-  return (e > 0 ? '+' : '') + e.toFixed(1);
-}
-
 export interface Dests {
   [square: string]: Key[];
 }
@@ -57,20 +52,3 @@ export const altCastles = {
   e8a8: 'e8c8',
   e8h8: 'e8g8'
 };
-
-export function variantToRules(variant: VariantKey): 'chess' | 'antichess' | 'kingofthehill' | '3check' | 'atomic' | 'horde' | 'racingkings' | 'crazyhouse' {
-  switch (variant) {
-    case 'standard':
-    case 'chess960':
-    case 'fromPosition':
-      return 'chess';
-    case 'threeCheck':
-      return '3check';
-    case 'kingOfTheHill':
-      return 'kingofthehill';
-    case 'racingKings':
-      return 'racingkings';
-    default:
-      return variant;
-  }
-}

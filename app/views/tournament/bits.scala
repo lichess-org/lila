@@ -1,10 +1,13 @@
 package views.html.tournament
 
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.{ I18nKeys => trans }
 import lila.tournament.Tournament
+import lila.user.User
 
 import controllers.routes
 
@@ -40,6 +43,13 @@ object bits {
           td(dataIcon := "r", cls := "text")(tour.nbPlayers)
         )
       }
+    )
+
+  def userPrizeDisclaimer(ownerId: User.ID)(implicit lang: Lang) =
+    div(cls := "tour__prize")(
+      "This tournament is NOT organized by Lichess.",
+      br,
+      "If it has prizes, Lichess is NOT responsible for paying them."
     )
 
   def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)

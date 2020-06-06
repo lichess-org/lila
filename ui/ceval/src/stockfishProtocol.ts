@@ -1,4 +1,4 @@
-import { variantToRules } from 'chess';
+import { lichessVariantRules } from 'chessops/compat';
 import { WorkerOpts, Work } from './types';
 
 const EVAL_REGEX = new RegExp(''
@@ -34,7 +34,7 @@ export default class Protocol {
     else if (this.opts.variant === 'antichess')
       this.setOption('UCI_Variant', 'giveaway');
     else if (this.opts.variant !== 'standard')
-      this.setOption('UCI_Variant', variantToRules(this.opts.variant));
+      this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
   }
 
   private setOption(name: string, value: string | number) {

@@ -55,7 +55,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   private val createdSelect  = $doc("status" -> SimulStatus.Created.id)
   private val startedSelect  = $doc("status" -> SimulStatus.Started.id)
   private val finishedSelect = $doc("status" -> SimulStatus.Finished.id)
-  private val createdSort    = $doc("createdAt" -> -1)
+  private val createdSort    = $sort desc "createdAt"
 
   def find(id: Simul.ID): Fu[Option[Simul]] =
     simulColl.byId[Simul](id)
@@ -75,16 +75,13 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   def findPending(hostId: String): Fu[List[Simul]] =
     simulColl.ext.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
 
-  private val featurableSelect = $or(
-    "hostRating" $gte 2400,
-    "hostTitle" $exists true
-  )
+  private val featurableSelect = $doc("featurable" -> true)
 
   def allCreatedFeaturable: Fu[List[Simul]] =
     simulColl.ext
       .find(
-        createdSelect ++ $doc(
-          featurableSelect,
+        // hits partial index hostSeenAt_-1
+        createdSelect ++ featurableSelect ++ $doc(
           "hostSeenAt" $gte DateTime.now.minusSeconds(12)
         )
       )
@@ -98,9 +95,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
 
   def allStarted: Fu[List[Simul]] =
     simulColl.ext
-      .find(
-        startedSelect
-      )
+      .find(startedSelect)
       .sort(createdSort)
       .list[Simul]()
 
@@ -113,8 +108,10 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   def allNotFinished =
     simulColl.ext.find($doc("status" $ne SimulStatus.Finished.id)).list[Simul]()
 
-  def create(simul: Simul): Funit =
-    simulColl.insert one simul void
+  def create(simul: Simul, featurable: Boolean): Funit =
+    simulColl.insert one {
+      SimulBSONHandler.writeTry(simul).get ++ featurable.??(featurableSelect)
+    } void
 
   def update(simul: Simul) =
     simulColl.update.one($id(simul.id), simul).void
