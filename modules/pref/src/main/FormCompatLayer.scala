@@ -17,6 +17,9 @@ object FormCompatLayer {
         "moretime" -> "moretime"
       )) |>
       addMissing("clock.moretime", pref.moretime.toString) |>
+      addMissing("behavior.fullCapture", pref.fullCapture.toString) |>
+      addMissing("display.coordSystem", pref.coordSystem.toString) |>
+      addMissing("display.gameResult", pref.gameResult.toString) |>
       moveTo("behavior", List(
         "moveEvent",
         "premove",
