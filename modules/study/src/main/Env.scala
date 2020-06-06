@@ -46,7 +46,7 @@ final class Env(
     settingStore[Strings](
       "rateLimitDisabled",
       default = Strings(Nil),
-      text = "Users who are not ratelimited for study invites - lidraughts usernames separated by a comma".some
+      text = "Users who are not ratelimited for study invites/clones - lidraughts usernames separated by a comma".some
     )
   }
 

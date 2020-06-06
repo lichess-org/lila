@@ -332,11 +332,12 @@ object Study extends LidraughtsController {
     credits = 10 * 3,
     duration = 24 hour,
     name = "clone study per user",
-    key = "clone_study.user"
+    key = "clone_study.user",
+    whitelist = () => Env.study.rateLimitDisabledSetting.get().value.map(lidraughts.user.UserRepo.normalize)
   )
 
   private val CloneLimitPerIP = new lidraughts.memo.RateLimit[IpAddress](
-    credits = 20 * 3,
+    credits = 25 * 3,
     duration = 24 hour,
     name = "clone study per IP",
     key = "clone_study.ip"

@@ -62,8 +62,8 @@ object form {
             form3.group(form("targetPct"), trans.winningPercentage(), help = trans.simulTargetPercentageHint().some)(
               form3.input(_, typ = "number")(st.placeholder := trans.targetPercentage.txt(), st.min := 50, st.max := 100)
             ),
-            (teams.size > 0) ?? {
-              form3.group(form("team"), trans.onlyMembersOfTeam(), half = false)(form3.select(_, List(("", trans.noRestriction.txt())) ::: teams))
+            teams.nonEmpty ?? {
+              form3.group(form("team"), trans.onlyMembersOfTeam())(form3.select(_, List(("", trans.noRestriction.txt())) ::: teams))
             },
             form3.group(form("text"), trans.simulDescription(), help = trans.simulDescriptionHelp().some)(form3.textarea(_)(rows := 10)),
             form3.actions(
