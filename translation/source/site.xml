@@ -617,9 +617,9 @@ One URL per line</string>
   <string name="boardHighlights">Board highlights (last move and captures)</string>
   <string name="pieceDestinations">Piece destinations (valid moves and premoves)</string>
   <string name="boardCoordinates">Board coordinates (1-50, a1-h8)</string>
-  <string name="coordinateSystem">Board coordinate system</string>
-  <string name="fieldnumbers">Fieldnumbers (1-50)</string>
-  <string name="algebraic">Algebraic (a-h, 1-8) [only on 64 squares]</string>
+  <string name="coordinateSystem8x8">Coordinate system on 8x8 boards</string>
+  <string name="fieldnumbers8x8">Fieldnumbers (1-32)</string>
+  <string name="algebraic8x8">Algebraic (a-h, 1-8)</string>
   <string name="moveListWhilePlaying">Move list while playing</string>
   <string name="notationGameResult">Notation game result (white win • draw • black win)</string>
   <string name="draughtsClock">Draughts clock</string>

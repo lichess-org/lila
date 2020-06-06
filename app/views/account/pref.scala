@@ -72,7 +72,7 @@ object pref {
             radios(form("display.coords"), translatedBoardCoordinateChoices)
           ),
           setting(
-            trans.coordinateSystem(),
+            trans.coordinateSystem8x8(),
             radios(form("display.coordSystem"), translatedCoordinateSystemChoices)
           ),
           setting(
