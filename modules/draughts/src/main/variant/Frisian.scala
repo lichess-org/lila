@@ -1,7 +1,6 @@
 package draughts
 package variant
 
-import scala.annotation.tailrec
 import scala.collection.breakOut
 
 case object Frisian extends Variant(
@@ -14,6 +13,7 @@ case object Frisian extends Variant(
   standardInitialPosition = true,
   boardSize = Board.D100
 ) {
+  import Variant._
 
   def pieces = Standard.pieces
   def initialFen = Standard.initialFen
@@ -22,7 +22,7 @@ case object Frisian extends Variant(
   def moveDirsColor = Standard.moveDirsColor
   def moveDirsAll = Standard.moveDirsAll
 
-  val captureDirs: Directions = List((Variant.UpLeft, _.moveUpLeft), (Variant.UpRight, _.moveUpRight), (Variant.Up, _.moveUp), (Variant.DownLeft, _.moveDownLeft), (Variant.DownRight, _.moveDownRight), (Variant.Down, _.moveDown), (Variant.Left, _.moveLeft), (Variant.Right, _.moveRight))
+  lazy val captureDirs: Directions = List((UpLeft, _.moveUpLeft), (UpRight, _.moveUpRight), (Up, _.moveUp), (DownLeft, _.moveDownLeft), (DownRight, _.moveDownRight), (Down, _.moveDown), (Left, _.moveLeft), (Right, _.moveRight))
 
   override def getCaptureValue(board: Board, taken: List[Pos]) = taken.foldLeft(0) {
     (t, p) => t + getCaptureValue(board, p)

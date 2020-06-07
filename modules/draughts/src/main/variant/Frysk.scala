@@ -20,10 +20,10 @@ case object Frysk extends Variant(
   def moveDirsColor = Frisian.moveDirsColor
   def moveDirsAll = Frisian.moveDirsAll
 
-  override def validMoves(situation: Situation, finalSquare: Boolean = false): Map[Pos, List[Move]] = Frisian.validMoves(situation, finalSquare)
-  override def shortRangeCaptures(actor: Actor, finalSquare: Boolean): List[Move] = Frisian.shortRangeCaptures(actor, finalSquare)
-  override def longRangeCaptures(actor: Actor, finalSquare: Boolean): List[Move] = Frisian.longRangeCaptures(actor, finalSquare)
+  override def getCaptureValue(board: Board, taken: List[Pos]) = Frisian.getCaptureValue(board, taken)
+  override def getCaptureValue(board: Board, taken: Pos) = Frisian.getCaptureValue(board, taken)
 
+  override def validMoves(situation: Situation, finalSquare: Boolean = false): Map[Pos, List[Move]] = Frisian.validMoves(situation, finalSquare)
   override def finalizeBoard(board: Board, uci: format.Uci.Move, captured: Option[List[Piece]], situationBefore: Situation, finalSquare: Boolean): Board = Frisian.finalizeBoard(board, uci, captured, situationBefore, finalSquare)
 
   override def maxDrawingMoves(board: Board): Option[Int] = Frisian.maxDrawingMoves(board)
