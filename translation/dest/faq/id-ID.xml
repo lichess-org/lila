@@ -2,4 +2,15 @@
 <resources>
   <string name="frequentlyAskedQuestions">Pertanyaan yang Sering Diajukan (FAQ)</string>
   <string name="whyIsLichessCalledLichess">Mengapa Lichess dikatakan Lichess?</string>
+  <string name="displayPreferences">pengaturan tampilan</string>
+  <string name="connexionLostCanIGetMyRatingBack">Saya kehilangan permainan karena lag/kehilangan koneksi. Bisakah saya mendapatkan poin rating saya kembali?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Sayang sekali, kami tidak dapat mengembalikan poin rating untuk permainan yang hilang karena jeda atau terputus koneksi, terlepas dari apakah masalahnya ada di ujung Anda atau di ujung kami. Yang terakhir, kejadian ini sangat jarang. Perhatikan juga bahwa ketika Lichess memulai kembali dan Anda kehilangan waktu karena itu, kami membatalkan permainan untuk mencegah kerugian yang tidak adil.</string>
+  <string name="howToThreeDots">Bagaimana cara...</string>
+  <string name="enableDisableNotificationPopUps">Aktifkan atau menon-aktifkan pop-up?</string>
+  <string name="viewSiteInformationPopUp">Lihat informasi pop-up situs</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess secara opsional dapat mengirim pemberitahuan pop-up, misalnya ketika giliran Anda atau Anda menerima pesan pribadi.
+
+Klik ikon kunci di sebelah alamat lichess.org di bilah URL browser Anda.
+
+Kemudian pilih apakah akan mengizinkan atau memblokir pemberitahuan dari Lichess.</string>
 </resources>
