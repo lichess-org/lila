@@ -218,7 +218,7 @@ export default class Protocol {
       moveNr++;
       const takes = m.indexOf('x');
       if (takes != -1) {
-        const cached = this.work && this.uciCache[this.work.currentFen + m];
+        const cached = this.work && this.uciCache[this.work.currentFen + moveNr + m];
         if (cached) return cached;
         const fields = m.split('x').map(f => parseInt(f) - 1);
         const orig = fields[0], dest = fields[1];
@@ -229,7 +229,7 @@ export default class Protocol {
           if (sequence) uci = uci.concat(sequence.map(m => (m + 1).toString()));
         } else uci.push((dest + 1).toString());
         const result =  uci.join('x');
-        if (this.work) this.uciCache[this.work.currentFen + m] = result;
+        if (this.work) this.uciCache[this.work.currentFen + moveNr + m] = result;
         return result;
       } else return m;
     });
