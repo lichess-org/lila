@@ -20,7 +20,7 @@ interface SquareClasses { [key: string]: string }
 export default function render(s: State): void {
   const asWhite: boolean = whitePov(s),
     bs = s.boardSize,
-    posToTranslate = s.dom.relative ? util.posToTranslateRel(s.boardSize) : util.posToTranslateAbs(s.dom.bounds(), s.boardSize),
+    posToTranslate = s.dom.relative ? util.posToTranslateRel(bs) : util.posToTranslateAbs(s.dom.bounds(), bs),
     translate = s.dom.relative ? util.translateRel : util.translateAbs,
     boardEl: HTMLElement = s.dom.elements.board,
     pieces: cg.Pieces = s.pieces,

@@ -37,9 +37,9 @@ export function start(s: State, e: cg.MouchEvent): void {
   const bounds = s.dom.bounds(),
     bs = s.boardSize,
     position = util.eventPosition(e) as cg.NumberPair,
-    orig = board.getKeyAtDomPos(position, s.boardSize, board.whitePov(s), bounds),
+    orig = board.getKeyAtDomPos(position, bs, board.whitePov(s), bounds),
     // we clicked an unused field, but inside the board, so likely indending a piece interaction
-    unusedField = !orig && board.unusedFieldAtDomPos(position, s.boardSize, board.whitePov(s), bounds);
+    unusedField = !orig && board.unusedFieldAtDomPos(position, bs, board.whitePov(s), bounds);
   if (!orig && !unusedField) return;
 
   const piece = orig && s.pieces[orig];
@@ -91,7 +91,7 @@ export function start(s: State, e: cg.MouchEvent): void {
     const ghost = s.dom.elements.ghost;
     if (ghost) {
       ghost.className = 'ghost ' + pieceNameOf(piece);
-      util.translateAbs(ghost, util.posToTranslateAbs(bounds, s.boardSize)(util.key2pos(orig, bs), board.whitePov(s), 0));
+      util.translateAbs(ghost, util.posToTranslateAbs(bounds, bs)(util.key2pos(orig, bs), board.whitePov(s), 0));
     }
     processDrag(s);
   } else {
