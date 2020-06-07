@@ -77,7 +77,7 @@ final class StudySocket(
         chapterId = pos.chapterId.value.some,
         lastUci = node.move.uci.uci.some
       )
-      val destsFull = ~dests.captureLength > 1 option AnaDests(
+      val destsFull = dests.captureLength > 1 option AnaDests(
         variant = variant,
         fen = node.fen,
         path = pos.path.toString,

@@ -35,7 +35,7 @@ case class AnaDests(
     orig.fold(sit.allMovesCaptureLength)(~sit.captureLengthFrom(_))
 
   private val truncatedMoves =
-    (!isInitial && ~fullCapture && ~captureLength > 1) option AnaDests.truncateMoves(validMoves)
+    (!isInitial && ~fullCapture && captureLength > 1) option AnaDests.truncateMoves(validMoves)
 
   val dests: String =
     if (isInitial) AnaDests.initialDests
@@ -50,7 +50,7 @@ case class AnaDests(
     truncatedMoves.map(_.values.toList.flatten)
 
   val alternatives: Option[List[Alternative]] =
-    (!isInitial && ~puzzle && sit.ghosts == 0 && ~captureLength > 2) option
+    (!isInitial && ~puzzle && sit.ghosts == 0 && captureLength > 2) option
       sit.validMovesFinal.values.toList.flatMap(_.map { m =>
         Alternative(
           uci = m.toUci.uci,
