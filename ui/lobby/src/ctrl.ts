@@ -38,7 +38,7 @@ export default class LobbyController {
     this.pools = opts.pools;
     this.playban = opts.playban;
     this.isBot = opts.data.me && opts.data.me.isBot;
-    this.filter = new Filter(li.storage.make('lobby.filter'), redraw);
+    this.filter = new Filter(li.storage.make('lobby.filter'), this);
 
     hookRepo.initAll(this);
     seekRepo.initAll(this);
@@ -101,9 +101,7 @@ export default class LobbyController {
     this.flushHooksTimeout = this.flushHooksSchedule();
   };
 
-  private flushHooksSchedule(): number {
-    return setTimeout(this.flushHooks, 8000);
-  }
+  private flushHooksSchedule = (): number => setTimeout(this.flushHooks, 8000);
 
   setTab = (tab: Tab) => {
     if (tab !== this.tab) {
@@ -127,8 +125,7 @@ export default class LobbyController {
     this.sort = this.stores.sort.set(sort);
   };
 
-  setFilter = (filter: Filter) => {
-    this.data.filter = filter;
+  onSetFilter = () => {
     this.flushHooks(true);
     if (this.tab !== 'real_time') this.redraw();
   };

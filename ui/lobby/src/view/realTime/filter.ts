@@ -3,9 +3,9 @@ import { bind } from '../util';
 import Filter from '../../filter';
 import LobbyController from '../../ctrl';
 
-function initialize(ctrl: Filter, el: HTMLElement) {
+function initialize(ctrl: LobbyController, el: HTMLElement) {
 
-  const f = ctrl.data?.form,
+  const f = ctrl.filter.data?.form,
     $div = $(el),
     $ratingRange = $div.find('.rating-range');
 
@@ -16,7 +16,7 @@ function initialize(ctrl: Filter, el: HTMLElement) {
   });
   else $div.find('input').prop('checked', true)
 
-  const save = () => ctrl.save($div.find('form')[0] as HTMLFormElement);
+  const save = () => ctrl.filter.save($div.find('form')[0] as HTMLFormElement);
 
   function changeRatingRange(values) {
     $ratingRange.find('input').val(values[0] + "-" + values[1]);
@@ -25,12 +25,12 @@ function initialize(ctrl: Filter, el: HTMLElement) {
   }
   $div.find('input').change(save);
   $div.find('button.reset').click(function() {
-    ctrl.set(null);
-    ctrl.open = false;
+    ctrl.filter.set(null);
+    ctrl.filter.open = false;
     ctrl.redraw();
   });
   $div.find('button.apply').click(function() {
-    ctrl.open = false;
+    ctrl.filter.open = false;
     ctrl.redraw();
   });
   $ratingRange.each(function(this: HTMLElement) {
@@ -83,7 +83,7 @@ export function render(ctrl: LobbyController) {
           success(html) {
             el.innerHTML = html;
             el.filterLoaded = true;
-            initialize(ctrl.filter, el);
+            initialize(ctrl, el);
           }
         });
       }
