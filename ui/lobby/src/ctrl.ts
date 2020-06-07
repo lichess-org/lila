@@ -20,7 +20,6 @@ export default class LobbyController {
   tab: Tab;
   mode: Mode;
   sort: Sort;
-  filterOpen: boolean = false;
   stepHooks: Hook[] = [];
   stepping: boolean = false;
   redirecting: boolean = false;
@@ -116,20 +115,16 @@ export default class LobbyController {
       }
       this.tab = this.stores.tab.set(tab);
     }
-    this.filterOpen = false;
+    this.filter.open = false;
   };
 
   setMode = (mode: Mode) => {
     this.mode = this.stores.mode.set(mode);
-    this.filterOpen = false;
+    this.filter.open = false;
   };
 
   setSort = (sort: Sort) => {
     this.sort = this.stores.sort.set(sort);
-  };
-
-  toggleFilter = () => {
-    this.filterOpen = !this.filterOpen;
   };
 
   setFilter = (filter: Filter) => {

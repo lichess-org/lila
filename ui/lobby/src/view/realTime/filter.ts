@@ -1,12 +1,22 @@
 import { h } from 'snabbdom';
 import { bind } from '../util';
 import Filter from '../../filter';
+import LobbyController from '../../ctrl';
 
 function initialize(ctrl: Filter, el: HTMLElement) {
-  const $div = $(el),
+
+  const f = ctrl.data?.form,
+    $div = $(el),
     $ratingRange = $div.find('.rating-range');
 
-  const save = () => ctrl.set($div.find('form').serialize());
+  if (f) Object.keys(f).forEach(k => {
+    const input = $div.find(`input[name="${k}"]`)[0] as HTMLInputElement;
+    if (input.type == 'checkbox') input.checked = true;
+    else input.value = f[k];
+  });
+  else $div.find('input').prop('checked', true)
+
+  const save = () => ctrl.save($div.find('form')[0] as HTMLFormElement);
 
   function changeRatingRange(values) {
     $ratingRange.find('input').val(values[0] + "-" + values[1]);
@@ -15,19 +25,13 @@ function initialize(ctrl: Filter, el: HTMLElement) {
   }
   $div.find('input').change(save);
   $div.find('button.reset').click(function() {
-    $div.find('label input').prop('checked', true).trigger('change');
-    $div.find('.rating-range').each(function(this: HTMLElement) {
-      const s = $(this),
-        values = [s.slider('option', 'min'), s.slider('option', 'max')];
-      s.slider('values', values);
-      changeRatingRange(values);
-    });
-    return false;
+    ctrl.set(null);
+    ctrl.open = false;
+    ctrl.redraw();
   });
   $div.find('button.apply').click(function() {
-    ctrl.toggleFilter();
+    ctrl.open = false;
     ctrl.redraw();
-    return false;
   });
   $ratingRange.each(function(this: HTMLElement) {
     var $this = $(this);
@@ -53,11 +57,12 @@ function initialize(ctrl: Filter, el: HTMLElement) {
 }
 
 export function toggle(ctrl: LobbyController, nbFiltered: number) {
+  const filter = ctrl.filter;
   return h('i.toggle.toggle-filter', {
-    class: { gamesFiltered: nbFiltered > 0, active: ctrl.filterOpen },
-    hook: bind('mousedown', ctrl.toggleFilter, ctrl.redraw),
+    class: { gamesFiltered: nbFiltered > 0, active: filter.open },
+    hook: bind('mousedown', filter.toggle, ctrl.redraw),
     attrs: {
-      'data-icon': ctrl.filterOpen ? 'L' : '%',
+      'data-icon': filter.open ? 'L' : '%',
       title: ctrl.trans.noarg('filterGames')
     }
   });
@@ -78,7 +83,7 @@ export function render(ctrl: LobbyController) {
           success(html) {
             el.innerHTML = html;
             el.filterLoaded = true;
-            initialize(ctrl, el);
+            initialize(ctrl.filter, el);
           }
         });
       }

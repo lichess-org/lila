@@ -26,7 +26,7 @@ object filter {
                 renderCheckboxes(
                   form,
                   "variant",
-                  translatedVariantChoicesWithVariants
+                  translatedVariantChoicesWithVariants(_.key)
                 )
               )
             ),

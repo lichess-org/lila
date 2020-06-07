@@ -1,14 +1,14 @@
 import { Hook } from './interfaces';
 
-type Mode = 0 | 1;
-type Increment = 0 | 1;
+interface FilterFormData {
+  [key: string]: string;
+}
 
-interface FilterConfig {
-  variant: string[];
-  mode: Mode[];
-  speed: number[];
-  increment: Increment[];
-  rating: [number, number];
+interface FilterData {
+  form: FilterFormData;
+  filter: {
+    [key: string]: string[];
+  }
 }
 
 interface Filtered {
@@ -18,36 +18,43 @@ interface Filtered {
 
 export default class Filter {
 
-  config: FilterConfig;
+  data: FilterData | null;
+  open: boolean = false;
 
   constructor(readonly storage: LichessStorage, readonly redraw: () => void) {
-    this.config = JSON.parse(storage.get() || '') as FilterConfig;
-    this.config = this.config || {
-      variant: [
-        'standard',
-        'chess960',
-        'kingOfTheHill',
-        'threeCheck',
-        'antichess',
-        'atomic',
-        'horde',
-        'racingKings',
-        'crazyhouse'
-      ],
-      mode: [0, 1],
-      speed: [0, 1, 2, 5, 4],
-      increment: [0, 1],
-      rating: [600, 2900]
+    this.set(JSON.parse(storage.get() || 'null') as FilterFormData);
+  }
+
+  toggle = () => {
+    this.open = !this.open;
+  };
+
+  set = (data: FilterFormData | null) => {
+    this.data = data && {
+      form: data,
+      filter: Object.keys(data).reduce((o, k) => {
+        const i = k.indexOf('[');
+        const fk = i > 0 ? k.slice(0, i) : k;
+        return i > 0 ? {
+          ...o,
+          [fk]: [...(o[fk] || []), data[k]]
+        } : {
+          ...o,
+          [fk]: data[k]
+        };
+      }, {})
     };
   }
 
-  set = (config: FilterConfig) => {
-    console.log(config);
-    this.config = config;
+  save = (form: HTMLFormElement) => {
+    const data = Array.from(new FormData(form)).reduce((o,[k,v]) => ({...o, [k]: v}), {});
+    this.storage.set(JSON.stringify(data));
+    this.set(data);
   }
 
   filter = (hooks: Hook[]): Filtered => {
-    const f = this.config,
+    if (!this.data) return { visible: hooks, hidden: 0 };
+    const f = this.data.filter,
       seen: string[] = [],
       visible: Hook[] = [];
     let variant: string, hidden = 0;
