@@ -1,10 +1,11 @@
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
+import { renderEval } from './util';
 import * as winningChances from './winningChances';
 import { defined } from 'common';
-import { renderEval, variantToRules } from 'chess';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { opposite, parseUci } from 'chessops/util';
+import { lichessVariantRules } from 'chessops/compat';
 import { parseFen } from 'chessops/fen';
 import { makeSanVariation } from 'chessops/san';
 import { setupPosition } from 'chessops/variant';
@@ -227,7 +228,7 @@ export function renderPvs(ctrl: ParentCtrl) {
   } else if (node.ceval) pvs = node.ceval.pvs;
   else pvs = [];
   if (threat) setup.turn = opposite(setup.turn);
-  const pos = setupPosition(variantToRules(instance.variant.key), setup);
+  const pos = setupPosition(lichessVariantRules(instance.variant.key), setup);
   return h('div.pv_box', {
     attrs: { 'data-fen': node.fen },
     hook: {

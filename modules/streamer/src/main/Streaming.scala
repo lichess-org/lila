@@ -134,10 +134,9 @@ final private class Streaming(
                       )
                     )
                   case JsError(err) =>
-                    fufail(s"twitch ${res.status} $err ${res.body.linesIterator.take(1)}")
+                    fufail(s"twitch $err ${lila.log http res}")
                 }
-              case res =>
-                fufail(s"twitch ${res.status} ${res.body.linesIterator.take(1)}")
+              case res => fufail(s"twitch ${lila.log http res}")
             }
             .monSuccess(_.tv.streamer.twitch)
             .recover {

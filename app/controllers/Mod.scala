@@ -109,13 +109,6 @@ final class Mod(
       }
     )
 
-  def ipBan(username: String, v: Boolean) =
-    OAuthMod(_.IpBan) { _ => me =>
-      withSuspect(username) { sus =>
-        modApi.setBan(AsMod(me), sus, v) map some
-      }
-    }(actionResult(username))
-
   def deletePmsAndChats(username: String) =
     OAuthMod(_.Shadowban) { _ => _ =>
       withSuspect(username) { sus =>
@@ -363,11 +356,10 @@ final class Mod(
   def singleIpBan(v: Boolean, ip: String) =
     Secure(_.IpBan) { _ => _ =>
       val address = IpAddress(ip)
-      (if (v) {
-         env.security.firewall.blockIps(List(address))
-       } else {
-         env.security.firewall.unblockIps(List(address))
-       }) inject Redirect(routes.Mod.singleIp(ip))
+      val op =
+        if (v) env.security.firewall.blockIps _
+        else env.security.firewall.unblockIps _
+      op(List(address)) inject jsonOkResult
     }
 
   def chatUser(username: String) =

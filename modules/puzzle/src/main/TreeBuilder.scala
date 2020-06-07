@@ -16,7 +16,6 @@ object TreeBuilder {
           ply = init.turns,
           fen = fen,
           check = init.situation.check,
-          opening = FullOpeningDB findByFen fen,
           crazyData = None
         )
         def makeBranch(g: chess.Game, m: Uci.WithSan) = {
@@ -27,7 +26,6 @@ object TreeBuilder {
             move = m,
             fen = fen,
             check = g.situation.check,
-            opening = FullOpeningDB findByFen fen,
             crazyData = None
           )
         }

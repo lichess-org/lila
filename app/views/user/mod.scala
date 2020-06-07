@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
-import lila.security.{ FingerHash, Permission, UserSpy }
+import lila.security.{ Dated, FingerHash, Permission, UserSpy }
 import lila.playban.RageSit
 import lila.user.User
 
@@ -116,11 +116,6 @@ object mod {
         }
       ),
       div(cls := "btn-rack")(
-        isGranted(_.IpBan) option {
-          postForm(action := routes.Mod.ipBan(u.username, !u.marks.ipban), cls := "xhr")(
-            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.ipban))("IP ban")
-          )
-        },
         if (u.enabled) {
           isGranted(_.CloseAccount) option {
             postForm(
@@ -458,7 +453,6 @@ object mod {
   private val shadowban: Frag = iconTag("c")
   private val boosting: Frag  = iconTag("9")
   private val engine: Frag    = iconTag("n")
-  private val ipban: Tag      = iconTag("2")
   private val clean: Frag     = iconTag("r")
   private val closed          = iconTag("k")
   private val reportban       = iconTag("!")
@@ -479,7 +473,7 @@ object mod {
       table(cls := "slist")(
         thead(
           tr(
-            th(spy.otherUsers.size, " similar user(s)"),
+            th(pluralize("linked user", spy.otherUsers.size)),
             th("Email"),
             sortNumberTh("Same"),
             th("Games"),
@@ -488,7 +482,6 @@ object mod {
             sortNumberTh(shadowban)(cls := "i", title := "Shadowban"),
             sortNumberTh(boosting)(cls := "i", title := "Boosting"),
             sortNumberTh(engine)(cls := "i", title := "Engine"),
-            sortNumberTh(ipban)(cls := "i", title := "IP ban"),
             sortNumberTh(closed)(cls := "i", title := "Closed"),
             sortNumberTh(reportban)(cls := "i", title := "Reportban"),
             sortNumberTh(notesText)(cls := "i", title := "Notes"),
@@ -502,10 +495,10 @@ object mod {
               val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
               val userNotes =
                 notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
-              val row =
-                if (o == u) tr(cls := "same")
-                else tr(dataTags := s"${other.ips.mkString(" ")} ${other.fps.mkString(" ")}")
-              row(
+              tr(
+                dataTags := s"${other.ips.mkString(" ")} ${other.fps.mkString(" ")}",
+                cls := (o == u) option "same"
+              )(
                 if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
                 else td,
                 if (dox) td(othersWithEmail emailValueOf o)
@@ -526,7 +519,6 @@ object mod {
                 markTd(o.marks.troll ?? 1, shadowban),
                 markTd(o.marks.boost ?? 1, boosting),
                 markTd(o.marks.engine ?? 1, engine),
-                markTd(o.marks.ipban ?? 1, ipban(cls := "is-red")),
                 markTd(o.disabled ?? 1, closed),
                 markTd(o.marks.reportban ?? 1, reportban),
                 userNotes.nonEmpty option {
@@ -551,8 +543,35 @@ object mod {
       )
     )
 
-  def identification(spy: UserSpy): Frag =
+  def identification(spy: UserSpy)(implicit ctx: Context): Frag = {
+    val canIpBan = isGranted(_.IpBan)
+    val canFpBan = isGranted(_.PrintBan)
     mzSection("identification")(
+      div(cls := "spy_locs")(
+        table(cls := "slist slist--sort")(
+          thead(
+            tr(
+              th("Country"),
+              th("Region"),
+              th("City"),
+              sortNumberTh("Date")
+            )
+          ),
+          tbody(
+            spy.distinctLocations.toList
+              .sortBy(-_.seconds)
+              .map { loc =>
+                tr(
+                  td(loc.value.country),
+                  td(loc.value.region),
+                  td(loc.value.city),
+                  td(dataSort := loc.date.getMillis)(momentFromNowServer(loc.date))
+                )
+              }
+              .toList
+          )
+        )
+      ),
       div(cls := "spy_uas")(
         table(cls := "slist slist--sort")(
           thead(
@@ -566,7 +585,7 @@ object mod {
           ),
           tbody(
             spy.uas
-              .sortBy(-_.date.getMillis)
+              .sortBy(-_.seconds)
               .map { ua =>
                 import ua.value.client._
                 tr(
@@ -584,28 +603,6 @@ object mod {
           )
         )
       ),
-      div(cls := "spy_locs")(
-        table(cls := "slist slist--sort")(
-          thead(
-            tr(
-              th("Country"),
-              th("Region"),
-              th("City"),
-              sortNumberTh("Date")
-            )
-          ),
-          tbody(
-            spy.distinctLocations.map { loc =>
-              tr(
-                td(loc.value.country),
-                td(loc.value.region),
-                td(loc.value.city),
-                td(dataSort := loc.date.getMillis)(momentFromNowServer(loc.date))
-              )
-            }.toList
-          )
-        )
-      ),
       div(id := "identification_screen", cls := "spy_ips")(
         table(cls := "slist spy_filter slist--sort")(
           thead(
@@ -614,19 +611,22 @@ object mod {
               sortNumberTh("Alts"),
               th,
               sortNumberTh("Date"),
-              th
+              canIpBan option sortNumberTh
             )
           ),
           tbody(
-            spy.ips.sortBy(-_.ip.date.getMillis).map { ip =>
-              tr(cls := ip.blocked option "blocked", title := ip.location.toString)(
-                td(a(ip.ip.value)),
+            spy.ips.sortBy(-_.alts.score).map { ip =>
+              tr(cls := ip.blocked option "blocked")(
+                td(a(href := routes.Mod.singleIp(ip.ip.value.value))(ip.ip.value)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
                 td(ip.proxy option span(cls := "proxy")("PROXY")),
                 td(dataSort := ip.ip.date.getMillis)(momentFromNowServer(ip.ip.date)),
-                td(
+                canIpBan option td(dataSort := (9999 - ip.alts.cleans))(
                   button(
-                    cls := "button button-empty",
+                    cls := List(
+                      "button button-empty" -> true,
+                      "button-discouraging" -> (ip.alts.cleans > 0)
+                    ),
                     href := routes.Mod.singleIpBan(!ip.blocked, ip.ip.value.value)
                   )("BAN")
                 )
@@ -642,18 +642,21 @@ object mod {
               th(pluralize("Print", spy.prints.size)),
               sortNumberTh("Alts"),
               sortNumberTh("Date"),
-              th
+              canFpBan option sortNumberTh
             )
           ),
           tbody(
-            spy.prints.sortBy(_.fp).map { fp =>
+            spy.prints.sortBy(-_.alts.score).map { fp =>
               tr(cls := fp.banned option "blocked")(
                 td(a(href := routes.Mod.print(fp.fp.value.value))(fp.fp.value)),
                 td(dataSort := fp.alts.score)(altMarks(fp.alts)),
                 td(dataSort := fp.fp.date.getMillis)(momentFromNowServer(fp.fp.date)),
-                td(
+                canFpBan option td(dataSort := (9999 - fp.alts.cleans))(
                   button(
-                    cls := "button button-empty",
+                    cls := List(
+                      "button button-empty" -> true,
+                      "button-discouraging" -> (fp.alts.cleans > 0)
+                    ),
                     href := routes.Mod.printBan(!fp.banned, fp.fp.value.value)
                   )("BAN")
                 )
@@ -663,6 +666,7 @@ object mod {
         )
       )
     )
+  }
 
   private def parts(ps: Option[String]*) = ps.flatten.distinct mkString " "
 
@@ -686,7 +690,6 @@ object mod {
       o.marks.troll option shadowban,
       o.marks.boost option boosting,
       o.marks.engine option engine,
-      o.marks.ipban option ipban,
       o.disabled option closed,
       o.marks.reportban option reportban
     )

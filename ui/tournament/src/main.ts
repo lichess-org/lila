@@ -15,6 +15,8 @@ import view from './view/main';
 export function start(opts: TournamentOpts) {
 
   opts.classes = opts.element.getAttribute('class');
+  opts.$side = $('.tour__side').clone();
+  opts.$faq = $('.tour__faq').clone();
 
   let vnode: VNode, ctrl: TournamentController;
 

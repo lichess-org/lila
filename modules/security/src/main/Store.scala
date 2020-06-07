@@ -200,11 +200,6 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
 object Store {
 
-  case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {
-    def compare(other: Dated[V]) = other.date compareTo date
-    def map[X](f: V => X)        = copy(value = f(value))
-  }
-
   case class Info(ip: IpAddress, ua: String, fp: Option[FingerHash], date: DateTime) {
     def datedIp = Dated(ip, date)
     def datedFp = fp.map { Dated(_, date) }

@@ -1,7 +1,7 @@
 var tablesort = require('tablesort');
 
-let $toggle = $('.user-show .mod-zone-toggle');
-let $zone = $('.user-show .mod-zone');
+let $toggle = $('.mod-zone-toggle');
+let $zone = $('.mod-zone');
 let nbOthers = 100;
 
 function streamLoad() {
@@ -22,7 +22,7 @@ function streamLoad() {
 
 function loadZone() {
   $zone.html(lichess.spinnerHtml).removeClass('none');
-  $('#main-wrap').addClass('full-screen-force very-long');
+  $('#main-wrap').addClass('full-screen-force');
   $zone.html('');
   streamLoad();
   window.addEventListener('scroll', onScroll);
@@ -30,7 +30,7 @@ function loadZone() {
 }
 function unloadZone() {
   $zone.addClass('none');
-  $('#main-wrap').removeClass('full-screen-force very-long');
+  $('#main-wrap').removeClass('full-screen-force');
   window.removeEventListener('scroll', onScroll);
   scrollTo('#top');
 }
@@ -39,7 +39,8 @@ function reloadZone() {
 }
 
 function scrollTo(el) {
-  window.scrollTo(0, document.querySelector(el).offsetTop + 50);
+  const offset = $('#inquiry').length ? -50 : 50;
+  window.scrollTo(0, document.querySelector(el).offsetTop + offset);
 }
 
 $toggle.click(function() {
@@ -83,9 +84,12 @@ function userMod($zone) {
     });
   });
 
-  makeReady('#mz_others table', el =>
-    tablesort(el, { descending: true })
-  );
+  makeReady('#mz_others', el => {
+    $(el).height($(el).height());
+  });
+  makeReady('#mz_others table', el => {
+    tablesort(el, { descending: true });
+  });
   makeReady('#mz_identification .spy_filter', el => {
     $(el).find('.button').click(function() {
       $.post($(this).attr('href'));

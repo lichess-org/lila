@@ -13,7 +13,7 @@ import lila.user.{ User, UserRepo }
 case class UserSpy(
     ips: List[UserSpy.IPData],
     prints: List[UserSpy.FPData],
-    uas: List[Store.Dated[UserSpy.UaAndClient]],
+    uas: List[Dated[UserSpy.UaAndClient]],
     otherUsers: List[UserSpy.OtherUser]
 ) {
 
@@ -29,7 +29,7 @@ case class UserSpy(
       case OtherUser(user, ips, _) if ips.nonEmpty => user
     }
 
-  def distinctLocations = UserSpy.distinctRecent(ips.map(_.datedLocation))
+  def distinctLocations = UserSpy.distinctRecent(ips.map(_.datedLocation).sortBy(-_.seconds))
 }
 
 final class UserSpyApi(
@@ -173,8 +173,6 @@ final class UserSpyApi(
 
 object UserSpy {
 
-  import Store.Dated
-
   case class OtherUser(user: User, ips: Set[IpAddress], fps: Set[FingerHash]) {
     val nbIps = ips.size
     val nbFps = fps.size
@@ -198,7 +196,11 @@ object UserSpy {
     lazy val trolls   = users.count(_.marks.troll)
     lazy val alts     = users.count(_.marks.alt)
     lazy val cleans   = users.count(_.marks.clean)
-    def score         = boosters + engines + trolls + alts - cleans
+    def score =
+      (boosters * 10 + engines * 10 + trolls * 10 + alts * 10 + cleans) match {
+        case 0 => -999999 // rank empty alts last
+        case n => n
+      }
   }
 
   case class IPData(

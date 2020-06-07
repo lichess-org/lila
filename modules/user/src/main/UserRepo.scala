@@ -335,7 +335,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def setTroll     = setMark(UserMark.Troll) _
   def setReportban = setMark(UserMark.Reportban) _
   def setRankban   = setMark(UserMark.Rankban) _
-  def setIpBan     = setMark(UserMark.Ipban) _
   def setAlt       = setMark(UserMark.Alt) _
 
   def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), F.kid, v).void

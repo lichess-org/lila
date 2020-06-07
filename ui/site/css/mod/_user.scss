@@ -26,7 +26,7 @@
   position: fixed;
   bottom: 0;
   background: $c-brag;
-  z-index: 1;
+  z-index: z('mz-menu');
   // border-top: 1px solid $c-brag;
   // border-width: 3px 2px 0 2px;
   padding: 0;
@@ -136,17 +136,23 @@
       font-family: monospace;
     }
     .blocked {
-      a, 
+      a,
       .button { color: $c-bad; }
     }
     .button {
       padding: .4em 1em;
+      color: $c-good;
+      &-discouraging {
+        color: $c-font-dimmer;
+      }
     }
     i {
       margin-left: 1ch;
     }
-    &.spy_filter tbody tr:hover {
-      background: mix($c-brag, $c-bg-box, 20%);
+    &.spy_filter {
+      tbody tr:hover {
+        background: mix($c-brag, $c-bg-box, 20%);
+      }
     }
   }
   .spy_ips a {
@@ -164,6 +170,7 @@
 }
 .mod-zone .proxy {
   color: $c-brag;
+  font-weight: bold;
 }
 .mod-zone strong {
   display: block;
@@ -232,6 +239,8 @@
   }
 }
 #mz_assessments {
+  max-height: 60vh;
+  overflow-y: auto;
   table {
     margin-top: 10px;
   }
@@ -296,6 +305,8 @@
 }
 
 #mz_irwin {
+  max-height: 60vh;
+  overflow-y: auto;
   header {
     margin-top: 10px;
     display: flex;
@@ -416,8 +427,4 @@
 #mz_mod_log {
   max-height: 50vh;
   overflow-y: auto;
-}
-
-#main-wrap.very-long {
-  margin-bottom: 100vh;
 }

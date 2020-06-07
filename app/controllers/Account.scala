@@ -56,19 +56,17 @@ final class Account(
         html = notFound,
         api = _ => {
           env.relation.api.countFollowers(me.id) zip
-            env.relation.api.countFollowing(me.id) zip
             env.pref.api.getPref(me) zip
             env.round.proxyRepo.urgentGames(me) zip
             env.challenge.api.countInFor.get(me.id) zip
             env.playban.api.currentBan(me.id) map {
-            case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges ~ playban =>
+            case nbFollowers ~ prefs ~ povs ~ nbChallenges ~ playban =>
               Ok {
                 import lila.pref.JsonView._
                 env.user.jsonView(me) ++ Json
                   .obj(
                     "prefs"        -> prefs,
                     "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
-                    "nbFollowing"  -> nbFollowing,
                     "nbFollowers"  -> nbFollowers,
                     "nbChallenges" -> nbChallenges
                   )
