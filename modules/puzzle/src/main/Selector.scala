@@ -4,7 +4,7 @@ import scala.util.Random
 
 import lidraughts.db.dsl._
 import lidraughts.user.User
-import draughts.variant.{ Variant, Standard, Frisian }
+import draughts.variant.{ Variant, Standard, Frisian, Russian }
 import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class Selector(
@@ -71,8 +71,8 @@ private[puzzle] final class Selector(
       else if (perf.nb > 1500) 3 / 2
       else 1
     }
-    val skipMax = if (variant.frisian) 50 else 100
-    val idStep = if (variant.frisian) 20 else 50
+    val skipMax = if (variant.standard) 100 else 50
+    val idStep = if (variant.standard) 50 else 20
     api.puzzle.cachedLastId(variant).get flatMap { maxId =>
       val lastId = headOption match {
         case Some(PuzzleHead(_, _, l)) if l < maxId - skipMax => l //original - 500
@@ -111,7 +111,7 @@ private final object Selector {
 
   val toleranceMax = 1500
 
-  val anonSkipMax: Map[Variant, Int] = Map(Standard -> 500, Frisian -> 250)
+  val anonSkipMax: Map[Variant, Int] = Map(Standard -> 500, Frisian -> 250, Russian -> 250)
 
   def toleranceStepFor(rating: Int, nbPuzzles: Int) = {
     math.abs(1500 - rating) match {
