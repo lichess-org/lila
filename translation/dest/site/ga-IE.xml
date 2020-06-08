@@ -129,7 +129,9 @@
   <string name="timeOut">As am</string>
   <string name="accept">Glac</string>
   <string name="decline">Diúltaigh</string>
+  <string name="eventInProgress">Á imirt anois</string>
   <string name="finished">Críochnaithe</string>
+  <string name="finishesX">ag críochnú %s</string>
   <string name="standard">Caighdeán</string>
   <string name="unlimited">Neamhtheoranta</string>
   <string name="mode">Modh</string>
@@ -145,6 +147,7 @@
   <string name="send">Seol</string>
   <string name="freeOnlineChess">Ficheall Shaor in Aisce Ar Líne</string>
   <string name="spectators">Lucht féachana:</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Baineann an t-imreoir seo úsaíd as cabhair ó ríomhaire fichille</string>
   <string name="tournament">Comórtas</string>
   <string name="tournaments">Comórtais</string>
   <string name="tournamentPoints">Pointí ó chomórtais</string>
