@@ -145,6 +145,9 @@
   <string name="send">Seol</string>
   <string name="freeOnlineChess">Ficheall Shaor in Aisce Ar Líne</string>
   <string name="spectators">Lucht féachana:</string>
+  <string name="tournament">Comórtas</string>
+  <string name="tournaments">Comórtais</string>
+  <string name="viewTournament">Féach ar chomórtas</string>
   <string name="more">Níos mó</string>
   <string name="player">Imreoir</string>
   <string name="list">Liosta</string>
