@@ -457,6 +457,7 @@
   <string name="pleaseVotePuzzle">Hjálpaðu lichess að bæta sig með því að kjósa, notaðu upp og niður örvarnar:</string>
   <string name="thankYou">Takk fyrir!</string>
   <string name="ratingX">Stig: %s</string>
+  <string name="hidden">falið</string>
   <plurals name="playedXTimes">
     <item quantity="one">Teflt %s sinnum</item>
     <item quantity="other">Teflt %s sinnum</item>
@@ -565,6 +566,7 @@
   <string name="playOfflineComputer">Skáktölva</string>
   <string name="opponent">Andstæðingur</string>
   <string name="learnMenu">Læra</string>
+  <string name="practice">Æfa</string>
   <string name="community">Samfélag</string>
   <string name="tools">Tól</string>
   <string name="increment">Aukning</string>
@@ -577,6 +579,7 @@
   <string name="error.email">Netfang ógilt</string>
   <string name="error.email_acceptable">Netfang ófullnægjandi</string>
   <string name="error.email_unique">Netfang frátekið</string>
+  <string name="error.email_different">Þetta er nú þegar netfangið þitt</string>
   <string name="ifRatingIsPlusMinusX">Ef skor er ± %s</string>
   <string name="onlyFriends">Aðeins vinir</string>
   <string name="menu">Valmynd</string>
