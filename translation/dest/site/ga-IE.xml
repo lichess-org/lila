@@ -157,6 +157,7 @@
   <string name="player">Imreoir</string>
   <string name="list">Liosta</string>
   <string name="winner">Buaiteoir</string>
+  <string name="createANewTournament">Cruthaigh comórtas nua</string>
   <string name="tournamentCalendar">Féilire na gcomórtas</string>
   <string name="join">Glac páirt</string>
   <string name="withdraw">Éirigh as</string>
@@ -164,6 +165,7 @@
   <string name="wins">Buanna</string>
   <string name="losses">Cailliúintí</string>
   <string name="createdBy">Cruthaithe ag</string>
+  <string name="tournamentIsStarting">Tá an comórtas ag tosnú</string>
   <string name="standByX">Fan ort %s, ag roinnt imreoirí ina bpéirí, bí réidh!</string>
   <string name="youArePlaying">Tá tú ag imirt!</string>
   <string name="winRate">Ráta bua</string>
@@ -177,7 +179,11 @@
   <string name="nextXTournament">An chéad chomórtas %s eile:</string>
   <string name="averageOpponent">Meanghrádú na gcéilí imeartha</string>
   <string name="membersOnly">Baill amháin</string>
+  <string name="lastName">Sloinne</string>
   <string name="country">Tír</string>
+  <string name="watchLichessTV">Féach ar Lichess TV</string>
+  <string name="previouslyOnLichessTV">Níos luaithe ar Lichess TV</string>
+  <string name="onlinePlayers">Imreoirí ar-líne</string>
   <string name="bestMove">Bogadh is fearr!</string>
   <string name="success">D\'éirigh leat</string>
   <string name="thankYou">Go raibh maith agat!</string>
