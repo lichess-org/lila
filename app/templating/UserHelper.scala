@@ -257,7 +257,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   ): String =
     filter match {
       case GameFilter.All      => trans.nbGames.pluralSameTxt(u.count.game)
-      case GameFilter.Me       => nbs.withMe ?? trans.nbGamesWithYou.pluralSameTxt
+      case GameFilter.Me       => nbs.withMe.map(_.toLong) ?? trans.nbGamesWithYou.pluralSameTxt
       case GameFilter.Rated    => trans.nbRated.pluralSameTxt(u.count.rated)
       case GameFilter.Win      => trans.nbWins.pluralSameTxt(u.count.win)
       case GameFilter.Loss     => trans.nbLosses.pluralSameTxt(u.count.loss)

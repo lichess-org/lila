@@ -30,7 +30,7 @@ final class StudyPager(
       me,
       order,
       page,
-      fuccess(9999).some
+      fuccess(9999L).some
     )
 
   def byOwner(owner: User, me: Option[User], order: Order, page: Int) =
@@ -102,7 +102,7 @@ final class StudyPager(
       me: Option[User],
       order: Order,
       page: Int,
-      nbResults: Option[Fu[Int]] = none,
+      nbResults: Option[Fu[Long]] = none,
       hint: Option[Bdoc] = none
   ): Fu[Paginator[Study.WithChaptersAndLiked]] = {
     val adapter = new Adapter[Study](

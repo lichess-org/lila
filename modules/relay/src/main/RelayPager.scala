@@ -20,14 +20,14 @@ final class RelayPager(
       repo.selectors finished true,
       me,
       page,
-      fuccess(9999).some
+      fuccess(9999L).some
     )
 
   private def paginator(
       selector: Bdoc,
       me: Option[User],
       page: Int,
-      nbResults: Option[Fu[Int]]
+      nbResults: Option[Fu[Long]]
   ): Fu[Paginator[Relay.WithStudyAndLiked]] = {
     val adapter = new Adapter[Relay](
       collection = repo.coll,

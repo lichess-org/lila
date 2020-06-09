@@ -19,7 +19,7 @@ final class PaginatorBuilder[A, Q: Writes](
 
   final private class ESAdapter(query: Q) extends AdapterLike[A] {
 
-    def nbResults = searchApi count query
+    def nbResults = searchApi.count(query)
 
     def slice(offset: Int, length: Int) =
       searchApi.search(query, From(offset), Size(length))

@@ -114,7 +114,7 @@ final class RelationApi(
         projection = $doc("u2" -> true, "_id" -> false).some,
         sort = $empty
       ),
-      nbResults = countFollowing(userId)
+      nbResults = countFollowing(userId).dmap(_.toLong)
     ).map(_.userId)
 
   def followersPaginatorAdapter(userId: ID) =
@@ -125,7 +125,7 @@ final class RelationApi(
         projection = $doc("u1" -> true, "_id" -> false).some,
         sort = $empty
       ),
-      nbResults = countFollowers(userId)
+      nbResults = countFollowers(userId).dmap(_.toLong)
     ).map(_.userId)
 
   def blockingPaginatorAdapter(userId: ID) =

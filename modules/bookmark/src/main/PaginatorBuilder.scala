@@ -23,7 +23,7 @@ final class PaginatorBuilder(
 
   final class UserAdapter(user: User) extends AdapterLike[Bookmark] {
 
-    def nbResults: Fu[Int] = coll countSel selector
+    def nbResults: Fu[Long] = coll.countSel(selector).dmap(_.toLong)
 
     def slice(offset: Int, length: Int): Fu[Seq[Bookmark]] =
       for {

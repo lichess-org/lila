@@ -6,7 +6,7 @@ abstract class AdapterLike[A](implicit ec: scala.concurrent.ExecutionContext) {
   /**
     * Returns the total number of results.
     */
-  def nbResults: Fu[Int]
+  def nbResults: Fu[Long]
 
   /**
     * Returns a slice of the results.

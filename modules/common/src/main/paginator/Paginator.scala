@@ -17,7 +17,7 @@ final class Paginator[A] private[paginator] (
       * Returns the number of results.
       * The result is cached.
       */
-    val nbResults: Int
+    val nbResults: Long
 ) {
 
   /**
@@ -33,7 +33,7 @@ final class Paginator[A] private[paginator] (
   /**
     * Returns the number of pages.
     */
-  def nbPages: Int = scala.math.ceil(nbResults.toFloat / maxPerPage.value).toInt
+  def nbPages: Int = ((nbResults + maxPerPage.value - 1) / maxPerPage.value).toInt
 
   /**
     * Returns whether we have to paginate or not.
@@ -79,7 +79,7 @@ object Paginator {
 
   def fromResults[A](
       currentPageResults: Seq[A],
-      nbResults: Int,
+      nbResults: Long,
       currentPage: Int,
       maxPerPage: MaxPerPage
   ): Paginator[A] =

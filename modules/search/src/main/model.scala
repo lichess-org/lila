@@ -14,8 +14,8 @@ object SearchResponse {
   def apply(txt: String): SearchResponse = SearchResponse(txt.split(',').toList)
 }
 
-case class CountResponse(count: Int) extends AnyVal
+case class CountResponse(count: Long) extends AnyVal
 
 object CountResponse {
-  def apply(txt: String): CountResponse = CountResponse(~txt.toIntOption)
+  def apply(txt: String): CountResponse = CountResponse(~txt.toLongOption)
 }

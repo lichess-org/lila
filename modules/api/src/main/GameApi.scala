@@ -63,15 +63,14 @@ final private[api] class GameApi(
           sort = $doc(G.createdAt -> -1),
           readPreference = ReadPreference.secondaryPreferred
         ),
-        nbResults =
-          if (~playing) gameCache.nbPlaying(user.id)
-          else
-            fuccess {
-              rated.fold(user.count.game) {
-                case true => user.count.rated
-                case _    => user.count.casual
-              }
-            }
+        nbResults = (if (~playing) gameCache.nbPlaying(user.id)
+                     else
+                       fuccess {
+                         rated.fold(user.count.game) {
+                           case true => user.count.rated
+                           case _    => user.count.casual
+                         }
+                       }).dmap(_.toLong)
       ),
       currentPage = page,
       maxPerPage = nb
@@ -121,9 +120,8 @@ final private[api] class GameApi(
           sort = $doc(G.createdAt -> -1),
           readPreference = ReadPreference.secondaryPreferred
         ),
-        nbResults =
-          if (~playing) gameCache.nbPlaying(users._1.id)
-          else crosstableApi(users._1.id, users._2.id).dmap(_.nbGames)
+        nbResults = (if (~playing) gameCache.nbPlaying(users._1.id)
+                     else crosstableApi(users._1.id, users._2.id).dmap(_.nbGames)).dmap(_.toLong)
       ),
       currentPage = page,
       maxPerPage = nb
