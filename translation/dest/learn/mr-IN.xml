@@ -47,4 +47,18 @@
   <string name="thePawn">प्यादा</string>
   <string name="itMovesForwardOnly">हे फक्त पुढे जाते</string>
   <string name="pawnIntro">प्यादे कमकुवत आहेत, पण ते हि महत्वाचे कामं करू शकतात.</string>
+  <string name="pawnsMoveOneSquareOnly">प्यादे केवळ एक चौरस चालतात.
+पण जेव्हा ते बोर्डच्या दुसर्‍या बाजूला पोहोचतात तेव्हा ते अधिक मजबूत गोटी बनतात!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">बऱ्याच वेळा प्याद्याला राणी बनवणेच सर्वोत्तम आहे.
+पण कधीतरी प्याद्याला घोडा बनवण्यात फायदा असतो!</string>
+  <string name="pawnsMoveForward">प्यादे सरळ पुढे चालतात,
+पण तिरकं मारतात!</string>
+  <string name="captureThenPromote">मारा मग, उन्नती(Promote) करा! </string>
+  <string name="useAllThePawns">सर्व प्यादे वापरा!
+उन्नती करण्याची गरज नाही.</string>
+  <string name="aPawnOnTheSecondRank">दुसर्‍या क्रमांकावरील मोहरा एकाच वेळी 2 चौरस चालू शकतो!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">सर्व तारे पकडा!
+उन्नती करण्याची गरज नाही.</string>
+  <string name="pawnComplete">अभिनंदन! तुला प्याद्याबद्दल सर्व काही माहित झालय.</string>
+  <string name="pawnPromotion">प्याद्याची उन्नती</string>
 </resources>
