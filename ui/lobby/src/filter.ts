@@ -1,15 +1,10 @@
 import { Hook } from './interfaces';
+import { FormLines, FormObject, FormStore, toFormLines, toFormObject, makeStore } from './form';
 import LobbyController from './ctrl';
 
-interface FilterFormData {
-  [key: string]: string;
-}
-
 interface FilterData {
-  form: FilterFormData;
-  filter: {
-    [key: string]: any;
-  }
+  form: FormLines;
+  filter: FormObject;
 }
 
 interface Filtered {
@@ -19,38 +14,30 @@ interface Filtered {
 
 export default class Filter {
 
+  store: FormStore;
   data: FilterData | null;
   open: boolean = false;
 
-  constructor(readonly storage: LichessStorage, readonly root: LobbyController) {
-    this.set(JSON.parse(storage.get() || 'null') as FilterFormData);
+  constructor(storage: LichessStorage, readonly root: LobbyController) {
+    this.store = makeStore(storage);
+    this.set(this.store.get());
   }
 
   toggle = () => {
     this.open = !this.open;
   };
 
-  set = (data: FilterFormData | null) => {
+  set = (data: FormLines | null) => {
     this.data = data && {
       form: data,
-      filter: Object.keys(data).reduce((o, k) => {
-        const i = k.indexOf('[');
-        const fk = i > 0 ? k.slice(0, i) : k;
-        return i > 0 ? {
-          ...o,
-          [fk]: [...(o[fk] || []), data[k]]
-        } : {
-          ...o,
-          [fk]: data[k]
-        };
-      }, {})
+      filter: toFormObject(data)
     };
   }
 
   save = (form: HTMLFormElement) => {
-    const data = Array.from(new FormData(form)).reduce((o,[k,v]) => ({...o, [k]: v}), {});
-    this.storage.set(JSON.stringify(data));
-    this.set(data);
+    const lines = toFormLines(form);
+    this.store.set(lines);
+    this.set(lines);
     this.root.onSetFilter();
   }
 

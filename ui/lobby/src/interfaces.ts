@@ -27,6 +27,8 @@ export interface Pool {
 export interface LobbyOpts extends Untyped {
   element: HTMLElement;
   socketSend: SocketSend;
+  pools: Pool[];
+  blindMode: boolean;
 }
 
 export interface LobbyData extends Untyped {

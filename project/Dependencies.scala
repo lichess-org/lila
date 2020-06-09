@@ -25,7 +25,7 @@ object Dependencies {
   val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.20.0"
   val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "2.2.2"
   val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.8.5"
-  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.3.0.RELEASE"
+  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.3.1.RELEASE"
   val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.44.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2" % "provided"
   val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0" % Test
@@ -60,7 +60,7 @@ object Dependencies {
     val json    = "com.typesafe.play" %% "play-json" % "2.8.1"
   }
   object kamon {
-    val version    = "2.1.0"
+    val version    = "2.1.1"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version

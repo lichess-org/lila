@@ -7,6 +7,7 @@ import * as poolRangeStorage from './poolRangeStorage';
 import { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, Seek, Pool, PoolMember } from './interfaces';
 import LobbySocket from './socket';
 import Filter from './filter';
+import Setup from './setup';
 
 const li = window.lichess;
 
@@ -27,6 +28,7 @@ export default class LobbyController {
   trans: Trans;
   pools: Pool[];
   filter: Filter;
+  setup: Setup;
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -39,6 +41,7 @@ export default class LobbyController {
     this.playban = opts.playban;
     this.isBot = opts.data.me && opts.data.me.isBot;
     this.filter = new Filter(li.storage.make('lobby.filter'), this);
+    this.setup = new Setup(li.storage.make, this);
 
     hookRepo.initAll(this);
     seekRepo.initAll(this);

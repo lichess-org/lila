@@ -524,8 +524,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
       .cursor[Bdoc]()
       .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[Bdoc]]())
-      .map { docs =>
-        docs.view
+      .map {
+        _.view
           .map { doc =>
             ~doc.getAsOpt[ID]("_id") -> docPerf(doc, perfType).getOrElse(Perf.default)
           }

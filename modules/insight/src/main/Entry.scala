@@ -98,7 +98,7 @@ object Termination {
       case S.Mate | S.VariantEnd => Checkmate
       case S.Cheat               => Resignation
       case S.Created | S.Started | S.Aborted | S.NoStart | S.UnknownFinish =>
-        logger.error("Unfinished game in the insight indexer")
+        logger.error(s"Unfinished game in the insight indexer: $s")
         Resignation
     }
 }

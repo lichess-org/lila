@@ -6,7 +6,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.rating.RatingRange
-import lila.setup.FilterConfig.Increment
 
 import controllers.routes
 
