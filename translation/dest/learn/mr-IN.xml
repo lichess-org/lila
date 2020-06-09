@@ -18,4 +18,8 @@
 तितके जास्त गुण तुम्ही जिंकाल!</string>
   <string name="useTwoRooks">दोन हत्ती वापरून
 खेळाची गती वाढवा!</string>
+  <string name="rookComplete">अभिनंदन! आपण हत्तीला यशस्वीरित्या प्रभुत्व केले.</string>
+  <string name="theBishop">उंट</string>
+  <string name="itMovesDiagonally">हे तिरपे चालते</string>
+  <string name="bishopIntro">पुढे आपण उंट कसे चालवायचे ते शिकू!</string>
 </resources>
