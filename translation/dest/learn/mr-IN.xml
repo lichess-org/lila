@@ -22,4 +22,14 @@
   <string name="theBishop">उंट</string>
   <string name="itMovesDiagonally">हे तिरपे चालते</string>
   <string name="bishopIntro">पुढे आपण उंट कसे चालवायचे ते शिकू!</string>
+  <string name="youNeedBothBishops">एक फिकट रंगाचे उंट,
+एक गडद रंगाचे उंट,
+आपल्याला दोघांची गरज आहे!</string>
+  <string name="bishopComplete">अभिनंदन! आपण उंटाला यशस्वीरित्या प्रभुत्व केले.</string>
+  <string name="theQueen">वझीर(राणी)</string>
+  <string name="queenCombinesRookAndBishop">वझीर = हत्ती + उंट</string>
+  <string name="queenIntro">सर्वात शक्तिशाली बुद्धीबळ मोहरा आत प्रवेश करतो. राणी साहेबांचा विजय असो!</string>
+  <string name="queenComplete">अभिनंदन! तुला वझीरबद्दल सर्व काही माहित झालाय. </string>
+  <string name="theKing">राजा</string>
+  <string name="theMostImportantPiece">सर्वात महत्वाचा मोहरा</string>
 </resources>
