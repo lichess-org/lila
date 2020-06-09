@@ -256,6 +256,7 @@
   <string name="rematchOfferDeclined">Запит на повторну гру відхилено</string>
   <string name="cancelRematchOffer">Скасувати запит на повторну гру</string>
   <string name="viewRematch">Дивитися повторну гру</string>
+  <string name="confirmMove">Підтвердити хід</string>
   <string name="play">Грати</string>
   <string name="inbox">Вхідні</string>
   <string name="chatRoom">Кімната балачок</string>
@@ -325,11 +326,13 @@
   <string name="filterGames">Фільтр ігор</string>
   <string name="reset">Скинути</string>
   <string name="apply">Застосувати</string>
+  <string name="save">Зберегти</string>
   <string name="leaderboard">Дошка лідерів</string>
   <string name="pasteTheFenStringHere">Вставте рядок FEN тут</string>
   <string name="pasteThePgnStringHere">Вставте рядок PGN тут</string>
   <string name="fromPosition">Із позиції</string>
   <string name="continueFromHere">Продовжити звідси</string>
+  <string name="toStudy">Навчання</string>
   <string name="importGame">Імпортувати гру</string>
   <string name="importGameExplanation">При вставці PGN-гри ви отримуєте повтор в браузері,
 комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
@@ -422,6 +425,7 @@
   <string name="lastName">Прізвище</string>
   <string name="biography">Біографія</string>
   <string name="country">Країна</string>
+  <string name="socialMediaLinks">Посилання на соціальні мережі</string>
   <string name="inlineNotation">Вбудована нотація</string>
   <string name="watchLichessTV">Дивитися Lichess ТБ</string>
   <string name="previouslyOnLichessTV">Попередні трансляції на Lichess ТБ</string>
@@ -503,6 +507,7 @@
   <string name="currentPassword">Поточний пароль</string>
   <string name="newPassword">Новий пароль</string>
   <string name="newPasswordAgain">Новий пароль (іще раз)</string>
+  <string name="clockInitialTime">Час початку годинника</string>
   <string name="privacy">Конфіденційність</string>
   <string name="letOtherPlayersFollowYou">Дозволити іншим спостерігати за вами</string>
   <string name="letOtherPlayersChallengeYou">Дозволити іншим кидати вам виклик</string>
@@ -548,6 +553,8 @@
   <string name="playOfflineComputer">Грати оффлайн з програмою</string>
   <string name="opponent">Суперник</string>
   <string name="learnMenu">Навчатися</string>
+  <string name="studyMenu">Навчання</string>
+  <string name="practice">Практика</string>
   <string name="community">Спільнота</string>
   <string name="tools">Інструменти</string>
   <string name="increment">Додати</string>
@@ -790,4 +797,5 @@
   <string name="classicalDesc">Класичні гри: 25 хвилин і більше</string>
   <string name="correspondenceDesc">Заочні шахи: один чи декілька днів на хід</string>
   <string name="puzzleDesc">Тренажер шахової тактики</string>
+  <string name="important">Важливо</string>
 </resources>
