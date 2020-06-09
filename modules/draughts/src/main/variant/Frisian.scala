@@ -22,7 +22,7 @@ case object Frisian extends Variant(
   def moveDirsColor = Standard.moveDirsColor
   def moveDirsAll = Standard.moveDirsAll
 
-  lazy val captureDirs: Directions = List((UpLeft, _.moveUpLeft), (UpRight, _.moveUpRight), (Up, _.moveUp), (DownLeft, _.moveDownLeft), (DownRight, _.moveDownRight), (Down, _.moveDown), (Left, _.moveLeft), (Right, _.moveRight))
+  val captureDirs: Directions = List((UpLeft, _.moveUpLeft), (UpRight, _.moveUpRight), (Up, _.moveUp), (DownLeft, _.moveDownLeft), (DownRight, _.moveDownRight), (Down, _.moveDown), (Left, _.moveLeft), (Right, _.moveRight))
 
   override def getCaptureValue(board: Board, taken: List[Pos]) = taken.foldLeft(0) {
     (t, p) => t + getCaptureValue(board, p)

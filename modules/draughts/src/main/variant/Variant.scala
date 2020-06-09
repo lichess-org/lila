@@ -376,6 +376,27 @@ abstract class Variant private[variant] (
 
 object Variant {
 
+  val UpLeft = 1
+  val UpRight = 2
+  val DownLeft = 3
+  val DownRight = 4
+  val Up = 5
+  val Down = 6
+  val Left = 7
+  val Right = 8
+
+  val oppositeDirs: Array[Int] = Array(
+    0,
+    DownRight,
+    DownLeft,
+    UpRight,
+    UpLeft,
+    Down,
+    Up,
+    Right,
+    Left
+  )
+
   val all = List(Standard, Frisian, Frysk, Antidraughts, Breakthrough, Russian, FromPosition)
   val byId = all map { v => (v.id, v) } toMap
   val byKey = all map { v => (v.key, v) } toMap
@@ -411,27 +432,6 @@ object Variant {
     draughts.variant.Breakthrough,
     draughts.variant.Russian,
     draughts.variant.FromPosition
-  )
-
-  val UpLeft = 1
-  val UpRight = 2
-  val DownLeft = 3
-  val DownRight = 4
-  val Up = 5
-  val Down = 6
-  val Left = 7
-  val Right = 8
-
-  val oppositeDirs: Array[Int] = Array(
-    0,
-    DownRight,
-    DownLeft,
-    UpRight,
-    UpLeft,
-    Down,
-    Up,
-    Right,
-    Left
   )
 
   private[variant] def symmetricFourRank(rank: IndexedSeq[Role], boardSize: Board.BoardSize): Map[Pos, Piece] = {
