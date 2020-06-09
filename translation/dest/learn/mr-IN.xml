@@ -32,4 +32,8 @@
   <string name="queenComplete">अभिनंदन! तुला वझीरबद्दल सर्व काही माहित झालाय. </string>
   <string name="theKing">राजा</string>
   <string name="theMostImportantPiece">सर्वात महत्वाचा मोहरा</string>
+  <string name="kingIntro">आपण राजे आहात. आपण लढाईत मारला गेल्यास खेळ हरवला आहे.</string>
+  <string name="theKingIsSlow">राजा हळू चालतो.</string>
+  <string name="lastOne">शेवटचा!</string>
+  <string name="kingComplete">आपण आता राज्याला आज्ञा देऊ शकता!</string>
 </resources>
