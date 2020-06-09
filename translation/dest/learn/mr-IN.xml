@@ -61,4 +61,16 @@
 उन्नती करण्याची गरज नाही.</string>
   <string name="pawnComplete">अभिनंदन! तुला प्याद्याबद्दल सर्व काही माहित झालय.</string>
   <string name="pawnPromotion">प्याद्याची उन्नती</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">आपला प्यादा बोर्डाच्या शेवटी पोहोचला!</string>
+  <string name="itNowPromotesToAStrongerPiece">तुम्ही प्याद्याला कोणती हि दुसरी गोटी म्हणून उन्नत करू शकता.</string>
+  <string name="selectThePieceYouWant">हवी ती गोटी निवडा!</string>
+  <string name="fundamentals">मूलतत्त्वे</string>
+  <string name="capture">मारा (पकडा)</string>
+  <string name="takeTheEnemyPieces">शत्रूच्या गोट्या घ्या</string>
+  <string name="captureIntro">शत्रूचे अप्रस्तुत गोट्या ओळखा आणि त्यांना पकडून घ्या!</string>
+  <string name="takeTheBlackPieces">काळ्या गोट्या घ्या!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">काळ्या गोट्या घ्या!
+आणि आपल्या गोट्या गमावू नका.</string>
+  <string name="captureComplete">अभिनंदन! बुद्धीबळ गोट्यांसह कसे लढायचे हे आपल्याला माहित आहे!</string>
+  <string name="protection">संरक्षण</string>
 </resources>
