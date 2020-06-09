@@ -36,4 +36,11 @@
   <string name="theKingIsSlow">राजा हळू चालतो.</string>
   <string name="lastOne">शेवटचा!</string>
   <string name="kingComplete">आपण आता राज्याला आज्ञा देऊ शकता!</string>
+  <string name="theKnight">घोडा</string>
+  <string name="itMovesInAnLShape">हा L आकारात चालतो</string>
+  <string name="knightIntro">आपल्यासाठी हे एक आव्हान आहे. नाइट एक...अवघड मोहरा आहे.</string>
+  <string name="knightsHaveAFancyWay">घोडे विलक्षण पणे 
+उड्या मारतात!</string>
+  <string name="knightsCanJumpOverObstacles">घोडे अडथळ्यांवरून उडी मारू शकता! 
+तारे ओलांडून त्यांना जिंको शकतात!</string>
 </resources>
