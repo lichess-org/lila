@@ -18,7 +18,10 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
 
   private def invoke(swiss: Swiss, input: Source[String, _]): Fu[List[String]] =
     withTempFile(swiss, input) { file =>
-      val flavour = if (swiss.nbPlayers < 250) "dutch" else "burstein"
+      val flavour =
+        if (swiss.nbPlayers < 250) "dutch"
+        else if (swiss.nbPlayers < 700) "burstein"
+        else "fast"
       val command = s"$executable --$flavour $file -p"
       val stdout  = new collection.mutable.ListBuffer[String]
       val stderr  = new StringBuilder

@@ -107,7 +107,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   private[tournament] def upcomingByTeam(teamId: TeamID, nb: Int) =
     (nb > 0) ?? coll.ext
-      .find(forTeamSelect(teamId) ++ enterableSelect)
+      .find(
+        forTeamSelect(teamId) ++ enterableSelect ++ $doc(
+          "startsAt" $gt DateTime.now.minusDays(1)
+        )
+      )
       .sort($sort asc "startsAt")
       .list[Tournament](nb)
 
@@ -306,7 +310,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
           tour.isRated option "mode",
           tour.berserkable option "noBerserk",
           tour.streakable option "noStreak",
-          tour.hasChat option "chat"
+          tour.hasChat option "chat",
+          tour.password.isEmpty option "password"
         ).flatten
       )
     )

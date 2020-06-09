@@ -107,9 +107,9 @@ final class Env(
                 api.setTroll(mod, sus, true)
               }
             }
-          case lila.hub.actorApi.security.GarbageCollect(userId, ipBan) =>
+          case lila.hub.actorApi.security.GarbageCollect(userId) =>
             reportApi getSuspect userId orFail s"No such suspect $userId" flatMap { sus =>
-              api.garbageCollect(sus, ipBan) >> publicChat.delete(sus)
+              api.garbageCollect(sus) >> publicChat.delete(sus)
             }
           case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
             logApi.modMessage(User.lichessId, userId, subject)

@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Les cadences Lichess sont basées sur une estimation de la durée de la partie: %1$s
  Par exemple, la durée estimées d\'une partie jouée en 5+3 est de 5*60+40*3 = 420 secondes.</string>
   <string name="durationFormula">(temps initial en minutes) + 40 × (incrément en secondes)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Quelles variantes puis-je jouer sur Lichess ?</string>
   <string name="lichessSupportChessAnd">Lichess prend en charge les échecs standards et %1$s.</string>

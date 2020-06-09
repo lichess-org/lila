@@ -840,17 +840,13 @@
   function startTournament(cfg) {
     var element = document.querySelector('main.tour');
     $('body').data('tournament-id', cfg.data.id);
-    var tournament;
+    let tournament;
     lichess.socket = lichess.StrongSocket(
       '/tournament/' + cfg.data.id + '/socket/v4', cfg.data.socketVersion, {
-        receive: function(t, d) {
-          return tournament.socketReceive(t, d);
-        }
+        receive: (t, d) => tournament.socketReceive(t, d)
       });
     cfg.socketSend = lichess.socket.send;
     cfg.element = element;
-    cfg.$side = $('.tour__side').clone();
-    cfg.$faq = $('.tour__faq').clone();
     tournament = LichessTournament.start(cfg);
   }
 

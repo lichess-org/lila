@@ -157,7 +157,7 @@ final class Env(
     } yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
 
   Bus.subscribeFun("garbageCollect") {
-    case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
+    case lila.hub.actorApi.security.GarbageCollect(userId) =>
       // GC can be aborted by reverting the initial SB mark
       user.repo.isTroll(userId) foreach { troll =>
         if (troll) scheduler.scheduleOnce(1.second) {

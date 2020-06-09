@@ -18,15 +18,15 @@
 #mz_assessments { order: 7 }
 #mz_mod_log { order: 8 }
 #mz_reports { order: 9 }
-#mz_others { order: 10 }
-#mz_identification { order: 11 }
+#mz_identification { order: 10 }
+#mz_others { order: 11 }
 
 #mz_menu {
   @extend %flex-center, %box-neat-top;
   position: fixed;
   bottom: 0;
   background: $c-brag;
-  z-index: 1;
+  z-index: z('mz-menu');
   // border-top: 1px solid $c-brag;
   // border-width: 3px 2px 0 2px;
   padding: 0;
@@ -107,47 +107,70 @@
 #mz_identification {
   @extend %flex-wrap;
   > div {
-    flex: 1 1 auto;
-    max-height: 40vh;
+    flex: 1 1 50%;
+    max-height: 30vh;
     overflow: auto;
-    margin-right: 1%;
     &:last-child {
       margin: 0;
     }
+    border: $border;
   }
-  .spy_ips {
-    white-space: nowrap;
-    > ul > li {
-      list-style: inside disc;
+  .slist {
+    border: none;
+    margin: 0;
+    thead th {
+      border-width: 0 0 1px 0;
     }
-    ul p {
+    td {
+      padding: 0;
+      &:first-child {
+        padding-left: 1em;
+        width: 0%;
+      }
+    }
+    thead th:first-child {
       font-weight: bold;
-      display: inline;
     }
-    li li {
-      margin-left: 1em;
-      font-family: monospace;
-    }
-  }
-  .spy_fps {
     white-space: nowrap;
-    li {
+    a {
       font-family: monospace;
     }
+    .blocked {
+      a,
+      .button { color: $c-bad; }
+    }
+    .button {
+      padding: .4em 1em;
+      color: $c-good;
+      &-discouraging {
+        color: $c-font-dimmer;
+      }
+    }
+    i {
+      margin-left: 1ch;
+    }
+    &.spy_filter {
+      tbody tr:hover {
+        background: mix($c-brag, $c-bg-box, 20%);
+      }
+    }
   }
-  .spy_uas {
-    flex: 0 1 60%;
-    white-space: wrap;
+  .spy_ips a {
+    letter-spacing: -1px;
   }
-  .blocked {
-    color: red;
-    font-weight: bold;
+  .spy_uas, .spy_locs {
+    height: 20vh;
+    .slist {
+      min-height: 100%;
+    }
+    td {
+      padding: .4em 0;
+    }
   }
 }
 .mod-zone .proxy {
-  font-weight: strong;
-  color: $c-bad;
-  margin-left: 10px;
+  color: $c-brag;
+  font-weight: bold;
 }
 .mod-zone strong {
   display: block;
@@ -160,15 +183,25 @@
   max-height: 100px;
   overflow: auto;
 }
-#mz_others .slist td:first-child {
-  padding-left: 10px;
-}
-#mz_others .i {
-  padding: 0;
-  i {
-    margin: 0;
-    &::before {
-      margin-right: 0;
+#mz_others {
+  max-height: 60vh;
+  padding-top: 0;
+  overflow-y: auto;
+  .slist {
+    td:first-child {
+      padding-left: 10px;
+    }
+    thead th:first-child {
+      font-weight: bold;
+    }
+  }
+  .i {
+    padding: 0;
+    i {
+      margin: 0;
+      &::before {
+        margin-right: 0;
+      }
     }
   }
 }
@@ -206,6 +239,8 @@
   }
 }
 #mz_assessments {
+  max-height: 60vh;
+  overflow-y: auto;
   table {
     margin-top: 10px;
   }
@@ -270,6 +305,8 @@
 }
 
 #mz_irwin {
+  max-height: 60vh;
+  overflow-y: auto;
   header {
     margin-top: 10px;
     display: flex;

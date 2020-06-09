@@ -4,7 +4,7 @@
   <string name="frequentlyAskedQuestions">Häufig gestellte Fragen</string>
   <string name="whyIsLichessCalledLichess">Warum heißt Lichess Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess ist eine Kombination aus live/light/libre und Schach. Es wird %1$s ausgesprochen.</string>
-  <string name="leechess">lee-chess</string>
+  <string name="leechess">li-tschess</string>
   <string name="hearItPronouncedBySpecialist">Höre dir die Aussprache von einem Spezialisten an.</string>
   <string name="whyLiveLightLibre">Live, denn Partien werden 24/7 in Echtzeit gespielt und angeschaut; leicht und frei aufgrund der Tatsache, dass Lichess quelloffen und frei von proprietärem Müll ist, welcher andere Internetseiten belastet.</string>
   <string name="whyIsLilaCalledLila">Ähnlich verhält es sich mit dem Quellcode von Lichess, %1$s, der für li[chess in sca]la steht. Der Großteil von Lichess wurde in %2$s geschrieben, einer intuitiven Programmiersprache.</string>
@@ -72,7 +72,7 @@ Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="repeatedPositionsThatMatters">Bei dreifach gleicher Stellung geht es um vollständig gleiche %1$s, nicht um Zugwiederholungen. Die gleichen Stellungen können mit beliebigen Zügen erreicht werden, sofern die Zugmöglichkeiten in diesen Stellungen immer gleich sind.</string>
   <string name="positions">Stellungen</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Wir haben eine Stellung dreimal erreicht. Wieso wurde die Partie nicht für remis erklärt?</string>
-  <string name="threeFoldHasToBeClaimed">Dreifach gleiche Stellung muss von einem der Spieler reklamiert werden. Das kannst du erreichen, indem du auf die Schaltfläche drückst, die angezeigt wird, oder indem du Remis vor deinem letzten Zug anbietest, der eine solche Stellung herbeiführt. Du kannst Lichess auch so %1$s, dass automatisch dreifach gleiche Stellung für dich reklamiert wird. Zusätzlich beendet die fünffach gleiche Stellung mit gleichen Zugmöglichkeiten immer sofort das Spiel.</string>
+  <string name="threeFoldHasToBeClaimed">Dreifach gleiche Stellung muss von einem der Spieler reklamiert werden. Das kannst du erreichen, indem du auf die Schaltfläche drückst, die angezeigt wird, oder indem du Remis vor deinem letzten Zug anbietest, der eine solche Stellung herbeiführt. In letztem Fall wird eine berechtigte Reklamation wegen dreifach gleicher Stellung selbst dann erfolgreich sein, wenn dein Gegner das Angebot ablehnt. Du kannst Lichess auch so %1$s, dass automatisch dreifach gleiche Stellung für dich reklamiert wird. Zusätzlich beendet die fünffach gleiche Stellung mit gleichen Zugmöglichkeiten immer sofort das Spiel.</string>
   <string name="configure">konfigurieren</string>
   <string name="accounts">Konten</string>
   <string name="titlesAvailableOnLichess">Welche Titel gibt es auf Lichess?</string>

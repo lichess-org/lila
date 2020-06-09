@@ -233,9 +233,11 @@ final class ReportApi(
       case _ => funit
     }
 
+  def byId(id: Report.ID) = coll.byId[Report](id)
+
   def process(mod: Mod, reportId: Report.ID): Funit =
     for {
-      report  <- coll.byId[Report](reportId) orFail s"no such report $reportId"
+      report  <- byId(reportId) orFail s"no such report $reportId"
       suspect <- getSuspect(report.user) orFail s"No such suspect $report"
       rooms = Set(Room(report.reason))
       res <- process(mod, suspect, rooms, reportId.some)

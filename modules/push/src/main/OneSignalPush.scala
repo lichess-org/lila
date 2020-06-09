@@ -43,7 +43,8 @@ final private class OneSignalPush(
                 case errors =>
                   fufail(s"[push] ${devices.map(_.deviceId)} $data ${res.status} ${errors mkString ","}")
               }
-            case res => fufail(s"[push] ${devices.map(_.deviceId)} $data ${res.status} ${res.body}")
+            case res =>
+              fufail(s"[push] ${devices.map(_.deviceId)} $data ${lila.log http res}")
           }
     }
 

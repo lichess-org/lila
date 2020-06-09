@@ -1,8 +1,8 @@
 var tablesort = require('tablesort');
 
-let $toggle = $('.user-show .mod-zone-toggle');
-let $zone = $('.user-show .mod-zone');
-let nbOthers = 50;
+let $toggle = $('.mod-zone-toggle');
+let $zone = $('.mod-zone');
+let nbOthers = 100;
 
 function streamLoad() {
   const source = new EventSource($toggle.attr('href') + '?nbOthers=' + nbOthers);
@@ -39,7 +39,8 @@ function reloadZone() {
 }
 
 function scrollTo(el) {
-  window.scrollTo(0, document.querySelector(el).offsetTop);
+  const offset = $('#inquiry').length ? -50 : 50;
+  window.scrollTo(0, document.querySelector(el).offsetTop + offset);
 }
 
 $toggle.click(function() {
@@ -55,41 +56,71 @@ function userMod($zone) {
   $('#mz_menu > a:not(.available)').each(function() {
     $(this).toggleClass('available', !!$($(this).attr('href')).length);
   });
-  $('#mz_menu > a:not(.hotkey)').each(function(i) {
-    const id = this.href.replace(/.+(#\w+)$/, '$1'), n = '' + (i + 1);
-    $(this).addClass('hotkey').prepend(`<i>${n}</i>`);
-    Mousetrap.bind(n, () => {
-      console.log(id, n);
-      scrollTo(id);
+  makeReady('#mz_menu', el => {
+    $(el).find('a').each(function(i) {
+      const id = this.href.replace(/.+(#\w+)$/, '$1'), n = '' + (i + 1);
+      $(this).prepend(`<i>${n}</i>`);
+      Mousetrap.bind(n, () => scrollTo(id));
     });
   });
 
-  $zone.find('form.xhr:not(.ready)').submit(function() {
-    $(this).addClass('ready').find('input').attr('disabled', true);
-    $.ajax({
-      ...lichess.formAjax($(this)),
-      success: function(html) {
-        $('#mz_actions').replaceWith(html);
-        userMod($zone);
-      }
-    });
-    return false;
-  });
-
-  $zone.find('form.fide_title select').on('change', function() {
-    $(this).parent('form').submit();
-  });
-
-  $zone.find('#mz_others table').each(function() {
-    tablesort(this, {
-      descending: true
+  makeReady('form.xhr', el => {
+    $(el).submit(() => {
+      $(el).addClass('ready').find('input').attr('disabled', true);
+      $.ajax({
+        ...lichess.formAjax($(el)),
+        success: function(html) {
+          $('#mz_actions').replaceWith(html);
+          userMod($zone);
+        }
+      });
+      return false;
     });
   });
-  $zone.find('#mz_others .more-others:not(.ready)').each(function() {
-    $(this).addClass('.ready').click(() => {
+
+  makeReady('form.fide_title select', el => {
+    $(el).on('change', function() {
+      $(el).parent('form').submit();
+    });
+  });
+
+  makeReady('#mz_others', el => {
+    $(el).height($(el).height());
+  });
+  makeReady('#mz_others table', el => {
+    tablesort(el, { descending: true });
+  });
+  makeReady('#mz_identification .spy_filter', el => {
+    $(el).find('.button').click(function() {
+      $.post($(this).attr('href'));
+      $(this).parent().parent().toggleClass('blocked');
+      return false;
+    });
+    $(el).find('tr').on('mouseenter', function() {
+      const v = $(this).find('td:first').text();
+      $('#mz_others tbody tr').each(function() {
+        $(this).toggleClass('none', !($(this).data('tags') || '').includes(v));
+      });
+    });
+    $(el).on('mouseleave', function() {
+      $('#mz_others tbody tr').removeClass('none');
+    });
+  });
+  makeReady('#mz_identification .slist--sort', el => {
+    tablesort(el, { descending: true });
+  }, 'ready-sort');
+  makeReady('#mz_others .more-others', el => {
+    $(el).addClass('.ready').click(() => {
       nbOthers = 1000;
       reloadZone();
     });
+  });
+}
+
+function makeReady(selector, f, cls) {
+  cls = cls || 'ready';
+  $zone.find(selector + `:not(.${cls})`).each(function(i) {
+    f($(this).addClass(cls)[0], i);
   });
 }
 

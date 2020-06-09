@@ -95,24 +95,11 @@ final class ModApi(
     } inject sus
   }
 
-  def setBan(mod: Mod, prev: Suspect, value: Boolean): Funit =
-    for {
-      ips <- sessionStore ips prev.user
-      sus = prev.set(_.withMarks(_.set(_.Ipban, value)))
-      _ <- userRepo.setIpBan(sus.user.id, sus.user.marks.ipban)
-      _ <- logApi.ban(mod, sus)
-      _ <-
-        if (sus.user.marks.ipban)
-          firewall.blockIps(ips) >> securityStore.closeAllSessionsOf(sus.user.id)
-        else firewall unblockIps ips
-    } yield ()
-
-  def garbageCollect(sus: Suspect, ipBan: Boolean): Funit =
+  def garbageCollect(sus: Suspect): Funit =
     for {
       mod <- reportApi.getLichessMod
       _   <- setAlt(mod, sus, true)
       _   <- setTroll(mod, sus, false)
-      _   <- ipBan ?? setBan(mod, sus, true)
     } yield logApi.garbageCollect(mod, sus)
 
   def disableTwoFactor(mod: String, username: String): Funit =

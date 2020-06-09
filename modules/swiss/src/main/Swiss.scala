@@ -66,11 +66,13 @@ case class Swiss(
   }
 
   def roundInfo = Swiss.RoundInfo(teamId, settings.chatFor)
+
+  lazy val looksLikePrize = lila.common.String.looksLikePrize(s"$name ${~settings.description}")
 }
 
 object Swiss {
 
-  val maxPlayers = 600
+  val maxPlayers = 2000
 
   case class Id(value: String) extends AnyVal with StringValue
   case class Round(value: Int) extends AnyVal with IntValue

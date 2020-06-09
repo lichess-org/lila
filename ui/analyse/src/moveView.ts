@@ -1,8 +1,8 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { fixCrazySan, renderEval as normalizeEval } from 'chess';
+import { fixCrazySan } from 'chess';
 import { defined } from 'common';
-import { view as cevalView } from 'ceval';
+import { view as cevalView, renderEval as normalizeEval } from 'ceval';
 
 export interface Ctx {
   withDots?: boolean;

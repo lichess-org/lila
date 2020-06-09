@@ -29,7 +29,7 @@
   <string name="whenReady">Gdy jesteś gotowy do pojawienia się na liście streamerów Lichess, %s</string>
   <string name="requestReview">poproś o recenzję moderatora</string>
   <string name="anotherLanguage">Jeśli Twój stream jest w innym języku niż angielski, dodaj na początku jego tytułu poprawny znacznik języka w nawiasach kwadratowych (%s).
-Przykładowo: dołącz [RU] dla Rosji, [TR] dla Turcji, [FR] dla francuskiego itd.
+Przykładowo: dołącz [PL] dla języka polskiego, [DE] dla niemiecki, [FR] dla francuskiego itd.
 Umieść go w tytule streama na stronie Twitch lub YouTube, a nie w ustawieniach streama Lichess.
 Jeśli Twój stream jest w języku angielskim, nie ma potrzeby dołączania znacznika.</string>
   <string name="twitchUsername">Twoja nazwa użytkownika lub adres URL na Twitch</string>

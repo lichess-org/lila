@@ -48,21 +48,18 @@ final class Auth(
 
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit
       ctx: Context
-  ): Fu[Result] = {
-    if (u.marks.ipban) fuccess(Redirect(routes.Lobby.home))
-    else
-      api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
-        negotiate(
-          html = fuccess {
-            val redirectTo = get("referrer").filter(goodReferrer) orElse
-              ctxReq.session.get(api.AccessUri) getOrElse
-              routes.Lobby.home.url
-            result.fold(Redirect(redirectTo))(_(redirectTo))
-          },
-          api = _ => mobileUserOk(u, sessionId)
-        ) map authenticateCookie(sessionId)
-      } recoverWith authRecovery
-  }
+  ): Fu[Result] =
+    api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
+      negotiate(
+        html = fuccess {
+          val redirectTo = get("referrer").filter(goodReferrer) orElse
+            ctxReq.session.get(api.AccessUri) getOrElse
+            routes.Lobby.home.url
+          result.fold(Redirect(redirectTo))(_(redirectTo))
+        },
+        api = _ => mobileUserOk(u, sessionId)
+      ) map authenticateCookie(sessionId)
+    } recoverWith authRecovery
 
   private def authenticateCookie(sessionId: String)(result: Result)(implicit req: RequestHeader) =
     result.withCookies(

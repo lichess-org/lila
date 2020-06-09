@@ -18,26 +18,26 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
   import Store._
 
-  private val authCache = cacheApi[String, Option[AuthInfo]](16384, "security.authCache") {
-    _.expireAfterAccess(3 minute)
-      .maximumSize(32768)
+  private val authCache = cacheApi[String, Option[AuthInfo]](32768, "security.authCache") {
+    _.expireAfterAccess(5 minutes)
+      .maximumSize(65536)
       .buildAsyncFuture[String, Option[AuthInfo]] { id =>
         coll
           .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)
-          .one[AuthInfo]
+          .one[Bdoc]
+          .map {
+            _.flatMap { doc =>
+              if (doc.getAsOpt[DateTime]("date").fold(true)(_ isBefore DateTime.now.minusHours(12)))
+                coll.updateFieldUnchecked($id(id), "date", DateTime.now)
+              doc.getAsOpt[User.ID]("user") map { AuthInfo(_, doc.contains("fp")) }
+            }
+          }
       }
   }
 
   def authInfo(sessionId: String) = authCache get sessionId
 
-  def setNow(sessionId: String, i: AuthInfo): Unit = {
-    val info = i.copy(date = DateTime.now)
-    coll.updateFieldUnchecked($id(sessionId), "date", info.date)
-    authCache.put(sessionId, fuccess(info.some))
-  }
-
-  implicit private val AuthInfoReader = Macros.reader[AuthInfo]
-  private val authInfoProjection      = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
+  private val authInfoProjection = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
   private def uncache(sessionId: String) =
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: User.ID): Funit =
@@ -128,7 +128,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
         coll.updateField($id(id), "fp", hash) >>- {
           authInfo(id) foreach {
             _ foreach { i =>
-              authCache.put(id, fuccess(i.copy(fp = hash.some).some))
+              authCache.put(id, fuccess(i.copy(hasFp = true).some))
             }
           }
         } inject hash
@@ -199,10 +199,6 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 }
 
 object Store {
-
-  case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {
-    def compare(other: Dated[V]) = other.date compareTo date
-  }
 
   case class Info(ip: IpAddress, ua: String, fp: Option[FingerHash], date: DateTime) {
     def datedIp = Dated(ip, date)

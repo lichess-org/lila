@@ -51,4 +51,26 @@ Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   </plurals>
   <string name="youSupportWith">Du støttar lichess.org med %s i månaden.</string>
   <string name="tyvm">Mange takk for støtta di. Du er sjef!</string>
+  <string name="currentStatus">Gjeldande status</string>
+  <string name="nextPayment">Neste betaling</string>
+  <string name="youWillBeChargedXOnY">Du vil bli trekt %1$s, %2$s.</string>
+  <string name="makeAdditionalDonation">Legg inn ei ekstra pengegåve no</string>
+  <string name="update">Oppdater</string>
+  <string name="changeMonthlyAmount">Endre månadleg beløp (%s)</string>
+  <string name="cancelSupport">avslutt støtta di</string>
+  <string name="xOrY">%1$s eller %2$s</string>
+  <string name="decideHowMuch">Avgjer kor stor verde Lichess har for deg:</string>
+  <string name="stopPayments">Slett kredittkortdetaljar og stopp faste innbetalingar:</string>
+  <string name="noLongerSupport">Avslutt å støtte Lichess</string>
+  <string name="paymentHistory">Betalingshistorikk</string>
+  <string name="paid">Betalt</string>
+  <string name="viewOthers">Sjå andre Lichess-mesenar</string>
+  <string name="date">Dato</string>
+  <string name="amount">Beløp</string>
+  <string name="transactionCompleted">Transaksjonen er gjennomført og ei kvittering er sendt til epostadressa di.</string>
+  <string name="permanentPatron">Du har no ein permanent mesenkonto.</string>
+  <string name="checkOutProfile">Sjekk profilen din!</string>
+  <string name="nowLifetime">Du er no livslang Lichess-mesen!</string>
+  <string name="nowOneMonth">Du er no Lichess-mesen for ein månad!</string>
+  <string name="downgradeNextMonth">Om ein månad blir du IKKJE belasta på ny, og Lichess-kontoen din blir gradert ned til gratis-nivået.</string>
 </resources>

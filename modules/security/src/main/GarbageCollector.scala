@@ -11,7 +11,6 @@ import lila.user.User
 final class GarbageCollector(
     userSpy: UserSpyApi,
     ipTrust: IpTrust,
-    printBan: PrintBan,
     slack: lila.slack.SlackApi,
     noteApi: lila.user.NoteApi,
     isArmed: () => Boolean
@@ -59,11 +58,11 @@ final class GarbageCollector(
           val printOpt = spy.prints.headOption
           logger.debug(s"apply ${data.user.username} print=${printOpt}")
           Bus.publish(
-            lila.security.UserSignup(user, email, req, printOpt.map(_.value), ipSusp),
+            lila.security.UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
             "userSignup"
           )
-          printOpt.map(_.value) filter printBan.blocks match {
-            case Some(print) => collect(user, email, ipBan = false, msg = s"Print ban: ${print.value}")
+          printOpt.filter(_.banned).map(_.fp.value) match {
+            case Some(print) => collect(user, email, msg = s"Print ban: ${print.value}")
             case _ =>
               badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
                 logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
@@ -73,9 +72,6 @@ final class GarbageCollector(
                     _ ?? collect(
                       user,
                       email,
-                      ipBan = spy.usersSharingIp.forall { u =>
-                        isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
-                      },
                       msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}"
                     )
                   }
@@ -94,7 +90,7 @@ final class GarbageCollector(
 
   private def isBadAccount(user: User) = user.lameOrTrollOrAlt
 
-  private def collect(user: User, email: EmailAddress, ipBan: Boolean, msg: => String): Funit =
+  private def collect(user: User, email: EmailAddress, msg: => String): Funit =
     !done.get(user.id) ?? {
       done put user.id
       val armed = isArmed()
@@ -107,7 +103,7 @@ final class GarbageCollector(
         if (armed) {
           doInitialSb(user)
           system.scheduler.scheduleOnce(wait) {
-            doCollect(user, ipBan)
+            doCollect(user)
           }
         }
       }
@@ -119,9 +115,9 @@ final class GarbageCollector(
       "garbageCollect"
     )
 
-  private def doCollect(user: User, ipBan: Boolean): Unit =
+  private def doCollect(user: User): Unit =
     Bus.publish(
-      lila.hub.actorApi.security.GarbageCollect(user.id, ipBan),
+      lila.hub.actorApi.security.GarbageCollect(user.id),
       "garbageCollect"
     )
 }

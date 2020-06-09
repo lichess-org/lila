@@ -321,10 +321,13 @@ final class Team(
 
   def quit(id: String) =
     AuthOrScoped(_.Team.Write)(
-      auth = ctx =>
+      auth = implicit ctx =>
         me =>
-          OptionResult(api.quit(id, me)) { team =>
-            Redirect(routes.Team.show(team.id)).flashSuccess
+          OptionFuResult(api.quit(id, me)) { team =>
+            negotiate(
+              html = Redirect(routes.Team.show(team.id)).flashSuccess.fuccess,
+              api = _ => jsonOkResult.fuccess
+            )
           }(ctx),
       scoped = _ =>
         me =>

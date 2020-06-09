@@ -121,7 +121,11 @@ final class TournamentApi(
       hasChat = data.hasChat | true
     ) pipe { tour =>
       tour.perfType.fold(tour) { perfType =>
-        tour.copy(conditions = conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
+        tour.copy(conditions =
+          conditions
+            .convert(perfType, myTeams.view.map(_.pair).toMap)
+            .copy(teamMember = old.conditions.teamMember) // can't change that
+        )
       }
     }
     tournamentRepo update tour void
