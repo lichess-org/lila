@@ -10,4 +10,12 @@
   <string name="chessPieces">बुद्धिबळातील सोंगट्या</string>
   <string name="theRook">हत्ती</string>
   <string name="itMovesInStraightLines">तो सरळ रेषेत फिरतो</string>
+  <string name="rookIntro">हत्ती एक शक्तिशाली मोहरा आहे. आपण त्याला आज्ञा करण्यास तयार आहात?</string>
+  <string name="rookGoal">हत्ती वर क्लिक करा
+त्याला ताऱ्यावर वर आणण्यासाठी!</string>
+  <string name="grabAllTheStars">सर्व तारे पकडा!</string>
+  <string name="theFewerMoves">जितक्या कमी चाला
+तितके जास्त गुण तुम्ही जिंकाल!</string>
+  <string name="useTwoRooks">दोन हत्ती वापरून
+खेळाची गती वाढवा!</string>
 </resources>
