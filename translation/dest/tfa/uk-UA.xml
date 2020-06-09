@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">Двофакторна аутентифікація</string>
+  <string name="twoFactorHelp">Двофакторна аутентифікація додає ще один рівень безпеки для вашого облікового запису.</string>
+  <string name="twoFactorApp">Отримайте програму для двофакторної аутентифікації, наприклад Google Authenticator для %1$s або %2$s.</string>
+  <string name="scanTheCode">Проскануйте QR-код за допомогою додатку.</string>
+  <string name="enterPassword">Введіть ваш пароль та код аутентифікації, згенерований програмою, щоб завершити налаштування. Щоразу при вході в систему вам знадобиться код аутентифікації.</string>
+</resources>
