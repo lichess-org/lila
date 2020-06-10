@@ -25,10 +25,15 @@ final private class MsgSecurity(
   import MsgSecurity._
 
   private object limitCost {
-    val normal                 = 25
-    val verified               = 5
-    val hog                    = 1
-    def apply(u: User.Contact) = if (u.isApiHog) hog else if (u.isVerified) verified else normal
+    val normal   = 25
+    val verified = 5
+    val hog      = 1
+    def apply(u: User.Contact) =
+      if (u.isApiHog) hog
+      else if (u.isVerified) verified
+      else if (u isDaysOld 3) normal
+      else if (u isHoursOld 3) normal * 2
+      else normal * 4
   }
 
   private val CreateLimitPerUser = new RateLimit[User.ID](
