@@ -19,5 +19,6 @@
   <string name="fairPlay">Poštena igra</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Zakaj sem označen za umetno manipulacijo z ratingom (peskanje in povečanje) ali računalniško pomoč?</string>
   <string name="cheatDetectionMethods">Lichess ima močne metode odkrivanja in zelo temeljit postopek za pregled vseh dokazov in odločitev. V postopku pogosto sodeluje veliko moderatorjev in lahko traja veliko časa. Razen same znamke ne bomo spuščali podrobnosti o dokazih ali postopku odločanja za posamezne primere. S tem bi se lažje izognili odkrivanju v prihodnosti in bili povabilo k neproduktivnim razpravam. Ta čas in trud je bolje porabiti za druge pomembne primere. Uporabniki se lahko pritožijo po e-pošti %1$s, vendar se odločitve redko razveljavijo.</string>
+  <string name="whenAmIEligibleRatinRefund">Kdaj sem upravičen do samodejnega povračila ratinga od goljufov?</string>
   <string name="gameplay">Igranje</string>
 </resources>
