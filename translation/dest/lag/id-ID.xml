@@ -7,4 +7,6 @@
   <string name="yesItWillBeFixedSoon">Ya. Ini akan segera diperbaiki!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Dan sekarang, jawaban detail! Lag permainan terdiri dari dua nilai yang tidak berhubungan (rendah lebih baik):</string>
   <string name="lichessServerLatency">Latensi Lichess server</string>
+  <string name="lichessServerLatencyExplanation">Waktu dibutuhkan untuk memproses langkah pada server. Sama untuk semua orang, dan hanya tergantung beban pada server. Semakin banyak pemain semakin tinggi waktunya, tetapi pengembang Lichess melakukan yang terbaik untuk menjaganya rendah. Waktu yang dibutuhkan jarang melebihi 10ms.</string>
+  <string name="networkBetweenLichessAndYou">Jaringan antara Lichess dan anda</string>
 </resources>
