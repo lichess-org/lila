@@ -314,6 +314,12 @@
   <string name="viewTournament">Переглянути турнір</string>
   <string name="backToTournament">Повернутися до турніру</string>
   <string name="thematic">Тематичний</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">%s рейтингова гра</item>
+    <item quantity="few">%s рейтингові ігри</item>
+    <item quantity="many">≥ %s рейтингових ігор</item>
+    <item quantity="other">≥ %s рейтингових ігор</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш попередній рейтинг: %s</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг у %1$s (%2$s) дуже високий</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш щотижневий рейтинг %1$s рейтинг (%2$s) дуже високий</string>
@@ -361,6 +367,12 @@
   <string name="unblock">Розблокувати</string>
   <string name="followsYou">Спостерігає за вами</string>
   <string name="xStartedFollowingY">%1$s розпочали спостерігати за %2$s</string>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s спостерігає</item>
+    <item quantity="few">%s спостерігає</item>
+    <item quantity="many">%s спостерігають</item>
+    <item quantity="other">підписаний на %s гравців</item>
+  </plurals>
   <string name="more">Більше</string>
   <string name="memberSince">Зареєстрований</string>
   <string name="lastSeenActive">Востаннє заходив %s</string>
@@ -727,6 +739,12 @@
   <string name="notifications">Сповіщення</string>
   <string name="challenges">Виклики</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s секунда на перший хід</item>
+    <item quantity="few">%s секунди на перший хід</item>
+    <item quantity="many">%s секунд на перший хід</item>
+    <item quantity="other">%s секунд на перший хід</item>
+  </plurals>
   <string name="practiceWithComputer">Тренування з комп\'ютером</string>
   <string name="anotherWasX">Також можна: %s</string>
   <string name="bestWasX">Найкращий хід: %s</string>
@@ -775,6 +793,12 @@
   <string name="playVariationToCreateConditionalPremoves">Виконайте ходи на шахівниці, аби встановити умовні предходи</string>
   <string name="noConditionalPremoves">Безумовні передходи</string>
   <string name="playX">Зіграти %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">і зберегти %s послідовність</item>
+    <item quantity="few">і зберегти %s послідовності</item>
+    <item quantity="many">і зберегти %s послідовності</item>
+    <item quantity="other">і зберегти %s послідовностей</item>
+  </plurals>
   <string name="sorry">Вибачте :(</string>
   <string name="weHadToTimeYouOutForAWhile">Нам довелося тебе деавторизувати на певний час.</string>
   <string name="timeoutExpires">Тайм-аут закінчується через %s.</string>
@@ -809,4 +833,14 @@
   <string name="important">Важливо</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваше запитання може мати відповідь %1$s</string>
   <string name="inTheFAQ">в ЧаПи.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Щоб повідомити про обман чи погану поведінку, %1$s</string>
+  <string name="useTheReportForm">використовуйте форму звіту</string>
+  <string name="toRequestSupport">Для запиту підтримки %1$s</string>
+  <string name="tryTheContactPage">спробуйте сторінку контактів</string>
+  <string name="thisTopicIsArchived">Ця тема була заархівована і додати відповідь більше не можна.</string>
+  <string name="joinTheTeamXToPost">Приєднайтесь до %1$s, щоб писати у цьому форумі</string>
+  <string name="teamNamedX">%1$s команда</string>
+  <string name="youCannotPostYetPlaySomeGames">Ви не можете писати нові повідомлення у форумах. Зіграйте кілька ігор!</string>
+  <string name="subscribe">Підписатись</string>
+  <string name="unsubscribe">Відписатись</string>
 </resources>
