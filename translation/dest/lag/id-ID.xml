@@ -2,4 +2,9 @@
 <resources>
   <string name="isLichessLagging">Apakah Lichess lag?</string>
   <string name="measurementInProgressThreeDot">Perhitungan dalam proses...</string>
+  <string name="noAndYourNetworkIsGood">Tidak. Dan jaringan internet baik.</string>
+  <string name="noAndYourNetworkIsBad">Tidak. Dan jaringan internet buruk.</string>
+  <string name="yesItWillBeFixedSoon">Ya. Ini akan segera diperbaiki!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Dan sekarang, jawaban detail! Lag permainan terdiri dari dua nilai yang tidak berhubungan (rendah lebih baik):</string>
+  <string name="lichessServerLatency">Latensi Lichess server</string>
 </resources>
