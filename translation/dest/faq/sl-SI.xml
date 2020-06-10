@@ -23,5 +23,8 @@
   <string name="ratingRefundExplanation">Minuto po tem, ko je igralec zaznamovan, se začne njegovih 40 zadnjih rangiranih iger v zadnjih 3 dneh. Če ste bili njegov nasprotnik na teh igrah, ste izgubili rejting (zaradi poraza ali remija) in vaš rejting ni bil začasen, prejmete povračilo za rejting. Nadomestilo se omeji na podlagi vašega najvišjega rejtinga in vašega napredka po igri. 
  (Na primer, če se je vaš rejting po teh igrah močno povečal, morda ne boste dobili nobenega povračila ali samo delno povračilo.) Povračilo ne bo nikoli preseglo 150 točk.</string>
   <string name="preventLeavingGameWithoutResigning">Kaj se naredi, ko igralci zapustijo igre, ne da bi predali?</string>
+  <string name="leavingGameWithoutResigningExplanation">Če vaš nasprotnik pogosto prekine / zapusti igre, se jim dodeli oznaka \"igranje prepovedano\", kar pomeni, da jim lahko začasno prepovejo igranje iger. To javno ni navedeno na njihovem profilu. Če se to vedenje nadaljuje, se dolžina prepovedi igranja poveča - in takšno dolgotrajno vedenje lahko privede do zaprtja računa.</string>
+  <string name="howCanIBecomeModerator">Kako lahko postanem moderator?</string>
+  <string name="youCannotApply">Če želite postati moderator, se ni mogoče prijaviti. Če vidimo nekoga, za katerega mislimo, da bi bil dober kot moderator, ga bomo kontaktirali neposredno.</string>
   <string name="gameplay">Igranje</string>
 </resources>
