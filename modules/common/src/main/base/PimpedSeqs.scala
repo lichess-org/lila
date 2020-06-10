@@ -21,23 +21,6 @@ final class PimpedList[A](private val list: List[A]) extends AnyVal {
     }
 }
 
-final class PimpedChars(private val iter: Iterable[CharSequence]) extends AnyVal {
-  def concat: String = {
-    val it = iter.iterator
-    if (it.hasNext) {
-      val first = it.next
-      if (it.hasNext) {
-        val sb = new jStringBuilder(first)
-        do {
-          sb.append(it.next)
-        } while (it.hasNext)
-        sb
-      } else first
-    }.toString
-    else ""
-  }
-}
-
 final class PimpedSeq[A](private val seq: Seq[A]) extends AnyVal {
   def has(a: A) = seq contains a
 }
