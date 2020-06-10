@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">تعلم الشطرنج</string>
-  <string name="byPlaying">بالممارسة!</string>
+  <string name="byPlaying">عن طريق اللعب!</string>
   <string name="menu">القائمة</string>
   <string name="progressX">التقدم: %s</string>
   <string name="resetMyProgress">إعادة ضبط تقدمي</string>
-  <string name="youWillLoseAllYourProgress">سوف تفقد كل تقدمك!</string>
+  <string name="youWillLoseAllYourProgress">سيتم محو كل سجلات تقييمك!</string>
   <string name="play">إلعب!</string>
   <string name="chessPieces">قطع الشطرنج</string>
   <string name="theRook">الرخ</string>
