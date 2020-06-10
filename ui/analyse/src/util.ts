@@ -145,7 +145,7 @@ export function toTwitchEmbed(url: string): string | undefined {
 function toTwitchEmbedUrl(url) {
   if (!url) return;
   var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)/i);
-if (m) return 'https://player.twitch.tv/?channel=' + m[1] + '&autoplay=false';
+if (m) return `https://player.twitch.tv/?channel=${m[1]}&parent=${location.hostname}&autoplay=false`;
 }
 
 const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
