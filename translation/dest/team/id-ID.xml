@@ -14,6 +14,9 @@
   <string name="anyoneCanJoin">Siapapun bisa bergabung</string>
   <string name="aConfirmationIsRequiredToJoin">Konfirmasi diperlukan untuk bergabung</string>
   <string name="joiningPolicy">Peraturan bergabung</string>
+  <plurals name="teamLeaders">
+    <item quantity="other">Ketua Tim</item>
+  </plurals>
   <string name="teamBestPlayers">Pemain terbaik</string>
   <string name="teamRecentMembers">Pemain baru</string>
   <string name="kickSomeone">Keluarkan seseorang dari tim</string>
@@ -24,6 +27,7 @@
   <string name="willBeReviewed">Permintaan bergabung Anda akan ditinjau oleh ketua tim.</string>
   <string name="beingReviewed">Permintaan bergabung Anda telah ditinjau oleh ketua tim.</string>
   <string name="teamBattle">Pertempuran Tim</string>
+  <string name="teamBattleOverview">Pertarungan antara bebrapa tim, setiap pemain mencetak poin untuk timnya</string>
   <string name="teamTournament">Turnamen tim</string>
   <string name="teamTournamentOverview">Sebuah arena turnamen yang hanya bisa diikuti oleh anggota tim Anda</string>
   <string name="messageAllMembers">Pesan semua anggota</string>
