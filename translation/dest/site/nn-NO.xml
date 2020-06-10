@@ -585,8 +585,8 @@ i %3$s</string>
   <string name="connectedToLichess">Du er no tilkopla lichess.org</string>
   <string name="signedOut">Du er logga ut</string>
   <string name="loginSuccessful">Du er no logga inn</string>
-  <string name="playOnTheBoardOffline">Spel offline, over brettet.</string>
-  <string name="playOfflineComputer">Spel mot sjakkprogrammet</string>
+  <string name="playOnTheBoardOffline">Over brettet</string>
+  <string name="playOfflineComputer">Mot sjakkprogrammet</string>
   <string name="opponent">Motspelar</string>
   <string name="learnMenu">Lær</string>
   <string name="studyMenu">Studie</string>
