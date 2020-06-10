@@ -51,6 +51,8 @@ Kata sandi: %3$s</string>
   <string name="generateANewUsername">Buat nama pengguna baru</string>
   <string name="welcomeToClass">Selamat datang di kelas Anda: %s.
 Inilah tautan untuk mengakses kelas.</string>
+  <string name="invitationToClass">Anda di undang pada kelas %s sebagai murid.</string>
+  <string name="clickToViewInvitation">Klik tautan untuk melihat undangan:</string>
   <string name="onlyVisibleToTeachers">Hanya terlihat oleh guru kelas</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Kelola</string>
