@@ -305,6 +305,12 @@
   <string name="tournament">Турнір</string>
   <string name="tournaments">Турніри</string>
   <string name="tournamentPoints">Турнірні очки</string>
+  <plurals name="nbStudies">
+    <item quantity="one">%s студія</item>
+    <item quantity="few">%s студії</item>
+    <item quantity="many">%s студії</item>
+    <item quantity="other">%s студії</item>
+  </plurals>
   <string name="viewTournament">Переглянути турнір</string>
   <string name="backToTournament">Повернутися до турніру</string>
   <string name="thematic">Тематичний</string>
@@ -508,6 +514,7 @@
   <string name="newPassword">Новий пароль</string>
   <string name="newPasswordAgain">Новий пароль (іще раз)</string>
   <string name="clockInitialTime">Час початку годинника</string>
+  <string name="clockIncrement">Приріст часу</string>
   <string name="privacy">Конфіденційність</string>
   <string name="letOtherPlayersFollowYou">Дозволити іншим спостерігати за вами</string>
   <string name="letOtherPlayersChallengeYou">Дозволити іншим кидати вам виклик</string>
@@ -628,6 +635,7 @@
   <string name="weeklyPerfTypeRatingDistribution">Місячний %s розподіл за рейтинґом</string>
   <string name="yourPerfTypeRatingIsRating">Ваш %1$s рейтинг становить %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ви кращі від %1$s із %2$s гравців.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s кращий за %2$s з %3$s гравців.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинґ %s ще не визначений.</string>
   <string name="yourRating">Ваш рейтинг</string>
   <string name="cumulative">Кумулятивний</string>
@@ -787,6 +795,7 @@
   <string name="agreementNice">Погоджуся, що я завжди буду ставитись поважно до інших гравців.</string>
   <string name="agreementAccount">Я згоден, що не створюватиму кількох облікових записів.</string>
   <string name="agreementPolicy">Я згоден, що буду слідувати всій політиці Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Знайдіть або розпочніть обговорення</string>
   <string name="edit">Змінити</string>
   <string name="rapid">Швидкі</string>
   <string name="classical">Класичний</string>
@@ -798,4 +807,6 @@
   <string name="correspondenceDesc">Заочні шахи: один чи декілька днів на хід</string>
   <string name="puzzleDesc">Тренажер шахової тактики</string>
   <string name="important">Важливо</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Ваше запитання може мати відповідь %1$s</string>
+  <string name="inTheFAQ">в ЧаПи.</string>
 </resources>
