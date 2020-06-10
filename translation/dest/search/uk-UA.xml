@@ -2,7 +2,20 @@
 <resources>
   <string name="search">Пошук</string>
   <string name="advancedSearch">Розширений пошук</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Шукати у %s ігрі</item>
+    <item quantity="few">Шукати у %s шахових іграх</item>
+    <item quantity="many">Шукати у %s шахових іграх</item>
+    <item quantity="other">Шукати у %s ігрі</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Знайдено одну гру</item>
+    <item quantity="few">%s ігор знайдено</item>
+    <item quantity="many">%s ігор знайдено</item>
+    <item quantity="other">%s ігор знайдено</item>
+  </plurals>
   <string name="opponentName">Ім\'я противника</string>
+  <string name="loser">Той, хто програв</string>
   <string name="from">Від</string>
   <string name="to">До</string>
   <string name="humanOrComputer">Чи опонент гравця був людиною чи комп\'ютером</string>
