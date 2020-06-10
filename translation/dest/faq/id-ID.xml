@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">Pertanyaan Umum</string>
   <string name="frequentlyAskedQuestions">Pertanyaan yang Sering Diajukan (FAQ)</string>
   <string name="whyIsLichessCalledLichess">Mengapa Lichess dikatakan Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess adalah kombinasi antara langsung/ringan/kebebasan dan catur. Itu diucapkan %1$s.</string>
@@ -7,6 +8,10 @@
   <string name="hearItPronouncedBySpecialist">Mendengarkan yang diucapkan oleh seorang spesialis.</string>
   <string name="whyLiveLightLibre">Langsung, karena permainan dimainkan dan ditonton secara real-time 24/7; ringan dan bebas yang nyatanya bahwa Lichess adalah sumber-terbuka dan tidak terbebani oleh sampah eksklusif yang mengganggu situs web lain.</string>
   <string name="whyIsLilaCalledLila">Demikian pula, kode sumber untuk Lichess, %1$s, singkatan dari li[chess in sca]la, mengingat sebagian besar Lichess ditulis dalam %2$s, bahasa pemrograman yang intuitif.</string>
+  <string name="howCanIContributeToLichess">Bagaimana saya dapat berkontribusi?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess dapat dijalankan dengan donasi dari patron dan upaya dari tim sukarelawan.</string>
+  <string name="findMoreAndSeeHowHelp">Anda dapat mengetahui lebih tentang %1$s (termasuk %2$s). Jika anda ingin membantu Lichess dengan volunter waktu dan keahlian, terdapat %3$s.</string>
+  <string name="beingAPatron">menjadi pendukung</string>
   <string name="displayPreferences">pengaturan tampilan</string>
   <string name="connexionLostCanIGetMyRatingBack">Saya kehilangan permainan karena lag/kehilangan koneksi. Bisakah saya mendapatkan poin rating saya kembali?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Sayang sekali, kami tidak dapat mengembalikan poin rating untuk permainan yang hilang karena jeda atau terputus koneksi, terlepas dari apakah masalahnya ada di ujung Anda atau di ujung kami. Yang terakhir, kejadian ini sangat jarang. Perhatikan juga bahwa ketika Lichess memulai kembali dan Anda kehilangan waktu karena itu, kami membatalkan permainan untuk mencegah kerugian yang tidak adil.</string>
