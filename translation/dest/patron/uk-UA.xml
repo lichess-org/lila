@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="donate">Зробити внесок</string>
+  <string name="lichessPatron">Покровитель Lichess</string>
   <string name="freeAccount">Безкоштовний обліковий запис</string>
+  <string name="becomePatron">Стати покровителем Lichess</string>
+  <string name="xBecamePatron">%s став покровителем Lichess</string>
+  <string name="newPatrons">Нові покровителі</string>
+  <string name="freeChess">Безкоштовні шахи для всіх, назавжди!</string>
+  <string name="noAdsNoSubs">Без реклами, без підписок, але з відкритим вихідним кодом і захопленням.</string>
+  <string name="thankYou">Дякуємо Вам за ваш внесок!</string>
+  <string name="youHaveLifetime">У Вас пожиттєвий обліковий запис \"Покровителя\". Це доволі круто!</string>
+  <string name="patronUntil">У вас є обліковий запис покровителя до %s.</string>
+  <string name="ifNotRenewed">Якщо не продовжите, то Ви будете знижені до безкоштовного.</string>
+  <string name="weAreNonProfit">Ми неприбуткова асоціація тому що ми вважаємо, що кожен повинен мати доступ до безкоштовної шахової платформи світового рівня.</string>
+  <string name="weRelyOnSupport">Ми покладаємося на підтримку таких як ви, щоб зробити його можливим. Якщо вам подобається користуватися Lichess, будь ласка, підтримайте нас, зробивши внесок і ставши покровителем!</string>
+  <string name="lifetime">Пожиттєва</string>
+  <string name="payLifetimeOnce">Заплатіть %s один раз. Станьте покровителем назавжди!</string>
+  <string name="lifetimePatron">Пожиттєве покровительство Lichess</string>
+  <string name="makeExtraDonation">Зробити додатковий внесок?</string>
+  <string name="monthly">Щомісячно</string>
   <string name="withCreditCard">Кредитна карта</string>
 </resources>
