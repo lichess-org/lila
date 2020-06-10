@@ -10,5 +10,12 @@
   <string name="whyIsLilaCalledLila">Podobno izvorna koda za Lichess, %1$s, pomeni li[chess in sca]la, saj je večina lichess napisana v %2$s, intuitivnem programskem jeziku.</string>
   <string name="howCanIContributeToLichess">Kako lahko prispevam k Lichess-u?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess poganjajo donacije pokroviteljev in prizadevanja ekipe prostovoljcev.</string>
+  <string name="findMoreAndSeeHowHelp">Več o %1$s (vključno z %2$s). Če želite Lichessu pomagati s prostovoljnim časom in spretnostmi, je tukaj veliko %3$s.</string>
+  <string name="beingAPatron">biti pokrovitelj</string>
+  <string name="breakdownOfOurCosts">razčlenitev naših stroškov</string>
+  <string name="otherWaysToHelp">drugi načini pomoči</string>
+  <string name="areThereWebsitesBasedOnLichess">Ali obstajajo spletna mesta, ki temeljijo na Lichess-u?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess je resnično navdihnil druga mesta z odprto kodo, ki uporabljajo našo %1$s, %2$s ali %3$s.</string>
+  <string name="fairPlay">Poštena igra</string>
   <string name="gameplay">Igranje</string>
 </resources>
