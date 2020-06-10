@@ -182,12 +182,20 @@ object User {
     def isTroll = marks.exists(_.troll)
   }
 
-  case class Contact(_id: ID, kid: Option[Boolean], marks: Option[UserMarks], roles: Option[List[String]]) {
-    def id         = _id
-    def isKid      = ~kid
-    def isTroll    = marks.exists(_.troll)
-    def isVerified = roles.exists(_ contains "ROLE_VERIFIED")
-    def isApiHog   = roles.exists(_ contains "ROLE_API_HOG")
+  case class Contact(
+      _id: ID,
+      kid: Option[Boolean],
+      marks: Option[UserMarks],
+      roles: Option[List[String]],
+      createdAt: DateTime
+  ) {
+    def id                     = _id
+    def isKid                  = ~kid
+    def isTroll                = marks.exists(_.troll)
+    def isVerified             = roles.exists(_ contains "ROLE_VERIFIED")
+    def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
+    def isDaysOld(days: Int)   = createdAt isBefore DateTime.now.minusDays(days)
+    def isHoursOld(hours: Int) = createdAt isBefore DateTime.now.minusHours(hours)
   }
   case class Contacts(orig: Contact, dest: Contact)
 
