@@ -162,6 +162,7 @@ POST  /patron/webhook                  controllers.Plan.webhook
 POST  /patron/stripe-checkout          controllers.Plan.stripeCheckout
 POST  /patron/ipn                      controllers.Plan.payPalIpn
 GET   /features                        controllers.Plan.features
+GET   /donate                          controllers.Main.movedPermanently(to: String = "/patron")
 
 # Practice
 GET   /practice                                   controllers.Practice.index
