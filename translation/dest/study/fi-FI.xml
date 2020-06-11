@@ -61,11 +61,8 @@
   <string name="chapterPgn">Luvun PGN</string>
   <string name="studyUrl">Tutkielman URL</string>
   <string name="currentChapterUrl">Nykyisen luvun URL</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Voit upottaa kappaleen foorumille liittämällä tämän</string>
   <string name="startAtInitialPosition">Aloita alkuperäisestä asemasta</string>
   <string name="startAtX">Aloita siirrosta %s</string>
-  <string name="embedThisChapter">Upota luku verkkosivustollesi tai blogiin</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Lue lisää tutkielman luvun upottamisesta</string>
   <string name="open">Avaa</string>
   <string name="xBroughtToYouByY">%1$s, sivustolta %2$s</string>
   <string name="studyNotFound">Tutkielmaa ei löydy</string>
