@@ -180,8 +180,8 @@ final class PostApi(
   def lastNumberOf(topic: Topic): Fu[Int] =
     env.postRepo lastByTopic topic dmap { _ ?? (_.number) }
 
-  def lastPageOf(topic: Topic) =
-    math.ceil(topic.nbPosts / maxPerPage.value.toFloat).toInt
+  def lastPageOf(topic: Topic): Int =
+    (topic.nbPosts + maxPerPage.value - 1) / maxPerPage.value
 
   def paginator(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
     Paginator(
