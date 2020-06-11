@@ -9,7 +9,7 @@ import controllers.routes
 
 object index {
 
-  def apply(videos: Paginator[lila.video.VideoView], count: Int, control: lila.video.UserControl)(implicit
+  def apply(videos: Paginator[lila.video.VideoView], count: Long, control: lila.video.UserControl)(implicit
       ctx: Context
   ) = {
 
