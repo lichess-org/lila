@@ -23,7 +23,7 @@ final class PimpedLong(private val self: Long) extends AnyVal {
 
   def squeeze(bottom: Long, top: Long): Long = max(min(self, top), bottom)
 
-  def truncInt: Int =
+  def toSaturatedInt: Int =
     if (self.toInt == self) self.toInt
     else if (self > 0) Integer.MAX_VALUE
     else Integer.MIN_VALUE
