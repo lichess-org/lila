@@ -61,11 +61,8 @@
   <string name="chapterPgn">PGN del capítol</string>
   <string name="studyUrl">URL de l’estudi</string>
   <string name="currentChapterUrl">URL del capítol actual</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Pots enganxar això en el forum per incrustar-ne el capítol</string>
   <string name="startAtInitialPosition">Comnçar a la posició inicial</string>
   <string name="startAtX">Començar a %s</string>
-  <string name="embedThisChapter">Incrusta aquest capítol al teu lloc web o blog</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Llegir més sobre incrustar un capítol d’un estudi</string>
   <string name="open">Obrir</string>
   <string name="xBroughtToYouByY">%1$s, presentat per %2$s</string>
   <string name="studyNotFound">Estudi no trobat</string>
