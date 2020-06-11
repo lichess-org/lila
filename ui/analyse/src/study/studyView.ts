@@ -109,10 +109,10 @@ function buttons(root: AnalyseCtrl): VNode {
         hint: noarg('shareAndExport'),
         icon: iconTag('$')
       }),
-      h('span.help', {
+      !ctrl.relay ? h('span.help', {
         attrs: { title: 'Need help? Get the tour!', 'data-icon': '' },
         hook: bind('click', ctrl.startTour)
-      })
+      }) : null,
     ]),
     h('div.right', [
       gbOverrideButton(ctrl)
