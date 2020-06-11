@@ -1,11 +1,22 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { bind, baseUrl } from '../util';
-import { prop } from 'common';
+import { prop, Prop } from 'common';
 import { renderIndexAndMove } from '../moveView';
 import { StudyData, StudyChapterMeta } from './interfaces';
 
-function fromPly(ctrl): VNode {
+interface StudyShareCtrl {
+  studyId: string;
+  chapter: () => StudyChapterMeta;
+  isPrivate(): boolean;
+  currentNode: () => Tree.Node;
+  withPly: Prop<boolean>;
+  cloneable: boolean;
+  redraw: () => void;
+  trans: Trans;
+}
+
+function fromPly(ctrl: StudyShareCtrl): VNode {
   const renderedMove = renderIndexAndMove({
     withDots: true,
     showEval: false
@@ -25,7 +36,7 @@ function fromPly(ctrl): VNode {
   ]));
 }
 
-export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, redraw: () => void, trans: Trans) {
+export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, redraw: () => void, trans: Trans): StudyShareCtrl {
   const withPly = prop(false);
   return {
     studyId: data.id,
@@ -41,7 +52,7 @@ export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, cu
   }
 }
 
-export function view(ctrl): VNode {
+export function view(ctrl: StudyShareCtrl): VNode {
   const studyId = ctrl.studyId, chapter = ctrl.chapter();
   let fullUrl = `${baseUrl()}/study/${studyId}/${chapter.id}`;
   let embedUrl = `${baseUrl()}/study/embed/${studyId}/${chapter.id}`;
