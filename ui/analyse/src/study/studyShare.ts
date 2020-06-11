@@ -11,6 +11,7 @@ interface StudyShareCtrl {
   isPrivate(): boolean;
   currentNode: () => Tree.Node;
   withPly: Prop<boolean>;
+  relay: boolean;
   cloneable: boolean;
   redraw: () => void;
   trans: Trans;
@@ -36,7 +37,7 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
   ]));
 }
 
-export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, redraw: () => void, trans: Trans): StudyShareCtrl {
+export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, relay: boolean, redraw: () => void, trans: Trans): StudyShareCtrl {
   const withPly = prop(false);
   return {
     studyId: data.id,
@@ -46,6 +47,7 @@ export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, cu
     },
     currentNode,
     withPly,
+    relay,
     cloneable: data.features.cloneable,
     redraw,
     trans
@@ -75,13 +77,13 @@ export function view(ctrl: StudyShareCtrl): VNode {
           'data-icon': 'x',
           href: `/study/${studyId}.pgn`
         }
-      }, ctrl.trans.noarg('studyPgn')),
+      }, ctrl.trans.noarg(ctrl.relay ? 'downloadAllGames' : 'studyPgn')),
       h('a.button.text', {
         attrs: {
           'data-icon': 'x',
           href: `/study/${studyId}/${chapter.id}.pgn`
         }
-      }, ctrl.trans.noarg('chapterPgn')),
+      }, ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterPgn')),
       h('a.button.text', {
         attrs: {
           'data-icon': 'x',
@@ -91,7 +93,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
     ]),
     h('form.form3', [
       h('div.form-group', [
-        h('label.form-label', ctrl.trans.noarg('studyUrl')),
+        h('label.form-label', ctrl.trans.noarg(ctrl.relay ? 'broadcastUrl' : 'studyUrl')),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
@@ -100,7 +102,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
         })
       ]),
       h('div.form-group', [
-        h('label.form-label', ctrl.trans.noarg('currentChapterUrl')),
+        h('label.form-label', ctrl.trans.noarg(ctrl.relay ? 'currentGameUrl' : 'currentChapterUrl')),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
@@ -110,10 +112,10 @@ export function view(ctrl: StudyShareCtrl): VNode {
         fromPly(ctrl),
         !isPrivate ? h('p.form-help.text', {
           attrs: { 'data-icon': '' }
-        }, ctrl.trans.noarg('youCanPasteThisInTheForumToEmbedTheChapter')) : null,
+        }, ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed')) : null,
       ]),
       h('div.form-group', [
-        h('label.form-label', ctrl.trans.noarg('embedThisChapter')),
+        h('label.form-label', ctrl.trans.noarg('embedInYourWebsite')),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
@@ -130,7 +132,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               target: '_blank',
               'data-icon': ''
             }
-          }, ctrl.trans.noarg('readMoreAboutEmbeddingAStudyChapter'))
+          }, ctrl.trans.noarg('readMoreAboutEmbedding'))
         ] : [])
       ),
       h('div.form-group', [
