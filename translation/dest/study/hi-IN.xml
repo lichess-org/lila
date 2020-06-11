@@ -61,11 +61,8 @@
   <string name="chapterPgn">अध्याय PGN</string>
   <string name="studyUrl">अध्ययन का URL</string>
   <string name="currentChapterUrl">वर्तमान अध्याय URL</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">आप अध्याय को जोड़ने के लिए इसे फ़ोरम में जोर सकते हैं</string>
   <string name="startAtInitialPosition">प्रारंभिक स्थिति में शुरू करें</string>
   <string name="startAtX">%s से प्रारंभ करें</string>
-  <string name="embedThisChapter">इस अध्याय को अपनी वेबसाइट या ब्लॉग में जोड़े</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">एक अध्ययन अध्याय को जोड़ने के लिए और पढ़े</string>
   <string name="open">खोलें</string>
   <string name="xBroughtToYouByY">%1$s, %2$s द्वारा आपके लिए</string>
   <string name="studyNotFound">अध्ययन नहीं मिला</string>
