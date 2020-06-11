@@ -9,6 +9,7 @@
   <string name="boardCoordinates">დაფის კოორდინატები</string>
   <string name="moveListWhilePlaying">სვლათა სია</string>
   <string name="chessPieceSymbol">ფიგურის სიმბოლო</string>
+  <string name="pgnLetter">ასო-ბგერა (K, Q, R, B, N)</string>
   <string name="blindfoldChess">ბრმად თამაში (უხილავი ფიგურები)</string>
   <string name="chessClock">საათი</string>
   <string name="tenthsOfSeconds">წამის მეათედები</string>
