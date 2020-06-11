@@ -64,9 +64,12 @@
   <string name="shareAndExport">Udostępnianie i eksport</string>
   <string name="cloneStudy">Powiel</string>
   <string name="studyPgn">PGN opracowania</string>
+  <string name="downloadAllGames">Pobierz wszystkie gry</string>
   <string name="chapterPgn">PGN rozdziału</string>
+  <string name="downloadGame">Pobierz grę</string>
   <string name="studyUrl">Link do opracowania</string>
   <string name="currentChapterUrl">URL bieżącego rozdziału</string>
+  <string name="currentGameUrl">Adres URL bieżącej gry</string>
   <string name="startAtInitialPosition">Rozpocznij z pozycji początkowej</string>
   <string name="startAtX">Rozpocznij od %s</string>
   <string name="open">Otwórz</string>
