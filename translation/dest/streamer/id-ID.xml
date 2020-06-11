@@ -7,7 +7,7 @@
   <string name="currentlyStreaming">Streaming saat ini: %s</string>
   <string name="lastStream">Terakhir stream %s</string>
   <string name="becomeStreamer">Menjadi streamer Lichess</string>
-  <string name="doYouHaveStream">Apakah Anda memiliki Twitch atau stream YouTube?</string>
+  <string name="doYouHaveStream">Apakah Anda memiliki Twitch atau Kanal YouTube?</string>
   <string name="hereWeGo">Kita mulai sekarang!</string>
   <string name="allStreamers">Semua streamer</string>
   <string name="editPage">Ubah halaman streamer</string>
@@ -20,6 +20,7 @@
   <string name="rule3">Lichess akan mendeteksi stream Anda secara otomatis dan mengaktifkan fasilitas berikut:</string>
   <string name="perks">Manfaat streaming dengan kata kunci</string>
   <string name="perk1">Dapatkan ikon api streamer di profil Lichess Anda.</string>
+  <string name="perk2">Masuk ke dalam list top streamer.</string>
   <string name="perk3">Beri tahu pengikut Lichess Anda.</string>
   <string name="perk4">Tunjukkan streaming Anda di game, turnamen, dan studi Anda.</string>
   <string name="approved">Stream Anda telah disetujui.</string>
