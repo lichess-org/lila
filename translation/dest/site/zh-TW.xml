@@ -168,7 +168,7 @@
   <string name="usernameOrEmail">用戶名或電郵地址</string>
   <string name="changeUsername">更改用戶名</string>
   <string name="changeUsernameNotSame">只能更改字母大小字。例如，將「johndoe」變成「JohnDoe」。</string>
-  <string name="changeUsernameDescription">更改用戶名。您最多可以更改一次字母大小字。</string>
+  <string name="changeUsernameDescription">更改用戶名。您最多可以更改一次字母大小寫。</string>
   <string name="password">密碼</string>
   <string name="changePassword">更改密碼</string>
   <string name="changeEmail">更改電郵地址</string>
@@ -774,6 +774,7 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s只接受好友的挑戰</string>
   <string name="conditionalPremoves">預設棋譜</string>
   <string name="addCurrentVariation">加入現有變化</string>
+  <string name="playVariationToCreateConditionalPremoves">著一步不同的位置以創建預估走位</string>
   <string name="noConditionalPremoves">無預設棋譜</string>
   <string name="playX">移動至%s</string>
   <plurals name="andSaveNbPremoveLines">

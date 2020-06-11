@@ -99,9 +99,8 @@ final private class Streaming(
     val (clientId, secret) = twitchCredentials()
     (clientId.nonEmpty && secret.nonEmpty) ?? {
       val maxIds = 100
-      streamers
-        .grouped(100)
-        .map { twitchStreamers =>
+      lila.common.Future
+        .linear(streamers grouped 100 toList) { twitchStreamers =>
           twitchStreamers.nonEmpty ?? {
             val twitchUserIds = twitchStreamers.map(_.userId)
             ws.url("https://api.twitch.tv/helix/streams")
@@ -129,7 +128,6 @@ final private class Streaming(
                   }
                 case res => fufail(s"twitch ${lila.log http res}")
               }
-              .monSuccess(_.tv.streamer.twitch)
               .recover {
                 case e: Exception =>
                   logger.warn(e.getMessage)
@@ -137,7 +135,8 @@ final private class Streaming(
               }
           }
         }
-        .sequenceFu
+        .dmap(_.flatten)
+        .monSuccess(_.tv.streamer.twitch)
     }
   }
 

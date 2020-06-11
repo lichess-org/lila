@@ -11,6 +11,8 @@
   <string name="studiesCreatedByX">Дослідження, створені %s</string>
   <string name="noneYet">Ще немає.</string>
   <string name="hot">Активні</string>
+  <string name="dateAddedNewest">Дата додана (новіші)</string>
+  <string name="dateAddedOldest">Дата додання (старіші)</string>
   <string name="recentlyUpdated">Нещодавно оновлені</string>
   <string name="mostPopular">Найпопулярніші</string>
   <string name="addNewChapter">Додати новий розділ</string>
@@ -111,6 +113,7 @@
   <string name="editStudy">Редагування дослідження</string>
   <string name="visibility">Видимість</string>
   <string name="public">Загальнодоступне</string>
+  <string name="unlisted">Поза списком</string>
   <string name="inviteOnly">Лише за запрошенням</string>
   <string name="allowCloning">Дозволити клонування</string>
   <string name="nobody">Ніхто</string>
