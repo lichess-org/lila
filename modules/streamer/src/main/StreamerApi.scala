@@ -62,9 +62,6 @@ final class StreamerApi(
         if (ids.exists(candidateIds.contains)) cache.candidateIds.invalidateUnit
       }
 
-  private def toIds(docs: Seq[Bdoc]): Set[Streamer.Id] =
-    docs.view.flatMap { _.getAsOpt[Streamer.Id]("_id") }.toSet
-
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
     coll.update.one($id(streamer.id), streamer) >>-
