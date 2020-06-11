@@ -64,11 +64,8 @@
   <string name="chapterPgn">PGN poglavlja</string>
   <string name="studyUrl">Link studije</string>
   <string name="currentChapterUrl">Link trenutnog poglavlja</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Zaljepite ovo u forum kada želite da prikažete ovo poglavlje</string>
   <string name="startAtInitialPosition">Krenite sa inicijalnom pozicijom</string>
   <string name="startAtX">Krenite sa %s</string>
-  <string name="embedThisChapter">Ugradite ovo poglavlje na Vašu internet stranicu ili blog</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Pročitajte više o ugrađivanju poglavlja studije</string>
   <string name="open">Otvorite</string>
   <string name="xBroughtToYouByY">%1$s vam je donio %2$s</string>
   <string name="studyNotFound">Studija nije pronađena</string>
