@@ -61,11 +61,8 @@
   <string name="chapterPgn">PGN do capítulo</string>
   <string name="studyUrl">URL do estudo</string>
   <string name="currentChapterUrl">URL do capítulo atual</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Podes colar isto no fórum para incorporares este capítulo</string>
   <string name="startAtInitialPosition">Começar na posição inicial</string>
   <string name="startAtX">Começar em %s</string>
-  <string name="embedThisChapter">Incorporar este capítulo no teu site ou blog</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Lê mais sobre incorporar um capítulo de um estudo</string>
   <string name="open">Abrir</string>
   <string name="xBroughtToYouByY">%1$s trazido a si por %2$s</string>
   <string name="studyNotFound">Estudo não encontrado</string>
