@@ -21,7 +21,7 @@ $(function() {
     }, {
       html: 'Fill in basic information',
       check: function() {
-        for (let name of ['profile.headline', 'profile.languages']) {
+        for (let name of ['profile.headline', 'languages']) {
           if (!$editor.find('[name="' + name + '"]').val()) return false;
         }
         return true;
