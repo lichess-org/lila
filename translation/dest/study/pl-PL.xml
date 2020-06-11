@@ -67,11 +67,8 @@
   <string name="chapterPgn">PGN rozdziału</string>
   <string name="studyUrl">Link do opracowania</string>
   <string name="currentChapterUrl">URL bieżącego rozdziału</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Wystarczy wkleić go na forum, by osadzić tam ten rozdział</string>
   <string name="startAtInitialPosition">Rozpocznij z pozycji początkowej</string>
   <string name="startAtX">Rozpocznij od %s</string>
-  <string name="embedThisChapter">Osadź ten rozdział na swojej stronie lub blogu</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Przeczytaj więcej o osadzaniu rozdziału opracowania</string>
   <string name="open">Otwórz</string>
   <string name="xBroughtToYouByY">%1$s przygotowane przez %2$s</string>
   <string name="studyNotFound">Nie znaleziono opracowania</string>
