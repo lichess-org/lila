@@ -19,12 +19,9 @@ object Freq {
 case class Usd(value: BigDecimal) extends AnyVal with Ordered[Usd] {
   def compare(other: Usd) = value compare other.value
   def cents               = Cents((value * 100).toInt)
-  def toFloat             = value.toFloat
-  def toInt               = value.toInt
   override def toString   = s"$$$value"
 }
 object Usd {
-  def apply(value: Double): Usd = Usd(BigDecimal(value))
   def apply(value: Int): Usd    = Usd(BigDecimal(value))
 }
 case class Cents(value: Int) extends AnyVal with Ordered[Cents] {
