@@ -21,6 +21,9 @@
   <string name="createAGame">თამაშის შექმნა</string>
   <string name="whiteIsVictorious">თეთრებმა გაიმარჯვეს</string>
   <string name="blackIsVictorious">შავებმა გაიმარჯვეს</string>
+  <string name="youPlayTheWhitePieces">თქვენ თამაშობთ თეთრი ფიგურებით</string>
+  <string name="youPlayTheBlackPieces">თქვენ თამაშობთ შავი ფიგურებით</string>
+  <string name="itsYourTurn">თვენი ჯერია!</string>
   <string name="kingInTheCenter">მეფე ცენტრში</string>
   <string name="threeChecks">სამი ქიში</string>
   <string name="raceFinished">რასის დასრულდა</string>
@@ -47,6 +50,7 @@
   <string name="computerAnalysis">კომპიუტერული ანალიზი</string>
   <string name="computerAnalysisAvailable">შესაძლებელია კომპიუტერული ანალიზი</string>
   <string name="analysis">ანალიზის დაფა</string>
+  <string name="depthX">სიღრმე %s</string>
   <string name="usingServerAnalysis">მიმდინარეობს სერვერის ანალიზი</string>
   <string name="loadingEngine">იტვირთება საჭადრაკო ძრავა ...</string>
   <string name="cloudAnalysis">ქლაუდის ანალიზი</string>
@@ -380,6 +384,7 @@
   <string name="isPrivate">პირადი</string>
   <string name="reportXToModerators">შეტყობინება %s მოდერატორს</string>
   <string name="profileCompletion">პროფილის შევსება: %s</string>
+  <string name="xRating">%s რეიტინგი</string>
   <string name="ifNoneLeaveEmpty">არარსებობის შემთხვევაში დატოვე ცარიელი</string>
   <string name="gameCompletionRate">ამთავრებს პარტიების %s პროცენტს</string>
   <string name="profile">პროფილი</string>
