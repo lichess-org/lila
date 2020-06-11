@@ -23,5 +23,5 @@ object Maths {
   }
 
   def closestMultipleOf(mult: Int, v: Int): Int =
-    Math.round(v / mult.toFloat) * mult
+    ((2 * v + mult) / (2 * mult)) * mult
 }
