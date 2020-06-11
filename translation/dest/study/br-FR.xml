@@ -64,11 +64,8 @@
   <string name="chapterPgn">PGN ar pennad</string>
   <string name="studyUrl">Studiañ URL</string>
   <string name="currentChapterUrl">URL bremanel ar pennad</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Gallout a rit pegañ se er forom evit ensoc\'hañ ar pennad</string>
   <string name="startAtInitialPosition">Kregiñ el lec\'hiadur kentañ</string>
   <string name="startAtX">Kregiñ e %s</string>
-  <string name="embedThisChapter">Ensoc\'hañ ar pennad-mañ war ho lec\'hienn pe ho plog</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Lenn muioc\'h diwar-benn penaos ensoc\'hañ ur pennad studiañ</string>
   <string name="open">Digeriñ</string>
   <string name="xBroughtToYouByY">%1$s, zo kaset deoc\'h gant %2$s</string>
   <string name="studyNotFound">N\'eo ket bet kavet ar studiadenn</string>
