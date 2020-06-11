@@ -53,6 +53,10 @@
 教室に参加するためのリンクです。</string>
   <string name="invitationToClass">あなたは「%s」教室に生徒として招待されました。</string>
   <string name="clickToViewInvitation">リンクをクリックして招待状を表示：</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="other">保留中の招待 %s 件</item>
+  </plurals>
+  <string name="noPendingInvitations">保留中の招待なし</string>
   <string name="onlyVisibleToTeachers">講師だけに見える</string>
   <string name="lastActiveDate">最後のログイン</string>
   <string name="managed">管理下</string>
