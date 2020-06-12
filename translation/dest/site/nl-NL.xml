@@ -488,6 +488,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="lastName">Achternaam</string>
   <string name="biography">Biografie</string>
   <string name="country">Land</string>
+  <string name="countryOrRegion">Land / regio</string>
   <string name="linkSuggestions">Zoals Twitter, Facebook, GitHub, Lichess, ...
 Een URL per regel</string>
   <string name="preferences">Voorkeuren</string>
