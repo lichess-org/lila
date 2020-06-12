@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="downloadAllGames">ပွဲအားလုံး ဒေါင်းလုပ်ဆွဲပါ</string>
+  <string name="downloadGame">ပွဲကို ဒေါင်းလုပ်ဆွဲပါ</string>
+  <string name="broadcastUrl">ထုတ်လွှင့်သည့် URL</string>
+</resources>
