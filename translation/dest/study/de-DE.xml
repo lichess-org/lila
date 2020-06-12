@@ -65,7 +65,7 @@
   <string name="broadcastUrl">Veröffentlichungs-URL</string>
   <string name="currentChapterUrl">URL des aktuellen Kapitels</string>
   <string name="currentGameUrl">URL der aktuellen Partie</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Zum Einbinden im Forum füge dies ein</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Zum Einbinden füge dies im Forum ein</string>
   <string name="startAtInitialPosition">Beginne mit der Anfangsstellung</string>
   <string name="startAtX">Beginne mit %s</string>
   <string name="embedInYourWebsite">Auf deiner Webseite oder in deinen Blog einbinden</string>
