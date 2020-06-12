@@ -65,6 +65,7 @@
   <string name="broadcastUrl">Lähetyksen URL</string>
   <string name="currentChapterUrl">Nykyisen luvun URL</string>
   <string name="currentGameUrl">Tämänhetkisen pelin URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Voit upottaa tämän foorumiin liittämällä</string>
   <string name="startAtInitialPosition">Aloita alkuperäisestä asemasta</string>
   <string name="startAtX">Aloita siirrosta %s</string>
   <string name="embedInYourWebsite">Upota sivustoosi tai blogiisi</string>
