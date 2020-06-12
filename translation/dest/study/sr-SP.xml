@@ -67,8 +67,12 @@
   <string name="studyUrl">Проучите УРЛ адресу</string>
   <string name="broadcastUrl">Објави линк</string>
   <string name="currentChapterUrl">УРЛ тренутних поглавља</string>
+  <string name="currentGameUrl">Линк тренутних партија</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Ово можете залепити на форум</string>
   <string name="startAtInitialPosition">Започни на иницијалној позицији</string>
   <string name="startAtX">Почни на %s</string>
+  <string name="embedInYourWebsite">Угради у свој сајт или блог</string>
+  <string name="readMoreAboutEmbedding">Прочитај више о уграђивању</string>
   <string name="open">Отворите</string>
   <string name="xBroughtToYouByY">%2$s вам доноси %1$s</string>
   <string name="studyNotFound">Студија није пронађена</string>
