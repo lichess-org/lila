@@ -18,7 +18,7 @@ object profile {
       postForm(cls := "form3", action := routes.Account.profileApply)(
         div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
         form3.split(
-          form3.group(form("country"), trans.country(), half = true) { f =>
+          form3.group(form("country"), trans.countryOrRegion(), half = true) { f =>
             form3.select(f, lidraughts.user.Countries.allPairs, default = "".some)
           },
           form3.group(form("location"), trans.location(), half = true)(form3.input(_))

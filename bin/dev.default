@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+# Starts a dev console to compile and run lichess.
+#
+# To edit this file, copy it to bin/dev. It will not be tracked by Git:
+# cp bin/dev.default bin/dev
+#
+# Usage:
+# ./bin/dev [compile] [run]
+
+# Yes it needs tons of memory. Go for 4G if you have them.
+export JAVA_OPTS="-Xms2048M -Xmx2560M -XX:ReservedCodeCacheSize=128m -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+ExitOnOutOfMemoryError -Dkamon.auto-start=true"
+
+# For development without nginx (not recommended).
+export SERVE_ASSETS=0
+
+sbt -Dhttp.port=9663 "$@"
