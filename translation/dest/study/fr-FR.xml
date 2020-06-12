@@ -62,6 +62,7 @@
   <string name="chapterPgn">PGN du chapitre</string>
   <string name="downloadGame">Télécharger la partie</string>
   <string name="studyUrl">URL de l\'étude</string>
+  <string name="broadcastUrl">URL de la diffusion</string>
   <string name="currentChapterUrl">URL du chapitre actuel</string>
   <string name="currentGameUrl">URL de la partie en cours</string>
   <string name="youCanPasteThisInTheForumToEmbed">Vous pouvez collez ce lien sur le forum afin de l’insérer</string>
