@@ -65,7 +65,7 @@
   <string name="broadcastUrl">URL di diffusione</string>
   <string name="currentChapterUrl">URL del capitolo corrente</string>
   <string name="currentGameUrl">URL partita attuale</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Puoi incollare questo nel forum per incorporate</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Puoi incollare questo URL nel forum per creare un rimando</string>
   <string name="startAtInitialPosition">Inizia dalla prima mossa</string>
   <string name="startAtX">Inizia a: %s</string>
   <string name="embedInYourWebsite">Incorpora nel tuo sito Web o Blog</string>
