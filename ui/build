@@ -11,9 +11,9 @@ cd "$(git rev-parse --show-toplevel)"
 
 mkdir -p public/compiled
 
-ts_apps1="common draughts"
-ts_apps2="ceval game chat draughtsground tree nvui"
-apps="site chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir"
+ts_apps1="draughts draughtsground common"
+ts_apps2="ceval game chat tree nvui"
+apps="site chat cli challenge notify editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive
@@ -48,7 +48,7 @@ if type -p parallel; then # parallel execution!
     [ "$TRAVIS" = "true" ] || P_OPTS+=" --bar"
   fi
   set -x
-  parallel --gnu $P_OPTS build_ts ::: $ts_apps1
+  for app in $ts_apps1; do (build_ts $app); done
   parallel --gnu $P_OPTS build_ts ::: $ts_apps2
   parallel --gnu $P_OPTS build ::: $apps
 else # sequential execution
