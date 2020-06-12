@@ -66,6 +66,7 @@
   <string name="currentGameUrl">URL der aktuellen Partie</string>
   <string name="startAtInitialPosition">Beginne mit der Anfangsstellung</string>
   <string name="startAtX">Beginne mit %s</string>
+  <string name="embedInYourWebsite">Auf deiner Webseite oder in deinen Blog einbinden</string>
   <string name="open">Öffnen</string>
   <string name="xBroughtToYouByY">%1$s präsentiert von %2$s</string>
   <string name="studyNotFound">Studie nicht gefunden</string>
