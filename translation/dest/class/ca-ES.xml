@@ -3,4 +3,6 @@
   <string name="lichessClasses">Classes de Lichess</string>
   <string name="realName">Nom real</string>
   <string name="createANewLichessAccount">Crea un nou compte a Lichess</string>
+  <string name="onlyVisibleToTeachers">Només visible pels mestres de la classe</string>
+  <string name="managed">Gestionada</string>
 </resources>
