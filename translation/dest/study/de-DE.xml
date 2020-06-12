@@ -63,6 +63,7 @@
   <string name="downloadGame">Lade die Partie herunter</string>
   <string name="studyUrl">Studien URL</string>
   <string name="currentChapterUrl">URL des aktuellen Kapitels</string>
+  <string name="currentGameUrl">URL der aktuellen Partie</string>
   <string name="startAtInitialPosition">Beginne mit der Anfangsstellung</string>
   <string name="startAtX">Beginne mit %s</string>
   <string name="open">Öffnen</string>
