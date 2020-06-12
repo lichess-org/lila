@@ -58,9 +58,13 @@
   <string name="shareAndExport">Comparteix i exporta</string>
   <string name="cloneStudy">Clona</string>
   <string name="studyPgn">PGN de l’estudi</string>
+  <string name="downloadAllGames">Descarrega tots els jocs</string>
   <string name="chapterPgn">PGN del capítol</string>
+  <string name="downloadGame">Descarrega partida</string>
   <string name="studyUrl">URL de l’estudi</string>
+  <string name="broadcastUrl">URL de transmisió</string>
   <string name="currentChapterUrl">URL del capítol actual</string>
+  <string name="currentGameUrl">URL de la partida actual</string>
   <string name="startAtInitialPosition">Comnçar a la posició inicial</string>
   <string name="startAtX">Començar a %s</string>
   <string name="open">Obrir</string>
