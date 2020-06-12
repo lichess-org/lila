@@ -61,8 +61,11 @@
   <string name="shareAndExport">Подетлите и извезите</string>
   <string name="cloneStudy">Клонирајте</string>
   <string name="studyPgn">Студи ПГН</string>
+  <string name="downloadAllGames">Преузми све партије</string>
   <string name="chapterPgn">ПГН поглавља</string>
+  <string name="downloadGame">Преузми игру</string>
   <string name="studyUrl">Проучите УРЛ адресу</string>
+  <string name="broadcastUrl">Објави линк</string>
   <string name="currentChapterUrl">УРЛ тренутних поглавља</string>
   <string name="startAtInitialPosition">Започни на иницијалној позицији</string>
   <string name="startAtX">Почни на %s</string>
