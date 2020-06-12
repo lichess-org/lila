@@ -62,10 +62,10 @@
   <string name="chapterPgn">PGN du chapitre</string>
   <string name="downloadGame">Télécharger la partie</string>
   <string name="studyUrl">URL de l\'étude</string>
-  <string name="broadcastUrl">URL de la diffusion</string>
+  <string name="broadcastUrl">URL de diffusion</string>
   <string name="currentChapterUrl">URL du chapitre actuel</string>
   <string name="currentGameUrl">URL de la partie en cours</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Vous pouvez collez ce lien sur le forum afin de l’insérer</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Vous pouvez collez ce lien dans le forum afin de l’insérer</string>
   <string name="startAtInitialPosition">Commencer à partir du début</string>
   <string name="startAtX">Débuter à %s</string>
   <string name="embedInYourWebsite">Intégrer dans votre site ou blog</string>
