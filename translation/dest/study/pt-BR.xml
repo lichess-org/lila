@@ -58,9 +58,13 @@
   <string name="shareAndExport">Compartilhar &amp; exportar</string>
   <string name="cloneStudy">Duplicar</string>
   <string name="studyPgn">PGN de estudo</string>
+  <string name="downloadAllGames">Baixar todas as partidas</string>
   <string name="chapterPgn">PGN do capítulo</string>
+  <string name="downloadGame">Baixar partida</string>
   <string name="studyUrl">URL de estudo</string>
+  <string name="broadcastUrl">URL de transmissão</string>
   <string name="currentChapterUrl">URL atual do capítulo</string>
+  <string name="currentGameUrl">URL da partida atual</string>
   <string name="startAtInitialPosition">Reiniciar</string>
   <string name="startAtX">Começa em %s</string>
   <string name="open">Abertura</string>
