@@ -64,6 +64,7 @@
   <string name="shareAndExport">Zdielať &amp; export</string>
   <string name="cloneStudy">Naklonovať</string>
   <string name="studyPgn">PGN štúdie</string>
+  <string name="downloadAllGames">Stiahnúť všetky hry</string>
   <string name="chapterPgn">PGN kapitoly</string>
   <string name="studyUrl">URL štúdie</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
