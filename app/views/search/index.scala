@@ -89,10 +89,13 @@ object index {
                   views.html.game.widgets(pager.currentPageResults)
                 )
               )
-            else div(cls := "search__status box__pad")(
-              "While we are working to fix advanced search this view might be missing recent games • ", // #6785
-              strong(xGamesFound(0)), " • ", permalink
-            )
+            else
+              div(cls := "search__status box__pad")(
+                "While we are working to fix advanced search this view might be missing recent games • ", // #6785
+                strong(xGamesFound(0)),
+                " • ",
+                permalink
+              )
           }
         )
       )
