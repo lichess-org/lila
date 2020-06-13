@@ -123,8 +123,8 @@
   <string name="pinnedStudyComment">Fastspikrede studiekommentarer</string>
   <string name="start">Start</string>
   <string name="save">Lagre</string>
-  <string name="clearChat">Slett kommentarteksten</string>
-  <string name="deleteTheStudyChatHistory">Slette studiens kommentar-historikk? Du kan ikke angre!</string>
+  <string name="clearChat">Fjern samtalen</string>
+  <string name="deleteTheStudyChatHistory">Slette studiens samtalehistorikk? Du kan ikke angre!</string>
   <string name="deleteStudy">Slett studie</string>
   <string name="deleteTheEntireStudy">Slette hele studien? Avgjørelsen er endelig og kan ikke angres!</string>
   <string name="whereDoYouWantToStudyThat">Hvilken studie vil du bruke?</string>
