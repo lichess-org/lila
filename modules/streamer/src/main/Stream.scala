@@ -27,7 +27,8 @@ object Stream {
       def name   = user_name
       def isLive = `type` == "live"
     }
-    case class Result(data: Option[List[TwitchStream]]) {
+    case class Pagination(cursor: Option[String])
+    case class Result(data: Option[List[TwitchStream]], pagination: Option[Pagination]) {
       def liveStreams = (~data).filter(_.isLive)
       def streams(keyword: Keyword, streamers: List[Streamer], alwaysFeatured: List[User.ID]): List[Stream] =
         liveStreams.collect {
@@ -45,6 +46,7 @@ object Stream {
     }
     object Reads {
       implicit private val twitchStreamReads = Json.reads[TwitchStream]
+      implicit private val paginationReads   = Json.reads[Pagination]
       implicit val twitchResultReads         = Json.reads[Result]
     }
   }
