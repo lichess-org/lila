@@ -64,8 +64,11 @@
   <string name="shareAndExport">Deli in Izvozi podatke</string>
   <string name="cloneStudy">Kloniraj</string>
   <string name="studyPgn">PGN študije</string>
+  <string name="downloadAllGames">Prenesi vse igre</string>
   <string name="chapterPgn">PGN poglavja</string>
+  <string name="downloadGame">Prenesi igro</string>
   <string name="studyUrl">URL študije</string>
+  <string name="broadcastUrl">URL oddaje</string>
   <string name="currentChapterUrl">URL trenutnega poglavja</string>
   <string name="startAtInitialPosition">Začni v začetni poziciji</string>
   <string name="startAtX">Začni z %s</string>
