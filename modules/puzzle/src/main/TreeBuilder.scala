@@ -1,7 +1,6 @@
 package lila.puzzle
 
 import chess.format.{ Forsyth, Uci, UciCharPair }
-import chess.opening.FullOpeningDB
 import lila.game.Game
 import lila.tree
 
