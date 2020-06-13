@@ -67,10 +67,7 @@
   <string name="chapterPgn">Skyriaus PGN</string>
   <string name="studyUrl">Studijos URL</string>
   <string name="currentChapterUrl">Dabartinio skyriaus URL</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Galite įklijuoti forume, norėdami įterpti skyrių</string>
   <string name="startAtX">Pradėti nuo %s</string>
-  <string name="embedThisChapter">Įterpkite šį skyrių savo svetainėje ar tinklaraštyje</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Sužinokite daugiau apie studijos skyriaus įterpimą</string>
   <string name="open">Atverti</string>
   <string name="xBroughtToYouByY">%1$s iš %2$s</string>
   <string name="studyNotFound">Studija nerasta</string>
