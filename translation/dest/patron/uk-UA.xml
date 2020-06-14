@@ -53,4 +53,9 @@
   <string name="update">Оновити</string>
   <string name="changeMonthlyAmount">Змінити місячну суму (%s)</string>
   <string name="cancelSupport">скасувати підтримку</string>
+  <string name="decideHowMuch">Виріш, наскільки Лічесс є цінним для тебе:</string>
+  <string name="noLongerSupport">Припинити підтримувати Lichess</string>
+  <string name="viewOthers">Переглянь інших Покровителів Лічесс</string>
+  <string name="checkOutProfile">Перевірте свою сторінку профілю !</string>
+  <string name="nowLifetime">Тепер ти - пожиттєвий Покровитель Lichess!</string>
 </resources>
