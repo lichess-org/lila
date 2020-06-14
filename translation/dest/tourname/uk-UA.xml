@@ -2,4 +2,15 @@
 <resources>
   <string name="hourlyRapidArena">Щогодинна Рапід Арена</string>
   <string name="hourlyRapid">Щогодинна Рапід</string>
+  <string name="dailyRapidArena">Щоденна Рапід Арена</string>
+  <string name="dailyRapid">Щоденний Рапід</string>
+  <string name="dailyClassicalArena">Щоденна Класична Арена</string>
+  <string name="dailyClassical">Щоденна Класична Арена</string>
+  <string name="easternRapidArena">Східна Рапід Арена</string>
+  <string name="easternRapid">Східна Рапід Арена</string>
+  <string name="easternClassicalArena">Східна Класична Арена</string>
+  <string name="easternClassical">Східна Класична Арена</string>
+  <string name="weeklyRapidArena">Щотижнева Рапід Арена</string>
+  <string name="weeklyRapid">Щотижневий Рапід</string>
+  <string name="weeklyClassicalArena">Щотижнева Класична Арена</string>
 </resources>
