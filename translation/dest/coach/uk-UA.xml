@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Тренери Lichess</string>
+  <string name="lichessCoach">Тренер Lichess</string>
+  <string name="nmOrFideTitle">NM або FM звання</string>
+  <string name="location">Місцезнаходження</string>
+  <string name="languages">Мови</string>
+  <string name="rating">Рейтинг</string>
+  <string name="aboutMe">Про себе</string>
+  <string name="playingExperience">Досвід гри</string>
+  <string name="teachingExperience">Досвід викладання</string>
+  <string name="otherExperiences">Інший досвід</string>
+  <string name="bestSkills">Найкращі навички</string>
+  <string name="teachingMethod">Методологія викладання</string>
+  <string name="publicStudies">Публічні дослідження</string>
+  <string name="youtubeVideos">Відео на YouTube</string>
+  <string name="thankYouForReview">Дякуємо за відгук!</string>
+  <string name="reviewCoach">Написати відгук про цього тренера</string>
+</resources>
