@@ -3,4 +3,19 @@
   <string name="faqAbbreviation">ЧаПи</string>
   <string name="frequentlyAskedQuestions">Часті запитання</string>
   <string name="whyIsLichessCalledLichess">Чому Lichess називається Lichess?</string>
+  <string name="fairPlay">Чесна гра</string>
+  <string name="gameplay">Геймплей</string>
+  <string name="officialRulesPDF">офіційні правила (PDF)</string>
+  <string name="lichessTraining">Тренування Lichess</string>
+  <string name="threefoldRepetition">Потрійне повторення</string>
+  <string name="threefoldRepetitionLowerCase">потрійне повторення</string>
+  <string name="positions">позиції</string>
+  <string name="asWellAsManyNMtitles">багато звань Національного Майстра</string>
+  <string name="verificationForm">підтверджувальна форма</string>
+  <string name="canIbecomeLM">Чи можу я отримати звання Lichess Master (LM)?</string>
+  <string name="noUpperCaseDot">Ні.</string>
+  <string name="uniqueTrophies">Унікальні нагороди</string>
+  <string name="similarOpponents">суперники подібної сили</string>
+  <string name="ratingLeaderboards">таблиця рейтингу лідерів</string>
+  <string name="howToHideRatingWhilePlaying">Як приховати рейтинги під час гри?</string>
 </resources>
