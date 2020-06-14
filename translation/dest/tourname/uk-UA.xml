@@ -13,4 +13,6 @@
   <string name="weeklyRapidArena">Щотижнева Рапід Арена</string>
   <string name="weeklyRapid">Щотижневий Рапід</string>
   <string name="weeklyClassicalArena">Щотижнева Класична Арена</string>
+  <string name="yearlyRapid">Щорічна Рапід Арена</string>
+  <string name="yearlyClassicalArena">Щорічна Класична Арена</string>
 </resources>
