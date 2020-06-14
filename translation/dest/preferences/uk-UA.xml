@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">Символ шахової фігури</string>
   <string name="pgnLetter">Буква (K, Q, R, B, N)</string>
   <string name="zenMode">Режим Дзен</string>
-  <string name="displayBoardResizeHandle">Показати ручку зміни розміру дошки</string>
+  <string name="displayBoardResizeHandle">Показати інструмент для зміни розміру дошки</string>
   <string name="onlyOnInitialPosition">Тількі на початковій позиції</string>
   <string name="blindfoldChess">Шахи наосліп (невидимі фігури)</string>
   <string name="chessClock">Шаховий годинник</string>
@@ -39,7 +39,7 @@
   <string name="confirmResignationAndDrawOffers">Підтверджувати повернення ходу та пропозиції нічий</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Спосіб рокіровки</string>
   <string name="castleByMovingTwoSquares">Перемістити короля на дві клітки</string>
-  <string name="castleByMovingOntoTheRook">Перемістити короля на туру</string>
+  <string name="castleByMovingOntoTheRook">Перемістити короля на клітинку, яка межує з турою</string>
   <string name="inputMovesWithTheKeyboard">Вводити ходи за допомогою клавіатури</string>
   <string name="yourPreferencesHaveBeenSaved">Ваші налаштування збережено.</string>
 </resources>
