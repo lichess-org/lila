@@ -14,7 +14,15 @@
   <string name="verificationForm">підтверджувальна форма</string>
   <string name="canIbecomeLM">Чи можу я отримати звання Lichess Master (LM)?</string>
   <string name="noUpperCaseDot">Ні.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Ця почесна назва неофіційна і існує тільки на Lichess.
+
+Ми рідко нагороджуємо ним високопомітних гравців, які є хорошими громадянами Lichess, на наш розсуд. Ви не отримаєте звання LM, звання LM знаходить Вас. Якщо Ви відповідаєте цим вимогам, ви отримаєте повідомлення від нас стосовно цього і можливість прийняти або відхилити звання.
+
+Не випрошуйте звання LM.</string>
+  <string name="whatUsernameCanIchoose">Яким може бути моє ім\'я користувача?</string>
   <string name="uniqueTrophies">Унікальні нагороди</string>
+  <string name="aHourlyBulletTournament">щогодинний турнір з кулі</string>
+  <string name="lichessRatings">Рейтинги Lichess</string>
   <string name="similarOpponents">суперники подібної сили</string>
   <string name="ratingLeaderboards">таблиця рейтингу лідерів</string>
   <string name="howToHideRatingWhilePlaying">Як приховати рейтинги під час гри?</string>
