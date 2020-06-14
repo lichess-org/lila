@@ -16,7 +16,7 @@ object Dependencies {
   val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "6.8"
   val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"             % "joda-time"                       % "2.10.6"
-  val chess       = "org.lichess"          %% "scalachess"                      % "9.2.2"
+  val chess       = "org.lichess"          %% "scalachess"                      % "9.3.0"
   val compression = "org.lichess"          %% "compression"                     % "1.5"
   val maxmind     = "com.sanoma.cda"       %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.18-THIB213"
@@ -30,6 +30,7 @@ object Dependencies {
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2" % "provided"
   val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0" % Test
   val akkatestkit = "com.typesafe.akka"    %% "akka-testkit"                    % "2.6.5" % Test
+  val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.11.0"
 
   object flexmark {
     val version = "0.50.50"
@@ -41,9 +42,8 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.3.4"
-    val macros  = "com.softwaremill.macwire" %% "macros" % version % "provided"
-    val util    = "com.softwaremill.macwire" %% "util"   % version % "provided"
+    val macros = "com.softwaremill.macwire" %% "macros" % "2.3.5" % "provided"
+    val util   = "com.softwaremill.macwire" %% "util"   % "2.3.5" % "provided"
   }
 
   object reactivemongo {

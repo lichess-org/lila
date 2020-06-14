@@ -37,10 +37,7 @@ case class Assessible(analysed: Analysed, color: Color) {
     analysed.holdAlerts(color).exists(_.suspicious)
 
   lazy val highestChunkBlurs: Int =
-    game.player(color).blurs match {
-      case bits: lila.game.Blurs.Bits => bits.booleans.sliding(12).map(_.count(identity)).max
-      case _                          => 0
-    }
+    game.player(color).blurs.booleans.sliding(12).map(_.count(identity)).max
 
   lazy val highChunkBlurRate: Boolean =
     highestChunkBlurs >= 11

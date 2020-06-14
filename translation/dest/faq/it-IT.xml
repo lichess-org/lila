@@ -18,6 +18,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sì. Lichess ha ispirato altri siti open-source che usano il nostro %1$s, le nostre %2$s e il nostro %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Perché sono stato contrassegnato per manipolazioni del rating (manipolazioni in ribasso e in rialzo del rating) o per l\'utilizzo del computer?</string>
+  <string name="cheatDetectionMethods">Lichess ha metodi di rilevazione efficaci e un processo molto approfondito per la revisione di tutte le prove e per prendere una decisione. Il processo coinvolge spesso molti moderatori e può richiedere molto tempo. Oltre al marchio stesso, non entreremo nei dettagli sulle prove o sul processo decisionale per singoli casi. In questo modo sarebbe più facile evitare il rilevamento in futuro ed essere un invito a dibattiti improduttivi. Quel tempo e gli sforzi vengono spesi meglio in altri casi importanti. Gli utenti possono presentare ricorso tramite e-mail %1$s, ma le decisioni vengono raramente annullate.</string>
   <string name="whenAmIEligibleRatinRefund">Quando posso beneficiare del rimborso automatico del rating da parte di imbroglioni?</string>
   <string name="ratingRefundExplanation">Un minuto dopo aver segnato un giocatore, vengono prese le ultime 40 partite classificate negli ultimi 3 giorni. Se sei il loro avversario in quei giochi, hai perso la valutazione (a causa di una perdita o un pareggio) e la tua valutazione non era provvisoria, otterrai un rimborso della valutazione. Il rimborso è limitato in base alla valutazione massima e ai progressi della valutazione dopo la partita.
    (Ad esempio, se la tua valutazione aumenta notevolmente dopo tali giochi, potresti non ottenere alcun rimborso o un rimborso parziale.) Un rimborso non supererà mai i 150 punti.</string>
@@ -30,8 +31,13 @@
   <string name="youCanUseOpeningBookNoEngine">Su Lichess, la principale differenza nelle regole per gli scacchi per corrispondenza è che è consentito un libro di apertura. L\'uso dei motori è ancora proibito e comporterà la loro segnalazione per l\'assistenza del motore. Sebbene ICCF consenta l\'uso del motore in corrispondenza, Lichess no.</string>
   <string name="gameplay">Dinamica di gioco</string>
   <string name="howBulletBlitzEtcDecided">Come vengono decisi Bullet, Blitz e altri controlli temporali?</string>
+  <string name="basedOnGameDuration">I controlli del tempo Lichess si basano sulla durata stimata del gioco = %1$s
+Ad esempio, la durata stimata di una partita 5 + 3 è 5 × 60 + 40 × 3 = 420 secondi.</string>
   <string name="durationFormula">(ora iniziale dell\'orologio) + 40 × (incremento dell\'orologio)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">Quali varianti posso giocare su Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess supporta gli scacchi standard e %1$s.</string>
   <string name="eightVariants">8 varianti di scacchi</string>
   <string name="whatIsACPL">Qual è la perdita media di centipawn (ACPL)?</string>
   <string name="acplExplanation">Il centopiedi è l\'unità di misura utilizzata negli scacchi come rappresentazione del vantaggio. Un centopiedi equivale a 1/100 di un pedone. Pertanto 100 centopiedi = 1 pedone. Questi valori non svolgono alcun ruolo formale nel gioco ma sono utili ai giocatori ed essenziali negli scacchi al computer per la valutazione delle posizioni.
@@ -42,15 +48,29 @@ Questo valore può essere utilizzato come indicatore della qualità del gioco. M
 
 L\'analisi del computer su Lichess è fornita da Stockfish.</string>
   <string name="insufficientMaterial">Perdere in tempo, disegno e materiale insufficiente</string>
+  <string name="lichessFollowFIDErules">Nel caso in cui un giocatore finisca il tempo, quel giocatore di solito perde la partita. Tuttavia, il gioco viene disegnato se la posizione è tale che l\'avversario non può dare scacco matto al re del giocatore con alcuna serie possibile di mosse legali (%1$s).
+
+In rari casi può essere difficile decidere automaticamente (linee forzate, fortezze). Di default ci schieriamo sempre con il giocatore che non è rimasto senza tempo.
+
+Nota che può essere possibile accoppiarsi con un singolo cavaliere o vescovo se l\'avversario ha un pezzo che potrebbe bloccare il re.</string>
   <string name="linkToFIDErules">Manuale FIDE §6.9, PDF</string>
   <string name="discoveringEnPassant">Perché una pedina può catturare un\'altra pedina quando è già passata? (en passant)</string>
+  <string name="explainingEnPassant">Questa è una mossa legale conosciuta come \"en passant\". L\'articolo di Wikipedia fornisce %1$s.
+
+È descritto nella sezione 3.7 (d) di %2$s:
+
+\"Una pedina che occupa un quadrato dello stesso rango e su un file adiacente alla pedina di un avversario che ha appena avanzato due quadrati in una mossa dal suo quadrato originale può catturare il pedone di questo avversario come se quest\'ultimo fosse stato spostato di un solo quadrato. Questo la cattura è legale solo in movimento dopo questo anticipo ed è chiamata cattura \"en passant\". \"
+
+Vedi %3$s su questa mossa per un po \'di pratica con esso.</string>
   <string name="goodIntroduction">buona introduzione</string>
   <string name="officialRulesPDF">regole ufficiali (PDF)</string>
   <string name="lichessTraining">Allenamento Lichess</string>
   <string name="threefoldRepetition">Triplice ripetizione</string>
+  <string name="threefoldRepetitionExplanation">Se una posizione avviene tre volte, i giocatori possono chiamare una patta da %1$s. Lichess implementa le regole ufficiali della FIDE, come descritto nell\'articolo 9.2 (d) del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triplice ripetizione</string>
   <string name="handBookPDF">manuale (PDF)</string>
   <string name="notRepeatedMoves">Non abbiamo ripetuto le mosse. Perché il gioco è stato ancora disegnato dalla ripetizione?</string>
+  <string name="repeatedPositionsThatMatters">La triplice ripetizione riguarda la %1$s, non le mosse. La ripetizione non deve necessariamente avvenire consecutivamente.</string>
   <string name="positions">posizioni</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Abbiamo ripetuto una posizione tre volte. Perché il gioco non è stato disegnato?</string>
   <string name="threeFoldHasToBeClaimed">La ripetizione deve essere rivendicata da uno dei giocatori. Puoi farlo premendo il pulsante che appare, o offrendo una patta prima di ripetere la tua mossa finale. Puoi anche %1$s Lichess per reclamare automaticamente le tre ripetizioni. Inoltre, le cinque ripetizioni terminano sempre il gioco.</string>

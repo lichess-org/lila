@@ -64,7 +64,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         )
         .dmap(_.toInt)
 
-    def countAll: Fu[Int] =
+    def countAll: Fu[Long] =
       coll
         .count(
           selector = none,
@@ -73,7 +73,6 @@ trait CollExt { self: dsl with QueryBuilderExt =>
           hint = None,
           readConcern = ReadConcern.Local
         )
-        .dmap(_.toInt)
 
     def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).dmap(0 !=)
 

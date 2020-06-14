@@ -1,2 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="learnChess">बुद्धिबळ शिका</string>
+  <string name="byPlaying">खेळून!</string>
+  <string name="menu">मेनू</string>
+  <string name="progressX">प्रगती:%s</string>
+  <string name="resetMyProgress">माझी प्रगती समायोजित करा</string>
+  <string name="youWillLoseAllYourProgress">आपण आपली सर्व प्रगती गमावाल!</string>
+  <string name="play">खेळा!</string>
+  <string name="chessPieces">बुद्धिबळातील सोंगट्या</string>
+  <string name="theRook">हत्ती</string>
+  <string name="itMovesInStraightLines">तो सरळ रेषेत फिरतो</string>
+  <string name="rookIntro">हत्ती एक शक्तिशाली गोटी आहे. आपण त्याला आज्ञा करण्यास तयार आहात?</string>
+  <string name="rookGoal">हत्ती वर क्लिक करा
+त्याला ताऱ्यावर वर आणण्यासाठी!</string>
+  <string name="grabAllTheStars">सर्व तारे पकडा!</string>
+  <string name="theFewerMoves">जितक्या कमी चाला
+तितके जास्त गुण तुम्ही जिंकाल!</string>
+  <string name="useTwoRooks">दोन हत्ती वापरून
+खेळाची गती वाढवा!</string>
+  <string name="rookComplete">अभिनंदन! आपण हत्तीला यशस्वीरित्या प्रभुत्व केले.</string>
+  <string name="theBishop">उंट</string>
+  <string name="itMovesDiagonally">हे तिरपे चालते</string>
+  <string name="bishopIntro">पुढे आपण उंट कसे चालवायचे ते शिकू!</string>
+  <string name="youNeedBothBishops">एक फिकट रंगाचे उंट,
+एक गडद रंगाचे उंट,
+आपल्याला दोघांची गरज आहे!</string>
+  <string name="bishopComplete">अभिनंदन! आपण उंटाला यशस्वीरित्या प्रभुत्व केले.</string>
+  <string name="theQueen">वझीर(राणी)</string>
+  <string name="queenCombinesRookAndBishop">वझीर = हत्ती + उंट</string>
+  <string name="queenIntro">सर्वात शक्तिशाली बुद्धीबळ गोटी आत प्रवेश करते. राणी साहेबांचा विजय असो!</string>
+  <string name="queenComplete">अभिनंदन! तुला वझीरबद्दल सर्व काही माहित झालाय. </string>
+  <string name="theKing">राजा</string>
+  <string name="theMostImportantPiece">सर्वात महत्वाची गोटी</string>
+  <string name="kingIntro">आपण राजे आहात. आपण लढाईत मारला गेल्यास खेळ हरवला आहे.</string>
+  <string name="theKingIsSlow">राजा हळू चालतो.</string>
+  <string name="lastOne">शेवटचा!</string>
+  <string name="kingComplete">आपण आता राज्याला आज्ञा देऊ शकता!</string>
+  <string name="theKnight">घोडा</string>
+  <string name="itMovesInAnLShape">हा L आकारात चालतो</string>
+  <string name="knightIntro">आपल्यासाठी हे एक आव्हान आहे. नाइट एक...अवघड मोहरा आहे.</string>
+  <string name="knightsHaveAFancyWay">घोडे विलक्षण पणे 
+उड्या मारतात!</string>
+  <string name="knightsCanJumpOverObstacles">घोडे अडथळ्यांवरून उडी मारू शकता! 
+तारे ओलांडून त्यांना जिंको शकतात!</string>
+  <string name="knightComplete">अभिनंदन! आपण घोडा चालविण्यास यशस्वी झालात.</string>
+  <string name="thePawn">प्यादा</string>
+  <string name="itMovesForwardOnly">हे फक्त पुढे जाते</string>
+  <string name="pawnIntro">प्यादे कमकुवत आहेत, पण ते हि महत्वाचे कामं करू शकतात.</string>
+  <string name="pawnsMoveOneSquareOnly">प्यादे केवळ एक चौरस चालतात.
+पण जेव्हा ते बोर्डच्या दुसर्‍या बाजूला पोहोचतात तेव्हा ते अधिक मजबूत गोटी बनतात!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">बऱ्याच वेळा प्याद्याला राणी बनवणेच सर्वोत्तम आहे.
+पण कधीतरी प्याद्याला घोडा बनवण्यात फायदा असतो!</string>
+  <string name="pawnsMoveForward">प्यादे सरळ पुढे चालतात,
+पण तिरकं मारतात!</string>
+  <string name="captureThenPromote">मारा मग, उन्नती(Promote) करा! </string>
+  <string name="useAllThePawns">सर्व प्यादे वापरा!
+उन्नती करण्याची गरज नाही.</string>
+  <string name="aPawnOnTheSecondRank">दुसर्‍या क्रमांकावरील मोहरा एकाच वेळी 2 चौरस चालू शकतो!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">सर्व तारे पकडा!
+उन्नती करण्याची गरज नाही.</string>
+  <string name="pawnComplete">अभिनंदन! तुला प्याद्याबद्दल सर्व काही माहित झालय.</string>
+  <string name="pawnPromotion">प्याद्याची उन्नती</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">आपला प्यादा बोर्डाच्या शेवटी पोहोचला!</string>
+  <string name="itNowPromotesToAStrongerPiece">तुम्ही प्याद्याला कोणती हि दुसरी गोटी म्हणून उन्नत करू शकता.</string>
+  <string name="selectThePieceYouWant">हवी ती गोटी निवडा!</string>
+  <string name="fundamentals">मूलतत्त्वे</string>
+  <string name="capture">मारा (पकडा)</string>
+  <string name="takeTheEnemyPieces">शत्रूच्या गोट्या घ्या</string>
+  <string name="captureIntro">शत्रूचे अप्रस्तुत गोट्या ओळखा आणि त्यांना पकडून घ्या!</string>
+  <string name="takeTheBlackPieces">काळ्या गोट्या घ्या!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">काळ्या गोट्या घ्या!
+आणि आपल्या गोट्या गमावू नका.</string>
+  <string name="captureComplete">अभिनंदन! बुद्धीबळ गोट्यांसह कसे लढायचे हे आपल्याला माहित आहे!</string>
+  <string name="protection">संरक्षण</string>
+</resources>

@@ -33,7 +33,7 @@
   <string name="basedOnGameDuration">Lichess time controls are based on estimated game duration = %1$s
 For instance, the estimated duration of a 5+3 game is 5 × 60 + 40 × 3 = 420 seconds.</string>
   <string name="durationFormula">(clock initial time) + 40 × (clock increment)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">What variants can I play on Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess supports standard chess and %1$s.</string>
@@ -72,7 +72,7 @@ See the %3$s on this move for some practice with it.</string>
   <string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
   <string name="positions">positions</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">We repeated a position three times. Why was the game not drawn?</string>
-  <string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown, or by offering a draw before your final repeating move. You can also %1$s Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
+  <string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown, or by offering a draw before your final repeating move, it won't matter if your opponent rejects the draw offer, the threefold repetition draw will be claimed anyway. You can also %1$s Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
   <string name="configure">configure</string>
   <string name="accounts">Accounts</string>
   <string name="titlesAvailableOnLichess">What titles are there on Lichess?</string>

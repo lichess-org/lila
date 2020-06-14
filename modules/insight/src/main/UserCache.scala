@@ -5,15 +5,23 @@ import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.db.AsyncColl
+import lila.user.User
 
 case class UserCache(
-    _id: String, // user id
-    count: Int,  // nb insight entries
+    _id: User.ID, // user id
+    count: Int,   // nb insight entries
     ecos: Set[String],
-    date: DateTime
+    date: DateTime,
+    version: Option[Int]
 ) {
 
   def id = _id
+}
+
+object UserCache {
+
+  def make(userId: User.ID, count: Int, ecos: Set[String]) =
+    UserCache(userId, count, ecos, DateTime.now, latestVersion.some)
 }
 
 final private class UserCacheApi(coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
@@ -25,4 +33,6 @@ final private class UserCacheApi(coll: AsyncColl)(implicit ec: scala.concurrent.
   def save(u: UserCache) = coll(_.update.one($id(u.id), u, upsert = true).void)
 
   def remove(id: String) = coll(_.delete.one($id(id)).void)
+
+  def version(id: String) = coll(_.primitiveOne[Int]($id(id), "version"))
 }

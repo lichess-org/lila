@@ -1,7 +1,6 @@
 package lila.slack
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, EmailAddress, IpAddress, LightUser }
 import lila.hub.actorApi.slack._
@@ -134,24 +133,6 @@ final class SlackApi(
         channel = rooms.tavernBots
       )
     )
-
-  private val boardApiMoveLimiter = new lila.memo.RateLimit[String](
-    credits = 1,
-    duration = 4 hours,
-    name = "slack board move",
-    key = "slack.board-move"
-  )
-  def boardApiMove(path: String, user: User): Funit =
-    boardApiMoveLimiter(path) {
-      client(
-        SlackMessage(
-          username = "Board API game",
-          icon = "electric_plug",
-          text = s"${userLink(user)} is playing ${gameLink(path)} with the Board API",
-          channel = rooms.tavernBots
-        )
-      )
-    }(funit)
 
   def commReportBurst(user: User): Funit =
     client(

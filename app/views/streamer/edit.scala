@@ -156,7 +156,20 @@ object edit extends Context.ToLang {
                         half = true
                       )
                   ),
-                  form3.action(form3.submit(trans.apply()))
+                  form3.actions(
+                    form3
+                      .submit("Approve and next")(
+                        cls := "button-green",
+                        name := "approval.quick",
+                        value := "approve"
+                      ),
+                    form3.submit("Decline and next", icon = "L".some)(
+                      cls := "button-red",
+                      name := "approval.quick",
+                      value := "decline"
+                    ),
+                    form3.submit(trans.apply())
+                  )
                 ),
                 form3.split(
                   form3.group(

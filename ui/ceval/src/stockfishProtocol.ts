@@ -1,4 +1,4 @@
-import { variantToRules } from 'chess';
+import { lichessVariantRules } from 'chessops/compat';
 import { WorkerOpts, Work } from './types';
 
 const EVAL_REGEX = new RegExp(''
@@ -17,10 +17,11 @@ export default class Protocol {
   public engineName: string | undefined;
 
   constructor(private send: (cmd: string) => void, private opts: WorkerOpts) {
-
     this.stopped = defer<void>();
     this.stopped.resolve();
+  }
 
+  init() {
     // get engine name/version
     this.send('uci');
 
@@ -28,12 +29,12 @@ export default class Protocol {
     this.setOption('UCI_AnalyseMode', 'true');
     this.setOption('Analysis Contempt', 'Off');
 
-    if (opts.variant === 'fromPosition' || opts.variant === 'chess960')
+    if (this.opts.variant === 'fromPosition' || this.opts.variant === 'chess960')
       this.setOption('UCI_Chess960', 'true');
-    else if (opts.variant === 'antichess')
+    else if (this.opts.variant === 'antichess')
       this.setOption('UCI_Variant', 'giveaway');
-    else if (opts.variant !== 'standard')
-      this.setOption('UCI_Variant', variantToRules(opts.variant));
+    else if (this.opts.variant !== 'standard')
+      this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
   }
 
   private setOption(name: string, value: string | number) {

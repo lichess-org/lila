@@ -27,7 +27,7 @@ final class Env(
 
   private val config = appConfig.get[OauthConfig]("oauth")(AutoConfig.loader)
 
-  private lazy val db   = mongo.asyncDb("oauth", config.mongoUri)
+  private lazy val db = mongo.asyncDb("oauth", config.mongoUri)
 
   private lazy val colls = new OauthColls(db(config.tokenColl), db(config.appColl))
 

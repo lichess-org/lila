@@ -4,10 +4,10 @@
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Kostenloses Konto</string>
   <string name="becomePatron">Werde Lichess Patron</string>
-  <string name="xBecamePatron">%s wurde Lichess Patron</string>
+  <string name="xBecamePatron">%s wurde Lichess-Patron</string>
   <string name="newPatrons">Neue Unterstützer</string>
   <string name="freeChess">Kostenloses Schach für alle, für immer!</string>
-  <string name="noAdsNoSubs">Keine Werbung, keine Abonnements; aber quelloffen und leidenschaftlich.</string>
+  <string name="noAdsNoSubs">Keine Werbung, keine Abonnements; aber quelloffen und mit Leidenschaft.</string>
   <string name="thankYou">Vielen Dank für die Spende!</string>
   <string name="youHaveLifetime">Du besitzt ein lebenslanges Unterstützerkonto. Das ist einfach großartig!</string>
   <string name="patronUntil">Du besitzt ein Unterstützerkonto bis %s.</string>
@@ -21,7 +21,7 @@
   <string name="monthly">Monatlich</string>
   <string name="recurringBilling">Wiederkehrende Rechnung, erneuert deine Patron-Flügel jeden Monat.</string>
   <string name="onetime">Einmalig</string>
-  <string name="singleDonation">Eine einmalige Spende. Gibt dir Patron Flügel für einen Monat.</string>
+  <string name="singleDonation">Eine einmalige Spende, die dir Patron-Flügel für einen Monat verleiht.</string>
   <string name="otherAmount">Anderer</string>
   <string name="pleaseEnterAmount">Bitte gib einen Betrag in US-Dollar ein</string>
   <string name="withCreditCard">Kreditkarte</string>
@@ -33,7 +33,7 @@
 Dann bezahlen wir einen Vollzeit-Entwickler: %s, den Gründer von Lichess.</string>
   <string name="costBreakdown">Detaillierte Kostenaufteilung anzeigen</string>
   <string name="officialNonProfit">Ist Lichess eine offizielle Non-Profit-Organisation?</string>
-  <string name="actOfCreation">Ja, hier ist die Gründungsurkunde (in französisch)</string>
+  <string name="actOfCreation">Ja, hier ist die Gründungsurkunde (in Französisch)</string>
   <string name="changeMonthlySupport">Kann ich meine monatliche Unterstützung ändern/beenden?</string>
   <string name="changeOrContact">Ja, jederzeit von dieser Seite aus.
 Oder du kannst %s.</string>
@@ -43,7 +43,7 @@ Oder du kannst %s.</string>
   <string name="bitcoin">Und hier ist unsere Bitcoinadresse: %s</string>
   <string name="patronFeatures">Gibt es zusätzliche Funktionen für Unterstützer?</string>
   <string name="noPatronFeatures">Nein, denn Lichess ist komplett kostenlos, für immer und für alle. Das ist ein Versprechen.
-Jedoch erhalten Unterstützer das Recht mit ihrem coolen, neuen Profil-Icon anzugeben.</string>
+Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzugeben.</string>
   <string name="featuresComparison">Sieh dir den Detailvergleich der Funktionen an</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Patron für einen Monat</item>
@@ -72,5 +72,5 @@ Jedoch erhalten Unterstützer das Recht mit ihrem coolen, neuen Profil-Icon anzu
   <string name="checkOutProfile">Sieh dir deine Profilseite an!</string>
   <string name="nowLifetime">Du bist jetzt ein lebenslanger Lichess Patron!</string>
   <string name="nowOneMonth">Du bist jetzt für einen Monat Lichess Patron!</string>
-  <string name="downgradeNextMonth">Dir wird in einem Monat NICHTS erneut berechnet und dein Lichess-Konto wird zu einem kostenlosen herabgestuft.</string>
+  <string name="downgradeNextMonth">Dir wird in einem Monat NICHTS erneut berechnet und dein Lichess-Konto wird in ein reguläres Konto umgewandelt.</string>
 </resources>

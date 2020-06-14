@@ -20,8 +20,8 @@ object RoomSocket {
     def msg = makeMessage(tpe, data)
   }
 
-  final class RoomState(roomId: RoomId, send: Send)(
-      implicit ec: ExecutionContext
+  final class RoomState(roomId: RoomId, send: Send)(implicit
+      ec: ExecutionContext
   ) extends Trouper {
 
     private var version = SocketVersion(0)
@@ -44,17 +44,18 @@ object RoomSocket {
     }
   }
 
-  def makeRoomMap(send: Send)(
-      implicit ec: ExecutionContext,
+  def makeRoomMap(send: Send)(implicit
+      ec: ExecutionContext,
       mode: play.api.Mode
-  ) = new TrouperMap(
-    mkTrouper = roomId =>
-      new RoomState(
-        RoomId(roomId),
-        send
-      ),
-    accessTimeout = 5 minutes
-  )
+  ) =
+    new TrouperMap(
+      mkTrouper = roomId =>
+        new RoomState(
+          RoomId(roomId),
+          send
+        ),
+      accessTimeout = 5 minutes
+    )
 
   def roomHandler(
       rooms: TrouperMap[RoomState],

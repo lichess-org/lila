@@ -90,8 +90,7 @@ final class AssessApi(
 
   def refreshAssessByUsername(username: String): Funit =
     withUser(username) { user =>
-      if (user.isBot) funit
-      else
+      !user.isBot ??
         (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
           (gs map { g =>
             analysisRepo.byGame(g) flatMap {

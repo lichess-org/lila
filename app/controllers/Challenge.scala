@@ -209,9 +209,10 @@ final class Challenge(
       implicit val lang = reqLang
       env.setup.forms.api.user.bindFromRequest.fold(
         err => BadRequest(apiFormError(err)).fuccess,
-        config =>
-          ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
-            ChallengeUserRateLimit(me.id) {
+        config => {
+          val cost = if (me.isApiHog) 0 else 1
+          ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req, cost = cost) {
+            ChallengeUserRateLimit(me.id, cost = cost) {
               env.user.repo enabledById userId.toLowerCase flatMap {
                 destUser =>
                   import lila.challenge.Challenge._
@@ -251,6 +252,7 @@ final class Challenge(
               }
             }(rateLimitedFu)
           }(rateLimitedFu)
+        }
       )
     }
 

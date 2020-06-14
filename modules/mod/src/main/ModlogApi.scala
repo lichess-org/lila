@@ -48,11 +48,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       Modlog.make(mod, sus, if (sus.user.marks.troll) Modlog.troll else Modlog.untroll)
     }
 
-  def ban(mod: Mod, sus: Suspect) =
-    add {
-      Modlog.make(mod, sus, if (sus.user.marks.ipban) Modlog.ipban else Modlog.ipunban)
-    }
-
   def disableTwoFactor(mod: User.ID, user: User.ID) =
     add {
       Modlog(mod, user.some, Modlog.disableTwoFactor)
@@ -94,11 +89,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
   def setEmail(mod: User.ID, user: User.ID) =
     add {
       Modlog(mod, user.some, Modlog.setEmail)
-    }
-
-  def ipban(mod: User.ID, ip: String) =
-    add {
-      Modlog(mod, none, Modlog.ipban, ip.some)
     }
 
   def deletePost(
@@ -258,16 +248,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       _ ?? slackApi.monitorMod(
         m.mod,
         icon = m.action match {
-          case M.alt | M.engine | M.booster | M.troll | M.closeAccount => "thorhammer"
-          case M.unalt | M.unengine | M.unbooster | M.ipunban | M.untroll | M.reopenAccount =>
-            "large_blue_circle"
-          case M.deletePost | M.deleteTeam | M.terminateTournament => "x"
-          case M.chatTimeout                                       => "hourglass_flowing_sand"
-          case M.ban | M.ipban                                     => "ripp"
-          case M.closeTopic                                        => "lock"
-          case M.openTopic                                         => "unlock"
-          case M.modMessage                                        => "left_speech_bubble"
-          case _                                                   => "gear"
+          case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
+          case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "large_blue_circle"
+          case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
+          case M.chatTimeout                                                    => "hourglass_flowing_sand"
+          case M.closeTopic                                                     => "lock"
+          case M.openTopic                                                      => "unlock"
+          case M.modMessage                                                     => "left_speech_bubble"
+          case _                                                                => "gear"
         },
         text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u ")}${~m.details}"""
       )

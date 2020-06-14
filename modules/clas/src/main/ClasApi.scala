@@ -279,7 +279,10 @@ ${clas.desc}""",
               val stu = Student.make(user, clas, invite.created.by, invite.realName, managed = false)
               colls.student.insert.one(stu) >>
                 colls.invite.updateField($id(id), "accepted", true) >>
-                student.sendWelcomeMessage(invite.created.by, user, clas) inject stu.some
+                student.sendWelcomeMessage(invite.created.by, user, clas) inject
+                stu.some recoverWith lila.db.recoverDuplicateKey { _ =>
+                student.get(clas, user.id)
+              }
             }
           }
         }

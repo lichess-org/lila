@@ -40,6 +40,12 @@ case class VisibleTournaments(
   def unfinished = created ::: started
 
   def all = started ::: created ::: finished
+
+  def add(tours: List[Tournament]) =
+    copy(
+      created = tours.filter(_.isCreated) ++ created,
+      started = tours.filter(_.isStarted) ++ started
+    )
 }
 
 case class PlayerInfoExt(

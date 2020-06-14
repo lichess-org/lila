@@ -144,7 +144,7 @@ Kungen är ovärderlig, om du förlorar den har du förlorat partiet.</string>
   <string name="queenOverBishop">Slå den mest värdefulla pjäsen! Dam &gt; löpare</string>
   <string name="takeThePieceWithTheHighestValue">Slå pjäsen med högst värde!</string>
   <string name="pieceValueComplete">Grattis! Nu vet du hur schackpjäserna värderas!
-Dam = 0
+Dam = 9
 Torn = 5
 Löpare = 3
 Springare = 3

@@ -33,7 +33,7 @@ final class Paginator[A] private[paginator] (
   /**
     * Returns the number of pages.
     */
-  def nbPages: Int = scala.math.ceil(nbResults.toFloat / maxPerPage.value).toInt
+  def nbPages: Int = (nbResults + maxPerPage.value - 1) / maxPerPage.value
 
   /**
     * Returns whether we have to paginate or not.

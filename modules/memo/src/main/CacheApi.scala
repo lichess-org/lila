@@ -48,6 +48,16 @@ final class CacheApi(
     cache
   }
 
+  def notLoading[K, V](initialCapacity: Int, name: String)(
+      build: Builder => AsyncCache[K, V]
+  ): AsyncCache[K, V] = {
+    val cache = build {
+      scaffeine.recordStats.initialCapacity(actualCapacity(initialCapacity))
+    }
+    monitor(name, cache)
+    cache
+  }
+
   def monitor(name: String, cache: AsyncCache[_, _]): Unit =
     monitor(name, cache.underlying.synchronous)
 
@@ -89,17 +99,18 @@ final class BeafedAsync[K, V](val cache: AsyncCache[K, V]) extends AnyVal {
   def invalidate(key: K): Unit = cache.underlying.synchronous invalidate key
   def invalidateAll(): Unit    = cache.underlying.synchronous.invalidateAll()
 
-  def update(key: K, f: V => V): Unit = cache.getIfPresent(key) foreach { v =>
-    cache.put(key, v dmap f)
-  }
+  def update(key: K, f: V => V): Unit =
+    cache.getIfPresent(key) foreach { v =>
+      cache.put(key, v dmap f)
+    }
 }
 
 final class BeafedAsyncUnit[V](val cache: AsyncCache[Unit, V]) extends AnyVal {
 
-  def invalidateUnit(): Unit = cache.underlying.synchronous.invalidate({})
+  def invalidateUnit(): Unit = cache.underlying.synchronous.invalidate {}
 }
 
 final class BeafedAsyncLoadingUnit[V](val cache: AsyncLoadingCache[Unit, V]) extends AnyVal {
 
-  def getUnit: Fu[V] = cache.get({})
+  def getUnit: Fu[V] = cache.get {}
 }

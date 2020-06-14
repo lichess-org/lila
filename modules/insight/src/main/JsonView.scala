@@ -11,7 +11,7 @@ final class JsonView {
   case class Categ(name: String, items: List[JsValue])
   implicit private val categWrites = Json.writes[Categ]
 
-  def ui(ecos: Set[String])(implicit lang: Lang) = {
+  def ui(ecos: Set[String], asMod: Boolean)(implicit lang: Lang) = {
 
     val openingJson = Json.obj(
       "key"         -> D.Opening.key,
@@ -53,7 +53,9 @@ final class JsonView {
           Json.toJson(D.MovetimeRange: Dimension[_]),
           Json.toJson(D.MaterialRange: Dimension[_]),
           Json.toJson(D.Phase: Dimension[_])
-        )
+        ) ::: {
+          asMod ?? List(Json.toJson(D.Blur: Dimension[_]), Json.toJson(D.TimeVariance: Dimension[_]))
+        }
       ),
       Categ(
         "Result",
@@ -64,46 +66,51 @@ final class JsonView {
       )
     )
 
+    val metricCategs = List(
+      Categ(
+        "Setup",
+        List(
+          Json.toJson(M.OpponentRating: Metric)
+        )
+      ),
+      Categ(
+        "Move",
+        List(
+          Json.toJson(M.Movetime: Metric),
+          Json.toJson(M.PieceRole: Metric),
+          Json.toJson(M.Material: Metric),
+          Json.toJson(M.NbMoves: Metric)
+        ) ++ {
+          asMod ?? List(
+            Json.toJson(M.Blurs: Metric),
+            Json.toJson(M.TimeVariance: Metric)
+          )
+        }
+      ),
+      Categ(
+        "Evaluation",
+        List(
+          Json.toJson(M.MeanCpl: Metric),
+          Json.toJson(M.Opportunism: Metric),
+          Json.toJson(M.Luck: Metric)
+        )
+      ),
+      Categ(
+        "Result",
+        List(
+          Json.toJson(M.Termination: Metric),
+          Json.toJson(M.Result: Metric),
+          Json.toJson(M.RatingDiff: Metric)
+        )
+      )
+    )
+
     Json.obj(
       "dimensionCategs" -> dimensionCategs,
       "metricCategs"    -> metricCategs,
-      "presets"         -> Preset.all
+      "presets"         -> { if (asMod) Preset.forMod else Preset.base }
     )
   }
-
-  private val metricCategs = List(
-    Categ(
-      "Setup",
-      List(
-        Json.toJson(M.OpponentRating: Metric)
-      )
-    ),
-    Categ(
-      "Move",
-      List(
-        Json.toJson(M.Movetime: Metric),
-        Json.toJson(M.PieceRole: Metric),
-        Json.toJson(M.Material: Metric),
-        Json.toJson(M.NbMoves: Metric)
-      )
-    ),
-    Categ(
-      "Evaluation",
-      List(
-        Json.toJson(M.MeanCpl: Metric),
-        Json.toJson(M.Opportunism: Metric),
-        Json.toJson(M.Luck: Metric)
-      )
-    ),
-    Categ(
-      "Result",
-      List(
-        Json.toJson(M.Termination: Metric),
-        Json.toJson(M.Result: Metric),
-        Json.toJson(M.RatingDiff: Metric)
-      )
-    )
-  )
 
   private object writers {
 

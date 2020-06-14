@@ -36,7 +36,7 @@ libraryDependencies ++= akka.bundle ++ Seq(
   scalaz, chess, compression, scalalib, hasher,
   reactivemongo.driver, maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
-  scrimage, scaffeine, lettuce
+  scrimage, scaffeine, lettuce, uaparser
 ) ++ {
   if (useEpoll) Seq(epoll, reactivemongo.epoll)
   else Seq.empty
@@ -278,7 +278,7 @@ lazy val oauth = module("oauth",
 
 lazy val security = module("security",
   Seq(common, hub, db, user, i18n, slack, oauth),
-  Seq(scalatags, maxmind, hasher, specs2) ++ reactivemongo.bundle
+  Seq(scalatags, maxmind, hasher, uaparser, specs2) ++ reactivemongo.bundle
 )
 
 lazy val shutup = module("shutup",

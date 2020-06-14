@@ -49,4 +49,12 @@ final class Cached(
         }
       }
   }
+
+  val leaders = cacheApi[Team.ID, Set[User.ID]](32, "team.leaders") {
+    _.expireAfterWrite(1 minute)
+      .buildAsyncFuture(teamRepo.leadersOf)
+  }
+
+  def isLeader(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
+    leaders.get(teamId).dmap(_ contains userId)
 }

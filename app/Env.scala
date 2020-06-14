@@ -106,6 +106,11 @@ final class Env(
     text =
       "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
   )
+  lazy val featuredTeamsSetting = memo.settingStore[Strings](
+    "featuredTeams",
+    default = Strings(Nil),
+    text = "Team IDs that always get their tournaments visible on /tournament".some
+  )
 
   lazy val preloader     = wire[mashup.Preload]
   lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
@@ -113,6 +118,7 @@ final class Env(
   lazy val userInfo      = wire[mashup.UserInfo.UserInfoApi]
   lazy val teamInfo      = wire[mashup.TeamInfoApi]
   lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
+  lazy val pageCache     = wire[http.PageCache]
 
   private val tryDailyPuzzle: lila.puzzle.Daily.Try = () =>
     Future {
@@ -139,7 +145,7 @@ final class Env(
       _          <- tournament.api.withdrawAll(u)
       _          <- plan.api.cancel(u).nevermind
       _          <- lobby.seekApi.removeByUser(u)
-      _          <- security.store.disconnect(u.id)
+      _          <- security.store.closeAllSessionsOf(u.id)
       _          <- push.webSubscriptionApi.unsubscribeByUser(u)
       _          <- streamer.api.demote(u.id)
       _          <- coach.api.remove(u.id)
@@ -151,7 +157,7 @@ final class Env(
     } yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
 
   Bus.subscribeFun("garbageCollect") {
-    case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
+    case lila.hub.actorApi.security.GarbageCollect(userId) =>
       // GC can be aborted by reverting the initial SB mark
       user.repo.isTroll(userId) foreach { troll =>
         if (troll) scheduler.scheduleOnce(1.second) {

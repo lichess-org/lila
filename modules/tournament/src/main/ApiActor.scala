@@ -12,6 +12,15 @@ final private[tournament] class ApiActor(
 
   implicit def ec = context.dispatcher
 
+  lila.common.Bus.subscribe(
+    self,
+    "finishGame",
+    "adjustCheater",
+    "adjustBooster",
+    "playban",
+    "teamKick"
+  )
+
   def receive = {
 
     case FinishGame(game, _, _) => api finishGame game
@@ -28,5 +37,7 @@ final private[tournament] class ApiActor(
     case lila.hub.actorApi.round.Berserk(gameId, userId) => api.berserk(gameId, userId)
 
     case lila.hub.actorApi.playban.Playban(userId, _) => api.pausePlaybanned(userId)
+
+    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId)
   }
 }

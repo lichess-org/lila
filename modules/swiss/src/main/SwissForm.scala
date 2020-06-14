@@ -38,7 +38,7 @@ final class SwissForm(implicit mode: Mode) {
         "rated"         -> optional(boolean),
         "nbRounds"      -> number(min = minRounds, max = 100),
         "description"   -> optional(nonEmptyText),
-        "hasChat"       -> optional(boolean),
+        "chatFor"       -> optional(numberIn(chatForChoices.map(_._1))),
         "roundInterval" -> optional(numberIn(roundIntervals))
       )(SwissData.apply)(SwissData.unapply)
     )
@@ -52,9 +52,9 @@ final class SwissForm(implicit mode: Mode) {
       }),
       variant = Variant.default.key.some,
       rated = true.some,
-      nbRounds = 8,
+      nbRounds = 7,
       description = none,
-      hasChat = true.some,
+      chatFor = Swiss.ChatFor.default.some,
       roundInterval = Swiss.RoundInterval.auto.some
     )
 
@@ -67,7 +67,7 @@ final class SwissForm(implicit mode: Mode) {
       rated = s.settings.rated.some,
       nbRounds = s.settings.nbRounds,
       description = s.settings.description,
-      hasChat = s.settings.hasChat.some,
+      chatFor = s.settings.chatFor.some,
       roundInterval = s.settings.roundInterval.toSeconds.toInt.some
     )
 
@@ -118,12 +118,19 @@ object SwissForm {
   val roundIntervalChoices = options(
     roundIntervals,
     s =>
-      if (s == Swiss.RoundInterval.auto) s"Automatic (recommended)"
+      if (s == Swiss.RoundInterval.auto) s"Automatic"
       else if (s == Swiss.RoundInterval.manual) s"Manually schedule each round"
       else if (s < 60) s"$s seconds"
       else if (s < 3600) s"${s / 60} minute(s)"
       else if (s < 24 * 3600) s"${s / 3600} hour(s)"
       else s"${s / 24 / 3600} days(s)"
+  )
+
+  val chatForChoices = List(
+    Swiss.ChatFor.NONE    -> "No chat",
+    Swiss.ChatFor.LEADERS -> "Team leaders only",
+    Swiss.ChatFor.MEMBERS -> "Team members only",
+    Swiss.ChatFor.ALL     -> "All Lichess players"
   )
 
   case class SwissData(
@@ -134,11 +141,12 @@ object SwissForm {
       rated: Option[Boolean],
       nbRounds: Int,
       description: Option[String],
-      hasChat: Option[Boolean],
+      chatFor: Option[Int],
       roundInterval: Option[Int]
   ) {
     def realVariant  = variant flatMap Variant.apply getOrElse Variant.default
     def realStartsAt = startsAt | DateTime.now.plusMinutes(10)
+    def realChatFor  = chatFor | Swiss.ChatFor.default
     def realRoundInterval = {
       (roundInterval | Swiss.RoundInterval.auto) match {
         case Swiss.RoundInterval.auto =>

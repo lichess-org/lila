@@ -26,6 +26,7 @@ case class Tournament(
     conditions: Condition.All,
     teamBattle: Option[TeamBattle] = None,
     noBerserk: Boolean = false,
+    noStreak: Boolean = false,
     schedule: Option[Schedule],
     nbPlayers: Int,
     createdAt: DateTime,
@@ -68,6 +69,8 @@ case class Tournament(
   def isMarathonOrUnique = isMarathon || isUnique
 
   def isScheduled = schedule.isDefined
+
+  def isRated = mode == Mode.Rated
 
   def finishesAt = startsAt plusMinutes minutes
 
@@ -112,6 +115,7 @@ case class Tournament(
     else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
 
   def berserkable = !noBerserk && clock.berserkable
+  def streakable  = !noStreak
 
   def clockStatus =
     secondsToFinish pipe { s =>
@@ -133,6 +137,8 @@ case class Tournament(
   def nonLichessCreatedBy = (createdBy != User.lichessId) option createdBy
 
   def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
+
+  lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
   override def toString = s"$id $startsAt ${name()(defaultLang)} $minutes minutes, $clock, $nbPlayers players"
 }

@@ -1,5 +1,5 @@
 import { opposite } from 'chessground/util';
-import { variantToRules } from 'chess';
+import { lichessVariantRules } from 'chessops/compat';
 import { Position, PositionError } from 'chessops/chess';
 import { parseFen } from 'chessops/fen';
 import { Result } from '@badrap/result';
@@ -619,7 +619,7 @@ export default class AnalyseCtrl {
 
   position(node: Tree.Node): Result<Position, PositionError> {
     const setup = parseFen(node.fen).unwrap();
-    return setupPosition(variantToRules(this.data.game.variant.key), setup);
+    return setupPosition(lichessVariantRules(this.data.game.variant.key), setup);
   }
 
   canUseCeval(): boolean {

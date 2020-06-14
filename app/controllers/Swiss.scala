@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.swiss.Swiss.{ Id => SwissId }
+import lila.swiss.Swiss.{ Id => SwissId, ChatFor }
 import lila.swiss.{ Swiss => SwissModel }
 import views._
 
@@ -81,7 +81,7 @@ final class Swiss(
 
   def create(teamId: String) =
     AuthBody { implicit ctx => me =>
-      env.team.teamRepo.isLeader(teamId, me.id) flatMap {
+      env.team.cached.isLeader(teamId, me.id) flatMap {
         case false => notFound
         case _ =>
           env.swiss.forms.create
@@ -102,7 +102,7 @@ final class Swiss(
     ScopedBody() { implicit req => me =>
       if (me.isBot || me.lame) notFoundJson("This account cannot create tournaments")
       else
-        env.team.teamRepo.isLeader(teamId, me.id) flatMap {
+        env.team.cached.isLeader(teamId, me.id) flatMap {
           case false => notFoundJson("You're not a leader of that team")
           case _ =>
             env.swiss.forms.create.bindFromRequest
@@ -138,7 +138,7 @@ final class Swiss(
 
   def withdraw(id: String) =
     Auth { implicit ctx => me =>
-      env.swiss.api.withdraw(SwissId(id), me) flatMap { result =>
+      env.swiss.api.withdraw(SwissId(id), me.id) flatMap { result =>
         negotiate(
           html = Redirect(routes.Swiss.show(id)).fuccess,
           api = _ => fuccess(jsonOkResult)
@@ -251,7 +251,13 @@ final class Swiss(
     }
 
   private def canHaveChat(swiss: SwissModel)(implicit ctx: Context): Fu[Boolean] =
-    (swiss.settings.hasChat && ctx.noKid) ?? ctx.userId.?? {
-      env.team.api.belongsTo(swiss.teamId, _)
+    canHaveChat(swiss.roundInfo)
+
+  private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(implicit ctx: Context): Fu[Boolean] =
+    swiss.chatFor match {
+      case ChatFor.NONE    => fuFalse
+      case ChatFor.LEADERS => ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
+      case ChatFor.MEMBERS => ctx.userId ?? { env.team.api.belongsTo(swiss.teamId, _) }
+      case _               => fuTrue
     }
 }

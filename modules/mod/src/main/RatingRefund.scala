@@ -31,8 +31,6 @@ final private class RatingRefund(
     logApi.wasUnengined(sus) flatMap {
       case true => funit
       case false =>
-        logger.info(s"Refunding ${sus.user.username} victims")
-
         def lastGames =
           gameRepo.coll.ext
             .find(
@@ -40,8 +38,7 @@ final private class RatingRefund(
                 .createdSince(DateTime.now minusDays 3) ++ Query.finished
             )
             .sort(Query.sortCreated)
-            .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
-            .list(40)
+            .list[Game](40, readPreference = ReadPreference.secondaryPreferred)
 
         def makeRefunds(games: List[Game]) =
           games.foldLeft(Refunds(List.empty)) {

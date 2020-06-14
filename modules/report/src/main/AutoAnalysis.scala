@@ -30,7 +30,7 @@ final class AutoAnalysis(
     }
 
   private def gamesToAnalyse(candidate: Report.Candidate): Fu[List[Game]] = {
-    gameRepo.recentAnalysableGamesByUserId(candidate.suspect.user.id, 10) flatMap { as =>
+    gameRepo.recentAnalysableGamesByUserId(candidate.suspect.user.id, 20) flatMap { as =>
       gameRepo.lastGamesBetween(
         candidate.suspect.user,
         candidate.reporter.user,
@@ -43,6 +43,6 @@ final class AutoAnalysis(
       g.analysable && !g.metadata.analysed
     }.distinct
       .sortBy(-_.createdAt.getSeconds)
-      .take(5)
+      .take(10)
   }
 }

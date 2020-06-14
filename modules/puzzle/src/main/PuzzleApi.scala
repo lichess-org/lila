@@ -104,17 +104,18 @@ final private[puzzle] class PuzzleApi(
             )
         }
         voteColl {
-          _.update.one(
-            $id(v2.id),
-            $set("v" -> v),
-            upsert = true
-          )
+          _.update
+            .one(
+              $id(v2.id),
+              $set("v" -> v),
+              upsert = true
+            )
+            .void
+            .recover(lila.db.recoverDuplicateKey { _ => () })
         } zip
           puzzleColl {
-            _.update.one(
-              $id(p2.id),
-              $set(F.vote -> p2.vote)
-            )
+            _.update
+              .one($id(p2.id), $set(F.vote -> p2.vote))
           } inject (p2 -> v2)
       }
   }

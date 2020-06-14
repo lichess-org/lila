@@ -11,7 +11,7 @@ import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period, Period
 
 import lila.app.ui.ScalatagsTemplate._
 
-trait DateHelper { self: I18nHelper =>
+trait DateHelper { self: I18nHelper with StringHelper =>
 
   private val dateTimeStyle = "MS"
   private val dateStyle     = "M-"
@@ -27,7 +27,8 @@ trait DateHelper { self: I18nHelper =>
 
   private val isoFormatter = ISODateTimeFormat.dateTime
 
-  private val englishDateFormatter = DateTimeFormat forStyle dateStyle
+  private val englishDateFormatter     = DateTimeFormat forStyle dateStyle
+  private val englishDateTimeFormatter = DateTimeFormat forStyle dateTimeStyle
 
   private def dateTimeFormatter(implicit lang: Lang): DateTimeFormatter =
     dateTimeFormatters.getOrElseUpdate(
@@ -60,6 +61,8 @@ trait DateHelper { self: I18nHelper =>
 
   def showEnglishDate(date: DateTime): String =
     englishDateFormatter print date
+  def showEnglishDateTime(date: DateTime): String =
+    englishDateTimeFormatter print date
 
   def semanticDate(date: DateTime)(implicit lang: Lang): Frag =
     timeTag(datetimeAttr := isoDate(date))(showDate(date))
@@ -86,6 +89,22 @@ trait DateHelper { self: I18nHelper =>
 
   def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false) =
     momentFromNow(DateTime.now plusSeconds seconds, alwaysRelative)
+
+  def momentFromNowServer(date: DateTime): Frag = {
+    val (dateSec, nowSec) = (date.getMillis / 1000, nowSeconds)
+    val seconds           = (nowSec - dateSec) atLeast 0
+    val minutes           = seconds / 60
+    val hours             = minutes / 60
+    val days              = hours / 24
+    val years             = days / 365
+    val text =
+      if (minutes == 0) "Right now"
+      else if (hours == 0) s"$minutes minutes ago"
+      else if (days == 0) s"$hours hours ago"
+      else if (years == 0) s"$days days ago"
+      else s"${pluralize("year", years.toInt)} ago"
+    timeTag(title := showEnglishDateTime(date))(text)
+  }
 
   private val atomDateFormatter        = ISODateTimeFormat.dateTime
   def atomDate(date: DateTime): String = atomDateFormatter print date

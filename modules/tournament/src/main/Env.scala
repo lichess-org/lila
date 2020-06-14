@@ -103,13 +103,7 @@ final class Env(
 
   lazy val getTourName = new GetTourName((id, lang) => cached.nameCache.sync(id -> lang))
 
-  lila.common.Bus.subscribe(
-    system.actorOf(Props(wire[ApiActor]), name = config.apiActorName),
-    "finishGame",
-    "adjustCheater",
-    "adjustBooster",
-    "playban"
-  )
+  system.actorOf(Props(wire[ApiActor]), name = config.apiActorName)
 
   system.actorOf(Props(wire[CreatedOrganizer]))
 

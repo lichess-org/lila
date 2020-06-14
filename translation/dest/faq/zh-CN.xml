@@ -50,9 +50,9 @@ Lichess上的电脑分析是基于Stockfish的。</string>
 注意，如果对方一只棋子阻挡自己的王，那么单马或者单象也有可能实现将杀。</string>
   <string name="linkToFIDErules">FIDE（世界国际象棋联合会）手册PDF章节§6.9</string>
   <string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？（吃过路兵）</string>
-  <string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个指南。
+  <string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
 
-在3.7节中作了描述。%2$s
+在3.7 (d)节中作了描述在%2$s。
 
 “对方一只兵刚刚从初始位置起步走两格，与本方的兵处在相邻横线时，本方的兵可以吃掉它，就如同它只走了一格一样。这种吃法称为‘吃过路兵’，只能在对方兵走两格之后立即进行。“
 
@@ -65,10 +65,10 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="threefoldRepetitionLowerCase">三次重复局面</string>
   <string name="handBookPDF">手册 (pdf)</string>
   <string name="notRepeatedMoves">我们没有重复着法。为什么对局仍然被判和？</string>
-  <string name="repeatedPositionsThatMatters">三次重复局面是关于局面的重复，而不是着法。重复局面不一定会连续发生。</string>
+  <string name="repeatedPositionsThatMatters">三次重复局面是关于局面的%1$s重复，而不是着法。重复局面不一定会连续发生。</string>
   <string name="positions">位置</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">我们重复了三次的局面。为什么对局没有判和？</string>
-  <string name="threeFoldHasToBeClaimed">三次重复局面和棋需要由其中一个选手提出。您可以通过按下显示的按钮，或者在您最后一次重复移动之前提出和棋。您也可以设置Lichess为您自动提和重复局面。此外，五次重复局面总是立即结束游戏。</string>
+  <string name="threeFoldHasToBeClaimed">三次重复局面和棋需要由其中一个选手提出。您可以通过按下显示的按钮，或者在您最后一次重复移动之前提出和棋。您也可以%1$sLichess为您自动提和重复局面。此外，五次重复局面总是立即结束游戏。Lichess</string>
   <string name="configure">配置</string>
   <string name="accounts">帐号</string>
   <string name="titlesAvailableOnLichess">Lichess 上有什么头衔？</string>

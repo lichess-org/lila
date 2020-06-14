@@ -52,15 +52,15 @@ object BSON extends Handlers {
     def getsD[A: BSONReader](k: String) =
       doc.getAsOpt[List[A]](k) getOrElse Nil
 
-    def str(k: String)     = get[String](k)(BSONStringHandler)
-    def strO(k: String)    = getO[String](k)(BSONStringHandler)
-    def strD(k: String)    = strO(k) getOrElse ""
-    def int(k: String)     = get[Int](k)
-    def intO(k: String)    = getO[Int](k)
-    def intD(k: String)    = intO(k) getOrElse 0
-    def double(k: String)  = get[Double](k)
-    def doubleO(k: String) = getO[Double](k)
-    // def doubleD(k: String) = doubleO(k) getOrElse 0D
+    def str(k: String)                         = get[String](k)(BSONStringHandler)
+    def strO(k: String)                        = getO[String](k)(BSONStringHandler)
+    def strD(k: String)                        = strO(k) getOrElse ""
+    def int(k: String)                         = get[Int](k)
+    def intO(k: String)                        = getO[Int](k)
+    def intD(k: String)                        = intO(k) getOrElse 0
+    def double(k: String)                      = get[Double](k)
+    def doubleO(k: String)                     = getO[Double](k)
+    def floatO(k: String)                      = getO[Float](k)
     def bool(k: String)                        = get[Boolean](k)
     def boolO(k: String)                       = getO[Boolean](k)
     def boolD(k: String)                       = boolO(k) getOrElse false

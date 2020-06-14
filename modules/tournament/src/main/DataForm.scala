@@ -32,6 +32,7 @@ final class DataForm {
       conditions = Condition.DataForm.AllSetup.default,
       teamBattleByTeam = teamBattleId,
       berserkable = true.some,
+      streakable = true.some,
       description = none,
       hasChat = true.some
     )
@@ -52,6 +53,7 @@ final class DataForm {
       conditions = Condition.DataForm.AllSetup(tour.conditions),
       teamBattleByTeam = none,
       berserkable = tour.berserkable.some,
+      streakable = tour.streakable.some,
       description = tour.description,
       hasChat = tour.hasChat.some
     )
@@ -90,6 +92,7 @@ final class DataForm {
         "conditions"       -> Condition.DataForm.all,
         "teamBattleByTeam" -> optional(nonEmptyText),
         "berserkable"      -> optional(boolean),
+        "streakable"       -> optional(boolean),
         "description"      -> optional(nonEmptyText),
         "hasChat"          -> optional(boolean)
       )(TournamentSetup.apply)(TournamentSetup.unapply)
@@ -118,7 +121,7 @@ object DataForm {
   val clockIncrementDefault = 0
   val clockIncrementChoices = options(clockIncrements, "%d second{s}")
 
-  val minutes       = (20 to 60 by 5) ++ (70 to 120 by 10) ++ (150 to 360 by 30)
+  val minutes       = (20 to 60 by 5) ++ (70 to 120 by 10) ++ (150 to 360 by 30) ++ (420 to 600 by 60) :+ 720
   val minuteDefault = 45
   val minuteChoices = options(minutes, "%d minute{s}")
 
@@ -159,6 +162,7 @@ private[tournament] case class TournamentSetup(
     conditions: Condition.DataForm.AllSetup,
     teamBattleByTeam: Option[String],
     berserkable: Option[Boolean],
+    streakable: Option[Boolean],
     description: Option[String],
     hasChat: Option[Boolean]
 ) {
@@ -176,7 +180,7 @@ private[tournament] case class TournamentSetup(
       lila.game.Game.allowRated(realVariant, clockConfig.some)
 
   def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
-  def excessiveDuration  = estimateNumberOfGamesOneCanPlay <= 70
+  def excessiveDuration  = estimateNumberOfGamesOneCanPlay <= 150
 
   def isPrivate = password.isDefined || conditions.teamMember.isDefined
 

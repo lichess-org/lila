@@ -2,7 +2,7 @@
 <resources>
   <string name="private">Privado</string>
   <string name="myStudies">Meus estudos</string>
-  <string name="studiesIContributeTo">Estudos para os quais contribui</string>
+  <string name="studiesIContributeTo">Estudos para os quais contribuí</string>
   <string name="myPublicStudies">Meus estudos públicos</string>
   <string name="myPrivateStudies">Meus estudos privados</string>
   <string name="myFavoriteStudies">Meus estudos favoritos</string>
@@ -58,14 +58,15 @@
   <string name="shareAndExport">Compartilhar &amp; exportar</string>
   <string name="cloneStudy">Duplicar</string>
   <string name="studyPgn">PGN de estudo</string>
+  <string name="downloadAllGames">Baixar todas as partidas</string>
   <string name="chapterPgn">PGN do capítulo</string>
+  <string name="downloadGame">Baixar partida</string>
   <string name="studyUrl">URL de estudo</string>
+  <string name="broadcastUrl">URL de transmissão</string>
   <string name="currentChapterUrl">URL atual do capítulo</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Você pode colar isso no fórum para mostrar o capítulo</string>
+  <string name="currentGameUrl">URL da partida atual</string>
   <string name="startAtInitialPosition">Reiniciar</string>
   <string name="startAtX">Começa em %s</string>
-  <string name="embedThisChapter">Mostre este capítulo no seu site ou blog</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Leia mais sobre como mostrar um capítulo de estudo como mídia</string>
   <string name="open">Abertura</string>
   <string name="xBroughtToYouByY">%1$s adquirido para você por %2$s</string>
   <string name="studyNotFound">Estudo não encontrado</string>

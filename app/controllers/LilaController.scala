@@ -558,7 +558,7 @@ abstract private[controllers] class LilaController(val env: Env)
       case Some(d) =>
         env.mod.impersonate.impersonating(d.user) map {
           _.fold[RestoredUser](d.some -> None) { impersonated =>
-            FingerPrintedUser(impersonated, FingerHash.impersonate.some).some -> d.user.some
+            FingerPrintedUser(impersonated, true).some -> d.user.some
           }
         }
     }

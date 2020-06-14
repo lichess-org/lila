@@ -4,15 +4,51 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.{ BSONHandler, Macros }
 import reactivemongo.api.ReadPreference
+import scala.concurrent.duration._
+import scala.concurrent.blocking
 import scala.util.Random
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl._
 import lila.user.User
 
-final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurrent.ExecutionContext) {
+final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddress)(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
 
   import Store._
+
+  private val authCache = cacheApi[String, Option[AuthInfo]](32768, "security.authCache") {
+    _.expireAfterAccess(5 minutes)
+      .maximumSize(65536)
+      .buildAsyncFuture[String, Option[AuthInfo]] { id =>
+        coll
+          .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)
+          .one[Bdoc]
+          .map {
+            _.flatMap { doc =>
+              if (doc.getAsOpt[DateTime]("date").fold(true)(_ isBefore DateTime.now.minusHours(12)))
+                coll.updateFieldUnchecked($id(id), "date", DateTime.now)
+              doc.getAsOpt[User.ID]("user") map { AuthInfo(_, doc.contains("fp")) }
+            }
+          }
+      }
+  }
+
+  def authInfo(sessionId: String) = authCache get sessionId
+
+  private val authInfoProjection = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
+  private def uncache(sessionId: String) =
+    blocking { blockingUncache(sessionId) }
+  private def uncacheAllOf(userId: User.ID): Funit =
+    coll.distinctEasy[String, Seq]("_id", $doc("user" -> userId)) map { ids =>
+      blocking {
+        ids foreach blockingUncache
+      }
+    }
+  // blocks loading values! https://github.com/ben-manes/caffeine/issues/148
+  private def blockingUncache(sessionId: String) =
+    authCache.underlying.synchronous.invalidate(sessionId)
 
   def save(
       sessionId: String,
@@ -41,39 +77,13 @@ final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurr
       )
       .void
 
-  private val userIdFingerprintProjection = $doc(
-    "user" -> true,
-    "fp"   -> true,
-    "date" -> true,
-    "_id"  -> false
-  )
-
-  def userId(sessionId: String): Fu[Option[User.ID]] =
-    coll.primitiveOne[User.ID]($doc("_id" -> sessionId, "up" -> true), "user")
-
-  case class UserIdAndFingerprint(user: User.ID, fp: Option[FingerHash], date: DateTime) {
-    def isOld = date isBefore DateTime.now.minusHours(12)
-  }
-  implicit private val UserIdAndFingerprintBSONReader = Macros.reader[UserIdAndFingerprint]
-
-  def userIdAndFingerprint(sessionId: String): Fu[Option[UserIdAndFingerprint]] =
-    coll
-      .find(
-        $doc("_id" -> sessionId, "up" -> true),
-        userIdFingerprintProjection.some
-      )
-      .one[UserIdAndFingerprint]
-
-  def setDateToNow(sessionId: String): Unit =
-    coll.updateFieldUnchecked($id(sessionId), "date", DateTime.now)
-
   def delete(sessionId: String): Funit =
     coll.update
       .one(
         $id(sessionId),
         $set("up" -> false)
       )
-      .void
+      .void >>- uncache(sessionId)
 
   def closeUserAndSessionId(userId: User.ID, sessionId: String): Funit =
     coll.update
@@ -81,7 +91,7 @@ final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurr
         $doc("user" -> userId, "_id" -> sessionId, "up" -> true),
         $set("up"   -> false)
       )
-      .void
+      .void >>- uncache(sessionId)
 
   def closeUserExceptSessionId(userId: User.ID, sessionId: String): Funit =
     coll.update
@@ -90,7 +100,7 @@ final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurr
         $set("up"   -> false),
         multi = true
       )
-      .void
+      .void >> uncacheAllOf(userId)
 
   def closeAllSessionsOf(userId: User.ID): Funit =
     coll.update
@@ -99,18 +109,7 @@ final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurr
         $set("up"   -> false),
         multi = true
       )
-      .void
-
-  // useful when closing an account,
-  // we want to logout too
-  def disconnect(userId: User.ID): Funit =
-    coll.update
-      .one(
-        $doc("user" -> userId),
-        $set("up"   -> false),
-        multi = true
-      )
-      .void
+      .void >> uncacheAllOf(userId)
 
   implicit private val UserSessionBSONHandler = Macros.handler[UserSession]
   def openSessions(userId: User.ID, nb: Int): Fu[List[UserSession]] =
@@ -124,8 +123,15 @@ final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurr
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
     FingerHash(fp) match {
-      case None       => fufail(s"Can't hash $id's fingerprint $fp")
-      case Some(hash) => coll.updateField($id(id), "fp", hash) inject hash
+      case None => fufail(s"Can't hash $id's fingerprint $fp")
+      case Some(hash) =>
+        coll.updateField($id(id), "fp", hash) >>- {
+          authInfo(id) foreach {
+            _ foreach { i =>
+              authCache.put(id, fuccess(i.copy(hasFp = true).some))
+            }
+          }
+        } inject hash
     }
 
   def chronoInfoByUser(user: User): Fu[List[Info]] =
@@ -133,12 +139,12 @@ final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurr
       .find(
         $doc(
           "user" -> user.id,
-          "date" $gt user.createdAt
+          "date" $gt (user.createdAt atLeast DateTime.now.minusYears(1))
         ),
         $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
       )
       .sort($sort desc "date")
-      .list[Info]()(InfoReader)
+      .list[Info](1000)(InfoReader)
 
   // remains of never-confirmed accounts that got cleaned up
   private[security] def deletePreviousSessions(user: User) =
@@ -158,21 +164,26 @@ final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurr
         )
       )
       .sort($doc("date" -> -1))
-      .cursor[DedupInfo]()
-      .gather[List]() flatMap { sessions =>
-      val olds = sessions
-        .groupBy(_.compositeKey)
-        .values
-        .map(_ drop 1)
-        .flatten
-        .filter(_._id != keepSessionId)
-      coll.delete.one($inIds(olds.map(_._id))).void
-    }
+      .list[DedupInfo]()
+      .flatMap { sessions =>
+        val olds = sessions
+          .groupBy(_.compositeKey)
+          .view
+          .values
+          .map(_ drop 1)
+          .flatten
+          .filter(_._id != keepSessionId)
+          .map(_._id)
+        coll.delete.one($inIds(olds)).void
+      } >> uncacheAllOf(userId)
 
   implicit private val IpAndFpReader = Macros.reader[IpAndFp]
 
   def ipsAndFps(userIds: List[User.ID], max: Int = 100): Fu[List[IpAndFp]] =
     coll.ext.find($doc("user" $in userIds)).list[IpAndFp](max, ReadPreference.secondaryPreferred)
+
+  def ips(user: User): Fu[Set[IpAddress]] =
+    coll.distinctEasy[IpAddress, Set]("ip", $doc("user" -> user.id))
 
   private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
     coll.secondaryPreferred.exists(
@@ -188,10 +199,6 @@ final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurr
 }
 
 object Store {
-
-  case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {
-    def compare(other: Dated[V]) = other.date compareTo date
-  }
 
   case class Info(ip: IpAddress, ua: String, fp: Option[FingerHash], date: DateTime) {
     def datedIp = Dated(ip, date)

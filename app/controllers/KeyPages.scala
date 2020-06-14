@@ -11,10 +11,16 @@ import views._
 final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def home(status: Results.Status)(implicit ctx: Context): Fu[Result] =
+    homeHtml
+      .dmap { html =>
+        env.lilaCookie.ensure(ctx.req)(status(html))
+      }
+
+  def homeHtml(implicit ctx: Context): Fu[Frag] =
     env
       .preloader(
         posts = env.forum.recent(ctx.me, env.team.cached.teamIdsList).nevermind,
-        tours = env.tournament.cached.promotable.getUnit.nevermind,
+        tours = env.tournament.cached.onHomepage.getUnit.nevermind,
         events = env.event.api.promoteTo(ctx.req).nevermind,
         simuls = env.simul.allCreatedFeaturable.get {}.nevermind
       )
@@ -23,9 +29,6 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
         lila.mon.chronoSync(_.lobby segment "renderSync") {
           html.lobby.home(h)
         }
-      }
-      .dmap { (html: Frag) =>
-        env.lilaCookie.ensure(ctx.req)(status(html))
       }
 
   def notFound(ctx: Context): Result = {

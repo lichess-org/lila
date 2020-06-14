@@ -51,7 +51,7 @@ final class Env(
 
   lazy val userSpy = wire[UserSpyApi]
 
-  lazy val store = new Store(db(config.collection.security), net.ip)
+  lazy val store = new Store(db(config.collection.security), cacheApi, net.ip)
 
   lazy val ip2proxy = {
     def mk = (url: String) => wire[Ip2Proxy]

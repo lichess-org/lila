@@ -84,7 +84,7 @@ object String {
         escapeHtmlRaw(s)
       }
     def unescapeHtml(html: String): String =
-      org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4(html)
+      org.apache.commons.text.StringEscapeUtils.unescapeHtml4(html)
 
     def markdownLinks(text: String): Frag =
       raw {
@@ -110,4 +110,9 @@ object String {
       }
     }
   }
+
+  private val prizeRegex =
+    """(?i)(prize|\$|€|£|¥|₽|元|₹|₱|₿|rupee|rupiah|ringgit|usd|dollar|paypal|cash|award|\bfees?\b)""".r.unanchored
+
+  def looksLikePrize(txt: String) = prizeRegex matches txt
 }

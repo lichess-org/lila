@@ -60,9 +60,11 @@ final class PimpedConfig(private val config: Config) extends AnyVal {
 }
 
 final class PimpedDateTime(private val date: DateTime) extends AnyVal {
-  def getSeconds: Long = date.getMillis / 1000
-  def getCentis: Long  = date.getMillis / 10
-  def toNow            = new Duration(date, DateTime.now)
+  def getSeconds: Long         = date.getMillis / 1000
+  def getCentis: Long          = date.getMillis / 10
+  def toNow                    = new Duration(date, DateTime.now)
+  def atMost(other: DateTime)  = if (other isBefore date) other else date
+  def atLeast(other: DateTime) = if (other isAfter date) other else date
 }
 
 final class PimpedValid[A](private val v: Valid[A]) extends AnyVal {

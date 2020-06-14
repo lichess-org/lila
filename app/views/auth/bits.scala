@@ -22,7 +22,9 @@ object bits {
           p(cls := "error username-exists none")(trans.usernameAlreadyUsed())
         )
       },
-      form3.passwordModified(password, trans.password())(autocomplete := (if (register) "new-password" else "current-password")),
+      form3.passwordModified(password, trans.password())(
+        autocomplete := (if (register) "new-password" else "current-password")
+      ),
       emailOption.map { email =>
         form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
           form3.input(_, typ = "email")(required)
@@ -83,8 +85,13 @@ object bits {
         ),
         postForm(cls := "form3", action := routes.Auth.passwordResetConfirmApply(token))(
           form3.hidden(form("token")),
-          form3.passwordModified(form("newPasswd1"), trans.newPassword())(autofocus, autocomplete := "new-password"),
-          form3.passwordModified(form("newPasswd2"), trans.newPasswordAgain())(autocomplete := "new-password"),
+          form3.passwordModified(form("newPasswd1"), trans.newPassword())(
+            autofocus,
+            autocomplete := "new-password"
+          ),
+          form3.passwordModified(form("newPasswd2"), trans.newPasswordAgain())(
+            autocomplete := "new-password"
+          ),
           form3.globalError(form),
           form3.action(form3.submit(trans.changePassword()))
         )
@@ -108,7 +115,9 @@ object bits {
         ),
         p("We will send you an email containing a link to log you in."),
         postForm(cls := "form3", action := routes.Auth.magicLinkApply)(
-          form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(autofocus, autocomplete := "email")),
+          form3.group(form("email"), trans.email())(
+            form3.input(_, typ = "email")(autofocus, autocomplete := "email")
+          ),
           views.html.base.captcha(form, captcha),
           form3.action(form3.submit(trans.emailMeALink()))
         )

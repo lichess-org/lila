@@ -63,6 +63,7 @@ object side {
         tour.description map { d =>
           st.section(cls := "description")(richText(d))
         },
+        tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
         verdicts.relevant option st.section(
           dataIcon := "7",
           cls := List(
@@ -89,6 +90,7 @@ object side {
           )
         ),
         tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
+        tour.noStreak option div(cls := "text", dataIcon := "Q")("No Arena streaks"),
         !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
         (!tour.isStarted || (tour.isScheduled && !tour.position.initial)) option absClientDateTime(
           tour.startsAt

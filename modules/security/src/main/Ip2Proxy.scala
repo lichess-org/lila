@@ -37,7 +37,7 @@ final class Ip2Proxy(
       }
 
   private def batch(ips: Seq[IpAddress]): Fu[Seq[Boolean]] =
-    ips match {
+    ips.take(50) match { // 50 * ipv6 length < max url length
       case Nil      => fuccess(Seq.empty[Boolean])
       case List(ip) => apply(ip).dmap(Seq(_))
       case ips =>
@@ -69,7 +69,8 @@ final class Ip2Proxy(
   private val cache: AsyncLoadingCache[IpAddress, Boolean] = cacheApi.scaffeine
     .expireAfterWrite(1 days)
     .buildAsyncFuture { ip =>
-      ws.url(checkUrl)
+      checkUrl.nonEmpty ?? ws
+        .url(checkUrl)
         .addQueryStringParameters("ip" -> ip.value)
         .get()
         .withTimeout(2 seconds)

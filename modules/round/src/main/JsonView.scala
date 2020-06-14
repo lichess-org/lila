@@ -265,7 +265,7 @@ final class JsonView(
   }
 
   private def blurs(game: Game, player: lila.game.Player) =
-    !player.blurs.isEmpty option {
+    player.blurs.nonEmpty option {
       blursWriter.writes(player.blurs) +
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
     }

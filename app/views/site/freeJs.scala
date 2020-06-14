@@ -30,7 +30,8 @@ object freeJs {
     "speech",
     "tournamentCalendar",
     "tournament",
-    "tournamentSchedule"
+    "tournamentSchedule",
+    "swiss"
   )
 
   def apply(): Frag =

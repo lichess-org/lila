@@ -6,8 +6,8 @@ import play.api.data.Form
 
 import lila.db.dsl._
 
-final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(
-    implicit ec: scala.concurrent.ExecutionContext,
+final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: lila.log.Logger)(implicit
+    ec: scala.concurrent.ExecutionContext,
     loader: ConfigLoader[A]
 ) {
 
@@ -40,10 +40,11 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
 
   def rawText: Fu[Option[String]] = coll.primitiveOne[String]($id(id), mongoDocKey)
 
-  def set(text: String): Either[List[String], Funit] = parse(text) map { a =>
-    coll.update.one($id(id), $doc(mongoDocKey -> text), upsert = true).void >>-
-      cache.put((), fuccess(a.some))
-  }
+  def set(text: String): Either[List[String], Funit] =
+    parse(text) map { a =>
+      coll.update.one($id(id), $doc(mongoDocKey -> text), upsert = true).void >>-
+        cache.put((), fuccess(a.some))
+    }
 
   def makeForm: Fu[Form[String]] = {
     import play.api.data.Forms._
@@ -66,8 +67,8 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
 
 object ConfigStore {
 
-  final class Builder(db: lila.db.Db, config: MemoConfig, cacheApi: CacheApi)(
-      implicit ec: scala.concurrent.ExecutionContext
+  final class Builder(db: lila.db.Db, config: MemoConfig, cacheApi: CacheApi)(implicit
+      ec: scala.concurrent.ExecutionContext
   ) {
     private val coll = db(config.configColl)
 

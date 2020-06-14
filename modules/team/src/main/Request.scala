@@ -17,9 +17,9 @@ case class Request(
 
 object Request {
 
-  def makeId(team: String, user: String) = user + "@" + team
+  def makeId(team: Team.ID, user: User.ID) = s"$user@$team"
 
-  def make(team: String, user: String, message: String): Request =
+  def make(team: Team.ID, user: User.ID, message: String): Request =
     new Request(
       _id = makeId(team, user),
       user = user,

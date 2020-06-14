@@ -3,10 +3,13 @@ window.fipr=function(){"use strict";var l=function(e,t){e=[e[0]>>>16,65535&e[0],
 
 (window.requestIdleCallback || window.setTimeout).bind(window)(() => {
   const t = performance.now()
-  fipr.get(c => {
-    const hash = fipr.x64hash128(c.map(x => x.value).join(''), 31);
+  const storage = lichess.storage.make('fipr');
+  const send = hash => {
+    storage.set(hash);
     const $i = $('#signup-fp-input');
     if ($i.length) $i.val(hash);
     else $.post('/auth/set-fp/' + hash + '/' + Math.round(performance.now() - t));
-  });
+  };
+  if (storage.get()) send(storage.get());
+  else fipr.get(c => send(fipr.x64hash128(c.map(x => x.value).join(''), 31)));
 });

@@ -13,7 +13,7 @@ trait TeamHelper { self: HasEnv =>
   def myTeam(teamId: String)(implicit ctx: Context): Boolean =
     ctx.userId.?? { env.team.api.syncBelongsTo(teamId, _) }
 
-  def teamIdToName(id: String): Frag = StringFrag(env.team.getTeamName(id).getOrElse(id))
+  def teamIdToName(id: String): String = env.team.getTeamName(id).getOrElse(id)
 
   def teamLink(id: String, withIcon: Boolean = true): Tag =
     teamLink(id, teamIdToName(id), withIcon)

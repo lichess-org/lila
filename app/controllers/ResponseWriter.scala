@@ -12,11 +12,6 @@ trait ResponseWriter {
   implicit def ctoUnit: ContentTypeOf[Unit] =
     ContentTypeOf[Unit](Some(ContentTypes.TEXT))
 
-  implicit def wFloat(implicit codec: Codec): Writeable[Float] =
-    Writeable[Float]((f: Float) => codec encode f.toString)
-  implicit def ctoFloat: ContentTypeOf[Float] =
-    ContentTypeOf[Float](Some(ContentTypes.TEXT))
-
   implicit def wLong(implicit codec: Codec): Writeable[Long] =
     Writeable[Long]((a: Long) => codec encode a.toString)
   implicit def ctoLong: ContentTypeOf[Long] =

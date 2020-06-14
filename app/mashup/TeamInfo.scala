@@ -33,7 +33,9 @@ object TeamInfo {
   def anyTour(tour: Tournament) = AnyTour(Left(tour))
   def anyTour(swiss: Swiss)     = AnyTour(Right(swiss))
 
-  case class PastAndNext(past: List[AnyTour], next: List[AnyTour])
+  case class PastAndNext(past: List[AnyTour], next: List[AnyTour]) {
+    def nonEmpty = past.nonEmpty || next.nonEmpty
+  }
 }
 
 final class TeamInfoApi(
@@ -53,7 +55,7 @@ final class TeamInfoApi(
       mine          <- me.??(m => api.belongsTo(team.id, m.id))
       requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
       forumPosts    <- forumRecent.team(team.id)
-      tours         <- tournaments(team, 0, 5)
+      tours         <- tournaments(team, 5, 5)
     } yield TeamInfo(
       mine = mine,
       ledByMe = me.exists(m => team.leaders(m.id)),

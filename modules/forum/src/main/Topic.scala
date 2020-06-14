@@ -7,7 +7,7 @@ import scala.util.chaining._
 import lila.user.User
 
 case class Topic(
-    _id: String,
+    _id: Topic.ID,
     categId: String,
     slug: String,
     name: String,
@@ -56,6 +56,8 @@ case class Topic(
 }
 
 object Topic {
+
+  type ID = String
 
   def nameToId(name: String) =
     (lila.common.String slugify name) pipe { slug =>

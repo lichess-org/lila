@@ -20,8 +20,8 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         import Entry.{ BSONFields => F }
         import Storage._
 
-        val sampleGames    = Sample(10_1000)
-        val sampleMoves    = Sample(200_1000).some
+        val sampleGames    = Sample(10_000)
+        val sampleMoves    = Sample(200_000).some
         val unwindMoves    = UnwindField(F.moves).some
         val sortNb         = Sort(Descending("nb")).some
         def limit(nb: Int) = Limit(nb).some
@@ -59,10 +59,24 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             }
           )
         )
+        lazy val timeVarianceIdDispatcher =
+          TimeVariance.all.reverse
+            .drop(1)
+            .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)) {
+              case (acc, tvi) =>
+                $doc(
+                  "$cond" -> $arr(
+                    $doc("$lte" -> $arr("$" + F.moves("v"), tvi.intFactored)),
+                    tvi.intFactored,
+                    acc
+                  )
+                )
+            }
         def dimensionGroupId(dim: Dimension[_]): BSONValue =
           dim match {
             case Dimension.MovetimeRange => movetimeIdDispatcher
             case Dimension.MaterialRange => materialIdDispatcher
+            case Dimension.TimeVariance  => timeVarianceIdDispatcher
             case d                       => BSONString("$" + d.dbKey)
           }
         sealed trait Grouping
@@ -134,7 +148,10 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         def matchMoves(extraMatcher: Bdoc = $empty) =
           combineDocs(extraMatcher :: question.filters.collect {
             case f if f.dimension.isInMove => f.matcher
-          }).some.filterNot(_.isEmpty) map Match
+          } ::: (dimension match {
+            case D.TimeVariance => List($doc(F.moves("v") $exists true))
+            case _              => Nil
+          })).some.filterNot(_.isEmpty) map Match
         def projectForMove =
           Project(BSONDocument({
             metric.dbKey :: dimension.dbKey :: filters.collect {
@@ -142,7 +159,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             }
           }.distinct.map(_ -> BSONBoolean(true)))).some
 
-        Match(
+        val pipeline = Match(
           selectUserId(user.id) ++
             gameMatcher ++
             (dimension == Dimension.Opening).??($doc(F.eco $exists true)) ++
@@ -174,7 +191,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
               List(
                 projectForMove,
                 unwindMoves,
-                matchMoves($doc(F.moves("o") -> $doc("$exists" -> true))),
+                matchMoves($doc(F.moves("o") $exists true)),
                 sampleMoves
               ) :::
                 group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("o"), 1, 0)))) :::
@@ -187,6 +204,15 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                 sampleMoves
               ) :::
                 group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("l"), 1, 0)))) :::
+                List(AddFields(gameIdsSlice ++ toPercent).some)
+            case M.Blurs =>
+              List(
+                projectForMove,
+                unwindMoves,
+                matchMoves(),
+                sampleMoves
+              ) :::
+                group(dimension, GroupFunction("$push", $doc("$cond" -> $arr("$" + F.moves("b"), 1, 0)))) :::
                 List(AddFields(gameIdsSlice ++ toPercent).some)
             case M.NbMoves =>
               List(
@@ -240,11 +266,27 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
                 sampleMoves
               ) :::
                 groupMulti(dimension, F.moves("r"))
+            case M.TimeVariance =>
+              List(
+                projectForMove,
+                unwindMoves,
+                matchMoves($doc(F.moves("v") $exists true)),
+                sampleMoves
+              ) :::
+                group(
+                  dimension,
+                  GroupFunction(
+                    "$avg",
+                    $doc("$divide" -> $arr("$" + F.moves("v"), TimeVariance.intFactor))
+                  )
+                ) :::
+                List(includeSomeGameIds.some)
           }) ::: (dimension match {
             case D.Opening => List(sortNb, limit(12))
             case _         => Nil
           })).flatten
         }
+        pipeline
       }
     }
 }

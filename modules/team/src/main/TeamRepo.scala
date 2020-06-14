@@ -19,13 +19,6 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def enabled(id: Team.ID) = coll.one[Team]($id(id) ++ enabledSelect)
 
-  def enabledTeamIdsByLeader(userId: User.ID): Fu[List[Team.ID]] =
-    coll.distinctEasy[Team.ID, List](
-      "_id",
-      $doc("leaders" -> userId) ++ enabledSelect,
-      ReadPreference.secondaryPreferred
-    )
-
   def byIdsSortPopular(ids: Seq[Team.ID]): Fu[List[Team]] =
     coll.ext
       .find($inIds(ids))
@@ -38,11 +31,16 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .sort(sortPopular)
       .list[Team](100, ReadPreference.secondaryPreferred)
 
+  def enabledTeamIdsByLeader(userId: User.ID): Fu[List[Team.ID]] =
+    coll.ext
+      .primitive[Team.ID](
+        $doc("leaders" -> userId) ++ enabledSelect,
+        sortPopular,
+        "_id"
+      )
+
   def leadersOf(teamId: Team.ID): Fu[Set[User.ID]] =
     coll.primitiveOne[Set[User.ID]]($id(teamId), "leaders").dmap(~_)
-
-  def isLeader(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
-    coll.exists($id(teamId) ++ $doc("leaders" -> userId))
 
   def setLeaders(teamId: String, leaders: Set[User.ID]) =
     coll.updateField($id(teamId), "leaders", leaders)

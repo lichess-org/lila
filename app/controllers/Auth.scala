@@ -48,21 +48,18 @@ final class Auth(
 
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit
       ctx: Context
-  ): Fu[Result] = {
-    if (u.marks.ipban) fuccess(Redirect(routes.Lobby.home))
-    else
-      api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
-        negotiate(
-          html = fuccess {
-            val redirectTo = get("referrer").filter(goodReferrer) orElse
-              ctxReq.session.get(api.AccessUri) getOrElse
-              routes.Lobby.home.url
-            result.fold(Redirect(redirectTo))(_(redirectTo))
-          },
-          api = _ => mobileUserOk(u, sessionId)
-        ) map authenticateCookie(sessionId)
-      } recoverWith authRecovery
-  }
+  ): Fu[Result] =
+    api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
+      negotiate(
+        html = fuccess {
+          val redirectTo = get("referrer").filter(goodReferrer) orElse
+            ctxReq.session.get(api.AccessUri) getOrElse
+            routes.Lobby.home.url
+          result.fold(Redirect(redirectTo))(_(redirectTo))
+        },
+        api = _ => mobileUserOk(u, sessionId)
+      ) map authenticateCookie(sessionId)
+    } recoverWith authRecovery
 
   private def authenticateCookie(sessionId: String)(result: Result)(implicit req: RequestHeader) =
     result.withCookies(
@@ -385,12 +382,10 @@ final class Auth(
             HasherRateLimit(user.username, ctx.req) { _ =>
               env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
                 env.user.repo.setEmailConfirmed(user.id).flatMap {
-                  _ ?? { e =>
-                    welcome(user, e)
-                  }
+                  _ ?? { welcome(user, _) }
                 } >>
                 env.user.repo.disableTwoFactor(user.id) >>
-                env.security.store.disconnect(user.id) >>
+                env.security.store.closeAllSessionsOf(user.id) >>
                 env.push.webSubscriptionApi.unsubscribeByUser(user) >>
                 authenticateUser(user) >>-
                 lila.mon.user.auth.passwordResetConfirm("success").increment()

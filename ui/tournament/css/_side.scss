@@ -53,6 +53,13 @@
     max-height: 20vh;
     overflow-y: auto;
   }
+  .tour__prize {
+    @extend %box-radius;
+    padding: 1em;
+    background: mix($c-fancy, $c-bg-box, 15%);
+    margin-bottom: 1em;
+    font-size: .9em;
+  }
 }
 .chat__members {
   overflow: visible; /* fixes invisible spectators on firefox, col2 */

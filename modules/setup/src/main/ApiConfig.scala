@@ -31,6 +31,10 @@ final case class ApiConfig(
     }
 
   def mode = chess.Mode(rated)
+
+  def autoVariant =
+    if (variant.standard && position.exists(_.value != Forsyth.initial)) copy(variant = FromPosition)
+    else this
 }
 
 object ApiConfig extends BaseHumanConfig {
@@ -54,5 +58,5 @@ object ApiConfig extends BaseHumanConfig {
       color = Color.orDefault(~c),
       position = pos map FEN,
       acceptByToken = tok
-    )
+    ).autoVariant
 }

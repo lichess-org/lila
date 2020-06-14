@@ -40,6 +40,7 @@ class WebWorker extends AbstractWorker {
     this.worker.addEventListener('message', e => {
       protocol.received(e.data);
     }, true);
+    protocol.init();
     return Promise.resolve(protocol);
   }
 
@@ -67,23 +68,23 @@ class WebWorker extends AbstractWorker {
 }
 
 class ThreadedWasmWorker extends AbstractWorker {
-  static global: Promise<{instance: unknown, protocol: Protocol}>;
+  static global: Promise<{sf: unknown, protocol: Protocol}>;
 
-  private instance?: any;
+  private sf?: any;
 
   boot(): Promise<Protocol> {
-    if (!ThreadedWasmWorker.global) ThreadedWasmWorker.global = window.lichess.loadScript(this.url, {sameDomain: true}).then(() => {
-      const instance = this.instance = window['Stockfish'](),
-        protocol = new Protocol(this.send.bind(this), this.workerOpts),
-        listener = protocol.received.bind(protocol);
-      instance.addMessageListener(listener);
+    if (!ThreadedWasmWorker.global) ThreadedWasmWorker.global = window.lichess.loadScript(this.url, {sameDomain: true}).then(() => window['Stockfish']()).then(sf => {
+      this.sf = sf;
+      const protocol = new Protocol(this.send.bind(this), this.workerOpts);
+      sf.addMessageListener(protocol.received.bind(protocol));
+      protocol.init();
       return {
-        instance, // always wrap, in promise context (https://github.com/emscripten-core/emscripten/issues/5820)
+        sf,
         protocol
       };
     });
     return ThreadedWasmWorker.global.then(global => {
-      this.instance = global.instance;
+      this.sf = global.sf;
       return global.protocol;
     });
   }
@@ -96,7 +97,7 @@ class ThreadedWasmWorker extends AbstractWorker {
   }
 
   send(cmd: string) {
-    if (this.instance) this.instance.postMessage(cmd);
+    if (this.sf) this.sf.postMessage(cmd);
   }
 }
 

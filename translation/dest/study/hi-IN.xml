@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="private">निजी</string>
+  <string name="private">गोपनीय</string>
   <string name="myStudies">मेरे अध्ययन</string>
-  <string name="studiesIContributeTo">जिन अध्ययनों में मेरा योगदान है</string>
+  <string name="studiesIContributeTo">मेरे योगदान वाले अध्ययन</string>
   <string name="myPublicStudies">मेरे सार्वजनिक अध्ययन</string>
   <string name="myPrivateStudies">मेरे निजी अध्ययन</string>
   <string name="myFavoriteStudies">मेरे पसंदीदा अध्ययन</string>
@@ -31,10 +31,10 @@
   </plurals>
   <string name="inviteToTheStudy">अध्ययन के लिए आमंत्रित करें</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">कृपया केवल उन लोगों को आमंत्रित करें जिन्हें आप जानते हैं, और जो इस अध्ययन में सक्रिय रूप से शामिल होना चाहते हैं।</string>
-  <string name="searchByUsername">उपयोगकर्ता के नाम से खोजें</string>
+  <string name="searchByUsername">यूज़रनेम से खोजें</string>
   <string name="spectator">दर्शक</string>
-  <string name="contributor">सहयोगी</string>
-  <string name="kick">बाहर निकले</string>
+  <string name="contributor">योगदानकर्ता</string>
+  <string name="kick">बाहर निकालें</string>
   <string name="leaveTheStudy">अध्ययन छोड़े</string>
   <string name="youAreNowAContributor">अब आप एक योगदानकर्ता हैं</string>
   <string name="youAreNowASpectator">अब आप एक दर्शक हैं</string>
@@ -55,17 +55,17 @@
   <string name="previous">पिछला</string>
   <string name="next">अगला</string>
   <string name="last">अंतिम</string>
-  <string name="shareAndExport">बांटे &amp; भेजें</string>
+  <string name="shareAndExport">शेयर &amp; एक्सपोर्ट करें</string>
   <string name="cloneStudy">प्रतिलिपि</string>
   <string name="studyPgn">PGN का अध्ययन करें</string>
   <string name="chapterPgn">अध्याय PGN</string>
   <string name="studyUrl">अध्ययन का URL</string>
   <string name="currentChapterUrl">वर्तमान अध्याय URL</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">आप अध्याय को जोड़ने के लिए इसे फ़ोरम में लगा कर सकते हैं</string>
+  <string name="currentGameUrl">वर्तमान अध्याय URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">आप अध्याय को जोड़ने के लिए इसे फ़ोरम में जोर सकते हैं</string>
   <string name="startAtInitialPosition">प्रारंभिक स्थिति में शुरू करें</string>
   <string name="startAtX">%s से प्रारंभ करें</string>
-  <string name="embedThisChapter">इस अध्याय को अपनी वेबसाइट या ब्लॉग में जोड़े</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">एक अध्ययन अध्याय को जोड़ने के लिए और पढ़े</string>
+  <string name="embedInYourWebsite">अपनी वेबसाइट अथवा ब्लॉग पर प्रकाशित करें</string>
   <string name="open">खोलें</string>
   <string name="xBroughtToYouByY">%1$s, %2$s द्वारा आपके लिए</string>
   <string name="studyNotFound">अध्ययन नहीं मिला</string>

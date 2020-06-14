@@ -23,8 +23,7 @@
     "typescript": "^3"
   },
   "dependencies": {
-    "chess": "2.0.0",
-    "chessops": "^0.4.0",
+    "chessops": "^0.4.1",
     "common": "2.0.0",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   }

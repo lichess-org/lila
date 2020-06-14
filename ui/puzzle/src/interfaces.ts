@@ -4,7 +4,7 @@ import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode'
 import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
-import { Role } from 'chessground/types';
+import { Role, Move } from 'chessops/types';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -142,9 +142,7 @@ export interface Promotion {
 export type Lines = { [uci: string]: Lines } | 'fail' | 'win';
 
 export interface MoveTest {
-  orig: Key;
-  dest: Key;
-  promotion?: Role;
+  move: Move,
   fen: Fen;
   path: Tree.Path;
 }

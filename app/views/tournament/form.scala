@@ -39,7 +39,7 @@ object form {
             fieldset(cls := "conditions")(
               fields.advancedSettings,
               div(cls := "form")(
-                condition(form, fields, auto = true, teams = myTeams),
+                condition(form, fields, auto = true, teams = myTeams, tour = none),
                 fields.startDate
               )
             ),
@@ -84,7 +84,7 @@ object form {
             fieldset(cls := "conditions")(
               fields.advancedSettings,
               div(cls := "form")(
-                condition(form, fields, auto = true, teams = myTeams)
+                condition(form, fields, auto = true, teams = myTeams, tour = tour.some)
               )
             ),
             form3.actions(
@@ -106,13 +106,19 @@ object form {
       if (auto) form3.hidden(field) else visible(field)
     )
 
-  def condition(form: Form[_], fields: TourFields, auto: Boolean, teams: List[lila.hub.LightTeam])(implicit
+  def condition(
+      form: Form[_],
+      fields: TourFields,
+      auto: Boolean,
+      teams: List[lila.hub.LightTeam],
+      tour: Option[Tournament]
+  )(implicit
       ctx: Context
   ) =
     frag(
       form3.split(
         fields.password,
-        (auto && teams.size > 0) option {
+        (auto && tour.isEmpty && teams.size > 0) option {
           val baseField = form("conditions.teamMember.teamId")
           val field = ctx.req.queryString get "team" flatMap (_.headOption) match {
             case None       => baseField
@@ -181,7 +187,18 @@ object form {
           tpe := "hidden",
           st.name := form("hasChat").name,
           value := "false"
-        ) // hack to allow disabling chat
+        ), // hack to allow disabling chat
+        form3.checkbox(
+          form("streakable"),
+          frag("Arena streaks"),
+          help = frag("After 2 wins, consecutive wins grant 4 points instead of 2.").some,
+          half = true
+        ),
+        input(
+          tpe := "hidden",
+          st.name := form("streakable").name,
+          value := "false"
+        ) // hack to allow disabling streaks
       )
     )
 

@@ -65,6 +65,7 @@ Jen la ligo por aliri la klason.</string>
   <string name="progress">Progreso</string>
   <string name="noStudents">Ankoraŭ ne estas lernantoj en la klaso.</string>
   <string name="noRemovedStudents">Ne estas forigitaj lernantoj.</string>
+  <string name="overDays">Dum tagoj</string>
   <string name="timePlaying">Tempo pasita ludante</string>
   <string name="variantXOverLastY">%1$s sur la lastaj %2$s</string>
   <string name="winrate">Venka procento</string>

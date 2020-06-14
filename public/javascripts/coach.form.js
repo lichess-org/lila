@@ -21,9 +21,9 @@ $(function() {
     }, {
       html: 'Fill in basic information',
       check: function() {
-        ['profile.headline', 'profile.languages'].forEach(function(name) {
+        for (let name of ['profile.headline', 'languages']) {
           if (!$editor.find('[name="' + name + '"]').val()) return false;
-        });
+        }
         return true;
       }
     }, {
@@ -37,9 +37,7 @@ $(function() {
 
     return function() {
       var points = [];
-      must.forEach(function(o) {
-        if (!o.check()) points.push($('<li>').html(o.html));
-      });
+      for (let o of must) if (!o.check()) points.push($('<li>').html(o.html));
       $el.find('ul').html(points);
       var fail = !!points.length;
       $overview.toggleClass('with-todo', fail);

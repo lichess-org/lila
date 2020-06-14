@@ -5,7 +5,6 @@ import Game.BSONFields._
 import reactivemongo.api.bson._
 import scala.util.Try
 
-import Blurs.BlursBSONWriter
 import chess.Centis
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.ByteArray
@@ -104,7 +103,7 @@ object GameDiff {
       dOpt(s"$name$lastDrawOffer", player(_).lastDrawOffer, (l: Option[Int]) => l flatMap w.intO)
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
       dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, w.intO)
-      dTry(s"$name$blursBits", player(_).blurs, BlursBSONWriter.writeTry)
+      dTry(s"$name$blursBits", player(_).blurs, Blurs.BlursBSONHandler.writeTry)
     }
     dTry(movedAt, _.movedAt, BSONJodaDateTimeHandler.writeTry)
 

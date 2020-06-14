@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.CacheApi._
+import lila.common.Bus
 import lila.user.{ User, UserRepo }
 
 final class ReportApi(
@@ -66,8 +67,12 @@ final class ReportApi(
                 prev.exists(_.score.value < thresholds.slack())
               ) slackApi.commReportBurst(c.suspect.user)
               coll.update.one($id(report.id), report, upsert = true).void >>
-                autoAnalysis(candidate)
-            } >>- nbOpenCache.invalidateUnit
+                autoAnalysis(candidate) >>- {
+                if (report.isCheat)
+                  Bus.publish(lila.hub.actorApi.report.CheatReportCreated(report.user), "cheatReport")
+              }
+            } >>-
+            nbOpenCache.invalidateUnit
       }
     }
 
@@ -228,9 +233,11 @@ final class ReportApi(
       case _ => funit
     }
 
+  def byId(id: Report.ID) = coll.byId[Report](id)
+
   def process(mod: Mod, reportId: Report.ID): Funit =
     for {
-      report  <- coll.byId[Report](reportId) orFail s"no such report $reportId"
+      report  <- byId(reportId) orFail s"no such report $reportId"
       suspect <- getSuspect(report.user) orFail s"No such suspect $report"
       rooms = Set(Room(report.reason))
       res <- process(mod, suspect, rooms, reportId.some)

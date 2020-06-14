@@ -1,13 +1,14 @@
 package lila.setup
 
 import chess.Clock
-import chess.format.FEN
+import chess.format.{ FEN, Forsyth }
+import chess.variant.{ FromPosition, Variant }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
 
 final case class ApiAiConfig(
-    variant: chess.variant.Variant,
+    variant: Variant,
     clock: Option[Clock.Config],
     daysO: Option[Int],
     color: Color,
@@ -55,6 +56,10 @@ final case class ApiAiConfig(
     } start
 
   def pov(user: Option[User]) = Pov(game(user), creatorColor)
+
+  def autoVariant =
+    if (variant.standard && fen.exists(_.value != Forsyth.initial)) copy(variant = FromPosition)
+    else this
 }
 
 object ApiAiConfig extends BaseConfig {
@@ -76,5 +81,5 @@ object ApiAiConfig extends BaseConfig {
       color = Color.orDefault(~c),
       level = l,
       fen = pos map FEN
-    )
+    ).autoVariant
 }

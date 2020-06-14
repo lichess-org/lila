@@ -17,13 +17,6 @@ final class PlayApi(
 
   implicit private def autoReqLang(implicit req: RequestHeader) = reqLang(req)
 
-  private val BotGameStreamConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
-    name = "Bot game API concurrency per user",
-    key = "botGame.concurrency.limit.user",
-    ttl = 20.minutes,
-    maxConcurrency = 8
-  )
-
   // bot endpoints
 
   def botGameStream(id: String) =
@@ -45,7 +38,10 @@ final class PlayApi(
             case _ =>
               env.user.repo.setBot(me) >>
                 env.pref.api.setBot(me) >>-
-                env.user.lightUserApi.invalidate(me.id) pipe toResult
+                env.user.lightUserApi.invalidate(me.id) pipe
+                toResult recover {
+                case lila.base.LilaInvalid(msg) => BadRequest(jsonError(msg))
+              }
           }
         case _ => impl.command(me, cmd)(WithPovAsBot)
       }
@@ -60,9 +56,8 @@ final class PlayApi(
 
   def boardMove(id: String, uci: String, offeringDraw: Option[Boolean]) =
     Scoped(_.Board.Play) { _ => me =>
-      WithPovAsBoard(id, me) { pov =>
-        env.slack.api.boardApiMove(pov.fullId, me)
-        impl.move(me, pov, uci, offeringDraw)
+      WithPovAsBoard(id, me) {
+        impl.move(me, _, uci, offeringDraw)
       }
     }
 
@@ -76,9 +71,7 @@ final class PlayApi(
 
     def gameStream(me: UserModel, pov: Pov)(implicit lang: Lang) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
-        BotGameStreamConcurrencyLimitPerUser(me.id)(
-          env.bot.gameStateStream(wf, pov.color, me)
-        )(apiC.sourceToNdJsonOption)
+        apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color, me))
       }
 
     def move(me: UserModel, pov: Pov, uci: String, offeringDraw: Option[Boolean]) =
