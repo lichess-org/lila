@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Команда</string>
   <string name="teams">Команди</string>
   <plurals name="nbMembers">
     <item quantity="one">%s користувачів</item>
@@ -18,4 +19,6 @@
   <string name="joiningPolicy">Правила приєднання</string>
   <string name="teamBestPlayers">Найліпші гравці команди</string>
   <string name="teamRecentMembers">Нові гравці команди</string>
+  <string name="kickSomeone">Виключити когось з команди</string>
+  <string name="whoToKick">Кого ти хочеш виключити з команди?</string>
 </resources>
