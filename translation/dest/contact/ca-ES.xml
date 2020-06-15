@@ -37,4 +37,15 @@
   <string name="doNotReportInForum">No denunciar jugadors al forum.</string>
   <string name="doNotSendReportEmails">No ens enviïs correus denunciant jugadors.</string>
   <string name="doNotMessageModerators">No envieu missatges directes als moderadors.</string>
+  <string name="onlyReports">Només denunciar jugadors mitjançant el formulari de denuncies és efectiu.</string>
+  <string name="wantReportBug">Vull reportar un error</string>
+  <string name="reportBugInForum">A la secció de Comentaris sobre Lichess al forum</string>
+  <string name="reportWebsiteIssue">Com un problema del lloc web de Lichess a Github</string>
+  <string name="reportMobileIssue">Com un problema de l\'aplicació mòbil a Github</string>
+  <string name="reportBugInDiscord">Al servidor Discord de Lichess</string>
+  <string name="illegalPawnCapture">Captura de peo il·legal</string>
+  <string name="errorPage">Pàgina d\'error</string>
+  <string name="buyingLichess">Comprar Lichess</string>
+  <string name="authorizationToUse">Autorització per fer servir Lichess</string>
+  <string name="noneOfTheAbove">Cap de les anteriors</string>
 </resources>
