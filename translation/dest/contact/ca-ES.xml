@@ -31,4 +31,10 @@
   <string name="sandbagging">perdre deliberadament</string>
   <string name="trolling">ser molest</string>
   <string name="insults">insults</string>
+  <string name="otherReason">algun altre motiu</string>
+  <string name="toReportAPlayer">Per denunciar un usuari per %s, fes servir el formulari de denucies</string>
+  <string name="youCanAlsoReachReportPage">També podeu arribar a aquesta pàgina si feu clic al botó de denuncies per %s en una pàgina de perfil.</string>
+  <string name="doNotReportInForum">No denunciar jugadors al forum.</string>
+  <string name="doNotSendReportEmails">No ens enviïs correus denunciant jugadors.</string>
+  <string name="doNotMessageModerators">No envieu missatges directes als moderadors.</string>
 </resources>
