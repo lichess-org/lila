@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Torneios de Arena</string>
+  <string name="arenaTournaments">Torneios em arena</string>
   <string name="isItRated">É por pontos?</string>
   <string name="willBeNotified">Serás notificado quando o torneio começar, por isso é seguro jogares noutro separador enquanto esperas.</string>
   <string name="isRated">Este torneio é por pontos e afetará a tua pontuação.</string>
@@ -13,14 +13,14 @@ Nos jogos seguintes continuarás a receber o dobro dos pontos até perderes algu
 Isto é, uma vitória valerá 4 pontos, um empate 2 pontos, e uma derrota não vale pontos.
 
 Por exemplo, duas vitórias seguidas de um empate valem 6 pontos: 2 + 2 + (2 × 1)</string>
-  <string name="berserk">Arena Frenética</string>
-  <string name="berserkAnswer">Quando um jogador clica no botão Frenético no inicio de um jogo, este perde metade do tempo de relógio, mas a vitória vale um ponto de torneio extra.
+  <string name="berserk">Arena frenética</string>
+  <string name="berserkAnswer">Quando um jogador clica no botão \"frenético\" no inicio de um jogo, este perde metade do tempo de relógio, mas a vitória vale um ponto de torneio extra.
 
-Ficar Frenético em jogos com incremento de tempo também cancela o incremento. (1+2 é uma exceção, pois fica 1+0)
+Ficar frenético em jogos com incremento de tempo também cancela o incremento. (1+2 é uma exceção, pois fica 1+0).
 
-O modo Frenético não está disponível para jogos com tempo inicial de zero (0+1, 0+2).
+O modo frenético não está disponível para jogos com tempo inicial de zero (0+1, 0+2).
 
-O modo Frenético apenas dá pontos extra se jogares um mínimo 7 movimentos no jogo.</string>
+O modo frenético apenas dá pontos extra se jogares um mínimo 7 movimentos no jogo.</string>
   <string name="howIsTheWinnerDecided">Como se decide o vencedor?</string>
   <string name="howIsTheWinnerDecidedAnswer">O jogador(es) com mais pontos no final do tempo do torneio serão anunciados como vencedor(es).
 
