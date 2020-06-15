@@ -23,13 +23,13 @@
   <string name="ratingRefundExplanation">Um minuto depois de um jogador ser marcador, os seus últimos 40 jogos a valer pontos nos últimos 3 dias são escolhidos. Se foste um dos seus oponentes em algum(ns) destes jogos e perdeste pontuação (por derrota(s) ou empate(s)), e a tua pontuação não era provisória, recebes uma devolução de pontuação. A devolução é limitada com base na tua pontuação e no teu progresso após o(s) jogo(s).
  (Por exemplo, se a tua pontuação aumentou consideravelmente após aquele(s) jogo(s), podes não receber uma devolução ou receber apenas uma devolução parcial.) Uma devolução nunca excederá 150 pontos.</string>
   <string name="preventLeavingGameWithoutResigning">O que é que acontece com os jogadores que saem de jogos sem desistir?</string>
-  <string name="leavingGameWithoutResigningExplanation">Se algum dos teus oponentes aborta ou sai de jogos frequentemente, este será \"banido de jogar\", o que significa que está banido de jogar jogos. Isto não é mostrado publicamente no seu perfil. Se este comportamento continuar, a duração do banimento aumentará - e prolongados comportamentos deste tipo podem levar ao encerramento da conta.</string>
+  <string name="leavingGameWithoutResigningExplanation">Se algum dos teus adversários aborta ou sai de jogos frequentemente, este será \"banido de jogar\", o que significa que está banido de jogar jogos. Isto não é mostrado publicamente no seu perfil. Se este comportamento continuar, a duração do banimento aumentará - e prolongados comportamentos deste tipo podem levar ao encerramento da conta.</string>
   <string name="howCanIBecomeModerator">Como é que me posso tornar um moderador?</string>
   <string name="youCannotApply">Não é possível candidatar-se a moderador. Se virmos alguém que consideramos que seria um bom moderador, contactá-lo(a)-emos diretamente.</string>
   <string name="isCorrespondenceDifferent">Os jogos por correspondência são diferentes do xadrez normal?</string>
   <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos de correspondência é que é permitido utilizar um livro de aberturas. A utilização da ajuda de computadores continua a ser proibida e utilizá-la resultará em ser marcado por utilizar a ajuda de computador. Embora a ICCF permita a utilização de computadores, o Lichess não o permite.</string>
   <string name="gameplay">Jogabilidade</string>
-  <string name="howBulletBlitzEtcDecided">Como é que bullet, blitz e outros ritmos de jogo são decididos?</string>
+  <string name="howBulletBlitzEtcDecided">Como é que Bullet, Blitz e outros ritmos de jogo são decididos?</string>
   <string name="basedOnGameDuration">Os ritmos de jogo do Lichess baseiam-se na duração estimada do jogo = %1$s
 Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segundos.</string>
   <string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
@@ -47,7 +47,7 @@ Este valor pode ser utilizado como indicador da qualidade do jogo. Quando menos 
 
 A análise de xadrez no Lichess é feita pelo Stockfish.</string>
   <string name="insufficientMaterial">Perder por tempo, empatar e material insuficiente</string>
-  <string name="lichessFollowFIDErules">No caso de um jogador ficar sem tempo, geralmente, esse jogador perderá o jogo. Contudo, o jogo é empatado se a posição for uma tal que o oponente não consegue fazer xeque-mate por qualquer sequência legal de movimentos (%1$s).
+  <string name="lichessFollowFIDErules">No caso de um jogador ficar sem tempo, geralmente, esse jogador perderá o jogo. Contudo, o jogo é empatado se a posição for uma tal que o adversário não consegue fazer xeque-mate por qualquer sequência legal de movimentos (%1$s).
 
 Em casos raros, isto pode ser difícil de detetar automaticamente (linhas forçadas, fortalezas). Por norma, ficamos sempre do lado do jogador que não ficou sem tempo.
 
