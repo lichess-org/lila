@@ -16,12 +16,12 @@ Por exemplo, duas vitórias seguidas de um empate valem 6 pontos: 2 + 2 + (2 × 
   <string name="berserk">Arena frenética</string>
   <string name="berserkAnswer">Quando um jogador clica no botão \"frenético\" no inicio de um jogo, este perde metade do tempo de relógio, mas a vitória vale um ponto de torneio extra.
 
-Ficar frenético em jogos com incremento de tempo também cancela o incremento. (1+2 é uma exceção, pois fica 1+0).
+Ficar frenético em jogos com incremento de tempo também cancela o incremento, (1+2 é uma exceção, pois fica 1+0).
 
-O modo frenético não está disponível para jogos com tempo inicial de zero (0+1, 0+2).
+O modo frenético não está disponível para jogos com tempo inicial de zero, (0+1, 0+2).
 
 O modo frenético apenas dá pontos extra se jogares um mínimo 7 movimentos no jogo.</string>
-  <string name="howIsTheWinnerDecided">Como se decide o vencedor?</string>
+  <string name="howIsTheWinnerDecided">Como é que o vencedor é decidido?</string>
   <string name="howIsTheWinnerDecidedAnswer">O jogador(es) com mais pontos no final do tempo do torneio serão anunciados como vencedor(es).
 
 Quando dois ou mais jogadores tiverem o mesmo número de pontos, o desempenho no torneio é o critério de desempate.</string>
