@@ -6,7 +6,7 @@
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
   <string name="waiting">A aguardar</string>
-  <string name="yourTurn">Sua vez</string>
+  <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
   <string name="level">Nível</string>
   <string name="toggleTheChat">Ativar/Desativar o chat</string>
@@ -645,7 +645,7 @@
   <string name="simulAddExtraTime">Podes acrescentar tempo adicional ao teu relógio, para te ajudar a lidar com a simultânea.</string>
   <string name="simulHostExtraTime">Tempo adicional do anfitrião</string>
   <string name="lichessTournaments">Torneios do Lichess</string>
-  <string name="tournamentFAQ">Perguntas frequentes sobre torneios em Arena</string>
+  <string name="tournamentFAQ">Perguntas frequentes sobre torneios em arena</string>
   <string name="tournamentOfficial">Oficial</string>
   <string name="timeBeforeTournamentStarts">Contagem decrescente para o início do torneio</string>
   <string name="averageCentipawnLoss">Perda média de centésimos de peão</string>
