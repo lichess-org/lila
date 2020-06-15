@@ -20,4 +20,15 @@
   <string name="wantReopen">Vull reobrir el meu compte</string>
   <string name="reopenOnThisPage">Pots reobrir el teu compte en aquesta pàgina. Només funciona una vegada.</string>
   <string name="doNotAskByEmailToReopen">No ens demanis reobrir el teu compte per correu electrònic, no ho farem.</string>
+  <string name="wantChangeUsername">Vull canviar el meu nom d\'usuari</string>
+  <string name="changeUsernameCase">Visita aquesta pàgina per canviar majúscules/minúscules en el teu nom d\'usuari</string>
+  <string name="cantChangeMore">No podem canviar més que les majúscules/minúscules. Per motius tècnics, és del tot impossible.</string>
+  <string name="orCloseAccount">Tot i això, pots tancar el teu compte actual i crear-ne un de nou.</string>
+  <string name="wantClearHistory">Vull esborrar el meu historial o puntuació</string>
+  <string name="cantClearHistory">No és possible esborrar l\'historial de jocs, l\'historial de trencaclosques o les classificacions.</string>
+  <string name="wantReport">Vull denunciar un jugador</string>
+  <string name="cheating">fer trampes</string>
+  <string name="sandbagging">perdre deliberadament</string>
+  <string name="trolling">ser molest</string>
+  <string name="insults">insults</string>
 </resources>
