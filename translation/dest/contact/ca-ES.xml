@@ -11,4 +11,5 @@
   <string name="youCanLoginWithEmail">Podeu iniciar la sessió amb l’adreça de correu electrònic amb la que us vau registrar</string>
   <string name="lost2FA">He perdut l’accés als meus codis d’autenticació de dos factors</string>
   <string name="doPasswordReset">Completa un restabliment de la contrasenya per eliminar el segon factor</string>
+  <string name="accountSupport">Necessito ajuda amb el compte</string>
 </resources>
