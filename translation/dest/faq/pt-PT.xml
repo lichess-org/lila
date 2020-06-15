@@ -41,7 +41,7 @@ Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segu
   <string name="whatIsACPL">O que é a perda média de centésimas de peão (ACPL)?</string>
   <string name="acplExplanation">Uma centésima de peão é a unidade de medida usada no xadrez para a representação da vantagem. Uma centésima de peão é igual a 1/100 de um peão. Portanto, 100 centésimas de peão = 1 peão. Estes valores não têm um papel formal no jogo mas são úteis para os jogadores, e essenciais para muitos computadores de xadrez, para avaliar posições.
 
-O lance considerado melhor, pelo computador corresponde a uma perda de zero centésimas de peão, mas lances mais \"fracos\" resultarão numa deterioração da posição, medida em centésimas de peão.
+O lance considerado melhor pelo computador corresponde a uma perda de zero centésimas de peão, mas lances mais \"fracos\" resultarão numa deterioração da posição, medida em centésimas de peão.
 
 Este valor pode ser utilizado como indicador da qualidade do jogo. Quando menos centésimas de peão alguém perder por jogada, mais forte o jogo.
 
