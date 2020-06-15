@@ -12,7 +12,7 @@
   <string name="tournamentGames">Partidas em torneios</string>
   <string name="berserkedGames">Partidas no modo frenético</string>
   <string name="timeSpentPlaying">Tempo passado a jogar</string>
-  <string name="averageOpponent">Adversário médio</string>
+  <string name="averageOpponent">Pontuação média dos adversários</string>
   <string name="victories">Vitórias</string>
   <string name="defeats">Derrotas</string>
   <string name="disconnections">Desconexões</string>
