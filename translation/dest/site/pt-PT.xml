@@ -620,7 +620,7 @@
   <string name="webmasters">Webmasters</string>
   <string name="about">Sobre</string>
   <string name="aboutX">Sobre o %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor de xadrez grátis (%2$s), sem publicidades e open-source.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">O %1$s é um servidor de xadrez grátis (%2$s), sem publicidades e open-source.</string>
   <string name="really">a sério</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Termos de serviço</string>
