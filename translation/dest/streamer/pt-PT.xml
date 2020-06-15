@@ -53,5 +53,6 @@ Se a tua stream estiver em inglês, não há necessidade de incluir uma etiqueta
   <string name="installBlocker">Instala um bloqueador de malware!</string>
   <string name="beSafe">Mantém-te seguro contra anúncios e rastreadores
 infestando a Twitch e o YouTube.
-O Lichess recomenda uBlock Origin, que é gratuito e open-source.</string>
+O Lichess recomenda uBlock Origin,
+que é gratuito e open-source.</string>
 </resources>
