@@ -10,7 +10,7 @@
     <item quantity="one">%s jogo encontrado</item>
     <item quantity="other">%s jogos encontrados</item>
   </plurals>
-  <string name="opponentName">Nome do oponente</string>
+  <string name="opponentName">Nome do adversário</string>
   <string name="loser">Perdedor</string>
   <string name="from">De</string>
   <string name="to">Para</string>
