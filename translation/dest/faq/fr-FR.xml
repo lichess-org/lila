@@ -4,7 +4,7 @@
   <string name="frequentlyAskedQuestions">Foire Aux Questions</string>
   <string name="whyIsLichessCalledLichess">Que signifie Lichess ?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess est une combinaison de live/light/libre et chess (échecs). Cela se prononce %1$s.</string>
-  <string name="leechess">lee-chess</string>
+  <string name="leechess">li-tchèss</string>
   <string name="hearItPronouncedBySpecialist"> Écoutez-le prononcé par un spécialiste.</string>
   <string name="whyLiveLightLibre">Live, parce que les parties sont jouées et surveillés en temps réel 24/7 ; light et libre pour le fait que Lichess est open-source et n\'est pas encombré par des déchets que sont les marques déposées, et qui infestent d\'autres sites web.</string>
   <string name="whyIsLilaCalledLila">De même, le code source de Lichess, %1$s, signifie li[chess in sca]la, vu que la majeure partie de Lichess est écrite en %2$s, un langage de programmation intuitif.</string>
