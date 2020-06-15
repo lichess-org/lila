@@ -37,7 +37,7 @@
     <item quantity="one">O teu adversário deixou a partida. Podes reivindicar vitória em %s segundo.</item>
     <item quantity="other">O teu adversário abandonou a partida. Podes reivindicar vitória em %s segundos.</item>
   </plurals>
-  <string name="opponentLeftChoices">O teu oponente deixou a partida. Podes reivindicar vitória, declarar empate ou aguardar.</string>
+  <string name="opponentLeftChoices">O teu adversário deixou a partida. Podes reivindicar vitória, declarar empate ou aguardar.</string>
   <string name="makeYourOpponentResign">Obrigar o teu adversário a desistir</string>
   <string name="forceResignation">Reivindicar vitória</string>
   <string name="forceDraw">Reivindicar empate</string>
@@ -283,8 +283,8 @@
   <string name="takebackPropositionSent">Proposta de voltar uma jogada atrás enviada</string>
   <string name="takebackPropositionDeclined">Proposta de voltar uma jogada atrás recusada</string>
   <string name="takebackPropositionAccepted">Proposta de voltar uma jogada atrás aceite</string>
-  <string name="takebackPropositionCanceled">Proposta de voltar a jogada atrás cancelada</string>
-  <string name="yourOpponentProposesATakeback">O seu oponente propõe voltar uma jogada atrás</string>
+  <string name="takebackPropositionCanceled">Proposta de voltar uma jogada atrás cancelada</string>
+  <string name="yourOpponentProposesATakeback">O teu adversário propõe voltar uma jogada atrás</string>
   <string name="bookmarkThisGame">Adicionar esta partida às favoritas</string>
   <string name="tournament">Torneio</string>
   <string name="tournaments">Torneios</string>
@@ -583,7 +583,7 @@
   <string name="loginSuccessful">Iniciaste sessão</string>
   <string name="playOnTheBoardOffline">Contra um amigo</string>
   <string name="playOfflineComputer">Contra o computador</string>
-  <string name="opponent">Oponente</string>
+  <string name="opponent">Adversário</string>
   <string name="learnMenu">Aprender</string>
   <string name="studyMenu">Estudos</string>
   <string name="practice">Praticar</string>
@@ -634,7 +634,7 @@
   <string name="noSimulExplanation">Esta exibição simultânea não existe.</string>
   <string name="returnToSimulHomepage">Voltar à página inicial da simultânea</string>
   <string name="aboutSimul">As simultâneas envolvem um único jogador contra vários oponentes ao mesmo tempo.</string>
-  <string name="aboutSimulImage">Contra 50 oponentes, Fischer ganhou 47 jogos, empatou 2 e perdeu 1.</string>
+  <string name="aboutSimulImage">Contra 50 adversários, Fischer ganhou 47 jogos, empatou 2 e perdeu 1.</string>
   <string name="aboutSimulRealLife">O conceito provém de eventos reais, nos quais o simultanista se move de mesa em mesa, executando um movimento de cada vez.</string>
   <string name="aboutSimulRules">Quando a simultânea começa, cada jogador começa sua partida contra o anfitrião, que joga sempre com as peças brancas. A simultânea termina quando todas as partidas tiverem acabado.</string>
   <string name="aboutSimulSettings">As simultâneas são sempre partidas amigáveis. Desforras, voltar jogadas atrás e dar mais tempo estão desativados.</string>
@@ -850,7 +850,7 @@
   <string name="correspondenceDesc">Partidas por correspondência: um ou vários dias por lance</string>
   <string name="puzzleDesc">Treinador de táticas de xadrez</string>
   <string name="important">Importante</string>
-  <string name="yourQuestionMayHaveBeenAnswered">A sua pergunta pode já ter uma resposta %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">A tua pergunta pode já ter uma resposta %1$s</string>
   <string name="inTheFAQ">no F.A.Q. (perguntas frequentes).</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Para reportares um utilizador por fazer batota ou por mau comportamento, %1$s</string>
   <string name="useTheReportForm">usa a ficha própria para o fazeres</string>
