@@ -686,7 +686,7 @@
   <string name="gameAnalysis">게임 분석기</string>
   <string name="xHostsY">%2$s가 %1$s를 시작했습니다.</string>
   <string name="xJoinsY">%2$s가 %1$s에 참여했습니다.</string>
-  <string name="xLikesY">%2$s가 %1$s를 좋아합니다.</string>
+  <string name="xLikesY">%1$s(이)가 %2$s를 좋아합니다.</string>
   <string name="xCreatesStudyY">%1$s 님이 연구 %2$s (을) 를 만들었습니다.</string>
   <string name="quickPairing">빠른 상대 찾기</string>
   <string name="lobby">로비</string>
