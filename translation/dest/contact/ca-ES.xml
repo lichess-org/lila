@@ -12,4 +12,12 @@
   <string name="lost2FA">He perdut l’accés als meus codis d’autenticació de dos factors</string>
   <string name="doPasswordReset">Completa un restabliment de la contrasenya per eliminar el segon factor</string>
   <string name="accountSupport">Necessito ajuda amb el compte</string>
+  <string name="wantTitle">Vull que el meu títol es mostri a Lichess</string>
+  <string name="visitTitleConfirmation">Per mostrar el vostre títol al perfil de Lichess i participar en Tornejos Titulats, visiteu la pàgina de confirmació del títol</string>
+  <string name="wantCloseAccount">Vull tancar el meu compte</string>
+  <string name="closeYourAccount">Pots tancar el compte en aquesta pàgina</string>
+  <string name="doNotAskByEmail">No ens demanis tancar el teu compte per correu electrònic, no ho farem.</string>
+  <string name="wantReopen">Vull reobrir el meu compte</string>
+  <string name="reopenOnThisPage">Pots reobrir el teu compte en aquesta pàgina. Només funciona una vegada.</string>
+  <string name="doNotAskByEmailToReopen">No ens demanis reobrir el teu compte per correu electrònic, no ho farem.</string>
 </resources>
