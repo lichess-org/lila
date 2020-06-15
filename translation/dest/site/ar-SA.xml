@@ -59,7 +59,7 @@
   <string name="computerAnalysisAvailable">تحليل الحاسوب متاح</string>
   <string name="analysis">لوحة التحليل</string>
   <string name="depthX">عمق التحليل %s</string>
-  <string name="usingServerAnalysis">استخدام تحليل السيرفر</string>
+  <string name="usingServerAnalysis">استخدام تحليل الخادم</string>
   <string name="loadingEngine">تحميل المحرك...</string>
   <string name="cloudAnalysis">تحليل سحابي</string>
   <string name="goDeeper">لتحليل أعمق</string>
