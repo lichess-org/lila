@@ -13,7 +13,7 @@
   <string name="editPage">Editar a página do streamer</string>
   <string name="yourPage">A tua página de streamer</string>
   <string name="downloadKit">Descarrega o kit de streamer</string>
-  <string name="xIsStreaming">%s está a transmitir</string>
+  <string name="xIsStreaming">%s está a transmitir em direto</string>
   <string name="rules">Regras de streaming</string>
   <string name="rule1">Incluir a palavra-chave \"lichess.org\" no título da stream quando transmitir no Lichess.</string>
   <string name="rule2">Remover a palavra-chave quando transmitir algo não relacionado com o Lichess.</string>
@@ -45,7 +45,7 @@ Se a tua stream estiver em inglês, não há necessidade de incluir uma etiqueta
   <string name="headline">Título</string>
   <string name="tellUsAboutTheStream">Conta-nos sobre a tua stream numa frase</string>
   <string name="longDescription">Descrição longa</string>
-  <string name="xStreamerPicture">imagem do streamer %s</string>
+  <string name="xStreamerPicture">Imagem do streamer %s</string>
   <string name="changePicture">Alterar/apagar a tua imagem</string>
   <string name="uploadPicture">Adicionar uma imagem</string>
   <string name="deletePicture">Apagar a imagem</string>
