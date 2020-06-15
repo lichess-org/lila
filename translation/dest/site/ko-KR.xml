@@ -223,6 +223,7 @@
   <string name="rematchOfferDeclined">재대결 요청이 거절됐습니다</string>
   <string name="cancelRematchOffer">재대결 요청 취소</string>
   <string name="viewRematch">재대결 보러 가기</string>
+  <string name="confirmMove">수 확인</string>
   <string name="play">플레이</string>
   <string name="inbox">받은편지함</string>
   <string name="chatRoom">채팅</string>
@@ -633,6 +634,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">당신의 %1$s 레이팅은 %2$s입니다.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">당신은 %1$s의 %2$s 플레이어보다 더 뛰어납니다.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s는 %2$s의 %3$s 플레이어보다 더 뛰어납니다.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">아직 확정된 %s 레이팅을 갖지 않으셨습니다.</string>
   <string name="yourRating">당신의 레이팅</string>
   <string name="cumulative">누적 유저 비율</string>
@@ -779,6 +781,7 @@
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
   <string name="sorry">죄송합니다 :(</string>
+  <string name="weHadToTimeYouOutForAWhile">짧은 시간동안 정지를 받으셨습니다.</string>
   <string name="timeoutExpires">타임아웃은 %s 후에 후에 만료됩니다.</string>
   <string name="why">왜 그런가요?</string>
   <string name="pleasantChessExperience">우리는 모두에게 즐거운 체스 경험을 제공하는 것을 목표로 합니다.</string>
@@ -791,6 +794,7 @@
   <string name="temporaryInconvenience">일시적인 불편에 사과드리며,</string>
   <string name="wishYouGreatGames">lichess.org에서 좋은 게임 즐기시기 바랍니다.</string>
   <string name="thankYouForReading">읽어 주셔서 감사합니다!</string>
+  <string name="lifetimeScore">통산 전적</string>
   <string name="currentMatchScore">현재 경기 점수</string>
   <string name="agreementAssistance">나는 게임 중 도움을 받지 않겠습니다 (체스 컴퓨터, 책, 데이터베이스나 다른 사람).</string>
   <string name="agreementNice">나는 항상 다른 플레이어들을 존중하겠습니다.</string>
@@ -798,8 +802,18 @@
   <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
+  <string name="rapid">래피드</string>
+  <string name="classical">클래시컬</string>
   <string name="ultraBulletDesc">가장 빠른 게임: 30초 미만</string>
   <string name="bulletDesc">매우 빠른 게임: 3분 미만</string>
   <string name="blitzDesc">빠른 게임: 3에서 8분</string>
+  <string name="rapidDesc">래피드 게임: 8 ~ 25분</string>
+  <string name="classicalDesc">클래시컬 게임: 25분 이상</string>
   <string name="puzzleDesc">체스 전술 트레이너</string>
+  <string name="important">중요!</string>
+  <string name="yourQuestionMayHaveBeenAnswered">%1$s에 원하시는 답변이 있을 수 있습니다.</string>
+  <string name="inTheFAQ">F.A.Q</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">%1$s에서 엔진 사용이나 부적절한 행동을 신고하십시오.</string>
+  <string name="useTheReportForm">사용자 신고</string>
+  <string name="toRequestSupport">%1$s에서 리체스에 문의하실 수 있습니다.</string>
 </resources>
