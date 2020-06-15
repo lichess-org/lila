@@ -2,4 +2,10 @@
 <resources>
   <string name="contact">Contacte</string>
   <string name="contactLichess">Contacte Lichess</string>
+  <string name="whatCanWeHelpYouWith">En que et podem ajudar?</string>
+  <string name="visitThisPage">Visita aquesta pàgina per resoldre el problema</string>
+  <string name="iCantLogIn">No em puc connectar</string>
+  <string name="noConfirmationEmail">No he rebut el correu de confirmació</string>
+  <string name="forgotPassword">He oblidat la meva contrasenya</string>
+  <string name="forgotUsername">He oblidat el meu nom d\'usuari</string>
 </resources>
