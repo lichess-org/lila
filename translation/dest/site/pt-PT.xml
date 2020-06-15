@@ -35,7 +35,7 @@
   <string name="blackPlays">Jogam as pretas</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">O teu adversário deixou a partida. Podes reivindicar vitória em %s segundo.</item>
-    <item quantity="other">O teu adversário abandonou a partida. Podes reivindicar vitória em %s segundos.</item>
+    <item quantity="other">O teu adversário deixou a partida. Podes reivindicar vitória em %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">O teu adversário deixou a partida. Podes reivindicar vitória, declarar empate ou aguardar.</string>
   <string name="makeYourOpponentResign">Obrigar o teu adversário a desistir</string>
@@ -208,7 +208,7 @@
   <string name="blackOffersDraw">As pretas propõem empate</string>
   <string name="whiteDeclinesDraw">As brancas recusam o empate</string>
   <string name="blackDeclinesDraw">As pretas recusam o empate</string>
-  <string name="yourOpponentOffersADraw">O teu oponente propõe empate</string>
+  <string name="yourOpponentOffersADraw">O teu adversário propõe empate</string>
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
   <string name="playingRightNow">A jogar neste momento</string>
@@ -361,7 +361,7 @@
   </plurals>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>
-  <string name="favoriteOpponents">Oponentes favoritos</string>
+  <string name="favoriteOpponents">Adversários favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">A seguir</string>
   <string name="unfollow">Deixar de seguir</string>
