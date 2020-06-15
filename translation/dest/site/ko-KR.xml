@@ -154,7 +154,7 @@
   <string name="realTime">짧은 대국</string>
   <string name="correspondence">긴 대국</string>
   <string name="daysPerTurn">한 수에 걸리는 일수</string>
-  <string name="oneDay">하루</string>
+  <string name="oneDay">1일</string>
   <plurals name="nbDays">
     <item quantity="other">%s일</item>
   </plurals>
@@ -163,7 +163,7 @@
   </plurals>
   <string name="time">시간</string>
   <string name="rating">레이팅</string>
-  <string name="ratingStats">레이팅 상태</string>
+  <string name="ratingStats">레이팅 통계</string>
   <string name="username">아이디</string>
   <string name="usernameOrEmail">사용자 이름이나 이메일 주소</string>
   <string name="changeUsername">사용자명 변경</string>
@@ -809,6 +809,7 @@
   <string name="blitzDesc">빠른 게임: 3에서 8분</string>
   <string name="rapidDesc">래피드 게임: 8 ~ 25분</string>
   <string name="classicalDesc">클래시컬 게임: 25분 이상</string>
+  <string name="correspondenceDesc">데일리 게임: 한 수에 하루 이상</string>
   <string name="puzzleDesc">체스 전술 트레이너</string>
   <string name="important">중요!</string>
   <string name="yourQuestionMayHaveBeenAnswered">%1$s에 원하시는 답변이 있을 수 있습니다.</string>
