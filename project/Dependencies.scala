@@ -29,7 +29,7 @@ object Dependencies {
   val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.44.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2" % "provided"
   val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0" % Test
-  val akkatestkit = "com.typesafe.akka"    %% "akka-testkit"                    % "2.6.5" % Test
+  val akkatestkit = "com.typesafe.akka"    %% "akka-testkit"                    % "2.6.6" % Test
   val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.11.0"
 
   object flexmark {
