@@ -690,6 +690,8 @@
     <item quantity="other">Til á %s tungumálum</item>
   </plurals>
   <string name="gameAnalysis">Leikgreining</string>
+  <string name="quickPairing">Flýtival</string>
+  <string name="lobby">Salur</string>
   <string name="anonymous">Nafnlaus</string>
   <string name="language">Tungumál</string>
   <string name="light">Ljós</string>
