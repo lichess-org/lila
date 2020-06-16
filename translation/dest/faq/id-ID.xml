@@ -14,6 +14,15 @@
   <string name="beingAPatron">menjadi pendukung</string>
   <string name="breakdownOfOurCosts">rincian biaya</string>
   <string name="otherWaysToHelp">cara lain untuk membantu</string>
+  <string name="areThereWebsitesBasedOnLichess">Apakah ada situs lain yang berbasis Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ya. Lichess terinspirasi oleh website proyek open-source lainnya yang mana menggunakan kami %1$s, %2$s, or %3$s.</string>
+  <string name="fairPlay">Fair Play</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Mengapa saya ditandai telah memanipulasi rating (menambah atau mengurangi) atau curang cheat engine?</string>
+  <string name="noUpperCaseDot">Tidak.</string>
+  <string name="aHourlyBulletTournament">1 jam turnamen bulet</string>
+  <string name="lichessRatings">Rating Lichess</string>
+  <string name="ratingLeaderboards">daftar Peringkat Rating</string>
+  <string name="beInTopTen">menjadi top 10 dalam rating ini.</string>
   <string name="displayPreferences">pengaturan tampilan</string>
   <string name="connexionLostCanIGetMyRatingBack">Saya kehilangan permainan karena lag/kehilangan koneksi. Bisakah saya mendapatkan poin rating saya kembali?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Sayang sekali, kami tidak dapat mengembalikan poin rating untuk permainan yang hilang karena jeda atau terputus koneksi, terlepas dari apakah masalahnya ada di ujung Anda atau di ujung kami. Yang terakhir, kejadian ini sangat jarang. Perhatikan juga bahwa ketika Lichess memulai kembali dan Anda kehilangan waktu karena itu, kami membatalkan permainan untuk mencegah kerugian yang tidak adil.</string>
