@@ -21,8 +21,22 @@
   <string name="noUpperCaseDot">Tidak.</string>
   <string name="aHourlyBulletTournament">1 jam turnamen bulet</string>
   <string name="lichessRatings">Rating Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Sistem rating apakah yang digunakan oleh Lichess?</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkretnya, itu berarti bahwa deviasi Glicko-2 lebih besar dari 110. Deviasi adalah tingkat kepercayaan sistem terhadap rating. Semakin rendah penyimpangan, semakin stabil rating.</string>
+  <string name="howDoLeaderoardsWork">Bagaimana daftar peringkat diperhitungkan?</string>
+  <string name="inOrderToAppearsYouMust">Agar mencapai %1$s anda harus:</string>
   <string name="ratingLeaderboards">daftar Peringkat Rating</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">telah memainkan setidaknya 30 game berating di rating tertentu,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">telah memainkan game berating dalam seminggu terakhir untuk akun ini,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">memiliki penyimpangan peringkat lebih rendah dari %1$s, dalam catur standar, dan lebih rendah dari %2$s dalam varian,</string>
   <string name="beInTopTen">menjadi top 10 dalam rating ini.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Persyaratan kedua adalah agar pemain yang tidak lagi menggunakan akunnya berhenti mengisi papan peringkat.</string>
+  <string name="whyAreRatingHigher">Mengapa rating terasa lebih tinggi dibandingkan dengan situs dan organisasi lain seperti FIDE, USCF dan ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Yang terbaik adalah tidak menganggap rating sebagai angka mutlak, atau membandingkannya dengan organisasi lain. Organisasi yang berbeda memiliki tingkat pemain yang berbeda, sistem penilaian yang berbeda (Elo, Glicko, Glicko-2, atau versi modifikasi dari yang disebutkan di atas). Faktor-faktor ini secara drastis dapat mempengaruhi angka mutlak (rating).
+
+Yang terbaik adalah menganggap rating sebagai angka \"relatif\" (sebagai lawan angka \"mutlak\"): Dalam kumpulan pemain, perbedaan relatif dalam rating akan membantu Anda memperkirakan siapa yang akan menang / seri / kalah, dan seberapa sering. Mengatakan \"Saya memiliki rating X\" tidak ada artinya kecuali ada pemain lain yang membandingkan rating tersebut.</string>
+  <string name="howToHideRatingWhilePlaying">Bagaimana menyembunyikan rating ketika bermain?</string>
+  <string name="enableZenMode">Aktfikan Mode-Zen pada %1$s, atau tekan %2$s selama dalam permainan.</string>
   <string name="displayPreferences">pengaturan tampilan</string>
   <string name="connexionLostCanIGetMyRatingBack">Saya kehilangan permainan karena lag/kehilangan koneksi. Bisakah saya mendapatkan poin rating saya kembali?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Sayang sekali, kami tidak dapat mengembalikan poin rating untuk permainan yang hilang karena jeda atau terputus koneksi, terlepas dari apakah masalahnya ada di ujung Anda atau di ujung kami. Yang terakhir, kejadian ini sangat jarang. Perhatikan juga bahwa ketika Lichess memulai kembali dan Anda kehilangan waktu karena itu, kami membatalkan permainan untuk mencegah kerugian yang tidak adil.</string>
