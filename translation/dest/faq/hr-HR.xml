@@ -3,7 +3,9 @@
   <string name="faqAbbreviation">Često Postavljana Pitanja</string>
   <string name="frequentlyAskedQuestions">Često postavljena pitanja</string>
   <string name="whyIsLichessCalledLichess">Zašto se Lichess tako zove?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess je šah opisan sa izrazima uživo/lako/beslatno. Izgovara se kao %1$s.</string>
   <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist">Čujte to izgovara stručnjak.</string>
   <string name="isCorrespondenceDifferent">Da li se dopisni šah razlikuje od uobičajenog šaha?</string>
   <string name="youCanUseOpeningBookNoEngine">Glavna razlika u pravilima dopisnog šaha na Lichess-u je upotreba knjige šahovskih otvaranja. Upotreba pomoćnih šahovskih programa i dalje je zabranjena te će rezultirati u označavanju korisnika za nedozvoljenu upotrebu šahovskih programa. Iako ICCF pravila dopuštaju upotrebu šahovskih programa, na Lichess-u to nije dozvoljeno.</string>
   <string name="gameplay">Stil igre</string>
