@@ -17,4 +17,19 @@
   <string name="rules">Pravila emitiranja</string>
   <string name="rule1">Uključite ključnu riječ \"lichess.org\" u naslov i koristite kategoriju \"šah\" kada emitirate na Lichess-u.</string>
   <string name="rule2">Uklonite ključnu riječ kada emitirate sadržaj koji nije vezan za Lichess.</string>
+  <string name="streamerName">Ime Vašeg Lichess kanala emitiranja</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Neka bude kratko: najviše %s slovo</item>
+    <item quantity="few">Neka bude kratko: najviše %s slova</item>
+    <item quantity="other">Neka bude kratko: najviše %s slova</item>
+  </plurals>
+  <string name="visibility">Vidljivo na stranici kanala za emitirnje</string>
+  <string name="whenApproved">Nakon odobrenja moderatora</string>
+  <string name="headline">Naslov</string>
+  <string name="tellUsAboutTheStream">Opišite Vaš kanal za emitiranje u jednoj rečenici</string>
+  <string name="longDescription">Dugi opis</string>
+  <string name="xStreamerPicture">%s slika emitera</string>
+  <string name="changePicture">Promjenite / izbrišite Vašu sliku</string>
+  <string name="uploadPicture">Učitajte sliku</string>
+  <string name="deletePicture">Obrišite sliku</string>
 </resources>
