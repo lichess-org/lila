@@ -54,4 +54,13 @@ Da bi te prakticirali ovaj potez, pogledajte ovaj %3$s.</string>
   <string name="accounts">Korisnički Računi</string>
   <string name="titlesAvailableOnLichess">Koje titule postoje na Lichess-u?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess priznaje sve FIDE titule dobivene sa stvarnih šahovskih turnira (stolni šah), kao i %1$s. Ovo je lista FIDE titula:</string>
+  <string name="showYourTitle">Ako imate FIDE titulu, možete podnijeti zahtjev da Vam se ona prikaže na računu tako se popuni %1$s, uz prilaganje jasne slike Vašeg identifikacijskog dokumenta ili kartice te selfia gdje Vi u ruci držite dokument/karticu.
+
+Kao titulirani igrač na Lichessu imate pristup događajima pod nazivom Titulirana Arena.
+
+Konačno tu je počasna %2$s titula.</string>
+  <string name="asWellAsManyNMtitles">mnogo titula državnih majstora</string>
+  <string name="verificationForm">obrazac za ovjeru</string>
+  <string name="canIbecomeLM">Mogu l dobiti titulu Lichess Majstora (LM)?</string>
+  <string name="noUpperCaseDot">Ne.</string>
 </resources>
