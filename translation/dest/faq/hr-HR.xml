@@ -16,4 +16,5 @@ Na primjer, procijenjeno trajanje 5+3 računa se kao 5 × 60 + 40 × 3 i iznosi 
   <string name="whatVariantsCanIplay">Koje varijente šaha mogu da igram na Lichess-u?</string>
   <string name="lichessSupportChessAnd">Lichess podržava standardni šah i %1$s.</string>
   <string name="eightVariants">Osmerostruka varijanta šaha</string>
+  <string name="insufficientMaterial">Gubljenje igre zbog isteka vremena, remi i nedostatni šahovski materijal</string>
 </resources>
