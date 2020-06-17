@@ -4,5 +4,6 @@
   <string name="frequentlyAskedQuestions">Često postavljena pitanja</string>
   <string name="whyIsLichessCalledLichess">Zašto se Lichess tako zove?</string>
   <string name="leechess">lee-chess</string>
+  <string name="isCorrespondenceDifferent">Da li se dopisni šah razlikuje od uobičajenog šaha?</string>
   <string name="gameplay">Stil igre</string>
 </resources>
