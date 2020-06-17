@@ -17,4 +17,11 @@ Na primjer, procijenjeno trajanje 5+3 računa se kao 5 × 60 + 40 × 3 i iznosi 
   <string name="lichessSupportChessAnd">Lichess podržava standardni šah i %1$s.</string>
   <string name="eightVariants">Osmerostruka varijanta šaha</string>
   <string name="insufficientMaterial">Gubljenje igre zbog isteka vremena, remi i nedostatni šahovski materijal</string>
+  <string name="lichessFollowFIDErules">U slučaju da jednom igraču ponestane vremena, taj igrač će obično izgubiti igru. Međutim, igra je remi ako je položaj figura takav da protivnik ne može matirati protivničkog kralja nijednim mogućim nizom legalnih poteza (%1$s).
+
+U rijetkim slučajevima to se može teško odlučiti automatski (prisilne linije, tvrđave). Prema zadanim postavkama uvijek smo uz igrača kojem nije ponestalo vremena.
+
+Imajte na umu da je moguće izvesti mat sa jednim skakačem ili lovcem ako protivnik ima figuru koja bi mogla blokirati njegovog kralja.</string>
+  <string name="linkToFIDErules">FIDE priručnik §6.9, PDF</string>
+  <string name="discoveringEnPassant">Zašto može pijun uzeti protivničkog pijuna kojeg je već prošao? (en passant)</string>
 </resources>
