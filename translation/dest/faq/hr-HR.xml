@@ -5,5 +5,7 @@
   <string name="whyIsLichessCalledLichess">Zašto se Lichess tako zove?</string>
   <string name="leechess">lee-chess</string>
   <string name="isCorrespondenceDifferent">Da li se dopisni šah razlikuje od uobičajenog šaha?</string>
+  <string name="youCanUseOpeningBookNoEngine">Glavna razlika u pravilima dopisnog šaha na Lichess-u je upotreba knjige šahovskih otvaranja. Upotreba pomoćnih šahovskih programa i dalje je zabranjena te će rezultirati u označavanju korisnika za nedozvoljenu upotrebu šahovskih programa. Iako ICCF pravila dopuštaju upotrebu šahovskih programa, na Lichess-u to nije dozvoljeno.</string>
   <string name="gameplay">Stil igre</string>
+  <string name="howBulletBlitzEtcDecided">Kako se odlučuju vremenske kontrole za Bullet, Blitz i druge šahovske varijante?</string>
 </resources>
