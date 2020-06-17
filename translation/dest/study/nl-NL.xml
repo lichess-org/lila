@@ -64,7 +64,7 @@
   <string name="studyUrl">Studie URL</string>
   <string name="broadcastUrl">Uitzendingslink</string>
   <string name="currentChapterUrl">Huidige hoofdstuk URL</string>
-  <string name="currentGameUrl">Huidige partij URL</string>
+  <string name="currentGameUrl">Huidige partij-link</string>
   <string name="youCanPasteThisInTheForumToEmbed">Je kunt dit in het forum plakken om in te sluiten</string>
   <string name="startAtInitialPosition">Begin bij de startpositie</string>
   <string name="startAtX">Beginnen bij %s</string>
