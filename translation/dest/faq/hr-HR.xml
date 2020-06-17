@@ -75,4 +75,7 @@ Nemojte tražiti LM titulu.</string>
   <string name="ownerUniqueTrophies">Taj trofej jedinstven je u povijesti Lichess-a. Nitko drugi osim %1$s ga nikad neće imati.</string>
   <string name="wayOfBerserkExplanation">Da bi ga dobio, hiimgosu je izazvao sebe na berserk i pobijedio u 100%% igara %s.</string>
   <string name="aHourlyBulletTournament">satni turnir Bullet</string>
+  <string name="goldenZeeExplanation">ZugAddict je emitirao i posljednjih 2 sata je pokušavao poraziti A.I. razine 8 u igri 1+0, ali bez uspjeha. Thibault mu je rekao da će dobiti jedinstveni trofej ako to uspješno učini u emitiranju. Sat vremena kasnije razbio je Stockfish, a obećanje je bilo ispunjeno.</string>
+  <string name="lichessRatings">Lichess rajgovi</string>
+  <string name="whichRatingSystemUsedByLichess">Kakav sistem rangiranja koristi Lichess?</string>
 </resources>
