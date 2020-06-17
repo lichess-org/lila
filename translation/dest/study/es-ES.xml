@@ -62,6 +62,7 @@
   <string name="chapterPgn">PGN del capítulo</string>
   <string name="downloadGame">Descargar partida</string>
   <string name="studyUrl">URL del estudio</string>
+  <string name="broadcastUrl">Enlace de la transmisión</string>
   <string name="currentChapterUrl">URL del capítulo actual</string>
   <string name="startAtInitialPosition">Comenzar desde la posición inicial</string>
   <string name="startAtX">Comenzar en %s</string>
