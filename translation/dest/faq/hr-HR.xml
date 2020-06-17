@@ -53,5 +53,5 @@ Da bi te prakticirali ovaj potez, pogledajte ovaj %3$s.</string>
   <string name="configure">podesi</string>
   <string name="accounts">Korisnički Računi</string>
   <string name="titlesAvailableOnLichess">Koje titule postoje na Lichess-u?</string>
-  <string name="lichessRecognizeAllOTBtitles">LIchess priznaje sve FIDE titule dobivene sa stvarnih šahovskih turnira, kao i %1$s. Ovo je lista FIDE titula:</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess priznaje sve FIDE titule dobivene sa stvarnih šahovskih turnira (stolni šah), kao i %1$s. Ovo je lista FIDE titula:</string>
 </resources>
