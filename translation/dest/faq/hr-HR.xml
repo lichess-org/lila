@@ -7,5 +7,13 @@
   <string name="isCorrespondenceDifferent">Da li se dopisni šah razlikuje od uobičajenog šaha?</string>
   <string name="youCanUseOpeningBookNoEngine">Glavna razlika u pravilima dopisnog šaha na Lichess-u je upotreba knjige šahovskih otvaranja. Upotreba pomoćnih šahovskih programa i dalje je zabranjena te će rezultirati u označavanju korisnika za nedozvoljenu upotrebu šahovskih programa. Iako ICCF pravila dopuštaju upotrebu šahovskih programa, na Lichess-u to nije dozvoljeno.</string>
   <string name="gameplay">Stil igre</string>
-  <string name="howBulletBlitzEtcDecided">Kako se odlučuju vremenske kontrole za Bullet, Blitz i druge šahovske varijante?</string>
+  <string name="howBulletBlitzEtcDecided">Kako se određuju kontrole vremena za Bullet, Blitz i druge šahovske varijante?</string>
+  <string name="basedOnGameDuration">Kontrole vremena na Lichess-u su temeljene na procijenjenom trajanju igre = %1$s
+Na primjer, procijenjeno trajanje 5+3 računa se kao 5 × 60 + 40 × 3 i iznosi 420 sekundi.</string>
+  <string name="durationFormula">(inicijalno vrijeme sata) + 40 x (pomak sata)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Koje varijente šaha mogu da igram na Lichess-u?</string>
+  <string name="lichessSupportChessAnd">Lichess podržava standardni šah i %1$s.</string>
+  <string name="eightVariants">Osmerostruka varijanta šaha</string>
 </resources>
