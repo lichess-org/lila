@@ -63,4 +63,16 @@ Konačno tu je počasna %2$s titula.</string>
   <string name="verificationForm">obrazac za ovjeru</string>
   <string name="canIbecomeLM">Mogu l dobiti titulu Lichess Majstora (LM)?</string>
   <string name="noUpperCaseDot">Ne.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Ovaj počasna titula nije službena i postoji samo na Lichess-u.
+
+Po našem nahođenju, rijetko ju se dodijeli vrlo uglednim igračima, koji su ujedno i dobri sudionici Lichessa-a,. LM titula dolazi do Vas. Ako se budete kvalificirali, dobit ćete od nas poruku u vezi titule s mogućnostima prihvaćanja ili odbijanja.
+
+Nemojte tražiti LM titulu.</string>
+  <string name="whatUsernameCanIchoose">Koje korisničko ime mogu koristiti?</string>
+  <string name="usernamesNotOffensive">Općenito, korisničko ime ne bi trebala biti: uvredljivo, lažno predstavljanje nekog drugog ili oglašavanje. Više o %1$s korisničkog imena.</string>
+  <string name="guidelines">smjernicama</string>
+  <string name="uniqueTrophies">Jedinstveni trofeji</string>
+  <string name="ownerUniqueTrophies">Taj trofej jedinstven je u povijesti Lichess-a. Nitko drugi osim %1$s ga nikad neće imati.</string>
+  <string name="wayOfBerserkExplanation">Da bi ga dobio, hiimgosu je izazvao sebe na berserk i pobijedio u 100%% igara %s.</string>
+  <string name="aHourlyBulletTournament">satni turnir Bullet</string>
 </resources>
