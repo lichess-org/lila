@@ -22,7 +22,7 @@ import { storedProp, StoredBooleanProp } from 'common/storage';
 import { make as makeSocket, Socket } from './socket';
 import { ForecastCtrl } from './forecast/interfaces';
 import { make as makeForecast } from './forecast/forecastCtrl';
-import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
+import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
 import explorerCtrl from './explorer/explorerCtrl';
 import { ExplorerCtrl } from './explorer/interfaces';
 import * as game from 'game';
@@ -777,18 +777,29 @@ export default class AnalyseCtrl {
     if (uci) this.playUci(uci);
   }
 
-  canEvalGet = (node: Tree.Node): boolean => this.opts.study || node.ply < 15;
+  canEvalGet(): boolean {
+    if (this.node.ply >= 15 && !this.opts.study) return false;
+
+    // cloud eval does not support threefold repetition
+    const fens = new Set();
+    for (let i = this.nodeList.length - 1; i >= 0; i--) {
+      const node = this.nodeList[i];
+      const fen = node.fen.split(' ').slice(0, 4).join(' ');
+      if (fens.has(fen)) return false;
+      if (node.san && sanIrreversible(this.data.game.variant.key, node.san)) return true;
+      fens.add(fen);
+    }
+    return true;
+  }
 
   instanciateEvalCache() {
     this.evalCache = makeEvalCache({
       variant: this.data.game.variant.key,
-      canGet: this.canEvalGet,
-      canPut: (node: Tree.Node) => {
-        return this.data.evalPut && this.canEvalGet(node) && (
-          // if not in study, only put decent opening moves
-          this.opts.study || (!node.ceval!.mate && Math.abs(node.ceval!.cp!) < 99)
-        );
-      },
+      canGet: () => this.canEvalGet(),
+      canPut: () => this.data.evalPut && this.canEvalGet() && (
+        // if not in study, only put decent opening moves
+        this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99)
+      ),
       getNode: () => this.node,
       send: this.opts.socketSend,
       receive: this.onNewCeval
