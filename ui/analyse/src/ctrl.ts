@@ -96,6 +96,9 @@ export default class AnalyseCtrl {
     dom: 1
   };
 
+  // underboard inputs
+  pgnInput?: string;
+
   // other paths
   initialPath: Tree.Path;
   contextMenuPath?: Tree.Path;
@@ -201,6 +204,7 @@ export default class AnalyseCtrl {
     this.node = treeOps.last(this.nodeList) as Tree.Node;
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.onMainline = this.tree.pathIsMainline(path)
+    this.pgnInput = undefined;
   }
 
   flip = () => {

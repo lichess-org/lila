@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as chessground from './ground';
 import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
+import { defined } from 'common';
 import changeColorHandle from 'common/coordsColor';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
@@ -116,8 +117,11 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
           attrs: { spellCheck: false },
           hook: {
             postpatch: (_, vnode) => {
-              (vnode.elm as HTMLInputElement).value = pgnExport.renderFullTxt(ctrl);
-            }
+              (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
+            },
+            ...bind('input', e => {
+              ctrl.pgnInput = (e.target as HTMLTextAreaElement).value;
+            }),
           }
         }),
         h('button.button.button-thin.action.text', {
