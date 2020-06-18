@@ -19,11 +19,11 @@
   <string name="black">Чорні</string>
   <string name="randomColor">Випадковий колір</string>
   <string name="createAGame">Створити гру</string>
-  <string name="whiteIsVictorious">Білі перемогли</string>
+  <string name="whiteIsVictorious">Перемога білих</string>
   <string name="blackIsVictorious">Перемога чорних</string>
-  <string name="youPlayTheWhitePieces">Ви граєте білими фігурами</string>
-  <string name="youPlayTheBlackPieces">Ви граєте чорними фігурами</string>
-  <string name="itsYourTurn">Ваш хід!</string>
+  <string name="youPlayTheWhitePieces">Граєте білими постатями</string>
+  <string name="youPlayTheBlackPieces">Граєте чорними постатями</string>
+  <string name="itsYourTurn">Твій хід!</string>
   <string name="kingInTheCenter">Король у центрі</string>
   <string name="threeChecks">Три шахи</string>
   <string name="raceFinished">Перегони завершено</string>
