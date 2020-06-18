@@ -283,6 +283,18 @@
     <item quantity="many">%s перемога</item>
     <item quantity="other">%s виграно</item>
   </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s поразка</item>
+    <item quantity="few">%s поразок</item>
+    <item quantity="many">%s поразки</item>
+    <item quantity="other">%s програно</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s нічия</item>
+    <item quantity="few">%s нічиїх</item>
+    <item quantity="many">%s нічиї</item>
+    <item quantity="other">%s нічиї</item>
+  </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s грає</item>
     <item quantity="few">%s грає</item>
@@ -305,6 +317,12 @@
   <string name="tournament">Турнір</string>
   <string name="tournaments">Турніри</string>
   <string name="tournamentPoints">Турнірні очки</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s очко змагу</item>
+    <item quantity="few">%s очок змагу</item>
+    <item quantity="many">%s очки змагу</item>
+    <item quantity="other">%s очки змагу</item>
+  </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s студія</item>
     <item quantity="few">%s студії</item>
