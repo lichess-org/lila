@@ -751,15 +751,16 @@ export default class AnalyseCtrl {
 
   playUci(uci: Uci): void {
     const move = chessUtil.decomposeUci(uci);
-    if (uci[1] === '@') this.chessground.newPiece({
+    const keyOrCrazy = move[0];
+    if (util.isCrazy(keyOrCrazy)) this.chessground.newPiece({
       color: this.chessground.state.movable.color as Color,
-      role: chessUtil.sanToRole[uci[0]]
+      role: chessUtil.sanToRole[util.crazyToSan(keyOrCrazy)]
     }, move[1]);
     else {
       const piece = this.chessground.state.pieces[move[0]];
       const capture = this.chessground.state.pieces[move[1]];
       const promotion = move[2] && chessUtil.sanToRole[move[2].toUpperCase()];
-      this.sendMove(move[0], move[1], (capture && piece && capture.color !== piece.color) ? capture : undefined, promotion);
+      this.sendMove(keyOrCrazy, move[1], (capture && piece && capture.color !== piece.color) ? capture : undefined, promotion);
     }
   }
 

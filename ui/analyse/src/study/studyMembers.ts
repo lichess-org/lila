@@ -5,6 +5,7 @@ import { prop, Prop } from 'common';
 import { ctrl as inviteFormCtrl } from './inviteForm';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { NotifCtrl } from './notif';
+import { Role } from 'chessground/types';
 
 interface Opts {
   initDict: StudyMemberMap;
@@ -58,7 +59,7 @@ export function ctrl(opts: Opts) {
 
   const inviteForm = inviteFormCtrl(opts.send, dict, () => opts.tab('members'), opts.redraw, opts.trans);
 
-  function setActive(id) {
+  function setActive(id: string) {
     if (opts.tab() !== 'members') return;
     if (active[id]) active[id]();
     else active[id] = memberActivity(function() {
@@ -103,7 +104,7 @@ export function ctrl(opts: Opts) {
       updateOnline();
     },
     setActive,
-    isActive(id) {
+    isActive(id: string) {
       return !!active[id];
     },
     owner,
@@ -111,7 +112,7 @@ export function ctrl(opts: Opts) {
     isOwner,
     canContribute,
     max,
-    setRole(id, role) {
+    setRole(id: string, role: Role) {
       setActive(id);
       opts.send("setRole", {
         userId: id,
@@ -119,7 +120,7 @@ export function ctrl(opts: Opts) {
       });
       confing(undefined);
     },
-    kick(id) {
+    kick(id: string) {
       opts.send("kick", id);
       confing(undefined);
     },

@@ -30,8 +30,8 @@ export interface Socket {
 
 export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
 
-  let anaMoveTimeout;
-  let anaDestsTimeout;
+  let anaMoveTimeout: number;
+  let anaDestsTimeout: number;
 
   let anaDestsCache: DestCache = {};
 

@@ -8,7 +8,7 @@ import { isOpening, isTablebase, TablebaseMoveStats, OpeningData, OpeningMoveSta
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
-  function section(key) {
+  function section(key: 'white' | 'black' | 'draws') {
     const percent = move[key] * 100 / sum;
     return percent === 0 ? null : h('span.' + key, {
       attrs: { style: 'width: ' + (Math.round(move[key] * 1000 / sum) / 10) + '%' },

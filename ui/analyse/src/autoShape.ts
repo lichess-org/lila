@@ -4,6 +4,7 @@ import * as cg from 'chessground/types';
 import { opposite } from 'chessground/util';
 import { DrawShape } from 'chessground/draw';
 import AnalyseCtrl from './ctrl';
+import { isCrazy, crazyToSan } from './util';
 
 function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
   return {
@@ -19,15 +20,16 @@ function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
 
 export function makeShapesFromUci(color: Color, uci: Uci, brush: string, modifiers?: any): DrawShape[] {
   const move = decomposeUci(uci);
-  if (uci[1] === '@') return [
+  const keyOrCrazy = move[0];
+  if (isCrazy(keyOrCrazy)) return [
     {
       orig: move[1],
       brush
     },
-    pieceDrop(move[1] as cg.Key, sanToRole[uci[0].toUpperCase()], color)
+    pieceDrop(move[1] as cg.Key, sanToRole[crazyToSan(keyOrCrazy)], color)
   ];
   const shapes: DrawShape[] = [{
-    orig: move[0],
+    orig: keyOrCrazy,
     dest: move[1],
     brush,
     modifiers
