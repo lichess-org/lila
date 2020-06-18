@@ -9,6 +9,14 @@
   <string name="whyLiveLightLibre">Uživo, jer se igre igraju i gledaju u stvarnom vremenu 24/7; lagan i besplatan zbog činjenice da je Lichess otvorenog koda i da nije opterećen vlasničkim smećem koji muči druge web stranice.</string>
   <string name="whyIsLilaCalledLila">Slično tome, izvorni kod Lichess-a, %1$s, stoji za li[chess in sca]la, s obzirom da je najveći dio Lichess-a napisan u %2$s, intuitivnom programskom jeziku.</string>
   <string name="howCanIContributeToLichess">Kako mogu pridonjeti Lichess-u?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess se održava donacijama pokrovitelja i naporima tima volontera.</string>
+  <string name="findMoreAndSeeHowHelp">Možete saznati više o %1$s (uključujući %2$s). Ako želite uložiti svoje vrijeme vještine volontirajući Lichess-u, postoji mnogo %3$s.</string>
+  <string name="beingAPatron">pokroviteljstvu</string>
+  <string name="breakdownOfOurCosts">raščlambu naših troškova</string>
+  <string name="otherWaysToHelp">drugih načina da nam pomognete</string>
+  <string name="areThereWebsitesBasedOnLichess">Postoje li web stranice temeljene na Lichess-u?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess je doista inspirirao druge web stranice otvorenog koda koje koriste naš %1$s, %2$s ili %3$s.</string>
+  <string name="fairPlay">Poštena Igra</string>
   <string name="howCanIBecomeModerator">Kako mogu postati moderator?</string>
   <string name="youCannotApply">Nije moguće podnijeti zahtjev za moderatora. Ako vidimo nekoga za koga mislimo da bi bio dobar moderator, kontaktirat ćemo ga izravno.</string>
   <string name="isCorrespondenceDifferent">Da li se dopisni šah razlikuje od uobičajenog šaha?</string>
