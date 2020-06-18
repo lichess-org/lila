@@ -6,10 +6,6 @@ export function fixCrazySan(san: San): San {
   return san[0] === 'P' ? san.slice(1) : san;
 }
 
-export function decomposeUci(uci: Uci): [string, Key, string] {
-  return [uci.slice(0, 2), uci.slice(2, 4) as Key, uci.slice(4, 5)];
-}
-
 export interface Dests {
   [square: string]: Key[];
 }
