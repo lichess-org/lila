@@ -852,9 +852,9 @@
   <string name="important">Importante</string>
   <string name="yourQuestionMayHaveBeenAnswered">A tua pergunta pode já ter uma resposta %1$s</string>
   <string name="inTheFAQ">no F.A.Q. (perguntas frequentes).</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">Para reportares um utilizador por fazer batota ou por mau comportamento, %1$s</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Para reportares um utilizador por fazer batota ou por mau comportamento, %1$s.</string>
   <string name="useTheReportForm">usa a ficha própria para o fazeres</string>
-  <string name="toRequestSupport">Para solicitares suporte, %1$s</string>
+  <string name="toRequestSupport">Para solicitares suporte, %1$s.</string>
   <string name="tryTheContactPage">tenta a página de contacto</string>
   <string name="thisTopicIsArchived">Este tópico foi arquivado e já não pode ser respondido.</string>
   <string name="joinTheTeamXToPost">Junta-te a %1$s, para publicares neste fórum</string>
