@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Щоб запросити когось до гри, дайте це посилання</string>
   <string name="gameOver">Гру завершено</string>
   <string name="waitingForOpponent">Очікування на суперника</string>
-  <string name="waiting">Очікуйте</string>
+  <string name="waiting">Очікування</string>
   <string name="yourTurn">Ваш хід</string>
   <string name="aiNameLevelAiLevel">%1$s рівень %2$s</string>
   <string name="level">Рівень</string>
@@ -612,6 +612,12 @@
     <item quantity="many">Щонайбільше: %s знаків.</item>
     <item quantity="other">Щонайбільше: %s знаків.</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s блокувань</item>
+    <item quantity="few">%s блокувань</item>
+    <item quantity="many">%s заборони</item>
+    <item quantity="other">%s заборони</item>
+  </plurals>
   <string name="listBlockedPlayers">Список заблокованих гравців</string>
   <string name="human">Людина</string>
   <string name="computer">Комп\'ютер</string>
@@ -647,6 +653,12 @@
   <string name="castling">Рокіровка</string>
   <string name="whiteCastlingKingside">Білі O-O</string>
   <string name="blackCastlingKingside">Чорні O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s повідомлень форуму</item>
+    <item quantity="few">%s повідомлень форуму</item>
+    <item quantity="many">%s дописів толоки</item>
+    <item quantity="other">%s дописів толоки</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Проведено часу у грі: %s</string>
   <string name="watchGames">Перегляд партій</string>
   <string name="tpTimeSpentOnTV">Час на ТБ: %s</string>
@@ -699,6 +711,12 @@
   <string name="tournamentMayHaveBeenCanceled">Він міг бути скасований, якщо всі гравці залишили його до початку.</string>
   <string name="returnToTournamentsHomepage">Повернутися до домашньої сторінки турніру</string>
   <string name="weeklyPerfTypeRatingDistribution">Місячний %s розподіл за рейтинґом</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s гравець цього тижня.</item>
+    <item quantity="few">%1$s %2$s гравців цього тижня.</item>
+    <item quantity="many">%1$s %2$s гравців цього тижня.</item>
+    <item quantity="other">%1$s %2$s гравців цього тижня.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Ваш %1$s рейтинг становить %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ви кращі від %1$s із %2$s гравців.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s кращий за %2$s з %3$s гравців.</string>
@@ -833,6 +851,12 @@
   <string name="reviewWhiteMistakes">Розібрати помилки білих</string>
   <string name="reviewBlackMistakes">Розібрати помилки чорних</string>
   <string name="advantage">Перевага</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунда</item>
+    <item quantity="few">%s секунди</item>
+    <item quantity="many">%s секунди</item>
+    <item quantity="other">%s секунди</item>
+  </plurals>
   <string name="opening">Дебют</string>
   <string name="middlegame">Міттельшпіль</string>
   <string name="endgame">Ендшпіль</string>
