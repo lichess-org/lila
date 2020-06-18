@@ -116,12 +116,13 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         h('textarea.copyable.autoselect', {
           attrs: { spellCheck: false },
           hook: {
+            ...onInsert(el => {
+              (el as HTMLTextAreaElement).value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
+              el.addEventListener('input', e => ctrl.pgnInput = (e.target as HTMLTextAreaElement).value);
+            }),
             postpatch: (_, vnode) => {
               (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
             },
-            ...bind('input', e => {
-              ctrl.pgnInput = (e.target as HTMLTextAreaElement).value;
-            }),
           }
         }),
         h('button.button.button-thin.action.text', {
