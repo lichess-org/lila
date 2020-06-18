@@ -3,7 +3,7 @@
   <string name="learnChess">Вчіться шахам</string>
   <string name="byPlaying">граючи!</string>
   <string name="menu">Меню</string>
-  <string name="progressX">Прогрес: %s</string>
+  <string name="progressX">Поступ: %s</string>
   <string name="resetMyProgress">Скинути прогрес</string>
   <string name="youWillLoseAllYourProgress">Весь ваш прогрес буде втрачено!</string>
   <string name="play">грати!</string>
