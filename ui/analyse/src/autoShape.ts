@@ -1,10 +1,10 @@
+import { parseUci, makeSquare } from 'chessops/util';
+import { isDrop } from 'chessops/types';
 import { winningChances } from 'ceval';
-import { decomposeUci, sanToRole } from 'chess';
 import * as cg from 'chessground/types';
 import { opposite } from 'chessground/util';
 import { DrawShape } from 'chessground/draw';
 import AnalyseCtrl from './ctrl';
-import { isCrazy, crazyToSan } from './util';
 
 function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
   return {
@@ -19,22 +19,20 @@ function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
 }
 
 export function makeShapesFromUci(color: Color, uci: Uci, brush: string, modifiers?: any): DrawShape[] {
-  const move = decomposeUci(uci);
-  const keyOrCrazy = move[0];
-  if (isCrazy(keyOrCrazy)) return [
-    {
-      orig: move[1],
-      brush
-    },
-    pieceDrop(move[1] as cg.Key, sanToRole[crazyToSan(keyOrCrazy)], color)
+  const move = parseUci(uci)!;
+  const to = makeSquare(move.to);
+  if (isDrop(move)) return [
+    { orig: makeSquare(move.to), brush },
+    pieceDrop(to, move.role, color)
   ];
+
   const shapes: DrawShape[] = [{
-    orig: keyOrCrazy,
-    dest: move[1],
+    orig: makeSquare(move.from),
+    dest: to,
     brush,
     modifiers
   }];
-  if (move[2]) shapes.push(pieceDrop(move[1]!, move[2] as cg.Role, color));
+  if (move.promotion) shapes.push(pieceDrop(to, move.promotion, color));
   return shapes;
 }
 

@@ -1,5 +1,4 @@
 import { piotr } from './piotr';
-import { Role } from 'chessground/types';
 
 export const initialFen: Fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
@@ -7,8 +6,8 @@ export function fixCrazySan(san: San): San {
   return san[0] === 'P' ? san.slice(1) : san;
 }
 
-export function decomposeUci(uci: Uci): [KeyOrCrazy, Key, Promotion] {
-  return [uci.slice(0, 2) as KeyOrCrazy, uci.slice(2, 4) as Key, uci.slice(4, 5) as Promotion];
+export function decomposeUci(uci: Uci): [string, Key, string] {
+  return [uci.slice(0, 2), uci.slice(2, 4) as Key, uci.slice(4, 5)];
 }
 
 export interface Dests {
@@ -38,7 +37,7 @@ export const roleToSan = {
   king: 'K'
 };
 
-export const sanToRole: { [key: string]: Role; } = {
+export const sanToRole: { [key: string]: 'pawn' | 'knight' | 'bishop' | 'rook' | 'queen' | 'king' } = {
   P: 'pawn',
   N: 'knight',
   B: 'bishop',

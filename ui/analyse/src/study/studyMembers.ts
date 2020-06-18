@@ -5,7 +5,6 @@ import { prop, Prop } from 'common';
 import { ctrl as inviteFormCtrl } from './inviteForm';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { NotifCtrl } from './notif';
-import { Role } from 'chessground/types';
 
 interface Opts {
   initDict: StudyMemberMap;
@@ -112,7 +111,7 @@ export function ctrl(opts: Opts) {
     isOwner,
     canContribute,
     max,
-    setRole(id: string, role: Role) {
+    setRole(id: string, role) {
       setActive(id);
       opts.send("setRole", {
         userId: id,

@@ -10,10 +10,6 @@ import { onInsert } from './util'
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
-interface SanMap {
-  [key: string]: cg.Role;
-}
-
 export interface KeyboardMove {
   drop(key: cg.Key, piece: string): void;
   promote(orig: cg.Key, dest: cg.Key, piece: string): void;
@@ -37,7 +33,6 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let preHandlerBuffer = step.fen;
   let lastSelect = Date.now();
   const cgState = root.chessground.state;
-  const sanMap = sanToRole as SanMap;
   const select = function(key: cg.Key): void {
     if (cgState.selected === key) root.chessground.cancelMove();
     else {
@@ -48,7 +43,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let usedSan = false;
   return {
     drop(key, piece) {
-      const role = sanMap[piece];
+      const role = sanToRole[piece];
       const crazyData = root.data.crazyhouse;
       const color = root.data.player.color;
       // Square occupied
@@ -61,7 +56,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       root.sendNewPiece(role, key, false);
     },
     promote(orig, dest, piece) {
-      const role = sanMap[piece];
+      const role = sanToRole[piece];
       if (!role || role == 'pawn') return;
       root.chessground.cancelMove();
       sendPromotion(root, orig, dest, role, {premove: false});

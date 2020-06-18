@@ -128,8 +128,8 @@ function toYouTubeEmbedUrl(url: string) {
     if (s[0] === 't' || s[0] === 'start') {
       if (s[1].match(/^\d+$/)) start = parseInt(s[1]);
       else {
-        const n = s[1].match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/);
-        start = (parseInt(n![1]) || 0) * 3600 + (parseInt(n![2]) || 0) * 60 + (parseInt(n![3]) || 0);
+        const n = s[1].match(/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/)!;
+        start = (parseInt(n[1]) || 0) * 3600 + (parseInt(n[2]) || 0) * 60 + (parseInt(n[3]) || 0);
       }
     }
   });
@@ -188,12 +188,4 @@ export function option(value: string, current: string | undefined, name: string)
 
 export function scrollTo(el: HTMLElement | undefined, target: HTMLElement |  null) {
   if (el && target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;
-}
-
-export function isCrazy(x: KeyOrCrazy): x is Crazy {
-  return ['P@', 'N@', 'B@', 'R@', 'Q@'].includes(x);
-}
-
-export function crazyToSan(crazy: Crazy) {
-  return crazy[0].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q';
 }
