@@ -338,6 +338,24 @@
     <item quantity="many">≥ %s рейтингових ігор</item>
     <item quantity="other">≥ %s рейтингових ігор</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s щабельна гра</item>
+    <item quantity="few">≥ %1$s %2$s щабельні ігри</item>
+    <item quantity="many">≥ %1$s %2$s щабельні ігри</item>
+    <item quantity="other">≥ %1$s %2$s щабельні ігри</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Маєте зіграти ще %1$s щабельну гру в %2$s</item>
+    <item quantity="few">Маєте зіграти ще %1$s щабельні ігрі в %2$s</item>
+    <item quantity="many">Маєте зіграти ще %1$s щабельні ігрі в %2$s</item>
+    <item quantity="other">Маєте зіграти ще %1$s щабельні ігрі в %2$s</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Маєте зіграти ще %s щабельну гру</item>
+    <item quantity="few">Маєте зіграти ще %s щабельні ігри</item>
+    <item quantity="many">Маєте зіграти ще %s щабельні ігри</item>
+    <item quantity="other">Маєте зіграти ще %s щабельні ігри</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш попередній рейтинг: %s</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг у %1$s (%2$s) дуже високий</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш щотижневий рейтинг %1$s рейтинг (%2$s) дуже високий</string>
@@ -366,6 +384,12 @@
   <string name="importGame">Імпортувати гру</string>
   <string name="importGameExplanation">При вставці PGN-гри ви отримуєте повтор в браузері,
 комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s принесена гра</item>
+    <item quantity="few">%s пренесених ігор</item>
+    <item quantity="many">%s пренесених ігор</item>
+    <item quantity="other">%s пренесених ігор</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Це – шаховий код.</string>
   <string name="clickOnTheBoardToMakeYourMove">Клацніть на дошці, щоби зробити хід і довести, що ви людина.</string>
   <string name="captcha.fail">Будь-ласка, вирішіть шахову капчу.</string>
@@ -488,6 +512,12 @@
   <string name="thankYou">Дякуємо!</string>
   <string name="ratingX">Рівень: %s</string>
   <string name="hidden">прихований</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Показано %s разів</item>
+    <item quantity="few">Показано %s разів</item>
+    <item quantity="many">Зіграно %s разів</item>
+    <item quantity="other">Зіграно %s разів</item>
+  </plurals>
   <string name="fromGameLink">Вилучено з гри %s</string>
   <string name="continueTraining">Продовжити тренування</string>
   <string name="retryThisPuzzle">Спробувати цю задачу ще раз</string>
@@ -576,6 +606,12 @@
   <string name="allInformationIsPublicAndOptional">Уся інформація публічна та необов\'язкова.</string>
   <string name="yourCityRegionOrDepartment">Ваше місто, область або район.</string>
   <string name="biographyDescription">Розкажіть про себе: що вам подобається в шахах, які ваші улюблені дебюти, ігри, гравці…</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Щонайбільше: %s знак.</item>
+    <item quantity="few">Максимум: %s символів.</item>
+    <item quantity="many">Щонайбільше: %s знаків.</item>
+    <item quantity="other">Щонайбільше: %s знаків.</item>
+  </plurals>
   <string name="listBlockedPlayers">Список заблокованих гравців</string>
   <string name="human">Людина</string>
   <string name="computer">Комп\'ютер</string>
