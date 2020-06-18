@@ -617,10 +617,11 @@ export default class AnalyseCtrl {
   }
 
   gameOver(node?: Tree.Node): 'draw' | 'checkmate' | false {
-    const n = node || this.node;
-    if (n.dests !== '' || n.drops) return false;
-    if (n.check) return 'checkmate';
-    return 'draw';
+    const pos = this.position(node || this.node).unwrap();
+    const outcome = pos.outcome();
+    if (outcome && outcome.winner) return 'checkmate';
+    else if (outcome) return 'draw';
+    else return false;
   }
 
   position(node: Tree.Node): Result<Position, PositionError> {
