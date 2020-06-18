@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { parseFen } from 'chessops/fen';
 import * as chessground from './ground';
 import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
 import { defined } from 'common';
@@ -100,14 +101,27 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
     h('div.pair', [
       h('label.name', 'FEN'),
       h('input.copyable.autoselect.analyse__underboard__fen', {
-        attrs: {
-          spellCheck: false,
-          value: ctrl.node.fen
-        },
-        hook: bind('change', e => {
-          const value = (e.target as HTMLInputElement).value;
-          if (value !== ctrl.node.fen) ctrl.changeFen(value);
-        })
+        attrs: { spellCheck: false },
+        hook: {
+          insert: vnode => {
+            const el = vnode.elm as HTMLInputElement;
+            el.value = defined(ctrl.fenInput) ? ctrl.fenInput : ctrl.node.fen;
+            el.addEventListener('change', _ => {
+              if (el.value !== ctrl.node.fen && el.reportValidity()) ctrl.changeFen(el.value.trim());
+            });
+            el.addEventListener('input', _ => {
+              ctrl.fenInput = el.value;
+              el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN');
+            });
+          },
+          postpatch: (_, vnode) => {
+            const el = vnode.elm as HTMLInputElement;
+            if (!defined(ctrl.fenInput)) {
+              el.value = ctrl.node.fen;
+              el.setCustomValidity('');
+            } else if (el.value != ctrl.fenInput) el.value = ctrl.fenInput;
+          },
+        }
       })
     ]),
     h('div.pgn', [
