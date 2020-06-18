@@ -35,10 +35,10 @@
   <string name="kingComplete">Ви навчилися ходити королем!</string>
   <string name="theKnight">Кінь</string>
   <string name="itMovesInAnLShape">Він ходить літерою «Г»</string>
-  <string name="knightIntro">Ось вам виклик. Кінь... хитра фігура.</string>
+  <string name="knightIntro">Ось вам виклик. Кінь є… хитрою постаттю.</string>
   <string name="knightsHaveAFancyWay">Коні мають химерний спосіб перестрибувати!</string>
   <string name="knightsCanJumpOverObstacles">Коні можуть стрибати через перешкоди!
-Виберіться та зберіть всі зірки!</string>
+Виберися та збери всі зірки!</string>
   <string name="knightComplete">Вітаємо! Ви освоїли фігуру \"Кінь\".</string>
   <string name="thePawn">Пішак</string>
   <string name="itMovesForwardOnly">Ходить лише вперед</string>
