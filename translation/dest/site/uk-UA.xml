@@ -66,11 +66,11 @@
   <string name="toggleLocalEvaluation">Стан місцевої оцінки</string>
   <string name="promoteVariation">Висунь відміну</string>
   <string name="makeMainLine">Зроби відміну основною</string>
-  <string name="deleteFromHere">Видалити з цього місця</string>
-  <string name="forceVariation">Форсований вариант</string>
+  <string name="deleteFromHere">Видали звідси</string>
+  <string name="forceVariation">Просунь відміну</string>
   <string name="move">Хід</string>
-  <string name="variantLoss">Шанс програшу</string>
-  <string name="variantWin">Шанс виграшу</string>
+  <string name="variantLoss">Відміна програшу</string>
+  <string name="variantWin">Відміна виграшу</string>
   <string name="insufficientMaterial">Недостатньо матеріалу</string>
   <string name="pawnMove">Хід пішака</string>
   <string name="capture">Взяття</string>
@@ -81,9 +81,9 @@
   <string name="unknown">Невідомо</string>
   <string name="database">База даних</string>
   <string name="whiteDrawBlack">Білі / Нічія / Чорні</string>
-  <string name="averageRatingX">Середня оцінка: %s</string>
+  <string name="averageRatingX">Середній щабель: %s</string>
   <string name="recentGames">Останні ігри</string>
-  <string name="topGames">Кращі ігри</string>
+  <string name="topGames">Найкращі ігри</string>
   <string name="masterDbExplanation">Два мільйони OTB ігор %1$s+ FIDE гравців рейтингу від %2$s до %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат в %s полуходів</item>
@@ -92,14 +92,14 @@
     <item quantity="other">Мат у %s напівходів</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Наступне взяття або хід пішаком у %s напівуход (Відстань до обнулення лічильника 50 ходів)</item>
-    <item quantity="few">Наступне взяття або хід пішаком у %s напівходів (Відстань до обнулення лічильника 50 ходів)</item>
-    <item quantity="many">Наступне взяття або хід пішаком у %s півход. (Відстань до обнулення лічильн. 50 ходів)</item>
-    <item quantity="other">Наступне взяття або хід пішаком у %s півход. (Відстань до обнулення лічильн. 50 ходів)</item>
+    <item quantity="one">Наступне взяття чи хід пішаком у %s полухід (до обнулення лічильника 50 ходів)</item>
+    <item quantity="few">Наступне взяття чи хід пішаком у %s полуходів (до обнулення лічильника 50 ходів)</item>
+    <item quantity="many">Наступне взяття чи хід пішаком у %s полуходів (до обнулення лічильника 50 ходів)</item>
+    <item quantity="other">Наступне взяття чи хід пішаком у %s полуходів (до обнулення лічильника 50 ходів)</item>
   </plurals>
-  <string name="noGameFound">Ігор не знайдено</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з вкладки переваг?</string>
-  <string name="openingExplorer">Перегляд дебютів</string>
+  <string name="noGameFound">Не знайдено гри</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може варто включити більше ігор з вкладки переваг?</string>
+  <string name="openingExplorer">Перегляд початків</string>
   <string name="xOpeningExplorer">Відкриваємо провідник: %s</string>
   <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
   <string name="lossSavedBy50MoveRule">Поразку врятовано правилом 50-го ходу</string>
