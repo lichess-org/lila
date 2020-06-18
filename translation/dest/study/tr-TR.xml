@@ -58,7 +58,9 @@
   <string name="shareAndExport">Paylaş ve dışa aktar</string>
   <string name="cloneStudy">Klonla</string>
   <string name="studyPgn">Çalışma PGN\'si</string>
+  <string name="downloadAllGames">Bütün oyunları indir</string>
   <string name="chapterPgn">Bölüm PGN\'si</string>
+  <string name="downloadGame">Oyunu indir</string>
   <string name="studyUrl">Çalışma Adresi</string>
   <string name="currentChapterUrl">Mevcut Bölümün Adresi</string>
   <string name="startAtInitialPosition">İlk pozisyondan başlasın</string>
