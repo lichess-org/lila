@@ -208,10 +208,7 @@ export default class AnalyseCtrl {
     this.chessground.set({
       orientation: this.bottomColor()
     });
-    if (this.retro) {
-      this.retro = undefined;
-      this.toggleRetro();
-    }
+    if (this.retro) this.retro = makeRetro(this, this.bottomColor());
     if (this.practice) this.restartPractice();
     this.redraw();
   }
@@ -797,7 +794,7 @@ export default class AnalyseCtrl {
   toggleRetro = (): void => {
     if (this.retro) this.retro = undefined;
     else {
-      this.retro = makeRetro(this);
+      this.retro = makeRetro(this, this.bottomColor());
       if (this.practice) this.togglePractice();
       if (this.explorer.enabled()) this.toggleExplorer();
     }
