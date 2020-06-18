@@ -616,8 +616,7 @@ export default class AnalyseCtrl {
   }
 
   outcome(node?: Tree.Node): Outcome | undefined {
-    const pos = this.position(node || this.node).unwrap();
-    return pos.outcome();
+    return this.position(node || this.node).unwrap(pos => pos.outcome(), _ => undefined);
   }
 
   position(node: Tree.Node): Result<Position, PositionError> {
