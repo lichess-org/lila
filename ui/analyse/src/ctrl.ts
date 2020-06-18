@@ -208,7 +208,9 @@ export default class AnalyseCtrl {
     this.chessground.set({
       orientation: this.bottomColor()
     });
-    if (this.retro) this.retro = makeRetro(this, this.bottomColor());
+    if (this.retro && this.data.game.variant.key !== 'racingKings') {
+      this.retro = makeRetro(this, this.bottomColor());
+    }
     if (this.practice) this.restartPractice();
     this.redraw();
   }
