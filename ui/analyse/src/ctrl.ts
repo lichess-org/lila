@@ -1,5 +1,5 @@
 import { Outcome, isNormal } from 'chessops/types';
-import { opposite, parseUci, makeSquare } from 'chessops/util';
+import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
 import { lichessVariantRules } from 'chessops/compat';
 import { Position, PositionError } from 'chessops/chess';
 import { parseFen } from 'chessops/fen';
@@ -441,7 +441,7 @@ export default class AnalyseCtrl {
 
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
     if (crazyValid(this.chessground, this.node.drops, piece, pos)) {
-      this.justPlayed = chessUtil.roleToSan[piece.role] + '@' + pos;
+      this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
       this.sound.move();

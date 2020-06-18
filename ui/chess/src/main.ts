@@ -24,15 +24,6 @@ export function readDrops(line?: string | null): string[] | null {
   return line.match(/.{2}/g) || [];
 }
 
-export const roleToSan = {
-  pawn: 'P',
-  knight: 'N',
-  bishop: 'B',
-  rook: 'R',
-  queen: 'Q',
-  king: 'K'
-};
-
 export const altCastles = {
   e1a1: 'e1c1',
   e1h1: 'e1g1',
