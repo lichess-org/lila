@@ -156,8 +156,8 @@
   <string name="youNeedAnAccountToDoThat">Для цього вам потрібен обліковий запис</string>
   <string name="signUp">Зареєструватися</string>
   <string name="computersAreNotAllowedToPlay">Заборонено грати, користуючись підказками шахових програм та безпосередньо програмами. Будь ласка, не послуговуйтеся під час гри допомогою програм (\"рушіїв\"), баз даних або інших гравців. Також зверніть увагу, що створення декількох облікових записів не заохочується і використання надмірної кількості облікових записів призведе до блокування.</string>
-  <string name="games">Партії</string>
-  <string name="forum">Форум</string>
+  <string name="games">Гри</string>
+  <string name="forum">Толока</string>
   <string name="xPostedInForumY">%1$s опублікованих на форумі %2$s</string>
   <string name="latestForumPosts">Останні дописи форуму</string>
   <string name="players">Гравці</string>
