@@ -1,4 +1,4 @@
-import { isNormal } from 'chessops/types';
+import { Outcome, isNormal } from 'chessops/types';
 import { opposite, parseUci, makeSquare } from 'chessops/util';
 import { lichessVariantRules } from 'chessops/compat';
 import { Position, PositionError } from 'chessops/chess';
@@ -514,8 +514,7 @@ export default class AnalyseCtrl {
     this.tree.addDests(dests, path);
     if (path === this.path) {
       this.showGround();
-      // this.redraw();
-      if (this.gameOver()) this.ceval.stop();
+      if (this.outcome()) this.ceval.stop();
     }
     this.withCg(cg => cg.playPremove());
   }
@@ -616,12 +615,9 @@ export default class AnalyseCtrl {
     return this.ceval;
   }
 
-  gameOver(node?: Tree.Node): 'draw' | 'checkmate' | false {
+  outcome(node?: Tree.Node): Outcome | undefined {
     const pos = this.position(node || this.node).unwrap();
-    const outcome = pos.outcome();
-    if (outcome && outcome.winner) return 'checkmate';
-    else if (outcome) return 'draw';
-    else return false;
+    return pos.outcome();
   }
 
   position(node: Tree.Node): Result<Position, PositionError> {
@@ -630,7 +626,7 @@ export default class AnalyseCtrl {
   }
 
   canUseCeval(): boolean {
-    return !this.gameOver() && !this.node.threefold;
+    return !this.node.threefold && !this.outcome();
   }
 
   startCeval = throttle(800, () => {
@@ -704,7 +700,7 @@ export default class AnalyseCtrl {
   }
 
   showEvalGauge(): boolean {
-    return this.hasAnyComputerAnalysis() && this.showGauge() && !this.gameOver() && this.showComputer();
+    return this.hasAnyComputerAnalysis() && this.showGauge() && !this.outcome() && this.showComputer();
   }
 
   hasAnyComputerAnalysis(): boolean {

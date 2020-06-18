@@ -66,7 +66,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function commentable(node: Tree.Node, bonus: number = 0): boolean {
-    if (root.gameOver(node) || node.tbhit) return true;
+    if (node.tbhit || root.outcome(node)) return true;
     const ceval = node.ceval;
     return ceval ? ((ceval.depth + bonus) >= 15 || (ceval.depth >= 13 && ceval.millis > 3000)) : false;
   }
@@ -92,12 +92,12 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
 
   function makeComment(prev: Tree.Node, node: Tree.Node, path: Tree.Path): Comment {
     let verdict: Verdict, best;
-    const over = root.gameOver(node);
+    const outcome = root.outcome(node);
 
-    if (over === 'checkmate') verdict = 'goodMove';
+    if (outcome && outcome.winner) verdict = 'goodMove';
     else {
       const nodeEval: Eval = tbhitToEval(node.tbhit) || (
-        (node.threefold || over === 'draw') ? { cp: 0 } : node.ceval as Eval
+        (node.threefold || (outcome && !outcome.winner)) ? { cp: 0 } : node.ceval as Eval
       );
       const prevEval: Eval = tbhitToEval(prev.tbhit) || prev.ceval!;
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
