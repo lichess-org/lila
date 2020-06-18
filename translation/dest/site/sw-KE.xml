@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">cheza na rafiki</string>
-  <string name="playWithTheMachine">cheza na tarakilishi</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">kumwalika mtu acheze, mpe anwani hii</string>
-  <string name="gameOver">mchezo kwisha</string>
-  <string name="waitingForOpponent">ngojea mpinzani</string>
-  <string name="waiting">ngoja</string>
+  <string name="playWithTheMachine">Cheza Na Tarakilishi</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Kumwalika mtu acheze, mpe anwani hii</string>
+  <string name="gameOver">Mchezo umekwisha</string>
+  <string name="waitingForOpponent">Subiri mpinzani</string>
+  <string name="waiting">Subiri</string>
   <string name="yourTurn">nafasi ni yako</string>
   <string name="aiNameLevelAiLevel">%1$s kiwango %2$s</string>
   <string name="level">kiwango</string>
