@@ -104,12 +104,12 @@
   <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
   <string name="lossSavedBy50MoveRule">Поразку врятовано правилом 50-го ходу</string>
   <string name="allSet">Все готово!</string>
-  <string name="importPgn">Імпорт PGN</string>
+  <string name="importPgn">Принеси PGN</string>
   <string name="delete">Видалити</string>
-  <string name="deleteThisImportedGame">Видалити цю імпортовану гру?</string>
-  <string name="replayMode">Режим повтору</string>
-  <string name="realtimeReplay">У реальному часі</string>
-  <string name="byCPL">Цікаве</string>
+  <string name="deleteThisImportedGame">Видалити цю принесену гру?</string>
+  <string name="replayMode">Лад повтору</string>
+  <string name="realtimeReplay">Як наживо</string>
+  <string name="byCPL">За CPL</string>
   <string name="openStudy">Почати дослідження</string>
   <string name="enable">Включити</string>
   <string name="bestMoveArrow">Стрілка \"кращий хід\"</string>
