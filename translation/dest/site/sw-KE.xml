@@ -22,6 +22,9 @@ Bonyeza ndio usikie ama usisikie Sauti. Hiki kitufe kiko katika upande wa kulia 
   <string name="createAGame">unda mchezo</string>
   <string name="whiteIsVictorious">nyeupe ameshinda</string>
   <string name="blackIsVictorious">nyeusi ameshinda</string>
+  <string name="youPlayTheWhitePieces">Unacheza na nyeupe</string>
+  <string name="youPlayTheBlackPieces">Unacheza na nyeusi</string>
+  <string name="itsYourTurn">Nafasi ni yako!</string>
   <string name="kingInTheCenter">Mfalme katika kituo</string>
   <string name="threeChecks">Kaguzi tatu</string>
   <string name="raceFinished">Mbio imemalizika</string>
