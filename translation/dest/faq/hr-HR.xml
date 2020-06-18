@@ -17,6 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">Postoje li web stranice temeljene na Lichess-u?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess je doista inspirirao druge web stranice otvorenog koda koje koriste naš %1$s, %2$s ili %3$s.</string>
   <string name="fairPlay">Poštena Igra</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Zašto se prijavljen za umjetnu manipulaciju rejtinga (namjerno izgubljenim partijama ili pobjeđivanjem vanjskom pomoći) ili računalnu pomoć?</string>
   <string name="howCanIBecomeModerator">Kako mogu postati moderator?</string>
   <string name="youCannotApply">Nije moguće podnijeti zahtjev za moderatora. Ako vidimo nekoga za koga mislimo da bi bio dobar moderator, kontaktirat ćemo ga izravno.</string>
   <string name="isCorrespondenceDifferent">Da li se dopisni šah razlikuje od uobičajenog šaha?</string>
