@@ -1,4 +1,5 @@
-import { opposite } from 'chessground/util';
+import { isNormal } from 'chessops/types';
+import { opposite, parseUci, makeSquare } from 'chessops/util';
 import { lichessVariantRules } from 'chessops/compat';
 import { Position, PositionError } from 'chessops/chess';
 import { parseFen } from 'chessops/fen';
@@ -758,17 +759,16 @@ export default class AnalyseCtrl {
   }
 
   playUci(uci: Uci): void {
-    const move = chessUtil.decomposeUci(uci);
-    if (uci[1] === '@') this.chessground.newPiece({
+    const move = parseUci(uci)!;
+    const to = makeSquare(move.to);
+    if (isNormal(move)) {
+      const piece = this.chessground.state.pieces[makeSquare(move.from)];
+      const capture = this.chessground.state.pieces[to];
+      this.sendMove(makeSquare(move.from), to, (capture && piece && capture.color !== piece.color) ? capture : undefined, move.promotion);
+    } else this.chessground.newPiece({
       color: this.chessground.state.movable.color as Color,
-      role: chessUtil.sanToRole[uci[0]]
-    }, move[1]);
-    else {
-      const piece = this.chessground.state.pieces[move[0]];
-      const capture = this.chessground.state.pieces[move[1]];
-      const promotion = move[2] && chessUtil.sanToRole[move[2].toUpperCase()];
-      this.sendMove(move[0], move[1], (capture && piece && capture.color !== piece.color) ? capture : undefined, promotion);
-    }
+      role: move.role,
+    }, to);
   }
 
   explorerMove(uci: Uci) {

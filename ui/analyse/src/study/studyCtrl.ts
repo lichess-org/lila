@@ -79,7 +79,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     data.chapters,
     send,
     () => vm.tab('chapters'),
-    chapterId => xhr.chapterConfig(data.id, chapterId),
+    (chapterId: string) => xhr.chapterConfig(data.id, chapterId),
     ctrl);
 
   function currentChapter(): StudyChapterMeta {
@@ -251,7 +251,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   instanciateGamebookPlay();
 
   function mutateCgConfig(config) {
-    config.drawable.onChange = shapes => {
+    config.drawable.onChange = (shapes: Tree.Shape[]) => {
       if (vm.mode.write) {
         ctrl.tree.setShapes(shapes, ctrl.path);
         makeChange("shapes", addChapterId({
@@ -483,7 +483,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     crowd(d) {
       members.setSpectators(d.users);
     },
-    error(msg) {
+    error(msg: string) {
       alert(msg);
     }
   };

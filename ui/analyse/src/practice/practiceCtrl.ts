@@ -10,11 +10,13 @@ import { altCastles } from 'chess';
 import { parseUci } from 'chessops/util';
 import { makeSan } from 'chessops/san';
 
+declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
+
 export interface Comment {
   prev: Tree.Node;
   node: Tree.Node;
   path: Tree.Path;
-  verdict: 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
+  verdict: Verdict;
   best?: {
     uci: Uci;
     san: San;
@@ -89,7 +91,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function makeComment(prev: Tree.Node, node: Tree.Node, path: Tree.Path): Comment {
-    let verdict, best;
+    let verdict: Verdict, best;
     const over = root.gameOver(node);
 
     if (over === 'checkmate') verdict = 'goodMove';
