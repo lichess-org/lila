@@ -1,5 +1,4 @@
 import { h } from 'snabbdom'
-import { sanToRole } from 'chess'
 import * as cg from 'chessground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
@@ -26,6 +25,15 @@ export interface KeyboardMove {
   justSelected(): boolean;
   clock(): ClockController | undefined;
 }
+
+const sanToRole: { [key: string]: cg.Role } = {
+  P: 'pawn',
+  N: 'knight',
+  B: 'bishop',
+  R: 'rook',
+  Q: 'queen',
+  K: 'king',
+};
 
 export function ctrl(root: RoundController, step: Step, redraw: Redraw): KeyboardMove {
   let focus = false;

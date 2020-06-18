@@ -33,15 +33,6 @@ export const roleToSan = {
   king: 'K'
 };
 
-export const sanToRole: { [key: string]: 'pawn' | 'knight' | 'bishop' | 'rook' | 'queen' | 'king' } = {
-  P: 'pawn',
-  N: 'knight',
-  B: 'bishop',
-  R: 'rook',
-  Q: 'queen',
-  K: 'king'
-};
-
 export const altCastles = {
   e1a1: 'e1c1',
   e1h1: 'e1g1',
