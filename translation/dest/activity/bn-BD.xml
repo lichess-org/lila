@@ -2,6 +2,10 @@
 <resources>
   <string name="activity">কার্যকলাপ</string>
   <string name="hostedALiveStream">একটি লাইভ স্ট্রিম হোষ্টেড করেছেন</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">সাপোর্ট করেছেন lichess.org সাইটকে %1$s মাসের জন্য %2$s হিসেবে</item>
+    <item quantity="other">সাপোর্ট করেছেন lichess.org সাইটকে %1$s মাসের জন্য %2$s হিসেবে</item>
+  </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">অভ্যস্ত %1$s অবস্থান করত %2$s</item>
     <item quantity="other">অভ্যস্ত %1$s অবস্থান গুলো করত %2$s</item>
@@ -51,7 +55,7 @@
     <item quantity="other">তৈরি হয়েছে %s নতুন গবেষণা</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">অনুষ্ঠানে %s প্রতিযোগিতা</item>
+    <item quantity="one">প্রতিযোগিতায় %s সর্ম্পূন হয়েছে</item>
     <item quantity="other">অনুষ্ঠানে %s প্রতিযোগিতা</item>
   </plurals>
   <plurals name="rankedInTournament">
