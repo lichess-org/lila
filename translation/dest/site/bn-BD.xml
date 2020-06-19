@@ -214,6 +214,7 @@
   <string name="playingRightNow">এই মুহূর্তে খেলছেন</string>
   <string name="eventInProgress">এই মুহূর্তে খেলতেছে</string>
   <string name="finished">সমাপ্ত</string>
+  <string name="finishesX">শেষ করেছে %s</string>
   <string name="abortGame">খেলা বন্ধ করুন</string>
   <string name="gameAborted">খেলা বন্ধ করা হয়েছে</string>
   <string name="standard">আদর্শ</string>
@@ -327,6 +328,7 @@
   <string name="siteDescription">ফ্রি অনলাইন দাবা খেলা। এখন থেকে পরিচ্ছন্ন ইন্টারফেসে দাবা খেলুন। কোন রেজিস্ট্রেশনের দরকার নেই, নেই কোন বিজ্ঞাপন, এমনকি কোনও প্লাগইন-এরও প্রয়োজন নেই। দাবা খেলুন কম্পিউটারের সাথে, অথবা বন্ধুর সাথে অথবা অজানা যে কোন প্রতিপক্ষের সাথে।</string>
   <string name="xJoinedTeamY">%1$s যোগ দিলেন %2$s দলে</string>
   <string name="xCreatedTeamY">%1$s বানালেন %2$s দল</string>
+  <string name="xStartedStreaming">%s স্ট্রিমিং শুরু করেছেন</string>
   <string name="averageElo">গড় ইলো</string>
   <string name="location">বসবাসস্থল</string>
   <string name="filterGames">খেলা ছাঁকন</string>
@@ -822,6 +824,7 @@
   <string name="edit">এডিট বা সম্পাদন করুন</string>
   <string name="tryTheContactPage">যোগাযোগ পেজে যেয়ে দেখতে পারেন</string>
   <string name="thisTopicIsArchived">এই টপিক বা বিষয়টি সংরক্ষণাগারভুক্ত করা হয়েছে সুতরাং এর জবাব আর দেওয়া যাবে না.</string>
+  <string name="joinTheTeamXToPost">যুক্ত হোন %1$s, এই ফোরামে পোষ্ট করার জন্য</string>
   <string name="teamNamedX">%1$s দল</string>
   <string name="youCannotPostYetPlaySomeGames">আপনি এখন ফোরামে পোষ্ট করতে পারবেন না. আগে কিছু গেম খেলুন!</string>
   <string name="subscribe">সাবস্ক্রাইব</string>
