@@ -173,4 +173,16 @@
     <item quantity="one">ప్రతి నిమిషం స్థానం నవీకరణ చెందుతుంది</item>
     <item quantity="other">ప్రతి %s నిమిషాలకు స్థానం నవీకరణ చెందుతుంది</item>
   </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%sవ చిక్కు ప్రశ్న</item>
+    <item quantity="other">%s చిక్కు ప్రశ్నలు</item>
+  </plurals>
+  <string name="gamesPlayed">ఆడిన ఆటలు</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">నీతో ఆడిన %sవ ఆట</item>
+    <item quantity="other">నీతో ఆడిన మొత్తం %s ఆటలు</item>
+  </plurals>
+  <string name="cancel">రద్దు చేయండి</string>
+  <string name="timeOut">సమయం అయిపోయింది</string>
+  <string name="drawOfferSent">సంధి ప్రతిపాదన పంపబడింది</string>
 </resources>
