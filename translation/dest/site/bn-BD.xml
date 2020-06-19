@@ -415,6 +415,7 @@
   <string name="recommendNotTouching">এটা টাচ না করার জন্য পরামর্শ দেয়া হচ্ছে।</string>
   <string name="fewerPlayers">যদি আপনি এন্ট্রি করার শর্ত ঠিক করে দেন, তাহলে টুর্নামেন্টে তুলনামূলকভাবে কম খেলোয়ার পাওয়া যাবে।</string>
   <string name="showAdvancedSettings">এডভান্সড সেটিংসে যান</string>
+  <string name="makePrivateTournament">পাসওয়ার্ড দিয়ে টুর্নামেন্টটি গোপনীয় এবং সিমাবদ্ধ করেদিন</string>
   <string name="join">যোগ দিন</string>
   <string name="withdraw">উঠিয়ে নিন</string>
   <string name="points">পয়েন্ট</string>
@@ -482,6 +483,7 @@
   <string name="pleaseVotePuzzle">UP অথবা Down arrow তে ভোট করে lichess-কে সাহায্য করুন</string>
   <string name="thankYou">ধন্যবাদ</string>
   <string name="ratingX">অনুপাত: %s</string>
+  <string name="hidden">লুকায়িত</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s সময় খেলা হয়েছে</item>
     <item quantity="other">%s সময় খেলা হয়েছে</item>
@@ -539,6 +541,8 @@
   <string name="currentPassword">বর্তমান পাসওয়ার্ড</string>
   <string name="newPassword">নতুন পাসওয়ার্ড</string>
   <string name="newPasswordAgain">নতুন পাসওয়ার্ড (পুনরায়)</string>
+  <string name="clockInitialTime">ঘড়ি অনুযায়ী প্রাথমিক সময়</string>
+  <string name="clockIncrement">ঘড়ির সময়বৃদ্ধির হার</string>
   <string name="privacy">গোপনীয়তা</string>
   <string name="letOtherPlayersFollowYou">অন্যান্য খেলোয়ারদের আপানকে অনুসরন করতে দিন</string>
   <string name="letOtherPlayersChallengeYou">অন্যান্য খেলোয়ারদের আপানকে চ্যালেঞ্জ করতে দিন</string>
@@ -562,6 +566,9 @@
   <string name="xCommentedY">%1$s মন্তব্য করা হয়েছে %2$s</string>
   <string name="victory">বিজয়</string>
   <string name="defeat">হার</string>
+  <string name="victoryVsYInZ">%1$s বানাম %2$s মধ্যে %3$s</string>
+  <string name="defeatVsYInZ">%1$s বানাম %2$s মধ্যে %3$s</string>
+  <string name="drawVsYInZ">%1$s বানাম %2$s মধ্যে %3$s</string>
   <string name="timeline">সময়রেখা</string>
   <string name="starting">শুরু হইতেছে:</string>
   <string name="allInformationIsPublicAndOptional">সব তথ্য হয় সরকারী এবং ঐচ্ছিক.</string>
@@ -589,6 +596,8 @@
   <string name="playOfflineComputer">কম্পিউটার</string>
   <string name="opponent">প্রতিদ্বন্দ্বী</string>
   <string name="learnMenu">শেখা</string>
+  <string name="studyMenu">অধ্যায়ন</string>
+  <string name="practice">অনুশীলন</string>
   <string name="community">সম্প্রদায়</string>
   <string name="tools">সরঞ্জামসমূহ</string>
   <string name="increment">মুনাফা</string>
