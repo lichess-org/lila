@@ -56,7 +56,7 @@
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">প্রতিযোগিতায় %s সর্ম্পূন হয়েছে</item>
-    <item quantity="other">অনুষ্ঠানে %s প্রতিযোগিতা</item>
+    <item quantity="other">প্রতিযোগিতায় %s সর্ম্পূন হয়েছে</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">অনুপাত #%1$s (সর্বোচ্চ %2$s%%) সাথে %3$s খেলায় %4$s</item>
