@@ -225,6 +225,7 @@
   <string name="rematchOfferDeclined">পুনঃম্যাচের অফার প্রত্যাখ্যাত হয়েছে</string>
   <string name="cancelRematchOffer">পুনঃম্যাচের অফার বাতিল করুন</string>
   <string name="viewRematch">পুনঃম্যাচ দেখান</string>
+  <string name="confirmMove">পদক্ষেপ নিশ্চিত করছি</string>
   <string name="play">খেলুন</string>
   <string name="inbox">ডাকবাক্স</string>
   <string name="chatRoom">আড্ডাঘর</string>
@@ -319,6 +320,7 @@
   <string name="filterGames">খেলা ছাঁকন</string>
   <string name="reset">পুনরায় চালু করা</string>
   <string name="apply">প্রয়োগ</string>
+  <string name="save">সংরক্ষন করুন</string>
   <string name="leaderboard">লিডারবোর্ড</string>
   <string name="pasteTheFenStringHere">এখানে FEN স্ট্রিংটি জোড়া লাগান</string>
   <string name="pasteThePgnStringHere">এখানে PGN স্ট্রিংটি জোড়া লাগান</string>
@@ -778,4 +780,8 @@
     <item quantity="one">এবং সংরক্ষন %s পুনারয়চাল রেখা</item>
     <item quantity="other">এবং সংরক্ষন %s পুনারয়চাল রেখা</item>
   </plurals>
+  <string name="sorry">দুঃখিত :(
+
+দুঃখিত
+খেলা হতে বহিস্কৃত (এইধরনের সতর্কবার্তা প্রদানের কারন অতিরিক্ত গেম পরিত্যাগ করা, খেলার সময় শেষ না হওয়ার আগেই গেম পরিত্যাগ করা..... )</string>
 </resources>
