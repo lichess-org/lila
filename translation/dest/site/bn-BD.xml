@@ -626,9 +626,13 @@
   <string name="tpTimeSpentOnTV">টিভির সময়: %s</string>
   <string name="watch">দেখুন</string>
   <string name="videoLibrary">ভিডিও লাইব্রেরি</string>
+  <string name="streamersMenu">স্ট্রিমারকারীরা</string>
   <string name="mobileApp">মোবাইল অ্যাপ</string>
   <string name="webmasters">ওয়েবমাস্টারগুলো</string>
   <string name="about">সম্পর্কে</string>
+  <string name="aboutX">%s সম্পর্কে</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s বিনামুল্যে (%2$s), লাইব্রেরী, এড-মুক্ত, ওপেনসোর্স দাবার সার্ভার.</string>
+  <string name="really">সত্যিকার অর্থেই</string>
   <string name="contribute">অবদান</string>
   <string name="termsOfService">পরিষেবার শর্তাদি</string>
   <string name="sourceCode">উৎস সংকেতলিপি</string>
