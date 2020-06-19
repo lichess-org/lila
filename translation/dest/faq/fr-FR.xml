@@ -68,34 +68,34 @@ Voir les %3$s sur ce coup pour vous entraîner.</string>
   <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lichess applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 (d) des %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple répétition</string>
   <string name="handBookPDF">manuel (pdf)</string>
-  <string name="notRepeatedMoves">Nous n\'avons pas répété les coups. Pourquoi la partie a-t-elle quand même été déclarée nulle par répétition ?</string>
-  <string name="repeatedPositionsThatMatters">La triple répétition concernent des %1$s, pas des coups. La répétition peut ne pas être consécutive.</string>
+  <string name="notRepeatedMoves">Nous n\'avons pas répété les mouvements. Pourquoi le jeu était-il fini par une nulle par répétition ?</string>
+  <string name="repeatedPositionsThatMatters">La triple répétition concerne les %1$s répétés, pas les coups. La répétition ne doit pas nécessairement se faire de manière consécutive.</string>
   <string name="positions">positions</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Nous avons répété une position trois fois. Pourquoi la partie n\'a-t-elle pas été déclarée nulle ?</string>
-  <string name="threeFoldHasToBeClaimed">La répétition doit être réclamée par l\'un des joueurs. Vous pouvez le faire en appuyant sur le bouton qui est affiché, ou en demandant la nulle avant la dernière répétition. Vous pouvez également %1$s Lichess pour réclamer automatiquement les répétitions. De plus, cinq répétitions terminent toujours immédiatement la partie.</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Nous avons répété une position à trois reprises. Pourquoi le jeu n\'a-t-il pas été nul ?</string>
+  <string name="threeFoldHasToBeClaimed">La répétition doit être réclamée par l\'un des joueurs. Vous pouvez le faire en appuyant sur le bouton qui s\'affiche, ou en proposant un match nul avant votre dernier coup de répétition. Peu importe si votre adversaire rejette la proposition de match nul, le triple coup de répétition sera quand même réclamé. Vous pouvez également utiliser %1$s Lichess pour réclamer automatiquement les répétitions pour vous. En outre, la répétition quintuple met toujours immédiatement fin à la partie.</string>
   <string name="configure">configurer</string>
   <string name="accounts">Comptes</string>
   <string name="titlesAvailableOnLichess">Quels titres y a-t-il sur Lichess ?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess reconnaît tous les titres FIDE gagnés dans des tournois physiques, ainsi que par %1$s. Voici une liste des titres FIDE :</string>
-  <string name="showYourTitle">Si vous avez un titre, vous pouvez demander à ce que celui-ci soit affiché sur votre compte en complétant le %1$s, en incluant une image nette d\'un document/carte d\'identification et un selfie de vous détenant le document/la carte.
+  <string name="lichessRecognizeAllOTBtitles">Lichess reconnaît tous les titres FIDE obtenus par le jeu OTB (dans des tournois physiques), ainsi que les %1$s. Voici une liste des titres FIDE :</string>
+  <string name="showYourTitle">Si vous avez un titre du BSF, vous pouvez demander qu\'il soit affiché sur votre compte en remplissant les %1$s, y compris une image claire d\'un document ou d\'une carte d\'identification et un selfie de vous tenant le document ou la carte.
 
-  La vérification en tant que joueur de titre sur Lichess donne accès aux Titled Arena.
+Le fait d\'avoir fait valoir votre titre vous donne accès aux événements de la Titled Arena.
 
-  Enfin, il y a un titre honorifique %2$s.</string>
-  <string name="asWellAsManyNMtitles">de nombreux titres de maitres nationaux</string>
+Enfin, il y a un titre honorifique %2$s.</string>
+  <string name="asWellAsManyNMtitles">de nombreux titres de maîtres nationaux</string>
   <string name="verificationForm">formulaire de vérification</string>
   <string name="canIbecomeLM">Puis-je obtenir le titre Lichess Master (LM) ?</string>
   <string name="noUpperCaseDot">Non.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Ce titre honorifique n\'est pas officiel et n\'existe que sur Lichess.
 
-  Nous l\'attribuons rarement à des joueurs très remarquables qui sont de bons citoyens de Lichess, à notre discrétion. Vous n\'obtenez pas le titre de LM, le titre de LM vous parvient. Si vous êtes admissible, vous recevrez un message de notre part à ce sujet avec le choix d\'accepter ou de refuser.
+Nous le décernons rarement à des joueurs très connus qui sont de bons citoyens de Lichess, à notre discrétion. Ce n\'est pas vous qui allez au titre LM, c\'est le titre LM qui vient à vous. Si vous vous qualifiez, vous recevrez un message de notre part concernant ce titre et le choix de l\'accepter ou de le refuser.
 
-  Ne demandez pas d\'obtenir le titre LM.</string>
+Ne demandez pas le titre de LM.</string>
   <string name="whatUsernameCanIchoose">Que peut être mon nom d\'utilisateur ?</string>
-  <string name="usernamesNotOffensive">En général, les noms d\'utilisateur ne doivent pas être : offensants, usurper l\'identité de quelqu\'un d\'autre ou faire de la publicité. Vous pouvez en savoir plus sur les %1$s.</string>
+  <string name="usernamesNotOffensive">En général, les noms d\'utilisateur ne doivent pas être : offensants, usurpant l\'identité de quelqu\'un d\'autre, ou publicitaires. Vous pouvez en savoir plus sur les %1$s.</string>
   <string name="guidelines">lignes directrices</string>
   <string name="uniqueTrophies">Trophées uniques</string>
-  <string name="ownerUniqueTrophies">Ce trophée est unique dans l\'histoire de Lichess, personne d\'autre que %1$s ne l\'aura, jamais.</string>
+  <string name="ownerUniqueTrophies">Ce trophée est unique dans l\'histoire de Lichess, personne d\'autre que %1$s ne l\'aura jamais.</string>
   <string name="wayOfBerserkExplanation">Pour l\'obtenir, hiimgosu s\'est mis au défi de gagner en berserk 100%% des parties d\'%s.</string>
   <string name="aHourlyBulletTournament">un tournoi Bullet horaire</string>
   <string name="goldenZeeExplanation">ZugAddict était en streamer et cela depuis deux heures il essayait de vaincre l\'IA de niveau 8 en partie 1+0, sans succès. Thibault lui dit qu\'en cas de victoire, il lui attribuerait un trophée unique. Une heure plus tard, il démolissait Stockfish, et la promesse fut tenue.</string>
