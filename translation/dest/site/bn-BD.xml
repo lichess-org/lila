@@ -344,6 +344,12 @@
   <string name="clickOnTheBoardToMakeYourMove">বোর্ডে ক্লিক করে চাল দিয়ে প্রমাণ করুন যে আপনি সত্যিই মানুষ, রোবট নন।</string>
   <string name="captcha.fail">দয়া করে দাবার ক্যাপচা সমাধান করুন.</string>
   <string name="notACheckmate">এটি কিস্তিমাত নয়</string>
+  <string name="whiteCheckmatesInOneMove">সাদা দলের একটি মুভে চেকমেট
+
+আপনি সাদা হয়ে খেলছেন এবং খুজে বের করতে হবে পরের মুভে কিভাবে চেকমেট যায়</string>
+  <string name="blackCheckmatesInOneMove">কালো দলের একটি মুভে চেকমেট
+
+আপনি কালো হয়ে খেলছেন এবং খুজে বের করতে হবে পরের মুভে কিভাবে চেকমেট যায়</string>
   <string name="retry">আবার চেষ্টা করুন</string>
   <string name="reconnecting">পুনঃসংযোগের চেষ্টা চলছে</string>
   <string name="noFriendsOnline">অনলাইনে কোন বন্ধুই নেই</string>
