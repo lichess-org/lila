@@ -98,23 +98,23 @@ Ne demandez pas le titre de LM.</string>
   <string name="ownerUniqueTrophies">Ce trophée est unique dans l\'histoire de Lichess, personne d\'autre que %1$s ne l\'aura jamais.</string>
   <string name="wayOfBerserkExplanation">Pour l\'obtenir, hiimgosu s\'est mis au défi de gagner en berserk 100%% des parties d\'%s.</string>
   <string name="aHourlyBulletTournament">un tournoi Bullet horaire</string>
-  <string name="goldenZeeExplanation">ZugAddict était en streamer et cela depuis deux heures il essayait de vaincre l\'IA de niveau 8 en partie 1+0, sans succès. Thibault lui dit qu\'en cas de victoire, il lui attribuerait un trophée unique. Une heure plus tard, il démolissait Stockfish, et la promesse fut tenue.</string>
-  <string name="lichessRatings">Classements Lichess</string>
-  <string name="whichRatingSystemUsedByLichess">Quel système de classement est utilisé par Lichess ?</string>
-  <string name="ratingSystemUsedByLichess">Les classements sont calculées à l\'aide de la méthode d\'évaluation Glicko-2 développée par Mark Glickman. C\'est une méthode de notation très populaire, qui est utilisée par un nombre significatif d\'organisations d\'échecs (FIDE étant un contre-exemple notable, car ils utilisent toujours le système de notation Elo).
+  <string name="goldenZeeExplanation">ZugAddict était en train de streamer et cela depuis deux heures il essayait de vaincre l\'Ia de niveau 8 en partie 1+0, sans succès. Thibault lui dit qu\'en cas de victoire, il lui attribuerait un trophée unique. Une heure plus tard, il démolissait Stockfish, et la promesse fut tenue.</string>
+  <string name="lichessRatings">Classements de Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Quel système de classement utilise Lichess ?</string>
+  <string name="ratingSystemUsedByLichess">Les notations sont calculées selon la méthode de notation Glicko-2 développée par Mark Glickman. Il s\'agit d\'une méthode de notation très populaire, utilisée par un nombre important d\'organisations d\'échecs (la FIDE en est un contre-exemple notable, car elles utilisent toujours le système de notation Elo, qui est dépassé).
 
-  Fondamentalement, les classements Glicko utilisent des « intervalles de confiance » lors du calcul et de la représentation de votre note. Lorsque vous commencez à utiliser le site, votre classement commence à 1500 ± 700. 1500 représente votre cote, et le 700 représente l\'intervalle de confiance.
+Fondamentalement, les notations Glicko utilisent des \"intervalles de confiance\" pour calculer et représenter votre notation. Lorsque vous commencez à utiliser le site, votre cote commence à 1500 ± 700. Le 1500 représente votre note, et le 700 représente l\'intervalle de confiance.
 
-  Fondamentalement, le système est à 90% sûr que votre cote est entre 800 et 2200. C\'est incroyablement incertain. À cause de cela, quand un joueur vient de commencer, leur classement change très radicalement, potentiellement plusieurs centaines de points à la fois. Mais après quelques parties contre des joueurs établis, l\'intervalle de confiance se réduira et le nombre de points gagnés/perdus après chaque partie diminuera.
+Fondamentalement, le système est sûr à 90 % que votre note se situe entre 800 et 2200. Il est incroyablement incertain. C\'est pourquoi, lorsqu\'un joueur débute, sa cote change de façon très importante, potentiellement de plusieurs centaines de points à la fois. Mais après quelques matchs contre des joueurs établis, l\'intervalle de confiance se réduit et le nombre de points gagnés/perdus après chaque match diminue.
 
-  Un autre point à noter est que, à mesure que le temps passe, l\'intervalle de confiance augmentera. Cela vous permet de gagner ou de perdre des points plus rapidement pour correspondre à toute modification de votre niveau de compétence au cours de cette période.</string>
-  <string name="whatIsProvisionalRating">Pourquoi y a-t-il un point d\'interrogation (?) à côté d\'un classement ?</string>
-  <string name="provisionalRatingExplanation">Le point d\'interrogation signifie que le classement est provisoire. Les raisons comprennent :</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Le joueur n\'a pas encore joué assez de parties classées contre des %1$s dans sa catégorie de classement.</string>
-  <string name="similarOpponents">adversaires de niveau similaire</string>
-  <string name="notPlayedRecently">Le joueur n\'a pas assez joué de parties classées récemment. Selon le nombre de parties que vous avez jouées, il peut falloir environ un an d\'inactivité pour que votre classement redevienne provisoire.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Concrètement, cela signifie que la déviation Glicko-2 est supérieure à 110. La déviation correspond au niveau de confiance du système dans le classement.</string>
-  <string name="howDoLeaderoardsWork">Comment fonctionnent les cotes et les classements?</string>
+Il faut également noter que l\'intervalle de confiance augmente avec le temps. Cela vous permet de gagner/perdre des points plus rapidement pour correspondre à tout changement de votre niveau de compétence au cours de cette période.</string>
+  <string name="whatIsProvisionalRating">Pourquoi y a-t-il un point d\'interrogation (?) à côté d\'un de mes classements ?</string>
+  <string name="provisionalRatingExplanation">Le point d\'interrogation indique que le classement est provisoire. Les raisons comprennent :</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Le joueur n\'a pas encore terminé suffisamment de parties notées contre des %1$s dans la catégorie de notation.</string>
+  <string name="similarOpponents">adversaires de niveau proche</string>
+  <string name="notPlayedRecently">Le joueur n\'a pas joué assez de parties récentes. Selon le nombre de parties que vous avez jouées, il peut s\'écouler environ un an d\'inactivité avant que votre classement ne redevienne provisoire.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Concrètement, cela signifie que l\'écart Glicko-2 est supérieur à 110. L\'écart est le niveau de confiance que le système accorde à la note. Plus l\'écart est faible, plus la notation est stable.</string>
+  <string name="howDoLeaderoardsWork">Comment fonctionnent les classements et les listes des leaders ?</string>
   <string name="inOrderToAppearsYouMust">Pour pouvoir apparaitre sur le %1$s , vous devez :</string>
   <string name="ratingLeaderboards">classements</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">avoir joué au moins 30 parties classées dans une catégorie donnée,</string>
