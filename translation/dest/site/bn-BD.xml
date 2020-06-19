@@ -438,6 +438,7 @@
   <string name="lastName">শেষ নাম</string>
   <string name="biography">জীবনবৃত্তান্ত</string>
   <string name="country">দেশ</string>
+  <string name="socialMediaLinks">সোশ্যাল মিডিয়ার লিঙ্ক</string>
   <string name="inlineNotation">রেখা চিহ্ন</string>
   <string name="watchLichessTV">Lichess TV দেখুন</string>
   <string name="previouslyOnLichessTV">এর আগে Lichess TV- তে যা হয়েছে</string>
