@@ -115,28 +115,28 @@ Il faut également noter que l\'intervalle de confiance augmente avec le temps. 
   <string name="notPlayedRecently">Le joueur n\'a pas joué assez de parties récentes. Selon le nombre de parties que vous avez jouées, il peut s\'écouler environ un an d\'inactivité avant que votre classement ne redevienne provisoire.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Concrètement, cela signifie que l\'écart Glicko-2 est supérieur à 110. L\'écart est le niveau de confiance que le système accorde à la note. Plus l\'écart est faible, plus la notation est stable.</string>
   <string name="howDoLeaderoardsWork">Comment fonctionnent les classements et les listes des leaders ?</string>
-  <string name="inOrderToAppearsYouMust">Pour pouvoir apparaitre sur le %1$s , vous devez :</string>
-  <string name="ratingLeaderboards">classements</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">avoir joué au moins 30 parties classées dans une catégorie donnée,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">avoir joué une partie classée de cette catégorie durant la semaine précédente</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">ont une déviation de classement inférieure à %1$s, pour les échecs standards et inférieure à %2$s pour les variantes,</string>
+  <string name="inOrderToAppearsYouMust">Pour être sur la %1$s vous devez:</string>
+  <string name="ratingLeaderboards">classement des leaders</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">avoir joué à au moins 30 parties classées dans un jeu donné,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">avoir à un jeu classé au cours de la dernière semaine pour cette classification</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">avoir un écart de notation inférieur à %1$s, aux échecs standards, et inférieur à %2$s dans les variantes,</string>
   <string name="beInTopTen">être dans le top 10 de ce classement.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La 2ème condition est là pour que les joueurs qui n\'utilisent plus leurs comptes cessent de d\'apparaître dans les classements.</string>
-  <string name="whyAreRatingHigher">Pourquoi les classements sont-ils plus élevés que ceux d’autres sites et organisations tels que la FIDE, l\'USCF et l’ICC ?</string>
-  <string name="whyAreRatingHigherExplanation">Il ne faut pas voir la cote comme un nombre absolu ou la comparer à la cote fournie par une autre organisation. Des organisations différentes ont des joueurs de niveau différent et utilisent des systèmes de cotation différents (Elo, Glicko, Glicko-2 ou une variante de ces systèmes). Ces facteurs ont une forte influence sur la valeur de la cote.
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La deuxième exigence est pour que les joueurs qui n\'utilisent plus leur compte cessent de remplir les classements.</string>
+  <string name="whyAreRatingHigher">Pourquoi les notes sont-elles plus élevées que celles d\'autres sites et organisations tels que la FIDE, l\'USCF et la CPI ?</string>
+  <string name="whyAreRatingHigherExplanation">Il est préférable de ne pas considérer les notations comme des chiffres absolus, ni de les comparer à d\'autres organisations. Les différentes organisations ont différents niveaux d\'acteurs, différents systèmes de notation (Elo, Glicko, Glicko-2, ou une version modifiée de ce qui précède). Ces facteurs peuvent avoir une incidence considérable sur les chiffres absolus (notations).
 
-Il faut considérer la cote comme un nombre relatif (plutôt qu\'un nombre absolu). Dans un groupe de joueurs, la différence relative entre les cotes vous aide à estimer qui gagnera ou perdra la partie ou fera une nulle, et à quelle fréquence. Dire que votre cote vaut « X » ne signifie rien, à moins de la comparer à la cote d\'autres joueurs. </string>
-  <string name="howToHideRatingWhilePlaying">Comment masquer les classements en jouant ?</string>
-  <string name="enableZenMode">Activer le mode Zen dans les %1$s, ou en appuyant sur %2$s pendant une partie.</string>
-  <string name="displayPreferences">préférences visuelles</string>
-  <string name="connexionLostCanIGetMyRatingBack">J\'ai perdu une partie en raison de lags ou d\'une déconnexion. Puis-je récupérer mes points de classement ?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Malheureusement, nous ne pouvons pas rendre de points de cote pour les parties perdues en raison de lag ou de déconnexion, que le problème soit de votre coté ou du notre, même si ce dernier cas est très rare. Notez également que lorsque Lichess redémarre et que vous perdez du temps à cause de cela, nous interrompons la partie pour éviter une défaite injuste.</string>
+Il est préférable de considérer les notations comme des chiffres \"relatifs\" (par opposition aux chiffres \"absolus\") : Au sein d\'un groupe de joueurs, les différences relatives de classement vous aideront à estimer qui gagnera, tirera ou perdra, et à quelle fréquence. Dire \"j\'ai une cote X\" ne signifie rien, sauf s\'il y a d\'autres joueurs avec lesquels comparer cette cote.</string>
+  <string name="howToHideRatingWhilePlaying">Comment cacher la côte tout en jouant ?</string>
+  <string name="enableZenMode">Activez le mode Zen dans les %1$s, ou en appuyant sur %2$s pendant une partie.</string>
+  <string name="displayPreferences">préférences d\'affichage</string>
+  <string name="connexionLostCanIGetMyRatingBack">J\'ai perdu une partie à cause d\'un décalage ou d\'une déconnexion. Puis-je récupérer mes points de classement ?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Malheureusement, nous ne pouvons pas rendre les points de classement pour les jeux perdus en raison d\'un retard ou d\'une déconnexion, que le problème soit de votre côté ou du nôtre. Ce dernier cas est cependant très rare. Notez également que lorsque Lichess redémarre et que vous perdez du temps à cause de cela, nous interrompons le jeu pour éviter une perte injuste.</string>
   <string name="howToThreeDots">Comment...</string>
-  <string name="enableDisableNotificationPopUps">Activer ou désactiver les notifications popups ?</string>
+  <string name="enableDisableNotificationPopUps">Activer ou désactiver les popups de notification ?</string>
   <string name="viewSiteInformationPopUp">Voir les informations sur les popups du site</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess peut éventuellement envoyer des notifications popups, par exemple lorsque c\'est à votre tour ou que vous avez reçu un message privé.
+  <string name="lichessCanOptionnalySendPopUps">Lichess peut facultativement envoyer des notifications popup, par exemple lorsque c\'est votre tour ou que vous avez reçu un message privé.
 
-  Cliquez sur l\'icône de cadenas à côté de lichess.org dans la barre d\'URL de votre navigateur.
+Cliquez sur l\'icône du cadenas à côté de l\'adresse lichess.org dans la barre URL de votre navigateur.
 
-  Sélectionnez ensuite si vous autorisez ou bloquez les notifications de Lichess.</string>
+Choisissez ensuite si vous souhaitez autoriser ou bloquer les notifications de Lichess.</string>
 </resources>
