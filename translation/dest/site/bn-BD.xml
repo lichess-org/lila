@@ -21,8 +21,8 @@
   <string name="createAGame">খেলা তৈরি করুন</string>
   <string name="whiteIsVictorious">সাদা বিজয়ী</string>
   <string name="blackIsVictorious">কালো বিজয়ী</string>
-  <string name="youPlayTheWhitePieces">আপনি সাদা গুটি নিয়ে খেলছেন ।</string>
-  <string name="youPlayTheBlackPieces">আপনি কালো গুটি নিয়ে খেলছেন ।</string>
+  <string name="youPlayTheWhitePieces">আপনি সাদা গুটি নিয়ে খেলছেন</string>
+  <string name="youPlayTheBlackPieces">আপনি কালো গুটি নিয়ে খেলছেন</string>
   <string name="itsYourTurn">এবার আপনার দান!</string>
   <string name="kingInTheCenter">রাজাকে কেন্দ্রে আনুন</string>
   <string name="threeChecks">তিনটি কিস্তি</string>
@@ -33,6 +33,10 @@
   <string name="joinTheGame">খেলাটিতে যোগ দিন</string>
   <string name="whitePlays">সাদার চাল</string>
   <string name="blackPlays">কালোর চাল</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">আপনার প্রতিপক্ষ খেলা ছেড়ে চলে গেছেন. আপনি চাইলে বিজয় দাবি করতে পারেন %s সেকেন্ডের মধ্যে.</item>
+    <item quantity="other">আপনার প্রতিপক্ষ খেলা ছেড়ে দিয়েছেন। আপনি %s সেকেন্ডের মধ্যে জয় দাবি করতে পারেন.</item>
+  </plurals>
   <string name="opponentLeftChoices">অপর খেলোয়াড় খেলাটি ছেড়ে চলে গেছেন, আপনি সেই খেলাটিকে জিততে পারেন নাহলে ড্র করতে পারেন কিংবা অপেক্ষা করুন প্রতিপক্ষের পুনরায় খেলায় ফিরে আসার</string>
   <string name="makeYourOpponentResign">আপনার প্রতিপক্ষকে হার মেনে নেবার জন্য বাধ্য করুন</string>
   <string name="forceResignation">বিজয় দাবী করুন</string>
@@ -816,4 +820,10 @@
   <string name="agreementPolicy">আমি সম্মতি জানাচ্ছি যে আমি লাইচেজের সকল নিয়মকানুন মেনে চলবো.</string>
   <string name="searchOrStartNewDiscussion">খুজুন অথবা নতুন মেসেজ কনভার্সনে যান</string>
   <string name="edit">এডিট বা সম্পাদন করুন</string>
+  <string name="tryTheContactPage">যোগাযোগ পেজে যেয়ে দেখতে পারেন</string>
+  <string name="thisTopicIsArchived">এই টপিক বা বিষয়টি সংরক্ষণাগারভুক্ত করা হয়েছে সুতরাং এর জবাব আর দেওয়া যাবে না.</string>
+  <string name="teamNamedX">%1$s দল</string>
+  <string name="youCannotPostYetPlaySomeGames">আপনি এখন ফোরামে পোষ্ট করতে পারবেন না. আগে কিছু গেম খেলুন!</string>
+  <string name="subscribe">সাবস্ক্রাইব</string>
+  <string name="unsubscribe">আনসাবস্ক্রাইব</string>
 </resources>
