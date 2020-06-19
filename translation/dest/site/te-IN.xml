@@ -185,4 +185,19 @@
   <string name="cancel">రద్దు చేయండి</string>
   <string name="timeOut">సమయం అయిపోయింది</string>
   <string name="drawOfferSent">సంధి ప్రతిపాదన పంపబడింది</string>
+  <string name="drawOfferDeclined">సంధి ప్రతిపాదన తిరస్కరించబడింది</string>
+  <string name="drawOfferAccepted">సంధి ప్రతిపాదన ఆమోదించబడింది</string>
+  <string name="drawOfferCanceled">సంధి ప్రతిపాదన రద్దుచేయబడింది</string>
+  <string name="whiteOffersDraw">తెల్ల పావులు సంధి కోరుకుంటున్నాయి</string>
+  <string name="blackOffersDraw">నల్ల పావులు సంధి కోరుకుంటున్నాయి</string>
+  <string name="whiteDeclinesDraw">తెల్ల పావులు సంధి నిరాకరించాయి</string>
+  <string name="blackDeclinesDraw">నల్ల పావులు సంధి నిరాకరించాయి</string>
+  <string name="yourOpponentOffersADraw">ప్రత్యర్థి సంధి కోరుకొంటున్నారు</string>
+  <string name="accept">అంగీకరించు</string>
+  <string name="decline">నిరాకరించు</string>
+  <string name="playingRightNow">ఆట ఆడుతున్నారు</string>
+  <string name="eventInProgress">ఆట ఆడుతున్నారు</string>
+  <string name="finished">పూర్తయింది</string>
+  <string name="finishesX">మిగిలిన సమయం %s</string>
+  <string name="abortGame">ఆట ఆగిపోయింది</string>
 </resources>
