@@ -107,13 +107,16 @@ final class TournamentApi(
     import data._
     val tour = old.copy(
       name = name | old.name,
-      clock = clockConfig,
+      clock = if (old.isCreated) clockConfig else old.clock,
       minutes = minutes,
       mode = realMode,
-      variant = realVariant,
+      variant = if (old.isCreated) realVariant else old.variant,
       startsAt = startDate | old.startsAt,
       password = data.password,
-      position = DataForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant),
+      position =
+        if (old.isCreated || !old.position.initial)
+          DataForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant)
+        else old.position,
       noBerserk = !(~berserkable),
       noStreak = !(~streakable),
       teamBattle = old.teamBattle,
