@@ -159,4 +159,18 @@
   <string name="username">ఆటగాడి పేరు</string>
   <string name="usernameOrEmail">ఆటగాడి పేరు లేదా ఈమెయిలు</string>
   <string name="changeUsername">ఆటగాడి పేరు మార్చు</string>
+  <string name="changeUsernameNotSame">అక్షరాల పరిమాణం మాత్రమే మారొచ్చు. ఉదాహరణకి \"johndoe\" నుంచి \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">ఆటగాడి పేరు మార్చండి. దీనిని ఒకేసారి చెయ్యగలరు తర్వాత అక్షరాల పరిమాణం మాత్రమే మారొచ్చు.</string>
+  <string name="password">పాస్వర్డ్</string>
+  <string name="changePassword">పాస్వర్డ్ మార్చండి</string>
+  <string name="changeEmail">ఇమెయిల్మా ర్చండి</string>
+  <string name="email">ఇమెయిల్</string>
+  <string name="passwordReset">కొత్త పాస్వర్డ్ కోసం</string>
+  <string name="forgotPassword">పాస్వర్డ్ మర్చిపోయారా?</string>
+  <string name="rank">స్థానం</string>
+  <string name="rankX">స్థానం: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">ప్రతి నిమిషం స్థానం నవీకరణ చెందుతుంది</item>
+    <item quantity="other">ప్రతి %s నిమిషాలకు స్థానం నవీకరణ చెందుతుంది</item>
+  </plurals>
 </resources>
