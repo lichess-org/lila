@@ -129,11 +129,34 @@
   <string name="signUp">దరఖాస్తు</string>
   <string name="computersAreNotAllowedToPlay">కంప్యూటర్ గానీ కంప్యూటర్ ఆధారిత ఆటగాళలను కానీ మేము అనుమతించం. దయచేసి చేస్ ఎంజన్ల, డేటా బేసుల లేక ఇతర ఆటగాళల సహకారం పొందకండి. ఒకటి కంటె ఎక్కువ అకౌంట్లు వాడటం నిషేదం. ఎక్కువ అకౌంట్లు సృష్టించడం లేక వాడటం వంటి మరియు పైనా చెప్పిన పనులు చేస్తే తమ అకౌంట్ నిషేదించబడగలదని గమనించవలసిందిగా కోరుతున్నాం.</string>
   <string name="games">ఆటలు</string>
+  <string name="forum">సమావేశ ప్రదేశం</string>
   <string name="xPostedInForumY">%2$s అనే టాపికు పై %1$s పోస్టు చేశారు</string>
+  <string name="latestForumPosts">తాజా సమావేశ ప్రదేశ అంశాలు</string>
   <string name="players">ఆటగాళ్లు</string>
+  <string name="friends">స్నేహితులు</string>
+  <string name="discussions">సంభాషణలు</string>
+  <string name="today">ఈరోజు</string>
+  <string name="yesterday">నిన్న</string>
   <string name="minutesPerSide">గడువు</string>
   <string name="variant">రకం</string>
   <string name="variants">రకాలు</string>
   <string name="timeControl">సమయ పాలన</string>
+  <string name="realTime">ప్రస్తుతం</string>
+  <string name="correspondence">సుదూర</string>
+  <string name="daysPerTurn">రోజుకి కదలికలు</string>
   <string name="oneDay">ఒక రోజు</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s రోజు</item>
+    <item quantity="other">%s రోజులు</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s hour</item>
+    <item quantity="other">%s hours</item>
+  </plurals>
+  <string name="time">సమయం</string>
+  <string name="rating">నైపుణ్యం</string>
+  <string name="ratingStats">నైపుణ్య గణాంకాలు</string>
+  <string name="username">ఆటగాడి పేరు</string>
+  <string name="usernameOrEmail">ఆటగాడి పేరు లేదా ఈమెయిలు</string>
+  <string name="changeUsername">ఆటగాడి పేరు మార్చు</string>
 </resources>
