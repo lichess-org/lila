@@ -5,12 +5,12 @@
   <string name="whyIsLichessCalledLichess">Que signifie Lichess ?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess est une combinaison de live/light/libre et chess (échecs). Cela se prononce %1$s.</string>
   <string name="leechess">li-tchèss</string>
-  <string name="hearItPronouncedBySpecialist"> Écoutez-le prononcé par un spécialiste.</string>
-  <string name="whyLiveLightLibre">Live, parce que les parties sont jouées et surveillés en temps réel 24/7 ; light et libre pour le fait que Lichess est open-source et n\'est pas encombré par des déchets que sont les marques déposées, et qui infestent d\'autres sites web.</string>
-  <string name="whyIsLilaCalledLila">De même, le code source de Lichess, %1$s, signifie li[chess in sca]la, vu que la majeure partie de Lichess est écrite en %2$s, un langage de programmation intuitif.</string>
+  <string name="hearItPronouncedBySpecialist">Écoutez-le prononcé par un spécialiste.</string>
+  <string name="whyLiveLightLibre">Live, parce que les jeux sont joués et regardés en temps réel 24 heures sur 24 et 7 jours sur 7 ; light et libre, parce que Lichess est un logiciel libre et non encombré par des logiciels malveillants qui affligent d\'autres sites web.</string>
+  <string name="whyIsLilaCalledLila">De même, le code source de Lichess, %1$s, signifie li[chess in sca]la, étant donné que la majeure partie de Lichess est écrite en %2$s, un langage de programmation intuitif.</string>
   <string name="howCanIContributeToLichess">Comment puis-je contribuer à Lichess ?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess est financée par des dons de mécènes et maintenue par une équipe de bénévoles.</string>
-  <string name="findMoreAndSeeHowHelp">Vous pouvez en savoir plus sur %1$s (y compris un %2$s). Si vous voulez aider Lichess en faisant du bénévolat sur votre temps et vos compétences, il y a beaucoup de %3$s.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess est alimenté par les dons de mécènes et les efforts d\'une équipe de bénévoles.</string>
+  <string name="findMoreAndSeeHowHelp">Vous pouvez en savoir plus sur les %1$s (dont un %2$s). Si vous souhaitez aider Lichess en offrant votre temps et vos compétences, il existe de nombreux %3$s.</string>
   <string name="beingAPatron">devenir un mécène</string>
   <string name="breakdownOfOurCosts">répartition de nos coûts</string>
   <string name="otherWaysToHelp">autres moyens d\'aider</string>
