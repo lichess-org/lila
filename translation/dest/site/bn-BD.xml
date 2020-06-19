@@ -181,6 +181,10 @@
   <string name="forgotPassword">পাসওয়ার্ড ভুলে গেছেন?</string>
   <string name="rank">মর্যাদাক্রম</string>
   <string name="rankX">অনুপাত: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">আপনার অনুক্রম প্রতি মিনিট পরপর আপডেট করা হয়।</item>
+    <item quantity="other">আপনার অনুক্রম প্রতি %s মিনিট পরপর আপডেট করা হয়।</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ধাঁধা</item>
     <item quantity="other">%s ধাঁধা</item>
@@ -284,6 +288,10 @@
     <item quantity="one">%s ক্রীড়া-প্রতিযোগিতা অনুপাত</item>
     <item quantity="other">%s ক্রীড়া-প্রতিযোগিতা অনুপাতগুলো</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s অধ্যায়ন</item>
+    <item quantity="other">%s অধ্যায়নগুলি</item>
+  </plurals>
   <string name="viewTournament">টুর্নামেন্ট দেখুন</string>
   <string name="backToTournament">টুর্নামেন্ট এ ফিরে যান</string>
   <string name="thematic">ধাতুসংক্রান্ত</string>
@@ -352,6 +360,10 @@
 আপনি কালো হয়ে খেলছেন এবং খুজে বের করতে হবে পরের মুভে কিভাবে চেকমেট যায়</string>
   <string name="retry">আবার চেষ্টা করুন</string>
   <string name="reconnecting">পুনঃসংযোগের চেষ্টা চলছে</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s বন্ধু অনলাইনে রয়েছেন</item>
+    <item quantity="other">%s বন্ধুরা অনলাইনে রয়েছেন</item>
+  </plurals>
   <string name="noFriendsOnline">অনলাইনে কোন বন্ধুই নেই</string>
   <string name="findFriends">বন্ধু অনুসন্ধান</string>
   <string name="favoriteOpponents">প্রিয় প্রতিদ্বন্দ্বী</string>
@@ -798,4 +810,10 @@
 
 দুঃখিত
 খেলা হতে বহিস্কৃত (এইধরনের সতর্কবার্তা প্রদানের কারন অতিরিক্ত গেম পরিত্যাগ করা, খেলার সময় শেষ না হওয়ার আগেই গেম পরিত্যাগ করা..... )</string>
+  <string name="agreementAssistance">আমি সম্মতি এবং প্রতিশ্রুতি দিচ্ছি যে দাবা খেলার সময় কম্পিউটারের সহায়তা নিয়ে, কোনো প্রোগ্রাম বই, ডেটাবেজ বা অন্যকোনো ব্যাক্তির সহায়তা নিয়ে চিটিং করে খেলবো না).</string>
+  <string name="agreementNice">আমি সম্মতি জানাচ্ছি সকল দাবাড়ু খেলোয়াড়দের সঙ্গে শ্রদ্ধাশীল আচরন করবো.</string>
+  <string name="agreementAccount">আমি সম্মতি জানাচ্ছি যে নিজের জন্য একটিই একাউন্ট খুলে রাখবো পাশাপাশি অনেকগুলো একাউন্ট খুলে রাখবো না.</string>
+  <string name="agreementPolicy">আমি সম্মতি জানাচ্ছি যে আমি লাইচেজের সকল নিয়মকানুন মেনে চলবো.</string>
+  <string name="searchOrStartNewDiscussion">খুজুন অথবা নতুন মেসেজ কনভার্সনে যান</string>
+  <string name="edit">এডিট বা সম্পাদন করুন</string>
 </resources>
