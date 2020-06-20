@@ -135,8 +135,10 @@
   <string name="blackOffersDraw">Tairgíonn Dubh comhscór</string>
   <string name="whiteDeclinesDraw">Diúltaíonn Bán do chomhscór</string>
   <string name="blackDeclinesDraw">Diúltaíonn Dubh do chomhscór</string>
+  <string name="yourOpponentOffersADraw">Tá do chéile comhraic ag tairiscint comhscóir</string>
   <string name="accept">Glac</string>
   <string name="decline">Diúltaigh</string>
+  <string name="playingRightNow">Á imirt anois</string>
   <string name="eventInProgress">Á imirt anois</string>
   <string name="finished">Críochnaithe</string>
   <string name="finishesX">ag críochnú %s</string>
