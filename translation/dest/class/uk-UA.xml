@@ -12,9 +12,30 @@
   <string name="teachersX">Викладачі: %s</string>
   <string name="newClass">Новий урок</string>
   <string name="closeClass">Закрити урок</string>
+  <string name="closedByX">Закрито %s</string>
   <string name="reopen">Відкрити знову</string>
   <string name="removeStudent">Видалити учня</string>
   <string name="removedStudents">Видалено</string>
   <string name="inviteTheStudentBack">Повторно запросити учня</string>
   <string name="sendAMessage">Надіслати повідомлення усім учням.</string>
+  <string name="aLinkToTheClassWillBeAdded">Посилання на клас буде автоматично додано в кінець повідомлення, тому вам не потрібно додавати його самостійно.</string>
+  <string name="className">Назва класу</string>
+  <string name="classDescription">Опис класу</string>
+  <string name="visibleByBothStudentsAndTeachers">Видимий як вчителям, так і учнями класу</string>
+  <string name="teachersOfTheClass">Вчителі класу</string>
+  <string name="addLichessUsernames">Додайте імена користувачів, які запрошують їх в якості вчителя. По одному у рядку.</string>
+  <string name="theyMustFirstApply">Спочатку вони мають стати вчителями Lichess.</string>
+  <string name="resetPassword">Скинути пароль</string>
+  <string name="makeSureToCopy">Переконайтеся, що ви скопіювали або записали пароль. Ви не зможете побачити його знову!</string>
+  <string name="passwordX">Пароль: %s</string>
+  <string name="generateANewPassword">Згенерувати новий пароль для учня</string>
+  <string name="invitedToXByY">Запрошено до %1$s користувачем %2$s</string>
+  <string name="realName">Справжнє ім\'я</string>
+  <string name="privateWillNeverBeShown">Приватний. Ніколи не буде показуватися за межами класу. Допомагає згадати, хто цей учень.</string>
+  <string name="addStudent">Додати учня</string>
+  <string name="lichessProfileXCreatedForY">Профіль Lichess %1$s створений для %2$s.</string>
+  <string name="studentCredentials">Учень:  %1$s
+Ім\'я користувача: %2$s
+Пароль: %3$s</string>
+  <string name="inviteALichessAccount">Запросити акаунт Lichess</string>
 </resources>
