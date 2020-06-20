@@ -21,6 +21,7 @@
   <string name="createAGame">Ойынды бастау</string>
   <string name="whiteIsVictorious">Ақ жеңді</string>
   <string name="blackIsVictorious">Қара жеңді</string>
+  <string name="youPlayTheWhitePieces">Сіз ақ бөлшектерді ойнайсыз</string>
   <string name="kingInTheCenter">Әмір тақтаның төрінде</string>
   <string name="threeChecks">Үш рет шах жариялануы тіркелді</string>
   <string name="raceFinished">Бәйге аяқталды</string>
