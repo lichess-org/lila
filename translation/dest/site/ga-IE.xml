@@ -133,6 +133,8 @@
   <string name="drawOfferCanceled">Tairiscint comhscóir curtha ar ceal</string>
   <string name="whiteOffersDraw">Tairgíonn Bán comhscór</string>
   <string name="blackOffersDraw">Tairgíonn Dubh comhscór</string>
+  <string name="whiteDeclinesDraw">Diúltaíonn Bán do chomhscór</string>
+  <string name="blackDeclinesDraw">Diúltaíonn Dubh do chomhscór</string>
   <string name="accept">Glac</string>
   <string name="decline">Diúltaigh</string>
   <string name="eventInProgress">Á imirt anois</string>
