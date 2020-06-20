@@ -22,7 +22,7 @@ export function makeShapesFromUci(color: Color, uci: Uci, brush: string, modifie
   const move = parseUci(uci)!;
   const to = makeSquare(move.to);
   if (isDrop(move)) return [
-    { orig: makeSquare(move.to), brush },
+    { orig: to, brush },
     pieceDrop(to, move.role, color)
   ];
 
@@ -37,8 +37,8 @@ export function makeShapesFromUci(color: Color, uci: Uci, brush: string, modifie
 }
 
 export function compute(ctrl: AnalyseCtrl): DrawShape[] {
-  const color: Color = ctrl.chessground.state.movable.color as Color;
-  const rcolor: Color = opposite(color);
+  const color = ctrl.node.fen.includes(' w ') ? 'white' : 'black';
+  const rcolor = opposite(color);
   if (ctrl.practice) {
     if (ctrl.practice.hovering()) return makeShapesFromUci(color, ctrl.practice.hovering().uci, 'green');
     const hint = ctrl.practice.hinting();
