@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lichess Уроки</string>
-  <string name="teachClassesOfChessStudents">Викладайте шахи учням за допомогою інструменту Lichess Уроки.</string>
+  <string name="lichessClasses">Класи</string>
+  <string name="teachClassesOfChessStudents">Викладайте шахи учням за допомогою інструменту Класи Lichess.</string>
   <string name="features">Можливості</string>
   <string name="quicklyGenerateSafeUsernames">Швидко створюйте безпечні імена користувачів та паролі для учнів</string>
   <string name="trackStudentProgress">Відстежуйте прогрес учнів у іграх та задачах</string>
@@ -85,9 +85,20 @@
   </plurals>
   <string name="students">Учні</string>
   <string name="progress">Прогрес</string>
-  <string name="noStudents">Наразі учнів в класі немає.</string>
+  <string name="noStudents">Поки що в класі немає учнів.</string>
   <string name="noRemovedStudents">Немає видалених учнів.</string>
   <string name="overDays">За кілька днів</string>
   <string name="timePlaying">Часу в грі</string>
   <string name="variantXOverLastY">%1$s за останні %2$s</string>
+  <string name="winrate">Відсоток перемог</string>
+  <string name="na">Недоступно</string>
+  <string name="news">Новини класу</string>
+  <string name="editNews">Редагувати новини</string>
+  <string name="notifyAllStudents">Сповістити всіх учнів</string>
+  <string name="nothingHere">Тут нічого, поки що.</string>
+  <string name="newsEdit1">Всі новини класу в одному полі.</string>
+  <string name="newsEdit2">Додати останні новини зверху. Не видаляйте попередні новини.</string>
+  <string name="newsEdit3">Відокремте новини через ---
+Вони будуть відображені в горизонтальну лінію.</string>
+  <string name="markdownAvailable">%s доступний для більш детального форматування.</string>
 </resources>
