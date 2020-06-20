@@ -303,6 +303,12 @@
   </plurals>
   <string name="exportGames">Експорт ігор</string>
   <string name="ratingRange">Діапазон рейтинґу</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Додати %s секунд</item>
+    <item quantity="few">Додати %s секунд</item>
+    <item quantity="many">Додати %s секунд</item>
+    <item quantity="other">Додай %s секунд</item>
+  </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Цей гравець користується підказками комп’ютера</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно збільшує свій рейтинг</string>
   <string name="openingExplorerAndTablebase">Відкриваємо провідник &amp; таблицю бази</string>
@@ -398,6 +404,12 @@
   <string name="blackCheckmatesInOneMove">Чорні починають і матують в один хід</string>
   <string name="retry">Спробуйте ще</string>
   <string name="reconnecting">Повторне підключення</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s друг у мережі</item>
+    <item quantity="few">%s друзів у мережі</item>
+    <item quantity="many">%s друзів у мережі</item>
+    <item quantity="other">%s друзів на мережі</item>
+  </plurals>
   <string name="noFriendsOnline">Немає друзів онлайн</string>
   <string name="findFriends">Знайти друзів</string>
   <string name="favoriteOpponents">Улюблені суперники</string>
@@ -409,6 +421,12 @@
   <string name="unblock">Розблокувати</string>
   <string name="followsYou">Спостерігає за вами</string>
   <string name="xStartedFollowingY">%1$s розпочали спостерігати за %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s підписник</item>
+    <item quantity="few">%s спостерігачів</item>
+    <item quantity="many">%s підписників</item>
+    <item quantity="other">%s підписників</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s спостерігає</item>
     <item quantity="few">%s спостерігає</item>
