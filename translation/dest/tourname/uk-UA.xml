@@ -14,6 +14,8 @@
   <string name="easternRapid">Східна Рапід Арена</string>
   <string name="easternClassicalArena">Східна Класична Арена</string>
   <string name="easternClassical">Східна Класична Арена</string>
+  <string name="easternXArena">Східна Арена %s</string>
+  <string name="easternX">Східна %s</string>
   <string name="weeklyRapidArena">Щотижнева Рапід Арена</string>
   <string name="weeklyRapid">Щотижневий Рапід</string>
   <string name="weeklyClassicalArena">Щотижнева Класична Арена</string>
@@ -39,4 +41,9 @@
   <string name="xShieldArena">%s Щит з Рапіду</string>
   <string name="xShield">%s Щит</string>
   <string name="openingRapidArena">%s Арена з Рапіду</string>
+  <string name="openingRapid">%s Рапід</string>
+  <string name="xTeamBattle">%s Групова битва</string>
+  <string name="eliteXArena">Елітна %s Арена</string>
+  <string name="eliteX">Елітний %s</string>
+  <string name="xArena">%s Арена</string>
 </resources>
