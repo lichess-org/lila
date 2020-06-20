@@ -299,8 +299,25 @@
   <string name="importGame">Ойынды экспорттау</string>
   <string name="retry">Қайталау</string>
   <string name="reconnecting">Қайта қосылу</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">Желіде жостар жоқ</item>
+    <item quantity="other">Желіде жостар жоқ</item>
+  </plurals>
   <string name="noFriendsOnline">Желіде жостар жоқ</string>
   <string name="findFriends">Дос іздестіру</string>
+  <string name="favoriteOpponents">Қымбатты қарсыластар</string>
+  <string name="follow">Ілесу</string>
+  <string name="following">Ілескендер</string>
+  <string name="unfollow">Ілеспеу</string>
+  <string name="block">Блок</string>
+  <string name="blocked">Блоктар</string>
+  <string name="unblock">Бұғаттан шығару</string>
+  <string name="followsYou">%s Сізге жазылды</string>
+  <string name="xStartedFollowingY">%1$s, %2$s Ілесті</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s Ілесуші</item>
+    <item quantity="other">%s Ілесушілер</item>
+  </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">kelesi %s</item>
     <item quantity="other">kelesi %s</item>
@@ -331,6 +348,7 @@
   <string name="recommendNotTouching">Biz olardy ustamaýǵa keńes beremiz.</string>
   <string name="fewerPlayers">Eger siz kirý sharttaryn ornatsańyz, onda sizdiń týrnırińizde oıynshylar az bolady.</string>
   <string name="showAdvancedSettings">Qosymsha parametrlerdi kórsetý</string>
+  <string name="makePrivateTournament">Турнирді жеке етіп жасаңыз және құпия сөзбен кіруді шектеңіз</string>
   <string name="join">Qosylyńyz</string>
   <string name="withdraw">Shyǵarý</string>
   <string name="points">Núkteler</string>
