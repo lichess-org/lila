@@ -218,6 +218,10 @@
   <string name="computer">Ríomhaire</string>
   <string name="side">Taobh</string>
   <string name="clock">Clog</string>
+  <string name="playOfflineComputer">Ríomhaire</string>
+  <string name="learnMenu">Foghlaim</string>
+  <string name="community">Pobal</string>
+  <string name="tools">Uirlisí</string>
   <string name="playOnline">Imir ar líne</string>
   <string name="playOffline">Imir as líne</string>
   <string name="castling">Caisleáil</string>
