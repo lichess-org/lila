@@ -2,4 +2,7 @@
 <resources>
   <string name="contact">Контакти</string>
   <string name="contactLichess">Зв\'язатися з Lichess</string>
+  <string name="whatCanWeHelpYouWith">З чим ми можемо вам допомогти?</string>
+  <string name="visitThisPage">Відвідайте цю сторінку, щоб вирішити проблему</string>
+  <string name="iCantLogIn">Я не можу увійти</string>
 </resources>
