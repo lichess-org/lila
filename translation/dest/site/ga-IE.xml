@@ -236,8 +236,10 @@
   <string name="create">Cruthaigh</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
   <string name="language">Teanga</string>
+  <string name="challenges">Dushláin</string>
   <string name="perfRatingX">Rátáil: %s</string>
   <string name="computerThinking">An ríomhaire ag machnamh ...</string>
+  <string name="waitingForAnalysis">Ag fanacht ar anailís</string>
   <string name="advantage">Buntáiste</string>
   <string name="opening">Oscailt</string>
   <string name="why">Cén fáth?</string>
