@@ -38,4 +38,51 @@
 Ім\'я користувача: %2$s
 Пароль: %3$s</string>
   <string name="inviteALichessAccount">Запросити акаунт Lichess</string>
+  <string name="inviteDesc1">Якщо у учня вже є обліковий запис Lichess, ви можете запросити його до класу.</string>
+  <string name="inviteDesc2">Вони отримають повідомлення на Lichess з посиланням, щоб приєднатися до класу.</string>
+  <string name="inviteDesc3">Важливо: запрошуйте лише учнів, яких ви знаєте і які активно хочуть приєднатися до класу.</string>
+  <string name="inviteDesc4">Ніколи не надсилати небажані запрошення довільним гравцям.</string>
+  <string name="createANewLichessAccount">Створити обліковий запис Lichess</string>
+  <string name="createDesc1">Якщо учень ще не має облікового запису Lichess, його можна створити тут.</string>
+  <string name="createDesc2">Не потрібна електронна адреса. Пароль буде згенерований і Вам доведеться відправити його учневі, так що вони можуть увійти в систему.</string>
+  <string name="createDesc3">Важливо: учень не повинен мати кілька облікових записів.</string>
+  <string name="createDesc4">Якщо у них вже є такий, натомість використовуйте форму запрошення.</string>
+  <string name="lichessUsername">Ім\'я користувача Lichess</string>
+  <string name="generateANewUsername">Створити нове ім\'я користувача</string>
+  <string name="welcomeToClass">Ласкаво просимо до вашого класу: %s.
+Ось посилання для доступу до класу.</string>
+  <string name="invitationToClass">Вас запросили приєднатися до класу \"%s\" в якості студента.</string>
+  <string name="clickToViewInvitation">Натисніть на посилання, щоб переглянути запрошення:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Одне запрошення в очікуванні</item>
+    <item quantity="few">%s запрошення в очікуванні</item>
+    <item quantity="many">%s запрошень в очікуванні</item>
+    <item quantity="other">%s запрошень в очікуванні</item>
+  </plurals>
+  <string name="noPendingInvitations">Немає очікуваних запрошень</string>
+  <string name="onlyVisibleToTeachers">Видимий лише вчителям класу</string>
+  <string name="lastActiveDate">Активний</string>
+  <string name="managed">Керований</string>
+  <string name="thisStudentAccountIsManaged">Обліковий запис цього учня є керованим</string>
+  <string name="upgradeFromManaged">Покращення від керованого до автономного</string>
+  <string name="release">Випустити</string>
+  <string name="releaseTheAccount">Випуск облікового запису, щоб учень зміг самостійно керувати ним.</string>
+  <string name="releaseDesc1">Випущений обліковий запис не може бути керований знову. Учні зможуть перемикати дитячий режим і самостійно скинути пароль.</string>
+  <string name="releaseDesc2">Учень залишиться в класі після випуску облікового запису.</string>
+  <string name="realUniqueEmail">Справжня, унікальна електронна адреса студента. Ми надішлемо на неї листа для підтвердження з посиланням на отримання облікового запису.</string>
+  <string name="teachers">Вчителі</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Вчитель</item>
+    <item quantity="few">%s вчителів</item>
+    <item quantity="many">%s вчителів</item>
+    <item quantity="other">%s вчителів</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Учень</item>
+    <item quantity="few">%s учня</item>
+    <item quantity="many">%s учнів</item>
+    <item quantity="other">%s учня</item>
+  </plurals>
+  <string name="students">Учні</string>
+  <string name="progress">Прогрес</string>
 </resources>
