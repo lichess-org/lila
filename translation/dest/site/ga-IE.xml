@@ -235,6 +235,9 @@
   <string name="aboutX">Faoi %s</string>
   <string name="create">Cruthaigh</string>
   <string name="lichessTournaments">Comórtais Lichess</string>
+  <string name="tournamentOfficial">Oifigiúil</string>
+  <string name="timeBeforeTournamentStarts">Am fágtha sula thosnaíonn an comórtas</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Chláraigh tú an ríomhphost cheana féin: %s</string>
   <string name="asFreeAsLichess">Chomh saor le Lichess</string>
   <string name="anonymous">Gan ainm</string>
   <string name="language">Teanga</string>
