@@ -85,4 +85,9 @@
   </plurals>
   <string name="students">Учні</string>
   <string name="progress">Прогрес</string>
+  <string name="noStudents">Наразі учнів в класі немає.</string>
+  <string name="noRemovedStudents">Немає видалених учнів.</string>
+  <string name="overDays">За кілька днів</string>
+  <string name="timePlaying">Часу в грі</string>
+  <string name="variantXOverLastY">%1$s за останні %2$s</string>
 </resources>
