@@ -22,6 +22,8 @@
   <string name="whiteIsVictorious">Ақ жеңді</string>
   <string name="blackIsVictorious">Қара жеңді</string>
   <string name="youPlayTheWhitePieces">Сіз ақ бөлшектерді ойнайсыз</string>
+  <string name="youPlayTheBlackPieces">Сіз қара бөлшектерді ойнайсыз</string>
+  <string name="itsYourTurn">Сенің кезегің!</string>
   <string name="kingInTheCenter">Әмір тақтаның төрінде</string>
   <string name="threeChecks">Үш рет шах жариялануы тіркелді</string>
   <string name="raceFinished">Бәйге аяқталды</string>
@@ -31,6 +33,10 @@
   <string name="joinTheGame">Ойынға қосылу</string>
   <string name="whitePlays">Ақтың жүрісі</string>
   <string name="blackPlays">Қараның жүрісі</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Қарсыласыңыз ойыннан кетті. Сіз %s секундта жеңіске жетуді талап ете аласыз.</item>
+    <item quantity="other">Қарсыласыңыз ойыннан кетті. Сіз %s секундта жеңіске жетуді талап ете аласыз.</item>
+  </plurals>
   <string name="opponentLeftChoices">Қарсыласыңыз ойыннан шықты. Ойынды оның атынан аяқтауға, не тосуға мүмкіндігіңіз бар.</string>
   <string name="makeYourOpponentResign">Ойынды қарсылас атынан аяқтау</string>
   <string name="forceResignation">Қарсылас ұтылды</string>
@@ -130,6 +136,10 @@
   <string name="xPostedInForumY">%1$s мақалада жарияланған %2$s</string>
   <string name="latestForumPosts">Форумдаға ең жаңа хаттар</string>
   <string name="players">Ойыншылар</string>
+  <string name="friends">Достарың</string>
+  <string name="discussions">Сұхбаттар</string>
+  <string name="today">Бүгін</string>
+  <string name="yesterday">Кеше</string>
   <string name="minutesPerSide">Әрбір түске берілген уақыт</string>
   <string name="variant">Нусқа</string>
   <string name="variants">Нұсқалар</string>
@@ -199,6 +209,7 @@
   <string name="rematchOfferDeclined">Revansh týraly usynys qabyldanbad</string>
   <string name="cancelRematchOffer">Revansh týraly usynysty boldyrmaý</string>
   <string name="viewRematch">Qaraý mach-revansh</string>
+  <string name="confirmMove">Жылжуды растаңыз</string>
   <string name="play">Ойнау</string>
   <string name="inbox">Хаттар</string>
   <string name="chatRoom">Сөйлесу бөлмесі</string>
@@ -241,6 +252,10 @@
     <item quantity="one">%s týrnırlik upaılardan</item>
     <item quantity="other">%s týrnırlik upaılardan</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s оқу</item>
+    <item quantity="other">%s оқулар</item>
+  </plurals>
   <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="backToTournament">Týrnırge oralaıyq</string>
   <string name="thematic">Taqyryptyq</string>
@@ -264,7 +279,26 @@
   <string name="ratedLessThanInPerf">Nomınaldy ≤ %1$s sin %2$s</string>
   <string name="mustBeInTeam">%s komandasynda bolý kerek</string>
   <string name="youAreNotInTeam">Siz komandada emes %s</string>
+  <string name="backToGame">Ойынға оралу</string>
   <string name="siteDescription">Тікелей желідегі тегін шахмат сервері. Еш тіркелмей-ақ, плагин қоймай-ақ, жарнама көрмей-ақ қарапайым интерфейс арқылы тап қазір шахмат ойнаңыз. Ойыныңызды компьютермен, досыңызбен әлде кездейсоқ қарсыласпен ойнаңыз.</string>
+  <string name="xJoinedTeamY">%1$s, %2$s s командасына қосылды</string>
+  <string name="xCreatedTeamY">%1$s, %2$s командасын жасады</string>
+  <string name="xStartedStreaming">%s ағын бастады</string>
+  <string name="averageElo">Орташа рейтинг</string>
+  <string name="location">Орналасқан жері</string>
+  <string name="filterGames">Ойындарды сүзу</string>
+  <string name="reset">Қалпына келтіру</string>
+  <string name="apply">Жіберу</string>
+  <string name="save">Сақтау</string>
+  <string name="leaderboard">Көшбасшылар тақтасы</string>
+  <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
+  <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
+  <string name="fromPosition">Позициядан</string>
+  <string name="continueFromHere">Осы жерден жалғастырыңыз</string>
+  <string name="toStudy">Оқу</string>
+  <string name="importGame">Ойынды экспорттау</string>
+  <string name="retry">Қайталау</string>
+  <string name="reconnecting">Қайта қосылу</string>
   <string name="noFriendsOnline">Желіде жостар жоқ</string>
   <string name="findFriends">Дос іздестіру</string>
   <plurals name="nbFollowing">
