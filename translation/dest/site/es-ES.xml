@@ -861,5 +861,5 @@
   <string name="teamNamedX">%1$s equipo</string>
   <string name="youCannotPostYetPlaySomeGames">Aún no puedes publicar en los foros. ¡Juega algunas partidas!</string>
   <string name="subscribe">Suscribirse</string>
-  <string name="unsubscribe">Desuscribirse</string>
+  <string name="unsubscribe">Cancelar la suscripción</string>
 </resources>
