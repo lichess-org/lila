@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="perfStats">Статистика %s</string>
   <string name="viewTheGames">Переглянути партії</string>
+  <string name="provisional">умовний</string>
+  <string name="notEnoughRatedGames">Недостатньо рейтингових ігор було зіграно для встановлення надійного рейтингу.</string>
+  <string name="progressOverLastXGames">Прогрес за останні %s ігор:</string>
+  <string name="ratingDeviation">Відхилення рейтингу: %s.</string>
+  <string name="ratingDeviationHelp">Нижнє значення означає, що рейтинг є більш стабільним. Вище %s, рейтинг вважається попереднім.</string>
+  <string name="totalGames">Всього ігор</string>
+  <string name="ratedGames">Рейтингові ігри</string>
+  <string name="tournamentGames">Турнірні ігри</string>
+  <string name="berserkedGames">Ігор з берсерком</string>
   <string name="now">зараз</string>
 </resources>
