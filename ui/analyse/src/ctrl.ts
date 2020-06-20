@@ -37,7 +37,7 @@ import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
 import * as speech from './speech';
-import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
+import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 
@@ -275,6 +275,7 @@ export default class AnalyseCtrl {
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
       color = this.turnColor(),
+      emptyDests = {} as chessUtil.Dests,
       dests = chessUtil.readDests(this.node.dests),
       drops = chessUtil.readDrops(this.node.drops),
       movableColor = (this.practice || this.gamebookPlay()) ? this.bottomColor() : (
@@ -287,10 +288,10 @@ export default class AnalyseCtrl {
         turnColor: color,
         movable: this.embed ? {
           color: undefined,
-          dests: {} as CgDests
+          dests: emptyDests,
         } : {
           color: movableColor,
-          dests: (movableColor === color ? (dests || {}) : {}) as CgDests
+          dests: (movableColor === color && dests) || emptyDests,
         },
         check: !!node.check,
         lastMove: this.uciToLastMove(node.uci)
