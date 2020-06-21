@@ -275,7 +275,6 @@
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Este jugador usa ayuda de un ordenador</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jugador incrementa o disminuye artificialmente su puntuación</string>
   <string name="openingExplorerAndTablebase">Explorador de aperturas y base de datos de finales</string>
   <string name="takeback">Deshacer jugada</string>
