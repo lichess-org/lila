@@ -343,7 +343,6 @@
     <item quantity="many">منح %s ثانية</item>
     <item quantity="other">منح %s ثانية</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">هذا اللاعب يستعين ببرامج الشطرنج</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">هذا اللاعب يتلاعب بتقييمه</string>
   <string name="openingExplorerAndTablebase">مستكشف الافتتاحيات&amp; جدول النهايات</string>
   <string name="takeback">تراجع</string>
