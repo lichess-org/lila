@@ -309,7 +309,6 @@
     <item quantity="many">Přidat %s sekund</item>
     <item quantity="other">Přidat %s sekund</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Tento uživatel hrává s pomocí počítače</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč uměle ovlivnil své hodnocení</string>
   <string name="openingExplorerAndTablebase">Knihovna zahájení / tablebase koncovek</string>
   <string name="takeback">Vrátit tah</string>
