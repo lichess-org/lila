@@ -309,7 +309,6 @@
     <item quantity="many">תן %s שניות</item>
     <item quantity="other">תן %s שניות</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">שחקן זה משתמש בסיוע מחשב שחמט</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">שחקן זה מעלה/מוריד את דירוגו באופן מלאכותי</string>
   <string name="openingExplorerAndTablebase">סייר הפתיחות וניתוח סיומים</string>
   <string name="takeback">החזר מהלך</string>
