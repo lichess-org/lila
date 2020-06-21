@@ -54,19 +54,19 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.8.1"
+    val version = "2.8.2"
     val api     = "com.typesafe.play" %% "play"      % version
-    val json    = "com.typesafe.play" %% "play-json" % "2.8.1"
+    val json    = "com.typesafe.play" %% "play-json" % "2.9.0"
   }
   object kamon {
-    val version    = "2.1.0"
+    val version    = "2.1.1"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version
     val prometheus = "io.kamon" %% "kamon-prometheus"     % version
   }
   object akka {
-    val version    = "2.6.5"
+    val version    = "2.6.6"
     val akka       = "com.typesafe.akka" %% "akka-actor"       % version
     val akkaTyped  = "com.typesafe.akka" %% "akka-actor-typed" % version
     val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version
