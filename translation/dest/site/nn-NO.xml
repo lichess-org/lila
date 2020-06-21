@@ -275,7 +275,6 @@
     <item quantity="one">Gje %s sekund</item>
     <item quantity="other">Gje %s sekund</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Denne spelaren brukar datahjelp</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spelaren manipulerar ratinga si</string>
   <string name="openingExplorerAndTablebase">Opningsutforskar &amp; tabellbase</string>
   <string name="takeback">Gjer om trekket</string>
