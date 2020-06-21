@@ -174,6 +174,31 @@
     <item quantity="many">%s chluichí rátáilte</item>
     <item quantity="other">%s chluichí rátáilte</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s á imirt</item>
+    <item quantity="two">%s á imirt</item>
+    <item quantity="few">%s á imirt</item>
+    <item quantity="many">%s á imirt</item>
+    <item quantity="other">%s á imirt</item>
+  </plurals>
+  <string name="exportGames">Easpórtálaigh cluichí</string>
+  <string name="ratingRange">Réimse rátála</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Tabhair %s soicind</item>
+    <item quantity="two">Tabhair %s shoicind</item>
+    <item quantity="few">Tabhair %s shoicind</item>
+    <item quantity="many">Tabhair %s shoicind</item>
+    <item quantity="other">Tabhair %s shoicind</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">Chuaigh an chuntas seo in aghaidh téarmaí sheirbhíse Lichess</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ardaíonn/Íslíonn an imreoir seo a rátáil ar shlí bhréagach</string>
+  <string name="openingExplorerAndTablebase">Taiscélaí thionscnaimh &amp; bunachar dheireadh an chluiche</string>
+  <string name="takeback">Aistógadh</string>
+  <string name="proposeATakeback">Iarraidh d\'aistógadh</string>
+  <string name="takebackPropositionSent">Iarraíodh d\'aisthógadh</string>
+  <string name="takebackPropositionDeclined">Aistógadh diúltaithe</string>
+  <string name="takebackPropositionAccepted">Aistógadh deimhnithe</string>
+  <string name="takebackPropositionCanceled">Cuireadh an iarratais aistógaithe ar ceal</string>
   <string name="tournament">Comórtas</string>
   <string name="tournaments">Comórtais</string>
   <string name="tournamentPoints">Pointí ó chomórtais</string>
