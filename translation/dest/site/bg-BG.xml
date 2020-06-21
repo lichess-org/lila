@@ -263,7 +263,6 @@
     <item quantity="one">Дай %s sec</item>
     <item quantity="other">Дай %s sec</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Този играч използва компютърна помощ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Този играч изкуствено увеличава/намалява своята оценка</string>
   <string name="openingExplorerAndTablebase">&amp; - Изследовател на дебютите</string>
   <string name="takeback">Върни ход</string>
