@@ -65,8 +65,11 @@
   <string name="broadcastUrl">URL de transmissão</string>
   <string name="currentChapterUrl">URL atual do capítulo</string>
   <string name="currentGameUrl">URL da partida atual</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Podes colocar isto no fórum para o incorporares</string>
   <string name="startAtInitialPosition">Reiniciar</string>
   <string name="startAtX">Começa em %s</string>
+  <string name="embedInYourWebsite">Incorporar no teu site ou blog</string>
+  <string name="readMoreAboutEmbedding">Ler mais sobre incorporação</string>
   <string name="open">Abertura</string>
   <string name="xBroughtToYouByY">%1$s adquirido para você por %2$s</string>
   <string name="studyNotFound">Estudo não encontrado</string>
