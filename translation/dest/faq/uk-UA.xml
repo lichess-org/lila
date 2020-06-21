@@ -77,6 +77,11 @@
   <string name="accounts">Облікові записи</string>
   <string name="titlesAvailableOnLichess">Які титули використовуються на Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess визнає всі титули FIDE, отриманих від OTB (за дошкою), а також %1$s. Ось список титулів FIDE:</string>
+  <string name="showYourTitle">Якщо у вас є титул OTB, ви можете подати заявку на відображення у вашому обліковому запису заповнивши %1$s, включаючи чітке зображення документа/картки та селфі з вашим документом/карткою, що ідентифікує його.
+
+Визнання Вас як титульного гравця на Lichess дає доступ до гри в подіях Титульованої Арени.
+
+І наостанок є почесний титул %2$s.</string>
   <string name="asWellAsManyNMtitles">багато звань Національного Майстра</string>
   <string name="verificationForm">підтверджувальна форма</string>
   <string name="canIbecomeLM">Чи можу я отримати звання Lichess Master (LM)?</string>
@@ -87,7 +92,10 @@
 
 Не випрошуйте звання LM.</string>
   <string name="whatUsernameCanIchoose">Яким може бути моє ім\'я користувача?</string>
+  <string name="usernamesNotOffensive">Загалом, імена користувачів не повинні бути: образливими, уособлюючими когось іншим або рекламними. Ви можете прочитати більше у %1$s.</string>
+  <string name="guidelines">настанови</string>
   <string name="uniqueTrophies">Унікальні нагороди</string>
+  <string name="ownerUniqueTrophies">Ці трофеї унікальні за всю історію Lichess, ніхто крім %1$s ними не зможе заволодіти.</string>
   <string name="aHourlyBulletTournament">щогодинний турнір з кулі</string>
   <string name="lichessRatings">Рейтинги Lichess</string>
   <string name="similarOpponents">суперники подібної сили</string>
