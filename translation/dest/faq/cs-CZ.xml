@@ -3,5 +3,8 @@
   <string name="faqAbbreviation">Často kladené dotazy (FAQ)</string>
   <string name="frequentlyAskedQuestions">Často kladené otázky</string>
   <string name="whyIsLichessCalledLichess">Proč se Lichess nazývá Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinace slov live/light/libre a chess z angličtiny. Vyslovuje se %1$s.</string>
   <string name="leechess">ličes</string>
+  <string name="hearItPronouncedBySpecialist">Poslechněte si, jak je vyslovováno profesionálem.</string>
+  <string name="whyLiveLightLibre">Živé, protože hry jsou hrány a sledovány v reálném čase 24/7; lehké a volné, protože Lichess má otevřený zdrojový kód a je nezatížené proprietárním nepořádkem, který zaplavuje ostatní weby.</string>
 </resources>
