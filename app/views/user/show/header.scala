@@ -196,7 +196,7 @@ object header {
                 !ctx.is(u) option frag(
                   u.marks.engine option div(cls := "warning engine_warning")(
                     span(dataIcon := "j", cls := "is4"),
-                    trans.thisPlayerUsesChessComputerAssistance()
+                    trans.thisAccountViolatedTos()
                   ),
                   (u.marks.boost && (u.count.game > 0 || isGranted(_.Hunter))) option div(
                     cls := "warning engine_warning"
