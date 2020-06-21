@@ -257,7 +257,6 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">Cho thêm %s giây</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Người chơi này sử dụng máy tính trợ giúp</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kỳ thủ này đã tăng hệ số một cách giả tạo</string>
   <string name="openingExplorerAndTablebase">Sách khai cuộc &amp; bảng dữ liệu</string>
   <string name="takeback">Đi lại</string>
