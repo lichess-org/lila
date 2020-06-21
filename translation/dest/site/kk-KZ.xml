@@ -234,7 +234,6 @@
   </plurals>
   <string name="exportGames">Ойынды экспорттау</string>
   <string name="ratingRange">Эло ауқымы</string>
-  <string name="thisPlayerUsesChessComputerAssistance">Бұл ойыншы компьютер бағдарламасын қолданады</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bul oıynshy óz reıtıńin jasandy arttyrady/azaıtady</string>
   <string name="openingExplorerAndTablebase">&amp;Amp ótkizgishin ashý; kesteniń negizi</string>
   <string name="takeback">Қайтару</string>
