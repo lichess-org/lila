@@ -12,5 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">É o tempo que leva para enviar um movimento do teu computador para o servidor do Lichess e obter a resposta de volta. Depende da tua distância ao Lichess (França) e da qualidade da tua conexão à Internet. Os desenvolvedores do Lichess não podem consertar o teu wi-fi nem fazer a luz andar mais rápido.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Podes encontrar ambos estes valores a qualquer momento, clicando no teu nome de utilizador na barra superior.</string>
   <string name="lagCompensation">Compensação do atraso</string>
-  <string name="lagCompensationExplanation">O Lichess compensa os atrasos da rede. Isto inclui atrasos constantes e ocasionais. Existem limites baseados no controlo do tempo e no atraso compensado até agora, para que o resultado seja razoável para ambos os jogadores. Assim, teres mais atraso de rede do que o teu adversário não é uma desvantagem!</string>
+  <string name="lagCompensationExplanation">O Lichess compensa os atrasos da rede. Isto inclui atrasos constantes e ocasionais. Existem limites baseados nos ritmos de jogo e no atraso compensado até agora, para que o resultado seja razoável para ambos os jogadores. Assim, teres mais atraso de rede do que o teu adversário não é uma desvantagem!</string>
 </resources>
