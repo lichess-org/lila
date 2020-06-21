@@ -156,7 +156,7 @@
   <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
-  <string name="timeControl">Tempo</string>
+  <string name="timeControl">Ritmo de jogo</string>
   <string name="realTime">Em tempo real</string>
   <string name="correspondence">Correspondência</string>
   <string name="daysPerTurn">Dias por lance</string>
