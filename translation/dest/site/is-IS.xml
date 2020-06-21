@@ -269,7 +269,6 @@
     <item quantity="one">Gefa %s sekúndur</item>
     <item quantity="other">Gefa %s sekúndur</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Þessi spilari notar skáktölvu til hjálpar</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Þessi skákmaður hækkar/lækkar stig sín með vafasömum hætti</string>
   <string name="openingExplorerAndTablebase">Opnunarvafri og endataflsútreikningar</string>
   <string name="takeback">Afturköllun</string>
