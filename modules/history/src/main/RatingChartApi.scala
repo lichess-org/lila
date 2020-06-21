@@ -18,7 +18,7 @@ final class RatingChartApi(
     }
 
   def singlePerf(user: User, perfType: PerfType): Fu[JsArray] =
-    historyApi.ratingsMap(user, perfType) map {
+    historyApi.ratingsMap(user, perfType) map smooth map {
       ratingsMapToJson(user, _)
     } map JsArray.apply
 
@@ -35,6 +35,23 @@ final class RatingChartApi(
           build(user) dmap (~_)
         }
       }
+  }
+
+  private def smooth(ratingsMap: RatingsMap): RatingsMap = {
+    (ratingsMap.headOption, ratingsMap.lastOption) match {
+      case (Some(head), Some(last)) => smoothRec(List(), ratingsMap, head._1, last._1)
+      case _ => List()
+    }
+  }
+
+  @scala.annotation.tailrec
+  private def smoothRec(newMap: RatingsMap, mainMap: RatingsMap, next: Date, end: Date): RatingsMap = {
+    if (next == end + 1) newMap
+    else smoothRec(newMap :+ ((next, carryForwardRating(mainMap, next))), mainMap, next + 1, end )
+  }
+
+  private def carryForwardRating(ratingsMap: RatingsMap, date: Date): Rating = {
+    ratingsMap.filter(_._1 <= date).last._2
   }
 
   private def ratingsMapToJson(user: User, ratingsMap: RatingsMap) =
@@ -68,7 +85,7 @@ final class RatingChartApi(
           ) map { pt =>
             Json.obj(
               "name"   -> pt.trans(lila.i18n.defaultLang),
-              "points" -> ratingsMapToJson(user, history(pt))
+              "points" -> ratingsMapToJson(user, smooth(history(pt)))
             )
           }
         }
