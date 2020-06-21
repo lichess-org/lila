@@ -67,4 +67,14 @@
   <string name="accountLost">Однак якщо ви дійсно використовували допомогу шахових рушіїв, навіть один раз, тоді ваш обліковий запис будет втрачено, нажаль.</string>
   <string name="doNotDeny">Не заперечуйте обман. Якщо Ви хочете мати можливість створити новий обліковий запис, просто визнайте те, що Ви зробили, і покажіть, що Ви зрозуміли, що це була помилка.</string>
   <string name="otherRestriction">Інші обмеження</string>
+  <string name="collaboration">Співправа, юридична, комерційна</string>
+  <string name="monetizing">Монетизація Lichess</string>
+  <string name="buyingLichess">Купівля Lichess</string>
+  <string name="authorizationToUse">Авторизація для використання Lichess</string>
+  <string name="welcomeToUse">Ви можете використовувати Lichess для своєї діяльності, навіть комерційної.</string>
+  <string name="videosAndBooks">Ви можете показати це в своїх відео, і друкувати скріншоти з Lichess у ваших книгах.</string>
+  <string name="creditAppreciated">Припис про використання цінується, але не є обов\'язковим.</string>
+  <string name="noneOfTheAbove">Жодне з перерахованих</string>
+  <string name="sendEmailAt">Надішліть нам електронного листа за адресою %s.</string>
+  <string name="explainYourRequest">Будь ласка, поясніть ваш запит чітко і ретельно. Вкажіть Ваше ім\'я користувача Lichess та будь-яку інформацію, що допоможе нам допомогти Вам.</string>
 </resources>
