@@ -275,7 +275,6 @@
     <item quantity="one">Geef %s seconde</item>
     <item quantity="other">Geef %s seconden</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Deze speler maakt gebruik van een schaakprogramma</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
   <string name="openingExplorerAndTablebase">Openingverkenner &amp; tablebase</string>
   <string name="takeback">Neem zet terug</string>
