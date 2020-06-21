@@ -259,8 +259,10 @@
   <string name="points">Pointí</string>
   <string name="wins">Buanna</string>
   <string name="losses">Cailliúintí</string>
+  <string name="winStreak">Stríoc bhuachana</string>
   <string name="createdBy">Cruthaithe ag</string>
   <string name="tournamentIsStarting">Tá an comórtas ag tosnú</string>
+  <string name="tournamentPairingsAreNowClosed">Níl cluichí á shocrú níos mó.</string>
   <string name="standByX">Fan ort %s, ag roinnt imreoirí ina bpéirí, bí réidh!</string>
   <string name="youArePlaying">Tá tú ag imirt!</string>
   <string name="winRate">Ráta bua</string>
