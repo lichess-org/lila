@@ -24,6 +24,12 @@
   <string name="teachingMethod">Методологія викладання</string>
   <string name="publicStudies">Публічні дослідження</string>
   <string name="youtubeVideos">Відео на YouTube</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Відгук учня</item>
+    <item quantity="few">%s відгуки учнів</item>
+    <item quantity="many">%s відгуки учнів</item>
+    <item quantity="other">%s відгуки учнів</item>
+  </plurals>
   <string name="thankYouForReview">Дякуємо за відгук!</string>
   <string name="xWillApproveIt">%s дуже скоро це підтвердить, або модератор згодом подивиться.</string>
   <string name="reviewCoach">Написати відгук про цього тренера</string>
