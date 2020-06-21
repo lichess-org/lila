@@ -68,7 +68,15 @@
   <string name="threefoldRepetitionExplanation">Якщо позиція відбудеться тричі, гравці можуть оголосити нічию %1$s. Lichess впроваджує офіційні правила FIDE, як описано в статті 9.2 (d) від %2$s.</string>
   <string name="threefoldRepetitionLowerCase">потрійне повторення</string>
   <string name="handBookPDF">довідник (PDF)</string>
+  <string name="notRepeatedMoves">Ми не повторювали рухів. Чому гра все одно закінчилась повторенням?</string>
+  <string name="repeatedPositionsThatMatters">Потрійне повторення стосується повторення %1$s, а не кроків. Повторення не обов\'язково має відбуватися послідовно.</string>
   <string name="positions">позиції</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Ми повторили позицію тричі. Чому гра не закінчилась нічиєю?</string>
+  <string name="threeFoldHasToBeClaimed">Для оголошення повторення потрібна відповідна дія одного з гравців. Ви можете зробити це, натиснувши кнопку, яка буде показана, або запропонувавши нічию перед повторенням ходу, неважливо, якщо ваш опонент відхилить пропозицію нічиєї, триразове повторення буде заявлено все одно. Також Ви можете зробити так, щоб Lichess %1$s автоматично оголошував повторення за Вас. Крім того, п\'ятиразове повторення завжди завершує гру.</string>
+  <string name="configure">налаштування</string>
+  <string name="accounts">Облікові записи</string>
+  <string name="titlesAvailableOnLichess">Які титули використовуються на Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess визнає всі титули FIDE, отриманих від OTB (за дошкою), а також %1$s. Ось список титулів FIDE:</string>
   <string name="asWellAsManyNMtitles">багато звань Національного Майстра</string>
   <string name="verificationForm">підтверджувальна форма</string>
   <string name="canIbecomeLM">Чи можу я отримати звання Lichess Master (LM)?</string>
