@@ -14,4 +14,10 @@
   <string name="fairPlay">Fair Play</string>
   <string name="howCanIBecomeModerator">Jak se mohu stát moderátorem?</string>
   <string name="isCorrespondenceDifferent">Je korespondenční hra jiná než normální šachy?</string>
+  <string name="youCanUseOpeningBookNoEngine">Na Lichess je hlavní rozdílem v pravidlech pro korespondenční šachy to, že je povoleno otevřít knihu. Použití počítačových programů pro rady je stále zakázáno a bude mít za následek označení hry za hru s pomocí. Přestože ICCF povoluje použití počítačových programů v korespondenčním šachu, Lichess ne.</string>
+  <string name="gameplay">Hraní hry</string>
+  <string name="eightVariants">8 variant šachu</string>
+  <string name="goodIntroduction">dobré zahájení</string>
+  <string name="positions">pozice</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Třikrát jsme zopakovali stejnou pozici. Proč hra neskončila remízou?</string>
 </resources>
