@@ -199,11 +199,43 @@
   <string name="takebackPropositionDeclined">Aistógadh diúltaithe</string>
   <string name="takebackPropositionAccepted">Aistógadh deimhnithe</string>
   <string name="takebackPropositionCanceled">Cuireadh an iarratais aistógaithe ar ceal</string>
+  <string name="yourOpponentProposesATakeback">Iarraíonn do chéile imeartha d\'aistógadh</string>
+  <string name="bookmarkThisGame">Cuir leabharmhairc leis an gcluiche seo</string>
   <string name="tournament">Comórtas</string>
   <string name="tournaments">Comórtais</string>
   <string name="tournamentPoints">Pointí ó chomórtais</string>
+  <plurals name="nbStudies">
+    <item quantity="one">%s staidéar</item>
+    <item quantity="two">%s staidéir</item>
+    <item quantity="few">%s staidéir</item>
+    <item quantity="many">%s staidéir</item>
+    <item quantity="other">%s staidéir</item>
+  </plurals>
   <string name="viewTournament">Féach ar chomórtas</string>
   <string name="backToTournament">Ar ais go dtí an comórtas</string>
+  <string name="thematic">Le téama</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s cluiche rátáilte</item>
+    <item quantity="two">≥ %s cluichí rátáilte</item>
+    <item quantity="few">≥ %s cluichí rátáilte</item>
+    <item quantity="many">≥ %s cluichí rátáilte</item>
+    <item quantity="other">≥ %s cluichí rátáilte</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s cluiche rátáilte %2$s</item>
+    <item quantity="two">≥ %1$s cluichí rátáilte %2$s</item>
+    <item quantity="few">≥ %1$s cluichí rátáilte %2$s</item>
+    <item quantity="many">≥ %1$s cluichí rátáilte %2$s</item>
+    <item quantity="other">≥ %1$s cluichí rátáilte %2$s</item>
+  </plurals>
+  <string name="mustBeInTeam">Caithfidh tú a bheith i bhfoireann %s</string>
+  <string name="youAreNotInTeam">Níl tú sa bhfoireann %s</string>
+  <string name="backToGame">Ar ais don chluiche</string>
+  <string name="siteDescription">Ficheall saor in aisce. Imir ficheall i gcoimheadán ghlan. Níl aon fógraí agus ní chaithfear clárú nó plugin a úsáid. Imir ficheall leis an ríomhaire, le cairde nó céilí imeartha randamacha.</string>
+  <string name="xJoinedTeamY">chuaigh %1$s istigh ar bhfoireann %2$s</string>
+  <string name="xCreatedTeamY">Bhunaigh %1$s an fhoireann %2$s</string>
+  <string name="xStartedStreaming">Thosaigh %s ag streamáil</string>
+  <string name="averageElo">Meánrátáil</string>
   <string name="more">Níos mó</string>
   <string name="player">Imreoir</string>
   <string name="list">Liosta</string>
