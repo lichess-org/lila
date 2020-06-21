@@ -52,4 +52,8 @@
   <string name="castlingRules">Переконайтеся, що ви розумієте правила рокіровки</string>
   <string name="tryCastling">Спробуйте цю маленьку інтерактивну гру для практики рокіровки в шахах</string>
   <string name="castlingImported">Якщо ви імпортували гру, або почали її з позиції, переконайтеся, що правильно встановили правила рокіровки.</string>
+  <string name="insufficientMaterial">Недостатньо фігур для мату</string>
+  <string name="fideMate">Згідно з правилами ФІДЕ 6.9, якщо мат можливий з будь-якою послідовністю ходів, тоді гра не є нічийною</string>
+  <string name="knightMate">Можна поставити мат лише конем або слоном, якщо опонент має фігури окрім короля.</string>
+  <string name="noRatingPoints">Рейтингові бали не нараховані</string>
 </resources>
