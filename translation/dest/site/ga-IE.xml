@@ -61,14 +61,23 @@
   <string name="promoteVariation">Cuir an líne seo chun tosaigh</string>
   <string name="deleteFromHere">Scrios as seo amach</string>
   <string name="move">Bog</string>
+  <string name="insufficientMaterial">Easpa maoine</string>
+  <string name="pawnMove">Bogadh shaighdiúir</string>
   <string name="capture">Gabh</string>
   <string name="close">Dún</string>
   <string name="winning">Buach</string>
   <string name="losing">Caillteach</string>
   <string name="drawn">Comhscór</string>
+  <string name="unknown">Ní fios</string>
+  <string name="database">Bunachar</string>
   <string name="whiteDrawBlack">Bán / Comhscór / Dubh</string>
   <string name="averageRatingX">Meán-rátáil: %s</string>
+  <string name="recentGames">Cluichí dheireanacha</string>
+  <string name="topGames">Cluichí is fearr</string>
+  <string name="masterDbExplanation">Dhá mhilliúin cluichí thar an mbord %1$s imreoirí le rátáil FIDE ó %2$s go %3$s</string>
+  <string name="noGameFound">Ní bhfuarathas aon cluichí</string>
   <string name="delete">Scrios</string>
+  <string name="deleteThisImportedGame">Scrios an gluiche iompórtáilte?</string>
   <string name="replayMode">Mód athimeartha</string>
   <string name="realtimeReplay">Fíor-am</string>
   <string name="bestMoveArrow">Saighead don chorraíl is fearr</string>
@@ -158,6 +167,13 @@
   <string name="send">Seol</string>
   <string name="freeOnlineChess">Ficheall Shaor in Aisce Ar Líne</string>
   <string name="spectators">Lucht féachana:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s cluiche rátáilte</item>
+    <item quantity="two">%s chluichí rátáilte</item>
+    <item quantity="few">%s chluichí rátáilte</item>
+    <item quantity="many">%s chluichí rátáilte</item>
+    <item quantity="other">%s chluichí rátáilte</item>
+  </plurals>
   <string name="tournament">Comórtas</string>
   <string name="tournaments">Comórtais</string>
   <string name="tournamentPoints">Pointí ó chomórtais</string>
