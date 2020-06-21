@@ -275,6 +275,7 @@
     <item quantity="one">Gi %s sekund</item>
     <item quantity="other">Gi %s sekunder</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Denne kontoen brøt vilkårene for å bruke Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spilleren øker/reduserer ratingen kunstig</string>
   <string name="openingExplorerAndTablebase">Åpningsutforsker &amp; tabellbase</string>
   <string name="takeback">Angre</string>
