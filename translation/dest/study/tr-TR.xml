@@ -63,9 +63,11 @@
   <string name="downloadGame">Oyunu indir</string>
   <string name="studyUrl">Çalışma Adresi</string>
   <string name="currentChapterUrl">Mevcut Bölümün Adresi</string>
+  <string name="currentGameUrl">Şu anki oyunun adresi</string>
   <string name="startAtInitialPosition">İlk pozisyondan başlasın</string>
   <string name="startAtX">%s pozisyonundan başlasın</string>
   <string name="embedInYourWebsite">İnternet sitenizde ya da blogunuzda gömülü olarak paylaşın</string>
+  <string name="readMoreAboutEmbedding">Gömülü paylaşma hakkında</string>
   <string name="open">Aç</string>
   <string name="xBroughtToYouByY">%2$s sana %1$s getirdi</string>
   <string name="studyNotFound">Böyle bir çalışma bulunamadı</string>
