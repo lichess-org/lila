@@ -96,8 +96,11 @@
   <string name="guidelines">настанови</string>
   <string name="uniqueTrophies">Унікальні нагороди</string>
   <string name="ownerUniqueTrophies">Ці трофеї унікальні за всю історію Lichess, ніхто крім %1$s ними не зможе заволодіти.</string>
+  <string name="wayOfBerserkExplanation">Щоб його отримати, hiimgosu кинув собі виклик та застосував берсерк, вигравши 100%% ігор в %s.</string>
   <string name="aHourlyBulletTournament">щогодинний турнір з кулі</string>
+  <string name="goldenZeeExplanation">ZugAddict транслював і останні 2 години він намагався перемогти A.I. 8 рівня в грі 1+0, безуспішно. Тібо пообіцяв йому, що якщо він успішно зробить це на трансляції, він отримає унікальний трофей. Через годину він розгромив Stockfish і обіцянку було виконано.</string>
   <string name="lichessRatings">Рейтинги Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Яку рейтингову систему використовує Lichess?</string>
   <string name="similarOpponents">суперники подібної сили</string>
   <string name="ratingLeaderboards">таблиця рейтингу лідерів</string>
   <string name="howToHideRatingWhilePlaying">Як приховати рейтинги під час гри?</string>
