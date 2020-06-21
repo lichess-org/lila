@@ -275,7 +275,6 @@
     <item quantity="one">Lisa %s sekund</item>
     <item quantity="other">Lisa %s sekundit</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">See mängija kasutab mängides arvuti abi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">See mängija kunstlikult tõstab / vähendab oma reitingut</string>
   <string name="openingExplorerAndTablebase">Avangute uurija &amp; lõppmängude andmebaas</string>
   <string name="takeback">Tagasivõtt</string>
