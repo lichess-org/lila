@@ -175,7 +175,6 @@
     <item quantity="one">%s سیکنڈ دیں</item>
     <item quantity="other">%s سیکنڈ دیں</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">کھلاڑی کمپیوٹر کی مدد سے کھیلتا ہے</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">یہ کھلاڑی اپنے میعار کو مصنوعی طور پر متاثر کرتا ہے</string>
   <string name="takeback">چال واپس لیں</string>
   <string name="proposeATakeback">چال واپس لینے کی درخواست کریں</string>
