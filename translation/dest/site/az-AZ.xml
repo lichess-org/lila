@@ -260,7 +260,6 @@
     <item quantity="one">%s saniyə ver</item>
     <item quantity="other">%s saniyə ver</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Bu oyunçu şahmat komputer köməkçisindən istifadə edir</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyunçu öz reytinqini süni şəklidə artırır</string>
   <string name="openingExplorerAndTablebase">Debüt &amp; endşpil bazası</string>
   <string name="takeback">Gedişi geri götür</string>
