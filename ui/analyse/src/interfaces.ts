@@ -119,10 +119,6 @@ export interface AnalyseOpts {
   chat: any;
 }
 
-export interface CgDests {
-  [key: string]: cg.Key[]
-}
-
 export interface JustCaptured extends cg.Piece {
   promoted?: boolean;
 }
