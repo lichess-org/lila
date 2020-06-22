@@ -41,8 +41,8 @@ object Dependencies {
   }
 
   object macwire {
-    val macros = "com.softwaremill.macwire" %% "macros" % "2.3.6" % "provided"
-    val util   = "com.softwaremill.macwire" %% "util"   % "2.3.6" % "provided"
+    val macros = "com.softwaremill.macwire" %% "macros" % "2.3.7" % "provided"
+    val util   = "com.softwaremill.macwire" %% "util"   % "2.3.7" % "provided"
   }
 
   object reactivemongo {
