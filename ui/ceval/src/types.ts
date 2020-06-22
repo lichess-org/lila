@@ -1,3 +1,4 @@
+import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
 import { StoredProp, StoredBooleanProp } from 'common/storage';
 
@@ -89,7 +90,7 @@ export interface ParentCtrl {
   disableThreatMode?: Prop<Boolean>;
   toggleThreatMode(): void;
   toggleCeval(): void;
-  gameOver: (node?: Tree.Node) => 'draw' | 'checkmate' | false;
+  outcome(): Outcome | undefined;
   mandatoryCeval?: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
   currentEvals(): NodeEvals;

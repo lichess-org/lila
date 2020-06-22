@@ -16,15 +16,6 @@ trait PackageObject extends Lilaisms {
     def unapply[A, B](x: Tuple2[A, B]): Option[Tuple2[A, B]] = Some(x)
   }
 
-  def intBox(in: Range.Inclusive)(v: Int): Int =
-    math.max(in.start, math.min(v, in.end))
-
-  def floatBox(in: Range.Inclusive)(v: Float): Float =
-    math.max(in.start.toFloat, math.min(v, in.end.toFloat))
-
-  def doubleBox(in: Range.Inclusive)(v: Double): Double =
-    math.max(in.start, math.min(v, in.end))
-
   object makeTimeout {
 
     import akka.util.Timeout

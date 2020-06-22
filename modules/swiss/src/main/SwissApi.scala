@@ -252,7 +252,7 @@ final class SwissApi(
   def pageOf(swiss: Swiss, userId: User.ID): Fu[Option[Int]] =
     rankingApi(swiss) map {
       _ get userId map { rank =>
-        (Math.floor(rank / 10) + 1).toInt
+        (rank - 1) / 10 + 1
       }
     }
 

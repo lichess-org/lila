@@ -13,7 +13,7 @@ object index {
 
   import trans.search._
 
-  def apply(form: Form[_], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Int)(implicit
+  def apply(form: Form[_], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Long)(implicit
       ctx: Context
   ) = {
     val commons = bits of form
@@ -66,7 +66,7 @@ object index {
                 submitButton(cls := "button")(trans.search.search()),
                 div(cls := "wait")(
                   spinner,
-                  searchInXGames(nbGames)
+                  searchInXGames(nbGames.localize)
                 )
               )
             )
@@ -79,6 +79,7 @@ object index {
             if (pager.nbResults > 0)
               frag(
                 div(cls := "search__status box__pad")(
+                  "While we are working to fix advanced search this view might be missing recent games • ", // #6785
                   strong(xGamesFound(pager.nbResults.localize, pager.nbResults)),
                   " • ",
                   permalink
@@ -88,7 +89,13 @@ object index {
                   views.html.game.widgets(pager.currentPageResults)
                 )
               )
-            else div(cls := "search__status box__pad")(strong(xGamesFound(0)), " • ", permalink)
+            else
+              div(cls := "search__status box__pad")(
+                "While we are working to fix advanced search this view might be missing recent games • ", // #6785
+                strong(xGamesFound(0)),
+                " • ",
+                permalink
+              )
           }
         )
       )

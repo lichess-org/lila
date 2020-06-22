@@ -61,7 +61,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     const fen = root.node.fen;
     const request: JQueryPromise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
       xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :
-      xhr.opening(opts.endpoint, effectiveVariant, root.nodeList[0].fen, root.nodeList.slice(1).map(s => s.uci!), config.data, withGames);
+      xhr.opening(opts.endpoint, effectiveVariant, fen, root.nodeList[0].fen, root.nodeList.slice(1).map(s => s.uci!), config.data, withGames);
 
     request.then((res: ExplorerData) => {
       cache[fen] = res;
@@ -135,7 +135,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
       const masterCache = {};
       return (fen: Fen): JQueryPromise<OpeningData> => {
         if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]).promise() as JQueryPromise<OpeningData>;
-        return xhr.opening(opts.endpoint, 'standard', fen, [], {
+        return xhr.opening(opts.endpoint, 'standard', fen, fen, [], {
           db: {
             selected: prop('masters')
           }

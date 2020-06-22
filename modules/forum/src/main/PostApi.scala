@@ -49,7 +49,7 @@ final class PostApi(
             modIcon = (~data.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
           )
           env.postRepo findDuplicate post flatMap {
-            case Some(dup) => fuccess(dup)
+            case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
             case _ =>
               env.postRepo.coll.insert.one(post) >>
                 env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
@@ -180,8 +180,8 @@ final class PostApi(
   def lastNumberOf(topic: Topic): Fu[Int] =
     env.postRepo lastByTopic topic dmap { _ ?? (_.number) }
 
-  def lastPageOf(topic: Topic) =
-    math.ceil(topic.nbPosts / maxPerPage.value.toFloat).toInt
+  def lastPageOf(topic: Topic): Int =
+    (topic.nbPosts + maxPerPage.value - 1) / maxPerPage.value
 
   def paginator(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
     Paginator(

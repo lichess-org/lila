@@ -21,4 +21,8 @@ trait NumberHelper { self: I18nHelper =>
   implicit final class RichInt(number: Int) {
     def localize(implicit lang: Lang): String = formatter format number
   }
+
+  implicit final class RichLong(number: Long) {
+    def localize(implicit lang: Lang): String = formatter format number
+  }
 }

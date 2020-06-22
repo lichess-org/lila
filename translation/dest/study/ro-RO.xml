@@ -64,11 +64,8 @@
   <string name="chapterPgn">PGN-ul capitolului</string>
   <string name="studyUrl">URL-ul studiului</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Puteți lipi acest cod într-un forum pentru a încorpora capitolul</string>
   <string name="startAtInitialPosition">Începeți de la poziția inițială</string>
   <string name="startAtX">Începeți la %s</string>
-  <string name="embedThisChapter">Încorporați acest capitol în website-ul sau blogul dumneavoastră</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Citiți mai multe despre încorporarea unui capitol al studiului</string>
   <string name="open">Deschideți</string>
   <string name="xBroughtToYouByY">%1$s, oferit pentru dvs. de %2$s</string>
   <string name="studyNotFound">Studiul nu a fost găsit</string>

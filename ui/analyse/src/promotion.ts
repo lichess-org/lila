@@ -35,7 +35,7 @@ export function start(ctrl: AnalyseCtrl, orig: Key, dest: Key, capture: JustCapt
   return false;
 }
 
-function finish(ctrl: AnalyseCtrl, role) {
+function finish(ctrl: AnalyseCtrl, role: Role) {
   if (promoting) {
     ground.promote(ctrl.chessground, promoting.dest, role);
     if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, promoting.capture, role);
@@ -51,7 +51,7 @@ export function cancel(ctrl: AnalyseCtrl) {
   }
 }
 
-function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces, color: Color, orientation: Color) {
+function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: Color, orientation: Color) {
   if (!promoting) return;
 
   let left = (8 - util.key2pos(dest)[0]) * 12.5;
@@ -64,7 +64,7 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces, color: Color, ori
       el.addEventListener('click', _ => cancel(ctrl));
       el.oncontextmenu = () => false;
     })
-  }, pieces.map(function(serverRole, i) {
+  }, pieces.map(function(serverRole: Role, i) {
     const top = (color === orientation ? i : 7 - i) * 12.5;
     return h('square', {
       attrs: {

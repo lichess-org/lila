@@ -45,7 +45,7 @@ final class GameSearchApi(
           case s if s.is(_.NoStart) => chess.Status.Resign
           case _                    => game.status
         }).id,
-        Fields.turns         -> math.ceil(game.turns.toFloat / 2),
+        Fields.turns         -> (game.turns + 1) / 2,
         Fields.rated         -> game.rated,
         Fields.perf          -> game.perfType.map(_.id),
         Fields.uids          -> game.userIds.toArray.some.filterNot(_.isEmpty),

@@ -167,7 +167,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
             },
             engine option span(
               cls := "engine_mark",
-              title := trans.thisPlayerUsesChessComputerAssistance.txt()
+              title := trans.thisAccountViolatedTos.txt()
             )
           ),
           statusIcon

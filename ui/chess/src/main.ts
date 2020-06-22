@@ -6,10 +6,6 @@ export function fixCrazySan(san: San): San {
   return san[0] === 'P' ? san.slice(1) : san;
 }
 
-export function decomposeUci(uci: Uci): [Key, Key, string] {
-  return [uci.slice(0, 2) as Key, uci.slice(2, 4) as Key, uci.slice(4, 5)];
-}
-
 export interface Dests {
   [square: string]: Key[];
 }
@@ -27,24 +23,6 @@ export function readDrops(line?: string | null): string[] | null {
   if (typeof line === 'undefined' || line === null) return null;
   return line.match(/.{2}/g) || [];
 }
-
-export const roleToSan = {
-  pawn: 'P',
-  knight: 'N',
-  bishop: 'B',
-  rook: 'R',
-  queen: 'Q',
-  king: 'K'
-};
-
-export const sanToRole = {
-  P: 'pawn',
-  N: 'knight',
-  B: 'bishop',
-  R: 'rook',
-  Q: 'queen',
-  K: 'king'
-};
 
 export const altCastles = {
   e1a1: 'e1c1',

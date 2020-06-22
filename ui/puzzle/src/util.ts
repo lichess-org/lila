@@ -7,7 +7,7 @@ export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redra
       f(e);
       e.preventDefault();
       if (redraw) redraw();
-    });
+    }, { passive: false });
   }
 }
 
