@@ -23,5 +23,5 @@
   <string name="date">Data</string>
   <string name="sortBy">Ordenar por</string>
   <string name="analysis">Análise</string>
-  <string name="onlyAnalysed">Apenas jogos em que a análise do computador está disponível</string>
+  <string name="onlyAnalysed">Apenas jogos em que a análise de computador está disponível</string>
 </resources>
