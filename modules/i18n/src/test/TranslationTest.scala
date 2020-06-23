@@ -36,7 +36,7 @@ class TranslationTest extends Specification {
                 }
                 None
               } catch {
-                case _: MatchError => Some(s"${lang.code} $name $k Extra translation!")
+                case _: MatchError => None // Extra translation
                 case e: Exception  => Some(s"${lang.code} $name $k -> $v - ${e.getMessage}")
               }
           }
