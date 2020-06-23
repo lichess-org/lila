@@ -136,15 +136,15 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def firstGetsWhite(u1: User.ID, u2: User.ID): Fu[Boolean] =
     coll.ext
       .find(
-        $doc("_id" $in List(u1, u2), F.colorIt $exists true),
-        $doc(F.colorIt -> true)
+        $inIds(List(u1, u2)),
+        $id(true)
       )
-      .list[Bdoc](2)
+      .sort($doc(F.colorIt -> 1))
+      .one[Bdoc]
       .map {
-        val w = _.fold(0) { (acc, doc) =>
-          acc + (if(doc.string("_id") contains u1) 1 else -1) * doc.int(F.colorIt) 
+        _.fold(scala.util.Random.nextBoolean) { doc =>
+          doc.string("_id") contains u1
         }
-        (w < 0) || (w == 0 && scala.util.Random.nextBoolean)
       }
       .addEffect { v =>
         incColor(u1, if (v) 1 else -1)
