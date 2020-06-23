@@ -49,8 +49,8 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
     }, { once: true });
   };
 
-  el.addEventListener('touchstart', startResize);
-  el.addEventListener('mousedown', startResize);
+  el.addEventListener('touchstart', startResize, { passive: false });
+  el.addEventListener('mousedown', startResize, { passive: false });
 
   if (pref == 1) {
     const toggle = (ply: number) => el.classList.toggle('none', visible ? !visible(ply) : ply >= 2);

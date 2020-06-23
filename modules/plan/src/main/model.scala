@@ -72,10 +72,11 @@ case class StripeSubscription(
     id: String,
     plan: StripePlan,
     customer: CustomerId,
-    cancel_at_period_end: Boolean
+    cancel_at_period_end: Boolean,
+    status: String
 ) {
-
-  def renew = !cancel_at_period_end
+  def renew    = !cancel_at_period_end
+  def isActive = status == "active"
 }
 
 case class StripeCustomer(

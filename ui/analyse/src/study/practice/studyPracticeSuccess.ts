@@ -25,18 +25,6 @@ function hasSolidEval(node: Tree.Node) {
   return node.ceval && node.ceval.depth >= 16;
 }
 
-function isMate(root: AnalyseCtrl) {
-  return root.gameOver() === 'checkmate';
-}
-
-function isMyMate(root: AnalyseCtrl) {
-  return isMate(root) && root.turnColor() !== root.bottomColor();
-}
-
-function isTheirMate(root: AnalyseCtrl) {
-  return isMate(root) && root.turnColor() === root.bottomColor();
-}
-
 function hasBlundered(comment: Comment | null) {
   return comment && (comment.verdict === 'mistake' || comment.verdict === 'blunder');
 }
@@ -45,8 +33,9 @@ function hasBlundered(comment: Comment | null) {
 export default function(root: AnalyseCtrl, goal: Goal, nbMoves: number): boolean | null {
   const node = root.node;
   if (!node.uci) return null;
-  if (isTheirMate(root)) return false;
-  if (isMyMate(root)) return true;
+  const outcome = root.outcome();
+  if (outcome && outcome.winner && outcome.winner !== root.bottomColor()) return false;
+  if (outcome && outcome.winner && outcome.winner === root.bottomColor()) return true;
   if (hasBlundered(root.practice!.comment())) return false;
   switch (goal.result) {
     case 'drawIn':
@@ -54,7 +43,7 @@ export default function(root: AnalyseCtrl, goal: Goal, nbMoves: number): boolean
       if (node.threefold) return true;
       if (isDrawish(node) === false) return false;
       if (nbMoves > goal.moves!) return false;
-      if (root.gameOver() === 'draw') return true;
+      if (outcome && !outcome.winner) return true;
       if (nbMoves >= goal.moves!) return isDrawish(node);
       break;
     case 'evalIn':

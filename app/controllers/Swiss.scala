@@ -256,6 +256,7 @@ final class Swiss(
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(implicit ctx: Context): Fu[Boolean] =
     swiss.chatFor match {
       case ChatFor.NONE    => fuFalse
+      case _ if isGranted(_.ChatTimeout) => fuTrue
       case ChatFor.LEADERS => ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
       case ChatFor.MEMBERS => ctx.userId ?? { env.team.api.belongsTo(swiss.teamId, _) }
       case _               => fuTrue
