@@ -11,7 +11,7 @@ import throttle from 'common/throttle';
 import * as xhr from './xhr';
 import * as speech from './speech';
 import { sound } from './sound';
-import { Role, Move } from 'chessops/types';
+import { Role, Move, Outcome } from 'chessops/types';
 import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
 import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
@@ -297,7 +297,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function canUseCeval(): boolean {
-    return vm.mode === 'view' && !gameOver();
+    return vm.mode === 'view' && !outcome();
   }
 
   function startCeval(): void {
@@ -338,11 +338,8 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     redraw();
   }
 
-  function gameOver(): false | 'checkmate' | 'draw' {
-    const pos = position();
-    if (pos.isCheckmate()) return 'checkmate';
-    if (pos.isInsufficientMaterial()) return 'draw';
-    return false;
+  function outcome(): Outcome | undefined {
+    return position().outcome();
   }
 
   function jump(path: Tree.Path): void {
@@ -470,7 +467,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     getCeval,
     pref: opts.pref,
     trans: window.lichess.trans(opts.i18n),
-    gameOver,
+    outcome,
     toggleCeval,
     toggleThreatMode,
     threatMode,

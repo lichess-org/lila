@@ -5,16 +5,9 @@ import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import { povChances } from './winningChances';
+import { sanIrreversible } from './util';
 
 const li = window.lichess;
-
-function sanIrreversible(variant: VariantKey, san: string): boolean {
-  if (san.startsWith('O-O')) return true;
-  if (variant === 'crazyhouse') return false;
-  if (san.includes('x')) return true; // capture
-  if (san.toLowerCase() === san) return true; // pawn move
-  return variant === 'threeCheck' && san.includes('+');
-}
 
 function officialStockfish(variant: VariantKey): boolean {
   return variant === 'standard' || variant === 'chess960';

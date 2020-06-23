@@ -1,5 +1,5 @@
 import sanWriter from './sanWriter';
-import { DecodedDests } from '../interfaces';
+import { CgDests } from '../interfaces';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
@@ -66,7 +66,7 @@ window.lichess.keyboardMove = function(opts: any) {
     opts.input.classList.remove('wrong');
   };
   makeBindings(opts, submit, clear);
-  return function(fen: string, dests: DecodedDests, yourMove: boolean) {
+  return function(fen: string, dests: CgDests, yourMove: boolean) {
     sans = dests && Object.keys(dests).length ? sanWriter(fen, destsToUcis(dests)) : null;
     submit(opts.input.value, {
       server: true,
@@ -113,7 +113,7 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
   });
 }
 
-function sanToUci(san: string, sans: DecodedDests): Key[] | undefined {
+function sanToUci(san: string, sans): Key[] | undefined {
   if (san in sans) return sans[san];
   const lowered = san.toLowerCase();
   for (let i in sans)
@@ -121,17 +121,18 @@ function sanToUci(san: string, sans: DecodedDests): Key[] | undefined {
   return;
 }
 
-function sanCandidates(san: string, sans: DecodedDests) {
+function sanCandidates(san: string, sans) {
   const lowered = san.toLowerCase();
   return Object.keys(sans).filter(function(s) {
     return s.toLowerCase().startsWith(lowered);
   });
 }
 
-function destsToUcis(dests: DecodedDests) {
+function destsToUcis(dests: CgDests) {
   const ucis: string[] = [];
   Object.keys(dests).forEach(function(orig) {
-    dests[orig].forEach(function(dest) {
+    const d = dests[orig];
+    if (d) d.forEach(function(dest) {
       ucis.push(orig + dest);
     });
   });

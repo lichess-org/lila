@@ -112,7 +112,7 @@ object crud {
       ),
       form3.split(
         form3.group(form("position"), trans.startPosition(), half = true)(
-          tournament.form.startingPosition(_)
+          tournament.form.startingPosition(_, tour)
         ),
         form3.checkbox(
           form("teamBattle"),
@@ -121,7 +121,7 @@ object crud {
         )
       ),
       h2("Entry requirements"),
-      tournament.form.condition(form, new TourFields(form), auto = false, Nil, tour),
+      tournament.form.condition(form, new TourFields(form, tour), auto = false, Nil, tour),
       form3.action(form3.submit(trans.apply()))
     )
 

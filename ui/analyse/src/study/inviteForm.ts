@@ -7,8 +7,8 @@ import { StudyMemberMap } from './interfaces';
 
 export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void, trans: Trans) {
   const open = prop(false);
-  let followings = [];
-  let spectators = [];
+  let followings: string[] = [];
+  let spectators: string[] = [];
   function updateFollowings(f) {
     followings = f(followings);
     if (open()) redraw();
@@ -23,21 +23,21 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
       }).sort();
     },
     members,
-    setSpectators(usernames) {
+    setSpectators(usernames: string[]) {
       spectators = usernames;
     },
-    setFollowings(usernames) {
-      updateFollowings(_ => usernames)
+    setFollowings(usernames: string[]) {
+      updateFollowings((_: string[])  => usernames)
     },
-    delFollowing(username) {
-      updateFollowings(function(prevs) {
-        return prevs.filter(function(u) {
+    delFollowing(username: string) {
+      updateFollowings(function(prevs: string[]) {
+        return prevs.filter(function(u: string) {
           return username !== u;
         });
       });
     },
-    addFollowing(username) {
-      updateFollowings(function(prevs) {
+    addFollowing(username: string) {
+      updateFollowings(function(prevs: string[]) {
         return prevs.concat([username]);
       });
     },
@@ -45,7 +45,7 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
       open(!open());
       if (open()) send('following_onlines');
     },
-    invite(titleName) {
+    invite(titleName: string) {
       send("invite", titleNameToId(titleName));
       setTab();
     },
@@ -81,7 +81,7 @@ export function view(ctrl): VNode {
           })
         })
       ]),
-      candidates.length ? h('div.users', candidates.map(function(username) {
+      candidates.length ? h('div.users', candidates.map(function(username: string) {
         return h('span.button.button-metal', {
           key: username,
           hook: bind('click', _ => ctrl.invite(username))

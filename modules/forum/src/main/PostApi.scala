@@ -49,7 +49,7 @@ final class PostApi(
             modIcon = (~data.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
           )
           env.postRepo findDuplicate post flatMap {
-            case Some(dup) => fuccess(dup)
+            case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
             case _ =>
               env.postRepo.coll.insert.one(post) >>
                 env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {

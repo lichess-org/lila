@@ -127,7 +127,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   } else if (bestEv && defined(bestEv.mate)) {
     pearl = '#' + bestEv.mate;
     percent = 100;
-  } else if (ctrl.gameOver()) {
+  } else if (ctrl.outcome()) {
     pearl = '-';
     percent = 0;
   } else {
@@ -161,7 +161,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     h('div.engine', [
       ...(threatMode ? [trans.noarg('showThreat')] : engineName(instance)),
       h('span.info',
-        ctrl.gameOver() ? [trans.noarg('gameOver')] :
+        ctrl.outcome() ? [trans.noarg('gameOver')] :
         (threatMode ? [threatInfo(ctrl, threat)] : localEvalInfo(ctrl, evs))
       )
     ])

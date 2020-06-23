@@ -107,13 +107,16 @@ final class TournamentApi(
     import data._
     val tour = old.copy(
       name = name | old.name,
-      clock = clockConfig,
+      clock = if (old.isCreated) clockConfig else old.clock,
       minutes = minutes,
       mode = realMode,
-      variant = realVariant,
+      variant = if (old.isCreated) realVariant else old.variant,
       startsAt = startDate | old.startsAt,
       password = data.password,
-      position = DataForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant),
+      position =
+        if (old.isCreated || !old.position.initial)
+          DataForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant)
+        else old.position,
       noBerserk = !(~berserkable),
       noStreak = !(~streakable),
       teamBattle = old.teamBattle,
@@ -352,7 +355,7 @@ final class TournamentApi(
   def pageOf(tour: Tournament, userId: User.ID): Fu[Option[Int]] =
     cached ranking tour map {
       _ get userId map { rank =>
-        (Math.floor(rank / 10) + 1).toInt
+        rank / 10 + 1
       }
     }
 

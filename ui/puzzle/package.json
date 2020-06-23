@@ -20,7 +20,7 @@
   "dependencies": {
     "ceval": "2.0.0",
     "chessground": "^7.6",
-    "chessops": "^0.4.1",
+    "chessops": "^0.4.2",
     "common": "2.0.0",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess",
     "tree": "2.0.0"

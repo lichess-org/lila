@@ -11,7 +11,6 @@ import eventlisteners from 'snabbdom/modules/eventlisteners';
 
 import { menuHover } from 'common/menuHover';
 import { Chessground } from 'chessground';
-import { Rules } from 'chessops/types';
 
 menuHover();
 
@@ -29,11 +28,6 @@ window.LichessEditor = (element: HTMLElement, config: EditorConfig) => {
   const inner = document.createElement('div');
   element.appendChild(inner);
   vnode = patch(inner, view(ctrl));
-
-  $(() => {
-    const el = document.getElementById('editor-variant') as HTMLSelectElement;
-    if (el) ctrl.setRules(el.value as Rules);
-  });
 
   return {
     getFen: ctrl.getFen.bind(ctrl),

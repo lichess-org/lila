@@ -1,3 +1,4 @@
+import { Outcome } from 'chessops/types';
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Prop } from 'common';
 import { TreeWrapper } from 'tree';
@@ -24,7 +25,7 @@ export interface KeyboardController {
 export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
   disableThreatMode?: Prop<Boolean>;
-  gameOver: (node?: Tree.Node) => 'draw' | 'checkmate' | false;
+  outcome(): Outcome | undefined;
   mandatoryCeval?: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
   currentEvals(): NodeEvals;

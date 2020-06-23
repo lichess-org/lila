@@ -371,20 +371,6 @@ export default class RoundController {
         } else sound.capture();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
-      if (o.castle && !this.chessground.state.autoCastle) {
-        const c = o.castle, pieces: cg.PiecesDiff = {};
-        pieces[c.king[0]] = undefined;
-        pieces[c.rook[0]] = undefined;
-        pieces[c.king[1]] = {
-          role: 'king',
-          color: c.color
-        };
-        pieces[c.rook[1]] = {
-          role: 'rook',
-          color: c.color
-        };
-        this.chessground.setPieces(pieces);
-      }
       this.chessground.set({
         turnColor: d.game.player,
         movable: {

@@ -66,13 +66,13 @@ export function make(opts): EvalCache {
   return {
     onCeval: throttle(500, function() {
       const node = opts.getNode(), ev = node.ceval;
-      if (ev && !ev.cloud && node.fen in fetchedByFen && qualityCheck(ev) && opts.canPut(node)) {
+      if (ev && !ev.cloud && node.fen in fetchedByFen && qualityCheck(ev) && opts.canPut()) {
         opts.send('evalPut', toPutData(opts.variant, ev));
       }
     }),
     fetch(path: Tree.Path, multiPv: number): void {
       const node = opts.getNode();
-      if ((node.ceval && node.ceval.cloud) || !opts.canGet(node)) return;
+      if ((node.ceval && node.ceval.cloud) || !opts.canGet()) return;
       const serverEval = fetchedByFen[node.fen];
       if (serverEval) return opts.receive(toCeval(serverEval), path);
       else if (node.fen in fetchedByFen) return; // waiting for response

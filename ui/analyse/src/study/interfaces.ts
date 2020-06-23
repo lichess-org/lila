@@ -121,7 +121,7 @@ export interface ReloadData {
   study: StudyData;
 }
 
-interface Position {
+export interface Position {
   chapterId: string;
   path: Tree.Path;
 }

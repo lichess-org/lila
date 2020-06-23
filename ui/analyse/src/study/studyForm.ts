@@ -77,7 +77,7 @@ export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: ()
 export function view(ctrl: StudyFormCtrl): VNode {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
-  const updateName = function(vnode, isUpdate) {
+  const updateName = function(vnode: VNode, isUpdate: boolean) {
     const el = vnode.elm as HTMLInputElement;
     if (!isUpdate && !el.value) {
       el.value = data.name;
