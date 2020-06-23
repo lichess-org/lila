@@ -253,7 +253,7 @@ It's useful against spambots. These marks are not visible to the public."""
                       }
                     )
                   },
-                  div(cls := "social_links col2")(
+                  (!u.marks.troll || ctx.is(u)) option div(cls := "social_links col2")(
                     profile.actualLinks.map { link =>
                       a(href := link.url, target := "_blank", rel := "nofollow noopener noreferrer")(
                         link.site.name
