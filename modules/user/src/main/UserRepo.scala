@@ -142,7 +142,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .list[Bdoc](2)
       .map { docs =>
         val w = docs.foldLeft(0) { (acc, doc) =>
-          acc + (if(doc.string("_id") contains u1) 1 else -1) * doc.int(F.colorIt).getOrElse(0) 
+          acc + (if(doc.string("_id") contains u1) 1 else -1) * doc.int(F.colorIt) 
         }
         (w < 0) || (w == 0 && scala.util.Random.nextBoolean)
       }
