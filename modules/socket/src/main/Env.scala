@@ -10,7 +10,10 @@ final class Env(
     appConfig: Configuration,
     shutdown: CoordinatedShutdown,
     notification: lila.hub.actors.Notification
-)(implicit ec: scala.concurrent.ExecutionContext, akka: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    akka: ActorSystem
+) {
 
   private val RedisUri = appConfig.get[String]("socket.redis.uri")
 

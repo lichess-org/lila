@@ -27,7 +27,11 @@ final class Env(
     tryOAuthServer: OAuthServer.Try,
     mongoCache: lila.memo.MongoCache.Api,
     db: lila.db.Db
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, scheduler: Scheduler) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    scheduler: Scheduler
+) {
 
   private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
   import net.{ baseUrl, domain }

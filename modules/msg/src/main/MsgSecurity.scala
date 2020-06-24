@@ -19,7 +19,10 @@ final private class MsgSecurity(
     relationApi: lila.relation.RelationApi,
     spam: lila.security.Spam,
     chatPanic: lila.chat.ChatPanic
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   import BsonHandlers._
   import MsgSecurity._

@@ -20,7 +20,10 @@ final class SwissStatsApi(
     colls: SwissColls,
     sheetApi: SwissSheetApi,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) {
 
   import BsonHandlers._
 
@@ -78,10 +81,7 @@ final class SwissStatsApi(
               }
           })(Keep.right)
           .run
-          .dmap { s => s.copy(
-            games = s.games / 2,
-            averageRating = s.averageRating / swiss.nbPlayers)
-          }
+          .dmap { s => s.copy(games = s.games / 2, averageRating = s.averageRating / swiss.nbPlayers) }
       }
     }
 }

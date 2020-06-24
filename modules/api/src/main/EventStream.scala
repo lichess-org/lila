@@ -17,7 +17,10 @@ final class EventStream(
     challengeMaker: lila.challenge.ChallengeMaker,
     onlineApiUsers: lila.bot.OnlineApiUsers,
     userRepo: UserRepo
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   private case object SetOnline
 

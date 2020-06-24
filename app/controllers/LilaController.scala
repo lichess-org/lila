@@ -547,11 +547,10 @@ abstract private[controllers] class LilaController(val env: Env)
     env.security.api restoreUser req dmap {
       case Some(d) if !env.isProdReally =>
         d.copy(user =
-            d.user
-              .addRole(lila.security.Permission.Beta.dbKey)
-              .addRole(lila.security.Permission.Prismic.dbKey)
-          )
-          .some
+          d.user
+            .addRole(lila.security.Permission.Beta.dbKey)
+            .addRole(lila.security.Permission.Prismic.dbKey)
+        ).some
       case d => d
     } flatMap {
       case None => fuccess(None -> None)

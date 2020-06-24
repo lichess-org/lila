@@ -14,7 +14,10 @@ final class GarbageCollector(
     slack: lila.slack.SlackApi,
     noteApi: lila.user.NoteApi,
     isArmed: () => Boolean
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
