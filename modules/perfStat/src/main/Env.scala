@@ -11,7 +11,10 @@ final class Env(
     lightUser: lila.common.LightUser.GetterSync,
     gameRepo: lila.game.GameRepo,
     db: lila.db.Db
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   lazy val storage = new PerfStatStorage(
     coll = db(appConfig.get[CollName]("perfStat.collection.perf_stat"))

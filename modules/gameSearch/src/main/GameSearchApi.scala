@@ -9,8 +9,10 @@ import lila.search._
 final class GameSearchApi(
     client: ESClient,
     gameRepo: GameRepo
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem)
-    extends SearchReadApi[Game, Query] {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) extends SearchReadApi[Game, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>

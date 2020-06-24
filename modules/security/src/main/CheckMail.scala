@@ -15,7 +15,10 @@ final private class CheckMail(
     ws: WSClient,
     config: SecurityConfig.CheckMail,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   def apply(domain: Domain.Lower): Fu[Boolean] =
     if (config.key.value.isEmpty) fuccess(true)

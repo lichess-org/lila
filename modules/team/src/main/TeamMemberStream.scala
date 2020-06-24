@@ -12,7 +12,10 @@ import lila.user.{ User, UserRepo }
 final class TeamMemberStream(
     memberRepo: MemberRepo,
     userRepo: UserRepo
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) {
 
   def apply(team: Team, perSecond: MaxPerSecond): Source[User, _] =
     idsBatches(team, perSecond)

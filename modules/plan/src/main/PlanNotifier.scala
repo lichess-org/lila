@@ -11,7 +11,10 @@ import lila.user.User
 final private[plan] class PlanNotifier(
     notifyApi: NotifyApi,
     timeline: lila.hub.actors.Timeline
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   def onStart(user: User) =
     fuccess {

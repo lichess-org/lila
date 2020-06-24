@@ -12,7 +12,10 @@ import lila.user.User
 final private class MsgNotify(
     colls: MsgColls,
     notifyApi: lila.notify.NotifyApi
-)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    scheduler: akka.actor.Scheduler
+) {
 
   import BsonHandlers._
 

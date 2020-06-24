@@ -43,7 +43,10 @@ final class Env(
     msgEnv: lila.msg.Env,
     ws: WSClient,
     val mode: Mode
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   val config = ApiConfig loadFrom appConfig
   import config.apiToken

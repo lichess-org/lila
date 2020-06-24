@@ -18,8 +18,11 @@ final class StudySearchApi(
     indexThrottler: ActorRef,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer)
-    extends SearchReadApi[Study, Query] {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    mat: akka.stream.Materializer
+) extends SearchReadApi[Study, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>

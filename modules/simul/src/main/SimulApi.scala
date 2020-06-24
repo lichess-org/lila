@@ -24,7 +24,11 @@ final class SimulApi(
     timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem, mode: play.api.Mode) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
+    mode: play.api.Mode
+) {
 
   private val workQueue =
     new lila.hub.DuctSequencers(

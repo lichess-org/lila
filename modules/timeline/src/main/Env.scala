@@ -22,7 +22,10 @@ final class Env(
     userRepo: lila.user.UserRepo,
     relationApi: lila.relation.RelationApi,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   private val config = appConfig.get[TimelineConfig]("timeline")(AutoConfig.loader)
 

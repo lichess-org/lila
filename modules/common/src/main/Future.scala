@@ -48,11 +48,10 @@ object Future {
       in: M[A]
   )(f: A => Fu[B])(implicit cbf: BuildFrom[M[A], B, M[B]], ec: ExecutionContext): Fu[M[B]] = {
     in.foldLeft(fuccess(cbf.newBuilder(in))) { (fr, a) =>
-        fr flatMap { r =>
-          f(a).dmap(r += _)
-        }
+      fr flatMap { r =>
+        f(a).dmap(r += _)
       }
-      .dmap(_.result())
+    }.dmap(_.result())
   }
 
   def applySequentially[A](
