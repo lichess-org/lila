@@ -150,14 +150,14 @@ function toTwitchEmbedUrl(url: string) {
 
 const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
 const commentTwitchRegex = /(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)(?:\?|&|)(\S*)/i;
-const imgUrlRegex = /\.(jpg|jpeg|png|gif)$/;
+const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)/i;
 const newLineRegex = /\n/g;
 
 function toLink(url: string) {
   if (!window.crossOriginIsolated) {
     if (commentYoutubeRegex.test(url)) return toYouTubeEmbed(url) || url;
     if (commentTwitchRegex.test(url)) return toTwitchEmbed(url) || url;
-    if (imgUrlRegex.test(url)) return `<img src="${url}" class="embed"/>`;
+    if (imgurRegex.test(url)) return `<img src="${url}" class="embed"/>`;
   }
   const show = url.replace(/https?:\/\//, '');
   return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${show}</a>`;
