@@ -163,6 +163,7 @@ object Tournament {
       waitMinutes: Int,
       startDate: Option[DateTime],
       berserkable: Boolean,
+      streakable: Boolean,
       teamBattle: Option[TeamBattle],
       description: Option[String],
       hasChat: Boolean
@@ -186,6 +187,7 @@ object Tournament {
       conditions = Condition.All.empty,
       teamBattle = teamBattle,
       noBerserk = !berserkable,
+      noStreak = !streakable,
       schedule = None,
       startsAt = startDate match {
         case Some(startDate) => startDate plusSeconds scala.util.Random.nextInt(60)
