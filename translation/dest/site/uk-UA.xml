@@ -309,6 +309,7 @@
     <item quantity="many">Додати %s секунд</item>
     <item quantity="other">Додай %s секунд</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Цей обліковий запис порушив умови використання Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно збільшує свій рейтинг</string>
   <string name="openingExplorerAndTablebase">Відкриваємо провідник &amp; таблицю бази</string>
   <string name="takeback">Повернення ходу</string>
