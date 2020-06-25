@@ -361,9 +361,10 @@ export default class RoundController {
         // This block needs to be idempotent, even for castling moves in
         // Chess960.
         const keys = util.uci2move(o.uci)!,
-        p = this.chessground.state.pieces[keys[0]],
-        c = this.chessground.state.pieces[keys[1]];
-        if (p && (!c || p.color !== c.color || p.role === 'king')) this.chessground.move(keys[0], keys[1]);
+        pieces = this.chessground.state.pieces;
+        if (!o.castle || (pieces[o.castle.king[0]]?.role === 'king' && pieces[o.castle.rook[0]]?.role === 'rook')) {
+          this.chessground.move(keys[0], keys[1]);
+        }
       }
       if (o.enpassant) {
         const p = o.enpassant, pieces: cg.PiecesDiff = {};
