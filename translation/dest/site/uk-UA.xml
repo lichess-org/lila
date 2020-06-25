@@ -307,7 +307,7 @@
     <item quantity="one">Додати %s секунд</item>
     <item quantity="few">Додати %s секунд</item>
     <item quantity="many">Додати %s секунд</item>
-    <item quantity="other">Додай %s секунд</item>
+    <item quantity="other">Додати %s секунд</item>
   </plurals>
   <string name="thisAccountViolatedTos">Цей обліковий запис порушив умови використання Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно збільшує свій рейтинг</string>
@@ -531,7 +531,7 @@
   <string name="ratingX">Рівень: %s</string>
   <string name="hidden">прихований</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Показано %s разів</item>
+    <item quantity="one">Зіграно %s раз</item>
     <item quantity="few">Показано %s разів</item>
     <item quantity="many">Зіграно %s разів</item>
     <item quantity="other">Зіграно %s разів</item>
@@ -872,7 +872,7 @@
   <plurals name="nbSeconds">
     <item quantity="one">%s секунда</item>
     <item quantity="few">%s секунди</item>
-    <item quantity="many">%s секунди</item>
+    <item quantity="many">%s секунд</item>
     <item quantity="other">%s секунди</item>
   </plurals>
   <string name="opening">Дебют</string>
