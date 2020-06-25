@@ -55,7 +55,7 @@ export default function(vm: Vm, getGround, redraw: Redraw): Promotion {
   function renderPromotion(dest: Key, pieces: Role[], color: Color, orientation: Color): MaybeVNode {
     if (!promoting) return;
 
-    let left = (8 - cgUtil.key2pos(dest)[0]) * 12.5;
+    let left = (7 - cgUtil.key2pos(dest)[0]) * 12.5;
     if (orientation === 'white') left = 87.5 - left;
 
     const vertical = color === orientation ? 'top' : 'bottom';
