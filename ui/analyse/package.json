@@ -24,7 +24,7 @@
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",
-    "chessground": "^7.7.0",
+    "chessground": "^7.7.1",
     "chessops": "^0.4.2",
     "common": "2.0.0",
     "game": "2.0.0",

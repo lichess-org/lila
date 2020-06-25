@@ -18,7 +18,7 @@
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
-    "chessground": "^7.7.0",
+    "chessground": "^7.7.1",
     "common": "2.0.0",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   }
