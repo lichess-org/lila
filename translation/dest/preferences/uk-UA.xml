@@ -10,7 +10,7 @@
   <string name="moveListWhilePlaying">Список ходів під час гри</string>
   <string name="pgnPieceNotation">Нотація ходів</string>
   <string name="chessPieceSymbol">Символ шахової фігури</string>
-  <string name="pgnLetter">Буква (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Літера (K, Q, R, B, N)</string>
   <string name="zenMode">Режим Дзен</string>
   <string name="displayBoardResizeHandle">Показати інструмент для зміни розміру дошки</string>
   <string name="onlyOnInitialPosition">Тількі на початковій позиції</string>
