@@ -61,9 +61,9 @@
   <string name="changeMonthlyAmount">Змінити місячну суму (%s)</string>
   <string name="cancelSupport">скасувати підтримку</string>
   <string name="xOrY">%1$s або %2$s</string>
-  <string name="decideHowMuch">Виріш, наскільки Лічесс є цінним для тебе:</string>
+  <string name="decideHowMuch">Виріш, наскільки Lichess є цінним для тебе:</string>
   <string name="stopPayments">Відкликати вашу кредитну картку і припинити платежі:</string>
-  <string name="noLongerSupport">Припинити підтримувати Lichess</string>
+  <string name="noLongerSupport">Припинити підтримку Lichess</string>
   <string name="paymentHistory">Історія платежів</string>
   <string name="paid">Оплачено</string>
   <string name="viewOthers">Переглянь інших Покровителів Lichess</string>
@@ -71,7 +71,7 @@
   <string name="amount">Сума</string>
   <string name="transactionCompleted">Вашу транзакцію було завершено, і Вам надіслано відповідь на пошту про Ваше пожертвування.</string>
   <string name="permanentPatron">У вас обліковий запис пожиттєвого Покровителя.</string>
-  <string name="checkOutProfile">Перевірте свою сторінку профілю !</string>
+  <string name="checkOutProfile">Перевірте свою сторінку профілю!</string>
   <string name="nowLifetime">Тепер ти - пожиттєвий Покровитель Lichess!</string>
   <string name="nowOneMonth">Тепер Ви Покровитель Lichess на один місяць!</string>
   <string name="downgradeNextMonth">Через один місяць з Вас НЕ буде списано кошти знову, і ваш обліковий запис Lichess буде повернено до звичайного.</string>
