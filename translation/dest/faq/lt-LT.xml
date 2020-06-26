@@ -2,4 +2,5 @@
 <resources>
   <string name="faqAbbreviation">DUK</string>
   <string name="whyIsLichessCalledLichess">Kodėl Lichess pavadintas Lichess?</string>
+  <string name="otherWaysToHelp">kiti būdai padėti</string>
 </resources>
