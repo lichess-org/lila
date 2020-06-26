@@ -1,4 +1,4 @@
-import { FormLines, FormStore, toFormLines, makeStore } from './form';
+import { FormStore, toFormLines, makeStore } from './form';
 import LobbyController from './ctrl';
 
 const li = window.lichess;
@@ -29,13 +29,6 @@ export default class Setup {
   ];
 
   private sliderTime = (v: number) => (v < this.sliderTimes.length ? this.sliderTimes[v] : 180);
-
-  private showTime = (v: number) => {
-    if (v === 1 / 4) return '¼';
-    if (v === 1 / 2) return '½';
-    if (v === 3 / 4) return '¾';
-    return v;
-  }
 
   private sliderIncrement = (v: number) => {
     if (v <= 20) return v;
@@ -133,6 +126,9 @@ export default class Setup {
         $submits.toggleClass('nope', false);
         $submits.filter(':not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
       } else $submits.toggleClass('nope', true);
+    },
+    save = function() {
+      self.save($form[0] as HTMLFormElement);
     };
 
     const c = this.stores[typ].get();
@@ -187,6 +183,7 @@ export default class Setup {
           break;
       }
       $ratings.hide().filter('.' + key).show();
+      save();
     };
     if (typ == 'hook') {
       if ($form.data('anon')) {
@@ -209,7 +206,6 @@ export default class Setup {
           call.url += '?pool=1';
         } else this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
         $.ajax(call);
-        this.save($form[0] as HTMLFormElement);
         return false;
       };
       $submits.click(function(this: HTMLElement) {
@@ -231,7 +227,16 @@ export default class Setup {
       $timeInput.add($incrementInput).each(function(this: HTMLElement) {
         const $input = $(this),
           $value = $input.siblings('span'),
-          isTimeSlider = $input.parent().hasClass('time_choice');
+          isTimeSlider = $input.parent().hasClass('time_choice'),
+          showTime = (v: number) => {
+              if (v === 1 / 4) return '¼';
+              if (v === 1 / 2) return '½';
+              if (v === 3 / 4) return '¾';
+              return v;
+            },
+          valueToTime = (v: number) => (isTimeSlider ? self.sliderTime : self.sliderIncrement)(v),
+          show = (time: number) => $value.text(isTimeSlider ? showTime(time) : time);
+        show($input.val());
         $input.after($('<div>').slider({
           value: self.sliderInitVal(parseFloat($input.val()), isTimeSlider ? self.sliderTime : self.sliderIncrement, 100),
           min: 0,
@@ -239,10 +244,9 @@ export default class Setup {
           range: 'min',
           step: 1,
           slide: function(_, ui) {
-            const time = (isTimeSlider ? self.sliderTime : self.sliderIncrement)(ui.value);
-            console.log(time);
-            $value.text(isTimeSlider ? self.showTime(time) : time);
-            $input.attr('value', time);
+            const time = valueToTime(ui.value);
+            show(time);
+            $input.val(time);
             showRating();
             toggleButtons();
           }
@@ -251,6 +255,7 @@ export default class Setup {
       $daysInput.each(function(this: HTMLElement) {
         var $input = $(this),
           $value = $input.siblings('span');
+        $value.text($input.val());
         $input.after($('<div>').slider({
           value: self.sliderInitVal(parseInt($input.val()), self.sliderDays, 20),
           min: 1,
@@ -261,6 +266,7 @@ export default class Setup {
             const days = self.sliderDays(ui.value);
             $value.text(days);
             $input.attr('value', days);
+            save();
           }
         }));
       });
@@ -282,6 +288,7 @@ export default class Setup {
           slide: function(_, ui) {
             $input.val(ui.values[0] + "-" + ui.values[1]);
             $span.text(ui.values[0] + "–" + ui.values[1]);
+            save();
           }
         });
       });
@@ -337,6 +344,8 @@ export default class Setup {
       toggleButtons();
     }).trigger('change');
 
+    $modeChoices.on('change', save);
+
     $form.find('div.level').each(function(this: HTMLElement) {
       var $infos = $(this).find('.ai_info > div');
       $(this).find('label').on('mouseenter', function(this: HTMLElement) {
@@ -346,6 +355,7 @@ export default class Setup {
         var level = $(this).find('input:checked').val();
         $infos.hide().filter('.sf_level_' + level).show();
       }).trigger('mouseout');
+      $(this).find('input').on('change', save);
     });
   }
 }

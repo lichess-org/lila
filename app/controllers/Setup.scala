@@ -43,10 +43,7 @@ final class Setup(
             form("fen").value flatMap ValidFen(getBool("strict"))
           )
         }
-      } else
-        fuccess {
-          Redirect(s"${routes.Lobby.home}#ai")
-        }
+      } else Redirect(s"${routes.Lobby.home}#ai").fuccess
     }
 
   def ai =
