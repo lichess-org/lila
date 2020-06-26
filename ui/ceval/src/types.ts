@@ -87,7 +87,7 @@ export interface CevalCtrl {
 export interface ParentCtrl {
   getCeval(): CevalCtrl;
   nextNodeBest(): string | undefined;
-  disableThreatMode?: Prop<Boolean>;
+  disableThreatMode?: Prop<boolean>;
   toggleThreatMode(): void;
   toggleCeval(): void;
   outcome(): Outcome | undefined;

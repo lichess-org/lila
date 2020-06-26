@@ -25,7 +25,7 @@ export default function(vm: Vm, puzzle: Puzzle): () => undefined | 'fail' | 'win
     });
 
     let progress = puzzle.lines;
-    for (let i in nodes) {
+    for (const i in nodes) {
       if (progress[nodes[i].uci!]) progress = progress[nodes[i].uci!];
       else if (nodes[i].castle) progress = progress[altCastles[nodes[i].uci!]] || 'fail';
       else progress = 'fail';
@@ -36,7 +36,7 @@ export default function(vm: Vm, puzzle: Puzzle): () => undefined | 'fail' | 'win
       return progress;
     }
 
-    var nextKey = Object.keys(progress)[0]
+    const nextKey = Object.keys(progress)[0];
     if (progress[nextKey] === 'win') {
       vm.node.puzzle = 'win';
       return 'win';

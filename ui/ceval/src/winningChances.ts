@@ -16,8 +16,8 @@ function cpWinningChances(cp: number): number {
 }
 
 function mateWinningChances(mate: number): number {
-  var cp = (21 - Math.min(10, Math.abs(mate))) * 100;
-  var signed = cp * (mate > 0 ? 1 : -1);
+  const cp = (21 - Math.min(10, Math.abs(mate))) * 100;
+  const signed = cp * (mate > 0 ? 1 : -1);
   return rawWinningChances(signed);
 }
 
@@ -28,13 +28,13 @@ function evalWinningChances(ev: Eval): number {
 // winning chances for a color
 // 1  infinitely winning
 // -1 infinitely losing
-export function povChances(color: Color, ev: Eval) {
+export function povChances(color: Color, ev: Eval): number {
   return toPov(color, evalWinningChances(ev));
 }
 
 // computes the difference, in winning chances, between two evaluations
 // 1  = e1 is infinately better than e2
 // -1 = e1 is infinately worse  than e2
-export function povDiff(color: Color, e1: Eval, e2: Eval) {
+export function povDiff(color: Color, e1: Eval, e2: Eval): number {
   return (povChances(color, e1) - povChances(color, e2)) / 2;
 }

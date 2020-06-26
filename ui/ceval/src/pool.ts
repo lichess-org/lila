@@ -68,7 +68,7 @@ class WebWorker extends AbstractWorker {
 }
 
 class ThreadedWasmWorker extends AbstractWorker {
-  static global: Promise<{sf: unknown, protocol: Protocol}>;
+  static global: Promise<{sf: unknown, protocol: Protocol}> | undefined;
 
   private sf?: any;
 
@@ -123,7 +123,7 @@ export class Pool {
     });
   }
 
-  warmup = () => {
+  warmup(): void {
     if (this.workers.length) return;
 
     if (this.poolOpts.technology == 'wasmx')
@@ -134,14 +134,16 @@ export class Pool {
     }
   }
 
-  stop = () => this.workers.forEach(w => w.stop());
+  stop(): void {
+    this.workers.forEach(w => w.stop());
+  }
 
-  destroy = () => {
+  destroy(): void {
     this.stop();
     this.workers.forEach(w => w.destroy());
-  };
+  }
 
-  start = (work: Work) => {
+  start(work: Work): void {
     window.lichess.storage.fire('ceval.pool.start');
     this.getWorker().then(function(worker) {
       worker.start(work);
@@ -149,11 +151,13 @@ export class Pool {
       console.log(error);
       setTimeout(() => window.lichess.reload(), 10000);
     });
-  };
+  }
 
-  isComputing = () =>
-    !!this.workers.length && this.workers[this.token].isComputing();
+  isComputing(): boolean {
+    return !!this.workers.length && this.workers[this.token].isComputing();
+  }
 
-  engineName: () => string | undefined = () =>
-    this.workers[this.token] && this.workers[this.token].engineName();
+  engineName(): string | undefined {
+    return this.workers[this.token] && this.workers[this.token].engineName();
+  }
 }

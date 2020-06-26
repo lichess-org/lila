@@ -1,4 +1,4 @@
-import { h } from 'snabbdom'
+import { h } from 'snabbdom';
 import { bind, onInsert } from './util';
 import * as cgUtil from 'chessground/util';
 import { Role } from 'chessground/types';
@@ -26,15 +26,15 @@ export default function(vm: Vm, getGround, redraw: Redraw): Promotion {
   }
 
   function promote(g, key: Key, role: Role): void {
-    var pieces = {};
-    var piece = g.state.pieces[key];
+    const piece = g.state.pieces[key];
     if (piece && piece.role == 'pawn') {
-      pieces[key] = {
-        color: piece.color,
-        role: role,
-        promoted: true
-      };
-      g.setPieces(pieces);
+      g.setPieces({
+        [key]: {
+          color: piece.color,
+          role,
+          promoted: true,
+        }
+      });
     }
   }
 

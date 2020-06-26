@@ -1,6 +1,6 @@
 import throttle from './throttle';
 
-export function runner(hacks: () => void, throttleMs: number = 100) {
+export function runner(hacks: () => void, throttleMs: number = 100): void {
 
   let timeout: number | undefined;
 
@@ -22,7 +22,7 @@ export function runner(hacks: () => void, throttleMs: number = 100) {
 let lastMainBoardHeight: number | undefined;
 
 // Firefox 60- needs this to properly compute the grid layout.
-export function fixMainBoardHeight(container: HTMLElement) {
+export function fixMainBoardHeight(container: HTMLElement): void {
   const mainBoard = container.querySelector('.main-board') as HTMLElement,
     width = mainBoard.offsetWidth;
   if (lastMainBoardHeight != width) {
@@ -35,14 +35,14 @@ export function fixMainBoardHeight(container: HTMLElement) {
 
 let boundChessgroundResize = false;
 
-export function bindChessgroundResizeOnce(f: () => void) {
+export function bindChessgroundResizeOnce(f: () => void): void {
   if (!boundChessgroundResize) {
     boundChessgroundResize = true;
     document.body.addEventListener('chessground.resize', f);
   }
 }
 
-export function needsBoardHeightFix() {
+export function needsBoardHeightFix(): boolean {
   // Chrome, Chromium, Brave, Opera, Safari 12+ are OK
   if (window.chrome) return false;
 
