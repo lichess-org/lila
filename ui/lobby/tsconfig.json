@@ -5,6 +5,6 @@
     "noImplicitAny": false,
     "noUnusedLocals": false,
     "allowJs": true,
-    "lib": ["DOM", "es6", "dom.iterable"]
+    "lib": ["DOM", "ES2016", "DOM.iterable"]
   }
 }
