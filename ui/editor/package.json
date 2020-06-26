@@ -16,7 +16,7 @@
     "@build/cssProject": "2.0.0"
   },
   "dependencies": {
-    "chessground": "^7.6",
+    "chessground": "^7.7.1",
     "chessops": "^0.4.2",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess",
     "common": "2.0.0"

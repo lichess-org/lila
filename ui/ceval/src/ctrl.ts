@@ -1,7 +1,7 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, Started } from './types';
 
 import { Pool } from './pool';
-import { prop } from 'common';
+import { defined, prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import { povChances } from './winningChances';
@@ -66,6 +66,7 @@ export default function(opts: CevalOpts): CevalCtrl {
       const sharedMem = sharedWasmMemory(8, 16);
       if (sharedMem) {
         technology = 'wasmx';
+        if (!defined(window['crossOriginIsolated'])) window['crossOriginIsolated'] = true; // polyfill
         try {
           sharedMem.grow(8);
           growableSharedMem = true;

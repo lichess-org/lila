@@ -88,7 +88,7 @@ export function cancel(ctrl: RoundController) {
 }
 
 function renderPromotion(ctrl: RoundController, dest: cg.Key, roles: cg.Role[], color: Color, orientation: Color) {
-  var left = (8 - key2pos(dest)[0]) * 12.5;
+  var left = (7 - key2pos(dest)[0]) * 12.5;
   if (orientation === 'white') left = 87.5 - left;
   var vertical = color === orientation ? 'top' : 'bottom';
 

@@ -170,11 +170,7 @@ object form {
           help = frag("Let players halve their clock time to gain an extra point").some,
           half = true
         ),
-        input(
-          tpe := "hidden",
-          st.name := form("berserkable").name,
-          value := "false"
-        ) // hack to allow disabling berserk
+        form3.hidden(form("berserkable"), "false".some) // hack to allow disabling berserk
       ),
       form3.split(
         form3.checkbox(
@@ -183,22 +179,14 @@ object form {
           help = frag("Let players discuss in a chat room").some,
           half = true
         ),
-        input(
-          tpe := "hidden",
-          st.name := form("hasChat").name,
-          value := "false"
-        ), // hack to allow disabling chat
+        form3.hidden(form("hasChat"), "false".some), // hack to allow disabling chat
         form3.checkbox(
           form("streakable"),
           frag("Arena streaks"),
           help = frag("After 2 wins, consecutive wins grant 4 points instead of 2.").some,
           half = true
         ),
-        input(
-          tpe := "hidden",
-          st.name := form("streakable").name,
-          value := "false"
-        ) // hack to allow disabling streaks
+        form3.hidden(form("streakable"), "false".some) // hack to allow disabling streaks
       )
     )
 

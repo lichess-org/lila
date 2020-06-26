@@ -52,15 +52,14 @@ final class StudySearchApi(
       Fields.name    -> s.study.name.value,
       Fields.owner   -> s.study.ownerId,
       Fields.members -> s.study.members.ids,
-      Fields.chapterNames -> {
+      Fields.chapterNames ->
         s.chapters
-          .collect {
-            case c if !Chapter.isDefaultName(c.name) => c.name.value
-          } ++ s.study.topicsOrEmpty.value.map(_.value)
-      }.mkString(" "),
+          .collect { case c if !Chapter.isDefaultName(c.name) => c.name.value }
+          .mkString(" "),
       Fields.chapterTexts -> noMultiSpace {
         (s.study.description.toList :+ s.chapters.flatMap(chapterText)).mkString(" ")
       },
+      Fields.topics -> s.study.topicsOrEmpty.value.map(_.value),
       // Fields.createdAt -> study.createdAt)
       // Fields.updatedAt -> study.updatedAt,
       Fields.likes  -> s.study.likes.value,

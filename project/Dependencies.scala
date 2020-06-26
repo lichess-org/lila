@@ -22,7 +22,7 @@ object Dependencies {
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.18-THIB213"
   val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.4"
   val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "4.0.1" % "compile"
-  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.20.0"
+  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.21.0"
   val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "2.2.3"
   val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.8.5"
   val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.3.1.RELEASE"

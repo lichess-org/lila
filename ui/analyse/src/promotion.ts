@@ -54,7 +54,7 @@ export function cancel(ctrl: AnalyseCtrl) {
 function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: Color, orientation: Color) {
   if (!promoting) return;
 
-  let left = (8 - util.key2pos(dest)[0]) * 12.5;
+  let left = (7 - util.key2pos(dest)[0]) * 12.5;
   if (orientation === 'white') left = 87.5 - left;
 
   const vertical = color === orientation ? 'top' : 'bottom';
