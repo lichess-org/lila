@@ -4,6 +4,7 @@
   "compilerOptions": {
     "noImplicitAny": false,
     "noUnusedLocals": false,
-    "allowJs": true
+    "allowJs": true,
+    "lib": ["DOM", "es6", "dom.iterable"]
   }
 }

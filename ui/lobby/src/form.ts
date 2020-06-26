@@ -10,7 +10,7 @@ export interface FormStore {
 }
 
 export const toFormLines = (form: HTMLFormElement): FormLines =>
-  Array.from(new FormData(form)).reduce((o,[k,v]) => ({...o, [k]: v}), {});
+  new FormData(form).entries().reduce((o,[k,v]) => ({...o, [k]: v}), {});
 
 export const toFormObject = (lines: FormLines): FormObject =>
   Object.keys(lines).reduce((o, k) => {
