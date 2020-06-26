@@ -160,8 +160,8 @@ object mod {
         postForm(cls := "fide_title", action := routes.Mod.setTitle(u.username))(
           form3.select(
             lila.user.DataForm.title.fill(u.title.map(_.value))("title"),
-            lila.user.Title.all,
-            "No title".some
+            lila.user.Title.acronyms.map(t => t -> t),
+            "".some
           )
         )
       },
