@@ -4,7 +4,7 @@ import { bind, onInsert } from './util';
 import * as util from 'chessground/util';
 import { Role } from 'chessground/types';
 import AnalyseCtrl from './ctrl';
-import { JustCaptured } from './interfaces';
+import { MaybeVNode, JustCaptured } from './interfaces';
 
 interface Promoting {
   orig: Key;
@@ -35,7 +35,7 @@ export function start(ctrl: AnalyseCtrl, orig: Key, dest: Key, capture: JustCapt
   return false;
 }
 
-function finish(ctrl: AnalyseCtrl, role: Role) {
+function finish(ctrl: AnalyseCtrl, role: Role): void {
   if (promoting) {
     ground.promote(ctrl.chessground, promoting.dest, role);
     if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, promoting.capture, role);
@@ -43,7 +43,7 @@ function finish(ctrl: AnalyseCtrl, role: Role) {
   promoting = undefined;
 }
 
-export function cancel(ctrl: AnalyseCtrl) {
+export function cancel(ctrl: AnalyseCtrl): void {
   if (promoting) {
     promoting = undefined;
     ctrl.chessground.set(ctrl.cgConfig);
@@ -51,7 +51,7 @@ export function cancel(ctrl: AnalyseCtrl) {
   }
 }
 
-function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: Color, orientation: Color) {
+function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: Color, orientation: Color): MaybeVNode {
   if (!promoting) return;
 
   let left = (7 - util.key2pos(dest)[0]) * 12.5;
@@ -68,19 +68,19 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: 
     const top = (color === orientation ? i : 7 - i) * 12.5;
     return h('square', {
       attrs: {
-        style: 'top:' + top + '%;left:' + left + '%'
+        style: `top:${top}%;left:${left}%`
       },
       hook: bind('click', e => {
         e.stopPropagation();
         finish(ctrl, serverRole);
       })
-    }, [h('piece.' + serverRole + '.' + color)]);
+    }, [h(`piece.${serverRole}.${color}`)]);
   }));
 }
 
 const roles: Role[] = ['queen', 'knight', 'rook', 'bishop'];
 
-export function view(ctrl: AnalyseCtrl) {
+export function view(ctrl: AnalyseCtrl): MaybeVNode {
   if (!promoting) return;
 
   return renderPromotion(ctrl, promoting.dest,
