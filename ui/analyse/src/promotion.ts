@@ -78,12 +78,13 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: 
   }));
 }
 
+const roles: Role[] = ['queen', 'knight', 'rook', 'bishop'];
+
 export function view(ctrl: AnalyseCtrl) {
   if (!promoting) return;
-  var pieces = ['queen', 'knight', 'rook', 'bishop'];
-  if (ctrl.data.game.variant.key === "antichess") pieces.push('king');
 
-  return renderPromotion(ctrl, promoting.dest, pieces,
-    util.opposite(ctrl.chessground.state.turnColor),
+  return renderPromotion(ctrl, promoting.dest,
+    ctrl.data.game.variant.key === 'antichess' ? roles.concat('king') : roles,
+    promoting.dest[1] === '8' ? 'white' : 'black',
     ctrl.chessground.state.orientation);
 }
