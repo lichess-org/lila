@@ -196,7 +196,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           h('label.form-label', {
             attrs: { 'for': 'chapter-game' }
           }, trans('loadAGameFromXOrY', 'lichess.org', 'chessgames.com')),
-          h('input#chapter-game.form-control', {
+          h('textarea#chapter-game.form-control', {
             attrs: { placeholder: noarg('urlOfTheGame') }
           })
         ]) : null,

@@ -569,27 +569,34 @@ final class StudyApi(
         }
     }
 
-  def addChapter(studyId: Study.Id, data: ChapterMaker.Data, sticky: Boolean)(who: Who) =
-    sequenceStudy(studyId) { study =>
-      Contribute(who.u, study) {
-        chapterRepo.countByStudyId(study.id) flatMap { count =>
-          if (count >= Study.maxChapters) funit
-          else
-            chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-              chapterMaker(study, data, order, who.u) flatMap { chapter =>
-                data.initial ?? {
-                  chapterRepo.firstByStudy(study.id) flatMap {
-                    _.filter(_.isEmptyInitial) ?? chapterRepo.delete
-                  }
-                } >> doAddChapter(study, chapter, sticky, who)
-              } addFailureEffect {
-                case ChapterMaker.ValidationException(error) =>
-                  sendTo(study.id)(_.validationError(error, who.sri))
-                case u => println(u)
-              }
-            }
+  def addChapter(studyId: Study.Id, data: ChapterMaker.Data, sticky: Boolean)(who: Who): Funit =
+    data.manyGames match {
+      case Some(datas) =>
+        lila.common.Future.applySequentially(datas) { data =>
+          addChapter(studyId, data, sticky)(who)
         }
-      }
+      case _ =>
+        sequenceStudy(studyId) { study =>
+          Contribute(who.u, study) {
+            chapterRepo.countByStudyId(study.id) flatMap { count =>
+              if (count >= Study.maxChapters) funit
+              else
+                chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
+                  chapterMaker(study, data, order, who.u) flatMap { chapter =>
+                    data.initial ?? {
+                      chapterRepo.firstByStudy(study.id) flatMap {
+                        _.filter(_.isEmptyInitial) ?? chapterRepo.delete
+                      }
+                    } >> doAddChapter(study, chapter, sticky, who)
+                  } addFailureEffect {
+                    case ChapterMaker.ValidationException(error) =>
+                      sendTo(study.id)(_.validationError(error, who.sri))
+                    case u => println(u)
+                  }
+                }
+            }
+          }
+        }
     }
 
   def importPgns(studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean)(who: Who) =
