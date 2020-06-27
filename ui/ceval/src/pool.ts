@@ -157,7 +157,7 @@ export class Pool {
     return !!this.workers.length && this.workers[this.token].isComputing();
   }
 
-  engineName(): string | undefined {
+  engineName = (): string | undefined => {
     return this.workers[this.token] && this.workers[this.token].engineName();
   }
 }
