@@ -591,7 +591,7 @@ final class StudyApi(
                   } addFailureEffect {
                     case ChapterMaker.ValidationException(error) =>
                       sendTo(study.id)(_.validationError(error, who.sri))
-                    case u => println(u)
+                    case u => logger.error(s"StudyApi.addChapter to $studyId", u)
                   }
                 }
             }
