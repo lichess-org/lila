@@ -93,7 +93,7 @@
   <string name="startFromInitialPosition">Start bij de initiële positie</string>
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Start bij een aangepaste positie</string>
-  <string name="loadAGameByUrl">Laad een spel via een URL</string>
+  <string name="loadAGameByUrl">Laad spellen via een URL</string>
   <string name="loadAPositionFromFen">Laad een spel via een FEN</string>
   <string name="loadAGameFromPgn">Laad een spel via een PGN</string>
   <string name="automatic">Automatisch</string>
