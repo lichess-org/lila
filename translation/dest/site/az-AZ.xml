@@ -151,6 +151,8 @@
   <string name="players">Şahmatçılar</string>
   <string name="friends">Dostlar</string>
   <string name="discussions">Yazışma</string>
+  <string name="today">Bu gün</string>
+  <string name="yesterday">Dünən</string>
   <string name="minutesPerSide">Hər şahmatçının oyun müddəti</string>
   <string name="variant">Variant</string>
   <string name="variants">Versiyalar</string>
@@ -173,6 +175,7 @@
   <string name="username">İstifadəçi adı</string>
   <string name="usernameOrEmail">İstifadəçi adı</string>
   <string name="changeUsername">İstidadəçi adını dəyiş</string>
+  <string name="changeUsernameNotSame">Sadəcə istifadəçi adınızdakı böyük/kiçik hərfləri dəyiştirəbilərsiniz. Məsələn \"johndoe\" dən \"JohnDoe\" kimi.</string>
   <string name="password">Şifrə</string>
   <string name="changePassword">Parolu dəyiş</string>
   <string name="changeEmail">Emaili dəyiş</string>
