@@ -11,4 +11,9 @@
   <string name="source">Qaynaq</string>
   <string name="nbTurns">Gediş sayısı</string>
   <string name="result">Nəticə</string>
+  <string name="winnerColor">Qalibin rəngi</string>
+  <string name="date">Tarix</string>
+  <string name="sortBy">Sıralama şəkli</string>
+  <string name="analysis">Analiz</string>
+  <string name="onlyAnalysed">Sadəcə kompüter analizi edilmiş oyunları göstər</string>
 </resources>
