@@ -149,6 +149,8 @@
   <string name="xPostedInForumY">%1$s %2$s mövzuda şərh yazdı</string>
   <string name="latestForumPosts">Forumdakı sonuncu xeberler</string>
   <string name="players">Şahmatçılar</string>
+  <string name="friends">Dostlar</string>
+  <string name="discussions">Yazışma</string>
   <string name="minutesPerSide">Hər şahmatçının oyun müddəti</string>
   <string name="variant">Variant</string>
   <string name="variants">Versiyalar</string>
