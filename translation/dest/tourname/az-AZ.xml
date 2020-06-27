@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Saatlıq Rapid Arena</string>
+  <string name="hourlyRapid">Saatlıq Rapid</string>
+  <string name="hourlyXArena">Saatlıq %s Arena</string>
+  <string name="hourlyX">Saatlıq %s</string>
+  <string name="dailyRapidArena">Günlük Rapid Arena</string>
+  <string name="dailyRapid">Günlük Rapid</string>
+  <string name="dailyClassicalArena">Günlük Klassik Arenası</string>
+  <string name="dailyClassical">Günlük Klasik</string>
+</resources>
