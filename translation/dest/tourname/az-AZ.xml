@@ -34,4 +34,16 @@
   <string name="yearlyClassical">İllik Klassik</string>
   <string name="yearlyXArena">İllik %s Arena</string>
   <string name="yearlyX">İllik %s</string>
+  <string name="rapidShieldArena">Rapid Qalxanı Arenası</string>
+  <string name="rapidShield">Rapid Qalxanı</string>
+  <string name="classicalShieldArena">Klassik Qalxanı Arenası</string>
+  <string name="classicalShield">Klassik Qalxanı</string>
+  <string name="xShieldArena">%s Qalxanı Arenası</string>
+  <string name="xShield">%s Qalxanı</string>
+  <string name="openingRapidArena">%s Rapid Arena</string>
+  <string name="openingRapid">%s Rapid</string>
+  <string name="xTeamBattle">%s Komanda Qarşılaşması</string>
+  <string name="eliteXArena">Elit %s Arena</string>
+  <string name="eliteX">Elit %s</string>
+  <string name="xArena">%s Arena</string>
 </resources>
