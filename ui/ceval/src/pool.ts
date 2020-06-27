@@ -138,7 +138,7 @@ export class Pool {
     this.workers.forEach(w => w.stop());
   }
 
-  destroy(): void {
+  destroy = () => {
     this.stop();
     this.workers.forEach(w => w.destroy());
   }
