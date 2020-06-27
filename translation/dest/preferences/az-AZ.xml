@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">Tərcihlər</string>
+  <string name="preferences">Tənzimləmələr</string>
   <string name="gameDisplay">Oyun ekranı</string>
   <string name="pieceAnimation">Fiqur animasiyası</string>
   <string name="materialDifference">Material farkı</string>
