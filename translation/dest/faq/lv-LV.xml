@@ -78,4 +78,11 @@ Ievērojiet, ka ir iespējama pozīcija, kur matu var pieteikt ar vienu zirdziņ
   <string name="accounts">Konti</string>
   <string name="titlesAvailableOnLichess">Kādi tituli ir Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess atzīst visus FIDE titulus, kas iegūti, spēlējot uz galdiņa, kā arī %1$s. Lūk saraksts ar FIDE tituliem:</string>
+  <string name="showYourTitle">Ja jums ir tituls, kas iegūts, spēlējot uz galdiņa, varat nosūtīt pieteikumu to parādīt jūsu profilā, aizpildot %1$s un pievienojot skaidri saskatāmu attēlu ar identificējošu dokumentu vai karti, kā arī savu pašbildi ar šo dokumentu.
+
+Spēlētāji ar pārbaudītiem tituliem var spēlēt Lichess Titulu Arēnu pasākumos.
+
+Visbeidzot, ir arī %2$s goda tituls.</string>
+  <string name="asWellAsManyNMtitles">daudzus nacionālos meistara titulus</string>
+  <string name="verificationForm">pārbaudes veidlapu</string>
 </resources>
