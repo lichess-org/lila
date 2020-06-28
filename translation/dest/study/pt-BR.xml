@@ -26,8 +26,7 @@
   </plurals>
   <string name="addMembers">Adicionar membros</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s Membro
-%s Membros</item>
+    <item quantity="one">%s Membro</item>
     <item quantity="other">%s Membros</item>
   </plurals>
   <string name="inviteToTheStudy">Convidar para o estudo</string>
