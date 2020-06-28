@@ -12,16 +12,15 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
-  "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
-  },
   "devDependencies": {
     "@build/tsProject": "2.0.0",
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
     "@types/webrtc": "^0.0.25"
+  },
+  "scripts": {
+    "dev": "gulp dev",
+    "prod": "gulp prod"
   }
 }
