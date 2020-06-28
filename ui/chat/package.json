@@ -11,7 +11,7 @@
     "compile": "../../node_modules/typescript/bin/tsc"
   },
   "dependencies": {
-    "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
+    "snabbdom": "^0.7.4"
   },
   "devDependencies": {
     "@build/tsProject": "2.0.0",
