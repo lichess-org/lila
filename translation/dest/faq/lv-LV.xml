@@ -73,4 +73,9 @@ Ievērojiet, ka ir iespējama pozīcija, kur matu var pieteikt ar vienu zirdziņ
   <string name="repeatedPositionsThatMatters">Trīskārša atkārtošanās attiecas uz atkārtotām %1$s, nevis gājieniem. Atkārtojumiem nav jānotiek pēc kārtas.</string>
   <string name="positions">pozīcijām</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Atkārtojām vienu pozīciju trīsreiz. Kādēļ spēle nebeidzās ar neizšķirtu?</string>
+  <string name="threeFoldHasToBeClaimed">Atkārtošanās neizšķirts jāpieprasa kādam no spēlētājiem. Varat to paveikt, spiežot pogu, kas parādās, vai piedāvājot neizšķirtu pirms pēdējā atkārtošanās gājiena — nav svarīgi, vai pretinieks to noraida; trīskāršās atkārtošanās neizšķirts tiks pieprasīts. Varat arī %1$s, lai Lichess automātiski pieprasa neizšķirtu jūsu vietā. Pieckārša atkārtošanās vienmēr uzreiz beidz spēli.</string>
+  <string name="configure">iestatīt</string>
+  <string name="accounts">Konti</string>
+  <string name="titlesAvailableOnLichess">Kādi tituli ir Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess atzīst visus FIDE titulus, kas iegūti, spēlējot uz galdiņa, kā arī %1$s. Lūk saraksts ar FIDE tituliem:</string>
 </resources>
