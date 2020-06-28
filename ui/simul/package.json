@@ -18,5 +18,9 @@
     "chat": "2.0.0",
     "game": "2.0.0",
     "mithril": "github:ornicar/mithril.js#lila-1"
+  },
+  "scripts": {
+    "dev": "gulp dev",
+    "prod": "gulp prod"
   }
 }

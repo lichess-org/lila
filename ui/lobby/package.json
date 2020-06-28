@@ -21,5 +21,9 @@
     "chessground": "^7.7.1",
     "common": "2.0.0",
     "snabbdom": "^0.7.4"
+  },
+  "scripts": {
+    "dev": "gulp dev",
+    "prod": "gulp prod"
   }
 }

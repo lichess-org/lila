@@ -20,5 +20,9 @@
     "chessops": "^0.4.2",
     "snabbdom": "^0.7.4",
     "common": "2.0.0"
+  },
+  "scripts": {
+    "dev": "gulp dev",
+    "prod": "gulp prod"
   }
 }

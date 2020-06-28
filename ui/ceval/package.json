@@ -14,7 +14,9 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc"
+    "compile": "../../node_modules/typescript/bin/tsc",
+    "dev": "yarn run compile",
+    "prod": "yarn run compile"
   },
   "devDependencies": {
     "@types/defer-promise": "1.0.0",

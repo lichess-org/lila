@@ -19,5 +19,9 @@
   "dependencies": {
     "snabbdom": "^0.7.4",
     "date-fns": "^1"
+  },
+  "scripts": {
+    "dev": "gulp dev",
+    "prod": "gulp prod"
   }
 }

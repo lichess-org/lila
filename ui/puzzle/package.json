@@ -32,6 +32,7 @@
     "tree": "2.0.0"
   },
   "scripts": {
-    "compile": "rollup --config"
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
   }
 }

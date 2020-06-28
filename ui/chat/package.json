@@ -8,7 +8,9 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc"
+    "compile": "../../node_modules/typescript/bin/tsc",
+    "dev": "yarn run compile",
+    "prod": "yarn run compile"
   },
   "dependencies": {
     "snabbdom": "^0.7.4"

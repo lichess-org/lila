@@ -19,5 +19,9 @@
     "common": "2.0.0",
     "mithril": "github:ornicar/mithril.js#lila-1",
     "numeral": "^1.5"
+  },
+  "scripts": {
+    "dev": "gulp dev",
+    "prod": "gulp prod"
   }
 }

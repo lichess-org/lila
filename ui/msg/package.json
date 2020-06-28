@@ -12,5 +12,9 @@
   },
   "dependencies": {
     "snabbdom": "^0.7.4"
+  },
+  "scripts": {
+    "dev": "gulp dev",
+    "prod": "gulp prod"
   }
 }
