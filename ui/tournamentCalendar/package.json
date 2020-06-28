@@ -17,7 +17,7 @@
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
-    "snabbdom": "ornicar/snabbdom#0.7.1-lichess",
+    "snabbdom": "^0.7.4",
     "date-fns": "^1"
   }
 }
