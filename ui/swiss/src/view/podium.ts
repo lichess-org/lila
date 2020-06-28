@@ -14,13 +14,13 @@ function podiumStats(p: PodiumPlayer, trans: Trans): VNode {
 }
 
 function podiumPosition(p: PodiumPlayer, pos: string, trans: Trans): VNode | undefined {
-  if (p) return h('div.' + pos, [
+  return p ? h('div.' + pos, [
     h('div.trophy'),
     h('a.text.ulpt.user-link', {
       attrs: { href: '/@/' + p.user.name }
     }, userName(p.user)),
     podiumStats(p, trans)
-  ]);
+  ]) : undefined;
 }
 
 export default function podium(ctrl: SwissCtrl) {

@@ -13,7 +13,7 @@ export interface SwissOpts {
   socketSend: SocketSend;
   chat: any;
   i18n: any;
-  classes: string;
+  classes: string | null;
 }
 
 export interface SwissData {
@@ -124,6 +124,14 @@ export interface PerfType {
 export interface Clock {
   limit: number;
   increment: number;
+}
+
+export interface Pager {
+  nbResults: number;
+  nbPages: number;
+  from: number;
+  to: number;
+  currentPageResults: Page;
 }
 
 export type Page = Player[];

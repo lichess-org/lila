@@ -3,9 +3,9 @@ import { VNode } from 'snabbdom/vnode';
 import SwissCtrl from '../ctrl';
 import { dataIcon } from './util';
 
-function startClock(time) {
+function startClock(time: number) {
   return {
-    insert: vnode => $(vnode.elm as HTMLElement).clock({ time: time })
+    insert: (vnode: VNode) => $(vnode.elm as HTMLElement).clock({ time: time })
   };
 }
 
