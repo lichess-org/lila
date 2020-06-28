@@ -599,6 +599,12 @@ final class StudyApi(
         }
     }
 
+  def rename(studyId: Study.Id, name: Study.Name): Funit =
+    sequenceStudy(studyId) { old =>
+      val study = old.copy(name = name)
+      studyRepo.updateSomeFields(study) >>- indexStudy(study)
+    }
+
   def importPgns(studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean)(who: Who) =
     lila.common.Future.applySequentially(datas) { data =>
       addChapter(studyId, data, sticky)(who)

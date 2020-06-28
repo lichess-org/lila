@@ -88,15 +88,17 @@ final class RelayApi(
     val relay = f(from) pipe { r =>
       if (r.sync.upstream != from.sync.upstream) r.withSync(_.clearLog) else r
     }
-    if (relay == from) fuccess(relay)
-    else
-      repo.coll.update.one($id(relay.id), relay).void >> {
-        (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
-      } >>- {
-        relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
-          sendToContributors(relay.id, "relayLog", JsonView.syncLogEventWrites writes event)
-        }
-      } inject relay
+    studyApi.rename(relay.studyId, Study.Name(relay.name)) >> {
+      if (relay == from) fuccess(relay)
+      else
+        repo.coll.update.one($id(relay.id), relay).void >> {
+          (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
+        } >>- {
+          relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
+            sendToContributors(relay.id, "relayLog", JsonView.syncLogEventWrites writes event)
+          }
+        } inject relay
+    }
   }
 
   def reset(relay: Relay, by: User): Funit =
