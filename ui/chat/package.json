@@ -6,7 +6,7 @@
   "main": "dist/main.js",
   "types": "dist/main",
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "compile": "../../node_modules/typescript/bin/tsc",
     "dev": "yarn run compile",

@@ -4,7 +4,7 @@
   "private": true,
   "description": "lichess.org website",
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/cssProject": "2.0.0",
     "browserify": "^16",

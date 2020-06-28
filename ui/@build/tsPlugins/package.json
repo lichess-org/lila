@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "main": "index.js",
   "dependencies": {
     "gulp": "^4",

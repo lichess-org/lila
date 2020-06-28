@@ -12,7 +12,7 @@
     "study"
   ],
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/tsPlugins": "2.0.0",
     "@build/tsProject": "2.0.0",

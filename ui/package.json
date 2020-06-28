@@ -7,7 +7,7 @@
     "lichess"
   ],
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "glob": "^7.1.3",
     "gulp": "^4",

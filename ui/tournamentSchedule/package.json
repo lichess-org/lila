@@ -10,7 +10,7 @@
     "schedule"
   ],
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/tsProject": "2.0.0",
     "@types/jquery": "^2.0",
