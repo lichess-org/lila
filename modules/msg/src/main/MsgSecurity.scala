@@ -5,10 +5,11 @@ import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.db.dsl._
-import lila.hub.actorApi.report.AutoFlag
 import lila.hub.actorApi.clas.IsTeacherOf
+import lila.hub.actorApi.report.AutoFlag
 import lila.hub.actorApi.team.IsLeaderOf
 import lila.memo.RateLimit
+import lila.security.Granter
 import lila.shutup.Analyser
 import lila.user.User
 
@@ -114,11 +115,14 @@ final private class MsgSecurity(
       }
 
     def post(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
-      fuccess(contacts.dest.id != User.lichessId) >>&
-        !relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id) >>&
-        (create(contacts) >>| reply(contacts)) >>&
-        chatPanic.allowed(contacts.orig.id, userRepo.byId) >>&
-        kidCheck(contacts, isNew)
+      fuccess(contacts.dest.id != User.lichessId) >>& {
+        fuccess(Granter.byRoles(_.ModMessage)(~contacts.orig.roles)) >>| {
+          !relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id) >>&
+            (create(contacts) >>| reply(contacts)) >>&
+            chatPanic.allowed(contacts.orig.id, userRepo.byId) >>&
+            kidCheck(contacts, isNew)
+        }
+      }
 
     private def create(contacts: User.Contacts): Fu[Boolean] =
       prefApi.getPref(contacts.dest.id, _.message) flatMap {
