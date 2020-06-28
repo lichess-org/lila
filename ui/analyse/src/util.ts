@@ -144,24 +144,23 @@ export function toTwitchEmbed(url: string): string | undefined {
 
 function toTwitchEmbedUrl(url: string) {
   if (!url) return;
-  var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)/i);
-if (m) return `https://player.twitch.tv/?channel=${m[1]}&parent=${location.hostname}&autoplay=false`;
+  const m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)/i);
+  if (m) return `https://player.twitch.tv/?channel=${m[1]}&parent=${location.hostname}&autoplay=false`;
 }
 
 const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
 const commentTwitchRegex = /(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)(?:\?|&|)(\S*)/i;
-const imgUrlRegex = /\.(jpg|jpeg|png|gif)$/;
+const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)/i;
 const newLineRegex = /\n/g;
 
-function imageTag(url: string): string | undefined {
-  if (imgUrlRegex.test(url)) return `<img src="${url}" class="embed"/>`;
-}
-
 function toLink(url: string) {
-  if (commentYoutubeRegex.test(url)) return toYouTubeEmbed(url) || url;
-  if (commentTwitchRegex.test(url)) return toTwitchEmbed(url) || url;
-  const show = imageTag(url) || url.replace(/https?:\/\//, '');
-  return '<a target="_blank" rel="nofollow noopener noreferrer" href="' + url + '">' + show + '</a>';
+  if (!window.crossOriginIsolated) {
+    if (commentYoutubeRegex.test(url)) return toYouTubeEmbed(url) || url;
+    if (commentTwitchRegex.test(url)) return toTwitchEmbed(url) || url;
+    if (imgurRegex.test(url)) return `<img src="${url}" class="embed"/>`;
+  }
+  const show = url.replace(/https?:\/\//, '');
+  return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${show}</a>`;
 }
 
 export function enrichText(text: string, allowNewlines: boolean = true): string {

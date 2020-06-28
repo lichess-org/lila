@@ -12,7 +12,10 @@ final private class SimulSocket(
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
-)(implicit ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mode: play.api.Mode
+) {
 
   def hostIsOn(simulId: Simul.ID, gameId: Game.ID): Unit =
     rooms.tell(simulId, NotifyVersion("hostGame", gameId))

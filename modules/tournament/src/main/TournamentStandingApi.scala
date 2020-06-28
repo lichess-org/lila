@@ -18,7 +18,10 @@ final class TournamentStandingApi(
     cached: Cached,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) {
 
   private val workQueue = new WorkQueue(
     buffer = 256,

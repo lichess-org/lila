@@ -160,8 +160,8 @@ object mod {
         postForm(cls := "fide_title", action := routes.Mod.setTitle(u.username))(
           form3.select(
             lila.user.DataForm.title.fill(u.title.map(_.value))("title"),
-            lila.user.Title.all,
-            "No title".some
+            lila.user.Title.acronyms.map(t => t -> t),
+            "".some
           )
         )
       },
@@ -486,7 +486,8 @@ object mod {
             sortNumberTh(reportban)(cls := "i", title := "Reportban"),
             sortNumberTh(notesText)(cls := "i", title := "Notes"),
             sortNumberTh("Created"),
-            sortNumberTh("Active")
+            sortNumberTh("Active"),
+            isGranted(_.CloseAccount) option th
           )
         ),
         tbody(
@@ -533,7 +534,13 @@ object mod {
                   )
                 } getOrElse td(dataSort := 0),
                 td(dataSort := o.createdAt.getMillis)(momentFromNowServer(o.createdAt)),
-                td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer))
+                td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer)),
+                isGranted(_.CloseAccount) option td(
+                  o.enabled option button(
+                    cls := "button button-empty button-thin button-red mark-alt",
+                    href := routes.Mod.alt(o.id, !o.marks.alt)
+                  )("ALT")
+                )
               )
           }
         )

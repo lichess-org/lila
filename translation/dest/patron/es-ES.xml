@@ -72,5 +72,5 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
   <string name="checkOutProfile">¡Échale un vistazo a tu página de perfil!</string>
   <string name="nowLifetime">¡Ahora eres un Patrón de Lichess de por vida!</string>
   <string name="nowOneMonth">¡Ahora eres un Patrón de Lichess por un mes!</string>
-  <string name="downgradeNextMonth">En un mes, NO se te cobrará de nuevo, y tu cuenta de Lichess será reducida a la versión gratuita.</string>
+  <string name="downgradeNextMonth">En un mes, NO se te cobrará de nuevo, y tu cuenta de Lichess será reducida a la versión normal.</string>
 </resources>

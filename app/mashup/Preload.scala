@@ -32,6 +32,7 @@ final class Preload(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Preload._
+  import LiveStreams.zero
 
   def apply(
       posts: Fu[List[MiniForumPost]],
@@ -49,7 +50,9 @@ final class Preload(
       userCached.topWeek.mon(_.lobby segment "userTopWeek") zip
       tourWinners.all.dmap(_.top).mon(_.lobby segment "tourWinners") zip
       (ctx.noBot ?? dailyPuzzle()).mon(_.lobby segment "puzzle") zip
-      liveStreamApi.all.dmap(_.autoFeatured withTitles lightUserApi).mon(_.lobby segment "streams") zip
+      (ctx.noKid ?? liveStreamApi.all
+        .dmap(_.autoFeatured withTitles lightUserApi)
+        .mon(_.lobby segment "streams")) zip
       (ctx.userId ?? playbanApi.currentBan).mon(_.lobby segment "playban") zip
       (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) flatMap {
       case (

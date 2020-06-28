@@ -98,15 +98,15 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: Style)
 
 export function renderBoard(pieces: Pieces, pov: Color): string {
   const board = [[' ', ...files, ' ']];
-  for(let rank of invRanks) {
+  for (let rank of invRanks) {
     let line = [];
-    for(let file of files) {
+    for (let file of files) {
       let key = file + rank;
       const piece = pieces[key];
       if (piece) {
         const letter = letters[piece.role];
         line.push(piece.color === 'white' ? letter.toUpperCase() : letter);
-      } else line.push((file.charCodeAt(0) + rank) % 2 ? '-' : '+');
+      } else line.push((key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+');
     }
     board.push(['' + rank, ...line, '' + rank]);
   }

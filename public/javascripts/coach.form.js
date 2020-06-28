@@ -6,7 +6,7 @@ $(function() {
 
     var $overview = $editor.find('.overview');
     var $el = $overview.find('.todo');
-    var $checkbox = $editor.find('#form3-listed');
+    var $listed = $editor.find('#form3-listed');
 
     var must = [{
       html: '<a href="/account/profile">Complete your lichess profile</a>',
@@ -41,11 +41,10 @@ $(function() {
       $el.find('ul').html(points);
       var fail = !!points.length;
       $overview.toggleClass('with-todo', fail);
-      if (fail) $checkbox.prop('checked', false);
-      $checkbox.attr('disabled', fail);
+      if (fail) $listed.prop('checked', false);
+      $listed.attr('disabled', fail);
     };
   })();
-  todo();
 
   $editor.find('.tabs > div').click(function() {
     $editor.find('.tabs > div').removeClass('active');
@@ -119,4 +118,6 @@ $(function() {
       tagify.settings.whitelist.find(l => l.code == code)
     ).filter(x => x)
   );
+
+  todo();
 });

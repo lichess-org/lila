@@ -1,7 +1,6 @@
 import throttle from 'common/throttle';
-import { json, form } from 'common/xhr';
+import { json } from 'common/xhr';
 import SwissCtrl from './ctrl';
-import { SwissData } from './interfaces';
 import { isOutcome } from './util';
 
 // when the tournament no longer exists

@@ -275,7 +275,6 @@
     <item quantity="one">%s सेकेण्ड दिनु</item>
     <item quantity="other">%s सेकेण्ड दिनु</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">यो खेलाडी कम्प्युटरको सहायताले खेल्ने गर्दछ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">यो खेलाडी कृतिम रुपमा रेटिङ घटबढ गराउने गर्दछ</string>
   <string name="openingExplorerAndTablebase">शुरुका चाल अन्वेषक &amp; टेबलबेस</string>
   <string name="takeback">चाल फिर्ता</string>

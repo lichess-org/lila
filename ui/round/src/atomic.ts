@@ -6,10 +6,10 @@ export function capture(ctrl: RoundController, key: cg.Key) {
   const exploding: cg.Key[] = [],
   diff: cg.PiecesDiff = {},
   orig = util.key2pos(key),
-  minX = Math.max(1, orig[0] - 1),
-    maxX = Math.min(8, orig[0] + 1),
-    minY = Math.max(1, orig[1] - 1),
-    maxY = Math.min(8, orig[1] + 1);
+  minX = Math.max(0, orig[0] - 1),
+    maxX = Math.min(7, orig[0] + 1),
+    minY = Math.max(0, orig[1] - 1),
+    maxY = Math.min(7, orig[1] + 1);
   const pieces = ctrl.chessground.state.pieces;
 
   for (let x = minX; x <= maxX; x++) {

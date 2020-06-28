@@ -6,6 +6,7 @@ private[studySearch] object Fields {
   val members      = "members"
   val chapterNames = "chapterNames"
   val chapterTexts = "chapterTexts"
+  val topics       = "topics"
   // val createdAt = "createdAt"
   // val updatedAt = "updatedAt"
   // val rank = "rank"

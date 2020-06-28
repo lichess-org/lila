@@ -15,7 +15,10 @@ final private class FirebasePush(
     deviceApi: DeviceApi,
     ws: WSClient,
     config: FirebasePush.Config
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   private val workQueue =
     new lila.hub.DuctSequencer(maxSize = 512, timeout = 10 seconds, name = "firebasePush")

@@ -1,4 +1,4 @@
-export default function changeColorHandle() {
+export default function changeColorHandle(): void {
   const dict: { [theme: string]: [string, string] } = {
     'blue': ['#DEE3E6', '#788a94'],
     'blue2': ['#97b2c7', '#546f82'],

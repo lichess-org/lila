@@ -13,7 +13,10 @@ final private class Cleaner(
     repo: FishnetRepo,
     analysisColl: Coll,
     system: akka.actor.ActorSystem
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) {
 
   import BSONHandlers._
 

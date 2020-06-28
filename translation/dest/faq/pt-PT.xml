@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">FAQ</string>
+  <string name="faqAbbreviation">Perguntas frequentes</string>
   <string name="frequentlyAskedQuestions">Perguntas frequentes</string>
   <string name="whyIsLichessCalledLichess">Por que é que o Lichess se chama Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess é uma combinação de \"live/light/libre\" (vida, direto/leve/livre). Pronuncia-se %1$s.</string>
@@ -20,16 +20,16 @@
   <string name="whyFlaggedRatingManipulationOrCheater">Por que é que estou marcado por manipulação artificial da pontuação (perder de propósito ou fazer batota) ou ajuda do computador?</string>
   <string name="cheatDetectionMethods">O Lichess tem fortes métodos de detenção de batota e um um processo minucioso de rever todas as provas e tomar uma decisão. Frequentemente, este processo envolve vários moderadores e pode levar muito tempo. Para além de marcarmos o jogador, não nos alongamos em detalhes para cada caso individual. Fazê-lo só tornaria mais fácil evitar ser detetado no futuro e levaria a debates inúteis. Este tempo e esforço podem ser melhor espregues em outras situações importantes. Os utilizador podem enviar-nos um email para %1$s, mas as decisões raramente são alteradas.</string>
   <string name="whenAmIEligibleRatinRefund">Quando é que recebo devoluções automáticas de pontuação por causa de batoteiros?</string>
-  <string name="ratingRefundExplanation">Um minuto depois de um jogador ser marcador, os seus últimos 40 jogos a valer pontos nos últimos 3 dias são escolhidos. Se foste um dos seus oponentes em algum(ns) destes jogos e perdeste pontuação (por derrota(s) ou empate(s)), e a tua pontuação não era provisória, recebes uma devolução de pontuação. A devolução é limitada com base na tua pontuação e no teu progresso após o(s) jogo(s).
+  <string name="ratingRefundExplanation">Um minuto depois de um jogador ser marcador, os seus últimos 40 jogos a valer pontos nos últimos 3 dias são escolhidos. Se foste um dos seus adversários em algum(ns) destes jogos e perdeste pontuação (por derrota(s) ou empate(s)), e a tua pontuação não era provisória, recebes uma devolução de pontuação. A devolução é limitada com base na tua pontuação e no teu progresso após o(s) jogo(s).
  (Por exemplo, se a tua pontuação aumentou consideravelmente após aquele(s) jogo(s), podes não receber uma devolução ou receber apenas uma devolução parcial.) Uma devolução nunca excederá 150 pontos.</string>
   <string name="preventLeavingGameWithoutResigning">O que é que acontece com os jogadores que saem de jogos sem desistir?</string>
-  <string name="leavingGameWithoutResigningExplanation">Se algum dos teus oponentes aborta ou sai de jogos frequentemente, este será \"banido de jogar\", o que significa que está banido de jogar jogos. Isto não é mostrado publicamente no seu perfil. Se este comportamento continuar, a duração do banimento aumentará - e prolongados comportamentos deste tipo podem levar ao encerramento da conta.</string>
+  <string name="leavingGameWithoutResigningExplanation">Se algum dos teus adversários aborta ou sai de jogos frequentemente, este será \"banido de jogar\", o que significa que está banido de jogar jogos. Isto não é mostrado publicamente no seu perfil. Se este comportamento continuar, a duração do banimento aumentará - e prolongados comportamentos deste tipo podem levar ao encerramento da conta.</string>
   <string name="howCanIBecomeModerator">Como é que me posso tornar um moderador?</string>
   <string name="youCannotApply">Não é possível candidatar-se a moderador. Se virmos alguém que consideramos que seria um bom moderador, contactá-lo(a)-emos diretamente.</string>
   <string name="isCorrespondenceDifferent">Os jogos por correspondência são diferentes do xadrez normal?</string>
   <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos de correspondência é que é permitido utilizar um livro de aberturas. A utilização da ajuda de computadores continua a ser proibida e utilizá-la resultará em ser marcado por utilizar a ajuda de computador. Embora a ICCF permita a utilização de computadores, o Lichess não o permite.</string>
   <string name="gameplay">Jogabilidade</string>
-  <string name="howBulletBlitzEtcDecided">Como é que Bullet, Blitz e outros ritmos de jogo são decididos?</string>
+  <string name="howBulletBlitzEtcDecided">Como é que bullet, blitz e outros ritmos de jogo são decididos?</string>
   <string name="basedOnGameDuration">Os ritmos de jogo do Lichess baseiam-se na duração estimada do jogo = %1$s
 Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segundos.</string>
   <string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
@@ -41,17 +41,17 @@ Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segu
   <string name="whatIsACPL">O que é a perda média de centésimas de peão (ACPL)?</string>
   <string name="acplExplanation">Uma centésima de peão é a unidade de medida usada no xadrez para a representação da vantagem. Uma centésima de peão é igual a 1/100 de um peão. Portanto, 100 centésimas de peão = 1 peão. Estes valores não têm um papel formal no jogo mas são úteis para os jogadores, e essenciais para muitos computadores de xadrez, para avaliar posições.
 
-O lance considerado melhor, pelo computador corresponde a uma perda de zero centésimas de peão, mas lances mais \"fracos\" resultarão numa deterioração da posição, medida em centésimas de peão.
+O lance considerado melhor pelo computador corresponde a uma perda de zero centésimas de peão, mas lances mais \"fracos\" resultarão numa deterioração da posição, medida em centésimas de peão.
 
 Este valor pode ser utilizado como indicador da qualidade do jogo. Quando menos centésimas de peão alguém perder por jogada, mais forte o jogo.
 
 A análise de xadrez no Lichess é feita pelo Stockfish.</string>
   <string name="insufficientMaterial">Perder por tempo, empatar e material insuficiente</string>
-  <string name="lichessFollowFIDErules">No caso de um jogador ficar sem tempo, geralmente, esse jogador perderá o jogo. Contudo, o jogo é empatado se a posição for uma tal que o oponente não consegue fazer xeque-mate por qualquer sequência legal de movimentos (%1$s).
+  <string name="lichessFollowFIDErules">No caso de um jogador ficar sem tempo, geralmente, esse jogador perderá o jogo. Contudo, o jogo é empatado se a posição for uma tal que o adversário não consegue fazer xeque-mate por qualquer sequência legal de movimentos (%1$s).
 
 Em casos raros, isto pode ser difícil de detetar automaticamente (linhas forçadas, fortalezas). Por norma, ficamos sempre do lado do jogador que não ficou sem tempo.
 
-Nota que pode ser possível fazer xeque-mate somente com um cavalo ou bispo, se o oponente tiver uma peça que possa bloquear o seu rei.</string>
+Nota que pode ser possível fazer xeque-mate somente com um cavalo ou bispo, se o adversário tiver uma peça que possa bloquear o seu rei.</string>
   <string name="linkToFIDErules">manual da FIDE §6.9, PDF</string>
   <string name="discoveringEnPassant">Por que é que um peão captura outro quando ele já passou? (en passant)</string>
   <string name="explainingEnPassant">Esta é uma jogada legal conhecida como \"en passant\". O artigo da Wikipédia dá uma %1$s.
@@ -72,7 +72,7 @@ Vê o %3$s deste lance para o praticares.</string>
   <string name="repeatedPositionsThatMatters">A repetição tripla é sobre %1$s repetidas, não lances. A repetição não de ocorrer consecutivamente.</string>
   <string name="positions">posições</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Nós repetimos uma posição três vezes. Por que é que o jogo não foi empatado?</string>
-  <string name="threeFoldHasToBeClaimed">As repetições têm de ser reivindicadas por um dos jogadores. Podes fazê-lo clicando no botão que é mostrado, ou oferecendo empate antes do teu último lance que levaria à repetição tripla. Também podes %1$s o Lichess para que as repetições sejam reivindicadas automaticamente. Para além disso, repetições quíntuplas acabam o jogo imediatamente, sempre.</string>
+  <string name="threeFoldHasToBeClaimed">As repetições têm de ser reivindicadas por um dos jogadores. Podes fazê-lo clicando no botão que é mostrado, ou oferecendo empate antes do teu último lance que levaria à repetição tripla, não importa se o teu adversário não aceitar o empate, a repetição tripla será reivindicada. Também podes %1$s o Lichess para que as repetições sejam reivindicadas automaticamente. Para além disso, repetições quíntuplas acabam o jogo imediatamente, sempre.</string>
   <string name="configure">configurar</string>
   <string name="accounts">Contas</string>
   <string name="titlesAvailableOnLichess">Que títulos existem no Lichess?</string>
@@ -98,7 +98,7 @@ Não perguntes pelo título LM.</string>
 Podes ler mais sobre as %1$s.</string>
   <string name="guidelines">orientações</string>
   <string name="uniqueTrophies">Troféus únicos</string>
-  <string name="ownerUniqueTrophies">Esse troféu é único na história dos Lichess, ninguém para além de %1$s o terá.</string>
+  <string name="ownerUniqueTrophies">Este troféu é único na história do Lichess, ninguém para além de %1$s o terá.</string>
   <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar 100%% dos jogos de %s no modo frenético.</string>
   <string name="aHourlyBulletTournament">um torneio horário de Bullet</string>
   <string name="goldenZeeExplanation">ZugAddict estava fazer uma stream e nas últimas 2 horas tinha estado a tentar derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-lhe que se ele o fizesse na stream, ele teria um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
@@ -114,7 +114,7 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
   <string name="whatIsProvisionalRating">Por que é que há um ponto de interrogação (?) depois da minha pontuação?</string>
   <string name="provisionalRatingExplanation">O ponto de interrogação significa que a pontuação é provisória. As razões incluem:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">O jogador ainda não terminou um número suficiente de jogos a valer pontos contra %1$s na categoria de pontuação em questão.</string>
-  <string name="similarOpponents">oponentes de nível semelhante</string>
+  <string name="similarOpponents">adversários de nível semelhante</string>
   <string name="notPlayedRecently">O jogador não jogou um número suficiente de partidas recentes. Dependendo do número de jogos que já jogaste, pode demorar cerca de um ano de inatividade para que a tua pontuação se torne provisória novamente.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Concretamente, significa que o desvio do Glicko-2 é maior do que 110. O desvio é o nível de confiança que o sistema tem na pontuação. Quando mais baixo for o desvio, mais estável é a pontuação.</string>
   <string name="howDoLeaderoardsWork">Como é que funcionam as posições e as tabelas de liderança?</string>

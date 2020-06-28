@@ -30,6 +30,8 @@ object Title {
   val names          = all.toMap
   lazy val fromNames = all.map(_.swap).toMap
 
+  val acronyms = all.map { case (Title(a), _) => a }
+
   def titleName(title: Title): String = names.getOrElse(title, title.value)
 
   def get(str: String): Option[Title]      = Title(str.toUpperCase).some filter names.contains

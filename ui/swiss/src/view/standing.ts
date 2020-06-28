@@ -1,11 +1,9 @@
 import { h } from 'snabbdom'
 import { VNode,  } from 'snabbdom/vnode';
 import SwissCtrl from '../ctrl';
-import { player as renderPlayer, ratio2percent, bind, dataIcon, userName, onInsert } from './util';
-import { MaybeVNodes, Player } from '../interfaces';
-import * as pagination from '../pagination';
+import { player as renderPlayer, bind, onInsert } from './util';
+import { MaybeVNodes, Player, Pager } from '../interfaces';
 
-const scoreTagNames = ['score', 'streak', 'double'];
 
 function playerTr(ctrl: SwissCtrl, player: Player) {
   const userId = player.user.id;
@@ -52,7 +50,7 @@ let lastBody: MaybeVNodes | undefined;
 
 const preloadUserTips = (vn: VNode) => window.lichess.powertip.manualUserIn(vn.elm as HTMLElement);
 
-export default function standing(ctrl: SwissCtrl, pag, klass?: string): VNode {
+export default function standing(ctrl: SwissCtrl, pag: Pager, klass?: string): VNode {
   const tableBody = pag.currentPageResults ?
     pag.currentPageResults.map(res => playerTr(ctrl, res)) : lastBody;
   if (pag.currentPageResults) lastBody = tableBody;

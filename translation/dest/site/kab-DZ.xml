@@ -174,7 +174,6 @@
     <item quantity="one">Efk %s tisinin</item>
     <item quantity="other">Efk %s tisinin</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Amyurar akki i seqdec ɣer ahil n caq</string>
   <string name="takeback">Semmet tiyita</string>
   <string name="proposeATakeback">Sumer usemmet n tiyita</string>
   <string name="takebackPropositionSent">Asemmet n tiyita isumer</string>

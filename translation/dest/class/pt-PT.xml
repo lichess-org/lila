@@ -47,7 +47,7 @@ Palavra-passe: %3$s</string>
   <string name="createDesc2">Nenhum endereço de e-mail é necessário. Uma palavra-passe será gerada e terás que transmiti-la ao aluno, para que eles possam ter acesso.</string>
   <string name="createDesc3">Importante: um aluno não pode ter várias contas.</string>
   <string name="createDesc4">Se já tiveres um, utiliza o formulário de convite.</string>
-  <string name="lichessUsername">Nome de utilizador Lichess</string>
+  <string name="lichessUsername">Nome de utilizador no Lichess</string>
   <string name="generateANewUsername">Gerar um novo nome de utilizador</string>
   <string name="welcomeToClass">Bem-vindo à tua aula: %s.
 Aqui está o link para acederes à aula.</string>

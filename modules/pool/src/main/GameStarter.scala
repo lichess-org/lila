@@ -11,7 +11,10 @@ final private class GameStarter(
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
     onStart: Game.Id => Unit
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   import PoolApi._
 

@@ -275,7 +275,7 @@ export default class AnalyseCtrl {
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
       color = this.turnColor(),
-      emptyDests = {} as chessUtil.Dests,
+      emptyDests = {} as cg.Dests,
       dests = chessUtil.readDests(this.node.dests),
       drops = chessUtil.readDrops(this.node.drops),
       movableColor = (this.practice || this.gamebookPlay()) ? this.bottomColor() : (

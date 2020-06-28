@@ -14,7 +14,10 @@ final class Analyser(
     uciMemo: UciMemo,
     evalCache: FishnetEvalCache,
     limiter: Limiter
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   val maxPlies = 200
 

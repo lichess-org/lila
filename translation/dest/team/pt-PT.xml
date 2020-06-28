@@ -32,7 +32,7 @@
   <string name="teamBattle">Batalha de Equipas</string>
   <string name="teamBattleOverview">Uma batalha de várias equipas, cada jogador ganha pontos para a sua equipa</string>
   <string name="teamTournament">Torneio de equipa</string>
-  <string name="teamTournamentOverview">Um torneio de Arena em que só podem entrar membros da tua equipa</string>
+  <string name="teamTournamentOverview">Um torneio em arena em que só podem entrar membros da tua equipa</string>
   <string name="messageAllMembers">Enviar uma mensagem a todos os membros</string>
   <string name="messageAllMembersOverview">Enviar uma mensagem privada para todos os membros da equipa</string>
   <string name="messageAllMembersLongDescription">Enviar uma mensagem privada para todos os membros da equipa.

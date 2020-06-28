@@ -275,7 +275,6 @@
     <item quantity="one">Gee %s sekonde</item>
     <item quantity="other">Gee %s sekondes</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Hierdie speler gebruik skaak rekenaar hulp</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Hierdie speler verhoog/verlaag hul gradering kunsmatig</string>
   <string name="openingExplorerAndTablebase">Opening ontdekker &amp; tafelbasis</string>
   <string name="takeback">Terug-vat</string>

@@ -36,6 +36,7 @@ export function start(opts: LobbyOpts) {
     setRedirecting: ctrl.setRedirecting,
     enterPool: ctrl.enterPool,
     leavePool: ctrl.leavePool,
+    setup: ctrl.setup,
     redraw: ctrl.redraw
   };
 }

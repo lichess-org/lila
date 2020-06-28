@@ -46,10 +46,9 @@ final private class SwissScoring(
                 newTieBreak -> newPerf
             }
             p.copy(
-                tieBreak = Swiss.TieBreak(tieBreak),
-                performance = playerPairings.nonEmpty option Swiss.Performance(perfSum / playerPairings.size)
-              )
-              .recomputeScore
+              tieBreak = Swiss.TieBreak(tieBreak),
+              performance = playerPairings.nonEmpty option Swiss.Performance(perfSum / playerPairings.size)
+            ).recomputeScore
           }
           _ <- SwissPlayer.fields { f =>
             prevPlayers

@@ -6,7 +6,7 @@
   <string name="gameOver">Kết thúc</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
   <string name="waiting">Đang chờ</string>
-  <string name="yourTurn">Đến lượt bạn</string>
+  <string name="yourTurn">Lượt của bạn</string>
   <string name="aiNameLevelAiLevel">%1$s cấp độ  %2$s</string>
   <string name="level">Cấp độ</string>
   <string name="toggleTheChat">Bật/tắt chat</string>
@@ -257,7 +257,6 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">Cho thêm %s giây</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Người chơi này sử dụng máy tính trợ giúp</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kỳ thủ này đã tăng hệ số một cách giả tạo</string>
   <string name="openingExplorerAndTablebase">Sách khai cuộc &amp; bảng dữ liệu</string>
   <string name="takeback">Đi lại</string>
@@ -696,6 +695,7 @@
   <string name="dark">Tối</string>
   <string name="transparent">Trong suốt</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
+  <string name="boardGeometry">Hình dạng của bàn cờ</string>
   <string name="boardTheme">Theme bàn cờ</string>
   <string name="boardSize">Cỡ bàn cờ</string>
   <string name="pieceSet">Bộ cờ</string>
@@ -788,9 +788,14 @@
   <string name="ultraBulletDesc">Những ván cờ cực nhanh: ít hơn 30 giây</string>
   <string name="bulletDesc">Những ván cờ rất nhanh: ít hơn 3 phút</string>
   <string name="blitzDesc">Những ván cờ nhanh: 3 đến 8 phút</string>
+  <string name="important">Chú ý</string>
+  <string name="useTheReportForm">dùng bảng tố cáo</string>
   <string name="toRequestSupport">Để yêu cầu trợ giúp, %1$s</string>
   <string name="tryTheContactPage">hãy thử trang trợ giúp</string>
+  <string name="thisTopicIsArchived">Đề tài này đã bị đóng nên bạn không thể bình luận nữa.</string>
   <string name="joinTheTeamXToPost">Gia nhập %1$s để đăng trong diễn đàn này</string>
   <string name="teamNamedX">Đội %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Bạn bây giờ chưa thể đăng bài lên diễn đàng được. Chơi vài trận đi!</string>
+  <string name="subscribe">Đăng kí</string>
   <string name="unsubscribe">Hủy đăng ký</string>
 </resources>

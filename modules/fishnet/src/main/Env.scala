@@ -34,7 +34,10 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     sink: lila.analyse.Analyser,
     shutdown: akka.actor.CoordinatedShutdown
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
 

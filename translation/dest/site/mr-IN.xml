@@ -204,7 +204,6 @@
     <item quantity="one">%s सेकंद द्या</item>
     <item quantity="other">%s सेकंद द्या</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">हा खेळाडू संगणकाची मदत घेतो.</string>
   <string name="takeback">परत घ्या</string>
   <string name="proposeATakeback">Mage ghenyas vinanti</string>
   <string name="takebackPropositionSent">Mage ghenyas vinanti pohochli</string>

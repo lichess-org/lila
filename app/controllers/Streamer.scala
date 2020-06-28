@@ -16,13 +16,15 @@ final class Streamer(
 
   def index(page: Int) =
     Open { implicit ctx =>
-      pageHit
-      val requests = getBool("requests") && isGranted(_.Streamers)
-      for {
-        liveStreams <- env.streamer.liveStreamApi.all
-        live        <- api withUsers liveStreams
-        pager       <- env.streamer.pager.notLive(page, liveStreams, requests)
-      } yield Ok(html.streamer.index(live, pager, requests))
+      ctx.noKid ?? {
+        pageHit
+        val requests = getBool("requests") && isGranted(_.Streamers)
+        for {
+          liveStreams <- env.streamer.liveStreamApi.all
+          live        <- api withUsers liveStreams
+          pager       <- env.streamer.pager.notLive(page, liveStreams, requests)
+        } yield Ok(html.streamer.index(live, pager, requests))
+      }
     }
 
   def live =
@@ -39,24 +41,28 @@ final class Streamer(
 
   def show(username: String) =
     Open { implicit ctx =>
-      OptionFuResult(api find username) { s =>
-        WithVisibleStreamer(s) {
-          for {
-            sws       <- env.streamer.liveStreamApi of s
-            activity  <- env.activity.read.recent(sws.user, 10)
-            following <- ctx.userId.??(env.relation.api.fetchFollows(_, sws.user.id))
-          } yield Ok(html.streamer.show(sws, activity, following))
+      ctx.noKid ?? {
+        OptionFuResult(api find username) { s =>
+          WithVisibleStreamer(s) {
+            for {
+              sws       <- env.streamer.liveStreamApi of s
+              activity  <- env.activity.read.recent(sws.user, 10)
+              following <- ctx.userId.??(env.relation.api.fetchFollows(_, sws.user.id))
+            } yield Ok(html.streamer.show(sws, activity, following))
+          }
         }
       }
     }
 
   def create =
     AuthBody { implicit ctx => me =>
-      NoLame {
-        NoShadowban {
-          api find me flatMap {
-            case None => api.create(me) inject Redirect(routes.Streamer.edit)
-            case _    => Redirect(routes.Streamer.edit).fuccess
+      ctx.noKid ?? {
+        NoLame {
+          NoShadowban {
+            api find me flatMap {
+              case None => api.create(me) inject Redirect(routes.Streamer.edit)
+              case _    => Redirect(routes.Streamer.edit).fuccess
+            }
           }
         }
       }

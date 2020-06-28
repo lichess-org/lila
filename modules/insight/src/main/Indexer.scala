@@ -17,7 +17,10 @@ final private class Indexer(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     storage: Storage
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   private val workQueue =
     new lila.hub.DuctSequencer(maxSize = 64, timeout = 1 minute, name = "insightIndexer")

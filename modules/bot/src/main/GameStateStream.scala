@@ -19,7 +19,10 @@ import scala.concurrent.duration._
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
     jsonView: BotJsonView
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   private case object SetOnline
   private case class User(id: lila.user.User.ID, isBot: Boolean)

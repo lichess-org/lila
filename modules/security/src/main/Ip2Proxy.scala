@@ -11,7 +11,10 @@ final class Ip2Proxy(
     ws: WSClient,
     cacheApi: lila.memo.CacheApi,
     checkUrl: String
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   def apply(ip: IpAddress): Fu[Boolean] =
     cache.get(ip).recover {

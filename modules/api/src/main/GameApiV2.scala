@@ -25,7 +25,10 @@ final class GameApiV2(
     swissApi: lila.swiss.SwissApi,
     analysisRepo: lila.analyse.AnalysisRepo,
     getLightUser: LightUser.Getter
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   import GameApiV2._
 
