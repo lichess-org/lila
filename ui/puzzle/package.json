@@ -13,9 +13,14 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "devDependencies": {
-    "@build/tsProject": "2.0.0",
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-node-resolve": "^8.1.0",
+    "@rollup/plugin-typescript": "^5.0.0",
     "@types/jquery": "^2.0",
-    "@types/lichess": "2.0.0"
+    "@types/lichess": "2.0.0",
+    "rollup": "^2.18.1",
+    "rollup-plugin-terser": "^6.1.0",
+    "typescript": "^3.9.5"
   },
   "dependencies": {
     "ceval": "2.0.0",
@@ -23,6 +28,10 @@
     "chessops": "^0.4.2",
     "common": "2.0.0",
     "snabbdom": "^0.7.4",
+    "tslib": "^2.0.0",
     "tree": "2.0.0"
+  },
+  "scripts": {
+    "compile": "rollup --config"
   }
 }

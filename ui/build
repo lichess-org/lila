@@ -15,7 +15,8 @@ mkdir -p public/compiled
 
 ts_apps1="common"
 ts_apps2="chess ceval game tree chat nvui"
-apps="site swiss msg chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker"
+ts_apps3="puzzle"
+apps="site swiss msg chat cli challenge notify learn insight editor round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive
@@ -58,10 +59,11 @@ else
     set -x
     parallel --gnu $P_OPTS build_ts ::: $ts_apps1
     parallel --gnu $P_OPTS build_ts ::: $ts_apps2
+    parallel --gnu $P_OPTS build_ts ::: $ts_apps3
     parallel --gnu $P_OPTS build ::: $apps
   else # sequential execution
     echo "For faster builds, install GNU parallel."
-    for app in $ts_apps1 $ts_apps2; do (build_ts $app); done
+    for app in $ts_apps1 $ts_apps2 $ts_apps3; do (build_ts $app); done
     for app in $apps; do (build $app); done
   fi
 fi
