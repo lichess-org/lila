@@ -45,6 +45,10 @@ O pots %s.</string>
   <string name="noPatronFeatures">No, perquè Lichess es totalment gratuït, per sempre i per a tots. És una promesa.
 Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.</string>
   <string name="featuresComparison">Mira la comparativa detallada de funcions</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Patró de Lichess per un mes</item>
+    <item quantity="other">Patró de Lichess per %s mesos</item>
+  </plurals>
   <string name="youSupportWith">Ajudes a lichess.org amb %s per mes.</string>
   <string name="tyvm">Moltes gràcies pel teu suport. Ets genial!</string>
   <string name="currentStatus">Estat actual</string>

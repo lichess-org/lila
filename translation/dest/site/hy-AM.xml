@@ -208,7 +208,6 @@
     <item quantity="one">Տալ %s վայրկան</item>
     <item quantity="other">Տալ %s վայրկան</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Այս խաղացողը օգտագործում է համակարգչի օգնություն</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Այս խաղացողը արհեստականորեն մեծացնում է իր վարկանիշը</string>
   <string name="takeback">Քայլը հետ վերցնել</string>
   <string name="proposeATakeback">Քայլը հետ վերցնելու առաջարկ անել</string>

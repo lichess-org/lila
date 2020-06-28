@@ -15,6 +15,10 @@
   <string name="anyoneCanJoin">Tothom s\'hi pot unir</string>
   <string name="aConfirmationIsRequiredToJoin">Cal una confirmació per unir-s\'hi</string>
   <string name="joiningPolicy">Política d\'adhesió</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Capità de l\'equip</item>
+    <item quantity="other">Capitans de l\'equip</item>
+  </plurals>
   <string name="teamBestPlayers">Millors jugadors de l\'equip</string>
   <string name="teamRecentMembers">Membres recents de l\'equip</string>
   <string name="kickSomeone">Expulsar algú de l\'equip</string>

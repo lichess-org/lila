@@ -275,7 +275,7 @@
     <item quantity="one">Giv %s sekund</item>
     <item quantity="other">Giv %s sekunder</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Denne spiller bruger skakcomputerassistance</string>
+  <string name="thisAccountViolatedTos">Denne konto overtrådte Lichess servicevilkår</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spiller forøger eller sænker sin rating kunstigt</string>
   <string name="openingExplorerAndTablebase">Åbner åbnings- og slutspilsbog</string>
   <string name="takeback">Omtræk</string>

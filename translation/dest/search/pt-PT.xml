@@ -10,11 +10,11 @@
     <item quantity="one">%s jogo encontrado</item>
     <item quantity="other">%s jogos encontrados</item>
   </plurals>
-  <string name="opponentName">Nome do oponente</string>
+  <string name="opponentName">Nome do adversário</string>
   <string name="loser">Perdedor</string>
   <string name="from">De</string>
   <string name="to">Para</string>
-  <string name="humanOrComputer">Quer o oponente do jogador tenha sido humano ou um computador</string>
+  <string name="humanOrComputer">Quer o adversário do jogador tenha sido humano ou um computador</string>
   <string name="aiLevel">Nível da I.A.</string>
   <string name="source">Fonte</string>
   <string name="nbTurns">Número de jogadas</string>
@@ -23,5 +23,5 @@
   <string name="date">Data</string>
   <string name="sortBy">Ordenar por</string>
   <string name="analysis">Análise</string>
-  <string name="onlyAnalysed">Apenas jogos em que a análise do computador está disponível</string>
+  <string name="onlyAnalysed">Apenas jogos em que a análise de computador está disponível</string>
 </resources>

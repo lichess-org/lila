@@ -292,7 +292,6 @@
     <item quantity="few">Acordă %s secunde</item>
     <item quantity="other">Acordă %s secunde</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Acest jucător este asistat de un program de analiză</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Jucătorul și-a crescut ratingul în mod artificial</string>
   <string name="openingExplorerAndTablebase">Deschide exploratorul &amp; baza de date</string>
   <string name="takeback">Revocare</string>

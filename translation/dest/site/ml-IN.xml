@@ -272,7 +272,7 @@
     <item quantity="one">%s നിമിഷങ്ങൾ നൽകുക</item>
     <item quantity="other">%s നിമിഷങ്ങൾ നൽകുക</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">ഈ കളിക്കാരന്‍ കമ്പ്യൂട്ടര്‍ സഹായം തേടുന്നു</string>
+  <string name="thisAccountViolatedTos">ഈ അക്കൗണ്ട്‌ ലീചെസ്സിന്‍റെ സേവന നിബന്ധനകൾ തെറ്റിച്ചിരിക്കുന്നു</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ഈ കളിക്കാരന്‍ കൃത്രിമമായി റേറ്റിംഗ് കൂട്ടുകയോ കുറയ്ക്കുകയോ ചെയ്യുന്നു</string>
   <string name="openingExplorerAndTablebase">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="takeback">തിരിച്ചെടുക്കുക</string>

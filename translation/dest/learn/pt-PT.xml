@@ -35,7 +35,7 @@ Tu precisas de ambos!</string>
   <string name="kingIntro">Tu és o rei. Se cais em batalha, o jogo está perdido.</string>
   <string name="theKingIsSlow">O rei é lento.</string>
   <string name="lastOne">Último!</string>
-  <string name="kingComplete">Tu podes agora comandar o comandante!</string>
+  <string name="kingComplete">Agora tu podes comandar o comandante!</string>
   <string name="theKnight">O cavalo</string>
   <string name="itMovesInAnLShape">Move-se em forma de L</string>
   <string name="knightIntro">Aqui está um desafio para ti. O cavalo é... uma peça manhosa.</string>
@@ -67,7 +67,7 @@ Não é necessário promover.</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Captura</string>
   <string name="takeTheEnemyPieces">Captura as peças inimigas</string>
-  <string name="captureIntro">Identifica as peças não defendidas do oponente, captura-las!</string>
+  <string name="captureIntro">Identifica as peças não defendidas do adversário, captura-las!</string>
   <string name="takeTheBlackPieces">Captura as peças pretas!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Captura as peças pretas!
 E não percas as tuas.</string>
@@ -161,7 +161,7 @@ fazer o roque do lado da rainha!</string>
   <string name="blackJustMovedThePawnByTwoSquares">As pretas acabaram de
 avançar o peão duas casas!
 Captura-o en passant.</string>
-  <string name="enPassantOnlyWorksImmediately">O en passant apenas funciona
+  <string name="enPassantOnlyWorksImmediately">O en passant só funciona
 imediatamente depois do adversário
 mover o peão.</string>
   <string name="enPassantOnlyWorksOnFifthRank">O en passant só funciona

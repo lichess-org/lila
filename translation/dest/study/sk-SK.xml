@@ -66,8 +66,10 @@
   <string name="studyPgn">PGN štúdie</string>
   <string name="downloadAllGames">Stiahnúť všetky hry</string>
   <string name="chapterPgn">PGN kapitoly</string>
+  <string name="downloadGame">Stiahnúť hru</string>
   <string name="studyUrl">URL štúdie</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
+  <string name="currentGameUrl">URL aktuálnej hry</string>
   <string name="startAtInitialPosition">Začať zo základného postavenia</string>
   <string name="startAtX">Začať na %s</string>
   <string name="open">Otvoriť</string>

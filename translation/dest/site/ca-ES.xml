@@ -275,7 +275,7 @@
     <item quantity="one">Dóna %s segons</item>
     <item quantity="other">Dóna %s segons</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Aquest jugador s\'ajuda amb un programa informàtic d\'escacs</string>
+  <string name="thisAccountViolatedTos">Aquest compte ha violat els Termes de Servei de Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Aquest jugador incrementa/disminueix artificialment el seu ràting</string>
   <string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de moviments</string>
   <string name="takeback">Desfés la jugada</string>
