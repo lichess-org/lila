@@ -486,7 +486,8 @@ object mod {
             sortNumberTh(reportban)(cls := "i", title := "Reportban"),
             sortNumberTh(notesText)(cls := "i", title := "Notes"),
             sortNumberTh("Created"),
-            sortNumberTh("Active")
+            sortNumberTh("Active"),
+            isGranted(_.CloseAccount) option th
           )
         ),
         tbody(
@@ -533,7 +534,13 @@ object mod {
                   )
                 } getOrElse td(dataSort := 0),
                 td(dataSort := o.createdAt.getMillis)(momentFromNowServer(o.createdAt)),
-                td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer))
+                td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer)),
+                isGranted(_.CloseAccount) option td(
+                  o.enabled option button(
+                    cls := "button button-empty button-thin button-red mark-alt",
+                    href := routes.Mod.alt(o.id, !o.marks.alt)
+                  )("ALT")
+                )
               )
           }
         )
