@@ -7,7 +7,7 @@ export interface SwissSocket {
 
 export default function(send: SocketSend, ctrl: SwissCtrl) {
 
-  const handlers = {
+  const handlers: any = {
     reload() {
       const delay = Math.min(ctrl.data.nbPlayers * 10, 4000);
       if (delay > 500)
@@ -15,7 +15,7 @@ export default function(send: SocketSend, ctrl: SwissCtrl) {
       else
         ctrl.askReload();
     },
-    redirect(fullId) {
+    redirect(fullId: string) {
       ctrl.redirectFirst(fullId.slice(0, 8), true);
       return true;
     }

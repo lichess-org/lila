@@ -3,6 +3,8 @@
   "include": ["src/*.ts", "src/*.js"],
   "compilerOptions": {
     "noImplicitAny": false,
-    "allowJs": true
+    "noUnusedLocals": false,
+    "allowJs": true,
+    "lib": ["DOM", "ES2016", "DOM.iterable"]
   }
 }

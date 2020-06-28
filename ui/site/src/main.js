@@ -944,7 +944,7 @@
 
   function startPuzzle(cfg) {
     cfg.element = document.querySelector('main.puzzle');
-    LichessPuzzle.default(cfg);
+    LichessPuzzle(cfg);
   }
 
   ////////////////////

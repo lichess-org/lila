@@ -14,7 +14,7 @@ export function readDests(lines?: string): Dests | null {
   if (typeof lines === 'undefined') return null;
   const dests: Dests = {};
   if (lines) lines.split(' ').forEach(line => {
-    dests[piotr[line[0]]] = line.slice(1).split('').map(c => piotr[c] as Key)
+    dests[piotr[line[0]]] = line.slice(1).split('').map(c => piotr[c]);
   });
   return dests;
 }
@@ -28,5 +28,5 @@ export const altCastles = {
   e1a1: 'e1c1',
   e1h1: 'e1g1',
   e8a8: 'e8c8',
-  e8h8: 'e8g8'
+  e8h8: 'e8g8',
 };

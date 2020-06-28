@@ -21,7 +21,10 @@ case class UserNotes(user: User, notes: List[Note])
 final class NoteApi(
     userRepo: UserRepo,
     coll: Coll
-)(implicit ec: scala.concurrent.ExecutionContext, ws: play.api.libs.ws.WSClient) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    ws: play.api.libs.ws.WSClient
+) {
 
   import reactivemongo.api.bson._
   import lila.db.BSON.BSONJodaDateTimeHandler

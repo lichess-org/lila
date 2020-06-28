@@ -181,7 +181,14 @@ export function view(ctrl: StudyFormCtrl): VNode {
           ],
           selected: '' + data.settings.description
         })),
-        modal.button(ctrl.trans.noarg(isNew ? 'start' : 'save'))
+        h('div.form-actions', [
+          h('a', {
+            attrs: { href: `/broadcast/-/${data.id}/edit` }
+          }, 'Broadcast settings'),
+          h('button.button', {
+            attrs: { type: 'submit' },
+          }, ctrl.trans.noarg(isNew ? 'start' : 'save'))
+        ])
       ]),
       h('div.destructive', [
         isNew ? null : h('form', {

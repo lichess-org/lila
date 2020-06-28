@@ -184,13 +184,8 @@ trait FormHelper { self: I18nHelper =>
         title := confirm
       )(content)
 
-    def hidden(field: Field, value: Option[String] = None): Frag =
-      st.input(
-        st.id := id(field),
-        name := field.name,
-        st.value := value.orElse(field.value),
-        tpe := "hidden"
-      )
+    def hidden(field: Field, value: Option[String] = None): Tag =
+      hidden(field.name, ~value.orElse(field.value))
 
     def hidden(name: String, value: String): Tag =
       st.input(

@@ -258,7 +258,6 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">Berikan %s detik</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Pemain ini menggunakan bantuan komputer</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Pemain ini bertambah/berkurang ratingnya</string>
   <string name="openingExplorerAndTablebase">Penjelajah pembukaan &amp; tablebase</string>
   <string name="takeback">Langkah Batal</string>

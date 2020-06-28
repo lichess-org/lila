@@ -86,6 +86,12 @@ function userMod($zone) {
 
   makeReady('#mz_others', el => {
     $(el).height($(el).height());
+    $(el).find('.mark-alt').on('click', function() {
+      if (confirm('Close alt account?')) {
+        $.post(this.getAttribute('href'));
+        $(this).remove();
+      }
+    });
   });
   makeReady('#mz_others table', el => {
     tablesort(el, { descending: true });

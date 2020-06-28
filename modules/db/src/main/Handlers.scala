@@ -11,7 +11,7 @@ import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
 
 trait Handlers {
 
-  implicit val BSONJodaDateTimeHandler = dsl.quickHandler[DateTime](
+  implicit val BSONJodaDateTimeHandler = quickHandler[DateTime](
     { case v: BSONDateTime => new DateTime(v.value) },
     v => BSONDateTime(v.getMillis)
   )
@@ -73,7 +73,7 @@ trait Handlers {
     }
 
   def handlerBadType[T](b: BSONValue): Try[T] =
-    Failure(TypeDoesNotMatchException("BSONBinary", b.getClass.getSimpleName))
+    Failure(TypeDoesNotMatchException("BSONValue", b.getClass.getSimpleName))
 
   def handlerBadValue[T](msg: String): Try[T] =
     Failure(new IllegalArgumentException(msg))

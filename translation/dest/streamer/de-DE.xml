@@ -15,7 +15,7 @@
   <string name="downloadKit">Lade das Streamerpaket herunter</string>
   <string name="xIsStreaming">%s streamt gerade</string>
   <string name="rules">Streaming-Regeln</string>
-  <string name="rule1">Füge das Stichwort \"lichess.org\" in deinen Streamtitel ein, wenn du auf Lichess streamst.</string>
+  <string name="rule1">Füge das Stichwort \"lichess.org\" in deinen Streamtitel ein und verwende die Kategorie \"Chess\", wenn du auf Lichess streamst.</string>
   <string name="rule2">Entferne das Stichwort wenn du gerade nicht Lichess-Sachen streamst.</string>
   <string name="rule3">Lichess wird automatisch deinen Stream erkennen und folgende Zusatzdienste aktivieren:</string>
   <string name="perks">Vorteile für das Streamen mit dem Schlüsselwort</string>

@@ -383,20 +383,19 @@ final class User(
         }
         implicit val extractor = EventSource.EventDataExtractor[Frag](_.render)
         Ok.chunked {
-            Source.single(html.user.mod.menu(user)) merge
-              modZoneSegment(actions, "actions", user) merge
-              modZoneSegment(modLog, "modLog", user) merge
-              modZoneSegment(plan, "plan", user) merge
-              modZoneSegment(reportLog, "reportLog", user) merge
-              modZoneSegment(prefs, "prefs", user) merge
-              modZoneSegment(rageSit, "rageSit", user) merge
-              modZoneSegment(others, "others", user) merge
-              modZoneSegment(identification, "identification", user) merge
-              modZoneSegment(irwin, "irwin", user) merge
-              modZoneSegment(assess, "assess", user) via
-              EventSource.flow
-          }
-          .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+          Source.single(html.user.mod.menu(user)) merge
+            modZoneSegment(actions, "actions", user) merge
+            modZoneSegment(modLog, "modLog", user) merge
+            modZoneSegment(plan, "plan", user) merge
+            modZoneSegment(reportLog, "reportLog", user) merge
+            modZoneSegment(prefs, "prefs", user) merge
+            modZoneSegment(rageSit, "rageSit", user) merge
+            modZoneSegment(others, "others", user) merge
+            modZoneSegment(identification, "identification", user) merge
+            modZoneSegment(irwin, "irwin", user) merge
+            modZoneSegment(assess, "assess", user) via
+            EventSource.flow
+        }.as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
   }
 

@@ -191,7 +191,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (recursive) node.children.forEach(function(child) {
       reorderChildren(path + child.id, true);
     });
-  };
+  }
 
   function revertUserMove(): void {
     setTimeout(function() {
@@ -253,7 +253,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       initiate(d);
       redraw();
     });
-  };
+  }
 
   function instanciateCeval(): void {
     if (ceval) ceval.destroy();

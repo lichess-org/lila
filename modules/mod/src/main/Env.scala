@@ -45,7 +45,10 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     slackApi: lila.slack.SlackApi,
     securityStore: lila.security.Store
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   private val config = appConfig.get[ModConfig]("mod")(AutoConfig.loader)
 

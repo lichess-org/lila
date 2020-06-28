@@ -15,7 +15,7 @@
   <string name="downloadKit">Preuzmite paket alata za emitere</string>
   <string name="xIsStreaming">%s emituje</string>
   <string name="rules">Pravila emitovanja</string>
-  <string name="rule1">Uključite ključnu riječ \"lichess.org\" u naslov kada emitujete na Lichess-u.</string>
+  <string name="rule1">Uključite ključnu riječ \"lichess.org\" u naslov i koristite kategoriju \"Chess\", što znači šah, kada emitujete na Lichess-u.</string>
   <string name="rule2">Uklonite ključnu riječ kada emitujete sadržaj koji nije vezan za Lichess.</string>
   <string name="rule3">Lichess će automatski otkriti Vaše emitovanje i omogućiti sljedeće prednosti:</string>
   <string name="perks">Prednosti emitovanja sa ključnom riječi</string>

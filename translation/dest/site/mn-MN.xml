@@ -262,7 +262,6 @@
     <item quantity="one">%s секунд нэмж өгөх</item>
     <item quantity="other">%s секунд нэмж өгөх</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Энэ тоглогч шатар тоглохдоо компьютерийн туслалцаа авдаг</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Энэ тоглогч өөрийн чансааг хиймлээр өсгөж/бууруулж байна</string>
   <string name="openingExplorerAndTablebase">Шатрын гараа болон төгсгөлүүдийг судлах</string>
   <string name="takeback">Нүүдэл буцаалт</string>

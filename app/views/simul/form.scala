@@ -42,8 +42,8 @@ object form {
                 views.html.setup.filter.renderCheckboxes(
                   form,
                   "variants",
-                  form.value.map(_.variants.map(_.toString)).getOrElse(Nil),
-                  translatedVariantChoicesWithVariants
+                  translatedVariantChoicesWithVariants,
+                  checks = form.value.??(_.variants.map(_.toString).toSet)
                 )
               ),
               errMsg(f)

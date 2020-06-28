@@ -4,7 +4,7 @@ import * as control from './control';
 const preventing = (f: () => void) => (e: MouseEvent) => {
   e.preventDefault();
   f();
-}
+};
 
 export default function(ctrl: KeyboardController): void {
   if (!window.Mousetrap) return;

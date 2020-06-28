@@ -11,7 +11,11 @@ import lila.socket.Socket.makeMessage
 final private class SwissSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem, mode: play.api.Mode) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
+    mode: play.api.Mode
+) {
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = none, logger = logger)
 

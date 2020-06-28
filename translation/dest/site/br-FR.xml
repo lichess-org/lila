@@ -239,7 +239,6 @@
     <item quantity="many">Reiñ %s eilennoù</item>
     <item quantity="other">Reiñ %s eilennoù</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Skoazell un urzhiataer a vez implijet gant ar c\'hoarier-mañ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
   <string name="tournament">Tournamant</string>
   <string name="tournaments">Tournamantoù</string>
