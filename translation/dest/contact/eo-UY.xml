@@ -9,6 +9,8 @@
   <string name="forgotPassword">Mi forgesis mian pasvorton</string>
   <string name="forgotUsername">Mi forgesis mian uzantnomo</string>
   <string name="youCanLoginWithEmail">Vi povas ensaluti per la retpoŝta adreso, kiun vi uzis</string>
+  <string name="lost2FA">Mi perdis la aliron al miaj du-faktaj aŭtentokodoj</string>
+  <string name="doPasswordReset">Kompletigu pasvortan restarigon por forigi vian dua faktoron</string>
   <string name="accountSupport">Mi bezonas kontan subtenon</string>
   <string name="wantTitle">Mi volas, ke mia titolo estu montrita sur Lichess</string>
   <string name="visitTitleConfirmation">Por montri vian titolon sur via Lichess profilo kaj partopreni Titolitajn Arenojn, vizitu la titolan konfirman paĝon</string>
@@ -19,6 +21,7 @@
   <string name="reopenOnThisPage">Vi povas remalfermi vian konton en ĉi tiu paĝo. Ĝi funkcias nur unufoje.</string>
   <string name="doNotAskByEmailToReopen">Ne petu retpoŝte al ni remailfermi konton, ni ne faros tion.</string>
   <string name="wantChangeUsername">Mi volas ŝanĝi mian uzantnomon</string>
+  <string name="changeUsernameCase">Vizitu ĉi tiun paĝon por ŝanĝi la kazon de via uzantnomo</string>
   <string name="orCloseAccount">Tamen vi povas fermi vian nunan konton kaj krei novan.</string>
   <string name="wantClearHistory">Mi volas forigi mian historion aŭ poentaron</string>
   <string name="cantClearHistory">Ne eblas malplenigi vian ludan historion, puzlan historion aŭ poentaron.</string>
