@@ -9,8 +9,8 @@
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "compile": "../../node_modules/typescript/bin/tsc",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
+    "dev": "yarn run compile && gulp dev",
+    "prod": "yarn run compile && gulp prod"
   },
   "dependencies": {
     "snabbdom": "^0.7.4"
