@@ -15,9 +15,8 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
+    "dev": "gulp dev",
+    "prod": "gulp prod"
   },
   "devDependencies": {
     "@build/tsProject": "2.0.0",
