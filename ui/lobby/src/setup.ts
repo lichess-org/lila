@@ -195,17 +195,17 @@ export default class Setup {
       const ajaxSubmit = color => {
         const poolMember = this.hookToPoolMember(color, $form.serializeArray());
         $.modal.close();
-        const call = {
-          url: $form.attr('action').replace(/sri-placeholder/, li.sri),
-          data: $form.serialize() + "&color=" + color,
-          type: 'post'
-        };
         if (poolMember) {
           this.root.enterPool(poolMember);
           this.root.redraw();
-          call.url += '?pool=1';
-        } else this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
-        $.ajax(call);
+        } else {
+          this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
+          $.ajax({
+            url: $form.attr('action').replace(/sri-placeholder/, li.sri),
+            data: $form.serialize() + "&color=" + color,
+            type: 'post'
+          });
+        }
         return false;
       };
       $submits.click(function(this: HTMLElement) {
