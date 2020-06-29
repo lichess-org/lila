@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Lecionoj</string>
+  <string name="teachClassesOfChessStudents">Instruu al klasoj de ŝako-studentoj kun la ilo de Klasoj de Lichess.</string>
   <string name="features">Funkcioj</string>
   <string name="quicklyGenerateSafeUsernames">Rapide kreu sekurajn uzantonomon kaj pasvortojn por viaj lernantoj</string>
   <string name="trackStudentProgress">Sekvi la progreson de la lernanto en ludoj kaj puzloj</string>
@@ -17,12 +18,15 @@
   <string name="removedStudents">Forigita</string>
   <string name="inviteTheStudentBack">Denove inviti la lernanton</string>
   <string name="sendAMessage">Sendi mesaĝon al ĉiuj lernantoj.</string>
+  <string name="aLinkToTheClassWillBeAdded">Ligilo al la klaso aŭtomate aldoniĝos ĉe la fino de la mesaĝo, do vi ne bezonas inkludi ĝin mem.</string>
   <string name="className">Nomo de la leciono</string>
   <string name="classDescription">Priskribo de la leciono</string>
   <string name="visibleByBothStudentsAndTeachers">Videbla por instruistoj kaj lernantoj de la klaso</string>
   <string name="teachersOfTheClass">Instruistoj de la leciono</string>
   <string name="addLichessUsernames">Aldoni Lichess usantonomon de liches por inviti ilin kiel instaistoj. Unu po linio.</string>
+  <string name="theyMustFirstApply">Ili devas unua kandidatiĝi por esti Lichess Instruistoj.</string>
   <string name="resetPassword">Rekomencigi Pasvorton</string>
+  <string name="makeSureToCopy">Certigu nun kopii aŭ noti la pasvorton nun. Vi ne povos vidi ĝin denove!</string>
   <string name="passwordX">Pasvorto: %s</string>
   <string name="generateANewPassword">Krei novan pasvortojn por la lernanto</string>
   <string name="invitedToXByY">Invitita %1$s al %2$s</string>
@@ -37,6 +41,7 @@ Pasvorto: %3$s</string>
   <string name="inviteDesc1">Se la studento jam havas Lichess konton, vi povas inviti ŝin/lin al la klaso.</string>
   <string name="inviteDesc2">Ili ricevos mesaĝon en Lichess kun ligo por aliĝi al la klaso.</string>
   <string name="inviteDesc3">Grava: invitu nur homojn, kiujn vi konas kaj kiuj aktive volas aliĝi al tiu ĉi studo.</string>
+  <string name="inviteDesc4">Neniam sendu nepetitajn invitojn al arbitraj ludantoj.</string>
   <string name="createANewLichessAccount">Kreni novan Lichess konton</string>
   <string name="lichessUsername">Lichess-uzantnomo</string>
   <string name="generateANewUsername">Krei novan uzantonomon</string>
