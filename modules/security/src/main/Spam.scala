@@ -17,7 +17,8 @@ final class Spam(
        * effectively inducing spam */
       "chess24.com?ref=",
       "chess.com/register?refId=",
-      "chess.com/register?ref_id="
+      "chess.com/register?ref_id=",
+      "decodechess.com/ref/"
     )
 
   private lazy val staticBlacklist = List("chess-bot.com") ::: bannedYoutubeIds ::: referBlacklist
