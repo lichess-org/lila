@@ -66,7 +66,7 @@ case class Simul(
     }
 
   def removePairing(userId: String) =
-    copy(pairings = pairings filterNot (_ is userId)).finishIfDone
+    copy(pairings = pairings.filterNot(_ is userId)).finishIfDone
 
   def nbAccepted = applicants.count(_.accepted)
 
