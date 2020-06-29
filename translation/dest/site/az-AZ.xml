@@ -243,7 +243,7 @@
   <string name="recipient">Məktubu alan</string>
   <string name="send">Göndər</string>
   <string name="incrementInSeconds">saniyə artırma</string>
-  <string name="freeOnlineChess">Pulsuz</string>
+  <string name="freeOnlineChess">Pulsuz Onlayn Şahmat</string>
   <string name="spectators">tamaşaçı</string>
   <plurals name="nbRated">
     <item quantity="one">%s reytinqli</item>
@@ -615,5 +615,8 @@
   <string name="dark">Qaranlıq</string>
   <string name="transparent">Şəffaf</string>
   <string name="backgroundImageUrl">Arxaplan rəsmi URL:</string>
-  <string name="boardSize">Taxtanın ölçüsü</string>
+  <string name="boardGeometry">Taxta geometriyası</string>
+  <string name="boardTheme">Taxta teması</string>
+  <string name="boardSize">Taxta ölçüsü</string>
+  <string name="pieceSet">Fiqur seti</string>
 </resources>
