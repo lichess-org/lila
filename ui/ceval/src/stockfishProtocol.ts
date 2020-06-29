@@ -72,7 +72,7 @@ export default class Protocol {
     if (depth < this.opts.minDepth) return;
 
     const pivot = this.work.threatMode ? 0 : 1;
-    const ev = (this.work.ply % 2 === pivot) ? povEv : -povEv;
+    const ev = (this.work.ply % 2 === pivot) ? -povEv : povEv;
 
     // For now, ignore most upperbound/lowerbound messages.
     // The exception is for multiPV, sometimes non-primary PVs
