@@ -16,8 +16,8 @@
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "compile": "../../node_modules/typescript/bin/tsc",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
+    "dev": "yarn run compile && gulp dev",
+    "prod": "yarn run compile && gulp prod"
   },
   "devDependencies": {
     "@build/tsProject": "2.0.0",
