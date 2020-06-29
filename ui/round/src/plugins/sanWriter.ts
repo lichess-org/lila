@@ -63,8 +63,8 @@ var ROOK_DELTAS = [8, 1, -8, -1];
 var BISHOP_DELTAS = [9, -9, 7, -7];
 var QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
 
-function slidingMovesTo(s, deltas, board) {
-  var result = [];
+function slidingMovesTo(s: number, deltas: number[], board): number[] {
+  var result: number[] = [];
   deltas.forEach(function(delta) {
     for (var square = s + delta; square >= 0 && square < 64 && squareDist(square, square - delta) === 1; square += delta) {
       result.push(square);
@@ -102,7 +102,7 @@ function sanOf(board, uci) {
   var san = pt.toUpperCase();
 
   // disambiguate normal moves
-  var candidates = [];
+  var candidates: number[] = [];
   if (pt == 'k') candidates = kingMovesTo(to);
   else if (pt == 'n') candidates = knightMovesTo(to);
   else if (pt == 'r') candidates = slidingMovesTo(to, ROOK_DELTAS, board);
