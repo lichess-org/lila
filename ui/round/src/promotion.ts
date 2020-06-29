@@ -78,6 +78,7 @@ function finish(ctrl: RoundController, role: cg.Role) {
     promoting = undefined;
     if (info.pre) setPrePromotion(ctrl, info.move[1], role);
     else sendPromotion(ctrl, info.move[0], info.move[1], role, info.meta);
+    ctrl.redraw();
   }
 }
 
