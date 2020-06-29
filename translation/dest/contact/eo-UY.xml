@@ -63,6 +63,9 @@
   <string name="engineAppeal">Motoro aŭ trompmarko</string>
   <string name="sendAppealTo">Vi povas sendi apelacion al %s.</string>
   <string name="falsePositives">Falsaj pozitivoj kelkfoje okazas, kaj ni bedaŭras pro tio.</string>
+  <string name="ifLegit">Se via apelacio estas legitima, ni nuligos la malpermeson ASAP.</string>
+  <string name="accountLost">Tamen se vi vere uzis helpan motoron, eĉ nur unu fojon, tiam via konto bedaŭrinde estas perdita.</string>
+  <string name="doNotDeny">Ne rifuzu trompi. Se vi volas rajti krei novan konton, nur konfesu tion, kion vi faris, kaj montru, ke vi komprenis, ke ĝi estis eraro.</string>
   <string name="otherRestriction">Alia limigo</string>
   <string name="collaboration">Kunlaboro, leĝa, komerca</string>
   <string name="monetizing">Monigi Lichess</string>
