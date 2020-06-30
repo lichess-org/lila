@@ -137,7 +137,7 @@ export default class Setup {
         $form[0].querySelectorAll(`[name="${k}"]`).forEach((input: HTMLInputElement) => {
           if (input.type == 'checkbox') input.checked = true;
           else if (input.type == 'radio') input.checked = input.value == c[k];
-          else if (c[k] && !input.value) input.value = c[k];
+          else if (k != 'fen' || !input.value) input.value = c[k];
         });
       });
     }
