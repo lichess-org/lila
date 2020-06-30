@@ -77,29 +77,39 @@ final class LiveStreamApi(
 
   def all: Fu[LiveStreams] = cache.getUnit
   // import org.joda.time.DateTime
-  // def all: Fu[LiveStreams] = fuccess(LiveStreams(List(
-  //   Stream.Twitch.Stream("thibault", "test stream on lichess.org", Streamer(
-  //     _id = Streamer.Id("thibault"),
-  //     listed = Streamer.Listed(true),
-  //     approval = Streamer.Approval(
-  //       requested = false,
-  //       granted = true,
-  //       ignored = false,
-  //       autoFeatured = true,
-  //       chatEnabled = true
-  //     ),
-  //     picturePath = none,
-  //     name = Streamer.Name("thibault"),
-  //     headline = none,
-  //     description = none,
-  //     twitch = none,
-  //     youTube = none,
-  //     seenAt = DateTime.now, // last seen online
-  //     liveAt = DateTime.now.some, // last seen streaming
-  //     createdAt = DateTime.now,
-  //     updatedAt = DateTime.now
-  //   ))
-  // )))
+  // def all: Fu[LiveStreams] =
+  //   fuccess(
+  //     LiveStreams(
+  //       List(
+  //         Stream.Twitch.Stream(
+  //           "thibault",
+  //           "test stream on lichess.org",
+  //           Streamer(
+  //             _id = Streamer.Id("thibault"),
+  //             listed = Streamer.Listed(true),
+  //             approval = Streamer.Approval(
+  //               requested = false,
+  //               granted = true,
+  //               ignored = false,
+  //               tier = 5,
+  //               chatEnabled = true,
+  //               lastGrantedAt = DateTime.now.some
+  //             ),
+  //             picturePath = none,
+  //             name = Streamer.Name("thibault"),
+  //             headline = none,
+  //             description = none,
+  //             twitch = none,
+  //             youTube = none,
+  //             seenAt = DateTime.now,      // last seen online
+  //             liveAt = DateTime.now.some, // last seen streaming
+  //             createdAt = DateTime.now,
+  //             updatedAt = DateTime.now
+  //           )
+  //         )
+  //       )
+  //     )
+  //   )
 
   def of(s: Streamer.WithUser): Fu[Streamer.WithUserAndStream] =
     all.map { live =>

@@ -101,7 +101,13 @@ object home {
         },
         div(cls := "lobby__side")(
           ctx.blind option h2("Highlights"),
-          ctx.noKid option st.section(cls := "lobby__streams")(views.html.streamer.bits liveStreams streams),
+          ctx.noKid option st.section(cls := "lobby__streams")(
+            views.html.streamer.bits liveStreams streams,
+            streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
+              trans.streamersMenu(),
+              " »"
+            )
+          ),
           div(cls := "lobby__spotlights")(
             events.map(bits.spotlight),
             !ctx.isBot option frag(
@@ -115,7 +121,6 @@ object home {
             div(cls := "timeline")(
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
-              // userTimeline.size >= 8 option
               userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
             )
           else
