@@ -16,8 +16,8 @@ exports.rollupProject = (targets) => {
           name: target.name,
           plugins: [
             terser({
+              safari10: true,
               output: {
-                safari10: true,
                 comments: false,
               },
             }),
