@@ -74,4 +74,6 @@
   <string name="captureComplete">अभिनंदन! बुद्धीबळ गोट्यांसह कसे लढायचे हे आपल्याला माहित आहे!</string>
   <string name="protection">संरक्षण</string>
   <string name="combat">लढाई</string>
+  <string name="combatIntro">एक चांगला योद्धा हल्ला आणि बचाव दोन्ही गोष्टी जाणतो!</string>
+  <string name="combatComplete">अभिनंदन! बुद्धीबळ गोट्यांसह कसे लढायचे हे आपल्याला माहित आहे!</string>
 </resources>
