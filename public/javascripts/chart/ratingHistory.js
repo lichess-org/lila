@@ -7,7 +7,7 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
     var reversed = data.slice().reverse();
     var allDates = [];
     for (var i = begin-oneDay; i <= end; i+=oneDay) {
-      allDates.push([i])
+      allDates.push(i)
     }
     var result = [];
     for (var j = 1; j < allDates.length; j++) {
