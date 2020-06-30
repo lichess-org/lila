@@ -265,8 +265,7 @@ final class Tournament(
       create: => Fu[Result]
   ): Fu[Result] = {
     val cost =
-      if (me.id == "fide") 5
-      else if (
+      if (
         me.hasTitle ||
         env.streamer.liveStreamApi.isStreaming(me.id) ||
         isGranted(_.ManageTournament, me) ||
