@@ -12,8 +12,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/tsProject": "2.0.0",
-    "@build/cssProject": "2.0.0"
+    "@build/tsProject": "2.0.0"
   },
   "dependencies": {
     "chessground": "^7.7.2",

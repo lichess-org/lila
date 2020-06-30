@@ -10,7 +10,6 @@
   },
   "devDependencies": {
     "@build/tsProject": "2.0.0",
-    "@build/cssProject": "2.0.0",
     "@types/jquery": "^2.0",
     "@types/jqueryui": "^1.11",
     "@types/lichess": "2.0.0"
