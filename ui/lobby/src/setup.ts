@@ -11,6 +11,8 @@ export default class Setup {
     ai: FormStore;
   }
 
+  ratingRange = () => this.stores.hook.get()?.ratingRange;
+
   constructor(makeStorage: (name: string) => LichessStorage, readonly root: LobbyController) {
     this.stores = {
       hook: makeStore(makeStorage('lobby.setup.hook')),

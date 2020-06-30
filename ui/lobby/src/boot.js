@@ -32,7 +32,7 @@ module.exports = function(cfg, element) {
   onFirstConnect = function() {
     var gameId = getParameterByName('hook_like');
     if (!gameId) return;
-    $.post('/setup/hook/' + lichess.sri + '/like/' + gameId);
+    $.post(`/setup/hook/${lichess.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`);
     lobby.setTab('real_time');
     history.replaceState(null, null, '/');
   },
