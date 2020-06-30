@@ -391,7 +391,7 @@
             playing = $('body').hasClass('playing');
           lichess.loadCssPath('dasher');
           lichess.loadScript(lichess.compiledScript('dasher')).done(() =>
-            LichessDasher.default($el.empty()[0], { playing })
+            LichessDasher($el.empty()[0], { playing })
           );
         });
       }
