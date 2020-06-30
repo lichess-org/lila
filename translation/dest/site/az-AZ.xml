@@ -210,6 +210,7 @@
   <string name="playingRightNow">İndi oyna</string>
   <string name="eventInProgress">Hal-hazırda oynayır</string>
   <string name="finished">Bitdi</string>
+  <string name="finishesX">%s sona ərəcək</string>
   <string name="abortGame">Oyunu ləğv et</string>
   <string name="gameAborted">Oyun ləğv olundu</string>
   <string name="standard">Standart</string>
@@ -217,15 +218,19 @@
   <string name="mode">Növ</string>
   <string name="casual">Adi oyun</string>
   <string name="rated">Reytinqli oyun</string>
+  <string name="casualTournament">Xalsız</string>
   <string name="ratedTournament">Reytingli oyun</string>
   <string name="thisGameIsRated">Bu, reytinqli oyundur</string>
   <string name="rematch">Əvəzçıxma</string>
   <string name="rematchOfferSent">Əvəzçıxma təklifi göndərildi</string>
+  <string name="rematchOfferSentWhite">Ağlar yeni bir oyun təklif edir</string>
+  <string name="rematchOfferSentBlack">Qaralar yeni bir oyun təklif edir</string>
   <string name="rematchOfferAccepted">Əvəzçıxma qəbul edildi</string>
   <string name="rematchOfferCanceled">Əvəzçıxma təklifi ləğv olundu</string>
   <string name="rematchOfferDeclined">Əvəzçıxma təklifi rədd edildi</string>
   <string name="cancelRematchOffer">Əvəzçıxma təklifini ləğv et</string>
   <string name="viewRematch">Əvəzçıxmanı göstər</string>
+  <string name="confirmMove">Gedişi təsdiq et</string>
   <string name="play">Oyna</string>
   <string name="inbox">Gələnlər qutusu</string>
   <string name="chatRoom">Söhbət otağı</string>
@@ -238,7 +243,7 @@
   <string name="recipient">Məktubu alan</string>
   <string name="send">Göndər</string>
   <string name="incrementInSeconds">saniyə artırma</string>
-  <string name="freeOnlineChess">Pulsuz</string>
+  <string name="freeOnlineChess">Pulsuz Onlayn Şahmat</string>
   <string name="spectators">tamaşaçı</string>
   <plurals name="nbRated">
     <item quantity="one">%s reytinqli</item>
@@ -266,6 +271,7 @@
     <item quantity="one">%s saniyə ver</item>
     <item quantity="other">%s saniyə ver</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Bu hesap Lichess İstifadə Şərtlərini pozdu</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyunçu öz reytinqini süni şəklidə artırır</string>
   <string name="openingExplorerAndTablebase">Debüt &amp; endşpil bazası</string>
   <string name="takeback">Gedişi geri götür</string>
@@ -282,6 +288,15 @@
   <string name="viewTournament">Turnirə baxmaq</string>
   <string name="backToTournament">Turnire qayıt</string>
   <string name="thematic">Tematik</string>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">%s dənə daha reytinqli oyun oynamanız gərəklidir</item>
+    <item quantity="other">%s dənə daha reytinqli  oynamanız gərəklidir</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">%s reytinqiniz keçicidir</string>
+  <string name="yourPerfRatingIsTooHigh">Haftalık %1$s reytinqiniz (%2$s) gərəkəndən çox</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Haftalık %1$s reytinqiniz (%2$s) gərəkəndən çox</string>
+  <string name="yourPerfRatingIsTooLow">%1$s reytinqiniz (%2$s) gərəkəndən az</string>
+  <string name="ratedMoreThanInPerf">%2$s reytinqi ≥ %1$s olmalıdır</string>
   <string name="backToGame">Oyuna qayıt</string>
   <string name="siteDescription">Bu, internet şəbəkəsi üzərində pulsuz Şahmat oyunudur. İndi təmiz araüzdə şahmat oynaya bilərsiniz. Qeydiyyat gərəkli deyil. Heçbir reklam və proqram əlavəsinə ehtiyac yoxdur. Komputer, yoldaşların və ya istənilən rəqiblə oynaya bilərsiniz.</string>
   <string name="xJoinedTeamY">%1$s %2$s komandaya üzv oldu</string>
@@ -594,4 +609,14 @@
     <item quantity="other">%s dillərdə mövcuddur</item>
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
+  <string name="language">Dil</string>
+  <string name="background">Arxaplan</string>
+  <string name="light">İşıq</string>
+  <string name="dark">Qaranlıq</string>
+  <string name="transparent">Şəffaf</string>
+  <string name="backgroundImageUrl">Arxaplan rəsmi URL:</string>
+  <string name="boardGeometry">Taxta geometriyası</string>
+  <string name="boardTheme">Taxta teması</string>
+  <string name="boardSize">Taxta ölçüsü</string>
+  <string name="pieceSet">Fiqur seti</string>
 </resources>
