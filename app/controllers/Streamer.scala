@@ -101,7 +101,7 @@ final class Streamer(
               data =>
                 api.update(sws.streamer, data, isGranted(_.Streamers)) flatMap { change =>
                   change.list foreach { env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
-                  change.feature foreach { env.mod.logApi.streamerFeature(lila.report.Mod(me), s.user.id, _) }
+                  change.tier foreach { env.mod.logApi.streamerTier(lila.report.Mod(me), s.user.id, _) }
                   if (data.approval.flatMap(_.quick).isDefined)
                     env.streamer.pager.nextRequestId map { nextId =>
                       Redirect {

@@ -38,7 +38,8 @@ final class Preload(
       posts: Fu[List[MiniForumPost]],
       tours: Fu[List[Tournament]],
       events: Fu[List[Event]],
-      simuls: Fu[List[Simul]]
+      simuls: Fu[List[Simul]],
+      streamerSpots: Int
   )(implicit ctx: Context): Fu[Homepage] =
     lobbyApi(ctx).mon(_.lobby segment "lobbyApi") zip
       posts.mon(_.lobby segment "posts") zip
@@ -51,7 +52,7 @@ final class Preload(
       tourWinners.all.dmap(_.top).mon(_.lobby segment "tourWinners") zip
       (ctx.noBot ?? dailyPuzzle()).mon(_.lobby segment "puzzle") zip
       (ctx.noKid ?? liveStreamApi.all
-        .dmap(_.autoFeatured withTitles lightUserApi)
+        .dmap(_ homepage streamerSpots withTitles lightUserApi)
         .mon(_.lobby segment "streams")) zip
       (ctx.userId ?? playbanApi.currentBan).mon(_.lobby segment "playban") zip
       (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) flatMap {

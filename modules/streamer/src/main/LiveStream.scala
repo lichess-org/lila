@@ -17,9 +17,15 @@ case class LiveStreams(streams: List[Stream]) {
 
   def get(streamer: Streamer) = streams.find(_ is streamer)
 
-  def autoFeatured =
+  def homepage(max: Int) =
     LiveStreams {
-      streams.filter(_.streamer.approval.autoFeatured)
+      streams
+        .takeWhile(_.streamer.approval.tier > 0)
+        .foldLeft(Vector.empty[Stream]) {
+          case (selected, s) if selected.size < max || s.streamer.approval.tier == Streamer.maxTier =>
+            s +: selected
+        }
+        .toList
     }
 
   def withTitles(lightUser: lila.user.LightUserApi) =
@@ -60,8 +66,10 @@ final class LiveStreamApi(
   private val cache = cacheApi.unit[LiveStreams] {
     _.refreshAfterWrite(2 seconds)
       .buildAsyncFuture { _ =>
-        streamingActor ? Streaming.Get mapTo manifest[LiveStreams] addEffect { liveStreams =>
-          userIdsCache = liveStreams.streams.map(_.streamer.userId).toSet
+        streamingActor ? Streaming.Get mapTo manifest[LiveStreams] dmap { s =>
+          LiveStreams(s.streams.sortBy(-_.streamer.approval.tier))
+        } addEffect { s =>
+          userIdsCache = s.streams.map(_.streamer.userId).toSet
         }
       }
   }

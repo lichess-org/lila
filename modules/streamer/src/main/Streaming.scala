@@ -21,6 +21,7 @@ final private class Streaming(
     alwaysFeatured: () => lila.common.Strings,
     googleApiKey: Secret,
     twitchCredentials: () => (String, String),
+    homepageSpots: () => Int,
     lightUserApi: lila.user.LightUserApi
 ) extends Actor {
 
@@ -66,7 +67,7 @@ final private class Streaming(
     import makeTimeout.short
     import akka.pattern.ask
     if (newStreams != liveStreams) {
-      renderer.actor ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
+      renderer.actor ? newStreams.homepage(homepageSpots()).withTitles(lightUserApi) foreach {
         case html: String =>
           Bus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), "streams")
       }

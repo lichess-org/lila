@@ -53,8 +53,9 @@ case class Modlog(
       case Modlog.garbageCollect      => "garbage collect"
       case Modlog.streamerList        => "list streamer"
       case Modlog.streamerUnlist      => "unlist streamer"
-      case Modlog.streamerFeature     => "feature streamer"
-      case Modlog.streamerUnfeature   => "unfeature streamer"
+      case Modlog.streamerFeature     => "feature streamer"   // BC
+      case Modlog.streamerUnfeature   => "unfeature streamer" // BC
+      case Modlog.streamerTier        => "set streamer tier"
       case Modlog.teamKick            => "kick from team"
       case Modlog.teamEdit            => "edited team"
       case a                          => a
@@ -112,8 +113,9 @@ object Modlog {
   val garbageCollect      = "garbageCollect"
   val streamerList        = "streamerList"
   val streamerUnlist      = "streamerunlist"
-  val streamerFeature     = "streamerFeature"
-  val streamerUnfeature   = "streamerUnfeature"
+  val streamerFeature     = "streamerFeature"   // BC
+  val streamerUnfeature   = "streamerUnfeature" // BC
+  val streamerTier        = "streamerTier"
   val teamKick            = "teamKick"
   val teamEdit            = "teamEdit"
 }

@@ -60,6 +60,13 @@ final class Env(
       text = "Twitch API client ID and secret, separated by a space".some
     )
 
+  lazy val homepageMaxSetting =
+    settingStore[Int](
+      "streamerHomepageMax",
+      default = 6,
+      text = "Max streamers on homepage".some
+    )
+
   lazy val api: StreamerApi = wire[StreamerApi]
 
   lazy val pager = wire[StreamerPager]
@@ -80,6 +87,7 @@ final class Env(
             case Array(client, secret) => (client, secret)
             case _                     => ("", "")
           },
+        homepageSpots = homepageMaxSetting.get _,
         lightUserApi = lightUserApi
       )
     )

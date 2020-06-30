@@ -18,6 +18,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
     add {
       Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)
     }
+  def streamerTier(mod: Mod, streamerId: User.ID, v: Int) =
+    add {
+      Modlog(mod.user.id, streamerId.some, Modlog.streamerTier, v.toString.some)
+    }
+  // BC
   def streamerFeature(mod: Mod, streamerId: User.ID, v: Boolean) =
     add {
       Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerFeature else Modlog.streamerUnfeature)
