@@ -311,6 +311,7 @@
   <string name="pasteThePgnStringHere">PGN yazısını bura qoyun</string>
   <string name="fromPosition">Fərqli düzülüşdən</string>
   <string name="continueFromHere">Buradan davam edin</string>
+  <string name="toStudy">Çalışma</string>
   <string name="importGame">Oyun daxil edin</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s oyunları daxil etdi</item>
@@ -609,6 +610,8 @@
     <item quantity="other">%s dillərdə mövcuddur</item>
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
+  <string name="quickPairing">Tez qoşulma</string>
+  <string name="lobby">Lobbi</string>
   <string name="language">Dil</string>
   <string name="background">Arxaplan</string>
   <string name="light">İşıq</string>
@@ -619,4 +622,6 @@
   <string name="boardTheme">Taxta teması</string>
   <string name="boardSize">Taxta ölçüsü</string>
   <string name="pieceSet">Fiqur seti</string>
+  <string name="rapid">Rapid</string>
+  <string name="classical">Klassik</string>
 </resources>
