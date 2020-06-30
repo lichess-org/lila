@@ -69,7 +69,9 @@ final class SwissTrf(
             }
           ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
       }
-    } ::: p.absent.?? {
+    } ::: {
+      p.absent && swiss.round.value < swiss.settings.nbRounds
+    }.?? {
       List( // http://www.rrweb.org/javafo/aum/JaVaFo2_AUM.htm#_Unusual_info_extensions
         95 -> "0000",
         97 -> "",
