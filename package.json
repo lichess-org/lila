@@ -48,6 +48,7 @@
     "ui/serviceWorker",
     "ui/simul",
     "ui/site",
+    "ui/swiss",
     "ui/tournament",
     "ui/tournamentSchedule",
     "ui/tournamentCalendar",
