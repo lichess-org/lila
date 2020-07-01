@@ -371,6 +371,9 @@
   <string name="conditionOfEntry">Qatılma şərti:</string>
   <string name="advancedSettings">Ətraflı tənzimləmələr</string>
   <string name="safeTournamentName">Turnir üçün olduqca güvənli bir ad seçin.</string>
+  <string name="inappropriateNameWarning">Her hansı bir uyğunsuz ad, hesabınızın yasaqlanmasına yol açabilər.</string>
+  <string name="emptyTournamentName">Qutuyu boş bıraxaraq turnirə rastgələ bir Böyük şahmatçının adını verəbilərsiniz.</string>
+  <string name="recommendNotTouching">Bu tənzimləmələrə toxunmamanızı önəririk.</string>
   <string name="join">Qoşul</string>
   <string name="withdraw">Heç-heçə</string>
   <string name="points">Xallar</string>
