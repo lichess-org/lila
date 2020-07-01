@@ -340,7 +340,7 @@
           var $el = $('#notify-app').html(initiatingHtml);
           lichess.loadCssPath('notify');
           lichess.loadScript(lichess.compiledScript('notify')).done(function() {
-            instance = LichessNotify.default($el.empty()[0], {
+            instance = LichessNotify($el.empty()[0], {
               data: data,
               incoming: incoming,
               isVisible: isVisible,
