@@ -295,7 +295,7 @@
           var $el = $('#challenge-app').html(lichess.initiatingHtml);
           lichess.loadCssPath('challenge');
           lichess.loadScript(lichess.compiledScript('challenge')).done(function() {
-            instance = LichessChallenge.default($el[0], {
+            instance = LichessChallenge($el[0], {
               data: data,
               show: function() {
                 if (!$('#challenge-app').is(':visible')) $toggle.click();
