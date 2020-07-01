@@ -504,6 +504,7 @@
   <string name="playOnTheBoardOffline">Taxta üzərində</string>
   <string name="playOfflineComputer">Kompüter</string>
   <string name="opponent">rəqib</string>
+  <string name="learnMenu">Öyrən</string>
   <string name="community">Cəmiyyət</string>
   <string name="tools">Alətlər</string>
   <string name="increment">Artım</string>
@@ -622,6 +623,7 @@
   <string name="boardTheme">Taxta teması</string>
   <string name="boardSize">Taxta ölçüsü</string>
   <string name="pieceSet">Fiqur seti</string>
+  <string name="custom">Özəl</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
 </resources>
