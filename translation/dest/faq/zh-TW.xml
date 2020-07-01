@@ -41,12 +41,19 @@
   <string name="lichessSupportChessAnd">Lichess上有標準國際象棋和%1$s</string>
   <string name="eightVariants">8種變體</string>
   <string name="officialRulesPDF">官方規則 (PDF)</string>
+  <string name="lichessTraining">Lichess 訓練</string>
+  <string name="handBookPDF">手冊(PDF)</string>
   <string name="positions">位置</string>
+  <string name="configure">配置</string>
   <string name="accounts">帳戶</string>
+  <string name="titlesAvailableOnLichess">Lichess 上有什麼頭銜?</string>
   <string name="noUpperCaseDot">不行</string>
+  <string name="uniqueTrophies">獨一無二的獎盃</string>
   <string name="lichessRatings">Lichess 評分</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什麼評分機制?</string>
+  <string name="howDoLeaderoardsWork">排名和排行榜是如何運作的?</string>
   <string name="ratingLeaderboards">評分排行表</string>
+  <string name="howToHideRatingWhilePlaying">如何在奕棋時隱藏評分?</string>
   <string name="connexionLostCanIGetMyRatingBack">我因為斷線或lag而導致我輸了。我可以加回我的分數嗎?</string>
   <string name="howToThreeDots">如何...</string>
 </resources>
