@@ -238,7 +238,7 @@ export default class Setup {
             },
           valueToTime = (v: number) => (isTimeSlider ? self.sliderTime : self.sliderIncrement)(v),
           show = (time: number) => $value.text(isTimeSlider ? showTime(time) : time);
-        show($input.val());
+        show(parseFloat($input.val()));
         $input.after($('<div>').slider({
           value: self.sliderInitVal(parseFloat($input.val()), isTimeSlider ? self.sliderTime : self.sliderIncrement, 100),
           min: 0,
