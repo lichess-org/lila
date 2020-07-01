@@ -24,6 +24,7 @@ case class LiveStreams(streams: List[Stream]) {
         .foldLeft(Vector.empty[Stream]) {
           case (selected, s) if selected.size < max || s.streamer.approval.tier == Streamer.maxTier =>
             selected :+ s
+          case (selected, _) => selected
         }
         .toList
     }
