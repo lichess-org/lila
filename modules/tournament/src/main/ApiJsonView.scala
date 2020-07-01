@@ -50,22 +50,21 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
           "short" -> tour.variant.shortName,
           "name"  -> tour.variant.name
         ),
-        "secondsToStart" -> tour.secondsToStart,
-        "startsAt"       -> tour.startsAt,
-        "finishesAt"     -> tour.finishesAt,
-        "status"         -> tour.status.id,
-        "perf"           -> tour.perfType.map(perfJson)
+        "startsAt"   -> tour.startsAt,
+        "finishesAt" -> tour.finishesAt,
+        "status"     -> tour.status.id,
+        "perf"       -> tour.perfType.map(perfJson)
       )
+      .add("secondsToStart", tour.secondsToStart.some.filter(0 <))
       .add("hasMaxRating", tour.conditions.maxRating.isDefined)
       .add("private", tour.isPrivate)
       .add("position", tour.position.some.filterNot(_.initial) map positionJson)
       .add("schedule", tour.schedule map scheduleJson)
 
   def fullJson(tour: Tournament)(implicit lang: Lang): Fu[JsObject] =
-    for {
-      owner  <- tour.nonLichessCreatedBy ?? lightUserApi.async
-      winner <- tour.winnerId ?? lightUserApi.async
-    } yield baseJson(tour) ++ Json.obj("winner" -> winner.map(userJson))
+    (tour.winnerId ?? lightUserApi.async) map { winner =>
+      baseJson(tour).add("winner" -> winner.map(userJson))
+    }
 
   private def userJson(u: lila.common.LightUser) =
     Json.obj(

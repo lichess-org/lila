@@ -17,7 +17,10 @@ import views._
 
 final class Tournament(
     env: Env,
-    teamC: => Team
+    teamC: => Team,
+    apiC: => Api
+)(implicit
+    mat: akka.stream.Materializer
 ) extends LilaController(env) {
 
   private def repo     = env.tournament.tournamentRepo
@@ -449,6 +452,18 @@ final class Tournament(
           Redirect(routes.Tournament.home)
         }
       }
+    }
+
+  def byTeam(id: String) =
+    Action.async { implicit req =>
+      implicit val lang = reqLang
+      apiC.jsonStream {
+        env.tournament.tournamentRepo
+          .byTeamCursor(id)
+          .documentSource(getInt("max", req) | 100)
+          .mapAsync(1)(env.tournament.apiJsonView.fullJson)
+          .throttle(20, 1.second)
+      }.fuccess
     }
 
   private def WithEditableTournament(id: String, me: UserModel)(

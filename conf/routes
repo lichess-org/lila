@@ -310,6 +310,7 @@ GET   /api/team/search                        controllers.Team.apiSearch(text: S
 GET   /api/team/of/:username                  controllers.Team.apiTeamsOf(username: String)
 GET   /api/team/:id                           controllers.Team.apiShow(id: String)
 GET   /api/team/:id/users                     controllers.Team.users(id: String)
+GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id: String)
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)

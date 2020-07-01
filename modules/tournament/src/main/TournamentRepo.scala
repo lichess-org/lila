@@ -105,6 +105,12 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
+  def byTeamCursor(teamId: TeamID) =
+    coll.ext
+      .find(forTeamSelect(teamId))
+      .sort($sort desc "startsAt")
+      .cursor[Tournament]()
+
   private[tournament] def upcomingByTeam(teamId: TeamID, nb: Int) =
     (nb > 0) ?? coll.ext
       .find(
