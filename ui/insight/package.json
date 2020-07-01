@@ -13,7 +13,7 @@
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/jsProject": "2.0.0"
+    "@build/rollupProject": "2.0.0"
   },
   "dependencies": {
     "common": "2.0.0",
@@ -21,7 +21,7 @@
     "numeral": "^1.5"
   },
   "scripts": {
-    "dev": "gulp dev",
-    "prod": "gulp prod"
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
   }
 }
