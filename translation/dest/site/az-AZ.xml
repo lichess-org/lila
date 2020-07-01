@@ -297,6 +297,9 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Haftalık %1$s reytinqiniz (%2$s) gərəkəndən çox</string>
   <string name="yourPerfRatingIsTooLow">%1$s reytinqiniz (%2$s) gərəkəndən az</string>
   <string name="ratedMoreThanInPerf">%2$s reytinqi ≥ %1$s olmalıdır</string>
+  <string name="ratedLessThanInPerf">%2$s reytinqi ≤ %1$s olmalıdır</string>
+  <string name="mustBeInTeam">%s adlı komandada olmalısınız.</string>
+  <string name="youAreNotInTeam">%s komandanın üzvü deyilsiniz.</string>
   <string name="backToGame">Oyuna qayıt</string>
   <string name="siteDescription">Bu, internet şəbəkəsi üzərində pulsuz Şahmat oyunudur. İndi təmiz araüzdə şahmat oynaya bilərsiniz. Qeydiyyat gərəkli deyil. Heçbir reklam və proqram əlavəsinə ehtiyac yoxdur. Komputer, yoldaşların və ya istənilən rəqiblə oynaya bilərsiniz.</string>
   <string name="xJoinedTeamY">%1$s %2$s komandaya üzv oldu</string>
@@ -315,13 +318,17 @@
   <string name="continueFromHere">Buradan davam edin</string>
   <string name="toStudy">Çalışma</string>
   <string name="importGame">Oyun daxil edin</string>
+  <string name="importGameExplanation">Göz gəzdiriləbilir bir oyun təkrarı, kompüter analizi, oyun söhbəti ve paylaşılabilir bir URL edinmək üçün bir oyun PGN\'si yapıştırın.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s oyunları daxil etdi</item>
     <item quantity="other">%s oyunları daxil etdi</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Bu, şahmaq KAPÇA-sıdır</string>
   <string name="clickOnTheBoardToMakeYourMove">Taxtada gediş edin və robot olmadığınızı təsdiq edin</string>
+  <string name="captcha.fail">Lütfən şahmat doğrulamasını edin.</string>
   <string name="notACheckmate">Mat deyil</string>
+  <string name="whiteCheckmatesInOneMove">Ağlar bir gedişə mat edir</string>
+  <string name="blackCheckmatesInOneMove">Qaralar bir gedişə mat edir</string>
   <string name="retry">Yenidən cəhd edin</string>
   <string name="reconnecting">Yenidən birləşməyə cəhd edilir</string>
   <string name="noFriendsOnline">Onlaynda dost yoxdur</string>
