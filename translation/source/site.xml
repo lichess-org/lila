@@ -478,7 +478,7 @@ computer analysis, game chat and shareable URL.</string>
     <item quantity="one">Played %s time</item>
     <item quantity="other">Played %s times</item>
   </plurals>
-  <string name="fromGameLink">From game %s</string>
+  <string name="fromGameLink">From game: %s</string>
   <string name="continueTraining">Continue training</string>
   <string name="retryThisPuzzle">Retry this puzzle</string>
   <string name="thisPuzzleIsCorrect">This puzzle is correct and interesting</string>
