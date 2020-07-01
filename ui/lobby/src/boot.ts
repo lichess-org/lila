@@ -1,4 +1,4 @@
-module.exports = function(cfg, element) {
+export default function boot(cfg, element) {
   cfg.pools = [ // mirrors modules/pool/src/main/PoolList.scala
     {id:"1+0",lim:1,inc:0,perf:"Bullet"},
     {id:"2+1",lim:2,inc:1,perf:"Bullet"},
@@ -17,13 +17,13 @@ module.exports = function(cfg, element) {
     document.querySelector('#nb_games_in_play > strong'),
     8,
     function() {
-      return lichess.socket.pingInterval();
+      return window.lichess.socket.pingInterval();
     }),
   nbUserSpread = spreadNumber(
     document.querySelector('#nb_connected_players > strong'),
     10,
     function() {
-      return lichess.socket.pingInterval();
+      return window.lichess.socket.pingInterval();
     }),
   getParameterByName = function(name) {
     var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
@@ -32,14 +32,13 @@ module.exports = function(cfg, element) {
   onFirstConnect = function() {
     var gameId = getParameterByName('hook_like');
     if (!gameId) return;
-    $.post(`/setup/hook/${lichess.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`);
+    $.post(`/setup/hook/${window.lichess.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`);
     lobby.setTab('real_time');
-    history.replaceState(null, null, '/');
+    history.replaceState(null, '', '/');
   },
   filterStreams = function() {
-    var langs = navigator.languages;
-    if (!langs) return; // tss... https://developer.mozilla.org/en-US/docs/Web/API/NavigatorLanguage/languages
-    langs = langs.map(function(l) {
+    if (!navigator.languages) return; // tss... https://developer.mozilla.org/en-US/docs/Web/API/NavigatorLanguage/languages
+    var langs = navigator.languages.map(function(l) {
       return l.slice(0, 2).toLowerCase();
     });
     langs.push($('html').attr('lang'));
@@ -49,25 +48,25 @@ module.exports = function(cfg, element) {
     });
   };
   filterStreams();
-  lichess.socket = lichess.StrongSocket(
+  window.lichess.socket = window.lichess.StrongSocket(
     '/lobby/socket/v4',
     false, {
       receive: function(t, d) {
         lobby.socketReceive(t, d);
       },
       events: {
-        n: function(nbUsers, msg) {
+        n: function(_nbUsers, msg) {
           nbUserSpread(msg.d);
           setTimeout(function() {
             nbRoundSpread(msg.r);
-          }, lichess.socket.pingInterval() / 2);
+          }, window.lichess.socket.pingInterval() / 2);
         },
         reload_timeline: function() {
           $.ajax({
             url: '/timeline',
             success: function(html) {
               $('.timeline').html(html);
-              lichess.pubsub.emit('content_loaded');
+              window.lichess.pubsub.emit('content_loaded');
             }
           });
         },
@@ -77,7 +76,7 @@ module.exports = function(cfg, element) {
         // },
         featured: function(o) {
           $('.lobby__tv').html(o.html);
-          lichess.pubsub.emit('content_loaded');
+          window.lichess.pubsub.emit('content_loaded');
         },
         redirect: function(e) {
           lobby.leavePool();
@@ -86,14 +85,14 @@ module.exports = function(cfg, element) {
         },
         tournaments: function(data) {
           $("#enterable_tournaments").html(data);
-          lichess.pubsub.emit('content_loaded');
+          window.lichess.pubsub.emit('content_loaded');
         },
         simuls: function(data) {
           $("#enterable_simuls").html(data).parent().toggle($('#enterable_simuls tr').length > 0);
-          lichess.pubsub.emit('content_loaded');
+          window.lichess.pubsub.emit('content_loaded');
         },
         fen: function(e) {
-          lichess.StrongSocket.defaults.events.fen(e);
+          window.lichess.StrongSocket.defaults.events.fen(e);
           lobby.gameActivity(e.id);
         }
       },
@@ -104,17 +103,17 @@ module.exports = function(cfg, element) {
     });
 
   cfg.blindMode = $('body').hasClass('blind-mode');
-  cfg.trans = lichess.trans(cfg.i18n);
-  cfg.socketSend = lichess.socket.send;
+  cfg.trans = window.lichess.trans(cfg.i18n);
+  cfg.socketSend = window.lichess.socket.send;
   cfg.element = element;
-  lobby = LichessLobby.start(cfg);
+  lobby = window.LichessLobby.start(cfg);
 
   const $startButtons = $('.lobby__start'),
   clickEvent = cfg.blindMode ? 'click' : 'mousedown';
 
   $startButtons.find('a:not(.disabled)').on(clickEvent, function() {
     $(this).addClass('active').siblings().removeClass('active');
-    lichess.loadCssPath('lobby.setup');
+    window.lichess.loadCssPath('lobby.setup');
     lobby.leavePool();
     $.ajax({
       url: $(this).attr('href'),
@@ -122,11 +121,11 @@ module.exports = function(cfg, element) {
         lobby.setup.prepareForm($.modal(html, 'game-setup', () => {
           $startButtons.find('.active').removeClass('active');
         }));
-        lichess.pubsub.emit('content_loaded');
+        window.lichess.pubsub.emit('content_loaded');
       },
       error: function(res) {
         if (res.status == 400) alert(res.responseText);
-        lichess.reload();
+        window.lichess.reload();
       }
     });
     return false;
@@ -148,21 +147,21 @@ module.exports = function(cfg, element) {
         lobby.setTab('seeks');
     }
 
-    history.replaceState(null, null, '/');
+    history.replaceState(null, '', '/');
   }
 };
 
 function spreadNumber(el, nbSteps, getDuration) {
   let previous, displayed;
   const display = function(prev, cur, it) {
-    var val = lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
+    var val = window.lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
     if (val !== displayed) {
       el.textContent = val;
       displayed = val;
     }
   };
-  let timeouts = [];
-  return function(nb, overrideNbSteps) {
+  let timeouts: number[] = [];
+  return function(nb, overrideNbSteps?) {
     if (!el || (!nb && nb !== 0)) return;
     if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
     timeouts.forEach(clearTimeout);

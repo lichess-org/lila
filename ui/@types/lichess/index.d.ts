@@ -49,7 +49,12 @@ interface Lichess {
 
   // socket.js
   StrongSocket: {
-    (url: string, version: number, cfg: any): any;
+    (url: string, version: number | false, cfg: any): any;
+    defaults: {
+      events: {
+        fen(e: any): void;
+      }
+    }
   }
 
   // timeago.js
@@ -327,7 +332,7 @@ interface JQueryStatic {
 }
 
 interface LichessModal {
-  (html: string | JQuery, cls?: string): JQuery;
+  (html: string | JQuery, cls?: string, onClose?: () => void): JQuery;
   close(): void;
 }
 

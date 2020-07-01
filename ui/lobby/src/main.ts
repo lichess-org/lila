@@ -10,7 +10,7 @@ export const patch = init([klass, attributes]);
 
 import makeCtrl from './ctrl';
 import view from './view/main';
-import boot = require('./boot');
+import boot from './boot';
 
 export function start(opts: LobbyOpts) {
 
