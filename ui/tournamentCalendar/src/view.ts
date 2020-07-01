@@ -1,11 +1,11 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import * as eachDay from 'date-fns/each_day'
-import * as addDays from 'date-fns/add_days'
-import * as getHours from 'date-fns/get_hours'
-import * as getMinutes from 'date-fns/get_minutes'
-import * as areRangesOverlapping from 'date-fns/are_ranges_overlapping'
-import * as format from 'date-fns/format'
+import eachDayOfInterval from 'date-fns/eachDayOfInterval'
+import addDays from 'date-fns/addDays'
+import getHours from 'date-fns/getHours'
+import getMinutes from 'date-fns/getMinutes'
+import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
+import format from 'date-fns/format'
 import { Tournament, Lanes, Ctrl } from './interfaces'
 
 function displayClockLimit(limit) {
@@ -71,7 +71,7 @@ function renderLane(ctrl: Ctrl, tours: Tournament[], day: Date) {
 
 function fitLane(lane: Tournament[], tour2: Tournament) {
   return !lane.some(tour1 => {
-    return areRangesOverlapping(tour1.bounds.start, tour1.bounds.end, tour2.bounds.start, tour2.bounds.end);
+    return areIntervalsOverlapping(tour1.bounds, tour2.bounds);
   });
 }
 
@@ -134,7 +134,10 @@ function makeGroups(days: Date[]): Date[][] {
 }
 
 export default function(ctrl) {
-  const days = eachDay(new Date(ctrl.data.since), new Date(ctrl.data.to));
+  const days = eachDayOfInterval({
+    start: new Date(ctrl.data.since),
+    end: new Date(ctrl.data.to),
+  });
   const groups = makeGroups(days);
   return h('div#tournament-calendar', h('groups', groups.map(renderGroup(ctrl))));
 }
