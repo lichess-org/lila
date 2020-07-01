@@ -522,6 +522,8 @@
   <string name="playOfflineComputer">Kompüter</string>
   <string name="opponent">rəqib</string>
   <string name="learnMenu">Öyrən</string>
+  <string name="studyMenu">Çalışma</string>
+  <string name="practice">Məşq</string>
   <string name="community">Cəmiyyət</string>
   <string name="tools">Alətlər</string>
   <string name="increment">Artım</string>
@@ -642,6 +644,8 @@
   <string name="boardSize">Taxta ölçüsü</string>
   <string name="pieceSet">Fiqur seti</string>
   <string name="playChessInStyle">Şahmatı tərz ilə oynayın</string>
+  <string name="chessBasics">Şahmatın təməl prinsipləri</string>
+  <string name="coaches">Məşqçilər</string>
   <string name="custom">Özəl</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
