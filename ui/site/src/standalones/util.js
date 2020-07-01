@@ -1,7 +1,5 @@
 lichess = window.lichess || {};
 
-lichess.engineName = 'Stockfish 11+';
-
 lichess.raf = window.requestAnimationFrame.bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 lichess.dispatchEvent = (el, eventName) => el.dispatchEvent(new Event(eventName));

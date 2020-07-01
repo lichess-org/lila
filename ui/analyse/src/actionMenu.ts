@@ -162,7 +162,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ctrlBoolSetting({
       name: 'enable',
       title: (
-        mandatoryCeval ? "Required by practice mode" : window.lichess.engineName
+        mandatoryCeval ? 'Required by practice mode' : 'Stockfish'
       ) + ' (Hotkey: z)',
       id: 'all',
       checked: ctrl.showComputer(),
