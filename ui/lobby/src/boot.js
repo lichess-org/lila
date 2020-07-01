@@ -71,10 +71,10 @@ module.exports = function(cfg, element) {
             }
           });
         },
-        streams: function(html) {
-          $('.lobby__streams').html(html);
-          filterStreams();
-        },
+        // streams: function(html) {
+        //   $('.lobby__streams').html(html);
+        //   filterStreams();
+        // },
         featured: function(o) {
           $('.lobby__tv').html(o.html);
           lichess.pubsub.emit('content_loaded');
