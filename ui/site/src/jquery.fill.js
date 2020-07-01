@@ -1,6 +1,6 @@
 (function($) {
   function update(els, action, cb) {
-    lichess.raf(function() {
+    requestAnimationFrame(function() {
       $.each(els, function() {
         action(this);
         if ($.isFunction(cb)) cb.apply(this);

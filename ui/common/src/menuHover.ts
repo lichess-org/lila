@@ -10,7 +10,7 @@
 
 type State = any;
 
-export const menuHover = () => window.lichess.raf(function() {
+export const menuHover = () => requestAnimationFrame(function() {
 
   if (window.lichess.hasTouchEvents) return;
 

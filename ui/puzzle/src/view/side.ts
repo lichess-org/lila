@@ -83,6 +83,6 @@ function drawRatingChart(ctrl: Controller, vnode: VNode): void {
     fillColor: dark ? '#222255' : '#ccccff',
     numberFormatter: (x: number) => { return x; }
   });
-  window.lichess.raf(redraw);
+  requestAnimationFrame(redraw);
   window.addEventListener('resize', redraw);
 }

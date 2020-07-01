@@ -340,7 +340,7 @@ export default class Setup {
       $modeChoicesWrap.toggle(!isFen);
       if (isFen) {
         $casual.click();
-        li.raf(() => document.body.dispatchEvent(new Event('chessground.resize')));
+        requestAnimationFrame(() => li.dispatchEvent(document.body, 'chessground.resize'));
       }
       showRating();
       toggleButtons();

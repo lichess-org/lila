@@ -674,7 +674,7 @@ export default class RoundController {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) {
       this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
-      li.raf(this.redraw);
+      requestAnimationFrame(() => this.redraw());
     }
   };
 
