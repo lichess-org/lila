@@ -100,6 +100,8 @@ export default class Setup {
     $rated = $modeChoices.eq(1),
     $variantSelect = $form.find('#sf_variant'),
     $fenPosition = $form.find(".fen_position"),
+    $fenInput = $fenPosition.find('input'),
+    forceFormPosition = !!$fenInput.val(),
     $timeInput = $form.find('.time_choice [name=time]'),
     $incrementInput = $form.find('.increment_choice [name=increment]'),
     $daysInput = $form.find('.days_choice [name=days]'),
@@ -303,7 +305,6 @@ export default class Setup {
       showRating();
     }).trigger('change');
 
-    var $fenInput = $fenPosition.find('input');
     var validateFen = li.debounce(function() {
       $fenInput.removeClass("success failure");
       var fen = $fenInput.val();
@@ -332,15 +333,14 @@ export default class Setup {
     }, 200);
     $fenInput.on('keyup', validateFen);
 
+    if (forceFormPosition) $variantSelect.val(3);
     $variantSelect.on('change', function(this: HTMLElement) {
-      var fen = $(this).val() == '3';
-      $fenPosition.toggle(fen);
-      $modeChoicesWrap.toggle(!fen);
-      if (fen) {
+      var isFen = $(this).val() == '3';
+      $fenPosition.toggle(isFen);
+      $modeChoicesWrap.toggle(!isFen);
+      if (isFen) {
         $casual.click();
-        li.raf(function() {
-          document.body.dispatchEvent(new Event('chessground.resize'));
-        });
+        li.raf(() => document.body.dispatchEvent(new Event('chessground.resize')));
       }
       showRating();
       toggleButtons();
