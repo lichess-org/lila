@@ -231,9 +231,9 @@ export default class Setup {
           $value = $input.siblings('span'),
           isTimeSlider = $input.parent().hasClass('time_choice'),
           showTime = (v: number) => {
-              if (v === 1 / 4) return '¼';
-              if (v === 1 / 2) return '½';
-              if (v === 3 / 4) return '¾';
+              if (v == 1 / 4) return '¼';
+              if (v == 1 / 2) return '½';
+              if (v == 3 / 4) return '¾';
               return v;
             },
           valueToTime = (v: number) => (isTimeSlider ? self.sliderTime : self.sliderIncrement)(v),
