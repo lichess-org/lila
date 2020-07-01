@@ -623,6 +623,7 @@
   <string name="boardTheme">Taxta teması</string>
   <string name="boardSize">Taxta ölçüsü</string>
   <string name="pieceSet">Fiqur seti</string>
+  <string name="playChessInStyle">Şahmatı tərz ilə oynayın</string>
   <string name="custom">Özəl</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
