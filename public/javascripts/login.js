@@ -12,7 +12,7 @@ function load($f) {
       if (res === 'MissingTotpToken' || res === 'InvalidTotpToken') {
         $f.find('.one-factor').hide();
         $f.find('.two-factor').show();
-        lichess.raf(function() {
+        requestAnimationFrame(function() {
           $f.find('.two-factor input').val('').focus();
         });
         $f.find('.submit').attr('disabled', false);

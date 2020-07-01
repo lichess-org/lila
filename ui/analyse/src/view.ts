@@ -277,7 +277,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       insert: vn => {
         forceInnerCoords(ctrl, needsInnerCoords);
         if (!!playerBars != $('body').hasClass('header-margin')) {
-          li.raf(() => {
+          requestAnimationFrame(() => {
             $('body').toggleClass('header-margin', !!playerBars);
             ctrl.redraw();
           });

@@ -30,7 +30,7 @@ exports.rollupProject = (targets) => {
       ],
       plugins: [
         resolve(),
-        typescript(),
+        ...(target.js ? [] : [typescript()]),
         commonjs({
           extensions: ['.js', '.ts'],
         }),

@@ -5,7 +5,7 @@ export function runner(hacks: () => void, throttleMs: number = 100): void {
   let timeout: number | undefined;
 
   const runHacks = throttle(throttleMs, () => {
-    window.lichess.raf(() => {
+    requestAnimationFrame(() => {
       hacks();
       schedule();
     });

@@ -264,7 +264,7 @@
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
       function renderTimeago() {
-        lichess.raf(() =>
+        requestAnimationFrame(() =>
           lichess.timeago.render([].slice.call(document.getElementsByClassName('timeago'), 0, 99))
         );
       }
@@ -417,10 +417,10 @@
         $wrap.find('a').on('mouseover click', e => (e.type === 'mouseover' ? boot : toggle)());
         Mousetrap.bind('/', () => {
           $input.val('/');
-          lichess.raf(() => toggle());
+          requestAnimationFrame(() => toggle());
           return false;
         });
-        Mousetrap.bind('s', () => lichess.raf(() => toggle()));
+        Mousetrap.bind('s', () => requestAnimationFrame(() => toggle()));
         if ($('body').hasClass('blind-mode')) $input.one('focus', () => toggle());
       }
 
@@ -732,7 +732,7 @@
         self.set(data);
       },
       repaint: function() {
-        if (this.loaded) lichess.raf(function() {
+        if (this.loaded) requestAnimationFrame(function() {
           const users = this.users, ids = Object.keys(users).sort();
           this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, this.loaded ? $('<strong>').text(ids.length) : '-'));
           this.$nobody.toggleNone(!ids.length);

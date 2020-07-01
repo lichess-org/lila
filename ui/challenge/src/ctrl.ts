@@ -65,7 +65,7 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
     redirecting: () => redirecting,
     onRedirect() {
       redirecting = true;
-      li.raf(redraw);
+      requestAnimationFrame(redraw);
     }
   };
 };

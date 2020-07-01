@@ -1,7 +1,5 @@
 interface Lichess {
   // standalones/util.js
-  engineName: string;
-  raf(f: () => void): void;
   requestIdleCallback(f: () => void): void;
   dispatchEvent(el: HTMLElement | Window, eventName: string): void;
   hasTouchEvents: boolean;
