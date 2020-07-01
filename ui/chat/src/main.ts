@@ -29,4 +29,4 @@ export default function LichessChat(element: Element, opts: ChatOpts): {
   vnode = patch(element, blueprint);
 
   return ctrl;
-};
+}

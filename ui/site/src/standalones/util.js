@@ -257,7 +257,7 @@ lichess.slider = function() {
 lichess.makeChat = function(data, callback) {
   lichess.raf(function() {
     data.loadCss = lichess.loadCssPath;
-    (callback || $.noop)(LichessChat.default(document.querySelector('.mchat'), data));
+    (callback || $.noop)(LichessChat(document.querySelector('.mchat'), data));
   });
 };
 lichess.formAjax = $form => ({
