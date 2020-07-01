@@ -43,7 +43,7 @@ module.exports = function(cfg, element) {
       return l.slice(0, 2).toLowerCase();
     });
     langs.push($('html').attr('lang'));
-    $('.lobby__streams a, .event-spotlight').each(function() {
+    $('.lobby__streams .stream, .event-spotlight').each(function() {
       var match = $(this).text().match(/\[(\w{2})\]/mi);
       if (match && !langs.includes(match[1].toLowerCase())) $(this).hide();
     });
