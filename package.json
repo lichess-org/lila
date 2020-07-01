@@ -55,7 +55,6 @@
     "ui/tree",
     "ui/msg",
     "ui/@build/jsProject",
-    "ui/@build/tsProject",
     "ui/@build/rollupProject",
     "ui/@types/lichess"
   ]
