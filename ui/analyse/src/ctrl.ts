@@ -850,5 +850,6 @@ export default class AnalyseCtrl {
   withCg<A>(f: (cg: ChessgroundApi) => A): A | undefined {
     if (this.chessground && this.cgVersion.js === this.cgVersion.dom)
       return f(this.chessground);
+    return undefined;
   }
 };

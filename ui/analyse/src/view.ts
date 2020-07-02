@@ -75,6 +75,7 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
       return conceal.owner ? 'conceal' : 'hide';
     };
   };
+  return undefined;
 }
 
 function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {

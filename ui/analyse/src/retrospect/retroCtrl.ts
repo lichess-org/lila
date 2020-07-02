@@ -161,6 +161,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   function showBadNode(): Tree.Node | undefined {
     const cur = current();
     if (cur && isSolving() && cur.prev.path === root.path) return cur.fault.node;
+    return undefined;
   }
 
   function isSolving(): boolean {
