@@ -203,6 +203,7 @@ export function overboard(ctrl: StudyCtrl) {
   if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
   if (ctrl.topics.open()) return topicsFormView(ctrl.topics, ctrl.members.myId);
   if (ctrl.form.open()) return studyFormView(ctrl.form);
+  return undefined;
 }
 
 export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {

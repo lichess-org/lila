@@ -196,6 +196,7 @@ export function view(ctrl: StudyCtrl): VNode {
         },
         hook: bind('click', members.leave, ctrl.redraw)
       });
+      return undefined;
   };
 
   function memberConfig(member: StudyMember): VNode {

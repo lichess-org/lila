@@ -247,6 +247,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
     gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, ctrl.trans, redraw);
     vm.mode.sticky = false;
+    return undefined;
   }
   instanciateGamebookPlay();
 
@@ -269,6 +270,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (vm.mode.sticky && serverData.sticky) xhrReload();
       return true;
     }
+    return undefined;
   }
 
   function setMemberActive(who?: {u: string}) {
@@ -591,6 +593,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         currentId = currentChapter().id;
       for (let i in chapters)
         if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
+      return undefined;
     },
     setGamebookOverride(o) {
       vm.gamebookOverride = o;

@@ -40,12 +40,14 @@ export function make(root: AnalyseCtrl): ForkCtrl {
         selected = Math.min(root.node.children.length - 1, selected + 1);
         return true;
       }
+      return undefined;
     },
     prev() {
       if (displayed()) {
         selected = Math.max(0, selected - 1);
         return true;
       }
+      return undefined;
     },
     proceed(it) {
       if (displayed()) {
@@ -53,6 +55,7 @@ export function make(root: AnalyseCtrl): ForkCtrl {
         root.userJumpIfCan(root.path + root.node.children[it].id);
         return true;
       }
+      return undefined;
     }
   };
 }
@@ -85,6 +88,7 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
         showEval: root.showComputer(),
         showGlyphs: root.showComputer()
       }, node)!);
+      return undefined;
     })
   );
 }
