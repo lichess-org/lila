@@ -70,6 +70,7 @@
   <string name="startAtX">Hemen asi %s</string>
   <string name="embedInYourWebsite">Zure webgunean itsatsi</string>
   <string name="readMoreAboutEmbedding">Itsasteari buruz gehiago irakurri</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Azterlan publikoak bakarrik txertatu daitezke beste webguneetan!</string>
   <string name="open">Ireki</string>
   <string name="xBroughtToYouByY">%1$s azterlana %2$s erabiltzaileak prestatu du</string>
   <string name="studyNotFound">Azterlana ez da aurkitu</string>
