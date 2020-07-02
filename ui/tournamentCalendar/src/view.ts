@@ -53,7 +53,7 @@ function renderTournament(ctrl: Ctrl, tour: Tournament, day: Date) {
     attrs: {
       href: '/tournament/' + tour.id,
       style: 'width: ' + width + '%; left: ' + left + '%',
-      title: `${tour.fullName} - ${format(tour.bounds.start, 'dddd, DD/MM/YYYY HH:mm')}`
+      title: `${tour.fullName} - ${format(tour.bounds.start, 'EEEE, dd/MM/yyyy HH:mm')}`
     }
   }, [
     h('span.icon', tour.perf ? {
@@ -94,9 +94,9 @@ function renderDay(ctrl: Ctrl) {
     return h('day', [
       h('date', {
         attrs: {
-          title: format(day, 'dddd, DD/MM/YYYY')
+          title: format(day, 'EEEE, dd/MM/yyyy')
         }
-      }, [format(day, 'DD/MM')]),
+      }, [format(day, 'dd/MM')]),
       h('lanes', makeLanes(tours).map(l => renderLane(ctrl, l, day)))
     ]);
   };
