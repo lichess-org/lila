@@ -57,7 +57,9 @@ Accusing other players of using computer assistance or otherwise cheating is not
 
 Warning: spam is not permitted
 
-You may post your link only once. Not once per tournament, per forum, per player, or per day: but just once. Repeated violation of this policy will result in loss of communication privileges.
+Spamming is not permitted on Lichess.
+Do not post anything more than once, in public chats, private chats, forums, or any other communication channel.
+Please note that repeated violation of this policy will result in loss of communication privileges.
 
 """, /* ---------------------------------------------------------------*/ """
 
