@@ -65,6 +65,7 @@ object jsI18n {
       startAtX,
       embedInYourWebsite,
       readMoreAboutEmbedding,
+      onlyPublicStudiesCanBeEmbedded,
       open,
       xBroughtToYouByY,
       studyNotFound,
