@@ -15,12 +15,17 @@ final class PgnDump(
 
   import PgnDump._
 
-  def apply(game: Game, initialFen: Option[FEN], flags: WithFlags): Fu[Pgn] = {
+  def apply(
+      game: Game,
+      initialFen: Option[FEN],
+      flags: WithFlags,
+      teams: Option[Color.Map[String]] = None
+  ): Fu[Pgn] = {
     val imported = game.pgnImport.flatMap { pgni =>
       Parser.full(pgni.pgn).toOption
     }
     val tagsFuture =
-      if (flags.tags) tags(game, initialFen, imported, withOpening = flags.opening)
+      if (flags.tags) tags(game, initialFen, imported, withOpening = flags.opening, teams = teams)
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val turns = flags.moves ?? {
@@ -75,7 +80,8 @@ final class PgnDump(
       game: Game,
       initialFen: Option[FEN],
       imported: Option[ParsedPgn],
-      withOpening: Boolean
+      withOpening: Boolean,
+      teams: Option[Color.Map[String]] = None
   ): Fu[Tags] =
     gameLightUsers(game) map {
       case (wu, bu) =>
@@ -110,6 +116,8 @@ final class PgnDump(
             bu.flatMap(_.title).map { t =>
               Tag(_.BlackTitle, t)
             },
+            teams.map { t => Tag("WhiteTeam", t.white) },
+            teams.map { t => Tag("BlackTeam", t.black) },
             Tag(_.Variant, game.variant.name.capitalize).some,
             Tag.timeControl(game.clock.map(_.config)).some,
             Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,

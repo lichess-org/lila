@@ -183,6 +183,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def teamBattleOf(tourId: Tournament.ID): Fu[Option[TeamBattle]] =
     coll.primitiveOne[TeamBattle]($id(tourId), "teamBattle")
 
+  def isTeamBattle(tourId: Tournament.ID): Fu[Boolean] =
+    coll.exists($id(tourId) ++ $doc("teamBattle" $exists true))
+
   def featuredGameId(tourId: Tournament.ID) = coll.primitiveOne[Game.ID]($id(tourId), "featured")
 
   private def startingSoonSelect(aheadMinutes: Int) =

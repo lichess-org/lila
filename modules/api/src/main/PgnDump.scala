@@ -3,8 +3,9 @@ package lila.api
 import chess.format.FEN
 import chess.format.pgn.Pgn
 import lila.analyse.{ Analysis, Annotator }
-import lila.game.PgnDump.WithFlags
 import lila.game.Game
+import lila.game.PgnDump.WithFlags
+import lila.team.GameTeams
 
 final class PgnDump(
     val dumper: lila.game.PgnDump,
@@ -16,8 +17,14 @@ final class PgnDump(
 
   implicit private val lang = lila.i18n.defaultLang
 
-  def apply(game: Game, initialFen: Option[FEN], analysis: Option[Analysis], flags: WithFlags): Fu[Pgn] =
-    dumper(game, initialFen, flags) flatMap { pgn =>
+  def apply(
+      game: Game,
+      initialFen: Option[FEN],
+      analysis: Option[Analysis],
+      flags: WithFlags,
+      teams: Option[GameTeams] = None
+  ): Fu[Pgn] =
+    dumper(game, initialFen, flags, teams) flatMap { pgn =>
       if (flags.tags) (game.simulId ?? simulApi.idToName) map { simulName =>
         simulName
           .orElse(game.tournamentId flatMap getTournamentName.get)
@@ -52,11 +59,17 @@ final class PgnDump(
     }
 
   def formatter(flags: WithFlags) =
-    (game: Game, initialFen: Option[FEN], analysis: Option[Analysis]) =>
-      toPgnString(game, initialFen, analysis, flags)
+    (game: Game, initialFen: Option[FEN], analysis: Option[Analysis], teams: Option[GameTeams]) =>
+      toPgnString(game, initialFen, analysis, flags, teams)
 
-  def toPgnString(game: Game, initialFen: Option[FEN], analysis: Option[Analysis], flags: WithFlags) =
-    apply(game, initialFen, analysis, flags) dmap { pgn =>
+  def toPgnString(
+      game: Game,
+      initialFen: Option[FEN],
+      analysis: Option[Analysis],
+      flags: WithFlags,
+      teams: Option[GameTeams] = None
+  ) =
+    apply(game, initialFen, analysis, flags, teams) dmap { pgn =>
       // merge analysis & eval comments
       // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
       // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
