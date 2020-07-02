@@ -60,6 +60,15 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
       .add("private", tour.isPrivate)
       .add("position", tour.position.some.filterNot(_.initial) map positionJson)
       .add("schedule", tour.schedule map scheduleJson)
+      .add(
+        "teamBattle",
+        tour.teamBattle.map { battle =>
+          Json.obj(
+            "teams"     -> battle.teams,
+            "nbLeaders" -> battle.nbLeaders
+          )
+        }
+      )
 
   def fullJson(tour: Tournament)(implicit lang: Lang): Fu[JsObject] =
     (tour.winnerId ?? lightUserApi.async) map { winner =>
