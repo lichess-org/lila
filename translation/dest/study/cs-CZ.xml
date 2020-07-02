@@ -74,6 +74,7 @@
   <string name="startAtInitialPosition">Začít ve výchozí pozici</string>
   <string name="startAtX">Začít u tahu %s</string>
   <string name="embedInYourWebsite">Vložte vaší stránku nebo blog</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Lze vložit pouze veřejné studie!</string>
   <string name="open">Otevřít</string>
   <string name="xBroughtToYouByY">%1$s vám přináší %2$s</string>
   <string name="studyNotFound">Studie nenalezena</string>
