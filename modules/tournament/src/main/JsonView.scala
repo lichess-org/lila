@@ -454,6 +454,7 @@ object JsonView {
         )
         .add("title" -> user.title)
         .add("performance" -> player.performanceOption)
+        .add("team" -> player.team)
   }
 
   def playerJson(
