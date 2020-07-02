@@ -24,7 +24,8 @@ else
 fi
 
 build() {
-  echo "### build" "$@" "###"
+  echo
+  echo "### ui/$@ ###"
   set -ev
   if [[ $1 == "css" ]]; then
     cd ui
