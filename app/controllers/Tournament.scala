@@ -345,7 +345,7 @@ final class Tournament(
     Auth { implicit ctx => me =>
       repo byId id flatMap {
         _ ?? {
-          case tour if tour.createdBy == me.id =>
+          case tour if tour.createdBy == me.id || isGranted(_.ManageTournament) =>
             tour.teamBattle ?? { battle =>
               env.team.teamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
                 env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
