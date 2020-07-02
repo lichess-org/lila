@@ -5,7 +5,7 @@ import attributes from 'snabbdom/modules/attributes';
 import { Chessground } from 'chessground';
 import { TournamentOpts } from './interfaces';
 import TournamentController from './ctrl';
-import * as chat from 'chat';
+import LichessChat from 'chat';
 
 const patch = init([klass, attributes]);
 
@@ -38,4 +38,4 @@ export function start(opts: TournamentOpts) {
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
-window.LichessChat = chat;
+window.LichessChat = LichessChat;
