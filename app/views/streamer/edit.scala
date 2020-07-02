@@ -53,7 +53,18 @@ object edit extends Context.ToLang {
                 cls := s"status is${granted ?? "-green"}",
                 dataIcon := (if (granted) "E" else "")
               )(
-                if (granted) approved()
+                if (granted)
+                  frag(
+                    approved(),
+                    s.streamer.approval.tier > 0 option frag(
+                      br,
+                      strong("You have been selected for frontpage featuring!"),
+                      p(
+                        "Note that we can only show a limited number of streams on the homepage, ",
+                        "so yours may not always appear."
+                      )
+                    )
+                  )
                 else
                   frag(
                     if (s.streamer.approval.requested) pendingReview()
