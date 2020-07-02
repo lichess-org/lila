@@ -67,6 +67,7 @@
   <string name="startAtX">Mulai dari %s</string>
   <string name="embedInYourWebsite">Sematkan di blog atau website Anda</string>
   <string name="readMoreAboutEmbedding">Baca lebih tentang penyematan</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Hanya pelajaran publik yang dapat di sematkan!</string>
   <string name="open">Buka</string>
   <string name="xBroughtToYouByY">%1$s dibawakan kepadamu dari %2$s</string>
   <string name="studyNotFound">Studi tidak ditemukan</string>
