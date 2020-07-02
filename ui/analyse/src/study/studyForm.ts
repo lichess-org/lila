@@ -181,14 +181,14 @@ export function view(ctrl: StudyFormCtrl): VNode {
           ],
           selected: '' + data.settings.description
         })),
-        ctrl.relay ? h('div.form-actions', [
-          h('a', {
+        h('div.form-actions', [
+          ctrl.relay ? h('a', {
             attrs: { href: `/broadcast/-/${data.id}/edit` }
-          }, 'Broadcast settings'),
+          }, 'Broadcast settings') : null,
           h('button.button', {
             attrs: { type: 'submit' },
           }, ctrl.trans.noarg(isNew ? 'start' : 'save'))
-        ]) : null
+        ])
       ]),
       h('div.destructive', [
         isNew ? null : h('form', {
