@@ -196,7 +196,7 @@ object header {
                 !ctx.is(u) option frag(
                   u.marks.engine option div(cls := "warning engine_warning")(
                     span(dataIcon := "j", cls := "is4"),
-                    trans.thisPlayerUsesChessComputerAssistance()
+                    trans.thisAccountViolatedTos()
                   ),
                   (u.marks.boost && (u.count.game > 0 || isGranted(_.Hunter))) option div(
                     cls := "warning engine_warning"
@@ -253,7 +253,7 @@ It's useful against spambots. These marks are not visible to the public."""
                       }
                     )
                   },
-                  div(cls := "social_links col2")(
+                  (!u.marks.troll || ctx.is(u)) option div(cls := "social_links col2")(
                     profile.actualLinks.map { link =>
                       a(href := link.url, target := "_blank", rel := "nofollow noopener noreferrer")(
                         link.site.name

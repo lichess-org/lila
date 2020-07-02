@@ -101,7 +101,7 @@ export function view(root: AnalyseCtrl): VNode {
         return c.by && c.by.id && c.by.id === ctrl.root.opts.userId;
       });
     el.value = mine ? mine.text : '';
-    if (ctrl.opening() || ctrl.focus()) window.lichess.raf(() => el.focus());
+    if (ctrl.opening() || ctrl.focus()) requestAnimationFrame(() => el.focus());
     ctrl.opening(false);
   }
 

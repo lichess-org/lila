@@ -259,6 +259,22 @@ final class Api(
       }
     }
 
+  def tournamentTeams(id: String) =
+    Action.async { implicit req =>
+      env.tournament.tournamentRepo byId id flatMap {
+        _ ?? { tour =>
+          env.tournament.jsonView.getTeamStanding(tour) map { arr =>
+            JsonOk(
+              Json.obj(
+                "id"    -> tour.id,
+                "teams" -> arr
+              )
+            )
+          }
+        }
+      }
+    }
+
   def tournamentsByOwner(name: String) =
     Action.async { implicit req =>
       implicit val lang = reqLang

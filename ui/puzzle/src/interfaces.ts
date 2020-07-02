@@ -1,7 +1,8 @@
+import { Outcome } from 'chessops/types';
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Prop } from 'common';
 import { TreeWrapper } from 'tree';
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode';
 import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
 import { Role, Move } from 'chessops/types';
@@ -23,8 +24,8 @@ export interface KeyboardController {
 
 export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
-  disableThreatMode?: Prop<Boolean>;
-  gameOver: (node?: Tree.Node) => 'draw' | 'checkmate' | false;
+  disableThreatMode?: Prop<boolean>;
+  outcome(): Outcome | undefined;
   mandatoryCeval?: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
   currentEvals(): NodeEvals;

@@ -30,8 +30,8 @@ export interface Socket {
 
 export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
 
-  let anaMoveTimeout;
-  let anaDestsTimeout;
+  let anaMoveTimeout: number | undefined;
+  let anaDestsTimeout: number | undefined;
 
   let anaDestsCache: DestCache = {};
 
@@ -55,6 +55,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
 
   function currentChapterId(): string | undefined {
     if (ctrl.study) return ctrl.study.vm.chapterId;
+    return undefined;
   };
 
   function addStudyData(req, isWrite = false): void {

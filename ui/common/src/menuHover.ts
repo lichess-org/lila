@@ -10,18 +10,18 @@
 
 type State = any;
 
-export const menuHover = () => window.lichess.raf(function() {
+export const menuHover = () => requestAnimationFrame(function() {
 
   if (window.lichess.hasTouchEvents) return;
 
-  let interval: number = 100;
-  let sensitivity: number = 10;
+  const interval = 100;
+  const sensitivity = 10;
 
   // current X and Y position of mouse, updated during mousemove tracking (shared across instances)
   let cX: number, cY: number;
 
   // saves the current pointer position coordinates based on the given mousemove event
-  let track = function(ev: JQueryEventObject) {
+  const track = (ev: JQueryEventObject) => {
     cX = ev.pageX;
     cY = ev.pageY;
   };

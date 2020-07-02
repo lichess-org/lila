@@ -102,7 +102,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   def allFinishedFeaturable(max: Int): Fu[List[Simul]] =
     simulColl.ext
       .find(finishedSelect ++ featurableSelect)
-      .sort(createdSort)
+      .sort($sort desc "finishedAt")
       .list[Simul](max)
 
   def allNotFinished =
@@ -114,7 +114,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     } void
 
   def update(simul: Simul) =
-    simulColl.update.one($id(simul.id), simul).void
+    simulColl.update.one($id(simul.id), $set(SimulBSONHandler writeTry simul get)).void
 
   def remove(simul: Simul) =
     simulColl.delete.one($id(simul.id)).void

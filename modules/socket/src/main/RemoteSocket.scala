@@ -24,7 +24,10 @@ final class RemoteSocket(
     redisClient: RedisClient,
     notification: lila.hub.actors.Notification,
     shutdown: CoordinatedShutdown
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   import RemoteSocket._, Protocol._
 

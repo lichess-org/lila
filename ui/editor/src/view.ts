@@ -58,6 +58,7 @@ function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
   return h('option', {
     attrs: {
       value: key,
+      selected: key == ctrl.rules
     },
   }, `${ctrl.trans.noarg('variant')} | ${name}`);
 }
@@ -111,9 +112,6 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
     h('div.metadata', [
       h('div.color',
         h('select', {
-          props: {
-            value: ctrl.turn,
-          },
           on: {
             change(e) {
               ctrl.setTurn((e.target as HTMLSelectElement).value as Color);
@@ -123,6 +121,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           return h('option', {
             attrs: {
               value: key[0] == 'w' ? 'white' : 'black',
+              selected: ctrl.turn[0] === key[0]
             }
           }, ctrl.trans(key));
         }))
@@ -157,12 +156,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
     ])] : [
       h('div', [
         h('select', {
-          props: {
-            value: ctrl.rules,
-          },
-          attrs: {
-            id: 'editor-variant',
-          },
+          attrs: { id: 'variants' },
           on: {
             change(e) {
               ctrl.setRules((e.target as HTMLSelectElement).value as Rules);

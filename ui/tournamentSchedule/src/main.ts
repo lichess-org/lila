@@ -38,5 +38,10 @@ export function app(element: HTMLElement, env: any) {
 };
 
 function update(prevs, news) {
-  return news.concat(prevs.filter(p => !p.schedule));
+  // updates ignore team tournaments (same for all)
+  // also lacks finished tournaments
+  const now = new Date().getTime();
+  return news.concat(
+    prevs.filter(p => !p.schedule || p.finishesAt < now)
+  );
 }

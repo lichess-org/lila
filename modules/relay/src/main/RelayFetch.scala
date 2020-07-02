@@ -95,11 +95,7 @@ final private class RelayFetch(
 
   def afterSync(result: SyncResult, relay: Relay): Relay =
     result match {
-      case SyncResult.Ok(0, games) =>
-        if (games.size > 1 && games.forall(_.finished)) {
-          logger.info(s"Finish because all games are over $relay")
-          relay.finish
-        } else continueRelay(relay)
+      case SyncResult.Ok(0, games) => continueRelay(relay)
       case SyncResult.Ok(nbMoves, _) =>
         lila.mon.relay.moves(relay.official, relay.slug).increment(nbMoves)
         continueRelay(relay.ensureStarted.resume)

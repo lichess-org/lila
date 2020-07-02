@@ -264,7 +264,7 @@
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
       function renderTimeago() {
-        lichess.raf(() =>
+        requestAnimationFrame(() =>
           lichess.timeago.render([].slice.call(document.getElementsByClassName('timeago'), 0, 99))
         );
       }
@@ -295,7 +295,7 @@
           var $el = $('#challenge-app').html(lichess.initiatingHtml);
           lichess.loadCssPath('challenge');
           lichess.loadScript(lichess.compiledScript('challenge')).done(function() {
-            instance = LichessChallenge.default($el[0], {
+            instance = LichessChallenge($el[0], {
               data: data,
               show: function() {
                 if (!$('#challenge-app').is(':visible')) $toggle.click();
@@ -340,7 +340,7 @@
           var $el = $('#notify-app').html(initiatingHtml);
           lichess.loadCssPath('notify');
           lichess.loadScript(lichess.compiledScript('notify')).done(function() {
-            instance = LichessNotify.default($el.empty()[0], {
+            instance = LichessNotify($el.empty()[0], {
               data: data,
               incoming: incoming,
               isVisible: isVisible,
@@ -391,7 +391,7 @@
             playing = $('body').hasClass('playing');
           lichess.loadCssPath('dasher');
           lichess.loadScript(lichess.compiledScript('dasher')).done(() =>
-            LichessDasher.default($el.empty()[0], { playing })
+            LichessDasher($el.empty()[0], { playing })
           );
         });
       }
@@ -417,10 +417,10 @@
         $wrap.find('a').on('mouseover click', e => (e.type === 'mouseover' ? boot : toggle)());
         Mousetrap.bind('/', () => {
           $input.val('/');
-          lichess.raf(() => toggle());
+          requestAnimationFrame(() => toggle());
           return false;
         });
-        Mousetrap.bind('s', () => lichess.raf(() => toggle()));
+        Mousetrap.bind('s', () => requestAnimationFrame(() => toggle()));
         if ($('body').hasClass('blind-mode')) $input.one('focus', () => toggle());
       }
 
@@ -732,7 +732,7 @@
         self.set(data);
       },
       repaint: function() {
-        if (this.loaded) lichess.raf(function() {
+        if (this.loaded) requestAnimationFrame(function() {
           const users = this.users, ids = Object.keys(users).sort();
           this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, this.loaded ? $('<strong>').text(ids.length) : '-'));
           this.$nobody.toggleNone(!ids.length);
@@ -944,7 +944,7 @@
 
   function startPuzzle(cfg) {
     cfg.element = document.querySelector('main.puzzle');
-    LichessPuzzle.default(cfg);
+    LichessPuzzle(cfg);
   }
 
   ////////////////////

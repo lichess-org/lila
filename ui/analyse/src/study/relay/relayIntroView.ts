@@ -16,4 +16,5 @@ export default function(ctrl: AnalyseCtrl): VNode | undefined {
     ]),
     multiBoardView(study.multiBoard, study)
   ]);
+  return undefined;
 }

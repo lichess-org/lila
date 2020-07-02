@@ -11,13 +11,12 @@ import eventlisteners from 'snabbdom/modules/eventlisteners';
 
 import { menuHover } from 'common/menuHover';
 import { Chessground } from 'chessground';
-import { Rules } from 'chessops/types';
 
 menuHover();
 
 const patch = init([klass, attributes, props, eventlisteners]);
 
-window.LichessEditor = (element: HTMLElement, config: EditorConfig) => {
+export default function LichessEditor(element: HTMLElement, config: EditorConfig) {
   let vnode: VNode, ctrl: EditorCtrl;
 
   const redraw = () => {
@@ -30,16 +29,11 @@ window.LichessEditor = (element: HTMLElement, config: EditorConfig) => {
   element.appendChild(inner);
   vnode = patch(inner, view(ctrl));
 
-  $(() => {
-    const el = document.getElementById('editor-variant') as HTMLSelectElement;
-    if (el) ctrl.setRules(el.value as Rules);
-  });
-
   return {
     getFen: ctrl.getFen.bind(ctrl),
     setOrientation: ctrl.setOrientation.bind(ctrl)
   };
-};
+}
 
 // that's for the rest of lichess to access chessground
 // without having to include it a second time

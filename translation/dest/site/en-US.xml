@@ -275,7 +275,7 @@
     <item quantity="one">Give %s second</item>
     <item quantity="other">Give %s seconds</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">This player uses chess computer assistance</string>
+  <string name="thisAccountViolatedTos">This account violated the Lichess Terms of Service</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">This player artificially increases/decreases their rating</string>
   <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>

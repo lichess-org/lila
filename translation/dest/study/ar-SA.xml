@@ -49,11 +49,8 @@
   <string name="chapterPgn">PGN الفصل</string>
   <string name="studyUrl">رابط الدراسة</string>
   <string name="currentChapterUrl">رابط الفصل الحالي</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">يمكنك لصق هذا في المنتدى لتضمين الفصل</string>
   <string name="startAtInitialPosition">البدء من وضع البداية</string>
   <string name="startAtX">البدء من %s</string>
-  <string name="embedThisChapter">ضمن هذا الفصل في موقع الويب الخاص بك او في مدونتك</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">المزيد عن تضمين فصل دراسة</string>
   <string name="open">فتح</string>
   <string name="xBroughtToYouByY">%1$s مقدمة من %2$s</string>
   <string name="studyNotFound">لم يتم العثور على الدراسة</string>

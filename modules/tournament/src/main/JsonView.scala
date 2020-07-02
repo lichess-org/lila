@@ -367,7 +367,7 @@ final class JsonView(
       }
   }
 
-  private def getTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
+  def getTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
     tour.isTeamBattle ?? {
       teamStandingCache get tour.id dmap some
     }
@@ -454,6 +454,7 @@ object JsonView {
         )
         .add("title" -> user.title)
         .add("performance" -> player.performanceOption)
+        .add("team" -> player.team)
   }
 
   def playerJson(

@@ -79,6 +79,7 @@
   <string name="unknown">Óþekktur</string>
   <string name="database">Gagnagrunnur</string>
   <string name="whiteDrawBlack">Hvitur / Jafntefli / Svartur</string>
+  <string name="averageRatingX">Meðal Elo: %s</string>
   <string name="recentGames">Síðustu skákir</string>
   <string name="topGames">Bestir leikir</string>
   <string name="masterDbExplanation">Tvær milljónir skáka með %1$s FIDE-stiga skákmönnum frá %2$s stigum til %3$s</string>
@@ -268,7 +269,6 @@
     <item quantity="one">Gefa %s sekúndur</item>
     <item quantity="other">Gefa %s sekúndur</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Þessi spilari notar skáktölvu til hjálpar</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Þessi skákmaður hækkar/lækkar stig sín með vafasömum hætti</string>
   <string name="openingExplorerAndTablebase">Opnunarvafri og endataflsútreikningar</string>
   <string name="takeback">Afturköllun</string>
@@ -457,6 +457,7 @@
   <string name="pleaseVotePuzzle">Hjálpaðu lichess að bæta sig með því að kjósa, notaðu upp og niður örvarnar:</string>
   <string name="thankYou">Takk fyrir!</string>
   <string name="ratingX">Stig: %s</string>
+  <string name="hidden">falið</string>
   <plurals name="playedXTimes">
     <item quantity="one">Teflt %s sinnum</item>
     <item quantity="other">Teflt %s sinnum</item>
@@ -565,6 +566,7 @@
   <string name="playOfflineComputer">Skáktölva</string>
   <string name="opponent">Andstæðingur</string>
   <string name="learnMenu">Læra</string>
+  <string name="practice">Æfa</string>
   <string name="community">Samfélag</string>
   <string name="tools">Tól</string>
   <string name="increment">Aukning</string>
@@ -577,6 +579,7 @@
   <string name="error.email">Netfang ógilt</string>
   <string name="error.email_acceptable">Netfang ófullnægjandi</string>
   <string name="error.email_unique">Netfang frátekið</string>
+  <string name="error.email_different">Þetta er nú þegar netfangið þitt</string>
   <string name="ifRatingIsPlusMinusX">Ef skor er ± %s</string>
   <string name="onlyFriends">Aðeins vinir</string>
   <string name="menu">Valmynd</string>
@@ -686,6 +689,8 @@
     <item quantity="other">Til á %s tungumálum</item>
   </plurals>
   <string name="gameAnalysis">Leikgreining</string>
+  <string name="quickPairing">Flýtival</string>
+  <string name="lobby">Salur</string>
   <string name="anonymous">Nafnlaus</string>
   <string name="language">Tungumál</string>
   <string name="light">Ljós</string>
@@ -716,6 +721,7 @@
   <string name="resumePractice">Halda áfram æfingu</string>
   <string name="seeBestMove">Sjá besta leik</string>
   <string name="hideBestMove">Fela besta leik</string>
+  <string name="whiteWinsGame">Hvítt vinnur</string>
   <string name="learnFromYourMistakes">Lærðu af mistökum þínum</string>
   <string name="learnFromThisMistake">Lærðu af þessum mistökum</string>
   <string name="skipThisMove">Sleppa þessum leik</string>
@@ -732,6 +738,10 @@
   <string name="noMistakesFoundForBlack">Engin mistök fundust hjá svörtum</string>
   <string name="doneReviewingWhiteMistakes">Yfirferð mistaka hvíts lokið</string>
   <string name="doneReviewingBlackMistakes">Yfirferð mistaka svarts lokið</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekúnda</item>
+    <item quantity="other">%s sekúndur</item>
+  </plurals>
   <string name="opening">Byrjun</string>
   <string name="middlegame">Miðtafl</string>
   <string name="youCannotChallengeX">Þú getur ekki skorað á %s.</string>
@@ -754,4 +764,8 @@
   <string name="blitzDesc">Hraðar skákir: 3 til 8 mínútur</string>
   <string name="rapidDesc">Örar skákir: 8 til 25 mínútur</string>
   <string name="classicalDesc">Hefðbundnar skákir: 25 mínútur eða meira</string>
+  <string name="important">Mikilvægt</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Spurningin þín gæti verið búin að fá svar %1$s</string>
+  <string name="inTheFAQ">í FAQ-ið</string>
+  <string name="youCannotPostYetPlaySomeGames">Þú mátt ekki pósta enn. Spilaðu nokkra leiki!</string>
 </resources>

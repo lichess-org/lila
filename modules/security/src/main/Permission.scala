@@ -243,7 +243,7 @@ object Permission {
 
   def apply(dbKey: String): Option[Permission] = allByDbKey get dbKey
 
-  def apply(dbKeys: List[String]): Set[Permission] = dbKeys flatMap allByDbKey.get toSet
+  def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys flatMap allByDbKey.get toSet
 
   def findGranterPackage(perms: Set[Permission], perm: Permission): Option[Permission] =
     !perms(perm) ?? perms.find(_ is perm)

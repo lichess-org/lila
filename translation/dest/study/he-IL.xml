@@ -67,11 +67,8 @@
   <string name="chapterPgn">הPGN של הפרק</string>
   <string name="studyUrl">כתובת האינטרנט של המחקר</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">אתה יכול לפרסם את זה בפורום כדי להטמיע את הפרק</string>
   <string name="startAtInitialPosition">התחל/י במצב התחלתי</string>
   <string name="startAtX">מתחיל ב%s</string>
-  <string name="embedThisChapter">הטמע פרק זה באתר שלך או בבלוג</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">קרא עוד על הטמעת פרק מחקר</string>
   <string name="open">פתח</string>
   <string name="xBroughtToYouByY">%1$s מוגש על ידי %2$s</string>
   <string name="studyNotFound">המחקר לא נמצא</string>

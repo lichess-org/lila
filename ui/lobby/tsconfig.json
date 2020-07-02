@@ -1,8 +1,9 @@
 {
   "extends": "../tsconfig.base.json",
-  "include": ["src/*.ts", "src/*.js"],
+  "include": ["src/**/*.ts"],
   "compilerOptions": {
     "noImplicitAny": false,
-    "allowJs": true
+    "noImplicitThis": false,
+    "lib": ["DOM", "ES2016", "DOM.iterable"]
   }
 }

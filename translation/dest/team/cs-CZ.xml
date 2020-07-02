@@ -35,4 +35,6 @@
   <string name="teamTournamentOverview">Turnaj v aréně, ke kterému se mohou připojit pouze členové vašeho týmu</string>
   <string name="messageAllMembers">Zpráva všem členům</string>
   <string name="messageAllMembersOverview">Poslat soukromou zprávu každému členovi týmu</string>
+  <string name="teamsIlead">Mnou vedené týmy</string>
+  <string name="leadersChat">Chat vedoucích</string>
 </resources>

@@ -12,7 +12,7 @@
   <string name="tournamentGames">Partidas em torneios</string>
   <string name="berserkedGames">Partidas no modo frenético</string>
   <string name="timeSpentPlaying">Tempo passado a jogar</string>
-  <string name="averageOpponent">Oponente médio</string>
+  <string name="averageOpponent">Pontuação média dos adversários</string>
   <string name="victories">Vitórias</string>
   <string name="defeats">Derrotas</string>
   <string name="disconnections">Desconexões</string>
@@ -24,8 +24,8 @@
   <string name="losingStreak">Derrotas consecutivas</string>
   <string name="longestStreak">Sequência mais longa: %s</string>
   <string name="currentStreak">Sequência atual: %s</string>
-  <string name="bestRated">Vitórias com melhor classificação</string>
-  <string name="worstRated">Derrotas com pior classificação</string>
+  <string name="bestRated">Melhores vitórias a valer pontos</string>
+  <string name="worstRated">Piores derrotas a valer pontos</string>
   <string name="gamesInARow">Partidas jogadas de seguida</string>
   <string name="lessThanOneHour">Menos que uma hora entre partidas</string>
   <string name="maxTimePlaying">Tempo máximo passado a jogar</string>

@@ -102,6 +102,8 @@ case class HookConfig(
       days = game.daysPerTurn | days,
       mode = game.mode
     )
+
+  def withRatingRange(str: Option[String]) = copy(ratingRange = RatingRange orDefault str)
 }
 
 object HookConfig extends BaseHumanConfig {

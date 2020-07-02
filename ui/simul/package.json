@@ -10,13 +10,17 @@
     "simul"
   ],
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/jsProject": "2.0.0"
+    "@build/rollupProject": "2.0.0"
   },
   "dependencies": {
     "chat": "2.0.0",
     "game": "2.0.0",
     "mithril": "github:ornicar/mithril.js#lila-1"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
   }
 }

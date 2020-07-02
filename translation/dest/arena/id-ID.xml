@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Arena turnamen</string>
   <string name="isItRated">Apakah ini di-rating?</string>
   <string name="willBeNotified">Anda akan diberitahu ketika turnamen dimulai, sehingga aman untuk bermain di tab lain sambil menunggu.</string>
   <string name="isRated">Turnamen ini berperingkat dan akan mempengaruhi peringkat Anda.</string>

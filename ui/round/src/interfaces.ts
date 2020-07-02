@@ -37,10 +37,11 @@ export interface SocketDrop {
 
 export type EncodedDests = string | {
   [key: string]: string;
-};
+}
 export interface DecodedDests {
   [key: string]: cg.Key[];
 }
+export type CgDests = cg.Dests;
 
 export interface RoundData extends GameData {
   clock?: ClockData;
@@ -131,11 +132,11 @@ export interface ApiMove extends Step {
     key: cg.Key;
     pieceClass: cg.Role;
   };
-  enpassant: {
+  enpassant?: {
     key: cg.Key;
     color: Color;
   };
-  castle: {
+  castle?: {
     king: [cg.Key, cg.Key];
     rook: [cg.Key, cg.Key];
     color: Color;

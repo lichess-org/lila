@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Chessground } from 'chessground';
 import { opposite } from 'chessground/util';
-import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer } from './interfaces';
+import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { bind, spinner } from '../util';
@@ -16,7 +16,7 @@ export class MultiBoardCtrl {
 
   constructor(readonly studyId: string, readonly redraw: () => void, readonly trans: Trans) {}
 
-  addNode(pos, node) {
+  addNode(pos: Position, node: Tree.Node) {
     const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
     if (cp && cp.playing) {
       cp.fen = node.fen;

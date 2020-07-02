@@ -119,7 +119,6 @@ object search {
           th("User"),
           th("Games"),
           th("Marks"),
-          th("IPban"),
           th("Closed"),
           th("Created"),
           th("Active")

@@ -6,6 +6,14 @@ import * as game from 'game';
 import { defined } from 'common';
 import { bind, dataIcon } from './util';
 
+type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
+
+interface Advice {
+  kind: AdviceKind;
+  plural: string;
+  symbol: string;
+}
+
 function renderRatingDiff(rd: number | undefined): VNode | undefined {
   if (rd === 0) return h('span', '±0');
   if (rd && rd > 0) return h('good', '+' + rd);
@@ -28,10 +36,10 @@ function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
     'Anonymous');
 }
 
-const advices = [
-  ['inaccuracy', 'inaccuracies', '?!'],
-  ['mistake', 'mistakes', '?'],
-  ['blunder', 'blunders', '??']
+const advices: Advice[] = [
+  { kind: 'inaccuracy', plural: 'inaccuracies', symbol: '?!' },
+  { kind: 'mistake', plural: 'mistakes', symbol: '?' },
+  { kind: 'blunder', plural: 'blunders', symbol: '??' },
 ];
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
@@ -50,14 +58,14 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
     ])),
     h('tbody',
       advices.map(a => {
-        const nb: number = d.analysis![color][a[0]];
+        const nb: number = d.analysis![color][a.kind];
         const attrs: VNodeData = nb ? {
           'data-color': color,
-          'data-symbol': a[2]
+          'data-symbol': a.symbol
         } : {};
         return h('tr' + (nb ? '.symbol' : ''), { attrs }, [
           h('td', '' + nb),
-          h('th', trans(a[1]))
+          h('th', trans(a.plural))
         ]);
       }).concat(
         h('tr', [

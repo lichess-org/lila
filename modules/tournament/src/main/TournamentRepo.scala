@@ -105,6 +105,12 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
+  def byTeamCursor(teamId: TeamID) =
+    coll.ext
+      .find(forTeamSelect(teamId))
+      .sort($sort desc "startsAt")
+      .cursor[Tournament]()
+
   private[tournament] def upcomingByTeam(teamId: TeamID, nb: Int) =
     (nb > 0) ?? coll.ext
       .find(
@@ -176,6 +182,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   def teamBattleOf(tourId: Tournament.ID): Fu[Option[TeamBattle]] =
     coll.primitiveOne[TeamBattle]($id(tourId), "teamBattle")
+
+  def isTeamBattle(tourId: Tournament.ID): Fu[Boolean] =
+    coll.exists($id(tourId) ++ $doc("teamBattle" $exists true))
 
   def featuredGameId(tourId: Tournament.ID) = coll.primitiveOne[Game.ID]($id(tourId), "featured")
 
@@ -266,18 +275,17 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       _.flatMap { tour =>
         tour.schedule map (tour -> _)
       }.foldLeft(List.empty[Tournament] -> none[Schedule.Freq]) {
-          case ((tours, skip), (_, sched)) if skip.contains(sched.freq) => (tours, skip)
-          case ((tours, skip), (tour, sched)) =>
-            (
-              tour :: tours,
-              sched.freq match {
-                case Schedule.Freq.Daily   => Schedule.Freq.Eastern.some
-                case Schedule.Freq.Eastern => Schedule.Freq.Daily.some
-                case _                     => skip
-              }
-            )
-        }
-        ._1
+        case ((tours, skip), (_, sched)) if skip.contains(sched.freq) => (tours, skip)
+        case ((tours, skip), (tour, sched)) =>
+          (
+            tour :: tours,
+            sched.freq match {
+              case Schedule.Freq.Daily   => Schedule.Freq.Eastern.some
+              case Schedule.Freq.Eastern => Schedule.Freq.Daily.some
+              case _                     => skip
+            }
+          )
+      }._1
         .reverse
     }
 

@@ -16,4 +16,7 @@
       margin-right: .1rem;
     }
   }
+  .more {
+    @extend %lobby__side__more;
+  }
 }

@@ -22,7 +22,6 @@ export function makeConfig(ctrl: RoundController): Config {
     check: !!step.check,
     coordinates: data.pref.coords !== 0,
     addPieceZIndex: ctrl.data.pref.is3d,
-    autoCastle: data.game.variant.key === 'standard',
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight

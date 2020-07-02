@@ -4,9 +4,9 @@
   <string name="playWithTheMachine">Jogar contra o computador</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
-  <string name="waitingForOpponent">Aguardando oponente</string>
+  <string name="waitingForOpponent">Aguardando pelo adversário</string>
   <string name="waiting">A aguardar</string>
-  <string name="yourTurn">Sua vez</string>
+  <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
   <string name="level">Nível</string>
   <string name="toggleTheChat">Ativar/Desativar o chat</string>
@@ -28,20 +28,20 @@
   <string name="threeChecks">Três xeques</string>
   <string name="raceFinished">Corrida terminada</string>
   <string name="variantEnding">Fim da variante</string>
-  <string name="newOpponent">Novo oponente</string>
+  <string name="newOpponent">Novo adversário</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">O teu adversário quer jogar uma nova partida contra ti</string>
   <string name="joinTheGame">Entrar no jogo</string>
   <string name="whitePlays">Jogam as brancas</string>
   <string name="blackPlays">Jogam as pretas</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">O teu adversário deixou a partida. Podes reivindicar vitória em %s segundo.</item>
-    <item quantity="other">O teu adversário abandonou a partida. Podes reivindicar vitória em %s segundos.</item>
+    <item quantity="other">O teu adversário deixou a partida. Podes reivindicar vitória em %s segundos.</item>
   </plurals>
-  <string name="opponentLeftChoices">O teu oponente deixou a partida. Podes reivindicar vitória, declarar empate ou aguardar.</string>
+  <string name="opponentLeftChoices">O teu adversário deixou a partida. Podes reivindicar vitória, declarar empate ou aguardar.</string>
   <string name="makeYourOpponentResign">Obrigar o teu adversário a desistir</string>
   <string name="forceResignation">Reivindicar vitória</string>
   <string name="forceDraw">Reivindicar empate</string>
-  <string name="talkInChat">Por favor, sê gentil na conversação!</string>
+  <string name="talkInChat">Por favor, sê gentil na conversa!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira pessoa que aceder a este link jogará contra ti.</string>
   <string name="whiteResigned">As brancas desistiram</string>
   <string name="blackResigned">As pretas desistiram</string>
@@ -156,7 +156,7 @@
   <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
-  <string name="timeControl">Tempo</string>
+  <string name="timeControl">Ritmo de jogo</string>
   <string name="realTime">Em tempo real</string>
   <string name="correspondence">Correspondência</string>
   <string name="daysPerTurn">Dias por lance</string>
@@ -208,10 +208,10 @@
   <string name="blackOffersDraw">As pretas propõem empate</string>
   <string name="whiteDeclinesDraw">As brancas recusam o empate</string>
   <string name="blackDeclinesDraw">As pretas recusam o empate</string>
-  <string name="yourOpponentOffersADraw">O teu oponente propõe empate</string>
+  <string name="yourOpponentOffersADraw">O teu adversário propõe empate</string>
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
-  <string name="playingRightNow">A jogar neste momento</string>
+  <string name="playingRightNow">A jogar agora</string>
   <string name="eventInProgress">A decorrer agora</string>
   <string name="finished">Terminado</string>
   <string name="finishesX">termina %s</string>
@@ -241,7 +241,7 @@
   <string name="loginToChat">Inicia sessão para poderes conversar</string>
   <string name="youHaveBeenTimedOut">Foste impedido de conversar por agora.</string>
   <string name="spectatorRoom">Sala dos espectadores</string>
-  <string name="composeMessage">Escrever mensagem</string>
+  <string name="composeMessage">Escrever uma mensagem</string>
   <string name="noNewMessages">Nenhuma mensagem nova</string>
   <string name="subject">Assunto</string>
   <string name="recipient">Para</string>
@@ -275,7 +275,7 @@
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Este jogador usa a ajuda de computador</string>
+  <string name="thisAccountViolatedTos">Esta conta violou os termos de serviço do Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador aumentou/diminuiu a sua pontuação de forma artificial</string>
   <string name="openingExplorerAndTablebase">Explorador de aberturas &amp; tabelas de finais</string>
   <string name="takeback">Voltar uma jogada atrás</string>
@@ -283,8 +283,8 @@
   <string name="takebackPropositionSent">Proposta de voltar uma jogada atrás enviada</string>
   <string name="takebackPropositionDeclined">Proposta de voltar uma jogada atrás recusada</string>
   <string name="takebackPropositionAccepted">Proposta de voltar uma jogada atrás aceite</string>
-  <string name="takebackPropositionCanceled">Proposta de voltar a jogada atrás cancelada</string>
-  <string name="yourOpponentProposesATakeback">O seu oponente propõe voltar uma jogada atrás</string>
+  <string name="takebackPropositionCanceled">Proposta de voltar uma jogada atrás cancelada</string>
+  <string name="yourOpponentProposesATakeback">O teu adversário propõe voltar uma jogada atrás</string>
   <string name="bookmarkThisGame">Adicionar esta partida às favoritas</string>
   <string name="tournament">Torneio</string>
   <string name="tournaments">Torneios</string>
@@ -341,8 +341,9 @@
   <string name="fromPosition">A partir de uma posição</string>
   <string name="continueFromHere">Continuar a partir daqui</string>
   <string name="toStudy">Estudo</string>
-  <string name="importGame">Importar partida</string>
-  <string name="importGameExplanation">Coloca aqui o PGN de um jogo, para teres acesso a navegar pela repetição, análise de computador, sala de conversação e link de partilha.</string>
+  <string name="importGame">Importar uma partida</string>
+  <string name="importGameExplanation">Coloca aqui o PGN de um jogo, para teres acesso a navegar pela repetição,
+análise de computador, sala de chat do jogo e link de partilha.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -361,7 +362,7 @@
   </plurals>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>
-  <string name="favoriteOpponents">Oponentes favoritos</string>
+  <string name="favoriteOpponents">Adversários favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">A seguir</string>
   <string name="unfollow">Deixar de seguir</string>
@@ -417,15 +418,15 @@
   <string name="standByX">Aguarda %s, estamos a emparelhar jogadores, prepara-te!</string>
   <string name="youArePlaying">Estás a jogar!</string>
   <string name="winRate">Taxa de vitórias</string>
-  <string name="berserkRate">Taxa de partidas frenéticas</string>
+  <string name="berserkRate">Taxa de partidas no modo frenético</string>
   <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio terminado</string>
   <string name="movesPlayed">Movimentos feitos</string>
   <string name="whiteWins">Vitórias com brancas</string>
-  <string name="blackWins">Vitórias com pretas</string>
+  <string name="blackWins">Vitórias com as pretas</string>
   <string name="draws">Empates</string>
   <string name="nextXTournament">Próximo torneio de %s:</string>
-  <string name="averageOpponent">Pontuação média dos oponentes</string>
+  <string name="averageOpponent">Pontuação média dos adversários</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="setTheBoard">Partilha o tabuleiro</string>
@@ -479,7 +480,7 @@
   </plurals>
   <string name="fromGameLink">Da partida %s</string>
   <string name="continueTraining">Continuar a praticar</string>
-  <string name="retryThisPuzzle">Tentar novamente este problema</string>
+  <string name="retryThisPuzzle">Tentar este problema novamente</string>
   <string name="thisPuzzleIsCorrect">Este problema está correto e é interessante</string>
   <string name="thisPuzzleIsWrong">Este problema está errado ou é chato</string>
   <plurals name="nbGamesInPlay">
@@ -583,7 +584,7 @@
   <string name="loginSuccessful">Iniciaste sessão</string>
   <string name="playOnTheBoardOffline">Contra um amigo</string>
   <string name="playOfflineComputer">Contra o computador</string>
-  <string name="opponent">Oponente</string>
+  <string name="opponent">Adversário</string>
   <string name="learnMenu">Aprender</string>
   <string name="studyMenu">Estudos</string>
   <string name="practice">Praticar</string>
@@ -612,7 +613,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Tempo passado a jogar: %s</string>
   <string name="watchGames">Ver jogos</string>
-  <string name="tpTimeSpentOnTV">Tempo na TV: %s</string>
+  <string name="tpTimeSpentOnTV">Tempo a ser transmitido na TV: %s</string>
   <string name="watch">Observar</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="streamersMenu">Streamers</string>
@@ -620,7 +621,7 @@
   <string name="webmasters">Webmasters</string>
   <string name="about">Sobre</string>
   <string name="aboutX">Sobre o %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor de xadrez grátis (%2$s), sem publicidades e open-source.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">O %1$s é um servidor de xadrez grátis (%2$s), sem publicidades e open-source.</string>
   <string name="really">a sério</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Termos de serviço</string>
@@ -633,8 +634,8 @@
   <string name="noSimulFound">Simultânea não encontrada</string>
   <string name="noSimulExplanation">Esta exibição simultânea não existe.</string>
   <string name="returnToSimulHomepage">Voltar à página inicial da simultânea</string>
-  <string name="aboutSimul">As simultâneas envolvem um único jogador contra vários oponentes ao mesmo tempo.</string>
-  <string name="aboutSimulImage">Contra 50 oponentes, Fischer ganhou 47 jogos, empatou 2 e perdeu 1.</string>
+  <string name="aboutSimul">As simultâneas envolvem um único jogador contra vários adversários ao mesmo tempo.</string>
+  <string name="aboutSimulImage">Contra 50 adversários, Fischer ganhou 47 jogos, empatou 2 e perdeu 1.</string>
   <string name="aboutSimulRealLife">O conceito provém de eventos reais, nos quais o simultanista se move de mesa em mesa, executando um movimento de cada vez.</string>
   <string name="aboutSimulRules">Quando a simultânea começa, cada jogador começa sua partida contra o anfitrião, que joga sempre com as peças brancas. A simultânea termina quando todas as partidas tiverem acabado.</string>
   <string name="aboutSimulSettings">As simultâneas são sempre partidas amigáveis. Desforras, voltar jogadas atrás e dar mais tempo estão desativados.</string>
@@ -645,7 +646,7 @@
   <string name="simulAddExtraTime">Podes acrescentar tempo adicional ao teu relógio, para te ajudar a lidar com a simultânea.</string>
   <string name="simulHostExtraTime">Tempo adicional do anfitrião</string>
   <string name="lichessTournaments">Torneios do Lichess</string>
-  <string name="tournamentFAQ">Perguntas frequentes sobre torneios em Arena</string>
+  <string name="tournamentFAQ">Perguntas frequentes sobre torneios em arena</string>
   <string name="tournamentOfficial">Oficial</string>
   <string name="timeBeforeTournamentStarts">Contagem decrescente para o início do torneio</string>
   <string name="averageCentipawnLoss">Perda média de centésimos de peão</string>
@@ -656,7 +657,7 @@
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneios de xadrez com diversos ritmos de jogo e variantes</string>
-  <string name="tournamentHomeDescription">Joga xadrez em ritmo acelerado! Entra num torneio oficial agendado ou cria o teu próprio. Bullet, Blitz, Clássico, Chess960, Rei da colina, Três xeques e mais opções disponíveis para uma diversão ilimitada.</string>
+  <string name="tournamentHomeDescription">Joga xadrez em ritmo acelerado! Entra num torneio oficial agendado ou cria o teu próprio. Bullet, blitz, clássico, chess960, rei da colina, três xeques e mais opções disponíveis para uma diversão ilimitada.</string>
   <string name="tournamentNotFound">Torneio não encontrado</string>
   <string name="tournamentDoesNotExist">Este torneio não existe.</string>
   <string name="tournamentMayHaveBeenCanceled">O torneio pode ter sido cancelado, se todos os jogadores tiverem saíram antes do seu começo.</string>
@@ -850,11 +851,11 @@
   <string name="correspondenceDesc">Partidas por correspondência: um ou vários dias por lance</string>
   <string name="puzzleDesc">Treinador de táticas de xadrez</string>
   <string name="important">Importante</string>
-  <string name="yourQuestionMayHaveBeenAnswered">A sua pergunta pode já ter uma resposta %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered">A tua pergunta pode já ter uma resposta %1$s</string>
   <string name="inTheFAQ">no F.A.Q. (perguntas frequentes).</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">Para reportares um utilizador por fazer batota ou por mau comportamento, %1$s</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Para reportares um utilizador por fazer batota ou por mau comportamento, %1$s.</string>
   <string name="useTheReportForm">usa a ficha própria para o fazeres</string>
-  <string name="toRequestSupport">Para solicitares suporte, %1$s</string>
+  <string name="toRequestSupport">Para solicitares suporte, %1$s.</string>
   <string name="tryTheContactPage">tenta a página de contacto</string>
   <string name="thisTopicIsArchived">Este tópico foi arquivado e já não pode ser respondido.</string>
   <string name="joinTheTeamXToPost">Junta-te a %1$s, para publicares neste fórum</string>

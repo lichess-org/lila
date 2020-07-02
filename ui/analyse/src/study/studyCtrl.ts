@@ -79,7 +79,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     data.chapters,
     send,
     () => vm.tab('chapters'),
-    chapterId => xhr.chapterConfig(data.id, chapterId),
+    (chapterId: string) => xhr.chapterConfig(data.id, chapterId),
     ctrl);
 
   function currentChapter(): StudyChapterMeta {
@@ -236,7 +236,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return ctrl.node;
   };
 
-  const share = shareCtrl(data, currentChapter, currentNode, redraw, ctrl.trans);
+  const share = shareCtrl(data, currentChapter, currentNode, !!relay, redraw, ctrl.trans);
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 
@@ -247,11 +247,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
     gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, ctrl.trans, redraw);
     vm.mode.sticky = false;
+    return undefined;
   }
   instanciateGamebookPlay();
 
   function mutateCgConfig(config) {
-    config.drawable.onChange = shapes => {
+    config.drawable.onChange = (shapes: Tree.Shape[]) => {
       if (vm.mode.write) {
         ctrl.tree.setShapes(shapes, ctrl.path);
         makeChange("shapes", addChapterId({
@@ -269,6 +270,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (vm.mode.sticky && serverData.sticky) xhrReload();
       return true;
     }
+    return undefined;
   }
 
   function setMemberActive(who?: {u: string}) {
@@ -483,7 +485,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     crowd(d) {
       members.setSpectators(d.users);
     },
-    error(msg) {
+    error(msg: string) {
       alert(msg);
     }
   };
@@ -591,6 +593,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         currentId = currentChapter().id;
       for (let i in chapters)
         if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
+      return undefined;
     },
     setGamebookOverride(o) {
       vm.gamebookOverride = o;

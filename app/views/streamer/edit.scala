@@ -19,8 +19,6 @@ object edit extends Context.ToLang {
       modData: Option[(List[lila.mod.Modlog], List[lila.user.Note])]
   )(implicit ctx: Context) = {
 
-    val modsOnly = raw("Moderators only").some
-
     views.html.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
       moreCss = cssTag("streamer.form"),
@@ -124,13 +122,11 @@ object edit extends Context.ToLang {
                     form3.checkbox(
                       form("approval.granted"),
                       frag("Publish on the streamers list"),
-                      help = modsOnly,
                       half = true
                     ),
                     form3.checkbox(
                       form("approval.requested"),
                       frag("Active approval request"),
-                      help = modsOnly,
                       half = true
                     )
                   ),
@@ -138,21 +134,20 @@ object edit extends Context.ToLang {
                     form3.checkbox(
                       form("approval.chat"),
                       frag("Embed stream chat too"),
-                      help = modsOnly,
                       half = true
                     ),
                     if (granted)
-                      form3.checkbox(
-                        form("approval.featured"),
-                        frag("Feature on Lichess homepage"),
-                        help = modsOnly,
+                      form3.group(
+                        form("approval.tier"),
+                        raw("Homepage tier"),
+                        help =
+                          frag("Higher tier has more chance to hit homepage. Set to zero to unfeature.").some,
                         half = true
-                      )
+                      )(form3.select(_, lila.streamer.Streamer.tierChoices))
                     else
                       form3.checkbox(
                         form("approval.ignored"),
                         frag("Ignore further approval requests"),
-                        help = modsOnly,
                         half = true
                       )
                   ),

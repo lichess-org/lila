@@ -21,7 +21,7 @@ object gamify {
         th("Champions of the past"),
         th("Score"),
         th("Actions taken"),
-        th("Reports closed")
+        th("Report points")
       )
 
     views.html.base.layout(
@@ -125,7 +125,7 @@ object gamify {
                 td(m.action)
               ),
               tr(
-                th("Reports closed"),
+                th("Report points"),
                 td(m.report)
               )
             )

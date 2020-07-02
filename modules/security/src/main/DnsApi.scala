@@ -12,7 +12,10 @@ final private class DnsApi(
     ws: WSClient,
     config: SecurityConfig.DnsApi,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   // only valid email domains that are not whitelisted should make it here
   def mx(domain: Domain.Lower): Fu[List[Domain]] =

@@ -8,7 +8,10 @@ final private class TeamSocket(
     chat: lila.chat.ChatApi,
     teamRepo: TeamRepo,
     cached: Cached
-)(implicit ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mode: play.api.Mode
+) {
 
   lazy val rooms = makeRoomMap(send)
 

@@ -1,11 +1,11 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { spinner, bind, userName, dataIcon, player as renderPlayer, numberRow  } from './util';
-import { Player, PlayerExt, Pairing, Outcome } from '../interfaces';
+import { Pairing } from '../interfaces';
 import { isOutcome } from '../util';
 import SwissCtrl from '../ctrl';
 
-export default function(ctrl: SwissCtrl): VNode {
+export default function(ctrl: SwissCtrl): VNode | undefined {
   if (!ctrl.playerInfoId) return;
   const data = ctrl.data.playerInfo;
   const noarg = ctrl.trans.noarg;

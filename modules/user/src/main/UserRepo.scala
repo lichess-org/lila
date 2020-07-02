@@ -524,8 +524,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
       .cursor[Bdoc]()
       .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[Bdoc]]())
-      .map { docs =>
-        docs.view
+      .map {
+        _.view
           .map { doc =>
             ~doc.getAsOpt[ID]("_id") -> docPerf(doc, perfType).getOrElse(Perf.default)
           }
@@ -594,7 +594,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     import User.contactHandler
     coll.byOrderedIds[User.Contact, User.ID](
       List(orig, dest),
-      $doc(F.kid -> true, F.marks -> true, F.roles -> true).some
+      $doc(F.kid -> true, F.marks -> true, F.roles -> true, F.createdAt -> true).some
     )(_._id) map {
       case List(o, d) => User.Contacts(o, d).some
       case _          => none

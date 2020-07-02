@@ -130,21 +130,25 @@ trait FormHelper { self: I18nHelper =>
     def select(
         field: Field,
         options: Iterable[(Any, String)],
-        default: Option[String] = None
+        default: Option[String] = None,
+        disabled: Boolean = false
     ): Frag =
-      st.select(
-        st.id := id(field),
-        name := field.name,
-        cls := "form-control"
-      )(validationModifiers(field))(
-        default map { option(value := "")(_) },
-        options.toSeq map {
-          case (value, name) =>
-            option(
-              st.value := value.toString,
-              field.value.has(value.toString) option selected
-            )(name)
-        }
+      frag(
+        st.select(
+          st.id := id(field),
+          name := field.name,
+          cls := "form-control"
+        )(disabled option (st.disabled := true))(validationModifiers(field))(
+          default map { option(value := "")(_) },
+          options.toSeq map {
+            case (value, name) =>
+              option(
+                st.value := value.toString,
+                field.value.has(value.toString) option selected
+              )(name)
+          }
+        ),
+        disabled option hidden(field)
       )
 
     def textarea(
@@ -180,13 +184,8 @@ trait FormHelper { self: I18nHelper =>
         title := confirm
       )(content)
 
-    def hidden(field: Field, value: Option[String] = None): Frag =
-      st.input(
-        st.id := id(field),
-        name := field.name,
-        st.value := value.orElse(field.value),
-        tpe := "hidden"
-      )
+    def hidden(field: Field, value: Option[String] = None): Tag =
+      hidden(field.name, ~value.orElse(field.value))
 
     def hidden(name: String, value: String): Tag =
       st.input(

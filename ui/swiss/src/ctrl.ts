@@ -21,7 +21,6 @@ export default class SwissCtrl {
   searching: boolean = false;
   redraw: () => void;
 
-  private watchingGameId: string;
   private lastStorage = window.lichess.storage.make('last-redirect');
 
   constructor(opts: SwissOpts, redraw: () => void) {
@@ -145,7 +144,7 @@ export default class SwissCtrl {
     this.reloadSoonThrottle();
   }
 
-  private isIn = () => this.data.me && !this.data.me.absent;
+  private isIn = () => !!this.data.me && !this.data.me.absent;
 
   private redrawNbRounds = () =>
     $('.swiss__meta__round').text(`${this.data.round}/${this.data.nbRounds}`);

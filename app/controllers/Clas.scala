@@ -335,14 +335,17 @@ final class Clas(
                 _ ?? {
                   user =>
                     import lila.clas.ClasInvite.{ Feedback => F }
-                    env.clas.api.invite.create(clas, user, data.realName, me) map { feedback =>
-                      Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
-                        feedback match {
-                          case F.Already => "success" -> s"${user.username} is now a student of the class"
-                          case F.Invited => "success" -> s"An invitation has been sent to ${user.username}"
-                          case F.Found   => "warning" -> s"${user.username} already has a pending invitation"
+                    env.clas.api.invite.create(clas, user, data.realName, me) map {
+                      feedback =>
+                        Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
+                          feedback match {
+                            case F.Already => "success" -> s"${user.username} is now a student of the class"
+                            case F.Invited => "success" -> s"An invitation has been sent to ${user.username}"
+                            case F.Found   => "warning" -> s"${user.username} already has a pending invitation"
+                            case F.CantMsgKid(url) =>
+                              "warning" -> s"${user.username} is a kid account and can't receive your message. You must give them the invitation URL manually: $url"
+                          }
                         }
-                      }
                     }
                 }
               }

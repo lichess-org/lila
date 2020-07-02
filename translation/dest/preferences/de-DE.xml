@@ -37,7 +37,7 @@
   <string name="inCorrespondenceGames">Im Fernschach</string>
   <string name="correspondenceAndUnlimited">Fernschach und unbegrenzt</string>
   <string name="confirmResignationAndDrawOffers">Aufgabe und Remis-Angebote bestätigen</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Methode zum Rochieren</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rochade-Methode</string>
   <string name="castleByMovingTwoSquares">Ziehe den König zwei Felder weit</string>
   <string name="castleByMovingOntoTheRook">Ziehe den König auf den Turm</string>
   <string name="inputMovesWithTheKeyboard">Züge mit der Tastatur eingeben</string>

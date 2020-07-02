@@ -20,6 +20,7 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
     ctrl.data.sync.url ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl) : null,
     renderLog(ctrl)
   ]);
+  return undefined;
 }
 
 function logSuccess(e: LogEvent) {

@@ -49,11 +49,11 @@ final class ESClientHttp(
       HTTP(s"delete/ids/${index.name}", Json.obj("ids" -> ids.map(_.value)))
 
   def putMapping =
-    HTTP(s"mapping/${index.name}/${index.name}", Json.obj())
+    HTTP(s"mapping/${index.name}", Json.obj())
 
   def storeBulk(docs: Seq[(Id, JsObject)]) =
     HTTP(
-      s"store/bulk/${index.name}/${index.name}",
+      s"store/bulk/${index.name}",
       JsObject(docs map {
         case (Id(id), doc) => id -> JsString(Json.stringify(doc))
       })

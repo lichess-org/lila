@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.report.Room
-import lila.user.User.lichessId
+import lila.user.User
 
 final class Gamify(
     logRepo: ModlogRepo,
@@ -100,11 +100,11 @@ final class Gamify(
       $doc("$lt" -> to)
     }
 
-  private val notLichess = $doc("$ne" -> lichessId)
+  private val notLichess = $doc("$ne" -> User.lichessId)
 
   private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
     logRepo.coll
-      .aggregateList(maxDocs = 100) { framework =>
+      .aggregateList(maxDocs = 100, readPreference = ReadPreference.secondaryPreferred) { framework =>
         import framework._
         Match(
           $doc(
@@ -136,7 +136,13 @@ final class Gamify(
             "processedBy" -> notLichess
           )
         ) -> List(
-          GroupField("processedBy")("nb" -> SumAll),
+          GroupField("processedBy")(
+            "nb" -> Sum(
+              $doc(
+                "$cond" -> $arr($doc("$eq" -> $arr("room", Room.Cheat.key)), 3, 1)
+              )
+            )
+          ),
           Sort(Descending("nb"))
         )
       }
@@ -175,8 +181,8 @@ object Gamify {
       }
   }
 
-  case class ModCount(modId: String, count: Int)
-  case class ModMixed(modId: String, action: Int, report: Int) {
+  case class ModCount(modId: User.ID, count: Int)
+  case class ModMixed(modId: User.ID, action: Int, report: Int) {
     def score = action + report
   }
 }

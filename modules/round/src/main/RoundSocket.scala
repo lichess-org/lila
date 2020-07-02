@@ -32,7 +32,10 @@ final class RoundSocket(
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
     shutdown: CoordinatedShutdown
-)(implicit ec: ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: ExecutionContext,
+    system: ActorSystem
+) {
 
   import RoundSocket._
 

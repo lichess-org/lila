@@ -12,7 +12,7 @@ function load($f) {
       if (res === 'MissingTotpToken' || res === 'InvalidTotpToken') {
         $f.find('.one-factor').hide();
         $f.find('.two-factor').show();
-        lichess.raf(function() {
+        requestAnimationFrame(function() {
           $f.find('.two-factor input').val('').focus();
         });
         $f.find('.submit').attr('disabled', false);
@@ -21,11 +21,13 @@ function load($f) {
       else location.href = res.startsWith('ok:') ? res.substr(3) : '/';
     };
     cfg.error = function(err) {
-      try {
-        $f.replaceWith($(err.responseText).find(selector));
+      const el = $(err.responseText).find(selector);
+      if (el.length) {
+        $f.replaceWith(el);
         load($(selector));
-      } catch(e) {
-        alert(err.responseText || 'Error; try again later.');
+      } else {
+        alert(err.responseText || (err.statusText + '. Please wait some time before trying again.'));
+        $f.find('.submit').attr('disabled', false);
       }
     };
     $.ajax(cfg);

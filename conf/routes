@@ -310,6 +310,7 @@ GET   /api/team/search                        controllers.Team.apiSearch(text: S
 GET   /api/team/of/:username                  controllers.Team.apiTeamsOf(username: String)
 GET   /api/team/:id                           controllers.Team.apiShow(id: String)
 GET   /api/team/:id/users                     controllers.Team.users(id: String)
+GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id: String)
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
@@ -343,7 +344,6 @@ GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri: String, gameId: String)
 POST  /setup/hook/:sri                 controllers.Setup.hook(sri: String)
 GET   /setup/filter                    controllers.Setup.filterForm
-POST  /setup/filter                    controllers.Setup.filter
 GET   /setup/validate-fen              controllers.Setup.validateFen
 
 # Challenge
@@ -554,6 +554,7 @@ GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/tournament/:id/games        controllers.Api.tournamentGames(id: String)
 GET   /api/tournament/:id/results      controllers.Api.tournamentResults(id: String)
+GET   /api/tournament/:id/teams        controllers.Api.tournamentTeams(id: String)
 POST  /api/tournament                  controllers.Tournament.apiCreate
 POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId: String)
 GET   /api/swiss/:id/games             controllers.Api.swissGames(id: String)

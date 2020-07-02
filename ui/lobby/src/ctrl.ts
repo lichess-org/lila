@@ -4,14 +4,15 @@ import * as seekRepo from './seekRepo';
 import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
 import * as poolRangeStorage from './poolRangeStorage';
-import { LobbyOpts, LobbyData, Tab, Mode, Sort, Filter, Hook, Seek, Pool, PoolMember } from './interfaces';
+import { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, Seek, Pool, PoolMember } from './interfaces';
 import LobbySocket from './socket';
+import Filter from './filter';
+import Setup from './setup';
 
 const li = window.lichess;
 
 export default class LobbyController {
 
-  opts: LobbyOpts;
   data: LobbyData;
   playban: any;
   isBot: boolean;
@@ -20,27 +21,27 @@ export default class LobbyController {
   tab: Tab;
   mode: Mode;
   sort: Sort;
-  filterOpen: boolean = false;
   stepHooks: Hook[] = [];
   stepping: boolean = false;
   redirecting: boolean = false;
   poolMember?: PoolMember;
   trans: Trans;
-  redraw: () => void;
   pools: Pool[];
+  filter: Filter;
+  setup: Setup;
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
   private alreadyWatching: string[] = [];
 
-  constructor(opts: LobbyOpts, redraw: () => void) {
-    this.opts = opts;
+  constructor(readonly opts: LobbyOpts, readonly redraw: () => void) {
     this.data = opts.data;
     this.data.hooks = [];
     this.pools = opts.pools;
     this.playban = opts.playban;
     this.isBot = opts.data.me && opts.data.me.isBot;
-    this.redraw = redraw;
+    this.filter = new Filter(li.storage.make('lobby.filter'), this);
+    this.setup = new Setup(li.storage.make, this);
 
     hookRepo.initAll(this);
     seekRepo.initAll(this);
@@ -103,9 +104,7 @@ export default class LobbyController {
     this.flushHooksTimeout = this.flushHooksSchedule();
   };
 
-  private flushHooksSchedule(): number {
-    return setTimeout(this.flushHooks, 8000);
-  }
+  private flushHooksSchedule = (): number => setTimeout(this.flushHooks, 8000);
 
   setTab = (tab: Tab) => {
     if (tab !== this.tab) {
@@ -117,24 +116,19 @@ export default class LobbyController {
       }
       this.tab = this.stores.tab.set(tab);
     }
-    this.filterOpen = false;
+    this.filter.open = false;
   };
 
   setMode = (mode: Mode) => {
     this.mode = this.stores.mode.set(mode);
-    this.filterOpen = false;
+    this.filter.open = false;
   };
 
   setSort = (sort: Sort) => {
     this.sort = this.stores.sort.set(sort);
   };
 
-  toggleFilter = () => {
-    this.filterOpen = !this.filterOpen;
-  };
-
-  setFilter = (filter: Filter) => {
-    this.data.filter = filter;
+  onSetFilter = () => {
     this.flushHooks(true);
     if (this.tab !== 'real_time') this.redraw();
   };

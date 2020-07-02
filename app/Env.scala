@@ -80,7 +80,11 @@ final class Env(
     val swiss: lila.swiss.Env,
     val lilaCookie: lila.common.LilaCookie,
     val controllerComponents: ControllerComponents
-)(implicit val system: ActorSystem, val executionContext: ExecutionContext, val mode: play.api.Mode) {
+)(implicit
+    val system: ActorSystem,
+    val executionContext: ExecutionContext,
+    val mode: play.api.Mode
+) {
 
   def net = common.netConfig
 
@@ -175,7 +179,11 @@ final class EnvBoot(
     controllerComponents: ControllerComponents,
     cookieBacker: SessionCookieBaker,
     shutdown: CoordinatedShutdown
-)(implicit ec: ExecutionContext, system: ActorSystem, ws: WSClient) {
+)(implicit
+    ec: ExecutionContext,
+    system: ActorSystem,
+    ws: WSClient
+) {
 
   implicit def scheduler   = system.scheduler
   implicit def mode        = environment.mode

@@ -19,3 +19,9 @@ case class CountResponse(count: Int) extends AnyVal
 object CountResponse {
   def apply(txt: String): CountResponse = CountResponse(~txt.toIntOption)
 }
+
+object Date {
+  import org.joda.time.format.{ DateTimeFormat, DateTimeFormatter }
+  val format                       = "yyyy-MM-dd HH:mm:ss"
+  val formatter: DateTimeFormatter = DateTimeFormat forPattern format
+}

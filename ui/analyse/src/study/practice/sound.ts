@@ -1,6 +1,6 @@
 let baseUrl: string;
 
-function make(file) {
+function make(file: string) {
   baseUrl = baseUrl || $('body').data('asset-url') + '/assets/sound/';
   const sound = new window.Howl({
     src: [

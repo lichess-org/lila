@@ -17,7 +17,10 @@ import views._
 
 final class Tournament(
     env: Env,
-    teamC: => Team
+    teamC: => Team,
+    apiC: => Api
+)(implicit
+    mat: akka.stream.Materializer
 ) extends LilaController(env) {
 
   private def repo     = env.tournament.tournamentRepo
@@ -265,8 +268,7 @@ final class Tournament(
       create: => Fu[Result]
   ): Fu[Result] = {
     val cost =
-      if (me.id == "fide") 5
-      else if (
+      if (
         me.hasTitle ||
         env.streamer.liveStreamApi.isStreaming(me.id) ||
         isGranted(_.ManageTournament, me) ||
@@ -343,7 +345,7 @@ final class Tournament(
     Auth { implicit ctx => me =>
       repo byId id flatMap {
         _ ?? {
-          case tour if tour.createdBy == me.id =>
+          case tour if tour.createdBy == me.id || isGranted(_.ManageTournament) =>
             tour.teamBattle ?? { battle =>
               env.team.teamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
                 env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
@@ -450,6 +452,18 @@ final class Tournament(
           Redirect(routes.Tournament.home)
         }
       }
+    }
+
+  def byTeam(id: String) =
+    Action.async { implicit req =>
+      implicit val lang = reqLang
+      apiC.jsonStream {
+        env.tournament.tournamentRepo
+          .byTeamCursor(id)
+          .documentSource(getInt("max", req) | 100)
+          .mapAsync(1)(env.tournament.apiJsonView.fullJson)
+          .throttle(20, 1.second)
+      }.fuccess
     }
 
   private def WithEditableTournament(id: String, me: UserModel)(

@@ -211,7 +211,17 @@ private[study] object ChapterMaker {
       orientation: String = "white",
       mode: String = ChapterMaker.Mode.Normal.key,
       initial: Boolean = false
-  ) extends ChapterData
+  ) extends ChapterData {
+
+    def manyGames =
+      game
+        .??(_.linesIterator.take(Study.maxChapters).toList)
+        .map(_.trim)
+        .filter(_.nonEmpty)
+        .map { g => copy(game = g.some) }
+        .some
+        .filter(_.size > 1)
+  }
 
   case class EditData(
       id: Chapter.Id,

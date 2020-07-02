@@ -30,7 +30,11 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     proxyRepo: lila.round.GameProxyRepo
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mode: play.api.Mode) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    mode: play.api.Mode
+) {
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
 
