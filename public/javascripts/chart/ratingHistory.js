@@ -97,10 +97,7 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
               name: serie.name,
               type: 'line',
               dashStyle: dashStyles[i],
-              marker: {
-                enabled: true,
-                radius: 2
-              },
+              marker: disabled,
               data: smoothDates(originalDatesAndRatings)
             };
           })
