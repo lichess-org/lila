@@ -321,6 +321,19 @@ final class Api(
       scoped = req => u => gamesByUsers(if (u.id == "lichess4545") 900 else 500)(req)
     )
 
+  def cloudEval =
+    Action.async { req =>
+      get("fen", req).fold(notFoundJson("Missing FEN")) { fen =>
+        JsonOptionOk(
+          env.evalCache.api.getEvalJson(
+            chess.variant.Variant orDefault ~get("variant", req),
+            chess.format.FEN(fen),
+            getInt("multiPv", req) | 1
+          )
+        )
+      }
+    }
+
   private def gamesByUsers(max: Int)(req: Request[String]) = {
     val userIds = req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet
     jsonStreamWithKeepAlive(env.game.gamesByUsersStream(userIds))(req).fuccess

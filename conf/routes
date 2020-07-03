@@ -575,6 +575,7 @@ POST  /api/challenge/open              controllers.Challenge.openCreate
 POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: String)
 POST  /api/challenge/$id<\w{8}>/accept  controllers.Challenge.apiAccept(id: String)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
+GET   /api/cloud-eval                  controllers.Api.cloudEval
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: String)
 
