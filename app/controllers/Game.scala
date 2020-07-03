@@ -86,9 +86,7 @@ final class Game(
             color = get("color", req) flatMap chess.Color.apply,
             analysed = getBoolOpt("analysed", req),
             ongoing = getBool("ongoing", req),
-            flags = requestPgnFlags(req, extended = false).copy(
-              literate = false
-            ),
+            flags = requestPgnFlags(req, extended = false).copy(literate = false),
             perSecond = MaxPerSecond(me match {
               case Some(m) if m is user.id => 50
               case Some(_) if oauth        => 25 // bonus for oauth logged in only (not for CSRF)
