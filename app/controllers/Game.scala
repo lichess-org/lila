@@ -88,9 +88,9 @@ final class Game(
             ongoing = getBool("ongoing", req),
             flags = requestPgnFlags(req, extended = false).copy(literate = false),
             perSecond = MaxPerSecond(me match {
-              case Some(m) if m is user.id => 50
-              case Some(_) if oauth        => 25 // bonus for oauth logged in only (not for CSRF)
-              case _                       => 15
+              case Some(m) if m is user.id => 60
+              case Some(_) if oauth        => 30 // bonus for oauth logged in only (not for CSRF)
+              case _                       => 20
             })
           )
           val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
