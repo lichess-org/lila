@@ -529,6 +529,12 @@
         const sprite = $('#piece-sprite');
         sprite.attr('href', sprite.attr('href').replace('.css', '.external.css'));
       }, 1000);
+
+      // prevent zoom when keyboard shows on iOS
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+        const el = document.querySelector('meta[name=viewport]');
+        el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
+      }
     });
   });
 
