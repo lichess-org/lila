@@ -1,5 +1,6 @@
 package lila.fishnet
 
+import ornicar.scalalib.Random
 import com.gilt.gfc.semver.SemVer
 import lila.common.IpAddress
 import scala.util.{ Failure, Success, Try }
@@ -103,5 +104,5 @@ object Client {
       }
   }
 
-  def makeKey = Key(scala.util.Random.alphanumeric take 8 mkString)
+  def makeKey = Key(Random.secureString(8))
 }
