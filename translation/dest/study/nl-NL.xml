@@ -70,6 +70,7 @@
   <string name="startAtX">Beginnen bij %s</string>
   <string name="embedInYourWebsite">Insluiten in blog of website</string>
   <string name="readMoreAboutEmbedding">Lees meer over insluiten</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Alleen openbare studies kunnen worden ingevoegd!</string>
   <string name="open">Open</string>
   <string name="xBroughtToYouByY">%1$s aangeboden door %2$s</string>
   <string name="studyNotFound">Studie niet gevonden</string>
