@@ -103,9 +103,9 @@ final class GameApiV2(
         batchSize = config.perSecond.value
       )
       .documentSource()
-      .grouped(config.perSecond.value)
-      .throttle(1, 1 second)
-      .mapConcat(_ filter config.postFilter)
+      .map(g => config.postFilter(g) option g)
+      .throttle(config.perSecond.value * 10, 1 second, e => if (e.isDefined) 10 else 2)
+      .mapConcat(_.toList)
       .take(config.max | Int.MaxValue)
       .via(preparationFlow(config))
       .keepAlive(keepAliveInterval, () => emptyMsgFor(config))
