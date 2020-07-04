@@ -3,7 +3,9 @@
   <string name="faqAbbreviation">GYIK</string>
   <string name="frequentlyAskedQuestions">Gyakran ismételt kérdések</string>
   <string name="whyIsLichessCalledLichess">Miért hívják Lichess-nek a Lichess-t?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">A Lichess a \"live/light/libre\" (élő/könnyű/szabad) és \"chess\" (sakk) szavakbó ered. Ejtsd: %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">A Lichess a \"live/light/libre\" (élő/tiszta/szabad) és \"chess\" (sakk) szavakbó ered. Ejtsd: %1$s.</string>
   <string name="leechess">lí-csessz</string>
   <string name="hearItPronouncedBySpecialist">Így ejti egy hozzáértő.</string>
+  <string name="whyLiveLightLibre">Élő, mert a játszmák valós időben játszhatók és követhetők 24/7; tiszta és szabad, mert nyílt forráskódra épül és mentes a többi weboldalon pestisként terjedő jogvédett szeméttől.</string>
+  <string name="howCanIContributeToLichess">Hogyan támogathatom a Lichess-t?</string>
 </resources>
