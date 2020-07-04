@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Aktivitás</string>
+  <string name="hostedALiveStream">Élő közvetítést adott</string>
   <plurals name="practicedNbPositions">
     <item quantity="one">%1$s %2$s állást gyakorolt</item>
     <item quantity="other">%1$s %2$s állást gyakorolt</item>
