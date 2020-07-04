@@ -112,4 +112,18 @@
 ज्याचा बचाव करता येणार नाही!</string>
   <string name="mateInOneComplete">अभिनंदन! अशा प्रकारे आपण बुद्धिबळ खेळ जिंकता!</string>
   <string name="intermediate">मध्यवर्ती</string>
+  <string name="boardSetup">बुध्दीबळाचा पटाची मांडणी</string>
+  <string name="howTheGameStarts">खेळ कसा सुरू होतो</string>
+  <string name="boardSetupIntro">दोन सैन्य एकमेकांना सामोरे जात आहेत, युद्धासाठी सज्ज आहेत.</string>
+  <string name="thisIsTheInitialPosition">ही प्रारंभिक स्थिती आहे
+बुद्धिबळातील प्रत्येक खेळाचा!
+खेळ सुरु करण्यासाठी कोणतेही गोटी हलवा.</string>
+  <string name="firstPlaceTheRooks">सर्वात आधी हत्ती ठेवा!
+त्यांना कोपऱ्यात ठेवा.</string>
+  <string name="thenPlaceTheKnights">मग घोडे ठेवा!
+हत्ती च्या शेजारी.</string>
+  <string name="placeTheBishops">आता उंट ठेवा!
+घोड्याच्या शेजारी.</string>
+  <string name="placeTheQueen">आता राणी ठेवा!
+ती तिच्या रंगाच्या चौकटीत ठेवली जाते.</string>
 </resources>
