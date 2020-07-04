@@ -3,4 +3,7 @@
   <string name="faqAbbreviation">GYIK</string>
   <string name="frequentlyAskedQuestions">Gyakran ismételt kérdések</string>
   <string name="whyIsLichessCalledLichess">Miért hívják Lichess-nek a Lichess-t?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">A Lichess a \"live/light/libre\" (élő/könnyű/szabad) és \"chess\" (sakk) szavakbó ered. Ejtsd: %1$s.</string>
+  <string name="leechess">lí-csessz</string>
+  <string name="hearItPronouncedBySpecialist">Így ejti egy hozzáértő.</string>
 </resources>
