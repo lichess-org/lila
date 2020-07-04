@@ -809,6 +809,11 @@
   <string name="weHadToTimeYouOutForAWhile">Kénytelenek vagyunk egy kis időre visszatartani.</string>
   <string name="timeoutExpires">Feloldás %s múlva.</string>
   <string name="why">Miért?</string>
+  <string name="pleasantChessExperience">Célunk mindenki számára jó felhasználói élményt biztosítani.</string>
+  <string name="goodPractice">Ennek érdekében minden játékosnak követnie kell megfelelő magatartást.</string>
+  <string name="potentialProblem">Akkor mutatjuk ezt az üzenetet, ha potenciális problémát észlelünk.</string>
+  <string name="howToAvoidThis">Hogyan kerülhető el mindez?</string>
+  <string name="playEveryGame">Játssz végig minden megkezdett partit.</string>
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
 </resources>
