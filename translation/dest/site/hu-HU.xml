@@ -33,6 +33,10 @@
   <string name="joinTheGame">Csatlakozás a játékhoz</string>
   <string name="whitePlays">Világos lép</string>
   <string name="blackPlays">Sötét lép</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Az ellenfél elhagyta a játékot, %s másodperc múlva tied a győzelem.</item>
+    <item quantity="other">Az ellenfeled elhagyta a játékot, %s másodperc múlva győzelmet igényelhetsz.</item>
+  </plurals>
   <string name="opponentLeftChoices">Úgy tűnik az ellenfél kilépett. Igényelhetsz győzelmet, döntetlent vagy várhatsz rá.</string>
   <string name="makeYourOpponentResign">Győzelem igénylése</string>
   <string name="forceResignation">Győzelem igénylése</string>
@@ -850,6 +854,10 @@
   <string name="inTheFAQ">GY.I.K. oldalon.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Felhasználó jelentése csalás vagy nem megfelelő magatartás miatt %1$s</string>
   <string name="useTheReportForm">ezen az oldalon</string>
+  <string name="thisTopicIsArchived">Ezt a témát már archiváltuk, ezért nem lehet már hozzászólni.</string>
+  <string name="joinTheTeamXToPost">Csatlakozz %1$s csapathoz, hogy írhass ebbe a fórumba.</string>
+  <string name="teamNamedX">%1$s csapat</string>
+  <string name="youCannotPostYetPlaySomeGames">Még nem írhatsz a fórumokba. Játssz néhány partit!</string>
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
 </resources>
