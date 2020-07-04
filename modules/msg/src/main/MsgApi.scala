@@ -20,7 +20,8 @@ final class MsgApi(
     json: MsgJson,
     notifier: MsgNotify,
     security: MsgSecurity,
-    shutup: lila.hub.actors.Shutup
+    shutup: lila.hub.actors.Shutup,
+    spam: lila.security.Spam
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
@@ -69,15 +70,17 @@ final class MsgApi(
       text: String,
       multi: Boolean = false
   ): Funit =
-    Msg.make(text, orig) ?? { msg =>
+    Msg.make(text, orig) ?? { msgPre =>
       val threadId = MsgThread.id(orig, dest)
       for {
         contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
         isNew    <- !colls.thread.exists($id(threadId))
-        verdict  <- security.can.post(contacts, msg.text, isNew, unlimited = multi)
+        verdict  <- security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
         res <- verdict match {
           case _: MsgSecurity.Reject => funit
           case send: MsgSecurity.Send =>
+            val msg =
+              if (verdict == MsgSecurity.Spam) msgPre.copy(text = spam.replace(msgPre.text)) else msgPre
             val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
             val threadWrite =
               if (isNew)
