@@ -551,6 +551,9 @@
   <string name="xCommentedY">%1$s hozzászólt a %2$s című témához</string>
   <string name="victory">Helyes megoldás</string>
   <string name="defeat">Vereség</string>
+  <string name="victoryVsYInZ">%1$s %2$s ellen %3$s játékban</string>
+  <string name="defeatVsYInZ">%1$s %2$s ellen %3$s játékban</string>
+  <string name="drawVsYInZ">%1$s %2$s ellen %3$s játékban</string>
   <string name="timeline">Idővonal</string>
   <string name="starting">Kezdés:</string>
   <string name="allInformationIsPublicAndOptional">Minden adat nyilvános, megadása nem kötelező.</string>
@@ -831,6 +834,7 @@
   <string name="agreementNice">Elfogadom, hogy tisztelettudó leszek a többi játékossal szemben.</string>
   <string name="agreementAccount">Elfogadom, hogy nem készítek egynél több fiókot.</string>
   <string name="agreementPolicy">Elfogadom, hogy követni fogom a Lichess szabályait.</string>
+  <string name="searchOrStartNewDiscussion">Keresés, vagy új beszélgetés indítása</string>
   <string name="edit">Szerkeszt</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasszikus</string>
@@ -844,6 +848,8 @@
   <string name="important">Fontos</string>
   <string name="yourQuestionMayHaveBeenAnswered">A kérdésedre talán megtalálod a választ a %1$s</string>
   <string name="inTheFAQ">GY.I.K. oldalon.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Felhasználó jelentése csalás vagy nem megfelelő magatartás miatt %1$s</string>
+  <string name="useTheReportForm">ezen az oldalon</string>
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
 </resources>
