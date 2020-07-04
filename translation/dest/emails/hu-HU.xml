@@ -18,4 +18,5 @@ Jó szórakozást kívánunk, és mindig találd meg az útat az ellenfél kirá
   <string name="logInToLichess">Bejelentkezés a lichess.org-ra, %s</string>
   <string name="common_orPaste">(Nem működik a kattintás? Próbáld beilleszteni a böngésződ címsorába!)</string>
   <string name="common_note">Ez egy szolgálati e-mail, ami ezzel kapcsolatos: %s.</string>
+  <string name="common_contact">Lépjen velünk kapcsolatba: %s.</string>
 </resources>
