@@ -75,8 +75,17 @@
   <string name="protection">संरक्षण</string>
   <string name="keepYourPiecesSafe">आपल्या सोंगट्या सुरक्षित ठेवा</string>
   <string name="protectionIntro">आपल्या प्रतिस्पर्ध्याने हल्ला केलेल्या गोट्या ओळखा, आणि त्यांचे रक्षण करा!</string>
+  <string name="protectionComplete">अभिनंदन! तुम्ही जी गोटी नाही हरलात ती तुम्ही जिंकलात!</string>
+  <string name="escape">तुमच्या वर हल्ला झाला आहे!
+यातून बाहेर पडा!</string>
+  <string name="noEscape">सुटका नाही,
+पण आपण बचाव करू शकता!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">त्यांना कोणतीही असंरक्षित गोटी 
+घेऊ देऊ नका!</string>
   <string name="combat">लढाई</string>
+  <string name="captureAndDefendPieces">गोट्या मारा आणि त्यांचा रक्षण करा</string>
   <string name="combatIntro">एक चांगला योद्धा हल्ला आणि बचाव दोन्ही गोष्टी जाणतो!</string>
   <string name="combatComplete">अभिनंदन! बुद्धीबळ गोट्यांसह कसे लढायचे हे आपल्याला माहित आहे!</string>
+  <string name="checkInOne">एका डावात चेक द्या</string>
   <string name="attackTheOpponentsKing">प्रतिस्पर्धीच्या राजावर हल्ला करा</string>
 </resources>
