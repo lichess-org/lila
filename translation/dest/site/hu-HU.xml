@@ -61,6 +61,7 @@
   <string name="promoteVariation">Változat feljebb léptetése</string>
   <string name="makeMainLine">Legyen ez a főváltozat</string>
   <string name="deleteFromHere">Törlés innentől</string>
+  <string name="forceVariation">Mentés változatként</string>
   <string name="move">Lépés</string>
   <string name="variantLoss">Vesztő</string>
   <string name="variantWin">Nyerő</string>
@@ -270,6 +271,7 @@
     <item quantity="one">Adj %s másodpercet</item>
     <item quantity="other">Adj %s másodpercet</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Ez a fiók megsértette a Lichess Felhasználási Feltételeit</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ez a játékos mesterségesen növeli/csökkenti az értékszámát</string>
   <string name="openingExplorerAndTablebase">Megnyitás- és állásböngésző</string>
   <string name="takeback">Visszalépés</string>
@@ -573,6 +575,8 @@
   <string name="playOfflineComputer">Játék gép ellen</string>
   <string name="opponent">Ellenfél</string>
   <string name="learnMenu">Tanulás</string>
+  <string name="studyMenu">Tanulmány</string>
+  <string name="practice">Gyakorlás</string>
   <string name="community">Közösség</string>
   <string name="tools">Eszközök</string>
   <string name="increment">Többletidő</string>
