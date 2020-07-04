@@ -854,7 +854,9 @@
   <string name="inTheFAQ">GY.I.K. oldalon.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Felhasználó jelentése csalás vagy nem megfelelő magatartás miatt %1$s</string>
   <string name="useTheReportForm">ezen az oldalon</string>
-  <string name="thisTopicIsArchived">Ezt a témát már archiváltuk, ezért nem lehet már hozzászólni.</string>
+  <string name="toRequestSupport">Segítségért %1$s</string>
+  <string name="tryTheContactPage">lépjen velünk kapcsolatba</string>
+  <string name="thisTopicIsArchived">Ezt a témát archiváltuk, ezért nem lehet már hozzászólni.</string>
   <string name="joinTheTeamXToPost">Csatlakozz %1$s csapathoz, hogy írhass ebbe a fórumba.</string>
   <string name="teamNamedX">%1$s csapat</string>
   <string name="youCannotPostYetPlaySomeGames">Még nem írhatsz a fórumokba. Játssz néhány partit!</string>
