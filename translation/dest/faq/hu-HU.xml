@@ -14,4 +14,10 @@
   <string name="beingAPatron">legyél patron</string>
   <string name="breakdownOfOurCosts">költségeink lebontását</string>
   <string name="otherWaysToHelp">itt olvashatsz</string>
+  <string name="areThereWebsitesBasedOnLichess">Vannak Lichess-en alapuló weboldalak?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Igen. Lichess valóban inspirált más nyílt forrású oldalakat amik használják a %1$s, %2$s vagy %3$s-t.</string>
+  <string name="fairPlay">Sportszerűség</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Miért lettem megjelölve értékszám manipulálásért vagy csalásért (pl. számítógépes segítség)?</string>
+  <string name="canIbecomeLM">Szerezhetek én is Lichess Mester (LM) címet?</string>
+  <string name="noUpperCaseDot">Nem.</string>
 </resources>
