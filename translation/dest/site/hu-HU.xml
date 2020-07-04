@@ -442,6 +442,7 @@
   <string name="lastName">Vezetéknév</string>
   <string name="biography">Bemutatkozás</string>
   <string name="country">Ország</string>
+  <string name="socialMediaLinks">Közösségi média</string>
   <string name="inlineNotation">Megjegyzések beszúrása</string>
   <string name="watchLichessTV">Lichess TV</string>
   <string name="previouslyOnLichessTV">A Lichess TV korábbi műsorai</string>
@@ -525,6 +526,8 @@
   <string name="currentPassword">Jelenlegi jelszó</string>
   <string name="newPassword">Új jelszó</string>
   <string name="newPasswordAgain">Új jelszó (ismét)</string>
+  <string name="clockInitialTime">Kiindulási idő</string>
+  <string name="clockIncrement">Növekmény</string>
   <string name="privacy">Adatvédelem</string>
   <string name="letOtherPlayersFollowYou">Mások követhetnek téged</string>
   <string name="letOtherPlayersChallengeYou">Mások kihívhatnak egy játszmára</string>
@@ -605,6 +608,7 @@
   <string name="tpTimeSpentOnTV">TV-n töltött idő: %s</string>
   <string name="watch">Néznivaló</string>
   <string name="videoLibrary">Videó könyvtár</string>
+  <string name="streamersMenu">Közvetítők</string>
   <string name="mobileApp">Mobil alkalmazás</string>
   <string name="webmasters">Webmester</string>
   <string name="about">Rólunk</string>
@@ -660,6 +664,7 @@
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s jobb, mint a %3$s játékosok %2$s-a.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Még nincs meghatározott %s pontszámod.</string>
   <string name="yourRating">Értékszámod</string>
+  <string name="cumulative">Összesített</string>
   <string name="glicko2Rating">Glicko-2 pontszám</string>
   <string name="checkYourEmail">Ellenőrizd az email fiókod.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Küldtünk neked egy email-t. A fiókod aktiválásához kattints az email-ben lévő linkre.</string>
@@ -710,6 +715,7 @@
   <string name="xHostsY">%1$s létrehozta a %2$s-t</string>
   <string name="xJoinsY">%1$s csatlakozott a %2$shoz</string>
   <string name="xLikesY">%1$s kedveli %2$s</string>
+  <string name="xCreatesStudyY">%1$s elkészítette %2$s című tanulmányát</string>
   <string name="quickPairing">Gyors játszma</string>
   <string name="lobby">Lobbi</string>
   <string name="anonymous">Névtelen</string>
@@ -819,12 +825,15 @@
   <string name="temporaryInconvenience">Elnézést kérünk az átmeneti kellemetlenségért</string>
   <string name="wishYouGreatGames">és további sok jó játékot kívánunk a lichess.org-on.</string>
   <string name="thankYouForReading">Köszönjük, hogy elolvastad!</string>
+  <string name="lifetimeScore">Mindenkori pontszám</string>
+  <string name="currentMatchScore">Jelenlegi pontszám</string>
   <string name="agreementAssistance">Elfogadom, hogy játék közben soha semmilyen segítséget (sakkprogram, könyv, adatbázis vagy másik személy) nem használok fel.</string>
   <string name="agreementNice">Elfogadom, hogy tisztelettudó leszek a többi játékossal szemben.</string>
   <string name="agreementAccount">Elfogadom, hogy nem készítek egynél több fiókot.</string>
   <string name="agreementPolicy">Elfogadom, hogy követni fogom a Lichess szabályait.</string>
   <string name="edit">Szerkeszt</string>
   <string name="rapid">Rapid</string>
+  <string name="classical">Klasszikus</string>
   <string name="ultraBulletDesc">Rendkívül gyors játszmák: kevesebb, mint 30 másodperc</string>
   <string name="bulletDesc">Nagyon gyors játszmák: kevesebb, mint 3 perc</string>
   <string name="blitzDesc">Gyors játszmák: 3 és 8 perc között</string>
@@ -833,6 +842,8 @@
   <string name="correspondenceDesc">Levelező játszmák: egy vagy több nap lépésenként</string>
   <string name="puzzleDesc">Taktikai edző</string>
   <string name="important">Fontos</string>
+  <string name="yourQuestionMayHaveBeenAnswered">A kérdésedre talán megtalálod a választ a %1$s</string>
+  <string name="inTheFAQ">GY.I.K. oldalon.</string>
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
 </resources>
