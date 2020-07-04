@@ -805,7 +805,7 @@
     <item quantity="one">és %s változat mentése</item>
     <item quantity="other">és %s változat mentése</item>
   </plurals>
-  <string name="sorry">Elnézést</string>
+  <string name="sorry">Sajnáljuk</string>
   <string name="weHadToTimeYouOutForAWhile">Kénytelenek vagyunk egy kis időre visszatartani.</string>
   <string name="timeoutExpires">Feloldás %s múlva.</string>
   <string name="why">Miért?</string>
@@ -814,6 +814,12 @@
   <string name="potentialProblem">Akkor mutatjuk ezt az üzenetet, ha potenciális problémát észlelünk.</string>
   <string name="howToAvoidThis">Hogyan kerülhető el mindez?</string>
   <string name="playEveryGame">Játssz végig minden megkezdett partit.</string>
+  <string name="tryToWin">Minden játszmát próbálj megnyerni, vagy legalább döntetlent kihozni.</string>
+  <string name="resignLostGames">Az elveszett játszmákat add fel (ne hagyd lejárni az időt).</string>
+  <string name="temporaryInconvenience">Elnézést kérünk az átmeneti kellemetlenségért</string>
+  <string name="wishYouGreatGames">és további sok jó játékot kívánunk a lichess.org-on.</string>
+  <string name="thankYouForReading">Köszönjük, hogy elolvastad!</string>
+  <string name="agreementAssistance">Elfogadom, hogy játék közben soha semmilyen segítséget (sakkprogram, könyv, adatbázis vagy másik személy) nem használok fel.</string>
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
 </resources>
