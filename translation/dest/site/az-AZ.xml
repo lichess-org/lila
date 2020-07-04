@@ -147,7 +147,7 @@
   <string name="games">Oyunlar</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s %2$s mövzuda şərh yazdı</string>
-  <string name="latestForumPosts">Forumdakı sonuncu xeberler</string>
+  <string name="latestForumPosts">Forumdakı sonuncu xəbərlər</string>
   <string name="players">Şahmatçılar</string>
   <string name="friends">Dostlar</string>
   <string name="discussions">Yazışma</string>
@@ -297,15 +297,20 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Haftalık %1$s reytinqiniz (%2$s) gərəkəndən çox</string>
   <string name="yourPerfRatingIsTooLow">%1$s reytinqiniz (%2$s) gərəkəndən az</string>
   <string name="ratedMoreThanInPerf">%2$s reytinqi ≥ %1$s olmalıdır</string>
+  <string name="ratedLessThanInPerf">%2$s reytinqi ≤ %1$s olmalıdır</string>
+  <string name="mustBeInTeam">%s adlı komandada olmalısınız.</string>
+  <string name="youAreNotInTeam">%s komandanın üzvü deyilsiniz.</string>
   <string name="backToGame">Oyuna qayıt</string>
   <string name="siteDescription">Bu, internet şəbəkəsi üzərində pulsuz Şahmat oyunudur. İndi təmiz araüzdə şahmat oynaya bilərsiniz. Qeydiyyat gərəkli deyil. Heçbir reklam və proqram əlavəsinə ehtiyac yoxdur. Komputer, yoldaşların və ya istənilən rəqiblə oynaya bilərsiniz.</string>
   <string name="xJoinedTeamY">%1$s %2$s komandaya üzv oldu</string>
   <string name="xCreatedTeamY">%1$s %2$s komandasını yaratdı</string>
+  <string name="xStartedStreaming">%s canlı yayımda</string>
   <string name="averageElo">Orta ELO reytinqi</string>
   <string name="location">Yer</string>
   <string name="filterGames">Oyunları filterlə</string>
   <string name="reset">Yenidən</string>
   <string name="apply">Tətbiq et</string>
+  <string name="save">Saxla</string>
   <string name="leaderboard">Lider taxta</string>
   <string name="pasteTheFenStringHere">FEN yazısını bura qoyun</string>
   <string name="pasteThePgnStringHere">PGN yazısını bura qoyun</string>
@@ -313,17 +318,22 @@
   <string name="continueFromHere">Buradan davam edin</string>
   <string name="toStudy">Çalışma</string>
   <string name="importGame">Oyun daxil edin</string>
+  <string name="importGameExplanation">Göz gəzdiriləbilir bir oyun təkrarı, kompüter analizi, oyun söhbəti ve paylaşılabilir bir URL edinmək üçün bir oyun PGN\'si yapıştırın.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s oyunları daxil etdi</item>
     <item quantity="other">%s oyunları daxil etdi</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Bu, şahmaq KAPÇA-sıdır</string>
   <string name="clickOnTheBoardToMakeYourMove">Taxtada gediş edin və robot olmadığınızı təsdiq edin</string>
+  <string name="captcha.fail">Lütfən şahmat doğrulamasını edin.</string>
   <string name="notACheckmate">Mat deyil</string>
+  <string name="whiteCheckmatesInOneMove">Ağlar bir gedişə mat edir</string>
+  <string name="blackCheckmatesInOneMove">Qaralar bir gedişə mat edir</string>
   <string name="retry">Yenidən cəhd edin</string>
   <string name="reconnecting">Yenidən birləşməyə cəhd edilir</string>
   <string name="noFriendsOnline">Onlaynda dost yoxdur</string>
   <string name="findFriends">Dostlarınızı tapın</string>
+  <string name="favoriteOpponents">Favorit rəqiblər</string>
   <string name="follow">İzlə</string>
   <string name="following">İzlənən</string>
   <string name="unfollow">İzləməni durdur</string>
@@ -357,6 +367,13 @@
   <string name="winner">Qalib</string>
   <string name="standing">Sıralama</string>
   <string name="createANewTournament">Yeni turnir yaradın.</string>
+  <string name="tournamentCalendar">Turnir təqvimi</string>
+  <string name="conditionOfEntry">Qatılma şərti:</string>
+  <string name="advancedSettings">Ətraflı tənzimləmələr</string>
+  <string name="safeTournamentName">Turnir üçün olduqca güvənli bir ad seçin.</string>
+  <string name="inappropriateNameWarning">Her hansı bir uyğunsuz ad, hesabınızın yasaqlanmasına yol açabilər.</string>
+  <string name="emptyTournamentName">Qutuyu boş bıraxaraq turnirə rastgələ bir Böyük şahmatçının adını verəbilərsiniz.</string>
+  <string name="recommendNotTouching">Bu tənzimləmələrə toxunmamanızı önəririk.</string>
   <string name="join">Qoşul</string>
   <string name="withdraw">Heç-heçə</string>
   <string name="points">Xallar</string>
@@ -504,6 +521,9 @@
   <string name="playOnTheBoardOffline">Taxta üzərində</string>
   <string name="playOfflineComputer">Kompüter</string>
   <string name="opponent">rəqib</string>
+  <string name="learnMenu">Öyrən</string>
+  <string name="studyMenu">Çalışma</string>
+  <string name="practice">Məşq</string>
   <string name="community">Cəmiyyət</string>
   <string name="tools">Alətlər</string>
   <string name="increment">Artım</string>
@@ -531,6 +551,7 @@
   <string name="tpTimeSpentOnTV">TV-də keçirilimiş zaman: %s</string>
   <string name="watch">Bax</string>
   <string name="videoLibrary">Video kitabxana</string>
+  <string name="streamersMenu">Canlı Yayımlar</string>
   <string name="mobileApp">Mobil proqram</string>
   <string name="webmasters">Web-ustalar</string>
   <string name="contribute">Yardım etmək</string>
@@ -622,6 +643,10 @@
   <string name="boardTheme">Taxta teması</string>
   <string name="boardSize">Taxta ölçüsü</string>
   <string name="pieceSet">Fiqur seti</string>
+  <string name="playChessInStyle">Şahmatı tərz ilə oynayın</string>
+  <string name="chessBasics">Şahmatın təməl prinsipləri</string>
+  <string name="coaches">Məşqçilər</string>
+  <string name="custom">Özəl</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassik</string>
 </resources>

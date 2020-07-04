@@ -70,6 +70,7 @@
   <string name="startAtX">Start ved %s</string>
   <string name="embedInYourWebsite">Bygg inn på nettstedet ditt eller bloggen din</string>
   <string name="readMoreAboutEmbedding">Les mer om å bygge inn</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Bare offentlige studier kan bygges inn!</string>
   <string name="open">Åpne</string>
   <string name="xBroughtToYouByY">%1$s presentert av %2$s</string>
   <string name="studyNotFound">Fant ikke studien</string>

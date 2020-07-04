@@ -14,6 +14,9 @@
   <string name="anyoneCanJoin">對所有人開放</string>
   <string name="aConfirmationIsRequiredToJoin">申請批准後方可加入</string>
   <string name="joiningPolicy">加入政策</string>
+  <plurals name="teamLeaders">
+    <item quantity="other">隊長</item>
+  </plurals>
   <string name="teamBestPlayers">最佳棋手</string>
   <string name="teamRecentMembers">新成員</string>
   <string name="kickSomeone">踢除團隊裡的指定玩家</string>
@@ -29,4 +32,6 @@
   <string name="teamTournamentOverview">一個只有在團隊裡的成員才能加入的錦標賽</string>
   <string name="messageAllMembers">發出公告給所有團隊裡的玩家</string>
   <string name="messageAllMembersOverview">發出私訊給所有團隊裡的玩家</string>
+  <string name="teamsIlead">我領導的團隊</string>
+  <string name="usersWhoCanManageThisTeam">可以管理這個團隊的使用者</string>
 </resources>

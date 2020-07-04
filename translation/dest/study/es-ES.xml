@@ -70,6 +70,7 @@
   <string name="startAtX">Comenzar en %s</string>
   <string name="embedInYourWebsite">Insértalo en tu página o blog</string>
   <string name="readMoreAboutEmbedding">Leer más sobre insertar contenido</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">¡Solo los estudios públicos pueden ser insertados!</string>
   <string name="open">Abrir</string>
   <string name="xBroughtToYouByY">%1$s, proporcionado por %2$s</string>
   <string name="studyNotFound">No se encontró el estudio</string>

@@ -15,4 +15,5 @@
   <string name="pawnPromotion">Piyadanın çevrilməsi</string>
   <string name="checkInOne">Şah vermə</string>
   <string name="mateInOne">Mat vermə</string>
+  <string name="puzzles">Puzzlelar</string>
 </resources>
