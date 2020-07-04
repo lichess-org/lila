@@ -820,6 +820,19 @@
   <string name="wishYouGreatGames">és további sok jó játékot kívánunk a lichess.org-on.</string>
   <string name="thankYouForReading">Köszönjük, hogy elolvastad!</string>
   <string name="agreementAssistance">Elfogadom, hogy játék közben soha semmilyen segítséget (sakkprogram, könyv, adatbázis vagy másik személy) nem használok fel.</string>
+  <string name="agreementNice">Elfogadom, hogy tisztelettudó leszek a többi játékossal szemben.</string>
+  <string name="agreementAccount">Elfogadom, hogy nem készítek egynél több fiókot.</string>
+  <string name="agreementPolicy">Elfogadom, hogy követni fogom a Lichess szabályait.</string>
+  <string name="edit">Szerkeszt</string>
+  <string name="rapid">Rapid</string>
+  <string name="ultraBulletDesc">Rendkívül gyors játszmák: kevesebb, mint 30 másodperc</string>
+  <string name="bulletDesc">Nagyon gyors játszmák: kevesebb, mint 3 perc</string>
+  <string name="blitzDesc">Gyors játszmák: 3 és 8 perc között</string>
+  <string name="rapidDesc">Rapid játszmák: 8 és 25 perc között</string>
+  <string name="classicalDesc">Klasszikus játszmák: 25 perc vagy több</string>
+  <string name="correspondenceDesc">Levelező játszmák: egy vagy több nap lépésenként</string>
+  <string name="puzzleDesc">Taktikai edző</string>
+  <string name="important">Fontos</string>
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
 </resources>
