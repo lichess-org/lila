@@ -126,4 +126,20 @@
 घोड्याच्या शेजारी.</string>
   <string name="placeTheQueen">आता राणी ठेवा!
 ती तिच्या रंगाच्या चौकटीत ठेवली जाते.</string>
+  <string name="placeTheKing">आता राजा ठेवा!
+त्याच्या राणीच्या शेजारी.</string>
+  <string name="pawnsFormTheFrontLine">प्यादे समोरची ओळ बनवतात.
+सुरू करण्यासाठी कोणतीही हालचाल करा.</string>
+  <string name="boardSetupComplete">अभिनंदन! बुद्धीबळ बोर्ड कसे लावायचे ते आपल्याला माहित आहे.</string>
+  <string name="castling">कॅसलिंग</string>
+  <string name="theSpecialKingMove">राजाची विशेष चाल</string>
+  <string name="castlingIntro">आपल्या राजाला सुरक्षिततेत आणा, आणि हल्ल्यासाठी आपला हत्ती उपयोजित करा!</string>
+  <string name="castleKingSide">तुमच्या राजाला दोन घर चालवा
+राजाच्या दिशेने कॅसलिंग करण्यासाठी!</string>
+  <string name="castleQueenSide">तुमच्या राजाला दोन घर चालवा
+राणीच्या दिशेने कॅसलिंग करण्यासाठी!</string>
+  <string name="theKnightIsInTheWay">घोडा मध्ये येत आहे!
+त्याला हलवा, आणि राजाच्या दिशेने कॅसलिंग करा.</string>
+  <string name="castleKingSideMovePiecesFirst">राजाच्या दिशेने कॅसलिंग करा!
+आपल्याला प्रथम गोट्या बाहेर हलविणे आवश्यक आहे.</string>
 </resources>
