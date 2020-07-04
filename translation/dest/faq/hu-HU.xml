@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">GYIK</string>
+  <string name="frequentlyAskedQuestions">Gyakran ismételt kérdések</string>
+  <string name="whyIsLichessCalledLichess">Miért hívják Lichess-nek a Lichess-t?</string>
+</resources>
