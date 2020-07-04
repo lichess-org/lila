@@ -93,4 +93,11 @@
 एका डावात!</string>
   <string name="checkInOneComplete">अभिनंदन! तुम्ही शत्रूच्या राजाला चेक दिला आहे, आता त्यांना राजाचा बचाव करावाच लागेल!</string>
   <string name="outOfCheck">चेक संपलेत</string>
+  <string name="defendYourKing">आपल्या राजाचे रक्षण करा</string>
+  <string name="outOfCheckIntro">तुम्ही चेक मध्ये आहे! आपण बचावणे किंवा हल्ला अवरोधित करणे आवश्यक आहे.</string>
+  <string name="escapeWithTheKing">राजाबरोबर पळा!</string>
+  <string name="theKingCannotEscapeButBlock">राजा सुटू शकत नाही,
+परंतु आपण हल्ला रोखू शकता!</string>
+  <string name="youCanGetOutOfCheckByTaking">तुम्ही चेक च्या बाहेर येऊ शकता 
+जर तुम्ही चेक देणाऱ्या गोटी ला मारलत.</string>
 </resources>
