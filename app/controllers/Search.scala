@@ -46,9 +46,11 @@ final class Search(env: Env) extends LilaController(env) {
                     failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
                     data =>
                       data.nonEmptyQuery ?? { query =>
-                        env.gameSearch.paginator(query, page) map (_.some)
+                        env.gameSearch.paginator(query, page) map some
                       } map { pager =>
                         Ok(html.search.index(searchForm fill data, pager, nbGames))
+                      } recover { _ =>
+                        InternalServerError("Sorry, we can't process that query at the moment")
                       }
                   ),
                   api = _ =>
@@ -59,7 +61,7 @@ final class Search(env: Env) extends LilaController(env) {
                         }.fuccess,
                       data =>
                         data.nonEmptyQuery ?? { query =>
-                          env.gameSearch.paginator(query, page).dmap(_.some)
+                          env.gameSearch.paginator(query, page) dmap some
                         } flatMap {
                           case Some(s) =>
                             env.api.userGameApi.jsPaginator(s) dmap {
@@ -67,6 +69,8 @@ final class Search(env: Env) extends LilaController(env) {
                             }
                           case None =>
                             BadRequest(jsonError("Could not process search query")).fuccess
+                        } recover { _ =>
+                          InternalServerError(jsonError("Sorry, we can't process that query at the moment"))
                         }
                     )
                 )
