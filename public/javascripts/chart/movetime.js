@@ -2,6 +2,7 @@ function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
 lichess.movetimeChart = function(data, trans) {
+  if (!data.game.moveTimes) return; // imported games
   lichess.loadScript('javascripts/chart/common.js').done(function() {
     lichess.loadScript('javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
