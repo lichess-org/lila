@@ -29,4 +29,9 @@
   </plurals>
   <string name="teamBattle">Csapatverseny</string>
   <string name="teamBattleOverview">Csapatok közötti verseny, minden játékos a saját csapatának szerez pontokat</string>
+  <string name="teamTournament">Csapaton belüli verseny</string>
+  <string name="teamTournamentOverview">Olyan verseny, amiben csak a csapattagok vehetnek részt</string>
+  <string name="messageAllMembers">Üzenet minden tagnak</string>
+  <string name="messageAllMembersOverview">Privát üzenet küldése minden csapattag részére</string>
+  <string name="teamsIlead">Általam vezetett csapatok</string>
 </resources>
