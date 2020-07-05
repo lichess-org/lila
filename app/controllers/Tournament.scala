@@ -370,7 +370,7 @@ final class Tournament(
     AuthBody { implicit ctx => me =>
       repo byId id flatMap {
         _ ?? {
-          case tour if tour.createdBy == me.id && !tour.isFinished =>
+          case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
             implicit val req = ctx.body
             lila.tournament.TeamBattle.DataForm.empty.bindFromRequest.fold(
               err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
