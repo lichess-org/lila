@@ -16,7 +16,7 @@ object side {
   def apply(
       tour: Tournament,
       verdicts: lila.tournament.Condition.All.WithVerdicts,
-      streamers: Set[lila.user.User.ID],
+      streamers: List[lila.user.User.ID],
       shieldOwner: Option[TournamentShield.OwnerId],
       chat: Boolean
   )(implicit ctx: Context) =
@@ -106,7 +106,7 @@ object side {
         )
       ),
       streamers.nonEmpty option div(cls := "context-streamers")(
-        streamers.toList map views.html.streamer.bits.contextual
+        streamers map views.html.streamer.bits.contextual
       ),
       chat option views.html.chat.frag
     )

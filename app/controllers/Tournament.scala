@@ -476,7 +476,7 @@ final class Tournament(
       case _       => notFound
     }
 
-  private val streamerCache = env.memo.cacheApi[Tour.ID, Set[UserModel.ID]](64, "tournament.streamers") {
+  private val streamerCache = env.memo.cacheApi[Tour.ID, List[UserModel.ID]](64, "tournament.streamers") {
     _.refreshAfterWrite(15.seconds)
       .maximumSize(64)
       .buildAsyncFuture { tourId =>
@@ -488,7 +488,7 @@ final class Tournament(
                   env.tournament.hasUser(tourId, stream.streamer.userId).dmap(_ option stream.streamer.userId)
                 }
                 .sequenceFu
-                .dmap(_.flatten.toSet)
+                .dmap(_.flatten)
             }
           }
         }
