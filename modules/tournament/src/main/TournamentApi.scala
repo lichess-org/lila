@@ -471,9 +471,8 @@ final class TournamentApi(
     } yield opponentRating + 500 * multiplier
 
   private def withdrawNonMover(game: Game): Unit =
-    for {
+    if (game.status == chess.Status.NoStart) for {
       tourId <- game.tournamentId
-      if game.status == chess.Status.NoStart
       player <- game.playerWhoDidNotMove
       userId <- player.userId
     } withdraw(tourId, userId, isPause = false, isStalling = false)

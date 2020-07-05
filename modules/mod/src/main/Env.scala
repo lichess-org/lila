@@ -6,7 +6,6 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 
 import lila.common.config._
-import lila.security.Firewall
 import lila.user.User
 
 @Module
@@ -27,10 +26,8 @@ final class Env(
     reporter: lila.hub.actors.Report,
     fishnet: lila.hub.actors.Fishnet,
     perfStat: lila.perfStat.Env,
-    firewall: Firewall,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
-    userSpyApi: lila.security.UserSpyApi,
     securityApi: lila.security.SecurityApi,
     tournamentApi: lila.tournament.TournamentApi,
     gameRepo: lila.game.GameRepo,
@@ -43,8 +40,7 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
-    slackApi: lila.slack.SlackApi,
-    securityStore: lila.security.Store
+    slackApi: lila.slack.SlackApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem

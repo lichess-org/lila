@@ -34,7 +34,6 @@ final class Env(
     relationEnv: lila.relation.Env,
     analyseEnv: lila.analyse.Env,
     lobbyEnv: lila.lobby.Env,
-    setupEnv: lila.setup.Env,
     simulEnv: lila.simul.Env,
     tourEnv: lila.tournament.Env,
     swissEnv: lila.swiss.Env,

@@ -108,8 +108,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   // very expensive
   private[tournament] def teamInfo(
       tourId: Tournament.ID,
-      teamId: TeamID,
-      battle: TeamBattle
+      teamId: TeamID
   ): Fu[TeamBattle.TeamInfo] = {
     coll
       .aggregateWith[Bdoc]() { framework =>

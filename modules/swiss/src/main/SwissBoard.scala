@@ -17,7 +17,6 @@ private object SwissBoard {
 }
 
 final private class SwissBoardApi(
-    colls: SwissColls,
     rankingApi: SwissRankingApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,

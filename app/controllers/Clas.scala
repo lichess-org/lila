@@ -491,7 +491,7 @@ final class Clas(
               }
             }
             else
-              env.clas.api.invite.decline(inviteId, me) inject
+              env.clas.api.invite.decline(inviteId) inject
                 Redirect(routes.Clas.invitation(id))
           }
         )

@@ -156,7 +156,7 @@ final class UserSpyApi(
 
   def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] =
     for {
-      (ips, fps) <- nextValues("ip", userId, 100) zip nextValues("fp", userId, 100)
+      (ips, fps) <- nextValues("ip", userId) zip nextValues("fp", userId)
       users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[User.ID, Set](
         "user",
         $doc(
@@ -167,7 +167,7 @@ final class UserSpyApi(
       )
     } yield users
 
-  private def nextValues(field: String, userId: User.ID, max: Int): Fu[Set[String]] =
+  private def nextValues(field: String, userId: User.ID): Fu[Set[String]] =
     store.coll.secondaryPreferred.distinctEasy[String, Set](field, $doc("user" -> userId))
 }
 

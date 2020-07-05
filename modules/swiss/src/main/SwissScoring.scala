@@ -57,7 +57,7 @@ final private class SwissScoring(
                 case (a, b) => a != b
               }
               .map {
-                case (prev, player) =>
+                case (_, player) =>
                   colls.player.update
                     .one(
                       $id(player.id),

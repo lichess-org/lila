@@ -8,6 +8,7 @@ import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, Valid
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
+import scala.annotation.nowarn
 import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, EmailAddress, IpAddress }
@@ -73,6 +74,7 @@ final class SecurityApi(
     }
   } map loadedLoginForm _
 
+  @nowarn("cat=unused")
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
       _username: String,
       password: String,

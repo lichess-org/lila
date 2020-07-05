@@ -3,20 +3,16 @@ package lila.mod
 import lila.common.{ Bus, EmailAddress }
 import lila.report.{ Mod, ModId, Room, Suspect, SuspectId }
 import lila.security.{ Granter, Permission }
-import lila.security.{ Firewall, Store => SecurityStore }
 import lila.user.{ LightUserApi, Title, User, UserRepo }
 
 final class ModApi(
     userRepo: UserRepo,
     logApi: ModlogApi,
-    sessionStore: lila.security.Store,
-    firewall: Firewall,
     reportApi: lila.report.ReportApi,
     reporter: lila.hub.actors.Report,
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
-    refunder: RatingRefund,
-    securityStore: SecurityStore
+    refunder: RatingRefund
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def setAlt(mod: Mod, prev: Suspect, v: Boolean): Funit =

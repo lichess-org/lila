@@ -12,8 +12,7 @@ final private[tournament] class Cached(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
-    cacheApi: CacheApi,
-    scheduler: akka.actor.Scheduler
+    cacheApi: CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
@@ -43,12 +42,7 @@ final private[tournament] class Cached(
       _.expireAfterWrite(5 seconds)
         .maximumSize(64)
         .buildAsyncFuture {
-          case (tourId, teamId) =>
-            tournamentRepo.teamBattleOf(tourId) flatMap {
-              _ ?? { battle =>
-                playerRepo.teamInfo(tourId, teamId, battle) dmap some
-              }
-            }
+          case (tourId, teamId) => playerRepo.teamInfo(tourId, teamId) dmap some
         }
     }
 

@@ -14,8 +14,6 @@ import lila.db.dsl._
  */
 final class SwissStandingApi(
     colls: SwissColls,
-    cached: SwissCache,
-    rankingApi: SwissRankingApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: scala.concurrent.ExecutionContext) {

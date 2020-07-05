@@ -28,7 +28,8 @@ object LilaStream {
           .to(Sink.foreach(r => logger.info(s"[rate] $name ${r.toInt}")))
       )
 
-  @nowarn def dedup[A](window: FiniteDuration) =
+  @nowarn("msg=comparing values of types")
+  def dedup[A](window: FiniteDuration) =
     Flow[A]
       .statefulMapConcat(() => {
         val seen = Scaffeine()

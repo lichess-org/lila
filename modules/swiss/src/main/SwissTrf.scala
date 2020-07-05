@@ -4,7 +4,6 @@ import akka.stream.scaladsl._
 
 // https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
 final class SwissTrf(
-    colls: SwissColls,
     sheetApi: SwissSheetApi,
     rankingApi: SwissRankingApi,
     baseUrl: lila.common.config.BaseUrl

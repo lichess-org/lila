@@ -288,7 +288,7 @@ ${clas.desc}""",
         }
       }
 
-    def decline(id: ClasInvite.Id, user: User): Fu[Option[ClasInvite]] =
+    def decline(id: ClasInvite.Id): Fu[Option[ClasInvite]] =
       colls.invite.ext
         .findAndUpdate[ClasInvite](
           selector = $id(id),

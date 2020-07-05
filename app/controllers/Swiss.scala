@@ -171,9 +171,7 @@ final class Swiss(
     AuthBody { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>
         implicit val req = ctx.body
-        env.swiss.forms
-          .nextRound(swiss)
-          .bindFromRequest
+        env.swiss.forms.nextRound.bindFromRequest
           .fold(
             err => Redirect(routes.Swiss.show(id)).fuccess,
             date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Swiss.show(id))

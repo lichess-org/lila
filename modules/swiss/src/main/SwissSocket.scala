@@ -38,7 +38,7 @@ final private class SwissSocket(
       chat,
       logger,
       roomId => _.Swiss(roomId.value).some,
-      localTimeout = Some { (roomId, modId, suspectId) =>
+      localTimeout = Some { (roomId, modId, _) =>
         lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeader(roomId.value, modId, _) }
       },
       chatBusChan = _.Swiss

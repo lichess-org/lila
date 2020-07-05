@@ -71,7 +71,7 @@ final class SwissForm(implicit mode: Mode) {
       roundInterval = s.settings.roundInterval.toSeconds.toInt.some
     )
 
-  def nextRound(s: Swiss) =
+  def nextRound =
     Form(
       single(
         "date" -> inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)
