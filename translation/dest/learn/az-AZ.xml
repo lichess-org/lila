@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">Şahmat öyrənin</string>
+  <string name="byPlaying">oynayaraq!</string>
   <string name="menu">Menyu</string>
   <string name="play">oyna!</string>
   <string name="theRook">Top</string>
