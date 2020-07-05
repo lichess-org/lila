@@ -270,6 +270,8 @@
   <string name="apply">Enrollañ</string>
   <string name="save">Saveteiñ</string>
   <string name="leaderboard">Renkadur</string>
+  <string name="pasteTheFenStringHere">Pegañ an destenn FEN amañ</string>
+  <string name="pasteThePgnStringHere">Pegañ an destenn PGN amañ</string>
   <string name="continueFromHere">Kenderc\'hel adalek amañ</string>
   <string name="toStudy">Studiañ</string>
   <string name="importGame">Enporzhiañ krogad</string>
@@ -386,6 +388,7 @@
   <string name="retryThisPuzzle">Ober ar boelladenn-mañ en-dro</string>
   <string name="thisPuzzleIsCorrect">Interesant ha savet mat eo ar boelladenn-mañ</string>
   <string name="thisPuzzleIsWrong">N\'ez a ket mat pe kazus eo ar boelladenn-mañ</string>
+  <string name="autoSwitch">Cheñch tu emgefreek</string>
   <string name="puzzles">Poelladennoù</string>
   <string name="latestUpdates">Hizivadurioù diwezhañ</string>
   <string name="name">Anv</string>
@@ -409,6 +412,7 @@
   <string name="insult">Kunujenn</string>
   <string name="troll">Troll</string>
   <string name="other">All</string>
+  <string name="reportDescriptionHelp">Pegit liamm ar c\'hrogad(où) ha displegit ar pezh a ya a-dreuz gant emzalc\'h oc\'h enebour. Lâret \"o truchañ emañ\" ne vo ket trawalc\'h, ret eo displegañ mat. Buanoc\'h e pledimp ganti ma skrivit e saozneg.</string>
   <string name="by">gant %s</string>
   <string name="thisTopicIsNowClosed">Serr eo ar sujed-mañ bremañ.</string>
   <string name="blog">Blog</string>
