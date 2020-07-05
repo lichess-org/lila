@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="perfStats">%s statisztika</string>
+  <string name="viewTheGames">Mutasd a játszmákat</string>
   <string name="provisional">becsült</string>
   <string name="notEnoughRatedGames">Nincs elegendő értékelt játszmád megbízható értékszám meghatározásához.</string>
   <string name="progressOverLastXGames">Az utolsó %s játszma szerinti alakulás:</string>
+  <string name="totalGames">Összes játszma</string>
+  <string name="ratedGames">Rangsorolt játszma</string>
+  <string name="tournamentGames">Verseny játszma</string>
   <string name="timeSpentPlaying">Játékkal töltött idő</string>
+  <string name="averageOpponent">Ellenfelek átlaga</string>
+  <string name="victories">Győzelmek</string>
+  <string name="defeats">Vereségek</string>
+  <string name="disconnections">Szétkapcsolások</string>
   <string name="highestRating">Legmagasabb pontszám: %s</string>
   <string name="lowestRating">Legalacsonyabb pontszám: %s</string>
   <string name="fromXToY">%1$s-tól %2$s-ig</string>
