@@ -94,7 +94,7 @@ final class PgnDump(
             ).some,
             Tag(_.Site, gameUrl(game.id)).some,
             Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
-            Tag(_.Round, imported.flatMap(_.tags(_.Round)) | "-").some,
+            imported.flatMap(_.tags(_.Round)).map(Tag(_.Round, _)),
             Tag(_.White, player(game.whitePlayer, wu)).some,
             Tag(_.Black, player(game.blackPlayer, bu)).some,
             Tag(_.Result, result(game)).some,
