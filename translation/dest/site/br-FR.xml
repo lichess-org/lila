@@ -566,10 +566,13 @@
   <string name="coaches">Gourdonerien</string>
   <string name="invalidPgn">Ur gudenn zo gant ar PGN</string>
   <string name="invalidFen">Ur gudenn zo gant ar FEN</string>
+  <string name="error.min">Dleout a ra bezañ kevatal pe brasoc\'h evit %s</string>
+  <string name="error.max">Dleout a ra bezañ kevatal pe bihanoc\'h evit %s</string>
   <string name="error.unknown">Fazi</string>
   <string name="custom">Personelaet</string>
   <string name="notifications">Rebuzadurioù</string>
   <string name="practiceWithComputer">Pleustriñ gant an urzhiataer</string>
+  <string name="anotherWasX">Unan all a oa %s</string>
   <string name="bestWasX">Gwelloc\'h e oa %s</string>
   <string name="resumePractice">Adkregiñ gant ar pleustriñ</string>
   <string name="theGameIsADraw">Rampo oc\'h.</string>
@@ -594,6 +597,8 @@
   <string name="waitingForAnalysis">O c\'hortoz an dielfennañ</string>
   <string name="noMistakesFoundForWhite">Fazi ebet a-berzh ar re wenn</string>
   <string name="noMistakesFoundForBlack">Fazi ebet a-berzh ar re zu</string>
+  <string name="doneReviewingWhiteMistakes">Echu gant an deskiñ diwar fazioù ar re wenn</string>
+  <string name="doneReviewingBlackMistakes">Echu gant an deskiñ diwar fazioù ar re zu</string>
   <string name="doItAgain">Klask en-dro</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s eilenn</item>
