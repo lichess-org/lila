@@ -3,9 +3,16 @@
   <string name="learnChess">Şahmat öyrənin</string>
   <string name="byPlaying">oynayaraq!</string>
   <string name="menu">Menyu</string>
+  <string name="progressX">irəliləyiş</string>
+  <string name="resetMyProgress">tərəqqi tarixini sıfırla</string>
+  <string name="youWillLoseAllYourProgress">Tərəqqi tarixi itəcək!</string>
   <string name="play">oyna!</string>
+  <string name="chessPieces">Şahmat fiqurları</string>
   <string name="theRook">Top</string>
   <string name="itMovesInStraightLines">Düz xətlə gedir</string>
+  <string name="rookIntro">Top güclü fiqurdur. Əmr verməyə hazırsan?</string>
+  <string name="rookGoal">Ulduza gətirmək üçün top fiquruna kliklə!</string>
+  <string name="grabAllTheStars">Bütün ulduzları əldə et!</string>
   <string name="theBishop">Fil</string>
   <string name="itMovesDiagonally">Çarpaz xətlə gedir</string>
   <string name="theQueen">Vəzir</string>
