@@ -10,6 +10,12 @@
   <string name="dailyClassical">Napi Klasszikus</string>
   <string name="dailyXArena">Napi %s Aréna</string>
   <string name="dailyX">Napi %s</string>
+  <string name="easternRapidArena">Keleti Rapid Aréna</string>
+  <string name="easternRapid">Keleti Rapid</string>
+  <string name="easternClassicalArena">Keleti Klasszikus Aréna</string>
+  <string name="easternClassical">Keleti Klasszikus</string>
+  <string name="easternXArena">Keleti %s Aréna</string>
+  <string name="easternX">Keleti %s</string>
   <string name="weeklyRapidArena">Heti Rapid Aréna</string>
   <string name="weeklyRapid">Heti Rapid</string>
   <string name="weeklyClassicalArena">Heti Klasszikus Aréna</string>
