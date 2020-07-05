@@ -21,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Vízszintes zöld folyamatjelző</string>
   <string name="soundWhenTimeGetsCritical">Figyelmeztető hang, ha nagyon kevés idő maradt</string>
   <string name="giveMoreTime">Több idő adása</string>
+  <string name="gameBehavior">Játék működése</string>
   <string name="howDoYouMovePieces">Hogyan mozgatod a bábukat?</string>
   <string name="clickTwoSquares">Kattintással</string>
   <string name="dragPiece">Egérhúzással</string>
