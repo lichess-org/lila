@@ -24,8 +24,15 @@
   <string name="theQueen">Vəzir</string>
   <string name="queenCombinesRookAndBishop">Vəzir = top + fil</string>
   <string name="queenIntro">Səhnəyə ən güclü şahmat fiquru daxil olur. Zati-aliləri Vəzir!</string>
+  <string name="queenComplete">Təbriklər! Vəzirlə bağlı bütün sirləri öyrəndiniz.</string>
   <string name="theKing">Şah</string>
+  <string name="theMostImportantPiece">Ən vacib fiqur</string>
+  <string name="kingIntro">Siz şahsınız. Döyüşdə uduzsanız, oyunda da məğlubsunuz.</string>
+  <string name="theKingIsSlow">Şahın sürəti yavaşdır.</string>
+  <string name="lastOne">Ən sonuncu!</string>
+  <string name="kingComplete">İndi isə əmr sahibinə əmri siz verə bilərsiniz!</string>
   <string name="theKnight">At</string>
+  <string name="itMovesInAnLShape">L hərfi formasında hərəkət edir</string>
   <string name="thePawn">Piyada</string>
   <string name="pawnPromotion">Piyadanın çevrilməsi</string>
   <string name="checkInOne">Şah vermə</string>
