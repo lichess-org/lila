@@ -13,10 +13,17 @@
   <string name="rookIntro">Top güclü fiqurdur. Əmr verməyə hazırsan?</string>
   <string name="rookGoal">Ulduza gətirmək üçün top fiquruna kliklə!</string>
   <string name="grabAllTheStars">Bütün ulduzları əldə et!</string>
+  <string name="theFewerMoves">Daha az gediş et, daha çox xal qazan!</string>
+  <string name="useTwoRooks">Hər iki topdan istifadə etməklə sürəti artır!</string>
+  <string name="rookComplete">Təbriklər! Siz top fiqurunu çox uğurla öyrəndiniz.</string>
   <string name="theBishop">Fil</string>
   <string name="itMovesDiagonally">Çarpaz xətlə gedir</string>
+  <string name="bishopIntro">Sonrakı mərhələdə, Fil fiqurunu necə manevr etməyi öyrənəcəyik!</string>
+  <string name="youNeedBothBishops">Bir ağ-xana fil, bir qara-xana fil. Hər ikisi lazımın olacaq!</string>
+  <string name="bishopComplete">Təbriklər! Fil fiquruna hakimsiniz.</string>
   <string name="theQueen">Vəzir</string>
   <string name="queenCombinesRookAndBishop">Vəzir = top + fil</string>
+  <string name="queenIntro">Səhnəyə ən güclü şahmat fiquru daxil olur. Zati-aliləri Vəzir!</string>
   <string name="theKing">Şah</string>
   <string name="theKnight">At</string>
   <string name="thePawn">Piyada</string>
