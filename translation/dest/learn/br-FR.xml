@@ -45,6 +45,7 @@ Achapit kuit ha bezit trec\'h war ar stered!</string>
   <string name="knightComplete">Gourc\'hemennoù! Mestroniañ a rit ar marc\'heg.</string>
   <string name="thePawn">Ar pezh gwerin</string>
   <string name="itMovesForwardOnly">Mont a ra war-raok hepken</string>
+  <string name="pawnIntro">N\'eo ket gwall greñv ar pezhioù gwerin met n\'eo ket dister o zalvoudegezh.</string>
   <string name="pawnsMoveOneSquareOnly">Deus ur garrezenn e c\'hall ar pezhioù gwerin fiñval hepken. Pa dizhont an tu all eus an dachenn emgann avat e teuont da vezañ galloudusoc\'h!</string>
   <string name="pawnsMoveForward">Fiñval a ra ar pezhioù gwerin a-blom met a-skizh e tebront!</string>
   <string name="pawnComplete">Gourc\'hemennoù! Mestroniañ a rit ar pezhioù gwerin.</string>
