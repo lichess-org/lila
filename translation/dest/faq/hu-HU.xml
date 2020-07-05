@@ -27,6 +27,11 @@
   <string name="howCanIBecomeModerator">Hogyan lehetek moderátor?</string>
   <string name="youCannotApply">Nincs lehetőség külön moderátornak jelentkezni. Ha valakit alkalmasnak találunk a feladatra, őt személyesen megkeressük.</string>
   <string name="isCorrespondenceDifferent">Van-e különbség a levelezési és hagyományos sakk között?</string>
+  <string name="youCanUseOpeningBookNoEngine">A Lichess-en a legnagyobb különbség levelezési sakk szabályaiban, hogy megengedett a megnyitások könyvének használata. Sakkprogramok igénybevétele továbbra is tilos, aminek megszegéséért a felhasználót ezért megjelölik. Hiába lehet az ICCF-en, a Lichess-en nem.</string>
+  <string name="gameplay">Játékmenet</string>
+  <string name="howBulletBlitzEtcDecided">Mi alapján történik a különböző játékidők (Bullet, Blitz, stb.) besorolása?</string>
+  <string name="basedOnGameDuration">A Lichess-en ez a játszma hozzávetőleges hossza alapján történik = %1$s
+Például egy 5+3 játszma körülbelül 5 × 60 + 40 × 3 = 420 másodpercig tart.</string>
   <string name="canIbecomeLM">Szerezhetek én is Lichess Mester (LM) címet?</string>
   <string name="noUpperCaseDot">Nem.</string>
 </resources>
