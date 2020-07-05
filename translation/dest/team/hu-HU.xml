@@ -15,6 +15,18 @@
   <string name="anyoneCanJoin">Bárki csatlakozhat</string>
   <string name="aConfirmationIsRequiredToJoin">A csatlakozáshoz visszaigazolás szükséges</string>
   <string name="joiningPolicy">Csatlakozási irányelvek</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Csapatvezető</item>
+    <item quantity="other">Csapatvezetők</item>
+  </plurals>
   <string name="teamBestPlayers">Legjobb játékosok</string>
   <string name="teamRecentMembers">Új tagok</string>
+  <string name="kickSomeone">Valamelyik csapattag kizárása</string>
+  <string name="whoToKick">Kit akarsz kizárni a csapatból?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s csatlakozási kérelem</item>
+    <item quantity="other">%s csatlakozási kérelmek</item>
+  </plurals>
+  <string name="teamBattle">Csapatverseny</string>
+  <string name="teamBattleOverview">Csapatok közötti verseny, minden játékos a saját csapatának szerez pontokat</string>
 </resources>
