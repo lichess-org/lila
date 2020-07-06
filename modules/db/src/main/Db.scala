@@ -16,11 +16,14 @@ final class AsyncDb(
     driver: AsyncDriver
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
+  private lazy val connection =
+    MongoConnection.fromString(uri) flatMap { parsedUri =>
+      driver.connect(parsedUri, name.some).dmap(_ -> parsedUri.db)
+    }
+
   private def db: Future[DefaultDB] =
-    MongoConnection.fromString(uri) flatMap {
-      driver.connect(_, name.some) flatMap {
-        _ database "lichess"
-      }
+    connection flatMap {
+      case (conn, dbName) => conn database dbName.getOrElse("lichess")
     }
 
   def apply(name: CollName) = new AsyncColl(() => db.dmap(_(name.value)))
