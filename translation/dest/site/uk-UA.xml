@@ -133,14 +133,14 @@
   <string name="draw">Нічия</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s гравець</item>
-    <item quantity="few">%s гравців</item>
+    <item quantity="few">%s гравця</item>
     <item quantity="many">%s гравців</item>
     <item quantity="other">%s гравців</item>
   </plurals>
   <string name="currentGames">Поточні гри</string>
   <plurals name="nbGames">
-    <item quantity="one">%s ігра</item>
-    <item quantity="few">%s ігор</item>
+    <item quantity="one">%s гра</item>
+    <item quantity="few">%s ігри</item>
     <item quantity="many">%s ігор</item>
     <item quantity="other">%s ігор</item>
   </plurals>
@@ -150,32 +150,32 @@
     <item quantity="many">%s закладок</item>
     <item quantity="other">%s закладок</item>
   </plurals>
-  <string name="viewInFullSize">Дивитися в повний розмір</string>
-  <string name="logOut">Вийти</string>
-  <string name="signIn">Увійти</string>
+  <string name="viewInFullSize">Дивися в повний розмір</string>
+  <string name="logOut">Вийди</string>
+  <string name="signIn">Ввійди</string>
   <string name="youNeedAnAccountToDoThat">Для цього вам потрібен обліковий запис</string>
-  <string name="signUp">Зареєструватися</string>
+  <string name="signUp">Записатися</string>
   <string name="computersAreNotAllowedToPlay">Заборонено грати, користуючись підказками шахових програм та безпосередньо програмами. Будь ласка, не послуговуйтеся під час гри допомогою програм (\"рушіїв\"), баз даних або інших гравців. Також зверніть увагу, що створення декількох облікових записів не заохочується і використання надмірної кількості облікових записів призведе до блокування.</string>
-  <string name="games">Гри</string>
+  <string name="games">Ігри</string>
   <string name="forum">Толока</string>
   <string name="xPostedInForumY">%1$s опублікованих на форумі %2$s</string>
-  <string name="latestForumPosts">Останні дописи форуму</string>
+  <string name="latestForumPosts">Останні дописи толоки</string>
   <string name="players">Гравці</string>
   <string name="friends">Друзі</string>
-  <string name="discussions">Обговорення</string>
+  <string name="discussions">Обговори</string>
   <string name="today">Сьогодні</string>
   <string name="yesterday">Вчора</string>
   <string name="minutesPerSide">Хвилин на кожного</string>
-  <string name="variant">Різновиди</string>
+  <string name="variant">Різновид</string>
   <string name="variants">Різновиди</string>
   <string name="timeControl">Контроль часу</string>
-  <string name="realTime">Швидкі шахи</string>
+  <string name="realTime">Наживо</string>
   <string name="correspondence">Переписка</string>
   <string name="daysPerTurn">Днів на хід</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
     <item quantity="one">%s день</item>
-    <item quantity="few">%s день</item>
+    <item quantity="few">%s дня</item>
     <item quantity="many">%s день</item>
     <item quantity="other">%s день</item>
   </plurals>
