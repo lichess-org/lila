@@ -8,25 +8,6 @@ import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping'
 import format from 'date-fns/format'
 import { Tournament, Lanes, Ctrl } from './interfaces'
 
-function displayClockLimit(limit) {
-  switch (limit) {
-    case 15:
-      return '¼';
-    case 30:
-      return '½';
-    case 45:
-      return '¾';
-    case 90:
-      return '1.5';
-    default:
-      return limit / 60;
-  }
-}
-
-function displayClock(clock) {
-  return displayClockLimit(clock.limit) + "+" + clock.increment;
-}
-
 function tournamentClass(tour: Tournament, day: Date) {
   const classes = {
     rated: tour.rated,
@@ -42,8 +23,7 @@ function iconOf(tour, perfIcon) {
   return (tour.schedule && tour.schedule.freq === 'shield') ? '5' : perfIcon;
 }
 
-function renderTournament(ctrl: Ctrl, tour: Tournament, day: Date) {
-  const paddingLeft = 0;
+function renderTournament(tour: Tournament, day: Date) {
   let left = (getHours(tour.bounds.start) + getMinutes(tour.bounds.start) / 60) / 24 * 100;
   if (tour.bounds.start < day) left -= 100;
   const width = tour.minutes / 60 / 24 * 100;
@@ -65,8 +45,8 @@ function renderTournament(ctrl: Ctrl, tour: Tournament, day: Date) {
   ]);
 }
 
-function renderLane(ctrl: Ctrl, tours: Tournament[], day: Date) {
-  return h('lane', tours.map(t => renderTournament(ctrl, t, day)));
+function renderLane(tours: Tournament[], day: Date) {
+  return h('lane', tours.map(t => renderTournament(t, day)));
 }
 
 function fitLane(lane: Tournament[], tour2: Tournament) {
@@ -97,7 +77,7 @@ function renderDay(ctrl: Ctrl) {
           title: format(day, 'EEEE, dd/MM/yyyy')
         }
       }, [format(day, 'dd/MM')]),
-      h('lanes', makeLanes(tours).map(l => renderLane(ctrl, l, day)))
+      h('lanes', makeLanes(tours).map(l => renderLane(l, day)))
     ]);
   };
 }
@@ -128,7 +108,7 @@ function timeString(hour) {
 
 function makeGroups(days: Date[]): Date[][] {
   const groups: Date[][] = [];
-  let i,j,temparray,chunk = 10;
+  let i: number,j: number,chunk = 10;
   for (i=0,j=days.length; i<j; i+=chunk) groups.push(days.slice(i,i+chunk));
   return groups;
 }
