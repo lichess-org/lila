@@ -19,8 +19,8 @@
   <string name="black">Du</string>
   <string name="randomColor">Liv dre zegouezh</string>
   <string name="createAGame">Kregiñ ur c\'hoariadenn</string>
-  <string name="whiteIsVictorious">Troc\'het o deus ar re wenn</string>
-  <string name="blackIsVictorious">Troc\'het o deus ar re zu</string>
+  <string name="whiteIsVictorious">Trec\'h eo ar re wenn</string>
+  <string name="blackIsVictorious">Trec\'h eo ar re zu</string>
   <string name="youPlayTheWhitePieces">C\'hoari a rit gant ar re wenn</string>
   <string name="youPlayTheBlackPieces">C\'hoari a rit gant ar re zu</string>
   <string name="itsYourTurn">Deoc\'h c\'hwi!</string>
@@ -231,6 +231,13 @@
   <string name="send">Kas</string>
   <string name="freeOnlineChess">C\'hoari echedoù enlinenn digoust</string>
   <string name="spectators">Arvesterien:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s c\'hoari renket</item>
+    <item quantity="two">%s c\'hoari renket</item>
+    <item quantity="few">%s c\'hoari renket</item>
+    <item quantity="many">%s c\'hoari renket</item>
+    <item quantity="other">%s c\'hoari renket</item>
+  </plurals>
   <string name="exportGames">Ezporzhiañ krogadoù</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Reiñ %s eilenn</item>
@@ -260,6 +267,13 @@
   <string name="viewTournament">Sellet ouzh an tournamant</string>
   <string name="backToTournament">Distreiñ d\'an tournamant</string>
   <string name="thematic">Tematek</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s c\'hoari renket</item>
+    <item quantity="two">≥ %s c\'hoari renket</item>
+    <item quantity="few">≥ %s c\'hoari renket</item>
+    <item quantity="many">≥ %s c\'hoari renket</item>
+    <item quantity="other">≥ %s c\'hoari renket</item>
+  </plurals>
   <string name="mustBeInTeam">A rank bezañ e skipailh %s</string>
   <string name="youAreNotInTeam">N\'oc\'h ket e skipailh %s</string>
   <string name="backToGame">Distreiñ d\'ar c\'hrogad</string>
@@ -270,6 +284,8 @@
   <string name="apply">Enrollañ</string>
   <string name="save">Saveteiñ</string>
   <string name="leaderboard">Renkadur</string>
+  <string name="pasteTheFenStringHere">Pegañ an destenn FEN amañ</string>
+  <string name="pasteThePgnStringHere">Pegañ an destenn PGN amañ</string>
   <string name="continueFromHere">Kenderc\'hel adalek amañ</string>
   <string name="toStudy">Studiañ</string>
   <string name="importGame">Enporzhiañ krogad</string>
@@ -386,6 +402,7 @@
   <string name="retryThisPuzzle">Ober ar boelladenn-mañ en-dro</string>
   <string name="thisPuzzleIsCorrect">Interesant ha savet mat eo ar boelladenn-mañ</string>
   <string name="thisPuzzleIsWrong">N\'ez a ket mat pe kazus eo ar boelladenn-mañ</string>
+  <string name="autoSwitch">Cheñch tu emgefreek</string>
   <string name="puzzles">Poelladennoù</string>
   <string name="latestUpdates">Hizivadurioù diwezhañ</string>
   <string name="name">Anv</string>
@@ -409,6 +426,7 @@
   <string name="insult">Kunujenn</string>
   <string name="troll">Troll</string>
   <string name="other">All</string>
+  <string name="reportDescriptionHelp">Pegit liamm ar c\'hrogad(où) ha displegit ar pezh a ya a-dreuz gant emzalc\'h oc\'h enebour. Lâret \"o truchañ emañ\" ne vo ket trawalc\'h, ret eo displegañ mat. Buanoc\'h e pledimp ganti ma skrivit e saozneg.</string>
   <string name="by">gant %s</string>
   <string name="thisTopicIsNowClosed">Serr eo ar sujed-mañ bremañ.</string>
   <string name="blog">Blog</string>
@@ -537,6 +555,8 @@
   <string name="dark">Teñval</string>
   <string name="transparent">Treuzwelus</string>
   <string name="backgroundImageUrl">URL skeudenn an drekleur :</string>
+  <string name="pieceSet">Ar pezhioù</string>
+  <string name="embedInYourWebsite">Enframmañ en ho lec\'hienn</string>
   <string name="usernameAlreadyUsed">Implijet eo an anv-mañ dija. Dibabit unan all mar plij.</string>
   <string name="usernamePrefixInvalid">Gant ul lizherenn e rank kregiñ an anv implijer.</string>
   <string name="usernameSuffixInvalid">Gant ul lizherenn pe ur sifr e echu an anv-implijer, dre ret.</string>
@@ -544,15 +564,23 @@
   <string name="directlySupportLichess">Skoazell Lichess war-eeun</string>
   <string name="chessBasics">Diazezoù an echedoù</string>
   <string name="coaches">Gourdonerien</string>
+  <string name="invalidPgn">Ur gudenn zo gant ar PGN</string>
+  <string name="invalidFen">Ur gudenn zo gant ar FEN</string>
+  <string name="error.min">Dleout a ra bezañ kevatal pe brasoc\'h evit %s</string>
+  <string name="error.max">Dleout a ra bezañ kevatal pe bihanoc\'h evit %s</string>
   <string name="error.unknown">Fazi</string>
   <string name="custom">Personelaet</string>
   <string name="notifications">Rebuzadurioù</string>
   <string name="practiceWithComputer">Pleustriñ gant an urzhiataer</string>
+  <string name="anotherWasX">Unan all a oa %s</string>
+  <string name="bestWasX">Gwelloc\'h e oa %s</string>
+  <string name="resumePractice">Adkregiñ gant ar pleustriñ</string>
   <string name="theGameIsADraw">Rampo oc\'h.</string>
   <string name="computerThinking">O prederiañ emañ an urzhiataer ...</string>
   <string name="seeBestMove">Gwelet ar fiñvadenn wellañ</string>
   <string name="hideBestMove">Kuzhat ar fiñvadenn wellañ</string>
   <string name="getAHint">Kaout un tamm sikour</string>
+  <string name="evaluatingYourMove">O priziañ ho fiñvadenn...</string>
   <string name="whiteWinsGame">Ar re wenn o deus trec\'het</string>
   <string name="blackWinsGame">Ar re zu o deus trec\'het</string>
   <string name="learnFromYourMistakes">Deskiñ diouzh ho fazioù</string>
@@ -566,8 +594,11 @@
   <string name="tryAnotherMoveForWhite">Klaskit ur fiñvadenn all evit ar re wenn</string>
   <string name="tryAnotherMoveForBlack">Klaskit ur fiñvadenn all evit ar re zu</string>
   <string name="solution">Respont</string>
+  <string name="waitingForAnalysis">O c\'hortoz an dielfennañ</string>
   <string name="noMistakesFoundForWhite">Fazi ebet a-berzh ar re wenn</string>
   <string name="noMistakesFoundForBlack">Fazi ebet a-berzh ar re zu</string>
+  <string name="doneReviewingWhiteMistakes">Echu gant an deskiñ diwar fazioù ar re wenn</string>
+  <string name="doneReviewingBlackMistakes">Echu gant an deskiñ diwar fazioù ar re zu</string>
   <string name="doItAgain">Klask en-dro</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s eilenn</item>
@@ -577,6 +608,8 @@
     <item quantity="other">%s eilenn</item>
   </plurals>
   <string name="opening">Digoradur</string>
+  <string name="middlegame">Kreiz ar c\'hrogad</string>
+  <string name="endgame">Fin ar c\'hrogad</string>
   <string name="playX">C\'hoari %s</string>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
@@ -593,4 +626,11 @@
   <string name="edit">Cheñch</string>
   <string name="rapid">Prim</string>
   <string name="classical">Normal</string>
+  <string name="bulletDesc">Krogadoù prim-tre: nebeutoc\'h evit 3 munutenn</string>
+  <string name="blitzDesc">Krogadoù prim: etre 3 ha 8 munutenn</string>
+  <string name="rapidDesc">Krogadoù fonnus: etre 8 ha 25 munutenn</string>
+  <string name="classicalDesc">Krogadoù normal: 25 munutenn ha muioc\'h</string>
+  <string name="important">A-bouez</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
+  <string name="inTheFAQ">er FAG.</string>
 </resources>

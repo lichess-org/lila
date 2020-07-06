@@ -74,8 +74,80 @@
   <string name="captureComplete">अभिनंदन! बुद्धीबळ गोट्यांसह कसे लढायचे हे आपल्याला माहित आहे!</string>
   <string name="protection">संरक्षण</string>
   <string name="keepYourPiecesSafe">आपल्या सोंगट्या सुरक्षित ठेवा</string>
+  <string name="protectionIntro">आपल्या प्रतिस्पर्ध्याने हल्ला केलेल्या गोट्या ओळखा, आणि त्यांचे रक्षण करा!</string>
+  <string name="protectionComplete">अभिनंदन! तुम्ही जी गोटी नाही हरलात ती तुम्ही जिंकलात!</string>
+  <string name="escape">तुमच्या वर हल्ला झाला आहे!
+यातून बाहेर पडा!</string>
+  <string name="noEscape">सुटका नाही,
+पण आपण बचाव करू शकता!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">त्यांना कोणतीही असंरक्षित गोटी 
+घेऊ देऊ नका!</string>
   <string name="combat">लढाई</string>
+  <string name="captureAndDefendPieces">गोट्या मारा आणि त्यांचा रक्षण करा</string>
   <string name="combatIntro">एक चांगला योद्धा हल्ला आणि बचाव दोन्ही गोष्टी जाणतो!</string>
   <string name="combatComplete">अभिनंदन! बुद्धीबळ गोट्यांसह कसे लढायचे हे आपल्याला माहित आहे!</string>
+  <string name="checkInOne">एका डावात चेक द्या</string>
   <string name="attackTheOpponentsKing">प्रतिस्पर्धीच्या राजावर हल्ला करा</string>
+  <string name="checkInOneIntro">शत्रूला चेक देण्या करिता, त्यांच्या राजा वर हल्ला करा. त्यांनी त्याचा बचाव केला पाहिजे!</string>
+  <string name="checkInOneGoal">प्रतिस्पर्ध्याच्या राजाकडे नेम लावा
+एका डावात!</string>
+  <string name="checkInOneComplete">अभिनंदन! तुम्ही शत्रूच्या राजाला चेक दिला आहे, आता त्यांना राजाचा बचाव करावाच लागेल!</string>
+  <string name="outOfCheck">चेक संपलेत</string>
+  <string name="defendYourKing">आपल्या राजाचे रक्षण करा</string>
+  <string name="outOfCheckIntro">तुम्ही चेक मध्ये आहे! आपण बचावणे किंवा हल्ला अवरोधित करणे आवश्यक आहे.</string>
+  <string name="escapeWithTheKing">राजाबरोबर पळा!</string>
+  <string name="theKingCannotEscapeButBlock">राजा सुटू शकत नाही,
+परंतु आपण हल्ला रोखू शकता!</string>
+  <string name="youCanGetOutOfCheckByTaking">तुम्ही चेक च्या बाहेर येऊ शकता 
+जर तुम्ही चेक देणाऱ्या गोटी ला मारलत.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">हा घोडा तुम्हाला चेक देत आहे
+आपल्या संरक्षणाद्वारे!</string>
+  <string name="escapeOrBlock">राजा सोबत पळून जा
+किंवा हल्ला अवरोधित करा!</string>
+  <string name="outOfCheckComplete">अभिनंदन! आपला राजा कधीही घेतला जाऊ शकत नाही, आपण चेक बचाव करू शकता याची खात्री करा!</string>
+  <string name="mateInOne">एका डावात मेट करा</string>
+  <string name="defeatTheOpponentsKing">प्रतिस्पर्ध्याच्या राजाचा पराभव करा</string>
+  <string name="mateInOneIntro">जेव्हा आपला विरोधक चेकविरूद्ध बचाव करू शकत नाही तेव्हा आपण जिंकता.</string>
+  <string name="attackYourOpponentsKing">अशा मार्गाने आपल्या प्रतिस्पर्ध्याच्या राजावर हल्ला करा
+ज्याचा बचाव करता येणार नाही!</string>
+  <string name="mateInOneComplete">अभिनंदन! अशा प्रकारे आपण बुद्धिबळ खेळ जिंकता!</string>
+  <string name="intermediate">मध्यवर्ती</string>
+  <string name="boardSetup">बुध्दीबळाचा पटाची मांडणी</string>
+  <string name="howTheGameStarts">खेळ कसा सुरू होतो</string>
+  <string name="boardSetupIntro">दोन सैन्य एकमेकांना सामोरे जात आहेत, युद्धासाठी सज्ज आहेत.</string>
+  <string name="thisIsTheInitialPosition">ही प्रारंभिक स्थिती आहे
+बुद्धिबळातील प्रत्येक खेळाचा!
+खेळ सुरु करण्यासाठी कोणतेही गोटी हलवा.</string>
+  <string name="firstPlaceTheRooks">सर्वात आधी हत्ती ठेवा!
+त्यांना कोपऱ्यात ठेवा.</string>
+  <string name="thenPlaceTheKnights">मग घोडे ठेवा!
+हत्ती च्या शेजारी.</string>
+  <string name="placeTheBishops">आता उंट ठेवा!
+घोड्याच्या शेजारी.</string>
+  <string name="placeTheQueen">आता राणी ठेवा!
+ती तिच्या रंगाच्या चौकटीत ठेवली जाते.</string>
+  <string name="placeTheKing">आता राजा ठेवा!
+त्याच्या राणीच्या शेजारी.</string>
+  <string name="pawnsFormTheFrontLine">प्यादे समोरची ओळ बनवतात.
+सुरू करण्यासाठी कोणतीही हालचाल करा.</string>
+  <string name="boardSetupComplete">अभिनंदन! बुद्धीबळ बोर्ड कसे लावायचे ते आपल्याला माहित आहे.</string>
+  <string name="castling">कॅसलिंग</string>
+  <string name="theSpecialKingMove">राजाची विशेष चाल</string>
+  <string name="castlingIntro">आपल्या राजाला सुरक्षिततेत आणा, आणि हल्ल्यासाठी आपला हत्ती उपयोजित करा!</string>
+  <string name="castleKingSide">तुमच्या राजाला दोन घर चालवा
+राजाच्या दिशेने कॅसलिंग करण्यासाठी!</string>
+  <string name="castleQueenSide">तुमच्या राजाला दोन घर चालवा
+राणीच्या दिशेने कॅसलिंग करण्यासाठी!</string>
+  <string name="theKnightIsInTheWay">घोडा मध्ये येत आहे!
+त्याला हलवा, आणि राजाच्या दिशेने कॅसलिंग करा.</string>
+  <string name="castleKingSideMovePiecesFirst">राजाच्या दिशेने कॅसलिंग करा!
+आपल्याला प्रथम गोट्या बाहेर हलविणे आवश्यक आहे.</string>
+  <string name="castleQueenSideMovePiecesFirst">राणीच्या दिशेने कॅसलिंग करा!
+आपल्याला प्रथम गोट्या बाहेर हलविणे आवश्यक आहे.</string>
+  <string name="youCannotCastleIfMoved">जर राजा किव्हा हत्ती 
+हे आधीच चाललेले आहेत
+तर तुम्ही कॅसलिंग करू शकत नाही.</string>
+  <string name="youCannotCastleIfAttacked">तुम्ही कॅसलिंग करू शकत नाही जर 
+जर राज्याच्या मार्गात हल्ला झाला आहे.
+आधी हल्ला आडवा आणि मग कॅसलिंग करा!</string>
 </resources>

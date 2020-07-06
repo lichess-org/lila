@@ -8,7 +8,7 @@
   <string name="youWillLoseAllYourProgress">Kollet e vo hoc\'h araokadur ganeoc\'h!</string>
   <string name="play">c\'hoari!</string>
   <string name="chessPieces">Pezhioù ar c\'hoari echedoù</string>
-  <string name="theRook">Ar c\'hastell</string>
+  <string name="theRook">An tour</string>
   <string name="itMovesInStraightLines">Fiñval a ra a-blom hag a-blaen</string>
   <string name="rookIntro">Galloudus eo an tour. Prest oc\'h d\'ober war e dro?</string>
   <string name="rookGoal">Klikit war an tour
@@ -19,7 +19,7 @@ seul vuioc\'h a boentoù!</string>
   <string name="useTwoRooks">Grit gant daou dour
 da echuiñ buanoc\'h!</string>
   <string name="rookComplete">Gourc\'hemennoù! Mestroniañ a rit an tour.</string>
-  <string name="theBishop">An eskop</string>
+  <string name="theBishop">Ar furlukin</string>
   <string name="itMovesDiagonally">Fiñval a ra a-skizh</string>
   <string name="bishopIntro">Bremañ emaomp o vont da zeskiñ penaos fiñval ar furlukin!</string>
   <string name="youNeedBothBishops">Ur furlukin evit ar c\'harezioù gwenn,
@@ -27,7 +27,7 @@ Ur furlukin evit ar c\'harezioù du.
 Into-daou ho peus ezhomm da gaout!</string>
   <string name="bishopComplete">Gourc\'hemennoù! Gouzout a rit ober gant ar furlukin.</string>
   <string name="theQueen">Ar rouanez</string>
-  <string name="queenCombinesRookAndBishop">Rouanez = kastell + eskop</string>
+  <string name="queenCombinesRookAndBishop">Rouanez = tour + furlukin</string>
   <string name="queenIntro">Setu ar pezh galloudusañ er c\'hoari. He Meurdez ar rouanez!</string>
   <string name="queenComplete">Gourc\'hemennoù! Mestroniañ a rit ar rouanez.</string>
   <string name="theKing">Ar roue</string>
@@ -43,8 +43,9 @@ da lammat a-zehou a-gleiz!</string>
   <string name="knightsCanJumpOverObstacles">Gallout a ra ar varc\'heien lammat dreist skoilhoù!
 Achapit kuit ha bezit trec\'h war ar stered!</string>
   <string name="knightComplete">Gourc\'hemennoù! Mestroniañ a rit ar marc\'heg.</string>
-  <string name="thePawn">Ar gwerinour</string>
+  <string name="thePawn">Ar pezh gwerin</string>
   <string name="itMovesForwardOnly">Mont a ra war-raok hepken</string>
+  <string name="pawnIntro">N\'eo ket gwall greñv ar pezhioù gwerin met n\'eo ket dister o zalvoudegezh.</string>
   <string name="pawnsMoveOneSquareOnly">Deus ur garrezenn e c\'hall ar pezhioù gwerin fiñval hepken. Pa dizhont an tu all eus an dachenn emgann avat e teuont da vezañ galloudusoc\'h!</string>
   <string name="pawnsMoveForward">Fiñval a ra ar pezhioù gwerin a-blom met a-skizh e tebront!</string>
   <string name="pawnComplete">Gourc\'hemennoù! Mestroniañ a rit ar pezhioù gwerin.</string>
@@ -108,6 +109,12 @@ gant ar muiañ a dalvoudegezh!
 Rouanez &gt; Furlukin</string>
   <string name="takeThePieceWithTheHighestValue">Debrit ar pezh 
 gant ar muiañ a dalvoudegezh!</string>
+  <string name="pieceValueComplete">Gourc\'hemennoù! Goût a rit bremañ petra eo talvoudegezh ar pezhioù!
+Rouanez = 9
+Tour = 5
+Furlukin = 3
+Marc\'heg = 3
+Pezh gwerin = 1</string>
   <string name="whatNext">Ha bremañ?</string>
   <string name="youKnowHowToPlayChess">Gourc\'hemennoù! Gouzout a rit penaos c\'hoari echedoù! Plijout a rafe deoc\'h bezañ barrekoc\'h?</string>
   <string name="getAFreeLichessAccount">Kaout ur gont Lichess digoust</string>
