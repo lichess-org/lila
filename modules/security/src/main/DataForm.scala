@@ -5,7 +5,7 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints
 import scala.concurrent.duration._
 
-import lila.common.{ EmailAddress, LameName }
+import lila.common.{ EmailAddress, LameName, Form => LilaForm }
 import lila.user.{ TotpSecret, User, UserRepo }
 import User.{ ClearPassword, TotpToken }
 
@@ -32,7 +32,7 @@ final class DataForm(
 
   def emptyWithCaptcha = withCaptcha(empty)
 
-  private val anyEmail        = trimField(text).verifying(Constraints.emailAddress)
+  private val anyEmail        = LilaForm.clean(text).verifying(Constraints.emailAddress)
   private val sendableEmail   = anyEmail.verifying(emailValidator.sendableConstraint)
   private val acceptableEmail = anyEmail.verifying(emailValidator.acceptableConstraint)
   private def acceptableUniqueEmail(forUser: Option[User]) =
@@ -40,19 +40,20 @@ final class DataForm(
 
   private def withAcceptableDns(m: Mapping[String]) = m verifying emailValidator.withAcceptableDns
 
-  private def trimField(m: Mapping[String]) = m.transform[String](_.trim, identity)
-
   private val preloadEmailDnsForm = Form(single("email" -> acceptableEmail))
 
   def preloadEmailDns(implicit req: play.api.mvc.Request[_]): Funit =
-    preloadEmailDnsForm.bindFromRequest.fold(
-      _ => funit,
-      email => emailValidator.preloadDns(EmailAddress(email))
-    )
+    preloadEmailDnsForm
+      .bindFromRequest()
+      .fold(
+        _ => funit,
+        email => emailValidator.preloadDns(EmailAddress(email))
+      )
 
   object signup {
 
-    val username = trimField(nonEmptyText)
+    val username = LilaForm
+      .clean(nonEmptyText)
       .verifying(
         Constraints minLength 2,
         Constraints maxLength 20,
@@ -214,7 +215,7 @@ final class DataForm(
 
   val reopen = Form(
     mapping(
-      "username" -> trimField(nonEmptyText),
+      "username" -> LilaForm.clean(nonEmptyText),
       "email"    -> sendableEmail, // allow unacceptable emails for BC
       "gameId"   -> text,
       "move"     -> text

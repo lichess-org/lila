@@ -151,7 +151,7 @@ final class MsgApi(
         post(orig.id, _, text, multi = true).logFailure(logger).nevermind
       }
       .toMat(Sink.ignore)(Keep.right)
-      .run
+      .run()
       .void
 
   def cliMultiPost(orig: String, dests: Seq[User.ID], text: String): Fu[String] =

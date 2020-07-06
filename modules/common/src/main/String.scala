@@ -15,7 +15,7 @@ object String {
   def lcfirst(str: String) = s"${str(0).toLower}${str.drop(1)}"
 
   def slugify(input: String) = {
-    val nowhitespace = input.trim.replace(' ', '-')
+    val nowhitespace = removeZeroWidthChars(input.trim.replace(' ', '-'))
     val singleDashes = slugMultiDashRegex.replaceAllIn(nowhitespace, "-")
     val normalized   = Normalizer.normalize(singleDashes, Normalizer.Form.NFD)
     val slug         = slugR.replaceAllIn(normalized, "")
@@ -49,6 +49,10 @@ object String {
       } > 0
     }
   def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
+
+  private val zeroWidthCharsRegex     = "[\\p{C}]".r
+  def hasZeroWidthChars(s: String)    = zeroWidthCharsRegex find s
+  def removeZeroWidthChars(s: String) = s.replaceAll("[\\p{C}]", "")
 
   object base64 {
     import java.util.Base64

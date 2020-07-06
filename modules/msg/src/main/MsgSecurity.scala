@@ -56,31 +56,40 @@ final private class MsgSecurity(
 
   object can {
 
-    def post(contacts: User.Contacts, text: String, isNew: Boolean, unlimited: Boolean = false): Fu[Verdict] =
-      may.post(contacts, isNew) flatMap {
-        case false => fuccess(Block)
-        case _ =>
-          isLimited(contacts, isNew, unlimited) orElse
-            isSpam(text) orElse
-            isTroll(contacts) orElse
-            isDirt(contacts.orig, text, isNew) getOrElse
-            fuccess(Ok)
-      } flatMap {
-        case mute: Mute =>
-          relationApi.fetchFollows(contacts.dest.id, contacts.orig.id) dmap { isFriend =>
-            if (isFriend) Ok else mute
-          }
-        case verdict => fuccess(verdict)
-      } addEffect {
-        case Dirt =>
-          Bus.publish(
-            AutoFlag(contacts.orig.id, s"msg/${contacts.orig.id}/${contacts.dest.id}", text),
-            "autoFlag"
-          )
-        case Spam =>
-          logger.warn(s"PM spam from ${contacts.orig.id}: ${text}")
-        case _ =>
-      }
+    def post(
+        contacts: User.Contacts,
+        rawText: String,
+        isNew: Boolean,
+        unlimited: Boolean = false
+    ): Fu[Verdict] = {
+      val text = lila.common.String.removeZeroWidthChars(rawText).trim
+      if (text.isEmpty) fuccess(Invalid)
+      else
+        may.post(contacts, isNew) flatMap {
+          case false => fuccess(Block)
+          case _ =>
+            isLimited(contacts, isNew, unlimited) orElse
+              isSpam(text) orElse
+              isTroll(contacts) orElse
+              isDirt(contacts.orig, text, isNew) getOrElse
+              fuccess(Ok)
+        } flatMap {
+          case mute: Mute =>
+            relationApi.fetchFollows(contacts.dest.id, contacts.orig.id) dmap { isFriend =>
+              if (isFriend) Ok else mute
+            }
+          case verdict => fuccess(verdict)
+        } addEffect {
+          case Dirt =>
+            Bus.publish(
+              AutoFlag(contacts.orig.id, s"msg/${contacts.orig.id}/${contacts.dest.id}", text),
+              "autoFlag"
+            )
+          case Spam =>
+            logger.warn(s"PM spam from ${contacts.orig.id}: ${text}")
+          case _ =>
+        }
+    }
 
     private def isLimited(contacts: User.Contacts, isNew: Boolean, unlimited: Boolean): Fu[Option[Verdict]] =
       if (unlimited) fuccess(none)
@@ -165,10 +174,11 @@ private object MsgSecurity {
   sealed abstract class Send(val mute: Boolean) extends Verdict
   sealed abstract class Mute                    extends Send(true)
 
-  case object Ok    extends Send(false)
-  case object Troll extends Mute
-  case object Spam  extends Mute
-  case object Dirt  extends Mute
-  case object Block extends Reject
-  case object Limit extends Reject
+  case object Ok      extends Send(false)
+  case object Troll   extends Mute
+  case object Spam    extends Mute
+  case object Dirt    extends Mute
+  case object Block   extends Reject
+  case object Limit   extends Reject
+  case object Invalid extends Reject
 }

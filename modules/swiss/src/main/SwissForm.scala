@@ -19,7 +19,7 @@ final class SwissForm(implicit mode: Mode) {
     Form(
       mapping(
         "name" -> optional(
-          text.verifying(
+          clean(text).verifying(
             Constraints minLength 2,
             Constraints maxLength 30,
             Constraints.pattern(
@@ -37,7 +37,7 @@ final class SwissForm(implicit mode: Mode) {
         "variant"       -> optional(nonEmptyText.verifying(v => Variant(v).isDefined)),
         "rated"         -> optional(boolean),
         "nbRounds"      -> number(min = minRounds, max = 100),
-        "description"   -> optional(nonEmptyText),
+        "description"   -> optional(clean(nonEmptyText)),
         "chatFor"       -> optional(numberIn(chatForChoices.map(_._1))),
         "roundInterval" -> optional(numberIn(roundIntervals))
       )(SwissData.apply)(SwissData.unapply)
