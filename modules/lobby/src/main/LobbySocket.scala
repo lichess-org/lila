@@ -100,8 +100,6 @@ final class LobbySocket(
 
       case AddSeek(_) | RemoveSeek(_) => tellActive(makeMessage("reload_seeks"))
 
-      case lila.hub.actorApi.streamer.StreamsOnAir(html) => tellActive(makeMessage("streams", html))
-
       case ChangeFeatured(_, msg) => tellActive(msg)
 
       case SetIdle(sri, true)  => idleSris += sri.value

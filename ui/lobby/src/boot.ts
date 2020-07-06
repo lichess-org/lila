@@ -25,29 +25,17 @@ export default function boot(cfg, element) {
     function() {
       return window.lichess.socket.pingInterval();
     }),
-  getParameterByName = function(name) {
+  getParameterByName = name => {
     var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
   },
-  onFirstConnect = function() {
+  onFirstConnect = () => {
     var gameId = getParameterByName('hook_like');
     if (!gameId) return;
     $.post(`/setup/hook/${window.lichess.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`);
     lobby.setTab('real_time');
     history.replaceState(null, '', '/');
-  },
-  filterStreams = function() {
-    if (!navigator.languages) return; // tss... https://developer.mozilla.org/en-US/docs/Web/API/NavigatorLanguage/languages
-    var langs = navigator.languages.map(function(l) {
-      return l.slice(0, 2).toLowerCase();
-    });
-    langs.push($('html').attr('lang'));
-    $('.lobby__streams .stream, .event-spotlight').each(function() {
-      var match = $(this).text().match(/\[(\w{2})\]/mi);
-      if (match && !langs.includes(match[1].toLowerCase())) $(this).hide();
-    });
   };
-  filterStreams();
   window.lichess.socket = window.lichess.StrongSocket(
     '/lobby/socket/v4',
     false, {
@@ -70,10 +58,6 @@ export default function boot(cfg, element) {
             }
           });
         },
-        // streams: function(html) {
-        //   $('.lobby__streams').html(html);
-        //   filterStreams();
-        // },
         featured: function(o) {
           $('.lobby__tv').html(o.html);
           window.lichess.pubsub.emit('content_loaded');

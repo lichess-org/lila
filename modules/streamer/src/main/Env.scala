@@ -21,11 +21,9 @@ final class Env(
     appConfig: Configuration,
     ws: play.api.libs.ws.WSClient,
     settingStore: lila.memo.SettingStore.Builder,
-    renderer: lila.hub.actors.Renderer,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     notifyApi: lila.notify.NotifyApi,
-    lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,
     db: lila.db.Db,
@@ -75,7 +73,6 @@ final class Env(
     Props(
       new Streaming(
         ws = ws,
-        renderer = renderer,
         api = api,
         isOnline = isOnline,
         timeline = timeline,
@@ -86,9 +83,7 @@ final class Env(
           twitchCredentialsSetting.get().split(' ') match {
             case Array(client, secret) => (client, secret)
             case _                     => ("", "")
-          },
-        homepageSpots = homepageMaxSetting.get _,
-        lightUserApi = lightUserApi
+          }
       )
     )
   )

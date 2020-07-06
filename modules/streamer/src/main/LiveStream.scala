@@ -3,10 +3,11 @@ package lila.streamer
 import akka.actor._
 import akka.pattern.ask
 import makeTimeout.short
+import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
-import lila.user.User
 import lila.memo.CacheApi._
+import lila.user.User
 
 case class LiveStreams(streams: List[Stream]) {
 
@@ -17,12 +18,15 @@ case class LiveStreams(streams: List[Stream]) {
 
   def get(streamer: Streamer) = streams.find(_ is streamer)
 
-  def homepage(max: Int) =
+  def homepage(max: Int, req: RequestHeader, user: Option[User]) =
     LiveStreams {
+      val langs = req.acceptLanguages.view.map(_.language).toSet + "en" ++ user.flatMap(_.lang).toSet
       streams
         .takeWhile(_.streamer.approval.tier > 0)
         .foldLeft(Vector.empty[Stream]) {
-          case (selected, s) if selected.size < max || s.streamer.approval.tier == Streamer.maxTier =>
+          case (selected, s) if langs(s.lang) && {
+                selected.size < max || s.streamer.approval.tier == Streamer.maxTier
+              } =>
             selected :+ s
           case (selected, _) => selected
         }
@@ -84,7 +88,7 @@ final class LiveStreamApi(
   //       List(
   //         Stream.Twitch.Stream(
   //           "thibault",
-  //           "test stream on lichess.org",
+  //           "[RU] test stream on lichess.org",
   //           Streamer(
   //             _id = Streamer.Id("thibault"),
   //             listed = Streamer.Listed(true),
