@@ -176,21 +176,21 @@
   <plurals name="nbDays">
     <item quantity="one">%s день</item>
     <item quantity="few">%s дня</item>
-    <item quantity="many">%s день</item>
-    <item quantity="other">%s день</item>
+    <item quantity="many">%s днів</item>
+    <item quantity="other">%s днів</item>
   </plurals>
   <plurals name="nbHours">
     <item quantity="one">%s година</item>
-    <item quantity="few">%s година</item>
-    <item quantity="many">%s година</item>
-    <item quantity="other">%s година</item>
+    <item quantity="few">%s години</item>
+    <item quantity="many">%s годин</item>
+    <item quantity="other">%s годин</item>
   </plurals>
   <string name="time">Час</string>
-  <string name="rating">Рейтинґ</string>
-  <string name="ratingStats">Розподіл за рейтинґом</string>
-  <string name="username">Псевдонім</string>
-  <string name="usernameOrEmail">Ім’я користувача</string>
-  <string name="changeUsername">Змінити ім\'я користувача</string>
+  <string name="rating">Щабель</string>
+  <string name="ratingStats">Розподіл за щаблем</string>
+  <string name="username">Прізвисько</string>
+  <string name="usernameOrEmail">Призвисько чи скриня</string>
+  <string name="changeUsername">Зміни призвіська</string>
   <string name="changeUsernameNotSame">Можна змінити лише регістр літер. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Змініть своє ім\'я користувача. Це може бути зроблено лише один раз і вам дозволено лише змінити регістр літер вашого імені користувача.</string>
   <string name="password">Пароль</string>
