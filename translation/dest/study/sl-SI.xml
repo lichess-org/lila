@@ -76,6 +76,7 @@
   <string name="startAtX">Začni z %s</string>
   <string name="embedInYourWebsite">Vstavite v vašo spletno stran ali blog</string>
   <string name="readMoreAboutEmbedding">Preberite več o vstavljanju</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Vdelati je mogoče le javni študij!</string>
   <string name="open">Odpri</string>
   <string name="xBroughtToYouByY">%1$s vam ponuja %2$s</string>
   <string name="studyNotFound">Študije nismo našli</string>
