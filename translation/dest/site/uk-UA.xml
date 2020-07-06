@@ -439,7 +439,7 @@
   <string name="challengeToPlay">Виклич на гру</string>
   <string name="player">Гравець</string>
   <string name="list">Список</string>
-  <string name="graph">Графік</string>
+  <string name="graph">Крива</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Менше %s хвилини</item>
     <item quantity="few">Менше %s хвилин</item>
@@ -447,14 +447,14 @@
     <item quantity="other">Менше %s хвилин</item>
   </plurals>
   <string name="required">Обов\'язково.</string>
-  <string name="openTournaments">Відкриті турніри</string>
+  <string name="openTournaments">Відкриті змаги</string>
   <string name="duration">Тривалість</string>
   <string name="winner">Переможець</string>
-  <string name="standing">Турнірна таблиця</string>
-  <string name="createANewTournament">Створити новий турнір</string>
-  <string name="tournamentCalendar">Календар турніру</string>
+  <string name="standing">Місце</string>
+  <string name="createANewTournament">Створи новий змаг</string>
+  <string name="tournamentCalendar">Календар змагу</string>
   <string name="conditionOfEntry">Умови входу:</string>
-  <string name="advancedSettings">Додаткові налаштування</string>
+  <string name="advancedSettings">Додаткові лашти</string>
   <string name="safeTournamentName">Оберіть дуже безпечне ім\'я для турніру.</string>
   <string name="inappropriateNameWarning">Все, що навіть трохи виявиться недоречним, може призвести до блокування.</string>
   <string name="emptyTournamentName">Залиште пустим, аби назвати турнір на честь випадкового гросмейстера.</string>
