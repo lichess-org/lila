@@ -76,6 +76,7 @@
   <string name="startAtX">Почати з %s</string>
   <string name="embedInYourWebsite">Вставити на свій сайт або блог</string>
   <string name="readMoreAboutEmbedding">Докладніше про вкладення</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Вкладати можна лише прилюдні досліди!</string>
   <string name="open">Відкрити</string>
   <string name="xBroughtToYouByY">%1$s надано вам %2$s</string>
   <string name="studyNotFound">Дослідження не знайдено</string>
