@@ -383,21 +383,21 @@
   <string name="save">Збережи</string>
   <string name="leaderboard">Найкращі гравці</string>
   <string name="pasteTheFenStringHere">Встав FEN тут</string>
-  <string name="pasteThePgnStringHere">Вставте рядок PGN тут</string>
-  <string name="fromPosition">Із позиції</string>
-  <string name="continueFromHere">Продовжити звідси</string>
-  <string name="toStudy">Навчання</string>
-  <string name="importGame">Імпортувати гру</string>
-  <string name="importGameExplanation">При вставці PGN-гри ви отримуєте повтор в браузері,
-комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
+  <string name="pasteThePgnStringHere">Встав PGN тут</string>
+  <string name="fromPosition">З розташови</string>
+  <string name="continueFromHere">Продовж звідси</string>
+  <string name="toStudy">Дослід</string>
+  <string name="importGame">Принеси гру</string>
+  <string name="importGameExplanation">Встав PGN гру, аби отримати повтір в огляднику,
+обчислювального розбору, ігрову бесіду і ширильну ланку.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s принесена гра</item>
-    <item quantity="few">%s пренесених ігор</item>
+    <item quantity="few">%s пренесені ігри</item>
     <item quantity="many">%s пренесених ігор</item>
     <item quantity="other">%s пренесених ігор</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Це – шаховий код.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Клацніть на дошці, щоби зробити хід і довести, що ви людина.</string>
+  <string name="thisIsAChessCaptcha">Це — шахова перевірка.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Походи і доведи, що ти людина.</string>
   <string name="captcha.fail">Будь-ласка, вирішіть шахову капчу.</string>
   <string name="notACheckmate">Не мат</string>
   <string name="whiteCheckmatesInOneMove">Білі починають і матують в один хід</string>
