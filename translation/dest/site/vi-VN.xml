@@ -74,7 +74,7 @@
   <string name="winning">Đang thắng dần</string>
   <string name="losing">Đang thua dần</string>
   <string name="drawn">Hòa cờ</string>
-  <string name="unknown">Không rõ</string>
+  <string name="unknown">Không chắc</string>
   <string name="database">Cơ sở dữ liệu</string>
   <string name="whiteDrawBlack">Trắng / Hòa / Đen</string>
   <string name="averageRatingX">Xếp loại bình quân: %s</string>
