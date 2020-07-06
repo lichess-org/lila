@@ -84,7 +84,7 @@
   <string name="averageRatingX">Середній щабель: %s</string>
   <string name="recentGames">Останні ігри</string>
   <string name="topGames">Найкращі ігри</string>
-  <string name="masterDbExplanation">Два мільйони OTB ігор %1$s+ FIDE гравців рейтингу від %2$s до %3$s</string>
+  <string name="masterDbExplanation">Два мільйони OTB ігор %1$s+ FIDE гравців щабелю від %2$s до %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Мат в %s полуходів</item>
     <item quantity="few">Мат в %s полуходів</item>
@@ -101,8 +101,8 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може варто включити більше ігор з вкладки переваг?</string>
   <string name="openingExplorer">Перегляд початків</string>
   <string name="xOpeningExplorer">Відкриваємо провідник: %s</string>
-  <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
-  <string name="lossSavedBy50MoveRule">Поразку врятовано правилом 50-го ходу</string>
+  <string name="winPreventedBy50MoveRule">Без перемоги за правилом 50 ходів</string>
+  <string name="lossSavedBy50MoveRule">Без поразки за правилом 50 ходів</string>
   <string name="allSet">Все готово!</string>
   <string name="importPgn">Принеси PGN</string>
   <string name="delete">Видалити</string>
