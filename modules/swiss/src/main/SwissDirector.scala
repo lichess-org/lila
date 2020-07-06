@@ -73,9 +73,12 @@ final private class SwissDirector(
       }
       .recover {
         case PairingSystem.BBPairingException(msg, input) =>
-          logger.warn(s"BBPairing ${from.id} $msg")
-          logger.info(s"BBPairing ${from.id} $input")
-          from.some
+          if (msg contains "The number of rounds is larger than the reported number of rounds.") none
+          else {
+            logger.warn(s"BBPairing ${from.id} $msg")
+            logger.info(s"BBPairing ${from.id} $input")
+            from.some
+          }
       }
       .monSuccess(_.swiss.startRound)
 
