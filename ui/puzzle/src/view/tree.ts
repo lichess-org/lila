@@ -16,6 +16,11 @@ interface RenderOpts {
   withIndex?: boolean;
 }
 
+interface Glyph {
+  name: string;
+  symbol: string;
+}
+
 const autoScroll = throttle(150, (ctrl: Controller, el) => {
   var cont = el.parentNode;
   var target = el.querySelector('.active');
@@ -106,7 +111,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNod
   }, renderMove(ctx, node));
 }
 
-function renderGlyph(glyph): VNode {
+function renderGlyph(glyph: Glyph): VNode {
   return h('glyph', {
     attrs: { title: glyph.name }
   }, glyph.symbol);
@@ -179,7 +184,7 @@ function emptyMove(): VNode {
   return h('move.empty', '...');
 }
 
-function renderEval(e): VNode {
+function renderEval(e: string): VNode {
   return h('eval', e);
 }
 
