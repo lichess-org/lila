@@ -322,47 +322,47 @@
   <string name="bookmarkThisGame">Заклади́ цю гру</string>
   <string name="tournament">Змаг</string>
   <string name="tournaments">Змаги</string>
-  <string name="tournamentPoints">Турнірні очки</string>
+  <string name="tournamentPoints">Очки змагу</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s очко змагу</item>
-    <item quantity="few">%s очок змагу</item>
+    <item quantity="few">%s очка змагу</item>
     <item quantity="many">%s очки змагу</item>
     <item quantity="other">%s очки змагу</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s студія</item>
-    <item quantity="few">%s студії</item>
-    <item quantity="many">%s студії</item>
-    <item quantity="other">%s студії</item>
+    <item quantity="one">%s дослід</item>
+    <item quantity="few">%s дослі́ди</item>
+    <item quantity="many">%s дослідів</item>
+    <item quantity="other">%s дослідів</item>
   </plurals>
-  <string name="viewTournament">Переглянути турнір</string>
-  <string name="backToTournament">Повернутися до турніру</string>
-  <string name="thematic">Тематичний</string>
+  <string name="viewTournament">Глянь змаг</string>
+  <string name="backToTournament">Назад до змагу</string>
+  <string name="thematic">Предметний</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">%s рейтингова гра</item>
-    <item quantity="few">%s рейтингові ігри</item>
-    <item quantity="many">≥ %s рейтингових ігор</item>
-    <item quantity="other">≥ %s рейтингових ігор</item>
+    <item quantity="one">≥ %s щабельна гра</item>
+    <item quantity="few">≥ %s щабельні ігри</item>
+    <item quantity="many">≥ %s щабельних ігор</item>
+    <item quantity="other">≥ %s щабельних ігор</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s %2$s щабельна гра</item>
     <item quantity="few">≥ %1$s %2$s щабельні ігри</item>
-    <item quantity="many">≥ %1$s %2$s щабельні ігри</item>
-    <item quantity="other">≥ %1$s %2$s щабельні ігри</item>
+    <item quantity="many">≥ %1$s %2$s щабельних ігор</item>
+    <item quantity="other">≥ %1$s %2$s щабельних ігор</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Маєте зіграти ще %1$s щабельну гру в %2$s</item>
-    <item quantity="few">Маєте зіграти ще %1$s щабельні ігрі в %2$s</item>
-    <item quantity="many">Маєте зіграти ще %1$s щабельні ігрі в %2$s</item>
-    <item quantity="other">Маєте зіграти ще %1$s щабельні ігрі в %2$s</item>
+    <item quantity="few">Маєте зіграти ще %1$s щабельні ігри в %2$s</item>
+    <item quantity="many">Маєте зіграти ще %1$s щабельних ігор в %2$s</item>
+    <item quantity="other">Маєте зіграти ще %1$s щабельних ігрор в %2$s</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Маєте зіграти ще %s щабельну гру</item>
     <item quantity="few">Маєте зіграти ще %s щабельні ігри</item>
-    <item quantity="many">Маєте зіграти ще %s щабельні ігри</item>
-    <item quantity="other">Маєте зіграти ще %s щабельні ігри</item>
+    <item quantity="many">Маєте зіграти ще %s щабельних ігор</item>
+    <item quantity="other">Маєте зіграти ще %s щабельних ігор</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Ваш попередній рейтинг: %s</string>
+  <string name="yourPerfRatingIsProvisional">Ваш %s-ий щабель тичасовий</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг у %1$s (%2$s) дуже високий</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш щотижневий рейтинг %1$s рейтинг (%2$s) дуже високий</string>
   <string name="yourPerfRatingIsTooLow">Ваш рейтинг %1$s (%2$s) дуже низький</string>
