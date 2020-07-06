@@ -233,8 +233,8 @@
   <string name="yourOpponentOffersADraw">Суперник подає нічию</string>
   <string name="accept">Прийми</string>
   <string name="decline">Відхили</string>
-  <string name="playingRightNow">Триває зараз</string>
-  <string name="eventInProgress">Триває зараз</string>
+  <string name="playingRightNow">В перебігу</string>
+  <string name="eventInProgress">В перебігу</string>
   <string name="finished">Завершено</string>
   <string name="finishesX">завершується %s</string>
   <string name="abortGame">Перерви гру</string>
@@ -298,19 +298,19 @@
   <plurals name="nbPlaying">
     <item quantity="one">%s грає</item>
     <item quantity="few">%s грає</item>
-    <item quantity="many">%s грає</item>
-    <item quantity="other">%s грає</item>
+    <item quantity="many">%s в перебігу</item>
+    <item quantity="other">%s в перебігу</item>
   </plurals>
-  <string name="exportGames">Експорт ігор</string>
-  <string name="ratingRange">Діапазон рейтинґу</string>
+  <string name="exportGames">Виніс ігор</string>
+  <string name="ratingRange">Щаблевий проміжок</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Додати %s секунд</item>
-    <item quantity="few">Додати %s секунд</item>
-    <item quantity="many">Додати %s секунд</item>
+    <item quantity="one">Додай %s секунду</item>
+    <item quantity="few">Додай %s секунди</item>
+    <item quantity="many">Додай %s секунд</item>
     <item quantity="other">Додати %s секунд</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Цей обліковий запис порушив умови використання Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно збільшує свій рейтинг</string>
+  <string name="thisAccountViolatedTos">Ця обліківка порулиша умови користування Lichess</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно змінює свій щабель</string>
   <string name="openingExplorerAndTablebase">Відкриваємо провідник &amp; таблицю бази</string>
   <string name="takeback">Повернення ходу</string>
   <string name="proposeATakeback">Запропонувати повернути хід</string>
@@ -542,10 +542,10 @@
   <string name="thisPuzzleIsCorrect">Ця задача є правильною та цікавою</string>
   <string name="thisPuzzleIsWrong">Ця задача є неправильною чи нудною</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s ігор триває</item>
-    <item quantity="few">%s ігор триває</item>
-    <item quantity="many">%s ігор триває</item>
-    <item quantity="other">%s ігор триває</item>
+    <item quantity="one">%s гра в перебігу</item>
+    <item quantity="few">%s гри в перебігу</item>
+    <item quantity="many">%s ігор в перебігу</item>
+    <item quantity="other">%s ігор в перебігу</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматично перейти до наступної гри після ходу</string>
   <string name="autoSwitch">Автоперехід</string>
