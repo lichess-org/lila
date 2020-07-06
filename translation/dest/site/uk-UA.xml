@@ -456,11 +456,11 @@
   <string name="conditionOfEntry">Умови входу:</string>
   <string name="advancedSettings">Додаткові лашти</string>
   <string name="safeTournamentName">Назви́ змаг незлободенно.</string>
-  <string name="inappropriateNameWarning">Все, що навіть трохи виявиться недоречним, може призвести до блокування.</string>
-  <string name="emptyTournamentName">Залиште пустим, аби назвати турнір на честь випадкового гросмейстера.</string>
-  <string name="recommendNotTouching">Ми радимо не торкатися до них.</string>
-  <string name="fewerPlayers">Якщо ви встановите умови вступу, у вашому турнірі буде менше гравців.</string>
-  <string name="showAdvancedSettings">Показати додаткові налаштування</string>
+  <string name="inappropriateNameWarning">Будь-яка невідповідність спричине закрити твою обліківку.</string>
+  <string name="emptyTournamentName">Залиш назву змагу пустим в честь знатного шахіста.</string>
+  <string name="recommendNotTouching">Радимо не торкатися цього.</string>
+  <string name="fewerPlayers">Якщо встановиш умови вступу, то змаг матиме менше гравців.</string>
+  <string name="showAdvancedSettings">Покаж додаткові лашти</string>
   <string name="makePrivateTournament">Зробити турнір, приватним та обмежити доступ паролем</string>
   <string name="join">Грати</string>
   <string name="withdraw">Відмовитися</string>
