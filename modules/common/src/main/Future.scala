@@ -85,7 +85,7 @@ object Future {
     else akka.pattern.after(duration, system.scheduler)(run)
 
   def sleep(duration: FiniteDuration)(implicit ec: ExecutionContext, scheduler: Scheduler): Funit = {
-    val p = Promise[Unit]
+    val p = Promise[Unit]()
     scheduler.scheduleOnce(duration)(p success {})
     p.future
   }

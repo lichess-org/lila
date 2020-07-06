@@ -69,7 +69,7 @@ final class PimpedDateTime(private val date: DateTime) extends AnyVal {
 
 final class PimpedValid[A](private val v: Valid[A]) extends AnyVal {
 
-  def future: Fu[A] = v fold (errs => fufail(errs.shows), fuccess)
+  def future: Fu[A] = v.fold(errs => fufail(errs.shows), fuccess)
 }
 
 final class PimpedTry[A](private val v: Try[A]) extends AnyVal {

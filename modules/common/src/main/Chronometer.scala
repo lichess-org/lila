@@ -105,7 +105,7 @@ object Chronometer {
   }
 
   def syncMon[A](path: lila.mon.TimerPath)(f: => A): A = {
-    val timer = path(lila.mon).start
+    val timer = path(lila.mon).start()
     val res   = f
     timer.stop()
     res

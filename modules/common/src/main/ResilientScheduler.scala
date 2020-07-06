@@ -16,10 +16,10 @@ object ResilientScheduler {
     val run = () => f
     def runAndScheduleNext(): Unit =
       run() withTimeout atMost.value addEffectAnyway {
-        system.scheduler.scheduleOnce(every.value) { runAndScheduleNext }
+        system.scheduler.scheduleOnce(every.value) { runAndScheduleNext() }
       }
     system.scheduler.scheduleOnce(initialDelay) {
-      runAndScheduleNext
+      runAndScheduleNext()
     }
   }
 }

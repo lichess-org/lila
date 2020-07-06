@@ -33,7 +33,7 @@ object WMMatching {
       var result: Option[A] = None
       breakable {
         for (x <- this)
-          if (p(x)) { result = Some(x); break }
+          if (p(x)) { result = Some(x); break() }
       }
       result
     }
@@ -42,7 +42,7 @@ object WMMatching {
       def builder = new scala.collection.mutable.ListBuffer[B]
       val b = builder
       for (x <- this) b ++= f(x)
-      b.result
+      b.result()
     }
   }
 
@@ -771,6 +771,6 @@ object WMMatching {
       e += j
       w += p
     }
-    (e.result, w.result)
+    (e.result(), w.result())
   }
 }

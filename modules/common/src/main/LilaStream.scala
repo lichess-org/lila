@@ -34,7 +34,7 @@ object LilaStream {
       .statefulMapConcat(() => {
         val seen = Scaffeine()
           .expireAfterWrite(window)
-          .build[A, Boolean]
+          .build[A, Boolean]()
           .underlying
         a => {
           if (seen.getIfPresent(a) != null) Nil
