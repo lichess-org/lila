@@ -423,20 +423,20 @@
   <string name="xStartedFollowingY">%1$s заслідив за %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s слідник</item>
-    <item quantity="few">%s спостерігачів</item>
-    <item quantity="many">%s підписників</item>
-    <item quantity="other">%s підписників</item>
+    <item quantity="few">%s слідника</item>
+    <item quantity="many">%s слідників</item>
+    <item quantity="other">%s слідників</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s спостерігає</item>
-    <item quantity="few">%s спостерігає</item>
-    <item quantity="many">%s спостерігають</item>
-    <item quantity="other">підписаний на %s гравців</item>
+    <item quantity="few">%s сліджені</item>
+    <item quantity="many">%s сліджених</item>
+    <item quantity="other">%s сліджених</item>
   </plurals>
   <string name="more">Більше</string>
-  <string name="memberSince">Зареєстрований</string>
-  <string name="lastSeenActive">Востаннє заходив %s</string>
-  <string name="challengeToPlay">Кинути виклик</string>
+  <string name="memberSince">Записаний з</string>
+  <string name="lastSeenActive">Був %s</string>
+  <string name="challengeToPlay">Виклич на гру</string>
   <string name="player">Гравець</string>
   <string name="list">Список</string>
   <string name="graph">Графік</string>
