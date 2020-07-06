@@ -455,7 +455,7 @@
   <string name="tournamentCalendar">Календар змагу</string>
   <string name="conditionOfEntry">Умови входу:</string>
   <string name="advancedSettings">Додаткові лашти</string>
-  <string name="safeTournamentName">Оберіть дуже безпечне ім\'я для турніру.</string>
+  <string name="safeTournamentName">Назви́ змаг незлободенно.</string>
   <string name="inappropriateNameWarning">Все, що навіть трохи виявиться недоречним, може призвести до блокування.</string>
   <string name="emptyTournamentName">Залиште пустим, аби назвати турнір на честь випадкового гросмейстера.</string>
   <string name="recommendNotTouching">Ми радимо не торкатися до них.</string>
