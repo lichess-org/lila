@@ -1,10 +1,12 @@
 import { h } from 'snabbdom';
 import { bind, onInsert } from './util';
+import { Api as CgApi } from 'chessground/api';
 import * as cgUtil from 'chessground/util';
 import { Role } from 'chessground/types';
 import { MaybeVNode, Vm, Redraw, Promotion } from './interfaces';
+import { Prop } from 'common';
 
-export default function(vm: Vm, getGround, redraw: Redraw): Promotion {
+export default function(vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promotion {
 
   let promoting: any = false;
 
@@ -25,7 +27,7 @@ export default function(vm: Vm, getGround, redraw: Redraw): Promotion {
     return false;
   }
 
-  function promote(g, key: Key, role: Role): void {
+  function promote(g: CgApi, key: Key, role: Role): void {
     const piece = g.state.pieces[key];
     if (piece && piece.role == 'pawn') {
       g.setPieces({

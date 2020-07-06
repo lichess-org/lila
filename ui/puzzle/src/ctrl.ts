@@ -1,11 +1,11 @@
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
 import keyboard from './keyboard';
-import moveTestBuild from './moveTest';
+import { moveTestBuild, MoveTestFn } from './moveTest';
 import mergeSolution from './solution';
 import makePromotion from './promotion';
 import computeAutoShapes from './autoShape';
-import { defined, prop } from 'common';
+import { defined, prop, Prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import * as xhr from './xhr';
@@ -24,8 +24,8 @@ import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, PuzzleVote
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   let vm: Vm = {} as Vm;
-  var data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl, moveTest;
-  const ground = prop<CgApi | undefined>(undefined);
+  var data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl, moveTest: MoveTestFn;
+  const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
 
   // required by ceval
