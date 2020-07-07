@@ -30,13 +30,11 @@ export default function(vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promoti
   function promote(g: CgApi, key: Key, role: Role): void {
     const piece = g.state.pieces.get(key);
     if (piece && piece.role == 'pawn') {
-      g.setPieces(new Map([
-        [key, {
-          color: piece.color,
-          role,
-          promoted: true,
-        }]
-      ]));
+      g.setPieces(new Map([[key, {
+        color: piece.color,
+        role,
+        promoted: true,
+      }]]));
     }
   }
 
