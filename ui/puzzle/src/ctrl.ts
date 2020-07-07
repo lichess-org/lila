@@ -95,7 +95,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
     const dests = chessgroundDests(position());
     const movable = (vm.mode === 'view' || color === data.puzzle.color) ? {
-      color: (Object.keys(dests).length > 0) ? color : undefined,
+      color: dests.size > 0 ? color : undefined,
       dests
     } : {
       color: undefined,
