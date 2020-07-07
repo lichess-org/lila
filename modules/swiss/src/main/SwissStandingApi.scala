@@ -22,7 +22,7 @@ final class SwissStandingApi(
 
   private val pageCache = cacheApi.scaffeine
     .expireAfterWrite(60 minutes)
-    .build[(Swiss.Id, Int), JsObject]
+    .build[(Swiss.Id, Int), JsObject]()
 
   def apply(swiss: Swiss, page: Int): Fu[JsObject] =
     fuccess(pageCache.getIfPresent(swiss.id -> page)) getOrElse {

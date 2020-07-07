@@ -185,7 +185,7 @@ final class Challenge(
             single(
               "username" -> lila.user.DataForm.historicalUsernameField
             )
-          ).bindFromRequest.fold(
+          ).bindFromRequest().fold(
             _ => funit,
             username =>
               ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
@@ -207,7 +207,7 @@ final class Challenge(
   def apiCreate(userId: String) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       implicit val lang = reqLang
-      env.setup.forms.api.user.bindFromRequest.fold(
+      env.setup.forms.api.user.bindFromRequest().fold(
         err => BadRequest(apiFormError(err)).fuccess,
         config => {
           val cost = if (me.isApiHog) 0 else 1
@@ -285,7 +285,7 @@ final class Challenge(
   def openCreate =
     Action.async { implicit req =>
       implicit val lang = reqLang
-      env.setup.forms.api.open.bindFromRequest.fold(
+      env.setup.forms.api.open.bindFromRequest().fold(
         err => BadRequest(apiFormError(err)).fuccess,
         config =>
           ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {

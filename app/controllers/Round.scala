@@ -294,7 +294,7 @@ final class Round(
       import play.api.data.Forms._
       import play.api.data._
       implicit val req = ctx.body
-      Form(single("text" -> text)).bindFromRequest.fold(
+      Form(single("text" -> text)).bindFromRequest().fold(
         _ => fuccess(BadRequest),
         text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
       )
@@ -323,11 +323,11 @@ final class Round(
       OptionFuRedirect(env.round.proxyRepo.pov(fullId)) { pov =>
         if (isTheft(pov)) {
           lila.log("round").warn(s"theft resign $fullId ${HTTPRequest.lastRemoteAddress(ctx.req)}")
-          fuccess(routes.Lobby.home)
+          fuccess(routes.Lobby.home())
         } else {
           env.round resign pov
           import scala.concurrent.duration._
-          akka.pattern.after(500.millis, env.system.scheduler)(fuccess(routes.Lobby.home))
+          akka.pattern.after(500.millis, env.system.scheduler)(fuccess(routes.Lobby.home()))
         }
       }
     }

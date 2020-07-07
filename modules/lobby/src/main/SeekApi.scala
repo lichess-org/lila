@@ -73,7 +73,7 @@ final class SeekApi(
     coll.insert.one(seek) >> findByUser(seek.user.id).flatMap {
       case seeks if maxPerUser >= seeks.size => funit
       case seeks                             => seeks.drop(maxPerUser.value).map(remove).sequenceFu
-    }.void >>- cacheClear
+    }.void >>- cacheClear()
 
   def findByUser(userId: String): Fu[List[Seek]] =
     coll.ext
@@ -82,7 +82,7 @@ final class SeekApi(
       .list[Seek]()
 
   def remove(seek: Seek) =
-    coll.delete.one($doc("_id" -> seek.id)).void >>- cacheClear
+    coll.delete.one($doc("_id" -> seek.id)).void >>- cacheClear()
 
   def archive(seek: Seek, gameId: String) = {
     val archiveDoc = Seek.seekBSONHandler.writeTry(seek).get ++ $doc(
@@ -90,7 +90,7 @@ final class SeekApi(
       "archivedAt" -> DateTime.now
     )
     coll.delete.one($doc("_id" -> seek.id)).void >>-
-      cacheClear >>
+      cacheClear() >>
       archiveColl.insert.one(archiveDoc)
   }
 
@@ -105,10 +105,10 @@ final class SeekApi(
           "user.id" -> userId
         )
       )
-      .void >>- cacheClear
+      .void >>- cacheClear()
 
   def removeByUser(user: User) =
-    coll.delete.one($doc("user.id" -> user.id)).void >>- cacheClear
+    coll.delete.one($doc("user.id" -> user.id)).void >>- cacheClear()
 }
 
 private object SeekApi {

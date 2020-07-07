@@ -27,7 +27,7 @@ final private class SwissBoardApi(
 
   private val boardsCache = cacheApi.scaffeine
     .expireAfterWrite(60 minutes)
-    .build[Swiss.Id, List[SwissBoard]]
+    .build[Swiss.Id, List[SwissBoard]]()
 
   def apply(id: Swiss.Id): Fu[List[SwissBoard.WithGame]] =
     boardsCache.getIfPresent(id) ?? {

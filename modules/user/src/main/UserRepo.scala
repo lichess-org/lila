@@ -142,7 +142,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .sort($doc(F.colorIt -> 1))
       .one[Bdoc]
       .map {
-        _.fold(scala.util.Random.nextBoolean) { doc =>
+        _.fold(scala.util.Random.nextBoolean()) { doc =>
           doc.string("_id") contains u1
         }
       }
@@ -152,7 +152,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       }
 
   def firstGetsWhite(u1O: Option[User.ID], u2O: Option[User.ID]): Fu[Boolean] =
-    (u1O |@| u2O).tupled.fold(fuccess(scala.util.Random.nextBoolean)) {
+    (u1O |@| u2O).tupled.fold(fuccess(scala.util.Random.nextBoolean())) {
       case (u1, u2) => firstGetsWhite(u1, u2)
     }
 

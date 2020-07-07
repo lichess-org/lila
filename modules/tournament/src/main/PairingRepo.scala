@@ -55,7 +55,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
           true
         )
         .toMat(Sink.lastOption)(Keep.right)
-        .run
+        .run()
         .dmap(~_)
     } dmap Pairing.LastOpponents.apply
 

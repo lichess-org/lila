@@ -26,7 +26,7 @@ final class OAuthApp(env: Env) extends LilaController(env) {
   def createApply =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      forms.app.create.bindFromRequest.fold(
+      forms.app.create.bindFromRequest().fold(
         err => BadRequest(html.oAuth.app.form.create(err)).fuccess,
         setup => {
           val app = setup make me
@@ -49,7 +49,7 @@ final class OAuthApp(env: Env) extends LilaController(env) {
         implicit val req = ctx.body
         forms.app
           .edit(app)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.oAuth.app.form.edit(app, err)).fuccess,
             data =>
@@ -62,12 +62,12 @@ final class OAuthApp(env: Env) extends LilaController(env) {
   def delete(id: String) =
     Auth { _ => me =>
       appApi.deleteBy(App.Id(id), me) inject
-        Redirect(s"${routes.OAuthApp.index}#made").flashSuccess
+        Redirect(s"${routes.OAuthApp.index()}#made").flashSuccess
     }
 
   def revoke(id: String) =
     Auth { _ => me =>
       appApi.revoke(AccessToken.Id(id), me) inject
-        Redirect(routes.OAuthApp.index).flashSuccess
+        Redirect(routes.OAuthApp.index()).flashSuccess
     }
 }

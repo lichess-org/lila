@@ -33,7 +33,7 @@ final class Team(
   def home(page: Int) =
     Open { implicit ctx =>
       ctx.me.??(api.hasTeams) map {
-        case true  => Redirect(routes.Team.mine)
+        case true  => Redirect(routes.Team.mine())
         case false => Redirect(routes.Team.all(page))
       }
     }
@@ -114,7 +114,7 @@ final class Team(
         implicit val req = ctx.body
         forms
           .edit(team)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.team.form.edit(team, err)).fuccess,
             data => api.update(team, data, me) inject Redirect(routes.Team.show(team.id)).flashSuccess
@@ -135,7 +135,7 @@ final class Team(
     AuthBody { implicit ctx => me =>
       WithOwnedTeam(id) { team =>
         implicit val req = ctx.body
-        forms.selectMember.bindFromRequest.value ?? { api.kick(team, _, me) } inject Redirect(
+        forms.selectMember.bindFromRequest().value ?? { api.kick(team, _, me) } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
       }
@@ -161,7 +161,7 @@ final class Team(
     AuthBody { implicit ctx => _ =>
       WithOwnedTeam(id) { team =>
         implicit val req = ctx.body
-        forms.leaders(team).bindFromRequest.value ?? { api.setLeaders(team, _) } inject Redirect(
+        forms.leaders(team).bindFromRequest().value ?? { api.setLeaders(team, _) } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
       }
@@ -189,7 +189,7 @@ final class Team(
     AuthBody { implicit ctx => implicit me =>
       LimitPerWeek(me) {
         implicit val req = ctx.body
-        forms.create.bindFromRequest.fold(
+        forms.create.bindFromRequest().fold(
           err =>
             forms.anyCaptcha map { captcha =>
               BadRequest(html.team.form.create(err, captcha))
@@ -235,7 +235,7 @@ final class Team(
                 },
                 api = _ => {
                   implicit val body = ctx.body
-                  forms.apiRequest.bindFromRequest
+                  forms.apiRequest.bindFromRequest()
                     .fold(
                       newJsonFormError,
                       msg =>
@@ -254,7 +254,7 @@ final class Team(
       scoped = implicit req =>
         me => {
           implicit val lang = reqLang
-          forms.apiRequest.bindFromRequest
+          forms.apiRequest.bindFromRequest()
             .fold(
               newJsonFormError,
               msg =>
@@ -290,7 +290,7 @@ final class Team(
     AuthBody { implicit ctx => me =>
       OptionFuResult(api.requestable(id, me)) { team =>
         implicit val req = ctx.body
-        forms.request.bindFromRequest.fold(
+        forms.request.bindFromRequest().fold(
           err =>
             forms.anyCaptcha map { captcha =>
               BadRequest(html.team.request.requestForm(team, err, captcha))
@@ -309,7 +309,7 @@ final class Team(
       } yield (teamOption |@| requestOption).tupled) {
         case (team, request) =>
           implicit val req = ctx.body
-          forms.processRequest.bindFromRequest.fold(
+          forms.processRequest.bindFromRequest().fold(
             _ => fuccess(routes.Team.show(team.id).toString),
             {
               case (decision, url) =>
@@ -451,7 +451,7 @@ final class Team(
     }
 
   private def doPmAll(team: TeamModel, me: UserModel)(implicit req: Request[_]): Either[Form[_], Funit] =
-    forms.pmAll.bindFromRequest
+    forms.pmAll.bindFromRequest()
       .fold(
         err => Left(err),
         msg =>

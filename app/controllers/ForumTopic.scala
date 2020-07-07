@@ -26,7 +26,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       CategGrantWrite(categSlug) {
         implicit val req = ctx.body
         OptionFuResult(env.forum.categRepo bySlug categSlug) { categ =>
-          forms.topic.bindFromRequest.fold(
+          forms.topic.bindFromRequest().fold(
             err =>
               forms.anyCaptcha map { captcha =>
                 BadRequest(html.forum.topic.form(categ, err, captcha))

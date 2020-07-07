@@ -262,7 +262,7 @@ final class Tournament(
     key = "tournament.ip"
   )
 
-  private val rateLimitedCreation = fuccess(Redirect(routes.Tournament.home))
+  private val rateLimitedCreation = fuccess(Redirect(routes.Tournament.home()))
 
   private[controllers] def rateLimitCreation(me: UserModel, isPrivate: Boolean, req: RequestHeader)(
       create: => Fu[Result]
@@ -291,7 +291,7 @@ final class Tournament(
           negotiate(
             html = forms
               .create(me)
-              .bindFromRequest
+              .bindFromRequest()
               .fold(
                 err => BadRequest(html.tournament.form.create(err, teams)).fuccess,
                 setup =>
@@ -319,7 +319,7 @@ final class Tournament(
   private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
     forms
       .create(me)
-      .bindFromRequest
+      .bindFromRequest()
       .fold(
         jsonFormErrorDefaultLang,
         setup =>
@@ -372,7 +372,7 @@ final class Tournament(
         _ ?? {
           case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
             implicit val req = ctx.body
-            lila.tournament.TeamBattle.DataForm.empty.bindFromRequest.fold(
+            lila.tournament.TeamBattle.DataForm.empty.bindFromRequest().fold(
               err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
               res =>
                 api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
@@ -435,7 +435,7 @@ final class Tournament(
         teamC.teamsIBelongTo(me) flatMap { teams =>
           forms
             .edit(me, tour)
-            .bindFromRequest
+            .bindFromRequest()
             .fold(
               err => BadRequest(html.tournament.form.edit(tour, err, teams)).fuccess,
               data => api.update(tour, data, teams) inject Redirect(routes.Tournament.show(id)).flashSuccess
@@ -449,7 +449,7 @@ final class Tournament(
       WithEditableTournament(id, me) { tour =>
         api kill tour inject {
           env.mod.logApi.terminateTournament(me.id, tour.name())
-          Redirect(routes.Tournament.home)
+          Redirect(routes.Tournament.home())
         }
       }
     }

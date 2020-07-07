@@ -41,7 +41,7 @@ final private class CreatedOrganizer(
         }
         .log(getClass.getName)
         .toMat(Sink.ignore)(Keep.right)
-        .run
+        .run()
         .monSuccess(_.tournament.createdOrganizer.tick)
         .addEffectAnyway(scheduleNext)
   }

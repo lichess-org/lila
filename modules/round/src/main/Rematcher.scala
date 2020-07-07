@@ -38,7 +38,7 @@ final private class Rematcher(
 
   private val offers: Cache[Game.ID, Offers] = CacheApi.scaffeineNoScheduler
     .expireAfterWrite(20 minutes)
-    .build[Game.ID, Offers]
+    .build[Game.ID, Offers]()
 
   private val chess960 = new ExpireSetMemo(3 hours)
 

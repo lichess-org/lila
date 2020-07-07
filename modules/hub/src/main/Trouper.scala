@@ -31,7 +31,7 @@ abstract class Trouper(implicit ec: ExecutionContext) extends lila.common.Tellab
       run(msg)
 
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
-    val promise = Promise[A]
+    val promise = Promise[A]()
     this ! makeMsg(promise)
     promise.future
   }

@@ -32,7 +32,7 @@ final case class OpenConfig(
 
 object OpenConfig {
 
-  def <<(v: Option[String], cl: Option[Clock.Config], pos: Option[String]) =
+  def from(v: Option[String], cl: Option[Clock.Config], pos: Option[String]) =
     new OpenConfig(
       variant = chess.variant.Variant.orDefault(~v),
       clock = cl,

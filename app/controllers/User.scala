@@ -429,7 +429,7 @@ final class User(
   )(err: Form[_] => UserModel => Fu[Result], suc: => Result)(implicit req: Request[_]) =
     env.user.repo named username flatMap {
       _ ?? { user =>
-        env.user.forms.note.bindFromRequest.fold(
+        env.user.forms.note.bindFromRequest().fold(
           e => err(e)(user),
           data =>
             {

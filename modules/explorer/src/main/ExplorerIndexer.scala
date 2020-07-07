@@ -60,7 +60,7 @@ final private class ExplorerIndexer(
             }
           }
           .toMat(Sink.ignore)(Keep.right)
-          .run
+          .run()
           .void
       }
     }
@@ -90,7 +90,7 @@ final private class ExplorerIndexer(
             logger.warn(s"$err", err)
             lila.mon.explorer.index.count(false).increment(max)
         }
-        buf.clear
+        buf.clear()
       }
     }
   }
@@ -135,7 +135,7 @@ final private class ExplorerIndexer(
       if blackRating >= minPlayerRating
       averageRating = (whiteRating + blackRating) / 2
       if averageRating >= minAverageRating
-      if probability(game, averageRating) > nextFloat
+      if probability(game, averageRating) > nextFloat()
       if !game.userIds.exists(botUserIds.contains)
       if valid(game)
     } yield gameRepo initialFen game flatMap { initialFen =>

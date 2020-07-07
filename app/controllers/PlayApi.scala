@@ -83,7 +83,7 @@ final class PlayApi(
       cmd.split('/') match {
         case Array("game", id, "chat") =>
           as(id, me) { pov =>
-            env.bot.form.chat.bindFromRequest.fold(
+            env.bot.form.chat.bindFromRequest().fold(
               jsonFormErrorDefaultLang,
               res => env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
             ) pipe catchClientError

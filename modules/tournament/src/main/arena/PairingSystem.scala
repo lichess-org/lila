@@ -80,7 +80,7 @@ final private[tournament] class PairingSystem(
       else
         fuccess {
           preps.zip(ids).map {
-            case (prep, id) => prep.toPairing(id)(Random.nextBoolean)
+            case (prep, id) => prep.toPairing(id)(Random.nextBoolean())
           }
         }
     }

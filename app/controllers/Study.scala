@@ -266,7 +266,7 @@ final class Study(
   def createAs =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.study.DataForm.importGame.form.bindFromRequest.fold(
+      lila.study.DataForm.importGame.form.bindFromRequest().fold(
         _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
         data =>
           for {
@@ -282,7 +282,7 @@ final class Study(
   def create =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.study.DataForm.importGame.form.bindFromRequest.fold(
+      lila.study.DataForm.importGame.form.bindFromRequest().fold(
         _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
         data => createStudy(data, me)
       )
@@ -315,7 +315,7 @@ final class Study(
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
       get("sri") ?? { sri =>
-        lila.study.DataForm.importPgn.form.bindFromRequest.fold(
+        lila.study.DataForm.importPgn.form.bindFromRequest().fold(
           jsonFormError,
           data =>
             env.study.api.importPgns(
@@ -513,11 +513,11 @@ final class Study(
   def setTopics =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.study.DataForm.topicsForm.bindFromRequest.fold(
-        _ => Redirect(routes.Study.topics).fuccess,
+      lila.study.DataForm.topicsForm.bindFromRequest().fold(
+        _ => Redirect(routes.Study.topics()).fuccess,
         topics =>
           env.study.topicApi.userTopics(me, topics) inject
-            Redirect(routes.Study.topics)
+            Redirect(routes.Study.topics())
       )
     }
 

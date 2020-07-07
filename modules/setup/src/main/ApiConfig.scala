@@ -41,7 +41,7 @@ object ApiConfig extends BaseHumanConfig {
 
   lazy val clockLimitSeconds: Set[Int] = Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(60 *).toSet
 
-  def <<(
+  def from(
       v: Option[String],
       cl: Option[Clock.Config],
       d: Option[Int],

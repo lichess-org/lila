@@ -113,7 +113,7 @@ final private class Finisher(
         mode = game.mode.name,
         status = status.name
       )
-      .increment
+      .increment()
     val g = prog.game
     recordLagStats(g)
     proxy.save(prog) >>

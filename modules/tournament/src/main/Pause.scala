@@ -18,7 +18,7 @@ final private class Pause {
 
   private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(20 minutes)
-    .build[User.ID, Record]
+    .build[User.ID, Record]()
 
   private def baseDelayOf(tour: Tournament) =
     Delay {

@@ -20,7 +20,7 @@ final class CacheApi(
       build: Builder => AsyncLoadingCache[K, V]
   ): AsyncLoadingCache[K, V] = {
     val cache = build {
-      scaffeine.recordStats.initialCapacity(actualCapacity(initialCapacity))
+      scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
     }
     monitor(name, cache)
     cache
@@ -52,7 +52,7 @@ final class CacheApi(
       build: Builder => AsyncCache[K, V]
   ): AsyncCache[K, V] = {
     val cache = build {
-      scaffeine.recordStats.initialCapacity(actualCapacity(initialCapacity))
+      scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
     }
     monitor(name, cache)
     cache

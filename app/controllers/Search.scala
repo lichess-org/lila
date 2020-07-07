@@ -33,7 +33,7 @@ final class Search(env: Env) extends LilaController(env) {
           env.game.cached.nbTotal flatMap { nbGames =>
             def limited =
               fuccess {
-                val form = searchForm.bindFromRequest.withError(
+                val form = searchForm.bindFromRequest().withError(
                   key = "",
                   message = "Please only send one request at a time per IP address"
                 )
@@ -42,7 +42,7 @@ final class Search(env: Env) extends LilaController(env) {
             SearchRateLimitPerIP(ip, cost = cost) {
               SearchConcurrencyLimitPerIP(ip, limited = limited) {
                 negotiate(
-                  html = searchForm.bindFromRequest.fold(
+                  html = searchForm.bindFromRequest().fold(
                     failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
                     data =>
                       data.nonEmptyQuery ?? { query =>
@@ -54,7 +54,7 @@ final class Search(env: Env) extends LilaController(env) {
                       }
                   ),
                   api = _ =>
-                    searchForm.bindFromRequest.fold(
+                    searchForm.bindFromRequest().fold(
                       _ =>
                         Ok {
                           jsonError("Could not process search query")

@@ -168,7 +168,7 @@ final class Mod(
   def setTitle(username: String) =
     SecureBody(_.SetTitle) { implicit ctx => me =>
       implicit def req = ctx.body
-      lila.user.DataForm.title.bindFromRequest.fold(
+      lila.user.DataForm.title.bindFromRequest().fold(
         _ => fuccess(redirect(username, mod = true)),
         title =>
           modApi.setTitle(me.id, username, title map Title.apply) >>
@@ -184,7 +184,7 @@ final class Mod(
       OptionFuResult(env.user.repo named username) { user =>
         env.security.forms
           .modEmail(user)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err => BadRequest(err.toString).fuccess,
             rawEmail => {
@@ -312,7 +312,7 @@ final class Mod(
     SecureBody(_.UserSearch) { implicit ctx => _ =>
       implicit def req = ctx.body
       val f            = UserSearch.form
-      f.bindFromRequest.fold(
+      f.bindFromRequest().fold(
         err => BadRequest(html.mod.search(err, Nil)).fuccess,
         query => env.mod.search(query) map { html.mod.search(f.fill(query), _) }
       )
@@ -384,7 +384,7 @@ final class Mod(
       OptionFuResult(env.user.repo named username) { user =>
         Form(
           single("permissions" -> list(text.verifying(Permission.allByDbKey.contains _)))
-        ).bindFromRequest.fold(
+        ).bindFromRequest().fold(
           _ => BadRequest(html.mod.permissions(user, me)).fuccess,
           permissions => {
             val newPermissions = Permission(permissions) diff Permission(user.roles)
@@ -438,7 +438,7 @@ final class Mod(
       env.chat.panic.set(v)
       env.slack.api.chatPanic(me, v)
       fuccess(().some)
-    }(_ => _ => _ => Redirect(routes.Mod.chatPanic).fuccess)
+    }(_ => _ => _ => Redirect(routes.Mod.chatPanic()).fuccess)
 
   def eventStream =
     OAuthSecure(_.Admin) { _ => _ =>

@@ -123,7 +123,7 @@ case class Simul(
 
   def playingPairings = pairings filterNot (_.finished)
 
-  def hostColor = (color flatMap chess.Color.apply) | chess.Color(scala.util.Random.nextBoolean)
+  def hostColor = (color flatMap chess.Color.apply) | chess.Color(scala.util.Random.nextBoolean())
 
   def setPairingHostColor(gameId: String, hostColor: chess.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))

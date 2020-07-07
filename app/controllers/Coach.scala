@@ -48,7 +48,7 @@ final class Coach(env: Env) extends LilaController(env) {
       OptionFuResult(api find username) { c =>
         WithVisibleCoach(c) {
           implicit val req = ctx.body
-          lila.coach.CoachReviewForm.form.bindFromRequest.fold(
+          lila.coach.CoachReviewForm.form.bindFromRequest().fold(
             _ => Redirect(routes.Coach.show(c.user.username)).fuccess,
             data => {
               if (data.score < 4 && !me.marks.reportban)
@@ -105,7 +105,7 @@ final class Coach(env: Env) extends LilaController(env) {
         implicit val req = ctx.body
         CoachProfileForm
           .edit(c.coach)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             _ => fuccess(BadRequest),
             data => api.update(c, data) inject Ok
@@ -127,8 +127,8 @@ final class Coach(env: Env) extends LilaController(env) {
           case Some(pic) =>
             api.uploadPicture(c, pic) recover {
               case e: lila.base.LilaException => BadRequest(html.coach.picture(c, e.message.some))
-            } inject Redirect(routes.Coach.edit)
-          case None => fuccess(Redirect(routes.Coach.edit))
+            } inject Redirect(routes.Coach.edit())
+          case None => fuccess(Redirect(routes.Coach.edit()))
         }
       }
     }
@@ -136,7 +136,7 @@ final class Coach(env: Env) extends LilaController(env) {
   def pictureDelete =
     Secure(_.Coach) { implicit ctx => me =>
       OptionFuResult(api findOrInit me) { c =>
-        api.deletePicture(c) inject Redirect(routes.Coach.edit)
+        api.deletePicture(c) inject Redirect(routes.Coach.edit())
       }
     }
 }

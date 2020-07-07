@@ -253,7 +253,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
               b += (u.asInstanceOf[BSONString].value -> r)
               r = r + 1
             }
-            b.result
+            b.result()
           case _ => Map.empty
         }
       }

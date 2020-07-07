@@ -31,7 +31,7 @@ final class Account(
         fuccess(html.account.profile(me, err))
       } { profile =>
         env.user.repo.setProfile(me.id, profile) inject
-          Redirect(routes.Account.profile).flashSuccess
+          Redirect(routes.Account.profile()).flashSuccess
       }
     }
 
@@ -138,7 +138,7 @@ final class Account(
             env.user.authenticator.setPassword(me.id, UserModel.ClearPassword(data.newPasswd1))
             env.security.store.closeUserExceptSessionId(me.id, ~env.security.api.reqSessionId(ctx.req)) >>
               env.push.webSubscriptionApi.unsubscribeByUser(me) inject
-              Redirect(routes.Account.passwd).flashSuccess
+              Redirect(routes.Account.passwd()).flashSuccess
           }
         }
       }(rateLimitedFu)
@@ -183,7 +183,7 @@ final class Account(
             val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, email.acceptable)
             auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
               env.security.emailChange.send(me, newUserEmail.email) inject
-                Redirect(routes.Account.email).flashSuccess {
+                Redirect(routes.Account.email()).flashSuccess {
                   lila.i18n.I18nKeys.checkYourEmail.txt()
                 }
             }(rateLimitedFu)
@@ -204,7 +204,7 @@ final class Account(
                   if (prevEmail.exists(_.isNoReply))
                     Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
                   else
-                    Some(_ => Redirect(routes.Account.email).flashSuccess)
+                    Some(_ => Redirect(routes.Account.email()).flashSuccess)
               )
         }
       }
@@ -220,7 +220,7 @@ final class Account(
           Ok(html.account.emailConfirmHelp(helpForm, none)).fuccess
         case None =>
           implicit val req = ctx.body
-          helpForm.bindFromRequest.fold(
+          helpForm.bindFromRequest().fold(
             err => BadRequest(html.account.emailConfirmHelp(err, none)).fuccess,
             username =>
               getStatus(env.user.repo, username) map { status =>
@@ -254,7 +254,7 @@ final class Account(
             env.user.repo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
               env.security.store.closeUserExceptSessionId(me.id, currentSessionId) >>
               env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
-              Redirect(routes.Account.twoFactor).flashSuccess
+              Redirect(routes.Account.twoFactor()).flashSuccess
           }
         }
       }(rateLimitedFu)
@@ -269,7 +269,7 @@ final class Account(
             fuccess(html.account.twoFactor.disable(me, err))
           } { _ =>
             env.user.repo.disableTwoFactor(me.id) inject
-              Redirect(routes.Account.twoFactor).flashSuccess
+              Redirect(routes.Account.twoFactor()).flashSuccess
           }
         }
       }(rateLimitedFu)
@@ -318,7 +318,7 @@ final class Account(
       NotManaged {
         implicit val req = ctx.body
         env.security.forms toggleKid me flatMap { form =>
-          form.bindFromRequest.fold(
+          form.bindFromRequest().fold(
             err =>
               negotiate(
                 html = BadRequest(html.account.kid(me, err, false)).fuccess,
@@ -327,7 +327,7 @@ final class Account(
             _ =>
               env.user.repo.setKid(me, getBool("v")) >>
                 negotiate(
-                  html = Redirect(routes.Account.kid).flashSuccess.fuccess,
+                  html = Redirect(routes.Account.kid()).flashSuccess.fuccess,
                   api = _ => jsonOkResult.fuccess
                 )
           )
@@ -356,7 +356,7 @@ final class Account(
       if (sessionId == "all")
         env.security.store.closeUserExceptSessionId(me.id, currentSessionId) >>
           env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
-          Redirect(routes.Account.security).flashSuccess
+          Redirect(routes.Account.security()).flashSuccess
       else
         env.security.store.closeUserAndSessionId(me.id, sessionId) >>
           env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
@@ -374,7 +374,7 @@ final class Account(
   def reopenApply =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      env.security.forms.reopen.bindFromRequest.fold(
+      env.security.forms.reopen.bindFromRequest().fold(
         err =>
           env.security.forms.anyCaptcha map { captcha =>
             BadRequest(html.account.reopen.form(err, captcha, none))

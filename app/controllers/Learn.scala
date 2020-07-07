@@ -34,7 +34,7 @@ final class Learn(env: Env) extends LilaController(env) {
   def score =
     AuthBody { implicit ctx => me =>
       implicit val body = ctx.body
-      scoreForm.bindFromRequest.fold(
+      scoreForm.bindFromRequest().fold(
         _ => BadRequest.fuccess,
         {
           case (stage, level, s) =>

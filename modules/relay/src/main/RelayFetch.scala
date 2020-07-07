@@ -147,7 +147,7 @@ final private class RelayFetch(
   private val cache: Cache[Upstream, GamesSeenBy] = CacheApi.scaffeineNoScheduler
     .initialCapacity(4)
     .maximumSize(16)
-    .build[Upstream, GamesSeenBy]
+    .build[Upstream, GamesSeenBy]()
     .underlying
 
   private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] = {

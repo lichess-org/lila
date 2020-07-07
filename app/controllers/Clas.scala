@@ -467,7 +467,7 @@ final class Clas(
     AuthBody { implicit ctx => me =>
       val perm = lila.security.Permission.Teacher.dbKey
       (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
-        Redirect(routes.Clas.index)
+        Redirect(routes.Clas.index())
     }
 
   def invitation(id: String) =
@@ -480,7 +480,7 @@ final class Clas(
   def invitationAccept(id: String) =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      Form(single("v" -> boolean)).bindFromRequest
+      Form(single("v" -> boolean)).bindFromRequest()
         .fold(
           _ => Redirect(routes.Clas.invitation(id)).fuccess,
           v => {

@@ -19,7 +19,7 @@ final class Importer(env: Env) extends LilaController(env) {
   def sendGame =
     OpenBody { implicit ctx =>
       implicit def req = ctx.body
-      env.importer.forms.importForm.bindFromRequest.fold(
+      env.importer.forms.importForm.bindFromRequest().fold(
         failure =>
           negotiate(
             html = Ok(html.game.importGame(failure)).fuccess,
@@ -47,7 +47,7 @@ final class Importer(env: Env) extends LilaController(env) {
                   s"Imported game validates but can't be replayed:\n${data.pgn}",
                   e
                 )
-              Redirect(routes.Importer.importGame)
+              Redirect(routes.Importer.importGame())
           }
       )
     }

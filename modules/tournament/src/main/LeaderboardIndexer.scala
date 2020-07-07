@@ -34,7 +34,7 @@ final private class LeaderboardIndexer(
         .grouped(500)
         .mapAsyncUnordered(1)(saveEntries)
         .toMat(Sink.ignore)(Keep.right)
-        .run
+        .run()
         .void
 
   def indexOne(tour: Tournament): Funit =

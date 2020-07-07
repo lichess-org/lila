@@ -127,7 +127,7 @@ final private[round] class RoundDuct(
     case ByePlayer(playerId) =>
       proxy.withPov(playerId) {
         _ ?? { pov =>
-          fuccess(getPlayer(pov.color).setBye)
+          fuccess(getPlayer(pov.color).setBye())
         }
       }
 

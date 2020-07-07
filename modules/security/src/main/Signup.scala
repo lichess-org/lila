@@ -57,7 +57,7 @@ final class Signup(
   }
 
   def website(blind: Boolean)(implicit req: Request[_], lang: Lang): Fu[Signup.Result] =
-    forms.signup.website.bindFromRequest.fold[Fu[Signup.Result]](
+    forms.signup.website.bindFromRequest().fold[Fu[Signup.Result]](
       err => fuccess(Signup.Bad(err tap signupErrLog)),
       data =>
         recaptcha.verify(~data.recaptchaResponse, req).flatMap {
@@ -112,7 +112,7 @@ final class Signup(
   def mobile(
       apiVersion: ApiVersion
   )(implicit req: Request[_], lang: Lang): Fu[Signup.Result] =
-    forms.signup.mobile.bindFromRequest.fold[Fu[Signup.Result]](
+    forms.signup.mobile.bindFromRequest().fold[Fu[Signup.Result]](
       err => fuccess(Signup.Bad(err tap signupErrLog)),
       data =>
         signupRateLimit(data.username, cost = 2) {

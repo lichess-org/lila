@@ -38,5 +38,5 @@ final class ChatPanic {
     until = none
   }
 
-  def set(v: Boolean) = if (v) start else stop
+  def set(v: Boolean) = if (v) start() else stop()
 }

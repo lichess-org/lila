@@ -174,7 +174,7 @@ object Challenge {
   def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
     Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
 
-  def randomColor = chess.Color(scala.util.Random.nextBoolean)
+  def randomColor = chess.Color(scala.util.Random.nextBoolean())
 
   def make(
       variant: Variant,

@@ -45,7 +45,7 @@ final private class StartedOrganizer(
         .toMat(Sink.fold(0 -> 0) {
           case ((tours, users), tourUsers) => (tours + 1, users + tourUsers)
         })(Keep.right)
-        .run
+        .run()
         .addEffect {
           case (tours, users) =>
             lila.mon.tournament.started.update(tours)

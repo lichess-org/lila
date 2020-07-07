@@ -38,9 +38,9 @@ final class RemoteSocket(
   private val requests = new ConcurrentHashMap[Int, Promise[String]](32)
 
   def request[R](sendReq: Int => Unit, readRes: String => R): Fu[R] = {
-    val id = Math.abs(scala.util.Random.nextInt)
+    val id = Math.abs(scala.util.Random.nextInt())
     sendReq(id)
-    val promise = Promise[String]
+    val promise = Promise[String]()
     requests.put(id, promise)
     promise.future map readRes
   }
@@ -129,7 +129,7 @@ final class RemoteSocket(
           case None    => logger.warn(s"Unhandled $channel $message")
         }
     })
-    val subPromise = Promise[Unit]
+    val subPromise = Promise[Unit]()
     conn.async.subscribe(channel).thenRun {
       new Runnable { def run() = subPromise.success(()) }
     }

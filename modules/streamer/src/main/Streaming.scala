@@ -34,7 +34,7 @@ final private class Streaming(
 
   def receive = {
 
-    case Streaming.Get => sender ! liveStreams
+    case Streaming.Get => sender() ! liveStreams
 
     case Tick => updateStreams addEffectAnyway scheduleTick
   }

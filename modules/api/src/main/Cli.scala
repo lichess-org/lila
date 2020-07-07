@@ -34,7 +34,7 @@ final private[api] class Cli(
     case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>
       import lila.common.AssetVersion
-      AssetVersion.change
+      AssetVersion.change()
       fuccess(s"Changed to ${AssetVersion.current}")
     case "gdpr" :: "erase" :: username :: "forever" :: Nil =>
       userRepo named username map {
