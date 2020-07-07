@@ -464,7 +464,7 @@ final class Clas(
     }
 
   def becomeTeacher =
-    AuthBody { implicit ctx => me =>
+    AuthBody { _ => me =>
       val perm = lila.security.Permission.Teacher.dbKey
       (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
         Redirect(routes.Clas.index())
@@ -498,7 +498,7 @@ final class Clas(
     }
 
   def invitationRevoke(id: String) =
-    Secure(_.Teacher) { implicit ctx => me =>
+    Secure(_.Teacher) { _ => me =>
       env.clas.api.invite.get(lila.clas.ClasInvite.Id(id)) flatMap {
         _ ?? { invite =>
           WithClass(me, invite.clasId.value) { clas =>

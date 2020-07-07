@@ -31,7 +31,7 @@ LichessLearn(document.getElementById('learn-app'), ${safeJsonValue(
         .OpenGraph(
           title = "Learn chess by playing",
           description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",
-          url = s"$netBaseUrl${routes.Learn.index}"
+          url = s"$netBaseUrl${routes.Learn.index()}"
         )
         .some,
       zoomable = true

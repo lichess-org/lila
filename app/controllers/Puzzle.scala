@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.libs.json._
-import play.api.mvc._
 import scala.util.chaining._
 
 import lila.api.Context

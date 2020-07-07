@@ -401,7 +401,6 @@ final class Study(
 
   def cloneApply(id: String) =
     Auth { implicit ctx => me =>
-      implicit val default = ornicar.scalalib.Zero.instance[Fu[Result]](notFound)
       val cost             = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
       CloneLimitPerUser(me.id, cost = cost) {
         CloneLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {

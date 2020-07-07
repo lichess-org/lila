@@ -63,7 +63,7 @@ object side {
         tour.description map { d =>
           st.section(cls := "description")(richText(d))
         },
-        tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
+        tour.looksLikePrize option bits.userPrizeDisclaimer,
         verdicts.relevant option st.section(
           dataIcon := "7",
           cls := List(

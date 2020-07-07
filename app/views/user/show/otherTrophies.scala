@@ -1,7 +1,5 @@
 package views.html.user.show
 
-import play.api.i18n.Lang
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -30,7 +28,7 @@ object otherTrophies {
         a(
           cls := "shield-trophy combo-trophy",
           ariaTitle(s"${shield.categ.name} Shield"),
-          href := routes.Tournament.shields
+          href := routes.Tournament.shields()
         )(shield.categ.iconChar.toString)
       },
       info.revolutions.map { revol =>

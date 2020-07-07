@@ -31,7 +31,7 @@ final class Msg(
         ctx.hasInbox ?? env.msg.api.convoWith(me, username, before).flatMap {
           case None =>
             negotiate(
-              html = Redirect(routes.Msg.home).fuccess,
+              html = Redirect(routes.Msg.home()).fuccess,
               api = _ => notFoundJson()
             )
           case Some(c) =>
@@ -109,7 +109,7 @@ final class Msg(
           (!me.kid && userId != me.id) ?? {
             import play.api.data._
             import play.api.data.Forms._
-            Form(single("text" -> nonEmptyText)).bindFromRequest
+            Form(single("text" -> nonEmptyText)).bindFromRequest()
               .fold(
                 err => jsonFormErrorFor(err, req, me.some),
                 text => env.msg.api.post(me.id, userId, text)

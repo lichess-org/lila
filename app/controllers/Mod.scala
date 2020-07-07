@@ -11,7 +11,7 @@ import lila.chat.Chat
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
 import lila.report.{ Suspect, Mod => AsMod }
-import lila.security.{ FingerHash, Ip2Proxy, Permission }
+import lila.security.{ FingerHash, Permission }
 import lila.user.{ User => UserModel, Title }
 import ornicar.scalalib.Zero
 import views._

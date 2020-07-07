@@ -16,8 +16,6 @@ case class TeamInfo(
     tours: TeamInfo.PastAndNext
 ) {
 
-  import TeamInfo._
-
   def hasRequests = requests.nonEmpty
 
   def userIds = forumPosts.flatMap(_.userId)
@@ -41,7 +39,6 @@ object TeamInfo {
 final class TeamInfoApi(
     api: TeamApi,
     forumRecent: lila.forum.Recent,
-    teamCached: lila.team.Cached,
     tourApi: TournamentApi,
     swissApi: SwissApi,
     requestRepo: RequestRepo

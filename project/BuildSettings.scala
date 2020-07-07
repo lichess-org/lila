@@ -61,11 +61,7 @@ object BuildSettings {
     "-Xlint:_",
     "-Ywarn-macros:after",
     "-Ywarn-unused:_",
-    "-Xfatal-warnings",
-    "-Xmaxerrs",
-    "25",
-    "-Xmaxwarns",
-    "10"
+    "-Xfatal-warnings"
   )
 
   val srcMain = Seq(

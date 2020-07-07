@@ -8,6 +8,7 @@ lazy val root = Project("lila", file("."))
   .disablePlugins(if (useEpoll) PlayAkkaHttpServer else PlayNettyServer)
   .dependsOn(api)
   .aggregate(api)
+  .settings(buildSettings)
 
 version := lilaVersion
 scalaVersion := globalScalaVersion

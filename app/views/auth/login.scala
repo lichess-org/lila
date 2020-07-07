@@ -25,7 +25,7 @@ object login {
         h1(trans.signIn()),
         postForm(
           cls := "form3",
-          action := s"${routes.Auth.authenticate}${referrer.?? { ref =>
+          action := s"${routes.Auth.authenticate()}${referrer.?? { ref =>
             s"?referrer=${urlencode(ref)}"
           }}"
         )(
@@ -45,7 +45,7 @@ object login {
         div(cls := "alternative")(
           a(href := routes.Auth.signup())(trans.signUp()),
           a(href := routes.Auth.passwordReset())(trans.passwordReset()),
-          a(href := routes.Auth.magicLink)("Log in by email")
+          a(href := routes.Auth.magicLink())("Log in by email")
         )
       )
     }

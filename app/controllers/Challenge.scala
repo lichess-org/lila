@@ -1,7 +1,8 @@
 package controllers
 
-import play.api.mvc.Result
 import play.api.libs.json.Json
+import play.api.mvc.Result
+import scala.annotation.nowarn
 import scala.concurrent.duration._
 
 import lila.api.Context
@@ -28,7 +29,7 @@ final class Challenge(
       }
     }
 
-  def show(id: String, _color: Option[String]) =
+  def show(id: String, @nowarn("cat=unused") _color: Option[String]) =
     Open { implicit ctx =>
       showId(id)
     }

@@ -2,7 +2,7 @@ package controllers
 
 import play.api.data.Form
 import play.api.libs.json.Json
-import play.api.mvc.{ Result, Results }
+import play.api.mvc.Results
 import scala.concurrent.duration._
 
 import chess.format.FEN
@@ -156,8 +156,6 @@ final class Setup(
         ) as JSON
       case HookResult.Refused => BadRequest(jsonError("Game was not created"))
     }
-
-  private val hookSaveOnlyResponse = Ok(Json.obj("ok" -> true))
 
   def hook(sri: String) =
     OpenBody { implicit ctx =>

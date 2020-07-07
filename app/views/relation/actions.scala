@@ -71,7 +71,7 @@ object actions {
       } getOrElse {
         signup option frag(
           trans.youNeedAnAccountToDoThat(),
-          a(href := routes.Auth.login, cls := "signup")(trans.signUp())
+          a(href := routes.Auth.login(), cls := "signup")(trans.signUp())
         )
       }
     )

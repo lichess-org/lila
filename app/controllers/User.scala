@@ -383,7 +383,7 @@ final class User(
         }
         implicit val extractor = EventSource.EventDataExtractor[Frag](_.render)
         Ok.chunked {
-          Source.single(html.user.mod.menu(user)) merge
+          Source.single(html.user.mod.menu) merge
             modZoneSegment(actions, "actions", user) merge
             modZoneSegment(modLog, "modLog", user) merge
             modZoneSegment(plan, "plan", user) merge

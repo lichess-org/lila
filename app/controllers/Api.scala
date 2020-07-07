@@ -1,7 +1,6 @@
 package controllers
 
 import akka.stream.scaladsl._
-import ornicar.scalalib.Zero
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -260,7 +259,7 @@ final class Api(
     }
 
   def tournamentTeams(id: String) =
-    Action.async { implicit req =>
+    Action.async {
       env.tournament.tournamentRepo byId id flatMap {
         _ ?? { tour =>
           env.tournament.jsonView.getTeamStanding(tour) map { arr =>

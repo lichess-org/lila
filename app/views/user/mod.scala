@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
-import lila.security.{ Dated, FingerHash, Permission, UserSpy }
+import lila.security.{ Permission, UserSpy }
 import lila.playban.RageSit
 import lila.user.User
 
@@ -16,7 +16,7 @@ object mod {
 
   private def mzSection(key: String) = div(id := s"mz_$key", cls := "mz-section")
 
-  def menu(u: User)(implicit ctx: Context) =
+  def menu =
     mzSection("menu")(
       a(href := "#mz_actions")("Overview"),
       a(href := "#mz_irwin")("Irwin"),

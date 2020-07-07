@@ -22,7 +22,7 @@ object contact {
       s"$prefix-reopen",
       wantReopen(),
       frag(
-        p(a(href := routes.Account.reopen)(reopenOnThisPage())),
+        p(a(href := routes.Account.reopen())(reopenOnThisPage())),
         p(doNotAskByEmailToReopen())
       )
     )
@@ -59,7 +59,7 @@ object contact {
               "email-confirm",
               noConfirmationEmail(),
               p(
-                a(href := routes.Account.emailConfirmHelp)(visitThisPage()),
+                a(href := routes.Account.emailConfirmHelp())(visitThisPage()),
                 "."
               )
             ),
@@ -67,7 +67,7 @@ object contact {
               "forgot-password",
               forgotPassword(),
               p(
-                a(href := routes.Auth.passwordReset)(visitThisPage()),
+                a(href := routes.Auth.passwordReset())(visitThisPage()),
                 "."
               )
             ),
@@ -75,14 +75,14 @@ object contact {
               "forgot-username",
               forgotUsername(),
               p(
-                a(href := routes.Auth.login)(youCanLoginWithEmail()),
+                a(href := routes.Auth.login())(youCanLoginWithEmail()),
                 "."
               )
             ),
             Leaf(
               "lost-2fa",
               lost2FA(),
-              p(a(href := routes.Auth.passwordReset)(doPasswordReset()), ".")
+              p(a(href := routes.Auth.passwordReset())(doPasswordReset()), ".")
             ),
             reopenLeaf("login"),
             Leaf(
@@ -115,7 +115,7 @@ object contact {
               "title",
               wantTitle(),
               p(
-                a(href := routes.Page.master)(visitTitleConfirmation()),
+                a(href := routes.Page.master())(visitTitleConfirmation()),
                 "."
               )
             ),
@@ -123,7 +123,7 @@ object contact {
               "close",
               wantCloseAccount(),
               frag(
-                p(a(href := routes.Account.close)(closeYourAccount()), "."),
+                p(a(href := routes.Account.close())(closeYourAccount()), "."),
                 p(doNotAskByEmail())
               )
             ),
@@ -132,7 +132,7 @@ object contact {
               "change-username",
               wantChangeUsername(),
               frag(
-                p(a(href := routes.Account.username)(changeUsernameCase()), "."),
+                p(a(href := routes.Account.username())(changeUsernameCase()), "."),
                 p(cantChangeMore()),
                 p(orCloseAccount())
               )
@@ -163,7 +163,7 @@ object contact {
                 frag("Report a player for ", name),
                 frag(
                   p(
-                    a(href := routes.Report.form)(toReportAPlayer(name)),
+                    a(href := routes.Report.form())(toReportAPlayer(name)),
                     "."
                   ),
                   p(
@@ -340,7 +340,7 @@ object contact {
                 p("If you are a European citizen, you may request the deletion of your Lichess account."),
                 p(
                   "First, ",
-                  a(href := routes.Account.close)("close your account"),
+                  a(href := routes.Account.close())("close your account"),
                   "."
                 ),
                 p(

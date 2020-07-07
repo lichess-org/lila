@@ -17,7 +17,7 @@ object create {
     views.html.account.layout(title = title, active = "oauth.token")(
       div(cls := "account oauth box box-pad")(
         h1(title),
-        postForm(cls := "form3", action := routes.OAuthToken.create)(
+        postForm(cls := "form3", action := routes.OAuthToken.create())(
           div(cls := "form-group")(
             "Personal access tokens function like ordinary Lichess OAuth access tokens. ",
             "They can be used to authenticate to the API over Basic Authentication."
@@ -53,7 +53,7 @@ object create {
             }
           ),
           form3.actions(
-            a(href := routes.OAuthToken.index)("Cancel"),
+            a(href := routes.OAuthToken.index())("Cancel"),
             form3.submit(trans.apply())
           )
         )

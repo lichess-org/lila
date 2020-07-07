@@ -99,7 +99,7 @@ final class Relay(
       _ ?? { relay =>
         env.relay.forms
           .edit(relay)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err => fuccess(Left(relay -> err)),
             data => env.relay.api.update(relay) { data.update(_, me) } dmap Right.apply

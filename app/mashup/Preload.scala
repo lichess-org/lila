@@ -32,7 +32,6 @@ final class Preload(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Preload._
-  import LiveStreams.zero
 
   def apply(
       posts: Fu[List[MiniForumPost]],

@@ -7,8 +7,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.rating.RatingRange
 
-import controllers.routes
-
 object filter {
 
   import bits._
@@ -92,7 +90,7 @@ object filter {
       value: String,
       content: Frag,
       hint: Option[String],
-      checks: Set[String] = Set.empty
+      checks: Set[String]
   ) =
     label(title := hint)(
       input(
