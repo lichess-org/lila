@@ -12,7 +12,7 @@ export default function(vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promoti
 
   function start(orig: Key, dest: Key, callback: (orig: Key, key: Key, prom: Role) => void) {
     const g = getGround(),
-    piece = g.state.pieces[dest];
+    piece = g.state.pieces.get(dest);
     if (piece && piece.role == 'pawn' && (
       (dest[1] == '8' && g.state.turnColor == 'black') ||
         (dest[1] == '1' && g.state.turnColor == 'white'))) {
@@ -28,15 +28,15 @@ export default function(vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promoti
   }
 
   function promote(g: CgApi, key: Key, role: Role): void {
-    const piece = g.state.pieces[key];
+    const piece = g.state.pieces.get(key);
     if (piece && piece.role == 'pawn') {
-      g.setPieces({
-        [key]: {
+      g.setPieces(new Map([
+        [key, {
           color: piece.color,
           role,
           promoted: true,
-        }
-      });
+        }]
+      ]));
     }
   }
 

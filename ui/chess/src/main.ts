@@ -6,16 +6,14 @@ export function fixCrazySan(san: San): San {
   return san[0] === 'P' ? san.slice(1) : san;
 }
 
-export interface Dests {
-  [square: string]: Key[];
-}
+export type Dests = Map<Key, Key[]>;
 
-export function readDests(lines?: string): Dests | null {
+export function readDests(lines?: string): Map<Key, Key[]> | null {
   if (typeof lines === 'undefined') return null;
-  const dests: Dests = {};
-  if (lines) lines.split(' ').forEach(line => {
-    dests[piotr[line[0]]] = line.slice(1).split('').map(c => piotr[c]);
-  });
+  const dests = new Map();
+  if (lines) for (const line of lines.split(' ')) {
+    dests.set(piotr[line[0]], line.slice(1).split('').map(c => piotr[c]));
+  }
   return dests;
 }
 

@@ -16,7 +16,7 @@ import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
 import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { Chess } from 'chessops/chess';
-import { chessgroundDests, scalachessId } from 'chessops/compat';
+import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, PuzzleVote, MoveTest } from './interfaces';
@@ -99,7 +99,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       dests
     } : {
       color: undefined,
-      dests: {}
+      dests: new Map(),
     };
     const config = {
       fen: node.fen,
@@ -154,7 +154,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     addNode({
       ply: 2 * (pos.fullmoves - 1) + (pos.turn == 'white' ? 0 : 1),
       fen: makeFen(pos.toSetup()),
-      id: scalachessId(move),
+      id: scalachessCharPair(move),
       uci: makeUci(move),
       san,
       check: defined(check) ? makeSquare(check) : undefined,

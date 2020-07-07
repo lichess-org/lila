@@ -275,12 +275,11 @@ export default class AnalyseCtrl {
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
       color = this.turnColor(),
-      emptyDests = {} as cg.Dests,
       dests = chessUtil.readDests(this.node.dests),
       drops = chessUtil.readDrops(this.node.drops),
       movableColor = (this.practice || this.gamebookPlay()) ? this.bottomColor() : (
         !this.embed && (
-          (dests && Object.keys(dests).length > 0) ||
+          (dests && dests.size > 0) ||
           drops === null || drops.length
         ) ? color : undefined),
       config: ChessgroundConfig = {
@@ -288,10 +287,10 @@ export default class AnalyseCtrl {
         turnColor: color,
         movable: this.embed ? {
           color: undefined,
-          dests: emptyDests,
+          dests: new Map(),
         } : {
           color: movableColor,
-          dests: (movableColor === color && dests) || emptyDests,
+          dests: (movableColor === color && dests) || new Map(),
         },
         check: !!node.check,
         lastMove: this.uciToLastMove(node.uci)
@@ -462,7 +461,7 @@ export default class AnalyseCtrl {
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
     this.justPlayed = orig;
     this.justDropped = undefined;
-    const piece = this.chessground.state.pieces[dest];
+    const piece = this.chessground.state.pieces.get(dest);
     const isCapture = capture || (piece && piece.role == 'pawn' && orig[0] != dest[0]);
     this.sound[isCapture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, capture, this.sendMove)) this.sendMove(orig, dest, capture);
@@ -759,8 +758,8 @@ export default class AnalyseCtrl {
     const move = parseUci(uci)!;
     const to = makeSquare(move.to);
     if (isNormal(move)) {
-      const piece = this.chessground.state.pieces[makeSquare(move.from)];
-      const capture = this.chessground.state.pieces[to];
+      const piece = this.chessground.state.pieces.get(makeSquare(move.from));
+      const capture = this.chessground.state.pieces.get(to);
       this.sendMove(makeSquare(move.from), to, (capture && piece && capture.color !== piece.color) ? capture : undefined, move.promotion);
     } else this.chessground.newPiece({
       color: this.chessground.state.movable.color as Color,
