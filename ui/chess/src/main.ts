@@ -8,7 +8,7 @@ export function fixCrazySan(san: San): San {
 
 export type Dests = Map<Key, Key[]>;
 
-export function readDests(lines?: string): Map<Key, Key[]> | null {
+export function readDests(lines?: string): Dests | null {
   if (typeof lines === 'undefined') return null;
   const dests = new Map();
   if (lines) for (const line of lines.split(' ')) {
@@ -17,9 +17,9 @@ export function readDests(lines?: string): Map<Key, Key[]> | null {
   return dests;
 }
 
-export function readDrops(line?: string | null): string[] | null {
+export function readDrops(line?: string | null): Key[] | null {
   if (typeof line === 'undefined' || line === null) return null;
-  return line.match(/.{2}/g) || [];
+  return line.match(/.{2}/g) as Key[] || [];
 }
 
 export const altCastles = {
