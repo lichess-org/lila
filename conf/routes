@@ -319,8 +319,8 @@ GET   /game/export/$gameId<\w{8}>                             controllers.Game.e
 GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.legacyGameThumbnail(gameId: String)
 GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: String)
-GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "white")
+GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
