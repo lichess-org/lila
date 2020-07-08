@@ -60,7 +60,7 @@ final class Api(
     enforce = env.net.rateLimit.value
   )(
     ("fast", 1000, 10.minutes),
-    ("slow", 30000, 1.day)
+    ("slow", 40000, 1.day)
   )
 
   def usersByIds =
