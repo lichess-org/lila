@@ -53,17 +53,16 @@ object BuildSettings {
       )
 
   val compilerOptions = Seq(
-    "-encoding", "utf-8",
+    "-encoding",
+    "utf-8",
     "-explaintypes",
     "-feature",
     "-language:higherKinds",
     "-language:implicitConversions",
     "-language:postfixOps",
     "-Ymacro-annotations",
-
     // Warnings as errors!
-    // "-Xfatal-warnings",
-
+    "-Xfatal-warnings",
     // Linting options
     "-unchecked",
     "-Xcheckinit",
@@ -83,10 +82,10 @@ object BuildSettings {
     "-Xlint:type-parameter-shadow",
     "-Wdead-code",
     "-Wextra-implicit",
-    "-Wnumeric-widen",
+    // "-Wnumeric-widen",
     "-Wunused:imports",
     "-Wunused:locals",
-    "-Wunused:patvars",
+    "-Wunused:patvars"
     // "-Wunused:privates", // unfortunately doesn't work with macros
     // "-Wunused:implicits",
     // "-Wunused:params",
