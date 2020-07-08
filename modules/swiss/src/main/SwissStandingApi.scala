@@ -34,10 +34,9 @@ final class SwissStandingApi(
     lightUserApi.asyncMany(res.leaderboard.map(_._1.userId)) map {
       _.zip(res.leaderboard).zipWithIndex
         .grouped(10)
-        .zipWithIndex
         .toList
-        .map {
-          case (pagePlayers, i) =>
+        .foldLeft(0) {
+          case (i, pagePlayers) =>
             val page = i + 1
             pageCache.put(
               res.swiss.id -> page,
@@ -59,7 +58,11 @@ final class SwissStandingApi(
                   }
               )
             )
+            page
         }
+    } map { lastPage =>
+      // make sure there's no extra page in the cache in case of players leaving the tournament
+      pageCache.invalidate(res.swiss.id -> (lastPage + 1))
     }
 
   private val first = cacheApi[Swiss.Id, JsObject](16, "swiss.page.first") {
