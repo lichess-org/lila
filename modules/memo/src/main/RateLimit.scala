@@ -21,7 +21,7 @@ final class RateLimit[K](
 
   private def makeClearAt = nowMillis + duration.toMillis
 
-  private lazy val logger  = lila.log("ratelimit").branch(name)
+  private lazy val logger  = lila.log("ratelimit").branch(key)
   private lazy val monitor = lila.mon.security.rateLimit(key)
 
   def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(
