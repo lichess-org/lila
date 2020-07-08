@@ -13,7 +13,6 @@ final class Search(env: Env) extends LilaController(env) {
   private val SearchRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 50,
     duration = 5.minutes,
-    name = "search games per IP",
     key = "search.games.ip"
   )
   private val SearchConcurrencyLimitPerIP = new lila.memo.FutureConcurrencyLimit[IpAddress](
@@ -28,7 +27,7 @@ final class Search(env: Env) extends LilaController(env) {
         val page = p atLeast 1
         Reasonable(page, 100) {
           val ip           = HTTPRequest lastRemoteAddress ctx.req
-          val cost         = scala.math.sqrt(page).toInt
+          val cost         = scala.math.sqrt(page.toDouble).toInt
           implicit def req = ctx.body
           env.game.cached.nbTotal flatMap { nbGames =>
             def limited =

@@ -28,8 +28,7 @@ final class Setup(
   private[controllers] val PostRateLimit = new lila.memo.RateLimit[IpAddress](
     5,
     1.minute,
-    name = "setup post",
-    key = "setup_post",
+    key = "setup.post",
     enforce = env.net.rateLimit.value
   )
 

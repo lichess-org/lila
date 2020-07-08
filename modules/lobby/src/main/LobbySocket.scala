@@ -146,7 +146,6 @@ final class LobbySocket(
   private val poolLimitPerSri = new lila.memo.RateLimit[SriStr](
     credits = 25,
     duration = 1 minute,
-    name = "lobby hook/pool per member",
     key = "lobby.hook_pool.member"
   )
 

@@ -213,7 +213,6 @@ final class User(
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,
     duration = 10.minutes,
-    name = "user games web/mobile per IP",
     key = "user_games.web.ip"
   )
 
@@ -223,7 +222,7 @@ final class User(
       page: Int
   )(implicit ctx: BodyContext[_]): Fu[Paginator[GameModel]] = {
     UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
-      lila.mon.http.userGamesCost.increment(page)
+      lila.mon.http.userGamesCost.increment(page.toLong)
       for {
         pagFromDb <- env.gamePaginator(
           user = u,

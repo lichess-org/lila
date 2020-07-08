@@ -160,8 +160,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   }
 
   private val StripeRateLimit = lila.memo.RateLimit.composite[lila.common.IpAddress](
-    name = "stripe checkouts per IP",
-    key = "stripe_checkout_ip",
+    key = "stripe.checkout.ip",
     enforce = env.net.rateLimit.value
   )(
     ("fast", 6, 10.minute),

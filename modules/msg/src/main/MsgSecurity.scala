@@ -43,14 +43,12 @@ final private class MsgSecurity(
   private val CreateLimitPerUser = new RateLimit[User.ID](
     credits = 20 * limitCost.normal,
     duration = 24 hour,
-    name = "PM creates per user",
     key = "msg_create.user"
   )
 
   private val ReplyLimitPerUser = new RateLimit[User.ID](
     credits = 20 * limitCost.normal,
     duration = 1 minute,
-    name = "PM replies per user",
     key = "msg_reply.user"
   )
 

@@ -251,14 +251,12 @@ final class Tournament(
   private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 240,
     duration = 24.hour,
-    name = "tournament per user",
     key = "tournament.user"
   )
 
   private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
     credits = 400,
     duration = 24.hour,
-    name = "tournament per IP",
     key = "tournament.ip"
   )
 

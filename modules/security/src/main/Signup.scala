@@ -143,7 +143,6 @@ final class Signup(
     PasswordHasher.rateLimit[Signup.Result](enforce = netConfig.rateLimit) _
 
   private lazy val signupRateLimitPerIP = RateLimit.composite[IpAddress](
-    name = "Accounts per IP",
     key = "account.create.ip",
     enforce = netConfig.rateLimit.value
   )(

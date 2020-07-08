@@ -157,7 +157,6 @@ final class RelationApi(
   private val limitFollowRateLimiter = new lila.memo.RateLimit[ID](
     credits = 1,
     duration = 1 hour,
-    name = "follow limit cleanup",
     key = "follow.limit.cleanup"
   )
 

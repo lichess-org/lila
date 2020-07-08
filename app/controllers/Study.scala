@@ -388,15 +388,13 @@ final class Study(
   private val CloneLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 10 * 3,
     duration = 24.hour,
-    name = "clone study per user",
-    key = "clone_study.user"
+    key = "study.clone.user"
   )
 
   private val CloneLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 20 * 3,
     duration = 24.hour,
-    name = "clone study per IP",
-    key = "clone_study.ip"
+    key = "study.clone.ip"
   )
 
   def cloneApply(id: String) =
@@ -418,8 +416,7 @@ final class Study(
   private val PgnRateLimitPerIp = new lila.memo.RateLimit[IpAddress](
     credits = 30,
     duration = 1.minute,
-    name = "export study PGN per IP",
-    key = "export.study_pgn.ip"
+    key = "export.study.pgn.ip"
   )
 
   def pgn(id: String) =

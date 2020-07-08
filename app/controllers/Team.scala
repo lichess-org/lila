@@ -467,8 +467,7 @@ You received this message because you are part of the team lichess.org${routes.T
       )
 
   private val PmAllLimitPerUser = lila.memo.RateLimit.composite[lila.user.User.ID](
-    name = "team pm all per user",
-    key = "team.pmAll",
+    key = "team.pm.all",
     enforce = env.net.rateLimit.value
   )(
     ("fast", 1, 3.minutes),

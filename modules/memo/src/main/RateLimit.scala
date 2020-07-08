@@ -8,7 +8,6 @@ import scala.concurrent.duration.FiniteDuration
 final class RateLimit[K](
     credits: Int,
     duration: FiniteDuration,
-    name: String,
     key: String,
     enforce: Boolean = true,
     log: Boolean = true
@@ -64,7 +63,6 @@ object RateLimit {
   }
 
   def composite[K](
-      name: String,
       key: String,
       enforce: Boolean = true,
       log: Boolean = true
@@ -75,7 +73,6 @@ object RateLimit {
         new RateLimit[K](
           credits = credits,
           duration = duration,
-          name = s"$name - $subKey",
           key = s"$key.$subKey",
           enforce = enforce,
           log = log

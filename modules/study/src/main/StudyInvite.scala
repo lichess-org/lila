@@ -19,7 +19,6 @@ final private class StudyInvite(
   private val notifyRateLimit = new lila.memo.RateLimit[User.ID](
     credits = 500,
     duration = 1 day,
-    name = "Study invites per user",
     key = "study.invite.user"
   )
 

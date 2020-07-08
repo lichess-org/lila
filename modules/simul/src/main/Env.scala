@@ -60,7 +60,6 @@ final class Env(
   private val featureLimiter = new lila.memo.RateLimit[lila.user.User.ID](
     credits = config.featureViews.value,
     duration = 24 hours,
-    name = "simul homepage views",
     key = "simul.feature",
     log = false
   )

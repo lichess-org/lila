@@ -84,21 +84,18 @@ object PasswordHasher {
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
     credits = 30 * 2, // double cost in case of hash check failure
     duration = 8 minutes,
-    name = "Password hashes per IP",
     key = "password.hashes.ip"
   )
 
   private lazy val rateLimitPerUser = new RateLimit[String](
     credits = 10,
     duration = 1.hour,
-    name = "Password hashes per user",
     key = "password.hashes.user"
   )
 
   private lazy val rateLimitGlobal = new RateLimit[String](
     credits = 4 * 10 * 60, // max out 4 cores for 60 seconds
     duration = 1 minute,
-    name = "Password hashes global",
     key = "password.hashes.global"
   )
 

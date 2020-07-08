@@ -56,7 +56,6 @@ final class Api(
 
   private[controllers] val UsersRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
     key = "users.api.ip",
-    name = "users API per IP",
     enforce = env.net.rateLimit.value
   )(
     ("fast", 1000, 10.minutes),
@@ -96,21 +95,18 @@ final class Api(
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 10 * 1000,
     duration = 10.minutes,
-    name = "user games API per IP",
     key = "user_games.api.ip"
   )
 
   private val UserGamesRateLimitPerUA = new lila.memo.RateLimit[String](
     credits = 10 * 1000,
     duration = 5.minutes,
-    name = "user games API per UA",
     key = "user_games.api.ua"
   )
 
   private val UserGamesRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 20 * 1000,
     duration = 2.minute,
-    name = "user games API global",
     key = "user_games.api.global"
   )
 
@@ -162,7 +158,6 @@ final class Api(
   private val GameRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 100,
     duration = 1.minute,
-    name = "game API per IP",
     key = "game.api.one.ip"
   )
 
@@ -177,7 +172,6 @@ final class Api(
   private val CrosstableRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 30,
     duration = 10.minutes,
-    name = "crosstable API per IP",
     key = "crosstable.api.ip"
   )
 
@@ -350,7 +344,6 @@ final class Api(
   private val UserActivityRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 15,
     duration = 2.minutes,
-    name = "user activity API per IP",
     key = "user_activity.api.ip"
   )
 

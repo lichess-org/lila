@@ -413,7 +413,6 @@ final private class StudySocket(
   private val InviteLimitPerUser = new lila.memo.RateLimit[User.ID](
     credits = 50,
     duration = 24 hour,
-    name = "study invites per user",
     key = "study_invite.user"
   )
 
