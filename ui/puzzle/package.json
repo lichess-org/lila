@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "ceval": "2.0.0",
-    "chessground": "^7.7.2",
-    "chessops": "^0.5.0",
+    "chessground": "^7.8.0",
+    "chessops": "^0.6.0",
     "common": "2.0.0",
     "snabbdom": "^0.7.4",
     "tree": "2.0.0"

@@ -907,15 +907,15 @@ chessground@^4.4:
     merge "1.2.0"
     mithril "github:ornicar/mithril.js#v1.0.1"
 
-chessground@^7.7.2:
-  version "7.7.2"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.7.2.tgz#bded8da6fb582ed256e882dde3b09bdcec4709f1"
-  integrity sha512-vJMu4tHf6vgzeqZNEZPsHUEy8Z6duZUY6A8j84qq7yC7cs+QQKThQoJEIOXu1rtj3AobRoitPNnSelybplmW0g==
+chessground@^7.8.0:
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.8.0.tgz#f04d301e3eb71c2616306fcc03d4d4aaa5294bcb"
+  integrity sha512-0BD9Li/N1/4jVOrh823cdQCLr4ElRA0pl+8tehyeMzv/tlOhnOB2E/wVMmJOc/3o7/IJFTPVyr/jaOBuHmSLxQ==
 
-chessops@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.5.0.tgz#da7c01e6d9e72ef2342199f8ae13c5c879a6e9ee"
-  integrity sha512-CFm10wcnD63Ojna6tI1AnXVpQljufsMjvs6cxQ0AgaCAH5V/mwuNGG6Y90EyBRRKmIb3ypxRj7klIyFB07caYA==
+chessops@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.6.0.tgz#6c01536bd029c66c588ddce74ccd96da6dc39f4d"
+  integrity sha512-U3A5X2aUM/siFi/xCDXpR2YoUrLdRXNNgm3Ybjx9cVqVcaCr/mGrF4i7g2UQZXlwHLY7Ljj4eXbDpL7K8Sc9pA==
   dependencies:
     "@badrap/result" "^0.2.6"
 

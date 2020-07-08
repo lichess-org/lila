@@ -1,5 +1,5 @@
 import sanWriter from './sanWriter';
-import { CgDests } from '../interfaces';
+import { Dests } from '../interfaces';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
@@ -66,8 +66,8 @@ window.lichess.keyboardMove = function(opts: any) {
     opts.input.classList.remove('wrong');
   };
   makeBindings(opts, submit, clear);
-  return function(fen: string, dests: CgDests, yourMove: boolean) {
-    sans = dests && Object.keys(dests).length ? sanWriter(fen, destsToUcis(dests)) : null;
+  return function(fen: string, dests: Dests | undefined, yourMove: boolean) {
+    sans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     submit(opts.input.value, {
       server: true,
       yourMove: yourMove
@@ -128,14 +128,13 @@ function sanCandidates(san: string, sans) {
   });
 }
 
-function destsToUcis(dests: CgDests) {
+function destsToUcis(dests: Dests) {
   const ucis: string[] = [];
-  Object.keys(dests).forEach(function(orig) {
-    const d = dests[orig];
-    if (d) d.forEach(function(dest) {
+  for (const [orig, d] of dests) {
+    d.forEach(function(dest) {
       ucis.push(orig + dest);
     });
-  });
+  }
   return ucis;
 }
 

@@ -362,14 +362,13 @@ export default class RoundController {
         // Chess960.
         const keys = util.uci2move(o.uci)!,
         pieces = this.chessground.state.pieces;
-        if (!o.castle || (pieces[o.castle.king[0]]?.role === 'king' && pieces[o.castle.rook[0]]?.role === 'rook')) {
+        if (!o.castle || (pieces.get(o.castle.king[0])?.role === 'king' && pieces.get(o.castle.rook[0])?.role === 'rook')) {
           this.chessground.move(keys[0], keys[1]);
         }
       }
       if (o.enpassant) {
-        const p = o.enpassant, pieces: cg.PiecesDiff = {};
-        pieces[p.key] = undefined;
-        this.chessground.setPieces(pieces);
+        const p = o.enpassant;
+        this.chessground.setPieces(new Map([[p.key, undefined]]));
         if (d.game.variant.key === 'atomic') {
           atomic.enpassant(this, p.key, p.color);
           sound.explode();
@@ -379,7 +378,7 @@ export default class RoundController {
       this.chessground.set({
         turnColor: d.game.player,
         movable: {
-          dests: playing ? util.parsePossibleMoves(d.possibleMoves) : {}
+          dests: playing ? util.parsePossibleMoves(d.possibleMoves) : new Map(),
         },
         check: !!o.check
       });
