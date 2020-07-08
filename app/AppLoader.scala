@@ -50,8 +50,8 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
 
   override lazy val httpErrorHandler = {
-    val someRouter = router.some
-    val mapper     = devContext.map(_.sourceMapper)
+    def someRouter = router.some
+    def mapper     = devContext.map(_.sourceMapper)
     wire[lila.app.http.ErrorHandler]
   }
 
