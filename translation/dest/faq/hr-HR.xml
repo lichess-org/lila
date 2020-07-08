@@ -18,6 +18,8 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess je doista inspirirao druge web stranice otvorenog koda koje koriste naš %1$s, %2$s ili %3$s.</string>
   <string name="fairPlay">Poštena Igra</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Zašto se prijavljen za umjetnu manipulaciju rejtinga (namjerno izgubljenim partijama ili pobjeđivanjem vanjskom pomoći) ili računalnu pomoć?</string>
+  <string name="cheatDetectionMethods">Lichess posjeduje snažne metode otkrivanja i vrlo temeljit postupak pregleda svih dokaza i donošenja odluke. U procesu se često uključuju mnogi moderatori i može dugo potrajati. Osim same marke, nećemo ulaziti u detalje o dokazima ili postupku odlučivanja za pojedinačne slučajeve. Time bi se izbjeglo otkrivanje u budućnosti i postalo poziv na neproduktivne rasprave. To vrijeme i trud bolje je potrošiti na druge važne slučajeve. Korisnici mogu uložiti žalbu slanjem poruke e-pošte %1$s, ali odluke se rijetko poništavaju.</string>
+  <string name="whenAmIEligibleRatinRefund">Kada ispunjavam uvjete za automatsko vraćanje rejtinga od varalica?</string>
   <string name="howCanIBecomeModerator">Kako mogu postati moderator?</string>
   <string name="youCannotApply">Nije moguće podnijeti zahtjev za moderatora. Ako vidimo nekoga za koga mislimo da bi bio dobar moderator, kontaktirat ćemo ga izravno.</string>
   <string name="isCorrespondenceDifferent">Da li se dopisni šah razlikuje od uobičajenog šaha?</string>
