@@ -1,19 +1,20 @@
 package controllers
 
-import play.api.mvc._
 import play.api.data.Form
-import play.api.libs.json._
+import play.api.mvc._
 import scala.annotation.nowarn
 
 import lila.api.Context
 import lila.app._
+import lila.common.config.MaxPerSecond
 import lila.relay.{ Relay => RelayModel, RelayForm }
 import lila.user.{ User => UserModel }
 import views._
 
 final class Relay(
     env: Env,
-    studyC: => Study
+    studyC: => Study,
+    apiC: => Api
 ) extends LilaController(env) {
 
   def index(page: Int) =
@@ -54,7 +55,7 @@ final class Relay(
               err => BadRequest(apiFormError(err)).fuccess,
               setup =>
                 env.relay.api.create(setup, me) map { relay =>
-                  Ok(asJson(relay)) as JSON
+                  Ok(env.relay.jsonView.admin(relay)) as JSON
                 }
             )
     )
@@ -87,7 +88,7 @@ final class Relay(
             case Some(res) =>
               res.fold(
                 { case (_, err) => BadRequest(apiFormError(err)) },
-                relay => Ok(asJson(relay)) as JSON
+                relay => Ok(env.relay.jsonView.admin(relay)) as JSON
               )
           }
     )
@@ -136,7 +137,7 @@ final class Relay(
         me =>
           env.relay.api.byIdAndContributor(id, me) map {
             case None        => NotFound(jsonError("No such broadcast"))
-            case Some(relay) => Ok(asJson(relay)) as JSON
+            case Some(relay) => Ok(env.relay.jsonView.admin(relay)) as JSON
           }
     )
 
@@ -166,11 +167,12 @@ final class Relay(
       }
     }
 
-  private def asJson(relay: RelayModel) =
-    Json.obj(
-      "broadcast" -> env.relay.jsonView.apiShow(relay),
-      "url"       -> s"${env.net.baseUrl}${showRoute(relay)}"
-    )
+  def apiIndex =
+    Action.async { implicit req =>
+      apiC.jsonStream {
+        env.relay.api.officialStream(MaxPerSecond(20), getInt("nb", req) | 20)
+      }.fuccess
+    }
 
   private def WithRelay(slug: String, id: String)(
       f: RelayModel => Fu[Result]
