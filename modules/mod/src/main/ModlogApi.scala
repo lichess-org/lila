@@ -249,21 +249,20 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
 
   private def slackMonitor(m: Modlog): Funit = {
     import lila.mod.{ Modlog => M }
-    userRepo.isMonitoredMod(m.mod) flatMap {
-      _ ?? slackApi.monitorMod(
-        m.mod,
-        icon = m.action match {
-          case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
-          case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "large_blue_circle"
-          case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
-          case M.chatTimeout                                                    => "hourglass_flowing_sand"
-          case M.closeTopic                                                     => "lock"
-          case M.openTopic                                                      => "unlock"
-          case M.modMessage                                                     => "left_speech_bubble"
-          case _                                                                => "gear"
-        },
-        text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u ")}${~m.details}"""
-      )
+    val icon = m.action match {
+      case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
+      case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "large_blue_circle"
+      case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
+      case M.chatTimeout                                                    => "hourglass_flowing_sand"
+      case M.closeTopic                                                     => "lock"
+      case M.openTopic                                                      => "unlock"
+      case M.modMessage                                                     => "left_speech_bubble"
+      case _                                                                => "gear"
     }
+    val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u ")}${~m.details}"""
+    userRepo.isMonitoredMod(m.mod) flatMap {
+      _ ?? slackApi.monitorMod(m.mod, icon = icon, text = text)
+    }
+    slackApi.logMod(m.mod, icon = icon, text = text)
   }
 }
