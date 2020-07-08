@@ -365,8 +365,8 @@
   <string name="yourPerfRatingIsProvisional">Твій %s-ий щабель тимчасовий</string>
   <string name="yourPerfRatingIsTooHigh">Твій щабель (%2$s) в %1$s зависокий</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Твій щотижневий щабель (%2$s) в %1$s зависокий</string>
-  <string name="yourPerfRatingIsTooLow">Твій щабель (%2$s) в %1$s занизький</string>
-  <string name="ratedMoreThanInPerf">Щабель ≥ %1$s в %2$s</string>
+  <string name="yourPerfRatingIsTooLow">Ваш рейтинг у %1$s (%2$s) надто низький</string>
+  <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
   <string name="ratedLessThanInPerf">Щабель ≤ %1$s в %2$s</string>
   <string name="mustBeInTeam">Треба бути в раті %s</string>
   <string name="youAreNotInTeam">Ти не в раті %s</string>
@@ -436,7 +436,7 @@
   <string name="more">Більше</string>
   <string name="memberSince">Записаний з</string>
   <string name="lastSeenActive">Був %s</string>
-  <string name="challengeToPlay">Виклич на гру</string>
+  <string name="challengeToPlay">Виклик на гру</string>
   <string name="player">Гравець</string>
   <string name="list">Список</string>
   <string name="graph">Крива</string>
