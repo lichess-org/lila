@@ -125,7 +125,7 @@ final class Main(
         .map {
           case None => NotFound
           case Some(image) =>
-            lila.mon.http.imageBytes.record(image.size)
+            lila.mon.http.imageBytes.record(image.size.toLong)
             Ok(image.data).withHeaders(
               CONTENT_DISPOSITION -> image.name
             ) as image.contentType.getOrElse("image/jpeg")

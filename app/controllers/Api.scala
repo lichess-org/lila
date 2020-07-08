@@ -69,7 +69,7 @@ final class Api(
       val ip        = HTTPRequest lastRemoteAddress req
       val cost      = usernames.size / 4
       UsersRateLimitPerIP(ip, cost = cost) {
-        lila.mon.api.users.increment(cost)
+        lila.mon.api.users.increment(cost.toLong)
         env.user.repo nameds usernames map {
           _.map { env.user.jsonView(_, none) }
         } map toApiResult map toHttp
@@ -142,7 +142,7 @@ final class Api(
       val nb   = MaxPerPage((getInt("nb", req) | 10) atLeast 1 atMost 100)
       val cost = page * nb.value + 10
       UserGamesRateLimit(cost, req) {
-        lila.mon.api.userGames.increment(cost)
+        lila.mon.api.userGames.increment(cost.toLong)
         env.user.repo named name flatMap {
           _ ?? { user =>
             gameApi.byUser(

@@ -15,8 +15,5 @@ final class Env(
   val netConfig = appConfig.get[NetConfig]("net")
   def netDomain = netConfig.domain
 
-  private lazy val detectLanguageConfig =
-    appConfig.get[DetectLanguage.Config]("detectlanguage.api")
-
-  lazy val detectLanguage = wire[DetectLanguage]
+  lazy val detectLanguage = new DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
 }
