@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="viewTheGames">Gwelet ar c\'hrogadoù</string>
+  <string name="provisional">da c\'hortoz</string>
   <string name="victories">Trec\'hadennoù</string>
+  <string name="fromXToY">etre %1$s ha %2$s</string>
 </resources>
