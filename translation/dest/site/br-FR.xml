@@ -109,6 +109,7 @@
   <string name="mistakes">Fazioù</string>
   <string name="inaccuracy">Diresisted</string>
   <string name="inaccuracies">Diresistedoù</string>
+  <string name="moveTimes">Amzer dre fiñvadenn</string>
   <string name="flipBoard">Cheñch tu an dablez c\'hoari</string>
   <string name="threefoldRepetition">Teir gwech ar memestra</string>
   <string name="claimADraw">Bezañ rampo</string>
@@ -157,6 +158,7 @@
   <string name="timeControl">Merañ an amzer</string>
   <string name="realTime">Amzer gwirion</string>
   <string name="correspondence">Dre lizher</string>
+  <string name="daysPerTurn">Deizioù dre fiñvadenn</string>
   <string name="oneDay">Un devezh</string>
   <plurals name="nbDays">
     <item quantity="one">%s deiz</item>
@@ -290,6 +292,7 @@
     <item quantity="other">%s o c\'hoari</item>
   </plurals>
   <string name="exportGames">Ezporzhiañ krogadoù</string>
+  <string name="ratingRange">Renkadur hoc\'h enebourien</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Reiñ %s eilenn</item>
     <item quantity="two">Reiñ %s eilenn</item>
