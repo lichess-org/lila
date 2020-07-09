@@ -82,6 +82,7 @@
   <string name="unknown">Dianav</string>
   <string name="database">Stlennvon</string>
   <string name="whiteDrawBlack">Gwenn / Rampo / Du</string>
+  <string name="averageRatingX">Renkadur keitat: %s</string>
   <string name="recentGames">Krogadoù diwezhañ</string>
   <string name="topGames">Krogadoù eus ar c\'hentañ</string>
   <string name="noGameFound">C\'hoariadenn ebet</string>
@@ -252,6 +253,13 @@
     <item quantity="many">%s koll</item>
     <item quantity="other">%s koll</item>
   </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s rampo</item>
+    <item quantity="two">%s rampo</item>
+    <item quantity="few">%s rampo</item>
+    <item quantity="many">%s rampo</item>
+    <item quantity="other">%s rampo</item>
+  </plurals>
   <string name="exportGames">Ezporzhiañ krogadoù</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Reiñ %s eilenn</item>
@@ -261,6 +269,7 @@
     <item quantity="other">Reiñ %s eilennoù</item>
   </plurals>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
+  <string name="proposeATakeback">Kinnig nullañ ar fiñvadenn ziwezhañ</string>
   <string name="tournament">Tournamant</string>
   <string name="tournaments">Tournamantoù</string>
   <string name="tournamentPoints">Poentoù tournamant</string>
