@@ -87,6 +87,7 @@
   <string name="topGames">Krogadoù eus ar c\'hentañ</string>
   <string name="noGameFound">C\'hoariadenn ebet</string>
   <string name="openingExplorer">Lañser an digoradurioù</string>
+  <string name="xOpeningExplorer">Lañser digoradurioù %s</string>
   <string name="allSet">Prest eo!</string>
   <string name="delete">Dilemel</string>
   <string name="deleteThisImportedGame">Dilemel ar c\'hoari enporzhiet-mañ?</string>
@@ -350,6 +351,7 @@
   <string name="followsYou">Ho heul</string>
   <string name="more">Muioc\'h</string>
   <string name="memberSince">Ezel abaoe</string>
+  <string name="challengeToPlay">Daeañ ar c\'hoarier-mañ</string>
   <string name="player">C\'hoarier</string>
   <string name="list">Roll</string>
   <string name="graph">Krommenn</string>
@@ -375,6 +377,7 @@
   <string name="recommendNotTouching">Gwelloc\'h eo deoc\'h chom hep kemm anezhe.</string>
   <string name="fewerPlayers">Ma c\'houlennit strishadurioù evit mont-tre e vo nebeutoc\'h a c\'hoarierien o kemer perzh en ho tournamant.</string>
   <string name="showAdvancedSettings">Diskouez an arventennoù kempleshoc\'h</string>
+  <string name="makePrivateTournament">Gallout a rit krouiñ un tournamant prevez oc\'h ouzhpennañ ur ger-tremen</string>
   <string name="join">Kejañ</string>
   <string name="withdraw">Kodianañ</string>
   <string name="points">Poentoù</string>
@@ -397,6 +400,7 @@
   <string name="boardEditor">Aozer ar c\'hrogad</string>
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>
   <string name="popularOpenings">Digoradurioù ordin</string>
+  <string name="clearBoard">Skarzhañ pep tra diwar an dachenn emgann</string>
   <string name="isPrivate">Prevez</string>
   <string name="reportXToModerators">Diskleriañ %s d\'an habaskaerien</string>
   <string name="ifNoneLeaveEmpty">Ma n\'eus ket, laoskit goullo</string>
