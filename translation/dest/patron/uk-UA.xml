@@ -2,7 +2,7 @@
 <resources>
   <string name="donate">Зробити внесок</string>
   <string name="lichessPatron">Покровитель Lichess</string>
-  <string name="freeAccount">Безкоштовний обліковий запис</string>
+  <string name="freeAccount">Безкоштовний аккаунт</string>
   <string name="becomePatron">Стати Покровителем Lichess</string>
   <string name="xBecamePatron">%s став Покровителем Lichess</string>
   <string name="newPatrons">Нові Покровителі</string>
