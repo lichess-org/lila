@@ -78,7 +78,7 @@ lichess.movetimeChart = function(data, trans) {
               },
               tooltip: {
                 formatter: function() {
-                  var seconds = moveCentis[this.x] / 100;
+                  var seconds = data.game.moveCentis[this.x] / 100;
                   if (seconds) seconds = seconds.toFixed(seconds >= 2 ? 1 : 2);
                   return this.point.name + '<br />' + trans('nbSeconds', '<strong>' + seconds + '</strong>');
                 }
