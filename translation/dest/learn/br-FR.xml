@@ -51,8 +51,18 @@ Achapit kuit ha bezit trec\'h war ar stered!</string>
   <string name="pawnComplete">Gourc\'hemennoù! Mestroniañ a rit ar pezhioù gwerin.</string>
   <string name="pawnPromotion">Kas ur pezh gwerin war-raok</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Tizhet penn an dachenn emgann gant ho pezh gwerin!</string>
+  <string name="itNowPromotesToAStrongerPiece">Gallout a rit e dreiñ en ur pezh kreñvoc\'h bremañ.</string>
   <string name="selectThePieceYouWant">Dibabit ar pezh ho peus c\'hoant da gaout!</string>
   <string name="fundamentals">Diazezoù</string>
+  <string name="capture">Pakañ pezhioù</string>
+  <string name="takeTheEnemyPieces">Pakañ pezhioù an enebour</string>
+  <string name="captureIntro">Deoc\'h da verzhout pezhioù hoc\'h enebour ha n\'int ket difennet evit o fakañ!</string>
+  <string name="takeTheBlackPieces">Pakit ar pezhioù du!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Pakit ar pezhioù du!
+Ha difennit ho re.</string>
+  <string name="captureComplete">Gourc\'hemennoù! Goût a rit bremañ penaos en em zipatouilh gant pezhioù echedoù!</string>
+  <string name="protection">Difenn</string>
+  <string name="keepYourPiecesSafe">Difennit mat ho pezhioù</string>
   <string name="combat">Emgann</string>
   <string name="combatIntro">Ur brezelour mat zo gouest da dagañ ha da zifenn!</string>
   <string name="combatComplete">Gourc\'hemennoù! Goût a rit bremañ penaos en em zipatouilh gant pezhioù echedoù!</string>
