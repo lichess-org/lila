@@ -19,4 +19,7 @@
   <string name="aConfirmationIsRequiredToJoin">Ret eo kadarnaat evit kemer perzh</string>
   <string name="teamBestPlayers">C\'hoarierien wellañ</string>
   <string name="teamRecentMembers">Izili nevez</string>
+  <string name="messageAllMembers">Kas ur gemennadenn d\'an holl izili</string>
+  <string name="messageAllMembersOverview">Kas ur gemennadenn brevez d\'an holl izili</string>
+  <string name="teamsIlead">Skipailhoù emaon e penn anezhe</string>
 </resources>
