@@ -92,7 +92,8 @@ final class Game(
               case Some(m) if m is user.id => 60
               case Some(_) if oauth        => 30 // bonus for oauth logged in only (not for CSRF)
               case _                       => 20
-            })
+            }),
+            playerFile = get("players", req)
           )
           val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
           apiC

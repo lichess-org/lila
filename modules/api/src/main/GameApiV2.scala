@@ -103,21 +103,25 @@ final class GameApiV2(
     )
 
   def exportByUser(config: ByUserConfig): Source[String, _] =
-    gameRepo
-      .sortedCursor(
-        config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) } ++
-          Query.createdBetween(config.since, config.until) ++
-          (!config.ongoing).??(Query.finished),
-        Query.sortCreated,
-        batchSize = config.perSecond.value
-      )
-      .documentSource()
-      .map(g => config.postFilter(g) option g)
-      .throttle(config.perSecond.value * 10, 1 second, e => if (e.isDefined) 10 else 2)
-      .mapConcat(_.toList)
-      .take(config.max | Int.MaxValue)
-      .via(preparationFlow(config, none))
-      .keepAlive(keepAliveInterval, () => emptyMsgFor(config))
+    Source futureSource {
+      config.playerFile.??(realPlayerApi.apply) map { realPlayers =>
+        gameRepo
+          .sortedCursor(
+            config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) } ++
+              Query.createdBetween(config.since, config.until) ++
+              (!config.ongoing).??(Query.finished),
+            Query.sortCreated,
+            batchSize = config.perSecond.value
+          )
+          .documentSource()
+          .map(g => config.postFilter(g) option g)
+          .throttle(config.perSecond.value * 10, 1 second, e => if (e.isDefined) 10 else 2)
+          .mapConcat(_.toList)
+          .take(config.max | Int.MaxValue)
+          .via(preparationFlow(config, realPlayers))
+          .keepAlive(keepAliveInterval, () => emptyMsgFor(config))
+      }
+    }
 
   def exportByIds(config: ByIdsConfig): Source[String, _] =
     Source futureSource {
@@ -344,7 +348,8 @@ object GameApiV2 {
       ongoing: Boolean = false,
       color: Option[chess.Color],
       flags: WithFlags,
-      perSecond: MaxPerSecond
+      perSecond: MaxPerSecond,
+      playerFile: Option[String]
   ) extends Config {
     def postFilter(g: Game) =
       rated.fold(true)(g.rated ==) && {
