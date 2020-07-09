@@ -50,6 +50,7 @@ Achapit kuit ha bezit trec\'h war ar stered!</string>
   <string name="pawnsMoveForward">Fiñval a ra ar pezhioù gwerin a-blom met a-skizh e tebront!</string>
   <string name="pawnComplete">Gourc\'hemennoù! Mestroniañ a rit ar pezhioù gwerin.</string>
   <string name="pawnPromotion">Kas ur pezh gwerin war-raok</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Tizhet penn an dachenn emgann gant ho pezh gwerin!</string>
   <string name="selectThePieceYouWant">Dibabit ar pezh ho peus c\'hoant da gaout!</string>
   <string name="fundamentals">Diazezoù</string>
   <string name="combat">Emgann</string>
@@ -66,6 +67,9 @@ Achapit kuit ha bezit trec\'h war ar stered!</string>
   <string name="mateInOne">Lamm d\'ar roue gant ur fiñvadenn</string>
   <string name="defeatTheOpponentsKing">Bezit trec\'h war roue hoc\'h enebour</string>
   <string name="mateInOneIntro">Trec\'h e veoc\'h pa ne c\'hallo ket hoc\'h enebour difenn a-enep ur bec\'h d\'ar roue.</string>
+  <string name="attackYourOpponentsKing">Deoc\'h da dagañ roue hoc\'h enebour hep ma c\'hallfe en em zifenn!</string>
+  <string name="mateInOneComplete">Gourc\'hemennoù! Mod-se e veoc\'h trec\'h war an dachenn emgann!</string>
+  <string name="intermediate">Live etre</string>
   <string name="boardSetup">Aozadur an dachenn emgann</string>
   <string name="howTheGameStarts">Penaos e krog ar c\'hrogad</string>
   <string name="boardSetupIntro">Tal-ouzh-tal eo an daou arme, prest d\'en em gannañ.</string>
@@ -108,6 +112,11 @@ Ret eo en em zizober diouzh an dagadenn a-raok rokañ!</string>
   <string name="castlingComplete">Gourc\'hemennoù! Gwelloc\'h e vefe deoc\'h rokañ e-kerz pep krogad.</string>
   <string name="enPassant">En ur dremen</string>
   <string name="theSpecialPawnMove">Fiñvadenn ispisial ar pezh gwerin</string>
+  <string name="enPassantIntro">Pa vez pezh gwerin hoc\'h enebour o vont war-raok deus div garrezenn e c\'hallit e zebriñ evel pa en dije graet ur fiñvadenn ur garrezenn hepken.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">O paouez ober ur fiñvadenn div garrezenn emañ ar re zu!
+Debrit \"en ur dremen\" (en passant).</string>
+  <string name="enPassantOnlyWorksImmediately">Ne c\'hallit debriñ \"en ur dremen\" (en passant) pa vez hoc\'h enebour o paouez c\'hoari ar pezh gwerin.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Ne c\'hallit debriñ \"en ur dremen\" (en passant) ma n\'emañ ket ho pezh gwerin war ar pempvet linenn.</string>
   <string name="enPassantComplete">Gourc\'hemennoù! Gallout a rit debriñ en ur dremen bremañ.</string>
   <string name="stalemate">Rampo</string>
   <string name="theGameIsADraw">Rampo oc\'h</string>
