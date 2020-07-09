@@ -387,6 +387,7 @@
   <string name="xStartedFollowingY">%1$s zo krog da heuliañ %2$s</string>
   <string name="more">Muioc\'h</string>
   <string name="memberSince">Ezel abaoe</string>
+  <string name="lastSeenActive">Oberiant %s</string>
   <string name="challengeToPlay">Daeañ ar c\'hoarier-mañ</string>
   <string name="player">C\'hoarier</string>
   <string name="list">Roll</string>
@@ -424,6 +425,7 @@
   <string name="tournamentIsStarting">Emañ an tournamant o kregiñ</string>
   <string name="youArePlaying">O c\'hoari emaoc\'h!</string>
   <string name="winRate">Feur trec\'h</string>
+  <string name="berserkRate">Feur berserk</string>
   <string name="performance">Efedusted</string>
   <string name="tournamentComplete">Echu eo an tournamant</string>
   <string name="movesPlayed">Niver a fiñvadennoù</string>
@@ -531,6 +533,7 @@
   <string name="difficultyHard">Diaes</string>
   <string name="xAskedY">%1$s en deus/he deus goulennet %2$s</string>
   <string name="victory">Trec\'h</string>
+  <string name="defeat">Lamm</string>
   <string name="victoryVsYInZ">%1$s a-enep %2$s e %3$s</string>
   <string name="defeatVsYInZ">%1$s a-enep %2$s e %3$s</string>
   <string name="drawVsYInZ">%1$s a-enep %2$s e %3$s</string>
@@ -554,6 +557,8 @@
   <string name="unauthorizedError">Tremen berzet.</string>
   <string name="noInternetConnection">Internet ebet. Gallout a rit c\'hoari hep bezañ kevreet, kit da welet el lañser.</string>
   <string name="connectedToLichess">Kevreet oc\'h ouzh lichess.org</string>
+  <string name="signedOut">Digevreet oc\'h bet</string>
+  <string name="loginSuccessful">Kevreet oc\'h</string>
   <string name="playOfflineComputer">Urzhiataer</string>
   <string name="opponent">Enebour</string>
   <string name="learnMenu">Deskiñ</string>
@@ -594,6 +599,7 @@
   <string name="hostColorX">Liv an ostiz: %s</string>
   <string name="create">Krouiñ</string>
   <string name="lichessTournaments">Tournamantoù Lichess</string>
+  <string name="tournamentFAQ">FAG aren an tournamant</string>
   <string name="tournamentOfficial">Ofisiel</string>
   <string name="timeBeforeTournamentStarts">Ar pezh a chom a-raok ma krogfe an tournamant</string>
   <string name="keyboardShortcuts">Berradennoù an douchennaoueg</string>
@@ -601,13 +607,17 @@
   <string name="tournamentNotFound">N\'eo ket bet kavet an tournamant</string>
   <string name="tournamentDoesNotExist">N\'eus ket diouzh an tournamant-mañ.</string>
   <string name="returnToTournamentsHomepage">Distreiñ da lañser an tournamantoù</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Barrekoc\'h oc\'h evit %1$s eus ar c\'hoarierien %2$s.</string>
   <string name="yourRating">Ho live</string>
+  <string name="glicko2Rating">Renkadur Glicko-2</string>
   <string name="checkYourEmail">Gwiriañ ar posteloù</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Kaset zo bet ur postel deoc\'h. Klikit war al liamm er postel evit gweredekaat ho kont.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ma ne zeuit ket a-benn gwelet ar postel-mañ, klaskit e lec\'hioù all evel ar boubellenn, ar stroboù pe teuliadoù all c\'hoazh.</string>
   <string name="weHaveSentYouAnEmailTo">Kaset hon eus ur postel da %s. Klikit war al liamm er postel evit cheñch ho ker-tremen.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">En ur lakaat hoc\'h anv e asantit d\'hor %s.</string>
   <string name="downloadImported">Enkargañ enporzhiet</string>
   <string name="printFriendlyPDF">PDF da voullañ</string>
+  <string name="crosstable">Roll-istor ar c\'hrogadoù</string>
   <string name="letOtherPlayersMessageYou">Aotreañ ar c\'hoarierien da gas kemennadennoù deoc\'h</string>
   <string name="withNobody">Gant den ebet</string>
   <string name="withFriends">Gant ma mignoned</string>
