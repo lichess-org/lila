@@ -19,14 +19,14 @@
   <string name="black">Чорні</string>
   <string name="randomColor">Випадковий колір</string>
   <string name="createAGame">Створи гру</string>
-  <string name="whiteIsVictorious">Перемога білих</string>
+  <string name="whiteIsVictorious">Білі перемогли</string>
   <string name="blackIsVictorious">Перемога чорних</string>
-  <string name="youPlayTheWhitePieces">Граєте білими постатями</string>
-  <string name="youPlayTheBlackPieces">Граєте чорними постатями</string>
+  <string name="youPlayTheWhitePieces">Граєш білими постатями</string>
+  <string name="youPlayTheBlackPieces">Граєш чорними постатями</string>
   <string name="itsYourTurn">Твій хід!</string>
   <string name="kingInTheCenter">Король в осередку</string>
   <string name="threeChecks">Три шахи</string>
-  <string name="raceFinished">Перегони завершено</string>
+  <string name="raceFinished">Перегони завершені</string>
   <string name="variantEnding">Инак завершено</string>
   <string name="newOpponent">Новий суперник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ваш суперник знову хоче з вами зіграти</string>
@@ -551,7 +551,7 @@
   <string name="autoSwitch">Самозміна</string>
   <string name="puzzles">Задачі</string>
   <string name="latestUpdates">Останні онови</string>
-  <string name="tournamentWinners">Переможці змагу</string>
+  <string name="tournamentWinners">Переможці турнірів</string>
   <string name="name">Назва</string>
   <string name="description">Опис</string>
   <string name="no">Ні</string>
@@ -661,7 +661,7 @@
   <string name="allowAnalytics">Дозволь безіменні обліки</string>
   <string name="shareGameURL">Шир URL гри</string>
   <string name="error.required">Обовʼязкове поле</string>
-  <string name="error.email">Недійсна ел. скриня</string>
+  <string name="error.email">Ця адреса email помилкова</string>
   <string name="error.email_acceptable">Ця ел. скриня неприйнятна.</string>
   <string name="error.email_unique">Ця ел. скриня вже занята</string>
   <string name="error.email_different">Поточна ел. скриня</string>
@@ -716,7 +716,7 @@
   <string name="tournamentOfficial">Затверджені</string>
   <string name="timeBeforeTournamentStarts">Час до початку змагу</string>
   <string name="averageCentipawnLoss">Середня втрата сотих пішок</string>
-  <string name="keyboardShortcuts">Сполука клавіш</string>
+  <string name="keyboardShortcuts">Поєднання клавіш</string>
   <string name="keyMoveBackwardOrForward">хід назад/вперед</string>
   <string name="keyGoToStartOrEnd">перейти до початку/кінця</string>
   <string name="keyShowOrHideComments">Показати/приховати коментарі</string>
