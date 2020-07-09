@@ -624,6 +624,7 @@
   <string name="tournamentOfficial">Ofisiel</string>
   <string name="timeBeforeTournamentStarts">Ar pezh a chom a-raok ma krogfe an tournamant</string>
   <string name="keyboardShortcuts">Berradennoù an douchennaoueg</string>
+  <string name="keyGoToStartOrEnd">mont d\'an deroù/d\'ar fin</string>
   <string name="keyShowOrHideComments">diskouez/skoachañ an evezhiadennoù</string>
   <string name="newTournament">Tournamant nevez</string>
   <string name="tournamentNotFound">N\'eo ket bet kavet an tournamant</string>
