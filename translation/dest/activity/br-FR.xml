@@ -7,6 +7,13 @@
     <item quantity="many">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
     <item quantity="other">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Dirouestlet he/en deus %s boelladenn strategiezh</item>
+    <item quantity="two">Dirouestlet he/en deus %s boelladenn strategiezh</item>
+    <item quantity="few">Dirouestlet he/en deus %s poelladenn strategiezh</item>
+    <item quantity="many">Dirouestlet he/en deus %s poelladenn strategiezh</item>
+    <item quantity="other">Dirouestlet he/en deus %s poelladenn strategiezh</item>
+  </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">%1$s c\'hrogad %2$s c\'hoariet</item>
     <item quantity="two">%1$s grogad %2$s c\'hoariet</item>
