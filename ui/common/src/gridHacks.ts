@@ -23,13 +23,15 @@ let lastMainBoardHeight: number | undefined;
 
 // Firefox 60- needs this to properly compute the grid layout.
 export function fixMainBoardHeight(container: HTMLElement): void {
-  const mainBoard = container.querySelector('.main-board') as HTMLElement,
-    width = mainBoard.offsetWidth;
-  if (lastMainBoardHeight != width) {
-    lastMainBoardHeight = width;
-    mainBoard.style.height = width + 'px';
-    (mainBoard.querySelector('.cg-wrap') as HTMLElement).style.height = width + 'px';
-    window.lichess.dispatchEvent(document.body, 'chessground.resize');
+  const mainBoard = container.querySelector('.main-board') as HTMLElement;
+  if (mainBoard) {
+    const width = mainBoard.offsetWidth;
+    if (lastMainBoardHeight != width) {
+      lastMainBoardHeight = width;
+      mainBoard.style.height = width + 'px';
+      (mainBoard.querySelector('.cg-wrap') as HTMLElement).style.height = width + 'px';
+      window.lichess.dispatchEvent(document.body, 'chessground.resize');
+    }
   }
 }
 
