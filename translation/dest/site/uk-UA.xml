@@ -93,8 +93,8 @@
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Наступне захоплення або хід пішаком в %s ході сторін (Дистанція до 50-го ходу)</item>
-    <item quantity="few">Наступне взяття чи хід пішаком у %s полуходів (до обнулення лічильника 50 ходів)</item>
-    <item quantity="many">Наступне взяття чи хід пішаком у %s полуходів (до обнулення лічильника 50 ходів)</item>
+    <item quantity="few">Наступне захоплення або хід пішаком в %s ходах сторін (Дистанція до 50-го ходу)</item>
+    <item quantity="many">Наступне захоплення або хід пішаком в %s ході сторін (Дистанція до 50-го ходу)</item>
     <item quantity="other">Наступне взяття чи хід пішаком у %s полуходів (до обнулення лічильника 50 ходів)</item>
   </plurals>
   <string name="noGameFound">Не знайдено гри</string>
@@ -140,7 +140,7 @@
   <string name="currentGames">Поточні ігри</string>
   <plurals name="nbGames">
     <item quantity="one">%s гра</item>
-    <item quantity="few">%s ігри</item>
+    <item quantity="few">%s гри</item>
     <item quantity="many">%s ігор</item>
     <item quantity="other">%s ігор</item>
   </plurals>
