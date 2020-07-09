@@ -58,7 +58,7 @@
   <string name="analysis">Аналіз за дошкою</string>
   <string name="depthX">Глибина %s</string>
   <string name="usingServerAnalysis">Розбір від серверу</string>
-  <string name="loadingEngine">Вантаження долада...</string>
+  <string name="loadingEngine">Готування рушія...</string>
   <string name="cloudAnalysis">Хмарний аналіз</string>
   <string name="goDeeper">Ще глибше</string>
   <string name="showThreat">Показати загрозу</string>
@@ -117,9 +117,9 @@
   <string name="multipleLines">Число способів</string>
   <string name="cpus">Процесори</string>
   <string name="memory">Памʼять</string>
-  <string name="infiniteAnalysis">Безмежний розбір</string>
+  <string name="infiniteAnalysis">Нескінченний аналіз</string>
   <string name="removesTheDepthLimit">Усує межу глибини і грiє твого обчислювача</string>
-  <string name="blunder">Прогріх</string>
+  <string name="blunder">Груба помилка</string>
   <string name="blunders">Прогріхи</string>
   <string name="mistake">Помилка</string>
   <string name="mistakes">Помилки</string>
@@ -129,7 +129,7 @@
   <string name="flipBoard">Переверни дошку</string>
   <string name="threefoldRepetition">Трикратний повтір</string>
   <string name="claimADraw">Заяви нічию</string>
-  <string name="offerDraw">Подай нічию</string>
+  <string name="offerDraw">Запропонувати нічию</string>
   <string name="draw">Нічия</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s гравець</item>
@@ -215,7 +215,7 @@
   </plurals>
   <string name="gamesPlayed">Ігор зіграно</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s гра з тобою</item>
+    <item quantity="one">%s партія з вами</item>
     <item quantity="few">%s ігри з тобою</item>
     <item quantity="many">%s ігор з тобою</item>
     <item quantity="other">%s ігор з тобою</item>
@@ -351,10 +351,10 @@
     <item quantity="other">≥ %1$s %2$s щабельних ігор</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Маєш зіграти ще %1$s щабельну гру в %2$s</item>
-    <item quantity="few">Маєш зіграти ще %1$s щабельні ігри в %2$s</item>
-    <item quantity="many">Маєш зіграти ще %1$s щабельних ігор в %2$s</item>
-    <item quantity="other">Маєш зіграти ще %1$s щабельних ігрор в %2$s</item>
+    <item quantity="one">Ви маєте зіграти ще %1$s рейтингову гру в %2$s</item>
+    <item quantity="few">Ви маєте зіграти ще %1$s рейтингових ігри в %2$s</item>
+    <item quantity="many">Ви маєте зіграти ще %1$s рейтингових ігор в %2$s</item>
+    <item quantity="other">Ви маєте зіграти ще %1$s рейтингових ігор в %2$s</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Маєш зіграти ще %s щабельну гру</item>
