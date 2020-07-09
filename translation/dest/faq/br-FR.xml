@@ -12,6 +12,10 @@
   <string name="areThereWebsitesBasedOnLichess">Ha lec\'hiennoù all zo diazezet war Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Hag ez eus. Awenet eo bet lec\'hiennoù all digor o mammenn hag ober a reont gant hor %1$s, %2$s, or %3$s.</string>
   <string name="fairPlay">Fair Play</string>
+  <string name="preventLeavingGameWithoutResigning">Petra a vez graet deus ar re a guit ar c\'hrogad hep dilezel?</string>
+  <string name="howCanIBecomeModerator">Penaos e c\'hallan ober evit bezañ habaskaer?</string>
+  <string name="youCannotApply">Ne c\'hallit ket goulenn bezañ habaskaer. Ni a yay e darempred gant unan bennak a seblantfe deomp bezañ danvez habaskaer anezhañ.</string>
+  <string name="isCorrespondenceDifferent">Disheñvel eo an doare \"a-bell\" da c\'hoari diouzh ar re all?</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="officialRulesPDF">reolennoù ofisiel (PDF)</string>
