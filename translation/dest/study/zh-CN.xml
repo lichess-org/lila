@@ -62,8 +62,12 @@
   <string name="broadcastUrl">直播链接</string>
   <string name="currentChapterUrl">当前章节链接</string>
   <string name="currentGameUrl">当前棋局链接</string>
+  <string name="youCanPasteThisInTheForumToEmbed">您可以将此粘贴到论坛以嵌入章节</string>
   <string name="startAtInitialPosition">从初始局面开始</string>
   <string name="startAtX">从 %s 开始</string>
+  <string name="embedInYourWebsite">嵌入到您的网站上</string>
+  <string name="readMoreAboutEmbedding">阅读更多关于嵌入的信息</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">只能嵌入隐私设置为公开的研究！</string>
   <string name="open">打开</string>
   <string name="xBroughtToYouByY">%1$s 由 %2$s 提供</string>
   <string name="studyNotFound">找不到研究</string>
