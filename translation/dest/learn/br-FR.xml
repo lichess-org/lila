@@ -63,7 +63,14 @@ Ha difennit ho re.</string>
   <string name="captureComplete">Gourc\'hemennoù! Goût a rit bremañ penaos en em zipatouilh gant pezhioù echedoù!</string>
   <string name="protection">Difenn</string>
   <string name="keepYourPiecesSafe">Difennit mat ho pezhioù</string>
+  <string name="protectionIntro">Merzhit peseurt pezhioù n\'int ket difennet ganeoc\'h ha grit ar pezh a zo ret evit o difenn!</string>
+  <string name="protectionComplete">Gourc\'hemennoù! Ur pezh a n\'eo ket kollet anezhañ a dalv kement hag ur pezh gounezet!</string>
+  <string name="escape">Taget oc\'h!
+Achapit kuit!</string>
+  <string name="noEscape">Ne c\'hallit ket achap kuit met ho tifenn e tleit!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Arabat leuskel anezhe tapout ur pezh ha n\'eo ket difennet!</string>
   <string name="combat">Emgann</string>
+  <string name="captureAndDefendPieces">Pakañ ha difenn pezhioù</string>
   <string name="combatIntro">Ur brezelour mat zo gouest da dagañ ha da zifenn!</string>
   <string name="combatComplete">Gourc\'hemennoù! Goût a rit bremañ penaos en em zipatouilh gant pezhioù echedoù!</string>
   <string name="checkInOne">Bec\'h d\'ar roue gant ur fiñvadenn</string>
@@ -71,9 +78,14 @@ Ha difennit ho re.</string>
   <string name="checkInOneIntro">Evit ober bec\'h d\'ar roue enebour, tagit anezhañ. Ret eo dezhe e zifenn!</string>
   <string name="checkInOneGoal">Klaskit pakañ roue hoc\'h enebour gant ur fiñvadenn nemetken!</string>
   <string name="checkInOneComplete">Gourc\'hemennoù! Graet ho peus bec\'h d\'ar roue hoc\'h enebour ha rediet anezhe da zifenn o roue!</string>
+  <string name="outOfCheck">En em zizober deus bec\'h ar roue</string>
   <string name="defendYourKing">Difennit ho roue</string>
+  <string name="outOfCheckIntro">Bec\'h d\'ho roue! Ret eo deoc\'h achap kuit pe en em zifenn mod pe vod.</string>
   <string name="escapeWithTheKing">Achap kuit gant ar roue!</string>
   <string name="theKingCannotEscapeButBlock">Ne c\'hall ket ar roue achap kuit met gallout a rit stankañ an dagadenn!</string>
+  <string name="youCanGetOutOfCheckByTaking">Gallout a rit saveteiñ ho roue en ur bakañ an hini a dag ac\'hanoc\'h.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Kat eo ar marc\'heg d\'ho tagañ dreist ar pezhioù a zifenn ho roue!</string>
+  <string name="escapeOrBlock">Achapit gant ar roue pe difennit anezhañ!</string>
   <string name="mateInOne">Lamm d\'ar roue gant ur fiñvadenn</string>
   <string name="defeatTheOpponentsKing">Bezit trec\'h war roue hoc\'h enebour</string>
   <string name="mateInOneIntro">Trec\'h e veoc\'h pa ne c\'hallo ket hoc\'h enebour difenn a-enep ur bec\'h d\'ar roue.</string>
