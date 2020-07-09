@@ -438,6 +438,7 @@
   <string name="lastName">Mbiemri</string>
   <string name="biography">Biografia</string>
   <string name="country">Shteti</string>
+  <string name="socialMediaLinks">Lidhjet me llogaritë e mediat sociale</string>
   <string name="inlineNotation">Shenimet ne rresht</string>
   <string name="watchLichessTV">Shiko Lichess TV</string>
   <string name="previouslyOnLichessTV">Herën e fundit në Lichess TV</string>
@@ -463,6 +464,7 @@
   <string name="pleaseVotePuzzle">Ndihmo lichess të përmirësohet duke votuar, me shigjetat poshtë ose lartë:</string>
   <string name="thankYou">Faleminderit!</string>
   <string name="ratingX">Vlerësimi: %s</string>
+  <string name="hidden">i fshehur</string>
   <plurals name="playedXTimes">
     <item quantity="one">Luajtur %s herë</item>
     <item quantity="other">Luajtur %s herë</item>
@@ -505,6 +507,7 @@
   <string name="troll">Tallje</string>
   <string name="other">Tjetër</string>
   <string name="reportDescriptionHelp">Ngjit lidhjen e lojës dhe shpjego çfarë nuk shkon me sjelljen e këtij përdoruesi. Mos shkruaj thjesht \"mashtroi\", por na thuaj si arrite në këtë përfundim. Raportimi juaj do të përpunohet më shpejt nëse shkruhet në gjuhën angleze.</string>
+  <string name="error.provideOneCheatedGameLink">Të lutem siguro të japësh një lidhje për një lojë të mashtruar.</string>
   <string name="by">nga %s</string>
   <string name="thisTopicIsNowClosed">Kjo temë është e mbyllur tani.</string>
   <string name="theming">Veshja</string>
@@ -519,6 +522,8 @@
   <string name="currentPassword">Fjalëkalimi i tanishëm</string>
   <string name="newPassword">Fjalëkalimi i ri</string>
   <string name="newPasswordAgain">Fjalëkalimi i ri (përsëri)</string>
+  <string name="clockInitialTime">Koha fillestare e orës</string>
+  <string name="clockIncrement">Rritja e orës</string>
   <string name="privacy">Privatësia</string>
   <string name="letOtherPlayersFollowYou">Lejo lojtarët e tjerë të të ndjekin.</string>
   <string name="letOtherPlayersChallengeYou">Lejo lojtarë të tjerë të të sfidojnë</string>
@@ -542,6 +547,9 @@
   <string name="xCommentedY">s%1$s komentoi %2$s</string>
   <string name="victory">Fitore</string>
   <string name="defeat">Humbje</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s në %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s në %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s në %3$s</string>
   <string name="timeline">Vija kohore</string>
   <string name="starting">Fillon:</string>
   <string name="allInformationIsPublicAndOptional">Të gjitha informacionet janë publike dhe jo të detyrueshme</string>
@@ -569,6 +577,8 @@
   <string name="playOfflineComputer">Luaj me kompjuterin</string>
   <string name="opponent">Kundërshtari</string>
   <string name="learnMenu">Mëso</string>
+  <string name="studyMenu">Studim</string>
+  <string name="practice">Praktike</string>
   <string name="community">Komuniteti</string>
   <string name="tools">Vegla</string>
   <string name="increment">Shtesa</string>
@@ -597,9 +607,13 @@
   <string name="tpTimeSpentOnTV">Koha në TV: %s</string>
   <string name="watch">Shiko</string>
   <string name="videoLibrary">Videoteka</string>
+  <string name="streamersMenu">Streamerit</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Info</string>
+  <string name="aboutX">Përreth %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s është një falas (%2$s), falas, pa reklama, server shahu me burim i hapur.</string>
+  <string name="really">për vërtetë</string>
   <string name="contribute">Ndihmo</string>
   <string name="termsOfService">Kushtet e përdorimit</string>
   <string name="sourceCode">Source Code</string>
@@ -646,7 +660,11 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Vlerësimi juaj në %1$s është %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ju jeni më mirë se  %1$s e lojtarëve në  %2$s</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ështe më mire sa %2$s nga %3$s lojtarë.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ju nuk keni një vlerësim të caktuar në %s.</string>
+  <string name="yourRating">Grada tënd</string>
+  <string name="cumulative">Gjithsej</string>
+  <string name="glicko2Rating">Vlerësim Glicko-2</string>
   <string name="checkYourEmail">Kontrolloni postën elektronike</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ju kemi dërguar një e-letër. Kontrolloni postën tuaj elektronike.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nëse nuk e shini letrën elektronike, kontrolloni në vendet e tjera ku mund të jetë, si junk, spam, social ose dosje të tjera.</string>
@@ -696,6 +714,7 @@
   <string name="xHostsY">%1$s mirepret %2$s</string>
   <string name="xJoinsY">%1$s i bashkohet %2$s</string>
   <string name="xLikesY">%1$s pelqen %2$s</string>
+  <string name="xCreatesStudyY">%1$s krijon studim %2$s</string>
   <string name="quickPairing">Çiftim i shpejte</string>
   <string name="lobby">Holli</string>
   <string name="anonymous">Anonim</string>
