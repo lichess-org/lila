@@ -334,8 +334,31 @@
     <item quantity="many">≥ %s c\'hoari renket</item>
     <item quantity="other">≥ %s c\'hoari renket</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s c\'hoari %2$s renket</item>
+    <item quantity="two">≥ %1$s c\'hoari %2$s renket</item>
+    <item quantity="few">≥ %1$s c\'hoari %2$s renket</item>
+    <item quantity="many">≥ %1$s c\'hoari %2$s renket</item>
+    <item quantity="other">≥ %1$s c\'hoari %2$s renket</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Ret eo deoc\'h kemer perzh en %1$s c\'hrogad %2$s renket ouzhpenn</item>
+    <item quantity="two">Ret eo deoc\'h kemer perzh e %1$s grogad %2$s renket ouzhpenn</item>
+    <item quantity="few">Ret eo deoc\'h kemer perzh e %1$s krogad %2$s renket ouzhpenn</item>
+    <item quantity="many">Ret eo deoc\'h kemer perzh e %1$s krogad %2$s renket ouzhpenn</item>
+    <item quantity="other">Ret eo deoc\'h kemer perzh e %1$s krogad %2$s renket ouzhpenn</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Ret eo deoc\'h kemer perzh en %s c\'hrogad renket ouzhpenn</item>
+    <item quantity="two">Ret eo deoc\'h kemer perzh e %s grogad renket ouzhpenn</item>
+    <item quantity="few">Ret eo deoc\'h kemer perzh e %s krogad renket ouzhpenn</item>
+    <item quantity="many">Ret eo deoc\'h kemer perzh e %s krogad renket ouzhpenn</item>
+    <item quantity="other">Ret eo deoc\'h kemer perzh e %s krogad renket ouzhpenn</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Da c\'hortoz eo ho renkadur %s</string>
   <string name="yourPerfRatingIsTooHigh">Re uhel eo ho renkadur %1$s (%2$s)</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Re uhel eo ho renkadur gwellañ e %1$s (%2$s)</string>
+  <string name="yourPerfRatingIsTooLow">Re izel eo ho renkadur e %1$s (%2$s)</string>
   <string name="ratedMoreThanInPerf">Renket ≥ %1$s e %2$s</string>
   <string name="ratedLessThanInPerf">Renket ≤ %1$s e %2$s</string>
   <string name="mustBeInTeam">A rank bezañ e skipailh %s</string>
@@ -662,6 +685,7 @@
   <string name="builtForTheLoveOfChessNotMoney">Krouiñ evit an echedoù ha n\'eo ket evit an arc\'hant</string>
   <string name="zeroAdvertisement">Tamm bruderezh ebet</string>
   <string name="phoneAndTablet">Pellgomzer ha tabletenn</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, klasel</string>
   <string name="onlineAndOfflinePlay">C\'hoari enlinenn pe get</string>
   <string name="viewTheSolution">Gwelet ar respont</string>
   <string name="followAndChallengeFriends">Heuliañ ha c\'hoari a-enep mignoned</string>
