@@ -171,6 +171,8 @@
   <string name="username">Emri i përdoruesit</string>
   <string name="usernameOrEmail">Emri i përdoruesit ose email</string>
   <string name="changeUsername">Ndrysho emrin</string>
+  <string name="changeUsernameNotSame">Vetëm mund të ndryshojët në çofse shkronjat janë kapitale ose të vogëla. Për shembull \"lorikhoxha\" të \"LorikHoxha\".</string>
+  <string name="changeUsernameDescription">Ndrysho emërin. Kjo mund të bëhet vetëm një herë edhe vetëm mundësh të ndryshosh në çofse shkronjat janë kapitale ose të vogëla në emërin tënd.</string>
   <string name="password">Fjalëkalimi</string>
   <string name="changePassword">Ndrysho fjalëkalimin</string>
   <string name="changeEmail">Ndrysho emailin</string>
