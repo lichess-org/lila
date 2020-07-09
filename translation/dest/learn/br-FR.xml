@@ -86,6 +86,7 @@ Achapit kuit!</string>
   <string name="youCanGetOutOfCheckByTaking">Gallout a rit saveteiñ ho roue en ur bakañ an hini a dag ac\'hanoc\'h.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Kat eo ar marc\'heg d\'ho tagañ dreist ar pezhioù a zifenn ho roue!</string>
   <string name="escapeOrBlock">Achapit gant ar roue pe difennit anezhañ!</string>
+  <string name="outOfCheckComplete">Gourc\'hemennoù! Saveteet ho peus ho roue, bezit sur e c\'hallit e zifenn a-enep ur bec\'h d\'ar roue!</string>
   <string name="mateInOne">Lamm d\'ar roue gant ur fiñvadenn</string>
   <string name="defeatTheOpponentsKing">Bezit trec\'h war roue hoc\'h enebour</string>
   <string name="mateInOneIntro">Trec\'h e veoc\'h pa ne c\'hallo ket hoc\'h enebour difenn a-enep ur bec\'h d\'ar roue.</string>
@@ -136,14 +137,16 @@ Ret eo en em zizober diouzh an dagadenn a-raok rokañ!</string>
   <string name="theSpecialPawnMove">Fiñvadenn ispisial ar pezh gwerin</string>
   <string name="enPassantIntro">Pa vez pezh gwerin hoc\'h enebour o vont war-raok deus div garrezenn e c\'hallit e zebriñ evel pa en dije graet ur fiñvadenn ur garrezenn hepken.</string>
   <string name="blackJustMovedThePawnByTwoSquares">O paouez ober ur fiñvadenn div garrezenn emañ ar re zu!
-Debrit \"en ur dremen\" (en passant).</string>
-  <string name="enPassantOnlyWorksImmediately">Ne c\'hallit debriñ \"en ur dremen\" (en passant) pa vez hoc\'h enebour o paouez c\'hoari ar pezh gwerin.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Ne c\'hallit debriñ \"en ur dremen\" (en passant) ma n\'emañ ket ho pezh gwerin war ar pempvet linenn.</string>
+Debrit \"en ur dremen\".</string>
+  <string name="enPassantOnlyWorksImmediately">Ne c\'hallit debriñ \"en ur dremen\" pa vez hoc\'h enebour o paouez c\'hoari ar pezh gwerin.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Ne c\'hallit debriñ \"en ur dremen\" ma n\'emañ ket ho pezh gwerin war ar pempvet linenn.</string>
+  <string name="takeAllThePawnsEnPassant">Pakit an holl bezhioù en ur dremen!</string>
   <string name="enPassantComplete">Gourc\'hemennoù! Gallout a rit debriñ en ur dremen bremañ.</string>
   <string name="stalemate">Rampo</string>
   <string name="theGameIsADraw">Rampo oc\'h</string>
   <string name="stalemateComplete">Gourc\'hemennoù! Gwelloc\'h eo bezañ rampo evit koll!</string>
   <string name="pieceValue">Talvoudegezh ar pezhioù</string>
+  <string name="evaluatePieceStrength">Priziañ talvoudegezh ar pezhioù</string>
   <string name="pieceValueIntro">Ar pezhioù gouest da fiñval ar muiañ o deus ar muiañ a dalvoudegezh!
 Rouanez = 9
 Tour = 5
@@ -162,10 +165,17 @@ Tour = 5
 Furlukin = 3
 Marc\'heg = 3
 Pezh gwerin = 1</string>
+  <string name="checkInTwo">Bech d\'ar roue goude div fiñvadenn</string>
+  <string name="twoMovesToGiveCheck">Div fiñvadenn d\'ober bec\'h d\'ar roue</string>
+  <string name="checkInTwoIntro">Kavit an div fiñvadenn ret evit ober bec\'h d\'ar roue!</string>
+  <string name="checkInTwoGoal">Tizhit roue hoc\'h enebour gant div fiñvadenn!</string>
+  <string name="checkInTwoComplete">Gourc\'hemennoù! Graet ho peus bec\'h d\'ar roue all ha rediet ho peus anezhe d\'e zifenn!</string>
   <string name="whatNext">Ha bremañ?</string>
   <string name="youKnowHowToPlayChess">Gourc\'hemennoù! Gouzout a rit penaos c\'hoari echedoù! Plijout a rafe deoc\'h bezañ barrekoc\'h?</string>
+  <string name="register">Kevreañ</string>
   <string name="getAFreeLichessAccount">Kaout ur gont Lichess digoust</string>
   <string name="practice">Pleustriñ</string>
+  <string name="learnCommonChessPositions">Deskiñ plas pep pezh echedoù</string>
   <string name="puzzles">Poelladennoù</string>
   <string name="exerciseYourTacticalSkills">Pleustrit war ho parregezhioù taktik</string>
   <string name="videos">Videoioù</string>
