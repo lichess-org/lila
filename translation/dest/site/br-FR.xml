@@ -82,12 +82,19 @@
   <string name="unknown">Dianav</string>
   <string name="database">Stlennvon</string>
   <string name="whiteDrawBlack">Gwenn / Rampo / Du</string>
+  <string name="averageRatingX">Renkadur keitat: %s</string>
   <string name="recentGames">Krogadoù diwezhañ</string>
   <string name="topGames">Krogadoù eus ar c\'hentañ</string>
+  <string name="masterDbExplanation">Daou vilion c\'hoari %1$s + FIDE gant c\'hoarerien etre %2$s ha %3$s</string>
   <string name="noGameFound">C\'hoariadenn ebet</string>
+  <string name="openingExplorer">Lañser an digoradurioù</string>
+  <string name="xOpeningExplorer">Lañser digoradurioù %s</string>
   <string name="allSet">Prest eo!</string>
+  <string name="importPgn">Enporzhiañ PGN</string>
   <string name="delete">Dilemel</string>
   <string name="deleteThisImportedGame">Dilemel ar c\'hoari enporzhiet-mañ?</string>
+  <string name="replayMode">Gwelet en-dro ar pezh a zo c\'hoarvezet</string>
+  <string name="realtimeReplay">Amzer wirion</string>
   <string name="byCPL">Dre CPL</string>
   <string name="openStudy">Digeriñ ar studi</string>
   <string name="enable">Enaouiñ</string>
@@ -103,6 +110,7 @@
   <string name="mistakes">Fazioù</string>
   <string name="inaccuracy">Diresisted</string>
   <string name="inaccuracies">Diresistedoù</string>
+  <string name="moveTimes">Amzer dre fiñvadenn</string>
   <string name="flipBoard">Cheñch tu an dablez c\'hoari</string>
   <string name="threefoldRepetition">Teir gwech ar memestra</string>
   <string name="claimADraw">Bezañ rampo</string>
@@ -151,6 +159,7 @@
   <string name="timeControl">Merañ an amzer</string>
   <string name="realTime">Amzer gwirion</string>
   <string name="correspondence">Dre lizher</string>
+  <string name="daysPerTurn">Deizioù dre fiñvadenn</string>
   <string name="oneDay">Un devezh</string>
   <plurals name="nbDays">
     <item quantity="one">%s deiz</item>
@@ -172,6 +181,7 @@
   <string name="username">Anv implijer</string>
   <string name="usernameOrEmail">Anv implijer pe chomlec\'h postel</string>
   <string name="changeUsername">Cheñch anv implijer</string>
+  <string name="changeUsernameNotSame">Ment al lizherennoù a c\'hall cheñch hepken. Lakaomp \"yannc\'hoarier\" a ya da \"YannC\'hoarier\".</string>
   <string name="changeUsernameDescription">Cheñchit hoc\'h anv impllijer. Gallout a rit hen ober ur wech hepken ha ne c\'hallit kemm nemet ment al lizherennoù.</string>
   <string name="password">Ger-tremen</string>
   <string name="changePassword">Kemm ar ger-tremen</string>
@@ -181,6 +191,13 @@
   <string name="forgotPassword">Disoñjet hoc\'h eus ho ker-tremen?</string>
   <string name="rank">Renk</string>
   <string name="rankX">Renk: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Bep munutenn e vez hizivaet ar renkadur</item>
+    <item quantity="two">Bep %s vunutenn e vez hizivaet ar renkadur</item>
+    <item quantity="few">Bep %s munutenn e vez hizivaet ar renkadur</item>
+    <item quantity="many">Bep %s munutenn e vez hizivaet ar renkadur</item>
+    <item quantity="other">Bep %s munutenn e vez hizivaet ar renkadur</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s poelladenn</item>
     <item quantity="two">%s boelladenn</item>
@@ -189,11 +206,24 @@
     <item quantity="other">%s poelladennoù</item>
   </plurals>
   <string name="gamesPlayed">Krogadoù c\'hoariet</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s c\'hrogad a-enep deoc\'h</item>
+    <item quantity="two">%s grogad a-enep deoc\'h</item>
+    <item quantity="few">%s krogad a-enep deoc\'h</item>
+    <item quantity="many">%s krogad a-enep deoc\'h</item>
+    <item quantity="other">%s krogad a-enep deoc\'h</item>
+  </plurals>
   <string name="cancel">Nullañ</string>
+  <string name="timeOut">Eilenn ebet ken</string>
   <string name="drawOfferSent">Kinnig rampo kaset</string>
   <string name="drawOfferDeclined">Kinnig rampo nac\'het</string>
   <string name="drawOfferAccepted">Kinnig rampo asantet</string>
   <string name="drawOfferCanceled">Kinnig rampo nullet</string>
+  <string name="whiteOffersDraw">Ar re wenn a ginnig bezañ rampo</string>
+  <string name="blackOffersDraw">Ar re zu a ginnig bezañ rampo</string>
+  <string name="whiteDeclinesDraw">Ar re wenn a nac\'h bezañ rampo</string>
+  <string name="blackDeclinesDraw">Ar re zu a nac\'h bezañ rampo</string>
+  <string name="yourOpponentOffersADraw">Hoc\'h enebour a ginnig deoc\'h bezañ rampo</string>
   <string name="accept">Asantiñ</string>
   <string name="decline">Nac\'hañ</string>
   <string name="playingRightNow">O c\'hoari bremañ</string>
@@ -205,7 +235,9 @@
   <string name="standard">Normal</string>
   <string name="unlimited">Didermen</string>
   <string name="mode">Mod</string>
+  <string name="casual">Krogad a vignoniezh</string>
   <string name="rated">Renket</string>
+  <string name="casualTournament">A vignoniezh</string>
   <string name="ratedTournament">Renket</string>
   <string name="thisGameIsRated">Renket eo ar c\'hoariadenn-mañ</string>
   <string name="rematch">C\'hoari en-dro</string>
@@ -229,6 +261,7 @@
   <string name="subject">Danvez</string>
   <string name="recipient">Degemerer</string>
   <string name="send">Kas</string>
+  <string name="incrementInSeconds">Inkremant e eilennoù</string>
   <string name="freeOnlineChess">C\'hoari echedoù enlinenn digoust</string>
   <string name="spectators">Arvesterien:</string>
   <plurals name="nbRated">
@@ -238,7 +271,29 @@
     <item quantity="many">%s c\'hoari renket</item>
     <item quantity="other">%s c\'hoari renket</item>
   </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s c\'holl</item>
+    <item quantity="two">%s goll</item>
+    <item quantity="few">%s koll</item>
+    <item quantity="many">%s koll</item>
+    <item quantity="other">%s koll</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s rampo</item>
+    <item quantity="two">%s rampo</item>
+    <item quantity="few">%s rampo</item>
+    <item quantity="many">%s rampo</item>
+    <item quantity="other">%s rampo</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s o c\'hoari</item>
+    <item quantity="two">%s o c\'hoari</item>
+    <item quantity="few">%s o c\'hoari</item>
+    <item quantity="many">%s o c\'hoari</item>
+    <item quantity="other">%s o c\'hoari</item>
+  </plurals>
   <string name="exportGames">Ezporzhiañ krogadoù</string>
+  <string name="ratingRange">Renkadur hoc\'h enebourien</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Reiñ %s eilenn</item>
     <item quantity="two">Reiñ %s eilenn</item>
@@ -246,7 +301,12 @@
     <item quantity="many">Reiñ %s eilennoù</item>
     <item quantity="other">Reiñ %s eilennoù</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Perc\'henner ar gont-mañ en deus ket doujet ouzh Reolennoù Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
+  <string name="takeback">Nullañ ar fiñvadenn ziwezhañ</string>
+  <string name="proposeATakeback">Kinnig nullañ ar fiñvadenn ziwezhañ</string>
+  <string name="takebackPropositionSent">Kaset eo bet ar c\'hinnig nullañ ar fiñvadenn ziwezhañ</string>
+  <string name="bookmarkThisGame">Miret ar c\'hrogad-mañ er roll-istor</string>
   <string name="tournament">Tournamant</string>
   <string name="tournaments">Tournamantoù</string>
   <string name="tournamentPoints">Poentoù tournamant</string>
@@ -274,10 +334,18 @@
     <item quantity="many">≥ %s c\'hoari renket</item>
     <item quantity="other">≥ %s c\'hoari renket</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">Da c\'hortoz eo ho renkadur %s</string>
+  <string name="yourPerfRatingIsTooHigh">Re uhel eo ho renkadur %1$s (%2$s)</string>
+  <string name="ratedMoreThanInPerf">Renket ≥ %1$s e %2$s</string>
+  <string name="ratedLessThanInPerf">Renket ≤ %1$s e %2$s</string>
   <string name="mustBeInTeam">A rank bezañ e skipailh %s</string>
   <string name="youAreNotInTeam">N\'oc\'h ket e skipailh %s</string>
   <string name="backToGame">Distreiñ d\'ar c\'hrogad</string>
   <string name="siteDescription">C\'hoari echedoù enlinenn evit netra war un etrefas simpl. Enskrivadur ebet, bruderezh ebet ha lugant ebet. C\'hoarit a-enep an urzhiataer, a-enep ho mignoned pe a-enep enebourien dianav deus ar bed a-bezh.</string>
+  <string name="xJoinedTeamY">%1$s zo deuet da vezañ ezel eus skipailh %2$s</string>
+  <string name="xCreatedTeamY">Gant %1$s zo bet krouet ar skipailh %2$s</string>
+  <string name="xStartedStreaming">%s zo krog da skignañ ur video dre froud</string>
+  <string name="averageElo">Renkadur keitat</string>
   <string name="location">Kumun</string>
   <string name="filterGames">Silañ ar c\'hrogadoù</string>
   <string name="reset">Adkregiñ</string>
@@ -289,7 +357,15 @@
   <string name="continueFromHere">Kenderc\'hel adalek amañ</string>
   <string name="toStudy">Studiañ</string>
   <string name="importGame">Enporzhiañ krogad</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s c\'hrogad enporzhiet</item>
+    <item quantity="two">%s grogad enporzhiet</item>
+    <item quantity="few">%s krogad enporzhiet</item>
+    <item quantity="many">%s krogad enporzhiet</item>
+    <item quantity="other">%s krogad enporzhiet</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Ur c\'hCAPTCHA echedoù an hini eo.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klikit war an dachenn emgann d\'ober ho fiñvadenn ha prouit oc\'h un den.</string>
   <string name="captcha.fail">Diskoulmit ar c\'hCAPTCHA echedoù mar plij.</string>
   <string name="notACheckmate">N\'eo ket boud ar roue</string>
   <string name="whiteCheckmatesInOneMove">Ar re wenn a ray lamm d\'ar roue gant ur fiñvadenn</string>
@@ -313,8 +389,11 @@
   <string name="blocked">Stanket</string>
   <string name="unblock">Distankañ</string>
   <string name="followsYou">Ho heul</string>
+  <string name="xStartedFollowingY">%1$s zo krog da heuliañ %2$s</string>
   <string name="more">Muioc\'h</string>
   <string name="memberSince">Ezel abaoe</string>
+  <string name="lastSeenActive">Oberiant %s</string>
+  <string name="challengeToPlay">Daeañ ar c\'hoarier-mañ</string>
   <string name="player">C\'hoarier</string>
   <string name="list">Roll</string>
   <string name="graph">Krommenn</string>
@@ -340,7 +419,9 @@
   <string name="recommendNotTouching">Gwelloc\'h eo deoc\'h chom hep kemm anezhe.</string>
   <string name="fewerPlayers">Ma c\'houlennit strishadurioù evit mont-tre e vo nebeutoc\'h a c\'hoarierien o kemer perzh en ho tournamant.</string>
   <string name="showAdvancedSettings">Diskouez an arventennoù kempleshoc\'h</string>
+  <string name="makePrivateTournament">Gallout a rit krouiñ un tournamant prevez oc\'h ouzhpennañ ur ger-tremen</string>
   <string name="join">Kejañ</string>
+  <string name="withdraw">Kodianañ</string>
   <string name="points">Poentoù</string>
   <string name="wins">Trec\'hioù</string>
   <string name="losses">Trec\'hadennoù</string>
@@ -349,6 +430,7 @@
   <string name="tournamentIsStarting">Emañ an tournamant o kregiñ</string>
   <string name="youArePlaying">O c\'hoari emaoc\'h!</string>
   <string name="winRate">Feur trec\'h</string>
+  <string name="berserkRate">Feur berserk</string>
   <string name="performance">Efedusted</string>
   <string name="tournamentComplete">Echu eo an tournamant</string>
   <string name="movesPlayed">Niver a fiñvadennoù</string>
@@ -360,6 +442,8 @@
   <string name="membersOnly">Izili hepken</string>
   <string name="boardEditor">Aozer ar c\'hrogad</string>
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>
+  <string name="popularOpenings">Digoradurioù ordin</string>
+  <string name="clearBoard">Skarzhañ pep tra diwar an dachenn emgann</string>
   <string name="isPrivate">Prevez</string>
   <string name="reportXToModerators">Diskleriañ %s d\'an habaskaerien</string>
   <string name="ifNoneLeaveEmpty">Ma n\'eus ket, laoskit goullo</string>
@@ -376,9 +460,12 @@
   <string name="onlinePlayers">C\'hoarierien enlinenn</string>
   <string name="activeToday">Oberiat hiziv</string>
   <string name="activePlayers">C\'hoarierien oberiat</string>
+  <string name="yourPuzzleRatingX">Ho renkadur poelladennoù: %s</string>
   <string name="findTheBestMoveForWhite">Kavit ar fiñvadenn wellañ evit ar re wenn.</string>
   <string name="findTheBestMoveForBlack">Kavit ar fiñvadenn wellañ evit ar re zu.</string>
+  <string name="toTrackYourProgress">Evit goût hag-eñ ez it war-raok pe get:</string>
   <string name="puzzleId">Poelladennoù %s</string>
+  <string name="puzzleOfTheDay">Poelladenn an deiz</string>
   <string name="clickToSolve">Klikit da ziskoulmañ</string>
   <string name="goodMove">Fiñvadenn vat</string>
   <string name="butYouCanDoBetter">Gallout a rit ober gwelloc\'h avat.</string>
@@ -405,6 +492,7 @@
   <string name="autoSwitch">Cheñch tu emgefreek</string>
   <string name="puzzles">Poelladennoù</string>
   <string name="latestUpdates">Hizivadurioù diwezhañ</string>
+  <string name="tournamentWinners">Ar re zo bet trec\'h e tournamantoù zo</string>
   <string name="name">Anv</string>
   <string name="description">Deskrivadur</string>
   <string name="no">Ket</string>
@@ -429,6 +517,7 @@
   <string name="reportDescriptionHelp">Pegit liamm ar c\'hrogad(où) ha displegit ar pezh a ya a-dreuz gant emzalc\'h oc\'h enebour. Lâret \"o truchañ emañ\" ne vo ket trawalc\'h, ret eo displegañ mat. Buanoc\'h e pledimp ganti ma skrivit e saozneg.</string>
   <string name="by">gant %s</string>
   <string name="thisTopicIsNowClosed">Serr eo ar sujed-mañ bremañ.</string>
+  <string name="theming">Tem</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Goulennoù &amp; Respontoù</string>
   <string name="notes">Notennoù</string>
@@ -453,7 +542,9 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Diaes</string>
   <string name="xAskedY">%1$s en deus/he deus goulennet %2$s</string>
+  <string name="xCommentedY">%1$s he/en deus komzet diwar-benn %2$s</string>
   <string name="victory">Trec\'h</string>
+  <string name="defeat">Lamm</string>
   <string name="victoryVsYInZ">%1$s a-enep %2$s e %3$s</string>
   <string name="defeatVsYInZ">%1$s a-enep %2$s e %3$s</string>
   <string name="drawVsYInZ">%1$s a-enep %2$s e %3$s</string>
@@ -477,6 +568,8 @@
   <string name="unauthorizedError">Tremen berzet.</string>
   <string name="noInternetConnection">Internet ebet. Gallout a rit c\'hoari hep bezañ kevreet, kit da welet el lañser.</string>
   <string name="connectedToLichess">Kevreet oc\'h ouzh lichess.org</string>
+  <string name="signedOut">Digevreet oc\'h bet</string>
+  <string name="loginSuccessful">Kevreet oc\'h</string>
   <string name="playOfflineComputer">Urzhiataer</string>
   <string name="opponent">Enebour</string>
   <string name="learnMenu">Deskiñ</string>
@@ -494,11 +587,19 @@
   <string name="error.email_acceptable">Ne c\'hall ket bet degemeret ar chomlec\'h postel-mañ</string>
   <string name="error.email_unique">Tapet eo bet ar chomlec\'h postel-mañ dija</string>
   <string name="error.email_different">Ho chomlec\'h postel an hini eo dija</string>
+  <string name="ifRatingIsPlusMinusX">Ma \'z eo ar renkadur ± %s</string>
   <string name="onlyFriends">Mignoned hepken</string>
   <string name="menu">Lañser</string>
   <string name="castling">Rokañ</string>
   <string name="whiteCastlingKingside">Gwenn O-O</string>
   <string name="blackCastlingKingside">Du O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s gemennadenn er forom</item>
+    <item quantity="two">%s gemennadenn er forom</item>
+    <item quantity="few">%s kemennadenn er forom</item>
+    <item quantity="many">%s kemennadenn er forom</item>
+    <item quantity="other">%s kemennadenn er forom</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Amzer o c\'hoari: %s</string>
   <string name="watchGames">Sellet ouzh krogadoù</string>
   <string name="tpTimeSpentOnTV">Amzer o sellet ouzh an tele: %s</string>
@@ -509,27 +610,45 @@
   <string name="webmasters">Mistri-gwiad</string>
   <string name="about">A-zivout</string>
   <string name="aboutX">A-zivout %s</string>
-  <string name="really">evit gwir</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">Digoust (%2$s) eo %1$s, dieub, hep bruderezh ha digor he mammenn.</string>
+  <string name="really">da vat</string>
   <string name="contribute">Kenoberiañ</string>
   <string name="termsOfService">Divizoù gwerzhañ hollek</string>
   <string name="sourceCode">Boneg Tarzh</string>
   <string name="host">Ostiz</string>
   <string name="hostColorX">Liv an ostiz: %s</string>
+  <string name="aboutSimulImage">A-enep 50 enebour eo bet trec\'h Fischer 47 gwech, div wech rampo ha trec\'het ur wech nemetken.</string>
   <string name="create">Krouiñ</string>
   <string name="lichessTournaments">Tournamantoù Lichess</string>
+  <string name="tournamentFAQ">FAG aren an tournamant</string>
   <string name="tournamentOfficial">Ofisiel</string>
   <string name="timeBeforeTournamentStarts">Ar pezh a chom a-raok ma krogfe an tournamant</string>
   <string name="keyboardShortcuts">Berradennoù an douchennaoueg</string>
+  <string name="keyGoToStartOrEnd">mont d\'an deroù/d\'ar fin</string>
+  <string name="keyShowOrHideComments">diskouez/skoachañ an evezhiadennoù</string>
   <string name="newTournament">Tournamant nevez</string>
   <string name="tournamentNotFound">N\'eo ket bet kavet an tournamant</string>
   <string name="tournamentDoesNotExist">N\'eus ket diouzh an tournamant-mañ.</string>
+  <string name="tournamentMayHaveBeenCanceled">Marteze eo bet nullet an tournamant dre ma \'z eo aet kuit an holl c\'hoarerien a-raok ma krogfe.</string>
   <string name="returnToTournamentsHomepage">Distreiñ da lañser an tournamantoù</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
+    <item quantity="two">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
+    <item quantity="few">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
+    <item quantity="many">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
+    <item quantity="other">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
+  </plurals>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Barrekoc\'h oc\'h evit %1$s eus ar c\'hoarierien %2$s.</string>
   <string name="yourRating">Ho live</string>
+  <string name="glicko2Rating">Renkadur Glicko-2</string>
   <string name="checkYourEmail">Gwiriañ ar posteloù</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Kaset zo bet ur postel deoc\'h. Klikit war al liamm er postel evit gweredekaat ho kont.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ma ne zeuit ket a-benn gwelet ar postel-mañ, klaskit e lec\'hioù all evel ar boubellenn, ar stroboù pe teuliadoù all c\'hoazh.</string>
   <string name="weHaveSentYouAnEmailTo">Kaset hon eus ur postel da %s. Klikit war al liamm er postel evit cheñch ho ker-tremen.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">En ur lakaat hoc\'h anv e asantit d\'hor %s.</string>
+  <string name="downloadImported">Enkargañ enporzhiet</string>
   <string name="printFriendlyPDF">PDF da voullañ</string>
+  <string name="crosstable">Roll-istor ar c\'hrogadoù</string>
   <string name="letOtherPlayersMessageYou">Aotreañ ar c\'hoarierien da gas kemennadennoù deoc\'h</string>
   <string name="withNobody">Gant den ebet</string>
   <string name="withFriends">Gant ma mignoned</string>
@@ -546,15 +665,26 @@
   <string name="onlineAndOfflinePlay">C\'hoari enlinenn pe get</string>
   <string name="viewTheSolution">Gwelet ar respont</string>
   <string name="followAndChallengeFriends">Heuliañ ha c\'hoari a-enep mignoned</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Gallout a reer dibab etre %s yezh!</item>
+    <item quantity="two">Gallout a reer dibab etre %s yezh!</item>
+    <item quantity="few">Gallout a reer dibab etre %s yezh!</item>
+    <item quantity="many">Gallout a reer dibab etre %s yezh!</item>
+    <item quantity="other">Gallout a reer dibab etre %s yezh!</item>
+  </plurals>
   <string name="gameAnalysis">Dielfennañ ar c\'hrogad</string>
   <string name="lobby">Saloñs</string>
   <string name="anonymous">Dianav</string>
+  <string name="yourScore">Ho tisoc\'h: %s</string>
   <string name="language">Yezh</string>
   <string name="background">Drekleur</string>
   <string name="light">Sklaer</string>
   <string name="dark">Teñval</string>
   <string name="transparent">Treuzwelus</string>
   <string name="backgroundImageUrl">URL skeudenn an drekleur :</string>
+  <string name="boardGeometry">Stumm an dachenn emgann</string>
+  <string name="boardTheme">Tem an dachenn emgann</string>
+  <string name="boardSize">Ment an dachenn emgann</string>
   <string name="pieceSet">Ar pezhioù</string>
   <string name="embedInYourWebsite">Enframmañ en ho lec\'hienn</string>
   <string name="usernameAlreadyUsed">Implijet eo an anv-mañ dija. Dibabit unan all mar plij.</string>
@@ -571,9 +701,19 @@
   <string name="error.unknown">Fazi</string>
   <string name="custom">Personelaet</string>
   <string name="notifications">Rebuzadurioù</string>
+  <string name="challenges">Daeoù</string>
+  <string name="perfRatingX">Renk: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
+    <item quantity="two">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
+    <item quantity="few">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
+    <item quantity="many">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
+    <item quantity="other">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
+  </plurals>
   <string name="practiceWithComputer">Pleustriñ gant an urzhiataer</string>
   <string name="anotherWasX">Unan all a oa %s</string>
   <string name="bestWasX">Gwelloc\'h e oa %s</string>
+  <string name="youBrowsedAway">Aet oc\'h da bourmen</string>
   <string name="resumePractice">Adkregiñ gant ar pleustriñ</string>
   <string name="theGameIsADraw">Rampo oc\'h.</string>
   <string name="computerThinking">O prederiañ emañ an urzhiataer ...</string>
@@ -585,6 +725,7 @@
   <string name="blackWinsGame">Ar re zu o deus trec\'het</string>
   <string name="learnFromYourMistakes">Deskiñ diouzh ho fazioù</string>
   <string name="learnFromThisMistake">Deskiñ diouzh ar fazi-mañ</string>
+  <string name="skipThisMove">Leuskel ar fiñvadenn-mañ a gostez</string>
   <string name="next">War-raok</string>
   <string name="xWasPlayed">%s zo bet c\'hoariet</string>
   <string name="findBetterMoveForWhite">Kavit ur fiñvadenn wellañ evit ar re wenn</string>
@@ -600,6 +741,8 @@
   <string name="doneReviewingWhiteMistakes">Echu gant an deskiñ diwar fazioù ar re wenn</string>
   <string name="doneReviewingBlackMistakes">Echu gant an deskiñ diwar fazioù ar re zu</string>
   <string name="doItAgain">Klask en-dro</string>
+  <string name="reviewWhiteMistakes">Studiañ fazioù ar re wenn</string>
+  <string name="reviewBlackMistakes">Studiañ fazioù ar re zu</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s eilenn</item>
     <item quantity="two">%s eilenn</item>
@@ -630,6 +773,7 @@
   <string name="blitzDesc">Krogadoù prim: etre 3 ha 8 munutenn</string>
   <string name="rapidDesc">Krogadoù fonnus: etre 8 ha 25 munutenn</string>
   <string name="classicalDesc">Krogadoù normal: 25 munutenn ha muioc\'h</string>
+  <string name="puzzleDesc">Gourdoner poelladennoù echedoù</string>
   <string name="important">A-bouez</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
   <string name="inTheFAQ">er FAG.</string>

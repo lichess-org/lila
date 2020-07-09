@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Активність</string>
-  <string name="hostedALiveStream">Розмістив прямий потік</string>
+  <string name="hostedALiveStream">Запустив стрім</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Підтримує lichess.org протягом %1$s місяця як %2$s</item>
     <item quantity="few">Підтримує lichess.org протягом %1$s місяців як %2$s</item>
@@ -33,7 +33,7 @@
     <item quantity="other">Опубліковано %1$s повідомлень в %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Зіграно %1$s хід</item>
+    <item quantity="one">Зроблено %1$s хід</item>
     <item quantity="few">Зіграно %1$s ходи</item>
     <item quantity="many">Зіграно %1$s ходів</item>
     <item quantity="other">Зіграно %1$s ходів</item>
@@ -45,7 +45,7 @@
     <item quantity="other">у %1$s заочних ігор</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Зіграно %s заочну гру</item>
+    <item quantity="one">Зіграно %s гру за листуванням</item>
     <item quantity="few">Зіграно %s заочні гри</item>
     <item quantity="many">Зіграно %s заочних ігор</item>
     <item quantity="other">Зіграно %s заочних ігор</item>
@@ -69,7 +69,7 @@
     <item quantity="other">Провів %s сеансів одночасної гри</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Брав участь в %s сеансі одночасної гри</item>
+    <item quantity="one">Брав участь у %s сеансі одночасної гри</item>
     <item quantity="few">Брав участь в %s сеансах одночасної гри</item>
     <item quantity="many">Брав участь в %s сеансах одночасної гри</item>
     <item quantity="other">Брав участь в %s сеансів одночасної гри</item>
