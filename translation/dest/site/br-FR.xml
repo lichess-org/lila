@@ -194,6 +194,11 @@
   <string name="drawOfferDeclined">Kinnig rampo nac\'het</string>
   <string name="drawOfferAccepted">Kinnig rampo asantet</string>
   <string name="drawOfferCanceled">Kinnig rampo nullet</string>
+  <string name="whiteOffersDraw">Ar re wenn a ginnig bezañ rampo</string>
+  <string name="blackOffersDraw">Ar re zu a ginnig bezañ rampo</string>
+  <string name="whiteDeclinesDraw">Ar re wenn a nac\'h bezañ rampo</string>
+  <string name="blackDeclinesDraw">Ar re zu a nac\'h bezañ rampo</string>
+  <string name="yourOpponentOffersADraw">Hoc\'h enebour a ginnig deoc\'h bezañ rampo</string>
   <string name="accept">Asantiñ</string>
   <string name="decline">Nac\'hañ</string>
   <string name="playingRightNow">O c\'hoari bremañ</string>
@@ -205,7 +210,9 @@
   <string name="standard">Normal</string>
   <string name="unlimited">Didermen</string>
   <string name="mode">Mod</string>
+  <string name="casual">Krogad a vignoniezh</string>
   <string name="rated">Renket</string>
+  <string name="casualTournament">A vignoniezh</string>
   <string name="ratedTournament">Renket</string>
   <string name="thisGameIsRated">Renket eo ar c\'hoariadenn-mañ</string>
   <string name="rematch">C\'hoari en-dro</string>
@@ -237,6 +244,13 @@
     <item quantity="few">%s c\'hoari renket</item>
     <item quantity="many">%s c\'hoari renket</item>
     <item quantity="other">%s c\'hoari renket</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s c\'holl</item>
+    <item quantity="two">%s goll</item>
+    <item quantity="few">%s koll</item>
+    <item quantity="many">%s koll</item>
+    <item quantity="other">%s koll</item>
   </plurals>
   <string name="exportGames">Ezporzhiañ krogadoù</string>
   <plurals name="giveNbSeconds">
