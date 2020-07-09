@@ -33,6 +33,10 @@
   <string name="joinTheGame">Hyni në lojë</string>
   <string name="whitePlays">Radha e të Bardhit</string>
   <string name="blackPlays">Radha e të Ziut</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Kundërshtari tënd la lojën. Mund të pretendosh fitoren në %s sekonda.</item>
+    <item quantity="other">Kundërshtari tënd la lojën. Mund të pretendosh fitoren në %s sekonda.</item>
+  </plurals>
   <string name="opponentLeftChoices">Lojtari tjetër mund të ketë lënë lojën. Mund të pretendoni fitoren, të caktoni barazim, ose të prisni.</string>
   <string name="makeYourOpponentResign">Detyrojeni kundërshtarin të dorëzohet.</string>
   <string name="forceResignation">Pretendo fitoren.</string>
@@ -181,6 +185,10 @@
   <string name="forgotPassword">Harruat fjalëkalimin?</string>
   <string name="rank">Renditja</string>
   <string name="rankX">Klasifikimi: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Grada azhurnohet çdo minute</item>
+    <item quantity="other">Grada azhurnohet çdo %s minuta</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ushtrimi</item>
     <item quantity="other">%s ushtrime</item>
@@ -226,6 +234,7 @@
   <string name="rematchOfferDeclined">Oferta për revansh u refuzua</string>
   <string name="cancelRematchOffer">Anulo ofertën për revansh</string>
   <string name="viewRematch">Shiko revanshin</string>
+  <string name="confirmMove">Konfirmo lëvizjen</string>
   <string name="play">Luaj</string>
   <string name="inbox">Kutia hyrëse</string>
   <string name="chatRoom">Dhomë për bisedë</string>
@@ -266,6 +275,7 @@
     <item quantity="one">Dhuro %s sekonda</item>
     <item quantity="other">Dhuro %s sekonda</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Kjo llogari ka shkelur Kushtet e Shërbimit të Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ky lojtar e ka rritur vlerësimin e vet në mënyre artificiale</string>
   <string name="openingExplorerAndTablebase">Eksploruesi i hapjeve &amp; tabela e fundlojës</string>
   <string name="takeback">Anulo levizje</string>
@@ -308,20 +318,25 @@
   <string name="yourPerfRatingIsTooLow">Vlerësimi juaj (%2$s) në %1$s është më i ulët seç duhet</string>
   <string name="ratedMoreThanInPerf">Vlerësimi ≥ %1$s në %2$s</string>
   <string name="ratedLessThanInPerf">Vlerësimi ≤ %1$s në %2$s</string>
+  <string name="mustBeInTeam">Duhet të jesh në skuadër %s</string>
+  <string name="youAreNotInTeam">Ti nuk je në skuadër %s</string>
   <string name="backToGame">Kthehu te loja</string>
   <string name="siteDescription">Lojë shahu pa pagesë në-linjë. Luani shah përmes një ndërfaqeje të pastër. Pa regjistrim, pa reklama, pa u dashur shtojca. Luani shah me kompjuterin, miqtë ose kundërshtarë të rastësishëm.</string>
   <string name="xJoinedTeamY">%1$s u bashkua me skuadrën %2$s</string>
   <string name="xCreatedTeamY">%1$s krijoi skuadrën %2$s</string>
+  <string name="xStartedStreaming">%s ka filluar transmetimin</string>
   <string name="averageElo">Vlerësimi mesatar</string>
   <string name="location">Vendndodhja</string>
   <string name="filterGames">Filtro lojrat</string>
   <string name="reset">Rivendos</string>
   <string name="apply">Apliko</string>
+  <string name="save">Ruaj</string>
   <string name="leaderboard">Udhëheqës</string>
   <string name="pasteTheFenStringHere">Ngjit FEN këtu</string>
   <string name="pasteThePgnStringHere">Ngjit PGN këtu</string>
   <string name="fromPosition">Nga pozicioni</string>
   <string name="continueFromHere">Vazhdo nga këtu</string>
+  <string name="toStudy">Studim</string>
   <string name="importGame">Importo lojën</string>
   <string name="importGameExplanation">Kur i bën paste PGN-së së një loje, të jepet një replay që mund ta bësh në browser, një analizë kompjuterike, chat loje dhe URL që mund ta shpërndash.</string>
   <plurals name="nbImportedGames">
@@ -381,6 +396,7 @@
   <string name="recommendNotTouching">Ne rekomandojmë që këto të mos ndryshohen.</string>
   <string name="fewerPlayers">Nëse vendosni konfiguruar kushtet e hyrjes, turneu juaj do të ketë më pak lojtarë.</string>
   <string name="showAdvancedSettings">Më shumë konfigurim</string>
+  <string name="makePrivateTournament">Bëni turneun privat, dhe kufizoni qasjen me një fjalëkalim</string>
   <string name="join">Bashkohu</string>
   <string name="withdraw">Tërhiqu</string>
   <string name="points">Pikët</string>
