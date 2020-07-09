@@ -86,6 +86,7 @@
   <string name="recentGames">Krogadoù diwezhañ</string>
   <string name="topGames">Krogadoù eus ar c\'hentañ</string>
   <string name="noGameFound">C\'hoariadenn ebet</string>
+  <string name="openingExplorer">Lañser an digoradurioù</string>
   <string name="allSet">Prest eo!</string>
   <string name="delete">Dilemel</string>
   <string name="deleteThisImportedGame">Dilemel ar c\'hoari enporzhiet-mañ?</string>
@@ -270,6 +271,7 @@
   </plurals>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
   <string name="proposeATakeback">Kinnig nullañ ar fiñvadenn ziwezhañ</string>
+  <string name="takebackPropositionSent">Kaset eo bet ar c\'hinnig nullañ ar fiñvadenn ziwezhañ</string>
   <string name="tournament">Tournamant</string>
   <string name="tournaments">Tournamantoù</string>
   <string name="tournamentPoints">Poentoù tournamant</string>
@@ -297,10 +299,13 @@
     <item quantity="many">≥ %s c\'hoari renket</item>
     <item quantity="other">≥ %s c\'hoari renket</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">Da c\'hortoz eo ho renkadur %s</string>
+  <string name="yourPerfRatingIsTooHigh">Re uhel eo ho renkadur %1$s (%2$s)</string>
   <string name="mustBeInTeam">A rank bezañ e skipailh %s</string>
   <string name="youAreNotInTeam">N\'oc\'h ket e skipailh %s</string>
   <string name="backToGame">Distreiñ d\'ar c\'hrogad</string>
   <string name="siteDescription">C\'hoari echedoù enlinenn evit netra war un etrefas simpl. Enskrivadur ebet, bruderezh ebet ha lugant ebet. C\'hoarit a-enep an urzhiataer, a-enep ho mignoned pe a-enep enebourien dianav deus ar bed a-bezh.</string>
+  <string name="averageElo">Renkadur keitat</string>
   <string name="location">Kumun</string>
   <string name="filterGames">Silañ ar c\'hrogadoù</string>
   <string name="reset">Adkregiñ</string>
@@ -312,6 +317,13 @@
   <string name="continueFromHere">Kenderc\'hel adalek amañ</string>
   <string name="toStudy">Studiañ</string>
   <string name="importGame">Enporzhiañ krogad</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s c\'hrogad enporzhiet</item>
+    <item quantity="two">%s grogad enporzhiet</item>
+    <item quantity="few">%s krogad enporzhiet</item>
+    <item quantity="many">%s krogad enporzhiet</item>
+    <item quantity="other">%s krogad enporzhiet</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Ur c\'hCAPTCHA echedoù an hini eo.</string>
   <string name="captcha.fail">Diskoulmit ar c\'hCAPTCHA echedoù mar plij.</string>
   <string name="notACheckmate">N\'eo ket boud ar roue</string>
@@ -364,6 +376,7 @@
   <string name="fewerPlayers">Ma c\'houlennit strishadurioù evit mont-tre e vo nebeutoc\'h a c\'hoarierien o kemer perzh en ho tournamant.</string>
   <string name="showAdvancedSettings">Diskouez an arventennoù kempleshoc\'h</string>
   <string name="join">Kejañ</string>
+  <string name="withdraw">Kodianañ</string>
   <string name="points">Poentoù</string>
   <string name="wins">Trec\'hioù</string>
   <string name="losses">Trec\'hadennoù</string>
@@ -383,6 +396,7 @@
   <string name="membersOnly">Izili hepken</string>
   <string name="boardEditor">Aozer ar c\'hrogad</string>
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>
+  <string name="popularOpenings">Digoradurioù ordin</string>
   <string name="isPrivate">Prevez</string>
   <string name="reportXToModerators">Diskleriañ %s d\'an habaskaerien</string>
   <string name="ifNoneLeaveEmpty">Ma n\'eus ket, laoskit goullo</string>
@@ -552,6 +566,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Kaset zo bet ur postel deoc\'h. Klikit war al liamm er postel evit gweredekaat ho kont.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ma ne zeuit ket a-benn gwelet ar postel-mañ, klaskit e lec\'hioù all evel ar boubellenn, ar stroboù pe teuliadoù all c\'hoazh.</string>
   <string name="weHaveSentYouAnEmailTo">Kaset hon eus ur postel da %s. Klikit war al liamm er postel evit cheñch ho ker-tremen.</string>
+  <string name="downloadImported">Enkargañ enporzhiet</string>
   <string name="printFriendlyPDF">PDF da voullañ</string>
   <string name="letOtherPlayersMessageYou">Aotreañ ar c\'hoarierien da gas kemennadennoù deoc\'h</string>
   <string name="withNobody">Gant den ebet</string>
