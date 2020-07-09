@@ -54,6 +54,9 @@ Achapit kuit ha bezit trec\'h war ar stered!</string>
   <string name="fundamentals">Diazezoù</string>
   <string name="combat">Emgann</string>
   <string name="combatIntro">Ur brezelour mat zo gouest da dagañ ha da zifenn!</string>
+  <string name="combatComplete">Gourc\'hemennoù! Goût a rit bremañ penaos en em zipatouilh gant pezhioù echedoù!</string>
+  <string name="checkInOne">Bec\'h d\'ar roue gant ur fiñvadenn</string>
+  <string name="attackTheOpponentsKing">Tagañ roue hoc\'h enebour</string>
   <string name="defendYourKing">Difennit ho roue</string>
   <string name="boardSetupIntro">Tal-ouzh-tal eo an daou arme, prest d\'en em gannañ.</string>
   <string name="thisIsTheInitialPosition">Setu penaos e stalier ar pezhioù 
