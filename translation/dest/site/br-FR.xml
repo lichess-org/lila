@@ -44,18 +44,18 @@
   <string name="makeYourOpponentResign">Lakaat hoc\'h enebour da zilezel</string>
   <string name="forceResignation">Arc\'hañ an trec\'h</string>
   <string name="forceDraw">Diskleriañ ar rampo</string>
-  <string name="talkInChat">Bezit hegarat er flapañ!</string>
+  <string name="talkInChat">Bezit hegarat pa flapit!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Un den kentañ a zeuy war an URL -mañ a c\'hoario enep deoc\'h.</string>
   <string name="whiteResigned">Ar re wenn o deus dilezet</string>
   <string name="blackResigned">Ar re zu o deus dilezet</string>
-  <string name="whiteLeftTheGame">Ar c\'hoarier gwenn en deus kuitaet ar c\'hoariadenn</string>
-  <string name="blackLeftTheGame">Ar c\'hoarier du en deus kuitaet ar c\'hoariadenn</string>
+  <string name="whiteLeftTheGame">Ar re wenn o deus kuitaet ar c\'hrogad</string>
+  <string name="blackLeftTheGame">Ar re zu o deus kuitaet ar c\'hrogad</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Skignit an URL -mañ evit pediñ arvestourien da sellet ouzh ar c\'hrogad</string>
   <string name="theComputerAnalysisHasFailed">Ar mekanik en deus c\'hwitet war an dielfennañ</string>
   <string name="viewTheComputerAnalysis">Sellet ouzh dielfennañ an urzhiataer</string>
-  <string name="requestAComputerAnalysis">Goulenn dielfennañ an urzhiataer</string>
-  <string name="computerAnalysis">Dielfennañ an urzhiataer</string>
-  <string name="computerAnalysisAvailable">Dielfennañ an urzhiataer dibrez</string>
+  <string name="requestAComputerAnalysis">Goulenn un dielfennañ digant an urzhiataer</string>
+  <string name="computerAnalysis">Dielfennañ graet gant an urzhiataer</string>
+  <string name="computerAnalysisAvailable">Gallout a rit dielfennañ gant an urzhiataer</string>
   <string name="analysis">Taolenn an dielfennañ</string>
   <string name="depthX">Donder %s</string>
   <string name="usingServerAnalysis">O tielfennañ emañ an urzhiataer</string>
@@ -271,6 +271,13 @@
     <item quantity="many">%s c\'hoari renket</item>
     <item quantity="other">%s c\'hoari renket</item>
   </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s trec\'h</item>
+    <item quantity="two">%s drec\'h</item>
+    <item quantity="few">%s trec\'h</item>
+    <item quantity="many">%s trec\'h</item>
+    <item quantity="other">%s trec\'h</item>
+  </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s c\'holl</item>
     <item quantity="two">%s goll</item>
@@ -413,6 +420,20 @@
   <string name="unblock">Distankañ</string>
   <string name="followsYou">Ho heul</string>
   <string name="xStartedFollowingY">%1$s zo krog da heuliañ %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s den o heuliañ</item>
+    <item quantity="two">%s zen o heuliañ</item>
+    <item quantity="few">%s den o heuliañ</item>
+    <item quantity="many">%s den o heuliañ</item>
+    <item quantity="other">%s den o heuliañ</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">O heuliañ %s c\'hoarier</item>
+    <item quantity="two">O heuliañ %s c\'hoarier</item>
+    <item quantity="few">O heuliañ %s c\'hoarier</item>
+    <item quantity="many">O heuliañ %s c\'hoarier</item>
+    <item quantity="other">O heuliañ %s c\'hoarier</item>
+  </plurals>
   <string name="more">Muioc\'h</string>
   <string name="memberSince">Ezel abaoe</string>
   <string name="lastSeenActive">Oberiant %s</string>
@@ -576,6 +597,13 @@
   <string name="allInformationIsPublicAndOptional">An holl ditouroù a c\'hall bezañ foran ha da zibab.</string>
   <string name="yourCityRegionOrDepartment">Ho kêr, ho rannvro pe ho tepartamant.</string>
   <string name="biographyDescription">Kaozeal diwar ho penn, ho tudioù, ar pezh a blij deoc\'h en echedoù, ho toare da gregiñ gant ur c\'hrogad, c\'hoarierien, ...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Hirder brasañ : %s arouezenn.</item>
+    <item quantity="two">Hirder brasañ: %s arouezenn.</item>
+    <item quantity="few">Hirder brasañ: %s arouezenn.</item>
+    <item quantity="many">Hirder brasañ: %s arouezenn.</item>
+    <item quantity="other">Hirder brasañ: %s arouezenn.</item>
+  </plurals>
   <plurals name="blocks">
     <item quantity="one">%s stanket</item>
     <item quantity="two">%s stanket</item>
