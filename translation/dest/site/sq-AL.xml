@@ -61,6 +61,7 @@
   <string name="promoteVariation">Promovoni variacionet</string>
   <string name="makeMainLine">Bëni variantin kryesor</string>
   <string name="deleteFromHere">Fshij nga këtu</string>
+  <string name="forceVariation">Detyro ndryshim</string>
   <string name="move">Levizjet</string>
   <string name="variantLoss">Varianti humbes</string>
   <string name="variantWin">Varianti fitues</string>
@@ -144,6 +145,8 @@
   <string name="xPostedInForumY">%1$s të postuara si kryetituj %2$s</string>
   <string name="latestForumPosts">Postimet e fundit në forum</string>
   <string name="players">Lojtarë</string>
+  <string name="friends">Miq</string>
+  <string name="discussions">Muhabeta</string>
   <string name="today">Sot</string>
   <string name="yesterday">Dje</string>
   <string name="minutesPerSide">Minuta për palë</string>
@@ -167,6 +170,7 @@
   <string name="ratingStats">Statistikat e vlerësimit</string>
   <string name="username">Emri i përdoruesit</string>
   <string name="usernameOrEmail">Emri i përdoruesit ose email</string>
+  <string name="changeUsername">Ndrysho emrin</string>
   <string name="password">Fjalëkalimi</string>
   <string name="changePassword">Ndrysho fjalëkalimin</string>
   <string name="changeEmail">Ndrysho emailin</string>
