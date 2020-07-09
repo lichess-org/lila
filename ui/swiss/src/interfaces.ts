@@ -50,6 +50,7 @@ export interface SwissData {
   podium?: PodiumPlayer[];
   isRecentlyFinished?: boolean;
   stats?: Stats;
+  password?: boolean;
 }
 
 export type Status = 'created' | 'started' | 'finished';

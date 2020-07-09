@@ -54,8 +54,8 @@ export default class SwissCtrl {
 
   myGameId = () => this.data.me?.gameId;
 
-  join = () => {
-    xhr.join(this);
+  join = (password?: string) => {
+    xhr.join(this, password);
     this.joinSpinner = true;
     this.focusOnMe = true;
   }

@@ -39,7 +39,8 @@ final class SwissForm(implicit mode: Mode) {
         "nbRounds"      -> number(min = minRounds, max = 100),
         "description"   -> optional(clean(nonEmptyText)),
         "chatFor"       -> optional(numberIn(chatForChoices.map(_._1))),
-        "roundInterval" -> optional(numberIn(roundIntervals))
+        "roundInterval" -> optional(numberIn(roundIntervals)),
+        "password"      -> optional(clean(nonEmptyText))
       )(SwissData.apply)(SwissData.unapply)
     )
 
@@ -55,7 +56,8 @@ final class SwissForm(implicit mode: Mode) {
       nbRounds = 7,
       description = none,
       chatFor = Swiss.ChatFor.default.some,
-      roundInterval = Swiss.RoundInterval.auto.some
+      roundInterval = Swiss.RoundInterval.auto.some,
+      password = None
     )
 
   def edit(s: Swiss) =
@@ -68,7 +70,8 @@ final class SwissForm(implicit mode: Mode) {
       nbRounds = s.settings.nbRounds,
       description = s.settings.description,
       chatFor = s.settings.chatFor.some,
-      roundInterval = s.settings.roundInterval.toSeconds.toInt.some
+      roundInterval = s.settings.roundInterval.toSeconds.toInt.some,
+      password = s.settings.password
     )
 
   def nextRound =
@@ -142,7 +145,8 @@ object SwissForm {
       nbRounds: Int,
       description: Option[String],
       chatFor: Option[Int],
-      roundInterval: Option[Int]
+      roundInterval: Option[Int],
+      password: Option[String]
   ) {
     def realVariant  = variant flatMap Variant.apply getOrElse Variant.default
     def realStartsAt = startsAt | DateTime.now.plusMinutes(10)

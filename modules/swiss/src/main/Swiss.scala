@@ -90,6 +90,7 @@ object Swiss {
       rated: Boolean,
       description: Option[String] = None,
       chatFor: ChatFor = ChatFor.default,
+      password: Option[String] = None,
       roundInterval: FiniteDuration
   ) {
     lazy val intervalSeconds = roundInterval.toSeconds.toInt

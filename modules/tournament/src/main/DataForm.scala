@@ -88,7 +88,7 @@ final class DataForm {
         "position"         -> optional(nonEmptyText),
         "mode"             -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
         "rated"            -> optional(boolean),
-        "password"         -> optional(nonEmptyText),
+        "password"         -> optional(clean(nonEmptyText)),
         "conditions"       -> Condition.DataForm.all,
         "teamBattleByTeam" -> optional(nonEmptyText),
         "berserkable"      -> optional(boolean),

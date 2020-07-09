@@ -59,6 +59,7 @@ final class SwissJson(
       .add("playerInfo" -> playerInfo.map { playerJsonExt(swiss, _) })
       .add("podium" -> podium)
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
+      .add("password" -> swiss.settings.password.isDefined)
       .add("stats" -> stats)
       .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
         Json.obj("name" -> swiss.name, "url" -> url)

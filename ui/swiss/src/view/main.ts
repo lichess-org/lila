@@ -139,12 +139,17 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
   if (d.canJoin) return ctrl.joinSpinner ? spinner() :
     h('button.fbt.text.highlight', {
       attrs: dataIcon('G'),
-      hook: bind('click', ctrl.join, ctrl.redraw)
+      hook: bind('click', _ => {
+        if (d.password) {
+          const p = prompt(ctrl.trans.noarg('password'));
+          if (p !== null) ctrl.join(p);
+        } else ctrl.join();
+      }, ctrl.redraw)
     }, ctrl.trans.noarg('join'));
 
   if (d.me && d.status != 'finished') return d.me.absent ? (ctrl.joinSpinner ? spinner() : h('button.fbt.text.highlight', {
       attrs: dataIcon('G'),
-      hook: bind('click', ctrl.join, ctrl.redraw)
+      hook: bind('click', _ => ctrl.join(), ctrl.redraw)
     }, ctrl.trans.noarg('join'))) :
     (ctrl.joinSpinner ? spinner() : h('button.fbt.text', {
       attrs: dataIcon('b'),

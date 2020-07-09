@@ -74,7 +74,8 @@ final class SwissApi(
         rated = data.rated | true,
         description = data.description,
         chatFor = data.realChatFor,
-        roundInterval = data.realRoundInterval
+        roundInterval = data.realRoundInterval,
+        password = data.password
       )
     )
     colls.swiss.insert.one(addFeaturable(swiss)) >>-
