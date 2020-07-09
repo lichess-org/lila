@@ -698,6 +698,8 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ma ne zeuit ket a-benn gwelet ar postel-mañ, klaskit e lec\'hioù all evel ar boubellenn, ar stroboù pe teuliadoù all c\'hoazh.</string>
   <string name="weHaveSentYouAnEmailTo">Kaset hon eus ur postel da %s. Klikit war al liamm er postel evit cheñch ho ker-tremen.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En ur lakaat hoc\'h anv e asantit d\'hor %s.</string>
+  <string name="networkLagBetweenYouAndLichess">\"Lag\" zo etrezoc\'h ha Lichess</string>
+  <string name="downloadRaw">Pellgargañ ar PGN kriz</string>
   <string name="downloadImported">Enkargañ enporzhiet</string>
   <string name="printFriendlyPDF">PDF da voullañ</string>
   <string name="crosstable">Roll-istor ar c\'hrogadoù</string>
