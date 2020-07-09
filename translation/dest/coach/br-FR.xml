@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="languages">Yezhoù</string>
+  <string name="sendPM">Kas ur gemennadenn brevez</string>
   <string name="aboutMe">Diwar ma fenn</string>
+  <string name="teachingExperience">Skiant-prenet evel kelenner</string>
+  <string name="otherExperiences">Skiant-prenet all</string>
+  <string name="bestSkills">Gwellañ barregezhioù</string>
+  <string name="teachingMethod">Kelenn ar vetodologiezh</string>
+  <string name="publicStudies">Studiadennoù foran</string>
+  <string name="youtubeVideos">Videoioù YouTube</string>
 </resources>
