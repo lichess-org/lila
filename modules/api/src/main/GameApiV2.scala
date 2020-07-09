@@ -116,19 +116,23 @@ final class GameApiV2(
       .throttle(config.perSecond.value * 10, 1 second, e => if (e.isDefined) 10 else 2)
       .mapConcat(_.toList)
       .take(config.max | Int.MaxValue)
-      .via(preparationFlow(config))
+      .via(preparationFlow(config, none))
       .keepAlive(keepAliveInterval, () => emptyMsgFor(config))
 
   def exportByIds(config: ByIdsConfig): Source[String, _] =
-    gameRepo
-      .sortedCursor(
-        $inIds(config.ids) ++ Query.finished,
-        Query.sortCreated,
-        batchSize = config.perSecond.value
-      )
-      .documentSource()
-      .throttle(config.perSecond.value, 1 second)
-      .via(preparationFlow(config))
+    Source futureSource {
+      config.playerFile.??(realPlayerApi.apply) map { realPlayers =>
+        gameRepo
+          .sortedCursor(
+            $inIds(config.ids) ++ Query.finished,
+            Query.sortCreated,
+            batchSize = config.perSecond.value
+          )
+          .documentSource()
+          .throttle(config.perSecond.value, 1 second)
+          .via(preparationFlow(config, realPlayers))
+      }
+    }
 
   def exportByTournament(config: ByTournamentConfig): Source[String, _] =
     Source futureSource {
@@ -166,7 +170,7 @@ final class GameApiV2(
           .mapAsync(4) {
             case ((game, fen, analysis), pairing, teams) =>
               config.format match {
-                case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams)
+                case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
                 case Format.JSON =>
                   def addBerserk(color: chess.Color)(json: JsObject) =
                     if (pairing berserkOf color)
@@ -198,7 +202,7 @@ final class GameApiV2(
       .mapAsync(4) {
         case (game, fen, analysis) =>
           config.format match {
-            case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, None)
+            case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, none, none)
             case Format.JSON =>
               toJson(game, fen, analysis, config.flags, None) dmap { json =>
                 s"${Json.stringify(json)}\n"
@@ -206,11 +210,11 @@ final class GameApiV2(
           }
       }
 
-  private def preparationFlow(config: Config) =
+  private def preparationFlow(config: Config, realPlayers: Option[RealPlayers]) =
     Flow[Game]
       .mapAsync(4)(enrich(config.flags))
       .mapAsync(4) {
-        case (game, fen, analysis) => formatterFor(config)(game, fen, analysis, None)
+        case (game, fen, analysis) => formatterFor(config)(game, fen, analysis, None, realPlayers)
       }
 
   private def enrich(flags: WithFlags)(game: Game) =
@@ -233,7 +237,13 @@ final class GameApiV2(
     }
 
   private def jsonFormatter(flags: WithFlags) =
-    (game: Game, initialFen: Option[FEN], analysis: Option[Analysis], teams: Option[GameTeams]) =>
+    (
+        game: Game,
+        initialFen: Option[FEN],
+        analysis: Option[Analysis],
+        teams: Option[GameTeams],
+        realPlayers: Option[RealPlayers]
+    ) =>
       toJson(game, initialFen, analysis, flags, teams) dmap { json =>
         s"${Json.stringify(json)}\n"
       }
@@ -348,7 +358,8 @@ object GameApiV2 {
       ids: Seq[Game.ID],
       format: Format,
       flags: WithFlags,
-      perSecond: MaxPerSecond
+      perSecond: MaxPerSecond,
+      playerFile: Option[String]
   ) extends Config
 
   case class ByTournamentConfig(

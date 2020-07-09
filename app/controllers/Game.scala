@@ -116,7 +116,8 @@ final class Game(
         ids = req.body.split(',').view.take(300).toSeq,
         format = GameApiV2.Format byRequest req,
         flags = requestPgnFlags(req, extended = false),
-        perSecond = MaxPerSecond(20)
+        perSecond = MaxPerSecond(20),
+        playerFile = get("players", req)
       )
       apiC
         .GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(

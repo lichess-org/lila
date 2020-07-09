@@ -62,8 +62,13 @@ final class PgnDump(
     }
 
   def formatter(flags: WithFlags) =
-    (game: Game, initialFen: Option[FEN], analysis: Option[Analysis], teams: Option[GameTeams]) =>
-      apply(game, initialFen, analysis, flags, teams) dmap toPgnString
+    (
+        game: Game,
+        initialFen: Option[FEN],
+        analysis: Option[Analysis],
+        teams: Option[GameTeams],
+        realPlayers: Option[RealPlayers]
+    ) => apply(game, initialFen, analysis, flags, teams, realPlayers) dmap toPgnString
 
   def toPgnString(pgn: Pgn) = {
     // merge analysis & eval comments
