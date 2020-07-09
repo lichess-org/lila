@@ -89,8 +89,10 @@
   <string name="openingExplorer">Lañser an digoradurioù</string>
   <string name="xOpeningExplorer">Lañser digoradurioù %s</string>
   <string name="allSet">Prest eo!</string>
+  <string name="importPgn">Enporzhiañ PGN</string>
   <string name="delete">Dilemel</string>
   <string name="deleteThisImportedGame">Dilemel ar c\'hoari enporzhiet-mañ?</string>
+  <string name="replayMode">Gwelet en-dro ar pezh a zo c\'hoarvezet</string>
   <string name="byCPL">Dre CPL</string>
   <string name="openStudy">Digeriñ ar studi</string>
   <string name="enable">Enaouiñ</string>
