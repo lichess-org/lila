@@ -19,7 +19,7 @@ case class MsgThread(
 
   def delBy(userId: User.ID) = del.exists(_ contains userId)
 
-  def prioritary =
+  def isPriority =
     !lastMsg.read && {
       user1 == User.lichessId || user2 == User.lichessId
     }

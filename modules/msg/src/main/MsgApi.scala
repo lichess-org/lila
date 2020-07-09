@@ -39,9 +39,9 @@ final class MsgApi(
       .map(prioritize)
 
   private def prioritize(threads: List[MsgThread]) =
-    threads.find(_.prioritary) match {
+    threads.find(_.isPriority) match {
       case None        => threads
-      case Some(found) => found :: threads.filterNot(_.prioritary)
+      case Some(found) => found :: threads.filterNot(_.isPriority)
     }
 
   def convoWith(me: User, username: String, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] = {
