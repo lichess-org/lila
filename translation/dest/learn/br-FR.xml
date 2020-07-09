@@ -57,7 +57,17 @@ Achapit kuit ha bezit trec\'h war ar stered!</string>
   <string name="combatComplete">Gourc\'hemennoù! Goût a rit bremañ penaos en em zipatouilh gant pezhioù echedoù!</string>
   <string name="checkInOne">Bec\'h d\'ar roue gant ur fiñvadenn</string>
   <string name="attackTheOpponentsKing">Tagañ roue hoc\'h enebour</string>
+  <string name="checkInOneIntro">Evit ober bec\'h d\'ar roue enebour, tagit anezhañ. Ret eo dezhe e zifenn!</string>
+  <string name="checkInOneGoal">Klaskit pakañ roue hoc\'h enebour gant ur fiñvadenn nemetken!</string>
+  <string name="checkInOneComplete">Gourc\'hemennoù! Graet ho peus bec\'h d\'ar roue hoc\'h enebour ha rediet anezhe da zifenn o roue!</string>
   <string name="defendYourKing">Difennit ho roue</string>
+  <string name="escapeWithTheKing">Achap kuit gant ar roue!</string>
+  <string name="theKingCannotEscapeButBlock">Ne c\'hall ket ar roue achap kuit met gallout a rit stankañ an dagadenn!</string>
+  <string name="mateInOne">Lamm d\'ar roue gant ur fiñvadenn</string>
+  <string name="defeatTheOpponentsKing">Bezit trec\'h war roue hoc\'h enebour</string>
+  <string name="mateInOneIntro">Trec\'h e veoc\'h pa ne c\'hallo ket hoc\'h enebour difenn a-enep ur bec\'h d\'ar roue.</string>
+  <string name="boardSetup">Aozadur an dachenn emgann</string>
+  <string name="howTheGameStarts">Penaos e krog ar c\'hrogad</string>
   <string name="boardSetupIntro">Tal-ouzh-tal eo an daou arme, prest d\'en em gannañ.</string>
   <string name="thisIsTheInitialPosition">Setu penaos e stalier ar pezhioù 
 evit c\'hoari echedoù!
@@ -91,6 +101,8 @@ Ret eo deoc\'h diblasañ pezhioù a-raok.</string>
   <string name="youCannotCastleIfMoved">Ne c\'hallit ket rokañ ma
 en deus fiñvet ar roue dija
 pe ma en deus fiñvet an tour.</string>
+  <string name="youCannotCastleIfAttacked">Ne c\'hallit ket rokañ pa vez bec\'h war ho roue.
+Ret eo en em zizober diouzh an dagadenn a-raok rokañ!</string>
   <string name="findAWayToCastleKingSide">Kavit un doare da rokañ eus tu ar roue!</string>
   <string name="findAWayToCastleQueenSide">Kavit un doare da rokañ eus tu ar rouanez!</string>
   <string name="castlingComplete">Gourc\'hemennoù! Gwelloc\'h e vefe deoc\'h rokañ e-kerz pep krogad.</string>
