@@ -7,7 +7,7 @@
   <string name="currentlyStreaming">Зараз стрімить: %s</string>
   <string name="lastStream">Останній стрім %s</string>
   <string name="becomeStreamer">Стати стрімером Lichess</string>
-  <string name="doYouHaveStream">У вас є канал на Twitch чи YouTube?</string>
+  <string name="doYouHaveStream">У тебе є канал на Twitch чи YouTube?</string>
   <string name="hereWeGo">Поїхали!</string>
   <string name="allStreamers">Всі стрімери</string>
   <string name="editPage">Редагувати сторінку стрімера</string>
