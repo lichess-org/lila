@@ -77,22 +77,22 @@
   <string name="capture">Pakadenn</string>
   <string name="close">Serriñ</string>
   <string name="winning">O c\'hounit</string>
-  <string name="losing">Koller</string>
+  <string name="losing">O koll</string>
   <string name="drawn">Rampo</string>
   <string name="unknown">Dianav</string>
-  <string name="database">Stlennvon</string>
+  <string name="database">Diaz roadennoù</string>
   <string name="whiteDrawBlack">Gwenn / Rampo / Du</string>
   <string name="averageRatingX">Renkadur keitat: %s</string>
   <string name="recentGames">Krogadoù diwezhañ</string>
   <string name="topGames">Krogadoù eus ar c\'hentañ</string>
   <string name="masterDbExplanation">Daou vilion c\'hoari %1$s + FIDE gant c\'hoarerien etre %2$s ha %3$s</string>
-  <string name="noGameFound">C\'hoariadenn ebet</string>
+  <string name="noGameFound">Krogad ebet kavet</string>
   <string name="openingExplorer">Lañser an digoradurioù</string>
   <string name="xOpeningExplorer">Lañser digoradurioù %s</string>
   <string name="allSet">Prest eo!</string>
   <string name="importPgn">Enporzhiañ PGN</string>
   <string name="delete">Dilemel</string>
-  <string name="deleteThisImportedGame">Dilemel ar c\'hoari enporzhiet-mañ?</string>
+  <string name="deleteThisImportedGame">Dilemel ar c\'hrogad enporzhiet-mañ?</string>
   <string name="replayMode">Gwelet en-dro ar pezh a zo c\'hoarvezet</string>
   <string name="realtimeReplay">Amzer wirion</string>
   <string name="byCPL">Dre CPL</string>
@@ -114,7 +114,7 @@
   <string name="flipBoard">Cheñch tu an dablez c\'hoari</string>
   <string name="threefoldRepetition">Teir gwech ar memestra</string>
   <string name="claimADraw">Bezañ rampo</string>
-  <string name="offerDraw">Kinnig rampo</string>
+  <string name="offerDraw">Kinnig bezañ rampo</string>
   <string name="draw">Rampo</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s c\'hoarier</item>
@@ -125,18 +125,18 @@
   </plurals>
   <string name="currentGames">Krogadoù o ren</string>
   <plurals name="nbGames">
-    <item quantity="one">%s c\'hoariadenn</item>
-    <item quantity="two">%s c\'hoariadenn</item>
-    <item quantity="few">%s c\'hoariadenn</item>
-    <item quantity="many">%s c\'hoariadenn</item>
-    <item quantity="other">%s c\'hoariadenn</item>
+    <item quantity="one">%s c\'hrogad</item>
+    <item quantity="two">%s grogad</item>
+    <item quantity="few">%s krogad</item>
+    <item quantity="many">%s krogad</item>
+    <item quantity="other">%s krogad</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s sined</item>
-    <item quantity="two">%s sined</item>
-    <item quantity="few">%s sined</item>
-    <item quantity="many">%s sined</item>
-    <item quantity="other">%s sined</item>
+    <item quantity="one">%s er roll-istor</item>
+    <item quantity="two">%s er roll-istor</item>
+    <item quantity="few">%s er roll-istor</item>
+    <item quantity="many">%s er roll-istor</item>
+    <item quantity="other">%s er roll-istor</item>
   </plurals>
   <string name="viewInFullSize">Brasaat</string>
   <string name="logOut">Digevreañ</string>
@@ -144,9 +144,9 @@
   <string name="youNeedAnAccountToDoThat">Ezhomm ho peus da gaout ur gont evit hen ober</string>
   <string name="signUp">Koumanantiñ</string>
   <string name="computersAreNotAllowedToPlay">Urzhiataerioù ha c\'hoarierien sikouret gant un urzhiataer n\'int ket aotreet da c\'hoari. Na vezit ket skoazellet gant mekanikoù, diaz roadennoù pe c\'hoarierien all pa vezit o c\'hoari. Ne aliomp ket ac\'hanoc\'h da gaout kalz kontoù kennebeut. M\'ho peus re a gontoù e veoc\'h forbannet.</string>
-  <string name="games">C\'hoariadennoù</string>
+  <string name="games">Krogadoù</string>
   <string name="forum">Forom</string>
-  <string name="xPostedInForumY">%1$s en deus embannet er forom %2$s</string>
+  <string name="xPostedInForumY">%1$s he/en deus embannet er forom %2$s</string>
   <string name="latestForumPosts">Embannoù diwezhañ er forom</string>
   <string name="players">C\'hoarierien</string>
   <string name="friends">Mignoned</string>
