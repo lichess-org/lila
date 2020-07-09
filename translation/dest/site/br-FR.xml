@@ -634,15 +634,26 @@
   <string name="onlineAndOfflinePlay">C\'hoari enlinenn pe get</string>
   <string name="viewTheSolution">Gwelet ar respont</string>
   <string name="followAndChallengeFriends">Heuliañ ha c\'hoari a-enep mignoned</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Gallout a reer dibab etre %s yezh!</item>
+    <item quantity="two">Gallout a reer dibab etre %s yezh!</item>
+    <item quantity="few">Gallout a reer dibab etre %s yezh!</item>
+    <item quantity="many">Gallout a reer dibab etre %s yezh!</item>
+    <item quantity="other">Gallout a reer dibab etre %s yezh!</item>
+  </plurals>
   <string name="gameAnalysis">Dielfennañ ar c\'hrogad</string>
   <string name="lobby">Saloñs</string>
   <string name="anonymous">Dianav</string>
+  <string name="yourScore">Ho tisoc\'h: %s</string>
   <string name="language">Yezh</string>
   <string name="background">Drekleur</string>
   <string name="light">Sklaer</string>
   <string name="dark">Teñval</string>
   <string name="transparent">Treuzwelus</string>
   <string name="backgroundImageUrl">URL skeudenn an drekleur :</string>
+  <string name="boardGeometry">Stumm an dachenn emgann</string>
+  <string name="boardTheme">Tem an dachenn emgann</string>
+  <string name="boardSize">Ment an dachenn emgann</string>
   <string name="pieceSet">Ar pezhioù</string>
   <string name="embedInYourWebsite">Enframmañ en ho lec\'hienn</string>
   <string name="usernameAlreadyUsed">Implijet eo an anv-mañ dija. Dibabit unan all mar plij.</string>
@@ -659,9 +670,19 @@
   <string name="error.unknown">Fazi</string>
   <string name="custom">Personelaet</string>
   <string name="notifications">Rebuzadurioù</string>
+  <string name="challenges">Daeoù</string>
+  <string name="perfRatingX">Renk: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
+    <item quantity="two">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
+    <item quantity="few">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
+    <item quantity="many">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
+    <item quantity="other">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
+  </plurals>
   <string name="practiceWithComputer">Pleustriñ gant an urzhiataer</string>
   <string name="anotherWasX">Unan all a oa %s</string>
   <string name="bestWasX">Gwelloc\'h e oa %s</string>
+  <string name="youBrowsedAway">Aet oc\'h da bourmen</string>
   <string name="resumePractice">Adkregiñ gant ar pleustriñ</string>
   <string name="theGameIsADraw">Rampo oc\'h.</string>
   <string name="computerThinking">O prederiañ emañ an urzhiataer ...</string>
@@ -673,6 +694,7 @@
   <string name="blackWinsGame">Ar re zu o deus trec\'het</string>
   <string name="learnFromYourMistakes">Deskiñ diouzh ho fazioù</string>
   <string name="learnFromThisMistake">Deskiñ diouzh ar fazi-mañ</string>
+  <string name="skipThisMove">Leuskel ar fiñvadenn-mañ a gostez</string>
   <string name="next">War-raok</string>
   <string name="xWasPlayed">%s zo bet c\'hoariet</string>
   <string name="findBetterMoveForWhite">Kavit ur fiñvadenn wellañ evit ar re wenn</string>
@@ -688,6 +710,8 @@
   <string name="doneReviewingWhiteMistakes">Echu gant an deskiñ diwar fazioù ar re wenn</string>
   <string name="doneReviewingBlackMistakes">Echu gant an deskiñ diwar fazioù ar re zu</string>
   <string name="doItAgain">Klask en-dro</string>
+  <string name="reviewWhiteMistakes">Studiañ fazioù ar re wenn</string>
+  <string name="reviewBlackMistakes">Studiañ fazioù ar re zu</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s eilenn</item>
     <item quantity="two">%s eilenn</item>
