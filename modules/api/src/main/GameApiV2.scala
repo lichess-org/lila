@@ -27,7 +27,8 @@ final class GameApiV2(
     playerRepo: lila.tournament.PlayerRepo,
     swissApi: lila.swiss.SwissApi,
     analysisRepo: lila.analyse.AnalysisRepo,
-    getLightUser: LightUser.Getter
+    getLightUser: LightUser.Getter,
+    realPlayerApi: RealPlayerApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
@@ -47,13 +48,21 @@ final class GameApiV2(
     game.pgnImport ifTrue config.imported match {
       case Some(imported) => fuccess(imported.pgn)
       case None =>
-        enrich(config.flags)(game) flatMap {
-          case (game, initialFen, analysis) =>
-            config.format match {
-              case Format.JSON => toJson(game, initialFen, analysis, config.flags) dmap Json.stringify
-              case Format.PGN  => pgnDump.toPgnString(game, initialFen, analysis, config.flags)
-            }
-        }
+        for {
+          realPlayers                  <- config.playerFile.??(realPlayerApi.apply)
+          (game, initialFen, analysis) <- enrich(config.flags)(game)
+          export <- config.format match {
+            case Format.JSON => toJson(game, initialFen, analysis, config.flags) dmap Json.stringify
+            case Format.PGN =>
+              pgnDump(
+                game,
+                initialFen,
+                analysis,
+                config.flags,
+                realPlayers = realPlayers
+              ) dmap pgnDump.toPgnString
+          }
+        } yield export
     }
   }
 
@@ -240,7 +249,8 @@ final class GameApiV2(
       lightUsers <- gameLightUsers(g)
       pgn <-
         withFlags.pgnInJson ?? pgnDump
-          .toPgnString(g, initialFen, analysisOption, withFlags)
+          .apply(g, initialFen, analysisOption, withFlags)
+          .dmap(pgnDump.toPgnString)
           .dmap(some)
     } yield Json
       .obj(
@@ -307,7 +317,8 @@ object GameApiV2 {
       format: Format,
       imported: Boolean,
       flags: WithFlags,
-      noDelay: Boolean
+      noDelay: Boolean,
+      playerFile: Option[String]
   ) extends Config
 
   case class ByUserConfig(
