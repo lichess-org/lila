@@ -19,7 +19,15 @@
   <string name="aConfirmationIsRequiredToJoin">Ret eo kadarnaat evit kemer perzh</string>
   <string name="teamBestPlayers">C\'hoarierien wellañ</string>
   <string name="teamRecentMembers">Izili nevez</string>
+  <string name="kickSomeone">Skarzhañ unan er-maez eus ar skipailh</string>
+  <string name="whoToKick">Piv a vo skarzhet er-maez deus ar skipailh ganeoc\'h?</string>
+  <string name="teamBattle">Emgann skipailh</string>
+  <string name="teamBattleOverview">Un emgann etre meur a skipailh, pep c\'hoarier a zegas poentoù d\'e skipailh</string>
+  <string name="teamTournament">Skipailh an tournamant</string>
   <string name="messageAllMembers">Kas ur gemennadenn d\'an holl izili</string>
   <string name="messageAllMembersOverview">Kas ur gemennadenn brevez d\'an holl izili</string>
+  <string name="messageAllMembersLongDescription">Kas ur gemennadenn brevez d\'an HOLL izili.
+Gallout a rit gervel anezhe da gemer perzh e-barzh ur tournamant pe un emgann skipailh. Ma \' zeus tud ha n\'int ket kontant o resevout ho postel e c\'hallfent kuitaat ho skipailh.</string>
   <string name="teamsIlead">Skipailhoù emaon e penn anezhe</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Intereset e vefec\'h da gas liamm un tournamant bennak a vo a-benn nebeut?</string>
 </resources>
