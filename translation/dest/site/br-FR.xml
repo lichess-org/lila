@@ -85,6 +85,7 @@
   <string name="averageRatingX">Renkadur keitat: %s</string>
   <string name="recentGames">Krogadoù diwezhañ</string>
   <string name="topGames">Krogadoù eus ar c\'hentañ</string>
+  <string name="masterDbExplanation">Daou vilion c\'hoari %1$s + FIDE gant c\'hoarerien etre %2$s ha %3$s</string>
   <string name="noGameFound">C\'hoariadenn ebet</string>
   <string name="openingExplorer">Lañser an digoradurioù</string>
   <string name="xOpeningExplorer">Lañser digoradurioù %s</string>
@@ -459,6 +460,7 @@
   <string name="onlinePlayers">C\'hoarierien enlinenn</string>
   <string name="activeToday">Oberiat hiziv</string>
   <string name="activePlayers">C\'hoarierien oberiat</string>
+  <string name="yourPuzzleRatingX">Ho renkadur poelladennoù: %s</string>
   <string name="findTheBestMoveForWhite">Kavit ar fiñvadenn wellañ evit ar re wenn.</string>
   <string name="findTheBestMoveForBlack">Kavit ar fiñvadenn wellañ evit ar re zu.</string>
   <string name="toTrackYourProgress">Evit goût hag-eñ ez it war-raok pe get:</string>
@@ -540,6 +542,7 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Diaes</string>
   <string name="xAskedY">%1$s en deus/he deus goulennet %2$s</string>
+  <string name="xCommentedY">%1$s he/en deus komzet diwar-benn %2$s</string>
   <string name="victory">Trec\'h</string>
   <string name="defeat">Lamm</string>
   <string name="victoryVsYInZ">%1$s a-enep %2$s e %3$s</string>
@@ -758,6 +761,7 @@
   <string name="blitzDesc">Krogadoù prim: etre 3 ha 8 munutenn</string>
   <string name="rapidDesc">Krogadoù fonnus: etre 8 ha 25 munutenn</string>
   <string name="classicalDesc">Krogadoù normal: 25 munutenn ha muioc\'h</string>
+  <string name="puzzleDesc">Gourdoner poelladennoù echedoù</string>
   <string name="important">A-bouez</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
   <string name="inTheFAQ">er FAG.</string>
