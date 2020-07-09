@@ -587,6 +587,7 @@
   <string name="error.email_acceptable">Ne c\'hall ket bet degemeret ar chomlec\'h postel-mañ</string>
   <string name="error.email_unique">Tapet eo bet ar chomlec\'h postel-mañ dija</string>
   <string name="error.email_different">Ho chomlec\'h postel an hini eo dija</string>
+  <string name="ifRatingIsPlusMinusX">Ma \'z eo ar renkadur ± %s</string>
   <string name="onlyFriends">Mignoned hepken</string>
   <string name="menu">Lañser</string>
   <string name="castling">Rokañ</string>
@@ -616,16 +617,26 @@
   <string name="sourceCode">Boneg Tarzh</string>
   <string name="host">Ostiz</string>
   <string name="hostColorX">Liv an ostiz: %s</string>
+  <string name="aboutSimulImage">A-enep 50 enebour eo bet trec\'h Fischer 47 gwech, div wech rampo ha trec\'het ur wech nemetken.</string>
   <string name="create">Krouiñ</string>
   <string name="lichessTournaments">Tournamantoù Lichess</string>
   <string name="tournamentFAQ">FAG aren an tournamant</string>
   <string name="tournamentOfficial">Ofisiel</string>
   <string name="timeBeforeTournamentStarts">Ar pezh a chom a-raok ma krogfe an tournamant</string>
   <string name="keyboardShortcuts">Berradennoù an douchennaoueg</string>
+  <string name="keyShowOrHideComments">diskouez/skoachañ an evezhiadennoù</string>
   <string name="newTournament">Tournamant nevez</string>
   <string name="tournamentNotFound">N\'eo ket bet kavet an tournamant</string>
   <string name="tournamentDoesNotExist">N\'eus ket diouzh an tournamant-mañ.</string>
+  <string name="tournamentMayHaveBeenCanceled">Marteze eo bet nullet an tournamant dre ma \'z eo aet kuit an holl c\'hoarerien a-raok ma krogfe.</string>
   <string name="returnToTournamentsHomepage">Distreiñ da lañser an tournamantoù</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
+    <item quantity="two">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
+    <item quantity="few">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
+    <item quantity="many">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
+    <item quantity="other">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
+  </plurals>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Barrekoc\'h oc\'h evit %1$s eus ar c\'hoarierien %2$s.</string>
   <string name="yourRating">Ho live</string>
   <string name="glicko2Rating">Renkadur Glicko-2</string>
