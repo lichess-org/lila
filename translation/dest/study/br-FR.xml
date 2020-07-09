@@ -61,13 +61,13 @@
   <string name="next">War-lec\'h</string>
   <string name="last">Diwezhañ</string>
   <string name="cloneStudy">Klonañ</string>
-  <string name="studyPgn">Studiañ PGN</string>
+  <string name="studyPgn">Studiañ ar PGN</string>
   <string name="downloadAllGames">Pellgargañ an holl grogadoù</string>
   <string name="chapterPgn">PGN ar pennad</string>
   <string name="downloadGame">Pellgargañ ur c\'hrogad</string>
   <string name="studyUrl">Studiañ URL</string>
   <string name="broadcastUrl">URL skignañ</string>
-  <string name="currentChapterUrl">URL bremanel ar pennad</string>
+  <string name="currentChapterUrl">URL ar pennad evit poent</string>
   <string name="startAtInitialPosition">Kregiñ el lec\'hiadur kentañ</string>
   <string name="startAtX">Kregiñ e %s</string>
   <string name="open">Digeriñ</string>
