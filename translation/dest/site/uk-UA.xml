@@ -20,14 +20,14 @@
   <string name="randomColor">Випадковий колір</string>
   <string name="createAGame">Створи гру</string>
   <string name="whiteIsVictorious">Білі перемогли</string>
-  <string name="blackIsVictorious">Перемога чорних</string>
+  <string name="blackIsVictorious">Чорні перемогли</string>
   <string name="youPlayTheWhitePieces">Граєш білими постатями</string>
   <string name="youPlayTheBlackPieces">Граєш чорними постатями</string>
   <string name="itsYourTurn">Твій хід!</string>
   <string name="kingInTheCenter">Король в осередку</string>
   <string name="threeChecks">Три шахи</string>
   <string name="raceFinished">Перегони завершені</string>
-  <string name="variantEnding">Инак завершено</string>
+  <string name="variantEnding">Гру завершено</string>
   <string name="newOpponent">Новий суперник</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ваш суперник знову хоче з вами зіграти</string>
   <string name="joinTheGame">Приєднатися до гри</string>
@@ -369,13 +369,13 @@
   <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
   <string name="ratedLessThanInPerf">Щабель ≤ %1$s в %2$s</string>
   <string name="mustBeInTeam">Треба бути в раті %s</string>
-  <string name="youAreNotInTeam">Ти не в раті %s</string>
+  <string name="youAreNotInTeam">Ви не в команді %s</string>
   <string name="backToGame">Назад до гри</string>
   <string name="siteDescription">Безкоштовні Інтернет-шахи. Грайте в шахи зараз із чистим інтерфейсом. Без реєстрації, без реклами, без додаткових програм. Грайте в шахи з комп\'ютером, друзями або випадковими суперниками.</string>
   <string name="xJoinedTeamY">%1$s вступив до раті %2$s</string>
   <string name="xCreatedTeamY">%1$s створив рать %2$s</string>
   <string name="xStartedStreaming">%s почав трансляцію</string>
-  <string name="averageElo">Середній щабель</string>
+  <string name="averageElo">Середній рейтинґ</string>
   <string name="location">Місце</string>
   <string name="filterGames">Цідило ігор</string>
   <string name="reset">Скинути</string>
@@ -461,7 +461,7 @@
   <string name="recommendNotTouching">Радимо не торкатися цього.</string>
   <string name="fewerPlayers">Якщо встановиш умови вступу, то змаг матиме менше гравців.</string>
   <string name="showAdvancedSettings">Покаж додаткові лашти</string>
-  <string name="makePrivateTournament">Зроби особистий змаг з ключним доступом</string>
+  <string name="makePrivateTournament">Зробити турнір приватним та обмежити доступ паролем</string>
   <string name="join">Долучись</string>
   <string name="withdraw">Вилучись</string>
   <string name="points">Очки</string>
@@ -472,7 +472,7 @@
   <string name="tournamentIsStarting">Змаг починається</string>
   <string name="tournamentPairingsAreNowClosed">Жеребкування змагу завершено.</string>
   <string name="standByX">Жеребкування, пригототуйся, %s!</string>
-  <string name="youArePlaying">Граєш!</string>
+  <string name="youArePlaying">Ви граєте!</string>
   <string name="winRate">Перемоги</string>
   <string name="berserkRate">Ігор як берсерк</string>
   <string name="performance">Скуток</string>
@@ -564,7 +564,7 @@
   <string name="views">Перегляди</string>
   <string name="replies">Відповіді</string>
   <string name="replyToThisTopic">Відповідж в дописі</string>
-  <string name="reply">Відповідж</string>
+  <string name="reply">Відповісти</string>
   <string name="message">Звістка</string>
   <string name="createTheTopic">Створи допис</string>
   <string name="reportAUser">Допові́дь про користувача</string>
@@ -638,7 +638,7 @@
   </plurals>
   <string name="listBlockedPlayers">Список заборонених тобою гравців</string>
   <string name="human">Людина</string>
-  <string name="computer">Обчислювач</string>
+  <string name="computer">Комп\'ютер</string>
   <string name="side">Сторона</string>
   <string name="clock">Годинник</string>
   <string name="unauthorizedError">Доступ не надано.</string>
