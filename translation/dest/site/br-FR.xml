@@ -706,6 +706,7 @@
     <item quantity="other">Gallout a reer dibab etre %s yezh!</item>
   </plurals>
   <string name="gameAnalysis">Dielfennañ ar c\'hrogad</string>
+  <string name="quickPairing">Un enebour war ar prim</string>
   <string name="lobby">Saloñs</string>
   <string name="anonymous">Dianav</string>
   <string name="yourScore">Ho tisoc\'h: %s</string>
@@ -787,6 +788,7 @@
   <string name="middlegame">Kreiz ar c\'hrogad</string>
   <string name="endgame">Fin ar c\'hrogad</string>
   <string name="yourXRatingIsTooFarFromY">Re vras an diforc\'h etre ho renkadur %1$s hag hini %2$s.</string>
+  <string name="addCurrentVariation">Ouzhpennañ an eilstumm o ren</string>
   <string name="playX">C\'hoari %s</string>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
@@ -800,6 +802,9 @@
   <string name="thankYouForReading">Mersi da vezañ lennet!</string>
   <string name="currentMatchScore">Taolenn an disoc\'hoù etrezoc\'h</string>
   <string name="agreementAssistance">Biken ne vin sikouret e-pad ma c\'hrogadoù (na gant un urzhiataer echedoù, na gant ul levr, un diaz roadennoù pe un den all).</string>
+  <string name="agreementNice">Prometiñ a ran bezañ bepred hegarat ouzh ar c\'hoarierien all.</string>
+  <string name="agreementAccount">Prometiñ a ran e chomin hep krouiñ meur a gont.</string>
+  <string name="agreementPolicy">Prometiñ a ran e heuilhin reolennoù Lichess.</string>
   <string name="searchOrStartNewDiscussion">Klask ur gaozeadenn pe krouiñ unan nevez</string>
   <string name="edit">Cheñch</string>
   <string name="rapid">Prim</string>
@@ -809,8 +814,14 @@
   <string name="blitzDesc">Krogadoù prim: etre 3 ha 8 munutenn</string>
   <string name="rapidDesc">Krogadoù fonnus: etre 8 ha 25 munutenn</string>
   <string name="classicalDesc">Krogadoù klasel: 25 munutenn ha muioc\'h</string>
+  <string name="correspondenceDesc">Krogadoù a-bell: un deiz pe meur a hini evit ur fiñvadenn</string>
   <string name="puzzleDesc">Gourdoner poelladennoù echedoù</string>
   <string name="important">A-bouez</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
   <string name="inTheFAQ">er FAG.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Ma faotañ deoc\'h mont e darempred ganeomp abalamour d\'un trucher pe d\'un den displijus, %1$s</string>
+  <string name="teamNamedX">Skipailh %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Ne c\'hallit ket skrivañ ur gemennadenn war ar foromoù evit poent. C\'hoarit un tamm a-raok!</string>
+  <string name="subscribe">Heuliañ</string>
+  <string name="unsubscribe">Paouez da heuliañ</string>
 </resources>
