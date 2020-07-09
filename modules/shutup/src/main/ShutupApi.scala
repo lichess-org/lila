@@ -76,10 +76,12 @@ final class ShutupApi(
                 update = $push(push),
                 fetchNewObject = true,
                 upsert = true
-              ) flatMap {
-              case None             => fufail(s"can't find user record for $userId")
-              case Some(userRecord) => legiferate(userRecord, major)
-            } logFailure lila.log("shutup")
+              )
+              .flatMap {
+                case None             => fufail(s"can't find user record for $userId")
+                case Some(userRecord) => legiferate(userRecord, major)
+              }
+              .recover(lila.db.ignoreDuplicateKey)
         }
     }
 
