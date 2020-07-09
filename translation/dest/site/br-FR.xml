@@ -513,7 +513,7 @@
   <string name="clickToSolve">Klikit da ziskoulmañ</string>
   <string name="goodMove">Fiñvadenn vat</string>
   <string name="butYouCanDoBetter">Gallout a rit ober gwelloc\'h avat.</string>
-  <string name="bestMove">Fiñvadenn wellañ!</string>
+  <string name="bestMove">Gwellañ fiñvadenn!</string>
   <string name="keepGoing">Kendalc\'hit…</string>
   <string name="puzzleFailed">C\'hwitet warni</string>
   <string name="butYouCanKeepTrying">Gallout a rit klask c\'hoazh.</string>
@@ -539,13 +539,13 @@
   <string name="tournamentWinners">Ar re zo bet trec\'h e tournamantoù zo</string>
   <string name="name">Anv</string>
   <string name="description">Deskrivadur</string>
-  <string name="no">Ket</string>
+  <string name="no">Nann</string>
   <string name="yes">Ya</string>
-  <string name="help">Skoazell:</string>
+  <string name="help">Sikour:</string>
   <string name="createANewTopic">Krouiñ ur sujed nevez</string>
   <string name="topics">Sujedoù</string>
   <string name="posts">Kemennadennoù</string>
-  <string name="lastPost">Kemennadenn diwezhañ</string>
+  <string name="lastPost">Kemennadenn ziwezhañ</string>
   <string name="replies">Respontoù</string>
   <string name="replyToThisTopic">Respont d\'an danvez-mañ</string>
   <string name="reply">Respont</string>
@@ -569,7 +569,7 @@
   <string name="invalidUsernameOrPassword">N\'eo ket mat an an anv-implijer pe ar ger-tremen</string>
   <string name="incorrectPassword">Ger-tremen didalvoudek</string>
   <string name="emailMeALink">Kasit din ul liamm dre bostel</string>
-  <string name="currentPassword">Ger-tremen bremanel</string>
+  <string name="currentPassword">Ger-tremen evit poent</string>
   <string name="newPassword">Ger-tremen nevez</string>
   <string name="newPasswordAgain">Ger-tremen nevez (c\'hoazh)</string>
   <string name="privacy">Buhez prevez</string>
@@ -630,7 +630,7 @@
   <string name="tools">Ostilhoù</string>
   <string name="increment">Azvuiadañ</string>
   <string name="playOnline">C\'hoari enlinenn</string>
-  <string name="playOffline">C\'hoari enlinenn</string>
+  <string name="playOffline">C\'hoari ezlinenn</string>
   <string name="allowAnalytics">Aotreañ ar statistikoù dizanv</string>
   <string name="shareGameURL">Skignañ URL ar c\'hrogad</string>
   <string name="error.required">Ret eo skrivañ un dra bennak</string>
@@ -653,10 +653,10 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Amzer o c\'hoari: %s</string>
   <string name="watchGames">Sellet ouzh krogadoù</string>
-  <string name="tpTimeSpentOnTV">Amzer o sellet ouzh an tele: %s</string>
+  <string name="tpTimeSpentOnTV">An amzer oc\'h bet gwelet en tele: %s</string>
   <string name="watch">Sellet</string>
   <string name="videoLibrary">Levraoueg videoioù</string>
-  <string name="streamersMenu">Streamers</string>
+  <string name="streamersMenu">Streamerrien</string>
   <string name="mobileApp">Arload pellgomz</string>
   <string name="webmasters">Mistri-gwiad</string>
   <string name="about">A-zivout</string>
