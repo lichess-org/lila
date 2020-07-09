@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
+    <item quantity="two">Skoazellet he/en deus lichess.org e-pad %1$s viz evel %2$s</item>
+    <item quantity="few">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
+    <item quantity="many">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
+    <item quantity="other">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
+  </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">%1$s c\'hrogad %2$s c\'hoariet</item>
     <item quantity="two">%1$s grogad %2$s c\'hoariet</item>
