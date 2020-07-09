@@ -662,6 +662,7 @@
     <item quantity="other">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
   </plurals>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Barrekoc\'h oc\'h evit %1$s eus ar c\'hoarierien %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">Barrekoc\'h eo %1$s evit %2$s eus ar c\'hoarierien %3$s.</string>
   <string name="yourRating">Ho live</string>
   <string name="glicko2Rating">Renkadur Glicko-2</string>
   <string name="checkYourEmail">Gwiriañ ar posteloù</string>
@@ -679,6 +680,8 @@
   <string name="youHaveAlreadyRegisteredTheEmail">Ar postel-mañ: %s ho peus enrollet dija</string>
   <string name="kidMode">Mod evit ar vugale</string>
   <string name="kidModeExplanation">Un afer a surentez an hini eo. Ne c\'haller ket mont e darempred gant ar re all pa c\'hoarier er mod evit ar vugale. Mat eo evit ho pugale pe ho skolidi evit o gwareziñ diouzh ar c\'hoarierien all war internet.</string>
+  <string name="enableKidMode">Gweredekaat ar mod evit ar vugale</string>
+  <string name="disableKidMode">Diweredekaat ar mod evit ar vugale</string>
   <string name="security">Diogelroez</string>
   <string name="playChessEverywhere">C\'hoari echedoù e pep lec\'h</string>
   <string name="asFreeAsLichess">Ken digoust ha lichess</string>
@@ -777,6 +780,7 @@
   <string name="opening">Digoradur</string>
   <string name="middlegame">Kreiz ar c\'hrogad</string>
   <string name="endgame">Fin ar c\'hrogad</string>
+  <string name="yourXRatingIsTooFarFromY">Re vras an diforc\'h etre ho renkadur %1$s hag hini %2$s.</string>
   <string name="playX">C\'hoari %s</string>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
@@ -788,15 +792,17 @@
   <string name="temporaryInconvenience">Hon digarezit evit an diaezamant berrbad,</string>
   <string name="wishYouGreatGames">hag e hetomp krogadoù mat deoc\'h war lichess.org.</string>
   <string name="thankYouForReading">Mersi da vezañ lennet!</string>
+  <string name="currentMatchScore">Taolenn an disoc\'hoù etrezoc\'h</string>
   <string name="agreementAssistance">Biken ne vin sikouret e-pad ma c\'hrogadoù (na gant un urzhiataer echedoù, na gant ul levr, un diaz roadennoù pe un den all).</string>
   <string name="searchOrStartNewDiscussion">Klask ur gaozeadenn pe krouiñ unan nevez</string>
   <string name="edit">Cheñch</string>
   <string name="rapid">Prim</string>
-  <string name="classical">Normal</string>
+  <string name="classical">Klasel</string>
+  <string name="ultraBulletDesc">Krogadoù prim-prim-kenañ: nebeutoc\'h evit 30 eilenn</string>
   <string name="bulletDesc">Krogadoù prim-tre: nebeutoc\'h evit 3 munutenn</string>
   <string name="blitzDesc">Krogadoù prim: etre 3 ha 8 munutenn</string>
   <string name="rapidDesc">Krogadoù fonnus: etre 8 ha 25 munutenn</string>
-  <string name="classicalDesc">Krogadoù normal: 25 munutenn ha muioc\'h</string>
+  <string name="classicalDesc">Krogadoù klasel: 25 munutenn ha muioc\'h</string>
   <string name="puzzleDesc">Gourdoner poelladennoù echedoù</string>
   <string name="important">A-bouez</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
