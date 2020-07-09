@@ -806,7 +806,24 @@
   <string name="playVariationToCreateConditionalPremoves">Luaj një variant për të krijuar variacione</string>
   <string name="noConditionalPremoves">Nuk ka premove condicionale</string>
   <string name="playX">Luaj %s</string>
+  <string name="sorry">Na falni :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Ne na duhej të të ndalonim për një kohë.</string>
+  <string name="timeoutExpires">Ndalesa skadon %s.</string>
   <string name="why">Psë?</string>
+  <string name="pleasantChessExperience">Ne synojmë të ofrojmë një përvojë të këndshme shahu për të gjithë.</string>
+  <string name="goodPractice">Për këtë qëllim, duhet të sigurohemi që të gjithë lojtarët të ndjekin praktikat e mira.</string>
+  <string name="potentialProblem">Kur zbulohet një problem i mundshëm, ne shfaqim këtë mesazh.</string>
+  <string name="howToAvoidThis">Si ta shmangni këtë?</string>
+  <string name="playEveryGame">Luaj çdo lojë që fillon.</string>
+  <string name="tryToWin">Mundohu të fitosh (ose të paktën të barazishësh) çdo lojë që luash.</string>
+  <string name="resignLostGames">Dorezoni lojrat e humbura (mos lejoni qe ora te perpiqet).</string>
+  <string name="temporaryInconvenience">Na vjen keq për bezdisjen e përkohshme,</string>
+  <string name="wishYouGreatGames">edhe të urojmë lojëra të shkëlqyera në lichess.org.</string>
+  <string name="thankYouForReading">Faleminderit që lexove!</string>
+  <string name="lifetimeScore">Rezultati i jetës</string>
+  <string name="currentMatchScore">Rezultati aktual i ndeshjes</string>
+  <string name="agreementAssistance">Jam dakord që nuk do të marr asnjëherë ndihmë gjatë lojërave të mia (nga një kompjuter shahu, libër, baza e të dhënave ose një person tjetër).</string>
+  <string name="agreementNice">Jam dakord që gjithmonë do të jem me respekt ndaj lojtarëve të tjerë.</string>
   <string name="edit">Ndrysho</string>
   <string name="rapid">I shpejtë</string>
 </resources>
