@@ -293,6 +293,10 @@
     <item quantity="one">%s piket e turneut</item>
     <item quantity="other">%s piket e turneut</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studim</item>
+    <item quantity="other">%s studime</item>
+  </plurals>
   <string name="viewTournament">Shiko turneun</string>
   <string name="backToTournament">Kthehu në turne</string>
   <string name="thematic">Tematike</string>
@@ -351,6 +355,10 @@
   <string name="blackCheckmatesInOneMove">E zezë bej shahmat në një lëvizje</string>
   <string name="retry">Provo përsëri</string>
   <string name="reconnecting">Duke u rilidhur</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s miq në linjë</item>
+    <item quantity="other">%s mik në linjë</item>
+  </plurals>
   <string name="noFriendsOnline">Asnjë mik në linje</string>
   <string name="findFriends">Gjej miq</string>
   <string name="favoriteOpponents">Kundërshtarët e preferuar</string>
@@ -806,6 +814,10 @@
   <string name="playVariationToCreateConditionalPremoves">Luaj një variant për të krijuar variacione</string>
   <string name="noConditionalPremoves">Nuk ka premove condicionale</string>
   <string name="playX">Luaj %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">edhe ruaj %s linja premove</item>
+    <item quantity="other">edhe ruaj %s linja premove</item>
+  </plurals>
   <string name="sorry">Na falni :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ne na duhej të të ndalonim për një kohë.</string>
   <string name="timeoutExpires">Ndalesa skadon %s.</string>
@@ -839,4 +851,15 @@
   <string name="puzzleDesc">Trajner i taktikave të shahut</string>
   <string name="important">I Rëndësishëm</string>
   <string name="yourQuestionMayHaveBeenAnswered">Pyetja tënde mund të ketë tashmë një përgjigje %1$s</string>
+  <string name="inTheFAQ">në Pyetjet e bëra më shpesh.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Të raportoni një përdorues për mashtrim ose sjellje të keqe, %1$s</string>
+  <string name="useTheReportForm">përdorni formularin e raportit</string>
+  <string name="toRequestSupport">Për të kërkuar mbështetje, %1$s</string>
+  <string name="tryTheContactPage">provoni faqen e kontaktit</string>
+  <string name="thisTopicIsArchived">Kjo temë është arkivuar dhe nuk mund t\'i përgjigjet më.</string>
+  <string name="joinTheTeamXToPost">Bashkohuni me %1$s, për t\'u postuar në këtë forum</string>
+  <string name="teamNamedX">skuadra %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Ti nuk mundësh të postosh në forume akoma. Luaj disa lojra!</string>
+  <string name="subscribe">Abonohu</string>
+  <string name="unsubscribe">Ç\'abonohu</string>
 </resources>
