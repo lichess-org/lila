@@ -49,6 +49,7 @@ Achapit kuit ha bezit trec\'h war ar stered!</string>
   <string name="pawnsMoveOneSquareOnly">Deus ur garrezenn e c\'hall ar pezhioù gwerin fiñval hepken. Pa dizhont an tu all eus an dachenn emgann avat e teuont da vezañ galloudusoc\'h!</string>
   <string name="pawnsMoveForward">Fiñval a ra ar pezhioù gwerin a-blom met a-skizh e tebront!</string>
   <string name="pawnComplete">Gourc\'hemennoù! Mestroniañ a rit ar pezhioù gwerin.</string>
+  <string name="pawnPromotion">Kas ur pezh gwerin war-raok</string>
   <string name="selectThePieceYouWant">Dibabit ar pezh ho peus c\'hoant da gaout!</string>
   <string name="fundamentals">Diazezoù</string>
   <string name="combat">Emgann</string>
