@@ -24,6 +24,7 @@
   <string name="teamBattle">Emgann skipailh</string>
   <string name="teamBattleOverview">Un emgann etre meur a skipailh, pep c\'hoarier a zegas poentoù d\'e skipailh</string>
   <string name="teamTournament">Skipailh an tournamant</string>
+  <string name="teamTournamentOverview">Un tournamant en un arena ne c\'hall nemet izili ho skipailh mont ennañ</string>
   <string name="messageAllMembers">Kas ur gemennadenn d\'an holl izili</string>
   <string name="messageAllMembersOverview">Kas ur gemennadenn brevez d\'an holl izili</string>
   <string name="messageAllMembersLongDescription">Kas ur gemennadenn brevez d\'an HOLL izili.
