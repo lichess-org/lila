@@ -12,4 +12,19 @@
   <string name="doPasswordReset">Completează resetarea parolei pentru a elimina al doilea pas</string>
   <string name="accountSupport">Am nevoie de suport pentru cont</string>
   <string name="wantTitle">Vreau ca titlul meu să fie afișat pe Lichess</string>
+  <string name="visitTitleConfirmation">Pentru a afișa titlul dvs. pe profilul Lichess și pentru a participa la Titled Arenas, vizitați pagina de confirmare a titlului</string>
+  <string name="wantCloseAccount">Vreau să îmi închid contul</string>
+  <string name="closeYourAccount">Puteți închide contul dvs. pe această pagină</string>
+  <string name="doNotAskByEmail">Nu ne cereți prin e-mail să închidem un cont, nu îl vom face.</string>
+  <string name="wantReopen">Vreau să îmi redeschid contul</string>
+  <string name="reopenOnThisPage">Puteți redeschide contul pe această pagină. Funcționează doar o singură dată.</string>
+  <string name="doNotAskByEmailToReopen">Nu ne cereți prin e-mail să redeschidem un cont, nu o vom face.</string>
+  <string name="wantChangeUsername">Vreau să-mi schimb numele de utilizator</string>
+  <string name="changeUsernameCase">Vizitaţi această pagină pentru a schimba numelui de utilizator cu litere mici sau mari</string>
+  <string name="cantChangeMore">Nu putem schimba mai mult decât litere mari sau mici. Din motive tehnice, este de-a dreptul imposibil.</string>
+  <string name="orCloseAccount">Cu toate acestea, poți închide contul tău curent și crea unul nou.</string>
+  <string name="wantClearHistory">Vreau să îmi sterg istoricul sau ratingul</string>
+  <string name="cantClearHistory">Nu se poate curăța istoricul jocurilor, istoricul puzzle-urilor sau evaluările.</string>
+  <string name="wantReport">Vreau să raportez un jucător</string>
+  <string name="cheating">trișare</string>
 </resources>
