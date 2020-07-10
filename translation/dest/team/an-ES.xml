@@ -3,8 +3,8 @@
   <string name="team">Equipo</string>
   <string name="teams">Equipos</string>
   <plurals name="nbMembers">
-    <item quantity="one">%#s miembro</item>
-    <item quantity="other">%#s miembros</item>
+    <item quantity="one">%s miembro</item>
+    <item quantity="other">%s miembros</item>
   </plurals>
   <string name="allTeams">Totz los equipos</string>
   <string name="newTeam">Equipo nuevo</string>
@@ -24,13 +24,13 @@
   <string name="kickSomeone">Fer fuera a belún de l\'equipo</string>
   <string name="whoToKick">A quí quiers fer fuera de l\'equipo?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%#s solicitut d\'ingreso</item>
-    <item quantity="other">%#s solicitutz d\'ingreso</item>
+    <item quantity="one">%s solicitut d\'ingreso</item>
+    <item quantity="other">%s solicitutz d\'ingreso</item>
   </plurals>
   <string name="willBeReviewed">Lo lider de l\'equipo revisará la tuya solicitut d\'ingreso.</string>
   <string name="beingReviewed">Lo lider de l\'equipo ye revisando la tuya solicitut d\'ingreso.</string>
   <string name="teamBattle">Batalla per Equipos</string>
-  <string name="teamBattleOverview">#Un batalla de quantos equipos, cada chugador anota puntos pa lo suyo equipo</string>
+  <string name="teamBattleOverview">Una batalla de quantos equipos, cada chugador anota puntos pa lo suyo equipo</string>
   <string name="teamTournament">Torneo d\'equipo</string>
   <string name="teamTournamentOverview">Un torneo a lo qual nomás pueden unir-se los miembros d\'o tuyo equipo</string>
   <string name="messageAllMembers">Ninviar mensache a totz los miembros</string>
