@@ -24,4 +24,22 @@
   <string name="visibleByBothStudentsAndTeachers">Vizibil atât pentru profesori, cât și pentru elevii din clasă</string>
   <string name="teachersOfTheClass">Profesorii clasei</string>
   <string name="addLichessUsernames">Adaugă nume de utilizator Lichess, câte unul pe fiecare linie, pentru a-i invita ca profesori.</string>
+  <string name="theyMustFirstApply">Mai întâi, ei trebuie să se înscrie pentru a fi profesori Lichess.</string>
+  <string name="resetPassword">Resetează parola</string>
+  <string name="makeSureToCopy">Asigurăți-vă că ați copiat sau notat parola acum. Nu veți mai putea să o revedeți!</string>
+  <string name="passwordX">Parola: %s</string>
+  <string name="generateANewPassword">Generează o parolă nouă pentru elev</string>
+  <string name="invitedToXByY">Invitat la %1$s de către %2$s</string>
+  <string name="realName">Nume real</string>
+  <string name="privateWillNeverBeShown">Privat. Nu va fi afișat niciodată în afara clasei. Ajută la identificarea elevului.</string>
+  <string name="addStudent">Adaugă elev</string>
+  <string name="lichessProfileXCreatedForY">Profilul Lichess %1$s creat pentru %2$s.</string>
+  <string name="studentCredentials">Elev:  %1$s
+Nume de utilizator: %2$s
+Parolă: %3$s</string>
+  <string name="inviteALichessAccount">Invită un cont Lichess</string>
+  <string name="inviteDesc1">Dacă elevul sau eleva au deja un cont Lichess, îi poți invita la clasă.</string>
+  <string name="inviteDesc2">Ei vor primi un mesaj pe Lichess cu un link pentru a alătura clasei.</string>
+  <string name="inviteDesc3">Important: invitați doar elevi pe care îi cunoașteți și care doresc în mod activ să se alăture clasei.</string>
+  <string name="inviteDesc4">Nu trimiteți niciodată invitații nesolicitate la întâmplare.</string>
 </resources>
