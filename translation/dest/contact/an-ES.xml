@@ -32,8 +32,8 @@
   <string name="trolling">estar molesto</string>
   <string name="insults">insultar</string>
   <string name="otherReason">belatra razón</string>
-  <string name="toReportAPlayer">Pa reportar a un chugador per %#s, utiliza lo formulario d\'informe</string>
-  <string name="youCanAlsoReachReportPage">Tamién puetz acceder a ixa pachina pretando lo botón %#s en un perfil.</string>
+  <string name="toReportAPlayer">Pa reportar a un chugador per %s, utiliza lo formulario d\'informe</string>
+  <string name="youCanAlsoReachReportPage">Tamién puetz acceder a ixa pachina pretando lo botón %s en un perfil.</string>
   <string name="doNotReportInForum">No reportar chugadors en o foro.</string>
   <string name="doNotSendReportEmails">No nos ninvies correus electronicos de reporte.</string>
   <string name="doNotMessageModerators">No ninviar mensaches directos a los moderadors.</string>
@@ -44,7 +44,7 @@
   <string name="reportMobileIssue">Como un problema de l\'aplicación mobil de Lichess en GitHub</string>
   <string name="reportBugInDiscord">En o servidor Discord de Lichess</string>
   <string name="howToReportBug">Per favor, describe cómo se veye la error, qué asperabas que succedese, y los pasos pa reproducir la error.</string>
-  <string name="illegalPawnCapture">Captura de chornalero ilegal</string>
+  <string name="illegalPawnCapture">Captura de peón ilegal</string>
   <string name="calledEnPassant">Se diz captura a lo paso y ye una d\'as reglas d\'o ajedrez.</string>
   <string name="tryEnPassant">Preba este chicot chuego interactivo pa aprender mas sobre la captura a lo paso.</string>
   <string name="illegalCastling">Enroque ilegal u imposible</string>
@@ -71,7 +71,7 @@
   <string name="monetizing">Monetizar Lichess</string>
   <string name="buyingLichess">Mercar Lichess</string>
   <string name="authorizationToUse">Autorización pa usar Lichess</string>
-  <string name="welcomeToUse">Puede usar Lichess atura la suya fin, mesmo comercial.</string>
+  <string name="welcomeToUse">Puede usar Lichess pa la suya fin, mesmo comercial.</string>
   <string name="videosAndBooks">Puede amostrar-lo en vídeos, y puede prener capturas de pantalla de Lichess en os suyos libros.</string>
   <string name="creditAppreciated">S\'aprecia lo credito, pero no ye necesario.</string>
   <string name="noneOfTheAbove">Garra d\'as anteriors</string>
