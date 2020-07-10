@@ -35,6 +35,13 @@
     <item quantity="many">C\'hoariet he/en deus %1$s fiñvadenn</item>
     <item quantity="other">C\'hoariet he/en deus %1$s fiñvadenn</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">en %1$s c\'hrogad a-bell</item>
+    <item quantity="two">e %1$s grogad a-bell</item>
+    <item quantity="few">e %1$s krogad a-bell</item>
+    <item quantity="many">e %1$s krogad a-bell</item>
+    <item quantity="other">e %1$s krogad a-bell</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Krog eo da heuliañ %s c\'hoarier</item>
     <item quantity="two">Krog eo da heuliañ %s c\'hoarier</item>
