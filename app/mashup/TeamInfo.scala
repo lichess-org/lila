@@ -11,6 +11,7 @@ case class TeamInfo(
     mine: Boolean,
     ledByMe: Boolean,
     requestedByMe: Boolean,
+    subscribed: Boolean,
     requests: List[RequestWithUser],
     forumPosts: List[MiniForumPost],
     tours: TeamInfo.PastAndNext
@@ -51,12 +52,14 @@ final class TeamInfoApi(
       requests      <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
       mine          <- me.??(m => api.belongsTo(team.id, m.id))
       requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
+      subscribed    <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
       forumPosts    <- forumRecent.team(team.id)
       tours         <- tournaments(team, 5, 5)
     } yield TeamInfo(
       mine = mine,
       ledByMe = me.exists(m => team.leaders(m.id)),
       requestedByMe = requestedByMe,
+      subscribed = subscribed,
       requests = requests,
       forumPosts = forumPosts,
       tours = tours

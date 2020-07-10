@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.data.Form
+import play.api.data.Forms._
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -287,6 +288,17 @@ final class Team(
         }
     )
 
+  def subscribe(teamId: String) = {
+    def doSub(req: Request[_], me: UserModel) =
+      Form(single("v" -> boolean))
+        .bindFromRequest()(req, formBinding)
+        .fold(_ => funit, v => api.subscribe(teamId, me.id, v))
+    AuthOrScopedBody(_.Team.Write)(
+      auth = ctx => me => doSub(ctx.body, me) inject Redirect(routes.Team.show(teamId)),
+      scoped = req => me => doSub(req, me) inject jsonOkResult
+    )
+  }
+
   def requests =
     Auth { implicit ctx => me =>
       import lila.memo.CacheApi._
@@ -478,10 +490,11 @@ final class Team(
         msg =>
           Right {
             PmAllLimitPerUser(me.id) {
+              val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
-You received this message because you are part of the team lishogi.org${routes.Team.show(team.id)}."""
-              env.msg.api.multiPost(me, env.team.memberStream.ids(team, MaxPerSecond(50)), full)
+You received this because you are subscribed to messages of the team $url."""
+              env.msg.api.multiPost(me, env.team.memberStream.subscribedIds(team, MaxPerSecond(50)), full)
               funit // we don't wait for the stream to complete, it would make lishogi time out
             }(funit)
           }

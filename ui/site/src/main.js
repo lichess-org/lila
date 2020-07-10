@@ -983,6 +983,14 @@
   function startTeam(cfg) {
     lishogi.socket = lishogi.StrongSocket('/team/' + cfg.id, cfg.socketVersion);
     cfg.chat && lishogi.makeChat(cfg.chat);
+    $('#team-subscribe').on('change', function () {
+      const v = this.checked;
+      $(this)
+        .parents('form')
+        .each(function () {
+          $.post($(this).attr('action'), { v: v });
+        });
+    });
   }
 
   ////////////////
