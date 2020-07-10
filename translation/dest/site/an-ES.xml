@@ -42,5 +42,8 @@
   <string name="forceResignation">Reclama la victoria</string>
   <string name="forceDraw">Declara l\'empaz</string>
   <string name="talkInChat">Per favor, sé amable en o chat.</string>
+  <string name="whiteLeftTheGame">Las blancas han abandonau la partida</string>
+  <string name="blackLeftTheGame">Las negras han abandonau la partida</string>
   <string name="deleteFromHere">Borrar dende aquí</string>
+  <string name="importPgn">Importar PGN</string>
 </resources>
