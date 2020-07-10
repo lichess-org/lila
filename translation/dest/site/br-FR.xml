@@ -490,7 +490,9 @@
   <string name="clearBoard">Skarzhañ pep tra diwar an dachenn emgann</string>
   <string name="isPrivate">Prevez</string>
   <string name="reportXToModerators">Diskleriañ %s d\'an habaskaerien</string>
+  <string name="xRating">Renkadur %s</string>
   <string name="ifNoneLeaveEmpty">Ma n\'eus ket, laoskit goullo</string>
+  <string name="gameCompletionRate">Mont a ra betek penn ar c\'hrogadoù: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Aozañ ar profil</string>
   <string name="firstName">Anv</string>
@@ -504,6 +506,7 @@
   <string name="onlinePlayers">C\'hoarierien enlinenn</string>
   <string name="activeToday">Oberiat hiziv</string>
   <string name="activePlayers">C\'hoarierien oberiat</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Diwallit, renket eo ar c\'hrogad met n\'eus horolaj ebet!</string>
   <string name="yourPuzzleRatingX">Ho renkadur poelladennoù: %s</string>
   <string name="findTheBestMoveForWhite">Kavit ar fiñvadenn wellañ evit ar re wenn.</string>
   <string name="findTheBestMoveForBlack">Kavit ar fiñvadenn wellañ evit ar re zu.</string>
@@ -521,6 +524,7 @@
   <string name="wasThisPuzzleAnyGood">Mat e oa ar boelladenn?</string>
   <string name="pleaseVotePuzzle">Skoazellit lichess da wellaat en ur votiñ gant ar bir war-zu an nec\'h pe an traoñ:</string>
   <string name="thankYou">Trugarez!</string>
+  <string name="ratingX">Renkadur: %s</string>
   <string name="hidden">kuzhet</string>
   <plurals name="playedXTimes">
     <item quantity="one">C\'hoariet %s wech</item>
