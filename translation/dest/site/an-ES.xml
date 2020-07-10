@@ -82,5 +82,29 @@
   <string name="averageRatingX">Puntuación meya: %s</string>
   <string name="recentGames">Partidas recients</string>
   <string name="topGames">Millors partidas</string>
+  <string name="masterDbExplanation">Dos millons de partidas fisicas de chugadors con ELO FIDE +%1$s dende %2$s dica %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mate en %s semimovimiento</item>
+    <item quantity="other">Mate en %s semimovimientos</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Siguient captura u movimiento de peón en %s semimovimiento (distancia a reinicio d\'o contador de 50 moviments)</item>
+    <item quantity="other">Siguient captura u movimiento de peón en %s semimovimientos (distancia a reinicio d\'o contador de 50 moviments)</item>
+  </plurals>
+  <string name="noGameFound">No s\'ha trobau garra partida</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Incluyir mas partidas dende lo menú de preferencias?</string>
+  <string name="openingExplorer">Explorador d\'obriduras</string>
+  <string name="xOpeningExplorer">Explorador d\'obriduras de %s</string>
+  <string name="winPreventedBy50MoveRule">Victoria privada per la regla d\'os 50 movimientos</string>
+  <string name="lossSavedBy50MoveRule">Derrota privada per la regla d\'os 50 movimientos</string>
+  <string name="allSet">Tot presto!</string>
   <string name="importPgn">Importar PGN</string>
+  <string name="delete">Borrar</string>
+  <string name="deleteThisImportedGame">Quiers borrar esta partida importada?</string>
+  <string name="replayMode">Modo de reproducción</string>
+  <string name="realtimeReplay">Tiempo real</string>
+  <string name="byCPL">Per CPL</string>
+  <string name="openStudy">Ubrir estudio</string>
+  <string name="enable">Activar</string>
+  <string name="bestMoveArrow">Flecha d\'a millor chugada</string>
 </resources>
