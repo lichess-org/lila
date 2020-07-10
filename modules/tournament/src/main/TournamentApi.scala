@@ -145,10 +145,7 @@ final class TournamentApi(
       filterExistingTeamIds: Set[TeamID] => Fu[Set[TeamID]]
   ): Funit =
     filterExistingTeamIds(data.potentialTeamIds) flatMap { teamIds =>
-      tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders)) >>
-        tour.teamBattle.?? { prev =>
-          tournamentRepo.setForTeams(tour.id, prev.teams intersect teamIds).void
-        }
+      tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
     }
 
   private val hadPairings = new lila.memo.ExpireSetMemo(1 hour)
