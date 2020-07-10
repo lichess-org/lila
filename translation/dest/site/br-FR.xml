@@ -737,6 +737,7 @@
   <string name="youHaveAlreadyRegisteredTheEmail">Ar postel-mañ: %s ho peus enrollet dija</string>
   <string name="kidMode">Mod evit ar vugale</string>
   <string name="kidModeExplanation">Un afer a surentez an hini eo. Ne c\'haller ket mont e darempred gant ar re all pa c\'hoarier er mod evit ar vugale. Mat eo evit ho pugale pe ho skolidi evit o gwareziñ diouzh ar c\'hoarierien all war internet.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">An ikonenn %s zo pa vezer o c\'hoari gant er mod evit ar vugale ha gant se e ouzit eo gwarezet ho moused.</string>
   <string name="enableKidMode">Gweredekaat ar mod evit ar vugale</string>
   <string name="disableKidMode">Diweredekaat ar mod evit ar vugale</string>
   <string name="security">Surentez</string>
@@ -789,6 +790,8 @@
   <string name="coaches">Gourdonerien</string>
   <string name="invalidPgn">Ur gudenn zo gant ar PGN</string>
   <string name="invalidFen">Ur gudenn zo gant ar FEN</string>
+  <string name="error.minLength">%s eo an niver bihanañ a sinoù</string>
+  <string name="error.maxLength">%s eo an niver brasañ a sinoù</string>
   <string name="error.min">Dleout a ra bezañ kevatal pe brasoc\'h evit %s</string>
   <string name="error.max">Dleout a ra bezañ kevatal pe bihanoc\'h evit %s</string>
   <string name="error.unknown">Fazi</string>
@@ -846,7 +849,12 @@
   <string name="opening">Digoradur</string>
   <string name="middlegame">Kreiz ar c\'hrogad</string>
   <string name="endgame">Fin ar c\'hrogad</string>
+  <string name="registerToSendChallenges">Kevreit evit daeañ unan bennak mar plij.</string>
+  <string name="youCannotChallengeX">Ne c\'hallit ket daeañ %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s n\'he/en deus ket c\'hant da vezañ daeet.</string>
   <string name="yourXRatingIsTooFarFromY">Re vras an diforc\'h etre ho renkadur %1$s hag hini %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Ne c\'hallit ket daeañ abalamour d\'ho renkadur %s a zo da c\'hortoz.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">Ne vez ket degemeret daeoù nemet digant mignoned gant %s.</string>
   <string name="addCurrentVariation">Ouzhpennañ an eilstumm o ren</string>
   <string name="playX">C\'hoari %s</string>
   <string name="sorry">Hon digarezit :(</string>
@@ -854,8 +862,10 @@
   <string name="why">Perak?</string>
   <string name="goodPractice">Evit hen ober e dav deomp bezañ sur e vez graet gant doareoù dereat gant an holl.</string>
   <string name="potentialProblem">Pa vez merzhet ar pezh a c\'hallfe bezañ ur gudenn e vez dispaket ar gemennadenn-mañ ganeomp.</string>
+  <string name="howToAvoidThis">Penaos ober kuit ma c\'hoarvezfe an dra-mañ en-dro?</string>
   <string name="playEveryGame">Kit betek penn ho krogadoù.</string>
   <string name="tryToWin">Klaskit gounit pep krogad (pe bezañ rampo diantav).</string>
+  <string name="resignLostGames">Dilezit ar c\'hrogadoù pa ne vez ket an tu kreñv ganeoc\'h (ha n\'eo ket gortoz ez afe an amzer e-biou).</string>
   <string name="temporaryInconvenience">Hon digarezit evit an diaezamant berrbad,</string>
   <string name="wishYouGreatGames">hag e hetomp krogadoù mat deoc\'h war lichess.org.</string>
   <string name="thankYouForReading">Mersi da vezañ lennet!</string>
@@ -879,6 +889,7 @@
   <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
   <string name="inTheFAQ">er FAG.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Ma faotañ deoc\'h mont e darempred ganeomp abalamour d\'un trucher pe d\'un den displijus, %1$s</string>
+  <string name="joinTheTeamXToPost">Ret eo bezañ ezel eus %1$s evit skrivañ ur gemennadenn er forom-mañ</string>
   <string name="teamNamedX">Skipailh %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Ne c\'hallit ket skrivañ ur gemennadenn war ar foromoù evit poent. C\'hoarit un tamm a-raok!</string>
   <string name="subscribe">Heuliañ</string>
