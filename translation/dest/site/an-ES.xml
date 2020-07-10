@@ -107,4 +107,16 @@
   <string name="openStudy">Ubrir estudio</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Flecha d\'a millor chugada</string>
+  <string name="evaluationGauge">Indicador d\'avaluación</string>
+  <string name="multipleLines">Linias multiples</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Memoria</string>
+  <string name="infiniteAnalysis">Analisi infinita</string>
+  <string name="removesTheDepthLimit">Saca lo limite de profundidat y te fa calentar l\'ordinador</string>
+  <string name="blunder">Picia</string>
+  <string name="blunders">Picias</string>
+  <string name="mistake">Error</string>
+  <string name="mistakes">Errors</string>
+  <string name="inaccuracy">Imprecisión</string>
+  <string name="inaccuracies">Imprecisions</string>
 </resources>
