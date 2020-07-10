@@ -42,6 +42,13 @@
     <item quantity="many">e %1$s krogad a-bell</item>
     <item quantity="other">e %1$s krogad a-bell</item>
   </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s c\'hrogad a-bell echuet</item>
+    <item quantity="two">%s grogad a-bell echuet</item>
+    <item quantity="few">%s krogad a-bell echuet</item>
+    <item quantity="many">%s krogad a-bell echuet</item>
+    <item quantity="other">%s krogad a-bell echuet</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Krog eo da heuliañ %s c\'hoarier</item>
     <item quantity="two">Krog eo da heuliañ %s c\'hoarier</item>
