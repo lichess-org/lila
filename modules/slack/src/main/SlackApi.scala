@@ -29,7 +29,7 @@ final class SlackApi(
 
     private def addToBuffer(event: ChargeEvent): Funit = {
       buffer = buffer :+ event
-      (buffer.head.date isBefore DateTime.now.minusHours(6)) ?? {
+      (buffer.head.date isBefore DateTime.now.minusHours(12)) ?? {
         val patrons   = buffer map (_.username) map userAt mkString ", "
         val amountSum = buffer.map(_.amount).sum
         displayMessage {
