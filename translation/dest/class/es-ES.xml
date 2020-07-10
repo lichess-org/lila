@@ -18,26 +18,26 @@
   <string name="removedStudents">Eliminado</string>
   <string name="inviteTheStudentBack">Invitar nuevamente al estudiante</string>
   <string name="sendAMessage">Enviar un mensaje a todos los estudiantes.</string>
-  <string name="aLinkToTheClassWillBeAdded">Un vinclo a la clase s\'anyadirá automaticament a la fin d\'o mensache, asinas que no ye necesario que lo incluigas.</string>
-  <string name="className">Nombre d\'a clase</string>
-  <string name="classDescription">Descripción d\'a clase</string>
-  <string name="visibleByBothStudentsAndTeachers">Visible pa profesors y estudiants d\'a clase</string>
-  <string name="teachersOfTheClass">Profesors d\'a clase</string>
-  <string name="addLichessUsernames">Anyadir nombres d\'usuarios de Lichess pa convidar-los como profesors. Un per linia.</string>
-  <string name="theyMustFirstApply">En primeras han d\'aplicar a estar Profesors de Lichess.</string>
-  <string name="resetPassword">Restablir clau</string>
-  <string name="makeSureToCopy">Asegura-te de copiar u escribir la clau agora. No podrás veyer-la de nuevo!</string>
-  <string name="passwordX">Clau: %#s</string>
-  <string name="generateANewPassword">Chenerar una nueva clau pa lo estudiant</string>
-  <string name="invitedToXByY">Convidau a %1$#s per %2$#s</string>
+  <string name="aLinkToTheClassWillBeAdded">Un enlace a la clase se añadirá automáticamente al final del mensaje, así que no es necesario que lo incluyas.</string>
+  <string name="className">Nombre de la clase</string>
+  <string name="classDescription">Descripción de la clase</string>
+  <string name="visibleByBothStudentsAndTeachers">Visible para profesores y estudiantes de la clase</string>
+  <string name="teachersOfTheClass">Profesores de la clase</string>
+  <string name="addLichessUsernames">Añadir nombres de usuarios de Lichess para invitarlos como profesores. Uno por línea.</string>
+  <string name="theyMustFirstApply">Primero deben aplicar a ser Profesores de Lichess.</string>
+  <string name="resetPassword">Restablecer contraseña</string>
+  <string name="makeSureToCopy">Asegúrate de copiar o escribir la contraseña ahora. ¡No podrás verla de nuevo!</string>
+  <string name="passwordX">Contraseña: %s</string>
+  <string name="generateANewPassword">Generar una nueva contraseña para el estudiante</string>
+  <string name="invitedToXByY">Invitado a %1$s por %2$s</string>
   <string name="realName">Nombre real</string>
-  <string name="privateWillNeverBeShown">Privau. Nunca s\'amostrará difuera d\'a clase. Aduya a recordar quí ye lo estudiant.</string>
-  <string name="addStudent">Anyadir estudiant</string>
+  <string name="privateWillNeverBeShown">Privado. Nunca se mostrará fuera de la clase. Ayuda a recordar quién es el estudiante.</string>
+  <string name="addStudent">Añadir estudiante</string>
   <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creado por %2$s.</string>
   <string name="studentCredentials">Estudiante:  %1$s
 Nombre de usuario: %2$s
 Contraseña: %3$s</string>
-  <string name="inviteALichessAccount">Convida una cuenta de Lichess</string>
+  <string name="inviteALichessAccount">Invita una cuenta de Lichess</string>
   <string name="inviteDesc1">Si el estudiante ya posee una cuenta de Lichess, puede invitarle a la clase.</string>
   <string name="inviteDesc2">Recibirán un mensaje en Lichess con un enlace para unirse a la clase.</string>
   <string name="inviteDesc3">Importante: invita solamente a estudiantes que conozcas, y que deseen unirse a la clase.</string>
@@ -54,7 +54,7 @@ Aquí está el enlace de acceso.</string>
   <string name="invitationToClass">Estás invitado a unirte a la clase \"%s\" como estudiante.</string>
   <string name="clickToViewInvitation">Haz clic en el enlace para ver la invitación:</string>
   <plurals name="nbPendingInvitations">
-    <item quantity="one">#Un invitación pendient</item>
+    <item quantity="one">Una invitación pendiente</item>
     <item quantity="other">%#s invitacions pendients</item>
   </plurals>
   <string name="noPendingInvitations">No hay invitaciones pendientes</string>
@@ -77,11 +77,11 @@ Aquí está el enlace de acceso.</string>
     <item quantity="one">Estudiante</item>
     <item quantity="other">%#s estudiants</item>
   </plurals>
-  <string name="students">Estudiants</string>
+  <string name="students">Estudiantes</string>
   <string name="progress">Progreso</string>
   <string name="noStudents">Aún no hay estudiantes en la clase.</string>
   <string name="noRemovedStudents">No hay estudiantes eliminados.</string>
-  <string name="overDays">A lo largo d\'os días</string>
+  <string name="overDays">A lo largo de los días</string>
   <string name="timePlaying">Tiempo jugado</string>
   <string name="variantXOverLastY">%1$s sobre los últimos %2$s</string>
   <string name="winrate">Porcentaje de victorias</string>
