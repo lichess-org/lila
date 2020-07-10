@@ -31,10 +31,9 @@ final class RealPlayerApi(
                 .toList
                 .flatMap { line =>
                   line.split(';').map(_.trim) match {
-                    case Array(id, name, rating) =>
-                      Some(id -> RealPlayer(name.some.filter(_.nonEmpty), rating.toIntOption))
-                    case Array(id, name) => Some(id -> RealPlayer(name.some.filter(_.nonEmpty), none))
-                    case _               => none
+                    case Array(id, name, rating) => make(id, name.some, rating.some)
+                    case Array(id, name)         => make(id, name.some, none)
+                    case _                       => none
                   }
                 }
                 .toMap
@@ -43,6 +42,13 @@ final class RealPlayerApi(
             }
           }
       }
+  }
+
+  private def make(id: String, name: Option[String], rating: Option[String]) = {
+    val (n, r) = name.filter(_.nonEmpty) -> rating.flatMap(_.toIntOption)
+    (n.isDefined || r.isDefined) option {
+      User.normalize(id) -> RealPlayer(name = n, rating = r)
+    }
   }
 }
 
