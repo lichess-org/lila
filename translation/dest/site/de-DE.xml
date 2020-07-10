@@ -842,7 +842,7 @@
   <string name="edit">Bearbeiten</string>
   <string name="rapid">Schnellschach</string>
   <string name="classical">Klassisch</string>
-  <string name="ultraBulletDesc">Unglaublich schnelle Spiele: Weniger als 30 Sekunden</string>
+  <string name="ultraBulletDesc">Wahnsinnig schnelle Spiele: Weniger als 30 Sekunden</string>
   <string name="bulletDesc">Sehr schnelle Spiele: Weniger als 3 Minuten</string>
   <string name="blitzDesc">Schnelle Spiele: 3 bis 8 Minuten</string>
   <string name="rapidDesc">Schnellschachspiele: 8 bis 25 Minuten</string>

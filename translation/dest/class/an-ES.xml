@@ -9,10 +9,10 @@
   <string name="freeForAllForever">100% libre y gratuito pa totz, per siempre, sin publicidat ni rastreadores</string>
   <string name="applyToBeLichessTeacher">Ninviar una solicitut pa estar un Profesor de Lichess</string>
   <string name="noClassesYet">No i hai clases encara.</string>
-  <string name="teachersX">Profesors: %#s</string>
+  <string name="teachersX">Profesors: %s</string>
   <string name="newClass">Nueva clase</string>
   <string name="closeClass">Zarrar clase</string>
-  <string name="closedByX">Zarrada per %#s</string>
+  <string name="closedByX">Zarrada per %s</string>
   <string name="reopen">Reubrir</string>
   <string name="removeStudent">Eliminar estudiant</string>
   <string name="removedStudents">Eliminau</string>
@@ -27,16 +27,16 @@
   <string name="theyMustFirstApply">En primeras han d\'aplicar a estar Profesors de Lichess.</string>
   <string name="resetPassword">Restablir clau</string>
   <string name="makeSureToCopy">Asegura-te de copiar u escribir la clau agora. No podrás veyer-la de nuevo!</string>
-  <string name="passwordX">Clau: %#s</string>
+  <string name="passwordX">Clau: %s</string>
   <string name="generateANewPassword">Chenerar una nueva clau pa lo estudiant</string>
-  <string name="invitedToXByY">Convidau a %1$#s per %2$#s</string>
+  <string name="invitedToXByY">Convidau a %1$s  per %2$s </string>
   <string name="realName">Nombre real</string>
   <string name="privateWillNeverBeShown">Privau. Nunca s\'amostrará difuera d\'a clase. Aduya a recordar quí ye lo estudiant.</string>
   <string name="addStudent">Anyadir estudiant</string>
-  <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$#s creyau per %2$#s.</string>
-  <string name="studentCredentials">Estudiant:  %1$#s
-Nombre d\'usuario: %2$#s
-Clau: %3$#s</string>
+  <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s  creyau per %2$s .</string>
+  <string name="studentCredentials">Estudiant:  %1$s 
+Nombre d\'usuario: %2$s 
+Clau: %3$s </string>
   <string name="inviteALichessAccount">Convida una cuenta de Lichess</string>
   <string name="inviteDesc1">Si lo estudiant ya poseye una cuenta de Lichess, puede convidar-le a la clase.</string>
   <string name="inviteDesc2">Recibirán un mensache en Lichess con un vinclo pa unir-se a la clase.</string>
@@ -44,18 +44,18 @@ Clau: %3$#s</string>
   <string name="inviteDesc4">Nunca ninvies invitacions no solicitadas a chugadors arbitrarios.</string>
   <string name="createANewLichessAccount">Creyar una nueva cuenta de Lichess</string>
   <string name="createDesc1">Si los estudiants encara no poseyen una cuenta de Lichess, puede creyar una pa ells aquí.</string>
-  <string name="createDesc2">No se requiere adreza de correu electronico. Se chenerará una clau. Ha de #dar a los estudiants, asinas podrán encetar sesión.</string>
+  <string name="createDesc2">No se requiere adreza de correu electronico. Se chenerará una clau. Ha de ninviar-la a los estudiants, asinas podrán encetar sesión.</string>
   <string name="createDesc3">Important: un estudiant no ha de tener multiples cuentas.</string>
-  <string name="createDesc4">Si ya poseyen #un, usa lo formulario d\'invitación.</string>
+  <string name="createDesc4">Si ya en tienen una, usa lo formulario d\'invitación.</string>
   <string name="lichessUsername">Nombre d\'usuario de Lichess</string>
   <string name="generateANewUsername">Chenerar un nuevo nombre d\'usuario</string>
-  <string name="welcomeToClass">Bienveniu a la tuya clase: %#s.
+  <string name="welcomeToClass">Bienveniu a la tuya clase: %s.
 Aquí ye lo vinclo d\'acceso.</string>
-  <string name="invitationToClass">Yes convidau a unir-te a la clase \"%#s\" como estudiant.</string>
+  <string name="invitationToClass">Yes convidau a unir-te a la clase \"%s\" como estudiant.</string>
   <string name="clickToViewInvitation">Fe clic en o vinclo pa veyer la invitación:</string>
   <plurals name="nbPendingInvitations">
-    <item quantity="one">#Un invitación pendient</item>
-    <item quantity="other">%#s invitacions pendients</item>
+    <item quantity="one">Una invitación pendient</item>
+    <item quantity="other">%s invitacions pendients</item>
   </plurals>
   <string name="noPendingInvitations">No i hai invitacions pendients</string>
   <string name="onlyVisibleToTeachers">Nomás visible pa los profesors d\'a clase</string>
@@ -71,11 +71,11 @@ Aquí ye lo vinclo d\'acceso.</string>
   <string name="teachers">Profesors</string>
   <plurals name="nbTeachers">
     <item quantity="one">Profesor</item>
-    <item quantity="other">%#s profesors</item>
+    <item quantity="other">%s profesors</item>
   </plurals>
   <plurals name="nbStudents">
     <item quantity="one">Estudiant</item>
-    <item quantity="other">%#s estudiants</item>
+    <item quantity="other">%s estudiants</item>
   </plurals>
   <string name="students">Estudiants</string>
   <string name="progress">Progreso</string>
@@ -83,7 +83,7 @@ Aquí ye lo vinclo d\'acceso.</string>
   <string name="noRemovedStudents">No i hai estudiants eliminaus.</string>
   <string name="overDays">A lo largo d\'os días</string>
   <string name="timePlaying">Tiempo chugau</string>
-  <string name="variantXOverLastY">%1$#s sobre los zaguers %2$#s</string>
+  <string name="variantXOverLastY">%1$s  sobre los zaguers %2$s </string>
   <string name="winrate">Percentache de victorias</string>
   <string name="news">Noticias d\'a clase</string>
   <string name="editNews">Editar noticias</string>
@@ -92,5 +92,5 @@ Aquí ye lo vinclo d\'acceso.</string>
   <string name="newsEdit1">Totas las noticias de clase en un solo puesto.</string>
   <string name="newsEdit2">Anyade las noticias recients en a parte superior. No elimina las noticias anteriors.</string>
   <string name="newsEdit3">Deseparar noticias con --- amostrará una linia horizontal.</string>
-  <string name="markdownAvailable">%#s ye disponible pa una sintaxi mas abanzada.</string>
+  <string name="markdownAvailable">%s ye disponible pa una sintaxi mas abanzada.</string>
 </resources>

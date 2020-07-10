@@ -275,7 +275,7 @@
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Esta cuenta ha violau los Termins de Servicio de Lichess</string>
+  <string name="thisAccountViolatedTos">Esta cuenta ha violado los Términos de Servicio de Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jugador incrementa o disminuye artificialmente su puntuación</string>
   <string name="openingExplorerAndTablebase">Explorador de aperturas y base de datos de finales</string>
   <string name="takeback">Deshacer jugada</string>
@@ -530,7 +530,7 @@
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Nueva contraseña</string>
   <string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
-  <string name="clockInitialTime">Tiempo inicial d\'o reloch</string>
+  <string name="clockInitialTime">Tiempo inicial del reloj</string>
   <string name="clockIncrement">Incremento</string>
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
@@ -668,7 +668,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tu puntuación en %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores de %2$s.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$#s ye millor que %2$#s de %3$#s chugadors.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s es mejor que %2$s de %3$s jugadores.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tienes una puntuación de %s  establecida.</string>
   <string name="yourRating">Tu puntuación</string>
   <string name="cumulative">Acumulado</string>
@@ -699,7 +699,7 @@
   <string name="enableKidMode">Activar el modo infantil</string>
   <string name="disableKidMode">Desactivar el modo infantil</string>
   <string name="security">Seguridad</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta ye una lista de dispositivos dende los quals has encetau sesión. Zarra totas las sesions que no reconoixcas.</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta es una lista de dispositivos desde los que has iniciado sesión. Cierra todas las sesiones que no reconozcas.</string>
   <string name="alternativelyYouCanX">O también puedes %s.</string>
   <string name="revokeAllSessions">cerrar todas las sesiones</string>
   <string name="playChessEverywhere">Juega al ajedrez donde sea</string>
@@ -838,7 +838,7 @@
   <string name="agreementNice">Me comprometo a respetar siempre a otros jugadores.</string>
   <string name="agreementAccount">Me comprometo a no crear múltiples cuentas.</string>
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
-  <string name="searchOrStartNewDiscussion">Buscar u empecipiar una nueva conversación</string>
+  <string name="searchOrStartNewDiscussion">Buscar o empezar una nueva conversación</string>
   <string name="edit">Editar</string>
   <string name="rapid">Rápida</string>
   <string name="classical">Clásica</string>
@@ -850,16 +850,16 @@
   <string name="correspondenceDesc">Partidas por correspondencia: uno o varios días por jugada</string>
   <string name="puzzleDesc">Entrenador de táctica de ajedrez</string>
   <string name="important">Importante</string>
-  <string name="yourQuestionMayHaveBeenAnswered">La tuya pregunta puede que ya tienga una respuesta %1$#s</string>
-  <string name="inTheFAQ">en as Preguntas Freqüents</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">Pa reportar a un usuario per fraude u mala conducta, %1$#s</string>
-  <string name="useTheReportForm">usar lo formulario d\'informe</string>
-  <string name="toRequestSupport">Pa solicitar suporte, %1$#s</string>
-  <string name="tryTheContactPage">preba la pachina de contacto</string>
-  <string name="thisTopicIsArchived">Este tema ha estau archivado y ya no puede estar respondiu.</string>
-  <string name="joinTheTeamXToPost">#Unir a %1$#s, pa publicar en este foro</string>
-  <string name="teamNamedX">%1$#s equipo</string>
-  <string name="youCannotPostYetPlaySomeGames">Encara no puetz publicar en os foros. Chuga qualques partidas!</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Tu pregunta puede que ya tenga una respuesta %1$s</string>
+  <string name="inTheFAQ">en las Preguntas Frecuentes</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Para reportar a un usuario por fraude o mala conducta, %1$s</string>
+  <string name="useTheReportForm">usar el formulario de informe</string>
+  <string name="toRequestSupport">Para solicitar soporte, %1$s</string>
+  <string name="tryTheContactPage">prueba la página de contacto</string>
+  <string name="thisTopicIsArchived">Este tema ha sido archivado y ya no puede ser respondido.</string>
+  <string name="joinTheTeamXToPost">Únete a %1$s, para publicar en este foro</string>
+  <string name="teamNamedX">%1$s equipo</string>
+  <string name="youCannotPostYetPlaySomeGames">Aún no puedes publicar en los foros. ¡Juega algunas partidas!</string>
   <string name="subscribe">Suscribirse</string>
-  <string name="unsubscribe">Cancelar la conduta</string>
+  <string name="unsubscribe">Cancelar la suscripción</string>
 </resources>

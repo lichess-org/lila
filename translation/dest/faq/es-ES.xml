@@ -28,30 +28,30 @@
   <string name="youCannotApply">No se puede solicitar ser moderador. Si vemos a alguien que pensamos que sería un buen moderador, nos ponemos en contacto con él directamente.</string>
   <string name="isCorrespondenceDifferent">¿El ajedrez por correspondencia es diferente del ajedrez normal?</string>
   <string name="youCanUseOpeningBookNoEngine">En Lichess, la principal diferencia en las reglas del ajedrez por correspondencia es que se permite un libro de aperturas. El uso de motores sigue estando prohibido y dará lugar a que se etiquete al usuario como tramposo. Aunque la ICCF permite el uso del motor en partidas por correspondencia, Lichess no lo permite.</string>
-  <string name="gameplay">Mecanica de chuego</string>
-  <string name="howBulletBlitzEtcDecided">Cómo se deciden los controls de tiempo en Bullet, Blitz y atros?</string>
-  <string name="basedOnGameDuration">Los controls de tiempo de Lichess se basan en a duración estimada d\'una partida = %1$#s
- Per eixemplo, la duración estimada d\'una partida de 5+3 ye 5 * 60 + 40 * 3 = 420 segundos.</string>
-  <string name="durationFormula">(hora inicial d\'o reloch) + 40 * (aumento d\'o reloch)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$#s</string>
-  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$#s</string>
-  <string name="whatVariantsCanIplay">Qué variants puedo chugar en Lichess?</string>
-  <string name="lichessSupportChessAnd">Lichess suporta ajedrez estandard y %1$#s.</string>
-  <string name="eightVariants">8 variants de ajedrez</string>
-  <string name="whatIsACPL">Qué ye la \"perda meya de centipeón\"?</string>
-  <string name="acplExplanation">Lo centipeón ye la unidat de medida utilizada en o ajedrez como representación de l\'avantalla. Un centipeón ye igual a 1/100 d\'un chornalero. Per tanto 100 centipeones = 1 chornalero. Estas valors no chugan garra papel formal en o chuego, pero son utils pa los chugadors y esencials en o ajedrez per ordinador pa avaluar las posicions.
+  <string name="gameplay">Mecánica de juego</string>
+  <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>
+  <string name="basedOnGameDuration">Los controles de tiempo de Lichess se basan en la duración estimada de una partida = %1$s
+ Por ejemplo, la duración estimada de una partida de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
+  <string name="durationFormula">(hora inicial del reloj) + 40 * (aumento del reloj)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">¿Qué variantes puedo jugar en Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess soporta ajedrez estándar y %1$s.</string>
+  <string name="eightVariants">8 variantes de ajedrez</string>
+  <string name="whatIsACPL">¿Qué es la \"pérdida media de centipeón\"?</string>
+  <string name="acplExplanation">El centipeón es la unidad de medida utilizada en el ajedrez como representación de la ventaja. Un centipeón es igual a 1/100 de un peón. Por lo tanto 100 centipeones = 1 peón. Estos valores no juegan ningún papel formal en el juego, pero son útiles para los jugadores y esenciales en el ajedrez por computadora para evaluar las posiciones.
 
-  Lo millor movimiento de l\'ordinador perderá #zero centipeones, pero los movimientos menors darán como resultau una posición desfavorable, medida en centipeones.
+  El mejor movimiento de la computadora perderá cero centipeones, pero los movimientos menores darán como resultado una posición desfavorable, medida en centipeones.
 
-  Esta valor puede estar usau como un indicador d\'a calidat d\'o chuego. Quantos menos centipeones se pierda per movimiento, mas fuerte ye lo chuego.
+  Este valor puede ser usado como un indicador de la calidad del juego. Cuantos menos centipeones se pierda por movimiento, más fuerte es el juego.
 
-  L\'analisi informatica en Lichess ye proporcionau per Stockfish.</string>
-  <string name="insufficientMaterial">Perdendo per tiempo, empate y material insuficient</string>
-  <string name="lichessFollowFIDErules">En o caso que un chugador se quede sin tiempo, ixe chugador normalment perderá la partida. Manimenos, lo chuego se considera empate si la posición ye tal que lo oponente no puede dar mate a lo rei d\'o chugador per qualsequier posible serie de movimientos legals (%1$#s).
+  El análisis informático en Lichess es proporcionado por Stockfish.</string>
+  <string name="insufficientMaterial">Perdiendo por tiempo, empate y material insuficiente</string>
+  <string name="lichessFollowFIDErules">En el caso de que un jugador se quede sin tiempo, ese jugador normalmente perderá la partida. Sin embargo, el juego se considera empate si la posición es tal que el oponente no puede dar mate al rey del jugador por cualquier posible serie de movimientos legales (%1$s).
 
-  En raras ocasions esto puede estar dificil de decidir automaticament (linias forzadas, fortalezas). Per defecto, siempre somos de parte d\'o chugador que no se quedó sin tiempo.
+  En raras ocasiones esto puede ser difícil de decidir automáticamente (líneas forzadas, fortalezas). Por defecto, siempre estamos de parte del jugador que no se quedó sin tiempo.
 
-  Tiene en cuenta que ye posible dar mate con un nomás caballo u alfil, siempre que lo oponente tienga una pieza que pueda blocar a lo rei.</string>
+  Ten en cuenta que es posible dar mate con un sólo caballo o alfil, siempre que el oponente tenga una pieza que pueda bloquear al rey.</string>
   <string name="linkToFIDErules">Manual FIDE §6.9, pdf</string>
   <string name="discoveringEnPassant">¿Por qué un peón puede capturar otro peón cuando ya está pasado? (en passant)</string>
   <string name="explainingEnPassant">Este movimiento es legal, y se llama \"captura al paso\". El artículo de Wikipedia da una %1$s al mismo.
@@ -77,67 +77,67 @@
   <string name="configure">configurar</string>
   <string name="accounts">Cuentas</string>
   <string name="titlesAvailableOnLichess">¿Qué títulos hay en Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess reconoixe totz los titols FIDE obtenius OTB (sobre lo tablero), asinas como %1$#s. Aquí i hai una lista de titols FIDE:</string>
-  <string name="showYourTitle">Si tiens un titol OTB, puetz solicitar que s\'amuestre en a tuya cuenta completando lo %1$#s, incluyindo una imachen clara d\'un documento/tarcheta d\'identificación y una foto tuya portiando dito documento/tarcheta.
+  <string name="lichessRecognizeAllOTBtitles">Lichess reconoce todos los títulos FIDE obtenidos OTB (sobre el tablero), así como %1$s. Aquí hay una lista de títulos FIDE:</string>
+  <string name="showYourTitle">Si tienes un título OTB, puedes solicitar que se muestre en tu cuenta completando el %1$s, incluyendo una imagen clara de un documento/tarjeta de identificación y una foto tuya portando dicho documento/tarjeta.
 
-  La verificación como chugador titulado en Lichess da acceso a chugar en os eventos d\'Arena pa titulados.
+  La verificación como jugador titulado en Lichess da acceso a jugar en los eventos de Arena para titulados.
 
-  Finalment, i hai un titol d\'honor %2$#s.</string>
-  <string name="asWellAsManyNMtitles">muitos titols de mayestros nacionals</string>
+  Finalmente, hay un título de honor %2$s.</string>
+  <string name="asWellAsManyNMtitles">muchos títulos de maestros nacionales</string>
   <string name="verificationForm">formulario de verificación</string>
-  <string name="canIbecomeLM">Puedo obtener lo titol de Maestro Lichess (LM)?</string>
+  <string name="canIbecomeLM">¿Puedo obtener el título de Maestro Lichess (LM)?</string>
   <string name="noUpperCaseDot">No.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Este titol honorifico no ye oficial y nomás existe en as Lichess.
+  <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico no es oficial y sólo existe en las Lichess.
 
-  Rara vegada l\'atorgamos a chugadors muito destacaus que son buens ciudadans de Lichess, a la nuestra discrección. No obtiens lo titol de LM, lo titol de LM te plega. Si cumples los requisitos, recibirás un mensache nuestro a lo respecto y la opción d\'acceptar u refusar lo titol.
+  Rara vez lo otorgamos a jugadores muy destacados que son buenos ciudadanos de Lichess, a nuestra discreción. No obtienes el título de LM, el título de LM te llega. Si cumples los requisitos, recibirás un mensaje nuestro al respecto y la opción de aceptar o rechazar el título.
 
-  No solicites obtener lo titol de LM.</string>
-  <string name="whatUsernameCanIchoose">Quál puede estar lo mío nombre d\'usuario?</string>
-  <string name="usernamesNotOffensive">En cheneral, los nombres d\'usuario no han de: estar ofensivos, suplantar a belún u fer publicidat. Puetz leyer mas sobre las %1$#s.</string>
+  No solicites obtener el título de LM.</string>
+  <string name="whatUsernameCanIchoose">¿Cuál puede ser mi nombre de usuario?</string>
+  <string name="usernamesNotOffensive">En general, los nombres de usuario no deben: ser ofensivos, suplantar a alguien o hacer publicidad. Puedes leer más sobre las %1$s.</string>
   <string name="guidelines">pautas</string>
-  <string name="uniqueTrophies">Trofeos solos</string>
-  <string name="ownerUniqueTrophies">Ixe trofeo ye solo en a historia de Lichess, dengún mas que %1$#s lo tendrá.</string>
-  <string name="wayOfBerserkExplanation">Pa obtener-lo, hiimgosu se desafió a ell mesmo a berserk y ganó 100%% partidas de %s.</string>
-  <string name="aHourlyBulletTournament">un torneo Bullet per hora</string>
-  <string name="goldenZeeExplanation">ZugAddict yera transmitindo y entre las dos zagueras horas heba estau tractando de redotar a la I.A. libel 8 en una partida 1+0, sin exito. Thibault le dició que si lo feba con exito entre la transmisión, obtendría un trofeo solo. Una hora dimpués, venció a Stockfish y se cumplió la promesa.</string>
-  <string name="lichessRatings">Puntuacions de Lichess</string>
-  <string name="whichRatingSystemUsedByLichess">Qué sistema de puntuación utiliza Lichess?</string>
-  <string name="ratingSystemUsedByLichess">Las puntuacions se calculan utilizando lo metodo de clasificación Glicko-2 desenvuelto per Mark Glickman. Este ye un metodo de puntuación  muito popular y ye utilizau per un numero significativo d\'organizacions de ajedrez (FIDE como un contraejemplo notable, ya que encara utilizan lo sistema de puntuación Elo).
+  <string name="uniqueTrophies">Trofeos únicos</string>
+  <string name="ownerUniqueTrophies">Ese trofeo es único en la historia de Lichess, nadie más que %1$s lo tendrá.</string>
+  <string name="wayOfBerserkExplanation">Para obtenerlo, hiimgosu se desafió a sí mismo a berserk y ganó 100%% partidas de %s.</string>
+  <string name="aHourlyBulletTournament">un torneo Bullet por hora</string>
+  <string name="goldenZeeExplanation">ZugAddict estaba transmitiendo y durante las dos últimas horas había estado tratando de derrotar a la I.A. nivel 8 en una partida 1+0, sin éxito. Thibault le dijo que si lo hacía con éxito durante la transmisión, obtendría un trofeo único. Una hora después, venció a Stockfish y se cumplió la promesa.</string>
+  <string name="lichessRatings">Puntuaciones de Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">¿Qué sistema de puntuación utiliza Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Las puntuaciones se calculan utilizando el método de clasificación Glicko-2 desarrollado por Mark Glickman. Este es un método de puntuación  muy popular y es utilizado por un número significativo de organizaciones de ajedrez (FIDE como un contraejemplo notable, ya que todavía utilizan el sistema de puntuación Elo).
 
-  En sintesi, las puntuacions de Glicko usan \"intervalos de confianza\" en calcular y representar la tuya puntuación. Quan prencipias a utilizar per primera vegada lo puesto, la tuya valoración prencipia en 1500 ± 700. Lo 1500 represienta la tuya puntuación, y lo 700 represienta l\'intervalo de confianza.
+  En síntesis, las puntuaciones de Glicko usan \"intervalos de confianza\" al calcular y representar tu puntuación. Cuando comienzas a utilizar por primera vez el sitio, tu valoración comienza en 1500 ± 700. El 1500 representa tu puntuación, y el 700 representa el intervalo de confianza.
 
-  Basicament, lo sistema tiene un 90% de seguridat que la tuya puntuación ye entre 800 y 2200. Ye increyiblement incierto. A causa d\'esto, quan un chugador acaba d\'empecipiar, la suya puntuación cambiará de forma muito espectacular, potencialment quantos cientos de puntos a la vegada. Pero dimpués de qualques partidas contra chugadors establius, l\'intervalo de confianza se reducirá, y la cantidat de puntos ganaus/perdius dimpués de cada partida disminuyirá.
+  Básicamente, el sistema tiene un 90% de seguridad de que tu puntuación está entre 800 y 2200. Es increíblemente incierto. Debido a esto, cuando un jugador acaba de empezar, su puntuación cambiará de forma muy espectacular, potencialmente varios cientos de puntos a la vez. Pero después de algunas partidas contra jugadores establecidos, el intervalo de confianza se reducirá, y la cantidad de puntos ganados/perdidos después de cada partida disminuirá.
 
-  Unatro punto que cal sinyalar ye que, con o paso d\'o tiempo, l\'intervalo de confianza aumentará. Esto te permite ganar u perder puntos mas rapidament pa igualar qualsequier cambio en o tuyo libel d\'habilidat en ixe tiempo.</string>
-  <string name="whatIsProvisionalRating">Per qué i hai un signo d\'interrogación (?) chunto a una puntuación?</string>
-  <string name="provisionalRatingExplanation">Lo signo d\'interrogación significa que la puntuación ye provisional. Las razons incluyen:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Lo chugador encara no ha finalizau suficients partidas per puntos contra %1$#s en a categoría de puntuación.</string>
-  <string name="similarOpponents">oponentes de fuerza semellant</string>
-  <string name="notPlayedRecently">Lo chugador no ha chugau suficients partidas recients. Dependendo d\'a cantidat de partidas que haigas chugau, puede tardar arredol d\'un anyo d\'inactividat pa que la tuya puntuación torne a estar provisional.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Concretament, significa que la desviación Glicko-2 ye mayor que 110. La desviación ye lo libel de confianza que tiene lo sistema en a clasificación. Quanto mas baixa sía la desviación, mas estable será una puntuación.</string>
-  <string name="howDoLeaderoardsWork">Cómo funcionan los rangos y los tablers de liderazgo?</string>
-  <string name="inOrderToAppearsYouMust">Pa plegar a lo %1$#s habrías de:</string>
+  Otro punto que hay que señalar es que, con el paso del tiempo, el intervalo de confianza aumentará. Esto te permite ganar o perder puntos más rápidamente para igualar cualquier cambio en tu nivel de habilidad en ese tiempo.</string>
+  <string name="whatIsProvisionalRating">¿Por qué hay un signo de interrogación (?) junto a una puntuación?</string>
+  <string name="provisionalRatingExplanation">El signo de interrogación significa que la puntuación es provisional. Las razones incluyen:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">El jugador aún no ha finalizado suficientes partidas por puntos contra %1$s en la categoría de puntuación.</string>
+  <string name="similarOpponents">oponentes de fuerza similar</string>
+  <string name="notPlayedRecently">El jugador no ha jugado suficientes partidas recientes. Dependiendo de la cantidad de partidas que hayas jugado, puede tardar alrededor de un año de inactividad para que tu puntuación vuelva a ser provisional.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Concretamente, significa que la desviación Glicko-2 es mayor que 110. La desviación es el nivel de confianza que tiene el sistema en la clasificación. Cuanto más baja sea la desviación, más estable será una puntuación.</string>
+  <string name="howDoLeaderoardsWork">¿Cómo funcionan los rangos y los tableros de liderazgo?</string>
+  <string name="inOrderToAppearsYouMust">Para llegar al %1$s deberías:</string>
   <string name="ratingLeaderboards">tablero de liderazgo</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">haber chugau a lo menos 30 partidas per puntos en una puntuación dada,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">haber chugau una partida per puntos en a zaguera semana pa esta puntuación,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">tener una desviación de puntuación menor que %1$#s, en ajedrez estandard, y menor que %2$#s en variants,</string>
-  <string name="beInTopTen">estar entre los 10 primers d\'esta clasificación.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Lo segundo requisito ye que los chugadors que ya no usan las suyas cuentas deixen de poblar los tablers de liderazgo.</string>
-  <string name="whyAreRatingHigher">Per qué son mas altas las puntuacions en comparanza con atros puestos y organizacions como FIDE, USCF y lo CIC?</string>
-  <string name="whyAreRatingHigherExplanation">Lo millor ye no considerar las puntuacions como zifras absolutas ni comparar-las con atras organizacions. Diferents organizacions tienen diferents libels de chugadors, diferents sistemas de puntuación (Elo, Glicko, Glicko-2 u una versión modificada d\'os primers). Estes factors pueden afectar drasticament los numeros absolutos (puntuacions).
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">haber jugado al menos 30 partidas por puntos en una puntuación dada,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">haber jugado una partida por puntos en la última semana para esta puntuación,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">tener una desviación de puntuación menor que %1$s, en ajedrez estándar, y menor que %2$s en variantes,</string>
+  <string name="beInTopTen">estar entre los 10 primeros de esta clasificación.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segundo requisito es que los jugadores que ya no usan sus cuentas dejen de poblar los tableros de liderazgo.</string>
+  <string name="whyAreRatingHigher">¿Por qué son más altas las puntuaciones en comparación con otros sitios y organizaciones como FIDE, USCF y el CIC?</string>
+  <string name="whyAreRatingHigherExplanation">Lo mejor es no considerar las puntuaciones como cifras absolutas ni compararlas con otras organizaciones. Diferentes organizaciones tienen diferentes niveles de jugadores, diferentes sistemas de puntuación (Elo, Glicko, Glicko-2 o una versión modificada de los primeros). Estos factores pueden afectar drásticamente los números absolutos (puntuaciones).
 
-  Ye millor pensar en as puntuacions como figuras \"relativas\" (a diferencia de las \"figuras absolutas\"): dentro d\'un conchunto de chugadors, las suyas diferencias relativas en as puntuacions t\'aduyarán a estimar quí gana/empata/pierde, y con qué freqüencia. Decir \"tiengo puntuación X\" significa brenca de no estar que i haiga atros chugadors a los quals comparar ixa puntuación.</string>
-  <string name="howToHideRatingWhilePlaying">Cómo amagar los míos puntajes entre las partidas?</string>
-  <string name="enableZenMode">Habilita lo modo Zen en %1$chus presionando %2$#s entre una partida.</string>
+  Es mejor pensar en las puntuaciones como figuras \"relativas\" (a diferencia de las \"figuras absolutas\"): dentro de un conjunto de jugadores, sus diferencias relativas en las puntuaciones te ayudarán a estimar quién gana/empata/pierde, y con qué frecuencia. Decir \"tengo puntuación X\" significa nada a menos que haya otros jugadores a los que comparar esa puntuación.</string>
+  <string name="howToHideRatingWhilePlaying">¿Cómo ocultar mis puntajes durante las partidas?</string>
+  <string name="enableZenMode">Habilita el modo Zen en %1$so presionando %2$s durante una partida.</string>
   <string name="displayPreferences">preferencias de visualización</string>
-  <string name="connexionLostCanIGetMyRatingBack">He perdiu un chuego a causa d\'un retardo/desconnexión. Puedo recuperar los míos puntajes?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadament, no podemos tornar puntajes pa las partidas perdidas a causa de retardo u desconnexión, independientment de si lo problema yera d\'o tuyo costau u d\'o nuestro. Manimenos, esto zaguer ye muito raro. Tamién tiene en cuenta que quan Lichess se reinicia y pierdes lo tiempo a causa d\'ixo, abortamos lo chuego pa aprevenir una perda inchusta.</string>
+  <string name="connexionLostCanIGetMyRatingBack">He perdido un juego debido a un retraso/desconexión. ¿Puedo recuperar mis puntajes?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadamente, no podemos devolver puntajes para las partidas perdidas debido a retraso o desconexión, independientemente de si el problema estaba de tu lado o del nuestro. Sin embargo, esto último es muy raro. También ten en cuenta que cuando Lichess se reinicia y pierdes el tiempo debido a eso, abortamos el juego para prevenir una pérdida injusta.</string>
   <string name="howToThreeDots">Cómo...</string>
-  <string name="enableDisableNotificationPopUps">Activar u desactivar finestras emerchents de notificación?</string>
-  <string name="viewSiteInformationPopUp">Veyer finestra emerchent d\'información d\'o puesto</string>
-  <string name="lichessCanOptionnalySendPopUps">Opcionalment, Lichess puede ninviar notificacions emerchents, per eixemplo quan sía lo tuyo redolín u haigas recibiu un mensache privau.
+  <string name="enableDisableNotificationPopUps">¿Activar o desactivar ventanas emergentes de notificación?</string>
+  <string name="viewSiteInformationPopUp">Ver ventana emergente de información del sitio</string>
+  <string name="lichessCanOptionnalySendPopUps">Opcionalmente, Lichess puede enviar notificaciones emergentes, por ejemplo cuando sea tu turno o hayas recibido un mensaje privado.
 
- Fe clic en l\'icono de bloqueyo chunto a l\'adreza de lichess.org, en a barra d\'URL d\'o tuyo navegador.
+ Haz clic en el icono de bloqueo junto a la dirección de lichess.org, en la barra de URL de tu navegador.
 
- Dimpués tría si permitir u blocar notificacions de Lichess.</string>
+ Luego selecciona si permitir o bloquear notificaciones de Lichess.</string>
 </resources>

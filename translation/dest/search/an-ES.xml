@@ -3,12 +3,12 @@
   <string name="search">Busqueda</string>
   <string name="advancedSearch">Busqueda abanzada</string>
   <plurals name="searchInXGames">
-    <item quantity="one">Busca en %#s partida</item>
-    <item quantity="other">Busca en %#s partidas</item>
+    <item quantity="one">Busca en %s partida</item>
+    <item quantity="other">Busca en %s partidas</item>
   </plurals>
   <plurals name="xGamesFound">
-    <item quantity="one">S\'ha trobau %#s partida</item>
-    <item quantity="other">S\'han trobau %#s partidas</item>
+    <item quantity="one">S\'ha trobau %s partida</item>
+    <item quantity="other">S\'han trobau %s partidas</item>
   </plurals>
   <string name="opponentName">Nombre d\'o oponente</string>
   <string name="loser">Perdedor</string>
