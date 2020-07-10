@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Contact</string>
+  <string name="whatCanWeHelpYouWith">Cum te putem ajuta?</string>
+  <string name="visitThisPage">Vizitați această pagină pentru a rezolva problema</string>
+  <string name="iCantLogIn">Nu mă pot loga</string>
+  <string name="noConfirmationEmail">Nu am primit e-mailul de confirmare</string>
+  <string name="forgotPassword">Mi-am uitat parola</string>
+  <string name="forgotUsername">Mi-am uitat numele de utilizator</string>
+  <string name="youCanLoginWithEmail">Vă puteți autentifica cu adresa de e-mail cu care v-ați înregistrat</string>
+</resources>
