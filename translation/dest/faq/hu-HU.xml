@@ -41,6 +41,10 @@ Például egy 5+3 játszma körülbelül 5 × 60 + 40 × 3 = 420 másodpercig ta
   <string name="threefoldRepetitionExplanation">Ha a táblán egy állás háromszor megismétlődik a játékosok döntetlent igényelhetnek %1$s szerint. A Lichess a hivatalos FIDE szabályokat követi, a %2$s 9.2 (d) bekezdés alapján.</string>
   <string name="threefoldRepetitionLowerCase">állásismétlés szabályai</string>
   <string name="handBookPDF">szabálykönyv (PDF)</string>
+  <string name="notRepeatedMoves">Nem is ismétlődtek meg a lépések. Miért lett a játszma mégis döntetlen?</string>
+  <string name="repeatedPositionsThatMatters">A szabály %1$s ismétlődésén alapszik, nem lépésekén. Az ismétlődés nem szükségszerűen egymást követő lépésekből adódik.</string>
+  <string name="positions">állások</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Háromszor megismétlődött egy állás. Miért nem lett a játszma döntetlen?</string>
   <string name="canIbecomeLM">Szerezhetek én is Lichess Mester (LM) címet?</string>
   <string name="noUpperCaseDot">Nem.</string>
 </resources>
