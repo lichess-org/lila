@@ -34,7 +34,7 @@ maintainer := "contact@lichess.org"
 // format: off
 libraryDependencies ++= akka.bundle ++ Seq(
   macwire.macros, macwire.util, play.json, jodaForms, ws,
-  scalaz, chess, compression, scalalib, hasher,
+  scalaz, compression, scalalib, hasher,
   reactivemongo.driver, maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scrimage, scaffeine, lettuce, uaparser
@@ -44,7 +44,7 @@ libraryDependencies ++= akka.bundle ++ Seq(
 }
 
 lazy val modules = Seq(
-  common, db, rating, user, security, hub, socket,
+  common, db, chess, rating, user, security, hub, socket,
   msg, notifyModule, i18n, game, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
@@ -80,6 +80,11 @@ lazy val i18n = module("i18n",
       compileTo = (sourceManaged in Compile).value
     )
   }.taskValue
+)
+
+lazy val chess = module("chess",
+  Seq(),
+  reactivemongo.bundle
 )
 
 lazy val puzzle = module("puzzle",
@@ -123,12 +128,12 @@ lazy val evaluation = module("evaluation",
 )
 
 lazy val common = module("common",
-  Seq(),
+  Seq(chess),
   Seq(kamon.core, scalatags, jodaForms, scaffeine, specs2) ++ reactivemongo.bundle
 )
 
 lazy val rating = module("rating",
-  Seq(common, db, memo, i18n),
+  Seq(common, db, chess, memo, i18n),
   reactivemongo.bundle
 )
 
@@ -188,7 +193,7 @@ lazy val user = module("user",
 )
 
 lazy val game = module("game",
-  Seq(common, memo, db, hub, user, chat),
+  Seq(common, memo, db, chess, hub, user, chat),
   Seq(compression, specs2) ++ reactivemongo.bundle
 )
 
@@ -208,7 +213,7 @@ lazy val bot = module("bot",
 )
 
 lazy val analyse = module("analyse",
-  Seq(common, hub, game, user, notifyModule, evalCache),
+  Seq(common, hub, game, user, notifyModule, evalCache, chess),
   reactivemongo.bundle
 )
 
@@ -403,7 +408,7 @@ lazy val notifyModule = module("notify",
 )
 
 lazy val tree = module("tree",
-  Seq(common),
+  Seq(common, chess),
   Seq()
 )
 
@@ -413,6 +418,6 @@ lazy val socket = module("socket",
 )
 
 lazy val hub = module("hub",
-  Seq(common),
+  Seq(common, chess),
   Seq(scaffeine)
 )
