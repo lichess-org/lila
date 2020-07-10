@@ -275,7 +275,7 @@
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Esta cuenta ha violau los Termins de Servicio de Lichess</string>
+  <string name="thisAccountViolatedTos">Esta cuenta ha violado los Términos de Servicio de Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jugador incrementa o disminuye artificialmente su puntuación</string>
   <string name="openingExplorerAndTablebase">Explorador de aperturas y base de datos de finales</string>
   <string name="takeback">Deshacer jugada</string>
@@ -530,7 +530,7 @@
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Nueva contraseña</string>
   <string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
-  <string name="clockInitialTime">Tiempo inicial d\'o reloch</string>
+  <string name="clockInitialTime">Tiempo inicial del reloj</string>
   <string name="clockIncrement">Incremento</string>
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
@@ -699,7 +699,7 @@
   <string name="enableKidMode">Activar el modo infantil</string>
   <string name="disableKidMode">Desactivar el modo infantil</string>
   <string name="security">Seguridad</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta ye una lista de dispositivos dende los quals has encetau sesión. Zarra totas las sesions que no reconoixcas.</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta es una lista de dispositivos desde los que has iniciado sesión. Cierra todas las sesiones que no reconozcas.</string>
   <string name="alternativelyYouCanX">O también puedes %s.</string>
   <string name="revokeAllSessions">cerrar todas las sesiones</string>
   <string name="playChessEverywhere">Juega al ajedrez donde sea</string>
