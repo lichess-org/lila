@@ -119,4 +119,28 @@
   <string name="mistakes">Errors</string>
   <string name="inaccuracy">Imprecisión</string>
   <string name="inaccuracies">Imprecisions</string>
+  <string name="moveTimes">Tiempo per movimiento</string>
+  <string name="flipBoard">Chirar lo taulero</string>
+  <string name="threefoldRepetition">Triple repetición</string>
+  <string name="claimADraw">Reclama taulas</string>
+  <string name="offerDraw">Ofreix taulas</string>
+  <string name="draw">Taulas</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s chugadors</item>
+    <item quantity="other">%s chugadors</item>
+  </plurals>
+  <string name="currentGames">Partidas en chuego</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s partida</item>
+    <item quantity="other">%s partidas</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s marcapachinas</item>
+    <item quantity="other">%s marcapachinas</item>
+  </plurals>
+  <string name="viewInFullSize">Veyer a grandaria completa</string>
+  <string name="logOut">Zarrar la sesión</string>
+  <string name="signIn">Iniciar sesión</string>
+  <string name="youNeedAnAccountToDoThat">Te fa falta una cuenta pa fer-lo</string>
+  <string name="signUp">Rechistrar-se</string>
 </resources>
