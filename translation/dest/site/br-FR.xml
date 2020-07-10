@@ -766,6 +766,7 @@
   <string name="gameAnalysis">Dielfennañ ar c\'hrogad</string>
   <string name="xJoinsY">%1$s a gemer perzh e %2$s</string>
   <string name="xLikesY">Plijet eo %1$s gant %2$s</string>
+  <string name="xCreatesStudyY">Ar studiadenn %2$s zo bet krouet gant %1$s</string>
   <string name="quickPairing">Un enebour war ar prim</string>
   <string name="lobby">Saloñs</string>
   <string name="anonymous">Dianav</string>
@@ -786,6 +787,7 @@
   <string name="usernameSuffixInvalid">Gant ul lizherenn pe ur sifr e echu an anv-implijer, dre ret.</string>
   <string name="usernameUnacceptable">Ne c\'haller degemer an anv-implijer-mañ.</string>
   <string name="directlySupportLichess">Skoazell Lichess war-eeun</string>
+  <string name="playChessInStyle">C\'hoarit echedoù gant neuz</string>
   <string name="chessBasics">Diazezoù an echedoù</string>
   <string name="coaches">Gourdonerien</string>
   <string name="invalidPgn">Ur gudenn zo gant ar PGN</string>
@@ -889,6 +891,9 @@
   <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
   <string name="inTheFAQ">er FAG.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Ma faotañ deoc\'h mont e darempred ganeomp abalamour d\'un trucher pe d\'un den displijus, %1$s</string>
+  <string name="toRequestSupport">Evit bezañ sikouret %1$s</string>
+  <string name="tryTheContactPage">klaskit war ar bajenn mont e darempred</string>
+  <string name="thisTopicIsArchived">Diellaouet eo bet ar sujed-mañ ha ne c\'haller ket respont ken.</string>
   <string name="joinTheTeamXToPost">Ret eo bezañ ezel eus %1$s evit skrivañ ur gemennadenn er forom-mañ</string>
   <string name="teamNamedX">Skipailh %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Ne c\'hallit ket skrivañ ur gemennadenn war ar foromoù evit poent. C\'hoarit un tamm a-raok!</string>
