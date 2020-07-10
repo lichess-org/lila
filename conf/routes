@@ -577,6 +577,7 @@ POST  /api/challenge/$id<\w{8}>/accept  controllers.Challenge.apiAccept(id: Stri
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
 GET   /api/cloud-eval                  controllers.Api.cloudEval
 GET   /api/broadcast                   controllers.Relay.apiIndex
+POST  /api/import                      controllers.Importer.apiSendGame
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: String)
 

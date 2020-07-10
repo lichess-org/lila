@@ -39,7 +39,7 @@ final class Cached(
   }
 
   private val nbImportedCache = mongoCache[User.ID, Int](
-    1024,
+    4096,
     "game:imported",
     30 days,
     _.toString
