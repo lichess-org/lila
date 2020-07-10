@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.data.Form
+import play.api.data.Forms._
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -189,16 +190,18 @@ final class Team(
     AuthBody { implicit ctx => implicit me =>
       LimitPerWeek(me) {
         implicit val req = ctx.body
-        forms.create.bindFromRequest().fold(
-          err =>
-            forms.anyCaptcha map { captcha =>
-              BadRequest(html.team.form.create(err, captcha))
-            },
-          data =>
-            api.create(data, me) map { team =>
-              Redirect(routes.Team.show(team.id)).flashSuccess
-            }
-        )
+        forms.create
+          .bindFromRequest()
+          .fold(
+            err =>
+              forms.anyCaptcha map { captcha =>
+                BadRequest(html.team.form.create(err, captcha))
+              },
+            data =>
+              api.create(data, me) map { team =>
+                Redirect(routes.Team.show(team.id)).flashSuccess
+              }
+          )
       }
     }
 
@@ -235,7 +238,8 @@ final class Team(
                 },
                 api = _ => {
                   implicit val body = ctx.body
-                  forms.apiRequest.bindFromRequest()
+                  forms.apiRequest
+                    .bindFromRequest()
                     .fold(
                       newJsonFormError,
                       msg =>
@@ -254,7 +258,8 @@ final class Team(
       scoped = implicit req =>
         me => {
           implicit val lang = reqLang
-          forms.apiRequest.bindFromRequest()
+          forms.apiRequest
+            .bindFromRequest()
             .fold(
               newJsonFormError,
               msg =>
@@ -271,6 +276,17 @@ final class Team(
             )
         }
     )
+
+  def subscribe(teamId: String) = {
+    def doSub(req: Request[_], me: UserModel) =
+      Form(single("v" -> boolean))
+        .bindFromRequest()(req)
+        .fold(_ => funit, v => api.subscribe(teamId, me.id, v))
+    AuthOrScopedBody(_.Team.Write)(
+      auth = ctx => me => doSub(ctx.body, me) inject Redirect(routes.Team.show(teamId)),
+      scoped = req => me => doSub(req, me) inject jsonOkResult
+    )
+  }
 
   def requests =
     Auth { implicit ctx => me =>
@@ -290,14 +306,18 @@ final class Team(
     AuthBody { implicit ctx => me =>
       OptionFuResult(api.requestable(id, me)) { team =>
         implicit val req = ctx.body
-        forms.request.bindFromRequest().fold(
-          err =>
-            forms.anyCaptcha map { captcha =>
-              BadRequest(html.team.request.requestForm(team, err, captcha))
-            },
-          setup =>
-            api.createRequest(team, me, setup.message) inject Redirect(routes.Team.show(team.id)).flashSuccess
-        )
+        forms.request
+          .bindFromRequest()
+          .fold(
+            err =>
+              forms.anyCaptcha map { captcha =>
+                BadRequest(html.team.request.requestForm(team, err, captcha))
+              },
+            setup =>
+              api.createRequest(team, me, setup.message) inject Redirect(
+                routes.Team.show(team.id)
+              ).flashSuccess
+          )
       }
     }
 
@@ -309,13 +329,15 @@ final class Team(
       } yield (teamOption |@| requestOption).tupled) {
         case (team, request) =>
           implicit val req = ctx.body
-          forms.processRequest.bindFromRequest().fold(
-            _ => fuccess(routes.Team.show(team.id).toString),
-            {
-              case (decision, url) =>
-                api.processRequest(team, request, (decision == "accept")) inject url
-            }
-          )
+          forms.processRequest
+            .bindFromRequest()
+            .fold(
+              _ => fuccess(routes.Team.show(team.id).toString),
+              {
+                case (decision, url) =>
+                  api.processRequest(team, request, (decision == "accept")) inject url
+              }
+            )
       }
     }
 
@@ -451,16 +473,18 @@ final class Team(
     }
 
   private def doPmAll(team: TeamModel, me: UserModel)(implicit req: Request[_]): Either[Form[_], Funit] =
-    forms.pmAll.bindFromRequest()
+    forms.pmAll
+      .bindFromRequest()
       .fold(
         err => Left(err),
         msg =>
           Right {
             PmAllLimitPerUser(me.id) {
+              val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
-You received this message because you are part of the team lichess.org${routes.Team.show(team.id)}."""
-              env.msg.api.multiPost(me, env.team.memberStream.ids(team, MaxPerSecond(50)), full)
+You received this because you are subscribed to messages of the team $url."""
+              env.msg.api.multiPost(me, env.team.memberStream.subscribedIds(team, MaxPerSecond(50)), full)
               funit // we don't wait for the stream to complete, it would make lichess time out
             }(funit)
           }
