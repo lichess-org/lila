@@ -105,9 +105,9 @@
   <string name="memory">Memor</string>
   <string name="infiniteAnalysis">Dielfennañ didermen</string>
   <string name="blunder">Bourd</string>
-  <string name="blunders">Bourdoù</string>
+  <string name="blunders">Bourd</string>
   <string name="mistake">Fazi</string>
-  <string name="mistakes">Fazioù</string>
+  <string name="mistakes">Fazi</string>
   <string name="inaccuracy">Diresisted</string>
   <string name="inaccuracies">Diresistedoù</string>
   <string name="moveTimes">Amzer dre fiñvadenn</string>
@@ -435,7 +435,7 @@
     <item quantity="other">O heuliañ %s c\'hoarier</item>
   </plurals>
   <string name="more">Muioc\'h</string>
-  <string name="memberSince">Ezel abaoe</string>
+  <string name="memberSince">Ezel abaoe an/ar</string>
   <string name="lastSeenActive">Oberiant %s</string>
   <string name="challengeToPlay">Daeañ ar c\'hoarier-mañ</string>
   <string name="player">C\'hoarier</string>
