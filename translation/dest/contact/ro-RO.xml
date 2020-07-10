@@ -8,4 +8,8 @@
   <string name="forgotPassword">Mi-am uitat parola</string>
   <string name="forgotUsername">Mi-am uitat numele de utilizator</string>
   <string name="youCanLoginWithEmail">Vă puteți autentifica cu adresa de e-mail cu care v-ați înregistrat</string>
+  <string name="lost2FA">Mi-am pierdut accesul la codurile mele de autentificare in doi pași</string>
+  <string name="doPasswordReset">Completează resetarea parolei pentru a elimina al doilea pas</string>
+  <string name="accountSupport">Am nevoie de suport pentru cont</string>
+  <string name="wantTitle">Vreau ca titlul meu să fie afișat pe Lichess</string>
 </resources>
