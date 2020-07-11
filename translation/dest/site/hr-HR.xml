@@ -900,5 +900,5 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="teamNamedX">%1$s tim</string>
   <string name="youCannotPostYetPlaySomeGames">Još ne možeš objavljivati na forumima. Odigraj nekoliko partija!</string>
   <string name="subscribe">Pretplati se</string>
-  <string name="unsubscribe">Odjavi se</string>
+  <string name="unsubscribe">Otkaži pretplatu</string>
 </resources>
