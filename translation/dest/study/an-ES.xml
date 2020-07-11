@@ -92,6 +92,7 @@
   <string name="chapterX">Capitol %s</string>
   <string name="empty">Vuedo</string>
   <string name="startFromInitialPosition">Prencipiar dende la posición inicial</string>
+  <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Prencipiar dende una posición personalizada</string>
   <string name="loadAGameByUrl">Cargar una partida dende una URL</string>
   <string name="loadAPositionFromFen">Cargar una posición vía codigo FEN</string>
