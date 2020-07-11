@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { Classes } from 'snabbdom/modules/class';
 import { defined } from 'common';
 import throttle from 'common/throttle';
 import { renderEval as normalizeEval } from 'ceval';
@@ -99,10 +100,10 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
 
 function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
   const path = opts.parentPath + node.id;
-  const classes: any = {
+  const classes: Classes = {
     active: path === ctx.ctrl.vm.path,
     current: path === ctx.ctrl.vm.initialPath,
-    hist: node.ply < ctx.ctrl.vm.initialNode.ply
+    hist: node.ply < ctx.ctrl.vm.initialNode.ply,
   };
   if (node.puzzle) classes[node.puzzle] = true;
   return h('move', {
@@ -155,7 +156,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNo
   const withIndex = opts.withIndex || node.ply % 2 === 1;
   const path = opts.parentPath + node.id;
   const active = path === ctx.ctrl.vm.path;
-  const classes = {
+  const classes: Classes = {
     active,
     parent: !active && pathContains(ctx, path)
   };
@@ -188,8 +189,9 @@ function renderEval(e: string): VNode {
   return h('eval', e);
 }
 
-function eventPath(e): string {
-  return e.target.getAttribute('p') || e.target.parentNode.getAttribute('p');
+function eventPath(e: Event): Tree.Path | null {
+  const target = e.target as HTMLElement;
+  return target.getAttribute('p') || (target.parentNode as HTMLElement).getAttribute('p');
 }
 
 export function render(ctrl: Controller): VNode {
