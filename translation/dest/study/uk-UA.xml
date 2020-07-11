@@ -71,11 +71,11 @@
   <string name="broadcastUrl">Посилання на трансляцію</string>
   <string name="currentChapterUrl">Посилання на цей розділ</string>
   <string name="currentGameUrl">Посилання на поточну гру</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Зкопіюйте це для вставлення на форумі</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Ви можете вставити цей код на форумі для вбудування</string>
   <string name="startAtInitialPosition">Старт з початкової позиції</string>
   <string name="startAtX">Почати з %s</string>
-  <string name="embedInYourWebsite">Вставити на свій сайт або блог</string>
-  <string name="readMoreAboutEmbedding">Докладніше про вкладення</string>
+  <string name="embedInYourWebsite">Вбудувати на своєму сайті або блозі</string>
+  <string name="readMoreAboutEmbedding">Докладніше про вбудовування</string>
   <string name="open">Відкрити</string>
   <string name="xBroughtToYouByY">%1$s надано вам %2$s</string>
   <string name="studyNotFound">Дослідження не знайдено</string>
