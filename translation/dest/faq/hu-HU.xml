@@ -79,4 +79,6 @@ Ne kérj LM címet.</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">A játékos még nem játszott elegendő értékelt játszmát %1$s ellen azonos kategóriában.</string>
   <string name="similarOpponents">hasonló értékszámú ellenfelek</string>
   <string name="notPlayedRecently">A játékos nem játszott mostanában. A lejátszott partik számától függően körülbelül egy év elteltével lesz újra becsült az értékszámod.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkrétan azt jelenti, hogy a Glicko-2 bizonytalansági tényező 110 felett van. Ez a tényező mutatja mennyire biztos a rendszer az értékszám megállapításában. Minél kisebb, az értékszám annál pontosabb.</string>
+  <string name="whyAreRatingHigher">Miért magasabbak az értékszámok itt, mint más oldalon vagy szervezetnél, pl FIDE, USCF vagy ICC?</string>
 </resources>
