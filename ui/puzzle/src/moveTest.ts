@@ -38,6 +38,7 @@ export function moveTestBuild(vm: Vm, puzzle: Puzzle): MoveTestFn {
       const uci = nodes[i].uci!;
       if (typeof progress === 'object' && progress[uci]) progress = progress[uci];
       else if (typeof progress === 'object' && nodes[i].castle && isAltCastle(uci)) progress = progress[altCastles[uci]] || 'fail';
+      else progress = 'fail';
       if (typeof progress === 'string') break;
     }
     if (typeof progress === 'string') {
