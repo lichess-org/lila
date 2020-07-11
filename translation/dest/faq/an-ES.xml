@@ -33,6 +33,8 @@
   <string name="basedOnGameDuration">Los controls de tiempo de Lichess se basan en a duración estimada d\'una partida = %1$s
  Per eixemplo, la duración estimada d\'una partida de 5+3 ye 5 × 60 + 40 × 3 = 420 segundos.</string>
   <string name="durationFormula">(tiempo inicial d\'o reloch) + 40 × (incremento d\'o reloch)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Qué variants puedo chugar en Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess suporta escaques standards y %1$s.</string>
   <string name="eightVariants">8 variants d\'escaques</string>
@@ -84,6 +86,7 @@
   <string name="asWellAsManyNMtitles">muitos titols de mayestros nacionals</string>
   <string name="verificationForm">formulario de verificación</string>
   <string name="canIbecomeLM">Puedo obtener lo titol de Mayestro Lichess (LM)?</string>
+  <string name="noUpperCaseDot">No.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Este titol honorifico no ye oficial y nomás existe en as Lichess.
 
   Rara vegada l\'atorgamos a chugadors muito destacaus que son buens ciudadans de Lichess, a la nuestra discrección. No obtiens lo titol de LM, lo titol de LM te plega. Si cumples los requisitos, recibirás un mensache nuestro a lo respecto y la opción d\'acceptar u refusar lo titol.
