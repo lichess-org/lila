@@ -41,6 +41,15 @@ Például egy 5+3 játszma körülbelül 5 × 60 + 40 × 3 = 420 másodpercig ta
   <string name="threefoldRepetitionExplanation">Ha a táblán egy állás háromszor megismétlődik a játékosok döntetlent igényelhetnek %1$s szerint. A Lichess a hivatalos FIDE szabályokat követi, a %2$s 9.2 (d) bekezdés alapján.</string>
   <string name="threefoldRepetitionLowerCase">állásismétlés szabályai</string>
   <string name="handBookPDF">szabálykönyv (PDF)</string>
+  <string name="notRepeatedMoves">Nem is ismétlődtek meg a lépések. Miért lett a játszma mégis döntetlen?</string>
+  <string name="repeatedPositionsThatMatters">A szabály %1$s ismétlődésén alapszik, nem lépésekén. Az ismétlődés nem szükségszerűen egymást követő lépésekből adódik.</string>
+  <string name="positions">állások</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Háromszor megismétlődött egy állás. Miért nem lett a játszma döntetlen?</string>
+  <string name="threeFoldHasToBeClaimed">Állásismétlések esetén a döntetlent valamelyik félnek igényelnie kell. Ezt megteheted az ilyenkor megjelenő gomb megnyomásával, vagy döntetlen ajánlás tételével, mielőtt az utolsó lépést megtennéd ami az ismétléshez vezet. Ilyenkor nem számít, hogy az ellenfél elfogadja vagy visszautasítja a döntetlent, a szabályok szerint ilyenkor döntetlen lesz a játszma. Van rá külön %1$s amivel a Lichess automatikusan döntetlent igényel. Továbbá, ötszöri ismétlődés esetén a játszma azonnal véget ér.</string>
+  <string name="configure">beállítás</string>
+  <string name="accounts">Fiókok</string>
+  <string name="titlesAvailableOnLichess">Milyen címek vannak a Lichess-en?</string>
+  <string name="lichessRecognizeAllOTBtitles">A Lichess elismer minden FIDE címet amit a játékosok OTB (over the board - táblán játszva) szereztek, beleértve %1$s. A FIDE címek listája:</string>
   <string name="canIbecomeLM">Szerezhetek én is Lichess Mester (LM) címet?</string>
   <string name="noUpperCaseDot">Nem.</string>
 </resources>

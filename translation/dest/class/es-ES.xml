@@ -55,7 +55,7 @@ Aquí está el enlace de acceso.</string>
   <string name="clickToViewInvitation">Haz clic en el enlace para ver la invitación:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">Una invitación pendiente</item>
-    <item quantity="other">%#s invitacions pendients</item>
+    <item quantity="other">%s invitaciones pendientes</item>
   </plurals>
   <string name="noPendingInvitations">No hay invitaciones pendientes</string>
   <string name="onlyVisibleToTeachers">Sólo visible para los profesores de la clase</string>

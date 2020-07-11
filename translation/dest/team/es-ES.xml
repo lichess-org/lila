@@ -17,7 +17,7 @@
   <string name="joiningPolicy">Política para unirse</string>
   <plurals name="teamLeaders">
     <item quantity="one">Capitán del equipo</item>
-    <item quantity="other">Liders de l\'equipo</item>
+    <item quantity="other">Líderes del equipo</item>
   </plurals>
   <string name="teamBestPlayers">Mejores jugadores</string>
   <string name="teamRecentMembers">Miembros recientes</string>
