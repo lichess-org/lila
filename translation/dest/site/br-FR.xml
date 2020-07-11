@@ -18,7 +18,7 @@
   <string name="white">Gwenn</string>
   <string name="black">Du</string>
   <string name="randomColor">Liv dre zegouezh</string>
-  <string name="createAGame">Kregiñ ur c\'hoariadenn</string>
+  <string name="createAGame">Kregiñ gant ur c\'hrogad</string>
   <string name="whiteIsVictorious">Trec\'h eo ar re wenn</string>
   <string name="blackIsVictorious">Trec\'h eo ar re zu</string>
   <string name="youPlayTheWhitePieces">C\'hoari a rit gant ar re wenn</string>
@@ -110,7 +110,7 @@
   <string name="mistake">Fazi</string>
   <string name="mistakes">Fazi</string>
   <string name="inaccuracy">Diresisted</string>
-  <string name="inaccuracies">Diresistedoù</string>
+  <string name="inaccuracies">Diresisted</string>
   <string name="moveTimes">Amzer dre fiñvadenn</string>
   <string name="flipBoard">Cheñch tu an dablez c\'hoari</string>
   <string name="threefoldRepetition">Teir gwech ar memestra</string>
@@ -679,7 +679,7 @@
   <string name="tpTimeSpentOnTV">Pegeit oc\'h bet gwelet en tele: %s</string>
   <string name="watch">Sellet</string>
   <string name="videoLibrary">Levraoueg videoioù</string>
-  <string name="streamersMenu">Streamerrien</string>
+  <string name="streamersMenu">Streamerien</string>
   <string name="mobileApp">Arload pellgomz</string>
   <string name="webmasters">Mistri-gwiad</string>
   <string name="about">A-zivout</string>
