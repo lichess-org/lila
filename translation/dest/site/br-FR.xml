@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">C\'hoari a-enep an urzhiataer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Evit pediñ unan bennak da c\'hoari, kasit dezhañ/dezhi an URL -mañ</string>
   <string name="gameOver">Krogad echu</string>
-  <string name="waitingForOpponent">O c\'hortoz un enebour</string>
+  <string name="waitingForOpponent">O c\'hortoz an enebour</string>
   <string name="waiting">O c\'hortoz</string>
   <string name="yourTurn">Deoc\'h-c\'hwi</string>
   <string name="aiNameLevelAiLevel">%1$s live %2$s</string>
@@ -676,7 +676,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Amzer o c\'hoari: %s</string>
   <string name="watchGames">Sellet ouzh krogadoù</string>
-  <string name="tpTimeSpentOnTV">An amzer oc\'h bet gwelet en tele: %s</string>
+  <string name="tpTimeSpentOnTV">Pegeit oc\'h bet gwelet en tele: %s</string>
   <string name="watch">Sellet</string>
   <string name="videoLibrary">Levraoueg videoioù</string>
   <string name="streamersMenu">Streamerrien</string>
