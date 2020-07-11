@@ -36,6 +36,7 @@ Például egy 5+3 játszma körülbelül 5 × 60 + 40 × 3 = 420 másodpercig ta
   <string name="whatVariantsCanIplay">Milyen variánsokat játszhatok a Lichess-en?</string>
   <string name="lichessSupportChessAnd">Lichess-en a hagyományos sakk mellett %1$s támogatott.</string>
   <string name="eightVariants">8 variáns</string>
+  <string name="insufficientMaterial">Lejárt az idő, döntetlen és túl kevés anyag</string>
   <string name="discoveringEnPassant">Miért tud egy gyalog leütni egy másikat ha az már mellette áll? (en passant)</string>
   <string name="threefoldRepetition">Háromszori állásismétlés</string>
   <string name="threefoldRepetitionExplanation">Ha a táblán egy állás háromszor megismétlődik a játékosok döntetlent igényelhetnek %1$s szerint. A Lichess a hivatalos FIDE szabályokat követi, a %2$s 9.2 (d) bekezdés alapján.</string>
