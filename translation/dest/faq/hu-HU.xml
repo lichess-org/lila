@@ -59,4 +59,12 @@ Megjegyzendő, hogy lehetséges csupán egy futóval vagy huszárral is mattot a
   <string name="lichessRecognizeAllOTBtitles">A Lichess elismer minden FIDE címet amit a játékosok OTB (over the board - táblán játszva) szereztek, beleértve %1$s. A FIDE címek listája:</string>
   <string name="canIbecomeLM">Szerezhetek én is Lichess Mester (LM) címet?</string>
   <string name="noUpperCaseDot">Nem.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Ez egy tiszteletbeli és nemhivatalos cím, amely csak a Lichess-en létezik.
+
+Ritkán tüntetünk ki vele olyan figyelemre méltó játékosokat, akik példamutató Lichess polgárok, mindezt bizalmasan. Nem tudsz LM címet szerezni, az talál meg téged. Ha megfelelsz, fogsz tőlünk kapni erről egy üzenetet, amit elfogadhatsz vagy visszautasíthatsz.
+
+Ne kérj LM címet.</string>
+  <string name="whatUsernameCanIchoose">Mi lehet a felhasználói nevem?</string>
+  <string name="usernamesNotOffensive">Általánosságban, egy felhasználói név nem lehet: bántó, más valódi neve vagy reklám. Erről bővebben a %1$s olvashatsz.</string>
+  <string name="guidelines">szabályokban</string>
 </resources>
