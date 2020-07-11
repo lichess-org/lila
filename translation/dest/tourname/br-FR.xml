@@ -8,4 +8,14 @@
   <string name="easternRapid">Prim ar Reter</string>
   <string name="easternX">%s ar Reter</string>
   <string name="weeklyRapidArena">Aren Prim Sizhuniek</string>
+  <string name="rapidShieldArena">Aren ar Skoed Prim</string>
+  <string name="rapidShield">Skoed Prim</string>
+  <string name="classicalShieldArena">Aren ar Skoed Klasel</string>
+  <string name="classicalShield">Skoed klasel</string>
+  <string name="xShieldArena">Aren Skoed %s</string>
+  <string name="xShield">Skoed %s</string>
+  <string name="openingRapidArena">Aren Prim %s</string>
+  <string name="openingRapid">Prim %s</string>
+  <string name="xTeamBattle">%s emgann skipailh</string>
+  <string name="xArena">Aren %s</string>
 </resources>

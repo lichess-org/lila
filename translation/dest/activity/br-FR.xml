@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="activity">Obererezhioù diwezhañ</string>
+  <string name="hostedALiveStream">Kinniget he/en deus ur stream war-eeun</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
     <item quantity="two">Skoazellet he/en deus lichess.org e-pad %1$s viz evel %2$s</item>
