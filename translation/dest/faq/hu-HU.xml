@@ -71,4 +71,5 @@ Ne kérj LM címet.</string>
   <string name="ownerUniqueTrophies">Ezek a trófeák egyediek a Lichess történelmében, %1$s kivéve senki más nem szerezhet ilyet.</string>
   <string name="wayOfBerserkExplanation">Megszerzéséhez, hiimgosu bevállalta, hogy berserkel és megnyeri 100%%-át az %s.</string>
   <string name="aHourlyBulletTournament">óránkénti Bullet arénának</string>
+  <string name="goldenZeeExplanation">ZugAddict élő közvetítés közben két órán keresztül próbálta megverni a 8-as szintű gépet, sikertelenül. Erre Thibault mondta neki, ha mégis sikerül a közvetítés ideje alatt, kap érte egy egyedi trófeát. Egy órával később lealázta Stockfish-t és az ígéret megvalósult.</string>
 </resources>
