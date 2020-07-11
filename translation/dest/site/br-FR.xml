@@ -314,6 +314,7 @@
   <string name="takeback">Nullañ ar fiñvadenn ziwezhañ</string>
   <string name="proposeATakeback">Kinnig nullañ ar fiñvadenn ziwezhañ</string>
   <string name="takebackPropositionSent">Kaset eo bet ar c\'hinnig nullañ ar fiñvadenn ziwezhañ</string>
+  <string name="takebackPropositionCanceled">Ar c\'hinnig nullañ ar fiñvadenn ziwezhañ zo bet nullet</string>
   <string name="yourOpponentProposesATakeback">Kinnig a ra oc\'h enebour e vefe nullet ho fiñvadenn ziwezhañ</string>
   <string name="bookmarkThisGame">Miret ar c\'hrogad-mañ er roll-istor</string>
   <string name="tournament">Tournamant</string>
@@ -824,7 +825,7 @@
   <string name="learnFromYourMistakes">Deskiñ diouzh ho fazioù</string>
   <string name="learnFromThisMistake">Deskiñ diouzh ar fazi-mañ</string>
   <string name="skipThisMove">Leuskel ar fiñvadenn-mañ a gostez</string>
-  <string name="next">War-raok</string>
+  <string name="next">Kenderc\'hel</string>
   <string name="xWasPlayed">%s zo bet c\'hoariet</string>
   <string name="findBetterMoveForWhite">Kavit ur gwellañ fiñvadenn evit ar re wenn</string>
   <string name="findBetterMoveForBlack">Kavit ur gwellañ fiñvadenn evit ar re zu</string>
@@ -836,8 +837,8 @@
   <string name="waitingForAnalysis">O c\'hortoz an dielfennañ</string>
   <string name="noMistakesFoundForWhite">Fazi ebet a-berzh ar re wenn</string>
   <string name="noMistakesFoundForBlack">Fazi ebet a-berzh ar re zu</string>
-  <string name="doneReviewingWhiteMistakes">Echu gant an deskiñ diwar fazioù ar re wenn</string>
-  <string name="doneReviewingBlackMistakes">Echu gant an deskiñ diwar fazioù ar re zu</string>
+  <string name="doneReviewingWhiteMistakes">Echu gant an deskiñ diouizh fazioù ar re wenn</string>
+  <string name="doneReviewingBlackMistakes">Echu gant an deskiñ diouzh fazioù ar re zu</string>
   <string name="doItAgain">Klask en-dro</string>
   <string name="reviewWhiteMistakes">Studiañ fazioù ar re wenn</string>
   <string name="reviewBlackMistakes">Studiañ fazioù ar re zu</string>
@@ -848,7 +849,7 @@
     <item quantity="many">%s eilenn</item>
     <item quantity="other">%s eilenn</item>
   </plurals>
-  <string name="opening">Digoradur</string>
+  <string name="opening">Deroù ar c\'hrogad</string>
   <string name="middlegame">Kreiz ar c\'hrogad</string>
   <string name="endgame">Fin ar c\'hrogad</string>
   <string name="registerToSendChallenges">Kevreit evit daeañ unan bennak mar plij.</string>
