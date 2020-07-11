@@ -11,6 +11,7 @@
   <string name="level">Libel</string>
   <string name="toggleTheChat">Amostrar/Amagar chat</string>
   <string name="toggleSound">Activar/Desactivar son</string>
+  <string name="chat">Chat</string>
   <string name="resign">Abandonar</string>
   <string name="checkmate">Jaque mate</string>
   <string name="stalemate">Afogau</string>
@@ -153,6 +154,8 @@
   <string name="today">Hue</string>
   <string name="yesterday">Ahiere</string>
   <string name="minutesPerSide">Menutos per chugador</string>
+  <string name="variant">Variant</string>
+  <string name="variants">Variants</string>
   <string name="timeControl">Control de tiempo</string>
   <string name="realTime">Tiempo real</string>
   <string name="correspondence">Correspondencia</string>
@@ -410,6 +413,7 @@
   <string name="winStreak">Victorias consecutivas</string>
   <string name="createdBy">Creyau per</string>
   <string name="tournamentIsStarting">Lo torneyo va a empecipiar</string>
+  <string name="tournamentPairingsAreNowClosed">Ya s\'han zarrau los emparellamientos d\'o torneyo.</string>
   <string name="standByX">Aguarda %s, emparellando chugadors, prepara-te!</string>
   <string name="youArePlaying">Te toca chugar!</string>
   <string name="winRate">Taxa de victorias</string>
@@ -489,6 +493,7 @@
   <string name="tournamentWinners">Ganadors d\'o torneyo</string>
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
+  <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="help">Aduya:</string>
   <string name="createANewTopic">Creyar un tema nuevo</string>
@@ -514,6 +519,7 @@
   <string name="by">per %s</string>
   <string name="thisTopicIsNowClosed">Este tema ye zarrau.</string>
   <string name="theming">Apariencia</string>
+  <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Preguntas y respuestas</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe aquí los tuyos notas privadas</string>
@@ -533,6 +539,7 @@
   <string name="sound">Son</string>
   <string name="none">Garra</string>
   <string name="fast">Rapido</string>
+  <string name="normal">Normal</string>
   <string name="slow">Lento</string>
   <string name="insideTheBoard">Adentro d\'o escaquero</string>
   <string name="outsideTheBoard">Difuera d\'o escaquero</string>
@@ -540,6 +547,7 @@
   <string name="always">Siempre</string>
   <string name="never">Nunca</string>
   <string name="difficultyEasy">Facil</string>
+  <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Dificil</string>
   <string name="xCompetesInY">%1$s compite en %2$s</string>
   <string name="xAskedY">%1$s preguntó %2$s</string>
@@ -723,6 +731,7 @@
   <string name="background">Fondo</string>
   <string name="light">Claro</string>
   <string name="dark">Fosco</string>
+  <string name="transparent">Transparent</string>
   <string name="backgroundImageUrl">URL d\'imachen de fondo:</string>
   <string name="boardGeometry">Cheometría d\'o escaquero</string>
   <string name="boardTheme">Tema d\'o escaquero</string>
@@ -744,6 +753,7 @@
   <string name="error.maxLength">La longaria maxima ye de %s</string>
   <string name="error.min">Ha d\'estar mayor u igual a %s</string>
   <string name="error.max">Ha d\'estar menor u igual a %s</string>
+  <string name="error.unknown">Error</string>
   <string name="custom">Personalizau</string>
   <string name="notifications">Notificacions</string>
   <string name="challenges">Desafíos</string>
@@ -839,6 +849,7 @@
   <string name="classicalDesc">Partidas clasicas: 25 minutos u mas</string>
   <string name="correspondenceDesc">Partidas per correspondencia: un u mas días per movimiento</string>
   <string name="puzzleDesc">Entrenador de tactica d\'escaques</string>
+  <string name="important">Important</string>
   <string name="yourQuestionMayHaveBeenAnswered">La tuya pregunta puede que ya tienga una respuesta %1$s</string>
   <string name="inTheFAQ">en as Preguntas Freqüents</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Pa reportar a un usuario per frau u mala conducta, %1$s</string>
