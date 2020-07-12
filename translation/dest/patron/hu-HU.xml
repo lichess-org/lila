@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Felajánlás</string>
+  <string name="donate">Adakozz</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Ingyenes fiók</string>
   <string name="becomePatron">Legyél Te is Lichess Patron</string>
@@ -31,4 +31,7 @@
   <string name="whereMoneyGoes">Mire megy el a pénz?</string>
   <string name="serversAndDeveloper">Először is, komoly szerverekre.
 Ezen kívül fizetünk egy főállású fejlesztőt: %s, a Lichess alapítóját.</string>
+  <string name="costBreakdown">Lásd a részletes költséglebontást</string>
+  <string name="officialNonProfit">A Lichess hivatalosan non-profit?</string>
+  <string name="actOfCreation">Igen, itt találod az alapító okiratot (franciául)</string>
 </resources>
