@@ -60,4 +60,14 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="cancelSupport">támogatás visszavonása</string>
   <string name="xOrY">%1$s vagy %2$s</string>
   <string name="decideHowMuch">Mennyit ér meg neked a Lichess:</string>
+  <string name="stopPayments">Bankkártya törlése és fizetések leállítása:</string>
+  <string name="paid">Fizetve</string>
+  <string name="date">Dátum</string>
+  <string name="amount">Összeg</string>
+  <string name="transactionCompleted">A tranzakció sikeresen teljesült, az adományról szóló bizonylatot emailben küldjük számodra.</string>
+  <string name="permanentPatron">Neked mostmár állandó Patron fiókod van.</string>
+  <string name="checkOutProfile">Nézd meg el a profil oldaladat!</string>
+  <string name="nowLifetime">Te mostmár örökös Lichess Patron vagy!</string>
+  <string name="nowOneMonth">Te mostmár Lichess Patron vagy egy hónapig!</string>
+  <string name="downgradeNextMonth">Egy hónap múlva NEM terheljük újra a számládat, hanem a fiókod visszaalakul hagyományos fiókká.</string>
 </resources>
