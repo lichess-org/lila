@@ -7,7 +7,7 @@ object LangList {
   val all = Map(
     Lang("en", "GB")  -> "English",
     Lang("af", "ZA")  -> "Afrikaans",
-    Lang("an", "ES"), -> "aragonés",
+    Lang("an", "ES")  -> "aragonés",
     Lang("ar", "SA")  -> "العربية",
     Lang("as", "IN")  -> "অসমীয়া",
     Lang("az", "AZ")  -> "Azərbaycanca",
