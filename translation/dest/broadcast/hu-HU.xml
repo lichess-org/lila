@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Közvetítések</string>
+  <string name="liveBroadcasts">Versenyek élő közvetítései</string>
+  <string name="newBroadcast">Új élő közvetítés</string>
+  <string name="ongoing">Folyamatban</string>
+  <string name="upcoming">Közelgő</string>
+  <string name="completed">Befejeződött</string>
+  <string name="eventName">Esemény neve</string>
+  <string name="eventDescription">Esemény rövid leírása</string>
+  <string name="fullDescription">Esemény teljes leírása</string>
+</resources>
