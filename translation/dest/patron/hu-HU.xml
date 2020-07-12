@@ -9,8 +9,12 @@
   <string name="freeChess">Ingyen sakk mindig, mindenkinek!</string>
   <string name="noAdsNoSubs">Se reklám, se fizetős részek; csak nyílt forrás és elhivatottság.</string>
   <string name="thankYou">Köszönjük, hogy támogatsz minket!</string>
-  <string name="youHaveLifetime">Neked Életreszóló Patron fiókod van. Ez azért elég vagány!</string>
+  <string name="youHaveLifetime">Neked Életre szóló Patron fiókod van. Ez azért elég vagány!</string>
   <string name="patronUntil">Patron fiókod van eddig a napig: %s.</string>
   <string name="ifNotRenewed">Ha nem lesz megújítva, visszatérsz az ingyenes fiókhoz.</string>
   <string name="weAreNonProfit">Non-profit szervezet vagyunk, mert hiszünk egy mindenki számára elérhető, ingyenes és világszínvonalú sakk platformban.</string>
+  <string name="weRelyOnSupport">Hozzád hasonló hozzájárulókra támaszkodunk, hogy ezt megvalósítsuk. Ha tetszik a Lichess légyszíves fontold meg támogatásunkat adománnyal és légy Te is Patron!</string>
+  <string name="lifetime">Életre szóló</string>
+  <string name="payLifetimeOnce">Adakozz %s egyszer. Legyél Lichess Patron örökre!</string>
+  <string name="lifetimePatron">Életre szóló Lichess Patron</string>
 </resources>
