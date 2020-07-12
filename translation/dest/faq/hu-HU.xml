@@ -57,7 +57,13 @@ Megjegyzendő, hogy lehetséges csupán egy futóval vagy huszárral is mattot a
   <string name="accounts">Fiókok</string>
   <string name="titlesAvailableOnLichess">Milyen címek vannak a Lichess-en?</string>
   <string name="lichessRecognizeAllOTBtitles">A Lichess elismer minden FIDE címet amit a játékosok OTB (over the board - táblán játszva) szereztek, beleértve %1$s. A FIDE címek listája:</string>
+  <string name="showYourTitle">Ha van OTB címed, kérheted annak megjelenítését a profilodon, miután kitöltöd ezt az %1$s, mellékelve egy jól kivehető fényképet a dokumentumról/kártyáról és egy önarcképet amin tartod a dokumentumot/kártyát.
+
+Ezután lehetőséged lesz csatlakozni a Mester Arénákba.
+
+Végül, ott a tiszteletbeli %2$s cím.</string>
   <string name="asWellAsManyNMtitles">számos nemzeti mester címet</string>
+  <string name="verificationForm">igazoló űrlapot</string>
   <string name="canIbecomeLM">Szerezhetek én is Lichess Mester (LM) címet?</string>
   <string name="noUpperCaseDot">Nem.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Ez egy tiszteletbeli és nemhivatalos cím, amely csak a Lichess-en létezik.
