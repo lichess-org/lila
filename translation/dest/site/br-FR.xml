@@ -768,6 +768,7 @@
     <item quantity="other">Gallout a reer dibab etre %s yezh!</item>
   </plurals>
   <string name="gameAnalysis">Dielfennañ ar c\'hrogad</string>
+  <string name="xHostsY">%1$s a ro bod da %2$s</string>
   <string name="xJoinsY">%1$s a gemer perzh e %2$s</string>
   <string name="xLikesY">Plijet eo %1$s gant %2$s</string>
   <string name="xCreatesStudyY">Ar studiadenn %2$s zo bet krouet gant %1$s</string>
@@ -866,6 +867,7 @@
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
   <string name="why">Perak?</string>
+  <string name="pleasantChessExperience">Plijout a rafe deomp e vourrfe pep hini c\'hoari echedoù war Lichess.</string>
   <string name="goodPractice">Evit hen ober e dav deomp bezañ sur e vez graet gant doareoù dereat gant an holl.</string>
   <string name="potentialProblem">Pa vez merzhet ar pezh a c\'hallfe bezañ ur gudenn e vez dispaket ar gemennadenn-mañ ganeomp.</string>
   <string name="howToAvoidThis">Penaos ober kuit ma c\'hoarvezfe an dra-mañ en-dro?</string>
