@@ -12,6 +12,7 @@
   <string name="bothClicksAndDrag">An daou</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Pa chom nebeutoc\'h evit &lt; 30 eilenn</string>
   <string name="inCorrespondenceGames">Krogadoù a-bell</string>
+  <string name="correspondenceAndUnlimited">A-bell ha diharz</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Doareoù da rokañ</string>
   <string name="yourPreferencesHaveBeenSaved">Savetaet eo bet ho tibaboù.</string>
 </resources>
