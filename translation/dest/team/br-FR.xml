@@ -17,6 +17,7 @@
   <string name="quitTeam">Kuitaat ar skipailh</string>
   <string name="anyoneCanJoin">Digor d\'an holl</string>
   <string name="aConfirmationIsRequiredToJoin">Ret eo kadarnaat evit kemer perzh</string>
+  <string name="joiningPolicy">Reolennoù emezelañ</string>
   <plurals name="teamLeaders">
     <item quantity="one">Mestr ar skipailh</item>
     <item quantity="two">Mistri ar skipailh</item>
@@ -28,6 +29,15 @@
   <string name="teamRecentMembers">Izili nevez</string>
   <string name="kickSomeone">Skarzhañ unan er-maez eus ar skipailh</string>
   <string name="whoToKick">Piv a vo skarzhet er-maez deus ar skipailh ganeoc\'h?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s goulenn emezelañ</item>
+    <item quantity="two">%s c\'houlenn emezelañ</item>
+    <item quantity="few">%s goulenn emezelañ</item>
+    <item quantity="many">%s goulenn emezelañ</item>
+    <item quantity="other">%s goulenn emezelañ</item>
+  </plurals>
+  <string name="willBeReviewed">Resevet eo bet ho koulenn emezelañ gant mestr ar skipailh.</string>
+  <string name="beingReviewed">Emañ ho koulenn emezelañ o vezañ studiet gant mestr ar skipailh.</string>
   <string name="teamBattle">Emgann skipailh</string>
   <string name="teamBattleOverview">Un emgann etre meur a skipailh, pep c\'hoarier a zegas poentoù d\'e skipailh</string>
   <string name="teamTournament">Skipailh an tournamant</string>
