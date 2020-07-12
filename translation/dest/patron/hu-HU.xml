@@ -10,4 +10,7 @@
   <string name="noAdsNoSubs">Se reklám, se fizetős részek; csak nyílt forrás és elhivatottság.</string>
   <string name="thankYou">Köszönjük, hogy támogatsz minket!</string>
   <string name="youHaveLifetime">Neked Életreszóló Patron fiókod van. Ez azért elég vagány!</string>
+  <string name="patronUntil">Patron fiókod van eddig a napig: %s.</string>
+  <string name="ifNotRenewed">Ha nem lesz megújítva, visszatérsz az ingyenes fiókhoz.</string>
+  <string name="weAreNonProfit">Non-profit szervezet vagyunk, mert hiszünk egy mindenki számára elérhető, ingyenes és világszínvonalú sakk platformban.</string>
 </resources>
