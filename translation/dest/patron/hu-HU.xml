@@ -34,4 +34,5 @@ Ezen kívül fizetünk egy főállású fejlesztőt: %s, a Lichess alapítóját
   <string name="costBreakdown">Lásd a részletes költséglebontást</string>
   <string name="officialNonProfit">A Lichess hivatalosan non-profit?</string>
   <string name="actOfCreation">Igen, itt találod az alapító okiratot (franciául)</string>
+  <string name="changeMonthlySupport">Módosíthatom/törölhetem a havi utalásaimat?</string>
 </resources>
