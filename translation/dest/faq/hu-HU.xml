@@ -57,6 +57,7 @@ Megjegyzendő, hogy lehetséges csupán egy futóval vagy huszárral is mattot a
   <string name="accounts">Fiókok</string>
   <string name="titlesAvailableOnLichess">Milyen címek vannak a Lichess-en?</string>
   <string name="lichessRecognizeAllOTBtitles">A Lichess elismer minden FIDE címet amit a játékosok OTB (over the board - táblán játszva) szereztek, beleértve %1$s. A FIDE címek listája:</string>
+  <string name="asWellAsManyNMtitles">számos nemzeti mester címet</string>
   <string name="canIbecomeLM">Szerezhetek én is Lichess Mester (LM) címet?</string>
   <string name="noUpperCaseDot">Nem.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Ez egy tiszteletbeli és nemhivatalos cím, amely csak a Lichess-en létezik.
@@ -91,4 +92,9 @@ Jobb csak relatív összehasonlítási alapként tekinteni ezekre a számokra: a
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Sajnos nem áll módunkban visszatéríteni értékszámot, amennyiben a játszmát lag vagy szétkapcsolás miatt veszítetted el, függetlenül attól, hogy a hiba a te végedről származik vagy a miénkről. Utóbbi azonban igen ritka. Megjegyzendő, ha a Lichess valamiért újraindul a folyamatban lévő játszmák félbeszakadnak az igazságtalan vereségeket elkerülendő.</string>
   <string name="howToThreeDots">Hogyan...</string>
   <string name="enableDisableNotificationPopUps">Engedélyezem vagy tiltom a felbukkanó értesítéseket?</string>
+  <string name="lichessCanOptionnalySendPopUps">A Lichess küldhet felbukkanó értesítéseket, például ha te következel egy játszmában vagy üzenet érkezésekor.
+
+Kattints a lakat ikonra a böngésző címsorában, a lichess.org mellett.
+
+Utána válaszd ki, hogy engedélyezed vagy tiltod az Lichess értesítéseit.</string>
 </resources>
