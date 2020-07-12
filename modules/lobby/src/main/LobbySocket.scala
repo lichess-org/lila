@@ -100,8 +100,6 @@ final class LobbySocket(
 
       case AddSeek(_) | RemoveSeek(_) => tellActive(makeMessage("reload_seeks"))
 
-      case lila.hub.actorApi.streamer.StreamsOnAir(html) => tellActive(makeMessage("streams", html))
-
       case ChangeFeatured(_, msg) => tellActive(msg)
 
       case SetIdle(sri, true)  => idleSris += sri.value
@@ -148,7 +146,6 @@ final class LobbySocket(
   private val poolLimitPerSri = new lila.memo.RateLimit[SriStr](
     credits = 25,
     duration = 1 minute,
-    name = "lobby hook/pool per member",
     key = "lobby.hook_pool.member"
   )
 

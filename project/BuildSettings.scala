@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "3.0"
-  val globalScalaVersion = "2.13.2"
+  val globalScalaVersion = "2.13.3"
 
   val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
   if (useEpoll) println("--- epoll build ---")
@@ -53,19 +53,43 @@ object BuildSettings {
       )
 
   val compilerOptions = Seq(
+    "-encoding",
+    "utf-8",
+    "-explaintypes",
+    "-feature",
+    "-language:higherKinds",
     "-language:implicitConversions",
     "-language:postfixOps",
-    "-feature",
+    "-Ymacro-annotations",
+    // Warnings as errors!
+    "-Xfatal-warnings",
+    // Linting options
     "-unchecked",
-    "-deprecation",
-    "-Xlint:_",
-    "-Ywarn-macros:after",
-    // "-Ywarn-unused:_",
-    // "-Xfatal-warnings",
-    "-Xmaxerrs",
-    "15",
-    "-Xmaxwarns",
-    "12"
+    "-Xcheckinit",
+    "-Xlint:adapted-args",
+    "-Xlint:constant",
+    "-Xlint:delayedinit-select",
+    "-Xlint:deprecation",
+    "-Xlint:inaccessible",
+    "-Xlint:infer-any",
+    "-Xlint:missing-interpolator",
+    "-Xlint:nullary-unit",
+    "-Xlint:option-implicit",
+    "-Xlint:package-object-classes",
+    "-Xlint:poly-implicit-overload",
+    "-Xlint:private-shadow",
+    "-Xlint:stars-align",
+    "-Xlint:type-parameter-shadow",
+    "-Wdead-code",
+    "-Wextra-implicit",
+    // "-Wnumeric-widen",
+    "-Wunused:imports",
+    "-Wunused:locals",
+    "-Wunused:patvars"
+    // "-Wunused:privates", // unfortunately doesn't work with macros
+    // "-Wunused:implicits",
+    // "-Wunused:params",
+    // "-Wvalue-discard",
   )
 
   val srcMain = Seq(

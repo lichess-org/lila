@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.Json
 import play.api.mvc._
-import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
@@ -105,7 +104,7 @@ final class Swiss(
         env.team.cached.isLeader(teamId, me.id) flatMap {
           case false => notFoundJson("You're not a leader of that team")
           case _ =>
-            env.swiss.forms.create.bindFromRequest
+            env.swiss.forms.create.bindFromRequest()
               .fold(
                 jsonFormErrorDefaultLang,
                 data =>
@@ -138,12 +137,11 @@ final class Swiss(
 
   def withdraw(id: String) =
     Auth { implicit ctx => me =>
-      env.swiss.api.withdraw(SwissId(id), me.id) flatMap { result =>
+      env.swiss.api.withdraw(SwissId(id), me.id) >>
         negotiate(
           html = Redirect(routes.Swiss.show(id)).fuccess,
           api = _ => fuccess(jsonOkResult)
         )
-      }
     }
 
   def edit(id: String) =
@@ -159,7 +157,7 @@ final class Swiss(
         implicit val req = ctx.body
         env.swiss.forms
           .edit(swiss)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.swiss.form.edit(swiss, err)).fuccess,
             data => env.swiss.api.update(swiss, data) inject Redirect(routes.Swiss.show(id))
@@ -171,11 +169,9 @@ final class Swiss(
     AuthBody { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>
         implicit val req = ctx.body
-        env.swiss.forms
-          .nextRound(swiss)
-          .bindFromRequest
+        env.swiss.forms.nextRound.bindFromRequest()
           .fold(
-            err => Redirect(routes.Swiss.show(id)).fuccess,
+            _ => Redirect(routes.Swiss.show(id)).fuccess,
             date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Swiss.show(id))
           )
       }
@@ -189,7 +185,7 @@ final class Swiss(
     }
 
   def standing(id: String, page: Int) =
-    Open { implicit ctx =>
+    Action.async {
       WithSwiss(id) { swiss =>
         JsonOk {
           env.swiss.standingApi(swiss, page)
@@ -198,7 +194,7 @@ final class Swiss(
     }
 
   def pageOf(id: String, userId: String) =
-    Open { implicit ctx =>
+    Action.async {
       WithSwiss(id) { swiss =>
         env.swiss.api.pageOf(swiss, lila.user.User normalize userId) flatMap {
           _ ?? { page =>
@@ -220,13 +216,6 @@ final class Swiss(
         }
       }
     }
-
-  private val ExportLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
-    credits = 10,
-    duration = 1.minute,
-    name = "swiss export per IP",
-    key = "swiss.export.ip"
-  )
 
   def exportTrf(id: String) =
     Action.async {

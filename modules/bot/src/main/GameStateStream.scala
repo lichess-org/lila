@@ -42,7 +42,7 @@ final class GameStateStream(
         Props(mkActor(init, as, User(u.id, u.isBot), queue)),
         name = s"GameStateStream:${init.game.id}:${Random nextString 8}"
       )
-      queue.watchCompletion.foreach { _ =>
+      queue.watchCompletion().foreach { _ =>
         actor ! PoisonPill
       }
     }

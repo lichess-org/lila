@@ -1,11 +1,11 @@
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
 import keyboard from './keyboard';
-import moveTestBuild from './moveTest';
+import { moveTestBuild, MoveTestFn } from './moveTest';
 import mergeSolution from './solution';
 import makePromotion from './promotion';
 import computeAutoShapes from './autoShape';
-import { defined, prop } from 'common';
+import { defined, prop, Prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import * as xhr from './xhr';
@@ -16,7 +16,7 @@ import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
 import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { Chess } from 'chessops/chess';
-import { chessgroundDests, scalachessId } from 'chessops/compat';
+import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, PuzzleVote, MoveTest } from './interfaces';
@@ -24,8 +24,8 @@ import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, PuzzleVote
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   let vm: Vm = {} as Vm;
-  var data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl, moveTest;
-  const ground = prop<CgApi | undefined>(undefined);
+  var data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl, moveTest: MoveTestFn;
+  const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
 
   // required by ceval
@@ -95,11 +95,11 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
     const dests = chessgroundDests(position());
     const movable = (vm.mode === 'view' || color === data.puzzle.color) ? {
-      color: (Object.keys(dests).length > 0) ? color : undefined,
+      color: dests.size > 0 ? color : undefined,
       dests
     } : {
       color: undefined,
-      dests: {}
+      dests: new Map(),
     };
     const config = {
       fen: node.fen,
@@ -154,7 +154,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     addNode({
       ply: 2 * (pos.fullmoves - 1) + (pos.turn == 'white' ? 0 : 1),
       fen: makeFen(pos.toSetup()),
-      id: scalachessId(move),
+      id: scalachessCharPair(move),
       uci: makeUci(move),
       san,
       check: defined(check) ? makeSquare(check) : undefined,

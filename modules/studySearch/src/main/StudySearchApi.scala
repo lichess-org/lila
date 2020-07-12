@@ -132,7 +132,7 @@ final class StudySearchApi(
               lila.common.Future.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
             }
             .toMat(Sink.ignore)(Keep.right)
-            .run
+            .run()
         } >> client.refresh
       case _ => funit
     }

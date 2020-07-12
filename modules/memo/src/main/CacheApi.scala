@@ -20,7 +20,7 @@ final class CacheApi(
       build: Builder => AsyncLoadingCache[K, V]
   ): AsyncLoadingCache[K, V] = {
     val cache = build {
-      scaffeine.recordStats.initialCapacity(actualCapacity(initialCapacity))
+      scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
     }
     monitor(name, cache)
     cache
@@ -41,7 +41,7 @@ final class CacheApi(
       expireAfter: Syncache.ExpireAfter
   ): Syncache[K, V] = {
     val actualCapacity =
-      if (mode != Mode.Prod) math.sqrt(initialCapacity).toInt atLeast 1
+      if (mode != Mode.Prod) math.sqrt(initialCapacity.toDouble).toInt atLeast 1
       else initialCapacity
     val cache = new Syncache(name, actualCapacity, compute, default, strategy, expireAfter)
     monitor(name, cache.cache)
@@ -52,7 +52,7 @@ final class CacheApi(
       build: Builder => AsyncCache[K, V]
   ): AsyncCache[K, V] = {
     val cache = build {
-      scaffeine.recordStats.initialCapacity(actualCapacity(initialCapacity))
+      scaffeine.recordStats().initialCapacity(actualCapacity(initialCapacity))
     }
     monitor(name, cache)
     cache
@@ -68,7 +68,7 @@ final class CacheApi(
     startMonitor(name, cache)
 
   def actualCapacity(c: Int) =
-    if (mode != Mode.Prod) math.sqrt(c).toInt atLeast 1
+    if (mode != Mode.Prod) math.sqrt(c.toDouble).toInt atLeast 1
     else c
 }
 

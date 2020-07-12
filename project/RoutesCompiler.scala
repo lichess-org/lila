@@ -132,6 +132,7 @@ object LilaRoutesGenerator extends RoutesGenerator {
         includesDeps.values.toSeq
       )
       .body
+      .replace("""import _root_.controllers.Assets.Asset""", "")
   }
 
   private def generateRoutesPrefix(sourceInfo: RoutesSourceInfo, namespace: Option[String]) =
@@ -168,6 +169,7 @@ object LilaRoutesGenerator extends RoutesGenerator {
               _ => true
             )
             .body
+            .replace("""import _root_.controllers.Assets.Asset""", "")
     }
   }
 

@@ -43,10 +43,10 @@ final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
 final class PimpedString(private val s: String) extends AnyVal {
 
   def replaceIf(t: Char, r: Char): String =
-    if (s.indexOf(t) >= 0) s.replace(t, r) else s
+    if (s.indexOf(t.toInt) >= 0) s.replace(t, r) else s
 
   def replaceIf(t: Char, r: CharSequence): String =
-    if (s.indexOf(t) >= 0) s.replace(String.valueOf(t), r) else s
+    if (s.indexOf(t.toInt) >= 0) s.replace(String.valueOf(t), r) else s
 
   def replaceIf(t: CharSequence, r: CharSequence): String =
     if (s.contains(t)) s.replace(t, r) else s
@@ -69,7 +69,7 @@ final class PimpedDateTime(private val date: DateTime) extends AnyVal {
 
 final class PimpedValid[A](private val v: Valid[A]) extends AnyVal {
 
-  def future: Fu[A] = v fold (errs => fufail(errs.shows), fuccess)
+  def future: Fu[A] = v.fold(errs => fufail(errs.shows), fuccess)
 }
 
 final class PimpedTry[A](private val v: Try[A]) extends AnyVal {

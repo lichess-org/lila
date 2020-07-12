@@ -24,7 +24,7 @@ object embed {
         ),
         body(
           cls := s"base ${config.board}",
-          dataStreamUrl := routes.Tv.feed
+          dataStreamUrl := routes.Tv.feed()
         )(
           div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
             gameFenNoCtx(pov, tv = true, blank = true),

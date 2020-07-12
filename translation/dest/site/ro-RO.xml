@@ -51,7 +51,7 @@
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Distribuiţi acest link pentru a permite spectatorilor să vizioneze partida</string>
   <string name="theComputerAnalysisHasFailed">Analiza computerului a eșuat</string>
   <string name="viewTheComputerAnalysis">Vezi analiza computer-ului</string>
-  <string name="requestAComputerAnalysis">Cereți o analiză a computer-ului</string>
+  <string name="requestAComputerAnalysis">Cereți o analiză făcută de computer</string>
   <string name="computerAnalysis">Analiza computer-ului</string>
   <string name="computerAnalysisAvailable">Analiză computerizată disponibilă</string>
   <string name="analysis">Analiza</string>
@@ -292,6 +292,7 @@
     <item quantity="few">Acordă %s secunde</item>
     <item quantity="other">Acordă %s secunde</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Acest cont a încălcat condițiile de utilizare ale site-ului Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Jucătorul și-a crescut ratingul în mod artificial</string>
   <string name="openingExplorerAndTablebase">Deschide exploratorul &amp; baza de date</string>
   <string name="takeback">Revocare</string>
@@ -570,7 +571,7 @@
   <string name="fast">Rapidă</string>
   <string name="normal">Normală</string>
   <string name="slow">Lentă</string>
-  <string name="insideTheBoard">În interiorul tablei</string>
+  <string name="insideTheBoard">Pe interiorul tablei</string>
   <string name="outsideTheBoard">În afara tablei</string>
   <string name="onSlowGames">În jocurile lente</string>
   <string name="always">Întotdeauna</string>
@@ -628,7 +629,7 @@
   <string name="shareGameURL">Distribuie URL-ul jocului</string>
   <string name="error.required">Acest camp este necesar</string>
   <string name="error.email">Această adresă de email este invalidă</string>
-  <string name="error.email_acceptable">Această adresă de email este inacceptabilă</string>
+  <string name="error.email_acceptable">Această adresă de email este inacceptabilă. Reverificați-o și încercați din nou.</string>
   <string name="error.email_unique">Această adresă de email este deja folosită</string>
   <string name="error.email_different">Aceasta este deja adresa dvs. de email</string>
   <string name="ifRatingIsPlusMinusX">Dacă rating-ul este ± %s</string>
@@ -736,9 +737,9 @@
   <string name="alternativelyYouCanX">Alternativ, puteți %s.</string>
   <string name="revokeAllSessions">revocați toate sesiunile</string>
   <string name="playChessEverywhere">Joacă șah oriunde</string>
-  <string name="asFreeAsLichess">Gratis ca și lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Construit din cauza dragostei față de șah, nu față de bani</string>
-  <string name="everybodyGetsAllFeaturesForFree">Toata lumea are access la toate opțiunile, gratis</string>
+  <string name="asFreeAsLichess">Gratis ca Lichess</string>
+  <string name="builtForTheLoveOfChessNotMoney">Creat din dragoste pentru șah, nu pentru bani</string>
+  <string name="everybodyGetsAllFeaturesForFree">Toata lumea are access la toate opțiunile, gratuit</string>
   <string name="zeroAdvertisement">Zero reclame</string>
   <string name="fullFeatured">Toate opțiunile</string>
   <string name="phoneAndTablet">Telefon și tabletă</string>

@@ -75,7 +75,7 @@ final class ReportApi(
                   Bus.publish(lila.hub.actorApi.report.CheatReportCreated(report.user), "cheatReport")
               }
             } >>-
-            nbOpenCache.invalidateUnit
+            nbOpenCache.invalidateUnit()
       }
     }
 
@@ -261,7 +261,7 @@ final class ReportApi(
         }
         accuracy.invalidate(reportSelector) >>
           doProcessReport(reportSelector, mod.id).void >>- {
-          nbOpenCache.invalidateUnit
+          nbOpenCache.invalidateUnit()
           lila.mon.mod.report.close.increment()
         }
       }

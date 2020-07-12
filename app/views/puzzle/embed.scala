@@ -26,7 +26,7 @@ object embed {
         ),
         body(
           cls := s"base ${config.board}",
-          dataStreamUrl := routes.Tv.feed
+          dataStreamUrl := routes.Tv.feed()
         )(
           div(id := "daily-puzzle", cls := "embedded", title := trans.clickToSolve.txt())(
             raw(daily.html),

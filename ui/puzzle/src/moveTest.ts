@@ -2,6 +2,9 @@ import { path as pathOps } from 'tree';
 import { parseUci } from 'chessops/util';
 import { Vm, Puzzle, MoveTest } from './interfaces';
 
+type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
+export type MoveTestFn = () => MoveTestReturn;
+
 const altCastles = {
   e1a1: 'e1c1',
   e1h1: 'e1g1',
@@ -9,8 +12,14 @@ const altCastles = {
   e8h8: 'e8g8'
 };
 
-export default function(vm: Vm, puzzle: Puzzle): () => undefined | 'fail' | 'win' | MoveTest {
-  return function(): undefined | 'fail' | 'win' | MoveTest {
+type AltCastle = keyof typeof altCastles;
+
+function isAltCastle(str: string): str is AltCastle {
+  return altCastles.hasOwnProperty(str);
+}
+
+export function moveTestBuild(vm: Vm, puzzle: Puzzle): MoveTestFn {
+  return function(): MoveTestReturn {
     if (vm.mode === 'view') return;
     if (!pathOps.contains(vm.path, vm.initialPath)) return;
 
@@ -26,8 +35,9 @@ export default function(vm: Vm, puzzle: Puzzle): () => undefined | 'fail' | 'win
 
     let progress = puzzle.lines;
     for (const i in nodes) {
-      if (progress[nodes[i].uci!]) progress = progress[nodes[i].uci!];
-      else if (nodes[i].castle) progress = progress[altCastles[nodes[i].uci!]] || 'fail';
+      const uci = nodes[i].uci!;
+      if (typeof progress === 'object' && progress[uci]) progress = progress[uci];
+      else if (typeof progress === 'object' && nodes[i].castle && isAltCastle(uci)) progress = progress[altCastles[uci]] || 'fail';
       else progress = 'fail';
       if (typeof progress === 'string') break;
     }

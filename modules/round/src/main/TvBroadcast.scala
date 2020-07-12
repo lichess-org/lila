@@ -29,11 +29,11 @@ final private class TvBroadcast extends Actor {
   def receive = {
 
     case TvBroadcast.Connect =>
-      sender ! Source
+      sender() ! Source
         .queue[JsValue](8, akka.stream.OverflowStrategy.dropHead)
         .mapMaterializedValue { queue =>
           self ! Add(queue)
-          queue.watchCompletion.foreach { _ =>
+          queue.watchCompletion().foreach { _ =>
             self ! Remove(queue)
           }
         }

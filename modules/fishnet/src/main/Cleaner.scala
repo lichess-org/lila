@@ -43,7 +43,7 @@ final private class Cleaner(
           }
       }
       .toMat(Sink.ignore)(Keep.right)
-      .run
+      .run()
       .void
 
   system.scheduler.scheduleWithFixedDelay(15 seconds, 10 seconds) { () =>

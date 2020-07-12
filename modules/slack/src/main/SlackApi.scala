@@ -29,7 +29,7 @@ final class SlackApi(
 
     private def addToBuffer(event: ChargeEvent): Funit = {
       buffer = buffer :+ event
-      (buffer.head.date isBefore DateTime.now.minusHours(6)) ?? {
+      (buffer.head.date isBefore DateTime.now.minusHours(12)) ?? {
         val patrons   = buffer map (_.username) map userAt mkString ", "
         val amountSum = buffer.map(_.amount).sum
         displayMessage {
@@ -54,7 +54,7 @@ final class SlackApi(
       if (username == "Anonymous") "Anonymous"
       else s"@$username"
 
-    private def amount(cents: Int) = s"$$${BigDecimal(cents, 2)}"
+    private def amount(cents: Int) = s"$$${BigDecimal(cents.toLong, 2)}"
   }
 
   def publishEvent(event: Event): Funit =
@@ -99,6 +99,20 @@ final class SlackApi(
             icon = "scroll",
             text = s":$icon: ${linkifyUsers(text)}",
             channel = "tavern-monitor"
+          )
+        )
+      }
+    }
+
+  def logMod(modId: User.ID, icon: String, text: String): Funit =
+    lightUser(modId) flatMap {
+      _ ?? { mod =>
+        client(
+          SlackMessage(
+            username = mod.name,
+            icon = "scroll",
+            text = s":$icon: ${linkifyUsers(text)}",
+            channel = "tavern-log"
           )
         )
       }

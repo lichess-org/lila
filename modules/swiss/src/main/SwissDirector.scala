@@ -20,7 +20,7 @@ final private class SwissDirector(
   import BsonHandlers._
 
   // sequenced by SwissApi
-  private[swiss] def startRound(from: Swiss): Fu[Option[(Swiss, List[SwissPairing])]] =
+  private[swiss] def startRound(from: Swiss): Fu[Option[Swiss]] =
     pairingSystem(from)
       .flatMap { pendings =>
         val pendingPairings = pendings.collect { case Right(p) => p }
@@ -68,14 +68,17 @@ final private class SwissDirector(
             _ <- lila.common.Future.applySequentially(games) { game =>
               gameRepo.insertDenormalized(game) >>- onStart(game.id)
             }
-          } yield Some(swiss -> pairings)
+          } yield swiss.some
         }
       }
       .recover {
         case PairingSystem.BBPairingException(msg, input) =>
-          logger.warn(s"BBPairing ${from.id} $msg")
-          logger.info(s"BBPairing ${from.id} $input")
-          Some(from -> List.empty[SwissPairing])
+          if (msg contains "The number of rounds is larger than the reported number of rounds.") none
+          else {
+            logger.warn(s"BBPairing ${from.id} $msg")
+            logger.info(s"BBPairing ${from.id} $input")
+            from.some
+          }
       }
       .monSuccess(_.swiss.startRound)
 

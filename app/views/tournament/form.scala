@@ -28,7 +28,7 @@ object form {
             if (fields.isTeamBattle) "New Team Battle"
             else trans.createANewTournament()
           ),
-          postForm(cls := "form3", action := routes.Tournament.create)(
+          postForm(cls := "form3", action := routes.Tournament.create())(
             fields.name,
             form3.split(fields.rated, fields.variant),
             fields.startPosition,

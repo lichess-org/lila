@@ -141,7 +141,7 @@
   <string name="viewInFullSize">Ver em tela cheia</string>
   <string name="logOut">Sair</string>
   <string name="signIn">Entrar</string>
-  <string name="youNeedAnAccountToDoThat">Você precisa de uma conta para fazer isso</string>
+  <string name="youNeedAnAccountToDoThat">Precisas de uma conta para fazeres isso</string>
   <string name="signUp">Registar-se</string>
   <string name="computersAreNotAllowedToPlay">Computadores ou jogadores assistidos por computador não estão autorizados a jogar. Por favor não utilizes assistência de programas de xadrez, bases de dados ou outros jogadores enquanto estiveres a jogar. Além disso, a criação de contas múltiplas é fortemente desencorajada e a sua prática excessiva acarretará banimento.</string>
   <string name="games">Partidas</string>
@@ -343,7 +343,7 @@
   <string name="toStudy">Estudo</string>
   <string name="importGame">Importar uma partida</string>
   <string name="importGameExplanation">Coloca aqui o PGN de um jogo, para teres acesso a navegar pela repetição,
- análise de computador, sala de chat do jogo e link de partilha.</string>
+análise de computador, sala de chat do jogo e link de partilha.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>

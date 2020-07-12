@@ -70,6 +70,7 @@
   <string name="startAtX">Començar a %s</string>
   <string name="embedInYourWebsite">Inserta en la teva web o blog</string>
   <string name="readMoreAboutEmbedding">Llegeix més sobre insertar</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Només els estudis públics poden ser inserits!</string>
   <string name="open">Obrir</string>
   <string name="xBroughtToYouByY">%1$s, presentat per %2$s</string>
   <string name="studyNotFound">Estudi no trobat</string>

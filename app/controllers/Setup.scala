@@ -2,7 +2,7 @@ package controllers
 
 import play.api.data.Form
 import play.api.libs.json.Json
-import play.api.mvc.{ Result, Results }
+import play.api.mvc.Results
 import scala.concurrent.duration._
 
 import chess.format.FEN
@@ -28,8 +28,7 @@ final class Setup(
   private[controllers] val PostRateLimit = new lila.memo.RateLimit[IpAddress](
     5,
     1.minute,
-    name = "setup post",
-    key = "setup_post",
+    key = "setup.post",
     enforce = env.net.rateLimit.value
   )
 
@@ -43,7 +42,7 @@ final class Setup(
             form("fen").value flatMap ValidFen(getBool("strict"))
           )
         }
-      } else Redirect(s"${routes.Lobby.home}#ai").fuccess
+      } else Redirect(s"${routes.Lobby.home()}#ai").fuccess
     }
 
   def ai =
@@ -67,7 +66,7 @@ final class Setup(
         }
       else
         fuccess {
-          Redirect(s"${routes.Lobby.home}#friend")
+          Redirect(s"${routes.Lobby.home()}#friend")
         }
     }
 
@@ -77,7 +76,7 @@ final class Setup(
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         forms
           .friend(ctx)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err =>
               negotiate(
@@ -122,7 +121,7 @@ final class Setup(
                         )
                       case false =>
                         negotiate(
-                          html = fuccess(Redirect(routes.Lobby.home)),
+                          html = fuccess(Redirect(routes.Lobby.home())),
                           api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
                         )
                     }
@@ -140,7 +139,7 @@ final class Setup(
         }
         else
           fuccess {
-            Redirect(s"${routes.Lobby.home}#hook")
+            Redirect(s"${routes.Lobby.home()}#hook")
           }
       }
     }
@@ -157,8 +156,6 @@ final class Setup(
       case HookResult.Refused => BadRequest(jsonError("Game was not created"))
     }
 
-  private val hookSaveOnlyResponse = Ok(Json.obj("ok" -> true))
-
   def hook(sri: String) =
     OpenBody { implicit ctx =>
       NoBot {
@@ -167,7 +164,7 @@ final class Setup(
           NoPlaybanOrCurrent {
             forms
               .hook(ctx)
-              .bindFromRequest
+              .bindFromRequest()
               .fold(
                 jsonFormError,
                 userConfig =>
@@ -194,7 +191,7 @@ final class Setup(
               _ ?? { game =>
                 for {
                   blocking <- ctx.userId ?? env.relation.api.fetchBlocking
-                  hookConfig    = lila.setup.HookConfig.default updateFrom game
+                  hookConfig    = lila.setup.HookConfig.default withRatingRange get("rr") updateFrom game
                   sameOpponents = game.userIds
                   hookResult <-
                     processor
@@ -218,7 +215,7 @@ final class Setup(
       implicit val lang = reqLang
       if (me.isBot) notForBotAccounts.fuccess
       else
-        forms.boardApiHook.bindFromRequest.fold(
+        forms.boardApiHook.bindFromRequest().fold(
           newJsonFormError,
           config =>
             env.relation.api.fetchBlocking(me.id) flatMap { blocking =>
@@ -253,7 +250,7 @@ final class Setup(
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       implicit val lang = reqLang
       PostRateLimit(HTTPRequest lastRemoteAddress req) {
-        forms.api.ai.bindFromRequest.fold(
+        forms.api.ai.bindFromRequest().fold(
           jsonFormError,
           config =>
             processor.apiAi(config, me) map { pov =>
@@ -267,7 +264,7 @@ final class Setup(
     OpenBody { implicit ctx =>
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         implicit val req = ctx.body
-        form(ctx).bindFromRequest.fold(
+        form(ctx).bindFromRequest().fold(
           err =>
             negotiate(
               html = keyPages.home(Results.BadRequest),

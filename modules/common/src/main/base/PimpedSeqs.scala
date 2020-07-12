@@ -1,7 +1,6 @@
 package lila.base
 
 import java.util.Base64
-import java.lang.{ StringBuilder => jStringBuilder }
 import scala.util.Try
 import scalaz.{ IList, NonEmptyList }
 

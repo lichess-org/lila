@@ -37,7 +37,7 @@ export function makeConfig(ctrl: RoundController): Config {
     movable: {
       free: false,
       color: playing ? data.player.color : undefined,
-      dests: playing ? util.parsePossibleMoves(data.possibleMoves) : {},
+      dests: playing ? util.parsePossibleMoves(data.possibleMoves) : new Map(),
       showDests: data.pref.destination,
       rookCastle: data.pref.rookCastle,
       events: {
@@ -84,15 +84,13 @@ export function reload(ctrl: RoundController) {
 }
 
 export function promote(ground: CgApi, key: cg.Key, role: cg.Role) {
-  const piece = ground.state.pieces[key];
+  const piece = ground.state.pieces.get(key);
   if (piece && piece.role === 'pawn') {
-    const pieces: cg.Pieces = {};
-    pieces[key] = {
+    ground.setPieces(new Map([[key, {
       color: piece.color,
       role,
-      promoted: true
-    };
-    ground.setPieces(pieces);
+      promoted: true,
+    }]]));
   }
 }
 

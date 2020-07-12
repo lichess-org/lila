@@ -12,7 +12,7 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
       h('span.text', { attrs: dataIcon('') }, 'Broadcast manager'),
       h('a', {
         attrs: {
-          href: `/broadcast/${ctrl.data.slug}/${ctrl.data.id}/edit`,
+          href: `${ctrl.data.url}/edit`,
           'data-icon': '%'
         }
       })
@@ -20,6 +20,7 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
     ctrl.data.sync.url ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl) : null,
     renderLog(ctrl)
   ]);
+  return undefined;
 }
 
 function logSuccess(e: LogEvent) {

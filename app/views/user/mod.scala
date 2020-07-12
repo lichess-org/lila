@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
-import lila.security.{ Dated, FingerHash, Permission, UserSpy }
+import lila.security.{ Permission, UserSpy }
 import lila.playban.RageSit
 import lila.user.User
 
@@ -16,7 +16,7 @@ object mod {
 
   private def mzSection(key: String) = div(id := s"mz_$key", cls := "mz-section")
 
-  def menu(u: User)(implicit ctx: Context) =
+  def menu =
     mzSection("menu")(
       a(href := "#mz_actions")("Overview"),
       a(href := "#mz_irwin")("Irwin"),
@@ -453,8 +453,8 @@ object mod {
   private val shadowban: Frag = iconTag("c")
   private val boosting: Frag  = iconTag("9")
   private val engine: Frag    = iconTag("n")
+  private val closed: Frag    = iconTag("k")
   private val clean: Frag     = iconTag("r")
-  private val closed          = iconTag("k")
   private val reportban       = iconTag("!")
   private val notesText       = iconTag("m")
   private def markTd(nb: Int, content: => Frag) =
@@ -683,6 +683,7 @@ object mod {
       alts.engines  -> engine,
       alts.trolls   -> shadowban,
       alts.alts     -> alt,
+      alts.closed   -> closed,
       alts.cleans   -> clean
     ) collect {
       case (nb, tag) if nb > 4 => frag(List.fill(3)(tag), "+", nb - 3)

@@ -6,12 +6,12 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/tsProject": "2.0.0",
+    "@build/rollupProject": "2.0.0",
     "@types/jquery": "^2.0",
     "@types/lichess": "2.0.0"
   },
   "scripts": {
-    "dev": "gulp dev",
-    "prod": "gulp prod"
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
   }
 }

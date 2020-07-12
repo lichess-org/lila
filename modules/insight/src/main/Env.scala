@@ -2,10 +2,8 @@ package lila.insight
 
 import com.softwaremill.macwire._
 import play.api.Configuration
-import reactivemongo.api.MongoConnection.ParsedURI
 
 import lila.common.config._
-import lila.db.DbConfig.uriLoader
 
 @Module
 final class Env(
@@ -23,7 +21,7 @@ final class Env(
 
   private lazy val db = mongo.asyncDb(
     "insight",
-    appConfig.get[ParsedURI]("insight.mongodb.uri")
+    appConfig.get[String]("insight.mongodb.uri")
   )
 
   lazy val share = wire[Share]

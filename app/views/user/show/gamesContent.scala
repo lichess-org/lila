@@ -36,7 +36,6 @@ object gamesContent {
           if (pager.nbResults > 0)
             frag(
               div(cls := "search__status")(
-                "While we are working to fix advanced search this view might be missing recent games • ", // #6785
                 strong(pager.nbResults.localize, " games found"),
                 " • ",
                 permalink
@@ -50,7 +49,6 @@ object gamesContent {
             )
           else
             div(cls := "search__status")(
-              "While we are working to fix advanced search this view might be missing recent games • ", // #6785
               strong("No game found"),
               " • ",
               permalink

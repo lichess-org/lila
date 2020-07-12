@@ -54,7 +54,7 @@ final class Auth(
         html = fuccess {
           val redirectTo = get("referrer").filter(goodReferrer) orElse
             ctxReq.session.get(api.AccessUri) getOrElse
-            routes.Lobby.home.url
+            routes.Lobby.home().url
           result.fold(Redirect(redirectTo))(_(redirectTo))
         },
         api = _ => mobileUserOk(u, sessionId)
@@ -71,7 +71,7 @@ final class Auth(
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
     case lila.security.SecurityApi.MustConfirmEmail(_) =>
       fuccess {
-        if (HTTPRequest isXhr ctx.req) Ok(s"ok:${routes.Auth.checkYourEmail}")
+        if (HTTPRequest isXhr ctx.req) Ok(s"ok:${routes.Auth.checkYourEmail()}")
         else BadRequest(accountC.renderCheckYourEmail)
       }
   }
@@ -95,7 +95,7 @@ final class Auth(
       Firewall {
         implicit val req = ctx.body
         val referrer     = get("referrer").filterNot(sillyLoginReferrers.contains)
-        api.usernameOrEmailForm.bindFromRequest.fold(
+        api.usernameOrEmailForm.bindFromRequest().fold(
           err =>
             negotiate(
               html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
@@ -105,7 +105,7 @@ final class Auth(
             HasherRateLimit(usernameOrEmail, ctx.req) { chargeIpLimiter =>
               api.loadLoginForm(usernameOrEmail) flatMap {
                 loginForm =>
-                  loginForm.bindFromRequest.fold(
+                  loginForm.bindFromRequest().fold(
                     err => {
                       chargeIpLimiter(1)
                       negotiate(
@@ -124,7 +124,7 @@ final class Auth(
                         case None => InternalServerError("Authentication error").fuccess
                         case Some(u) if u.disabled =>
                           negotiate(
-                            html = redirectTo(routes.Account.reopen.url).fuccess,
+                            html = redirectTo(routes.Account.reopen().url).fuccess,
                             api = _ => Unauthorized(jsonError("This account is closed.")).fuccess
                           )
                         case Some(u) =>
@@ -146,7 +146,7 @@ final class Auth(
       env.security.store.delete(currentSessionId) >>
         env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId) >>
         negotiate(
-          html = Redirect(routes.Auth.login).fuccess,
+          html = Redirect(routes.Auth.login()).fuccess,
           api = _ => Ok(Json.obj("ok" -> true)).fuccess
         ).dmap(_.withCookies(env.lilaCookie.newSession))
     }
@@ -187,7 +187,7 @@ final class Auth(
                   BadRequest(html.auth.signup(err, env.security.recaptchaPublicConfig)).fuccess
                 case Signup.ConfirmEmail(user, email) =>
                   fuccess {
-                    Redirect(routes.Auth.checkYourEmail) withCookies
+                    Redirect(routes.Auth.checkYourEmail()) withCookies
                       lila.security.EmailConfirm.cookie
                         .make(env.lilaCookie, user, email)(ctx.req)
                   }
@@ -223,7 +223,7 @@ final class Auth(
           case None => Ok(accountC.renderCheckYourEmail).fuccess
           case Some(userEmail) =>
             env.user.repo nameExists userEmail.username map {
-              case false => Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(ctx.req)
+              case false => Redirect(routes.Auth.signup()) withCookies env.lilaCookie.newSession(ctx.req)
               case true  => Ok(accountC.renderCheckYourEmail)
             }
         }
@@ -237,22 +237,22 @@ final class Auth(
         implicit val req = ctx.body
         forms.preloadEmailDns >> forms
           .fixEmail(userEmail.email)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.auth.checkYourEmail(userEmail.some, err.some)).fuccess,
             email =>
               env.user.repo.named(userEmail.username) flatMap {
-                _.fold(Redirect(routes.Auth.signup).fuccess) {
+                _.fold(Redirect(routes.Auth.signup()).fuccess) {
                   user =>
                     env.user.repo.mustConfirmEmail(user.id) flatMap {
-                      case false => Redirect(routes.Auth.login).fuccess
+                      case false => Redirect(routes.Auth.login()).fuccess
                       case _ =>
                         val newUserEmail = userEmail.copy(email = EmailAddress(email))
                         EmailConfirmRateLimit(newUserEmail, ctx.req) {
                           lila.mon.email.send.fix.increment()
                           env.user.repo.setEmail(user.id, newUserEmail.email) >>
                             env.security.emailConfirm.send(user, newUserEmail.email) inject {
-                            Redirect(routes.Auth.checkYourEmail) withCookies
+                            Redirect(routes.Auth.checkYourEmail()) withCookies
                               lila.security.EmailConfirm.cookie
                                 .make(env.lilaCookie, user, newUserEmail.email)(ctx.req)
                           }
@@ -274,7 +274,7 @@ final class Auth(
         case Result.AlreadyConfirmed(user) if ctx.is(user) =>
           Redirect(routes.User.show(user.username)).fuccess
         case Result.AlreadyConfirmed(_) =>
-          Redirect(routes.Auth.login).fuccess
+          Redirect(routes.Auth.login()).fuccess
         case Result.JustConfirmed(user) =>
           lila.mon.user.register.confirmEmailResult(true).increment()
           env.user.repo.email(user.id).flatMap {
@@ -321,7 +321,7 @@ final class Auth(
   def passwordResetApply =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      forms.passwordReset.bindFromRequest.fold(
+      forms.passwordReset.bindFromRequest().fold(
         err =>
           forms.anyCaptcha map { captcha =>
             BadRequest(html.auth.bits.passwordReset(err, captcha, false.some))
@@ -404,7 +404,7 @@ final class Auth(
   def magicLinkApply =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      forms.magicLink.bindFromRequest.fold(
+      forms.magicLink.bindFromRequest().fold(
         err =>
           forms.anyCaptcha map { captcha =>
             BadRequest(html.auth.bits.magicLink(err, captcha, false.some))

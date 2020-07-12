@@ -80,7 +80,7 @@ final class SwissStatsApi(
                   }
               }
           })(Keep.right)
-          .run
+          .run()
           .dmap { s => s.copy(games = s.games / 2, averageRating = s.averageRating / swiss.nbPlayers) }
       }
     }

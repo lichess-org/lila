@@ -29,7 +29,7 @@ final class BotPlayer(
         lila.mon.bot.moves(me.username).increment()
         if (!pov.isMyTurn) clientError("Not your turn, or game already over")
         else {
-          val promise = Promise[Unit]
+          val promise = Promise[Unit]()
           if (pov.player.isOfferingDraw && (offeringDraw contains false)) declineDraw(pov)
           else if (!pov.player.isOfferingDraw && ~offeringDraw) offerDraw(pov)
           tellRound(pov.gameId, BotPlay(pov.playerId, uci, promise.some))

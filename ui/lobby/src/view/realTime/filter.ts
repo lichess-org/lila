@@ -1,6 +1,5 @@
 import { h } from 'snabbdom';
 import { bind } from '../util';
-import Filter from '../../filter';
 import LobbyController from '../../ctrl';
 
 function initialize(ctrl: LobbyController, el: HTMLElement) {

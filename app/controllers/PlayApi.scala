@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc._
-import scala.concurrent.duration._
 import play.api.i18n.Lang
 import scala.util.chaining._
 
@@ -83,7 +82,7 @@ final class PlayApi(
       cmd.split('/') match {
         case Array("game", id, "chat") =>
           as(id, me) { pov =>
-            env.bot.form.chat.bindFromRequest.fold(
+            env.bot.form.chat.bindFromRequest().fold(
               jsonFormErrorDefaultLang,
               res => env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
             ) pipe catchClientError

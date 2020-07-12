@@ -13,15 +13,13 @@ import lila.user.User
 
 final private class Streaming(
     ws: WSClient,
-    renderer: lila.hub.actors.Renderer,
     api: StreamerApi,
     isOnline: User.ID => Boolean,
     timeline: lila.hub.actors.Timeline,
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.Strings,
     googleApiKey: Secret,
-    twitchCredentials: () => (String, String),
-    lightUserApi: lila.user.LightUserApi
+    twitchCredentials: () => (String, String)
 ) extends Actor {
 
   import Stream._
@@ -36,7 +34,7 @@ final private class Streaming(
 
   def receive = {
 
-    case Streaming.Get => sender ! liveStreams
+    case Streaming.Get => sender() ! liveStreams
 
     case Tick => updateStreams addEffectAnyway scheduleTick
   }
@@ -63,13 +61,7 @@ final private class Streaming(
     } yield publishStreams(streamers, streams)
 
   def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) = {
-    import makeTimeout.short
-    import akka.pattern.ask
     if (newStreams != liveStreams) {
-      renderer.actor ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
-        case html: String =>
-          Bus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), "streams")
-      }
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
       } foreach { s =>

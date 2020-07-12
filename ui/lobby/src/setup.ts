@@ -11,6 +11,8 @@ export default class Setup {
     ai: FormStore;
   }
 
+  ratingRange = () => this.stores.hook.get()?.ratingRange;
+
   constructor(makeStorage: (name: string) => LichessStorage, readonly root: LobbyController) {
     this.stores = {
       hook: makeStore(makeStorage('lobby.setup.hook')),
@@ -98,6 +100,8 @@ export default class Setup {
     $rated = $modeChoices.eq(1),
     $variantSelect = $form.find('#sf_variant'),
     $fenPosition = $form.find(".fen_position"),
+    $fenInput = $fenPosition.find('input'),
+    forceFormPosition = !!$fenInput.val(),
     $timeInput = $form.find('.time_choice [name=time]'),
     $incrementInput = $form.find('.increment_choice [name=increment]'),
     $daysInput = $form.find('.days_choice [name=days]'),
@@ -137,7 +141,7 @@ export default class Setup {
         $form[0].querySelectorAll(`[name="${k}"]`).forEach((input: HTMLInputElement) => {
           if (input.type == 'checkbox') input.checked = true;
           else if (input.type == 'radio') input.checked = input.value == c[k];
-          else input.value = c[k];
+          else if (k != 'fen' || !input.value) input.value = c[k];
         });
       });
     }
@@ -195,17 +199,17 @@ export default class Setup {
       const ajaxSubmit = color => {
         const poolMember = this.hookToPoolMember(color, $form.serializeArray());
         $.modal.close();
-        const call = {
-          url: $form.attr('action').replace(/sri-placeholder/, li.sri),
-          data: $form.serialize() + "&color=" + color,
-          type: 'post'
-        };
         if (poolMember) {
           this.root.enterPool(poolMember);
           this.root.redraw();
-          call.url += '?pool=1';
-        } else this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
-        $.ajax(call);
+        } else {
+          this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
+          $.ajax({
+            url: $form.attr('action').replace(/sri-placeholder/, li.sri),
+            data: $form.serialize() + "&color=" + color,
+            type: 'post'
+          });
+        }
         return false;
       };
       $submits.click(function(this: HTMLElement) {
@@ -229,14 +233,14 @@ export default class Setup {
           $value = $input.siblings('span'),
           isTimeSlider = $input.parent().hasClass('time_choice'),
           showTime = (v: number) => {
-              if (v === 1 / 4) return '¼';
-              if (v === 1 / 2) return '½';
-              if (v === 3 / 4) return '¾';
+              if (v == 1 / 4) return '¼';
+              if (v == 1 / 2) return '½';
+              if (v == 3 / 4) return '¾';
               return v;
             },
           valueToTime = (v: number) => (isTimeSlider ? self.sliderTime : self.sliderIncrement)(v),
           show = (time: number) => $value.text(isTimeSlider ? showTime(time) : time);
-        show($input.val());
+        show(parseFloat($input.val()));
         $input.after($('<div>').slider({
           value: self.sliderInitVal(parseFloat($input.val()), isTimeSlider ? self.sliderTime : self.sliderIncrement, 100),
           min: 0,
@@ -301,7 +305,6 @@ export default class Setup {
       showRating();
     }).trigger('change');
 
-    var $fenInput = $fenPosition.find('input');
     var validateFen = li.debounce(function() {
       $fenInput.removeClass("success failure");
       var fen = $fenInput.val();
@@ -330,15 +333,14 @@ export default class Setup {
     }, 200);
     $fenInput.on('keyup', validateFen);
 
+    if (forceFormPosition) $variantSelect.val(3);
     $variantSelect.on('change', function(this: HTMLElement) {
-      var fen = $(this).val() == '3';
-      $fenPosition.toggle(fen);
-      $modeChoicesWrap.toggle(!fen);
-      if (fen) {
+      var isFen = $(this).val() == '3';
+      $fenPosition.toggle(isFen);
+      $modeChoicesWrap.toggle(!isFen);
+      if (isFen) {
         $casual.click();
-        li.raf(function() {
-          document.body.dispatchEvent(new Event('chessground.resize'));
-        });
+        requestAnimationFrame(() => li.dispatchEvent(document.body, 'chessground.resize'));
       }
       showRating();
       toggleButtons();

@@ -25,7 +25,7 @@ final class IrwinStream {
           queue offer req
       }
 
-      queue.watchCompletion dforeach { _ =>
+      queue.watchCompletion() dforeach { _ =>
         Bus.unsubscribe(sub, channel)
       }
     }

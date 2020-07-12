@@ -22,13 +22,17 @@ final class TeamMemberStream(
       .mapAsync(1)(userRepo.usersFromSecondary)
       .mapConcat(identity)
 
-  def ids(team: Team, perSecond: MaxPerSecond): Source[User.ID, _] =
-    idsBatches(team, perSecond)
+  def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[User.ID, _] =
+    idsBatches(team, perSecond, $doc("unsub" $ne true))
       .mapConcat(identity)
 
-  private def idsBatches(team: Team, perSecond: MaxPerSecond): Source[Seq[User.ID], _] =
+  private def idsBatches(
+      team: Team,
+      perSecond: MaxPerSecond,
+      selector: Bdoc = $empty
+  ): Source[Seq[User.ID], _] =
     memberRepo.coll.ext
-      .find($doc("team" -> team.id), $doc("user" -> true))
+      .find($doc("team" -> team.id) ++ selector, $doc("user" -> true))
       .sort($sort desc "date")
       .batchSize(perSecond.value)
       .cursor[Bdoc](ReadPreference.secondaryPreferred)

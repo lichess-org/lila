@@ -100,7 +100,7 @@ final private class Indexer(
         .throttle(perSecond / bulkInsert, 1 second)
         .map(storage.bulkInsert)
         .toMat(Sink.ignore)(Keep.right)
-        .run
+        .run()
     } void
   }
 }

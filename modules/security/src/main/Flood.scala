@@ -15,7 +15,7 @@ final class Flood(duration: FiniteDuration) {
 
   private val cache: Cache[User.ID, Messages] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(duration)
-    .build[User.ID, Messages]
+    .build[User.ID, Messages]()
 
   def allowMessage(uid: User.ID, text: String): Boolean = {
     val msg  = Message(text, Instant.now)

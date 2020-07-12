@@ -31,7 +31,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       ctx.me.fold(indexAnon) { me =>
         import lila.plan.PlanApi.SyncResult._
         env.plan.api.sync(me) flatMap {
-          case ReloadUser => Redirect(routes.Plan.index).fuccess
+          case ReloadUser => Redirect(routes.Plan.index()).fuccess
           case Synced(Some(patron), None) =>
             env.user.repo email me.id flatMap { email =>
               renderIndex(email, patron.some)
@@ -44,12 +44,12 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   def list =
     Open { implicit ctx =>
-      ctx.me.fold(Redirect(routes.Plan.index).fuccess) { me =>
+      ctx.me.fold(Redirect(routes.Plan.index()).fuccess) { me =>
         import lila.plan.PlanApi.SyncResult._
         env.plan.api.sync(me) flatMap {
-          case ReloadUser         => Redirect(routes.Plan.list).fuccess
+          case ReloadUser         => Redirect(routes.Plan.list()).fuccess
           case Synced(Some(_), _) => indexFreeUser(me)
-          case _                  => Redirect(routes.Plan.index).fuccess
+          case _                  => Redirect(routes.Plan.index()).fuccess
         }
       }
     }
@@ -102,10 +102,10 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def switch =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.plan.Switch.form.bindFromRequest.fold(
+      lila.plan.Switch.form.bindFromRequest().fold(
         _ => funit,
         data => env.plan.api.switch(me, data.cents)
-      ) inject Redirect(routes.Plan.index)
+      ) inject Redirect(routes.Plan.index())
     }
 
   def cancel =
@@ -143,8 +143,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     env.plan.api
       .createSession(
         CreateStripeSession(
-          s"${env.net.baseUrl}${routes.Plan.thanks}",
-          s"${env.net.baseUrl}${routes.Plan.index}",
+          s"${env.net.baseUrl}${routes.Plan.thanks()}",
+          s"${env.net.baseUrl}${routes.Plan.index()}",
           customerId,
           checkout
         )
@@ -160,8 +160,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   }
 
   private val StripeRateLimit = lila.memo.RateLimit.composite[lila.common.IpAddress](
-    name = "stripe checkouts per IP",
-    key = "stripe_checkout_ip",
+    key = "stripe.checkout.ip",
     enforce = env.net.rateLimit.value
   )(
     ("fast", 6, 10.minute),
@@ -176,7 +175,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       StripeRateLimit(HTTPRequest lastRemoteAddress req) {
         if (!HTTPRequest.isXhr(req)) BadRequest.fuccess
         else
-          lila.plan.Checkout.form.bindFromRequest.fold(
+          lila.plan.Checkout.form.bindFromRequest().fold(
             err => badStripeSession(err.toString()).fuccess,
             checkout =>
               env.plan.api.userCustomer(me) flatMap {
@@ -196,7 +195,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def payPalIpn =
     Action.async { implicit req =>
       import lila.plan.Patron.PayPal
-      lila.plan.DataForm.ipn.bindFromRequest.fold(
+      lila.plan.DataForm.ipn.bindFromRequest().fold(
         err => {
           if (err.errors("txn_type").nonEmpty) {
             logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")

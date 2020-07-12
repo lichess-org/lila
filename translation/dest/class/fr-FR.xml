@@ -16,7 +16,7 @@
   <string name="reopen">Rouvrir</string>
   <string name="removeStudent">Retirer l\'élève</string>
   <string name="removedStudents">Retiré</string>
-  <string name="inviteTheStudentBack">Réinviter l\'élève</string>
+  <string name="inviteTheStudentBack">Réintroduire cet élève</string>
   <string name="sendAMessage">Envoyer un message à tous les élèves.</string>
   <string name="aLinkToTheClassWillBeAdded">Un lien vers la classe sera automatiquement ajouté à la fin du message, vous n\'avez donc pas besoin de l\'inclure vous-même.</string>
   <string name="className">Nom de la classe</string>

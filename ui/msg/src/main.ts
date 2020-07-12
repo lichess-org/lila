@@ -34,4 +34,6 @@ export default function LichessMsg(element: HTMLElement, opts: MsgOpts) {
   vnode = patch(element, blueprint);
 
   redraw();
-};
+}
+
+LichessMsg.default = LichessMsg; // TODO: remove bc after next deploy

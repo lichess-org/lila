@@ -1,7 +1,7 @@
 import { h, thunk } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { dataIcon } from '../util';
-import { Controller, MaybeVNode } from '../interfaces';
+import { Controller, Puzzle, PuzzleGame, MaybeVNode } from '../interfaces';
 
 export function puzzleBox(ctrl: Controller): VNode {
   var data = ctrl.getData();
@@ -11,7 +11,7 @@ export function puzzleBox(ctrl: Controller): VNode {
   ]);
 }
 
-function puzzleInfos(ctrl: Controller, puzzle): VNode {
+function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
   return h('div.infos.puzzle', {
     attrs: dataIcon('-')
   }, [h('div', [
@@ -23,7 +23,7 @@ function puzzleInfos(ctrl: Controller, puzzle): VNode {
   ])]);
 }
 
-function gameInfos(ctrl: Controller, game, puzzle): VNode {
+function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
   return h('div.infos', {
     attrs: dataIcon(game.perf.icon)
   }, [h('div', [
@@ -83,6 +83,6 @@ function drawRatingChart(ctrl: Controller, vnode: VNode): void {
     fillColor: dark ? '#222255' : '#ccccff',
     numberFormatter: (x: number) => { return x; }
   });
-  window.lichess.raf(redraw);
+  requestAnimationFrame(redraw);
   window.addEventListener('resize', redraw);
 }

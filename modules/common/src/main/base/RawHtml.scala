@@ -57,7 +57,7 @@ final object RawHtml {
         idx = m.end
       } while (m.find)
       if (idx < text.length) buf += text.substring(idx)
-      buf.result
+      buf.result()
     } else List(text)
   }
 

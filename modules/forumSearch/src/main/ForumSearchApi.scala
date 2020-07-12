@@ -53,7 +53,7 @@ final class ForumSearchApi(
             .map(_.map(v => Id(v.post.id) -> toDoc(v)))
             .mapAsyncUnordered(2)(c.storeBulk)
             .toMat(Sink.ignore)(Keep.right)
-            .run
+            .run()
         } >> client.refresh
 
       case _ => funit

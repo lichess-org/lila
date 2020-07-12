@@ -31,7 +31,7 @@ object StreamerForm {
       "approval" -> optional(
         mapping(
           "granted"   -> boolean,
-          "featured"  -> boolean,
+          "tier"      -> optional(number(min = 0, max = Streamer.maxTier)),
           "requested" -> boolean,
           "ignored"   -> boolean,
           "chat"      -> boolean,
@@ -51,7 +51,7 @@ object StreamerForm {
       listed = streamer.listed.value,
       approval = ApprovalData(
         granted = streamer.approval.granted,
-        featured = streamer.approval.autoFeatured,
+        tier = streamer.approval.tier.some,
         requested = streamer.approval.requested,
         ignored = streamer.approval.ignored,
         chat = streamer.approval.chatEnabled
@@ -83,7 +83,7 @@ object StreamerForm {
           case Some(m) if asMod =>
             streamer.approval.copy(
               granted = m.granted,
-              autoFeatured = m.featured && m.granted,
+              tier = m.tier | streamer.approval.tier,
               requested = !m.granted && {
                 if (streamer.approval.requested != m.requested) m.requested
                 else streamer.approval.requested || m.requested
@@ -100,7 +100,7 @@ object StreamerForm {
 
   case class ApprovalData(
       granted: Boolean,
-      featured: Boolean,
+      tier: Option[Int],
       requested: Boolean,
       ignored: Boolean,
       chat: Boolean,
@@ -108,8 +108,8 @@ object StreamerForm {
   ) {
     def resolve =
       quick.fold(this) {
-        case "approve" => this.copy(granted = true, requested = false)
-        case "decline" => this.copy(granted = false, featured = false, requested = false)
+        case "approve" => copy(granted = true, requested = false)
+        case "decline" => copy(granted = false, requested = false)
       }
   }
 

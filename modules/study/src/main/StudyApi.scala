@@ -137,7 +137,7 @@ final class StudyApi(
           chapterRepo.insert(c) inject c
         }
         .toMat(Sink.reduce[Chapter] { case (prev, _) => prev })(Keep.right)
-        .run
+        .run()
         .flatMap { (first: Chapter) =>
           val study = study1 rewindTo first
           studyRepo.insert(study) >>
@@ -228,11 +228,11 @@ final class StudyApi(
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if (position.chapter.isOverweight) {
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
-      fuccess(failReload)
+      fuccess(failReload())
     } else
       position.chapter.addNode(node, position.path, relay) match {
         case None =>
-          failReload
+          failReload()
           fufail(s"Invalid addNode ${study.id} ${position.ref} $node")
         case Some(chapter) =>
           chapter.root.nodeAt(position.path) ?? { parent =>

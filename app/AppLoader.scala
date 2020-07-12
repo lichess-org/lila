@@ -4,6 +4,7 @@ import akka.actor.CoordinatedShutdown
 import com.softwaremill.macwire._
 import play.api._
 import play.api.libs.crypto.CookieSignerProvider
+import scala.annotation.nowarn
 import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
@@ -50,8 +51,8 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
 
   override lazy val httpErrorHandler = {
-    def someRouter = router.some
-    def mapper     = devContext.map(_.sourceMapper)
+    @nowarn def someRouter = router.some
+    @nowarn def mapper     = devContext.map(_.sourceMapper)
     wire[lila.app.http.ErrorHandler]
   }
 
@@ -131,7 +132,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
 
   // eagerly wire up all controllers
   val router: Router = {
-    val prefix: String = "/"
+    @nowarn val prefix: String = "/"
     wire[Routes]
   }
 

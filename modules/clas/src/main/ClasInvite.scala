@@ -28,8 +28,9 @@ object ClasInvite {
 
   sealed trait Feedback
   object Feedback {
-    case object Already extends Feedback
-    case object Invited extends Feedback
-    case object Found   extends Feedback
+    case object Already                extends Feedback
+    case object Invited                extends Feedback
+    case object Found                  extends Feedback
+    case class CantMsgKid(url: String) extends Feedback
   }
 }

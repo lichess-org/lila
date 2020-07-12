@@ -71,11 +71,12 @@
   <string name="broadcastUrl">Интернет-адрес трансляции</string>
   <string name="currentChapterUrl">Ссылка на эту главу</string>
   <string name="currentGameUrl">URL текущей партии</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Вставьте этот код на форум для отображения</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Вставьте этот код на форум для вставки</string>
   <string name="startAtInitialPosition">Открыть в начальной позиции</string>
   <string name="startAtX">Начать с %s</string>
   <string name="embedInYourWebsite">Вставить на свой сайт или в блог</string>
-  <string name="readMoreAboutEmbedding">Подробнее об отображении</string>
+  <string name="readMoreAboutEmbedding">Подробнее о вставке на сайт</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Вставлять на сайт можно только публичные студии!</string>
   <string name="open">Открыть</string>
   <string name="xBroughtToYouByY">%1$s на %2$s</string>
   <string name="studyNotFound">Студия не найдена</string>

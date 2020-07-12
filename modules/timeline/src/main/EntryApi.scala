@@ -107,6 +107,6 @@ final class EntryApi(
         }
       }
 
-    def insert(atom: Atom): Funit = coll.insert.one(Entry make atom).void >>- cache.invalidateUnit
+    def insert(atom: Atom): Funit = coll.insert.one(Entry make atom).void >>- cache.invalidateUnit()
   }
 }

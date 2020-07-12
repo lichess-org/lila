@@ -3,10 +3,11 @@ package lila.streamer
 import akka.actor._
 import akka.pattern.ask
 import makeTimeout.short
+import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
-import lila.user.User
 import lila.memo.CacheApi._
+import lila.user.User
 
 case class LiveStreams(streams: List[Stream]) {
 
@@ -17,9 +18,21 @@ case class LiveStreams(streams: List[Stream]) {
 
   def get(streamer: Streamer) = streams.find(_ is streamer)
 
-  def autoFeatured =
+  def homepage(max: Int, req: RequestHeader, user: Option[User]) =
     LiveStreams {
-      streams.filter(_.streamer.approval.autoFeatured)
+      val langs = req.acceptLanguages.view.map(_.language).toSet + "en" ++ user.flatMap(_.lang).toSet
+      streams
+        .takeWhile(_.streamer.approval.tier > 0)
+        .foldLeft(Vector.empty[Stream]) {
+          case (selected, s) if langs(s.lang) && {
+                selected.size < max || s.streamer.approval.tier == Streamer.maxTier
+              } && {
+                s.streamer.approval.tier > 1 || selected.size < 2
+              } =>
+            selected :+ s
+          case (selected, _) => selected
+        }
+        .toList
     }
 
   def withTitles(lightUser: lila.user.LightUserApi) =
@@ -60,8 +73,10 @@ final class LiveStreamApi(
   private val cache = cacheApi.unit[LiveStreams] {
     _.refreshAfterWrite(2 seconds)
       .buildAsyncFuture { _ =>
-        streamingActor ? Streaming.Get mapTo manifest[LiveStreams] addEffect { liveStreams =>
-          userIdsCache = liveStreams.streams.map(_.streamer.userId).toSet
+        streamingActor ? Streaming.Get mapTo manifest[LiveStreams] dmap { s =>
+          LiveStreams(s.streams.sortBy(-_.streamer.approval.tier))
+        } addEffect { s =>
+          userIdsCache = s.streams.map(_.streamer.userId).toSet
         }
       }
   }
@@ -69,29 +84,39 @@ final class LiveStreamApi(
 
   def all: Fu[LiveStreams] = cache.getUnit
   // import org.joda.time.DateTime
-  // def all: Fu[LiveStreams] = fuccess(LiveStreams(List(
-  //   Stream.Twitch.Stream("thibault", "test stream on lichess.org", Streamer(
-  //     _id = Streamer.Id("thibault"),
-  //     listed = Streamer.Listed(true),
-  //     approval = Streamer.Approval(
-  //       requested = false,
-  //       granted = true,
-  //       ignored = false,
-  //       autoFeatured = true,
-  //       chatEnabled = true
-  //     ),
-  //     picturePath = none,
-  //     name = Streamer.Name("thibault"),
-  //     headline = none,
-  //     description = none,
-  //     twitch = none,
-  //     youTube = none,
-  //     seenAt = DateTime.now, // last seen online
-  //     liveAt = DateTime.now.some, // last seen streaming
-  //     createdAt = DateTime.now,
-  //     updatedAt = DateTime.now
-  //   ))
-  // )))
+  // def all: Fu[LiveStreams] =
+  //   fuccess(
+  //     LiveStreams(
+  //       List(
+  //         Stream.Twitch.Stream(
+  //           "thibault",
+  //           "[RU] test stream on lichess.org",
+  //           Streamer(
+  //             _id = Streamer.Id("thibault"),
+  //             listed = Streamer.Listed(true),
+  //             approval = Streamer.Approval(
+  //               requested = false,
+  //               granted = true,
+  //               ignored = false,
+  //               tier = 5,
+  //               chatEnabled = true,
+  //               lastGrantedAt = DateTime.now.some
+  //             ),
+  //             picturePath = none,
+  //             name = Streamer.Name("thibault"),
+  //             headline = none,
+  //             description = none,
+  //             twitch = none,
+  //             youTube = none,
+  //             seenAt = DateTime.now,      // last seen online
+  //             liveAt = DateTime.now.some, // last seen streaming
+  //             createdAt = DateTime.now,
+  //             updatedAt = DateTime.now
+  //           )
+  //         )
+  //       )
+  //     )
+  //   )
 
   def of(s: Streamer.WithUser): Fu[Streamer.WithUserAndStream] =
     all.map { live =>

@@ -63,7 +63,7 @@ final private class CheckMail(
     ws.url(config.url)
       .withQueryStringParameters("domain" -> domain.value, "disable_test_connection" -> "true")
       .withHttpHeaders("x-rapidapi-key" -> config.key.value)
-      .get
+      .get()
       .withTimeout(15.seconds)
       .map {
         case res if res.status == 200 =>

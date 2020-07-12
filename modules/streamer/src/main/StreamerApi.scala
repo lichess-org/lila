@@ -59,17 +59,16 @@ final class StreamerApi(
   def setLiveNow(ids: List[Streamer.Id]): Funit =
     coll.update.one($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true) >>
       cache.candidateIds.getUnit.map { candidateIds =>
-        if (ids.exists(candidateIds.contains)) cache.candidateIds.invalidateUnit
+        if (ids.exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
       }
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
     coll.update.one($id(streamer.id), streamer) >>-
-      cache.listedIds.invalidateUnit inject {
+      cache.listedIds.invalidateUnit() inject {
       val modChange = Streamer.ModChange(
         list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
-        feature =
-          prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
+        tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier
       )
       import lila.notify.Notification.Notifies
       import lila.notify.Notification
@@ -84,7 +83,7 @@ final class StreamerApi(
               icon = ""
             )
           )
-        ) >>- cache.candidateIds.invalidateUnit
+        ) >>- cache.candidateIds.invalidateUnit()
       }
       modChange
     }
@@ -95,9 +94,8 @@ final class StreamerApi(
       .one(
         $id(userId),
         $set(
-          "approval.requested"    -> false,
-          "approval.granted"      -> false,
-          "approval.autoFeatured" -> false
+          "approval.requested" -> false,
+          "approval.granted"   -> false
         )
       )
       .void
@@ -132,9 +130,8 @@ final class StreamerApi(
           "approval.lastGrantedAt" $lt DateTime.now.minusWeeks(1)
         ),
         $set(
-          "approval.granted"      -> false,
-          "approval.autoFeatured" -> false,
-          "demoted"               -> true
+          "approval.granted" -> false,
+          "demoted"          -> true
         ),
         multi = true
       )

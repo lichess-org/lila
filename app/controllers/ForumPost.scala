@@ -8,12 +8,12 @@ import views._
 final class ForumPost(env: Env) extends LilaController(env) with ForumController {
 
   private val CreateRateLimit =
-    new lila.memo.RateLimit[IpAddress](4, 5.minutes, name = "forum create post", key = "forum.post")
+    new lila.memo.RateLimit[IpAddress](4, 5.minutes, key = "forum.post")
 
   def search(text: String, page: Int) =
     OpenBody { implicit ctx =>
       NotForKids {
-        if (text.trim.isEmpty) Redirect(routes.ForumCateg.index).fuccess
+        if (text.trim.isEmpty) Redirect(routes.ForumCateg.index()).fuccess
         else env.forumSearch(text, page, ctx.troll) map { html.forum.search(text, _) }
       }
     }
@@ -27,7 +27,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             if (topic.closed) fuccess(BadRequest("This topic is closed"))
             else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
             else
-              forms.post.bindFromRequest.fold(
+              forms.post.bindFromRequest().fold(
                 err =>
                   for {
                     captcha     <- forms.anyCaptcha
@@ -51,7 +51,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def edit(postId: String) =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      forms.postEdit.bindFromRequest.fold(
+      forms.postEdit.bindFromRequest().fold(
         _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
         data =>
           CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {

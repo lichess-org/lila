@@ -20,11 +20,9 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
     x => BSONInteger(x.id)
   )
-  implicit private val ClockBSONHandler = {
-    import chess.Clock.Config
-    implicit val clockHandler = Macros.handler[Config]
-    Macros.handler[SimulClock]
-  }
+  import chess.Clock.Config
+  implicit private val clockHandler         = Macros.handler[Config]
+  implicit private val ClockBSONHandler     = Macros.handler[SimulClock]
   implicit private val PlayerBSONHandler    = Macros.handler[SimulPlayer]
   implicit private val ApplicantBSONHandler = Macros.handler[SimulApplicant]
   implicit private val SimulPairingBSONHandler = new BSON[SimulPairing] {
@@ -114,7 +112,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     } void
 
   def update(simul: Simul) =
-    simulColl.update.one($id(simul.id), simul).void
+    simulColl.update.one($id(simul.id), $set(SimulBSONHandler writeTry simul get)).void
 
   def remove(simul: Simul) =
     simulColl.delete.one($id(simul.id)).void

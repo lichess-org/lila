@@ -213,7 +213,6 @@ final class User(
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,
     duration = 10.minutes,
-    name = "user games web/mobile per IP",
     key = "user_games.web.ip"
   )
 
@@ -223,7 +222,7 @@ final class User(
       page: Int
   )(implicit ctx: BodyContext[_]): Fu[Paginator[GameModel]] = {
     UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
-      lila.mon.http.userGamesCost.increment(page)
+      lila.mon.http.userGamesCost.increment(page.toLong)
       for {
         pagFromDb <- env.gamePaginator(
           user = u,
@@ -383,7 +382,7 @@ final class User(
         }
         implicit val extractor = EventSource.EventDataExtractor[Frag](_.render)
         Ok.chunked {
-          Source.single(html.user.mod.menu(user)) merge
+          Source.single(html.user.mod.menu) merge
             modZoneSegment(actions, "actions", user) merge
             modZoneSegment(modLog, "modLog", user) merge
             modZoneSegment(plan, "plan", user) merge
@@ -429,7 +428,7 @@ final class User(
   )(err: Form[_] => UserModel => Fu[Result], suc: => Result)(implicit req: Request[_]) =
     env.user.repo named username flatMap {
       _ ?? { user =>
-        env.user.forms.note.bindFromRequest.fold(
+        env.user.forms.note.bindFromRequest().fold(
           e => err(e)(user),
           data =>
             {

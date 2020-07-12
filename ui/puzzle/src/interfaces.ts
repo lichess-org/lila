@@ -99,11 +99,21 @@ export interface PuzzlePrefs {
 
 export interface PuzzleData {
   puzzle: Puzzle;
-  game: {
-    treeParts: Tree.Node[];
-  };
+  game: PuzzleGame;
   user: PuzzleUser | undefined;
   voted: boolean | null | undefined;
+}
+
+export interface PuzzleGame {
+  id: string;
+  perf: {
+    icon: string;
+    name: string;
+  };
+  rated: boolean;
+  players: Array<{userId: string, name: string, color: Color}>;
+  treeParts: Tree.Node[];
+  clock: string;
 }
 
 export interface PuzzleUser {
@@ -118,6 +128,9 @@ export interface Puzzle {
   color: Color;
   lines: Lines;
   branch: any;
+  rating: number;
+  attempts: number;
+  initialPly: number;
 }
 
 export interface PuzzleRound {

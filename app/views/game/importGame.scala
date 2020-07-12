@@ -10,7 +10,7 @@ import controllers.routes
 object importGame {
 
   private def analyseHelp(implicit ctx: Context) =
-    ctx.isAnon option a(cls := "blue", href := routes.Auth.signup)(trans.youNeedAnAccountToDoThat())
+    ctx.isAnon option a(cls := "blue", href := routes.Auth.signup())(trans.youNeedAnAccountToDoThat())
 
   def apply(form: play.api.data.Form[_])(implicit ctx: Context) =
     views.html.base.layout(
@@ -20,7 +20,7 @@ object importGame {
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Paste PGN chess game",
-          url = s"$netBaseUrl${routes.Importer.importGame.url}",
+          url = s"$netBaseUrl${routes.Importer.importGame().url}",
           description = trans.importGameExplanation.txt()
         )
         .some

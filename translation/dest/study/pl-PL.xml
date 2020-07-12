@@ -76,6 +76,7 @@
   <string name="startAtX">Rozpocznij od %s</string>
   <string name="embedInYourWebsite">Udostępnij na swojej stronie lub na blogu</string>
   <string name="readMoreAboutEmbedding">Dowiedz się więcej o osadzaniu</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Tylko publiczne opracowania mogą być osadzane!</string>
   <string name="open">Otwórz</string>
   <string name="xBroughtToYouByY">%1$s przygotowane przez %2$s</string>
   <string name="studyNotFound">Nie znaleziono opracowania</string>

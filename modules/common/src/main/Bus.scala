@@ -49,7 +49,7 @@ object Bus {
       ec: scala.concurrent.ExecutionContext,
       system: ActorSystem
   ): Fu[A] = {
-    val promise = Promise[A]
+    val promise = Promise[A]()
     val msg     = makeMsg(promise)
     publish(msg, channel)
     promise.future
@@ -67,7 +67,7 @@ object Bus {
 
   def keys      = bus.keys
   def size      = bus.size
-  def destroy() = bus.destroy
+  def destroy() = bus.destroy()
 
   case class AskTimeout(message: String) extends lila.base.LilaException
 }

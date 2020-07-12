@@ -9,8 +9,7 @@ case class ContentSecurityPolicy(
     workerSrc: List[String],
     imgSrc: List[String],
     scriptSrc: List[String],
-    baseUri: List[String],
-    reportTo: List[String]
+    baseUri: List[String]
 ) {
 
   def withNonce(nonce: Nonce) = copy(scriptSrc = nonce.scriptSrc :: scriptSrc)
@@ -81,7 +80,6 @@ case class ContentSecurityPolicy(
       "img-src "     -> imgSrc,
       "script-src "  -> scriptSrc,
       "base-uri "    -> baseUri,
-      "report-to "   -> reportTo
     ) collect {
       case (directive, sources) if sources.nonEmpty =>
         sources.mkString(directive, " ", ";")

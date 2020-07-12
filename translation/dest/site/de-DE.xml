@@ -328,7 +328,7 @@
   <string name="siteDescription">Kostenloser Online-Schach-Server. Spiele jetzt auf einer übersichtlichen Benutzeroberfläche Schach! Keine Registrierung und keine Plugins erforderlich, komplett ohne Werbung. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
   <string name="xJoinedTeamY">%1$s trat der Gruppe %2$s bei</string>
   <string name="xCreatedTeamY">%1$s hat das Team %2$s gegründet</string>
-  <string name="xStartedStreaming">%s startete Stream</string>
+  <string name="xStartedStreaming">%s startete einen Stream</string>
   <string name="averageElo">Durchschnittswertung</string>
   <string name="location">Ort</string>
   <string name="filterGames">Partien filtern</string>
@@ -842,7 +842,7 @@
   <string name="edit">Bearbeiten</string>
   <string name="rapid">Schnellschach</string>
   <string name="classical">Klassisch</string>
-  <string name="ultraBulletDesc">Unglaublich schnelle Spiele: Weniger als 30 Sekunden</string>
+  <string name="ultraBulletDesc">Wahnsinnig schnelle Spiele: Weniger als 30 Sekunden</string>
   <string name="bulletDesc">Sehr schnelle Spiele: Weniger als 3 Minuten</string>
   <string name="blitzDesc">Schnelle Spiele: 3 bis 8 Minuten</string>
   <string name="rapidDesc">Schnellschachspiele: 8 bis 25 Minuten</string>

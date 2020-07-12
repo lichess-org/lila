@@ -68,7 +68,7 @@ object MessageCompiler {
 
         s"""package lila.i18n
 
-import I18nQuantity._
+${if (puts.exists(_ contains "new Plurals(")) "import I18nQuantity._" else ""}
 
 // format: OFF
 private object `$locale` {

@@ -14,6 +14,11 @@ trait Stream {
   def is(userId: User.ID): Boolean = streamer.userId == userId
   def twitch                       = serviceName == "twitch"
   def youTube                      = serviceName == "youTube"
+
+  lazy val lang: String = status match {
+    case Stream.LangRegex(code) => code.toLowerCase
+    case _                      => "en"
+  }
 }
 
 object Stream {
@@ -87,4 +92,6 @@ object Stream {
 
     case class StreamsFetched(list: List[YouTube.Stream], at: DateTime)
   }
+
+  private val LangRegex = """\[(\w\w)\]""".r.unanchored
 }

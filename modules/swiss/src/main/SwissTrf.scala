@@ -4,7 +4,6 @@ import akka.stream.scaladsl._
 
 // https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
 final class SwissTrf(
-    colls: SwissColls,
     sheetApi: SwissSheetApi,
     rankingApi: SwissRankingApi,
     baseUrl: lila.common.config.BaseUrl
@@ -69,7 +68,9 @@ final class SwissTrf(
             }
           ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
       }
-    } ::: p.absent.?? {
+    } ::: {
+      p.absent && swiss.round.value < swiss.settings.nbRounds
+    }.?? {
       List( // http://www.rrweb.org/javafo/aum/JaVaFo2_AUM.htm#_Unusual_info_extensions
         95 -> "0000",
         97 -> "",

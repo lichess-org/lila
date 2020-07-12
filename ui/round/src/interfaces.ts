@@ -38,10 +38,7 @@ export interface SocketDrop {
 export type EncodedDests = string | {
   [key: string]: string;
 }
-export interface DecodedDests {
-  [key: string]: cg.Key[];
-}
-export type CgDests = cg.Dests;
+export type Dests = cg.Dests;
 
 export interface RoundData extends GameData {
   clock?: ClockData;

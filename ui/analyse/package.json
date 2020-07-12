@@ -14,8 +14,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/tsPlugins": "2.0.0",
-    "@build/tsProject": "2.0.0",
+    "@build/rollupProject": "2.0.0",
     "@types/jquery": "^2.0",
     "@types/lichess": "2.0.0"
   },
@@ -24,8 +23,8 @@
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",
-    "chessground": "^7.7.1",
-    "chessops": "^0.5.0",
+    "chessground": "^7.8.0",
+    "chessops": "^0.6.0",
     "common": "2.0.0",
     "game": "2.0.0",
     "nvui": "2.0.0",
@@ -33,7 +32,7 @@
     "tree": "2.0.0"
   },
   "scripts": {
-    "dev": "gulp dev",
-    "prod": "gulp prod"
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod && rollup --config --config-prod --config-plugin nvui"
   }
 }

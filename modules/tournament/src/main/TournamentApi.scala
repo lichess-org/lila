@@ -348,7 +348,7 @@ final class TournamentApi(
       getUserTeamIds: User => Fu[List[TeamID]],
       isLeader: Boolean
   ): Fu[Boolean] = {
-    val promise = Promise[Boolean]
+    val promise = Promise[Boolean]()
     join(tourId, me, password, teamId, getUserTeamIds, isLeader, promise.some)
     promise.future.withTimeoutDefault(5.seconds, false)
   }
@@ -468,9 +468,8 @@ final class TournamentApi(
     } yield opponentRating + 500 * multiplier
 
   private def withdrawNonMover(game: Game): Unit =
-    for {
+    if (game.status == chess.Status.NoStart) for {
       tourId <- game.tournamentId
-      if game.status == chess.Status.NoStart
       player <- game.playerWhoDidNotMove
       userId <- player.userId
     } withdraw(tourId, userId, isPause = false, isStalling = false)
@@ -732,7 +731,7 @@ final class TournamentApi(
     private val lastPublished = lila.memo.CacheApi.scaffeineNoScheduler
       .initialCapacity(16)
       .expireAfterWrite(2 minute)
-      .build[Tournament.ID, Int]
+      .build[Tournament.ID, Int]()
 
     private def publishNow(tourId: Tournament.ID) =
       tournamentTop(tourId) map { top =>

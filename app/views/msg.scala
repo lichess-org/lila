@@ -15,7 +15,7 @@ object msg {
       moreJs = frag(
         jsAt(s"compiled/lichess.msg${isProd ?? ".min"}.js"),
         embedJsUnsafe(
-          s"""$$(() =>LichessMsg.default(document.querySelector('.msg-app'), ${safeJsonValue(
+          s"""$$(() =>LichessMsg(document.querySelector('.msg-app'), ${safeJsonValue(
             Json.obj(
               "data" -> json,
               "i18n" -> jsI18n

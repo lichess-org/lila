@@ -8,9 +8,10 @@ import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, Valid
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
+import scala.annotation.nowarn
 import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, EmailAddress, IpAddress }
+import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.oauth.{ AccessToken, OAuthServer }
@@ -24,7 +25,8 @@ final class SecurityApi(
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
-    tryOauthServer: lila.oauth.OAuthServer.Try
+    tryOauthServer: lila.oauth.OAuthServer.Try,
+    tor: Tor
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
@@ -73,6 +75,7 @@ final class SecurityApi(
     }
   } map loadedLoginForm _
 
+  @nowarn("cat=unused")
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
       _username: String,
       password: String,
@@ -89,6 +92,7 @@ final class SecurityApi(
       case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
         val sessionId = Random secureString 22
+        if (tor isExitNode HTTPRequest.lastRemoteAddress(req)) logger.info(s"TOR login $userId")
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 

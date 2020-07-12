@@ -12,36 +12,42 @@ import lila.common.config.CollName
 
 final class AsyncDb(
     name: String,
-    uri: MongoConnection.ParsedURI,
+    uri: String,
     driver: AsyncDriver
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val dbName = uri.db | "lichess"
+  private lazy val connection =
+    MongoConnection.fromString(uri) flatMap { parsedUri =>
+      driver.connect(parsedUri, name.some).dmap(_ -> parsedUri.db)
+    }
 
-  private lazy val connection: Future[MongoConnection] = driver.connect(uri, name.some)
-
-  private def db: Future[DefaultDB] = connection.flatMap(_ database dbName)
+  private def db: Future[DefaultDB] =
+    connection flatMap {
+      case (conn, dbName) => conn database dbName.getOrElse("lichess")
+    }
 
   def apply(name: CollName) = new AsyncColl(() => db.dmap(_(name.value)))
 }
 
 final class Db(
     name: String,
-    uri: MongoConnection.ParsedURI,
+    uri: String,
     driver: AsyncDriver
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val logger = lila.db.logger branch name
 
-  private val dbName = uri.db | "lichess"
-
   private lazy val db: DefaultDB = Chronometer.syncEffect(
-    driver
-      .connect(uri, name.some)
-      .flatMap(_ database dbName)
+    MongoConnection
+      .fromString(uri)
+      .flatMap { parsedUri =>
+        driver
+          .connect(parsedUri, name.some)
+          .flatMap(_ database parsedUri.db.getOrElse("lichess"))
+      }
       .await(5.seconds, s"db:$name")
   ) { lap =>
-    logger.info(s"MongoDB connected to $dbName in ${lap.showDuration}")
+    logger.info(s"MongoDB connected to $uri in ${lap.showDuration}")
   }
 
   def apply(name: CollName): Coll = db(name.value)

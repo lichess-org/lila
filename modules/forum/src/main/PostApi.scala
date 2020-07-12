@@ -57,7 +57,7 @@ final class PostApi(
               } >>
                 env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
                 (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
-                (!categ.quiet ?? env.recent.invalidate) >>-
+                (!categ.quiet ?? env.recent.invalidate()) >>-
                 ctx.userId.?? { userId =>
                   shutup ! {
                     if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text)
@@ -208,7 +208,7 @@ final class PostApi(
                   env.postRepo.coll.delete.one($id(view.post.id)) >>
                     (env.topicApi denormalize view.topic) >>
                     (env.categApi denormalize view.categ) >>-
-                    env.recent.invalidate >>-
+                    env.recent.invalidate() >>-
                     (indexer ! RemovePost(post.id))
               _ <- MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(
                 mod.id,

@@ -28,7 +28,7 @@ final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.Executi
         }
       }
 
-  def subscribe(user: User, subscription: WebSubscription, sessionId: String): Funit = {
+  def subscribe(user: User, subscription: WebSubscription, sessionId: String): Funit =
     coll.update
       .one(
         $id(sessionId),
@@ -42,7 +42,7 @@ final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.Executi
         upsert = true
       )
       .void
-  }
+      .recover(lila.db.ignoreDuplicateKey)
 
   def unsubscribeBySession(sessionId: String): Funit = {
     coll.delete.one($id(sessionId)).void

@@ -156,7 +156,7 @@ final class UserSpyApi(
 
   def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] =
     for {
-      (ips, fps) <- nextValues("ip", userId, 100) zip nextValues("fp", userId, 100)
+      (ips, fps) <- nextValues("ip", userId) zip nextValues("fp", userId)
       users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[User.ID, Set](
         "user",
         $doc(
@@ -167,7 +167,7 @@ final class UserSpyApi(
       )
     } yield users
 
-  private def nextValues(field: String, userId: User.ID, max: Int): Fu[Set[String]] =
+  private def nextValues(field: String, userId: User.ID): Fu[Set[String]] =
     store.coll.secondaryPreferred.distinctEasy[String, Set](field, $doc("user" -> userId))
 }
 
@@ -195,9 +195,10 @@ object UserSpy {
     lazy val engines  = users.count(_.marks.engine)
     lazy val trolls   = users.count(_.marks.troll)
     lazy val alts     = users.count(_.marks.alt)
-    lazy val cleans   = users.count(_.marks.clean)
+    lazy val closed   = users.count(u => u.disabled && u.marks.clean)
+    lazy val cleans   = users.count(u => u.enabled && u.marks.clean)
     def score =
-      (boosters * 10 + engines * 10 + trolls * 10 + alts * 10 + cleans) match {
+      (boosters * 10 + engines * 10 + trolls * 10 + alts * 10 + closed * 2 + cleans) match {
         case 0 => -999999 // rank empty alts last
         case n => n
       }

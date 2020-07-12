@@ -29,7 +29,7 @@ final class FormFactory {
       "level"     -> level,
       "color"     -> color,
       "fen"       -> fenField
-    )(AiConfig.<<)(_.>>)
+    )(AiConfig.from)(_.>>)
       .verifying("invalidFen", _.validFen)
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
   )
@@ -50,7 +50,7 @@ final class FormFactory {
         "mode"      -> mode(withRated = ctx.isAuth),
         "color"     -> color,
         "fen"       -> fenField
-      )(FriendConfig.<<)(_.>>)
+      )(FriendConfig.from)(_.>>)
         .verifying("Invalid clock", _.validClock)
         .verifying("invalidFen", _.validFen)
     )
@@ -69,7 +69,7 @@ final class FormFactory {
         "mode"        -> mode(ctx.isAuth),
         "ratingRange" -> optional(ratingRange),
         "color"       -> color
-      )(HookConfig.<<)(_.>>)
+      )(HookConfig.from)(_.>>)
         .verifying("Invalid clock", _.validClock)
         .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
     )
@@ -125,7 +125,7 @@ final class FormFactory {
         "color"         -> optional(color),
         "fen"           -> fenField,
         "acceptByToken" -> optional(nonEmptyText)
-      )(ApiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
+      )(ApiConfig.from)(_.>>).verifying("invalidFen", _.validFen)
     )
 
     lazy val ai = Form(
@@ -136,7 +136,7 @@ final class FormFactory {
         "days"  -> optional(days),
         "color" -> optional(color),
         "fen"   -> fenField
-      )(ApiAiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
+      )(ApiAiConfig.from)(_.>>).verifying("invalidFen", _.validFen)
     )
 
     lazy val open = Form(
@@ -144,7 +144,7 @@ final class FormFactory {
         variant,
         clock,
         "fen" -> fenField
-      )(OpenConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
+      )(OpenConfig.from)(_.>>).verifying("invalidFen", _.validFen)
     )
   }
 }
