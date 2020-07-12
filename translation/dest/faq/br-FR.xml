@@ -31,5 +31,11 @@
   <string name="ratingLeaderboards">renkadur ar re wellañ</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">bezañ kemeret perzh e 30 krogad renket en ur stumm bennak,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">bezañ bet c\'hoariet ur c\'hrogad renket ar sizhun dremenet er memes rummad</string>
+  <string name="howToHideRatingWhilePlaying">Penaos kuzhat ma renkadurioù pa c\'hoarian?</string>
+  <string name="enableZenMode">Bez\' eus ur Zen mod e c\'hallit enaouiñ en %1$s pe o klikañ war %2$s e-pad ur c\'hrogad.</string>
+  <string name="displayPreferences">dibaboù diskwel</string>
+  <string name="connexionLostCanIGetMyRatingBack">Kollet em eus ur c\'hrogad abalamour d\'ul \"lag\"pe d\'ur gudenn bennak gant internet. Gallout a ran kaout ma foentoù renkadur en-dro?</string>
   <string name="howToThreeDots">Penaos...</string>
+  <string name="enableDisableNotificationPopUps">Enaouiñ pe lazhañ ar popups?</string>
+  <string name="viewSiteInformationPopUp">Gwelet an titouroù diwar-benn popups al lec\'hienn</string>
 </resources>
