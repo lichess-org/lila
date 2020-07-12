@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="hourlyRapidArena">Aren Prim un Eur</string>
+  <string name="hourlyRapid">Prim un Eur</string>
+  <string name="hourlyXArena">Aren %s un Eur</string>
+  <string name="hourlyX">%s un Eur</string>
   <string name="dailyRapidArena">Aren Prim Pemdeziek</string>
   <string name="dailyRapid">Prim Pemdeziek</string>
+  <string name="dailyClassicalArena">Aren Klasel Pemdeziek</string>
+  <string name="dailyClassical">Klasel Pemdeziek</string>
   <string name="dailyXArena">Aren %s Pemdeziek</string>
   <string name="dailyX">%s Pemdeziek</string>
   <string name="easternRapidArena">Aren Prim ar Reter</string>
   <string name="easternRapid">Prim ar Reter</string>
+  <string name="easternClassicalArena">Aren Klasel ar Reter</string>
   <string name="easternClassical">Klasel ar Reter</string>
   <string name="easternXArena">Aren %s ar Reter</string>
   <string name="easternX">%s ar Reter</string>
@@ -24,6 +31,9 @@
   <string name="yearlyRapidArena">Aren Prim Bloaziek</string>
   <string name="yearlyRapid">Prim Bloaziek</string>
   <string name="yearlyClassicalArena">Aren Klasel Bloaziek</string>
+  <string name="yearlyClassical">Klasel Bloaziek</string>
+  <string name="yearlyXArena">Aren %s Bloaziek</string>
+  <string name="yearlyX">%s Bloaziek</string>
   <string name="rapidShieldArena">Aren ar Skoed Prim</string>
   <string name="rapidShield">Skoed Prim</string>
   <string name="classicalShieldArena">Aren ar Skoed Klasel</string>
@@ -33,5 +43,7 @@
   <string name="openingRapidArena">Aren Prim %s</string>
   <string name="openingRapid">Prim %s</string>
   <string name="xTeamBattle">%s emgann skipailh</string>
+  <string name="eliteXArena">Aren %s Ar Re Wellañ</string>
+  <string name="eliteX">%s Ar Re Wellañ</string>
   <string name="xArena">Aren %s</string>
 </resources>
