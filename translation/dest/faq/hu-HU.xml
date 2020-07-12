@@ -87,4 +87,8 @@ Jobb csak relatív összehasonlítási alapként tekinteni ezekre a számokra: a
   <string name="howToHideRatingWhilePlaying">Hogyan rejthetem el az értékszámokat játék közben?</string>
   <string name="enableZenMode">Engedélyezd a Zen-módot a %1$s, vagy nyomd meg a %2$s billentyűt.</string>
   <string name="displayPreferences">játék megjelenésében</string>
+  <string name="connexionLostCanIGetMyRatingBack">Elvesztettem egy játszmát szétkapcsolás miatt. Visszakaphatom a pontjaimat?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Sajnos nem áll módunkban visszatéríteni értékszámot, amennyiben a játszmát lag vagy szétkapcsolás miatt veszítetted el, függetlenül attól, hogy a hiba a te végedről származik vagy a miénkről. Utóbbi azonban igen ritka. Megjegyzendő, ha a Lichess valamiért újraindul a folyamatban lévő játszmák félbeszakadnak az igazságtalan vereségeket elkerülendő.</string>
+  <string name="howToThreeDots">Hogyan...</string>
+  <string name="enableDisableNotificationPopUps">Engedélyezem vagy tiltom a felbukkanó értesítéseket?</string>
 </resources>
