@@ -311,9 +311,12 @@
   </plurals>
   <string name="thisAccountViolatedTos">Perc\'henner ar gont-mañ en deus ket doujet ouzh Reolennoù Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
+  <string name="openingExplorerAndTablebase">Lañser digoradurioù &amp; taolennoù fin ar c\'hrogadoù</string>
   <string name="takeback">Nullañ ar fiñvadenn ziwezhañ</string>
   <string name="proposeATakeback">Kinnig nullañ ar fiñvadenn ziwezhañ</string>
   <string name="takebackPropositionSent">Kaset eo bet ar c\'hinnig nullañ ar fiñvadenn ziwezhañ</string>
+  <string name="takebackPropositionDeclined">Nac\'het eo bet nullañ ar fiñvadenn ziwezhañ</string>
+  <string name="takebackPropositionAccepted">Asantet eo bet nullañ ar fiñvadenn ziwezhañ</string>
   <string name="takebackPropositionCanceled">Ar c\'hinnig nullañ ar fiñvadenn ziwezhañ zo bet nullet</string>
   <string name="yourOpponentProposesATakeback">Kinnig a ra oc\'h enebour e vefe nullet ho fiñvadenn ziwezhañ</string>
   <string name="bookmarkThisGame">Miret ar c\'hrogad-mañ er roll-istor</string>
@@ -476,6 +479,7 @@
   <string name="winStreak">Trec\'hioù da heul</string>
   <string name="createdBy">Krouet gant</string>
   <string name="tournamentIsStarting">Emañ an tournamant o kregiñ</string>
+  <string name="tournamentPairingsAreNowClosed">Ne vo ket mui krogadoù nevez en tournamant-mañ.</string>
   <string name="standByX">Gortozit ur pennadig %s, kavet e vo un enebour deoc\'h. Bezit prest!</string>
   <string name="youArePlaying">O c\'hoari emaoc\'h!</string>
   <string name="winRate">Feur trec\'h</string>
@@ -495,6 +499,7 @@
   <string name="clearBoard">Skarzhañ pep tra diwar an dachenn emgann</string>
   <string name="isPrivate">Prevez</string>
   <string name="reportXToModerators">Diskleriañ %s d\'an habaskaerien</string>
+  <string name="profileCompletion">Feur leuniañ ar profil: %s</string>
   <string name="xRating">Renkadur %s</string>
   <string name="ifNoneLeaveEmpty">Ma n\'eus ket, laoskit goullo</string>
   <string name="gameCompletionRate">Mont a ra betek penn ar c\'hrogadoù: %s</string>
@@ -564,6 +569,7 @@
   <string name="topics">Sujedoù</string>
   <string name="posts">Kemennadennoù</string>
   <string name="lastPost">Kemennadenn ziwezhañ</string>
+  <string name="views">Gwelet</string>
   <string name="replies">Respontoù</string>
   <string name="replyToThisTopic">Respont d\'an danvez-mañ</string>
   <string name="reply">Respont</string>
