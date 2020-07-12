@@ -55,6 +55,7 @@
   <string name="annotateWithGlyphs">Notennaouiñ gant arouezioù</string>
   <string name="theChapterIsTooShortToBeAnalysed">Re verr eo ar pennad evit bezañ dielfennet.</string>
   <string name="onlyContributorsCanRequestAnalysis">N\'eus nemet perzhidi ar studiadenn a c\'hall goulenn un dielfennañ urzhiataer.</string>
+  <string name="makeSureTheChapterIsComplete">Bezit sur eo klok ar pennad. Ne c\'hallit goulenn un dielfennañ nemet ur wech.</string>
   <string name="playing">O c\'hoari</string>
   <string name="first">Kentañ</string>
   <string name="previous">A-raok</string>
@@ -68,6 +69,7 @@
   <string name="studyUrl">Studiañ URL</string>
   <string name="broadcastUrl">URL skignañ</string>
   <string name="currentChapterUrl">URL ar pennad evit poent</string>
+  <string name="currentGameUrl">URL ar c\'hrogad o ren</string>
   <string name="startAtInitialPosition">Kregiñ el lec\'hiadur kentañ</string>
   <string name="startAtX">Kregiñ e %s</string>
   <string name="open">Digeriñ</string>
