@@ -476,6 +476,7 @@
   <string name="winStreak">Trec\'hioù da heul</string>
   <string name="createdBy">Krouet gant</string>
   <string name="tournamentIsStarting">Emañ an tournamant o kregiñ</string>
+  <string name="standByX">Gortozit ur pennadig %s, kavet e vo un enebour deoc\'h. Bezit prest!</string>
   <string name="youArePlaying">O c\'hoari emaoc\'h!</string>
   <string name="winRate">Feur trec\'h</string>
   <string name="berserkRate">Feur berserk</string>
