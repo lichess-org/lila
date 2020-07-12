@@ -81,6 +81,13 @@ Ne kérj LM címet.</string>
   <string name="goldenZeeExplanation">ZugAddict élő közvetítés közben két órán keresztül próbálta megverni a 8-as szintű gépet, sikertelenül. Erre Thibault mondta neki, ha mégis sikerül a közvetítés ideje alatt, kap érte egy egyedi trófeát. Egy órával később lealázta Stockfish-t és az ígéret megvalósult.</string>
   <string name="lichessRatings">Lichess értékszámok</string>
   <string name="whichRatingSystemUsedByLichess">Milyen értékelő rendszert használ a Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Az értékszámok a Glicko-2 módszer alapján számolódnak, amit Mark Glickman dolgozott ki. Ez egy igen népszerű értékelési rendszer, számos sakkszövetség használja (a FIDE a legismertebb ellenpélda, ahol még mindig az Élő-pont rendszer használatos).
+
+Alapvetően a Glicko-2 rendszer \"bizonytalansági sávot\" használ a játékosok értékpontjának meghatározására. Mikor regisztrálsz az oldalra 1500 ± 700 értékszámmal indulsz. 1500 az értékszám, 700 a bizonytalanság.
+
+Vagyis a rendszer 90%-ban biztos abban, hogy a valódi értékszámod 800 és 2200 között van. Ez szinte csak hasraütés. Emiatt, ha valaki épp csak játszani kezdett, az értékszáma eleinte nagyokat tud változni, akár több száz pontot játszmánként. Ahogy gyűlnek a játszmák olyanok ellen akiknek pontos értékszáma van, a bizonytalanság csökken és a nyerhető/elbukható pontok száma egyre kevesebb lesz.
+
+Ugyanakkor, ha valaki sokáig nem játszik a bizonytalanság újra emelkedni fog. Ezáltal gyorsabban szerez/veszít pontokat, ha változás történt a sakktudásában.</string>
   <string name="whatIsProvisionalRating">Miért van kérdőjel (?) néhány értékszám mellett?</string>
   <string name="provisionalRatingExplanation">A kérdőjel a becsült értékszámokat jelöli. Ennek okai lehetnek:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">A játékos még nem játszott elegendő értékelt játszmát %1$s ellen azonos kategóriában.</string>
