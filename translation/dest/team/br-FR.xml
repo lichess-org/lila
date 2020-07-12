@@ -17,6 +17,13 @@
   <string name="quitTeam">Kuitaat ar skipailh</string>
   <string name="anyoneCanJoin">Digor d\'an holl</string>
   <string name="aConfirmationIsRequiredToJoin">Ret eo kadarnaat evit kemer perzh</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Mestr ar skipailh</item>
+    <item quantity="two">Mistri ar skipailh</item>
+    <item quantity="few">Mistri ar skipailh</item>
+    <item quantity="many">Mistri ar skipailh</item>
+    <item quantity="other">Mistri ar skipailh</item>
+  </plurals>
   <string name="teamBestPlayers">C\'hoarierien wellañ</string>
   <string name="teamRecentMembers">Izili nevez</string>
   <string name="kickSomeone">Skarzhañ unan er-maez eus ar skipailh</string>
