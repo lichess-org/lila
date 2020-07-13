@@ -397,6 +397,12 @@
   <string name="ifNoneLeaveEmpty">Жоқ болса, бос қалдырыңыз</string>
   <string name="gameCompletionRate">Ойындарды аяқтау деңгейі: %s</string>
   <string name="profile">Куәлік</string>
+  <string name="editProfile">Куәлікті өзгерту</string>
+  <string name="firstName">Атыңыз</string>
+  <string name="lastName">Тегіңіз</string>
+  <string name="biography">Өмірбаян</string>
+  <string name="country">Ел</string>
+  <string name="socialMediaLinks">Әлеуметтік медиа сайттары</string>
   <string name="watchLichessTV">Lichess TВ көріп отыру</string>
   <string name="learnMenu">Үйрену</string>
   <string name="community">Қоғамдастығы</string>
