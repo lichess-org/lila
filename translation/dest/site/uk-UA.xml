@@ -283,6 +283,18 @@
     <item quantity="many">%s перемога</item>
     <item quantity="other">%s виграно</item>
   </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s поразка</item>
+    <item quantity="few">%s поразки</item>
+    <item quantity="many">%s поразок</item>
+    <item quantity="other">%s поразок</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s нічия</item>
+    <item quantity="few">%s нічиїх</item>
+    <item quantity="many">%s нічиїх</item>
+    <item quantity="other">%s нічиїх</item>
+  </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s грає</item>
     <item quantity="few">%s грає</item>
@@ -332,11 +344,23 @@
     <item quantity="many">≥ %s рейтингових ігор</item>
     <item quantity="other">≥ %s рейтингових ігор</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s рейтингова гра</item>
+    <item quantity="few">≥ %1$s %2$s рейтингові ігри</item>
+    <item quantity="many">≥ %1$s %2$s рейтингових ігор</item>
+    <item quantity="other">≥ %1$s %2$s рейтингових ігор</item>
+  </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Ви маєте зіграти ще %1$s рейтингову гру в %2$s</item>
     <item quantity="few">Ви маєте зіграти ще %1$s рейтингових ігри в %2$s</item>
     <item quantity="many">Ви маєте зіграти ще %1$s рейтингових ігор в %2$s</item>
     <item quantity="other">Ви маєте зіграти ще %1$s рейтингових ігор в %2$s</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Ви повинні зіграти ще %s рейтингову гру</item>
+    <item quantity="few">Ви повинні зіграти ще %s рейтингових гри</item>
+    <item quantity="many">Ви повинні зіграти ще %s рейтингових ігор</item>
+    <item quantity="other">Ви повинні зіграти ще %s рейтингових ігор</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш попередній рейтинг: %s</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рейтинг у %1$s (%2$s) дуже високий</string>
@@ -506,6 +530,12 @@
   <string name="thankYou">Дякуємо!</string>
   <string name="ratingX">Рівень: %s</string>
   <string name="hidden">прихований</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Вирішено %s раз</item>
+    <item quantity="few">Показано %s разів</item>
+    <item quantity="many">Вирішено %s разів</item>
+    <item quantity="other">Вирішено %s разів</item>
+  </plurals>
   <string name="fromGameLink">Вилучено з гри %s</string>
   <string name="continueTraining">Продовжити тренування</string>
   <string name="retryThisPuzzle">Спробувати цю задачу ще раз</string>
@@ -594,6 +624,12 @@
   <string name="allInformationIsPublicAndOptional">Уся інформація публічна та необов\'язкова.</string>
   <string name="yourCityRegionOrDepartment">Ваше місто, область або район.</string>
   <string name="biographyDescription">Розкажіть про себе: що вам подобається в шахах, які ваші улюблені дебюти, ігри, гравці…</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Максимум: %s символів.</item>
+    <item quantity="few">Максимум: %s символів.</item>
+    <item quantity="many">Максимум: %s символів.</item>
+    <item quantity="other">Максимум: %s символів.</item>
+  </plurals>
   <string name="listBlockedPlayers">Список заблокованих гравців</string>
   <string name="human">Людина</string>
   <string name="computer">Комп\'ютер</string>
@@ -629,6 +665,12 @@
   <string name="castling">Рокіровка</string>
   <string name="whiteCastlingKingside">Білі O-O</string>
   <string name="blackCastlingKingside">Чорні O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s повідомлень форуму</item>
+    <item quantity="few">%s повідомлень форуму</item>
+    <item quantity="many">%s повідомлень на форумі</item>
+    <item quantity="other">%s повідомлення на форумі</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">Проведено часу у грі: %s</string>
   <string name="watchGames">Перегляд партій</string>
   <string name="tpTimeSpentOnTV">Час на ТБ: %s</string>
