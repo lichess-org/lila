@@ -385,8 +385,8 @@
   <string name="membersOnly">Tek músheler úshin</string>
   <string name="boardEditor">Taqta óńdegishi</string>
   <string name="setTheBoard">Тақтаны орнатыңыз</string>
-  <string name="popularOpenings">Qyzyqty nachalo</string>
-  <string name="startPosition">Bastapqy pozichia</string>
+  <string name="popularOpenings">Танымал бастаулар</string>
+  <string name="startPosition">Бастапқы күй</string>
   <string name="clearBoard">Тақтаны жинау</string>
   <string name="savePosition">Күйді сақтау</string>
   <string name="loadPosition">Күйді жүктеп алу</string>
