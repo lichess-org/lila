@@ -384,7 +384,7 @@
   <string name="averageOpponent">Ortasha qarsylas</string>
   <string name="membersOnly">Tek músheler úshin</string>
   <string name="boardEditor">Taqta óńdegishi</string>
-  <string name="setTheBoard">Taqtany ornatyńyz</string>
+  <string name="setTheBoard">Тақтаны орнатыңыз</string>
   <string name="popularOpenings">Qyzyqty nachalo</string>
   <string name="startPosition">Bastapqy pozichia</string>
   <string name="clearBoard">Тақтаны жинау</string>
@@ -419,6 +419,7 @@
   <string name="clickToSolve">Шешу үшін басыңыз</string>
   <string name="goodMove">Жақсы жүріс</string>
   <string name="butYouCanDoBetter">Бірақ одан да әдемі жүріс бар.</string>
+  <string name="bestMove">Үздік жүріс!</string>
   <string name="learnMenu">Үйрену</string>
   <string name="community">Қоғамдастығы</string>
   <string name="tools">Құралдар</string>
