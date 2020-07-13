@@ -388,6 +388,10 @@
   <string name="popularOpenings">Qyzyqty nachalo</string>
   <string name="startPosition">Bastapqy pozichia</string>
   <string name="clearBoard">Тақтаны жинау</string>
+  <string name="savePosition">Күйді сақтау</string>
+  <string name="loadPosition">Күйді жүктеп алу</string>
+  <string name="isPrivate">Жасырын</string>
+  <string name="reportXToModerators">%s туралы модераторға шағымдану</string>
   <string name="watchLichessTV">Lichess TВ көріп отыру</string>
   <string name="learnMenu">Үйрену</string>
   <string name="community">Қоғамдастығы</string>
