@@ -305,6 +305,10 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Бұл шахмат түрлі CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Адам екеніңізді растау үшін тақтаға басып, жүріс жасаңыз.</string>
+  <string name="captcha.fail">Шахмат түрлі есепті шешіңіз.</string>
+  <string name="notACheckmate">Мат емес</string>
+  <string name="whiteCheckmatesInOneMove">Ақ жағы бір жүріспен мат қояды</string>
+  <string name="blackCheckmatesInOneMove">Қара жағы бір жүріспен мат қояды</string>
   <string name="retry">Қайталау</string>
   <string name="reconnecting">Қайта қосылу</string>
   <plurals name="nbFriendsOnline">
