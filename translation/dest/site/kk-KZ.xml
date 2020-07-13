@@ -419,12 +419,12 @@
   <string name="clickToSolve">Шешу үшін басыңыз</string>
   <string name="goodMove">Жақсы жүріс</string>
   <string name="butYouCanDoBetter">Бірақ одан да әдемі жүріс бар.</string>
-  <string name="bestMove">Үздік жүріс!</string>
+  <string name="bestMove">Ең күшті жүріс!</string>
   <string name="learnMenu">Үйрену</string>
-  <string name="community">Қоғамдастығы</string>
+  <string name="community">Қауым</string>
   <string name="tools">Құралдар</string>
   <string name="onlyFriends">Тек қана достар</string>
-  <string name="watchGames">Ойындарды көріп отыру</string>
+  <string name="watchGames">Ойындарды қарау</string>
   <string name="watch">Көріп отыру</string>
   <string name="withFriends">Достармен бірге</string>
   <string name="followAndChallengeFriends">Достардың артынан еру және ойнауға шақыру</string>
