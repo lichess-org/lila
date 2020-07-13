@@ -409,11 +409,11 @@
   <string name="onlinePlayers">Қосулы ойыншылар</string>
   <string name="activeToday">Бүгінгі белсенділер</string>
   <string name="activePlayers">Белсенді ойыншылар</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Ескерту - ойын рейтингпен ойналады, бірақ сағатсыз!</string>
-  <string name="yourPuzzleRatingX">Жұмбақ шешу рейтингіңіз: %s</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Ескерту - ойын бағаланады, бірақ сағатсыз өтеді!</string>
+  <string name="yourPuzzleRatingX">Жұмбақ шешудегі дәрежеңіз: %s</string>
   <string name="findTheBestMoveForWhite">Ақтар пайдасына ең дұрыс жүрісті табыңыз.</string>
   <string name="findTheBestMoveForBlack">Қаралар пайдасына ең дұрыс жүрісті табыңыз.</string>
-  <string name="toTrackYourProgress">Дамуыңызды бақылау үшін:</string>
+  <string name="toTrackYourProgress">Дамуыңызды қадағалау үшін:</string>
   <string name="puzzleId">%s жұмбақ</string>
   <string name="puzzleOfTheDay">Бүгінгі жұмбақ</string>
   <string name="clickToSolve">Шешу үшін басыңыз</string>
