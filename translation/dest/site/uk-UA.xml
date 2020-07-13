@@ -366,6 +366,12 @@
   <string name="importGame">Імпортувати гру</string>
   <string name="importGameExplanation">При вставці PGN-гри ви отримуєте повтор в браузері,
 комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s імпортованих ігор</item>
+    <item quantity="few">%s імпортованих гри</item>
+    <item quantity="many">%s імпортованих ігор</item>
+    <item quantity="other">%s імпортованих ігор</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">Це — шахова капча.</string>
   <string name="clickOnTheBoardToMakeYourMove">Натисніть на дошці, щоб зробити хід і довести, що ви людина.</string>
   <string name="captcha.fail">Будь-ласка, вирішіть шахову капчу.</string>
