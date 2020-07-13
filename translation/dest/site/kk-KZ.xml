@@ -281,7 +281,7 @@
   <string name="mustBeInTeam">%s komandasynda bolý kerek</string>
   <string name="youAreNotInTeam">Siz komandada emes %s</string>
   <string name="backToGame">Ойынға оралу</string>
-  <string name="siteDescription">Тікелей желідегі тегін шахмат сервері. Еш тіркелмей-ақ, плагин қоймай-ақ, жарнама көрмей-ақ қарапайым интерфейс арқылы тап қазір шахмат ойнаңыз. Ойыныңызды компьютермен, досыңызбен әлде кездейсоқ қарсыласпен ойнаңыз.</string>
+  <string name="siteDescription">Тегін онлайн шахмат алаңы. Кескіні таза сайтта шахмат ойнаңыз. Жарнама жоқ, тіркелу мен қосымша програмды қажет етпейді. Шахматты компьютермен, достарыңызбен не кез-келген қарсыласпен ойнаңыз.</string>
   <string name="xJoinedTeamY">%1$s, %2$s s командасына қосылды</string>
   <string name="xCreatedTeamY">%1$s, %2$s командасын жасады</string>
   <string name="xStartedStreaming">%s ағын бастады</string>
