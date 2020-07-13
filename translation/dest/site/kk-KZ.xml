@@ -65,6 +65,7 @@
   <string name="promoteVariation">Нұсқажолды көтеру</string>
   <string name="makeMainLine">Бас жол жасау</string>
   <string name="deleteFromHere">Мына жерден жою</string>
+  <string name="forceVariation">Ойын барысын тарқату</string>
   <string name="move">Жүру</string>
   <string name="variantLoss">Ұтылыс жолы</string>
   <string name="variantWin">Ұтыс жолы</string>
@@ -234,6 +235,7 @@
   </plurals>
   <string name="exportGames">Ойынды экспорттау</string>
   <string name="ratingRange">Эло ауқымы</string>
+  <string name="thisAccountViolatedTos">Бұл аккаунт Личес-тің Қызмет көрсету шартын бұзды</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bul oıynshy óz reıtıńin jasandy arttyrady/azaıtady</string>
   <string name="openingExplorerAndTablebase">&amp;Amp ótkizgishin ashý; kesteniń negizi</string>
   <string name="takeback">Қайтару</string>
