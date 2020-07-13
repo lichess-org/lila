@@ -298,6 +298,7 @@
   <string name="continueFromHere">Осы жерден жалғастырыңыз</string>
   <string name="toStudy">Оқу</string>
   <string name="importGame">Ойынды экспорттау</string>
+  <string name="importGameExplanation">Ойынның PGN -ын салыңыз. Бұл ойынды қайта көруге, компьютерлік талдауға, чат және бөліспелі URL-ға жол ашады.</string>
   <string name="retry">Қайталау</string>
   <string name="reconnecting">Қайта қосылу</string>
   <plurals name="nbFriendsOnline">
