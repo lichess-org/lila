@@ -21,6 +21,9 @@
   <string name="createAGame">Magbuhat ug duwa</string>
   <string name="whiteIsVictorious">Ang puti ang nakadaog</string>
   <string name="blackIsVictorious">Itom ang nakadaog</string>
+  <string name="youPlayTheWhitePieces">ikaw mo duso sa white</string>
+  <string name="youPlayTheBlackPieces">ikaw mo duso sa black</string>
+  <string name="itsYourTurn">ikaw na mo duso</string>
   <string name="kingInTheCenter">Ang hari naa sa tunga</string>
   <string name="threeChecks">Tulo ka mga check</string>
   <string name="raceFinished">Nahuman na ang lumba</string>
