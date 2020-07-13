@@ -413,6 +413,12 @@
   <string name="yourPuzzleRatingX">Жұмбақ шешу рейтингіңіз: %s</string>
   <string name="findTheBestMoveForWhite">Ақтар пайдасына ең дұрыс жүрісті табыңыз.</string>
   <string name="findTheBestMoveForBlack">Қаралар пайдасына ең дұрыс жүрісті табыңыз.</string>
+  <string name="toTrackYourProgress">Дамуыңызды бақылау үшін:</string>
+  <string name="puzzleId">%s жұмбақ</string>
+  <string name="puzzleOfTheDay">Бүгінгі жұмбақ</string>
+  <string name="clickToSolve">Шешу үшін басыңыз</string>
+  <string name="goodMove">Жақсы жүріс</string>
+  <string name="butYouCanDoBetter">Бірақ одан да әдемі жүріс бар.</string>
   <string name="learnMenu">Үйрену</string>
   <string name="community">Қоғамдастығы</string>
   <string name="tools">Құралдар</string>
