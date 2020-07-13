@@ -47,7 +47,7 @@
   <string name="blackResigned">Қара берілді</string>
   <string name="whiteLeftTheGame">Ақ ойыннан шықты</string>
   <string name="blackLeftTheGame">Қара ойыннан шықты</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ойынды көрермендерге көрсету үшін бұл сілтемемен бөлісіп жібер</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Осы сілтемені бөліссеңіз, көрермендер ойынды қарай алады</string>
   <string name="theComputerAnalysisHasFailed">Компьютерлік талдау осы ретте мүмкін емес</string>
   <string name="viewTheComputerAnalysis">Компьютелік талдауды көрсету</string>
   <string name="requestAComputerAnalysis">Компьютерлік талдауға сұраным</string>
@@ -429,5 +429,5 @@
   <string name="withFriends">Достармен</string>
   <string name="followAndChallengeFriends">Достарыңызға ілесіп, ойынға шақырыңыз</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
-  <string name="playX">Ойнау %s</string>
+  <string name="playX">%s жүріңіз</string>
 </resources>
