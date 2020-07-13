@@ -630,6 +630,12 @@
     <item quantity="many">Максимум: %s символів.</item>
     <item quantity="other">Максимум: %s символів.</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s заблоковано</item>
+    <item quantity="few">%s заблоковано</item>
+    <item quantity="many">%s заблоковано</item>
+    <item quantity="other">%s заблоковано</item>
+  </plurals>
   <string name="listBlockedPlayers">Список заблокованих гравців</string>
   <string name="human">Людина</string>
   <string name="computer">Комп\'ютер</string>
