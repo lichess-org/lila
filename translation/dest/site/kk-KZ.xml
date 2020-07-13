@@ -405,6 +405,14 @@
   <string name="socialMediaLinks">Әлеуметтік медиа сайттары</string>
   <string name="inlineNotation">Бір жолды хаттама</string>
   <string name="watchLichessTV">Lichess TВ көріп отыру</string>
+  <string name="previouslyOnLichessTV">Личес ТВ-да өткені</string>
+  <string name="onlinePlayers">Қосулы ойыншылар</string>
+  <string name="activeToday">Бүгінгі белсенділер</string>
+  <string name="activePlayers">Белсенді ойыншылар</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Ескерту - ойын рейтингпен ойналады, бірақ сағатсыз!</string>
+  <string name="yourPuzzleRatingX">Жұмбақ шешу рейтингіңіз: %s</string>
+  <string name="findTheBestMoveForWhite">Ақтар пайдасына ең дұрыс жүрісті табыңыз.</string>
+  <string name="findTheBestMoveForBlack">Қаралар пайдасына ең дұрыс жүрісті табыңыз.</string>
   <string name="learnMenu">Үйрену</string>
   <string name="community">Қоғамдастығы</string>
   <string name="tools">Құралдар</string>
