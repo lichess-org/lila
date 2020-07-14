@@ -68,6 +68,7 @@
   <string name="threefoldRepetitionExplanation">אם עמדה כלשהי מופיעה שלוש פעמים, שחקן יכול לדרוש תיקו ע\"י %1$s. ליצ\'ס מיישם את החוקים הרשמיים של פיד\"ה, שתוארו במאמר 9.2 ד\' של ה%2$s.</string>
   <string name="threefoldRepetitionLowerCase">חזרה משולשת</string>
   <string name="handBookPDF">ספר החוקים (PDF)</string>
+  <string name="positions">עמדות</string>
   <string name="lichessCanOptionnalySendPopUps">ליצ\'ס יכול לשלוח התראות קופצות, למשל כאשר הגיע תורכם או שקיבלתם הודעה פרטית.
 
 לחץ על סמל הנעילה שליד כתובת lichess.org בסרגל הכתובות של הדפדפן שלך.
