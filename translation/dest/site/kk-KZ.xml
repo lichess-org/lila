@@ -50,11 +50,11 @@
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Осы сілтемені бөліссеңіз, көрермендер ойынды қарай алатын болады</string>
   <string name="theComputerAnalysisHasFailed">Компьютерлік талдау ақауға ұшырады</string>
   <string name="viewTheComputerAnalysis">Компьютелік талдауды көрсету</string>
-  <string name="requestAComputerAnalysis">Компьютерлік талдауға сұраным</string>
+  <string name="requestAComputerAnalysis">Компьютерлік талдауға жіберу</string>
   <string name="computerAnalysis">Компьютерлік талдау</string>
-  <string name="computerAnalysisAvailable">Компьютерлік талдау жасалар</string>
+  <string name="computerAnalysisAvailable">Компьютерлік талдау ашық</string>
   <string name="analysis">Талдау тақтасы</string>
-  <string name="depthX">Ауқымдылығы %s</string>
+  <string name="depthX">Тереңдігі %s</string>
   <string name="usingServerAnalysis">Сервердік талдауын қолдану</string>
   <string name="loadingEngine">Қозғалтқышы жүктелуде...</string>
   <string name="cloudAnalysis">Бұлтттық талдау</string>
