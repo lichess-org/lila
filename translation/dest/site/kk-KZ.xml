@@ -291,7 +291,7 @@
   <string name="reset">Қалпына келтіру</string>
   <string name="apply">Жіберу</string>
   <string name="save">Сақтау</string>
-  <string name="leaderboard">Көшбасшылар тақтасы</string>
+  <string name="leaderboard">Мықтылар тақтасы</string>
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
   <string name="fromPosition">Позициядан</string>
@@ -445,4 +445,5 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
   <string name="playX">%s жүріңіз</string>
   <string name="goodPractice">Сондықтан барлық ойыншылар оң тәжірибе алсын деп талпынудамыз.</string>
+  <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
 </resources>
