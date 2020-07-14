@@ -9,9 +9,9 @@
   <string name="yourTurn">Сіз жүресіз</string>
   <string name="aiNameLevelAiLevel">%1$s деңгейі: %2$s</string>
   <string name="level">Деңгей</string>
-  <string name="toggleTheChat">Сөйлесу режимын қосу немесе сөндіру</string>
-  <string name="toggleSound">Дыбысты қосу немесе сөндіру</string>
-  <string name="chat">Сөйлесу</string>
+  <string name="toggleTheChat">Чат батырмасы</string>
+  <string name="toggleSound">Дыбыс батырмасы</string>
+  <string name="chat">Чат</string>
   <string name="resign">Берілу</string>
   <string name="checkmate">Мат</string>
   <string name="stalemate">Пат</string>
