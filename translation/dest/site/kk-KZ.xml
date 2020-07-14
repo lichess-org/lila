@@ -55,11 +55,11 @@
   <string name="computerAnalysisAvailable">Компьютерлік талдау ашық</string>
   <string name="analysis">Талдау тақтасы</string>
   <string name="depthX">Тереңдігі %s</string>
-  <string name="usingServerAnalysis">Сервердік талдауын қолдану</string>
-  <string name="loadingEngine">Қозғалтқышы жүктелуде...</string>
+  <string name="usingServerAnalysis">Сервердік талдау жүруде</string>
+  <string name="loadingEngine">Есептеуіш жүктелуде...</string>
   <string name="cloudAnalysis">Бұлтттық талдау</string>
-  <string name="goDeeper">Одан да тереңірек</string>
-  <string name="showThreat">Қауып көрсету</string>
+  <string name="goDeeper">Терең кету</string>
+  <string name="showThreat">Қауіп көрсету</string>
   <string name="inLocalBrowser">Жергілікті браузерде</string>
   <string name="toggleLocalEvaluation">Жергілікті бағалау қосқышы</string>
   <string name="promoteVariation">Нұсқажолды көтеру</string>
