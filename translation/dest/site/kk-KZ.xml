@@ -312,10 +312,10 @@
   <string name="retry">Қайталау</string>
   <string name="reconnecting">Қайта қосылу</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">Желіде жостар жоқ</item>
-    <item quantity="other">Желіде жостар жоқ</item>
+    <item quantity="one">%s дос желіде</item>
+    <item quantity="other">%s дос желіде</item>
   </plurals>
-  <string name="noFriendsOnline">Желіде жостар жоқ</string>
+  <string name="noFriendsOnline">Желіде достар жоқ</string>
   <string name="findFriends">Дос іздестіру</string>
   <string name="favoriteOpponents">Қымбатты қарсыластар</string>
   <string name="follow">Ілесу</string>
