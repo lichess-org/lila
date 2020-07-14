@@ -428,6 +428,7 @@
   <string name="watch">Бақылау</string>
   <string name="withFriends">Достармен</string>
   <string name="followAndChallengeFriends">Достарыңызға ілесіп, ойынға шақырыңыз</string>
+  <string name="quickPairing">Қалыптар</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
   <string name="playX">%s жүріңіз</string>
 </resources>
