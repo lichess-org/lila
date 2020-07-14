@@ -2,13 +2,13 @@
 <resources>
   <string name="playWithAFriend">Доспен ойнау</string>
   <string name="playWithTheMachine">Компьютермен ойнау</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Танысыңызбен ойнау үшін бұл сілтемені жіберіңіз</string>
-  <string name="gameOver">Ойынның соңы</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Ойынға біреуді шақыру үшін бұл сілтемені жіберіңіз</string>
+  <string name="gameOver">Ойын аяқталды</string>
   <string name="waitingForOpponent">Қарсыласты күтудеміз</string>
-  <string name="waiting">Күт</string>
-  <string name="yourTurn">Сенің жүрісін</string>
-  <string name="aiNameLevelAiLevel">%1$s шеберлік %2$s</string>
-  <string name="level">Шеберлік</string>
+  <string name="waiting">Күтудеміз</string>
+  <string name="yourTurn">Сіз жүресіз</string>
+  <string name="aiNameLevelAiLevel">%1$s деңгейі: %2$s</string>
+  <string name="level">Деңгей</string>
   <string name="toggleTheChat">Сөйлесу режимын қосу немесе сөндіру</string>
   <string name="toggleSound">Дыбысты қосу немесе сөндіру</string>
   <string name="chat">Сөйлесу</string>
