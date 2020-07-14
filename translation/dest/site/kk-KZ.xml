@@ -80,8 +80,8 @@
   <string name="database">Дерекқор</string>
   <string name="whiteDrawBlack">Ақ / Тең / Қара</string>
   <string name="averageRatingX">Орташа рейтинг: %s</string>
-  <string name="recentGames">Ең соңғы ойналған ойындар</string>
-  <string name="topGames">Ең биік деңгейдегі ойындар</string>
+  <string name="recentGames">Кейінгі ойындар</string>
+  <string name="topGames">Үздік ойындар</string>
   <string name="masterDbExplanation">%1$s-ның тақта басында ойналған 2 миллион ойыны + %2$s-нен %3$s-ге дейінгі FIDE рейтингі бар ойыншылар</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s жарты жүрістік мат</item>
@@ -435,4 +435,5 @@
   <string name="resumePractice">Жаттығуды жалғастыру</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
   <string name="playX">%s жүріңіз</string>
+  <string name="goodPractice">Сондықтан барлық ойыншылар оң тәжірибе алсын деп талпынудамыз.</string>
 </resources>
