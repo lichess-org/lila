@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="preferences">Баптаулар</string>
+  <string name="soundWhenTimeGetsCritical">Уақыт аз қалғанда, дыбыс белгі беру</string>
   <string name="giveMoreTime">Kóp ýaqyt berińiz</string>
+  <string name="yourPreferencesHaveBeenSaved">Баптауыңыз сақталды.</string>
 </resources>
