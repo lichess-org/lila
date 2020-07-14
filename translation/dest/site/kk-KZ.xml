@@ -431,6 +431,7 @@
   <string name="followAndChallengeFriends">Достарыңызға ілесіп, ойынға шақырыңыз</string>
   <string name="quickPairing">Қалыптар</string>
   <string name="lobby">Алаң</string>
+  <string name="yourScore">Жетістігіңіз: %s</string>
   <string name="background">Фон</string>
   <string name="light">Жарық</string>
   <string name="dark">Қараңғы</string>
@@ -438,6 +439,7 @@
   <string name="backgroundImageUrl">Фон суретіне сілтеме:</string>
   <string name="boardGeometry">Тақта пішіні</string>
   <string name="boardTheme">Тақта өңі</string>
+  <string name="pieceSet">Тастар келбеті</string>
   <string name="practiceWithComputer">Компьютермен жаттығу</string>
   <string name="resumePractice">Жаттығуды жалғастыру</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
