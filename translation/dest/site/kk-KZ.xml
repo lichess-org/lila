@@ -122,8 +122,8 @@
   <string name="moveTimes">Жүрестерге жұмсаған уақыт</string>
   <string name="flipBoard">Тақтаны аудару</string>
   <string name="threefoldRepetition">Жүрісті үш рет қайталадыңыз</string>
-  <string name="claimADraw">Тепе-теңдікті ұсыну</string>
-  <string name="offerDraw">Тепе-теңдік ұсынысын қабылдау</string>
+  <string name="claimADraw">Тепе-теңдікті сұрау</string>
+  <string name="offerDraw">Тепе-теңдікке келісу</string>
   <string name="draw">Тепе-тең</string>
   <string name="currentGames">Ойналып жатқан ойындар</string>
   <string name="viewInFullSize">Толық көлемде көрсету</string>
