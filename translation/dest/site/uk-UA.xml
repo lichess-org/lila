@@ -58,7 +58,7 @@
   <string name="analysis">Аналіз за дошкою</string>
   <string name="depthX">Глибина %s</string>
   <string name="usingServerAnalysis">Використовуючи комп\'ютерний аналіз</string>
-  <string name="loadingEngine">Завантаження шахового рушія...</string>
+  <string name="loadingEngine">Готування рушія...</string>
   <string name="cloudAnalysis">Хмарний аналіз</string>
   <string name="goDeeper">Ще глибше</string>
   <string name="showThreat">Показати загрозу</string>
@@ -268,7 +268,7 @@
   <string name="subject">Тема</string>
   <string name="recipient">Одержувач</string>
   <string name="send">Відправити</string>
-  <string name="incrementInSeconds">Додати секунд на хід</string>
+  <string name="incrementInSeconds">Приріст на хід у секундах</string>
   <string name="freeOnlineChess">Безкоштовні Інтернет-шахи</string>
   <string name="spectators">Глядачі:</string>
   <plurals name="nbRated">
@@ -784,7 +784,7 @@
   <string name="viewTheSolution">Дивитись рішення</string>
   <string name="followAndChallengeFriends">Стежте та викликайте друзів</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Доступно %s мовами!</item>
+    <item quantity="one">Доступно %s мовою!</item>
     <item quantity="few">Доступно %s мовами!</item>
     <item quantity="many">Доступно %s мовами!</item>
     <item quantity="other">Доступно %s мовами!</item>
