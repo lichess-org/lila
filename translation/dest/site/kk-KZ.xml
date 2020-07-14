@@ -38,8 +38,8 @@
     <item quantity="other">Қарсылас ойыннан шықты. Сіз %s секундтан кейін жеңісті талап ете аласыз.</item>
   </plurals>
   <string name="opponentLeftChoices">Қарсылас ойыннан шықты. Сіз жеңісті не теңдікті талап ете аласыз, немесе күтіңіз.</string>
-  <string name="makeYourOpponentResign">Ойынды қарсылас атынан аяқтау</string>
-  <string name="forceResignation">Қарсылас ұтылды</string>
+  <string name="makeYourOpponentResign">Қарсылас берілді деп шешу</string>
+  <string name="forceResignation">Жеңісті талап ету</string>
   <string name="forceDraw">Партияның нәтижесі тең ойын деп жариялау</string>
   <string name="talkInChat">Сөйлескенде әдептілікті ұмытпауыңызды сұраймыз!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Бұл сілтемеге кірген бірінші адам сізбен ойнайды</string>
