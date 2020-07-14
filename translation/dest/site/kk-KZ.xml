@@ -200,7 +200,7 @@
   <string name="rated">Бағаланатын ойын</string>
   <string name="casualTournament">Kúndelikti</string>
   <string name="ratedTournament">Nomınaldy</string>
-  <string name="thisGameIsRated">Bul oıyn baǵalanady</string>
+  <string name="thisGameIsRated">Бұл ойын бағаланады</string>
   <string name="rematch">Қайта ойнау</string>
   <string name="rematchOfferSent">Қайта ойнауға сұраныс жіберілді</string>
   <string name="rematchOfferSentWhite">Aq revansh usynady</string>
@@ -230,8 +230,8 @@
     <item quantity="other">%s nomınaldy</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">oıynnan %s</item>
-    <item quantity="other">oıynnan %s</item>
+    <item quantity="one">%s ойналуда</item>
+    <item quantity="other">%s ойналуда</item>
   </plurals>
   <string name="exportGames">Ойынды экспорттау</string>
   <string name="ratingRange">Эло ауқымы</string>
@@ -337,7 +337,7 @@
   <string name="more">Kóp</string>
   <string name="memberSince">Sodan beri múshesi</string>
   <string name="lastSeenActive">Belsendi %s</string>
-  <string name="challengeToPlay">Oıynǵa shaqyrý</string>
+  <string name="challengeToPlay">Ойынға шақыру</string>
   <string name="player">ойыншы</string>
   <string name="list">Tizim</string>
   <string name="graph">Dıagram</string>
@@ -420,6 +420,7 @@
   <string name="goodMove">Жақсы жүріс</string>
   <string name="butYouCanDoBetter">Бірақ одан да әдемі жүріс бар.</string>
   <string name="bestMove">Ең күшті жүріс!</string>
+  <string name="notes">Жазбалар</string>
   <string name="sound">Дыбыстар</string>
   <string name="learnMenu">Үйрену</string>
   <string name="community">Қауым</string>
