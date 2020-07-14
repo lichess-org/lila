@@ -77,7 +77,7 @@
   <string name="close">Закрити</string>
   <string name="winning">Виграш</string>
   <string name="losing">Програш</string>
-  <string name="drawn">Нічия</string>
+  <string name="drawn">Зіграно внічию</string>
   <string name="unknown">Невідомо</string>
   <string name="database">База даних</string>
   <string name="whiteDrawBlack">Білі / Нічія / Чорні</string>
@@ -170,7 +170,7 @@
   <string name="variants">Різновиди</string>
   <string name="timeControl">Контроль часу</string>
   <string name="realTime">Швидкі шахи</string>
-  <string name="correspondence">Переписка</string>
+  <string name="correspondence">За листуванням</string>
   <string name="daysPerTurn">Днів на хід</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
@@ -436,7 +436,7 @@
   <string name="more">Більше</string>
   <string name="memberSince">Зареєстрований</string>
   <string name="lastSeenActive">Востаннє заходив %s</string>
-  <string name="challengeToPlay">Кинути виклик</string>
+  <string name="challengeToPlay">Виклик на гру</string>
   <string name="player">Гравець</string>
   <string name="list">Список</string>
   <string name="graph">Графік</string>
