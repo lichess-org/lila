@@ -69,6 +69,7 @@
   <string name="threefoldRepetitionLowerCase">חזרה משולשת</string>
   <string name="handBookPDF">ספר החוקים (PDF)</string>
   <string name="positions">עמדות</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">חזרנו על עמדה שלוש פעמים. מדוע המשחק לא נפסק בתיקו?</string>
   <string name="lichessCanOptionnalySendPopUps">ליצ\'ס יכול לשלוח התראות קופצות, למשל כאשר הגיע תורכם או שקיבלתם הודעה פרטית.
 
 לחץ על סמל הנעילה שליד כתובת lichess.org בסרגל הכתובות של הדפדפן שלך.
