@@ -497,6 +497,7 @@
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>
   <string name="popularOpenings">Digoradurioù ordin</string>
   <string name="clearBoard">Skarzhañ pep tra diwar an dachenn emgann</string>
+  <string name="loadPosition">Kargañ ul lec\'hiadur</string>
   <string name="isPrivate">Prevez</string>
   <string name="reportXToModerators">Diskleriañ %s d\'an habaskaerien</string>
   <string name="profileCompletion">Feur leuniañ ar profil: %s</string>
