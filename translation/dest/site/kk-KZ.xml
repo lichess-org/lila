@@ -269,12 +269,12 @@
     <item quantity="other">≥ %1$s %2$s бағаланатын ойын</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Siz %1$s-da %2$s artyq oınaýyńyz kerek reıtıń oıyny</item>
-    <item quantity="other">Siz %1$s artyq %2$s reıtıńtik oıyn oınaý kerek</item>
+    <item quantity="one">Сіз тағы %1$s бағаланатын %2$s ойнауыңыз керек</item>
+    <item quantity="other">Сіз тағы %1$s бағаланатын %2$s ойнауыңыз керек</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Siz %s kóp reıtıńtik oıyndy oınaý kerek</item>
-    <item quantity="other">Siz oınaýǵa tıis oınaýǵa %s kóp reıtıńtik oıyndar</item>
+    <item quantity="one">Сіз тағы %s бағаланатын ойын ойнауыңыз керек</item>
+    <item quantity="other">Сіз тағы %s бағаланатын ойын ойнауыңыз керек</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Sizdiń %s reıtıńi aldyn ala bolyp tabylady</string>
   <string name="yourPerfRatingIsTooHigh">%1$s (%2$s) reıtıńi tym joǵary</string>
@@ -362,7 +362,7 @@
   <string name="inappropriateNameWarning">Barlyq, tipti sál orynsyz, múmkin jabý sizdiń shot.</string>
   <string name="emptyTournamentName">Belgili shahmatshynyń qurmetine týrnırdi ataý úshin bos qaldyryńyz.</string>
   <string name="recommendNotTouching">Biz olardy ustamaýǵa keńes beremiz.</string>
-  <string name="fewerPlayers">Eger siz kirý sharttaryn ornatsańyz, onda sizdiń týrnırińizde oıynshylar az bolady.</string>
+  <string name="fewerPlayers">Егер сіз кіру талаптарын қойсаңыз, жарысқа аз ғана ойыншы қатысады.</string>
   <string name="showAdvancedSettings">Qosymsha parametrlerdi kórsetý</string>
   <string name="makePrivateTournament">Турнирді жеке етіп жасаңыз және құпия сөзбен кіруді шектеңіз</string>
   <string name="join">Qosylyńyz</string>
