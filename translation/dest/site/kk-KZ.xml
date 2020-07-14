@@ -237,7 +237,7 @@
   <string name="ratingRange">Эло ауқымы</string>
   <string name="thisAccountViolatedTos">Бұл аккаунт Личес-тің Қызмет көрсету шартын бұзды</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bul oıynshy óz reıtıńin jasandy arttyrady/azaıtady</string>
-  <string name="openingExplorerAndTablebase">&amp;Amp ótkizgishin ashý; kesteniń negizi</string>
+  <string name="openingExplorerAndTablebase">Бастаулар мен аяқталу мұрағаты</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүрісті қайтару ұсыну</string>
   <string name="takebackPropositionSent">Жүрісті қайтару ұсынысы жіберілді</string>
@@ -431,6 +431,8 @@
   <string name="followAndChallengeFriends">Достарыңызға ілесіп, ойынға шақырыңыз</string>
   <string name="quickPairing">Қалыптар</string>
   <string name="lobby">Алаң</string>
+  <string name="practiceWithComputer">Компьютермен жаттығу</string>
+  <string name="resumePractice">Жаттығуды жалғастыру</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
   <string name="playX">%s жүріңіз</string>
 </resources>
