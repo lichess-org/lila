@@ -35,11 +35,11 @@
   <string name="blackPlays">Хід чорних</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Ваш опонент покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
-    <item quantity="few">Ваш опонент покинув гру. Ви можете отримати перемогу за %s секунд.</item>
-    <item quantity="many">Ваш опонент покинув гру. Ви можете отримати перемогу за %s секунд.</item>
-    <item quantity="other">Ваш опонент покинув гру. Ви можете отримати перемогу за %s секунд.</item>
+    <item quantity="few">Ваш опонент покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
+    <item quantity="many">Ваш опонент покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
+    <item quantity="other">Ваш опонент покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
   </plurals>
-  <string name="opponentLeftChoices">Ваш суперник залишив гру. Ви можете оголосити перемогу чи нічию, або зачекати.</string>
+  <string name="opponentLeftChoices">Ваш суперник залишив гру. Ви можете оголосити перемогу, нічию, або зачекати.</string>
   <string name="makeYourOpponentResign">Оголосити перемогу</string>
   <string name="forceResignation">Оголосити перемогу</string>
   <string name="forceDraw">Вимагати нічиєї</string>
@@ -95,7 +95,7 @@
     <item quantity="one">Наступне захоплення або хід пішаком в %s ході сторін (Дистанція до 50-го ходу)</item>
     <item quantity="few">Наступне захоплення або хід пішаком в %s ходах сторін (Дистанція до 50-го ходу)</item>
     <item quantity="many">Наступне захоплення або хід пішаком в %s ході сторін (Дистанція до 50-го ходу)</item>
-    <item quantity="other">Наступне взяття або хід пішаком у %s півход. (Відстань до обнулення лічильн. 50 ходів)</item>
+    <item quantity="other">Наступне захоплення або хід пішаком в %s ходах сторін (Дистанція до 50-го ходу)</item>
   </plurals>
   <string name="noGameFound">Ігор не знайдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
@@ -141,8 +141,8 @@
   <plurals name="nbGames">
     <item quantity="one">%s ігра</item>
     <item quantity="few">%s гри</item>
-    <item quantity="many">%s гра</item>
-    <item quantity="other">%s гра</item>
+    <item quantity="many">%s ігор</item>
+    <item quantity="other">%s ігор</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Закладка</item>
@@ -186,8 +186,8 @@
     <item quantity="other">%s година</item>
   </plurals>
   <string name="time">Час</string>
-  <string name="rating">Рейтинґ</string>
-  <string name="ratingStats">Розподіл за рейтинґом</string>
+  <string name="rating">Рейтинг</string>
+  <string name="ratingStats">Розподіл за рейтингом</string>
   <string name="username">Псевдонім</string>
   <string name="usernameOrEmail">Ім’я користувача</string>
   <string name="changeUsername">Змінити ім\'я користувача</string>
@@ -242,11 +242,11 @@
   <string name="standard">Стандартний</string>
   <string name="unlimited">Необмежено</string>
   <string name="mode">Режим</string>
-  <string name="casual">Дружня гра</string>
-  <string name="rated">Рейтинґова</string>
+  <string name="casual">Без рейтингу</string>
+  <string name="rated">Рейтингова</string>
   <string name="casualTournament">Дружня гра</string>
   <string name="ratedTournament">Рейтингова</string>
-  <string name="thisGameIsRated">Гра на рейтинґ</string>
+  <string name="thisGameIsRated">Рейтингова гра</string>
   <string name="rematch">Повторна гра</string>
   <string name="rematchOfferSent">Запит на повторну гру...</string>
   <string name="rematchOfferSentWhite">Білі пропонують реванш</string>
@@ -291,7 +291,7 @@
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s нічия</item>
-    <item quantity="few">%s нічиїх</item>
+    <item quantity="few">%s нічиї</item>
     <item quantity="many">%s нічиїх</item>
     <item quantity="other">%s нічиїх</item>
   </plurals>
@@ -304,8 +304,8 @@
   <string name="exportGames">Експорт ігор</string>
   <string name="ratingRange">Діапазон рейтингу</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Додати %s секунд</item>
-    <item quantity="few">Додати %s секунд</item>
+    <item quantity="one">Додати %s секунду</item>
+    <item quantity="few">Додати %s секунди</item>
     <item quantity="many">Додати %s секунд</item>
     <item quantity="other">Додати %s секунд</item>
   </plurals>
@@ -375,7 +375,7 @@
   <string name="xJoinedTeamY">%1$s приєдналися до команди %2$s</string>
   <string name="xCreatedTeamY">%1$s створили команду %2$s</string>
   <string name="xStartedStreaming">%s почав трансляцію</string>
-  <string name="averageElo">Середній рейтинґ</string>
+  <string name="averageElo">Середній рейтинг</string>
   <string name="location">Місцезнаходження</string>
   <string name="filterGames">Фільтр ігор</string>
   <string name="reset">Скинути</string>
@@ -391,7 +391,7 @@
   <string name="importGameExplanation">При вставці PGN-гри ви отримуєте повтор в браузері,
 комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s імпортованих ігор</item>
+    <item quantity="one">%s імпортована гра</item>
     <item quantity="few">%s імпортованих гри</item>
     <item quantity="many">%s імпортованих ігор</item>
     <item quantity="other">%s імпортованих ігор</item>
@@ -510,7 +510,7 @@
   <string name="onlinePlayers">Гравці онлайн</string>
   <string name="activeToday">Активність сьогодні</string>
   <string name="activePlayers">Активні гравці</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Зверніть увагу на те, що гра є рейтинґовою, але облік часу не ведеться!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Зверніть увагу на те, що гра є рейтинговою, але облік часу не ведеться!</string>
   <string name="yourPuzzleRatingX">Ваш рівень по задачах: %s</string>
   <string name="findTheBestMoveForWhite">Знайдіть найкращий хід за білих.</string>
   <string name="findTheBestMoveForBlack">Знайдіть найкращий хід за чорних.</string>
@@ -532,7 +532,7 @@
   <string name="hidden">прихований</string>
   <plurals name="playedXTimes">
     <item quantity="one">Вирішено %s раз</item>
-    <item quantity="few">Показано %s разів</item>
+    <item quantity="few">Вирішено %s рази</item>
     <item quantity="many">Вирішено %s разів</item>
     <item quantity="other">Вирішено %s разів</item>
   </plurals>
@@ -626,7 +626,7 @@
   <string name="biographyDescription">Розкажіть про себе: що вам подобається в шахах, які ваші улюблені дебюти, ігри, гравці…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Максимум: %s символів.</item>
-    <item quantity="few">Максимум: %s символів.</item>
+    <item quantity="few">Максимум: %s символа.</item>
     <item quantity="many">Максимум: %s символів.</item>
     <item quantity="other">Максимум: %s символів.</item>
   </plurals>
@@ -655,7 +655,7 @@
   <string name="community">Спільнота</string>
   <string name="tools">Інструменти</string>
   <string name="increment">Додати</string>
-  <string name="sharePGN">PGN</string>
+  <string name="sharePGN">Поділитись PGN</string>
   <string name="playOnline">Гра онлайн</string>
   <string name="playOffline">Гра оффлайн</string>
   <string name="allowAnalytics">Дозволити анонімну статистику</string>
@@ -672,8 +672,8 @@
   <string name="whiteCastlingKingside">Білі O-O</string>
   <string name="blackCastlingKingside">Чорні O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s повідомлень форуму</item>
-    <item quantity="few">%s повідомлень форуму</item>
+    <item quantity="one">%s повідомлення на форумі</item>
+    <item quantity="few">%s повідомлення на форумі</item>
     <item quantity="many">%s повідомлень на форумі</item>
     <item quantity="other">%s повідомлення на форумі</item>
   </plurals>
@@ -730,8 +730,8 @@
   <string name="returnToTournamentsHomepage">Повернутися до домашньої сторінки турніру</string>
   <string name="weeklyPerfTypeRatingDistribution">Місячний %s розподіл за рейтинґом</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s гравець цього тижня.</item>
-    <item quantity="few">%1$s %2$s гравців цього тижня.</item>
+    <item quantity="one">%1$s гравець грав у %2$s цього тижня.</item>
+    <item quantity="few">%1$s гравців грали в %2$s цього тижня.</item>
     <item quantity="many">%1$s гравців грали в %2$s цього тижня.</item>
     <item quantity="other">%1$s гравців грали в %2$s цього тижня.</item>
   </plurals>
