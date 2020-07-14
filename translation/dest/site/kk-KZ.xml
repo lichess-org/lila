@@ -39,10 +39,10 @@
   </plurals>
   <string name="opponentLeftChoices">Қарсылас ойыннан шықты. Сіз жеңісті не теңдікті талап ете аласыз, немесе күтіңіз.</string>
   <string name="makeYourOpponentResign">Қарсылас берілді деп шешу</string>
-  <string name="forceResignation">Жеңісті талап ету</string>
-  <string name="forceDraw">Партияның нәтижесі тең ойын деп жариялау</string>
-  <string name="talkInChat">Сөйлескенде әдептілікті ұмытпауыңызды сұраймыз!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Бұл сілтемеге кірген бірінші адам сізбен ойнайды</string>
+  <string name="forceResignation">Жеңіс болсын</string>
+  <string name="forceDraw">Теңдік болсын</string>
+  <string name="talkInChat">Сөйлескенде, әдеп сақтаңыз!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Бұл сілтемеден бірінші келген адам сізбен ойнайды.</string>
   <string name="whiteResigned">Ақ берілді</string>
   <string name="blackResigned">Қара берілді</string>
   <string name="whiteLeftTheGame">Ақ ойыннан шықты</string>
