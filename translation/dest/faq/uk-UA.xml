@@ -111,7 +111,7 @@
   <string name="whatIsProvisionalRating">Чому поруч із рейтингом є знак питання?</string>
   <string name="provisionalRatingExplanation">Знак питання означає, що рейтинг є умовним. Причини:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Гравець ще не закінчив достатньо рейтингових ігор проти %1$s в категорії рейтингу.</string>
-  <string name="similarOpponents">суперники подібної сили</string>
+  <string name="similarOpponents">суперники однакової сили</string>
   <string name="notPlayedRecently">Гравець не зіграв достатньо ігор останнім часом. Залежно від кількості зіграних Вами ігор, це може зайняти рік бездіяльності, щоб ваш рейтинг знову став умовним.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Це означає, що відхилення Glicko-2 більше 110. Відмова - це рівень довіри, яку система має у рейтингу. Чим нижче відхилення, тим стабільнішим є рейтинг.</string>
   <string name="howDoLeaderoardsWork">Як працюють звання і таблиці лідерів?</string>
