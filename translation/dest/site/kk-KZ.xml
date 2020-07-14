@@ -187,7 +187,7 @@
   <string name="yourOpponentOffersADraw">Қарсыласыңыз епе-теңдікті ұсынды</string>
   <string name="accept">Қабылдау</string>
   <string name="decline">Қабылдамау</string>
-  <string name="playingRightNow">Ойналып жатыр</string>
+  <string name="playingRightNow">Ойын жүруде</string>
   <string name="eventInProgress">Тап қазір ойнау</string>
   <string name="finished">Бітті</string>
   <string name="finishesX">%s aıaqtaıdy</string>
