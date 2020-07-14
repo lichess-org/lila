@@ -176,10 +176,10 @@
   <string name="gamesPlayed">Ойындар ойналған</string>
   <string name="cancel">Жабу</string>
   <string name="timeOut">Уақыт бітті</string>
-  <string name="drawOfferSent">Тепе-теңдік ұсынысы жіберілді</string>
-  <string name="drawOfferDeclined">Тепе-теңдік ұсынысы қабылданбады</string>
-  <string name="drawOfferAccepted">Тепе-теңдік ұсынысы қабылданды</string>
-  <string name="drawOfferCanceled">Тепе-теңдік ұсынысы жіберілмеді</string>
+  <string name="drawOfferSent">Тепе-теңдік сұрауда</string>
+  <string name="drawOfferDeclined">Тепе-теңдікке келіспеді</string>
+  <string name="drawOfferAccepted">Тепе-теңдікке келісті</string>
+  <string name="drawOfferCanceled">Тепе-теңдік сұрау тоқтатылды</string>
   <string name="whiteOffersDraw">Ақ жақ тең ойынды ұсынды</string>
   <string name="blackOffersDraw">Қара жақ тең ойынды ұсынды</string>
   <string name="whiteDeclinesDraw">Ақ жақ тең ойынды қабылдамады</string>
@@ -201,7 +201,7 @@
   <string name="casualTournament">Kúndelikti</string>
   <string name="ratedTournament">Nomınaldy</string>
   <string name="thisGameIsRated">Bul oıyn baǵalanady</string>
-  <string name="rematch">Кек қайтару</string>
+  <string name="rematch">Қайта ойнау</string>
   <string name="rematchOfferSent">Revansh týraly usynys jiberildi</string>
   <string name="rematchOfferSentWhite">Aq revansh usynady</string>
   <string name="rematchOfferSentBlack">Aq revansh ýsynady</string>
