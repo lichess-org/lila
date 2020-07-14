@@ -97,7 +97,7 @@
   <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
   <string name="winPreventedBy50MoveRule">50 жүрістік ережесі бойынша жол берілмеген ұтыс</string>
   <string name="lossSavedBy50MoveRule">50 жүрістік ережесі бойынша жол құтқарылған ұтылыс</string>
-  <string name="allSet">Барлығы күйіне келтірілді!</string>
+  <string name="allSet">Барлығы дайын!</string>
   <string name="importPgn">PGN импорты</string>
   <string name="delete">Жою</string>
   <string name="deleteThisImportedGame">Бұл импортталған ойын жойылсын ба?</string>
@@ -189,7 +189,7 @@
   <string name="decline">Қабылдамау</string>
   <string name="playingRightNow">Ойын жүруде</string>
   <string name="eventInProgress">Тап қазір ойнау</string>
-  <string name="finished">Бітті</string>
+  <string name="finished">Аяқталды</string>
   <string name="finishesX">%s aıaqtaıdy</string>
   <string name="abortGame">Ойынды болдырмау</string>
   <string name="gameAborted">Ойын жойылды</string>
@@ -431,6 +431,13 @@
   <string name="followAndChallengeFriends">Достарыңызға ілесіп, ойынға шақырыңыз</string>
   <string name="quickPairing">Қалыптар</string>
   <string name="lobby">Алаң</string>
+  <string name="background">Фон</string>
+  <string name="light">Жарық</string>
+  <string name="dark">Қараңғы</string>
+  <string name="transparent">Мөлдір</string>
+  <string name="backgroundImageUrl">Фон суретіне сілтеме:</string>
+  <string name="boardGeometry">Тақта пішіні</string>
+  <string name="boardTheme">Тақта өңі</string>
   <string name="practiceWithComputer">Компьютермен жаттығу</string>
   <string name="resumePractice">Жаттығуды жалғастыру</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
