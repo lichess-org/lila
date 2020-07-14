@@ -236,7 +236,7 @@
   <string name="exportGames">Ойынды экспорттау</string>
   <string name="ratingRange">Эло ауқымы</string>
   <string name="thisAccountViolatedTos">Бұл аккаунт Личес-тің Қызмет көрсету шартын бұзды</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Бұл ойыншы олардың шахмат дәрежесін жасанды жолмен арттырып/кемітіп жүр</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Бұл ойыншы өз рейтингін жасанды жолмен арттырып не кемітіп жүр</string>
   <string name="openingExplorerAndTablebase">Бастаулар мен аяқталу мұрағаты</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүрісті қайтару ұсыну</string>
@@ -374,7 +374,7 @@
   <string name="createdBy">Qurylady</string>
   <string name="tournamentIsStarting">Týrnır bastaldy</string>
   <string name="tournamentPairingsAreNowClosed">Týrnır juby endi jabyq.</string>
-  <string name="standByX">%s-ǵa daıyndalyńyz, oıynshylardy juptastyrý, daıyndańyz!</string>
+  <string name="standByX">%s ойыншыны күтіңіз, ойыншылар қосылуда, дайын болыңыз!</string>
   <string name="youArePlaying">Sen oınaısyń!</string>
   <string name="winRate">Utys stavkasy</string>
   <string name="berserkRate">Berserka jyldamdyǵy</string>
