@@ -82,7 +82,7 @@
   <string name="averageRatingX">Орташа рейтинг: %s</string>
   <string name="recentGames">Кейінгі ойындар</string>
   <string name="topGames">Үздік ойындар</string>
-  <string name="masterDbExplanation">%1$s-ның тақта басында ойналған 2 миллион ойыны + %2$s-нен %3$s-ге дейінгі FIDE рейтингі бар ойыншылар</string>
+  <string name="masterDbExplanation">%2$s - %3$s жж FIDE-дәрежесі %1$s+ ойыншылар қатысқан 2 миллион шынайы ойын</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s жарты жүрістік мат</item>
     <item quantity="other">%s жарты жүрістік мат</item>
@@ -92,7 +92,7 @@
     <item quantity="other">%s жарты жүрістен кейін келесі алу немесе ер жүрісі жасалады (50 жүріс аяқталар аралығы)</item>
   </plurals>
   <string name="noGameFound">Ешбір ойын табылмады</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Артық көрілер параметрлер мәзірінен одан да көп ойын енгізу керек пе?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
   <string name="openingExplorer">Бастаулар қазынасы</string>
   <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
   <string name="winPreventedBy50MoveRule">50 жүрістік ережесі бойынша жол берілмеген ұтыс</string>
