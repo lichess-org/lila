@@ -93,8 +93,8 @@
   </plurals>
   <string name="noGameFound">Ешбір ойын табылмады</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Артық көрілер параметрлер мәзірінен одан да көп ойын енгізу керек пе?</string>
-  <string name="openingExplorer">Ойын бастамаларының жол көрсеткіші</string>
-  <string name="xOpeningExplorer">%s ойын бастамаларының жол көрсеткіші</string>
+  <string name="openingExplorer">Бастаулар қазынасы</string>
+  <string name="xOpeningExplorer">%s бастаулар қазынасы</string>
   <string name="winPreventedBy50MoveRule">50 жүрістік ережесі бойынша жол берілмеген ұтыс</string>
   <string name="lossSavedBy50MoveRule">50 жүрістік ережесі бойынша жол құтқарылған ұтылыс</string>
   <string name="allSet">Барлығы күйіне келтірілді!</string>
