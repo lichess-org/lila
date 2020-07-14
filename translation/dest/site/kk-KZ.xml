@@ -47,8 +47,8 @@
   <string name="blackResigned">Қара берілді</string>
   <string name="whiteLeftTheGame">Ақ ойыннан шықты</string>
   <string name="blackLeftTheGame">Қара ойыннан шықты</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Осы сілтемені бөліссеңіз, көрермендер ойынды қарай алады</string>
-  <string name="theComputerAnalysisHasFailed">Компьютерлік талдау осы ретте мүмкін емес</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Осы сілтемені бөліссеңіз, көрермендер ойынды қарай алатын болады</string>
+  <string name="theComputerAnalysisHasFailed">Компьютерлік талдау ақауға ұшырады</string>
   <string name="viewTheComputerAnalysis">Компьютелік талдауды көрсету</string>
   <string name="requestAComputerAnalysis">Компьютерлік талдауға сұраным</string>
   <string name="computerAnalysis">Компьютерлік талдау</string>
