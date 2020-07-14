@@ -236,7 +236,7 @@
   <string name="exportGames">Ойынды экспорттау</string>
   <string name="ratingRange">Эло ауқымы</string>
   <string name="thisAccountViolatedTos">Бұл аккаунт Личес-тің Қызмет көрсету шартын бұзды</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Bul oıynshy óz reıtıńin jasandy arttyrady/azaıtady</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Бұл ойыншы олардың шахмат дәрежесін жасанды жолмен арттырып/кемітіп жүр</string>
   <string name="openingExplorerAndTablebase">Бастаулар мен аяқталу мұрағаты</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүрісті қайтару ұсыну</string>
@@ -245,7 +245,7 @@
   <string name="takebackPropositionAccepted">Жүрісті қайтару ұсынысы қабылданды</string>
   <string name="takebackPropositionCanceled">Жүрісті қайтару ұсынысы жойылды</string>
   <string name="yourOpponentProposesATakeback">Қарсыласыңыз жүрісті қайтаруды ұсынды</string>
-  <string name="bookmarkThisGame">Bul oıyn betbelgi</string>
+  <string name="bookmarkThisGame">Бұл ойынды бетбелгіге сақтаңыз</string>
   <string name="tournament">Жарыс</string>
   <string name="tournaments">Týrnırler</string>
   <string name="tournamentPoints">Týrnır upaılary</string>
@@ -260,9 +260,13 @@
   <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="backToTournament">Týrnırge oralaıyq</string>
   <string name="thematic">Taqyryptyq</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s бағаланатын ойын</item>
+    <item quantity="other">≥ %s бағаланатын ойын</item>
+  </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s reıtıń oıyny</item>
-    <item quantity="other">≥ %1$s %2$s reıtıńtik oıyndar</item>
+    <item quantity="one">≥ %1$s %2$s бағаланатын ойын</item>
+    <item quantity="other">≥ %1$s %2$s бағаланатын ойын</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Siz %1$s-da %2$s artyq oınaýyńyz kerek reıtıń oıyny</item>
