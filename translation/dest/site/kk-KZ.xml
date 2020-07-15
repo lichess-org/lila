@@ -322,17 +322,17 @@
   <string name="noFriendsOnline">Желіде достар жоқ</string>
   <string name="findFriends">Дос іздестіру</string>
   <string name="favoriteOpponents">Қымбатты қарсыластар</string>
-  <string name="follow">Ілесу</string>
-  <string name="following">Ілескендер</string>
-  <string name="unfollow">Ілеспеу</string>
+  <string name="follow">Серік болу</string>
+  <string name="following">Серіксіз</string>
+  <string name="unfollow">Серік болмау</string>
   <string name="block">Блок</string>
   <string name="blocked">Блоктар</string>
   <string name="unblock">Бұғаттан шығару</string>
   <string name="followsYou">%s Сізге жазылды</string>
   <string name="xStartedFollowingY">%1$s, %2$s Ілесті</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s Ілесуші</item>
-    <item quantity="other">%s Ілесушілер</item>
+    <item quantity="one">%s серік</item>
+    <item quantity="other">%s серік</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">kelesi %s</item>
