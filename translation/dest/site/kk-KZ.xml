@@ -169,12 +169,12 @@
     <item quantity="one">%s сағат</item>
     <item quantity="other">%s сағат</item>
   </plurals>
-  <string name="time">уақыт</string>
+  <string name="time">Уақыт</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтинг статистикасы</string>
-  <string name="username">пайдаланушы аты</string>
-  <string name="usernameOrEmail">Есіміңіз</string>
-  <string name="changeUsername">Paıdalanýshy atyn ózgertý</string>
+  <string name="username">Пайдаланушы аты</string>
+  <string name="usernameOrEmail">Атыңыз не поштаңыз</string>
+  <string name="changeUsername">Атыңызды өзгерту</string>
   <string name="changeUsernameNotSame">Tek áripter regıstri ózgerýi múmkin. Mysaly,\" Djon Doý \"\"Djon Doýda\".</string>
   <string name="changeUsernameDescription">Paıdalanýshy atyn ózgertińiz. Bul tek bir ret jasaýǵa bolady jáne siz tek paıdalanýshy aty áripter regıstri ózgerte alasyz.</string>
   <string name="password">Пароль</string>
