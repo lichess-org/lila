@@ -174,16 +174,16 @@
   <string name="daysPerTurn">Днів на хід</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
-    <item quantity="one">%s днів</item>
-    <item quantity="few">%s день</item>
-    <item quantity="many">%s день</item>
-    <item quantity="other">%s день</item>
+    <item quantity="one">%s день</item>
+    <item quantity="few">%s дні</item>
+    <item quantity="many">%s днів</item>
+    <item quantity="other">%s днів</item>
   </plurals>
   <plurals name="nbHours">
     <item quantity="one">%s година</item>
-    <item quantity="few">%s година</item>
-    <item quantity="many">%s година</item>
-    <item quantity="other">%s година</item>
+    <item quantity="few">%s години</item>
+    <item quantity="many">%s годин</item>
+    <item quantity="other">%s годин</item>
   </plurals>
   <string name="time">Час</string>
   <string name="rating">Рейтинг</string>
@@ -924,7 +924,7 @@
   <string name="blitzDesc">Швидкі ігри: від 3 до 8 хвилин</string>
   <string name="rapidDesc">Нетривалі ігри: від 8 до 25 хвилин</string>
   <string name="classicalDesc">Класичні гри: 25 хвилин і більше</string>
-  <string name="correspondenceDesc">Заочні шахи: один чи декілька днів на хід</string>
+  <string name="correspondenceDesc">За листуванням: один чи декілька днів на хід</string>
   <string name="puzzleDesc">Тренажер шахової тактики</string>
   <string name="important">Важливо</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваше запитання може мати відповідь %1$s</string>
