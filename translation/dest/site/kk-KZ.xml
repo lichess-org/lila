@@ -117,14 +117,18 @@
   <string name="blunders">Өрескел қателер</string>
   <string name="mistake">Қателік</string>
   <string name="mistakes">Қателер</string>
-  <string name="inaccuracy">Ұқыпсыздық</string>
-  <string name="inaccuracies">Дәлсіздіктер</string>
-  <string name="moveTimes">Жүрестерге жұмсаған уақыт</string>
+  <string name="inaccuracy">Сәл қате</string>
+  <string name="inaccuracies">Сәл қате</string>
+  <string name="moveTimes">Жүріс ұзақтығы</string>
   <string name="flipBoard">Тақтаны аудару</string>
-  <string name="threefoldRepetition">Жүрісті үш рет қайталадыңыз</string>
+  <string name="threefoldRepetition">Үш мәрте қайталау</string>
   <string name="claimADraw">Тепе-теңдікті сұрау</string>
   <string name="offerDraw">Тепе-теңдікке келісу</string>
-  <string name="draw">Тепе-тең</string>
+  <string name="draw">Тепе-теңдік</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s ойыншы</item>
+    <item quantity="other">%s ойыншы</item>
+  </plurals>
   <string name="currentGames">Ойналып жатқан ойындар</string>
   <string name="viewInFullSize">Толық көлемде көрсету</string>
   <string name="logOut">Шығу</string>
