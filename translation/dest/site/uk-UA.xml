@@ -118,14 +118,14 @@
   <string name="cpus">Процесори</string>
   <string name="memory">Пам\'ять</string>
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
-  <string name="removesTheDepthLimit">Видаляє обмеження на глибину (ваш комп\'ютер буде гарячим)</string>
+  <string name="removesTheDepthLimit">Видаляє обмеження на глибину. Ваш комп\'ютер може перегрітись</string>
   <string name="blunder">Груба помилка</string>
   <string name="blunders">Грубі помилки</string>
   <string name="mistake">Помилка</string>
   <string name="mistakes">Помилки</string>
   <string name="inaccuracy">Неточність</string>
   <string name="inaccuracies">Неточності</string>
-  <string name="moveTimes">Час ходів</string>
+  <string name="moveTimes">Час на хід</string>
   <string name="flipBoard">Перевернути дошку</string>
   <string name="threefoldRepetition">Трикратне повторення</string>
   <string name="claimADraw">Оголосити нічию</string>
@@ -146,9 +146,9 @@
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Закладка</item>
-    <item quantity="few">%s Закладка</item>
-    <item quantity="many">%s Закладка</item>
-    <item quantity="other">%s Закладка</item>
+    <item quantity="few">%s Закладки</item>
+    <item quantity="many">%s Закладок</item>
+    <item quantity="other">%s закладок</item>
   </plurals>
   <string name="viewInFullSize">Дивитися в повний розмір</string>
   <string name="logOut">Вийти</string>
@@ -158,7 +158,7 @@
   <string name="computersAreNotAllowedToPlay">Заборонено грати, користуючись підказками шахових програм та безпосередньо програмами. Будь ласка, не послуговуйтеся під час гри допомогою програм (\"рушіїв\"), баз даних або інших гравців. Також зверніть увагу, що створення декількох облікових записів не заохочується і використання надмірної кількості облікових записів призведе до блокування.</string>
   <string name="games">Партії</string>
   <string name="forum">Форум</string>
-  <string name="xPostedInForumY">%1$s опублікованих на форумі %2$s</string>
+  <string name="xPostedInForumY">%1$s опубліковав на форумі %2$s</string>
   <string name="latestForumPosts">Останні дописи форуму</string>
   <string name="players">Гравці</string>
   <string name="friends">Друзі</string>
