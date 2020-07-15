@@ -2,6 +2,7 @@
   @extend %abs-100;
   bottom: 0;
   right: 0;
+  overflow: hidden;
   .label {
     color: $c-font-dim;
     font-size: .7em;
