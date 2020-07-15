@@ -11,16 +11,12 @@ import controllers.routes
 
 object signup {
 
-  private val recaptchaScript = raw(
-    """<script src="https://www.google.com/recaptcha/api.js" async defer></script>"""
-  )
-
-  def apply(form: Form[_], recaptcha: lila.security.RecaptchaPublicConfig)(implicit ctx: Context) =
+  def apply(form: Form[_], recaptcha: lila.security.RecaptchaSetup)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.signUp.txt(),
       moreJs = frag(
         jsTag("signup.js"),
-        recaptcha.enabled option recaptchaScript,
+        views.base.recaptcha.script(recaptcha),
         fingerprintTag
       ),
       moreCss = cssTag("auth"),
@@ -28,7 +24,7 @@ object signup {
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(trans.signUp()),
-        postForm(id := "signup_form", cls := "form3", action := routes.Auth.signupPost())(
+        postForm(id := recaptcha.formId, cls := "form3", action := routes.Auth.signupPost())(
           auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
           input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
           div(cls := "form-group text", dataIcon := "")(
@@ -39,13 +35,10 @@ object signup {
             )
           ),
           agreement(form("agreement"), form.errors.exists(_.key startsWith "agreement.")),
-          if (recaptcha.enabled)
-            button(
-              cls := "g-recaptcha submit button text big",
-              attr("data-sitekey") := recaptcha.key,
-              attr("data-callback") := "signupSubmit"
-            )(trans.signUp())
-          else form3.submit(trans.signUp(), icon = none, klass = "big")
+          views.base.recaptcha.button(recaptcha) match {
+            case Some(but) => but(cls := "g-recaptcha submit button text big")(trans.signUp())
+            case None      => form3.submit(trans.signUp(), icon = none, klass = "big")
+          }
         )
       )
     }

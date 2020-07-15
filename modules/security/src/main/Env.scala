@@ -36,7 +36,7 @@ final class Env(
   private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
   import net.{ baseUrl, domain }
 
-  val recaptchaPublicConfig = config.recaptcha.public
+  def recaptcha(formId: String) = RecaptchaSetup(config.recaptcha.public, formId)
 
   lazy val firewall = new Firewall(
     coll = db(config.collection.firewall),
