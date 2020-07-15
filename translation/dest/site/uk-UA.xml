@@ -192,7 +192,7 @@
   <string name="usernameOrEmail">Ім’я користувача</string>
   <string name="changeUsername">Змінити ім\'я користувача</string>
   <string name="changeUsernameNotSame">Можна змінити лише регістр букв. Наприклад, \"johndoe\" до \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Змінити своє ім\'я користувача. Це може бути зроблено лише один раз і вам дозволено змінити регістр вашого імені користувача.</string>
+  <string name="changeUsernameDescription">Змінити своє ім\'я користувача. Це може бути зроблено лише один раз і Вам дозволено змінити регістр Вашого імені користувача.</string>
   <string name="password">Пароль</string>
   <string name="changePassword">Змінити пароль</string>
   <string name="changeEmail">Змінити email</string>
@@ -248,11 +248,11 @@
   <string name="ratedTournament">Рейтингова</string>
   <string name="thisGameIsRated">Рейтингова гра</string>
   <string name="rematch">Повторна гра</string>
-  <string name="rematchOfferSent">Запит на повторну гру...</string>
+  <string name="rematchOfferSent">Запит на повторну гру надіслано</string>
   <string name="rematchOfferSentWhite">Білі пропонують реванш</string>
   <string name="rematchOfferSentBlack">Чорні пропонують реванш</string>
-  <string name="rematchOfferAccepted">Виклик прийнято</string>
-  <string name="rematchOfferCanceled">Запит на повторну гру скасовано</string>
+  <string name="rematchOfferAccepted">Запит на повторну гру прийнято</string>
+  <string name="rematchOfferCanceled">Запит на повторну гру відмовлено</string>
   <string name="rematchOfferDeclined">Запит на повторну гру відхилено</string>
   <string name="cancelRematchOffer">Скасувати запит на повторну гру</string>
   <string name="viewRematch">Дивитися повторну гру</string>
