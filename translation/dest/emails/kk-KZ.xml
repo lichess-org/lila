@@ -10,5 +10,12 @@
   <string name="emailChange_intro">Сіз поштаңызды өзгертуге тапсырыс жіберген едіңіз.</string>
   <string name="emailChange_click">Сол поштаға кіруге сізде рұқсат бар екенін растау үшін төмендегі сілтемеге басыңыз:</string>
   <string name="welcome_subject">%s, Личес-ке қош келдіңіз</string>
+  <string name="welcome_text">https://lichess.org сайтында аккаунт жасау сәтті өтті.
+
+Сіздің куәлік парақшаңыз осында: %1$s. Оны өзгерту үшін осында кіріңіз: %2$s.
+
+Ойынды пайдаға жаратып, шахмат тастарыңыздың жолы әрқашан ашық болсын!</string>
+  <string name="logInToLichess">%s, lichess.org сайтына кіріңіз</string>
+  <string name="common_orPaste">(Басылмай жатыр ма? Браузердің жолағына көшіріп көріңіз!)</string>
   <string name="common_contact">Бізбен байланысу сілтемесі - %s.</string>
 </resources>
