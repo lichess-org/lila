@@ -18,5 +18,5 @@
   <string name="logInToLichess">%s, lichess.org сайтына кіріңіз</string>
   <string name="common_orPaste">(Басылмай жатыр ма? Браузердің жолағына көшіріп көріңіз!)</string>
   <string name="common_note">Осы хат тарату қызметі сіздің %s пайдалануыңызбен байланысты.</string>
-  <string name="common_contact">Бізбен байланысу сілтемесі - %s.</string>
+  <string name="common_contact">Бізбен байланысу үшін - %s.</string>
 </resources>
