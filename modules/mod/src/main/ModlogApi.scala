@@ -243,7 +243,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
-    !m.isLichess ?? {
+    m.notable ?? {
       coll.insert.one(m) >> slackMonitor(m)
     }
   }
