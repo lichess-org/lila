@@ -346,8 +346,8 @@
   <string name="list">Tizim</string>
   <string name="graph">Dıagram</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">%s mınýttan az</item>
-    <item quantity="other">%s mınýttan az</item>
+    <item quantity="one">%s минуттан аз</item>
+    <item quantity="other">%s минуттан аз</item>
   </plurals>
   <string name="required">Talap etiletin.</string>
   <string name="openTournaments">Ashyq týrnır</string>
@@ -449,9 +449,12 @@
   <string name="resumePractice">Жаттығуды жалғастыру</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
   <string name="playX">%s жүріңіз</string>
-  <string name="timeoutExpires">Жазаңыздың аяқталуына %s қалды.</string>
+  <string name="timeoutExpires">Шектелудің аяқталуына %s қалды.</string>
   <string name="goodPractice">Сондықтан барлық ойыншылар оң тәжірибе алсын деп талпынудамыз.</string>
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
+  <string name="rapid">Шапшаң</string>
+  <string name="classical">Классикалық</string>
+  <string name="ultraBulletDesc">Лезде ойындар: 30 секундтан кем</string>
   <string name="bulletDesc">Аса жылдам ойындар: 3 минуттан кем</string>
   <string name="blitzDesc">Жылдам ойындар: 3-тен 8 минутке дейін</string>
   <string name="rapidDesc">Шапшаң ойындар: 8-ден 25 минутке дейін</string>
