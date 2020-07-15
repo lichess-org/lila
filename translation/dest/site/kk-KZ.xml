@@ -219,8 +219,8 @@
   <string name="gameAborted">Ойын тоқтатылды</string>
   <string name="standard">Классикалық</string>
   <string name="unlimited">Шектеусіз</string>
-  <string name="mode">Мод</string>
-  <string name="casual">Достық ойын</string>
+  <string name="mode">Бағамы</string>
+  <string name="casual">Қалыпты</string>
   <string name="rated">Бағаланатын ойын</string>
   <string name="casualTournament">Kúndelikti</string>
   <string name="ratedTournament">Nomınaldy</string>
