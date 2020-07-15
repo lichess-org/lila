@@ -330,10 +330,10 @@
     <item quantity="other">%s турнірних очок</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s студія</item>
-    <item quantity="few">%s студії</item>
-    <item quantity="many">%s студії</item>
-    <item quantity="other">%s студії</item>
+    <item quantity="one">%s дослідження</item>
+    <item quantity="few">%s дослідження</item>
+    <item quantity="many">%s досліджень</item>
+    <item quantity="other">%s досліджень</item>
   </plurals>
   <string name="viewTournament">Переглянути турнір</string>
   <string name="backToTournament">Повернутися до турніру</string>
@@ -386,7 +386,7 @@
   <string name="pasteThePgnStringHere">Вставте рядок PGN тут</string>
   <string name="fromPosition">Із позиції</string>
   <string name="continueFromHere">Продовжити звідси</string>
-  <string name="toStudy">Навчання</string>
+  <string name="toStudy">Дослідження</string>
   <string name="importGame">Імпортувати гру</string>
   <string name="importGameExplanation">При вставці PGN-гри ви отримуєте повтор в браузері,
 комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
@@ -650,7 +650,7 @@
   <string name="playOfflineComputer">Грати оффлайн з програмою</string>
   <string name="opponent">Суперник</string>
   <string name="learnMenu">Навчатися</string>
-  <string name="studyMenu">Навчання</string>
+  <string name="studyMenu">Дослідження</string>
   <string name="practice">Практика</string>
   <string name="community">Спільнота</string>
   <string name="tools">Інструменти</string>
@@ -793,7 +793,7 @@
   <string name="xHostsY">%1$s створив %2$s</string>
   <string name="xJoinsY">%1$s приєднався до %2$s</string>
   <string name="xLikesY">%1$s сподобалось %2$s</string>
-  <string name="xCreatesStudyY">%1$s створили навчання %2$s</string>
+  <string name="xCreatesStudyY">%1$s створив дослідження %2$s</string>
   <string name="quickPairing">Швидкий старт</string>
   <string name="lobby">Лобі</string>
   <string name="anonymous">Анонім</string>
