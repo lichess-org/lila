@@ -424,6 +424,7 @@
   <string name="goodMove">Жақсы жүріс</string>
   <string name="butYouCanDoBetter">Бірақ одан да әдемі жүріс бар.</string>
   <string name="bestMove">Ең күшті жүріс!</string>
+  <string name="topics">Тақырып</string>
   <string name="posts">Жазба</string>
   <string name="notes">Жазбалар</string>
   <string name="sound">Дыбыстар</string>
@@ -431,6 +432,10 @@
   <string name="community">Қауым</string>
   <string name="tools">Құралдар</string>
   <string name="onlyFriends">Тек қана достар</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s форумдағы жазба</item>
+    <item quantity="other">%s форумдағы жазба</item>
+  </plurals>
   <string name="watchGames">Ойындарын бақылау</string>
   <string name="watch">Бақылау</string>
   <string name="withFriends">Достармен</string>
@@ -446,6 +451,8 @@
   <string name="boardGeometry">Тақта пішіні</string>
   <string name="boardTheme">Тақта өңі</string>
   <string name="pieceSet">Тастар келбеті</string>
+  <string name="error.minLength">Кем дегенде %s таңба керек</string>
+  <string name="error.maxLength">%s таңбадан аспаңыз</string>
   <string name="practiceWithComputer">Компьютермен жаттығу</string>
   <string name="resumePractice">Жаттығуды жалғастыру</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
@@ -460,4 +467,6 @@
   <string name="blitzDesc">Жылдам ойындар: 3-тен 8 минутке дейін</string>
   <string name="rapidDesc">Шапшаң ойындар: 8-ден 25 минутке дейін</string>
   <string name="classicalDesc">Классикалық ойындар: 25 минут және одан артық</string>
+  <string name="subscribe">Жазылу</string>
+  <string name="unsubscribe">Жазылымды тоқтату</string>
 </resources>
