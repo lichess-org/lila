@@ -1,4 +1,4 @@
-type Board = {pieces: {[key: number]: string}, turn: boolean, k?: number, K?: number};
+type Board = {pieces: {[key: number]: string}, turn: boolean};
 
 function fixCrazySan(san: string) {
   return san[0] === 'P' ? san.slice(1) : san;
