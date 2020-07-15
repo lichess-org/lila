@@ -130,10 +130,18 @@
     <item quantity="other">%s ойыншы</item>
   </plurals>
   <string name="currentGames">Ойналып жатқан ойындар</string>
-  <string name="viewInFullSize">Толық көлемде көрсету</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s ойын</item>
+    <item quantity="other">%s ойын</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s бетбелгі</item>
+    <item quantity="other">%s бетбелгі</item>
+  </plurals>
+  <string name="viewInFullSize">Жайып көрсету</string>
   <string name="logOut">Шығу</string>
   <string name="signIn">Кіру</string>
-  <string name="youNeedAnAccountToDoThat">Бұл әрекетті орындау  үшін Сіз аккаунт тіркеуіңіз керек</string>
+  <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге аккаунт қажет</string>
   <string name="signUp">Тіркелу</string>
   <string name="computersAreNotAllowedToPlay">Бүл сайтта қомпьютер көмегін пайдаалануы тыйыс салыналы</string>
   <string name="games">Ойындар</string>
