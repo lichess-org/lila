@@ -372,8 +372,8 @@
   <string name="youAreNotInTeam">Ви не в команді %s</string>
   <string name="backToGame">Повернутися до гри</string>
   <string name="siteDescription">Безкоштовні Інтернет-шахи. Грайте в шахи зараз із чистим інтерфейсом. Без реєстрації, без реклами, без додаткових програм. Грайте в шахи з комп\'ютером, друзями або випадковими суперниками.</string>
-  <string name="xJoinedTeamY">%1$s приєдналися до команди %2$s</string>
-  <string name="xCreatedTeamY">%1$s створили команду %2$s</string>
+  <string name="xJoinedTeamY">%1$s приєднався до команди %2$s</string>
+  <string name="xCreatedTeamY">%1$s створив команду %2$s</string>
   <string name="xStartedStreaming">%s почав трансляцію</string>
   <string name="averageElo">Середній рейтинг</string>
   <string name="location">Місцезнаходження</string>
@@ -388,7 +388,7 @@
   <string name="continueFromHere">Продовжити звідси</string>
   <string name="toStudy">Дослідження</string>
   <string name="importGame">Імпортувати гру</string>
-  <string name="importGameExplanation">При вставці PGN-гри ви отримуєте повтор в браузері,
+  <string name="importGameExplanation">Вставте PGN гри щоб отримати повтор в браузері,
 комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s імпортована гра</item>
@@ -398,17 +398,17 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Це — шахова капча.</string>
   <string name="clickOnTheBoardToMakeYourMove">Натисніть на дошці, щоб зробити хід і довести, що ви людина.</string>
-  <string name="captcha.fail">Будь-ласка, вирішіть шахову капчу.</string>
-  <string name="notACheckmate">Не мат</string>
-  <string name="whiteCheckmatesInOneMove">Білі починають і матують в один хід</string>
-  <string name="blackCheckmatesInOneMove">Чорні починають і матують в один хід</string>
+  <string name="captcha.fail">Будь ласка, вирішіть шахову капчу.</string>
+  <string name="notACheckmate">Це не мат</string>
+  <string name="whiteCheckmatesInOneMove">Білі ставлять мат в один хід</string>
+  <string name="blackCheckmatesInOneMove">Чорні ставлять мат в один хід</string>
   <string name="retry">Спробуйте ще</string>
   <string name="reconnecting">Повторне підключення</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s друг у мережі</item>
-    <item quantity="few">%s друзів у мережі</item>
+    <item quantity="few">%s друга у мережі</item>
     <item quantity="many">%s друзів у мережі</item>
-    <item quantity="other">%s друзів онлайн</item>
+    <item quantity="other">%s друзів у мережі</item>
   </plurals>
   <string name="noFriendsOnline">Немає друзів онлайн</string>
   <string name="findFriends">Знайти друзів</string>
