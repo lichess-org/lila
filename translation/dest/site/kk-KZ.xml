@@ -230,9 +230,9 @@
   <string name="rematchOfferSentWhite">Ақ қайта ойнауды сұрайды</string>
   <string name="rematchOfferSentBlack">Қара қайта ойнауды сұрайды</string>
   <string name="rematchOfferAccepted">Қайта ойнауға келісті</string>
-  <string name="rematchOfferCanceled">Қайта ойнаудан бас тартты</string>
+  <string name="rematchOfferCanceled">Қайта ойнау сұранысы тоқтатылды</string>
   <string name="rematchOfferDeclined">Қайта ойнауға келіспеді</string>
-  <string name="cancelRematchOffer">Revansh týraly usynysty boldyrmaý</string>
+  <string name="cancelRematchOffer">Қайта ойнау сұранысын тоқтату</string>
   <string name="viewRematch">Qaraý mach-revansh</string>
   <string name="confirmMove">Жылжуды растаңыз</string>
   <string name="play">Ойнау</string>
