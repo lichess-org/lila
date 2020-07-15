@@ -248,14 +248,14 @@
   <string name="bookmarkThisGame">Бұл ойынды бетбелгіге сақтаңыз</string>
   <string name="tournament">Жарыс</string>
   <string name="tournaments">Týrnırler</string>
-  <string name="tournamentPoints">Týrnır upaılary</string>
+  <string name="tournamentPoints">Жарыс ұпайы</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s týrnırlik upaılardan</item>
-    <item quantity="other">%s týrnırlik upaılardan</item>
+    <item quantity="one">%s жарыс ұпайы</item>
+    <item quantity="other">%s жарыс ұпайы</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s оқу</item>
-    <item quantity="other">%s оқулар</item>
+    <item quantity="one">%s оқу жұмысы</item>
+    <item quantity="other">%s оқу жұмысы</item>
   </plurals>
   <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="backToTournament">Týrnırge oralaıyq</string>
@@ -424,6 +424,7 @@
   <string name="goodMove">Жақсы жүріс</string>
   <string name="butYouCanDoBetter">Бірақ одан да әдемі жүріс бар.</string>
   <string name="bestMove">Ең күшті жүріс!</string>
+  <string name="posts">Жазба</string>
   <string name="notes">Жазбалар</string>
   <string name="sound">Дыбыстар</string>
   <string name="learnMenu">Үйрену</string>
