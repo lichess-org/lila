@@ -154,13 +154,21 @@
   <string name="today">Бүгін</string>
   <string name="yesterday">Кеше</string>
   <string name="minutesPerSide">Әр түске берілген уақыт</string>
-  <string name="variant">Нусқа</string>
-  <string name="variants">Нұсқалар</string>
-  <string name="timeControl">Шектелген уақыт</string>
+  <string name="variant">Түрі</string>
+  <string name="variants">Түрі</string>
+  <string name="timeControl">Уақыт өлшемі</string>
   <string name="realTime">Шынайы уақытта ойнау</string>
   <string name="correspondence">Хат алмасып ойнау</string>
   <string name="daysPerTurn">Бір жүріске қанша күн</string>
   <string name="oneDay">Бір күн</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s күн</item>
+    <item quantity="other">%s күн</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s сағат</item>
+    <item quantity="other">%s сағат</item>
+  </plurals>
   <string name="time">уақыт</string>
   <string name="rating">Рейтинг</string>
   <string name="ratingStats">Рейтинг статистикасы</string>
