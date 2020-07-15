@@ -146,14 +146,14 @@
   <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат програмдарын, дереккөздерін не басқа ойыншының көмегін пайдаланбаңыз. Сонымен қатар бірнеше аккаунт жасауды қолдамаймыз, тым көп аккаунт жасауыңыз сізді шектеуге шалдықтырады.</string>
   <string name="games">Ойындар</string>
   <string name="forum">Форум</string>
-  <string name="xPostedInForumY">%1$s мақалада жарияланған %2$s</string>
+  <string name="xPostedInForumY">%1$s %2$s мақаласында жазды</string>
   <string name="latestForumPosts">Форумдағы кейінгі жазбалар</string>
   <string name="players">Ойыншылар</string>
-  <string name="friends">Достарың</string>
+  <string name="friends">Достарыңыз</string>
   <string name="discussions">Сұхбаттар</string>
   <string name="today">Бүгін</string>
   <string name="yesterday">Кеше</string>
-  <string name="minutesPerSide">Әрбір түске берілген уақыт</string>
+  <string name="minutesPerSide">Әр түске берілген уақыт</string>
   <string name="variant">Нусқа</string>
   <string name="variants">Нұсқалар</string>
   <string name="timeControl">Шектелген уақыт</string>
