@@ -190,7 +190,7 @@
   <string name="playingRightNow">Ойын жүруде</string>
   <string name="eventInProgress">Тап қазір ойнау</string>
   <string name="finished">Аяқталды</string>
-  <string name="finishesX">%s aıaqtaıdy</string>
+  <string name="finishesX">аяқталуына %s қалды</string>
   <string name="abortGame">Ойынды болдырмау</string>
   <string name="gameAborted">Ойын жойылды</string>
   <string name="standard">Классикалық</string>
