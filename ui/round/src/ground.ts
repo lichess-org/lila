@@ -73,7 +73,8 @@ export function makeConfig(ctrl: RoundController): Config {
       enabled: data.pref.moveEvent !== 1
     },
     drawable: {
-      enabled: true
+      enabled: true,
+      defaultSnapToValidMove: (window.lichess.storage.get('arrow.snap') || 1) != '0'
     },
     disableContextMenu: true
   };

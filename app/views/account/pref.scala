@@ -143,7 +143,11 @@ object pref {
             setting(
               inputMovesWithTheKeyboard(),
               radios(form("behavior.keyboardMove"), booleanChoices)
-            )
+            ),
+            setting(
+              "Snap arrows to valid moves",
+              radios(form("behavior.arrowSnap"), booleanChoices)
+            )(cls := "arrow-snap")
           ),
           categFieldset(PrefCateg.Privacy, categ)(
             setting(

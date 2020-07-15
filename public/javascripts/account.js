@@ -1,5 +1,7 @@
 $(function() {
 
+  const arrowSnapStore = lichess.storage.make('arrow.snap');
+
   $('.security table form').submit(function() {
     $.post($(this).attr('action'));
     $(this).parent().parent().fadeOut(300, function() { $(this).remove(); });
@@ -7,14 +9,21 @@ $(function() {
   });
 
   $('form.autosubmit').each(function() {
-    var $form = $(this);
+    const $form = $(this);
+    const showSaved = () => $form.find('.saved').fadeIn();
     $form.find('input').change(function() {
+      if (this.name == 'behavior.arrowSnap') {
+        arrowSnapStore.set(this.value);
+        showSaved();
+      }
       const cfg = lichess.formAjax($form);
-      cfg.success = function() {
-        $form.find('.saved').fadeIn();
+      cfg.success = () => {
+        showSaved();
         lichess.storage.fire('reload-round-tabs');
       };
       $.ajax(cfg);
     });
   });
+
+  $(`#irbehavior_arrowSnap_${arrowSnapStore.get() || 1}`).prop('checked', true);
 });

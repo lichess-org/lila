@@ -69,7 +69,8 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     },
     drawable: {
       enabled: !ctrl.embed,
-      eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice
+      eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice,
+      defaultSnapToValidMove: (window.lichess.storage.get('arrow.snap') || 1) != '0'
     },
     highlight: {
       lastMove: pref.highlight,
