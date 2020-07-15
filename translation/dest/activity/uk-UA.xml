@@ -34,9 +34,9 @@
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Зроблено %1$s хід</item>
-    <item quantity="few">Зіграно %1$s ходи</item>
-    <item quantity="many">Зіграно %1$s ходів</item>
-    <item quantity="other">Зіграно %1$s ходів</item>
+    <item quantity="few">Зроблено %1$s ходи</item>
+    <item quantity="many">Зроблено %1$s ходів</item>
+    <item quantity="other">Зроблено %1$s ходів</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">у %1$s грі за листуванням</item>
