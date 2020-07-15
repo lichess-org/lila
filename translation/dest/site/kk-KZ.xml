@@ -102,7 +102,7 @@
   <string name="delete">Жою</string>
   <string name="deleteThisImportedGame">Бұл импортталған ойын жойылсын ба?</string>
   <string name="replayMode">Қайталап көру тәртіптемесі</string>
-  <string name="realtimeReplay">Шын уақыт</string>
+  <string name="realtimeReplay">Өз қарқыны</string>
   <string name="byCPL">CPL тілі арқылы</string>
   <string name="openStudy">Ойын бастамасын зерделеу</string>
   <string name="enable">Қол жетімді</string>
@@ -166,8 +166,8 @@
   <string name="rank">Деңгей</string>
   <string name="rankX">Дәреже: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Reıtıń ár mınýt saıyn jańartylady</item>
-    <item quantity="other">Reıtıń ár %s mınýt saıyn jańartylady</item>
+    <item quantity="one">Дәреже әр минут сайын жаңартылады</item>
+    <item quantity="other">Дәреже әр %s минут сайын жаңартылады</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s basqatyrǵysh</item>
@@ -215,7 +215,7 @@
   <string name="inbox">Хаттар</string>
   <string name="chatRoom">Сөйлесу бөлмесі</string>
   <string name="loginToChat">Suhbat kirý</string>
-  <string name="youHaveBeenTimedOut">Siz taım-aýt boldy.</string>
+  <string name="youHaveBeenTimedOut">Сізге шектеу қолданылды.</string>
   <string name="spectatorRoom">Kórermender bólmesi</string>
   <string name="composeMessage">Хат жазу</string>
   <string name="noNewMessages">Eshqandaı jańa habarlamalar</string>
@@ -454,6 +454,6 @@
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
   <string name="bulletDesc">Аса жылдам ойындар: 3 минуттан кем</string>
   <string name="blitzDesc">Жылдам ойындар: 3-тен 8 минутке дейін</string>
-  <string name="rapidDesc">Рапид ойындары: 8-ден 25 минутке дейін</string>
+  <string name="rapidDesc">Шапшаң ойындар: 8-ден 25 минутке дейін</string>
   <string name="classicalDesc">Классикалық ойындар: 25 минут және одан артық</string>
 </resources>
