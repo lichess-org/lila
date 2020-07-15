@@ -181,27 +181,31 @@
   <string name="changePassword">Құпиясөзді өзгерту</string>
   <string name="changeEmail">Поштаны ауыстыру</string>
   <string name="email">Пошта</string>
-  <string name="passwordReset">Құпиясөзді жою</string>
-  <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
-  <string name="rank">Деңгей</string>
-  <string name="rankX">Дәреже: %s</string>
+  <string name="passwordReset">Құпиясөзді қайта орнату</string>
+  <string name="forgotPassword">Құпиясөзді ұмыттыңыз ба?</string>
+  <string name="rank">Орын</string>
+  <string name="rankX">Орын: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Дәреже әр минут сайын жаңартылады</item>
-    <item quantity="other">Дәреже әр %s минут сайын жаңартылады</item>
+    <item quantity="one">Орын әр минут сайын жаңартылады</item>
+    <item quantity="other">Орын әр %s минут сайын жаңартылады</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s basqatyrǵysh</item>
-    <item quantity="other">%s basqatyrǵyshs</item>
+    <item quantity="one">%s жұмбақ</item>
+    <item quantity="other">%s жұмбақ</item>
   </plurals>
-  <string name="gamesPlayed">Ойындар ойналған</string>
-  <string name="cancel">Жабу</string>
+  <string name="gamesPlayed">Ойналған ойындар</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">Сізбен %s ойын</item>
+    <item quantity="other">Сізбен %s ойын</item>
+  </plurals>
+  <string name="cancel">Болдыртпау</string>
   <string name="timeOut">Уақыт бітті</string>
   <string name="drawOfferSent">Тепе-теңдік сұрауда</string>
   <string name="drawOfferDeclined">Тепе-теңдікке келіспеді</string>
   <string name="drawOfferAccepted">Тепе-теңдікке келісті</string>
   <string name="drawOfferCanceled">Тепе-теңдік сұрау тоқтатылды</string>
-  <string name="whiteOffersDraw">Ақ жақ тең ойынды ұсынды</string>
-  <string name="blackOffersDraw">Қара жақ тең ойынды ұсынды</string>
+  <string name="whiteOffersDraw">Ақ тепе-теңдік сұрауда</string>
+  <string name="blackOffersDraw">Қара тепе-теңдік сұрауда</string>
   <string name="whiteDeclinesDraw">Ақ жақ тең ойынды қабылдамады</string>
   <string name="blackDeclinesDraw">Қара жақ тең ойынды қабылдамады</string>
   <string name="yourOpponentOffersADraw">Қарсыласыңыз епе-теңдікті ұсынды</string>
