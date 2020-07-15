@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isItRated">Бұл бағаланба?</string>
+  <string name="isItRated">Бұл бағалана ма?</string>
   <string name="willBeNotified">Сіз турнир басталғанда хабардар боласыз, сондықтан күту кезінде басқа қойындыда ойнауға қауіпсіз.</string>
   <string name="isRated">Бұл турнир рейтингілік болып табылады және сіздің рейтингіңізге әсер етеді.</string>
   <string name="isNotRated">Оның турнирі * бағаланбайды және сіздің рейтингіңізге әсер етпейді.</string>

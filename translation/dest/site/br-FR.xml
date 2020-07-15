@@ -264,7 +264,7 @@
   <string name="send">Kas</string>
   <string name="incrementInSeconds">Inkremant e eilennoù</string>
   <string name="freeOnlineChess">C\'hoari echedoù enlinenn digoust</string>
-  <string name="spectators">Arvesterien:</string>
+  <string name="spectators">Arvester:</string>
   <plurals name="nbRated">
     <item quantity="one">%s c\'hoari renket</item>
     <item quantity="two">%s c\'hoari renket</item>
@@ -311,9 +311,12 @@
   </plurals>
   <string name="thisAccountViolatedTos">Perc\'henner ar gont-mañ en deus ket doujet ouzh Reolennoù Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
+  <string name="openingExplorerAndTablebase">Lañser digoradurioù &amp; taolennoù fin ar c\'hrogadoù</string>
   <string name="takeback">Nullañ ar fiñvadenn ziwezhañ</string>
   <string name="proposeATakeback">Kinnig nullañ ar fiñvadenn ziwezhañ</string>
   <string name="takebackPropositionSent">Kaset eo bet ar c\'hinnig nullañ ar fiñvadenn ziwezhañ</string>
+  <string name="takebackPropositionDeclined">Nac\'het eo bet nullañ ar fiñvadenn ziwezhañ</string>
+  <string name="takebackPropositionAccepted">Asantet eo bet nullañ ar fiñvadenn ziwezhañ</string>
   <string name="takebackPropositionCanceled">Ar c\'hinnig nullañ ar fiñvadenn ziwezhañ zo bet nullet</string>
   <string name="yourOpponentProposesATakeback">Kinnig a ra oc\'h enebour e vefe nullet ho fiñvadenn ziwezhañ</string>
   <string name="bookmarkThisGame">Miret ar c\'hrogad-mañ er roll-istor</string>
@@ -476,6 +479,8 @@
   <string name="winStreak">Trec\'hioù da heul</string>
   <string name="createdBy">Krouet gant</string>
   <string name="tournamentIsStarting">Emañ an tournamant o kregiñ</string>
+  <string name="tournamentPairingsAreNowClosed">Ne vo ket mui krogadoù nevez en tournamant-mañ.</string>
+  <string name="standByX">Gortozit ur pennadig %s, kavet e vo un enebour deoc\'h. Bezit prest!</string>
   <string name="youArePlaying">O c\'hoari emaoc\'h!</string>
   <string name="winRate">Feur trec\'h</string>
   <string name="berserkRate">Feur berserk</string>
@@ -492,8 +497,10 @@
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>
   <string name="popularOpenings">Digoradurioù ordin</string>
   <string name="clearBoard">Skarzhañ pep tra diwar an dachenn emgann</string>
+  <string name="loadPosition">Kargañ ul lec\'hiadur</string>
   <string name="isPrivate">Prevez</string>
   <string name="reportXToModerators">Diskleriañ %s d\'an habaskaerien</string>
+  <string name="profileCompletion">Feur leuniañ ar profil: %s</string>
   <string name="xRating">Renkadur %s</string>
   <string name="ifNoneLeaveEmpty">Ma n\'eus ket, laoskit goullo</string>
   <string name="gameCompletionRate">Mont a ra betek penn ar c\'hrogadoù: %s</string>
@@ -563,6 +570,7 @@
   <string name="topics">Sujedoù</string>
   <string name="posts">Kemennadennoù</string>
   <string name="lastPost">Kemennadenn ziwezhañ</string>
+  <string name="views">Gwelet</string>
   <string name="replies">Respontoù</string>
   <string name="replyToThisTopic">Respont d\'an danvez-mañ</string>
   <string name="reply">Respont</string>
@@ -687,7 +695,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">Digoust (%2$s) eo %1$s, dieub, hep bruderezh ha digor he mammenn.</string>
   <string name="really">da vat</string>
   <string name="contribute">Kenoberiañ</string>
-  <string name="termsOfService">Divizoù gwerzhañ hollek</string>
+  <string name="termsOfService">Divizoù hollek an implij</string>
   <string name="sourceCode">Boneg Tarzh</string>
   <string name="host">Ostiz</string>
   <string name="hostColorX">Liv an ostiz: %s</string>
@@ -698,7 +706,9 @@
   <string name="tournamentFAQ">FAG aren an tournamant</string>
   <string name="tournamentOfficial">Ofisiel</string>
   <string name="timeBeforeTournamentStarts">Ar pezh a chom a-raok ma krogfe an tournamant</string>
+  <string name="averageCentipawnLoss">Koll keitat e sentipawn</string>
   <string name="keyboardShortcuts">Berradennoù an douchennaoueg</string>
+  <string name="keyMoveBackwardOrForward">mont war-raok/kilañ</string>
   <string name="keyGoToStartOrEnd">mont d\'an deroù/d\'ar fin</string>
   <string name="keyShowOrHideComments">diskouez/skoachañ an evezhiadennoù</string>
   <string name="newTournament">Tournamant nevez</string>
@@ -765,6 +775,7 @@
     <item quantity="other">Gallout a reer dibab etre %s yezh!</item>
   </plurals>
   <string name="gameAnalysis">Dielfennañ ar c\'hrogad</string>
+  <string name="xHostsY">%1$s a ro bod da %2$s</string>
   <string name="xJoinsY">%1$s a gemer perzh e %2$s</string>
   <string name="xLikesY">Plijet eo %1$s gant %2$s</string>
   <string name="xCreatesStudyY">Ar studiadenn %2$s zo bet krouet gant %1$s</string>
@@ -863,6 +874,7 @@
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
   <string name="why">Perak?</string>
+  <string name="pleasantChessExperience">Plijout a rafe deomp e vourrfe pep hini c\'hoari echedoù war Lichess.</string>
   <string name="goodPractice">Evit hen ober e dav deomp bezañ sur e vez graet gant doareoù dereat gant an holl.</string>
   <string name="potentialProblem">Pa vez merzhet ar pezh a c\'hallfe bezañ ur gudenn e vez dispaket ar gemennadenn-mañ ganeomp.</string>
   <string name="howToAvoidThis">Penaos ober kuit ma c\'hoarvezfe an dra-mañ en-dro?</string>

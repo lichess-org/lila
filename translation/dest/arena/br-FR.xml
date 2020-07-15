@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="arenaTournaments">Tournamantoù Aren</string>
+  <string name="isItRated">Renket eo?</string>
+  <string name="willBeNotified">Kelaouet e veoc\'h pa grogo an tournamant ha neuze e c\'hallit c\'hoari en un ivinell all da c\'hortoz.</string>
+  <string name="isRated">Renket eo an tournamant hag kemmet e vo ho renkadur diouzh disoc\'h ho krogadoù.</string>
+  <string name="isNotRated">*Ne* vo *ket* renket an tournamant-mañ ha *ne* cheñcho *ket* ho renkadur.</string>
+  <string name="someRated">Tournamantoù zo a vo renket ha cheñch a ray ho renkadur diouzh an disoc\'hoù.</string>
+  <string name="howAreScoresCalculated">Penaos e vez kontet ar poentoù?</string>
+  <string name="berserk">Aren Berserk</string>
+  <string name="howDoesItEnd">Penaos e echu an traoù?</string>
+  <string name="otherRules">Reolennoù all a-bouez bras</string>
+  <string name="thisIsPrivate">Prevez eo an tournamant-mañ</string>
+  <string name="shareUrl">Skignit an URL-mañ da zesachañ c\'hoarierien: %s</string>
+</resources>
