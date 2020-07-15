@@ -109,9 +109,9 @@
   <string name="bestMoveArrow">Ең үздік жүріс жебесі</string>
   <string name="evaluationGauge">Бағалау мөлшері</string>
   <string name="multipleLines">Көп жолдық нұсқажолдар</string>
-  <string name="cpus">Процессорлер</string>
+  <string name="cpus">Процессор</string>
   <string name="memory">Жад</string>
-  <string name="infiniteAnalysis">Белгісіз талдау</string>
+  <string name="infiniteAnalysis">Шектеусіз талдау</string>
   <string name="removesTheDepthLimit">Тереңдік шегін алып тастап компьютеріңізді қызып тұрған ахуалында қалдыру</string>
   <string name="blunder">Өрескел қателік</string>
   <string name="blunders">өрескел қателер</string>
