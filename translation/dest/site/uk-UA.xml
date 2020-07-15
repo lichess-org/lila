@@ -419,23 +419,23 @@
   <string name="block">Блокувати</string>
   <string name="blocked">Заблокований</string>
   <string name="unblock">Розблокувати</string>
-  <string name="followsYou">Спостерігає за вами</string>
+  <string name="followsYou">Спостерігає за Вами</string>
   <string name="xStartedFollowingY">%1$s починає спостерігати за %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s спостерігачів</item>
     <item quantity="few">%s спостерігачів</item>
-    <item quantity="many">%s підписників</item>
-    <item quantity="other">%s підписників</item>
+    <item quantity="many">%s спостерігачів</item>
+    <item quantity="other">%s спостерігачів</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s спостерігає</item>
     <item quantity="few">%s спостерігає</item>
     <item quantity="many">%s спостерігають</item>
-    <item quantity="other">підписаний на %s гравців</item>
+    <item quantity="other">%s спостерігають</item>
   </plurals>
   <string name="more">Більше</string>
   <string name="memberSince">Зареєстрований</string>
-  <string name="lastSeenActive">Востаннє заходив %s</string>
+  <string name="lastSeenActive">Був в мережі %s</string>
   <string name="challengeToPlay">Виклик на гру</string>
   <string name="player">Гравець</string>
   <string name="list">Список</string>
@@ -452,12 +452,12 @@
   <string name="winner">Переможець</string>
   <string name="standing">Турнірна таблиця</string>
   <string name="createANewTournament">Створити новий турнір</string>
-  <string name="tournamentCalendar">Календар турніру</string>
-  <string name="conditionOfEntry">Умови входу:</string>
+  <string name="tournamentCalendar">Турнірний календар</string>
+  <string name="conditionOfEntry">Умови участі:</string>
   <string name="advancedSettings">Додаткові налаштування</string>
   <string name="safeTournamentName">Оберіть пристойну назву для турніру.</string>
   <string name="inappropriateNameWarning">Все, що навіть трохи виявиться недоречним, може призвести до блокування.</string>
-  <string name="emptyTournamentName">Залиште пустим, аби назвати турнір на честь випадкового гросмейстера.</string>
+  <string name="emptyTournamentName">Залиште пустим, щоб назвати турнір на честь випадкового гросмейстера.</string>
   <string name="recommendNotTouching">Ми радимо не торкатися до них.</string>
   <string name="fewerPlayers">Якщо ви встановите умови вступу, у вашому турнірі буде менше гравців.</string>
   <string name="showAdvancedSettings">Показати додаткові налаштування</string>
