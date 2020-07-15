@@ -3,7 +3,7 @@
   <string name="learnChess">Вчіться шахам</string>
   <string name="byPlaying">граючи!</string>
   <string name="menu">Меню</string>
-  <string name="progressX">Поступ: %s</string>
+  <string name="progressX">Прогрес: %s</string>
   <string name="resetMyProgress">Скинути прогрес</string>
   <string name="youWillLoseAllYourProgress">Весь ваш прогрес буде втрачено!</string>
   <string name="play">грати!</string>
@@ -13,15 +13,13 @@
   <string name="rookIntro">Тура — це важка фігура. Чи готові ви керувати нею?</string>
   <string name="rookGoal">Натисніть на туру й доведіть її до зірки!</string>
   <string name="grabAllTheStars">Зберіть всі зірки!</string>
-  <string name="theFewerMoves">Чим менше ходів ви зробите, тим більше очок ви отримаєте!</string>
+  <string name="theFewerMoves">Чим менше ходів Ви зробите, тим більше очок ви отримаєте!</string>
   <string name="useTwoRooks">Використовуйте дві тури, аби прискорити процес!</string>
   <string name="rookComplete">Вітаємо! Ви навчилися ходити турою.</string>
   <string name="theBishop">Слон</string>
   <string name="itMovesDiagonally">Переміщається діагоналями</string>
   <string name="bishopIntro">Далі ми навчимося ходити слоном!</string>
-  <string name="youNeedBothBishops">Один білопольний стрільеь,
-один чорнопольний стрілець.
-Потребуєш їх оба!</string>
+  <string name="youNeedBothBishops">Поля білого кольору контролює один слон, поля чорного кольору — інший. Вам потрібні обидва слона!</string>
   <string name="bishopComplete">Вітаємо! Ви навчилися ходити слоном.</string>
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = тура + слон</string>
@@ -35,10 +33,10 @@
   <string name="kingComplete">Ви навчилися ходити королем!</string>
   <string name="theKnight">Кінь</string>
   <string name="itMovesInAnLShape">Він ходить літерою «Г»</string>
-  <string name="knightIntro">Ось вам виклик. Кінь є… хитрою постаттю.</string>
+  <string name="knightIntro">Ось вам виклик. Кінь... хитра фігура.</string>
   <string name="knightsHaveAFancyWay">Коні мають химерний спосіб перестрибувати!</string>
   <string name="knightsCanJumpOverObstacles">Коні можуть стрибати через перешкоди!
-Виберися та збери всі зірки!</string>
+Виберіться та зберіть всі зірки!</string>
   <string name="knightComplete">Вітаємо! Ви освоїли фігуру \"Кінь\".</string>
   <string name="thePawn">Пішак</string>
   <string name="itMovesForwardOnly">Ходить лише вперед</string>
@@ -46,12 +44,12 @@
   <string name="pawnsMoveOneSquareOnly">Пішаки ходять тільки на одну клітинку вперед. Але досягнувши іншого кінця дошки, вони перетворюються на сильну фігуру!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">У більшості випадку пішака краще перетворити на ферзя. Але іноді перетворення в коня може бути вигідніше!</string>
   <string name="pawnsMoveForward">Пішаки рухаються вперед, але б\'ють по діагоналях!</string>
-  <string name="captureThenPromote">Побий, а потім підвищ!</string>
-  <string name="useAllThePawns">Зруши всіх пішаків!
-Немає потреби підвищувати.</string>
+  <string name="captureThenPromote">Побийте, потім перетворіться!</string>
+  <string name="useAllThePawns">Використовуйте всіх пішаків!
+Необов\'язково їх перетворювати.</string>
   <string name="aPawnOnTheSecondRank">Пішак на другому ряду може ходити на два поля за хід!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Збери всі зірки!
-Без потреби підвищувати.</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Зберіть всі зірки!
+Необов\'язково перетворювати пішки</string>
   <string name="pawnComplete">Вітаємо! У пішаків немає секретів для вас.</string>
   <string name="pawnPromotion">Перетворення пішака</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваш пішак досяг краю дошки!</string>

@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="youCanPasteThisInTheForumToEmbed">Сіз бұны енгізу үшін форумға қоя аласыз</string>
+  <string name="startAtInitialPosition">Бастапқы күйден бастаңыз</string>
+  <string name="xBroughtToYouByY">%1$s, оны сізге %2$s ұсынды</string>
+</resources>
