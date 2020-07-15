@@ -329,7 +329,7 @@
   <string name="blocked">Блоктар</string>
   <string name="unblock">Бұғаттан шығару</string>
   <string name="followsYou">%s Сізге жазылды</string>
-  <string name="xStartedFollowingY">%1$s, %2$s Ілесті</string>
+  <string name="xStartedFollowingY">%1$s %2$s серігі болды</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s серік</item>
     <item quantity="other">%s серік</item>
@@ -433,7 +433,7 @@
   <string name="watchGames">Ойындарын бақылау</string>
   <string name="watch">Бақылау</string>
   <string name="withFriends">Достармен</string>
-  <string name="followAndChallengeFriends">Достарыңызға ілесіп, ойынға шақырыңыз</string>
+  <string name="followAndChallengeFriends">Достарыңызға серік болып, ойынға шақыру</string>
   <string name="quickPairing">Қалыптар</string>
   <string name="lobby">Алаң</string>
   <string name="yourScore">Жетістігіңіз: %s</string>
