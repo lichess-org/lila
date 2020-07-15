@@ -25,22 +25,20 @@ function isBlack(p: string) {
 }
 
 function readFen(fen: string) {
-  var parts = fen.split(' ');
-  var board: Board = {
+  const parts = fen.split(' '),
+  board: Board = {
     pieces: {},
     turn: parts[1] === 'w'
   };
 
-  parts[0].split('/').slice(0, 8).forEach(function(row, y) {
-    var x = 0;
-    row.split('').forEach(function(v) {
+  parts[0].split('/').slice(0, 8).forEach((row, y) => {
+    let x = 0;
+    row.split('').forEach(v => {
       if (v == '~') return;
-      var nb = parseInt(v, 10);
+      const nb = parseInt(v, 10);
       if (nb) x += nb;
       else {
-        var square = (7 - y) * 8 + x;
-        board.pieces[square] = v;
-        if (v === 'k' || v === 'K') board[v] = square;
+        board.pieces[(7 - y) * 8 + x] = v;
         x++;
       }
     });
