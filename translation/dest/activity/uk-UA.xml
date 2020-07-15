@@ -16,9 +16,9 @@
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Вирішено %s тактичний пазл</item>
-    <item quantity="few">Вирішено %s тактичні пазли</item>
-    <item quantity="many">Вирішено %s тактичних пазлів</item>
-    <item quantity="other">Вирішені %s тактичних пазлів</item>
+    <item quantity="few">Вирішено %s тактичні задачі</item>
+    <item quantity="many">Вирішено %s тактичних задач</item>
+    <item quantity="other">Вирішені %s тактичні задачі</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Зіграно %1$s гру в %2$s</item>
@@ -39,15 +39,15 @@
     <item quantity="other">Зіграно %1$s ходів</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">у %1$s заочній грі</item>
-    <item quantity="few">у %1$s заочних іграх</item>
-    <item quantity="many">у %1$s заочних іграх</item>
-    <item quantity="other">у %1$s заочних ігор</item>
+    <item quantity="one">у %1$s грі за листуванням</item>
+    <item quantity="few">у %1$s іграх за листуванням</item>
+    <item quantity="many">у %1$s іграх за листуванням</item>
+    <item quantity="other">у %1$s іграх за листуванням</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Зіграно %s гру за листуванням</item>
-    <item quantity="few">Зіграно %s заочні гри</item>
-    <item quantity="many">Зіграно %s заочних ігор</item>
+    <item quantity="few">Зіграно %s гри за листуванням</item>
+    <item quantity="many">Зіграно %s ігор за листуванням</item>
     <item quantity="other">Зіграно %s заочних ігор</item>
   </plurals>
   <plurals name="followedNbPlayers">
