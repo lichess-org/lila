@@ -143,9 +143,9 @@
   <string name="signIn">Кіру</string>
   <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге аккаунт қажет</string>
   <string name="signUp">Тіркелу</string>
-  <string name="computersAreNotAllowedToPlay">Бүл сайтта қомпьютер көмегін пайдаалануы тыйыс салыналы</string>
+  <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат програмдарын, дереккөздерін не басқа ойыншының көмегін пайдаланбаңыз. Сонымен қатар бірнеше аккаунт жасауды қолдамаймыз, тым көп аккаунт жасауыңыз сізді шектеуге шалдықтырады.</string>
   <string name="games">Ойындар</string>
-  <string name="forum">Талқылау</string>
+  <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s мақалада жарияланған %2$s</string>
   <string name="latestForumPosts">Форумдағы кейінгі жазбалар</string>
   <string name="players">Ойыншылар</string>
