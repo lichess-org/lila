@@ -18,9 +18,9 @@
   <string name="addNewChapter">Додати новий розділ</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Розділ</item>
-    <item quantity="few">%s розділи</item>
-    <item quantity="many">%s розділів</item>
-    <item quantity="other">%s розділа</item>
+    <item quantity="few">%s Розділи</item>
+    <item quantity="many">%s Розділів</item>
+    <item quantity="other">%s Розділів</item>
   </plurals>
   <plurals name="nbGames">
     <item quantity="one">%s гра</item>
@@ -117,7 +117,7 @@
   <string name="createStudy">Створити дослідження</string>
   <string name="editStudy">Редагування дослідження</string>
   <string name="visibility">Видимість</string>
-  <string name="public">Загальнодоступне</string>
+  <string name="public">Публічне</string>
   <string name="unlisted">Поза списком</string>
   <string name="inviteOnly">Лише за запрошенням</string>
   <string name="allowCloning">Дозволити клонування</string>
