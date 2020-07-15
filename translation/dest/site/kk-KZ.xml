@@ -449,6 +449,7 @@
   <string name="resumePractice">Жаттығуды жалғастыру</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
   <string name="playX">%s жүріңіз</string>
+  <string name="timeoutExpires">Жазаңыздың аяқталуына %s қалды.</string>
   <string name="goodPractice">Сондықтан барлық ойыншылар оң тәжірибе алсын деп талпынудамыз.</string>
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
 </resources>
