@@ -97,12 +97,12 @@
     <item quantity="many">Наступне захоплення або хід пішаком в %s ході сторін (Дистанція до 50-го ходу)</item>
     <item quantity="other">Наступне захоплення або хід пішаком в %s ходах сторін (Дистанція до 50-го ходу)</item>
   </plurals>
-  <string name="noGameFound">Ігор не знайдено</string>
+  <string name="noGameFound">Партій не знайдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
-  <string name="openingExplorer">Перегляд дебютів</string>
+  <string name="openingExplorer">Провідник дебютів</string>
   <string name="xOpeningExplorer">Провідник дебюту %s</string>
   <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
-  <string name="lossSavedBy50MoveRule">Поразку врятовано правилом 50-го ходу</string>
+  <string name="lossSavedBy50MoveRule">Поразку попереджено правилом 50-го ходу</string>
   <string name="allSet">Все готово!</string>
   <string name="importPgn">Імпорт PGN</string>
   <string name="delete">Видалити</string>
