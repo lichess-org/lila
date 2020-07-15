@@ -267,21 +267,21 @@
   <string name="noNewMessages">Повідомлення відсутні</string>
   <string name="subject">Тема</string>
   <string name="recipient">Одержувач</string>
-  <string name="send">Відправити</string>
+  <string name="send">Надіслати</string>
   <string name="incrementInSeconds">Приріст на хід у секундах</string>
   <string name="freeOnlineChess">Безкоштовні Інтернет-шахи</string>
   <string name="spectators">Глядачі:</string>
   <plurals name="nbRated">
     <item quantity="one">%s рейтингова</item>
-    <item quantity="few">%s рейтингова</item>
-    <item quantity="many">%s рейтингова</item>
-    <item quantity="other">%s за рейтингом</item>
+    <item quantity="few">%s рейтингові</item>
+    <item quantity="many">%s рейтингових</item>
+    <item quantity="other">%s рейтингових</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s перемога</item>
-    <item quantity="few">%s перемога</item>
-    <item quantity="many">%s перемога</item>
-    <item quantity="other">%s виграно</item>
+    <item quantity="few">%s перемоги</item>
+    <item quantity="many">%s перемог</item>
+    <item quantity="other">%s перемог</item>
   </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s поразка</item>
@@ -310,7 +310,7 @@
     <item quantity="other">Додати %s секунд</item>
   </plurals>
   <string name="thisAccountViolatedTos">Цей обліковий запис порушив умови використання Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно збільшує свій рейтинг</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно збільшує/зменшує свій рейтинг</string>
   <string name="openingExplorerAndTablebase">Відкриваємо провідник &amp; таблицю бази</string>
   <string name="takeback">Повернення ходу</string>
   <string name="proposeATakeback">Запропонувати повернути хід</string>
