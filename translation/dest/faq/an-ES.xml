@@ -128,7 +128,7 @@
 
   Ye millor pensar en as puntuacions como figuras \"relativas\" (a diferencia de las \"figuras absolutas\"): dentro d\'un conchunto de chugadors, las suyas diferencias relativas en as puntuacions t\'aduyarán a estimar quí gana/empata/pierde, y con qué freqüencia. Decir \"tiengo puntuación X\" no significa cosa de no estar que i haiga atros chugadors a los quals comparar ixa puntuación.</string>
   <string name="howToHideRatingWhilePlaying">Cómo amagar los míos puntajes entre las partidas?</string>
-  <string name="enableZenMode">Habilita lo modo Zen en %1$chus presionando %2$s entre una partida.</string>
+  <string name="enableZenMode">Habilita lo modo Zen en %1$s chus presionando %2$s entre una partida.</string>
   <string name="displayPreferences">preferencias de visualización</string>
   <string name="connexionLostCanIGetMyRatingBack">He perdiu un chuego a causa d\'un retardo/desconnexión. Puedo recuperar los míos puntajes?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadament, no podemos tornar puntajes pa las partidas perdidas a causa de retardo u desconnexión, independientment de si lo problema yera d\'o tuyo costau u d\'o nuestro. Manimenos, esto zaguer ye muito raro. Tamién tiene en cuenta que quan Lichess se reinicia y pierdes lo tiempo a causa d\'ixo, abortamos lo chuego pa aprevenir una redota inchusta.</string>
