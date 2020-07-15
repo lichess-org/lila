@@ -884,15 +884,15 @@
   <string name="yourXRatingIsTooFarFromY">Ваш рейтинг %1$s дуже далекий від %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Неможливо через недостовірність рейтингу %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s приймає виклики тільки від друзів.</string>
-  <string name="conditionalPremoves">Умовні предходи</string>
+  <string name="conditionalPremoves">Умовні ходи на випередження</string>
   <string name="addCurrentVariation">Додати поточний варіант</string>
-  <string name="playVariationToCreateConditionalPremoves">Виконайте ходи на шахівниці, аби встановити умовні предходи</string>
-  <string name="noConditionalPremoves">Безумовні передходи</string>
+  <string name="playVariationToCreateConditionalPremoves">Виконайте ходи на шахівниці, щоб встановити умовні ходи на випередження</string>
+  <string name="noConditionalPremoves">Безумовні ходи на випередження</string>
   <string name="playX">Зіграти %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">і зберегти %s послідовність</item>
     <item quantity="few">і зберегти %s послідовності</item>
-    <item quantity="many">і зберегти %s послідовності</item>
+    <item quantity="many">і зберегти %s послідовностей</item>
     <item quantity="other">і зберегти %s послідовностей</item>
   </plurals>
   <string name="sorry">Вибачте :(</string>
@@ -901,7 +901,7 @@
   <string name="why">Чому?</string>
   <string name="pleasantChessExperience">Ми хочемо, щоб усім було приємно грати у нас в шахи.</string>
   <string name="goodPractice">Щоб домігтися цього ефекту, ми повинні впевнитися, що всі гравці добре поводяться.</string>
-  <string name="potentialProblem">Це повідомлення відображається якщо ми знайшли потенційну проблему.</string>
+  <string name="potentialProblem">Якщи ми знайшли потенційну проблему, ми відображаємо це повідомлення.</string>
   <string name="howToAvoidThis">Як цього уникнути?</string>
   <string name="playEveryGame">Якщо почали грати, догравайте до кінця.</string>
   <string name="tryToWin">Грайте завжди на перемогу (чи принаймні на нічию).</string>
@@ -909,7 +909,7 @@
   <string name="temporaryInconvenience">Ми вибачаємося за тимчасові незручності,</string>
   <string name="wishYouGreatGames">і бажаємо чудових ігор на lichess.org.</string>
   <string name="thankYouForReading">Дякуємо, що прочитали!</string>
-  <string name="lifetimeScore">Загальний результат</string>
+  <string name="lifetimeScore">Рахунок за весь час</string>
   <string name="currentMatchScore">Поточний рахунок матчу</string>
   <string name="agreementAssistance">Я погоджуюся, що не буду отримувати допомогу під час моїх ігор (від шахового комп\'ютера, книги, бази даних або іншої особи).</string>
   <string name="agreementNice">Я погоджуюся, що я завжди буду ставитись чемно до інших гравців.</string>
