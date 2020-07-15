@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Активність</string>
-  <string name="hostedALiveStream">Запустив стрім</string>
+  <string name="hostedALiveStream">Проведено пряму трансляцію</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Підтримує lichess.org протягом %1$s місяця як %2$s</item>
     <item quantity="few">Підтримує lichess.org протягом %1$s місяців як %2$s</item>
