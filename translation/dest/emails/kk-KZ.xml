@@ -7,5 +7,8 @@
   <string name="passwordReset_intro">Бізге аккаунтыңыздың кұпиясөзін қайта орнату туралы тапсырыс келді.</string>
   <string name="passwordReset_clickOrIgnore">Егер бұл тапсырысты сіз жіберсеңіз, төмендегі сілтемеге басыңыз. Кері жағдайда, осы хатты назарсыз қалдырсаңыз болады.</string>
   <string name="emailChange_subject">%s, жаңа поштаңызды растаңыз</string>
+  <string name="emailChange_intro">Сіз поштаңызды өзгертуге тапсырыс жіберген едіңіз.</string>
+  <string name="emailChange_click">Сол поштаға кіруге сізде рұқсат бар екенін растау үшін төмендегі сілтемеге басыңыз:</string>
+  <string name="welcome_subject">%s, Личес-ке қош келдіңіз</string>
   <string name="common_contact">Бізбен байланысу сілтемесі - %s.</string>
 </resources>
