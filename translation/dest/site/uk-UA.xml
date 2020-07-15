@@ -678,10 +678,10 @@
     <item quantity="other">%s повідомлення на форумі</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Проведено часу у грі: %s</string>
-  <string name="watchGames">Перегляд партій</string>
-  <string name="tpTimeSpentOnTV">Час на ТБ: %s</string>
+  <string name="watchGames">Дивитись ігри</string>
+  <string name="tpTimeSpentOnTV">Час на TV: %s</string>
   <string name="watch">Перегляд</string>
-  <string name="videoLibrary">Відеоархів</string>
+  <string name="videoLibrary">Відеотека</string>
   <string name="streamersMenu">Стрімери</string>
   <string name="mobileApp">Мобільний додаток</string>
   <string name="webmasters">Розробникам</string>
@@ -689,9 +689,9 @@
   <string name="aboutX">Про %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є безкоштовним (%2$s), шаховим сервером з відкритим кодом без реклами.</string>
   <string name="really">дійсно</string>
-  <string name="contribute">Допомога проекту</string>
+  <string name="contribute">Сприяти розвитку</string>
   <string name="termsOfService">Умови користування</string>
-  <string name="sourceCode">Початковий програмний код</string>
+  <string name="sourceCode">Вихідний код</string>
   <string name="simultaneousExhibitions">Сеанси одночасної гри</string>
   <string name="host">Сеансер</string>
   <string name="hostColorX">Колір організатора: %s</string>
