@@ -281,7 +281,7 @@ final private[round] class RoundDuct(
 
     case ResignForce(playerId) =>
       handle(playerId) { pov =>
-        (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn && pov.forceResignable && pov.game.bothPlayersHaveMoved) ?? {
+        (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn) ?? {
           getPlayer(!pov.color).isLongGone flatMap {
             case true =>
               finisher.rageQuit(
