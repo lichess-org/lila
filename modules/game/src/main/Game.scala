@@ -369,7 +369,7 @@ case class Game(
 
   def resignable      = playable && !abortable
   def drawable        = playable && !abortable
-  def forceResignable = resignable && nonAi && !fromFriend && hasClock
+  def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss
 
   def finish(status: Status, winner: Option[Color]) = {
     val newClock = clock map { _.stop }
