@@ -452,4 +452,8 @@
   <string name="timeoutExpires">Жазаңыздың аяқталуына %s қалды.</string>
   <string name="goodPractice">Сондықтан барлық ойыншылар оң тәжірибе алсын деп талпынудамыз.</string>
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
+  <string name="bulletDesc">Аса жылдам ойындар: 3 минуттан кем</string>
+  <string name="blitzDesc">Жылдам ойындар: 3-тен 8 минутке дейін</string>
+  <string name="rapidDesc">Рапид ойындары: 8-ден 25 минутке дейін</string>
+  <string name="classicalDesc">Классикалық ойындар: 25 минут және одан артық</string>
 </resources>
