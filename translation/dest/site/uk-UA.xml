@@ -311,7 +311,7 @@
   </plurals>
   <string name="thisAccountViolatedTos">Цей обліковий запис порушив умови використання Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно збільшує/зменшує свій рейтинг</string>
-  <string name="openingExplorerAndTablebase">Відкриваємо провідник &amp; таблицю бази</string>
+  <string name="openingExplorerAndTablebase">Провідник дебютів &amp; ендшпілів</string>
   <string name="takeback">Повернення ходу</string>
   <string name="proposeATakeback">Запропонувати повернути хід</string>
   <string name="takebackPropositionSent">Пропозицію повернути хід відправлено</string>
@@ -340,7 +340,7 @@
   <string name="thematic">Тематичний</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">%s рейтингова гра</item>
-    <item quantity="few">≥ %s рейтингових ігор</item>
+    <item quantity="few">≥ %s рейтингові гри</item>
     <item quantity="many">≥ %s рейтингових ігор</item>
     <item quantity="other">≥ %s рейтингових ігор</item>
   </plurals>
@@ -358,14 +358,14 @@
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Ви повинні зіграти ще %s рейтингову гру</item>
-    <item quantity="few">Ви повинні зіграти ще %s рейтингових гри</item>
+    <item quantity="few">Ви повинні зіграти ще %s рейтингові гри</item>
     <item quantity="many">Ви повинні зіграти ще %s рейтингових ігор</item>
     <item quantity="other">Ви повинні зіграти ще %s рейтингових ігор</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Ваш попередній рейтинг: %s</string>
-  <string name="yourPerfRatingIsTooHigh">Ваш рейтинг у %1$s (%2$s) дуже високий</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш щотижневий рейтинг %1$s рейтинг (%2$s) дуже високий</string>
-  <string name="yourPerfRatingIsTooLow">Ваш рейтинг у %1$s (%2$s) надто низький</string>
+  <string name="yourPerfRatingIsProvisional">Ваш рейтинг %s є умовним</string>
+  <string name="yourPerfRatingIsTooHigh">Ваш рейтинг у %1$s (%2$s) занадто високий</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш щотижневий рейтинг %1$s (%2$s) занадто високий</string>
+  <string name="yourPerfRatingIsTooLow">Ваш рейтинг у %1$s (%2$s) занадто низький</string>
   <string name="ratedMoreThanInPerf">Рейтинг ≥ %1$s в %2$s</string>
   <string name="ratedLessThanInPerf">Рейтинг ≤ %1$s в %2$s</string>
   <string name="mustBeInTeam">Потрібно бути в команді %s</string>
