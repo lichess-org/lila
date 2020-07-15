@@ -208,10 +208,10 @@
     <item quantity="other">Місце в рейтингу оновлюється кожні %s хвилини</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s пазл</item>
-    <item quantity="few">%s пазлів</item>
-    <item quantity="many">%s пазлів</item>
-    <item quantity="other">%s пазлів</item>
+    <item quantity="one">%s задача</item>
+    <item quantity="few">%s задачі</item>
+    <item quantity="many">%s задач</item>
+    <item quantity="other">%s задач</item>
   </plurals>
   <string name="gamesPlayed">Партій зіграно</string>
   <plurals name="nbGamesWithYou">
@@ -222,10 +222,10 @@
   </plurals>
   <string name="cancel">Скасувати</string>
   <string name="timeOut">Збіг час</string>
-  <string name="drawOfferSent">Запит на нічию надіслано</string>
-  <string name="drawOfferDeclined">Запит на нічию відхилено</string>
-  <string name="drawOfferAccepted">Запит на нічию прийнято</string>
-  <string name="drawOfferCanceled">Запит на нічию скасовано</string>
+  <string name="drawOfferSent">Пропозицію нічиєї надіслано</string>
+  <string name="drawOfferDeclined">Пропозицію нічиєї відхилено</string>
+  <string name="drawOfferAccepted">Пропозицію нічиєї прийнято</string>
+  <string name="drawOfferCanceled">Пропозицію нічиєї скасовано</string>
   <string name="whiteOffersDraw">Білі пропонують нічию</string>
   <string name="blackOffersDraw">Чорні пропонують нічию</string>
   <string name="whiteDeclinesDraw">Білі відхилили нічию</string>
@@ -233,10 +233,10 @@
   <string name="yourOpponentOffersADraw">Ваш суперник пропонує нічию</string>
   <string name="accept">Прийняти</string>
   <string name="decline">Відхилити</string>
-  <string name="playingRightNow">Грається прямо зараз</string>
+  <string name="playingRightNow">Грається зараз</string>
   <string name="eventInProgress">Грається просто зараз</string>
   <string name="finished">Завершено</string>
-  <string name="finishesX">завершується %s</string>
+  <string name="finishesX">завершиться через %s</string>
   <string name="abortGame">Скасувати гру</string>
   <string name="gameAborted">Гру скасовано</string>
   <string name="standard">Стандартний</string>
@@ -246,8 +246,8 @@
   <string name="rated">Рейтингова</string>
   <string name="casualTournament">Дружня гра</string>
   <string name="ratedTournament">Рейтингова</string>
-  <string name="thisGameIsRated">Рейтингова гра</string>
-  <string name="rematch">Повторна гра</string>
+  <string name="thisGameIsRated">Гра на рейтинг</string>
+  <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Запит на повторну гру надіслано</string>
   <string name="rematchOfferSentWhite">Білі пропонують реванш</string>
   <string name="rematchOfferSentBlack">Чорні пропонують реванш</string>
