@@ -278,8 +278,8 @@
     <item quantity="other">%s жарыс ұпайы</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s оқу жұмысы</item>
-    <item quantity="other">%s оқу жұмысы</item>
+    <item quantity="one">%s зерттеу</item>
+    <item quantity="other">%s зерттеу</item>
   </plurals>
   <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="backToTournament">Týrnırge oralaıyq</string>
@@ -324,7 +324,7 @@
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
   <string name="fromPosition">Позициядан</string>
   <string name="continueFromHere">Осы жерден жалғастырыңыз</string>
-  <string name="toStudy">Оқу</string>
+  <string name="toStudy">Зертхана</string>
   <string name="importGame">Ойынды экспорттау</string>
   <string name="importGameExplanation">Ойынның PGN -ын салыңыз. Бұл ойынды қайта көруге, компьютерлік талдауға, чат және бөліспелі URL-ға жол ашады.</string>
   <plurals name="nbImportedGames">
