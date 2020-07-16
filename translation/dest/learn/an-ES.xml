@@ -45,7 +45,7 @@
   <string name="pawnsMoveForward">Los peons abanzan en linia dreita, pero capturan en diagonal!</string>
   <string name="captureThenPromote">Captura y dimpués promociona lo peón!</string>
   <string name="useAllThePawns">Utiliza totz los peons! No fa falta promocionar.</string>
-  <string name="aPawnOnTheSecondRank">Un peón en a segunda ringlera puede abanzar dos quadretz en nomás un movimiento!</string>
+  <string name="aPawnOnTheSecondRank">Un peón en a segunda ringlera puede abanzar dos quadretz de vez!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Captura totas las estrelas! No fa falta promocionar.</string>
   <string name="pawnComplete">Felicidatz! Los peons no tienen secretos pa tu.</string>
   <string name="pawnPromotion">Promoción d\'o peón</string>
