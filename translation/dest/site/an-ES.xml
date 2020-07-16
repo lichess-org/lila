@@ -140,7 +140,7 @@
   </plurals>
   <string name="viewInFullSize">Veyer en grandaria completa</string>
   <string name="logOut">Zarrar sesión</string>
-  <string name="signIn">Encetar sesión</string>
+  <string name="signIn">Iniciar sesión</string>
   <string name="youNeedAnAccountToDoThat">Te cal creyar una cuenta pa fer ixo</string>
   <string name="signUp">Rechistrar-se</string>
   <string name="computersAreNotAllowedToPlay">No ye permitiu chugar a ordinadors ni a chugadors aduyaus per un ordinador u per atras personas. Per favor, no t\'aduyes de motors d\'escaques, bases de datos u d\'atros chugadors entre la partida. Amás, tiene en cuenta que no se consella la utilización de quantas cuentas d\'usuario y que l\'uso d\'un excesivo numero de cuentas resultará en a cancelación d\'as mesmas.</string>
@@ -238,7 +238,7 @@
   <string name="play">Chugar</string>
   <string name="inbox">Mensaches</string>
   <string name="chatRoom">Sala de chat</string>
-  <string name="loginToChat">Encieta sesión pa chatear</string>
+  <string name="loginToChat">Inicia sesión pa chatear</string>
   <string name="youHaveBeenTimedOut">Has estau silenciau temporalment.</string>
   <string name="spectatorRoom">Chat d\'espectador</string>
   <string name="composeMessage">Escribir mensache</string>
@@ -651,7 +651,7 @@
   <string name="averageCentipawnLoss">Perda promeyo en centipeons</string>
   <string name="keyboardShortcuts">Alcorces d\'o teclau</string>
   <string name="keyMoveBackwardOrForward">movimiento enta zaga y enta adebant</string>
-  <string name="keyGoToStartOrEnd">ir a l\'encieto/fin</string>
+  <string name="keyGoToStartOrEnd">ir a l\'inicio/fin</string>
   <string name="keyShowOrHideComments">amostrar/amagar comentarios</string>
   <string name="keyEnterOrExitVariation">dentrar/salir d\'a variant</string>
   <string name="newTournament">Nuevo torneyo</string>
@@ -699,7 +699,7 @@
   <string name="enableKidMode">Activar lo modo infantil</string>
   <string name="disableKidMode">Desactivar lo modo infantil</string>
   <string name="security">Seguridat</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta ye una lista de dispositivos dende los quals has encetau sesión. Zarra totas las sesions que no reconoixcas.</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta ye una lista de dispositivos dende los quals has iniciau sesión. Zarra totas las sesions que no reconoixcas.</string>
   <string name="alternativelyYouCanX">U tamién puetz %s.</string>
   <string name="revokeAllSessions">zarrar totas las sesions</string>
   <string name="playChessEverywhere">Chuga a los escaques an sía</string>
@@ -723,7 +723,7 @@
   <string name="xJoinsY">%1$s s\'une a %2$s</string>
   <string name="xLikesY">a %1$s le fa goyo %2$s</string>
   <string name="xCreatesStudyY">%1$s creyó lo estudio %2$s</string>
-  <string name="quickPairing">Emparejamiento rapido</string>
+  <string name="quickPairing">Emparellamiento rapido</string>
   <string name="lobby">Sala d\'aspera</string>
   <string name="anonymous">Anonimo</string>
   <string name="yourScore">La tuya puntuación: %s</string>
