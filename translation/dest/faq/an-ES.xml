@@ -77,12 +77,12 @@
   <string name="configure">configurar</string>
   <string name="accounts">Contas</string>
   <string name="titlesAvailableOnLichess">Qué titols i hai en Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess reconoixe totz los titols FIDE obtenius OTB (sobre lo escaquero), asinas como %1$s. Aquí i hai una lista de titols FIDE:</string>
-  <string name="showYourTitle">Si tiens un titol OTB, puetz solicitar que s\'amuestre en a tuya cuenta completando lo %1$s, incluyindo una imachen clara d\'un documento/tarcheta d\'identificación y una foto tuya portiando dito documento/tarcheta.
+  <string name="lichessRecognizeAllOTBtitles">Lichess reconoix totz los titols FIDE obtenius OTB (sobre lo escaquero), como %1$s. Aquí i hai una lista de titols FIDE:</string>
+  <string name="showYourTitle">Si tiens un titol \"sobre lo escaquero\", puetz solicitar que s\'amuestre en a tuya cuenta completando lo %1$s, incluyindo una imachen clara d\'un documento u tarcheta d\'identificación y una foto tuya amostrando dito documento u tarcheta.
 
-  La verificación como chugador titulau en Lichess da acceso a chugar en os eventos d\'Arena pa titulaus.
+La verificación como chugador titulau en Lichess da acceso a chugar en os eventos Arena pa Titulaus.
 
-  Finalment, i hai un titol d\'honor %2$s.</string>
+Y pa rematar, tamién tenemos un titol d\'honor %2$s.</string>
   <string name="asWellAsManyNMtitles">muitos titols de mayestros nacionals</string>
   <string name="verificationForm">formulario de verificación</string>
   <string name="canIbecomeLM">Puedo obtener lo titol de Mayestro Lichess (LM)?</string>
