@@ -329,7 +329,7 @@
   <string name="xJoinedTeamY">%1$s s\'unió a l\'equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creau l\'equipo %2$s</string>
   <string name="xStartedStreaming">%s prencipió a emitir</string>
-  <string name="averageElo">Puntuación promeyo</string>
+  <string name="averageElo">Puntuación meya</string>
   <string name="location">Ubicación</string>
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Reiniciar</string>
@@ -648,7 +648,7 @@
   <string name="tournamentFAQ">Preguntas freqüents d\'os torneyos arena</string>
   <string name="tournamentOfficial">Oficial</string>
   <string name="timeBeforeTournamentStarts">Tiempo antes que prencipie lo torneyo</string>
-  <string name="averageCentipawnLoss">Perda promeyo en centipeons</string>
+  <string name="averageCentipawnLoss">Perda meya en centipeons</string>
   <string name="keyboardShortcuts">Alcorces d\'o teclau</string>
   <string name="keyMoveBackwardOrForward">movimiento enta zaga y enta adebant</string>
   <string name="keyGoToStartOrEnd">ir a l\'inicio/fin</string>
