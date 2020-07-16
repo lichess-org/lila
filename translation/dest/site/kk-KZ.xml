@@ -258,7 +258,7 @@
     <item quantity="other">%s ойналуда</item>
   </plurals>
   <string name="exportGames">Ойынды экспорттау</string>
-  <string name="ratingRange">Эло ауқымы</string>
+  <string name="ratingRange">Рейтинг ауқымы</string>
   <string name="thisAccountViolatedTos">Бұл аккаунт Личес-тің Қызмет көрсету шартын бұзды</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Бұл ойыншы өз рейтингін жасанды жолмен арттырып не кемітіп жүр</string>
   <string name="openingExplorerAndTablebase">Бастаулар мен аяқталу мұрағаты</string>
@@ -449,6 +449,7 @@
   <string name="butYouCanDoBetter">Бірақ одан да әдемі жүріс бар.</string>
   <string name="bestMove">Ең күшті жүріс!</string>
   <string name="success">Бәрі дұрыс!</string>
+  <string name="fromGameLink">Осы ойыннан %s</string>
   <string name="continueTraining">Ары қарай жаттығу</string>
   <string name="topics">Тақырып</string>
   <string name="posts">Жазба</string>
@@ -467,9 +468,14 @@
   <string name="withFriends">Достармен</string>
   <string name="viewTheSolution">Жауабты қарау</string>
   <string name="followAndChallengeFriends">Достарыңызға серік болып, ойынға шақыру</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">%s тіліндегі нұсқасы бар!</item>
+    <item quantity="other">%s тіліндегі нұсқасы бар!</item>
+  </plurals>
   <string name="quickPairing">Қалыптар</string>
   <string name="lobby">Алаң</string>
   <string name="yourScore">Жетістігіңіз: %s</string>
+  <string name="language">Тіл</string>
   <string name="background">Фон</string>
   <string name="light">Жарық</string>
   <string name="dark">Қараңғы</string>
