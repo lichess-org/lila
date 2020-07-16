@@ -111,26 +111,26 @@
   <string name="whatIsProvisionalRating">Чому поруч із рейтингом є знак питання?</string>
   <string name="provisionalRatingExplanation">Знак питання означає, що рейтинг є умовним. Серед причин:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Гравець ще не закінчив достатньо рейтингових ігор проти %1$s в категорії рейтингу.</string>
-  <string name="similarOpponents">суперники однакової сили</string>
-  <string name="notPlayedRecently">Гравець не зіграв достатньо ігор останнім часом. Залежно від кількості зіграних Вами ігор, це може зайняти рік бездіяльності, щоб ваш рейтинг знову став умовним.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Це означає, що відхилення Glicko-2 більше 110. Відмова - це рівень довіри, яку система має у рейтингу. Чим нижче відхилення, тим стабільнішим є рейтинг.</string>
+  <string name="similarOpponents">суперники подібної сили</string>
+  <string name="notPlayedRecently">Гравець не зіграв достатньо ігор останнім часом. Залежно від кількості зіграних Вами ігор, може минути рік бездіяльності, поки Ваш рейтинг знову стане умовним.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Це означає, що відхилення Glicko-2 більше 110. Відхилення - це рівень довіри рейтингової системи. Чим нижче відхилення, тим стабільнішим є рейтинг.</string>
   <string name="howDoLeaderoardsWork">Як працюють звання і таблиці лідерів?</string>
-  <string name="inOrderToAppearsYouMust">Для того, щоб потрапити до %1$s ви повинні:</string>
-  <string name="ratingLeaderboards">таблиця рейтингу лідерів</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">зіграти не менше 30 рейтингових ігор в певний варіант,</string>
+  <string name="inOrderToAppearsYouMust">Для того, щоб потрапити до %1$s Ви повинні:</string>
+  <string name="ratingLeaderboards">таблиці лідерів</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">зіграти хоча б 30 рейтингових ігор певного варіанту,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">зіграти рейтингову гру за останній тиждень в цей варіант,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">мати відхилення рейтингу нижче, ніж %1$s у стандартних шахах та нижчий, ніж %2$s у варіантах,</string>
-  <string name="beInTopTen">бути в топ-10 у даному списку.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Другою вимогою є те, щоб гравці, які більше не користувалися своїми обліковими записами, припинили населяти таблицю лідерів.</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">мати відхилення рейтингу нижче, ніж %1$s у стандартних шахах та нижче, ніж %2$s у варіантах,</string>
+  <string name="beInTopTen">бути в 10 кращих у даному списку.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Другою вимогою полягає в тому, що гравці, які більше не користуються своїми обліковими записами, припинили потрапляти у таблицю лідерів.</string>
   <string name="whyAreRatingHigher">Чому рейтинги вищі порівняно з іншими сайтами та організаціями, такими як FIDE, USCF та ICC?</string>
-  <string name="whyAreRatingHigherExplanation">Найкраще не думати про рейтинг як про абсолютні числа, або порівнювати їх з іншими організаціями. Різні організації мають різний рівень гравців, різні рейтингові системи (Elo, Glicko, Glicko-2 або модифіковану версію попередньої). Ці фактори можуть кардинально впливати на абсолютні числа (рейтинги).
+  <string name="whyAreRatingHigherExplanation">Найкраще не думати про рейтинг як про абсолютні числа та не порівнювати їх з іншими організаціями. Різні організації мають різний рівень гравців, різні рейтингові системи (Elo, Glicko, Glicko-2 або модифіковану версію попередньої). Ці фактори можуть кардинально впливати на абсолютні числа (рейтинги).
 
-Найкраще думати про рейтинги як про \"відності\" величини (на відміну від \"абсолютних\" величин): У межах групи гравців, відносні відмінності у рейтингах допоможуть вам оцінити, хто виграє/грає у нічию/програє, і як часто. Твердження \"У мене рейтинг X\" нічого не значить, якщо інші гравці не мають з чим цей рейтинг порівнювати.</string>
+Найкраще думати про рейтинги як про \"відності\" величини (на відміну від \"абсолютних\" величин): у межах групи гравців відносні відмінності у рейтингах допоможуть вам оцінити, хто виграє/грає у нічию/програє, і як часто це відбувається. Твердження \"У мене рейтинг X\" нічого не значить, якщо інші гравці не мають з чим цей рейтинг порівнювати.</string>
   <string name="howToHideRatingWhilePlaying">Як приховати рейтинги під час гри?</string>
-  <string name="enableZenMode">Увімкніть Zen-mode в %1$s або натисніть %2$s під час гри.</string>
+  <string name="enableZenMode">Увімкніть Режим Дзен в %1$s або натисніть %2$s під час гри.</string>
   <string name="displayPreferences">налаштування відображення</string>
-  <string name="connexionLostCanIGetMyRatingBack">Я програв гру через затримку/роз\'єднання. Чи можу я повернути бали рейтингу?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">На жаль, ми не можемо повернути рейтинг балів за втрату через затримку чи роз\'єднання, незалежно від того, на чиїй стороні була проблема. Останнє трапляється дуже рідко. Також зверніть увагу на те, що коли Lichess перезапускається і ви втрачаєте через це час, ми відміняємо гру, щоб запобігти несправедливій втраті.</string>
+  <string name="connexionLostCanIGetMyRatingBack">Я програв гру через затримку/роз\'єднання. Чи можу я повернути очки рейтингу?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">На жаль, ми не можемо повернути рейтинг очківв за втрату через затримку чи роз\'єднання, незалежно від того, на чиїй стороні була проблема. Останнє трапляється дуже рідко. Також зверніть увагу на те, що коли Lichess перезапускається і Ви втрачаєте через це час, ми відміняємо гру, щоб запобігти несправедливій втраті.</string>
   <string name="howToThreeDots">Дізнайтесь як...</string>
   <string name="enableDisableNotificationPopUps">Увімкнути або вимкнути спливаючі сповіщення?</string>
   <string name="viewSiteInformationPopUp">Перегляд спливаючого вікна інформації про сайт</string>
