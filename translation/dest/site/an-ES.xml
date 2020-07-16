@@ -43,8 +43,8 @@
   <string name="forceDraw">Declarar taulas</string>
   <string name="talkInChat">Per favor, sé amable en o chat</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La primera persona que dentre en este vinclo chugará con tu.</string>
-  <string name="whiteResigned">Las blancas abandonoron</string>
-  <string name="blackResigned">Las negras abandonoron</string>
+  <string name="whiteResigned">Las blancas han abandonau</string>
+  <string name="blackResigned">Las negras han abandonau</string>
   <string name="whiteLeftTheGame">Las blancas han abandonau la partida</string>
   <string name="blackLeftTheGame">Las negras han abandonau la partida</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Comparte este vinclo pa convidar espectadors a veyer la partida</string>
@@ -515,7 +515,7 @@
   <string name="troll">Acoso</string>
   <string name="other">Atro</string>
   <string name="reportDescriptionHelp">Apega lo vinclo a la(s) partida(s) y explica-nos qué i hai de malo en o comportamiento d\'este usuario. No digas simplament \"fa trapazas\"; explica-nos cómo has arribau a esta conclusión. Lo tuyo reporte será procesau mas rapido si ye escrito en anglés.</string>
-  <string name="error.provideOneCheatedGameLink">Per favor, proporciona a lo menos un vinclo a una partida en a quala se facioron trapazas.</string>
+  <string name="error.provideOneCheatedGameLink">Per favor, da-nos a lo menos un vinclo a una partida en que s\'han feito trapazas.</string>
   <string name="by">per %s</string>
   <string name="thisTopicIsNowClosed">Este tema ye zarrau.</string>
   <string name="theming">Apariencia</string>
@@ -795,7 +795,7 @@
   <string name="doItAgain">Tornar a revisar las errors</string>
   <string name="reviewWhiteMistakes">Revisar las errors d\'as blancas</string>
   <string name="reviewBlackMistakes">Revisar las errors d\'as negras</string>
-  <string name="advantage">Avantalla</string>
+  <string name="advantage">Avantache</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s segundo</item>
     <item quantity="other">%s segundos</item>
