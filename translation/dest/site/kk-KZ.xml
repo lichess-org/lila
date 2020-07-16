@@ -362,7 +362,7 @@
     <item quantity="one">kelesi %s</item>
     <item quantity="other">kelesi %s</item>
   </plurals>
-  <string name="more">Kóp</string>
+  <string name="more">Жаю</string>
   <string name="memberSince">Sodan beri múshesi</string>
   <string name="lastSeenActive">Belsendi %s</string>
   <string name="challengeToPlay">Ойынға шақыру</string>
@@ -411,7 +411,7 @@
   <string name="nextXTournament">Kelesi %s týrnır:</string>
   <string name="averageOpponent">Ortasha qarsylas</string>
   <string name="membersOnly">Tek músheler úshin</string>
-  <string name="boardEditor">Taqta óńdegishi</string>
+  <string name="boardEditor">Еркін тақта</string>
   <string name="setTheBoard">Тақтаны орнатыңыз</string>
   <string name="popularOpenings">Танымал бастаулар</string>
   <string name="startPosition">Бастапқы күй</string>
@@ -451,6 +451,10 @@
   <string name="success">Бәрі дұрыс!</string>
   <string name="fromGameLink">Осы ойыннан %s</string>
   <string name="continueTraining">Ары қарай жаттығу</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s ойын жүруде</item>
+    <item quantity="other">%s ойын жүруде</item>
+  </plurals>
   <string name="puzzles">Жұмбақтар</string>
   <string name="topics">Тақырып</string>
   <string name="posts">Жазба</string>
@@ -494,6 +498,7 @@
   <string name="boardTheme">Тақта өңі</string>
   <string name="pieceSet">Тастар келбеті</string>
   <string name="chessBasics">Шахмат әліппесі</string>
+  <string name="coaches">Ұстаздар</string>
   <string name="error.minLength">Кем дегенде %s таңба керек</string>
   <string name="error.maxLength">%s таңбадан аспаңыз</string>
   <string name="perfRatingX">Рейтинг: %s</string>
