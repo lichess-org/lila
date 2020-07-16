@@ -20,7 +20,7 @@
   <string name="nbTurns">Numero de redolins</string>
   <string name="result">Resultau</string>
   <string name="winnerColor">Color d\'o ganador</string>
-  <string name="date">Calendata</string>
+  <string name="date">Data</string>
   <string name="sortBy">Ordenar per</string>
   <string name="analysis">Analisi</string>
   <string name="onlyAnalysed">Nomás partidas que tiengan una analisi per ordinador disponible</string>
