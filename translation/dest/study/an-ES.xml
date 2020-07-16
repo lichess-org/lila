@@ -2,14 +2,14 @@
 <resources>
   <string name="private">Privau</string>
   <string name="myStudies">Los míos estudios</string>
-  <string name="studiesIContributeTo">Estudios en os quals colaboro</string>
+  <string name="studiesIContributeTo">Estudios que i participo</string>
   <string name="myPublicStudies">Los míos estudios publicos</string>
   <string name="myPrivateStudies">Los míos estudios privaus</string>
   <string name="myFavoriteStudies">Los míos estudios favoritos</string>
   <string name="whatAreStudies">Qué son los estudios?</string>
   <string name="allStudies">Totz los estudios</string>
   <string name="studiesCreatedByX">Estudios creaus per %s</string>
-  <string name="noneYet">Garra per agora.</string>
+  <string name="noneYet">Garra estudio, per agora.</string>
   <string name="hot">D\'interés actualment</string>
   <string name="dateAddedNewest">Data (mas recients)</string>
   <string name="dateAddedOldest">Data (mas antigas)</string>
@@ -48,7 +48,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Nomás los colaboradors d\'o estudio pueden solicitar una analisi per ordinador.</string>
   <string name="getAFullComputerAnalysis">Obtiene una analisi completa d\'a linia prencipal en o servidor.</string>
   <string name="makeSureTheChapterIsComplete">Asegura-te que lo capitol ye completo. Nomás puede solicitar l\'analisi una vegada.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Totz los miembros de SYNC remaneixen en a mesma posición</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Totz los miembros de SYNC son en a mesma posición</string>
   <string name="shareChanges">Comparte cambios con os espectadors y alza-los en o servidor</string>
   <string name="playing">Chugando</string>
   <string name="first">Primer</string>
