@@ -10,7 +10,7 @@
   <string name="chessPieces">Las piezas d\'escaques</string>
   <string name="theRook">La torre</string>
   <string name="itMovesInStraightLines">Se mueve en linia dreita</string>
-  <string name="rookIntro">La torre ye una pieza poderosa. Yes listo pa endrezar-la?</string>
+  <string name="rookIntro">La torre ye una pieza poderosa. Yes presto pa dirichir-la?</string>
   <string name="rookGoal">Fe clic en a torre pa levar-la dica la estrela!</string>
   <string name="grabAllTheStars">Captura totas las estrelas!</string>
   <string name="theFewerMoves">Quantos menos movimientos faigas, mas puntos ganas!</string>
@@ -23,7 +23,7 @@
   <string name="bishopComplete">Felicidatz! Sabes mover l\'alfil.</string>
   <string name="theQueen">La dama</string>
   <string name="queenCombinesRookAndBishop">Dama = torre + alfil</string>
-  <string name="queenIntro">Y agora, la pieza mas poderosa d\'os escaques; la suya machestat la dama!</string>
+  <string name="queenIntro">Y agora, la pieza mas poderosa d\'os escaques; su machestat, la dama!</string>
   <string name="queenComplete">Felicidatz! La dama no tiene secretos pa tu.</string>
   <string name="theKing">Lo rei</string>
   <string name="theMostImportantPiece">La pieza mas important</string>
@@ -32,7 +32,7 @@
   <string name="lastOne">Lo zaguer!</string>
   <string name="kingComplete">Ya puetz comandar lo comandante!</string>
   <string name="theKnight">Lo caballo</string>
-  <string name="itMovesInAnLShape">Se mueve en forma de</string>
+  <string name="itMovesInAnLShape">Se mueve en forma de L</string>
   <string name="knightIntro">A veyer cómo se te da este. Lo caballo ye... una pieza complicada.</string>
   <string name="knightsHaveAFancyWay">Los caballos tienen una forma curiosa de blincar!</string>
   <string name="knightsCanJumpOverObstacles">Los caballos pueden blincar obstáculos! Escapa y captura las estrelas!</string>
@@ -61,7 +61,7 @@
 Y no pierdas las tuyas.</string>
   <string name="captureComplete">Felicidatz! Agora sabes luitar con as tuyas piezas!</string>
   <string name="protection">Protección</string>
-  <string name="keepYourPiecesSafe">Mantiene las tuyas piezas a fueras de</string>
+  <string name="keepYourPiecesSafe">Mantiene las tuyas piezas seguras</string>
   <string name="protectionIntro">Identifica las piezas que lo tuyo oponent menaza y desfiende-las!</string>
   <string name="protectionComplete">Felicidatz! Una pieza que no se pierde ye una pieza ganada!</string>
   <string name="escape">T\'atacan! Libra-te de la menaza!</string>
@@ -71,7 +71,7 @@ Y no pierdas las tuyas.</string>
   <string name="captureAndDefendPieces">Captura y desfiende piezas</string>
   <string name="combatIntro">Un buen guerrero sabe atacar y desfender!</string>
   <string name="combatComplete">Felicidatz! Agora sabes luitar con as tuyas piezas!</string>
-  <string name="checkInOne">Jaque en una</string>
+  <string name="checkInOne">Escaque en una</string>
   <string name="attackTheOpponentsKing">Ataca a lo rei enemigo</string>
   <string name="checkInOneIntro">Da escaque a lo rei rival Ye obligau a desfender-lo!</string>
   <string name="checkInOneGoal">Ataca a lo rei enemigo en un movimiento!</string>
@@ -123,16 +123,16 @@ Y no pierdas las tuyas.</string>
   <string name="enPassantOnlyWorksOnFifthRank">La captura a lo paso nomás se permite si lo tuyo peón ye en a quinta ringlera.</string>
   <string name="takeAllThePawnsEnPassant">Captura totz los peons a lo paso!</string>
   <string name="enPassantComplete">Norabuena! Ya sabes capturar a lo paso.</string>
-  <string name="stalemate">Afogau</string>
-  <string name="theGameIsADraw">La partida ye taulas</string>
-  <string name="stalemateIntro">Quan un chugador no ye en escaque y no tiene garra movimiento legal, ye afogau. La partida ye taulas (empaz). Dengún gana ni pierde.</string>
+  <string name="stalemate">Rei afogau</string>
+  <string name="theGameIsADraw">La partida ye empaz</string>
+  <string name="stalemateIntro">Quan un chugador no ye en escaque y no tiene garra movimiento legal, ye rei afogau. La partida ye taulas (empaz). Dengún gana ni pierde.</string>
   <string name="stalemateGoal">Las negras son afogadas sí:
 - No pueden fer garra movimiento legal, y
 - No son en escaque.</string>
   <string name="stalemateComplete">Felicidatz! Millor afogau que recibir un escaque y mate!</string>
   <string name="advanced">Abanzau</string>
   <string name="pieceValue">Valor d\'as piezas</string>
-  <string name="evaluatePieceStrength">Sopesa la forza d\'as tuyas piezas</string>
+  <string name="evaluatePieceStrength">Sospesa la forza d\'as tuyas piezas</string>
   <string name="pieceValueIntro">Las piezas con mas mobilidat valen mas!
 Dama = 9
 Torre = 5
@@ -149,7 +149,7 @@ Torre = 5
 Alfil = 3
 Caballo = 3
 peón = 1</string>
-  <string name="checkInTwo">Jaque en dos</string>
+  <string name="checkInTwo">Escaque en dos</string>
   <string name="twoMovesToGiveCheck">Dar escaque en dos chugadas</string>
   <string name="checkInTwoIntro">Troba la combinación de dos movimientos que da escaque a lo rei enemigo!</string>
   <string name="checkInTwoGoal">Menaza a lo rei enemigo en dos movimientos!</string>
@@ -159,12 +159,12 @@ peón = 1</string>
   <string name="register">Rechistrar-se</string>
   <string name="getAFreeLichessAccount">Fe-te una cuenta gratuita en Lichess</string>
   <string name="practice">Practicar</string>
-  <string name="learnCommonChessPositions">Aprende las posicions mas comunas</string>
+  <string name="learnCommonChessPositions">Aprende las posicions mas comuns</string>
   <string name="puzzles">Problemas de tactica</string>
   <string name="exerciseYourTacticalSkills">Practica las tuyas habilidatz tacticas</string>
-  <string name="videos">Vídeos</string>
-  <string name="watchInstructiveChessVideos">Veye vídeos educativos d\'escaques</string>
-  <string name="playPeople">Chugar contra atros</string>
+  <string name="videos">Videos</string>
+  <string name="watchInstructiveChessVideos">Mira videos educativos d\'escaques</string>
+  <string name="playPeople">Chugar con atros</string>
   <string name="opponentsFromAroundTheWorld">Oponents de tot lo mundo</string>
   <string name="playMachine">Chugar contra la maquina</string>
   <string name="testYourSkillsWithTheComputer">Mete-te a preba contra l\'ordinador</string>
