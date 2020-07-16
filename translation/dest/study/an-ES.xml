@@ -11,8 +11,8 @@
   <string name="studiesCreatedByX">Estudios creaus per %s</string>
   <string name="noneYet">Garra per agora.</string>
   <string name="hot">D\'interés actualment</string>
-  <string name="dateAddedNewest">Calendata (mas recients)</string>
-  <string name="dateAddedOldest">Calendata (mas antigos)</string>
+  <string name="dateAddedNewest">Data (mas recients)</string>
+  <string name="dateAddedOldest">Data (mas antigas)</string>
   <string name="recentlyUpdated">Actualizaus recientment</string>
   <string name="mostPopular">Mas populars</string>
   <string name="addNewChapter">Anyadir nuevo capitol</string>
