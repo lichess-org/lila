@@ -11,16 +11,16 @@
   <string name="studiesCreatedByX">Дослідження, створені %s</string>
   <string name="noneYet">Ще немає.</string>
   <string name="hot">Активні</string>
-  <string name="dateAddedNewest">Дата додана (новіші)</string>
-  <string name="dateAddedOldest">Дата додання (старіші)</string>
+  <string name="dateAddedNewest">Дата додавання (новіші)</string>
+  <string name="dateAddedOldest">Дата додавання (старіші)</string>
   <string name="recentlyUpdated">Нещодавно оновлені</string>
   <string name="mostPopular">Найпопулярніші</string>
   <string name="addNewChapter">Додати новий розділ</string>
   <plurals name="nbChapters">
-    <item quantity="one">%s Розділ</item>
-    <item quantity="few">%s Розділи</item>
-    <item quantity="many">%s Розділів</item>
-    <item quantity="other">%s Розділів</item>
+    <item quantity="one">%s розділ</item>
+    <item quantity="few">%s розділи</item>
+    <item quantity="many">%s розділів</item>
+    <item quantity="other">%s розділа</item>
   </plurals>
   <plurals name="nbGames">
     <item quantity="one">%s гра</item>
