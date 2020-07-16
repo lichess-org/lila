@@ -226,7 +226,7 @@
   <string name="ratedTournament">Бағаланатын</string>
   <string name="thisGameIsRated">Бұл ойын бағаланады</string>
   <string name="rematch">Қайта ойнау</string>
-  <string name="rematchOfferSent">Қайта ойнауға сұраныс жіберілді</string>
+  <string name="rematchOfferSent">Қайта ойнау сұралуда...</string>
   <string name="rematchOfferSentWhite">Ақ қайта ойнауды сұрайды</string>
   <string name="rematchOfferSentBlack">Қара қайта ойнауды сұрайды</string>
   <string name="rematchOfferAccepted">Қайта ойнауға келісті</string>
