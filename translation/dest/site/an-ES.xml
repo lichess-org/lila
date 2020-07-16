@@ -53,7 +53,7 @@
   <string name="requestAComputerAnalysis">Solicitar una analisi de l\'ordinador</string>
   <string name="computerAnalysis">Analisi de l\'ordinador</string>
   <string name="computerAnalysisAvailable">Analisi de l\'ordinador disponible</string>
-  <string name="analysis">Tablero d\'analisi</string>
+  <string name="analysis">Escaquero d\'analisi</string>
   <string name="depthX">Profundidat: %s</string>
   <string name="usingServerAnalysis">Usando analisi d\'o servidor</string>
   <string name="loadingEngine">Cargando lo motor...</string>
@@ -78,7 +78,7 @@
   <string name="drawn">Resulta en taulas</string>
   <string name="unknown">Desconoixiu</string>
   <string name="database">Base de datos</string>
-  <string name="whiteDrawBlack">Blancas / Tablas / Negras</string>
+  <string name="whiteDrawBlack">Blancas / Taulas / Negras</string>
   <string name="averageRatingX">Puntuación meya: %s</string>
   <string name="recentGames">Partidas recients</string>
   <string name="topGames">Millors partidas</string>
@@ -124,7 +124,7 @@
   <string name="threefoldRepetition">Triple repetición</string>
   <string name="claimADraw">Reclamar taulas</string>
   <string name="offerDraw">Ofrir taulas</string>
-  <string name="draw">Tablas</string>
+  <string name="draw">Taulas</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s chugador</item>
     <item quantity="other">%s chugadors</item>
@@ -361,7 +361,7 @@
   </plurals>
   <string name="noFriendsOnline">Garra amigo connectau</string>
   <string name="findFriends">Trobar amigos</string>
-  <string name="favoriteOpponents">Oponentes favoritos</string>
+  <string name="favoriteOpponents">Oponents favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
   <string name="unfollow">Deixar de seguir</string>
@@ -423,9 +423,9 @@
   <string name="movesPlayed">Movimientos</string>
   <string name="whiteWins">Victorias blancas</string>
   <string name="blackWins">Victorias negras</string>
-  <string name="draws">Tablas</string>
+  <string name="draws">Taulas</string>
   <string name="nextXTournament">Siguient torneyo %s:</string>
-  <string name="averageOpponent">Oponente promeyo</string>
+  <string name="averageOpponent">Oponent meyo</string>
   <string name="membersOnly">Nomás pa miembros</string>
   <string name="boardEditor">Editor d\'escaquero</string>
   <string name="setTheBoard">Configurar escaquero</string>
@@ -490,7 +490,7 @@
   <string name="autoSwitch">Cambio automatico</string>
   <string name="puzzles">Problemas</string>
   <string name="latestUpdates">Zagueras actualizacions</string>
-  <string name="tournamentWinners">Ganadors d\'o torneyo</string>
+  <string name="tournamentWinners">Ganadors de torneyos</string>
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
   <string name="no">No</string>
@@ -583,7 +583,7 @@
   <string name="loginSuccessful">Connectau</string>
   <string name="playOnTheBoardOffline">Chugar sin connexión</string>
   <string name="playOfflineComputer">Chugar vs CPU sin connexión</string>
-  <string name="opponent">Oponente</string>
+  <string name="opponent">Oponent</string>
   <string name="learnMenu">Aprender</string>
   <string name="studyMenu">Estudiar</string>
   <string name="practice">Practicar</string>
