@@ -63,18 +63,18 @@
   <string name="engineAppeal">Motor u marca de trapacería</string>
   <string name="sendAppealTo">Puetz ninviar una apelación a %s.</string>
   <string name="falsePositives">A vegadas ocurren falsos positivos, y lo lamentamos.</string>
-  <string name="ifLegit">Si la suya apelación ye lechitima, devantaremos la prohibición lo dinantes posible.</string>
+  <string name="ifLegit">Si la suya apelación ye lechitima, devantaremos la prohibición antes con antes.</string>
   <string name="accountLost">Manimenos, si realment utilizó asistencia d\'o motor, mesmo una sola vegada, la suya cuenta ye lamentablement perdida.</string>
   <string name="doNotDeny">Ye millor que no niegues haber feito trapazas. Si quiers que se te permita creyar una nueva cuenta, nomás has d\'admitir lo que faciés, y contrimostrar que has comprendiu que ha estau una error.</string>
   <string name="otherRestriction">Atra restricción</string>
   <string name="collaboration">Colaboración, legal, comercial</string>
   <string name="monetizing">Monetizar Lichess</string>
   <string name="buyingLichess">Mercar Lichess</string>
-  <string name="authorizationToUse">Autorización pa usar Lichess</string>
+  <string name="authorizationToUse">Autorización pa fer servir Lichess</string>
   <string name="welcomeToUse">Puetz usar Lichess en a tuya actividat, mesmo si ye comercial.</string>
   <string name="videosAndBooks">Puede amostrar-lo en vídeos, y puede fer capturas de pantalla de Lichess en os suyos libros.</string>
-  <string name="creditAppreciated">S\'aprecia lo credito, pero no ye necesario.</string>
+  <string name="creditAppreciated">S\'agradeix si nos mencionas como fuent, encara que no ye obligatorio.</string>
   <string name="noneOfTheAbove">Garra d\'as anteriors</string>
   <string name="sendEmailAt">Ninvia-nos un correu electronico a %s.</string>
-  <string name="explainYourRequest">Per favor explique la suya solicitut de forma clara y exhaustiva. Especifique lo suyo nombre d\'usuario en Lichess, y qualsequier información que nos pueda resultar util.</string>
+  <string name="explainYourRequest">Per favor explica la tuya demanda de traza clara y exhaustiva. Especifica lo tuyo nombre d\'usuario en Lichess, y qualsequier información que nos pueda resultar util.</string>
 </resources>
