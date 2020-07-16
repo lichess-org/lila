@@ -160,7 +160,7 @@ peón = 1</string>
   <string name="getAFreeLichessAccount">Fe-te una cuenta gratuita en Lichess</string>
   <string name="practice">Practicar</string>
   <string name="learnCommonChessPositions">Aprende las posicions mas comunas</string>
-  <string name="puzzles">Exercicios de tactica</string>
+  <string name="puzzles">Problemas de tactica</string>
   <string name="exerciseYourTacticalSkills">Practica las tuyas habilidatz tacticas</string>
   <string name="videos">Vídeos</string>
   <string name="watchInstructiveChessVideos">Veye vídeos educativos d\'escaques</string>
@@ -184,6 +184,6 @@ peón = 1</string>
   <string name="yourScore">La tuya puntuación</string>
   <string name="next">Siguient</string>
   <string name="backToMenu">Tornar a lo menú</string>
-  <string name="puzzleFailed">Exercicio fallido!</string>
+  <string name="puzzleFailed">Solución incorrecta!</string>
   <string name="retry">Reintentar</string>
 </resources>
