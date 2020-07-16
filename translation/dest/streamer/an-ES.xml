@@ -4,7 +4,7 @@
   <string name="lichessStreamer">Presentador de Lichess</string>
   <string name="live">EN DIRECTO!</string>
   <string name="offline">DESCONNECTAU</string>
-  <string name="currentlyStreaming">Transmitindo agora: %s</string>
+  <string name="currentlyStreaming">Emitindo agora: %s</string>
   <string name="lastStream">Zaguera transmisión %s</string>
   <string name="becomeStreamer">Convierte-te en un presentador de Lichess</string>
   <string name="doYouHaveStream">Tiens una canal de Twitch u YouTube?</string>
@@ -13,12 +13,12 @@
   <string name="editPage">Editar pachina de presentador</string>
   <string name="yourPage">La tuya pachina de presentador</string>
   <string name="downloadKit">Descargar kit de presentador</string>
-  <string name="xIsStreaming">%s ye transmitindo</string>
+  <string name="xIsStreaming">%s ye emitindo</string>
   <string name="rules">Reglas de transmisión</string>
   <string name="rule1">Incluye la parola clau \"lichess.org\" en o titol d\'a tuya transmisión quan transmitas en Lichess.</string>
   <string name="rule2">Elimina la parola clau quan transmitas cosas que no son relativas a Lichess.</string>
   <string name="rule3">Lichess detectará la tuya transmisión automaticament y activará los siguients incentivos:</string>
-  <string name="perks">Beneficios de transmitir con a parola clau</string>
+  <string name="perks">Beneficios de emitindo con a parola clau</string>
   <string name="perk1">Obtiene un icono de transmisor en o tuyo perfil de Lichess.</string>
   <string name="perk2">Aconsigue la cima d\'a lista de presentadors.</string>
   <string name="perk3">Gritar a los tuyos seguidors de Lichess.</string>
