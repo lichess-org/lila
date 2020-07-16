@@ -33,7 +33,7 @@
   <string name="realName">Nombre real</string>
   <string name="privateWillNeverBeShown">Privau. Nunca s\'amostrará difuera d\'a clase. Aduya a recordar quí ye lo estudiant.</string>
   <string name="addStudent">Anyadir estudiant</string>
-  <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creyau per %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creau per %2$s.</string>
   <string name="studentCredentials">Estudiant:  %1$s
 Nombre d\'usuario: %2$s
 Clau: %3$s</string>
@@ -43,7 +43,7 @@ Clau: %3$s</string>
   <string name="inviteDesc3">Important: convida nomás a estudiants que conoixcas, y que deseyen unir-se a la clase.</string>
   <string name="inviteDesc4">Nunca ninvies invitacions no solicitadas a chugadors arbitrarios.</string>
   <string name="createANewLichessAccount">Crear una nueva cuenta de Lichess</string>
-  <string name="createDesc1">Si los estudiants encara no tienen una cuenta de Lichess, puetz crear una pa ells dende aquí.</string>
+  <string name="createDesc1">Si los estudiants encara no tienen una cuenta de Lichess, puetz crear-ne una pa ells dende aquí.</string>
   <string name="createDesc2">No se requiere adreza de correu electronico. Se chenerará una clau. Ha de dar-le-ne a los estudiants, asinas podrán iniciar sesión.</string>
   <string name="createDesc3">Important: un estudiant no ha de tener multiples cuentas.</string>
   <string name="createDesc4">Si ya en tienen una, fe servir lo formulario d\'invitación.</string>
