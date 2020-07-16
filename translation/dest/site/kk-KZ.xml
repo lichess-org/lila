@@ -466,6 +466,11 @@
   </plurals>
   <string name="watchGames">Ойындарын бақылау</string>
   <string name="watch">Бақылау</string>
+  <string name="weeklyPerfTypeRatingDistribution">Апта ішінде %s рейтингтердің таралуы</string>
+  <string name="yourPerfTypeRatingIsRating">Сіздің %1$s рейтингіңіз – %2$s.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Сіздің ресми %s рейтингіңіз жоқ.</string>
+  <string name="yourRating">Рейтингіңіз</string>
+  <string name="glicko2Rating">Glicko-2 рейтинг</string>
   <string name="withFriends">Достармен</string>
   <string name="viewTheSolution">Жауабты қарау</string>
   <string name="followAndChallengeFriends">Достарыңызға серік болып, ойынға шақыру</string>
@@ -487,6 +492,7 @@
   <string name="pieceSet">Тастар келбеті</string>
   <string name="error.minLength">Кем дегенде %s таңба керек</string>
   <string name="error.maxLength">%s таңбадан аспаңыз</string>
+  <string name="perfRatingX">Рейтинг: %s</string>
   <string name="practiceWithComputer">Компьютермен жаттығу</string>
   <string name="resumePractice">Жаттығуды жалғастыру</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
