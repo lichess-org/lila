@@ -13,8 +13,8 @@
   <string name="toggleSound">Activar/Desactivar sons</string>
   <string name="chat">Chat</string>
   <string name="resign">Abandonar</string>
-  <string name="checkmate">Jaque mate</string>
-  <string name="stalemate">Afogau</string>
+  <string name="checkmate">Escaque y mate</string>
+  <string name="stalemate">Rei afogau</string>
   <string name="white">Blancas</string>
   <string name="black">Negras</string>
   <string name="randomColor">Color aleatoria</string>
