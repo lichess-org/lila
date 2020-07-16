@@ -10,7 +10,7 @@
   <string name="aiNameLevelAiLevel">%1$s libel %2$s</string>
   <string name="level">Libel</string>
   <string name="toggleTheChat">Amostrar/Amagar chat</string>
-  <string name="toggleSound">Activar/Desactivar soniu</string>
+  <string name="toggleSound">Activar/Desactivar sons</string>
   <string name="chat">Chat</string>
   <string name="resign">Abandonar</string>
   <string name="checkmate">Jaque mate</string>
@@ -536,7 +536,7 @@
   <string name="letOtherPlayersFollowYou">Permitir que atros chugadors te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que atros chugadors te desafíen</string>
   <string name="letOtherPlayersInviteYouToStudy">Permitir que atros chugadors te conviden a estudios</string>
-  <string name="sound">Soniu</string>
+  <string name="sound">Sons</string>
   <string name="none">Garra</string>
   <string name="fast">Rapida</string>
   <string name="normal">Normal</string>
