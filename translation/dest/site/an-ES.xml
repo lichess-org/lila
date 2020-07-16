@@ -309,7 +309,7 @@
     <item quantity="other">≥ %1$s partidas per puntos de %2$s</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Te cal chugar %1$s partida mas de %2$s per puntos</item>
+    <item quantity="one">Te cal chugar %1$s partidas mas de %2$s per puntos</item>
     <item quantity="other">Te cal chugar %1$s partidas mas de %2$s per puntos</item>
   </plurals>
   <plurals name="needNbMoreGames">
@@ -709,7 +709,7 @@
   <string name="zeroAdvertisement">Sin anuncios</string>
   <string name="fullFeatured">Totas las funcions</string>
   <string name="phoneAndTablet">Telefono y tablet</string>
-  <string name="bulletBlitzClassical">Bala, lampado, clasico</string>
+  <string name="bulletBlitzClassical">Bala, lampado, clasicos</string>
   <string name="correspondenceChess">Escaques per correspondencia</string>
   <string name="onlineAndOfflinePlay">Chugar en linia u sin connexión</string>
   <string name="viewTheSolution">Veyer la solución</string>
@@ -840,7 +840,7 @@
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar u empecipiar una nueva conversación</string>
   <string name="edit">Editar</string>
-  <string name="rapid">Rapida</string>
+  <string name="rapid">Rapidas</string>
   <string name="classical">Clasica</string>
   <string name="ultraBulletDesc">Partidas increyiblement rapidas: menos de 30 segundos</string>
   <string name="bulletDesc">Partidas muito rapidas: menos de 3 minutos</string>
