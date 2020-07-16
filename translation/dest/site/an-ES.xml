@@ -372,7 +372,7 @@
   <string name="xStartedFollowingY">%1$s prencipió a seguir a %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s seguidor</item>
-    <item quantity="other">%s seguidores</item>
+    <item quantity="other">%s seguidors</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s seguindo</item>
