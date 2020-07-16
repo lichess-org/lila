@@ -456,10 +456,14 @@
     <item quantity="other">%s ойын жүруде</item>
   </plurals>
   <string name="puzzles">Жұмбақтар</string>
+  <string name="no">Жоқ</string>
+  <string name="yes">Иә</string>
   <string name="topics">Тақырып</string>
   <string name="posts">Жазба</string>
   <string name="notes">Жазбалар</string>
   <string name="sound">Дыбыстар</string>
+  <string name="always">Әрқашан</string>
+  <string name="never">Ешқашан</string>
   <string name="learnMenu">Үйрену</string>
   <string name="studyMenu">Зерттеу</string>
   <string name="practice">Жаттығу</string>
