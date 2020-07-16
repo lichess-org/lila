@@ -217,7 +217,7 @@
   <string name="finishesX">remata %s</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
-  <string name="standard">Estandard</string>
+  <string name="standard">Standard</string>
   <string name="unlimited">Ilimitau</string>
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
@@ -617,7 +617,7 @@
   <string name="videoLibrary">Videoteca</string>
   <string name="streamersMenu">Presentadors</string>
   <string name="mobileApp">Aplicación pa mobils</string>
-  <string name="webmasters">Desembolicadors</string>
+  <string name="webmasters">Webmasters</string>
   <string name="about">Sobre</string>
   <string name="aboutX">Sobre %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ye un servidor d\'escaques totalment gratuito (%2$s) feito con codigo ubierto, libre, sin publicidat.</string>
