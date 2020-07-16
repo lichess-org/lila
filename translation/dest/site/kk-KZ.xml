@@ -67,8 +67,8 @@
   <string name="deleteFromHere">Мына жерден жою</string>
   <string name="forceVariation">Ойын барысын тарқату</string>
   <string name="move">Жүріс</string>
-  <string name="variantLoss">Ұтылыс жолы</string>
-  <string name="variantWin">Ұтыс жолы</string>
+  <string name="variantLoss">Ұтылу жолы</string>
+  <string name="variantWin">Жеңу жолы</string>
   <string name="insufficientMaterial">Жеткіліксіз материал</string>
   <string name="pawnMove">Ер жүрісі</string>
   <string name="capture">Алу</string>
@@ -448,6 +448,8 @@
   <string name="goodMove">Жақсы жүріс</string>
   <string name="butYouCanDoBetter">Бірақ одан да әдемі жүріс бар.</string>
   <string name="bestMove">Ең күшті жүріс!</string>
+  <string name="success">Бәрі дұрыс!</string>
+  <string name="continueTraining">Ары қарай жаттығу</string>
   <string name="topics">Тақырып</string>
   <string name="posts">Жазба</string>
   <string name="notes">Жазбалар</string>
@@ -463,6 +465,7 @@
   <string name="watchGames">Ойындарын бақылау</string>
   <string name="watch">Бақылау</string>
   <string name="withFriends">Достармен</string>
+  <string name="viewTheSolution">Жауабты қарау</string>
   <string name="followAndChallengeFriends">Достарыңызға серік болып, ойынға шақыру</string>
   <string name="quickPairing">Қалыптар</string>
   <string name="lobby">Алаң</string>
