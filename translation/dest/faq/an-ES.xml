@@ -49,7 +49,7 @@ L\'analisi informatica en Lichess ye proporcionada per Stockfish.</string>
   <string name="insufficientMaterial">Perdendo per tiempo, empate y material insuficient</string>
   <string name="lichessFollowFIDErules">Quan un chugador se queda sin tiempo, ixe chugador normalment perderá la partida. Manimenos, lo chuego se considera empate si la posición ye tal que l\'oponent no puede dar mate a lo rei d\'o chugador per qualsequier posible serie de movimientos legals (%1$s).
 
-En raras ocasions esto puede estar de mal decidir automaticament (linias forzadas, fortalezas). Per defecto, siempre somos de parte d\'o chugador que no se quedó sin tiempo.
+En raras ocasions esto puede estar de mal decidir automaticament (linias forzadas, fuerzas). Per defecto, siempre somos de parte d\'o chugador que no se quedó sin tiempo.
 
 Considera que ye posible dar mate con un nomás caballo u alfil, siempre que l\'oponent tienga una pieza que pueda blocar a lo rei.</string>
   <string name="linkToFIDErules">Manual FIDE §6.9, pdf</string>
@@ -136,7 +136,7 @@ Ye millor pensar en as puntuacions como cifras \"relativas\" (a diferencia de la
   <string name="viewSiteInformationPopUp">Veyer finestra emerchent d\'información d\'o puesto</string>
   <string name="lichessCanOptionnalySendPopUps">Opcionalment, Lichess puede ninviar notificacions emerchents, per eixemplo quan sía lo tuyo redolín u haigas recibiu un mensache privau.
 
- Fe clic en l\'icono de bloqueyo chunto a l\'adreza de lichess.org, en a barra d\'URL d\'o tuyo navegador.
+Fe clic en l\'icono de bloqueyo chunto a l\'adreza de lichess.org, en a barra d\'URL d\'o tuyo navegador.
 
- Dimpués tría si permitir u blocar notificacions de Lichess.</string>
+Dimpués podrás triar si permitir u blocar notificacions de Lichess.</string>
 </resources>
