@@ -59,8 +59,8 @@
     <item quantity="other">Ha competiu en %s torneyos</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">%1$sº en a clasificación (dentro d\'o %2$s%% millor) con %3$s partida en %4$s</item>
-    <item quantity="other">%1$sº en a clasificación (dentro d\'o %2$s%% millor) con %3$s partidas en %4$s</item>
+    <item quantity="one">%1$sº en a clasificación (adentro d\'o %2$s%% millor) con %3$s partida en %4$s</item>
+    <item quantity="other">%1$sº en a clasificación (adentro d\'o %2$s%% millor) con %3$s partidas en %4$s</item>
   </plurals>
   <string name="signedUp">Rechistrau en Lichess</string>
   <plurals name="joinedNbTeams">
