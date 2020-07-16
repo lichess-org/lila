@@ -73,11 +73,11 @@ Zobacz nasze %3$s, aby poćwiczyć ten specjalny ruch.</string>
   <string name="accounts">Konta</string>
   <string name="titlesAvailableOnLichess">Jakie szachowe tytuły uznawane są przez Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess uznaje wszystkie tytuły FIDE zdobyte w grze na prawdziwej szachownicy (OTB - over the board) oraz %1$s. Oto lista tytułów FIDE:</string>
-  <string name="showYourTitle">Jeśli posiadasz tytuł OTB, możesz złożyć wniosek o wyświetlenie go na swoim koncie, wypełniając %1$s, załączając w nim skan dokumentu potwierdzającego tytuł oraz zdjęcie siebie trzymającego ten dokument.
+  <string name="showYourTitle">Jeśli posiadasz tytuł w grze na żywo, możesz złożyć wniosek o wyświetlenie go na swoim koncie, wypełniając %1$s, załączając w nim skan dokumentu potwierdzającego tytuł oraz zdjęcie siebie trzymającego ten dokument.
 
-  Zweryfikowanie Cię jako utytułowanego gracza na Lichess pozwoli Ci na dostęp do gry w turniejach Titled Arena.
+ Przejście weryfikacji pozwoli Ci na wzięcie udziału w turniejach dedykowanych utytułowanym graczom (Titled Arena).
 
-  Szczególnym tytułem jest %2$s.</string>
+ Szczególnym tytułem jest %2$s.</string>
   <string name="asWellAsManyNMtitles">wiele krajowych tytułów szachowych</string>
   <string name="verificationForm">formularz weryfikacyjny</string>
   <string name="canIbecomeLM">Czy mogę zdobyć tytuł Lichess Master (LM)?</string>
