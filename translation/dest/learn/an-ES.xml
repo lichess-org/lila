@@ -14,7 +14,7 @@
   <string name="rookGoal">Fe clic en a torre pa levar-la dica la estrela!</string>
   <string name="grabAllTheStars">Captura totas las estrelas!</string>
   <string name="theFewerMoves">Quantos menos movimientos faigas, mas puntos ganas!</string>
-  <string name="useTwoRooks">Usa las dos torres pa rematar dinantes!</string>
+  <string name="useTwoRooks">Usa las dos torres pa rematar antes!</string>
   <string name="rookComplete">Felicidatz! Has aconseguiu dominar la torre.</string>
   <string name="theBishop">L\'alfil</string>
   <string name="itMovesDiagonally">Se mueve en diagonal</string>
