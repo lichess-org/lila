@@ -8,7 +8,7 @@
   <string name="noConfirmationEmail">No recibo lo mío correu de confirmación</string>
   <string name="forgotPassword">Ixuplidé la mía clau</string>
   <string name="forgotUsername">Ixuplidé lo mío nombre d\'usuario</string>
-  <string name="youCanLoginWithEmail">Puetz encetar sesión con l\'adreza de correu electronico que rechistrés</string>
+  <string name="youCanLoginWithEmail">Puetz inicair sesión con l\'adreza de correu electronico que rechistrés</string>
   <string name="lost2FA">Perdié acceso a los míos codigos d\'autenticación de dople factor</string>
   <string name="doPasswordReset">Reinicia la tuya clau pa eliminar lo tuyo segundo factor</string>
   <string name="accountSupport">Amenesto suporte de cuenta</string>
@@ -51,7 +51,7 @@
   <string name="castlingPrevented">Lo enroque ye prohibiu si lo rei pasa per un quadrau controlau.</string>
   <string name="castlingRules">Asegura-te d\'entender las reglas d\'o enroque</string>
   <string name="tryCastling">Preba este chicot chuego interactivo pa practicar lo enroque en os escaques</string>
-  <string name="castlingImported">Si has importau lo chuego, u l\'encetés dende una posición, asegura-te d\'establir correctament los dreitos d\'o enroque.</string>
+  <string name="castlingImported">Si has importau lo chuego, u l\'has encomenzau dende una posición, asegura-te d\'establir correctament los dreitos d\'o enroque.</string>
   <string name="insufficientMaterial">Material insuficient pa dar mate</string>
   <string name="fideMate">Seguntes las reglas FIDE §6.9, si un escaque y mate ye posible con qualsequier seqüencia legal de movimientos, alavez lo chuego no ye un empate</string>
   <string name="knightMate">Puetz fer escaque y mate con nomás un caballo u un alfil, si l\'oponent tiene mas que un rei en o escaquero.</string>
