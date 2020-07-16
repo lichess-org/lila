@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Класи</string>
-  <string name="teachClassesOfChessStudents">Викладайте шахи учням за допомогою інструменту Класи Lichess.</string>
+  <string name="teachClassesOfChessStudents">Викладайте шахи учням за допомогою інструменту Lichess Уроки.</string>
   <string name="features">Можливості</string>
   <string name="quicklyGenerateSafeUsernames">Швидко створюйте безпечні імена користувачів та паролі для учнів</string>
   <string name="trackStudentProgress">Відстежуйте прогрес учнів у іграх та задачах</string>
@@ -18,7 +18,7 @@
   <string name="removedStudents">Видалено</string>
   <string name="inviteTheStudentBack">Повторно запросити учня</string>
   <string name="sendAMessage">Надіслати повідомлення усім учням.</string>
-  <string name="aLinkToTheClassWillBeAdded">Посилання на клас буде автоматично додано в кінець повідомлення, тому вам не потрібно додавати його самостійно.</string>
+  <string name="aLinkToTheClassWillBeAdded">Посилання на клас буде автоматично додано в кінець повідомлення, тому Вам не потрібно додавати його самостійно.</string>
   <string name="className">Назва класу</string>
   <string name="classDescription">Опис класу</string>
   <string name="visibleByBothStudentsAndTeachers">Видимий як вчителям, так і учнями класу</string>
@@ -38,10 +38,10 @@
 Ім\'я користувача: %2$s
 Пароль: %3$s</string>
   <string name="inviteALichessAccount">Запросити акаунт Lichess</string>
-  <string name="inviteDesc1">Якщо у учня вже є обліковий запис Lichess, ви можете запросити його до класу.</string>
+  <string name="inviteDesc1">Якщо у учня вже є обліковий запис Lichess, Ви можете запросити його до класу.</string>
   <string name="inviteDesc2">Вони отримають повідомлення на Lichess з посиланням, щоб приєднатися до класу.</string>
-  <string name="inviteDesc3">Важливо: запрошуйте лише учнів, яких ви знаєте і які активно хочуть приєднатися до класу.</string>
-  <string name="inviteDesc4">Ніколи не надсилати небажані запрошення довільним гравцям.</string>
+  <string name="inviteDesc3">Важливо: запрошуйте лише учнів, яких Ви знаєте і які активно хочуть приєднатися до класу.</string>
+  <string name="inviteDesc4">Ніколи не надсилайте небажані запрошення довільним гравцям.</string>
   <string name="createANewLichessAccount">Створити обліковий запис Lichess</string>
   <string name="createDesc1">Якщо учень ще не має облікового запису Lichess, його можна створити тут.</string>
   <string name="createDesc2">Не потрібна електронна адреса. Пароль буде згенерований і Вам доведеться відправити його учневі, так що вони можуть увійти в систему.</string>
