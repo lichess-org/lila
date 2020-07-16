@@ -233,7 +233,7 @@
   <string name="rematchOfferCanceled">Қайта ойнау сұранысы тоқтатылды</string>
   <string name="rematchOfferDeclined">Қайта ойнауға келіспеді</string>
   <string name="cancelRematchOffer">Қайта ойнау сұранысын тоқтату</string>
-  <string name="viewRematch">Qaraý mach-revansh</string>
+  <string name="viewRematch">Ойынды қарап шығу</string>
   <string name="confirmMove">Жылжуды растаңыз</string>
   <string name="play">Ойнау</string>
   <string name="inbox">Хаттар</string>
