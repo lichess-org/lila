@@ -23,7 +23,7 @@
   <string name="bestSkills">Millors habilidatz</string>
   <string name="teachingMethod">Metodolochía d\'ensenyanza</string>
   <string name="publicStudies">Estudios publicos</string>
-  <string name="youtubeVideos">Vídeos de Youtube</string>
+  <string name="youtubeVideos">Videos de Youtube</string>
   <plurals name="studentReviews">
     <item quantity="one">%s resinya d\'estudiant</item>
     <item quantity="other">%s resenyas d\'estudiants</item>
