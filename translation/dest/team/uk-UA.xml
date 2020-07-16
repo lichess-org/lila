@@ -28,10 +28,10 @@
   <string name="kickSomeone">Виключити когось з команди</string>
   <string name="whoToKick">Кого Ви хочете виключити з команди?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">Запит на приєднання</item>
-    <item quantity="few">Запити на приєднання</item>
-    <item quantity="many">Запити на приєднання</item>
-    <item quantity="other">Запит на приєнання</item>
+    <item quantity="one">%s запит на приєднання</item>
+    <item quantity="few">%s запити на приєднання</item>
+    <item quantity="many">%s запитів на приєднання</item>
+    <item quantity="other">%s запитів на приєднання</item>
   </plurals>
   <string name="willBeReviewed">Ваш запит на приєднання буде розглянуто лідером команди.</string>
   <string name="beingReviewed">Ваш запит на приєднання розглядається лідером команди.</string>
