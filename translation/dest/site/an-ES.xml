@@ -191,7 +191,7 @@
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s exercicio</item>
-    <item quantity="other">%s exercicios</item>
+    <item quantity="other">%s problemas</item>
   </plurals>
   <string name="gamesPlayed">Partidas chugadas</string>
   <plurals name="nbGamesWithYou">
@@ -454,18 +454,18 @@
   <string name="activeToday">Activos hue</string>
   <string name="activePlayers">Chugadors activos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Para cuenta, la partida ye per puntos pero sin limite de tiempo!</string>
-  <string name="yourPuzzleRatingX">La tuya puntuación en os exercicios de tactica: %s</string>
+  <string name="yourPuzzleRatingX">La tuya puntuación en os problemas de tactica: %s</string>
   <string name="findTheBestMoveForWhite">Troba lo millor movimiento pa las blancas.</string>
   <string name="findTheBestMoveForBlack">Troba lo millor movimiento pa las negras.</string>
   <string name="toTrackYourProgress">Pa fer un seguimiento d\'o tuyo progreso:</string>
-  <string name="puzzleId">Exercicio %s</string>
-  <string name="puzzleOfTheDay">Exercicio d\'o día</string>
+  <string name="puzzleId">Problema %s</string>
+  <string name="puzzleOfTheDay">Problema d\'o día</string>
   <string name="clickToSolve">Clic pa resolver</string>
   <string name="goodMove">Buena chugada</string>
   <string name="butYouCanDoBetter">Pero puetz fer-lo millor.</string>
   <string name="bestMove">Lo millor movimiento!</string>
   <string name="keepGoing">Contina...</string>
-  <string name="puzzleFailed">Exercicio fallido</string>
+  <string name="puzzleFailed">Solución incorrecta</string>
   <string name="butYouCanKeepTrying">Pero puetz seguir intentando-lo.</string>
   <string name="success">Exito</string>
   <string name="wasThisPuzzleAnyGood">Yera bueno este problema?</string>
@@ -479,16 +479,16 @@
   </plurals>
   <string name="fromGameLink">D\'a partida %s</string>
   <string name="continueTraining">Continar entrenamiento</string>
-  <string name="retryThisPuzzle">Reintentar este exercicio</string>
-  <string name="thisPuzzleIsCorrect">Este exercicio ye correcto y interesant</string>
-  <string name="thisPuzzleIsWrong">Este exercicio ye erronio u aburriu</string>
+  <string name="retryThisPuzzle">Tornar a intentar este problema</string>
+  <string name="thisPuzzleIsCorrect">Este problema ye correcto y interesant</string>
+  <string name="thisPuzzleIsWrong">Este problema ye mal u ye aburriu</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partida en chuego</item>
     <item quantity="other">%s partidas en chuego</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Pasar automaticament a la siguient partida dimpués de mover</string>
   <string name="autoSwitch">Cambio automatico</string>
-  <string name="puzzles">Exercicios</string>
+  <string name="puzzles">Problemas</string>
   <string name="latestUpdates">Zagueras actualizacions</string>
   <string name="tournamentWinners">Ganadors d\'o torneyo</string>
   <string name="name">Nombre</string>
@@ -702,9 +702,9 @@
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta ye una lista de dispositivos dende los quals has iniciau sesión. Zarra totas las sesions que no reconoixcas.</string>
   <string name="alternativelyYouCanX">U tamién puetz %s.</string>
   <string name="revokeAllSessions">zarrar totas las sesions</string>
-  <string name="playChessEverywhere">Chuga a los escaques an sía</string>
-  <string name="asFreeAsLichess">Tant gratis como lichess</string>
-  <string name="builtForTheLoveOfChessNotMoney">Construyiu per amor a los escaques, no per diners</string>
+  <string name="playChessEverywhere">Chuga a los escaques an que siga</string>
+  <string name="asFreeAsLichess">Igual de gratis como lichess</string>
+  <string name="builtForTheLoveOfChessNotMoney">Feito per amor a los escaques, no pas per diners</string>
   <string name="everybodyGetsAllFeaturesForFree">Totz tienen acceso gratuito a totas las funcions</string>
   <string name="zeroAdvertisement">Sin anuncios</string>
   <string name="fullFeatured">Totas las funcions</string>
