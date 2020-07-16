@@ -45,7 +45,7 @@ Lo millor movimiento de l\'ordinador perderá zero centipeons, pero los movimien
 
 Esta valura puede emplegar-se como un indicador d\'a calidat d\'o chuego. Quantos menos centipeons se pierda per movimiento, mas fuerte ye lo chuego.
 
-L\'analisi informatica en Lichess ye proporcionau per Stockfish.</string>
+L\'analisi informatica en Lichess ye proporcionada per Stockfish.</string>
   <string name="insufficientMaterial">Perdendo per tiempo, empate y material insuficient</string>
   <string name="lichessFollowFIDErules">Quan un chugador se queda sin tiempo, ixe chugador normalment perderá la partida. Manimenos, lo chuego se considera empate si la posición ye tal que l\'oponent no puede dar mate a lo rei d\'o chugador per qualsequier posible serie de movimientos legals (%1$s).
 
@@ -126,11 +126,11 @@ Unatro punto que cal sinyalar ye que, con o paso d\'o tiempo, l\'intervalo de co
   <string name="whyAreRatingHigherExplanation">Lo millor ye no considerar las puntuacions como cifras absolutas ni comparar-las con atras organizacions. Diferents organizacions tienen diferents libels de chugadors, diferents sistemas de puntuación (Elo, Glicko, Glicko-2 u una versión modificada d\'os primers). Estes factors pueden afectar drasticament los numeros absolutos (puntuacions).
 
 Ye millor pensar en as puntuacions como cifras \"relativas\" (a diferencia de las \"cifras absolutas\"): dentro d\'un conchunto de chugadors, las suyas diferencias relativas en as puntuacions t\'aduyarán a estimar quí gana/empata/pierde, y con qué freqüencia. Decir \"tiengo puntuación X\" no significa cosa de no estar que i haiga atros chugadors a los quals comparar ixa puntuación.</string>
-  <string name="howToHideRatingWhilePlaying">Cómo amagar los míos puntajes entre las partidas?</string>
+  <string name="howToHideRatingWhilePlaying">Cómo amagar las puntuacions mientres chugo?</string>
   <string name="enableZenMode">Habilita lo modo Zen en %1$s chus presionando %2$s entre una partida.</string>
   <string name="displayPreferences">preferencias de visualización</string>
-  <string name="connexionLostCanIGetMyRatingBack">He perdiu un chuego a causa d\'un retardo/desconnexión. Puedo recuperar los míos puntajes?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadament, no podemos tornar puntajes pa las partidas perdidas a causa de retardo u desconnexión, independientment de si lo problema yera d\'o tuyo costau u d\'o nuestro. Manimenos, esto zaguer ye muito raro. Tamién tiene en cuenta que quan Lichess se reinicia y pierdes lo tiempo a causa d\'ixo, abortamos lo chuego pa aprevenir una redota inchusta.</string>
+  <string name="connexionLostCanIGetMyRatingBack">He perdiu una partida a causa d\'un retardo/desconnexión. Puedo recuperar los míos puntos?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Lamentablement, no podemos tornar-te los puntos d\'as partidas perdidas a causa de retardo u desconnexión, independientment de si lo problema yera en o tuyo costau u en o nuestro. Manimenos, esto zaguer ye muito raro. Considera que, si Lichess se reinicia y pierdes lo tiempo a causa d\'ixo, alavez abortamos lo chuego pa privar una redota inchusta.</string>
   <string name="howToThreeDots">Cómo...</string>
   <string name="enableDisableNotificationPopUps">Activar u desactivar finestras emerchents de notificación?</string>
   <string name="viewSiteInformationPopUp">Veyer finestra emerchent d\'información d\'o puesto</string>
