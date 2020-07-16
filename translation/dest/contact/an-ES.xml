@@ -28,7 +28,7 @@
   <string name="cantClearHistory">No ye posible borrar lo tuyo historial de chuegos, historial de rompecabezas u qualificacions.</string>
   <string name="wantReport">Quiero reportar un chugador</string>
   <string name="cheating">fer trapazas</string>
-  <string name="sandbagging">reducción intencional d\'o puntaje</string>
+  <string name="sandbagging">perder a exprés</string>
   <string name="trolling">estar molesto</string>
   <string name="insults">insultar</string>
   <string name="otherReason">belatra razón</string>
@@ -51,9 +51,9 @@
   <string name="castlingPrevented">Lo enroque ye prohibiu si lo rei pasa per un quadrau controlau.</string>
   <string name="castlingRules">Asegura-te d\'entender las reglas d\'o enroque</string>
   <string name="tryCastling">Preba este chicot chuego interactivo pa practicar lo enroque en os escaques</string>
-  <string name="castlingImported">Si has importau lo chuego, u l\'has encomenzau dende una posición, asegura-te d\'establir correctament los dreitos d\'o enroque.</string>
+  <string name="castlingImported">Si has importau la partida, u l\'has encomenzada dende una posición, asegura-te d\'establir correctament las reglas de l\'enroque.</string>
   <string name="insufficientMaterial">Material insuficient pa dar mate</string>
-  <string name="fideMate">Seguntes las reglas FIDE §6.9, si un escaque y mate ye posible con qualsequier seqüencia legal de movimientos, alavez lo chuego no ye un empate</string>
+  <string name="fideMate">Seguntes las reglas FIDE §6.9, si un escaque y mate ye posible con qualsequier seqüencia legal de movimientos, alavez la partida no ye un empaz</string>
   <string name="knightMate">Puetz fer escaque y mate con nomás un caballo u un alfil, si l\'oponent tiene mas que un rei en o escaquero.</string>
   <string name="noRatingPoints">No s\'han concediu puntos</string>
   <string name="ratedGame">Asegura-te d\'haber chugau una partida per puntuación. Las partidas amistosas no afectan a las puntuacions d\'os chugadors.</string>
