@@ -43,7 +43,7 @@
   <string name="reportWebsiteIssue">Como un problema d\'o puesto web de Lichess en GitHub</string>
   <string name="reportMobileIssue">Como un problema de l\'aplicación mobil de Lichess en GitHub</string>
   <string name="reportBugInDiscord">En o servidor Discord de Lichess</string>
-  <string name="howToReportBug">Per favor, describe cómo se veye la error, qué asperabas que succedese, y los pasos pa reproducir la error.</string>
+  <string name="howToReportBug">Per favor, describe cómo se veye la error, qué esperabas que pasase, y los pasos pa reproducir la error.</string>
   <string name="illegalPawnCapture">Captura de peón ilegal</string>
   <string name="calledEnPassant">Se diz captura a lo paso y ye una d\'as reglas d\'os escaques.</string>
   <string name="tryEnPassant">Preba este chicot chuego interactivo pa aprender mas sobre la captura a lo paso.</string>
