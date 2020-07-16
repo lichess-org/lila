@@ -26,10 +26,10 @@ Lo modo berserk nomás proporciona un punto adicional per cada victoria si chuga
   <string name="howIsTheWinnerDecided">Cómo se decide lo ganador?</string>
   <string name="howIsTheWinnerDecidedAnswer">Ganará lo chugador (u chugadors) que tienga mas puntos a la fin d\'o torneyo.</string>
   <string name="howDoesPairingWork">Cómo se realizan los emparellamientos?</string>
-  <string name="howDoesPairingWorkAnswer">A lo prencipio d\'o torneyo, los chugadors s\'emparellan sobre a base d\'a suya puntuación. Malas que rematas una partida, tornas a lo recibidor d\'o torneyo, y se t\'emparellará con un chugador con una puntuación semellant a la tuya. Esto minimiza lo tiempo d\'aspera, si bien ye posible que no chugues contra totz os de demás chugadors d\'o torneyo.
+  <string name="howDoesPairingWorkAnswer">A l\'inicio d\'o torneyo, los chugadors s\'emparellan seguntes la suya puntuación. Malas que rematas una partida, tornas a la sala d\'espera d\'o torneyo, y se t\'emparellará con un chugador con una posición pareixida a la tuya. Esto minimiza lo tiempo d\'espera, si bien ye posible que no chugues contra totz os de demás chugadors d\'o torneyo.
 Chuga rapido y torna a lo recibidor pa chugar mas partidas y ganar mas puntos.</string>
   <string name="howDoesItEnd">Quán remata?</string>
-  <string name="howDoesItEndAnswer">Lo torneyo tiene un reloch de cuenta regresiva. Quan plegue a zero, se conchelan las clasificacions d\'o torneyo y se proclama lo ganador. Las partidas que sían en chuego han de rematar-se, encara que no contan pa lo resultau d\'o torneyo.</string>
+  <string name="howDoesItEndAnswer">Lo torneyo tiene un reloch de conteyo regresivo. Quan plegue a zero, se conchelan las clasificacions d\'o torneyo y se proclama lo ganador. Las partidas que sían en chuego han de rematar-se, encara que no contan pa lo resultau d\'o torneyo.</string>
   <string name="otherRules">Atras reglas importants</string>
   <string name="thereIsACountdown">I hai una cuenta regresiva pa lo primer movimiento. Si no fas lo primer movimiento dentro d\'o tiempo, pierdes la partida.</string>
   <plurals name="drawingWithinNbMoves">
