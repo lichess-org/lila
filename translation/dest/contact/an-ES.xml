@@ -23,7 +23,7 @@
   <string name="wantChangeUsername">Quiero cambiar lo mío nombre d\'usuario</string>
   <string name="changeUsernameCase">Visita esta pachina pa cambiar las mayusclas/minusclas d\'o tuyo nombre d\'usuario</string>
   <string name="cantChangeMore">No podemos cambiar mas que las mayusclas/minusclas. Per razons tecnicas, ye totalment imposible.</string>
-  <string name="orCloseAccount">Manimenos, puetz zarrar la tuya cuenta actual y creyar una nueva.</string>
+  <string name="orCloseAccount">Manimenos, puetz zarrar la tuya cuenta actual y crear-ne una nueva.</string>
   <string name="wantClearHistory">Quiero borrar lo mío historial u puntuación</string>
   <string name="cantClearHistory">No ye posible borrar lo tuyo historial de chuegos, historial de rompecabezas u qualificacions.</string>
   <string name="wantReport">Quiero reportar un chugador</string>
@@ -65,7 +65,7 @@
   <string name="falsePositives">A vegadas ocurren falsos positivos, y lo lamentamos.</string>
   <string name="ifLegit">Si la suya apelación ye lechitima, devantaremos la prohibición lo dinantes posible.</string>
   <string name="accountLost">Manimenos, si realment utilizó asistencia d\'o motor, mesmo una sola vegada, la suya cuenta ye lamentablement perdida.</string>
-  <string name="doNotDeny">No niegues haber feito trapazas. Si quiers que se te permita creyar una nueva cuenta, nomás has de que admitir lo que faciés, y amostrar que has comprendiu que se tractaba d\'una error.</string>
+  <string name="doNotDeny">Ye millor que no niegues haber feito trapazas. Si quiers que se te permita creyar una nueva cuenta, nomás has d\'admitir lo que faciés, y contrimostrar que has comprendiu que ha estau una error.</string>
   <string name="otherRestriction">Atra restricción</string>
   <string name="collaboration">Colaboración, legal, comercial</string>
   <string name="monetizing">Monetizar Lichess</string>
