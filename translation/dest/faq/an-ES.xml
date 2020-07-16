@@ -39,13 +39,13 @@
   <string name="lichessSupportChessAnd">Lichess suporta escaques standards y %1$s.</string>
   <string name="eightVariants">8 variants d\'escaques</string>
   <string name="whatIsACPL">Qué ye la \"perdula meya de centipeón\"?</string>
-  <string name="acplExplanation">Lo centipeón ye la unidat de medida utilizada en os escaques como representación de l\'avantalla. Un centipeón ye igual a 1/100 d\'un peón. Per tanto 100 centipeons = 1 peón. Estas valors no chugan garra papel formal en o chuego, pero son utils pa los chugadors y esencials en os escaques per ordinador pa avaluar las posicions.
+  <string name="acplExplanation">Lo centipeón ye la unidat de medida utilizada en os escaques como representación de l\'avantache. Un centipeón ye igual a 1/100 d\'un peón. Per tanto 100 centipeons = 1 peón. Estas valors no chugan garra papel formal en o chuego, pero son utils pa los chugadors y esencials en os escaques per ordinador pa avaluar las posicions.
 
-  Lo millor movimiento de l\'ordinador perderá zero centipeons, pero los movimientos menors darán como resultau una posición desfavorable, medida en centipeons.
+Lo millor movimiento de l\'ordinador perderá zero centipeons, pero los movimientos mas floixos darán como resultau una posición desfavorable, medida en centipeons.
 
-  Esta valor puede emplegar-se como un indicador d\'a calidat d\'o chuego. Quantos menos centipeons se pierda per movimiento, mas fuerte ye lo chuego.
+Esta valura puede emplegar-se como un indicador d\'a calidat d\'o chuego. Quantos menos centipeons se pierda per movimiento, mas fuerte ye lo chuego.
 
-  L\'analisi informatica en Lichess ye proporcionau per Stockfish.</string>
+L\'analisi informatica en Lichess ye proporcionau per Stockfish.</string>
   <string name="insufficientMaterial">Perdendo per tiempo, empate y material insuficient</string>
   <string name="lichessFollowFIDErules">En o caso que un chugador se quede sin tiempo, ixe chugador normalment perderá la partida. Manimenos, lo chuego se considera empate si la posición ye tal que l\'oponent no puede dar mate a lo rei d\'o chugador per qualsequier posible serie de movimientos legals (%1$s).
 
@@ -86,11 +86,11 @@ Y pa rematar, tamién tenemos un titol d\'honor %2$s.</string>
   <string name="verificationForm">formulario de verificación</string>
   <string name="canIbecomeLM">Puedo obtener lo titol de Mayestro Lichess (LM)?</string>
   <string name="noUpperCaseDot">No.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Este titol honorifico no ye oficial y nomás existe en as Lichess.
+  <string name="lMtitleComesToYouDoNotRequestIt">Este titol honorifico no ye oficial y nomás existe en Lichess.
 
-  Rara vegada l\'atorgamos a chugadors muito destacaus que son buens ciudadans de Lichess, a la nuestra discrección. No obtiens lo titol de LM, lo titol de LM te plega. Si cumples los requisitos, recibirás un mensache nuestro a lo respecto y la opción d\'acceptar u refusar lo titol.
+L\'atorgamos rarament a chugadors muito destacaus que son buens ciudadans de Lichess, a la nuestra discrección. No obtiens lo titol de LM, lo titol de LM arriba a tu. Si cumples los requisitos, recibirás un mensache nuestro a lo respective y la opción d\'acceptar u refusar lo titol.
 
-  No solicites obtener lo titol de LM.</string>
+No demandes d\'obtener lo titol de LM.</string>
   <string name="whatUsernameCanIchoose">Quál puede estar lo mío nombre d\'usuario?</string>
   <string name="usernamesNotOffensive">En cheneral, los nombres d\'usuario no han de: estar ofensivos, suplantar a belún u fer publicidat. Puetz leyer mas sobre las %1$s.</string>
   <string name="guidelines">pautas</string>
