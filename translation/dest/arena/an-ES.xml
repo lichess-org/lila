@@ -2,7 +2,7 @@
 <resources>
   <string name="arenaTournaments">Torneyos Arena</string>
   <string name="isItRated">Ye per puntos?</string>
-  <string name="willBeNotified">Se te gritará quan empecipie lo torneyo. Puetz chugar tranquilament en unatra pestanya mientres asperas.</string>
+  <string name="willBeNotified">Se t\'avisará malas que empecipie lo torneyo. Puetz chugar tranquilament en unatra pestanya mientres esperas.</string>
   <string name="isRated">Este torneyo ye per puntos y afectará a la tuya puntuación.</string>
   <string name="isNotRated">Este torneyo *no* ye per puntos y *no* afectará a la tuya puntuación.</string>
   <string name="someRated">Qualques torneyos son per puntos y afectarán a la tuya puntuación.</string>
