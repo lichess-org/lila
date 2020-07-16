@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Стрімер Lichess</string>
   <string name="live">НАЖИВО!</string>
   <string name="offline">ОФЛАЙН</string>
-  <string name="currentlyStreaming">Зараз стрімить: %s</string>
-  <string name="lastStream">Останній стрім %s</string>
+  <string name="currentlyStreaming">Зараз транслює: %s</string>
+  <string name="lastStream">Остання трансляція %s</string>
   <string name="becomeStreamer">Стати стрімером Lichess</string>
   <string name="doYouHaveStream">У Вас є канал на Twitch чи YouTube?</string>
   <string name="hereWeGo">Поїхали!</string>
@@ -14,7 +14,7 @@
   <string name="yourPage">Ваша сторінка стрімера</string>
   <string name="downloadKit">Завантажити набір інструментів стрімера</string>
   <string name="xIsStreaming">%s транслює</string>
-  <string name="rules">Правила стрімів</string>
+  <string name="rules">Правила трансляцій</string>
   <string name="rule1">Додайте ключове слово \"lichess.org\" у своєму заголовку стріму і використовуйте категорію \"Chess\" під час трансляції на Lichess.</string>
   <string name="rule2">Видаліть ключове слово, коли ви транслюєте щось не пов\'язане з Lichess.</string>
   <string name="rule3">Lichess буде автоматично виявляти ваш стрім і включати наступні переваги:</string>
