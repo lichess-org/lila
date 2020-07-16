@@ -24,14 +24,14 @@
   <string name="perk3">Повідомлення Ваших підписників Lichess.</string>
   <string name="perk4">Відображення Вашої трансляції у Ваших іграх, турнірах та дослідженнях.</string>
   <string name="approved">Вашу трансляцію затверджено.</string>
-  <string name="pendingReview">Стрім перевіряють модератори.</string>
-  <string name="pleaseFillIn">Будь ласка, заповніть інформацію про стрім та завантажте фотографію.</string>
-  <string name="whenReady">Коли ви будете готові бути переліченим як стрімер Lichess, %s</string>
+  <string name="pendingReview">Вашу трансляцію перевіряють модератори.</string>
+  <string name="pleaseFillIn">Будь ласка, заповніть інформацію про трансляцію та завантажте фотографію.</string>
+  <string name="whenReady">Коли Ви будете готові бути переліченим як стрімер Lichess, %s</string>
   <string name="requestReview">запросити відгук модератора</string>
-  <string name="anotherLanguage">Якщо ви транслюєте на мові, окрім англійської, вкажіть правильний тег мови (%s), оточений квадратними дужками, на початку назви вашого потоку.
-Як приклад, ви можете вказати \"[RU]\" для російської, \"[TR]\" для турецької, \"[FR]\" для французької мови тощо.
-Поставте це в заголовок трансляції Twitch або YouTube, а не в налаштуваннях Lichess трансляції.
-Якщо ваш стрім англійською, немає необхідності включати мовний тег.</string>
+  <string name="anotherLanguage">Якщо Ви транслюєте не англійською мовою, вкажіть правильний тег мови (%s), оточений квадратними дужками, на початку назви Вашої трансляції.
+Як приклад, ви можете вказати \"[UA]\" для української, \"[TR]\" для турецької, \"[FR]\" для французької мови тощо.
+Поставте це в заголовок трансляції Twitch або YouTube, а не в налаштуваннях трансляції Lichess.
+Якщо Ваша трансляція англійською, немає необхідності включати мовний тег.</string>
   <string name="twitchUsername">Ваше ім\'я користувача Twitch або посилання</string>
   <string name="optionalOrEmpty">Необов\'язково. Залиште пустим, якщо немає</string>
   <string name="youtubeChannel">ID вашого YouTube каналу або посилання</string>
@@ -45,7 +45,7 @@
   <string name="visibility">Видимий на сторінці стримерів</string>
   <string name="whenApproved">Після затвердження модераторами</string>
   <string name="headline">Заголовок</string>
-  <string name="tellUsAboutTheStream">Розкажіть нам про ваш стрім в одному реченні</string>
+  <string name="tellUsAboutTheStream">Розкажіть нам про Вашу трансляцію одним реченням</string>
   <string name="longDescription">Докладний опис</string>
   <string name="xStreamerPicture">%s зображення стрімера</string>
   <string name="changePicture">Змінити/видалити своє зображення</string>
