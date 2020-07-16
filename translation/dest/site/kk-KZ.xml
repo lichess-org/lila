@@ -441,7 +441,7 @@
   <string name="yourPuzzleRatingX">Жұмбақ шешудегі рейтингіңіз: %s</string>
   <string name="findTheBestMoveForWhite">Ақтар пайдасына ең дұрыс жүрісті табыңыз.</string>
   <string name="findTheBestMoveForBlack">Қаралар пайдасына ең дұрыс жүрісті табыңыз.</string>
-  <string name="toTrackYourProgress">Дамуыңызды қадағалау үшін:</string>
+  <string name="toTrackYourProgress">Даму жолын қадағалау үшін:</string>
   <string name="puzzleId">%s жұмбақ</string>
   <string name="puzzleOfTheDay">Бүгінгі жұмбақ</string>
   <string name="clickToSolve">Шешу үшін басыңыз</string>
@@ -451,11 +451,14 @@
   <string name="success">Бәрі дұрыс!</string>
   <string name="fromGameLink">Осы ойыннан %s</string>
   <string name="continueTraining">Ары қарай жаттығу</string>
+  <string name="puzzles">Жұмбақтар</string>
   <string name="topics">Тақырып</string>
   <string name="posts">Жазба</string>
   <string name="notes">Жазбалар</string>
   <string name="sound">Дыбыстар</string>
   <string name="learnMenu">Үйрену</string>
+  <string name="studyMenu">Зерттеу</string>
+  <string name="practice">Жаттығу</string>
   <string name="community">Қауым</string>
   <string name="tools">Құралдар</string>
   <string name="ifRatingIsPlusMinusX">Егер рейтингі ± %s болса</string>
@@ -490,6 +493,7 @@
   <string name="boardGeometry">Тақта пішіні</string>
   <string name="boardTheme">Тақта өңі</string>
   <string name="pieceSet">Тастар келбеті</string>
+  <string name="chessBasics">Шахмат әліппесі</string>
   <string name="error.minLength">Кем дегенде %s таңба керек</string>
   <string name="error.maxLength">%s таңбадан аспаңыз</string>
   <string name="perfRatingX">Рейтинг: %s</string>
