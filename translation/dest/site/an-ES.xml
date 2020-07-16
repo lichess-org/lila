@@ -153,7 +153,7 @@
   <string name="discussions">Conversacions</string>
   <string name="today">Hue</string>
   <string name="yesterday">Ahiere</string>
-  <string name="minutesPerSide">Menutos per chugador</string>
+  <string name="minutesPerSide">Minutos per chugador</string>
   <string name="variant">Variant</string>
   <string name="variants">Variants</string>
   <string name="timeControl">Control de tiempo</string>
@@ -538,7 +538,7 @@
   <string name="letOtherPlayersInviteYouToStudy">Permitir que atros chugadors te conviden a estudios</string>
   <string name="sound">Son</string>
   <string name="none">Garra</string>
-  <string name="fast">Rapido</string>
+  <string name="fast">Rapida</string>
   <string name="normal">Normal</string>
   <string name="slow">Lento</string>
   <string name="insideTheBoard">Adentro d\'o escaquero</string>
