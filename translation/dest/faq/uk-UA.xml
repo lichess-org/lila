@@ -134,9 +134,9 @@
   <string name="howToThreeDots">Дізнайтесь як...</string>
   <string name="enableDisableNotificationPopUps">Увімкнути або вимкнути спливаючі сповіщення?</string>
   <string name="viewSiteInformationPopUp">Перегляд спливаючого вікна інформації про сайт</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess може необов\'язково відправляти спливаючі сповіщення, наприклад, коли настала ваша черга зробити хід або ви отримали приватне повідомлення.
+  <string name="lichessCanOptionnalySendPopUps">Lichess може на Ваш розсуд надсилати спливаючі сповіщення, наприклад, коли настала Ваша черга зробити хід або Ви отримали приватне повідомлення.
 
-Натисніть на значок блокування поруч з адресою lichess.org в адресному рядку вашого браузера.
+Натисніть на значок блокування поруч з адресою lichess.org в адресному рядку Вашого браузера.
 
 Потім виберіть, чи слід дозволяти сповіщення з Lichess.</string>
 </resources>
