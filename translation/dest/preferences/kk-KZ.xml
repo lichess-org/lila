@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Баптаулар</string>
+  <string name="gameDisplay">Ойын көрінісі</string>
+  <string name="chessClock">Шахмат сағаты</string>
   <string name="tenthsOfSeconds">Секундтың ондық бөлігін көрсету</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">10 секунд қалғанда</string>
   <string name="soundWhenTimeGetsCritical">Уақыт аз қалғанда, дыбыс белгі беру</string>
   <string name="giveMoreTime">Kóp ýaqyt berińiz</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">30 секунд қалғанда</string>
   <string name="yourPreferencesHaveBeenSaved">Баптауыңыз сақталды.</string>
 </resources>
