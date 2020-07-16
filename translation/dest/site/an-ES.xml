@@ -620,7 +620,7 @@
   <string name="webmasters">Desembolicadors</string>
   <string name="about">Sobre</string>
   <string name="aboutX">Sobre %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ye un servidor d\'escaques totalment gratuito (%2$s) creyau con codigo ubierto, libre, sin publicidat.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ye un servidor d\'escaques totalment gratuito (%2$s) feito con codigo ubierto, libre, sin publicidat.</string>
   <string name="really">realment</string>
   <string name="contribute">Contribuyir</string>
   <string name="termsOfService">Condicions d\'o servicio</string>
@@ -628,7 +628,7 @@
   <string name="simultaneousExhibitions">Exhibicions simultanias</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Color de l\'anfitrión: %s</string>
-  <string name="createdSimuls">Nuevas simultanias creyadas</string>
+  <string name="createdSimuls">Nuevas simultanias creadas</string>
   <string name="hostANewSimul">Crear una nueva simultania</string>
   <string name="noSimulFound">Simultania no trobada</string>
   <string name="noSimulExplanation">Esta exhibición simultania no existe.</string>
@@ -719,10 +719,10 @@
     <item quantity="other">Disponible en %s idiomas!</item>
   </plurals>
   <string name="gameAnalysis">Analisi d\'a partida</string>
-  <string name="xHostsY">%1$s creya %2$s</string>
+  <string name="xHostsY">%1$s ha creau %2$s</string>
   <string name="xJoinsY">%1$s s\'une a %2$s</string>
   <string name="xLikesY">a %1$s le fa goyo %2$s</string>
-  <string name="xCreatesStudyY">%1$s creyó lo estudio %2$s</string>
+  <string name="xCreatesStudyY">%1$s ha creau lo estudio %2$s</string>
   <string name="quickPairing">Emparellamiento rapido</string>
   <string name="lobby">Sala d\'espera</string>
   <string name="anonymous">Anonimo</string>
