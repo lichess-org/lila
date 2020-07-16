@@ -20,10 +20,10 @@
   <string name="highestRating">Puntuación mas alta: %s</string>
   <string name="lowestRating">Puntuación mas baixa: %s</string>
   <string name="fromXToY">dende %1$s dica %2$s</string>
-  <string name="winningStreak">Racha de victorias</string>
-  <string name="losingStreak">Racha de redotas</string>
-  <string name="longestStreak">Racha mas larga: %s</string>
-  <string name="currentStreak">Racha actual: %s</string>
+  <string name="winningStreak">Tongada de victorias</string>
+  <string name="losingStreak">Tongada de redotas</string>
+  <string name="longestStreak">Tongada mas larga: %s</string>
+  <string name="currentStreak">Tongada actual: %s</string>
   <string name="bestRated">Millors victorias per puntos</string>
   <string name="worstRated">Piors redotas per puntos</string>
   <string name="gamesInARow">Partidas chugadas seguidas</string>
