@@ -10,7 +10,7 @@
   <string name="aiNameLevelAiLevel">%1$s libel %2$s</string>
   <string name="level">Libel</string>
   <string name="toggleTheChat">Amostrar/Amagar chat</string>
-  <string name="toggleSound">Activar/Desactivar son</string>
+  <string name="toggleSound">Activar/Desactivar soniu</string>
   <string name="chat">Chat</string>
   <string name="resign">Abandonar</string>
   <string name="checkmate">Jaque mate</string>
@@ -143,7 +143,7 @@
   <string name="signIn">Iniciar sesión</string>
   <string name="youNeedAnAccountToDoThat">Te cal tener una cuenta pa fer ixo</string>
   <string name="signUp">Rechistrar-se</string>
-  <string name="computersAreNotAllowedToPlay">No ye permitiu chugar a ordinadors ni a chugadors aduyaus per un ordinador u per atras personas. Per favor, no t\'aduyes de motors d\'escaques, bases de datos u d\'atros chugadors entre la partida. Amás, tiene en cuenta que no se consella la utilización de quantas cuentas d\'usuario y que l\'uso d\'un excesivo numero de cuentas resultará en a cancelación d\'as mesmas.</string>
+  <string name="computersAreNotAllowedToPlay">No ye permitiu chugar a ordinadors ni a chugadors aduyaus per un ordinador u per atras personas. Per favor, no t\'aduyes de motors d\'escaques, bases de datos u d\'atros chugadors en a partida. Amás, tiene en cuenta que no se consella la utilización de mas d\'una cuenta d\'usuario y que l\'uso d\'un excesivo numero de cuentas resultará en a cancelación d\'as mesmas.</string>
   <string name="games">Partidas</string>
   <string name="forum">Foro</string>
   <string name="xPostedInForumY">%1$s ha escrito en o tema %2$s</string>
@@ -536,7 +536,7 @@
   <string name="letOtherPlayersFollowYou">Permitir que atros chugadors te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que atros chugadors te desafíen</string>
   <string name="letOtherPlayersInviteYouToStudy">Permitir que atros chugadors te conviden a estudios</string>
-  <string name="sound">Son</string>
+  <string name="sound">Soniu</string>
   <string name="none">Garra</string>
   <string name="fast">Rapida</string>
   <string name="normal">Normal</string>
@@ -637,7 +637,7 @@
   <string name="aboutSimulImage">De 50 oponents, Fischer ganó 47 partidas, empató dos y perdió una.</string>
   <string name="aboutSimulRealLife">Lo concepto de simultanias en Lichess se prene d\'a vida real, an l\'anfitrión va de taula en taula fendo las suyas chugadas.</string>
   <string name="aboutSimulRules">Quan la simultania encomienza, cada chugador prencipia una partida con l\'anfitrión, que chuga con blancas. La simultania remata quan s\'acaban totas las partidas.</string>
-  <string name="aboutSimulSettings">Las simultanias son siempre partidas amistosas. Las opcions de petición de reminche, desfer chugada y adhibir tiempo son desactivadas.</string>
+  <string name="aboutSimulSettings">Las simultanias son siempre partidas amistosas. Las opcions de petición de reminche, desfer chugada y anyadir tiempo son desactivadas.</string>
   <string name="create">Crear</string>
   <string name="whenCreateSimul">Quan creigas una simultania, chugas contra quantos chugadors a la vegada.</string>
   <string name="simulVariantsHint">Si trías diferents variants, cada chugador tría quál chugar.</string>
@@ -756,7 +756,7 @@
   <string name="error.unknown">Error</string>
   <string name="custom">Personalizada</string>
   <string name="notifications">Notificacions</string>
-  <string name="challenges">Desafíos</string>
+  <string name="challenges">Retos</string>
   <string name="perfRatingX">Puntuación: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo pa fer lo primer movimiento</item>
@@ -805,10 +805,10 @@
   <string name="endgame">Final</string>
   <string name="registerToSendChallenges">Rechistra-te pa desafiar a atros.</string>
   <string name="youCannotChallengeX">No puetz desafiar a %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s no accepta desafíos.</string>
+  <string name="xDoesNotAcceptChallenges">%s no accepta retos.</string>
   <string name="yourXRatingIsTooFarFromY">La tuya puntuación de %1$s ye masiau luen d\'a de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">No puetz ninviar desafíos perque la tuya puntuación de %s ye provisional.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s nomás accepta desafíos d\'os suyos amigos.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">No puetz ninviar retos perque la tuya puntuación de %s ye provisional.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s nomás accepta retos d\'os suyos amigos.</string>
   <string name="conditionalPremoves">Premovimientos condicionals</string>
   <string name="addCurrentVariation">Anyadir la variant actual</string>
   <string name="playVariationToCreateConditionalPremoves">Chuga una variant pa crear movimientos condicionals</string>
