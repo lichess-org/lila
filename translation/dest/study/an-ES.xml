@@ -104,9 +104,9 @@
   </plurals>
   <string name="urlOfTheGame">URL d\'a partida</string>
   <string name="loadAGameFromXOrY">Cargar una partida dende %1$s u %2$s</string>
-  <string name="createChapter">Creyar capitol</string>
+  <string name="createChapter">Crear capitol</string>
   <string name="configureLiveBroadcast">Configurar la emisión en directo</string>
-  <string name="createStudy">Creyar estudio</string>
+  <string name="createStudy">Crear estudio</string>
   <string name="editStudy">Editar estudio</string>
   <string name="visibility">Visibilidat</string>
   <string name="public">Publico</string>
