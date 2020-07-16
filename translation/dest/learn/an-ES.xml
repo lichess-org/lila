@@ -10,7 +10,7 @@
   <string name="chessPieces">Las piezas d\'escaques</string>
   <string name="theRook">La torre</string>
   <string name="itMovesInStraightLines">Se mueve en linia dreita</string>
-  <string name="rookIntro">La torre ye una pieza poderosa. Yes presto pa dirichir-la?</string>
+  <string name="rookIntro">La torre ye una pieza poderosa. Yes presto pa comandar-la?</string>
   <string name="rookGoal">Fe clic en a torre pa levar-la dica la estrela!</string>
   <string name="grabAllTheStars">Captura totas las estrelas!</string>
   <string name="theFewerMoves">Quantos menos movimientos faigas, mas puntos ganas!</string>
