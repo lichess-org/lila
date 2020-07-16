@@ -184,9 +184,9 @@
   <string name="passwordReset">Cambiar clau</string>
   <string name="forgotPassword">Ixuplidés la tuya clau?</string>
   <string name="rank">Posición</string>
-  <string name="rankX">Clasificación: %s</string>
+  <string name="rankX">Posición: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">La clasificación s\'actualiza cada minuto</item>
+    <item quantity="one">La clasificación s\'esviella cada minuto</item>
     <item quantity="other">La clasificación s\'actualiza cada %s minutos</item>
   </plurals>
   <plurals name="nbPuzzles">
