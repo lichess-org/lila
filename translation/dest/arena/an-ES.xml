@@ -9,7 +9,7 @@
   <string name="howAreScoresCalculated">Cómo se calculan las puntuacions?</string>
   <string name="howAreScoresCalculatedAnswer">De dentrada, las victorias valen 2 puntos, las taulas 1 punto y las redotas 0 puntos.
 
-Si ganas dos partidas seguidas, prencipiarás una racha de puntuación dople, representada per un icono d\'una flama. A partir d\'ixe momento y mientres sigas ganando, cada partida valerá lo dople; esto ye, las victorias 4 puntos y las taulas 2 puntos. Una redota seguirá valendo zero puntos.
+Si ganas dos partidas seguidas, prencipiarás una tongada de puntuación dople, representada per un icono d\'una flama. A partir d\'ixe momento y mientres sigas ganando, cada partida valerá lo dople; esto ye, las victorias 4 puntos y las taulas 2 puntos. Una redota seguirá valendo zero puntos.
 
 Per eixemplo:
 Tres victorias seguidas valen 8 puntos: 2 + 2 + (2×2)
@@ -25,7 +25,7 @@ Lo modo berserk no ye disponible en controls de tiempo con tiempo inicial zero c
 Lo modo berserk nomás proporciona un punto adicional per cada victoria si chugas a lo menos 7 movimientos en a partida.</string>
   <string name="howIsTheWinnerDecided">Cómo se decide lo ganador?</string>
   <string name="howIsTheWinnerDecidedAnswer">Ganará lo chugador (u chugadors) que tienga mas puntos a la fin d\'o torneyo.</string>
-  <string name="howDoesPairingWork">Cómo se realizan los emparellamientos?</string>
+  <string name="howDoesPairingWork">Cómo se fan los emparellamientos?</string>
   <string name="howDoesPairingWorkAnswer">A l\'inicio d\'o torneyo, los chugadors s\'emparellan seguntes la suya puntuación. Malas que rematas una partida, tornas a la sala d\'espera d\'o torneyo, y se t\'emparellará con un chugador con una posición pareixida a la tuya. Esto minimiza lo tiempo d\'espera, si bien ye posible que no chugues contra totz os de demás chugadors d\'o torneyo.
 Chuga rapido y torna a lo recibidor pa chugar mas partidas y ganar mas puntos.</string>
   <string name="howDoesItEnd">Quán remata?</string>
@@ -38,5 +38,5 @@ Chuga rapido y torna a lo recibidor pa chugar mas partidas y ganar mas puntos.</
   </plurals>
   <string name="thisIsPrivate">Este ye un torneyo privau</string>
   <string name="shareUrl">Comparte este vinclo pa que atras personas s\'unan: %s</string>
-  <string name="drawStreak">Rachas de taulas: Quan un chugador fa taulas en quantas partidas consecutivas en un torneyo, nomás conceden un punto la primera d\'ellas y las que haigan durau %s movimientos u mas. Una racha de taulas nomás puede trencar-se per medio d\'una victoria, no sirven ni una redota ni unas taulas.</string>
+  <string name="drawStreak">Tongada de taulas: Quan un chugador fa taulas en quantas partidas consecutivas en un torneyo, nomás conceden un punto la primera d\'ellas y las que haigan durau %s movimientos u mas. Una tongada de taulas nomás puede trencar-se per medio d\'una victoria, no sirven ni una redota ni unas taulas.</string>
 </resources>
