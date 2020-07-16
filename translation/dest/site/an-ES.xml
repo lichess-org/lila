@@ -18,7 +18,7 @@
   <string name="white">Blancas</string>
   <string name="black">Negras</string>
   <string name="randomColor">Color aleatoria</string>
-  <string name="createAGame">Creyar una partida</string>
+  <string name="createAGame">Chugar una partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
   <string name="blackIsVictorious">Las negras ganan</string>
   <string name="youPlayTheWhitePieces">Chugas con blancas</string>
@@ -141,7 +141,7 @@
   <string name="viewInFullSize">Veyer en grandaria completa</string>
   <string name="logOut">Zarrar sesión</string>
   <string name="signIn">Iniciar sesión</string>
-  <string name="youNeedAnAccountToDoThat">Te cal creyar una cuenta pa fer ixo</string>
+  <string name="youNeedAnAccountToDoThat">Te cal tener una cuenta pa fer ixo</string>
   <string name="signUp">Rechistrar-se</string>
   <string name="computersAreNotAllowedToPlay">No ye permitiu chugar a ordinadors ni a chugadors aduyaus per un ordinador u per atras personas. Per favor, no t\'aduyes de motors d\'escaques, bases de datos u d\'atros chugadors entre la partida. Amás, tiene en cuenta que no se consella la utilización de quantas cuentas d\'usuario y que l\'uso d\'un excesivo numero de cuentas resultará en a cancelación d\'as mesmas.</string>
   <string name="games">Partidas</string>
@@ -327,7 +327,7 @@
   <string name="backToGame">Tornar a la partida</string>
   <string name="siteDescription">Servidor d\'escaques en linia gratuito. Chuga a los escaques en una interficie simpla. Sin rechistro, sin publicidat, sin necesidat de complementos. Chuga contra l\'ordinador, amigos u oponents desconoixius.</string>
   <string name="xJoinedTeamY">%1$s s\'unió a l\'equipo %2$s</string>
-  <string name="xCreatedTeamY">%1$s creyó l\'equipo %2$s</string>
+  <string name="xCreatedTeamY">%1$s ha creau l\'equipo %2$s</string>
   <string name="xStartedStreaming">%s prencipió a emitir</string>
   <string name="averageElo">Puntuación promeyo</string>
   <string name="location">Ubicación</string>
@@ -394,13 +394,13 @@
   <string name="duration">Duración</string>
   <string name="winner">Ganador</string>
   <string name="standing">Posición</string>
-  <string name="createANewTournament">Creyar un nuevo torneyo</string>
+  <string name="createANewTournament">Crear un nuevo torneyo</string>
   <string name="tournamentCalendar">Calandario de torneyos</string>
   <string name="conditionOfEntry">Requisito de dentrada:</string>
   <string name="advancedSettings">Configuración abanzada</string>
   <string name="safeTournamentName">Tría un nombre muito seguro pa lo torneyo.</string>
   <string name="inappropriateNameWarning">Qualsequier comportamiento minimament inadequau podría conllevar a lo zarre d\'a tuya cuenta.</string>
-  <string name="emptyTournamentName">Deixa-lo en blanco pa meter a lo torneyo lo nombre d\'un Gran Maestro a lo azar.</string>
+  <string name="emptyTournamentName">Si lo deixas en blanco, lo torneyo recebirá lo nombre d\'un Gran Mayestro a l\'azar.</string>
   <string name="recommendNotTouching">Se recomienda deixar como ye.</string>
   <string name="fewerPlayers">Si imposas condicions de dentrada, lo torneyo tendrá menos chugadors.</string>
   <string name="showAdvancedSettings">Amostrar configuración abanzada</string>
@@ -411,7 +411,7 @@
   <string name="wins">Victorias</string>
   <string name="losses">Redotas</string>
   <string name="winStreak">Victorias consecutivas</string>
-  <string name="createdBy">Creyau per</string>
+  <string name="createdBy">Creau per</string>
   <string name="tournamentIsStarting">Lo torneyo va a empecipiar</string>
   <string name="tournamentPairingsAreNowClosed">Ya s\'han zarrau los emparellamientos d\'o torneyo.</string>
   <string name="standByX">Aguarda %s, emparellando chugadors, prepara-te!</string>
@@ -468,7 +468,7 @@
   <string name="puzzleFailed">Exercicio fallido</string>
   <string name="butYouCanKeepTrying">Pero puetz seguir intentando-lo.</string>
   <string name="success">Exito</string>
-  <string name="wasThisPuzzleAnyGood">Creyes que este exercicio ye bueno?</string>
+  <string name="wasThisPuzzleAnyGood">Yera bueno este problema?</string>
   <string name="pleaseVotePuzzle">Aduya a lichess a amillorar. Vota usando las flechas alto u abaixo:</string>
   <string name="thankYou">Gracias!</string>
   <string name="ratingX">Puntuacion: %s</string>
@@ -496,7 +496,7 @@
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="help">Aduya:</string>
-  <string name="createANewTopic">Creyar un tema nuevo</string>
+  <string name="createANewTopic">Crear un tema nuevo</string>
   <string name="topics">Temas</string>
   <string name="posts">Publicacions</string>
   <string name="lastPost">Zaguera publicación</string>
@@ -505,7 +505,7 @@
   <string name="replyToThisTopic">Responder a este tema</string>
   <string name="reply">Responder</string>
   <string name="message">Mensache</string>
-  <string name="createTheTopic">Creyar tema</string>
+  <string name="createTheTopic">Crear un tema</string>
   <string name="reportAUser">Denunciar a un usuario</string>
   <string name="user">Usuario</string>
   <string name="reason">Motivo</string>
@@ -629,7 +629,7 @@
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Color de l\'anfitrión: %s</string>
   <string name="createdSimuls">Nuevas simultanias creyadas</string>
-  <string name="hostANewSimul">Creyar una nueva simultania</string>
+  <string name="hostANewSimul">Crear una nueva simultania</string>
   <string name="noSimulFound">Simultania no trobada</string>
   <string name="noSimulExplanation">Esta exhibición simultania no existe.</string>
   <string name="returnToSimulHomepage">Tornar a la pachina de simultanias</string>
@@ -638,14 +638,14 @@
   <string name="aboutSimulRealLife">Lo concepto de simultanias en Lichess se prene d\'a vida real, an l\'anfitrión va de taula en taula fendo las suyas chugadas.</string>
   <string name="aboutSimulRules">Quan la simultania encomienza, cada chugador prencipia una partida con l\'anfitrión, que chuga con blancas. La simultania remata quan s\'acaban totas las partidas.</string>
   <string name="aboutSimulSettings">Las simultanias son siempre partidas amistosas. Las opcions de petición de reminche, desfer chugada y adhibir tiempo son desactivadas.</string>
-  <string name="create">Creyar</string>
+  <string name="create">Crear</string>
   <string name="whenCreateSimul">Quan creigas una simultania, chugas contra quantos chugadors a la vegada.</string>
   <string name="simulVariantsHint">Si trías diferents variants, cada chugador tría quál chugar.</string>
   <string name="simulClockHint">Configuración de reloch Fischer. Quantos mas oponents, mas tiempo se precisa.</string>
   <string name="simulAddExtraTime">Puetz anyadir tiempo adicional a lo tuyo reloch pa aduyar-te en a simultania.</string>
   <string name="simulHostExtraTime">Tiempo extra de l\'anfitrión</string>
   <string name="lichessTournaments">Torneyos de Lichess</string>
-  <string name="tournamentFAQ">Preguntas freqüents d\'os torneyos</string>
+  <string name="tournamentFAQ">Preguntas freqüents d\'os torneyos arena</string>
   <string name="tournamentOfficial">Oficial</string>
   <string name="timeBeforeTournamentStarts">Tiempo antes que prencipie lo torneyo</string>
   <string name="averageCentipawnLoss">Perda promeyo en centipeons</string>
@@ -754,7 +754,7 @@
   <string name="error.min">Ha d\'estar mayor u igual a %s</string>
   <string name="error.max">Ha d\'estar menor u igual a %s</string>
   <string name="error.unknown">Error</string>
-  <string name="custom">Personalizau</string>
+  <string name="custom">Personalizada</string>
   <string name="notifications">Notificacions</string>
   <string name="challenges">Desafíos</string>
   <string name="perfRatingX">Puntuación: %s</string>
@@ -811,7 +811,7 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s nomás accepta desafíos d\'os suyos amigos.</string>
   <string name="conditionalPremoves">Premovimientos condicionals</string>
   <string name="addCurrentVariation">Anyadir la variant actual</string>
-  <string name="playVariationToCreateConditionalPremoves">Chuga una variant pa creyar movimientos condicionals</string>
+  <string name="playVariationToCreateConditionalPremoves">Chuga una variant pa crear movimientos condicionals</string>
   <string name="noConditionalPremoves">Sin movimientos anticipaus condicionals</string>
   <string name="playX">Chugar %s</string>
   <plurals name="andSaveNbPremoveLines">
@@ -836,7 +836,7 @@
   <string name="currentMatchScore">Puntuación actual</string>
   <string name="agreementAssistance">Me comprometo a no recibir aduya externa entre las mías partidas (d\'un ordinador, un libro, una base de datos u unatra persona).</string>
   <string name="agreementNice">Me comprometo a respectar siempre a atros chugadors.</string>
-  <string name="agreementAccount">Me comprometo a no creyar multiples cuentas.</string>
+  <string name="agreementAccount">Me comprometo a no crear multiples cuentas.</string>
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar u empecipiar una nueva conversación</string>
   <string name="edit">Editar</string>
