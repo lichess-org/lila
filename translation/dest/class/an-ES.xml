@@ -44,7 +44,7 @@ Clau: %3$s</string>
   <string name="inviteDesc4">Nunca ninvies invitacions no solicitadas a chugadors arbitrarios.</string>
   <string name="createANewLichessAccount">Creyar una nueva cuenta de Lichess</string>
   <string name="createDesc1">Si los estudiants encara no poseyen una cuenta de Lichess, puede creyar una pa ells aquí.</string>
-  <string name="createDesc2">No se requiere adreza de correu electronico. Se chenerará una clau. Ha de dar-le-ne a los estudiants, asinas podrán encetar sesión.</string>
+  <string name="createDesc2">No se requiere adreza de correu electronico. Se chenerará una clau. Ha de dar-le-ne a los estudiants, asinas podrán iniciar sesión.</string>
   <string name="createDesc3">Important: un estudiant no ha de tener multiples cuentas.</string>
   <string name="createDesc4">Si ya en tienen una, fe servir lo formulario d\'invitación.</string>
   <string name="lichessUsername">Nombre d\'usuario de Lichess</string>
