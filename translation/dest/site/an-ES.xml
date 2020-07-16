@@ -342,7 +342,7 @@
   <string name="continueFromHere">Continar dende aquí</string>
   <string name="toStudy">Estudiar</string>
   <string name="importGame">Importar partida</string>
-  <string name="importGameExplanation">En apegar lo PGN d\'una partida, s\'obtiene una repetición navegable, una analisi per ordinador, un chat de chuego y un vinclo pa compartir.</string>
+  <string name="importGameExplanation">Apegando lo PGN d\'una partida, s\'obtiene una repetición navegable, una analisi per ordinador, un chat de partida y un vinclo pa compartir.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -453,7 +453,7 @@
   <string name="onlinePlayers">Chugadors connectaus</string>
   <string name="activeToday">Activos hue</string>
   <string name="activePlayers">Chugadors activos</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Cudiau, lo chuego ye per puntos pero sin limite de tiempo!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Para cuenta, la partida ye per puntos pero sin limite de tiempo!</string>
   <string name="yourPuzzleRatingX">La tuya puntuación en os exercicios de tactica: %s</string>
   <string name="findTheBestMoveForWhite">Troba lo millor movimiento pa las blancas.</string>
   <string name="findTheBestMoveForBlack">Troba lo millor movimiento pa las negras.</string>
