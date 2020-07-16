@@ -27,11 +27,11 @@
   <plurals name="studentReviews">
     <item quantity="one">Відгук учня</item>
     <item quantity="few">%s відгуки учнів</item>
-    <item quantity="many">%s відгуки учнів</item>
-    <item quantity="other">%s відгуки учнів</item>
+    <item quantity="many">%s відгуків учнів</item>
+    <item quantity="other">%s відгуків учнів</item>
   </plurals>
   <string name="thankYouForReview">Дякуємо за відгук!</string>
-  <string name="xWillApproveIt">%s дуже скоро це підтвердить, або модератор згодом подивиться.</string>
+  <string name="xWillApproveIt">%s незабаром це підтвердить, або модератор перегляне його.</string>
   <string name="reviewCoach">Написати відгук про цього тренера</string>
   <string name="describeExperienceWith">Опишіть свій досвід тренувань з %s</string>
 </resources>
