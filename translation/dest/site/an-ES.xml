@@ -63,9 +63,9 @@
   <string name="inLocalBrowser">en o navegador local</string>
   <string name="toggleLocalEvaluation">Avaluación local</string>
   <string name="promoteVariation">Promocionar variant</string>
-  <string name="makeMainLine">Convertir en linia prencipal</string>
+  <string name="makeMainLine">Fer que siga la linia prencipal</string>
   <string name="deleteFromHere">Borrar a partir d\'aquí</string>
-  <string name="forceVariation">Convertir en variant</string>
+  <string name="forceVariation">Fer que siga variant</string>
   <string name="move">Movimiento</string>
   <string name="variantLoss">Variant perdedera</string>
   <string name="variantWin">Variant ganadera</string>
@@ -399,7 +399,7 @@
   <string name="conditionOfEntry">Requisito de dentrada:</string>
   <string name="advancedSettings">Configuración abanzada</string>
   <string name="safeTournamentName">Tría un nombre muito seguro pa lo torneyo.</string>
-  <string name="inappropriateNameWarning">Qualsequier comportamiento minimament inadequau podría conllevar a lo zarre d\'a tuya cuenta.</string>
+  <string name="inappropriateNameWarning">Qualsequier comportamiento minimament inadequau podría comportar que se zarre la tuya cuenta.</string>
   <string name="emptyTournamentName">Si lo deixas en blanco, lo torneyo recebirá lo nombre d\'un Gran Mayestro a l\'azar.</string>
   <string name="recommendNotTouching">Se recomienda deixar como ye.</string>
   <string name="fewerPlayers">Si imposas condicions de dentrada, lo torneyo tendrá menos chugadors.</string>
