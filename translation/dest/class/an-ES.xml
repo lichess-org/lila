@@ -61,7 +61,7 @@ Aquí ye lo vinclo d\'acceso.</string>
   <string name="onlyVisibleToTeachers">Nomás visible pa los profesors d\'a clase</string>
   <string name="lastActiveDate">Zaguera visita</string>
   <string name="managed">Chestionada</string>
-  <string name="thisStudentAccountIsManaged">La conta d\'este estudiant ye chestionada</string>
+  <string name="thisStudentAccountIsManaged">La cuonta d\'este estudiant ye chestionada</string>
   <string name="upgradeFromManaged">Actualizar de chestionada a autonoma</string>
   <string name="release">Liberar</string>
   <string name="releaseTheAccount">Liberar la cuenta pa que lo estudiant pueda chestionar-la en forma autonoma.</string>
