@@ -54,7 +54,7 @@ En raras ocasions esto puede estar de mal decidir automaticament (linias forzada
 Considera que ye posible dar mate con un nomás caballo u alfil, siempre que l\'oponent tienga una pieza que pueda blocar a lo rei.</string>
   <string name="linkToFIDErules">Manual FIDE §6.9, pdf</string>
   <string name="discoveringEnPassant">Per qué un peón puede capturar unatro peón quan ya ye pasau? (en passant)</string>
-  <string name="explainingEnPassant">Este movimiento ye legal, y se diz \"captura a lo paso\". L\'articlo de Wikipedia fa un %1$s a este concepto.
+  <string name="explainingEnPassant">Este movimiento ye legal, y se diz \"captura a lo paso\". L\'articlo de Wikipedia fa una %1$s a este movimiento.
 
  Se describe en a sección 3.7 (d) d\'as %2$s:
 
@@ -65,7 +65,7 @@ Considera que ye posible dar mate con un nomás caballo u alfil, siempre que l\'
   <string name="officialRulesPDF">reglas oficials (pdf)</string>
   <string name="lichessTraining">Entrenamiento en Lichess</string>
   <string name="threefoldRepetition">Triple repetición</string>
-  <string name="threefoldRepetitionExplanation">Si una posición ocurre tres vegadas, los chugadors pueden reclamar un empate per %1$s. Lichess implementa las reglas oficials d\'a FIDE, d\'alcuerdo con l\'Articlo 9.2 (d) d\'o %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Si una mesma posición ocurre tres vegadas, los chugadors pueden reclamar un empate per %1$s. Lichess implementa las reglas oficials d\'a FIDE, d\'alcuerdo con l\'Articlo 9.2 (d) d\'o %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple repetición</string>
   <string name="handBookPDF">manual (pdf)</string>
   <string name="notRepeatedMoves">No hemos repetiu movimientos, per qué lo chuego sigue estando taulas per repetición?</string>
@@ -74,7 +74,7 @@ Considera que ye posible dar mate con un nomás caballo u alfil, siempre que l\'
   <string name="weRepeatedthreeTimesPosButNoDraw">Hemos repetiu una posición tres vegadas. Per qué la partida no se declara taulas?</string>
   <string name="threeFoldHasToBeClaimed">Las taulas per triple repetición han d\'estar reclamadas per un d\'os chugadors. Puetz fer-lo pretando lo botón que s\'amuestra, u ofrindo taulas antes de fer lo movimiento que cause la tercera repetición, no importará que lo tuyo oponent refuse la ofierta de taulas, las taulas per triple repetición serán reclamadas de totas trazas. Tamién puetz %1$s Lichess pa que reclame automaticament las repeticions per tu. Amás, la quinta repetición siempre remata la partida immediatament.</string>
   <string name="configure">configurar</string>
-  <string name="accounts">Contas</string>
+  <string name="accounts">Cuentas</string>
   <string name="titlesAvailableOnLichess">Qué titols i hai en Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess reconoix totz los titols FIDE obtenius OTB (sobre lo escaquero), como %1$s. Aquí i hai una lista de titols FIDE:</string>
   <string name="showYourTitle">Si tiens un titol \"sobre lo escaquero\", puetz solicitar que s\'amuestre en a tuya cuenta completando lo %1$s, incluyindo una imachen clara d\'un documento u tarcheta d\'identificación y una foto tuya amostrando dito documento u tarcheta.
@@ -94,11 +94,11 @@ No demandes d\'obtener lo titol de LM.</string>
   <string name="whatUsernameCanIchoose">Quál puede estar lo mío nombre d\'usuario?</string>
   <string name="usernamesNotOffensive">En cheneral, los nombres d\'usuario no han de: estar ofensivos, suplantar a belún u fer publicidat. Puetz leyer mas sobre las %1$s.</string>
   <string name="guidelines">pautas</string>
-  <string name="uniqueTrophies">Trofeos solos</string>
-  <string name="ownerUniqueTrophies">Ixe trofeo ye unico en a historia de Lichess, nomás %1$s lo tendrá.</string>
+  <string name="uniqueTrophies">Trofeyos unicos</string>
+  <string name="ownerUniqueTrophies">Ixe trofeyo ye unico en a historia de Lichess, nomás %1$s lo tendrá.</string>
   <string name="wayOfBerserkExplanation">Pa obtener-lo, hiimgosu se desafió a ell mesmo a berserk y ganó 100%% partidas de %s.</string>
   <string name="aHourlyBulletTournament">un torneyo bala per hora</string>
-  <string name="goldenZeeExplanation">ZugAddict yera transmitindo y entre las dos zagueras horas heba estau tractando de redotar a la I.A. libel 8 en una partida 1+0, sin exito. Thibault le dició que si lo feba con exito entre la transmisión, obtendría un trofeo solo. Una hora dimpués, venció a Stockfish y se cumplió la promesa.</string>
+  <string name="goldenZeeExplanation">ZugAddict yera transmitindo y entre las dos zagueras horas heba estau tractando de redotar a la I.A. libel 8 en una partida 1+0, sin exito. Thibault le dició que si lo feba con exito entre la transmisión, obtendría un trofeyo unico. Una hora dimpués, venció a Stockfish y se cumplió la promesa.</string>
   <string name="lichessRatings">Puntuacions de Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Qué sistema de puntuación utiliza Lichess?</string>
   <string name="ratingSystemUsedByLichess">Las puntuacions se calculan emplegando lo metodo de clasificación Glicko-2 desenvuelto per Mark Glickman. Este ye un metodo de puntuación muito popular y utilizau per un numero significativo d\'organizacions d\'escaques (FIDE en ye un contraeixemplo notable, ya que fa servir encara lo sistema de puntuación Elo).
@@ -107,21 +107,21 @@ En resumen, las puntuacions de Glicko fan servir \"intervalos de confianza\" pa 
 
 Basicament, lo sistema tiene un 90% de seguridat que la tuya puntuación ye entre 800 y 2200. Ye masiau incierto. A causa d\'esto, quan un chugador acaba d\'empecipiar, la suya puntuación cambiará de forma muito espectacular, mesmo bells cientos de puntos en una sola partida. Pero dimpués de qualques partidas contra chugadors establius, l\'intervalo de confianza se reducirá, y la cantidat de puntos ganaus/perdius dimpués de cada partida disminuyirá.
 
-Unatro punto que cal sinyalar ye que, con o paso d\'o tiempo, l\'intervalo de confianza aumentará. Esto te permite ganar u perder puntos mas rapidament pa igualar qualsequier cambio en o tuyo libel d\'habilidat en ixe tiempo.</string>
+Unatro punto que cal sinyalar ye que, con o paso d\'o tiempo, l\'intervalo de confianza aumentará. Esto te permite ganar u perder puntos mas rapidament pa igualar qualsequier cambio en o tuyo libel de chuego en ixe tiempo.</string>
   <string name="whatIsProvisionalRating">Per qué i hai un signo d\'interrogación (?) chunto a una puntuación?</string>
-  <string name="provisionalRatingExplanation">Lo signo d\'interrogación significa que la puntuación ye provisional. Las razons incluyen:</string>
+  <string name="provisionalRatingExplanation">Lo signo d\'interrogación significa que la puntuación ye provisional. Las razons son:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Lo chugador encara no ha finalizau suficients partidas per puntos contra %1$s en a categoría de puntuación.</string>
   <string name="similarOpponents">oponents de fuerza semellant</string>
   <string name="notPlayedRecently">Lo chugador no ha chugau suficients partidas recients. Dependendo d\'a cantidat de partidas que haigas chugau, puede tardar arredol d\'un anyo d\'inactividat pa que la tuya puntuación torne a estar provisional.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Concretament, significa que la desviación Glicko-2 ye mayor que 110. La desviación ye lo libel de confianza que tiene lo sistema en a clasificación. Quanto mas baixa sía la desviación, mas estable será una puntuación.</string>
-  <string name="howDoLeaderoardsWork">Cómo funcionan los rangos y los tablers de liderazgo?</string>
+  <string name="howDoLeaderoardsWork">Cómo funcionan las posicions y clasificacions?</string>
   <string name="inOrderToAppearsYouMust">Pa plegar a lo %1$s habrías de:</string>
-  <string name="ratingLeaderboards">taula de liderazgo</string>
+  <string name="ratingLeaderboards">clasificación per puntuación</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">haber chugau a lo menos 30 partidas per puntos en una puntuación dada,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">haber chugau una partida per puntos en a zaguera semana pa esta puntuación,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">tener una desviación de puntuación menor que %1$s, en escaques standards, y menor que %2$s en variants,</string>
   <string name="beInTopTen">estar entre los 10 primers d\'esta clasificación.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Lo segundo requisito ye que los chugadors que ya no usan las suyas cuentas deixen de poblar los tablers de liderazgo.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Lo segundo requisito ye pa que los chugadors que ya no usan las suyas cuentas deixen d\'estar en as clasificacions.</string>
   <string name="whyAreRatingHigher">Per qué son mas altas las puntuacions en comparanza con atros puestos y organizacions como FIDE, USCF y lo CIC?</string>
   <string name="whyAreRatingHigherExplanation">Lo millor ye no considerar las puntuacions como cifras absolutas ni comparar-las con atras organizacions. Diferents organizacions tienen diferents libels de chugadors, diferents sistemas de puntuación (Elo, Glicko, Glicko-2 u una versión modificada d\'os primers). Estes factors pueden afectar drasticament los numeros absolutos (puntuacions).
 
