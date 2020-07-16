@@ -18,7 +18,7 @@
   <string name="loser">Той, хто програв</string>
   <string name="from">З</string>
   <string name="to">До</string>
-  <string name="humanOrComputer">Чи опонент гравця був людиною чи комп\'ютером</string>
+  <string name="humanOrComputer">Чи суперник гравця був людиною чи комп\'ютером</string>
   <string name="aiLevel">Рівень A. I</string>
   <string name="source">Джерело</string>
   <string name="nbTurns">Кількість ходів</string>
@@ -27,5 +27,5 @@
   <string name="date">Дата</string>
   <string name="sortBy">Підбирати за</string>
   <string name="analysis">Аналіз</string>
-  <string name="onlyAnalysed">Тільки ігри з комп\'ютерним аналізом є доступними</string>
+  <string name="onlyAnalysed">Лише ігри з комп\'ютерним аналізом</string>
 </resources>
