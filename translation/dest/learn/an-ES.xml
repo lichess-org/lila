@@ -19,7 +19,7 @@
   <string name="theBishop">L\'alfil</string>
   <string name="itMovesDiagonally">Se mueve en diagonal</string>
   <string name="bishopIntro">Contino, imos a aprender como se mueve un alfil!</string>
-  <string name="youNeedBothBishops">Un alfil de quadretz blancos y un alfil de quadretz negros totz dos son necesarios!</string>
+  <string name="youNeedBothBishops">Un alfil de quadretz blancos y un alfil de quadretz negros, los dos son necesarios!</string>
   <string name="bishopComplete">Felicidatz! Sabes mover l\'alfil.</string>
   <string name="theQueen">La dama</string>
   <string name="queenCombinesRookAndBishop">Dama = torre + alfil</string>
@@ -39,7 +39,7 @@
   <string name="knightComplete">Felicidatz! Dominas lo movimiento d\'o caballo.</string>
   <string name="thePawn">Lo peón</string>
   <string name="itMovesForwardOnly">Nomás mueve enta adebant</string>
-  <string name="pawnIntro">Los peons son febles, pero atrancan muito potencial.</string>
+  <string name="pawnIntro">Los peons son febles, pero amagan muito potencial.</string>
   <string name="pawnsMoveOneSquareOnly">Los peons nomás pueden mover un quadret, pero quan aconsiguen l\'atro cabo d\'o escaquero promocionan a una pieza mas fuerte!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">La mayoría d\'as vegadas, lo millor ye promocionar a dama pero i hai ocasions que un caballo puede estar util!</string>
   <string name="pawnsMoveForward">Los peons abanzan en linia dreita, pero capturan en diagonal!</string>
