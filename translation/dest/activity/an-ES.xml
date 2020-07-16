@@ -12,7 +12,7 @@
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Ha resuelto %s exercicio de tactica</item>
-    <item quantity="other">Ha resuelto %s exercicios de tactica</item>
+    <item quantity="other">Ha resuelto %s problemas de tactica</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Ha chugau %1$s partida %2$s</item>
