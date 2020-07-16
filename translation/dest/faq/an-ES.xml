@@ -29,7 +29,7 @@
   <string name="isCorrespondenceDifferent">Los escaques per correspondencia ye diferent d\'os escaques normals?</string>
   <string name="youCanUseOpeningBookNoEngine">En Lichess, la prencipal diferencia en as reglas d\'os escaques per correspondencia ye que se permite un libro d\'obriduras. L\'uso de motors sigue estando prohibiu y dará puesto a que se etiquete a l\'usuario como tramposo. Encara que la ICCF permite l\'uso d\'o motor en partidas per correspondencia, Lichess no lo permite.</string>
   <string name="gameplay">Mecanica de chuego</string>
-  <string name="howBulletBlitzEtcDecided">Cómo se deciden los controls de tiempo en Bullet, Blitz y atros?</string>
+  <string name="howBulletBlitzEtcDecided">Cómo se deciden los controls de tiempo en bala, lampado y atros?</string>
   <string name="basedOnGameDuration">Los controls de tiempo de Lichess se basan en a duración estimada d\'una partida = %1$s
  Per eixemplo, la duración estimada d\'una partida de 5+3 ye 5 × 60 + 40 × 3 = 420 segundos.</string>
   <string name="durationFormula">(tiempo inicial d\'o reloch) + 40 × (incremento d\'o reloch)</string>
@@ -98,7 +98,7 @@
   <string name="uniqueTrophies">Trofeos solos</string>
   <string name="ownerUniqueTrophies">Ixe trofeo ye solo en a historia de Lichess, dengún mas que %1$s lo tendrá.</string>
   <string name="wayOfBerserkExplanation">Pa obtener-lo, hiimgosu se desafió a ell mesmo a berserk y ganó 100%% partidas de %s.</string>
-  <string name="aHourlyBulletTournament">un torneyo Bullet per hora</string>
+  <string name="aHourlyBulletTournament">un torneyo bala per hora</string>
   <string name="goldenZeeExplanation">ZugAddict yera transmitindo y entre las dos zagueras horas heba estau tractando de redotar a la I.A. libel 8 en una partida 1+0, sin exito. Thibault le dició que si lo feba con exito entre la transmisión, obtendría un trofeo solo. Una hora dimpués, venció a Stockfish y se cumplió la promesa.</string>
   <string name="lichessRatings">Puntuacions de Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Qué sistema de puntuación utiliza Lichess?</string>
