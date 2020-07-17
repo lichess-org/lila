@@ -48,7 +48,11 @@
   <string name="viewTheComputerAnalysis">De kompjûter analyze besjen</string>
   <string name="requestAComputerAnalysis">Fersyk in kompjûter analyze</string>
   <string name="computerAnalysis">Kompjûter analyze</string>
+  <string name="computerAnalysisAvailable">Kompjûteranalyze beskikber</string>
   <string name="analysis">Boerd analyze</string>
+  <string name="depthX">Djipte %s</string>
+  <string name="usingServerAnalysis">Serveranalyze yn gebrûk</string>
+  <string name="loadingEngine">\'Engine\' wurdt laden ...</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <plurals name="nbPlayers">
