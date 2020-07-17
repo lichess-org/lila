@@ -89,6 +89,8 @@
   <string name="xOpeningExplorer">%s iepeningsblêder</string>
   <string name="winPreventedBy50MoveRule">Oerwinning ferhindere troch 50-settenregel</string>
   <string name="lossSavedBy50MoveRule">Ferlies foarkommen troch de 50-settenregel</string>
+  <string name="allSet">Ynoarder!</string>
+  <string name="importPgn">Ymportear PGN</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <plurals name="nbPlayers">
