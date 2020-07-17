@@ -45,8 +45,8 @@
   <string name="reportBugInDiscord">На сервері Lichess в Discord</string>
   <string name="howToReportBug">Будь ласка, опишіть як виглядає помилка, що Ви очікували замість неї і які кроки для відтворення помилки.</string>
   <string name="illegalPawnCapture">Недозволене захоплення пішаком</string>
-  <string name="calledEnPassant">Це називається \"en passant\" і є одним із правил шахів.</string>
-  <string name="tryEnPassant">Спробуйте цю маленьку інтерактивну гру, щоб дізнатися більше про \"en passant\".</string>
+  <string name="calledEnPassant">Це називається \"взяття на проході\" і є одним із правил шахів.</string>
+  <string name="tryEnPassant">Спробуйте цю маленьку інтерактивну гру, щоб дізнатися більше про \"взяття на проході\".</string>
   <string name="illegalCastling">Недозволена чи неможлива рокіровка</string>
   <string name="castlingPrevented">Рокіровка заборонена у випадку, якщо король йде через контрольоване поле.</string>
   <string name="castlingRules">Переконайтеся, що ви розумієте правила рокіровки</string>
