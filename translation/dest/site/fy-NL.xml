@@ -53,6 +53,10 @@
   <string name="depthX">Djipte %s</string>
   <string name="usingServerAnalysis">Serveranalyze yn gebrûk</string>
   <string name="loadingEngine">\'Engine\' wurdt laden ...</string>
+  <string name="cloudAnalysis">\'Cloud\' analyze</string>
+  <string name="goDeeper">Gean djipper</string>
+  <string name="showThreat">Toan driging</string>
+  <string name="inLocalBrowser">yn \'e blêder</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <plurals name="nbPlayers">
