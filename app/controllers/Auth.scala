@@ -333,8 +333,10 @@ final class Auth(
         .bindFromRequest()
         .fold(
           err => BadRequest(renderPasswordReset(err.some, true)).fuccess,
-          data => {
-            env.user.repo.enabledWithEmail(data.realEmail.normalize) flatMap {
+          data =>
+            env.security.recaptcha.verify(~data.recaptchaResponse, req) flatMap {
+              _ ?? env.user.repo.enabledWithEmail(data.realEmail.normalize)
+            } flatMap {
               case Some((user, storedEmail)) => {
                 lila.mon.user.auth.passwordResetRequest("success").increment()
                 env.security.passwordReset.send(user, storedEmail) inject Redirect(
@@ -346,7 +348,6 @@ final class Auth(
                 BadRequest(renderPasswordReset(none, true)).fuccess
               }
             }
-          }
         )
     }
 
