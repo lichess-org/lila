@@ -117,8 +117,8 @@
   <string name="blunders">Өрескел қателер</string>
   <string name="mistake">Қателік</string>
   <string name="mistakes">Қателер</string>
-  <string name="inaccuracy">Сәл қате</string>
-  <string name="inaccuracies">Сәл қате</string>
+  <string name="inaccuracy">Жеңіл қате</string>
+  <string name="inaccuracies">Жеңіл қате</string>
   <string name="moveTimes">Жүріс ұзақтығы</string>
   <string name="flipBoard">Тақтаны аудару</string>
   <string name="threefoldRepetition">Үш мәрте қайталау</string>
