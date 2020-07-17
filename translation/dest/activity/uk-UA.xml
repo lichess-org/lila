@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Активність</string>
-  <string name="hostedALiveStream">Запустив стрім</string>
+  <string name="hostedALiveStream">Проведено пряму трансляцію</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Підтримує lichess.org протягом %1$s місяця як %2$s</item>
     <item quantity="few">Підтримує lichess.org протягом %1$s місяців як %2$s</item>
@@ -16,9 +16,9 @@
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Вирішено %s тактичний пазл</item>
-    <item quantity="few">Вирішено %s тактичні пазли</item>
-    <item quantity="many">Вирішено %s тактичних пазлів</item>
-    <item quantity="other">Вирішені %s тактичних пазлів</item>
+    <item quantity="few">Вирішено %s тактичні задачі</item>
+    <item quantity="many">Вирішено %s тактичних задач</item>
+    <item quantity="other">Вирішені %s тактичні задачі</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Зіграно %1$s гру в %2$s</item>
@@ -34,9 +34,9 @@
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Зроблено %1$s хід</item>
-    <item quantity="few">Зіграно %1$s ходи</item>
-    <item quantity="many">Зіграно %1$s ходів</item>
-    <item quantity="other">Зіграно %1$s ходів</item>
+    <item quantity="few">Зроблено %1$s ходи</item>
+    <item quantity="many">Зроблено %1$s ходів</item>
+    <item quantity="other">Зроблено %1$s ходів</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">у %1$s заочній грі</item>
@@ -45,7 +45,7 @@
     <item quantity="other">у %1$s заочних ігор</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Зіграно %s гру за листуванням</item>
+    <item quantity="one">Зіграно %s заочну гру</item>
     <item quantity="few">Зіграно %s заочні гри</item>
     <item quantity="many">Зіграно %s заочних ігор</item>
     <item quantity="other">Зіграно %s заочних ігор</item>

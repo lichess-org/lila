@@ -2,10 +2,10 @@
 <resources>
   <string name="contact">Контакти</string>
   <string name="contactLichess">Зв\'язатися з Lichess</string>
-  <string name="whatCanWeHelpYouWith">З чим ми можемо вам допомогти?</string>
+  <string name="whatCanWeHelpYouWith">З чим ми можемо Вам допомогти?</string>
   <string name="visitThisPage">Відвідайте цю сторінку, щоб вирішити проблему</string>
   <string name="iCantLogIn">Я не можу увійти</string>
-  <string name="noConfirmationEmail">Я не отримував лист з підтвердженням</string>
+  <string name="noConfirmationEmail">Я не отримав лист з підтвердженням</string>
   <string name="forgotPassword">Я забув пароль</string>
   <string name="forgotUsername">Я забув ім\'я користувача</string>
   <string name="youCanLoginWithEmail">Ви можете увійти за допомогою електронної пошти, за допомогою якої Ви зареєструвалися</string>
@@ -22,8 +22,8 @@
   <string name="doNotAskByEmailToReopen">Не просіть нас відновити обліковий запис по електронній пошті, ми цього не робитимемо.</string>
   <string name="wantChangeUsername">Я хочу змінити своє ім\'я користувача</string>
   <string name="changeUsernameCase">Відвідайте цю сторінку, щоб змінити регістр літер вашого імені користувача</string>
-  <string name="cantChangeMore">Ми не можемо змінити більше ніж регістр літер. З технічних причин це неможливо.</string>
-  <string name="orCloseAccount">Однак ви можете закрити поточний обліковий запис і створити новий.</string>
+  <string name="cantChangeMore">Ми не можемо змінити нічого окрім регістра літер. З технічних причин це неможливо.</string>
+  <string name="orCloseAccount">Однак Ви можете закрити поточний обліковий запис і створити новий.</string>
   <string name="wantClearHistory">Я хочу очистити свою історію або рейтинг</string>
   <string name="cantClearHistory">Неможливо очистити історію ігор, шахових задач або рейтинг.</string>
   <string name="wantReport">Я хочу поскаржитись на гравця</string>
