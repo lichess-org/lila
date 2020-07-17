@@ -1,8 +1,6 @@
 package views.html
 package account
 
-import play.api.data.Form
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -11,13 +9,13 @@ import controllers.routes
 
 object reopen {
 
-  def form(form: Form[_], recaptcha: lila.security.RecaptchaSetup, error: Option[String] = None)(implicit
+  def form(form: lila.security.RecaptchaForm[_], error: Option[String] = None)(implicit
       ctx: Context
   ) =
     views.html.base.layout(
       title = "Reopen your account",
       moreCss = cssTag("auth"),
-      moreJs = views.html.base.recaptcha.script(recaptcha),
+      moreJs = views.html.base.recaptcha.script(form),
       csp = defaultCsp.withRecaptcha.some
     ) {
       main(cls := "page-small box box-pad")(
@@ -31,7 +29,7 @@ object reopen {
         p(
           "Solve the chess captcha below, and we will send you an email containing a link to reopen your account."
         ),
-        postForm(id := recaptcha.formId, cls := "form3", action := routes.Account.reopenApply())(
+        postForm(id := form.formId, cls := "form3", action := routes.Account.reopenApply())(
           error.map { err =>
             p(cls := "error")(strong(err))
           },
@@ -40,7 +38,7 @@ object reopen {
             .group(form("email"), trans.email(), help = frag("Email address associated to the account").some)(
               form3.input(_, typ = "email")
             ),
-          form3.action(views.html.base.recaptcha.button(recaptcha)(form3.submit(trans.emailMeALink())))
+          form3.action(views.html.base.recaptcha.button(form)(form3.submit(trans.emailMeALink())))
         )
       )
     }

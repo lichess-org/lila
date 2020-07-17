@@ -1,8 +1,6 @@
 package views.html
 package auth
 
-import play.api.data.Form
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -11,12 +9,12 @@ import controllers.routes
 
 object signup {
 
-  def apply(form: Form[_], recaptcha: lila.security.RecaptchaSetup)(implicit ctx: Context) =
+  def apply(form: lila.security.RecaptchaForm[_])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.signUp.txt(),
       moreJs = frag(
         jsTag("signup.js"),
-        views.base.recaptcha.script(recaptcha),
+        views.html.base.recaptcha.script(form),
         fingerprintTag
       ),
       moreCss = cssTag("auth"),
@@ -24,7 +22,7 @@ object signup {
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(trans.signUp()),
-        postForm(id := recaptcha.formId, cls := "form3", action := routes.Auth.signupPost())(
+        postForm(id := form.formId, cls := "form3", action := routes.Auth.signupPost())(
           auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
           input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
           div(cls := "form-group text", dataIcon := "")(
@@ -34,10 +32,9 @@ object signup {
               trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos())(trans.termsOfService()))
             )
           ),
-          agreement(form("agreement"), form.errors.exists(_.key startsWith "agreement.")),
-          views.base.recaptcha.button(recaptcha) match {
-            case Some(but) => but(cls := "g-recaptcha submit button text big")(trans.signUp())
-            case None      => form3.submit(trans.signUp(), icon = none, klass = "big")
+          agreement(form("agreement"), form.form.errors.exists(_.key startsWith "agreement.")),
+          views.html.base.recaptcha.button(form) {
+            button(cls := "submit button text big")(trans.signUp())
           }
         )
       )

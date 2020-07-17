@@ -6,6 +6,7 @@ import play.api.data.{ Field, Form }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.security.RecaptchaForm
 import lila.user.User
 
 import controllers.routes
@@ -32,25 +33,25 @@ object bits {
       }
     )
 
-  def passwordReset(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit
-      ctx: Context
-  ) =
+  def passwordReset(form: RecaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
       moreCss = cssTag("auth"),
-      moreJs = captchaTag
+      moreJs = views.html.base.recaptcha.script(form),
+      csp = defaultCsp.withRecaptcha.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(
-          ok.map { r =>
-            span(cls := (if (r) "is-green" else "is-red"), dataIcon := (if (r) "E" else "L"))
-          },
+          fail option span(cls := "is-red", dataIcon := "L"),
           trans.passwordReset()
         ),
-        postForm(cls := "form3", action := routes.Auth.passwordResetApply())(
+        postForm(id := form.formId, cls := "form3", action := routes.Auth.passwordResetApply())(
           form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(autofocus)),
-          views.html.base.captcha(form, captcha),
-          form3.action(form3.submit(trans.emailMeALink()))
+          form3.action(
+            views.html.base.recaptcha.button(form) {
+              form3.submit(trans.emailMeALink())
+            }
+          )
         )
       )
     }
@@ -98,28 +99,26 @@ object bits {
       )
     }
 
-  def magicLink(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit
-      ctx: Context
-  ) =
+  def magicLink(form: RecaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
-      moreJs = captchaTag
+      moreJs = views.html.base.recaptcha.script(form),
+      csp = defaultCsp.withRecaptcha.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(
-          ok.map { r =>
-            span(cls := (if (r) "is-green" else "is-red"), dataIcon := (if (r) "E" else "L"))
-          },
+          fail option span(cls := "is-red", dataIcon := "L"),
           "Log in by email"
         ),
         p("We will send you an email containing a link to log you in."),
-        postForm(cls := "form3", action := routes.Auth.magicLinkApply())(
+        postForm(id := form.formId, cls := "form3", action := routes.Auth.magicLinkApply())(
           form3.group(form("email"), trans.email())(
             form3.input(_, typ = "email")(autofocus, autocomplete := "email")
           ),
-          views.html.base.captcha(form, captcha),
-          form3.action(form3.submit(trans.emailMeALink()))
+          form3.action(views.html.base.recaptcha.button(form) {
+            form3.submit(trans.emailMeALink())
+          })
         )
       )
     }

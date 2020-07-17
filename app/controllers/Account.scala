@@ -6,6 +6,7 @@ import scala.annotation.nowarn
 
 import lila.api.Context
 import lila.app._
+import lila.security.DataForm.Reopen
 import lila.user.{ User => UserModel, TotpSecret }
 import views.html
 
@@ -366,29 +367,31 @@ final class Account(
           env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
     }
 
+  private def renderReopen(form: Option[play.api.data.Form[Reopen]], msg: Option[String])(implicit
+      ctx: Context
+  ) =
+    html.account.reopen.form(form.foldLeft(env.security.forms.reopen)(_ withForm _), msg)
+
   def reopen =
     Open { implicit ctx =>
       auth.RedirectToProfileIfLoggedIn {
-        Ok(html.account.reopen.form(env.security.forms.magicLink, env.security.recaptcha))
+        Ok(renderReopen(none, none)).fuccess
       }
     }
 
   def reopenApply =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      env.security.forms.reopen
+      env.security.forms.reopen.form
         .bindFromRequest()
         .fold(
-          err =>
-            BadRequest(html.account.reopen.form(err, env.security.recaptcha("reopen-form", none))).fuccess,
+          err => BadRequest(renderReopen(err.some, none)).fuccess,
           data =>
             env.security.reopen
               .prepare(data.username, data.realEmail, env.mod.logApi.hasModClose _) flatMap {
               case Left((code, msg)) =>
                 lila.mon.user.auth.reopenRequest(code).increment()
-                env.security.forms.reopenWithCaptcha map {
-                  case (form, captcha) => BadRequest(html.account.reopen.form(form, captcha, msg.some))
-                }
+                BadRequest(renderReopen(none, msg.some)).fuccess
               case Right(user) =>
                 auth.MagicLinkRateLimit(user, data.realEmail, ctx.req) {
                   lila.mon.user.auth.reopenRequest("success").increment()
