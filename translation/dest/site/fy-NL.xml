@@ -78,6 +78,7 @@
   <string name="averageRatingX">Gemiddelde rating: %s</string>
   <string name="recentGames">Resinte partijen</string>
   <string name="topGames">Top partijen</string>
+  <string name="masterDbExplanation">Twa miljoen fysyk oan-it-boerd partijen fan %1$s + FIDE-rating spilers fan %2$s oant %3$s</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <plurals name="nbPlayers">
