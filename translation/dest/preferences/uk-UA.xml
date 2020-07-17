@@ -38,7 +38,7 @@
   <string name="correspondenceAndUnlimited">За листуванням та необмежені</string>
   <string name="confirmResignationAndDrawOffers">Підтверджувати повернення ходу та пропозиції нічий</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Спосіб рокіровки</string>
-  <string name="castleByMovingTwoSquares">Перемістити короля на дві клітки</string>
+  <string name="castleByMovingTwoSquares">Перемістити короля на два поля</string>
   <string name="castleByMovingOntoTheRook">Перемістити короля на клітинку, яка межує з турою</string>
   <string name="inputMovesWithTheKeyboard">Вводити ходи за допомогою клавіатури</string>
   <string name="yourPreferencesHaveBeenSaved">Ваші налаштування збережено.</string>
