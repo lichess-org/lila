@@ -34,10 +34,10 @@
   <string name="whitePlays">Хід білих</string>
   <string name="blackPlays">Хід чорних</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Ваш опонент покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
-    <item quantity="few">Ваш опонент покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
-    <item quantity="many">Ваш опонент покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
-    <item quantity="other">Ваш опонент покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
+    <item quantity="one">Ваш суперник покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
+    <item quantity="few">Ваш суперник покинув гру. Ви можете оголосити перемогу за %s секунди.</item>
+    <item quantity="many">Ваш суперник покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
+    <item quantity="other">Ваш суперник покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
   </plurals>
   <string name="opponentLeftChoices">Ваш суперник залишив гру. Ви можете оголосити перемогу, нічию, або зачекати.</string>
   <string name="makeYourOpponentResign">Оголосити перемогу</string>
