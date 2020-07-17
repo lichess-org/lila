@@ -91,6 +91,8 @@
   <string name="lossSavedBy50MoveRule">Ferlies foarkommen troch de 50-settenregel</string>
   <string name="allSet">Ynoarder!</string>
   <string name="importPgn">Ymportear PGN</string>
+  <string name="delete">Fourtsmite</string>
+  <string name="deleteThisImportedGame">Dizze ymportearre partij fourtsmite?</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <plurals name="nbPlayers">
