@@ -95,7 +95,7 @@
   <string name="outOfCheckComplete">Вітаємо! Ваш король не зможе бути взято, переконайтеся, що ви можете захистити його від шаха!</string>
   <string name="mateInOne">Мат в один хід</string>
   <string name="defeatTheOpponentsKing">Поразка короля противника</string>
-  <string name="mateInOneIntro">Ви виграєте, коли ваш опонент не може захищатися від шаха.</string>
+  <string name="mateInOneIntro">Ви виграєте, якщо Ваш суперник не може захиститися від шаха.</string>
   <string name="attackYourOpponentsKing">Атакуйте короля вашого противника таким чином, аби його не можна було захистити!</string>
   <string name="mateInOneComplete">Вітаємо! Таким чином, ви виграєте в шахи!</string>
   <string name="intermediate">Проміжний етап</string>
