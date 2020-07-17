@@ -94,6 +94,10 @@
   <string name="delete">Fourtsmite</string>
   <string name="deleteThisImportedGame">Dizze ymportearre partij fourtsmite?</string>
   <string name="replayMode">Oernijspyl wize</string>
+  <string name="realtimeReplay">Selde tiid</string>
+  <string name="byCPL">Yn \'CPL\'</string>
+  <string name="openStudy">Iepenje stúdzje</string>
+  <string name="enable">Ynskeakelje</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <plurals name="nbPlayers">
