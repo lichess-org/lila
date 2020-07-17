@@ -57,6 +57,7 @@
   <string name="goDeeper">Gean djipper</string>
   <string name="showThreat">Toan driging</string>
   <string name="inLocalBrowser">yn \'e blêder</string>
+  <string name="toggleLocalEvaluation">Lokale evaluaasje oan- as útsette</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <plurals name="nbPlayers">
