@@ -59,6 +59,9 @@
   <string name="inLocalBrowser">yn \'e blêder</string>
   <string name="toggleLocalEvaluation">Lokale evaluaasje oan- as útsette</string>
   <string name="promoteVariation">Fariaasje omheechsette</string>
+  <string name="makeMainLine">Ta haadline meitsje</string>
+  <string name="deleteFromHere">Fuortsmite fanôf hjirre</string>
+  <string name="forceVariation">Fariaasje ôfdwinge</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <plurals name="nbPlayers">
