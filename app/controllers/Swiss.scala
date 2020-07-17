@@ -104,7 +104,8 @@ final class Swiss(
         env.team.cached.isLeader(teamId, me.id) flatMap {
           case false => notFoundJson("You're not a leader of that team")
           case _ =>
-            env.swiss.forms.create.bindFromRequest()
+            env.swiss.forms.create
+              .bindFromRequest()
               .fold(
                 jsonFormErrorDefaultLang,
                 data =>
@@ -118,18 +119,15 @@ final class Swiss(
     }
 
   def join(id: String) =
-    AuthBody { implicit ctx => me =>
+    AuthBody(parse.json) { implicit ctx => me =>
       NoLameOrBot {
+        val password = ctx.body.body.\("password").asOpt[String]
         env.team.cached.teamIds(me.id) flatMap { teamIds =>
-          env.swiss.api.join(SwissId(id), me, teamIds.contains) flatMap { result =>
-            negotiate(
-              html = Redirect(routes.Swiss.show(id)).fuccess,
-              api = _ =>
-                fuccess {
-                  if (result) jsonOkResult
-                  else BadRequest(Json.obj("joined" -> false))
-                }
-            )
+          env.swiss.api.join(SwissId(id), me, teamIds.contains, password) flatMap { result =>
+            fuccess {
+              if (result) jsonOkResult
+              else BadRequest(Json.obj("joined" -> false))
+            }
           }
         }
       }
@@ -169,7 +167,8 @@ final class Swiss(
     AuthBody { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>
         implicit val req = ctx.body
-        env.swiss.forms.nextRound.bindFromRequest()
+        env.swiss.forms.nextRound
+          .bindFromRequest()
           .fold(
             _ => Redirect(routes.Swiss.show(id)).fuccess,
             date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Swiss.show(id))

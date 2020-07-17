@@ -128,7 +128,8 @@ private object BsonHandlers {
         rated = r.boolO("r") | true,
         description = r.strO("d"),
         chatFor = r.intO("c") | Swiss.ChatFor.default,
-        roundInterval = (r.intO("i") | 60).seconds
+        roundInterval = (r.intO("i") | 60).seconds,
+        password = r.strO("p")
       )
     def writes(w: BSON.Writer, s: Swiss.Settings) =
       $doc(
@@ -136,7 +137,8 @@ private object BsonHandlers {
         "r" -> (!s.rated).option(false),
         "d" -> s.description,
         "c" -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
-        "i" -> s.roundInterval.toSeconds.toInt
+        "i" -> s.roundInterval.toSeconds.toInt,
+        "p" -> s.password
       )
   }
 

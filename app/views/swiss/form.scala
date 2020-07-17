@@ -35,7 +35,8 @@ object form {
               fields.startsAt
             ),
             form3.split(
-              fields.chatFor
+              fields.chatFor,
+              fields.password
             ),
             form3.globalError(form),
             form3.actions(
@@ -70,7 +71,8 @@ object form {
               swiss.isCreated option fields.startsAt
             ),
             form3.split(
-              fields.chatFor
+              fields.chatFor,
+              fields.password
             ),
             form3.globalError(form),
             form3.actions(
@@ -165,4 +167,12 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
         )
       )
     }
+
+  def password =
+    form3.group(
+      form("password"),
+      trans.password(),
+      help = trans.makePrivateTournament().some,
+      half = true
+    )(form3.input(_)(autocomplete := "off"))
 }
