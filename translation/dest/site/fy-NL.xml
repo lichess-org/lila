@@ -87,6 +87,8 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Miskien mear partijen tafoegje út it foarkarmenu?</string>
   <string name="openingExplorer">Iepeningsblêder</string>
   <string name="xOpeningExplorer">%s iepeningsblêder</string>
+  <string name="winPreventedBy50MoveRule">Oerwinning ferhindere troch 50-settenregel</string>
+  <string name="lossSavedBy50MoveRule">Ferlies foarkommen troch de 50-settenregel</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <plurals name="nbPlayers">
