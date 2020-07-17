@@ -62,6 +62,10 @@
   <string name="makeMainLine">Ta haadline meitsje</string>
   <string name="deleteFromHere">Fuortsmite fanôf hjirre</string>
   <string name="forceVariation">Fariaasje ôfdwinge</string>
+  <string name="move">Set</string>
+  <string name="variantLoss">Ferliesfariant</string>
+  <string name="variantWin">Winstfariant</string>
+  <string name="insufficientMaterial">Net genôch materiaal</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <plurals name="nbPlayers">
