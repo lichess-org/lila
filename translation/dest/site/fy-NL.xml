@@ -76,6 +76,8 @@
   <string name="database">Databank</string>
   <string name="whiteDrawBlack">Wyt / Remise / Swart</string>
   <string name="averageRatingX">Gemiddelde rating: %s</string>
+  <string name="recentGames">Resinte partijen</string>
+  <string name="topGames">Top partijen</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <plurals name="nbPlayers">
