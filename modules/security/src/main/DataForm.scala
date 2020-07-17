@@ -11,26 +11,21 @@ import User.{ ClearPassword, TotpToken }
 
 final class DataForm(
     userRepo: UserRepo,
-    val captcher: lila.hub.actors.Captcher,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
-    lameNameCheck: LameNameCheck
-)(implicit ec: scala.concurrent.ExecutionContext)
-    extends lila.hub.CaptchedForm {
+    lameNameCheck: LameNameCheck,
+    recaptchaPublicConfig: RecaptchaPublicConfig
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import DataForm._
 
-  case class Empty(gameId: String, move: String)
+  private val recaptchaField = "g-recaptcha-response" -> optional(nonEmptyText)
+
+  case class Empty(captchaResponse: Option[String])
 
   val empty = Form(
-    mapping(
-      "gameId" -> text,
-      "move"   -> text
-    )(Empty.apply)(_ => None)
-      .verifying(captchaFailMessage, validateCaptcha _)
+    mapping(recaptchaField)(Empty.apply)(_ => None)
   )
-
-  def emptyWithCaptcha = withCaptcha(empty)
 
   private val anyEmail        = LilaForm.clean(text).verifying(Constraints.emailAddress)
   private val sendableEmail   = anyEmail.verifying(emailValidator.sendableConstraint)
@@ -84,15 +79,19 @@ final class DataForm(
 
     val emailField = withAcceptableDns(acceptableUniqueEmail(none))
 
-    val website = Form(
-      mapping(
-        "username"             -> username,
-        "password"             -> text(minLength = 4),
-        "email"                -> emailField,
-        "agreement"            -> agreement,
-        "fp"                   -> optional(nonEmptyText),
-        "g-recaptcha-response" -> optional(nonEmptyText)
-      )(SignupData.apply)(_ => None)
+    val website = RecaptchaForm(
+      Form(
+        mapping(
+          "username"  -> username,
+          "password"  -> text(minLength = 4),
+          "email"     -> emailField,
+          "agreement" -> agreement,
+          "fp"        -> optional(nonEmptyText),
+          recaptchaField
+        )(SignupData.apply)(_ => None)
+      ),
+      "signup-form",
+      recaptchaPublicConfig
     )
 
     val mobile = Form(
@@ -104,16 +103,16 @@ final class DataForm(
     )
   }
 
-  val passwordReset = Form(
-    mapping(
-      "email"  -> sendableEmail, // allow unacceptable emails for BC
-      "gameId" -> text,
-      "move"   -> text
-    )(PasswordReset.apply)(_ => None)
-      .verifying(captchaFailMessage, validateCaptcha _)
+  val passwordReset = RecaptchaForm(
+    Form(
+      mapping(
+        "email" -> sendableEmail, // allow unacceptable emails for BC
+        recaptchaField
+      )(PasswordReset.apply)(_ => None)
+    ),
+    "password-reset-form",
+    recaptchaPublicConfig
   )
-
-  def passwordResetWithCaptcha = withCaptcha(passwordReset)
 
   val newPassword = Form(
     single(
@@ -135,16 +134,16 @@ final class DataForm(
     )
   )
 
-  val magicLink = Form(
-    mapping(
-      "email"  -> sendableEmail, // allow unacceptable emails for BC
-      "gameId" -> text,
-      "move"   -> text
-    )(MagicLink.apply)(_ => None)
-      .verifying(captchaFailMessage, validateCaptcha _)
+  val magicLink = RecaptchaForm(
+    Form(
+      mapping(
+        "email" -> sendableEmail, // allow unacceptable emails for BC
+        recaptchaField
+      )(MagicLink.apply)(_ => None)
+    ),
+    "magic-link-form",
+    recaptchaPublicConfig
   )
-
-  def magicLinkWithCaptcha = withCaptcha(magicLink)
 
   def changeEmail(u: User, old: Option[EmailAddress]) =
     authenticator loginCandidate u map { candidate =>
@@ -213,17 +212,17 @@ final class DataForm(
 
   def toggleKid = passwordProtected _
 
-  val reopen = Form(
-    mapping(
-      "username" -> LilaForm.clean(nonEmptyText),
-      "email"    -> sendableEmail, // allow unacceptable emails for BC
-      "gameId"   -> text,
-      "move"     -> text
-    )(Reopen.apply)(_ => None)
-      .verifying(captchaFailMessage, validateCaptcha _)
+  val reopen = RecaptchaForm(
+    Form(
+      mapping(
+        "username" -> LilaForm.clean(nonEmptyText),
+        "email"    -> sendableEmail, // allow unacceptable emails for BC
+        recaptchaField
+      )(Reopen.apply)(_ => None)
+    ),
+    "reopen-form",
+    recaptchaPublicConfig
   )
-
-  def reopenWithCaptcha = withCaptcha(reopen)
 
   private def passwordMapping(candidate: User.LoginCandidate) =
     text.verifying("incorrectPassword", p => candidate.check(ClearPassword(p)))
@@ -244,10 +243,8 @@ object DataForm {
       email: String,
       agreement: AgreementData,
       fp: Option[String],
-      `g-recaptcha-response`: Option[String]
+      recaptchaResponse: Option[String]
   ) {
-    def recaptchaResponse = `g-recaptcha-response`
-
     def realEmail = EmailAddress(email)
 
     def fingerPrint = fp.filter(_.nonEmpty) map FingerPrint.apply
@@ -263,16 +260,14 @@ object DataForm {
 
   case class PasswordReset(
       email: String,
-      gameId: String,
-      move: String
+      recaptchaResponse: Option[String]
   ) {
     def realEmail = EmailAddress(email)
   }
 
   case class MagicLink(
       email: String,
-      gameId: String,
-      move: String
+      recaptchaResponse: Option[String]
   ) {
     def realEmail = EmailAddress(email)
   }
@@ -280,8 +275,7 @@ object DataForm {
   case class Reopen(
       username: String,
       email: String,
-      gameId: String,
-      move: String
+      recaptchaResponse: Option[String]
   ) {
     def realEmail = EmailAddress(email)
   }

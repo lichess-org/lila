@@ -7,8 +7,6 @@ import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.{ AssetVersion, ContentSecurityPolicy, Nonce }
 
-import scala.util.Random
-
 trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def isProd: Boolean
@@ -135,8 +133,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
       scriptSrc = List("'self'", assets),
-      baseUri = List("'none'"),
-      reportTo = if (Random.nextInt(1000) == 0) List("default") else Nil
+      baseUri = List("'none'")
     )
   }
 

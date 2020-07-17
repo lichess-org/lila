@@ -131,4 +131,13 @@ $section-margin-more: 5vh;
       margin: 10px 10px 0 0;
     }
   }
+  &__subscribe {
+    div {
+      @extend %flex-center;
+      label {
+        margin-left: 1rem;
+        cursor: pointer;
+      }
+    }
+  }
 }

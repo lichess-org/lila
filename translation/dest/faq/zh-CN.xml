@@ -17,6 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">是否有基于Lichess的网站？</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">是的。Lichess确实激励了其他使用我们的 %1$s %2$s或 %3$s 的开源站点。</string>
   <string name="fairPlay">公平竞争</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">为什么我被标记为人为操纵分数 (伪装和欺骗) 或开外挂？</string>
   <string name="cheatDetectionMethods">Lichess具有一套强有力的侦查方法和非常彻底的审查所有证据和作出决定的程序。 这套程序往往涉及许多仲裁人，而且可能需要很长时间。 除了标记本身外，我们将不详细了解个别案件的证据或决策过程。 这样做将使今后更容易避免被发现，并且是邀请进行毫无结果的辩论。 这个时间和精力最好花在其他重要案件上。用户可以通过电子邮件 %1$s进行上诉，但是裁决很少被推翻。</string>
   <string name="whenAmIEligibleRatinRefund">我何时有资格从作弊者自动退还积分？</string>
   <string name="preventLeavingGameWithoutResigning">对没有认输就离开的玩家怎么处理？</string>
@@ -25,6 +26,7 @@
   <string name="youCannotApply">无法申请成为仲裁人。 如果我们看到我们认为会成为很好的仲裁人的人，我们将直接与他们联系。</string>
   <string name="isCorrespondenceDifferent">通信赛是否不同于常规赛？</string>
   <string name="youCanUseOpeningBookNoEngine">在Lichess平台，通讯赛的主要区别是允许使用开局库，但仍然禁止使用引擎，否则结果将被标记为引擎援助。 尽管ICCF允许在通信中使用引擎，但Lichess不允许。</string>
+  <string name="gameplay">对弈</string>
   <string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何决定的？</string>
   <string name="basedOnGameDuration">Lichess时限基于预计的游戏持续时间 = %1$s
 。 例如，5+3的估计持续时间是 5 × 60 + 40 × 3 = 420 秒。</string>
@@ -79,8 +81,10 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="whatUsernameCanIchoose">我的用户名可以是什么？</string>
   <string name="guidelines">指南</string>
   <string name="uniqueTrophies">独一无二的奖杯</string>
+  <string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
   <string name="lichessRatings">Lichess 排名</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么排名系统？</string>
+  <string name="whatIsProvisionalRating">为什么在分数旁边有一个问号 (?) ？</string>
   <string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
   <string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
   <string name="ratingLeaderboards">排行榜：</string>

@@ -188,7 +188,7 @@ final class Relay(
     studyC.CanViewResult(oldSc.study) {
       for {
         (sc, studyData) <- studyC.getJsonData(oldSc)
-        data = env.relay.jsonView.makeData(relay, studyData)
+        data = env.relay.jsonView.makeData(relay, studyData, ctx.userId exists sc.study.canContribute)
         chat     <- studyC.chatOf(sc.study)
         sVersion <- env.study.version(sc.study.id)
         streams  <- studyC.streamsOf(sc.study)

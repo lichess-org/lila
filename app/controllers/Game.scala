@@ -42,7 +42,8 @@ final class Game(
           format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
           imported = getBool("imported", req),
           flags = requestPgnFlags(req, extended = true),
-          noDelay = get("key", req).exists(env.noDelaySecretSetting.get().value.contains)
+          noDelay = get("key", req).exists(env.noDelaySecretSetting.get().value.contains),
+          playerFile = get("players", req)
         )
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
           env.api.gameApiV2.filename(game, config.format) map { filename =>
@@ -91,7 +92,8 @@ final class Game(
               case Some(m) if m is user.id => 60
               case Some(_) if oauth        => 30 // bonus for oauth logged in only (not for CSRF)
               case _                       => 20
-            })
+            }),
+            playerFile = get("players", req)
           )
           val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
           apiC
@@ -115,7 +117,8 @@ final class Game(
         ids = req.body.split(',').view.take(300).toSeq,
         format = GameApiV2.Format byRequest req,
         flags = requestPgnFlags(req, extended = false),
-        perSecond = MaxPerSecond(20)
+        perSecond = MaxPerSecond(20),
+        playerFile = get("players", req)
       )
       apiC
         .GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(

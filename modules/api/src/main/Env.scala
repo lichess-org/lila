@@ -40,6 +40,7 @@ final class Env(
     onlineApiUsers: lila.bot.OnlineApiUsers,
     challengeEnv: lila.challenge.Env,
     msgEnv: lila.msg.Env,
+    cacheApi: lila.memo.CacheApi,
     ws: WSClient,
     val mode: Mode
 )(implicit
@@ -55,6 +56,8 @@ final class Env(
   lazy val userApi = wire[UserApi]
 
   lazy val gameApi = wire[GameApi]
+
+  lazy val realPlayers = wire[RealPlayerApi]
 
   lazy val gameApiV2 = wire[GameApiV2]
 

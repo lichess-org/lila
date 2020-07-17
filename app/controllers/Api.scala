@@ -58,8 +58,8 @@ final class Api(
     key = "users.api.ip",
     enforce = env.net.rateLimit.value
   )(
-    ("fast", 1000, 10.minutes),
-    ("slow", 30000, 1.day)
+    ("fast", 2000, 10.minutes),
+    ("slow", 40000, 1.day)
   )
 
   def usersByIds =

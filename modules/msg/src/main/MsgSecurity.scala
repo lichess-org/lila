@@ -60,7 +60,7 @@ final private class MsgSecurity(
         isNew: Boolean,
         unlimited: Boolean = false
     ): Fu[Verdict] = {
-      val text = lila.common.String.removeZeroWidthChars(rawText).trim
+      val text = rawText.trim
       if (text.isEmpty) fuccess(Invalid)
       else
         may.post(contacts, isNew) flatMap {

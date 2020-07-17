@@ -6,6 +6,7 @@ import scala.annotation.nowarn
 
 import lila.api.Context
 import lila.app._
+import lila.security.DataForm.Reopen
 import lila.user.{ User => UserModel, TotpSecret }
 import views.html
 
@@ -220,13 +221,15 @@ final class Account(
           Ok(html.account.emailConfirmHelp(helpForm, none)).fuccess
         case None =>
           implicit val req = ctx.body
-          helpForm.bindFromRequest().fold(
-            err => BadRequest(html.account.emailConfirmHelp(err, none)).fuccess,
-            username =>
-              getStatus(env.user.repo, username) map { status =>
-                Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
-              }
-          )
+          helpForm
+            .bindFromRequest()
+            .fold(
+              err => BadRequest(html.account.emailConfirmHelp(err, none)).fuccess,
+              username =>
+                getStatus(env.user.repo, username) map { status =>
+                  Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
+                }
+            )
       }
     }
 
@@ -318,19 +321,21 @@ final class Account(
       NotManaged {
         implicit val req = ctx.body
         env.security.forms toggleKid me flatMap { form =>
-          form.bindFromRequest().fold(
-            err =>
-              negotiate(
-                html = BadRequest(html.account.kid(me, err, false)).fuccess,
-                api = _ => BadRequest(errorsAsJson(err)).fuccess
-              ),
-            _ =>
-              env.user.repo.setKid(me, getBool("v")) >>
+          form
+            .bindFromRequest()
+            .fold(
+              err =>
                 negotiate(
-                  html = Redirect(routes.Account.kid()).flashSuccess.fuccess,
-                  api = _ => jsonOkResult.fuccess
-                )
-          )
+                  html = BadRequest(html.account.kid(me, err, false)).fuccess,
+                  api = _ => BadRequest(errorsAsJson(err)).fuccess
+                ),
+              _ =>
+                env.user.repo.setKid(me, getBool("v")) >>
+                  negotiate(
+                    html = Redirect(routes.Account.kid()).flashSuccess.fuccess,
+                    api = _ => jsonOkResult.fuccess
+                  )
+            )
         }
       }
     }
@@ -362,40 +367,40 @@ final class Account(
           env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
     }
 
+  private def renderReopen(form: Option[play.api.data.Form[Reopen]], msg: Option[String])(implicit
+      ctx: Context
+  ) =
+    html.account.reopen.form(form.foldLeft(env.security.forms.reopen)(_ withForm _), msg)
+
   def reopen =
     Open { implicit ctx =>
       auth.RedirectToProfileIfLoggedIn {
-        env.security.forms.magicLinkWithCaptcha map {
-          case (form, captcha) => Ok(html.account.reopen.form(form, captcha))
-        }
+        Ok(renderReopen(none, none)).fuccess
       }
     }
 
   def reopenApply =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      env.security.forms.reopen.bindFromRequest().fold(
-        err =>
-          env.security.forms.anyCaptcha map { captcha =>
-            BadRequest(html.account.reopen.form(err, captcha, none))
-          },
-        data =>
-          env.security.reopen
-            .prepare(data.username, data.realEmail, env.mod.logApi.hasModClose _) flatMap {
-            case Left((code, msg)) =>
-              lila.mon.user.auth.reopenRequest(code).increment()
-              env.security.forms.reopenWithCaptcha map {
-                case (form, captcha) => BadRequest(html.account.reopen.form(form, captcha, msg.some))
-              }
-            case Right(user) =>
-              auth.MagicLinkRateLimit(user, data.realEmail, ctx.req) {
-                lila.mon.user.auth.reopenRequest("success").increment()
-                env.security.reopen.send(user, data.realEmail) inject Redirect(
-                  routes.Account.reopenSent(data.realEmail.value)
-                )
-              }(rateLimitedFu)
-          }
-      )
+      env.security.forms.reopen.form
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(renderReopen(err.some, none)).fuccess,
+          data =>
+            env.security.reopen
+              .prepare(data.username, data.realEmail, env.mod.logApi.hasModClose _) flatMap {
+              case Left((code, msg)) =>
+                lila.mon.user.auth.reopenRequest(code).increment()
+                BadRequest(renderReopen(none, msg.some)).fuccess
+              case Right(user) =>
+                auth.MagicLinkRateLimit(user, data.realEmail, ctx.req) {
+                  lila.mon.user.auth.reopenRequest("success").increment()
+                  env.security.reopen.send(user, data.realEmail) inject Redirect(
+                    routes.Account.reopenSent(data.realEmail.value)
+                  )
+                }(rateLimitedFu)
+            }
+        )
     }
 
   def reopenSent(@nowarn("cat=unused") email: String) =

@@ -22,7 +22,8 @@ final class PgnDump(
       initialFen: Option[FEN],
       analysis: Option[Analysis],
       flags: WithFlags,
-      teams: Option[GameTeams] = None
+      teams: Option[GameTeams] = None,
+      realPlayers: Option[RealPlayers] = None
   ): Fu[Pgn] =
     dumper(game, initialFen, flags, teams) flatMap { pgn =>
       if (flags.tags) (game.simulId ?? simulApi.idToName) map { simulName =>
@@ -36,6 +37,8 @@ final class PgnDump(
       val evaled = analysis.ifTrue(flags.evals).fold(pgn)(addEvals(pgn, _))
       if (flags.literate) annotator(evaled, analysis, game.opening, game.winnerColor, game.status)
       else evaled
+    } map { pgn =>
+      realPlayers.fold(pgn)(_.update(game, pgn))
     }
 
   private def addEvals(p: Pgn, analysis: Analysis): Pgn =
@@ -59,20 +62,18 @@ final class PgnDump(
     }
 
   def formatter(flags: WithFlags) =
-    (game: Game, initialFen: Option[FEN], analysis: Option[Analysis], teams: Option[GameTeams]) =>
-      toPgnString(game, initialFen, analysis, flags, teams)
+    (
+        game: Game,
+        initialFen: Option[FEN],
+        analysis: Option[Analysis],
+        teams: Option[GameTeams],
+        realPlayers: Option[RealPlayers]
+    ) => apply(game, initialFen, analysis, flags, teams, realPlayers) dmap toPgnString
 
-  def toPgnString(
-      game: Game,
-      initialFen: Option[FEN],
-      analysis: Option[Analysis],
-      flags: WithFlags,
-      teams: Option[GameTeams] = None
-  ) =
-    apply(game, initialFen, analysis, flags, teams) dmap { pgn =>
-      // merge analysis & eval comments
-      // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
-      // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
-      s"$pgn\n\n\n".replaceIf("] } { [", "] [")
-    }
+  def toPgnString(pgn: Pgn) = {
+    // merge analysis & eval comments
+    // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
+    // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
+    s"$pgn\n\n\n".replaceIf("] } { [", "] [")
+  }
 }

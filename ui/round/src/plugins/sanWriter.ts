@@ -1,16 +1,18 @@
-function fixCrazySan(san) {
+type Board = {pieces: {[key: number]: string}, turn: boolean};
+
+function fixCrazySan(san: string) {
   return san[0] === 'P' ? san.slice(1) : san;
 }
 
-function decomposeUci(uci) {
+function decomposeUci(uci: string) {
   return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
 }
 
-function square(name) {
+function square(name: string) {
   return name.charCodeAt(0) - 97 + (name.charCodeAt(1) - 49) * 8;
 }
 
-function squareDist(a, b) {
+function squareDist(a: number, b: number) {
   var x1 = a & 7,
     x2 = b & 7;
   var y1 = a >> 3,
@@ -18,27 +20,25 @@ function squareDist(a, b) {
   return Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2));
 }
 
-function isBlack(p) {
+function isBlack(p: string) {
   return p === p.toLowerCase();
 }
 
-function readFen(fen) {
-  var parts = fen.split(' ');
-  var board = {
+function readFen(fen: string) {
+  const parts = fen.split(' '),
+  board: Board = {
     pieces: {},
     turn: parts[1] === 'w'
   };
 
-  parts[0].split('/').slice(0, 8).forEach(function(row, y) {
-    var x = 0;
-    row.split('').forEach(function(v) {
+  parts[0].split('/').slice(0, 8).forEach((row, y) => {
+    let x = 0;
+    row.split('').forEach(v => {
       if (v == '~') return;
-      var nb = parseInt(v, 10);
+      const nb = parseInt(v, 10);
       if (nb) x += nb;
       else {
-        var square = (7 - y) * 8 + x;
-        board.pieces[square] = v;
-        if (v === 'k' || v === 'K') board[v] = square;
+        board.pieces[(7 - y) * 8 + x] = v;
         x++;
       }
     });
@@ -47,13 +47,13 @@ function readFen(fen) {
   return board;
 }
 
-function kingMovesTo(s) {
+function kingMovesTo(s: number) {
   return [s - 1, s - 9, s - 8, s - 7, s + 1, s + 9, s + 8, s + 7].filter(function(o) {
     return o >= 0 && o < 64 && squareDist(s, o) === 1;
   });
 }
 
-function knightMovesTo(s) {
+function knightMovesTo(s: number) {
   return [s + 17, s + 15, s + 10, s + 6, s - 6, s - 10, s - 15, s - 17].filter(function(o) {
     return o >= 0 && o < 64 && squareDist(s, o) <= 2;
   });
@@ -63,7 +63,7 @@ var ROOK_DELTAS = [8, 1, -8, -1];
 var BISHOP_DELTAS = [9, -9, 7, -7];
 var QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
 
-function slidingMovesTo(s: number, deltas: number[], board): number[] {
+function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
   var result: number[] = [];
   deltas.forEach(function(delta) {
     for (var square = s + delta; square >= 0 && square < 64 && squareDist(square, square - delta) === 1; square += delta) {
@@ -74,7 +74,7 @@ function slidingMovesTo(s: number, deltas: number[], board): number[] {
   return result;
 }
 
-function sanOf(board, uci) {
+function sanOf(board: Board, uci: string) {
   if (uci.includes('@')) return fixCrazySan(uci);
 
   var move = decomposeUci(uci);
@@ -86,7 +86,7 @@ function sanOf(board, uci) {
 
   // pawn moves
   if (pt === 'p') {
-    var san;
+    var san: string;
     if (uci[0] === uci[2]) san = move[1];
     else san = uci[0] + 'x' + move[1];
     if (move[2]) san += '=' + move[2].toUpperCase();
@@ -126,9 +126,9 @@ function sanOf(board, uci) {
   return san;
 }
 
-export default function sanWriter(fen, ucis) {
+export default function sanWriter(fen: string, ucis: string[]) {
   var board = readFen(fen);
-  var sans = {}
+  var sans: {[key: string]: string} = {}
   ucis.forEach(function(uci) {
     var san = sanOf(board, uci);
     sans[san] = uci;

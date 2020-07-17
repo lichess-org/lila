@@ -874,6 +874,12 @@
   function startTeam(cfg) {
     lichess.socket = lichess.StrongSocket('/team/' + cfg.id, cfg.socketVersion);
     cfg.chat && lichess.makeChat(cfg.chat);
+    $('#team-subscribe').on('change', function() {
+      const v = this.checked;
+      $(this).parents('form').each(function() {
+        $.post($(this).attr('action'), { v: v });
+      });
+    });
   }
 
   ////////////////

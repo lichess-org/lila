@@ -25,9 +25,13 @@ final class JsonView(markup: RelayMarkup, baseUrl: BaseUrl) {
       .add("finished" -> r.finished.option(true))
   }
 
-  def makeData(relay: Relay, studyData: lila.study.JsonView.JsData) =
+  def makeData(
+      relay: Relay,
+      studyData: lila.study.JsonView.JsData,
+      canContribute: Boolean
+  ) =
     JsData(
-      relay = relayWrites writes relay,
+      relay = if (canContribute) admin(relay) else public(relay),
       study = studyData.study,
       analysis = studyData.analysis
     )

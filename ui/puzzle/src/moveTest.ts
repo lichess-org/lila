@@ -14,9 +14,8 @@ const altCastles = {
 
 type AltCastle = keyof typeof altCastles;
 
-function isAltCastle(str: string | undefined): str is AltCastle {
-  if (str) return altCastles.hasOwnProperty(str);
-  return false;
+function isAltCastle(str: string): str is AltCastle {
+  return altCastles.hasOwnProperty(str);
 }
 
 export function moveTestBuild(vm: Vm, puzzle: Puzzle): MoveTestFn {
@@ -36,9 +35,9 @@ export function moveTestBuild(vm: Vm, puzzle: Puzzle): MoveTestFn {
 
     let progress = puzzle.lines;
     for (const i in nodes) {
-      const uci = nodes[i].uci;
-      if (typeof progress === 'object' && uci && progress[uci]) progress = progress[uci];
-      else if (typeof progress === 'object' && nodes[i].castle && isAltCastle(uci)) progress = progress[altCastles[uci]];
+      const uci = nodes[i].uci!;
+      if (typeof progress === 'object' && progress[uci]) progress = progress[uci];
+      else if (typeof progress === 'object' && nodes[i].castle && isAltCastle(uci)) progress = progress[altCastles[uci]] || 'fail';
       else progress = 'fail';
       if (typeof progress === 'string') break;
     }

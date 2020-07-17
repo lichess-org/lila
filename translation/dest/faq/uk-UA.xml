@@ -26,7 +26,7 @@
   <string name="leavingGameWithoutResigningExplanation">Якщо ваш суперник часто відхиляє/залишає гру, вони отримають \"блокування ігор\", що означає, що їм заборонено брати участь в іграх. Про це не зазначено публічно у обліковому записі. Якщо така поведінка продовжиться, тривалість заборони збільшиться, а тривала поведінка такого роду може призвести до закриття облікового запису.</string>
   <string name="howCanIBecomeModerator">Як я можу стати модератором?</string>
   <string name="youCannotApply">Ми не приймаємо прохання стати модератором. Якщо ми бачимо того, хто на нашу думку був би хорошим модератором, ми зв\'яжемося з ними безпосередньо.</string>
-  <string name="isCorrespondenceDifferent">Ігра за листуванням відрізняються від звичайних шахів?</string>
+  <string name="isCorrespondenceDifferent">Гра за листуванням відрізняється від звичайних шахів?</string>
   <string name="youCanUseOpeningBookNoEngine">На Lichess, головна відмінність правил для шахів за листуванням полягає в тому, що дозволена книга дебютів. Використання рушіїв все ще заборонене і призведе до позначення за зловживання допомогою рушія. Хоча ICCF дозволяє використовувати рушій у іграх за листуванням, Lichess не дозволяє.</string>
   <string name="gameplay">Ігровий процес</string>
   <string name="howBulletBlitzEtcDecided">Як визначається контроль часу Куля, Бліц та інший?</string>
@@ -111,7 +111,7 @@
   <string name="whatIsProvisionalRating">Чому поруч із рейтингом є знак питання?</string>
   <string name="provisionalRatingExplanation">Знак питання означає, що рейтинг є умовним. Причини:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Гравець ще не закінчив достатньо рейтингових ігор проти %1$s в категорії рейтингу.</string>
-  <string name="similarOpponents">суперники подібної сили</string>
+  <string name="similarOpponents">суперники однакової сили</string>
   <string name="notPlayedRecently">Гравець не зіграв достатньо ігор останнім часом. Залежно від кількості зіграних Вами ігор, це може зайняти рік бездіяльності, щоб ваш рейтинг знову став умовним.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Це означає, що відхилення Glicko-2 більше 110. Відмова - це рівень довіри, яку система має у рейтингу. Чим нижче відхилення, тим стабільнішим є рейтинг.</string>
   <string name="howDoLeaderoardsWork">Як працюють звання і таблиці лідерів?</string>

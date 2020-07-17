@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">%s, підтвердіть ваш обліковий запис на lichess.org</string>
+  <string name="emailConfirm_subject">%s, підтвердіть Ваш обліковий запис на lichess.org</string>
   <string name="emailConfirm_click">Натисніть на посилання для активації облікового запису Lichess:</string>
-  <string name="emailConfirm_ignore">Якщо ви не реєструвалися на Lichess, просто проігноруйте це повідомлення.</string>
+  <string name="emailConfirm_ignore">Якщо Ви не реєструвалися на Lichess, просто проігноруйте це повідомлення.</string>
   <string name="passwordReset_subject">%s, скидання вашого паролю lichess.org</string>
   <string name="passwordReset_intro">Ми отримали запит на скидання пароля для вашого облікового запису.</string>
   <string name="passwordReset_clickOrIgnore">Якщо запит виконано вами, натисніть на посилання нижче. Якщо ні, проігноруйте цей лист.</string>
@@ -17,6 +17,6 @@
 Отримуйте задоволення, і хай Ваші фігури знайдуть шлях до короля суперника!</string>
   <string name="logInToLichess">Увійдіть до lichess.org, %s</string>
   <string name="common_orPaste">(Клік по посиланню не працює? Спробуйте вставити його в адресний рядок!)</string>
-  <string name="common_note">Це сервісний лист, пов\'язаний із використанням %s.</string>
+  <string name="common_note">Це службовий лист, пов\'язаний із використанням %s.</string>
   <string name="common_contact">Щоб зв\'язатися з нами, будь ласка, використовуйте %s.</string>
 </resources>

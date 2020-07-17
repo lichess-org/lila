@@ -39,7 +39,7 @@ buk?kake
 bull?shit
 cancer
 cawk
-cheat(er|)
+cheat(ed|er|s|)
 chess(|-|_)bot(.?com)?
 chicken
 chink

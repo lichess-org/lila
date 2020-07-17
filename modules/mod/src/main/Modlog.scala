@@ -12,6 +12,10 @@ case class Modlog(
     date: DateTime = DateTime.now
 ) {
 
+  def isLichess = mod == lila.user.User.lichessId
+
+  def notable = !isLichess && action != Modlog.terminateTournament
+
   def showAction =
     action match {
       case Modlog.alt                 => "mark as alt"

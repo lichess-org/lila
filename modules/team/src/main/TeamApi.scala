@@ -75,6 +75,10 @@ final class TeamApi(
   def mine(me: User): Fu[List[Team]] =
     cached teamIdsList me.id flatMap teamRepo.byIdsSortPopular
 
+  def isSubscribed = memberRepo.isSubscribed _
+
+  def subscribe = memberRepo.subscribe _
+
   def countTeamsOf(me: User) =
     cached teamIdsList me.id dmap (_.size)
 
@@ -177,7 +181,7 @@ final class TeamApi(
           timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
           Bus.publish(JoinTeam(id = team.id, userId = user.id), "team")
         }
-      } recover lila.db.recoverDuplicateKey(_ => ())
+      } recover lila.db.ignoreDuplicateKey
     }
 
   def quit(teamId: Team.ID, me: User): Fu[Option[Team]] =

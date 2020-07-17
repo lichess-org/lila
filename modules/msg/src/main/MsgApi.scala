@@ -36,6 +36,13 @@ final class MsgApi(
       .find($doc("users" -> me.id, "del" $ne me.id))
       .sort($sort desc "lastMsg.date")
       .list[MsgThread](50)
+      .map(prioritize)
+
+  private def prioritize(threads: List[MsgThread]) =
+    threads.find(_.isPriority) match {
+      case None        => threads
+      case Some(found) => found :: threads.filterNot(_.isPriority)
+    }
 
   def convoWith(me: User, username: String, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] = {
     val userId   = User.normalize(username)

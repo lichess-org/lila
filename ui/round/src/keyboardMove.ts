@@ -55,7 +55,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       const crazyData = root.data.crazyhouse;
       const color = root.data.player.color;
       // Square occupied
-      if (!role || !crazyData || cgState.pieces[key]) return;
+      if (!role || !crazyData || cgState.pieces.has(key)) return;
       // Piece not in Pocket
       if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
       if (!crazyValid(root.data, role, key)) return;

@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="team">Iqela</string>
+  <string name="teams">Iqela</string>
+  <plurals name="nbMembers">
+    <item quantity="one">ilungu</item>
+    <item quantity="other">ilungu</item>
+  </plurals>
+  <string name="allTeams">Onke amaqela</string>
+  <string name="newTeam">Iqela elitsha</string>
+  <string name="myTeams">Amaqela am</string>
+</resources>

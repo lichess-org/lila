@@ -292,6 +292,7 @@
     <item quantity="few">Dodaj protivniku %s sekunde</item>
     <item quantity="other">Dodaj protivniku %s sekundi</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Korisnički račun je prekršio Lichess Uvjete Pružanja Usluge</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno podiže/spušta svoj rejting</string>
   <string name="openingExplorerAndTablebase">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="takeback">Vrati potez</string>
@@ -892,12 +893,12 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="inTheFAQ">u F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Za prijavu korisnika zbog varanja ili lošeg ponašanja, %1$s</string>
   <string name="useTheReportForm">koristi obrazac za prijavu</string>
-  <string name="toRequestSupport">Za zatraživanje podrške, %1$s</string>
-  <string name="tryTheContactPage">pokušaj stranicu za kontakt</string>
+  <string name="toRequestSupport">Za potraživanje pomoći, %1$s</string>
+  <string name="tryTheContactPage">kontaktiraj nas</string>
   <string name="thisTopicIsArchived">Ova tema je arhivirana i na nju više nije moguće odgovoriti.</string>
   <string name="joinTheTeamXToPost">Pridruži se %1$s za objavljivanje na ovom forumu</string>
   <string name="teamNamedX">%1$s tim</string>
   <string name="youCannotPostYetPlaySomeGames">Još ne možeš objavljivati na forumima. Odigraj nekoliko partija!</string>
   <string name="subscribe">Pretplati se</string>
-  <string name="unsubscribe">Odjavi se</string>
+  <string name="unsubscribe">Otkaži pretplatu</string>
 </resources>

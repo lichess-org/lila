@@ -32,11 +32,14 @@ final class Env(
     system: ActorSystem,
     scheduler: Scheduler
 ) {
-
-  private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
   import net.{ baseUrl, domain }
 
-  val recaptchaPublicConfig = config.recaptcha.public
+  private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
+
+  private def recaptchaPublicConfig = config.recaptcha.public
+
+  def recaptcha[A](formId: String, form: play.api.data.Form[A]) =
+    RecaptchaForm(form, formId, config.recaptcha.public)
 
   lazy val firewall = new Firewall(
     coll = db(config.collection.firewall),

@@ -17,7 +17,7 @@ object log {
       main(cls := "page-menu")(
         views.html.mod.menu("log"),
         div(id := "modlog_table", cls := "page-menu__content box")(
-          h1(title),
+          h1(title, " (#tavern-log in slack)"),
           table(cls := "slist slist-pad")(
             thead(
               tr(

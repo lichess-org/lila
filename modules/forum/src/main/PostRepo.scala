@@ -58,7 +58,7 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
 
   def recentInCateg(categId: String, nb: Int): Fu[List[Post]] =
     coll.ext
-      .find(selectCateg(categId) ++ selectNotHidden)
+      .find(selectCateg(categId))
       .sort($sort.createdDesc)
       .list[Post](nb)
 

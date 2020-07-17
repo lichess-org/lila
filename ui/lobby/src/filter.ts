@@ -44,7 +44,7 @@ export default class Filter {
   filter = (hooks: Hook[]): Filtered => {
     if (!this.data) return { visible: hooks, hidden: 0 };
     const f = this.data.filter,
-      ratingRange = f.ratingRange?.split('-').map(r => parseInt(r, 10)),
+      ratingRange = f.ratingRange && f.ratingRange.split('-').map(r => parseInt(r, 10)),
       seen: string[] = [],
       visible: Hook[] = [];
     let variant: string, hidden = 0;
@@ -65,9 +65,6 @@ export default class Filter {
         }
       }
     });
-    return {
-      visible: visible,
-      hidden: hidden
-    };
+    return { visible, hidden };
   }
 }
