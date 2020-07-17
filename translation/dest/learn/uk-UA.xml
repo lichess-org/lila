@@ -135,7 +135,7 @@
   <string name="theSpecialPawnMove">Особливий хід пішаком</string>
   <string name="enPassantIntro">Коли пішак суперника зробив хід на два поля, Ви можете взяти його, ніби він зробив хід лише на одне.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Чорні щойно сходили пішаком на два поля! Візьміть його на проході.</string>
-  <string name="enPassantOnlyWorksImmediately">Пішак противника може бути взято на проході тільки безпосередньо після ходу.</string>
+  <string name="enPassantOnlyWorksImmediately">Взяття на проході можливо тільки безпосередньо після того, як суперник зробив хід пішаком.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Взяття на проході можна зробити, якщо ваш пішак на п\'ятому рядку.</string>
   <string name="takeAllThePawnsEnPassant">Візьміть всі пішаки на проході!</string>
   <string name="enPassantComplete">Вітаємо! Тепер ви можете робити взяття на проході.</string>
