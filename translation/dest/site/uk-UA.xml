@@ -318,7 +318,7 @@
   <string name="takebackPropositionDeclined">Пропозицію повернути хід відхилено</string>
   <string name="takebackPropositionAccepted">Пропозицію повернути хід прийнято</string>
   <string name="takebackPropositionCanceled">Пропозицію повернути хід скасовано</string>
-  <string name="yourOpponentProposesATakeback">Ваш суперник хоче повернути хід</string>
+  <string name="yourOpponentProposesATakeback">Ваш суперник пропонує повернути хід</string>
   <string name="bookmarkThisGame">Додати гру в закладки</string>
   <string name="tournament">Турнір</string>
   <string name="tournaments">Турніри</string>
