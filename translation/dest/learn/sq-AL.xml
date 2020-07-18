@@ -22,16 +22,23 @@ për të shpejtuar gjërat!</string>
   <string name="theBishop">Peshkopi</string>
   <string name="itMovesDiagonally">Ajo lëviz diagonalisht</string>
   <string name="bishopIntro">Tjetra ne do të mësojmë se si të manovrojmë një peshkop!</string>
+  <string name="youNeedBothBishops">Nje oficer i bardhe,
+nje oficer i zi. 
+Te duhen qe te dy!</string>
+  <string name="bishopComplete">Urime! Tani mesove te perdoresh oficerin.</string>
   <string name="theQueen">Mbretëreshë</string>
   <string name="queenCombinesRookAndBishop">Mbretëresha = Rroka + Peshkopi</string>
   <string name="queenIntro">Pjesa më e fuqishme e shahut hyn. Madhëria e saj mbretëreshë!</string>
+  <string name="queenComplete">Urime! Dama ska me te sekrete nga ty.</string>
   <string name="theKing">Mbreti</string>
   <string name="theMostImportantPiece">Copa më e rëndësishme</string>
+  <string name="kingIntro">Ti je mbreti. Nese ti bije ne beteje, loja humbet.</string>
   <string name="theKingIsSlow">Mbreti është i ngadalshëm.</string>
   <string name="lastOne">I fundit!</string>
   <string name="kingComplete">Tani mund të komandoni komandantin (mbretin)!</string>
   <string name="theKnight">Kalorësi</string>
   <string name="itMovesInAnLShape">Lëviz në formën L</string>
+  <string name="knightIntro">Ketu ke nje sfide. Kali eshte... nje figure dredharake.</string>
   <string name="thePawn">Pengu</string>
   <string name="itMovesForwardOnly">Ajo lëviz vetëm përpara</string>
   <string name="defendYourKing">Mbro mbrentin</string>
