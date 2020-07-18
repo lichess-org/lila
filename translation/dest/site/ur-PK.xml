@@ -168,6 +168,7 @@
   <string name="usernameOrEmail">آپ کا نام</string>
   <string name="changeUsername">صارف نام تبدیل کریں</string>
   <string name="changeUsernameNotSame">صرف انگریزی کے حروف چھوٹے یا بڑے ہو سکتے ہیں۔ جیسے کہ \'johndoe\' سے \'JohnDoe\'.</string>
+  <string name="changeUsernameDescription">صارف اپنا نام تبدیل کریں۔ یہ صرف ایک دفعہ ہو سکتا ہے اور صرف انگریزی حروف چھوٹے یا بڑے کرنے کی اجازت ہے۔.</string>
   <string name="password">خفیہ کلمہ</string>
   <string name="changePassword">خفیہ کلمہ تبدیل کریں</string>
   <string name="changeEmail">ای میل تبدیل کریں</string>
@@ -175,6 +176,15 @@
   <string name="passwordReset">خفیہ کلمہ پھر سے داخل کریں</string>
   <string name="forgotPassword">خفیہ کلمہ یاد نہیں؟</string>
   <string name="rank">درجہ</string>
+  <string name="rankX">درجہ: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">درجے ہر منٹ اپ ڈیٹ ہوتے ہیں</item>
+    <item quantity="other">درجے ہر%s منٹ اپ ڈیٹ ہوتے ہیں</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s معمہ</item>
+    <item quantity="other">%s معمہ جات</item>
+  </plurals>
   <string name="gamesPlayed">مقابلوں میں شرکت</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">آپکے ساتھ %s مقابلے</item>
@@ -194,7 +204,9 @@
   <string name="accept">قبول ہے</string>
   <string name="decline">انکار ہے</string>
   <string name="playingRightNow">فی الحال کھیل میں مصروف ہے</string>
+  <string name="eventInProgress">فی الحال کھیل میں مصروف ہے</string>
   <string name="finished">ختم شد</string>
+  <string name="finishesX">ختم ہو گا %s</string>
   <string name="abortGame">کھیل منسوخ کريں</string>
   <string name="gameAborted">منسوخ شد</string>
   <string name="standard">معروف</string>
@@ -202,6 +214,8 @@
   <string name="mode">نوع</string>
   <string name="casual">دوستانہ</string>
   <string name="rated">سنجیدہ</string>
+  <string name="casualTournament">دوستانہ</string>
+  <string name="ratedTournament">سنجیدہ</string>
   <string name="thisGameIsRated">سنجیدہ مقابلہ</string>
   <string name="rematch">دوبارہ کھیلیں</string>
   <string name="rematchOfferSent">دوبارہ کھیلنے کی  پیشکش بھیج دی گئي ہے</string>
