@@ -57,6 +57,10 @@
   <string name="goDeeper">مزید گہرائی</string>
   <string name="showThreat">خطرہ واضح کریں۔</string>
   <string name="inLocalBrowser">لوکل براوزر میں۔</string>
+  <string name="toggleLocalEvaluation">لوکل تجزیہ چالو کریں۔</string>
+  <string name="promoteVariation">اس لائن کو ترقی دیں۔</string>
+  <string name="makeMainLine">مین لائن کا درجہ دیں۔</string>
+  <string name="deleteFromHere">یہاں سے ہٹا دیں۔</string>
   <string name="openingExplorer">ابتدائیوں کی کلید</string>
   <string name="blunders">بڑی غلطیاں</string>
   <string name="mistakes">غلطیاں</string>
