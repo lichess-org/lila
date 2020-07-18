@@ -9,4 +9,18 @@
   <string name="realName">Emri i vertet</string>
   <string name="privateWillNeverBeShown">Privat. Nuk do te tregohet kurre jashte klases. Ndihmon te kujtohesh kush eshte studenti.</string>
   <string name="addStudent">Shto studentin</string>
+  <string name="lichessProfileXCreatedForY">Profil lichessi %1$s krijuar per %2$s.</string>
+  <string name="studentCredentials">Studenti: %1$s
+Nofka: %2$s
+Fjalekalimi: %3$s</string>
+  <string name="inviteALichessAccount">Fto nje llogari lichessi</string>
+  <string name="inviteDesc1">Nese studenti ka nje llogari Lichessi, mund ta ftoni ne klase.</string>
+  <string name="inviteDesc2">Ata do te marrin nje mesazh ne Lichess me nje adrese ku mund ti bashkangjiten klases.</string>
+  <string name="inviteDesc3">E rendesishme: ftoni vetem studente qe i njihni, dhe qe kane deshire te bashkangjiten ne klase.</string>
+  <string name="inviteDesc4">Kurre mos i dergoni ftesa lojtareve qe si njihni.</string>
+  <string name="createANewLichessAccount">Krijoni nje llogari te re Lichessi</string>
+  <string name="createDesc1">Nese studenti nuk ka nje llogari Lichessi, ju mund te krijoni nje per te ketu.</string>
+  <string name="createDesc2">Nuk nevojitet nje adrese emaili. Nje fjalekalim do te gjenerohet automatikisht, dhe ju mund tja jepni ate studentit, keshtu qe ata mund te hyjne ne lichess.</string>
+  <string name="createDesc3">E rendesishme: sudenti nuk duhet te kete shume llogari.</string>
+  <string name="createDesc4">Nese ata e kane nje llogari, atehere perdorni formularin e fteses.</string>
 </resources>
