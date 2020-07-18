@@ -758,6 +758,11 @@
   <string name="custom">Персонализирано</string>
   <string name="notifications">Известувања</string>
   <string name="challenges">Предизвици</string>
+  <string name="perfRatingX">Рејтинг: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s секунда за првиот потег</item>
+    <item quantity="other">%s секунди за првиот потег</item>
+  </plurals>
   <string name="practiceWithComputer">Вежбај со компјутерот</string>
   <string name="anotherWasX">Алтернативен би бил %s</string>
   <string name="bestWasX">Најдобриот потег беше %s</string>
@@ -814,6 +819,23 @@
     <item quantity="one">и заштеди %s пред-потег</item>
     <item quantity="other">и заштеди %s пред-потези</item>
   </plurals>
+  <string name="sorry">Извини :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Моравме да те исклучиме на кратко.</string>
+  <string name="timeoutExpires">Исклучувањето престанува %s.</string>
+  <string name="why">Зошто?</string>
+  <string name="pleasantChessExperience">Се стремиме да пружиме пријатно искуство за сите.</string>
+  <string name="goodPractice">Поради тоа, мораме да се осигуриме дека сите играчи се чесни.</string>
+  <string name="potentialProblem">Ако приметиме потенцијален проблем, ја покажуваме оваа порака.</string>
+  <string name="howToAvoidThis">Како да се избегне ова?</string>
+  <string name="playEveryGame">Изиграј ја секоја игра што ќе ја започнеш.</string>
+  <string name="tryToWin">Пробај да победиш (или да изиграш нерешено) во секоја партија.</string>
+  <string name="resignLostGames">Предади се кога ќе загубиш (не го оставај часовникот да истече).</string>
+  <string name="temporaryInconvenience">Се извинуваме за привремената непогодност,</string>
+  <string name="wishYouGreatGames">и ти посакуваме одлични партии на lichess.org.</string>
+  <string name="thankYouForReading">Ти благодариме за читањето!</string>
+  <string name="lifetimeScore">Вкупен резултат</string>
+  <string name="currentMatchScore">Резултат на сегашниот меч</string>
+  <string name="agreementAssistance">Се согласувам дека никогаш нема да добивам помош за моите игри (од компјутер, игра, база на податоци или личност).</string>
   <string name="toRequestSupport">За помош, %1$s</string>
   <string name="tryTheContactPage">обрати се на страната за контакт</string>
   <string name="thisTopicIsArchived">Темата е архивирана и не дозволува нови објави.</string>
