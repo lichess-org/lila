@@ -33,6 +33,10 @@
   <string name="joinTheGame">Приклучи се на играта</string>
   <string name="whitePlays">Белиот е на ред</string>
   <string name="blackPlays">Црниот е на ред</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Противникот ја напушти играта. Победувате за %s секунда.</item>
+    <item quantity="other">Противникот ја напушти играта. Победувате за %s секунди.</item>
+  </plurals>
   <string name="opponentLeftChoices">Другиот играч ја напушти играта. Можеш да го присилиш да се предаде или да го почекаш.</string>
   <string name="makeYourOpponentResign">Присили го противникот да се предаде</string>
   <string name="forceResignation">Присилно предавање</string>
@@ -97,6 +101,7 @@
   <string name="importPgn">Внеси PGN</string>
   <string name="delete">Избриши</string>
   <string name="deleteThisImportedGame">Избриши ја внесената партија?</string>
+  <string name="replayMode">Режим на реприза</string>
   <string name="realtimeReplay">Реално време</string>
   <string name="byCPL">По CPL</string>
   <string name="openStudy">Отвори студија</string>
@@ -144,6 +149,10 @@
   <string name="xPostedInForumY">%1$s постирале во форумот %2$s</string>
   <string name="latestForumPosts">најнови мислења од форумот</string>
   <string name="players">Играчи</string>
+  <string name="friends">Пријатели</string>
+  <string name="discussions">Разговори</string>
+  <string name="today">Денес</string>
+  <string name="yesterday">Вчера</string>
   <string name="minutesPerSide">Минути по играч</string>
   <string name="variant">Варијанта</string>
   <string name="variants">Варијанти</string>
@@ -225,6 +234,7 @@
   <string name="rematchOfferDeclined">Одбиена е понудата за реванш</string>
   <string name="cancelRematchOffer">Откажете ја понудата за реванш</string>
   <string name="viewRematch">Погледнете го реваншот</string>
+  <string name="confirmMove">Потврди го потегот</string>
   <string name="play">Играј</string>
   <string name="inbox">Сандаче</string>
   <string name="chatRoom">Прозор за разговор</string>
@@ -261,6 +271,7 @@
     <item quantity="one">Додај %s секунди</item>
     <item quantity="other">Додај %s секунди</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Оваа корисничка сметка ги прекрши корисничките услови на Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Овој играч вештачки го зголемува/намалува рејтинго</string>
   <string name="takeback">Повлечете го потегот</string>
   <string name="proposeATakeback">Предложете повлекување на потегот</string>
