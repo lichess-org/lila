@@ -91,5 +91,30 @@ asnje figure te pambrojtur!</string>
   <string name="checkInOneIntro">Per ti dhene shah kundershtarit, sulmoji mbretin. Atyre do t\'ju duhet te mbrohen!</string>
   <string name="checkInOneGoal">Drejtoju mbretit te kundershtarit
 ne nje levizje!</string>
+  <string name="checkInOneComplete">Urime! Ju i keni dhene shah kundershtarit, dhe i detyruat ata te mbrojne mbretin!</string>
+  <string name="outOfCheck">Si te dalesh nga shahu</string>
   <string name="defendYourKing">Mbro mbrentin</string>
+  <string name="outOfCheckIntro">Je shah! Duhet ose te levizni ose te bllokoni sulmin.</string>
+  <string name="escapeWithTheKing">Leviz mbretin!</string>
+  <string name="theKingCannotEscapeButBlock">Mbreti nuk leviz dot,
+por mund ta bllokoni shahun!</string>
+  <string name="youCanGetOutOfCheckByTaking">Mund ti shpetoni shahut 
+duke ngrene figuren sulmuese.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Kali po ju jep shah mbi 
+mbrojtjen tuaj!</string>
+  <string name="takeThePieceWithTheHighestValue">Merr figuren
+qe ka me shume vlere!</string>
+  <string name="pieceValueComplete">Urime! Dini vlerat e figurave!
+Dama = 9
+Torja = 5
+Oficeri = 3
+Kali = 3
+Ushtari =1</string>
+  <string name="checkInTwo">Shah me dy levizje</string>
+  <string name="twoMovesToGiveCheck">Dy levizje per te dhene shah</string>
+  <string name="checkInTwoIntro">Gjej kombinimin e duhur e dy levizjeve qe i jep shah mbretit te kundershtarit!</string>
+  <string name="checkInTwoGoal">Kerceno mbretin e kundershtarit 
+me dy levizje!</string>
+  <string name="checkInTwoComplete">Urime! I keni dhene shah kundershtarit, duke e detyruar ate te mbroje mbretin!</string>
+  <string name="whatNext">Po vazhdimi?</string>
 </resources>
