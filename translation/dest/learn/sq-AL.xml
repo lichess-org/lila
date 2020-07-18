@@ -132,6 +132,43 @@ Perkrah dames se tij.</string>
 Beni nje levizje per te vazhduar.</string>
   <string name="boardSetupComplete">Urime! Ju dini se si te vendosni guret e shahut.</string>
   <string name="castling">Rokada</string>
+  <string name="theSpecialKingMove">Levizja e vecante e mbretit</string>
+  <string name="castlingIntro">Siguroni mbretin, dhe fusni toren ne sulm!</string>
+  <string name="castleKingSide">Levizni mbretin dy kuti 
+per te bere rokade te vogel!</string>
+  <string name="castleQueenSide">Levizni mbretin dy kuti
+per te bere rokade te madhe!</string>
+  <string name="theKnightIsInTheWay">Kali bllokon rrugen!
+Levizeni, dhe beni rokade te vogel.</string>
+  <string name="castleKingSideMovePiecesFirst">Beni rokade te vogel!
+Duhet te nxirrni figurat ne fillim.</string>
+  <string name="castleQueenSideMovePiecesFirst">Beni rokade te madhe!
+Duhet te nxirrni figurat ne fillim.</string>
+  <string name="youCannotCastleIfMoved">Nuk lejohet te beni 
+rokade nese mbreti 
+ka levizur me pare.</string>
+  <string name="youCannotCastleIfAttacked">Nuk mund te beni rokade
+nese mbretit i zihet rruga gjate rokades.
+Bllokoni shahun dhe pastaj beni rokaden!</string>
+  <string name="findAWayToCastleKingSide">Gjej nje menyre 
+per te bere rokade te vogel!</string>
+  <string name="findAWayToCastleQueenSide">Gjej nje menyre per te bere rokade te madhe!</string>
+  <string name="castlingComplete">Urime! Pothuajse ne cdo loje duhet te beni rokaden.</string>
+  <string name="enPassant">Prerja e ushtarit</string>
+  <string name="theSpecialPawnMove">Levizja e vecante e ushtarit</string>
+  <string name="enPassantIntro">Nese ushtari kundershtar levizi dy kuti, mund ta hani njelloj sikur te kete levizur vetem nje kuti.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">I ziu sapo levizi usharin
+dy kuti!
+Priteni.</string>
+  <string name="enPassantOnlyWorksImmediately">Prerja eshte e vlefshme vetem
+menjehere mbasi kundershtari ka 
+levizur ushtarin.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Prerja funksionon vetem nese
+ushtari juaj eshte ne rangun e peste.</string>
+  <string name="takeAllThePawnsEnPassant">Priji te gjithe ushtaret!</string>
+  <string name="enPassantComplete">Urime! Tani dini te beni prerje ushtaresh.</string>
+  <string name="stalemate">Pati</string>
+  <string name="theGameIsADraw">Loja eshte barazim</string>
   <string name="takeThePieceWithTheHighestValue">Merr figuren
 qe ka me shume vlere!</string>
   <string name="pieceValueComplete">Urime! Dini vlerat e figurave!
