@@ -160,11 +160,15 @@
   <string name="usernameOrEmail">Brûkersnamme of email</string>
   <string name="changeUsername">Feroarje brûkersnamme</string>
   <string name="changeUsernameNotSame">Allinne lytse letters feroarje yn grutte of oarsom. Bygelyks \"pytsjesmit\" yn \"PytsjeSmit\".</string>
+  <string name="changeUsernameDescription">Feroarje dyn brûkersnamme. Dit kin mar ien kear dien wurde en do kinst allinich haad- en lytseletters yn dyn brûkersnamme feroarje.</string>
   <string name="password">Wachtwurd</string>
   <string name="changePassword">Wachtwurd feroarje</string>
   <string name="changeEmail">Email feroarje</string>
   <string name="email">Email</string>
+  <string name="passwordReset">Wachtwurdreset</string>
   <string name="forgotPassword">Wachtwurd ferjitte?</string>
+  <string name="rank">Posysje</string>
+  <string name="rankX">Posysje: %s</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s spullen mei jo</item>
     <item quantity="other">%s spullen mei jo</item>
