@@ -21,6 +21,8 @@
   <string name="createAGame">نیا مقابلہ</string>
   <string name="whiteIsVictorious">سفید فاتح ہے</string>
   <string name="blackIsVictorious">سیاہ فاتح ہے</string>
+  <string name="youPlayTheWhitePieces">آپ کے سفید مہرے ہیں۔</string>
+  <string name="youPlayTheBlackPieces">آپ کے سیاہ مہرے ہیں۔</string>
   <string name="itsYourTurn">اب آپ کی باری ہے!</string>
   <string name="kingInTheCenter">بادشاہ وسط میں ہے</string>
   <string name="threeChecks">تین بار شہ</string>
