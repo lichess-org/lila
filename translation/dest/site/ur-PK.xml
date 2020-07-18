@@ -219,14 +219,19 @@
   <string name="thisGameIsRated">سنجیدہ مقابلہ</string>
   <string name="rematch">دوبارہ کھیلیں</string>
   <string name="rematchOfferSent">دوبارہ کھیلنے کی  پیشکش بھیج دی گئي ہے</string>
+  <string name="rematchOfferSentWhite">سفید دوبارہ کھیل کی دعوت دیتا ہے۔</string>
+  <string name="rematchOfferSentBlack">سیاہ دوبارہ کھیل کی دعوت دیتا ہے۔</string>
   <string name="rematchOfferAccepted">دوبارہ کھیلنے کی  پیشکش قبول کر لی گئي ہے</string>
   <string name="rematchOfferCanceled">دوبارہ کھیلنے کی  پیشکش منسوخ کر دی گئي ہے</string>
   <string name="rematchOfferDeclined">دوبارہ کھیلنے کی  پیشکش مسترد کر دی گئي ہے</string>
   <string name="cancelRematchOffer">دوبارہ کھیلنے کی  پیشکش منسوخ کریں</string>
   <string name="viewRematch">اگلا مقابلہ ملاحظہ کریں</string>
+  <string name="confirmMove">اپنی چال کی تصدیق کریں</string>
   <string name="play">کھیلیں</string>
   <string name="inbox">ڈاک خانہ</string>
   <string name="chatRoom">گپ شپ کے لیے خانہ</string>
+  <string name="loginToChat">سائن ان کریں تا کہ چیٹ کر سکیں</string>
+  <string name="youHaveBeenTimedOut">آپ کا وقت ختم ہوگیا ہے.</string>
   <string name="spectatorRoom">خانہ برائے ناظرین</string>
   <string name="composeMessage">پیغام تحریر کریں</string>
   <string name="noNewMessages">کوئي نیا پیغام نہیں</string>
@@ -236,6 +241,10 @@
   <string name="incrementInSeconds">اضافہ سیکنڈوں میں</string>
   <string name="freeOnlineChess">مفت آن لائن شطرنج</string>
   <string name="spectators">ناظرین:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s سنجیدہ</item>
+    <item quantity="other">%s سنجیدہ</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s فتوحات</item>
     <item quantity="other">%s فتوحات</item>
@@ -248,12 +257,17 @@
     <item quantity="one">%s برابر</item>
     <item quantity="other">%s برابر</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s جاری بازیوں کی تعداد</item>
+    <item quantity="other">%s جاری بازیوں کی تعداد</item>
+  </plurals>
   <string name="exportGames">مقابلوں کی CSV حاصل کریں</string>
   <string name="ratingRange">میعار کی حدود</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s سیکنڈ دیں</item>
     <item quantity="other">%s سیکنڈ دیں</item>
   </plurals>
+  <string name="thisAccountViolatedTos">اس اکاؤنٹ نے لی چیس کے ضابطہ کار کی خلاف ورزی کی ہے</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">یہ کھلاڑی اپنے میعار کو مصنوعی طور پر متاثر کرتا ہے</string>
   <string name="takeback">چال واپس لیں</string>
   <string name="proposeATakeback">چال واپس لینے کی درخواست کریں</string>
