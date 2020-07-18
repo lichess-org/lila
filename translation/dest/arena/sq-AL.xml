@@ -39,4 +39,5 @@ Luaj shpejt dhe të ktheheni në holl për të luajtur më shumë lojëra dhe t�
   </plurals>
   <string name="thisIsPrivate">Ky është një turne privat</string>
   <string name="shareUrl">Përdor këtë URL për t\'i lejuar të tjerët: %s</string>
+  <string name="drawStreak">Barazime te njepasnjeshme: Kur nje lojtar ka barazime te njepasnjeshme ne arena, vetem barazimi i pare do te japi pike, ose barazimet qe zgjasin me shume se %s levizje. Ritmi barazimeve mund te thyhet vetem nga nje fitore, jo nga nje humbje apo nje barazim.</string>
 </resources>
