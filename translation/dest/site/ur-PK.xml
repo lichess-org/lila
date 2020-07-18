@@ -89,6 +89,13 @@
   <string name="xOpeningExplorer">%s افتتاحی ایکسپلورر</string>
   <string name="winPreventedBy50MoveRule">فتح کو پچاس چال کے قانون نے روک دیا</string>
   <string name="lossSavedBy50MoveRule">شکست کو پچاس چال کے قانون نے روک دیا</string>
+  <string name="allSet">سب ٹھیک!</string>
+  <string name="importPgn">PGN کو درآمد کریں</string>
+  <string name="delete">حذف کریں</string>
+  <string name="deleteThisImportedGame">درآمد شدہ بازی کو حذف کریں?</string>
+  <string name="replayMode">دوبارہ چلائیں</string>
+  <string name="realtimeReplay">اصل وقت پرچلائیں</string>
+  <string name="byCPL">بذریعہ CPL</string>
   <string name="blunders">بڑی غلطیاں</string>
   <string name="mistakes">غلطیاں</string>
   <string name="inaccuracies">کمزور چالیں</string>
