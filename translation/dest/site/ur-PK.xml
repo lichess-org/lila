@@ -79,6 +79,11 @@
   <string name="recentGames">حالیہ بازیاں</string>
   <string name="topGames">بہترین بازیاں</string>
   <string name="masterDbExplanation">%1$s+ کھلاڑیوں کی %2$s سے لے کر %3$s تک دو کروڑ بازیاں</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">%s چال میں شاہ مات</item>
+    <item quantity="other">%s چالوں میں شاہ مات</item>
+  </plurals>
+  <string name="noGameFound">کوئی بازی نہیں ملی</string>
   <string name="openingExplorer">ابتدائیوں کی کلید</string>
   <string name="blunders">بڑی غلطیاں</string>
   <string name="mistakes">غلطیاں</string>
