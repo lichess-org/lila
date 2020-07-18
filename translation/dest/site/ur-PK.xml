@@ -97,6 +97,8 @@
   <string name="realtimeReplay">اصل وقت پرچلائیں</string>
   <string name="byCPL">بذریعہ CPL</string>
   <string name="openStudy">سٹڈی کو کھولیں</string>
+  <string name="enable">آن کریں</string>
+  <string name="bestMoveArrow">بہترین چال دکھانے والا تیر</string>
   <string name="blunders">بڑی غلطیاں</string>
   <string name="mistakes">غلطیاں</string>
   <string name="inaccuracies">کمزور چالیں</string>
