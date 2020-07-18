@@ -54,4 +54,12 @@ Kjo eshte adresa per tu futur ne klase.</string>
     <item quantity="other">%s nxenes</item>
   </plurals>
   <string name="students">Nxenesit</string>
+  <string name="progress">Perparimi</string>
+  <string name="noStudents">Ska akoma studente ne klase.</string>
+  <string name="noRemovedStudents">Nuk ka studente te hequr.</string>
+  <string name="overDays">Brenda diteve</string>
+  <string name="timePlaying">Koha duke luajtur</string>
+  <string name="variantXOverLastY">%1$s over last %2$s</string>
+  <string name="winrate">Perqindja e fitoreve</string>
+  <string name="na">Nuk aplikohet</string>
 </resources>
