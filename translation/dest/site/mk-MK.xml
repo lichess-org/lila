@@ -273,6 +273,7 @@
   </plurals>
   <string name="thisAccountViolatedTos">Оваа корисничка сметка ги прекрши корисничките услови на Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Овој играч вештачки го зголемува/намалува рејтинго</string>
+  <string name="openingExplorerAndTablebase">Отворање на пребарувач и табела</string>
   <string name="takeback">Повлечете го потегот</string>
   <string name="proposeATakeback">Предложете повлекување на потегот</string>
   <string name="takebackPropositionSent">Предлог за повлекување на потегот е пратен</string>
@@ -284,6 +285,10 @@
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Турнирски поени</string>
+  <plurals name="nbStudies">
+    <item quantity="one">%s студија</item>
+    <item quantity="other">%s студии</item>
+  </plurals>
   <string name="viewTournament">Погледнете го турнирот</string>
   <string name="backToTournament">Врати се на турнир</string>
   <string name="thematic">Тематски</string>
@@ -311,11 +316,13 @@
   <string name="siteDescription">Бесплатна онлајн шах игра. Играј шах во чист интерфејс. Без регистрација, без реклами, без додатни plugin-и. Играј шах со компјутер, пријатели или случајни противници.</string>
   <string name="xJoinedTeamY">%1$s се приклучи на тимот %2$s</string>
   <string name="xCreatedTeamY">%1$s го создаде тимот %2$s</string>
+  <string name="xStartedStreaming">%s почна да емитува</string>
   <string name="averageElo">Просечно Elo</string>
   <string name="location">Локација</string>
   <string name="filterGames">Филтрирај игри</string>
   <string name="reset">Ресетирај</string>
   <string name="apply">Аплицирај</string>
+  <string name="save">Зачувај</string>
   <string name="leaderboard">Табела</string>
   <string name="pasteTheFenStringHere">Пастирај го FEN стрингот овде</string>
   <string name="pasteThePgnStringHere">Пастирај го PGN стрингот овде</string>
@@ -323,12 +330,15 @@
   <string name="continueFromHere">Продолжи од овде</string>
   <string name="toStudy">Студија</string>
   <string name="importGame">Внеси игра</string>
+  <string name="importGameExplanation">Залепи PGN од игра за да добиеш реприза, 
+компјутерска анализа, разговор во играта и URL за споделување.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s внесени игри</item>
     <item quantity="other">%s внесени игри</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ова е шаховско CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Кликни на таблата за да го повлечеш својот потег и така докажи дека си човек.</string>
+  <string name="captcha.fail">Ве молиме решете ја шаховската капча.</string>
   <string name="notACheckmate">Не е шахмат.</string>
   <string name="retry">Обиди се повторно</string>
   <string name="reconnecting">Повторно конектирање</string>
