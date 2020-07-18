@@ -309,6 +309,9 @@
     <item quantity="other">آپ کو مزید %s سنجیدہ بازیاں کھیلنی ہوں گی</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">آپ کا %s درجہ عارضی ہے</string>
+  <string name="yourPerfRatingIsTooHigh">آپ کا %1$s درجہ(%2$s) حد سے زیادہ ہے</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">آپ کا %1$s ہفتہ وار درجہ(%2$s) حد سے زیادہ ہے</string>
+  <string name="yourPerfRatingIsTooLow">آپ کا %1$s درجہ(%2$s) حد سے کم ہے</string>
   <string name="backToGame">واپس کھیل کی جانب</string>
   <string name="siteDescription">اب صاف ستھرے ماحول میں اور مفت شطرنج کھیلیں۔ نہ اشتہار نہ لازمی داخلہ نہ کوئی پلگ ان۔ کمپیوٹر، دوستوں، یا بلاتفریق کسی کے ساتھ شطرنج کھیلیں۔</string>
   <string name="xJoinedTeamY">%1$s اب ٹیم %2$s کا رکن ہے</string>
