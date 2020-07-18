@@ -84,7 +84,11 @@
     <item quantity="other">%s چالوں میں شاہ مات</item>
   </plurals>
   <string name="noGameFound">کوئی بازی نہیں ملی</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ترجیحات مینو میں سے مزید بازیاں شامل کریں?</string>
   <string name="openingExplorer">ابتدائیوں کی کلید</string>
+  <string name="xOpeningExplorer">%s افتتاحی ایکسپلورر</string>
+  <string name="winPreventedBy50MoveRule">فتح کو پچاس چال کے قانون نے روک دیا</string>
+  <string name="lossSavedBy50MoveRule">شکست کو پچاس چال کے قانون نے روک دیا</string>
   <string name="blunders">بڑی غلطیاں</string>
   <string name="mistakes">غلطیاں</string>
   <string name="inaccuracies">کمزور چالیں</string>
