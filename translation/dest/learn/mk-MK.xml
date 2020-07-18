@@ -3,7 +3,7 @@
   <string name="learnChess">Научи да играш шах</string>
   <string name="byPlaying">со играње!</string>
   <string name="menu">Мени</string>
-  <string name="progressX">Прогрес: %s</string>
+  <string name="progressX">Напредок: %s</string>
   <string name="resetMyProgress">Ресетирај го мојот прогрес</string>
   <string name="youWillLoseAllYourProgress">Ќе го изгубите целиот прогрес!</string>
   <string name="play">играј!</string>
@@ -75,11 +75,14 @@
   <string name="checkInOneIntro">Нападни го кралот на противникот за да бидат под шах. Тој мора да го заштити!</string>
   <string name="checkInOneGoal">Нападни го кралот на противникот во еден потег!</string>
   <string name="checkInOneComplete">Честитки! Го ставивте под шах вашиот противник, присилувајќи го да го брани својот крал!</string>
+  <string name="outOfCheck">Избегни шах</string>
   <string name="defendYourKing">Одбранете го вашиот крал</string>
   <string name="outOfCheckIntro">Вашиот крал е под шах! Мора да бегате или да го блокирате нападот.</string>
   <string name="escapeWithTheKing">Побегнете со кралот!</string>
   <string name="theKingCannotEscapeButBlock">Вашиот крал не може да избега, но можете да го блокирате нападот!</string>
   <string name="youCanGetOutOfCheckByTaking">Можете да излезете од шах позиција со земање на фигурата која ве напаѓа.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Коњот ти се пробива
+низ одбраната!</string>
   <string name="escapeOrBlock">Избегајте со кралот или блокирајте го нападот!</string>
   <string name="outOfCheckComplete">Честитки! Вашиот крал не може да биде земен, бидете сигурни дека можите да со одбраните од шах!</string>
   <string name="mateInOne">Мат во еден потег</string>
@@ -172,6 +175,11 @@
   <string name="greatJob">Добро сторено!</string>
   <string name="perfect">Перфектно!</string>
   <string name="outstanding">Извонредно!</string>
+  <string name="wayToGo">Браво!</string>
+  <string name="yesYesYes">Да, да, да!</string>
+  <string name="youreGoodAtThis">Добар си!</string>
+  <string name="nailedIt">Совршено.</string>
+  <string name="rightOn">Само така!</string>
   <string name="stageXComplete">Фаза %s комплетирана</string>
   <string name="yourScore">Вашиот резултат</string>
   <string name="next">Следно</string>
