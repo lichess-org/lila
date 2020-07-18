@@ -269,6 +269,7 @@
   </plurals>
   <string name="thisAccountViolatedTos">اس اکاؤنٹ نے لی چیس کے ضابطہ کار کی خلاف ورزی کی ہے</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">یہ کھلاڑی اپنے میعار کو مصنوعی طور پر متاثر کرتا ہے</string>
+  <string name="openingExplorerAndTablebase">ابتدائیوں کی کلید &amp; ٹیبل بیس</string>
   <string name="takeback">چال واپس لیں</string>
   <string name="proposeATakeback">چال واپس لینے کی درخواست کریں</string>
   <string name="takebackPropositionSent">چال واپس لینے کی درخواست بھیج دی گئی ہے</string>
@@ -280,6 +281,10 @@
   <string name="tournament">مسابقہ</string>
   <string name="tournaments">مسابقہ جات</string>
   <string name="tournamentPoints">مسابقاتی اعشاریے</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s ٹورنامنت پوئنٹ</item>
+    <item quantity="other">%s ٹورنامنت پوئنٹس</item>
+  </plurals>
   <string name="viewTournament">مسابقہ ملاحظہ فرمائیں</string>
   <string name="backToTournament">واپس مسابقے کی جانب</string>
   <string name="backToGame">واپس کھیل کی جانب</string>
