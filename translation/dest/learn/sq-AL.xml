@@ -39,7 +39,28 @@ Te duhen qe te dy!</string>
   <string name="theKnight">Kalorësi</string>
   <string name="itMovesInAnLShape">Lëviz në formën L</string>
   <string name="knightIntro">Ketu ke nje sfide. Kali eshte... nje figure dredharake.</string>
+  <string name="knightsHaveAFancyWay">Kuajt kane nje aftesi te vecante te 
+kercyeri rreth e rrotull!</string>
+  <string name="knightsCanJumpOverObstacles">Kuajt mund te kercejne mbi pengesat!
+Arratisu dhe mposht yjet!</string>
+  <string name="knightComplete">Urime! Tani jeni bere mjeshter i kalit.</string>
   <string name="thePawn">Pengu</string>
   <string name="itMovesForwardOnly">Ajo lëviz vetëm përpara</string>
+  <string name="pawnIntro">Ushtaret jane te dobet, por ata kane shume potencial.</string>
+  <string name="pawnsMoveOneSquareOnly">Ushtaret mund te levizin vetem nje kuti.
+Por kur ata arrijne anen tjeter te skatieres se shahut, ata shnderrohen ne 1 figure te forte!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Shumicen e hereve te zvendesosh me nje dame eshte gjeja me e mire. 
+Por nganjehere nje kal mund te hyje shume ne pune!</string>
+  <string name="pawnsMoveForward">Ushtaret levizin drejt,
+por hane diagonalisht!</string>
+  <string name="captureThenPromote">Ha, dhe nxirre figure!</string>
+  <string name="useAllThePawns">Perdor te gjithe ushtaret!
+Nuk ka nevoje te nxjerresh figure.</string>
+  <string name="aPawnOnTheSecondRank">Nje ushtar ne rrjeshtin e dyte mund te levizi 2 katrore perpara njehereshe!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Merri te gjitha yjet!
+Nuk ka nevoje te dalesh figure.</string>
+  <string name="pawnComplete">Urime! Ushtaret nuk kane me sekrete nga ty.</string>
+  <string name="pawnPromotion">Nxjerrja e ushtarit figure</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Ushtari yt arriti fundin e skatieres!</string>
   <string name="defendYourKing">Mbro mbrentin</string>
 </resources>
