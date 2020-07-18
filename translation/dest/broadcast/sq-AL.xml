@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Transmetimet</string>
+  <string name="liveBroadcasts">Transmetime turnesh live</string>
+  <string name="newBroadcast">Transmetim live i ri</string>
+  <string name="ongoing">Ne vijim</string>
+  <string name="upcoming">Ne te ardhmen</string>
+  <string name="completed">E mbaruar</string>
+</resources>
