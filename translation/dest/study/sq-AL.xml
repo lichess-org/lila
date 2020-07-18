@@ -48,4 +48,9 @@
   <string name="loadAPositionFromFen">Ngarko pozicionin nga FEN</string>
   <string name="loadAGameFromPgn">Ngarko lojrat nga SHENIMET</string>
   <string name="automatic">Automatik</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Kopjoni SHENIMET ketu, deri ne %s loje</item>
+    <item quantity="other">Kopjoni SHENIMET ketu, deri ne %s lojera</item>
+  </plurals>
+  <string name="urlOfTheGame">ADRESA E INTERNETIT e lojrave, nje per rrjesht</string>
 </resources>
