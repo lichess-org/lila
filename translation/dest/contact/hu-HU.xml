@@ -18,4 +18,6 @@
   <string name="wantReopen">Szeretném a fiókom újranyitni</string>
   <string name="reopenOnThisPage">Újranyithatod a fiókod ezen az oldalon. Csak egyszer működik.</string>
   <string name="doNotAskByEmailToReopen">Ne kérj minket emailben, hogy újranyissuk a fiókod, nem fogjuk.</string>
+  <string name="wantChangeUsername">Szeretném megváltoztatni a felhasználói nevem</string>
+  <string name="changeUsernameCase">Ezen az oldalon megváltoztathatod a felhasználói neved kis- és nagybetűit</string>
 </resources>
