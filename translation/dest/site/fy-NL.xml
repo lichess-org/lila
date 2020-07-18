@@ -169,6 +169,11 @@
   <string name="forgotPassword">Wachtwurd ferjitte?</string>
   <string name="rank">Posysje</string>
   <string name="rankX">Posysje: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Posysje wurdt eltse minút bywurke</item>
+    <item quantity="other">Posysje wurdt eltse %s minúten bywurke</item>
+  </plurals>
+  <string name="gamesPlayed">Partijen spile</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s spullen mei jo</item>
     <item quantity="other">%s spullen mei jo</item>
