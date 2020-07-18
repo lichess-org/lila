@@ -62,5 +62,34 @@ Nuk ka nevoje te dalesh figure.</string>
   <string name="pawnComplete">Urime! Ushtaret nuk kane me sekrete nga ty.</string>
   <string name="pawnPromotion">Nxjerrja e ushtarit figure</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ushtari yt arriti fundin e skatieres!</string>
+  <string name="itNowPromotesToAStrongerPiece">Tani mund te shnderrohet ne nje figure te forte.</string>
+  <string name="selectThePieceYouWant">Zgjidh figuren qe do!</string>
+  <string name="fundamentals">Themelet</string>
+  <string name="capture">Ngrenja</string>
+  <string name="takeTheEnemyPieces">Ha figuren e kundershtarit</string>
+  <string name="captureIntro">Gjej figurat e pambrojtura te kundershtarit dhe haji!</string>
+  <string name="takeTheBlackPieces">Ha guret e zinj!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Ha guret e zinj!
+Dhe mos humb te tute.</string>
+  <string name="captureComplete">Urime! Tani ju dini si te ndesheni me guret e shahut!</string>
+  <string name="protection">Mbrojtja</string>
+  <string name="keepYourPiecesSafe">Siguro figurat</string>
+  <string name="protectionIntro">Dallo figurat te cilat kundershtari po ju sulmon, dhe mbrojini ato!</string>
+  <string name="protectionComplete">Urime! Nje figure qe nuk e humbni eshte nje figure teper qe e fitoni!</string>
+  <string name="escape">Jeni nen sulm!
+Shpeto dhe sulmo!</string>
+  <string name="noEscape">Nuk ka terheqje,
+por ju mund te mbroheni!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Mos i lejo te marrin
+asnje figure te pambrojtur!</string>
+  <string name="combat">Perballja</string>
+  <string name="captureAndDefendPieces">Ha dhe mbro figura</string>
+  <string name="combatIntro">Nje luftetar i mire i di te dyja, si te sulmoje dhe si te mbrohet!</string>
+  <string name="combatComplete">Urime! Ju tani dini si te ndesheni me guret e shahut!</string>
+  <string name="checkInOne">Shah me nje levizje</string>
+  <string name="attackTheOpponentsKing">Sulmo mbretin kundershtar</string>
+  <string name="checkInOneIntro">Per ti dhene shah kundershtarit, sulmoji mbretin. Atyre do t\'ju duhet te mbrohen!</string>
+  <string name="checkInOneGoal">Drejtoju mbretit te kundershtarit
+ne nje levizje!</string>
   <string name="defendYourKing">Mbro mbrentin</string>
 </resources>
