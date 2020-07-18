@@ -3,4 +3,9 @@
   <string name="isLichessLagging">Akadozik a Lichess?</string>
   <string name="measurementInProgressThreeDot">Mérések folyamatban...</string>
   <string name="noAndYourNetworkIsGood">Nem. És a hálózati kapcsolatod jó.</string>
+  <string name="noAndYourNetworkIsBad">Nem. És a hálózati kapcsolatod rossz.</string>
+  <string name="yesItWillBeFixedSoon">Igen. És hamarosan kijavítjuk!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Most pedig a hosszú válasz. A \"lag\" két egymástól független értékből tevődik össze (a kevesebb jobb):</string>
+  <string name="lichessServerLatency">Lichess szerver késése</string>
+  <string name="lichessServerLatencyExplanation">Ez az az idő, amire a szervernek szüksége van a lépések feldolgozásához. Ez mindenkinek ugyanannyi és csak a szerverek terhelésétől függ. Több játékos után magasabb, de a Lichess fejlesztői mindent megtesznek, hogy alacsonyan tartsák. Ritkán magasabb 10ms-nál.</string>
 </resources>
