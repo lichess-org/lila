@@ -3,24 +3,29 @@
   <string name="learnChess">Научи да играш шах</string>
   <string name="byPlaying">со играње!</string>
   <string name="menu">Мени</string>
-  <string name="progressX">Напредок: %s</string>
-  <string name="resetMyProgress">Ресетирај го мојот прогрес</string>
+  <string name="progressX">Прогрес: %s</string>
+  <string name="resetMyProgress">Ресетирај го прогресот</string>
   <string name="youWillLoseAllYourProgress">Ќе го изгубите целиот прогрес!</string>
   <string name="play">играј!</string>
   <string name="chessPieces">Шаховски фигури</string>
   <string name="theRook">Топот</string>
   <string name="itMovesInStraightLines">Се движи по прави линии</string>
-  <string name="rookIntro">Топот е моќна фигура. Дали сте спремни му дадете команда?</string>
-  <string name="rookGoal">Кликнете на топот за да го однесете до ѕвездата!</string>
-  <string name="grabAllTheStars">Соберете ги сите ѕвезди!</string>
-  <string name="theFewerMoves">Колку помалку потези направите, толку повеќе поени добивате!</string>
-  <string name="useTwoRooks">Користи го топовите за да ги забрзаш работите!</string>
-  <string name="rookComplete">Честитки! Успешно го научивте движењето на топот.</string>
+  <string name="rookIntro">Топот е моќна фигура. Спремен си да му дадеш наредба?</string>
+  <string name="rookGoal">Кликни на топот за 
+да го однесеш до ѕвездата!</string>
+  <string name="grabAllTheStars">Освои ги сите ѕвезди!</string>
+  <string name="theFewerMoves">Колку помалку потези, 
+толку повеќе поени добиваш!</string>
+  <string name="useTwoRooks">Користи два топа 
+за да ги забрзаш работите!</string>
+  <string name="rookComplete">Браво! Успешно го совлада топот.</string>
   <string name="theBishop">Ловецот</string>
   <string name="itMovesDiagonally">Се движи дијагонално</string>
-  <string name="bishopIntro">Следно ќе научиме како се движи ловецот!</string>
-  <string name="youNeedBothBishops">Еден бел ловец, еден црн ловец. Би требаат двата!</string>
-  <string name="bishopComplete">Честитки! Можите да го користите ловецот.</string>
+  <string name="bishopIntro">Следно, ќе научиме како се движи ловецот!</string>
+  <string name="youNeedBothBishops">Ловец на бело поле,
+ловец на црно поле.
+Ти требаат двата!</string>
+  <string name="bishopComplete">Браво! Знаеш да го користиш ловецот.</string>
   <string name="theQueen">Кралицата</string>
   <string name="queenCombinesRookAndBishop">Кралица = топ + ловец</string>
   <string name="queenIntro">Најмоќната шаховска фигура. Нејзиното Височество кралицата!</string>
