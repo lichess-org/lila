@@ -12,4 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">Ez az az idő ami ahhoz kell, hogy a lépésed eljusson a Lichess szerverig és vissza. Függ a földrajzi távolságtól a Lichess szerverig (Franciaország), és az internet elérés minőségétől. A Lichess fejlesztői nem tudják megjavítani a wifidet, se felgyorsítani a fényt.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Mindkét értéket megtalálod, ha a felhasználói nevedre kattintasz a felső sávon.</string>
   <string name="lagCompensation">Lag kompenzálása</string>
+  <string name="lagCompensationExplanation">A Lichess kompenzálja a hálózati késést. Beleértve az állandósult lagot és a kiugró értékeket is. Vannak határértékek és tapasztalati értékek különböző időkorlátokhoz, emiatt a végeredmény egyformán jónak várható mindkét fél számára. Ezért ha jobban laggolsz az ellenfelednél az semmilyen hátránnyal nem jár!</string>
 </resources>
