@@ -487,6 +487,11 @@
   <string name="help">Помош</string>
   <string name="createANewTopic">Создади нова тема</string>
   <string name="topics">Теми</string>
+  <string name="posts">Објави</string>
+  <string name="lastPost">Последна објава</string>
+  <string name="views">Прегледи</string>
+  <string name="replies">Одговори</string>
+  <string name="replyToThisTopic">Одговори на темата</string>
   <string name="reply">Одговори</string>
   <string name="message">Порака</string>
   <string name="createTheTopic">Отвори тема</string>
@@ -496,8 +501,10 @@
   <string name="whatIsIheMatter">Каде е проблемот?</string>
   <string name="cheat">Мамење</string>
   <string name="insult">Навреда</string>
+  <string name="troll">Трол</string>
   <string name="other">Друго</string>
   <string name="reportDescriptionHelp">Внесете линк од играта/игрите и објаснете каде е проблемот во однесувањето на овој корисник. Немојте само да обвините за мамење, туку објаснете како дојдовте до тој заклучок. Вашата пријава ќе биди разгледана побрзо ако е напишана на англиски јазик.</string>
+  <string name="error.provideOneCheatedGameLink">Ве молиме доставете барем една врска до партија со мамење.</string>
   <string name="by">од %s</string>
   <string name="thisTopicIsNowClosed">Темата е затворена.</string>
   <string name="theming">Тема</string>
