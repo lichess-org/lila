@@ -41,4 +41,17 @@ Kjo eshte adresa per tu futur ne klase.</string>
   <string name="upgradeFromManaged">Ngrije ne funksion nga llogari e menaxhuar ne llogari autonome</string>
   <string name="release">Liroje</string>
   <string name="releaseTheAccount">Liroje llogarine ne menyre te tille qe studenti ta menaxhoje vet ate.</string>
+  <string name="releaseDesc1">Nje llogari e liruar nuk mund te behet e menaxhuar perseri. Studenti do te jete i afte te vendosi vet gjendjen femije dhe te nderoje fjalekalimin.</string>
+  <string name="releaseDesc2">Sudenti do vazhdoje te jete ne klase mbasi llogarija e tyre lirohet.</string>
+  <string name="realUniqueEmail">Adresa e vertete e emailit qe eshte vetem e studentit. Ne do ti dergojme nje email konfirmues, me nje adrese interneti ku mund te liroje llogarine.</string>
+  <string name="teachers">Mesuesit</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Mesuesi</item>
+    <item quantity="other">%s mesuesit</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Nxënësi</item>
+    <item quantity="other">%s nxenes</item>
+  </plurals>
+  <string name="students">Nxenesit</string>
 </resources>
