@@ -5,7 +5,7 @@
   <string name="menu">Мени</string>
   <string name="progressX">Прогрес: %s</string>
   <string name="resetMyProgress">Ресетирај го прогресот</string>
-  <string name="youWillLoseAllYourProgress">Ќе го изгубите целиот прогрес!</string>
+  <string name="youWillLoseAllYourProgress">Ќе го изгубиш целиот прогрес!</string>
   <string name="play">играј!</string>
   <string name="chessPieces">Шаховски фигури</string>
   <string name="theRook">Топот</string>
@@ -32,10 +32,10 @@
   <string name="queenComplete">Честитки! Кралицата нема повеќе тајни за вас.</string>
   <string name="theKing">Кралот</string>
   <string name="theMostImportantPiece">Најважната фигура</string>
-  <string name="kingIntro">Вие сте кралот. Ако загинете во битката, партијата е изгубена.</string>
+  <string name="kingIntro">Ти си кралот. Ако загинеш во битката, партијата е изгубена.</string>
   <string name="theKingIsSlow">Кралот е бавен.</string>
-  <string name="lastOne">Последното!</string>
-  <string name="kingComplete">Сега можите да го водите командантот!</string>
+  <string name="lastOne">Последно!</string>
+  <string name="kingComplete">Сега можеш да го командуваш командантот!</string>
   <string name="theKnight">Коњот</string>
   <string name="itMovesInAnLShape">Се движи во L форма</string>
   <string name="knightIntro">Еве еден предизвик за вас. Коњот е... интересна фигура.</string>
