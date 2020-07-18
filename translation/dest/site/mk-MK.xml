@@ -558,6 +558,16 @@
   <string name="host">Хост</string>
   <string name="hostColorX">Боја на домаќинот: %s</string>
   <string name="createdSimuls">Нови креирани симултанки</string>
+  <string name="hostANewSimul">Создади нова симултана партија</string>
+  <string name="noSimulFound">Не е најдена симултаната игра</string>
+  <string name="noSimulExplanation">Симултаната партија не постои.</string>
+  <string name="returnToSimulHomepage">Врати се на страната со симултани партии</string>
+  <string name="aboutSimul">Симултаните партии се еден против повеќе играчи наеднаш.</string>
+  <string name="aboutSimulImage">Од 50 противници, Фишер победи 47 партии, ремизираше 2 и изгуби 1.</string>
+  <string name="aboutSimulRealLife">Концептот е создаден според вистински настани. Во живо, ова значи дека домаќинот оди од маса на маса да направи потег.</string>
+  <string name="aboutSimulRules">Кога симултаната партија почнува, секој играч почнува игра со домаќинот, кој игра со белите. Симултаната партија завршува кога сите партии се готови.</string>
+  <string name="aboutSimulSettings">Симултаните партија се секогаш пријателски. Нема реванши, враќање потези и додавање време.</string>
+  <string name="create">Создади</string>
   <string name="timeToProcessAMoveOnLichessServer">Време за процесирање потег на сервер на lichess</string>
   <string name="downloadAnnotated">Симни со коментари</string>
   <string name="analysisShapesHowTo">Притисни shift+click или десен клик за да нацрташ кругови или стрелки на таблата.</string>
