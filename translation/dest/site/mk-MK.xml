@@ -340,10 +340,17 @@
   <string name="clickOnTheBoardToMakeYourMove">Кликни на таблата за да го повлечеш својот потег и така докажи дека си човек.</string>
   <string name="captcha.fail">Ве молиме решете ја шаховската капча.</string>
   <string name="notACheckmate">Не е шахмат.</string>
+  <string name="whiteCheckmatesInOneMove">Мат со белите во еден потег</string>
+  <string name="blackCheckmatesInOneMove">Мат со црните во еден потег</string>
   <string name="retry">Обиди се повторно</string>
   <string name="reconnecting">Повторно конектирање</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s пријател на линија</item>
+    <item quantity="other">%s пријатели на линија</item>
+  </plurals>
   <string name="noFriendsOnline">Ниту еден пријател не е онлајн</string>
   <string name="findFriends">Пронајди пријатели</string>
+  <string name="favoriteOpponents">Омилени противници</string>
   <string name="follow">Следи</string>
   <string name="following">Ги следи</string>
   <string name="unfollow">Од-следи</string>
@@ -377,6 +384,16 @@
   <string name="winner">Победник</string>
   <string name="standing">Положба</string>
   <string name="createANewTournament">Отвори нов турнир</string>
+  <string name="tournamentCalendar">Календар на турнири</string>
+  <string name="conditionOfEntry">Услови за влез:</string>
+  <string name="advancedSettings">Напредни поставки</string>
+  <string name="safeTournamentName">Одбери многу безбедно име за турнирот.</string>
+  <string name="inappropriateNameWarning">И најмалку непристојни работи можат да ви ја затворат сметката.</string>
+  <string name="emptyTournamentName">Остави празно за турнирот да биде крстен по шаховски првак.</string>
+  <string name="recommendNotTouching">Препорачуваме да не ги менувате овие поставки.</string>
+  <string name="fewerPlayers">Ако поставите услови за влез, вашиот турнир ќе има помалку играчи.</string>
+  <string name="showAdvancedSettings">Покажи ги напредните поставки</string>
+  <string name="makePrivateTournament">Направи го турнирот приватен и ограничи го пристапот со лозинка</string>
   <string name="join">Приклучи се</string>
   <string name="withdraw">Предади</string>
   <string name="points">Поени</string>
@@ -385,6 +402,7 @@
   <string name="winStreak">Низ од победи</string>
   <string name="createdBy">Создадено од</string>
   <string name="tournamentIsStarting">Турнирот започна</string>
+  <string name="tournamentPairingsAreNowClosed">Спарувањата за турнирот се затворени.</string>
   <string name="membersOnly">Само за членови</string>
   <string name="boardEditor">Уредник на таблата</string>
   <string name="startPosition">Стартна позиција</string>
