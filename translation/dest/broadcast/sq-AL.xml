@@ -17,4 +17,5 @@
   <string name="startDateHelp">Fakultative, (e padetyrueshme) nese e dini kur fillon evenimenti</string>
   <string name="credits">Atriboji merita burimit</string>
   <string name="cloneBroadcast">Klono transmetimin</string>
+  <string name="resetBroadcast">Rifilloni transmetimin</string>
 </resources>
