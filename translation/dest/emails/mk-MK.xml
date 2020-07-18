@@ -7,11 +7,11 @@
   <string name="passwordReset_intro">Добивме барање да ја обновиме лозинката за вашата сметка.</string>
   <string name="passwordReset_clickOrIgnore">Ако вие го испративте ова барање, кликнете на врската подолу. Ако не, тогаш можете да ја игнорирате оваа порака.</string>
   <string name="emailChange_subject">Потврдете ја новата и-мејл адреса %s</string>
-  <string name="emailChange_intro">Испративте барање да ја промените вашата и-мејл адреса.</string>
+  <string name="emailChange_intro">Побаравте да ја промените вашата и-мејл адреса.</string>
   <string name="emailChange_click">За да потврдите дека имате пристап до оваа и-мејл адреса, ве молиме кликнете на врската подолу:</string>
   <string name="welcome_subject">Добредојдовте на lichess.org, %s</string>
   <string name="welcome_text">Успешно ја создадовте вашата сметка на https://lichess.org.
-Ова е вашиот профил: %1$s. Персонализирајте го на %2$s. Имајте забава, и нека вашите фигури секогаш го наоѓаат патот до противничкиот крал!</string>
+Ова е вашиот профил: %1$s. Персонализирајте го на %2$s. Забавувајте се, и нека вашите фигури секогаш го наоѓаат патот до противничкиот крал!</string>
   <string name="common_orPaste">(Кликањето не функционира? Пробајте да ја ископирате врската во вашиот пребарувач!)</string>
   <string name="common_note">Ова е сервисна порака, поврзана со Вашето користење на %s.</string>
   <string name="common_contact">За контакт одете на %s.</string>
