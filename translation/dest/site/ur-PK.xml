@@ -48,8 +48,15 @@
   <string name="viewTheComputerAnalysis">تجزیے کا معائنہ کریں</string>
   <string name="requestAComputerAnalysis">خودکار تجزیہ کے لیے پیش کریں</string>
   <string name="computerAnalysis">خودکار تجزیہ</string>
+  <string name="computerAnalysisAvailable">کمپیوٹر کا تجزیہ دستیاب ہے۔</string>
   <string name="analysis">تجزیاتی بساط</string>
+  <string name="depthX">گہرائی%s</string>
+  <string name="usingServerAnalysis">سرور کے تجزیہ استعمال ہو رہا ہے۔</string>
   <string name="loadingEngine">انجن لوڈ ہورہا ہے ...</string>
+  <string name="cloudAnalysis">کلوڈ کا تجزیہ استعمال ہو رہا ہے۔</string>
+  <string name="goDeeper">مزید گہرائی</string>
+  <string name="showThreat">خطرہ واضح کریں۔</string>
+  <string name="inLocalBrowser">لوکل براوزر میں۔</string>
   <string name="openingExplorer">ابتدائیوں کی کلید</string>
   <string name="blunders">بڑی غلطیاں</string>
   <string name="mistakes">غلطیاں</string>
