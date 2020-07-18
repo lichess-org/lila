@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="playing">Duke u luajtur</string>
+  <string name="first">E fillimit</string>
+  <string name="previous">E meparshme</string>
+  <string name="next">E mepasshme</string>
+  <string name="last">E fundit</string>
+  <string name="shareAndExport">Ndaje me te tjere &amp; eksporto</string>
+  <string name="cloneStudy">Klono</string>
+</resources>
