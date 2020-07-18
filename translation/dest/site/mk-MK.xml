@@ -682,4 +682,16 @@
   <string name="registerToSendChallenges">Ве молиме регистрирајте се за испраќање предизвици.</string>
   <string name="youCannotChallengeX">Не можеш да го предизвикаш %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не прифаќа предизвици.</string>
+  <string name="yourXRatingIsTooFarFromY">Преголема е разликата помеѓу твојот „%1$s“ рејтинг и тој на %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Не можеш да предизвикаш поради привремениот „%s“ рејтинг.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s прифаќа само предизвици од пријатели.</string>
+  <string name="conditionalPremoves">Условни пред-потези</string>
+  <string name="addCurrentVariation">Додади ја сегашната варијанта</string>
+  <string name="playVariationToCreateConditionalPremoves">Одиграј варијанта за да создадеш условен пред-потег</string>
+  <string name="noConditionalPremoves">Нема условни пред-потези</string>
+  <string name="playX">Играј %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">и заштеди %s пред-потег</item>
+    <item quantity="other">и заштеди %s пред-потези</item>
+  </plurals>
 </resources>
