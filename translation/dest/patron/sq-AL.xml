@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Dhuro</string>
+  <string name="lichessPatron">Klient i rregullt Lichessi</string>
+  <string name="freeAccount">Llogari falas</string>
+  <string name="becomePatron">Behuni lojtar i rregullt Lichessi</string>
+  <string name="xBecamePatron">%s u be lojtar i rregullt Lichessi</string>
+  <string name="newPatrons">Lojtaret e rinj te rregullt</string>
+  <string name="freeChess">Shah falas per te gjithe, pergjithmone!</string>
+  <string name="noAdsNoSubs">Jo reklama, jo llogari me leke; por vetem pune e hapur dhe pasion.</string>
+</resources>
