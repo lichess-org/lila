@@ -169,6 +169,25 @@ ushtari juaj eshte ne rangun e peste.</string>
   <string name="enPassantComplete">Urime! Tani dini te beni prerje ushtaresh.</string>
   <string name="stalemate">Pati</string>
   <string name="theGameIsADraw">Loja eshte barazim</string>
+  <string name="stalemateIntro">Kur lojtari nuk eshte ne shah dhe nuk ka levizje, loja del pat. 
+Loja eshte barazim: asnje nuk fiton ose humb.</string>
+  <string name="stalemateGoal">Per ta nxjerre lojen pat:
+-I ziu nuk mund te levizi ne asnje vend
+-Nuk ka shah.</string>
+  <string name="stalemateComplete">Urime! Me mire pat se sa shah mat!</string>
+  <string name="advanced">E avancuar</string>
+  <string name="pieceValue">Vlerat e figurave</string>
+  <string name="evaluatePieceStrength">Vlereso forcen e figurave</string>
+  <string name="pieceValueIntro">Figurat qe kane me shume mundesi levizje kane vlere me te madhe!
+Dama = 9
+Torja = 5
+Fili = 3
+Kali = 3
+Ushtari = 1
+Mbreti eshte i pacmueshem! Te humbasesh mbretin do te thote te humbasesh lojen.</string>
+  <string name="queenOverBishop">Merr figuren
+me vleren me te madhe!
+Dama &gt; Fili</string>
   <string name="takeThePieceWithTheHighestValue">Merr figuren
 qe ka me shume vlere!</string>
   <string name="pieceValueComplete">Urime! Dini vlerat e figurave!
