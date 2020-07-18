@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">Akadozik a Lichess?</string>
+  <string name="measurementInProgressThreeDot">Mérések folyamatban...</string>
+  <string name="noAndYourNetworkIsGood">Nem. És a hálózati kapcsolatod jó.</string>
+</resources>
