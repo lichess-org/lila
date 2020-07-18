@@ -99,6 +99,13 @@
   <string name="openStudy">سٹڈی کو کھولیں</string>
   <string name="enable">آن کریں</string>
   <string name="bestMoveArrow">بہترین چال دکھانے والا تیر</string>
+  <string name="evaluationGauge">تشخیص بار</string>
+  <string name="multipleLines">ایک سے زیادہ لائنز</string>
+  <string name="cpus">CPU</string>
+  <string name="memory">یاداشت</string>
+  <string name="infiniteAnalysis">لامحدود تجزیہ</string>
+  <string name="removesTheDepthLimit">گہرائی کی حد ختم کریں، یہ آپ کے کمپیوٹر کو گرم رکھے گا</string>
+  <string name="blunder">احمقانہ غلطی</string>
   <string name="blunders">بڑی غلطیاں</string>
   <string name="mistakes">غلطیاں</string>
   <string name="inaccuracies">کمزور چالیں</string>
