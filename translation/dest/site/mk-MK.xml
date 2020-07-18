@@ -265,6 +265,10 @@
     <item quantity="one">%s нерешени</item>
     <item quantity="other">%s нерешени</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s игра</item>
+    <item quantity="other">%s играат</item>
+  </plurals>
   <string name="exportGames">Извади игри</string>
   <string name="ratingRange">Elo опсег</string>
   <plurals name="giveNbSeconds">
@@ -285,6 +289,10 @@
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Турнирски поени</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s турнирски поен</item>
+    <item quantity="other">%s турнирски поени</item>
+  </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s студија</item>
     <item quantity="other">%s студии</item>
@@ -725,6 +733,11 @@
   <string name="embedInYourWebsite">Вгради во твојот сајт</string>
   <string name="usernameAlreadyUsed">Ова корисничко име е во употреба, ве молиме одберете поинакво.</string>
   <string name="usernamePrefixInvalid">Корисничкото име мора да започнува со буква.</string>
+  <string name="usernameSuffixInvalid">Корисничкото име мора да завршува со буква или бројка.</string>
+  <string name="usernameCharsInvalid">Корисничкото име може да содржи само букви, бројки, долни и средни црти.</string>
+  <string name="usernameUnacceptable">Корисничкото име е неприфатливо.</string>
+  <string name="directlySupportLichess">Директно помогни на Lichess</string>
+  <string name="playChessInStyle">Играј шах со стил</string>
   <string name="practiceWithComputer">Вежбај со компјутерот</string>
   <string name="anotherWasX">Алтернативен би бил %s</string>
   <string name="bestWasX">Најдобриот потег беше %s</string>
@@ -781,4 +794,12 @@
     <item quantity="one">и заштеди %s пред-потег</item>
     <item quantity="other">и заштеди %s пред-потези</item>
   </plurals>
+  <string name="toRequestSupport">За помош, %1$s</string>
+  <string name="tryTheContactPage">обрати се на страната за контакт</string>
+  <string name="thisTopicIsArchived">Темата е архивирана и не дозволува нови објави.</string>
+  <string name="joinTheTeamXToPost">Придружи се на %1$s за да објавуваш на овој форум</string>
+  <string name="teamNamedX">тим %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Сеуште не можеш да објавуваш на форумот. Играј некоја игра!</string>
+  <string name="subscribe">Заследи</string>
+  <string name="unsubscribe">Престани да следиш</string>
 </resources>
