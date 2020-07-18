@@ -65,6 +65,12 @@
   <string name="move">چال۔</string>
   <string name="variantLoss">ویرینٹ میں شکست۔</string>
   <string name="variantWin">ویرینٹ میں فتح۔</string>
+  <string name="insufficientMaterial">ناکافی مواد</string>
+  <string name="pawnMove">پیادے کی چال</string>
+  <string name="capture">قبضہ</string>
+  <string name="close">بند</string>
+  <string name="winning">فتح</string>
+  <string name="losing">شکست</string>
   <string name="openingExplorer">ابتدائیوں کی کلید</string>
   <string name="blunders">بڑی غلطیاں</string>
   <string name="mistakes">غلطیاں</string>
