@@ -116,11 +116,16 @@
   <string name="threefoldRepetition">Trijefâldich deselde posysje</string>
   <string name="claimADraw">Claim remise</string>
   <string name="offerDraw">Bied remise oan</string>
+  <string name="draw">Remise</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s spilers</item>
     <item quantity="other">%s spilers</item>
   </plurals>
+  <string name="currentGames">Aktuele partijen</string>
+  <string name="viewInFullSize">Besjoch yn folsleine grutte</string>
+  <string name="logOut">Út logge</string>
   <string name="signIn">Oanmelde</string>
+  <string name="youNeedAnAccountToDoThat">Jo moatte in akkount hawwe om dat te dwaan</string>
   <string name="signUp">Registrearje</string>
   <string name="games">Spullen</string>
   <string name="players">Spilers</string>
