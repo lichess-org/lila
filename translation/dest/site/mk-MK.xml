@@ -593,9 +593,18 @@
   <string name="weeklyPerfTypeRatingDistribution">Седмичен распоред на %s рејтинг</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">„%2$s“ има %1$s играч оваа седмица.</item>
-    <item quantity="other">%2$s има %1$s играчи оваа седмица.</item>
+    <item quantity="other">„%2$s“ има %1$s играчи оваа седмица.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Вашиот рејтинг на „%1$s“ е %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Подобар си од %1$s од играчите на „%2$s“.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s е подобар од %2$s од играчите на „%3$s“.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Немаш установен рејтинг на „%s“.</string>
+  <string name="yourRating">Твојот рејтинг</string>
+  <string name="cumulative">Вкупно</string>
+  <string name="glicko2Rating">Glicko-2 рејтинг</string>
+  <string name="checkYourEmail">Провери си ја е-поштата</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Ти испративме е-пошта. Отворете ја врската во е-писмото за активација на сметката.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не можеш да го најдеш е-писмото, провери во папките како „ѓубре“, „спам“, „социјални“ итн.</string>
   <string name="timeToProcessAMoveOnLichessServer">Време за процесирање потег на сервер на lichess</string>
   <string name="downloadAnnotated">Симни со коментари</string>
   <string name="analysisShapesHowTo">Притисни shift+click или десен клик за да нацрташ кругови или стрелки на таблата.</string>
@@ -629,4 +638,6 @@
   <string name="yourScore">Вашиот резултат: %s</string>
   <string name="language">Јазик</string>
   <string name="background">Позадина</string>
+  <string name="practiceWithComputer">Вежбај со компјутерот</string>
+  <string name="anotherWasX">Алтернативен би бил %s</string>
 </resources>
