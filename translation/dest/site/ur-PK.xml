@@ -61,6 +61,10 @@
   <string name="promoteVariation">اس لائن کو ترقی دیں۔</string>
   <string name="makeMainLine">مین لائن کا درجہ دیں۔</string>
   <string name="deleteFromHere">یہاں سے ہٹا دیں۔</string>
+  <string name="forceVariation">صرف مین لائن کا تجزیہ۔</string>
+  <string name="move">چال۔</string>
+  <string name="variantLoss">ویرینٹ میں شکست۔</string>
+  <string name="variantWin">ویرینٹ میں فتح۔</string>
   <string name="openingExplorer">ابتدائیوں کی کلید</string>
   <string name="blunders">بڑی غلطیاں</string>
   <string name="mistakes">غلطیاں</string>
