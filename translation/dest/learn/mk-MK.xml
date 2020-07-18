@@ -9,7 +9,7 @@
   <string name="play">играј!</string>
   <string name="chessPieces">Шаховски фигури</string>
   <string name="theRook">Топот</string>
-  <string name="itMovesInStraightLines">Се движи по прави линии</string>
+  <string name="itMovesInStraightLines">Се движи по права линија</string>
   <string name="rookIntro">Топот е моќна фигура. Спремен си да му дадеш наредба?</string>
   <string name="rookGoal">Кликни на топот за 
 да го однесеш до ѕвездата!</string>
@@ -47,9 +47,12 @@
   <string name="thePawn">Пионот</string>
   <string name="itMovesForwardOnly">Се движи само напред</string>
   <string name="pawnIntro">Пионите се слаби, но имаат голем потенцијал.</string>
-  <string name="pawnsMoveOneSquareOnly">Пиуните се движат само за едно поле. Но кога ќе стигнат на крајот од таблата, стануваат помоќна фигура!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Најчесто унапредувањето во кралица е најдобро. Но понекогаш и коњот можи добро да се употреби!</string>
-  <string name="pawnsMoveForward">Пиуните одан на напред, но земаат дијагонално!</string>
+  <string name="pawnsMoveOneSquareOnly">Пионите се движат само едно поле напред.
+Но, кога ќе стигнат до крајот на таблата, стануваат помоќна фигура!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Најчесто е најдобро да ги унапредиш во кралица.
+Но, понекогаш и коњ може да ти користи!</string>
+  <string name="pawnsMoveForward">Пионите се движат напред, 
+но земаат дијагонално!</string>
   <string name="captureThenPromote">Земи, па промовирај!</string>
   <string name="useAllThePawns">Користи ги сите пешаци! Нема потреба од промоција.</string>
   <string name="aPawnOnTheSecondRank">Пешакот на вториот ред може да се движи две полиња одеднаш!</string>
