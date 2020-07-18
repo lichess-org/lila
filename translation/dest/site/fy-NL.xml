@@ -98,6 +98,8 @@
   <string name="byCPL">Yn \'CPL\'</string>
   <string name="openStudy">Iepenje stúdzje</string>
   <string name="enable">Ynskeakelje</string>
+  <string name="bestMoveArrow">Bêste set-pylk</string>
+  <string name="evaluationGauge">Evaluaasjemeter</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <plurals name="nbPlayers">
