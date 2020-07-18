@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="theyMustFirstApply">Ata duhet te aplikojne per te qene Mesues Lichessi ne fillim.</string>
+  <string name="resetPassword">Ndero fjalekalimin</string>
+  <string name="makeSureToCopy">Sigurohu qe e kopjove ose e shkruajte dikund fjalekalimin tani. S\'do te keni mundesi ta shifni perseri!</string>
+  <string name="passwordX">Fjalekalimi: %s</string>
+  <string name="generateANewPassword">Gjenero nje fjalekalim te ri per studentin</string>
+  <string name="invitedToXByY">I ftuar ne %1$s nga %2$s</string>
+  <string name="realName">Emri i vertet</string>
+  <string name="privateWillNeverBeShown">Privat. Nuk do te tregohet kurre jashte klases. Ndihmon te kujtohesh kush eshte studenti.</string>
+  <string name="addStudent">Shto studentin</string>
+</resources>
