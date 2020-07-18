@@ -640,4 +640,27 @@
   <string name="background">Позадина</string>
   <string name="practiceWithComputer">Вежбај со компјутерот</string>
   <string name="anotherWasX">Алтернативен би бил %s</string>
+  <string name="bestWasX">Најдобриот потег беше %s</string>
+  <string name="youBrowsedAway">Одсурфавте надвор</string>
+  <string name="resumePractice">Продолжи со вежбата</string>
+  <string name="theGameIsADraw">Партијата е реми.</string>
+  <string name="computerThinking">Компјутерот размислува...</string>
+  <string name="seeBestMove">Види го најдобриот потег</string>
+  <string name="hideBestMove">Скриј го најдобриот потег</string>
+  <string name="getAHint">Добиј совет</string>
+  <string name="evaluatingYourMove">Проценување на потегот...</string>
+  <string name="whiteWinsGame">Победа на белите</string>
+  <string name="blackWinsGame">Победа на црните</string>
+  <string name="learnFromYourMistakes">Учи од своите грешки</string>
+  <string name="learnFromThisMistake">Научи од оваа грешка</string>
+  <string name="skipThisMove">Прескокни го потегов</string>
+  <string name="next">Следно</string>
+  <string name="xWasPlayed">Одиграно: %s</string>
+  <string name="findBetterMoveForWhite">Најди подобар потег за белите</string>
+  <string name="findBetterMoveForBlack">Најди подобар потег за црните</string>
+  <string name="resumeLearning">Продолжи со обуката</string>
+  <string name="youCanDoBetter">Можеш и подобро</string>
+  <string name="tryAnotherMoveForWhite">Пробај друг потег за белите</string>
+  <string name="tryAnotherMoveForBlack">Пробај друг потег за црните</string>
+  <string name="solution">Решение</string>
 </resources>
