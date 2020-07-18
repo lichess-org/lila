@@ -20,4 +20,5 @@
   <string name="doNotAskByEmailToReopen">Ne kérj minket emailben, hogy újranyissuk a fiókod, nem fogjuk.</string>
   <string name="wantChangeUsername">Szeretném megváltoztatni a felhasználói nevem</string>
   <string name="changeUsernameCase">Ezen az oldalon megváltoztathatod a felhasználói neved kis- és nagybetűit</string>
+  <string name="cantChangeMore">Ennél nagyobb változtatást nem lehet kérni. Technikai okok miatt ez úgyis lehetetlen.</string>
 </resources>
