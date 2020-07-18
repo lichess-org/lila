@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="reportBugInDiscord">Ne serverin e Lichessit</string>
+  <string name="howToReportBug">Ju lutem pershkruani c\'fare problemi ka, c\'fare prisnit te ndodhte ne vend te asaj qe ndodhi, dhe hapat se si mund ta rikrijojme problemin.</string>
+  <string name="illegalPawnCapture">Nuk lejohet ngrenja e ushtarit</string>
+  <string name="calledEnPassant">Quhet prerje dhe eshte nje prej rregullave te shahut.</string>
+  <string name="tryEnPassant">Provoni kete loje te vogel interaktive per te mesuar me shume rreth \"prerjes\".</string>
+  <string name="illegalCastling">E palejueshme ose e pamundur te besh rokade</string>
+  <string name="castlingPrevented">Rokada nuk lejohet nese mbreti kalon permes nje kutie qe kontrollohet nga figurat ose ushtaret e kundershtarit.</string>
+  <string name="castlingRules">Sigurohu qe i kupton rregullat e rrokades</string>
+  <string name="tryCastling">Provo kete loj e vogel interaktive per te praktikuar rregullat e rrokades ne shah</string>
+</resources>
