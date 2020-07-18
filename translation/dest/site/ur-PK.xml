@@ -285,8 +285,30 @@
     <item quantity="one">%s ٹورنامنت پوئنٹ</item>
     <item quantity="other">%s ٹورنامنت پوئنٹس</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s مطالعہ</item>
+    <item quantity="other">%s مطالعات</item>
+  </plurals>
   <string name="viewTournament">مسابقہ ملاحظہ فرمائیں</string>
   <string name="backToTournament">واپس مسابقے کی جانب</string>
+  <string name="thematic">موضوعاتی</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s سنجیدہ بازی</item>
+    <item quantity="other">≥ %s سنجیدہ بازیاں</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s سنجیدہ بازی</item>
+    <item quantity="other">≥ %1$s %2$s سنجیدہ بازیاں</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">آپ کو %1$s مزید %2$s سنجیدہ بازی کھیلنی ہو گی</item>
+    <item quantity="other">آپ کو %1$s مزید %2$s سنجیدہ بازیاں کھیلنی ہوں گی</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">آپ کو مزید %s سنجیدہ بازی کھیلنی ہو گی</item>
+    <item quantity="other">آپ کو مزید %s سنجیدہ بازیاں کھیلنی ہوں گی</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">آپ کا %s درجہ عارضی ہے</string>
   <string name="backToGame">واپس کھیل کی جانب</string>
   <string name="siteDescription">اب صاف ستھرے ماحول میں اور مفت شطرنج کھیلیں۔ نہ اشتہار نہ لازمی داخلہ نہ کوئی پلگ ان۔ کمپیوٹر، دوستوں، یا بلاتفریق کسی کے ساتھ شطرنج کھیلیں۔</string>
   <string name="xJoinedTeamY">%1$s اب ٹیم %2$s کا رکن ہے</string>
