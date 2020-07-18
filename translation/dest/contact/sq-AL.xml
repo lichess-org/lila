@@ -28,4 +28,11 @@
   <string name="collaboration">Kolaborim, legale, reklama</string>
   <string name="monetizing">Monetizimi i Lichess</string>
   <string name="buyingLichess">Blini Lichess</string>
+  <string name="authorizationToUse">Autorizim per te perdorur Lichess</string>
+  <string name="welcomeToUse">Jeni i lire te perdorni Lichess per veprimtarite tuaja, madje edhe komerciale.</string>
+  <string name="videosAndBooks">Mund ta perdorni ne videot tuaja, dhe mund te printoni pozicione nga kompjuteri ne websitin Lichess dhe ti perdorni ne librat tuaj.</string>
+  <string name="creditAppreciated">Te na jepni merite per punen tone e vleresojme shume por nuk eshte e detyrueshme.</string>
+  <string name="noneOfTheAbove">Asnje nga ato me larte</string>
+  <string name="sendEmailAt">Na dergoni nje email tek %s.</string>
+  <string name="explainYourRequest">Ju lutem shpjegoni kerkesen qarte dhe sakte. Jepni nofken tuaj te Lichessit, dhe cdo lloj informacioni qe na e ben ne punen me te lehte t\'ju ndihmojme ju.</string>
 </resources>
