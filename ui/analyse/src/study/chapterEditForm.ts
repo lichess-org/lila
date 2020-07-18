@@ -34,7 +34,7 @@ export function ctrl(send: SocketSend, chapterConfig: (string) => JQueryPromise<
     });
   };
 
-  function isEditing(id) {
+  function isEditing(id: string) {
     const c = current();
     return c ? c.id === id : false;
   };
@@ -127,7 +127,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
 }
 
 function isLoaded(data: StudyChapterMeta | StudyChapterConfig): data is StudyChapterConfig {
-  return !!data['orientation'];
+  return data.hasOwnProperty('orientation');
 }
 
 function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): VNode[] {

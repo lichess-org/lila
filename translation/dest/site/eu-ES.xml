@@ -275,7 +275,7 @@
     <item quantity="one">Segundo %s eman</item>
     <item quantity="other">%s segundo eman</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Jokalari hau ordenagailuaz baliatu da</string>
+  <string name="thisAccountViolatedTos">Kontu honek Lichessen Erabilera Baldintzak urratu egin ditu</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Jokalariak bere sailkapena aldatzen du artifizialki</string>
   <string name="openingExplorerAndTablebase">Hasiera arakatzailea &amp; finalen datu-basea</string>
   <string name="takeback">Jokaldia atzera egin</string>

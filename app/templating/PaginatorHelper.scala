@@ -26,13 +26,4 @@ final class RichPager(pager: Paginator[_]) {
     }
     pre ::: (fromPage to toPage).view.map(some).toList ::: post
   }
-
-  def firstIndex: Int =
-    (pager.maxPerPage.value * (pager.currentPage - 1) + 1) min pager.nbResults
-
-  def lastIndex: Int =
-    (firstIndex + pageNbResults - 1) max 0
-
-  def pageNbResults =
-    pager.currentPageResults.size
 }

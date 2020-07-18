@@ -67,7 +67,7 @@ emit(this._id, result)""",
     )
   }
 
-  private val playingSelector = $doc("tags" -> "Result:*")
+  private val playingSelector = $doc("tags" -> "Result:*", "root.n.0" $exists true)
 
   private object handlers {
 
@@ -76,15 +76,16 @@ emit(this._id, result)""",
         for {
           value <- result.getAsTry[List[Bdoc]]("value")
           doc   <- value.headOption toTry "No mapReduce value?!"
-          tags = doc.getAsOpt[Tags]("tags")
+          tags     = doc.getAsOpt[Tags]("tags")
+          lastMove = doc.getAsOpt[Uci]("uci")
         } yield ChapterPreview(
           id = result.getAsOpt[Chapter.Id]("_id") err "Preview missing id",
           name = doc.getAsOpt[Chapter.Name]("name") err "Preview missing name",
           players = tags flatMap ChapterPreview.players,
           orientation = doc.getAsOpt[Color]("orientation") getOrElse Color.White,
           fen = doc.getAsOpt[FEN]("fen") err "Preview missing FEN",
-          lastMove = doc.getAsOpt[Uci]("uci"),
-          playing = tags.flatMap(_(_.Result)) has "*"
+          lastMove = lastMove,
+          playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*")
         )
     }
 

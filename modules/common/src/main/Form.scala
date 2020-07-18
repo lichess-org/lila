@@ -52,6 +52,11 @@ object Form {
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(hasKey(choices, _))
 
+  def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
+  def clean(m: Mapping[String]) =
+    trim(m)
+      .verifying("This text contains invalid chars", s => !String.hasZeroWidthChars(s))
+
   def stringIn(choices: Options[String]) =
     text.verifying(hasKey(choices, _))
 

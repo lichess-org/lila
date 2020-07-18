@@ -6,18 +6,15 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.rating.RatingRange
-import lila.setup.FilterConfig.Increment
-
-import controllers.routes
 
 object filter {
 
   import bits._
 
-  def apply(form: Form[_], filter: lila.setup.FilterConfig)(implicit ctx: Context) =
+  def apply(form: Form[_])(implicit ctx: Context) =
     frag(
       cssTag("lobby.setup"),
-      st.form(action := routes.Setup.filter(), novalidate)(
+      st.form(novalidate)(
         table(
           tbody(
             tr(cls := "variant")(
@@ -26,31 +23,27 @@ object filter {
                 renderCheckboxes(
                   form,
                   "variant",
-                  filter.variant.map(_.id.toString),
-                  translatedVariantChoicesWithVariants
+                  translatedVariantChoicesWithVariants(_.key)
                 )
               )
             ),
             tr(
               td(trans.timeControl()),
-              td(renderCheckboxes(form, "speed", filter.speed.map(_.id.toString), translatedSpeedChoices))
+              td(renderCheckboxes(form, "speed", translatedSpeedChoices))
             ),
             tr(cls := "inline")(
               td(trans.increment()),
               td(
                 renderCheckboxes(
                   form,
-                  "increment", {
-                    if (filter.increment.nonEmpty) filter.increment
-                    else List(Increment.Yes, Increment.No)
-                  }.map(Increment.iso.to).map(_.toString),
+                  "increment",
                   translatedIncrementChoices
                 )
               )
             ),
             ctx.isAuth option tr(cls := "inline")(
               td(trans.mode()),
-              td(renderCheckboxes(form, "mode", filter.mode.map(_.id.toString), translatedModeChoices))
+              td(renderCheckboxes(form, "mode", translatedModeChoices))
             ),
             ctx.isAuth option tr(
               td(trans.ratingRange()),
@@ -80,13 +73,13 @@ object filter {
   def renderCheckboxes(
       form: Form[_],
       key: String,
-      checks: Iterable[String],
-      options: Seq[(Any, String, Option[String])]
+      options: Seq[(Any, String, Option[String])],
+      checks: Set[String] = Set.empty
   ): Frag =
     options.zipWithIndex.map {
       case ((value, text, hint), index) =>
         div(cls := "checkable")(
-          renderCheckbox(form, key, index, value.toString, checks.toSet, raw(text), hint)
+          renderCheckbox(form, key, index, value.toString, raw(text), hint, checks)
         )
     }
 
@@ -95,9 +88,9 @@ object filter {
       key: String,
       index: Int,
       value: String,
-      checks: Set[String],
       content: Frag,
-      hint: Option[String]
+      hint: Option[String],
+      checks: Set[String]
   ) =
     label(title := hint)(
       input(

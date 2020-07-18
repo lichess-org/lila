@@ -1,7 +1,5 @@
 package lila.insight
 
-import org.joda.time.DateTime
-
 import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
 
@@ -22,7 +20,7 @@ final class InsightApi(
         for {
           count <- storage count user.id
           ecos  <- storage ecos user.id
-          c = UserCache(user.id, count, ecos, DateTime.now)
+          c = UserCache.make(user.id, count, ecos)
           _ <- userCacheApi save c
         } yield c
     }
@@ -50,11 +48,17 @@ final class InsightApi(
         }
     }
 
-  def indexAll(user: User) =
+  def ensureLatest(userId: User.ID): Funit =
+    userCacheApi version userId flatMap {
+      case Some(v) if v == latestVersion => funit
+      case _                             => storage.removeAll(userId) >> indexAll(userId)
+    }
+
+  def indexAll(userId: User.ID) =
     indexer
-      .all(user)
+      .all(userId)
       .monSuccess(_.insight.index) >>
-      userCacheApi.remove(user.id)
+      userCacheApi.remove(userId)
 
   def updateGame(g: Game) =
     Pov(g)

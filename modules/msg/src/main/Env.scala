@@ -13,6 +13,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     isOnline: lila.socket.IsOnline,
     userRepo: lila.user.UserRepo,
+    userCache: lila.user.Cached,
     relationApi: lila.relation.RelationApi,
     prefApi: lila.pref.PrefApi,
     notifyApi: lila.notify.NotifyApi,

@@ -1,11 +1,14 @@
 package lila.relay
 
+import akka.stream.scaladsl.Source
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
 import reactivemongo.api.bson._
+import scala.concurrent.duration._
 import scala.util.chaining._
 
+import lila.common.config.MaxPerSecond
 import lila.db.dsl._
 import lila.study.{ Settings, Study, StudyApi, StudyMaker }
 import lila.user.User
@@ -16,7 +19,7 @@ final class RelayApi(
     withStudy: RelayWithStudy,
     jsonView: JsonView,
     formatApi: RelayFormatApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   import BSONHandlers._
   import lila.study.BSONHandlers.LikesBSONHandler
@@ -88,15 +91,17 @@ final class RelayApi(
     val relay = f(from) pipe { r =>
       if (r.sync.upstream != from.sync.upstream) r.withSync(_.clearLog) else r
     }
-    if (relay == from) fuccess(relay)
-    else
-      repo.coll.update.one($id(relay.id), relay).void >> {
-        (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
-      } >>- {
-        relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
-          sendToContributors(relay.id, "relayLog", JsonView.syncLogEventWrites writes event)
-        }
-      } inject relay
+    studyApi.rename(relay.studyId, Study.Name(relay.name)) >> {
+      if (relay == from) fuccess(relay)
+      else
+        repo.coll.update.one($id(relay.id), relay).void >> {
+          (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
+        } >>- {
+          relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
+            sendToContributors(relay.id, "relayLog", JsonView.syncLogEventWrites writes event)
+          }
+        } inject relay
+    }
   }
 
   def reset(relay: Relay, by: User): Funit =
@@ -111,6 +116,13 @@ final class RelayApi(
 
   def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
     repo.coll.one[Relay]($doc("_id" -> id, "finished" -> false))
+
+  def officialStream(perSecond: MaxPerSecond, nb: Int): Source[JsObject, _] =
+    repo
+      .officialCursor(perSecond.value)
+      .documentSource(nb)
+      .throttle(perSecond.value, 1.second)
+      .map(jsonView.public)
 
   private[relay] def autoStart: Funit =
     repo.coll.ext
@@ -156,7 +168,7 @@ final class RelayApi(
     repo.coll.delete.one($id(Relay.Id(studyId))).void
 
   private[relay] def publishRelay(relay: Relay): Funit =
-    sendToContributors(relay.id, "relayData", jsonView.relayWrites writes relay)
+    sendToContributors(relay.id, "relayData", jsonView admin relay)
 
   private def sendToContributors(id: Relay.Id, t: String, msg: JsObject): Funit =
     studyApi members Study.Id(id.value) map {

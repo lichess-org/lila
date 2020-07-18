@@ -29,7 +29,7 @@ object show {
         embedJsUnsafe(s"""lichess=window.lichess||{};lichess.relay=${safeJsonValue(
           Json.obj(
             "relay"    -> data.relay,
-            "study"    -> data.study,
+            "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
             "data"     -> data.analysis,
             "i18n"     -> views.html.study.jsI18n(),
             "tagTypes" -> lila.study.PgnTags.typesToString,

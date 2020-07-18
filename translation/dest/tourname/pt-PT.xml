@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="hourlyRapidArena">Arena Horária de Semi-rápidas</string>
-  <string name="hourlyRapid">Semi-rápidas Horárias</string>
+  <string name="hourlyRapid">Semi-rápida Horária</string>
   <string name="hourlyXArena">Arena Horária de %s</string>
   <string name="hourlyX">%s Horário</string>
   <string name="dailyRapidArena">Arena Diária de Semi-rápidas</string>
-  <string name="dailyRapid">Semi-rápida diária</string>
+  <string name="dailyRapid">Semi-rápida Diária</string>
   <string name="dailyClassicalArena">Arena Diária de Clássicas</string>
-  <string name="dailyClassical">Clássicas diárias</string>
+  <string name="dailyClassical">Clássica Diária</string>
   <string name="dailyXArena">Arena Diária de %s</string>
   <string name="dailyX">%s Diário</string>
   <string name="easternRapidArena">Arena Oriental de Semi-rápidas</string>
@@ -35,14 +35,14 @@
   <string name="yearlyXArena">Arena Anual de %s</string>
   <string name="yearlyX">%s Anual</string>
   <string name="rapidShieldArena">Arena Escudo de Semi-rápidas</string>
-  <string name="rapidShield">Semi-rápida Escudo</string>
+  <string name="rapidShield">Escudo de Semi-rápidas</string>
   <string name="classicalShieldArena">Arena Escudo de Clássicas</string>
-  <string name="classicalShield">Clássica Escudo</string>
+  <string name="classicalShield">Escudo de Clássicas</string>
   <string name="xShieldArena">Arena Escudo de %s</string>
-  <string name="xShield">%s Escudo</string>
+  <string name="xShield">Escudo de %s</string>
   <string name="openingRapidArena">Arena de Semi-rápidas %s</string>
   <string name="openingRapid">Semi-rápida %s</string>
-  <string name="xTeamBattle">%s Batalha em Equipa</string>
+  <string name="xTeamBattle">%s Batalha de Equipas</string>
   <string name="eliteXArena">Arena Elite de %s</string>
   <string name="eliteX">%s Elite</string>
   <string name="xArena">Arena de %s</string>

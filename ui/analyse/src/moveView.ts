@@ -1,8 +1,8 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { fixCrazySan, renderEval as normalizeEval } from 'chess';
+import { fixCrazySan } from 'chess';
 import { defined } from 'common';
-import { view as cevalView } from 'ceval';
+import { view as cevalView, renderEval as normalizeEval } from 'ceval';
 
 export interface Ctx {
   withDots?: boolean;
@@ -14,7 +14,7 @@ export function plyToTurn(ply: Ply): number {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
-export function renderGlyphs(glyphs): VNode[] {
+export function renderGlyphs(glyphs: Tree.Glyph[]): VNode[] {
   return glyphs.map(glyph => h('glyph', {
     attrs: { title: glyph.name }
   }, glyph.symbol));
@@ -43,7 +43,7 @@ export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
     ) : []);
 }
 
-export function renderIndexAndMove(ctx: Ctx, node): VNode[] | undefined {
+export function renderIndexAndMove(ctx: Ctx, node: Tree.Node): VNode[] | undefined {
   if (!node.san) return; // initial position
   return [renderIndex(node.ply, ctx.withDots), ...renderMove(ctx, node)];
 }

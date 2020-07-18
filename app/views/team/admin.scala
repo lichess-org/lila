@@ -22,6 +22,9 @@ object admin {
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
+          p(
+            "Only invite leaders that you fully trust. Team leaders can kick members and other leaders out of the team."
+          ),
           postForm(cls := "leaders", action := routes.Team.leaders(t.id))(
             form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(
               form3.textarea(_)(rows := 2)
@@ -69,8 +72,7 @@ object admin {
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),
-      moreJs =
-        embedJsUnsafe("""
+      moreJs = embedJsUnsafe("""
            |$('.copy-url-button').on('click', function(e) {
            |$('#form3-message').val(function(i, x) {return x + $(e.target).data('copyurl') + '\n'})
            |})

@@ -10,7 +10,7 @@ import views._
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
 
   private val CreateRateLimit =
-    new lila.memo.RateLimit[IpAddress](2, 5.minutes, name = "forum create topic", key = "forum.topic")
+    new lila.memo.RateLimit[IpAddress](2, 5.minutes, key = "forum.topic")
 
   def form(categSlug: String) =
     Open { implicit ctx =>
@@ -26,7 +26,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       CategGrantWrite(categSlug) {
         implicit val req = ctx.body
         OptionFuResult(env.forum.categRepo bySlug categSlug) { categ =>
-          forms.topic.bindFromRequest.fold(
+          forms.topic.bindFromRequest().fold(
             err =>
               forms.anyCaptcha map { captcha =>
                 BadRequest(html.forum.topic.form(categ, err, captcha))
@@ -97,7 +97,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def participants(topicId: String) =
     Auth { _ => _ =>
       for {
-        userIds   <- postApi userIds topicId
+        userIds   <- postApi allUserIds topicId
         usernames <- env.user.repo usernamesByIds userIds
       } yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
     }

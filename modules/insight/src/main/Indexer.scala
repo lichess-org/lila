@@ -10,22 +10,30 @@ import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
 import lila.common.LilaStream
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 final private class Indexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
+    userRepo: UserRepo,
     storage: Storage
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   private val workQueue =
     new lila.hub.DuctSequencer(maxSize = 64, timeout = 1 minute, name = "insightIndexer")
 
-  def all(user: User): Funit =
+  def all(userId: User.ID): Funit =
     workQueue {
-      storage.fetchLast(user.id) flatMap {
-        case None    => fromScratch(user)
-        case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
+      userRepo byId userId flatMap {
+        _ ?? { user =>
+          storage.fetchLast(user.id) flatMap {
+            case None    => fromScratch(user)
+            case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
+          }
+        }
       }
     }
 
@@ -77,20 +85,22 @@ final private class Indexer(
             logger.warn(e.getMessage, e)
           } map (_.toOption)
         }
-      val query = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
+      val query      = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
+      val bulkInsert = 50
+      val perSecond  = 800
       gameRepo
         .sortedCursor(query, Query.sortChronological)
         .documentSource()
-        .throttle(300, 1 second)
         .take(maxGames)
-        .mapAsync(4)(toEntry)
+        .mapAsync(16)(toEntry)
         .via(LilaStream.collect)
         .zipWithIndex
         .map { case (e, i) => e.copy(number = fromNumber + i.toInt) }
-        .grouped(50)
+        .grouped(bulkInsert)
+        .throttle(perSecond / bulkInsert, 1 second)
         .map(storage.bulkInsert)
         .toMat(Sink.ignore)(Keep.right)
-        .run
+        .run()
     } void
   }
 }

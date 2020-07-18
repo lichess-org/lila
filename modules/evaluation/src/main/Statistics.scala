@@ -42,8 +42,8 @@ object Statistics {
   private val instantaneous = Centis(0)
 
   def slidingMoveTimesCvs(pov: lila.game.Pov): Option[Iterator[Float]] =
-    moveTimes(pov) ?? { mt =>
-      mt.iterator
+    moveTimes(pov) ?? {
+      _.iterator
         .sliding(14)
         .map(a => a.toList.sorted.drop(1).dropRight(1))
         .filter(_.count(instantaneous ==) < 4)

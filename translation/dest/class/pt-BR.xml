@@ -77,6 +77,7 @@ Aqui está o link para acessar a turma.</string>
     <item quantity="one">Aluno</item>
     <item quantity="other">%s alunos</item>
   </plurals>
+  <string name="students">Estudantes</string>
   <string name="progress">Progresso</string>
   <string name="noStudents">Nenhum estudante na aula ainda.</string>
   <string name="noRemovedStudents">Nenhum aluno removido.</string>

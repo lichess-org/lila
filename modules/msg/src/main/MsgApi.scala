@@ -20,8 +20,12 @@ final class MsgApi(
     json: MsgJson,
     notifier: MsgNotify,
     security: MsgSecurity,
-    shutup: lila.hub.actors.Shutup
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+    shutup: lila.hub.actors.Shutup,
+    spam: lila.security.Spam
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) {
 
   val msgsPerPage = MaxPerPage(100)
 
@@ -32,6 +36,13 @@ final class MsgApi(
       .find($doc("users" -> me.id, "del" $ne me.id))
       .sort($sort desc "lastMsg.date")
       .list[MsgThread](50)
+      .map(prioritize)
+
+  private def prioritize(threads: List[MsgThread]) =
+    threads.find(_.isPriority) match {
+      case None        => threads
+      case Some(found) => found :: threads.filterNot(_.isPriority)
+    }
 
   def convoWith(me: User, username: String, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] = {
     val userId   = User.normalize(username)
@@ -66,15 +77,17 @@ final class MsgApi(
       text: String,
       multi: Boolean = false
   ): Funit =
-    Msg.make(text, orig) ?? { msg =>
+    Msg.make(text, orig) ?? { msgPre =>
       val threadId = MsgThread.id(orig, dest)
       for {
         contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
         isNew    <- !colls.thread.exists($id(threadId))
-        verdict  <- security.can.post(contacts, msg.text, isNew, unlimited = multi)
+        verdict  <- security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
         res <- verdict match {
           case _: MsgSecurity.Reject => funit
           case send: MsgSecurity.Send =>
+            val msg =
+              if (verdict == MsgSecurity.Spam) msgPre.copy(text = spam.replace(msgPre.text)) else msgPre
             val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
             val threadWrite =
               if (isNew)
@@ -145,7 +158,7 @@ final class MsgApi(
         post(orig.id, _, text, multi = true).logFailure(logger).nevermind
       }
       .toMat(Sink.ignore)(Keep.right)
-      .run
+      .run()
       .void
 
   def cliMultiPost(orig: String, dests: Seq[User.ID], text: String): Fu[String] =

@@ -275,7 +275,7 @@
     <item quantity="one">%s saniye ver</item>
     <item quantity="other">%s saniye ver</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Bu oyuncu bir satranç programından yardım alıyor.</string>
+  <string name="thisAccountViolatedTos">Bu hesap Lichess Kullanım Şartları\'nı ihlâl etti</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını sahte bir şekilde artırıyor/azaltıyor</string>
   <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyunsonu analizi</string>
   <string name="takeback">Hamleni geri al</string>
@@ -467,7 +467,7 @@
   <string name="keepGoing">Devam et...</string>
   <string name="puzzleFailed">Bulmaca çözülemedi</string>
   <string name="butYouCanKeepTrying">ama denemeye devam edebilirsin.</string>
-  <string name="success">Başarılı</string>
+  <string name="success">Başarı</string>
   <string name="wasThisPuzzleAnyGood">Bu bulmacayı nasıl buldun?</string>
   <string name="pleaseVotePuzzle">Okları kullanarak oylayın, lichess\'in gelişmesine yardımcı olun.</string>
   <string name="thankYou">Teşekkürler!</string>

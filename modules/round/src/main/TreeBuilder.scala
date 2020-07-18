@@ -12,7 +12,7 @@ import lila.tree._
 object TreeBuilder {
 
   private type Ply       = Int
-  private type OpeningOf = String => Option[FullOpening]
+  private type OpeningOf = FEN => Option[FullOpening]
 
   private def makeEval(info: Info) =
     Eval(
@@ -62,7 +62,7 @@ object TreeBuilder {
           ply = init.turns,
           fen = fen,
           check = init.situation.check,
-          opening = openingOf(fen),
+          opening = openingOf(FEN(fen)),
           clock = withClocks.flatMap(_.headOption),
           crazyData = init.situation.board.crazyData,
           eval = infos lift 0 map makeEval
@@ -77,7 +77,7 @@ object TreeBuilder {
             move = m,
             fen = fen,
             check = g.situation.check,
-            opening = openingOf(fen),
+            opening = openingOf(FEN(fen)),
             clock = withClocks flatMap (_ lift (g.turns - init.turns - 1)),
             crazyData = g.situation.board.crazyData,
             eval = info map makeEval,
@@ -125,7 +125,7 @@ object TreeBuilder {
         move = m,
         fen = fen,
         check = g.situation.check,
-        opening = openingOf(fen),
+        opening = openingOf(FEN(fen)),
         crazyData = g.situation.board.crazyData,
         eval = none
       )

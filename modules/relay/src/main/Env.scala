@@ -13,8 +13,12 @@ final class Env(
     studyApi: lila.study.StudyApi,
     chapterRepo: lila.study.ChapterRepo,
     cacheApi: lila.memo.CacheApi,
-    slackApi: lila.slack.SlackApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+    slackApi: lila.slack.SlackApi,
+    baseUrl: BaseUrl
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   private lazy val coll = db(CollName("relay"))
 
@@ -24,7 +28,7 @@ final class Env(
 
   private lazy val withStudy = wire[RelayWithStudy]
 
-  lazy val jsonView = new JsonView(new RelayMarkup)
+  lazy val jsonView = new JsonView(new RelayMarkup, baseUrl)
 
   lazy val api: RelayApi = wire[RelayApi]
 

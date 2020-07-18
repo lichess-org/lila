@@ -6,7 +6,7 @@ case class FingerPrint(value: String) extends AnyVal {
   def hash: Option[FingerHash] = FingerHash(this)
 }
 
-case class FingerHash(value: String) extends AnyVal
+case class FingerHash(value: String) extends AnyVal with StringValue
 
 object FingerHash {
 
@@ -30,7 +30,6 @@ object FingerHash {
     if (str.size % 2 != 0) s"${str}0" else str
   }
 
-  val impersonate = FingerHash("imperson")
-
   implicit val fingerHashIso = Iso.string[FingerHash](FingerHash.apply, _.value)
+  implicit val fpHandler     = lila.db.BSON.isoHandler[FingerHash, String](fingerHashIso)
 }

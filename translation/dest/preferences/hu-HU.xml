@@ -12,6 +12,8 @@
   <string name="chessPieceSymbol">Sakkbábu ikonja</string>
   <string name="pgnLetter">Betű (K, Q, R, B, N)</string>
   <string name="zenMode">Zen mód</string>
+  <string name="displayBoardResizeHandle">Átméretező sarok mutatása</string>
+  <string name="onlyOnInitialPosition">Csak kezdőállásnál</string>
   <string name="blindfoldChess">Vakjátszma (láthatatlan bábuk)</string>
   <string name="chessClock">Sakkóra</string>
   <string name="tenthsOfSeconds">Tizedmásodpercek</string>
@@ -19,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Vízszintes zöld folyamatjelző</string>
   <string name="soundWhenTimeGetsCritical">Figyelmeztető hang, ha nagyon kevés idő maradt</string>
   <string name="giveMoreTime">Több idő adása</string>
+  <string name="gameBehavior">Játék működése</string>
   <string name="howDoYouMovePieces">Hogyan mozgatod a bábukat?</string>
   <string name="clickTwoSquares">Kattintással</string>
   <string name="dragPiece">Egérhúzással</string>

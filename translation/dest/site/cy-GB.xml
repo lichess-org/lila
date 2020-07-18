@@ -205,7 +205,6 @@
   <string name="spectators">Ymwelwyr</string>
   <string name="exportGames">Allforio</string>
   <string name="ratingRange">Graddfa rhwng</string>
-  <string name="thisPlayerUsesChessComputerAssistance">Mae\'r chwaraewr hwn yn defnyddio cymorth cyfrifiadurol</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Mae\'r chwaraewr hwn yn cynyddu/lleihau ei raddfa yn ffug</string>
   <string name="openingExplorerAndTablebase">Porwr agoriadau &amp; bas tabl diweddglo</string>
   <string name="takeback">Cymryd yn ôl</string>

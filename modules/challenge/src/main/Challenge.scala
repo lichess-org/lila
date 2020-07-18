@@ -22,7 +22,7 @@ case class Challenge(
     destUser: Option[Challenge.Challenger.Registered],
     rematchOf: Option[String],
     createdAt: DateTime,
-    seenAt: DateTime,
+    seenAt: Option[DateTime], // None for open challenges, so they don't sweep
     expiresAt: DateTime,
     open: Option[Boolean] = None
 ) {
@@ -174,7 +174,7 @@ object Challenge {
   def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
     Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
 
-  def randomColor = chess.Color(scala.util.Random.nextBoolean)
+  def randomColor = chess.Color(scala.util.Random.nextBoolean())
 
   def make(
       variant: Variant,
@@ -195,6 +195,7 @@ object Challenge {
       case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock.some) => Mode.Casual
       case _                                                                           => mode
     }
+    val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(
       _id = randomId,
       status = Status.Created,
@@ -210,9 +211,9 @@ object Challenge {
       destUser = destUser map toRegistered(variant, timeControl),
       rematchOf = rematchOf,
       createdAt = DateTime.now,
-      seenAt = DateTime.now,
-      expiresAt = inTwoWeeks,
-      open = (challenger == Challenge.Challenger.Open) option true
+      seenAt = !isOpen option DateTime.now,
+      expiresAt = if (isOpen) DateTime.now.plusDays(1) else inTwoWeeks,
+      open = isOpen option true
     )
   }
 }

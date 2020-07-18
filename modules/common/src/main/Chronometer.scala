@@ -33,7 +33,7 @@ object Chronometer {
       if (nanos > duration.toNanos) pp(msg)
       else result
 
-    def showDuration: String = if (millis >= 1) f"$millis%.2f ms" else s"$micros micros"
+    def showDuration: String = if (millis >= 1) s"$millis ms" else s"$micros micros"
   }
   case class LapTry[A](result: Try[A], nanos: Long)
 
@@ -105,7 +105,7 @@ object Chronometer {
   }
 
   def syncMon[A](path: lila.mon.TimerPath)(f: => A): A = {
-    val timer = path(lila.mon).start
+    val timer = path(lila.mon).start()
     val res   = f
     timer.stop()
     res

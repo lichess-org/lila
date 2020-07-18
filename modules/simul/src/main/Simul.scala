@@ -2,7 +2,8 @@ package lila.simul
 
 import chess.variant.Variant
 import chess.{ Speed, StartingPosition }
-import lila.user.{ Title, User }
+import lila.rating.PerfType
+import lila.user.User
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
@@ -18,7 +19,6 @@ case class Simul(
     createdAt: DateTime,
     hostId: String,
     hostRating: Int,
-    hostTitle: Option[Title],
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],
     finishedAt: Option[DateTime],
@@ -66,7 +66,7 @@ case class Simul(
     }
 
   def removePairing(userId: String) =
-    copy(pairings = pairings filterNot (_ is userId)).finishIfDone
+    copy(pairings = pairings.filterNot(_ is userId)).finishIfDone
 
   def nbAccepted = applicants.count(_.accepted)
 
@@ -123,7 +123,7 @@ case class Simul(
 
   def playingPairings = pairings filterNot (_.finished)
 
-  def hostColor = (color flatMap chess.Color.apply) | chess.Color(scala.util.Random.nextBoolean)
+  def hostColor = (color flatMap chess.Color.apply) | chess.Color(scala.util.Random.nextBoolean())
 
   def setPairingHostColor(gameId: String, hostColor: chess.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
@@ -140,7 +140,7 @@ object Simul {
 
   type ID = String
 
-  case class OnStart(simul: Simul)
+  case class OnStart(simul: Simul) extends AnyVal
 
   def make(
       host: User,
@@ -159,15 +159,14 @@ object Simul {
       clock = clock,
       hostId = host.id,
       hostRating = host.perfs.bestRatingIn {
-        variants flatMap { variant =>
+        variants.flatMap { variant =>
           lila.game.PerfPicker.perfType(
             speed = Speed(clock.config.some),
             variant = variant,
             daysPerTurn = none
           )
-        }
+        } ::: List(PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
       },
-      hostTitle = host.title,
       hostGameId = none,
       createdAt = DateTime.now,
       variants = if (position.isDefined) List(chess.variant.Standard) else variants,

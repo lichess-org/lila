@@ -29,8 +29,8 @@ final class Recent(
   def team(teamId: String): Fu[List[MiniForumPost]] = teamCache get teamId
 
   def invalidate(): Unit = {
-    cache.invalidateAll
-    teamCache.invalidateAll
+    cache.invalidateAll()
+    teamCache.invalidateAll()
   }
 
   private val defaultLang = "en"

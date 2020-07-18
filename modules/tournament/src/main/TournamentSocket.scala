@@ -15,7 +15,11 @@ import lila.user.User
 final private class TournamentSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mode: play.api.Mode) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    mode: play.api.Mode
+) {
 
   private val allWaitingUsers = new ConcurrentHashMap[Tournament.ID, WaitingUsers.WithNext](64)
 
@@ -41,7 +45,7 @@ final private class TournamentSocket(
 
   def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] = {
     send(Protocol.Out.getWaitingUsers(RoomId(tour.id), tour.name()(lila.i18n.defaultLang)))
-    val promise = Promise[WaitingUsers]
+    val promise = Promise[WaitingUsers]()
     allWaitingUsers.compute(
       tour.id,
       (_: Tournament.ID, cur: WaitingUsers.WithNext) =>

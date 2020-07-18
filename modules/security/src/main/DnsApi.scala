@@ -12,7 +12,10 @@ final private class DnsApi(
     ws: WSClient,
     config: SecurityConfig.DnsApi,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   // only valid email domains that are not whitelisted should make it here
   def mx(domain: Domain.Lower): Fu[List[Domain]] =
@@ -44,7 +47,7 @@ final private class DnsApi(
     ws.url(config.url)
       .withQueryStringParameters("name" -> domain.value, "type" -> tpe)
       .withHttpHeaders("Accept" -> "application/dns-json")
-      .get withTimeout config.timeout map {
+      .get() withTimeout config.timeout map {
       case res if res.status == 200 || res.status == 404 => f(~(res.json \ "Answer").asOpt[List[JsObject]])
       case res                                           => throw LilaException(s"Status ${res.status}")
     }

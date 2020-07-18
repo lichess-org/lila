@@ -77,7 +77,7 @@ final private class FishnetRepo(
 
     def compute =
       for {
-        all            <- analysisColl.countAll
+        all            <- analysisColl.countSel($empty)
         userAcquired   <- analysisColl.countSel(system(false) ++ acquired(true))
         userQueued     <- analysisColl.countSel(system(false) ++ acquired(false))
         userOldest     <- oldestSeconds(false)

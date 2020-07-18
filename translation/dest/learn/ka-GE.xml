@@ -3,6 +3,7 @@
   <string name="learnChess">ისწავლე ჭადრაკი</string>
   <string name="byPlaying">თამაშით!</string>
   <string name="menu">მენიუ</string>
+  <string name="progressX">პროგრესი %s</string>
   <string name="play">ითამაშე!</string>
   <string name="chessPieces">ჭადრაკის ფიგურები</string>
   <string name="theRook">ეტლი</string>
@@ -10,6 +11,7 @@
   <string name="theBishop">კუ</string>
   <string name="itMovesDiagonally">მოძრაობს დიაგონალურად</string>
   <string name="theQueen">ლაზიერი</string>
+  <string name="queenCombinesRookAndBishop">დედოფალი = ეტლს + კუ</string>
   <string name="theKing">მეფე</string>
   <string name="theMostImportantPiece">ყველაზე მნიშვნელოვანი ფიგურა</string>
   <string name="theKingIsSlow">მეფე ნელა მოძრაობს.</string>

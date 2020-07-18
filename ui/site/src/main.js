@@ -264,7 +264,7 @@
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
       function renderTimeago() {
-        lichess.raf(() =>
+        requestAnimationFrame(() =>
           lichess.timeago.render([].slice.call(document.getElementsByClassName('timeago'), 0, 99))
         );
       }
@@ -295,7 +295,7 @@
           var $el = $('#challenge-app').html(lichess.initiatingHtml);
           lichess.loadCssPath('challenge');
           lichess.loadScript(lichess.compiledScript('challenge')).done(function() {
-            instance = LichessChallenge.default($el[0], {
+            instance = LichessChallenge($el[0], {
               data: data,
               show: function() {
                 if (!$('#challenge-app').is(':visible')) $toggle.click();
@@ -340,7 +340,7 @@
           var $el = $('#notify-app').html(initiatingHtml);
           lichess.loadCssPath('notify');
           lichess.loadScript(lichess.compiledScript('notify')).done(function() {
-            instance = LichessNotify.default($el.empty()[0], {
+            instance = LichessNotify($el.empty()[0], {
               data: data,
               incoming: incoming,
               isVisible: isVisible,
@@ -391,7 +391,7 @@
             playing = $('body').hasClass('playing');
           lichess.loadCssPath('dasher');
           lichess.loadScript(lichess.compiledScript('dasher')).done(() =>
-            LichessDasher.default($el.empty()[0], { playing })
+            LichessDasher($el.empty()[0], { playing })
           );
         });
       }
@@ -417,10 +417,10 @@
         $wrap.find('a').on('mouseover click', e => (e.type === 'mouseover' ? boot : toggle)());
         Mousetrap.bind('/', () => {
           $input.val('/');
-          lichess.raf(() => toggle());
+          requestAnimationFrame(() => toggle());
           return false;
         });
-        Mousetrap.bind('s', () => lichess.raf(() => toggle()));
+        Mousetrap.bind('s', () => requestAnimationFrame(() => toggle()));
         if ($('body').hasClass('blind-mode')) $input.one('focus', () => toggle());
       }
 
@@ -529,6 +529,12 @@
         const sprite = $('#piece-sprite');
         sprite.attr('href', sprite.attr('href').replace('.css', '.external.css'));
       }, 1000);
+
+      // prevent zoom when keyboard shows on iOS
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+        const el = document.querySelector('meta[name=viewport]');
+        el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
+      }
     });
   });
 
@@ -732,7 +738,7 @@
         self.set(data);
       },
       repaint: function() {
-        if (this.loaded) lichess.raf(function() {
+        if (this.loaded) requestAnimationFrame(function() {
           const users = this.users, ids = Object.keys(users).sort();
           this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, this.loaded ? $('<strong>').text(ids.length) : '-'));
           this.$nobody.toggleNone(!ids.length);
@@ -840,17 +846,13 @@
   function startTournament(cfg) {
     var element = document.querySelector('main.tour');
     $('body').data('tournament-id', cfg.data.id);
-    var tournament;
+    let tournament;
     lichess.socket = lichess.StrongSocket(
       '/tournament/' + cfg.data.id + '/socket/v4', cfg.data.socketVersion, {
-        receive: function(t, d) {
-          return tournament.socketReceive(t, d);
-        }
+        receive: (t, d) => tournament.socketReceive(t, d)
       });
     cfg.socketSend = lichess.socket.send;
     cfg.element = element;
-    cfg.$side = $('.tour__side').clone();
-    cfg.$faq = $('.tour__faq').clone();
     tournament = LichessTournament.start(cfg);
   }
 
@@ -872,6 +874,12 @@
   function startTeam(cfg) {
     lichess.socket = lichess.StrongSocket('/team/' + cfg.id, cfg.socketVersion);
     cfg.chat && lichess.makeChat(cfg.chat);
+    $('#team-subscribe').on('change', function() {
+      const v = this.checked;
+      $(this).parents('form').each(function() {
+        $.post($(this).attr('action'), { v: v });
+      });
+    });
   }
 
   ////////////////
@@ -948,7 +956,7 @@
 
   function startPuzzle(cfg) {
     cfg.element = document.querySelector('main.puzzle');
-    LichessPuzzle.default(cfg);
+    LichessPuzzle(cfg);
   }
 
   ////////////////////

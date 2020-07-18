@@ -224,7 +224,7 @@ final class PlanApi(
               case None =>
                 logger.warn(s"${user.username} sync: unset DB patron that's not in stripe")
                 patronColl.update.one($id(patron.id), patron.removeStripe) >> sync(user)
-              case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
+              case Some(customer) if customer.firstSubscription.exists(_.isActive) && !user.plan.active =>
                 logger.warn(s"${user.username} sync: enable plan of customer with a subscription")
                 setDbUserPlan(user, user.plan.enable) inject ReloadUser
               case customer => fuccess(Synced(patron.some, customer))

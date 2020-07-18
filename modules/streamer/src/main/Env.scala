@@ -21,16 +21,17 @@ final class Env(
     appConfig: Configuration,
     ws: play.api.libs.ws.WSClient,
     settingStore: lila.memo.SettingStore.Builder,
-    renderer: lila.hub.actors.Renderer,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     notifyApi: lila.notify.NotifyApi,
-    lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,
     db: lila.db.Db,
     imageRepo: lila.db.ImageRepo
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   implicit private val keywordLoader = strLoader(Stream.Keyword.apply)
   private val config                 = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)
@@ -57,6 +58,13 @@ final class Env(
       text = "Twitch API client ID and secret, separated by a space".some
     )
 
+  lazy val homepageMaxSetting =
+    settingStore[Int](
+      "streamerHomepageMax",
+      default = 6,
+      text = "Max streamers on homepage".some
+    )
+
   lazy val api: StreamerApi = wire[StreamerApi]
 
   lazy val pager = wire[StreamerPager]
@@ -65,7 +73,6 @@ final class Env(
     Props(
       new Streaming(
         ws = ws,
-        renderer = renderer,
         api = api,
         isOnline = isOnline,
         timeline = timeline,
@@ -76,8 +83,7 @@ final class Env(
           twitchCredentialsSetting.get().split(' ') match {
             case Array(client, secret) => (client, secret)
             case _                     => ("", "")
-          },
-        lightUserApi = lightUserApi
+          }
       )
     )
   )

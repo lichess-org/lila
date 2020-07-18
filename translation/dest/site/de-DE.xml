@@ -275,7 +275,7 @@
     <item quantity="one">Dem Gegner %s Sekunde geben</item>
     <item quantity="other">Dem Gegner %s Sekunden geben</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Dieser Spieler verwendet ein Schachprogramm zur Unterstützung</string>
+  <string name="thisAccountViolatedTos">Dieses Konto hat gegen die Lichess-Nutzungsbedingungen verstoßen</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Dieser Spieler manipuliert seine Wertungszahl</string>
   <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebase</string>
   <string name="takeback">Zugrücknahme</string>
@@ -328,7 +328,7 @@
   <string name="siteDescription">Kostenloser Online-Schach-Server. Spiele jetzt auf einer übersichtlichen Benutzeroberfläche Schach! Keine Registrierung und keine Plugins erforderlich, komplett ohne Werbung. Spiele gegen den Computer, Freunde oder zufällige Gegner!</string>
   <string name="xJoinedTeamY">%1$s trat der Gruppe %2$s bei</string>
   <string name="xCreatedTeamY">%1$s hat das Team %2$s gegründet</string>
-  <string name="xStartedStreaming">%s startete Stream</string>
+  <string name="xStartedStreaming">%s startete einen Stream</string>
   <string name="averageElo">Durchschnittswertung</string>
   <string name="location">Ort</string>
   <string name="filterGames">Partien filtern</string>
@@ -842,7 +842,7 @@
   <string name="edit">Bearbeiten</string>
   <string name="rapid">Schnellschach</string>
   <string name="classical">Klassisch</string>
-  <string name="ultraBulletDesc">Unglaublich schnelle Spiele: Weniger als 30 Sekunden</string>
+  <string name="ultraBulletDesc">Wahnsinnig schnelle Spiele: Weniger als 30 Sekunden</string>
   <string name="bulletDesc">Sehr schnelle Spiele: Weniger als 3 Minuten</string>
   <string name="blitzDesc">Schnelle Spiele: 3 bis 8 Minuten</string>
   <string name="rapidDesc">Schnellschachspiele: 8 bis 25 Minuten</string>
@@ -852,9 +852,9 @@
   <string name="important">Wichtig</string>
   <string name="yourQuestionMayHaveBeenAnswered">Deine Frage könnte bereits %1$s beantwortet worden sein</string>
   <string name="inTheFAQ">in den F.A.Q.</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">Um einen Nutzer wegen Betrugs oder schlechtem Verhalten zu melden, %1$s</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Um einen Nutzer wegen Betrugs oder schlechten Verhaltens zu melden, %1$s</string>
   <string name="useTheReportForm">nutze das Meldeformular</string>
-  <string name="toRequestSupport">Um Unterstützung anzufragen, %1$s</string>
+  <string name="toRequestSupport">Um Hilfe zu erhalten, %1$s</string>
   <string name="tryTheContactPage">probiere die Kontaktseite aus</string>
   <string name="thisTopicIsArchived">Dieses Thema wurde archiviert und kann nicht mehr beantwortet werden.</string>
   <string name="joinTheTeamXToPost">Tritt dem %1$s bei, um in diesem Forum schreiben zu können</string>

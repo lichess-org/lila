@@ -51,7 +51,13 @@ Parole: %3$s</string>
   <string name="generateANewUsername">Radīt jaunu lietotājvārdu</string>
   <string name="welcomeToClass">Laipni lūgti savā grupā: %s.
 Lūk saite, lai piekļūtu grupai.</string>
+  <string name="invitationToClass">Esat ielūgts pievienoties grupai \"%s\" kā skolēnam.</string>
   <string name="clickToViewInvitation">Nospiediet linku, lai apskatīt ielūgumu:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="zero">%s neapstiprinātu ielūgumu</item>
+    <item quantity="one">Viens neapstiprināts ielūgums</item>
+    <item quantity="other">%s neapstiprināti ielūgumi</item>
+  </plurals>
   <string name="noPendingInvitations">Nav ielūgumu, kas gaida atbildi</string>
   <string name="onlyVisibleToTeachers">Redzams tikai grupas skolotājiem</string>
   <string name="lastActiveDate">Aktīvs</string>

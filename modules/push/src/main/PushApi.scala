@@ -18,7 +18,10 @@ final private class PushApi(
     userRepo: lila.user.UserRepo,
     implicit val lightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit

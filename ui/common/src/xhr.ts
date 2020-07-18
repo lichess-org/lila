@@ -24,6 +24,6 @@ export function text(url: string, init: RequestInit = {}): Promise<any> {
 
 export function form(data: any) {
   const formData = new FormData();
-  for (let k of Object.keys(data)) formData.append(k, data[k]);
+  for (const k of Object.keys(data)) formData.append(k, data[k]);
   return formData;
 }

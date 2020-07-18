@@ -3,8 +3,8 @@
   <string name="emailConfirm_subject">Stadfest lichess.org-kontoen din, %s</string>
   <string name="emailConfirm_click">Trykk på lenkja for å aktivere Lichess-kontoen:</string>
   <string name="emailConfirm_ignore">Om du ikkje har registrert deg på Lichess, kan du trygt sjå bort frå denne meldinga.</string>
-  <string name="passwordReset_subject">Tilbakestill lichess.org-passordet ditt, %s</string>
-  <string name="passwordReset_intro">Me har mottatt ein førespurnad om å tilbakestilla passordet for kontoen din.</string>
+  <string name="passwordReset_subject">Attendestill lichess.org-passordet ditt, %s</string>
+  <string name="passwordReset_intro">Me har mottatt ein førespurnad om å attendestilla passordet for kontoen din.</string>
   <string name="passwordReset_clickOrIgnore">Klikk på lenka nedanfor om det er du som står bak denne førespurnaden. Sjå bort frå denne e-posten om det ikkje var du.</string>
   <string name="emailChange_subject">Stadfest ny e-postadresse, %s</string>
   <string name="emailChange_intro">Du har bede om å få endra e-postadressen din.</string>

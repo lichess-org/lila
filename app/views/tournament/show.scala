@@ -8,6 +8,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.tournament.Tournament
+import lila.user.User
 
 import controllers.routes
 
@@ -18,7 +19,7 @@ object show {
       verdicts: lila.tournament.Condition.All.WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
-      streamers: Set[lila.user.User.ID],
+      streamers: List[User.ID],
       shieldOwner: Option[lila.tournament.TournamentShield.OwnerId]
   )(implicit ctx: Context) =
     views.html.base.layout(

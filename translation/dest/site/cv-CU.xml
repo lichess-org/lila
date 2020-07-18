@@ -177,7 +177,6 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">%s ҫеккунт пар</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Ҫак вӑйӑҫ шахмат компйутӑрӗ пулӑшнипе выљать</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ҫак вӑйӑҫӑ хӑйӗн рейтингне йури ӳстерет / чакарать</string>
   <string name="takeback">Тавӑрасси</string>
   <string name="proposeATakeback">Тавӑрасси ыйт</string>

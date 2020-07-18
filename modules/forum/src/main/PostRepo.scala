@@ -58,7 +58,7 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
 
   def recentInCateg(categId: String, nb: Int): Fu[List[Post]] =
     coll.ext
-      .find(selectCateg(categId) ++ selectNotHidden)
+      .find(selectCateg(categId))
       .sort($sort.createdDesc)
       .list[Post](nb)
 
@@ -99,11 +99,11 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
 
   def sortQuery = $sort.createdAsc
 
-  def userIdsByTopicId(topicId: String): Fu[List[String]] =
-    coll.distinctEasy[User.ID, List]("userId", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
-
   def idsByTopicId(topicId: String): Fu[List[String]] =
     coll.distinctEasy[String, List]("_id", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
+
+  def allUserIdsByTopicId(topicId: String): Fu[List[User.ID]] =
+    coll.distinctEasy[User.ID, List]("userId", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
 
   def cursor =
     coll.ext

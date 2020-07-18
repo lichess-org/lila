@@ -1,7 +1,6 @@
 package lila.slack
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, EmailAddress, IpAddress, LightUser }
 import lila.hub.actorApi.slack._
@@ -30,7 +29,7 @@ final class SlackApi(
 
     private def addToBuffer(event: ChargeEvent): Funit = {
       buffer = buffer :+ event
-      (buffer.head.date isBefore DateTime.now.minusHours(6)) ?? {
+      (buffer.head.date isBefore DateTime.now.minusHours(12)) ?? {
         val patrons   = buffer map (_.username) map userAt mkString ", "
         val amountSum = buffer.map(_.amount).sum
         displayMessage {
@@ -55,7 +54,7 @@ final class SlackApi(
       if (username == "Anonymous") "Anonymous"
       else s"@$username"
 
-    private def amount(cents: Int) = s"$$${BigDecimal(cents, 2)}"
+    private def amount(cents: Int) = s"$$${BigDecimal(cents.toLong, 2)}"
   }
 
   def publishEvent(event: Event): Funit =
@@ -105,6 +104,20 @@ final class SlackApi(
       }
     }
 
+  def logMod(modId: User.ID, icon: String, text: String): Funit =
+    lightUser(modId) flatMap {
+      _ ?? { mod =>
+        client(
+          SlackMessage(
+            username = mod.name,
+            icon = "scroll",
+            text = s":$icon: ${linkifyUsers(text)}",
+            channel = "tavern-log"
+          )
+        )
+      }
+    }
+
   def chatPanic(mod: User, v: Boolean): Funit =
     client(
       SlackMessage(
@@ -134,24 +147,6 @@ final class SlackApi(
         channel = rooms.tavernBots
       )
     )
-
-  private val boardApiMoveLimiter = new lila.memo.RateLimit[String](
-    credits = 1,
-    duration = 4 hours,
-    name = "slack board move",
-    key = "slack.board-move"
-  )
-  def boardApiMove(path: String, user: User): Funit =
-    boardApiMoveLimiter(path) {
-      client(
-        SlackMessage(
-          username = "Board API game",
-          icon = "electric_plug",
-          text = s"${userLink(user)} is playing ${gameLink(path)} with the Board API",
-          channel = rooms.tavernBots
-        )
-      )
-    }(funit)
 
   def commReportBurst(user: User): Funit =
     client(

@@ -1,20 +1,13 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, Started } from './types';
 
 import { Pool } from './pool';
-import { prop } from 'common';
+import { defined, prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import { povChances } from './winningChances';
+import { sanIrreversible } from './util';
 
 const li = window.lichess;
-
-function sanIrreversible(variant: VariantKey, san: string): boolean {
-  if (san.startsWith('O-O')) return true;
-  if (variant === 'crazyhouse') return false;
-  if (san.includes('x')) return true; // capture
-  if (san.toLowerCase() === san) return true; // pawn move
-  return variant === 'threeCheck' && san.includes('+');
-}
 
 function officialStockfish(variant: VariantKey): boolean {
   return variant === 'standard' || variant === 'chess960';
@@ -73,6 +66,7 @@ export default function(opts: CevalOpts): CevalCtrl {
       const sharedMem = sharedWasmMemory(8, 16);
       if (sharedMem) {
         technology = 'wasmx';
+        if (!defined(window['crossOriginIsolated'])) window['crossOriginIsolated'] = true; // polyfill
         try {
           sharedMem.grow(8);
           growableSharedMem = true;
@@ -115,17 +109,17 @@ export default function(opts: CevalOpts): CevalCtrl {
   // adjusts maxDepth based on nodes per second
   const npsRecorder = (function() {
     const values: number[] = [];
-    const applies = function(ev: Tree.ClientEval) {
+    const applies = (ev: Tree.ClientEval) => {
       return ev.knps && ev.depth >= 16 &&
         typeof ev.cp !== 'undefined' && Math.abs(ev.cp) < 500 &&
         (ev.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
-    }
+    };
     return function(ev: Tree.ClientEval) {
       if (!applies(ev)) return;
       values.push(ev.knps);
       if (values.length > 9) {
-        let depth = 18,
-          knps = median(values) || 0;
+        const knps = median(values) || 0;
+        let depth = 18;
         if (knps > 100) depth = 19;
         if (knps > 150) depth = 20;
         if (knps > 250) depth = 21;
@@ -195,7 +189,7 @@ export default function(opts: CevalOpts): CevalCtrl {
     } else {
       // send fen after latest castling move and the following moves
       for (let i = 1; i < steps.length; i++) {
-        let s = steps[i];
+        const s = steps[i];
         if (sanIrreversible(opts.variant.key, s.san!)) {
           work.moves = [];
           work.initialFen = s.fen;
@@ -218,14 +212,14 @@ export default function(opts: CevalOpts): CevalCtrl {
       stop();
       start(s.path, s.steps, s.threatMode, true);
     }
-  };
+  }
 
   function stop() {
     if (!enabled() || !started) return;
     pool.stop();
     lastStarted = started;
     started = false;
-  };
+  }
 
   // ask other tabs if a game is in progress
   if (enabled()) {
@@ -275,4 +269,4 @@ export default function(opts: CevalOpts): CevalCtrl {
     destroy: pool.destroy,
     redraw: opts.redraw
   };
-};
+}

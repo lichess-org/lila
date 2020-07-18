@@ -95,8 +95,8 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
   <string name="openingExplorer">Opening ontdekker</string>
   <string name="xOpeningExplorer">%s opening ontdekker</string>
-  <string name="winPreventedBy50MoveRule">Oorwinning gekelder deur 50-skuif reël</string>
-  <string name="lossSavedBy50MoveRule">Verloor gekelder deur 50-skuif reël</string>
+  <string name="winPreventedBy50MoveRule">Oorwinning gekelder deur 50-skuifreël</string>
+  <string name="lossSavedBy50MoveRule">Verloor voorkom deur 50-skuifreël</string>
   <string name="allSet">Gereed!</string>
   <string name="importPgn">Voer PGN in</string>
   <string name="delete">Skrap</string>
@@ -104,7 +104,7 @@
   <string name="replayMode">Oorspeel modus</string>
   <string name="realtimeReplay">Ware Tyd</string>
   <string name="byCPL">Met CPL</string>
-  <string name="openStudy">Ope Studie</string>
+  <string name="openStudy">Open studie</string>
   <string name="enable">Aktief</string>
   <string name="bestMoveArrow">Beste skuif pyl</string>
   <string name="evaluationGauge">Evaluering meter</string>
@@ -112,7 +112,7 @@
   <string name="cpus">CPU</string>
   <string name="memory">Geheue</string>
   <string name="infiniteAnalysis">Oneindige analise</string>
-  <string name="removesTheDepthLimit">Verwyder diepte limiet, en hou jou rekenaar warm</string>
+  <string name="removesTheDepthLimit">Verwyder dieptelimiet, en hou jou rekenaar warm</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
   <string name="mistake">Fout</string>
@@ -147,20 +147,20 @@
   <string name="games">Spelle</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s het \'n boodskap gepos in forum %2$s</string>
-  <string name="latestForumPosts">Laaste forum plasings</string>
+  <string name="latestForumPosts">Jongste forumplasings</string>
   <string name="players">Spelers</string>
   <string name="friends">Vriende</string>
-  <string name="discussions">Gesprek</string>
+  <string name="discussions">Gesprekke</string>
   <string name="today">Vandag</string>
   <string name="yesterday">Gister</string>
   <string name="minutesPerSide">Minute per kant</string>
   <string name="variant">Variant</string>
   <string name="variants">Variante</string>
-  <string name="timeControl">Tyd kontrole</string>
+  <string name="timeControl">Tydkontrole</string>
   <string name="realTime">Intyds</string>
   <string name="correspondence">Korrespondensie</string>
   <string name="daysPerTurn">Dae per beurt</string>
-  <string name="oneDay">Eendag</string>
+  <string name="oneDay">Een dag</string>
   <plurals name="nbDays">
     <item quantity="one">%s dag</item>
     <item quantity="other">%s dae</item>
@@ -175,8 +175,8 @@
   <string name="username">Gebruiker naam</string>
   <string name="usernameOrEmail">Gebruikersnaam of e-pos</string>
   <string name="changeUsername">Verander gebruikersnaam</string>
-  <string name="changeUsernameNotSame">Slegs die hoof/kleinletters kan verander. Byvoorbeeld \"johndoe\" na \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Verander jou gebruikersnaam. Dit kan slegs een keer gedoen word, en jy kan net die hoof/kleinletters in die gebruikersnaam verander.</string>
+  <string name="changeUsernameNotSame">Slegs die hoof-/kleinletters kan verander. Byvoorbeeld \"pietsmit\" na \"PietSmit\".</string>
+  <string name="changeUsernameDescription">Verander jou gebruikersnaam. Dit kan slegs een keer gedoen word, en jy kan net die hoof-/kleinletters in die gebruikersnaam verander.</string>
   <string name="password">Wagwoord</string>
   <string name="changePassword">Verander wagwoord</string>
   <string name="changeEmail">Verander e-pos</string>
@@ -195,8 +195,8 @@
   </plurals>
   <string name="gamesPlayed">Spelle gespeel</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s spelle met jou</item>
-    <item quantity="other">%s spelle met jou</item>
+    <item quantity="one">%s spel teen jou</item>
+    <item quantity="other">%s spelle teen jou</item>
   </plurals>
   <string name="cancel">Kanseleer</string>
   <string name="timeOut">Tyd verstreke</string>
@@ -246,7 +246,7 @@
   <string name="subject">Onderwerp</string>
   <string name="recipient">Ontvanger</string>
   <string name="send">Stuur</string>
-  <string name="incrementInSeconds">Tel in sekondes</string>
+  <string name="incrementInSeconds">Inkrement in sekondes</string>
   <string name="freeOnlineChess">Gratis Aanlyn Skaak</string>
   <string name="spectators">Toeskouers:</string>
   <plurals name="nbRated">
@@ -275,7 +275,6 @@
     <item quantity="one">Gee %s sekonde</item>
     <item quantity="other">Gee %s sekondes</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Hierdie speler gebruik skaak rekenaar hulp</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Hierdie speler verhoog/verlaag hul gradering kunsmatig</string>
   <string name="openingExplorerAndTablebase">Opening ontdekker &amp; tafelbasis</string>
   <string name="takeback">Terug-vat</string>
@@ -396,7 +395,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="winner">Wenner</string>
   <string name="standing">Stand</string>
   <string name="createANewTournament">Skep \'n nuwe toernooi</string>
-  <string name="tournamentCalendar">Toernooi dagboek</string>
+  <string name="tournamentCalendar">Toernooidagboek</string>
   <string name="conditionOfEntry">Inskrywing vereistes:</string>
   <string name="advancedSettings">Gevorderde instellings</string>
   <string name="safeTournamentName">Kies \'n baie veilige naam vir die toernooi.</string>
@@ -622,7 +621,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="webmasters">Webmeesters</string>
   <string name="about">Leer meer</string>
   <string name="aboutX">Leer meer oor %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is \'n gratis (%2$s), libre, oop bron skaak bediener.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is ’n gratis (%2$s), vry, oopbron-skaakbediener sonder advertensies.</string>
   <string name="really">regtig</string>
   <string name="contribute">Dra by</string>
   <string name="termsOfService">Bepalings en Voorwaardes</string>
@@ -657,7 +656,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="keyShowOrHideComments">vertoon/versteek kommentaar</string>
   <string name="keyEnterOrExitVariation">betree/verlaat variasie</string>
   <string name="newTournament">Nuwe toernooi</string>
-  <string name="tournamentHomeTitle">Skaak toernooie met verskeie tydkontroles en variante</string>
+  <string name="tournamentHomeTitle">Skaaktoernooie met verskeie tydkontroles en variante</string>
   <string name="tournamentHomeDescription">Speel hoë-tempo skaak toernooie! Sluit aan by \'n amptelik geskeduleerde toernooi, of skep jou eie. Bullet, Blitz, klassiek, Skaak960, Heuwel Heerser, Trippelskaak, en meer beskikbare opsies vir oneindige skaak pret.</string>
   <string name="tournamentNotFound">Toernooi nie te vinde</string>
   <string name="tournamentDoesNotExist">Dié toernooi bestaan nie.</string>
@@ -681,7 +680,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="weHaveSentYouAnEmailTo">Ons het \'n e-pos na %s gestuur. Klik die skakel in die e-pos om die wagwoord te herstel.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Deur te regisreer, stem jy in om aan ons %s gebonde te wees.</string>
   <string name="networkLagBetweenYouAndLichess">Netwerk lag tussen jou en Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tyd om \'n skuif op Lichess se bediener verwerk</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tyd om ’n skuif op Lichess se bediener te verwerk</string>
   <string name="downloadAnnotated">Laai geannoteerde af</string>
   <string name="downloadRaw">Laai rou af</string>
   <string name="downloadImported">Aflaai ingevoer</string>
@@ -736,7 +735,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="transparent">Deurdigtig</string>
   <string name="backgroundImageUrl">Agtergrond prent URL:</string>
   <string name="boardGeometry">Bord geometrie</string>
-  <string name="boardTheme">Bord tema</string>
+  <string name="boardTheme">Bordtema</string>
   <string name="boardSize">Bord grootte</string>
   <string name="pieceSet">Stuk stel</string>
   <string name="embedInYourWebsite">Embed in jou webwerf</string>
@@ -853,4 +852,6 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="puzzleDesc">Skaak kopkrapper instrukteur</string>
   <string name="important">Tshivenda</string>
   <string name="yourQuestionMayHaveBeenAnswered">Your question may already have an answer %1$s</string>
+  <string name="subscribe">Skryf in</string>
+  <string name="unsubscribe">Beëindig inskrywing</string>
 </resources>

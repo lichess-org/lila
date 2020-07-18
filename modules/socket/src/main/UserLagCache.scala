@@ -8,7 +8,7 @@ object UserLagCache {
 
   private val cache: Cache[String, Centis] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(15 minutes)
-    .build[String, Centis]
+    .build[String, Centis]()
 
   def put(userId: String, lag: Centis): Unit =
     if (lag.centis >= 0)

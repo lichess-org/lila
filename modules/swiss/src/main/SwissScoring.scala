@@ -46,10 +46,9 @@ final private class SwissScoring(
                 newTieBreak -> newPerf
             }
             p.copy(
-                tieBreak = Swiss.TieBreak(tieBreak),
-                performance = playerPairings.nonEmpty option Swiss.Performance(perfSum / playerPairings.size)
-              )
-              .recomputeScore
+              tieBreak = Swiss.TieBreak(tieBreak),
+              performance = playerPairings.nonEmpty option Swiss.Performance(perfSum / playerPairings.size)
+            ).recomputeScore
           }
           _ <- SwissPlayer.fields { f =>
             prevPlayers
@@ -58,7 +57,7 @@ final private class SwissScoring(
                 case (a, b) => a != b
               }
               .map {
-                case (prev, player) =>
+                case (_, player) =>
                   colls.player.update
                     .one(
                       $id(player.id),

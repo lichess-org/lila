@@ -258,7 +258,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">添加对方%s秒</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">该棋手使用电脑辅助下棋</string>
+  <string name="thisAccountViolatedTos">该账户违反了Lichess服务条款</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">该棋手伪造积分（作弊）</string>
   <string name="openingExplorerAndTablebase">开局浏览器 &amp; 终局数据库</string>
   <string name="takeback">悔棋</string>

@@ -16,7 +16,10 @@ final class StringToken[A](
     fullHashSize: Int = 14,
     currentValueHashSize: Option[Int] = Some(6), // won't hash if None
     separator: Char = '|'
-)(implicit ec: scala.concurrent.ExecutionContext, serializer: StringToken.Serializable[A]) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    serializer: StringToken.Serializable[A]
+) {
 
   def make(payload: A) =
     hashCurrentValue(payload) map { hashedValue =>

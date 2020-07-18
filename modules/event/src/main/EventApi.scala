@@ -55,13 +55,13 @@ final class EventApi(
     }
 
   def update(old: Event, data: EventForm.Data) =
-    coll.update.one($id(old.id), data update old) >>- promotable.invalidateUnit
+    coll.update.one($id(old.id), data update old) >>- promotable.invalidateUnit()
 
   def createForm = EventForm.form
 
   def create(data: EventForm.Data, userId: String): Fu[Event] = {
     val event = data make userId
-    coll.insert.one(event) >>- promotable.invalidateUnit inject event
+    coll.insert.one(event) >>- promotable.invalidateUnit() inject event
   }
 
   def clone(old: Event) =

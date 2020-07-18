@@ -168,6 +168,26 @@ object Dimension {
         raw("Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=9.")
       )
 
+  case object Blur
+      extends Dimension[Blur](
+        "blur",
+        "Move blur",
+        F.moves("b"),
+        Move,
+        raw("Whether a window blur happened before that move or not.")
+      )
+
+  case object TimeVariance
+      extends Dimension[TimeVariance](
+        "timeVariance",
+        "Time variance",
+        F.moves("v"),
+        Move,
+        raw(
+          "Move time variance. Very consistent: < 0.25, Consistent: < 0.4, Medium, Variable: > 0.6, Very variable > 0.75."
+        )
+      )
+
   def requiresStableRating(d: Dimension[_]) =
     d match {
       case OpponentStrength => true
@@ -190,6 +210,8 @@ object Dimension {
       case MyCastling | OpCastling => lila.insight.Castling.all
       case QueenTrade              => lila.insight.QueenTrade.all
       case MaterialRange           => lila.insight.MaterialRange.all
+      case Blur                    => lila.insight.Blur.all
+      case TimeVariance            => lila.insight.TimeVariance.all
     }
 
   def valueByKey[X](d: Dimension[X], key: String): Option[X] =
@@ -208,6 +230,8 @@ object Dimension {
       case MyCastling | OpCastling => key.toIntOption flatMap lila.insight.Castling.byId.get
       case QueenTrade              => lila.insight.QueenTrade(key == "true").some
       case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
+      case Blur                    => lila.insight.Blur(key == "true").some
+      case TimeVariance            => key.toFloatOption map lila.insight.TimeVariance.byId
     }
 
   def valueToJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): play.api.libs.json.JsObject = {
@@ -233,6 +257,8 @@ object Dimension {
       case MyCastling | OpCastling => v.id
       case QueenTrade              => v.id
       case MaterialRange           => v.id
+      case Blur                    => v.id
+      case TimeVariance            => v.id
     }).toString
 
   def valueJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): JsValue =
@@ -251,6 +277,8 @@ object Dimension {
       case MyCastling | OpCastling => JsString(v.name)
       case QueenTrade              => JsString(v.name)
       case MaterialRange           => JsString(v.name)
+      case Blur                    => JsString(v.name)
+      case TimeVariance            => JsString(v.name)
     }
 
   def filtersOf[X](d: Dimension[X], selected: List[X]): Bdoc =

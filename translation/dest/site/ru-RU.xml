@@ -309,7 +309,7 @@
     <item quantity="many">Дать %s секунд</item>
     <item quantity="other">Дать %s секунд</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Этот игрок пользуется подсказками шахматных программ</string>
+  <string name="thisAccountViolatedTos">Пользователь этой учётной записи нарушил Пользовательское соглашение</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно манипулирует своим рейтингом</string>
   <string name="openingExplorerAndTablebase">База дебютов и эндшпилей</string>
   <string name="takeback">Вернуть ход</string>
@@ -523,7 +523,7 @@
   <string name="keepGoing">Продолжайте...</string>
   <string name="puzzleFailed">Неверное решение</string>
   <string name="butYouCanKeepTrying">Но вы можете попробовать ещё раз.</string>
-  <string name="success">Задача решена</string>
+  <string name="success">Получилось</string>
   <string name="wasThisPuzzleAnyGood">Была ли задача интересной?</string>
   <string name="pleaseVotePuzzle">Голосуйте стрелками «вверх» и «вниз», сделайте lichess лучше!</string>
   <string name="thankYou">Спасибо!</string>

@@ -1,8 +1,10 @@
 package lila.lobby
 
+import java.util.concurrent.ConcurrentHashMap
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
+import scala.jdk.CollectionConverters._
 
 import actorApi._
 import lila.game.Pov
@@ -10,12 +12,12 @@ import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
 import lila.hub.Trouper
+import lila.i18n.defaultLang
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, Sri, Sris }
 import lila.user.User
-import lila.i18n.defaultLang
 
 final class LobbySocket(
     biter: Biter,
@@ -33,17 +35,17 @@ final class LobbySocket(
 
   val trouper: Trouper = new Trouper {
 
-    private val members            = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
+    private val members            = new ConcurrentHashMap[SriStr, Member](8192)
     private val idleSris           = collection.mutable.Set[SriStr]()
     private val hookSubscriberSris = collection.mutable.Set[SriStr]()
     private val removedHookIds     = new collection.mutable.StringBuilder(1024)
 
     val process: Trouper.Receive = {
 
-      case GetMember(sri, promise) => promise success members.get(sri.value)
+      case GetMember(sri, promise) => promise success Option(members.get(sri.value))
 
       case GetSrisP(promise) =>
-        promise success Sris(members.keySet.view.map(Sri.apply).toSet)
+        promise success Sris(members.keySet.asScala.view.map(Sri.apply).toSet)
         lila.mon.lobby.socket.idle.update(idleSris.size)
         lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size)
 
@@ -51,7 +53,7 @@ final class LobbySocket(
         idleSris filterInPlace members.contains
         hookSubscriberSris filterInPlace members.contains
 
-      case Join(member) => members += (member.sri.value -> member)
+      case Join(member) => members.put(member.sri.value, member)
 
       case LeaveBatch(sris) => sris foreach quit
       case LeaveAll =>
@@ -69,7 +71,7 @@ final class LobbySocket(
         send(
           P.Out.tellSris(
             hookSubscriberSris diff idleSris filter { sri =>
-              members get sri exists { biter.showHookTo(hook, _) }
+              Option(members get sri) exists { biter.showHookTo(hook, _) }
             } map Sri.apply,
             makeMessage("had", hook.render(defaultLang))
           )
@@ -99,8 +101,6 @@ final class LobbySocket(
       case HookIds(ids) => tellActiveHookSubscribers(makeMessage("hli", ids mkString ""))
 
       case AddSeek(_) | RemoveSeek(_) => tellActive(makeMessage("reload_seeks"))
-
-      case lila.hub.actorApi.streamer.StreamsOnAir(html) => tellActive(makeMessage("streams", html))
 
       case ChangeFeatured(_, msg) => tellActive(msg)
 
@@ -136,7 +136,7 @@ final class LobbySocket(
       )
 
     private def quit(sri: Sri): Unit = {
-      members -= sri.value
+      members.remove(sri.value)
       idleSris -= sri.value
       hookSubscriberSris -= sri.value
     }
@@ -148,7 +148,6 @@ final class LobbySocket(
   private val poolLimitPerSri = new lila.memo.RateLimit[SriStr](
     credits = 25,
     duration = 1 minute,
-    name = "lobby hook/pool per member",
     key = "lobby.hook_pool.member"
   )
 

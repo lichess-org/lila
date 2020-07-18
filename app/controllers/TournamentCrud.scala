@@ -27,7 +27,7 @@ final class TournamentCrud(env: Env) extends LilaController(env) {
         implicit val req = ctx.body
         crud
           .editForm(tour)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.tournament.crud.edit(tour, err)).fuccess,
             data => crud.update(tour, data) inject Redirect(routes.TournamentCrud.edit(id)).flashSuccess
@@ -43,7 +43,7 @@ final class TournamentCrud(env: Env) extends LilaController(env) {
   def create =
     SecureBody(_.ManageTournament) { implicit ctx => me =>
       implicit val req = ctx.body
-      crud.createForm.bindFromRequest.fold(
+      crud.createForm.bindFromRequest().fold(
         err => BadRequest(html.tournament.crud.create(err)).fuccess,
         data =>
           crud.create(data, me) map { tour =>

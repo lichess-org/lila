@@ -105,9 +105,7 @@ function tournamentClass(tour) {
       'tsht-finished': finished,
       'tsht-joinable': !finished,
       'tsht-user-created': userCreated,
-      'tsht-major': tour.major,
       'tsht-thematic': !!tour.position,
-      'tsht-battle': !!tour.battle,
       'tsht-short': tour.minutes <= 30,
       'tsht-max-rating': !userCreated && tour.hasMaxRating
     };
@@ -200,8 +198,6 @@ export default function(ctrl) {
   const data = ctrl.data();
 
   const systemTours: any[] = [],
-    majorTours: any[] = [],
-    teamBattles: any[] = [],
     userTours: any[] = [];
 
   data.finished
@@ -210,16 +206,12 @@ export default function(ctrl) {
     .filter(t => t.finishesAt > startTime)
     .forEach(t => {
       if (isSystemTournament(t)) systemTours.push(t);
-      else if (t.major) majorTours.push(t);
-      else if (t.battle) teamBattles.push(t);
       else userTours.push(t);
     });
 
   // group system tournaments into dedicated lanes for PerfType
   const tourLanes = splitOverlaping(
     group(systemTours, laneGrouper)
-    .concat([majorTours])
-    .concat([teamBattles])
     .concat([userTours])
   ).filter(lane => lane.length > 0);
 
@@ -246,8 +238,7 @@ export default function(ctrl) {
     }, [
       renderTimeline(),
       ...tourLanes.map(lane => {
-        const large = lane.find(t => isSystemTournament(t) || t.major || t.battle);
-        return h('div.tournamentline' + (large ? '.large' : ''), lane.map(tour =>
+        return h('div.tournamentline', lane.map(tour =>
           renderTournament(ctrl, tour)))
       })
     ])

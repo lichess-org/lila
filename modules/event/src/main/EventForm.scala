@@ -23,7 +23,10 @@ object EventForm {
       "enabled"       -> boolean,
       "startsAt"      -> utcDate,
       "finishesAt"    -> utcDate,
-      "hostedBy"      -> optional(lila.user.DataForm.historicalUsernameField)
+      "hostedBy"      -> optional {
+        lila.user.DataForm.historicalUsernameField
+          .transform[User.ID](_.toLowerCase, identity)
+      }
     )(Data.apply)(Data.unapply)
   ) fill Data(
     title = "",

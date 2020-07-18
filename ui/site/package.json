@@ -4,14 +4,12 @@
   "private": true,
   "description": "lichess.org website",
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/cssProject": "2.0.0",
     "browserify": "^16",
     "fancy-log": "^1",
     "gulp": "^4",
     "gulp-concat": "^2.6",
-    "gulp-download-stream": "^0.0",
     "gulp-size": "^3",
     "gulp-terser": "^1",
     "request": "^2",
@@ -27,7 +25,11 @@
     "jquery-bar-rating": "^1.2.2",
     "stockfish-mv.wasm": "^0.2.0",
     "stockfish.js": "^10.0.2",
-    "stockfish.wasm": "^0.6.1",
+    "stockfish.wasm": "^0.7.1",
     "tablesort": "^5.1"
+  },
+  "scripts": {
+    "dev": "gulp dev",
+    "prod": "gulp prod"
   }
 }

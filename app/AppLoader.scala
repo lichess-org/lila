@@ -4,6 +4,7 @@ import akka.actor.CoordinatedShutdown
 import com.softwaremill.macwire._
 import play.api._
 import play.api.libs.crypto.CookieSignerProvider
+import scala.annotation.nowarn
 import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
@@ -23,8 +24,11 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   }
 
   lila.log("boot").info {
-    val mem = Runtime.getRuntime().maxMemory() / 1024 / 1024
-    s"lila 3 / java ${System.getProperty("java.version")}, memory: ${mem}MB"
+    val java             = System.getProperty("java.version")
+    val mem              = Runtime.getRuntime().maxMemory() / 1024 / 1024
+    val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
+    val appVersionDate   = ~configuration.getOptional[String]("app.version.date")
+    s"lila $appVersionCommit $appVersionDate / java ${java}, memory: ${mem}MB"
   }
 
   lila.mon.start(configuration.get[Boolean]("kamon.enabled"))
@@ -47,8 +51,8 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
 
   override lazy val httpErrorHandler = {
-    def someRouter = router.some
-    def mapper     = devContext.map(_.sourceMapper)
+    @nowarn def someRouter = router.some
+    @nowarn def mapper     = devContext.map(_.sourceMapper)
     wire[lila.app.http.ErrorHandler]
   }
 
@@ -128,7 +132,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
 
   // eagerly wire up all controllers
   val router: Router = {
-    val prefix: String = "/"
+    @nowarn val prefix: String = "/"
     wire[Routes]
   }
 

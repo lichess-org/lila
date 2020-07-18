@@ -57,11 +57,8 @@
   <string name="chapterPgn">PGN de la ĉapitro</string>
   <string name="studyUrl">URL de la studo</string>
   <string name="currentChapterUrl">URL de tiu ĉi ĉapitro</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Vi povas alglui ĉi tion en la forumo por enkorpigi la ĉapitron</string>
   <string name="startAtInitialPosition">Starti ekde komenca pozicio</string>
   <string name="startAtX">Komenci je %s</string>
-  <string name="embedThisChapter">Enkorpigu tiun ĉi ĉapitron en via retejo aŭ blogo</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Legu pli pri enkorpigo de studa ĉapitro</string>
   <string name="open">Malfermi</string>
   <string name="xBroughtToYouByY">%1$s, provizia al vi de %2$s</string>
   <string name="studyNotFound">Studo ne trovita</string>

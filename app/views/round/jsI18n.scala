@@ -67,7 +67,7 @@ object jsI18n {
     trans.decline,
     trans.takebackPropositionSent,
     trans.yourOpponentProposesATakeback,
-    trans.thisPlayerUsesChessComputerAssistance,
+    trans.thisAccountViolatedTos,
     trans.gameAborted,
     trans.checkmate,
     trans.whiteResigned,

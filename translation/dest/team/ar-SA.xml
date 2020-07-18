@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">فريق</string>
   <string name="teams">الفِرق</string>
   <plurals name="nbMembers">
     <item quantity="zero">%s عضو</item>
@@ -21,4 +22,6 @@
   <string name="teamBestPlayers">أفضل اللاعبين</string>
   <string name="teamRecentMembers">آخر الأعضاء</string>
   <string name="kickSomeone">طرد أحداً ما من الفريق</string>
+  <string name="willBeReviewed">سيتم النظر في طلب انضمامك من قبل قائد الفريق.</string>
+  <string name="beingReviewed">طلب انضمامك مازال يتم النظر فيه من قبل قائد الفريق.</string>
 </resources>

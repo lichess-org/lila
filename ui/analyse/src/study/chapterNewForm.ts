@@ -17,10 +17,8 @@ export const modeChoices = [
   ['gamebook', 'interactiveLesson']
 ];
 
-export function fieldValue(e: Event, id: string) {
-  const el = (e.target as HTMLElement).querySelector('#chapter-' + id);
-  return el ? (el as HTMLInputElement).value : null;
-};
+export const fieldValue = (e: Event, id: string) =>
+  ((e.target as HTMLElement).querySelector('#chapter-' + id) as HTMLInputElement)?.value;
 
 export interface StudyChapterNewFormCtrl {
   root: AnalyseCtrl;
@@ -198,7 +196,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           h('label.form-label', {
             attrs: { 'for': 'chapter-game' }
           }, trans('loadAGameFromXOrY', 'lichess.org', 'chessgames.com')),
-          h('input#chapter-game.form-control', {
+          h('textarea#chapter-game.form-control', {
             attrs: { placeholder: noarg('urlOfTheGame') }
           })
         ]) : null,

@@ -21,7 +21,10 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
     db: lila.db.Db
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   private val config = appConfig.get[ShutupConfig]("shutup")(AutoConfig.loader)
 

@@ -1,5 +1,4 @@
 import { winningChances } from 'ceval';
-import { decomposeUci } from 'chess';
 import { DrawShape } from 'chessground/draw';
 import { Vm } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
@@ -15,10 +14,9 @@ interface Opts {
 }
 
 function makeAutoShapesFromUci(uci: Uci, brush: string, modifiers?: any): DrawShape[] {
-  const move = decomposeUci(uci);
   return [{
-    orig: move[0],
-    dest: move[1],
+    orig: uci.slice(0, 2) as Key,
+    dest: uci.slice(2, 4) as Key,
     brush: brush,
     modifiers: modifiers
   }];
@@ -39,7 +37,7 @@ export default function(opts: Opts): DrawShape[] {
       if (opts.ceval.enabled() && n.ceval && n.ceval.pvs && n.ceval.pvs[1] && !(opts.threatMode && n.threat && n.threat.pvs[2])) {
         n.ceval.pvs.forEach(function(pv) {
           if (pv.moves[0] === nextBest) return;
-          var shift = winningChances.povDiff(color as Color, n.ceval!.pvs[0], pv);
+          const shift = winningChances.povDiff(color as Color, n.ceval!.pvs[0], pv);
           if (shift > 0.2 || isNaN(shift) || shift < 0) return;
           shapes = shapes.concat(makeAutoShapesFromUci(pv.moves[0], 'paleGrey', {
             lineWidth: Math.round(12 - shift * 50) // 12 to 2

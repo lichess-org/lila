@@ -60,7 +60,7 @@ object home {
           div(cls := "lobby__start")(
             ctx.blind option h2("Play"),
             a(
-              href := routes.Setup.hookForm,
+              href := routes.Setup.hookForm(),
               cls := List(
                 "button button-metal config_hook" -> true,
                 "disabled"                        -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
@@ -76,7 +76,7 @@ object home {
               trans.playWithAFriend()
             ),
             a(
-              href := routes.Setup.aiForm,
+              href := routes.Setup.aiForm(),
               cls := List(
                 "button button-metal config_ai" -> true,
                 "disabled"                      -> currentGame.isDefined
@@ -86,10 +86,10 @@ object home {
           ),
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
-            a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(
+            a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list().toString))(
               trans.nbPlayers(nbPlaceholder)
             ),
-            a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
+            a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games().toString))(
               trans.nbGamesInPlay(nbPlaceholder)
             )
           )
@@ -101,7 +101,13 @@ object home {
         },
         div(cls := "lobby__side")(
           ctx.blind option h2("Highlights"),
-          ctx.noKid option st.section(cls := "lobby__streams")(views.html.streamer.bits liveStreams streams),
+          ctx.noKid option st.section(cls := "lobby__streams")(
+            views.html.streamer.bits liveStreams streams,
+            streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
+              trans.streamersMenu(),
+              " »"
+            )
+          ),
           div(cls := "lobby__spotlights")(
             events.map(bits.spotlight),
             !ctx.isBot option frag(
@@ -115,15 +121,14 @@ object home {
             div(cls := "timeline")(
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
-              // userTimeline.size >= 8 option
-              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
+              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home())(trans.more(), " »")
             )
           else
             div(cls := "about-side")(
               ctx.blind option h2("About"),
               trans.xIsAFreeYLibreOpenSourceChessServer(
                 "Lichess",
-                a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
+                a(cls := "blue", href := routes.Plan.features())(trans.really.txt())
               ),
               " ",
               a(href := "/about")(trans.aboutX("Lichess"), "...")
@@ -147,7 +152,7 @@ object home {
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         ctx.noKid option div(cls := "lobby__forum lobby__box")(
-          a(cls := "lobby__box__top", href := routes.ForumCateg.index)(
+          a(cls := "lobby__box__top", href := routes.ForumCateg.index())(
             h2(cls := "title text", dataIcon := "d")(trans.latestForumPosts()),
             span(cls := "more")(trans.more(), " »")
           ),
@@ -157,7 +162,7 @@ object home {
         ),
         bits.lastPosts(lastPost),
         div(cls := "lobby__support")(
-          a(href := routes.Plan.index)(
+          a(href := routes.Plan.index())(
             iconTag(patronIconChar),
             span(cls := "lobby__support__text")(
               strong(trans.patron.donate()),
@@ -178,10 +183,10 @@ object home {
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
           a(href := "/mobile")(trans.mobileApp()),
-          a(href := routes.Page.tos)(trans.termsOfService()),
-          a(href := routes.Page.privacy)(trans.privacy()),
-          a(href := routes.Page.source)(trans.sourceCode()),
-          a(href := routes.Page.ads)("Ads"),
+          a(href := routes.Page.tos())(trans.termsOfService()),
+          a(href := routes.Page.privacy())(trans.privacy()),
+          a(href := routes.Page.source())(trans.sourceCode()),
+          a(href := routes.Page.ads())("Ads"),
           views.html.base.bits.connectLinks
         )
       )

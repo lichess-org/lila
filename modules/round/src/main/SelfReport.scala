@@ -56,11 +56,11 @@ final class SelfReport(
               )
             }
           }
-        if (fullId.value == "________") fuccess(doLog)
+        if (fullId.value == "________") fuccess(doLog())
         else
           proxyRepo.pov(fullId.value) map {
             _ ?? { pov =>
-              if (!known) doLog
+              if (!known) doLog()
               if (Set("ceval", "rcb", "ccs")(name)) fuccess {
                 tellRound(
                   pov.gameId,

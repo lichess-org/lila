@@ -116,39 +116,45 @@ object PgnImport {
     }
 
   private def makeNode(prev: chess.Game, sans: List[San], annotator: Option[Comment.Author]): Option[Node] =
-    sans match {
-      case Nil => none
-      case san :: rest =>
-        san(prev.situation).fold(
-          _ => none, // illegal move; stop here.
-          moveOrDrop => {
-            val game   = moveOrDrop.fold(prev.apply, prev.applyDrop)
-            val uci    = moveOrDrop.fold(_.toUci, _.toUci)
-            val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
-            parseComments(san.metas.comments, annotator) match {
-              case (shapes, clock, comments) =>
-                Node(
-                  id = UciCharPair(uci),
-                  ply = game.turns,
-                  move = Uci.WithSan(uci, sanStr),
-                  fen = FEN(Forsyth >> game),
-                  check = game.situation.check,
-                  shapes = shapes,
-                  comments = comments,
-                  glyphs = san.metas.glyphs,
-                  crazyData = game.situation.board.crazyData,
-                  clock = clock,
-                  children = removeDuplicatedChildrenFirstNode {
-                    val variations = makeVariations(rest, game, annotator)
-                    Node.Children {
-                      makeNode(game, rest, annotator).fold(variations)(_ :: variations).toVector
-                    }
-                  },
-                  forceVariation = false
-                ).some
+    try {
+      sans match {
+        case Nil => none
+        case san :: rest =>
+          san(prev.situation).fold(
+            _ => none, // illegal move; stop here.
+            moveOrDrop => {
+              val game   = moveOrDrop.fold(prev.apply, prev.applyDrop)
+              val uci    = moveOrDrop.fold(_.toUci, _.toUci)
+              val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
+              parseComments(san.metas.comments, annotator) match {
+                case (shapes, clock, comments) =>
+                  Node(
+                    id = UciCharPair(uci),
+                    ply = game.turns,
+                    move = Uci.WithSan(uci, sanStr),
+                    fen = FEN(Forsyth >> game),
+                    check = game.situation.check,
+                    shapes = shapes,
+                    comments = comments,
+                    glyphs = san.metas.glyphs,
+                    crazyData = game.situation.board.crazyData,
+                    clock = clock,
+                    children = removeDuplicatedChildrenFirstNode {
+                      val variations = makeVariations(rest, game, annotator)
+                      Node.Children {
+                        makeNode(game, rest, annotator).fold(variations)(_ :: variations).toVector
+                      }
+                    },
+                    forceVariation = false
+                  ).some
+              }
             }
-          }
-        )
+          )
+      }
+    } catch {
+      case _: StackOverflowError =>
+        logger.warn(s"study PgnImport.makeNode StackOverflowError")
+        None
     }
 
   /*

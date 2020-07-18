@@ -5,6 +5,7 @@ import play.api.data.Forms._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.common.Form.{ clean, numberIn }
 
 final private[team] class DataForm(
     teamRepo: TeamRepo,
@@ -14,13 +15,13 @@ final private[team] class DataForm(
     extends lila.hub.CaptchedForm {
 
   private object Fields {
-    val name        = "name"        -> text(minLength = 3, maxLength = 60)
-    val location    = "location"    -> optional(text(minLength = 3, maxLength = 80))
-    val description = "description" -> text(minLength = 30, maxLength = 2000)
+    val name        = "name"        -> clean(text(minLength = 3, maxLength = 60))
+    val location    = "location"    -> optional(clean(text(minLength = 3, maxLength = 80)))
+    val description = "description" -> clean(text(minLength = 30, maxLength = 2000))
     val open        = "open"        -> number
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
-    val chat        = "chat"        -> lila.common.Form.numberIn(Team.ChatFor.all)
+    val chat        = "chat"        -> numberIn(Team.ChatFor.all)
   }
 
   val create = Form(
@@ -53,7 +54,7 @@ final private[team] class DataForm(
 
   val request = Form(
     mapping(
-      "message" -> text(minLength = 30, maxLength = 2000),
+      "message" -> clean(text(minLength = 30, maxLength = 2000)),
       Fields.gameId,
       Fields.move
     )(RequestSetup.apply)(RequestSetup.unapply)
@@ -63,6 +64,8 @@ final private[team] class DataForm(
     gameId = "",
     move = ""
   )
+
+  val apiRequest = Form(single("message" -> optional(clean(text(minLength = 30, maxLength = 2000)))))
 
   val processRequest = Form(
     tuple(
@@ -80,7 +83,7 @@ final private[team] class DataForm(
   def createWithCaptcha = withCaptcha(create)
 
   val pmAll = Form(
-    single("message" -> text(minLength = 3, maxLength = 9000))
+    single("message" -> clean(text(minLength = 3, maxLength = 9000)))
   )
 
   def leaders(t: Team) =

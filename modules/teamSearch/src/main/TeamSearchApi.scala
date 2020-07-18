@@ -9,8 +9,10 @@ import lila.team.{ Team, TeamRepo }
 final class TeamSearchApi(
     client: ESClient,
     teamRepo: TeamRepo
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer)
-    extends SearchReadApi[Team, Query] {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) extends SearchReadApi[Team, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -43,7 +45,7 @@ final class TeamSearchApi(
             .grouped(200)
             .mapAsync(1)(c.storeBulk)
             .toMat(Sink.ignore)(Keep.right)
-            .run
+            .run()
         } >> client.refresh
       case _ => funit
     }

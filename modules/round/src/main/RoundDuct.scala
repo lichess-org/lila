@@ -31,8 +31,10 @@ final private[round] class RoundDuct(
     dependencies: RoundDuct.Dependencies,
     gameId: Game.ID,
     socketSend: String => Unit
-)(implicit ec: scala.concurrent.ExecutionContext, proxy: GameProxy)
-    extends Duct {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    proxy: GameProxy
+) extends Duct {
 
   import RoundSocket.Protocol
   import RoundDuct._
@@ -125,7 +127,7 @@ final private[round] class RoundDuct(
     case ByePlayer(playerId) =>
       proxy.withPov(playerId) {
         _ ?? { pov =>
-          fuccess(getPlayer(pov.color).setBye)
+          fuccess(getPlayer(pov.color).setBye())
         }
       }
 
@@ -279,7 +281,7 @@ final private[round] class RoundDuct(
 
     case ResignForce(playerId) =>
       handle(playerId) { pov =>
-        (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn && pov.forceResignable && pov.game.bothPlayersHaveMoved) ?? {
+        (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn) ?? {
           getPlayer(!pov.color).isLongGone flatMap {
             case true =>
               finisher.rageQuit(

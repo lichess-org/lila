@@ -19,4 +19,4 @@ module.exports = function(opts) {
   };
 };
 
-window.LichessChat = require('chat');
+window.LichessChat = require('chat').default;

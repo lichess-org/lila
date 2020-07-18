@@ -10,7 +10,7 @@ import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { onInsert } from '../util';
-import { Step, DecodedDests, Position, Redraw } from '../interfaces';
+import { Step, Dests, Position, Redraw } from '../interfaces';
 import * as game from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
@@ -204,13 +204,13 @@ function anyClock(ctrl: RoundController, position: Position) {
   ) || undefined;
 }
 
-function destsToUcis(dests: DecodedDests) {
+function destsToUcis(dests: Dests) {
   const ucis: string[] = [];
-  Object.keys(dests).forEach(function(orig) {
-    dests[orig].forEach(function(dest) {
+  for (const [orig, d] of dests) {
+    if (d) d.forEach(function(dest) {
       ucis.push(orig + dest);
     });
-  });
+  }
   return ucis;
 }
 

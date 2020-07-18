@@ -15,7 +15,7 @@
     <item quantity="other">下了%1$s場%2$s類型的棋局</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="other">發表了%1$s則訊息在%2$s</item>
+    <item quantity="other">在%2$s發表了%1$s則訊息</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="other">下了%1$s步</item>

@@ -2,7 +2,7 @@ package controllers
 
 import play.api.data.Form
 import play.api.libs.json.Json
-import play.api.mvc.{ Result, Results }
+import play.api.mvc.Results
 import scala.concurrent.duration._
 
 import chess.format.FEN
@@ -28,25 +28,21 @@ final class Setup(
   private[controllers] val PostRateLimit = new lila.memo.RateLimit[IpAddress](
     5,
     1.minute,
-    name = "setup post",
-    key = "setup_post",
+    key = "setup.post",
     enforce = env.net.rateLimit.value
   )
 
   def aiForm =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req) {
-        forms aiFilled get("fen").map(FEN) map { form =>
+        fuccess(forms aiFilled get("fen").map(FEN)) map { form =>
           html.setup.forms.ai(
             form,
             env.fishnet.aiPerfApi.intRatings,
             form("fen").value flatMap ValidFen(getBool("strict"))
           )
         }
-      } else
-        fuccess {
-          Redirect(s"${routes.Lobby.home}#ai")
-        }
+      } else Redirect(s"${routes.Lobby.home()}#ai").fuccess
     }
 
   def ai =
@@ -57,7 +53,7 @@ final class Setup(
   def friendForm(userId: Option[String]) =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req)
-        forms friendFilled get("fen").map(FEN) flatMap { form =>
+        fuccess(forms friendFilled get("fen").map(FEN)) flatMap { form =>
           val validFen = form("fen").value flatMap ValidFen(false)
           userId ?? env.user.repo.named flatMap {
             case None => Ok(html.setup.forms.friend(form, none, none, validFen)).fuccess
@@ -70,7 +66,7 @@ final class Setup(
         }
       else
         fuccess {
-          Redirect(s"${routes.Lobby.home}#friend")
+          Redirect(s"${routes.Lobby.home()}#friend")
         }
     }
 
@@ -80,7 +76,7 @@ final class Setup(
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         forms
           .friend(ctx)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err =>
               negotiate(
@@ -117,8 +113,7 @@ final class Setup(
                       destUser = destUser,
                       rematchOf = none
                     )
-                    processor.saveFriendConfig(config) >>
-                      (env.challenge.api create challenge) flatMap {
+                    (env.challenge.api create challenge) flatMap {
                       case true =>
                         negotiate(
                           html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
@@ -126,7 +121,7 @@ final class Setup(
                         )
                       case false =>
                         negotiate(
-                          html = fuccess(Redirect(routes.Lobby.home)),
+                          html = fuccess(Redirect(routes.Lobby.home())),
                           api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
                         )
                     }
@@ -140,11 +135,11 @@ final class Setup(
     Open { implicit ctx =>
       NoBot {
         if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
-          forms.hookFilled(timeModeString = get("time")) map { html.setup.forms.hook(_) }
+          fuccess(forms.hookFilled(timeModeString = get("time"))) map { html.setup.forms.hook(_) }
         }
         else
           fuccess {
-            Redirect(s"${routes.Lobby.home}#hook")
+            Redirect(s"${routes.Lobby.home()}#hook")
           }
       }
     }
@@ -161,8 +156,6 @@ final class Setup(
       case HookResult.Refused => BadRequest(jsonError("Game was not created"))
     }
 
-  private val hookSaveOnlyResponse = Ok(Json.obj("ok" -> true))
-
   def hook(sri: String) =
     OpenBody { implicit ctx =>
       NoBot {
@@ -171,17 +164,18 @@ final class Setup(
           NoPlaybanOrCurrent {
             forms
               .hook(ctx)
-              .bindFromRequest
+              .bindFromRequest()
               .fold(
                 jsonFormError,
-                userConfig => {
-                  val config = userConfig withinLimits ctx.me
-                  if (getBool("pool")) processor.saveHookConfig(config) inject hookSaveOnlyResponse
-                  else
-                    (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
-                      processor.hook(config, Sri(sri), HTTPRequest sid req, blocking) map hookResponse
-                    }
-                }
+                userConfig =>
+                  (ctx.userId ?? env.relation.api.fetchBlocking) flatMap { blocking =>
+                    processor.hook(
+                      userConfig withinLimits ctx.me,
+                      Sri(sri),
+                      HTTPRequest sid req,
+                      blocking
+                    ) map hookResponse
+                  }
               )
           }
         }(rateLimitedFu)
@@ -193,16 +187,18 @@ final class Setup(
       NoBot {
         PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
           NoPlaybanOrCurrent {
-            for {
-              config   <- forms.hookConfig
-              game     <- env.game.gameRepo game gameId
-              blocking <- ctx.userId ?? env.relation.api.fetchBlocking
-              hookConfig    = game.fold(config)(config.updateFrom)
-              sameOpponents = game.??(_.userIds)
-              hookResult <-
-                processor
-                  .hook(hookConfig, Sri(sri), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
-            } yield hookResponse(hookResult)
+            env.game.gameRepo game gameId flatMap {
+              _ ?? { game =>
+                for {
+                  blocking <- ctx.userId ?? env.relation.api.fetchBlocking
+                  hookConfig    = lila.setup.HookConfig.default withRatingRange get("rr") updateFrom game
+                  sameOpponents = game.userIds
+                  hookResult <-
+                    processor
+                      .hook(hookConfig, Sri(sri), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
+                } yield hookResponse(hookResult)
+              }
+            }
           }
         }(rateLimitedFu)
       }
@@ -219,7 +215,7 @@ final class Setup(
       implicit val lang = reqLang
       if (me.isBot) notForBotAccounts.fuccess
       else
-        forms.boardApiHook.bindFromRequest.fold(
+        forms.boardApiHook.bindFromRequest().fold(
           newJsonFormError,
           config =>
             env.relation.api.fetchBlocking(me.id) flatMap { blocking =>
@@ -239,18 +235,7 @@ final class Setup(
 
   def filterForm =
     Open { implicit ctx =>
-      forms.filterFilled map {
-        case (form, filter) => html.setup.filter(form, filter)
-      }
-    }
-
-  def filter =
-    OpenBody { implicit ctx =>
-      implicit val req = ctx.body
-      forms.filter.bindFromRequest.fold[Fu[Result]](
-        _ => BadRequest(()).fuccess,
-        config => JsonOk(processor filter config inject config.render)
-      )
+      fuccess(html.setup.filter(forms.filter))
     }
 
   def validateFen =
@@ -265,7 +250,7 @@ final class Setup(
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       implicit val lang = reqLang
       PostRateLimit(HTTPRequest lastRemoteAddress req) {
-        forms.api.ai.bindFromRequest.fold(
+        forms.api.ai.bindFromRequest().fold(
           jsonFormError,
           config =>
             processor.apiAi(config, me) map { pov =>
@@ -279,7 +264,7 @@ final class Setup(
     OpenBody { implicit ctx =>
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         implicit val req = ctx.body
-        form(ctx).bindFromRequest.fold(
+        form(ctx).bindFromRequest().fold(
           err =>
             negotiate(
               html = keyPages.home(Results.BadRequest),

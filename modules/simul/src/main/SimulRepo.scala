@@ -20,11 +20,9 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
     x => BSONInteger(x.id)
   )
-  implicit private val ClockBSONHandler = {
-    import chess.Clock.Config
-    implicit val clockHandler = Macros.handler[Config]
-    Macros.handler[SimulClock]
-  }
+  import chess.Clock.Config
+  implicit private val clockHandler         = Macros.handler[Config]
+  implicit private val ClockBSONHandler     = Macros.handler[SimulClock]
   implicit private val PlayerBSONHandler    = Macros.handler[SimulPlayer]
   implicit private val ApplicantBSONHandler = Macros.handler[SimulApplicant]
   implicit private val SimulPairingBSONHandler = new BSON[SimulPairing] {
@@ -55,7 +53,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   private val createdSelect  = $doc("status" -> SimulStatus.Created.id)
   private val startedSelect  = $doc("status" -> SimulStatus.Started.id)
   private val finishedSelect = $doc("status" -> SimulStatus.Finished.id)
-  private val createdSort    = $doc("createdAt" -> -1)
+  private val createdSort    = $sort desc "createdAt"
 
   def find(id: Simul.ID): Fu[Option[Simul]] =
     simulColl.byId[Simul](id)
@@ -75,16 +73,13 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   def findPending(hostId: String): Fu[List[Simul]] =
     simulColl.ext.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
 
-  private val featurableSelect = $or(
-    "hostRating" $gte 2400,
-    "hostTitle" $exists true
-  )
+  private val featurableSelect = $doc("featurable" -> true)
 
   def allCreatedFeaturable: Fu[List[Simul]] =
     simulColl.ext
       .find(
-        createdSelect ++ $doc(
-          featurableSelect,
+        // hits partial index hostSeenAt_-1
+        createdSelect ++ featurableSelect ++ $doc(
           "hostSeenAt" $gte DateTime.now.minusSeconds(12)
         )
       )
@@ -98,26 +93,26 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
 
   def allStarted: Fu[List[Simul]] =
     simulColl.ext
-      .find(
-        startedSelect
-      )
+      .find(startedSelect)
       .sort(createdSort)
       .list[Simul]()
 
   def allFinishedFeaturable(max: Int): Fu[List[Simul]] =
     simulColl.ext
       .find(finishedSelect ++ featurableSelect)
-      .sort(createdSort)
+      .sort($sort desc "finishedAt")
       .list[Simul](max)
 
   def allNotFinished =
     simulColl.ext.find($doc("status" $ne SimulStatus.Finished.id)).list[Simul]()
 
-  def create(simul: Simul): Funit =
-    simulColl.insert one simul void
+  def create(simul: Simul, featurable: Boolean): Funit =
+    simulColl.insert one {
+      SimulBSONHandler.writeTry(simul).get ++ featurable.??(featurableSelect)
+    } void
 
   def update(simul: Simul) =
-    simulColl.update.one($id(simul.id), simul).void
+    simulColl.update.one($id(simul.id), $set(SimulBSONHandler writeTry simul get)).void
 
   def remove(simul: Simul) =
     simulColl.delete.one($id(simul.id)).void

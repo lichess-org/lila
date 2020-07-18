@@ -8,8 +8,10 @@ final private class CreatedOrganizer(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer)
-    extends Actor {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) extends Actor {
 
   override def preStart(): Unit = {
     context setReceiveTimeout 15.seconds
@@ -39,7 +41,7 @@ final private class CreatedOrganizer(
         }
         .log(getClass.getName)
         .toMat(Sink.ignore)(Keep.right)
-        .run
+        .run()
         .monSuccess(_.tournament.createdOrganizer.tick)
         .addEffectAnyway(scheduleNext)
   }

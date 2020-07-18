@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Dibaboù</string>
+  <string name="materialDifference">Diforc\'hioù a-fet dafar</string>
+  <string name="boardCoordinates">Daveennoù an dablez (A-H, 1-8)</string>
+  <string name="chessPieceSymbol">Arouez ar pezh echedoù</string>
   <string name="pgnLetter">Lizherenn (K, Q, R, B, N)</string>
+  <string name="zenMode">Mod zen</string>
+  <string name="chessClock">Horolaj echedoù</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Pa chom nebeutoc\'h evit &lt; 10 eilenn</string>
   <string name="giveMoreTime">Reiñ muioc\'h a amzer</string>
   <string name="howDoYouMovePieces">Penaos e lakaer ar pezhioù da fiñval?</string>
+  <string name="dragPiece">Lakaat ar pezh da riklañ</string>
   <string name="bothClicksAndDrag">An daou</string>
+  <string name="promoteToQueenAutomatically">Treiñ da rouanez en un doare emgefreek</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Pa chom nebeutoc\'h evit &lt; 30 eilenn</string>
+  <string name="inCorrespondenceGames">Krogadoù a-bell</string>
+  <string name="correspondenceAndUnlimited">A-bell ha diharz</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Doareoù da rokañ</string>
+  <string name="yourPreferencesHaveBeenSaved">Savetaet eo bet ho tibaboù.</string>
 </resources>

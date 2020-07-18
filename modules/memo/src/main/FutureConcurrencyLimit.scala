@@ -15,7 +15,7 @@ final class FutureConcurrencyLimit[K](
 
   private val storage = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(ttl)
-    .build[String, Int]
+    .build[String, Int]()
 
   private val concurrentMap = storage.underlying.asMap
 

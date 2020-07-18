@@ -23,7 +23,7 @@ object bits {
       div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "C")(trans.leaderboard()),
-          a(cls := "more", href := routes.User.list)(trans.more(), " »")
+          a(cls := "more", href := routes.User.list())(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
           table(
@@ -44,7 +44,7 @@ object bits {
       div(cls := "lobby__winners lobby__box")(
         div(cls := "lobby__box__top")(
           h2(cls := "title text", dataIcon := "g")(trans.tournamentWinners()),
-          a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
+          a(cls := "more", href := routes.Tournament.leaderboard())(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
           table(

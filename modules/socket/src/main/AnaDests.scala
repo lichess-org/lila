@@ -25,7 +25,7 @@ case class AnaDests(
     }
 
   lazy val opening = Variant.openingSensibleVariants(variant) ?? {
-    FullOpeningDB findByFen fen.value
+    FullOpeningDB findByFen fen
   }
 
   def json =

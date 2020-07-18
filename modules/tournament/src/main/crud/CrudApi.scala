@@ -74,6 +74,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       waitMinutes = 0,
       startDate = none,
       berserkable = true,
+      streakable = true,
       teamBattle = none,
       description = none,
       hasChat = true

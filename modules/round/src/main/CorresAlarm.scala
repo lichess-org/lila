@@ -15,7 +15,10 @@ final private class CorresAlarm(
     coll: Coll,
     hasUserId: (Game, lila.user.User.ID) => Fu[Boolean],
     proxyGame: Game.ID => Fu[Option[Game]]
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   private case class Alarm(
       _id: String,       // game id
@@ -25,9 +28,9 @@ final private class CorresAlarm(
 
   implicit private val AlarmHandler = reactivemongo.api.bson.Macros.handler[Alarm]
 
-  private def scheduleNext(): Unit = system.scheduler.scheduleOnce(10 seconds)(run)
+  private def scheduleNext(): Unit = system.scheduler.scheduleOnce(10 seconds) { run() }
 
-  system.scheduler.scheduleOnce(10 seconds)(scheduleNext)
+  system.scheduler.scheduleOnce(10 seconds){scheduleNext()}
 
   Bus.subscribeFun("finishGame") {
     case lila.game.actorApi.FinishGame(game, _, _) =>
@@ -74,7 +77,7 @@ final private class CorresAlarm(
         } >> coll.delete.one($id(game.id))
       }
       .toMat(LilaStream.sinkCount)(Keep.right)
-      .run
+      .run()
       .mon(_.round.alarm.time)
-      .addEffectAnyway(scheduleNext)
+      .addEffectAnyway{ scheduleNext() }
 }

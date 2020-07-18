@@ -27,8 +27,21 @@ export function app(element: HTMLElement, env: any) {
 
   return {
     update: d => {
-      env.data = d;
+      env.data = {
+        created: update(env.data.created, d.created),
+        started: update(env.data.started, d.started),
+        finished: update(env.data.finished, d.finished)
+      },
       redraw();
     }
   };
 };
+
+function update(prevs, news) {
+  // updates ignore team tournaments (same for all)
+  // also lacks finished tournaments
+  const now = new Date().getTime();
+  return news.concat(
+    prevs.filter(p => !p.schedule || p.finishesAt < now)
+  );
+}

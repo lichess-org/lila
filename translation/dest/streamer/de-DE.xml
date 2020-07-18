@@ -15,7 +15,7 @@
   <string name="downloadKit">Lade das Streamerpaket herunter</string>
   <string name="xIsStreaming">%s streamt gerade</string>
   <string name="rules">Streaming-Regeln</string>
-  <string name="rule1">Füge das Stichwort \"lichess.org\" in deinen Streamtitel ein, wenn du auf Lichess streamst.</string>
+  <string name="rule1">Füge das Stichwort \"lichess.org\" in deinen Streamtitel ein und verwende die Kategorie \"Chess\", wenn du auf Lichess streamst.</string>
   <string name="rule2">Entferne das Stichwort wenn du gerade nicht Lichess-Sachen streamst.</string>
   <string name="rule3">Lichess wird automatisch deinen Stream erkennen und folgende Zusatzdienste aktivieren:</string>
   <string name="perks">Vorteile für das Streamen mit dem Schlüsselwort</string>
@@ -28,7 +28,7 @@
   <string name="pleaseFillIn">Bitte fülle deine Streamer-Informationen aus und lade ein Bild hoch.</string>
   <string name="whenReady">Wenn du bereit bist als Streamer angezeigt zu werden, %s</string>
   <string name="requestReview">fordere eine Moderatorüberprüfung an</string>
-  <string name="anotherLanguage">Falls du in einer anderen Sprache als Englisch streamst, füge das richtige Sprach-Tag (%s) am Anfang deines Streamtitels ein, eingeschlossen von eckigen Klammern. Zum Beispiel \"[RU]\" für russisch, \"[TR]\" für türkisch, \"[FR]\" für französisch, usw.
+  <string name="anotherLanguage">Falls du in einer anderen Sprache als Englisch streamst, füge das richtige Sprach-Tag (%s) am Anfang deines Streamtitels ein, eingeschlossen von eckigen Klammern. Zum Beispiel \"[DE]\" für deutsch, \"[FR]\" für französisch, \"[RU]\" für russisch, usw.
 Das geht auf Twitch oder YouTube, nicht in den Lichess Streamereinstellungen. 
 Falls dein Stream in Englisch ist, musst du kein Sprach-Tag einfügen.</string>
   <string name="twitchUsername">Dein Twitch-Benutzername oder die URL</string>

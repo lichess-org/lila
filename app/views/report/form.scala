@@ -51,7 +51,7 @@ object form {
     }
 
   def flag(username: String, resource: String, text: String) =
-    postForm(action := routes.Report.flag, cls := "comm-flag")(
+    postForm(action := routes.Report.flag(), cls := "comm-flag")(
       form3.hidden("username", username),
       form3.hidden("resource", resource),
       form3.hidden("text", text take 140),

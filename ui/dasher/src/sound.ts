@@ -30,7 +30,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
 
   return {
     makeList() {
-      const canSpeech = window.speechSynthesis && window.speechSynthesis.getVoices().length;
+      const canSpeech = window.speechSynthesis?.getVoices().length;
       return list.filter(s => s[0] != 'speech' || canSpeech);
     },
     api,
@@ -63,7 +63,7 @@ export function view(ctrl: SoundCtrl): VNode {
   return h('div.sub.sound.' + ctrl.api.set(), {
     hook: {
       insert() {
-        window.speechSynthesis.onvoiceschanged = ctrl.redraw;
+        if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = ctrl.redraw;
       }
     }
   }, [

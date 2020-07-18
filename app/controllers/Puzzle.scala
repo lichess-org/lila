@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.libs.json._
-import play.api.mvc._
 import scala.util.chaining._
 
 import lila.api.Context
@@ -104,7 +103,7 @@ final class Puzzle(
       implicit val req = ctx.body
       OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
         lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "old")
-        env.puzzle.forms.round.bindFromRequest.fold(
+        env.puzzle.forms.round.bindFromRequest().fold(
           jsonFormError,
           resultInt => {
             val result = Result(resultInt == 1)
@@ -141,7 +140,7 @@ final class Puzzle(
         implicit val req = ctx.body
         OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
           lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "new")
-          env.puzzle.forms.round.bindFromRequest.fold(
+          env.puzzle.forms.round.bindFromRequest().fold(
             jsonFormError,
             resultInt =>
               ctx.me match {
@@ -178,7 +177,7 @@ final class Puzzle(
     AuthBody { implicit ctx => me =>
       NoBot {
         implicit val req = ctx.body
-        env.puzzle.forms.vote.bindFromRequest.fold(
+        env.puzzle.forms.vote.bindFromRequest().fold(
           jsonFormError,
           vote =>
             env.puzzle.api.vote.find(id, me) flatMap { v =>

@@ -1,0 +1,17 @@
+{
+  "name": "@build/rollupProject",
+  "version": "2.0.0",
+  "private": true,
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "main": "index.js",
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-node-resolve": "^8.1.0",
+    "@rollup/plugin-typescript": "^5.0.1",
+    "rollup": "^2.18.1",
+    "rollup-plugin-terser": "^6.1.0",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.5"
+  }
+}

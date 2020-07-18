@@ -1,7 +1,6 @@
 package lila.puzzle
 
 import chess.format.{ Forsyth, Uci, UciCharPair }
-import chess.opening.FullOpeningDB
 import lila.game.Game
 import lila.tree
 
@@ -16,7 +15,6 @@ object TreeBuilder {
           ply = init.turns,
           fen = fen,
           check = init.situation.check,
-          opening = FullOpeningDB findByFen fen,
           crazyData = None
         )
         def makeBranch(g: chess.Game, m: Uci.WithSan) = {
@@ -27,7 +25,6 @@ object TreeBuilder {
             move = m,
             fen = fen,
             check = g.situation.check,
-            opening = FullOpeningDB findByFen fen,
             crazyData = None
           )
         }

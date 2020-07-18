@@ -47,8 +47,6 @@ case class Location(
     city: Option[String]
 ) {
 
-  def comparable = (country, ~region, ~city)
-
   def shortCountry: String = ~country.split(',').headOption
 
   override def toString = List(shortCountry.some, region, city).flatten mkString " > "

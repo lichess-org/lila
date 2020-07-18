@@ -46,6 +46,8 @@ function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
       return 'Defend for ' + plural('move', inMoves);
     case 'promotion':
       return 'Safely promote your pawn';
+    default:
+      return undefined;
   }
 }
 

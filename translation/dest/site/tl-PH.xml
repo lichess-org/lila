@@ -275,7 +275,6 @@
     <item quantity="one">Magbigay ng %s segundo</item>
     <item quantity="other">Magbigay ng %s mga segundo</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Ang mga manlalarong ay gumagamit ng tulong ng kompyuter</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ang manlalarong ito artipisyal na dagdagan/nababawasan ang marka</string>
   <string name="openingExplorerAndTablebase">Bubukas tagalakbay &amp; base ng talahanayan</string>
   <string name="takeback">Kunin muli</string>

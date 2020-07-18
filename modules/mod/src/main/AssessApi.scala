@@ -90,8 +90,7 @@ final class AssessApi(
 
   def refreshAssessByUsername(username: String): Funit =
     withUser(username) { user =>
-      if (user.isBot) funit
-      else
+      !user.isBot ??
         (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
           (gs map { g =>
             analysisRepo.byGame(g) flatMap {
@@ -179,7 +178,7 @@ final class AssessApi(
 
     def suspCoefVariation(c: Color) = {
       val x = noFastCoefVariation(game player c)
-      x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(Random.nextBoolean)
+      x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(Random.nextBoolean())
     }
     lazy val whiteSuspCoefVariation = suspCoefVariation(chess.White)
     lazy val blackSuspCoefVariation = suspCoefVariation(chess.Black)

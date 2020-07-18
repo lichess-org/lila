@@ -255,7 +255,6 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">Beri %s saat</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Pemain ini menggunakan bantuan catur komputer</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Pemain ini menggodam rating mereka untuk menaik/menurun</string>
   <string name="openingExplorerAndTablebase">Peneroka opening&amp; senarai jadual</string>
   <string name="takeback">Ambil semula</string>

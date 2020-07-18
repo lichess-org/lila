@@ -97,7 +97,6 @@ PROFILES = {
     "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", asap=True),
     "ocean-server": server_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
     "ocean-assets": asset_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
-    "maple-assets": asset_profile("root@maple.lichess.ovh"),
 }
 
 

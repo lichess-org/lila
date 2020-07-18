@@ -275,7 +275,7 @@
     <item quantity="one">Doni %s sekundojn</item>
     <item quantity="other">Doni %s sekundojn</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Tiu ĉi ludanto uzas komputilan asiston por ludi</string>
+  <string name="thisAccountViolatedTos">Ĉi tiu konto malobservis la Kondiĉojn de Servo de Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tiu ĉi ludanto fripone (mal)pligrandigas sian rangon</string>
   <string name="openingExplorerAndTablebase">Esplorilo de malfermoj &amp; tablobazo</string>
   <string name="takeback">Repreno</string>

@@ -3,64 +3,37 @@ package lila.game
 import ornicar.scalalib.Zero
 import scala.util.Success
 
-sealed trait Blurs extends Any {
+case class Blurs(bits: Long) extends AnyVal {
 
-  def nb: Int
+  def nb = java.lang.Long.bitCount(bits)
 
-  def isEmpty = nb == 0
+  def add(moveIndex: Int) =
+    if (moveIndex < 0 || moveIndex > 63) this
+    else Blurs(bits | (1L << moveIndex))
 
-  // Blurs.Nb is deprecated and read only;
-  // any write will result in a Blurs.Bits
-  def add(moveIndex: Int): Blurs.Bits
+  def asInt = ((bits >>> 32) == 0) option bits.toInt
+
+  def binaryString = java.lang.Long.toBinaryString(bits).reverse
+
+  def booleans = binaryString.toArray.map('1' ==)
+
+  def nonEmpty = bits != 0
+
+  override def toString = s"Blurs.Bits($binaryString)"
 }
 
 object Blurs {
 
-  case class Nb(nb: Int) extends AnyVal with Blurs {
-
-    def add(moveIndex: Int) = blursZero.zero add moveIndex
-
-    override def toString = s"Blurs.Nb($nb)"
-  }
-
-  case class Bits(bits: Long) extends AnyVal with Blurs {
-
-    def nb = java.lang.Long.bitCount(bits)
-
-    def add(moveIndex: Int) =
-      if (moveIndex < 0 || moveIndex > 63) this
-      else Bits(bits | (1L << moveIndex))
-
-    def asInt = ((bits >>> 32) == 0) option bits.toInt
-
-    def binaryString = java.lang.Long.toBinaryString(bits).reverse
-
-    def booleans = binaryString.toArray.map('1' ==)
-
-    override def toString = s"Blurs.Bits($binaryString)"
-  }
-
-  implicit val blursZero = Zero.instance[Blurs](Bits(0L))
+  implicit val blursZero = Zero.instance(Blurs(0L))
 
   import reactivemongo.api.bson._
 
-  implicit private[game] val BlursBitsBSONHandler = lila.db.dsl.tryHandler[Bits](
+  implicit private[game] val BlursBSONHandler = lila.db.dsl.tryHandler[Blurs](
     {
-      case BSONInteger(bits) => Success(Bits(bits & 0xffffffffL))
-      case BSONLong(bits)    => Success(Bits(bits))
+      case BSONInteger(bits) => Success(Blurs(bits & 0xffffffffL))
+      case BSONLong(bits)    => Success(Blurs(bits))
       case v                 => lila.db.BSON.handlerBadValue(s"Invalid blurs bits $v")
     },
-    bits => bits.asInt.fold[BSONValue](BSONLong(bits.bits))(BSONInteger.apply)
+    blurs => blurs.asInt.fold[BSONValue](BSONLong(blurs.bits))(BSONInteger.apply)
   )
-
-  implicit private[game] val BlursNbBSONHandler = BSONIntegerHandler.as[Nb](Nb.apply, _.nb)
-
-  implicit private[game] val BlursBSONWriter = new BSONWriter[Blurs] {
-    def writeTry(b: Blurs) =
-      b match {
-        case bits: Bits => BlursBitsBSONHandler writeTry bits
-        // only Bits can be written; Nb results to Bits(0)
-        case _ => Success[BSONValue](BSONInteger(0))
-      }
-  }
 }

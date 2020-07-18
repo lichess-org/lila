@@ -48,11 +48,10 @@ object Future {
       in: M[A]
   )(f: A => Fu[B])(implicit cbf: BuildFrom[M[A], B, M[B]], ec: ExecutionContext): Fu[M[B]] = {
     in.foldLeft(fuccess(cbf.newBuilder(in))) { (fr, a) =>
-        fr flatMap { r =>
-          f(a).dmap(r += _)
-        }
+      fr flatMap { r =>
+        f(a).dmap(r += _)
       }
-      .dmap(_.result())
+    }.dmap(_.result())
   }
 
   def applySequentially[A](
@@ -86,7 +85,7 @@ object Future {
     else akka.pattern.after(duration, system.scheduler)(run)
 
   def sleep(duration: FiniteDuration)(implicit ec: ExecutionContext, scheduler: Scheduler): Funit = {
-    val p = Promise[Unit]
+    val p = Promise[Unit]()
     scheduler.scheduleOnce(duration)(p success {})
     p.future
   }

@@ -13,18 +13,14 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
 
   def apply(tournaments: VisibleTournaments)(implicit lang: Lang): Fu[JsObject] =
     for {
-      created  <- tournaments.created.collect(visibleJson).sequenceFu
-      started  <- tournaments.started.collect(visibleJson).sequenceFu
-      finished <- tournaments.finished.collect(visibleJson).sequenceFu
+      created  <- tournaments.created.map(fullJson).sequenceFu
+      started  <- tournaments.started.map(fullJson).sequenceFu
+      finished <- tournaments.finished.map(fullJson).sequenceFu
     } yield Json.obj(
       "created"  -> created,
       "started"  -> started,
       "finished" -> finished
     )
-
-  private def visibleJson(implicit lang: Lang): PartialFunction[Tournament, Fu[JsObject]] = {
-    case tour if tour.teamBattle.fold(true)(_.hasEnoughTeams) => fullJson(tour)
-  }
 
   def featured(tournaments: List[Tournament])(implicit lang: Lang): Fu[JsObject] =
     tournaments.map(fullJson).sequenceFu map { objs =>
@@ -54,27 +50,30 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
           "short" -> tour.variant.shortName,
           "name"  -> tour.variant.name
         ),
-        "secondsToStart" -> tour.secondsToStart,
-        "startsAt"       -> tour.startsAt,
-        "finishesAt"     -> tour.finishesAt,
-        "status"         -> tour.status.id,
-        "perf"           -> tour.perfType.map(perfJson)
+        "startsAt"   -> tour.startsAt,
+        "finishesAt" -> tour.finishesAt,
+        "status"     -> tour.status.id,
+        "perf"       -> tour.perfType.map(perfJson)
       )
+      .add("secondsToStart", tour.secondsToStart.some.filter(0 <))
       .add("hasMaxRating", tour.conditions.maxRating.isDefined)
       .add("private", tour.isPrivate)
       .add("position", tour.position.some.filterNot(_.initial) map positionJson)
       .add("schedule", tour.schedule map scheduleJson)
-      .add("battle", tour.teamBattle.map(_ => Json.obj()))
+      .add(
+        "teamBattle",
+        tour.teamBattle.map { battle =>
+          Json.obj(
+            "teams"     -> battle.teams,
+            "nbLeaders" -> battle.nbLeaders
+          )
+        }
+      )
 
   def fullJson(tour: Tournament)(implicit lang: Lang): Fu[JsObject] =
-    for {
-      owner  <- tour.nonLichessCreatedBy ?? lightUserApi.async
-      winner <- tour.winnerId ?? lightUserApi.async
-    } yield baseJson(tour) ++ Json
-      .obj(
-        "winner" -> winner.map(userJson)
-      )
-      .add("major", owner.exists(_.title.isDefined))
+    (tour.winnerId ?? lightUserApi.async) map { winner =>
+      baseJson(tour).add("winner" -> winner.map(userJson))
+    }
 
   private def userJson(u: lila.common.LightUser) =
     Json.obj(

@@ -275,7 +275,6 @@
     <item quantity="one">%s çirke bike</item>
     <item quantity="other">%s çirke bike</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Ev lîzer bernameyeke alîkar yê kişikê bi kar tîne</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ev lîzer reytînga xwe bi awayeke çêkirî bilind dike / kêm dike</string>
   <string name="openingExplorerAndTablebase">Kaşifê destpêkirinê &amp; danegeha dawiyê</string>
   <string name="takeback">Vegerîne</string>

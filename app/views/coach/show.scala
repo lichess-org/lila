@@ -61,7 +61,7 @@ $('.coach-review-form form').show();
             frag(
               if (c.coach.isListed) p("This page is now public.")
               else "This page is not public yet. ",
-              a(href := routes.Coach.edit, cls := "text", dataIcon := "m")("Edit my coach profile")
+              a(href := routes.Coach.edit(), cls := "text", dataIcon := "m")("Edit my coach profile")
             )
           else
             a(

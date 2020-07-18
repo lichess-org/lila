@@ -39,7 +39,7 @@ object crud {
     ) {
       div(cls := "crud page-menu__content box box-pad")(
         h1("New tournament"),
-        postForm(cls := "form3", action := routes.TournamentCrud.create)(inForm(form))
+        postForm(cls := "form3", action := routes.TournamentCrud.create())(inForm(form, none))
       )
     }
 
@@ -64,11 +64,11 @@ object crud {
           )
         ),
         standardFlash(),
-        postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form))
+        postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form, tour.some))
       )
     }
 
-  private def inForm(form: Form[_])(implicit ctx: Context) =
+  private def inForm(form: Form[_], tour: Option[Tournament])(implicit ctx: Context) =
     frag(
       form3.split(
         form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
@@ -112,7 +112,7 @@ object crud {
       ),
       form3.split(
         form3.group(form("position"), trans.startPosition(), half = true)(
-          tournament.form.startingPosition(_)
+          tournament.form.startingPosition(_, tour)
         ),
         form3.checkbox(
           form("teamBattle"),
@@ -121,7 +121,7 @@ object crud {
         )
       ),
       h2("Entry requirements"),
-      tournament.form.condition(form, new TourFields(form), auto = false, Nil),
+      tournament.form.condition(form, new TourFields(form, tour), auto = false, Nil, tour),
       form3.action(form3.submit(trans.apply()))
     )
 
@@ -134,7 +134,7 @@ object crud {
         div(cls := "box__top")(
           h1("Tournament manager"),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := "O")
+            a(cls := "button button-green", href := routes.TournamentCrud.form(), dataIcon := "O")
           )
         ),
         table(cls := "slist slist-pad")(

@@ -14,8 +14,6 @@ import lila.db.dsl._
  */
 final class SwissStandingApi(
     colls: SwissColls,
-    cached: SwissCache,
-    rankingApi: SwissRankingApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -24,7 +22,7 @@ final class SwissStandingApi(
 
   private val pageCache = cacheApi.scaffeine
     .expireAfterWrite(60 minutes)
-    .build[(Swiss.Id, Int), JsObject]
+    .build[(Swiss.Id, Int), JsObject]()
 
   def apply(swiss: Swiss, page: Int): Fu[JsObject] =
     fuccess(pageCache.getIfPresent(swiss.id -> page)) getOrElse {
@@ -36,10 +34,9 @@ final class SwissStandingApi(
     lightUserApi.asyncMany(res.leaderboard.map(_._1.userId)) map {
       _.zip(res.leaderboard).zipWithIndex
         .grouped(10)
-        .zipWithIndex
         .toList
-        .map {
-          case (pagePlayers, i) =>
+        .foldLeft(0) {
+          case (i, pagePlayers) =>
             val page = i + 1
             pageCache.put(
               res.swiss.id -> page,
@@ -61,7 +58,11 @@ final class SwissStandingApi(
                   }
               )
             )
+            page
         }
+    } map { lastPage =>
+      // make sure there's no extra page in the cache in case of players leaving the tournament
+      pageCache.invalidate(res.swiss.id -> (lastPage + 1))
     }
 
   private val first = cacheApi[Swiss.Id, JsObject](16, "swiss.page.first") {

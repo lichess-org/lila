@@ -45,7 +45,7 @@ object Streamer {
         requested = false,
         granted = false,
         ignored = false,
-        autoFeatured = false,
+        tier = 0,
         chatEnabled = true,
         lastGrantedAt = none
       ),
@@ -64,11 +64,11 @@ object Streamer {
   case class Id(value: User.ID)     extends AnyVal with StringValue
   case class Listed(value: Boolean) extends AnyVal
   case class Approval(
-      requested: Boolean,    // user requests a mod to approve
-      granted: Boolean,      // a mod approved
-      ignored: Boolean,      // further requests are ignored
-      autoFeatured: Boolean, // on homepage when status contains "lichess.org"
-      chatEnabled: Boolean,  // embed chat inside lichess
+      requested: Boolean,   // user requests a mod to approve
+      granted: Boolean,     // a mod approved
+      ignored: Boolean,     // further requests are ignored
+      tier: Int,            // homepage featuring tier
+      chatEnabled: Boolean, // embed chat inside lichess
       lastGrantedAt: Option[DateTime]
   )
   case class PicturePath(value: String) extends AnyVal with StringValue
@@ -81,8 +81,8 @@ object Streamer {
     def minUrl  = s"twitch.tv/$userId"
   }
   object Twitch {
-    private val UserIdRegex = """([\w-]{2,25}+)""".r
-    private val UrlRegex    = """twitch\.tv/([\w-]{2,25}+)""".r.unanchored
+    private val UserIdRegex = """([a-zA-Z0-9](?:\w{2,24}+))""".r
+    private val UrlRegex    = ("""twitch\.tv/""" + UserIdRegex + "").r.unanchored
     // https://www.twitch.tv/chessnetwork
     def parseUserId(str: String): Option[String] =
       str match {
@@ -115,5 +115,9 @@ object Streamer {
     def titleName     = withoutStream.titleName
   }
 
-  case class ModChange(list: Option[Boolean], feature: Option[Boolean])
+  case class ModChange(list: Option[Boolean], tier: Option[Int])
+
+  val maxTier = 10
+
+  val tierChoices = (0 to maxTier).map(t => t -> t.toString)
 }

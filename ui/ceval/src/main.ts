@@ -3,12 +3,8 @@ import * as view from './view';
 import * as winningChances from './winningChances';
 
 export { CevalCtrl, NodeEvals, Eval, Work, CevalOpts } from './types';
-
+export { isEvalBetter, renderEval, sanIrreversible } from './util';
 export { ctrl, view, winningChances };
-
-export function isEvalBetter(a: Tree.ClientEval, b?: Tree.ClientEval): boolean {
-  return !b || a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
-}
 
 // stop when another tab starts. Listen only once here,
 // as the ctrl can be instanciated several times.

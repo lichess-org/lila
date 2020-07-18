@@ -1,6 +1,6 @@
 package lila.socket
 
-import chess.format.{ Uci, UciCharPair }
+import chess.format.{ FEN, Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
 import play.api.libs.json._
@@ -40,7 +40,7 @@ case class AnaMove(
             check = game.situation.check,
             dests = Some(movable ?? game.situation.destinations),
             opening = (game.turns <= 30 && Variant.openingSensibleVariants(variant)) ?? {
-              FullOpeningDB findByFen fen
+              FullOpeningDB findByFen FEN(fen)
             },
             drops = if (movable) game.situation.drops else Some(Nil),
             crazyData = game.situation.board.crazyData

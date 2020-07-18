@@ -61,11 +61,9 @@
   <string name="chapterPgn">Fəsil PGN-i</string>
   <string name="studyUrl">Çalışma URL-si</string>
   <string name="currentChapterUrl">İndiki fəsil URL-si</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Fəsili pərçimləmək üçün bunu forumda paylaşa bilərsiniz</string>
   <string name="startAtInitialPosition">İlk mövqedə başlasın</string>
   <string name="startAtX">%s mövqesində başlasın</string>
-  <string name="embedThisChapter">Bu fəsili veb saytınızda və ya bloqunuzda pərçimləyin</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Çalışma fəsillərini pərçimləmək haqqında daha ətraflı oxuyun</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Yalnız ictimai işlər əlavə edilə bilər!</string>
   <string name="open">Aç</string>
   <string name="xBroughtToYouByY">%2$s sizə %1$s gətirdi</string>
   <string name="studyNotFound">Çalışma tapılmadı</string>

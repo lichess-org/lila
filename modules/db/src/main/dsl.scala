@@ -108,6 +108,11 @@ trait dsl {
     $doc("$unset" -> $doc((Seq(field) ++ fields).map(k => (k, BSONString("")))))
   }
 
+  def $unset(fields: Seq[String]): Bdoc =
+    fields.nonEmpty ?? {
+      $doc("$unset" -> $doc(fields.map(k => (k, BSONString("")))))
+    }
+
   def $setBoolOrUnset(field: String, value: Boolean): Bdoc = {
     if (value) $set(field -> true) else $unset(field)
   }
@@ -128,7 +133,7 @@ trait dsl {
   /** Matches values that are greater than or equal to the value specified in the query. */
   def $gte[T: BSONWriter](value: T) = $doc("$gte" -> value)
 
-  /** Matches any of the values that exist in an array specified in the query.*/
+  /** Matches any of the values that exist in an array specified in the query. */
   def $in[T: BSONWriter](values: T*) = $doc("$in" -> values)
 
   /** Matches values that are less than the value specified in the query. */
@@ -165,9 +170,6 @@ trait dsl {
       $doc("$type" -> value)
     }
   }
-
-  def $currentDate(items: (String, CurrentDateValueProducer[_])*): Bdoc =
-    $doc("$currentDate" -> $doc(items.map(item => (item._1, item._2.produce))))
 
   // End of Top Level Field Update Operators
   //**********************************************************************************************//
@@ -240,7 +242,6 @@ trait dsl {
     *  "age" $gt 50 $lt 60
     *  "age" $gte 50 $lte 60
     * }}}
-    *
     */
   case class CompositeExpression(field: String, value: Bdoc)
       extends Expression[Bdoc]
@@ -267,7 +268,7 @@ trait dsl {
       CompositeExpression(field, append($doc("$gte" -> value)))
     }
 
-    /** Matches any of the values that exist in an array specified in the query.*/
+    /** Matches any of the values that exist in an array specified in the query. */
     def $in[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] = {
       SimpleExpression(field, $doc("$in" -> values))
     }

@@ -29,17 +29,19 @@ on:
     - '.sbtopts.default'
 
 jobs:
-  openjdk13:
+  openjdk14:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/cache@v1
+    - uses: actions/cache@v2
       with:
-        path: ~/.sbt
-        key: ${{ runner.os }}-openjdk13-20200416-sbt
+        path: |
+          ~/.sbt
+          ~/.ivy2/cache
+        key: ${{ runner.os }}-sbt-${{ hashFiles('**/project/build.properties') }}-${{ hashFiles('**/build.sbt') }}-${{ hashFiles('**/project/Dependencies.scala') }}
     - uses: actions/setup-java@v1
       with:
-        java-version: 13.0.2
+        java-version: 14.0.1
     - run: TZ=UTC git log -1 --date=iso-strict-local --pretty='format:app.version.commit = "%h"%napp.version.date = "%ad"%napp.version.message = """%s"""%n' | tee conf/version.conf
     - run: ./lila -Depoll=true "test;stage"
     - run: cp LICENSE COPYING.md README.md target/universal/stage && git log -n 1 --pretty=oneline > target/universal/stage/commit.txt

@@ -115,6 +115,8 @@ object EmailConfirm {
         value = s"${user.username}$sep${email.value}"
       )
 
+    def has(req: RequestHeader) = req.session.data contains name
+
     def get(req: RequestHeader): Option[UserEmail] =
       req.session get name map (_.split(sep, 2)) collect {
         case Array(username, email) => UserEmail(username, EmailAddress(email))
@@ -130,21 +132,18 @@ object EmailConfirm {
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
     credits = 40,
     duration = 1 hour,
-    name = "Confirm emails per IP",
     key = "email.confirms.ip"
   )
 
   private lazy val rateLimitPerUser = new RateLimit[String](
     credits = 3,
     duration = 1 hour,
-    name = "Confirm emails per user",
     key = "email.confirms.user"
   )
 
   private lazy val rateLimitPerEmail = new RateLimit[String](
     credits = 3,
     duration = 1 hour,
-    name = "Confirm emails per email",
     key = "email.confirms.email"
   )
 

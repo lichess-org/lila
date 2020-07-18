@@ -34,16 +34,19 @@ final class Env(
     relationEnv: lila.relation.Env,
     analyseEnv: lila.analyse.Env,
     lobbyEnv: lila.lobby.Env,
-    setupEnv: lila.setup.Env,
     simulEnv: lila.simul.Env,
     tourEnv: lila.tournament.Env,
     swissEnv: lila.swiss.Env,
     onlineApiUsers: lila.bot.OnlineApiUsers,
     challengeEnv: lila.challenge.Env,
     msgEnv: lila.msg.Env,
+    cacheApi: lila.memo.CacheApi,
     ws: WSClient,
     val mode: Mode
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   val config = ApiConfig loadFrom appConfig
   import config.apiToken
@@ -53,6 +56,8 @@ final class Env(
   lazy val userApi = wire[UserApi]
 
   lazy val gameApi = wire[GameApi]
+
+  lazy val realPlayers = wire[RealPlayerApi]
 
   lazy val gameApiV2 = wire[GameApiV2]
 
@@ -71,7 +76,7 @@ final class Env(
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv
   )
-  if (mode == Mode.Prod) system.scheduler.scheduleOnce(5 seconds)(influxEvent.start)
+  if (mode == Mode.Prod) system.scheduler.scheduleOnce(5 seconds)(influxEvent.start())
 
   system.scheduler.scheduleWithFixedDelay(20 seconds, 10 seconds) { () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size)

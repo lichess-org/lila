@@ -5,7 +5,10 @@ import scala.concurrent.duration._
 final private class Monitor(
     repo: FishnetRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   val statusCache = cacheApi.unit[Monitor.Status] {
     _.refreshAfterWrite(1 minute)

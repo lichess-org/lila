@@ -1,10 +1,11 @@
+import { Outcome } from 'chessops/types';
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Prop } from 'common';
 import { TreeWrapper } from 'tree';
-import { VNode } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode';
 import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
-import { Role } from 'chessground/types';
+import { Role, Move } from 'chessops/types';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -23,8 +24,8 @@ export interface KeyboardController {
 
 export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
-  disableThreatMode?: Prop<Boolean>;
-  gameOver: (node?: Tree.Node) => 'draw' | 'checkmate' | false;
+  disableThreatMode?: Prop<boolean>;
+  outcome(): Outcome | undefined;
   mandatoryCeval?: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
   currentEvals(): NodeEvals;
@@ -98,11 +99,21 @@ export interface PuzzlePrefs {
 
 export interface PuzzleData {
   puzzle: Puzzle;
-  game: {
-    treeParts: Tree.Node[];
-  };
+  game: PuzzleGame;
   user: PuzzleUser | undefined;
   voted: boolean | null | undefined;
+}
+
+export interface PuzzleGame {
+  id: string;
+  perf: {
+    icon: string;
+    name: string;
+  };
+  rated: boolean;
+  players: Array<{userId: string, name: string, color: Color}>;
+  treeParts: Tree.Node[];
+  clock: string;
 }
 
 export interface PuzzleUser {
@@ -117,6 +128,9 @@ export interface Puzzle {
   color: Color;
   lines: Lines;
   branch: any;
+  rating: number;
+  attempts: number;
+  initialPly: number;
 }
 
 export interface PuzzleRound {
@@ -142,9 +156,7 @@ export interface Promotion {
 export type Lines = { [uci: string]: Lines } | 'fail' | 'win';
 
 export interface MoveTest {
-  orig: Key;
-  dest: Key;
-  promotion?: Role;
+  move: Move,
   fen: Fen;
   path: Tree.Path;
 }

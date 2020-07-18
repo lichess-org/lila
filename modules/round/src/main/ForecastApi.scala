@@ -47,7 +47,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
     if (!pov.isMyTurn) funit
     else
       Uci.Move(uciMove).fold[Funit](fufail(s"Invalid move $uciMove on $pov")) { uci =>
-        val promise = Promise[Unit]
+        val promise = Promise[Unit]()
         tellRound(
           pov.gameId,
           actorApi.round.HumanPlay(

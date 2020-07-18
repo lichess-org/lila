@@ -4,11 +4,8 @@ import play.api.libs.json.{ JsArray, JsObject, Json }
 
 import lila.game.Pov
 import lila.lobby.SeekApi
-import lila.setup.FilterConfig
-import lila.user.UserContext
 
 final class LobbyApi(
-    getFilter: UserContext => Fu[FilterConfig],
     lightUserApi: lila.user.LightUserApi,
     seekApi: SeekApi,
     gameProxyRepo: lila.round.GameProxyRepo
@@ -16,9 +13,8 @@ final class LobbyApi(
 
   def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip
-      (ctx.me ?? gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") zip
-      getFilter(ctx).mon(_.lobby segment "filter") flatMap {
-      case seeks ~ povs ~ filter =>
+      (ctx.me ?? gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap {
+      case (seeks, povs) =>
         val displayedPovs = povs take 9
         lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {
           implicit val lang = ctx.lang
@@ -28,8 +24,7 @@ final class LobbyApi(
             },
             "seeks"        -> JsArray(seeks map (_.render)),
             "nowPlaying"   -> JsArray(displayedPovs map nowPlaying),
-            "nbNowPlaying" -> povs.size,
-            "filter"       -> filter.render
+            "nbNowPlaying" -> povs.size
           ) -> displayedPovs
         }
     }

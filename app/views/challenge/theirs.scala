@@ -64,7 +64,7 @@ object theirs {
                       "You must ",
                       a(
                         cls := "button",
-                        href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "white")}"
+                        href := s"${routes.Auth.login()}?referrer=${routes.Round.watcher(c.id, "white")}"
                       )(trans.signIn()),
                       " to join it."
                     )

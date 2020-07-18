@@ -1,6 +1,7 @@
 package controllers
 
 import io.prismic.Document
+import org.apache.commons.lang3.StringUtils
 import play.api.mvc._
 
 import lila.api.Context
@@ -42,7 +43,7 @@ final class Blog(
 
   def preview(token: String) =
     WithPrismic { _ => implicit prismic =>
-      prismic.api.previewSession(token, prismic.linkResolver, routes.Lobby.home.url) map { redirectUrl =>
+      prismic.api.previewSession(token, prismic.linkResolver, routes.Lobby.home().url) map { redirectUrl =>
         Redirect(redirectUrl)
           .withCookies(
             Cookie(
@@ -151,7 +152,8 @@ final class Blog(
       callback: Either[String, Document] => Result
   )(implicit ctx: lila.api.Context) =
     document.collect {
-      case document if document.slug == slug         => fuccess(callback(Right(document)))
-      case document if document.slugs.contains(slug) => fuccess(callback(Left(document.slug)))
+      case document if document.slug == slug => fuccess(callback(Right(document)))
+      case document if document.slugs.exists(StringUtils.stripEnd(_, ".") == slug) =>
+        fuccess(callback(Left(document.slug)))
     } getOrElse notFound
 }

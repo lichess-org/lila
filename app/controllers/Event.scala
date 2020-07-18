@@ -34,7 +34,7 @@ final class Event(env: Env) extends LilaController(env) {
         implicit val req = ctx.body
         api
           .editForm(event)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.event.edit(event, err)).fuccess,
             data => api.update(event, data) inject Redirect(routes.Event.edit(id)).flashSuccess
@@ -50,7 +50,7 @@ final class Event(env: Env) extends LilaController(env) {
   def create =
     SecureBody(_.ManageEvent) { implicit ctx => me =>
       implicit val req = ctx.body
-      api.createForm.bindFromRequest.fold(
+      api.createForm.bindFromRequest().fold(
         err => BadRequest(html.event.create(err)).fuccess,
         data =>
           api.create(data, me.id) map { event =>

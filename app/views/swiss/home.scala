@@ -15,7 +15,7 @@ object home {
       moreCss = cssTag("swiss.home")
     ) {
       main(cls := "page-small box box-pad page swiss-home")(
-        h1("Swiss tournaments [BETA]"),
+        h1("Swiss tournaments"),
         renderList("Now playing")(now),
         renderList("Starting soon")(soon),
         div(cls := "swiss-home__infos")(

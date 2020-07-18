@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 import lila.common.LightUser
 import lila.memo.CacheApi._
 import lila.rating.{ Perf, PerfType }
+import lila.db.dsl._
 import User.{ LightCount, LightPerf }
 
 final class Cached(
@@ -14,7 +15,10 @@ final class Cached(
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     rankingApi: RankingApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   implicit private val LightUserBSONHandler  = Macros.handler[LightUser]
   implicit private val LightPerfBSONHandler  = Macros.handler[LightPerf]
@@ -89,5 +93,17 @@ final class Cached(
   private[user] val botIds = cacheApi.unit[Set[User.ID]] {
     _.refreshAfterWrite(10 minutes)
       .buildAsyncFuture(_ => userRepo.botIds)
+  }
+
+  private def userIdsLikeFetch(text: String) =
+    userRepo.userIdsLikeFilter(text, $empty, 12)
+
+  private val userIdsLikeCache = cacheApi[String, List[User.ID]](64, "user.like") {
+    _.expireAfterWrite(3 minutes).buildAsyncFuture(userIdsLikeFetch)
+  }
+
+  def userIdsLike(text: String): Fu[List[User.ID]] = {
+    if (text.size < 5) userIdsLikeCache get text
+    else userIdsLikeFetch(text)
   }
 }

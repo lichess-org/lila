@@ -82,6 +82,7 @@
   <string name="averageRatingX">சராசரி மதிப்பெண்கள்: %s</string>
   <string name="recentGames">சமீபத்திய விளையாட்டு</string>
   <string name="topGames">சிறந்த ஆட்டங்கள்</string>
+  <string name="masterDbExplanation">FIDE மதிப்பீடு %2$s முதல் %3$s வரை உள்ள %1$s+ வீரர்களின் இரண்டு மில்லியன் மேஜை மேல் ஆடிய ஆட்டங்கள்</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s ஆட்டத்தில் முடிவுரை</item>
     <item quantity="other">%s ஆட்டங்களில் முடிவுரை</item>
@@ -100,14 +101,18 @@
   <string name="importPgn">PGN இறக்குமதி</string>
   <string name="delete">நீக்கு</string>
   <string name="deleteThisImportedGame">இந்த இறக்குமதி செய்யப்பட்ட விளையாட்டு நீக்க வேண்டுமா?</string>
+  <string name="replayMode">மறுஇயக்கம் செய்யும் முறை</string>
   <string name="realtimeReplay">நேரலை</string>
   <string name="byCPL">சி.பி.எல் முறை </string>
   <string name="openStudy">வெளிப்படையான ஆய்வு</string>
   <string name="enable">இயக்கு</string>
+  <string name="bestMoveArrow">சிறந்த நகர்த்தலுக்கான அம்புக்குறியீடு</string>
+  <string name="evaluationGauge">மதிப்பீட்டு அளவு</string>
   <string name="multipleLines">பல கோடுகள்</string>
   <string name="cpus">மைய செயலகம்</string>
   <string name="memory">நினைவகம்</string>
   <string name="infiniteAnalysis">எல்லையற்ற பகுப்பாய்வு</string>
+  <string name="removesTheDepthLimit">கணிக்கிடும் ஆழத்தின் மதிப்பை நீக்கிவிடும். உங்கள் கணினியை சூடாக வைக்கும்</string>
   <string name="blunder">பெரிய தவறு</string>
   <string name="blunders">பெரும்பிழைகள்</string>
   <string name="mistake">தவறு</string>
@@ -270,8 +275,8 @@
     <item quantity="one">%s நொடிகள் அளி</item>
     <item quantity="other">%s நொடிகள் அளி</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">இந்த விளையாடி கணினிச் சதுரங்க உதவியைப் புழங்குகிறார்</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">இந்த ஆட்டக்காரர் தன் மதிப்பீட்டை செயற்கை முறையில் மாற்றியமைத்துள்ளார்</string>
+  <string name="openingExplorerAndTablebase">உலாவியில் &amp; அட்டவணையை திறக்கிறது</string>
   <string name="takeback">மீட்சி</string>
   <string name="proposeATakeback">மீட்சி கோருக</string>
   <string name="takebackPropositionSent">மீட்சிக் கோரிக்கை அனுப்பியுள்ளது</string>

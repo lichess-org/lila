@@ -21,7 +21,11 @@ final class Env(
     makeClient: Index => ESClient,
     postApi: lila.forum.PostApi,
     postRepo: lila.forum.PostRepo
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    mat: akka.stream.Materializer
+) {
 
   private val config = appConfig.get[ForumSearchConfig]("forumSearch")(AutoConfig.loader)
 

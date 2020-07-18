@@ -46,4 +46,5 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
       }, 'Analyse');
     }
   }
+  return undefined;
 }

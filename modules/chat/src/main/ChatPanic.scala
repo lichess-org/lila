@@ -10,7 +10,7 @@ final class ChatPanic {
 
   def allowed(u: User, tighter: Boolean): Boolean =
     !(enabled || tighter) || {
-      u.count.gameH > 10 && u.createdSinceDays(1)
+      (u.count.gameH > 10 && u.createdSinceDays(1)) || u.isVerified
     }
   def allowed(u: User): Boolean = allowed(u, false)
 
@@ -38,5 +38,5 @@ final class ChatPanic {
     until = none
   }
 
-  def set(v: Boolean) = if (v) start else stop
+  def set(v: Boolean) = if (v) start() else stop()
 }

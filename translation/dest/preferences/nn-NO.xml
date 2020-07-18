@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Brikkesymbol</string>
   <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
   <string name="zenMode">Zen-modus</string>
+  <string name="displayBoardResizeHandle">Vis handtak for brettstorleik</string>
   <string name="onlyOnInitialPosition">Berre for startstillinga</string>
   <string name="blindfoldChess">Blindsjakk</string>
   <string name="chessClock">Sjakklokke</string>
@@ -20,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Horisontal grøn progresjonsline</string>
   <string name="soundWhenTimeGetsCritical">Lyd når det er kritisk lite tid att</string>
   <string name="giveMoreTime">Gje meir tid</string>
+  <string name="gameBehavior">Spelframferd</string>
   <string name="howDoYouMovePieces">Korleis flytta brikker?</string>
   <string name="clickTwoSquares">Klikk to felt</string>
   <string name="dragPiece">Dra brikke</string>

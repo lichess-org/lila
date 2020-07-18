@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode';
 import { spinner, dataIcon, bind, onInsert, numberRow } from './util';
 import SwissCtrl from '../ctrl';
 import * as pagination from '../pagination';
-import { MaybeVNodes, SwissData } from '../interfaces';
+import { MaybeVNodes, SwissData, Pager } from '../interfaces';
 import header from './header';
 import standing from './standing';
 import * as boards from './boards';
@@ -13,7 +13,6 @@ import playerInfo from './playerInfo';
 export default function(ctrl: SwissCtrl) {
   const d = ctrl.data;
   const content = (d.status == 'created' ? created(ctrl) : (d.status == 'started' ? started(ctrl) : finished(ctrl)));
-  const playerInfoNode = playerInfo(ctrl);
   return h('main.' + ctrl.opts.classes, [
     h('aside.swiss__side', {
       hook: onInsert(el => {
@@ -44,17 +43,17 @@ function created(ctrl: SwissCtrl): MaybeVNodes {
     nextRound(ctrl),
     controls(ctrl, pag),
     standing(ctrl, pag, 'created'),
-    h('blockquote.pull-quote', [
+    ctrl.data.quote ? h('blockquote.pull-quote', [
       h('p', ctrl.data.quote.text),
       h('footer', ctrl.data.quote.author)
-    ])
+    ]) : undefined
   ];
 }
 
-const notice = (ctrl: SwissCtrl): VNode => {
+const notice = (ctrl: SwissCtrl): VNode | undefined => {
   const d = ctrl.data;
   return (d.me && !d.me.absent && d.status == 'started' && d.nextRound) ?
-  h('div.swiss__notice.bar-glider', ctrl.trans('standByX', ctrl.data.me.name)) : undefined;
+  h('div.swiss__notice.bar-glider', ctrl.trans('standByX', d.me.name)) : undefined;
 }
 
 function started(ctrl: SwissCtrl): MaybeVNodes {
@@ -81,7 +80,7 @@ function finished(ctrl: SwissCtrl): MaybeVNodes {
   ];
 }
 
-function controls(ctrl: SwissCtrl, pag): VNode {
+function controls(ctrl: SwissCtrl, pag: Pager): VNode {
   return h('div.swiss__controls', [
     h('div.pager', pagination.renderPager(ctrl, pag)),
     joinButton(ctrl)
@@ -140,12 +139,17 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
   if (d.canJoin) return ctrl.joinSpinner ? spinner() :
     h('button.fbt.text.highlight', {
       attrs: dataIcon('G'),
-      hook: bind('click', ctrl.join, ctrl.redraw)
+      hook: bind('click', _ => {
+        if (d.password) {
+          const p = prompt(ctrl.trans.noarg('password'));
+          if (p !== null) ctrl.join(p);
+        } else ctrl.join();
+      }, ctrl.redraw)
     }, ctrl.trans.noarg('join'));
 
   if (d.me && d.status != 'finished') return d.me.absent ? (ctrl.joinSpinner ? spinner() : h('button.fbt.text.highlight', {
       attrs: dataIcon('G'),
-      hook: bind('click', ctrl.join, ctrl.redraw)
+      hook: bind('click', _ => ctrl.join(), ctrl.redraw)
     }, ctrl.trans.noarg('join'))) :
     (ctrl.joinSpinner ? spinner() : h('button.fbt.text', {
       attrs: dataIcon('b'),
@@ -163,12 +167,12 @@ function joinTheGame(ctrl: SwissCtrl) {
 }
 
 function confetti(data: SwissData): VNode | undefined {
-  if (data.me && data.isRecentlyFinished && window.lichess.once('tournament.end.canvas.' + data.id))
-    return h('canvas#confetti', {
+  return (data.me && data.isRecentlyFinished && window.lichess.once('tournament.end.canvas.' + data.id)) ?
+    h('canvas#confetti', {
       hook: {
         insert: _ => window.lichess.loadScript('javascripts/confetti.js')
       }
-    });
+    }) : undefined;
 }
 
 function stats(ctrl: SwissCtrl): VNode | undefined {

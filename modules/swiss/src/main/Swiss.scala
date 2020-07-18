@@ -34,8 +34,9 @@ case class Swiss(
   def isFinished         = finishedAt.isDefined
   def isNotFinished      = !isFinished
   def isNowOrSoon        = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
-  def isEnterable        = isNotFinished && round.value <= settings.nbRounds / 2
   def isRecentlyFinished = finishedAt.exists(f => (nowSeconds - f.getSeconds) < 30 * 60)
+  def isEnterable =
+    isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 
   def allRounds: List[SwissRound.Number]      = (1 to round.value).toList.map(SwissRound.Number.apply)
   def finishedRounds: List[SwissRound.Number] = (1 to (round.value - 1)).toList.map(SwissRound.Number.apply)
@@ -63,9 +64,15 @@ case class Swiss(
     if (minutes < 60) s"${minutes}m"
     else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
   }
+
+  def roundInfo = Swiss.RoundInfo(teamId, settings.chatFor)
+
+  lazy val looksLikePrize = lila.common.String.looksLikePrize(s"$name ${~settings.description}")
 }
 
 object Swiss {
+
+  val maxPlayers = 2000
 
   case class Id(value: String) extends AnyVal with StringValue
   case class Round(value: Int) extends AnyVal with IntValue
@@ -82,12 +89,22 @@ object Swiss {
       nbRounds: Int,
       rated: Boolean,
       description: Option[String] = None,
-      hasChat: Boolean = true,
+      chatFor: ChatFor = ChatFor.default,
+      password: Option[String] = None,
       roundInterval: FiniteDuration
   ) {
     lazy val intervalSeconds = roundInterval.toSeconds.toInt
     def manualRounds         = intervalSeconds == Swiss.RoundInterval.manual
     def dailyInterval        = (!manualRounds && intervalSeconds >= 24 * 3600) option intervalSeconds / 3600 / 24
+  }
+
+  type ChatFor = Int
+  object ChatFor {
+    val NONE    = 0
+    val LEADERS = 10
+    val MEMBERS = 20
+    val ALL     = 30
+    val default = MEMBERS
   }
 
   object RoundInterval {
@@ -103,4 +120,9 @@ object Swiss {
   def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
 
   case class PastAndNext(past: List[Swiss], next: List[Swiss])
+
+  case class RoundInfo(
+      teamId: TeamID,
+      chatFor: ChatFor
+  )
 }

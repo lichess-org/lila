@@ -8,35 +8,15 @@ import chess.variant.Variant
 import lila.rating.RatingRange
 import lila.user.UserContext
 
-final class FormFactory(
-    anonConfigRepo: AnonConfigRepo,
-    userConfigRepo: UserConfigRepo
-) {
+final class FormFactory {
 
   import Mappings._
 
-  def filterFilled(implicit ctx: UserContext): Fu[(Form[FilterConfig], FilterConfig)] =
-    filterConfig dmap { f =>
-      filter.fill(f) -> f
-    }
+  val filter = Form(single("local" -> text))
 
-  lazy val filter = Form(
-    mapping(
-      "variant"     -> list(variantWithVariants),
-      "mode"        -> list(rawMode(withRated = true)),
-      "speed"       -> list(speed),
-      "increment"   -> list(increment),
-      "ratingRange" -> ratingRange
-    )(FilterConfig.<<)(_.>>)
-  )
-
-  def filterConfig(implicit ctx: UserContext): Fu[FilterConfig] = savedConfig dmap (_.filter)
-
-  def aiFilled(fen: Option[FEN])(implicit ctx: UserContext): Fu[Form[AiConfig]] =
-    aiConfig dmap { config =>
-      ai fill fen.fold(config) { f =>
-        config.copy(fen = f.some, variant = chess.variant.FromPosition)
-      }
+  def aiFilled(fen: Option[FEN]): Form[AiConfig] =
+    ai fill fen.foldLeft(AiConfig.default) {
+      case (config, f) => config.copy(fen = f.some, variant = chess.variant.FromPosition)
     }
 
   lazy val ai = Form(
@@ -49,18 +29,14 @@ final class FormFactory(
       "level"     -> level,
       "color"     -> color,
       "fen"       -> fenField
-    )(AiConfig.<<)(_.>>)
+    )(AiConfig.from)(_.>>)
       .verifying("invalidFen", _.validFen)
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
   )
 
-  def aiConfig(implicit ctx: UserContext): Fu[AiConfig] = savedConfig dmap (_.ai)
-
-  def friendFilled(fen: Option[FEN])(implicit ctx: UserContext): Fu[Form[FriendConfig]] =
-    friendConfig dmap { config =>
-      friend(ctx) fill fen.fold(config) { f =>
-        config.copy(fen = f.some, variant = chess.variant.FromPosition)
-      }
+  def friendFilled(fen: Option[FEN])(implicit ctx: UserContext): Form[FriendConfig] =
+    friend(ctx) fill fen.foldLeft(FriendConfig.default) {
+      case (config, f) => config.copy(fen = f.some, variant = chess.variant.FromPosition)
     }
 
   def friend(ctx: UserContext) =
@@ -74,17 +50,15 @@ final class FormFactory(
         "mode"      -> mode(withRated = ctx.isAuth),
         "color"     -> color,
         "fen"       -> fenField
-      )(FriendConfig.<<)(_.>>)
+      )(FriendConfig.from)(_.>>)
         .verifying("Invalid clock", _.validClock)
         .verifying("invalidFen", _.validFen)
     )
 
-  def friendConfig(implicit ctx: UserContext): Fu[FriendConfig] = savedConfig dmap (_.friend)
+  def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Form[HookConfig] =
+    hook fill HookConfig.default.withTimeModeString(timeModeString)
 
-  def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Fu[Form[HookConfig]] =
-    hookConfig dmap (_ withTimeModeString timeModeString) dmap hook(ctx).fill
-
-  def hook(ctx: UserContext) =
+  def hook(implicit ctx: UserContext) =
     Form(
       mapping(
         "variant"     -> variantWithVariants,
@@ -95,12 +69,10 @@ final class FormFactory(
         "mode"        -> mode(ctx.isAuth),
         "ratingRange" -> optional(ratingRange),
         "color"       -> color
-      )(HookConfig.<<)(_.>>)
+      )(HookConfig.from)(_.>>)
         .verifying("Invalid clock", _.validClock)
         .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
     )
-
-  def hookConfig(implicit ctx: UserContext): Fu[HookConfig] = savedConfig dmap (_.hook)
 
   lazy val boardApiHook = Form(
     mapping(
@@ -153,7 +125,7 @@ final class FormFactory(
         "color"         -> optional(color),
         "fen"           -> fenField,
         "acceptByToken" -> optional(nonEmptyText)
-      )(ApiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
+      )(ApiConfig.from)(_.>>).verifying("invalidFen", _.validFen)
     )
 
     lazy val ai = Form(
@@ -164,7 +136,7 @@ final class FormFactory(
         "days"  -> optional(days),
         "color" -> optional(color),
         "fen"   -> fenField
-      )(ApiAiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
+      )(ApiAiConfig.from)(_.>>).verifying("invalidFen", _.validFen)
     )
 
     lazy val open = Form(
@@ -172,10 +144,7 @@ final class FormFactory(
         variant,
         clock,
         "fen" -> fenField
-      )(OpenConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
+      )(OpenConfig.from)(_.>>).verifying("invalidFen", _.validFen)
     )
   }
-
-  def savedConfig(implicit ctx: UserContext): Fu[UserConfig] =
-    ctx.me.fold(anonConfigRepo config ctx.req)(userConfigRepo.config)
 }

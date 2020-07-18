@@ -14,7 +14,7 @@ object activities {
   case class Games(value: Map[PerfType, Score]) extends AnyVal {
     def add(pt: PerfType, score: Score) =
       copy(
-        value = value + (pt -> value.get(pt).fold(score)(_ + score))
+        value = value + (pt -> value.get(pt).fold(score)(_ add score))
       )
     def hasNonCorres = value.exists(_._1 != PerfType.Correspondence)
   }
@@ -27,7 +27,7 @@ object activities {
   implicit val PostsZero = Zero.instance(Posts(Nil))
 
   case class Puzzles(score: Score) {
-    def +(s: Score) = Puzzles(score = score + s)
+    def +(s: Score) = Puzzles(score = score add s)
   }
   implicit val PuzzlesZero = Zero.instance(Puzzles(ScoreZero.zero))
 
@@ -57,7 +57,7 @@ object activities {
   implicit val SimulsZero = Zero.instance(Simuls(Nil))
 
   case class Corres(moves: Int, movesIn: List[GameId], end: List[GameId]) {
-    def +(gameId: GameId, moved: Boolean, ended: Boolean) =
+    def add(gameId: GameId, moved: Boolean, ended: Boolean) =
       Corres(
         moves = moves + (moved ?? 1),
         movesIn = if (moved) (gameId :: movesIn).distinct.take(maxSubEntries) else movesIn,

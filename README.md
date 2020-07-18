@@ -31,7 +31,7 @@ WebSocket connections are handled by a [seperate server](https://github.com/orni
 Lichess talks to [Stockfish](http://stockfishchess.org/) deployed in an [AI cluster](https://github.com/niklasf/fishnet) of donated servers.
 It uses [MongoDB](https://mongodb.org) to store more than 1.7 billion games, which are indexed by [elasticsearch](http://elasticsearch.org).
 HTTP requests and WebSocket connections can be proxied by [nginx](http://nginx.org).
-The web client is written in [TypeScript](https://typescriptlang.org) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
+The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 All rated games are published in a [free PGN database](https://database.lichess.org).
 Browser testing done with [![Browserstack](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).

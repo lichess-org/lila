@@ -309,7 +309,6 @@
     <item quantity="many">Даць %s секунд</item>
     <item quantity="other">Даць %s секунд</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Гэты гулец выкарыстоўвае падказкі ад шахматнай праграмы</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Гэты гулец штучна павялічвае свой рэйтынг</string>
   <string name="openingExplorerAndTablebase">База дэбютаў і эндшпіляў</string>
   <string name="takeback">Скасаваць ход</string>
@@ -928,4 +927,7 @@
   <string name="important">Важна</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваш запыт можа ужо мець адказ %1$s</string>
   <string name="inTheFAQ">у FAQ</string>
+  <string name="youCannotPostYetPlaySomeGames">Вы яшчэ не можаце публікаваць на формах. Згуляйце некалькі партый!</string>
+  <string name="subscribe">Падпісацца</string>
+  <string name="unsubscribe">Адпісацца</string>
 </resources>

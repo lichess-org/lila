@@ -14,7 +14,7 @@ export function node(n: Tree.Node, cut: boolean): void {
 }
 
 export function success(): void {
-  withSpeech(s => s.say("Success!", false));
+  withSpeech(s => s.say('Success!', false));
 }
 
 function withSpeech(f: (speech: LichessSpeech) => void): void {

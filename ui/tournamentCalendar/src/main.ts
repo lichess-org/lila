@@ -5,7 +5,7 @@ import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 
-import { Tournament, Ctrl } from './interfaces'
+import { Ctrl } from './interfaces'
 
 const patch = init([klass, attributes]);
 

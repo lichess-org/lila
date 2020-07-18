@@ -255,7 +255,7 @@ ${clas.desc}""",
           .one(invite)
           .void
           .flatMap { _ =>
-            sendInviteMessage(teacher, user, clas, invite) inject Invited
+            sendInviteMessage(teacher, user, clas, invite)
           }
           .recover {
             lila.db.recoverDuplicateKey(_ => Found)
@@ -279,13 +279,16 @@ ${clas.desc}""",
               val stu = Student.make(user, clas, invite.created.by, invite.realName, managed = false)
               colls.student.insert.one(stu) >>
                 colls.invite.updateField($id(id), "accepted", true) >>
-                student.sendWelcomeMessage(invite.created.by, user, clas) inject stu.some
+                student.sendWelcomeMessage(invite.created.by, user, clas) inject
+                stu.some recoverWith lila.db.recoverDuplicateKey { _ =>
+                student.get(clas, user.id)
+              }
             }
           }
         }
       }
 
-    def decline(id: ClasInvite.Id, user: User): Fu[Option[ClasInvite]] =
+    def decline(id: ClasInvite.Id): Fu[Option[ClasInvite]] =
       colls.invite.ext
         .findAndUpdate[ClasInvite](
           selector = $id(id),
@@ -301,20 +304,29 @@ ${clas.desc}""",
     def delete(id: ClasInvite.Id): Funit =
       colls.invite.delete.one($id(id)).void
 
-    private def sendInviteMessage(teacher: User, student: User, clas: Clas, invite: ClasInvite): Funit = {
-      import lila.i18n.I18nKeys.clas._
-      implicit val lang = student.realLang | lila.i18n.defaultLang
-      msgApi
-        .post(
-          orig = teacher.id,
-          dest = student.id,
-          text = s"""${invitationToClass.txt(clas.name)}
+    private def sendInviteMessage(
+        teacher: User,
+        student: User,
+        clas: Clas,
+        invite: ClasInvite
+    ): Fu[ClasInvite.Feedback] = {
+      val url = s"$baseUrl/class/invitation/${invite._id}"
+      if (student.kid) fuccess(ClasInvite.Feedback.CantMsgKid(url))
+      else {
+        import lila.i18n.I18nKeys.clas._
+        implicit val lang = student.realLang | lila.i18n.defaultLang
+        msgApi
+          .post(
+            orig = teacher.id,
+            dest = student.id,
+            text = s"""${invitationToClass.txt(clas.name)}
 
 ${clickToViewInvitation.txt()}
 
-$baseUrl/class/invitation/${invite._id}""",
-          multi = true
-        )
+$url""",
+            multi = true
+          ) inject ClasInvite.Feedback.Invited
+      }
     }
   }
 

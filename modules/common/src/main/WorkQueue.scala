@@ -29,7 +29,7 @@ final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parall
   def apply[A](future: => Fu[A]): Fu[A] = run(() => future)
 
   def run[A](task: Task[A]): Fu[A] = {
-    val promise = Promise[A]
+    val promise = Promise[A]()
     queue.offer(task -> promise) flatMap {
       case QueueOfferResult.Enqueued =>
         promise.future
@@ -55,7 +55,7 @@ final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parall
           }
     }
     .toMat(Sink.ignore)(Keep.left)
-    .run
+    .run()
 }
 
 object WorkQueue {

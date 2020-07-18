@@ -56,7 +56,7 @@ export default class EditorCtrl {
     });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
-    this.rules = 'chess';
+    this.rules = (!this.cfg.embed && window.history.state && window.history.state.rules) ? window.history.state.rules : 'chess';
 
     this.redraw = () => {};
     this.setFen(cfg.fen);
@@ -66,8 +66,9 @@ export default class EditorCtrl {
   onChange(): void {
     const fen = this.getFen();
     if (!this.cfg.embed) {
-      if (fen == INITIAL_FEN) window.history.replaceState(null, '', '/editor');
-      else window.history.replaceState(null, '', this.makeUrl('/editor/', fen));
+      const state = { rules: this.rules };
+      if (fen == INITIAL_FEN) window.history.replaceState(state, '', '/editor');
+      else window.history.replaceState(state, '', this.makeUrl('/editor/', fen));
     }
     this.options.onChange && this.options.onChange(fen);
     this.redraw();

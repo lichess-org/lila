@@ -3,20 +3,16 @@ package lila.mod
 import lila.common.{ Bus, EmailAddress }
 import lila.report.{ Mod, ModId, Room, Suspect, SuspectId }
 import lila.security.{ Granter, Permission }
-import lila.security.{ Firewall, Store => SecurityStore }
 import lila.user.{ LightUserApi, Title, User, UserRepo }
 
 final class ModApi(
     userRepo: UserRepo,
     logApi: ModlogApi,
-    userSpyApi: lila.security.UserSpyApi,
-    firewall: Firewall,
     reportApi: lila.report.ReportApi,
     reporter: lila.hub.actors.Report,
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
-    refunder: RatingRefund,
-    securityStore: SecurityStore
+    refunder: RatingRefund
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def setAlt(mod: Mod, prev: Suspect, v: Boolean): Funit =
@@ -95,23 +91,11 @@ final class ModApi(
     } inject sus
   }
 
-  def setBan(mod: Mod, prev: Suspect, value: Boolean): Funit =
-    for {
-      spy <- userSpyApi(prev.user)
-      sus = prev.set(_.withMarks(_.set(_.Ipban, value)))
-      _ <- userRepo.setIpBan(sus.user.id, sus.user.marks.ipban)
-      _ <- logApi.ban(mod, sus)
-      _ <-
-        if (sus.user.marks.ipban) firewall.blockIps(spy.rawIps) >> securityStore.disconnect(sus.user.id)
-        else firewall unblockIps spy.rawIps
-    } yield ()
-
-  def garbageCollect(sus: Suspect, ipBan: Boolean): Funit =
+  def garbageCollect(sus: Suspect): Funit =
     for {
       mod <- reportApi.getLichessMod
       _   <- setAlt(mod, sus, true)
       _   <- setTroll(mod, sus, false)
-      _   <- ipBan ?? setBan(mod, sus, true)
     } yield logApi.garbageCollect(mod, sus)
 
   def disableTwoFactor(mod: String, username: String): Funit =

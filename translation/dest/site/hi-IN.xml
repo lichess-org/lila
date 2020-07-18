@@ -275,7 +275,6 @@
     <item quantity="one">%s सेकंड्स दें</item>
     <item quantity="other">%s सेकंड्स दें</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">यह खिलाड़ी शतरंज खेलने के लिये कम्प्यूटर की सहायता लेता है</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">यह खिलाड़ी धोखे से अपने अंक बदलता है</string>
   <string name="openingExplorerAndTablebase">ओपनिंग एक्सप्लोरर &amp; टेबलबेस</string>
   <string name="takeback">चाल को वापस लें</string>

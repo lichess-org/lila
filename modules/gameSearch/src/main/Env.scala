@@ -21,7 +21,10 @@ final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
     makeClient: Index => ESClient
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)
 

@@ -177,7 +177,7 @@ final class CoachApi(
 
     def deleteAllBy(userId: User.ID): Funit =
       for {
-        reviews <- reviewColl.ext.find($doc("userId" -> userId)).list[CoachReview]
+        reviews <- reviewColl.ext.find($doc("userId" -> userId)).list[CoachReview]()
         _ <- reviews.map { review =>
           reviewColl.delete.one($doc("userId" -> review.userId)).void
         }.sequenceFu

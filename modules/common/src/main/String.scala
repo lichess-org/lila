@@ -50,6 +50,13 @@ object String {
     }
   def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
 
+  def hasZeroWidthChars(s: String) =
+    s.contains('\u200b') ||
+      s.contains('\u200c') ||
+      s.contains('\u200d') ||
+      s.contains('\u200e') ||
+      s.contains('\u200f')
+
   object base64 {
     import java.util.Base64
     import java.nio.charset.StandardCharsets
@@ -84,7 +91,7 @@ object String {
         escapeHtmlRaw(s)
       }
     def unescapeHtml(html: String): String =
-      org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4(html)
+      org.apache.commons.text.StringEscapeUtils.unescapeHtml4(html)
 
     def markdownLinks(text: String): Frag =
       raw {
@@ -110,4 +117,9 @@ object String {
       }
     }
   }
+
+  private val prizeRegex =
+    """(?i)(prize|\$|€|£|¥|₽|元|₹|₱|₿|rupee|rupiah|ringgit|usd|dollar|paypal|cash|award|\bfees?\b)""".r.unanchored
+
+  def looksLikePrize(txt: String) = prizeRegex matches txt
 }

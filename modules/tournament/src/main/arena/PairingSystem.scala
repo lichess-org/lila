@@ -9,7 +9,10 @@ final private[tournament] class PairingSystem(
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
     userRepo: UserRepo
-)(implicit ec: scala.concurrent.ExecutionContext, idGenerator: lila.game.IdGenerator) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    idGenerator: lila.game.IdGenerator
+) {
 
   import PairingSystem._
   import lila.tournament.Tournament.tournamentUrl
@@ -77,7 +80,7 @@ final private[tournament] class PairingSystem(
       else
         fuccess {
           preps.zip(ids).map {
-            case (prep, id) => prep.toPairing(id)(Random.nextBoolean)
+            case (prep, id) => prep.toPairing(id)(Random.nextBoolean())
           }
         }
     }

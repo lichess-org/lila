@@ -10,4 +10,4 @@ export default function(initialNode: Tree.Node, solution: Tree.Node, color: Colo
 
   if (solutionNode) treeOps.merge(solutionNode, solution);
   else initialNode.children.push(solution);
-};
+}

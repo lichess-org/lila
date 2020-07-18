@@ -16,13 +16,15 @@ final class Streamer(
 
   def index(page: Int) =
     Open { implicit ctx =>
-      pageHit
-      val requests = getBool("requests") && isGranted(_.Streamers)
-      for {
-        liveStreams <- env.streamer.liveStreamApi.all
-        live        <- api withUsers liveStreams
-        pager       <- env.streamer.pager.notLive(page, liveStreams, requests)
-      } yield Ok(html.streamer.index(live, pager, requests))
+      ctx.noKid ?? {
+        pageHit
+        val requests = getBool("requests") && isGranted(_.Streamers)
+        for {
+          liveStreams <- env.streamer.liveStreamApi.all
+          live        <- api withUsers liveStreams
+          pager       <- env.streamer.pager.notLive(page, liveStreams, requests)
+        } yield Ok(html.streamer.index(live, pager, requests))
+      }
     }
 
   def live =
@@ -39,24 +41,28 @@ final class Streamer(
 
   def show(username: String) =
     Open { implicit ctx =>
-      OptionFuResult(api find username) { s =>
-        WithVisibleStreamer(s) {
-          for {
-            sws       <- env.streamer.liveStreamApi of s
-            activity  <- env.activity.read.recent(sws.user, 10)
-            following <- ctx.userId.??(env.relation.api.fetchFollows(_, sws.user.id))
-          } yield Ok(html.streamer.show(sws, activity, following))
+      ctx.noKid ?? {
+        OptionFuResult(api find username) { s =>
+          WithVisibleStreamer(s) {
+            for {
+              sws       <- env.streamer.liveStreamApi of s
+              activity  <- env.activity.read.recent(sws.user, 10)
+              following <- ctx.userId.??(env.relation.api.fetchFollows(_, sws.user.id))
+            } yield Ok(html.streamer.show(sws, activity, following))
+          }
         }
       }
     }
 
   def create =
     AuthBody { implicit ctx => me =>
-      NoLame {
-        NoShadowban {
-          api find me flatMap {
-            case None => api.create(me) inject Redirect(routes.Streamer.edit)
-            case _    => Redirect(routes.Streamer.edit).fuccess
+      ctx.noKid ?? {
+        NoLame {
+          NoShadowban {
+            api find me flatMap {
+              case None => api.create(me) inject Redirect(routes.Streamer.edit())
+              case _    => Redirect(routes.Streamer.edit()).fuccess
+            }
           }
         }
       }
@@ -86,18 +92,27 @@ final class Streamer(
           implicit val req = ctx.body
           StreamerForm
             .userForm(sws.streamer)
-            .bindFromRequest
+            .bindFromRequest()
             .fold(
               error =>
                 modData(s.user) map { forMod =>
                   BadRequest(html.streamer.edit(sws, error, forMod))
                 },
               data =>
-                api.update(sws.streamer, data, isGranted(_.Streamers)) map { change =>
+                api.update(sws.streamer, data, isGranted(_.Streamers)) flatMap { change =>
                   change.list foreach { env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
-                  change.feature foreach { env.mod.logApi.streamerFeature(lila.report.Mod(me), s.user.id, _) }
-                  Redirect {
-                    s"${routes.Streamer.edit().url}${if (sws.streamer is me) "" else "?u=" + sws.user.id}"
+                  change.tier foreach { env.mod.logApi.streamerTier(lila.report.Mod(me), s.user.id, _) }
+                  if (data.approval.flatMap(_.quick).isDefined)
+                    env.streamer.pager.nextRequestId map { nextId =>
+                      Redirect {
+                        nextId.fold(s"${routes.Streamer.index()}?requests=1") { id =>
+                          s"${routes.Streamer.edit().url}?u=$id"
+                        }
+                      }
+                    }
+                  else {
+                    val next = if (sws.streamer is me) "" else s"?u=${sws.user.id}"
+                    Redirect(s"${routes.Streamer.edit().url}${next}").fuccess
                   }
                 }
             )
@@ -107,7 +122,7 @@ final class Streamer(
 
   def approvalRequest =
     AuthBody { _ => me =>
-      api.approval.request(me) inject Redirect(routes.Streamer.edit)
+      api.approval.request(me) inject Redirect(routes.Streamer.edit())
     }
 
   def picture =
@@ -124,8 +139,8 @@ final class Streamer(
           case Some(pic) =>
             api.uploadPicture(s.streamer, pic) recover {
               case e: lila.base.LilaException => BadRequest(html.streamer.picture(s, e.message.some))
-            } inject Redirect(routes.Streamer.edit)
-          case None => fuccess(Redirect(routes.Streamer.edit))
+            } inject Redirect(routes.Streamer.edit())
+          case None => fuccess(Redirect(routes.Streamer.edit()))
         }
       }
     }
@@ -133,7 +148,7 @@ final class Streamer(
   def pictureDelete =
     Auth { implicit ctx => _ =>
       AsStreamer { s =>
-        api.deletePicture(s.streamer) inject Redirect(routes.Streamer.edit)
+        api.deletePicture(s.streamer) inject Redirect(routes.Streamer.edit())
       }
     }
 

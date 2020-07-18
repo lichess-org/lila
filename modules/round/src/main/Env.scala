@@ -53,7 +53,11 @@ final class Env(
     slackApi: lila.slack.SlackApi,
     ratingFactors: () => lila.rating.RatingFactors,
     shutdown: akka.actor.CoordinatedShutdown
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, scheduler: akka.actor.Scheduler) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    scheduler: akka.actor.Scheduler
+) {
 
   implicit private val moretimeLoader  = durationLoader(MoretimeDuration.apply)
   implicit private val animationLoader = durationLoader(AnimationDuration.apply)

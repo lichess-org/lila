@@ -102,7 +102,7 @@ final private class LobbyTrouper(
     case LeaveAll => remoteDisconnectAllAt = DateTime.now
 
     case Tick(promise) =>
-      HookRepo.truncateIfNeeded
+      HookRepo.truncateIfNeeded()
       socket
         .ask[Sris](GetSrisP)
         .chronometer

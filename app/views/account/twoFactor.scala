@@ -27,12 +27,12 @@ object twoFactor {
       div(cls := "account twofactor box box-pad")(
         h1(twoFactorAuth()),
         standardFlash(),
-        postForm(cls := "form3", action := routes.Account.setupTwoFactor)(
+        postForm(cls := "form3", action := routes.Account.setupTwoFactor())(
           div(cls := "form-group")(twoFactorHelp()),
           div(cls := "form-group")(
             twoFactorApp(
               a(
-                href := "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
+                href := "https://play.google.com/store/apps/details?id=org.shadowice.flocke.andotp"
               )("Android"),
               a(href := "https://itunes.apple.com/app/google-authenticator/id388497605?mt=8")("iOS")
             )
@@ -41,7 +41,10 @@ object twoFactor {
           qrCode,
           div(cls := "form-group explanation")(enterPassword()),
           form3.hidden(form("secret")),
-          form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "current-password"),
+          form3.passwordModified(form("passwd"), trans.password())(
+            autofocus,
+            autocomplete := "current-password"
+          ),
           form3.group(form("token"), authenticationCode())(
             form3.input(_)(pattern := "[0-9]{6}", autocomplete := "one-time-code", required)
           ),
@@ -63,7 +66,7 @@ object twoFactor {
           twoFactorEnabled()
         ),
         standardFlash(),
-        postForm(cls := "form3", action := routes.Account.disableTwoFactor)(
+        postForm(cls := "form3", action := routes.Account.disableTwoFactor())(
           p(twoFactorDisable()),
           form3.passwordModified(form("passwd"), trans.password())(autocomplete := "current-password"),
           form3.group(form("token"), authenticationCode())(

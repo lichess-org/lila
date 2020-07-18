@@ -15,7 +15,10 @@ final private class CheckMail(
     ws: WSClient,
     config: SecurityConfig.CheckMail,
     mongoCache: lila.memo.MongoCache.Api
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   def apply(domain: Domain.Lower): Fu[Boolean] =
     if (config.key.value.isEmpty) fuccess(true)
@@ -60,7 +63,7 @@ final private class CheckMail(
     ws.url(config.url)
       .withQueryStringParameters("domain" -> domain.value, "disable_test_connection" -> "true")
       .withHttpHeaders("x-rapidapi-key" -> config.key.value)
-      .get
+      .get()
       .withTimeout(15.seconds)
       .map {
         case res if res.status == 200 =>

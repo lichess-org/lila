@@ -260,7 +260,6 @@
     <item quantity="one">%s sekunt goş</item>
     <item quantity="other">%s sekunt goş</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Bu oýunçy kompýuter ýardamly</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oýunçy emeli usul bilen reýtingini artdyrýar/kemeldýär</string>
   <string name="openingExplorerAndTablebase">Açylyşlar eksploreri &amp; tablisasy</string>
   <string name="takeback">Yzyna al</string>

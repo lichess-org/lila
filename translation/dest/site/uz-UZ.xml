@@ -275,7 +275,6 @@
     <item quantity="one">%s sekund berish</item>
     <item quantity="other">%s sekundlar berish</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Ushbu o\'yinchi shahmat kompyuter yordamchisini ishlatayabdi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ushbu o\'yinchi o\'zinining reytingini suniy holda oshirayabdi/kamaytirayabdi</string>
   <string name="openingExplorerAndTablebase">Sharhni ochish</string>
   <string name="takeback">Ortga yurish</string>

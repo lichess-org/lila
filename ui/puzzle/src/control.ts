@@ -6,7 +6,7 @@ export function canGoForward(ctrl: KeyboardController): boolean {
 }
 
 export function next(ctrl: KeyboardController): void {
-  var child = ctrl.vm.node.children[0];
+  const child = ctrl.vm.node.children[0];
   if (!child) return;
   ctrl.userJump(ctrl.vm.path + child.id);
 }
@@ -16,14 +16,14 @@ export function prev(ctrl: KeyboardController): void {
 }
 
 export function last(ctrl: KeyboardController): void {
-  var toInit = !treePath.contains(ctrl.vm.path, ctrl.vm.initialPath);
+  const toInit = !treePath.contains(ctrl.vm.path, ctrl.vm.initialPath);
   ctrl.userJump(
     toInit ? ctrl.vm.initialPath : treePath.fromNodeList(ctrl.vm.mainline)
   );
 }
 
 export function first(ctrl: KeyboardController): void {
-  var toInit = ctrl.vm.path !== ctrl.vm.initialPath && treePath.contains(ctrl.vm.path, ctrl.vm.initialPath);
+  const toInit = ctrl.vm.path !== ctrl.vm.initialPath && treePath.contains(ctrl.vm.path, ctrl.vm.initialPath);
   ctrl.userJump(
     toInit ? ctrl.vm.initialPath : treePath.root
   );

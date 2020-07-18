@@ -61,11 +61,8 @@
   <string name="chapterPgn">PGN bo\'limi</string>
   <string name="studyUrl">URL o\'rganish</string>
   <string name="currentChapterUrl">Joriy bo\'lim URL i</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Siz buni bo\'limga bog\'lash uchun forumga joylang</string>
   <string name="startAtInitialPosition">Boshlang\'ich holatdan boshlash</string>
   <string name="startAtX">%s da boshlash</string>
-  <string name="embedThisChapter">Ushbu bo\'limni o\'zingizni saytingizga yoki blogingizga joylash</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">O\'rganish bo\'limini bog\'lash bo\'yicha ko\'proq o\'qish</string>
   <string name="open">Ochish</string>
   <string name="xBroughtToYouByY">%1$s sizga %2$s orqali keltirdi</string>
   <string name="studyNotFound">Ta\'lim topilmadi</string>

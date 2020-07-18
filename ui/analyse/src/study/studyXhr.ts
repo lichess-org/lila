@@ -1,7 +1,7 @@
 import { StudyChapterConfig } from './interfaces';
 
 const headers = {
-  'Accept': 'application/vnd.lichess.v3+json'
+  'Accept': 'application/vnd.lichess.v5+json'
 };
 
 export function reload(baseUrl: string, id: string, chapterId?: string) {

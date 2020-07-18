@@ -27,7 +27,7 @@ object home {
       openGraph = lila.app.ui
         .OpenGraph(
           title = trans.simultaneousExhibitions.txt(),
-          url = s"$netBaseUrl${routes.Simul.home}",
+          url = s"$netBaseUrl${routes.Simul.home()}",
           description = trans.aboutSimul.txt()
         )
         .some

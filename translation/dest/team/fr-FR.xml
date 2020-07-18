@@ -27,18 +27,18 @@
     <item quantity="one">%s demande d\'adhésion</item>
     <item quantity="other">%s demandes d\'adhésion</item>
   </plurals>
-  <string name="willBeReviewed">Votre demande d\'adhésion sera examinée par le chef d\'équipe.</string>
-  <string name="beingReviewed">Votre demande d\'adhésion est en cours d\'examen par le chef d\'équipe.</string>
+  <string name="willBeReviewed">Votre requête d\'adhésion sera examinée par le chef d\'équipe.</string>
+  <string name="beingReviewed">Votre demande d\'adhésion est en cours d\'examination par le chef d\'équipe.</string>
   <string name="teamBattle">Bataille d\'équipes</string>
   <string name="teamBattleOverview">Une bataille de plusieurs équipes, chaque joueur marque des points pour son équipe</string>
   <string name="teamTournament">Tournoi pour l\'équipe</string>
   <string name="teamTournamentOverview">Un tournoi d\'arène auquel seuls les membres de votre équipe peuvent participer</string>
-  <string name="messageAllMembers">Message à tous les membres</string>
+  <string name="messageAllMembers">Contacter tous les membres</string>
   <string name="messageAllMembersOverview">Envoyer un message privé à tous les membres de l\'équipe</string>
-  <string name="messageAllMembersLongDescription">Envoyer un message privé à TOUS les membres de l\'équipe.
-Vous pouvez l\'utiliser pour appeler les joueurs à rejoindre un tournoi ou une bataille d\'équipes.
-Les joueurs qui n\'aiment pas recevoir vos messages peuvent quitter l\'équipe.</string>
-  <string name="teamsIlead">Équipe(s) que je dirige</string>
+  <string name="messageAllMembersLongDescription">Envoyez un message privé à TOUS les membres de l\'équipe.
+Vous pouvez l\'utiliser pour appeler les joueurs à rejoindre un tournoi ou une bataille d\'équipe.
+Les joueurs qui n\'aiment pas recevoir vos messages risquent de quitter l\'équipe.</string>
+  <string name="teamsIlead">Équipe(s) que je gère</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Souhaitez-vous rejoindre l\'un de ces prochains tournois ?</string>
   <string name="usersWhoCanManageThisTeam">Utilisateurs qui peuvent administrer cette équipe</string>
   <string name="leadersChat">Chat des chefs de l\'équipe</string>

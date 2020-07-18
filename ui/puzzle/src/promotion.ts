@@ -1,16 +1,18 @@
-import { h } from 'snabbdom'
+import { h } from 'snabbdom';
 import { bind, onInsert } from './util';
+import { Api as CgApi } from 'chessground/api';
 import * as cgUtil from 'chessground/util';
 import { Role } from 'chessground/types';
 import { MaybeVNode, Vm, Redraw, Promotion } from './interfaces';
+import { Prop } from 'common';
 
-export default function(vm: Vm, getGround, redraw: Redraw): Promotion {
+export default function(vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promotion {
 
   let promoting: any = false;
 
   function start(orig: Key, dest: Key, callback: (orig: Key, key: Key, prom: Role) => void) {
     const g = getGround(),
-    piece = g.state.pieces[dest];
+    piece = g.state.pieces.get(dest);
     if (piece && piece.role == 'pawn' && (
       (dest[1] == '8' && g.state.turnColor == 'black') ||
         (dest[1] == '1' && g.state.turnColor == 'white'))) {
@@ -25,16 +27,14 @@ export default function(vm: Vm, getGround, redraw: Redraw): Promotion {
     return false;
   }
 
-  function promote(g, key: Key, role: Role): void {
-    var pieces = {};
-    var piece = g.state.pieces[key];
+  function promote(g: CgApi, key: Key, role: Role): void {
+    const piece = g.state.pieces.get(key);
     if (piece && piece.role == 'pawn') {
-      pieces[key] = {
+      g.setPieces(new Map([[key, {
         color: piece.color,
-        role: role,
-        promoted: true
-      };
-      g.setPieces(pieces);
+        role,
+        promoted: true,
+      }]]));
     }
   }
 
@@ -55,7 +55,7 @@ export default function(vm: Vm, getGround, redraw: Redraw): Promotion {
   function renderPromotion(dest: Key, pieces: Role[], color: Color, orientation: Color): MaybeVNode {
     if (!promoting) return;
 
-    let left = (8 - cgUtil.key2pos(dest)[0]) * 12.5;
+    let left = (7 - cgUtil.key2pos(dest)[0]) * 12.5;
     if (orientation === 'white') left = 87.5 - left;
 
     const vertical = color === orientation ? 'top' : 'bottom';

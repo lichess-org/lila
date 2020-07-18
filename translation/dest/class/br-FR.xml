@@ -8,6 +8,7 @@
   <string name="closeClass">Serriñ ar c\'hlas</string>
   <string name="closedByX">Bet serret gant %s</string>
   <string name="reopen">Digeriñ en-dro</string>
+  <string name="removeStudent">Skarzhañ ur studier</string>
   <string name="inviteTheStudentBack">Pediñ ar studier da zistreiñ</string>
   <string name="sendAMessage">Kas ur gemennadenn d\'an holl studierien.</string>
   <string name="className">Anv ar c\'hlas</string>
@@ -26,6 +27,7 @@ Ger-tremen: %3$s</string>
   <string name="createANewLichessAccount">Krouiñ ur gont Lichess nevez</string>
   <string name="createDesc3">Da ziwall: ne c\'hall ket ur studier kaout meur a gont.</string>
   <string name="lichessUsername">Anv-implijer Lichess</string>
+  <string name="generateANewUsername">Krouiñ ur ger-tremen nevez</string>
   <string name="onlyVisibleToTeachers">Gwelet e vo gant ar gelennerien hepken</string>
   <string name="teachers">Kelennerien</string>
   <plurals name="nbTeachers">
@@ -42,6 +44,9 @@ Ger-tremen: %3$s</string>
     <item quantity="many">%s studier</item>
     <item quantity="other">%s studier</item>
   </plurals>
+  <string name="students">Studierien</string>
   <string name="progress">Araokadur</string>
+  <string name="noStudents">Studier ebet evit poent.</string>
+  <string name="na">N\'eus ket</string>
   <string name="editNews">Cheñch ar c\'heleier</string>
 </resources>

@@ -1,8 +1,5 @@
 lichess = window.lichess || {};
 
-lichess.engineName = 'Stockfish 11+';
-
-lichess.raf = window.requestAnimationFrame.bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 lichess.dispatchEvent = (el, eventName) => el.dispatchEvent(new Event(eventName));
 
@@ -25,7 +22,7 @@ lichess.isCol1 = (() => {
       if (isCol1Cache == 'init') { // only once
         window.addEventListener('resize', () => { isCol1Cache = 'rec' }); // recompute on resize
         if (navigator.userAgent.indexOf('Edge/') > -1) // edge gets false positive on page load, fix later
-          window.lichess.raf(() => { isCol1Cache = 'rec' });
+          requestAnimationFrame(() => { isCol1Cache = 'rec' });
       }
       isCol1Cache = !!getComputedStyle(document.body).getPropertyValue('--col1');
     }
@@ -255,9 +252,9 @@ lichess.slider = function() {
   );
 };
 lichess.makeChat = function(data, callback) {
-  lichess.raf(function() {
+  requestAnimationFrame(function() {
     data.loadCss = lichess.loadCssPath;
-    (callback || $.noop)(LichessChat.default(document.querySelector('.mchat'), data));
+    (callback || $.noop)(LichessChat(document.querySelector('.mchat'), data));
   });
 };
 lichess.formAjax = $form => ({

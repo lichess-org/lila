@@ -19,7 +19,10 @@ final class ChallengeApi(
     gameCache: lila.game.Cached,
     maxPlaying: Max,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   import Challenge._
 

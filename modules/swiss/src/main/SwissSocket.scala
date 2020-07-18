@@ -11,7 +11,11 @@ import lila.socket.Socket.makeMessage
 final private class SwissSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem, mode: play.api.Mode) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
+    mode: play.api.Mode
+) {
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = none, logger = logger)
 
@@ -34,7 +38,7 @@ final private class SwissSocket(
       chat,
       logger,
       roomId => _.Swiss(roomId.value).some,
-      localTimeout = Some { (roomId, modId, suspectId) =>
+      localTimeout = Some { (roomId, modId, _) =>
         lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeader(roomId.value, modId, _) }
       },
       chatBusChan = _.Swiss

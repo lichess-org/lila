@@ -40,6 +40,7 @@ class WebWorker extends AbstractWorker {
     this.worker.addEventListener('message', e => {
       protocol.received(e.data);
     }, true);
+    protocol.init();
     return Promise.resolve(protocol);
   }
 
@@ -67,23 +68,23 @@ class WebWorker extends AbstractWorker {
 }
 
 class ThreadedWasmWorker extends AbstractWorker {
-  static global: Promise<{instance: unknown, protocol: Protocol}>;
+  static global: Promise<{sf: unknown, protocol: Protocol}> | undefined;
 
-  private instance?: any;
+  private sf?: any;
 
   boot(): Promise<Protocol> {
-    if (!ThreadedWasmWorker.global) ThreadedWasmWorker.global = window.lichess.loadScript(this.url, {sameDomain: true}).then(() => {
-      const instance = this.instance = window['Stockfish'](),
-        protocol = new Protocol(this.send.bind(this), this.workerOpts),
-        listener = protocol.received.bind(protocol);
-      instance.addMessageListener(listener);
+    if (!ThreadedWasmWorker.global) ThreadedWasmWorker.global = window.lichess.loadScript(this.url, {sameDomain: true}).then(() => window['Stockfish']()).then(sf => {
+      this.sf = sf;
+      const protocol = new Protocol(this.send.bind(this), this.workerOpts);
+      sf.addMessageListener(protocol.received.bind(protocol));
+      protocol.init();
       return {
-        instance, // always wrap, in promise context (https://github.com/emscripten-core/emscripten/issues/5820)
+        sf,
         protocol
       };
     });
     return ThreadedWasmWorker.global.then(global => {
-      this.instance = global.instance;
+      this.sf = global.sf;
       return global.protocol;
     });
   }
@@ -96,7 +97,7 @@ class ThreadedWasmWorker extends AbstractWorker {
   }
 
   send(cmd: string) {
-    if (this.instance) this.instance.postMessage(cmd);
+    if (this.sf) this.sf.postMessage(cmd);
   }
 }
 
@@ -122,7 +123,7 @@ export class Pool {
     });
   }
 
-  warmup = () => {
+  warmup(): void {
     if (this.workers.length) return;
 
     if (this.poolOpts.technology == 'wasmx')
@@ -133,14 +134,16 @@ export class Pool {
     }
   }
 
-  stop = () => this.workers.forEach(w => w.stop());
+  stop(): void {
+    this.workers.forEach(w => w.stop());
+  }
 
   destroy = () => {
     this.stop();
     this.workers.forEach(w => w.destroy());
-  };
+  }
 
-  start = (work: Work) => {
+  start(work: Work): void {
     window.lichess.storage.fire('ceval.pool.start');
     this.getWorker().then(function(worker) {
       worker.start(work);
@@ -148,11 +151,13 @@ export class Pool {
       console.log(error);
       setTimeout(() => window.lichess.reload(), 10000);
     });
-  };
+  }
 
-  isComputing = () =>
-    !!this.workers.length && this.workers[this.token].isComputing();
+  isComputing(): boolean {
+    return !!this.workers.length && this.workers[this.token].isComputing();
+  }
 
-  engineName: () => string | undefined = () =>
-    this.workers[this.token] && this.workers[this.token].engineName();
+  engineName = (): string | undefined => {
+    return this.workers[this.token] && this.workers[this.token].engineName();
+  }
 }

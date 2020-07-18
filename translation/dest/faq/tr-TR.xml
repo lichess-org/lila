@@ -12,8 +12,8 @@
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess, sizlerin bağışlarınızla ve katkılarınızla ayakta kalmaktadır.</string>
   <string name="findMoreAndSeeHowHelp">%1$s olmakla alakalı daha fazla şey bulabilirsiniz. (%2$s dahil) Lichess\'e gerek zamanınızla gerek yeteneklerinizle destek olmanın %3$s vardır.</string>
   <string name="beingAPatron">patron</string>
-  <string name="breakdownOfOurCosts">fiyatların değişkenliği</string>
-  <string name="otherWaysToHelp">bir çok yolu</string>
+  <string name="breakdownOfOurCosts">giderlerimizin dağılışı</string>
+  <string name="otherWaysToHelp">yardım etmenin diğer yolları</string>
   <string name="areThereWebsitesBasedOnLichess">Lichess kaynak kodunu kullanan diğer siteler de var mı?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Bizim %1$s, %2$s ve %3$s kullanan bir çok site var.</string>
   <string name="fairPlay">Adil Oyun</string>
@@ -30,7 +30,7 @@
   <string name="youCanUseOpeningBookNoEngine">Lichess\'te, yazışma satrancı kurallarındaki temel fark, bir açılış kitabına izin verilmesidir. Motorların kullanımı hala yasaktır ve motor yardımı alırsanız hesabınız işaretlenecektir. ICCF yazışmalarda motor kullanımına izin verse de, Lichess buna izin vermez.</string>
   <string name="gameplay">Oynanış</string>
   <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri neye göre karar veriliyor?</string>
-  <string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor.
+  <string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor = %1$s
 Örneğin, bir 5+3 blitz oyununun yaklaşık süresi 5 x 60 + 40 x 3 = 420 saniyedir.</string>
   <string name="durationFormula">(zaman) + 40 x (arttırma)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>

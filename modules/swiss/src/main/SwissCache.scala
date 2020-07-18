@@ -24,6 +24,13 @@ final private class SwissCache(
     expireAfter = Syncache.ExpireAfterAccess(20 minutes)
   )
 
+  val roundInfo = cacheApi[Swiss.Id, Option[Swiss.RoundInfo]](32, "swiss.roundInfo") {
+    _.expireAfterWrite(1 minute)
+      .buildAsyncFuture { id =>
+        colls.swiss.byId[Swiss](id.value).map2(_.roundInfo)
+      }
+  }
+
   private[swiss] object featuredInTeam {
     private val compute = (teamId: TeamID) => {
       val max = 5

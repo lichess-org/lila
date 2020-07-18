@@ -21,13 +21,6 @@
     }
   }
   .more {
-    font-size: .9em;
-    margin: .5em;
-    display: block;
-    text-align: right;
-    color: $c-font-dim;
-    &:hover {
-      color: $c-link;
-    }
+    @extend %lobby__side__more;
   }
 }

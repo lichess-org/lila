@@ -7,6 +7,14 @@
       min-height: inherit;
     }
   }
+  .tour__prize {
+    @extend %box-radius;
+    padding: 1em;
+    background: mix($c-error, $c-bg-box, 10%);
+    border: 1px solid $c-error;
+    margin-bottom: 1em;
+    font-size: .9em;
+  }
 }
 .swiss__meta {
   @extend %box-neat-force;

@@ -29,7 +29,11 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.socket.IsOnline,
     onlineIds: lila.socket.OnlineIds
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, ws: WSClient) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    ws: WSClient
+) {
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 

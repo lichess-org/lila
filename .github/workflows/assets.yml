@@ -33,9 +33,11 @@ jobs:
       id: ab
     - run: echo "::set-env name=LILA_AB_FILE::$GITHUB_WORKSPACE/ab/src/ab.js"
       if: steps.ab.outcome == 'success'
-    - uses: actions/cache@v1
+    - run: echo "::set-output name=dir::$(yarn cache dir)"
+      id: yarn-cache
+    - uses: actions/cache@v2
       with:
-        path: ~/.cache/yarn
+        path: ${{ steps.yarn-cache.outputs.dir }}
         key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
         restore-keys: ${{ runner.os }}-yarn-
     - run: ./ui/build prod

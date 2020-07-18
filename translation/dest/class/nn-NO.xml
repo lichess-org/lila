@@ -25,7 +25,7 @@
   <string name="teachersOfTheClass">Klassens lærarar</string>
   <string name="addLichessUsernames">Invitér lærarar ved å legge inn brukarnamna deira. Eitt brukarnamn på kvar linje.</string>
   <string name="theyMustFirstApply">Dei må først søke om å bli Lichess-lærarar.</string>
-  <string name="resetPassword">Tilbakestill passord</string>
+  <string name="resetPassword">Attendestill passord</string>
   <string name="makeSureToCopy">Sørg for å kopiere eller skrive ned den nye adgangskoden med ein gong. Du vil ikkje få sjå den igjen!</string>
   <string name="passwordX">Passord: %s</string>
   <string name="generateANewPassword">Generer eit nytt passord til eleven</string>
@@ -67,8 +67,16 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="releaseTheAccount">Frigje kontoen slik at eleven kan styre den sjølv.</string>
   <string name="releaseDesc1">En frigjeven konto kan ikkje settast under administrasjon igjen. Eleven vil kunne endre barnemodus og sjølv nullstille passordet.</string>
   <string name="releaseDesc2">Eleven vil bli i klassa sjølv om kontoen er frigjeven.</string>
-  <string name="realUniqueEmail">Real, test.</string>
-  <string name="teachers">Lærere</string>
+  <string name="realUniqueEmail">Korrekt, unik e-postadresse for eleven. Vi sender ei stadfestingsmelding til adressa med ei lenke for å frigi kontoen.</string>
+  <string name="teachers">Lærarar</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Lærar</item>
+    <item quantity="other">%s lærarar</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Elev</item>
+    <item quantity="other">%s elevar</item>
+  </plurals>
   <string name="students">Elevar</string>
   <string name="progress">Framgang</string>
   <string name="noStudents">Ingen elevar i klassen så langt.</string>

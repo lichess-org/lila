@@ -11,12 +11,11 @@ case class TeamInfo(
     mine: Boolean,
     ledByMe: Boolean,
     requestedByMe: Boolean,
+    subscribed: Boolean,
     requests: List[RequestWithUser],
     forumPosts: List[MiniForumPost],
     tours: TeamInfo.PastAndNext
 ) {
-
-  import TeamInfo._
 
   def hasRequests = requests.nonEmpty
 
@@ -33,13 +32,14 @@ object TeamInfo {
   def anyTour(tour: Tournament) = AnyTour(Left(tour))
   def anyTour(swiss: Swiss)     = AnyTour(Right(swiss))
 
-  case class PastAndNext(past: List[AnyTour], next: List[AnyTour])
+  case class PastAndNext(past: List[AnyTour], next: List[AnyTour]) {
+    def nonEmpty = past.nonEmpty || next.nonEmpty
+  }
 }
 
 final class TeamInfoApi(
     api: TeamApi,
     forumRecent: lila.forum.Recent,
-    teamCached: lila.team.Cached,
     tourApi: TournamentApi,
     swissApi: SwissApi,
     requestRepo: RequestRepo
@@ -52,12 +52,14 @@ final class TeamInfoApi(
       requests      <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
       mine          <- me.??(m => api.belongsTo(team.id, m.id))
       requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
+      subscribed    <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
       forumPosts    <- forumRecent.team(team.id)
-      tours         <- tournaments(team, 0, 5)
+      tours         <- tournaments(team, 5, 5)
     } yield TeamInfo(
       mine = mine,
       ledByMe = me.exists(m => team.leaders(m.id)),
       requestedByMe = requestedByMe,
+      subscribed = subscribed,
       requests = requests,
       forumPosts = forumPosts,
       tours = tours

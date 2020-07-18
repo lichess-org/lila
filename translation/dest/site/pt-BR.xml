@@ -21,23 +21,23 @@
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
   <string name="blackIsVictorious">Pretas vencem</string>
-  <string name="youPlayTheWhitePieces">Você joga com as brancas</string>
-  <string name="youPlayTheBlackPieces">Você joga com as pretas</string>
+  <string name="youPlayTheWhitePieces">Você joga com as peças brancas</string>
+  <string name="youPlayTheBlackPieces">Você joga com as peças pretas</string>
   <string name="itsYourTurn">É a sua vez!</string>
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Três xeques</string>
-  <string name="raceFinished">Corrida encerrada</string>
+  <string name="raceFinished">Corrida terminada</string>
   <string name="variantEnding">Fim da variante</string>
-  <string name="newOpponent">Novo oponente</string>
+  <string name="newOpponent">Novo adversário</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Seu oponente quer jogar uma nova partida contra você</string>
   <string name="joinTheGame">Entrar no jogo</string>
   <string name="whitePlays">Brancas jogam</string>
   <string name="blackPlays">Pretas jogam</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Seu oponente abandonou o jogo. Você pode reivindicar vitória em %s segundo.</item>
-    <item quantity="other">Seu oponente abandonou o jogo. Você pode reivindicar vitória em %s segundos.</item>
+    <item quantity="one">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundo.</item>
+    <item quantity="other">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundos.</item>
   </plurals>
-  <string name="opponentLeftChoices">O outro jogador pode ter deixado a partida. Você pode proclamar vitória, declarar empate ou aguardar.</string>
+  <string name="opponentLeftChoices">O seu adversário deixou a partida. Você pode reivindicar vitória, declarar empate ou aguardar.</string>
   <string name="makeYourOpponentResign">Declarar vitória</string>
   <string name="forceResignation">Reivindicar vitória</string>
   <string name="forceDraw">Reivindicar empate</string>
@@ -275,7 +275,7 @@
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Este jogador usa a ajuda de computador</string>
+  <string name="thisAccountViolatedTos">Esta conta violou os Termos de Serviço da Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador modificou a sua classificação de maneira artificial</string>
   <string name="openingExplorerAndTablebase">Explorador de abertura &amp; tabela de finais</string>
   <string name="takeback">Voltar jogada</string>

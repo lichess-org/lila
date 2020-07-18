@@ -11,7 +11,9 @@ import lila.common.Bus
 
 final private class TvBroadcast extends Actor {
 
-  private var queues = Set.empty[SourceQueueWithComplete[JsValue]]
+  import TvBroadcast._
+
+  private var queues = Set.empty[Queue]
 
   private var featuredId = none[String]
 
@@ -27,14 +29,17 @@ final private class TvBroadcast extends Actor {
   def receive = {
 
     case TvBroadcast.Connect =>
-      sender ! Source
+      sender() ! Source
         .queue[JsValue](8, akka.stream.OverflowStrategy.dropHead)
         .mapMaterializedValue { queue =>
-          queues = queues + queue
-          queue.watchCompletion.foreach { _ =>
-            queues = queues - queue
+          self ! Add(queue)
+          queue.watchCompletion().foreach { _ =>
+            self ! Remove(queue)
           }
         }
+
+    case Add(queue)    => queues = queues + queue
+    case Remove(queue) => queues = queues - queue
 
     case ChangeFeatured(id, msg) =>
       unsubscribeFromFeaturedId()
@@ -62,6 +67,10 @@ final private class TvBroadcast extends Actor {
 object TvBroadcast {
 
   type SourceType = Source[JsValue, _]
+  type Queue      = SourceQueueWithComplete[JsValue]
 
   case object Connect
+
+  case class Add(q: Queue)
+  case class Remove(q: Queue)
 }

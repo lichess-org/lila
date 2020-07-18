@@ -1,32 +1,31 @@
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
-import { decomposeUci, sanToRole } from 'chess';
 import keyboard from './keyboard';
-import moveTestBuild from './moveTest';
+import { moveTestBuild, MoveTestFn } from './moveTest';
 import mergeSolution from './solution';
 import makePromotion from './promotion';
 import computeAutoShapes from './autoShape';
-import { defined, prop } from 'common';
+import { defined, prop, Prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import * as xhr from './xhr';
 import * as speech from './speech';
 import { sound } from './sound';
-import { parseSquare, makeSquare, makeUci } from 'chessops/util';
+import { Role, Move, Outcome } from 'chessops/types';
+import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
 import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { Chess } from 'chessops/chess';
-import { chessgroundDests, scalachessId } from 'chessops/compat';
+import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
-import * as cg from 'chessground/types';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, PuzzleVote, MoveTest } from './interfaces';
 
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   let vm: Vm = {} as Vm;
-  var data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl, moveTest;
-  const ground = prop<CgApi | undefined>(undefined);
+  var data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl, moveTest: MoveTestFn;
+  const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
 
   // required by ceval
@@ -96,11 +95,11 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
     const dests = chessgroundDests(position());
     const movable = (vm.mode === 'view' || color === data.puzzle.color) ? {
-      color: (Object.keys(dests).length > 0) ? color : undefined,
+      color: dests.size > 0 ? color : undefined,
       dests
     } : {
       color: undefined,
-      dests: {}
+      dests: new Map(),
     };
     const config = {
       fen: node.fen,
@@ -129,27 +128,38 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
-    if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
+    if (!promotion.start(orig, dest, playUserMove)) playUserMove(orig, dest);
   }
 
-  function sendMove(orig: Key, dest: Key, promotion?: cg.Role): void {
-    const pos = position();
-    const move = pos.normalizeMove({
+  function playUci(uci: Uci): void {
+    sendMove(parseUci(uci)!);
+  }
+
+  function playUserMove(orig: Key, dest: Key, promotion?: Role): void {
+    sendMove({
       from: parseSquare(orig)!,
       to: parseSquare(dest)!,
       promotion,
     });
+  }
+
+  function sendMove(move: Move): void {
+    sendMoveAt(vm.path, position(), move);
+  }
+
+  function sendMoveAt(path: Tree.Path, pos: Chess, move: Move): void {
+    move = pos.normalizeMove(move);
     const san = makeSanAndPlay(pos, move);
     const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
     addNode({
       ply: 2 * (pos.fullmoves - 1) + (pos.turn == 'white' ? 0 : 1),
       fen: makeFen(pos.toSetup()),
-      id: scalachessId(move),
+      id: scalachessCharPair(move),
       uci: makeUci(move),
       san,
-      check: check ? makeSquare(check) : undefined,
+      check: defined(check) ? makeSquare(check) : undefined,
       children: []
-    }, vm.path);
+    }, path);
   }
 
   function uciToLastMove(uci: string | undefined): [Key, Key] | undefined {
@@ -181,7 +191,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (recursive) node.children.forEach(function(child) {
       reorderChildren(path + child.id, true);
     });
-  };
+  }
 
   function revertUserMove(): void {
     setTimeout(function() {
@@ -213,8 +223,9 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       }
     } else if (progress && typeof progress != 'string') {
       vm.lastFeedback = 'good';
-      setTimeout(function() {
-        sendMove(progress.orig, progress.dest, progress.promotion);
+      setTimeout(() => {
+        const pos = Chess.fromSetup(parseFen(progress.fen).unwrap()).unwrap();
+        sendMoveAt(progress.path, pos, progress.move);
       }, 500);
     }
   }
@@ -242,7 +253,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       initiate(d);
       redraw();
     });
-  };
+  }
 
   function instanciateCeval(): void {
     if (ceval) ceval.destroy();
@@ -286,7 +297,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function canUseCeval(): boolean {
-    return vm.mode === 'view' && !gameOver();
+    return vm.mode === 'view' && !outcome();
   }
 
   function startCeval(): void {
@@ -302,12 +313,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       // return n.eval ? n.eval.pvs[0].moves[0] : null;
       return n.eval ? n.eval.best : undefined;
     });
-  }
-
-  function playUci(uci: string): void {
-    const move = decomposeUci(uci);
-    if (!move[2]) sendMove(move[0], move[1])
-    else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
   }
 
   function getCeval() {
@@ -333,11 +338,8 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     redraw();
   }
 
-  function gameOver(): false | 'checkmate' | 'draw' {
-    const pos = position();
-    if (pos.isCheckmate()) return 'checkmate';
-    if (pos.isInsufficientMaterial()) return 'draw';
-    return false;
+  function outcome(): Outcome | undefined {
+    return position().outcome();
   }
 
   function jump(path: Tree.Path): void {
@@ -465,7 +467,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     getCeval,
     pref: opts.pref,
     trans: window.lichess.trans(opts.i18n),
-    gameOver,
+    outcome,
     toggleCeval,
     toggleThreatMode,
     threatMode,

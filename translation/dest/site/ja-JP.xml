@@ -258,7 +258,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">%s秒を与える</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">このプレイヤーはチェスソフトを使用しています</string>
+  <string name="thisAccountViolatedTos">このアカウントは Lichess の利用規約に違反しました</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">このプレイヤーは不正にレーティングを操作しています</string>
   <string name="openingExplorerAndTablebase">序盤探索&amp;テーブルベース</string>
   <string name="takeback">待った</string>

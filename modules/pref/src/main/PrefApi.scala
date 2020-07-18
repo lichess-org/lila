@@ -29,7 +29,8 @@ final class PrefApi(
         $set(s"tags.${tag(Pref.Tag)}" -> value),
         upsert = true
       )
-      .void >>- { cache invalidate user.id }
+      .void
+      .recover(lila.db.ignoreDuplicateKey) >>- { cache invalidate user.id }
 
   def getPrefById(id: User.ID): Fu[Pref]    = cache get id dmap (_ getOrElse Pref.create(id))
   val getPref                               = getPrefById _
@@ -62,7 +63,7 @@ final class PrefApi(
     }
 
   def setPref(pref: Pref): Funit =
-    coll.update.one($id(pref.id), pref, upsert = true).void >>-
+    coll.update.one($id(pref.id), pref, upsert = true).void.recover(lila.db.ignoreDuplicateKey) >>-
       cache.put(pref.id, fuccess(pref.some))
 
   def setPref(user: User, change: Pref => Pref): Funit =

@@ -7,6 +7,7 @@ import { key2pos } from 'chessground/util';
 import { bind } from './util';
 import RoundController from './ctrl';
 import { onInsert } from './util';
+import { MaybeVNode } from './interfaces';
 
 interface Promoting {
   move: [cg.Key, cg.Key];
@@ -25,8 +26,8 @@ export function sendPromotion(ctrl: RoundController, orig: cg.Key, dest: cg.Key,
 
 export function start(ctrl: RoundController, orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata = {} as cg.MoveMetadata): boolean {
   const d = ctrl.data,
-    piece = ctrl.chessground.state.pieces[dest],
-    premovePiece = ctrl.chessground.state.pieces[orig];
+    piece = ctrl.chessground.state.pieces.get(dest),
+    premovePiece = ctrl.chessground.state.pieces.get(orig);
   if (((piece && piece.role === 'pawn' && !premovePiece) || (premovePiece && premovePiece.role === 'pawn')) && (
     (dest[1] === '8' && d.player.color === 'white') ||
     (dest[1] === '1' && d.player.color === 'black'))) {
@@ -77,6 +78,7 @@ function finish(ctrl: RoundController, role: cg.Role) {
     promoting = undefined;
     if (info.pre) setPrePromotion(ctrl, info.move[1], role);
     else sendPromotion(ctrl, info.move[0], info.move[1], role, info.meta);
+    ctrl.redraw();
   }
 }
 
@@ -87,8 +89,8 @@ export function cancel(ctrl: RoundController) {
   promoting = undefined;
 }
 
-function renderPromotion(ctrl: RoundController, dest: cg.Key, roles: cg.Role[], color: Color, orientation: Color) {
-  var left = (8 - key2pos(dest)[0]) * 12.5;
+function renderPromotion(ctrl: RoundController, dest: cg.Key, roles: cg.Role[], color: Color, orientation: Color): MaybeVNode {
+  var left = (7 - key2pos(dest)[0]) * 12.5;
   if (orientation === 'white') left = 87.5 - left;
   var vertical = color === orientation ? 'top' : 'bottom';
 
@@ -103,24 +105,26 @@ function renderPromotion(ctrl: RoundController, dest: cg.Key, roles: cg.Role[], 
   }, roles.map((serverRole, i) => {
     var top = (color === orientation ? i : 7 - i) * 12.5;
     return h('square', {
-      attrs: {style: 'top: ' + top + '%;left: ' + left + '%'},
+      attrs: {
+        style: `top:${top}%;left:${left}%`
+      },
       hook: bind('click', e => {
         e.stopPropagation();
         finish(ctrl, serverRole);
       })
     }, [
-      h('piece.' + serverRole + '.' + color)
+      h(`piece.${serverRole}.${color}`)
     ]);
   }));
-};
+}
 
 const roles: cg.Role[] = ['queen', 'knight', 'rook', 'bishop'];
 
-export function view(ctrl: RoundController) {
+export function view(ctrl: RoundController): MaybeVNode {
   if (!promoting) return;
 
   return renderPromotion(ctrl, promoting.move[1],
     ctrl.data.game.variant.key === 'antichess' ? roles.concat('king') : roles,
     ctrl.data.player.color,
     ctrl.chessground.state.orientation);
-};
+}

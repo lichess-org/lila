@@ -29,7 +29,7 @@
   <string name="whenReady">Wanneer u klaar bent om als Lichess stream vermeld te worden, %s</string>
   <string name="requestReview">verzoek een beoordeling van een toezichthouder</string>
   <string name="anotherLanguage">Als je stream in een andere taal is dan het Engels, voeg de juiste taaltag toe (%s), ingesloten in vierkante haken, aan het begin van uw stream titel.
-Als voorbeelden plaatst u \"[NL]\" voor Nederlands, \"[TR]\" voor Turks, \"[FR]\" voor Frans, enz.
+Als voorbeelden plaatst u \"[NL]\" voor Nederlands, \"[DE]\" voor Duits, \"[FR]\" voor Frans, enz.
 Zet het in de stream titel op de Twitch of YouTube pagina, niet in de Lichess stream-instellingen.
 Als je stream in het Engels is, is het niet nodig om een taaltag toe te voegen.</string>
   <string name="twitchUsername">Je Twitch gebruikersnaam of website</string>

@@ -99,6 +99,17 @@ object show {
                 if (info.requestedByMe) strong(beingReviewed())
                 else ctx.isAuth option joinButton(t)
               ),
+              ctx.userId.ifTrue(t.enabled && info.mine) map { myId =>
+                postForm(
+                  cls := "team-show__subscribe form3",
+                  action := routes.Team.subscribe(t.id)
+                )(
+                  div(
+                    span(form3.cmnToggle("team-subscribe", "subscribe", checked = info.subscribed)),
+                    label(`for` := "team-subscribe")("Subscribe to team messages")
+                  )
+                )
+              },
               (info.mine && !info.ledByMe) option
                 postForm(cls := "quit", action := routes.Team.quit(t.id))(
                   submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
@@ -175,11 +186,13 @@ object show {
               views.html.team.request.list(info.requests, t.some)
             ),
             div(cls := "team-show__tour-forum")(
-              info.tours.next.nonEmpty option frag(
+              info.tours.nonEmpty option frag(
                 st.section(cls := "team-show__tour team-tournaments")(
                   h2(a(href := routes.Team.tournaments(t.id))(trans.tournaments())),
                   table(cls := "slist")(
-                    tournaments.renderList(info.tours.next)
+                    tournaments.renderList(
+                      info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
+                    )
                   )
                 )
               ),

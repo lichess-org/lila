@@ -13,8 +13,6 @@ const execSync = require('child_process').execSync;
 const fs = require('fs');
 const path = require('path');
 
-require('@build/cssProject')(__dirname);
-
 const browserifyOpts = (entries, debug) => ({
   entries: entries,
   standalone: 'Lichess',

@@ -9,6 +9,7 @@ import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.game.{ Pov, Game => GameModel, PgnDump }
 import lila.tournament.{ Tournament => Tour }
+import lila.swiss.Swiss.{ Id => SwissId }
 import lila.user.{ User => UserModel }
 import views._
 
@@ -17,7 +18,8 @@ final class Round(
     gameC: => Game,
     challengeC: => Challenge,
     analyseC: => Analyse,
-    tournamentC: => Tournament
+    tournamentC: => Tournament,
+    swissC: => Swiss
 ) extends LilaController(env)
     with TheftPrevention {
 
@@ -247,7 +249,14 @@ final class Round(
         case (_, Some(sid), _) =>
           env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).dmap(toEventChat(s"simul/$sid"))
         case (_, _, Some(sid)) =>
-          env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).dmap(toEventChat(s"swiss/$sid"))
+          env.swiss.api
+            .roundInfo(SwissId(sid))
+            .flatMap { _ ?? swissC.canHaveChat }
+            .flatMap {
+              _ ?? {
+                env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).dmap(toEventChat(s"swiss/$sid"))
+              }
+            }
         case _ =>
           game.hasChat ?? {
             env.chat.api.playerChat.findIf(Chat.Id(game.id), !game.justCreated) map { chat =>
@@ -285,7 +294,7 @@ final class Round(
       import play.api.data.Forms._
       import play.api.data._
       implicit val req = ctx.body
-      Form(single("text" -> text)).bindFromRequest.fold(
+      Form(single("text" -> text)).bindFromRequest().fold(
         _ => fuccess(BadRequest),
         text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
       )
@@ -314,11 +323,11 @@ final class Round(
       OptionFuRedirect(env.round.proxyRepo.pov(fullId)) { pov =>
         if (isTheft(pov)) {
           lila.log("round").warn(s"theft resign $fullId ${HTTPRequest.lastRemoteAddress(ctx.req)}")
-          fuccess(routes.Lobby.home)
+          fuccess(routes.Lobby.home())
         } else {
           env.round resign pov
           import scala.concurrent.duration._
-          akka.pattern.after(500.millis, env.system.scheduler)(fuccess(routes.Lobby.home))
+          akka.pattern.after(500.millis, env.system.scheduler)(fuccess(routes.Lobby.home()))
         }
       }
     }

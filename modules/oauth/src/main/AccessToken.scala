@@ -65,24 +65,26 @@ object AccessToken {
 
     import BSONFields._
 
-    def reads(r: BSON.Reader): AccessToken = AccessToken(
-      id = r.get[Id](id),
-      clientId = r str clientId,
-      userId = r str userId,
-      createdAt = r.getO[DateTime](createdAt),
-      description = r strO description,
-      usedAt = r.getO[DateTime](usedAt),
-      scopes = r.get[List[OAuthScope]](scopes)
-    )
+    def reads(r: BSON.Reader): AccessToken =
+      AccessToken(
+        id = r.get[Id](id),
+        clientId = r str clientId,
+        userId = r str userId,
+        createdAt = r.getO[DateTime](createdAt),
+        description = r strO description,
+        usedAt = r.getO[DateTime](usedAt),
+        scopes = r.get[List[OAuthScope]](scopes)
+      )
 
-    def writes(w: BSON.Writer, o: AccessToken) = $doc(
-      id          -> o.id,
-      clientId    -> o.clientId,
-      userId      -> o.userId,
-      createdAt   -> o.createdAt,
-      description -> o.description,
-      usedAt      -> o.usedAt,
-      scopes      -> o.scopes
-    )
+    def writes(w: BSON.Writer, o: AccessToken) =
+      $doc(
+        id          -> o.id,
+        clientId    -> o.clientId,
+        userId      -> o.userId,
+        createdAt   -> o.createdAt,
+        description -> o.description,
+        usedAt      -> o.usedAt,
+        scopes      -> o.scopes
+      )
   }
 }

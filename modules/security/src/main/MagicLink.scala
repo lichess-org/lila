@@ -59,21 +59,18 @@ object MagicLink {
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
     credits = 5,
     duration = 1 hour,
-    name = "Magic links per IP",
     key = "email.confirms.ip"
   )
 
   private lazy val rateLimitPerUser = new RateLimit[String](
     credits = 3,
     duration = 1 hour,
-    name = "Magic links per user",
     key = "email.confirms.user"
   )
 
   private lazy val rateLimitPerEmail = new RateLimit[String](
     credits = 3,
     duration = 1 hour,
-    name = "Magic links per email",
     key = "email.confirms.email"
   )
 

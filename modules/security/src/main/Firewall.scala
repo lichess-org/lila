@@ -30,7 +30,7 @@ final class Firewall(
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)
 
-  def blockIps(ips: List[IpAddress]): Funit =
+  def blockIps(ips: Iterable[IpAddress]): Funit =
     ips.map { ip =>
       validIp(ip) ?? {
         coll.update

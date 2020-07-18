@@ -17,7 +17,6 @@ private object SwissBoard {
 }
 
 final private class SwissBoardApi(
-    colls: SwissColls,
     rankingApi: SwissRankingApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
@@ -28,7 +27,7 @@ final private class SwissBoardApi(
 
   private val boardsCache = cacheApi.scaffeine
     .expireAfterWrite(60 minutes)
-    .build[Swiss.Id, List[SwissBoard]]
+    .build[Swiss.Id, List[SwissBoard]]()
 
   def apply(id: Swiss.Id): Fu[List[SwissBoard.WithGame]] =
     boardsCache.getIfPresent(id) ?? {
@@ -69,8 +68,8 @@ final private class SwissBoardApi(
                     r2 <- ranks get p2.userId
                   } yield SwissBoard(
                     pairing.gameId,
-                    white = SwissBoard.Player(u1, r1 + 1, p1.rating),
-                    black = SwissBoard.Player(u2, r2 + 1, p2.rating)
+                    white = SwissBoard.Player(u1, r1, p1.rating),
+                    black = SwissBoard.Player(u2, r2, p2.rating)
                   )
                 }
             )

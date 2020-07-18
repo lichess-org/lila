@@ -109,10 +109,10 @@ function buttons(root: AnalyseCtrl): VNode {
         hint: noarg('shareAndExport'),
         icon: iconTag('$')
       }),
-      h('span.help', {
+      !ctrl.relay ? h('span.help', {
         attrs: { title: 'Need help? Get the tour!', 'data-icon': '' },
         hook: bind('click', ctrl.startTour)
-      })
+      }) : null,
     ]),
     h('div.right', [
       gbOverrideButton(ctrl)
@@ -203,6 +203,7 @@ export function overboard(ctrl: StudyCtrl) {
   if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
   if (ctrl.topics.open()) return topicsFormView(ctrl.topics, ctrl.members.myId);
   if (ctrl.form.open()) return studyFormView(ctrl.form);
+  return undefined;
 }
 
 export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {

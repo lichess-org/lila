@@ -5,9 +5,9 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
   <string name="gameOver">انتهت المباراة</string>
   <string name="waitingForOpponent">في إنتظار المنافس</string>
-  <string name="waiting">إنتظار</string>
+  <string name="waiting">قيد الانتظار</string>
   <string name="yourTurn">دورك</string>
-  <string name="aiNameLevelAiLevel">%1$s المستوى %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s مستوى %2$s</string>
   <string name="level">مستوى</string>
   <string name="toggleTheChat">تعطيل/تشغيل الدردشة</string>
   <string name="toggleSound">تعطيل/تشغيل الصوت</string>
@@ -59,7 +59,7 @@
   <string name="computerAnalysisAvailable">تحليل الحاسوب متاح</string>
   <string name="analysis">لوحة التحليل</string>
   <string name="depthX">عمق التحليل %s</string>
-  <string name="usingServerAnalysis">استخدام تحليل السيرفر</string>
+  <string name="usingServerAnalysis">استخدام تحليل الخادم</string>
   <string name="loadingEngine">تحميل المحرك...</string>
   <string name="cloudAnalysis">تحليل سحابي</string>
   <string name="goDeeper">لتحليل أعمق</string>
@@ -343,7 +343,6 @@
     <item quantity="many">منح %s ثانية</item>
     <item quantity="other">منح %s ثانية</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">هذا اللاعب يستعين ببرامج الشطرنج</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">هذا اللاعب يتلاعب بتقييمه</string>
   <string name="openingExplorerAndTablebase">مستكشف الافتتاحيات&amp; جدول النهايات</string>
   <string name="takeback">تراجع</string>

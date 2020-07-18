@@ -19,7 +19,10 @@ final private class StudySocket(
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi
-)(implicit ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mode: play.api.Mode
+) {
 
   import StudySocket._
 
@@ -410,7 +413,6 @@ final private class StudySocket(
   private val InviteLimitPerUser = new lila.memo.RateLimit[User.ID](
     credits = 50,
     duration = 24 hour,
-    name = "study invites per user",
     key = "study_invite.user"
   )
 

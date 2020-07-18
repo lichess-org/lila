@@ -29,7 +29,7 @@ case class FriendConfig(
 
 object FriendConfig extends BaseHumanConfig {
 
-  def <<(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], c: String, fen: Option[String]) =
+  def from(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], c: String, fen: Option[String]) =
     new FriendConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",

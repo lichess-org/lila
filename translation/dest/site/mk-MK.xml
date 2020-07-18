@@ -261,7 +261,6 @@
     <item quantity="one">Додај %s секунди</item>
     <item quantity="other">Додај %s секунди</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Овој играч користи компјутерска помош</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Овој играч вештачки го зголемува/намалува рејтинго</string>
   <string name="takeback">Повлечете го потегот</string>
   <string name="proposeATakeback">Предложете повлекување на потегот</string>

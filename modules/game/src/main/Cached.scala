@@ -16,7 +16,7 @@ final class Cached(
   def nbImportedBy(userId: User.ID): Fu[Int] = nbImportedCache.get(userId)
   def clearNbImportedByCache                 = nbImportedCache invalidate _
 
-  def nbTotal: Fu[Int] = nbTotalCache.get {}
+  def nbTotal: Fu[Long] = nbTotalCache.get {}
 
   def nbPlaying = nbPlayingCache.get _
 
@@ -39,7 +39,7 @@ final class Cached(
   }
 
   private val nbImportedCache = mongoCache[User.ID, Int](
-    1024,
+    4096,
     "game:imported",
     30 days,
     _.toString
@@ -52,14 +52,14 @@ final class Cached(
       }
   }
 
-  private val nbTotalCache = mongoCache.unit[Int](
+  private val nbTotalCache = mongoCache.unit[Long](
     "game:total",
     29 minutes
   ) { loader =>
     _.refreshAfterWrite(30 minutes)
       .buildAsyncFuture {
         loader { _ =>
-          gameRepo.coll.countSel($empty)
+          gameRepo.coll.countAll
         }
       }
   }

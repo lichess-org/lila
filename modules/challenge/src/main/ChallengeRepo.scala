@@ -72,10 +72,21 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
   private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))
 
-  private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
+  private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] = {
+    val selector = $doc(
+      "seenAt" $lt date,
+      "status" -> Status.Created.id,
+      "timeControl" $exists true
+    )
     coll.ext
-      .find(selectCreated ++ selectClock ++ $doc("seenAt" $lt date))
+      .find(selector)
+      .hint($doc("seenAt" -> 1)) // partial index
       .list[Challenge](max)
+      .recoverWith {
+        case _: reactivemongo.core.errors.DatabaseException =>
+          coll.ext.list[Challenge](selector, max)
+      }
+  }
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
     coll.ext.find($doc("expiresAt" $lt DateTime.now)).list[Challenge](max)
@@ -136,5 +147,4 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
   private[challenge] def remove(id: Challenge.ID) = coll.delete.one($id(id)).void
 
   private val selectCreated = $doc("status" -> Status.Created.id)
-  private val selectClock   = $doc("timeControl.l" $exists true)
 }

@@ -9,7 +9,6 @@ $c-tour-weekend: $c-brag;
 $c-tour-marathon: #66558C;
 $c-tour-unique: $c-brag;
 $c-tour-max-rating: #8572ff;
-$c-tour-battle: hsl(49, 74%, 37%);
 
 .tour-chart {
   min-height: 400px;
@@ -35,10 +34,7 @@ $c-tour-battle: hsl(49, 74%, 37%);
   }
   .tournamentline {
     position: relative;
-    height: 2.5em;
-    &.large {
-      height: 4em;
-    }
+    height: 4em;
   }
   .timeheader {
     position: absolute;
@@ -119,9 +115,6 @@ $c-tour-battle: hsl(49, 74%, 37%);
   &-max-rating {
     background-color: $c-tour-max-rating;
   }
-  &-battle {
-    background-color: $c-tour-battle;
-  }
   &-short.tsht-thematic {
     letter-spacing: -1px;
   }
@@ -129,9 +122,9 @@ $c-tour-battle: hsl(49, 74%, 37%);
     margin-right: 4px;
   }
   .icon {
-    font-size: 1.3em;
+    font-size: 2.4em;
     line-height: 1;
-    margin: -4px 2px -1px 4px;
+    margin: 0 .2em 0 .2em;
     &::before {
       vertical-align: middle;
     }
@@ -140,9 +133,9 @@ $c-tour-battle: hsl(49, 74%, 37%);
     @extend %nowrap-ellipsis;
   }
   .name {
-    display: inline-block;
+    display: flex;
+    max-width: none;
     vertical-align: top;
-    max-width: 66%;
   }
   .body {
     flex: 1 0;
@@ -157,17 +150,5 @@ $c-tour-battle: hsl(49, 74%, 37%);
   }
   .infos .nb-players {
     flex: 0 0 auto;
-  }
-
-  .large & .icon {
-    font-size: 2.4em;
-    margin: 0 .2em 0 .2em;
-  }
-  .large & .name {
-    display: block;
-    max-width: none;
-  }
-  .large & .name {
-    display: flex;
   }
 }

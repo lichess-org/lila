@@ -24,7 +24,11 @@ final class SimulApi(
     timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem, mode: play.api.Mode) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
+    mode: play.api.Mode
+) {
 
   private val workQueue =
     new lila.hub.DuctSequencers(
@@ -64,7 +68,7 @@ final class SimulApi(
       text = setup.text,
       team = setup.team
     )
-    (repo create simul) >>- publish() >>- {
+    repo.create(simul, me.hasTitle) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
     } inject simul
   }

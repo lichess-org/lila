@@ -85,12 +85,10 @@ object JsonView {
   }
 
   implicit val blursWriter: OWrites[Blurs] = OWrites { blurs =>
-    Json
-      .obj("nb" -> blurs.nb)
-      .add("bits" -> (blurs match {
-        case bits: Blurs.Bits => bits.binaryString.some
-        case _                => none
-      }))
+    Json.obj(
+      "nb"   -> blurs.nb,
+      "bits" -> blurs.binaryString
+    )
   }
 
   implicit val variantWriter: OWrites[chess.variant.Variant] = OWrites { v =>

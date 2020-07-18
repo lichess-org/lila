@@ -6,7 +6,7 @@ $(function() {
 
     var $overview = $editor.find('.overview');
     var $el = $overview.find('.todo');
-    var $checkbox = $editor.find('#form3-listed');
+    var $listed = $editor.find('#form3-listed');
 
     var must = [{
       html: '<a href="/account/profile">Complete your lichess profile</a>',
@@ -21,9 +21,9 @@ $(function() {
     }, {
       html: 'Fill in basic information',
       check: function() {
-        ['profile.headline', 'profile.languages'].forEach(function(name) {
+        for (let name of ['profile.headline', 'languages']) {
           if (!$editor.find('[name="' + name + '"]').val()) return false;
-        });
+        }
         return true;
       }
     }, {
@@ -37,17 +37,14 @@ $(function() {
 
     return function() {
       var points = [];
-      must.forEach(function(o) {
-        if (!o.check()) points.push($('<li>').html(o.html));
-      });
+      for (let o of must) if (!o.check()) points.push($('<li>').html(o.html));
       $el.find('ul').html(points);
       var fail = !!points.length;
       $overview.toggleClass('with-todo', fail);
-      if (fail) $checkbox.prop('checked', false);
-      $checkbox.attr('disabled', fail);
+      if (fail) $listed.prop('checked', false);
+      $listed.attr('disabled', fail);
     };
   })();
-  todo();
 
   $editor.find('.tabs > div').click(function() {
     $editor.find('.tabs > div').removeClass('active');
@@ -121,4 +118,6 @@ $(function() {
       tagify.settings.whitelist.find(l => l.code == code)
     ).filter(x => x)
   );
+
+  todo();
 });

@@ -78,7 +78,7 @@ final private[forum] class TopicApi(
           env.topicRepo.coll.insert.one(topic withPost post) >>
           env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
           (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
-          (!categ.quiet ?? env.recent.invalidate) >>-
+          (!categ.quiet ?? env.recent.invalidate()) >>-
           ctx.userId.?? { userId =>
             val text = s"${topic.name} ${post.text}"
             shutup ! {
@@ -122,7 +122,7 @@ final private[forum] class TopicApi(
       env.topicRepo.coll.insert.one(topic withPost post) >>
       env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
       (indexer ! InsertPost(post)) >>-
-      env.recent.invalidate >>-
+      env.recent.invalidate() >>-
       Bus.publish(actorApi.CreatePost(post), "forumPost") void
   }
 
@@ -164,7 +164,7 @@ final private[forum] class TopicApi(
       (env.postRepo removeByTopic topic.id zip env.topicRepo.coll.delete.one($id(topic.id))) >>
         (env.categApi denormalize categ) >>-
         (indexer ! RemovePosts(postIds)) >>-
-        env.recent.invalidate
+        env.recent.invalidate()
     }
 
   def toggleClose(categ: Categ, topic: Topic, mod: User): Funit =
@@ -178,7 +178,7 @@ final private[forum] class TopicApi(
       MasterGranter(_.ModerateForum)(mod) ?? {
         env.postRepo.hideByTopic(topic.id, topic.visibleOnHome) >>
           modLog.toggleHideTopic(mod.id, categ.name, topic.name, topic.visibleOnHome)
-      } >>- env.recent.invalidate
+      } >>- env.recent.invalidate()
     }
 
   def toggleSticky(categ: Categ, topic: Topic, mod: User): Funit =

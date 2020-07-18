@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="onlyPublicStudiesCanBeEmbedded">Masomo tu ya umma yanaweza kupachikwa!</string>
+</resources>

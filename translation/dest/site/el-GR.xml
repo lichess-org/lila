@@ -275,7 +275,7 @@
     <item quantity="one">Προσθέστε %s δευτερόλεπτα</item>
     <item quantity="other">Προσθέστε %s δευτερόλεπτα</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Ο παίκτης χρησιμοποιεί υποβοήθηση υπολογιστή</string>
+  <string name="thisAccountViolatedTos">Αυτός ο λογαριασμός παραβαίνει τους Όρους Χρήσης του Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ο παίκτης αυξάνει/μειώνει τεχνητά την βαθμολογία</string>
   <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; τελειωμάτων</string>
   <string name="takeback">Ανάκληση κίνησης</string>
@@ -849,4 +849,17 @@
   <string name="classicalDesc">Κλασικές παρτίδες: 25 λεπτά και άνω</string>
   <string name="correspondenceDesc">Παρτίδες αλληλογραφίας: μία ή περισσότερες μέρες για την κίνηση</string>
   <string name="puzzleDesc">Εξάσκηση τακτικών</string>
+  <string name="important">Σημαντικό</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Η ερώτησή σας μπορεί να έχει απαντηθεί ήδη %1$s</string>
+  <string name="inTheFAQ">στις συχνές ερωτήσεις.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Για να αναφέρετε έναν χρήστη για κλέψιμο ή για κακή συμπεριφορά, %1$s</string>
+  <string name="useTheReportForm">χρησιμοποιείστε τη φόρμα αναφορών</string>
+  <string name="toRequestSupport">Για να ζητήσετε βοήθεια, %1$s</string>
+  <string name="tryTheContactPage">χρησιμοποιείστε την σελίδα επικοινωνίας</string>
+  <string name="thisTopicIsArchived">Αυτό το θέμα έχει αρχειοθετηθεί και δεν δέχεται απαντήσεις.</string>
+  <string name="joinTheTeamXToPost">Δηλώστε συμμετοχή στο %1$s, για να κάνετε δημοσιεύσεις σε αυτό το φόρουμ</string>
+  <string name="teamNamedX">%1$s ομάδες</string>
+  <string name="youCannotPostYetPlaySomeGames">Δεν μπορείτε να δημοσιεύσετε σε αυτό το φόρουμ ακόμα. Παίξτε μερικά παιχνίδια!</string>
+  <string name="subscribe">Εγγραφείτε</string>
+  <string name="unsubscribe">Απεγγραφείτε</string>
 </resources>

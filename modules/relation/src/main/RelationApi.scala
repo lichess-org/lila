@@ -37,7 +37,7 @@ final class RelationApi(
 
   def fetchFollowing = repo following _
 
-  def fetchFollowersFromSecondary = repo.followersFromSecondary _
+  def freshFollowersFromSecondary = repo.freshFollowersFromSecondary _
 
   def fetchBlocking = repo blocking _
 
@@ -78,9 +78,9 @@ final class RelationApi(
   def fetchAreFriends(u1: ID, u2: ID): Fu[Boolean] =
     fetchFollows(u1, u2) >>& fetchFollows(u2, u1)
 
-  private val countFollowingCache = cacheApi[ID, Int](65536, "relation.count.following") {
+  private val countFollowingCache = cacheApi[ID, Int](8192, "relation.count.following") {
     _.expireAfterAccess(10 minutes)
-      .maximumSize(65536)
+      .maximumSize(32768)
       .buildAsyncFuture { userId =>
         coll.countSel($doc("u1" -> userId, "r" -> Follow))
       }
@@ -157,7 +157,6 @@ final class RelationApi(
   private val limitFollowRateLimiter = new lila.memo.RateLimit[ID](
     credits = 1,
     duration = 1 hour,
-    name = "follow limit cleanup",
     key = "follow.limit.cleanup"
   )
 

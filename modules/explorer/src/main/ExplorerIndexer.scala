@@ -18,7 +18,10 @@ final private class ExplorerIndexer(
     getBotUserIds: lila.user.GetBotIds,
     ws: play.api.libs.ws.WSClient,
     internalEndpoint: InternalEndpoint
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) {
 
   private val separator           = "\n\n\n"
   private val datePattern         = "yyyy-MM-dd"
@@ -57,7 +60,7 @@ final private class ExplorerIndexer(
             }
           }
           .toMat(Sink.ignore)(Keep.right)
-          .run
+          .run()
           .void
       }
     }
@@ -87,7 +90,7 @@ final private class ExplorerIndexer(
             logger.warn(s"$err", err)
             lila.mon.explorer.index.count(false).increment(max)
         }
-        buf.clear
+        buf.clear()
       }
     }
   }
@@ -132,7 +135,7 @@ final private class ExplorerIndexer(
       if blackRating >= minPlayerRating
       averageRating = (whiteRating + blackRating) / 2
       if averageRating >= minAverageRating
-      if probability(game, averageRating) > nextFloat
+      if probability(game, averageRating) > nextFloat()
       if !game.userIds.exists(botUserIds.contains)
       if valid(game)
     } yield gameRepo initialFen game flatMap { initialFen =>

@@ -1,9 +1,9 @@
 import { OpeningData, TablebaseData } from './interfaces';
 
-export function opening(endpoint: string, variant: VariantKey, fen: Fen, play: string[], config, withGames: boolean): JQueryPromise<OpeningData> {
+export function opening(endpoint: string, variant: VariantKey, fen: Fen, rootFen: Fen, play: string[], config, withGames: boolean): JQueryPromise<OpeningData> {
   let url: string;
   const params: any = {
-    fen,
+    fen: rootFen,
     play: play.join(',')
   };
   if (!withGames) params.topGames = params.recentGames = 0;

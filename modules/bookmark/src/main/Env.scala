@@ -20,7 +20,10 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   private val config = appConfig.get[BookmarkConfig]("bookmark")(AutoConfig.loader)
 

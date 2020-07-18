@@ -270,6 +270,8 @@ object Countries {
     C("ZW", "Zimbabwe")
   ).sortBy(_.name) ::: List(
     // whatever
+    C("EU", "European Union"),
+    C("_united-nations", "United Nations"),
     C("_rainbow", "Rainbow"),
     C("_pirate", "Pirate")
   )

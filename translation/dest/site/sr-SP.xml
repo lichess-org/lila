@@ -292,7 +292,6 @@
     <item quantity="few">Додај %s секунде</item>
     <item quantity="other">Додај %s секунди</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Овај играч користи помоћ рачунара</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ови играчи вештачки увећавају свој рејтинг</string>
   <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
   <string name="takeback">Повлачење потеза</string>

@@ -13,7 +13,6 @@ final class Search(env: Env) extends LilaController(env) {
   private val SearchRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 50,
     duration = 5.minutes,
-    name = "search games per IP",
     key = "search.games.ip"
   )
   private val SearchConcurrencyLimitPerIP = new lila.memo.FutureConcurrencyLimit[IpAddress](
@@ -28,12 +27,12 @@ final class Search(env: Env) extends LilaController(env) {
         val page = p atLeast 1
         Reasonable(page, 100) {
           val ip           = HTTPRequest lastRemoteAddress ctx.req
-          val cost         = scala.math.sqrt(page).toInt
+          val cost         = scala.math.sqrt(page.toDouble).toInt
           implicit def req = ctx.body
           env.game.cached.nbTotal flatMap { nbGames =>
             def limited =
               fuccess {
-                val form = searchForm.bindFromRequest.withError(
+                val form = searchForm.bindFromRequest().withError(
                   key = "",
                   message = "Please only send one request at a time per IP address"
                 )
@@ -42,24 +41,26 @@ final class Search(env: Env) extends LilaController(env) {
             SearchRateLimitPerIP(ip, cost = cost) {
               SearchConcurrencyLimitPerIP(ip, limited = limited) {
                 negotiate(
-                  html = searchForm.bindFromRequest.fold(
+                  html = searchForm.bindFromRequest().fold(
                     failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
                     data =>
                       data.nonEmptyQuery ?? { query =>
-                        env.gameSearch.paginator(query, page) map (_.some)
+                        env.gameSearch.paginator(query, page) map some
                       } map { pager =>
                         Ok(html.search.index(searchForm fill data, pager, nbGames))
+                      } recover { _ =>
+                        InternalServerError("Sorry, we can't process that query at the moment")
                       }
                   ),
                   api = _ =>
-                    searchForm.bindFromRequest.fold(
+                    searchForm.bindFromRequest().fold(
                       _ =>
                         Ok {
                           jsonError("Could not process search query")
                         }.fuccess,
                       data =>
                         data.nonEmptyQuery ?? { query =>
-                          env.gameSearch.paginator(query, page).dmap(_.some)
+                          env.gameSearch.paginator(query, page) dmap some
                         } flatMap {
                           case Some(s) =>
                             env.api.userGameApi.jsPaginator(s) dmap {
@@ -67,6 +68,8 @@ final class Search(env: Env) extends LilaController(env) {
                             }
                           case None =>
                             BadRequest(jsonError("Could not process search query")).fuccess
+                        } recover { _ =>
+                          InternalServerError(jsonError("Sorry, we can't process that query at the moment"))
                         }
                     )
                 )

@@ -10,7 +10,6 @@ import scala.concurrent.Promise
 case class Announce(msg: String, date: DateTime, json: JsObject)
 
 package streamer {
-  case class StreamsOnAir(html: String)
   case class StreamStart(userId: String)
 }
 
@@ -50,10 +49,11 @@ package report {
   case class Shutup(userId: String, text: String, major: Boolean)
   case class Booster(winnerId: String, loserId: String)
   case class AutoFlag(suspectId: String, resource: String, text: String)
+  case class CheatReportCreated(userId: String)
 }
 
 package security {
-  case class GarbageCollect(userId: String, ipBan: Boolean)
+  case class GarbageCollect(userId: String)
   case class GCImmediateSb(userId: String)
   case class CloseAccount(userId: String)
 }
@@ -210,6 +210,9 @@ package team {
   case class CreateTeam(id: String, name: String, userId: String)
   case class JoinTeam(id: String, userId: String)
   case class IsLeader(id: String, userId: String, promise: Promise[Boolean])
+  case class IsLeaderOf(leaderId: String, memberId: String, promise: Promise[Boolean])
+  case class KickFromTeam(teamId: String, userId: String)
+  case class TeamIdsJoinedBy(userId: String, promise: Promise[List[LightTeam.TeamID]])
 }
 
 package fishnet {

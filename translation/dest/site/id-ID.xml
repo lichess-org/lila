@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Bermain melawan teman</string>
+  <string name="playWithAFriend">Bermain dengan teman</string>
   <string name="playWithTheMachine">Bermain melawan komputer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Undang yang lain dengan memberikan URL berikut</string>
   <string name="gameOver">Permainan Berakhir</string>
@@ -258,7 +258,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">Berikan %s detik</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Pemain ini menggunakan bantuan komputer</string>
+  <string name="thisAccountViolatedTos">Akun ini melanggar Ketentuan Layanan Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Pemain ini bertambah/berkurang ratingnya</string>
   <string name="openingExplorerAndTablebase">Penjelajah pembukaan &amp; tablebase</string>
   <string name="takeback">Langkah Batal</string>

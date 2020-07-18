@@ -275,7 +275,6 @@
     <item quantity="one">%s सेकेण्ड दिनु</item>
     <item quantity="other">%s सेकेण्ड दिनु</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">यो खेलाडी कम्प्युटरको सहायताले खेल्ने गर्दछ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">यो खेलाडी कृतिम रुपमा रेटिङ घटबढ गराउने गर्दछ</string>
   <string name="openingExplorerAndTablebase">शुरुका चाल अन्वेषक &amp; टेबलबेस</string>
   <string name="takeback">चाल फिर्ता</string>
@@ -292,6 +291,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s प्रतियोगिताको अङ्क</item>
     <item quantity="other">%s प्रतियोगिताको अङ्कहरु</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s पाठ</item>
+    <item quantity="other">%s पाठहरू</item>
   </plurals>
   <string name="viewTournament">प्रतियोगिता हेरौं</string>
   <string name="backToTournament">प्रतियोगितामा फिर्ता जाऔं</string>
@@ -845,4 +848,9 @@
   <string name="classicalDesc">२५ मिनेटभन्दा बढिका क्लासिकल खेलहरू</string>
   <string name="correspondenceDesc">पत्रचारिक खेलहरू: हरेक चालको एक वा सो भन्दा बढि दिनहरू</string>
   <string name="puzzleDesc">चेस कार्यनीति प्रशिक्षण</string>
+  <string name="important">महत्वपुर्ण</string>
+  <string name="yourQuestionMayHaveBeenAnswered">तपाईको प्रश्नको %1$s उत्तर हुनसक्छ</string>
+  <string name="inTheFAQ">प्रायः सोधिने प्रश्नहरूमा</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">चोरी वा खराब ब्यहोराको उजुरी गर्नुपरेमा %1$s</string>
+  <string name="useTheReportForm">रिपोर्ट फारम प्रयोग गर्नुहोस्</string>
 </resources>

@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="doNotReportInForum">Форумдағы ойыншыларға қарсы шағым жібермеңіз.</string>
+  <string name="reportBugInForum">Форумның Личес Пікір қалдыру бөлімінде</string>
+</resources>

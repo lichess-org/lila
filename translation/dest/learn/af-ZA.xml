@@ -7,7 +7,7 @@
   <string name="resetMyProgress">Herstel my vordering</string>
   <string name="youWillLoseAllYourProgress">Jy sal al jou vordering verloor!</string>
   <string name="play">speel!</string>
-  <string name="chessPieces">Skaak stukke</string>
+  <string name="chessPieces">Skaakstukke</string>
   <string name="theRook">Die toring</string>
   <string name="itMovesInStraightLines">Hy beweeg in reguit lyne</string>
   <string name="rookIntro">Die toring is \'n sterk stuk. Is jy reg om sy bevelvoerder te wees?</string>
@@ -60,14 +60,14 @@ Nie nodig om te promoveer nie.</string>
   <string name="grabAllTheStarsNoNeedToPromote">Gryp al die sterre!
 Nie nodig om te promoveer.</string>
   <string name="pawnComplete">Pragtig! Pionne hou geen geheimenisse vir jou nie.</string>
-  <string name="pawnPromotion">Pion promovering</string>
+  <string name="pawnPromotion">Pionpromovering</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Jou pion het die einde van die bord bereik!</string>
   <string name="itNowPromotesToAStrongerPiece">Dit promoveer nou na \'n beter stuk toe.</string>
   <string name="selectThePieceYouWant">Kies die stuk wat jy wil hê!</string>
   <string name="fundamentals">Beginsels</string>
   <string name="capture">Vat</string>
   <string name="takeTheEnemyPieces">Vat die vyandige stukke</string>
-  <string name="captureIntro">Identifiseer die opponent se onverdedigde stukke, en vat dit!</string>
+  <string name="captureIntro">Identifiseer die opponent se onverdedigde stukke, en vat hulle!</string>
   <string name="takeTheBlackPieces">Vat die swart stukke!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Vat die swart stukke!
 En moenie joune verloor nie.</string>
@@ -78,7 +78,7 @@ En moenie joune verloor nie.</string>
   <string name="protectionComplete">Baie mooi! \'n Stuk wat jy nie verloor nie, is \'n stuk wat jy wen!</string>
   <string name="escape">Jy is onder aanval!
 Ontsnap die bedreiging!</string>
-  <string name="noEscape">Daar is geen wegkom kans nie,
+  <string name="noEscape">Daar is geen wegkomkans nie,
 maar jy kan verdedig!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Moenie dat hulle jou onbeskermde stukke vat nie!</string>
   <string name="combat">Stryd</string>
@@ -196,20 +196,20 @@ Ruiter = 3
 Pion = 1</string>
   <string name="checkInTwo">Skaak in twee</string>
   <string name="twoMovesToGiveCheck">Twee skuiwe om \'n skaak te gee</string>
-  <string name="checkInTwoIntro">Find die regte kombinasie van twee skuiwe wat die opponent se koning skaak!</string>
+  <string name="checkInTwoIntro">Vind die regte kombinasie van twee skuiwe wat die opponent se koning skaak!</string>
   <string name="checkInTwoGoal">Dreig die opponent se koning
 in twee skuiwe!</string>
   <string name="checkInTwoComplete">Jy is \'n legende! Jy het jou opponent gedwing om sy koning te beskerm, deur hom te skaak!</string>
   <string name="whatNext">Wat nou?</string>
   <string name="youKnowHowToPlayChess">Jy weet hoe om skaak te speel, baie geluk! Wil jy \'n beter speler word?</string>
   <string name="register">Registreer</string>
-  <string name="getAFreeLichessAccount">Kry \'n gratis Lichess rekening</string>
+  <string name="getAFreeLichessAccount">Kry ’n gratis Lichess-rekening</string>
   <string name="practice">Oefen</string>
-  <string name="learnCommonChessPositions">Leer algemene skaak posisies</string>
+  <string name="learnCommonChessPositions">Leer algemene skaakposisies</string>
   <string name="puzzles">Kopkrappers</string>
   <string name="exerciseYourTacticalSkills">Oefen jou taktiese vermoëns</string>
-  <string name="videos">Videos</string>
-  <string name="watchInstructiveChessVideos">Kyk instruktiewe skaak videos</string>
+  <string name="videos">Video’s</string>
+  <string name="watchInstructiveChessVideos">Kyk opleidingsvideo’s vir skaak</string>
   <string name="playPeople">Speel teen mense</string>
   <string name="opponentsFromAroundTheWorld">Opponente van regoor die aarde</string>
   <string name="playMachine">Speel teen rekenaar</string>

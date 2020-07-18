@@ -21,7 +21,7 @@ object gamify {
         th("Champions of the past"),
         th("Score"),
         th("Actions taken"),
-        th("Reports closed")
+        th("Report points")
       )
 
     views.html.base.layout(
@@ -73,7 +73,7 @@ object gamify {
         views.html.mod.menu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content box")(
           h1(
-            a(href := routes.Mod.gamify, dataIcon := "I"),
+            a(href := routes.Mod.gamify(), dataIcon := "I"),
             title
           ),
           div(cls := "period")(
@@ -125,7 +125,7 @@ object gamify {
                 td(m.action)
               ),
               tr(
-                th("Reports closed"),
+                th("Report points"),
                 td(m.report)
               )
             )

@@ -190,8 +190,8 @@ object JsonApi {
       (__ \ "pv").readNullable[List[Uci]].map(~_) and
         (__ \ "score").read[Request.Evaluation.Score] and
         (__ \ "time").readNullable[Int] and
-        (__ \ "nodes").readNullable[Long].map(Maths.toInt) and
-        (__ \ "nps").readNullable[Long].map(Maths.toInt) and
+        (__ \ "nodes").readNullable[Long].map(_.map(_.toSaturatedInt)) and
+        (__ \ "nps").readNullable[Long].map(_.map(_.toSaturatedInt)) and
         (__ \ "depth").readNullable[Int]
     )(Request.Evaluation.apply _)
     implicit val EvaluationOptionReads = Reads[Option[Request.Evaluation.OrSkipped]] {

@@ -1,7 +1,8 @@
 package controllers
 
-import play.api.mvc.Result
 import play.api.libs.json.Json
+import play.api.mvc.Result
+import scala.annotation.nowarn
 import scala.concurrent.duration._
 
 import lila.api.Context
@@ -28,7 +29,7 @@ final class Challenge(
       }
     }
 
-  def show(id: String, _color: Option[String]) =
+  def show(id: String, @nowarn("cat=unused") _color: Option[String]) =
     Open { implicit ctx =>
       showId(id)
     }
@@ -160,14 +161,12 @@ final class Challenge(
   private val ChallengeIpRateLimit = new lila.memo.RateLimit[IpAddress](
     100,
     10.minute,
-    name = "challenge create per IP",
-    key = "challenge_create_ip",
+    key = "challenge.create.ip",
     enforce = env.net.rateLimit.value
   )
 
   private val ChallengeUserRateLimit = lila.memo.RateLimit.composite[lila.user.User.ID](
-    name = "challenge create per user",
-    key = "challenge_create_user",
+    key = "challenge.create.user",
     enforce = env.net.rateLimit.value
   )(
     ("fast", 5, 1.minute),
@@ -185,7 +184,7 @@ final class Challenge(
             single(
               "username" -> lila.user.DataForm.historicalUsernameField
             )
-          ).bindFromRequest.fold(
+          ).bindFromRequest().fold(
             _ => funit,
             username =>
               ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
@@ -207,11 +206,12 @@ final class Challenge(
   def apiCreate(userId: String) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       implicit val lang = reqLang
-      env.setup.forms.api.user.bindFromRequest.fold(
+      env.setup.forms.api.user.bindFromRequest().fold(
         err => BadRequest(apiFormError(err)).fuccess,
-        config =>
-          ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
-            ChallengeUserRateLimit(me.id) {
+        config => {
+          val cost = if (me.isApiHog) 0 else 1
+          ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req, cost = cost) {
+            ChallengeUserRateLimit(me.id, cost = cost) {
               env.user.repo enabledById userId.toLowerCase flatMap {
                 destUser =>
                   import lila.challenge.Challenge._
@@ -251,6 +251,7 @@ final class Challenge(
               }
             }(rateLimitedFu)
           }(rateLimitedFu)
+        }
       )
     }
 
@@ -283,7 +284,7 @@ final class Challenge(
   def openCreate =
     Action.async { implicit req =>
       implicit val lang = reqLang
-      env.setup.forms.api.open.bindFromRequest.fold(
+      env.setup.forms.api.open.bindFromRequest().fold(
         err => BadRequest(apiFormError(err)).fuccess,
         config =>
           ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {

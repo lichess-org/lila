@@ -7,8 +7,6 @@ import scala.annotation.{ switch, tailrec }
 import lila.common.base.StringUtils.escapeHtmlRaw
 
 final object RawHtml {
-  @inline implicit def toPimpedChars(i: Iterable[CharSequence]) = new PimpedChars(i)
-
   def nl2br(s: String): String = {
     val sb      = new jStringBuilder(s.length)
     var counter = 0
@@ -59,7 +57,7 @@ final object RawHtml {
         idx = m.end
       } while (m.find)
       if (idx < text.length) buf += text.substring(idx)
-      buf.result
+      buf.result()
     } else List(text)
   }
 

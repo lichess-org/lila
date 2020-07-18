@@ -12,7 +12,7 @@ import lila.round.JsonView.WithFlags
 import lila.round.{ Forecast, JsonView }
 import lila.security.Granter
 import lila.simul.Simul
-import lila.swiss.Swiss
+import lila.swiss.{ GameView => SwissView }
 import lila.tournament.{ GameView => TourView }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.User
@@ -47,7 +47,7 @@ final private[api] class RoundApi(
           nvui = ctx.blind
         ) zip
           (pov.game.simulId ?? simulApi.find) zip
-          fetchSwiss(pov) zip
+          swissApi.gameView(pov) zip
           (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
           forecastApi.loadForDisplay(pov) zip
           bookmarkApi.exists(pov.game, ctx.me) map {
@@ -86,7 +86,7 @@ final private[api] class RoundApi(
           withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs))
         ) zip
           (pov.game.simulId ?? simulApi.find) zip
-          fetchSwiss(pov) zip
+          swissApi.gameView(pov) zip
           (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
           bookmarkApi.exists(pov.game, ctx.me) map {
           case json ~ simul ~ swiss ~ note ~ bookmarked =>
@@ -125,7 +125,7 @@ final private[api] class RoundApi(
         ) zip
           tourApi.gameView.analysis(pov.game) zip
           (pov.game.simulId ?? simulApi.find) zip
-          fetchSwiss(pov) zip
+          swissApi.gameView(pov) zip
           ctx.userId.ifTrue(ctx.isMobileApi).?? { noteApi.get(pov.gameId, _) } zip
           bookmarkApi.exists(pov.game, ctx.me) map {
           case json ~ tour ~ simul ~ swiss ~ note ~ bookmarked =>
@@ -133,7 +133,6 @@ final private[api] class RoundApi(
               withTournament(pov, tour) _ compose
                 withSwiss(swiss) _ compose
                 withSimul(simul) _ compose
-                withSwiss(swiss) _ compose
                 withNote(note) _ compose
                 withBookmark(bookmarked) _ compose
                 withTree(pov, analysis, initialFen, withFlags) _ compose
@@ -286,13 +285,19 @@ final private[api] class RoundApi(
         )
     })
 
-  def withSwiss(swiss: Option[Swiss])(json: JsObject) =
-    json.add("swiss" -> swiss.map { s =>
+  def withSwiss(sv: Option[SwissView])(json: JsObject) =
+    json.add("swiss" -> sv.map { s =>
       Json
         .obj(
-          "id"      -> s.id.value,
-          "running" -> s.isStarted
+          "id"      -> s.swiss.id.value,
+          "running" -> s.swiss.isStarted
         )
+        .add("ranks" -> s.ranks.map { r =>
+          Json.obj(
+            "white" -> r.whiteRank,
+            "black" -> r.blackRank
+          )
+        })
     })
 
   private def withSimul(simulOption: Option[Simul])(json: JsObject) =
@@ -307,6 +312,4 @@ final private[api] class RoundApi(
         )
       }
     )
-
-  private def fetchSwiss(pov: Pov) = pov.game.swissId.map(Swiss.Id.apply) ?? swissApi.byId
 }

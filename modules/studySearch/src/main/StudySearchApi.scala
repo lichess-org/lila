@@ -18,8 +18,11 @@ final class StudySearchApi(
     indexThrottler: ActorRef,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer)
-    extends SearchReadApi[Study, Query] {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    mat: akka.stream.Materializer
+) extends SearchReadApi[Study, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -49,15 +52,14 @@ final class StudySearchApi(
       Fields.name    -> s.study.name.value,
       Fields.owner   -> s.study.ownerId,
       Fields.members -> s.study.members.ids,
-      Fields.chapterNames -> {
+      Fields.chapterNames ->
         s.chapters
-          .collect {
-            case c if !Chapter.isDefaultName(c.name) => c.name.value
-          } ++ s.study.topicsOrEmpty.value.map(_.value)
-      }.mkString(" "),
+          .collect { case c if !Chapter.isDefaultName(c.name) => c.name.value }
+          .mkString(" "),
       Fields.chapterTexts -> noMultiSpace {
         (s.study.description.toList :+ s.chapters.flatMap(chapterText)).mkString(" ")
       },
+      Fields.topics -> s.study.topicsOrEmpty.value.map(_.value),
       // Fields.createdAt -> study.createdAt)
       // Fields.updatedAt -> study.updatedAt,
       Fields.likes  -> s.study.likes.value,
@@ -130,7 +132,7 @@ final class StudySearchApi(
               lila.common.Future.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
             }
             .toMat(Sink.ignore)(Keep.right)
-            .run
+            .run()
         } >> client.refresh
       case _ => funit
     }

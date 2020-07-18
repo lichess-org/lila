@@ -9,6 +9,8 @@ trait LilaException extends Exception {
   override def toString   = message
 }
 
+case class LilaInvalid(message: String) extends LilaException
+
 object LilaException extends scalaz.syntax.ToShowOps {
 
   def apply(msg: String) =

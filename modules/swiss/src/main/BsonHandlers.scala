@@ -127,20 +127,25 @@ private object BsonHandlers {
         nbRounds = r.get[Int]("n"),
         rated = r.boolO("r") | true,
         description = r.strO("d"),
-        hasChat = r.boolO("c") | true,
-        roundInterval = (r.intO("i") | 60).seconds
+        chatFor = r.intO("c") | Swiss.ChatFor.default,
+        roundInterval = (r.intO("i") | 60).seconds,
+        password = r.strO("p")
       )
     def writes(w: BSON.Writer, s: Swiss.Settings) =
       $doc(
         "n" -> s.nbRounds,
         "r" -> (!s.rated).option(false),
         "d" -> s.description,
-        "c" -> (!s.hasChat).option(false),
-        "i" -> s.roundInterval.toSeconds.toInt
+        "c" -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
+        "i" -> s.roundInterval.toSeconds.toInt,
+        "p" -> s.password
       )
   }
 
   implicit val swissHandler = Macros.handler[Swiss]
 
-  def addFeaturable(s: Swiss) = swissHandler.writeTry(s).get ++ $doc("featurable" -> true)
+  def addFeaturable(s: Swiss) =
+    swissHandler.writeTry(s).get ++ {
+      s.isNotFinished ?? $doc("featurable" -> true)
+    }
 }

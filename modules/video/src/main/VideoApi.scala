@@ -165,12 +165,12 @@ final private[video] class VideoApi(
 
     object count {
 
-      private val cache = cacheApi.unit[Int] {
+      private val cache = cacheApi.unit[Long] {
         _.refreshAfterWrite(3 hours)
           .buildAsyncFuture(_ => videoColl.countAll)
       }
 
-      def apply: Fu[Int] = cache.getUnit
+      def apply: Fu[Long] = cache.getUnit
     }
   }
 

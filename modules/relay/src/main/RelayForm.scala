@@ -38,17 +38,22 @@ final class RelayForm {
 object RelayForm {
 
   private def validSource(url: String) =
-    AbsoluteUrl
-      .parse(url)
-      .hostOption
-      .exists {
-        _.apexDomain.fold(true) { d =>
-          !blacklist.contains(d)
+    try {
+      AbsoluteUrl
+        .parse(url)
+        .hostOption
+        .exists {
+          _.apexDomain.fold(true) { d =>
+            !blacklist.contains(d)
+          }
         }
-      }
+    } catch {
+      case _: io.lemonlabs.uri.parsing.UriParsingException => false
+    }
 
   private val blacklist = List(
     "twitch.tv",
+    "twitch.com",
     "youtube.com",
     "youtu.be",
     "lichess.org",
@@ -56,7 +61,8 @@ object RelayForm {
     "chess.com",
     "vk.com",
     "localhost",
-    "chess-results.com"
+    "chess-results.com",
+    "chessgames.com"
   )
 
   case class Data(

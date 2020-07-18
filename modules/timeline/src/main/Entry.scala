@@ -80,7 +80,7 @@ object Entry {
     }
   } match {
     case (typ, bson) =>
-      new Entry(BSONObjectID.generate, typ, data.channel.some, bson, DateTime.now)
+      new Entry(BSONObjectID.generate(), typ, data.channel.some, bson, DateTime.now)
   }
 
   object atomBsonHandlers {

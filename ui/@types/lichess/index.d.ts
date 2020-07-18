@@ -1,7 +1,5 @@
 interface Lichess {
   // standalones/util.js
-  engineName: string;
-  raf(f: () => void): void;
   requestIdleCallback(f: () => void): void;
   dispatchEvent(el: HTMLElement | Window, eventName: string): void;
   hasTouchEvents: boolean;
@@ -49,7 +47,12 @@ interface Lichess {
 
   // socket.js
   StrongSocket: {
-    (url: string, version: number, cfg: any): any;
+    (url: string, version: number | false, cfg: any): any;
+    defaults: {
+      events: {
+        fen(e: any): void;
+      }
+    }
   }
 
   // timeago.js
@@ -327,7 +330,7 @@ interface JQueryStatic {
 }
 
 interface LichessModal {
-  (html: string | JQuery, cls?: string): JQuery;
+  (html: string | JQuery, cls?: string, onClose?: () => void): JQuery;
   close(): void;
 }
 
@@ -364,8 +367,4 @@ declare namespace PowerTip {
     openEvents?: string[];
     closeEvents?: string[];
   }
-}
-
-interface Array<T> {
-  includes(t: T): boolean;
 }

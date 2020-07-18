@@ -31,7 +31,7 @@ object SimulForm {
   val colorDefault = "white"
 
   private def nameType(host: User) =
-    text.verifying(
+    clean(text).verifying(
       Constraints minLength 2,
       Constraints maxLength 40,
       Constraints.pattern(
@@ -83,7 +83,7 @@ object SimulForm {
         }.verifying("At least one variant", _.nonEmpty),
         "position" -> optional(nonEmptyText),
         "color"    -> stringIn(colorChoices),
-        "text"     -> text,
+        "text"     -> clean(text),
         "team"     -> optional(nonEmptyText)
       )(Setup.apply)(Setup.unapply)
     ) fill Setup(

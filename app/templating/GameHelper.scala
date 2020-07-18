@@ -167,7 +167,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
             },
             engine option span(
               cls := "engine_mark",
-              title := trans.thisPlayerUsesChessComputerAssistance.txt()
+              title := trans.thisAccountViolatedTos.txt()
             )
           ),
           statusIcon
@@ -236,7 +236,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       tv: Boolean = false
   )(implicit ctx: Context): String = {
     val owner = ownerLink ?? ctx.me.flatMap(game.player)
-    if (tv) routes.Tv.index
+    if (tv) routes.Tv.index()
     else
       owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
         routes.Round.player(game fullIdOf o.color)

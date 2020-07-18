@@ -12,6 +12,10 @@ case class Modlog(
     date: DateTime = DateTime.now
 ) {
 
+  def isLichess = mod == lila.user.User.lichessId
+
+  def notable = !isLichess && action != Modlog.terminateTournament
+
   def showAction =
     action match {
       case Modlog.alt                 => "mark as alt"
@@ -21,9 +25,6 @@ case class Modlog(
       case Modlog.booster             => "mark as booster"
       case Modlog.unbooster           => "un-mark as booster"
       case Modlog.deletePost          => "delete forum post"
-      case Modlog.ban                 => "ban user"
-      case Modlog.ipban               => "ban IPs"
-      case Modlog.ipunban             => "unban IPs"
       case Modlog.disableTwoFactor    => "disable 2fa"
       case Modlog.closeAccount        => "close account"
       case Modlog.selfCloseAccount    => "self close account"
@@ -56,8 +57,9 @@ case class Modlog(
       case Modlog.garbageCollect      => "garbage collect"
       case Modlog.streamerList        => "list streamer"
       case Modlog.streamerUnlist      => "unlist streamer"
-      case Modlog.streamerFeature     => "feature streamer"
-      case Modlog.streamerUnfeature   => "unfeature streamer"
+      case Modlog.streamerFeature     => "feature streamer"   // BC
+      case Modlog.streamerUnfeature   => "unfeature streamer" // BC
+      case Modlog.streamerTier        => "set streamer tier"
       case Modlog.teamKick            => "kick from team"
       case Modlog.teamEdit            => "edited team"
       case a                          => a
@@ -85,13 +87,10 @@ object Modlog {
   val troll               = "troll"
   val untroll             = "untroll"
   val permissions         = "permissions"
-  val ban                 = "ban"
-  val ipban               = "ipban"
   val disableTwoFactor    = "disableTwoFactor"
   val closeAccount        = "closeAccount"
   val selfCloseAccount    = "selfCloseAccount"
   val reopenAccount       = "reopenAccount"
-  val ipunban             = "ipunban"
   val deletePost          = "deletePost"
   val openTopic           = "openTopic"
   val closeTopic          = "closeTopic"
@@ -118,8 +117,9 @@ object Modlog {
   val garbageCollect      = "garbageCollect"
   val streamerList        = "streamerList"
   val streamerUnlist      = "streamerunlist"
-  val streamerFeature     = "streamerFeature"
-  val streamerUnfeature   = "streamerUnfeature"
+  val streamerFeature     = "streamerFeature"   // BC
+  val streamerUnfeature   = "streamerUnfeature" // BC
+  val streamerTier        = "streamerTier"
   val teamKick            = "teamKick"
   val teamEdit            = "teamEdit"
 }

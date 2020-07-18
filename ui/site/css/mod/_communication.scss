@@ -8,10 +8,10 @@
   }
   .actions {
     @extend %flex-center;
-  }
-  .actions .priv {
-    margin-right: 5px;
-    font-weight: normal;
+    .priv {
+      margin-left: 1em;
+      font-weight: normal;
+    }
   }
   h2 {
     font-size: 1.6em;

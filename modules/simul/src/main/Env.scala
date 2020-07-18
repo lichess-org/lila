@@ -30,7 +30,11 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     proxyRepo: lila.round.GameProxyRepo
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mode: play.api.Mode) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    mode: play.api.Mode
+) {
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
 
@@ -56,7 +60,6 @@ final class Env(
   private val featureLimiter = new lila.memo.RateLimit[lila.user.User.ID](
     credits = config.featureViews.value,
     duration = 24 hours,
-    name = "simul homepage views",
     key = "simul.feature",
     log = false
   )

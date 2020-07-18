@@ -21,7 +21,11 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     db: lila.db.Db
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mode: play.api.Mode) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    mode: play.api.Mode
+) {
 
   lazy val teamRepo    = new TeamRepo(db(CollName("team")))
   lazy val memberRepo  = new MemberRepo(db(CollName("team_member")))
@@ -50,9 +54,13 @@ final class Env(
 
   lazy val getTeamName = new GetTeamName(cached.blockingTeamName)
 
-  lila.common.Bus.subscribeFun("shadowban", "teamIsLeader") {
+  lila.common.Bus.subscribeFun("shadowban", "teamIsLeader", "teamJoinedBy", "teamIsLeaderOf") {
     case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
     case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
-      promise completeWith teamRepo.isLeader(teamId, userId)
+      promise completeWith cached.isLeader(teamId, userId)
+    case lila.hub.actorApi.team.IsLeaderOf(leaderId, memberId, promise) =>
+      promise completeWith api.isLeaderOf(leaderId, memberId)
+    case lila.hub.actorApi.team.TeamIdsJoinedBy(userId, promise) =>
+      promise completeWith cached.teamIdsList(userId)
   }
 }

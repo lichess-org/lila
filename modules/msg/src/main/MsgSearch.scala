@@ -4,11 +4,11 @@ import reactivemongo.api.bson._
 
 import lila.common.LightUser
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 final class MsgSearch(
     colls: MsgColls,
-    userRepo: UserRepo,
+    userCache: lila.user.Cached,
     lightUserApi: lila.user.LightUserApi,
     relationApi: lila.relation.RelationApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -49,7 +49,7 @@ final class MsgSearch(
 
   private def searchUsers(me: User, q: String): Fu[List[LightUser]] =
     !me.kid ?? {
-      userRepo.userIdsLike(q, 15) flatMap lightUserApi.asyncMany dmap (_.flatten)
+      userCache.userIdsLike(q) flatMap lightUserApi.asyncMany dmap (_.flatten)
     }
 }
 

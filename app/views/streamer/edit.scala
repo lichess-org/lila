@@ -19,8 +19,6 @@ object edit extends Context.ToLang {
       modData: Option[(List[lila.mod.Modlog], List[lila.user.Note])]
   )(implicit ctx: Context) = {
 
-    val modsOnly = raw("Moderators only").some
-
     views.html.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
       moreCss = cssTag("streamer.form"),
@@ -32,13 +30,13 @@ object edit extends Context.ToLang {
           if (ctx.is(s.user))
             div(cls := "streamer-header")(
               if (s.streamer.hasPicture)
-                a(target := "_blank", href := routes.Streamer.picture, title := changePicture.txt())(
+                a(target := "_blank", href := routes.Streamer.picture(), title := changePicture.txt())(
                   bits.pic(s.streamer, s.user)
                 )
               else
                 div(cls := "picture-create")(
                   ctx.is(s.user) option
-                    a(target := "_blank", cls := "button", href := routes.Streamer.picture)(
+                    a(target := "_blank", cls := "button", href := routes.Streamer.picture())(
                       uploadPicture()
                     )
                 ),
@@ -55,7 +53,18 @@ object edit extends Context.ToLang {
                 cls := s"status is${granted ?? "-green"}",
                 dataIcon := (if (granted) "E" else "")
               )(
-                if (granted) approved()
+                if (granted)
+                  frag(
+                    approved(),
+                    s.streamer.approval.tier > 0 option frag(
+                      br,
+                      strong("You have been selected for frontpage featuring!"),
+                      p(
+                        "Note that we can only show a limited number of streams on the homepage, ",
+                        "so yours may not always appear."
+                      )
+                    )
+                  )
                 else
                   frag(
                     if (s.streamer.approval.requested) pendingReview()
@@ -63,7 +72,7 @@ object edit extends Context.ToLang {
                       frag(
                         if (s.streamer.completeEnough)
                           whenReady(
-                            postForm(action := routes.Streamer.approvalRequest)(
+                            postForm(action := routes.Streamer.approvalRequest())(
                               button(tpe := "submit", cls := "button", (!ctx.is(s.user)) option disabled)(
                                 requestReview()
                               )
@@ -117,20 +126,18 @@ object edit extends Context.ToLang {
               },
               postForm(
                 cls := "form3",
-                action := s"${routes.Streamer.edit}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}"
+                action := s"${routes.Streamer.edit()}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}"
               )(
                 isGranted(_.Streamers) option div(cls := "mod")(
                   form3.split(
                     form3.checkbox(
                       form("approval.granted"),
                       frag("Publish on the streamers list"),
-                      help = modsOnly,
                       half = true
                     ),
                     form3.checkbox(
                       form("approval.requested"),
                       frag("Active approval request"),
-                      help = modsOnly,
                       half = true
                     )
                   ),
@@ -138,25 +145,37 @@ object edit extends Context.ToLang {
                     form3.checkbox(
                       form("approval.chat"),
                       frag("Embed stream chat too"),
-                      help = modsOnly,
                       half = true
                     ),
                     if (granted)
-                      form3.checkbox(
-                        form("approval.featured"),
-                        frag("Feature on Lichess homepage"),
-                        help = modsOnly,
+                      form3.group(
+                        form("approval.tier"),
+                        raw("Homepage tier"),
+                        help =
+                          frag("Higher tier has more chance to hit homepage. Set to zero to unfeature.").some,
                         half = true
-                      )
+                      )(form3.select(_, lila.streamer.Streamer.tierChoices))
                     else
                       form3.checkbox(
                         form("approval.ignored"),
                         frag("Ignore further approval requests"),
-                        help = modsOnly,
                         half = true
                       )
                   ),
-                  form3.action(form3.submit(trans.apply()))
+                  form3.actions(
+                    form3
+                      .submit("Approve and next")(
+                        cls := "button-green",
+                        name := "approval.quick",
+                        value := "approve"
+                      ),
+                    form3.submit("Decline and next", icon = "L".some)(
+                      cls := "button-red",
+                      name := "approval.quick",
+                      value := "decline"
+                    ),
+                    form3.submit(trans.apply())
+                  )
                 ),
                 form3.split(
                   form3.group(

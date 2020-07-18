@@ -10,7 +10,7 @@ final class UserGameSearch(
 
   def apply(user: lila.user.User, page: Int)(implicit req: Request[_]) =
     paginator(
-      query = forms.search.bindFromRequest
+      query = forms.search.bindFromRequest()
         .fold(
           _ => SearchData(SearchPlayer(a = user.id.some)),
           data =>
@@ -22,7 +22,7 @@ final class UserGameSearch(
       page = page
     )
 
-  def requestForm(implicit req: Request[_]) = forms.search.bindFromRequest
+  def requestForm(implicit req: Request[_]) = forms.search.bindFromRequest()
 
   def defaultForm = forms.search
 }

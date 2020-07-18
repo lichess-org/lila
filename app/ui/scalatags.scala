@@ -170,3 +170,5 @@ trait ScalatagsExtensions {
 
   def titleOrText(v: String)(implicit ctx: Context): Modifier = titleOrText(ctx.blind, v)
 }
+
+object ScalatagsExtensions extends ScalatagsExtensions

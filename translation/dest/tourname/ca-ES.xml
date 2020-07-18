@@ -10,6 +10,12 @@
   <string name="dailyClassical">Ritme Clàssic Diari</string>
   <string name="dailyXArena">%s Diari Arena</string>
   <string name="dailyX">%s Diari</string>
+  <string name="easternRapidArena">Ràpides Oriental Arena</string>
+  <string name="easternRapid">Ràpides Oriental</string>
+  <string name="easternClassicalArena">Clàssic Oriental Arena</string>
+  <string name="easternClassical">Clàssic Oriental</string>
+  <string name="easternXArena">Oriental %s Arena</string>
+  <string name="easternX">Oriental %s</string>
   <string name="weeklyRapidArena">Ràpides Setmanal Arena</string>
   <string name="weeklyRapid">Ràpides Setmanal</string>
   <string name="weeklyClassicalArena">Ritme Clàssic Setmanal Arena</string>

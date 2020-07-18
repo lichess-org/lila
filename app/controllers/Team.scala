@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.data.Form
+import play.api.data.Forms._
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -33,7 +34,7 @@ final class Team(
   def home(page: Int) =
     Open { implicit ctx =>
       ctx.me.??(api.hasTeams) map {
-        case true  => Redirect(routes.Team.mine)
+        case true  => Redirect(routes.Team.mine())
         case false => Redirect(routes.Team.all(page))
       }
     }
@@ -114,7 +115,7 @@ final class Team(
         implicit val req = ctx.body
         forms
           .edit(team)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err => BadRequest(html.team.form.edit(team, err)).fuccess,
             data => api.update(team, data, me) inject Redirect(routes.Team.show(team.id)).flashSuccess
@@ -135,7 +136,7 @@ final class Team(
     AuthBody { implicit ctx => me =>
       WithOwnedTeam(id) { team =>
         implicit val req = ctx.body
-        forms.selectMember.bindFromRequest.value ?? { api.kick(team, _, me) } inject Redirect(
+        forms.selectMember.bindFromRequest().value ?? { api.kick(team, _, me) } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
       }
@@ -161,7 +162,7 @@ final class Team(
     AuthBody { implicit ctx => _ =>
       WithOwnedTeam(id) { team =>
         implicit val req = ctx.body
-        forms.leaders(team).bindFromRequest.value ?? { api.setLeaders(team, _) } inject Redirect(
+        forms.leaders(team).bindFromRequest().value ?? { api.setLeaders(team, _) } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
       }
@@ -189,16 +190,18 @@ final class Team(
     AuthBody { implicit ctx => implicit me =>
       LimitPerWeek(me) {
         implicit val req = ctx.body
-        forms.create.bindFromRequest.fold(
-          err =>
-            forms.anyCaptcha map { captcha =>
-              BadRequest(html.team.form.create(err, captcha))
-            },
-          data =>
-            api.create(data, me) map { team =>
-              Redirect(routes.Team.show(team.id)).flashSuccess
-            }
-        )
+        forms.create
+          .bindFromRequest()
+          .fold(
+            err =>
+              forms.anyCaptcha map { captcha =>
+                BadRequest(html.team.form.create(err, captcha))
+              },
+            data =>
+              api.create(data, me) map { team =>
+                Redirect(routes.Team.show(team.id)).flashSuccess
+              }
+          )
       }
     }
 
@@ -217,7 +220,7 @@ final class Team(
     }
 
   def join(id: String) =
-    AuthOrScoped(_.Team.Write)(
+    AuthOrScopedBody(_.Team.Write)(
       auth = implicit ctx =>
         me =>
           api countTeamsOf me flatMap { nb =>
@@ -228,35 +231,62 @@ final class Team(
               )
             else
               negotiate(
-                html = api.join(id, me) flatMap {
+                html = api.join(id, me, none) flatMap {
                   case Some(Joined(team))   => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
                   case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
                   case _                    => notFound(ctx)
                 },
-                api = _ =>
-                  api.join(id, me) flatMap {
-                    case Some(Joined(_)) => jsonOkResult.fuccess
-                    case Some(Motivate(_)) =>
-                      BadRequest(
-                        jsonError("This team requires confirmation.")
-                      ).fuccess
-                    case _ => notFoundJson("Team not found")
-                  }
+                api = _ => {
+                  implicit val body = ctx.body
+                  forms.apiRequest
+                    .bindFromRequest()
+                    .fold(
+                      newJsonFormError,
+                      msg =>
+                        api.join(id, me, msg) flatMap {
+                          case Some(Joined(_)) => jsonOkResult.fuccess
+                          case Some(Motivate(_)) =>
+                            BadRequest(
+                              jsonError("This team requires confirmation.")
+                            ).fuccess
+                          case _ => notFoundJson("Team not found")
+                        }
+                    )
+                }
               )
           },
-      scoped = req =>
-        me =>
-          env.oAuth.server.fetchAppAuthor(req) flatMap {
-            api.joinApi(id, me, _)
-          } flatMap {
-            case Some(Joined(_)) => jsonOkResult.fuccess
-            case Some(Motivate(_)) =>
-              Forbidden(
-                jsonError("This team requires confirmation, and is not owned by the oAuth app owner.")
-              ).fuccess
-            case _ => notFoundJson("Team not found")
-          }
+      scoped = implicit req =>
+        me => {
+          implicit val lang = reqLang
+          forms.apiRequest
+            .bindFromRequest()
+            .fold(
+              newJsonFormError,
+              msg =>
+                env.oAuth.server.fetchAppAuthor(req) flatMap {
+                  api.joinApi(id, me, _, msg)
+                } flatMap {
+                  case Some(Joined(_)) => jsonOkResult.fuccess
+                  case Some(Motivate(_)) =>
+                    Forbidden(
+                      jsonError("This team requires confirmation, and is not owned by the oAuth app owner.")
+                    ).fuccess
+                  case _ => notFoundJson("Team not found")
+                }
+            )
+        }
     )
+
+  def subscribe(teamId: String) = {
+    def doSub(req: Request[_], me: UserModel) =
+      Form(single("v" -> boolean))
+        .bindFromRequest()(req)
+        .fold(_ => funit, v => api.subscribe(teamId, me.id, v))
+    AuthOrScopedBody(_.Team.Write)(
+      auth = ctx => me => doSub(ctx.body, me) inject Redirect(routes.Team.show(teamId)),
+      scoped = req => me => doSub(req, me) inject jsonOkResult
+    )
+  }
 
   def requests =
     Auth { implicit ctx => me =>
@@ -276,13 +306,18 @@ final class Team(
     AuthBody { implicit ctx => me =>
       OptionFuResult(api.requestable(id, me)) { team =>
         implicit val req = ctx.body
-        forms.request.bindFromRequest.fold(
-          err =>
-            forms.anyCaptcha map { captcha =>
-              BadRequest(html.team.request.requestForm(team, err, captcha))
-            },
-          setup => api.createRequest(team, setup, me) inject Redirect(routes.Team.show(team.id)).flashSuccess
-        )
+        forms.request
+          .bindFromRequest()
+          .fold(
+            err =>
+              forms.anyCaptcha map { captcha =>
+                BadRequest(html.team.request.requestForm(team, err, captcha))
+              },
+            setup =>
+              api.createRequest(team, me, setup.message) inject Redirect(
+                routes.Team.show(team.id)
+              ).flashSuccess
+          )
       }
     }
 
@@ -294,22 +329,27 @@ final class Team(
       } yield (teamOption |@| requestOption).tupled) {
         case (team, request) =>
           implicit val req = ctx.body
-          forms.processRequest.bindFromRequest.fold(
-            _ => fuccess(routes.Team.show(team.id).toString),
-            {
-              case (decision, url) =>
-                api.processRequest(team, request, (decision == "accept")) inject url
-            }
-          )
+          forms.processRequest
+            .bindFromRequest()
+            .fold(
+              _ => fuccess(routes.Team.show(team.id).toString),
+              {
+                case (decision, url) =>
+                  api.processRequest(team, request, (decision == "accept")) inject url
+              }
+            )
       }
     }
 
   def quit(id: String) =
     AuthOrScoped(_.Team.Write)(
-      auth = ctx =>
+      auth = implicit ctx =>
         me =>
-          OptionResult(api.quit(id, me)) { team =>
-            Redirect(routes.Team.show(team.id)).flashSuccess
+          OptionFuResult(api.quit(id, me)) { team =>
+            negotiate(
+              html = Redirect(routes.Team.show(team.id)).flashSuccess.fuccess,
+              api = _ => jsonOkResult.fuccess
+            )
           }(ctx),
       scoped = _ =>
         me =>
@@ -397,9 +437,16 @@ final class Team(
       JsonOptionOk {
         api team id flatMap {
           _ ?? { team =>
-            ctx.userId.?? { api.belongsTo(id, _) } map { joined =>
-              env.team.jsonView.teamWrites.writes(team) ++ Json.obj("joined" -> joined)
-            } dmap some
+            for {
+              joined    <- ctx.userId.?? { api.belongsTo(id, _) }
+              requested <- ctx.userId.ifFalse(joined).?? { env.team.requestRepo.exists(id, _) }
+            } yield {
+              env.team.jsonView.teamWrites.writes(team) ++ Json
+                .obj(
+                  "joined"    -> joined,
+                  "requested" -> requested
+                )
+            }.some
           }
         }
       }
@@ -426,24 +473,25 @@ final class Team(
     }
 
   private def doPmAll(team: TeamModel, me: UserModel)(implicit req: Request[_]): Either[Form[_], Funit] =
-    forms.pmAll.bindFromRequest
+    forms.pmAll
+      .bindFromRequest()
       .fold(
         err => Left(err),
         msg =>
           Right {
             PmAllLimitPerUser(me.id) {
+              val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
-You received this message because you are part of the team lichess.org${routes.Team.show(team.id)}."""
-              env.msg.api.multiPost(me, env.team.memberStream.ids(team, MaxPerSecond(50)), full)
+You received this because you are subscribed to messages of the team $url."""
+              env.msg.api.multiPost(me, env.team.memberStream.subscribedIds(team, MaxPerSecond(50)), full)
               funit // we don't wait for the stream to complete, it would make lichess time out
             }(funit)
           }
       )
 
   private val PmAllLimitPerUser = lila.memo.RateLimit.composite[lila.user.User.ID](
-    name = "team pm all per user",
-    key = "team.pmAll",
+    key = "team.pm.all",
     enforce = env.net.rateLimit.value
   )(
     ("fast", 1, 3.minutes),
@@ -464,5 +512,8 @@ You received this message because you are part of the team lichess.org${routes.T
     }
 
   private[controllers] def teamsIBelongTo(me: lila.user.User): Fu[List[LightTeam]] =
+    api mine me map { _.map(_.light) }
+
+  private[controllers] def teamsILead(me: lila.user.User): Fu[List[LightTeam]] =
     api mine me map { _.map(_.light) }
 }

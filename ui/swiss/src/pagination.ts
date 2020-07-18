@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import SwissCtrl from './ctrl';
-import { MaybeVNodes } from './interfaces';
+import { MaybeVNodes, Pager } from './interfaces';
 import { bind } from './view/util';
 import * as search from './search';
 
@@ -19,16 +19,16 @@ function button(text: string, icon: string, click: () => void, enable: boolean, 
 }
 
 function scrollToMeButton(ctrl: SwissCtrl): VNode | undefined {
-  if (ctrl.data.me) return h('button.fbt' + (ctrl.focusOnMe ? '.active' : ''), {
+  return ctrl.data.me ? h('button.fbt' + (ctrl.focusOnMe ? '.active' : ''), {
     attrs: {
       'data-icon': '7',
       title: 'Scroll to your player'
     },
     hook: bind('mousedown', ctrl.toggleFocusOnMe, ctrl.redraw)
-  });
+  }) : undefined;
 }
 
-export function renderPager(ctrl: SwissCtrl, pag): MaybeVNodes {
+export function renderPager(ctrl: SwissCtrl, pag: Pager): MaybeVNodes {
   const enabled = !!pag.currentPageResults,
   page = ctrl.page;
   return pag.nbPages > -1 ? [
@@ -61,6 +61,5 @@ export function players(ctrl: SwissCtrl) {
 }
 
 export function myPage(ctrl: SwissCtrl): number | undefined {
-  if (ctrl.data.me) return Math.floor((ctrl.data.me.rank - 1) / 10) + 1;
+  return ctrl.data.me ? Math.floor((ctrl.data.me.rank - 1) / 10) + 1 : undefined;
 }
-

@@ -28,8 +28,9 @@ function wheel(ctrl: Controller, e: WheelEvent): false | undefined {
   return false;
 }
 
-function dataAct(e): string | undefined {
-  return e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
+function dataAct(e: Event): string | null {
+  const target = e.target as HTMLElement;
+  return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 }
 
 function jumpButton(icon: string, effect: string): VNode {

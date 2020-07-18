@@ -15,14 +15,14 @@ import { ClockController } from './clock/clockCtrl';
 import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
 import TransientMove from './transientMove';
-import atomic = require('./atomic');
-import sound = require('./sound');
-import util = require('./util');
-import xhr = require('./xhr');
+import * as atomic from './atomic';
+import * as sound from './sound';
+import * as util from './util';
+import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
-import renderUser = require('./view/user');
-import cevalSub = require('./cevalSub');
+import * as renderUser from './view/user';
+import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
 
 import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position, NvuiPlugin } from './interfaces';
@@ -358,37 +358,27 @@ export default class RoundController {
         color: playedColor
       }, o.uci.substr(2, 2) as cg.Key);
       else {
-        const keys = util.uci2move(o.uci);
-        this.chessground.move(keys![0], keys![1]);
+        // This block needs to be idempotent, even for castling moves in
+        // Chess960.
+        const keys = util.uci2move(o.uci)!,
+        pieces = this.chessground.state.pieces;
+        if (!o.castle || (pieces.get(o.castle.king[0])?.role === 'king' && pieces.get(o.castle.rook[0])?.role === 'rook')) {
+          this.chessground.move(keys[0], keys[1]);
+        }
       }
       if (o.enpassant) {
-        const p = o.enpassant, pieces: cg.PiecesDiff = {};
-        pieces[p.key] = undefined;
-        this.chessground.setPieces(pieces);
+        const p = o.enpassant;
+        this.chessground.setPieces(new Map([[p.key, undefined]]));
         if (d.game.variant.key === 'atomic') {
           atomic.enpassant(this, p.key, p.color);
           sound.explode();
         } else sound.capture();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
-      if (o.castle && !this.chessground.state.autoCastle) {
-        const c = o.castle, pieces: cg.PiecesDiff = {};
-        pieces[c.king[0]] = undefined;
-        pieces[c.rook[0]] = undefined;
-        pieces[c.king[1]] = {
-          role: 'king',
-          color: c.color
-        };
-        pieces[c.rook[1]] = {
-          role: 'rook',
-          color: c.color
-        };
-        this.chessground.setPieces(pieces);
-      }
       this.chessground.set({
         turnColor: d.game.player,
         movable: {
-          dests: playing ? util.parsePossibleMoves(d.possibleMoves) : {}
+          dests: playing ? util.parsePossibleMoves(d.possibleMoves) : new Map(),
         },
         check: !!o.check
       });
@@ -683,7 +673,7 @@ export default class RoundController {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) {
       this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
-      li.raf(this.redraw);
+      requestAnimationFrame(() => this.redraw());
     }
   };
 

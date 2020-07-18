@@ -15,7 +15,7 @@ import lila.common.{ ApiVersion, HTTPRequest, Nonce }
 import lila.i18n.I18nLangPicker
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
-import lila.security.{ FingerHash, FingerPrintedUser, Granter, Permission }
+import lila.security.{ FingerPrintedUser, Granter, Permission }
 import lila.user.{ UserContext, User => UserModel }
 
 abstract private[controllers] class LilaController(val env: Env)
@@ -275,7 +275,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     if (env.security.firewall accepts ctx.req) a
-    else fuccess(keyPages.blacklisted)
+    else keyPages.blacklisted.fuccess
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
     if (env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
@@ -355,7 +355,7 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   protected def FormResult[A](form: Form[A])(op: A => Fu[Result])(implicit req: Request[_]): Fu[Result] =
-    form.bindFromRequest.fold(
+    form.bindFromRequest().fold(
       form => fuccess(BadRequest(form.errors mkString "\n")),
       op
     )
@@ -363,7 +363,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def FormFuResult[A, B: Writeable: ContentTypeOf](
       form: Form[A]
   )(err: Form[A] => Fu[B])(op: A => Fu[Result])(implicit req: Request[_]) =
-    form.bindFromRequest.fold(
+    form.bindFromRequest().fold(
       form => err(form) dmap { BadRequest(_) },
       data => op(data)
     )
@@ -446,7 +446,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def authenticationFailed(implicit ctx: Context): Fu[Result] =
     negotiate(
       html = fuccess {
-        Redirect(routes.Auth.signup) withCookies env.lilaCookie
+        Redirect(routes.Auth.signup()) withCookies env.lilaCookie
           .session(env.security.api.AccessUri, ctx.req.uri)
       },
       api = _ =>
@@ -547,18 +547,17 @@ abstract private[controllers] class LilaController(val env: Env)
     env.security.api restoreUser req dmap {
       case Some(d) if !env.isProdReally =>
         d.copy(user =
-            d.user
-              .addRole(lila.security.Permission.Beta.dbKey)
-              .addRole(lila.security.Permission.Prismic.dbKey)
-          )
-          .some
+          d.user
+            .addRole(lila.security.Permission.Beta.dbKey)
+            .addRole(lila.security.Permission.Prismic.dbKey)
+        ).some
       case d => d
     } flatMap {
       case None => fuccess(None -> None)
       case Some(d) =>
         env.mod.impersonate.impersonating(d.user) map {
           _.fold[RestoredUser](d.some -> None) { impersonated =>
-            FingerPrintedUser(impersonated, FingerHash.impersonate.some).some -> d.user.some
+            FingerPrintedUser(impersonated, true).some -> d.user.some
           }
         }
     }
@@ -574,7 +573,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def XhrOrRedirectHome(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res
-    else Redirect(routes.Lobby.home).fuccess
+    else Redirect(routes.Lobby.home()).fuccess
 
   protected def Reasonable(
       page: Int,

@@ -141,7 +141,7 @@ object UserInfo {
         revolutionApi.active(user).mon(_.user segment "revolutions") zip
         teamCached.teamIdsList(user.id).mon(_.user segment "teamIds") zip
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip
-        streamerApi.isStreamer(user).mon(_.user segment "streamer") zip
+        streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
         (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
         (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip

@@ -7,7 +7,7 @@ import play.api.mvc.Results.TooManyRequests
 import scala.concurrent.duration.FiniteDuration
 
 /**
-  * only allow one future at a time per key
+  * only allow one stream at a time per key
   */
 final class ConcurrencyLimit[K](
     name: String,
@@ -20,7 +20,7 @@ final class ConcurrencyLimit[K](
 
   private val storage = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(ttl)
-    .build[String, Int]
+    .build[String, Int]()
 
   private val concurrentMap = storage.underlying.asMap
 

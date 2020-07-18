@@ -1,7 +1,9 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { parseFen } from 'chessops/fen';
 import * as chessground from './ground';
 import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
+import { defined } from 'common';
 import changeColorHandle from 'common/coordsColor';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
@@ -73,6 +75,7 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
       return conceal.owner ? 'conceal' : 'hide';
     };
   };
+  return undefined;
 }
 
 function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
@@ -99,14 +102,27 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
     h('div.pair', [
       h('label.name', 'FEN'),
       h('input.copyable.autoselect.analyse__underboard__fen', {
-        attrs: {
-          spellCheck: false,
-          value: ctrl.node.fen
-        },
-        hook: bind('change', e => {
-          const value = (e.target as HTMLInputElement).value;
-          if (value !== ctrl.node.fen) ctrl.changeFen(value);
-        })
+        attrs: { spellCheck: false },
+        hook: {
+          insert: vnode => {
+            const el = vnode.elm as HTMLInputElement;
+            el.value = defined(ctrl.fenInput) ? ctrl.fenInput : ctrl.node.fen;
+            el.addEventListener('change', _ => {
+              if (el.value !== ctrl.node.fen && el.reportValidity()) ctrl.changeFen(el.value.trim());
+            });
+            el.addEventListener('input', _ => {
+              ctrl.fenInput = el.value;
+              el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN');
+            });
+          },
+          postpatch: (_, vnode) => {
+            const el = vnode.elm as HTMLInputElement;
+            if (!defined(ctrl.fenInput)) {
+              el.value = ctrl.node.fen;
+              el.setCustomValidity('');
+            } else if (el.value != ctrl.fenInput) el.value = ctrl.fenInput;
+          },
+        }
       })
     ]),
     h('div.pgn', [
@@ -115,9 +131,13 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         h('textarea.copyable.autoselect', {
           attrs: { spellCheck: false },
           hook: {
+            ...onInsert(el => {
+              (el as HTMLTextAreaElement).value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
+              el.addEventListener('input', e => ctrl.pgnInput = (e.target as HTMLTextAreaElement).value);
+            }),
             postpatch: (_, vnode) => {
-              (vnode.elm as HTMLInputElement).value = pgnExport.renderFullTxt(ctrl);
-            }
+              (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
+            },
           }
         }),
         h('button.button.button-thin.action.text', {
@@ -258,7 +278,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       insert: vn => {
         forceInnerCoords(ctrl, needsInnerCoords);
         if (!!playerBars != $('body').hasClass('header-margin')) {
-          li.raf(() => {
+          requestAnimationFrame(() => {
             $('body').toggleClass('header-margin', !!playerBars);
             ctrl.redraw();
           });

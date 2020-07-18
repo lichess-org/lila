@@ -12,10 +12,9 @@
     "study"
   ],
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/tsPlugins": "2.0.0",
-    "@build/tsProject": "2.0.0",
+    "@build/rollupProject": "2.0.0",
     "@types/jquery": "^2.0",
     "@types/lichess": "2.0.0"
   },
@@ -24,12 +23,16 @@
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",
-    "chessground": "^7.6",
-    "chessops": "^0.4.0",
+    "chessground": "^7.9.1",
+    "chessops": "^0.6.0",
     "common": "2.0.0",
     "game": "2.0.0",
     "nvui": "2.0.0",
-    "snabbdom": "ornicar/snabbdom#0.7.1-lichess",
+    "snabbdom": "^0.7.4",
     "tree": "2.0.0"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod && rollup --config --config-prod --config-plugin nvui"
   }
 }

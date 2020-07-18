@@ -309,7 +309,7 @@
     <item quantity="few">Dodaj %s sekunde</item>
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Ta igralec uporablja pomoč računalnika</string>
+  <string name="thisAccountViolatedTos">Ta račun je kršil pogoje uporabe Lichess-a</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Igralec je umetno zvišal/znižal svoj rating</string>
   <string name="openingExplorerAndTablebase">Odpri brskalnik otvoritev &amp; baz</string>
   <string name="takeback">Popravek poteze</string>

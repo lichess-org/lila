@@ -17,7 +17,10 @@ import views._
 
 final class Tournament(
     env: Env,
-    teamC: => Team
+    teamC: => Team,
+    apiC: => Api
+)(implicit
+    mat: akka.stream.Materializer
 ) extends LilaController(env) {
 
   private def repo     = env.tournament.tournamentRepo
@@ -32,7 +35,7 @@ final class Tournament(
       .buildAsyncFuture { _ =>
         for {
           visible   <- api.fetchVisibleTournaments
-          scheduled <- repo.scheduledDedup
+          scheduled <- repo.allScheduledDedup
         } yield (visible, scheduled)
       }
   }
@@ -44,7 +47,10 @@ final class Tournament(
           (visible, scheduled) <- upcomingCache.getUnit
           finished             <- api.notableFinished
           winners              <- env.tournament.winners.all
-          scheduleJson         <- env.tournament apiJsonView visible
+          teamIds              <- ctx.userId.??(env.team.cached.teamIdsList)
+          allTeamIds = (env.featuredTeamsSetting.get().value ++ teamIds).distinct
+          teamVisible  <- repo.visibleForTeams(allTeamIds, 5 * 60)
+          scheduleJson <- env.tournament.apiJsonView(visible add teamVisible)
         } yield NoCache {
           pageHit
           Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
@@ -195,7 +201,7 @@ final class Tournament(
           val teamId   = ctx.body.body.\("team").asOpt[String]
           teamId
             .?? {
-              env.team.teamRepo.isLeader(_, me.id)
+              env.team.cached.isLeader(_, me.id)
             }
             .flatMap { isLeader =>
               api.joinWithResult(id, me, password, teamId, getUserTeamIds, isLeader) flatMap { result =>
@@ -225,8 +231,8 @@ final class Tournament(
   def form =
     Auth { implicit ctx => me =>
       NoLameOrBot {
-        teamC.teamsIBelongTo(me) map { teams =>
-          Ok(html.tournament.form.create(forms.create(me), teams))
+        env.team.teamRepo.enabledTeamsByLeader(me.id) map { teams =>
+          Ok(html.tournament.form.create(forms.create(me), teams.map(_.light)))
         }
       }
     }
@@ -245,25 +251,22 @@ final class Tournament(
   private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 240,
     duration = 24.hour,
-    name = "tournament per user",
     key = "tournament.user"
   )
 
   private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
     credits = 400,
     duration = 24.hour,
-    name = "tournament per IP",
     key = "tournament.ip"
   )
 
-  private val rateLimitedCreation = fuccess(Redirect(routes.Tournament.home))
+  private val rateLimitedCreation = fuccess(Redirect(routes.Tournament.home()))
 
   private[controllers] def rateLimitCreation(me: UserModel, isPrivate: Boolean, req: RequestHeader)(
       create: => Fu[Result]
   ): Fu[Result] = {
     val cost =
-      if (me.id == "fide") 5
-      else if (
+      if (
         me.hasTitle ||
         env.streamer.liveStreamApi.isStreaming(me.id) ||
         isGranted(_.ManageTournament, me) ||
@@ -286,12 +289,12 @@ final class Tournament(
           negotiate(
             html = forms
               .create(me)
-              .bindFromRequest
+              .bindFromRequest()
               .fold(
                 err => BadRequest(html.tournament.form.create(err, teams)).fuccess,
                 setup =>
                   rateLimitCreation(me, setup.isPrivate, ctx.req) {
-                    api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
+                    api.createTournament(setup, me, teams, getLeaderTeamIds) map { tour =>
                       Redirect {
                         if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
                         else routes.Tournament.show(tour.id)
@@ -314,18 +317,18 @@ final class Tournament(
   private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
     forms
       .create(me)
-      .bindFromRequest
+      .bindFromRequest()
       .fold(
         jsonFormErrorDefaultLang,
         setup =>
           rateLimitCreation(me, setup.isPrivate, req) {
             teamC.teamsIBelongTo(me) flatMap { teams =>
-              api.createTournament(setup, me, teams, getUserTeamIds, andJoin = false) flatMap { tour =>
+              api.createTournament(setup, me, teams, getLeaderTeamIds, andJoin = false) flatMap { tour =>
                 jsonView(
                   tour,
                   none,
                   none,
-                  getUserTeamIds,
+                  getLeaderTeamIds,
                   env.team.getTeamName,
                   none,
                   none,
@@ -340,7 +343,7 @@ final class Tournament(
     Auth { implicit ctx => me =>
       repo byId id flatMap {
         _ ?? {
-          case tour if tour.createdBy == me.id =>
+          case tour if tour.createdBy == me.id || isGranted(_.ManageTournament) =>
             tour.teamBattle ?? { battle =>
               env.team.teamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
                 env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
@@ -365,9 +368,9 @@ final class Tournament(
     AuthBody { implicit ctx => me =>
       repo byId id flatMap {
         _ ?? {
-          case tour if tour.createdBy == me.id && !tour.isFinished =>
+          case tour if (tour.createdBy == me.id || isGranted(_.ManageTournament)) && !tour.isFinished =>
             implicit val req = ctx.body
-            lila.tournament.TeamBattle.DataForm.empty.bindFromRequest.fold(
+            lila.tournament.TeamBattle.DataForm.empty.bindFromRequest().fold(
               err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
               res =>
                 api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
@@ -383,7 +386,7 @@ final class Tournament(
       negotiate(
         html = notFound,
         api = _ =>
-          env.tournament.cached.promotable.getUnit.nevermind map {
+          env.tournament.cached.onHomepage.getUnit.nevermind map {
             lila.tournament.Spotlight.select(_, ctx.me, 4)
           } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
       )
@@ -430,7 +433,7 @@ final class Tournament(
         teamC.teamsIBelongTo(me) flatMap { teams =>
           forms
             .edit(me, tour)
-            .bindFromRequest
+            .bindFromRequest()
             .fold(
               err => BadRequest(html.tournament.form.edit(tour, err, teams)).fuccess,
               data => api.update(tour, data, teams) inject Redirect(routes.Tournament.show(id)).flashSuccess
@@ -444,9 +447,21 @@ final class Tournament(
       WithEditableTournament(id, me) { tour =>
         api kill tour inject {
           env.mod.logApi.terminateTournament(me.id, tour.name())
-          Redirect(routes.Tournament.home)
+          Redirect(routes.Tournament.home())
         }
       }
+    }
+
+  def byTeam(id: String) =
+    Action.async { implicit req =>
+      implicit val lang = reqLang
+      apiC.jsonStream {
+        env.tournament.tournamentRepo
+          .byTeamCursor(id)
+          .documentSource(getInt("max", req) | 100)
+          .mapAsync(1)(env.tournament.apiJsonView.fullJson)
+          .throttle(20, 1.second)
+      }.fuccess
     }
 
   private def WithEditableTournament(id: String, me: UserModel)(
@@ -459,7 +474,7 @@ final class Tournament(
       case _       => notFound
     }
 
-  private val streamerCache = env.memo.cacheApi[Tour.ID, Set[UserModel.ID]](64, "tournament.streamers") {
+  private val streamerCache = env.memo.cacheApi[Tour.ID, List[UserModel.ID]](64, "tournament.streamers") {
     _.refreshAfterWrite(15.seconds)
       .maximumSize(64)
       .buildAsyncFuture { tourId =>
@@ -471,7 +486,7 @@ final class Tournament(
                   env.tournament.hasUser(tourId, stream.streamer.userId).dmap(_ option stream.streamer.userId)
                 }
                 .sequenceFu
-                .dmap(_.flatten.toSet)
+                .dmap(_.flatten)
             }
           }
         }
@@ -480,4 +495,7 @@ final class Tournament(
 
   private def getUserTeamIds(user: lila.user.User): Fu[List[TeamID]] =
     env.team.cached.teamIdsList(user.id)
+
+  private def getLeaderTeamIds(user: lila.user.User): Fu[List[TeamID]] =
+    env.team.teamRepo.enabledTeamIdsByLeader(user.id)
 }

@@ -12,11 +12,11 @@ interface Modal {
 
 export function modal(d: Modal): VNode {
   return h('div#modal-overlay', {
-    hook: bind('click', d.onClose)
+    hook: bind('mousedown', d.onClose)
   }, [
     h('div#modal-wrap.study__modal.' + d.class, {
       hook: onInsert(el => {
-        el.addEventListener('click', e => e.stopPropagation());
+        el.addEventListener('mousedown', e => e.stopPropagation());
         d.onInsert && d.onInsert(el);
       })
     }, [

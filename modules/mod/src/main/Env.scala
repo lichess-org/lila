@@ -6,7 +6,6 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 
 import lila.common.config._
-import lila.security.Firewall
 import lila.user.User
 
 @Module
@@ -27,10 +26,8 @@ final class Env(
     reporter: lila.hub.actors.Report,
     fishnet: lila.hub.actors.Fishnet,
     perfStat: lila.perfStat.Env,
-    firewall: Firewall,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
-    userSpyApi: lila.security.UserSpyApi,
     securityApi: lila.security.SecurityApi,
     tournamentApi: lila.tournament.TournamentApi,
     gameRepo: lila.game.GameRepo,
@@ -43,9 +40,11 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
-    slackApi: lila.slack.SlackApi,
-    securityStore: lila.security.Store
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+    slackApi: lila.slack.SlackApi
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   private val config = appConfig.get[ModConfig]("mod")(AutoConfig.loader)
 
@@ -107,9 +106,9 @@ final class Env(
                 api.setTroll(mod, sus, true)
               }
             }
-          case lila.hub.actorApi.security.GarbageCollect(userId, ipBan) =>
+          case lila.hub.actorApi.security.GarbageCollect(userId) =>
             reportApi getSuspect userId orFail s"No such suspect $userId" flatMap { sus =>
-              api.garbageCollect(sus, ipBan) >> publicChat.delete(sus)
+              api.garbageCollect(sus) >> publicChat.delete(sus)
             }
           case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
             logApi.modMessage(User.lichessId, userId, subject)

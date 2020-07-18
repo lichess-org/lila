@@ -275,7 +275,7 @@
     <item quantity="one">Ge %s sekund</item>
     <item quantity="other">Ge %s sekunder</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Den här spelaren tar hjälp av schackmotor</string>
+  <string name="thisAccountViolatedTos">Detta konto bröt mot användarvillkoren för Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Den här spelaren manipulerar sin rating</string>
   <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; slutspelsteori</string>
   <string name="takeback">Gör om drag</string>

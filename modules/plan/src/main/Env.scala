@@ -27,7 +27,10 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   import StripeClient.configLoader
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)

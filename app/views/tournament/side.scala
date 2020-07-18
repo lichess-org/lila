@@ -16,7 +16,7 @@ object side {
   def apply(
       tour: Tournament,
       verdicts: lila.tournament.Condition.All.WithVerdicts,
-      streamers: Set[lila.user.User.ID],
+      streamers: List[lila.user.User.ID],
       shieldOwner: Option[TournamentShield.OwnerId],
       chat: Boolean
   )(implicit ctx: Context) =
@@ -63,6 +63,7 @@ object side {
         tour.description map { d =>
           st.section(cls := "description")(richText(d))
         },
+        tour.looksLikePrize option bits.userPrizeDisclaimer,
         verdicts.relevant option st.section(
           dataIcon := "7",
           cls := List(
@@ -89,6 +90,7 @@ object side {
           )
         ),
         tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
+        tour.noStreak option div(cls := "text", dataIcon := "Q")("No Arena streaks"),
         !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
         (!tour.isStarted || (tour.isScheduled && !tour.position.initial)) option absClientDateTime(
           tour.startsAt
@@ -104,7 +106,7 @@ object side {
         )
       ),
       streamers.nonEmpty option div(cls := "context-streamers")(
-        streamers.toList map views.html.streamer.bits.contextual
+        streamers map views.html.streamer.bits.contextual
       ),
       chat option views.html.chat.frag
     )
@@ -113,7 +115,7 @@ object side {
     st.section(cls := "team-battle")(
       p(cls := "team-battle__title text", dataIcon := "f")(
         s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",
-        ctx.userId.has(tour.createdBy) option
+        (ctx.userId.has(tour.createdBy) || isGranted(_.ManageTournament)) option
           a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(iconTag("%"))
       )
     )

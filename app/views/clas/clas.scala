@@ -33,7 +33,7 @@ object clas {
           )
         ),
         div(cls := "clas-home__onboard")(
-          postForm(action := routes.Clas.becomeTeacher)(
+          postForm(action := routes.Clas.becomeTeacher())(
             submitButton(cls := "button button-fat")(trans.clas.applyToBeLichessTeacher())
           )
         )
@@ -46,7 +46,7 @@ object clas {
       div(cls := "box__top")(
         h1(trans.clas.lichessClasses()),
         a(
-          href := routes.Clas.form,
+          href := routes.Clas.form(),
           cls := "new button button-empty",
           title := trans.clas.newClass.txt(),
           dataIcon := "O"

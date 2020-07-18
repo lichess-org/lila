@@ -69,11 +69,13 @@ final class Env(
   lila.common.Bus.subscribeFun(
     "finishGame",
     "adjustCheater",
-    "adjustBooster"
+    "adjustBooster",
+    "teamKick"
   ) {
-    case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
-    // case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.ejectLame(userId, _)
-    // case lila.hub.actorApi.mod.MarkBooster(userId)       => api.ejectLame(userId, Nil)
+    case lila.game.actorApi.FinishGame(game, _, _)           => api.finishGame(game)
+    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId)
+    case lila.hub.actorApi.mod.MarkCheater(userId, true)     => api.kickLame(userId)
+    case lila.hub.actorApi.mod.MarkBooster(userId)           => api.kickLame(userId)
   }
 
   ResilientScheduler(

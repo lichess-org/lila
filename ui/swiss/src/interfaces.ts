@@ -13,7 +13,7 @@ export interface SwissOpts {
   socketSend: SocketSend;
   chat: any;
   i18n: any;
-  classes: string;
+  classes: string | null;
 }
 
 export interface SwissData {
@@ -50,6 +50,7 @@ export interface SwissData {
   podium?: PodiumPlayer[];
   isRecentlyFinished?: boolean;
   stats?: Stats;
+  password?: boolean;
 }
 
 export type Status = 'created' | 'started' | 'finished';
@@ -124,6 +125,14 @@ export interface PerfType {
 export interface Clock {
   limit: number;
   increment: number;
+}
+
+export interface Pager {
+  nbResults: number;
+  nbPages: number;
+  from: number;
+  to: number;
+  currentPageResults: Page;
 }
 
 export type Page = Player[];

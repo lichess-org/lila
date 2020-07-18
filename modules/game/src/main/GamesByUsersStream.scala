@@ -36,7 +36,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
         case StartGame(game) if matches(game)        => queue offer game
         case FinishGame(game, _, _) if matches(game) => queue offer game
       }
-      queue.watchCompletion.foreach { _ =>
+      queue.watchCompletion().foreach { _ =>
         Bus.unsubscribe(sub, chans)
       }
     }

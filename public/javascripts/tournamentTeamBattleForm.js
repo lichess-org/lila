@@ -8,7 +8,7 @@ $(function() {
       return textarea.value.split('\n').map(t => t.split(' ')[0]).slice(0, -1);
     }
 
-    lichess.loadScript('vendor/textcomplete.js').then(function() {
+    lichess.loadScript('vendor/textcomplete.min.js').then(function() {
 
       const textcomplete = new Textcomplete(new Textcomplete.editors.Textarea(textarea), {
         dropdown: {

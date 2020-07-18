@@ -136,7 +136,6 @@
   <string name="spectators">Luchd-amhairc:</string>
   <string name="exportGames">Às-phortaich geamannan</string>
   <string name="ratingRange">Rainse an rangachaidh</string>
-  <string name="thisPlayerUsesChessComputerAssistance">Tha an cluicheadair seo a’ cleachdadh taic coimpiutair taileisg</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Dh\'ìslich/Mheudaich an cluicheadair seo an rangachadh aca le breug</string>
   <string name="takeback">Tarraing air ais</string>
   <string name="proposeATakeback">Tairg tarraing air ais</string>

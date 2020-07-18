@@ -162,6 +162,7 @@ POST  /patron/webhook                  controllers.Plan.webhook
 POST  /patron/stripe-checkout          controllers.Plan.stripeCheckout
 POST  /patron/ipn                      controllers.Plan.payPalIpn
 GET   /features                        controllers.Plan.features
+GET   /donate                          controllers.Main.movedPermanently(to: String = "/patron")
 
 # Practice
 GET   /practice                                   controllers.Practice.index
@@ -303,12 +304,14 @@ GET   /team/:id/users                         controllers.Team.legacyUsers(id: S
 GET   /team/:id/tournaments                   controllers.Team.tournaments(id: String)
 GET   /team/:id/pm-all                        controllers.Team.pmAll(id: String)
 POST  /team/:id/pm-all                        controllers.Team.pmAllSubmit(id: String)
+POST  /team/:id/subscribe                     controllers.Team.subscribe(id: String)
 # Team API
 GET   /api/team/all                           controllers.Team.apiAll(page: Int ?= 1)
 GET   /api/team/search                        controllers.Team.apiSearch(text: String ?= "", page: Int ?= 1)
 GET   /api/team/of/:username                  controllers.Team.apiTeamsOf(username: String)
 GET   /api/team/:id                           controllers.Team.apiShow(id: String)
 GET   /api/team/:id/users                     controllers.Team.users(id: String)
+GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id: String)
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
@@ -317,8 +320,8 @@ GET   /game/export/$gameId<\w{8}>                             controllers.Game.e
 GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: String)
 GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.legacyGameThumbnail(gameId: String)
 GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: String)
-GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "white")
+GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
@@ -342,7 +345,6 @@ GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri: String, gameId: String)
 POST  /setup/hook/:sri                 controllers.Setup.hook(sri: String)
 GET   /setup/filter                    controllers.Setup.filterForm
-POST  /setup/filter                    controllers.Setup.filter
 GET   /setup/validate-fen              controllers.Setup.validateFen
 
 # Challenge
@@ -394,7 +396,6 @@ POST  /mod/:username/alt/:v            controllers.Mod.alt(username: String, v: 
 POST  /mod/:username/engine/:v         controllers.Mod.engine(username: String, v: Boolean)
 POST  /mod/:username/booster/:v        controllers.Mod.booster(username: String, v: Boolean)
 POST  /mod/:username/troll/:v          controllers.Mod.troll(username: String, v: Boolean)
-POST  /mod/:username/ban/:v            controllers.Mod.ipBan(username: String, v: Boolean)
 POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username: String)
 POST  /mod/:username/warn              controllers.Mod.warn(username: String, subject: String)
 POST  /mod/:username/disable-2fa       controllers.Mod.disableTwoFactor(username: String)
@@ -554,6 +555,7 @@ GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/tournament/:id/games        controllers.Api.tournamentGames(id: String)
 GET   /api/tournament/:id/results      controllers.Api.tournamentResults(id: String)
+GET   /api/tournament/:id/teams        controllers.Api.tournamentTeams(id: String)
 POST  /api/tournament                  controllers.Tournament.apiCreate
 POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId: String)
 GET   /api/swiss/:id/games             controllers.Api.swissGames(id: String)
@@ -574,6 +576,9 @@ POST  /api/challenge/open              controllers.Challenge.openCreate
 POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: String)
 POST  /api/challenge/$id<\w{8}>/accept  controllers.Challenge.apiAccept(id: String)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
+GET   /api/cloud-eval                  controllers.Api.cloudEval
+GET   /api/broadcast                   controllers.Relay.apiIndex
+POST  /api/import                      controllers.Importer.apiSendGame
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: String)
 

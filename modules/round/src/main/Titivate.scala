@@ -52,7 +52,7 @@ final private[round] class Titivate(
           .via(gameRead)
           .via(gameFlow)
           .toMat(LilaStream.sinkCount)(Keep.right)
-          .run
+          .run()
           .addEffect(lila.mon.round.titivate.game.record(_))
           .>> {
             gameRepo

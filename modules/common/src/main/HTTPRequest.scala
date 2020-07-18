@@ -42,7 +42,6 @@ object HTTPRequest {
   def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
 
   val isAndroid = UaMatcher("""(?i)android.+mobile""")
-  val isIOS     = UaMatcher("""(?i)iphone|ipad|ipod""")
   val isMobile  = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
 
   private def uaContains(req: RequestHeader, str: String) = userAgent(req).exists(_ contains str)

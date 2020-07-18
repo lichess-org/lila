@@ -193,7 +193,6 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">dunda %s snidu</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">ti noi jivna cu se sidju lo skami</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ti tolvrude cenba lo nilcre</string>
   <string name="takeback">nunmu\'u xruti</string>
   <string name="proposeATakeback">nunmu\'u xruti stidi</string>

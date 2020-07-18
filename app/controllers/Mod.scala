@@ -11,7 +11,7 @@ import lila.chat.Chat
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
 import lila.report.{ Suspect, Mod => AsMod }
-import lila.security.{ FingerHash, Ip2Proxy, Permission }
+import lila.security.{ FingerHash, Permission }
 import lila.user.{ User => UserModel, Title }
 import ornicar.scalalib.Zero
 import views._
@@ -109,13 +109,6 @@ final class Mod(
       }
     )
 
-  def ipBan(username: String, v: Boolean) =
-    OAuthMod(_.IpBan) { _ => me =>
-      withSuspect(username) { sus =>
-        modApi.setBan(AsMod(me), sus, v) map some
-      }
-    }(actionResult(username))
-
   def deletePmsAndChats(username: String) =
     OAuthMod(_.Shadowban) { _ => _ =>
       withSuspect(username) { sus =>
@@ -175,14 +168,16 @@ final class Mod(
   def setTitle(username: String) =
     SecureBody(_.SetTitle) { implicit ctx => me =>
       implicit def req = ctx.body
-      lila.user.DataForm.title.bindFromRequest.fold(
-        _ => fuccess(redirect(username, mod = true)),
-        title =>
-          modApi.setTitle(me.id, username, title map Title.apply) >>
-            env.security.automaticEmail.onTitleSet(username) >>-
-            env.user.lightUserApi.invalidate(UserModel normalize username) inject
-            redirect(username, mod = false)
-      )
+      lila.user.DataForm.title
+        .bindFromRequest()
+        .fold(
+          _ => fuccess(redirect(username, mod = true)),
+          title =>
+            modApi.setTitle(me.id, username, title map Title.apply) >>
+              env.security.automaticEmail.onTitleSet(username) >>-
+              env.user.lightUserApi.invalidate(UserModel normalize username) inject
+              redirect(username, mod = false)
+        )
     }
 
   def setEmail(username: String) =
@@ -191,7 +186,7 @@ final class Mod(
       OptionFuResult(env.user.repo named username) { user =>
         env.security.forms
           .modEmail(user)
-          .bindFromRequest
+          .bindFromRequest()
           .fold(
             err => BadRequest(err.toString).fuccess,
             rawEmail => {
@@ -285,6 +280,7 @@ final class Mod(
   def refreshUserAssess(username: String) =
     Secure(_.MarkEngine) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
+        env.insight.api.ensureLatest(user.id)
         assessApi.refreshAssessByUsername(username) >>
           env.irwin.api.requests.fromMod(Suspect(user), AsMod(me)) >>
           userC.renderModZoneActions(username)
@@ -318,10 +314,11 @@ final class Mod(
     SecureBody(_.UserSearch) { implicit ctx => _ =>
       implicit def req = ctx.body
       val f            = UserSearch.form
-      f.bindFromRequest.fold(
-        err => BadRequest(html.mod.search(err, Nil)).fuccess,
-        query => env.mod.search(query) map { html.mod.search(f.fill(query), _) }
-      )
+      f.bindFromRequest()
+        .fold(
+          err => BadRequest(html.mod.search(err, Nil)).fuccess,
+          query => env.mod.search(query) map { html.mod.search(f.fill(query), _) }
+        )
     }
 
   protected[controllers] def searchTerm(q: String)(implicit ctx: Context) = {
@@ -360,13 +357,15 @@ final class Mod(
     }
 
   def singleIpBan(v: Boolean, ip: String) =
-    Secure(_.IpBan) { _ => _ =>
+    Secure(_.IpBan) { ctx => _ =>
       val address = IpAddress(ip)
-      (if (v) {
-         env.security.firewall.blockIps(List(address))
-       } else {
-         env.security.firewall.unblockIps(List(address))
-       }) inject Redirect(routes.Mod.singleIp(ip))
+      val op =
+        if (v) env.security.firewall.blockIps _
+        else env.security.firewall.unblockIps _
+      op(List(address)) inject {
+        if (HTTPRequest isXhr ctx.req) jsonOkResult
+        else Redirect(routes.Mod.singleIp(ip))
+      }
     }
 
   def chatUser(username: String) =
@@ -391,17 +390,18 @@ final class Mod(
       OptionFuResult(env.user.repo named username) { user =>
         Form(
           single("permissions" -> list(text.verifying(Permission.allByDbKey.contains _)))
-        ).bindFromRequest.fold(
-          _ => BadRequest(html.mod.permissions(user, me)).fuccess,
-          permissions => {
-            val newPermissions = Permission(permissions) diff Permission(user.roles)
-            modApi.setPermissions(AsMod(me), user.username, Permission(permissions)) >> {
-              newPermissions(Permission.Coach) ?? env.security.automaticEmail.onBecomeCoach(user)
-            } >> {
-              Permission(permissions).exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
-            } inject Redirect(routes.Mod.permissions(username)).flashSuccess
-          }
-        )
+        ).bindFromRequest()
+          .fold(
+            _ => BadRequest(html.mod.permissions(user, me)).fuccess,
+            permissions => {
+              val newPermissions = Permission(permissions) diff Permission(user.roles)
+              modApi.setPermissions(AsMod(me), user.username, Permission(permissions)) >> {
+                newPermissions(Permission.Coach) ?? env.security.automaticEmail.onBecomeCoach(user)
+              } >> {
+                Permission(permissions).exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
+              } inject Redirect(routes.Mod.permissions(username)).flashSuccess
+            }
+          )
       }
     }
 
@@ -445,7 +445,7 @@ final class Mod(
       env.chat.panic.set(v)
       env.slack.api.chatPanic(me, v)
       fuccess(().some)
-    }(_ => _ => _ => Redirect(routes.Mod.chatPanic).fuccess)
+    }(_ => _ => _ => Redirect(routes.Mod.chatPanic()).fuccess)
 
   def eventStream =
     OAuthSecure(_.Admin) { _ => _ =>

@@ -27,14 +27,7 @@ final class GifExport(
             chapter.tags(_.Black),
             chapter.tags(_.BlackElo).map(elo => s"($elo)")
           ).flatten.mkString(" "),
-          "frames" -> (chapter.root :: chapter.root.mainline).map { node =>
-            Json
-              .obj(
-                "fen" -> node.fen.value
-              )
-              .add("check", node.check option true)
-              .add("lastMove", node.moveOption.map(_.uci.uci))
-          }
+          "frames" -> framesRec(chapter.root :: chapter.root.mainline, Json.arr())
         )
       )
       .stream() flatMap {
@@ -42,5 +35,22 @@ final class GifExport(
         logger.warn(s"GifExport study ${chapter.studyId}/${chapter._id} ${res.status}")
         fufail(res.statusText)
       case res => fuccess(res.bodyAsSource)
+    }
+
+  @annotation.tailrec
+  private def framesRec(nodes: List[RootOrNode], arr: JsArray): JsArray =
+    nodes match {
+      case Nil => arr
+      case node :: tail =>
+        framesRec(
+          tail,
+          arr :+ Json
+            .obj(
+              "fen" -> node.fen.value
+            )
+            .add("check", node.check option true)
+            .add("lastMove", node.moveOption.map(_.uci.uci))
+            .add("delay", tail.isEmpty option 500) // more delay for last frame
+        )
     }
 }

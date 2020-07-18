@@ -19,7 +19,7 @@ export function input(ctrl: TournamentController): VNode {
     h('input', {
       hook: {
         insert(vnode) {
-          window.lichess.raf(() => {
+          requestAnimationFrame(() => {
             const el = vnode.elm as HTMLInputElement;
             window.lichess.userAutocomplete($(el), {
               tag: 'span',

@@ -29,7 +29,7 @@
   <string name="whenReady">Cuando estés preparado para ser listado como un presentador de Lichess, %s</string>
   <string name="requestReview">solicitar una revisión de moderador</string>
   <string name="anotherLanguage">Si tu transmisión está en otro idioma que el inglés, incluye la etiqueta de idioma correcta (%s), encerrada entre corchetes, al comienzo del título de tu transmisión.
-Por ejemplo, incluye \"[RU]\" para ruso, \"[TR]\" para turco, \"[FR]\" para francés, etc.
+Por ejemplo, incluye \"[ES]\" para español, \"[FR]\" para francés, \"[PT]\" para portugués, etc.
 Colócala en el título de la transmisión en la página de Twitch o YouTube, no en la configuración de la transmisión de Lichess.
 Si tu transmisión está en inglés, no hay necesidad de incluir una etiqueta de idioma.</string>
   <string name="twitchUsername">Tu nombre de usuario o URL de Twitch</string>

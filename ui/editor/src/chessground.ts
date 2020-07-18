@@ -36,7 +36,7 @@ function isLeftClick(e: MouchEvent): boolean {
 }
 
 function isRightClick(e: MouchEvent): boolean {
-  return util.isRightButton(e) || (e.ctrlKey && isLeftButton(e));
+  return util.isRightButton(e) || (!!e.ctrlKey && isLeftButton(e));
 }
 
 let downKey: Key | undefined;
@@ -60,7 +60,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
       if (e.type === 'mousedown' || e.type === 'touchstart') downKey = key;
       if (sel === 'trash') deleteOrHidePiece(ctrl, key, e);
       else {
-        const existingPiece = ctrl.chessground!.state.pieces[key];
+        const existingPiece = ctrl.chessground!.state.pieces.get(key);
         const piece = {
           color: sel[0],
           role: sel[1]
@@ -73,9 +73,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
           const endEvents = { mousedown: 'mouseup', touchstart: 'touchend' };
           document.addEventListener(endEvents[e.type], () => placeDelete = false, { once: true });
         } else if (!placeDelete && (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)) {
-          ctrl.chessground!.setPieces({
-            [key]: piece
-          });
+          ctrl.chessground!.setPieces(new Map([[key, piece]]));
           ctrl.onChange();
           ctrl.chessground!.cancelMove();
         }
@@ -98,7 +96,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
 
 function deleteOrHidePiece(ctrl: EditorCtrl, key: Key, e: Event): void {
   if (e.type === 'touchstart') {
-    if (ctrl.chessground!.state.pieces[key]) {
+    if (ctrl.chessground!.state.pieces.has(key)) {
       (ctrl.chessground!.state.draggable.current!.element as HTMLElement).style.display = 'none';
       ctrl.chessground!.cancelMove();
     }
@@ -109,9 +107,7 @@ function deleteOrHidePiece(ctrl: EditorCtrl, key: Key, e: Event): void {
 }
 
 function deletePiece(ctrl: EditorCtrl, key: Key): void {
-  ctrl.chessground!.setPieces({
-    [key]: undefined
-  });
+  ctrl.chessground!.setPieces(new Map([[key, undefined]]));
   ctrl.onChange();
 }
 
@@ -133,7 +129,8 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
       enabled: false
     },
     drawable: {
-      enabled: true
+      enabled: true,
+      defaultSnapToValidMove: (window.lichess.storage.get('arrow.snap') || 1) != '0'
     },
     draggable: {
       showGhost: true,

@@ -37,7 +37,7 @@ final class BoundedDuct(maxSize: Int, name: String, logging: Boolean = true)(pro
     }
 
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
-    val promise = Promise[A]
+    val promise = Promise[A]()
     val success = this ! makeMsg(promise)
     if (!success) promise failure new EnqueueException(s"The $name duct queue is full ($maxSize)")
     promise.future

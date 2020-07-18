@@ -33,6 +33,12 @@
   <string name="joinTheGame">הצטרף למשחק</string>
   <string name="whitePlays">תור הלבן</string>
   <string name="blackPlays">תור השחור</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">המשתמש עזב את המשחק. תוכל לקחת ניצחון בעוד %s שנייה.</item>
+    <item quantity="two">המשתמש עזב את המשחק. תוכל לירוש ניצחון בעוד %s שניות.</item>
+    <item quantity="many">יריבך עזב את המשחק. תוכל לדרוש ניצחון בעוד %s שניות.</item>
+    <item quantity="other">יריבך עזב את המשחק. תוכל לדרוש ניצחון בעוד %s שניות.</item>
+  </plurals>
   <string name="opponentLeftChoices">יריבך עזב את המשחק. באפשרותך לכפות פרישה, להכריז על תיקו או להמתין לו.</string>
   <string name="makeYourOpponentResign">הכרז על ניצחון</string>
   <string name="forceResignation">קח את הניצחון</string>
@@ -138,6 +144,12 @@
     <item quantity="many">%s משחקים</item>
     <item quantity="other">%s משחקים</item>
   </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s מועדפים</item>
+    <item quantity="two">%s סימניות</item>
+    <item quantity="many">%s סימניות</item>
+    <item quantity="other">%s סימניות</item>
+  </plurals>
   <string name="viewInFullSize">צפה בגודל מלא</string>
   <string name="logOut">התנתק</string>
   <string name="signIn">התחבר</string>
@@ -161,6 +173,18 @@
   <string name="correspondence">התכתבות</string>
   <string name="daysPerTurn">ימים למהלך</string>
   <string name="oneDay">יום אחד</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s יום</item>
+    <item quantity="two">%s ימים</item>
+    <item quantity="many">%s ימים</item>
+    <item quantity="other">%s ימים</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s שעה</item>
+    <item quantity="two">%s שעתיים</item>
+    <item quantity="many">%s שעות</item>
+    <item quantity="other">%s שעות</item>
+  </plurals>
   <string name="time">זמן</string>
   <string name="rating">דירוג</string>
   <string name="ratingStats">סטטיסטיקת דירוג</string>
@@ -177,6 +201,12 @@
   <string name="forgotPassword">שכחת סיסמה?</string>
   <string name="rank">דרוג</string>
   <string name="rankX">דירוג: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">הדירוג מתעדכן כל דקה</item>
+    <item quantity="two">הדירוג מתעדכנת כל %s דקות</item>
+    <item quantity="many">הדירוג מתעדכנת כל %s דקות</item>
+    <item quantity="other">הדירוג מתעדכן כל %s דקות</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">חידה</item>
     <item quantity="two">%s פאזלים</item>
@@ -184,6 +214,12 @@
     <item quantity="other">חידות מסוג %s</item>
   </plurals>
   <string name="gamesPlayed">משחקים ששוחקו</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s משחק איתך</item>
+    <item quantity="two">%s משחקים איתך</item>
+    <item quantity="many">%s משחקים איתך</item>
+    <item quantity="other">%s משחקים איתך</item>
+  </plurals>
   <string name="cancel">בטל</string>
   <string name="timeOut">נגמר הזמן</string>
   <string name="drawOfferSent">הצעת תיקו נשלחה</string>
@@ -241,6 +277,18 @@
     <item quantity="many">מדורג %s</item>
     <item quantity="other">מדורג %s</item>
   </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s ניצחון</item>
+    <item quantity="two">%s נצחונות</item>
+    <item quantity="many">%s נצחונות</item>
+    <item quantity="other">%s נצחונות</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s הפסד</item>
+    <item quantity="two">%s הפסדים</item>
+    <item quantity="many">%s הפסדים</item>
+    <item quantity="other">%s הפסדים</item>
+  </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s תוצאת תיקו</item>
     <item quantity="two">%s תוצאות תיקו</item>
@@ -255,7 +303,12 @@
   </plurals>
   <string name="exportGames">ייצא משחקים</string>
   <string name="ratingRange">טווח דירוג</string>
-  <string name="thisPlayerUsesChessComputerAssistance">שחקן זה משתמש בסיוע מחשב שחמט</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">תן %s שנייה</item>
+    <item quantity="two">תן %s שניות</item>
+    <item quantity="many">תן %s שניות</item>
+    <item quantity="other">תן %s שניות</item>
+  </plurals>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">שחקן זה מעלה/מוריד את דירוגו באופן מלאכותי</string>
   <string name="openingExplorerAndTablebase">סייר הפתיחות וניתוח סיומים</string>
   <string name="takeback">החזר מהלך</string>
@@ -274,6 +327,12 @@
     <item quantity="two">%s נקודות טורניר</item>
     <item quantity="many">%s נקודות טורניר</item>
     <item quantity="other">%s נקודות טורניר</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s לימוד</item>
+    <item quantity="two">%s למידות</item>
+    <item quantity="many">%s למידות</item>
+    <item quantity="other">%s למידות</item>
   </plurals>
   <string name="viewTournament">צפה בטורניר</string>
   <string name="backToTournament">חזור לטורניר</string>
@@ -329,6 +388,12 @@
   <string name="toStudy">לחקור</string>
   <string name="importGame">ייבא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN אתה מקבל הרצה מחדש בצורת דפדפוף, ניתוח מחשב, צ\'אט משחק וקישור לשיתוף.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s משחק מיובא</item>
+    <item quantity="two">%s משחקים מיובאים</item>
+    <item quantity="many">%s משחקים מיובאים</item>
+    <item quantity="other">%s משחקים מיובאים</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">זו קאפצ\'ה של שחמט.</string>
   <string name="clickOnTheBoardToMakeYourMove">לחץ על הלוח כדי לעשות מהלך, והוכח שאתה בן אנוש.</string>
   <string name="captcha.fail">אנא בצע את המהלך הנכון בלוח, לצורך captcha.</string>
@@ -354,6 +419,18 @@
   <string name="unblock">בטל חסימה</string>
   <string name="followsYou">עוקב אחריך</string>
   <string name="xStartedFollowingY">%1$s התחיל לעקוב אחרי %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s עוקב</item>
+    <item quantity="two">%s עוקבים</item>
+    <item quantity="many">%s עוקבים</item>
+    <item quantity="other">%s עוקבים</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s עוקב</item>
+    <item quantity="two">%s עוקבים</item>
+    <item quantity="many">%s עוקב</item>
+    <item quantity="other">%s עוקב</item>
+  </plurals>
   <string name="more">עוד</string>
   <string name="memberSince">רשום מ</string>
   <string name="lastSeenActive">נכנס לאחרונה %s</string>
@@ -364,8 +441,8 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="one">פחות מ- %s דקות</item>
     <item quantity="two">פחות מ- %s דקות</item>
-    <item quantity="many">פחות מ- %s דקות</item>
-    <item quantity="other">פחות מ- %s דקות</item>
+    <item quantity="many">פחות מ%s דקות</item>
+    <item quantity="other">פחות מ%s דקות</item>
   </plurals>
   <string name="required">נדרש.</string>
   <string name="openTournaments">הטורנירים הפתוחים</string>
@@ -398,7 +475,7 @@
   <string name="berserkRate">מתוכם ברזרק</string>
   <string name="performance">דירוג הביצוע</string>
   <string name="tournamentComplete">הטורניר הושלם</string>
-  <string name="movesPlayed">מהלים ששוחקו</string>
+  <string name="movesPlayed">מהלכים ששוחקו</string>
   <string name="whiteWins">לבן מנצח</string>
   <string name="blackWins">שחור מנצח</string>
   <string name="draws">תוצאות תיקו</string>
@@ -451,11 +528,23 @@
   <string name="thankYou">תודה רבה!</string>
   <string name="ratingX">דירוג: %s</string>
   <string name="hidden">מוסתר</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">שוחק פעם %s</item>
+    <item quantity="two">שוחק %s פעמים</item>
+    <item quantity="many">שוחק %s פעמים</item>
+    <item quantity="other">שוחק %s פעמים</item>
+  </plurals>
   <string name="fromGameLink">מהמשחק %s</string>
   <string name="continueTraining">המשך להתאמן</string>
   <string name="retryThisPuzzle">נסה שוב את הפאזל.</string>
   <string name="thisPuzzleIsCorrect">הפאזל נכון ומעניין.</string>
   <string name="thisPuzzleIsWrong">הפאזל לא נכון או משעמם</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s משחק בתהליך</item>
+    <item quantity="two">%s משחקים בתהליך</item>
+    <item quantity="many">%s משחקים בתהליך</item>
+    <item quantity="other">%s משחקים בתהליך</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">המשך אוטומטית למשחק הבא אחרי מהלך</string>
   <string name="autoSwitch">החלפה אוטומטית</string>
   <string name="puzzles">פאזלים</string>
@@ -542,6 +631,12 @@
     <item quantity="many">מספר תווים מירבי: %s.</item>
     <item quantity="other">מספר תווים מירבי: %s.</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s נחסם</item>
+    <item quantity="two">%s נחסמו</item>
+    <item quantity="many">%s נחסמו</item>
+    <item quantity="other">%s נחסמו</item>
+  </plurals>
   <string name="listBlockedPlayers">רשימת שחקנים שחסמת</string>
   <string name="human">בן אנוש</string>
   <string name="computer">מחשב</string>
@@ -577,6 +672,12 @@
   <string name="castling">הצרחה</string>
   <string name="whiteCastlingKingside">הצרחה קצרה לצד לבן</string>
   <string name="blackCastlingKingside">הצרחה קצרה לצד שחור</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s פוסט בפורום</item>
+    <item quantity="two">%s פוסטים בפורום</item>
+    <item quantity="many">%s פוסטים בפורום</item>
+    <item quantity="other">%s פוסטים בפורום</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">זמן במשחק : %s</string>
   <string name="watchGames">לצפות במשחקים</string>
   <string name="tpTimeSpentOnTV">: %s זמן בטלוויזיה</string>
@@ -683,6 +784,12 @@
   <string name="onlineAndOfflinePlay">תשחק עם או בלי חיבור לאינטרנט</string>
   <string name="viewTheSolution">הראה פתרון</string>
   <string name="followAndChallengeFriends">עקוב אחר חברים ואתגר אותם</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">זמין ב%s שפה!</item>
+    <item quantity="two">זמין ב%s שפות!</item>
+    <item quantity="many">זמין ב%s שפות!</item>
+    <item quantity="other">זמין ב%s שפות!</item>
+  </plurals>
   <string name="gameAnalysis">ניתוח משחק</string>
   <string name="xHostsY">%1$s מארח %2$s</string>
   <string name="xJoinsY">%1$s מצטרף %2$s</string>
@@ -723,6 +830,12 @@
   <string name="notifications">התראות</string>
   <string name="challenges">הזמנות למשחק</string>
   <string name="perfRatingX">דירוג: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s שניה לשחק את המסע הראשון</item>
+    <item quantity="two">%s שניות כדי לשחק את המסע הראשון</item>
+    <item quantity="many">%s שניות כדי לשחק את המסע הראשון</item>
+    <item quantity="other">%s שניות כדי לשחק את המסע הראשון</item>
+  </plurals>
   <string name="practiceWithComputer">התאמן עם המחשב</string>
   <string name="anotherWasX">מהלך טוב נוסף היה %s</string>
   <string name="bestWasX">המהלך הטוב ביותר היה %s</string>
@@ -757,6 +870,12 @@
   <string name="reviewWhiteMistakes">בדוק טעויות ללבן</string>
   <string name="reviewBlackMistakes">בדוק טעויות לשחור</string>
   <string name="advantage">יתרון</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s שניה</item>
+    <item quantity="two">%s שניות</item>
+    <item quantity="many">%s שניות</item>
+    <item quantity="other">%s שניות</item>
+  </plurals>
   <string name="opening">פתיחה</string>
   <string name="middlegame">מציעה</string>
   <string name="endgame">סיום</string>
@@ -771,6 +890,12 @@
   <string name="playVariationToCreateConditionalPremoves">צור מהלכים מותנים מראש מתוך וריאנט</string>
   <string name="noConditionalPremoves">ללא מהלכים מותנים מראש</string>
   <string name="playX">תשחק %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">ושמור %s קו קדם המסע</item>
+    <item quantity="two">ושמור %s קו קדם המסעים</item>
+    <item quantity="many">ושמור %s קו קדם המסעים</item>
+    <item quantity="other">ושמור %s קו קדם המסעים</item>
+  </plurals>
   <string name="sorry">מצטערים :(</string>
   <string name="weHadToTimeYouOutForAWhile">נאלצנו להשהות אותך.</string>
   <string name="timeoutExpires">ההשהיה הסתיימה %s.</string>
@@ -802,4 +927,15 @@
   <string name="classicalDesc">משחקים קלאסיים: 25 דקות או יותר</string>
   <string name="correspondenceDesc">משחקים לפי תורות: יותר מיום עבור תור</string>
   <string name="puzzleDesc">מאמן טקטיקות שחמט</string>
+  <string name="important">חשוב</string>
+  <string name="yourQuestionMayHaveBeenAnswered">כנראה שלשאלה שלך כבר יש %1$s</string>
+  <string name="inTheFAQ">בשאלות הנפוצות</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">דיווח משתמש על רמאות או התנהגות לא נאותה</string>
+  <string name="useTheReportForm">השתמש בטופס הדוח</string>
+  <string name="toRequestSupport">לבקשת תמיכה</string>
+  <string name="tryTheContactPage">תנסה את עמוד אנשי הקשר</string>
+  <string name="thisTopicIsArchived">נושא זה עבר לארכיון ולא ניתן עוד להשיב עליו.</string>
+  <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
+  <string name="subscribe">עקוב</string>
+  <string name="unsubscribe">בטל את המעקב</string>
 </resources>

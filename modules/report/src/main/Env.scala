@@ -34,7 +34,10 @@ final class Env(
     fishnet: lila.hub.actors.Fishnet,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   private val config = appConfig.get[ReportConfig]("report")(AutoConfig.loader)
 

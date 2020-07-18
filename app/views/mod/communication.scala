@@ -21,12 +21,24 @@ object communication {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = u.username + " communications",
-      moreCss = cssTag("mod.communication")
+      moreCss = frag(
+        cssTag("mod.communication"),
+        isGranted(_.UserSpy) option cssTag("mod.user")
+      ),
+      moreJs = frag(
+        isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
+      )
     ) {
       main(id := "communication", cls := "box box-pad")(
         h1(
           div(cls := "title")(userLink(u), " communications"),
           div(cls := "actions")(
+            a(
+              cls := "button button-empty mod-zone-toggle",
+              href := routes.User.mod(u.username),
+              titleOrText("Mod zone (Hotkey: m)"),
+              dataIcon := ""
+            ),
             isGranted(_.ViewPrivateComms) option {
               if (priv)
                 a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
@@ -39,6 +51,7 @@ object communication {
             }
           )
         ),
+        isGranted(_.UserSpy) option div(cls := "mod-zone none"),
         history.nonEmpty option frag(
           h2("Moderation history"),
           div(cls := "history")(
@@ -61,7 +74,8 @@ object communication {
           h2("Notes from other users"),
           div(cls := "notes")(
             notes.map { note =>
-              div(userIdLink(note.from.some), " ", momentFromNowOnce(note.date), ": ", richText(note.text))
+              (isGranted(_.Doxing) || !note.dox) option
+                div(userIdLink(note.from.some), " ", momentFromNowOnce(note.date), ": ", richText(note.text))
             }
           )
         ),

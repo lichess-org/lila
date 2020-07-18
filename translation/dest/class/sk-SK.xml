@@ -68,6 +68,7 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="release">Uvoľniť</string>
   <string name="releaseTheAccount">Uvoľniť účet aby si ho študent mohol spravovať sám.</string>
   <string name="releaseDesc1">Uvoľnený účet nie je možné previesť späť na spravovaný. Študentovi bude umožnené zapnúť detský mód a vynulovať si heslo sám.</string>
+  <string name="teachers">Učitelia</string>
   <string name="students">Študenti</string>
   <string name="progress">Pokrok</string>
   <string name="noStudents">Zatiaľ nie sú v triede žiadni žiaci.</string>

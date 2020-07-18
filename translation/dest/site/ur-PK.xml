@@ -21,6 +21,7 @@
   <string name="createAGame">نیا مقابلہ</string>
   <string name="whiteIsVictorious">سفید فاتح ہے</string>
   <string name="blackIsVictorious">سیاہ فاتح ہے</string>
+  <string name="itsYourTurn">اب آپ کی باری ہے!</string>
   <string name="kingInTheCenter">بادشاہ وسط میں ہے</string>
   <string name="threeChecks">تین بار شہ</string>
   <string name="raceFinished">دوڑ ختم</string>
@@ -46,6 +47,7 @@
   <string name="requestAComputerAnalysis">خودکار تجزیہ کے لیے پیش کریں</string>
   <string name="computerAnalysis">خودکار تجزیہ</string>
   <string name="analysis">تجزیاتی بساط</string>
+  <string name="loadingEngine">انجن لوڈ ہورہا ہے ...</string>
   <string name="openingExplorer">ابتدائیوں کی کلید</string>
   <string name="blunders">بڑی غلطیاں</string>
   <string name="mistakes">غلطیاں</string>
@@ -173,7 +175,6 @@
     <item quantity="one">%s سیکنڈ دیں</item>
     <item quantity="other">%s سیکنڈ دیں</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">کھلاڑی کمپیوٹر کی مدد سے کھیلتا ہے</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">یہ کھلاڑی اپنے میعار کو مصنوعی طور پر متاثر کرتا ہے</string>
   <string name="takeback">چال واپس لیں</string>
   <string name="proposeATakeback">چال واپس لینے کی درخواست کریں</string>

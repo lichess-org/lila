@@ -36,6 +36,7 @@ object BlogTransform {
       .maximumSize(32)
       .build((text: Text) => renderer.render(parser.parse(text.replace("<br>", "\n"))))
 
-    def apply(html: Html): Html = PreRegex.replaceAllIn(html, m => Regex.quoteReplacement(cache get m.group(1)))
+    def apply(html: Html): Html =
+      PreRegex.replaceAllIn(html, m => Regex.quoteReplacement(cache get m.group(1)))
   }
 }

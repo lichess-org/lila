@@ -13,7 +13,10 @@ final private class Cleaner(
     repo: FishnetRepo,
     analysisColl: Coll,
     system: akka.actor.ActorSystem
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) {
 
   import BSONHandlers._
 
@@ -40,7 +43,7 @@ final private class Cleaner(
           }
       }
       .toMat(Sink.ignore)(Keep.right)
-      .run
+      .run()
       .void
 
   system.scheduler.scheduleWithFixedDelay(15 seconds, 10 seconds) { () =>

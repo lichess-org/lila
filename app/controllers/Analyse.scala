@@ -105,7 +105,7 @@ final class Analyse(
             Ok(html.analyse.embed(pov, data))
           }
         case _ => fuccess(NotFound(html.analyse.embed.notFound))
-      }
+      } dmap EnableSharedArrayBuffer
     }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[FEN])(or: => Fu[Result])(implicit ctx: Context) =

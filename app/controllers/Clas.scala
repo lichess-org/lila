@@ -335,14 +335,17 @@ final class Clas(
                 _ ?? {
                   user =>
                     import lila.clas.ClasInvite.{ Feedback => F }
-                    env.clas.api.invite.create(clas, user, data.realName, me) map { feedback =>
-                      Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
-                        feedback match {
-                          case F.Already => "success" -> s"${user.username} is now a student of the class"
-                          case F.Invited => "success" -> s"An invitation has been sent to ${user.username}"
-                          case F.Found   => "warning" -> s"${user.username} already has a pending invitation"
+                    env.clas.api.invite.create(clas, user, data.realName, me) map {
+                      feedback =>
+                        Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
+                          feedback match {
+                            case F.Already => "success" -> s"${user.username} is now a student of the class"
+                            case F.Invited => "success" -> s"An invitation has been sent to ${user.username}"
+                            case F.Found   => "warning" -> s"${user.username} already has a pending invitation"
+                            case F.CantMsgKid(url) =>
+                              "warning" -> s"${user.username} is a kid account and can't receive your message. You must give them the invitation URL manually: $url"
+                          }
                         }
-                      }
                     }
                 }
               }
@@ -461,10 +464,10 @@ final class Clas(
     }
 
   def becomeTeacher =
-    AuthBody { implicit ctx => me =>
+    AuthBody { _ => me =>
       val perm = lila.security.Permission.Teacher.dbKey
       (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
-        Redirect(routes.Clas.index)
+        Redirect(routes.Clas.index())
     }
 
   def invitation(id: String) =
@@ -477,7 +480,7 @@ final class Clas(
   def invitationAccept(id: String) =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      Form(single("v" -> boolean)).bindFromRequest
+      Form(single("v" -> boolean)).bindFromRequest()
         .fold(
           _ => Redirect(routes.Clas.invitation(id)).fuccess,
           v => {
@@ -488,14 +491,14 @@ final class Clas(
               }
             }
             else
-              env.clas.api.invite.decline(inviteId, me) inject
+              env.clas.api.invite.decline(inviteId) inject
                 Redirect(routes.Clas.invitation(id))
           }
         )
     }
 
   def invitationRevoke(id: String) =
-    Secure(_.Teacher) { implicit ctx => me =>
+    Secure(_.Teacher) { _ => me =>
       env.clas.api.invite.get(lila.clas.ClasInvite.Id(id)) flatMap {
         _ ?? { invite =>
           WithClass(me, invite.clasId.value) { clas =>

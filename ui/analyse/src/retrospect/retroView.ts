@@ -121,7 +121,7 @@ const feedback = {
       )
     ];
   },
-  end(ctrl: RetroCtrl, flip: () => void, hasFullComputerAnalysis: () => boolean): VNode[] {
+  end(ctrl: RetroCtrl, hasFullComputerAnalysis: () => boolean): VNode[] {
     if (!hasFullComputerAnalysis()) return [
       h('div.half.top',
         h('div.player', [
@@ -143,7 +143,7 @@ const feedback = {
               hook: bind('click', ctrl.reset)
             }, ctrl.noarg('doItAgain')),
             h('a', {
-              hook: bind('click', flip)
+              hook: bind('click', () => ctrl.flip())
             }, ctrl.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'))
           ])
         ])
@@ -158,7 +158,7 @@ function renderFeedback(root: AnalyseCtrl, fb) {
   if (ctrl.isSolving() && current && root.path !== current.prev.path)
     return feedback.offTrack(ctrl);
   if (fb === 'find') return current ? feedback.find(ctrl) :
-    feedback.end(ctrl, root.flip, root.hasFullComputerAnalysis);
+    feedback.end(ctrl, root.hasFullComputerAnalysis);
   return feedback[fb](ctrl);
 }
 

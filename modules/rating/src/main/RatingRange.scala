@@ -37,7 +37,8 @@ object RatingRange {
       if min < max
     } yield RatingRange(min, max)
 
-  def orDefault(from: String) = apply(from) | default
+  def orDefault(from: String)         = apply(from) | default
+  def orDefault(from: Option[String]) = from.flatMap(apply) | default
 
   def noneIfDefault(from: String) =
     if (from == default.toString) none

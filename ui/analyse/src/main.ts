@@ -5,7 +5,7 @@ import makeCtrl from './ctrl';
 import view from './view';
 import boot from './boot';
 import { Chessground } from 'chessground';
-import * as chat from 'chat';
+import LichessChat from 'chat';
 
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
@@ -47,4 +47,4 @@ export { boot };
 // that's for the rest of lichess to access chessground
 // without having to include it a second time
 window.Chessground = Chessground;
-window.LichessChat = chat;
+window.LichessChat = LichessChat;

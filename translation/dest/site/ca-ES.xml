@@ -275,7 +275,7 @@
     <item quantity="one">Dóna %s segons</item>
     <item quantity="other">Dóna %s segons</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Aquest jugador s\'ajuda amb un programa informàtic d\'escacs</string>
+  <string name="thisAccountViolatedTos">Aquest compte ha violat els Termes de Servei de Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Aquest jugador incrementa/disminueix artificialment el seu ràting</string>
   <string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de moviments</string>
   <string name="takeback">Desfés la jugada</string>
@@ -843,7 +843,7 @@ en %3$s</string>
   <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
   <string name="edit">Edita</string>
-  <string name="rapid">Ràpid</string>
+  <string name="rapid">Ràpides</string>
   <string name="classical">Clàssic</string>
   <string name="ultraBulletDesc">Partides extramadament ràpides: menys de 30 segons</string>
   <string name="bulletDesc">Partides molt ràpides, menys de 3 minuts</string>

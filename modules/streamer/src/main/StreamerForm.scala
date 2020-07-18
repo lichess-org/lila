@@ -31,10 +31,11 @@ object StreamerForm {
       "approval" -> optional(
         mapping(
           "granted"   -> boolean,
-          "featured"  -> boolean,
+          "tier"      -> optional(number(min = 0, max = Streamer.maxTier)),
           "requested" -> boolean,
           "ignored"   -> boolean,
-          "chat"      -> boolean
+          "chat"      -> boolean,
+          "quick"     -> optional(nonEmptyText)
         )(ApprovalData.apply)(ApprovalData.unapply)
       )
     )(UserData.apply)(UserData.unapply)
@@ -50,7 +51,7 @@ object StreamerForm {
       listed = streamer.listed.value,
       approval = ApprovalData(
         granted = streamer.approval.granted,
-        featured = streamer.approval.autoFeatured,
+        tier = streamer.approval.tier.some,
         requested = streamer.approval.requested,
         ignored = streamer.approval.ignored,
         chat = streamer.approval.chatEnabled
@@ -78,11 +79,11 @@ object StreamerForm {
         updatedAt = DateTime.now
       )
       newStreamer.copy(
-        approval = approval match {
+        approval = approval.map(_.resolve) match {
           case Some(m) if asMod =>
             streamer.approval.copy(
               granted = m.granted,
-              autoFeatured = m.featured && m.granted,
+              tier = m.tier | streamer.approval.tier,
               requested = !m.granted && {
                 if (streamer.approval.requested != m.requested) m.requested
                 else streamer.approval.requested || m.requested
@@ -99,11 +100,18 @@ object StreamerForm {
 
   case class ApprovalData(
       granted: Boolean,
-      featured: Boolean,
+      tier: Option[Int],
       requested: Boolean,
       ignored: Boolean,
-      chat: Boolean
-  )
+      chat: Boolean,
+      quick: Option[String] = None
+  ) {
+    def resolve =
+      quick.fold(this) {
+        case "approve" => copy(granted = true, requested = false)
+        case "decline" => copy(granted = false, requested = false)
+      }
+  }
 
   implicit private val headlineFormat    = formatter.stringFormatter[Headline](_.value, Headline.apply)
   private def headlineField              = of[Headline].verifying(constraint.maxLength[Headline](_.value)(300))

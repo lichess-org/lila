@@ -48,6 +48,9 @@
   <string name="viewTheComputerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ଦେଖନ୍ତୁ</string>
   <string name="requestAComputerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ପାଇଁ ଅନୁରୋଧ</string>
   <string name="computerAnalysisAvailable">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ଉପଲବ୍ଧ</string>
+  <string name="delete">ବିଲୋପ କରନ୍ତୁ</string>
+  <string name="realtimeReplay">ପ୍ରକୃତ ସମୟ</string>
+  <string name="enable">ସକ୍ଷମ କରନ୍ତୁ</string>
   <string name="evaluationGauge">ମୂଲ୍ୟାଙ୍କନ ଗେଜ୍</string>
   <string name="multipleLines">ଏକାଧିକ ରେଖା</string>
   <string name="cpus">CPU ଗୁଡିକ</string>

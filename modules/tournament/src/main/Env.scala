@@ -79,8 +79,8 @@ final class Env(
     clearJsonViewCache = jsonView.clearCache,
     clearWinnersCache = winners.clearCache,
     clearTrophyCache = tour => {
-      if (tour.isShield) scheduler.scheduleOnce(10 seconds)(shieldApi.clear)
-      else if (Revolution is tour) scheduler.scheduleOnce(10 seconds)(revolutionApi.clear)
+      if (tour.isShield) scheduler.scheduleOnce(10 seconds){ shieldApi.clear() }
+      else if (Revolution is tour) scheduler.scheduleOnce(10 seconds){ revolutionApi.clear() }
     },
     indexLeaderboard = leaderboardIndexer.indexOne _
   )
@@ -103,13 +103,7 @@ final class Env(
 
   lazy val getTourName = new GetTourName((id, lang) => cached.nameCache.sync(id -> lang))
 
-  lila.common.Bus.subscribe(
-    system.actorOf(Props(wire[ApiActor]), name = config.apiActorName),
-    "finishGame",
-    "adjustCheater",
-    "adjustBooster",
-    "playban"
-  )
+  system.actorOf(Props(wire[ApiActor]), name = config.apiActorName)
 
   system.actorOf(Props(wire[CreatedOrganizer]))
 

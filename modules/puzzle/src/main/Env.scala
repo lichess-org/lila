@@ -4,15 +4,13 @@ import akka.actor.ActorSystem
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import reactivemongo.api.MongoConnection.ParsedURI
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
-import lila.db.DbConfig.uriLoader
 
 @Module
 private class PuzzleConfig(
-    @ConfigName("mongodb.uri") val mongoUri: ParsedURI,
+    @ConfigName("mongodb.uri") val mongoUri: String,
     @ConfigName("collection.puzzle") val puzzleColl: CollName,
     @ConfigName("collection.round") val roundColl: CollName,
     @ConfigName("collection.vote") val voteColl: CollName,
@@ -34,7 +32,10 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     mongo: lila.db.Env
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
+) {
 
   private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
 

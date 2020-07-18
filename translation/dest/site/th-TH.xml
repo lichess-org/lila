@@ -257,7 +257,6 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">ให้ %s วินาที</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">ผู้เล่นรายนี้ใช้การช่วยเหลือจากคอมพิวเตอร์หมากรุก</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ผู้เล่นรายนี้เพิ่ม/ลดระดับคะแนนตัวเองโดยทุจริต</string>
   <string name="openingExplorerAndTablebase">ตัวสำรวจการเปิด &amp; ฐานตาราง</string>
   <string name="takeback">เดินใหม่</string>

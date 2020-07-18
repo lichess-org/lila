@@ -10,11 +10,10 @@ object UserMark {
   case object Boost     extends UserMark
   case object Engine    extends UserMark
   case object Troll     extends UserMark
-  case object Ipban     extends UserMark
   case object Reportban extends UserMark
   case object Rankban   extends UserMark
   case object Alt       extends UserMark
-  val all = List(Boost, Engine, Troll, Ipban, Reportban, Rankban, Alt)
+  val all = List(Boost, Engine, Troll, Reportban, Rankban, Alt)
   val indexed: Map[String, UserMark] = all.view.map { m =>
     m.key -> m
   }.toMap
@@ -26,12 +25,12 @@ case class UserMarks(value: List[UserMark]) extends AnyVal {
   def boost                 = apply(UserMark.Boost)
   def engine                = apply(UserMark.Engine)
   def troll                 = apply(UserMark.Troll)
-  def ipban                 = apply(UserMark.Ipban)
   def reportban             = apply(UserMark.Reportban)
   def rankban               = apply(UserMark.Rankban)
   def alt                   = apply(UserMark.Alt)
 
   def nonEmpty = value.nonEmpty option this
+  def clean    = value.isEmpty
 
   def set(sel: UserMark.type => UserMark, v: Boolean) =
     UserMarks {

@@ -2,10 +2,14 @@ package lila.relation
 
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
+import org.joda.time.DateTime
 
 import lila.db.dsl._
+import lila.user.User
 
-final private class RelationRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class RelationRepo(coll: Coll, userRepo: lila.user.UserRepo)(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
 
   import RelationRepo._
 
@@ -14,10 +18,43 @@ final private class RelationRepo(coll: Coll)(implicit ec: scala.concurrent.Execu
   def blockers(userId: ID) = relaters(userId, Block)
   def blocking(userId: ID) = relating(userId, Block)
 
-  def followersFromSecondary(userId: ID) = relaters(userId, Follow, ReadPreference.secondaryPreferred)
+  def freshFollowersFromSecondary(userId: ID): Fu[List[User.ID]] =
+    coll
+      .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+        import framework._
+        Match($doc("u2" -> userId, "r" -> Follow)) -> List(
+          PipelineOperator(
+            $doc(
+              "$lookup" -> $doc(
+                "from" -> userRepo.coll.name,
+                "let"  -> $doc("uid" -> "$u1"),
+                "pipeline" -> $arr(
+                  $doc(
+                    "$match" -> $doc(
+                      "$expr" -> $doc(
+                        "$and" -> $arr(
+                          $doc("$eq" -> $arr("$_id", "$$uid")),
+                          $doc("$gt" -> $arr("$seenAt", DateTime.now.minusDays(10)))
+                        )
+                      )
+                    )
+                  ),
+                  $doc("$project" -> $id(true))
+                ),
+                "as" -> "follower"
+              )
+            )
+          ),
+          Match("follower" $ne $arr()),
+          Group(BSONNull)(
+            "ids" -> PushField("u1")
+          )
+        )
+      }
+      .map(~_.flatMap(_.getAsOpt[List[User.ID]]("ids")))
 
   def followingLike(userId: ID, term: String): Fu[List[ID]] =
-    lila.user.User.couldBeUsername(term) ?? {
+    User.couldBeUsername(term) ?? {
       coll.secondaryPreferred.distinctEasy[ID, List](
         "u2",
         $doc(
@@ -70,6 +107,7 @@ final private class RelationRepo(coll: Coll)(implicit ec: scala.concurrent.Execu
         upsert = true
       )
       .void
+      .recover(lila.db.ignoreDuplicateKey)
 
   def remove(u1: ID, u2: ID): Funit = coll.delete.one($id(makeId(u1, u2))).void
 

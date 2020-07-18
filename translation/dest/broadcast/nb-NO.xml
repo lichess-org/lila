@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Overføringer</string>
-  <string name="liveBroadcasts">Direkteoverføringer</string>
+  <string name="liveBroadcasts">Direkteoverføringer av turneringer</string>
   <string name="newBroadcast">Ny direkteoverføring</string>
   <string name="ongoing">Pågående</string>
   <string name="upcoming">Kommende</string>
@@ -15,7 +15,7 @@
   <string name="roundNumber">Rundenummer</string>
   <string name="startDate">Startdato i din egen tidssone</string>
   <string name="startDateHelp">Valgfritt, hvis du vet når arrangementet starter</string>
-  <string name="credits">Kreditér kilden</string>
+  <string name="credits">Krediter kilden</string>
   <string name="cloneBroadcast">Klon overføringen</string>
   <string name="resetBroadcast">Nullstill overføringen</string>
 </resources>

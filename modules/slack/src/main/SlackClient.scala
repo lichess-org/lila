@@ -15,7 +15,6 @@ final private class SlackClient(ws: WSClient, url: Secret)(implicit ec: scala.co
   private val limiter = new RateLimit[SlackMessage](
     credits = 1,
     duration = 15 minutes,
-    name = "slack client",
     key = "slack.client"
   )
 

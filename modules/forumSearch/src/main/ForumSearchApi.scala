@@ -11,8 +11,10 @@ final class ForumSearchApi(
     client: ESClient,
     postApi: PostApi,
     postRepo: PostRepo
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer)
-    extends SearchReadApi[PostView, Query] {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) extends SearchReadApi[PostView, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -51,7 +53,7 @@ final class ForumSearchApi(
             .map(_.map(v => Id(v.post.id) -> toDoc(v)))
             .mapAsyncUnordered(2)(c.storeBulk)
             .toMat(Sink.ignore)(Keep.right)
-            .run
+            .run()
         } >> client.refresh
 
       case _ => funit

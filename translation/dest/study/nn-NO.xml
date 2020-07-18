@@ -21,13 +21,13 @@
     <item quantity="other">%s kapittel</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Parti</item>
+    <item quantity="one">%s parti</item>
     <item quantity="other">%s parti</item>
   </plurals>
   <string name="addMembers">Legg til medlemar</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s Medlem</item>
-    <item quantity="other">%s Medlemar</item>
+    <item quantity="one">%s medlem</item>
+    <item quantity="other">%s medlemar</item>
   </plurals>
   <string name="inviteToTheStudy">Inviter til studien</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Inviter berre folk du kjenner og som aktivt ynskjer å delta i studien.</string>
@@ -52,20 +52,25 @@
   <string name="shareChanges">Lagre endringar på serveren og del dei med tilskodarar</string>
   <string name="playing">Spelar no</string>
   <string name="first">Første</string>
-  <string name="previous">Føregåande</string>
+  <string name="previous">Attende</string>
   <string name="next">Neste</string>
   <string name="last">Siste</string>
   <string name="shareAndExport">Del &amp; eksporter</string>
   <string name="cloneStudy">Klon</string>
   <string name="studyPgn">Studie-PGN</string>
+  <string name="downloadAllGames">Last ned alle spel</string>
   <string name="chapterPgn">Kapittel-PGN</string>
+  <string name="downloadGame">Last ned spel</string>
   <string name="studyUrl">Studie-URL</string>
+  <string name="broadcastUrl">Kunngjer URL</string>
   <string name="currentChapterUrl">Kapittel-URL</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Du kan lime inn dette i forumet for å bygge inn kapittelet</string>
+  <string name="currentGameUrl">URL til pågåande parti</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Du kan lime inn dette i forumet for å syna det der</string>
   <string name="startAtInitialPosition">Start ved innleiande stilling</string>
   <string name="startAtX">Start ved %s</string>
-  <string name="embedThisChapter">Bygg inn kapittelet i nettstaden eller bloggen din</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Les meir om å bygge inn eit studiekapittel</string>
+  <string name="embedInYourWebsite">Inkorporer i websida eller bloggen din</string>
+  <string name="readMoreAboutEmbedding">Les meir om innbygging</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Berre offentlege studiar kan byggast inn!</string>
   <string name="open">Opne</string>
   <string name="xBroughtToYouByY">%1$s presentert av %2$s</string>
   <string name="studyNotFound">Fann ikkje studien</string>

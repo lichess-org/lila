@@ -32,7 +32,10 @@ final class RoundSocket(
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
     shutdown: CoordinatedShutdown
-)(implicit ec: ExecutionContext, system: ActorSystem) {
+)(implicit
+    ec: ExecutionContext,
+    system: ActorSystem
+) {
 
   import RoundSocket._
 
@@ -368,7 +371,7 @@ object RoundSocket {
       terminations.compute(
         gameId.value,
         (id, canc) => {
-          Option(canc).foreach(_.cancel)
+          Option(canc).foreach(_.cancel())
           scheduler.scheduleOnce(duration) {
             terminations remove id
             terminate(Game.Id(id))
@@ -377,6 +380,6 @@ object RoundSocket {
       )
 
     def cancel(gameId: Game.Id): Unit =
-      Option(terminations remove gameId.value).foreach(_.cancel)
+      Option(terminations remove gameId.value).foreach(_.cancel())
   }
 }

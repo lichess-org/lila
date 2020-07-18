@@ -1,7 +1,6 @@
 package views.html.user.show
 
-import play.api.i18n.Lang
-
+import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.{ Trophy, TrophyKind }
@@ -10,7 +9,7 @@ import controllers.routes
 
 object otherTrophies {
 
-  def apply(info: lila.app.mashup.UserInfo)(implicit lang: Lang) =
+  def apply(info: lila.app.mashup.UserInfo)(implicit ctx: Context) =
     frag(
       info.trophies.filter(_.kind.klass.has("fire-trophy")).some.filter(_.nonEmpty) map { trophies =>
         div(cls := "stacked")(
@@ -29,7 +28,7 @@ object otherTrophies {
         a(
           cls := "shield-trophy combo-trophy",
           ariaTitle(s"${shield.categ.name} Shield"),
-          href := routes.Tournament.shields
+          href := routes.Tournament.shields()
         )(shield.categ.iconChar.toString)
       },
       info.revolutions.map { revol =>
@@ -89,7 +88,7 @@ object otherTrophies {
           cls := "trophy award icon3d coach",
           ariaTitle(trans.coach.lichessCoach.txt())
         )(":"),
-      info.isStreamer option
+      (info.isStreamer && ctx.noKid) option
         a(
           href := routes.Streamer.show(info.user.username),
           cls := List(

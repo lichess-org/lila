@@ -51,6 +51,12 @@ Kata sandi: %3$s</string>
   <string name="generateANewUsername">Buat nama pengguna baru</string>
   <string name="welcomeToClass">Selamat datang di kelas Anda: %s.
 Inilah tautan untuk mengakses kelas.</string>
+  <string name="invitationToClass">Anda di undang untuk ikut serta ke kelas \"%s\" sebagai murid.</string>
+  <string name="clickToViewInvitation">Klik tautan untuk melihat undangan:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="other">%s undangan tertunda</item>
+  </plurals>
+  <string name="noPendingInvitations">Tidak ada undangan yang tertunda</string>
   <string name="onlyVisibleToTeachers">Hanya terlihat oleh guru kelas</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Kelola</string>
@@ -68,10 +74,13 @@ Inilah tautan untuk mengakses kelas.</string>
   <plurals name="nbStudents">
     <item quantity="other">%s siswa</item>
   </plurals>
+  <string name="students">Murid</string>
   <string name="progress">Kemajuan</string>
   <string name="noStudents">Belum ada siswa di kelas.</string>
   <string name="noRemovedStudents">Tidak ada siswa yang dihapus.</string>
+  <string name="overDays">Selama berhari-hari</string>
   <string name="timePlaying">Waktu bermain</string>
+  <string name="variantXOverLastY">%1$s sampai %2$s</string>
   <string name="winrate">Rata-rata kemenangan</string>
   <string name="na">Tidak ada</string>
   <string name="news">Berita kelas</string>

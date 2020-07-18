@@ -61,11 +61,8 @@
   <string name="chapterPgn">Hoofstuk PGN</string>
   <string name="studyUrl">Bestudeer URL</string>
   <string name="currentChapterUrl">Huidige hoofstuk URL</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Jy kan hierdie in die forum plak om die hoofstuk in te sluit</string>
   <string name="startAtInitialPosition">Begin by die oorspronklike posisie</string>
   <string name="startAtX">Begin by %s</string>
-  <string name="embedThisChapter">Sluit hierdie hoofstuk in by jou webwerf of blog</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Lees meer oor die insluiting van \'n studie hoofstuk</string>
   <string name="open">Maak oop</string>
   <string name="xBroughtToYouByY">%1$s, aan jou beskikbaar gestel deur %2$s</string>
   <string name="studyNotFound">Studie kon nie gevind word nie</string>

@@ -21,7 +21,7 @@ export interface GlyphCtrl {
 }
 
 function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
-  return function(glyph) {
+  return function(glyph: Tree.Glyph) {
     return h('a', {
       hook: bind('click', _ => {
         ctrl.toggleGlyph(glyph.id);

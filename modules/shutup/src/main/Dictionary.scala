@@ -39,7 +39,7 @@ buk?kake
 bull?shit
 cancer
 cawk
-cheat(er|)
+cheat(ed|er|s|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
@@ -182,8 +182,8 @@ wog
       """
 сука
 пизда
-пидор
-пидераст
+пидор(|ас)
+педераст
 pid(a|o|)r
 Лох
 Сосать

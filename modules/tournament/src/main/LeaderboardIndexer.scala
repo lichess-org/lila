@@ -12,7 +12,10 @@ final private class LeaderboardIndexer(
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
     leaderboardRepo: LeaderboardRepo
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) {
 
   import LeaderboardApi._
   import BSONHandlers._
@@ -31,7 +34,7 @@ final private class LeaderboardIndexer(
         .grouped(500)
         .mapAsyncUnordered(1)(saveEntries)
         .toMat(Sink.ignore)(Keep.right)
-        .run
+        .run()
         .void
 
   def indexOne(tour: Tournament): Funit =

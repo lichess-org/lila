@@ -154,7 +154,6 @@
     <item quantity="one">Omeo %s segondra</item>
     <item quantity="other">Omeo %s segondra</item>
   </plurals>
-  <string name="thisPlayerUsesChessComputerAssistance">Mampiasa solosaina mpanampy ity mpilalao ity</string>
   <string name="takeback">Averina ny fihetsehana farany teo</string>
   <string name="proposeATakeback">Angataho ny famerenana ny fihetsehana farany teo</string>
   <string name="takebackPropositionSent">Lasa ny famerenana ny fihetsehana farany teo</string>

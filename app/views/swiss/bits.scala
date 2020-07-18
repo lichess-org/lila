@@ -100,6 +100,7 @@ object bits {
     trans.performance,
     trans.standByX,
     trans.averageOpponent,
-    trans.tournamentComplete
+    trans.tournamentComplete,
+    trans.password
   ).map(_.key)
 }

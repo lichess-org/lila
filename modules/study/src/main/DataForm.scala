@@ -3,6 +3,8 @@ package lila.study
 import play.api.data._
 import play.api.data.Forms._
 
+import lila.common.Form.clean
+
 object DataForm {
 
   object importGame {
@@ -57,7 +59,7 @@ object DataForm {
 
     lazy val form = Form(
       mapping(
-        "name"        -> text,
+        "name"        -> clean(text),
         "orientation" -> optional(nonEmptyText),
         "variant"     -> optional(nonEmptyText),
         "mode"        -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),

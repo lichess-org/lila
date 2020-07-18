@@ -51,6 +51,7 @@
   <string name="generateANewUsername">Δημιουργία νέου ονόματος χρήστη</string>
   <string name="welcomeToClass">Καλώς ήρθατε στην τάξη σας: %s.
 Για πρόσβαση πατήστε στον σύνδεσμο.</string>
+  <string name="clickToViewInvitation">Κάντε κλικ στο link για να δείτε την πρόσκληση:</string>
   <string name="onlyVisibleToTeachers">Ορατό μόνο στους δάσκαλους της τάξης</string>
   <string name="lastActiveDate">Ενεργό</string>
   <string name="managed">Διαχειρίζεται</string>
@@ -68,6 +69,7 @@
     <item quantity="one">Μαθητής</item>
     <item quantity="other">%s μαθητές</item>
   </plurals>
+  <string name="students">Μαθητές</string>
   <string name="progress">Πρόοδος</string>
   <string name="noStudents">Χωρίς μαθητές στη τάξη, ακόμη.</string>
   <string name="noRemovedStudents">Χωρίς διαγραμμένους μαθητές.</string>

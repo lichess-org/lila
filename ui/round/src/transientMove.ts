@@ -25,7 +25,7 @@ export default class TransientMove {
   }
 
   expire = () => {
-    $.ajax({ method: 'POST', url: '/statlog?e=roundTransientExpire' });
+    $.post('/statlog?e=roundTransientExpire');
     this.socket.reload({});
   }
 }

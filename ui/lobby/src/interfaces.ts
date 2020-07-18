@@ -11,9 +11,6 @@ interface Untyped {
   [key: string]: any;
 }
 
-export interface Filter extends Untyped {
-}
-
 export interface Hook extends Untyped {
 }
 
@@ -30,6 +27,8 @@ export interface Pool {
 export interface LobbyOpts extends Untyped {
   element: HTMLElement;
   socketSend: SocketSend;
+  pools: Pool[];
+  blindMode: boolean;
 }
 
 export interface LobbyData extends Untyped {

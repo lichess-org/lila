@@ -13,12 +13,13 @@
     "accessibility"
   ],
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0",
-  "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc"
-  },
+  "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/tsProject": "2.0.0",
+    "@build/rollupProject": "2.0.0",
     "@types/lichess": "2.0.0"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
   }
 }

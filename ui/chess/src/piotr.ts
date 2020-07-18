@@ -1,5 +1,5 @@
 export interface Piotr {
-  [p: string]: string;
+  [p: string]: Key;
 }
 
 export const piotr: Piotr = {
@@ -66,5 +66,5 @@ export const piotr: Piotr = {
   '8': 'e8',
   '9': 'f8',
   '!': 'g8',
-  '?': 'h8'
+  '?': 'h8',
 };

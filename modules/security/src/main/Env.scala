@@ -27,12 +27,19 @@ final class Env(
     tryOAuthServer: OAuthServer.Try,
     mongoCache: lila.memo.MongoCache.Api,
     db: lila.db.Db
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, scheduler: Scheduler) {
-
-  private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    scheduler: Scheduler
+) {
   import net.{ baseUrl, domain }
 
-  val recaptchaPublicConfig = config.recaptcha.public
+  private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
+
+  private def recaptchaPublicConfig = config.recaptcha.public
+
+  def recaptcha[A](formId: String, form: play.api.data.Form[A]) =
+    RecaptchaForm(form, formId, config.recaptcha.public)
 
   lazy val firewall = new Firewall(
     coll = db(config.collection.firewall),
@@ -51,7 +58,7 @@ final class Env(
 
   lazy val userSpy = wire[UserSpyApi]
 
-  lazy val store = new Store(db(config.collection.security), net.ip)
+  lazy val store = new Store(db(config.collection.security), cacheApi, net.ip)
 
   lazy val ip2proxy = {
     def mk = (url: String) => wire[Ip2Proxy]
@@ -131,10 +138,10 @@ final class Env(
 
   lazy val spam = new Spam(spamKeywordsSetting.get _)
 
-  scheduler.scheduleOnce(30 seconds)(disposableEmailDomain.refresh)
+  scheduler.scheduleOnce(30 seconds)(disposableEmailDomain.refresh())
   scheduler.scheduleWithFixedDelay(config.disposableEmail.refreshDelay, config.disposableEmail.refreshDelay) {
     () =>
-      disposableEmailDomain.refresh
+      disposableEmailDomain.refresh()
   }
 
   lazy val tor: Tor = wire[Tor]

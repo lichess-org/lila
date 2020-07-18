@@ -23,11 +23,7 @@ final class StreamerPager(
     val adapter = new Adapter[Streamer](
       collection = coll,
       selector =
-        if (approvalRequested)
-          $doc(
-            "approval.requested" -> true,
-            "approval.ignored"   -> false
-          )
+        if (approvalRequested) approvalRequestedSelector
         else
           $doc(
             "approval.granted" -> true,
@@ -35,7 +31,7 @@ final class StreamerPager(
             "_id" $nin live.streams.map(_.streamer.id)
           ),
       projection = none,
-      sort = $doc("liveAt" -> -1)
+      sort = $sort desc "liveAt"
     ) mapFutureList withUsers
     Paginator(
       adapter = new CachedAdapter(adapter, nbResults = fuccess(6000)),
@@ -43,6 +39,19 @@ final class StreamerPager(
       maxPerPage = maxPerPage
     )
   }
+
+  def nextRequestId: Fu[Option[Streamer.Id]] =
+    coll.primitiveOne[Streamer.Id](
+      $doc(approvalRequestedSelector),
+      $sort asc "updatedAt",
+      "_id"
+    )
+
+  private val approvalRequestedSelector =
+    $doc(
+      "approval.requested" -> true,
+      "approval.ignored"   -> false
+    )
 
   private def withUsers(streamers: Seq[Streamer]): Fu[Seq[Streamer.WithUser]] =
     userRepo.withColl {

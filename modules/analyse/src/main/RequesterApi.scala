@@ -7,7 +7,7 @@ import lila.user.User
 
 final class RequesterApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val formatter = format.DateTimeFormat.forPattern("YYYY-MM-dd")
+  private val formatter = format.DateTimeFormat.forPattern("yyyy-MM-dd")
 
   private def today = formatter.print(DateTime.now)
 

@@ -24,16 +24,18 @@ final case class OpenConfig(
         ~(Forsyth <<< f.value).map(_.situation playable strictFen)
       }
     }
+
+  def autoVariant =
+    if (variant.standard && position.exists(_.value != Forsyth.initial)) copy(variant = FromPosition)
+    else this
 }
 
 object OpenConfig {
 
-  def <<(v: Option[String], cl: Option[Clock.Config], pos: Option[String]) =
+  def from(v: Option[String], cl: Option[Clock.Config], pos: Option[String]) =
     new OpenConfig(
-      variant =
-        if (v.isEmpty && pos.isDefined) chess.variant.FromPosition
-        else chess.variant.Variant.orDefault(~v),
+      variant = chess.variant.Variant.orDefault(~v),
       clock = cl,
       position = pos map FEN
-    )
+    ).autoVariant
 }

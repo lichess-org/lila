@@ -48,39 +48,31 @@ final class StreamerApi(
   def withUsers(live: LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
     live.streams.map(withUser).sequenceFu.dmap(_.flatten)
 
-  def allListedIds: Fu[Set[Streamer.Id]] = listedIdsCache.getUnit
+  def allListedIds: Fu[Set[Streamer.Id]] = cache.listedIds.getUnit
 
   def setSeenAt(user: User): Funit =
-    listedIdsCache.getUnit flatMap { ids =>
+    cache.listedIds.getUnit flatMap { ids =>
       ids.contains(Streamer.Id(user.id)) ??
         coll.update.one($id(user.id), $set("seenAt" -> DateTime.now)).void
     }
 
   def setLiveNow(ids: List[Streamer.Id]): Funit =
-    coll.update.one($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true).void
-
-  private[streamer] def mostRecentlySeenIds(ids: List[Streamer.Id], max: Int): Fu[Set[Streamer.Id]] =
-    coll.ext
-      .find($inIds(ids))
-      .sort($doc("seenAt" -> -1))
-      .list[Bdoc](max) dmap {
-      _ flatMap {
-        _.getAsOpt[Streamer.Id]("_id")
+    coll.update.one($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true) >>
+      cache.candidateIds.getUnit.map { candidateIds =>
+        if (ids.exists(candidateIds.contains)) cache.candidateIds.invalidateUnit()
       }
-    } dmap (_.toSet)
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
     coll.update.one($id(streamer.id), streamer) >>-
-      listedIdsCache.invalidateUnit inject {
+      cache.listedIds.invalidateUnit() inject {
       val modChange = Streamer.ModChange(
         list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
-        feature =
-          prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
+        tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier
       )
       import lila.notify.Notification.Notifies
       import lila.notify.Notification
-      ~modChange.list ??
+      ~modChange.list ?? {
         notifyApi.addNotification(
           Notification.make(
             Notifies(streamer.userId),
@@ -91,7 +83,8 @@ final class StreamerApi(
               icon = ""
             )
           )
-        )
+        ) >>- cache.candidateIds.invalidateUnit()
+      }
       modChange
     }
   }
@@ -101,19 +94,23 @@ final class StreamerApi(
       .one(
         $id(userId),
         $set(
-          "approval.requested"    -> false,
-          "approval.granted"      -> false,
-          "approval.autoFeatured" -> false
+          "approval.requested" -> false,
+          "approval.granted"   -> false
         )
       )
       .void
 
   def create(u: User): Funit =
-    isStreamer(u) flatMap { exists =>
-      !exists ?? coll.insert.one(Streamer make u).void
-    }
+    coll.insert.one(Streamer make u).void.recover(lila.db.ignoreDuplicateKey)
 
-  def isStreamer(user: User): Fu[Boolean] = listedIdsCache.getUnit.dmap(_ contains Streamer.Id(user.id))
+  def isPotentialStreamer(user: User): Fu[Boolean] =
+    cache.listedIds.getUnit.dmap(_ contains Streamer.Id(user.id))
+
+  def isCandidateStreamer(user: User): Fu[Boolean] =
+    cache.candidateIds.getUnit.dmap(_ contains Streamer.Id(user.id))
+
+  def isActualStreamer(user: User): Fu[Boolean] =
+    isPotentialStreamer(user) >>& !isCandidateStreamer(user)
 
   def uploadPicture(s: Streamer, picture: Photographer.Uploaded): Funit =
     photographer(s.id.value, picture).flatMap { pic =>
@@ -133,9 +130,8 @@ final class StreamerApi(
           "approval.lastGrantedAt" $lt DateTime.now.minusWeeks(1)
         ),
         $set(
-          "approval.granted"      -> false,
-          "approval.autoFeatured" -> false,
-          "demoted"               -> true
+          "approval.granted" -> false,
+          "demoted"          -> true
         ),
         multi = true
       )
@@ -159,19 +155,32 @@ final class StreamerApi(
       )
   }
 
-  private def selectListedApproved =
-    $doc(
-      "listed"           -> true,
-      "approval.granted" -> true
-    )
+  private object cache {
 
-  private val listedIdsCache = cacheApi.unit[Set[Streamer.Id]] {
-    _.refreshAfterWrite(1 hour)
-      .buildAsyncFuture { _ =>
-        coll.secondaryPreferred.distinctEasy[Streamer.Id, Set](
-          "_id",
-          selectListedApproved
-        )
-      }
+    private def selectListedApproved =
+      $doc(
+        "listed"           -> true,
+        "approval.granted" -> true
+      )
+
+    val listedIds = cacheApi.unit[Set[Streamer.Id]] {
+      _.refreshAfterWrite(1 hour)
+        .buildAsyncFuture { _ =>
+          coll.secondaryPreferred.distinctEasy[Streamer.Id, Set](
+            "_id",
+            selectListedApproved
+          )
+        }
+    }
+
+    val candidateIds = cacheApi.unit[Set[Streamer.Id]] {
+      _.refreshAfterWrite(1 hour)
+        .buildAsyncFuture { _ =>
+          coll.secondaryPreferred.distinctEasy[Streamer.Id, Set](
+            "_id",
+            selectListedApproved ++ $doc("liveAt" $exists false)
+          )
+        }
+    }
   }
 }

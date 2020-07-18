@@ -43,7 +43,7 @@ final class Report(
   def inquiry(id: String) =
     Secure(_.SeeReport) { _ => me =>
       api.inquiries.toggle(AsMod(me), id) map { newInquiry =>
-        newInquiry.fold(Redirect(routes.Report.list))(onInquiryStart)
+        newInquiry.fold(Redirect(routes.Report.list()))(onInquiryStart)
       }
     }
 
@@ -68,7 +68,7 @@ final class Report(
         }
         inquiry match {
           case None =>
-            goTo.fold(Redirect(routes.Report.list).fuccess) { s =>
+            goTo.fold(Redirect(routes.Report.list()).fuccess) { s =>
               userC.modZoneOrRedirect(s.user.username)
             }
           case Some(prev) =>
@@ -98,14 +98,14 @@ final class Report(
 
   def process(id: String) =
     SecureBody(_.SeeReport) { implicit ctx => me =>
-      api.inquiries ofModId me.id flatMap { inquiry =>
+      api byId id flatMap { inquiry =>
         api.process(AsMod(me), id) >> onInquiryClose(inquiry, me, none, force = true)
       }
     }
 
   def xfiles(id: String) =
     Secure(_.SeeReport) { _ => _ =>
-      api.moveToXfiles(id) inject Redirect(routes.Report.list)
+      api.moveToXfiles(id) inject Redirect(routes.Report.list())
     }
 
   def currentCheatInquiry(username: String) =
@@ -131,7 +131,7 @@ final class Report(
   def create =
     AuthBody { implicit ctx => implicit me =>
       implicit val req = ctx.body
-      env.report.forms.create.bindFromRequest.fold(
+      env.report.forms.create.bindFromRequest().fold(
         err =>
           get("username") ?? env.user.repo.named flatMap { user =>
             env.report.forms.anyCaptcha map { captcha =>
@@ -149,7 +149,7 @@ final class Report(
   def flag =
     AuthBody { implicit ctx => implicit me =>
       implicit val req = ctx.body
-      env.report.forms.flag.bindFromRequest.fold(
+      env.report.forms.flag.bindFromRequest().fold(
         _ => BadRequest.fuccess,
         data =>
           env.user.repo named data.username flatMap {

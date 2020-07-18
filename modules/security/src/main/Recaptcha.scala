@@ -62,7 +62,7 @@ final class RecaptchaGoogle(
               res.success && res.hostname == netDomain.value
             }
           case JsError(err) =>
-            fufail(s"$err ${~res.body.linesIterator.to(LazyList).headOption}")
+            fufail(s"$err ${res.json}")
         }
       case res => fufail(s"${res.status} ${res.body}")
     } recover {
