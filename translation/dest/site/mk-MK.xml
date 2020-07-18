@@ -663,4 +663,23 @@
   <string name="tryAnotherMoveForWhite">Пробај друг потег за белите</string>
   <string name="tryAnotherMoveForBlack">Пробај друг потег за црните</string>
   <string name="solution">Решение</string>
+  <string name="waitingForAnalysis">Се чека анализа</string>
+  <string name="noMistakesFoundForWhite">Нема грешки за белите</string>
+  <string name="noMistakesFoundForBlack">Нема грешки за црните</string>
+  <string name="doneReviewingWhiteMistakes">Завршен е прегледот за грешки на белите</string>
+  <string name="doneReviewingBlackMistakes">Завршен е прегледот за грешки на црните</string>
+  <string name="doItAgain">Прегледај ги повторно</string>
+  <string name="reviewWhiteMistakes">Прегледај ги грешките на белите</string>
+  <string name="reviewBlackMistakes">Прегледај ги грешките на црните</string>
+  <string name="advantage">Предност</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунда</item>
+    <item quantity="other">%s секунди</item>
+  </plurals>
+  <string name="opening">Отворање</string>
+  <string name="middlegame">Средишница</string>
+  <string name="endgame">Завршница</string>
+  <string name="registerToSendChallenges">Ве молиме регистрирајте се за испраќање предизвици.</string>
+  <string name="youCannotChallengeX">Не можеш да го предизвикаш %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s не прифаќа предизвици.</string>
 </resources>
