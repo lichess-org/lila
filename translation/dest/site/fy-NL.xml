@@ -104,8 +104,12 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Geheugen</string>
   <string name="infiniteAnalysis">Ûneinige analyse</string>
+  <string name="removesTheDepthLimit">Ferwideret de djipte limyt en hâldt dyn kompjûter waarm</string>
   <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
+  <string name="mistake">Flater</string>
+  <string name="mistakes">Flaters</string>
+  <string name="inaccuracy">Ûnkrekt</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s spilers</item>
     <item quantity="other">%s spilers</item>
