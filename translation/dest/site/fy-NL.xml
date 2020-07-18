@@ -110,6 +110,9 @@
   <string name="mistake">Flater</string>
   <string name="mistakes">Flaters</string>
   <string name="inaccuracy">Ûnkrekt</string>
+  <string name="inaccuracies">Ûnkrektheden</string>
+  <string name="moveTimes">Set tiden</string>
+  <string name="flipBoard">Draai boerd</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s spilers</item>
     <item quantity="other">%s spilers</item>
