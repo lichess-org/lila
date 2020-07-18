@@ -127,7 +127,9 @@
   <string name="signIn">Oanmelde</string>
   <string name="youNeedAnAccountToDoThat">Jo moatte in akkount hawwe om dat te dwaan</string>
   <string name="signUp">Registrearje</string>
+  <string name="computersAreNotAllowedToPlay">Kompjûters en spilers mei help fan skaakcomputers of -software binne hjir net tastien te spyljen. Brûk asjebleaft gjin skaaksoftware of -databases as de help fan oare spilers by it spiljen fan dyn partijen.</string>
   <string name="games">Spullen</string>
+  <string name="forum">Forum</string>
   <string name="players">Spilers</string>
   <string name="friends">Freonen</string>
   <string name="today">Hjoed</string>
