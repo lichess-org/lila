@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Trajnerat e Lichess</string>
+  <string name="lichessCoach">Trajnier Lichessi</string>
+  <string name="areYouCoach">A jeni nje trajner i mire me %s?</string>
+  <string name="nmOrFideTitle">Mjeshter KOMBETAR ose titull FIDE</string>
+  <string name="confirmTitle">Konfirmoni titullin tuaj ketu dhe ne do t\'ju shofim aplikimin.</string>
+  <string name="sendApplication">Na dergoni nje email tek %s dhe ne do te shqyrtojme aplikim tuaj.</string>
+  <string name="location">Vendodhja</string>
+  <string name="languages">Gjuha</string>
+</resources>
