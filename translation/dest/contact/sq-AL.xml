@@ -9,4 +9,23 @@
   <string name="castlingPrevented">Rokada nuk lejohet nese mbreti kalon permes nje kutie qe kontrollohet nga figurat ose ushtaret e kundershtarit.</string>
   <string name="castlingRules">Sigurohu qe i kupton rregullat e rrokades</string>
   <string name="tryCastling">Provo kete loj e vogel interaktive per te praktikuar rregullat e rrokades ne shah</string>
+  <string name="castlingImported">Nese e importuat lojen, ose e filluat nga nje pozicion, sigurohuni qe i keni vene te drejtat e rrokades ne menyre te rregullt.</string>
+  <string name="insufficientMaterial">Nuk mjafton materiali per te kapur mat</string>
+  <string name="fideMate">Sipas rregullave te FIDE §6.9, nese mati eshte i mundshem me nje sekuence te lejueshme levizjesh, atehere loja nuk eshte barazim</string>
+  <string name="knightMate">Eshte e mundshme te kapesh mat vetem me nje kal ose nje oficer, nese kundershtari ka me shume se nje mbret ne fushen e lojes.</string>
+  <string name="noRatingPoints">Nuk u dhane pike</string>
+  <string name="ratedGame">Sigurohu qe loze nje loje me pike. Lojet e rastit nuk jane me pike.</string>
+  <string name="errorPage">Gabim faqe</string>
+  <string name="reportErrorPage">Nese u rastis nje faqe gabim, mund ta raportoni:</string>
+  <string name="banAppeal">Apeloni per nje mbyllje llogarie ose restriktim IP</string>
+  <string name="engineAppeal">Program ose shenje hileje</string>
+  <string name="sendAppealTo">Mund te dergoni nje apel tek %s.</string>
+  <string name="falsePositives">Ndonjehere bejme gabim, gjera qe ndodhin, ju kerkojme falje per kete.</string>
+  <string name="ifLegit">Nese apelimi juaj eshte legjitim, do ta heqim menjehere bllokimin ndaj jush.</string>
+  <string name="accountLost">Ne rast te kundert nese perdoret ndihme programi, qofte edhe njehere te vetme, llogarija juaj eshte fatkeqesisht e humbur.</string>
+  <string name="doNotDeny">Mos fshihni qe keni bere hile. Nese doni te lejoheni te krijoni nje llogari te re, pranoni ate qe bete, dhe tregoni qe e kuptuat qe ishte gabim.</string>
+  <string name="otherRestriction">Kufizime te tjera</string>
+  <string name="collaboration">Kolaborim, legale, reklama</string>
+  <string name="monetizing">Monetizimi i Lichess</string>
+  <string name="buyingLichess">Blini Lichess</string>
 </resources>
