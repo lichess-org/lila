@@ -141,6 +141,8 @@
   <string name="variant">Fariant</string>
   <string name="variants">Farianten</string>
   <string name="timeControl">Spyltiid</string>
+  <string name="realTime">No \'live\'</string>
+  <string name="correspondence">Korrespondinsje</string>
   <string name="daysPerTurn">dagen per bar</string>
   <string name="oneDay">Ien dei</string>
   <plurals name="nbDays">
@@ -152,6 +154,8 @@
     <item quantity="other">%s oeren</item>
   </plurals>
   <string name="time">Tiid</string>
+  <string name="rating">Rating</string>
+  <string name="ratingStats">Ratingsstatistiken</string>
   <string name="username">Brûkersnamme</string>
   <string name="usernameOrEmail">Brûkersnamme of email</string>
   <string name="changeUsername">Feroarje brûkersnamme</string>
