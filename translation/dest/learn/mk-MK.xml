@@ -37,14 +37,16 @@
   <string name="lastOne">Последно!</string>
   <string name="kingComplete">Сега можеш да го командуваш командантот!</string>
   <string name="theKnight">Коњот</string>
-  <string name="itMovesInAnLShape">Се движи во L форма</string>
-  <string name="knightIntro">Еве еден предизвик за вас. Коњот е... интересна фигура.</string>
-  <string name="knightsHaveAFancyWay">Коњите интересно скокаат на околу!</string>
-  <string name="knightsCanJumpOverObstacles">Коњите можат да скокаат преку пречки! Побегни и собери ги ѕвездите!</string>
-  <string name="knightComplete">Честитки! Ги научивте движењата на коњот.</string>
-  <string name="thePawn">Пиунот</string>
-  <string name="itMovesForwardOnly">Се движи само на напред</string>
-  <string name="pawnIntro">Пиуните се слаби, но содржат многу потенцијал.</string>
+  <string name="itMovesInAnLShape">Се движи во облик на „Г“</string>
+  <string name="knightIntro">Еве ти предизвик. Коњот е... интересна фигура.</string>
+  <string name="knightsHaveAFancyWay">Коњите знаат интересно
+да скокаат наоколу!</string>
+  <string name="knightsCanJumpOverObstacles">Коњите можат да прескокнуваат пречки!
+Побегни и освој ги ѕвездите!</string>
+  <string name="knightComplete">Честито! Научи да играш со коњот.</string>
+  <string name="thePawn">Пионот</string>
+  <string name="itMovesForwardOnly">Се движи само напред</string>
+  <string name="pawnIntro">Пионите се слаби, но имаат голем потенцијал.</string>
   <string name="pawnsMoveOneSquareOnly">Пиуните се движат само за едно поле. Но кога ќе стигнат на крајот од таблата, стануваат помоќна фигура!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Најчесто унапредувањето во кралица е најдобро. Но понекогаш и коњот можи добро да се употреби!</string>
   <string name="pawnsMoveForward">Пиуните одан на напред, но земаат дијагонално!</string>
