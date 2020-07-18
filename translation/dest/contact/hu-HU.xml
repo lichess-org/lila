@@ -5,4 +5,17 @@
   <string name="whatCanWeHelpYouWith">Miben segíthetünk?</string>
   <string name="visitThisPage">Látogass el az alábbi oldalra a probléma magoldásához</string>
   <string name="iCantLogIn">Nem tudok belépni</string>
+  <string name="noConfirmationEmail">Nem kaptam meg a visszaigazoló emailt</string>
+  <string name="forgotPassword">Elfelejtettem a jelszavamat</string>
+  <string name="forgotUsername">Elfelejtettem a felhasználói nevemet</string>
+  <string name="youCanLoginWithEmail">Be tudsz lépni azzal az email címmel amivel regisztráltál</string>
+  <string name="lost2FA">Nem férek hozzá a kétlépcsős azonosítási kódjaimhoz</string>
+  <string name="doPasswordReset">Változtass jelszót majd kapcsold ki a második lépcsőt</string>
+  <string name="accountSupport">A fiókomhoz szeretnék támogatást kérni</string>
+  <string name="wantCloseAccount">Szeretném zárolni a fiókom</string>
+  <string name="closeYourAccount">Ezen az oldalon zárolhatod a fiókodat</string>
+  <string name="doNotAskByEmail">Ne küldj emailt, hogy zároljuk a fiókod, mert nem fogjuk.</string>
+  <string name="wantReopen">Szeretném a fiókom újranyitni</string>
+  <string name="reopenOnThisPage">Újranyithatod a fiókod ezen az oldalon. Csak egyszer működik.</string>
+  <string name="doNotAskByEmailToReopen">Ne kérj minket emailben, hogy újranyissuk a fiókod, nem fogjuk.</string>
 </resources>
