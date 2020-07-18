@@ -8,4 +8,13 @@
   <string name="newPatrons">Lojtaret e rinj te rregullt</string>
   <string name="freeChess">Shah falas per te gjithe, pergjithmone!</string>
   <string name="noAdsNoSubs">Jo reklama, jo llogari me leke; por vetem pune e hapur dhe pasion.</string>
+  <string name="thankYou">Faleminderit per dhurimin tuaj!</string>
+  <string name="youHaveLifetime">Ju keni nje Llogari te nje lojtari te rregullt te perjetshme. Kjo eshte me te vertete fantastike!</string>
+  <string name="patronUntil">Ju keni nje llogari e nje lojtari te rregullt deri ne %s.</string>
+  <string name="ifNotRenewed">Nese nuk rinovohet, ju atehere do te ktheheni perseri ne llogari te thjeshte.</string>
+  <string name="weAreNonProfit">Ne jemi organizate jo per perfitim sepse besojme qe kushdo duhet te kete mundesi per te luajtur shah falas ne nje platforme te kalibrit me te mire boteror.</string>
+  <string name="weRelyOnSupport">Ne mbeshtetemi ne suportin e njerezve si ju per ta bere kete te mundur. Nese ju pelqen Lichessi, ju lutem na mbeshtesni duke dhuruar dhe duke u bere lojtar i rregullt!</string>
+  <string name="lifetime">Pergjithmone</string>
+  <string name="nowOneMonth">Tani jeni nje lojtar i rregullt per nje muaj!</string>
+  <string name="downgradeNextMonth">Ne nje muaj, NUK do t\'ju merren leke me, dhe llogaria juaj e Lichessit do te kthehet ne nje llogari normale.</string>
 </resources>
