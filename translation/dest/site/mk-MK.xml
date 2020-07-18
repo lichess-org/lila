@@ -585,6 +585,17 @@
   <string name="keyEnterOrExitVariation">отвори/затвори ја варијантата</string>
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шаховски турнир со различни временски контроли и варијанти</string>
+  <string name="tournamentHomeDescription">Играј брзи турнири! Придружи се на официјален турнир, или започни свој. Стрела, Блиц, Класичен, Шах 960, Кралот на средина, Три шаха, и многу други варијанти за бескрајна забава.</string>
+  <string name="tournamentNotFound">Турнирот не е пронајден</string>
+  <string name="tournamentDoesNotExist">Овој турнир не постои.</string>
+  <string name="tournamentMayHaveBeenCanceled">Турнирот може да е откажан ако сите играчи го напуштиле пред да започне.</string>
+  <string name="returnToTournamentsHomepage">Повраток на почетната страна</string>
+  <string name="weeklyPerfTypeRatingDistribution">Седмичен распоред на %s рејтинг</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">„%2$s“ има %1$s играч оваа седмица.</item>
+    <item quantity="other">%2$s има %1$s играчи оваа седмица.</item>
+  </plurals>
+  <string name="yourPerfTypeRatingIsRating">Вашиот рејтинг на „%1$s“ е %2$s.</string>
   <string name="timeToProcessAMoveOnLichessServer">Време за процесирање потег на сервер на lichess</string>
   <string name="downloadAnnotated">Симни со коментари</string>
   <string name="analysisShapesHowTo">Притисни shift+click или десен клик за да нацрташ кругови или стрелки на таблата.</string>
