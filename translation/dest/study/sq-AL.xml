@@ -28,4 +28,24 @@
   <string name="newChapter">Kapitull i ri</string>
   <string name="orientation">Drejtimi</string>
   <string name="analysisMode">Futu ne analiz</string>
+  <string name="pinnedChapterComment">Koment kapitulli i mberthyer</string>
+  <string name="saveChapter">Ruaj kapitullin</string>
+  <string name="clearAnnotations">Pastro anotimet</string>
+  <string name="deleteChapter">Fshi kapitullin</string>
+  <string name="deleteThisChapter">Fshini kete kapitull? Nuk ka me kthim mbrapa!</string>
+  <string name="clearAllCommentsInThisChapter">Fshi te gjitha komentet, vizatimet dhe format ne kete kapitull?</string>
+  <string name="rightUnderTheBoard">Djathtas poshte skakieres</string>
+  <string name="noPinnedComment">Asnje</string>
+  <string name="normalAnalysis">Analize normale</string>
+  <string name="hideNextMoves">Fshini levizjen e rradhes</string>
+  <string name="interactiveLesson">Leksione interaktive</string>
+  <string name="chapterX">Kapitulli %s</string>
+  <string name="empty">Bosh</string>
+  <string name="startFromInitialPosition">Fillo nga pozicioni fillestar</string>
+  <string name="editor">Redakto</string>
+  <string name="startFromCustomPosition">Fillo nga pozicion i posacem</string>
+  <string name="loadAGameByUrl">Ngarko lojrat nga adresa e internetit</string>
+  <string name="loadAPositionFromFen">Ngarko pozicionin nga FEN</string>
+  <string name="loadAGameFromPgn">Ngarko lojrat nga SHENIMET</string>
+  <string name="automatic">Automatik</string>
 </resources>
