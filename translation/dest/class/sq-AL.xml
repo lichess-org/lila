@@ -23,4 +23,22 @@ Fjalekalimi: %3$s</string>
   <string name="createDesc2">Nuk nevojitet nje adrese emaili. Nje fjalekalim do te gjenerohet automatikisht, dhe ju mund tja jepni ate studentit, keshtu qe ata mund te hyjne ne lichess.</string>
   <string name="createDesc3">E rendesishme: sudenti nuk duhet te kete shume llogari.</string>
   <string name="createDesc4">Nese ata e kane nje llogari, atehere perdorni formularin e fteses.</string>
+  <string name="lichessUsername">Nofka e Lichessit</string>
+  <string name="generateANewUsername">Gjenero nje nofke</string>
+  <string name="welcomeToClass">Miresevini tek klasa: %s.
+Kjo eshte adresa per tu futur ne klase.</string>
+  <string name="invitationToClass">Jeni i ftuar per t\'ju bashkangjitur klasses \"%s\" si student.</string>
+  <string name="clickToViewInvitation">Klikoni adresen per te pare ftesen:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Nje ftese ne pritje</item>
+    <item quantity="other">%s ftesa ne pritje</item>
+  </plurals>
+  <string name="noPendingInvitations">Ska ftesa ne pritje</string>
+  <string name="onlyVisibleToTeachers">E dukshme vetem nga mesuesi i klases</string>
+  <string name="lastActiveDate">Aktive</string>
+  <string name="managed">E menaxhuar</string>
+  <string name="thisStudentAccountIsManaged">Kjo llogari studenti menaxhohet</string>
+  <string name="upgradeFromManaged">Ngrije ne funksion nga llogari e menaxhuar ne llogari autonome</string>
+  <string name="release">Liroje</string>
+  <string name="releaseTheAccount">Liroje llogarine ne menyre te tille qe studenti ta menaxhoje vet ate.</string>
 </resources>
