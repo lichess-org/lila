@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Тим</string>
   <string name="teams">Тимови</string>
   <plurals name="nbMembers">
     <item quantity="one">%s членови</item>
@@ -14,6 +15,19 @@
   <string name="anyoneCanJoin">Секој смее да се приклучи</string>
   <string name="aConfirmationIsRequiredToJoin">Потребна е потврда за приклучување</string>
   <string name="joiningPolicy">Правила за приклучување</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Лидер на тимот</item>
+    <item quantity="other">Лидери на тимот</item>
+  </plurals>
   <string name="teamBestPlayers">Најдобри играчи во тимот</string>
   <string name="teamRecentMembers">Нови членови на тимот</string>
+  <string name="kickSomeone">Избркај некого од тимот</string>
+  <string name="whoToKick">Кого сакаш да го избркаш од тимот?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s барање за здружување</item>
+    <item quantity="other">%s барања за здружување</item>
+  </plurals>
+  <string name="willBeReviewed">Вашето барање за здружување ќе биде разгледано од лидерот на тимот.</string>
+  <string name="beingReviewed">Вашето барање за здружување се разгледува од лидерот на тимот.</string>
+  <string name="teamBattle">Тимска битка</string>
 </resources>
