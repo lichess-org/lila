@@ -112,7 +112,8 @@ final class SwissJson(
         colls.player.ext
           .find($doc(f.swissId -> swiss.id))
           .sort($sort desc f.score)
-          .list[SwissPlayer](3) map { top3 =>
+          .cursor[SwissPlayer]()
+          .list(3) map { top3 =>
           // check that the winner is still correctly denormalized
           top3.headOption.map(_.userId).filter(w => swiss.winnerId.fold(true)(w !=)) foreach {
             colls.swiss.updateField($id(swiss.id), "winnerId", _).void
