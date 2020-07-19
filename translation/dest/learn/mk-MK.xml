@@ -3,7 +3,7 @@
   <string name="learnChess">Научи да играш шах</string>
   <string name="byPlaying">со играње!</string>
   <string name="menu">Мени</string>
-  <string name="progressX">Прогрес: %s</string>
+  <string name="progressX">Напредок: %s</string>
   <string name="resetMyProgress">Ресетирај го прогресот</string>
   <string name="youWillLoseAllYourProgress">Ќе го изгубиш целиот прогрес!</string>
   <string name="play">играј!</string>
@@ -58,10 +58,10 @@
   <string name="aPawnOnTheSecondRank">Пешакот на вториот ред може да се движи две полиња одеднаш!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Собери ги сите ѕвезди! Нема потреба за промовирање.</string>
   <string name="pawnComplete">Честитки! Пешаците немаат тајни за вас.</string>
-  <string name="pawnPromotion">Промоција на пешак</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Вашиот пешак стигнал до крајот на таблата!</string>
-  <string name="itNowPromotesToAStrongerPiece">Сега се промовира во помоќна фигура.</string>
-  <string name="selectThePieceYouWant">Одберете ја фигурата која ја сакате!</string>
+  <string name="pawnPromotion">Промоција на пешакот</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Пешакот ти стигна до крајот на таблата!</string>
+  <string name="itNowPromotesToAStrongerPiece">Сега се унапредува во помоќна фигура.</string>
+  <string name="selectThePieceYouWant">Одбери ја фигурата која ја сакаш!</string>
   <string name="fundamentals">Основи</string>
   <string name="capture">Земање</string>
   <string name="takeTheEnemyPieces">Земи ги фигурите на противникот</string>
