@@ -396,6 +396,9 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="language">toki</string>
   <string name="light">walo</string>
   <string name="dark">pimeja</string>
+  <string name="boardGeometry">nena anu lipu, lili anu suli</string>
+  <string name="boardTheme">sitelen lipu</string>
+  <string name="pieceSet">sitelen ijo</string>
   <string name="youCannotChallengeX">sina ken ala musi e jan %s.</string>
   <string name="xDoesNotAcceptChallenges">jan %s li wile ala e wile musi.</string>
   <string name="playX">o pali e %s</string>
