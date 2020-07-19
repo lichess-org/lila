@@ -27,7 +27,7 @@
   <string name="kingInTheCenter">mije lawa li lon insa</string>
   <string name="threeChecks">jan lawa li wile moli nanpa 3</string>
   <string name="raceFinished">tawa wawa li pini</string>
-  <string name="variantEnding">musi ante li pini</string>
+  <string name="variantEnding">pini pi musi ante</string>
   <string name="newOpponent">jan ante sin</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">jan musi sina li wile musi sin</string>
   <string name="joinTheGame">o kama lon musi</string>
@@ -57,8 +57,12 @@
   <string name="loadingEngine">ilo lawa li kama...</string>
   <string name="goDeeper">tawa anpa</string>
   <string name="deleteFromHere">o weka tan ni</string>
+  <string name="move">pali</string>
+  <string name="variantLoss">pini ike pi musi ante</string>
+  <string name="variantWin">pini pona pi musi ante</string>
   <string name="close">o pini</string>
   <string name="unknown">sona ala</string>
+  <string name="whiteDrawBlack">walo / ala / pimeja</string>
   <string name="openingExplorer">ilo open</string>
   <string name="delete">weka</string>
   <string name="blunder">pakala suli</string>
