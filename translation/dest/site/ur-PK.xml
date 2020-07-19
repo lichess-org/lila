@@ -87,6 +87,10 @@
     <item quantity="one">%s چال میں شاہ مات</item>
     <item quantity="other">%s چالوں میں شاہ مات</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">اگلا کیپچر یا پیادے کی چال %s چال میں (50 اقدام کاؤنٹر کی صفر سے دوری)</item>
+    <item quantity="other">اگلا کیپچر یا پیادے کی چال %s چالوں میں(50 اقدام کاؤنٹر کی صفر سے دوری)</item>
+  </plurals>
   <string name="noGameFound">کوئی بازی نہیں ملی</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ترجیحات مینو میں سے مزید بازیاں شامل کریں?</string>
   <string name="openingExplorer">ابتدائیوں کی کلید</string>
@@ -838,6 +842,9 @@
   <string name="edit">ترمیم کریں</string>
   <string name="rapid">ریپڈ</string>
   <string name="classical">کلاسکل</string>
+  <string name="ultraBulletDesc">حد سے زیادہ تیز بازیاں: 30 سیکنڈ سے کم</string>
+  <string name="bulletDesc">بہت تیز بازیاں: 3 منٹ سے کم</string>
+  <string name="blitzDesc">تیز بازیاں: 3 سے لے کر 8 منٹ</string>
   <string name="rapidDesc">ریپیڈ بازیاں: آٹھ سے لے کر پچیس منٹ</string>
   <string name="classicalDesc">کلاسکل بازیاں: پچیس منٹ اور اس سے زیادہ</string>
   <string name="correspondenceDesc">کورسپونڈنس بازیاں: فی چال ایک یا ایک سے زیادہ دن</string>
