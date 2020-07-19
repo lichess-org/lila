@@ -29,7 +29,7 @@
   <string name="theQueen">Кралицата</string>
   <string name="queenCombinesRookAndBishop">Кралица = топ + ловец</string>
   <string name="queenIntro">Најмоќната шаховска фигура. Нејзиното Височество кралицата!</string>
-  <string name="queenComplete">Честитки! Кралицата нема повеќе тајни за вас.</string>
+  <string name="queenComplete">Честитки! Кралицата нема повеќе тајни за тебе.</string>
   <string name="theKing">Кралот</string>
   <string name="theMostImportantPiece">Најважната фигура</string>
   <string name="kingIntro">Ти си кралот. Ако загинеш во битката, партијата е изгубена.</string>
@@ -53,11 +53,12 @@
 Но, понекогаш и коњ може да ти користи!</string>
   <string name="pawnsMoveForward">Пионите се движат напред, 
 но земаат дијагонално!</string>
-  <string name="captureThenPromote">Земи, па промовирај!</string>
-  <string name="useAllThePawns">Користи ги сите пешаци! Нема потреба од промоција.</string>
-  <string name="aPawnOnTheSecondRank">Пешакот на вториот ред може да се движи две полиња одеднаш!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Собери ги сите ѕвезди! Нема потреба за промовирање.</string>
-  <string name="pawnComplete">Честитки! Пешаците немаат тајни за вас.</string>
+  <string name="captureThenPromote">Земи, па унапреди!</string>
+  <string name="useAllThePawns">Користи ги сите пешаци! Не мора да ги унапредиш.</string>
+  <string name="aPawnOnTheSecondRank">Пешаците на вториот ред можат да се движат по две полиња одеднаш!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Освој ги сите ѕвезди!
+Не мора да унапредуваш.</string>
+  <string name="pawnComplete">Честитки! Пешаците немаат тајни за тебе.</string>
   <string name="pawnPromotion">Промоција на пешакот</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Пешакот ти стигна до крајот на таблата!</string>
   <string name="itNowPromotesToAStrongerPiece">Сега се унапредува во помоќна фигура.</string>
@@ -65,12 +66,13 @@
   <string name="fundamentals">Основи</string>
   <string name="capture">Земање</string>
   <string name="takeTheEnemyPieces">Земи ги фигурите на противникот</string>
-  <string name="captureIntro">Пронајди ги неодбранетите фигури на противникот и земи ги!</string>
+  <string name="captureIntro">Откриј ги неодбранетите фигури на противникот и земи ги!</string>
   <string name="takeTheBlackPieces">Земи ги црните фигури!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Земи ги црните фигури! И не ги губете вашите.</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Земи ги црните фигури!
+И не губи ги твоите.</string>
   <string name="captureComplete">Честитки! Сега знаете како да се борите со шаховските фигури!</string>
-  <string name="protection">Заштита</string>
-  <string name="keepYourPiecesSafe">Нека вашите фигури бида заштитени</string>
+  <string name="protection">Одбрана</string>
+  <string name="keepYourPiecesSafe">Заштити ги твоите фигури</string>
   <string name="protectionIntro">Препознајте ги фигурите кои вашиот противник ги напаѓа и заштитете ги!</string>
   <string name="protectionComplete">Честитки! Фигурата која не ја губите е фигурата која ја освојувате!</string>
   <string name="escape">Вие сте под напад! Побегнете од заканата!</string>
