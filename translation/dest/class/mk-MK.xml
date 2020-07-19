@@ -33,4 +33,22 @@
   <string name="realName">Вистинско име</string>
   <string name="privateWillNeverBeShown">Приватно. Никогаш нема да се прикажува надвор од часот. Помага да го запаметите ученикот.</string>
   <string name="addStudent">Додади ученик</string>
+  <string name="lichessProfileXCreatedForY">Lichess профилот %1$s е создаден за %2$s.</string>
+  <string name="studentCredentials">Ученик: %1$s
+Корисничко име: %2$s
+Лозинка: %3$s</string>
+  <string name="inviteALichessAccount">Покани Lichess корисник</string>
+  <string name="inviteDesc1">Ако ученикот веќе има Lichess корисничко име, можете да го поканите на часот.</string>
+  <string name="inviteDesc2">Ќе добијат порака од Lichess со врска за да се придружат на часот.</string>
+  <string name="inviteDesc3">Важно: поканувајте само ученици кои ги познавате, и кои активно сакаат да се придружат на часот.</string>
+  <string name="inviteDesc4">Никогаш не праќајте несакани покани на непознати играчи.</string>
+  <string name="createANewLichessAccount">Создади нова Lichess сметка</string>
+  <string name="createDesc1">Ако ученикот сѐ уште нема Lichess сметка, тука можете да направите сметка за нив.</string>
+  <string name="createDesc2">Не е потребна е-пошта. Ќе биде создадена лозинка, која ќе морате да ја испратите на ученикот за да може да се пријави.</string>
+  <string name="createDesc3">Важно: ученикот не смее да има повеќе сметки.</string>
+  <string name="createDesc4">Ако тие веќе имаат сметка, употребете го образецот за покани.</string>
+  <string name="lichessUsername">Lichess корисничко име</string>
+  <string name="generateANewUsername">Создади ново корисничко име</string>
+  <string name="welcomeToClass">Добредојтовте на вашиот час: %s.
+Еве ви врска за пристап на часот.</string>
 </resources>
