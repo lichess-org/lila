@@ -523,9 +523,11 @@
   <string name="newPassword">نیا خفیہ کلمہ</string>
   <string name="newPasswordAgain">نیا خفیہ کلمہ - دوبارہ</string>
   <string name="clockInitialTime">ابتدائی وقت</string>
+  <string name="clockIncrement">وقت میں اضافہ</string>
   <string name="privacy">آپ سے متعلقہ</string>
   <string name="letOtherPlayersFollowYou">کوئی بھی میری پیروی کر سکتا ہے</string>
   <string name="letOtherPlayersChallengeYou">کوئی بھی مجھ سے مقابلہ کر سکتا ہے</string>
+  <string name="letOtherPlayersInviteYouToStudy">دوسرے کھلاڑی آپ کو مطالعے پر مدعو کریں</string>
   <string name="sound">صوتی اختیارات</string>
   <string name="none">کوئی نہیں</string>
   <string name="fast">تیز</string>
@@ -544,10 +546,15 @@
   <string name="xAnsweredY">%1$s کا جواب %2$s</string>
   <string name="xCommentedY">%1$s کا تبصرہ %2$s</string>
   <string name="victory">شاباش!</string>
+  <string name="defeat">شکست</string>
+  <string name="victoryVsYInZ">%3$s میں %1$s بامقابلہ %2$s</string>
+  <string name="defeatVsYInZ">%3$s میں %1$s بامقابلہ %2$s</string>
+  <string name="drawVsYInZ">%3$s میں %1$s بامقابلہ %2$s</string>
   <string name="timeline">مصروفیات</string>
   <string name="starting">شروعات:</string>
   <string name="allInformationIsPublicAndOptional">تمام معلومات برائےعام اور اختیاری ہیں</string>
   <string name="yourCityRegionOrDepartment">محل وقوع</string>
+  <string name="biographyDescription">اپنے بارے میں بتائیں ، اپنی دلچسپیاں ، آپ کو شطرنج میں کیا پسند ہے ، اپنی پسند کی شروعات ، کھلاڑی ، ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">میعاد: %s حروف</item>
     <item quantity="other">میعاد: %s حروف</item>
@@ -569,6 +576,9 @@
   <string name="playOnTheBoardOffline">حقیقی بساط پر</string>
   <string name="playOfflineComputer">کمپیوٹر</string>
   <string name="opponent">حریف</string>
+  <string name="learnMenu">سیکھیں</string>
+  <string name="studyMenu">مطالعہ</string>
+  <string name="practice">مشق</string>
   <string name="community">برادری</string>
   <string name="tools">اوزار</string>
   <string name="increment">اضافہ</string>
@@ -581,6 +591,7 @@
   <string name="error.email">ای میل کا پتہ درست نہیں</string>
   <string name="error.email_acceptable">ای میل کا پتہ قابل قبول نہیں</string>
   <string name="error.email_unique">ای میل پہلے سے کسی کے استعمال میں ہے</string>
+  <string name="error.email_different">یہ پہلے سے ہی آپ کی ای میل ہے</string>
   <string name="ifRatingIsPlusMinusX">اگر حریف کا میعار ± %s ہو</string>
   <string name="onlyFriends">صرف دوست</string>
   <string name="menu">فہرست</string>
@@ -596,8 +607,10 @@
   <string name="tpTimeSpentOnTV">ٹی وی پر صرف وقت: %s</string>
   <string name="watch">ملاحظہ</string>
   <string name="videoLibrary">ویڈیو گھر</string>
+  <string name="streamersMenu">سٹریمرز</string>
   <string name="mobileApp">موبائیل ایپ</string>
   <string name="webmasters">مدیران کے لیے</string>
+  <string name="about">متعلق</string>
   <string name="contribute">حصہ ڈالیں</string>
   <string name="termsOfService">شرائط و ضوابط</string>
   <string name="sourceCode">سورس کوڈ</string>
