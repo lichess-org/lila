@@ -389,6 +389,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="withNobody">tawa jan ala</string>
   <string name="withFriends">tawa jan pona</string>
   <string name="withEverybody">tawa jan ale</string>
+  <string name="bulletBlitzClassical">nasin Bullet, Blitz, Classical</string>
   <string name="gameAnalysis">sona musi</string>
   <string name="xCreatesStudyY">jan %1$s li pali e ma sona. ma sona li nimi %2$s</string>
   <string name="quickPairing">kama jo musi kepeken tenpo lili</string>
@@ -407,4 +408,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="timeoutExpires">tenpo kama la sina ken %s lon sin.</string>
   <string name="why">tan seme?</string>
   <string name="pleasantChessExperience">mi wile e musi pona tawa jan ale.</string>
+  <string name="rapid">nasin Rapid</string>
+  <string name="classical">nasin Classical</string>
 </resources>
