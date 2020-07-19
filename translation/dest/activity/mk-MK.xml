@@ -35,36 +35,36 @@
     <item quantity="other">Изигра %s дописни игри</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Почнал да следи %s играч</item>
-    <item quantity="other">Почнал да следи %s играчи</item>
+    <item quantity="one">Заследи %s играч</item>
+    <item quantity="other">Заследи %s играчи</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Стекнал %s нов следач</item>
-    <item quantity="other">Стекнал %s нов следач</item>
+    <item quantity="one">Стекна %s нов следач</item>
+    <item quantity="other">Стекна %s нови следачи</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Хостирал %s симултана егзибиција</item>
-    <item quantity="other">Хостирал %s симултана егзибиција</item>
+    <item quantity="one">Организираше %s симултана партија</item>
+    <item quantity="other">Организираше %s симултани партии</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Учествувал во %s симултана егзибиција</item>
-    <item quantity="other">Учествувал во %s симултани егзибиции</item>
+    <item quantity="one">Учествуваше во %s симултана партија</item>
+    <item quantity="other">Учествуваше во %s симултани партији</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Креирал %s нова студија</item>
-    <item quantity="other">Креирал %s нови студии</item>
+    <item quantity="one">Создаде %s нова студија</item>
+    <item quantity="other">Создаде %s нови студии</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Се натпреварувал во %s турнир</item>
-    <item quantity="other">Се натпреварувал во %s турнири</item>
+    <item quantity="one">Учествуваше во %s турнир</item>
+    <item quantity="other">Учествуваше во %s турнири</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Рангиран #%1$s (топ %2$s%%) со %3$s игра во %4$s</item>
     <item quantity="other">Рангиран #%1$s (топ %2$s%%) со %3$s игри во %4$s</item>
   </plurals>
-  <string name="signedUp">Се најавил на lichess.org</string>
+  <string name="signedUp">Се регистрираше на lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Се придружил во %s тимот</item>
-    <item quantity="other">Се придружил во %s тимови</item>
+    <item quantity="one">Се придружи на %s тим</item>
+    <item quantity="other">Се придружи на %s тимови</item>
   </plurals>
 </resources>
