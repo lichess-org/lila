@@ -804,6 +804,18 @@
   <string name="xDoesNotAcceptChallenges">%s چیلنج قبول نہیں کرتے.</string>
   <string name="yourXRatingIsTooFarFromY">آپ کا درجہ %1$s %2$s سے بہت دور ہے.</string>
   <string name="cannotChallengeDueToProvisionalXRating">عارضی درجے کی وجہ سے آپ چیلینج نہیں بھیج سکتے.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s صرف اپنے دوستوں کے چیلنجز قبول کرتا ہے.</string>
+  <string name="conditionalPremoves">مشروط پری مووز</string>
+  <string name="addCurrentVariation">موجودہ لائن کو شامل کریں</string>
+  <string name="playVariationToCreateConditionalPremoves">ایک لائن کھیلیں تا کہ مشروط پری مووز بنا سکیں</string>
+  <string name="noConditionalPremoves">کوئی مشروط پری مووز نہیں</string>
+  <string name="playX">%s کھیلیں</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">اور %s پری موو لائن محفوظ کریں</item>
+    <item quantity="other">اور %s پری مووز لائن محفوظ کریں</item>
+  </plurals>
+  <string name="sorry">معذرت :(</string>
+  <string name="weHadToTimeYouOutForAWhile">ہمیں آپ پر کچھ عرصے کے لیے پابندی لگانا پڑی.</string>
   <string name="rapidDesc">ریپیڈ بازیاں: آٹھ سے لے کر پچیس منٹ</string>
   <string name="classicalDesc">کلاسکل بازیاں: پچیس منٹ اور اس سے زیادہ</string>
   <string name="correspondenceDesc">کورسپونڈنس بازیاں: فی چال ایک یا ایک سے زیادہ دن</string>
