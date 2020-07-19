@@ -83,7 +83,8 @@ final private[puzzle] class PuzzleBatch(
             idRange = idRange
           )
         )
-        .list[Puzzle](nb) flatMap {
+        .cursor[Puzzle]()
+        .list(nb) flatMap {
         case res if res.size < nb && (tolerance + step) <= toleranceMax =>
           tryRange(
             coll = coll,
