@@ -20,7 +20,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   val normalize = User normalize _
 
   def topNbGame(nb: Int): Fu[List[User]] =
-    coll.ext.find(enabledSelect).sort($sort desc "count.game").list[User](nb)
+    coll.ext.find(enabledSelect).sort($sort desc "count.game").cursor[User]().list(nb)
 
   def byId(id: ID): Fu[Option[User]] = coll.byId[User](id)
 
@@ -99,12 +99,11 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         ) ++ $inIds(ids) ++ botSelect(false)
       )
       .sort($sort desc "perfs.standard.gl.r")
-      .list[User](nb, ReadPreference.secondaryPreferred)
+      .cursor[User](ReadPreference.secondaryPreferred)
+      .list(nb)
 
   def botsByIds(ids: Iterable[ID]): Fu[List[User]] =
-    coll.ext
-      .find($inIds(ids) ++ botSelect(true))
-      .list[User](Int.MaxValue, ReadPreference.secondaryPreferred)
+    coll.ext.list[User]($inIds(ids) ++ botSelect(true), ReadPreference.secondaryPreferred)
 
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)
@@ -121,7 +120,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $inIds(List(u1, u2)),
         $doc(s"${F.count}.game" -> true)
       )
-      .list[Bdoc]() map { docs =>
+      .cursor[Bdoc]()
+      .list() map { docs =>
       docs
         .sortBy {
           _.child(F.count).flatMap(_.int("game"))
@@ -321,7 +321,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           $doc(F.id -> true)
         )
         .sort($doc("len" -> 1))
-        .list[Bdoc](max, ReadPreference.secondaryPreferred)
+        .cursor[Bdoc](ReadPreference.secondaryPreferred)
+        .list(max)
         .map {
           _ flatMap { _.string(F.id) }
         }
@@ -350,7 +351,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def isCreatedSince(id: ID, since: DateTime): Fu[Boolean] =
     coll.exists($id(id) ++ $doc(F.createdAt $lt since))
 
-  def setRoles(id: ID, roles: List[String]) = coll.updateField($id(id), F.roles, roles)
+  def setRoles(id: ID, roles: List[String]): Funit =
+    coll.updateField($id(id), F.roles, roles).void
 
   def disableTwoFactor(id: ID) = coll.update.one($id(id), $unset(F.totpSecret))
 
@@ -448,8 +450,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def withEmails(names: List[String]): Fu[List[User.WithEmails]] =
     coll.ext
-      .find($inIds(names map normalize))
-      .list[Bdoc](none, ReadPreference.secondaryPreferred)
+      .list[Bdoc]($inIds(names map normalize), ReadPreference.secondaryPreferred)
       .map {
         _ map { doc =>
           User.WithEmails(
@@ -461,12 +462,14 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           )
         }
       }
+
   def withEmailsU(users: List[User]): Fu[List[User.WithEmails]] = withEmails(users.map(_.id))
 
   def emailMap(names: List[String]): Fu[Map[User.ID, EmailAddress]] =
     coll.ext
       .find($inIds(names map normalize), $doc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true))
-      .list[Bdoc](none, ReadPreference.secondaryPreferred)
+      .cursor[Bdoc](ReadPreference.secondaryPreferred)
+      .list()
       .map { docs =>
         docs.view
           .flatMap { doc =>

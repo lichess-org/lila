@@ -33,7 +33,7 @@ final class TrophyApi(
   implicit private val trophyBSONHandler = Macros.handler[Trophy]
 
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
-    coll.ext.find($doc("user" -> user.id)).list[Trophy](max).map(_.filter(_.kind != TrophyKind.Unknown))
+    coll.ext.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
 
   def roleBasedTrophies(user: User, isPublicMod: Boolean, isDev: Boolean, isVerified: Boolean): List[Trophy] =
     List(
@@ -69,6 +69,6 @@ final class TrophyApi(
           "kind" -> kindKey,
           "url"  -> trophyUrl,
           "date" -> DateTime.now
-      )
-    ) void
+        )
+      ) void
 }
