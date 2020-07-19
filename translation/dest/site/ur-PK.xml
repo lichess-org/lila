@@ -33,6 +33,10 @@
   <string name="joinTheGame">قبول ہے!</string>
   <string name="whitePlays">سفید کی باری</string>
   <string name="blackPlays">سیاہ کی باری</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">آپ کے مخالف نے کھیل چھوڑ دیا۔ آپ %s سیکنڈ میں فتح کا دعوی کرسکتے ہیں.</item>
+    <item quantity="other">آپ کے مخالف نے کھیل چھوڑ دیا۔ آپ %s سیکنڈز میں فتح کا دعوی کرسکتے ہیں.</item>
+  </plurals>
   <string name="opponentLeftChoices">حریف نے کھیلنا چھوڑ دیا ہے۔ آپ مقابلہ فتح یا برابری پر ختم کر سکتے ہیں۔</string>
   <string name="makeYourOpponentResign">کھیل کے نتیجے کا فیصلہ آپ کے ہاتھ میں ہے</string>
   <string name="forceResignation">فتح قبول کریں</string>
@@ -787,4 +791,16 @@
   <string name="correspondenceDesc">کورسپونڈنس بازیاں: فی چال ایک یا ایک سے زیادہ دن</string>
   <string name="puzzleDesc">شطرج کی حکمت عملی سیکھیں</string>
   <string name="important">ضروری</string>
+  <string name="yourQuestionMayHaveBeenAnswered">آپ کے سوال کا جواب شاید پہلے سے ہی دیا جا چکا ہے %1$s</string>
+  <string name="inTheFAQ">عمومی سوالات میں.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">کسی صارف کے غلط برتاو یا نقل کو رپورٹ کریں %1$s</string>
+  <string name="useTheReportForm">رپورٹ فارم کا استعمال کریں</string>
+  <string name="toRequestSupport">مدد کی درخواست کرنے کے لیے %1$s</string>
+  <string name="tryTheContactPage">رابطہ صفحے کا استعمال کریں</string>
+  <string name="thisTopicIsArchived">یہ موضوع محفوظ ہو چکا ہے اور مزید اس پر مزید جوابات نہیں دیئے جا سکتے.</string>
+  <string name="joinTheTeamXToPost">%1$s میں شمولیت اختیار کریں تا کہ فارم پر پوسٹ کر سکیں</string>
+  <string name="teamNamedX">%1$s ٹیم</string>
+  <string name="youCannotPostYetPlaySomeGames">آپ فل حال فارم پر پوسٹ نہیں کر سکتے۔ پہلے کچھ بازیاں کھیلیں!</string>
+  <string name="subscribe">سبسکرائب</string>
+  <string name="unsubscribe">ان سبسکرائب</string>
 </resources>
