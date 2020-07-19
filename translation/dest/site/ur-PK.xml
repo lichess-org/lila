@@ -679,9 +679,21 @@
   <string name="crosstable">کراس ٹیبل</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">کھیل کو آگے بڑھانے کے لئیے آپ ماوس کو بساط کے اوپر سکرول کرسکتے ہیں۔.</string>
   <string name="analysisShapesHowTo">Shift+click یا right-click کر کے بساط کے اوپر دائرے یا تیر بنائیں.</string>
+  <string name="letOtherPlayersMessageYou">دوسرے کھلاڑیوں کو مسیج کرنے دیں</string>
   <string name="shareYourInsightsData">اپنی ذاتی معلومات بیان کریں</string>
+  <string name="withNobody">کسی کے ساتھ نہیں</string>
+  <string name="withFriends">اپنے دوستوں کے ساتھ</string>
+  <string name="withEverybody">سب کے ساتھ</string>
   <string name="youHaveAlreadyRegisteredTheEmail">آپ موجودہ ای میل :%s پہلے ہی رساٹر کر چکے ہیں</string>
   <string name="kidMode">بچوں کے لئے خاص موڈ</string>
+  <string name="kidModeExplanation">یہ حفاظت کے بارے میں ہے۔ کڈز موڈ میں ، تمام سائٹ مواصلات غیر فعال ہیں۔ اس کو آن کر کے اپنے بچوں اور سکول کے طلبا کو انٹرنیٹ صارفین سے محفوظ رکھیں.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">کڈز موڈ میں لی چیس لوگو پر %s آئیکن آجاتا ہے، تا کہ آپ کو پتہ ہو کہ آپ کے بچے محفوظ ہیں.</string>
+  <string name="enableKidMode">کڈز موڈ آن کریں</string>
+  <string name="disableKidMode">کڈز موڈ آف کریں</string>
+  <string name="security">سیکورٹی</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">یہ ان آلات کی فہرست ہے جنہوں نے آپ کے اکاؤنٹ میں لاگ ان کیا ہے۔ کسی بھی سیشن کو کالعدم کریں جسے آپ نہیں پہچانتے ہیں۔.</string>
+  <string name="alternativelyYouCanX">اس کے بجائے آپ %s کر سکتے ہیں.</string>
+  <string name="revokeAllSessions">تمام سیشنز کالعدم قرار دے دیں</string>
   <string name="playChessEverywhere">شطرنج کھلیں ہر جگا</string>
   <string name="asFreeAsLichess">انتہ مفت کیسے کے لچسس</string>
   <string name="builtForTheLoveOfChessNotMoney">شطرنج سے موہبت کے لئے بنا ،پیسوں کی لئے نہی</string>
@@ -692,4 +704,11 @@
   <string name="bulletBlitzClassical">گولی ، تیز ، روایتی</string>
   <string name="correspondenceChess">اپس مے ایک دوسرے کے ساتھ شطرنج</string>
   <string name="onlineAndOfflinePlay">ان لائن یا آف لائن کھلیں</string>
+  <string name="viewTheSolution">حل دیکھیں</string>
+  <string name="followAndChallengeFriends">دوستوں کو فالو اور چیلنج کریں</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">%s زبان میں دستیاب ہے!</item>
+    <item quantity="other">%s زبانوں میں دستیاب ہے!</item>
+  </plurals>
+  <string name="gameAnalysis">بازی کا تجزیہ</string>
 </resources>
