@@ -55,7 +55,8 @@ final class TournamentShieldApi(
             )
           )
           .sort($sort asc "startsAt")
-          .list[Tournament](none, ReadPreference.secondaryPreferred) map { tours =>
+          .cursor[Tournament](ReadPreference.secondaryPreferred)
+          .list() map { tours =>
           for {
             tour   <- tours
             categ  <- Category of tour
