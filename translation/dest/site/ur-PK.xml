@@ -770,4 +770,21 @@
   <string name="learnFromYourMistakes">اپنی غلطیوں سے سیکھیں</string>
   <string name="learnFromThisMistake">اپنے مخالف کی غلطیوں سے سیکھیں</string>
   <string name="skipThisMove">اس چال کو نظرانداز کریں</string>
+  <string name="next">اگلا</string>
+  <string name="xWasPlayed">%s کھیلا گیا تھا</string>
+  <string name="findBetterMoveForWhite">سیاہ کے لیے بہترچال ڈھونڈیں</string>
+  <string name="findBetterMoveForBlack">سیاہ کے لیے بہتر چال ڈھونڈیں</string>
+  <string name="resumeLearning">دوبارہ سیکھنا شروع کریں</string>
+  <string name="youCanDoBetter">آپ اس سے بہتر چال چل سکتے ہیں</string>
+  <string name="tryAnotherMoveForWhite">سفید کے لیے کوئی اور چال چلیں</string>
+  <string name="tryAnotherMoveForBlack">سیاہ کے لیے کوئی اور چال چلیں</string>
+  <string name="solution">حل</string>
+  <string name="waitingForAnalysis">تجزیے کا انتظار</string>
+  <string name="noMistakesFoundForWhite">سفید کی چالوں میں کوئی غلطی نہیں ملی</string>
+  <string name="noMistakesFoundForBlack">سیاہ کی چالوں میں کوئی غلطی نہیں ملی</string>
+  <string name="rapidDesc">ریپیڈ بازیاں: آٹھ سے لے کر پچیس منٹ</string>
+  <string name="classicalDesc">کلاسکل بازیاں: پچیس منٹ اور اس سے زیادہ</string>
+  <string name="correspondenceDesc">کورسپونڈنس بازیاں: فی چال ایک یا ایک سے زیادہ دن</string>
+  <string name="puzzleDesc">شطرج کی حکمت عملی سیکھیں</string>
+  <string name="important">ضروری</string>
 </resources>
