@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="arenaTournaments">Арена турнири</string>
+  <string name="isItRated">Дали е рангиран?</string>
+  <string name="willBeNotified">Ќе бидете известени кога турнирот ќе започне, така што безбедно е да играте во друго прозорче.</string>
+  <string name="isRated">Овој турнир е рангиран и ќе го промени вашиот рејтинг.</string>
+  <string name="isNotRated">Овој турнир *не* е рангиран и *нема* да го промени вашиот рејтинг.</string>
+  <string name="someRated">Некој турнири се рангирани и ќе го променат вашиот рејтинг.</string>
+  <string name="howAreScoresCalculated">Како се пресметува резултатот?</string>
+</resources>
