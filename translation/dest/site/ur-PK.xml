@@ -763,4 +763,11 @@
   <string name="computerThinking">کمپیوٹر سوچ رہا ہے...</string>
   <string name="seeBestMove">بہترین چال دیکھیں</string>
   <string name="hideBestMove">بہترین چال چھپائیں</string>
+  <string name="getAHint">اشارہ پائیں</string>
+  <string name="evaluatingYourMove">آپ کی چال کا تجزیہ ہو رہا ہے...</string>
+  <string name="whiteWinsGame">سفید کی فتح</string>
+  <string name="blackWinsGame">سیاہ کی فتح</string>
+  <string name="learnFromYourMistakes">اپنی غلطیوں سے سیکھیں</string>
+  <string name="learnFromThisMistake">اپنے مخالف کی غلطیوں سے سیکھیں</string>
+  <string name="skipThisMove">اس چال کو نظرانداز کریں</string>
 </resources>
