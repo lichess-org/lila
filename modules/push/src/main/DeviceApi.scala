@@ -22,7 +22,8 @@ final private class DeviceApi(coll: Coll)(implicit ec: scala.concurrent.Executio
         )
       )
       .sort($doc("seenAt" -> -1))
-      .list[Device](max)
+      .cursor[Device]()
+      .list(max)
 
   private[push] def findLastOneByUserId(platform: String)(userId: String): Fu[Option[Device]] =
     findLastManyByUserId(platform, 1)(userId) dmap (_.headOption)

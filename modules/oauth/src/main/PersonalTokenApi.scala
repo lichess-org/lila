@@ -19,7 +19,7 @@ final class PersonalTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Ex
           )
         )
         .sort($sort desc F.createdAt)
-        .list[AccessToken](100)
+        .cursor[AccessToken]().list(100)
     }
 
   def create(token: AccessToken) = colls.token(_.insert.one(token).void)

@@ -35,7 +35,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
   ): Fu[Pairing.LastOpponents] =
     userIds.nonEmpty.?? {
       val nbUsers = userIds.size
-      val s = userIds.toSet
+      val s       = userIds.toSet
       coll
         .find(
           selectTour(tourId) ++ $doc("u" $in userIds),
@@ -48,8 +48,8 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         .mapConcat(_.getAsOpt[List[User.ID]]("u").toList)
         .scan(Map.empty[User.ID, User.ID]) {
           case (acc, List(u1, u2)) =>
-            val b1 = s.contains(u1)
-            val b2 = !b1 || s.contains(u2)
+            val b1   = s.contains(u1)
+            val b2   = !b1 || s.contains(u2)
             val acc1 = if (!b1 || acc.contains(u1)) acc else acc.updated(u1, u2)
             if (!b2 || acc.contains(u2)) acc1 else acc1.updated(u2, u1)
         }
@@ -68,7 +68,8 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         selectTourUser(tourId, userId),
         $doc("_id" -> false, "u" -> true).some
       )
-      .list[Bdoc]()
+      .cursor[Bdoc]()
+      .list()
       .dmap {
         _.view.flatMap { doc =>
           ~doc.getAsOpt[List[User.ID]]("u").find(userId !=)
@@ -82,7 +83,8 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         $doc("_id" -> true).some
       )
       .sort(recentSort)
-      .list[Bdoc](nb)
+      .cursor[Bdoc]()
+      .list(nb)
       .dmap {
         _.flatMap(_.getAsOpt[Game.ID]("_id"))
       }
@@ -101,17 +103,20 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
 
   def removeByTour(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId)).void
 
-  private[tournament] def forfeitByTourAndUserId(tourId: Tournament.ID, userId: User.ID) =
-    coll.ext.find(selectTourUser(tourId, userId)).list[Pairing]().flatMap {
-      _.filter(_ notLostBy userId).map { p =>
-        coll.update.one(
-          $id(p.id),
-          $set(
-            "w" -> p.colorOf(userId).map(_.black)
+  private[tournament] def forfeitByTourAndUserId(tourId: Tournament.ID, userId: User.ID): Funit =
+    coll
+      .list[Pairing](selectTourUser(tourId, userId))
+      .flatMap {
+        _.filter(_ notLostBy userId).map { p =>
+          coll.update.one(
+            $id(p.id),
+            $set(
+              "w" -> p.colorOf(userId).map(_.black)
+            )
           )
-        )
-      }.sequenceFu
-    }
+        }.sequenceFu
+      }
+      .void
 
   def count(tourId: Tournament.ID): Fu[Int] =
     coll.countSel(selectTour(tourId))
@@ -153,7 +158,8 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         selectTourUser(tourId, userId) ++ selectFinished
       )
       .sort(chronoSort)
-      .list[Pairing]()
+      .cursor[Pairing]()
+      .list()
 
   def insert(pairing: Pairing) =
     coll.insert.one {

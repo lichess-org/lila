@@ -30,7 +30,8 @@ final private[puzzle] class PuzzleApi(
         _.ext
           .find($empty)
           .sort($doc(F.date -> -1))
-          .list[Puzzle](nb)
+          .cursor[Puzzle]()
+          .list(nb)
       }
 
     val cachedLastId = cacheApi.unit[Int] {

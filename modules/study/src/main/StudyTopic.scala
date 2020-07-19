@@ -78,7 +78,8 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
         topicRepo.coll.ext
           .find($doc("_id".$startsWith(str, "i")))
           .sort($sort.naturalAsc)
-          .list[Bdoc]((nb - favs.size).some, ReadPreference.secondaryPreferred)
+          .cursor[Bdoc](ReadPreference.secondaryPreferred)
+          .list(nb - favs.size)
           .dmap {
             _ flatMap docTopic
           }
@@ -126,7 +127,8 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     topicRepo.coll.ext
       .find($empty)
       .sort($sort.naturalAsc)
-      .list[Bdoc](nb.some)
+      .cursor[Bdoc]()
+      .list(nb)
       .dmap {
         _ flatMap docTopic
       }
@@ -152,12 +154,13 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     studyRepo.coll
       .aggregateWith[Bdoc]() { framework =>
         import framework._
-        Match(
-          $doc(
-            "topics" $exists true,
-            "visibility" -> "public"
-          )
-        ) -> List(
+        List(
+          Match(
+            $doc(
+              "topics" $exists true,
+              "visibility" -> "public"
+            )
+          ),
           Project($doc("topics" -> true, "_id" -> false)),
           UnwindField("topics"),
           SortByFieldCount("topics"),

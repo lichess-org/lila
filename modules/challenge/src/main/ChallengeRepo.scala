@@ -34,13 +34,15 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
     coll.ext
       .find(selectCreated ++ $doc("challenger.id" -> userId))
       .sort($doc("createdAt" -> 1))
-      .list[Challenge]()
+      .cursor[Challenge]()
+      .list()
 
   def createdByDestId(userId: String): Fu[List[Challenge]] =
     coll.ext
       .find(selectCreated ++ $doc("destUser.id" -> userId))
       .sort($doc("createdAt" -> 1))
-      .list[Challenge]()
+      .cursor[Challenge]()
+      .list()
 
   def setChallenger(c: Challenge, color: Option[chess.Color]) =
     coll.update
@@ -78,18 +80,19 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
       "status" -> Status.Created.id,
       "timeControl" $exists true
     )
-    coll.ext
+    coll
       .find(selector)
-      .hint($doc("seenAt" -> 1)) // partial index
-      .list[Challenge](max)
+      .hint(coll hint $doc("seenAt" -> 1)) // partial index
+      .cursor[Challenge]()
+      .list(max)
       .recoverWith {
         case _: reactivemongo.core.errors.DatabaseException =>
-          coll.ext.list[Challenge](selector, max)
+          coll.list[Challenge](selector, max)
       }
   }
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
-    coll.ext.find($doc("expiresAt" $lt DateTime.now)).list[Challenge](max)
+    coll.list[Challenge]($doc("expiresAt" $lt DateTime.now), max)
 
   def setSeenAgain(id: Challenge.ID) =
     coll.update

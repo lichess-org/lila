@@ -33,13 +33,15 @@ final class ClasApi(
       coll.ext
         .find($doc("teachers" -> teacher.id))
         .sort($doc("archived" -> 1, "viewedAt" -> -1))
-        .list[Clas](100)
+        .cursor[Clas]()
+        .list(100)
 
     def byIds(clasIds: List[Clas.Id]): Fu[List[Clas]] =
       coll.ext
         .find($inIds(clasIds))
         .sort($sort desc "createdAt")
-        .list[Clas]()
+        .cursor[Clas]()
+        .list()
 
     def create(data: ClasForm.ClasData, teacher: User): Fu[Clas] = {
       val clas = Clas.make(teacher, data.name, data.desc)
@@ -138,7 +140,8 @@ final class ClasApi(
       coll.ext
         .find(selector)
         .sort($sort asc "userId")
-        .list[Student](500)
+        .cursor[Student]()
+        .list(500)
 
     def clasIdsOfUser(userId: User.ID): Fu[List[Clas.Id]] =
       coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false))
@@ -299,7 +302,8 @@ ${clas.desc}""",
       colls.invite.ext
         .find($doc("clasId" -> clas.id, "accepted" $ne true))
         .sort($sort desc "created.at")
-        .list[ClasInvite](100)
+        .cursor[ClasInvite]()
+        .list(100)
 
     def delete(id: ClasInvite.Id): Funit =
       colls.invite.delete.one($id(id)).void

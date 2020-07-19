@@ -3,7 +3,7 @@ package lila.round
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
-import reactivemongo.api._
+
 import scala.concurrent.duration._
 
 import lila.common.Bus
@@ -30,7 +30,7 @@ final private class CorresAlarm(
 
   private def scheduleNext(): Unit = system.scheduler.scheduleOnce(10 seconds) { run() }
 
-  system.scheduler.scheduleOnce(10 seconds){scheduleNext()}
+  system.scheduler.scheduleOnce(10 seconds) { scheduleNext() }
 
   Bus.subscribeFun("finishGame") {
     case lila.game.actorApi.FinishGame(game, _, _) =>
@@ -79,5 +79,5 @@ final private class CorresAlarm(
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
       .mon(_.round.alarm.time)
-      .addEffectAnyway{ scheduleNext() }
+      .addEffectAnyway { scheduleNext() }
 }
