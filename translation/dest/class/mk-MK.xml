@@ -91,4 +91,8 @@
   <string name="notifyAllStudents">Извести ги сите ученици</string>
   <string name="nothingHere">За сега ова е празно.</string>
   <string name="newsEdit1">Сите наставни новости во едно поле.</string>
+  <string name="newsEdit2">Додади ја последната вест на врвот. Не бриши ги претходните вести.</string>
+  <string name="newsEdit3">Оддели ги вестите со ---
+Ќе биде покажано како линија.</string>
+  <string name="markdownAvailable">%s е достапно за понапредна синтакса.</string>
 </resources>
