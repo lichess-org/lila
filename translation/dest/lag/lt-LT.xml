@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">Ar „Lichess“ stringa?</string>
+  <string name="measurementInProgressThreeDot">Vyksta matavimai...</string>
+  <string name="noAndYourNetworkIsGood">Ne. Jūsų ryšys yra geras.</string>
+  <string name="noAndYourNetworkIsBad">Ne. Jūsų ryšys yra blogas.</string>
+  <string name="yesItWillBeFixedSoon">Taip. Netrukus bus sutvarkyta!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">O dabar, ilgas atsakymas! Žaidimo delsa susideda iš dviejų nesusijusių reikšmių (mažesnė yra geriau):</string>
+  <string name="lichessServerLatency">„Lichess“ serverio delsa</string>
+</resources>
