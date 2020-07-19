@@ -173,7 +173,7 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
   };
 }
 
-const shortCommands = ['c', 'clock', 'l', 'last', 'abort', 'resign', 'draw', 'takeback', 'p', 'scan', 'o', 'opponent'];
+const shortCommands = ['c', 'clock', 'l', 'last', 'abort', 'resign', 'draw', 'takeback', 'p', 's', 'o', 'opponent'];
 
 function isShortCommand(input: string): boolean {
   return shortCommands.includes(input.split(' ')[0].toLowerCase());
