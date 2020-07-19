@@ -7,4 +7,9 @@
   <string name="yesItWillBeFixedSoon">Taip. Netrukus bus sutvarkyta!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">O dabar, ilgas atsakymas! Žaidimo delsa susideda iš dviejų nesusijusių reikšmių (mažesnė yra geriau):</string>
   <string name="lichessServerLatency">„Lichess“ serverio delsa</string>
+  <string name="lichessServerLatencyExplanation">Tai laikas, kurį užtrunka ėjimo apdorojimas serveryje. Jis yra vienodas visiems, ir priklauso tik nuo serverio apkrovos. Kuo daugiau žaidėjų, tuo apkrovimas didesnis, tačiau „Lichess“ programuotojai stengiasi jį išlaikyti kuo žemesnį. Dažniausiai jis neviršija 10ms.</string>
+  <string name="networkBetweenLichessAndYou">Ryšys tarp „Lichess“ ir jūsų</string>
+  <string name="networkBetweenLichessAndYouExplanation">Tai laikas, kurį užtrunka ėjimo perdavimas iš jūsų kompiuterio į „Lichess“ serverį, ir atsakymo gavimas. Jis priklauso nuo jūsų atstumo iki „Lichess“ serverių (Prancūzija), ir jūsų interneto ryšio kokybės. „Lichess“ programuotojai negali sutvarkyti jūsų „WiFi“, ar priversti šviesą keliauti greičiau.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Šias reikšmes galite pamatyti bet kuriuo metu, spustelėdami savo naudotojo vardą viršutinėje juostoje.</string>
+  <string name="lagCompensation">Delsos kompensavimas</string>
 </resources>
