@@ -45,7 +45,8 @@ final class ChapterRepo(val coll: Coll)(implicit
         noRootProjection.some
       )
       .sort($sort asc "order")
-      .list[Chapter.Metadata]()
+      .cursor[Chapter.Metadata]()
+      .list()
 
   def orderedByStudySource(studyId: Study.Id): Source[Chapter, _] =
     coll.ext
@@ -59,7 +60,8 @@ final class ChapterRepo(val coll: Coll)(implicit
     coll.ext
       .find($studyId(studyId))
       .sort($sort asc "order")
-      .list[Chapter]()
+      .cursor[Chapter]()
+      .list()
 
   def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
     coll
@@ -67,7 +69,8 @@ final class ChapterRepo(val coll: Coll)(implicit
         $studyId(studyId),
         $doc("relay" -> true, "tags" -> true).some
       )
-      .list[Bdoc]() map { docs =>
+      .cursor[Bdoc]()
+      .list() map { docs =>
       for {
         doc   <- docs
         id    <- doc.getAsOpt[Chapter.Id]("_id")
@@ -169,7 +172,8 @@ final class ChapterRepo(val coll: Coll)(implicit
         $doc("studyId" -> true, "_id" -> true, "name" -> true).some
       )
       .sort($sort asc "order")
-      .list[Bdoc](nbChaptersPerStudy * studyIds.size)
+      .cursor[Bdoc]()
+      .list(nbChaptersPerStudy * studyIds.size)
       .map { docs =>
         docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) {
           case (hash, doc) =>
@@ -191,7 +195,8 @@ final class ChapterRepo(val coll: Coll)(implicit
         $doc("_id" -> true, "name" -> true).some
       )
       .sort($sort asc "order")
-      .list[Bdoc](Study.maxChapters * 2, ReadPreference.secondaryPreferred)
+      .cursor[Bdoc](ReadPreference.secondaryPreferred)
+      .list(Study.maxChapters * 2)
       .dmap { _ flatMap readIdName }
 
   private def readIdName(doc: Bdoc) =

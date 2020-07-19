@@ -152,13 +152,14 @@ final class StudyRepo(private[study] val coll: Coll)(implicit ec: scala.concurre
   private val idNameProjection = $doc("name" -> true)
 
   def publicIdNames(ids: List[Study.Id]): Fu[List[Study.IdName]] =
-    coll.find($inIds(ids) ++ selectPublic, idNameProjection.some).list[Study.IdName]()
+    coll.find($inIds(ids) ++ selectPublic, idNameProjection.some).cursor[Study.IdName]().list()
 
   def recentByOwner(userId: User.ID, nb: Int) =
     coll
       .find(selectOwnerId(userId), idNameProjection.some)
       .sort($sort desc "updatedAt")
-      .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
+      .cursor[Study.IdName](ReadPreference.secondaryPreferred)
+      .list(nb)
 
   // heavy AF. Only use for GDPR.
   private[study] def allIdsByOwner(userId: User.ID): Fu[List[Study.Id]] =
@@ -168,7 +169,8 @@ final class StudyRepo(private[study] val coll: Coll)(implicit ec: scala.concurre
     coll
       .find(selectContributorId(userId), idNameProjection.some)
       .sort($sort desc "updatedAt")
-      .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
+      .cursor[Study.IdName](ReadPreference.secondaryPreferred)
+      .list(nb)
 
   def isContributor(studyId: Study.Id, userId: User.ID) =
     coll.exists($id(studyId) ++ $doc(s"members.$userId.role" -> "w"))
@@ -226,7 +228,8 @@ final class StudyRepo(private[study] val coll: Coll)(implicit ec: scala.concurre
     coll
       .aggregateWith[Bdoc]() { framework =>
         import framework._
-        Match($id(studyId)) -> List(
+        List(
+          Match($id(studyId)),
           Project(
             $doc(
               "_id"       -> false,

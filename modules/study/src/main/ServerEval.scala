@@ -77,10 +77,10 @@ object ServerEval {
                                   parent.addChild(child).children.get(child.id)
                                 }
                               } ?? { chapterRepo.setChild(chapter, path, _) }
+                            }
                           }
-                        }
-                    } inject path + node
-              } void
+                      } inject path + node
+                } void
             } >>- {
               chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
                 _ ?? { chapter =>
@@ -114,9 +114,10 @@ object ServerEval {
           games.reverse match {
             case Nil => none
             case (g, m) :: rest =>
-              rest.foldLeft(makeBranch(g, m)) {
-                case (node, (g, m)) => makeBranch(g, m) addChild node
-              } some
+              rest
+                .foldLeft(makeBranch(g, m)) {
+                  case (node, (g, m)) => makeBranch(g, m) addChild node
+                } some
           }
       }
 
