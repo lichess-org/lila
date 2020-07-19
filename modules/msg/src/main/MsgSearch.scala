@@ -40,7 +40,8 @@ final class MsgSearch(
         )
       )
       .sort($sort desc "lastMsg.date")
-      .list[MsgThread](5)
+      .cursor[MsgThread]()
+      .list(5)
 
   private def searchFriends(me: User, q: String): Fu[List[LightUser]] =
     !me.kid ?? {
