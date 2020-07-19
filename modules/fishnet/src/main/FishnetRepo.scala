@@ -38,22 +38,19 @@ final private class FishnetRepo(
   def enableClient(key: Client.Key, v: Boolean): Funit =
     clientColl.update.one(selectClient(key), $set("enabled" -> v)).void >>- clientCache.invalidate(key)
   def allRecentClients =
-    clientColl.ext
-      .find(
-        $doc(
-          "instance.seenAt" $gt Client.Instance.recentSince
-        )
+    clientColl.list[Client](
+      $doc(
+        "instance.seenAt" $gt Client.Instance.recentSince
       )
-      .list[Client]()
+    )
+
   def lichessClients =
-    clientColl.ext
-      .find(
-        $doc(
-          "enabled" -> true,
-          "userId" $startsWith "lichess-"
-        )
+    clientColl.list[Client](
+      $doc(
+        "enabled" -> true,
+        "userId" $startsWith "lichess-"
       )
-      .list[Client]()
+    )
 
   def addAnalysis(ana: Work.Analysis)    = analysisColl.insert.one(ana).void
   def getAnalysis(id: Work.Id)           = analysisColl.ext.find(selectWork(id)).one[Work.Analysis]
