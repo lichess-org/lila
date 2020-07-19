@@ -393,6 +393,9 @@
   <string name="safeTournamentName">ٹورنامنٹ کا ایک محتاط نام رکھیں.</string>
   <string name="inappropriateNameWarning">کسی قسم کی نا مناسب حرکت کی وجہ سے آپ کا اکاونٹ بند ہو سکتا ہے۔.</string>
   <string name="emptyTournamentName">خانے کو خالی چھوڑنے سے ٹورنامنٹ کا نام کسی مشہور کھلاڑی پر رکھ دیا جائے گا.</string>
+  <string name="recommendNotTouching">ہمارہ مشورہ ہے کہ اس کے ساتھ چھیڑ چھاڑ نہ کریں.</string>
+  <string name="fewerPlayers">اگر آپ داخلے کی شرائط مقرر کریں گے تو ٹورنامنٹ میں کم کھلاڑی آئیں گے.</string>
+  <string name="showAdvancedSettings">اعلی ترتیبات دکھائیں</string>
   <string name="join">شامل ہوں</string>
   <string name="withdraw">دستبردار ہوں</string>
   <string name="points">اعشاریے</string>
