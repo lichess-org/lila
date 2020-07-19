@@ -17,7 +17,8 @@ final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.Executi
         )
       )
       .sort($doc("seenAt" -> -1))
-      .list[Bdoc](max)
+      .cursor[Bdoc]()
+      .list(max)
       .map { docs =>
         docs.flatMap { doc =>
           for {
