@@ -428,12 +428,17 @@
   <string name="loadPosition">محفوظ شدہ بساط لوٹائیں</string>
   <string name="isPrivate">برائے خواص</string>
   <string name="reportXToModerators">منتظمین  کو %s کے بارے میں شکایت کریں</string>
+  <string name="profileCompletion">پروفائل کی تکمیل: %s</string>
+  <string name="xRating">%s ریٹنگ</string>
+  <string name="ifNoneLeaveEmpty">اگر کوئی نہیں تو خالی چھوڑ دیں</string>
+  <string name="gameCompletionRate">بازیاں مکمل کرنے کی شرح: %s</string>
   <string name="profile">اکاؤنٹ</string>
   <string name="editProfile">اکاؤنٹ میں ترمیم کریں</string>
   <string name="firstName">پہلا نام</string>
   <string name="lastName">آخری نام</string>
   <string name="biography">سوانح حیات</string>
   <string name="country">ملک</string>
+  <string name="socialMediaLinks">سوشل میڈیا کے لنکس</string>
   <string name="watchLichessTV">Lichess نشریات</string>
   <string name="previouslyOnLichessTV">Lichess گذشتہ نشریات</string>
   <string name="onlinePlayers">آن لائن کھلاڑی</string>
