@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">Часови</string>
+  <string name="teachClassesOfChessStudents">Одржувајте часови по шах со вашите ученици, преку пакетот алатки „Lichess Часови“.</string>
+  <string name="features">Главни карактеристики</string>
+  <string name="quicklyGenerateSafeUsernames">Брзо создавајте безбедни кориснички имиња и лозинки за учениците</string>
+  <string name="trackStudentProgress">Следете го напредокот на вашите ученици во партиите и загатките</string>
+  <string name="messageAllStudents">Известете ги сите ученици за нов учебен материјал</string>
+  <string name="freeForAllForever">100% бесплатно за сите, засекогаш, без реклами и следење</string>
+  <string name="applyToBeLichessTeacher">Аплицирај за да станеш Lichess инструктор</string>
+  <string name="noClassesYet">Сеуште нема часови.</string>
+</resources>
