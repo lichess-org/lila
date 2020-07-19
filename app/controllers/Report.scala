@@ -18,21 +18,25 @@ final class Report(
 
   private def api = env.report.api
 
+  private def getScore(mod: UserModel)(implicit ctx: Context) = 
+    env.report.modFilters.updateThreshold(mod, getInt("score"))
+  
+
   def list =
     Secure(_.SeeReport) { implicit ctx => me =>
       if (env.streamer.liveStreamApi.isStreaming(me.id) && !getBool("force"))
         fuccess(Forbidden(html.site.message.streamingMod))
-      else renderList(env.report.modFilters.get(me).fold("all")(_.key))
+      else renderList(env.report.modFilters.get(me).fold("all")(_.key), me)
     }
 
   def listWithFilter(room: String) =
     Secure(_.SeeReport) { implicit ctx => me =>
       env.report.modFilters.set(me, Room(room))
-      renderList(room)
+      renderList(room, me)
     }
 
-  private def renderList(room: String)(implicit ctx: Context) =
-    api.openAndRecentWithFilter(12, Room(room)) zip
+  private def renderList(room: String, mod: UserModel)(implicit ctx: Context) =
+    api.openAndRecentWithFilter(12, Room(room), getScore(mod)) zip
       api.countOpenByRooms zip
       env.streamer.api.approval.countRequests flatMap {
       case reports ~ counts ~ streamers =>
