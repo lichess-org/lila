@@ -188,6 +188,7 @@
   <string name="blackOffersDraw">Swart biedt remise oan</string>
   <string name="whiteDeclinesDraw">Wyt wegert remise-oanbod</string>
   <string name="blackDeclinesDraw">Swart wegert remise-oanbod</string>
+  <string name="yourOpponentOffersADraw">Dyn tsjinstander biedt remise oan</string>
   <string name="accept">Akseptearje</string>
   <string name="decline">Ofwize</string>
   <string name="playingRightNow">No oan it spylje</string>
