@@ -604,8 +604,8 @@
   <string name="onlyFriends">Nomás amigos</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroque</string>
-  <string name="whiteCastlingKingside">Blancas U-U</string>
-  <string name="blackCastlingKingside">Negras U-U</string>
+  <string name="whiteCastlingKingside">Blancas O-O</string>
+  <string name="blackCastlingKingside">Negras O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s aporte en o foro</item>
     <item quantity="other">%s aportes en o foro</item>
