@@ -203,6 +203,9 @@
   <string name="casual">Samar</string>
   <string name="rated">Om rating</string>
   <string name="casualTournament">Samar</string>
+  <string name="ratedTournament">Om rating</string>
+  <string name="thisGameIsRated">Dizze partij telt mei foar de rating</string>
+  <string name="rematch">Op \'e nij spylje</string>
   <string name="play">Spylje</string>
   <string name="composeMessage">Berjocht opstelle</string>
   <string name="noNewMessages">Gjin nije berjochten</string>
