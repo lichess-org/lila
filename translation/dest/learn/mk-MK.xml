@@ -73,20 +73,24 @@
   <string name="captureComplete">Честитки! Сега знаете како да се борите со шаховските фигури!</string>
   <string name="protection">Одбрана</string>
   <string name="keepYourPiecesSafe">Заштити ги твоите фигури</string>
-  <string name="protectionIntro">Препознајте ги фигурите кои вашиот противник ги напаѓа и заштитете ги!</string>
-  <string name="protectionComplete">Честитки! Фигурата која не ја губите е фигурата која ја освојувате!</string>
-  <string name="escape">Вие сте под напад! Побегнете од заканата!</string>
-  <string name="noEscape">Нема излез, но можете да се браните!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Не им дозволувај да ти земат незаштитена фигура!</string>
+  <string name="protectionIntro">Откриј ги фигурите кои ти се нападнати и заштити ги!</string>
+  <string name="protectionComplete">Честитки! Незагубената фигура е освоена фигура!</string>
+  <string name="escape">Нападнат си!
+Избегни ја заканата!</string>
+  <string name="noEscape">Нема излез, 
+но можеш да се браниш!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Не дозволувај да ти 
+земат незаштитена фигура!</string>
   <string name="combat">Борба</string>
-  <string name="captureAndDefendPieces">Земи ги фугурите на противникот и заштити ги твоите</string>
-  <string name="combatIntro">Добар воин знае и да напаѓа и да се брани!</string>
-  <string name="combatComplete">Честитки! Сега знаете како да се борите со шаховските фигури!</string>
+  <string name="captureAndDefendPieces">Земај фигури и одбранувај фигури</string>
+  <string name="combatIntro">Добриот воин знае и за напад и за одбрана!</string>
+  <string name="combatComplete">Честитки! Сега можеш да се бориш со шаховските фигури!</string>
   <string name="checkInOne">Шах во еден потег</string>
   <string name="attackTheOpponentsKing">Нападни го противничкиот крал</string>
-  <string name="checkInOneIntro">Нападни го кралот на противникот за да бидат под шах. Тој мора да го заштити!</string>
-  <string name="checkInOneGoal">Нападни го кралот на противникот во еден потег!</string>
-  <string name="checkInOneComplete">Честитки! Го ставивте под шах вашиот противник, присилувајќи го да го брани својот крал!</string>
+  <string name="checkInOneIntro">За да го шахираш противникот, нападни му го кралот. Тој мора да го заштити!</string>
+  <string name="checkInOneGoal">Нападни го противничкиот
+крал во еден потег!</string>
+  <string name="checkInOneComplete">Честитки! Го шахираше противникот, присилувајќи го да си го брани кралот!</string>
   <string name="outOfCheck">Избегни шах</string>
   <string name="defendYourKing">Одбранете го вашиот крал</string>
   <string name="outOfCheckIntro">Вашиот крал е под шах! Мора да бегате или да го блокирате нападот.</string>
