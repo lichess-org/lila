@@ -56,12 +56,17 @@
   <string name="analysis">sona musi</string>
   <string name="loadingEngine">ilo lawa li kama...</string>
   <string name="goDeeper">tawa anpa</string>
+  <string name="showThreat">lukin e nasin moli</string>
   <string name="deleteFromHere">o weka tan ni</string>
   <string name="move">pali</string>
   <string name="variantLoss">pini ike pi musi ante</string>
   <string name="variantWin">pini pona pi musi ante</string>
   <string name="insufficientMaterial">jo ala ijo wile</string>
+  <string name="pawnMove">pali pi jan utala</string>
+  <string name="capture">moli</string>
   <string name="close">o pini</string>
+  <string name="winning">pini pona</string>
+  <string name="losing">pini ike</string>
   <string name="unknown">sona ala</string>
   <string name="whiteDrawBlack">walo / ala / pimeja</string>
   <string name="openingExplorer">ilo open</string>
@@ -78,6 +83,10 @@
   <string name="claimADraw">mi toki e ni: musi li moli</string>
   <string name="offerDraw">pana wile pi pini sama musi</string>
   <string name="draw">musi li moli</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">jan wan li lon</item>
+    <item quantity="other">jan %s li lon</item>
+  </plurals>
   <string name="currentGames">musi pi tenpo ni</string>
   <string name="viewInFullSize">lukin ale</string>
   <string name="logOut">tawa tan ni</string>
@@ -278,6 +287,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="automaticallyProceedToNextGameAfterMoving">pali wan li pini la ilo sona o tawa musi poka</string>
   <string name="autoSwitch">ilo o tawa</string>
   <string name="puzzles">musi sijelo</string>
+  <string name="tournamentWinners">jan pi pini pona pi musi mute</string>
   <string name="name">nimi</string>
   <string name="description">toki pi kulupu</string>
   <string name="no">ala</string>
