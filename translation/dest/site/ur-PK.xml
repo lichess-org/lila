@@ -786,6 +786,24 @@
   <string name="waitingForAnalysis">تجزیے کا انتظار</string>
   <string name="noMistakesFoundForWhite">سفید کی چالوں میں کوئی غلطی نہیں ملی</string>
   <string name="noMistakesFoundForBlack">سیاہ کی چالوں میں کوئی غلطی نہیں ملی</string>
+  <string name="doneReviewingWhiteMistakes">سفید کی غلطیوں کا جائزہ مکمل ہوا</string>
+  <string name="doneReviewingBlackMistakes">سیاہ کی غلطیوں کا جائزہ مکمل ہوا</string>
+  <string name="doItAgain">دوبارہ کریں</string>
+  <string name="reviewWhiteMistakes">سفید کی غلطیوں کا جائزہ لیں</string>
+  <string name="reviewBlackMistakes">سیاہ کی غلطیوں کا جائزہ لیں</string>
+  <string name="advantage">بہتر</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s سیکنڈ</item>
+    <item quantity="other">%s سیکنڈز</item>
+  </plurals>
+  <string name="opening">ابتدا</string>
+  <string name="middlegame">درمیان کی بازی</string>
+  <string name="endgame">اختتامی بازی</string>
+  <string name="registerToSendChallenges">رجسٹر کریں اور چیلنجز بھیجیں.</string>
+  <string name="youCannotChallengeX">آپ %s کو چیلینج نہیں کر سکتے.</string>
+  <string name="xDoesNotAcceptChallenges">%s چیلنج قبول نہیں کرتے.</string>
+  <string name="yourXRatingIsTooFarFromY">آپ کا درجہ %1$s %2$s سے بہت دور ہے.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">عارضی درجے کی وجہ سے آپ چیلینج نہیں بھیج سکتے.</string>
   <string name="rapidDesc">ریپیڈ بازیاں: آٹھ سے لے کر پچیس منٹ</string>
   <string name="classicalDesc">کلاسکل بازیاں: پچیس منٹ اور اس سے زیادہ</string>
   <string name="correspondenceDesc">کورسپونڈنس بازیاں: فی چال ایک یا ایک سے زیادہ دن</string>
