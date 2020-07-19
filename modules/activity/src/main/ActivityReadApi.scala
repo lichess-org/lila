@@ -31,7 +31,8 @@ final class ActivityReadApi(
         coll.ext
           .find(regexId(u.id))
           .sort($sort desc "_id")
-          .vector[Activity](nb, ReadPreference.secondaryPreferred)
+          .cursor[Activity](ReadPreference.secondaryPreferred)
+          .vector(nb)
           .dmap(_.filterNot(_.isEmpty))
           .mon(_.user segment "activity.raws")
       practiceStructure <- activities.exists(_.practice.isDefined) ?? {
