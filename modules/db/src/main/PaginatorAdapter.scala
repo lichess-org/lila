@@ -38,10 +38,11 @@ final class Adapter[A: BSONDocumentReader](
       .pipe { query =>
         hint match {
           case None    => query
-          case Some(h) => query hint h
+          case Some(h) => query.hint(collection hint h)
         }
       }
-      .list[A](length, readPreference)
+      .cursor[A](readPreference)
+      .list(length)
 }
 
 /*
@@ -68,7 +69,8 @@ final class MapReduceAdapter[A: BSONDocumentReader](
       .find(selector, $id(true).some)
       .sort(sort)
       .skip(offset)
-      .list[Bdoc](length, readPreference)
+      .cursor[Bdoc](readPreference)
+      .list(length)
       .dmap { _ flatMap { _.getAsOpt[BSONString]("_id") } }
       .flatMap { ids =>
         runCommand(
