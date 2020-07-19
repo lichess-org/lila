@@ -670,6 +670,15 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">ہم نے آپ کو ای میل بھیجا ہے. ای میل مے دیےگئے لنک پی کلک کر کے اکاؤنٹ اکتیواتے کریں</string>
   <string name="weHaveSentYouAnEmailTo">ہم نے %s کو ای میل بھیج دی ہے۔ لنک پر کلک کر کے اپنا پاس ورڈ تبدیل کر لیں.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">رجسٹریشن کرکے، آپ ہماری %s پر پابندی پر اتفاق کرتے ہیں.</string>
+  <string name="networkLagBetweenYouAndLichess">آپ اور لی چیس کے درمیان نیٹ ورک لیگ</string>
+  <string name="timeToProcessAMoveOnLichessServer">لی چیس سرور پر چال پراسس کرنے کا وقت</string>
+  <string name="downloadAnnotated">وضاحت شدہ PGN ڈاون لوڈ کریں</string>
+  <string name="downloadRaw">خالی PGN ڈاون لوڈ کریں</string>
+  <string name="downloadImported">برامد شدہ PGN ڈاون لوڈ کریں</string>
+  <string name="printFriendlyPDF">پرنٹ کرنے کے قابل PDF</string>
+  <string name="crosstable">کراس ٹیبل</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">کھیل کو آگے بڑھانے کے لئیے آپ ماوس کو بساط کے اوپر سکرول کرسکتے ہیں۔.</string>
+  <string name="analysisShapesHowTo">Shift+click یا right-click کر کے بساط کے اوپر دائرے یا تیر بنائیں.</string>
   <string name="shareYourInsightsData">اپنی ذاتی معلومات بیان کریں</string>
   <string name="youHaveAlreadyRegisteredTheEmail">آپ موجودہ ای میل :%s پہلے ہی رساٹر کر چکے ہیں</string>
   <string name="kidMode">بچوں کے لئے خاص موڈ</string>
