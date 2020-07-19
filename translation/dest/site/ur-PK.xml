@@ -711,4 +711,20 @@
     <item quantity="other">%s زبانوں میں دستیاب ہے!</item>
   </plurals>
   <string name="gameAnalysis">بازی کا تجزیہ</string>
+  <string name="xHostsY">%1$s میزبانی کر رہا ہے %2$s کی</string>
+  <string name="xJoinsY">%1$s نے %2$s کو جوائن کیا</string>
+  <string name="xLikesY">%1$s نے %2$s کو پسند کیا</string>
+  <string name="xCreatesStudyY">%1$s نے %2$s مطالعہ تخلیق کیا</string>
+  <string name="quickPairing">فوری بازی کھیلیں</string>
+  <string name="lobby">لابی</string>
+  <string name="anonymous">گمنام</string>
+  <string name="yourScore">اپ کا سکور: %s</string>
+  <string name="language">زبان</string>
+  <string name="background">پس مظر</string>
+  <string name="light">لائٹ</string>
+  <string name="dark">ڈارک</string>
+  <string name="transparent">شفاف</string>
+  <string name="backgroundImageUrl">پس منظر کی تصویر URL:</string>
+  <string name="boardGeometry">بساط کی جیومیٹری</string>
+  <string name="boardTheme">بساط کا ڈیزائن</string>
 </resources>
