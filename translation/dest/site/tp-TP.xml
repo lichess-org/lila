@@ -84,7 +84,7 @@
   <string name="offerDraw">pana wile pi pini sama musi</string>
   <string name="draw">musi li moli</string>
   <plurals name="nbPlayers">
-    <item quantity="one">jan wan li lon</item>
+    <item quantity="one">jan %s li lon</item>
     <item quantity="other">jan %s li lon</item>
   </plurals>
   <string name="currentGames">musi pi tenpo ni</string>
@@ -99,6 +99,7 @@
   <string name="xPostedInForumY">%1$s li sitelen lon ma toki %2$s</string>
   <string name="latestForumPosts">toki sin lon ma toki</string>
   <string name="players">jan musi</string>
+  <string name="friends">jan pona</string>
   <string name="today">tenpo suno ni</string>
   <string name="yesterday">tenpo suno pini</string>
   <string name="minutesPerSide">tenpo tawa kule</string>
@@ -169,6 +170,10 @@
     <item quantity="one">%s li pini pona</item>
     <item quantity="other">pini pona %s</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">musi %s</item>
+    <item quantity="other">musi %s</item>
+  </plurals>
   <string name="exportGames">o kama jo e musi</string>
   <string name="ratingRange">nanpa Glicko</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">jan ni li sewi e nanpa ona kepeken ilo</string>
@@ -206,7 +211,11 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="notACheckmate">mije lawa li moli ala</string>
   <string name="retry">o pali sin</string>
   <string name="reconnecting">tawa linja pi tenpo sin</string>
-  <string name="noFriendsOnline">jan pona ala li lon lipu</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">jan pona %s li lon ni</item>
+    <item quantity="other">jan pona %s li lon ni</item>
+  </plurals>
+  <string name="noFriendsOnline">jan pona ala li lon ni</string>
   <string name="findFriends">o lukin e jan pona</string>
   <string name="follow">tawa poka</string>
   <string name="following">jan pi tawa poka</string>
@@ -281,7 +290,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="thisPuzzleIsCorrect">musi ni li pona</string>
   <string name="thisPuzzleIsWrong">musi ni li ike</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">musi wan li lon</item>
+    <item quantity="one">musi %s li lon</item>
     <item quantity="other">musi %s li lona</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">pali wan li pini la ilo sona o tawa musi poka</string>
