@@ -1,8 +1,7 @@
 package lila.db
 
 import reactivemongo.api._
-import reactivemongo.api.commands.Command
-import scala.annotation.nowarn
+
 import scala.concurrent.duration._
 import scala.concurrent.Future
 
@@ -21,7 +20,7 @@ final class AsyncDb(
       driver.connect(parsedUri, name.some).dmap(_ -> parsedUri.db)
     }
 
-  private def db: Future[DefaultDB] =
+  private def db: Future[DB] =
     connection flatMap {
       case (conn, dbName) => conn database dbName.getOrElse("lichess")
     }
@@ -37,7 +36,7 @@ final class Db(
 
   private val logger = lila.db.logger branch name
 
-  private lazy val db: DefaultDB = Chronometer.syncEffect(
+  private lazy val db: DB = Chronometer.syncEffect(
     MongoConnection
       .fromString(uri)
       .flatMap { parsedUri =>
@@ -52,9 +51,8 @@ final class Db(
 
   def apply(name: CollName): Coll = db(name.value)
 
-  val runCommand = new RunCommand((command, readPreference) => {
-    val pack           = reactivemongo.api.bson.collection.BSONSerializationPack
-    @nowarn val runner = Command.run(pack, FailoverStrategy.strict)
-    runner(db, runner.rawCommand(command)).one[dsl.Bdoc](readPreference)
+  val runCommand = new RunCommand({ (command, readPreference) =>
+    db.runCommand(command, FailoverStrategy.strict)
+      .one[dsl.Bdoc](readPreference)
   })
 }

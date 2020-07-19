@@ -32,7 +32,8 @@ final class UserInfosApi(roundColl: AsyncColl, currentPuzzleId: User => Fu[Optio
       _.ext
         .find($doc(Round.BSONFields.id -> idSelector))
         .sort($sort desc Round.BSONFields.id)
-        .list[Round](historySize atLeast chartSize)
+        .cursor[Round]()
+        .list(historySize atLeast chartSize)
         .dmap(_.reverse)
     }
   }

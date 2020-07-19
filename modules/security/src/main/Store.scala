@@ -2,8 +2,10 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
+
+import reactivemongo.api.CursorProducer
 import reactivemongo.api.bson.{ BSONHandler, Macros }
-import reactivemongo.api.ReadPreference
+
 import scala.concurrent.duration._
 import scala.concurrent.blocking
 import scala.util.Random
@@ -144,7 +146,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
         $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
       )
       .sort($sort desc "date")
-      .list[Info](1000)(InfoReader)
+      .cursor[Info]()(InfoReader, implicitly[CursorProducer[Info]])
+      .list(1000)
 
   // remains of never-confirmed accounts that got cleaned up
   private[security] def deletePreviousSessions(user: User) =
@@ -164,7 +167,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
         )
       )
       .sort($doc("date" -> -1))
-      .list[DedupInfo]()
+      .cursor[DedupInfo]()
+      .list()
       .flatMap { sessions =>
         val olds = sessions
           .groupBy(_.compositeKey)
@@ -180,7 +184,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
   implicit private val IpAndFpReader = Macros.reader[IpAndFp]
 
   def ipsAndFps(userIds: List[User.ID], max: Int = 100): Fu[List[IpAndFp]] =
-    coll.ext.find($doc("user" $in userIds)).list[IpAndFp](max, ReadPreference.secondaryPreferred)
+    coll.secondary.list[IpAndFp]($doc("user" $in userIds), max)
 
   def ips(user: User): Fu[Set[IpAddress]] =
     coll.distinctEasy[IpAddress, Set]("ip", $doc("user" -> user.id))

@@ -145,14 +145,16 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         val gameMatcher = combineDocs(question.filters.collect {
           case f if f.dimension.isInGame => f.matcher
         })
-        def matchMoves(extraMatcher: Bdoc = $empty) =
+
+        def matchMoves(extraMatcher: Bdoc = $empty): Option[PipelineOperator] =
           combineDocs(extraMatcher :: question.filters.collect {
             case f if f.dimension.isInMove => f.matcher
           } ::: (dimension match {
             case D.TimeVariance => List($doc(F.moves("v") $exists true))
-            case _              => Nil
-          })).some.filterNot(_.isEmpty) map Match
-        def projectForMove =
+            case _              => List.empty[Bdoc]
+          })).some.filterNot(_.isEmpty) map Match.apply
+
+        def projectForMove: Option[PipelineOperator] =
           Project(BSONDocument({
             metric.dbKey :: dimension.dbKey :: filters.collect {
               case lila.insight.Filter(d, _) if d.isInMove => d.dbKey

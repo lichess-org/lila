@@ -332,10 +332,18 @@ final class ReportApi(
       nb: Int,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): Fu[List[Report]] =
-    coll.ext.find($doc("user" -> suspect.id.value)).sort(sortLastAtomAt).list[Report](nb, readPreference)
+    coll.ext
+      .find($doc("user" -> suspect.id.value))
+      .sort(sortLastAtomAt)
+      .cursor[Report](readPreference)
+      .list(nb)
 
   def moreLike(report: Report, nb: Int): Fu[List[Report]] =
-    coll.ext.find($doc("user" -> report.user, "_id" $ne report.id)).sort(sortLastAtomAt).list[Report](nb)
+    coll.ext
+      .find($doc("user" -> report.user, "_id" $ne report.id))
+      .sort(sortLastAtomAt)
+      .cursor[Report]()
+      .list(nb)
 
   def byAndAbout(user: User, nb: Int): Fu[Report.ByAndAbout] =
     for {
@@ -345,7 +353,8 @@ final class ReportApi(
             $doc("atoms.by" -> user.id)
           )
           .sort(sortLastAtomAt)
-          .list[Report](nb, ReadPreference.secondaryPreferred)
+          .cursor[Report](ReadPreference.secondaryPreferred)
+          .list(nb)
       about <- recent(Suspect(user), nb, ReadPreference.secondaryPreferred)
     } yield Report.ByAndAbout(by, about)
 
@@ -417,7 +426,8 @@ final class ReportApi(
                 )
               )
               .sort(sortLastAtomAt)
-              .list[Report](20, ReadPreference.secondaryPreferred) flatMap { reports =>
+              .cursor[Report](ReadPreference.secondaryPreferred)
+              .list(20) flatMap { reports =>
               if (reports.size < 4) fuccess(none) // not enough data to know
               else {
                 val userIds = reports.map(_.user).distinct
@@ -464,12 +474,12 @@ final class ReportApi(
 
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] =
     (nb > 0) ?? {
-      coll.ext.find(selector).sort(sortLastAtomAt).list[Report](nb)
+      coll.ext.find(selector).sort(sortLastAtomAt).cursor[Report]().list(nb)
     }
 
   private def findBest(nb: Int, selector: Bdoc): Fu[List[Report]] =
     (nb > 0) ?? {
-      coll.ext.find(selector).sort($sort desc "score").list[Report](nb)
+      coll.ext.find(selector).sort($sort desc "score").cursor[Report]().list(nb)
     }
 
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =

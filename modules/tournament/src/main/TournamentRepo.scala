@@ -35,7 +35,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
 
   def byIds(ids: Iterable[Tournament.ID]): Fu[List[Tournament]] =
-    coll.ext.find($inIds(ids)).list[Tournament]()
+    coll.list[Tournament]($inIds(ids))
 
   def byOrderedIds(ids: Iterable[Tournament.ID]): Fu[List[Tournament]] =
     coll.byOrderedIds[Tournament, Tournament.ID](ids, readPreference = ReadPreference.secondaryPreferred)(
@@ -75,20 +75,20 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     coll.primitive[Tournament.ID](startedSelect, sort = $doc("createdAt" -> -1), "_id")
 
   def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
-    coll.ext
-      .find(
-        startedSelect ++ $doc(
-          "password" $exists false,
-          "variant" $exists false
-        )
-      )
-      .list[Tournament](None, ReadPreference.secondaryPreferred)
+    coll.list[Tournament](
+      startedSelect ++ $doc(
+        "password" $exists false,
+        "variant" $exists false
+      ),
+      ReadPreference.secondaryPreferred
+    )
 
   private[tournament] def notableFinished(limit: Int): Fu[List[Tournament]] =
     coll.ext
       .find(finishedSelect ++ scheduledSelect)
       .sort($sort desc "startsAt")
-      .list[Tournament](limit)
+      .cursor[Tournament]()
+      .list(limit)
 
   def byOwnerAdapter(owner: User) =
     new lila.db.paginator.Adapter[Tournament](
@@ -119,13 +119,15 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
         )
       )
       .sort($sort asc "startsAt")
-      .list[Tournament](nb)
+      .cursor[Tournament]()
+      .list(nb)
 
   private[tournament] def finishedByTeam(teamId: TeamID, nb: Int) =
     (nb > 0) ?? coll.ext
       .find(forTeamSelect(teamId) ++ finishedSelect)
       .sort($sort desc "startsAt")
-      .list[Tournament](nb)
+      .cursor[Tournament]()
+      .list(nb)
 
   private[tournament] def setForTeam(tourId: Tournament.ID, teamId: TeamID) =
     coll.update.one($id(tourId), $addToSet("forTeams" -> teamId))
@@ -193,22 +195,18 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       $doc("startsAt" $lt (DateTime.now plusMinutes aheadMinutes))
 
   def scheduledCreated(aheadMinutes: Int): Fu[List[Tournament]] =
-    coll.ext
-      .find(startingSoonSelect(aheadMinutes) ++ scheduledSelect)
-      .list[Tournament]()
+    coll.list[Tournament](startingSoonSelect(aheadMinutes) ++ scheduledSelect)
 
   def scheduledStarted: Fu[List[Tournament]] =
-    coll.ext
-      .find(startedSelect ++ scheduledSelect)
-      .list[Tournament]()
+    coll.list[Tournament](startedSelect ++ scheduledSelect)
 
   def visibleForTeams(teamIds: Seq[TeamID], aheadMinutes: Int) =
-    coll.ext
-      .find(startingSoonSelect(aheadMinutes) ++ forTeamsSelect(teamIds))
-      .list[Tournament](none, ReadPreference.secondaryPreferred) zip
-      coll.ext
-        .find(startedSelect ++ forTeamsSelect(teamIds))
-        .list[Tournament](none, ReadPreference.secondaryPreferred) dmap {
+    coll.list[Tournament](
+      startingSoonSelect(aheadMinutes) ++ forTeamsSelect(teamIds),
+      ReadPreference.secondaryPreferred
+    ) zip
+      coll
+        .list[Tournament](startedSelect ++ forTeamsSelect(teamIds), ReadPreference.secondaryPreferred) dmap {
       case (created, started) => created ::: started
     }
 
@@ -219,9 +217,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .cursor[Tournament]()
 
   private def scheduledStillWorthEntering: Fu[List[Tournament]] =
-    coll.ext
-      .find(startedSelect ++ scheduledSelect)
-      .list[Tournament]() dmap {
+    coll.list[Tournament](startedSelect ++ scheduledSelect) dmap {
       _.filter(_.isStillWorthEntering)
     }
 
@@ -255,23 +251,26 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     }
 
   def uniques(max: Int): Fu[List[Tournament]] =
-    coll.ext
+    coll
       .find(selectUnique)
       .sort($doc("startsAt" -> -1))
-      .hint($doc("startsAt" -> -1))
-      .list[Tournament](max)
+      .hint(coll hint $doc("startsAt" -> -1))
+      .cursor[Tournament]()
+      .list(max)
 
   def scheduledUnfinished: Fu[List[Tournament]] =
     coll.ext
       .find(scheduledSelect ++ unfinishedSelect)
       .sort($doc("startsAt" -> 1))
-      .list[Tournament]()
+      .cursor[Tournament]()
+      .list()
 
   def allScheduledDedup: Fu[List[Tournament]] =
     coll.ext
       .find(createdSelect ++ scheduledSelect)
       .sort($doc("startsAt" -> 1))
-      .list[Tournament]() map {
+      .cursor[Tournament]()
+      .list() map {
       _.flatMap { tour =>
         tour.schedule map (tour -> _)
       }.foldLeft(List.empty[Tournament] -> none[Schedule.Freq]) {
@@ -298,7 +297,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
         )
       )
       .sort($sort desc "startsAt")
-      .list[Tournament](Schedule.Speed.mostPopular.size.some)
+      .cursor[Tournament]()
+      .list(Schedule.Speed.mostPopular.size)
 
   def lastFinishedDaily(variant: Variant): Fu[Option[Tournament]] =
     coll.ext
@@ -340,7 +340,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
         )
       )
       .sort($sort asc "startsAt")
-      .list[Tournament](none, ReadPreference.secondaryPreferred)
+      .cursor[Tournament](ReadPreference.secondaryPreferred)
+      .list()
 
   private[tournament] def sortedCursor(
       owner: lila.user.User,

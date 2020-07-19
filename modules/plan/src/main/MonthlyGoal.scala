@@ -18,7 +18,8 @@ final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(implici
     chargeColl
       .aggregateWith() { framework =>
         import framework._
-        Match($doc("date" $gt DateTime.now.withDayOfMonth(1).withTimeAtStartOfDay)) -> List(
+        List(
+          Match($doc("date" $gt DateTime.now.withDayOfMonth(1).withTimeAtStartOfDay)),
           Group(BSONNull)("cents" -> SumField("cents"))
         )
       }

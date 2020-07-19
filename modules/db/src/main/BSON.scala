@@ -3,7 +3,7 @@ package lila.db
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import reactivemongo.api.bson._
-import reactivemongo.api.bson.compat._
+
 import scala.util.{ Success, Try }
 
 import dsl._

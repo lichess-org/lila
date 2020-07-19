@@ -5,7 +5,7 @@ import scala.annotation.nowarn
 
 import reactivemongo.api._
 import reactivemongo.api.bson._
-import reactivemongo.api.commands.{ WriteConcern => CWC }
+import reactivemongo.api.{ WriteConcern => CWC }
 
 trait CollExt { self: dsl with QueryBuilderExt =>
 
@@ -16,12 +16,12 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def ext = this
 
-    def find(selector: Bdoc) = coll.find(selector, none)
+    def find(selector: Bdoc) = coll.find(selector, none[Bdoc])
 
     def find(selector: Bdoc, proj: Bdoc) = coll.find(selector, proj.some)
 
     def one[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
-      coll.find(selector, none).one[D]
+      coll.find(selector, none[Bdoc]).one[D]
 
     def one[D: BSONDocumentReader](selector: Bdoc, projection: Bdoc): Fu[Option[D]] =
       coll.find(selector, projection.some).one[D]
@@ -30,15 +30,17 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         selector: Bdoc,
         readPreference: ReadPreference = ReadPreference.primary
     ): Fu[List[D]] =
-      coll.find(selector, none).list[D](Int.MaxValue, readPreference = readPreference)
+      coll.find(selector, none[Bdoc]).
+        cursor[D](readPreference).list(Int.MaxValue)
 
     def list[D: BSONDocumentReader](selector: Bdoc, limit: Int): Fu[List[D]] =
-      coll.find(selector, none).list[D](limit = limit)
+      coll.find(selector, none[Bdoc]).cursor[D]().list(limit = limit)
 
     def byId[D: BSONDocumentReader, I: BSONWriter](id: I): Fu[Option[D]] =
       one[D]($id(id))
 
-    def byId[D: BSONDocumentReader](id: String): Fu[Option[D]]                   = one[D]($id(id))
+    def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] = one[D]($id(id))
+
     def byId[D: BSONDocumentReader](id: String, projection: Bdoc): Fu[Option[D]] = one[D]($id(id), projection)
 
     def byIds[D: BSONDocumentReader, I: BSONWriter](
@@ -103,8 +105,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         .fold(find($inIds(ids))) { proj =>
           find($inIds(ids), proj)
         }
-        .cursor[D](readPreference = readPreference)
-        .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[D]]())
+        .cursor[D](readPreference)
+        .collect[List](Int.MaxValue)
         .map {
           _.view.map(u => docId(u) -> u).toMap
         }
@@ -119,7 +121,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def primitive[V: BSONReader](selector: Bdoc, field: String): Fu[List[V]] =
       find(selector, $doc(field -> true))
-        .list[Bdoc]()
+        .cursor[Bdoc]()
+        .list()
         .dmap {
           _ flatMap { _.getAsOpt[V](field) }
         }
@@ -127,7 +130,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[List[V]] =
       find(selector, $doc(field -> true))
         .sort(sort)
-        .list[Bdoc]()
+        .cursor[Bdoc]()
+        .list()
         .dmap {
           _ flatMap { _.getAsOpt[V](field) }
         }
@@ -135,7 +139,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, nb: Int, field: String): Fu[List[V]] =
       (nb > 0) ?? find(selector, $doc(field -> true))
         .sort(sort)
-        .list[Bdoc](nb)
+        .cursor[Bdoc]()
+        .list(nb)
         .dmap {
           _ flatMap { _.getAsOpt[V](field) }
         }
@@ -161,7 +166,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         fieldExtractor: Bdoc => Option[V]
     ): Fu[Map[I, V]] =
       find($inIds(ids), $doc(field -> true))
-        .list[Bdoc]()
+        .cursor[Bdoc]()
+        .list()
         .dmap {
           _ flatMap { obj =>
             obj.getAsOpt[I]("_id") flatMap { id =>
@@ -203,8 +209,11 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         .aggregateWith[Bdoc](
           allowDiskUse = allowDiskUse,
           readPreference = readPreference
-        )(f)
-        .collect[List](maxDocs = maxDocs, Cursor.FailOnError[List[Bdoc]]())
+        )(agg => {
+          val nonEmpty = f(agg)
+          nonEmpty._1 +: nonEmpty._2
+        })
+        .collect[List](maxDocs = maxDocs)
 
     def aggregateOne(
         readPreference: ReadPreference = ReadPreference.primary,
@@ -216,9 +225,12 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         .aggregateWith[Bdoc](
           allowDiskUse = allowDiskUse,
           readPreference = readPreference
-        )(f)
-        .collect[List](maxDocs = 1, Cursor.FailOnError[List[Bdoc]]())
-        .dmap(_.headOption)
+        )(agg => {
+          val nonEmpty = f(agg)
+          nonEmpty._1 +: nonEmpty._2
+        })
+        .collect[List](maxDocs = 1)
+        .dmap(_.headOption) // .one[Bdoc] ?
 
     def aggregateExists(
         readPreference: ReadPreference = ReadPreference.primary,
@@ -230,7 +242,10 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         .aggregateWith[Bdoc](
           allowDiskUse = allowDiskUse,
           readPreference = readPreference
-        )(f)
+        )(agg => {
+          val nonEmpty = f(agg)
+          nonEmpty._1 +: nonEmpty._2
+        })
         .headOption
         .dmap(_.isDefined)
 

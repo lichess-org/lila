@@ -87,7 +87,8 @@ final class MsgCompat(
       )
 
   def reply(me: User, userId: User.ID)(implicit req: play.api.mvc.Request[_]): Either[Form[_], Funit] =
-    Form(single("text" -> text(minLength = 3))).bindFromRequest()
+    Form(single("text" -> text(minLength = 3)))
+      .bindFromRequest()
       .fold(
         err => Left(err),
         text => Right(api.post(me.id, userId, text))
