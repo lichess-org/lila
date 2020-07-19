@@ -181,6 +181,8 @@
   <string name="cancel">Annulearje</string>
   <string name="timeOut">Tiid is ôfrûn</string>
   <string name="drawOfferSent">Remise oanbod stjoerd</string>
+  <string name="drawOfferDeclined">Remise oanbod ôfslein</string>
+  <string name="drawOfferAccepted">Remise oanbod akseptearre</string>
   <string name="accept">Akseptearje</string>
   <string name="decline">Ofwize</string>
   <string name="playingRightNow">No oan it spylje</string>
