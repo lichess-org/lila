@@ -611,11 +611,15 @@
   <string name="mobileApp">موبائیل ایپ</string>
   <string name="webmasters">مدیران کے لیے</string>
   <string name="about">متعلق</string>
+  <string name="aboutX">%s کے متعلق</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ایک مفت (%2$s)، آزاد, اشتہاروں سے مبرا، اوپن سورس شطرنج کا سرور ہے۔.</string>
+  <string name="really">واقعی</string>
   <string name="contribute">حصہ ڈالیں</string>
   <string name="termsOfService">شرائط و ضوابط</string>
   <string name="sourceCode">سورس کوڈ</string>
   <string name="simultaneousExhibitions">نمائشی مقابلے</string>
   <string name="host">میزبان</string>
+  <string name="hostColorX">میزبان کا رنگ: %s</string>
   <string name="createdSimuls">نئے نمائشی مقابلے</string>
   <string name="hostANewSimul">نیا نمائشی مقابلہ شروع کریں</string>
   <string name="noSimulFound">نمائشی مقابلہ موجود نہیں</string>
@@ -650,6 +654,10 @@
   <string name="tournamentMayHaveBeenCanceled">مسابقہ شروع ہونے سے پہلے اگر تمام کھلاڑی خارج ہو جائیں تو مسابقہ باقی نہیں رہتا۔</string>
   <string name="returnToTournamentsHomepage">مسابقہ جات کے صفحہ اول کی جانپ</string>
   <string name="weeklyPerfTypeRatingDistribution">%s کی ہفتہ وار تقسیم میعار</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">اس ہفتے %2$s میں %1$s کھلاڑی.</item>
+    <item quantity="other">اس ہفتے %2$s میں %1$s کھلاڑی.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">آبکا نوع %1$s کا میعار %2$s ہے</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">آپ %1$s فیصد کھلاڑیوں سے %2$s میں بہتر  ہیں</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">آپکا %s کا میعار فی الحال عارضی ہے</string>
