@@ -660,10 +660,16 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">آبکا نوع %1$s کا میعار %2$s ہے</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">آپ %1$s فیصد کھلاڑیوں سے %2$s میں بہتر  ہیں</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%2$s میں %1$s%3$s کھلاڑیوں سے بہتر ہے.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">آپکا %s کا میعار فی الحال عارضی ہے</string>
+  <string name="yourRating">آپ کا درجہ</string>
+  <string name="cumulative">مجموعی</string>
+  <string name="glicko2Rating">Glicko-2 درجہ</string>
   <string name="checkYourEmail">اپنا ای میل چیک کریں</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ہم نے آپ کو ای میل بھیجا ہے</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">ہم نے آپ کو ای میل بھیجا ہے. ای میل مے دیےگئے لنک پی کلک کر کے اکاؤنٹ اکتیواتے کریں</string>
+  <string name="weHaveSentYouAnEmailTo">ہم نے %s کو ای میل بھیج دی ہے۔ لنک پر کلک کر کے اپنا پاس ورڈ تبدیل کر لیں.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">رجسٹریشن کرکے، آپ ہماری %s پر پابندی پر اتفاق کرتے ہیں.</string>
   <string name="shareYourInsightsData">اپنی ذاتی معلومات بیان کریں</string>
   <string name="youHaveAlreadyRegisteredTheEmail">آپ موجودہ ای میل :%s پہلے ہی رساٹر کر چکے ہیں</string>
   <string name="kidMode">بچوں کے لئے خاص موڈ</string>
