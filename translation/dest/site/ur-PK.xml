@@ -816,6 +816,9 @@
   </plurals>
   <string name="sorry">معذرت :(</string>
   <string name="weHadToTimeYouOutForAWhile">ہمیں آپ پر کچھ عرصے کے لیے پابندی لگانا پڑی.</string>
+  <string name="timeoutExpires">پابندی %s کے بعد ختم ہو گی.</string>
+  <string name="why">کیوں?</string>
+  <string name="pleasantChessExperience">ہم سب کو خوشگوار شطرنج کا تجربہ دینا چاہتے ہیں.</string>
   <string name="rapidDesc">ریپیڈ بازیاں: آٹھ سے لے کر پچیس منٹ</string>
   <string name="classicalDesc">کلاسکل بازیاں: پچیس منٹ اور اس سے زیادہ</string>
   <string name="correspondenceDesc">کورسپونڈنس بازیاں: فی چال ایک یا ایک سے زیادہ دن</string>
