@@ -4,8 +4,8 @@
   <string name="byPlaying">со играње!</string>
   <string name="menu">Мени</string>
   <string name="progressX">Напредок: %s</string>
-  <string name="resetMyProgress">Ресетирај го прогресот</string>
-  <string name="youWillLoseAllYourProgress">Ќе го изгубиш целиот прогрес!</string>
+  <string name="resetMyProgress">Избриши го напредокот</string>
+  <string name="youWillLoseAllYourProgress">Ќе го изгубиш целиот напредок!</string>
   <string name="play">играј!</string>
   <string name="chessPieces">Шаховски фигури</string>
   <string name="theRook">Топот</string>
@@ -44,14 +44,14 @@
   <string name="knightsCanJumpOverObstacles">Коњите можат да прескокнуваат пречки!
 Побегни и освој ги ѕвездите!</string>
   <string name="knightComplete">Честито! Научи да играш со коњот.</string>
-  <string name="thePawn">Пионот</string>
+  <string name="thePawn">Пешакот</string>
   <string name="itMovesForwardOnly">Се движи само напред</string>
-  <string name="pawnIntro">Пионите се слаби, но имаат голем потенцијал.</string>
+  <string name="pawnIntro">Пешаците се слаби, но имаат голем потенцијал.</string>
   <string name="pawnsMoveOneSquareOnly">Пионите се движат само едно поле напред.
 Но, кога ќе стигнат до крајот на таблата, стануваат помоќна фигура!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Најчесто е најдобро да ги унапредиш во кралица.
 Но, понекогаш и коњ може да ти користи!</string>
-  <string name="pawnsMoveForward">Пионите се движат напред, 
+  <string name="pawnsMoveForward">Пешаците се движат напред, 
 но земаат дијагонално!</string>
   <string name="captureThenPromote">Земи, па унапреди!</string>
   <string name="useAllThePawns">Користи ги сите пешаци! Не мора да ги унапредиш.</string>
@@ -109,17 +109,24 @@
 на начин од кој нема одбрана!</string>
   <string name="mateInOneComplete">Честитки! Вака се победува во партија шах!</string>
   <string name="intermediate">Средно ниво</string>
-  <string name="boardSetup">Позицијата на таблата</string>
-  <string name="howTheGameStarts">Како почнува партијата</string>
-  <string name="boardSetupIntro">Двете армии се соочуваат меѓу себе, спремни за битка.</string>
-  <string name="thisIsTheInitialPosition">Ова е почетната позиција на секоја партија шах! Направете потег за да продолжите.</string>
-  <string name="firstPlaceTheRooks">Прво наместете ги топовите! Тие стојат во ќошовите.</string>
-  <string name="thenPlaceTheKnights">Потоа наместете ги коњите! Тие стојат веднаш до топовите.</string>
-  <string name="placeTheBishops">Наместете ги ловците! Тие стојат до коњите.</string>
-  <string name="placeTheQueen">Наместете ја кралицата! Таа стои на полето со нејзината боја.</string>
-  <string name="placeTheKing">Наместете го кралот! Веднаш до неговата кралица.</string>
-  <string name="pawnsFormTheFrontLine">Пешаците ја формираат предната линија. Направете потег за да продолжите.</string>
-  <string name="boardSetupComplete">Честитки! Сега знаете како да ја поставите шаховската табла.</string>
+  <string name="boardSetup">Редење на таблата</string>
+  <string name="howTheGameStarts">Како започнува секоја партија</string>
+  <string name="boardSetupIntro">Двете армии се соочуваат меѓу себе, подготвени за битка.</string>
+  <string name="thisIsTheInitialPosition">Ова е почетната постава на секоја партија шах!
+Направи потег за да продолжиш.</string>
+  <string name="firstPlaceTheRooks">Прво намести ги топовите!
+Тие стојат во ќошевите.</string>
+  <string name="thenPlaceTheKnights">Потоа намести ги коњите!
+Тие стојат веднаш до топовите.</string>
+  <string name="placeTheBishops">Намести ги ловците!
+Тие стојат до коњите.</string>
+  <string name="placeTheQueen">Намести ја кралицата!
+Таа стои на полето со нејзината боја.</string>
+  <string name="placeTheKing">Намести го кралот!
+Веднаш до неговата кралица.</string>
+  <string name="pawnsFormTheFrontLine">Пешаците го формираат ударниот фронт.
+Направи потег за да продолжиш.</string>
+  <string name="boardSetupComplete">Честитки! Сега знаеш како се поставува шаховската табла.</string>
   <string name="castling">Рокада</string>
   <string name="theSpecialKingMove">Специјалниот потег на кралот</string>
   <string name="castlingIntro">Заштити си го кралот и намести го топот за напад!</string>
@@ -217,6 +224,6 @@
   <string name="yourScore">Вашиот резултат</string>
   <string name="next">Следно</string>
   <string name="backToMenu">Назад кон менито</string>
-  <string name="puzzleFailed">Неуспешна вежба!</string>
+  <string name="puzzleFailed">Неисправно решение!</string>
   <string name="retry">Обиди се повторно</string>
 </resources>
