@@ -396,6 +396,7 @@
   <string name="recommendNotTouching">ہمارہ مشورہ ہے کہ اس کے ساتھ چھیڑ چھاڑ نہ کریں.</string>
   <string name="fewerPlayers">اگر آپ داخلے کی شرائط مقرر کریں گے تو ٹورنامنٹ میں کم کھلاڑی آئیں گے.</string>
   <string name="showAdvancedSettings">اعلی ترتیبات دکھائیں</string>
+  <string name="makePrivateTournament">ٹورنامنٹ کی حیثیت ذاتی کر دیں، اور رسائی صرف پاس ورڈ کے ذریعے ہو سکے گی</string>
   <string name="join">شامل ہوں</string>
   <string name="withdraw">دستبردار ہوں</string>
   <string name="points">اعشاریے</string>
@@ -404,6 +405,16 @@
   <string name="winStreak">مسلسل فتوحات</string>
   <string name="createdBy">خالق</string>
   <string name="tournamentIsStarting">مسابقہ شروع ہوا چاہتا ہے</string>
+  <string name="tournamentPairingsAreNowClosed">ٹورنامنٹ میں کھلاڑیوں کی جوڑیاں بند ہو چکی ہیں.</string>
+  <string name="standByX">انتظار فرمائیں %s ، کھلاڑیوں کی جوڑیاں کی جا رہی ہیں، تیار رہیں!</string>
+  <string name="youArePlaying">آپ کھیل رہے ہیں!</string>
+  <string name="winRate">فتح کی شرح</string>
+  <string name="berserkRate">برزرک کی شرح</string>
+  <string name="performance">کارکردگی</string>
+  <string name="tournamentComplete">ٹورنمنٹ مکمل ہوا</string>
+  <string name="movesPlayed">چالوں کی تعداد</string>
+  <string name="whiteWins">سفید کی فتح</string>
+  <string name="blackWins">سیاہ کی فتح</string>
   <string name="membersOnly">صرف اراکین کے لیے</string>
   <string name="boardEditor">بساط بنائیں</string>
   <string name="startPosition">ابتدائی بساط</string>
