@@ -8,6 +8,8 @@
   <string name="pieceDestinations">مہروں کے ممکنہ گھر (صحیح اور خودکار چالوں کے لیے)۔</string>
   <string name="boardCoordinates">خانہ جات  (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">دوران کھیل چالوں کی فہرست</string>
+  <string name="pgnPieceNotation">چالوں کی نوٹیشن</string>
+  <string name="chessPieceSymbol">شطرنج کے مہرے کہ علامات</string>
   <string name="blindfoldChess">نابینا شطرنج (مہرے نظر نہیں آئیں کے)۔</string>
   <string name="chessClock">گھڑی سے متعلق</string>
   <string name="tenthsOfSeconds">سیکنڈ کا دسواں حصہ</string>
