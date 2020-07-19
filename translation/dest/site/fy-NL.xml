@@ -213,6 +213,8 @@
   <string name="rematchOfferCanceled">Oanbod op \'e nij spyljen annulearre</string>
   <string name="rematchOfferDeclined">Op \'e nij spyljen ôfslein</string>
   <string name="cancelRematchOffer">Annullear it op \'e nij spyljen</string>
+  <string name="viewRematch">Besjoch it op \'e nij spyljen</string>
+  <string name="confirmMove">Befestigje set</string>
   <string name="play">Spylje</string>
   <string name="composeMessage">Berjocht opstelle</string>
   <string name="noNewMessages">Gjin nije berjochten</string>
