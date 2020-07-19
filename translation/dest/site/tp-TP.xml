@@ -138,6 +138,7 @@
   <string name="accept">mi wile</string>
   <string name="decline">mi wile ala</string>
   <string name="playingRightNow">musi li lon</string>
+  <string name="eventInProgress">tenpo ni la musi</string>
   <string name="finished">ni li pini</string>
   <string name="abortGame">o pini e musi</string>
   <string name="gameAborted">musi li pini</string>
@@ -149,11 +150,14 @@
   <string name="thisGameIsRated">sina kama jo e nanpa pi pona jan lon musi ni</string>
   <string name="rematch">musi sin</string>
   <string name="rematchOfferSent">sina wile e musi sin</string>
+  <string name="rematchOfferSentWhite">walo li wile musi sin</string>
+  <string name="rematchOfferSentBlack">pimeja li wile musi sin</string>
   <string name="rematchOfferAccepted">jan ante li wile kin e musi sin</string>
   <string name="rematchOfferCanceled">wile pi musi sin li weka</string>
   <string name="rematchOfferDeclined">jan ante li wile ala e musi sin</string>
   <string name="cancelRematchOffer">o weka e wile pi musi sin</string>
   <string name="viewRematch">o lukin e musi sin</string>
+  <string name="confirmMove">o pali</string>
   <string name="play">o musi</string>
   <string name="inbox">poki toki</string>
   <string name="chatRoom">tomo toki</string>
@@ -195,7 +199,7 @@
 o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun li lon ala. sina en jan pona sina en jan ante li ken musi lon ilo sona.</string>
   <string name="xJoinedTeamY">%1$s li tawa kulupu %2$s</string>
   <string name="xCreatedTeamY">%1$s li pali e kulupu %2$s</string>
-  <string name="averageElo">nanpa Elo kulupu</string>
+  <string name="averageElo">nanpa pona kulupu</string>
   <string name="location">ma</string>
   <string name="filterGames">musi pi ale ala</string>
   <string name="reset">tawa tenpo pi nanpa wan</string>
@@ -224,7 +228,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="blocked">jan pake</string>
   <string name="unblock">pakala e pake</string>
   <string name="followsYou">jan pi tawa poka sina</string>
-  <string name="xStartedFollowingY">%1$s li kama tawa poka %2$s</string>
+  <string name="xStartedFollowingY">jan %1$s li kama tawa poka jan %2$s</string>
   <string name="more">o sona e mute</string>
   <string name="memberSince">tenpo pi kama lon ma ni</string>
   <string name="lastSeenActive">tenpo pini pi lon ma ni %s</string>
@@ -342,6 +346,9 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="xAnsweredY">jan %1$s li toki e ni: %2$s</string>
   <string name="xCommentedY">jan %1$s li toki e ni: %2$s</string>
   <string name="victory">pini pona!</string>
+  <string name="victoryVsYInZ">%1$s vs jan %2$s lon %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs jan %2$s lon %3$s</string>
+  <string name="drawVsYInZ">%1$s vs jan %2$s lon %3$s</string>
   <string name="starting">o open:</string>
   <string name="allInformationIsPublicAndOptional">sona ale li open. sina wile pana sona ala.</string>
   <string name="yourCityRegionOrDepartment">ma sina</string>
@@ -377,6 +384,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="returnToTournamentsHomepage">o tawa lon lipu monsi pi musi ale</string>
   <string name="yourPerfTypeRatingIsRating">nanpa %1$s sina li nanpa %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">sina jo ala e nanpa %s</string>
+  <string name="glicko2Rating">nanpa Glicko-2</string>
   <string name="withNobody">tawa jan ala</string>
   <string name="withFriends">tawa jan pona</string>
   <string name="withEverybody">tawa jan ale</string>
@@ -386,6 +394,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="language">toki</string>
   <string name="light">walo</string>
   <string name="dark">pimeja</string>
+  <string name="youCannotChallengeX">sina ken ala musi e jan %s.</string>
   <string name="playX">o pali e %s</string>
   <string name="sorry">pakala a :(</string>
   <string name="weHadToTimeYouOutForAWhile">sina wile awen lon tenpo lili.</string>
