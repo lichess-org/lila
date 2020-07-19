@@ -727,4 +727,16 @@
   <string name="backgroundImageUrl">پس منظر کی تصویر URL:</string>
   <string name="boardGeometry">بساط کی جیومیٹری</string>
   <string name="boardTheme">بساط کا ڈیزائن</string>
+  <string name="boardSize">بساط کی جسامت</string>
+  <string name="pieceSet">مہروں کا ڈیزائن</string>
+  <string name="embedInYourWebsite">اپنی ویب سائٹ پرایمبیڈ کریں</string>
+  <string name="usernameAlreadyUsed">یہ نام پہلے سے استعمال شدہ ہے، کوئی اور استعمال کریں.</string>
+  <string name="usernamePrefixInvalid">نام ہمیشہ کسی حرف سے شروع ہونا چاہیے.</string>
+  <string name="usernameSuffixInvalid">نام کا اختتام کسے حرف یا نمبر سے ہونا چاہیے.</string>
+  <string name="usernameCharsInvalid">نام میں صرف حروف، نمبر، انڈر سکور اورہائفنز کا استعمال ہو سکتا ہے.</string>
+  <string name="usernameUnacceptable">یہ نام قابل استعمال نہیں.</string>
+  <string name="directlySupportLichess">لی چیس کی براہ راست مدد کریں</string>
+  <string name="playChessInStyle">شطرنج کھیلیں منفرد انداز میں</string>
+  <string name="chessBasics">شطرنج کی بنیادی باتیں</string>
+  <string name="coaches">کوچز</string>
 </resources>
