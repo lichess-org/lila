@@ -112,7 +112,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           ++ Query.clockHistory(true)
       )
       .sort($sort asc F.createdAt)
-      .list[Game](nb, ReadPreference.secondaryPreferred)
+      .cursor[Game](ReadPreference.secondaryPreferred)
+      .list(nb)
 
   def extraGamesForIrwin(userId: String, nb: Int): Fu[List[Game]] =
     coll.ext
@@ -125,7 +126,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           ++ Query.clock(true)
       )
       .sort($sort asc F.createdAt)
-      .list[Game](nb, ReadPreference.secondaryPreferred)
+      .cursor[Game](ReadPreference.secondaryPreferred)
+      .list(nb)
 
   def cursor(
       selector: Bdoc,
@@ -205,16 +207,16 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .dmap { _.flatMap(_.getAsOpt[Game.ID](F.id)) }
 
   def allPlaying(userId: User.ID): Fu[List[Pov]] =
-    coll.ext
-      .find(Query nowPlaying userId)
-      .list[Game]()
+    coll
+      .list[Game](Query nowPlaying userId)
       .dmap { _ flatMap { Pov.ofUserId(_, userId) } }
 
   def lastPlayed(user: User): Fu[Option[Pov]] =
     coll.ext
       .find(Query user user.id)
       .sort($sort desc F.createdAt)
-      .list[Game](2)
+      .cursor[Game]()
+      .list(2)
       .dmap {
         _.sortBy(_.movedAt).lastOption flatMap { Pov(_, user) }
       }
@@ -253,12 +255,14 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def incBookmarks(id: ID, value: Int) =
     coll.update.one($id(id), $inc(F.bookmarks -> value)).void
 
-  def setHoldAlert(pov: Pov, alert: Player.HoldAlert) =
-    coll.updateField(
-      $id(pov.gameId),
-      holdAlertField(pov.color),
-      alert
-    )
+  def setHoldAlert(pov: Pov, alert: Player.HoldAlert): Funit =
+    coll
+      .updateField(
+        $id(pov.gameId),
+        holdAlertField(pov.color),
+        alert
+      )
+      .void
 
   def setBorderAlert(pov: Pov) = setHoldAlert(pov, Player.HoldAlert(0, 0, 20))
 
@@ -475,14 +479,13 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def lastGamesBetween(u1: User, u2: User, since: DateTime, nb: Int): Fu[List[Game]] =
     List(u1, u2).forall(_.count.game > 0) ??
-      coll.ext
-        .find(
-          $doc(
-            F.playerUids $all List(u1.id, u2.id),
-            F.createdAt $gt since
-          )
-        )
-        .list[Game](nb, ReadPreference.secondaryPreferred)
+      coll.secondaryPreferred.list[Game](
+        $doc(
+          F.playerUids $all List(u1.id, u2.id),
+          F.createdAt $gt since
+        ),
+        nb
+      )
 
   def getSourceAndUserIds(id: ID): Fu[(Option[Source], List[User.ID])] =
     coll.one[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true)) dmap {
