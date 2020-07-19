@@ -51,4 +51,18 @@
   <string name="generateANewUsername">Создади ново корисничко име</string>
   <string name="welcomeToClass">Добредојтовте на вашиот час: %s.
 Еве ви врска за пристап на часот.</string>
+  <string name="invitationToClass">Поканети сте да се придружите на часот „%s“ како ученик.</string>
+  <string name="clickToViewInvitation">Кликнете на врската за да ја видите поканата:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Една покана во исчекување</item>
+    <item quantity="other">%s покани во исчекување</item>
+  </plurals>
+  <string name="noPendingInvitations">Нема покани во исчекување</string>
+  <string name="onlyVisibleToTeachers">Видливо само за инструкторите на часот</string>
+  <string name="lastActiveDate">Пријавен/а</string>
+  <string name="managed">Раководена</string>
+  <string name="thisStudentAccountIsManaged">Сметката на овој ученик е раководена</string>
+  <string name="upgradeFromManaged">Надгради од „раководена“ во „самостојна“</string>
+  <string name="release">Ослободи</string>
+  <string name="releaseTheAccount">Ослободете ја сметката за ученикот да може самостојно да ја раководи.</string>
 </resources>
