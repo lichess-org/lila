@@ -819,6 +819,13 @@
   <string name="timeoutExpires">پابندی %s کے بعد ختم ہو گی.</string>
   <string name="why">کیوں?</string>
   <string name="pleasantChessExperience">ہم سب کو خوشگوار شطرنج کا تجربہ دینا چاہتے ہیں.</string>
+  <string name="goodPractice">اس مقصد کے لیے، ہمیں یقینی بنانا چاہئے کہ تمام کھلاڑی اچھی پریکٹس کا مظاہرہ کریں.</string>
+  <string name="potentialProblem">جب کوئی ممکنہ مسئلہ کا پتہ لگتا ہے، یہ پیغام نمائش کیا جاتا ہے.</string>
+  <string name="howToAvoidThis">اس سے کس طرح بچا جا سکتا ہے?</string>
+  <string name="playEveryGame">جو بھی بازی شروع کریں، اسے مکمل کریں.</string>
+  <string name="tryToWin">ہر بازی کو جیتنے(یا کم از کم برابر کرنے) کی کوشش کریں.</string>
+  <string name="resignLostGames">ہاری ہوئی بازیوں سے استعفی دے دیں (وقت کو ختم نہ ہونے دیں).</string>
+  <string name="temporaryInconvenience">ہم عارضی تکلیف کے لیے معذرت خواہ ہیں</string>
   <string name="rapidDesc">ریپیڈ بازیاں: آٹھ سے لے کر پچیس منٹ</string>
   <string name="classicalDesc">کلاسکل بازیاں: پچیس منٹ اور اس سے زیادہ</string>
   <string name="correspondenceDesc">کورسپونڈنس بازیاں: فی چال ایک یا ایک سے زیادہ دن</string>
