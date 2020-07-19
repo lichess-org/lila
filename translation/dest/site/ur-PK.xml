@@ -739,4 +739,28 @@
   <string name="playChessInStyle">شطرنج کھیلیں منفرد انداز میں</string>
   <string name="chessBasics">شطرنج کی بنیادی باتیں</string>
   <string name="coaches">کوچز</string>
+  <string name="invalidPgn">نا قابل استعمال PGN</string>
+  <string name="invalidFen">ناقابل استعمال FEN</string>
+  <string name="error.minLength">کم از کم لمبائی %s</string>
+  <string name="error.maxLength">زیادہ سے زیادہ لمبائی %s</string>
+  <string name="error.min">لازمی طور پر %s کے برابر یا بڑی ہو</string>
+  <string name="error.max">لازمی طور پر %s کے برابر یا چھوٹی ہو</string>
+  <string name="error.unknown">نقص</string>
+  <string name="custom">من پسند</string>
+  <string name="notifications">اطلاعات</string>
+  <string name="challenges">مقابلے</string>
+  <string name="perfRatingX">درجہ: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">پہلی چال چلنے کے لیے %s سیکنڈ</item>
+    <item quantity="other">پہلی چال چلنے کے لیے %s سیکنڈز</item>
+  </plurals>
+  <string name="practiceWithComputer">کمپیوٹر کے ساتھ مشق کریں</string>
+  <string name="anotherWasX">اس کے اعلاوہ %s</string>
+  <string name="bestWasX">%s بہترین تھا</string>
+  <string name="youBrowsedAway">آپ ادھر ادھر چلے گئے</string>
+  <string name="resumePractice">مشق دوبارہ شروع کریں</string>
+  <string name="theGameIsADraw">یہ بازی برابری پر ختم ہوئی.</string>
+  <string name="computerThinking">کمپیوٹر سوچ رہا ہے...</string>
+  <string name="seeBestMove">بہترین چال دیکھیں</string>
+  <string name="hideBestMove">بہترین چال چھپائیں</string>
 </resources>
