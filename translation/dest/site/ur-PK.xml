@@ -439,6 +439,7 @@
   <string name="biography">سوانح حیات</string>
   <string name="country">ملک</string>
   <string name="socialMediaLinks">سوشل میڈیا کے لنکس</string>
+  <string name="inlineNotation">ان لائن نوٹیشن</string>
   <string name="watchLichessTV">Lichess نشریات</string>
   <string name="previouslyOnLichessTV">Lichess گذشتہ نشریات</string>
   <string name="onlinePlayers">آن لائن کھلاڑی</string>
@@ -458,10 +459,12 @@
   <string name="keepGoing">سوچ بچار جاری رکھیں ۔ ۔ ۔</string>
   <string name="puzzleFailed">معمہ حل کرنے میں ناکام!</string>
   <string name="butYouCanKeepTrying">کوشش جاری رکھیں</string>
+  <string name="success">کامیابی</string>
   <string name="wasThisPuzzleAnyGood">آپ کو یہ معمہ کیسا لگا؟</string>
   <string name="pleaseVotePuzzle">بہتری کے لیے  رائے دہی کا استمعال کیجئے، سِرے کو اوپر یا نیچے کیجئے</string>
   <string name="thankYou">آپ کا شکریہ!</string>
   <string name="ratingX">میعار: %s</string>
+  <string name="hidden">پوشیدہ</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s بار کھیلا جا چکا ہے</item>
     <item quantity="other">%s بار کھیلا جا چکا ہے</item>
@@ -504,6 +507,7 @@
   <string name="troll">سیاپہ فروشی</string>
   <string name="other">دیگر</string>
   <string name="reportDescriptionHelp">متاثرہ مقابلوں کے رابطے یہاں داخل کریں اور شکایت کی وجوہات بیان کریں</string>
+  <string name="error.provideOneCheatedGameLink">کم از کم ایک بازی کا لنک دیں گس میں چیٹنگ کی گئی ہو.</string>
   <string name="by">منجانب: %s</string>
   <string name="thisTopicIsNowClosed">یہ موضوع مزید تبصروں کے لیے بند ہے</string>
   <string name="theming">رنگ روشن</string>
@@ -512,10 +516,13 @@
   <string name="notes">نوٹ</string>
   <string name="typePrivateNotesHere">ذاتی نوٹ یہاں تحریر کریں</string>
   <string name="invalidUsernameOrPassword">نام یا خفیہ کلمہ غلط ہے</string>
+  <string name="incorrectPassword">غط پاس ورڈ</string>
+  <string name="invalidAuthenticationCode">غلط تصدیقی کوڈ</string>
   <string name="emailMeALink">مجھے دابطہ ای میل کریں</string>
   <string name="currentPassword">موجودہ خفیہ کلمہ</string>
   <string name="newPassword">نیا خفیہ کلمہ</string>
   <string name="newPasswordAgain">نیا خفیہ کلمہ - دوبارہ</string>
+  <string name="clockInitialTime">ابتدائی وقت</string>
   <string name="privacy">آپ سے متعلقہ</string>
   <string name="letOtherPlayersFollowYou">کوئی بھی میری پیروی کر سکتا ہے</string>
   <string name="letOtherPlayersChallengeYou">کوئی بھی مجھ سے مقابلہ کر سکتا ہے</string>
