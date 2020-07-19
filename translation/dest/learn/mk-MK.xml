@@ -139,15 +139,20 @@
 Одбрани се од шах, па направи рокада!</string>
   <string name="findAWayToCastleKingSide">Најди начин да направиш мала рокада!</string>
   <string name="findAWayToCastleQueenSide">Најди начин да направиш голема рокада!</string>
-  <string name="castlingComplete">Честитки! Скоро во секоја партија треба да направите рокада.</string>
-  <string name="enPassant">Ан пасант</string>
-  <string name="theSpecialPawnMove">Посебен потег на пешакот</string>
-  <string name="enPassantIntro">Кога противничкиот пешак се движи за две полиња, можите да го земите исто како да се движел за едно поле.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Црниот го движи неговиот пешак за две полиња! Земете го ан пасант.</string>
-  <string name="enPassantOnlyWorksImmediately">Ан пасант можи да употребите веднаш откако вашиот противник го поместил пешакот.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Ан пасант се користи само ако вашиот пешак е на 5-тиот ред.</string>
-  <string name="takeAllThePawnsEnPassant">Земи ги сите пешаци со ан пасант!</string>
-  <string name="enPassantComplete">Честитки! Сега можите да земате ан пасант.</string>
+  <string name="castlingComplete">Честитки! Добро е да правиш рокада во скоро секоја партија.</string>
+  <string name="enPassant">Ан Пасан</string>
+  <string name="theSpecialPawnMove">Посебниот потег на пешакот</string>
+  <string name="enPassantIntro">Кога противничкиот пешак се движи две полиња напред,
+можеш да го земеш исто како да се придвижил за едно поле.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Црниот пешак се придвижи
+за две полиња!
+Земи го со Ан Пасан.</string>
+  <string name="enPassantOnlyWorksImmediately">Ан Пасан може да се користи само
+веднаш по противничкиот потег со пешакот.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Ан Пасан може да се користи 
+само ако пешакот ти е на 5-тиот ред.</string>
+  <string name="takeAllThePawnsEnPassant">Земи ги сите пешаци со Ан Пасан!</string>
+  <string name="enPassantComplete">Честитки! Сега знаеш да го користиш Ан Пасан потегот.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Партијата е реми</string>
   <string name="stalemateIntro">Кога играчот не е под шах и нема легален потег, тогаш е пат. Партијата е реми: никој не победува, никој не губи.</string>
