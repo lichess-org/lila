@@ -60,6 +60,7 @@
   <string name="move">pali</string>
   <string name="variantLoss">pini ike pi musi ante</string>
   <string name="variantWin">pini pona pi musi ante</string>
+  <string name="insufficientMaterial">jo ala ijo wile</string>
   <string name="close">o pini</string>
   <string name="unknown">sona ala</string>
   <string name="whiteDrawBlack">walo / ala / pimeja</string>
@@ -89,6 +90,8 @@
   <string name="xPostedInForumY">%1$s li sitelen lon ma toki %2$s</string>
   <string name="latestForumPosts">toki sin lon ma toki</string>
   <string name="players">jan musi</string>
+  <string name="today">tenpo suno ni</string>
+  <string name="yesterday">tenpo suno pini</string>
   <string name="minutesPerSide">tenpo tawa kule</string>
   <string name="variant">musi</string>
   <string name="variants">musi ante</string>
@@ -153,6 +156,10 @@
   <string name="incrementInSeconds">tenpo pi kama jo</string>
   <string name="freeOnlineChess">musi pi mani ala</string>
   <string name="spectators">jan lukin</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s li pini pona</item>
+    <item quantity="other">pini pona %s</item>
+  </plurals>
   <string name="exportGames">o kama jo e musi</string>
   <string name="ratingRange">nanpa Glicko</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">jan ni li sewi e nanpa ona kepeken ilo</string>
@@ -264,6 +271,10 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="retryThisPuzzle">o musi e ni la tenpo sin</string>
   <string name="thisPuzzleIsCorrect">musi ni li pona</string>
   <string name="thisPuzzleIsWrong">musi ni li ike</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">musi wan li lon</item>
+    <item quantity="other">musi %s li lona</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">pali wan li pini la ilo sona o tawa musi poka</string>
   <string name="autoSwitch">ilo o tawa</string>
   <string name="puzzles">musi sijelo</string>
@@ -351,6 +362,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="withFriends">tawa jan pona</string>
   <string name="withEverybody">tawa jan ale</string>
   <string name="gameAnalysis">sona musi</string>
+  <string name="quickPairing">kama jo musi kepeken tenpo lili</string>
   <string name="lobby">tomo awen</string>
   <string name="language">toki</string>
   <string name="light">walo</string>
