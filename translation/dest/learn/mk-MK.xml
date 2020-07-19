@@ -155,14 +155,14 @@
   <string name="enPassantComplete">Честитки! Сега знаеш да го користиш Ан Пасан потегот.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Партијата е реми</string>
-  <string name="stalemateIntro">Кога играчот не е под шах и нема легален потег, тогаш е пат. Партијата е реми: никој не победува, никој не губи.</string>
-  <string name="stalemateGoal">Да направите пат со црниот:
-- Црниот не може да се движи
-- Не е под шах.</string>
-  <string name="stalemateComplete">Честитки! Подобро да сте во пат, отколку да сте матирани!</string>
-  <string name="advanced">Напредно</string>
-  <string name="pieceValue">Вредност на фигурата</string>
-  <string name="evaluatePieceStrength">Процени ја силата на фигурата</string>
+  <string name="stalemateIntro">Кога играчот не е под шах, а нема легални потези, тогаш е „Пат“. Партијата е реми - никој не победува, никој не губи.</string>
+  <string name="stalemateGoal">Пат врз црните:
+- Црните не можат да се движат
+- Нема шах.</string>
+  <string name="stalemateComplete">Честитки! Подобро во пат, отколку во мат!</string>
+  <string name="advanced">Напредно ниво</string>
+  <string name="pieceValue">Вредноста на фигурите</string>
+  <string name="evaluatePieceStrength">Процени ја моќта на фигурата</string>
   <string name="pieceValueIntro">Фигурите со поголема подвижност имаат поголема вредност!
 Кралица = 9
 Топ = 5
@@ -170,17 +170,18 @@
 Коњ = 3
 Пешак = 1
 Кралот е бесценет! Неговото губење значи изгубена партија.</string>
-  <string name="queenOverBishop">Земи ја фигурата со најголема вредност! Кралица &gt; Ловец</string>
+  <string name="queenOverBishop">Земи ја фигурата со најголема вредност!
+Кралица &gt; Ловец</string>
   <string name="takeThePieceWithTheHighestValue">Земи ја фигурата со најголема вредност!</string>
-  <string name="pieceValueComplete">Честитки! Ја знаете вредноста на фигурите!
+  <string name="pieceValueComplete">Честитки! Ја познаваш вредноста на фигурите!
 Кралица = 9
 Топ = 5
 Ловец = 3
 Коњ = 3
 Пешак = 1</string>
   <string name="checkInTwo">Шах во два потези</string>
-  <string name="twoMovesToGiveCheck">Два потези до шах</string>
-  <string name="checkInTwoIntro">Најди ја вистинската комбинација од два потези која го става под шах противничкиот крал!</string>
+  <string name="twoMovesToGiveCheck">Шахирај во два потези</string>
+  <string name="checkInTwoIntro">Најди ја вистинската комбинација од два потези, која го шахира противничкиот крал!</string>
   <string name="checkInTwoGoal">Закани му се на противничкиот крал во два потези!</string>
   <string name="checkInTwoComplete">Честитки! Го ставивте под шах вашиот противник, терајќи го да го брани својот крал!</string>
   <string name="whatNext">Што е следно?</string>
