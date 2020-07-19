@@ -22,4 +22,6 @@
   <string name="winnerColor">Победничка боја</string>
   <string name="date">Датум</string>
   <string name="sortBy">Подреди по</string>
+  <string name="analysis">Анализа</string>
+  <string name="onlyAnalysed">Само партии со достапна компјутерска анализа</string>
 </resources>
