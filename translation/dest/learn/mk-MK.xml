@@ -119,18 +119,26 @@
   <string name="pawnsFormTheFrontLine">Пешаците ја формираат предната линија. Направете потег за да продолжите.</string>
   <string name="boardSetupComplete">Честитки! Сега знаете како да ја поставите шаховската табла.</string>
   <string name="castling">Рокада</string>
-  <string name="theSpecialKingMove">Специјален потек на кралот</string>
-  <string name="castlingIntro">Ставете го кралот на безбедно место и распоредете го вашиот топ за напад!</string>
-  <string name="castleKingSide">Поместете го вашиот крал две полиња да направите мала рокада на кралевата страна!</string>
-  <string name="castleQueenSide">Поместете го кралот две полиња да направите голема рокада на дамината страна!</string>
-  <string name="theKnightIsInTheWay">Коњот е на патот! Поместете го, па направете мала рокада.</string>
-  <string name="castleKingSideMovePiecesFirst">Направете мала рокада! Мора прво да ги преместите фигурите.</string>
-  <string name="castleQueenSideMovePiecesFirst">Направете голема рокада!
-Мора прво да ги преместите фигурите.</string>
-  <string name="youCannotCastleIfMoved">Не можете да направите рокада ако сте до поместиле кралот или топот.</string>
-  <string name="youCannotCastleIfAttacked">Не можите да направите рокада ако некое од полињата по кое кралот се движи е нападнатп. Блокирајте го нападот па направете рокада!</string>
-  <string name="findAWayToCastleKingSide">Најдете начин да направите мала рокада!</string>
-  <string name="findAWayToCastleQueenSide">Најдете начин да направите голема рокада!</string>
+  <string name="theSpecialKingMove">Специјалниот потег на кралот</string>
+  <string name="castlingIntro">Заштити си го кралот и намести го топот за напад!</string>
+  <string name="castleKingSide">Помести го кралот две полиња за да 
+направиш мала рокада на страната на кралот!</string>
+  <string name="castleQueenSide">Помести го кралот две полиња за да направиш 
+голема рокада на страната на кралицата!</string>
+  <string name="theKnightIsInTheWay">Коњот ти го попречува патот!
+Помести го, па направи мала рокада.</string>
+  <string name="castleKingSideMovePiecesFirst">Направи мала рокада!
+Но, прво мора да поместиш неколку фигури.</string>
+  <string name="castleQueenSideMovePiecesFirst">Направи голема рокада!
+Но, прво мора да поместиш неколку фигури.</string>
+  <string name="youCannotCastleIfMoved">Не можеш да направиш рокада
+ако веќе си ги поместил
+кралот или топот.</string>
+  <string name="youCannotCastleIfAttacked">Не можеш да направиш рокада
+ако кралот ти е во опасност.
+Одбрани се од шах, па направи рокада!</string>
+  <string name="findAWayToCastleKingSide">Најди начин да направиш мала рокада!</string>
+  <string name="findAWayToCastleQueenSide">Најди начин да направиш голема рокада!</string>
   <string name="castlingComplete">Честитки! Скоро во секоја партија треба да направите рокада.</string>
   <string name="enPassant">Ан пасант</string>
   <string name="theSpecialPawnMove">Посебен потег на пешакот</string>
