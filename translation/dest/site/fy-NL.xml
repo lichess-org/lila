@@ -199,6 +199,10 @@
   <string name="gameAborted">Spul ferlette</string>
   <string name="standard">Standert</string>
   <string name="unlimited">Unbeheind</string>
+  <string name="mode">Modus</string>
+  <string name="casual">Samar</string>
+  <string name="rated">Om rating</string>
+  <string name="casualTournament">Samar</string>
   <string name="play">Spylje</string>
   <string name="composeMessage">Berjocht opstelle</string>
   <string name="noNewMessages">Gjin nije berjochten</string>
