@@ -415,8 +415,13 @@
   <string name="movesPlayed">چالوں کی تعداد</string>
   <string name="whiteWins">سفید کی فتح</string>
   <string name="blackWins">سیاہ کی فتح</string>
+  <string name="draws">برابر</string>
+  <string name="nextXTournament">اگلا %s ٹورنامنٹ:</string>
+  <string name="averageOpponent">اوسط کھلاڑی</string>
   <string name="membersOnly">صرف اراکین کے لیے</string>
   <string name="boardEditor">بساط بنائیں</string>
+  <string name="setTheBoard">بساط لگائیں</string>
+  <string name="popularOpenings">مشہور ابتدائی چالیں</string>
   <string name="startPosition">ابتدائی بساط</string>
   <string name="clearBoard">خالی بساط</string>
   <string name="savePosition">موجودہ بساط محفوظ کریں</string>
