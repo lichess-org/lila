@@ -15,13 +15,15 @@ final private class RelayRepo(val coll: Coll)(implicit ec: scala.concurrent.Exec
     coll.ext
       .find($doc(selectors scheduled true))
       .sort($sort asc "startsAt")
-      .list[Relay]()
+      .cursor[Relay]()
+      .list()
 
   def ongoing =
     coll.ext
       .find($doc(selectors ongoing true))
       .sort($sort asc "startedAt")
-      .list[Relay]()
+      .cursor[Relay]()
+      .list()
 
   private[relay] def officialCursor(batchSize: Int): AkkaStreamCursor[Relay] =
     coll.ext
