@@ -37,5 +37,9 @@
   <string name="inCorrespondenceGames">قلمی کھیل</string>
   <string name="correspondenceAndUnlimited">کورسپونڈنس اور لا محدود</string>
   <string name="confirmResignationAndDrawOffers">استعفیٰ اور برابری کی پیش کشیں منظور کریں</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">کاسلنگ کا طریقہ</string>
+  <string name="castleByMovingTwoSquares">بادشاہ کو دو خانے چالایں</string>
+  <string name="castleByMovingOntoTheRook">بادشاہ کو رخ پر منتقل کریں</string>
+  <string name="inputMovesWithTheKeyboard">کی بورڈ کے ذریعے چالیں داخل کریں</string>
   <string name="yourPreferencesHaveBeenSaved">آپ کے اندراج محفوظ کر دیے گئے ہیں</string>
 </resources>
