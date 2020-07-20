@@ -12,4 +12,9 @@
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess се одржува со донации од покровители и трудот на тим од волонтери.</string>
   <string name="findMoreAndSeeHowHelp">Еве повеќе за %1$s (како и %2$s). Ако сакате да помогнете на Lichess преку волонтирање на вашето време и вештини, има многу %3$s.</string>
   <string name="beingAPatron">станување покровител</string>
+  <string name="breakdownOfOurCosts">распределба на трошоците</string>
+  <string name="otherWaysToHelp">други начини за помош</string>
+  <string name="areThereWebsitesBasedOnLichess">Има ли интернет страни базирани на Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Да, Lichess навистина има инспирирано други страни со отворен код, кои ги користат нашиот %1$s, %2$s, или %3$s.</string>
+  <string name="fairPlay">Чесна Игра</string>
 </resources>
