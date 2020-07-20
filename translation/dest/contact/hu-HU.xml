@@ -40,4 +40,9 @@
   <string name="howToReportBug">Légyszíves írd meg milyen formában jelentkezik a hiba, mi lenne az elvárt helyes működés és mivel idézhető elő a hiba.</string>
   <string name="illegalPawnCapture">Szabálytalan gyalogütés</string>
   <string name="calledEnPassant">Úgy hívják \"en passant\" és a hivatalos sakk egyik szabálya.</string>
+  <string name="tryEnPassant">Próbáld ki az interaktív oktatót, hogy többet megtudj az \"en passant\"-ról.</string>
+  <string name="illegalCastling">Szabálytalan vagy lehetetlen sáncolás</string>
+  <string name="castlingPrevented">A sáncolás átmenetileg tiltott, ha a király ellenőrzött mezőn halad át.</string>
+  <string name="castlingRules">Légy tisztában a sáncolás minden szabályával</string>
+  <string name="tryCastling">Próbáld ki ezt az interaktív oktatót a sáncolás gyakorlásához</string>
 </resources>
