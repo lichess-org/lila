@@ -32,4 +32,12 @@
   <string name="otherReason">más ok miatt</string>
   <string name="toReportAPlayer">Játékos jelentéséhez %s miatt használd a bejelentő lapot</string>
   <string name="youCanAlsoReachReportPage">Amit ugyancsak elérhetsz, ha a %s jelentése gombra kattintasz a profil oldalon.</string>
+  <string name="doNotReportInForum">Ne jelents játékosokat a fórumban.</string>
+  <string name="doNotSendReportEmails">Ne küldj nekünk emailt emiatt.</string>
+  <string name="doNotMessageModerators">És ne írj privát üzenetet a moderátoroknak.</string>
+  <string name="onlyReports">Játékosok jelentésére csak a külön erre a célra létrehozott oldal használható.</string>
+  <string name="wantReportBug">Jelentenék egy hibát</string>
+  <string name="howToReportBug">Légyszíves írd meg milyen formában jelentkezik a hiba, mi lenne az elvárt helyes működés és mivel idézhető elő a hiba.</string>
+  <string name="illegalPawnCapture">Szabálytalan gyalogütés</string>
+  <string name="calledEnPassant">Úgy hívják \"en passant\" és a hivatalos sakk egyik szabálya.</string>
 </resources>
