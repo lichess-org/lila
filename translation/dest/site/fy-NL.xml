@@ -233,6 +233,8 @@
     <item quantity="one">%s Spyljende</item>
     <item quantity="other">%s spyljende</item>
   </plurals>
+  <string name="exportGames">Eksportear partijen</string>
+  <string name="ratingRange">Ratingberik</string>
   <string name="tournament">Toernoai</string>
   <string name="tournaments">Toernoaien</string>
   <string name="tournamentPoints">Toarnoai punten</string>
