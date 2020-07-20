@@ -235,6 +235,10 @@
   </plurals>
   <string name="exportGames">Eksportear partijen</string>
   <string name="ratingRange">Ratingberik</string>
+  <string name="thisAccountViolatedTos">Dit akkount hat de regels fan de Lichess Tsjinstbetingsten oertrêden</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Dizze spiler fergruttet / fermindert har rating keunstmjittich</string>
+  <string name="openingExplorerAndTablebase">Openingsblêder &amp; tablebase</string>
+  <string name="takeback">Set werom</string>
   <string name="tournament">Toernoai</string>
   <string name="tournaments">Toernoaien</string>
   <string name="tournamentPoints">Toarnoai punten</string>
