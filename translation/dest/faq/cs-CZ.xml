@@ -11,12 +11,14 @@
   <string name="howCanIContributeToLichess">Jak mohu pomoci Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess funguje díky darům od patronů a díky úsilí týmu dobrovolníků.</string>
   <string name="findMoreAndSeeHowHelp">Více informací o %1$s (včetně %2$s). Pokud chcete pomoci Lichess dobrovolnictvím vašeho času a dovedností, existuje mnoho %3$s.</string>
+  <string name="beingAPatron">patronství</string>
   <string name="breakdownOfOurCosts">rozložení našich nákladů</string>
   <string name="otherWaysToHelp">další způsoby jak pomoci</string>
   <string name="areThereWebsitesBasedOnLichess">Existují nějaké webové stránky založené na Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ano. Lichess vskutku inspiroval další otevřené stránky které využívají náš %1$s, naše %2$s či naši %3$s.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ano. Lichess vskutku inspiroval další otevřené stránky využívající náš %1$s, naše %2$s či naši %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="howCanIBecomeModerator">Jak se mohu stát moderátorem?</string>
+  <string name="youCannotApply">Není možné žádat o funkci moderátora. Pokud uvidíme někoho, o němž si myslíme, že by byl dobrým moderátorem, přímo jej kontaktujeme.</string>
   <string name="isCorrespondenceDifferent">Je korespondenční hra jiná než normální šachy?</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichess je hlavní rozdílem v pravidlech pro korespondenční šachy to, že je povoleno otevřít knihu. Použití počítačových programů pro rady je stále zakázáno a bude mít za následek označení hry za hru s pomocí. Přestože ICCF povoluje použití počítačových programů v korespondenčním šachu, Lichess ne.</string>
   <string name="gameplay">Hraní hry</string>
@@ -26,4 +28,6 @@
   <string name="positions">pozice</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Třikrát jsme zopakovali stejnou pozici. Proč hra neskončila remízou?</string>
   <string name="noUpperCaseDot">Ne.</string>
+  <string name="whichRatingSystemUsedByLichess">Jaký systém hodnocení Lichess využívá?</string>
+  <string name="howToThreeDots">Jak...</string>
 </resources>
