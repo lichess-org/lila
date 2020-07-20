@@ -12,13 +12,17 @@
   <string name="chessPieceSymbol">شطرنج کے مہرے کہ علامات</string>
   <string name="pgnLetter">حرف (K, Q, R, B, N)</string>
   <string name="zenMode">زن موڈ</string>
+  <string name="displayBoardResizeHandle">بساط کی وضع قطع تبدیل کرنے والا ہینڈل</string>
+  <string name="onlyOnInitialPosition">صرف ابتدائی پوزیشن میں</string>
   <string name="blindfoldChess">نابینا شطرنج (مہرے نظر نہیں آئیں کے)۔</string>
   <string name="chessClock">گھڑی سے متعلق</string>
   <string name="tenthsOfSeconds">سیکنڈ کا دسواں حصہ</string>
   <string name="whenTimeRemainingLessThanTenSeconds">جب بقیہ وقت ۱۰ سیکنڈ سے کم ہو</string>
   <string name="horizontalGreenProgressBars">افقی سبز پیشرفت نما</string>
   <string name="soundWhenTimeGetsCritical">قلت وقت پر آواز کا بجنا</string>
+  <string name="giveMoreTime">مزید وقت دیں</string>
   <string name="gameBehavior">کھیل سے متعلقہ</string>
+  <string name="howDoYouMovePieces">مہرے کس طرح چلائے جاتے ہیں?</string>
   <string name="premovesPlayingDuringOpponentTurn">خودکار چالیں - باری سے پہلے چلی گئی چالیں</string>
   <string name="takebacksWithOpponentApproval">چالوں کی واپسی )حریف کی مرضی پر منحصر)</string>
   <string name="inCasualGamesOnly">صرف دوستانہ مقابلوں میں</string>
