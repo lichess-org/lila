@@ -14,6 +14,7 @@
   <string name="breakdownOfOurCosts">rozložení našich nákladů</string>
   <string name="otherWaysToHelp">další způsoby jak pomoci</string>
   <string name="areThereWebsitesBasedOnLichess">Existují nějaké webové stránky založené na Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ano. Lichess vskutku inspiroval další otevřené stránky které využívají náš %1$s, naše %2$s či naši %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="howCanIBecomeModerator">Jak se mohu stát moderátorem?</string>
   <string name="isCorrespondenceDifferent">Je korespondenční hra jiná než normální šachy?</string>
