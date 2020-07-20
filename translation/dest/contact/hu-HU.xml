@@ -61,4 +61,9 @@
   <string name="collaboration">Együttműködés, jogi, kereskedelmi</string>
   <string name="buyingLichess">Lichess megvásárlása</string>
   <string name="authorizationToUse">Engedély a Lichess használatához</string>
+  <string name="welcomeToUse">Nyugodtan használd a Lichess-t (akár kereskedelmi) tevékenységedhez.</string>
+  <string name="videosAndBooks">Mutathatod a videóidban és használhatsz Lichess képernyőképeket a könyveidhez.</string>
+  <string name="creditAppreciated">A megemlítésért hálásak vagyunk, de nem elvárás.</string>
+  <string name="noneOfTheAbove">A fentiek közül egyik sem</string>
+  <string name="sendEmailAt">Küldj nekünk emailt a %s címre.</string>
 </resources>
