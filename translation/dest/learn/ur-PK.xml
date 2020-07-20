@@ -6,4 +6,7 @@
   <string name="progressX">ترقی: %s</string>
   <string name="resetMyProgress">Shuru se taraki karien</string>
   <string name="youWillLoseAllYourProgress">App ki sari pesharab mithai jaye gi!</string>
+  <string name="play">کھیلیں!</string>
+  <string name="chessPieces">شطرنج کے مہرے</string>
+  <string name="theRook">رخ</string>
 </resources>
