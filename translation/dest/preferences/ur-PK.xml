@@ -23,13 +23,19 @@
   <string name="giveMoreTime">مزید وقت دیں</string>
   <string name="gameBehavior">کھیل سے متعلقہ</string>
   <string name="howDoYouMovePieces">مہرے کس طرح چلائے جاتے ہیں?</string>
+  <string name="clickTwoSquares">دو خانوں پر کلک کریں</string>
+  <string name="dragPiece">مہرے کو اٹھائیں</string>
+  <string name="bothClicksAndDrag">یا تو</string>
   <string name="premovesPlayingDuringOpponentTurn">خودکار چالیں - باری سے پہلے چلی گئی چالیں</string>
   <string name="takebacksWithOpponentApproval">چالوں کی واپسی )حریف کی مرضی پر منحصر)</string>
   <string name="inCasualGamesOnly">صرف دوستانہ مقابلوں میں</string>
   <string name="promoteToQueenAutomatically">پیادہ خودبخود وزیر بن جائے</string>
   <string name="whenPremoving">خودکار چالوں میں</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">تیں دفعہ دہرائی پر برابری کا دعویٰ کریں</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">جب بقیہ وقت ۳۰ سیکنڈ سے کم ہو</string>
   <string name="moveConfirmation">چال تصدیق پر چلی جائے گی</string>
   <string name="inCorrespondenceGames">قلمی کھیل</string>
+  <string name="correspondenceAndUnlimited">کورسپونڈنس اور لا محدود</string>
+  <string name="confirmResignationAndDrawOffers">استعفیٰ اور برابری کی پیش کشیں منظور کریں</string>
   <string name="yourPreferencesHaveBeenSaved">آپ کے اندراج محفوظ کر دیے گئے ہیں</string>
 </resources>
