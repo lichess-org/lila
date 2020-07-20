@@ -218,6 +218,7 @@
   <string name="play">Spylje</string>
   <string name="inbox">Postfek Yn</string>
   <string name="chatRoom">Petearkeamer</string>
+  <string name="loginToChat">Ynlogge foar petear</string>
   <string name="composeMessage">Berjocht opstelle</string>
   <string name="noNewMessages">Gjin nije berjochten</string>
   <string name="subject">Underwerp</string>
