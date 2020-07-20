@@ -239,11 +239,23 @@
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Dizze spiler fergruttet / fermindert har rating keunstmjittich</string>
   <string name="openingExplorerAndTablebase">Openingsblêder &amp; tablebase</string>
   <string name="takeback">Set werom</string>
+  <string name="proposeATakeback">Stel in weromset foar</string>
+  <string name="takebackPropositionSent">Weromset fertjoerd</string>
+  <string name="takebackPropositionDeclined">Weromset wegere</string>
+  <string name="takebackPropositionAccepted">Weromset akseptearre</string>
+  <string name="takebackPropositionCanceled">Weromset annulearre</string>
+  <string name="yourOpponentProposesATakeback">Dyn tsjinstander stelt in weromset foar</string>
+  <string name="bookmarkThisGame">Blêdwizerje dizze partij</string>
   <string name="tournament">Toernoai</string>
   <string name="tournaments">Toernoaien</string>
   <string name="tournamentPoints">Toarnoai punten</string>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studzje</item>
+    <item quantity="other">%s studzjes</item>
+  </plurals>
   <string name="viewTournament">Toernoai besjen</string>
   <string name="backToTournament">Weromgean nei it toernoai</string>
+  <string name="thematic">Tematysk</string>
   <string name="backToGame">Weromgean nei it spul</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
