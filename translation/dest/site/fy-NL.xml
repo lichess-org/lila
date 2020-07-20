@@ -219,13 +219,20 @@
   <string name="inbox">Postfek Yn</string>
   <string name="chatRoom">Petearkeamer</string>
   <string name="loginToChat">Ynlogge foar petear</string>
+  <string name="youHaveBeenTimedOut">Do bist in skoft út it petear setten.</string>
+  <string name="spectatorRoom">Taskôgersromte</string>
   <string name="composeMessage">Berjocht opstelle</string>
   <string name="noNewMessages">Gjin nije berjochten</string>
   <string name="subject">Underwerp</string>
   <string name="recipient">Untfanger</string>
   <string name="send">Stjoer</string>
+  <string name="incrementInSeconds">Bytelling yn sekonden</string>
   <string name="freeOnlineChess">Fergees Online Skaken</string>
   <string name="spectators">Taskôgers</string>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s Spyljende</item>
+    <item quantity="other">%s spyljende</item>
+  </plurals>
   <string name="tournament">Toernoai</string>
   <string name="tournaments">Toernoaien</string>
   <string name="tournamentPoints">Toarnoai punten</string>
