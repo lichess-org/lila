@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="emailConfirm_click">sina wile jo e nimi sina pi lipu Lichess la o luka e nimi ni:</string>
   <string name="welcome_subject">o kama pona tawa lichess.org, %s o</string>
   <string name="common_contact">sina toki mi mute la sina kepeken %s.</string>
 </resources>
