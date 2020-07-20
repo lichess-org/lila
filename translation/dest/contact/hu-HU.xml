@@ -66,4 +66,5 @@
   <string name="creditAppreciated">A megemlítésért hálásak vagyunk, de nem elvárás.</string>
   <string name="noneOfTheAbove">A fentiek közül egyik sem</string>
   <string name="sendEmailAt">Küldj nekünk emailt a %s címre.</string>
+  <string name="explainYourRequest">Légyszíves érthetően és átfogóan írd meg a kérésed. Említsd meg a felhasználói neved és bármit ami által jobban tudunk segíteni.</string>
 </resources>
