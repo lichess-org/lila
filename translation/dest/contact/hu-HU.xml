@@ -21,4 +21,15 @@
   <string name="wantChangeUsername">Szeretném megváltoztatni a felhasználói nevem</string>
   <string name="changeUsernameCase">Ezen az oldalon megváltoztathatod a felhasználói neved kis- és nagybetűit</string>
   <string name="cantChangeMore">Ennél nagyobb változtatást nem lehet kérni. Technikai okok miatt ez úgyis lehetetlen.</string>
+  <string name="orCloseAccount">Azonban lezárhatod a mostani fiókod és nyithatsz egy újat.</string>
+  <string name="wantClearHistory">Szeretném törölni az előzményeket vagy az értékszámom</string>
+  <string name="cantClearHistory">Nincs lehetőség a játékelőzményed, feladványaid és értékszámod törlésére.</string>
+  <string name="wantReport">Jelentenék egy felhasználót</string>
+  <string name="cheating">csalás</string>
+  <string name="sandbagging">félrevezetés</string>
+  <string name="trolling">trollkodás</string>
+  <string name="insults">sértegetés</string>
+  <string name="otherReason">más ok miatt</string>
+  <string name="toReportAPlayer">Játékos jelentéséhez %s miatt használd a bejelentő lapot</string>
+  <string name="youCanAlsoReachReportPage">Amit ugyancsak elérhetsz, ha a %s jelentése gombra kattintasz a profil oldalon.</string>
 </resources>
