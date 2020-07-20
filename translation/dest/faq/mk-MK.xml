@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">ЧПП</string>
+  <string name="frequentlyAskedQuestions">Често Поставени Прашања</string>
+  <string name="whyIsLichessCalledLichess">Зошто Lichess се вика Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess е комбинација од од анг. „live/light/libre“ - во живо/лесно/слободно и анг. „chess“ - шах. Се изговара „%1$s“.</string>
+  <string name="leechess">личес</string>
+  <string name="hearItPronouncedBySpecialist">Слушнете како го изговара експерт.</string>
+</resources>
