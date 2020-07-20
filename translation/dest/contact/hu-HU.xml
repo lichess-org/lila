@@ -45,4 +45,11 @@
   <string name="castlingPrevented">A sáncolás átmenetileg tiltott, ha a király ellenőrzött mezőn halad át.</string>
   <string name="castlingRules">Légy tisztában a sáncolás minden szabályával</string>
   <string name="tryCastling">Próbáld ki ezt az interaktív oktatót a sáncolás gyakorlásához</string>
+  <string name="castlingImported">Ha játszmát importáltál vagy nem alapállásból indult a játszma ellenőrizd a felek sáncolási lehetőségeit.</string>
+  <string name="noRatingPoints">Nem kaptam értékpontot jutalmul</string>
+  <string name="ratedGame">Ellenőrizd, hogy rangsorolt játszmát játszol. Nem rangsorolt játékok nincsenek hatással az értékszámra.</string>
+  <string name="errorPage">Hibaoldal</string>
+  <string name="reportErrorPage">Ha hibaoldallal találkoztál, itt jelentheted:</string>
+  <string name="banAppeal">Fellebbezés kitiltásért vagy IP cím korlátozásért</string>
+  <string name="engineAppeal">Sakkprogram vagy csaló jelző</string>
 </resources>
