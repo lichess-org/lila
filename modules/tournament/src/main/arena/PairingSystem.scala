@@ -115,7 +115,7 @@ private object PairingSystem {
    * bottom rank factor = 300
    */
   def rankFactorFor(players: RankedPlayers): (RankedPlayer, RankedPlayer) => Int = {
-    val maxRank = players.map(_.rank).max
+    val maxRank = players.maxBy(_.rank).rank
     (a, b) => {
       val rank = Math.min(a.rank, b.rank)
       300 + 1700 * (maxRank - rank) / maxRank
