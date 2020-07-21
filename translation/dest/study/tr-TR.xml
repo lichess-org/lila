@@ -62,7 +62,7 @@
   <string name="chapterPgn">Bölüm PGN\'si</string>
   <string name="downloadGame">Oyunu indir</string>
   <string name="studyUrl">Çalışma Adresi</string>
-  <string name="broadcastUrl">Yayın URL’si</string>
+  <string name="broadcastUrl">Yayın Linki</string>
   <string name="currentChapterUrl">Mevcut Bölümün Adresi</string>
   <string name="currentGameUrl">Şu anki oyunun adresi</string>
   <string name="startAtInitialPosition">İlk pozisyondan başlasın</string>
