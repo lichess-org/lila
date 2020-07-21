@@ -65,6 +65,7 @@
   <string name="chapterPgn">Nodaļas PGN</string>
   <string name="downloadGame">Lejupielādēt spēli</string>
   <string name="studyUrl">Izpētes URL</string>
+  <string name="broadcastUrl">Tiešraides URL</string>
   <string name="currentChapterUrl">Pašreizējās nodaļas URL</string>
   <string name="currentGameUrl">Pašreizējās spēles URL</string>
   <string name="youCanPasteThisInTheForumToEmbed">Šo varat ielīmēt forumā, lai iegultu</string>
