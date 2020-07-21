@@ -8,6 +8,7 @@
   <string name="passwordReset_clickOrIgnore">sina wile pali la o sina luka e nimi tawa lon noka. sina wile ala la sina sona ala e sitelen ni.</string>
   <string name="emailChange_subject">jan %s o, nimi sin pi pana toki li pona ala pona tawa sina</string>
   <string name="emailChange_intro">sina toki e ni: sina wile jo e nimi ante pi pana toki.</string>
+  <string name="emailChange_click">sina ken lukin e nimi ni pi pana toki la o sina luka e nimi lon noka:</string>
   <string name="welcome_subject">jan %s o, kama pona tawa lipu Lichess.org</string>
   <string name="logInToLichess">jan %s o, o tawa lipu Lichess.org</string>
   <string name="common_orPaste">(luka li tawa ala la sina sitelen e sitelen lon ilo lipu sina!)</string>
