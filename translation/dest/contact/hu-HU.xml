@@ -12,6 +12,8 @@
   <string name="lost2FA">Nem férek hozzá a kétlépcsős azonosítási kódjaimhoz</string>
   <string name="doPasswordReset">Változtass jelszót majd kapcsold ki a második lépcsőt</string>
   <string name="accountSupport">A fiókomhoz szeretnék támogatást kérni</string>
+  <string name="wantTitle">Szeretném a mesteri címem megjeleníteni a Lichess-en</string>
+  <string name="visitTitleConfirmation">Ahhoz, hogy megjelenjen a címed a Lichess profilodon és résztvehess a Mester Arénákon, látogass el a leellenőrző oldalra</string>
   <string name="wantCloseAccount">Szeretném zárolni a fiókom</string>
   <string name="closeYourAccount">Ezen az oldalon zárolhatod a fiókodat</string>
   <string name="doNotAskByEmail">Ne küldj emailt, hogy zároljuk a fiókod, mert nem fogjuk.</string>
