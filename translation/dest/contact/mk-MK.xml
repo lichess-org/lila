@@ -22,4 +22,19 @@
   <string name="doNotAskByEmailToReopen">Не барајте од нас да ви ја отвориме сметката по е-пошта - тоа нема да го направиме.</string>
   <string name="wantChangeUsername">Сакам да го сменам моето корисничко име</string>
   <string name="changeUsernameCase">Посетете ја оваа страна за да ја смените големината на знаците од вашето корисничко име</string>
+  <string name="cantChangeMore">Не можеме да смениме ништо повеќе од големината на знаците. Од технички причини, тоа е невозможно.</string>
+  <string name="orCloseAccount">Меѓутоа, можете да ја затворите постоечката сметка и да создадете нова.</string>
+  <string name="wantClearHistory">Сакам да ја избришам мојата историја или мојот рејтинг</string>
+  <string name="cantClearHistory">Не е возможно да ја избришете вашата историја на партии, загатки, или рејтинг.</string>
+  <string name="wantReport">Сакам да пријавам играч</string>
+  <string name="cheating">мамење</string>
+  <string name="sandbagging">лажен низок рејтинг</string>
+  <string name="trolling">провоцирање</string>
+  <string name="insults">навреди</string>
+  <string name="otherReason">друга причина</string>
+  <string name="toReportAPlayer">За да пријавите играч за %s, користете го формуларот за пријава</string>
+  <string name="youCanAlsoReachReportPage">На страната можете да стигнете и преку кликање на %s копчето на нивниот профил.</string>
+  <string name="doNotReportInForum">Не пријавувај играчи на форумот.</string>
+  <string name="doNotSendReportEmails">Не ни праќај е-пошта со пријави.</string>
+  <string name="doNotMessageModerators">Не праќај директни пораки до модераторите.</string>
 </resources>
