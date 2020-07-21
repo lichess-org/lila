@@ -54,7 +54,7 @@
   <string name="engineAppeal">Sakkprogram használat vagy csalás</string>
   <string name="sendAppealTo">A fellebbezést a %s címre küldheted.</string>
   <string name="falsePositives">Téves ítéletek születhetnek néha, amit nagyon sajnálunk.</string>
-  <string name="ifLegit">Ha a fellebbezésed jogos azonnal feloldjuk a tiltást.</string>
+  <string name="ifLegit">Ha a fellebbezésed jogos feloldjuk a tiltást amint lehet.</string>
   <string name="accountLost">Azonban ha tényleg sakkprogramot használtál, akár csak egyszer is, a fiókod sajnos elvész.</string>
   <string name="doNotDeny">Ne tagadd le, ha csaltál. Ha szeretnél új fiókot nyitni, csak ismerd el amit tettél és lásd be, hogy hiba volt.</string>
   <string name="otherRestriction">Egyéb korlátozás</string>
