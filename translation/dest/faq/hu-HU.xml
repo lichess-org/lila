@@ -39,6 +39,13 @@ Például egy 5+3 játszma körülbelül 5 × 60 + 40 × 3 = 420 másodpercig ta
   <string name="lichessSupportChessAnd">Lichess-en a hagyományos sakk mellett %1$s támogatott.</string>
   <string name="eightVariants">8 variáns</string>
   <string name="whatIsACPL">Mi az átlagos századgyalog-veszteség (ACPL)?</string>
+  <string name="acplExplanation">A századgyalog az előny mértékegysége a sakkban. Egy századgyalog egyenlő egy gyalog értékének századrészével. Tehát 1 gyalog = 100 századgyalog. Ezek az értékek nem hivatalos mérőszámok és a játékmenethez sincs közük, csupán hasznos iránymutatás a játékosoknak és elengedhetetlen a sakkprogramoknak egy állás kiértékelésekor.
+
+A legjobb gépi lépés nulla századgyalog veszteséget okoz, ugyanakkor kevesebb lépés az állás rosszabbodását is jelenti, szintén századgyalogban kifejezve.
+
+Ezzel a számmal lehet a lépések erősségét mérni. Minél kevesebb a századgyalog veszteség a játékos annál jobban játszik.
+
+A számítógépes elemzéshez a Lichess Stockfish-t használ.</string>
   <string name="insufficientMaterial">Lejárt az idő, döntetlen és túl kevés anyag</string>
   <string name="lichessFollowFIDErules">Ha egy játékosnak lejár az ideje, akkor általában elveszti a játszmát. Azonban a játszma eredménye döntetlen, ha az állásból nincs olyan szabályos lépéssorozat amivel az ellenfél mattot tudna adni (lásd %1$s).
 
