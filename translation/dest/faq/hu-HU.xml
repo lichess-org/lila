@@ -33,6 +33,8 @@
   <string name="basedOnGameDuration">A Lichess-en ez a játszma hozzávetőleges hossza alapján történik = %1$s
 Például egy 5+3 játszma körülbelül 5 × 60 + 40 × 3 = 420 másodpercig tart.</string>
   <string name="durationFormula">(kiindulási idő) + 40 × (növekmény)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Milyen variánsokat játszhatok a Lichess-en?</string>
   <string name="lichessSupportChessAnd">Lichess-en a hagyományos sakk mellett %1$s támogatott.</string>
   <string name="eightVariants">8 variáns</string>
@@ -44,6 +46,9 @@ Ritkán előfordul, hogy ezt nem kézenfekvő megállapítani (teljesen zárt á
 Megjegyzendő, hogy lehetséges csupán egy futóval vagy huszárral is mattot adni, ha az ellenfélnek van még figurája amivel eltorlaszolhatja a királyt.</string>
   <string name="linkToFIDErules">FIDE szabálykönyv §6.9, PDF</string>
   <string name="discoveringEnPassant">Miért tud egy gyalog leütni egy másikat ha az már mellette áll? (en passant)</string>
+  <string name="goodIntroduction">jó bevezetést</string>
+  <string name="officialRulesPDF">hivatalos szabálykönyv (PDF)</string>
+  <string name="lichessTraining">Lichess gyakorlás</string>
   <string name="threefoldRepetition">Háromszori állásismétlés</string>
   <string name="threefoldRepetitionExplanation">Ha a táblán egy állás háromszor megismétlődik a játékosok döntetlent igényelhetnek %1$s szerint. A Lichess a hivatalos FIDE szabályokat követi, a %2$s 9.2 (d) bekezdés alapján.</string>
   <string name="threefoldRepetitionLowerCase">állásismétlés szabályai</string>
@@ -105,6 +110,7 @@ Jobb csak relatív összehasonlítási alapként tekinteni ezekre a számokra: a
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Sajnos nem áll módunkban visszatéríteni értékszámot, amennyiben a játszmát lag vagy szétkapcsolás miatt veszítetted el, függetlenül attól, hogy a hiba a te végedről származik vagy a miénkről. Utóbbi azonban igen ritka. Megjegyzendő, ha a Lichess valamiért újraindul a folyamatban lévő játszmák félbeszakadnak az igazságtalan vereségeket elkerülendő.</string>
   <string name="howToThreeDots">Hogyan...</string>
   <string name="enableDisableNotificationPopUps">Engedélyezem vagy tiltom a felbukkanó értesítéseket?</string>
+  <string name="viewSiteInformationPopUp">Oldal információk megjelenítése</string>
   <string name="lichessCanOptionnalySendPopUps">A Lichess küldhet felbukkanó értesítéseket, például ha te következel egy játszmában vagy üzenet érkezésekor.
 
 Kattints a lakat ikonra a böngésző címsorában, a lichess.org mellett.
