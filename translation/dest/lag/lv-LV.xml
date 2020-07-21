@@ -12,4 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">Laiks, kas vajadzīgs, lai pārsūtītu gājienu no jūsu datora uz Lichess serveri, un saņemtu atbildi. Tas atkarīgs no attāluma starp jums un Lichess (Francijā), un no jūsu savienojuma kvalitātes. Lichess izstrādātāji nevar uzlabot jūsu WiFi vai paātrināt gaismu.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Šīs vērtības varat jebkurā laikā apskatīt, noklikšķinot uz sava lietotājvārda augšpuses joslā.</string>
   <string name="lagCompensation">Aizkavēšanās kompensācija</string>
+  <string name="lagCompensationExplanation">Lichess atlīdzina tīkla aizturi, tai skaitā pastāvīgu aizkavēšanos un īslaicīgus aizkavēšanās pieaugumus. Kompensāciju ierobežo heiristika, kas balstīta uz laika kontroli un līdzšinējo aizkavēšanās kompensāciju, lai abiem spēlētājiem rezultāts būtu apmierinošs. Līdz ar to, ilgāka tīkla aizkavēšanās nav zaudējums!</string>
 </resources>
