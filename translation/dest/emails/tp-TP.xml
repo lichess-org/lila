@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_click">sina wile jo e nimi sina pi lipu Lichess la o luka e nimi ni:</string>
+  <string name="emailConfirm_ignore">sina pali ala e nimi pi lipu Lichess la sina sona ala e sitelen ni.</string>
+  <string name="passwordReset_subject">jan %s o, o pali e nimi sin pi sona ala pi lipu Lichess.org</string>
+  <string name="passwordReset_intro">ona li wile pali e nimi sina pi sona ala.</string>
   <string name="welcome_subject">jan %s o, kama pona tawa lipu Lichess.org</string>
   <string name="common_contact">sina toki mi mute la sina kepeken %s.</string>
 </resources>
