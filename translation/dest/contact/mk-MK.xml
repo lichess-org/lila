@@ -53,4 +53,13 @@
   <string name="tryCastling">Испробајте ја оваа интерактивна игра за вежбање на рокада</string>
   <string name="castlingImported">Ако сте ја внесле играта, или сте почнале од одредена позиција, задолжително наместете ги правата за рокада исправно.</string>
   <string name="insufficientMaterial">Недоволно фигури за мат</string>
+  <string name="fideMate">Според FIDE шаховскиот законик, член 6.9, ако мат е возможен со било кој редослед на дозволени потези, играта не е реми</string>
+  <string name="knightMate">Можно е да се направи мат само со коњ или ловец, доколку противникот има, освен кралот, и други фигури.</string>
+  <string name="noRatingPoints">Не беа доделени поени за рејтинг</string>
+  <string name="ratedGame">Потврдете дека сте играле рангирана партија. Пријателските партии не влијаат на рејтингот на играчите.</string>
+  <string name="errorPage">Страна за грешка</string>
+  <string name="reportErrorPage">Ако ја имате добиено страната за грешка, може да пријавите:</string>
+  <string name="banAppeal">Жалба за забрана или ограничување на IP адресата</string>
+  <string name="engineAppeal">Ознака за мамење или користење компјутерска помош</string>
+  <string name="sendAppealTo">Може да се пожалите на %s.</string>
 </resources>
