@@ -52,6 +52,7 @@
   <string name="castlingImported">Ha játszmát importáltál vagy nem alapállásból indult a játszma ellenőrizd a felek sáncolási lehetőségeit.</string>
   <string name="insufficientMaterial">Túl kevés figura a matthoz</string>
   <string name="fideMate">A FIDE Szabálykönyv §6.9 szerint, ha a sakk-matt lehetséges bármilyen szabályos lépéssorozat által, akkor a játszma nem döntetlen.</string>
+  <string name="knightMate">Lehet mattot adni egy futóval vagy huszárral is, ha az ellenfélnek van még figurája a királyon kívül.</string>
   <string name="noRatingPoints">Nem kaptam értékpontot jutalmul</string>
   <string name="ratedGame">Ellenőrizd, hogy rangsorolt játszmát játszol. Nem rangsorolt játékok nincsenek hatással az értékszámra.</string>
   <string name="errorPage">Hibaoldal</string>
