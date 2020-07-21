@@ -2,6 +2,7 @@ package controllers
 
 import play.api.libs.json.Json
 import play.api.mvc._
+import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
@@ -11,7 +12,10 @@ import views._
 
 final class Swiss(
     env: Env,
-    tourC: Tournament
+    tourC: Tournament,
+    apiC: Api
+)(implicit
+    mat: akka.stream.Materializer
 ) extends LilaController(env) {
 
   private def swissNotFound(implicit ctx: Context) = NotFound(html.swiss.bits.notFound())
@@ -224,6 +228,17 @@ final class Swiss(
           Ok.chunked(env.swiss trf swiss intersperse "\n")
             .withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=lichess_swiss_$id.trf")
       }
+    }
+
+  def byTeam(id: String) =
+    Action.async { implicit req =>
+      apiC.jsonStream {
+        env.swiss.api
+          .byTeamCursor(id)
+          .documentSource(getInt("max", req) | 100)
+          .map(env.swiss.json.api)
+          .throttle(20, 1.second)
+      }.fuccess
     }
 
   private def WithSwiss(id: String)(f: SwissModel => Fu[Result]): Fu[Result] =
