@@ -48,4 +48,9 @@
   <string name="calledEnPassant">Се вика „Ан Пасан“ и е едно од правилата во шахот.</string>
   <string name="tryEnPassant">Испробајте ја оваа интерактивна игра за да научите повеќе за „Ан Пасан“.</string>
   <string name="illegalCastling">Недозволена или невозможна рокада</string>
+  <string name="castlingPrevented">Рокадата не е возможна само ако кралот поминува низ опасно поле.</string>
+  <string name="castlingRules">Задолжително научете ги правилата на рокада</string>
+  <string name="tryCastling">Испробајте ја оваа интерактивна игра за вежбање на рокада</string>
+  <string name="castlingImported">Ако сте ја внесле играта, или сте почнале од одредена позиција, задолжително наместете ги правата за рокада исправно.</string>
+  <string name="insufficientMaterial">Недоволно фигури за мат</string>
 </resources>
