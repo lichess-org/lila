@@ -38,6 +38,7 @@ Például egy 5+3 játszma körülbelül 5 × 60 + 40 × 3 = 420 másodpercig ta
   <string name="whatVariantsCanIplay">Milyen variánsokat játszhatok a Lichess-en?</string>
   <string name="lichessSupportChessAnd">Lichess-en a hagyományos sakk mellett %1$s támogatott.</string>
   <string name="eightVariants">8 variáns</string>
+  <string name="whatIsACPL">Mi az átlagos századgyalog-veszteség (ACPL)?</string>
   <string name="insufficientMaterial">Lejárt az idő, döntetlen és túl kevés anyag</string>
   <string name="lichessFollowFIDErules">Ha egy játékosnak lejár az ideje, akkor általában elveszti a játszmát. Azonban a játszma eredménye döntetlen, ha az állásból nincs olyan szabályos lépéssorozat amivel az ellenfél mattot tudna adni (lásd %1$s).
 
