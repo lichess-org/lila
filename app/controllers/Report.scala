@@ -19,7 +19,7 @@ final class Report(
   private def api = env.report.api
 
   private def getScore(implicit ctx: Context) = 
-    ctx.me.map(mod => env.report.modFilters.updateThreshold(mod, getInt("score"))).flatten
+    ctx.me.flatMap(mod => env.report.modFilters.updateThreshold(mod, getInt("score")))
   
 
   def list =
