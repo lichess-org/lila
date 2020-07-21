@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">%s, підтвердіть Ваш обліковий запис на lichess.org</string>
   <string name="emailConfirm_click">Натисніть на посилання для активації облікового запису Lichess:</string>
-  <string name="emailConfirm_ignore">Якщо Ви не реєструвалися на Lichess, просто проігноруйте це повідомлення.</string>
+  <string name="emailConfirm_ignore">Якщо Ви не реєструвалися на Lichess, ви можете просто проігнорувати це повідомлення.</string>
   <string name="passwordReset_subject">%s, скидання вашого паролю lichess.org</string>
   <string name="passwordReset_intro">Ми отримали запит на скидання пароля для вашого облікового запису.</string>
   <string name="passwordReset_clickOrIgnore">Якщо запит виконано вами, натисніть на посилання нижче. Якщо ні, проігноруйте цей лист.</string>
