@@ -39,4 +39,13 @@
   <string name="doNotMessageModerators">Не праќај директни пораки до модераторите.</string>
   <string name="onlyReports">Пријавувањето играчи само преку формуларот е многу ефикасно.</string>
   <string name="wantReportBug">Сакам да пријавам грешка</string>
+  <string name="reportBugInForum">Во Lichess Feedback, форумот за сугестии</string>
+  <string name="reportWebsiteIssue">Како проблем на Lichess веб страната на GitHub</string>
+  <string name="reportMobileIssue">Како проблем на Lichess мобилната апликација на GitHub</string>
+  <string name="reportBugInDiscord">На Lichess Discord серверот</string>
+  <string name="howToReportBug">Ве молиме опишете како изгледа грешката, што всушност очекувавте да се случи, и кои чекори треба да ги направиме за да ја добиеме грешката.</string>
+  <string name="illegalPawnCapture">Недозволено земање со пешакот</string>
+  <string name="calledEnPassant">Се вика „Ан Пасан“ и е едно од правилата во шахот.</string>
+  <string name="tryEnPassant">Испробајте ја оваа интерактивна игра за да научите повеќе за „Ан Пасан“.</string>
+  <string name="illegalCastling">Недозволена или невозможна рокада</string>
 </resources>
