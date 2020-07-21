@@ -346,7 +346,7 @@ case class Game(
 
   def berserkable = clock.??(_.config.berserkable) && status == Status.Started && playedTurns < 2
 
-  def goBerserk(color: Color) =
+  def goBerserk(color: Color): Option[Progress] =
     clock.ifTrue(berserkable && !player(color).berserk).map { c =>
       val newClock = c goBerserk color
       Progress(
