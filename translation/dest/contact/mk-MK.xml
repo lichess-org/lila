@@ -37,4 +37,6 @@
   <string name="doNotReportInForum">Не пријавувај играчи на форумот.</string>
   <string name="doNotSendReportEmails">Не ни праќај е-пошта со пријави.</string>
   <string name="doNotMessageModerators">Не праќај директни пораки до модераторите.</string>
+  <string name="onlyReports">Пријавувањето играчи само преку формуларот е многу ефикасно.</string>
+  <string name="wantReportBug">Сакам да пријавам грешка</string>
 </resources>
