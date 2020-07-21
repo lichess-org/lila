@@ -2,17 +2,17 @@
 <resources>
   <string name="private">Privau</string>
   <string name="myStudies">Los míos estudios</string>
-  <string name="studiesIContributeTo">Estudios en os quals colaboro</string>
+  <string name="studiesIContributeTo">Estudios que i participo</string>
   <string name="myPublicStudies">Los míos estudios publicos</string>
   <string name="myPrivateStudies">Los míos estudios privaus</string>
   <string name="myFavoriteStudies">Los míos estudios favoritos</string>
   <string name="whatAreStudies">Qué son los estudios?</string>
   <string name="allStudies">Totz los estudios</string>
-  <string name="studiesCreatedByX">Estudios creyaus per %s</string>
-  <string name="noneYet">Garra per agora.</string>
+  <string name="studiesCreatedByX">Estudios creaus per %s</string>
+  <string name="noneYet">Garra estudio, per agora.</string>
   <string name="hot">D\'interés actualment</string>
-  <string name="dateAddedNewest">Calendata (mas recients)</string>
-  <string name="dateAddedOldest">Calendata (mas antigos)</string>
+  <string name="dateAddedNewest">Data (mas recients)</string>
+  <string name="dateAddedOldest">Data (mas antigas)</string>
   <string name="recentlyUpdated">Actualizaus recientment</string>
   <string name="mostPopular">Mas populars</string>
   <string name="addNewChapter">Anyadir nuevo capitol</string>
@@ -30,7 +30,7 @@
     <item quantity="other">%s Miembros</item>
   </plurals>
   <string name="inviteToTheStudy">Convidar a lo estudio</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Per favor, convida nomás a personas que conoixcas y que deseyen unir-se a este estudio.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Per favor, convida nomás a personas que conoixcas y que quieran unir-se a este estudio.</string>
   <string name="searchByUsername">Buscar per nombre d\'usuario</string>
   <string name="spectator">Espectador</string>
   <string name="contributor">Colaborador</string>
@@ -48,7 +48,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Nomás los colaboradors d\'o estudio pueden solicitar una analisi per ordinador.</string>
   <string name="getAFullComputerAnalysis">Obtiene una analisi completa d\'a linia prencipal en o servidor.</string>
   <string name="makeSureTheChapterIsComplete">Asegura-te que lo capitol ye completo. Nomás puede solicitar l\'analisi una vegada.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Totz los miembros de SYNC remaneixen en a mesma posición</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Totz los miembros de SYNC son en a mesma posición</string>
   <string name="shareChanges">Comparte cambios con os espectadors y alza-los en o servidor</string>
   <string name="playing">Chugando</string>
   <string name="first">Primer</string>
@@ -62,10 +62,10 @@
   <string name="chapterPgn">PGN d\'o capitol</string>
   <string name="downloadGame">Descargar partida</string>
   <string name="studyUrl">URL d\'o estudio</string>
-  <string name="broadcastUrl">Enlace d\'a transmisión</string>
+  <string name="broadcastUrl">Enlace d\'a emisión</string>
   <string name="currentChapterUrl">URL d\'o capitol actual</string>
   <string name="currentGameUrl">Enlace d\'a partida actual</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Puetz apegar esto en o foro pa ficar la partida</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Puetz apegar esto en o foro pa ficar-ie la partida</string>
   <string name="startAtInitialPosition">Prencipiar dende la posición inicial</string>
   <string name="startAtX">Prencipiar en %s</string>
   <string name="embedInYourWebsite">Fica-lo en a tuya pachina u blog</string>
@@ -104,9 +104,9 @@
   </plurals>
   <string name="urlOfTheGame">URL d\'a partida</string>
   <string name="loadAGameFromXOrY">Cargar una partida dende %1$s u %2$s</string>
-  <string name="createChapter">Creyar capitol</string>
+  <string name="createChapter">Crear capitol</string>
   <string name="configureLiveBroadcast">Configurar la emisión en directo</string>
-  <string name="createStudy">Creyar estudio</string>
+  <string name="createStudy">Crear estudio</string>
   <string name="editStudy">Editar estudio</string>
   <string name="visibility">Visibilidat</string>
   <string name="public">Publico</string>

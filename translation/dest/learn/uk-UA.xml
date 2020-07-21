@@ -95,7 +95,7 @@
   <string name="outOfCheckComplete">Вітаємо! Ваш король не зможе бути взято, переконайтеся, що ви можете захистити його від шаха!</string>
   <string name="mateInOne">Мат в один хід</string>
   <string name="defeatTheOpponentsKing">Поразка короля противника</string>
-  <string name="mateInOneIntro">Ви виграєте, коли ваш опонент не може захищатися від шаха.</string>
+  <string name="mateInOneIntro">Ви виграєте, якщо Ваш суперник не може захиститися від шаха.</string>
   <string name="attackYourOpponentsKing">Атакуйте короля вашого противника таким чином, аби його не можна було захистити!</string>
   <string name="mateInOneComplete">Вітаємо! Таким чином, ви виграєте в шахи!</string>
   <string name="intermediate">Проміжний етап</string>
@@ -133,9 +133,9 @@
   <string name="castlingComplete">Вітаємо! Ви маєте майже завжди рокіруватися в партіях.</string>
   <string name="enPassant">Взяття на проході</string>
   <string name="theSpecialPawnMove">Особливий хід пішаком</string>
-  <string name="enPassantIntro">Коли пішак суперника робить хід на дві клітини, ви можете взяти його, як якщо б він зробив хід на одну.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Чорні щойно сходили пішаком на два поля! Візьміть його.</string>
-  <string name="enPassantOnlyWorksImmediately">Пішак противника може бути взято на проході тільки безпосередньо після ходу.</string>
+  <string name="enPassantIntro">Коли пішак суперника зробив хід на два поля, Ви можете взяти його, ніби він зробив хід лише на одне.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Чорні щойно сходили пішаком на два поля! Візьміть його на проході.</string>
+  <string name="enPassantOnlyWorksImmediately">Взяття на проході можливо тільки безпосередньо після того, як суперник зробив хід пішаком.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Взяття на проході можна зробити, якщо ваш пішак на п\'ятому рядку.</string>
   <string name="takeAllThePawnsEnPassant">Візьміть всі пішаки на проході!</string>
   <string name="enPassantComplete">Вітаємо! Тепер ви можете робити взяття на проході.</string>

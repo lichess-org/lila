@@ -34,10 +34,10 @@
   <string name="whitePlays">Хід білих</string>
   <string name="blackPlays">Хід чорних</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Ваш опонент покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
-    <item quantity="few">Ваш опонент покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
-    <item quantity="many">Ваш опонент покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
-    <item quantity="other">Ваш опонент покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
+    <item quantity="one">Ваш суперник покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
+    <item quantity="few">Ваш суперник покинув гру. Ви можете оголосити перемогу за %s секунди.</item>
+    <item quantity="many">Ваш суперник покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
+    <item quantity="other">Ваш суперник покинув гру. Ви можете оголосити перемогу за %s секунд.</item>
   </plurals>
   <string name="opponentLeftChoices">Ваш суперник залишив гру. Ви можете оголосити перемогу, нічию, або зачекати.</string>
   <string name="makeYourOpponentResign">Оголосити перемогу</string>
@@ -318,7 +318,7 @@
   <string name="takebackPropositionDeclined">Пропозицію повернути хід відхилено</string>
   <string name="takebackPropositionAccepted">Пропозицію повернути хід прийнято</string>
   <string name="takebackPropositionCanceled">Пропозицію повернути хід скасовано</string>
-  <string name="yourOpponentProposesATakeback">Ваш суперник хоче повернути хід</string>
+  <string name="yourOpponentProposesATakeback">Ваш суперник пропонує повернути хід</string>
   <string name="bookmarkThisGame">Додати гру в закладки</string>
   <string name="tournament">Турнір</string>
   <string name="tournaments">Турніри</string>

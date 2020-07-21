@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Turne i ri</string>
   <string name="isItRated">A është me klasifikim?</string>
   <string name="willBeNotified">Ju do të njoftoheni kur fillon turneu, kështu që është e sigurt të luhet në një tab tjetër gjatë pritjes.</string>
   <string name="isRated">Ky turne është me klasifikim dhe do të ndikojë në klasifikimin tuaj.</string>
@@ -31,6 +32,12 @@ Luaj shpejt dhe të ktheheni në holl për të luajtur më shumë lojëra dhe t�
   <string name="howDoesItEnd">Si përfundon tournament?</string>
   <string name="howDoesItEndAnswer">Turneu ka një orë të numërimit. Kur arrin zero, renditja e turneut ngrihet dhe fituesi shpallet. Lojrat në vazhdim duhet të përfundojnë, por nuk llogariten për turneun.</string>
   <string name="otherRules">Rregullat e tjera të meranti</string>
+  <string name="thereIsACountdown">Ka nje limit kohe per te bere levizjen e pare. Nese nuk e ben levizjen e pare brenda ketij limiti loja do te dorezohet automatikisht.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Te barazoni lojen me levizjen e pare nuk do ti japi pike asnje lojtari.</item>
+    <item quantity="other">Te bini dakord ber barazim me %s levizjet e para nuk do i japi pike asnje lojtari.</item>
+  </plurals>
   <string name="thisIsPrivate">Ky është një turne privat</string>
   <string name="shareUrl">Përdor këtë URL për t\'i lejuar të tjerët: %s</string>
+  <string name="drawStreak">Barazime te njepasnjeshme: Kur nje lojtar ka barazime te njepasnjeshme ne arena, vetem barazimi i pare do te japi pike, ose barazimet qe zgjasin me shume se %s levizje. Ritmi barazimeve mund te thyhet vetem nga nje fitore, jo nga nje humbje apo nje barazim.</string>
 </resources>

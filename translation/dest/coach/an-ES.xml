@@ -23,12 +23,12 @@
   <string name="bestSkills">Millors habilidatz</string>
   <string name="teachingMethod">Metodolochía d\'ensenyanza</string>
   <string name="publicStudies">Estudios publicos</string>
-  <string name="youtubeVideos">Vídeos de Youtube</string>
+  <string name="youtubeVideos">Videos de Youtube</string>
   <plurals name="studentReviews">
     <item quantity="one">%s resinya d\'estudiant</item>
-    <item quantity="other">%s resinyas d\'estudiants</item>
+    <item quantity="other">%s resenyas d\'estudiants</item>
   </plurals>
-  <string name="thankYouForReview">Gracias per la tuya resinya!</string>
+  <string name="thankYouForReview">Gracias per la tuya resenya!</string>
   <string name="xWillApproveIt">%s l\'aprebará muito luego, u un moderador lo revisará.</string>
   <string name="reviewCoach">Valorar a este entrenador</string>
   <string name="describeExperienceWith">Describe la tuya experiencia d\'entrenamiento con %s</string>

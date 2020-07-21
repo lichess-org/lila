@@ -34,16 +34,16 @@
   <string name="yearlyClassical">Clasico Anyal</string>
   <string name="yearlyXArena">Torneyo %s Anyal</string>
   <string name="yearlyX">%s Anyal</string>
-  <string name="rapidShieldArena">Torneyo de Escudo Rapido</string>
+  <string name="rapidShieldArena">Torneyo d\'Escudo Rapido</string>
   <string name="rapidShield">Escudo Rapido</string>
-  <string name="classicalShieldArena">Torneyo de Escudo Clasico</string>
+  <string name="classicalShieldArena">Torneyo d\'Escudo Clasico</string>
   <string name="classicalShield">Escudo Clasico</string>
-  <string name="xShieldArena">Torneyo de Escudo %s</string>
+  <string name="xShieldArena">Torneyo d\'Escudo %s</string>
   <string name="xShield">Escudo %s</string>
   <string name="openingRapidArena">Torneyo Rapido de %s</string>
   <string name="openingRapid">Rapido de %s</string>
   <string name="xTeamBattle">Batalla per Equipos %s</string>
-  <string name="eliteXArena">Torneyo %s de Élite</string>
-  <string name="eliteX">%s de Élite</string>
-  <string name="xArena">Torneyo %s</string>
+  <string name="eliteXArena">Torneyo %s d\'Elite</string>
+  <string name="eliteX">%s d\'Elite</string>
+  <string name="xArena">Arena %s</string>
 </resources>

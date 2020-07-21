@@ -12,7 +12,7 @@
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Ha resuelto %s exercicio de tactica</item>
-    <item quantity="other">Ha resuelto %s exercicios de tactica</item>
+    <item quantity="other">Ha resuelto %s problemas de tactica</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Ha chugau %1$s partida %2$s</item>
@@ -40,7 +40,7 @@
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Tiene %s seguidor nuevo</item>
-    <item quantity="other">Tiene %s seguidores nuevos</item>
+    <item quantity="other">Tiene %s seguidors nuevos</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Ha ofriu %s exhibición simultania</item>
@@ -52,15 +52,15 @@
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Ha creyau %s estudio</item>
-    <item quantity="other">Ha creyau %s estudios</item>
+    <item quantity="other">Ha creau %s estudios</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Ha competiu en %s torneyo</item>
     <item quantity="other">Ha competiu en %s torneyos</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">%1$sº en a clasificación (dentro d\'o %2$s%% millor) con %3$s partida en %4$s</item>
-    <item quantity="other">%1$sº en a clasificación (dentro d\'o %2$s%% millor) con %3$s partidas en %4$s</item>
+    <item quantity="one">%1$sº en a clasificación (adentro d\'o %2$s%% millor) con %3$s partida en %4$s</item>
+    <item quantity="other">%1$sº en a clasificación (adentro d\'o %2$s%% millor) con %3$s partidas en %4$s</item>
   </plurals>
   <string name="signedUp">Rechistrau en Lichess</string>
   <plurals name="joinedNbTeams">

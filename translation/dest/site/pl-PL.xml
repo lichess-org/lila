@@ -174,7 +174,7 @@
   <string name="daysPerTurn">Dni na ruch</string>
   <string name="oneDay">1 dzień</string>
   <plurals name="nbDays">
-    <item quantity="one">dzień</item>
+    <item quantity="one">%s dzień</item>
     <item quantity="few">%s dni</item>
     <item quantity="many">%s dni</item>
     <item quantity="other">%s dni</item>

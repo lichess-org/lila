@@ -19,7 +19,7 @@
   <string name="tenthsOfSeconds">Decenas de segundo</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Quan queden menos de 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progreso horizontals verdes</string>
-  <string name="soundWhenTimeGetsCritical">Alerta quan reste poco tiempo</string>
+  <string name="soundWhenTimeGetsCritical">Alerta quan quede poco tiempo</string>
   <string name="giveMoreTime">Dar mas tiempo</string>
   <string name="gameBehavior">Comportamiento d\'o chuego</string>
   <string name="howDoYouMovePieces">Cómo quiers mover las piezas?</string>
