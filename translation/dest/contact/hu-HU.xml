@@ -37,6 +37,8 @@
   <string name="doNotMessageModerators">És ne írj privát üzenetet a moderátoroknak.</string>
   <string name="onlyReports">Játékosok jelentésére csak a külön erre a célra létrehozott oldal használható.</string>
   <string name="wantReportBug">Jelentenék egy hibát</string>
+  <string name="reportBugInForum">A Visszajelzés (Lichess Feedback) fórumszekcióban</string>
+  <string name="reportWebsiteIssue">Lichess weboldal hibajelentés a GitHub-on</string>
   <string name="howToReportBug">Légyszíves írd meg milyen formában jelentkezik a hiba, mi lenne az elvárt helyes működés és mivel idézhető elő a hiba.</string>
   <string name="illegalPawnCapture">Szabálytalan gyalogütés</string>
   <string name="calledEnPassant">Úgy hívják \"en passant\" és a hivatalos sakk egyik szabálya.</string>
