@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Контакт</string>
+  <string name="contactLichess">Контактирајте ја Lichess</string>
+  <string name="whatCanWeHelpYouWith">Како можеме да ви помогнеме?</string>
+  <string name="visitThisPage">Посетете ја странава за да го решите проблемот</string>
+  <string name="iCantLogIn">Не можам да се пријавам</string>
+  <string name="noConfirmationEmail">Не ја добив потврдната е-пошта</string>
+  <string name="forgotPassword">Ја заборавив мојата лозинка</string>
+  <string name="forgotUsername">Го заборавив моето корисничко име</string>
+  <string name="youCanLoginWithEmail">Можете да се пријавите со е-поштата со која се регистриравте</string>
+  <string name="lost2FA">Немам пристап до моите двофакторски кодови за доказ на автентичност</string>
+  <string name="doPasswordReset">Обновете ја лозинката за да го поништите секундарниот фактор</string>
+  <string name="accountSupport">Ми треба поддршка за корисничката сметка</string>
+</resources>
