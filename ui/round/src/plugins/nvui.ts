@@ -125,6 +125,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
           'Type these commands in the move input.', h('br'),
           'c: Read clocks.', h('br'),
           'l: Read last move.', h('br'),
+          'o: Read name and rating of the opponent.', h('br'),
           commands.piece.help, h('br'),
           commands.scan.help, h('br'),
           'abort: Abort game.', h('br'),
@@ -172,7 +173,7 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
   };
 }
 
-const shortCommands = ['c', 'clock', 'l', 'last', 'abort', 'resign', 'draw', 'takeback', 'p', 'scan', 'o', 'opponent'];
+const shortCommands = ['c', 'clock', 'l', 'last', 'abort', 'resign', 'draw', 'takeback', 'p', 's', 'o', 'opponent'];
 
 function isShortCommand(input: string): boolean {
   return shortCommands.includes(input.split(' ')[0].toLowerCase());

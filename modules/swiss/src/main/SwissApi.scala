@@ -447,6 +447,12 @@ final class SwissApi(
 
   def roundInfo = cache.roundInfo.get _
 
+  def byTeamCursor(teamId: TeamID) =
+    colls.swiss.ext
+      .find($doc("teamId" -> teamId))
+      .sort($sort desc "startsAt")
+      .cursor[Swiss]()
+
   private def recomputeAndUpdateAll(id: Swiss.Id): Funit =
     scoring(id).flatMap {
       _ ?? { res =>

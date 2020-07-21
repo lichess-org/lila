@@ -258,6 +258,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">給對方加%s秒</item>
   </plurals>
+  <string name="thisAccountViolatedTos">此帳號違反了Lichess的使用規定</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">該棋手操縱評級</string>
   <string name="openingExplorerAndTablebase">開局瀏覽器 &amp; 總局資料庫</string>
   <string name="takeback">悔棋</string>

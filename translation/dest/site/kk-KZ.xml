@@ -67,8 +67,8 @@
   <string name="deleteFromHere">Мына жерден жою</string>
   <string name="forceVariation">Ойын барысын тарқату</string>
   <string name="move">Жүріс</string>
-  <string name="variantLoss">Ұтылыс жолы</string>
-  <string name="variantWin">Ұтыс жолы</string>
+  <string name="variantLoss">Ұтылу жолы</string>
+  <string name="variantWin">Жеңу жолы</string>
   <string name="insufficientMaterial">Жеткіліксіз материал</string>
   <string name="pawnMove">Ер жүрісі</string>
   <string name="capture">Алу</string>
@@ -117,8 +117,8 @@
   <string name="blunders">Өрескел қателер</string>
   <string name="mistake">Қателік</string>
   <string name="mistakes">Қателер</string>
-  <string name="inaccuracy">Сәл қате</string>
-  <string name="inaccuracies">Сәл қате</string>
+  <string name="inaccuracy">Жеңіл қате</string>
+  <string name="inaccuracies">Жеңіл қате</string>
   <string name="moveTimes">Жүріс ұзақтығы</string>
   <string name="flipBoard">Тақтаны аудару</string>
   <string name="threefoldRepetition">Үш мәрте қайталау</string>
@@ -226,14 +226,14 @@
   <string name="ratedTournament">Бағаланатын</string>
   <string name="thisGameIsRated">Бұл ойын бағаланады</string>
   <string name="rematch">Қайта ойнау</string>
-  <string name="rematchOfferSent">Қайта ойнауға сұраныс жіберілді</string>
+  <string name="rematchOfferSent">Қайта ойнау сұралуда...</string>
   <string name="rematchOfferSentWhite">Ақ қайта ойнауды сұрайды</string>
   <string name="rematchOfferSentBlack">Қара қайта ойнауды сұрайды</string>
   <string name="rematchOfferAccepted">Қайта ойнауға келісті</string>
   <string name="rematchOfferCanceled">Қайта ойнау сұранысы тоқтатылды</string>
   <string name="rematchOfferDeclined">Қайта ойнауға келіспеді</string>
   <string name="cancelRematchOffer">Қайта ойнау сұранысын тоқтату</string>
-  <string name="viewRematch">Qaraý mach-revansh</string>
+  <string name="viewRematch">Ойынды қарап шығу</string>
   <string name="confirmMove">Жылжуды растаңыз</string>
   <string name="play">Ойнау</string>
   <string name="inbox">Хаттар</string>
@@ -258,17 +258,17 @@
     <item quantity="other">%s ойналуда</item>
   </plurals>
   <string name="exportGames">Ойынды экспорттау</string>
-  <string name="ratingRange">Эло ауқымы</string>
+  <string name="ratingRange">Рейтинг ауқымы</string>
   <string name="thisAccountViolatedTos">Бұл аккаунт Личес-тің Қызмет көрсету шартын бұзды</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Бұл ойыншы өз рейтингін жасанды жолмен арттырып не кемітіп жүр</string>
   <string name="openingExplorerAndTablebase">Бастаулар мен аяқталу мұрағаты</string>
   <string name="takeback">Қайтару</string>
-  <string name="proposeATakeback">Жүрісті қайтару ұсыну</string>
-  <string name="takebackPropositionSent">Жүрісті қайтару ұсынысы жіберілді</string>
-  <string name="takebackPropositionDeclined">Жүрісті қайтару ұсынысы қабылданбады</string>
-  <string name="takebackPropositionAccepted">Жүрісті қайтару ұсынысы қабылданды</string>
-  <string name="takebackPropositionCanceled">Жүрісті қайтару ұсынысы жойылды</string>
-  <string name="yourOpponentProposesATakeback">Қарсыласыңыз жүрісті қайтаруды ұсынды</string>
+  <string name="proposeATakeback">Жүріс қайтаруды сұрау</string>
+  <string name="takebackPropositionSent">Жүрісті қайтару сұралуда</string>
+  <string name="takebackPropositionDeclined">Жүрісті қайтаруға келіспеді</string>
+  <string name="takebackPropositionAccepted">Жүрісті қайтаруға келісті</string>
+  <string name="takebackPropositionCanceled">Жүрісті қайтарудан бас тартты</string>
+  <string name="yourOpponentProposesATakeback">Қарсылас жүріс қайтаруды сұрап тұр</string>
   <string name="bookmarkThisGame">Бұл ойынды бетбелгіге сақтаңыз</string>
   <string name="tournament">Жарыс</string>
   <string name="tournaments">Týrnırler</string>
@@ -278,8 +278,8 @@
     <item quantity="other">%s жарыс ұпайы</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s оқу жұмысы</item>
-    <item quantity="other">%s оқу жұмысы</item>
+    <item quantity="one">%s зерттеу</item>
+    <item quantity="other">%s зерттеу</item>
   </plurals>
   <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="backToTournament">Týrnırge oralaıyq</string>
@@ -300,10 +300,10 @@
     <item quantity="one">Сіз тағы %s бағаланатын ойын ойнауыңыз керек</item>
     <item quantity="other">Сіз тағы %s бағаланатын ойын ойнауыңыз керек</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Sizdiń %s reıtıńi aldyn ala bolyp tabylady</string>
-  <string name="yourPerfRatingIsTooHigh">%1$s (%2$s) reıtıńi tym joǵary</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Sizdiń eń jaqsy aptalyq reıtıńi %1$s (%2$s) tym joǵary</string>
-  <string name="yourPerfRatingIsTooLow">Sizdiń reıtıńi %1$s (%2$s) tym tómen</string>
+  <string name="yourPerfRatingIsProvisional">Сіздің %s рейтингіңіз болжамалы</string>
+  <string name="yourPerfRatingIsTooHigh">%1$s рейтингіңіз тым жоғары (%2$s)</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Үздік апталық %1$s рейтингіңіз тым жоғары (%2$s)</string>
+  <string name="yourPerfRatingIsTooLow">%1$s рейтингіңіз тым аз (%2$s)</string>
   <string name="ratedMoreThanInPerf">Reıtıń = %1$s sin %2$s</string>
   <string name="ratedLessThanInPerf">Nomınaldy ≤ %1$s sin %2$s</string>
   <string name="mustBeInTeam">%s komandasynda bolý kerek</string>
@@ -324,7 +324,7 @@
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
   <string name="fromPosition">Позициядан</string>
   <string name="continueFromHere">Осы жерден жалғастырыңыз</string>
-  <string name="toStudy">Оқу</string>
+  <string name="toStudy">Зертхана</string>
   <string name="importGame">Ойынды экспорттау</string>
   <string name="importGameExplanation">Ойынның PGN -ын салыңыз. Бұл ойынды қайта көруге, компьютерлік талдауға, чат және бөліспелі URL-ға жол ашады.</string>
   <plurals name="nbImportedGames">
@@ -362,7 +362,7 @@
     <item quantity="one">kelesi %s</item>
     <item quantity="other">kelesi %s</item>
   </plurals>
-  <string name="more">Kóp</string>
+  <string name="more">Жаю</string>
   <string name="memberSince">Sodan beri múshesi</string>
   <string name="lastSeenActive">Belsendi %s</string>
   <string name="challengeToPlay">Ойынға шақыру</string>
@@ -411,7 +411,7 @@
   <string name="nextXTournament">Kelesi %s týrnır:</string>
   <string name="averageOpponent">Ortasha qarsylas</string>
   <string name="membersOnly">Tek músheler úshin</string>
-  <string name="boardEditor">Taqta óńdegishi</string>
+  <string name="boardEditor">Еркін тақта</string>
   <string name="setTheBoard">Тақтаны орнатыңыз</string>
   <string name="popularOpenings">Танымал бастаулар</string>
   <string name="startPosition">Бастапқы күй</string>
@@ -421,7 +421,7 @@
   <string name="isPrivate">Жасырын</string>
   <string name="reportXToModerators">%s туралы модераторға шағымдану</string>
   <string name="profileCompletion">Куәлігіңіздің толтырылғаны: %s</string>
-  <string name="xRating">%s дәрежеңіз</string>
+  <string name="xRating">%s рейтингі</string>
   <string name="ifNoneLeaveEmpty">Жоқ болса, бос қалдырыңыз</string>
   <string name="gameCompletionRate">Ойындарды аяқтау деңгейі: %s</string>
   <string name="profile">Куәлік</string>
@@ -438,23 +438,38 @@
   <string name="activeToday">Бүгінгі белсенділер</string>
   <string name="activePlayers">Белсенді ойыншылар</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ескерту - ойын бағаланады, бірақ сағатсыз өтеді!</string>
-  <string name="yourPuzzleRatingX">Жұмбақ шешудегі дәрежеңіз: %s</string>
+  <string name="yourPuzzleRatingX">Жұмбақ шешудегі рейтингіңіз: %s</string>
   <string name="findTheBestMoveForWhite">Ақтар пайдасына ең дұрыс жүрісті табыңыз.</string>
   <string name="findTheBestMoveForBlack">Қаралар пайдасына ең дұрыс жүрісті табыңыз.</string>
-  <string name="toTrackYourProgress">Дамуыңызды қадағалау үшін:</string>
+  <string name="toTrackYourProgress">Даму жолын қадағалау үшін:</string>
   <string name="puzzleId">%s жұмбақ</string>
   <string name="puzzleOfTheDay">Бүгінгі жұмбақ</string>
   <string name="clickToSolve">Шешу үшін басыңыз</string>
   <string name="goodMove">Жақсы жүріс</string>
   <string name="butYouCanDoBetter">Бірақ одан да әдемі жүріс бар.</string>
   <string name="bestMove">Ең күшті жүріс!</string>
+  <string name="success">Бәрі дұрыс!</string>
+  <string name="fromGameLink">Осы ойыннан %s</string>
+  <string name="continueTraining">Ары қарай жаттығу</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s ойын жүруде</item>
+    <item quantity="other">%s ойын жүруде</item>
+  </plurals>
+  <string name="puzzles">Жұмбақтар</string>
+  <string name="no">Жоқ</string>
+  <string name="yes">Иә</string>
   <string name="topics">Тақырып</string>
   <string name="posts">Жазба</string>
   <string name="notes">Жазбалар</string>
   <string name="sound">Дыбыстар</string>
+  <string name="always">Әрқашан</string>
+  <string name="never">Ешқашан</string>
   <string name="learnMenu">Үйрену</string>
+  <string name="studyMenu">Зерттеу</string>
+  <string name="practice">Жаттығу</string>
   <string name="community">Қауым</string>
   <string name="tools">Құралдар</string>
+  <string name="ifRatingIsPlusMinusX">Егер рейтингі ± %s болса</string>
   <string name="onlyFriends">Тек қана достар</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s форумдағы жазба</item>
@@ -462,11 +477,22 @@
   </plurals>
   <string name="watchGames">Ойындарын бақылау</string>
   <string name="watch">Бақылау</string>
+  <string name="weeklyPerfTypeRatingDistribution">Апта ішінде %s рейтингтердің таралуы</string>
+  <string name="yourPerfTypeRatingIsRating">Сіздің %1$s рейтингіңіз – %2$s.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Сіздің ресми %s рейтингіңіз жоқ.</string>
+  <string name="yourRating">Рейтингіңіз</string>
+  <string name="glicko2Rating">Glicko-2 рейтинг</string>
   <string name="withFriends">Достармен</string>
+  <string name="viewTheSolution">Жауабты қарау</string>
   <string name="followAndChallengeFriends">Достарыңызға серік болып, ойынға шақыру</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">%s тіліндегі нұсқасы бар!</item>
+    <item quantity="other">%s тіліндегі нұсқасы бар!</item>
+  </plurals>
   <string name="quickPairing">Қалыптар</string>
   <string name="lobby">Алаң</string>
   <string name="yourScore">Жетістігіңіз: %s</string>
+  <string name="language">Тіл</string>
   <string name="background">Фон</string>
   <string name="light">Жарық</string>
   <string name="dark">Қараңғы</string>
@@ -475,8 +501,11 @@
   <string name="boardGeometry">Тақта пішіні</string>
   <string name="boardTheme">Тақта өңі</string>
   <string name="pieceSet">Тастар келбеті</string>
+  <string name="chessBasics">Шахмат әліппесі</string>
+  <string name="coaches">Ұстаздар</string>
   <string name="error.minLength">Кем дегенде %s таңба керек</string>
   <string name="error.maxLength">%s таңбадан аспаңыз</string>
+  <string name="perfRatingX">Рейтинг: %s</string>
   <string name="practiceWithComputer">Компьютермен жаттығу</string>
   <string name="resumePractice">Жаттығуды жалғастыру</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>

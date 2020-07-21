@@ -35,6 +35,7 @@ final class TournamentApi(
     renderer: lila.hub.actors.Renderer,
     socket: TournamentSocket,
     tellRound: lila.round.TellRound,
+    roundSocket: lila.round.RoundSocket,
     trophyApi: lila.user.TrophyApi,
     verify: Condition.Verify,
     duelStore: DuelStore,
@@ -405,8 +406,9 @@ final class TournamentApi(
             pairingRepo.findPlaying(tour.id, userId) flatMap {
               case Some(pairing) if !pairing.berserkOf(userId) =>
                 (pairing colorOf userId) ?? { color =>
-                  pairingRepo.setBerserk(pairing, userId) >>-
-                    tellRound(gameId, GoBerserk(color))
+                  roundSocket.rounds.ask(gameId) { GoBerserk(color, _)  } flatMap {
+                    _ ?? pairingRepo.setBerserk(pairing, userId)
+                  }
                 }
               case _ => funit
             }

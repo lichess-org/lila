@@ -21,10 +21,12 @@
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="eightVariants">An 8 eilstumm echedoù</string>
   <string name="officialRulesPDF">reolennoù ofisiel (PDF)</string>
+  <string name="accounts">Kontoù</string>
   <string name="titlesAvailableOnLichess">Peseurt titloù a vo kavet war Lichess?</string>
   <string name="canIbecomeLM">Gallout a ran kaout an titl Lichess Master (LM)?</string>
   <string name="noUpperCaseDot">Ne c\'hallit ket.</string>
   <string name="whatUsernameCanIchoose">Gant peseurt anv-implijer e c\'hallan ober?</string>
+  <string name="guidelines">dealfoù</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">N\'eo ket bet c\'hoariet trawalc\'h a grogadoù renket a-enep %1$s er rummad a-zoare.</string>
   <string name="similarOpponents">enebourien a-live an eil re gant ar re all</string>
   <string name="inOrderToAppearsYouMust">A-benn bezañ meneget er %1$s eo ret deoc\'h:</string>
