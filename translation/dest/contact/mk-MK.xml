@@ -12,4 +12,14 @@
   <string name="lost2FA">Немам пристап до моите двофакторски кодови за доказ на автентичност</string>
   <string name="doPasswordReset">Обновете ја лозинката за да го поништите секундарниот фактор</string>
   <string name="accountSupport">Ми треба поддршка за корисничката сметка</string>
+  <string name="wantTitle">Сакам мојата титула да е прикажана на Lichess</string>
+  <string name="visitTitleConfirmation">За да ја прикажете титулата на вашиот Lichess профил, и да учествувате на „Арена со Титули“, посетете ја страната за потврда на титули</string>
+  <string name="wantCloseAccount">Сакам да си ја затворам сметката</string>
+  <string name="closeYourAccount">Можете да си ја затворите на оваа страна</string>
+  <string name="doNotAskByEmail">Не барајте од нас да ви ја затвориме сметката по е-пошта - тоа нема да го направиме.</string>
+  <string name="wantReopen">Сакам од ново да си ја отворам сметката</string>
+  <string name="reopenOnThisPage">Можете да си ја отворите сметката од ново на оваа страна. Тоа може да го направите само еднаш.</string>
+  <string name="doNotAskByEmailToReopen">Не барајте од нас да ви ја отвориме сметката по е-пошта - тоа нема да го направиме.</string>
+  <string name="wantChangeUsername">Сакам да го сменам моето корисничко име</string>
+  <string name="changeUsernameCase">Посетете ја оваа страна за да ја смените големината на знаците од вашето корисничко име</string>
 </resources>
