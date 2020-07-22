@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="broadcasts">War-eeun</string>
+  <string name="liveBroadcasts">Tournamantoù skignet war-eeun</string>
+  <string name="newBroadcast">Skignañ war-eeun nevez</string>
+  <string name="ongoing">O ren</string>
+  <string name="upcoming">A-benn nebeut</string>
+  <string name="completed">Tremenet</string>
   <string name="eventName">Anv an abadenn</string>
+  <string name="eventDescription">Deskrivadur an abadenn a berr gomzoù</string>
+  <string name="fullDescription">Deskrivadur an abadenn a-bezh</string>
 </resources>
