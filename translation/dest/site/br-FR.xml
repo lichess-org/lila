@@ -602,14 +602,19 @@
   <string name="currentPassword">Ger-tremen evit poent</string>
   <string name="newPassword">Ger-tremen nevez</string>
   <string name="newPasswordAgain">Ger-tremen nevez (c\'hoazh)</string>
+  <string name="clockInitialTime">An amzer ho po e penn kentañ</string>
+  <string name="clockIncrement">Inkrement an horolaj</string>
   <string name="privacy">Buhez prevez</string>
   <string name="letOtherPlayersFollowYou">Aotreañ ar c\'hoarierien all d\'ho heuliañ</string>
+  <string name="letOtherPlayersChallengeYou">Aotreañ ar c\'hoarierien all d\'ho taeañ</string>
   <string name="letOtherPlayersInviteYouToStudy">Aotreañ ar c\'hoarerien all d\'ho pediñ da studiañ</string>
   <string name="sound">Son</string>
   <string name="none">Hini ebet</string>
   <string name="fast">Buan</string>
   <string name="normal">Normal</string>
   <string name="slow">Goustadik</string>
+  <string name="insideTheBoard">E-barzh an dablez</string>
+  <string name="outsideTheBoard">Er-maez eus an dablez</string>
   <string name="onSlowGames">E-pad ar c\'hrogadoù difonn</string>
   <string name="always">Bepred</string>
   <string name="never">Morse</string>
@@ -662,7 +667,7 @@
   <string name="practice">Pleustriñ</string>
   <string name="community">Kumuniezh</string>
   <string name="tools">Ostilhoù</string>
-  <string name="increment">Azvuiadañ</string>
+  <string name="increment">Inkrement</string>
   <string name="sharePGN">Skignañ ur PGN</string>
   <string name="playOnline">C\'hoari enlinenn</string>
   <string name="playOffline">C\'hoari ezlinenn</string>
@@ -720,6 +725,7 @@
   <string name="tournamentDoesNotExist">N\'eus ket diouzh an tournamant-mañ.</string>
   <string name="tournamentMayHaveBeenCanceled">Marteze eo bet nullet an tournamant dre ma \'z eo aet kuit an holl c\'hoarerien a-raok ma krogfe.</string>
   <string name="returnToTournamentsHomepage">Distreiñ da lañser an tournamantoù</string>
+  <string name="weeklyPerfTypeRatingDistribution">Dasparzh sizhuniek ar renkadur %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
     <item quantity="two">%1$s c\'hoarier %2$s ar sizhun-mañ.</item>
@@ -740,6 +746,7 @@
   <string name="weHaveSentYouAnEmailTo">Kaset hon eus ur postel da %s. Klikit war al liamm er postel evit cheñch ho ker-tremen.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">En ur lakaat hoc\'h anv e asantit d\'hor %s.</string>
   <string name="networkLagBetweenYouAndLichess">\"Lag\" zo etrezoc\'h ha Lichess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Amzer ret evit ober ur fiñvadenn war servijer Lichess</string>
   <string name="downloadAnnotated">Pellgargañ gant an notennoù</string>
   <string name="downloadRaw">Pellgargañ ar PGN kriz</string>
   <string name="downloadImported">Enkargañ enporzhiet</string>
@@ -801,6 +808,7 @@
   <string name="usernameAlreadyUsed">Implijet eo an anv-mañ dija. Dibabit unan all mar plij.</string>
   <string name="usernamePrefixInvalid">Gant ul lizherenn e rank kregiñ an anv implijer.</string>
   <string name="usernameSuffixInvalid">Gant ul lizherenn pe ur sifr e echu an anv-implijer, dre ret.</string>
+  <string name="usernameCharsInvalid">Lizherennoù, sifroù ha tiretennoù a c\'haller kavout er anv-implijer.</string>
   <string name="usernameUnacceptable">Ne c\'haller degemer an anv-implijer-mañ.</string>
   <string name="directlySupportLichess">Skoazell Lichess war-eeun</string>
   <string name="playChessInStyle">C\'hoarit echedoù gant neuz</string>
@@ -857,6 +865,7 @@
   <string name="doItAgain">Klask en-dro</string>
   <string name="reviewWhiteMistakes">Studiañ fazioù ar re wenn</string>
   <string name="reviewBlackMistakes">Studiañ fazioù ar re zu</string>
+  <string name="advantage">Gounid</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s eilenn</item>
     <item quantity="two">%s eilenn</item>
@@ -877,6 +886,7 @@
   <string name="playX">C\'hoari %s</string>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
+  <string name="timeoutExpires">Ne veoc\'h ket mui forbannet a-benn %s.</string>
   <string name="why">Perak?</string>
   <string name="pleasantChessExperience">Plijout a rafe deomp e vourrfe pep hini c\'hoari echedoù war Lichess.</string>
   <string name="goodPractice">Evit hen ober e dav deomp bezañ sur e vez graet gant doareoù dereat gant an holl.</string>
@@ -908,6 +918,7 @@
   <string name="yourQuestionMayHaveBeenAnswered">Ur respont zo bet d\'ho koulenn dija marteze %1$s</string>
   <string name="inTheFAQ">er FAG.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Ma faotañ deoc\'h mont e darempred ganeomp abalamour d\'un trucher pe d\'un den displijus, %1$s</string>
+  <string name="useTheReportForm">grit gant ar furmskrid diskleriañ</string>
   <string name="toRequestSupport">Evit bezañ sikouret %1$s</string>
   <string name="tryTheContactPage">klaskit war ar bajenn mont e darempred</string>
   <string name="thisTopicIsArchived">Diellaouet eo bet ar sujed-mañ ha ne c\'haller ket respont ken.</string>
