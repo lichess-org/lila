@@ -114,6 +114,14 @@ Ugyanakkor, ha valaki sokáig nem játszik a bizonytalanság újra emelkedni fog
   <string name="similarOpponents">hasonló értékszámú ellenfelek</string>
   <string name="notPlayedRecently">A játékos nem játszott mostanában. A lejátszott partik számától függően körülbelül egy év elteltével lesz újra becsült az értékszámod.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkrétan azt jelenti, hogy a Glicko-2 bizonytalansági tényező 110 felett van. Ez a tényező mutatja mennyire biztos a rendszer az értékszám megállapításában. Minél kisebb, az értékszám annál pontosabb.</string>
+  <string name="howDoLeaderoardsWork">Hogyan működnek a ranglisták és helyezések?</string>
+  <string name="inOrderToAppearsYouMust">Ahhoz, hogy felkerülj az %1$s az alábbiak szükségesek:</string>
+  <string name="ratingLeaderboards">értékszám ranglistára</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">legalább 30 értékelt játszmát játszottál egy adott értékszámmal,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">játszottál az elmúlt egy hétben a mostani értékszámod eléréséért,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">az értékszám bizonytalanságod kisebb, mint %1$s hagyományos sakkban és kisebb, mint %2$s variánsokban,</string>
+  <string name="beInTopTen">az értékszámod a felső 10-ben van.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">A második követelmény szerint a játékos, aki már nem használja aktívan a fiókját, lekerül a ranglistákról.</string>
   <string name="whyAreRatingHigher">Miért magasabbak az értékszámok itt, mint más oldalon vagy szervezetnél, pl FIDE, USCF vagy ICC?</string>
   <string name="whyAreRatingHigherExplanation">A legjobb nem abszoltút mérőszámként gondolni ezekre az értékekre vagy másik szervezetéhez hasonlítgatni. Minden sakk-klub más és más játékosközösségből áll és más értékelő rendszert használ (Élő, Glicko, Glicko-2 vagy ezek változatait). A fenti tényezők nagyban befolyásolják az egyéni értékszámokat.
 

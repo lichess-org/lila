@@ -71,6 +71,7 @@
   <string name="whiteDrawBlack">walo / ala / pimeja</string>
   <string name="openingExplorer">ilo open</string>
   <string name="delete">weka</string>
+  <string name="openStudy">o tawa e ma sona</string>
   <string name="blunder">pakala suli</string>
   <string name="blunders">pakala</string>
   <string name="mistake">pakala</string>
@@ -192,6 +193,10 @@
   <string name="tournament">musi pi musi mute</string>
   <string name="tournaments">musi ale</string>
   <string name="tournamentPoints">mani pi musi mute</string>
+  <plurals name="nbStudies">
+    <item quantity="one">ma sona %s</item>
+    <item quantity="other">ma sona %s</item>
+  </plurals>
   <string name="viewTournament">o lukin e musi pi musi mute</string>
   <string name="backToTournament">o tawa musi</string>
   <string name="backToGame">o tawa musi</string>
@@ -209,6 +214,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="pasteThePgnStringHere">o pana e nimi PGN lon ni</string>
   <string name="fromPosition">tan</string>
   <string name="continueFromHere">o tawa tan ni</string>
+  <string name="toStudy">o kama sona</string>
   <string name="importGame">o pana e musi</string>
   <string name="thisIsAChessCaptcha">ilo li wile sona e ni: sina jan anu ilo.</string>
   <string name="clickOnTheBoardToMakeYourMove">o tawa lon lipu ni. sina pali e ni la sina jan</string>
@@ -400,6 +406,10 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="boardGeometry">nena anu lipu, lili anu suli</string>
   <string name="boardTheme">sitelen lipu</string>
   <string name="pieceSet">sitelen ijo</string>
+  <string name="learnFromYourMistakes">o kama sona kepeken pakala sina</string>
+  <string name="next">tawa</string>
+  <string name="solution">pali pona</string>
+  <string name="doItAgain">o pali sin</string>
   <string name="youCannotChallengeX">sina ken ala musi e jan %s.</string>
   <string name="xDoesNotAcceptChallenges">jan %s li wile ala e wile musi.</string>
   <string name="playX">o pali e %s</string>

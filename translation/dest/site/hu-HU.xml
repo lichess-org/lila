@@ -667,7 +667,7 @@
     <item quantity="other">%1$s %2$s játékos ezen a héten.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">A te %1$s pontszámod %2$s</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Jobb vagy mint a [%1$s:variant name] játékosok [%2$s:percentage]-a.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Jobb vagy, mint a %2$s játékosok %1$s-a.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s jobb, mint a %3$s játékosok %2$s-a.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Még nincs meghatározott %s pontszámod.</string>
   <string name="yourRating">Értékszámod</string>
