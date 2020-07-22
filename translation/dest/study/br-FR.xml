@@ -61,6 +61,7 @@
   <string name="previous">A-raok</string>
   <string name="next">War-lec\'h</string>
   <string name="last">Diwezhañ</string>
+  <string name="shareAndExport">Skignañ &amp; ezporzhiañ</string>
   <string name="cloneStudy">Klonañ</string>
   <string name="studyPgn">Studiañ ar PGN</string>
   <string name="downloadAllGames">Pellgargañ an holl grogadoù</string>
@@ -70,8 +71,10 @@
   <string name="broadcastUrl">URL skignañ</string>
   <string name="currentChapterUrl">URL ar pennad evit poent</string>
   <string name="currentGameUrl">URL ar c\'hrogad o ren</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Gallout a rit pegañ se er forom evit ensoc\'hañ</string>
   <string name="startAtInitialPosition">Kregiñ el lec\'hiadur kentañ</string>
   <string name="startAtX">Kregiñ e %s</string>
+  <string name="embedInYourWebsite">Enframmañ en ho lec\'hienn pe blog</string>
   <string name="open">Digeriñ</string>
   <string name="xBroughtToYouByY">%1$s, zo kaset deoc\'h gant %2$s</string>
   <string name="studyNotFound">N\'eo ket bet kavet ar studiadenn</string>
