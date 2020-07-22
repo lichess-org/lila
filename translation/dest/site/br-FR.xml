@@ -390,6 +390,7 @@
   <string name="leaderboard">Renkadur</string>
   <string name="pasteTheFenStringHere">Pegañ an destenn FEN amañ</string>
   <string name="pasteThePgnStringHere">Pegañ an destenn PGN amañ</string>
+  <string name="fromPosition">Kregiñ gant ul lec\'hiadur ispisial</string>
   <string name="continueFromHere">Kenderc\'hel adalek amañ</string>
   <string name="toStudy">Studiañ</string>
   <string name="importGame">Enporzhiañ ur c\'hrogad</string>
@@ -496,7 +497,9 @@
   <string name="boardEditor">An aozer krogadoù</string>
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>
   <string name="popularOpenings">Digoradurioù ordin</string>
+  <string name="startPosition">Lec\'hiadur normal</string>
   <string name="clearBoard">Skarzhañ pep tra diwar an dachenn emgann</string>
+  <string name="savePosition">Savetaat al lec\'hiadur</string>
   <string name="loadPosition">Kargañ ul lec\'hiadur</string>
   <string name="isPrivate">Prevez</string>
   <string name="reportXToModerators">Diskleriañ %s d\'an habaskaerien</string>
@@ -576,6 +579,7 @@
   <string name="reply">Respont</string>
   <string name="message">Kemennadenn</string>
   <string name="createTheTopic">Krouiñ an danvez</string>
+  <string name="reportAUser">Diskleriañ un implijer d\'an habaskaerien</string>
   <string name="user">Implijer</string>
   <string name="reason">Abeg</string>
   <string name="whatIsIheMatter">Peseurt kudenn zo?</string>
