@@ -117,4 +117,6 @@ Vēl jāievēro, ka laikam paejot, ticamības intervāls palielinās. Tas ļauj 
   <string name="howToHideRatingWhilePlaying">Kā spēles laikā paslēpt reitingus?</string>
   <string name="displayPreferences">rādīt iestatījumus</string>
   <string name="howToThreeDots">Kā...</string>
+  <string name="enableDisableNotificationPopUps">Iespējot vai atspējot uznirstošos paziņojumus?</string>
+  <string name="viewSiteInformationPopUp">Skatīt vietnes uznirstošo informāciju</string>
 </resources>
