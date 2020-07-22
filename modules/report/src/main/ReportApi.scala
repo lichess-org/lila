@@ -301,17 +301,18 @@ final class ReportApi(
       )
       .void
 
-  private val closedSelect: Bdoc   = $doc("open" -> false)
-  private def scoreThresholdSelect = $doc("score" $gte thresholds.score())
-  private val sortLastAtomAt       = $doc("atoms.0.at" -> -1)
+  private val closedSelect: Bdoc = $doc("open" -> false)
+  private def scoreThresholdSelect(score: Option[Int] = none) =
+    $doc("score" $gte score.getOrElse(thresholds.score()))
+  private val sortLastAtomAt = $doc("atoms.0.at" -> -1)
 
   private def roomSelect(room: Option[Room]): Bdoc =
     room.fold($doc("room" $ne Room.Xfiles.key)) { r =>
       $doc("room" -> r)
     }
 
-  private def selectOpenInRoom(room: Option[Room]) =
-    $doc("open" -> true) ++ roomSelect(room) ++ scoreThresholdSelect
+  private def selectOpenInRoom(room: Option[Room], score: Option[Int] = none) =
+    $doc("open" -> true) ++ roomSelect(room) ++ scoreThresholdSelect(score)
 
   private def selectOpenAvailableInRoom(room: Option[Room]) =
     selectOpenInRoom(room) ++ $doc("inquiry" $exists false)
@@ -387,9 +388,13 @@ final class ReportApi(
       ReadPreference.secondaryPreferred
     ) dmap (_ filterNot ReporterId.lichess.==)
 
-  def openAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspect]] =
+  def openAndRecentWithFilter(
+      nb: Int,
+      room: Option[Room],
+      scoreThreshold: Option[Int]
+  ): Fu[List[Report.WithSuspect]] =
     for {
-      opens <- findBest(nb, selectOpenInRoom(room))
+      opens <- findBest(nb, selectOpenInRoom(room, scoreThreshold))
       nbClosed = nb - opens.size
       closed <-
         if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)

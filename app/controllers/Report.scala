@@ -18,6 +18,10 @@ final class Report(
 
   private def api = env.report.api
 
+  private def getScore(implicit ctx: Context) = 
+    ctx.me.flatMap(mod => env.report.modFilters.updateThreshold(mod, getInt("score")))
+  
+
   def list =
     Secure(_.SeeReport) { implicit ctx => me =>
       if (env.streamer.liveStreamApi.isStreaming(me.id) && !getBool("force"))
@@ -32,7 +36,7 @@ final class Report(
     }
 
   private def renderList(room: String)(implicit ctx: Context) =
-    api.openAndRecentWithFilter(12, Room(room)) zip
+    api.openAndRecentWithFilter(12, Room(room), getScore) zip
       api.countOpenByRooms zip
       env.streamer.api.approval.countRequests flatMap {
       case reports ~ counts ~ streamers =>
