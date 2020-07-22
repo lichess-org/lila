@@ -70,6 +70,7 @@ Amañ emañ al liamm evit mont ennañ.</string>
   <string name="releaseTheAccount">Dieubiñ kont ar studier evit ma c\'hallfe merañ anezhi e-unan.</string>
   <string name="releaseDesc1">Ur wech dieubet ur gont ne c\'halloc\'h ket mui bezañ mestr warni. Gallout a ray ar studier lazhañ ar mod evit ar vugale ha cheñch ar ger-tremen e-unan.</string>
   <string name="releaseDesc2">Ezel eus ar c\'hlasad e chomo ar studier ur wech dieubet e gont.</string>
+  <string name="realUniqueEmail">Chomlec\'h postel nemetañ ha gwir ar studier. Ur gemennadenn gadarnaat a vo kaset gant ul liamm da glikañ warnañ evit dieubiñ ar gont.</string>
   <string name="teachers">Kelennerien</string>
   <plurals name="nbTeachers">
     <item quantity="one">Kelenner</item>
@@ -88,6 +89,8 @@ Amañ emañ al liamm evit mont ennañ.</string>
   <string name="students">Studierien</string>
   <string name="progress">Araokadur</string>
   <string name="noStudents">Studier ebet evit poent.</string>
+  <string name="noRemovedStudents">Studier skarzhet ebet.</string>
+  <string name="overDays">A zeiz da zeiz</string>
   <string name="timePlaying">Amzer o c\'hoari</string>
   <string name="variantXOverLastY">%1$s e-pad an/ar %2$s</string>
   <string name="winrate">Feur trec\'h</string>
@@ -96,7 +99,9 @@ Amañ emañ al liamm evit mont ennañ.</string>
   <string name="editNews">Cheñch ar c\'heleier</string>
   <string name="notifyAllStudents">Kemenn an holl studierien</string>
   <string name="nothingHere">Netra amañ evit poent.</string>
+  <string name="newsEdit1">An holl geleier er memes lec\'h.</string>
   <string name="newsEdit2">En nec\'h emañ ar c\'heleier nevez. Ne ziverkit ket ar c\'heleier kozh.</string>
   <string name="newsEdit3">Rannit ar c\'heleier gant ---
 Mod-se ho po ul linenn a-blaen.</string>
+  <string name="markdownAvailable">Bez\' eus %s evit mont pelloc\'h gant an ereadurezh.</string>
 </resources>
