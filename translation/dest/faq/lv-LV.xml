@@ -106,7 +106,7 @@ Lūdzu, neprasiet LM titulu.</string>
 Būtībā sistēma ir 90% pārliecināta, ka jūsu reitings ir starp 800 un 2200. Tas ir ļoti nenoteikts. Tādēļ, kad spēlētājs ir tikai sācis spēlēt, tā reitings mainīsies ļoti dramatiski, iespējams pat par vairākiem simtiem punktu reizē. Taču pēc dažām spēlēm pret spēlētājiem ar skaidrāku reitingu, jaunā spēlētāja ticamības intervāls sašaurināsies, un pēc katras spēles iegūtie vai zaudētie punkti samazināsies.
 
 Vēl jāievēro, ka laikam paejot, ticamības intervāls palielinās. Tas ļauj iegūt vai zaudēt punktus ātrāk, lai pielāgotos jūsu prasmju līmeņa izmaiņām tajā laikā.</string>
-  <string name="whatIsProvisionalRating">Kādēļ reitingam blakus redzama jautājuma zīme (?) ?</string>
+  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Kādēļ reitingam blakus redzama jautājuma zīme?</string>
   <string name="provisionalRatingExplanation">Jautājuma zīme apzīmē pagaidu reitingu. Iespējamie iemesli:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Spēlētājs vēl nav izspēlējis pietiekami daudz spēļu pret %1$s reitinga kategorijā.</string>
   <string name="similarOpponents">līdzīga līmeņa pretiniekiem</string>
