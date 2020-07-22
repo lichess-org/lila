@@ -21,6 +21,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Tak. Lichess zainspirował inne strony typu open source, które wykorzystują nasz %1$s, %2$s lub %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Dlaczego zostałem oznaczony jako gracz sztucznie manipulujący swoim rankingiem (obniżanie lub nieuczciwe podbijanie) lub korzystający z pomocy komputera podczas gry?</string>
+  <string name="cheatDetectionMethods">Lichess posiada silne metody wykrywania oraz bardzo dokładny proces przeglądu wszystkich dowodów i podejmowania decyzji. Proces ten często angażuje wielu moderatorów i może zająć dużo czasu. Poza samym znakiem nie będziemy szczegółowo przedstawiać dowodów ani procesu podejmowania decyzji w indywidualnych przypadkach. Ułatwiłoby to uniknięcie wykrywania w przyszłości i prowadziłoby do bezsensownych debat. Ten czas i wysiłek są lepiej wykorzystane na innych ważniejszych sprawach. Użytkownicy mogą odwoływać się e-mailując %1$s, ale decyzje są rzadko uchylane.</string>
   <string name="whenAmIEligibleRatinRefund">W jakich przypadkach mogę liczyć na automatyczny zwrot punktów rankingowych utraconych w grze z oszustami?</string>
   <string name="preventLeavingGameWithoutResigning">Jak traktowani są gracze porzucający swoje partie?</string>
   <string name="leavingGameWithoutResigningExplanation">Jeśli przeciwnik często przerywa/opuszcza partie, otrzymuje \"bana\", co oznacza, że tymczasowo nie może grać. Nie jest to podawane do wiadomości publicznej na jego profilu. Jeśli takie zachowanie będzie się powtarzać, czas trwania tego zakazu wydłuży się - a w przypadku takiego notorycznego zachowania może prowadzić do zamknięcia konta.</string>
@@ -73,11 +74,11 @@ Zobacz nasze %3$s, aby poćwiczyć ten specjalny ruch.</string>
   <string name="accounts">Konta</string>
   <string name="titlesAvailableOnLichess">Jakie szachowe tytuły uznawane są przez Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess uznaje wszystkie tytuły FIDE zdobyte w grze na prawdziwej szachownicy (OTB - over the board) oraz %1$s. Oto lista tytułów FIDE:</string>
-  <string name="showYourTitle">Jeśli posiadasz tytuł OTB, możesz złożyć wniosek o wyświetlenie go na swoim koncie, wypełniając %1$s, załączając w nim skan dokumentu potwierdzającego tytuł oraz zdjęcie siebie trzymającego ten dokument.
+  <string name="showYourTitle">Jeśli posiadasz tytuł w grze na żywo, możesz złożyć wniosek o wyświetlenie go na swoim koncie, wypełniając %1$s, załączając w nim skan dokumentu potwierdzającego tytuł oraz zdjęcie siebie trzymającego ten dokument.
 
-  Zweryfikowanie Cię jako utytułowanego gracza na Lichess pozwoli Ci na dostęp do gry w turniejach Titled Arena.
+ Przejście weryfikacji pozwoli Ci na wzięcie udziału w turniejach dedykowanych utytułowanym graczom (Titled Arena).
 
-  Szczególnym tytułem jest %2$s.</string>
+ Szczególnym tytułem jest %2$s.</string>
   <string name="asWellAsManyNMtitles">wiele krajowych tytułów szachowych</string>
   <string name="verificationForm">formularz weryfikacyjny</string>
   <string name="canIbecomeLM">Czy mogę zdobyć tytuł Lichess Master (LM)?</string>

@@ -292,6 +292,7 @@
     <item quantity="one">Piešķirt %s sekundi</item>
     <item quantity="other">Piešķirt %s sekundes</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Šis konts pārkāpa Lichess Pakalpojuma Noteikumus</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Šis spēlētājs mākslīgi paaugstina/pazemina savu reitingu</string>
   <string name="openingExplorerAndTablebase">Atklātņu pārlūks &amp; datubāze</string>
   <string name="takeback">Gājiena atsaukšana</string>

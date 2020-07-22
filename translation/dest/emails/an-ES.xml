@@ -10,12 +10,12 @@
   <string name="emailChange_intro">Has solicitau cambiar la tuya adreza de correu electronico.</string>
   <string name="emailChange_click">Pa confirmar que tiens acceso a este correu electronico, per favor fe clic en o vinclo d\'abaixo:</string>
   <string name="welcome_subject">Bienveniu a lichess.org, %s</string>
-  <string name="welcome_text">Has creyau correctament la tuya cuenta en https://lichess.org.
+  <string name="welcome_text">Has creau correctament la tuya cuenta en https://lichess.org.
 
 Esta ye la pachina d\'o tuyo perfil: %1$s. Puetz personalizar-la en %2$s.
 
 Que te diviertas, y que las tuyas piezas s\'ubran siempre paso dica lo rei enemigo!</string>
-  <string name="logInToLichess">Encieta sesión en lichess.org, %s</string>
+  <string name="logInToLichess">Iniciar sesión en lichess.org, %s</string>
   <string name="common_orPaste">(No funciona lo vinclo? Copia l\'adreza y apega-la en a barra d\'o navegador)</string>
   <string name="common_note">Esto ye un correu automatico sobre l\'uso de %s.</string>
   <string name="common_contact">Pa contactar con nusatros, per favor usa %s.</string>

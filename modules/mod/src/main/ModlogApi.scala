@@ -244,7 +244,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
     m.notable ?? {
-      coll.insert.one(m) >> slackMonitor(m)
+      coll.insert.one(m) >> (m.notableSlack ?? slackMonitor(m))
     }
   }
 

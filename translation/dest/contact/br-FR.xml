@@ -30,6 +30,7 @@
   <string name="reportBugInDiscord">War Lichess Discord server</string>
   <string name="illegalPawnCapture">Paket eo bet ur pezh gwerin en un doare direizh</string>
   <string name="calledEnPassant">\"En ur dremen\" a vez graet deus-se hag ur reolenn diazez eus ar c\'hoari an hini eo.</string>
+  <string name="ratedGame">Bezit sur ho peus kemeret perzh en ur c\'hrogad renket rak ar c\'hrogadoù a vignoniezh ne cheñchont ket renkadur ar c\'hoarierien.</string>
   <string name="errorPage">Pajenn fazi</string>
   <string name="sendAppealTo">Galv a c\'hallit ober: %s.</string>
   <string name="buyingLichess">Prenañ Lichess</string>

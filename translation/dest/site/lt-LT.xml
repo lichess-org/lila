@@ -309,6 +309,7 @@
     <item quantity="many">Duoti %s sekundžių</item>
     <item quantity="other">Duoti %s sekundžių</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Ši paskyra pažeidė „Lichess“ naudojimo sąlygas</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Šis žaidėjas dirbtinai padidina/sumažina savo reitingą</string>
   <string name="openingExplorerAndTablebase">Debiutų naršyklė ir pozicijų DB</string>
   <string name="takeback">Atsiimti ėjimą</string>

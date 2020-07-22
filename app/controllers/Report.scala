@@ -18,6 +18,9 @@ final class Report(
 
   private def api = env.report.api
 
+  private def getScore(implicit ctx: Context) =
+    ctx.me.flatMap(mod => env.report.modFilters.updateThreshold(mod, getInt("score")))
+
   def list =
     Secure(_.SeeReport) { implicit ctx => me =>
       if (env.streamer.liveStreamApi.isStreaming(me.id) && !getBool("force"))
@@ -32,7 +35,7 @@ final class Report(
     }
 
   private def renderList(room: String)(implicit ctx: Context) =
-    api.openAndRecentWithFilter(12, Room(room)) zip
+    api.openAndRecentWithFilter(12, Room(room), getScore) zip
       api.countOpenByRooms zip
       env.streamer.api.approval.countRequests flatMap {
       case reports ~ counts ~ streamers =>
@@ -131,34 +134,38 @@ final class Report(
   def create =
     AuthBody { implicit ctx => implicit me =>
       implicit val req = ctx.body
-      env.report.forms.create.bindFromRequest().fold(
-        err =>
-          get("username") ?? env.user.repo.named flatMap { user =>
-            env.report.forms.anyCaptcha map { captcha =>
-              BadRequest(html.report.form(err, user, captcha))
-            }
-          },
-        data =>
-          if (data.user.id == me.id) notFound
-          else
-            api.create(data, Reporter(me)) inject
-              Redirect(routes.Report.thanks(data.user.name))
-      )
+      env.report.forms.create
+        .bindFromRequest()
+        .fold(
+          err =>
+            get("username") ?? env.user.repo.named flatMap { user =>
+              env.report.forms.anyCaptcha map { captcha =>
+                BadRequest(html.report.form(err, user, captcha))
+              }
+            },
+          data =>
+            if (data.user.id == me.id) notFound
+            else
+              api.create(data, Reporter(me)) inject
+                Redirect(routes.Report.thanks(data.user.name))
+        )
     }
 
   def flag =
     AuthBody { implicit ctx => implicit me =>
       implicit val req = ctx.body
-      env.report.forms.flag.bindFromRequest().fold(
-        _ => BadRequest.fuccess,
-        data =>
-          env.user.repo named data.username flatMap {
-            _ ?? { user =>
-              if (user == me) BadRequest.fuccess
-              else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject Ok
+      env.report.forms.flag
+        .bindFromRequest()
+        .fold(
+          _ => BadRequest.fuccess,
+          data =>
+            env.user.repo named data.username flatMap {
+              _ ?? { user =>
+                if (user == me) BadRequest.fuccess
+                else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject Ok
+              }
             }
-          }
-      )
+        )
     }
 
   def thanks(reported: String) =

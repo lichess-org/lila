@@ -131,7 +131,7 @@
   <string name="enableZenMode">Habilita el modo Zen en %1$so presionando %2$s durante una partida.</string>
   <string name="displayPreferences">preferencias de visualización</string>
   <string name="connexionLostCanIGetMyRatingBack">He perdido un juego debido a un retraso/desconexión. ¿Puedo recuperar mis puntajes?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadamente, no podemos devolver puntajes para las partidas perdidas debido a retraso o desconexión, independientemente de si el problema estaba de tu lado o del nuestro. Sin embargo, esto último es muy raro. También ten en cuenta que cuando Lichess se reinicia y pierdes el tiempo debido a eso, abortamos el juego para prevenir una pérdida injusta.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadamente, no podemos devolver puntos en las partidas perdidas debido al retraso de red o desconexión, independientemente de si el problema estaba en tu lado o en el nuestro. Sin embargo, este último caso es muy extraño. También ten en cuenta que cuando Lichess se reinicia y pierdes por que se te haya acabado el tiempo debido a eso, abortamos el juego para prevenir una pérdida injusta.</string>
   <string name="howToThreeDots">Cómo...</string>
   <string name="enableDisableNotificationPopUps">¿Activar o desactivar ventanas emergentes de notificación?</string>
   <string name="viewSiteInformationPopUp">Ver ventana emergente de información del sitio</string>

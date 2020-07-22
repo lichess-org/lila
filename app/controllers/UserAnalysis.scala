@@ -133,7 +133,8 @@ final class UserAnalysis(
   def pgn =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
-      env.importer.forms.importForm.bindFromRequest()
+      env.importer.forms.importForm
+        .bindFromRequest()
         .fold(
           jsonFormError,
           data =>

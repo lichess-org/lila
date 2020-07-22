@@ -99,7 +99,7 @@
   <string name="byCPL">Dre CPL</string>
   <string name="openStudy">Digeriñ ar studi</string>
   <string name="enable">Enaouiñ</string>
-  <string name="bestMoveArrow">Bir ar fiñvadenn wellañ</string>
+  <string name="bestMoveArrow">Bir ar gwellañ fiñvadenn</string>
   <string name="evaluationGauge">Jaoj priziañ</string>
   <string name="multipleLines">Kalz linennoù</string>
   <string name="cpus">CPUs</string>
@@ -519,8 +519,8 @@
   <string name="activePlayers">C\'hoarierien oberiat</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Diwallit, renket eo ar c\'hrogad met n\'eus horolaj ebet!</string>
   <string name="yourPuzzleRatingX">Ho renkadur poelladennoù: %s</string>
-  <string name="findTheBestMoveForWhite">Kavit ar fiñvadenn wellañ evit ar re wenn.</string>
-  <string name="findTheBestMoveForBlack">Kavit ar fiñvadenn wellañ evit ar re zu.</string>
+  <string name="findTheBestMoveForWhite">Kavit ar gwellañ fiñvadenn evit ar re wenn.</string>
+  <string name="findTheBestMoveForBlack">Kavit ar gwellañ fiñvadenn evit ar re zu.</string>
   <string name="toTrackYourProgress">Evit goût hag-eñ ez it war-raok pe get:</string>
   <string name="puzzleId">Poelladenn %s</string>
   <string name="puzzleOfTheDay">Poelladenn an deiz</string>

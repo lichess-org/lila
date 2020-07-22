@@ -9,6 +9,13 @@
     <item quantity="many">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
     <item quantity="other">Skoazellet he/en deus lichess.org e-pad %1$s miz evel %2$s</item>
   </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Pleustret he/en deus war %1$s lec\'hiadur e %2$s</item>
+    <item quantity="two">Pleustret he/en deus war %1$s lec\'hiadur e %2$s</item>
+    <item quantity="few">Pleustret he/en deus war %1$s lec\'hiadur e %2$s</item>
+    <item quantity="many">Pleustret he/en deus war %1$s lec\'hiadur e %2$s</item>
+    <item quantity="other">Pleustret he/en deus war %1$s lec\'hiadur e %2$s</item>
+  </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Dirouestlet he/en deus %s boelladenn strategiezh</item>
     <item quantity="two">Dirouestlet he/en deus %s boelladenn strategiezh</item>

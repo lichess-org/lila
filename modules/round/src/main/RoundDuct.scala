@@ -272,11 +272,12 @@ final private[round] class RoundDuct(
         pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
       }
 
-    case GoBerserk(color) =>
+    case GoBerserk(color, promise) =>
       handle(color) { pov =>
-        pov.game.goBerserk(color) ?? { progress =>
+        val berserked = pov.game.goBerserk(color)
+        berserked.?? { progress =>
           proxy.save(progress) >> gameRepo.goBerserk(pov) inject progress.events
-        }
+        } >>- promise.success(berserked.isDefined)
       }
 
     case ResignForce(playerId) =>

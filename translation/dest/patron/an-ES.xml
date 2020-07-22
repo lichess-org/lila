@@ -2,7 +2,7 @@
 <resources>
   <string name="donate">Donar</string>
   <string name="lichessPatron">Patrón de Lichess</string>
-  <string name="freeAccount">Conta gratuita</string>
+  <string name="freeAccount">Cuenta gratuita</string>
   <string name="becomePatron">Fe-te patrón de Lichess</string>
   <string name="xBecamePatron">%s se fació Patrón de Lichess</string>
   <string name="newPatrons">Nuevos Patrones</string>
@@ -29,8 +29,8 @@
   <string name="weAreSmallTeam">Somos un equipo chicot, per ixo lo tuyo emparo marca una gran diferencia!</string>
   <string name="celebratedPatrons">Los celebres patrones que fan que Lichess sía posible</string>
   <string name="whereMoneyGoes">A án va los diners?</string>
-  <string name="serversAndDeveloper">En primer puesto, poderosos servidors.
-Dimpués pagamos a un desembolicador a tiempo completo: %s, lo fundador de Lichess.</string>
+  <string name="serversAndDeveloper">En primer puesto, servidors potents.
+Amás, pagamos a un desenvolvedor a tiempo completo: %s, lo fundador de Lichess.</string>
   <string name="costBreakdown">Veyer lo desglose de costes detallau</string>
   <string name="officialNonProfit">Ye Lichess una organización oficial sin ánimo de lucro?</string>
   <string name="actOfCreation">Sí, aquí ye l\'acta fundacional (en francés)</string>
@@ -65,7 +65,7 @@ Manimenos, los patrones obtienen dreito a presumir d\'o suyo nuevo icono de perf
   <string name="paymentHistory">Historial de pagos</string>
   <string name="paid">Pagau</string>
   <string name="viewOthers">Veyer atros Patrones de Lichess</string>
-  <string name="date">Calendata</string>
+  <string name="date">Data</string>
   <string name="amount">Cantidat</string>
   <string name="transactionCompleted">La transacción s\'ha completau, y un recibo d\'a tuya donación s\'ha ninviau per correu electronico.</string>
   <string name="permanentPatron">Agora tiens una cuenta de Patrón permanent.</string>

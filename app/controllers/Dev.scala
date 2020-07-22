@@ -33,18 +33,20 @@ final class Dev(env: Env) extends LilaController(env) {
     SecureBody(_.Settings) { implicit ctx => _ =>
       settingsList.find(_.id == id) ?? { setting =>
         implicit val req = ctx.body
-        setting.form.bindFromRequest().fold(
-          _ => BadRequest(html.dev.settings(settingsList)).fuccess,
-          v => {
-            setting.setString(v.toString) inject {
-              (setting.id, setting.get()) match {
-                case ("friendListToggle", v: Boolean) => env.api.influxEvent.friendListToggle(v)
-                case _                                =>
+        setting.form
+          .bindFromRequest()
+          .fold(
+            _ => BadRequest(html.dev.settings(settingsList)).fuccess,
+            v => {
+              setting.setString(v.toString) inject {
+                (setting.id, setting.get()) match {
+                  case ("friendListToggle", v: Boolean) => env.api.influxEvent.friendListToggle(v)
+                  case _                                =>
+                }
+                Redirect(routes.Dev.settings())
               }
-              Redirect(routes.Dev.settings())
             }
-          }
-        )
+          )
       }
     }
 
@@ -62,13 +64,15 @@ final class Dev(env: Env) extends LilaController(env) {
   def cliPost =
     SecureBody(_.Cli) { implicit ctx => me =>
       implicit val req = ctx.body
-      commandForm.bindFromRequest().fold(
-        err => BadRequest(html.dev.cli(err, "Invalid command".some)).fuccess,
-        command =>
-          runAs(me.id, command) map { res =>
-            Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
-          }
-      )
+      commandForm
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(html.dev.cli(err, "Invalid command".some)).fuccess,
+          command =>
+            runAs(me.id, command) map { res =>
+              Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
+            }
+        )
     }
 
   def command =

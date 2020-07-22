@@ -33,9 +33,19 @@
   <string name="basedOnGameDuration">A Lichess-en ez a játszma hozzávetőleges hossza alapján történik = %1$s
 Például egy 5+3 játszma körülbelül 5 × 60 + 40 × 3 = 420 másodpercig tart.</string>
   <string name="durationFormula">(kiindulási idő) + 40 × (növekmény)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Milyen variánsokat játszhatok a Lichess-en?</string>
   <string name="lichessSupportChessAnd">Lichess-en a hagyományos sakk mellett %1$s támogatott.</string>
   <string name="eightVariants">8 variáns</string>
+  <string name="whatIsACPL">Mi az átlagos századgyalog-veszteség (ACPL)?</string>
+  <string name="acplExplanation">A századgyalog az előny mértékegysége a sakkban. Egy századgyalog egyenlő egy gyalog értékének századrészével. Tehát 1 gyalog = 100 századgyalog. Ezek az értékek nem hivatalos mérőszámok és a játékmenethez sincs közük, csupán hasznos iránymutatás a játékosoknak és elengedhetetlen a sakkprogramoknak egy állás kiértékelésekor.
+
+A legjobb gépi lépés nulla századgyalog veszteséget okoz, ugyanakkor kevesebb lépés az állás rosszabbodását is jelenti, szintén századgyalogban kifejezve.
+
+Ezzel a számmal lehet a lépések erősségét mérni. Minél kevesebb a századgyalog veszteség a játékos annál jobban játszik.
+
+A számítógépes elemzéshez a Lichess Stockfish-t használ.</string>
   <string name="insufficientMaterial">Lejárt az idő, döntetlen és túl kevés anyag</string>
   <string name="lichessFollowFIDErules">Ha egy játékosnak lejár az ideje, akkor általában elveszti a játszmát. Azonban a játszma eredménye döntetlen, ha az állásból nincs olyan szabályos lépéssorozat amivel az ellenfél mattot tudna adni (lásd %1$s).
 
@@ -44,6 +54,16 @@ Ritkán előfordul, hogy ezt nem kézenfekvő megállapítani (teljesen zárt á
 Megjegyzendő, hogy lehetséges csupán egy futóval vagy huszárral is mattot adni, ha az ellenfélnek van még figurája amivel eltorlaszolhatja a királyt.</string>
   <string name="linkToFIDErules">FIDE szabálykönyv §6.9, PDF</string>
   <string name="discoveringEnPassant">Miért tud egy gyalog leütni egy másikat ha az már mellette áll? (en passant)</string>
+  <string name="explainingEnPassant">Ez egy szabályos lépés, amit \"en passant\"-nak hívnak. A Wikipédia szócikk %1$s.
+
+A %2$s a 3.7 (d) pontban tárgyalja:
+
+\"[...] Csak abban az esetben kerülhet rá sor, ha valamelyik gyalog az alapállásból kiindulva két mezőt lép előre és ezáltal közvetlenül az ellenfél egyik gyalogja mellé kerül, vagyis, áthalad az ellenfél egyik gyalogjának ütőkörén. Ekkor a két mezővel előrelépett gyalogot úgy lehet kiütni, mintha ez csak egy mezőt lépett volna előre. Ez az ütés nem kötelező. Fontos szabály, hogy az ilyen ütés jogával az ellenfél csak közvetlen válaszként, tehát csak a rákövetkező lépésben élhet. [...]\"
+
+Lásd még az erről készült %3$s-t.</string>
+  <string name="goodIntroduction">jó bevezetés</string>
+  <string name="officialRulesPDF">hivatalos szabálykönyv (PDF)</string>
+  <string name="lichessTraining">Lichess gyakorlás</string>
   <string name="threefoldRepetition">Háromszori állásismétlés</string>
   <string name="threefoldRepetitionExplanation">Ha a táblán egy állás háromszor megismétlődik a játékosok döntetlent igényelhetnek %1$s szerint. A Lichess a hivatalos FIDE szabályokat követi, a %2$s 9.2 (d) bekezdés alapján.</string>
   <string name="threefoldRepetitionLowerCase">állásismétlés szabályai</string>
@@ -94,6 +114,14 @@ Ugyanakkor, ha valaki sokáig nem játszik a bizonytalanság újra emelkedni fog
   <string name="similarOpponents">hasonló értékszámú ellenfelek</string>
   <string name="notPlayedRecently">A játékos nem játszott mostanában. A lejátszott partik számától függően körülbelül egy év elteltével lesz újra becsült az értékszámod.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkrétan azt jelenti, hogy a Glicko-2 bizonytalansági tényező 110 felett van. Ez a tényező mutatja mennyire biztos a rendszer az értékszám megállapításában. Minél kisebb, az értékszám annál pontosabb.</string>
+  <string name="howDoLeaderoardsWork">Hogyan működnek a ranglisták és helyezések?</string>
+  <string name="inOrderToAppearsYouMust">Ahhoz, hogy felkerülj az %1$s az alábbiak szükségesek:</string>
+  <string name="ratingLeaderboards">értékszám ranglistára</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">legalább 30 értékelt játszmát játszottál egy adott értékszámmal,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">játszottál az elmúlt egy hétben a mostani értékszámod eléréséért,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">az értékszám bizonytalanságod kisebb, mint %1$s hagyományos sakkban és kisebb, mint %2$s variánsokban,</string>
+  <string name="beInTopTen">az értékszámod a felső 10-ben van.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">A második követelmény szerint a játékos, aki már nem használja aktívan a fiókját, lekerül a ranglistákról.</string>
   <string name="whyAreRatingHigher">Miért magasabbak az értékszámok itt, mint más oldalon vagy szervezetnél, pl FIDE, USCF vagy ICC?</string>
   <string name="whyAreRatingHigherExplanation">A legjobb nem abszoltút mérőszámként gondolni ezekre az értékekre vagy másik szervezetéhez hasonlítgatni. Minden sakk-klub más és más játékosközösségből áll és más értékelő rendszert használ (Élő, Glicko, Glicko-2 vagy ezek változatait). A fenti tényezők nagyban befolyásolják az egyéni értékszámokat.
 
@@ -105,6 +133,7 @@ Jobb csak relatív összehasonlítási alapként tekinteni ezekre a számokra: a
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Sajnos nem áll módunkban visszatéríteni értékszámot, amennyiben a játszmát lag vagy szétkapcsolás miatt veszítetted el, függetlenül attól, hogy a hiba a te végedről származik vagy a miénkről. Utóbbi azonban igen ritka. Megjegyzendő, ha a Lichess valamiért újraindul a folyamatban lévő játszmák félbeszakadnak az igazságtalan vereségeket elkerülendő.</string>
   <string name="howToThreeDots">Hogyan...</string>
   <string name="enableDisableNotificationPopUps">Engedélyezem vagy tiltom a felbukkanó értesítéseket?</string>
+  <string name="viewSiteInformationPopUp">Oldal információk megjelenítése</string>
   <string name="lichessCanOptionnalySendPopUps">A Lichess küldhet felbukkanó értesítéseket, például ha te következel egy játszmában vagy üzenet érkezésekor.
 
 Kattints a lakat ikonra a böngésző címsorában, a lichess.org mellett.
