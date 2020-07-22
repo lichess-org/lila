@@ -85,4 +85,12 @@ Spēlētāji ar pārbaudītiem tituliem var spēlēt Lichess Titulu Arēnu pasā
 Visbeidzot, ir arī %2$s goda tituls.</string>
   <string name="asWellAsManyNMtitles">daudzus nacionālos meistara titulus</string>
   <string name="verificationForm">pārbaudes veidlapu</string>
+  <string name="canIbecomeLM">Vai varu saņemt Lichess Meistara (LM) titulu?</string>
+  <string name="noUpperCaseDot">Nē.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Šis goda tituls ir neoficiāls un pastāv tikai vietnē Lichess.
+
+Retos gadījumos mēs to piešķiram pēc saviem ieskatiem ļoti ievērojamiem spēlētājiem, kas ir labi Lichess pilsoņi. Jums nav iespējas tikt pie LM titula, LM tituls pats pie jums nonāks. Ja kvalificējaties, par to saņemsiet no mums ziņu, un jums būs iespēja to pieņemt vai noraidīt.
+
+Lūdzu, neprasiet LM titulu.</string>
+  <string name="whatUsernameCanIchoose">Kāds man var būt lietotājvārds?</string>
 </resources>
