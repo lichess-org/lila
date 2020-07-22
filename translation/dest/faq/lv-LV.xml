@@ -116,11 +116,14 @@ Vēl jāievēro, ka laikam paejot, ticamības intervāls palielinās. Tas ļauj 
   <string name="inOrderToAppearsYouMust">Lai iekļūtu %1$s, tev:</string>
   <string name="ratingLeaderboards">reitinga tabulā</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">jābūt nospēlētām vismaz 30 vērtētām spēlēm dotajā reitingā,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">pēdējās nedēļas laikā ir jānospēlē vērtēta spēla šim reitingam,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">pēdējās nedēļas laikā ir jānospēlē vērtēta spēle šim reitingam,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">reitinga novirzei jābūt zem %1$s standarta šahā un zem %2$s variantos</string>
   <string name="beInTopTen">jābūt iekš šī reitinga top 10.</string>
   <string name="howToHideRatingWhilePlaying">Kā spēles laikā paslēpt reitingus?</string>
+  <string name="enableZenMode">Iespējot Zen režīmu %1$s vai arī piespiežot %2$s spēles laikā.</string>
   <string name="displayPreferences">rādīt iestatījumus</string>
+  <string name="connexionLostCanIGetMyRatingBack">Es zaudēju spēli aiztures/atvienošanās dēļ. Vai es varu dabūt savus reitinga punktus atpakaļ?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Diemžēl, mēs nevaram atdot punktus kas ir tikuši zaudēti aiztures vai atvienošanās dēļ, neatkarīgi no tā, vai problēma ir bijusi jūsu vai mūsu galā (tas notiek ļoti reti). Pievērs uzmanību, kad Lichess pārstartējas dēļ tā tiek zaudēts laiks, mēs atceļam spēli, lai nenotiktu netaisns zaudējums.</string>
   <string name="howToThreeDots">Kā...</string>
   <string name="enableDisableNotificationPopUps">Iespējot vai atspējot uznirstošos paziņojumus?</string>
   <string name="viewSiteInformationPopUp">Skatīt vietnes uznirstošo informāciju</string>
