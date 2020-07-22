@@ -113,9 +113,12 @@ Vēl jāievēro, ka laikam paejot, ticamības intervāls palielinās. Tas ļauj 
   <string name="similarOpponents">līdzīga līmeņa pretiniekiem</string>
   <string name="notPlayedRecently">Spēlētājs sen nav izspēlējis daudzas spēles. Atkarībā no tā, cik daudzas spēles esat izspēlējis, nespēlējot var paiet aptuveni gads līdz reitings atkal tiek uzskatīts par pagaidu.</string>
   <string name="howDoLeaderoardsWork">Kā strādā spēlētāju reitingi un labāko spēlētāju saraksti?</string>
-  <string name="inOrderToAppearsYouMust">Lai iekļūtu %1$s, tev ir:</string>
+  <string name="inOrderToAppearsYouMust">Lai iekļūtu %1$s, tev:</string>
   <string name="ratingLeaderboards">reitinga tabulā</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">jābūt nospēlētām vismaz 30 vērtētām spēlēm dotajā reitingā,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">pēdējās nedēļas laikā ir jānospēlē vērtēta spēla šim reitingam,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">reitinga novirzei jābūt zem %1$s standarta šahā un zem %2$s variantos</string>
+  <string name="beInTopTen">jābūt iekš šī reitinga top 10.</string>
   <string name="howToHideRatingWhilePlaying">Kā spēles laikā paslēpt reitingus?</string>
   <string name="displayPreferences">rādīt iestatījumus</string>
   <string name="howToThreeDots">Kā...</string>
