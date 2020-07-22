@@ -428,14 +428,16 @@ final class User(
   )(err: Form[_] => UserModel => Fu[Result], suc: => Result)(implicit req: Request[_]) =
     env.user.repo named username flatMap {
       _ ?? { user =>
-        env.user.forms.note.bindFromRequest().fold(
-          e => err(e)(user),
-          data =>
-            {
-              val isMod = data.mod && isGranted(_.ModNote, me)
-              env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
-            } inject suc
-        )
+        env.user.forms.note
+          .bindFromRequest()
+          .fold(
+            e => err(e)(user),
+            data =>
+              {
+                val isMod = data.mod && isGranted(_.ModNote, me)
+                env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
+              } inject suc
+          )
       }
     }
 

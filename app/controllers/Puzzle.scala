@@ -103,33 +103,35 @@ final class Puzzle(
       implicit val req = ctx.body
       OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
         lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "old")
-        env.puzzle.forms.round.bindFromRequest().fold(
-          jsonFormError,
-          resultInt => {
-            val result = Result(resultInt == 1)
-            ctx.me match {
-              case Some(me) =>
-                for {
-                  isStudent <- env.clas.api.student.isStudent(me.id)
-                  (round, mode) <-
-                    env.puzzle.finisher(puzzle, me, result, mobile = true, isStudent = isStudent)
-                  me2   <- if (mode.rated) env.user.repo byId me.id map (_ | me) else fuccess(me)
-                  infos <- env.puzzle userInfos me2
-                  voted <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
-                  data  <- renderJson(puzzle, infos.some, "view", voted = voted, round = round.some)
-                } yield {
-                  val d2 = if (mode.rated) data else data ++ Json.obj("win" -> result.win)
-                  Ok(d2)
-                }
-              case None =>
-                env.puzzle.finisher.incPuzzleAttempts(puzzle)
-                renderJson(puzzle, none, "view", voted = none) map { data =>
-                  val d2 = data ++ Json.obj("win" -> result.win)
-                  Ok(d2)
-                }
+        env.puzzle.forms.round
+          .bindFromRequest()
+          .fold(
+            jsonFormError,
+            resultInt => {
+              val result = Result(resultInt == 1)
+              ctx.me match {
+                case Some(me) =>
+                  for {
+                    isStudent <- env.clas.api.student.isStudent(me.id)
+                    (round, mode) <-
+                      env.puzzle.finisher(puzzle, me, result, mobile = true, isStudent = isStudent)
+                    me2   <- if (mode.rated) env.user.repo byId me.id map (_ | me) else fuccess(me)
+                    infos <- env.puzzle userInfos me2
+                    voted <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
+                    data  <- renderJson(puzzle, infos.some, "view", voted = voted, round = round.some)
+                  } yield {
+                    val d2 = if (mode.rated) data else data ++ Json.obj("win" -> result.win)
+                    Ok(d2)
+                  }
+                case None =>
+                  env.puzzle.finisher.incPuzzleAttempts(puzzle)
+                  renderJson(puzzle, none, "view", voted = none) map { data =>
+                    val d2 = data ++ Json.obj("win" -> result.win)
+                    Ok(d2)
+                  }
+              }
             }
-          }
-        ) map (_ as JSON)
+          ) map (_ as JSON)
       }
     }
 
@@ -140,35 +142,37 @@ final class Puzzle(
         implicit val req = ctx.body
         OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
           lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "new")
-          env.puzzle.forms.round.bindFromRequest().fold(
-            jsonFormError,
-            resultInt =>
-              ctx.me match {
-                case Some(me) =>
-                  for {
-                    isStudent <- env.clas.api.student.isStudent(me.id)
-                    (round, mode) <- env.puzzle.finisher(
-                      puzzle = puzzle,
-                      user = me,
-                      result = Result(resultInt == 1),
-                      mobile = lila.api.Mobile.Api.requested(ctx.req),
-                      isStudent = isStudent
+          env.puzzle.forms.round
+            .bindFromRequest()
+            .fold(
+              jsonFormError,
+              resultInt =>
+                ctx.me match {
+                  case Some(me) =>
+                    for {
+                      isStudent <- env.clas.api.student.isStudent(me.id)
+                      (round, mode) <- env.puzzle.finisher(
+                        puzzle = puzzle,
+                        user = me,
+                        result = Result(resultInt == 1),
+                        mobile = lila.api.Mobile.Api.requested(ctx.req),
+                        isStudent = isStudent
+                      )
+                      me2   <- if (mode.rated) env.user.repo byId me.id map (_ | me) else fuccess(me)
+                      infos <- env.puzzle userInfos me2
+                      voted <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
+                    } yield Ok(
+                      Json.obj(
+                        "user"  -> lila.puzzle.JsonView.infos(false)(infos),
+                        "round" -> lila.puzzle.JsonView.round(round),
+                        "voted" -> voted
+                      )
                     )
-                    me2   <- if (mode.rated) env.user.repo byId me.id map (_ | me) else fuccess(me)
-                    infos <- env.puzzle userInfos me2
-                    voted <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
-                  } yield Ok(
-                    Json.obj(
-                      "user"  -> lila.puzzle.JsonView.infos(false)(infos),
-                      "round" -> lila.puzzle.JsonView.round(round),
-                      "voted" -> voted
-                    )
-                  )
-                case None =>
-                  env.puzzle.finisher.incPuzzleAttempts(puzzle)
-                  Ok(Json.obj("user" -> false)).fuccess
-              }
-          ) map (_ as JSON)
+                  case None =>
+                    env.puzzle.finisher.incPuzzleAttempts(puzzle)
+                    Ok(Json.obj("user" -> false)).fuccess
+                }
+            ) map (_ as JSON)
         }
       }
     }
@@ -177,18 +181,20 @@ final class Puzzle(
     AuthBody { implicit ctx => me =>
       NoBot {
         implicit val req = ctx.body
-        env.puzzle.forms.vote.bindFromRequest().fold(
-          jsonFormError,
-          vote =>
-            env.puzzle.api.vote.find(id, me) flatMap { v =>
-              env.puzzle.api.vote.update(id, me, v, vote == 1)
-            } map {
-              case (p, a) =>
-                if (vote == 1) lila.mon.puzzle.vote.up.increment()
-                else lila.mon.puzzle.vote.down.increment()
-                Ok(Json.arr(a.value, p.vote.sum))
-            }
-        ) map (_ as JSON)
+        env.puzzle.forms.vote
+          .bindFromRequest()
+          .fold(
+            jsonFormError,
+            vote =>
+              env.puzzle.api.vote.find(id, me) flatMap { v =>
+                env.puzzle.api.vote.update(id, me, v, vote == 1)
+              } map {
+                case (p, a) =>
+                  if (vote == 1) lila.mon.puzzle.vote.up.increment()
+                  else lila.mon.puzzle.vote.down.increment()
+                  Ok(Json.arr(a.value, p.vote.sum))
+              }
+          ) map (_ as JSON)
       }
     }
 

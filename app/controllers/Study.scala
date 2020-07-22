@@ -266,26 +266,30 @@ final class Study(
   def createAs =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.study.DataForm.importGame.form.bindFromRequest().fold(
-        _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
-        data =>
-          for {
-            owner   <- env.study.studyRepo.recentByOwner(me.id, 50)
-            contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
-            res <-
-              if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
-              else Ok(html.study.create(data, owner, contrib)).fuccess
-          } yield res
-      )
+      lila.study.DataForm.importGame.form
+        .bindFromRequest()
+        .fold(
+          _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
+          data =>
+            for {
+              owner   <- env.study.studyRepo.recentByOwner(me.id, 50)
+              contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
+              res <-
+                if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
+                else Ok(html.study.create(data, owner, contrib)).fuccess
+            } yield res
+        )
     }
 
   def create =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.study.DataForm.importGame.form.bindFromRequest().fold(
-        _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
-        data => createStudy(data, me)
-      )
+      lila.study.DataForm.importGame.form
+        .bindFromRequest()
+        .fold(
+          _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
+          data => createStudy(data, me)
+        )
     }
 
   private def createStudy(data: lila.study.DataForm.importGame.Data, me: lila.user.User)(implicit
@@ -315,15 +319,17 @@ final class Study(
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
       get("sri") ?? { sri =>
-        lila.study.DataForm.importPgn.form.bindFromRequest().fold(
-          jsonFormError,
-          data =>
-            env.study.api.importPgns(
-              StudyModel.Id(id),
-              data.toChapterDatas,
-              sticky = data.sticky
-            )(Who(me.id, lila.socket.Socket.Sri(sri)))
-        )
+        lila.study.DataForm.importPgn.form
+          .bindFromRequest()
+          .fold(
+            jsonFormError,
+            data =>
+              env.study.api.importPgns(
+                StudyModel.Id(id),
+                data.toChapterDatas,
+                sticky = data.sticky
+              )(Who(me.id, lila.socket.Socket.Sri(sri)))
+          )
       }
     }
 
@@ -399,7 +405,7 @@ final class Study(
 
   def cloneApply(id: String) =
     Auth { implicit ctx => me =>
-      val cost             = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
+      val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
       CloneLimitPerUser(me.id, cost = cost) {
         CloneLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
           OptionFuResult(env.study.api.byId(id)) { prev =>
@@ -509,12 +515,14 @@ final class Study(
   def setTopics =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.study.DataForm.topicsForm.bindFromRequest().fold(
-        _ => Redirect(routes.Study.topics()).fuccess,
-        topics =>
-          env.study.topicApi.userTopics(me, topics) inject
-            Redirect(routes.Study.topics())
-      )
+      lila.study.DataForm.topicsForm
+        .bindFromRequest()
+        .fold(
+          _ => Redirect(routes.Study.topics()).fuccess,
+          topics =>
+            env.study.topicApi.userTopics(me, topics) inject
+              Redirect(routes.Study.topics())
+        )
     }
 
   private[controllers] def CanViewResult(

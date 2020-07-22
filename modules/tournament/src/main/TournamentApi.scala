@@ -406,7 +406,7 @@ final class TournamentApi(
             pairingRepo.findPlaying(tour.id, userId) flatMap {
               case Some(pairing) if !pairing.berserkOf(userId) =>
                 (pairing colorOf userId) ?? { color =>
-                  roundSocket.rounds.ask(gameId) { GoBerserk(color, _)  } flatMap {
+                  roundSocket.rounds.ask(gameId) { GoBerserk(color, _) } flatMap {
                     _ ?? pairingRepo.setBerserk(pairing, userId)
                   }
                 }

@@ -274,7 +274,7 @@ final private[round] class RoundDuct(
 
     case GoBerserk(color, promise) =>
       handle(color) { pov =>
-        val berserked = pov.game.goBerserk(color) 
+        val berserked = pov.game.goBerserk(color)
         berserked.?? { progress =>
           proxy.save(progress) >> gameRepo.goBerserk(pov) inject progress.events
         } >>- promise.success(berserked.isDefined)
