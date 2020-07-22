@@ -97,7 +97,7 @@ Lūdzu, neprasiet LM titulu.</string>
   <string name="guidelines">norādījumiem</string>
   <string name="uniqueTrophies">Unikālas trofejas</string>
   <string name="ownerUniqueTrophies">Tā trofeja ir unikāla Lichess vēsturē; tā nepiederēs nevienam citam kā %1$s.</string>
-  <string name="aHourlyBulletTournament">ik stundas Bullet turnīrs</string>
+  <string name="aHourlyBulletTournament">ik stundu Bullet turnīrā</string>
   <string name="lichessRatings">Lichess reitingi</string>
   <string name="whichRatingSystemUsedByLichess">Kādu reitinga sistēmu izmanto Lichess?</string>
   <string name="ratingSystemUsedByLichess">Reitingus aprēķina ar reitingu sistēmu \"Glicko-2\", ko izveidojis Marks Glikmans. Šī ir ļoti populāra sistēma, ko izmanto nozīmīgs daudzums šaha organizāciju (FIDE ir ievērojams izņēmums, kas vēl joprojām izmanto novecojušo sistēmu \"Elo\").
@@ -121,7 +121,7 @@ Vēl jāievēro, ka laikam paejot, ticamības intervāls palielinās. Tas ļauj 
   <string name="beInTopTen">jābūt iekš šī reitinga top 10.</string>
   <string name="howToHideRatingWhilePlaying">Kā spēles laikā paslēpt reitingus?</string>
   <string name="enableZenMode">Iespējot Zen režīmu %1$s vai arī piespiežot %2$s spēles laikā.</string>
-  <string name="displayPreferences">rādīt iestatījumus</string>
+  <string name="displayPreferences">attēlošanas iestatījumos</string>
   <string name="connexionLostCanIGetMyRatingBack">Es zaudēju spēli aiztures/atvienošanās dēļ. Vai es varu dabūt savus reitinga punktus atpakaļ?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Diemžēl, mēs nevaram atdot punktus kas ir tikuši zaudēti aiztures vai atvienošanās dēļ, neatkarīgi no tā, vai problēma ir bijusi jūsu vai mūsu galā (tas notiek ļoti reti). Pievērs uzmanību, kad Lichess pārstartējas dēļ tā tiek zaudēts laiks, mēs atceļam spēli, lai nenotiktu netaisns zaudējums.</string>
   <string name="howToThreeDots">Kā...</string>
