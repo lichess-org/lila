@@ -110,4 +110,5 @@ Vēl jāievēro, ka laikam paejot, ticamības intervāls palielinās. Tas ļauj 
   <string name="provisionalRatingExplanation">Jautājuma zīme apzīmē pagaidu reitingu. Iespējamie iemesli:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Spēlētājs vēl nav izspēlējis pietiekami daudz spēļu pret %1$s reitinga kategorijā.</string>
   <string name="similarOpponents">līdzīga līmeņa pretiniekiem</string>
+  <string name="notPlayedRecently">Spēlētājs sen nav izspēlējis daudzas spēles. Atkarībā no tā, cik daudzas spēles esat izspēlējis, nespēlējot var paiet aptuveni gads līdz reitings atkal tiek uzskatīts par pagaidu.</string>
 </resources>
