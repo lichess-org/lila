@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Klasoù echedoù</string>
+  <string name="teachClassesOfChessStudents">Deskit echedoù d\'ho studierien gant Lichess.</string>
+  <string name="features">Arc\'hweladurioù</string>
   <string name="freeForAllForever">100% digoust evit an holl, da viken, hep bruderezh na trackers</string>
   <string name="applyToBeLichessTeacher">Lakaat e anv evit bezañ kelenner</string>
   <string name="noClassesYet">Klas ebet evit poent.</string>
