@@ -706,9 +706,17 @@
   <string name="contribute">Kenoberiañ</string>
   <string name="termsOfService">Divizoù hollek an implij</string>
   <string name="sourceCode">Boneg Tarzh</string>
+  <string name="simultaneousExhibitions">Abadennoù kempred</string>
   <string name="host">Ostiz</string>
   <string name="hostColorX">Liv an ostiz: %s</string>
+  <string name="createdSimuls">Abadennoù kempred nevez krouet</string>
+  <string name="hostANewSimul">Krouiñ un abadenn gempred nevez</string>
+  <string name="noSimulFound">N\'eo ket bet kavet an abadenn gempred</string>
+  <string name="noSimulExplanation">N\'eus ket deus an abadenn gempred-mañ.</string>
+  <string name="returnToSimulHomepage">Distreiñ d\'al lañser abadennoù kempred</string>
+  <string name="aboutSimul">Abadennoù kempred enne ur c\'hoarier oc\'h enebiñ ouzh meur a hini war an dro.</string>
   <string name="aboutSimulImage">A-enep 50 enebour eo bet trec\'h Fischer 47 gwech, div wech rampo ha trec\'het ur wech nemetken.</string>
+  <string name="aboutSimulRealLife">Bezañ ez eus diouzh abadennoù e-giz-se evit gwir. D\'ar c\'hoarier da vont deus un daol d\'eben evit ober ur fiñvadenn bep tro.</string>
   <string name="create">Krouiñ</string>
   <string name="simulVariantsHint">Ma choazit meur a eilstumm en do pep c\'hoarier da zibab pehini c\'hoari.</string>
   <string name="lichessTournaments">Tournamantoù Lichess</string>
