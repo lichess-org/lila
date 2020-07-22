@@ -20,6 +20,7 @@
   <string name="playingExperience">Játéktapasztalat</string>
   <string name="teachingExperience">Oktatói tapasztalat</string>
   <string name="otherExperiences">Egyéb tapasztalat</string>
+  <string name="teachingMethod">Oktatói módszertan</string>
   <string name="publicStudies">Nyilvános tanulmányok</string>
   <string name="youtubeVideos">YouTube videók</string>
   <plurals name="studentReviews">
@@ -27,4 +28,6 @@
     <item quantity="other">%s tanulói értékelés</item>
   </plurals>
   <string name="thankYouForReview">Köszönjük az értékelésed!</string>
+  <string name="xWillApproveIt">%s hamarosan jóváhagyja, vagy egy moderátor fogja átnézni.</string>
+  <string name="reviewCoach">Oktató értékelése</string>
 </resources>
