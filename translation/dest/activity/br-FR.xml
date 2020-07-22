@@ -72,6 +72,20 @@
     <item quantity="many">%s heulier nevez</item>
     <item quantity="other">%s heulier nevez</item>
   </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Roet bod d\' %s abadenn gempred</item>
+    <item quantity="two">Roet bod da %s abadenn gempred</item>
+    <item quantity="few">Roet bod da %s abadenn gempred</item>
+    <item quantity="many">Roet bod da %s abadenn gempred</item>
+    <item quantity="other">Roet bod da %s abadenn gempred</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Kemeret perzh en %s abadenn gempred</item>
+    <item quantity="two">Kemeret perzh e %s abadenn gempred</item>
+    <item quantity="few">Kemeret perzh e %s abadenn gempred</item>
+    <item quantity="many">Kemeret perzh e %s abadenn gempred</item>
+    <item quantity="other">Kemeret perzh e %s abadenn gempred</item>
+  </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Krouet %s studiadenn gantañ</item>
     <item quantity="two">Krouet %s studiadenn gantañ</item>
