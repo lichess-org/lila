@@ -97,6 +97,7 @@ Lūdzu, neprasiet LM titulu.</string>
   <string name="guidelines">norādījumiem</string>
   <string name="uniqueTrophies">Unikālas trofejas</string>
   <string name="ownerUniqueTrophies">Tā trofeja ir unikāla Lichess vēsturē; tā nepiederēs nevienam citam kā %1$s.</string>
+  <string name="aHourlyBulletTournament">ik stundas Bullet turnīrs</string>
   <string name="lichessRatings">Lichess reitingi</string>
   <string name="whichRatingSystemUsedByLichess">Kādu reitinga sistēmu izmanto Lichess?</string>
   <string name="ratingSystemUsedByLichess">Reitingus aprēķina ar reitingu sistēmu \"Glicko-2\", ko izveidojis Marks Glikmans. Šī ir ļoti populāra sistēma, ko izmanto nozīmīgs daudzums šaha organizāciju (FIDE ir ievērojams izņēmums, kas vēl joprojām izmanto novecojušo sistēmu \"Elo\").
@@ -111,4 +112,9 @@ Vēl jāievēro, ka laikam paejot, ticamības intervāls palielinās. Tas ļauj 
   <string name="notPlayedEnoughRatedGamesAgainstX">Spēlētājs vēl nav izspēlējis pietiekami daudz spēļu pret %1$s reitinga kategorijā.</string>
   <string name="similarOpponents">līdzīga līmeņa pretiniekiem</string>
   <string name="notPlayedRecently">Spēlētājs sen nav izspēlējis daudzas spēles. Atkarībā no tā, cik daudzas spēles esat izspēlējis, nespēlējot var paiet aptuveni gads līdz reitings atkal tiek uzskatīts par pagaidu.</string>
+  <string name="howDoLeaderoardsWork">Kā strādā spēlētāju reitingi un labāko spēlētāju saraksti?</string>
+  <string name="ratingLeaderboards">reitinga tabula</string>
+  <string name="howToHideRatingWhilePlaying">Kā spēles laikā paslēpt reitingus?</string>
+  <string name="displayPreferences">rādīt iestatījumus</string>
+  <string name="howToThreeDots">Kā...</string>
 </resources>
