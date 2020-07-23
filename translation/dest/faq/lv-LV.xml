@@ -124,6 +124,9 @@ Vēl jāievēro, ka laikam paejot, ticamības intervāls palielinās. Tas ļauj 
   <string name="beInTopTen">jābūt iekš šī reitinga top 10.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Otrā prasība ir tādēļ, lai spēlētāji, kas vairs neizmanto savu kontu, nepiesārņo labāko spēlētāju sarakstu.</string>
   <string name="whyAreRatingHigher">Kādēļ reitingi ir augstāki salīdzinājumā ar citām lapām un organizācijām kā FIDE, USCF un ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Nevajadzētu reitingus uzskatīt par absolūtiem skaitļiem vai tos salīdzināt ar citām organizācijām. Dažādās organizācijās spēlētāju līmenis, kā arī reitingu sistēma (Elo, Glicko, Glicko-2, vai pielāgota sistēma), var atšķirties. Šis var stipri ietekmēt absolūtos skaitļus (reitingus).
+
+Vislabāk tos salīdzināt kā relatīvas (nevis absolūtas) vērtības: noteiktā spēlētāju grupā reitingi palīdz izsvērt, cik bieži kurš spēlētājs uzvarēs, zaudēs, vai panāks neizšķirtu. Apgalvot \"mans reitings ir X\" neko nenozīmē, ja vien nav citu spēlētāju, ar ko to salīdzināt.</string>
   <string name="howToHideRatingWhilePlaying">Kā spēles laikā paslēpt reitingus?</string>
   <string name="enableZenMode">Iespējot Zen režīmu %1$s vai arī piespiežot %2$s spēles laikā.</string>
   <string name="displayPreferences">attēlošanas iestatījumos</string>
