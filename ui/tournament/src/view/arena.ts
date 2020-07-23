@@ -52,23 +52,23 @@ function podiumUsername(p) {
   }, playerName(p));
 }
 
-function podiumStats(p, trans: Trans): VNode {
+function podiumStats(p, berserkable, trans: Trans): VNode {
   const noarg = trans.noarg, nb = p.nb;
   return h('table.stats', [
     p.performance ? h('tr', [h('th', noarg('performance')), h('td', p.performance)]) : null,
     h('tr', [h('th', noarg('gamesPlayed')), h('td', nb.game)]),
     ...(nb.game ? [
       h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
-      h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))])
+      berserkable ? h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))]) : null
     ] : [])
   ]);
 }
 
-function podiumPosition(p, pos, trans: Trans): VNode | undefined {
+function podiumPosition(p, pos: string, berserkable, trans: Trans): VNode | undefined {
   if (p) return h('div.' + pos, [
     h('div.trophy'),
     podiumUsername(p),
-    podiumStats(p, trans)
+    podiumStats(p, berserkable, trans)
   ]);
 }
 
@@ -77,9 +77,9 @@ let lastBody: MaybeVNodes | undefined;
 export function podium(ctrl: TournamentController) {
   const p = ctrl.data.podium || [];
   return h('div.tour__podium', [
-    podiumPosition(p[1], 'second', ctrl.trans),
-    podiumPosition(p[0], 'first', ctrl.trans),
-    podiumPosition(p[2], 'third', ctrl.trans)
+    podiumPosition(p[1], 'second', ctrl.data.berserkable, ctrl.trans),
+    podiumPosition(p[0], 'first', ctrl.data.berserkable, ctrl.trans),
+    podiumPosition(p[2], 'third', ctrl.data.berserkable, ctrl.trans)
   ]);
 }
 
