@@ -489,7 +489,7 @@
     <item quantity="one">%s тіліндегі нұсқасы бар!</item>
     <item quantity="other">%s тіліндегі нұсқасы бар!</item>
   </plurals>
-  <string name="quickPairing">Қалыптар</string>
+  <string name="quickPairing">Дайын қалыптар</string>
   <string name="lobby">Алаң</string>
   <string name="yourScore">Жетістігіңіз: %s</string>
   <string name="language">Тіл</string>
