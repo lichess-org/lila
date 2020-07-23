@@ -143,7 +143,7 @@
   <string name="signIn">Кіру</string>
   <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге аккаунт қажет</string>
   <string name="signUp">Тіркелу</string>
-  <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат програмдарын, дереккөздерін не басқа ойыншының көмегін пайдаланбаңыз. Сонымен қатар бірнеше аккаунт жасауды қолдамаймыз, тым көп аккаунт жасауыңыз сізді шектеуге шалдықтырады.</string>
+  <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат програмдарын, дереккөздерін не басқа бір ойыншының көмегін пайдаланбаңыз. Сонымен қатар, бірнеше аккаунт жасауды құптамаймыз, тым көп аккаунт жасауыңыз сізді шектеуге әкеліп соқтырады.</string>
   <string name="games">Ойындар</string>
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s %2$s мақаласында жазды</string>
@@ -383,7 +383,7 @@
   <string name="conditionOfEntry">Kirý sharttary:</string>
   <string name="advancedSettings">Qosymsha parametrler</string>
   <string name="safeTournamentName">Týrnır úshin óte qaýipsiz ataýdy tańdańyz.</string>
-  <string name="inappropriateNameWarning">Barlyq, tipti sál orynsyz, múmkin jabý sizdiń shot.</string>
+  <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет сіздің аккаунтыңыздың жабылуына әкеліп соқтыруы мүмкін.</string>
   <string name="emptyTournamentName">Belgili shahmatshynyń qurmetine týrnırdi ataý úshin bos qaldyryńyz.</string>
   <string name="recommendNotTouching">Biz olardy ustamaýǵa keńes beremiz.</string>
   <string name="fewerPlayers">Егер сіз кіру талаптарын қойсаңыз, жарысқа аз ғана ойыншы қатысады.</string>
@@ -510,7 +510,10 @@
   <string name="resumePractice">Жаттығуды жалғастыру</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
   <string name="playX">%s жүріңіз</string>
+  <string name="sorry">Өкінішті-ақ :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Сізді уақытша шығаруға мәжбүр болдық.</string>
   <string name="timeoutExpires">Шектелудің аяқталуына %s қалды.</string>
+  <string name="why">Себебі қандай?</string>
   <string name="goodPractice">Сондықтан барлық ойыншылар оң тәжірибе алсын деп талпынудамыз.</string>
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
   <string name="rapid">Шапшаң</string>
