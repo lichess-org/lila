@@ -532,12 +532,22 @@
   <string name="onlyFriends">Тек қана достар</string>
   <string name="menu">Мәзір</string>
   <string name="castling">Бекіну</string>
+  <string name="whiteCastlingKingside">Ақтар O-O</string>
+  <string name="blackCastlingKingside">Қаралар O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s форумдағы жазба</item>
     <item quantity="other">%s форумдағы жазба</item>
   </plurals>
+  <string name="tpTimeSpentPlaying">Ойынмен өткен уақыт: %s</string>
   <string name="watchGames">Ойындарын бақылау</string>
+  <string name="tpTimeSpentOnTV">TV қараумен өткен уақыт: %s</string>
   <string name="watch">Бақылау</string>
+  <string name="videoLibrary">Видеохана</string>
+  <string name="streamersMenu">Стримерлер</string>
+  <string name="mobileApp">Мобильді қолданба</string>
+  <string name="webmasters">Веб-құрастырушылар</string>
+  <string name="about">Сипаттама</string>
+  <string name="aboutX">%s туралы</string>
   <string name="tournamentHomeDescription">Жылдам қарқындағы жарыста ойнаңыз! Мезгілі белгіленген жарысқа қатысып, немесе өзіңіз жарыс құрсаңыз болады. Желаяқ, Блитц, Классикалық, Шахмат960, Тау Патшасы, Үш Шах және тағы басқа шахмат қызықтарын көріңіз.</string>
   <string name="weeklyPerfTypeRatingDistribution">Апта ішінде %s рейтингтердің таралуы</string>
   <string name="yourPerfTypeRatingIsRating">Сіздің %1$s рейтингіңіз – %2$s.</string>
