@@ -517,6 +517,10 @@
   <string name="pleasantChessExperience">Біз әрбіреудің ойыны жайлы өткенін мақсат етеміз.</string>
   <string name="goodPractice">Сол үшін барлық ойыншылардың тәртібін қадағалауға тура келеді.</string>
   <string name="potentialProblem">Күдікті жағдай анықталса, осы хабарлама шығады.</string>
+  <string name="howToAvoidThis">Осындайдан қалай аулақ боламыз?</string>
+  <string name="playEveryGame">Сіз әр бастаған ойынды аяғына дейін ойнаңыз.</string>
+  <string name="tryToWin">Жеңіске (не кем дегенде тепе-теңдікке) жетуге талпынып жүріңіз.</string>
+  <string name="resignLostGames">Нашар ойында берілу абзал болар (уақыттың аяқталуын күтпеңіз).</string>
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
   <string name="rapid">Шапшаң</string>
   <string name="classical">Классикалық</string>
