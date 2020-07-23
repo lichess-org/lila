@@ -452,8 +452,8 @@
   <string name="fromGameLink">Осы ойыннан %s</string>
   <string name="continueTraining">Ары қарай жаттығу</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s ойын жүруде</item>
-    <item quantity="other">%s ойын жүруде</item>
+    <item quantity="one">%s ойын өтуде</item>
+    <item quantity="other">%s ойын өтуде</item>
   </plurals>
   <string name="puzzles">Жұмбақтар</string>
   <string name="no">Жоқ</string>
@@ -483,6 +483,7 @@
   <string name="yourRating">Рейтингіңіз</string>
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
   <string name="withFriends">Достармен</string>
+  <string name="bulletBlitzClassical">Желаяқ, Блитц, Классикалық</string>
   <string name="viewTheSolution">Жауабты қарау</string>
   <string name="followAndChallengeFriends">Достарыңызға серік болып, ойынға шақыру</string>
   <plurals name="availableInNbLanguages">
