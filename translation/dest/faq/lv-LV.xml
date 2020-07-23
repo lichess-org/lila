@@ -123,6 +123,7 @@ Vēl jāievēro, ka laikam paejot, ticamības intervāls palielinās. Tas ļauj 
   <string name="ratingDeviationLowerThanXinChessYinVariants">reitinga novirzei jābūt zem %1$s standarta šahā un zem %2$s variantos</string>
   <string name="beInTopTen">jābūt iekš šī reitinga top 10.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Otrā prasība ir tādēļ, lai spēlētāji, kas vairs neizmanto savu kontu, nepiesārņo labāko spēlētāju sarakstu.</string>
+  <string name="whyAreRatingHigher">Kādēļ reitingi ir augstāki salīdzinājumā ar citām lapām un organizācijām kā FIDE, USCF un ICC?</string>
   <string name="howToHideRatingWhilePlaying">Kā spēles laikā paslēpt reitingus?</string>
   <string name="enableZenMode">Iespējot Zen režīmu %1$s vai arī piespiežot %2$s spēles laikā.</string>
   <string name="displayPreferences">attēlošanas iestatījumos</string>
