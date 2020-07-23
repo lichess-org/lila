@@ -114,13 +114,15 @@ Vēl jāievēro, ka laikam paejot, ticamības intervāls palielinās. Tas ļauj 
   <string name="notPlayedEnoughRatedGamesAgainstX">Spēlētājs vēl nav izspēlējis pietiekami daudz spēļu pret %1$s reitinga kategorijā.</string>
   <string name="similarOpponents">līdzīga līmeņa pretiniekiem</string>
   <string name="notPlayedRecently">Spēlētājs sen nav izspēlējis daudzas spēles. Atkarībā no tā, cik daudzas spēles esat izspēlējis, nespēlējot var paiet aptuveni gads līdz reitings atkal tiek uzskatīts par pagaidu.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Tas nozīmē, ka \"Glicko-2\" novirze ir lielāka par 110. Novirze ir ticamības intervāls ko sistēma piešķir jūsu reitingam. Jo zemāka novirze, jo stabilāks reitings.</string>
   <string name="howDoLeaderoardsWork">Kā strādā spēlētāju reitingi un labāko spēlētāju saraksti?</string>
   <string name="inOrderToAppearsYouMust">Lai iekļūtu %1$s, tev:</string>
-  <string name="ratingLeaderboards">reitinga tabulā</string>
+  <string name="ratingLeaderboards">labāko spēlētāju sarakstā</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">jābūt nospēlētām vismaz 30 vērtētām spēlēm dotajā reitingā,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">pēdējās nedēļas laikā ir jānospēlē vērtēta spēle šim reitingam,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">reitinga novirzei jābūt zem %1$s standarta šahā un zem %2$s variantos</string>
   <string name="beInTopTen">jābūt iekš šī reitinga top 10.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Otrā prasība ir tādēļ, lai spēlētāji, kas vairs neizmanto savu kontu, nepiesārņo labāko spēlētāju sarakstu.</string>
   <string name="howToHideRatingWhilePlaying">Kā spēles laikā paslēpt reitingus?</string>
   <string name="enableZenMode">Iespējot Zen režīmu %1$s vai arī piespiežot %2$s spēles laikā.</string>
   <string name="displayPreferences">attēlošanas iestatījumos</string>
