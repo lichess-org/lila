@@ -149,6 +149,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       Modlog(mod, none, Modlog.deleteTeam, details = s"$name / $desc".take(200).some)
     }
 
+  def disableTeam(mod: User.ID, name: String, desc: String) =
+    add {
+      Modlog(mod, none, Modlog.disableTeam, details = s"$name / $desc".take(200).some)
+    }
+
   def terminateTournament(mod: User.ID, name: String) =
     add {
       Modlog(mod, none, Modlog.terminateTournament, details = name.some)
@@ -255,8 +260,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "large_blue_circle"
       case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
       case M.chatTimeout                                                    => "hourglass_flowing_sand"
-      case M.closeTopic                                                     => "lock"
-      case M.openTopic                                                      => "unlock"
+      case M.closeTopic | M.disableTeam                                     => "lock"
+      case M.openTopic | M.enableTeam                                       => "unlock"
       case M.modMessage                                                     => "left_speech_bubble"
       case _                                                                => "gear"
     }

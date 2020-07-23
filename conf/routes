@@ -300,6 +300,7 @@ POST  /team/:id/kick/:user                    controllers.Team.kickUser(id: Stri
 GET   /team/:id/leaders                       controllers.Team.leadersForm(id: String)
 POST  /team/:id/leaders                       controllers.Team.leaders(id: String)
 POST  /team/:id/close                         controllers.Team.close(id: String)
+POST  /team/:id/disable                       controllers.Team.disable(id: String)
 GET   /team/:id/users                         controllers.Team.legacyUsers(id: String)
 GET   /team/:id/tournaments                   controllers.Team.tournaments(id: String)
 GET   /team/:id/pm-all                        controllers.Team.pmAll(id: String)

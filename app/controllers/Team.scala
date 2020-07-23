@@ -177,6 +177,15 @@ final class Team(
       }
     }
 
+  def disable(id: String) =
+    Auth { implicit ctx => me =>
+      WithOwnedTeam(id) { team =>
+        (api disable team) >>
+          env.mod.logApi.disableTeam(me.id, team.name, team.description) inject
+          Redirect(routes.Team show id).flashSuccess
+      }
+    }
+
   def form =
     Auth { implicit ctx => me =>
       LimitPerWeek(me) {
