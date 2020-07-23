@@ -55,7 +55,8 @@ object show {
             )
           )}""")
         )
-    )(
+    ) {
+      val enabledOrLeader = t.enabled || info.ledByMe || isGranted(_.Admin)
       main(
         cls := "team-show box",
         socketVersion.map { v =>
@@ -69,9 +70,9 @@ object show {
             else nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
           )
         ),
-        (info.mine || t.enabled) option div(cls := "team-show__content")(
+        div(cls := "team-show__content")(
           div(cls := "team-show__content__col1")(
-            st.section(cls := "team-show__meta")(
+            enabledOrLeader option st.section(cls := "team-show__meta")(
               p(
                 teamLeaders.pluralSame(t.leaders.size),
                 ": ",
@@ -80,7 +81,7 @@ object show {
                 })
               )
             ),
-            chatOption.isDefined option frag(
+            (t.enabled && chatOption.isDefined) option frag(
               views.html.chat.frag,
               div(
                 cls := "chat__members",
@@ -114,7 +115,7 @@ object show {
                 postForm(cls := "quit", action := routes.Team.quit(t.id))(
                   submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
                 ),
-              info.ledByMe option frag(
+              t.enabled && info.ledByMe option frag(
                 a(
                   href := routes.Tournament.teamBattleForm(t.id),
                   cls := "button button-empty text",
@@ -161,7 +162,7 @@ object show {
                   trans.settings.settings()
                 )
             ),
-            div(cls := "team-show__members")(
+            t.enabled option div(cls := "team-show__members")(
               st.section(cls := "recent-members")(
                 h2(teamRecentMembers()),
                 div(cls := "userlist infinitescroll")(
@@ -181,12 +182,12 @@ object show {
                 frag(br, trans.location(), ": ", richText(loc))
               }
             ),
-            info.hasRequests option div(cls := "team-show__requests")(
+            t.enabled && info.hasRequests option div(cls := "team-show__requests")(
               h2(xJoinRequests.pluralSame(info.requests.size)),
               views.html.team.request.list(info.requests, t.some)
             ),
             div(cls := "team-show__tour-forum")(
-              info.tours.nonEmpty option frag(
+              t.enabled && info.tours.nonEmpty option frag(
                 st.section(cls := "team-show__tour team-tournaments")(
                   h2(a(href := routes.Team.tournaments(t.id))(trans.tournaments())),
                   table(cls := "slist")(
@@ -196,7 +197,7 @@ object show {
                   )
                 )
               ),
-              ctx.noKid option
+              t.enabled && ctx.noKid option
                 st.section(cls := "team-show__forum")(
                   h2(a(href := teamForumUrl(t.id))(trans.forum())),
                   info.forumPosts.take(10).map { post =>
@@ -218,7 +219,7 @@ object show {
           )
         )
       )
-    )
+    }
 
   // handle special teams here
   private def joinButton(t: Team)(implicit ctx: Context) =

@@ -159,10 +159,10 @@ final class Team(
     }
 
   def leaders(id: String) =
-    AuthBody { implicit ctx => _ =>
+    AuthBody { implicit ctx => me =>
       WithOwnedTeam(id) { team =>
         implicit val req = ctx.body
-        forms.leaders(team).bindFromRequest().value ?? { api.setLeaders(team, _) } inject Redirect(
+        forms.leaders(team).bindFromRequest().value ?? { api.setLeaders(team, _, me, isGranted(_.ManageTeam)) } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
       }
@@ -174,6 +174,15 @@ final class Team(
         (api delete team) >>
           env.mod.logApi.deleteTeam(me.id, team.name, team.description) inject
           Redirect(routes.Team all 1).flashSuccess
+      }
+    }
+
+  def disable(id: String) =
+    Auth { implicit ctx => me =>
+      WithOwnedTeam(id) { team =>
+        (api disable team) >>
+          env.mod.logApi.disableTeam(me.id, team.name, team.description) inject
+          Redirect(routes.Team show id).flashSuccess
       }
     }
 

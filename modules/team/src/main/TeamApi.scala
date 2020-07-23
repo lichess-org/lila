@@ -222,7 +222,7 @@ final class TeamApi(
   private case class TagifyUser(value: String)
   implicit private val TagifyUserReads = Json.reads[TagifyUser]
 
-  def setLeaders(team: Team, json: String): Funit = {
+  def setLeaders(team: Team, json: String, by: User, byMod: Boolean): Funit = {
     val leaders: Set[User.ID] = Try {
       json.trim.nonEmpty ?? {
         Json.parse(json).validate[List[TagifyUser]] match {
@@ -236,9 +236,11 @@ final class TeamApi(
       }
     } getOrElse Set.empty
     memberRepo.filterUserIdsInTeam(team.id, leaders) flatMap { ids =>
-      ids.nonEmpty ?? {
-        cached.leaders.put(team.id, fuccess(ids))
-        teamRepo.setLeaders(team.id, ids).void
+      (team.leaders(team.createdBy) && !ids(team.createdBy) && by.id != team.createdBy && !byMod) ?? {
+        ids.nonEmpty ?? {
+          cached.leaders.put(team.id, fuccess(ids))
+          teamRepo.setLeaders(team.id, ids).void
+        }
       }
     }
   }

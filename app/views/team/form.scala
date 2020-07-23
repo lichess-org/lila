@@ -47,11 +47,11 @@ object form {
   def edit(t: Team, form: Form[_])(implicit ctx: Context) = {
     val title = "Edit Team " + t.name
     bits.layout(title = title) {
-      main(cls := "page-menu page-small")(
+      main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
-          postForm(cls := "form3", action := routes.Team.update(t.id))(
+          t.enabled option postForm(cls := "form3", action := routes.Team.update(t.id))(
             div(cls := "form-group")(
               a(cls := "button button-empty", href := routes.Team.leaders(t.id))(teamLeaders()),
               a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone())
@@ -79,15 +79,23 @@ object form {
               form3.submit(trans.apply())
             )
           ),
-          isGranted(_.ManageTeam) option frag(
+          ctx.userId.exists(t.leaders) || isGranted(_.ManageTeam) option frag(
             hr,
-            postForm(cls := "inline", action := routes.Team.close(t.id))(
+            t.enabled option postForm(cls := "inline", action := routes.Team.disable(t.id))(
               submitButton(
-                dataIcon := "q",
+                dataIcon := "L",
                 cls := "text button button-empty button-red confirm",
-                st.title := "Deletes the team and its memberships. Cannot be reverted!"
-              )(trans.delete())
-            )
+                st.title := "Closes the team forever." // can actually be reverted
+              )(trans.close())
+            ),
+            isGranted(_.ManageTeam) option
+              postForm(cls := "inline", action := routes.Team.close(t.id))(
+                submitButton(
+                  dataIcon := "q",
+                  cls := "text button button-empty button-red confirm",
+                  st.title := "Deletes the team and its memberships. Cannot be reverted!"
+                )(trans.delete())
+              )
           )
         )
       )

@@ -93,7 +93,7 @@ object widget {
                 td(r)
               )
             },
-            tr(cls := "available")(
+            !link option tr(cls := "available")(
               th(availability()),
               td(
                 if (c.coach.available.value) span(cls := "text", dataIcon := "E")(accepting())
