@@ -511,6 +511,9 @@
   <string name="incorrectPassword">Құпиясөз қате</string>
   <string name="invalidAuthenticationCode">Анықтау коды қате</string>
   <string name="emailMeALink">Поштама сілтеме жібер</string>
+  <string name="currentPassword">Қазіргі құпиясөз</string>
+  <string name="newPassword">Жаңа кұпиясөз</string>
+  <string name="newPasswordAgain">Жаңа құпиясөз (қайтадан)</string>
   <string name="sound">Дыбыстар</string>
   <string name="always">Әрқашан</string>
   <string name="never">Ешқашан</string>
@@ -519,8 +522,16 @@
   <string name="practice">Жаттығу</string>
   <string name="community">Қауым</string>
   <string name="tools">Құралдар</string>
+  <string name="shareGameURL">Ойын сілтемесімен бөлісу</string>
+  <string name="error.required">Бұл жолды толтырыңыз</string>
+  <string name="error.email">Бұл пошта мекенжайы қате</string>
+  <string name="error.email_acceptable">Бұл пошта мекенжайы қолжетімсіз. Оны қайта тексеріп көріңіз.</string>
+  <string name="error.email_unique">Бұл пошта тіркелген</string>
+  <string name="error.email_different">Бұл сіздің поштаңыз</string>
   <string name="ifRatingIsPlusMinusX">Егер рейтингі ± %s болса</string>
   <string name="onlyFriends">Тек қана достар</string>
+  <string name="menu">Мәзір</string>
+  <string name="castling">Бекіну</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s форумдағы жазба</item>
     <item quantity="other">%s форумдағы жазба</item>
