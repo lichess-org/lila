@@ -19,19 +19,22 @@ private object AntmaPairing {
 
       def pairScore(a: RankedPlayer, b: RankedPlayer): Option[Int] =
         if (justPlayedTogether(a.player.userId, b.player.userId)) None
-        else if (data.tour.isTeamBattle && a.player.team == b.player.team) None
         else
           Some {
             Math.abs(a.rank - b.rank) * rankFactor(a, b) +
               Math.abs(a.player.rating - b.player.rating)
           }
 
+      def battleScore(a: RankedPlayer, b: RankedPlayer): Option[Int] =
+        (a.player.team != b.player.team) ?? pairScore(a, b)
+
       def duelScore: (RankedPlayer, RankedPlayer) => Option[Int] = (_, _) => Some(1)
 
       Chronometer.syncMon(_.tournament.pairing.wmmatching) {
         WMMatching(
           players.toArray,
-          if (data.onlyTwoActivePlayers) duelScore
+          if (data.tour.isTeamBattle) battleScore
+          else if (data.onlyTwoActivePlayers) duelScore
           else pairScore
         ).fold(
           err => {
