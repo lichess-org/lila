@@ -448,6 +448,9 @@
   <string name="goodMove">Жақсы жүріс</string>
   <string name="butYouCanDoBetter">Бірақ одан да әдемі жүріс бар.</string>
   <string name="bestMove">Ең күшті жүріс!</string>
+  <string name="keepGoing">Ары қарай…</string>
+  <string name="puzzleFailed">Жұмбақ шешілген жоқ</string>
+  <string name="butYouCanKeepTrying">Бірақ талпына беріңіз.</string>
   <string name="success">Бәрі дұрыс!</string>
   <string name="fromGameLink">Осы ойыннан %s</string>
   <string name="continueTraining">Ары қарай жаттығу</string>
@@ -477,6 +480,7 @@
   </plurals>
   <string name="watchGames">Ойындарын бақылау</string>
   <string name="watch">Бақылау</string>
+  <string name="tournamentHomeDescription">Жылдам қарқындағы жарыста ойнаңыз! Мезгілі белгіленген жарысқа қатысып, немесе өзіңіз жарыс құрсаңыз болады. Желаяқ, Блитц, Классикалық, Шахмат960, Тау Патшасы, Үш Шах және тағы басқа шахмат қызықтарын көріңіз.</string>
   <string name="weeklyPerfTypeRatingDistribution">Апта ішінде %s рейтингтердің таралуы</string>
   <string name="yourPerfTypeRatingIsRating">Сіздің %1$s рейтингіңіз – %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Сіздің ресми %s рейтингіңіз жоқ.</string>
