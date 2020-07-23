@@ -550,6 +550,41 @@ final class SwissApi(
   private def systemChat(id: Swiss.Id, text: String, volatile: Boolean = false): Unit =
     chatApi.userChat.service(Chat.Id(id.value), text, _.Swiss, volatile)
 
+  def withdrawAll(user: User, teamIds: List[TeamID]): Funit =
+    colls.swiss
+      .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+        import framework._
+        Match($doc("finishedAt" $exists false, "nbPlayers" $gt 0, "teamId" $in teamIds)) -> List(
+          PipelineOperator(
+            $doc(
+              "$lookup" -> $doc(
+                "from" -> colls.player.name,
+                "let"  -> $doc("s" -> "$_id"),
+                "pipeline" -> $arr(
+                  $doc(
+                    "$match" -> $doc(
+                      "$expr" -> $doc(
+                        "$and" -> $arr(
+                          $doc("$eq" -> $arr("$u", user.id)),
+                          $doc("$eq" -> $arr("$s", "$$s"))
+                        )
+                      )
+                    )
+                  )
+                ),
+                "as" -> "player"
+              )
+            )
+          ),
+          Match("player" $ne $arr()),
+          Project($id(true))
+        )
+      }
+      .map(_.flatMap(_.getAsOpt[Swiss.Id]("_id")))
+      .flatMap { 
+        _.map { withdraw(_, user.id) }.sequenceFu.void
+      }
+
   private def Sequencing[A: Zero](
       id: Swiss.Id
   )(fetch: Swiss.Id => Fu[Option[Swiss]])(run: Swiss => Fu[A]): Fu[A] =

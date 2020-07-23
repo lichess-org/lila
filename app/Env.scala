@@ -144,9 +144,10 @@ final class Env(
       _          <- user.repo.disable(u, keepEmail = badApple || playbanned)
       _          <- relation.api.unfollowAll(u.id)
       _          <- user.rankingApi.remove(u.id)
-      _          <- team.api.quitAll(u.id)
+      teamIds    <- team.api.quitAll(u.id)
       _          <- challenge.api.removeByUserId(u.id)
       _          <- tournament.api.withdrawAll(u)
+      _          <- swiss.api.withdrawAll(u, teamIds)
       _          <- plan.api.cancel(u).nevermind
       _          <- lobby.seekApi.removeByUser(u)
       _          <- security.store.closeAllSessionsOf(u.id)

@@ -35,7 +35,9 @@ final class PlayApi(
           env.user.repo.isManaged(me.id) flatMap {
             case true => notFoundJson()
             case _ =>
-              env.user.repo.setBot(me) >>
+              env.tournament.api.withdrawAll(me) >>
+                env.team.cached.teamIdsList(me.id).flatMap { env.swiss.api.withdrawAll(me, _) } >>
+                env.user.repo.setBot(me) >>
                 env.pref.api.setBot(me) >>-
                 env.user.lightUserApi.invalidate(me.id) pipe
                 toResult recover {
