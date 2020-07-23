@@ -464,11 +464,17 @@
   <string name="fromGameLink">Осы ойыннан %s</string>
   <string name="continueTraining">Ары қарай жаттығу</string>
   <string name="retryThisPuzzle">Осы жұмбақты қайта көріңіз</string>
+  <string name="thisPuzzleIsCorrect">Бұл жұмбақ дұрыс та қызықты</string>
+  <string name="thisPuzzleIsWrong">Бұл жұмбақ қате де қызықсыз</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s ойын өтуде</item>
     <item quantity="other">%s ойын өтуде</item>
   </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">Жүрістен кейін келесі ойынға автоматты түрде өту</string>
+  <string name="autoSwitch">Авто қосу</string>
   <string name="puzzles">Жұмбақтар</string>
+  <string name="latestUpdates">Кейінгі жаңартулар</string>
+  <string name="tournamentWinners">Жарыс женімпаздары</string>
   <string name="no">Жоқ</string>
   <string name="yes">Иә</string>
   <string name="topics">Тақырып</string>
