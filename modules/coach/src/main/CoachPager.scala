@@ -21,10 +21,7 @@ final class CoachPager(
   def apply(lang: Option[Lang], order: Order, page: Int): Fu[Paginator[Coach.WithUser]] = {
     val adapter = new Adapter[Coach](
       collection = coll,
-      selector = $doc(
-        "listed"   -> Coach.Listed(true),
-        "approved" -> Coach.Approved(true)
-      ) ++ lang.?? { l =>
+      selector = listableSelector ++ lang.?? { l =>
         $doc("languages" -> l.code)
       },
       projection = none,
@@ -36,6 +33,12 @@ final class CoachPager(
       maxPerPage = maxPerPage
     )
   }
+
+  private val listableSelector = $doc(
+        "listed"   -> Coach.Listed(true),
+        "approved" -> Coach.Approved(true),
+        "available" -> Coach.Available(true)
+      )
 
   private def withUsers(coaches: Seq[Coach]): Fu[Seq[Coach.WithUser]] =
     userRepo.withColl {
