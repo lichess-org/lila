@@ -35,10 +35,10 @@ final class CoachPager(
   }
 
   private val listableSelector = $doc(
-        "listed"   -> Coach.Listed(true),
-        "approved" -> Coach.Approved(true),
-        "available" -> Coach.Available(true)
-      )
+    "listed"    -> Coach.Listed(true),
+    "approved"  -> Coach.Approved(true),
+    "available" -> Coach.Available(true)
+  )
 
   private def withUsers(coaches: Seq[Coach]): Fu[Seq[Coach.WithUser]] =
     userRepo.withColl {
