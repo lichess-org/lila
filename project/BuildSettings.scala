@@ -53,8 +53,6 @@ object BuildSettings {
       )
 
   val compilerOptions = Seq(
-    "-encoding",
-    "utf-8",
     "-explaintypes",
     "-feature",
     "-language:higherKinds",
