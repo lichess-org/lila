@@ -494,8 +494,11 @@
   <string name="user">Ойыншы</string>
   <string name="reason">Түйіні</string>
   <string name="whatIsIheMatter">Не болды?</string>
-  <string name="cheat">Чит, алдау</string>
+  <string name="cheat">Чит, алдап ойнау</string>
   <string name="insult">Қорлау</string>
+  <string name="troll">Троль, кемсіту</string>
+  <string name="other">Басқа</string>
+  <string name="reportDescriptionHelp">Ойынның (-дардың) сілтемесін қойып, осы ойыншының қай әрекеті орынсыз болғанын түсіндіріп беріңіз. Жай ғана \"ол алдап ойнады\" деп жаза салмай, осы ойға қалай келгеніңізді айтып беріңіз. Сіздің шағымыңыз ағылшын тілінде жазылса, тезірек тексеруден өтеді.</string>
   <string name="notes">Жазбалар</string>
   <string name="sound">Дыбыстар</string>
   <string name="always">Әрқашан</string>
