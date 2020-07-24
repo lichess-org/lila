@@ -1,5 +1,6 @@
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+
   @include breakpoint($mq-col2) {
     --main-max-width: auto;
   }
@@ -9,63 +10,81 @@
   grid-area: main;
   display: grid;
 
-  &__side { grid-area: side; }
-  &__board { grid-area: board; }
-  &__tools { grid-area: tools; }
-  &__controls { grid-area: controls; }
-  &__history { grid-area: history; }
-  .eval-gauge { grid-area: gauge; }
+  &__side {
+    grid-area: side;
+  }
 
-  grid-template-areas:
-  'board'
-  'controls'
-  'tools'
-  'history'
-  'side';
+  &__board {
+    grid-area: board;
+  }
+
+  &__tools {
+    grid-area: tools;
+  }
+
+  &__controls {
+    grid-area: controls;
+  }
+
+  &__history {
+    grid-area: history;
+  }
+
+  .eval-gauge {
+    grid-area: gauge;
+  }
+
+  grid-template-areas: 'board' 'controls' 'tools' 'history' 'side';
   grid-row-gap: $block-gap;
 
-  &__moves { display: none; }
+  &__moves {
+    display: none;
+  }
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
     grid-template-rows: fit-content(0);
-    grid-template-areas:
-    'board   gauge tools'
-    'history .     controls'
-    'side    side  side';
+    grid-template-areas: 'board   gauge tools' 'history .     controls' 'side    side  side';
 
-    &__moves { display: block; }
+    &__moves {
+      display: block;
+    }
   }
 
+
   @include breakpoint($mq-col3) {
-    grid-template-areas:
-    'side    . board   gauge tools'
-    '.       . history .     controls';
+    grid-template-areas: 'side    . board   gauge tools' '.       . history .     controls';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
   }
 
+
   &__side {
     display: grid;
-    grid-template-areas:
-    'metas'
-    'user';
+    grid-template-areas: 'metas' 'user';
     grid-gap: $block-gap;
+
     @include breakpoint($mq-x-small) {
       grid-template-columns: 1fr 1fr;
-      grid-template-areas:
-      'metas user';
+      grid-template-areas: 'metas user';
     }
+
+
     @include breakpoint($mq-x-large) {
       grid-template-columns: 1fr;
       grid-template-rows: min-content;
-      grid-template-areas:
-      'metas'
-      'user';
+      grid-template-areas: 'metas' 'user';
       justify-self: end;
       min-width: 250px;
       max-width: 350px;
     }
-    &__metas { grid-area: metas; }
-    &__user { grid-area: user; }
+
+
+    &__metas {
+      grid-area: metas;
+    }
+
+    &__user {
+      grid-area: user;
+    }
   }
 }

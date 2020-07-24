@@ -1,5 +1,6 @@
 .tour__stats {
   @extend %box-neat;
+
   background: $c-bg-box;
   padding: 1.7em 0;
   align-self: flex-start;
@@ -9,9 +10,11 @@
     margin-bottom: 1em;
     text-align: center;
   }
+
   table {
     margin: auto;
   }
+
   td {
     font-weight: bold;
     padding-left: 1em;

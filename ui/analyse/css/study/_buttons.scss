@@ -2,19 +2,24 @@ $c-study-button: $c-accent;
 
 .study__buttons {
   @extend %flex-between;
+
   border-bottom: 2px solid $c-border;
+
   span {
     font-size: 1.15em;
     min-width: 0;
   }
+
   .left-buttons {
     flex: 9 1 auto;
     justify-content: flex-start;
     border-bottom: 0;
   }
+
   .right {
     flex: 1 9 10%;
   }
+
   .behind {
     background: $c-bad;
     color: $c-bad-over;
@@ -22,21 +27,26 @@ $c-study-button: $c-accent;
     border-radius: 9px;
     margin-right: 4px;
   }
+
   .mode {
     @extend %flex-center-nowrap, %box-radius-top, %page-text;
+
     align-self: stretch;
     padding: 0 .4em;
     opacity: .8;
+
     i::before {
       font-size: 1.4em;
       content: 'L';
       color: $c-bad;
       margin-right: .2rem;
     }
+
     &.on i::before {
       content: 'E';
       color: $c-good;
     }
+
     &:hover {
       background: $c-bg-zebra;
       opacity: 1;

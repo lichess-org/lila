@@ -12,15 +12,18 @@
     font-weight: bold;
     cursor: pointer;
   }
+
   li.textcomplete-header,
   li.textcomplete-footer {
     display: none;
   }
+
   li:hover,
   .active {
     background-color: #f0f0f0;
   }
 }
+
 // body.dark .textcomplete-dropdown {
 //   box-shadow: 0 1px 2px #000;
 //   background: #343434;

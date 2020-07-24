@@ -4,8 +4,10 @@
     margin-top: 30px;
     margin-bottom: 6px;
     border-bottom: $border;
+
     a {
       color: $c-font;
+
       &:hover {
         color: $c-link;
       }
@@ -22,28 +24,36 @@
     white-space: nowrap;
     padding: .2em 0;
     line-height: 1.5;
-    @include transition();
+
+    @include transition;
+
     &:hover a {
       color: $c-link;
     }
   }
+
   a {
     color: $c-font;
   }
+
   .user-link {
     @extend %ellipsis;
+
     margin: 0 5px 0 -3px;
   }
 }
 
 .tour__links {
   margin-top: 1em;
+
   a {
-      color: $c-font;
-      @include transition();
-      &:hover {
-        color: $c-link;
-      }
+    color: $c-font;
+
+    @include transition;
+
+    &:hover {
+      color: $c-link;
+    }
   }
 }
 
@@ -54,22 +64,29 @@
     display: block;
     position: relative;
     line-height: 1.2;
-    @include transition();
+
+    @include transition;
+
     &:hover {
       @extend %box-radius;
+
       padding-left: 3.2rem;
       background: mix($c-brag, $c-bg-page, 20%);
+
       &::before {
         left: .5rem;
       }
     }
   }
+
   strong {
     color: $c-font-dim;
     display: block;
   }
+
   a::before {
-    @include transition();
+    @include transition;
+
     position: absolute;
     top: .3rem;
     left: 0;
@@ -77,6 +94,7 @@
     opacity: 0.6;
     color: $c-brag;
   }
+
   a:hover::before {
     opacity: 1;
   }

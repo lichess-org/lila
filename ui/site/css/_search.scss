@@ -1,7 +1,5 @@
 .search {
-
   &__form {
-
     margin-bottom: 2em;
 
     table {
@@ -24,12 +22,13 @@
 
     input[type="text"],
     select {
-      padding: .3em 1em!important;
+      padding: 0.3em 1em !important;
     }
 
     input[type="text"] {
       width: 86%;
     }
+
     select {
       text-transform: capitalize;
     }
@@ -67,9 +66,11 @@
     .action {
       text-align: center;
     }
+
     .button {
       width: 100%;
     }
+
     .wait {
       display: none;
     }
@@ -80,9 +81,11 @@
         vertical-align: middle;
         margin-right: 10px;
       }
+
       .wait {
         display: block;
       }
+
       .button {
         display: none;
       }

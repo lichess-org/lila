@@ -3,6 +3,7 @@
 .is-after::after {
   @extend %data-icon;
 }
+
 .is.text::before,
 .text[data-icon]::before {
   margin-right: .4em;
@@ -12,9 +13,11 @@
 .is-green::before {
   color: $c-good;
 }
+
 .is-red::before {
   color: $c-bad;
 }
+
 .is-gold::before {
   color: $c-brag;
 }

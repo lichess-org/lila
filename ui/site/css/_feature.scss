@@ -11,6 +11,7 @@
 
   h1 {
     margin: 0;
+
     &::before {
       margin-right: 10px;
     }
@@ -21,7 +22,10 @@
     padding: 10px 20px;
     border-bottom: $border;
   }
-  td { white-space: nowrap }
+
+  td {
+    white-space: nowrap;
+  }
 
   thead th {
     padding-top: 30px;
@@ -29,6 +33,7 @@
     font-weight: bold;
     padding-bottom: 20px;
   }
+
   thead:first-child th {
     padding-top: 10px;
   }
@@ -40,21 +45,26 @@
   .price {
     font-size: 1.4em;
   }
+
   .price > * {
     border: none;
     padding-top: 30px;
   }
+
   .explanation {
     @extend %box-radius;
+
     text-shadow: 1px 1px 1px #000;
     margin: 3em 10% 1em 10%;
     padding: 2em 3em 3em 3em;
     background: $c-good;
     color: $c-good-over;
     font-size: 1.3em;
+
     strong {
       display: block;
     }
+
     .button {
       margin-top: 1em;
       display: block;
@@ -69,22 +79,33 @@
   @include breakpoint($mq-not-small) {
     .is {
       font-size: 0;
+
       &::before {
         font-size: 1.3rem;
       }
     }
+
     h1::before {
       display: none;
     }
+
     td,
     th {
       padding: .8em 0 .8em .5em;
     }
+
     thead th:first-child {
       min-width: 180px;
     }
-    thead th { font-weight: normal }
-    .price { display: none }
+
+    thead th {
+      font-weight: normal;
+    }
+
+    .price {
+      display: none;
+    }
+
     .explanation {
       font-size: 1.1em;
       margin: 3em 0 1em 0;

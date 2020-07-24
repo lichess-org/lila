@@ -3,6 +3,7 @@
     font-size: 1.6em;
     margin-bottom: 1em;
   }
+
   button.new {
     margin: 1.5em auto;
     display: block;
@@ -16,6 +17,7 @@
     > div {
       flex: 0 1 50%;
       overflow: hidden;
+
       &:last-child {
         margin-left: 20px;
       }

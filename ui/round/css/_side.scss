@@ -3,6 +3,7 @@
 
   .game__meta {
     flex: 0 0 auto;
+
     &__players .team {
       margin-left: 1.7em;
     }
@@ -11,6 +12,7 @@
 
 .mchat {
   @extend %zen;
+
   flex: 1 1 0;
   margin-top: $block-gap;
 }
