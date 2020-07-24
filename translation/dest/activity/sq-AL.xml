@@ -2,13 +2,41 @@
 <resources>
   <string name="activity">Aktivizo</string>
   <string name="hostedALiveStream">Transmetoi duke luajtur live</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Mbështeti lichess.org për %1$s muaj si %2$s</item>
+    <item quantity="other">Mbështeti lichess.org për %1$s muaj si %2$s</item>
+  </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Praktikove %1$s pozicion në %2$s</item>
     <item quantity="other">Praktikove %1$s pozicione në %2$s</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Zgjodhi %s enigmë taktike</item>
+    <item quantity="other">Zgjodhi %s enigma taktike</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Luajti %1$s %2$s lojë</item>
+    <item quantity="other">Luajti %1$s %2$s lojëra</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Bëri %1$s lëvizje</item>
+    <item quantity="other">Bëri %1$s lëvizje</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">në %1$s lojë korrespondence</item>
+    <item quantity="other">në %1$s lojëra korrespondence</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Përfundove %s lojë me korrespondencë</item>
     <item quantity="other">Përfundove %s lojra me korrespondencë</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Zhvilloi %s lojëra të njëkohësishme</item>
+    <item quantity="other">Zhvilloi %s lojëra të njëkohësishme</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Mori pjesë në %s ndeshje të njëkohësishme</item>
+    <item quantity="other">Mori pjesë në %s ndeshje të njëkohësishme</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Morre pjesë në %s kampjonat</item>
