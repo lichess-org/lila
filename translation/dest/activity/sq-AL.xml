@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Aktivizo</string>
+  <string name="hostedALiveStream">Transmetoi duke luajtur live</string>
   <plurals name="practicedNbPositions">
     <item quantity="one">Praktikove %1$s pozicion në %2$s</item>
     <item quantity="other">Praktikove %1$s pozicione në %2$s</item>
