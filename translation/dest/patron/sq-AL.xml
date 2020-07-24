@@ -15,6 +15,22 @@
   <string name="weAreNonProfit">Ne jemi organizate jo per perfitim sepse besojme qe kushdo duhet te kete mundesi per te luajtur shah falas ne nje platforme te kalibrit me te mire boteror.</string>
   <string name="weRelyOnSupport">Ne mbeshtetemi ne suportin e njerezve si ju per ta bere kete te mundur. Nese ju pelqen Lichessi, ju lutem na mbeshtesni duke dhuruar dhe duke u bere lojtar i rregullt!</string>
   <string name="lifetime">Pergjithmone</string>
+  <string name="payLifetimeOnce">Paguani %s një herë. Bëhuni Patron në Lichess përgjithmonë!</string>
+  <string name="lifetimePatron">Patron i përjetshëm i Lichessit</string>
+  <string name="makeExtraDonation">Bëni një donacion shtesë?</string>
+  <string name="monthly">Çdo muaj</string>
+  <string name="recurringBilling">Faturim i përsëritur, duke ripërtërirë krahët e juaj të Patronit çdo muaj.</string>
+  <string name="onetime">Një herë</string>
+  <string name="singleDonation">Një donacion i vetëm që u mundëson krahët e Patronit për një muaj.</string>
+  <string name="otherAmount">Tjetër</string>
+  <string name="pleaseEnterAmount">Ju lutemi shënoni një shumë në USD</string>
+  <string name="withCreditCard">Kartë krediti</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Ne jemi ekip i vogël, andaj përkrahja juaj bën dallim të madh!</string>
+  <string name="celebratedPatrons">Patronët të cilët bëjnë ekzistimin e Lichess-it të mundshëm</string>
+  <string name="whereMoneyGoes">Ku shkojnë paratë?</string>
+  <string name="serversAndDeveloper">Së pari, servera të fuqishëm.
+Pastaj, ne paguajmë një developer me orar të plotë, %s, krijuesin e Lichess-it.</string>
   <string name="nowOneMonth">Tani jeni nje lojtar i rregullt per nje muaj!</string>
   <string name="downgradeNextMonth">Ne nje muaj, NUK do t\'ju merren leke me, dhe llogaria juaj e Lichessit do te kthehet ne nje llogari normale.</string>
 </resources>
