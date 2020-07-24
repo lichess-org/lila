@@ -82,7 +82,7 @@
   <string name="saveChapter">Alzar capitol</string>
   <string name="clearAnnotations">Borrar anotacions</string>
   <string name="deleteChapter">Borrar capitol</string>
-  <string name="deleteThisChapter">Realment quiers borrar lo capitol? Esta acción no se puede desfer!</string>
+  <string name="deleteThisChapter">Quiers borrar lo capitol? Esta acción no se puede desfer!</string>
   <string name="clearAllCommentsInThisChapter">Borrar totz los comentarios, iconos y marcas d\'este capitol?</string>
   <string name="rightUnderTheBoard">Chusto debaixo d\'o escaquero</string>
   <string name="noPinnedComment">Garra</string>
@@ -125,8 +125,8 @@
   <string name="start">Prencipiar</string>
   <string name="save">Alzar</string>
   <string name="clearChat">Limpiar lo chat</string>
-  <string name="deleteTheStudyChatHistory">Realment quiers borrar lo historial de chat? Esta acción no se puede desfer!</string>
+  <string name="deleteTheStudyChatHistory">Quiers borrar de verdat lo historial de chat? Esta acción no se puede desfer!</string>
   <string name="deleteStudy">Borrar estudio</string>
-  <string name="deleteTheEntireStudy">Realment quiers borrar tot lo estudio? Esta acción no se puede desfer!</string>
+  <string name="deleteTheEntireStudy">Quiers borrar de verdat tot lo estudio? Esta acción no se puede desfer!</string>
   <string name="whereDoYouWantToStudyThat">Án quiers estudiar ixo?</string>
 </resources>
