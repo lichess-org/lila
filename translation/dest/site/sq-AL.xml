@@ -21,9 +21,9 @@
   <string name="createAGame">Krijo një lojë</string>
   <string name="whiteIsVictorious">Fitoi i bardhi</string>
   <string name="blackIsVictorious">Fitoi i ziu</string>
-  <string name="youPlayTheWhitePieces">Ti luaj më pjesë e bardhës</string>
-  <string name="youPlayTheBlackPieces">Ti luaj më pjesë e zezë</string>
-  <string name="itsYourTurn">Është radha e jote!</string>
+  <string name="youPlayTheWhitePieces">Ti luan me të bardhat</string>
+  <string name="youPlayTheBlackPieces">Ti luan me të zezat</string>
+  <string name="itsYourTurn">Është radha juaj!</string>
   <string name="kingInTheCenter">Mbreti në qendër</string>
   <string name="threeChecks">Tre herë shah</string>
   <string name="raceFinished">Gara mbaroi</string>
