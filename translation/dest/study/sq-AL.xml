@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="private">Private</string>
+  <string name="myStudies">Mësimet e mia</string>
+  <string name="studiesIContributeTo">Mësimet në të cilat kam kontribuar unë</string>
+  <string name="myPublicStudies">Mësimet e mia publike</string>
+  <string name="myPrivateStudies">Mësimet e mia private</string>
+  <string name="myFavoriteStudies">Mësimet e mia më të pëlqyera</string>
+  <string name="whatAreStudies">Çka janë mësimet?</string>
+  <string name="allStudies">Të gjitha mësimet</string>
+  <string name="studiesCreatedByX">Mësimet e krijuara nga %s</string>
+  <string name="noneYet">Ende asnjë.</string>
+  <string name="hot">Më aktualet</string>
+  <string name="dateAddedNewest">Data e krijimit (nga më e reja)</string>
+  <string name="dateAddedOldest">Data e krijimit (nga më e vjetra)</string>
+  <string name="recentlyUpdated">E përditësuar së fundmi</string>
+  <string name="mostPopular">Më e popullarizuara</string>
+  <string name="addNewChapter">Shto një kapitull të ri</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Kapitull</item>
+    <item quantity="other">%s Kapituj</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Lojë</item>
+    <item quantity="other">%s Lojëra</item>
+  </plurals>
+  <string name="addMembers">Shto anëtarë</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Anëtar</item>
+    <item quantity="other">%s Anëtarë</item>
+  </plurals>
   <string name="playing">Duke u luajtur</string>
   <string name="first">E fillimit</string>
   <string name="previous">E meparshme</string>
