@@ -17,7 +17,7 @@ final private class Streaming(
     isOnline: User.ID => Boolean,
     timeline: lila.hub.actors.Timeline,
     keyword: Stream.Keyword,
-    alwaysFeatured: () => lila.common.Strings,
+    alwaysFeatured: () => lila.common.UserIds,
     googleApiKey: Secret,
     twitchCredentials: () => (String, String)
 ) extends Actor {
@@ -132,7 +132,7 @@ final private class Streaming(
               acc ::: result.streams(
                 keyword,
                 streamers,
-                alwaysFeatured().value.map(_.toLowerCase)
+                alwaysFeatured().value
               )
             )
           else fuccess(acc)

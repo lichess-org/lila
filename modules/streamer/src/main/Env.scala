@@ -41,13 +41,12 @@ final class Env(
   private lazy val photographer = new lila.db.Photographer(imageRepo, "streamer")
 
   lazy val alwaysFeaturedSetting = {
-    import lila.memo.SettingStore.Strings._
-    import lila.common.Strings
-    settingStore[Strings](
+    import lila.memo.SettingStore.UserIds._
+    import lila.common.UserIds
+    settingStore[UserIds](
       "streamerAlwaysFeatured",
-      default = Strings(Nil),
-      text =
-        "Twitch streamers who get featured without the keyword - lichess usernames separated by a comma".some
+      default = UserIds(Nil),
+      text = "Twitch streamers who get featured without the keyword - lichess usernames separated by a comma".some
     )
   }
 

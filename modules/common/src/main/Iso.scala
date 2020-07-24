@@ -32,6 +32,11 @@ object Iso {
       str => Strings(str.split(sep).iterator.map(_.trim).to(List)),
       strs => strs.value mkString sep
     )
+  def userIds(sep: String): StringIso[UserIds] =
+    Iso[String, UserIds](
+      str => UserIds(str.split(sep).iterator.map(_.trim.toLowerCase).to(List)),
+      strs => strs.value mkString sep
+    )
 
   implicit def isoIdentity[A]: Iso[A, A] = apply(identity[A] _, identity[A] _)
 

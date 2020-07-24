@@ -21,7 +21,8 @@ final class Dev(env: Env) extends LilaController(env) {
     env.plan.donationGoalSetting,
     env.apiTimelineSetting,
     env.noDelaySecretSetting,
-    env.featuredTeamsSetting
+    env.featuredTeamsSetting,
+    env.prizeTournamentMakers
   )
 
   def settings =

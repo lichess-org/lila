@@ -3,6 +3,7 @@ package lila.app
 import akka.actor._
 import com.softwaremill.macwire._
 import lila.memo.SettingStore.Strings._
+import lila.memo.SettingStore.UserIds._
 import play.api.libs.ws.WSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
@@ -11,6 +12,7 @@ import scala.concurrent.{ ExecutionContext, Future }
 
 import lila.common.config._
 import lila.common.{ Bus, Lilakka, Strings }
+import lila.common.UserIds
 
 final class Env(
     val config: Configuration,
@@ -113,7 +115,12 @@ final class Env(
   lazy val featuredTeamsSetting = memo.settingStore[Strings](
     "featuredTeams",
     default = Strings(Nil),
-    text = "Team IDs that always get their tournaments visible on /tournament".some
+    text = "Team IDs that always get their tournaments visible on /tournament. Separated by commas.".some
+  )
+  lazy val prizeTournamentMakers = memo.settingStore[UserIds](
+    "prizeTournamentMakers ",
+    default = UserIds(Nil),
+    text = "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
   )
 
   lazy val preloader     = wire[mashup.Preload]
