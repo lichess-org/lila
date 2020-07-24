@@ -47,6 +47,9 @@
   <string name="theChapterIsTooShortToBeAnalysed">Ky kapitull është shumë i shkurtë për tu analizuar.</string>
   <string name="onlyContributorsCanRequestAnalysis">Analiza kompjuterike mund të kërkohet vetëm nga kontribuesit e këtij mësimi.</string>
   <string name="getAFullComputerAnalysis">Merrni një analizë të plotë kompjuterike të variantit kryesor.</string>
+  <string name="makeSureTheChapterIsComplete">Sigurohuni që kapitulli të jetë i plotë. Mund të kërkoni analizë vetëm një herë.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Të gjithë anëtarët e sinkronizuar mbesin në të njejtën pozitë</string>
+  <string name="shareChanges">Ndani ndryshimet me shikuesit dhe ruajini ato në server</string>
   <string name="playing">Duke u luajtur</string>
   <string name="first">E fillimit</string>
   <string name="previous">E meparshme</string>
@@ -100,4 +103,30 @@
     <item quantity="other">Kopjoni SHENIMET ketu, deri ne %s lojera</item>
   </plurals>
   <string name="urlOfTheGame">ADRESA E INTERNETIT e lojrave, nje per rrjesht</string>
+  <string name="loadAGameFromXOrY">Hap lojë nga %1$s ose %2$s</string>
+  <string name="createChapter">Krijo kapitull</string>
+  <string name="configureLiveBroadcast">Konfiguro transmetim të drejtpërdrejtë</string>
+  <string name="createStudy">Krijo mësim</string>
+  <string name="editStudy">Edito mësimin</string>
+  <string name="visibility">Dukshmëria</string>
+  <string name="public">Publik</string>
+  <string name="unlisted">E pa listuar</string>
+  <string name="inviteOnly">Vetëm me ftesa</string>
+  <string name="allowCloning">Lejo kopjimin</string>
+  <string name="nobody">Askush</string>
+  <string name="onlyMe">Vetëm unë</string>
+  <string name="contributors">Kontribuesit</string>
+  <string name="members">Anëtarët</string>
+  <string name="everyone">Çdokush</string>
+  <string name="enableSync">Lejo sinkronizimin</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Po: mbaj të gjithë në të njejtën pozitë</string>
+  <string name="noLetPeopleBrowseFreely">Jo: lejo të tjerët të kërkojnë lirshëm</string>
+  <string name="pinnedStudyComment">Koment i ngulitur</string>
+  <string name="start">Fillo</string>
+  <string name="save">Ruaj</string>
+  <string name="clearChat">Fshij bisedën</string>
+  <string name="deleteTheStudyChatHistory">Fshini këtë kapitull? Nuk ka më kthim mbrapa!</string>
+  <string name="deleteStudy">Fshini këtë mësim</string>
+  <string name="deleteTheEntireStudy">Fshini tërë mësimin? Nuk ka më kthim mbrapa!</string>
+  <string name="whereDoYouWantToStudyThat">Ku doni ta studioni atë?</string>
 </resources>
