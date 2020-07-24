@@ -582,7 +582,7 @@
   <string name="signedOut">Has zarrau la sesión</string>
   <string name="loginSuccessful">Connectau</string>
   <string name="playOnTheBoardOffline">Chugar sin connexión</string>
-  <string name="playOfflineComputer">Chugar vs CPU sin connexión</string>
+  <string name="playOfflineComputer">Ordinador</string>
   <string name="opponent">Oponent</string>
   <string name="learnMenu">Aprender</string>
   <string name="studyMenu">Estudiar</string>
