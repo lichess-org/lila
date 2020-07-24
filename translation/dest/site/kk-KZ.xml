@@ -436,7 +436,7 @@
   <string name="previouslyOnLichessTV">Личес ТВ-да өткені</string>
   <string name="onlinePlayers">Қосулы ойыншылар</string>
   <string name="activeToday">Бүгінгі белсенділер</string>
-  <string name="activePlayers">Белсенді ойыншылар</string>
+  <string name="activePlayers">Белсенділер</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ескерту - ойын бағаланады, бірақ сағатсыз өтеді!</string>
   <string name="yourPuzzleRatingX">Жұмбақ шешудегі рейтингіңіз: %s</string>
   <string name="findTheBestMoveForWhite">Ақтар пайдасына ең дұрыс жүрісті табыңыз.</string>
