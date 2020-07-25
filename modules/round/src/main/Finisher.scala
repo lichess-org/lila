@@ -7,6 +7,7 @@ import lila.game.actorApi.{ AbortedBy, FinishGame }
 import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserRepo }
+import lila.i18n.{ I18nKeys => trans, defaultLang }
 
 final private class Finisher(
     gameRepo: GameRepo,
@@ -19,6 +20,8 @@ final private class Finisher(
     getSocketStatus: Game => Fu[actorApi.SocketStatus],
     recentTvGames: RecentTvGames
 )(implicit ec: scala.concurrent.ExecutionContext) {
+
+  implicit private val chatLang = defaultLang
 
   def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     apply(pov.game, _.Aborted, None) >>- {
@@ -34,12 +37,15 @@ final private class Finisher(
         playban.rageQuit(game, !color)
       }
 
-  def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
+  def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] =
     if (
       !game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)
     ) {
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
+
+    } else if (game.player(!game.player.color).isOfferingDraw) {
+      apply(game, _.Draw, None, Some(trans.drawOfferAccepted.txt()))
     } else {
       val winner = Some(!game.player.color) ifFalse game.situation.opponentHasInsufficientMaterial
       apply(game, _.Outoftime, winner) >>-
@@ -47,7 +53,6 @@ final private class Finisher(
           playban.flag(game, !w)
         }
     }
-  }
 
   def noStart(game: Game)(implicit proxy: GameProxy): Fu[Events] =
     game.playerWhoDidNotMove ?? { culprit =>
