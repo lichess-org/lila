@@ -22,7 +22,7 @@
   <string name="doNotAskByEmailToReopen">No nos escribas un correu pa reubrir una cuenta, no lo faremos.</string>
   <string name="wantChangeUsername">Quiero cambiar lo mío nombre d\'usuario</string>
   <string name="changeUsernameCase">Visita esta pachina pa cambiar las mayusclas/minusclas d\'o tuyo nombre d\'usuario</string>
-  <string name="cantChangeMore">No podemos cambiar soque las mayusclas/minusclas. Per razons tecnicas, ye totalment imposible.</string>
+  <string name="cantChangeMore">No podemos cambiar soque las mayusclas/minusclas. Per razons tecnicas, ye imposible de tot.</string>
   <string name="orCloseAccount">Manimenos, puetz zarrar la tuya cuenta actual y crear-ne una nueva.</string>
   <string name="wantClearHistory">Quiero borrar lo mío historial u puntuación</string>
   <string name="cantClearHistory">No ye posible borrar lo tuyo historial de chuegos, historial de rompecabezas u qualificacions.</string>
@@ -64,7 +64,7 @@
   <string name="sendAppealTo">Puetz ninviar una apelación a %s.</string>
   <string name="falsePositives">A vegadas ocurren falsos positivos, y lo lamentamos.</string>
   <string name="ifLegit">Si la suya apelación ye lechitima, devantaremos la prohibición antes con antes.</string>
-  <string name="accountLost">Manimenos, si realment utilizó asistencia d\'o motor, mesmo una sola vegada, la suya cuenta ye lamentablement perdida.</string>
+  <string name="accountLost">Manimenos, si de verdat has emplegau asistencia d\'un motor, encara que siga nomás una vez, alavez has perdiu la tuya cuenta.</string>
   <string name="doNotDeny">Ye millor que no niegues haber feito trapazas. Si quiers que se te permita creyar una nueva cuenta, nomás has d\'admitir lo que faciés, y contrimostrar que has comprendiu que ha estau una error.</string>
   <string name="otherRestriction">Atra restricción</string>
   <string name="collaboration">Colaboración, legal, comercial</string>

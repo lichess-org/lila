@@ -66,4 +66,15 @@
   <string name="ifLegit">Ако вашата жалба е легитимна, веднаш ќе ја тргнеме забраната.</string>
   <string name="accountLost">Но, ако навистина сте користеле компјутерска помош, макар и еднаш, тогаш вашата сметка е загубена.</string>
   <string name="doNotDeny">Не одрекувајте дека сте мамеле. За да ви биде дозволено да создадете нова сметка, признајте што сте направиле, и покажете дека разбирате како сте згрешиле.</string>
+  <string name="otherRestriction">Некое друго ограничување</string>
+  <string name="collaboration">Соработка - правна и комерцијална</string>
+  <string name="monetizing">Монетизација на Lichess</string>
+  <string name="buyingLichess">Купување на Lichess</string>
+  <string name="authorizationToUse">Дозвола за користење на Lichess</string>
+  <string name="welcomeToUse">Дозволено е користење на Lichess за вашите активности, дури и ако се комерцијални.</string>
+  <string name="videosAndBooks">Можете да го прикажувате во вашите видеа, а можете и да користите слики од Lichess во вашите книги.</string>
+  <string name="creditAppreciated">Цениме кога ни го припишувате трудот, но тоа не е задолжително.</string>
+  <string name="noneOfTheAbove">Ништо од наведеното</string>
+  <string name="sendEmailAt">Пратете ни е-пошта на %s.</string>
+  <string name="explainYourRequest">Ве молиме објаснете го вашето барање јасно и прецизно. Наведете го вашето корисничко име на Lichess, како и сите информации кои би ни помогнале да ви помогнеме.</string>
 </resources>

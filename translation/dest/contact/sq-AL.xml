@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="otherReason">arsye tjetër</string>
+  <string name="toReportAPlayer">Për të raportuar një lojtar për %s, përdorni formularin e raportimit</string>
+  <string name="youCanAlsoReachReportPage">Ju mund të shkoni në atë faqe edhe duke klikuar butonin e raportimit %s në një faqe profili.</string>
+  <string name="doNotReportInForum">Mos raportoni lojtarët në forum.</string>
+  <string name="doNotSendReportEmails">Mos na dërgoni email-a për raportim.</string>
+  <string name="doNotMessageModerators">Mos dërgoni mesazhe direkte te moderatorët.</string>
+  <string name="onlyReports">Vetëm raportimi i lojtarëve përmes formularit të raportimit është efektiv.</string>
+  <string name="wantReportBug">Dua të raportoj një gabim</string>
+  <string name="reportBugInForum">Në seksionin e feedback-ut të Lichess-it në forum</string>
+  <string name="reportWebsiteIssue">Si problem i webfaqes së Lichessit në GitHub</string>
+  <string name="reportMobileIssue">Si problem i aplikacionit të telefonit të Lichess-it në GitHub</string>
   <string name="reportBugInDiscord">Ne serverin e Lichessit</string>
   <string name="howToReportBug">Ju lutem pershkruani c\'fare problemi ka, c\'fare prisnit te ndodhte ne vend te asaj qe ndodhi, dhe hapat se si mund ta rikrijojme problemin.</string>
   <string name="illegalPawnCapture">Nuk lejohet ngrenja e ushtarit</string>

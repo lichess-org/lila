@@ -88,7 +88,7 @@
     <item quantity="other">Mate en %s meyos movimientos</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Siguient captura u movimiento de peón en meyo movimiento (distancia a zero d\'o contador de 50 movimientos)</item>
+    <item quantity="one">Siguient captura u movimiento de peón en %s meyos movimientos (distancia a la mesa a zero d\'o contador de 50 movimientos)</item>
     <item quantity="other">Siguient captura u movimiento de peón en %s meyos movimientos (distancia a zero d\'o contador de 50 movimientos)</item>
   </plurals>
   <string name="noGameFound">No s\'ha trobau garra partida</string>
@@ -582,7 +582,7 @@
   <string name="signedOut">Has zarrau la sesión</string>
   <string name="loginSuccessful">Connectau</string>
   <string name="playOnTheBoardOffline">Chugar sin connexión</string>
-  <string name="playOfflineComputer">Chugar vs CPU sin connexión</string>
+  <string name="playOfflineComputer">Ordinador</string>
   <string name="opponent">Oponent</string>
   <string name="learnMenu">Aprender</string>
   <string name="studyMenu">Estudiar</string>
@@ -620,8 +620,8 @@
   <string name="webmasters">Webmasters</string>
   <string name="about">Sobre</string>
   <string name="aboutX">Sobre %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ye un servidor d\'escaques totalment gratuito (%2$s) feito con codigo ubierto, libre, sin publicidat.</string>
-  <string name="really">realment</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ye un servidor d\'escaques gratuito de raso (%2$s) feito con codigo ubierto, libre, sin publicidat.</string>
+  <string name="really">de verdat</string>
   <string name="contribute">Contribuyir</string>
   <string name="termsOfService">Condicions d\'o servicio</string>
   <string name="sourceCode">Codigo fuent</string>

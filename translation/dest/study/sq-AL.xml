@@ -1,5 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="private">Private</string>
+  <string name="myStudies">Mësimet e mia</string>
+  <string name="studiesIContributeTo">Mësimet në të cilat kam kontribuar unë</string>
+  <string name="myPublicStudies">Mësimet e mia publike</string>
+  <string name="myPrivateStudies">Mësimet e mia private</string>
+  <string name="myFavoriteStudies">Mësimet e mia më të pëlqyera</string>
+  <string name="whatAreStudies">Çka janë mësimet?</string>
+  <string name="allStudies">Të gjitha mësimet</string>
+  <string name="studiesCreatedByX">Mësimet e krijuara nga %s</string>
+  <string name="noneYet">Ende asnjë.</string>
+  <string name="hot">Më aktualet</string>
+  <string name="dateAddedNewest">Data e krijimit (nga më e reja)</string>
+  <string name="dateAddedOldest">Data e krijimit (nga më e vjetra)</string>
+  <string name="recentlyUpdated">E përditësuar së fundmi</string>
+  <string name="mostPopular">Më e popullarizuara</string>
+  <string name="addNewChapter">Shto një kapitull të ri</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Kapitull</item>
+    <item quantity="other">%s Kapituj</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Lojë</item>
+    <item quantity="other">%s Lojëra</item>
+  </plurals>
+  <string name="addMembers">Shto anëtarë</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Anëtar</item>
+    <item quantity="other">%s Anëtarë</item>
+  </plurals>
+  <string name="inviteToTheStudy">Fto në mësim</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Ju lutemi ftoni vetëm njerëzit që i njihni, dhe që duan të bashkëngjiten në këtë mësim.</string>
+  <string name="searchByUsername">Kërkoni sipas emrit të përdoruesit</string>
+  <string name="spectator">Shikues</string>
+  <string name="contributor">Kontribues</string>
+  <string name="kick">Përjashto</string>
+  <string name="leaveTheStudy">Largohu nga mësimi</string>
+  <string name="youAreNowAContributor">Tani ju jeni një kontribues</string>
+  <string name="youAreNowASpectator">Tani ju jeni shikues</string>
+  <string name="pgnTags">PGN etiketimet</string>
+  <string name="like">Pëlqyer</string>
+  <string name="newTag">Etiketim i ri</string>
+  <string name="commentThisPosition">Komentoni në këtë pozitë</string>
+  <string name="commentThisMove">Komentoni në këtë lëvizje</string>
+  <string name="annotateWithGlyphs">Shenjoni me karaktere</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Ky kapitull është shumë i shkurtë për tu analizuar.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Analiza kompjuterike mund të kërkohet vetëm nga kontribuesit e këtij mësimi.</string>
+  <string name="getAFullComputerAnalysis">Merrni një analizë të plotë kompjuterike të variantit kryesor.</string>
+  <string name="makeSureTheChapterIsComplete">Sigurohuni që kapitulli të jetë i plotë. Mund të kërkoni analizë vetëm një herë.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Të gjithë anëtarët e sinkronizuar mbesin në të njejtën pozitë</string>
+  <string name="shareChanges">Ndani ndryshimet me shikuesit dhe ruajini ato në server</string>
   <string name="playing">Duke u luajtur</string>
   <string name="first">E fillimit</string>
   <string name="previous">E meparshme</string>
@@ -53,4 +103,30 @@
     <item quantity="other">Kopjoni SHENIMET ketu, deri ne %s lojera</item>
   </plurals>
   <string name="urlOfTheGame">ADRESA E INTERNETIT e lojrave, nje per rrjesht</string>
+  <string name="loadAGameFromXOrY">Hap lojë nga %1$s ose %2$s</string>
+  <string name="createChapter">Krijo kapitull</string>
+  <string name="configureLiveBroadcast">Konfiguro transmetim të drejtpërdrejtë</string>
+  <string name="createStudy">Krijo mësim</string>
+  <string name="editStudy">Edito mësimin</string>
+  <string name="visibility">Dukshmëria</string>
+  <string name="public">Publik</string>
+  <string name="unlisted">E pa listuar</string>
+  <string name="inviteOnly">Vetëm me ftesa</string>
+  <string name="allowCloning">Lejo kopjimin</string>
+  <string name="nobody">Askush</string>
+  <string name="onlyMe">Vetëm unë</string>
+  <string name="contributors">Kontribuesit</string>
+  <string name="members">Anëtarët</string>
+  <string name="everyone">Çdokush</string>
+  <string name="enableSync">Lejo sinkronizimin</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Po: mbaj të gjithë në të njejtën pozitë</string>
+  <string name="noLetPeopleBrowseFreely">Jo: lejo të tjerët të kërkojnë lirshëm</string>
+  <string name="pinnedStudyComment">Koment i ngulitur</string>
+  <string name="start">Fillo</string>
+  <string name="save">Ruaj</string>
+  <string name="clearChat">Fshij bisedën</string>
+  <string name="deleteTheStudyChatHistory">Fshini këtë kapitull? Nuk ka më kthim mbrapa!</string>
+  <string name="deleteStudy">Fshini këtë mësim</string>
+  <string name="deleteTheEntireStudy">Fshini tërë mësimin? Nuk ka më kthim mbrapa!</string>
+  <string name="whereDoYouWantToStudyThat">Ku doni ta studioni atë?</string>
 </resources>

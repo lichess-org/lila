@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Dibaboù</string>
+  <string name="pieceAnimation">Mod da fiñval ar pezhioù</string>
   <string name="materialDifference">Diforc\'hioù a-fet dafar</string>
+  <string name="boardHighlights">Gouleier evit sikour war an dablez (fiñvadenn ziwezhañ ha bec\'h d\'ar roue)</string>
   <string name="boardCoordinates">Daveennoù an dablez (A-H, 1-8)</string>
   <string name="chessPieceSymbol">Arouez ar pezh echedoù</string>
   <string name="pgnLetter">Lizherenn (K, Q, R, B, N)</string>
   <string name="zenMode">Mod zen</string>
+  <string name="onlyOnInitialPosition">Lec\'hiadur kentañ nemetken</string>
   <string name="chessClock">Horolaj echedoù</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Pa chom nebeutoc\'h evit &lt; 10 eilenn</string>
+  <string name="soundWhenTimeGetsCritical">Trouz pa ne chom ket kalz amzer</string>
   <string name="giveMoreTime">Reiñ muioc\'h a amzer</string>
+  <string name="gameBehavior">Mont en-dro ar c\'hrogad</string>
   <string name="howDoYouMovePieces">Penaos e lakaer ar pezhioù da fiñval?</string>
+  <string name="clickTwoSquares">Klikañ war div garrezenn</string>
   <string name="dragPiece">Lakaat ar pezh da riklañ</string>
   <string name="bothClicksAndDrag">An daou</string>
   <string name="promoteToQueenAutomatically">Treiñ da rouanez en un doare emgefreek</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Pa chom nebeutoc\'h evit &lt; 30 eilenn</string>
+  <string name="moveConfirmation">Kadarnaat ar fiñvadenn</string>
   <string name="inCorrespondenceGames">Krogadoù a-bell</string>
   <string name="correspondenceAndUnlimited">A-bell ha diharz</string>
+  <string name="confirmResignationAndDrawOffers">Kadarnaat ar c\'hodianañ hag ar goulenn bezañ rampo</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Doareoù da rokañ</string>
+  <string name="castleByMovingTwoSquares">O tiplasañ ar roue deus div garrezenn</string>
+  <string name="castleByMovingOntoTheRook">Diblasañ ar roue war an tour evit rokañ</string>
+  <string name="inputMovesWithTheKeyboard">Aozañ an touchennaoueg evit c\'hoari gantañ</string>
   <string name="yourPreferencesHaveBeenSaved">Savetaet eo bet ho tibaboù.</string>
 </resources>

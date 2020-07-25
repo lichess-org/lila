@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessClasses">Mësimet</string>
+  <string name="teachClassesOfChessStudents">Mësoni klasë të studentëve të shahut me suiten e mjeteve të Lichess Classes.</string>
+  <string name="features">Karakteristikat</string>
+  <string name="quicklyGenerateSafeUsernames">Gjenero shpejtë emra përdorues dhe fjalëkalime të sigurta për studentët</string>
+  <string name="trackStudentProgress">Përcill progresin e nxënësit në lojëra dhe enigma</string>
+  <string name="messageAllStudents">Dërgo mesazh te të gjithë nxënësit për materiale të reja mësimore</string>
+  <string name="freeForAllForever">100% pa pagesë për të gjithë, pa reklama dhe gjurmues</string>
+  <string name="applyToBeLichessTeacher">Apliko për tu bërë Mësues i Lichess-it</string>
+  <string name="noClassesYet">Asnjë mësim deri më tani.</string>
+  <string name="teachersX">Mësuesit: %s</string>
+  <string name="newClass">Mësim i ri</string>
+  <string name="closeClass">Mbyll mësimin</string>
+  <string name="closedByX">Mbyllur nga %s</string>
   <string name="theyMustFirstApply">Ata duhet te aplikojne per te qene Mesues Lichessi ne fillim.</string>
   <string name="resetPassword">Ndero fjalekalimin</string>
   <string name="makeSureToCopy">Sigurohu qe e kopjove ose e shkruajte dikund fjalekalimin tani. S\'do te keni mundesi ta shifni perseri!</string>
