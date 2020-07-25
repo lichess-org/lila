@@ -60,32 +60,32 @@ Nuk ka nevoje te nxjerresh figure.</string>
   <string name="grabAllTheStarsNoNeedToPromote">Merri te gjitha yjet!
 Nuk ka nevoje te dalesh figure.</string>
   <string name="pawnComplete">Urime! Ushtaret nuk kane me sekrete nga ty.</string>
-  <string name="pawnPromotion">Nxjerrja e ushtarit figure</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Ushtari yt arriti fundin e skatieres!</string>
-  <string name="itNowPromotesToAStrongerPiece">Tani mund te shnderrohet ne nje figure te forte.</string>
-  <string name="selectThePieceYouWant">Zgjidh figuren qe do!</string>
-  <string name="fundamentals">Themelet</string>
-  <string name="capture">Ngrenja</string>
-  <string name="takeTheEnemyPieces">Ha figuren e kundershtarit</string>
-  <string name="captureIntro">Gjej figurat e pambrojtura te kundershtarit dhe haji!</string>
-  <string name="takeTheBlackPieces">Ha guret e zinj!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Ha guret e zinj!
-Dhe mos humb te tute.</string>
-  <string name="captureComplete">Urime! Tani ju dini si te ndesheni me guret e shahut!</string>
+  <string name="pawnPromotion">Promocioni i piunit</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Piuni juaj arriti fundin e tabelës!</string>
+  <string name="itNowPromotesToAStrongerPiece">Tani mund të shndërrohet në një figurë më të fortë.</string>
+  <string name="selectThePieceYouWant">Zgjidhni figurën që doni!</string>
+  <string name="fundamentals">Elementaret</string>
+  <string name="capture">Marrja</string>
+  <string name="takeTheEnemyPieces">Merr figurën e kundërshtarit</string>
+  <string name="captureIntro">Gjej figurat e pambrojtura të kundërshtarit dhe merri ato!</string>
+  <string name="takeTheBlackPieces">Merr figurat e zeza!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Merrni figurat e zeza!
+Dhe mos i humbni tuajat.</string>
+  <string name="captureComplete">Urime! Tani ju dini si të luftoni me figura të shahut!</string>
   <string name="protection">Mbrojtja</string>
-  <string name="keepYourPiecesSafe">Siguro figurat</string>
-  <string name="protectionIntro">Dallo figurat te cilat kundershtari po ju sulmon, dhe mbrojini ato!</string>
-  <string name="protectionComplete">Urime! Nje figure qe nuk e humbni eshte nje figure teper qe e fitoni!</string>
-  <string name="escape">Jeni nen sulm!
-Shpeto dhe sulmo!</string>
-  <string name="noEscape">Nuk ka terheqje,
-por ju mund te mbroheni!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Mos i lejo te marrin
-asnje figure te pambrojtur!</string>
-  <string name="combat">Perballja</string>
-  <string name="captureAndDefendPieces">Ha dhe mbro figura</string>
-  <string name="combatIntro">Nje luftetar i mire i di te dyja, si te sulmoje dhe si te mbrohet!</string>
-  <string name="combatComplete">Urime! Ju tani dini si te ndesheni me guret e shahut!</string>
+  <string name="keepYourPiecesSafe">Mbani të sigurta figurat tuaja</string>
+  <string name="protectionIntro">Dalloni figurat të cilat kundërshtari po i sulmon, dhe mbrojini ato!</string>
+  <string name="protectionComplete">Urime! Nje figurë që nuk e humbni është një figurë që e fitoni!</string>
+  <string name="escape">Jeni nën sulm!
+Shpëtoni dhe sulmoni!</string>
+  <string name="noEscape">Nuk ka tërheqje,
+por ju mund të mbroheni!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Mos i lejoni të marrin
+asnjë figurë të pambrojtur!</string>
+  <string name="combat">Përballja</string>
+  <string name="captureAndDefendPieces">Merrni dhe mbroni figura</string>
+  <string name="combatIntro">Një luftëtar i mirë i di të dyja, si të sulmojë dhe si të mbrohet!</string>
+  <string name="combatComplete">Urime! Ju tani dini si të luftoni me figura të shahut!</string>
   <string name="checkInOne">Shah me nje levizje</string>
   <string name="attackTheOpponentsKing">Sulmo mbretin kundershtar</string>
   <string name="checkInOneIntro">Per ti dhene shah kundershtarit, sulmoji mbretin. Atyre do t\'ju duhet te mbrohen!</string>
