@@ -15,6 +15,6 @@ private[appeal] object BsonHandlers {
     s => BSONString(s.key)
   )
 
-  // implicit val appealMsgHandler   = Macros.handler[AppealMsg]
+  implicit val appealMsgHandler   = Macros.handler[AppealMsg]
   implicit val appealHandler   = Macros.handler[Appeal]
 }

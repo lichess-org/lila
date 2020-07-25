@@ -71,6 +71,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val account: Account               = wire[Account]
   lazy val analyse: Analyse               = wire[Analyse]
   lazy val api: Api                       = wire[Api]
+  lazy val appeal: Appeal                 = wire[Appeal]
   lazy val auth: Auth                     = wire[Auth]
   lazy val blog: Blog                     = wire[Blog]
   lazy val bookmark: Bookmark             = wire[Bookmark]

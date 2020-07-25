@@ -17,8 +17,6 @@ trait StringHelper { self: NumberHelper =>
 
   def urlencode(str: String): String = java.net.URLEncoder.encode(str, "US-ASCII")
 
-  def when(cond: Boolean, str: String) = cond ?? str
-
   private val NumberFirstRegex = """(\d++)\s(.+)""".r
   private val NumberLastRegex  = """\s(\d++)$""".r.unanchored
 

@@ -1,0 +1,35 @@
+.appeal {
+  &__help {
+    margin-bottom: 2em;
+  }
+
+  &__status {
+    @extend %box-radius;
+
+    padding: 1em 1.5em;
+    margin-bottom: 2em;
+    background: $c-bg-zebra;
+
+    &::before {
+      @extend %data-icon;
+
+      content: '';
+      font-size: 2em;
+      margin-right: .4em;
+    }
+  }
+
+  &__msg {
+    padding: 1em 1.5em;
+    margin-bottom: 2em;
+    border-left: 10px solid $c-bg-zebra;
+
+    &__header {
+      @extend %flex-between;
+
+      margin-bottom: 2em;
+    }
+
+    &__ text {}
+  }
+}
