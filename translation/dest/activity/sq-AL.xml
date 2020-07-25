@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="activity">Aktivizo</string>
+  <string name="activity">Aktiviteti</string>
   <string name="hostedALiveStream">Transmetoi duke luajtur live</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Mbështeti lichess.org për %1$s muaj si %2$s</item>
@@ -17,6 +17,10 @@
   <plurals name="playedNbGames">
     <item quantity="one">Luajti %1$s %2$s lojë</item>
     <item quantity="other">Luajti %1$s %2$s lojëra</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Postoi %1$s mesazh në %2$s</item>
+    <item quantity="other">Postoi %1$s mesazhe në %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Bëri %1$s lëvizje</item>
