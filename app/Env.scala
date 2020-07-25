@@ -45,6 +45,7 @@ final class Env(
     val simul: lila.simul.Env,
     val relation: lila.relation.Env,
     val report: lila.report.Env,
+    val appeal: lila.appeal.Env,
     val pref: lila.pref.Env,
     val chat: lila.chat.Env,
     val puzzle: lila.puzzle.Env,
@@ -231,6 +232,7 @@ final class EnvBoot(
   lazy val simul: lila.simul.Env             = wire[lila.simul.Env]
   lazy val relation: lila.relation.Env       = wire[lila.relation.Env]
   lazy val report: lila.report.Env           = wire[lila.report.Env]
+  lazy val appeal: lila.appeal.Env           = wire[lila.appeal.Env]
   lazy val pref: lila.pref.Env               = wire[lila.pref.Env]
   lazy val chat: lila.chat.Env               = wire[lila.chat.Env]
   lazy val puzzle: lila.puzzle.Env           = wire[lila.puzzle.Env]
