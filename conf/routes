@@ -538,7 +538,8 @@ POST  /report/:id/xfiles               controllers.Report.xfiles(id: String)
 GET   /report/:username/cheat-inquiry  controllers.Report.currentCheatInquiry(username: String)
 
 # Appeal
-GET   /appeal                          controllers.Appeal.form
+GET   /appeal                          controllers.Appeal.home
+POST  /appeal                          controllers.Appeal.post
 
 # Stats
 GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf: String)

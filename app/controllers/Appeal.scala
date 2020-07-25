@@ -1,20 +1,29 @@
 package controllers
 
-import play.api.data._
-import play.api.data.Forms._
-import play.api.mvc._
-
-import lila.api.Context
 import lila.app._
 import views._
 
 final class Appeal(env: Env) extends LilaController(env) {
 
-  // def form =
-  //   Auth { implicit ctx => _ =>
-  //       env.appeal.forms.create map {
-  //         case (form, captcha) => Ok(html.report.form(form, user, captcha))
-  //       }
-  //     }
-  //   }
+  def home =
+    Auth { implicit ctx => me =>
+      env.appeal.api.mine(me) map { appeal =>
+        Ok(html.appeal2.home(appeal, env.appeal.forms.text))
+      }
+    }
+
+  def post =
+    AuthBody { implicit ctx => me =>
+      implicit val req = ctx.body
+      env.appeal.forms.text
+        .bindFromRequest()
+        .fold(
+          err =>
+            env.appeal.api.mine(me) map { appeal =>
+              BadRequest(html.appeal2.home(appeal, err))
+            },
+          text =>
+            env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home()).flashSuccess
+        )
+    }
 }
