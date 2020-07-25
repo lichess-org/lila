@@ -23,29 +23,6 @@ import scala.util.Try
 // format: off
 object WMMatching {
 
-  private trait TraversableIsh[A] {
-
-    import scala.util.control.Breaks.{ break, breakable }
-
-    def foreach[U](f: A => U): Unit
-
-    def find(p: A => Boolean): Option[A] = {
-      var result: Option[A] = None
-      breakable {
-        for (x <- this)
-          if (p(x)) { result = Some(x); break() }
-      }
-      result
-    }
-
-    def flatMap[B](f: A => Iterable[B]): List[B] = {
-      def builder = new scala.collection.mutable.ListBuffer[B]
-      val b = builder
-      for (x <- this) b ++= f(x)
-      b.result()
-    }
-  }
-
   def apply[A](vertices: Array[A], pairScore: (A, A) => Option[Int]): Try[List[(A, A)]] = Try {
     lowLevel(
       vertices.length,
@@ -204,20 +181,16 @@ object WMMatching {
       dualvar(endpoint(kk)) + dualvar(endpoint(kk+1)) - weights(k)
     }
 
-    class BlossomLeavesTraversable(b: Int) extends TraversableIsh[Int] {
-      def foreach[U](f: Int => U): Unit = {
-        def g(v: Int): Unit = {
-          blossomchilds(v).foreach { w =>
-            if (w < nvertex) f(w): Unit
-            else g(w)
-          }
-        }
-        if (b < nvertex) f(b) else g(b)
+    def blossomLeavesG(v: Int): Iterator[Int] = {
+      blossomchilds(v).iterator.flatMap { w =>
+        if(w < nvertex) Iterator(w) else blossomLeavesG(w)
       }
     }
 
     // Generate the leaf vertices of a blossom.
-    def blossomLeaves(b: Int): TraversableIsh[Int] = new BlossomLeavesTraversable(b)
+    def blossomLeaves(b: Int): Iterator[Int] = {
+      if(b < nvertex) Iterator(b) else blossomLeavesG(b)
+    }
 
     // Assign label t to the top-level blossom containing vertex w
     // and record the fact that w was reached through the edge with
@@ -332,9 +305,9 @@ object WMMatching {
 
       val bestedgeto = Array.fill(allocatedvertex)(-1)
       for (bv <- blossomchilds(b)) {
-        val nblists: List[Int] =
+        val nblists =
           if (blossombestedges(bv) == null) blossomLeaves(bv).flatMap(v => neighbend(v).view.map { p => p >> 1 })
-          else blossombestedges(bv)
+          else blossombestedges(bv).iterator
         for (k <- nblists) {
           val kk = 2 * k
           val j = if (inblossom(endpoint(kk+1)) == b) endpoint(kk) else endpoint(kk+1)
@@ -446,7 +419,7 @@ object WMMatching {
     def augmentBlossom(b: Int, v: Int): Unit = {
       // Bubble up through the blossom tree from vertex v to an immediate
       // isub-blossom of b.
-      def rotate(src: Array[Int], dst: Array[Int], n: Int, shift: Int):Unit = {
+      def rotate(src: Array[Int], dst: Array[Int], n: Int, shift: Int): Unit = {
         Array.copy(src, shift, dst, 0, n - shift)
         Array.copy(src, 0, dst, n - shift, shift)
       }
@@ -758,12 +731,11 @@ object WMMatching {
   }
 
   private def fullGraph(nvertex: Int, pairScore: (Int, Int) => Option[Int]): (Array[Int], Array[Int]) = {
-    import scala.collection.mutable.ArrayBuilder.ofInt
-    val m = (nvertex * (nvertex - 1)) >> 1
-    val e = new ofInt()
-    e.sizeHint (m << 1)
-    val w = new ofInt()
+    val m = nvertex * (nvertex - 1)
+    val e = Array.newBuilder[Int]
     e.sizeHint (m)
+    val w = Array.newBuilder[Int]
+    e.sizeHint (m >> 1)
     for {i <- 0 until (nvertex - 1)
          j <- (i+1) until nvertex
          p <- pairScore(i, j)} {
