@@ -64,7 +64,7 @@
   </plurals>
   <string name="signedUp">U regjistrua në lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Ju bashkove %s skuadre</item>
-    <item quantity="other">Ju bashkove %s skuadrave</item>
+    <item quantity="one">Iu bashkua %s ekipi</item>
+    <item quantity="other">Iu bashkua %s ekipeve</item>
   </plurals>
 </resources>
