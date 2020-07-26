@@ -19,13 +19,16 @@ object TeamBattle {
 
   case class TeamVs(teams: chess.Color.Map[TeamID])
 
-  case class RankedTeam(
-      rank: Int,
-      teamId: TeamID,
-      leaders: List[TeamLeader]
+  class RankedTeam(
+      val rank: Int,
+      val teamId: TeamID,
+      val leaders: List[TeamLeader],
+      val magicScore: Int
   ) {
-    def magicScore = leaders.foldLeft(0)(_ + _.magicScore)
-    def score      = leaders.foldLeft(0)(_ + _.score)
+    def this(rank: Int, teamId: TeamID, leaders: List[TeamLeader]) =
+      this(rank, teamId, leaders, leaders.foldLeft(0)(_ + _.magicScore))
+    def score                    = leaders.foldLeft(0)(_ + _.score)
+    def updateRank(newRank: Int) = new RankedTeam(newRank, teamId, leaders, magicScore)
   }
 
   case class TeamLeader(userId: User.ID, magicScore: Int) {
