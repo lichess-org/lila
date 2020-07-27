@@ -23,12 +23,17 @@ object TeamBattle {
       val rank: Int,
       val teamId: TeamID,
       val leaders: List[TeamLeader],
-      val magicScore: Int
-  ) {
+      val score: Int
+  ) extends Ordered[RankedTeam] {
+    private def magicScore = leaders.foldLeft(0)(_ + _.magicScore)
     def this(rank: Int, teamId: TeamID, leaders: List[TeamLeader]) =
-      this(rank, teamId, leaders, leaders.foldLeft(0)(_ + _.magicScore))
-    def score                    = leaders.foldLeft(0)(_ + _.score)
-    def updateRank(newRank: Int) = new RankedTeam(newRank, teamId, leaders, magicScore)
+      this(rank, teamId, leaders, leaders.foldLeft(0)(_ + _.score))
+    def updateRank(newRank: Int) = new RankedTeam(newRank, teamId, leaders, score)
+    override def compare(that: RankedTeam) = {
+      if (this.score > that.score) -1
+      else if (this.score < that.score) 1
+      else that.magicScore - this.magicScore
+    }
   }
 
   case class TeamLeader(userId: User.ID, magicScore: Int) {

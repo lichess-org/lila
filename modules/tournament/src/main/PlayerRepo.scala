@@ -89,7 +89,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
                 } yield TeamLeader(id, magic)
             }
           } yield new RankedTeam(0, teamId, leaders)
-        }.sortBy(-_.magicScore).zipWithIndex map {
+        }.sorted.zipWithIndex map {
           case (rt, pos) => rt.updateRank(pos + 1)
         }
       } map { ranked =>
