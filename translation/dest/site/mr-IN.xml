@@ -58,6 +58,8 @@
   <string name="showThreat">धोका दाखवा</string>
   <string name="inLocalBrowser">स्थानिक ब्राउझरमध्ये</string>
   <string name="toggleLocalEvaluation">स्थानिक मूल्यमापन चालू / बंद</string>
+  <string name="promoteVariation">भिन्नता प्रोत्साहित करा</string>
+  <string name="makeMainLine">मुख्य लाइन बनवा</string>
   <string name="deleteFromHere">येथून हटवा</string>
   <string name="move">चाल</string>
   <string name="insufficientMaterial">अपर्याप्त सामग्री</string>
