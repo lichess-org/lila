@@ -222,9 +222,11 @@
   <string name="rematchOfferDeclined">पुनः खेळण्याची विनंती अमान्य</string>
   <string name="cancelRematchOffer">पुनः खेळण्याची विनंती रद्द करा</string>
   <string name="viewRematch">पुनः खेळ पहा</string>
+  <string name="confirmMove">चालीची पुष्टी करा</string>
   <string name="play">खेळा</string>
   <string name="inbox">इनबॉक्स</string>
   <string name="chatRoom">गप्पांची खोली</string>
+  <string name="loginToChat">सही (Sign in) करा</string>
   <string name="youHaveBeenTimedOut">आपण कालबाह्य झाले आहे.</string>
   <string name="spectatorRoom">Drook kholli</string>
   <string name="composeMessage">संदेश लिहा</string>
@@ -235,6 +237,10 @@
   <string name="incrementInSeconds">सेकंदांमध्ये वाढ</string>
   <string name="freeOnlineChess">विनामूल्य ऑनलाइन बुद्धिबळ</string>
   <string name="spectators">प्रेक्षक</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s दर्जेदार</item>
+    <item quantity="other">%s दर्जेदार</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s विजय</item>
     <item quantity="other">%s विजय</item>
@@ -247,12 +253,19 @@
     <item quantity="one">%s अनिर्णीत</item>
     <item quantity="other">%s अनिर्णीत</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s खेळतोय</item>
+    <item quantity="other">%s खेळतोय</item>
+  </plurals>
   <string name="exportGames">खेळ निर्यात करा</string>
   <string name="ratingRange">इलो श्रेणी</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s सेकंद द्या</item>
     <item quantity="other">%s सेकंद द्या</item>
   </plurals>
+  <string name="thisAccountViolatedTos">या खात्याने अटींचे उल्लंघन केले</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">हा खेळाडू कृत्रिमरित्या दर्जा वाढवितो / कमी करतो</string>
+  <string name="openingExplorerAndTablebase">उघडणी अन्वेषक नि साठा</string>
   <string name="takeback">परत घ्या</string>
   <string name="proposeATakeback">Mage ghenyas vinanti</string>
   <string name="takebackPropositionSent">Mage ghenyas vinanti pohochli</string>
@@ -264,9 +277,21 @@
   <string name="tournament">स्पर्धा</string>
   <string name="tournaments">स्पर्धा</string>
   <string name="tournamentPoints">स्पधेतील अंक</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s स्पर्धा दर्जा</item>
+    <item quantity="other">%s स्पर्धा दर्जा</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s अभ्यास</item>
+    <item quantity="other">%s अभ्यास</item>
+  </plurals>
   <string name="viewTournament">स्पर्धा पाहा</string>
   <string name="backToTournament">स्पर्धेत परत या</string>
   <string name="thematic">विषयगत</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s दर्जाचा खेळ</item>
+    <item quantity="other">≥ %s दर्जाचे खेळ</item>
+  </plurals>
   <string name="backToGame">खेळात परत या</string>
   <string name="averageElo">सरासरी गुण</string>
   <string name="location">स्थळ</string>
