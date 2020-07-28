@@ -292,6 +292,19 @@
     <item quantity="one">≥ %s दर्जाचा खेळ</item>
     <item quantity="other">≥ %s दर्जाचे खेळ</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s दर्जाचा खेळ</item>
+    <item quantity="other">≥ %1$s %2$s दर्जाचे खेळ</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">आपल्याला आणखी %1$s %2$s-दर्जाचे गेम खेळण्याची आवश्यकता आहे</item>
+    <item quantity="other">आपल्याला आणखी %1$s %2$s-दर्जाचे गेम खेळण्याची आवश्यकता आहे</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">आपल्याला आणखी %s दर्जाचे गेम खेळण्याची आवश्यकता आहे</item>
+    <item quantity="other">आपल्याला आणखी %s दर्जाचे गेम खेळण्याची आवश्यकता आहे</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">आपला %s दर्जा तात्पुरता आहे</string>
   <string name="backToGame">खेळात परत या</string>
   <string name="averageElo">सरासरी गुण</string>
   <string name="location">स्थळ</string>
