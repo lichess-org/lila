@@ -410,7 +410,10 @@
     <item quantity="other">%s खेळ चालू आहे(त)</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">चालीनंतर पुढच्या खेळकडे जा</string>
+  <string name="autoSwitch">आपोआप बदला</string>
   <string name="puzzles">कोडी</string>
+  <string name="latestUpdates">नवीनतम अद्यतने</string>
+  <string name="tournamentWinners">स्पर्धेचे विजेते</string>
   <string name="name">नाव</string>
   <string name="description">माहिती</string>
   <string name="no">नाही</string>
@@ -420,6 +423,7 @@
   <string name="topics">विषय</string>
   <string name="posts">लेख</string>
   <string name="lastPost">मागील लेख</string>
+  <string name="views">दृश्ये</string>
   <string name="replies">प्रतिक्रिया</string>
   <string name="replyToThisTopic">या विषयावरील प्रतिक्रिया</string>
   <string name="reply">प्रतिक्रिया</string>
@@ -433,7 +437,24 @@
   <string name="insult">अपमान</string>
   <string name="troll">थट्टा</string>
   <string name="other">इतर</string>
+  <string name="reportDescriptionHelp">खेळाचा दुवा पेस्ट करा आणि या वापरकर्त्याच्या वर्तनाबद्दल काय चुकीचे आहे ते सांगा. फक्त \"ते फसवतात\" असे म्हणू नका, परंतु आपण या निष्कर्षावर कसे आलात ते सांगा. इंग्रजीमध्ये लिहिले असल्यास आपल्या अहवालावर वेगवान प्रक्रिया केली जाईल.</string>
+  <string name="error.provideOneCheatedGameLink">कृपया फसवणूक झालेल्या खेळासाठी किमान एक दुवा प्रदान करा.</string>
+  <string name="by">%s ने</string>
   <string name="thisTopicIsNowClosed">हा विषय आता संपला आहे.</string>
+  <string name="theming">साल</string>
+  <string name="blog">स्व: मत</string>
+  <string name="questionsAndAnswers">प्रश्न नि उत्तरे</string>
+  <string name="notes">नोंदी</string>
+  <string name="typePrivateNotesHere">गुप्त नोंदी इथे लिहा</string>
+  <string name="invalidUsernameOrPassword">चुकीचे नाव किंवा गुप्त शब्द</string>
+  <string name="incorrectPassword">चुकीचा गुप्त शब्द</string>
+  <string name="invalidAuthenticationCode">अवैध प्रमाणीकरण कोड</string>
+  <string name="emailMeALink">एक दुवा ईमेल करा</string>
+  <string name="currentPassword">सध्याचा गुप्त शब्द</string>
+  <string name="newPassword">नवीन गुप्त शब्द</string>
+  <string name="newPasswordAgain">नवीन गुप्त शब्द (पुनः)</string>
+  <string name="clockInitialTime">प्रारंभिक वेळ</string>
+  <string name="clockIncrement">वेळवाढ</string>
   <string name="victory">शाब्बास रे! पठ्ठ्या!!!</string>
   <string name="noInternetConnection">आंतरजालाशी संपर्क  नाही. तरीदेखील तुम्ही offline खेळू शकता</string>
   <string name="playOnTheBoardOffline">त्या समयी सुचलेली चाल</string>
