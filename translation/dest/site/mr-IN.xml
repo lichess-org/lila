@@ -84,9 +84,15 @@
     <item quantity="other">%s अर्ध चालीत मात</item>
   </plurals>
   <string name="noGameFound">कोणताही गेम सापडला नाही</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक गेम समाविष्ट कराल?</string>
+  <string name="openingExplorer">सुरुवात अन्वेषक Opening Explorer</string>
+  <string name="xOpeningExplorer">%s सुरुवात अन्वेषक</string>
+  <string name="winPreventedBy50MoveRule">५० चाली नियमाने विजय रोखला</string>
+  <string name="lossSavedBy50MoveRule">५० चाली नियमाने हार चुकली</string>
   <string name="allSet">सर्व तयार!</string>
   <string name="importPgn">पीजीएन आयात करा</string>
   <string name="delete">काढून टाका</string>
+  <string name="deleteThisImportedGame">मागावलेला खेळ हटवायचा?</string>
   <string name="replayMode">रीप्ले मोड</string>
   <string name="realtimeReplay">प्रत्यक्ष वेळी</string>
   <string name="openStudy">ओपन स्टडी</string>
