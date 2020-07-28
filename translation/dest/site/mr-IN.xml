@@ -21,6 +21,7 @@
   <string name="createAGame">डाव मांडा</string>
   <string name="whiteIsVictorious">पांढरा विजयी ठरला</string>
   <string name="blackIsVictorious">काळा विजयी ठरला</string>
+  <string name="youPlayTheWhitePieces">तुम्ही पांढऱ्या बाजूने खेळा</string>
   <string name="kingInTheCenter">मध्यस्थानी राजा</string>
   <string name="threeChecks">तीन शह</string>
   <string name="raceFinished">शर्यंत समाप्त</string>
