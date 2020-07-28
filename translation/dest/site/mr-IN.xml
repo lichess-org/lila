@@ -22,9 +22,12 @@
   <string name="whiteIsVictorious">पांढरा विजयी ठरला</string>
   <string name="blackIsVictorious">काळा विजयी ठरला</string>
   <string name="youPlayTheWhitePieces">तुम्ही पांढऱ्या बाजूने खेळा</string>
+  <string name="youPlayTheBlackPieces">तुम्ही काळ्या बाजूने खेळा</string>
+  <string name="itsYourTurn">तुमची चाल!</string>
   <string name="kingInTheCenter">मध्यस्थानी राजा</string>
   <string name="threeChecks">तीन शह</string>
   <string name="raceFinished">शर्यंत समाप्त</string>
+  <string name="variantEnding">प्रकार समाप्त</string>
   <string name="newOpponent">नवा विरोधक</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">तुमचे विरोधक तुमच्याबरोबर नवा डाव खेळू इच्छितात</string>
   <string name="joinTheGame">खेळात दाखल व्हा</string>
@@ -48,10 +51,13 @@
   <string name="computerAnalysisAvailable">संगणक विश्लेषण उपलब्ध</string>
   <string name="analysis">विश्लेषण मंच</string>
   <string name="depthX">खोली %s</string>
+  <string name="usingServerAnalysis">संगणक विश्लेषण</string>
   <string name="loadingEngine">इंजिन लोड करीत आहे ...</string>
+  <string name="cloudAnalysis">क्लाऊड संगणक विश्लेषण</string>
   <string name="goDeeper">गहन जा</string>
   <string name="showThreat">धोका दाखवा</string>
   <string name="inLocalBrowser">स्थानिक ब्राउझरमध्ये</string>
+  <string name="toggleLocalEvaluation">स्थानिक मूल्यमापन चालू / बंद</string>
   <string name="deleteFromHere">येथून हटवा</string>
   <string name="move">चाल</string>
   <string name="insufficientMaterial">अपर्याप्त सामग्री</string>
