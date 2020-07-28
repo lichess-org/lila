@@ -305,6 +305,12 @@
     <item quantity="other">आपल्याला आणखी %s दर्जाचे गेम खेळण्याची आवश्यकता आहे</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">आपला %s दर्जा तात्पुरता आहे</string>
+  <string name="yourPerfRatingIsTooHigh">आपला %1$s दर्जा (%2$s) खूप जास्त आहे</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">आपला साप्ताहिक %1$s दर्जा (%2$s) खूप जास्त आहे</string>
+  <string name="yourPerfRatingIsTooLow">आपला %1$s दर्जा (%2$s) खूप कमी आहे</string>
+  <string name="ratedMoreThanInPerf">दर्जा ≥ %1$s %2$s मध्ये</string>
+  <string name="ratedLessThanInPerf">दर्जा ≤ %1$s %2$s मध्ये</string>
+  <string name="mustBeInTeam">%s संघात असणे आवश्यक आहे</string>
   <string name="backToGame">खेळात परत या</string>
   <string name="averageElo">सरासरी गुण</string>
   <string name="location">स्थळ</string>
@@ -353,10 +359,18 @@
   <string name="savePosition">स्थिती संग्रहीत करा (Save position)</string>
   <string name="isPrivate">खाजगी</string>
   <string name="reportXToModerators">सरपरिक्षकाकडे (moderator) %s तक्रार करा</string>
+  <string name="profileCompletion">प्रोफाइल पूर्णता: %s</string>
+  <string name="xRating">%s दर्जा</string>
+  <string name="ifNoneLeaveEmpty">काहीही नसल्यास रिक्त सोडा</string>
+  <string name="gameCompletionRate">गेम पूर्ण करण्याचा दर %s</string>
   <string name="profile">प्रोफाइल</string>
+  <string name="editProfile">प्रोफाईल संपादित करा</string>
+  <string name="firstName">नाव</string>
   <string name="lastName">आडनाव</string>
   <string name="biography">चरित्र</string>
   <string name="country">देश</string>
+  <string name="socialMediaLinks">सोशल मीडिया दुवे</string>
+  <string name="inlineNotation">इनलाइन संकेत</string>
   <string name="watchLichessTV">Lichess दूरदर्शन पाहा</string>
   <string name="previouslyOnLichessTV">यापूर्वी लिचेस चित्रफलकावर</string>
   <string name="onlinePlayers">उपलब्ध खेळाडू</string>
