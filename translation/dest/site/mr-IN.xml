@@ -151,6 +151,7 @@
   <string name="timeControl">वेळाचे नियंत्रण</string>
   <string name="realTime">जलद</string>
   <string name="correspondence">दीर्घकालीन</string>
+  <string name="daysPerTurn">दिवस / चाल</string>
   <string name="oneDay">एक दिवस</string>
   <plurals name="nbDays">
     <item quantity="one">%s  दिवस</item>
@@ -162,8 +163,12 @@
   </plurals>
   <string name="time">vel</string>
   <string name="rating">गुणांकन</string>
+  <string name="ratingStats">दर्जा आकडेवारी</string>
   <string name="username">वापरकर्त्याचे नाव</string>
   <string name="usernameOrEmail">वापरकर्त्याचे नाव किंवा पत्ता</string>
+  <string name="changeUsername">नाव बदला</string>
+  <string name="changeUsernameNotSame">केवळ अक्षरे छोटी मोठी करता येतील. उदाहरणार्थ \"johndoe\" ते \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">नाव बदला. केवळ अक्षरे छोटी मोठी करता येतील.</string>
   <string name="password">परवलीचा शब्द</string>
   <string name="changePassword">परवलीचा शब्द बदला</string>
   <string name="changeEmail">ई-मेल बदला</string>
@@ -171,6 +176,11 @@
   <string name="passwordReset">पासवर्ड रिसेट</string>
   <string name="forgotPassword">परवलीचा शब्द विसरलात?</string>
   <string name="rank">मानांकन</string>
+  <string name="rankX">दर्जा: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">दर्जा प्रत्येक मिनिटाला अद्यतनित केला जातो</item>
+    <item quantity="other">दर्जा प्रत्येक %s मिनिटाला अद्यतनित केला जातो</item>
+  </plurals>
   <string name="gamesPlayed">खेळलेले डाव</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s  तुमच्याशी खेळलेले डाव</item>
@@ -190,7 +200,9 @@
   <string name="accept">स्वीकारा</string>
   <string name="decline">नाकारा</string>
   <string name="playingRightNow">या वेळी खेळत</string>
+  <string name="eventInProgress">चालू खेळ</string>
   <string name="finished">संपली</string>
+  <string name="finishesX">समाप्ती %s</string>
   <string name="abortGame">डाव बंद करा</string>
   <string name="gameAborted">डाव बंद केला गेला</string>
   <string name="standard">मानक</string>
@@ -203,6 +215,8 @@
   <string name="thisGameIsRated">या डावाचा दर्जा</string>
   <string name="rematch">पुनः खेळा</string>
   <string name="rematchOfferSent">पुनः खेळण्याचा प्रस्ताव पाठवला</string>
+  <string name="rematchOfferSentWhite">पंढऱ्याकडून पुन्हा खेळण्याची विनंती</string>
+  <string name="rematchOfferSentBlack">काळ्याकडून पुन्हा खेळण्याची विनंती</string>
   <string name="rematchOfferAccepted">पुनः खेळण्याचा प्रस्ताव स्वीकारला</string>
   <string name="rematchOfferCanceled">पुनः खेळण्याचा प्रस्ताव रद्द</string>
   <string name="rematchOfferDeclined">पुनः खेळण्याची विनंती अमान्य</string>
