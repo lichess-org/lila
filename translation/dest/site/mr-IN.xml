@@ -61,6 +61,7 @@
   <string name="promoteVariation">भिन्नता प्रोत्साहित करा</string>
   <string name="makeMainLine">मुख्य लाइन बनवा</string>
   <string name="deleteFromHere">येथून हटवा</string>
+  <string name="forceVariation">भिन्नता सक्तीची करा</string>
   <string name="move">चाल</string>
   <string name="insufficientMaterial">अपर्याप्त सामग्री</string>
   <string name="pawnMove">प्याद्याच्या चाली</string>
