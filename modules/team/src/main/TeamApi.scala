@@ -239,6 +239,7 @@ final class TeamApi(
       (team.leaders(team.createdBy) && !ids(team.createdBy) && by.id != team.createdBy && !byMod) ?? {
         ids.nonEmpty ?? {
           cached.leaders.put(team.id, fuccess(ids))
+          logger.info(s"setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           teamRepo.setLeaders(team.id, ids).void
         }
       }
