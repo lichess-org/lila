@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Туспа выља</string>
-  <string name="playWithTheMachine">Машинпа выља</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Пӗр-пӗр ҫынпа выљас тесен, каҫҫине йар</string>
+  <string name="playWithAFriend">Туспа выльа</string>
+  <string name="playWithTheMachine">Машшинпа выльа</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Пӗр-пӗр ҫынпа выльас тесен каҫҫине йар</string>
   <string name="gameOver">Вӑйӑ вӗҫленчӗ</string>
-  <string name="waitingForOpponent">Ӑмӑртуҫшӑн кӗтсе тӑни</string>
+  <string name="waitingForOpponent">Ӑмӑртуҫсене кӗтсе тӑни</string>
   <string name="waiting">Кӗтсе тӑни</string>
-  <string name="yourTurn">Санӑн ҫӳремелле</string>
+  <string name="yourTurn">Санӑн куҫармалла</string>
   <string name="aiNameLevelAiLevel">%1$s шайӗ: %2$s</string>
   <string name="level">Шай</string>
-  <string name="toggleTheChat">Сӳнтер / Пултар</string>
-  <string name="toggleSound">Сӳнтер / Пултар</string>
-  <string name="chat">Калаҫу</string>
+  <string name="toggleTheChat">Чатӑн кантӑка кӑтарт</string>
+  <string name="toggleSound">Саса ҫут / сӳнтер</string>
+  <string name="chat">Ҫырса яр</string>
   <string name="resign">Парӑн</string>
-  <string name="checkmate">Шах та мат</string>
+  <string name="checkmate">Мат</string>
   <string name="stalemate">Пат</string>
   <string name="white">Шуррисем</string>
-  <string name="black">Хурисем</string>
+  <string name="black">Хуррисем</string>
   <string name="randomColor">Ӑнсӑрт йен</string>
   <string name="createAGame">Вӑйӑ йӗркеле</string>
   <string name="whiteIsVictorious">Шуррисем ҫӗнтерчӗҫ</string>
