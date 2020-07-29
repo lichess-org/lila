@@ -6,4 +6,6 @@
   <string name="lichessCombinationLiveLightLibrePronounced">كلمة Lichess مزيج من live/light/libre (مباشر\خفيف\حر) و chess (شطرنج). تنطق %1$s.</string>
   <string name="leechess">لي-تشس</string>
   <string name="hearItPronouncedBySpecialist">اسمع نطقها من أخصائي.</string>
+  <string name="whyLiveLightLibre">مباشر، لأنها تلعب وتشاهد بالوقت الحقيقي 24\7؛خفيف وحر لأنها مفتوحة المصدر ولا تحتوي على القمامة المملوكة التي تعاني منها المواقع الأخرى.</string>
+  <string name="howCanIContributeToLichess">كيف يمكنني المساهمة؟</string>
 </resources>
