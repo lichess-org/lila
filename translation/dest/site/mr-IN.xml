@@ -351,11 +351,32 @@
   <string name="findFriends">मित्र शोधा</string>
   <string name="favoriteOpponents">आवडणारे प्रतिस्पर्धी</string>
   <string name="follow">अनुसरा</string>
+  <string name="following">अनुयायी</string>
+  <string name="unfollow">अनुसरण रद्द</string>
+  <string name="block">आडवा</string>
+  <string name="blocked">आडवलेला</string>
+  <string name="unblock">आड दूर करा</string>
+  <string name="followsYou">तुमचा अनुयायी</string>
+  <string name="xStartedFollowingY">%1$s %2$sचे अनुयायी बनले</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s अनुयायी</item>
+    <item quantity="other">%s अनुयायी</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s अनुसरण करतात</item>
+    <item quantity="other">%s अनुसरण करतात</item>
+  </plurals>
   <string name="more">आणखी</string>
   <string name="memberSince">या काळा पासून सदस्य आहेत</string>
+  <string name="lastSeenActive">%s सक्रिय</string>
+  <string name="challengeToPlay">आव्हान द्या</string>
   <string name="player">खेळाडू</string>
   <string name="list">यादी</string>
   <string name="graph">आलेख</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">%s मिनिटापेक्षा कमी</item>
+    <item quantity="other">%s मिनिटांपेक्षा कमी</item>
+  </plurals>
   <string name="required">गरजेचे आहे</string>
   <string name="openTournaments">खुली स्पर्धा</string>
   <string name="duration">कालावधी</string>
