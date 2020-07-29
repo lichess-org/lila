@@ -343,9 +343,14 @@
   <string name="blackCheckmatesInOneMove">काळा एका चालीत मात करणार</string>
   <string name="retry">परत प्रयत्न करा</string>
   <string name="reconnecting">पुन्हा जोडणी करत आहोत</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s मित्र सक्रिय</item>
+    <item quantity="other">%s मित्र सक्रिय</item>
+  </plurals>
   <string name="noFriendsOnline">कुठलेच मित्र उपस्थित नाही</string>
   <string name="findFriends">मित्र शोधा</string>
   <string name="favoriteOpponents">आवडणारे प्रतिस्पर्धी</string>
+  <string name="follow">अनुसरा</string>
   <string name="more">आणखी</string>
   <string name="memberSince">या काळा पासून सदस्य आहेत</string>
   <string name="player">खेळाडू</string>
