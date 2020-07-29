@@ -4,7 +4,10 @@
   <string name="features">مزايا</string>
   <string name="trackStudentProgress">تابع مستوي تقدم الطلبة في الألعاب و الألغاز</string>
   <string name="noClassesYet">لا يوجد حصص.</string>
+  <string name="closedByX">أغلقه %s</string>
   <string name="reopen">إعاده فتح</string>
+  <string name="removeStudent">احذف طالب</string>
+  <string name="removedStudents">مزال</string>
   <string name="sendAMessage">أرسل رسالة الي كل الطلبة.</string>
   <string name="resetPassword">إعاده تعيين كلمة المرور</string>
   <string name="makeSureToCopy">تأكد من حفظ أو كتابه كلمه المرور. لن تتمكن من رؤيتها مجددا!</string>
