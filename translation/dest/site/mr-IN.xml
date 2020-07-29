@@ -330,9 +330,17 @@
   <string name="continueFromHere">येथून खेळायला सुरवात करा</string>
   <string name="toStudy">अभ्यास</string>
   <string name="importGame">खेळ मागवा</string>
+  <string name="importGameExplanation">संगणक विश्लेषण, संभाषण, खेळ पुनः बघण्यासाठी PGN चिकटवा.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s खेळ मागवला</item>
+    <item quantity="other">%s खेळ मागवले</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">हा बुद्धिबळाचा CAPTCHA आहे</string>
   <string name="clickOnTheBoardToMakeYourMove">तुम्ही मनुष्य आहात हे सिद्धा करण्यासाठी पटावर क्लिक करून आपली चाल खेळा</string>
+  <string name="captcha.fail">कृपया बुद्धिबळ कोडे सोडवा.</string>
   <string name="notACheckmate">ही शहमात नाही</string>
+  <string name="whiteCheckmatesInOneMove">पांढरा एका चालीत मात करणार</string>
+  <string name="blackCheckmatesInOneMove">काळा एका चालीत मात करणार</string>
   <string name="retry">परत प्रयत्न करा</string>
   <string name="reconnecting">पुन्हा जोडणी करत आहोत</string>
   <string name="noFriendsOnline">कुठलेच मित्र उपस्थित नाही</string>
