@@ -21,12 +21,12 @@
   <string name="createAGame">Вӑйӑ йӗркеле</string>
   <string name="whiteIsVictorious">Шуррисем ҫӗнтерчӗҫ</string>
   <string name="blackIsVictorious">Хурисем ҫӗнтерчӗҫ</string>
-  <string name="kingInTheCenter">Ту патши</string>
+  <string name="kingInTheCenter">Патша варринче</string>
   <string name="threeChecks">Виҫӗ шах пани</string>
   <string name="raceFinished">Чупу вӗҫленчӗ</string>
   <string name="variantEnding">Уйрӑм вӗҫленни</string>
   <string name="newOpponent">Ҫӗнӗ ӑмӑртуҫӑ</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Ӑмӑртуҫу санпа тепӗр хут выљасшӑн</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Ӑмӑртуҫу санпа тепӗр хут выльасшӑн</string>
   <string name="joinTheGame">Вӑййине хутшӑн</string>
   <string name="whitePlays">Шуррисен ҫӳремелле</string>
   <string name="blackPlays">Хурисен ҫӳремелле</string>
