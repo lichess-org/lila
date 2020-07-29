@@ -74,10 +74,14 @@
   <string name="noPinnedComment">بدون</string>
   <string name="normalAnalysis">تحليل عادي</string>
   <string name="hideNextMoves">أخفي النقلة التالية</string>
+  <string name="interactiveLesson">درس تفاعلي</string>
   <string name="chapterX">الفصل %s</string>
+  <string name="empty">فارغ</string>
+  <string name="editor">المحرر</string>
   <string name="startFromCustomPosition">البدء من وضع مخصص</string>
   <string name="loadAGameByUrl">تحميل لعبة من رابط</string>
   <string name="loadAPositionFromFen">تحميل موقف من FEN</string>
+  <string name="loadAGameFromPgn">استرد لعبة من PGN</string>
   <string name="automatic">تلقائي</string>
   <string name="urlOfTheGame">رابط اللعبة</string>
   <string name="loadAGameFromXOrY">استيراد لعبة من %1$s او %2$s</string>
@@ -88,9 +92,13 @@
   <string name="public">عامة</string>
   <string name="unlisted">غير مدرجة</string>
   <string name="inviteOnly">دعوة فقط</string>
+  <string name="allowCloning">السماح بالاستنساخ</string>
+  <string name="nobody">لا أحد</string>
   <string name="onlyMe">أنا فقط</string>
   <string name="contributors">المساهمون</string>
   <string name="members">اعضاء</string>
+  <string name="everyone">الجميع</string>
+  <string name="enableSync">مكن المزامنة</string>
   <string name="save">حفظ</string>
   <string name="clearChat">مسح المحادثة</string>
 </resources>
