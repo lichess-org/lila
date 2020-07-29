@@ -463,5 +463,26 @@
   <string name="community">समुदाय</string>
   <string name="tools">साधने</string>
   <string name="increment">वाढ</string>
+  <string name="error.email">हा ईमेल अवैध आहे</string>
+  <string name="error.email_acceptable">हा ईमेल स्वीकार्य नाही. कृपया तपासून पहा आणि पुन्हा प्रयत्न करा.</string>
+  <string name="error.email_unique">हा ईमेल आधीपासून आहे</string>
+  <string name="error.email_different">हा आधीपासून तुमचा ईमेल आहे</string>
+  <string name="ifRatingIsPlusMinusX">दर्जा ±%s असल्यास</string>
+  <string name="onlyFriends">फक्त मित्र</string>
+  <string name="menu">मेनू</string>
+  <string name="castling">किल्ल्यात</string>
+  <string name="whiteCastlingKingside">पांढरा ओ-ओ</string>
+  <string name="blackCastlingKingside">काळा ओ-ओ</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s मंचातील प्रतिक्रिया</item>
+    <item quantity="other">%s मंचातील प्रतिक्रिया</item>
+  </plurals>
+  <string name="tpTimeSpentPlaying">खेळण्यात घालवलेला वेळ: %s</string>
+  <string name="watchGames">खेळ बघा</string>
+  <string name="tpTimeSpentOnTV">दूरदर्शनवर घालवलेला वेळ: %s</string>
+  <string name="watch">पहा</string>
+  <string name="videoLibrary">चित्रफीतालय</string>
+  <string name="streamersMenu">प्रसारक</string>
   <string name="mobileApp">भ्रमणध्वनी App</string>
+  <string name="about">च्यविषयी</string>
 </resources>
