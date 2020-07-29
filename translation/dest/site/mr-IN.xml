@@ -381,7 +381,13 @@
   <string name="openTournaments">खुली स्पर्धा</string>
   <string name="duration">कालावधी</string>
   <string name="winner">विजेता</string>
+  <string name="standing">पद</string>
   <string name="createANewTournament">नवीन स्पर्धा तयार  करा</string>
+  <string name="tournamentCalendar">स्पर्धा दिनदर्शिका</string>
+  <string name="conditionOfEntry">प्रवेशाच्या आवश्यकता:</string>
+  <string name="advancedSettings">प्रगत सेटिंग्ज</string>
+  <string name="safeTournamentName">स्पर्धेसाठी खूप सुरक्षित नाव निवडा.</string>
+  <string name="inappropriateNameWarning">थोडे अनुचित काहीही आपले खाते बंद करू शकते.</string>
   <string name="join">सामील व्हा</string>
   <string name="withdraw">मागे घ्या</string>
   <string name="points">गुण</string>
