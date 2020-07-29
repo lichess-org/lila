@@ -484,5 +484,18 @@
   <string name="videoLibrary">चित्रफीतालय</string>
   <string name="streamersMenu">प्रसारक</string>
   <string name="mobileApp">भ्रमणध्वनी App</string>
-  <string name="about">च्यविषयी</string>
+  <string name="webmasters">वेबगुरु</string>
+  <string name="about">च्याविषयी</string>
+  <string name="aboutX">%s च्याविषयी</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s एक विनामूल्य (%2$s), नि: शुल्क, जाहिराती नसलेले, मुक्त स्रोत बुद्धिबळ सर्व्हर आहे.</string>
+  <string name="really">खरंच</string>
+  <string name="contribute">हातभार लावा</string>
+  <string name="termsOfService">सेवा अटी</string>
+  <string name="sourceCode">आज्ञावली</string>
+  <string name="simultaneousExhibitions">एकाचवेळी प्रदर्शन</string>
+  <string name="host">घरधनी</string>
+  <string name="hostColorX">घरधन्याचा रंग: %s</string>
+  <string name="createdSimuls">नवीन नक्कला</string>
+  <string name="hostANewSimul">नवीन नक्कल मॉडेल धरा</string>
+  <string name="noSimulFound">नक्कल सापडली नाही</string>
 </resources>
