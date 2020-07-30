@@ -42,6 +42,23 @@ final class AppealApi(
     coll.update.one($id(appeal.id), appeal) inject appeal
   }
 
+  def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
+
+  def queue: Fu[List[Appeal]] =
+    coll
+      .find($doc("status" -> Appeal.Status.Unread.key))
+      .sort($doc("updatedAt" -> 1))
+      .cursor[Appeal]()
+      .list(12) flatMap { unreads =>
+      coll
+        .find($doc("status" $ne Appeal.Status.Unread.key))
+        .sort($doc("updatedAt" -> -1))
+        .cursor[Appeal]()
+        .list(20 - unreads.size) map {
+        unreads ::: _
+      }
+    }
+
   def close(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.close).void
 

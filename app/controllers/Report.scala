@@ -34,13 +34,15 @@ final class Report(
       renderList(room)
     }
 
+  protected[controllers] def getCounts =
+    api.countOpenByRooms zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
+
   private def renderList(room: String)(implicit ctx: Context) =
     api.openAndRecentWithFilter(12, Room(room), getScore) zip
-      api.countOpenByRooms zip
-      env.streamer.api.approval.countRequests flatMap {
-      case reports ~ counts ~ streamers =>
+      getCounts flatMap {
+      case (reports, counts ~ streamers ~ appeals) =>
         (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
-          Ok(html.report.list(reports, room, counts, streamers))
+          Ok(html.report.list(reports, room, counts, streamers, appeals))
     }
 
   def inquiry(id: String) =
