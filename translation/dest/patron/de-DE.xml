@@ -4,7 +4,7 @@
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Kostenloses Konto</string>
   <string name="becomePatron">Werde Lichess Patron</string>
-  <string name="xBecamePatron">%s wurde Lichess-Patron</string>
+  <string name="xBecamePatron">%s wurde Lichess Patron</string>
   <string name="newPatrons">Neue Unterstützer</string>
   <string name="freeChess">Kostenloses Schach für alle, für immer!</string>
   <string name="noAdsNoSubs">Keine Werbung, keine Abonnements; aber quelloffen und mit Leidenschaft.</string>
@@ -19,10 +19,10 @@
   <string name="lifetimePatron">Lebenslanger Lichess Patron</string>
   <string name="makeExtraDonation">Eine zusätzliche Spende leisten?</string>
   <string name="monthly">Monatlich</string>
-  <string name="recurringBilling">Wiederkehrende Rechnung, erneuert deine Patron-Flügel jeden Monat.</string>
+  <string name="recurringBilling">Wiederkehrende Zahlung, erneuert deine Patron-Flügel jeden Monat.</string>
   <string name="onetime">Einmalig</string>
   <string name="singleDonation">Eine einmalige Spende, die dir Patron-Flügel für einen Monat verleiht.</string>
-  <string name="otherAmount">Anderer</string>
+  <string name="otherAmount">Anderer Betrag</string>
   <string name="pleaseEnterAmount">Bitte gib einen Betrag in US-Dollar ein</string>
   <string name="withCreditCard">Kreditkarte</string>
   <string name="withPaypal">PayPal</string>
