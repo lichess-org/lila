@@ -7,22 +7,17 @@ import lila.common.String.html.richText
 import play.api.data.Form
 import lila.appeal.Appeal
 import controllers.routes
+import lila.report.Suspect
 import lila.user.User
 import play.api.i18n.Lang
 
 object appeal2 {
 
   def home(appeal: Option[Appeal], textForm: Form[_])(implicit ctx: Context) =
-    views.html.base.layout(
-      moreCss = frag(
-        cssTag("form3"),
-        cssTag("appeal")
-      ),
-      title = "Appeal"
-    ) {
+    layout("Appeal") {
       main(cls := "page-small box box-pad page appeal")(
         appeal match {
-          case Some(a) => myAppeal(a, textForm)
+          case Some(a) => renderAppeal(a, textForm)
           case None    => newAppeal(textForm)
         }
       )
@@ -33,11 +28,30 @@ object appeal2 {
       h1("Appeal a moderation decision"),
       renderHelp,
       div(cls := "body")(
-        renderForm(textForm)
+        renderForm(textForm, isNew = true)
       )
     )
 
-  def myAppeal(appeal: Appeal, textForm: Form[_])(implicit ctx: Context) =
+  def show(appeal: Appeal, suspect: Suspect, textForm: Form[_])(implicit ctx: Context) =
+    layout(s"Appeal by ${suspect.user.username}") {
+      main(cls := "page-small box box-pad page appeal")(
+        renderAppeal(appeal, textForm),
+        postForm(action := routes.Appeal.close(suspect.user.username))(
+          submitButton("Close")
+        )
+      )
+    }
+
+  private def layout(title: String)(body: Frag)(implicit ctx: Context) =
+    views.html.base.layout(
+      moreCss = frag(
+        cssTag("form3"),
+        cssTag("appeal")
+      ),
+      title = title
+    )(body)
+
+  private def renderAppeal(appeal: Appeal, textForm: Form[_])(implicit ctx: Context) =
     frag(
       h1(if (appeal.isOpen) "Ongoing appeal" else "Closed appeal"),
       standardFlash(),
@@ -52,7 +66,8 @@ object appeal2 {
             ),
             div(cls := "appeal__msg__text")(richText(msg.text))
           )
-        }
+        },
+        renderForm(textForm, isNew = false)
       )
     )
 
@@ -90,12 +105,12 @@ object appeal2 {
   private def renderUser(appeal: Appeal, userId: User.ID)(implicit lang: Lang) =
     userIdLink((if (appeal isAbout userId) userId else User.lichessId).some)
 
-  private def renderForm(form: Form[_])(implicit ctx: Context) =
+  private def renderForm(form: Form[_], isNew: Boolean)(implicit ctx: Context) =
     postForm(action := routes.Appeal.post())(
       form3.globalError(form),
-      form3.group(form("text"), trans.description())(
-        form3.textarea(_)(rows := 8)
+      form3.group(form("text"), if (isNew) "Create an appeal" else "Add something to the appeal")(
+        form3.textarea(_)(rows := 6)
       ),
-      form3.action(form3.submit(trans.send()))
+      form3.submit(trans.send())
     )
 }
