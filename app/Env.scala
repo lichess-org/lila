@@ -91,10 +91,9 @@ final class Env(
 
   def net = common.netConfig
 
-  val isProd            = mode == Mode.Prod
-  val isProdReally      = isProd && net.isProd
+  val isProd            = mode == Mode.Prod && net.isProd
   val isDev             = mode == Mode.Dev
-  val isStage           = config.get[Boolean]("app.stage")
+  val isStage           = mode == Mode.Prod && !net.isProd
   val explorerEndpoint  = config.get[String]("explorer.endpoint")
   val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
 
@@ -121,7 +120,8 @@ final class Env(
   lazy val prizeTournamentMakers = memo.settingStore[UserIds](
     "prizeTournamentMakers ",
     default = UserIds(Nil),
-    text = "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
+    text =
+      "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
   )
 
   lazy val preloader     = wire[mashup.Preload]

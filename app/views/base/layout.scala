@@ -172,7 +172,7 @@ object layout {
           metaThemeColor,
           st.headTitle {
             if (ctx.blind) "lichess"
-            else if (isProd && !isStage) fullTitle | s"$title • lichess.org"
+            else if (isProd) fullTitle | s"$title • lichess.org"
             else s"[dev] ${fullTitle | s"$title • lichess.dev"}"
           },
           cssTag("site"),
@@ -307,7 +307,7 @@ object layout {
             else ctx.isBot option botImage,
             a(href := "/")(
               "lichess",
-              span(if (isProd && !isStage) ".org" else ".dev")
+              span(if (isProd) ".org" else ".dev")
             )
           ),
           ctx.blind option h2("Navigation"),

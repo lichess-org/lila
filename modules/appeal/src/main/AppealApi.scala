@@ -12,6 +12,8 @@ final class AppealApi(
 
   def mine(me: User): Fu[Option[Appeal]] = coll.byId[Appeal](me.id)
 
+  def get(user: User) = coll.byId[Appeal](user.id)
+
   def post(text: String, me: User) =
     mine(me) flatMap {
       case None =>
@@ -34,4 +36,18 @@ final class AppealApi(
         val appeal = prev.post(text, me)
         coll.update.one($id(appeal.id), appeal) inject appeal
     }
+
+  def reply(text: String, prev: Appeal, mod: User) = {
+    val appeal = prev.post(text, mod)
+    coll.update.one($id(appeal.id), appeal) inject appeal
+  }
+
+  def close(appeal: Appeal) =
+    coll.update.one($id(appeal.id), appeal.close).void
+
+  def open(appeal: Appeal) =
+    coll.update.one($id(appeal.id), appeal.open).void
+
+  def mute(appeal: Appeal) =
+    coll.update.one($id(appeal.id), appeal.mute).void
 }
