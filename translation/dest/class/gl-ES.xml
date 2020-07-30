@@ -48,4 +48,8 @@ Contrasinal %3$s</string>
   <string name="createDesc4">Se xa a teñen, usa o formulario de invitación.</string>
   <string name="lichessUsername">Nome de usuario en Lichess</string>
   <string name="generateANewUsername">Xenera un novo nome de usuario</string>
+  <string name="welcomeToClass">Benvido á túa clase %s
+Aquí está a ligazón para acceder.</string>
+  <string name="invitationToClass">Invitáronte a entrar como alumno na clase %s.</string>
+  <string name="clickToViewInvitation">Preme na ligazón para ver a invitación:</string>
 </resources>
