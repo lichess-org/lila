@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">As clases de Lichess permiten a un adestrador crear clases virtuais e supervisar o progreso dos seus alumnos</string>
+  <string name="features">Funcións</string>
+  <string name="quicklyGenerateSafeUsernames">Xenera rapidamente nomes de usuarios e contrasinais seguros para os usuarios</string>
+  <string name="trackStudentProgress">Segue o progreso dos alumnos en partidas e problemas</string>
+  <string name="messageAllStudents">Avisa os alumnos de que hai novo material</string>
+  <string name="freeForAllForever">100% gratuito para todo o mundo e sen anuncios ou uso de datos</string>
+  <string name="applyToBeLichessTeacher">Postúlate como adestrador en Lichess</string>
+  <string name="noClassesYet">Aínda non hay clases.</string>
+  <string name="teachersX">Adestradores: %s</string>
+</resources>
