@@ -30,17 +30,17 @@ export function fixMainBoardHeight(container: HTMLElement): void {
       lastMainBoardHeight = width;
       mainBoard.style.height = width + 'px';
       (mainBoard.querySelector('.cg-wrap') as HTMLElement).style.height = width + 'px';
-      window.lichess.dispatchEvent(document.body, 'chessground.resize');
+      window.lichess.dispatchEvent(document.body, 'shogiground.resize');
     }
   }
 }
 
-let boundChessgroundResize = false;
+let boundShogigroundResize = false;
 
-export function bindChessgroundResizeOnce(f: () => void): void {
-  if (!boundChessgroundResize) {
-    boundChessgroundResize = true;
-    document.body.addEventListener('chessground.resize', f);
+export function bindShogigroundResizeOnce(f: () => void): void {
+  if (!boundShogigroundResize) {
+    boundShogigroundResize = true;
+    document.body.addEventListener('shogiground.resize', f);
   }
 }
 

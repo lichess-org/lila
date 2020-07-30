@@ -12,7 +12,7 @@ import lila.game.{ Game, Namer, Player, Pov }
 import lila.i18n.{ I18nKeys => trans, defaultLang }
 import lila.user.{ Title, User }
 
-trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
+trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ShogigroundHelper =>
 
   private val dataLive     = attr("data-live")
   private val dataColor    = attr("data-color")

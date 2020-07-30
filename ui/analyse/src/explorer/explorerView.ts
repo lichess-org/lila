@@ -113,8 +113,8 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
 }
 
 function openGame(ctrl: AnalyseCtrl, gameId: string) {
-  const orientation = ctrl.chessground.state.orientation,
-  fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
+  const orientation = ctrl.shogiground.state.orientation,
+    fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
   let url = '/' + gameId + '/' + orientation + fenParam;
   if (ctrl.explorer.config.data.db.selected() === 'masters') url = '/import/master' + url;
   window.open(url, '_blank');
@@ -194,8 +194,8 @@ function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode |
   else if (move.dtz === null) return null;
   else if (move.dtz === 0) return h('result.draws', trans('draw'));
   else if (move.zeroing) return move.san.includes('x') ?
-  h('result.' + winnerOf(fen, move), trans('capture')) :
-  h('result.' + winnerOf(fen, move), trans('pawnMove'));
+    h('result.' + winnerOf(fen, move), trans('capture')) :
+    h('result.' + winnerOf(fen, move), trans('pawnMove'));
   return h('result.' + winnerOf(fen, move), {
     attrs: {
       title: ctrl.trans.plural('nextCaptureOrPawnMoveInXHalfMoves', Math.abs(move.dtz))
@@ -218,8 +218,8 @@ function showEmpty(ctrl: AnalyseCtrl, opening?: Opening): VNode {
     h('div.message', [
       h('strong', ctrl.trans.noarg('noGameFound')),
       ctrl.explorer.config.fullHouse() ?
-      null :
-      h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
+        null :
+        h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
       closeButton(ctrl)
     ])
   ]);
@@ -238,11 +238,11 @@ function showGameEnd(ctrl: AnalyseCtrl, title: string): VNode {
 
 function show(ctrl: AnalyseCtrl) {
   const trans = ctrl.trans.noarg,
-  data = ctrl.explorer.current();
+    data = ctrl.explorer.current();
   if (data && isOpening(data)) {
     const moveTable = showMoveTable(ctrl, data),
-    recentTable = showGameTable(ctrl, trans('recentGames'), data.recentGames || []),
-    topTable = showGameTable(ctrl, trans('topGames'), data.topGames || []);
+      recentTable = showGameTable(ctrl, trans('recentGames'), data.recentGames || []),
+      topTable = showGameTable(ctrl, trans('topGames'), data.topGames || []);
     if (moveTable || recentTable || topTable) lastShow = h('div.data', [
       data && data.opening && h('div.title', h('span', {
         attrs: data.opening ? { title: data.opening && `${data.opening.eco} ${data.opening.name}` } : {},
@@ -268,11 +268,11 @@ function show(ctrl: AnalyseCtrl) {
       [trans('losing'), m => m.wdl === 2 && m.dtz !== null && (zeroed || dtz(m) + halfmoves < 100)],
     ] as [string, (move: TablebaseMoveStats) => boolean][])
       .map(a => showTablebase(ctrl, a[0] as string, moves.filter(a[1]), data.fen))
-      .reduce(function(a, b) { return a.concat(b); }, []));
+      .reduce(function (a, b) { return a.concat(b); }, []));
     else if (data.checkmate) lastShow = showGameEnd(ctrl, trans('checkmate'))
-      else if (data.stalemate) lastShow = showGameEnd(ctrl, trans('stalemate'))
-        else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, trans('variantEnding'));
-      else lastShow = showEmpty(ctrl);
+    else if (data.stalemate) lastShow = showGameEnd(ctrl, trans('stalemate'))
+    else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, trans('variantEnding'));
+    else lastShow = showEmpty(ctrl);
   }
   return lastShow;
 }
@@ -301,14 +301,14 @@ function showFailing(ctrl: AnalyseCtrl) {
 
 let lastFen: Fen = '';
 
-export default function(ctrl: AnalyseCtrl): VNode | undefined {
+export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const explorer = ctrl.explorer;
   if (!explorer.enabled()) return;
   const data = explorer.current(),
-  config = explorer.config,
-  configOpened = config.data.open(),
-  loading = !configOpened && (explorer.loading() || (!data && !explorer.failing())),
-  content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
+    config = explorer.config,
+    configOpened = config.data.open(),
+    loading = !configOpened && (explorer.loading() || (!data && !explorer.failing())),
+    content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
   return h('section.explorer-box.sub-box', {
     class: {
       loading,

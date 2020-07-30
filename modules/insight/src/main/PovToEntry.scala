@@ -81,7 +81,6 @@ final private class PovToEntry(
       case 'N'       => chess.Knight
       case 'B'       => chess.Bishop
       case 'R'       => chess.Rook
-      case 'Q'       => chess.Queen
       case 'K' | 'O' => chess.King
       case _         => chess.Pawn
     }
@@ -168,7 +167,7 @@ final private class PovToEntry(
       from.division.end.fold(from.boards.last.some)(from.boards.toList.lift) match {
         case Some(board) =>
           chess.Color.all.forall { color =>
-            !board.hasPiece(chess.Piece(color, chess.Queen))
+            !board.hasPiece(chess.Piece(color, chess.Lance))
           }
         case _ =>
           logger.warn(s"https://lichess.org/${from.pov.gameId} missing endgame board")

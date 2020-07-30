@@ -2,7 +2,7 @@ import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
-import { Chessground } from 'chessground';
+import { Shogiground } from 'shogiground';
 import { LobbyOpts, Tab } from './interfaces';
 import LobbyController from './ctrl';
 
@@ -41,10 +41,10 @@ export function start(opts: LobbyOpts) {
   };
 }
 
-// that's for the rest of lichess to access chessground
+// that's for the rest of lichess to access shogiground
 // without having to include it a second time
-window.Chessground = Chessground;
+window.Shogiground = Shogiground;
 
-window.onload = function() {
+window.onload = function () {
   boot(window['lichess_lobby'], document.querySelector('.lobby__app'));
 };

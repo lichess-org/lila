@@ -46,6 +46,7 @@
     "ui/puzzle",
     "ui/round",
     "ui/serviceWorker",
+    "ui/shogiground",
     "ui/simul",
     "ui/site",
     "ui/swiss",

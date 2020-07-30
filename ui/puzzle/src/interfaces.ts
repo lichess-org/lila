@@ -3,8 +3,8 @@ import { CevalCtrl, NodeEvals } from 'ceval';
 import { Prop } from 'common';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode';
-import { Api as CgApi } from 'chessground/api';
-import { Config as CgConfig } from 'chessground/config';
+import { Api as CgApi } from 'shogiground/api';
+import { Config as CgConfig } from 'shogiground/config';
 import { Role, Move } from 'chessops/types';
 
 export type MaybeVNode = VNode | string | null | undefined;

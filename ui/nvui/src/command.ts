@@ -1,17 +1,17 @@
 import { renderPieceKeys, renderPiecesOn, Style } from './chess';
-import { Pieces } from 'chessground/types';
+import { Pieces } from 'shogiground/types';
 
 export const commands = {
   piece: {
     help: 'p: Read locations of a piece type. Example: p N, p k.',
     apply(c: string, pieces: Pieces, style: Style): string | undefined {
-      return tryC(c, /^p ([p|n|b|r|q|k])$/i, p => renderPieceKeys(pieces, p, style));
+      return tryC(c, /^p ([p|n|b|r|q|k|g|s|l|a|m|h|d|u|t])$/i, p => renderPieceKeys(pieces, p, style));
     }
   },
   scan: {
     help: 'scan: Read pieces on a rank or file. Example: scan a, scan 1.',
     apply(c: string, pieces: Pieces, style: Style): string | undefined {
-      return tryC(c, /^scan ([a-h1-8])$/i, p => renderPiecesOn(pieces, p, style));
+      return tryC(c, /^scan ([a-i1-9])$/i, p => renderPiecesOn(pieces, p, style));
     }
   }
 };

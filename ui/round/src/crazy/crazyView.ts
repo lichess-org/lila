@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import * as round from '../round';
 import { drag, crazyKeys, pieceRoles } from './crazyCtrl';
-import * as cg from 'chessground/types';
+import * as cg from 'shogiground/types';
 import RoundController from '../ctrl';
 import { onInsert } from '../util';
 import { Position } from '../interfaces';

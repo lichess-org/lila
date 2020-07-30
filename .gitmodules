@@ -7,6 +7,3 @@
 [submodule "public/vendor/shepherd"]
 	path = public/vendor/shepherd
 	url = https://github.com/HubSpot/shepherd
-[submodule "modules/chess"]
-	path = modules/chess
-	url = https://github.com/WandererXII/scalashogi.git

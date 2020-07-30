@@ -1,15 +1,15 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
-import { Chessground } from 'chessground';
-import { Config as CgConfig } from 'chessground/config';
+import { Shogiground } from 'shogiground';
+import { Config as CgConfig } from 'shogiground/config';
 import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import { Controller } from '../interfaces';
 
-export default function(ctrl: Controller): VNode {
+export default function (ctrl: Controller): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => ctrl.ground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl))),
+      insert: vnode => ctrl.ground(Shogiground((vnode.elm as HTMLElement), makeConfig(ctrl))),
       destroy: _ => ctrl.ground()!.destroy()
     }
   });

@@ -29,7 +29,7 @@ lichess.puzzle = ${safeJsonValue(
         )}""")
       ),
       csp = defaultCsp.withWebAssembly.some,
-      chessground = false,
+      shogiground = false,
       openGraph = lila.app.ui
         .OpenGraph(
           image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id).url).some,
@@ -49,7 +49,7 @@ lichess.puzzle = ${safeJsonValue(
         st.aside(cls := "puzzle__side")(
           div(cls := "puzzle__side__metas")(spinner)
         ),
-        div(cls := "puzzle__board main-board")(chessgroundBoard),
+        div(cls := "puzzle__board main-board")(shogigroundBoard),
         div(cls := "puzzle__tools"),
         div(cls := "puzzle__controls"),
         div(cls := "puzzle__history")

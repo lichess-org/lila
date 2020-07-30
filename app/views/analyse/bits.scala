@@ -28,7 +28,7 @@ object bits {
       moreCss = moreCss,
       moreJs = moreJs,
       openGraph = openGraph,
-      chessground = false,
+      shogiground = false,
       robots = false,
       zoomable = true,
       csp = defaultCsp.withWebAssembly.withPeer.some

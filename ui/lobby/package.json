@@ -18,8 +18,8 @@
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
-    "chessground": "^7.8.0",
     "common": "2.0.0",
+    "shogiground": "file:/home/liskadan/lila/ui/shogiground",
     "snabbdom": "^0.7.4"
   },
   "scripts": {

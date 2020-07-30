@@ -25,7 +25,7 @@ LichessEditor(document.getElementById('board-editor'), data);"""
         )
       ),
       moreCss = cssTag("editor"),
-      chessground = false,
+      shogiground = false,
       zoomable = true,
       openGraph = lila.app.ui
         .OpenGraph(
@@ -38,7 +38,7 @@ LichessEditor(document.getElementById('board-editor'), data);"""
       main(id := "board-editor")(
         div(cls := "board-editor")(
           div(cls := "spare"),
-          div(cls := "main-board")(chessgroundBoard),
+          div(cls := "main-board")(shogigroundBoard),
           div(cls := "spare")
         )
       )

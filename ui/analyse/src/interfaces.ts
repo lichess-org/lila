@@ -1,6 +1,6 @@
 import { VNode } from 'snabbdom/vnode'
 import { Player, Status, Source, Clock } from 'game';
-import * as cg from 'chessground/types';
+import * as cg from 'shogiground/types';
 import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import { RelayData } from './study/relay/interfaces';
@@ -10,7 +10,7 @@ export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
 export type Seconds = number;
 
-export { Key, Piece } from 'chessground/types';
+export { Key, Piece } from 'shogiground/types';
 
 export interface NvuiPlugin {
   render(ctrl: AnalyseController): VNode;

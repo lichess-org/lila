@@ -150,7 +150,7 @@ object layout {
       moreJs: Frag = emptyFrag,
       playing: Boolean = false,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
-      chessground: Boolean = true,
+      shogiground: Boolean = true,
       zoomable: Boolean = false,
       deferJs: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
@@ -248,7 +248,7 @@ object layout {
             )
           ),
           a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
-          chessground option jsTag("vendor/chessground.min.js"),
+          shogiground option jsTag("vendor/shogiground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
           if (isProd)
             jsAt(s"compiled/lichess.site.min.js", defer = deferJs)

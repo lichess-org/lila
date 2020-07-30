@@ -1,8 +1,8 @@
 import { h } from 'snabbdom'
 import { VNodeData } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
-import * as cg from 'chessground/types'
-import { opposite } from 'chessground/util';
+import * as cg from 'shogiground/types'
+import { opposite } from 'shogiground/util';
 import { Redraw, EncodedDests, Dests, MaterialDiff, Step, CheckCount } from './interfaces';
 
 const pieceScores = {
@@ -10,7 +10,6 @@ const pieceScores = {
   knight: 3,
   bishop: 3,
   rook: 5,
-  queen: 9,
   king: 0
 };
 
@@ -49,7 +48,7 @@ export function parsePossibleMoves(dests?: EncodedDests): Dests {
   if (!dests) return dec;
   if (typeof dests == 'string')
     for (const ds of dests.split(' ')) {
-      dec.set(ds.slice(0,2), ds.slice(2).match(/.{2}/g) as cg.Key[]);
+      dec.set(ds.slice(0, 2), ds.slice(2).match(/.{2}/g) as cg.Key[]);
     }
   else for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as cg.Key[]);
   return dec;
@@ -58,8 +57,8 @@ export function parsePossibleMoves(dests?: EncodedDests): Dests {
 // {white: {pawn: 3 queen: 1}, black: {bishop: 2}}
 export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
   const diff: MaterialDiff = {
-    white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
-    black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
+    white: { king: 0, lance: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
+    black: { king: 0, lance: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
   };
   for (const p of pieces.values()) {
     const them = diff[opposite(p.color)];
@@ -83,7 +82,7 @@ export const noChecks: CheckCount = {
 }
 
 export function countChecks(steps: Step[], ply: Ply): CheckCount {
-  const checks: CheckCount = {...noChecks};
+  const checks: CheckCount = { ...noChecks };
   for (let step of steps) {
     if (ply < step.ply) break;
     if (step.check) {

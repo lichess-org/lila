@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import changeColorHandle from 'common/coordsColor';
-import chessground from './chessground';
+import shogiground from './shogiground';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 import * as control from '../control';
@@ -64,7 +64,7 @@ function controls(ctrl: Controller): VNode {
 
 let cevalShown = false;
 
-export default function(ctrl: Controller): VNode {
+export default function (ctrl: Controller): VNode {
   const showCeval = ctrl.vm.showComputer(),
     gaugeOn = ctrl.showEvalGauge();
   if (cevalShown !== showCeval) {
@@ -72,16 +72,16 @@ export default function(ctrl: Controller): VNode {
     cevalShown = showCeval;
   }
   return h('main.puzzle', {
-    class: {'gauge-on': gaugeOn},
+    class: { 'gauge-on': gaugeOn },
     hook: {
       postpatch(old, vnode) {
         gridHacks.start(vnode.elm as HTMLElement)
         if (old.data!.gaugeOn !== gaugeOn) {
-          if (ctrl.pref.coords == 2){
+          if (ctrl.pref.coords == 2) {
             $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
             changeColorHandle();
           }
-          window.lichess.dispatchEvent(document.body, 'chessground.resize');
+          window.lichess.dispatchEvent(document.body, 'shogiground.resize');
         }
         vnode.data!.gaugeOn = gaugeOn;
       }
@@ -94,7 +94,7 @@ export default function(ctrl: Controller): VNode {
     h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
       hook: window.lichess.hasTouchEvents ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
-      chessground(ctrl),
+      shogiground(ctrl),
       ctrl.promotion.view()
     ]),
     cevalView.renderGauge(ctrl),

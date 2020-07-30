@@ -19,7 +19,7 @@ object bits {
       moreJs: Frag = emptyFrag,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       moreCss: Frag = emptyFrag,
-      chessground: Boolean = true,
+      shogiground: Boolean = true,
       playing: Boolean = false,
       robots: Boolean = false
   )(body: Frag)(implicit ctx: Context) =
@@ -32,7 +32,7 @@ object bits {
         ctx.blind option cssTag("round.nvui"),
         moreCss
       ),
-      chessground = chessground,
+      shogiground = shogiground,
       playing = playing,
       robots = robots,
       deferJs = true,
@@ -139,7 +139,7 @@ object bits {
 
   def roundAppPreload(pov: Pov, controls: Boolean)(implicit ctx: Context) =
     div(cls := "round__app")(
-      div(cls := "round__app__board main-board")(chessground(pov)),
+      div(cls := "round__app__board main-board")(shogiground(pov)),
       div(cls := "round__app__table"),
       div(cls := "ruser ruser-top user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.opponent))),
       div(cls := "ruser ruser-bottom user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.player))),

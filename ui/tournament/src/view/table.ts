@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
-import { opposite } from 'chessground/util';
+import { opposite } from 'shogiground/util';
 import { player as renderPlayer, miniBoard, bind } from './util';
 import { Duel, DuelPlayer, DuelTeams, TeamBattle } from '../interfaces';
 import { teamName } from './battle';
@@ -54,7 +54,7 @@ function renderDuel(battle?: TeamBattle, duelTeams?: DuelTeams) {
   ]);
 }
 
-export default function(ctrl: TournamentController): VNode {
+export default function (ctrl: TournamentController): VNode {
   return h('div.tour__table', [
     ctrl.data.featured ? featured(ctrl.data.featured) : null,
     ctrl.data.duels.length ? h('section.tour__duels', {

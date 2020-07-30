@@ -10,7 +10,7 @@ import props from 'snabbdom/modules/props';
 import eventlisteners from 'snabbdom/modules/eventlisteners';
 
 import { menuHover } from 'common/menuHover';
-import { Chessground } from 'chessground';
+import { Shogiground } from 'shogiground';
 
 menuHover();
 
@@ -35,6 +35,6 @@ export default function LichessEditor(element: HTMLElement, config: EditorConfig
   };
 }
 
-// that's for the rest of lichess to access chessground
+// that's for the rest of lichess to access shogiground
 // without having to include it a second time
-window.Chessground = Chessground;
+window.Shogiground = Shogiground;

@@ -69,8 +69,8 @@ private object PgnStorage {
         case JavaRole.KNIGHT => Knight
         case JavaRole.BISHOP => Bishop
         case JavaRole.ROOK   => Rook
-        case JavaRole.QUEEN  => Queen
         case JavaRole.KING   => King
+        case _ => Lance
       }
     private def chessPiece(piece: JavaPiece): Piece = Piece(Color(piece.white), chessRole(piece.role))
   }

@@ -1,9 +1,9 @@
 function parseFen($elem) {
-  $elem.each(function() {
+  $elem.each(function () {
     var $this = $(this).removeClass('parse-fen');
     var lm = $this.data('lastmove');
     var color = $this.data('color');
-    var ground = $this.data('chessground');
+    var ground = $this.data('shogiground');
     var config = {
       coordinates: false,
       resizable: false,
@@ -16,7 +16,7 @@ function parseFen($elem) {
     if (ground) ground.set(config);
     else {
       this.innerHTML = '<div class="cg-wrap"></div>';
-      $this.data('chessground', Chessground(this.firstChild, config));
+      $this.data('shogiground', Shogiground(this.firstChild, config));
     }
   });
 }
@@ -27,15 +27,15 @@ function resize() {
     el.style.maxWidth = (window.innerHeight - el.querySelector('.vstext').offsetHeight) + 'px';
 }
 
-$(function() {
+$(function () {
   var $featured = $('#featured-game');
-  var board = function() {
+  var board = function () {
     return $featured.find('.mini-board');
   };
   parseFen(board());
   if (!window.EventSource) return;
   var source = new EventSource($('body').data('stream-url'));
-  source.addEventListener('message', function(e) {
+  source.addEventListener('message', function (e) {
     var data = JSON.parse(e.data);
     if (data.t == "featured") {
       $featured.html(data.d.html).find('a').attr('target', '_blank');

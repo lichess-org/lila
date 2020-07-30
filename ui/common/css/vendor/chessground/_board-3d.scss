@@ -19,7 +19,7 @@ $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 10
 
 cg-helper {
   // Default (from 2D boards) would be 12.5% of width.
-  padding-bottom: $td-inner-height-ratio * 12.5%;
+  padding-bottom: $td-inner-height-ratio * calc(100% / 9);
   // The "display: table" hack is not useful here, because the board is not
   // square. So heights corresponding to rounded widths are not always
   // integers, much less have the desired effect.
@@ -41,8 +41,8 @@ piece {
   /* copy of board.css to override miniboards */
   left: 0;
   top: 0;
-  width: 12.5%;
-  height: 12.5%;
+  width: calc(100% / 9);
+  height: calc(100% / 9);
 }
 
 cg-board::before {
@@ -57,7 +57,7 @@ cg-board::before {
 .is2d {
   /* override miniboards */
   cg-helper {
-    padding-bottom: 12.5%;
+    padding-bottom: calc(100% / 9);
     display: table;
   }
   cg-board {

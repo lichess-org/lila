@@ -61,7 +61,7 @@ LichessRound.boot(${safeJsonValue(
         )})}""")
       ),
       openGraph = povOpenGraph(pov).some,
-      chessground = false,
+      shogiground = false,
       playing = true
     )(
       main(cls := "round")(

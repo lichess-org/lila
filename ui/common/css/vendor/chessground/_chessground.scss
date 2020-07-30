@@ -13,8 +13,8 @@ cg-board {
 }
 square {
   position: absolute;
-  width: 12.5%;
-  height: 12.5%;
+  width: calc(100% / 9);
+  height: calc(100% / 9);
   pointer-events: none;
   &.move-dest {
     background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
@@ -62,8 +62,8 @@ piece {
   position: absolute;
   top: 0;
   left: 0;
-  width: 12.5%;
-  height: 12.5%;
+  width: calc(100% / 9);
+  height: calc(100% / 9);
   background-size: cover;
   z-index: z('cg__piece');
   will-change: transform;
@@ -86,16 +86,16 @@ piece {
 
 cg-helper {
   position: absolute;
-  width: 12.5%;
-  padding-bottom: 12.5%;
+  width: calc(100% / 9);
+  padding-bottom: calc(100% / 9);
   display: table; /* hack: round to full pixel size in chrome */
   bottom: 0;
 }
 
 cg-container {
   position: absolute;
-  width: 800%;
-  height: 800%;
+  width: 900%;
+  height: 900%;
   display: block;
   bottom: 0;
 }

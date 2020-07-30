@@ -1,5 +1,5 @@
 var m = require('mithril');
-var chessground = require('chessground');
+var shogiground = require('shogiground');
 var util = require('../util');
 var ground = require('../ground');
 var congrats = require('../congrats');
@@ -25,26 +25,26 @@ function renderCompleted(ctrl, level) {
   }, [
     m('h2', ctrl.trans.noarg(congrats())),
     level.blueprint.nextButton ? m('button', ctrl.trans.noarg('next')) :
-    makeStars(level.blueprint, level.vm.score)
+      makeStars(level.blueprint, level.vm.score)
   ]);
 }
 
-module.exports = function(ctrl) {
+module.exports = function (ctrl) {
   var stage = ctrl.stage;
   var level = ctrl.level;
 
   return m('div', {
     class: 'learn learn--run ' + stage.cssClass + ' ' + level.blueprint.cssClass +
-    (level.vm.starting ? ' starting' : '') +
-    (level.vm.completed && !level.blueprint.nextButton ? ' completed' : '') +
-    (level.vm.lastStep ? ' last-step' : '') +
-    (level.blueprint.showPieceValues ? ' piece-values' : '')
+      (level.vm.starting ? ' starting' : '') +
+      (level.vm.completed && !level.blueprint.nextButton ? ' completed' : '') +
+      (level.vm.lastStep ? ' last-step' : '') +
+      (level.blueprint.showPieceValues ? ' piece-values' : '')
   }, [
     m('div.learn__side', ctrl.opts.side.view()),
     m('div.learn__main.main-board', [
       ctrl.vm.stageStarting() ? stageStarting(ctrl) : null,
       ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,
-      chessground.view(ground.instance),
+      shogiground.view(ground.instance),
       renderPromotion(ctrl, level),
     ]),
     m('div.learn__table', [
@@ -60,7 +60,7 @@ module.exports = function(ctrl) {
         ]),
         level.vm.failed ? renderFailed(ctrl) : (
           level.vm.completed ? renderCompleted(ctrl, level) :
-          m('div.goal', util.withLinebreaks(ctrl.trans.noarg(level.blueprint.goal)))
+            m('div.goal', util.withLinebreaks(ctrl.trans.noarg(level.blueprint.goal)))
         ),
         renderProgress(ctrl.progress)
       ])

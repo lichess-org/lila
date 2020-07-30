@@ -1,8 +1,8 @@
 import { h } from 'snabbdom'
 import * as ground from './ground';
 import { bind, onInsert } from './util';
-import * as util from 'chessground/util';
-import { Role } from 'chessground/types';
+import * as util from 'shogiground/util';
+import { Role } from 'shogiground/types';
 import AnalyseCtrl from './ctrl';
 import { MaybeVNode, JustCaptured } from './interfaces';
 
@@ -18,7 +18,7 @@ type Callback = (orig: Key, dest: Key, capture: JustCaptured | undefined, role: 
 let promoting: Promoting | undefined;
 
 export function start(ctrl: AnalyseCtrl, orig: Key, dest: Key, capture: JustCaptured | undefined, callback: Callback): boolean {
-  const s = ctrl.chessground.state;
+  const s = ctrl.shogiground.state;
   const piece = s.pieces.get(dest);
   if (piece && piece.role == 'pawn' && (
     (dest[1] == '8' && s.turnColor == 'black') ||
@@ -37,7 +37,7 @@ export function start(ctrl: AnalyseCtrl, orig: Key, dest: Key, capture: JustCapt
 
 function finish(ctrl: AnalyseCtrl, role: Role): void {
   if (promoting) {
-    ground.promote(ctrl.chessground, promoting.dest, role);
+    ground.promote(ctrl.shogiground, promoting.dest, role);
     if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, promoting.capture, role);
   }
   promoting = undefined;
@@ -46,7 +46,7 @@ function finish(ctrl: AnalyseCtrl, role: Role): void {
 export function cancel(ctrl: AnalyseCtrl): void {
   if (promoting) {
     promoting = undefined;
-    ctrl.chessground.set(ctrl.cgConfig);
+    ctrl.shogiground.set(ctrl.cgConfig);
     ctrl.redraw();
   }
 }
@@ -64,7 +64,7 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: 
       el.addEventListener('click', _ => cancel(ctrl));
       el.oncontextmenu = () => false;
     })
-  }, pieces.map(function(serverRole: Role, i) {
+  }, pieces.map(function (serverRole: Role, i) {
     const top = (color === orientation ? i : 7 - i) * 12.5;
     return h('square', {
       attrs: {
@@ -86,5 +86,5 @@ export function view(ctrl: AnalyseCtrl): MaybeVNode {
   return renderPromotion(ctrl, promoting.dest,
     ctrl.data.game.variant.key === 'antichess' ? roles.concat('king') : roles,
     promoting.dest[1] === '8' ? 'white' : 'black',
-    ctrl.chessground.state.orientation);
+    ctrl.shogiground.state.orientation);
 }

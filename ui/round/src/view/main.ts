@@ -4,7 +4,7 @@ import { plyStep } from '../round';
 import { renderTable } from './table';
 import * as promotion from '../promotion';
 import { render as renderGround } from '../ground';
-import { read as fenRead } from 'chessground/fen';
+import { read as fenRead } from 'shogiground/fen';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
 import * as gridHacks from './gridHacks';
@@ -44,7 +44,7 @@ const emptyMaterialDiff: MaterialDiff = {
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
-    cgState = ctrl.chessground && ctrl.chessground.state,
+    cgState = ctrl.shogiground && ctrl.shogiground.state,
     topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
     bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
   let material: MaterialDiff, score: number = 0;

@@ -8,5 +8,5 @@ export function start(container: HTMLElement) {
 
   gridHacks.runner(runHacks);
 
-  gridHacks.bindChessgroundResizeOnce(runHacks);
+  gridHacks.bindShogigroundResizeOnce(runHacks);
 }

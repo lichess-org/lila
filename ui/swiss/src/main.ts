@@ -2,7 +2,7 @@ import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
-import { Chessground } from 'chessground';
+import { Shogiground } from 'shogiground';
 import { SwissOpts } from './interfaces';
 import SwissCtrl from './ctrl';
 import LichessChat from 'chat';
@@ -17,8 +17,8 @@ export function start(opts: SwissOpts) {
   const element = document.querySelector('main.swiss') as HTMLElement;
   li.socket = li.StrongSocket(
     '/swiss/' + opts.data.id, opts.data.socketVersion, {
-      receive: (t: string, d: any) => ctrl.socket.receive(t, d)
-    });
+    receive: (t: string, d: any) => ctrl.socket.receive(t, d)
+  });
   opts.classes = element.getAttribute('class');
   opts.socketSend = li.socket.send;
   opts.element = element;
@@ -39,7 +39,7 @@ export function start(opts: SwissOpts) {
   redraw();
 };
 
-// that's for the rest of lichess to access chessground
+// that's for the rest of lichess to access shogiground
 // without having to include it a second time
-window.Chessground = Chessground;
+window.Shogiground = Shogiground;
 window.LichessChat = LichessChat;

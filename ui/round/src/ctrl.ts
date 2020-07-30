@@ -8,9 +8,9 @@ import * as title from './title';
 import * as promotion from './promotion';
 import * as blur from './blur';
 import * as speech from './speech';
-import * as cg from 'chessground/types';
-import { Config as CgConfig } from 'chessground/config';
-import { Api as CgApi } from 'chessground/api';
+import * as cg from 'shogiground/types';
+import { Config as CgConfig } from 'shogiground/config';
+import { Api as CgApi } from 'shogiground/api';
 import { ClockController } from './clock/clockCtrl';
 import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
@@ -40,7 +40,7 @@ export default class RoundController {
 
   data: RoundData;
   socket: RoundSocket;
-  chessground: CgApi;
+  shogiground: CgApi;
   clock?: ClockController;
   corresClock?: CorresClockController;
   trans: Trans;
@@ -193,7 +193,7 @@ export default class RoundController {
 
   userJump = (ply: Ply): void => {
     this.cancelMove();
-    this.chessground.selectSquare(null);
+    this.shogiground.selectSquare(null);
     if (ply != this.ply && this.jump(ply)) speech.userJump(this, this.ply);
     else this.redraw();
   };
@@ -213,12 +213,12 @@ export default class RoundController {
         check: !!s.check,
         turnColor: this.ply % 2 === 0 ? 'white' : 'black'
       };
-    if (this.replaying()) this.chessground.stop();
+    if (this.replaying()) this.shogiground.stop();
     else config.movable = {
       color: this.isPlaying() ? this.data.player.color : undefined,
       dests: util.parsePossibleMoves(this.data.possibleMoves)
     }
-    this.chessground.set(config);
+    this.shogiground.set(config);
     if (s.san && isForwardStep) {
       if (s.san.includes('x')) sound.capture();
       else sound.move();
@@ -244,7 +244,7 @@ export default class RoundController {
 
   flipNow = () => {
     this.flip = !this.nvui && !this.flip;
-    this.chessground.set({
+    this.shogiground.set({
       orientation: ground.boardOrientation(this.data, this.flip)
     });
     this.redraw();
@@ -353,7 +353,7 @@ export default class RoundController {
     this.setTitle();
     if (!this.replaying()) {
       this.ply++;
-      if (o.role) this.chessground.newPiece({
+      if (o.role) this.shogiground.newPiece({
         role: o.role,
         color: playedColor
       }, o.uci.substr(2, 2) as cg.Key);
@@ -361,21 +361,21 @@ export default class RoundController {
         // This block needs to be idempotent, even for castling moves in
         // Chess960.
         const keys = util.uci2move(o.uci)!,
-        pieces = this.chessground.state.pieces;
+          pieces = this.shogiground.state.pieces;
         if (!o.castle || (pieces.get(o.castle.king[0])?.role === 'king' && pieces.get(o.castle.rook[0])?.role === 'rook')) {
-          this.chessground.move(keys[0], keys[1]);
+          this.shogiground.move(keys[0], keys[1]);
         }
       }
       if (o.enpassant) {
         const p = o.enpassant;
-        this.chessground.setPieces(new Map([[p.key, undefined]]));
+        this.shogiground.setPieces(new Map([[p.key, undefined]]));
         if (d.game.variant.key === 'atomic') {
           atomic.enpassant(this, p.key, p.color);
           sound.explode();
         } else sound.capture();
       }
-      if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
-      this.chessground.set({
+      if (o.promotion) ground.promote(this.shogiground, o.promotion.key, o.promotion.pieceClass);
+      this.shogiground.set({
         turnColor: d.game.player,
         movable: {
           dests: playing ? util.parsePossibleMoves(d.possibleMoves) : new Map(),
@@ -425,7 +425,7 @@ export default class RoundController {
       // https://github.com/ornicar/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
-        if (!this.chessground.playPremove() && !this.playPredrop()) {
+        if (!this.shogiground.playPremove() && !this.playPredrop()) {
           promotion.cancel(this);
           this.showYourMoveNotification();
         }
@@ -439,7 +439,7 @@ export default class RoundController {
   };
 
   private playPredrop = () => {
-    return this.chessground.playPredrop(drop => {
+    return this.shogiground.playPredrop(drop => {
       return crazyValid(this.data, drop.role, drop.key);
     });
   };
@@ -475,7 +475,7 @@ export default class RoundController {
     d.game.status = o.status;
     d.game.boosted = o.boosted;
     this.userJump(round.lastPly(d));
-    this.chessground.stop();
+    this.shogiground.stop();
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
@@ -501,7 +501,7 @@ export default class RoundController {
     xhr.challengeRematch(this.data.game.id).then(() => {
       li.challengeApp.open();
       if (li.once('rematch-challenge')) setTimeout(() => {
-        li.hopscotch(function() {
+        li.hopscotch(function () {
           window.hopscotch.configure({
             i18n: { doneBtn: 'OK, got it' }
           }).startTour({
@@ -549,7 +549,7 @@ export default class RoundController {
 
   takebackYes = () => {
     this.socket.sendLoading('takeback-yes');
-    this.chessground.cancelPremove();
+    this.shogiground.cancelPremove();
     promotion.cancel(this);
   };
 
@@ -669,8 +669,8 @@ export default class RoundController {
     this.socket.sendLoading('draw-yes', null)
   };
 
-  setChessground = (cg: CgApi) => {
-    this.chessground = cg;
+  setShogiground = (cg: CgApi) => {
+    this.shogiground = cg;
     if (this.data.pref.keyboardMove) {
       this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
       requestAnimationFrame(() => this.redraw());
@@ -711,7 +711,7 @@ export default class RoundController {
         if (!this.nvui && d.pref.submitMove) {
           window.Mousetrap.bind('esc', () => {
             this.submitMove(false);
-            this.chessground.cancelMove();
+            this.shogiground.cancelMove();
           });
           window.Mousetrap.bind('return', () => this.submitMove(true));
         }

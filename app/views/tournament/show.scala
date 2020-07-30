@@ -47,7 +47,7 @@ object show {
         if (tour.isTeamBattle) "tournament.show.team-battle"
         else "tournament.show"
       },
-      chessground = false,
+      shogiground = false,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",

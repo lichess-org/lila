@@ -29,14 +29,14 @@ function readFen(fen) {
     turn: parts[1] === 'w'
   };
 
-  parts[0].split('/').slice(0, 8).forEach(function(row, y) {
+  parts[0].split('/').slice(0, 8).forEach(function (row, y) {
     var x = 0;
-    row.split('').forEach(function(v) {
+    row.split('').forEach(function (v) {
       if (v == '~') return;
       var nb = parseInt(v, 10);
       if (nb) x += nb;
       else {
-        var square = (7 - y) * 8 + x;
+        var square = (8 - y) * 9 + x;
         board.pieces[square] = v;
         if (v === 'k' || v === 'K') board[v] = square;
         x++;
@@ -48,13 +48,13 @@ function readFen(fen) {
 }
 
 function kingMovesTo(s) {
-  return [s - 1, s - 9, s - 8, s - 7, s + 1, s + 9, s + 8, s + 7].filter(function(o) {
+  return [s - 1, s - 9, s - 8, s - 7, s + 1, s + 9, s + 8, s + 7].filter(function (o) {
     return o >= 0 && o < 64 && squareDist(s, o) === 1;
   });
 }
 
 function knightMovesTo(s) {
-  return [s + 17, s + 15, s + 10, s + 6, s - 6, s - 10, s - 15, s - 17].filter(function(o) {
+  return [s + 17, s + 15, s + 10, s + 6, s - 6, s - 10, s - 15, s - 17].filter(function (o) {
     return o >= 0 && o < 64 && squareDist(s, o) <= 2;
   });
 }
@@ -65,7 +65,7 @@ var QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
 
 function slidingMovesTo(s: number, deltas: number[], board): number[] {
   var result: number[] = [];
-  deltas.forEach(function(delta) {
+  deltas.forEach(function (delta) {
     for (var square = s + delta; square >= 0 && square < 64 && squareDist(square, square - delta) === 1; square += delta) {
       result.push(square);
       if (board.pieces[square]) break;
@@ -129,7 +129,7 @@ function sanOf(board, uci) {
 export default function sanWriter(fen, ucis) {
   var board = readFen(fen);
   var sans = {}
-  ucis.forEach(function(uci) {
+  ucis.forEach(function (uci) {
     var san = sanOf(board, uci);
     sans[san] = uci;
     if (san.includes('x')) sans[san.replace('x', '')] = uci;

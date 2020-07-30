@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { parseFen } from 'chessops/fen';
-import * as chessground from './ground';
+import * as shogiground from './ground';
 import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
 import { defined } from 'common';
 import changeColorHandle from 'common/coordsColor';
@@ -18,7 +18,7 @@ import * as pgnExport from './pgnExport';
 import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
 import crazyView from './crazy/crazyView';
-import { view as keyboardView} from './keyboard';
+import { view as keyboardView } from './keyboard';
 import explorerView from './explorer/explorerView';
 import retroView from './retrospect/retroView';
 import practiceView from './practice/practiceView';
@@ -68,8 +68,8 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
     owner: ctrl.study.isChapterOwner(),
     ply: ctrl.study.data.chapter.conceal
   } : null;
-  if (conceal) return function(isMainline: boolean) {
-    return function(path: Tree.Path, node: Tree.Node) {
+  if (conceal) return function (isMainline: boolean) {
+    return function (path: Tree.Path, node: Tree.Node) {
       if (!conceal || (isMainline && conceal.ply >= node.ply)) return null;
       if (treePath.contains(ctrl.path, path)) return null;
       return conceal.owner ? 'conceal' : 'hide';
@@ -167,7 +167,7 @@ function dataAct(e: Event): string | null {
 
 
 function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
-  const repeat = function() {
+  const repeat = function () {
     control[action](ctrl);
     ctrl.redraw();
     delay = Math.max(100, delay - delay / 15);
@@ -177,7 +177,7 @@ function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
   let timeout = setTimeout(repeat, 500);
   control[action](ctrl);
   const eventName = e.type == 'touchstart' ? 'touchend' : 'mouseup';
-  document.addEventListener(eventName, () => clearTimeout(timeout), {once: true});
+  document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 }
 
 function controls(ctrl: AnalyseCtrl) {
@@ -208,29 +208,29 @@ function controls(ctrl: AnalyseCtrl) {
         }
       })
     ] : [
-      h('button.fbt', {
-        attrs: {
-          title: noarg('openingExplorerAndTablebase'),
-          'data-act': 'explorer',
-          'data-icon': ']'
-        },
-        class: {
-          hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
-          active: ctrl.explorer.enabled()
-        }
-      }),
-      ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.fbt', {
-        attrs: {
-          title: noarg('practiceWithComputer'),
-          'data-act': 'practice',
-          'data-icon': ''
-        },
-        class: {
-          hidden: menuIsOpen || !!ctrl.retro,
-          active: !!ctrl.practice
-        }
-      }) : null
-    ]),
+        h('button.fbt', {
+          attrs: {
+            title: noarg('openingExplorerAndTablebase'),
+            'data-act': 'explorer',
+            'data-icon': ']'
+          },
+          class: {
+            hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
+            active: ctrl.explorer.enabled()
+          }
+        }),
+        ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.fbt', {
+          attrs: {
+            title: noarg('practiceWithComputer'),
+            'data-act': 'practice',
+            'data-icon': ''
+          },
+          class: {
+            hidden: menuIsOpen || !!ctrl.retro,
+            active: !!ctrl.practice
+          }
+        }) : null
+      ]),
     h('div.jumps', [
       jumpButton('W', 'first', canJumpPrev),
       jumpButton('Y', 'prev', canJumpPrev),
@@ -249,7 +249,7 @@ function controls(ctrl: AnalyseCtrl) {
 }
 
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
-  if (ctrl.data.pref.coords == 2){
+  if (ctrl.data.pref.coords == 2) {
     $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
     changeColorHandle();
   }
@@ -259,7 +259,7 @@ function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
   return cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 }
 
-export default function(ctrl: AnalyseCtrl): VNode {
+export default function (ctrl: AnalyseCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
     study = ctrl.study,
@@ -289,7 +289,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         forceInnerCoords(ctrl, needsInnerCoords);
       },
       postpatch(old, vnode) {
-        if (old.data!.gaugeOn !== gaugeOn) li.dispatchEvent(document.body, 'chessground.resize');
+        if (old.data!.gaugeOn !== gaugeOn) li.dispatchEvent(document.body, 'shogiground.resize');
         vnode.data!.gaugeOn = gaugeOn;
       }
     },
@@ -309,7 +309,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     }, [
       ...(clocks || []),
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
-      chessground.render(ctrl),
+      shogiground.render(ctrl),
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
       renderPromotion(ctrl)
     ]),
@@ -332,26 +332,26 @@ export default function(ctrl: AnalyseCtrl): VNode {
     intro ? null : acplView(ctrl),
     ctrl.embed ? null : (
       ctrl.studyPractice ? studyPracticeView.side(study!) :
-      h('aside.analyse__side', {
-        hook: onInsert(elm => {
-          ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
-          $(elm).append($('.streamers').clone().removeClass('none'));
-        })
-      },
-        ctrl.studyPractice ? [studyPracticeView.side(study!)] : (
-          study ? [studyView.side(study)] : [
-            ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
-            (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back-to-game',
-              h('a.button.button-empty.text', {
-                attrs: {
-                  href: router.game(ctrl.data, ctrl.data.player.color),
-                  'data-icon': 'i'
-                }
-              }, ctrl.trans.noarg('backToGame'))
-            ) : null
-          ]
+        h('aside.analyse__side', {
+          hook: onInsert(elm => {
+            ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+            $(elm).append($('.streamers').clone().removeClass('none'));
+          })
+        },
+          ctrl.studyPractice ? [studyPracticeView.side(study!)] : (
+            study ? [studyView.side(study)] : [
+              ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
+              (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back-to-game',
+                h('a.button.button-empty.text', {
+                  attrs: {
+                    href: router.game(ctrl.data, ctrl.data.player.color),
+                    'data-icon': 'i'
+                  }
+                }, ctrl.trans.noarg('backToGame'))
+              ) : null
+            ]
+          )
         )
-      )
     ),
     study && study.relay && relayManager(study.relay),
     ctrl.opts.chat && h('section.mchat', {

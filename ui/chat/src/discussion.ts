@@ -10,7 +10,7 @@ import { flag } from './xhr'
 
 const whisperRegex = /^\/w(?:hisper)?\s/;
 
-export default function(ctrl: Ctrl): Array<VNode | undefined> {
+export default function (ctrl: Ctrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];
   const scrollCb = (vnode: VNode) => {
     const el = vnode.elm as HTMLElement
@@ -22,7 +22,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
       }
     }
   },
-  mod = ctrl.moderation();
+    mod = ctrl.moderation();
   const vnodes = [
     h('ol.mchat__messages.chat-v-' + ctrl.data.domVersion, {
       attrs: {
@@ -85,7 +85,7 @@ let mouchListener: EventListener;
 
 const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
   const storage = window.lichess.tempStorage.make('chatInput');
-  if(storage.get()){
+  if (storage.get()) {
     chatEl.value = storage.get()!;
     storage.remove();
     chatEl.focus();
@@ -124,12 +124,12 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
 
 
   // Ensure clicks remove chat focus.
-  // See ornicar/chessground#109
+  // See ornicar/shogiground#109
 
   const mouchEvents = ['touchstart', 'mousedown'];
 
   if (mouchListener) mouchEvents.forEach(event =>
-    document.body.removeEventListener(event, mouchListener, {capture: true})
+    document.body.removeEventListener(event, mouchListener, { capture: true })
   );
 
   mouchListener = (e: MouseEvent) => {
@@ -139,12 +139,12 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
   chatEl.onfocus = () =>
     mouchEvents.forEach(event =>
       document.body.addEventListener(event, mouchListener,
-        {passive: true, capture: true}
+        { passive: true, capture: true }
       ));
 
   chatEl.onblur = () =>
     mouchEvents.forEach(event =>
-      document.body.removeEventListener(event, mouchListener, {capture: true})
+      document.body.removeEventListener(event, mouchListener, { capture: true })
     );
 };
 
@@ -215,13 +215,13 @@ function renderLine(ctrl: Ctrl, line: Line) {
     userNode,
     textNode
   ] : [
-    ctrl.data.userId && line.u && ctrl.data.userId != line.u ? h('i.flag', {
-      attrs: {
-        'data-icon': '!',
-        title: 'Report'
-      }
-    }) : null,
-    userNode,
-    textNode
-  ]);
+      ctrl.data.userId && line.u && ctrl.data.userId != line.u ? h('i.flag', {
+        attrs: {
+          'data-icon': '!',
+          title: 'Report'
+        }
+      }) : null,
+      userNode,
+      textNode
+    ]);
 }

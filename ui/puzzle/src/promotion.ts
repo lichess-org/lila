@@ -1,28 +1,28 @@
 import { h } from 'snabbdom';
 import { bind, onInsert } from './util';
-import { Api as CgApi } from 'chessground/api';
-import * as cgUtil from 'chessground/util';
-import { Role } from 'chessground/types';
+import { Api as CgApi } from 'shogiground/api';
+import * as cgUtil from 'shogiground/util';
+import { Role } from 'shogiground/types';
 import { MaybeVNode, Vm, Redraw, Promotion } from './interfaces';
 import { Prop } from 'common';
 
-export default function(vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promotion {
+export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promotion {
 
   let promoting: any = false;
 
   function start(orig: Key, dest: Key, callback: (orig: Key, key: Key, prom: Role) => void) {
     const g = getGround(),
-    piece = g.state.pieces.get(dest);
+      piece = g.state.pieces.get(dest);
     if (piece && piece.role == 'pawn' && (
       (dest[1] == '8' && g.state.turnColor == 'black') ||
-        (dest[1] == '1' && g.state.turnColor == 'white'))) {
+      (dest[1] == '1' && g.state.turnColor == 'white'))) {
       promoting = {
         orig: orig,
         dest: dest,
         callback: callback
       };
       redraw();
-    return true;
+      return true;
     }
     return false;
   }
@@ -62,10 +62,10 @@ export default function(vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promoti
 
     return h('div#promotion-choice.' + vertical, {
       hook: onInsert(el => {
-          el.addEventListener('click', cancel);
-          el.oncontextmenu = () => false;
+        el.addEventListener('click', cancel);
+        el.oncontextmenu = () => false;
       })
-    }, pieces.map(function(serverRole, i) {
+    }, pieces.map(function (serverRole, i) {
       const top = (color === orientation ? i : 7 - i) * 12.5;
       return h('square', {
         attrs: {

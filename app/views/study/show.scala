@@ -53,7 +53,7 @@ object show {
         )}""")
       ),
       robots = s.isPublic,
-      chessground = false,
+      shogiground = false,
       zoomable = true,
       csp = defaultCsp.withWebAssembly.withTwitch.withPeer.some,
       openGraph = lila.app.ui

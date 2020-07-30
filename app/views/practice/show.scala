@@ -34,7 +34,7 @@ object show {
         )}""")
       ),
       csp = defaultCsp.withWebAssembly.some,
-      chessground = false,
+      shogiground = false,
       zoomable = true
     ) {
       main(cls := "analyse")

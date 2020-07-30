@@ -1,12 +1,12 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { MouchEvent, NumberPair } from 'chessground/types';
-import { dragNewPiece } from 'chessground/drag';
-import { eventPosition, opposite } from 'chessground/util';
+import { MouchEvent, NumberPair } from 'shogiground/types';
+import { dragNewPiece } from 'shogiground/drag';
+import { eventPosition, opposite } from 'shogiground/util';
 import { Rules } from 'chessops/types';
 import { parseFen, EMPTY_FEN } from 'chessops/fen';
 import EditorCtrl from './ctrl';
-import chessground from './chessground';
+import shogiground from './shogiground';
 import { OpeningPosition, Selected, CastlingToggle, EditorState } from './interfaces';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
@@ -75,7 +75,7 @@ const allVariants: Array<[Rules, string]> = [
 ];
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
-  const position2option = function(pos: OpeningPosition): VNode {
+  const position2option = function (pos: OpeningPosition): VNode {
     return h('option', {
       attrs: {
         value: pos.epd || pos.fen,
@@ -117,7 +117,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               ctrl.setTurn((e.target as HTMLSelectElement).value as Color);
             }
           }
-        }, ['whitePlays', 'blackPlays'].map(function(key) {
+        }, ['whitePlays', 'blackPlays'].map(function (key) {
           return h('option', {
             attrs: {
               value: key[0] == 'w' ? 'white' : 'black',
@@ -154,75 +154,75 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
         }
       }, ctrl.trans.noarg('clearBoard'))
     ])] : [
-      h('div', [
-        h('select', {
-          attrs: { id: 'variants' },
-          on: {
-            change(e) {
-              ctrl.setRules((e.target as HTMLSelectElement).value as Rules);
+        h('div', [
+          h('select', {
+            attrs: { id: 'variants' },
+            on: {
+              change(e) {
+                ctrl.setRules((e.target as HTMLSelectElement).value as Rules);
+              }
             }
-          }
-        }, allVariants.map(x => variant2option(x[0], x[1], ctrl)))
-      ]),
-      h('div.actions', [
-        h('a.button.button-empty.text', {
-          attrs: { 'data-icon': 'q' },
-          on: {
-            click() {
-              ctrl.setFen(EMPTY_FEN);
+          }, allVariants.map(x => variant2option(x[0], x[1], ctrl)))
+        ]),
+        h('div.actions', [
+          h('a.button.button-empty.text', {
+            attrs: { 'data-icon': 'q' },
+            on: {
+              click() {
+                ctrl.setFen(EMPTY_FEN);
+              }
             }
-          }
-        }, ctrl.trans.noarg('clearBoard')),
-        h('a.button.button-empty.text', {
-          attrs: { 'data-icon': 'B' },
-          on: {
-            click() {
-              ctrl.chessground!.toggleOrientation();
+          }, ctrl.trans.noarg('clearBoard')),
+          h('a.button.button-empty.text', {
+            attrs: { 'data-icon': 'B' },
+            on: {
+              click() {
+                ctrl.shogiground!.toggleOrientation();
+              }
             }
-          }
-        }, ctrl.trans.noarg('flipBoard')),
-        h('a', {
-          attrs: {
-            'data-icon': 'A',
-            rel: 'nofollow',
-            ...(state.legalFen ? { href: ctrl.makeAnalysisUrl(state.legalFen) } : {})
-          },
-          class: {
-            button: true,
-            'button-empty': true,
-            text: true,
-            disabled: !state.legalFen
-          }
-        }, ctrl.trans.noarg('analysis')),
-        h('a', {
-          class: {
-            button: true,
-            'button-empty': true,
-            disabled: !state.playable,
-          },
-          on: {
-            click: () => {
-              if (state.playable) $.modal($('.continue-with'));
+          }, ctrl.trans.noarg('flipBoard')),
+          h('a', {
+            attrs: {
+              'data-icon': 'A',
+              rel: 'nofollow',
+              ...(state.legalFen ? { href: ctrl.makeAnalysisUrl(state.legalFen) } : {})
+            },
+            class: {
+              button: true,
+              'button-empty': true,
+              text: true,
+              disabled: !state.legalFen
             }
-          }
-        }, [h('span.text', { attrs: { 'data-icon' : 'U' } }, ctrl.trans.noarg('continueFromHere'))]),
-        studyButton(ctrl, state)
-      ]),
-      h('div.continue-with.none', [
-        h('a.button', {
-          attrs: {
-            href: '/?fen=' + state.legalFen + '#ai',
-            rel: 'nofollow'
-          }
-        }, ctrl.trans.noarg('playWithTheMachine')),
-        h('a.button', {
-          attrs: {
-            href: '/?fen=' + state.legalFen + '#friend',
-            rel: 'nofollow'
-          }
-        }, ctrl.trans.noarg('playWithAFriend'))
+          }, ctrl.trans.noarg('analysis')),
+          h('a', {
+            class: {
+              button: true,
+              'button-empty': true,
+              disabled: !state.playable,
+            },
+            on: {
+              click: () => {
+                if (state.playable) $.modal($('.continue-with'));
+              }
+            }
+          }, [h('span.text', { attrs: { 'data-icon': 'U' } }, ctrl.trans.noarg('continueFromHere'))]),
+          studyButton(ctrl, state)
+        ]),
+        h('div.continue-with.none', [
+          h('a.button', {
+            attrs: {
+              href: '/?fen=' + state.legalFen + '#ai',
+              rel: 'nofollow'
+            }
+          }, ctrl.trans.noarg('playWithTheMachine')),
+          h('a.button', {
+            attrs: {
+              href: '/?fen=' + state.legalFen + '#friend',
+              rel: 'nofollow'
+            }
+          }, ctrl.trans.noarg('playWithAFriend'))
+        ])
       ])
-    ])
   ]);
 }
 
@@ -280,7 +280,7 @@ let lastTouchMovePos: NumberPair | undefined;
 function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, position: 'top' | 'bottom'): VNode {
   const selectedClass = selectedToClass(ctrl.selected());
 
-  const pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
+  const pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function (role) {
     return [color, role];
   });
 
@@ -298,9 +298,9 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
       } : {})
     };
     const selectedSquare = selectedClass === className && (
-      !ctrl.chessground ||
-      !ctrl.chessground.state.draggable.current ||
-      !ctrl.chessground.state.draggable.current.newPiece);
+      !ctrl.shogiground ||
+      !ctrl.shogiground.state.draggable.current ||
+      !ctrl.shogiground.state.draggable.current.newPiece);
     return h('div', {
       class: {
         'no-square': true,
@@ -320,7 +320,7 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
 }
 
 function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e: MouchEvent) => void {
-  return function(e: MouchEvent): void {
+  return function (e: MouchEvent): void {
     e.preventDefault();
     if (s === 'pointer' || s === 'trash') {
       ctrl.selected(s);
@@ -328,14 +328,14 @@ function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e:
     } else {
       ctrl.selected('pointer');
 
-      dragNewPiece(ctrl.chessground!.state, {
+      dragNewPiece(ctrl.shogiground!.state, {
         color: s[0],
         role: s[1]
       }, e, true);
 
       document.addEventListener(upEvent, (e: MouchEvent) => {
         const eventPos = eventPosition(e) || lastTouchMovePos;
-        if (eventPos && ctrl.chessground!.getKeyAtDomPos(eventPos)) ctrl.selected('pointer');
+        if (eventPos && ctrl.shogiground!.getKeyAtDomPos(eventPos)) ctrl.selected('pointer');
         else ctrl.selected(s);
         ctrl.redraw();
       }, { once: true });
@@ -352,7 +352,7 @@ function makeCursor(selected: Selected): string {
   return `url('${url}'), default !important`;
 }
 
-export default function(ctrl: EditorCtrl): VNode {
+export default function (ctrl: EditorCtrl): VNode {
   const state = ctrl.getState();
   const color = ctrl.bottomColor();
 
@@ -362,7 +362,7 @@ export default function(ctrl: EditorCtrl): VNode {
     }
   }, [
     sparePieces(ctrl, opposite(color), color, 'top'),
-    h('div.main-board', [chessground(ctrl)]),
+    h('div.main-board', [shogiground(ctrl)]),
     sparePieces(ctrl, color, color, 'bottom'),
     controls(ctrl, state),
     inputs(ctrl, state.fen)

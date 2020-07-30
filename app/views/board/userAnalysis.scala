@@ -38,7 +38,7 @@ object userAnalysis {
         )}""")
       ),
       csp = defaultCsp.withWebAssembly.some,
-      chessground = false,
+      shogiground = false,
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Chess analysis board",
@@ -62,7 +62,7 @@ object userAnalysis {
             }
           )
         ),
-        div(cls := "analyse__board main-board")(chessgroundBoard),
+        div(cls := "analyse__board main-board")(shogigroundBoard),
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")
       )

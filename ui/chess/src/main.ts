@@ -1,6 +1,6 @@
 import { piotr } from './piotr';
 
-export const initialFen: Fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+export const initialFen: Fen = 'lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w KQkq - 0 1';
 
 export function fixCrazySan(san: San): San {
   return san[0] === 'P' ? san.slice(1) : san;

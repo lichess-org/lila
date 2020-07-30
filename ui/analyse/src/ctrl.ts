@@ -5,10 +5,10 @@ import { Position, PositionError } from 'chessops/chess';
 import { parseFen } from 'chessops/fen';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
-import { Api as ChessgroundApi } from 'chessground/api';
-import { DrawShape } from 'chessground/draw';
-import * as cg from 'chessground/types';
-import { Config as ChessgroundConfig } from 'chessground/config';
+import { Api as ShogigroundApi } from 'shogiground/api';
+import { DrawShape } from 'shogiground/draw';
+import * as cg from 'shogiground/types';
+import { Config as ShogigroundConfig } from 'shogiground/config';
 import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from 'tree';
 import * as keyboard from './keyboard';
 import { Ctrl as ActionMenuCtrl } from './actionMenu';
@@ -50,7 +50,7 @@ export default class AnalyseCtrl {
 
   tree: TreeWrapper;
   socket: Socket;
-  chessground: ChessgroundApi;
+  shogiground: ShogigroundApi;
   trans: Trans;
   ceval: CevalCtrl;
   evalCache: EvalCache;
@@ -93,7 +93,7 @@ export default class AnalyseCtrl {
   threatMode: Prop<boolean> = prop(false);
   treeView: TreeView;
   cgVersion = {
-    js: 1, // increment to recreate chessground
+    js: 1, // increment to recreate shogiground
     dom: 1
   };
 
@@ -107,7 +107,7 @@ export default class AnalyseCtrl {
   gamePath?: Tree.Path;
 
   // misc
-  cgConfig: any; // latest chessground config (useful for revert)
+  cgConfig: any; // latest shogiground config (useful for revert)
   music?: any;
   nvui?: NvuiPlugin;
 
@@ -196,7 +196,7 @@ export default class AnalyseCtrl {
     else this.socket = makeSocket(this.opts.socketSend, this);
     this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath = this.synthetic || this.ongoing ? undefined :
-    treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
+      treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
   }
 
@@ -212,7 +212,7 @@ export default class AnalyseCtrl {
 
   flip = () => {
     this.flipped = !this.flipped;
-    this.chessground.set({
+    this.shogiground.set({
       orientation: this.bottomColor()
     });
     if (this.retro && this.data.game.variant.key !== 'racingKings') {
@@ -272,7 +272,7 @@ export default class AnalyseCtrl {
     });
   });
 
-  makeCgOpts(): ChessgroundConfig {
+  makeCgOpts(): ShogigroundConfig {
     const node = this.node,
       color = this.turnColor(),
       dests = chessUtil.readDests(this.node.dests),
@@ -282,16 +282,16 @@ export default class AnalyseCtrl {
           (dests && dests.size > 0) ||
           drops === null || drops.length
         ) ? color : undefined),
-      config: ChessgroundConfig = {
+      config: ShogigroundConfig = {
         fen: node.fen,
         turnColor: color,
         movable: this.embed ? {
           color: undefined,
           dests: new Map(),
         } : {
-          color: movableColor,
-          dests: (movableColor === color && dests) || new Map(),
-        },
+            color: movableColor,
+            dests: (movableColor === color && dests) || new Map(),
+          },
         check: !!node.check,
         lastMove: this.uciToLastMove(node.uci)
       };
@@ -313,10 +313,10 @@ export default class AnalyseCtrl {
     capture: throttle(50, li.sound.capture),
     check: throttle(50, li.sound.check)
   } : {
-    move: $.noop,
-    capture: $.noop,
-    check: $.noop
-  };
+      move: $.noop,
+      capture: $.noop,
+      check: $.noop
+    };
 
   private onChange: () => void = throttle(300, () => {
     li.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
@@ -335,7 +335,7 @@ export default class AnalyseCtrl {
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
-    isForwardStep = pathChanged && path.length == this.path.length + 2;
+      isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
     this.showGround();
     if (pathChanged) {
@@ -440,7 +440,7 @@ export default class AnalyseCtrl {
   }
 
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
-    if (crazyValid(this.chessground, this.node.drops, piece, pos)) {
+    if (crazyValid(this.shogiground, this.node.drops, piece, pos)) {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
@@ -461,7 +461,7 @@ export default class AnalyseCtrl {
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
     this.justPlayed = orig;
     this.justDropped = undefined;
-    const piece = this.chessground.state.pieces.get(dest);
+    const piece = this.shogiground.state.pieces.get(dest);
     const isCapture = capture || (piece && piece.role == 'pawn' && orig[0] != dest[0]);
     this.sound[isCapture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, capture, this.sendMove)) this.sendMove(orig, dest, capture);
@@ -484,10 +484,10 @@ export default class AnalyseCtrl {
   }
 
   private preparePremoving(): void {
-    this.chessground.set({
-      turnColor: this.chessground.state.movable.color as cg.Color,
+    this.shogiground.set({
+      turnColor: this.shogiground.state.movable.color as cg.Color,
       movable: {
-        color: opposite(this.chessground.state.movable.color as cg.Color)
+        color: opposite(this.shogiground.state.movable.color as cg.Color)
       },
       premovable: {
         enabled: true
@@ -507,7 +507,7 @@ export default class AnalyseCtrl {
     }
     this.jump(newPath);
     this.redraw();
-    this.chessground.playPremove();
+    this.shogiground.playPremove();
   }
 
   addDests(dests: string, path: Tree.Path): void {
@@ -712,7 +712,7 @@ export default class AnalyseCtrl {
 
   private resetAutoShapes() {
     if (this.showAutoShapes()) this.setAutoShapes();
-    else this.chessground && this.chessground.setAutoShapes([]);
+    else this.shogiground && this.shogiground.setAutoShapes([]);
   }
 
   toggleAutoShapes = (v: boolean): void => {
@@ -728,7 +728,7 @@ export default class AnalyseCtrl {
     if (!this.showComputer()) {
       this.tree.removeComputerVariations();
       if (this.ceval.enabled()) this.toggleCeval();
-      this.chessground && this.chessground.setAutoShapes([]);
+      this.shogiground && this.shogiground.setAutoShapes([]);
     } else this.resetAutoShapes();
   }
 
@@ -758,11 +758,11 @@ export default class AnalyseCtrl {
     const move = parseUci(uci)!;
     const to = makeSquare(move.to);
     if (isNormal(move)) {
-      const piece = this.chessground.state.pieces.get(makeSquare(move.from));
-      const capture = this.chessground.state.pieces.get(to);
+      const piece = this.shogiground.state.pieces.get(makeSquare(move.from));
+      const capture = this.shogiground.state.pieces.get(to);
       this.sendMove(makeSquare(move.from), to, (capture && piece && capture.color !== piece.color) ? capture : undefined, move.promotion);
-    } else this.chessground.newPiece({
-      color: this.chessground.state.movable.color as Color,
+    } else this.shogiground.newPiece({
+      color: this.shogiground.state.movable.color as Color,
       role: move.role,
     }, to);
   }
@@ -846,9 +846,9 @@ export default class AnalyseCtrl {
 
   isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
 
-  withCg<A>(f: (cg: ChessgroundApi) => A): A | undefined {
-    if (this.chessground && this.cgVersion.js === this.cgVersion.dom)
-      return f(this.chessground);
+  withCg<A>(f: (cg: ShogigroundApi) => A): A | undefined {
+    if (this.shogiground && this.cgVersion.js === this.cgVersion.dom)
+      return f(this.shogiground);
     return undefined;
   }
 };

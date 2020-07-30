@@ -4,7 +4,7 @@
     @extend %popup-shadow;
     background: hsla(0, 0%, 90%, .2);
     width: 100%;
-    height: 12.5%;
+    height: calc(100% / 9);
     content: '';
     position: absolute;
     left: 0;

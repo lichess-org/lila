@@ -1,20 +1,363 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:x="http://www.w3.org/1999/xlink"
-     viewBox="0 0 8 8" shape-rendering="crispEdges">
-<g id="a">
-  <g id="b">
-    <g id="c">
-      <g id="d">
-        <rect width="1" height="1" fill="#dee3e6" id="e"/>
-        <use x="1" y="1" href="#e" x:href="#e"/>
-        <rect y="1" width="1" height="1" fill="#8ca2ad" id="f"/>
-        <use x="1" y="-1" href="#f" x:href="#f"/>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 8 8"
+   shape-rendering="crispEdges"
+   version="1.1"
+   id="svg20"
+   sodipodi:docname="blue.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+  <metadata
+     id="metadata26">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs24" />
+  <sodipodi:namedview
+     inkscape:document-rotation="0"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="711"
+     id="namedview22"
+     showgrid="false"
+     inkscape:zoom="35.946543"
+     inkscape:cx="0.056814843"
+     inkscape:cy="2.3114944"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg20" />
+  <g
+     transform="scale(0.8888875)"
+     id="g40">
+    <g
+       id="a">
+      <g
+         id="b">
+        <g
+           id="c">
+          <g
+             id="d">
+            <rect
+               id="e"
+               fill="#dee3e6"
+               height="1"
+               width="1"
+               x="0"
+               y="0" />
+            <use
+               id="use3"
+               xlink:href="#e"
+               href="#e"
+               y="1"
+               x="1"
+               width="100%"
+               height="100%" />
+            <rect
+               id="f"
+               fill="#8ca2ad"
+               height="1"
+               width="1"
+               y="1"
+               x="0" />
+            <use
+               id="use6"
+               xlink:href="#f"
+               href="#f"
+               y="-1"
+               x="1"
+               width="100%"
+               height="100%" />
+          </g>
+          <use
+             id="use9"
+             xlink:href="#d"
+             href="#d"
+             x="2"
+             y="0"
+             width="100%"
+             height="100%" />
+        </g>
+        <use
+           id="use12"
+           xlink:href="#c"
+           href="#c"
+           x="4"
+           y="0"
+           width="100%"
+           height="100%" />
       </g>
-      <use x="2" href="#d" x:href="#d"/>
+      <use
+         id="use15"
+         xlink:href="#b"
+         href="#b"
+         y="2"
+         x="0"
+         width="100%"
+         height="100%" />
     </g>
-    <use x="4" href="#c" x:href="#c"/>
+    <use
+       id="use18"
+       xlink:href="#a"
+       href="#a"
+       y="4"
+       x="0"
+       width="100%"
+       height="100%" />
   </g>
-  <use y="2" href="#b" x:href="#b"/>
-</g>
-<use y="4" href="#a" x:href="#a"/>
+  <g
+     id="g40-3"
+     transform="matrix(0.8888875,0,0,0.8888875,0.8888875,0.8888875)">
+    <g
+       id="a-6">
+      <g
+         id="b-7">
+        <g
+           id="c-5">
+          <g
+             id="d-3">
+            <rect
+               y="0"
+               x="0"
+               width="1"
+               height="1"
+               fill="#dee3e6"
+               id="e-5" />
+            <use
+               height="100%"
+               width="100%"
+               x="1"
+               y="1"
+               href="#e"
+               xlink:href="#e-5"
+               id="use3-6" />
+            <rect
+               x="0"
+               y="1"
+               width="1"
+               height="1"
+               fill="#8ca2ad"
+               id="f-2" />
+            <use
+               height="100%"
+               width="100%"
+               x="1"
+               y="-1"
+               href="#f"
+               xlink:href="#f-2"
+               id="use6-9" />
+          </g>
+          <use
+             height="100%"
+             width="100%"
+             y="0"
+             x="2"
+             href="#d"
+             xlink:href="#d-3"
+             id="use9-1" />
+        </g>
+        <use
+           height="100%"
+           width="100%"
+           y="0"
+           x="4"
+           href="#c"
+           xlink:href="#c-5"
+           id="use12-2" />
+      </g>
+      <use
+         height="100%"
+         width="100%"
+         x="0"
+         y="2"
+         href="#b"
+         xlink:href="#b-7"
+         id="use15-7" />
+    </g>
+    <use
+       height="100%"
+       width="100%"
+       x="0"
+       y="4"
+       href="#a"
+       xlink:href="#a-6"
+       id="use18-0" />
+  </g>
+  <g
+     transform="matrix(0,0.8888875,-0.8888875,0,7.1111,0.88636807)"
+     id="g40-3-9">
+    <g
+       id="a-6-3">
+      <g
+         id="b-7-6">
+        <g
+           id="c-5-0">
+          <g
+             id="d-3-6">
+            <rect
+               id="e-5-2"
+               fill="#dee3e6"
+               height="1"
+               width="1"
+               x="0"
+               y="0" />
+            <use
+               id="use3-6-6"
+               xlink:href="#e-5-2"
+               href="#e"
+               y="1"
+               x="1"
+               width="100%"
+               height="100%" />
+            <rect
+               id="f-2-1"
+               fill="#8ca2ad"
+               height="1"
+               width="1"
+               y="1"
+               x="0" />
+            <use
+               id="use6-9-8"
+               xlink:href="#f-2-1"
+               href="#f"
+               y="-1"
+               x="1"
+               width="100%"
+               height="100%" />
+          </g>
+          <use
+             id="use9-1-7"
+             xlink:href="#d-3-6"
+             href="#d"
+             x="2"
+             y="0"
+             width="100%"
+             height="100%" />
+        </g>
+        <use
+           id="use12-2-9"
+           xlink:href="#c-5-0"
+           href="#c"
+           x="4"
+           y="0"
+           width="100%"
+           height="100%" />
+      </g>
+      <use
+         id="use15-7-2"
+         xlink:href="#b-7-6"
+         href="#b"
+         y="2"
+         x="0"
+         width="100%"
+         height="100%" />
+    </g>
+    <use
+       id="use18-0-0"
+       xlink:href="#a-6-3"
+       href="#a"
+       y="4"
+       x="0"
+       width="100%"
+       height="100%" />
+  </g>
+  <g
+     transform="matrix(0,0.8888875,-0.8888875,0,7.9999875,-0.00251943)"
+     id="g40-3-2">
+    <g
+       id="a-6-37">
+      <g
+         id="b-7-5">
+        <g
+           id="c-5-9">
+          <g
+             id="d-3-2">
+            <rect
+               id="e-5-28"
+               fill="#dee3e6"
+               height="1"
+               width="1"
+               x="0"
+               y="0" />
+            <use
+               id="use3-6-9"
+               xlink:href="#e-5-28"
+               href="#e"
+               y="1"
+               x="1"
+               width="100%"
+               height="100%" />
+            <rect
+               id="f-2-7"
+               fill="#8ca2ad"
+               height="1"
+               width="1"
+               y="1"
+               x="0" />
+            <use
+               id="use6-9-3"
+               xlink:href="#f-2-7"
+               href="#f"
+               y="-1"
+               x="1"
+               width="100%"
+               height="100%" />
+          </g>
+          <use
+             id="use9-1-6"
+             xlink:href="#d-3-2"
+             href="#d"
+             x="2"
+             y="0"
+             width="100%"
+             height="100%" />
+        </g>
+        <use
+           id="use12-2-1"
+           xlink:href="#c-5-9"
+           href="#c"
+           x="4"
+           y="0"
+           width="100%"
+           height="100%" />
+      </g>
+      <use
+         id="use15-7-29"
+         xlink:href="#b-7-5"
+         href="#b"
+         y="2"
+         x="0"
+         width="100%"
+         height="100%" />
+    </g>
+    <use
+       id="use18-0-3"
+       xlink:href="#a-6-37"
+       href="#a"
+       y="4"
+       x="0"
+       width="100%"
+       height="100%" />
+  </g>
 </svg>

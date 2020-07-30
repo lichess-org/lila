@@ -17,11 +17,11 @@ import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
-import { Config as CgConfig } from 'chessground/config';
-import { Api as CgApi } from 'chessground/api';
+import { Config as CgConfig } from 'shogiground/config';
+import { Api as CgApi } from 'shogiground/api';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, PuzzleVote, MoveTest } from './interfaces';
 
-export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
+export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   let vm: Vm = {} as Vm;
   var data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl, moveTest: MoveTestFn;
@@ -60,14 +60,14 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialNode = tree.nodeAtPath(initialPath);
 
     setPath(treePath.init(initialPath));
-    setTimeout(function() {
+    setTimeout(function () {
       jump(initialPath);
       redraw();
     }, 500);
 
     // just to delay button display
     vm.canViewSolution = false;
-    setTimeout(function() {
+    setTimeout(function () {
       vm.canViewSolution = true;
       redraw();
     }, 5000);
@@ -98,9 +98,9 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       color: dests.size > 0 ? color : undefined,
       dests
     } : {
-      color: undefined,
-      dests: new Map(),
-    };
+        color: undefined,
+        dests: new Map(),
+      };
     const config = {
       fen: node.fen,
       orientation: data.puzzle.color,
@@ -182,19 +182,19 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function reorderChildren(path: Tree.Path, recursive?: boolean): void {
     var node = tree.nodeAtPath(path);
-    node.children.sort(function(c1, _) {
+    node.children.sort(function (c1, _) {
       if (c1.puzzle === 'fail') return 1;
       if (c1.puzzle === 'retry') return 1;
       if (c1.puzzle === 'good') return -1;
       return 0;
     });
-    if (recursive) node.children.forEach(function(child) {
+    if (recursive) node.children.forEach(function (child) {
       reorderChildren(path + child.id, true);
     });
   }
 
   function revertUserMove(): void {
-    setTimeout(function() {
+    setTimeout(function () {
       withGround(g => g.cancelPremove());
       userJump(treePath.init(vm.path));
       redraw();
@@ -267,8 +267,8 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
         key: 'standard'
       },
       possible: true,
-      emit: function(ev, work) {
-        tree.updateAt(work.path, function(node) {
+      emit: function (ev, work) {
+        tree.updateAt(work.path, function (node) {
           if (work.threatMode) {
             if (!node.threat || node.threat.depth <= ev.depth || node.threat.maxDepth < ev.maxDepth)
               node.threat = ev;
@@ -304,12 +304,12 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (ceval.enabled() && canUseCeval()) doStartCeval();
   }
 
-  const doStartCeval = throttle(800, function() {
+  const doStartCeval = throttle(800, function () {
     ceval.start(vm.path, vm.nodeList, threatMode());
   });
 
   function nextNodeBest() {
-    return treeOps.withMainlineChild(vm.node, function(n) {
+    return treeOps.withMainlineChild(vm.node, function (n) {
       // return n.eval ? n.eval.pvs[0].moves[0] : null;
       return n.eval ? n.eval.best : undefined;
     });
@@ -383,7 +383,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     var next = vm.node.children[0];
     if (next && next.puzzle === 'good') userJump(vm.path + next.id);
     else {
-      var firstGoodPath = treeOps.takePathWhile(vm.mainline, function(node) {
+      var firstGoodPath = treeOps.takePathWhile(vm.mainline, function (node) {
         return node.puzzle !== 'good';
       });
       if (firstGoodPath) userJump(firstGoodPath + tree.nodeAtPath(firstGoodPath).children[0].id);
@@ -395,7 +395,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function recentHash(): string {
-    return 'ph' + data.puzzle.id + (data.user ? data.user.recent.reduce(function(h, r) {
+    return 'ph' + data.puzzle.id + (data.user ? data.user.recent.reduce(function (h, r) {
       return h + r[0];
     }, '') : '');
   }
@@ -405,7 +405,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   const callToVote = () => parseInt(nbToVoteCall()) < 1;
 
-  const vote = throttle(1000, function(v) {
+  const vote = throttle(1000, function (v) {
     if (callToVote()) thanksUntil = Date.now() + 2000;
     nbToVoteCall(5);
     vm.voted = v;
@@ -435,10 +435,10 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   });
 
   // If the page loads while being hidden (like when changing settings),
-  // chessground is not displayed, and the first move is not fully applied.
-  // Make sure chessground is fully shown when the page goes back to being visible.
-  document.addEventListener('visibilitychange', function() {
-    window.lichess.requestIdleCallback(function() {
+  // shogiground is not displayed, and the first move is not fully applied.
+  // Make sure shogiground is fully shown when the page goes back to being visible.
+  document.addEventListener('visibilitychange', function () {
+    window.lichess.requestIdleCallback(function () {
       jump(vm.path);
     });
   });

@@ -1,5 +1,5 @@
-$(function() {
-  $('#trainer').each(function() {
+$(function () {
+  $('#trainer').each(function () {
     var $trainer = $(this);
     var $board = $('.coord-trainer__board .cg-wrap');
     var ground;
@@ -21,9 +21,9 @@ $(function() {
     var color;
     var startAt, score;
 
-    var showColor = function() {
+    var showColor = function () {
       color = colorPref == 'random' ? ['white', 'black'][Math.round(Math.random())] : colorPref;
-      if (!ground) ground = Chessground($board[0], {
+      if (!ground) ground = Shogiground($board[0], {
         coordinates: false,
         drawable: { enabled: false },
         movable: {
@@ -38,9 +38,9 @@ $(function() {
     };
     showColor();
 
-    $trainer.find('form.color').each(function() {
+    $trainer.find('form.color').each(function () {
       var $form = $(this);
-      $form.find('input').on('change', function() {
+      $form.find('input').on('change', function () {
         var selected = $form.find('input:checked').val();
         var c = {
           1: 'white',
@@ -54,7 +54,7 @@ $(function() {
       });
     });
 
-    var showCharts = function() {
+    var showCharts = function () {
       var dark = $('body').hasClass('dark');
       var theme = {
         type: 'line',
@@ -63,24 +63,24 @@ $(function() {
         lineColor: dark ? '#4444ff' : '#0000ff',
         fillColor: dark ? '#222255' : '#ccccff'
       };
-      $side.find('.user_chart').each(function() {
+      $side.find('.user_chart').each(function () {
         $(this).sparkline($(this).data('points'), theme);
       });
     };
     showCharts();
 
-    var centerRight = function() {
+    var centerRight = function () {
       $right.css('top', (256 - $right.height() / 2) + 'px');
     };
     centerRight();
 
-    var clearCoords = function() {
-      $.each($coords, function(i, e) {
+    var clearCoords = function () {
+      $.each($coords, function (i, e) {
         e.text('');
       });
     };
 
-    var newCoord = function(prevCoord) {
+    var newCoord = function (prevCoord) {
       // disallow the previous coordinate's row or file from being selected
       var files = 'abcdefgh';
       var fileIndex = files.indexOf(prevCoord[0]);
@@ -93,10 +93,10 @@ $(function() {
       return files[Math.round(Math.random() * (files.length - 1))] + rows[Math.round(Math.random() * (rows.length - 1))];
     };
 
-    var advanceCoords = function() {
+    var advanceCoords = function () {
       $('#next_coord0').removeClass('nope');
       var lastElement = $coords.shift();
-      $.each($coords, function(i, e) {
+      $.each($coords, function (i, e) {
         e.attr('id', 'next_coord' + i);
       });
       lastElement.attr('id', 'next_coord' + ($coords.length));
@@ -104,7 +104,7 @@ $(function() {
       $coords.push(lastElement);
     };
 
-    var stop = function() {
+    var stop = function () {
       clearCoords();
       $trainer.removeClass('play');
       centerRight();
@@ -121,21 +121,21 @@ $(function() {
           color: color,
           score: score
         },
-        success: function(charts) {
+        success: function (charts) {
           $side.find('.scores').html(charts);
           showCharts();
         }
       });
     };
 
-    var tick = function() {
+    var tick = function () {
       var spent = Math.min(duration, (new Date() - startAt));
       $bar.css('width', (100 * spent / duration) + '%');
       if (spent < duration) setTimeout(tick, tickDelay);
       else stop();
     };
 
-    $start.click(function() {
+    $start.click(function () {
       $explanation.remove();
       $trainer.addClass('play').removeClass('init');
       showColor();
@@ -144,12 +144,12 @@ $(function() {
       score = 0;
       $score.text(score);
       $bar.css('width', 0);
-      setTimeout(function() {
+      setTimeout(function () {
 
         startAt = new Date();
         ground.set({
           events: {
-            select: function(key) {
+            select: function (key) {
               var hit = key == $coords[0].text();
               if (hit) {
                 score++;
@@ -157,7 +157,7 @@ $(function() {
                 advanceCoords();
               } else {
                 $('#next_coord0').addClass('nope');
-                setTimeout(function() {
+                setTimeout(function () {
                   $('#next_coord0').removeClass('nope');
                 }, 500);
               }

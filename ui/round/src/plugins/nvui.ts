@@ -5,7 +5,7 @@ import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
 import { makeConfig as makeCgConfig } from '../ground';
-import { Chessground } from 'chessground';
+import { Shogiground } from 'shogiground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
@@ -22,7 +22,7 @@ type Sans = {
   [key: string]: Uci;
 }
 
-window.lichess.RoundNVUI = function(redraw: Redraw) {
+window.lichess.RoundNVUI = function (redraw: Redraw) {
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting();
@@ -36,8 +36,8 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
     render(ctrl: RoundController): VNode {
       const d = ctrl.data, step = plyStep(d, ctrl.ply), style = moveStyle.get(),
         variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, this variant is not supported in blind mode.';
-      if (!ctrl.chessground) {
-        ctrl.setChessground(Chessground(document.createElement("div"), {
+      if (!ctrl.shogiground) {
+        ctrl.setShogiground(Shogiground(document.createElement("div"), {
           ...makeCgConfig(ctrl),
           animation: { enabled: false },
           drawable: { enabled: false },
@@ -59,25 +59,25 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         h('h2', 'Moves'),
         h('p.moves', {
           attrs: {
-            role : 'log',
+            role: 'log',
             'aria-live': 'off'
           }
         }, renderMoves(d.steps.slice(1), style)),
         h('h2', 'Pieces'),
-        h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
+        h('div.pieces', renderPieces(ctrl.shogiground.state.pieces, style)),
         h('h2', 'Game status'),
         h('div.status', {
           attrs: {
-            role : 'status',
-            'aria-live' : 'assertive',
-            'aria-atomic' : true
+            role: 'status',
+            'aria-live': 'assertive',
+            'aria-atomic': true
           }
         }, [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)]),
         h('h2', 'Last move'),
         h('p.lastMove', {
           attrs: {
-            'aria-live' : 'assertive',
-            'aria-atomic' : true
+            'aria-live': 'assertive',
+            'aria-atomic': true
           }
         }, renderSan(step.san, step.uci, style)),
         ...(ctrl.isPlaying() ? [
@@ -103,7 +103,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
               })
             ])
           ])
-        ]: []),
+        ] : []),
         h('h2', 'Your clock'),
         h('div.botc', anyClock(ctrl, 'bottom')),
         h('h2', 'Opponent clock'),
@@ -114,7 +114,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
           game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
         )),
         h('h2', 'Board'),
-        h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
+        h('pre.board', renderBoard(ctrl.shogiground.state.pieces, ctrl.data.player.color)),
         h('h2', 'Settings'),
         h('label', [
           'Move notation',
@@ -146,13 +146,13 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
-  return function() {
+  return function () {
     let input = castlingFlavours($input.val().trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
       const d = ctrl.data,
-        legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!),
+        legalUcis = destsToUcis(ctrl.shogiground.state.movable.dests!),
         sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans;
       let uci = sanToUci(input, sans) || input,
         promotion = '';
@@ -188,7 +188,7 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
   else if (lowered == 'takeback') $('.nvui button.takeback-yes').click();
   else if (lowered == 'o' || lowered == 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
   else {
-    const pieces = ctrl.chessground.state.pieces;
+    const pieces = ctrl.shogiground.state.pieces;
     notify(
       commands.piece.apply(c, pieces, style) ||
       commands.scan.apply(c, pieces, style) ||
@@ -207,7 +207,7 @@ function anyClock(ctrl: RoundController, position: Position) {
 function destsToUcis(dests: Dests) {
   const ucis: string[] = [];
   for (const [orig, d] of dests) {
-    if (d) d.forEach(function(dest) {
+    if (d) d.forEach(function (dest) {
       ucis.push(orig + dest);
     });
   }
@@ -243,7 +243,7 @@ function playerHtml(ctrl: RoundController, player: game.Player) {
     perf = user ? user.perfs[d.game.perf] : null,
     rating = player.rating ? player.rating : (perf && perf.rating),
     rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? '+' + rd : ( rd < 0 ? '−' + (-rd) : '')) : '';
+    ratingDiff = rd ? (rd > 0 ? '+' + rd : (rd < 0 ? '−' + (-rd) : '')) : '';
   return user ? h('span', [
     h('a', {
       attrs: { href: '/@/' + user.username }

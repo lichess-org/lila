@@ -113,7 +113,7 @@ object replay {
               )
           ),
           chatOption.map(_ => views.html.chat.frag),
-          div(cls := "analyse__board main-board")(chessgroundBoard),
+          div(cls := "analyse__board main-board")(shogigroundBoard),
           div(cls := "analyse__tools")(div(cls := "ceval")),
           div(cls := "analyse__controls"),
           !ctx.blind option frag(

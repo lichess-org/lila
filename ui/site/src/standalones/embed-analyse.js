@@ -3,7 +3,7 @@ function toYouTubeEmbedUrl(url) {
   var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?/ ]{11})(?:\?|&|)(\S*)/i);
   if (!m) return;
   var start = 1;
-  m[2].split('&').forEach(function(p) {
+  m[2].split('&').forEach(function (p) {
     var s = p.split('=');
     if (s[0] === 't' || s[0] === 'start') {
       if (s[1].match(/^\d+$/)) start = parseInt(s[1]);
@@ -17,7 +17,7 @@ function toYouTubeEmbedUrl(url) {
   return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
 }
 
-$(function() {
+$(function () {
 
   var domain = window.location.host;
 
@@ -25,7 +25,7 @@ $(function() {
   var gameRegex = new RegExp(domain + '/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b');
   var notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer'];
 
-  var parseLink = function(a) {
+  var parseLink = function (a) {
     var yt = toYouTubeEmbedUrl(a.href);
     if (yt) return {
       type: 'youtube',
@@ -48,37 +48,37 @@ $(function() {
     }
   };
 
-  var expandYoutube = function(a) {
+  var expandYoutube = function (a) {
     var $iframe = $('<div class="embed"><iframe src="' + a.src + '"></iframe></div>');
     $(a.element).replaceWith($iframe);
     return $iframe;
   };
 
-  var expandYoutubes = function(as, wait) {
+  var expandYoutubes = function (as, wait) {
     var a = as.shift(),
       wait = Math.min(1500, wait || 100);
-    if (a) expandYoutube(a).find('iframe').on('load', function() {
-      setTimeout(function() {
+    if (a) expandYoutube(a).find('iframe').on('load', function () {
+      setTimeout(function () {
         expandYoutubes(as, wait + 200);
       }, wait);
     });
   };
 
-  var expand = function(a) {
+  var expand = function (a) {
     var $iframe = $('<iframe>').addClass('analyse ' + a.type).attr('src', a.src);
     $(a.element).replaceWith($('<div class="embed"></div>').html($iframe));
-    return $iframe.on('load', function() {
+    return $iframe.on('load', function () {
       if (this.contentDocument.title.startsWith("404")) this.style.height = '100px';
-    }).on('mouseenter', function() {
+    }).on('mouseenter', function () {
       $(this).focus();
     });
   };
 
-  var expandStudies = function(as, wait) {
+  var expandStudies = function (as, wait) {
     var a = as.shift(),
       wait = Math.min(1500, wait || 100);
-    if (a) expand(a).on('load', function() {
-      setTimeout(function() {
+    if (a) expand(a).on('load', function () {
+      setTimeout(function () {
         expandStudies(as, wait + 200);
       }, wait);
     });
@@ -90,7 +90,7 @@ $(function() {
       parent: null,
       index: -1
     };
-    as.forEach(function(a) {
+    as.forEach(function (a) {
       if (a.parent === current.parent) groups[current.index].push(a);
       else {
         current = {
@@ -103,14 +103,14 @@ $(function() {
     return groups;
   }
 
-  var expandGames = function(as) {
-    groupByParent(as).forEach(function(group) {
+  var expandGames = function (as) {
+    groupByParent(as).forEach(function (group) {
       if (group.length < 3) group.forEach(expand);
-      else group.forEach(function(a) {
+      else group.forEach(function (a) {
         a.element.title = 'Click to expand';
         a.element.classList.add('text');
         a.element.setAttribute('data-icon', '=');
-        a.element.addEventListener('click', function(e) {
+        a.element.addEventListener('click', function (e) {
           if (e.button === 0) {
             e.preventDefault();
             expand(a);
@@ -122,7 +122,7 @@ $(function() {
 
   var themes = ["blue", "blue2", "blue3", "blue-marble", "canvas", "wood", "wood2", "wood3", "wood4", "maple", "maple2", "brown", "leather", "green", "marble", "green-plastic", "grey", "metal", "olive", "newspaper", "purple", "purple-diag", "pink", "ic"];
 
-  var configureSrc = function(url) {
+  var configureSrc = function (url) {
     if (url.includes('://')) return url; // youtube, img, etc
     var parsed = new URL(url, window.location.href);
     parsed.searchParams.append('theme', themes.find(function (theme) {
@@ -132,7 +132,7 @@ $(function() {
     return parsed.href;
   }
 
-  var as = $('.embed_analyse a').toArray().map(function(el) {
+  var as = $('.embed_analyse a').toArray().map(function (el) {
     var parsed = parseLink(el);
     if (!parsed) return false;
     return {
@@ -141,34 +141,34 @@ $(function() {
       type: parsed.type,
       src: configureSrc(parsed.src)
     };
-  }).filter(function(a) {
+  }).filter(function (a) {
     return a;
   });
 
-  expandYoutubes(as.filter(function(a) {
+  expandYoutubes(as.filter(function (a) {
     return a.type === 'youtube'
   }));
 
-  expandStudies(as.filter(function(a) {
+  expandStudies(as.filter(function (a) {
     return a.type === 'study'
-  }).map(function(a) {
+  }).map(function (a) {
     a.element.classList.add('embedding_analyse');
     a.element.innerHTML = lichess.spinnerHtml;
     return a;
   }));
 
-  expandGames(as.filter(function(a) {
+  expandGames(as.filter(function (a) {
     return a.type === 'game'
   }));
 });
 
-lichess.startEmbeddedAnalyse = function(opts) {
+lichess.startEmbeddedAnalyse = function (opts) {
   document.body.classList.toggle('supports-max-content', !!window.chrome);
   opts.socketSend = $.noop
   opts.initialPly = 'url';
   opts.trans = lichess.trans(opts.i18n);
   LichessAnalyse.start(opts);
-  window.addEventListener('resize', function() {
-    lichess.dispatchEvent(document.body, 'chessground.resize');
+  window.addEventListener('resize', function () {
+    lichess.dispatchEvent(document.body, 'shogiground.resize');
   });
 }

@@ -1,7 +1,7 @@
 import makeCtrl from './ctrl';
 import view from './view/main';
 
-import { Chessground } from 'chessground';
+import { Shogiground } from 'shogiground';
 import { Controller, PuzzleOpts } from './interfaces';
 
 import { init } from 'snabbdom';
@@ -14,7 +14,7 @@ menuHover();
 
 const patch = init([klass, attributes]);
 
-export default function(opts: PuzzleOpts): void {
+export default function (opts: PuzzleOpts): void {
 
   let vnode: VNode, ctrl: Controller;
 
@@ -29,6 +29,6 @@ export default function(opts: PuzzleOpts): void {
   vnode = patch(opts.element, blueprint);
 }
 
-// that's for the rest of lichess to access chessground
+// that's for the rest of lichess to access shogiground
 // without having to include it a second time
-window.Chessground = Chessground;
+window.Shogiground = Shogiground;

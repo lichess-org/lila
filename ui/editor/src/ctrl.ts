@@ -1,5 +1,5 @@
 import { EditorConfig, EditorOptions, EditorState, Selected, Redraw, OpeningPosition, CastlingToggle, CastlingToggles, CASTLING_TOGGLES } from './interfaces';
-import { Api as CgApi } from 'chessground/api';
+import { Api as CgApi } from 'shogiground/api';
 import { Rules, Square } from 'chessops/types';
 import { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
@@ -13,7 +13,7 @@ export default class EditorCtrl {
   options: EditorOptions;
   trans: Trans;
   extraPositions: OpeningPosition[];
-  chessground: CgApi | undefined;
+  shogiground: CgApi | undefined;
   redraw: Redraw;
 
   selected: Prop<Selected>;
@@ -51,14 +51,14 @@ export default class EditorCtrl {
 
     window.Mousetrap.bind('f', (e: Event) => {
       e.preventDefault();
-      if (this.chessground) this.chessground.toggleOrientation();
+      if (this.shogiground) this.shogiground.toggleOrientation();
       redraw();
     });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     this.rules = (!this.cfg.embed && window.history.state && window.history.state.rules) ? window.history.state.rules : 'chess';
 
-    this.redraw = () => {};
+    this.redraw = () => { };
     this.setFen(cfg.fen);
     this.redraw = redraw;
   }
@@ -83,7 +83,7 @@ export default class EditorCtrl {
   }
 
   private getSetup(): Setup {
-    const boardFen = this.chessground ? this.chessground.getFen() : this.cfg.fen;
+    const boardFen = this.shogiground ? this.shogiground.getFen() : this.cfg.fen;
     const board = parseFen(boardFen).unwrap(setup => setup.board, _ => Board.empty());
     return {
       board,
@@ -98,12 +98,12 @@ export default class EditorCtrl {
   }
 
   getFen(): string {
-    return makeFen(this.getSetup(), {promoted: this.rules == 'crazyhouse'});
+    return makeFen(this.getSetup(), { promoted: this.rules == 'crazyhouse' });
   }
 
   private getLegalFen(): string | undefined {
     return setupPosition(this.rules, this.getSetup()).unwrap(pos => {
-      return makeFen(pos.toSetup(), {promoted: pos.rules == 'crazyhouse'});
+      return makeFen(pos.toSetup(), { promoted: pos.rules == 'crazyhouse' });
     }, _ => undefined);
   }
 
@@ -138,9 +138,9 @@ export default class EditorCtrl {
   }
 
   bottomColor(): Color {
-    return this.chessground ?
-    this.chessground.state.orientation :
-    this.options.orientation || 'white';
+    return this.shogiground ?
+      this.shogiground.state.orientation :
+      this.options.orientation || 'white';
   }
 
   setCastlingToggle(id: CastlingToggle, value: boolean): void {
@@ -172,7 +172,7 @@ export default class EditorCtrl {
 
   setFen(fen: string): boolean {
     return parseFen(fen).unwrap(setup => {
-      if (this.chessground) this.chessground.set({fen});
+      if (this.shogiground) this.shogiground.set({ fen });
       this.pockets = setup.pockets;
       this.turn = setup.turn;
       this.unmovedRooks = setup.unmovedRooks;
@@ -203,7 +203,7 @@ export default class EditorCtrl {
 
   setOrientation(o: Color): void {
     this.options.orientation = o;
-    if (this.chessground!.state.orientation !== o) this.chessground!.toggleOrientation();
+    if (this.shogiground!.state.orientation !== o) this.shogiground!.toggleOrientation();
     this.redraw();
   }
 }

@@ -54,7 +54,7 @@ object show {
           )
         )}""")
       ),
-      chessground = false,
+      shogiground = false,
       zoomable = true,
       csp = defaultCsp.withWebAssembly.withTwitch.some,
       openGraph = lila.app.ui

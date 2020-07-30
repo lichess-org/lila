@@ -1,16 +1,22 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Pieces } from 'chessground/types';
-import { invRanks, allKeys } from 'chessground/util';
+import { Pieces } from 'shogiground/types';
+import { invRanks, allKeys } from 'shogiground/util';
 import { Setting, makeSetting } from './setting';
-import { files } from 'chessground/types';
+import { files } from 'shogiground/types';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 
 const nato: { [letter: string]: string } = { a: 'alpha', b: 'bravo', c: 'charlie', d: 'delta', e: 'echo', f: 'foxtrot', g: 'golf', h: 'hotel' };
 const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
-const roles: { [letter: string]: string } = { P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king' };
-const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
+const roles: { [letter: string]: string } = {
+  P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king', G: 'gold', S: 'silver', L: 'lance',
+  T: 'p_pawn', A: 'p_silver', M: 'p_knight', U: 'p_lance', H: 'p_bishop', D: 'p_rook'
+};
+const letters = {
+  pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k',
+  gold: 'g', silver: 's', lance: 'l', p_pawn: 't', p_silver: 'a', p_knight: 'm', p_lance: 'u', p_bishop: 'h', p_rook: 'd'
+};
 
 export function supportedVariant(key: string) {
   return [
@@ -59,7 +65,7 @@ export function renderSan(san: San, uci: Uci | undefined, style: Style) {
 export function renderPieces(pieces: Pieces, style: Style): VNode {
   return h('div', ['white', 'black'].map(color => {
     const lists: any = [];
-    ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].forEach(role => {
+    ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn', 'gold', 'silver', 'lance', 'p_pawn', 'p_silver', 'p_knight', 'p_lance', 'p_bishop', 'p_rook'].forEach(role => {
       const keys = [];
       for (const [key, piece] of pieces) {
         if (piece.color === color && piece.role === role) keys.push(key);
@@ -126,7 +132,7 @@ export function renderKey(key: string, style: Style): string {
 }
 
 export function castlingFlavours(input: string): string {
-  switch(input.toLowerCase().replace(/[-\s]+/g, '')) {
+  switch (input.toLowerCase().replace(/[-\s]+/g, '')) {
     case 'oo': case '00': return 'o-o';
     case 'ooo': case '000': return 'o-o-o';
   }

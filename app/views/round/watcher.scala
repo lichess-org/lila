@@ -50,7 +50,7 @@ LichessRound.boot(${safeJsonValue(
         )})}""")
       ),
       openGraph = povOpenGraph(pov).some,
-      chessground = false
+      shogiground = false
     )(
       main(cls := "round")(
         st.aside(cls := "round__side")(
@@ -71,7 +71,7 @@ LichessRound.boot(${safeJsonValue(
       variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
       openGraph = povOpenGraph(pov).some,
-      chessground = false
+      shogiground = false
     )(
       frag(
         main(cls := "round")(
@@ -83,7 +83,7 @@ LichessRound.boot(${safeJsonValue(
               div(cls := "pgn")(pgn.render)
             )
           ),
-          div(cls := "round__board main-board")(chessground(pov))
+          div(cls := "round__board main-board")(shogiground(pov))
         )
       )
     )

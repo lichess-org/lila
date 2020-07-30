@@ -110,7 +110,7 @@ function studyButton(ctrl: AnalyseCtrl) {
     })
   }, [
     !ctrl.synthetic ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('pgn', ''),
-    hiddenInput('orientation', ctrl.chessground.state.orientation),
+    hiddenInput('orientation', ctrl.shogiground.state.orientation),
     hiddenInput('variant', ctrl.data.game.variant.key),
     hiddenInput('fen', ctrl.tree.root.fen),
     h('button.button.button-empty', {
@@ -258,26 +258,26 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
   return h('div.action-menu',
     tools
-    .concat(notationConfig)
-    .concat(cevalConfig)
-    .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
-    .concat([
-      deleteButton(ctrl, ctrl.opts.userId),
-      canContinue ? h('div.continue-with.none.g_' + d.game.id, [
-        h('a.button', {
-          attrs: {
-            href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
-            rel: 'nofollow'
-          }
-        }, noarg('playWithTheMachine')),
-        h('a.button', {
-          attrs: {
-            href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
-            rel: 'nofollow'
-          }
-        }, noarg('playWithAFriend'))
-      ]) : null
-    ])
+      .concat(notationConfig)
+      .concat(cevalConfig)
+      .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
+      .concat([
+        deleteButton(ctrl, ctrl.opts.userId),
+        canContinue ? h('div.continue-with.none.g_' + d.game.id, [
+          h('a.button', {
+            attrs: {
+              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
+              rel: 'nofollow'
+            }
+          }, noarg('playWithTheMachine')),
+          h('a.button', {
+            attrs: {
+              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
+              rel: 'nofollow'
+            }
+          }, noarg('playWithAFriend'))
+        ]) : null
+      ])
   );
 }
 

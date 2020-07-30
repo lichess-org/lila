@@ -1,4 +1,4 @@
-import { initial as initialBoardFen } from 'chessground/fen';
+import { initial as initialBoardFen } from 'shogiground/fen';
 import { ops as treeOps } from 'tree';
 import AnalyseCtrl from './ctrl';
 
@@ -38,18 +38,18 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   function clearCache() {
     anaDestsCache = (
       ctrl.data.game.variant.key === 'standard' &&
-        ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFen
+      ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFen
     ) ? {
-      '': {
-        path: '',
-        dests: 'iqy muC gvx ltB bqs pxF jrz nvD ksA owE'
-      }
-    } : {};
+        '': {
+          path: '',
+          dests: 'iqy muC gvx ltB bqs pxF jrz nvD ksA owE'
+        }
+      } : {};
   }
   clearCache();
 
   // forecast mode: reload when opponent moves
-  if (!ctrl.synthetic) setTimeout(function() {
+  if (!ctrl.synthetic) setTimeout(function () {
     send("startWatching", ctrl.data.game.id);
   }, 1000);
 
@@ -78,7 +78,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       if (data.ch == currentChapterId())
         ctrl.addNode(data.node, data.path);
       else
-      console.log('socket handler node got wrong chapter id', data);
+        console.log('socket handler node got wrong chapter id', data);
     },
     stepFailure() {
       clearTimeout(anaMoveTimeout);
@@ -90,7 +90,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
         anaDestsCache[data.path] = data;
         ctrl.addDests(data.dests, data.path);
       } else
-      console.log('socket handler node got wrong chapter id', data);
+        console.log('socket handler node got wrong chapter id', data);
     },
     destsFailure(data) {
       console.log(data);
@@ -120,14 +120,14 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
 
   function sendAnaDests(req) {
     clearTimeout(anaDestsTimeout);
-    if (anaDestsCache[req.path]) setTimeout(function() {
+    if (anaDestsCache[req.path]) setTimeout(function () {
       handlers.dests(anaDestsCache[req.path]);
     }, 300);
     else {
       withoutStandardVariant(req);
       addStudyData(req);
       send('anaDests', req);
-      anaDestsTimeout = setTimeout(function() {
+      anaDestsTimeout = setTimeout(function () {
         console.log(req, 'resendAnaDests');
         sendAnaDests(req);
       }, 3000);

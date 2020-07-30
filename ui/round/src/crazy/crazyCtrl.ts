@@ -1,25 +1,25 @@
 import { isPlayerTurn } from 'game/game';
-import { dragNewPiece } from 'chessground/drag';
-import { setDropMode, cancelDropMode } from 'chessground/drop';
+import { dragNewPiece } from 'shogiground/drag';
+import { setDropMode, cancelDropMode } from 'shogiground/drop';
 import RoundController from '../ctrl';
-import * as cg from 'chessground/types';
+import * as cg from 'shogiground/types';
 import { RoundData } from '../interfaces';
 
 const li = window.lichess;
 
-export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'lance'];
 
 export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.replaying() || !ctrl.isPlaying()) return;
   const el = e.target as HTMLElement,
-  role = el.getAttribute('data-role') as cg.Role,
-  color = el.getAttribute('data-color') as cg.Color,
-  number = el.getAttribute('data-nb');
+    role = el.getAttribute('data-role') as cg.Role,
+    color = el.getAttribute('data-color') as cg.Color,
+    number = el.getAttribute('data-nb');
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
-  dragNewPiece(ctrl.chessground.state, { color, role }, e);
+  dragNewPiece(ctrl.shogiground.state, { color, role }, e);
 }
 
 let dropWithKey = false;
@@ -72,11 +72,11 @@ export function init(ctrl: RoundController) {
       if (!crazyData) return;
 
       const nb = crazyData.pockets[color === 'white' ? 0 : 1][role];
-      setDropMode(ctrl.chessground.state, nb > 0 ? { color, role } : undefined);
+      setDropMode(ctrl.shogiground.state, nb > 0 ? { color, role } : undefined);
       activeCursor = `cursor-${color}-${role}`;
       document.body.classList.add(activeCursor);
     } else {
-      cancelDropMode(ctrl.chessground.state);
+      cancelDropMode(ctrl.shogiground.state);
       activeCursor = undefined;
     }
   };
@@ -85,9 +85,9 @@ export function init(ctrl: RoundController) {
   // the corresponding drop key is active.
   //
   // When the drop key is first pressed, the cursor will change, but
-  // chessground.setDropMove(state, undefined) is called, which means
+  // shogiground.setDropMove(state, undefined) is called, which means
   // clicks on the board will not drop a piece.
-  // If the piece becomes available, we call into chessground again.
+  // If the piece becomes available, we call into shogiground again.
   window.lichess.pubsub.on('ply', () => {
     if (crazyKeys.length > 0) setDrop();
   })

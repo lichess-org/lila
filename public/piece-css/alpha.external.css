@@ -1,12 +1,183 @@
-.is2d .pawn.white {background-image:url('/assets/piece/alpha/wP.svg')}
-.is2d .knight.white {background-image:url('/assets/piece/alpha/wN.svg')}
-.is2d .bishop.white {background-image:url('/assets/piece/alpha/wB.svg')}
-.is2d .rook.white {background-image:url('/assets/piece/alpha/wR.svg')}
-.is2d .queen.white {background-image:url('/assets/piece/alpha/wQ.svg')}
-.is2d .king.white {background-image:url('/assets/piece/alpha/wK.svg')}
-.is2d .pawn.black {background-image:url('/assets/piece/alpha/bP.svg')}
-.is2d .knight.black {background-image:url('/assets/piece/alpha/bN.svg')}
-.is2d .bishop.black {background-image:url('/assets/piece/alpha/bB.svg')}
-.is2d .rook.black {background-image:url('/assets/piece/alpha/bR.svg')}
-.is2d .queen.black {background-image:url('/assets/piece/alpha/bQ.svg')}
-.is2d .king.black {background-image:url('/assets/piece/alpha/bK.svg')}
+ .cg-wrap.orientation-white piece.pawn.white {
+    background-image: url('/assets/piece/orangain/wP.svg');
+  }
+   .cg-wrap.orientation-white piece.bishop.white {
+    background-image: url('/assets/piece/orangain/wB.svg');
+  }
+   .cg-wrap.orientation-white piece.knight.white {
+    background-image: url('/assets/piece/orangain/wN.svg');
+  }
+   .cg-wrap.orientation-white piece.rook.white {
+    background-image: url('/assets/piece/orangain/wR.svg');
+  }
+   .cg-wrap.orientation-white piece.king.white {
+    background-image: url('/assets/piece/orangain/wK.svg');
+  }
+   .cg-wrap.orientation-white piece.gold.white{
+    background-image: url('/assets/piece/orangain/wG.svg');
+  }
+   .cg-wrap.orientation-white piece.silver.white{
+    background-image: url('/assets/piece/orangain/wS.svg');
+  }
+   .cg-wrap.orientation-white piece.lance.white{
+    background-image: url('/assets/piece/orangain/wL.svg');
+  }
+  
+   .cg-wrap.orientation-white piece.p_bishop.white{
+    background-image: url('/assets/piece/orangain/wp_B.svg');
+  }
+   .cg-wrap.orientation-white piece.p_lance.white{
+    background-image: url('/assets/piece/orangain/wp_L.svg');
+  }
+   .cg-wrap.orientation-white piece.p_rook.white{
+    background-image: url('/assets/piece/orangain/wp_R.svg');
+  }
+   .cg-wrap.orientation-white piece.p_silver.white{
+    background-image: url('/assets/piece/orangain/wp_S.svg');
+  }
+   .cg-wrap.orientation-white piece.p_knight.white{
+    background-image: url('/assets/piece/orangain/wp_N.svg');
+  }
+   .cg-wrap.orientation-white piece.p_pawn.white{
+    background-image: url('/assets/piece/orangain/wp_P.svg');
+  }
+  
+  
+   .cg-wrap.orientation-white piece.pawn.black {
+    background-image: url('/assets/piece/orangain/bP.svg');
+  }
+   .cg-wrap.orientation-white piece.bishop.black {
+    background-image: url('/assets/piece/orangain/bB.svg');
+  }
+   .cg-wrap.orientation-white piece.knight.black {
+    background-image: url('/assets/piece/orangain/bN.svg');
+  }
+   .cg-wrap.orientation-white piece.rook.black {
+    background-image: url('/assets/piece/orangain/bR.svg');
+  }
+   .cg-wrap.orientation-white piece.king.black {
+    background-image: url('/assets/piece/orangain/bK.svg');
+  }
+   .cg-wrap.orientation-white piece.gold.black{
+    background-image: url('/assets/piece/orangain/bG.svg');
+  }
+   .cg-wrap.orientation-white piece.silver.black{
+    background-image: url('/assets/piece/orangain/bS.svg');
+  }
+   .cg-wrap.orientation-white piece.lance.black{
+    background-image: url('/assets/piece/orangain/bL.svg');
+  }
+  
+   .cg-wrap.orientation-white piece.p_bishop.black{
+    background-image: url('/assets/piece/orangain/bp_B.svg');
+  }
+   .cg-wrap.orientation-white piece.p_lance.black{
+    background-image: url('/assets/piece/orangain/bp_L.svg');
+  }
+   .cg-wrap.orientation-white piece.p_rook.black{
+    background-image: url('/assets/piece/orangain/bp_R.svg');
+  }
+   .cg-wrap.orientation-white piece.p_silver.black{
+    background-image: url('/assets/piece/orangain/bp_S.svg');
+  }
+   .cg-wrap.orientation-white piece.p_knight.black{
+    background-image: url('/assets/piece/orangain/bp_N.svg');
+  }
+   .cg-wrap.orientation-white piece.p_pawn.black{
+    background-image: url('/assets/piece/orangain/bp_P.svg');
+  }
+  
+  
+  
+  
+  
+  
+  
+   .cg-wrap.orientation-black piece.pawn.black {
+    background-image: url('/assets/piece/orangain/wP.svg');
+  }
+   .cg-wrap.orientation-black piece.bishop.black {
+    background-image: url('/assets/piece/orangain/wB.svg');
+  }
+   .cg-wrap.orientation-black piece.knight.black {
+    background-image: url('/assets/piece/orangain/wN.svg');
+  }
+   .cg-wrap.orientation-black piece.rook.black {
+    background-image: url('/assets/piece/orangain/wR.svg');
+  }
+   .cg-wrap.orientation-black piece.king.black {
+    background-image: url('/assets/piece/orangain/wK.svg');
+  }
+   .cg-wrap.orientation-black piece.gold.black{
+    background-image: url('/assets/piece/orangain/wG.svg');
+  }
+   .cg-wrap.orientation-black piece.silver.black{
+    background-image: url('/assets/piece/orangain/wS.svg');
+  }
+   .cg-wrap.orientation-black piece.lance.black{
+    background-image: url('/assets/piece/orangain/wL.svg');
+  }
+  
+   .cg-wrap.orientation-black piece.p_bishop.black{
+    background-image: url('/assets/piece/orangain/wp_B.svg');
+  }
+   .cg-wrap.orientation-black piece.p_lance.black{
+    background-image: url('/assets/piece/orangain/wp_L.svg');
+  }
+   .cg-wrap.orientation-black piece.p_rook.black{
+    background-image: url('/assets/piece/orangain/wp_R.svg');
+  }
+   .cg-wrap.orientation-black piece.p_silver.black{
+    background-image: url('/assets/piece/orangain/wp_S.svg');
+  }
+   .cg-wrap.orientation-black piece.p_knight.black{
+    background-image: url('/assets/piece/orangain/wp_N.svg');
+  }
+   .cg-wrap.orientation-black piece.p_pawn.black{
+    background-image: url('/assets/piece/orangain/wp_P.svg');
+  }
+  
+  
+   .cg-wrap.orientation-black piece.pawn.white {
+    background-image: url('/assets/piece/orangain/bP.svg');
+  }
+   .cg-wrap.orientation-black piece.bishop.white {
+    background-image: url('/assets/piece/orangain/bB.svg');
+  }
+   .cg-wrap.orientation-black piece.knight.white {
+    background-image: url('/assets/piece/orangain/bN.svg');
+  }
+   .cg-wrap.orientation-black piece.rook.white {
+    background-image: url('/assets/piece/orangain/bR.svg');
+  }
+   .cg-wrap.orientation-black piece.king.white {
+    background-image: url('/assets/piece/orangain/bK.svg');
+  }
+   .cg-wrap.orientation-black piece.gold.white{
+    background-image: url('/assets/piece/orangain/bG.svg');
+  }
+   .cg-wrap.orientation-black piece.silver.white{
+    background-image: url('/assets/piece/orangain/bS.svg');
+  }
+   .cg-wrap.orientation-black piece.lance.white{
+    background-image: url('/assets/piece/orangain/bL.svg');
+  }
+  
+   .cg-wrap.orientation-black piece.p_bishop.white{
+    background-image: url('/assets/piece/orangain/bp_B.svg');
+  }
+   .cg-wrap.orientation-black piece.p_lance.white{
+    background-image: url('/assets/piece/orangain/bp_L.svg');
+  }
+   .cg-wrap.orientation-black piece.p_rook.white{
+    background-image: url('/assets/piece/orangain/bp_R.svg');
+  }
+   .cg-wrap.orientation-black piece.p_silver.white{
+    background-image: url('/assets/piece/orangain/bp_S.svg');
+  }
+   .cg-wrap.orientation-black piece.p_knight.white{
+    background-image: url('/assets/piece/orangain/bp_N.svg');
+  }
+   .cg-wrap.orientation-black piece.p_pawn.white{
+    background-image: url('/assets/piece/orangain/bp_P.svg');
+  }

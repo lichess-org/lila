@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Chessground } from 'chessground';
-import { opposite } from 'chessground/util';
+import { Shogiground } from 'shogiground';
+import { opposite } from 'shogiground/util';
 import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
 import { multiBoard as xhrLoad } from './studyXhr';
@@ -14,7 +14,7 @@ export class MultiBoardCtrl {
   pager?: Paginator<ChapterPreview>;
   playing: boolean = false;
 
-  constructor(readonly studyId: string, readonly redraw: () => void, readonly trans: Trans) {}
+  constructor(readonly studyId: string, readonly redraw: () => void, readonly trans: Trans) { }
 
   addNode(pos: Position, node: Tree.Node) {
     const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
@@ -92,8 +92,8 @@ function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
 
 function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl): VNode {
   const page = ctrl.page,
-  from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
-  to = Math.min(pager.nbResults, page * pager.maxPerPage);
+    from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
+    to = Math.min(pager.nbResults, page * pager.maxPerPage);
   return h('div.pager', [
     pagerButton(ctrl.trans.noarg('first'), 'W', () => ctrl.setPage(1), page > 1, ctrl),
     pagerButton(ctrl.trans.noarg('previous'), 'Y', ctrl.prevPage, page > 1, ctrl),
@@ -121,9 +121,9 @@ function makePreview(study: StudyCtrl) {
       makeCg(preview),
       makePlayer(preview.players[preview.orientation])
     ] : [
-      h('div.name', preview.name),
-      makeCg(preview)
-    ];
+        h('div.name', preview.name),
+        makeCg(preview)
+      ];
     return h('a.' + preview.id, {
       attrs: { title: preview.name },
       class: { active: !study.multiBoard.loading && study.vm.chapterId == preview.id && (!study.relay || !study.relay.intro.active) },
@@ -147,7 +147,7 @@ function makeCg(preview: ChapterPreview): VNode {
   return h('div.mini-board.cg-wrap.is2d', {
     hook: {
       insert(vnode) {
-        const cg = Chessground(vnode.elm as HTMLElement, {
+        const cg = Shogiground(vnode.elm as HTMLElement, {
           coordinates: false,
           drawable: { enabled: false, visible: false },
           resizable: false,

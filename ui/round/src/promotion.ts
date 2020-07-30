@@ -1,9 +1,9 @@
 import { h } from 'snabbdom'
 import * as ground from './ground';
-import * as cg from 'chessground/types';
-import { DrawShape } from 'chessground/draw';
+import * as cg from 'shogiground/types';
+import { DrawShape } from 'shogiground/draw';
 import * as xhr from './xhr';
-import { key2pos } from 'chessground/util';
+import { key2pos } from 'shogiground/util';
 import { bind } from './util';
 import RoundController from './ctrl';
 import { onInsert } from './util';
@@ -19,15 +19,15 @@ let promoting: Promoting | undefined;
 let prePromotionRole: cg.Role | undefined;
 
 export function sendPromotion(ctrl: RoundController, orig: cg.Key, dest: cg.Key, role: cg.Role, meta: cg.MoveMetadata): boolean {
-  ground.promote(ctrl.chessground, dest, role);
+  ground.promote(ctrl.shogiground, dest, role);
   ctrl.sendMove(orig, dest, role, meta);
   return true;
 }
 
 export function start(ctrl: RoundController, orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata = {} as cg.MoveMetadata): boolean {
   const d = ctrl.data,
-    piece = ctrl.chessground.state.pieces.get(dest),
-    premovePiece = ctrl.chessground.state.pieces.get(orig);
+    piece = ctrl.shogiground.state.pieces.get(dest),
+    premovePiece = ctrl.shogiground.state.pieces.get(orig);
   if (((piece && piece.role === 'pawn' && !premovePiece) || (premovePiece && premovePiece.role === 'pawn')) && (
     (dest[1] === '8' && d.player.color === 'white') ||
     (dest[1] === '1' && d.player.color === 'black'))) {
@@ -36,8 +36,8 @@ export function start(ctrl: RoundController, orig: cg.Key, dest: cg.Key, meta: c
       d.pref.autoQueen === 3 ||
       (d.pref.autoQueen === 2 && premovePiece) ||
       (ctrl.keyboardMove && ctrl.keyboardMove.justSelected()))) {
-      if (premovePiece) setPrePromotion(ctrl, dest, 'queen');
-      else sendPromotion(ctrl, orig, dest, 'queen', meta);
+      if (premovePiece) setPrePromotion(ctrl, dest, 'lance');
+      else sendPromotion(ctrl, orig, dest, 'lance', meta);
       return true;
     }
     promoting = {
@@ -53,7 +53,7 @@ export function start(ctrl: RoundController, orig: cg.Key, dest: cg.Key, meta: c
 
 function setPrePromotion(ctrl: RoundController, dest: cg.Key, role: cg.Role): void {
   prePromotionRole = role;
-  ctrl.chessground.setAutoShapes([{
+  ctrl.shogiground.setAutoShapes([{
     orig: dest,
     piece: {
       color: ctrl.data.player.color,
@@ -66,7 +66,7 @@ function setPrePromotion(ctrl: RoundController, dest: cg.Key, role: cg.Role): vo
 
 export function cancelPrePromotion(ctrl: RoundController) {
   if (prePromotionRole) {
-    ctrl.chessground.setAutoShapes([]);
+    ctrl.shogiground.setAutoShapes([]);
     prePromotionRole = undefined;
     ctrl.redraw();
   }
@@ -84,7 +84,7 @@ function finish(ctrl: RoundController, role: cg.Role) {
 
 export function cancel(ctrl: RoundController) {
   cancelPrePromotion(ctrl);
-  ctrl.chessground.cancelPremove();
+  ctrl.shogiground.cancelPremove();
   if (promoting) xhr.reload(ctrl).then(ctrl.reload);
   promoting = undefined;
 }
@@ -118,7 +118,7 @@ function renderPromotion(ctrl: RoundController, dest: cg.Key, roles: cg.Role[], 
   }));
 }
 
-const roles: cg.Role[] = ['queen', 'knight', 'rook', 'bishop'];
+const roles: cg.Role[] = ['lance', 'knight', 'rook', 'bishop'];
 
 export function view(ctrl: RoundController): MaybeVNode {
   if (!promoting) return;
@@ -126,5 +126,5 @@ export function view(ctrl: RoundController): MaybeVNode {
   return renderPromotion(ctrl, promoting.move[1],
     ctrl.data.game.variant.key === 'antichess' ? roles.concat('king') : roles,
     ctrl.data.player.color,
-    ctrl.chessground.state.orientation);
+    ctrl.shogiground.state.orientation);
 }

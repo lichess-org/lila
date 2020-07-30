@@ -2,7 +2,7 @@ import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
-import { Chessground } from 'chessground';
+import { Shogiground } from 'shogiground';
 import { TournamentOpts } from './interfaces';
 import TournamentController from './ctrl';
 import LichessChat from 'chat';
@@ -35,7 +35,7 @@ export function start(opts: TournamentOpts) {
   };
 };
 
-// that's for the rest of lichess to access chessground
+// that's for the rest of lichess to access shogiground
 // without having to include it a second time
-window.Chessground = Chessground;
+window.Shogiground = Shogiground;
 window.LichessChat = LichessChat;

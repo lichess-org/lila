@@ -8,7 +8,7 @@
     @extend %flex-center;
     justify-content: center;
     color: #fff;
-    flex: 0 0 12.5%;
+    flex: 0 0 calc(100% / 9);
     @include breakpoint($mq-small $mq-short) {
       flex: 0 0 10%;
     }

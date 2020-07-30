@@ -2,8 +2,8 @@
   .piece {
     piece {
       position: absolute;
-      width: 12.5%;
-      height: 12.5%;
+      width: calc(100% / 9);
+      height: calc(100% / 9);
       top: 0;
       left: 0;
       background-size: cover;

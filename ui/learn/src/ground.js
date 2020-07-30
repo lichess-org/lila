@@ -1,12 +1,12 @@
-var chessground = require('chessground');
-var raf = chessground.util.requestAnimationFrame;
+var shogiground = require('shogiground');
+var raf = shogiground.util.requestAnimationFrame;
 var util = require('./util');
 
-var cg = new chessground.controller();
+var cg = new shogiground.controller();
 
 module.exports = {
   instance: cg,
-  set: function(opts) {
+  set: function (opts) {
     var check = opts.chess.instance.in_check();
     cg.set({
       fen: opts.chess.fen(),
@@ -46,7 +46,7 @@ module.exports = {
       },
       disableContextMenu: true
     });
-    setTimeout(function() {
+    setTimeout(function () {
       cg.set({
         animation: {
           enabled: true
@@ -57,7 +57,7 @@ module.exports = {
     return cg;
   },
   stop: cg.stop,
-  color: function(color, dests) {
+  color: function (color, dests) {
     cg.set({
       turnColor: color,
       movable: {
@@ -66,7 +66,7 @@ module.exports = {
       }
     });
   },
-  fen: function(fen, color, dests, lastMove) {
+  fen: function (fen, color, dests, lastMove) {
     var config = {
       turnColor: color,
       fen: fen,
@@ -78,16 +78,16 @@ module.exports = {
     if (lastMove) config.lastMove = lastMove;
     cg.set(config);
   },
-  check: function(chess) {
+  check: function (chess) {
     var checks = chess.checks();
     cg.set({
       check: checks ? checks[0].dest : null
     });
-    if (checks) cg.setShapes(checks.map(function(move) {
+    if (checks) cg.setShapes(checks.map(function (move) {
       return util.arrow(move.orig + move.dest, 'yellow');
     }));
   },
-  promote: function(key, role) {
+  promote: function (key, role) {
     var pieces = {};
     var piece = cg.data.pieces[key];
     if (piece && piece.role === 'pawn') {
@@ -99,36 +99,36 @@ module.exports = {
       cg.setPieces(pieces);
     }
   },
-  data: function() {
+  data: function () {
     return cg.data;
   },
-  pieces: function() {
+  pieces: function () {
     return cg.data.pieces;
   },
-  get: function(key) {
+  get: function (key) {
     return cg.data.pieces[key];
   },
-  showCapture: function(move) {
-    raf(function() {
+  showCapture: function (move) {
+    raf(function () {
       var $square = $('#learn-app piece[data-key=' + move.orig + ']');
       $square.addClass('wriggle');
-      setTimeout(function() {
+      setTimeout(function () {
         $square.removeClass('wriggle');
         cg.setShapes([]);
         cg.apiMove(move.orig, move.dest);
       }, 600);
     });
   },
-  showCheckmate: function(chess) {
+  showCheckmate: function (chess) {
     var turn = chess.instance.turn() === 'w' ? 'b' : 'w';
     var fen = [cg.getFen(), turn, '- - 0 1'].join(' ');
     chess.instance.load(fen);
     var kingKey = chess.kingKey(turn === 'w' ? 'black' : 'white');
     var shapes = chess.instance.moves({
       verbose: true
-    }).filter(function(m) {
+    }).filter(function (m) {
       return m.to === kingKey;
-    }).map(function(m) {
+    }).map(function (m) {
       return util.arrow(m.from + m.to, 'red');
     });
     cg.set({
@@ -136,10 +136,10 @@ module.exports = {
     });
     cg.setShapes(shapes);
   },
-  setShapes: function(shapes) {
+  setShapes: function (shapes) {
     cg.setShapes(shapes);
   },
-  resetShapes: function() {
+  resetShapes: function () {
     cg.setShapes([]);
   },
   select: cg.selectSquare

@@ -3,7 +3,7 @@ var board = el.querySelector('.mini-board');
 board.target = '_blank';
 var lm = board.getAttribute('data-lastmove');
 board.innerHTML = '<div class="cg-wrap">';
-Chessground(board.firstChild, {
+Shogiground(board.firstChild, {
   coordinates: false,
   resizable: false,
   drawable: { enabled: false, visible: false },

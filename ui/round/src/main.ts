@@ -1,4 +1,4 @@
-import { Chessground } from 'chessground';
+import { Shogiground } from 'shogiground';
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
@@ -50,6 +50,6 @@ export function app(opts: RoundOpts): RoundApi {
 export { boot };
 
 window.LichessChat = LichessChat;
-// that's for the rest of lichess to access chessground
+// that's for the rest of lichess to access shogiground
 // without having to include it a second time
-window.Chessground = Chessground;
+window.Shogiground = Shogiground;

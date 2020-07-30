@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { Chessground } from 'chessground';
+import { Shogiground } from 'shogiground';
 import LobbyController from '../ctrl';
 
 function timer(pov) {
@@ -13,9 +13,9 @@ function timer(pov) {
   }, window.lichess.timeago.format(date));
 }
 
-export default function(ctrl: LobbyController) {
+export default function (ctrl: LobbyController) {
   return h('div.now-playing',
-    ctrl.data.nowPlaying.map(function(pov) {
+    ctrl.data.nowPlaying.map(function (pov) {
       return h('a.' + pov.variant.key + (pov.isMyTurn ? '.my_turn' : ''), {
         key: pov.gameId,
         attrs: { href: '/' + pov.fullId }
@@ -24,7 +24,7 @@ export default function(ctrl: LobbyController) {
           hook: {
             insert(vnode) {
               const lm = pov.lastMove;
-              Chessground(vnode.elm as HTMLElement, {
+              Shogiground(vnode.elm as HTMLElement, {
                 coordinates: false,
                 drawable: { enabled: false, visible: false },
                 resizable: false,
@@ -40,8 +40,8 @@ export default function(ctrl: LobbyController) {
           pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.ai) : pov.opponent.username,
           h('span.indicator',
             pov.isMyTurn ?
-            ((pov.secondsLeft && pov.hasMoved) ? timer(pov) : [ctrl.trans.noarg('yourTurn')]) :
-            h('span', '\xa0')) // &nbsp;
+              ((pov.secondsLeft && pov.hasMoved) ? timer(pov) : [ctrl.trans.noarg('yourTurn')]) :
+              h('span', '\xa0')) // &nbsp;
         ])
       ]);
     }));

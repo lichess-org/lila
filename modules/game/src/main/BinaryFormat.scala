@@ -245,7 +245,7 @@ object BinaryFormat {
       int match {
         case 6 => Some(Pawn)
         case 1 => Some(King)
-        case 2 => Some(Queen)
+        case 2 => Some(Lance)
         case 3 => Some(Rook)
         case 4 => Some(Knight)
         case 5 => Some(Bishop)
@@ -257,10 +257,11 @@ object BinaryFormat {
       role match {
         case Pawn   => 6
         case King   => 1
-        case Queen  => 2
+        case Lance  => 2
         case Rook   => 3
         case Knight => 4
         case Bishop => 5
+        case _ => 8
       }
   }
 

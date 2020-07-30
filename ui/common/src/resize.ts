@@ -1,4 +1,4 @@
-import * as cg from 'chessground/types';
+import * as cg from 'shogiground/types';
 
 export type MouchEvent = MouseEvent & TouchEvent;
 

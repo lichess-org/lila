@@ -11,7 +11,7 @@
       padding: .3em 0;
     }
     & strong {
-      flex: 0 0 12.5%;
+      flex: 0 0 calc(100% / 9);
       text-align: center;
       background: $c-bg-box;
       margin-right: 10px;

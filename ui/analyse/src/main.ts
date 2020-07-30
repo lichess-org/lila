@@ -4,7 +4,7 @@ import AnalyseCtrl from './ctrl';
 import makeCtrl from './ctrl';
 import view from './view';
 import boot from './boot';
-import { Chessground } from 'chessground';
+import { Shogiground } from 'shogiground';
 import LichessChat from 'chat';
 
 import { init } from 'snabbdom';
@@ -44,7 +44,7 @@ export function start(opts: AnalyseOpts): AnalyseApi {
 
 export { boot };
 
-// that's for the rest of lichess to access chessground
+// that's for the rest of lichess to access shogiground
 // without having to include it a second time
-window.Chessground = Chessground;
+window.Shogiground = Shogiground;
 window.LichessChat = LichessChat;

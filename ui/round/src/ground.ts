@@ -1,8 +1,8 @@
 import { h } from 'snabbdom'
-import { Chessground } from 'chessground';
-import * as cg from 'chessground/types';
-import { Api as CgApi } from 'chessground/api';
-import { Config } from 'chessground/config';
+import { Shogiground } from 'shogiground';
+import * as cg from 'shogiground/types';
+import { Api as CgApi } from 'shogiground/api';
+import { Config } from 'shogiground/config';
 import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import * as util from './util';
@@ -80,7 +80,7 @@ export function makeConfig(ctrl: RoundController): Config {
 }
 
 export function reload(ctrl: RoundController) {
-  ctrl.chessground.set(makeConfig(ctrl));
+  ctrl.shogiground.set(makeConfig(ctrl));
 }
 
 export function promote(ground: CgApi, key: cg.Key, role: cg.Role) {
@@ -95,12 +95,12 @@ export function promote(ground: CgApi, key: cg.Key, role: cg.Role) {
 }
 
 export function boardOrientation(data: RoundData, flip: boolean): Color {
-  if (data.game.variant.key === 'racingKings') return flip ? 'black': 'white';
+  if (data.game.variant.key === 'racingKings') return flip ? 'black' : 'white';
   else return flip ? data.opponent.color : data.player.color;
 }
 
 export function render(ctrl: RoundController) {
   return h('div.cg-wrap', {
-    hook: util.onInsert(el => ctrl.setChessground(Chessground(el, makeConfig(ctrl))))
+    hook: util.onInsert(el => ctrl.setShogiground(Shogiground(el, makeConfig(ctrl))))
   });
 };

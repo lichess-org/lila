@@ -1,5 +1,5 @@
 import { h } from 'snabbdom'
-import * as cg from 'chessground/types';
+import * as cg from 'shogiground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
 import { ClockController } from './clock/clockCtrl';
@@ -31,7 +31,6 @@ const sanToRole: { [key: string]: cg.Role } = {
   N: 'knight',
   B: 'bishop',
   R: 'rook',
-  Q: 'queen',
   K: 'king',
 };
 
@@ -40,11 +39,11 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
   let lastSelect = Date.now();
-  const cgState = root.chessground.state;
-  const select = function(key: cg.Key): void {
-    if (cgState.selected === key) root.chessground.cancelMove();
+  const cgState = root.shogiground.state;
+  const select = function (key: cg.Key): void {
+    if (cgState.selected === key) root.shogiground.cancelMove();
     else {
-      root.chessground.selectSquare(key, true);
+      root.shogiground.selectSquare(key, true);
       lastSelect = Date.now();
     }
   };
@@ -59,15 +58,15 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       // Piece not in Pocket
       if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
       if (!crazyValid(root.data, role, key)) return;
-      root.chessground.cancelMove();
-      root.chessground.newPiece({ role, color }, key);
+      root.shogiground.cancelMove();
+      root.shogiground.newPiece({ role, color }, key);
       root.sendNewPiece(role, key, false);
     },
     promote(orig, dest, piece) {
       const role = sanToRole[piece];
       if (!role || role == 'pawn') return;
-      root.chessground.cancelMove();
-      sendPromotion(root, orig, dest, role, {premove: false});
+      root.shogiground.cancelMove();
+      sendPromotion(root, orig, dest, role, { premove: false });
     },
     update(step, yourMove: boolean = false) {
       if (handler) handler(step.fen, cgState.movable.dests, yourMove);
@@ -84,7 +83,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     },
     san(orig, dest) {
       usedSan = true;
-      root.chessground.cancelMove();
+      root.shogiground.cancelMove();
       select(orig);
       select(dest);
     },
@@ -122,7 +121,7 @@ export function render(ctrl: KeyboardMove) {
       })
     }),
     ctrl.hasFocus() ?
-    h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :
-    h('strong', 'Press <enter> to focus')
+      h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :
+      h('strong', 'Press <enter> to focus')
   ]);
 }

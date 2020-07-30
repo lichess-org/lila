@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import { prop, Prop } from 'common';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
-import { Chessground } from 'chessground';
+import { Shogiground } from 'shogiground';
 import { Redraw, AnalyseData, MaybeVNodes } from '../interfaces';
 import { Player } from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
@@ -14,7 +14,7 @@ import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind } from '../util';
 
-window.lichess.AnalyseNVUI = function(redraw: Redraw) {
+window.lichess.AnalyseNVUI = function (redraw: Redraw) {
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
@@ -27,7 +27,7 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
   return {
     render(ctrl: AnalyseController): VNode {
       const d = ctrl.data, style = moveStyle.get();
-      if (!ctrl.chessground) ctrl.chessground = Chessground(document.createElement("div"), {
+      if (!ctrl.shogiground) ctrl.shogiground = Shogiground(document.createElement("div"), {
         ...makeCgConfig(ctrl),
         animation: { enabled: false },
         drawable: { enabled: false },
@@ -46,17 +46,17 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
           h('h2', 'Moves'),
           h('p.moves', {
             attrs: {
-              role : 'log',
+              role: 'log',
               'aria-live': 'off'
             }
           }, renderMainline(ctrl.mainline, ctrl.path, style)),
           h('h2', 'Pieces'),
-          h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
+          h('div.pieces', renderPieces(ctrl.shogiground.state.pieces, style)),
           h('h2', 'Current position'),
           h('p.position', {
             attrs: {
-              'aria-live' : 'assertive',
-              'aria-atomic' : true
+              'aria-live': 'assertive',
+              'aria-atomic': true
             }
           }, renderCurrentNode(ctrl.node, style)),
           h('h2', 'Move form'),
@@ -87,7 +87,7 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
           h('h2', 'Computer analysis'),
           ...(renderAcpl(ctrl, style) || [requestAnalysisButton(ctrl, analysisInProgress, notify.set)]),
           h('h2', 'Board'),
-          h('pre.board', renderBoard(ctrl.chessground.state.pieces, ctrl.data.player.color)),
+          h('pre.board', renderBoard(ctrl.shogiground.state.pieces, ctrl.data.player.color)),
           h('div.content', {
             hook: {
               insert: vnode => {
@@ -117,7 +117,7 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
 }
 
 function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
-  return function() {
+  return function () {
     let input = $input.val().trim();
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
@@ -134,7 +134,7 @@ function isShortCommand(input: string): boolean {
 }
 
 function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: Style) {
-  const pieces = ctrl.chessground.state.pieces;
+  const pieces = ctrl.shogiground.state.pieces;
   notify(
     commands.piece.apply(c, pieces, style) ||
     commands.scan.apply(c, pieces, style) ||
@@ -178,7 +178,7 @@ function requestAnalysisButton(ctrl: AnalyseController, inProgress: Prop<boolean
   if (inProgress()) return h('p', 'Server-side analysis in progress');
   if (ctrl.ongoing || ctrl.synthetic) return undefined;
   return h('button', {
-    hook: bind('click', _ =>  {
+    hook: bind('click', _ => {
       $.ajax({
         method: 'post',
         url: `/${ctrl.data.game.id}/request-analysis`,
@@ -231,7 +231,7 @@ function renderComment(comment: Tree.Comment, style: Style): string {
   return comment.by === 'lichess' ?
     comment.text.replace(/Best move was (.+)\./, (_, san) =>
       'Best move was ' + renderSan(san, undefined, style)) :
-      comment.text;
+    comment.text;
 }
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {
@@ -244,7 +244,7 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     perf = user ? user.perfs[d.game.perf] : null,
     rating = player.rating ? player.rating : (perf && perf.rating),
     rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? '+' + rd : ( rd < 0 ? '−' + (-rd) : '')) : '';
+    ratingDiff = rd ? (rd > 0 ? '+' + rd : (rd < 0 ? '−' + (-rd) : '')) : '';
   return user ? h('span', [
     h('a', {
       attrs: { href: '/@/' + user.username }

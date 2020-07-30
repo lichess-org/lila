@@ -1,6 +1,6 @@
 import { drag } from './crazyCtrl';
 import { h } from 'snabbdom'
-import { MouchEvent } from 'chessground/types';
+import { MouchEvent } from 'shogiground/types';
 import { onInsert } from '../util';
 import AnalyseCtrl from '../ctrl';
 
@@ -9,7 +9,7 @@ const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
 type Position = 'top' | 'bottom';
 
-export default function(ctrl: AnalyseCtrl, color: Color, position: Position) {
+export default function (ctrl: AnalyseCtrl, color: Color, position: Position) {
   if (!ctrl.node.crazy) return;
   const pocket = ctrl.node.crazy.pockets[color === 'white' ? 0 : 1];
   const dropped = ctrl.justDropped;

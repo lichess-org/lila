@@ -1,10 +1,10 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Chessground } from 'chessground';
-import { Api as CgApi } from 'chessground/api';
-import { Config as CgConfig } from 'chessground/config';
-import * as cg from 'chessground/types';
-import { DrawShape } from 'chessground/draw';
+import { Shogiground } from 'shogiground';
+import { Api as CgApi } from 'shogiground/api';
+import { Config as CgConfig } from 'shogiground/config';
+import * as cg from 'shogiground/types';
+import { DrawShape } from 'shogiground/draw';
 import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import AnalyseCtrl from './ctrl';
@@ -13,12 +13,12 @@ export function render(ctrl: AnalyseCtrl): VNode {
   return h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
     hook: {
       insert: vnode => {
-        ctrl.chessground = Chessground((vnode.elm as HTMLElement), makeConfig(ctrl));
+        ctrl.shogiground = Shogiground((vnode.elm as HTMLElement), makeConfig(ctrl));
         ctrl.setAutoShapes();
-        if (ctrl.node.shapes) ctrl.chessground.setShapes(ctrl.node.shapes as DrawShape[]);
+        if (ctrl.node.shapes) ctrl.shogiground.setShapes(ctrl.node.shapes as DrawShape[]);
         ctrl.cgVersion.dom = ctrl.cgVersion.js;
       },
-      destroy: _ => ctrl.chessground.destroy()
+      destroy: _ => ctrl.shogiground.destroy()
     }
   });
 }

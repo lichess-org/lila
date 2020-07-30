@@ -34,14 +34,14 @@ export default class GamebookPlayCtrl {
 
   private makeState = (): void => {
     const node = this.root.node,
-    nodeComment = (node.comments || [])[0],
-    state: Partial<State> = {
-      init: this.root.path === '',
-      comment: nodeComment ? nodeComment.text : undefined,
-      showHint: false,
-    },
-    parPath = treePath.init(this.root.path),
-    parNode = this.root.tree.nodeAtPath(parPath);
+      nodeComment = (node.comments || [])[0],
+      state: Partial<State> = {
+        init: this.root.path === '',
+        comment: nodeComment ? nodeComment.text : undefined,
+        showHint: false,
+      },
+      parPath = treePath.init(this.root.path),
+      parNode = this.root.tree.nodeAtPath(parPath);
     if (!this.root.onMainline && !this.root.tree.pathIsMainline(parPath)) return;
     if (this.root.onMainline && !node.children[0]) {
       state.feedback = 'end';
@@ -88,7 +88,7 @@ export default class GamebookPlayCtrl {
         break;
       case 'end':
         const s = this.root.study!,
-        c = s.nextChapter();
+          c = s.nextChapter();
         if (c) s.setChapter(c.id);
         break;
       default:
@@ -105,7 +105,7 @@ export default class GamebookPlayCtrl {
   }
 
   solution = () => {
-    this.root.chessground.setShapes(
+    this.root.shogiground.setShapes(
       makeShapesFromUci(this.root.turnColor(), this.root.node.children[0].uci!, 'green'));
   }
 

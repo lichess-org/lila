@@ -13,7 +13,7 @@ private object Chess960 {
         }
 
       rankMatches {
-        case Some(Piece(White, King | Queen | Rook | Knight | Bishop)) => true
+        case Some(Piece(White, King | Rook | Knight | Bishop)) => true
         case _                                                         => false
       }(1) &&
       rankMatches {
@@ -26,7 +26,7 @@ private object Chess960 {
         case _                        => false
       }(7) &&
       rankMatches {
-        case Some(Piece(Black, King | Queen | Rook | Knight | Bishop)) => true
+        case Some(Piece(Black, King | Rook | Knight | Bishop)) => true
         case _                                                         => false
       }(8)
     }

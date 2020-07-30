@@ -16,9 +16,9 @@
   },
   "dependencies": {
     "chess.js": "github:ornicar/chess.js#learn",
-    "chessground": "^4.4",
     "common": "2.0.0",
-    "mithril": "github:ornicar/mithril.js#lila-1"
+    "mithril": "github:ornicar/mithril.js#lila-1",
+    "shogiground": "file:/home/liskadan/lila/ui/shogiground"
   },
   "scripts": {
     "dev": "rollup --config",

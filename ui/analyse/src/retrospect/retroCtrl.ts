@@ -1,4 +1,4 @@
-import { opposite } from 'chessground/util';
+import { opposite } from 'shogiground/util';
 import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
 import { path as treePath } from 'tree';

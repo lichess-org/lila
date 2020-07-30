@@ -1,6 +1,6 @@
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
-import { opposite } from 'chessground/util';
+import { opposite } from 'shogiground/util';
 import { controller as configCtrl } from './explorerConfig';
 import * as xhr from './explorerXhr';
 import { winnerOf, colorOf } from './explorerUtil';
@@ -35,14 +35,14 @@ function tablebaseRelevant(variant: VariantKey, fen: Fen) {
   return pieceCount(fen) - 1 <= tablebasePieces(variant);
 }
 
-export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
+export default function (root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
   const allowed = prop(allow),
-  enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false),
-  loading = prop(true),
-  failing = prop(false),
-  hovering = prop<Hovering | null>(null),
-  movesAway = prop(0),
-  gameMenu = prop<string | null>(null);
+    enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false),
+    loading = prop(true),
+    failing = prop(false),
+    hovering = prop<Hovering | null>(null),
+    movesAway = prop(0),
+    gameMenu = prop<string | null>(null);
 
   if ((location.hash === '#explorer' || location.hash === '#opening') && !root.embed) enabled(true);
 
@@ -53,11 +53,11 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     setNode();
   }
   const data = root.data,
-  withGames = root.synthetic || gameUtil.replayable(data) || !!data.opponent.ai,
-  effectiveVariant = data.game.variant.key === 'fromPosition' ? 'standard' : data.game.variant.key,
-  config = configCtrl(data.game, onConfigClose, root.trans, root.redraw);
+    withGames = root.synthetic || gameUtil.replayable(data) || !!data.opponent.ai,
+    effectiveVariant = data.game.variant.key === 'fromPosition' ? 'standard' : data.game.variant.key,
+    config = configCtrl(data.game, onConfigClose, root.trans, root.redraw);
 
-  const fetch = window.lichess.debounce(function() {
+  const fetch = window.lichess.debounce(function () {
     const fen = root.node.fen;
     const request: JQueryPromise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
       xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :
@@ -131,7 +131,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
       } : null);
       root.setAutoShapes();
     },
-    fetchMasterOpening: (function() {
+    fetchMasterOpening: (function () {
       const masterCache = {};
       return (fen: Fen): JQueryPromise<OpeningData> => {
         if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]).promise() as JQueryPromise<OpeningData>;
