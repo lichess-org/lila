@@ -36,11 +36,44 @@ object appeal2 {
     layout(s"Appeal by ${suspect.user.username}") {
       main(cls := "page-small box box-pad page appeal")(
         renderAppeal(appeal, textForm),
-        postForm(action := routes.Appeal.close(suspect.user.username))(
-          submitButton("Close")
-        )
+        if (appeal.isOpen)
+          frag(
+            postForm(action := routes.Appeal.act(suspect.user.username, "close"))(submitButton("Close")),
+            postForm(action := routes.Appeal.act(suspect.user.username, "mute"))(submitButton("Mute"))
+          )
+        else
+          postForm(action := routes.Appeal.act(suspect.user.username, "open"))(submitButton("Open"))
       )
     }
+
+  def queue(
+      appeals: List[Appeal],
+      counts: lila.report.Room.Counts,
+      streamers: Int,
+      nbAppeals: Int
+  )(implicit ctx: Context) =
+    views.html.report.list.layout("appeal", counts, streamers, appeals.size)(
+      table(cls := "slist slist-pad see")(
+        thead(
+          tr(
+            th("By"),
+            th
+          )
+        ),
+        tbody(
+          appeals.map { appeal =>
+            tr(cls := List("new" -> appeal.isOpen))(
+              td(
+                userIdLink(appeal.id.some)
+              ),
+              td(appeal.msgs.lastOption map { msg =>
+                msg.text
+              })
+            )
+          }
+        )
+      )
+    )
 
   private def layout(title: String)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(

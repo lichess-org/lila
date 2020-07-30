@@ -6,7 +6,7 @@ import lila.api.Context
 import views._
 import lila.report.Suspect
 
-final class Appeal(env: Env) extends LilaController(env) {
+final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
 
   def home =
     Auth { implicit ctx => me =>
@@ -27,6 +27,15 @@ final class Appeal(env: Env) extends LilaController(env) {
             },
           text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home()).flashSuccess
         )
+    }
+
+  def queue =
+    Secure(_.Appeals) { implicit ctx => me =>
+      env.appeal.api.queue zip reportC.getCounts flatMap {
+        case (appeals, counts ~ streamers ~ nbAppeals) =>
+          (env.user.lightUserApi preloadMany appeals.map(_.id)) inject
+            Ok(html.appeal2.queue(appeals, counts, streamers, nbAppeals))
+      }
     }
 
   def show(username: String) =
