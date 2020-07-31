@@ -1,14 +1,15 @@
 package views.html
 
+import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.richText
-import play.api.data.Form
 import lila.appeal.Appeal
-import controllers.routes
+import lila.common.String.html.richText
+import lila.report.Report.Inquiry
 import lila.report.Suspect
 import lila.user.User
+import play.api.data.Form
 import play.api.i18n.Lang
 
 object appeal2 {
@@ -32,35 +33,51 @@ object appeal2 {
       )
     )
 
-  def show(appeal: Appeal, suspect: Suspect, textForm: Form[_])(implicit ctx: Context) =
+  def show(appeal: Appeal, suspect: Suspect, inquiry: Option[Inquiry], textForm: Form[_])(implicit
+      ctx: Context
+  ) =
     layout(s"Appeal by ${suspect.user.username}") {
       main(cls := "page-small box box-pad page appeal")(
-        renderAppeal(appeal, textForm, asMod = true),
+        renderAppeal(appeal, textForm, asMod = true, inquiry = inquiry.map(_.mod).exists(ctx.userId.has)),
         div(cls := "appeal__actions")(
-          if (appeal.isOpen)
-            frag(
-              postForm(action := routes.Appeal.act(suspect.user.username, "close"))(
-                submitButton("Close")(cls := "button button-red button-thin")
-              ),
-              if (appeal.isMuted)
-                postForm(action := routes.Appeal.act(suspect.user.username, "open"))(
-                  submitButton("Un-mute")(cls := "button button-green button-thin")
-                )
-              else
-                postForm(action := routes.Appeal.act(suspect.user.username, "mute"))(
-                  submitButton("Mute")(cls := "button button-red button-thin")
-                )
-            )
-          else
-            postForm(action := routes.Appeal.act(suspect.user.username, "open"))(
-              submitButton("Open")(cls := "button button-green button-thin")
-            )
+          inquiry match {
+            case None =>
+              postForm(action := routes.Mod.spontaneousInquiry(appeal.id))(
+                submitButton(cls := "button")("Handle this appeal")
+              )
+            case Some(Inquiry(mod, _)) if ctx.userId has mod =>
+              frag(
+                postForm(action := routes.Report.inquiry(appeal.id))(
+                  submitButton(cls := "button button-metal button-thin")("Release this appeal")
+                ),
+                if (appeal.isOpen)
+                  frag(
+                    postForm(action := routes.Appeal.act(suspect.user.username, "close"))(
+                      submitButton("Close")(cls := "button button-red button-thin")
+                    ),
+                    if (appeal.isMuted)
+                      postForm(action := routes.Appeal.act(suspect.user.username, "open"))(
+                        submitButton("Un-mute")(cls := "button button-green button-thin")
+                      )
+                    else
+                      postForm(action := routes.Appeal.act(suspect.user.username, "mute"))(
+                        submitButton("Mute")(cls := "button button-red button-thin")
+                      )
+                  )
+                else
+                  postForm(action := routes.Appeal.act(suspect.user.username, "open"))(
+                    submitButton("Open")(cls := "button button-green button-thin")
+                  )
+              )
+            case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), " is handling this.")
+          }
         )
       )
     }
 
   def queue(
       appeals: List[Appeal],
+      inquiries: Map[User.ID, Inquiry],
       counts: lila.report.Room.Counts,
       streamers: Int,
       nbAppeals: Int
@@ -70,6 +87,7 @@ object appeal2 {
         thead(
           tr(
             th("By"),
+            th("Last message"),
             th
           )
         ),
@@ -81,7 +99,13 @@ object appeal2 {
               ),
               td(appeal.msgs.lastOption map { msg =>
                 msg.text
-              })
+              }),
+              td(
+                a(href := routes.Appeal.show(appeal.id), cls := "button button-metal")("View"),
+                inquiries.get(appeal.id) map { i =>
+                  frag(userIdLink(i.mod.some), " is handling this")
+                }
+              )
             )
           }
         )
@@ -97,7 +121,9 @@ object appeal2 {
       title = title
     )(body)
 
-  private def renderAppeal(appeal: Appeal, textForm: Form[_], asMod: Boolean)(implicit ctx: Context) =
+  private def renderAppeal(appeal: Appeal, textForm: Form[_], asMod: Boolean, inquiry: Boolean = false)(
+      implicit ctx: Context
+  ) =
     frag(
       h1(
         if (appeal.isOpen) "Ongoing appeal" else "Closed appeal",
@@ -106,7 +132,7 @@ object appeal2 {
       standardFlash(),
       !asMod option renderHelp,
       div(cls := "body")(
-        renderStatus(appeal),
+        !asMod option renderStatus(appeal),
         appeal.msgs.map { msg =>
           div(cls := s"appeal__msg appeal__msg--${if (appeal isByMod msg) "mod" else "suspect"}")(
             div(cls := "appeal__msg__header")(
@@ -116,7 +142,7 @@ object appeal2 {
             div(cls := "appeal__msg__text")(richText(msg.text))
           )
         },
-        appeal.isOpen option renderForm(
+        (asMod == inquiry) && appeal.isOpen option renderForm(
           textForm,
           action =
             if (asMod) routes.Appeal.reply(appeal.id).url

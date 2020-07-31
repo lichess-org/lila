@@ -1,10 +1,10 @@
 package controllers
 
-import play.api.mvc.Result
-import lila.app._
 import lila.api.Context
-import views._
+import lila.app._
 import lila.report.Suspect
+import play.api.mvc.Result
+import views._
 
 final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
 
@@ -31,17 +31,19 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
 
   def queue =
     Secure(_.Appeals) { implicit ctx => me =>
-      env.appeal.api.queue zip reportC.getCounts flatMap {
-        case (appeals, counts ~ streamers ~ nbAppeals) =>
+      env.appeal.api.queue zip env.report.api.inquiries.allBySuspect zip reportC.getCounts flatMap {
+        case ((appeals, inquiries), counts ~ streamers ~ nbAppeals) =>
           (env.user.lightUserApi preloadMany appeals.map(_.id)) inject
-            Ok(html.appeal2.queue(appeals, counts, streamers, nbAppeals))
+            Ok(html.appeal2.queue(appeals, inquiries, counts, streamers, nbAppeals))
       }
     }
 
   def show(username: String) =
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
-        Ok(html.appeal2.show(appeal, suspect, env.appeal.forms.text)).fuccess
+        env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
+          Ok(html.appeal2.show(appeal, suspect, inquiry, env.appeal.forms.text))
+        }
       }
     }
 
@@ -52,7 +54,10 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
         env.appeal.forms.text
           .bindFromRequest()
           .fold(
-            err => BadRequest(html.appeal2.show(appeal, suspect, err)).fuccess,
+            err =>
+              env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
+                BadRequest(html.appeal2.show(appeal, suspect, inquiry, err))
+              },
             text =>
               for {
                 _ <- env.appeal.api.reply(text, appeal, me)
