@@ -68,8 +68,8 @@ Supported browsers
 
 | Name              | Version | Notes |
 | ----------------- | ------- | ----- |
-| Chromium / Chrome | last 10 | Full support, fastest local analysis |
-| Firefox           | 55+     | Full support, second fastest local analysis |
+| Chromium / Chrome | last 10 | Full support |
+| Firefox           | 55+     | Full support (fastest local analysis since FF 79) |
 | Safari            | 10.1+   | Reasonable support |
 | Opera             | 55+     | Reasonable support |
 | Edge              | 17+     | Reasonable support |
