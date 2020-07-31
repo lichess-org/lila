@@ -17,7 +17,7 @@ object appeal2 {
     layout("Appeal") {
       main(cls := "page-small box box-pad page appeal")(
         appeal match {
-          case Some(a) => renderAppeal(a, textForm)
+          case Some(a) => renderAppeal(a, textForm, asMod = false)
           case None    => newAppeal(textForm)
         }
       )
@@ -28,21 +28,34 @@ object appeal2 {
       h1("Appeal a moderation decision"),
       renderHelp,
       div(cls := "body")(
-        renderForm(textForm, isNew = true)
+        renderForm(textForm, action = routes.Appeal.post().url, isNew = true)
       )
     )
 
   def show(appeal: Appeal, suspect: Suspect, textForm: Form[_])(implicit ctx: Context) =
     layout(s"Appeal by ${suspect.user.username}") {
       main(cls := "page-small box box-pad page appeal")(
-        renderAppeal(appeal, textForm),
-        if (appeal.isOpen)
-          frag(
-            postForm(action := routes.Appeal.act(suspect.user.username, "close"))(submitButton("Close")),
-            postForm(action := routes.Appeal.act(suspect.user.username, "mute"))(submitButton("Mute"))
-          )
-        else
-          postForm(action := routes.Appeal.act(suspect.user.username, "open"))(submitButton("Open"))
+        renderAppeal(appeal, textForm, asMod = true),
+        div(cls := "appeal__actions")(
+          if (appeal.isOpen)
+            frag(
+              postForm(action := routes.Appeal.act(suspect.user.username, "close"))(
+                submitButton("Close")(cls := "button button-red button-thin")
+              ),
+              if (appeal.isMuted)
+                postForm(action := routes.Appeal.act(suspect.user.username, "open"))(
+                  submitButton("Un-mute")(cls := "button button-green button-thin")
+                )
+              else
+                postForm(action := routes.Appeal.act(suspect.user.username, "mute"))(
+                  submitButton("Mute")(cls := "button button-red button-thin")
+                )
+            )
+          else
+            postForm(action := routes.Appeal.act(suspect.user.username, "open"))(
+              submitButton("Open")(cls := "button button-green button-thin")
+            )
+        )
       )
     }
 
@@ -84,15 +97,18 @@ object appeal2 {
       title = title
     )(body)
 
-  private def renderAppeal(appeal: Appeal, textForm: Form[_])(implicit ctx: Context) =
+  private def renderAppeal(appeal: Appeal, textForm: Form[_], asMod: Boolean)(implicit ctx: Context) =
     frag(
-      h1(if (appeal.isOpen) "Ongoing appeal" else "Closed appeal"),
+      h1(
+        if (appeal.isOpen) "Ongoing appeal" else "Closed appeal",
+        asMod option frag(" : ", userIdLink(appeal.id.some))
+      ),
       standardFlash(),
-      renderHelp,
+      !asMod option renderHelp,
       div(cls := "body")(
         renderStatus(appeal),
         appeal.msgs.map { msg =>
-          div(cls := "appeal__msg")(
+          div(cls := s"appeal__msg appeal__msg--${if (appeal isByMod msg) "mod" else "suspect"}")(
             div(cls := "appeal__msg__header")(
               renderUser(appeal, msg.by),
               momentFromNowOnce(msg.at)
@@ -100,7 +116,13 @@ object appeal2 {
             div(cls := "appeal__msg__text")(richText(msg.text))
           )
         },
-        renderForm(textForm, isNew = false)
+        appeal.isOpen option renderForm(
+          textForm,
+          action =
+            if (asMod) routes.Appeal.reply(appeal.id).url
+            else routes.Appeal.post().url,
+          isNew = false
+        )
       )
     )
 
@@ -138,8 +160,8 @@ object appeal2 {
   private def renderUser(appeal: Appeal, userId: User.ID)(implicit lang: Lang) =
     userIdLink((if (appeal isAbout userId) userId else User.lichessId).some)
 
-  private def renderForm(form: Form[_], isNew: Boolean)(implicit ctx: Context) =
-    postForm(action := routes.Appeal.post())(
+  private def renderForm(form: Form[_], action: String, isNew: Boolean)(implicit ctx: Context) =
+    postForm(st.action := action)(
       form3.globalError(form),
       form3.group(form("text"), if (isNew) "Create an appeal" else "Add something to the appeal")(
         form3.textarea(_)(rows := 6)

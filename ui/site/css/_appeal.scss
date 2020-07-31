@@ -20,9 +20,8 @@
   }
 
   &__msg {
-    padding: 1em 1.5em;
+    padding: 1.5em;
     margin-bottom: 2em;
-    border-left: 10px solid $c-bg-zebra;
 
     &__header {
       @extend %flex-between;
@@ -30,6 +29,23 @@
       margin-bottom: 2em;
     }
 
-    &__ text {}
+    &--mod {
+      background: $c-bg-zebra;
+    }
+
+    &--suspect {
+      border-right: 10px solid $c-bg-zebra;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    padding-top: 2em;
+    border-top: $border;
+    margin-top: 2em;
+
+    .button {
+      margin-right: 1em;
+    }
   }
 }
