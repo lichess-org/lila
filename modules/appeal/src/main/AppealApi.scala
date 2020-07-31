@@ -14,6 +14,8 @@ final class AppealApi(
 
   def get(user: User) = coll.byId[Appeal](user.id)
 
+  def exists(user: User) = coll.exists($id(user.id))
+
   def post(text: String, me: User) =
     mine(me) flatMap {
       case None =>
