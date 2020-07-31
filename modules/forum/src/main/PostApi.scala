@@ -64,7 +64,7 @@ final class PostApi(
                     else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
                   }
                 } >>- {
-                (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
+                (ctx.userId ifFalse post.troll ifFalse categ.quiet ifFalse topic.isTooBig) ?? { userId =>
                   timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).pipe {
                     _ toFollowersOf userId toUsers topicUserIds exceptUser userId
                   }

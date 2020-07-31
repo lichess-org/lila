@@ -38,16 +38,18 @@ case class Topic(
   def open          = !closed
   def visibleOnHome = !hidden
 
+  def isTooBig = nbPosts > 100
+
   def isSticky = ~sticky
 
   def withPost(post: Post): Topic =
     copy(
       nbPosts = if (post.troll) nbPosts else nbPosts + 1,
       lastPostId = if (post.troll) lastPostId else post.id,
-      updatedAt = if (post.troll) updatedAt else post.createdAt,
+      updatedAt = if (isTooBig || post.troll) updatedAt else post.createdAt,
       nbPostsTroll = nbPostsTroll + 1,
       lastPostIdTroll = post.id,
-      updatedAtTroll = post.createdAt
+      updatedAtTroll = if (isTooBig) updatedAt else post.createdAt
     )
 
   def incNbPosts = copy(nbPosts = nbPosts + 1)
