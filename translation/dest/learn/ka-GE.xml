@@ -156,4 +156,58 @@
   <string name="stalemate">პატი</string>
   <string name="theGameIsADraw">თამაში ფრედ დასრულდა</string>
   <string name="stalemateIntro">როცა მოთამაშეს ქიში არ აქვს გამოცხადებული და ლეგალური სვლა არ გააჩნია, პატი ხდება. თამაში ფრეა, არც იგებ, არც აგებ.</string>
+  <string name="stalemateGoal">პატისთვის:
+- არ უნდა შეეძლოს სვლის გაკეთება
+- არ უნდა ქონდეს ქიში.</string>
+  <string name="stalemateComplete">გილოცავ! წაგებას პატი ჯობია!</string>
+  <string name="advanced">გაფართოებული</string>
+  <string name="pieceValue">ფიგურის ღირებულება</string>
+  <string name="evaluatePieceStrength">გამოთვალე ფიგურის სიძლიერე</string>
+  <string name="pieceValueIntro">რაც უკეთ გადაადგილდება, მეტი ფასი აქვს!
+დედოფალი = 9
+ეტლი = 5
+კუ = 3
+მხედარი = 3
+პაიკი = 1
+მეფე ყველაფერს ნიშნავს, დაკარგავ - წააგებ.</string>
+  <string name="queenOverBishop">აიყვანე ყველაზე
+ძლიერი ფიგურა
+დედოფალი &gt; კუ</string>
+  <string name="takeThePieceWithTheHighestValue">აიყვანე ყველაზე ძლიერი ფიგურა!</string>
+  <string name="pieceValueComplete">გილოცავ! უკვე იცი რომ
+დედოფალი = 9
+ეტლი = 5
+კუ = 3
+მხედარი = 3
+პაიკი = 1</string>
+  <string name="checkInTwo">ქიში ორ სვლაში</string>
+  <string name="twoMovesToGiveCheck">ორი სვლა ქიშისთვის</string>
+  <string name="checkInTwoIntro">იპოვე ორსვლიანი კომბინაცია ქიშისთვის!</string>
+  <string name="checkInTwoGoal">დაემუქრე მოწინააღმდეგის მეფეს
+ორ სვლაში!</string>
+  <string name="checkInTwoComplete">გილოცავ! ქიში უთხარი, და აიძულე დაეცვათ მეფე!</string>
+  <string name="whatNext">შემდეგ?</string>
+  <string name="youKnowHowToPlayChess">გილოცავ, თამაში იცი! გინდა უფრო ძლიერი მოთამაშე იყო?</string>
+  <string name="register">დარეგისტრირდი</string>
+  <string name="getAFreeLichessAccount">მიიღე უფასო lichess პროფილი</string>
+  <string name="practice">პრაქტიკა</string>
+  <string name="learnCommonChessPositions">ისწავლე ცნობილი პოზიციები</string>
+  <string name="puzzles">თავსატეხები</string>
+  <string name="exerciseYourTacticalSkills">ივარჯიშე ტაქტიკურ სიძლიერეზე</string>
+  <string name="videos">ვიდეოები</string>
+  <string name="watchInstructiveChessVideos">უყურე ინსტრუქციულ ჭადრაკის ვიდეოებს</string>
+  <string name="playPeople">ეთამაშე სხვებს</string>
+  <string name="opponentsFromAroundTheWorld">მოწინააღმდეგეები მსოფლიოს ყველა წერტილიდან</string>
+  <string name="playMachine">ეთამაშე კომპიუტერს</string>
+  <string name="testYourSkillsWithTheComputer">გამოცადე ძალები კომპიუტერთან</string>
+  <string name="letsGo">დავიწყოთ!</string>
+  <string name="stageX">ეტაპი %s</string>
+  <string name="awesome">კარგია!</string>
+  <string name="excellent">გადასარევია!</string>
+  <string name="greatJob">შესანიშნავია!</string>
+  <string name="perfect">იდეალურია!</string>
+  <string name="outstanding">ძალიან კარგია!</string>
+  <string name="wayToGo">ეგრე, ეგრე!</string>
+  <string name="yesYesYes">კი, კი, კი!</string>
+  <string name="youreGoodAtThis">კარგი ხარ!</string>
 </resources>
