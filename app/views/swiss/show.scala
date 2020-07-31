@@ -23,7 +23,7 @@ object show {
     views.html.base.layout(
       title = s"${s.name} #${s.id}",
       moreJs = frag(
-        jsAt(s"compiled/lichess.swiss${isProd ?? ".min"}.js"),
+        jsModule("swiss"),
         hasScheduleInput option flatpickrTag,
         embedJsUnsafe(s"""LichessSwiss.start(${safeJsonValue(
           Json

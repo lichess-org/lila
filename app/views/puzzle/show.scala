@@ -17,7 +17,7 @@ object show {
       moreCss = cssTag("puzzle"),
       moreJs = frag(
         jsTag("vendor/sparkline.min.js"),
-        jsAt(s"compiled/lichess.puzzle${isProd ?? ".min"}.js"),
+        jsModule("puzzle"),
         embedJsUnsafe(s"""
 lichess = lichess || {};
 lichess.puzzle = ${safeJsonValue(

@@ -39,7 +39,7 @@ object show {
           v    <- socketVersion
           chat <- chatOption
         } yield frag(
-          jsAt(s"compiled/lichess.chat${isProd ?? ".min"}.js"),
+          jsModule("chat"),
           embedJsUnsafe(s"""lichess.team=${safeJsonValue(
             Json.obj(
               "id"            -> t.id,

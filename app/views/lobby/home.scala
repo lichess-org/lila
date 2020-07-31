@@ -21,7 +21,7 @@ object home {
         s"lichess.${if (isProd && !isStage) "org" else "dev"} • ${trans.freeOnlineChess.txt()}"
       },
       moreJs = frag(
-        jsAt(s"compiled/lichess.lobby${isProd ?? ".min"}.js", defer = true),
+        jsModule("lobby", defer = true),
         embedJsUnsafe(
           s"""lichess=window.lichess||{};customWS=true;lichess_lobby=${safeJsonValue(
             Json.obj(

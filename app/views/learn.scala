@@ -17,7 +17,7 @@ object index {
     views.html.base.layout(
       title = s"${learnChess.txt()} - ${byPlaying.txt()}",
       moreJs = frag(
-        jsAt(s"compiled/lichess.learn${isProd ?? ".min"}.js"),
+        jsModule("learn"),
         embedJsUnsafe(s"""$$(function() {
 LichessLearn(document.getElementById('learn-app'), ${safeJsonValue(
           Json.obj(

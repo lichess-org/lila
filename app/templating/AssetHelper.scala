@@ -12,7 +12,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def isProd: Boolean
   def isStage: Boolean
 
-  def minified = isProd || isStage
+  def minifiedAssets = isProd || isStage
 
   def netDomain: lila.common.config.NetDomain
   lazy val assetDomain    = env.net.assetDomain
@@ -36,10 +36,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     cssTagWithTheme(name, ctx.currentBg)
 
   def cssTagWithTheme(name: String, theme: String): Frag =
-    cssAt(s"css/$name.$theme.${if (minified) "min" else "dev"}.css")
+    cssAt(s"css/$name.$theme.${if (minifiedAssets) "min" else "dev"}.css")
 
   def cssTagNoTheme(name: String): Frag =
-    cssAt(s"css/$name.${if (minified) "min" else "dev"}.css")
+    cssAt(s"css/$name.${if (minifiedAssets) "min" else "dev"}.css")
 
   private def cssAt(path: String): Frag =
     link(href := assetUrl(path), tpe := "text/css", rel := "stylesheet")
@@ -56,16 +56,19 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       src := assetUrl(path)
     )
 
+  def jsModule(name: String, defer: Boolean = false): Frag =
+    jsAt(s"compiled/lichess.$name${minifiedAssets ?? ".min"}.js", defer = defer)
+
   lazy val jQueryTag = raw {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  def roundTag = jsAt(s"compiled/lichess.round${minified ?? ".min"}.js", defer = true)
+  def roundTag = jsAt(s"compiled/lichess.round${minifiedAssets ?? ".min"}.js", defer = true)
   def roundNvuiTag(implicit ctx: Context) =
     ctx.blind option
       jsAt(s"compiled/lichess.round.nvui.min.js", defer = true)
 
-  def analyseTag = jsAt(s"compiled/lichess.analyse${minified ?? ".min"}.js")
+  def analyseTag = jsAt(s"compiled/lichess.analyse${minifiedAssets ?? ".min"}.js")
   def analyseNvuiTag(implicit ctx: Context) =
     ctx.blind option
       jsAt(s"compiled/lichess.analyse.nvui.min.js")

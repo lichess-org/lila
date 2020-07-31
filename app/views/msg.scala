@@ -13,7 +13,7 @@ object msg {
     views.html.base.layout(
       moreCss = frag(cssTag("msg")),
       moreJs = frag(
-        jsAt(s"compiled/lichess.msg${isProd ?? ".min"}.js"),
+        jsModule("msg"),
         embedJsUnsafe(
           s"""$$(() =>LichessMsg(document.querySelector('.msg-app'), ${safeJsonValue(
             Json.obj(
