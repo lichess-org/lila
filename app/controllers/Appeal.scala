@@ -67,8 +67,8 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
       asMod(username) { (appeal, suspect) =>
         val res = action match {
           case "close" => env.appeal.api.close(appeal)
-          case "mute"  => env.appeal.api.mute(appeal)
           case "open"  => env.appeal.api.open(appeal)
+          case "mute"  => env.appeal.api.mute(appeal)
           case _       => funit
         }
         res inject Redirect(routes.Appeal.show(username)).flashSuccess

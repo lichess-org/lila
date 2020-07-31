@@ -503,7 +503,7 @@ final class ReportApi(
         name = "report.inquiries"
       )
 
-    def all: Fu[List[Report]] = coll.list[Report]($doc("inquiry.mod" $exists true))
+    // def all: Fu[List[Report]] = coll.list[Report]($doc("inquiry.mod" $exists true))
 
     def ofModId(modId: User.ID): Fu[Option[Report]] = coll.one[Report]($doc("inquiry.mod" -> modId))
 
