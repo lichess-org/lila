@@ -59,8 +59,8 @@
     <item quantity="other">Morre pjesë në %s kampjonate</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">U rendit i %1$s (top %2$s%) me %3$s lojë në %4$s</item>
-    <item quantity="other">U rendit i %1$s (top %2$s%) me %3$s lojë në %4$s</item>
+    <item quantity="one">U rendit i %1$s (top %2$s%%) me %3$s lojë në %4$s</item>
+    <item quantity="other">U rendit i %1$s (top %2$s%%) me %3$s lojë në %4$s</item>
   </plurals>
   <string name="signedUp">U regjistrua në lichess.org</string>
   <plurals name="joinedNbTeams">
