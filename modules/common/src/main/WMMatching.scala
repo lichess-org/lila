@@ -32,13 +32,13 @@ object WMMatching {
       }
     }
 
-  private def lowLevel(nvertex: Int, pairScore: (Int, Int) => Option[Int]): List[(Int, Int)] = {
+  private[this] def lowLevel(nvertex: Int, pairScore: (Int, Int) => Option[Int]): List[(Int, Int)] = {
     val (endpoint, weights) = fullGraph(nvertex, pairScore)
     if (endpoint.isEmpty) Nil
     else minWeightMatching(endpoint, weights)
   }
 
-  private def maxWeightMatching(
+  private[common] def maxWeightMatching(
       endpoint: Array[Int],
       weights: Array[Int],
       maxcardinality: Boolean
@@ -53,8 +53,7 @@ object WMMatching {
     one edge between any two vertices; no vertex has an edge to itself.
     Vertices are identified by consecutive, non-negative integers.
 
-    Return a list "mate", such that mate(i) == j if vertex i is
-    matched to vertex j, and mate(i) == -1 if vertex i is not matched.
+    Return a list of tuples (i, j) if vertex i is matched to vertex j.
 
     This function takes time O(n ** 3).
 
@@ -69,20 +68,115 @@ object WMMatching {
     the paper by Galil; read the paper before reading this code.
 
      */
-    val nedge   = weights.length
-    val nvertex = 1 + endpoint.max
-    // Find the maximum edge weight.
+    mateToList(endpoint, new Impl(endpoint, weights, maxcardinality).result)
+  }
+
+  private[this] def minWeightMatching(endpoint: Array[Int], weights: Array[Int]): List[(Int, Int)] = {
     val maxweight = weights.max
+    maxWeightMatching(endpoint, weights.map { maxweight - _ }, true)
+  }
+
+  private[this] def mateToList(endpoint: Array[Int], mate: Array[Int]): List[(Int, Int)] = {
+    // Transform mate such that mate(v) is the vertex to which v is paired.
+    var l: List[(Int, Int)] = Nil
+    for (v <- Range(mate.size - 2, -1, -1)) {
+      val k = mate(v)
+      if (k >= 0) {
+        val e = endpoint(k)
+        if (v < e) l ::= ((v, e))
+      }
+    }
+    l
+  }
+
+  private[this] def fullGraph(
+      nvertex: Int,
+      pairScore: (Int, Int) => Option[Int]
+  ): (Array[Int], Array[Int]) = {
+    val m = nvertex * (nvertex - 1)
+    val e = Array.newBuilder[Int]
+    e.sizeHint(m)
+    val w = Array.newBuilder[Int]
+    w.sizeHint(m >> 1)
+    for {
+      i <- 0 until (nvertex - 1)
+      j <- (i + 1) until nvertex
+      p <- pairScore(i, j)
+    } {
+      e += i
+      e += j
+      w += p
+    }
+    (e.result(), w.result())
+  }
+
+  private class BlossomIdAllocator(n: Int) {
+    import scala.collection.immutable.SortedSet
+    private[this] var usedIds = SortedSet.empty[Int]
+    private[this] var freeIds = SortedSet.empty[Int]
+    private[this] var top     = n
+    def allocateId(): Int = {
+      val i = if (freeIds.isEmpty) {
+        top += 1
+        top
+      } else {
+        val k = freeIds.head
+        freeIds = freeIds.tail
+        k
+      }
+      usedIds += i
+      i
+    }
+    def freeId(i: Int): Int = {
+      freeIds += i
+      usedIds -= i
+      usedIds.lastOption.getOrElse(n) + 1
+    }
+  }
+  private class DuelDelta {
+    var delta = Int.MaxValue
+    var extra = -1
+    private[WMMatching] def update(d: Int, e: Int): Unit = {
+      if (delta > d) {
+        delta = d
+        extra = e
+      }
+    }
+  }
+  private class DuelTypedDelta {
+    var delta = Int.MaxValue
+    var extra = -1
+    var tp    = -1
+    def update(d: Int, t: Int, e: Int): Unit = {
+      if (delta > d) {
+        delta = d
+        tp = t
+        extra = e
+      }
+    }
+    def update(dd: DuelDelta, t: Int): Unit = {
+      update(dd.delta, t, dd.extra)
+    }
+  }
+  private object Impl {
+    private def rotate(src: Array[Int], dst: Array[Int], n: Int, shift: Int): Unit = {
+      Array.copy(src, shift, dst, 0, n - shift)
+      Array.copy(src, 0, dst, n - shift, shift)
+    }
+  }
+  private class Impl(endpoint: Array[Int], weights: Array[Int], maxcardinality: Boolean) {
+    type Label = Byte
+    private[this] val nvertex = 1 + endpoint.max
     //If v is a vertex,
     //neighbend(v) is the list of remote endpoints of the edges attached to v.
-    val neighbend: Array[List[Int]] = Array.fill(nvertex)(Nil)
+    private[this] val neighbend: Array[List[Int]] = Array.fill(nvertex)(Nil)
     endpoint.zipWithIndex.reverseIterator.foreach { p => neighbend(p._1) ::= p._2 ^ 1 }
 
     // If v is a vertex,
     // mate(v) is the remote endpoint of its matched edge, or -1 if it is single
     // (i.e. endpoint(mate(v)) is v's partner vertex).
     // Initially all vertices are single; updated during augmentation.
-    val mate: Array[Int] = Array.fill(nvertex)(-1)
+    private[this] val mate: Array[Int] = Array.fill(nvertex)(-1)
 
     /*
     If b is a top-level blossom,
@@ -95,7 +189,7 @@ object WMMatching {
     label(v) is 2 iff v is reachable from an S-vertex outside the blossom.
     Labels are assigned during a stage and reset after each augmentation.
      */
-    val label: Array[Byte] = new Array[Byte](2 * nvertex)
+    private[this] val label = Array.ofDim[Label](2 * nvertex)
     /*
     If b is a labeled top-level blossom,
     labelend(b) is the remote endpoint of the edge through which b obtained
@@ -104,7 +198,7 @@ object WMMatching {
     labelend(v) is the remote endpoint of the edge through which v is
     reachable from outside the blossom.
      */
-    val labelend: Array[Int] = Array.fill(2 * nvertex)(-1)
+    private[this] val labelend = Array.fill[Int](2 * nvertex)(-1)
 
     /*
     If v is a vertex, inblossom(v) is the top-level blossom to which v belongs.
@@ -112,24 +206,24 @@ object WMMatching {
     and inblossom(v) == v.
     Initially all vertices are top-level trivial blossoms.
      */
-    val inblossom: Array[Int] = Array.range(0, nvertex)
+    private[this] val inblossom = Array.range(0, nvertex)
 
     /*
     If b is a sub-blossom,
     blossomparent(b) is its immediate parent (sub-)blossom.
     If b is a top-level blossom, blossomparent(b) is -1.
      */
-    val blossomparent: Array[Int] = Array.fill(2 * nvertex)(-1)
+    private[this] val blossomparent = Array.fill[Int](2 * nvertex)(-1)
     /*
     If b is a non-trivial (sub-)blossom,
     blossomchilds(b) is an ordered list of its sub-blossoms, starting with
     the base and going round the blossom.
      */
-    val blossomchilds: Array[Array[Int]] = new Array(2 * nvertex)
+    private[this] val blossomchilds = Array.ofDim[Array[Int]](2 * nvertex)
 
     // If b is a (sub-)blossom,
     // blossombase(b) is its base VERTEX (i.e. recursive sub-blossom).
-    val blossombase: Array[Int] = Array.tabulate(2 * nvertex) { i: Int => if (i < nvertex) i else -1 }
+    private[this] val blossombase = Array.tabulate[Int](2 * nvertex) { i => if (i < nvertex) i else -1 }
 
     /*
     If b is a non-trivial (sub-)blossom,
@@ -137,7 +231,7 @@ object WMMatching {
     such that blossomendps(b)(i) is the local endpoint of blossomchilds(b)(i)
     on the edge that connects it to blossomchilds(b)(wrap(i+1)).
      */
-    val blossomendps: Array[Array[Int]] = new Array(2 * nvertex)
+    private[this] val blossomendps = Array.ofDim[Array[Int]](2 * nvertex)
 
     /*
     If v is a free vertex (or an unreached vertex inside a T-blossom),
@@ -148,17 +242,13 @@ object WMMatching {
     or -1 if there is no such edge.
     This is used for efficient computation of delta2 and delta3.
      */
-    val bestedge: Array[Int] = Array.fill(2 * nvertex)(-1)
+    private[this] val bestedge = Array.fill(2 * nvertex)(-1)
 
     // If b is a non-trivial top-level S-blossom,
     // blossombestedges(b) is a list of least-slack edges to neighbouring
     // S-blossoms, or None if no such list has been computed yet.
     // This is used for efficient computation of delta3.
-    val blossombestedges: Array[List[Int]] = new Array(2 * nvertex)
-
-    // List of currently unused blossom numbers.
-    var unusedblossoms  = List.range(nvertex, 2 * nvertex)
-    var allocatedvertex = nvertex
+    private[this] val blossombestedges = Array.ofDim[Array[Int]](2 * nvertex)
 
     // If v is a vertex,
     // dualvar(v) = 2 * u(v) where u(v) is the v's variable in the dual
@@ -167,32 +257,33 @@ object WMMatching {
     // If b is a non-trivial blossom,
     // dualvar(b) = z(b) where z(b) is b's variable in the dual optimization
     // problem.
-    val dualvar: Array[Int] = Array.tabulate(2 * nvertex) { i: Int => if (i < nvertex) maxweight else 0 }
+    private[this] val dualvar = {
+      // Find the maximum edge weight.
+      val maxweight = weights.max
+      Array.tabulate[Int](2 * nvertex) { i => if (i < nvertex) maxweight else 0 }
+    }
+    //slack function optimization
+    private[this] val dw = weights.map { _ * 2 }
 
     // If allowedge(k) is true, edge k has zero slack in the optimization
     // problem; if allowedge(k) is false, the edge's slack may or may not
     // be zero.
 
-    val allowedge        = new Array[Boolean](nedge)
-    var queue: List[Int] = Nil
-
-    //slack function optimization
-    for (i <- 0 until nedge) weights(i) *= 2
+    private[this] val allowedge        = Array.ofDim[Boolean](weights.length)
+    private[this] var queue: List[Int] = Nil
 
     // Return 2 * slack of edge k (does not work inside blossoms).
-    def slack(k: Int) = {
+    private[this] def slack(k: Int) = {
       val kk = 2 * k
-      dualvar(endpoint(kk)) + dualvar(endpoint(kk + 1)) - weights(k)
+      dualvar(endpoint(kk)) + dualvar(endpoint(kk + 1)) - dw(k)
     }
 
-    def blossomLeavesG(v: Int): Iterator[Int] = {
-      blossomchilds(v).iterator.flatMap { w =>
-        if (w < nvertex) Iterator(w) else blossomLeavesG(w)
-      }
+    private[this] def blossomLeavesG(v: Int): Iterator[Int] = {
+      blossomchilds(v).iterator.flatMap(blossomLeaves)
     }
 
     // Generate the leaf vertices of a blossom.
-    def blossomLeaves(b: Int): Iterator[Int] = {
+    private[this] def blossomLeaves(b: Int): Iterator[Int] = {
       if (b < nvertex) Iterator(b) else blossomLeavesG(b)
     }
 
@@ -200,7 +291,8 @@ object WMMatching {
     // and record the fact that w was reached through the edge with
     // remote endpoint p.
 
-    @tailrec def assignLabel(w: Int, t: Byte, p: Int): Unit = {
+    @tailrec
+    private[this] def assignLabel(w: Int, t: Label, p: Int): Unit = {
       val b = inblossom(w)
       label(w) = t
       label(b) = t
@@ -212,7 +304,6 @@ object WMMatching {
         //b became an S-vertex/blossom; add it(s vertices) to the queue.
         blossomLeaves(b).foreach(queue ::= _)
       } else {
-        assert(t == 2)
         // b became a T-vertex/blossom; assign label S to its mate.
         // (If b is a non-trivial blossom, its base is the only vertex
         // with an external mate.)
@@ -220,74 +311,80 @@ object WMMatching {
         assignLabel(endpoint(mate_base), 1, mate_base ^ 1)
       }
     }
-    // Trace back from vertices v and w to discover either a new blossom
-    // or an augmenting path. Return the base vertex of the new blossom or -1.
-    def scanBlossom(v: Int, w: Int) = {
-      // Trace back from v and w, placing breadcrumbs as we go.
-      @tailrec def scan(v: Int, w: Int, path: List[Int]): (Int, List[Int]) = {
-        if (v == -1 && w == -1) (-1, path) //not found
+    // Trace back from v and w, placing breadcrumbs as we go.
+    @tailrec
+    private[this] def scan(v: Int, w: Int, path: List[Int]): (Int, List[Int]) = {
+      if (v == -1 && w == -1) (-1, path) //not found
+      else {
+        // Look for a breadcrumb in v's blossom or put a new breadcrumb.
+        val b = inblossom(v)
+        if (label(b) == 3) (blossombase(b), path)
         else {
-          // Look for a breadcrumb in v's blossom or put a new breadcrumb.
-          val b = inblossom(v)
-          if (label(b) == 3) (blossombase(b), path)
-          else {
-            val path2 = b :: path
-            label(b) = 3
-            // Trace one step back.
-            val nv =
-              if (labelend(b) == -1) -1
-              else {
-                val t = endpoint(labelend(b))
-                val c = inblossom(t)
-                // c is a T-blossom; trace one more step back.
-                endpoint(labelend(c))
-              }
-            // Swap v and w so that we alternate between both paths.
-            if (w != -1) scan(w, nv, path2)
-            else scan(nv, w, path2)
-          }
+          label(b) = 3
+          // Trace one step back.
+          val nv =
+            if (labelend(b) == -1) -1
+            else {
+              val t = endpoint(labelend(b))
+              val c = inblossom(t)
+              // c is a T-blossom; trace one more step back.
+              endpoint(labelend(c))
+            }
+          // Swap v and w so that we alternate between both paths.
+          if (w != -1) scan(w, nv, b :: path)
+          else scan(nv, w, b :: path)
         }
       }
+    }
+    // Trace back from vertices v and w to discover either a new blossom
+    // or an augmenting path. Return the base vertex of the new blossom or -1.
+    private[this] def scanBlossom(v: Int, w: Int) = {
       val (base, p) = scan(v, w, Nil)
       // Remove breadcrumbs.
-      p.foreach(b => label(b) = 1)
+      p.foreach(label(_) = 1)
       base
     }
+    private[this] val blossomIdAllocator = new BlossomIdAllocator(nvertex - 1)
+    private[this] var allocatedvertex    = nvertex
     /*
     Construct a new blossom with given base, containing edge k which
     connects a pair of S vertices. Label the new blossom as S; set its dual
     variable to zero; relabel its T-vertices to S and add them to the queue.
      */
-    def addBlossom(base: Int, k: Int) = {
-      val v  = endpoint(2 * k)
-      val w  = endpoint(2 * k + 1)
+    // Make list of sub-blossoms and their interconnecting edge endpoints.
+    @tailrec
+    private[this] def traceBack(
+        b: Int,
+        bb: Int,
+        v: Int,
+        d: Int,
+        path: List[Int],
+        endps: List[Int]
+    ): (List[Int], List[Int]) = {
+      val bv = inblossom(v)
+      if (bv == bb) (path, endps)
+      else {
+        // Add bv to the new blossom.
+        blossomparent(bv) = b
+        // Trace one step back.
+        traceBack(b, bb, endpoint(labelend(bv)), d, bv :: path, (labelend(bv) ^ d) :: endps)
+      }
+    }
+    private[this] def addBlossom(base: Int, l: Int) = {
+      val ll = 2 * l
+      val v  = endpoint(ll)
+      val w  = endpoint(ll + 1)
       val bb = inblossom(base)
       // Create blossom.
-      val b = unusedblossoms.head
-      unusedblossoms = unusedblossoms.tail
-      if (allocatedvertex <= b) {
-        allocatedvertex = b + 1
-      }
-
+      val b = blossomIdAllocator.allocateId()
+      if (allocatedvertex <= b) allocatedvertex = b + 1
       blossombase(b) = base
       blossomparent(b) = -1
       blossomparent(bb) = b
-      // Make list of sub-blossoms and their interconnecting edge endpoints.
-
-      @tailrec def traceBack(v: Int, d: Int, path: List[Int], endps: List[Int]): (List[Int], List[Int]) = {
-        val bv = inblossom(v)
-        if (bv == bb) (path, endps)
-        else {
-          // Add bv to the new blossom.
-          blossomparent(bv) = b
-          // Trace one step back.
-          traceBack(endpoint(labelend(bv)), d, bv :: path, (labelend(bv) ^ d) :: endps)
-        }
-      }
       // Trace back from w to base.
-      val (path2, endps2) = traceBack(w, 1, Nil, Nil)
+      val (path2, endps2) = traceBack(b, bb, w, 1, Nil, Nil)
       // Trace back from v to base.
-      val (path1, endps1) = traceBack(v, 0, path2.reverse, (2 * k) :: (endps2.reverse))
+      val (path1, endps1) = traceBack(b, bb, v, 0, path2.reverse, ll :: (endps2.reverse))
       blossomchilds(b) = (bb :: path1).toArray
       blossomendps(b) = endps1.toArray
 
@@ -311,30 +408,31 @@ object WMMatching {
       for (bv <- blossomchilds(b)) {
         val nblists =
           if (blossombestedges(bv) == null)
-            blossomLeaves(bv).flatMap(v => neighbend(v).view.map { p => p >> 1 })
+            blossomLeaves(bv).flatMap(neighbend(_).view.map { p => p >> 1 })
           else blossombestedges(bv).iterator
         for (k <- nblists) {
           val kk = 2 * k
           val j  = if (inblossom(endpoint(kk + 1)) == b) endpoint(kk) else endpoint(kk + 1)
           val bj = inblossom(j)
-          if (bj != b && label(bj) == 1 && (bestedgeto(bj) == -1 || slack(k) < slack(bestedgeto(bj))))
-            bestedgeto(bj) = k
+          if (bj != b && label(bj) == 1) {
+            val i = bestedgeto(bj)
+            if (i == -1 || slack(k) < slack(i)) {
+              bestedgeto(bj) = k
+            }
+          }
         }
         // Forget about least-slack edges of the subblossom.
         blossombestedges(bv) = null
         bestedge(bv) = -1
       }
-      blossombestedges(b) = bestedgeto.view.filter { k => k != -1 }.toList
+      val a = bestedgeto.filter { _ != -1 }
+      blossombestedges(b) = a
       // Select bestedge(b).
-      bestedge(b) = -1
-      for (k <- blossombestedges(b)) {
-        if (bestedge(b) == -1 || slack(k) < slack(bestedge(b)))
-          bestedge(b) = k
-      }
+      bestedge(b) = if (a.nonEmpty) a.minBy(slack) else -1
     }
 
     // Expand the given top-level blossom.
-    def expandBlossom(b: Int, endstage: Boolean): Unit = {
+    private[this] def expandBlossom(b: Int, endstage: Boolean): Unit = {
       // Convert sub-blossoms into top-level blossoms.
       for (s <- blossomchilds(b)) {
         blossomparent(s) = -1
@@ -344,7 +442,7 @@ object WMMatching {
           //Recursively expand this sub-blossom.
           expandBlossom(s, endstage)
         else
-          blossomLeaves(s).foreach(v => inblossom(v) = s)
+          blossomLeaves(s).foreach(inblossom(_) = s)
       }
       // If we expand a T-blossom during a stage, its sub-blossoms must be
       // relabeled.
@@ -398,7 +496,7 @@ object WMMatching {
             // neighbours; leave it.
           } else {
             blossomLeaves(bv)
-              .find(x => label(x) != 0)
+              .find(label(_) != 0)
               .foreach(v => {
                 label(v) = 0
                 label(endpoint(mate(blossombase(bv)))) = 0
@@ -416,21 +514,14 @@ object WMMatching {
       blossombase(b) = -1
       blossombestedges(b) = null
       bestedge(b) = -1
-      unusedblossoms ::= b
-      if (b + 1 == allocatedvertex) {
-        allocatedvertex -= 1
-      }
+      allocatedvertex = blossomIdAllocator.freeId(b)
     }
 
     // Swap matched/unmatched edges over an alternating path through blossom b
     // between vertex v and the base vertex. Keep blossom bookkeeping consistent.
-    def augmentBlossom(b: Int, v: Int): Unit = {
+    private[this] def augmentBlossom(b: Int, v: Int): Unit = {
       // Bubble up through the blossom tree from vertex v to an immediate
       // isub-blossom of b.
-      def rotate(src: Array[Int], dst: Array[Int], n: Int, shift: Int): Unit = {
-        Array.copy(src, shift, dst, 0, n - shift)
-        Array.copy(src, 0, dst, n - shift, shift)
-      }
       var t = v
       while (blossomparent(t) != b) {
         t = blossomparent(t)
@@ -466,10 +557,10 @@ object WMMatching {
       if (i > 0) {
         val n  = blossomchilds(b).length
         val t1 = new Array[Int](n)
-        rotate(blossomchilds(b), t1, n, i)
+        Impl.rotate(blossomchilds(b), t1, n, i)
         val t2 = blossomchilds(b)
         blossomchilds(b) = t1
-        rotate(blossomendps(b), t2, n, i)
+        Impl.rotate(blossomendps(b), t2, n, i)
         blossomendps(b) = t2
       }
       blossombase(b) = blossombase(blossomchilds(b)(0))
@@ -478,10 +569,7 @@ object WMMatching {
     // Swap matched/unmatched edges over an alternating path between two
     // single vertices. The augmenting path runs through edge k, which
     // connects a pair of S vertices.
-    def augmentMatching(k: Int): Unit = {
-      val kk = 2 * k
-      val v  = endpoint(kk)
-      val w  = endpoint(kk + 1)
+    private[this] def augmentMatching(k: Int): Unit = {
       // Match vertex s to remote endpoint p. Then trace back from s
       // until we find a single vertex, swapping matched and unmatched
       // edges as we go.
@@ -507,14 +595,15 @@ object WMMatching {
           mate(j) = labelend(bt)
           // Keep the opposite endpoint;
           // it will be assigned to mate(s) in the next step.
-          val np = labelend(bt) ^ 1
-          f(ns, np)
+          f(ns, labelend(bt) ^ 1)
         }
       }
-      f(v, 2 * k + 1)
-      f(w, 2 * k)
+      val kk = 2 * k
+      f(endpoint(kk), kk + 1)
+      f(endpoint(kk + 1), kk)
     }
-    @tailrec def substage(): Boolean = {
+    @tailrec
+    private[this] def substage(): Boolean = {
       if (queue.isEmpty) false
       else {
         // Take an S vertex from the queue.
@@ -596,120 +685,130 @@ object WMMatching {
         }
       }
     }
-
-    def updateDual(): Boolean = {
+    private[this] val vertices = 0 until nvertex
+    private[this] def updateDual(): Boolean = {
       // There is no augmenting path under these constraints;
       // compute delta and reduce slack in the optimization problem.
       // (Note that our vertex dual variables, edge slacks and delta's
       // are pre-multiplied by two.)
 
-      var dt_tp: Byte = -1
-      var dt_delta    = Int.MaxValue
-      var dt_extra    = -1
-      def dt_update(t: Byte, d: Int, e: Int) = {
-        if (dt_delta > d) {
-          dt_tp = t
-          dt_delta = d
-          dt_extra = e
-        }
-      }
+      val dt = new DuelTypedDelta()
 
-      // Compute delta1: the minimum value of any vertex dual.
+      // Compute delta0: the minimum value of any vertex dual.
       if (!maxcardinality) {
-        dt_update(1, dualvar.slice(0, nvertex).min, -1)
+        dt.update(dualvar.view.slice(0, nvertex).min, 0, -1)
       }
 
-      // Compute delta2: the minimum slack on any edge between
+      // Compute delta1: the minimum slack on any edge between
       // an S-vertex and a free vertex.
 
-      for (v <- 0 until nvertex) {
-        if (label(inblossom(v)) == 0 && bestedge(v) != -1) {
-          dt_update(2, slack(bestedge(v)), bestedge(v))
+      val dt1 = new DuelDelta()
+      for {
+        v <- vertices
+        if label(inblossom(v)) == 0
+      } {
+        val be = bestedge(v)
+        if (be != -1) {
+          dt1.update(slack(be), be)
         }
       }
+      dt.update(dt1, 1)
 
-      // Compute delta3: half the minimum slack on any edge between
+      val dt2 = new DuelDelta()
+      // Compute delta2: half the minimum slack on any edge between
       // a pair of S-blossoms.
-      for (b <- 0 until allocatedvertex) {
-        if (blossomparent(b) == -1 && label(b) == 1 && bestedge(b) != -1) {
-          val kslack = slack(bestedge(b))
-          dt_update(3, kslack / 2, bestedge(b))
+      for {
+        b <- 0 until allocatedvertex
+        if blossomparent(b) == -1 && label(b) == 1
+      } {
+        val be = bestedge(b)
+        if (be != -1) {
+          dt2.update(slack(be) >> 1, be)
         }
       }
-
-      // Compute delta4: minimum z variable of any T-blossom.
+      dt.update(dt2, 2)
+      val dt3 = new DuelDelta()
+      // Compute delta3: minimum z variable of any T-blossom.
       for (b <- nvertex until allocatedvertex) {
         if (blossombase(b) >= 0 && blossomparent(b) == -1 && label(b) == 2) {
-          dt_update(4, dualvar(b), b)
+          dt3.update(dualvar(b), b)
         }
       }
+      dt.update(dt3, 3)
 
-      if (dt_tp == -1) {
-        // No further improvement possible; max-cardinality optimum
-        // reached. Do a final delta update to make the optimum
-        // verifyable.
-        dt_update(1, 0.max(dualvar.slice(0, nvertex).min), -1)
-      }
+      if (dt.tp == -1) {
+        // No further improvement possible; max-cardinality optimum reached.
+        false
+      } else {
+        // Update dual variables according to delta.
+        for (v <- vertices) {
+          label(inblossom(v)) match {
+            case 0 => ()
+            case 1 => {
+              //S-vertex: 2*u = 2*u - 2*delta
+              dualvar(v) -= dt.delta
+            }
+            case 2 => {
+              //T-vertex: 2*u = 2*u + 2*delta
+              dualvar(v) += dt.delta
+            }
+          }
+        }
 
-      // Update dual variables according to delta.
-      for (v <- 0 until nvertex) {
-        if (label(inblossom(v)) == 1) {
-          // S-vertex: 2*u = 2*u - 2*delta
-          dualvar(v) -= dt_delta
-        } else if (label(inblossom(v)) == 2) {
-          //T-vertex: 2*u = 2*u + 2*delta
-          dualvar(v) += dt_delta
+        for (b <- nvertex until allocatedvertex) {
+          if (blossombase(b) >= 0 && blossomparent(b) == -1) {
+            label(b) match {
+              case 0 => ()
+              case 1 => dualvar(b) += dt.delta
+              case 2 => dualvar(b) -= dt.delta
+            }
+          }
+        }
+
+        // Take action at the point where minimum delta occurred.
+        dt.tp match {
+          case 0 => false
+          case 1 => {
+            // Use the least-slack edge to continue the search.
+            allowedge(dt.extra) = true
+            val kk = 2 * dt.extra
+            val ei = endpoint(kk)
+            queue ::= (if (label(inblossom(ei)) == 0) endpoint(kk + 1) else ei)
+            true
+          }
+          case 2 => {
+            // Use the least-slack edge to continue the search.
+            allowedge(dt.extra) = true
+            queue ::= endpoint(2 * dt.extra)
+            true
+          }
+          case 3 => {
+            expandBlossom(dt.extra, false)
+            true
+          }
         }
       }
-
-      for (b <- nvertex until allocatedvertex) {
-        if (blossombase(b) >= 0 && blossomparent(b) == -1) {
-          if (label(b) == 1)
-            dualvar(b) += dt_delta
-          else if (label(b) == 2)
-            dualvar(b) -= dt_delta
-        }
-      }
-
-      // Take action at the point where minimum delta occurred.
-      if (dt_tp == 1) {
-        // No further improvement possible; optimum reached.
-      } else if (dt_tp == 2) {
-        // Use the least-slack edge to continue the search.
-        allowedge(dt_extra) = true
-        val kk = 2 * dt_extra
-        val ei = endpoint(kk)
-        val i  = if (label(inblossom(ei)) == 0) endpoint(kk + 1) else ei
-        queue ::= i
-      } else if (dt_tp == 3) {
-        // Use the least-slack edge to continue the search.
-        allowedge(dt_extra) = true
-        queue ::= endpoint(2 * dt_extra)
-      } else if (dt_tp == 4) {
-        expandBlossom(dt_extra, false)
-      }
-      dt_tp > 1
+    }
+    @tailrec
+    private[this] def stage(): Boolean = {
+      if (substage()) true
+      else if (!updateDual()) false
+      else stage()
     }
 
     // Main loop: continue until no further improvement is possible.
-    @tailrec def mainLoop(iterations: Int): Unit = {
-      @tailrec def stage(): Boolean = {
-        if (substage()) true
-        else if (!updateDual()) false
-        else stage()
-      }
+    @tailrec
+    private[this] def mainLoop(iterations: Int): Unit = {
       // Each iteration of this loop is a "stage".
       // A stage finds an augmenting path and uses that to improve
       // the matching.
 
       // Remove labels from top-level blossoms/vertices.
-      java.util.Arrays.fill(label, 0, allocatedvertex, 0.toByte)
+      java.util.Arrays.fill(label, 0, allocatedvertex, 0.asInstanceOf[Label])
 
       // Forget all about least-slack edges.
       java.util.Arrays.fill(bestedge, 0, allocatedvertex, -1)
-      for (k <- nvertex until allocatedvertex) {
-        blossombestedges(k) = null
-      }
+      java.util.Arrays.fill(blossombestedges.asInstanceOf[Array[AnyRef]], nvertex, allocatedvertex, null)
       // Loss of labeling means that we can not be sure that currently
       // allowable edges remain allowable throughout this stage.
       java.util.Arrays.fill(allowedge, false)
@@ -718,7 +817,7 @@ object WMMatching {
       queue = Nil
 
       // Label single blossoms/vertices with S and put them in the queue.
-      for (v <- 0 until nvertex) {
+      for (v <- vertices) {
         if (mate(v) == -1 && label(inblossom(v)) == 0)
           assignLabel(v, 1, -1)
       }
@@ -727,34 +826,6 @@ object WMMatching {
       }
     }
     mainLoop(nvertex)
-    // Transform mate such that mate(v) is the vertex to which v is paired.
-    (for (
-      v <- 0 until nvertex
-      if mate(v) >= 0
-      if v < endpoint(mate(v))
-    ) yield (v, endpoint(mate(v)))).toList
-  }
-
-  private def minWeightMatching(endpoint: Array[Int], weights: Array[Int]): List[(Int, Int)] = {
-    val maxweight = weights.max
-    maxWeightMatching(endpoint, weights.map { x => maxweight - x }, true)
-  }
-
-  private def fullGraph(nvertex: Int, pairScore: (Int, Int) => Option[Int]): (Array[Int], Array[Int]) = {
-    val m = nvertex * (nvertex - 1)
-    val e = Array.newBuilder[Int]
-    e.sizeHint(m)
-    val w = Array.newBuilder[Int]
-    e.sizeHint(m >> 1)
-    for {
-      i <- 0 until (nvertex - 1)
-      j <- (i + 1) until nvertex
-      p <- pairScore(i, j)
-    } {
-      e += i
-      e += j
-      w += p
-    }
-    (e.result(), w.result())
+    def result: Array[Int] = mate
   }
 }
