@@ -16,4 +16,22 @@
   <string name="joiningPolicy">დაკავშირების პირობა</string>
   <string name="teamBestPlayers">გუნდის საუკეთესო მოთამაშე</string>
   <string name="teamRecentMembers">გუნდის ბოლო წევრები</string>
+  <string name="kickSomeone">გააგდე მოთამაშე ჯგუფიდან</string>
+  <string name="whoToKick">ვინ გინდა გუნდიდან გააგდო?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s გაწევრიანების მოთხოვნა</item>
+    <item quantity="other">%s გაწევრიანების მოთხოვნა</item>
+  </plurals>
+  <string name="willBeReviewed">შენი გაწევრიანების მოთხოვნას განიხილავს გუნდის ლიდერი.</string>
+  <string name="beingReviewed">შენი გაწევრიანების მოთხოვნას განიხილავს გუნდის ლიდერი.</string>
+  <string name="teamBattle">გუნდური ბრძოლა</string>
+  <string name="teamBattleOverview">რამდენიმე გუნდის ბრძოლა, ყველა თავისი გუნდს მატებს ქულას</string>
+  <string name="teamTournament">გუნდური ტურნირი</string>
+  <string name="teamTournamentOverview">არენა ტურნირი რომელშიც მხოლოდ შენს გუნდს შეუძლია თამაში</string>
+  <string name="messageAllMembers">მიწერე ყველა წევრს</string>
+  <string name="messageAllMembersOverview">გაუგზავნე პირადი გზავნილი გუნდის ყველა წევრს</string>
+  <string name="messageAllMembersLongDescription">გაუგზავნე პირადი გზავნილი გუნდის ყველა წევრს
+შეგიძლია ამით დაუძახო მათ ტურნირში ან გუნდურ ბრძოლაში სათამაშოდ.
+ვისაც არ მოეწონება მესიჯების მიღება შეიძლება დატოვონ გუნდი.</string>
+  <string name="teamsIlead">გუნდები რომლის ლიდერიც ვარ</string>
 </resources>
