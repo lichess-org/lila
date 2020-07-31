@@ -63,13 +63,13 @@
     }
   }
 
-  .native {
+  .wasmx {
     margin-left: 5px;
     text-transform: uppercase;
     color: $c-good;
   }
 
-  .asmjs {
+  .asmjs, .wasm {
     margin-left: 5px;
     text-transform: uppercase;
   }

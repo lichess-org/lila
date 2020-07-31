@@ -20,7 +20,7 @@ function is64Bit(): boolean {
 }
 
 function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
-  // In theory 32 bit should be supported just the same, but some 32 bit
+  // TODO: In theory 32 bit should be supported just the same, but some 32 bit
   // browser builds seem to have trouble with WASMX. So for now detect and
   // require a 64 bit platform.
   if (!is64Bit()) return;
@@ -62,20 +62,19 @@ export default function(opts: CevalOpts): CevalCtrl {
   const source = Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00);
   if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
     technology = 'wasm'; // WebAssembly 1.0
-    if (officialStockfish(opts.variant.key)) {
-      const sharedMem = sharedWasmMemory(8, 16);
-      if (sharedMem) {
-        technology = 'wasmx';
-        if (!defined(window['crossOriginIsolated'])) window['crossOriginIsolated'] = true; // polyfill
-        try {
-          sharedMem.grow(8);
-          growableSharedMem = true;
-        } catch (e) { }
-      }
+    const sharedMem = sharedWasmMemory(8, 16);
+    if (sharedMem) {
+      technology = 'wasmx';
+      if (!defined(window['crossOriginIsolated'])) window['crossOriginIsolated'] = true; // polyfill
+      try {
+        sharedMem.grow(8);
+        growableSharedMem = true;
+      } catch (e) { }
     }
   }
 
-  const maxThreads = Math.min(Math.max((navigator.hardwareConcurrency || 1) - 1, 1), growableSharedMem ? 16 : 2);
+  const initialAllocationMaxThreads = officialStockfish(opts.variant.key) ? 2 : 1;
+  const maxThreads = Math.min(Math.max((navigator.hardwareConcurrency || 1) - 1, 1), growableSharedMem ? 16 : initialAllocationMaxThreads);
   const threads = storedProp(storageKey('ceval.threads'), Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 4), maxThreads));
 
   const maxHashSize = Math.min((navigator.deviceMemory || 0.25) * 1024 / 8, growableSharedMem ? 1024 : 16);

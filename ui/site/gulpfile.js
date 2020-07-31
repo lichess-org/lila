@@ -79,9 +79,8 @@ const stockfishWasm = () => gulp.src([
 
 const stockfishMvWasm = () => gulp.src([
   require.resolve('stockfish-mv.wasm/stockfish.js'),
-  require.resolve('stockfish-mv.wasm/stockfish.js.mem'),
   require.resolve('stockfish-mv.wasm/stockfish.wasm'),
-  require.resolve('stockfish-mv.wasm/pthread-main.js')
+  require.resolve('stockfish-mv.wasm/stockfish.worker.js')
 ]).pipe(gulp.dest('../../public/vendor/stockfish-mv.wasm/'));
 
 const prodSource = () => browserify(browserifyOpts('src/index.ts', false))
