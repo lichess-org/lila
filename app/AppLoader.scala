@@ -50,11 +50,15 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
 
   lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
 
-  override lazy val httpErrorHandler = {
-    @nowarn def someRouter = router.some
-    @nowarn def mapper     = devContext.map(_.sourceMapper)
-    wire[lila.app.http.ErrorHandler]
-  }
+  override lazy val httpErrorHandler =
+    new lila.app.http.ErrorHandler(
+      environment = ctx.environment,
+      config = configuration,
+      sourceMapper = devContext.map(_.sourceMapper),
+      router = router,
+      mainC = main,
+      lobbyC = lobby
+    )
 
   implicit def system = actorSystem
   implicit def ws     = wsClient
