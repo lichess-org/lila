@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">საათობრივი Rapid არენა</string>
+  <string name="hourlyRapid">საათობრივი Rapid</string>
+  <string name="hourlyXArena">საათობრივი %s არენა</string>
+  <string name="hourlyX">საათობრივი %s</string>
+  <string name="dailyRapidArena">დღიური Rapid არენა</string>
+  <string name="dailyRapid">დღიური Rapid</string>
+  <string name="dailyClassicalArena">დღიური კლასიკური არენა</string>
+  <string name="dailyClassical">დღიური კლასიკური</string>
+  <string name="dailyXArena">დღიური %s არენა</string>
+  <string name="dailyX">დღიური %s</string>
+  <string name="easternRapidArena">აღმოსავლური Rapid არენა</string>
+  <string name="easternRapid">აღმოსავლური Rapid</string>
+  <string name="easternClassicalArena">აღმოსავლური კლასიკური არენა</string>
+  <string name="easternClassical">აღმოსავლური კლასიკური</string>
+  <string name="easternXArena">აღმოსავლური %s არენა</string>
+  <string name="easternX">აღმოსავლური %s</string>
+  <string name="weeklyRapidArena">ყოველკვირეული Rapid არენა</string>
+  <string name="weeklyRapid">ყოველკვირეული Rapid</string>
+  <string name="weeklyClassicalArena">ყოველკვირეული კლასიკური არენა</string>
+  <string name="weeklyClassical">ყოველკვირეული კლასიკური</string>
+  <string name="weeklyXArena">ყოველკვირეული %s არენა</string>
+  <string name="weeklyX">ყოველკვირეული %s</string>
+  <string name="monthlyRapidArena">თვიური Rapid არენა</string>
+  <string name="monthlyRapid">თვიური Rapid</string>
+  <string name="monthlyClassicalArena">თვიური კლასიკური არენა</string>
+  <string name="monthlyClassical">თვიური კლასიკური</string>
+</resources>
