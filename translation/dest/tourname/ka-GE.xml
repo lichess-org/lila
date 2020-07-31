@@ -26,4 +26,24 @@
   <string name="monthlyRapid">თვიური Rapid</string>
   <string name="monthlyClassicalArena">თვიური კლასიკური არენა</string>
   <string name="monthlyClassical">თვიური კლასიკური</string>
+  <string name="monthlyXArena">თვიური %s არენა</string>
+  <string name="monthlyX">თვიური %s</string>
+  <string name="yearlyRapidArena">წლიური Rapid არენა</string>
+  <string name="yearlyRapid">წლიური Rapid</string>
+  <string name="yearlyClassicalArena">წლიური კლასიკური არენა</string>
+  <string name="yearlyClassical">წლიური კლასიკური</string>
+  <string name="yearlyXArena">წლიური %s არენა</string>
+  <string name="yearlyX">წლიური %s</string>
+  <string name="rapidShieldArena">Rapid Shield არენა</string>
+  <string name="rapidShield">Rapid Shield</string>
+  <string name="classicalShieldArena">კლასიკური Shield არენა</string>
+  <string name="classicalShield">კლასიკური Shield</string>
+  <string name="xShieldArena">%s Shield არენა</string>
+  <string name="xShield">%s Shield</string>
+  <string name="openingRapidArena">%s Rapid არენა</string>
+  <string name="openingRapid">%s Rapid</string>
+  <string name="xTeamBattle">%s გუნდური ბრძოლა</string>
+  <string name="eliteXArena">ელიტური %s არენა</string>
+  <string name="eliteX">ელიტური %s</string>
+  <string name="xArena">%s არენა</string>
 </resources>
