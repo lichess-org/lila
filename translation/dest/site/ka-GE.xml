@@ -23,16 +23,20 @@
   <string name="blackIsVictorious">შავებმა გაიმარჯვეს</string>
   <string name="youPlayTheWhitePieces">თქვენ თამაშობთ თეთრი ფიგურებით</string>
   <string name="youPlayTheBlackPieces">თქვენ თამაშობთ შავი ფიგურებით</string>
-  <string name="itsYourTurn">თვენი ჯერია!</string>
+  <string name="itsYourTurn">თქვენი ჯერია!</string>
   <string name="kingInTheCenter">მეფე ცენტრში</string>
   <string name="threeChecks">სამი ქიში</string>
-  <string name="raceFinished">რასის დასრულდა</string>
+  <string name="raceFinished">შეჯიბრი დასრულდა</string>
   <string name="variantEnding">ვარიანტის დასასრული</string>
   <string name="newOpponent">ახალი მეტოქე</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">თქვენს მეტოქეს სურს ხელმეორედ თამაში</string>
   <string name="joinTheGame">თამაშში ჩართვა</string>
   <string name="whitePlays">თეთრების სვლაა</string>
   <string name="blackPlays">შავების სვლაა</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">თქვენმა მოწინააღმდეგემ დატოვა თამაში. შეგიძლიათ გამარჯვება მოიპოვოთ %s წამში.</item>
+    <item quantity="other">მოწინააღმდეგემ დატოვა თამაში. თქვენ გაიმარჯვებთ %s წამში.</item>
+  </plurals>
   <string name="opponentLeftChoices">შესაძლოა, მეტოქემ თამაში დატოვა. შეგიძლიათ მოიპოვოთ გამარჯვება, გამოაცხადოთ ფრე, ან დაელოდოთ მეტოქის დაბრუნებას.</string>
   <string name="makeYourOpponentResign">აიძულეთ მეტოქეს დათმოს</string>
   <string name="forceResignation">გამარჯვების მოპოვება</string>
