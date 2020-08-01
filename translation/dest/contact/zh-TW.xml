@@ -32,6 +32,7 @@
   <string name="doNotSendReportEmails">請不要使用電子郵件向我們舉報玩家</string>
   <string name="wantReportBug">我想要提出遊戲bug</string>
   <string name="reportBugInDiscord">在 Lichess 的 Discord 伺服器</string>
+  <string name="illegalPawnCapture">不合規則的移動(吃法)</string>
   <string name="noRatingPoints">不會得到評分</string>
   <string name="errorPage">錯誤頁面</string>
   <string name="banAppeal">懲處上訴</string>
