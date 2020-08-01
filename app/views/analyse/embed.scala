@@ -28,8 +28,8 @@ object embed {
         ),
         body(
           cls := s"highlight ${config.bg} ${config.board}",
-          dataDev := (!isProd).option("true"),
-          dataAssetUrl := assetBaseUrl,
+          dataDev := netConfig.minifiedAssets.option("true"),
+          dataAssetUrl := netConfig.assetBaseUrl,
           dataAssetVersion := assetVersion.value,
           dataTheme := config.bg
         )(
@@ -42,7 +42,7 @@ object embed {
               div(cls := "left")(
                 a(target := "_blank", href := url)(h1(titleGame(pov.game))),
                 " ",
-                em("brought to you by ", a(target := "_blank", href := netBaseUrl)(netDomain))
+                em("brought to you by ", a(target := "_blank", href := netBaseUrl)(netConfig.domain))
               ),
               a(target := "_blank", cls := "open", href := url)("Open")
             )

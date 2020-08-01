@@ -34,8 +34,8 @@ object embed {
         ),
         body(
           cls := s"highlight ${config.bg} ${config.board}",
-          dataDev := (!isProd).option("true"),
-          dataAssetUrl := assetBaseUrl,
+          dataDev := netConfig.minifiedAssets.option("true"),
+          dataAssetUrl := netConfig.assetBaseUrl,
           dataAssetVersion := assetVersion.value,
           dataTheme := config.bg
         )(

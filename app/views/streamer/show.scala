@@ -55,14 +55,14 @@ method:'post'
                 iframe(
                   st.frameborder := "0",
                   frame.scrolling := "no",
-                  src := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=$netDomain"
+                  src := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=${netConfig.domain}"
                 )
               case _ =>
                 s.streamer.twitch.map { twitch =>
                   iframe(
                     st.frameborder := "0",
                     frame.scrolling := "yes",
-                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") ?? "darkpopout&"}parent=${netDomain}"
+                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${(ctx.currentBg != "light") ?? "darkpopout&"}parent=${netConfig.domain}"
                   )
                 }
             }
@@ -88,7 +88,7 @@ method:'post'
               s.streamer.twitch.map { twitch =>
                 div(cls := "box embed twitch")(
                   iframe(
-                    src := s"https://player.twitch.tv/?channel=${twitch.userId}&parent=$netDomain",
+                    src := s"https://player.twitch.tv/?channel=${twitch.userId}&parent=${netConfig.domain}",
                     frame.allowfullscreen
                   )
                 )

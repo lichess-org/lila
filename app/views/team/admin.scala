@@ -98,7 +98,7 @@ object admin {
                     a(
                       dataIcon := "z",
                       cls := "text copy-url-button",
-                      data.copyurl := s"${netDomain}${routes.Tournament.show(t.id).url}"
+                      data.copyurl := s"${netConfig.domain}${routes.Tournament.show(t.id).url}"
                     )
                   )
                 }

@@ -9,19 +9,14 @@ import lila.common.{ AssetVersion, ContentSecurityPolicy, Nonce }
 
 trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
-  def isProd: Boolean
-  def isStage: Boolean
-
-  def minifiedAssets = isProd || isStage
-
-  def netDomain: lila.common.config.NetDomain
-  lazy val assetDomain    = env.net.assetDomain
-  lazy val socketDomains  = env.net.socketDomains
-  lazy val vapidPublicKey = env.push.vapidPublicKey
+  private lazy val netDomain      = env.net.domain
+  private lazy val assetDomain    = env.net.assetDomain
+  private lazy val assetBaseUrl   = env.net.assetBaseUrl
+  private lazy val socketDomains  = env.net.socketDomains
+  private lazy val minifiedAssets = env.net.minifiedAssets
+  lazy val vapidPublicKey         = env.push.vapidPublicKey
 
   lazy val sameAssetDomain = netDomain.value == assetDomain.value
-
-  lazy val assetBaseUrl = env.net.assetBaseUrl
 
   def assetVersion = AssetVersion.current
 

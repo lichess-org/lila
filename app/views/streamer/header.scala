@@ -40,7 +40,7 @@ object header {
             )(youTube.minUrl)
           },
           a(cls := "service lichess", href := routes.User.show(s.user.username))(
-            netDomain,
+            netConfig.domain,
             routes.User.show(s.user.username).url
           )
         ),

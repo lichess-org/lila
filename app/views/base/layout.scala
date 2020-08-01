@@ -150,7 +150,7 @@ object layout {
   def apply(
       title: String,
       fullTitle: Option[String] = None,
-      robots: Boolean = isGloballyCrawlable,
+      robots: Boolean = netConfig.crawlable,
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag,
       playing: Boolean = false,
@@ -172,7 +172,7 @@ object layout {
           metaThemeColor,
           st.headTitle {
             if (ctx.blind) "lichess"
-            else if (isProd) fullTitle | s"$title • lichess.org"
+            else if (netConfig.isProd) fullTitle | s"$title • lichess.org"
             else s"[dev] ${fullTitle | s"$title • lichess.dev"}"
           },
           cssTag("site"),
@@ -216,12 +216,12 @@ object layout {
             "mobile"                                                                                                                                         -> ctx.isMobileBrowser,
             "playing fixed-scroll"                                                                                                                           -> playing
           ),
-          dataDev := (!isProd).option("true"),
+          dataDev := (!netConfig.minifiedAssets).option("true"),
           dataVapid := vapidPublicKey,
           dataUser := ctx.userId,
           dataSoundSet := ctx.currentSoundSet.toString,
-          dataSocketDomains := socketDomains.mkString(","),
-          dataAssetUrl := assetBaseUrl,
+          dataSocketDomains := netConfig.socketDomains.mkString(","),
+          dataAssetUrl := netConfig.assetBaseUrl,
           dataAssetVersion := assetVersion.value,
           dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme := ctx.currentBg,
@@ -231,7 +231,7 @@ object layout {
           blindModeForm,
           ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
           ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
-          isStage option views.html.base.bits.stage,
+          netConfig.stageBanner option views.html.base.bits.stage,
           lila.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.bits.checkYourEmailBanner(_)),
           playing option zenToggle,
           siteHeader(playing),
@@ -255,7 +255,7 @@ object layout {
           a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
           chessground option jsTag("vendor/chessground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
-          if (minifiedAssets)
+          if (netConfig.minifiedAssets)
             jsModule("site", defer = deferJs)
           else
             frag(
@@ -307,7 +307,7 @@ object layout {
             else ctx.isBot option botImage,
             a(href := "/")(
               "lichess",
-              span(if (isProd) ".org" else ".dev")
+              span(if (netConfig.isProd) ".org" else ".dev")
             )
           ),
           ctx.blind option h2("Navigation"),

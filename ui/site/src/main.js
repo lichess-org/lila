@@ -294,7 +294,7 @@
           booted = true;
           var $el = $('#challenge-app').html(lichess.initiatingHtml);
           lichess.loadCssPath('challenge');
-          lichess.loadScript(lichess.compiledScript('challenge')).done(function() {
+          lichess.loadScript(lichess.jsModule('challenge')).done(function() {
             instance = LichessChallenge($el[0], {
               data: data,
               show: function() {
@@ -339,7 +339,7 @@
           booted = true;
           var $el = $('#notify-app').html(initiatingHtml);
           lichess.loadCssPath('notify');
-          lichess.loadScript(lichess.compiledScript('notify')).done(function() {
+          lichess.loadScript(lichess.jsModule('notify')).done(function() {
             instance = LichessNotify($el.empty()[0], {
               data: data,
               incoming: incoming,
@@ -390,7 +390,7 @@
           const $el = $('#dasher_app').html(initiatingHtml),
             playing = $('body').hasClass('playing');
           lichess.loadCssPath('dasher');
-          lichess.loadScript(lichess.compiledScript('dasher')).done(() =>
+          lichess.loadScript(lichess.jsModule('dasher')).done(() =>
             LichessDasher($el.empty()[0], { playing })
           );
         });
@@ -405,7 +405,7 @@
         const boot = () => {
           if (booted) return;
           booted = true;
-          lichess.loadScript(lichess.compiledScript('cli')).done(() =>
+          lichess.loadScript(lichess.jsModule('cli')).done(() =>
             LichessCli.app($wrap, toggle)
           );
         };
@@ -964,7 +964,7 @@
   ////////////////////
 
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-    const workerUrl = new URL(lichess.assetUrl(lichess.compiledScript('serviceWorker'), {sameDomain: true}), self.location.href);
+    const workerUrl = new URL(lichess.assetUrl(lichess.jsModule('serviceWorker'), {sameDomain: true}), self.location.href);
     workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url'));
     if (document.body.getAttribute('data-dev')) workerUrl.searchParams.set('dev', '1');
     const updateViaCache = document.body.getAttribute('data-dev') ? 'none' : 'all';

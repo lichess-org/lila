@@ -34,19 +34,14 @@ object Environment
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 
-  def netBaseUrl          = env.net.baseUrl.value
-  def isGloballyCrawlable = env.net.crawlable
-
-  lazy val netDomain = env.net.domain
-  def isProd         = env.isProd
-  def isStage        = env.isStage
+  def netConfig    = env.net
+  def netBaseUrl   = env.net.baseUrl.value
+  def contactEmail = env.net.email.value
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 
-  lazy val explorerEndpoint  = env.explorerEndpoint
-  lazy val tablebaseEndpoint = env.tablebaseEndpoint
-
-  def contactEmail = env.net.email.value
+  def explorerEndpoint  = env.explorerEndpoint
+  def tablebaseEndpoint = env.tablebaseEndpoint
 
   def contactEmailLink = a(href := s"mailto:$contactEmail")(contactEmail)
 

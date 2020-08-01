@@ -91,9 +91,6 @@ final class Env(
 
   def net = common.netConfig
 
-  val isProd            = mode == Mode.Prod && net.isProd
-  val isDev             = mode == Mode.Dev
-  val isStage           = mode == Mode.Prod && !net.isProd
   val explorerEndpoint  = config.get[String]("explorer.endpoint")
   val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
 
@@ -280,7 +277,7 @@ final class EnvBoot(
   templating.Environment setEnv env
 
   // free memory for reload workflow
-  if (env.isDev)
+  if (mode == Mode.Dev)
     Lilakka.shutdown(shutdown, _.PhaseServiceStop, "Freeing dev memory") { () =>
       Future {
         templating.Environment.destroy()
