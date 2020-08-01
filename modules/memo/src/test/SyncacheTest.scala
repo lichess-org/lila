@@ -15,7 +15,7 @@ class MySpec()
     with Matchers
     with BeforeAndAfterAll {
 
-  override def afterAll: Unit = {
+  override def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system)
   }
 
@@ -35,9 +35,7 @@ class MySpec()
           },
         default = s => s"default $s",
         strategy = Syncache.AlwaysWait(1 second),
-        expireAfter = Syncache.ExpireAfterWrite(10 seconds),
-        logger = lila.log("syncache"),
-        resultTimeout = 5 seconds
+        expireAfter = Syncache.ExpireAfterWrite(10 seconds)
       )
       val threads = 20
       val keys    = 50

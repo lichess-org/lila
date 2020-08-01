@@ -12,7 +12,7 @@ import lila.user.User
 import play.api.data.Form
 import play.api.i18n.Lang
 
-object appeal2 {
+object appeal {
 
   def home(appeal: Option[Appeal], textForm: Form[_])(implicit ctx: Context) =
     layout("Appeal") {

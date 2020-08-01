@@ -1,5 +1,6 @@
 import play.sbt.PlayImport._
 import sbt._, Keys._
+import bloop.integrations.sbt.BloopKeys.bloopGenerate
 
 object BuildSettings {
 
@@ -21,7 +22,9 @@ object BuildSettings {
       sources in (Compile, doc) := Seq.empty,
       publishArtifact in (Compile, packageDoc) := false,
       // disable publishing the main sources jar
-      publishArtifact in (Compile, packageSrc) := false
+      publishArtifact in (Compile, packageSrc) := false,
+      // No bloop project for tests
+      bloopGenerate in Test := None
     )
 
   def defaultLibs: Seq[ModuleID] =
@@ -83,10 +86,10 @@ object BuildSettings {
     // "-Wnumeric-widen",
     "-Wunused:imports",
     "-Wunused:locals",
-    "-Wunused:patvars",
+    "-Wunused:patvars"
     // "-Wunused:privates", // unfortunately doesn't work with macros
     // "-Wunused:implicits",
-    "-Wunused:params"
+    // "-Wunused:params"
     // "-Wvalue-discard",
   )
 

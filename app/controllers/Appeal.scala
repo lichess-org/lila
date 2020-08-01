@@ -11,7 +11,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
   def home =
     Auth { implicit ctx => me =>
       env.appeal.api.mine(me) map { appeal =>
-        Ok(html.appeal2.home(appeal, env.appeal.forms.text))
+        Ok(html.appeal.home(appeal, env.appeal.forms.text))
       }
     }
 
@@ -23,7 +23,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
         .fold(
           err =>
             env.appeal.api.mine(me) map { appeal =>
-              BadRequest(html.appeal2.home(appeal, err))
+              BadRequest(html.appeal.home(appeal, err))
             },
           text => env.appeal.api.post(text, me) inject Redirect(routes.Appeal.home()).flashSuccess
         )
@@ -34,7 +34,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
       env.appeal.api.queue zip env.report.api.inquiries.allBySuspect zip reportC.getCounts flatMap {
         case ((appeals, inquiries), counts ~ streamers ~ nbAppeals) =>
           (env.user.lightUserApi preloadMany appeals.map(_.id)) inject
-            Ok(html.appeal2.queue(appeals, inquiries, counts, streamers, nbAppeals))
+            Ok(html.appeal.queue(appeals, inquiries, counts, streamers, nbAppeals))
       }
     }
 
@@ -42,7 +42,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
-          Ok(html.appeal2.show(appeal, suspect, inquiry, env.appeal.forms.text))
+          Ok(html.appeal.show(appeal, suspect, inquiry, env.appeal.forms.text))
         }
       }
     }
@@ -56,7 +56,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
           .fold(
             err =>
               env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
-                BadRequest(html.appeal2.show(appeal, suspect, inquiry, err))
+                BadRequest(html.appeal.show(appeal, suspect, inquiry, err))
               },
             text =>
               for {
