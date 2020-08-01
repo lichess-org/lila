@@ -2,8 +2,9 @@
 <resources>
   <string name="lichessClasses">課程</string>
   <string name="features">功能</string>
+  <string name="applyToBeLichessTeacher">申請成為 Lichess 的的教師</string>
   <string name="noClassesYet">還沒有課程</string>
-  <string name="teachersX">%s個教練</string>
+  <string name="teachersX">%s個教師</string>
   <string name="newClass">新的課程</string>
   <string name="closeClass">關閉課程</string>
   <string name="closedByX">被%s關閉</string>
@@ -14,7 +15,7 @@
   <string name="sendAMessage">傳送訊息給所有的學生</string>
   <string name="className">課程名稱</string>
   <string name="classDescription">課程描述</string>
-  <string name="teachersOfTheClass">這堂課程的教練</string>
+  <string name="teachersOfTheClass">這堂課程的教師</string>
   <string name="resetPassword">重設密碼</string>
   <string name="passwordX">密碼:%s</string>
   <string name="generateANewPassword">重設學生的密碼</string>
