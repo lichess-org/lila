@@ -18,10 +18,10 @@
   <string name="aConfirmationIsRequiredToJoin">Для вступления требуется подтверждение</string>
   <string name="joiningPolicy">Условия вступления</string>
   <plurals name="teamLeaders">
-    <item quantity="one">Руководитель клуба</item>
-    <item quantity="few">Руководителя клуба</item>
-    <item quantity="many">Руководителей клуба</item>
-    <item quantity="other">Руководителей клуба</item>
+    <item quantity="one">Руководители клуба</item>
+    <item quantity="few">Руководители клуба</item>
+    <item quantity="many">Руководители клуба</item>
+    <item quantity="other">Руководители клуба</item>
   </plurals>
   <string name="teamBestPlayers">Лучшие игроки клуба</string>
   <string name="teamRecentMembers">Новые члены клуба</string>
