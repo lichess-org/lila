@@ -24,6 +24,7 @@ final class Env(
     db: lila.db.Db,
     modLog: ModlogApi,
     spam: lila.security.Spam,
+    promotion: lila.security.PromotionApi,
     captcher: lila.hub.actors.Captcher,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,

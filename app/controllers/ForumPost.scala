@@ -19,7 +19,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     }
 
   def create(categSlug: String, slug: String, page: Int) =
-    OpenBody { implicit ctx =>
+    AuthBody { implicit ctx => me =>
       CategGrantWrite(categSlug) {
         implicit val req = ctx.body
         OptionFuResult(topicApi.show(categSlug, slug, page, ctx.me)) {
@@ -27,13 +27,14 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             if (topic.closed) fuccess(BadRequest("This topic is closed"))
             else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
             else
-              forms.post
+              forms
+                .post(me)
                 .bindFromRequest()
                 .fold(
                   err =>
                     for {
                       captcha     <- forms.anyCaptcha
-                      unsub       <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
+                      unsub       <- env.timeline.status(s"forum:${topic.id}")(me.id)
                       canModCateg <- isGrantedMod(categ.slug)
                     } yield BadRequest(
                       html.forum.topic
@@ -53,7 +54,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def edit(postId: String) =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      forms.postEdit
+      forms
+        .postEdit(me)
         .bindFromRequest()
         .fold(
           _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,

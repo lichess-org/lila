@@ -17,6 +17,7 @@ final private[forum] class TopicApi(
     maxPerPage: lila.common.config.MaxPerPage,
     modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
+    promotion: lila.security.PromotionApi,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: lila.common.DetectLanguage
@@ -79,6 +80,7 @@ final private[forum] class TopicApi(
           env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
           (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
           (!categ.quiet ?? env.recent.invalidate()) >>-
+          ctx.me.foreach { promotion.save(_, post.text) } >>-
           ctx.userId.?? { userId =>
             val text = s"${topic.name} ${post.text}"
             shutup ! {

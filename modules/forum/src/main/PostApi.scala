@@ -20,6 +20,7 @@ final class PostApi(
     maxPerPage: lila.common.config.MaxPerPage,
     modLog: ModlogApi,
     spam: lila.security.Spam,
+    promotion: lila.security.PromotionApi,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: lila.common.DetectLanguage
@@ -58,6 +59,7 @@ final class PostApi(
                 env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
                 (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
                 (!categ.quiet ?? env.recent.invalidate()) >>-
+                ctx.me.foreach { promotion.save(_, post.text) } >>-
                 ctx.userId.?? { userId =>
                   shutup ! {
                     if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text)

@@ -138,6 +138,8 @@ final class Env(
 
   lazy val spam = new Spam(spamKeywordsSetting.get _)
 
+  lazy val promotion = wire[PromotionApi]
+
   scheduler.scheduleOnce(30 seconds)(disposableEmailDomain.refresh())
   scheduler.scheduleWithFixedDelay(config.disposableEmail.refreshDelay, config.disposableEmail.refreshDelay) {
     () =>

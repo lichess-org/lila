@@ -1,37 +1,49 @@
 package lila.forum
 
+import lila.common.Form.clean
 import play.api.data._
 import play.api.data.Forms._
-
-import lila.common.Form.clean
+import lila.user.User
 
 final private[forum] class DataForm(
+    promotion: lila.security.PromotionApi,
     val captcher: lila.hub.actors.Captcher
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.hub.CaptchedForm {
 
   import DataForm._
 
-  val postMapping = mapping(
-    "text"    -> clean(text(minLength = 3)),
-    "gameId"  -> text,
-    "move"    -> text,
-    "modIcon" -> optional(boolean)
-  )(PostData.apply)(PostData.unapply)
-    .verifying(captchaFailMessage, validateCaptcha _)
-
-  val post = Form(postMapping)
-
-  val postEdit = Form(mapping("changes" -> text(minLength = 3))(PostEdit.apply)(PostEdit.unapply))
-
-  def postWithCaptcha = withCaptcha(post)
-
-  val topic = Form(
+  def postMapping(user: User) =
     mapping(
-      "name" -> clean(text(minLength = 3, maxLength = 100)),
-      "post" -> postMapping
-    )(TopicData.apply)(TopicData.unapply)
-  )
+      "text"    -> userTextMapping(user),
+      "gameId"  -> text,
+      "move"    -> text,
+      "modIcon" -> optional(boolean)
+    )(PostData.apply)(PostData.unapply)
+      .verifying(captchaFailMessage, validateCaptcha _)
+
+  def post(user: User) = Form(postMapping(user))
+
+  def postEdit(user: User) =
+    Form(
+      mapping(
+        "changes" -> userTextMapping(user)
+      )(PostEdit.apply)(PostEdit.unapply)
+    )
+
+  def postWithCaptcha(user: User) = withCaptcha(post(user))
+
+  def topic(user: User) =
+    Form(
+      mapping(
+        "name" -> clean(text(minLength = 3, maxLength = 100)),
+        "post" -> postMapping(user)
+      )(TopicData.apply)(TopicData.unapply)
+    )
+
+  private def userTextMapping(user: User) =
+    clean(text(minLength = 3))
+      .verifying("Please promote your teams and tournaments outside of Lichess", promotion.test(user) _)
 }
 
 object DataForm {

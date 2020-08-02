@@ -13,10 +13,10 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     new lila.memo.RateLimit[IpAddress](2, 5.minutes, key = "forum.topic")
 
   def form(categSlug: String) =
-    Open { implicit ctx =>
+    Auth { implicit ctx => me =>
       NotForKids {
         OptionFuOk(env.forum.categRepo bySlug categSlug) { categ =>
-          forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic, _) }
+          forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(me), _) }
         }
       }
     }
@@ -26,7 +26,8 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       CategGrantWrite(categSlug) {
         implicit val req = ctx.body
         OptionFuResult(env.forum.categRepo bySlug categSlug) { categ =>
-          forms.topic
+          forms
+            .topic(me)
             .bindFromRequest()
             .fold(
               err =>
@@ -52,9 +53,9 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
             for {
               unsub    <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
               canWrite <- isGrantedWrite(categSlug)
-              form <-
-                (!posts.hasNextPage && canWrite && topic.open && !topic.isOld) ?? forms.postWithCaptcha
-                  .map(_.some)
+              form <- ctx.me.ifTrue(
+                !posts.hasNextPage && canWrite && topic.open && !topic.isOld
+              ) ?? { me => forms.postWithCaptcha(me) map some }
               canModCateg <- isGrantedMod(categ.slug)
               _           <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
             } yield html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)
