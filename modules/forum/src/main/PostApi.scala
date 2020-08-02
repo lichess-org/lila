@@ -12,7 +12,7 @@ import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.mod.ModlogApi
 import lila.security.{ Granter => MasterGranter }
-import lila.user.{ User, UserContext }
+import lila.user.User
 
 final class PostApi(
     env: Env,
@@ -31,23 +31,23 @@ final class PostApi(
   def makePost(
       categ: Categ,
       topic: Topic,
-      data: DataForm.PostData
-  )(implicit ctx: UserContext): Fu[Post] =
+      data: DataForm.PostData,
+      me: User
+  ): Fu[Post] =
     lastNumberOf(topic) flatMap { number =>
       detectLanguage(data.text) zip recentUserIds(topic, number) flatMap {
         case (lang, topicUserIds) =>
           val post = Post.make(
             topicId = topic.id,
             author = none,
-            userId = ctx.me.map(_.id),
-            ip = ctx.req.remoteAddress.some,
+            userId = me.id,
             text = spam.replace(data.text),
             number = number + 1,
             lang = lang.map(_.language),
-            troll = ctx.troll,
+            troll = me.marks.troll,
             hidden = topic.hidden,
             categId = categ.id,
-            modIcon = (~data.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
+            modIcon = (~data.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
           )
           env.postRepo findDuplicate post flatMap {
             case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
@@ -56,21 +56,18 @@ final class PostApi(
                 env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
                 shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, true)
               } >>
-                env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
-                (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
-                (!categ.quiet ?? env.recent.invalidate()) >>-
-                ctx.me.foreach { promotion.save(_, post.text) } >>-
-                ctx.userId.?? { userId =>
-                  shutup ! {
-                    if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text)
-                    else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
-                  }
-                } >>- {
-                (ctx.userId ifFalse post.troll ifFalse categ.quiet ifFalse topic.isTooBig) ?? { userId =>
-                  timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).pipe {
-                    _ toFollowersOf userId toUsers topicUserIds exceptUser userId
-                  }
+                env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>- {
+                (!categ.quiet ?? (indexer ! InsertPost(post)))
+                (!categ.quiet ?? env.recent.invalidate())
+                promotion.save(me, post.text)
+                shutup ! {
+                  if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
+                  else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
                 }
+                if (!post.troll && !categ.quiet && !topic.isTooBig)
+                  timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
+                    _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
+                  }
                 lila.mon.forum.post.create.increment()
                 env.mentionNotifier.notifyMentionedUsers(post, topic)
                 Bus.publish(actorApi.CreatePost(post), "forumPost")
@@ -216,7 +213,6 @@ final class PostApi(
                 mod.id,
                 post.userId,
                 post.author,
-                post.ip,
                 text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
               )
             } yield ())

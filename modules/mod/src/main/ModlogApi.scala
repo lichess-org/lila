@@ -100,7 +100,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       mod: User.ID,
       user: Option[User.ID],
       author: Option[User.ID],
-      ip: Option[String],
       text: String
   ) =
     add {
@@ -109,7 +108,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
         user,
         Modlog.deletePost,
         details = Some(
-          author.??(_ + " ") + ip.??(_ + " ") + text.take(400)
+          author.??(_ + " ") + text.take(400)
         )
       )
     }

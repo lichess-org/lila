@@ -55,7 +55,6 @@ object post {
                 momentFromNow(post.createdAt)
               }
           ),
-          isGranted(_.IpBan) option span(cls := "mod postip")(post.ip),
           ctx.userId.fold(false)(post.shouldShowEditForm(_)) option
             a(cls := "mod edit button button-empty text", dataIcon := "m")("Edit"),
           canModCateg option a(

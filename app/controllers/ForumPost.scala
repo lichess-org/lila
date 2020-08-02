@@ -42,7 +42,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                     ),
                   data =>
                     CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-                      postApi.makePost(categ, topic, data) map { post =>
+                      postApi.makePost(categ, topic, data, me) map { post =>
                         Redirect(routes.ForumPost.redirect(post.id))
                       }
                     }(rateLimitedFu)
