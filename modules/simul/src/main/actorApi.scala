@@ -16,5 +16,3 @@ private[simul] case object Aborted
 private[simul] case object NotifyCrowd
 
 private[simul] case class GetUserIdsP(promise: Promise[Iterable[User.ID]])
-
-case class SimulTable(simuls: List[Simul])

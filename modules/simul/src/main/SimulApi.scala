@@ -1,14 +1,12 @@
 package lila.simul
 
 import akka.actor._
-import akka.pattern.ask
 import chess.variant.Variant
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, PerfPicker }
-import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi._
 import lila.socket.Socket.SendToFlag
@@ -261,15 +259,7 @@ final class SimulApi(
       Props(
         new Debouncer(
           5 seconds,
-          { (_: Debouncer.Nothing) =>
-            Bus.publish(siteMessage, "sendToFlag")
-            repo.allCreatedFeaturable foreach { simuls =>
-              import makeTimeout.short
-              renderer.actor ? actorApi.SimulTable(simuls) mapTo manifest[String] foreach { view =>
-                Bus.publish(ReloadSimuls(view), "lobbySocket")
-              }
-            }
-          }
+          (_: Debouncer.Nothing) => Bus.publish(siteMessage, "sendToFlag")
         )
       )
     )

@@ -219,7 +219,5 @@ object Tournament {
 
   def makeId = Random nextString 8
 
-  case class TournamentTable(tours: List[Tournament])
-
   case class PastAndNext(past: List[Tournament], next: List[Tournament])
 }

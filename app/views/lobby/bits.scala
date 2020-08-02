@@ -68,16 +68,16 @@ object bits {
           h2(cls := "title text", dataIcon := "g")(trans.openTournaments()),
           span(cls := "more")(trans.more(), " »")
         ),
-        div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content")(
+        div(cls := "enterable_list lobby__box__content")(
           views.html.tournament.bits.enterable(tours)
         )
       ),
-      div(cls := "lobby__simuls lobby__box")(
+      simuls.nonEmpty option div(cls := "lobby__simuls lobby__box")(
         a(cls := "lobby__box__top", href := routes.Simul.home())(
           h2(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions()),
           span(cls := "more")(trans.more(), " »")
         ),
-        div(id := "enterable_simuls", cls := "enterable_list lobby__box__content")(
+        div(cls := "enterable_list lobby__box__content")(
           views.html.simul.bits.allCreated(simuls)
         )
       )

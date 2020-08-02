@@ -1,7 +1,6 @@
 package lila.tournament
 
 import akka.actor.{ ActorSystem, Props }
-import akka.pattern.ask
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import play.api.libs.json._
@@ -13,13 +12,11 @@ import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.paginator.Paginator
 import lila.common.{ Bus, Debouncer, LightUser }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
-import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.LightTeam
 import lila.hub.LightTeam._
 import lila.round.actorApi.round.{ AbortForce, GoBerserk }
 import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
-import makeTimeout.short
 
 final class TournamentApi(
     cached: Cached,
@@ -712,11 +709,6 @@ final class TournamentApi(
                 SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
                 "sendToFlag"
               )
-            }
-            cached.onHomepage.get {} foreach { tours =>
-              renderer.actor ? Tournament.TournamentTable(tours) map {
-                case view: String => Bus.publish(ReloadTournaments(view), "lobbySocket")
-              }
             }
           }
         )

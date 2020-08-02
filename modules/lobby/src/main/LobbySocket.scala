@@ -9,7 +9,6 @@ import scala.jdk.CollectionConverters._
 import actorApi._
 import lila.game.Pov
 import lila.hub.actorApi.game.ChangeFeatured
-import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
 import lila.hub.Trouper
 import lila.i18n.defaultLang
@@ -60,10 +59,6 @@ final class LobbySocket(
         members.clear()
         idleSris.clear()
         hookSubscriberSris.clear()
-
-      case ReloadTournaments(html) => tellActive(makeMessage("tournaments", html))
-
-      case ReloadSimuls(html) => tellActive(makeMessage("simuls", html))
 
       case ReloadTimelines(users) => send(Out.tellLobbyUsers(users, makeMessage("reload_timeline")))
 

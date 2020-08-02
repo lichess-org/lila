@@ -101,11 +101,6 @@ package captcha {
   case class ValidCaptcha(id: String, solution: String)
 }
 
-package lobby {
-  case class ReloadTournaments(html: String)
-  case class ReloadSimuls(html: String)
-}
-
 package simul {
   case class GetHostIds(promise: Promise[Set[String]])
   case class PlayerMove(gameId: String)

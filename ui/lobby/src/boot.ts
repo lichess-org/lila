@@ -67,14 +67,6 @@ export default function boot(cfg, element) {
           lobby.setRedirecting();
           window.lichess.redirect(e);
         },
-        tournaments: function(data) {
-          $("#enterable_tournaments").html(data);
-          window.lichess.pubsub.emit('content_loaded');
-        },
-        simuls: function(data) {
-          $("#enterable_simuls").html(data).parent().toggle($('#enterable_simuls tr').length > 0);
-          window.lichess.pubsub.emit('content_loaded');
-        },
         fen: function(e) {
           window.lichess.StrongSocket.defaults.events.fen(e);
           lobby.gameActivity(e.id);
