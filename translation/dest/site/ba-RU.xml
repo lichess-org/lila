@@ -8,4 +8,7 @@
   <string name="yourTurn">Һеҙҙең йөрөү</string>
   <string name="aiNameLevelAiLevel">%1$s кимәле: %2$s</string>
   <string name="level">Кимәл</string>
+  <string name="chat">Сүбхәт</string>
+  <string name="resign">Бирелергә</string>
+  <string name="checkmate">Мат</string>
 </resources>
