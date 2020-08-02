@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="playWithAFriend">Дуҫ менән уйнарға</string>
+  <string name="playWithTheMachine">Компьютер менән уйнарға</string>
+  <string name="gameOver">Партия тамамланды</string>
+  <string name="waitingForOpponent">Ҡаршы кешене көтәбеҙ</string>
+  <string name="waiting">Көтәбеҙ</string>
+  <string name="yourTurn">Һеҙҙең йөрөү</string>
+  <string name="aiNameLevelAiLevel">%1$s кимәле: %2$s</string>
+  <string name="level">Кимәл</string>
+</resources>
