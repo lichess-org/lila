@@ -1,6 +1,8 @@
 package views
 package html.site
 
+import scala.util.chaining._
+
 import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -262,43 +264,39 @@ object contact {
             )
           )
         ),
-        Branch(
-          "appeal",
-          banAppeal(),
-          List(
-            Leaf(
-              "appeal-cheat",
-              engineAppeal(),
-              frag(
-                p(doNotMessageModerators()),
-                p(sendAppealTo(contactEmail)),
-                p(
-                  falsePositives(),
-                  br,
-                  ifLegit()
-                ),
-                p(
-                  accountLost(),
-                  br,
-                  doNotDeny()
+        frag(
+          p(doNotMessageModerators()),
+          p(sendAppealTo(a(href := routes.Appeal.home())(netConfig.domain, routes.Appeal.home().url))),
+          p(
+            falsePositives(),
+            br,
+            ifLegit()
+          )
+        ) pipe { appealBase =>
+          Branch(
+            "appeal",
+            banAppeal(),
+            List(
+              Leaf(
+                "appeal-cheat",
+                engineAppeal(),
+                frag(
+                  appealBase,
+                  p(
+                    accountLost(),
+                    br,
+                    doNotDeny()
+                  )
                 )
-              )
-            ),
-            Leaf(
-              "appeal-other",
-              otherRestriction(),
-              frag(
-                p(doNotMessageModerators()),
-                p(sendAppealTo(contactEmail)),
-                p(
-                  falsePositives(),
-                  br,
-                  ifLegit()
-                )
+              ),
+              Leaf(
+                "appeal-other",
+                otherRestriction(),
+                appealBase
               )
             )
           )
-        ),
+        },
         Branch(
           "collab",
           collaboration(),
