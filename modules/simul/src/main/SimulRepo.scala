@@ -8,6 +8,7 @@ import chess.variant.Variant
 import lila.db.BSON
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
+import lila.user.User
 
 final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -70,8 +71,18 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   def findCreated(id: Simul.ID): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isCreated))
 
-  def findPending(hostId: String): Fu[List[Simul]] =
+  def findPending(hostId: User.ID): Fu[List[Simul]] =
     simulColl.list[Simul](createdSelect ++ $doc("hostId" -> hostId))
+
+  def byTeamLeaders(teamId: String, hostIds: Seq[User.ID]): Fu[List[Simul]] =
+    simulColl
+      .find(
+        createdSelect ++
+          $doc("hostId" $in hostIds, "team" $in List(BSONString(teamId)))
+      )
+      .hint(simulColl hint $doc("hostId" -> 1))
+      .cursor[Simul]()
+      .list()
 
   private val featurableSelect = $doc("featurable" -> true)
 

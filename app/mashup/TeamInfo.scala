@@ -6,6 +6,7 @@ import lila.team.{ RequestRepo, RequestWithUser, Team, TeamApi }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
 import lila.swiss.{ Swiss, SwissApi }
+import lila.simul.{ Simul, SimulApi }
 
 case class TeamInfo(
     mine: Boolean,
@@ -14,7 +15,8 @@ case class TeamInfo(
     subscribed: Boolean,
     requests: List[RequestWithUser],
     forumPosts: List[MiniForumPost],
-    tours: TeamInfo.PastAndNext
+    tours: TeamInfo.PastAndNext,
+    simuls: Seq[Simul]
 ) {
 
   def hasRequests = requests.nonEmpty
@@ -42,6 +44,7 @@ final class TeamInfoApi(
     forumRecent: lila.forum.Recent,
     tourApi: TournamentApi,
     swissApi: SwissApi,
+    simulApi: SimulApi,
     requestRepo: RequestRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -55,6 +58,7 @@ final class TeamInfoApi(
       subscribed    <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
       forumPosts    <- forumRecent.team(team.id)
       tours         <- tournaments(team, 5, 5)
+      simuls        <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
     } yield TeamInfo(
       mine = mine,
       ledByMe = me.exists(m => team.leaders(m.id)),
@@ -62,7 +66,8 @@ final class TeamInfoApi(
       subscribed = subscribed,
       requests = requests,
       forumPosts = forumPosts,
-      tours = tours
+      tours = tours,
+      simuls = simuls
     )
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =

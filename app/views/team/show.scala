@@ -186,9 +186,15 @@ object show {
               h2(xJoinRequests.pluralSame(info.requests.size)),
               views.html.team.request.list(info.requests, t.some)
             ),
-            div(cls := "team-show__tour-forum")(
+            div(
+              t.enabled && info.simuls.nonEmpty option frag(
+                st.section(cls := "team-show__tour team-events team-simuls")(
+                  h2(trans.simultaneousExhibitions()),
+                  views.html.simul.bits.allCreated(info.simuls)
+                )
+              ),
               t.enabled && info.tours.nonEmpty option frag(
-                st.section(cls := "team-show__tour team-tournaments")(
+                st.section(cls := "team-show__tour team-events team-tournaments")(
                   h2(a(href := routes.Team.tournaments(t.id))(trans.tournaments())),
                   table(cls := "slist")(
                     tournaments.renderList(
