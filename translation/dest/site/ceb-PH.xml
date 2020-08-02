@@ -33,10 +33,6 @@
   <string name="joinTheGame">Apil sa duwa</string>
   <string name="whitePlays">Puti ang moduwa</string>
   <string name="blackPlays">Itom ang moduwa</string>
-  <plurals name="opponentLeftCounter">
-    <item quantity="one">Ang imong kontra mibiya sa dula. Mahimo nimo nga maangkon ang kadaugan sa% s ikaduha.</item>
-    <item quantity="other">Ang imong kontra mibiya sa dula. Mahimo nimo nga maangkon ang kadaugan sa% s ikaduha.</item>
-  </plurals>
   <string name="opponentLeftChoices">Ang laing kontra kay basin nihawa na sa duwa, Pwede na nimo kuhaon ang pagkadaog, himoang tabla ang duwa, o maghuwat.</string>
   <string name="makeYourOpponentResign">Himoa nga imong kontra mo undang</string>
   <string name="forceResignation">Kuhaa ang pagkadaog</string>
@@ -125,10 +121,6 @@
   <string name="claimADraw">Kuhaa nga tabla</string>
   <string name="offerDraw">tanyag draw</string>
   <string name="draw">tabla</string>
-  <plurals name="nbPlayers">
-    <item quantity="one">s%  players</item>
-    <item quantity="other">s% players</item>
-  </plurals>
   <string name="currentGames">mga dula karon</string>
   <string name="logOut">pagsignout </string>
   <string name="players">Mga manuwaay</string>
