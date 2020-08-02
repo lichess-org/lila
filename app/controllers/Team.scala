@@ -1,10 +1,12 @@
 package controllers
 
+import scala.concurrent.duration._
+
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json._
 import play.api.mvc._
-import scala.concurrent.duration._
+import views._
 
 import lila.api.Context
 import lila.app._
@@ -13,7 +15,6 @@ import lila.hub.LightTeam
 import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel }
 import lila.user.{ User => UserModel }
-import views._
 
 final class Team(
     env: Env,
@@ -162,7 +163,9 @@ final class Team(
     AuthBody { implicit ctx => me =>
       WithOwnedTeam(id) { team =>
         implicit val req = ctx.body
-        forms.leaders(team).bindFromRequest().value ?? { api.setLeaders(team, _, me, isGranted(_.ManageTeam)) } inject Redirect(
+        forms.leaders(team).bindFromRequest().value ?? {
+          api.setLeaders(team, _, me, isGranted(_.ManageTeam))
+        } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
       }
