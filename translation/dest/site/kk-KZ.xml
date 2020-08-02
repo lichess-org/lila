@@ -352,7 +352,6 @@
   <string name="block">Блок</string>
   <string name="blocked">Блоктар</string>
   <string name="unblock">Бұғаттан шығару</string>
-  <string name="followsYou">%s Сізге жазылды</string>
   <string name="xStartedFollowingY">%1$s %2$s серігі болды</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s серік</item>
@@ -548,7 +547,6 @@
   <string name="webmasters">Веб-құрастырушылар</string>
   <string name="about">Сипаттама</string>
   <string name="aboutX">%s туралы</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s тегін (шынымен солай), еркін, жарнамадан бос, коды ашық шахмат сервері.</string>
   <string name="really">шынымен</string>
   <string name="contribute">Үлес қосу</string>
   <string name="termsOfService">Қызмет көрсету шарты</string>

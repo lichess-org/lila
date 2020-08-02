@@ -930,9 +930,7 @@
   <string name="important">חשוב</string>
   <string name="yourQuestionMayHaveBeenAnswered">כנראה שלשאלה שלך כבר יש %1$s</string>
   <string name="inTheFAQ">בשאלות הנפוצות</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">דיווח משתמש על רמאות או התנהגות לא נאותה</string>
   <string name="useTheReportForm">השתמש בטופס הדוח</string>
-  <string name="toRequestSupport">לבקשת תמיכה</string>
   <string name="tryTheContactPage">תנסה את עמוד אנשי הקשר</string>
   <string name="thisTopicIsArchived">נושא זה עבר לארכיון ולא ניתן עוד להשיב עליו.</string>
   <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
