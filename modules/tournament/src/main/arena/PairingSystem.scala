@@ -45,7 +45,7 @@ final private[tournament] class PairingSystem(
 
   private val maxGroupSize = 100
 
-  private def makePreps(data: Data, users: List[User.ID]): Fu[List[Pairing.Prep]] = {
+  private def makePreps(data: Data, users: Set[User.ID]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.size < 2) fuccess(Nil)
     else
@@ -69,7 +69,7 @@ final private[tournament] class PairingSystem(
 
   private def prepsToPairings(preps: List[Pairing.Prep]): Fu[List[Pairing]] =
     idGenerator.games(preps.size) flatMap { ids =>
-      if (preps.size <= 30)
+      if (preps.sizeCompare(30) <= 0)
         preps
           .zip(ids)
           .map {
