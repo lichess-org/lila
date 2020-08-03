@@ -127,7 +127,10 @@ object topic {
                   a(href := routes.Team.show(teamId))(trans.teamNamedX(teamIdToName(teamId)))
                 )
               )
-            } getOrElse p(trans.youCannotPostYetPlaySomeGames()),
+            } getOrElse {
+              if (ctx.me.exists(_.isBot)) p("Bots cannot post in the forum.")
+              else p(trans.youCannotPostYetPlaySomeGames())
+            },
           div(
             unsub.map { uns =>
               postForm(
