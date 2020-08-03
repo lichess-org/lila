@@ -456,9 +456,11 @@ final class TournamentApi(
             } | player.performance,
             colorHistory = {
               for {
-                g <- finishing
+                g           <- finishing
+                whiteUserId <- g.whitePlayer.userId
+                if g.blackPlayer.userId.nonEmpty
               } yield {
-                player.colorHistory.incColor(if (player.userId == g.whitePlayer.userId) 1 else -1)
+                player.colorHistory.incColor(if (player.is(whiteUserId)) 1 else -1)
               }
             } | player.colorHistory
           )
