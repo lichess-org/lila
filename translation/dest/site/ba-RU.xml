@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="playWithAFriend">Дуҫ менән уйнарға</string>
+  <string name="playWithTheMachine">Компьютер менән уйнарға</string>
+  <string name="gameOver">Партия тамамланды</string>
+  <string name="waitingForOpponent">Ҡаршы кешене көтәбеҙ</string>
+  <string name="waiting">Көтәбеҙ</string>
+  <string name="yourTurn">Һеҙҙең йөрөү</string>
+  <string name="aiNameLevelAiLevel">%1$s кимәле: %2$s</string>
+  <string name="level">Кимәл</string>
+  <string name="chat">Сүбхәт</string>
+  <string name="resign">Бирелергә</string>
+  <string name="checkmate">Мат</string>
+  <string name="stalemate">Пат</string>
+  <string name="createAGame">Уйын булдырырға</string>
+  <string name="whiteIsVictorious">Аҡтар еңде</string>
+  <string name="blackIsVictorious">Ҡаралар еңде</string>
+  <string name="threeChecks">Өс шах</string>
+  <string name="variantEnding">Партия тамамланды</string>
+  <string name="depthX">Тәрәнлек %s</string>
+</resources>
