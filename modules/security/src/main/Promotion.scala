@@ -11,14 +11,18 @@ final class PromotionApi(domain: NetDomain) {
   def test(user: User)(text: String): Boolean =
     user.isVerified || {
       val promotions = extract(text)
-      val prev       = ~cache.getIfPresent(user.id)
-      val accept     = prev.size < 3 && !prev.exists(promotions.contains)
-      if (!accept) logger.info(s"Promotion @${user.username} ${identify(text) mkString ", "}")
-      accept
+      promotions.isEmpty || {
+        val prev   = ~cache.getIfPresent(user.id)
+        val accept = prev.size < 3 && !prev.exists(promotions.contains)
+        if (!accept) logger.info(s"Promotion @${user.username} ${identify(text) mkString ", "}")
+        accept
+      }
     }
 
-  def save(user: User, text: String): Unit =
-    cache.put(user.id, ~cache.getIfPresent(user.id) ++ extract(text))
+  def save(user: User, text: String): Unit = {
+    val promotions = extract(text)
+    if (promotions.nonEmpty) cache.put(user.id, ~cache.getIfPresent(user.id) ++ extract(text))
+  }
 
   private type Id = String
 
