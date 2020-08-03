@@ -28,6 +28,9 @@
   <string name="rank">Урын</string>
   <string name="mode">Режим</string>
   <string name="play">Уйнарға</string>
+  <string name="send">Ебәрергә</string>
+  <string name="more">Тағы</string>
+  <string name="list">Теҙем</string>
   <string name="no">Юҡ</string>
   <string name="yes">Эйе</string>
 </resources>
