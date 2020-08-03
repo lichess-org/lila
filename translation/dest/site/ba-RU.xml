@@ -8,7 +8,7 @@
   <string name="yourTurn">Һеҙҙең йөрөү</string>
   <string name="aiNameLevelAiLevel">%1$s кимәле: %2$s</string>
   <string name="level">Кимәл</string>
-  <string name="chat">Сүбхәт</string>
+  <string name="chat">Хәбәр ебәрергә</string>
   <string name="resign">Бирелергә</string>
   <string name="checkmate">Мат</string>
   <string name="stalemate">Пат</string>
@@ -21,5 +21,13 @@
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ҡаршы кеше һеҙҙең менән яңынан уйнарға тәкъдим итә</string>
   <string name="whitePlays">Аҡтарҙың йөрөүе</string>
   <string name="blackPlays">Ҡараларҙың йөрөүе</string>
+  <string name="makeYourOpponentResign">Ҡаршы кешегә еңелеү һаналасаҡ</string>
   <string name="depthX">Тәрәнлек %s</string>
+  <string name="draw">Тиңлек</string>
+  <string name="time">Ваҡыт</string>
+  <string name="rank">Урын</string>
+  <string name="mode">Режим</string>
+  <string name="play">Уйнарға</string>
+  <string name="no">Юҡ</string>
+  <string name="yes">Эйе</string>
 </resources>
