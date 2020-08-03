@@ -93,7 +93,7 @@ object appeal {
         ),
         tbody(
           appeals.map { appeal =>
-            tr(cls := List("new" -> appeal.isOpen))(
+            tr(cls := List("new" -> (appeal.isOpen && !appeal.isMuted)))(
               td(
                 userIdLink(appeal.id.some)
               ),
