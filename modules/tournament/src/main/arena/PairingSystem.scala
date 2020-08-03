@@ -80,7 +80,9 @@ final private[tournament] class PairingSystem(
       else
         fuccess {
           preps.zip(ids).map {
-            case (prep, id) => prep.toPairing(id)(Random.nextBoolean())
+            case (prep, id) =>
+              val firstGetsWhite = id.foldLeft(0)(_ + _) % 2 == 0 // reuse game ID instead of hitting Random
+              prep.toPairing(id)(firstGetsWhite)
           }
         }
     }
