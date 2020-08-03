@@ -75,7 +75,7 @@ function help() {
 }
 
 function getDasher(cb: (dasher: any) => void) {
-  li.loadScript(li.compiledScript('dasher')).then(function() {
+  li.loadScript(li.jsModule('dasher')).then(function() {
     window['LichessDasher'](document.createElement('div'), {
       playing: $('body').hasClass('playing')
     }).then(cb);

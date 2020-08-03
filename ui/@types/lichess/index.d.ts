@@ -18,7 +18,7 @@ interface Lichess {
   loadedCss: { [key: string]: boolean };
   loadCss(path: string): void;
   loadCssPath(path: string): void;
-  compiledScript(path: string): string;
+  jsModule(name: string): string;
   loadScript(url: string, opts?: AssetUrlOpts): Promise<unknown>;
   hopscotch: any;
   slider(): any;
