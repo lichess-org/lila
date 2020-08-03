@@ -236,11 +236,14 @@ final class TeamApi(
       }
     } getOrElse Set.empty
     memberRepo.filterUserIdsInTeam(team.id, leaders) flatMap { ids =>
-      (team.leaders(team.createdBy) && !ids(team.createdBy) && by.id != team.createdBy && !byMod) ?? {
-        ids.nonEmpty ?? {
+      ids.nonEmpty ?? {
+        if (ids(team.createdBy) || !team.leaders(team.createdBy) || by.id == team.createdBy || byMod) {
           cached.leaders.put(team.id, fuccess(ids))
-          logger.info(s"setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
+          logger.info(s"valid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           teamRepo.setLeaders(team.id, ids).void
+        } else {
+          logger.info(s"invalid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
+          funit
         }
       }
     }
