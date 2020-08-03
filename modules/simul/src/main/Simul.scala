@@ -6,6 +6,7 @@ import lila.rating.PerfType
 import lila.user.User
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
+import chess.Color
 
 case class Simul(
     _id: Simul.ID,
@@ -123,7 +124,7 @@ case class Simul(
 
   def playingPairings = pairings filterNot (_.finished)
 
-  def hostColor = (color flatMap chess.Color.apply) | chess.Color(scala.util.Random.nextBoolean())
+  def hostColor: Option[Color] = color flatMap chess.Color.apply
 
   def setPairingHostColor(gameId: String, hostColor: chess.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
