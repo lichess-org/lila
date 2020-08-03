@@ -24,7 +24,7 @@ object tournaments {
             " • ",
             trans.tournaments()
           ),
-          div(cls := "team-tournaments team-tournaments--both")(
+          div(cls := "team-events team-tournaments team-tournaments--both")(
             div(cls := "team-tournaments__next")(
               h2("Upcoming tournaments"),
               table(cls := "slist slist-pad slist-invert")(
