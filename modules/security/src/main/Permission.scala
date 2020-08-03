@@ -81,7 +81,6 @@ object Permission {
           UserSpy,
           UserEvaluate,
           SeeReport,
-          Appeals,
           ModLog,
           SeeInsight,
           UserSearch,
@@ -123,6 +122,7 @@ object Permission {
         List(
           Hunter,
           Shusher,
+          Appeals,
           Doxing,
           IpBan,
           PrintBan,
