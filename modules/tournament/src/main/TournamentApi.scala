@@ -453,7 +453,14 @@ final class TournamentApi(
               } yield Math.round {
                 player.performance * (nbGames - 1) / nbGames + performance / nbGames
               } toInt
-            } | player.performance
+            } | player.performance,
+            colorHistory = {
+              for {
+                g <- finishing
+              } yield {
+                player.colorHistory.incColor(if (player.userId == g.whitePlayer.userId) 1 else -1)
+              }
+            } | player.colorHistory
           )
         }
       }

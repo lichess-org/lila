@@ -66,28 +66,17 @@ final private[tournament] class PairingSystem(
     .result
 
   private def prepsToPairings(preps: List[Pairing.Prep]): Fu[List[Pairing]] =
-    idGenerator.games(preps.size) flatMap { ids =>
-      if (preps.sizeCompare(30) <= 0)
-        preps
-          .zip(ids)
-          .map {
-            case (prep, id) =>
-              userRepo.firstGetsWhite(prep.user1.some, prep.user2.some) dmap prep.toPairing(id)
-          }
-          .sequenceFu
-      else
-        fuccess {
-          preps.zip(ids).map {
-            case (prep, id) =>
-              val firstGetsWhite = id.foldLeft(0)(_ + _) % 2 == 0 // reuse game ID instead of hitting Random
-              prep.toPairing(id)(firstGetsWhite)
-          }
-        }
+    idGenerator.games(preps.size) map { ids =>
+      preps.zip(ids).map {
+        case (prep, id) =>
+          //color was chosen in prepWithColor function
+          prep.toPairing(id)(true)
+      }
     }
 
   private def proximityPairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
     players grouped 2 collect {
-      case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
+      case List(p1, p2) => Pairing.prepWithColor(tour, p1.player, p2.player)
     } toList
 
   private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =

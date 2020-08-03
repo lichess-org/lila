@@ -6,6 +6,7 @@ import lila.user.User
 import PairingSystem.Data
 
 private object AntmaPairing {
+  private[this] val maxStrike = 3
 
   def apply(data: Data, players: RankedPlayers): List[Pairing.Prep] =
     players.nonEmpty ?? {
@@ -18,7 +19,10 @@ private object AntmaPairing {
           lastOpponents.hash.get(u2).contains(u1)
 
       def pairScore(a: RankedPlayer, b: RankedPlayer): Option[Int] =
-        if (justPlayedTogether(a.player.userId, b.player.userId)) None
+        if (
+          justPlayedTogether(a.player.userId, b.player.userId) ||
+          !a.player.colorHistory.couldPlay(b.player.colorHistory, maxStrike)
+        ) None
         else
           Some {
             Math.abs(a.rank - b.rank) * rankFactor(a, b) +
@@ -42,7 +46,7 @@ private object AntmaPairing {
             Nil
           },
           _ map {
-            case (a, b) => Pairing.prep(tour, a.player, b.player)
+            case (a, b) => Pairing.prepWithColor(tour, a.player, b.player)
           }
         )
       }
