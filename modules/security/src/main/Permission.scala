@@ -39,6 +39,7 @@ object Permission {
   case object ManageTeam            extends Permission("MANAGE_TEAM", "Manage teams")
   case object ManageTournament      extends Permission("MANAGE_TOURNAMENT", "Manage tournaments")
   case object ManageEvent           extends Permission("MANAGE_EVENT", "Manage events")
+  case object ManageSimul           extends Permission("MANAGE_SIMUL", "Manage simuls")
   case object ChangePermission      extends Permission("CHANGE_PERMISSION", "Change permissions")
   case object PublicMod             extends Permission("PUBLIC_MOD", "Mod badge")
   case object Developer             extends Permission("DEVELOPER", "Developer badge")
@@ -131,6 +132,7 @@ object Permission {
           SetEmail,
           ManageTeam,
           ManageTournament,
+          ManageSimul,
           ManageEvent,
           PracticeConfig,
           RemoveRanking,
@@ -199,6 +201,7 @@ object Permission {
       Relay,
       ManageEvent,
       ManageTournament,
+      ManageSimul,
       StudyAdmin,
       PracticeConfig
     ),

@@ -50,16 +50,9 @@ final class SimulApi(
   def create(setup: SimulForm.Setup, me: User): Fu[Simul] = {
     val simul = Simul.make(
       name = setup.name,
-      clock = SimulClock(
-        config = chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement),
-        hostExtraTime = setup.clockExtra * 60
-      ),
-      variants = setup.variants.flatMap { chess.variant.Variant(_) },
-      position = setup.position
-        .map {
-          SimulForm.startingPosition(_, chess.variant.Standard)
-        }
-        .filterNot(_.initial),
+      clock = setup.clock,
+      variants = setup.actualVariants,
+      position = setup.actualPosition,
       host = me,
       color = setup.color,
       text = setup.text,
@@ -68,6 +61,19 @@ final class SimulApi(
     repo.create(simul, me.hasTitle) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
     } inject simul
+  }
+
+  def update(prev: Simul, setup: SimulForm.Setup): Fu[Simul] = {
+    val simul = prev.copy(
+      name = setup.name,
+      clock = setup.clock,
+      variants = setup.actualVariants,
+      position = setup.actualPosition,
+      color = setup.color.some,
+      text = setup.text,
+      team = setup.team
+    )
+    repo.update(simul) >>- publish() inject simul
   }
 
   def addApplicant(simulId: Simul.ID, user: User, variantKey: String): Funit =
