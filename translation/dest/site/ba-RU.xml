@@ -11,4 +11,11 @@
   <string name="chat">Сүбхәт</string>
   <string name="resign">Бирелергә</string>
   <string name="checkmate">Мат</string>
+  <string name="stalemate">Пат</string>
+  <string name="createAGame">Уйын булдырырға</string>
+  <string name="whiteIsVictorious">Аҡтар еңде</string>
+  <string name="blackIsVictorious">Ҡаралар еңде</string>
+  <string name="threeChecks">Өс шах</string>
+  <string name="variantEnding">Партия тамамланды</string>
+  <string name="depthX">Тәрәнлек %s</string>
 </resources>
