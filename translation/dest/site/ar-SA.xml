@@ -999,4 +999,8 @@
   <string name="blitzDesc">مبارياتٌ سريعة: ٣ - ٨ دقائق</string>
   <string name="rapidDesc">مباراياتٌ خاطفةٌ: ٨-٢٥ دقائق</string>
   <string name="classicalDesc">مبارياتٌ كلاسيكيةٌ: ٢٥ دقيقة و أكثر</string>
+  <string name="correspondenceDesc">ألعاب المراسلة: يوم أو عدة أيام لكل نقلة</string>
+  <string name="puzzleDesc">مدرب تكتيكات الشطرنج</string>
+  <string name="important">مهم</string>
+  <string name="yourQuestionMayHaveBeenAnswered">قد يكون سؤالك مجاباً بالفعل١%$</string>
 </resources>
