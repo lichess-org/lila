@@ -17,5 +17,9 @@
   <string name="blackIsVictorious">Ҡаралар еңде</string>
   <string name="threeChecks">Өс шах</string>
   <string name="variantEnding">Партия тамамланды</string>
+  <string name="newOpponent">Яңы каршы кеше</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Ҡаршы кеше һеҙҙең менән яңынан уйнарға тәкъдим итә</string>
+  <string name="whitePlays">Аҡтарҙың йөрөүе</string>
+  <string name="blackPlays">Ҡараларҙың йөрөүе</string>
   <string name="depthX">Тәрәнлек %s</string>
 </resources>
