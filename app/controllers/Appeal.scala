@@ -42,7 +42,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
-          Ok(html.appeal.show(appeal, suspect, inquiry, env.appeal.forms.text))
+          Ok(html.appeal.show(appeal, suspect, inquiry, env.appeal.forms.text, getPresets))
         }
       }
     }
@@ -56,7 +56,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
           .fold(
             err =>
               env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
-                BadRequest(html.appeal.show(appeal, suspect, inquiry, err))
+                BadRequest(html.appeal.show(appeal, suspect, inquiry, err, getPresets))
               },
             text =>
               for {
@@ -92,6 +92,8 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
         }
       }
     }
+
+  private def getPresets = env.mod.presets.appealPresets.get()
 
   private def asMod(
       username: String

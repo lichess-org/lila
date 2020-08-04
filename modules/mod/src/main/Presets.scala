@@ -13,8 +13,6 @@ final class ModPresetsApi(
 
   import ModPresets.setting._
 
-  val groups = List("PM", "appeal")
-
   def get(group: String) =
     group match {
       case "PM"     => pmPresets.some
@@ -35,27 +33,31 @@ final class ModPresetsApi(
   )
 }
 
-case class ModPresets(value: List[ModPreset])
+case class ModPresets(value: List[ModPreset]) {
+  def named(name: String) = value.find(_.name == name)
+}
 case class ModPreset(name: String, text: String)
 
-private object ModPresets {
+object ModPresets {
 
-  object setting {
+  val groups = List("PM", "appeal")
+
+  private[mod] object setting {
 
     private def write(presets: ModPresets): String =
       presets.value.map {
-        case ModPreset(name, text) => s"$name\n$text"
-      } mkString "\n----------\n"
+        case ModPreset(name, text) => s"$name\n\n$text"
+      } mkString "\n\n----------\n\n"
 
     private def read(s: String): ModPresets =
       ModPresets {
-        "\n-{3,}\n"
-          .split(s)
+        "\n-{3,}\\s*\n".r
+          .split(s.linesIterator.map(_.trim).dropWhile(_.isEmpty) mkString "\n")
           .toList
-          .map(_.linesIterator.map(_.trim).filter(_.nonEmpty).toList)
+          .map(_.linesIterator.toList)
           .filter(_.nonEmpty)
           .flatMap {
-            case name :: text => ModPreset(name, text mkString "\n").some
+            case name :: text => ModPreset(name, text.dropWhile(_.isEmpty) mkString "\n").some
             case _            => none
           }
       }

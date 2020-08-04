@@ -1,16 +1,18 @@
 package views.html
 
 import controllers.routes
+import play.api.data.Form
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.appeal.Appeal
 import lila.common.String.html.richText
+import lila.mod.{ ModPreset, ModPresets }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
 import lila.user.User
-import play.api.data.Form
-import play.api.i18n.Lang
 
 object appeal {
 
@@ -18,7 +20,7 @@ object appeal {
     layout("Appeal") {
       main(cls := "page-small box box-pad page appeal")(
         appeal match {
-          case Some(a) => renderAppeal(a, textForm, asMod = false)
+          case Some(a) => renderAppeal(a, textForm, asMod = false, presets = none)
           case None    => newAppeal(textForm)
         }
       )
@@ -29,16 +31,28 @@ object appeal {
       h1("Appeal a moderation decision"),
       renderHelp,
       div(cls := "body")(
-        renderForm(textForm, action = routes.Appeal.post().url, isNew = true)
+        renderForm(textForm, action = routes.Appeal.post().url, isNew = true, presets = none)
       )
     )
 
-  def show(appeal: Appeal, suspect: Suspect, inquiry: Option[Inquiry], textForm: Form[_])(implicit
+  def show(
+      appeal: Appeal,
+      suspect: Suspect,
+      inquiry: Option[Inquiry],
+      textForm: Form[_],
+      presets: ModPresets
+  )(implicit
       ctx: Context
   ) =
     layout(s"Appeal by ${suspect.user.username}") {
       main(cls := "page-small box box-pad page appeal")(
-        renderAppeal(appeal, textForm, asMod = true, inquiry = inquiry.map(_.mod).exists(ctx.userId.has)),
+        renderAppeal(
+          appeal,
+          textForm,
+          asMod = true,
+          inquiry = inquiry.map(_.mod).exists(ctx.userId.has),
+          presets.some
+        ),
         div(cls := "appeal__actions")(
           inquiry match {
             case None =>
@@ -88,7 +102,7 @@ object appeal {
           tr(
             th("By"),
             th("Last message"),
-            th
+            th(isGranted(_.Presets) option a(href := routes.Mod.presets("appeal"))("Presets"))
           )
         ),
         tbody(
@@ -119,15 +133,24 @@ object appeal {
 
   private def layout(title: String)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
+      title = title,
       moreCss = frag(
         cssTag("form3"),
         cssTag("appeal")
       ),
-      title = title
+      moreJs = embedJsUnsafe(
+        """$('select.appeal-presets').on('change', e => $('#form3-text').val(e.target.value))"""
+      )
     )(body)
 
-  private def renderAppeal(appeal: Appeal, textForm: Form[_], asMod: Boolean, inquiry: Boolean = false)(
-      implicit ctx: Context
+  private def renderAppeal(
+      appeal: Appeal,
+      textForm: Form[_],
+      asMod: Boolean,
+      inquiry: Boolean = false,
+      presets: Option[ModPresets]
+  )(implicit
+      ctx: Context
   ) =
     frag(
       h1(
@@ -152,7 +175,8 @@ object appeal {
           action =
             if (asMod) routes.Appeal.reply(appeal.id).url
             else routes.Appeal.post().url,
-          isNew = false
+          isNew = false,
+          presets = presets ifTrue asMod
         )
       )
     )
@@ -198,12 +222,28 @@ object appeal {
         ")"
       )
 
-  private def renderForm(form: Form[_], action: String, isNew: Boolean)(implicit ctx: Context) =
+  private def renderForm(form: Form[_], action: String, isNew: Boolean, presets: Option[ModPresets])(implicit
+      ctx: Context
+  ) =
     postForm(st.action := action)(
       form3.globalError(form),
       form3.group(form("text"), if (isNew) "Create an appeal" else "Add something to the appeal")(
         form3.textarea(_)(rows := 6)
       ),
-      form3.submit(trans.send())
+      presets.map { ps =>
+        form3.actions(
+          select(cls := "appeal-presets")(
+            option(st.value := "")("Presets"),
+            ps.value.map {
+              case ModPreset(name, text) =>
+                option(
+                  st.value := text,
+                  st.title := text
+                )(name)
+            }
+          ),
+          form3.submit(trans.send())
+        )
+      } getOrElse form3.submit(trans.send())
     )
 }

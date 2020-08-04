@@ -7,10 +7,11 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.memo.SettingStore
 import play.api.data.Form
+import lila.mod.ModPresets
 
 object presets {
 
-  def apply(group: String, setting: SettingStore[lila.mod.ModPresets], form: Form[_])(implicit ctx: Context) =
+  def apply(group: String, setting: SettingStore[ModPresets], form: Form[_])(implicit ctx: Context) =
     views.html.base.layout(
       title = s"$group presets",
       moreCss = frag(cssTag("mod.misc"), cssTag("form3"))
@@ -18,10 +19,15 @@ object presets {
       main(cls := "page-menu")(
         views.html.mod.menu("presets"),
         div(cls := "page-menu__content box box-pad mod-presets")(
-          h1(s"$group presets"),
-          div(ModPresets.groups.filter(group !=).map { group =>
-            a(href := routes.Mod.presets(group))(group)
-          }),
+          h1(
+            s"${setting.get().value.size} $group presets",
+            small(
+              " / ",
+              ModPresets.groups.filter(group !=).map { group =>
+                a(href := routes.Mod.presets(group))(s"$group presets")
+              }
+            )
+          ),
           standardFlash(),
           postForm(action := routes.Mod.presetsUpdate(group))(
             form3.group(
