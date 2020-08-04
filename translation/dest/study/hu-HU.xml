@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">Privát</string>
+  <string name="myStudies">Saját leckék</string>
+  <string name="myPublicStudies">Nyilvános leckéim</string>
+  <string name="myPrivateStudies">Privát leckéim</string>
+  <string name="myFavoriteStudies">Kedvenc leckéim</string>
+  <string name="whatAreStudies">Mik azok a leckék?</string>
+  <string name="allStudies">Összes lecke</string>
+  <string name="studiesCreatedByX">%s által készített leckék</string>
+  <string name="noneYet">Még nincs.</string>
+  <string name="hot">Felkapott</string>
+  <string name="dateAddedNewest">Hozzáadva (legújabb)</string>
+  <string name="dateAddedOldest">Hozzáadva (legrégebbi)</string>
+  <string name="recentlyUpdated">Nemrégiben frissítve</string>
+  <string name="mostPopular">Legnépszerűbb</string>
+  <string name="addNewChapter">Új fejezet hozzáadása</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Fejezet</item>
+    <item quantity="other">%s Fejezet</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Játszma</item>
+    <item quantity="other">%s Játszma</item>
+  </plurals>
+  <string name="addMembers">Tagok hozzáadása</string>
+</resources>
