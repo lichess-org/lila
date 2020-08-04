@@ -42,4 +42,9 @@
   <string name="commentThisPosition">Megjegyzés ehhez az álláshoz</string>
   <string name="commentThisMove">Megjegyzés ehhez a lépéshez</string>
   <string name="annotateWithGlyphs">Kiegészítés írásjelekkel</string>
+  <string name="theChapterIsTooShortToBeAnalysed">A fejezet túl rövid számítógépes elemzéshez.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Csak a leckében közreműködők kérhetnek számítógépes elemzést.</string>
+  <string name="getAFullComputerAnalysis">Teljes szerver oldali számítógépes elemzés kérése a fő ágról.</string>
+  <string name="makeSureTheChapterIsComplete">Ellenőrizd, hogy a fejezet elkészült-e. Csak egyszer kérhető számítógépes elemzés.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Minden SYNC tag ugyanazt az állást követi</string>
 </resources>
