@@ -12,9 +12,16 @@
   <string name="resign">Бирелергә</string>
   <string name="checkmate">Мат</string>
   <string name="stalemate">Пат</string>
+  <string name="white">Аҡтар</string>
+  <string name="black">Ҡаралар</string>
+  <string name="randomColor">Осраҡлы төҫ</string>
   <string name="createAGame">Уйын булдырырға</string>
   <string name="whiteIsVictorious">Аҡтар еңде</string>
   <string name="blackIsVictorious">Ҡаралар еңде</string>
+  <string name="youPlayTheWhitePieces">Һеҙ аҡ фигуралар менән уйнайһығыҙ</string>
+  <string name="youPlayTheBlackPieces">Һеҙ ҡара фигуралар менән уйнайһығыҙ</string>
+  <string name="itsYourTurn">Һеҙҙең йөрөү!</string>
+  <string name="kingInTheCenter">Король таҡтаның уртаһында</string>
   <string name="threeChecks">Өс шах</string>
   <string name="variantEnding">Партия тамамланды</string>
   <string name="newOpponent">Яңы каршы кеше</string>
