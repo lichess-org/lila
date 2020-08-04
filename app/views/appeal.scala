@@ -96,7 +96,7 @@ object appeal {
       streamers: Int,
       nbAppeals: Int
   )(implicit ctx: Context) =
-    views.html.report.list.layout("appeal", counts, streamers, appeals.size)(
+    views.html.report.list.layout("appeal", counts, streamers, nbAppeals)(
       table(cls := "slist slist-pad see appeal-queue")(
         thead(
           tr(
