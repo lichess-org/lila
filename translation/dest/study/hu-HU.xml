@@ -2,6 +2,7 @@
 <resources>
   <string name="private">Privát</string>
   <string name="myStudies">Saját leckék</string>
+  <string name="studiesIContributeTo">Leckék amikben közreműködöm</string>
   <string name="myPublicStudies">Nyilvános leckéim</string>
   <string name="myPrivateStudies">Privát leckéim</string>
   <string name="myFavoriteStudies">Kedvenc leckéim</string>
@@ -24,4 +25,21 @@
     <item quantity="other">%s Játszma</item>
   </plurals>
   <string name="addMembers">Tagok hozzáadása</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Tag</item>
+    <item quantity="other">%s Tag</item>
+  </plurals>
+  <string name="searchByUsername">Keresés felhasználónév alapján</string>
+  <string name="spectator">Néző</string>
+  <string name="contributor">Hozzájáruló</string>
+  <string name="kick">Kirúgás</string>
+  <string name="leaveTheStudy">Lecke elhagyása</string>
+  <string name="youAreNowAContributor">Mostmár közreműködő vagy</string>
+  <string name="youAreNowASpectator">Mostmár megfigyelő vagy</string>
+  <string name="pgnTags">PGN címkék</string>
+  <string name="like">Kedvel</string>
+  <string name="newTag">Új címke</string>
+  <string name="commentThisPosition">Megjegyzés ehhez az álláshoz</string>
+  <string name="commentThisMove">Megjegyzés ehhez a lépéshez</string>
+  <string name="annotateWithGlyphs">Kiegészítés írásjelekkel</string>
 </resources>
