@@ -35,4 +35,11 @@
   <string name="teamTournamentOverview">Faqat sizning jamoangiz aʻzolari ishtirok etadigan Arena musobaqasi</string>
   <string name="messageAllMembers">Barcha aʻzolarga habar yuborish</string>
   <string name="messageAllMembersOverview">Shaxsiy xabarni jamoaning har bir aʻzosiga yuboring</string>
+  <string name="messageAllMembersLongDescription">Shaxsiy habarni jamoaning hamma aʻzosiga yuborish.
+Siz buni oʻyinchilarni turnirga yoki jamoaviy jangga taklif qilish uchun ishlatishingiz mumkin.
+Xabarlaringizni qabul qilishni yoqtirmaydigan oʻyinchilar jamoani tark etishlari mumkin.</string>
+  <string name="teamsIlead">Men boshqaradigan jamoalar</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Bo\'lajak musobaqalardan birini ulashni xohlaysizmi?</string>
+  <string name="usersWhoCanManageThisTeam">Ushbu jamoani boshqaradigan foydalanuvchilar</string>
+  <string name="leadersChat">Sardorlar suhbati</string>
 </resources>
