@@ -67,4 +67,23 @@
   <string name="currentGameUrl">URL erre a játszmára</string>
   <string name="youCanPasteThisInTheForumToEmbed">Beszúrhatod a linket fórumba a beágyazáshoz</string>
   <string name="startAtInitialPosition">Kezdés az alapállásból</string>
+  <string name="startAtX">Kezdés innen: %s</string>
+  <string name="embedInYourWebsite">Beágyazás saját weboldalba</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Csak nyilvános tanulmányok beágyazhatók!</string>
+  <string name="open">Megnyit</string>
+  <string name="xBroughtToYouByY">%1$s, a %2$s jóvoltából</string>
+  <string name="studyNotFound">Tanulmány nem található</string>
+  <string name="editChapter">Fejezet szerkesztése</string>
+  <string name="newChapter">Új fejezet</string>
+  <string name="analysisMode">Elemzés típusa</string>
+  <string name="saveChapter">Fejezet mentése</string>
+  <string name="deleteChapter">Fejezet törlése</string>
+  <string name="deleteThisChapter">Törlöd a fejezetet? Ezt nem lehet visszavonni!</string>
+  <string name="rightUnderTheBoard">Közvetlen a tábla alatt</string>
+  <string name="noPinnedComment">Nincs</string>
+  <string name="interactiveLesson">Interaktív lecke</string>
+  <string name="chapterX">Fejezet: %s</string>
+  <string name="empty">Üres</string>
+  <string name="startFromInitialPosition">Kezdés az alapállásból</string>
+  <string name="editor">Szerkesztő</string>
 </resources>
