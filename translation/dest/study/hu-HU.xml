@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Privát</string>
-  <string name="myStudies">Saját leckék</string>
-  <string name="studiesIContributeTo">Leckék amikben közreműködöm</string>
-  <string name="myPublicStudies">Nyilvános leckéim</string>
-  <string name="myPrivateStudies">Privát leckéim</string>
-  <string name="myFavoriteStudies">Kedvenc leckéim</string>
-  <string name="whatAreStudies">Mik azok a leckék?</string>
-  <string name="allStudies">Összes lecke</string>
-  <string name="studiesCreatedByX">%s által készített leckék</string>
+  <string name="myStudies">Saját tanulmányok</string>
+  <string name="studiesIContributeTo">Tanulmányok amikben közreműködöm</string>
+  <string name="myPublicStudies">Nyilvános tanulmányaim</string>
+  <string name="myPrivateStudies">Privát tanulmányaim</string>
+  <string name="myFavoriteStudies">Kedvenc tanulmányaim</string>
+  <string name="whatAreStudies">Mik azok a tanulmányok?</string>
+  <string name="allStudies">Összes tanulmány</string>
+  <string name="studiesCreatedByX">%s által készített tanulmányok</string>
   <string name="noneYet">Még nincs.</string>
   <string name="hot">Felkapott</string>
   <string name="dateAddedNewest">Hozzáadva (legújabb)</string>
@@ -29,11 +29,13 @@
     <item quantity="one">%s Tag</item>
     <item quantity="other">%s Tag</item>
   </plurals>
+  <string name="inviteToTheStudy">Meghívás tanulmányba</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Csak olyasvalakit hívj meg akit ismersz és aktívan részt venne a tanulmányban.</string>
   <string name="searchByUsername">Keresés felhasználónév alapján</string>
   <string name="spectator">Néző</string>
   <string name="contributor">Hozzájáruló</string>
   <string name="kick">Kirúgás</string>
-  <string name="leaveTheStudy">Lecke elhagyása</string>
+  <string name="leaveTheStudy">Tanulmány elhagyása</string>
   <string name="youAreNowAContributor">Mostmár közreműködő vagy</string>
   <string name="youAreNowASpectator">Mostmár megfigyelő vagy</string>
   <string name="pgnTags">PGN címkék</string>
@@ -47,4 +49,10 @@
   <string name="getAFullComputerAnalysis">Teljes szerver oldali számítógépes elemzés kérése a fő ágról.</string>
   <string name="makeSureTheChapterIsComplete">Ellenőrizd, hogy a fejezet elkészült-e. Csak egyszer kérhető számítógépes elemzés.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Minden SYNC tag ugyanazt az állást követi</string>
+  <string name="shareChanges">Változtatások megosztása a nézőkkel és mentése a szerveren</string>
+  <string name="playing">Folyamatban</string>
+  <string name="first">Első</string>
+  <string name="previous">Előző</string>
+  <string name="next">Következő</string>
+  <string name="last">Utolsó</string>
 </resources>
