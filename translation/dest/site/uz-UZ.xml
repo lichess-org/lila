@@ -275,6 +275,7 @@
     <item quantity="one">%s sekund berish</item>
     <item quantity="other">%s sekundlar berish</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Ushbu hisob Lichess xizmatlari shartlarini buzgan</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ushbu o\'yinchi o\'zinining reytingini suniy holda oshirayabdi/kamaytirayabdi</string>
   <string name="openingExplorerAndTablebase">Sharhni ochish</string>
   <string name="takeback">Ortga yurish</string>
@@ -848,4 +849,9 @@
   <string name="classicalDesc">Klassik o\'yinlar: 25 minut va undan yuqori bo\'lganlar</string>
   <string name="correspondenceDesc">Yozishmali o\'yinlar: bir yoki bir necha kunli yurishli o\'yinlar</string>
   <string name="puzzleDesc">Shaxmat taktikalarini o\'rgatuvchi murabbiy</string>
+  <string name="important">Muxim</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Sizni savolingiz balki javobini topgandir %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Siz xozircha ushbu forumda post qoldira olmaysiz. Oʻyinlar oʻynang!</string>
+  <string name="subscribe">Obuna bo‘lish</string>
+  <string name="unsubscribe">Obunani bekor qiling</string>
 </resources>
