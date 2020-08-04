@@ -83,7 +83,7 @@ object appeal {
       nbAppeals: Int
   )(implicit ctx: Context) =
     views.html.report.list.layout("appeal", counts, streamers, appeals.size)(
-      table(cls := "slist slist-pad see")(
+      table(cls := "slist slist-pad see appeal-queue")(
         thead(
           tr(
             th("By"),
@@ -93,15 +93,20 @@ object appeal {
         ),
         tbody(
           appeals.map { appeal =>
-            tr(cls := List("new" -> (appeal.isOpen && !appeal.isMuted)))(
+            tr(cls := List("new" -> appeal.isUnread))(
               td(
                 userIdLink(appeal.id.some)
               ),
               td(appeal.msgs.lastOption map { msg =>
-                msg.text
+                frag(
+                  userIdLink(msg.by.some),
+                  " ",
+                  momentFromNowOnce(msg.at),
+                  p(shorten(msg.text, 200))
+                )
               }),
               td(
-                a(href := routes.Appeal.show(appeal.id), cls := "button button-metal")("View"),
+                a(href := routes.Appeal.show(appeal.id), cls := "button button-empty")("View"),
                 inquiries.get(appeal.id) map { i =>
                   frag(userIdLink(i.mod.some), " is handling this")
                 }
@@ -136,7 +141,7 @@ object appeal {
         appeal.msgs.map { msg =>
           div(cls := s"appeal__msg appeal__msg--${if (appeal isByMod msg) "mod" else "suspect"}")(
             div(cls := "appeal__msg__header")(
-              renderUser(appeal, msg.by),
+              renderUser(appeal, msg.by, asMod),
               momentFromNowOnce(msg.at)
             ),
             div(cls := "appeal__msg__text")(richText(msg.text))
@@ -183,8 +188,15 @@ object appeal {
       )
     )
 
-  private def renderUser(appeal: Appeal, userId: User.ID)(implicit lang: Lang) =
-    userIdLink((if (appeal isAbout userId) userId else User.lichessId).some)
+  private def renderUser(appeal: Appeal, userId: User.ID, asMod: Boolean)(implicit lang: Lang) =
+    if (appeal isAbout userId) userIdLink(userId.some)
+    else
+      span(
+        userIdLink(User.lichessId.some),
+        " (",
+        userIdLink(userId.some),
+        ")"
+      )
 
   private def renderForm(form: Form[_], action: String, isNew: Boolean)(implicit ctx: Context) =
     postForm(st.action := action)(

@@ -521,13 +521,14 @@ final class ReportApi(
      * If the mod has no current inquiry, just start this one.
      * If they had another inquiry, cancel it and start this one instead.
      * If they already are on this inquiry, cancel it.
+     * Returns the previous and next inquiries
      */
-    def toggle(mod: Mod, id: Report.ID): Fu[Option[Report]] =
+    def toggle(mod: Mod, id: Report.ID): Fu[(Option[Report], Option[Report])] =
       workQueue {
         doToggle(mod, id)
       }
 
-    private def doToggle(mod: Mod, id: Report.ID): Fu[Option[Report]] =
+    private def doToggle(mod: Mod, id: Report.ID): Fu[(Option[Report], Option[Report])] =
       for {
         report <- coll.byId[Report](id) orElse coll.one[Report](
           $doc("user" -> id, "inquiry.mod" $exists true)
@@ -542,13 +543,13 @@ final class ReportApi(
               Report.Inquiry(mod.user.id, DateTime.now)
             )
             .void
-      } yield report.inquiry.isEmpty option report
+      } yield (current, report.inquiry.isEmpty option report)
 
     def toggleNext(mod: Mod, room: Room): Fu[Option[Report]] =
       workQueue {
         findNext(room) flatMap {
           _ ?? { report =>
-            doToggle(mod, report.id)
+            doToggle(mod, report.id).dmap(_._2)
           }
         }
       }
