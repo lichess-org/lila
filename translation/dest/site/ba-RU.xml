@@ -3,7 +3,7 @@
   <string name="playWithAFriend">Дуҫ менән уйнарға</string>
   <string name="playWithTheMachine">Компьютер менән уйнарға</string>
   <string name="gameOver">Партия тамамланды</string>
-  <string name="waitingForOpponent">Ҡаршы кешене көтәбеҙ</string>
+  <string name="waitingForOpponent">Ярышыусыны көтәбеҙ</string>
   <string name="waiting">Көтәбеҙ</string>
   <string name="yourTurn">Һеҙҙең йөрөү</string>
   <string name="aiNameLevelAiLevel">%1$s кимәле: %2$s</string>
@@ -24,11 +24,11 @@
   <string name="kingInTheCenter">Король таҡтаның уртаһында</string>
   <string name="threeChecks">Өс шах</string>
   <string name="variantEnding">Партия тамамланды</string>
-  <string name="newOpponent">Яңы каршы кеше</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Ҡаршы кеше һеҙҙең менән яңынан уйнарға тәкъдим итә</string>
+  <string name="newOpponent">Яңы ярышыусы</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Ярышыусы һеҙҙең менән яңынан уйнарға тәкъдим итә</string>
   <string name="whitePlays">Аҡтарҙың йөрөүе</string>
   <string name="blackPlays">Ҡараларҙың йөрөүе</string>
-  <string name="makeYourOpponentResign">Ҡаршы кешегә еңелеү һаналасаҡ</string>
+  <string name="makeYourOpponentResign">Ярышыусыға еңелеү һаналасаҡ</string>
   <string name="depthX">Тәрәнлек %s</string>
   <string name="draw">Тиңлек</string>
   <string name="time">Ваҡыт</string>
