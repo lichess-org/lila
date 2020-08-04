@@ -430,6 +430,8 @@ GET   /mod/print/:fh                   controllers.Mod.print(fh: String)
 POST  /mod/print/ban/:v/:fh            controllers.Mod.printBan(v: Boolean, fh: String)
 GET   /mod/ip/:ip                      controllers.Mod.singleIp(ip: String)
 POST  /mod/ip/ban/:v/:ip               controllers.Mod.singleIpBan(v: Boolean, ip: String)
+GET   /mod/presets/:group              controllers.Mod.presets(group: String)
+POST  /mod/presets/:group              controllers.Mod.presetsUpdate(group: String)
 GET   /api/stream/mod                  controllers.Mod.eventStream
 
 # Irwin

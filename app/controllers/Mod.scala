@@ -455,6 +455,26 @@ final class Mod(
       fuccess(().some)
     }(_ => _ => _ => Redirect(routes.Mod.chatPanic()).fuccess)
 
+  def presets(group: String) =
+    Secure(_.Presets) { implicit ctx => _ =>
+      env.mod.presets.get(group).fold(notFound) { setting =>
+        Ok(html.mod.presets(group, setting, setting.form)).fuccess
+      }
+    }
+
+  def presetsUpdate(group: String) =
+    SecureBody(_.Presets) { implicit ctx => _ =>
+      implicit val req = ctx.body
+      env.mod.presets.get(group).fold(notFound) { setting =>
+        setting.form
+          .bindFromRequest()
+          .fold(
+            err => BadRequest(html.mod.presets(group, setting, err)).fuccess,
+            v => setting.setString(v.toString) inject Redirect(routes.Mod.presets(group)).flashSuccess
+          )
+      }
+    }
+
   def eventStream =
     OAuthSecure(_.Admin) { _ => _ =>
       noProxyBuffer(Ok.chunked(env.mod.stream())).fuccess

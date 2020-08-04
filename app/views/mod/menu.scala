@@ -37,6 +37,8 @@ object menu {
         ),
       isGranted(_.Admin) option
         a(cls := active.active("mods"), href := routes.Mod.table())("Mods"),
+      isGranted(_.Presets) option
+        a(cls := active.active("presets"), href := routes.Mod.presets("PM"))("Msg presets"),
       isGranted(_.Settings) option
         a(cls := active.active("setting"), href := routes.Dev.settings())("Settings"),
       isGranted(_.Cli) option
