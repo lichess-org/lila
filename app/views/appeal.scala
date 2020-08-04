@@ -232,15 +232,18 @@ object appeal {
       ),
       presets.map { ps =>
         form3.actions(
-          select(cls := "appeal-presets")(
-            option(st.value := "")("Presets"),
-            ps.value.map {
-              case ModPreset(name, text) =>
-                option(
-                  st.value := text,
-                  st.title := text
-                )(name)
-            }
+          div(
+            select(cls := "appeal-presets")(
+              option(st.value := "")("Presets"),
+              ps.value.map {
+                case ModPreset(name, text) =>
+                  option(
+                    st.value := text,
+                    st.title := text
+                  )(name)
+              }
+            ),
+            isGranted(_.Presets) option a(href := routes.Mod.presets("appeal"))("Edit presets")
           ),
           form3.submit(trans.send())
         )
