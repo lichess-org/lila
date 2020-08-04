@@ -62,6 +62,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
               for {
                 _ <- env.appeal.api.reply(text, appeal, me)
                 _ <- env.security.automaticEmail.onAppealReply(suspect.user)
+                _ <- env.mod.logApi.appealPost(me.id, suspect.user.id)
               } yield Redirect(routes.Appeal.show(username)).flashSuccess
           )
       }
@@ -71,10 +72,11 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         val res = action match {
-          case "close" => env.appeal.api.close(appeal)
-          case "open"  => env.appeal.api.open(appeal)
-          case "mute"  => env.appeal.api.mute(appeal)
-          case _       => funit
+          case "close" =>
+            env.appeal.api.close(appeal) >> env.mod.logApi.appealClose(me.id, suspect.user.id)
+          case "open" => env.appeal.api.open(appeal)
+          case "mute" => env.appeal.api.mute(appeal)
+          case _      => funit
         }
         res inject Redirect(routes.Appeal.show(username)).flashSuccess
       }
