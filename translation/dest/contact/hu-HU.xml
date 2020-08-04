@@ -59,7 +59,7 @@
   <string name="ratedGame">Ellenőrizd, hogy rangsorolt játszmát játszol. Nem rangsorolt játékok nincsenek hatással az értékszámra.</string>
   <string name="errorPage">Hibaoldal</string>
   <string name="reportErrorPage">Ha hibaoldallal találkoztál, itt jelentheted:</string>
-  <string name="banAppeal">Fellebbezés kitiltásért vagy IP cím korlátozásért</string>
+  <string name="banAppeal">Fellebbezés kitiltás vagy IP cím korlátozás miatt</string>
   <string name="engineAppeal">Sakkprogram használat vagy csalás</string>
   <string name="sendAppealTo">A fellebbezést a %s címre küldheted.</string>
   <string name="falsePositives">Téves ítéletek születhetnek néha, amit nagyon sajnálunk.</string>
