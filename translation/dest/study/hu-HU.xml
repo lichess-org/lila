@@ -86,4 +86,5 @@
   <string name="empty">Üres</string>
   <string name="startFromInitialPosition">Kezdés az alapállásból</string>
   <string name="editor">Szerkesztő</string>
+  <string name="automatic">Automatikus</string>
 </resources>
