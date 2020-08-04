@@ -478,14 +478,10 @@ final class ReportApi(
       }
 
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] =
-    (nb > 0) ?? {
-      coll.ext.find(selector).sort(sortLastAtomAt).cursor[Report]().list(nb)
-    }
+    (nb > 0) ?? coll.ext.find(selector).sort(sortLastAtomAt).cursor[Report]().list(nb)
 
   private def findBest(nb: Int, selector: Bdoc): Fu[List[Report]] =
-    (nb > 0) ?? {
-      coll.ext.find(selector).sort($sort desc "score").cursor[Report]().list(nb)
-    }
+    (nb > 0) ?? coll.ext.find(selector).sort($sort desc "score").cursor[Report]().list(nb)
 
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =
     $doc(
