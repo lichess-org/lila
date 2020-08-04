@@ -62,4 +62,9 @@
   <string name="chapterPgn">PGN a fejezetről</string>
   <string name="downloadGame">Játszma letöltése</string>
   <string name="studyUrl">Tanulmány URL</string>
+  <string name="broadcastUrl">Közvetítés URL</string>
+  <string name="currentChapterUrl">URL erre a fejezetre</string>
+  <string name="currentGameUrl">URL erre a játszmára</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Beszúrhatod a linket fórumba a beágyazáshoz</string>
+  <string name="startAtInitialPosition">Kezdés az alapállásból</string>
 </resources>
