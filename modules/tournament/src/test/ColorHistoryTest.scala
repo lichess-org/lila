@@ -3,10 +3,10 @@ import org.specs2.mutable.Specification
 
 object ColorHistoryTest {
   def apply(s: String): ColorHistory = {
-    s.foldLeft(ColorHistory(None)) { (acc, c) =>
+    s.foldLeft(ColorHistory(0, 0)) { (acc, c) =>
       c match {
-        case 'W' => acc.incColor(1)
-        case 'B' => acc.incColor(-1)
+        case 'W' => acc.inc(chess.White)
+        case 'B' => acc.inc(chess.Black)
       }
     }
   }
@@ -21,7 +21,7 @@ object ColorHistoryTest {
 }
 
 class ColorHistoryTest extends Specification {
-  import ColorHistoryTest.{ apply, couldPlay, firstGetsWhite, sameColors, toTuple2, unpack }
+  import ColorHistoryTest.{ apply, couldPlay, firstGetsWhite, sameColors, unpack }
   "arena tournament color history" should {
     "hand tests" in {
       unpack("WWW") must be equalTo ((3, 3))
@@ -46,16 +46,6 @@ class ColorHistoryTest extends Specification {
       firstGetsWhite("B", "BB") must beFalse
       firstGetsWhite("WW", "BWW") must beFalse
       firstGetsWhite("BB", "WBB") must beTrue
-    }
-    "serialization" in {
-      toTuple2(ColorHistory(Some(-1))) must be equalTo ((0x7fff, 0x7fff))
-      toTuple2(ColorHistory(Some(0))) must be equalTo ((-0x8000, -0x8000))
-    }
-    "min/(max)Value incColor" in {
-      val minh = ColorHistory.minValue
-      toTuple2(minh.incColor(-1)) must be equalTo toTuple2(minh)
-      val maxh = ColorHistory.maxValue
-      toTuple2(maxh.incColor(1)) must be equalTo toTuple2(maxh)
     }
     "equals" in {
       apply("") must be equalTo apply("")

@@ -34,6 +34,7 @@ final class TournamentApi(
     tellRound: lila.round.TellRound,
     roundSocket: lila.round.RoundSocket,
     trophyApi: lila.user.TrophyApi,
+    colorHistoryApi: ColorHistoryApi,
     verify: Condition.Verify,
     duelStore: DuelStore,
     pause: Pause,
@@ -438,7 +439,7 @@ final class TournamentApi(
   )(userId: User.ID): Funit =
     (tour.perfType.ifTrue(tour.mode.rated) ?? { userRepo.perfOf(userId, _) }) flatMap { perf =>
       playerRepo.update(tour.id, userId) { player =>
-        cached.sheet.update(tour, userId) map { sheet =>
+        cached.sheet.update(tour, userId).map { sheet =>
           player.copy(
             score = sheet.total,
             fire = tour.streakable && sheet.onFire,
@@ -453,17 +454,10 @@ final class TournamentApi(
               } yield Math.round {
                 player.performance * (nbGames - 1) / nbGames + performance / nbGames
               } toInt
-            } | player.performance,
-            colorHistory = {
-              for {
-                g           <- finishing
-                whiteUserId <- g.whitePlayer.userId
-                if g.blackPlayer.userId.nonEmpty
-              } yield {
-                player.colorHistory.incColor(if (player.is(whiteUserId)) 1 else -1)
-              }
-            } | player.colorHistory
+            } | player.performance
           )
+        } >>- finishing.flatMap(_.whitePlayer.userId).foreach { whiteUserId =>
+          colorHistoryApi.inc(player.id, chess.Color(player is whiteUserId))
         }
       }
     }

@@ -136,8 +136,7 @@ object BSONHandlers {
         score = r intD "s",
         fire = r boolD "f",
         performance = r intD "e",
-        team = r strO "t",
-        colorHistory = ColorHistory(r intO "c")
+        team = r strO "t"
       )
     def writes(w: BSON.Writer, o: Player) =
       $doc(
@@ -151,8 +150,7 @@ object BSONHandlers {
         "m"   -> o.magicScore,
         "f"   -> w.boolO(o.fire),
         "e"   -> o.performance,
-        "t"   -> o.team,
-        "c"   -> o.colorHistory.toInt
+        "t"   -> o.team
       )
   }
 

@@ -6,9 +6,12 @@ import lila.user.User
 import PairingSystem.Data
 
 private object AntmaPairing {
+
   private[this] val maxStrike = 3
 
-  def apply(data: Data, players: RankedPlayers): List[Pairing.Prep] =
+  private type RPlayer = RankedPlayerWithColorHistory
+
+  def apply(data: Data, players: List[RPlayer]): List[Pairing.Prep] =
     players.nonEmpty ?? {
       import data._
 
@@ -18,10 +21,10 @@ private object AntmaPairing {
         lastOpponents.hash.get(u1).contains(u2) ||
           lastOpponents.hash.get(u2).contains(u1)
 
-      def pairScore(a: RankedPlayer, b: RankedPlayer): Option[Int] =
+      def pairScore(a: RPlayer, b: RPlayer): Option[Int] =
         if (
           justPlayedTogether(a.player.userId, b.player.userId) ||
-          !a.player.colorHistory.couldPlay(b.player.colorHistory, maxStrike)
+          !a.colorHistory.couldPlay(b.colorHistory, maxStrike)
         ) None
         else
           Some {
@@ -29,10 +32,10 @@ private object AntmaPairing {
               Math.abs(a.player.rating - b.player.rating)
           }
 
-      def battleScore(a: RankedPlayer, b: RankedPlayer): Option[Int] =
+      def battleScore(a: RPlayer, b: RPlayer): Option[Int] =
         (a.player.team != b.player.team) ?? pairScore(a, b)
 
-      def duelScore: (RankedPlayer, RankedPlayer) => Option[Int] = (_, _) => Some(1)
+      def duelScore: (RPlayer, RPlayer) => Option[Int] = (_, _) => Some(1)
 
       Chronometer.syncMon(_.tournament.pairing.wmmatching) {
         WMMatching(
@@ -46,7 +49,7 @@ private object AntmaPairing {
             Nil
           },
           _ map {
-            case (a, b) => Pairing.prepWithColor(tour, a.player, b.player)
+            case (a, b) => Pairing.prepWithColor(tour, a, b)
           }
         )
       }
