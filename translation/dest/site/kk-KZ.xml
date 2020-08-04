@@ -245,7 +245,7 @@
   <string name="noNewMessages">Eshqandaı jańa habarlamalar</string>
   <string name="subject">Pán</string>
   <string name="recipient">Recipient</string>
-  <string name="send">Jiberý</string>
+  <string name="send">Жіберу</string>
   <string name="incrementInSeconds">Секунд қосылады</string>
   <string name="freeOnlineChess">Тегін онлайн шахмат</string>
   <string name="spectators">Көрермен</string>
@@ -366,7 +366,7 @@
   <string name="lastSeenActive">Belsendi %s</string>
   <string name="challengeToPlay">Ойынға шақыру</string>
   <string name="player">ойыншы</string>
-  <string name="list">Tizim</string>
+  <string name="list">Тiзiм</string>
   <string name="graph">Dıagram</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">%s минуттан аз</item>

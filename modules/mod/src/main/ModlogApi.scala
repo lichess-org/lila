@@ -213,6 +213,12 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       Modlog(mod, teamOwner.some, Modlog.teamEdit, details = Some(teamName take 140))
     }
 
+  def appealPost(mod: User.ID, user: User.ID) =
+    add { Modlog(mod, user.some, Modlog.appealPost, details = none) }
+
+  def appealClose(mod: User.ID, user: User.ID) =
+    add { Modlog(mod, user.some, Modlog.appealClose, details = none) }
+
   def recent =
     coll.ext
       .find(

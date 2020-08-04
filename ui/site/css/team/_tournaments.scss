@@ -1,26 +1,4 @@
 .team-events {
-  &--both {
-    @extend %flex-wrap;
-
-    margin-top: -2em;
-
-    h2 {
-      @extend %box-padding;
-
-      // padding-bottom: 1em;
-      border-bottom: $border;
-    }
-
-    & > div {
-      flex: 1 0 50%;
-      min-width: 60ch;
-
-      &:last-child .slist {
-        border-left: $border;
-      }
-    }
-  }
-
   .slist {
     td {
       padding: .5rem 1rem;
@@ -75,6 +53,28 @@
 
     .soon {
       border: 1px solid $c-brag;
+    }
+  }
+}
+
+.team-tournaments--both {
+  @extend %flex-wrap;
+
+  margin-top: -2em;
+
+  h2 {
+    @extend %box-padding;
+
+    // padding-bottom: 1em;
+    border-bottom: $border;
+  }
+
+  & > div {
+    flex: 1 0 50%;
+    min-width: 60ch;
+
+    &:last-child .slist {
+      border-left: $border;
     }
   }
 }

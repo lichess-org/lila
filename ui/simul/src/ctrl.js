@@ -1,6 +1,5 @@
 var socket = require('./socket');
 var simul = require('./simul');
-var text = require('./text');
 var xhr = require('./xhr');
 
 module.exports = function(env) {
@@ -12,7 +11,6 @@ module.exports = function(env) {
   this.userId = env.userId;
 
   this.socket = new socket(env.socketSend, this);
-  this.text = text.ctrl();
 
   this.reload = function(data) {
     if (this.data.isCreated && !data.isCreated) {

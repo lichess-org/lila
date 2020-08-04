@@ -522,7 +522,7 @@
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Preguntas y respuestas</string>
   <string name="notes">Notas</string>
-  <string name="typePrivateNotesHere">Escribe aquí los tuyos notas privadas</string>
+  <string name="typePrivateNotesHere">Escribe aquí las tuyas notas privadas</string>
   <string name="invalidUsernameOrPassword">Nombre d\'usuario u clau erronio</string>
   <string name="incorrectPassword">Clau incorrecta</string>
   <string name="invalidAuthenticationCode">Codigo d\'autenticación invalido</string>

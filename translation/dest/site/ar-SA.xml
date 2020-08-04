@@ -343,6 +343,7 @@
     <item quantity="many">منح %s ثانية</item>
     <item quantity="other">منح %s ثانية</item>
   </plurals>
+  <string name="thisAccountViolatedTos">هذا الحساب انتهك شروط خدمة lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">هذا اللاعب يتلاعب بتقييمه</string>
   <string name="openingExplorerAndTablebase">مستكشف الافتتاحيات&amp; جدول النهايات</string>
   <string name="takeback">تراجع</string>
@@ -993,4 +994,12 @@
   <string name="edit">تعديل</string>
   <string name="rapid">سريع</string>
   <string name="classical">تقليدي</string>
+  <string name="ultraBulletDesc">مباراةٌ جنونية السرعة: أقل من ثلاثين ثانية</string>
+  <string name="bulletDesc">مباراةٌ سريعةٌ جداً: أقل من ٣ دقائق</string>
+  <string name="blitzDesc">مبارياتٌ سريعة: ٣ - ٨ دقائق</string>
+  <string name="rapidDesc">مباراياتٌ خاطفةٌ: ٨-٢٥ دقائق</string>
+  <string name="classicalDesc">مبارياتٌ كلاسيكيةٌ: ٢٥ دقيقة و أكثر</string>
+  <string name="correspondenceDesc">ألعاب المراسلة: يوم أو عدة أيام لكل نقلة</string>
+  <string name="puzzleDesc">مدرب تكتيكات الشطرنج</string>
+  <string name="important">مهم</string>
 </resources>

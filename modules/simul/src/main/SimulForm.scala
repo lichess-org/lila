@@ -1,12 +1,12 @@
 package lila.simul
 
+import chess.StartingPosition
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Constraints }
-import lila.user.User
 
-import chess.StartingPosition
 import lila.common.Form._
+import lila.user.User
 
 object SimulForm {
 
@@ -60,6 +60,32 @@ object SimulForm {
     )
 
   def create(host: User) =
+    baseForm(host) fill Setup(
+      name = host.titleUsername,
+      clockTime = clockTimeDefault,
+      clockIncrement = clockIncrementDefault,
+      clockExtra = clockExtraDefault,
+      variants = List(chess.variant.Standard.id),
+      position = StartingPosition.initial.fen.some,
+      color = colorDefault,
+      text = "",
+      team = none
+    )
+
+  def edit(host: User, simul: Simul) =
+    baseForm(host) fill Setup(
+      name = simul.name,
+      clockTime = simul.clock.config.limitInMinutes.toInt,
+      clockIncrement = simul.clock.config.increment.roundSeconds,
+      clockExtra = simul.clock.hostExtraMinutes,
+      variants = simul.variants.map(_.id),
+      position = simul.position.map(_.fen),
+      color = simul.color | "random",
+      text = simul.text,
+      team = simul.team
+    )
+
+  private def baseForm(host: User) =
     Form(
       mapping(
         "name"           -> nameType(host),
@@ -86,16 +112,6 @@ object SimulForm {
         "text"     -> clean(text),
         "team"     -> optional(nonEmptyText)
       )(Setup.apply)(Setup.unapply)
-    ) fill Setup(
-      name = host.titleUsername,
-      clockTime = clockTimeDefault,
-      clockIncrement = clockIncrementDefault,
-      clockExtra = clockExtraDefault,
-      variants = List(chess.variant.Standard.id),
-      position = StartingPosition.initial.fen.some,
-      color = colorDefault,
-      text = "",
-      team = none
     )
 
   val positions = StartingPosition.allWithInitial.map(_.fen)
@@ -119,5 +135,20 @@ object SimulForm {
       color: String,
       text: String,
       team: Option[String]
-  )
+  ) {
+    def clock =
+      SimulClock(
+        config = chess.Clock.Config(clockTime * 60, clockIncrement),
+        hostExtraTime = clockExtra * 60
+      )
+
+    def actualPosition =
+      position
+        .map {
+          startingPosition(_, chess.variant.Standard)
+        }
+        .filterNot(_.initial)
+
+    def actualVariants = variants.flatMap { chess.variant.Variant(_) }
+  }
 }

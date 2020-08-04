@@ -31,6 +31,7 @@ object Permission {
   case object SetEmail              extends Permission("SET_EMAIL", List(UserSpy), "Set email address")
   case object SeeReport             extends Permission("SEE_REPORT", "See reports")
   case object Appeals               extends Permission("APPEAL", "Handle appeals")
+  case object Presets               extends Permission("PRESET", "Edit mod presets")
   case object ModLog                extends Permission("MOD_LOG", "See mod log")
   case object SeeInsight            extends Permission("SEE_INSIGHT", "View player insights")
   case object PracticeConfig        extends Permission("PRACTICE_CONFIG", "Configure practice")
@@ -39,6 +40,7 @@ object Permission {
   case object ManageTeam            extends Permission("MANAGE_TEAM", "Manage teams")
   case object ManageTournament      extends Permission("MANAGE_TOURNAMENT", "Manage tournaments")
   case object ManageEvent           extends Permission("MANAGE_EVENT", "Manage events")
+  case object ManageSimul           extends Permission("MANAGE_SIMUL", "Manage simuls")
   case object ChangePermission      extends Permission("CHANGE_PERMISSION", "Change permissions")
   case object PublicMod             extends Permission("PUBLIC_MOD", "Mod badge")
   case object Developer             extends Permission("DEVELOPER", "Developer badge")
@@ -131,8 +133,10 @@ object Permission {
           SetEmail,
           ManageTeam,
           ManageTournament,
+          ManageSimul,
           ManageEvent,
           PracticeConfig,
+          Presets,
           RemoveRanking,
           DisapproveCoachReview,
           Relay,
@@ -199,8 +203,10 @@ object Permission {
       Relay,
       ManageEvent,
       ManageTournament,
+      ManageSimul,
       StudyAdmin,
-      PracticeConfig
+      PracticeConfig,
+      Presets
     ),
     "Dev" -> List(
       Cli,

@@ -83,6 +83,8 @@ case class Report(
         case Report.sandbagWithRegex(userId) => userId
       }
     }
+
+  def isAppeal = room == Room.Other && atoms.head.text == Report.appealText
 }
 
 object Report {

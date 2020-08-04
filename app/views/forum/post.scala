@@ -95,13 +95,14 @@ object post {
   }
 
   def reactions(post: Post, canReact: Boolean)(implicit ctx: Context) = {
-    val mine = ctx.me ?? { Post.reactionsOf(~post.reactions, _) }
-    div(cls := List("reactions" -> true, "reactions-auth" -> (ctx.isAuth && canReact)))(
+    val mine             = ctx.me ?? { Post.reactionsOf(~post.reactions, _) }
+    val canActuallyReact = canReact && ctx.me.exists(!_.isBot)
+    div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
       Post.reactionsList.map { r =>
         val users = ~post.reactions.flatMap(_ get r)
         val size  = users.size
         button(
-          dataHref := (ctx.isAuth && canReact) option routes.ForumPost.react(post.id, r, !mine(r)).url,
+          dataHref := canActuallyReact option routes.ForumPost.react(post.id, r, !mine(r)).url,
           cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := {
             if (size > 0) {

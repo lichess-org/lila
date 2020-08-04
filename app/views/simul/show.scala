@@ -1,13 +1,12 @@
 package views.html.simul
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-
-import controllers.routes
 
 object show {
 
@@ -59,7 +58,11 @@ object show {
                   div(cls := "setup")(
                     sim.variants.map(_.name).mkString(", "),
                     " • ",
-                    trans.casual()
+                    trans.casual(),
+                    ctx.userId.has(sim.hostId) option frag(
+                      " • ",
+                      a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag("%"))
+                    )
                   )
                 )
               ),

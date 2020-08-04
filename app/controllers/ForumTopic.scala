@@ -14,33 +14,37 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   def form(categSlug: String) =
     Auth { implicit ctx => me =>
-      NotForKids {
-        OptionFuOk(env.forum.categRepo bySlug categSlug) { categ =>
-          forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(me), _) }
+      NoBot {
+        NotForKids {
+          OptionFuOk(env.forum.categRepo bySlug categSlug) { categ =>
+            forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(me), _) }
+          }
         }
       }
     }
 
   def create(categSlug: String) =
     AuthBody { implicit ctx => me =>
-      CategGrantWrite(categSlug) {
-        implicit val req = ctx.body
-        OptionFuResult(env.forum.categRepo bySlug categSlug) { categ =>
-          forms
-            .topic(me)
-            .bindFromRequest()
-            .fold(
-              err =>
-                forms.anyCaptcha map { captcha =>
-                  BadRequest(html.forum.topic.form(categ, err, captcha))
-                },
-              data =>
-                CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-                  topicApi.makeTopic(categ, data, me) map { topic =>
-                    Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
-                  }
-                }(rateLimitedFu)
-            )
+      NoBot {
+        CategGrantWrite(categSlug) {
+          implicit val req = ctx.body
+          OptionFuResult(env.forum.categRepo bySlug categSlug) { categ =>
+            forms
+              .topic(me)
+              .bindFromRequest()
+              .fold(
+                err =>
+                  forms.anyCaptcha map { captcha =>
+                    BadRequest(html.forum.topic.form(categ, err, captcha))
+                  },
+                data =>
+                  CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+                    topicApi.makeTopic(categ, data, me) map { topic =>
+                      Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
+                    }
+                  }(rateLimitedFu)
+              )
+          }
         }
       }
     }
