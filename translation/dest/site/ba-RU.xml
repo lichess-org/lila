@@ -38,6 +38,15 @@
   <string name="send">Ебәрергә</string>
   <string name="more">Тағы</string>
   <string name="list">Теҙем</string>
+  <string name="wins">Еңеүҙәр</string>
   <string name="no">Юҡ</string>
   <string name="yes">Эйе</string>
+  <string name="none">Юҡ</string>
+  <string name="fast">Тиҙ</string>
+  <string name="slow">Яй</string>
+  <string name="difficultyEasy">Еңел</string>
+  <string name="difficultyHard">Ауыр</string>
+  <string name="side">Яҡ</string>
+  <string name="menu">Меню</string>
+  <string name="language">Тел (Language)</string>
 </resources>
