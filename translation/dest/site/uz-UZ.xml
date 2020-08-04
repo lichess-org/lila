@@ -851,6 +851,14 @@
   <string name="puzzleDesc">Shaxmat taktikalarini o\'rgatuvchi murabbiy</string>
   <string name="important">Muxim</string>
   <string name="yourQuestionMayHaveBeenAnswered">Sizni savolingiz balki javobini topgandir %1$s</string>
+  <string name="inTheFAQ">F.A.Q. ichida.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Foydalanuvchini aldamchi yoki yomon xulq-atvori haqida xabar berish uchun %1$s</string>
+  <string name="useTheReportForm">hisobot shaklidan foydalaning</string>
+  <string name="toRequestSupport">Yordam soʻrash uchun, %1$s</string>
+  <string name="tryTheContactPage">aloqalar sahifasini qoʻllab koʻring</string>
+  <string name="thisTopicIsArchived">Ushbu mavzu arxivlangan va endi unga javob qaytarib boʻlmaydi.</string>
+  <string name="joinTheTeamXToPost">Ushbu forumda post qoldirish uchun %1$s ga ulaning</string>
+  <string name="teamNamedX">%1$s jamoa</string>
   <string name="youCannotPostYetPlaySomeGames">Siz xozircha ushbu forumda post qoldira olmaysiz. Oʻyinlar oʻynang!</string>
   <string name="subscribe">Obuna bo‘lish</string>
   <string name="unsubscribe">Obunani bekor qiling</string>
