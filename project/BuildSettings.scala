@@ -55,6 +55,21 @@ object BuildSettings {
         srcMain
       )
 
+  def smallModule(
+      name: String,
+      deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
+      libs: Seq[ModuleID]
+  ) =
+    Project(
+      name,
+      file("modules/" + name)
+    ).dependsOn(deps: _*)
+      .settings(
+        libraryDependencies ++= libs,
+        buildSettings,
+        srcMain
+      )
+
   val compilerOptions = Seq(
     "-explaintypes",
     "-feature",

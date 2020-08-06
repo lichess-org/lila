@@ -25,8 +25,6 @@ PlayKeys.externalizeResources := false
 scriptClasspath := Seq("*")
 // give a fake assets dir to make sure they're not packaged
 resourceDirectory in Assets := baseDirectory.value / "public-nothanks"
-// don't make an assets jar
-PlayKeys.generateAssetsJar := false
 // who needs JS routes right?
 routesGenerator := LilaRoutesGenerator
 maintainer := "contact@lichess.org"
@@ -70,7 +68,7 @@ lazy val api = module("api",
 
 lazy val i18n = module("i18n",
   Seq(common, db, hub),
-  Seq(scalatags)
+  Seq(scalatags, specs2)
 ).settings(
   sourceGenerators in Compile += Def.task {
     MessageCompiler(
@@ -87,9 +85,9 @@ lazy val puzzle = module("puzzle",
   reactivemongo.bundle
 )
 
-lazy val quote = module("quote",
+lazy val quote = smallModule("quote",
   Seq(),
-  Seq()
+  Seq(play.json)
 )
 
 lazy val video = module("video",
@@ -124,7 +122,7 @@ lazy val evaluation = module("evaluation",
 
 lazy val common = module("common",
   Seq(),
-  Seq(kamon.core, scalatags, jodaForms, scaffeine, specs2) ++ reactivemongo.bundle
+  Seq(kamon.core, scalatags, jodaForms, scaffeine, specs2, apacheText) ++ reactivemongo.bundle
 )
 
 lazy val rating = module("rating",

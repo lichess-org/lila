@@ -21,15 +21,17 @@ object Dependencies {
   val maxmind     = "com.sanoma.cda"       %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.18-THIB213"
   val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.5"
-  val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "4.0.1" % "compile"
+  val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "4.0.1"  % "compile"
   val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.21.1"
   val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "2.2.4"
   val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.8.5"
   val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.3.2.RELEASE"
   val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.51.Final" classifier "linux-x86_64"
-  val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2" % "provided"
-  val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0" % Test
+  val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2"  % "provided"
+  val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0"  % Test
   val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.11.0"
+  val specs2      = "org.specs2"           %% "specs2-core"                     % "4.10.0" % Test
+  val apacheText  = "org.apache.commons"    % "commons-text"                    % "1.9"
 
   object flexmark {
     val version = "0.50.50"
@@ -55,7 +57,7 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.8.2"
+    val version = "2.8.2-lila_0.1"
     val api     = "com.typesafe.play" %% "play"      % version
     val json    = "com.typesafe.play" %% "play-json" % "2.9.0"
   }
