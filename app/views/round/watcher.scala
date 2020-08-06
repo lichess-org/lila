@@ -36,7 +36,7 @@ object watcher {
 
     bits.layout(
       variant = pov.game.variant,
-      title = gameVsText(pov.game, withRatings = true),
+      title = s"${gameVsText(pov.game, withRatings = true)} • spectator",
       moreJs = frag(
         roundNvuiTag,
         roundTag,
