@@ -201,7 +201,8 @@ final class Round(
           },
           api = apiVersion =>
             for {
-              data     <- env.api.roundApi.watcher(pov, none, apiVersion, tv = none)
+              tour     <- env.tournament.api.gameView.watcher(pov.game)
+              data     <- env.api.roundApi.watcher(pov, tour, apiVersion, tv = none)
               analysis <- analyser get pov.game
               chat     <- getWatcherChat(pov.game)
             } yield Ok {
