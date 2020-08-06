@@ -400,7 +400,7 @@ object Pref {
     clockBar = true,
     clockSound = true,
     premove = true,
-    animation = 2,
+    animation = Animation.NORMAL,
     captured = true,
     follow = true,
     highlight = true,
