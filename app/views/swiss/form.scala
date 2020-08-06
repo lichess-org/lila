@@ -96,7 +96,6 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
     form3.group(form("name"), trans.name()) { f =>
       div(
         form3.input(f),
-        br,
         small(cls := "form-help")(
           trans.safeTournamentName(),
           br,
