@@ -52,6 +52,7 @@ class LevenshteinTest extends Specification {
       check("a", "bbbba") must beTrue
       check("abacabada", "aba") must beTrue
       check("abacabada", "abacbada") must beTrue
+      check("hippo", "elephant") must beTrue
       check("some", "none") must beTrue
       check("true", "false") must beTrue
       check("kitten", "mittens") must beTrue
