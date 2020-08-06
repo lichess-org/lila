@@ -42,7 +42,7 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
-          Ok(html.appeal.show(appeal, suspect, inquiry, env.appeal.forms.text))
+          Ok(html.appeal.show(appeal, suspect, inquiry, env.appeal.forms.text, getPresets))
         }
       }
     }
@@ -56,12 +56,13 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
           .fold(
             err =>
               env.report.api.inquiries.ofSuspectId(suspect.user.id) map { inquiry =>
-                BadRequest(html.appeal.show(appeal, suspect, inquiry, err))
+                BadRequest(html.appeal.show(appeal, suspect, inquiry, err, getPresets))
               },
             text =>
               for {
                 _ <- env.appeal.api.reply(text, appeal, me)
                 _ <- env.security.automaticEmail.onAppealReply(suspect.user)
+                _ <- env.mod.logApi.appealPost(me.id, suspect.user.id)
               } yield Redirect(routes.Appeal.show(username)).flashSuccess
           )
       }
@@ -71,14 +72,28 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         val res = action match {
-          case "close" => env.appeal.api.close(appeal)
-          case "open"  => env.appeal.api.open(appeal)
-          case "mute"  => env.appeal.api.mute(appeal)
-          case _       => funit
+          case "close" =>
+            for {
+              _ <- env.appeal.api.close(appeal)
+              _ <- env.mod.logApi.appealClose(me.id, suspect.user.id)
+              _ <- env.report.api.inquiries.toggle(lila.report.Mod(me), appeal.id)
+            } yield none
+          case "open" =>
+            env.appeal.api.open(appeal) inject Redirect(routes.Appeal.show(username)).flashSuccess.some
+          case "mute" =>
+            for {
+              _ <- env.appeal.api.mute(appeal)
+              _ <- env.report.api.inquiries.toggle(lila.report.Mod(me), appeal.id)
+            } yield none
+          case _ => funit inject none
         }
-        res inject Redirect(routes.Appeal.show(username)).flashSuccess
+        res map {
+          _ | Redirect(routes.Appeal.queue())
+        }
       }
     }
+
+  private def getPresets = env.mod.presets.appealPresets.get()
 
   private def asMod(
       username: String

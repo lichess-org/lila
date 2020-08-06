@@ -10,9 +10,11 @@ case class Appeal(
     createdAt: DateTime,
     updatedAt: DateTime
 ) {
-  def id                       = _id
-  def isOpen                   = status != Appeal.Status.Closed
-  def isMuted                  = status == Appeal.Status.Muted
+  def id       = _id
+  def isOpen   = status != Appeal.Status.Closed
+  def isMuted  = status == Appeal.Status.Muted
+  def isUnread = status == Appeal.Status.Unread
+
   def isAbout(userId: User.ID) = _id == userId
 
   def post(text: String, by: User) = {

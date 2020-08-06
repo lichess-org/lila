@@ -93,12 +93,12 @@ final class Mod(
 
   def warn(username: String, subject: String) =
     OAuthModBody(_.ModMessage) { me =>
-      lila.msg.MsgPreset.byName(subject) ?? { preset =>
+      env.mod.presets.pmPresets.get().named(subject) ?? { preset =>
         withSuspect(username) { prev =>
           for {
             inquiry <- env.report.api.inquiries ofModId me.id
             suspect <- modApi.setTroll(AsMod(me), prev, prev.user.marks.troll)
-            _       <- env.msg.api.postPreset(suspect.user, preset)
+            _       <- env.msg.api.systemPost(suspect.user.id, preset.text)
             _       <- env.mod.logApi.modMessage(me.id, suspect.user.id, preset.name)
           } yield (inquiry, suspect).some
         }
@@ -454,6 +454,26 @@ final class Mod(
       env.slack.api.chatPanic(me, v)
       fuccess(().some)
     }(_ => _ => _ => Redirect(routes.Mod.chatPanic()).fuccess)
+
+  def presets(group: String) =
+    Secure(_.Presets) { implicit ctx => _ =>
+      env.mod.presets.get(group).fold(notFound) { setting =>
+        Ok(html.mod.presets(group, setting, setting.form)).fuccess
+      }
+    }
+
+  def presetsUpdate(group: String) =
+    SecureBody(_.Presets) { implicit ctx => _ =>
+      implicit val req = ctx.body
+      env.mod.presets.get(group).fold(notFound) { setting =>
+        setting.form
+          .bindFromRequest()
+          .fold(
+            err => BadRequest(html.mod.presets(group, setting, err)).fuccess,
+            v => setting.setString(v.toString) inject Redirect(routes.Mod.presets(group)).flashSuccess
+          )
+      }
+    }
 
   def eventStream =
     OAuthSecure(_.Admin) { _ => _ =>

@@ -47,8 +47,14 @@ final class Report(
 
   def inquiry(id: String) =
     Secure(_.SeeReport) { _ => me =>
-      api.inquiries.toggle(AsMod(me), id) map { newInquiry =>
-        newInquiry.fold(Redirect(routes.Report.list()))(onInquiryStart)
+      api.inquiries.toggle(AsMod(me), id) map {
+        case (prev, next) =>
+          next.fold(
+            Redirect {
+              if (prev.exists(_.isAppeal)) routes.Appeal.queue()
+              else routes.Report.list()
+            }
+          )(onInquiryStart)
       }
     }
 
@@ -94,7 +100,11 @@ final class Report(
                 else if (force) userC.modZoneOrRedirect(prev.user)
                 else
                   api.inquiries.toggle(AsMod(me), prev.id) map {
-                    _.fold(redirectToList)(onInquiryStart)
+                    case (prev, next) =>
+                      next.fold(
+                        if (prev.exists(_.isAppeal)) Redirect(routes.Appeal.queue())
+                        else redirectToList
+                      )(onInquiryStart)
                   }
             }
         }
@@ -118,7 +128,7 @@ final class Report(
       OptionFuResult(env.user.repo named username) { user =>
         api.currentCheatReport(lila.report.Suspect(user)) flatMap {
           _ ?? { report =>
-            api.inquiries.toggle(lila.report.Mod(me), report.id)
+            api.inquiries.toggle(lila.report.Mod(me), report.id).void
           } inject modC.redirect(username, true)
         }
       }

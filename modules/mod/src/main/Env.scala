@@ -26,6 +26,7 @@ final class Env(
     reporter: lila.hub.actors.Report,
     fishnet: lila.hub.actors.Fishnet,
     perfStat: lila.perfStat.Env,
+    settingStore: lila.memo.SettingStore.Builder,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
     securityApi: lila.security.SecurityApi,
@@ -82,6 +83,8 @@ final class Env(
   lazy val inquiryApi = wire[InquiryApi]
 
   lazy val stream = wire[ModStream]
+
+  lazy val presets = wire[ModPresetsApi]
 
   // api actor
   lila.common.Bus.subscribe(

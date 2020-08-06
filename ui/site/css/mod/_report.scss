@@ -7,13 +7,13 @@ $c-report-high-over: white;
     @extend %flex-between-stretch;
 
     height: 4rem;
-  }
 
-  .header .icon {
-    flex: 1 1 auto;
-    margin: .4rem .8rem;
-    background: no-repeat url(../images/icons/octopus.svg) left center;
-    opacity: 0.6;
+    .icon {
+      flex: 1 1 auto;
+      margin: .4rem .8rem;
+      background: no-repeat url(../images/icons/octopus.svg) left center;
+      opacity: 0.6;
+    }
   }
 
   .tabs {
@@ -104,34 +104,36 @@ $c-report-high-over: white;
   .atoms .atom {
     font-size: .9em;
     margin-bottom: 1em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .head {
+      display: block;
+    }
+
+    .score {
+      font-size: .9em;
+      padding: .1em .4em;
+    }
   }
 
-  .atoms .atom:last-child {
-    margin-bottom: 0;
-  }
+  table.see {
+    .perfs {
+      font-size: .9em;
+      white-space: nowrap;
+    }
 
-  .atoms .atom .head {
-    display: block;
-  }
+    .text {
+      max-height: 100px;
+      overflow: hidden;
+      font-size: .9em;
+    }
 
-  .atoms .atom .score {
-    font-size: .9em;
-    padding: .1em .4em;
-  }
-
-  table.see .perfs {
-    font-size: .9em;
-    white-space: nowrap;
-  }
-
-  table.see .text {
-    max-height: 100px;
-    overflow: hidden;
-    font-size: .9em;
-  }
-
-  table.see .text.large {
-    font-size: .8em;
+    .text.large {
+      font-size: .8em;
+    }
   }
 
   tr.new td:first-child {
@@ -144,5 +146,11 @@ $c-report-high-over: white;
     padding: .1em .4em;
     border-radius: .3em;
     margin: 0 .2em;
+  }
+
+  .appeal-queue {
+    td p {
+      margin: .5em 0 0 0;
+    }
   }
 }

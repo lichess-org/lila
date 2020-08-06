@@ -138,7 +138,7 @@ final class Simul(
     Auth { implicit ctx => me =>
       NoLameOrBot {
         apiC.teamsIBelongTo(me) map { teams =>
-          Ok(html.simul.form(forms.create(me), teams))
+          Ok(html.simul.form.create(forms.create(me), teams))
         }
       }
     }
@@ -153,7 +153,7 @@ final class Simul(
           .fold(
             err =>
               apiC.teamsIBelongTo(me) map { teams =>
-                BadRequest(html.simul.form(err, teams))
+                BadRequest(html.simul.form.create(err, teams))
               },
             setup =>
               env.simul.api.create(setup, me) map { simul =>
@@ -181,10 +181,44 @@ final class Simul(
       }
     }
 
+  def edit(id: String) =
+    Auth { implicit ctx => me =>
+      WithEditableSimul(id, me) { simul =>
+        apiC.teamsIBelongTo(me) map { teams =>
+          Ok(html.simul.form.edit(forms.edit(me, simul), teams, simul))
+        }
+      }
+    }
+
+  def update(id: String) =
+    AuthBody { implicit ctx => me =>
+      WithEditableSimul(id, me) { simul =>
+        implicit val req = ctx.body
+        forms
+          .edit(me, simul)
+          .bindFromRequest()
+          .fold(
+            err =>
+              apiC.teamsIBelongTo(me) map { teams =>
+                BadRequest(html.simul.form.edit(err, teams, simul))
+              },
+            data => env.simul.api.update(simul, data) inject Redirect(routes.Simul.show(id))
+          )
+      }
+    }
+
   private def AsHost(simulId: Sim.ID)(f: Sim => Fu[Result])(implicit ctx: Context): Fu[Result] =
     env.simul.repo.find(simulId) flatMap {
-      case None                                              => notFound
-      case Some(simul) if ctx.userId.exists(simul.hostId ==) => f(simul)
-      case _                                                 => fuccess(Unauthorized)
+      case None                                                                    => notFound
+      case Some(simul) if ctx.userId.has(simul.hostId) || isGranted(_.ManageSimul) => f(simul)
+      case _                                                                       => fuccess(Unauthorized)
+    }
+
+  private def WithEditableSimul(id: String, me: lila.user.User)(
+      f: Sim => Fu[Result]
+  )(implicit ctx: Context): Fu[Result] =
+    AsHost(id) { sim =>
+      if (sim.isStarted) Redirect(routes.Simul.show(sim.id)).fuccess
+      else f(sim)
     }
 }

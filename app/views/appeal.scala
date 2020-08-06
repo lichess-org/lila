@@ -1,16 +1,18 @@
 package views.html
 
 import controllers.routes
+import play.api.data.Form
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.appeal.Appeal
 import lila.common.String.html.richText
+import lila.mod.{ ModPreset, ModPresets }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
 import lila.user.User
-import play.api.data.Form
-import play.api.i18n.Lang
 
 object appeal {
 
@@ -18,7 +20,7 @@ object appeal {
     layout("Appeal") {
       main(cls := "page-small box box-pad page appeal")(
         appeal match {
-          case Some(a) => renderAppeal(a, textForm, asMod = false)
+          case Some(a) => renderAppeal(a, textForm, asMod = false, presets = none)
           case None    => newAppeal(textForm)
         }
       )
@@ -29,16 +31,28 @@ object appeal {
       h1("Appeal a moderation decision"),
       renderHelp,
       div(cls := "body")(
-        renderForm(textForm, action = routes.Appeal.post().url, isNew = true)
+        renderForm(textForm, action = routes.Appeal.post().url, isNew = true, presets = none)
       )
     )
 
-  def show(appeal: Appeal, suspect: Suspect, inquiry: Option[Inquiry], textForm: Form[_])(implicit
+  def show(
+      appeal: Appeal,
+      suspect: Suspect,
+      inquiry: Option[Inquiry],
+      textForm: Form[_],
+      presets: ModPresets
+  )(implicit
       ctx: Context
   ) =
     layout(s"Appeal by ${suspect.user.username}") {
       main(cls := "page-small box box-pad page appeal")(
-        renderAppeal(appeal, textForm, asMod = true, inquiry = inquiry.map(_.mod).exists(ctx.userId.has)),
+        renderAppeal(
+          appeal,
+          textForm,
+          asMod = true,
+          inquiry = inquiry.map(_.mod).exists(ctx.userId.has),
+          presets.some
+        ),
         div(cls := "appeal__actions")(
           inquiry match {
             case None =>
@@ -82,26 +96,31 @@ object appeal {
       streamers: Int,
       nbAppeals: Int
   )(implicit ctx: Context) =
-    views.html.report.list.layout("appeal", counts, streamers, appeals.size)(
-      table(cls := "slist slist-pad see")(
+    views.html.report.list.layout("appeal", counts, streamers, nbAppeals)(
+      table(cls := "slist slist-pad see appeal-queue")(
         thead(
           tr(
             th("By"),
             th("Last message"),
-            th
+            th(isGranted(_.Presets) option a(href := routes.Mod.presets("appeal"))("Presets"))
           )
         ),
         tbody(
           appeals.map { appeal =>
-            tr(cls := List("new" -> (appeal.isOpen && !appeal.isMuted)))(
+            tr(cls := List("new" -> appeal.isUnread))(
               td(
                 userIdLink(appeal.id.some)
               ),
               td(appeal.msgs.lastOption map { msg =>
-                msg.text
+                frag(
+                  userIdLink(msg.by.some),
+                  " ",
+                  momentFromNowOnce(msg.at),
+                  p(shorten(msg.text, 200))
+                )
               }),
               td(
-                a(href := routes.Appeal.show(appeal.id), cls := "button button-metal")("View"),
+                a(href := routes.Appeal.show(appeal.id), cls := "button button-empty")("View"),
                 inquiries.get(appeal.id) map { i =>
                   frag(userIdLink(i.mod.some), " is handling this")
                 }
@@ -114,15 +133,24 @@ object appeal {
 
   private def layout(title: String)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
+      title = title,
       moreCss = frag(
         cssTag("form3"),
         cssTag("appeal")
       ),
-      title = title
+      moreJs = embedJsUnsafe(
+        """$('select.appeal-presets').on('change', e => $('#form3-text').val(e.target.value))"""
+      )
     )(body)
 
-  private def renderAppeal(appeal: Appeal, textForm: Form[_], asMod: Boolean, inquiry: Boolean = false)(
-      implicit ctx: Context
+  private def renderAppeal(
+      appeal: Appeal,
+      textForm: Form[_],
+      asMod: Boolean,
+      inquiry: Boolean = false,
+      presets: Option[ModPresets]
+  )(implicit
+      ctx: Context
   ) =
     frag(
       h1(
@@ -136,7 +164,7 @@ object appeal {
         appeal.msgs.map { msg =>
           div(cls := s"appeal__msg appeal__msg--${if (appeal isByMod msg) "mod" else "suspect"}")(
             div(cls := "appeal__msg__header")(
-              renderUser(appeal, msg.by),
+              renderUser(appeal, msg.by, asMod),
               momentFromNowOnce(msg.at)
             ),
             div(cls := "appeal__msg__text")(richText(msg.text))
@@ -147,7 +175,8 @@ object appeal {
           action =
             if (asMod) routes.Appeal.reply(appeal.id).url
             else routes.Appeal.post().url,
-          isNew = false
+          isNew = false,
+          presets = presets ifTrue asMod
         )
       )
     )
@@ -183,15 +212,41 @@ object appeal {
       )
     )
 
-  private def renderUser(appeal: Appeal, userId: User.ID)(implicit lang: Lang) =
-    userIdLink((if (appeal isAbout userId) userId else User.lichessId).some)
+  private def renderUser(appeal: Appeal, userId: User.ID, asMod: Boolean)(implicit lang: Lang) =
+    if (appeal isAbout userId) userIdLink(userId.some)
+    else
+      span(
+        userIdLink(User.lichessId.some),
+        " (",
+        userIdLink(userId.some),
+        ")"
+      )
 
-  private def renderForm(form: Form[_], action: String, isNew: Boolean)(implicit ctx: Context) =
+  private def renderForm(form: Form[_], action: String, isNew: Boolean, presets: Option[ModPresets])(implicit
+      ctx: Context
+  ) =
     postForm(st.action := action)(
       form3.globalError(form),
       form3.group(form("text"), if (isNew) "Create an appeal" else "Add something to the appeal")(
         form3.textarea(_)(rows := 6)
       ),
-      form3.submit(trans.send())
+      presets.map { ps =>
+        form3.actions(
+          div(
+            select(cls := "appeal-presets")(
+              option(st.value := "")("Presets"),
+              ps.value.map {
+                case ModPreset(name, text) =>
+                  option(
+                    st.value := text,
+                    st.title := text
+                  )(name)
+              }
+            ),
+            isGranted(_.Presets) option a(href := routes.Mod.presets("appeal"))("Edit presets")
+          ),
+          form3.submit(trans.send())
+        )
+      } getOrElse form3.submit(trans.send())
     )
 }
