@@ -4,7 +4,7 @@ import com.github.blemale.scaffeine.Cache
 import org.joda.time.Instant
 import scala.concurrent.duration.FiniteDuration
 
-import lila.common.base.StringUtils.levenshtein
+import lila.common.base.Levenshtein.isLevenshteinDistanceLessThan
 import lila.user.User
 
 final class Flood(duration: FiniteDuration) {
@@ -43,7 +43,6 @@ private[security] object Flood {
     }
 
   private def similar(s1: String, s2: String): Boolean = {
-    val distance = levenshtein(s1, s2)
-    distance < 2 || distance < s1.length.min(s2.length) / 8
+    isLevenshteinDistanceLessThan(s1, s2, (s1.length.min(s2.length) >> 3) atLeast 2)
   }
 }

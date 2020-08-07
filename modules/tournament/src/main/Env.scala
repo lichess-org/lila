@@ -86,6 +86,8 @@ final class Env(
     indexLeaderboard = leaderboardIndexer.indexOne _
   )
 
+  private lazy val colorHistoryApi = wire[ColorHistoryApi]
+
   lazy val api: TournamentApi = wire[TournamentApi]
 
   lazy val crudApi = wire[crud.CrudApi]

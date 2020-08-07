@@ -77,6 +77,9 @@ case class RankedPlayer(rank: Int, player: Player) {
 
   def is(other: RankedPlayer) = player is other.player
 
+  def withColorHistory(getHistory: Player.ID => ColorHistory) =
+    RankedPlayerWithColorHistory(rank, player, getHistory(player.id))
+
   override def toString = s"$rank. ${player.userId}[${player.rating}]"
 }
 
@@ -86,6 +89,13 @@ object RankedPlayer {
     ranking get player.userId map { rank =>
       RankedPlayer(rank + 1, player)
     }
+}
+
+case class RankedPlayerWithColorHistory(rank: Int, player: Player, colorHistory: ColorHistory) {
+
+  def is(other: RankedPlayer) = player is other.player
+
+  override def toString = s"$rank. ${player.userId}[${player.rating}]"
 }
 
 case class FeaturedGame(

@@ -85,8 +85,8 @@ private[tournament] object Pairing {
       else make(gameId, tourId, user2, user1)
   }
 
-  def prep(tour: Tournament, ps: (Player, Player)) =
-    Prep(tour.id, ps._1.userId, ps._2.userId)
-  def prep(tour: Tournament, p1: Player, p2: Player) =
-    Prep(tour.id, p1.userId, p2.userId)
+  def prepWithColor(tour: Tournament, p1: RankedPlayerWithColorHistory, p2: RankedPlayerWithColorHistory) =
+    if (p1.colorHistory.firstGetsWhite(p2.colorHistory)(() => scala.util.Random.nextBoolean()))
+      Prep(tour.id, p1.player.userId, p2.player.userId)
+    else Prep(tour.id, p2.player.userId, p1.player.userId)
 }
