@@ -43,7 +43,10 @@ final private[forum] class DataForm(
 
   private def userTextMapping(user: User) =
     clean(text(minLength = 3))
-      .verifying("Please promote your teams and tournaments outside of Lichess", promotion.test(user) _)
+      .verifying(
+        "You have reached the maximum amount of links per day, which you can post to the forum",
+        promotion.test(user) _
+      )
 }
 
 object DataForm {
