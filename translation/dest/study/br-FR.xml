@@ -92,6 +92,8 @@
   <string name="clearAnnotations">Diverkañ an notennoù</string>
   <string name="deleteChapter">Dilemel pennad</string>
   <string name="deleteThisChapter">Dilemel ar pennad-mañ? Hep distro e vo!</string>
+  <string name="clearAllCommentsInThisChapter">Diverkañ an holl evezhiadennoù ha notennoù er pennad?</string>
+  <string name="rightUnderTheBoard">Dindan an dablez</string>
   <string name="noPinnedComment">Hini ebet</string>
   <string name="normalAnalysis">Dielfennañ normal</string>
   <string name="hideNextMoves">Kuzhat ar fiñvadennoù da heul</string>
