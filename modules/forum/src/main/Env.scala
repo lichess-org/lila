@@ -5,11 +5,11 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 
 import lila.common.config._
-import lila.common.DetectLanguage
 import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.relation.RelationApi
+import play.api.libs.ws.StandaloneWSClient
 
 @Module
 final private class ForumConfig(
@@ -29,11 +29,11 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     forumSearch: lila.hub.actors.ForumSearch,
-    detectLanguage: DetectLanguage,
     notifyApi: NotifyApi,
     relationApi: RelationApi,
     userRepo: lila.user.UserRepo,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    ws: StandaloneWSClient
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
@@ -41,6 +41,9 @@ final class Env(
   lazy val categRepo = new CategRepo(db(CollName("f_categ")))
   lazy val topicRepo = new TopicRepo(db(CollName("f_topic")))
   lazy val postRepo  = new PostRepo(db(CollName("f_post")))
+
+  private lazy val detectLanguage =
+    new DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
 
   lazy val categApi: CategApi = {
     val mk = (env: Env) => wire[CategApi]

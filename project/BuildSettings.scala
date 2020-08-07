@@ -37,7 +37,7 @@ object BuildSettings {
       macwire.macros,
       macwire.util,
       autoconfig
-    ) ++ play.wsBundle
+    )
 
   def module(
       name: String,

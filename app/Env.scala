@@ -16,7 +16,6 @@ import lila.common.UserIds
 
 final class Env(
     val config: Configuration,
-    val common: lila.common.Env,
     val imageRepo: lila.db.ImageRepo,
     val api: lila.api.Env,
     val user: lila.user.Env,
@@ -82,14 +81,13 @@ final class Env(
     val rating: lila.rating.Env,
     val swiss: lila.swiss.Env,
     val lilaCookie: lila.common.LilaCookie,
+    val net: NetConfig,
     val controllerComponents: ControllerComponents
 )(implicit
     val system: ActorSystem,
     val executionContext: ExecutionContext,
     val mode: play.api.Mode
 ) {
-
-  def net = common.netConfig
 
   val explorerEndpoint  = config.get[String]("explorer.endpoint")
   val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
@@ -194,14 +192,15 @@ final class EnvBoot(
   implicit def scheduler   = system.scheduler
   implicit def mode        = environment.mode
   def appPath              = AppPath(environment.rootPath)
-  def baseUrl              = common.netConfig.baseUrl
+  val netConfig            = config.get[NetConfig]("net")
+  def netDomain            = netConfig.domain
+  def baseUrl              = netConfig.baseUrl
   implicit def idGenerator = game.idGenerator
 
   lazy val mainDb: lila.db.Db = mongo.blockingDb("main", config.get[String]("mongodb.uri"))
   lazy val imageRepo          = new lila.db.ImageRepo(mainDb(CollName("image")))
 
   // wire all the lila modules
-  lazy val common: lila.common.Env           = wire[lila.common.Env]
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]
   lazy val mongo: lila.db.Env                = wire[lila.db.Env]
   lazy val user: lila.user.Env               = wire[lila.user.Env]

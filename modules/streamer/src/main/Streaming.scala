@@ -114,9 +114,9 @@ final private class Streaming(
           case res if res.status == 200 =>
             res.body[JsValue].validate[Twitch.Result](twitchResultReads) match {
               case JsSuccess(result, _) => fuccess(result)
-              case JsError(err)         => fufail(s"twitch $err ${lila.log http res}")
+              case JsError(err)         => fufail(s"twitch $err ${lila.log.http(res.status, res.body)}")
             }
-          case res => fufail(s"twitch ${lila.log http res}")
+          case res => fufail(s"twitch ${lila.log.http(res.status, res.body)}")
         }
         .recover {
           case e: Exception =>

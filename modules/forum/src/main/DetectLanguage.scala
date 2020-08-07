@@ -1,4 +1,4 @@
-package lila.common
+package lila.forum
 
 import play.api.libs.json._
 import play.api.libs.ws.StandaloneWSClient

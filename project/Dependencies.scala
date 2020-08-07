@@ -57,14 +57,18 @@ object Dependencies {
   }
 
   object play {
-    val version   = "2.8.2-lila_0.1"
-    val wsVersion = "2.1.2"
-    val api       = "com.typesafe.play" %% "play"                    % version
-    val json      = "com.typesafe.play" %% "play-json"               % "2.9.0"
-    val wsAhc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % wsVersion
-    val wsJson    = "com.typesafe.play" %% "play-ws-standalone-json" % wsVersion
-    val wsBundle  = Seq(wsAhc, wsJson)
+    val version = "2.8.2-lila_0.1"
+    val api     = "com.typesafe.play" %% "play"      % version
+    val json    = "com.typesafe.play" %% "play-json" % "2.9.0"
   }
+
+  object playWs {
+    val version = "2.1.2"
+    val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
+    val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
+    val bundle  = Seq(ahc, json)
+  }
+
   object kamon {
     val version    = "2.1.4"
     val core       = "io.kamon" %% "kamon-core"           % version

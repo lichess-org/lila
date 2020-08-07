@@ -30,7 +30,7 @@ routesGenerator := LilaRoutesGenerator
 maintainer := "contact@lichess.org"
 
 // format: off
-libraryDependencies ++= akka.bundle ++ play.wsBundle ++ Seq(
+libraryDependencies ++= akka.bundle ++ playWs.bundle ++ Seq(
   macwire.macros, macwire.util, play.json, jodaForms,
   scalaz, chess, compression, scalalib, hasher,
   reactivemongo.driver, maxmind, prismic, scalatags,
@@ -66,7 +66,7 @@ lazy val api = module("api",
   aggregate in Test := true  // Test <: Runtime
 ) aggregate (moduleRefs: _*)
 
-lazy val i18n = module("i18n",
+lazy val i18n = smallModule("i18n",
   Seq(common, db, hub),
   Seq(scalatags, specs2)
 ).settings(
@@ -90,9 +90,9 @@ lazy val quote = smallModule("quote",
   Seq(play.json)
 )
 
-lazy val video = module("video",
+lazy val video = smallModule("video",
   Seq(common, memo, hub, db, user),
-  reactivemongo.bundle
+  Seq(autoconfig, macwire.macros, macwire.util) ++ reactivemongo.bundle
 )
 
 lazy val coach = module("coach",
@@ -105,9 +105,9 @@ lazy val streamer = module("streamer",
   reactivemongo.bundle
 )
 
-lazy val coordinate = module("coordinate",
+lazy val coordinate = smallModule("coordinate",
   Seq(common, db, user),
-  reactivemongo.bundle
+  Seq(autoconfig, macwire.macros, macwire.util) ++ reactivemongo.bundle
 )
 
 lazy val blog = module("blog",
@@ -120,9 +120,11 @@ lazy val evaluation = module("evaluation",
   Seq(specs2) ++ reactivemongo.bundle
 )
 
-lazy val common = module("common",
+lazy val common = smallModule("common",
   Seq(),
-  Seq(kamon.core, scalatags, jodaForms, scaffeine, specs2, apacheText) ++ reactivemongo.bundle
+  Seq(
+    scalalib, chess, autoconfig,
+    kamon.core, scalatags, jodaForms, scaffeine, specs2, apacheText) ++ reactivemongo.bundle
 )
 
 lazy val rating = module("rating",
@@ -140,14 +142,14 @@ lazy val history = module("history",
   Seq(scalatags) ++ reactivemongo.bundle
 )
 
-lazy val db = module("db",
+lazy val db = smallModule("db",
   Seq(common),
   Seq(hasher, scrimage) ++ reactivemongo.bundle
 )
 
-lazy val memo = module("memo",
+lazy val memo = smallModule("memo",
   Seq(common, db),
-  Seq(scaffeine, scalatest, akka.testkit) ++ reactivemongo.bundle
+  Seq(scaffeine, macwire.macros, autoconfig, scalatest, akka.testkit) ++ reactivemongo.bundle
 )
 
 lazy val search = module("search",
@@ -180,9 +182,9 @@ lazy val mod = module("mod",
   reactivemongo.bundle
 )
 
-lazy val user = module("user",
+lazy val user = smallModule("user",
   Seq(common, memo, db, hub, rating, socket),
-  Seq(hasher, specs2) ++ reactivemongo.bundle
+  Seq(hasher, specs2, macwire.macros, autoconfig) ++ playWs.bundle ++ reactivemongo.bundle
 )
 
 lazy val game = module("game",

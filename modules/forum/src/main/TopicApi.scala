@@ -19,7 +19,7 @@ final private[forum] class TopicApi(
     promotion: lila.security.PromotionApi,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
-    detectLanguage: lila.common.DetectLanguage
+    detectLanguage: DetectLanguage
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
