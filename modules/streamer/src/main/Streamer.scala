@@ -50,7 +50,7 @@ object Streamer {
         lastGrantedAt = none
       ),
       picturePath = none,
-      name = Name(s"${user.title.??(t => s"$t ")}${user.realNameOrUsername}"),
+      name = Name(user.realNameOrUsername),
       headline = none,
       description = none,
       twitch = none,
