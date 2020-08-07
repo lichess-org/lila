@@ -9,9 +9,6 @@ private object PrefHandlers {
 
   implicit val prefBSONHandler = new BSON[Pref] {
 
-    // implicit val tagsReader = MapReader[String, String]
-    // implicit val tagsWriter = MapWriter[String, String]
-
     def reads(r: BSON.Reader): Pref =
       Pref(
         _id = r str "_id",
