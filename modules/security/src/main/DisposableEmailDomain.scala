@@ -1,11 +1,11 @@
 package lila.security
 
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Domain
 
 final class DisposableEmailDomain(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     providerUrl: String,
     checkMailBlocked: () => Fu[List[String]]
 )(implicit ec: scala.concurrent.ExecutionContext) {

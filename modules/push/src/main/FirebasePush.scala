@@ -3,9 +3,10 @@ package lila.push
 import com.google.auth.oauth2.{ AccessToken, GoogleCredentials }
 import io.methvin.play.autoconfig._
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
-import scala.concurrent.{ blocking, Future }
+import play.api.libs.ws.JsonBodyWritables._
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
+import scala.concurrent.{ blocking, Future }
 
 import lila.common.Chronometer
 import lila.user.User
@@ -13,7 +14,7 @@ import lila.user.User
 final private class FirebasePush(
     credentialsOpt: Option[GoogleCredentials],
     deviceApi: DeviceApi,
-    ws: WSClient,
+    ws: StandaloneWSClient,
     config: FirebasePush.Config
 )(implicit
     ec: scala.concurrent.ExecutionContext,

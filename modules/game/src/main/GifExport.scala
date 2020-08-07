@@ -2,17 +2,17 @@ package lila.game
 
 import akka.stream.scaladsl._
 import akka.util.ByteString
-import play.api.libs.json._
-import play.api.libs.ws.WSClient
-
-import lila.common.Maths
-import lila.common.config.BaseUrl
-
-import chess.{ Centis, Color, Replay, Situation, Game => ChessGame }
 import chess.format.{ FEN, Forsyth, Uci }
+import chess.{ Centis, Color, Replay, Situation, Game => ChessGame }
+import play.api.libs.json._
+import play.api.libs.ws.JsonBodyWritables._
+import play.api.libs.ws.StandaloneWSClient
+
+import lila.common.config.BaseUrl
+import lila.common.Maths
 
 final class GifExport(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     lightUserApi: lila.user.LightUserApi,
     baseUrl: BaseUrl,
     url: String

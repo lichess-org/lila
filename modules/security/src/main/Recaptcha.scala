@@ -1,12 +1,14 @@
 package lila.security
 
-import play.api.libs.json._
-import play.api.libs.ws.WSClient
-import play.api.mvc.RequestHeader
 import io.methvin.play.autoconfig._
+import play.api.libs.json._
+import play.api.libs.ws.DefaultBodyWritables._
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.StandaloneWSClient
+import play.api.mvc.RequestHeader
 
-import lila.common.HTTPRequest
 import lila.common.config._
+import lila.common.HTTPRequest
 
 trait Recaptcha {
 
@@ -33,7 +35,7 @@ object RecaptchaSkip extends Recaptcha {
 }
 
 final class RecaptchaGoogle(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     netDomain: NetDomain,
     config: Recaptcha.Config
 )(implicit ec: scala.concurrent.ExecutionContext)
@@ -56,13 +58,13 @@ final class RecaptchaGoogle(
         )
       ) flatMap {
       case res if res.status == 200 =>
-        res.json.validate[Response] match {
+        res.body[JsValue].validate[Response] match {
           case JsSuccess(res, _) =>
             fuccess {
               res.success && res.hostname == netDomain.value
             }
           case JsError(err) =>
-            fufail(s"$err ${res.json}")
+            fufail(s"$err ${res.body}")
         }
       case res => fufail(s"${res.status} ${res.body}")
     } recover {

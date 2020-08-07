@@ -4,7 +4,7 @@ import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
@@ -22,7 +22,7 @@ final private class GameConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    ws: WSClient,
+    ws: StandaloneWSClient,
     db: lila.db.Db,
     baseUrl: BaseUrl,
     userRepo: lila.user.UserRepo,

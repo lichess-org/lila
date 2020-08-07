@@ -5,7 +5,7 @@ import com.google.auth.oauth2.{ GoogleCredentials, ServiceAccountCredentials }
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import scala.jdk.CollectionConverters._
 
 import lila.common.config._
@@ -22,7 +22,7 @@ final private class PushConfig(
 
 final class Env(
     appConfig: Configuration,
-    ws: WSClient,
+    ws: StandaloneWSClient,
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     getLightUser: lila.common.LightUser.Getter,

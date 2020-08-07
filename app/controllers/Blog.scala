@@ -12,7 +12,7 @@ import lila.common.config.MaxPerPage
 final class Blog(
     env: Env,
     prismicC: Prismic
-)(implicit ws: play.api.libs.ws.WSClient)
+)(implicit ws: play.api.libs.ws.StandaloneWSClient)
     extends LilaController(env) {
 
   import prismicC._

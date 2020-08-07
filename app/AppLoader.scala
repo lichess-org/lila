@@ -9,6 +9,7 @@ import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
 import router.Routes
+import play.api.libs.ws.StandaloneWSClient
 
 final class AppLoader extends ApplicationLoader {
   def load(ctx: ApplicationLoader.Context): Application = new LilaComponents(ctx).application
@@ -16,8 +17,7 @@ final class AppLoader extends ApplicationLoader {
 
 final class LilaComponents(ctx: ApplicationLoader.Context)
     extends BuiltInComponentsFromContext(ctx)
-    with _root_.controllers.AssetsComponents
-    with play.api.libs.ws.ahc.AhcWSComponents {
+    with _root_.controllers.AssetsComponents {
 
   LoggerConfigurator(ctx.environment.classLoader).foreach {
     _.configure(ctx.environment, ctx.initialConfiguration, Map.empty)
@@ -54,14 +54,28 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
     new lila.app.http.ErrorHandler(
       environment = ctx.environment,
       config = configuration,
-      sourceMapper = devContext.map(_.sourceMapper),
       router = router,
       mainC = main,
       lobbyC = lobby
     )
 
   implicit def system = actorSystem
-  implicit def ws     = wsClient
+  implicit lazy val ws: StandaloneWSClient = {
+    import play.shaded.ahc.org.asynchttpclient.DefaultAsyncHttpClient
+    import play.api.libs.ws.{ WSConfigParser }
+    import play.api.libs.ws.ahc.{ AhcConfigBuilder, AhcWSClientConfigParser, StandaloneAhcWSClient }
+    new StandaloneAhcWSClient(
+      new DefaultAsyncHttpClient(
+        new AhcConfigBuilder(
+          new AhcWSClientConfigParser(
+            new WSConfigParser(configuration.underlying, environment.classLoader).parse(),
+            configuration.underlying,
+            environment.classLoader
+          ).parse()
+        ).build()
+      )
+    )
+  }
 
   // dev assets
   implicit def mimeTypes       = fileMimeTypes

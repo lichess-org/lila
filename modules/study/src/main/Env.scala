@@ -2,7 +2,7 @@ package lila.study
 
 import com.softwaremill.macwire._
 import play.api.Configuration
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config._
 import lila.socket.Socket.{ GetVersion, SocketVersion }
@@ -11,7 +11,7 @@ import lila.user.User
 @Module
 final class Env(
     appConfig: Configuration,
-    ws: WSClient,
+    ws: StandaloneWSClient,
     lightUserApi: lila.user.LightUserApi,
     gamePgnDump: lila.game.PgnDump,
     divider: lila.game.Divider,

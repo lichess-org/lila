@@ -2,14 +2,14 @@ package lila.blog
 
 import io.prismic._
 import play.api.mvc.RequestHeader
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator._
 
 final class BlogApi(
     config: BlogConfig
-)(implicit ec: scala.concurrent.ExecutionContext, ws: WSClient) {
+)(implicit ec: scala.concurrent.ExecutionContext, ws: StandaloneWSClient) {
 
   private def collection = config.collection
 

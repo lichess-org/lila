@@ -1,13 +1,15 @@
 package lila.plan
 
 import play.api.libs.json._
-import play.api.libs.ws.{ WSClient, WSResponse }
+import play.api.libs.ws.DefaultBodyWritables._
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
 import lila.common.config.Secret
 import lila.user.User
 
 final private class StripeClient(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     config: StripeClient.Config
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -154,22 +156,22 @@ final private class StripeClient(
   private def request(url: String) =
     ws.url(s"${config.endpoint}/$url").withHttpHeaders("Authorization" -> s"Bearer ${config.secretKey.value}")
 
-  private def response[A: Reads](res: WSResponse): Fu[A] =
+  private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match {
       case 200 =>
-        (implicitly[Reads[A]] reads res.json).fold(
+        (implicitly[Reads[A]] reads res.body[JsValue]).fold(
           errs =>
             fufail {
-              if (isDeleted(res.json))
-                new DeletedException(s"[stripe] Upstream resource was deleted: ${res.json}")
-              else new Exception(s"[stripe] Can't parse ${res.json} --- $errs")
+              if (isDeleted(res.body[JsValue]))
+                new DeletedException(s"[stripe] Upstream resource was deleted: ${res.body}")
+              else new Exception(s"[stripe] Can't parse ${res.body} --- $errs")
             },
           fuccess
         )
       case 404 => fufail { new NotFoundException(s"[stripe] Not found") }
       case x if x >= 400 && x < 500 =>
-        (res.json \ "error" \ "message").asOpt[String] match {
-          case None        => fufail { new InvalidRequestException(Json stringify res.json) }
+        (res.body[JsValue] \ "error" \ "message").asOpt[String] match {
+          case None        => fufail { new InvalidRequestException(res.body) }
           case Some(error) => fufail { new InvalidRequestException(error) }
         }
       case status => fufail { new StatusException(s"[stripe] Response status: $status") }

@@ -2,6 +2,7 @@ package lila.search
 
 import play.api.libs.json._
 import play.api.libs.ws._
+import play.api.libs.ws.JsonBodyWritables._
 import scala.annotation.nowarn
 
 sealed trait ESClient {
@@ -20,7 +21,7 @@ sealed trait ESClient {
 }
 
 final class ESClientHttp(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     config: SearchConfig,
     val index: Index
 )(implicit ec: scala.concurrent.ExecutionContext)

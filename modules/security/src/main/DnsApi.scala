@@ -1,7 +1,8 @@
 package lila.security
 
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.base.LilaException
@@ -9,7 +10,7 @@ import lila.common.Domain
 import lila.db.dsl._
 
 final private class DnsApi(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     config: SecurityConfig.DnsApi,
     mongoCache: lila.memo.MongoCache.Api
 )(implicit
@@ -48,8 +49,9 @@ final private class DnsApi(
       .withQueryStringParameters("name" -> domain.value, "type" -> tpe)
       .withHttpHeaders("Accept" -> "application/dns-json")
       .get() withTimeout config.timeout map {
-      case res if res.status == 200 || res.status == 404 => f(~(res.json \ "Answer").asOpt[List[JsObject]])
-      case res                                           => throw LilaException(s"Status ${res.status}")
+      case res if res.status == 200 || res.status == 404 =>
+        f(~(res.body[JsValue] \ "Answer").asOpt[List[JsObject]])
+      case res => throw LilaException(s"Status ${res.status}")
     }
 
   // if the DNS service fails, assume the best

@@ -19,7 +19,7 @@ object Dependencies {
   val chess       = "org.lichess"          %% "scalachess"                      % "9.3.2"
   val compression = "org.lichess"          %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"       %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
-  val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.18-THIB213"
+  val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.19-THIB213"
   val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.5"
   val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "4.0.1"  % "compile"
   val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.21.1"
@@ -57,9 +57,13 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.8.2-lila_0.1"
-    val api     = "com.typesafe.play" %% "play"      % version
-    val json    = "com.typesafe.play" %% "play-json" % "2.9.0"
+    val version   = "2.8.2-lila_0.1"
+    val wsVersion = "2.1.2"
+    val api       = "com.typesafe.play" %% "play"                    % version
+    val json      = "com.typesafe.play" %% "play-json"               % "2.9.0"
+    val wsAhc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % wsVersion
+    val wsJson    = "com.typesafe.play" %% "play-ws-standalone-json" % wsVersion
+    val wsBundle  = Seq(wsAhc, wsJson)
   }
   object kamon {
     val version    = "2.1.4"

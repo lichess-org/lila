@@ -2,12 +2,13 @@ package lila.video
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.JsonBodyReadables._
 import scala.annotation.nowarn
 import scala.concurrent.Future
 
 final private[video] class Sheet(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     url: String,
     api: VideoApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -71,7 +72,7 @@ final private[video] class Sheet(
   private def fetch: Fu[List[Entry]] =
     ws.url(url).get() flatMap {
       case res if res.status == 200 =>
-        readEntries reads res.json match {
+        readEntries reads res.body[JsValue] match {
           case JsError(err)          => fufail(err.toString)
           case JsSuccess(entries, _) => fuccess(entries.toList)
         }

@@ -1,14 +1,14 @@
 package lila.api
 
 import chess.format.pgn.{ Pgn, Tag, Tags }
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.user.User
 
 final class RealPlayerApi(
     cacheApi: lila.memo.CacheApi,
-    ws: WSClient
+    ws: StandaloneWSClient
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(url: String): Fu[Option[RealPlayers]] = cache get url

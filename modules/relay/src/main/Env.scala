@@ -2,13 +2,13 @@ package lila.relay
 
 import akka.actor._
 import com.softwaremill.macwire._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
 
 final class Env(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     db: lila.db.Db,
     studyApi: lila.study.StudyApi,
     chapterRepo: lila.study.ChapterRepo,

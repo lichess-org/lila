@@ -2,13 +2,14 @@ package lila.security
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.common.IpAddress
 
 final class Ip2Proxy(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     cacheApi: lila.memo.CacheApi,
     checkUrl: String
 )(implicit
@@ -52,7 +53,7 @@ final class Ip2Proxy(
               .get()
               .withTimeout(3 seconds)
               .map {
-                _.json.asOpt[Seq[JsObject]] ?? {
+                _.body[JsValue].asOpt[Seq[JsObject]] ?? {
                   _.map(readIsProxy)
                 }
               }
@@ -77,7 +78,7 @@ final class Ip2Proxy(
         .addQueryStringParameters("ip" -> ip.value)
         .get()
         .withTimeout(2 seconds)
-        .dmap(_.json)
+        .dmap(_.body[JsValue])
         .dmap(readIsProxy)
         .monSuccess(_.security.proxy.request)
     }

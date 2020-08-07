@@ -3,7 +3,7 @@ package lila.search
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import play.api.libs.ws._
+import play.api.libs.ws.StandaloneWSClient
 
 @Module
 private class SearchConfig(
@@ -15,7 +15,7 @@ private class SearchConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    ws: WSClient
+    ws: StandaloneWSClient
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val config = appConfig.get[SearchConfig]("search")(AutoConfig.loader)

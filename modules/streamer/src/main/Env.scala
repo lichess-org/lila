@@ -19,7 +19,7 @@ private class StreamerConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    ws: play.api.libs.ws.WSClient,
+    ws: play.api.libs.ws.StandaloneWSClient,
     settingStore: lila.memo.SettingStore.Builder,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,

@@ -4,7 +4,7 @@ import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
@@ -32,7 +32,7 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    ws: WSClient
+    ws: StandaloneWSClient
 ) {
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)

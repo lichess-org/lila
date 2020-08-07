@@ -1,14 +1,16 @@
 package lila.slack
 
+import play.api.libs.json._
+import play.api.libs.ws.JsonBodyWritables._
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
-import play.api.libs.json._
-import play.api.libs.ws.WSClient
-
-import lila.memo.RateLimit
 import lila.common.config.Secret
+import lila.memo.RateLimit
 
-final private class SlackClient(ws: WSClient, url: Secret)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class SlackClient(ws: StandaloneWSClient, url: Secret)(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
 
   private val defaultChannel = "tavern"
 

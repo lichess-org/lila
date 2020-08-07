@@ -3,7 +3,8 @@ package lila.security
 import akka.actor.ActorSystem
 import io.methvin.play.autoconfig._
 import play.api.i18n.Lang
-import play.api.libs.ws.{ WSAuthScheme, WSClient }
+import play.api.libs.ws.DefaultBodyWritables._
+import play.api.libs.ws.{ StandaloneWSClient, WSAuthScheme }
 import scala.concurrent.duration.{ span => _, _ }
 import scalatags.Text.all._
 
@@ -13,7 +14,7 @@ import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
 import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailgun(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     config: Mailgun.Config
 )(implicit
     ec: scala.concurrent.ExecutionContext,

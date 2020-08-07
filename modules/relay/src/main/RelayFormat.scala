@@ -2,14 +2,14 @@ package lila.relay
 
 import io.lemonlabs.uri._
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.study.MultiPgn
 import lila.memo.CacheApi
 import lila.memo.CacheApi._
 
-final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(implicit
+final private class RelayFormatApi(ws: StandaloneWSClient, cacheApi: CacheApi)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 

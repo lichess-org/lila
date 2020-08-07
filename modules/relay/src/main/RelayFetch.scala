@@ -6,7 +6,7 @@ import com.github.blemale.scaffeine.LoadingCache
 import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.base.LilaException
@@ -20,7 +20,7 @@ final private class RelayFetch(
     api: RelayApi,
     slackApi: lila.slack.SlackApi,
     formatApi: RelayFormatApi,
-    ws: WSClient
+    ws: StandaloneWSClient
 ) extends Actor {
 
   implicit def system = context.system

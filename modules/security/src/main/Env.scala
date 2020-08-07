@@ -3,7 +3,7 @@ package lila.security
 import akka.actor._
 import com.softwaremill.macwire._
 import play.api.Configuration
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
@@ -15,7 +15,7 @@ import lila.user.{ Authenticator, UserRepo }
 @Module
 final class Env(
     appConfig: Configuration,
-    ws: WSClient,
+    ws: StandaloneWSClient,
     net: NetConfig,
     captcher: lila.hub.actors.Captcher,
     userRepo: UserRepo,

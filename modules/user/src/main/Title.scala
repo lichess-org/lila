@@ -48,7 +48,7 @@ object Title {
     // https://ratings.fide.com/profile/740411
     private val NewFideProfileUrlRegex = """(?:https?://)?ratings\.fide\.com/profile/(\d+)""".r
 
-    import play.api.libs.ws.WSClient
+    import play.api.libs.ws.StandaloneWSClient
 
     def toFideId(url: String): Option[Int] =
       url.trim match {
@@ -57,10 +57,10 @@ object Title {
         case _                          => none
       }
 
-    def apply(url: String)(implicit ws: WSClient): Fu[Option[Title]] =
+    def apply(url: String)(implicit ws: StandaloneWSClient): Fu[Option[Title]] =
       toFideId(url) ?? fromFideProfile
 
-    private def fromFideProfile(id: Int)(implicit ws: WSClient): Fu[Option[Title]] = {
+    private def fromFideProfile(id: Int)(implicit ws: StandaloneWSClient): Fu[Option[Title]] = {
       ws.url(s"""http://ratings.fide.com/card.phtml?event=$id""").get().dmap(_.body) dmap {
         case FideProfileTitleRegex(name) => Title.fromNames get name
       }

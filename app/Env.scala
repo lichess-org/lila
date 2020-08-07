@@ -4,7 +4,7 @@ import akka.actor._
 import com.softwaremill.macwire._
 import lila.memo.SettingStore.Strings._
 import lila.memo.SettingStore.UserIds._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
 import scala.concurrent.duration._
@@ -188,7 +188,7 @@ final class EnvBoot(
 )(implicit
     ec: ExecutionContext,
     system: ActorSystem,
-    ws: WSClient
+    ws: StandaloneWSClient
 ) {
 
   implicit def scheduler   = system.scheduler

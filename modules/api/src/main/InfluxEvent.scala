@@ -1,9 +1,10 @@
 package lila.api
 
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.DefaultBodyWritables._
+import play.api.libs.ws.StandaloneWSClient
 
 final class InfluxEvent(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     endpoint: String,
     env: String
 )(implicit ec: scala.concurrent.ExecutionContext) {

@@ -34,11 +34,10 @@ object BuildSettings {
       chess,
       scalalib,
       jodaTime,
-      ws,
       macwire.macros,
       macwire.util,
       autoconfig
-    )
+    ) ++ play.wsBundle
 
   def module(
       name: String,

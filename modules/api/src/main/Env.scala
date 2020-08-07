@@ -2,7 +2,7 @@ package lila.api
 
 import akka.actor._
 import com.softwaremill.macwire._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
 import scala.concurrent.duration._
 
@@ -41,7 +41,7 @@ final class Env(
     challengeEnv: lila.challenge.Env,
     msgEnv: lila.msg.Env,
     cacheApi: lila.memo.CacheApi,
-    ws: WSClient,
+    ws: StandaloneWSClient,
     val mode: Mode
 )(implicit
     ec: scala.concurrent.ExecutionContext,

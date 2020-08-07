@@ -23,7 +23,7 @@ final class NoteApi(
     coll: Coll
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    ws: play.api.libs.ws.WSClient
+    ws: play.api.libs.ws.StandaloneWSClient
 ) {
 
   import reactivemongo.api.bson._

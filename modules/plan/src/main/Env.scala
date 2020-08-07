@@ -3,7 +3,7 @@ package lila.plan
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
@@ -19,7 +19,7 @@ private class PlanConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    ws: WSClient,
+    ws: StandaloneWSClient,
     timeline: lila.hub.actors.Timeline,
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,

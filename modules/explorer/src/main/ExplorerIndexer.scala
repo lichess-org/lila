@@ -4,6 +4,7 @@ import akka.stream.scaladsl._
 import chess.format.pgn.Tag
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import play.api.libs.ws.DefaultBodyWritables._
 import scala.util.Random.nextFloat
 import scala.util.{ Failure, Success, Try }
 
@@ -16,7 +17,7 @@ final private class ExplorerIndexer(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     getBotUserIds: lila.user.GetBotIds,
-    ws: play.api.libs.ws.WSClient,
+    ws: play.api.libs.ws.StandaloneWSClient,
     internalEndpoint: InternalEndpoint
 )(implicit
     ec: scala.concurrent.ExecutionContext,

@@ -3,7 +3,8 @@ package lila.streamer
 import akka.actor._
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 import scala.util.chaining._
 
@@ -12,7 +13,7 @@ import lila.common.config.Secret
 import lila.user.User
 
 final private class Streaming(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     api: StreamerApi,
     isOnline: User.ID => Boolean,
     timeline: lila.hub.actors.Timeline,
@@ -111,7 +112,7 @@ final private class Streaming(
         .get()
         .flatMap {
           case res if res.status == 200 =>
-            res.json.validate[Twitch.Result](twitchResultReads) match {
+            res.body[JsValue].validate[Twitch.Result](twitchResultReads) match {
               case JsSuccess(result, _) => fuccess(result)
               case JsError(err)         => fufail(s"twitch $err ${lila.log http res}")
             }
@@ -162,7 +163,7 @@ final private class Streaming(
             )
             .get()
             .flatMap { res =>
-              res.json.validate[YouTube.Result](youtubeResultReads) match {
+              res.body[JsValue].validate[YouTube.Result](youtubeResultReads) match {
                 case JsSuccess(data, _) =>
                   fuccess(YouTube.StreamsFetched(data.streams(keyword, youtubeStreamers), now))
                 case JsError(err) =>

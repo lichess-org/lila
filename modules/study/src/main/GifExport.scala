@@ -3,10 +3,11 @@ package lila.study
 import akka.stream.scaladsl._
 import akka.util.ByteString
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.JsonBodyWritables._
+import play.api.libs.ws.StandaloneWSClient
 
 final class GifExport(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     url: String
 )(implicit ec: scala.concurrent.ExecutionContext) {
   def ofChapter(chapter: Chapter): Fu[Source[ByteString, _]] =

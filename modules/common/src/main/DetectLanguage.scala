@@ -1,7 +1,9 @@
 package lila.common
 
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.DefaultBodyWritables._
+import play.api.libs.ws.JsonBodyReadables._
 import play.api.i18n.Lang
 import io.methvin.play.autoconfig._
 import scala.math.Ordering.Float.TotalOrdering
@@ -10,7 +12,7 @@ import lila.common.config.Secret
 
 // http://detectlanguage.com
 final class DetectLanguage(
-    ws: WSClient,
+    ws: StandaloneWSClient,
     config: DetectLanguage.Config
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -32,9 +34,9 @@ final class DetectLanguage(
             "q"   -> message.take(messageMaxLength)
           )
         ) map { response =>
-        (response.json \ "data" \ "detections").asOpt[List[Detection]] match {
+        (response.body[JsValue] \ "data" \ "detections").asOpt[List[Detection]] match {
           case None =>
-            lila.log("DetectLanguage").warn(s"Invalide service response ${response.json}")
+            lila.log("DetectLanguage").warn(s"Invalide service response ${response.body[JsValue]}")
             None
           case Some(res) =>
             res

@@ -13,7 +13,7 @@ final class Env(
     gameImporter: lila.importer.Importer,
     getBotUserIds: lila.user.GetBotIds,
     settingStore: lila.memo.SettingStore.Builder,
-    ws: play.api.libs.ws.WSClient
+    ws: play.api.libs.ws.StandaloneWSClient
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem

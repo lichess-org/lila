@@ -3,10 +3,12 @@ package lila.push
 import io.methvin.play.autoconfig._
 import play.api.libs.json._
 import play.api.libs.ws._
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.JsonBodyWritables._
 
 final private class OneSignalPush(
     deviceApi: DeviceApi,
-    ws: WSClient,
+    ws: StandaloneWSClient,
     config: OneSignalPush.Config
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -48,8 +50,8 @@ final private class OneSignalPush(
           }
     }
 
-  private def readErrors(res: WSResponse): List[String] =
-    ~(res.json \ "errors").asOpt[List[String]]
+  private def readErrors(res: StandaloneWSResponse): List[String] =
+    ~(res.body[JsValue] \ "errors").asOpt[List[String]]
 }
 
 private object OneSignalPush {
