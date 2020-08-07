@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Dibaboù</string>
+  <string name="gameDisplay">Diskwel ar c\'hrogad</string>
   <string name="pieceAnimation">Mod da fiñval ar pezhioù</string>
   <string name="materialDifference">Diforc\'hioù a-fet dafar</string>
   <string name="boardHighlights">Gouleier evit sikour war an dablez (fiñvadenn ziwezhañ ha bec\'h d\'ar roue)</string>
+  <string name="pieceDestinations">Karrezennoù degemer (fiñvadennoù ha rak-fiñvadennoù gwiriek)</string>
   <string name="boardCoordinates">Daveennoù an dablez (A-H, 1-8)</string>
+  <string name="moveListWhilePlaying">Roll ar fiñvadennoù e-pad ar c\'hrogad</string>
   <string name="pgnPieceNotation">Notenniñ ar fiñvadennoù</string>
   <string name="chessPieceSymbol">Arouez ar pezh echedoù</string>
   <string name="pgnLetter">Lizherenn (K, Q, R, B, N)</string>
