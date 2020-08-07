@@ -54,3 +54,7 @@ $player-height: 30px;
     }
   }
 }
+
+#top .site-buttons a[title="Moderation"] {
+  display: none;
+}
