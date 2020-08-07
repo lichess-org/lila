@@ -152,9 +152,9 @@ lazy val memo = smallModule("memo",
   Seq(scaffeine, macwire.macros, autoconfig, scalatest, akka.testkit) ++ reactivemongo.bundle
 )
 
-lazy val search = module("search",
+lazy val search = smallModule("search",
   Seq(common, hub),
-  Seq()
+  playWs.bundle ++ Seq(macwire.macros, macwire.util, autoconfig)
 )
 
 lazy val chat = module("chat",
@@ -184,7 +184,7 @@ lazy val mod = module("mod",
 
 lazy val user = smallModule("user",
   Seq(common, memo, db, hub, rating, socket),
-  Seq(hasher, specs2, macwire.macros, autoconfig) ++ playWs.bundle ++ reactivemongo.bundle
+  Seq(hasher, specs2, macwire.macros, macwire.util, autoconfig) ++ playWs.bundle ++ reactivemongo.bundle
 )
 
 lazy val game = module("game",
@@ -417,7 +417,7 @@ lazy val socket = module("socket",
   Seq(lettuce)
 )
 
-lazy val hub = module("hub",
+lazy val hub = smallModule("hub",
   Seq(common),
   Seq(scaffeine)
 )
