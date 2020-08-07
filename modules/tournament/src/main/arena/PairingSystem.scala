@@ -6,7 +6,8 @@ import lila.user.{ User, UserRepo }
 final private[tournament] class PairingSystem(
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
-    userRepo: UserRepo
+    userRepo: UserRepo,
+    colorHistoryApi: ColorHistoryApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     idGenerator: lila.game.IdGenerator
@@ -66,32 +67,23 @@ final private[tournament] class PairingSystem(
     .result
 
   private def prepsToPairings(preps: List[Pairing.Prep]): Fu[List[Pairing]] =
-    idGenerator.games(preps.size) flatMap { ids =>
-      if (preps.sizeCompare(30) <= 0)
-        preps
-          .zip(ids)
-          .map {
-            case (prep, id) =>
-              userRepo.firstGetsWhite(prep.user1.some, prep.user2.some) dmap prep.toPairing(id)
-          }
-          .sequenceFu
-      else
-        fuccess {
-          preps.zip(ids).map {
-            case (prep, id) =>
-              val firstGetsWhite = id.foldLeft(0)(_ + _) % 2 == 0 // reuse game ID instead of hitting Random
-              prep.toPairing(id)(firstGetsWhite)
-          }
-        }
+    idGenerator.games(preps.size) map { ids =>
+      preps.zip(ids).map {
+        case (prep, id) =>
+          //color was chosen in prepWithColor function
+          prep.toPairing(id)(true)
+      }
     }
 
-  private def proximityPairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
-    players grouped 2 collect {
-      case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
+  private def proximityPairings(tour: Tournament, players: List[RankedPlayer]): List[Pairing.Prep] =
+    addColorHistory(players) grouped 2 collect {
+      case List(p1, p2) => Pairing.prepWithColor(tour, p1, p2)
     } toList
 
   private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =
-    (players.size > 1) ?? AntmaPairing(data, players)
+    (players.size > 1) ?? AntmaPairing(data, addColorHistory(players))
+
+  private def addColorHistory(players: RankedPlayers) = players.map(_ withColorHistory colorHistoryApi.get)
 }
 
 private object PairingSystem {
@@ -114,7 +106,9 @@ private object PairingSystem {
    * top rank factor = 2000
    * bottom rank factor = 300
    */
-  def rankFactorFor(players: RankedPlayers): (RankedPlayer, RankedPlayer) => Int = {
+  def rankFactorFor(
+      players: List[RankedPlayerWithColorHistory]
+  ): (RankedPlayerWithColorHistory, RankedPlayerWithColorHistory) => Int = {
     val maxRank = players.maxBy(_.rank).rank
     (a, b) => {
       val rank = Math.min(a.rank, b.rank)
