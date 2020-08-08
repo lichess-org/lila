@@ -25,8 +25,6 @@ PlayKeys.externalizeResources := false
 scriptClasspath := Seq("*")
 // give a fake assets dir to make sure they're not packaged
 resourceDirectory in Assets := baseDirectory.value / "public-nothanks"
-// who needs JS routes right?
-routesGenerator := LilaRoutesGenerator
 maintainer := "contact@lichess.org"
 
 // format: off
@@ -149,7 +147,7 @@ lazy val db = smallModule("db",
 
 lazy val memo = smallModule("memo",
   Seq(common, db),
-  Seq(scaffeine, macwire.macros, autoconfig, scalatest, akka.testkit) ++ reactivemongo.bundle
+  Seq(scaffeine, macwire.macros, macwire.util, autoconfig, scalatest, akka.testkit) ++ reactivemongo.bundle
 )
 
 lazy val search = smallModule("search",
@@ -419,5 +417,5 @@ lazy val socket = module("socket",
 
 lazy val hub = smallModule("hub",
   Seq(common),
-  Seq(scaffeine)
+  Seq(scaffeine, macwire.util)
 )
