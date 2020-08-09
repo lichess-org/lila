@@ -2,7 +2,6 @@ package views.html
 
 import controllers.routes
 import play.api.data.Form
-import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -212,14 +211,16 @@ object appeal {
       )
     )
 
-  private def renderUser(appeal: Appeal, userId: User.ID, asMod: Boolean)(implicit lang: Lang) =
+  private def renderUser(appeal: Appeal, userId: User.ID, asMod: Boolean)(implicit ctx: Context) =
     if (appeal isAbout userId) userIdLink(userId.some)
     else
       span(
         userIdLink(User.lichessId.some),
-        " (",
-        userIdLink(userId.some),
-        ")"
+        isGranted(_.Appeals) option frag(
+          " (",
+          userIdLink(userId.some),
+          ")"
+        )
       )
 
   private def renderForm(form: Form[_], action: String, isNew: Boolean, presets: Option[ModPresets])(implicit
