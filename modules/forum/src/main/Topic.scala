@@ -38,7 +38,7 @@ case class Topic(
   def open          = !closed
   def visibleOnHome = !hidden
 
-  def isTooBig = nbPosts > 100
+  def isTooBig = nbPosts > 50 && Categ.slugToTeamId(categId).isEmpty
 
   def isSticky = ~sticky
 

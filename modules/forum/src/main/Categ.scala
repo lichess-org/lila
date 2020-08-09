@@ -38,3 +38,14 @@ case class Categ(
 
   def slug = id
 }
+
+object Categ {
+
+  private val TeamSlugPattern = """team-([\w-]++)""".r
+
+  def slugToTeamId(slug: String) =
+    slug match {
+      case TeamSlugPattern(teamId) => teamId.some
+      case _                       => none
+    }
+}
