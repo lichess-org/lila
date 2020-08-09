@@ -7,7 +7,9 @@ class UserTest extends Specification {
   def canSignup(str: User.ID) =
     User.newUsernamePrefix.pattern.matcher(str).matches && User.newUsernameSuffix.pattern
       .matcher(str)
-      .matches && User.newUsernameChars.pattern.matcher(str).matches
+      .matches &&
+      User.newUsernameChars.pattern.matcher(str).matches &&
+      User.newUsernameLetters.pattern.matcher(str).matches
 
   "username regex" in {
     import User.couldBeUsername
@@ -28,6 +30,15 @@ class UserTest extends Specification {
     "bad suffix" in {
       couldBeUsername("a_") must beFalse
       couldBeUsername("a_") must beFalse
+    }
+
+    "too many consecutive non-letter chars" in {
+      canSignup("a_-a") must beFalse
+      canSignup("_-a") must beFalse
+      canSignup("a__a") must beFalse
+      canSignup("a_-a") must beFalse
+      canSignup("a--a") must beFalse
+      couldBeUsername("a--a") must beTrue
     }
 
     "OK things" in {

@@ -452,7 +452,7 @@ final class TournamentApi(
                 nbGames = sheet.scores.size
                 if nbGames > 0
               } yield Math.round {
-                player.performance * (nbGames - 1) / nbGames + performance / nbGames
+                (player.performance * (nbGames - 1) + performance) / nbGames
               } toInt
             } | player.performance
           )

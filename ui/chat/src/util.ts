@@ -12,11 +12,8 @@ export function userLink(u: string, title?: string) {
     attrs: {
       href: '/@/' + u
     }
-  }, title ? [
-    h(
-      'span.title',
-      title == 'BOT' ? { attrs: {'data-bot': true } } : {},
-      title), trunc
+  }, (title && title != 'BOT') ? [
+    h('span.title', title), trunc
   ] : [trunc]);
 }
 
