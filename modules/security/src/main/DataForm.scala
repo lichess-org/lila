@@ -63,6 +63,10 @@ final class DataForm(
         Constraints.pattern(
           regex = User.newUsernameChars,
           error = "usernameCharsInvalid"
+        ),
+        Constraints.pattern(
+          regex = User.newUsernameLetters,
+          error = "usernameCharsInvalid"
         )
       )
       .verifying("usernameUnacceptable", u => !lameNameCheck.value || !LameName.username(u))
