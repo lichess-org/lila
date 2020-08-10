@@ -11,7 +11,7 @@
   <string name="ratedGames">Rata parti</string>
   <string name="tournamentGames">Turneringsparti</string>
   <string name="berserkedGames">Berserkparti</string>
-  <string name="timeSpentPlaying">Tid brukt på å spela</string>
+  <string name="timeSpentPlaying">Total speletid</string>
   <string name="averageOpponent">Gjennomsnittleg motspelarrating</string>
   <string name="victories">Sigrar</string>
   <string name="defeats">Tap</string>
