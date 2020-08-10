@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">দল</string>
   <string name="teams">দল</string>
   <plurals name="nbMembers">
     <item quantity="one">%s জন সদস্য</item>
