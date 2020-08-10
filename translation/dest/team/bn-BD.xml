@@ -27,4 +27,8 @@
     <item quantity="one">%sসংখ্যক যোগদানের অনুরোধ</item>
     <item quantity="other">%s সংখ্যক যোগদানের অনুরোধ</item>
   </plurals>
+  <string name="willBeReviewed">আপনার যোগদানের অনুরোধ দলনেতা যাচাই করবেন.</string>
+  <string name="beingReviewed">আপনার যোগদানের অনুরোধ দলনেতা যাচাই করছেন.</string>
+  <string name="teamBattle">দলীয় প্রতিযোগীতা</string>
+  <string name="teamBattleOverview">একাধিক দলের প্রতিযোগীতা, প্রত্যেক খেলোয়াড় নিজের দলের জন্য পয়েন্ট অর্জন করেন</string>
 </resources>
