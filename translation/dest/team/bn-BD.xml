@@ -34,4 +34,5 @@
   <string name="teamTournament">দলীয় টুর্নামেন্ট</string>
   <string name="teamTournamentOverview">একটি এরিনা টুর্নামেন্ট যেটিতে শুধু আপনার দলের খেলোয়াররা যোগ দিতে পারে</string>
   <string name="messageAllMembers">সব সদস্যকে বার্তা পাঠান</string>
+  <string name="messageAllMembersOverview">দলের প্রত্যেক সদস্যকে একটি ব্যক্তিগত বার্তা পাঠান</string>
 </resources>
