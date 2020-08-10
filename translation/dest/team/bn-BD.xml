@@ -23,4 +23,8 @@
   <string name="teamRecentMembers">দলের নবীন সদস্যগণ</string>
   <string name="kickSomeone">কাউকে দল থেকে বের করে দিন</string>
   <string name="whoToKick">কাকে দল থেকে বের করতে চান?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%sসংখ্যক যোগদানের অনুরোধ</item>
+    <item quantity="other">%s সংখ্যক যোগদানের অনুরোধ</item>
+  </plurals>
 </resources>
