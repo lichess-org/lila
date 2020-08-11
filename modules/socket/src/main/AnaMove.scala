@@ -1,16 +1,16 @@
 package lila.socket
 
+import cats.data.Validated
 import chess.format.{ FEN, Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
 import play.api.libs.json._
-import scalaz.Validation.FlatMap._
 
 import lila.tree.Branch
 
 trait AnaAny {
 
-  def branch: Valid[Branch]
+  def branch: Validated[String, Branch]
   def chapterId: Option[String]
   def path: String
 }
@@ -25,7 +25,7 @@ case class AnaMove(
     promotion: Option[chess.PromotableRole]
 ) extends AnaAny {
 
-  def branch: Valid[Branch] =
+  def branch: Validated[String, Branch] =
     chess.Game(variant.some, fen.some)(orig, dest, promotion) flatMap {
       case (game, move) =>
         game.pgnMoves.lastOption toValid "Moved but no last move!" map { san =>

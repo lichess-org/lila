@@ -6,8 +6,7 @@ import chess.format.pgn.{ Sans, Tags }
 import chess.format.{ pgn, Forsyth }
 import chess.{ Game => ChessGame }
 import scala.util.Success
-import scalaz.Validation.FlatMap._
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 import lila.common.Captcha
 import lila.hub.actorApi.captcha._
@@ -45,17 +44,17 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
 
     // Private stuff
 
-    private val capacity                          = 256
-    private var challenges: NonEmptyList[Captcha] = NonEmptyList(Captcha.default)
+    private val capacity   = 256
+    private var challenges = NonEmptyList.one(Captcha.default)
 
     private def add(c: Captcha): Unit = {
       find(c.gameId) ifNone {
-        challenges = NonEmptyList.nel(c, challenges.list take capacity)
+        challenges = NonEmptyList(c, challenges.toList take capacity)
       }
     }
 
     private def find(id: String): Option[Captcha] =
-      challenges.list.find(_.gameId == id)
+      challenges.find(_.gameId == id)
 
     private def createFromDb: Fu[Option[Captcha]] =
       findCheckmateInDb(10) flatMap {

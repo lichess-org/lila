@@ -3,7 +3,7 @@ package lila.evalCache
 import chess.format.{ FEN, Forsyth, Uci }
 import chess.variant.Variant
 import org.joda.time.DateTime
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 import lila.tree.Eval.Score
 import lila.user.User
@@ -67,7 +67,7 @@ object EvalCacheEntry {
 
     def takePvs(multiPv: Int) =
       copy(
-        pvs = NonEmptyList.nel(pvs.head, pvs.tail.take(multiPv - 1))
+        pvs = NonEmptyList(pvs.head, pvs.tail.take(multiPv - 1))
       )
 
     def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
@@ -96,7 +96,7 @@ object EvalCacheEntry {
 
   case class Moves(value: NonEmptyList[Uci]) extends AnyVal {
 
-    def truncate = copy(value = NonEmptyList.nel(value.head, value.tail.take(MAX_PV_SIZE - 1)))
+    def truncate = copy(value = NonEmptyList(value.head, value.tail.take(MAX_PV_SIZE - 1)))
   }
 
   case class Trust(value: Double) extends AnyVal {

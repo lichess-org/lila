@@ -1,5 +1,7 @@
 package lila.game
 
+import cats.Applicative
+import cats.implicits._
 import chess.Color
 import scala.util.chaining._
 
@@ -38,8 +40,8 @@ case class Player(
   def isUser(u: User) = userId.fold(false)(_ == u.id)
 
   def userInfos: Option[Player.UserInfo] =
-    (userId |@| rating) {
-      case (id, ra) => Player.UserInfo(id, ra, provisional)
+    Applicative[Option].map2(userId, rating) { (id, ra) =>
+      Player.UserInfo(id, ra, provisional)
     }
 
   def wins = isWinner getOrElse false

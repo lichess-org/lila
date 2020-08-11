@@ -1,10 +1,11 @@
 package lila.evalCache
 
+import cats.implicits._
+import chess.format.{ FEN, Uci }
 import play.api.libs.json._
 
-import chess.format.{ FEN, Uci }
-import EvalCacheEntry._
 import lila.common.Json._
+import lila.evalCache.EvalCacheEntry._
 import lila.tree.Eval._
 
 object JsonHandlers {

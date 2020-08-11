@@ -1,7 +1,8 @@
 package lila.game
 
+import chess._
 import chess.format.Uci
-import chess.{ variant => _, ToOptionOpsFromOption => _, _ }
+
 import lila.db.ByteArray
 
 sealed trait PgnStorage

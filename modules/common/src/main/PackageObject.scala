@@ -2,8 +2,6 @@ package lila
 
 trait PackageObject extends Lilaisms {
 
-  def !![A](msg: String): Valid[A] = msg.failureNel[A]
-
   def nowNanos: Long  = System.nanoTime()
   def nowMillis: Long = System.currentTimeMillis()
   def nowCentis: Long = nowMillis / 10
@@ -33,4 +31,6 @@ trait PackageObject extends Lilaisms {
     def seconds(s: Int): Timeout        = Timeout(s.seconds)
     def minutes(m: Int): Timeout        = Timeout(m.minutes)
   }
+
+  def some[A](a: A): Option[A] = Some(a)
 }

@@ -12,11 +12,10 @@ object Dependencies {
     val commons = Seq(sonatype, lilaMaven, sonatypeS)
   }
 
-  val scalaz      = "org.scalaz"           %% "scalaz-core"                     % "7.2.30"
-  val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "6.8"
+  val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "7.0.0"
   val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"             % "joda-time"                       % "2.10.6"
-  val chess       = "org.lichess"          %% "scalachess"                      % "9.3.2"
+  val chess       = "org.lichess"          %% "scalachess"                      % "10.0.0"
   val compression = "org.lichess"          %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"       %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.19-THIB213"

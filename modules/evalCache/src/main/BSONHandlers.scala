@@ -2,7 +2,7 @@ package lila.evalCache
 
 import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 import chess.format.Uci
 import lila.db.dsl._

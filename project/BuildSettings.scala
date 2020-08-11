@@ -30,7 +30,6 @@ object BuildSettings {
   def defaultLibs: Seq[ModuleID] =
     akka.bundle ++ Seq(
       play.api,
-      scalaz,
       chess,
       scalalib,
       jodaTime,

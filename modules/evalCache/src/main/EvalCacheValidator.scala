@@ -5,7 +5,7 @@ private object Validator {
   case class Error(message: String) extends AnyVal
 
   def apply(in: EvalCacheEntry.Input): Option[Error] =
-    in.eval.pvs.list.foldLeft(none[Error]) {
+    in.eval.pvs.toList.foldLeft(none[Error]) {
       case (None, pv) =>
         chess.Replay
           .boardsFromUci(

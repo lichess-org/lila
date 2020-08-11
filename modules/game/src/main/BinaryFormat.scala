@@ -1,12 +1,11 @@
 package lila.game
 
-import org.joda.time.DateTime
-import scala.util.Try
-
-import chess.variant.Variant
-import chess.{ ToOptionOpsFromOption => _, _ }
+import chess._
 import chess.format.Uci
+import chess.variant.Variant
+import org.joda.time.DateTime
 import org.lichess.compression.clock.{ Encoder => ClockEncoder }
+import scala.util.Try
 
 import lila.db.ByteArray
 
