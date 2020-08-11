@@ -82,12 +82,19 @@
   <string name="clearAnnotations">Jelölések eltávolítása</string>
   <string name="deleteChapter">Fejezet törlése</string>
   <string name="deleteThisChapter">Törlöd a fejezetet? Ezt nem lehet visszavonni!</string>
+  <string name="clearAllCommentsInThisChapter">Eltávolítasz minden megjegyzést, jelölést és rajzot ebből a fejezetből?</string>
   <string name="rightUnderTheBoard">Közvetlen a tábla alatt</string>
   <string name="noPinnedComment">Nincs</string>
+  <string name="normalAnalysis">Normál elemzés</string>
+  <string name="hideNextMoves">Következő lépések elrejtése</string>
   <string name="interactiveLesson">Interaktív lecke</string>
   <string name="chapterX">Fejezet: %s</string>
   <string name="empty">Üres</string>
   <string name="startFromInitialPosition">Kezdés az alapállásból</string>
   <string name="editor">Szerkesztő</string>
+  <string name="startFromCustomPosition">Kezdés egyedi felállásból</string>
+  <string name="loadAGameByUrl">Játszmák betöltése URL-ről</string>
+  <string name="loadAPositionFromFen">Állás betöltése FEN-ből</string>
+  <string name="loadAGameFromPgn">Játszmák betöltése PGN-ből</string>
   <string name="automatic">Automatikus</string>
 </resources>
