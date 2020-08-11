@@ -75,8 +75,11 @@
   <string name="studyNotFound">Tanulmány nem található</string>
   <string name="editChapter">Fejezet szerkesztése</string>
   <string name="newChapter">Új fejezet</string>
+  <string name="orientation">Szemszög</string>
   <string name="analysisMode">Elemzés típusa</string>
+  <string name="pinnedChapterComment">Rögzített megjegyzés</string>
   <string name="saveChapter">Fejezet mentése</string>
+  <string name="clearAnnotations">Jelölések eltávolítása</string>
   <string name="deleteChapter">Fejezet törlése</string>
   <string name="deleteThisChapter">Törlöd a fejezetet? Ezt nem lehet visszavonni!</string>
   <string name="rightUnderTheBoard">Közvetlen a tábla alatt</string>
