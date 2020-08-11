@@ -247,7 +247,7 @@ lazy val insight = module("insight",
 
 lazy val tournament = module("tournament",
   Seq(common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n, room),
-  Seq(scalatags, lettuce) ++ reactivemongo.bundle
+  Seq(scalatags, lettuce, specs2) ++ reactivemongo.bundle
 )
 
 lazy val swiss = module("swiss",
