@@ -97,4 +97,8 @@
   <string name="loadAPositionFromFen">Állás betöltése FEN-ből</string>
   <string name="loadAGameFromPgn">Játszmák betöltése PGN-ből</string>
   <string name="automatic">Automatikus</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Illeszd be a PGN szövegét legfeljebb %s játszmáig</item>
+    <item quantity="other">Illeszd be a PGN szövegét legfeljebb %s játszmáig</item>
+  </plurals>
 </resources>
