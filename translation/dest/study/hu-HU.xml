@@ -101,4 +101,6 @@
     <item quantity="one">Illeszd be a PGN szövegét legfeljebb %s játszmáig</item>
     <item quantity="other">Illeszd be a PGN szövegét legfeljebb %s játszmáig</item>
   </plurals>
+  <string name="urlOfTheGame">URL a játszmákhoz, soronként egy</string>
+  <string name="loadAGameFromXOrY">Játszmák betöltése %1$s vagy %2$s-ról</string>
 </resources>
