@@ -3,14 +3,7 @@ import sbt._, Keys._
 
 object Dependencies {
 
-  object Resolvers {
-
-    val sonatype  = Resolver.sonatypeRepo("releases")
-    val sonatypeS = Resolver.sonatypeRepo("snapshots")
-    val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/ornicar/lila-maven/master"
-
-    val commons = Seq(sonatype, lilaMaven, sonatypeS)
-  }
+  val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/ornicar/lila-maven/master"
 
   val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "7.0.1"
   val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
@@ -44,6 +37,7 @@ object Dependencies {
   object macwire {
     val macros = "com.softwaremill.macwire" %% "macros" % "2.3.7" % "provided"
     val util   = "com.softwaremill.macwire" %% "util"   % "2.3.7" % "provided"
+    def bundle = Seq(macros, util)
   }
 
   object reactivemongo {

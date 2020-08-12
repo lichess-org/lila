@@ -16,42 +16,21 @@ object BuildSettings {
     Defaults.coreDefaultSettings ++ Seq(
       version := lilaVersion,
       organization := "org.lichess",
+      resolvers += lilaMaven,
       scalaVersion := globalScalaVersion,
-      resolvers ++= Dependencies.Resolvers.commons,
       scalacOptions ++= compilerOptions,
-      sources in (Compile, doc) := Seq.empty,
-      publishArtifact in (Compile, packageDoc) := false,
-      // disable publishing the main sources jar
-      publishArtifact in (Compile, packageSrc) := false,
       // No bloop project for tests
       bloopGenerate in Test := None
     )
 
-  def defaultLibs: Seq[ModuleID] =
-    akka.bundle ++ Seq(
+  lazy val defaultLibs: Seq[ModuleID] =
+    akka.bundle ++ macwire.bundle ++ Seq(
       play.api,
       chess,
       scalalib,
       jodaTime,
-      macwire.macros,
-      macwire.util,
       autoconfig
     )
-
-  def module(
-      name: String,
-      deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
-      libs: Seq[ModuleID]
-  ) =
-    Project(
-      name,
-      file("modules/" + name)
-    ).dependsOn(deps: _*)
-      .settings(
-        libraryDependencies ++= defaultLibs ++ libs,
-        buildSettings,
-        srcMain
-      )
 
   def smallModule(
       name: String,
@@ -67,6 +46,13 @@ object BuildSettings {
         buildSettings,
         srcMain
       )
+
+  def module(
+      name: String,
+      deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
+      libs: Seq[ModuleID]
+  ) =
+    smallModule(name, deps, defaultLibs ++ libs)
 
   val compilerOptions = Seq(
     "-explaintypes",

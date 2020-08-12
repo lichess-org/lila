@@ -10,20 +10,15 @@ lazy val root = Project("lila", file("."))
   .aggregate(api)
   .settings(buildSettings)
 
-version := lilaVersion
-scalaVersion := globalScalaVersion
-resolvers ++= Dependencies.Resolvers.commons
-// don't deploy doc
+PlayKeys.playDefaultPort := 9663
+// shorter prod classpath
+scriptClasspath := Seq("*")
+maintainer := "contact@lichess.org"
+resourceDirectory in Compile := baseDirectory.value / "conf"
 sources in (Compile, doc) := Seq.empty
 publishArtifact in (Compile, packageDoc) := false
 // disable publishing the main sources jar
 publishArtifact in (Compile, packageSrc) := false
-PlayKeys.playDefaultPort := 9663
-// shorter prod classpath
-scriptClasspath := Seq("*")
-// give a fake assets dir to make sure they're not packaged
-resourceDirectory in Assets := baseDirectory.value / "public-nothanks"
-maintainer := "contact@lichess.org"
 
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ Seq(
@@ -88,7 +83,7 @@ lazy val quote = smallModule("quote",
 
 lazy val video = smallModule("video",
   Seq(common, memo, hub, db, user),
-  Seq(autoconfig, macwire.macros, macwire.util) ++ reactivemongo.bundle
+  Seq(autoconfig) ++ reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val coach = module("coach",
@@ -103,7 +98,7 @@ lazy val streamer = module("streamer",
 
 lazy val coordinate = smallModule("coordinate",
   Seq(common, db, user),
-  Seq(autoconfig, macwire.macros, macwire.util) ++ reactivemongo.bundle
+  Seq(autoconfig) ++ reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val blog = module("blog",
@@ -145,12 +140,12 @@ lazy val db = smallModule("db",
 
 lazy val memo = smallModule("memo",
   Seq(common, db),
-  Seq(scaffeine, macwire.macros, macwire.util, autoconfig, scalatest, akka.testkit) ++ reactivemongo.bundle
+  Seq(scaffeine, autoconfig, scalatest, akka.testkit) ++ reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val search = smallModule("search",
   Seq(common, hub),
-  playWs.bundle ++ Seq(macwire.macros, macwire.util, autoconfig)
+  playWs.bundle ++ Seq(autoconfig) ++ macwire.bundle
 )
 
 lazy val chat = module("chat",
@@ -180,7 +175,7 @@ lazy val mod = module("mod",
 
 lazy val user = smallModule("user",
   Seq(common, memo, db, hub, rating, socket),
-  Seq(hasher, specs2, macwire.macros, macwire.util, autoconfig) ++ playWs.bundle ++ reactivemongo.bundle
+  Seq(hasher, specs2, autoconfig) ++ playWs.bundle ++ reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val game = module("game",
@@ -268,9 +263,9 @@ lazy val irwin = module("irwin",
   reactivemongo.bundle
 )
 
-lazy val oauth = module("oauth",
+lazy val oauth = smallModule("oauth",
   Seq(common, db, user),
-  reactivemongo.bundle
+  Seq(autoconfig) ++ reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val security = module("security",
@@ -303,9 +298,9 @@ lazy val studySearch = module("studySearch",
   reactivemongo.bundle
 )
 
-lazy val learn = module("learn",
+lazy val learn = smallModule("learn",
   Seq(common, db, user),
-  reactivemongo.bundle
+  Seq(autoconfig) ++ reactivemongo.bundle
 )
 
 lazy val evalCache = module("evalCache",
@@ -328,9 +323,9 @@ lazy val push = module("push",
   Seq(googleOAuth) ++ reactivemongo.bundle
 )
 
-lazy val slack = module("slack",
+lazy val slack = smallModule("slack",
   Seq(common, hub, user),
-  reactivemongo.bundle
+  reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val plan = module("plan",
@@ -345,7 +340,7 @@ lazy val relation = module("relation",
 
 lazy val pref = module("pref",
   Seq(common, db, user),
-  reactivemongo.bundle
+  Seq(macwire.util) ++ reactivemongo.bundle
 )
 
 lazy val msg = module("msg",
@@ -403,14 +398,14 @@ lazy val notifyModule = module("notify",
   reactivemongo.bundle
 )
 
-lazy val tree = module("tree",
+lazy val tree = smallModule("tree",
   Seq(common),
   Seq()
 )
 
-lazy val socket = module("socket",
+lazy val socket = smallModule("socket",
   Seq(common, hub, memo, tree),
-  Seq(lettuce)
+  Seq(lettuce) ++ macwire.bundle
 )
 
 lazy val hub = smallModule("hub",
