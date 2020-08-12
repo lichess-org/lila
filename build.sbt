@@ -19,8 +19,6 @@ publishArtifact in (Compile, packageDoc) := false
 // disable publishing the main sources jar
 publishArtifact in (Compile, packageSrc) := false
 PlayKeys.playDefaultPort := 9663
-// don't stage the conf dir
-PlayKeys.externalizeResources := false
 // shorter prod classpath
 scriptClasspath := Seq("*")
 // give a fake assets dir to make sure they're not packaged
