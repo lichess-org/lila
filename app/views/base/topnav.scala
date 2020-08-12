@@ -35,7 +35,7 @@ object topnav {
         )
       ),
       st.section(
-        linkTitle(routes.Puzzle.home().toString, trans.learnMenu()),
+        linkTitle(routes.Puzzle.home().path, trans.learnMenu()),
         div(role := "group")(
           ctx.noBot option frag(
             a(href := routes.Learn.index())(trans.chessBasics()),
@@ -49,7 +49,7 @@ object topnav {
         )
       ),
       st.section(
-        linkTitle(routes.Tv.index().toString, trans.watch()),
+        linkTitle(routes.Tv.index().path, trans.watch()),
         div(role := "group")(
           a(href := routes.Tv.index())("Lichess TV"),
           a(href := routes.Tv.games())(trans.currentGames()),
@@ -59,7 +59,7 @@ object topnav {
         )
       ),
       st.section(
-        linkTitle(routes.User.list().toString, trans.community()),
+        linkTitle(routes.User.list().path, trans.community()),
         div(role := "group")(
           a(href := routes.User.list())(trans.players()),
           a(href := routes.Team.home())(trans.team.teams()),
@@ -67,7 +67,7 @@ object topnav {
         )
       ),
       st.section(
-        linkTitle(routes.UserAnalysis.index().toString, trans.tools()),
+        linkTitle(routes.UserAnalysis.index().path, trans.tools()),
         div(role := "group")(
           a(href := routes.UserAnalysis.index())(trans.analysis()),
           a(href := s"${routes.UserAnalysis.index()}#explorer")(trans.openingExplorer()),
