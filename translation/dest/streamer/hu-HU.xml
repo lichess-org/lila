@@ -8,4 +8,10 @@
   <string name="becomeStreamer">Legyél Te is Lichess közvetítő</string>
   <string name="doYouHaveStream">Van már Twitch vagy YouTube csatornád?</string>
   <string name="hereWeGo">Kész is vagyunk!</string>
+  <string name="allStreamers">Összes közvetítő</string>
+  <string name="editPage">Közvetítői oldal szerkesztése</string>
+  <string name="yourPage">Saját közvetítői oldalad</string>
+  <string name="downloadKit">Közvetítői csomag letöltése</string>
+  <string name="xIsStreaming">%s éppen közvetít</string>
+  <string name="rules">Közvetítés szabályai</string>
 </resources>
