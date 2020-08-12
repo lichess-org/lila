@@ -44,7 +44,7 @@ final class EvalCacheApi(
     )
 
   private[evalCache] def drop(variant: Variant, fen: FEN): Funit = {
-    val id = Id(chess.variant.Standard, SmallFen.make(variant, fen))
+    val id = Id(variant, SmallFen.make(variant, fen))
     coll.delete.one($id(id)).void >>- cache.invalidate(id)
   }
 
