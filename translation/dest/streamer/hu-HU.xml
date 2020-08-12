@@ -3,6 +3,7 @@
   <string name="lichessStreamers">Lichess közvetítők</string>
   <string name="lichessStreamer">Lichess közvetítő</string>
   <string name="live">ÉLŐ!</string>
+  <string name="offline">NINCS ADÁS</string>
   <string name="currentlyStreaming">Jelenlegi közvetítés: %s</string>
   <string name="lastStream">Utolsó közvetítés %s</string>
   <string name="becomeStreamer">Legyél Te is Lichess közvetítő</string>
@@ -39,9 +40,13 @@ Ha a közvetítés angol nyelvű, akkor nem szükséges feltüntetni az országk
     <item quantity="one">Legyen rövid: legfeljebb %s karakter</item>
     <item quantity="other">Legyen rövid: legfeljebb %s karakter</item>
   </plurals>
+  <string name="visibility">Látható a közvetítők oldalán</string>
+  <string name="whenApproved">Ha a moderátorok jóvá hagyták</string>
   <string name="headline">Főcím</string>
   <string name="tellUsAboutTheStream">A közvetítés jellemzése egy mondatban</string>
   <string name="longDescription">Bővebb leírás</string>
+  <string name="xStreamerPicture">%s közvetítői képe</string>
+  <string name="changePicture">Kép szerkesztése/törlése</string>
   <string name="uploadPicture">Kép feltöltése</string>
   <string name="deletePicture">Kép törlése</string>
   <string name="maxSize">Maximális méret: %s</string>
