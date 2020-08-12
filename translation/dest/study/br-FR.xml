@@ -55,7 +55,10 @@
   <string name="annotateWithGlyphs">Notennaouiñ gant arouezioù</string>
   <string name="theChapterIsTooShortToBeAnalysed">Re verr eo ar pennad evit bezañ dielfennet.</string>
   <string name="onlyContributorsCanRequestAnalysis">N\'eus nemet perzhidi ar studiadenn a c\'hall goulenn un dielfennañ urzhiataer.</string>
+  <string name="getAFullComputerAnalysis">Kaout un dielfennañ klok eus ar bennlinenn graet gant un urzhiataer.</string>
   <string name="makeSureTheChapterIsComplete">Bezit sur eo klok ar pennad. Ne c\'hallit goulenn un dielfennañ nemet ur wech.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Er memes lec\'hiadur e chom holl izili ar SYNC</string>
+  <string name="shareChanges">Rannañ cheñchamantoù gant an arvesterien ha saveteiñ anezhe war ar servor</string>
   <string name="playing">O c\'hoari</string>
   <string name="first">Kentañ</string>
   <string name="previous">A-raok</string>
@@ -75,6 +78,8 @@
   <string name="startAtInitialPosition">Kregiñ el lec\'hiadur kentañ</string>
   <string name="startAtX">Kregiñ e %s</string>
   <string name="embedInYourWebsite">Enframmañ en ho lec\'hienn pe blog</string>
+  <string name="readMoreAboutEmbedding">Goût hiroc\'h diwar-benn an ensoc\'hañ</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Ar studiadennoù foran a c\'hall bezañ ensoc\'het!</string>
   <string name="open">Digeriñ</string>
   <string name="xBroughtToYouByY">%1$s, zo kaset deoc\'h gant %2$s</string>
   <string name="studyNotFound">N\'eo ket bet kavet ar studiadenn</string>
@@ -87,6 +92,8 @@
   <string name="clearAnnotations">Diverkañ an notennoù</string>
   <string name="deleteChapter">Dilemel pennad</string>
   <string name="deleteThisChapter">Dilemel ar pennad-mañ? Hep distro e vo!</string>
+  <string name="clearAllCommentsInThisChapter">Diverkañ an holl evezhiadennoù ha notennoù er pennad?</string>
+  <string name="rightUnderTheBoard">Dindan an dablez</string>
   <string name="noPinnedComment">Hini ebet</string>
   <string name="normalAnalysis">Dielfennañ normal</string>
   <string name="hideNextMoves">Kuzhat ar fiñvadennoù da heul</string>

@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessStreamers">بثوث ليشس</string>
+  <string name="lichessStreamer">بثوث ليشس</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">غير متصل</string>
+  <string name="becomeStreamer">اصبح ستريمرز لموقع الليتش</string>
+  <string name="doYouHaveStream">هل لديك قناة تويتش أو يوتيوب؟</string>
+  <string name="hereWeGo">فلنبدأ!</string>
+  <string name="allStreamers">جميع الستريمرز</string>
+  <string name="editPage">تعديل صفحة البث</string>
+  <string name="yourPage">صفحة البث الخاصة بك</string>
+  <string name="downloadKit">تحميل streamer kit</string>
+  <string name="xIsStreaming">%s يقوم بعمل بث</string>
+  <string name="rules">قواعد البث</string>
 </resources>

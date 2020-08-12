@@ -86,6 +86,13 @@
   <string name="recentGames">Krogadoù diwezhañ</string>
   <string name="topGames">Krogadoù eus ar c\'hentañ</string>
   <string name="masterDbExplanation">Daou vilion c\'hoari %1$s + FIDE gant c\'hoarerien etre %2$s ha %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Lamm d\'ar roue goude %s hanter-fiñvadenn</item>
+    <item quantity="two">Lamm d\'ar roue goude %s hanter-fiñvadenn</item>
+    <item quantity="few">Lamm d\'ar roue goude %s hanter-fiñvadenn</item>
+    <item quantity="many">Lamm d\'ar roue goude %s hanter-fiñvadenn</item>
+    <item quantity="other">Lamm d\'ar roue goude %s hanter-fiñvadenn</item>
+  </plurals>
   <string name="noGameFound">Krogad ebet kavet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Degemer muioc\'h a grogadoù o tont eus lañser an dibaboù?</string>
   <string name="openingExplorer">Lañser an digoradurioù</string>

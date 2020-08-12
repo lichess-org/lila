@@ -35,11 +35,11 @@ Dernest betaler vi en fulltidsutvikler: %s, grunnleggeren av Lichess.</string>
   <string name="officialNonProfit">Er Lichess offisielt en ideell forening?</string>
   <string name="actOfCreation">Ja, her er registermeldingen (på fransk)</string>
   <string name="changeMonthlySupport">Kan jeg endre/annullere det månedlige bidraget mitt?</string>
-  <string name="changeOrContact">Ja, når som helst, fra denne sida.
+  <string name="changeOrContact">Ja, når som helst, fra denne siden.
 Eller du kan %s.</string>
   <string name="contactSupport">ta kontakt med Lichess-support</string>
   <string name="otherMethods">Andre måter å bidra på?</string>
-  <string name="bankTransfers">Vi tar også mot bankoverføringer</string>
+  <string name="bankTransfers">Vi tar også imot bankoverføringer</string>
   <string name="bitcoin">Og her er bitcoin-adressen vår: %s</string>
   <string name="patronFeatures">Er noen funksjoner reservert mesener?</string>
   <string name="noPatronFeatures">Nei, for Lichess er helt gratis, for alltid og for alle. Det er et løfte.
