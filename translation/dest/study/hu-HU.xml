@@ -117,4 +117,8 @@
   <string name="contributors">Közreműködők</string>
   <string name="members">Tagok</string>
   <string name="everyone">Mindenki</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Igen: mindenki ugyanazt az állást követi</string>
+  <string name="noLetPeopleBrowseFreely">Nem: szabadon böngészhető</string>
+  <string name="pinnedStudyComment">Rögzített megjegyzés</string>
+  <string name="save">Mentés</string>
 </resources>
