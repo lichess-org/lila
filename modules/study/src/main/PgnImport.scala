@@ -1,9 +1,10 @@
 package lila.study
 
+import cats.data.Validated
+import chess.Centis
 import chess.format.pgn.{ Dumper, Glyphs, ParsedPgn, San, Tags }
 import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
 
-import chess.Centis
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
@@ -24,7 +25,7 @@ object PgnImport {
       statusText: String
   )
 
-  def apply(pgn: String, contributors: List[LightUser]): Valid[Result] =
+  def apply(pgn: String, contributors: List[LightUser]): Validated[String, Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)

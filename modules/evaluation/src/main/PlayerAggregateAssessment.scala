@@ -1,9 +1,11 @@
 package lila.evaluation
 
+import cats.implicits._
 import chess.Color
-import lila.user.User
 import org.joda.time.DateTime
 import scala.math.sqrt
+
+import lila.user.User
 
 case class PlayerAssessment(
     _id: String,
@@ -56,7 +58,7 @@ case class PlayerAggregateAssessment(
     val bannable: Boolean = false
 
     def sigDif(dif: Int)(a: Option[(Int, Int, Int)], b: Option[(Int, Int, Int)]): Option[Boolean] =
-      (a |@| b) apply { case (a, b) => b._1 - a._1 > dif }
+      (a, b) mapN { (a, b) => b._1 - a._1 > dif }
 
     val difs = List(
       (sfAvgBlurs, sfAvgNoBlurs),

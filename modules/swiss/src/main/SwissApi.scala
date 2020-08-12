@@ -277,8 +277,9 @@ final class SwissApi(
       game.whitePlayer.userId.ifTrue(swiss.isStarted) flatMap { whiteId =>
         game.blackPlayer.userId map { blackId =>
           rankingApi(swiss) map { ranking =>
-            ranking.get(whiteId) |@| ranking.get(blackId) apply {
-              case (whiteR, blackR) => GameRanks(whiteR, blackR)
+            import cats.implicits._
+            (ranking.get(whiteId), ranking.get(blackId)) mapN { (whiteR, blackR) =>
+              GameRanks(whiteR, blackR)
             }
           }
         }
@@ -581,7 +582,7 @@ final class SwissApi(
         )
       }
       .map(_.flatMap(_.getAsOpt[Swiss.Id]("_id")))
-      .flatMap { 
+      .flatMap {
         _.map { withdraw(_, user.id) }.sequenceFu.void
       }
 

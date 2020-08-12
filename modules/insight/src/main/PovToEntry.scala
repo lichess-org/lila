@@ -1,7 +1,7 @@
 package lila.insight
 
 import scala.util.chaining._
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 import chess.format.FEN
 import chess.{ Board, Centis, Role, Stats }

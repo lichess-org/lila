@@ -1,12 +1,12 @@
 package lila.importer
 
+import cats.data.Validated
 import chess.format.pgn.{ ParsedPgn, Parser, Reader, Tag, TagType, Tags }
 import chess.format.{ FEN, Forsyth }
 import chess.{ Color, Mode, Replay, Status }
 import play.api.data._
 import play.api.data.Forms._
 import scala.util.chaining._
-import scalaz.Validation.FlatMap._
 
 import lila.game._
 
@@ -14,12 +14,12 @@ final class DataForm {
 
   lazy val importForm = Form(
     mapping(
-      "pgn"     -> nonEmptyText.verifying("invalidPgn", p => checkPgn(p).isSuccess),
+      "pgn"     -> nonEmptyText.verifying("invalidPgn", p => checkPgn(p).isValid),
       "analyse" -> optional(nonEmptyText)
     )(ImportData.apply)(ImportData.unapply)
   )
 
-  def checkPgn(pgn: String): Valid[Preprocessed] = ImportData(pgn, none).preprocess(none)
+  def checkPgn(pgn: String): Validated[String, Preprocessed] = ImportData(pgn, none).preprocess(none)
 }
 
 private case class TagResult(status: Status, winner: Option[Color])
@@ -42,7 +42,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
       case Reader.Result.Incomplete(replay, _) => replay
     }
 
-  def preprocess(user: Option[String]): Valid[Preprocessed] =
+  def preprocess(user: Option[String]): Validated[String, Preprocessed] =
     Parser.full(pgn) flatMap { parsed =>
       Reader.fullWithSans(
         pgn,

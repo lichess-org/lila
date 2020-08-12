@@ -8,6 +8,7 @@ import lila.game.actorApi.MoveGameEvent
 import lila.common.Bus
 import lila.game.{ Game, Pov, Progress, UciMemo }
 import lila.game.Game.PlayerId
+import cats.data.Validated
 
 final private class Player(
     fishnetPlayer: lila.fishnet.Player,
@@ -31,7 +32,7 @@ final private class Player(
             fuccess(Nil)
           case Pov(game, color) if game playableBy color =>
             applyUci(game, uci, blur, lag)
-              .prefixFailuresWith(s"$pov ")
+              .leftMap(e => s"$pov $e")
               .fold(errs => fufail(ClientError(errs.toString)), fuccess)
               .flatMap {
                 case Flagged => finisher.outOfTime(game)
@@ -117,7 +118,12 @@ final private class Player(
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
   private val botLag     = MoveMetrics(clientLag = Centis(10).some)
 
-  private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics): Valid[MoveResult] =
+  private def applyUci(
+      game: Game,
+      uci: Uci,
+      blur: Boolean,
+      metrics: MoveMetrics
+  ): Validated[String, MoveResult] =
     (uci match {
       case Uci.Move(orig, dest, prom) =>
         game.chess(orig, dest, prom, metrics) map {

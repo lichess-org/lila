@@ -5,7 +5,7 @@ import chess.{ Color, Role }
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType
 import org.joda.time.DateTime
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 case class Entry(
     id: String,  // gameId + w/b
@@ -183,12 +183,12 @@ object RelativeStrength {
 
 sealed abstract class MovetimeRange(val id: Int, val name: String, val tenths: NonEmptyList[Int])
 object MovetimeRange {
-  case object MTR1   extends MovetimeRange(1, "0 to 1 second", NonEmptyList(1, 5, 10))
-  case object MTR3   extends MovetimeRange(3, "1 to 3 seconds", NonEmptyList(15, 20, 30))
-  case object MTR5   extends MovetimeRange(5, "3 to 5 seconds", NonEmptyList(40, 50))
-  case object MTR10  extends MovetimeRange(10, "5 to 10 seconds", NonEmptyList(60, 80, 100))
-  case object MTR30  extends MovetimeRange(30, "10 to 30 seconds", NonEmptyList(150, 200, 300))
-  case object MTRInf extends MovetimeRange(60, "More than 30 seconds", NonEmptyList(400, 600))
+  case object MTR1   extends MovetimeRange(1, "0 to 1 second", NonEmptyList.of(1, 5, 10))
+  case object MTR3   extends MovetimeRange(3, "1 to 3 seconds", NonEmptyList.of(15, 20, 30))
+  case object MTR5   extends MovetimeRange(5, "3 to 5 seconds", NonEmptyList.of(40, 50))
+  case object MTR10  extends MovetimeRange(10, "5 to 10 seconds", NonEmptyList.of(60, 80, 100))
+  case object MTR30  extends MovetimeRange(30, "10 to 30 seconds", NonEmptyList.of(150, 200, 300))
+  case object MTRInf extends MovetimeRange(60, "More than 30 seconds", NonEmptyList.of(400, 600))
   val all           = List(MTR1, MTR3, MTR5, MTR10, MTR30, MTRInf)
   def reversedNoInf = all.reverse drop 1
   val byId = all map { p =>

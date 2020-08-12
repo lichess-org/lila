@@ -1,11 +1,10 @@
 package controllers
 
-import scala.concurrent.duration._
-
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json._
 import play.api.mvc._
+import scala.concurrent.duration._
 import views._
 
 import lila.api.Context
@@ -335,10 +334,11 @@ final class Team(
 
   def requestProcess(requestId: String) =
     AuthBody { implicit ctx => me =>
+      import cats.implicits._
       OptionFuRedirectUrl(for {
         requestOption <- api request requestId
         teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
-      } yield (teamOption |@| requestOption).tupled) {
+      } yield (teamOption, requestOption).mapN((_, _))) {
         case (team, request) =>
           implicit val req = ctx.body
           forms.processRequest

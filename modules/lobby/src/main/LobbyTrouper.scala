@@ -164,9 +164,10 @@ final private class LobbyTrouper(
     in match {
       case Vector() => none
       case h +: rest =>
+        import cats.implicits._
         if (
           biter.canJoin(h, hook.user) && !(
-            (h.user |@| hook.user).tupled ?? {
+            (h.user, hook.user).mapN((_, _)) ?? {
               case (u1, u2) => recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
             }
           )

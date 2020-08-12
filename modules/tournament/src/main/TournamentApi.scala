@@ -598,8 +598,9 @@ final class TournamentApi(
         game.whitePlayer.userId.ifTrue(tour.isStarted) flatMap { whiteId =>
           game.blackPlayer.userId map { blackId =>
             cached ranking tour map { ranking =>
-              ranking.get(whiteId) |@| ranking.get(blackId) apply {
-                case (whiteR, blackR) => GameRanks(whiteR + 1, blackR + 1)
+              import cats.implicits._
+              (ranking.get(whiteId), ranking.get(blackId)) mapN { (whiteR, blackR) =>
+                GameRanks(whiteR + 1, blackR + 1)
               }
             }
           }

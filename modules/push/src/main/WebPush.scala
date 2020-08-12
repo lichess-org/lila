@@ -4,7 +4,7 @@ import io.methvin.play.autoconfig._
 import play.api.libs.json._
 import play.api.libs.ws.JsonBodyWritables._
 import play.api.libs.ws.StandaloneWSClient
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 import lila.user.User
 

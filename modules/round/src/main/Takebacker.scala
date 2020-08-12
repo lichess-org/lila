@@ -99,7 +99,7 @@ final private class Takebacker(
   private def single(game: Game)(implicit proxy: GameProxy): Fu[Events] =
     for {
       fen      <- gameRepo initialFen game
-      progress <- Rewind(game, fen).future
+      progress <- Rewind(game, fen).toFuture
       _        <- fuccess { uciMemo.drop(game, 1) }
       events   <- saveAndNotify(progress)
     } yield events
@@ -107,8 +107,8 @@ final private class Takebacker(
   private def double(game: Game)(implicit proxy: GameProxy): Fu[Events] =
     for {
       fen   <- gameRepo initialFen game
-      prog1 <- Rewind(game, fen).future
-      prog2 <- Rewind(prog1.game, fen).future dmap { progress =>
+      prog1 <- Rewind(game, fen).toFuture
+      prog2 <- Rewind(prog1.game, fen).toFuture dmap { progress =>
         prog1 withGame progress.game
       }
       _      <- fuccess { uciMemo.drop(game, 2) }
