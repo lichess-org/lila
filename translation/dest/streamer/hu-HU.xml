@@ -21,6 +21,11 @@
   <string name="perk1">Egy lángoló közvetítői ikon a Lichess profilodon.</string>
   <string name="perk2">A közvetítők listájának tetejére dobása.</string>
   <string name="perk3">Lichess követőid értesítése.</string>
+  <string name="perk4">A közvetítésed mutatása a játszmáid, versenyeid és tanulmányaidnál.</string>
+  <string name="approved">A közvetítés jóváhagyva.</string>
+  <string name="pendingReview">A közvetítésed épp moderátoraink vizsgálják.</string>
+  <string name="pleaseFillIn">Kérjük add meg a közvetítői adataid és tölts fel egy képet.</string>
+  <string name="whenReady">Mikor készen állsz a Lichess közvetítői között felsorolva, %s</string>
   <string name="headline">Főcím</string>
   <string name="tellUsAboutTheStream">A közvetítés jellemzése egy mondatban</string>
   <string name="longDescription">Bővebb leírás</string>
