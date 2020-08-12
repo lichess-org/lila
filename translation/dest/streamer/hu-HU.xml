@@ -7,11 +7,21 @@
   <string name="lastStream">Utolsó közvetítés %s</string>
   <string name="becomeStreamer">Legyél Te is Lichess közvetítő</string>
   <string name="doYouHaveStream">Van már Twitch vagy YouTube csatornád?</string>
-  <string name="hereWeGo">Kész is vagyunk!</string>
+  <string name="hereWeGo">Lássunk neki!</string>
   <string name="allStreamers">Összes közvetítő</string>
   <string name="editPage">Közvetítői oldal szerkesztése</string>
   <string name="yourPage">Saját közvetítői oldalad</string>
   <string name="downloadKit">Közvetítői csomag letöltése</string>
   <string name="xIsStreaming">%s éppen közvetít</string>
   <string name="rules">Közvetítés szabályai</string>
+  <string name="headline">Főcím</string>
+  <string name="tellUsAboutTheStream">A közvetítés jellemzése egy mondatban</string>
+  <string name="longDescription">Bővebb leírás</string>
+  <string name="uploadPicture">Kép feltöltése</string>
+  <string name="deletePicture">Kép törlése</string>
+  <string name="maxSize">Maximális méret: %s</string>
+  <string name="beSafe">Tartsd távol a reklámokat és követőket
+amik ellepik a Twitch-et és YouTube-ot.
+A Lichess a uBlock Origin-t ajánlja
+ami ingyenes és nyílt forrású.</string>
 </resources>
