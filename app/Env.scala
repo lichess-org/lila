@@ -2,17 +2,16 @@ package lila.app
 
 import akka.actor._
 import com.softwaremill.macwire._
-import lila.memo.SettingStore.Strings._
-import lila.memo.SettingStore.UserIds._
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
-import play.api.{ Configuration, Environment, Mode }
+import play.api.{ Configuration, Environment }
 import scala.concurrent.duration._
 import scala.concurrent.{ ExecutionContext, Future }
 
 import lila.common.config._
-import lila.common.{ Bus, Lilakka, Strings }
-import lila.common.UserIds
+import lila.common.{ Bus, Strings, UserIds }
+import lila.memo.SettingStore.Strings._
+import lila.memo.SettingStore.UserIds._
 
 final class Env(
     val config: Configuration,
@@ -274,14 +273,4 @@ final class EnvBoot(
   }
 
   templating.Environment setEnv env
-
-  // free memory for reload workflow
-  if (mode == Mode.Dev)
-    Lilakka.shutdown(shutdown, _.PhaseServiceStop, "Freeing dev memory") { () =>
-      Future {
-        templating.Environment.destroy()
-        lila.common.Bus.destroy()
-        lila.mon.destroy()
-      }
-    }
 }

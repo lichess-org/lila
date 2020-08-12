@@ -31,8 +31,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
     s"lila $appVersionCommit $appVersionDate / java ${java}, memory: ${mem}MB"
   }
 
-  lila.mon.start(configuration.get[Boolean]("kamon.enabled"))
-
   import _root_.controllers._
 
   // we want to use the legacy session cookie baker
