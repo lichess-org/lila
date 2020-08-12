@@ -117,8 +117,14 @@
   <string name="contributors">Közreműködők</string>
   <string name="members">Tagok</string>
   <string name="everyone">Mindenki</string>
+  <string name="enableSync">Sync engedélyezése</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Igen: mindenki ugyanazt az állást követi</string>
   <string name="noLetPeopleBrowseFreely">Nem: szabadon böngészhető</string>
   <string name="pinnedStudyComment">Rögzített megjegyzés</string>
+  <string name="start">Kezdés</string>
   <string name="save">Mentés</string>
+  <string name="clearChat">Chat törlése</string>
+  <string name="deleteTheStudyChatHistory">Biztosan törlöd a chat előzményeit? Ezt nem lehet visszavonni!</string>
+  <string name="deleteStudy">Tanulmány törlése</string>
+  <string name="deleteTheEntireStudy">Törlöd a teljes tanulmányt? Ezt nem lehet visszavonni!</string>
 </resources>
