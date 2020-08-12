@@ -24,6 +24,7 @@ export interface KeyboardMove {
   jump(delta: number): void;
   justSelected(): boolean;
   clock(): ClockController | undefined;
+  resign(v: boolean): void;
 }
 
 const sanToRole: { [key: string]: cg.Role } = {
@@ -101,7 +102,8 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     justSelected() {
       return Date.now() - lastSelect < 500;
     },
-    clock: () => root.clock
+    clock: () => root.clock,
+    resign: root.resign
   };
 }
 
@@ -113,7 +115,7 @@ export function render(ctrl: KeyboardMove) {
         autocomplete: false
       },
       hook: onInsert(el => {
-        window.lichess.loadScript('compiled/lichess.round.keyboardMove.min.js').then(() => {
+        window.lichess.loadScript(window.lichess.jsModule('round.keyboardMove')).then(() => {
           ctrl.registerHandler(window.lichess.keyboardMove({
             input: el,
             ctrl

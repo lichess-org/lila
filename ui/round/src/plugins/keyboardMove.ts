@@ -23,7 +23,11 @@ window.lichess.keyboardMove = function(opts: any) {
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
     const foundUci = v.length >= 2 && sans && sanToUci(v, sans);
-    if (foundUci) {
+    if (v == 'resign') {
+      opts.ctrl.resign(true);
+      clear();
+    }
+    else if (foundUci) {
       // ambiguous castle
       if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !submitOpts.force) return;
       // ambiguous UCI
