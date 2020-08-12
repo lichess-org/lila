@@ -31,6 +31,14 @@
 Például add hozzá \"[HU]\"-t a magyarhoz, \"[RU]\"-t az oroszhoz, illetve \"[FR]\"-t a franciához, stb.
 Ezt a Twitch és YouTube közvetítés címéhez add, ne a Lichess közvetítés beállításaihoz.
 Ha a közvetítés angol nyelvű, akkor nem szükséges feltüntetni az országkódot.</string>
+  <string name="twitchUsername">Twitch felhasználóneved vagy URL</string>
+  <string name="optionalOrEmpty">Nem kötelező. Hagyd üresen, ha nincs</string>
+  <string name="youtubeChannel">YouTube csatornád ID-ja vagy URL</string>
+  <string name="streamerName">Közvetítői neved a Lichess-en</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Legyen rövid: legfeljebb %s karakter</item>
+    <item quantity="other">Legyen rövid: legfeljebb %s karakter</item>
+  </plurals>
   <string name="headline">Főcím</string>
   <string name="tellUsAboutTheStream">A közvetítés jellemzése egy mondatban</string>
   <string name="longDescription">Bővebb leírás</string>
