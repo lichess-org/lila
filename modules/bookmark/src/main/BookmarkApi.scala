@@ -52,7 +52,7 @@ final class BookmarkApi(
   def countByUser(user: User): Fu[Int] = coll.countSel(userIdQuery(user.id))
 
   def gamePaginatorByUser(user: User, page: Int) =
-    paginator.byUser(user, page) dmap { _.map(_.game) }
+    paginator.byUser(user, page) dmap { _.mapResults(_.game) }
 
   private def add(gameId: Game.ID, userId: User.ID, date: DateTime): Funit =
     coll.insert

@@ -1,12 +1,13 @@
 package lila
 
-import scala.util.Try
-import scala.concurrent.duration._
-
-import ornicar.scalalib
-import org.joda.time.DateTime
+import cats.data.Validated
 import com.typesafe.config.Config
+import org.joda.time.DateTime
+import ornicar.scalalib
 import play.api.libs.json.{ JsObject, JsValue }
+import scala.concurrent.duration._
+import scala.util.Try
+
 import lila.base._
 
 trait Lilaisms
@@ -49,4 +50,6 @@ trait Lilaisms
   @inline implicit def toPimpedTry[A](t: Try[A])                 = new PimpedTry(t)
   @inline implicit def toPimpedEither[A, B](e: Either[A, B])     = new PimpedEither(e)
   @inline implicit def toPimpedFiniteDuration(d: FiniteDuration) = new PimpedFiniteDuration(d)
+
+  @inline implicit def toRichValidated[E, A](v: Validated[E, A]) = new RichValidated(v)
 }

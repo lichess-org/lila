@@ -39,7 +39,8 @@ final private class GameStarter(
       id: Game.ID
   ): Fu[Option[Pairing]] = {
     import couple._
-    (perfs.get(p1.userId) |@| perfs.get(p2.userId)).tupled ?? {
+    import cats.implicits._
+    (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) ?? {
       case (perf1, perf2) =>
         for {
           p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)

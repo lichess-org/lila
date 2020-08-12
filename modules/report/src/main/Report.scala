@@ -2,7 +2,7 @@ package lila.report
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 import lila.user.User
 
@@ -30,7 +30,7 @@ case class Report(
 
   def add(atom: Atom) =
     atomBy(atom.by)
-      .fold(copy(atoms = atom <:: atoms)) { existing =>
+      .fold(copy(atoms = atom :: atoms)) { existing =>
         if (existing.text contains atom.text) this
         else
           copy(
@@ -166,7 +166,7 @@ object Report {
             user = candidate.suspect.user.id,
             reason = candidate.reason,
             room = Room(candidate.reason),
-            atoms = NonEmptyList(c.atom),
+            atoms = NonEmptyList.one(c.atom),
             score = score,
             inquiry = none,
             open = true,

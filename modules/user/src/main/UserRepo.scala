@@ -1,6 +1,5 @@
 package lila.user
 
-import cats.Applicative
 import cats.implicits._
 import org.joda.time.DateTime
 import reactivemongo.api._
@@ -154,7 +153,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       }
 
   def firstGetsWhite(u1O: Option[User.ID], u2O: Option[User.ID]): Fu[Boolean] =
-    Applicative[Option].map2(u1O, u2O)(firstGetsWhite) | fuccess(scala.util.Random.nextBoolean())
+    (u1O, u2O).mapN(firstGetsWhite) | fuccess(scala.util.Random.nextBoolean())
 
   def incColor(userId: User.ID, value: Int): Unit =
     coll

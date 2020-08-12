@@ -1,5 +1,6 @@
 package lila.analyse
 
+import cats.implicits._
 import chess.Color
 import chess.format.Uci
 

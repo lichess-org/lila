@@ -1,13 +1,13 @@
 package lila.base
 
+import cats.data.Validated
+import com.typesafe.config.Config
 import java.util.concurrent.TimeUnit
+import org.joda.time.{ DateTime, Duration }
+import ornicar.scalalib.Zero
 import scala.concurrent.duration._
 import scala.concurrent.Future
 import scala.util.Try
-
-import com.typesafe.config.Config
-import org.joda.time.{ DateTime, Duration }
-import ornicar.scalalib.Zero
 
 import LilaTypes._
 
@@ -95,4 +95,9 @@ final class PimpedFiniteDuration(private val d: FiniteDuration) extends AnyVal {
     }
 
   def abs = if (d.length < 0) -d else d
+}
+
+final class RichValidated[E, A](private val v: Validated[E, A]) extends AnyVal {
+
+  def toFuture: Fu[A] = v.fold(err => fufail(err.toString), fuccess)
 }
