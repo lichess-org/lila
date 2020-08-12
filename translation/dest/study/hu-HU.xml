@@ -69,6 +69,7 @@
   <string name="startAtInitialPosition">Kezdés az alapállásból</string>
   <string name="startAtX">Kezdés innen: %s</string>
   <string name="embedInYourWebsite">Beágyazás saját weboldalba</string>
+  <string name="readMoreAboutEmbedding">A beágyazásról bővebben</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Csak nyilvános tanulmányok beágyazhatók!</string>
   <string name="open">Megnyit</string>
   <string name="xBroughtToYouByY">%1$s, a %2$s jóvoltából</string>
@@ -127,4 +128,5 @@
   <string name="deleteTheStudyChatHistory">Biztosan törlöd a chat előzményeit? Ezt nem lehet visszavonni!</string>
   <string name="deleteStudy">Tanulmány törlése</string>
   <string name="deleteTheEntireStudy">Törlöd a teljes tanulmányt? Ezt nem lehet visszavonni!</string>
+  <string name="whereDoYouWantToStudyThat">Hol szeretnéd a tanulmányt elhelyezni?</string>
 </resources>
