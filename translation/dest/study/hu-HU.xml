@@ -104,4 +104,17 @@
   <string name="urlOfTheGame">URL a játszmákhoz, soronként egy</string>
   <string name="loadAGameFromXOrY">Játszmák betöltése %1$s vagy %2$s-ról</string>
   <string name="createChapter">Fejezet létrehozása</string>
+  <string name="configureLiveBroadcast">Élő közvetítés beállítása</string>
+  <string name="createStudy">Tanulmány létrehozása</string>
+  <string name="editStudy">Tanulmány szerkesztése</string>
+  <string name="visibility">Láthatóság</string>
+  <string name="public">Nyilvános</string>
+  <string name="unlisted">Nincs listázva</string>
+  <string name="inviteOnly">Csak meghívással</string>
+  <string name="allowCloning">Klónozható</string>
+  <string name="nobody">Senki</string>
+  <string name="onlyMe">Csak én</string>
+  <string name="contributors">Közreműködők</string>
+  <string name="members">Tagok</string>
+  <string name="everyone">Mindenki</string>
 </resources>
