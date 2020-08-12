@@ -3,4 +3,6 @@
   <string name="lichessStreamers">Lichess közvetítők</string>
   <string name="lichessStreamer">Lichess közvetítő</string>
   <string name="live">ÉLŐ!</string>
+  <string name="currentlyStreaming">Jelenlegi közvetítés: %s</string>
+  <string name="lastStream">Utolsó közvetítés %s</string>
 </resources>
