@@ -26,6 +26,11 @@
   <string name="pendingReview">A közvetítésed épp moderátoraink vizsgálják.</string>
   <string name="pleaseFillIn">Kérjük add meg a közvetítői adataid és tölts fel egy képet.</string>
   <string name="whenReady">Mikor készen állsz a Lichess közvetítői között felsorolva, %s</string>
+  <string name="requestReview">kérj jóváhagyást egy moderátortól</string>
+  <string name="anotherLanguage">Ha a közvetítésed nem angol nyelven tartod, add hozzá a megfelelő országkódot (%s), szögletes zárójelek között, a közvetítés címe elé.
+Például add hozzá \"[HU]\"-t a magyarhoz, \"[RU]\"-t az oroszhoz, illetve \"[FR]\"-t a franciához, stb.
+Ezt a Twitch és YouTube közvetítés címéhez add, ne a Lichess közvetítés beállításaihoz.
+Ha a közvetítés angol nyelvű, akkor nem szükséges feltüntetni az országkódot.</string>
   <string name="headline">Főcím</string>
   <string name="tellUsAboutTheStream">A közvetítés jellemzése egy mondatban</string>
   <string name="longDescription">Bővebb leírás</string>
