@@ -43,7 +43,7 @@ object Title {
     private val FideProfileUrlRegex = """(?:https?://)?ratings\.fide\.com/card\.phtml\?event=(\d+)""".r
     // >&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;Grandmaster</td>
     private val FideProfileTitleRegex =
-      """>&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;([^<]+)</td>""".r.unanchored
+      s"""<div class="profile-top-info__block__row__data">(${names.values mkString "|"})</div>""".r.unanchored
 
     // https://ratings.fide.com/profile/740411
     private val NewFideProfileUrlRegex = """(?:https?://)?ratings\.fide\.com/profile/(\d+)""".r
@@ -61,8 +61,9 @@ object Title {
       toFideId(url) ?? fromFideProfile
 
     private def fromFideProfile(id: Int)(implicit ws: StandaloneWSClient): Fu[Option[Title]] = {
-      ws.url(s"""http://ratings.fide.com/card.phtml?event=$id""").get().dmap(_.body) dmap {
+      ws.url(s"""https://ratings.fide.com/profile/$id""").get().dmap(_.body) dmap {
         case FideProfileTitleRegex(name) => Title.fromNames get name
+        case _                           => none
       }
     }
   }
