@@ -14,12 +14,15 @@
   <string name="downloadKit">Közvetítői csomag letöltése</string>
   <string name="xIsStreaming">%s éppen közvetít</string>
   <string name="rules">Közvetítés szabályai</string>
+  <string name="rule1">A \"lichess.org\" kulcsszó hozzáadása a közvetítés címéhez és \"Sakk\" kategória használata mikor a Lichess-en közvetítesz.</string>
+  <string name="rule2">Távolítsd el a kulcsszót ha nem Lichess-hez kapcsolódót közvetítesz.</string>
   <string name="headline">Főcím</string>
   <string name="tellUsAboutTheStream">A közvetítés jellemzése egy mondatban</string>
   <string name="longDescription">Bővebb leírás</string>
   <string name="uploadPicture">Kép feltöltése</string>
   <string name="deletePicture">Kép törlése</string>
   <string name="maxSize">Maximális méret: %s</string>
+  <string name="installBlocker">Telepíts reklámblokkolót!</string>
   <string name="beSafe">Tartsd távol a reklámokat és követőket
 amik ellepik a Twitch-et és YouTube-ot.
 A Lichess a uBlock Origin-t ajánlja
