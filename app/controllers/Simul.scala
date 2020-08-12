@@ -70,7 +70,8 @@ final class Simul(
                 )
               }
             )
-            chat <- canHaveChat ?? env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
+            chat <-
+              canHaveChat(sim) ?? env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
             _ <- chat ?? { c =>
               env.user.lightUserApi.preloadMany(c.chat.userIds)
             }
@@ -80,11 +81,15 @@ final class Simul(
       } map NoCache
     }
 
-  private[controllers] def canHaveChat(implicit ctx: Context): Boolean =
+  private[controllers] def canHaveChat(simul: Sim)(implicit ctx: Context): Boolean =
     !ctx.kid &&           // no public chats for kids
       ctx.me.fold(true) { // anon can see public chats
         env.chat.panic.allowed
+      } && simul.team.fold(true) { teamId =>
+      ctx.userId exists {
+        env.team.api.syncBelongsTo(teamId, _)
       }
+    }
 
   def hostPing(simulId: String) =
     Open { implicit ctx =>
