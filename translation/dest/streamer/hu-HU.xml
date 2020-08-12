@@ -5,4 +5,7 @@
   <string name="live">ÉLŐ!</string>
   <string name="currentlyStreaming">Jelenlegi közvetítés: %s</string>
   <string name="lastStream">Utolsó közvetítés %s</string>
+  <string name="becomeStreamer">Legyél Te is Lichess közvetítő</string>
+  <string name="doYouHaveStream">Van már Twitch vagy YouTube csatornád?</string>
+  <string name="hereWeGo">Kész is vagyunk!</string>
 </resources>
