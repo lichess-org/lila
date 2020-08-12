@@ -568,7 +568,7 @@ export default class AnalyseCtrl {
     this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
   }
 
-  private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat: boolean): void => {
+  private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
     this.tree.updateAt(path, (node: Tree.Node) => {
       if (node.fen !== ev.fen && !isThreat) return;
       if (isThreat) {

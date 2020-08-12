@@ -1,6 +1,15 @@
 import { defined, prop, Prop } from 'common';
 import throttle from 'common/throttle';
 
+export interface EvalCacheOpts {
+  variant: VariantKey;
+  receive(ev: Tree.ClientEval, path: Tree.Path): void;
+  send(t: string, d: any): void;
+  getNode(): Tree.Node;
+  canPut(): boolean;
+  canGet(): boolean;
+}
+
 export interface EvalCache {
   onCeval(): void
   fetch(path: Tree.Path, multiPv: number): void
@@ -21,7 +30,7 @@ function qualityCheck(ev): boolean {
 }
 
 // from client eval to server eval
-function toPutData(variant, ev) {
+function toPutData(variant: VariantKey, ev) {
   const data: any = {
     fen: ev.fen,
     knodes: Math.round(ev.nodes / 1000),
@@ -60,7 +69,7 @@ function toCeval(e) {
   return res;
 }
 
-export function make(opts): EvalCache {
+export function make(opts: EvalCacheOpts): EvalCache {
   const fetchedByFen = {};
   const upgradable = prop(false);
   return {
