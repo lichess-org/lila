@@ -6,7 +6,8 @@ import lila.app._
 import lila.common.LightUser.lightUserWrites
 
 final class Msg(
-    env: Env
+    env: Env,
+    apiC: => Api
 ) extends LilaController(env) {
 
   def home =
@@ -113,7 +114,12 @@ final class Msg(
               .bindFromRequest()
               .fold(
                 err => jsonFormErrorFor(err, req, me.some),
-                text => env.msg.api.post(me.id, userId, text)
+                text =>
+                  env.msg.api.post(me.id, userId, text) map {
+                    case lila.msg.MsgApi.PostResult.Success => jsonOkResult
+                    case lila.msg.MsgApi.PostResult.Limited => apiC.tooManyRequests
+                    case _                                  => BadRequest(jsonError("The message was rejected"))
+                  }
               )
           }
     )

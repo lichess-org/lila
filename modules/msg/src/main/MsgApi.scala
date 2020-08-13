@@ -30,6 +30,7 @@ final class MsgApi(
   val msgsPerPage = MaxPerPage(100)
 
   import BsonHandlers._
+  import MsgApi._
 
   def threadsOf(me: User): Fu[List[MsgThread]] =
     colls.thread.ext
@@ -77,7 +78,7 @@ final class MsgApi(
       dest: User.ID,
       text: String,
       multi: Boolean = false
-  ): Funit =
+  ): Fu[PostResult] =
     Msg.make(text, orig) ?? { msgPre =>
       val threadId = MsgThread.id(orig, dest)
       for {
@@ -85,7 +86,7 @@ final class MsgApi(
         isNew    <- !colls.thread.exists($id(threadId))
         verdict  <- security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
         res <- verdict match {
-          case _: MsgSecurity.Reject => funit
+          case _: MsgSecurity.Limit => fuccess(PostResult.Limited)
           case send: MsgSecurity.Send =>
             val msg =
               if (verdict == MsgSecurity.Spam) msgPre.copy(text = spam.replace(msgPre.text)) else msgPre
@@ -127,8 +128,8 @@ final class MsgApi(
                 )
                 shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
               }
-            }
-          case _ => funit
+            } inject PostResult.Success
+          case _ => fuccess(PostResult.Bounced)
         }
       } yield res
     }
@@ -235,4 +236,15 @@ final class MsgApi(
     ) map { res =>
       if (res.nModified > 0) notifier.onRead(threadId, me.id, contactId)
     }
+}
+
+object MsgApi {
+
+  sealed trait PostResult
+
+  object PostResult {
+    case object Success extends PostResult
+    case object Limited extends PostResult
+    case object Bounced extends PostResult
+  }
 }
