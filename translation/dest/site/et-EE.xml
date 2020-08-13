@@ -847,6 +847,16 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="bulletDesc">Ülikiired mängud: vähem kui 3 minutit</string>
   <string name="blitzDesc">Väga kiired mängud: 3 kuni 8 minutit</string>
   <string name="rapidDesc">Kiired mängud: 8 kuni 25 minutit</string>
+  <string name="classicalDesc">Klassikalised mängud: 25 minutit ja kauem</string>
+  <string name="correspondenceDesc">Kirjavahetusmängud: üks või enam päeva käigu kohta</string>
+  <string name="puzzleDesc">Male taktikate treener</string>
+  <string name="important">Tähtis</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Sinu küsimusele võib juba vastus leiduda %1$s</string>
+  <string name="inTheFAQ">KKK-s.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Et teatada sohitegijast %1$s</string>
+  <string name="useTheReportForm">kasuta aruande vormi</string>
+  <string name="toRequestSupport">Et taotleda tuge %1$s</string>
+  <string name="tryTheContactPage">kasutage kontakti lehte</string>
   <string name="subscribe">Telli</string>
   <string name="unsubscribe">Eemalda</string>
 </resources>
