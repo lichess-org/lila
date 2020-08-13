@@ -623,7 +623,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s egy ingyenes (%2$s), szabad, reklámmentes, nyílt forráskódú sakkszerver.</string>
   <string name="really">tényleg</string>
   <string name="contribute">Hozzájárul</string>
-  <string name="termsOfService">Használati útmutató</string>
+  <string name="termsOfService">Felhasználási feltételek</string>
   <string name="sourceCode">Forráskód</string>
   <string name="simultaneousExhibitions">Szimultán játékok</string>
   <string name="host">Létrehozó</string>

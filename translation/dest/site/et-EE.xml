@@ -275,6 +275,7 @@
     <item quantity="one">Lisa %s sekund</item>
     <item quantity="other">Lisa %s sekundit</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Selle konto kasutaja rikkus Lichessi teenusetingimusi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">See mängija kunstlikult tõstab / vähendab oma reitingut</string>
   <string name="openingExplorerAndTablebase">Avangute uurija &amp; lõppmängude andmebaas</string>
   <string name="takeback">Tagasivõtt</string>
@@ -530,6 +531,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="currentPassword">Praegune salasõna</string>
   <string name="newPassword">Uus salasõna</string>
   <string name="newPasswordAgain">Uus salasõna (uuesti)</string>
+  <string name="clockInitialTime">Kella algne aeg</string>
+  <string name="clockIncrement">Kella juurdekasv</string>
   <string name="privacy">Privaatsus</string>
   <string name="letOtherPlayersFollowYou">Luba teistel mängijatel sind jälgida</string>
   <string name="letOtherPlayersChallengeYou">Luba teistel mängijatel sulle väljakutseid esitada</string>
@@ -666,6 +669,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Sinu %1$s reiting on %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Oled %1$s %2$s mängijatest parem.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s on parem kui %2$s %3$s mängijatest.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sul ei ole veel väljakujunenud %s reitingut.</string>
   <string name="yourRating">Sinu reiting</string>
   <string name="cumulative">Kogenenum kui</string>
@@ -839,6 +843,24 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="edit">Muuda</string>
   <string name="rapid">Kiirmale</string>
   <string name="classical">Klassikaline</string>
+  <string name="ultraBulletDesc">Ultrakiired mängud: vähem kui 30 sekundit</string>
+  <string name="bulletDesc">Ülikiired mängud: vähem kui 3 minutit</string>
+  <string name="blitzDesc">Väga kiired mängud: 3 kuni 8 minutit</string>
+  <string name="rapidDesc">Kiired mängud: 8 kuni 25 minutit</string>
+  <string name="classicalDesc">Klassikalised mängud: 25 minutit ja kauem</string>
+  <string name="correspondenceDesc">Kirjavahetusmängud: üks või enam päeva käigu kohta</string>
+  <string name="puzzleDesc">Male taktikate treener</string>
+  <string name="important">Tähtis</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Sinu küsimusele võib juba vastus leiduda %1$s</string>
+  <string name="inTheFAQ">KKK-s.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Et teatada sohitegijast %1$s</string>
+  <string name="useTheReportForm">kasuta aruande vormi</string>
+  <string name="toRequestSupport">Et taotleda tuge %1$s</string>
+  <string name="tryTheContactPage">kasutage kontakti lehte</string>
+  <string name="thisTopicIsArchived">See teema on arhiveeritud ja sellele ei saa enam vastata.</string>
+  <string name="joinTheTeamXToPost">Ühine %1$s-ga et sellesse foorumisse postitada</string>
+  <string name="teamNamedX">%1$s tiim</string>
+  <string name="youCannotPostYetPlaySomeGames">Sa ei saa veel foorumisse postitada. Mängi enne paar mängu!</string>
   <string name="subscribe">Telli</string>
   <string name="unsubscribe">Eemalda</string>
 </resources>
