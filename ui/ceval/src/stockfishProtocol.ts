@@ -32,7 +32,7 @@ export default class Protocol {
     if (this.opts.variant === 'fromPosition' || this.opts.variant === 'chess960')
       this.setOption('UCI_Chess960', 'true');
     else if (this.opts.variant === 'antichess')
-      this.setOption('UCI_Variant', 'giveaway');
+      this.setOption('UCI_Variant', 'giveaway'); // for compatibility with old asmjs fallback
     else if (this.opts.variant !== 'standard')
       this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
   }
