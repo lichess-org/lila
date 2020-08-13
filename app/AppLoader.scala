@@ -15,9 +15,7 @@ final class AppLoader extends ApplicationLoader {
   def load(ctx: ApplicationLoader.Context): Application = new LilaComponents(ctx).application
 }
 
-final class LilaComponents(ctx: ApplicationLoader.Context)
-    extends BuiltInComponentsFromContext(ctx)
-    with _root_.controllers.AssetsComponents {
+final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInComponentsFromContext(ctx) {
 
   LoggerConfigurator(ctx.environment.classLoader).foreach {
     _.configure(ctx.environment, ctx.initialConfiguration, Map.empty)
