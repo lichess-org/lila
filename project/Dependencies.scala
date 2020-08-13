@@ -35,9 +35,10 @@ object Dependencies {
   }
 
   object macwire {
-    val macros = "com.softwaremill.macwire" %% "macros" % "2.3.7" % "provided"
-    val util   = "com.softwaremill.macwire" %% "util"   % "2.3.7" % "provided"
-    def bundle = Seq(macros, util)
+    val version = "2.3.7"
+    val macros  = "com.softwaremill.macwire" %% "macros" % version % "provided"
+    val util    = "com.softwaremill.macwire" %% "util"   % version % "provided"
+    def bundle  = Seq(macros, util)
   }
 
   object reactivemongo {
