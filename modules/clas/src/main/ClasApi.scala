@@ -242,6 +242,7 @@ $baseUrl/class/${clas.id}
 ${clas.desc}""",
           multi = true
         )
+        .void
   }
 
   object invite {
