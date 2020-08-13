@@ -30,8 +30,11 @@ final class SlackApi(
     private def addToBuffer(event: ChargeEvent): Funit = {
       buffer = buffer :+ event
       (buffer.head.date isBefore DateTime.now.minusHours(12)) ?? {
-        val patrons   = buffer map (_.username) map userAt mkString ", "
+        val firsts    = buffer.sortBy(-_.amount).take(10).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.amount).sum
+        val patrons =
+          if (firsts.size > 10) s"$firsts and, like, ${firsts.size - 10} others,"
+          else firsts
         displayMessage {
           s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
         } >>- {
