@@ -275,6 +275,7 @@
     <item quantity="one">Lisa %s sekund</item>
     <item quantity="other">Lisa %s sekundit</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Selle konto kasutaja rikkus Lichessi teenusetingimusi</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">See mängija kunstlikult tõstab / vähendab oma reitingut</string>
   <string name="openingExplorerAndTablebase">Avangute uurija &amp; lõppmängude andmebaas</string>
   <string name="takeback">Tagasivõtt</string>
@@ -530,6 +531,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="currentPassword">Praegune salasõna</string>
   <string name="newPassword">Uus salasõna</string>
   <string name="newPasswordAgain">Uus salasõna (uuesti)</string>
+  <string name="clockInitialTime">Kella algne aeg</string>
   <string name="privacy">Privaatsus</string>
   <string name="letOtherPlayersFollowYou">Luba teistel mängijatel sind jälgida</string>
   <string name="letOtherPlayersChallengeYou">Luba teistel mängijatel sulle väljakutseid esitada</string>
