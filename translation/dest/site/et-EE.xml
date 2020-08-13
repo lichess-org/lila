@@ -857,6 +857,10 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="useTheReportForm">kasuta aruande vormi</string>
   <string name="toRequestSupport">Et taotleda tuge %1$s</string>
   <string name="tryTheContactPage">kasutage kontakti lehte</string>
+  <string name="thisTopicIsArchived">See teema on arhiveeritud ja sellele ei saa enam vastata.</string>
+  <string name="joinTheTeamXToPost">Ühine %1$s-ga et sellesse foorumisse postitada</string>
+  <string name="teamNamedX">%1$s tiim</string>
+  <string name="youCannotPostYetPlaySomeGames">Sa ei saa veel foorumisse postitada. Mängi enne paar mängu!</string>
   <string name="subscribe">Telli</string>
   <string name="unsubscribe">Eemalda</string>
 </resources>
