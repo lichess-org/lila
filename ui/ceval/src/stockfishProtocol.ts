@@ -26,15 +26,12 @@ export default class Protocol {
     this.send('uci');
 
     // analyse without contempt
+    this.setOption('UCI_Chess960', 'true');
     this.setOption('UCI_AnalyseMode', 'true');
     this.setOption('Analysis Contempt', 'Off');
 
-    if (this.opts.variant === 'fromPosition' || this.opts.variant === 'chess960')
-      this.setOption('UCI_Chess960', 'true');
-    else if (this.opts.variant === 'antichess')
-      this.setOption('UCI_Variant', 'giveaway'); // for compatibility with old asmjs fallback
-    else if (this.opts.variant !== 'standard')
-      this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
+    if (this.opts.variant === 'antichess') this.setOption('UCI_Variant', 'giveaway'); // for old asmjs fallback
+    else this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
   }
 
   private setOption(name: string, value: string | number): void {
