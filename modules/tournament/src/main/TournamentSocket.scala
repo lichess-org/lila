@@ -13,6 +13,7 @@ import lila.socket.Socket.makeMessage
 import lila.user.User
 
 final private class TournamentSocket(
+    repo: TournamentRepo,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
 )(implicit
@@ -67,7 +68,16 @@ final private class TournamentSocket(
   subscribeChat(rooms, _.Tournament)
 
   private lazy val handler: Handler =
-    roomHandler(rooms, chat, logger, roomId => _.Tournament(roomId.value).some, chatBusChan = _.Tournament)
+    roomHandler(
+      rooms,
+      chat,
+      logger,
+      roomId => _.Tournament(roomId.value).some,
+      chatBusChan = _.Tournament,
+      localTimeout = Some { (roomId, modId, _) =>
+        repo.fetchCreatedBy(roomId.value).map(_ has modId)
+      }
+    )
 
   private lazy val tourHandler: Handler = {
     case Protocol.In.WaitingUsers(roomId, users) =>

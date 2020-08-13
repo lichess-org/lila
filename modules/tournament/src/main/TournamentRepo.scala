@@ -68,6 +68,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   def countCreated: Fu[Int] = coll.countSel(createdSelect)
 
+  def fetchCreatedBy(id: Tournament.ID): Fu[Option[User.ID]] =
+    coll.primitiveOne[User.ID]($id(id), "createdBy")
+
   private[tournament] def startedCursor =
     coll.ext.find(startedSelect).sort($doc("createdAt" -> -1)).batchSize(1).cursor[Tournament]()
 

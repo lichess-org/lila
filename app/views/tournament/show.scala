@@ -37,7 +37,8 @@ object show {
                 name = trans.chatRoom.txt(),
                 timeout = c.timeout,
                 public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}")
+                resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
+                localMod = ctx.userId has tour.createdBy
               )
             }
           )
