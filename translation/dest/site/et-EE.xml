@@ -532,6 +532,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="newPassword">Uus salasõna</string>
   <string name="newPasswordAgain">Uus salasõna (uuesti)</string>
   <string name="clockInitialTime">Kella algne aeg</string>
+  <string name="clockIncrement">Kella juurdekasv</string>
   <string name="privacy">Privaatsus</string>
   <string name="letOtherPlayersFollowYou">Luba teistel mängijatel sind jälgida</string>
   <string name="letOtherPlayersChallengeYou">Luba teistel mängijatel sulle väljakutseid esitada</string>
@@ -668,6 +669,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Sinu %1$s reiting on %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Oled %1$s %2$s mängijatest parem.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s on parem kui %2$s %3$s mängijatest.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sul ei ole veel väljakujunenud %s reitingut.</string>
   <string name="yourRating">Sinu reiting</string>
   <string name="cumulative">Kogenenum kui</string>
@@ -841,6 +843,10 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="edit">Muuda</string>
   <string name="rapid">Kiirmale</string>
   <string name="classical">Klassikaline</string>
+  <string name="ultraBulletDesc">Ultrakiired mängud: vähem kui 30 sekundit</string>
+  <string name="bulletDesc">Ülikiired mängud: vähem kui 3 minutit</string>
+  <string name="blitzDesc">Väga kiired mängud: 3 kuni 8 minutit</string>
+  <string name="rapidDesc">Kiired mängud: 8 kuni 25 minutit</string>
   <string name="subscribe">Telli</string>
   <string name="unsubscribe">Eemalda</string>
 </resources>
