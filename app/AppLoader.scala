@@ -28,7 +28,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
     val mem              = Runtime.getRuntime().maxMemory() / 1024 / 1024
     val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
     val appVersionDate   = ~configuration.getOptional[String]("app.version.date")
-    s"lila $appVersionCommit $appVersionDate / java ${java}, memory: ${mem}MB"
+    s"lila ${ctx.environment.mode} $appVersionCommit $appVersionDate / java ${java}, memory: ${mem}MB"
   }
 
   import _root_.controllers._

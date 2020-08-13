@@ -10,7 +10,6 @@ lazy val root = Project("lila", file("."))
   .aggregate(api)
   .settings(buildSettings)
 
-PlayKeys.playDefaultPort := 9663
 // shorter prod classpath
 scriptClasspath := Seq("*")
 maintainer := "contact@lichess.org"
