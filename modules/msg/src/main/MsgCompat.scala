@@ -91,7 +91,7 @@ final class MsgCompat(
       .bindFromRequest()
       .fold(
         err => Left(err),
-        text => Right(api.post(me.id, userId, text))
+        text => Right(api.post(me.id, userId, text).void)
       )
 
   private def blockingFetchUser(username: String) =

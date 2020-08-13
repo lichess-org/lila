@@ -79,14 +79,15 @@ final class MsgApi(
       text: String,
       multi: Boolean = false
   ): Fu[PostResult] =
-    Msg.make(text, orig) ?? { msgPre =>
+    Msg.make(text, orig).fold[Fu[PostResult]](fuccess(PostResult.Invalid)) { msgPre =>
       val threadId = MsgThread.id(orig, dest)
       for {
         contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
         isNew    <- !colls.thread.exists($id(threadId))
         verdict  <- security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
         res <- verdict match {
-          case _: MsgSecurity.Limit => fuccess(PostResult.Limited)
+          case MsgSecurity.Limit     => fuccess(PostResult.Limited)
+          case _: MsgSecurity.Reject => fuccess(PostResult.Bounced)
           case send: MsgSecurity.Send =>
             val msg =
               if (verdict == MsgSecurity.Spam) msgPre.copy(text = spam.replace(msgPre.text)) else msgPre
@@ -129,7 +130,6 @@ final class MsgApi(
                 shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
               }
             } inject PostResult.Success
-          case _ => fuccess(PostResult.Bounced)
         }
       } yield res
     }
@@ -147,7 +147,7 @@ final class MsgApi(
       }
   }
 
-  def postPreset(dest: User, preset: MsgPreset): Funit =
+  def postPreset(dest: User, preset: MsgPreset): Fu[PostResult] =
     systemPost(dest.id, preset.text)
 
   def systemPost(destId: User.ID, text: String) =
@@ -157,7 +157,7 @@ final class MsgApi(
     destSource
       .filter(orig.id !=)
       .mapAsync(4) {
-        post(orig.id, _, text, multi = true).logFailure(logger).nevermind
+        post(orig.id, _, text, multi = true).logFailure(logger).nevermind(PostResult.Invalid)
       }
       .toMat(Sink.ignore)(Keep.right)
       .run()
@@ -244,6 +244,7 @@ object MsgApi {
 
   object PostResult {
     case object Success extends PostResult
+    case object Invalid extends PostResult
     case object Limited extends PostResult
     case object Bounced extends PostResult
   }
