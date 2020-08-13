@@ -1,7 +1,7 @@
 package lila.challenge
 
 import chess.format.FEN
-import chess.variant.{ FromPosition, Horde, RacingKings, Variant }
+import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
@@ -202,6 +202,7 @@ object Challenge {
       variant = variant,
       initialFen =
         if (variant == FromPosition) initialFen
+        else if (variant == Chess960) none // only decided on game start
         else !variant.standardInitialPosition option FEN(variant.initialFen),
       timeControl = timeControl,
       mode = finalMode,
