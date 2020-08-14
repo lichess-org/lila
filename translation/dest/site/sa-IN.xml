@@ -44,4 +44,10 @@
   <string name="whiteLeftTheGame">मित्रेण सह  क्रीडतु</string>
   <string name="blackLeftTheGame">मित्रेण सह  क्रीडतुमित्रेण सह  क्रीडतुमित्रेण सह  क्रीडतु</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">मित्रेण सह  क्रीडतु</string>
+  <string name="theComputerAnalysisHasFailed">सङ्गणकयन्त्रस्य विश्लेषणम् विच्युतम् जातम् |</string>
+  <string name="viewTheComputerAnalysis">सङ्गणकयन्त्रस्य विश्लेषणम् दर्श |</string>
+  <string name="requestAComputerAnalysis">सङ्गणकयन्त्रस्य विश्लेषणस्य आवेदनम् कुरु |</string>
+  <string name="computerAnalysis">सङ्गणकयन्त्र-विश्लेषणम्</string>
+  <string name="computerAnalysisAvailable">सङ्गणकयन्त्र-विश्लेषणम् विद्यते |</string>
+  <string name="analysis">विश्लेषण-फलकम्</string>
 </resources>
