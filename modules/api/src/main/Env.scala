@@ -15,6 +15,7 @@ final class Env(
     securityEnv: lila.security.Env,
     teamSearchEnv: lila.teamSearch.Env,
     forumSearchEnv: lila.forumSearch.Env,
+    forumEnv: lila.forum.Env,
     teamEnv: lila.team.Env,
     puzzleEnv: lila.puzzle.Env,
     explorerEnv: lila.explorer.Env,
@@ -25,6 +26,7 @@ final class Env(
     evalCacheEnv: lila.evalCache.Env,
     planEnv: lila.plan.Env,
     gameEnv: lila.game.Env,
+    chatEnv: lila.chat.Env,
     roundEnv: lila.round.Env,
     bookmarkApi: lila.bookmark.BookmarkApi,
     prefApi: lila.pref.PrefApi,
@@ -41,6 +43,7 @@ final class Env(
     challengeEnv: lila.challenge.Env,
     msgEnv: lila.msg.Env,
     cacheApi: lila.memo.CacheApi,
+    mongoCacheApi: lila.memo.MongoCache.Api,
     ws: StandaloneWSClient,
     val mode: Mode
 )(implicit
@@ -68,6 +71,8 @@ final class Env(
   lazy val lobbyApi = wire[LobbyApi]
 
   lazy val eventStream = wire[EventStream]
+
+  lazy val personalDataExport = wire[PersonalDataExport]
 
   lazy val cli = wire[Cli]
 

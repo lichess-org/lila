@@ -426,15 +426,17 @@ final class Account(
 
   def data =
     Auth { implicit ctx => me =>
-      for {
-        _        <- env.security.api.dedup(me.id, ctx.req)
-        sessions <- env.security.store.allSessions(me.id)
-        posts    <- env.forum.postApi.allByUser(me.id)
-        msgs     <- env.msg.api.allMessagesOf(me)
-      } yield {
-        val raw = html.account.data.rawText(me, sessions, posts, msgs)
-        if (getBool("text")) Ok(raw) as TEXT
-        else Ok(html.account.data(me, raw))
+      val userId = get("user").ifTrue(isGranted(_.Impersonate)) | me.id
+      env.user.repo byId userId flatMap {
+        _ ?? { user =>
+          env.api.personalDataExport(user) map { raw =>
+            if (getBool("text"))
+              Ok(raw)
+                .withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}.txt")
+                .as(TEXT)
+            else Ok(html.account.bits.data(user, raw))
+          }
+        }
       }
     }
 }

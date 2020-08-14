@@ -237,14 +237,14 @@ final class MsgApi(
       if (res.nModified > 0) notifier.onRead(threadId, me.id, contactId)
     }
 
-  def allMessagesOf(u: User): Fu[Vector[(User.ID, String, DateTime)]] =
+  def allMessagesOf(userId: User.ID): Fu[Vector[(User.ID, String, DateTime)]] =
     colls.thread
       .aggregateWith[Bdoc](
         readPreference = ReadPreference.secondaryPreferred
       ) { framework =>
         import framework._
         List(
-          Match($doc("users" -> u.id)),
+          Match($doc("users" -> userId)),
           Project($id(true)),
           PipelineOperator(
             $doc(
@@ -256,7 +256,7 @@ final class MsgApi(
                     "$match" -> $doc(
                       "$expr" -> $doc(
                         "$and" -> $arr(
-                          $doc("$eq" -> $arr("$user", u.id)),
+                          $doc("$eq" -> $arr("$user", userId)),
                           $doc("$eq" -> $arr("$tid", "$$t"))
                         )
                       )
@@ -276,7 +276,7 @@ final class MsgApi(
         for {
           doc  <- docs
           id   <- doc string "_id"
-          dest <- id.split(MsgThread.idSep).find(u.id !=)
+          dest <- id.split(MsgThread.idSep).find(userId !=)
           msg  <- doc child "msg"
           text <- msg string "text"
           date <- msg.getAsOpt[DateTime]("date")
