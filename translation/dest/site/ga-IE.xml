@@ -160,6 +160,9 @@
   <string name="rated">Rátáil</string>
   <string name="rematch">Athimirt</string>
   <string name="rematchOfferSent">Tairiscint athimeartha seolta</string>
+  <string name="rematchOfferSentWhite">Tairgíonn Bán athimirt</string>
+  <string name="rematchOfferSentBlack">Tairgíonn Dubh athimirt</string>
+  <string name="rematchOfferAccepted">Glacadh leis an tairiscint athimeartha</string>
   <string name="play">Imir</string>
   <string name="inbox">Bhosca</string>
   <string name="chatRoom">Seomra comhrá</string>
