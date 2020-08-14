@@ -163,6 +163,10 @@
   <string name="rematchOfferSentWhite">Tairgíonn Bán athimirt</string>
   <string name="rematchOfferSentBlack">Tairgíonn Dubh athimirt</string>
   <string name="rematchOfferAccepted">Glacadh leis an tairiscint athimeartha</string>
+  <string name="rematchOfferCanceled">Cealaíodh an tairiscint athimeartha</string>
+  <string name="rematchOfferDeclined">Diúltaíodh an tairiscint athimeartha</string>
+  <string name="cancelRematchOffer">Cealaigh an tairiscint athimeartha</string>
+  <string name="viewRematch">Féach ar an athimirt</string>
   <string name="play">Imir</string>
   <string name="inbox">Bhosca</string>
   <string name="chatRoom">Seomra comhrá</string>
