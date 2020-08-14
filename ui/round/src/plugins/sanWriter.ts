@@ -1,5 +1,5 @@
 function fixCrazySan(san) {
-  return san[0] === 'P' ? san.slice(1) : san;
+  return san; //[0] === 'P' ? san.slice(1) : san;
 }
 
 function decomposeUci(uci) {
@@ -7,7 +7,7 @@ function decomposeUci(uci) {
 }
 
 function square(name) {
-  return name.charCodeAt(0) - 97 + (name.charCodeAt(1) - 49) * 8;
+  return name.charCodeAt(0) - 97 + (name.charCodeAt(1) - 49) * 9;
 }
 
 function squareDist(a, b) {
@@ -16,10 +16,6 @@ function squareDist(a, b) {
   var y1 = a >> 3,
     y2 = b >> 3;
   return Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2));
-}
-
-function isBlack(p) {
-  return p === p.toLowerCase();
 }
 
 function readFen(fen) {
@@ -75,7 +71,7 @@ function slidingMovesTo(s: number, deltas: number[], board): number[] {
 }
 
 function sanOf(board, uci) {
-  if (uci.includes('@')) return fixCrazySan(uci);
+  if (uci.includes('*')) return fixCrazySan(uci);
 
   var move = decomposeUci(uci);
   var from = square(move[0]);
@@ -85,18 +81,12 @@ function sanOf(board, uci) {
   var pt = board.pieces[from].toLowerCase();
 
   // pawn moves
-  if (pt === 'p') {
+  if (pt === 'z') {
     var san;
     if (uci[0] === uci[2]) san = move[1];
     else san = uci[0] + 'x' + move[1];
     if (move[2]) san += '=' + move[2].toUpperCase();
     return san;
-  }
-
-  // castling
-  if (pt == 'k' && ((d && isBlack(p) === isBlack(d)) || squareDist(from, to) > 1)) {
-    if (to < from) return 'O-O-O';
-    else return 'O-O';
   }
 
   var san = pt.toUpperCase();

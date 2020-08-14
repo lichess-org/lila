@@ -84,7 +84,7 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
     cancel,
     view() {
       if (!promoting) return;
-      const pieces: Role[] = ['queen', 'knight', 'rook', 'bishop'];
+      const pieces: Role[] = ['lance', 'knight', 'rook', 'bishop'];
       return renderPromotion(promoting.dest, pieces,
         cgUtil.opposite(getGround().state.turnColor),
         getGround().state.orientation);

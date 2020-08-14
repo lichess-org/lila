@@ -78,7 +78,7 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: 
   }));
 }
 
-const roles: Role[] = ['queen', 'knight', 'rook', 'bishop'];
+const roles: Role[] = ['lance', 'knight', 'rook', 'bishop'];
 
 export function view(ctrl: AnalyseCtrl): MaybeVNode {
   if (!promoting) return;

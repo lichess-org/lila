@@ -22,7 +22,7 @@ function linkReplace(url: string, scheme: string) {
 }
 
 const userPattern = /(^|[^\w@#/])@([\w-]{2,})/g;
-const pawnDropPattern = /^[a-h][2-7]$/;
+const pawnDropPattern = /^[a-i][2-8]$/;
 
 function userLinkReplace(orig: string, prefix: String, user: string) {
   if (user.length > 20 || user.match(pawnDropPattern)) return orig;

@@ -2,6 +2,7 @@ package lila.game
 
 import chess.format.Uci
 import chess.{ variant => _, ToOptionOpsFromOption => _, _ }
+import chess.variant.{Standard}
 import lila.db.ByteArray
 
 sealed trait PgnStorage
@@ -10,17 +11,20 @@ private object PgnStorage {
 
   case object OldBin extends PgnStorage {
 
-    def encode(pgnMoves: PgnMoves) =
+    def encode(pgnMoves: PgnMoves) = {
       ByteArray {
         monitor(_.game.pgn.encode("old")) {
           format.pgn.Binary.writeMoves(pgnMoves).get
         }
       }
+    }
 
-    def decode(bytes: ByteArray, plies: Int): PgnMoves =
+    def decode(bytes: ByteArray, plies: Int): PgnMoves = {
+      println("OldBin decode")
       monitor(_.game.pgn.decode("old")) {
         format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector
       }
+    }
   }
 
   case object Huffman extends PgnStorage {
@@ -32,22 +36,27 @@ private object PgnStorage {
       Role => JavaRole
     }
     import scala.jdk.CollectionConverters._
-
-    def encode(pgnMoves: PgnMoves) =
+  // PgnMoves - Vector[String]
+    def encode(pgnMoves: PgnMoves) = {
+      println("Huffman encode")
       ByteArray {
         monitor(_.game.pgn.encode("huffman")) {
           Encoder.encode(pgnMoves.toArray)
         }
       }
+    }
     def decode(bytes: ByteArray, plies: Int): Decoded =
       monitor(_.game.pgn.decode("huffman")) {
+        println("Decode huffman was called")
+        println(bytes.value)
         val decoded      = Encoder.decode(bytes.value, plies)
         val unmovedRooks = decoded.unmovedRooks.asScala.view.flatMap(chessPos).to(Set)
         Decoded(
           pgnMoves = decoded.pgnMoves.toVector,
-          pieces = decoded.pieces.asScala.view.flatMap {
-            case (k, v) => chessPos(k).map(_ -> chessPiece(v))
-          }.toMap,
+          pieces = Standard.pieces,
+          // pieces = decoded.pieces.asScala.view.flatMap {
+          //   case (k, v) => chessPos(k).map(_ -> chessPiece(v))
+          // }.toMap,
           positionHashes = decoded.positionHashes,
           unmovedRooks = UnmovedRooks(unmovedRooks),
           lastMove = Option(decoded.lastUci) flatMap Uci.apply,

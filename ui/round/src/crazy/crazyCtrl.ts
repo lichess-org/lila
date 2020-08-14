@@ -7,7 +7,7 @@ import { RoundData } from '../interfaces';
 
 const li = window.lichess;
 
-export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'lance'];
+export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'lance', 'silver', 'gold'];
 
 export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
@@ -26,7 +26,7 @@ let dropWithKey = false;
 let dropWithDrag = false;
 let mouseIconsLoaded = false;
 
-export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
+export function valid(data: RoundData, ctrl: RoundController, role: cg.Role, key: cg.Key): boolean {
   if (crazyKeys.length === 0) dropWithDrag = true;
   else {
     dropWithKey = true;
@@ -35,8 +35,23 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 
   if (!isPlayerTurn(data)) return false;
 
-  if (role === 'pawn' && (key[1] === '1' || key[1] === '8')) return false;
+  const color = ctrl.ply % 2 === 0 ? 'white' : 'black';
 
+  // You can't place pawn on a file where you already have a pawn
+  if (role === 'pawn') {
+    for (const [k, v] of ctrl.shogiground.state.pieces.entries()) {
+      if (v.role === 'pawn' && v.color === color && key[0] === k[0] && key != k) {
+        console.log("valid: ", key, k)
+        return false;
+      }
+    }
+  }
+  if ((role === 'pawn' || role === 'lance') && ((key[1] === '1' && color === 'black') || (key[1] === '9' && color === 'white')))
+    return false;
+  if (role === 'knight' &&
+    (((key[1] === '1' || key[1] === '2') && color === 'black') ||
+      ((key[1] === '9' || key[1] === '8') && color === 'white')))
+    return false
   const dropStr = data.possibleDrops;
 
   if (typeof dropStr === 'undefined' || dropStr === null) return true;
@@ -138,7 +153,7 @@ export function init(ctrl: RoundController) {
 function preloadMouseIcons(data: RoundData) {
   const colorKey = data.player.color === 'white' ? 'w' : 'b';
   if (window.fetch !== undefined) {
-    for (const pKey of 'PNBRQ') {
+    for (const pKey of 'PNBRSGL') {
       fetch(li.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
     }
   }

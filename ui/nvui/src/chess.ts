@@ -11,11 +11,11 @@ const nato: { [letter: string]: string } = { a: 'alpha', b: 'bravo', c: 'charlie
 const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
 const roles: { [letter: string]: string } = {
   P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king', G: 'gold', S: 'silver', L: 'lance',
-  T: 'p_pawn', A: 'p_silver', M: 'p_knight', U: 'p_lance', H: 'p_bishop', D: 'p_rook'
+  T: 'tokin', A: 'promotedSilver', M: 'promotedKnight', U: 'promotedLance', H: 'horse', D: 'dragon'
 };
 const letters = {
   pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k',
-  gold: 'g', silver: 's', lance: 'l', p_pawn: 't', p_silver: 'a', p_knight: 'm', p_lance: 'u', p_bishop: 'h', p_rook: 'd'
+  gold: 'g', silver: 's', lance: 'l', tokin: 't', promotedSilver: 'a', promotedKnight: 'm', promotedLance: 'u', horse: 'h', dragon: 'd'
 };
 
 export function supportedVariant(key: string) {
@@ -48,16 +48,16 @@ export function renderSan(san: San, uci: Uci | undefined, style: Style) {
   else {
     move = san.replace(/[\+#]/, '').split('').map(c => {
       if (c == 'x') return 'takes';
-      if (c == '+') return 'check';
+      if (c == '+') return 'promotion';
       if (c == '#') return 'checkmate';
       if (c == '=') return 'promotion';
       const code = c.charCodeAt(0);
-      if (code > 48 && code < 58) return c; // 1-8
-      if (code > 96 && code < 105) return renderFile(c, style); // a-g
+      if (code > 48 && code < 58) return c; // 1-9
+      if (code > 96 && code < 106) return renderFile(c, style); // a-i
       return roles[c] || c;
     }).join(' ');
   }
-  if (san.includes('+')) move += ' check';
+  if (san.includes('+')) move += ' promotion';
   if (san.includes('#')) move += ' checkmate';
   return move;
 }
@@ -65,7 +65,7 @@ export function renderSan(san: San, uci: Uci | undefined, style: Style) {
 export function renderPieces(pieces: Pieces, style: Style): VNode {
   return h('div', ['white', 'black'].map(color => {
     const lists: any = [];
-    ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn', 'gold', 'silver', 'lance', 'p_pawn', 'p_silver', 'p_knight', 'p_lance', 'p_bishop', 'p_rook'].forEach(role => {
+    ['king', 'rook', 'bishop', 'knight', 'pawn', 'gold', 'silver', 'lance', 'tokin', 'promotedSilver', 'promotedKnight', 'promotedLance', 'horse', 'dragon'].forEach(role => {
       const keys = [];
       for (const [key, piece] of pieces) {
         if (piece.color === color && piece.role === role) keys.push(key);

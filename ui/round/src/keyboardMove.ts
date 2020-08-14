@@ -28,10 +28,15 @@ export interface KeyboardMove {
 
 const sanToRole: { [key: string]: cg.Role } = {
   P: 'pawn',
+  L: 'lance',
   N: 'knight',
+  S: 'silver',
+  G: 'gold',
   B: 'bishop',
   R: 'rook',
   K: 'king',
+  H: 'horse',
+  D: 'dragon'
 };
 
 export function ctrl(root: RoundController, step: Step, redraw: Redraw): KeyboardMove {
@@ -57,14 +62,14 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       if (!role || !crazyData || cgState.pieces[key]) return;
       // Piece not in Pocket
       if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
-      if (!crazyValid(root.data, role, key)) return;
+      if (!crazyValid(root.data, root, role, key)) return;
       root.shogiground.cancelMove();
       root.shogiground.newPiece({ role, color }, key);
       root.sendNewPiece(role, key, false);
     },
     promote(orig, dest, piece) {
       const role = sanToRole[piece];
-      if (!role || role == 'pawn') return;
+      if (!role) return;
       root.shogiground.cancelMove();
       sendPromotion(root, orig, dest, role, { premove: false });
     },

@@ -214,23 +214,20 @@ object BinaryFormat {
     def write(pieces: PieceMap): ByteArray = {
       def posInt(pos: Pos): Int =
         (pieces get pos).fold(0) { piece =>
-          piece.color.fold(0, 8) + roleToInt(piece.role)
+          piece.color.fold(0, 16) + roleToInt(piece.role)
         }
-      ByteArray(groupedPos map {
-        case (p1, p2) => ((posInt(p1) << 4) + posInt(p2)).toByte
+      ByteArray(Pos.all.toArray map {
+        case p1 => posInt(p1).toByte
       })
     }
 
     def read(ba: ByteArray, variant: Variant): PieceMap = {
-      def splitInts(b: Byte) = {
-        val int = b.toInt
-        Array(int >> 4, int & 0x0f)
-      }
+      def splitInts(b: Byte) = b.toInt
       def intPiece(int: Int): Option[Piece] =
-        intToRole(int & 7, variant) map { role =>
-          Piece(Color((int & 8) == 0), role)
+        intToRole(int & 15, variant) map { role =>
+          Piece(Color((int & 16) == 0), role)
         }
-      val pieceInts = ba.value flatMap splitInts
+      val pieceInts = ba.value map splitInts
       (Pos.all zip pieceInts).view
         .flatMap {
           case (pos, int) => intPiece(int) map (pos -> _)
@@ -243,25 +240,39 @@ object BinaryFormat {
 
     private def intToRole(int: Int, variant: Variant): Option[Role] =
       int match {
-        case 6 => Some(Pawn)
         case 1 => Some(King)
-        case 2 => Some(Lance)
-        case 3 => Some(Rook)
+        case 2 => Some(Gold)
+        case 3 => Some(Silver)
         case 4 => Some(Knight)
-        case 5 => Some(Bishop)
-        // Legacy from when we used to have an 'Antiking' piece
-        case 7 if variant.antichess => Some(King)
-        case _                      => None
+        case 5 => Some(Lance)
+        case 6 => Some(Bishop)
+        case 7 => Some(Rook)
+        case 8 => Some(Tokin)
+        case 9  => Some(PromotedLance)
+        case 10 => Some(PromotedKnight)
+        case 11 => Some(PromotedSilver)
+        case 12 => Some(Horse)
+        case 13 => Some(Dragon)
+        case 14 => Some(Pawn)
+        case _  => None
       }
     private def roleToInt(role: Role): Int =
       role match {
-        case Pawn   => 6
         case King   => 1
-        case Lance  => 2
-        case Rook   => 3
+        case Gold   => 2
+        case Silver => 3
         case Knight => 4
-        case Bishop => 5
-        case _ => 8
+        case Lance  => 5
+        case Bishop => 6
+        case Rook   => 7
+        case Tokin  => 8
+        case PromotedLance  => 9
+        case PromotedKnight => 10
+        case PromotedSilver => 11
+        case Horse  => 12
+        case Dragon => 13
+        case Pawn => 14
+        case _      => 15
       }
   }
 
@@ -275,8 +286,8 @@ object BinaryFormat {
         var white = 0
         var black = 0
         o.pos.foreach { pos =>
-          if (pos.y == 1) white = white | (1 << (8 - pos.x))
-          else black = black | (1 << (8 - pos.x))
+          if (pos.y == 1) white = white | (1 << (9 - pos.x))
+          else black = black | (1 << (9 - pos.x))
         }
         Array(white.toByte, black.toByte)
       }
@@ -285,9 +296,9 @@ object BinaryFormat {
     private def bitAt(n: Int, k: Int) = (n >> k) & 1
 
     private val arrIndexes = 0 to 1
-    private val bitIndexes = 0 to 7
-    private val whiteStd   = Set(Pos.A1, Pos.H1)
-    private val blackStd   = Set(Pos.A8, Pos.H8)
+    private val bitIndexes = 0 to 8
+    private val whiteStd   = Set(Pos.A1, Pos.I1)
+    private val blackStd   = Set(Pos.A9, Pos.I9)
 
     def read(ba: ByteArray) =
       UnmovedRooks {
@@ -298,7 +309,7 @@ object BinaryFormat {
             if (int == -127) set = if (i == 0) whiteStd else set ++ blackStd
             else
               bitIndexes.foreach { j =>
-                if (bitAt(int, j) == 1) set = set + Pos.posAt(8 - j, 1 + 7 * i).get
+                if (bitAt(int, j) == 1) set = set + Pos.posAt(9 - j, 1 + 8 * i).get
               }
           }
         }

@@ -1,4 +1,9 @@
- .cg-wrap.orientation-white piece.pawn.white {
+  
+  /*
+  Pieces for white
+  */
+ 
+  .cg-wrap.orientation-white piece.pawn.white {
     background-image: url('/assets/piece/orangain/wP.svg');
   }
    .cg-wrap.orientation-white piece.bishop.white {
@@ -23,22 +28,25 @@
     background-image: url('/assets/piece/orangain/wL.svg');
   }
   
-   .cg-wrap.orientation-white piece.p_bishop.white{
+   .cg-wrap.orientation-white piece.horse.white{
     background-image: url('/assets/piece/orangain/wp_B.svg');
   }
-   .cg-wrap.orientation-white piece.p_lance.white{
+   .cg-wrap.orientation-white piece.promotedlance.white,
+   .cg-wrap.orientation-white piece.promotedLance.white{
     background-image: url('/assets/piece/orangain/wp_L.svg');
   }
-   .cg-wrap.orientation-white piece.p_rook.white{
+   .cg-wrap.orientation-white piece.dragon.white{
     background-image: url('/assets/piece/orangain/wp_R.svg');
   }
-   .cg-wrap.orientation-white piece.p_silver.white{
+   .cg-wrap.orientation-white piece.promotedsilver.white,
+   .cg-wrap.orientation-white piece.promotedSilver.white{
     background-image: url('/assets/piece/orangain/wp_S.svg');
   }
-   .cg-wrap.orientation-white piece.p_knight.white{
+   .cg-wrap.orientation-white piece.promotedknight.white,
+   .cg-wrap.orientation-white piece.promotedKnight.white{
     background-image: url('/assets/piece/orangain/wp_N.svg');
   }
-   .cg-wrap.orientation-white piece.p_pawn.white{
+   .cg-wrap.orientation-white piece.tokin.white{
     background-image: url('/assets/piece/orangain/wp_P.svg');
   }
   
@@ -68,30 +76,31 @@
     background-image: url('/assets/piece/orangain/bL.svg');
   }
   
-   .cg-wrap.orientation-white piece.p_bishop.black{
+   .cg-wrap.orientation-white piece.horse.black{
     background-image: url('/assets/piece/orangain/bp_B.svg');
   }
-   .cg-wrap.orientation-white piece.p_lance.black{
+   .cg-wrap.orientation-white piece.promotedlance.black,
+   .cg-wrap.orientation-white piece.promotedLance.black{
     background-image: url('/assets/piece/orangain/bp_L.svg');
   }
-   .cg-wrap.orientation-white piece.p_rook.black{
+   .cg-wrap.orientation-white piece.dragon.black{
     background-image: url('/assets/piece/orangain/bp_R.svg');
   }
-   .cg-wrap.orientation-white piece.p_silver.black{
+   .cg-wrap.orientation-white piece.promotedsilver.black,
+   .cg-wrap.orientation-white piece.promotedSilver.black{
     background-image: url('/assets/piece/orangain/bp_S.svg');
   }
-   .cg-wrap.orientation-white piece.p_knight.black{
+   .cg-wrap.orientation-white piece.promotedknight.black,
+   .cg-wrap.orientation-white piece.promotedKnight.black{
     background-image: url('/assets/piece/orangain/bp_N.svg');
   }
-   .cg-wrap.orientation-white piece.p_pawn.black{
+   .cg-wrap.orientation-white piece.tokin.black{
     background-image: url('/assets/piece/orangain/bp_P.svg');
   }
   
-  
-  
-  
-  
-  
+  /*
+  Pieces for black
+  */
   
    .cg-wrap.orientation-black piece.pawn.black {
     background-image: url('/assets/piece/orangain/wP.svg');
@@ -118,22 +127,25 @@
     background-image: url('/assets/piece/orangain/wL.svg');
   }
   
-   .cg-wrap.orientation-black piece.p_bishop.black{
+   .cg-wrap.orientation-black piece.horse.black{
     background-image: url('/assets/piece/orangain/wp_B.svg');
   }
-   .cg-wrap.orientation-black piece.p_lance.black{
+   .cg-wrap.orientation-black piece.promotedlance.black,
+   .cg-wrap.orientation-black piece.promotedLance.black{
     background-image: url('/assets/piece/orangain/wp_L.svg');
   }
-   .cg-wrap.orientation-black piece.p_rook.black{
+   .cg-wrap.orientation-black piece.dragon.black{
     background-image: url('/assets/piece/orangain/wp_R.svg');
   }
-   .cg-wrap.orientation-black piece.p_silver.black{
+   .cg-wrap.orientation-black piece.promotedsilver.black,
+   .cg-wrap.orientation-black piece.promotedSilver.black{
     background-image: url('/assets/piece/orangain/wp_S.svg');
   }
-   .cg-wrap.orientation-black piece.p_knight.black{
+   .cg-wrap.orientation-black piece.promotedknight.black,
+   .cg-wrap.orientation-black piece.promotedKnight.black{
     background-image: url('/assets/piece/orangain/wp_N.svg');
   }
-   .cg-wrap.orientation-black piece.p_pawn.black{
+   .cg-wrap.orientation-black piece.tokin.black{
     background-image: url('/assets/piece/orangain/wp_P.svg');
   }
   
@@ -163,21 +175,118 @@
     background-image: url('/assets/piece/orangain/bL.svg');
   }
   
-   .cg-wrap.orientation-black piece.p_bishop.white{
+   .cg-wrap.orientation-black piece.horse.white{
     background-image: url('/assets/piece/orangain/bp_B.svg');
   }
-   .cg-wrap.orientation-black piece.p_lance.white{
+   .cg-wrap.orientation-black piece.promotedlance.white,
+   .cg-wrap.orientation-black piece.promotedLance.white{
     background-image: url('/assets/piece/orangain/bp_L.svg');
   }
-   .cg-wrap.orientation-black piece.p_rook.white{
+   .cg-wrap.orientation-black piece.dragon.white{
     background-image: url('/assets/piece/orangain/bp_R.svg');
   }
-   .cg-wrap.orientation-black piece.p_silver.white{
+   .cg-wrap.orientation-black piece.promotedsilver.white,
+   .cg-wrap.orientation-black piece.promotedSilver.white{
     background-image: url('/assets/piece/orangain/bp_S.svg');
   }
-   .cg-wrap.orientation-black piece.p_knight.white{
+   .cg-wrap.orientation-black piece.promotedknight.white,
+   .cg-wrap.orientation-black piece.promotedKnight.white{
     background-image: url('/assets/piece/orangain/bp_N.svg');
   }
-   .cg-wrap.orientation-black piece.p_pawn.white{
+   .cg-wrap.orientation-black piece.tokin.white{
     background-image: url('/assets/piece/orangain/bp_P.svg');
+  }
+
+
+  /*
+  Promotions
+  */
+
+  #promotion-choice piece.pawn{
+    background-image: url('/assets/piece/orangain/wP.svg');
+  }
+  #promotion-choice piece.silver{
+    background-image: url('/assets/piece/orangain/wS.svg');
+  }
+  #promotion-choice piece.lance{
+    background-image: url('/assets/piece/orangain/wL.svg');
+  }
+  #promotion-choice piece.knight{
+    background-image: url('/assets/piece/orangain/wN.svg');
+  }
+  #promotion-choice piece.rook{
+    background-image: url('/assets/piece/orangain/wR.svg');
+  }
+  #promotion-choice piece.bishop{
+    background-image: url('/assets/piece/orangain/wB.svg');
+  }
+  #promotion-choice piece.tokin{
+    background-image: url('/assets/piece/orangain/wp_P.svg');
+  }
+  #promotion-choice piece.promotedsilver,
+  #promotion-choice piece.promotedSilver{
+    background-image: url('/assets/piece/orangain/wp_S.svg');
+  }
+  #promotion-choice piece.promotedlance,
+  #promotion-choice piece.promotedLance{
+    background-image: url('/assets/piece/orangain/wp_L.svg');
+  }
+  #promotion-choice piece.promotedknight,
+  #promotion-choice piece.promotedKnight{
+    background-image: url('/assets/piece/orangain/wp_N.svg');
+  }
+  #promotion-choice piece.dragon{
+    background-image: url('/assets/piece/orangain/wp_R.svg');
+  }
+  #promotion-choice piece.horse{
+    background-image: url('/assets/piece/orangain/wp_B.svg');
+  }
+
+
+  /*
+  Pockets
+  */
+
+  .pocket-top piece.pawn {
+    background-image: url('/assets/piece/orangain/bP.svg');
+  }
+  .pocket-top piece.lance {
+    background-image: url('/assets/piece/orangain/bL.svg');
+  }
+  .pocket-top piece.knight {
+    background-image: url('/assets/piece/orangain/bN.svg');
+  }
+  .pocket-top piece.silver {
+    background-image: url('/assets/piece/orangain/bS.svg');
+  }
+  .pocket-top piece.gold {
+    background-image: url('/assets/piece/orangain/bG.svg');
+  }
+  .pocket-top piece.bishop {
+    background-image: url('/assets/piece/orangain/bB.svg');
+  }
+  .pocket-top piece.rook {
+    background-image: url('/assets/piece/orangain/bR.svg');
+  }
+
+  .pocket-bottom piece.pawn {
+    background-image: url('/assets/piece/orangain/wP.svg');
+  }
+  .pocket-bottom piece.lance {
+    background-image: url('/assets/piece/orangain/wL.svg');
+  }
+  .pocket-bottom piece.knight {
+    background-image: url('/assets/piece/orangain/wN.svg');
+  }
+  .pocket-bottom piece.silver {
+    background-image: url('/assets/piece/orangain/wS.svg');
+  }
+  .pocket-bottom piece.gold {
+    background-image: url('/assets/piece/orangain/wG.svg');
+  }
+  .pocket-bottom piece.bishop {
+    background-image: url('/assets/piece/orangain/wB.svg');
+  }
+  .pocket-bottom piece.rook {
+    background-image: url('/assets/piece/orangain/wR.svg');
   }

@@ -21,7 +21,7 @@ export function justIcon(icon: string): VNodeData {
 
 export function uci2move(uci: string): cg.Key[] | undefined {
   if (!uci) return undefined;
-  if (uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
+  if (uci[1] === '*') return [uci.slice(2, 4) as cg.Key];
   return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
 }
 

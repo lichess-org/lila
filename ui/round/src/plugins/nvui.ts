@@ -143,7 +143,7 @@ window.lichess.RoundNVUI = function (redraw: Redraw) {
   };
 }
 
-const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
+const promotionRegex = /^([RNBSGLP])([a-i]x?)?[a-i][1-9]=\w$/;
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
   return function () {

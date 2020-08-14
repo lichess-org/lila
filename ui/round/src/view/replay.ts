@@ -32,10 +32,34 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
   })
 );
 
+function westernShogiNotation(str: string): string {
+  var res = str;
+  if (!str.includes('x') && !str.includes('*')) {
+    if (str.length >= 5) res = str.slice(0, 3) + '-' + str.slice(3);
+    else res = str.slice(0, 1) + '-' + str.slice(1);
+  }
+
+  if (['U', 'M', 'A', 'T', 'D', 'H'].includes(str[0])) {
+    res = '+' + (str[0] === 'U' ? 'L' : (
+      str[0] === 'M' ? 'N' : (
+        str[0] === 'A' ? 'S' : (
+          str[0] == 'T' ? 'P' : (
+            str[0] == 'D' ? 'R' : 'B'
+          )
+        )
+      )
+    )) + res.slice(1);
+    //res = '+' + res;
+  }
+  return res;
+}
+
+// todo san replayy
 function renderMove(step: Step, curPly: number, orEmpty: boolean) {
   return step ? h(moveTag, {
     class: { active: step.ply === curPly }
-  }, step.san[0] === 'P' ? step.san.slice(1) : step.san) : (orEmpty ? h(moveTag, '…') : undefined);
+  }, westernShogiNotation(step.san)) : (orEmpty ? h(moveTag, '…') : undefined);
+  //}, step.san) : (orEmpty ? h(moveTag, '…') : undefined);
 }
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
@@ -155,7 +179,7 @@ function renderButtons(ctrl: RoundController) {
   ]);
 }
 
-function initMessage(d: RoundData, trans: TransNoArg ) {
+function initMessage(d: RoundData, trans: TransNoArg) {
   return (game.playable(d) && d.game.turns === 0 && !d.player.spectator) ?
     h('div.message', util.justIcon(''), [
       h('div', [
@@ -188,7 +212,7 @@ export function render(ctrl: RoundController): VNode | undefined {
         el.addEventListener('mousedown', e => {
           let node = e.target as HTMLElement, offset = -2;
           if (node.tagName !== moveTag.toUpperCase()) return;
-          while(node = node.previousSibling as HTMLElement) {
+          while (node = node.previousSibling as HTMLElement) {
             offset++;
             if (node.tagName === 'INDEX') {
               ctrl.userJump(2 * parseInt(node.textContent || '') + offset);

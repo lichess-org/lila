@@ -28,7 +28,6 @@ object BuildSettings {
     akka.bundle ++ Seq(
       play.api,
       scalaz,
-      chess,
       scalalib,
       jodaTime,
       ws,

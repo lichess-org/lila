@@ -148,7 +148,7 @@ export default class RoundController {
   };
 
   private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
-    if (!this.replaying() && crazyValid(this.data, role, key)) {
+    if (!this.replaying() && crazyValid(this.data, this, role, key)) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
   };
@@ -278,10 +278,19 @@ export default class RoundController {
   }
 
   sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {
+    console.log("sending move ", prom, dest, orig)
     const move: SocketMove = {
       u: orig + dest
     };
-    if (prom) move.u += (prom === 'knight' ? 'n' : prom[0]);
+    if (prom) {
+      const promRole = prom === 'promotedSilver' ? 'a' :
+        (prom === 'promotedKnight' ? 'm' : (
+          prom === 'promotedLance' ? 'u' : (
+            prom === 'knight' ? 'n' : prom[0]
+          )
+        ));
+      move.u += (promRole);
+    }
     if (blur.get()) move.b = 1;
     this.resign(false);
     if (this.data.pref.submitMove && !meta.premove) {
@@ -440,7 +449,7 @@ export default class RoundController {
 
   private playPredrop = () => {
     return this.shogiground.playPredrop(drop => {
-      return crazyValid(this.data, drop.role, drop.key);
+      return crazyValid(this.data, this, drop.role, drop.key);
     });
   };
 

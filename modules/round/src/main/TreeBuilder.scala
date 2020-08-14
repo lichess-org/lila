@@ -46,6 +46,7 @@ object TreeBuilder {
       withFlags: WithFlags,
       clocks: Option[Vector[Centis]]
   ): Root = {
+    println("apply1" + pgnMoves + "~~~~~" + initialFen)
     val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? clocks
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen.value, variant) match {
       case (init, games, error) =>

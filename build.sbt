@@ -34,7 +34,7 @@ maintainer := "contact@lichess.org"
 // format: off
 libraryDependencies ++= akka.bundle ++ Seq(
   macwire.macros, macwire.util, play.json, jodaForms, ws,
-  scalaz, compression, scalalib, hasher,
+  scalaz, scalalib, hasher,
   reactivemongo.driver, maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scrimage, scaffeine, lettuce, uaparser
@@ -86,6 +86,8 @@ lazy val chess = module("chess",
   Seq(),
   reactivemongo.bundle
 )
+
+lazy val compression = module("compression", Seq(), Seq(specs2))
 
 lazy val puzzle = module("puzzle",
   Seq(common, memo, hub, history, db, user, rating, pref, tree, game),
@@ -193,8 +195,8 @@ lazy val user = module("user",
 )
 
 lazy val game = module("game",
-  Seq(common, memo, db, chess, hub, user, chat),
-  Seq(compression, specs2) ++ reactivemongo.bundle
+  Seq(common, memo, db, chess, hub, user, chat, compression),
+  Seq(specs2) ++ reactivemongo.bundle
 )
 
 lazy val gameSearch = module("gameSearch",

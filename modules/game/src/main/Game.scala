@@ -163,7 +163,7 @@ case class Game(
       moveOrDrop: MoveOrDrop,
       blur: Boolean = false
   ): Progress = {
-
+    println("Game update called" + game + "!~!" + moveOrDrop)
     def copyPlayer(player: Player) =
       if (blur && moveOrDrop.fold(_.color, _.color) == player.color)
         player.copy(

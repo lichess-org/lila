@@ -117,24 +117,33 @@ final private class Player(
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
   private val botLag     = MoveMetrics(clientLag = Centis(10).some)
 
-  private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics): Valid[MoveResult] =
+  private def applyUci(game: Game, uci: Uci, blur: Boolean, metrics: MoveMetrics): Valid[MoveResult] = {
+    println("applayuci round player " + uci)
     (uci match {
-      case Uci.Move(orig, dest, prom) =>
+      case Uci.Move(orig, dest, prom) => {
+        println("s:" + prom)
         game.chess(orig, dest, prom, metrics) map {
-          case (ncg, move) => ncg -> (Left(move): MoveOrDrop)
+          case (ncg, move) => {
+            println("lel ", move)
+            ncg -> (Left(move): MoveOrDrop)
+            }
         }
+      }
       case Uci.Drop(role, pos) =>
         game.chess.drop(role, pos, metrics) map {
           case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
         }
     }).map {
       case (ncg, _) if ncg.clock.exists(_.outOfTime(game.turnColor, false)) => Flagged
-      case (newChessGame, moveOrDrop) =>
+      case (newChessGame, moveOrDrop) => {
+        println("newChessGame in Player " + newChessGame + "!!~!!" + moveOrDrop)
         MoveApplied(
           game.update(newChessGame, moveOrDrop, blur),
           moveOrDrop
         )
+      }
     }
+  }
 
   private def notifyMove(moveOrDrop: MoveOrDrop, game: Game): Unit = {
     import lila.hub.actorApi.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent }

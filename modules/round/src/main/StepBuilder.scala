@@ -16,6 +16,7 @@ object StepBuilder {
       variant: Variant,
       initialFen: String
   ): JsArray = {
+    println("ID: " + id + "\nPgn: " + pgnMoves + " (init: " + initialFen + ")")
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
       case (init, games, error) =>
         error foreach logChessError(id)

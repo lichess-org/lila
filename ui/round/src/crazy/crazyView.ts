@@ -18,7 +18,16 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
     usable = usablePos && !ctrl.replaying() && ctrl.isPlaying(),
     activeColor = color === ctrl.data.player.color;
   const capturedPiece = ctrl.justCaptured;
-  const captured = capturedPiece && (capturedPiece['promoted'] ? 'pawn' : capturedPiece.role);
+  const captured = capturedPiece && (!capturedPiece['promoted'] ? capturedPiece.role : (
+    capturedPiece.role === 'tokin' ? 'pawn' : (
+      capturedPiece.role === 'promotedLance' ? 'lance' : (
+        capturedPiece.role === 'promotedKnight' ? 'knight' : (
+          capturedPiece.role === 'promotedSilver' ? 'silver' : (
+            capturedPiece.role === 'horse' ? 'bishop' : 'rook'
+          )
+        )
+      )
+    )));
   return h('div.pocket.is2d.pocket-' + position, {
     class: { usable },
     hook: onInsert(el => eventNames.forEach(

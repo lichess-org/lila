@@ -65,6 +65,7 @@ final private class Biter(
     }
 
   private def makeGame(hook: Hook, whiteUser: Option[User], blackUser: Option[User]) = {
+    println("Hook makeGame..." + hook.realVariant)
     val clock      = hook.clock.toClock
     val perfPicker = PerfPicker.mainOrDefault(chess.Speed(clock.config), hook.realVariant, none)
     Game
@@ -83,6 +84,7 @@ final private class Biter(
   }
 
   private def makeGame(seek: Seek, whiteUser: Option[User], blackUser: Option[User]) = {
+    println("Seek makeGame" + seek.realVariant)
     val perfPicker = PerfPicker.mainOrDefault(chess.Speed(none), seek.realVariant, seek.daysPerTurn)
     Game
       .make(

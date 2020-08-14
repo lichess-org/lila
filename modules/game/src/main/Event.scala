@@ -87,7 +87,7 @@ object Event {
       crazyData: Option[Crazyhouse.Data]
   ) extends Event {
     def typ = "move"
-    def data =
+    def data = {
       MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
         Json
           .obj(
@@ -98,6 +98,7 @@ object Event {
           .add("enpassant" -> enpassant.map(_.data))
           .add("castle" -> castle.map(_.data))
       }
+    }
     override def moveBy = Some(!state.color)
   }
   object Move {
