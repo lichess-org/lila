@@ -21,6 +21,8 @@
   <string name="createAGame">द्यूतम् कल्पयस्व</string>
   <string name="whiteIsVictorious">श्वेतो विजितवान्</string>
   <string name="blackIsVictorious">कृष्णो विजितवान्</string>
+  <string name="youPlayTheWhitePieces">त्वं श्वेतखण्डैः क्रीड</string>
+  <string name="youPlayTheBlackPieces">त्वं कृष्णखण्डैः क्रीड</string>
   <string name="newOpponent">नवः प्रतियोगी</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">भवत​: प्रतियोगी नवम् द्यूतम् भवता सह क्रीडितुम् इच्छति</string>
   <string name="joinTheGame">द्यूतम् अपिगच्छतु</string>
