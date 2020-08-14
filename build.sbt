@@ -14,10 +14,6 @@ lazy val root = Project("lila", file("."))
 scriptClasspath := Seq("*")
 maintainer := "contact@lichess.org"
 resourceDirectory in Compile := baseDirectory.value / "conf"
-sources in (Compile, doc) := Seq.empty
-publishArtifact in (Compile, packageDoc) := false
-// disable publishing the main sources jar
-publishArtifact in (Compile, packageSrc) := false
 
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ Seq(
