@@ -2,6 +2,7 @@
 <resources>
   <string name="private">خصوصی</string>
   <string name="myStudies">درس های من</string>
+  <string name="studiesIContributeTo">مطالعاتی که من مشارکت میکنم</string>
   <string name="myPublicStudies">درس های عمومی من</string>
   <string name="myPrivateStudies">درس های خصوصی من</string>
   <string name="myFavoriteStudies">درس های مورد علاقه من</string>
