@@ -2,7 +2,7 @@ package lila.msg
 
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
-
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 import scala.util.Try
 
@@ -236,6 +236,52 @@ final class MsgApi(
     ) map { res =>
       if (res.nModified > 0) notifier.onRead(threadId, me.id, contactId)
     }
+
+  def allMessagesOf(u: User): Fu[Vector[(User.ID, String, DateTime)]] =
+    colls.thread
+      .aggregateWith[Bdoc](
+        readPreference = ReadPreference.secondaryPreferred
+      ) { framework =>
+        import framework._
+        List(
+          Match($doc("users" -> u.id)),
+          Project($id(true)),
+          PipelineOperator(
+            $doc(
+              "$lookup" -> $doc(
+                "from" -> colls.msg.name,
+                "let"  -> $doc("t" -> "$_id"),
+                "pipeline" -> $arr(
+                  $doc(
+                    "$match" -> $doc(
+                      "$expr" -> $doc(
+                        "$and" -> $arr(
+                          $doc("$eq" -> $arr("$user", u.id)),
+                          $doc("$eq" -> $arr("$tid", "$$t"))
+                        )
+                      )
+                    )
+                  )
+                ),
+                "as" -> "msg"
+              )
+            )
+          ),
+          Unwind("msg"),
+          Project($doc("msg.text" -> true, "msg.date" -> true))
+        )
+      }
+      .collect[Vector](maxDocs = 9000)
+      .map { docs =>
+        for {
+          doc  <- docs
+          id   <- doc string "_id"
+          dest <- id.split(MsgThread.idSep).find(u.id !=)
+          msg  <- doc child "msg"
+          text <- msg string "text"
+          date <- msg.getAsOpt[DateTime]("date")
+        } yield (dest, text, date)
+      }
 }
 
 object MsgApi {

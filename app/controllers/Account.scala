@@ -423,4 +423,18 @@ final class Account(
             lila.mon.user.auth.reopenConfirm("success").increment()
       }
     }
+
+  def data =
+    Auth { implicit ctx => me =>
+      for {
+        _        <- env.security.api.dedup(me.id, ctx.req)
+        sessions <- env.security.store.allSessions(me.id)
+        posts    <- env.forum.postApi.allByUser(me.id)
+        msgs     <- env.msg.api.allMessagesOf(me)
+      } yield {
+        val raw = html.account.data.rawText(me, sessions, posts, msgs)
+        if (getBool("text")) Ok(raw) as TEXT
+        else Ok(html.account.data(me, raw))
+      }
+    }
 }

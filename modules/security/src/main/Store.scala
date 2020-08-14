@@ -2,12 +2,11 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-
-import reactivemongo.api.CursorProducer
 import reactivemongo.api.bson.{ BSONHandler, Macros }
-
-import scala.concurrent.duration._
+import reactivemongo.api.CursorProducer
+import reactivemongo.api.ReadPreference
 import scala.concurrent.blocking
+import scala.concurrent.duration._
 import scala.util.Random
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
@@ -116,12 +115,17 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
   implicit private val UserSessionBSONHandler = Macros.handler[UserSession]
   def openSessions(userId: User.ID, nb: Int): Fu[List[UserSession]] =
     coll.ext
-      .find(
-        $doc("user" -> userId, "up" -> true)
-      )
+      .find($doc("user" -> userId, "up" -> true))
       .sort($doc("date" -> -1))
       .cursor[UserSession]()
       .gather[List](nb)
+
+  def allSessions(userId: User.ID): Fu[List[UserSession]] =
+    coll.ext
+      .find($doc("user" -> userId))
+      .sort($doc("date" -> -1))
+      .cursor[UserSession](ReadPreference.secondaryPreferred)
+      .gather[List](200)
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
     FingerHash(fp) match {

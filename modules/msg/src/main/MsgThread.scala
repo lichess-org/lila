@@ -35,10 +35,12 @@ object MsgThread {
 
   case class Unread(thread: MsgThread)
 
+  val idSep = '/'
+
   def id(u1: User.ID, u2: User.ID): Id =
     Id {
       sortUsers(u1, u2) match {
-        case (user1, user2) => s"$user1/$user2"
+        case (user1, user2) => s"$user1$idSep$user2"
       }
     }
 

@@ -169,3 +169,22 @@
     font-weight: bold;
   }
 }
+
+.personal-data {
+  &__header {
+    @extend %flex-between;
+    margin-bottom: 3em;
+  }
+  .raw-text {
+    @extend %box-radius, %break-word;
+    font-family: monospace;
+    background: $c-bg-page;
+    padding: 1em 2em;
+    overflow: hidden;
+    white-space: pre-wrap;
+  }
+}
+
+.page-menu__content {
+  overflow: hidden; // prevents pre overflow (personal-data)
+}

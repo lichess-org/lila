@@ -632,6 +632,7 @@ GET   /account/reopen                  controllers.Account.reopen
 POST  /account/reopen/send             controllers.Account.reopenApply
 GET   /account/reopen/sent/:email      controllers.Account.reopenSent(email: String)
 GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token: String)
+GET   /account/personal-data           controllers.Account.data
 # App BC
 GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)

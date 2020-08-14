@@ -225,6 +225,13 @@ final class PostApi(
 
   def nbByUser(userId: String) = env.postRepo.coll.countSel($doc("userId" -> userId))
 
+  def allByUser(userId: String) =
+    env.postRepo.coll
+      .find($doc("userId" -> userId))
+      .sort($doc("createdAt" -> -1))
+      .cursor[Post](ReadPreference.secondaryPreferred)
+      .list(2000)
+
   private def recentUserIds(topic: Topic, newPostNumber: Int) =
     env.postRepo.coll
       .distinctEasy[User.ID, List](
