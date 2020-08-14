@@ -111,8 +111,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
             " "
           )
         }
-        if (withRating) frag(title, s"${user.name} (${lila.game.Namer ratingString player})")
-        else frag(title, user.name)
+        frag(
+          title,
+          if (withRating) s"${user.name} (${lila.game.Namer ratingString player})"
+          else user.name
+        )
       }
     ) { level =>
       raw(s"A.I. level $level")

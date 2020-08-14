@@ -22,6 +22,29 @@ object bits {
       vstext(pov)(ctx.some)
     )
 
+  def miniGame(pov: Pov)(implicit ctx: Context): Frag =
+    a(href := gameLink(pov), cls := "mini-game")(
+      miniGamePlayer(!pov),
+      gameFen(pov, withLink = false),
+      miniGamePlayer(pov)
+    )
+
+  def miniGamePlayer(pov: Pov) =
+    span(cls := "mini-game__player")(
+      span(cls := "mini-game__user")(
+        playerUsername(pov.player, withRating = false, withTitle = true),
+        span(cls := "mini-game__rating")(lila.game.Namer ratingString pov.player)
+      ),
+      pov.game.clock.map { c =>
+        span(cls := "mini-game__clock")(miniGameClock(c.remainingTime(pov.color)))
+      }
+    )
+
+  def miniGameClock(centis: chess.Centis) = {
+    val s = centis.roundSeconds
+    f"${s / 60}%02d:${s % 60}%02d"
+  }
+
   def miniBoard(fen: chess.format.FEN, color: chess.Color = chess.White): Frag =
     div(
       cls := "mini-board parse-fen cg-wrap is2d",

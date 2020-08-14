@@ -1,0 +1,21 @@
+.mini-game {
+  @extend %nowrap-hidden, %box-neat;
+
+  font-size: .9em;
+  background: $c-bg-box;
+  padding: .3em .6em;
+  color: $c-font;
+
+  &__player {
+    @extend %flex-between-nowrap;
+    padding: 0 2px;
+  }
+  &__rating {
+    @extend %roboto;
+    font-size: .9em;
+    margin-left: 1ch;
+  }
+  &__clock {
+    @extend %roboto;
+  }
+}
