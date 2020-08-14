@@ -24,7 +24,7 @@ final class PersonalDataExport(
     mongoCacheApi: lila.memo.MongoCache.Api
 )(implicit ec: ExecutionContext, mat: Materializer) {
 
-  def apply(user: User) = cache get (user.id)
+  def apply(user: User) = cache get user.id
 
   private val cache = mongoCacheApi[User.ID, String](64, "personal-data-export", 1 day, identity) { loader =>
     _.expireAfterAccess(1 minute)
