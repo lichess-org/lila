@@ -38,7 +38,13 @@ class UserTest extends Specification {
       canSignup("a__a") must beFalse
       canSignup("a_-a") must beFalse
       canSignup("a--a") must beFalse
+      canSignup("a--_") must beFalse
       couldBeUsername("a--a") must beTrue
+      canSignup("a-a") must beTrue
+      canSignup("a_a") must beTrue
+      canSignup("a333") must beTrue
+      canSignup("ksean222") must beTrue
+      canSignup("Ksean222") must beTrue
     }
 
     "OK things" in {
