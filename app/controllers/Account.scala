@@ -426,7 +426,9 @@ final class Account(
 
   def data =
     Auth { implicit ctx => me =>
-      val userId = get("user").ifTrue(isGranted(_.Impersonate)) | me.id
+      val userId = get("user")
+        .map(lila.user.User.normalize)
+        .filter(id => me.id == id || isGranted(_.Impersonate)) | me.id
       env.user.repo byId userId flatMap {
         _ ?? { user =>
           env.api.personalDataExport(user) map { raw =>
