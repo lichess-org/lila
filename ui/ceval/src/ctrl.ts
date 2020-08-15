@@ -1,6 +1,6 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, Started } from './types';
 
-import { Pool } from './pool';
+import { Pool, officialStockfish } from './pool';
 import { defined, prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
@@ -8,10 +8,6 @@ import { povChances } from './winningChances';
 import { sanIrreversible } from './util';
 
 const li = window.lichess;
-
-function officialStockfish(variant: VariantKey): boolean {
-  return variant === 'standard' || variant === 'chess960';
-}
 
 function is64Bit(): boolean {
   const x64 = ['x86_64', 'x86-64', 'Win64','x64', 'amd64', 'AMD64'];
