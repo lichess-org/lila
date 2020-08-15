@@ -537,19 +537,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def setSeenAt(id: ID): Unit =
     coll.updateFieldUnchecked($id(id), F.seenAt, DateTime.now)
 
-  def recentlySeenNotKidIdsCursor(since: DateTime)(implicit cp: CursorProducer[Bdoc]) =
-    coll.ext
-      .find(
-        $doc(
-          F.enabled -> true,
-          F.seenAt $gt since,
-          "count.game" $gt 9,
-          "kid" $ne true
-        ),
-        $id(true)
-      )
-      .cursor[Bdoc](readPreference = ReadPreference.secondary)
-
   def setLang(user: User, lang: play.api.i18n.Lang) =
     coll.updateField($id(user.id), "lang", lang.code).void
 
