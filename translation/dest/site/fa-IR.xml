@@ -271,6 +271,7 @@
     <item quantity="one">%s ثانیه اضافه کن</item>
     <item quantity="other">%s ثانیه اضافه کن</item>
   </plurals>
+  <string name="thisAccountViolatedTos">این حساب قوانین را نقض کرده است</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">این بازیکن امتیازش را به شکل مجازی تغییر می دهد.</string>
   <string name="openingExplorerAndTablebase">جستجوگر گشایش ها و جدول های مرجع آخربازی</string>
   <string name="takeback">پس گرفتن حرکت</string>

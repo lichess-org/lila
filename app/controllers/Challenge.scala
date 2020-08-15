@@ -207,7 +207,8 @@ final class Challenge(
   def apiCreate(userId: String) =
     ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
       implicit val lang = reqLang
-      env.setup.forms.api.user
+      env.setup.forms.api
+        .user(me)
         .bindFromRequest()
         .fold(
           err => BadRequest(apiFormError(err)).fuccess,

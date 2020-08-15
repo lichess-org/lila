@@ -21,6 +21,7 @@ object ChallengeDenied {
     case class RatingOutsideRange(perf: PerfType)  extends Reason
     case class RatingIsProvisional(perf: PerfType) extends Reason
     case object FriendsOnly                        extends Reason
+    case object BotUltraBullet                     extends Reason
   }
 
   def translated(d: ChallengeDenied)(implicit lang: Lang): String =
@@ -32,6 +33,7 @@ object ChallengeDenied {
         I18nKeys.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
       case Reason.RatingIsProvisional(perf) => I18nKeys.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
       case Reason.FriendsOnly               => I18nKeys.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
+      case Reason.BotUltraBullet            => "Bots cannot play UltraBullet. Choose a slower time control."
     }
 }
 
@@ -69,6 +71,11 @@ final class ChallengeGranter(
         }
       }
       .map {
+        case None if dest.isBot && perfType.has(PerfType.UltraBullet) => BotUltraBullet.some
+        case res                                                      => res
+      }
+      .map {
         _.map { ChallengeDenied(dest, _) }
       }
+
 }

@@ -1,6 +1,6 @@
 package lila.setup
 
-import chess.Clock
+import chess.{ Clock, Speed }
 import chess.format.{ FEN, Forsyth }
 import chess.variant.FromPosition
 import lila.lobby.Color
@@ -28,6 +28,11 @@ final case class ApiConfig(
       position ?? { f =>
         ~(Forsyth <<< f.value).map(_.situation playable strictFen)
       }
+    }
+
+  def validSpeed(isBot: Boolean) =
+    !isBot || clock.fold(true) { c =>
+      Speed(c) >= Speed.Bullet
     }
 
   def mode = chess.Mode(rated)

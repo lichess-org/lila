@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 
 case class User(
     id: String,
@@ -266,11 +266,15 @@ object User {
     implicit private def planHandler       = Plan.planBSONHandler
     implicit private def totpSecretHandler = TotpSecret.totpSecretBSONHandler
 
-    def reads(r: BSON.Reader): User =
+    def reads(r: BSON.Reader): User = {
+      val userTitle = r.getO[Title](title)
       User(
         id = r str id,
         username = r str username,
-        perfs = r.getO[Perfs](perfs) | Perfs.default,
+        perfs = r.getO[Perfs](perfs).fold(Perfs.default) { perfs =>
+          if (userTitle has Title.BOT) perfs.copy(ultraBullet = Perf.default)
+          else perfs
+        },
         count = r.get[Count](count),
         enabled = r bool enabled,
         roles = ~r.getO[List[String]](roles),
@@ -281,11 +285,12 @@ object User {
         seenAt = r dateO seenAt,
         kid = r boolD kid,
         lang = r strO lang,
-        title = r.getO[Title](title),
+        title = userTitle,
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
         marks = r.getO[UserMarks](marks) | UserMarks.empty
       )
+    }
 
     def writes(w: BSON.Writer, o: User) =
       BSONDocument(

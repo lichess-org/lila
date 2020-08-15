@@ -703,8 +703,11 @@ object Game {
     if (mode.rated) clock.estimateTotalTime >= boardApiRatedMinClock.estimateTotalTime
     else chess.Speed(clock) >= Speed.Rapid
 
-  def isBotCompatible(game: Game) =
+  def isBotCompatible(game: Game): Boolean = {
     game.hasAi || game.source.contains(Source.Friend)
+  } && isBotCompatible(game.speed)
+
+  def isBotCompatible(speed: Speed): Boolean = speed >= Speed.Bullet
 
   private[game] val emptyCheckCount = CheckCount(0, 0)
 

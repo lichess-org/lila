@@ -852,6 +852,10 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="puzzleDesc">Skaak kopkrapper instrukteur</string>
   <string name="important">Tshivenda</string>
   <string name="yourQuestionMayHaveBeenAnswered">Your question may already have an answer %1$s</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Om \'n gebruiker aan te kondig vir bedrog of slegte gedrag, %1$s</string>
+  <string name="useTheReportForm">gebruik die meldingsformulier</string>
+  <string name="toRequestSupport">Om hulp te vra, %1$s</string>
+  <string name="tryTheContactPage">probeer die kontak bladsy</string>
   <string name="subscribe">Skryf in</string>
   <string name="unsubscribe">Beëindig inskrywing</string>
 </resources>
