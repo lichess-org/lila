@@ -77,7 +77,8 @@ final class EvalCacheApi(
               _id = input.id,
               nbMoves = destSize(input.fen),
               evals = List(input.eval),
-              usedAt = DateTime.now
+              usedAt = DateTime.now,
+              updatedAt = DateTime.now
             )
             coll.insert.one(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
               cache.put(input.id, fuccess(entry.some)) >>-
