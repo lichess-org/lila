@@ -143,8 +143,15 @@
         hint: true,
         highlight: false,
         source: function(query, _, runAsync) {
-          if (cache[query]) setTimeout(() => runAsync(cache[query]), 50);
-          else if (query.trim().match(/^[a-z0-9][\w-]{2,29}$/i)) $.ajax({
+          query = query.trim();
+          if (!query.match(/^[a-z0-9][\w-]{2,29}$/i)) return;
+          else if (cache[query]) setTimeout(() => runAsync(cache[query]), 50);
+          else if(
+            query.length > 3 && Array.from({length: query.length - 3}, (_, i) => -i-1).map(i => query.slice(0, i)).some(sub => 
+              cache[sub] && !cache[sub].length
+            )
+          ) return;
+          else $.ajax({
             url: '/player/autocomplete',
             cache: true,
             data: {
