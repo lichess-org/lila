@@ -6,7 +6,7 @@ import play.api.data.Forms._
 import chess.format.FEN
 import chess.variant.Variant
 import lila.rating.RatingRange
-import lila.user.UserContext
+import lila.user.{ User, UserContext }
 
 final class FormFactory {
 
@@ -52,6 +52,7 @@ final class FormFactory {
         "fen"       -> fenField
       )(FriendConfig.from)(_.>>)
         .verifying("Invalid clock", _.validClock)
+        .verifying("Invalid speed", _.validSpeed(ctx.me.exists(_.isBot)))
         .verifying("invalidFen", _.validFen)
     )
 
@@ -116,17 +117,20 @@ final class FormFactory {
     private lazy val variant =
       "variant" -> optional(text.verifying(Variant.byKey.contains _))
 
-    lazy val user = Form(
-      mapping(
-        variant,
-        clock,
-        "days"          -> optional(days),
-        "rated"         -> boolean,
-        "color"         -> optional(color),
-        "fen"           -> fenField,
-        "acceptByToken" -> optional(nonEmptyText)
-      )(ApiConfig.from)(_.>>).verifying("invalidFen", _.validFen)
-    )
+    def user(from: User) =
+      Form(
+        mapping(
+          variant,
+          clock,
+          "days"          -> optional(days),
+          "rated"         -> boolean,
+          "color"         -> optional(color),
+          "fen"           -> fenField,
+          "acceptByToken" -> optional(nonEmptyText)
+        )(ApiConfig.from)(_.>>)
+          .verifying("invalidFen", _.validFen)
+          .verifying("Invalid speed", _ validSpeed from.isBot)
+      )
 
     lazy val ai = Form(
       mapping(
