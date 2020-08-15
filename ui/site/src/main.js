@@ -134,6 +134,7 @@
 
   lichess.userAutocomplete = ($input, opts) => {
     opts = opts || {};
+    const cache = {};
     lichess.loadCssPath('autocomplete');
     return lichess.loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function() {
       $input.typeahead({
@@ -142,7 +143,8 @@
         hint: true,
         highlight: false,
         source: function(query, _, runAsync) {
-          if (query.trim().match(/^[a-z0-9][\w-]{2,29}$/i)) $.ajax({
+          if (cache[query]) setTimeout(() => runAsync(cache[query]), 50);
+          else if (query.trim().match(/^[a-z0-9][\w-]{2,29}$/i)) $.ajax({
             url: '/player/autocomplete',
             cache: true,
             data: {
@@ -156,6 +158,7 @@
               res = res.result;
               // hack to fix typeahead limit bug
               if (res.length === 10) res.push(null);
+              cache[query] = res;
               runAsync(res);
             }
           });
