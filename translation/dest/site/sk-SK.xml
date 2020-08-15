@@ -309,6 +309,7 @@
     <item quantity="many">Pridať %s sekúnd</item>
     <item quantity="other">Pridať %s sekúnd</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Tento účet porušil Podmienky poskytovania služby Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč si umelo zvyšuje/znižuje svoje hodnotenie</string>
   <string name="openingExplorerAndTablebase">Knižnica otvorení &amp; koncoviek</string>
   <string name="takeback">Vrátiť ťah</string>
