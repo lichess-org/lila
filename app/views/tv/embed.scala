@@ -27,8 +27,7 @@ object embed {
           dataStreamUrl := routes.Tv.feed()
         )(
           div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
-            gameFenNoCtx(pov, tv = true, blank = true),
-            views.html.game.bits.vstext(pov)(none)
+            views.html.game.mini.noCtx(pov, tv = true, blank = true)
           ),
           jQueryTag,
           jsAt("javascripts/vendor/chessground.min.js", false),

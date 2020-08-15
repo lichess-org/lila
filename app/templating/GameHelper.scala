@@ -1,7 +1,6 @@
 package lila.app
 package templating
 
-import chess.format.Forsyth
 import chess.{ Status => S, Color, Clock, Mode }
 import controllers.routes
 import play.api.i18n.Lang
@@ -13,11 +12,6 @@ import lila.i18n.{ I18nKeys => trans, defaultLang }
 import lila.user.{ Title, User }
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
-
-  private val dataLive     = attr("data-live")
-  private val dataColor    = attr("data-color")
-  private val dataFen      = attr("data-fen")
-  private val dataLastmove = attr("data-lastmove")
 
   def netBaseUrl: String
   def cdnUrl(path: String): String
@@ -212,7 +206,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case _ => ""
     }
 
-  private def gameTitle(game: Game, color: Color): String = {
+  def gameTitle(game: Game, color: Color): String = {
     val u1 = playerText(game player color, withRating = true)
     val u2 = playerText(game opponent color, withRating = true)
     val clock = game.clock ?? { c =>
@@ -247,48 +241,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   }.toString
 
   def gameLink(pov: Pov)(implicit ctx: Context): String = gameLink(pov.game, pov.color)
-
-  def gameFen(
-      pov: Pov,
-      ownerLink: Boolean = false,
-      tv: Boolean = false,
-      withTitle: Boolean = true,
-      withLink: Boolean = true,
-      withLive: Boolean = true
-  )(implicit ctx: Context): Frag = {
-    val game     = pov.game
-    val isLive   = withLive && game.isBeingPlayed
-    val cssClass = isLive ?? ("live mini-board-" + game.id)
-    val variant  = game.variant.key
-    val tag      = if (withLink) a else span
-    tag(
-      href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
-      title := withTitle.option(gameTitle(game, pov.color)),
-      cls := s"mini-board mini-board-${game.id} cg-wrap parse-fen is2d $cssClass $variant",
-      dataLive := isLive.option(game.id),
-      dataColor := pov.color.name,
-      dataFen := Forsyth.exportBoard(game.board),
-      dataLastmove := ~game.lastMoveKeys
-    )(cgWrapContent)
-  }
-
-  def gameFenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false): Frag = {
-    val isLive  = pov.game.isBeingPlayed
-    val variant = pov.game.variant.key
-    a(
-      href := (if (tv) routes.Tv.index() else routes.Round.watcher(pov.gameId, pov.color.name)),
-      title := gameTitle(pov.game, pov.color),
-      cls := List(
-        s"mini-board mini-board-${pov.gameId} cg-wrap parse-fen is2d $variant" -> true,
-        s"live mini-board-${pov.gameId}"                                       -> isLive
-      ),
-      dataLive := isLive.option(pov.gameId),
-      dataColor := pov.color.name,
-      dataFen := Forsyth.exportBoard(pov.game.board),
-      dataLastmove := ~pov.game.lastMoveKeys,
-      target := blank.option("_blank")
-    )(cgWrapContent)
-  }
 
   def challengeTitle(c: lila.challenge.Challenge) = {
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>

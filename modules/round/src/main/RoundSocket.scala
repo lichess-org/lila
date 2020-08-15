@@ -1,14 +1,14 @@
 package lila.round
 
+import actorApi._
+import actorApi.round._
 import akka.actor.{ ActorSystem, Cancellable, CoordinatedShutdown, Scheduler }
+import chess.format.Uci
+import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import actorApi._
-import actorApi.round._
-import chess.format.Uci
-import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.game.Game.{ FullId, PlayerId }
@@ -178,7 +178,7 @@ final class RoundSocket(
       }
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
-        send(Protocol.Out.finishGame(usersPlaying))
+        send(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
       }
   }
 
@@ -353,8 +353,9 @@ object RoundSocket {
       def tourStanding(tourId: String, data: JsValue) =
         s"r/tour/standing $tourId ${Json stringify data}"
 
-      def startGame(users: List[User.ID])  = s"r/start ${P.Out.commas(users)}"
-      def finishGame(users: List[User.ID]) = s"r/finish ${P.Out.commas(users)}"
+      def startGame(users: List[User.ID]) = s"r/start ${P.Out.commas(users)}"
+      def finishGame(gameId: Game.ID, winner: Option[Color], users: List[User.ID]) =
+        s"r/finish $gameId ${P.Out.color(winner)} ${P.Out.commas(users)}"
     }
   }
 

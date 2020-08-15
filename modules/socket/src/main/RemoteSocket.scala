@@ -1,7 +1,7 @@
 package lila.socket
 
 import akka.actor.{ ActorSystem, CoordinatedShutdown }
-import chess.Centis
+import chess.{ Centis, Color }
 import io.lettuce.core._
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
 import java.util.concurrent.atomic.AtomicReference
@@ -10,6 +10,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.{ Future, Promise }
 import scala.util.chaining._
+import Socket.Sri
 
 import lila.common.{ Bus, Lilakka }
 import lila.hub.actorApi.Announce
@@ -18,7 +19,6 @@ import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellUserIn }
 import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendTos }
-import Socket.Sri
 
 final class RemoteSocket(
     redisClient: RedisClient,
@@ -277,8 +277,9 @@ object RemoteSocket {
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
       def boolean(v: Boolean): String         = if (v) "+" else "-"
-      def color(c: chess.Color): String       = c.fold("w", "b")
       def optional(str: Option[String])       = str getOrElse "-"
+      def color(c: Color): String             = c.fold("w", "b")
+      def color(c: Option[Color]): String     = optional(c.map(_.fold("w", "b")))
     }
   }
 

@@ -1,16 +1,16 @@
 export default function boot(cfg, element) {
   cfg.pools = [ // mirrors modules/pool/src/main/PoolList.scala
-    {id:"1+0",lim:1,inc:0,perf:"Bullet"},
-    {id:"2+1",lim:2,inc:1,perf:"Bullet"},
-    {id:"3+0",lim:3,inc:0,perf:"Blitz"},
-    {id:"3+2",lim:3,inc:2,perf:"Blitz"},
-    {id:"5+0",lim:5,inc:0,perf:"Blitz"},
-    {id:"5+3",lim:5,inc:3,perf:"Blitz"},
-    {id:"10+0",lim:10,inc:0,perf:"Rapid"},
-    {id:"10+5",lim:10,inc:5,perf:"Rapid"},
-    {id:"15+10",lim:15,inc:10,perf:"Rapid"},
-    {id:"30+0",lim:30,inc:0,perf:"Classical"},
-    {id:"30+20",lim:30,inc:20,perf:"Classical"}
+    { id: "1+0", lim: 1, inc: 0, perf: "Bullet" },
+    { id: "2+1", lim: 2, inc: 1, perf: "Bullet" },
+    { id: "3+0", lim: 3, inc: 0, perf: "Blitz" },
+    { id: "3+2", lim: 3, inc: 2, perf: "Blitz" },
+    { id: "5+0", lim: 5, inc: 0, perf: "Blitz" },
+    { id: "5+3", lim: 5, inc: 3, perf: "Blitz" },
+    { id: "10+0", lim: 10, inc: 0, perf: "Rapid" },
+    { id: "10+5", lim: 10, inc: 5, perf: "Rapid" },
+    { id: "15+10", lim: 15, inc: 10, perf: "Rapid" },
+    { id: "30+0", lim: 30, inc: 0, perf: "Classical" },
+    { id: "30+20", lim: 30, inc: 20, perf: "Classical" }
   ];
   let lobby;
   const nbRoundSpread = spreadNumber(
@@ -19,26 +19,19 @@ export default function boot(cfg, element) {
     function() {
       return window.lichess.socket.pingInterval();
     }),
-  nbUserSpread = spreadNumber(
-    document.querySelector('#nb_connected_players > strong'),
-    10,
-    function() {
-      return window.lichess.socket.pingInterval();
-    }),
-  getParameterByName = name => {
-    var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-  },
-  onFirstConnect = () => {
-    var gameId = getParameterByName('hook_like');
-    if (!gameId) return;
-    $.post(`/setup/hook/${window.lichess.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`);
-    lobby.setTab('real_time');
-    history.replaceState(null, '', '/');
-  };
-  window.lichess.socket = window.lichess.StrongSocket(
-    '/lobby/socket/v4',
-    false, {
+    nbUserSpread = spreadNumber(
+      document.querySelector('#nb_connected_players > strong'),
+      10,
+      function() {
+        return window.lichess.socket.pingInterval();
+      }),
+    getParameterByName = name => {
+      var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+      return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    },
+    window.lichess.socket = window.lichess.StrongSocket(
+      '/lobby/socket/v4',
+      false, {
       receive: function(t, d) {
         lobby.socketReceive(t, d);
       },
@@ -73,10 +66,16 @@ export default function boot(cfg, element) {
         }
       },
       options: {
-        name: 'lobby',
-        onFirstConnect: onFirstConnect
+        name: 'lobby'
       }
     });
+  window.lichess.StrongSocket.firstConnect.then(() => {
+    var gameId = getParameterByName('hook_like');
+    if (!gameId) return;
+    $.post(`/setup/hook/${window.lichess.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`);
+    lobby.setTab('real_time');
+    history.replaceState(null, '', '/');
+  });
 
   cfg.blindMode = $('body').hasClass('blind-mode');
   cfg.trans = window.lichess.trans(cfg.i18n);
@@ -85,7 +84,7 @@ export default function boot(cfg, element) {
   lobby = window.LichessLobby.start(cfg);
 
   const $startButtons = $('.lobby__start'),
-  clickEvent = cfg.blindMode ? 'click' : 'mousedown';
+    clickEvent = cfg.blindMode ? 'click' : 'mousedown';
 
   $startButtons.find('a:not(.disabled)').on(clickEvent, function() {
     $(this).addClass('active').siblings().removeClass('active');

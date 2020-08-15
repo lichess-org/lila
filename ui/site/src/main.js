@@ -146,8 +146,10 @@
           query = query.trim();
           if (!query.match(/^[a-z0-9][\w-]{2,29}$/i)) return;
           else if (cache[query]) setTimeout(() => runAsync(cache[query]), 50);
-          else if(
-            query.length > 3 && Array.from({length: query.length - 3}, (_, i) => -i-1).map(i => query.slice(0, i)).some(sub => 
+          else if (
+            query.length > 3 && Array.from({
+              length: query.length - 3
+            }, (_, i) => -i - 1).map(i => query.slice(0, i)).some(sub =>
               cache[sub] && !cache[sub].length
             )
           ) return;
@@ -178,7 +180,7 @@
           suggestion: function(o) {
             var tag = opts.tag || 'a';
             return '<' + tag + ' class="ulpt user-link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
-              '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '')  + o.name +
+              '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '') + o.name +
               '</' + tag + '>';
           }
         }
@@ -212,13 +214,82 @@
         resizable: resizable,
         fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
         lastMove: lastMove,
-        drawable: { enabled: false, visible: false }
+        drawable: {
+          enabled: false,
+          visible: false
+        }
       };
       if (color) config.orientation = color;
       if (ground) ground.set(config);
       else $this.data('chessground', Chessground(this, config));
     });
   };
+
+  lichess.miniGame = (() => {
+    const fenColor = fen => fen.indexOf(' b') > 0 ? 'black' : 'white';
+    return {
+      init(node, data) {
+        const [fen, orientation, lm] = node.getAttribute('data-state').split(','),
+          config = {
+            coordinates: false,
+            viewOnly: true,
+            resizable: false,
+            fen,
+            orientation,
+            lastMove: lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
+            drawable: {
+              enabled: false,
+              visible: false
+            }
+          },
+          $el = $(node),
+          $cg = $el.find('.cg-wrap'),
+          turnColor = fenColor(fen);
+        $cg.data('chessground', Chessground($cg[0], config));
+        ['white', 'black'].forEach(color =>
+          $el.find('.mini-game__clock--' + color).each(function() {
+            $(this).clock({
+              time: parseInt(this.getAttribute('data-time')),
+              pause: color != turnColor
+            });
+          })
+        );
+        node.classList.remove('mini-game--init');
+        return node.getAttribute('data-live');
+      },
+      initAll() {
+        const nodes = Array.from(document.getElementsByClassName('mini-game--init')),
+          ids = nodes.map(lichess.miniGame.init).filter(id => id);
+        if (ids.length) window.lichess.StrongSocket.firstConnect.then(send =>
+          send('startWatching', ids.join(' '))
+        );
+      },
+      update(node, data) {
+        const $el = $(node),
+          lm = data.lm,
+          lastMove = lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
+          cg = $el.find('.cg-wrap').data('chessground');
+        cg.set({
+          fen: data.fen,
+          lastMove
+        });
+        const turnColor = fenColor(data.fen);
+        const renderClock = (time, color) => {
+          if (!isNaN(time)) $el.find('.mini-game__clock--' + color).clock('set', {
+            time,
+            pause: color != turnColor
+          });
+        };
+        renderClock(data.wc, 'white');
+        renderClock(data.bc, 'black');
+      },
+      finish(node, win) {
+        ['white', 'black'].forEach(color =>
+          $(node).find('.mini-game__clock--' + color).replaceWith(`<span class="mini-game__result">${win ? (win == color[0] ? 1 : 0) : '½'}</span>`)
+        );
+      }
+    }
+  })();
 
   $(function() {
     if (lichess.analyse) LichessAnalyse.boot(lichess.analyse);
@@ -278,6 +349,7 @@
           lichess.timeago.render([].slice.call(document.getElementsByClassName('timeago'), 0, 99))
         );
       }
+
       function setTimeago(interval) {
         renderTimeago();
         setTimeout(() => setTimeago(interval * 1.1), interval);
@@ -339,7 +411,9 @@
             if (instance) instance.redraw();
           };
 
-        if ('permissions' in navigator) navigator.permissions.query({name: 'notifications'}).then(perm => {
+        if ('permissions' in navigator) navigator.permissions.query({
+          name: 'notifications'
+        }).then(perm => {
           perm.onchange = permissionChanged;
         });
         permissionChanged();
@@ -401,7 +475,9 @@
             playing = $('body').hasClass('playing');
           lichess.loadCssPath('dasher');
           lichess.loadScript(lichess.jsModule('dasher')).done(() =>
-            LichessDasher($el.empty()[0], { playing })
+            LichessDasher($el.empty()[0], {
+              playing
+            })
           );
         });
       }
@@ -608,7 +684,9 @@
         };
         set = 'standard';
       }
-      var baseUrl = lichess.assetUrl('sound', {noVersion: true});
+      var baseUrl = lichess.assetUrl('sound', {
+        noVersion: true
+      });
       return new Howl({
         src: ['ogg', 'mp3'].map(function(ext) {
           return [baseUrl, set, names[k] + '.' + ext].join('/');
@@ -670,8 +748,8 @@
     api.warmup = function() {
       if (enabled()) {
         // See goldfire/howler.js#715
-        Howler._autoResume();   // This resumes sound if suspended.
-        Howler._autoSuspend();  // This starts the 30s timer to suspend.
+        Howler._autoResume(); // This resumes sound if suspended.
+        Howler._autoSuspend(); // This starts the 30s timer to suspend.
       }
     };
 
@@ -718,15 +796,15 @@
     };
     var renderUser = function(user) {
       const icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>',
-      titleTag = user.title ? ('<span class="title"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;') : '',
-      url = '/@/' + user.name,
-      tvButton = user.playing ? '<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
+        titleTag = user.title ? ('<span class="title"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;') : '',
+        url = '/@/' + user.name,
+        tvButton = user.playing ? '<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
       return '<div><a class="user-link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + user.name + '</a>' + tvButton + '</div>';
     };
     return {
       _create: function() {
         const self = this,
-        el = self.element;
+          el = self.element;
 
         self.$friendBoxTitle = el.find('.friend_box_title').click(function() {
           el.find('.content_wrap').toggleNone();
@@ -742,18 +820,21 @@
           users: [],
           playing: [],
           patrons: [],
-          ... el.data('preload')
+          ...el.data('preload')
         };
         self.trans = lichess.trans(data.i18n);
         self.set(data);
       },
       repaint: function() {
         if (this.loaded) requestAnimationFrame(function() {
-          const users = this.users, ids = Object.keys(users).sort();
+          const users = this.users,
+            ids = Object.keys(users).sort();
           this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, this.loaded ? $('<strong>').text(ids.length) : '-'));
           this.$nobody.toggleNone(!ids.length);
           this.element.find('.list').html(
-            ids.map(function(id) { return renderUser(users[id]); }).join('')
+            ids.map(function(id) {
+              return renderUser(users[id]);
+            }).join('')
           );
         }.bind(this));
       },
@@ -793,59 +874,52 @@
 
   lichess.widget("clock", {
     _create: function() {
-      var self = this;
-      var target = this.options.time * 1000 + Date.now();
-      var timeEl = this.element.find('.time')[0];
-      var tick = function() {
-        var remaining = target - Date.now();
-        if (remaining <= 0) clearInterval(self.interval);
-        timeEl.innerHTML = self._formatMs(remaining);
-      };
-      this.interval = setInterval(tick, 1000);
-      tick();
+      this.target = this.options.time * 1000 + Date.now();
+      if (!this.options.pause) this.interval = setInterval(this._render.bind(this), 1000);
+      this._render();
     },
 
-    _pad: function(x) { return (x < 10 ? '0' : '') + x; },
+    set: function(opts) {
+      this.options = opts;
+      this.target = this.options.time * 1000 + Date.now();
+      this._render();
+      clearInterval(this.interval);
+      if (!opts.pause) this.interval = setInterval(this._render.bind(this), 1000);
+    },
+
+    _render: function() {
+      this.element.text(this._formatMs(this.target - Date.now()));
+      this.element.toggleClass('clock--run', !this.options.pause);
+    },
+
+    _pad: function(x) {
+      return (x < 10 ? '0' : '') + x;
+    },
 
     _formatMs: function(msTime) {
-      var date = new Date(Math.max(0, msTime + 500));
-
-      var hours = date.getUTCHours(),
+      const date = new Date(Math.max(0, msTime + 500)),
+        hours = date.getUTCHours(),
         minutes = date.getUTCMinutes(),
         seconds = date.getUTCSeconds();
-
-      if (hours > 0) {
-        return hours + ':' + this._pad(minutes) + ':' + this._pad(seconds);
-      } else {
-        return minutes + ':' + this._pad(seconds);
-      }
+      return hours > 0 ?
+        hours + ':' + this._pad(minutes) + ':' + this._pad(seconds) :
+        minutes + ':' + this._pad(seconds);
     }
   });
 
   $(function() {
     lichess.pubsub.on('content_loaded', lichess.parseFen);
-
-    var socketOpened = false;
-
-    function startWatching() {
-      if (!socketOpened) return;
-      var ids = [];
-      $('.mini-board.live').removeClass("live").each(function() {
-        ids.push(this.getAttribute("data-live"));
-      });
-      if (ids.length) lichess.socket.send("startWatching", ids.join(" "));
-    }
-    lichess.pubsub.on('content_loaded', startWatching);
-    lichess.pubsub.on('socket.open', function() {
-      socketOpened = true;
-      startWatching();
-    });
+    lichess.pubsub.on('content_loaded', lichess.miniGame.initAll);
 
     lichess.requestIdleCallback(function() {
       lichess.parseFen();
+      lichess.miniGame.initAll();
       $('.chat__members').watchers();
       if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
-        $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lichess.reload);
+        $.post('/toggle-blind-mode', {
+          enable: 1,
+          redirect: '/'
+        }, lichess.reload);
     });
   });
 
@@ -887,7 +961,9 @@
     $('#team-subscribe').on('change', function() {
       const v = this.checked;
       $(this).parents('form').each(function() {
-        $.post($(this).attr('action'), { v: v });
+        $.post($(this).attr('action'), {
+          v: v
+        });
       });
     });
   }
@@ -974,11 +1050,16 @@
   ////////////////////
 
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-    const workerUrl = new URL(lichess.assetUrl(lichess.jsModule('serviceWorker'), {sameDomain: true}), self.location.href);
+    const workerUrl = new URL(lichess.assetUrl(lichess.jsModule('serviceWorker'), {
+      sameDomain: true
+    }), self.location.href);
     workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url'));
     if (document.body.getAttribute('data-dev')) workerUrl.searchParams.set('dev', '1');
     const updateViaCache = document.body.getAttribute('data-dev') ? 'none' : 'all';
-    navigator.serviceWorker.register(workerUrl.href, {scope: '/', updateViaCache}).then(reg => {
+    navigator.serviceWorker.register(workerUrl.href, {
+      scope: '/',
+      updateViaCache
+    }).then(reg => {
       const storage = lichess.storage.make('push-subscribed');
       const vapid = document.body.getAttribute('data-vapid');
       if (vapid && Notification.permission == 'granted') return reg.pushManager.getSubscription().then(sub => {

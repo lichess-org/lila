@@ -17,5 +17,14 @@
   }
   &__clock {
     @extend %roboto;
+    padding: 0 1ch;
+    &.clock--run {
+      color: $c-accent;
+      font-weight: bold;
+    }
+  }
+  &__result {
+    font-weight: bold;
+    margin-right: 1ch;
   }
 }

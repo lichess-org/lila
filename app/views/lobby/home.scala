@@ -139,8 +139,7 @@ object home {
         ),
         featured map { g =>
           div(cls := "lobby__tv")(
-            gameFen(Pov first g, tv = true),
-            views.html.game.bits.vstext(Pov first g)(ctx.some)
+            views.html.game.mini(Pov first g, tv = true)
           )
         },
         puzzle map { p =>

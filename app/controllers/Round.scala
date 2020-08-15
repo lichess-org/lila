@@ -340,13 +340,13 @@ final class Round(
       OptionOk(
         chess.Color(color).??(env.round.proxyRepo.povIfPresent(gameId, _)) orElse env.game.gameRepo
           .pov(gameId, color)
-      )(html.game.bits.mini)
+      )(html.game.mini(_))
     }
 
   def miniFullId(fullId: String) =
     Open { implicit ctx =>
       OptionOk(env.round.proxyRepo.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId))(
-        html.game.bits.mini
+        html.game.mini(_)
       )
     }
 }

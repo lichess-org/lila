@@ -221,7 +221,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var onSuccess = function() {
     nbConnects++;
     if (nbConnects == 1) {
-      options.onFirstConnect();
+      resolveFirstConnect(send);
       var disconnectTimeout;
       lichess.idleTimer(10 * 60 * 1000, function() {
         options.idle = true;
@@ -266,15 +266,20 @@ lichess.StrongSocket = function(url, version, settings) {
 
 lichess.StrongSocket.defaults = {
   events: {
-    fen: function(e) {
-      $('.mini-board-' + e.id).each(function() {
-        lichess.parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
+    fen(e) {
+      $('.mini-game-' + e.id).each(function() {
+        lichess.miniGame.update(this, e);
       });
     },
-    challenges: function(d) {
+    finish(e) {
+      $('.mini-game-' + e.id).each(function() {
+        lichess.miniGame.finish(this, e.win);
+      });
+    },
+    challenges(d) {
       lichess.challengeApp.update(d);
     },
-    notifications: function(d) {
+    notifications(d) {
       lichess.notifyApp.update(d, true);
     }
   },
@@ -287,7 +292,11 @@ lichess.StrongSocket.defaults = {
     pingMaxLag: 9000, // time to wait for pong before reseting the connection
     pingDelay: 2500, // time between pong and ping
     autoReconnectDelay: 3500,
-    protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
-    onFirstConnect: $.noop
+    protocol: location.protocol === 'https:' ? 'wss:' : 'ws:'
   }
 };
+
+let resolveFirstConnect;
+lichess.StrongSocket.firstConnect = new Promise(r => {
+  resolveFirstConnect = r;
+});

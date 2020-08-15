@@ -10,40 +10,7 @@ import controllers.routes
 
 object bits {
 
-  def featuredJs(pov: Pov): Frag =
-    frag(
-      gameFenNoCtx(pov, tv = true),
-      vstext(pov)(none)
-    )
-
-  def mini(pov: Pov)(implicit ctx: Context): Frag =
-    a(href := gameLink(pov))(
-      gameFen(pov, withLink = false),
-      vstext(pov)(ctx.some)
-    )
-
-  def miniGame(pov: Pov)(implicit ctx: Context): Frag =
-    a(href := gameLink(pov), cls := "mini-game")(
-      miniGamePlayer(!pov),
-      gameFen(pov, withLink = false),
-      miniGamePlayer(pov)
-    )
-
-  def miniGamePlayer(pov: Pov) =
-    span(cls := "mini-game__player")(
-      span(cls := "mini-game__user")(
-        playerUsername(pov.player, withRating = false, withTitle = true),
-        span(cls := "mini-game__rating")(lila.game.Namer ratingString pov.player)
-      ),
-      pov.game.clock.map { c =>
-        span(cls := "mini-game__clock")(miniGameClock(c.remainingTime(pov.color)))
-      }
-    )
-
-  def miniGameClock(centis: chess.Centis) = {
-    val s = centis.roundSeconds
-    f"${s / 60}%02d:${s % 60}%02d"
-  }
+  def featuredJs(pov: Pov): Frag = "TODO"
 
   def miniBoard(fen: chess.format.FEN, color: chess.Color = chess.White): Frag =
     div(
