@@ -18,7 +18,6 @@ package org.mindrot;
 // byte manipulation. Details at https://github.com/isaacl/jbcrypt
 
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Arrays;
