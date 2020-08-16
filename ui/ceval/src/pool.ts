@@ -2,6 +2,10 @@ import { sync, Sync } from 'common/sync';
 import { PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './stockfishProtocol';
 
+export function officialStockfish(variant: VariantKey): boolean {
+  return variant === 'standard' || variant === 'chess960';
+}
+
 export abstract class AbstractWorker {
 
   protected protocol: Sync<Protocol>;
@@ -68,32 +72,23 @@ class WebWorker extends AbstractWorker {
 }
 
 class ThreadedWasmWorker extends AbstractWorker {
-  static global: Promise<{sf: unknown, protocol: Protocol}> | undefined;
-
+  static scripts: any = {};
   private sf?: any;
 
   boot(): Promise<Protocol> {
-    if (!ThreadedWasmWorker.global) ThreadedWasmWorker.global = window.lichess.loadScript(this.url, {sameDomain: true}).then(() => window['Stockfish']()).then(sf => {
+    const name = officialStockfish(this.workerOpts.variant) ? 'Stockfish' : 'StockfishMv';
+    if (!ThreadedWasmWorker.scripts[name]) ThreadedWasmWorker.scripts[name] = window.lichess.loadScript(this.url, {sameDomain: true});
+    return ThreadedWasmWorker.scripts[name].then(() => window[name]()).then((sf: any) => {
       this.sf = sf;
       const protocol = new Protocol(this.send.bind(this), this.workerOpts);
       sf.addMessageListener(protocol.received.bind(protocol));
       protocol.init();
-      return {
-        sf,
-        protocol
-      };
-    });
-    return ThreadedWasmWorker.global.then(global => {
-      this.sf = global.sf;
-      return global.protocol;
+      return protocol;
     });
   }
 
   destroy() {
-    if (ThreadedWasmWorker.global) {
-      console.log('stopping singleton wasmx worker (instead of destroying) ...');
-      this.stop().then(() => console.log('... successfully stopped'));
-    }
+    if (this.sf) this.sf.terminate();
   }
 
   send(cmd: string) {
