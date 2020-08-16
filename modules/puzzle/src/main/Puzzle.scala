@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import chess.Color
-import chess.format.{ Forsyth, Uci }
+import chess.format.{ FEN, Forsyth, Uci }
 import org.joda.time.DateTime
 import scala.util.{ Success, Try }
 
@@ -34,11 +34,11 @@ case class Puzzle(
 
   def initialMove: Uci.Move = history.lastOption flatMap Uci.Move.apply err s"Bad initial move $this"
 
-  def fenAfterInitialMove: Option[String] = {
+  def fenAfterInitialMove: Option[FEN] = {
     for {
       sit1 <- Forsyth << fen
       sit2 <- sit1.move(initialMove).toOption.map(_.situationAfter)
-    } yield Forsyth >> sit2
+    } yield FEN(Forsyth >> sit2)
   }
 }
 

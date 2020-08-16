@@ -129,9 +129,6 @@
     }
   });
 
-  lichess.reverse = s => s.split('').reverse().join('');
-  lichess.readServerFen = t => atob(lichess.reverse(t));
-
   lichess.userAutocomplete = ($input, opts) => {
     opts = opts || {};
     const cache = {};
@@ -194,35 +191,28 @@
     });
   };
 
-  lichess.parseFen = function($elem) {
-    if (!window.Chessground) return setTimeout(function() {
-      lichess.parseFen($elem);
-    }, 500); // if not loaded yet
-    // sometimes $elem is not a jQuery, can happen when content_loaded is triggered with random args
-    if (!$elem || !$elem.each) $elem = $('.parse-fen');
-    $elem.each(function() {
-      var $this = $(this).removeClass('parse-fen');
-      var lm = $this.data('lastmove');
-      var lastMove = lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]);
-      var color = $this.data('color') || lichess.readServerFen($(this).data('y'));
-      var ground = $this.data('chessground');
-      var playable = !!$this.data('playable');
-      var resizable = !!$this.data('resizable');
-      var config = {
-        coordinates: false,
-        viewOnly: !playable,
-        resizable: resizable,
-        fen: $this.data('fen') || lichess.readServerFen($this.data('z')),
-        lastMove: lastMove,
-        drawable: {
-          enabled: false,
-          visible: false
-        }
-      };
-      if (color) config.orientation = color;
-      if (ground) ground.set(config);
-      else $this.data('chessground', Chessground(this, config));
-    });
+  lichess.miniBoard = {
+    initAll() {
+      Array.from(document.getElementsByClassName('mini-board--init')).forEach(lichess.miniBoard.init);
+    },
+    init(node) {
+      console.log(node);
+      if (!window.Chessground) return setTimeout(() => lichess.miniBoard.init(node), 500);
+      const $el = $(node).removeClass('mini-board--init'),
+        [fen, orientation, lm] = $el.data('state').split(','),
+        config = {
+          coordinates: false,
+          viewOnly: !$el.data('playable'),
+          resizable: false,
+          fen,
+          lastMove: lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
+          drawable: {
+            enabled: false,
+            visible: false
+          }
+        };
+      $el.data('chessground', Chessground(node, config));
+    }
   };
 
   lichess.miniGame = (() => {
@@ -242,7 +232,7 @@
               visible: false
             }
           },
-          $el = $(node),
+          $el = $(node).removeClass('mini-game--init'),
           $cg = $el.find('.cg-wrap'),
           turnColor = fenColor(fen);
         $cg.data('chessground', Chessground($cg[0], config));
@@ -254,7 +244,6 @@
             });
           })
         );
-        node.classList.remove('mini-game--init');
         return node.getAttribute('data-live');
       },
       initAll() {
@@ -908,11 +897,11 @@
   });
 
   $(function() {
-    lichess.pubsub.on('content_loaded', lichess.parseFen);
+    lichess.pubsub.on('content_loaded', lichess.miniBoard.initAll);
     lichess.pubsub.on('content_loaded', lichess.miniGame.initAll);
 
     lichess.requestIdleCallback(function() {
-      lichess.parseFen();
+      lichess.miniBoard.initAll();
       lichess.miniGame.initAll();
       $('.chat__members').watchers();
       if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))

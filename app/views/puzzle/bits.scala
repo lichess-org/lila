@@ -12,14 +12,10 @@ object bits {
 
   private val dataLastmove = attr("data-lastmove")
 
-  def daily(p: lila.puzzle.Puzzle, fen: String, lastMove: String) =
-    a(
-      href := routes.Puzzle.daily(),
-      cls := "mini-board cg-wrap parse-fen is2d",
-      dataColor := p.color.name,
-      dataFen := fen,
-      dataLastmove := lastMove
-    )(cgWrapContent)
+  def daily(p: lila.puzzle.Puzzle, fen: chess.format.FEN, lastMove: String) =
+    views.html.board.bits.mini(fen, p.color, lastMove) {
+      a(href := routes.Puzzle.daily())
+    }
 
   def jsI18n()(implicit lang: Lang) = i18nJsObject(i18nKeys)
 

@@ -10,15 +10,6 @@ import controllers.routes
 
 object bits {
 
-  def featuredJs(pov: Pov): Frag = "TODO"
-
-  def miniBoard(fen: chess.format.FEN, color: chess.Color = chess.White): Frag =
-    div(
-      cls := "mini-board parse-fen cg-wrap is2d",
-      dataColor := color.name,
-      dataFen := fen.value
-    )(cgWrapContent)
-
   def gameIcon(game: Game): Char =
     game.perfType match {
       case _ if game.fromPosition         => '*'

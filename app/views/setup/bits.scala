@@ -28,12 +28,7 @@ private object bits {
         a(cls := "board_editor", href := url)(
           span(cls := "preview")(
             validFen.map { vf =>
-              div(
-                cls := "mini-board cg-wrap parse-fen is2d",
-                dataColor := vf.color.name,
-                dataFen := vf.fen.value,
-                dataResizable := "1"
-              )(cgWrapContent)
+              views.html.board.bits.mini(vf.fen, vf.color)(div)
             }
           )
         )

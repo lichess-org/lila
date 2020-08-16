@@ -5,7 +5,7 @@ $(function() {
       var $board = $captcha.find('.mini-board');
       var $input = $captcha.find('input').val('');
       var cg = $board.data('chessground');
-      var dests = JSON.parse(lichess.readServerFen($board.data('x')));
+      var dests = JSON.parse($board.data('x'));
       for (var k in dests) dests[k] = dests[k].match(/.{2}/g);
       cg.set({
         turnColor: cg.state.orientation,

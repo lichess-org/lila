@@ -80,4 +80,4 @@ object Daily {
 
 case class DailyPuzzle(html: String, color: chess.Color, id: Int)
 
-case class RenderDaily(puzzle: Puzzle, fen: String, lastMove: String)
+case class RenderDaily(puzzle: Puzzle, fen: chess.format.FEN, lastMove: String)

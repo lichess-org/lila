@@ -1,22 +1,19 @@
 package views.html.base
 
-import lila.common.String.html.safeJsonValue
+import controllers.routes
 import play.api.libs.json.Json
 import scala.language.reflectiveCalls
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
+import lila.common.String.html.safeJsonValue
 
 object captcha {
 
   private val dataCheckUrl = attr("data-check-url")
+  private val dataMoves    = attr("data-moves")
   private val dataPlayable = attr("data-playable")
-  private val dataX        = attr("data-x")
-  private val dataY        = attr("data-y")
-  private val dataZ        = attr("data-z")
 
   def apply(form: lila.common.Form.FormLike, captcha: lila.common.Captcha)(implicit ctx: Context) =
     frag(
@@ -32,17 +29,15 @@ object captcha {
           dataCheckUrl := routes.Main.captchaCheck(captcha.gameId)
         )(
           div(cls := "challenge")(
-            div(
-              cls := "mini-board cg-wrap parse-fen is2d",
-              dataPlayable := "1",
-              dataX := encodeFen(safeJsonValue(Json.toJson(captcha.moves))),
-              dataY := encodeFen(if (captcha.white) {
-                "white"
-              } else {
-                "black"
-              }),
-              dataZ := encodeFen(captcha.fen)
-            )(cgWrapContent)
+            views.html.board.bits.mini(
+              chess.format.FEN(captcha.fen),
+              chess.Color(captcha.white)
+            ) {
+              div(
+                dataMoves := safeJsonValue(Json.toJson(captcha.moves)),
+                dataPlayable := 1
+              )
+            }
           ),
           div(cls := "captcha-explanation")(
             label(cls := "form-label")(

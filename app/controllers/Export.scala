@@ -2,10 +2,11 @@ package controllers
 
 import akka.stream.scaladsl._
 import akka.util.ByteString
-import scala.concurrent.duration._
-import play.api.mvc.Result
-
 import chess.Color
+import chess.format.FEN
+import play.api.mvc.Result
+import scala.concurrent.duration._
+
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.Pov
@@ -64,7 +65,7 @@ final class Export(env: Env) extends LilaController(env) {
       ExportImageRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
         OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
           env.game.gifExport.thumbnail(
-            fen = chess.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
+            fen = puzzle.fenAfterInitialMove | FEN(puzzle.fen),
             lastMove = puzzle.initialMove.uci.some,
             orientation = puzzle.color
           ) map stream("image/gif") map { res =>

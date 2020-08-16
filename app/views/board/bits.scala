@@ -1,15 +1,30 @@
 package views.html.board
 
+import chess.format.{ FEN, Forsyth }
+import controllers.routes
 import play.api.libs.json.Json
 import scala.concurrent.duration.Duration
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
+import lila.game.Pov
 
 object bits {
+
+  private val dataState = attr("data-state")
+
+  def mini(pov: Pov): Tag => Tag =
+    mini(FEN(Forsyth.exportBoard(pov.game.board)), pov.color, ~pov.game.lastMoveKeys) _
+
+  def mini(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "")(tag: Tag): Tag =
+    tag(
+      cls := "mini-board mini-board--init cg-wrap is2d",
+      dataState := s"${fen.value},${color.name},$lastMove"
+    )(cgWrapContent)
+
+  def miniSpan(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "") =
+    mini(fen, color, lastMove)(span)
 
   def jsData(
       sit: chess.Situation,
