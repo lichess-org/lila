@@ -257,13 +257,24 @@ object SwissJson {
       )
 
   private[swiss] def boardJson(b: SwissBoard.WithGame) =
-    Json.obj(
-      "id"       -> b.game.id,
-      "fen"      -> (chess.format.Forsyth exportBoard b.game.board),
-      "lastMove" -> ~b.game.lastMoveKeys,
-      "white"    -> boardPlayerJson(b.board.white),
-      "black"    -> boardPlayerJson(b.board.black)
-    )
+    Json
+      .obj(
+        "id"          -> b.game.id,
+        "fen"         -> (chess.format.Forsyth exportBoard b.game.board),
+        "lastMove"    -> ~b.game.lastMoveKeys,
+        "orientation" -> b.game.naturalOrientation.name,
+        "white"       -> boardPlayerJson(b.board.white),
+        "black"       -> boardPlayerJson(b.board.black)
+      )
+      .add(
+        "clock" -> b.game.clock.ifTrue(b.game.isBeingPlayed).map { c =>
+          Json.obj(
+            "white" -> c.remainingTime(chess.White).roundSeconds,
+            "black" -> c.remainingTime(chess.Black).roundSeconds
+          )
+        }
+      )
+      .add("winner" -> b.game.winnerColor.map(_.name))
 
   private def boardPlayerJson(player: SwissBoard.Player) =
     Json.obj(

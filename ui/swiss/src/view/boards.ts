@@ -1,7 +1,8 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
+import { opposite } from 'chessground/util';
 import { player as renderPlayer } from './util';
-import { Board, BoardPlayer } from '../interfaces';
+import { Board } from '../interfaces';
 
 export function many(boards: Board[]): VNode {
   return h('div.swiss__boards.now-playing', boards.map(renderBoard));
@@ -14,35 +15,35 @@ export function top(boards: Board[]): VNode {
 }
 
 const renderBoard = (board: Board): VNode =>
-    h('div.swiss__board', [
-      boardPlayer(board.black),
-      miniBoard(board),
-      boardPlayer(board.white),
-    ])
-
-const boardPlayer = (player: BoardPlayer) =>
-  h('div.swiss__board__player', [
-    h('strong', '#' + player.rank),
-    renderPlayer(player, true, true)
-  ]);
-
-function miniBoard(board: Board) {
-  return h('a.mini-board.live.is2d.mini-board-' + board.id, {
+  h(`div.swiss__board.mini-game.mini-game-${board.id}.mini-game--init is2d`, {
     key: board.id,
-    attrs: {
-      href: '/' + board.id,
-      'data-live': board.id,
-      'data-color': 'white',
-      'data-fen': board.fen,
-      'data-lastmove': board.lastMove
-    },
     hook: {
       insert(vnode) {
-        window.lichess.parseFen($(vnode.elm as HTMLElement));
-        window.lichess.pubsub.emit('content_loaded')
+        window.lichess.miniGame.init(vnode.elm as HTMLElement, `${board.fen},${board.orientation},${board.lastMove}`)
+        window.lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
       }
     }
   }, [
-    h('div.cg-wrap')
+    boardPlayer(board, opposite(board.orientation)),
+    h('a.cg-wrap', {
+      attrs: {
+        href: `/${board.id}/${board.orientation}`
+      }
+    }),
+    boardPlayer(board, board.orientation)
+  ]);
+
+function boardPlayer(board: Board, color: Color) {
+  const player = board[color];
+  return h('span.mini-game__player', [
+    h('span.mini-game__user', [
+      h('strong', '#' + player.rank),
+      renderPlayer(player, true, true)
+    ]),
+    board.clock ? h(`span.mini-game__clock.mini-game__clock--${color}`, {
+      attrs: {
+        'data-time': board.clock[color]
+      }
+    }) : h('span.mini-game__result', board.winner ? (board.winner == color ? 1 : 0) : '½')
   ]);
 }

@@ -107,10 +107,15 @@ export interface Player extends BasePlayer {
 export interface Board {
   id: string;
   fen: string;
-  color: Color;
   lastMove?: string;
+  orientation: Color;
   white: BoardPlayer;
   black: BoardPlayer;
+  clock?: {
+    white: number;
+    black: number;
+  }
+  winner?: Color;
 }
 
 export interface BoardPlayer extends BasePlayer {
