@@ -27,10 +27,6 @@
       @extend %flex-between;
 
       margin-bottom: 2em;
-
-      .user-link:nth-child(2) {
-        display: none;
-      }
     }
 
     &--mod {
