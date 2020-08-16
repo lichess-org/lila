@@ -35,7 +35,7 @@ final private class FirebasePush(
               Chronometer.syncMon(_.blocking time "firebase") {
                 blocking {
                   creds.refreshIfExpired()
-                  creds.getAccessToken()
+                  creds.getAccessToken
                 }
               }
             }

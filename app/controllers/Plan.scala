@@ -180,7 +180,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
           lila.plan.Checkout.form
             .bindFromRequest()
             .fold(
-              err => badStripeSession(err.toString()).fuccess,
+              err => badStripeSession(err.toString).fuccess,
               checkout =>
                 env.plan.api.userCustomer(me) flatMap {
                   case Some(customer) if checkout.freq == Freq.Onetime =>

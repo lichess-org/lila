@@ -303,7 +303,7 @@ object Node {
           .add("forceVariation", forceVariation)
       } catch {
         case e: StackOverflowError =>
-          e.printStackTrace
+          e.printStackTrace()
           sys error s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)"
       }
     }
