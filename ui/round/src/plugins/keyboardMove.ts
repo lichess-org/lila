@@ -24,7 +24,7 @@ window.lichess.keyboardMove = function(opts: any) {
     v = v.replace(/0/g, 'O');
     const foundUci = v.length >= 2 && sans && sanToUci(v, sans);
     if (v == 'resign') {
-      opts.ctrl.resign(true);
+      opts.ctrl.resign(true, true);
       clear();
     }
     else if (foundUci) {
