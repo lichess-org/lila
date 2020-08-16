@@ -55,7 +55,7 @@ final class PgnDump(
   private def chapterUrl(studyId: Study.Id, chapterId: Chapter.Id) =
     s"${net.baseUrl}/study/$studyId/$chapterId"
 
-  private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
+  private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd"
 
   private def annotatorTag(study: Study) =
     Tag(_.Annotator, s"https://lichess.org/@/${ownerName(study)}")

@@ -57,23 +57,23 @@ private object I18nQuantity {
       else Other
 
     def lithuanian(c: Count) = {
-      val rem100 = c % 100;
-      val rem10  = c % 10;
+      val rem100 = c % 100
+      val rem10  = c % 10
       if (rem10 == 1 && !(rem100 >= 11 && rem100 <= 19)) One
       else if (rem10 >= 2 && rem10 <= 9 && !(rem100 >= 11 && rem100 <= 19)) Few
       else Other
     }
 
     def polish(c: Count) = {
-      val rem100 = c % 100;
-      val rem10  = c % 10;
+      val rem100 = c % 100
+      val rem10  = c % 10
       if (c == 1) One
       else if (rem10 >= 2 && rem10 <= 4 && !(rem100 >= 12 && rem100 <= 14)) Few
       else Other
     }
 
     def romanian(c: Count) = {
-      val rem100 = c % 100;
+      val rem100 = c % 100
       if (c == 1) One
       else if (c == 0 || (rem100 >= 1 && rem100 <= 19)) Few
       else Other

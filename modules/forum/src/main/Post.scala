@@ -49,7 +49,7 @@ case class Post(
       updatedOrCreatedAt.plus(showEditFormFor.toMillis).isAfterNow
 
   def editPost(updated: DateTime, newText: String): Post = {
-    val oldVersion = new OldVersion(text, updatedOrCreatedAt)
+    val oldVersion = OldVersion(text, updatedOrCreatedAt)
 
     // We only store a maximum of 5 historical versions of the post to prevent abuse of storage space
     val history = (oldVersion :: ~editHistory).take(5)
