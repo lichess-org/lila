@@ -154,7 +154,7 @@ object Node {
           .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
           .replaceAll("""(?m)(^ *| +(?= |$))""", "")
           .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
-          .replaceAll("\\{|\\}", "") // {} are reserved in PGN comments
+          .replaceAll("[{}]", "") // {} are reserved in PGN comments
       }
   }
   case class Comments(value: List[Comment]) extends AnyVal {
