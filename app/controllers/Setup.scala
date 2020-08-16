@@ -54,7 +54,7 @@ final class Setup(
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req)
         fuccess(forms friendFilled get("fen").map(FEN)) flatMap { form =>
-          val validFen = form("fen").value flatMap ValidFen(false)
+          val validFen = form("fen").value flatMap ValidFen(strict = false)
           userId ?? env.user.repo.named flatMap {
             case None => Ok(html.setup.forms.friend(form, none, none, validFen)).fuccess
             case Some(user) =>

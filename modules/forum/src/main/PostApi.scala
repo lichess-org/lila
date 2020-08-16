@@ -54,7 +54,7 @@ final class PostApi(
             case _ =>
               env.postRepo.coll.insert.one(post) >>
                 env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
-                shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, true)
+                shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, value = true)
               } >>
                 env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>- {
                 (!categ.quiet ?? (indexer ! InsertPost(post)))

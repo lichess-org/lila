@@ -104,7 +104,7 @@ final class RelayApi(
 
   def reset(relay: Relay, by: User): Funit =
     studyApi.deleteAllChapters(relay.studyId, by) >>
-      requestPlay(relay.id, true)
+      requestPlay(relay.id, v = true)
 
   def cloneRelay(relay: Relay, by: User): Fu[Relay] =
     create(
@@ -133,7 +133,7 @@ final class RelayApi(
     ) flatMap {
       _.map { relay =>
         logger.info(s"Automatically start $relay")
-        requestPlay(relay.id, true)
+        requestPlay(relay.id, v = true)
       }.sequenceFu.void
     }
 

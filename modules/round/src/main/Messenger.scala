@@ -8,10 +8,10 @@ import lila.user.User
 final class Messenger(api: ChatApi) {
 
   def system(game: Game, message: String): Unit =
-    system(true)(game, message)
+    system(persistent = true)(game, message)
 
   def volatile(game: Game, message: String): Unit =
-    system(false)(game, message)
+    system(persistent = false)(game, message)
 
   def system(persistent: Boolean)(game: Game, message: String): Unit = {
     val apiCall =

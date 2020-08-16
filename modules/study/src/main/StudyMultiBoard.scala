@@ -36,7 +36,7 @@ final class StudyMultiBoard(
     cacheApi.scaffeine
       .refreshAfterWrite(4 seconds)
       .expireAfterAccess(10 minutes)
-      .buildAsyncFuture[Study.Id, Paginator[ChapterPreview]] { fetch(_, 1, false) }
+      .buildAsyncFuture[Study.Id, Paginator[ChapterPreview]] { fetch(_, 1, playing = false) }
 
   private def fetch(studyId: Study.Id, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] = {
 

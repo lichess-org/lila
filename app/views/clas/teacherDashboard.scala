@@ -39,7 +39,7 @@ object teacherDashboard {
       c.archived map { archived =>
         div(cls := "clas-show__archived archived")(
           bits.showArchived(archived),
-          postForm(action := routes.Clas.archive(c.id.value, false))(
+          postForm(action := routes.Clas.archive(c.id.value, v = false))(
             form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty")
           )
         )

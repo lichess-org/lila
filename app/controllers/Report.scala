@@ -86,7 +86,7 @@ final class Report(
             def thenGoTo =
               dataOpt.flatMap(_ get "then").flatMap(_.headOption) flatMap {
                 case "back"    => HTTPRequest referer ctx.req
-                case "profile" => modC.userUrl(prev.user, true).some
+                case "profile" => modC.userUrl(prev.user, mod = true).some
                 case url       => url.some
               }
             thenGoTo match {
@@ -129,7 +129,7 @@ final class Report(
         api.currentCheatReport(lila.report.Suspect(user)) flatMap {
           _ ?? { report =>
             api.inquiries.toggle(lila.report.Mod(me), report.id).void
-          } inject modC.redirect(username, true)
+          } inject modC.redirect(username, mod = true)
         }
       }
     }

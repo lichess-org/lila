@@ -96,7 +96,7 @@ object bits {
         "round-toggle-autoswitch" pipe { id =>
           span(cls := "move-on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
             label(`for` := id)(trans.autoSwitch()),
-            span(cls := "switch")(form3.cmnToggle(id, id, false))
+            span(cls := "switch")(form3.cmnToggle(id, id, checked = false))
           )
         }
       ),
@@ -110,7 +110,7 @@ object bits {
                   playerText(pov.opponent, withRating = false),
                   span(cls := "indicator")(
                     if (pov.isMyTurn)
-                      pov.remainingSeconds.fold[Frag](trans.yourTurn())(secondsFromNow(_, true))
+                      pov.remainingSeconds.fold[Frag](trans.yourTurn())(secondsFromNow(_, alwaysRelative = true))
                     else nbsp
                   )
                 )

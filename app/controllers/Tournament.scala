@@ -121,7 +121,7 @@ final class Tournament(
                 shieldOwner <- env.tournament.shieldApi currentOwner tour
               } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)))
             }
-            .monSuccess(_.tournament.apiShowPartial(false, HTTPRequest clientName ctx.req)),
+            .monSuccess(_.tournament.apiShowPartial(partial = false, HTTPRequest clientName ctx.req)),
           api = _ =>
             tourOption
               .fold(notFoundJson("No such tournament")) { tour =>

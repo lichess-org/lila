@@ -92,7 +92,7 @@ final class Swiss(
             .fold(
               err => BadRequest(html.swiss.form.create(err, teamId)).fuccess,
               data =>
-                tourC.rateLimitCreation(me, false, ctx.req) {
+                tourC.rateLimitCreation(me, isPrivate = false, ctx.req) {
                   env.swiss.api.create(data, me, teamId) map { swiss =>
                     Redirect(routes.Swiss.show(swiss.id.value))
                   }
@@ -113,7 +113,7 @@ final class Swiss(
               .fold(
                 jsonFormErrorDefaultLang,
                 data =>
-                  tourC.rateLimitCreation(me, false, req) {
+                  tourC.rateLimitCreation(me, isPrivate = false, req) {
                     JsonOk {
                       env.swiss.api.create(data, me, teamId) map env.swiss.json.api
                     }

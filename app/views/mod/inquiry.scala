@@ -214,7 +214,7 @@ object inquiry {
       div(cls := "actions close")(
         span(cls := "switcher", title := "Automatically open next report")(
           span(cls := "switch")(
-            form3.cmnToggle("auto-next", "auto-next", true)
+            form3.cmnToggle("auto-next", "auto-next", checked = true)
           )
         ),
         postForm(

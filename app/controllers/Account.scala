@@ -293,7 +293,7 @@ final class Account(
         implicit val req = ctx.body
         env.security.forms closeAccount me flatMap { form =>
           FormFuResult(form) { err =>
-            fuccess(html.account.close(me, err, false))
+            fuccess(html.account.close(me, err, managed = false))
           } { _ =>
             env.closeAccount(me.id, self = true) inject {
               Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
@@ -326,7 +326,7 @@ final class Account(
             .fold(
               err =>
                 negotiate(
-                  html = BadRequest(html.account.kid(me, err, false)).fuccess,
+                  html = BadRequest(html.account.kid(me, err, managed = false)).fuccess,
                   api = _ => BadRequest(errorsAsJson(err)).fuccess
                 ),
               _ =>

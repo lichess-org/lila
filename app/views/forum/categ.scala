@@ -106,8 +106,8 @@ object categ {
             )
           ),
           tbody(
-            stickyPosts map showTopic(true),
-            topics.currentPageResults map showTopic(false)
+            stickyPosts map showTopic(sticky = true),
+            topics.currentPageResults map showTopic(sticky = false)
           )
         ),
         bar

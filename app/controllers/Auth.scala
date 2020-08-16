@@ -323,7 +323,7 @@ final class Auth(
 
   def passwordReset =
     Open { implicit ctx =>
-      Ok(renderPasswordReset(none, false)).fuccess
+      Ok(renderPasswordReset(none, fail = false)).fuccess
     }
 
   def passwordResetApply =
@@ -332,7 +332,7 @@ final class Auth(
       forms.passwordReset.form
         .bindFromRequest()
         .fold(
-          err => BadRequest(renderPasswordReset(err.some, true)).fuccess,
+          err => BadRequest(renderPasswordReset(err.some, fail = true)).fuccess,
           data =>
             env.security.recaptcha.verify(~data.recaptchaResponse, req) flatMap {
               _ ?? env.user.repo.enabledWithEmail(data.realEmail.normalize)
@@ -345,7 +345,7 @@ final class Auth(
               }
               case _ => {
                 lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                BadRequest(renderPasswordReset(none, true)).fuccess
+                BadRequest(renderPasswordReset(none, fail = true)).fuccess
               }
             }
         )
@@ -407,7 +407,7 @@ final class Auth(
 
   def magicLink =
     Open { implicit ctx =>
-      Ok(renderMagicLink(none, false)).fuccess
+      Ok(renderMagicLink(none, fail = false)).fuccess
     }
 
   def magicLinkApply =
@@ -416,7 +416,7 @@ final class Auth(
       forms.magicLink.form
         .bindFromRequest()
         .fold(
-          err => BadRequest(renderMagicLink(err.some, true)).fuccess,
+          err => BadRequest(renderMagicLink(err.some, fail = true)).fuccess,
           data =>
             env.security.recaptcha.verify(~data.recaptchaResponse, req) flatMap {
               _ ?? env.user.repo.enabledWithEmail(data.realEmail.normalize)
@@ -431,7 +431,7 @@ final class Auth(
               }
               case _ => {
                 lila.mon.user.auth.magicLinkRequest("no_email").increment()
-                BadRequest(renderMagicLink(none, true)).fuccess
+                BadRequest(renderMagicLink(none, fail = true)).fuccess
               }
             }
         )

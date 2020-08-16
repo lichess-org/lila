@@ -195,7 +195,7 @@ final class ClasApi(
         )
         .orFail(s"No user could be created for ${data.username}")
         .flatMap { user =>
-          userRepo.setKid(user, true) >>
+          userRepo.setKid(user, v = true) >>
             userRepo.setManagedUserInitialPerfs(user.id) >>
             coll.insert.one(Student.make(user, clas, teacher.id, data.realName, managed = true)) >>
             sendWelcomeMessage(teacher.id, user, clas) inject
@@ -251,7 +251,7 @@ ${clas.desc}""",
 
     def create(clas: Clas, user: User, realName: String, teacher: User): Fu[ClasInvite.Feedback] =
       student
-        .archive(Student.id(user.id, clas.id), user, false)
+        .archive(Student.id(user.id, clas.id), user, v = false)
         .map2[ClasInvite.Feedback](_ => Already) getOrElse {
         lila.mon.clas.studentInvite(teacher.id)
         val invite = ClasInvite.make(clas, user, realName, teacher)

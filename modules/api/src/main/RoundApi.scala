@@ -256,7 +256,7 @@ final private[api] class RoundApi(
       Json
         .obj(
           "id"      -> v.tour.id,
-          "name"    -> v.tour.name(false),
+          "name"    -> v.tour.name(full = false),
           "running" -> v.tour.isStarted
         )
         .add("secondsToFinish" -> v.tour.isStarted.option(v.tour.secondsToFinish))

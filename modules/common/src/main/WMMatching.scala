@@ -73,7 +73,7 @@ object WMMatching {
 
   private[this] def minWeightMatching(endpoint: Array[Int], weights: Array[Int]): List[(Int, Int)] = {
     val maxweight = weights.max
-    maxWeightMatching(endpoint, weights.map { maxweight - _ }, true)
+    maxWeightMatching(endpoint, weights.map { maxweight - _ }, maxcardinality = true)
   }
 
   private[this] def mateToList(endpoint: Array[Int], mate: Array[Int]): List[(Int, Int)] = {
@@ -783,7 +783,7 @@ object WMMatching {
             true
           }
           case 3 => {
-            expandBlossom(dt.extra, false)
+            expandBlossom(dt.extra, endstage = false)
             true
           }
         }

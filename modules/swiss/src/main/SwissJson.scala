@@ -164,7 +164,7 @@ object SwissJson {
       })
 
   private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
-    playerJsonBase(view, false) ++ Json
+    playerJsonBase(view, performance = false) ++ Json
       .obj(
         "sheetMin" -> swiss.allRounds
           .map(view.pairings.get)
@@ -176,7 +176,7 @@ object SwissJson {
       )
 
   def playerJsonExt(swiss: Swiss, view: SwissPlayer.ViewExt): JsObject =
-    playerJsonBase(view, true) ++ Json.obj(
+    playerJsonBase(view, performance = true) ++ Json.obj(
       "sheet" -> swiss.allRounds
         .zip(view.sheet.outcomes)
         .reverse

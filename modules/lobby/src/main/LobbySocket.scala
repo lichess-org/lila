@@ -210,10 +210,10 @@ final class LobbySocket(
     // entering the hooks view
     case ("hookIn", _) =>
       HookPoolLimit(member, cost = 2, msg = "hookIn") {
-        lobby ! HookSub(member, true)
+        lobby ! HookSub(member, value = true)
       }
     // leaving the hooks view
-    case ("hookOut", _) => trouper ! HookSub(member, false)
+    case ("hookOut", _) => trouper ! HookSub(member, value = false)
   }
 
   private def getOrConnect(sri: Sri, userOpt: Option[User.ID]): Fu[Member] =

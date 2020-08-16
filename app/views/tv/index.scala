@@ -51,7 +51,7 @@ object index {
           side.meta(pov),
           side.channels(channel, champions, "/tv")
         ),
-        views.html.round.bits.roundAppPreload(pov, false),
+        views.html.round.bits.roundAppPreload(pov, controls = false),
         div(cls := "round__underboard")(
           views.html.round.bits.crosstable(cross, pov.game),
           div(cls := "tv-history")(

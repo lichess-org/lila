@@ -37,8 +37,8 @@ object embed {
             )
           ),
           jQueryTag,
-          jsAt("javascripts/vendor/chessground.min.js", false),
-          jsAt("compiled/puzzle.js", false)
+          jsAt("javascripts/vendor/chessground.min.js", defer = false),
+          jsAt("compiled/puzzle.js", defer = false)
         )
       )
     )

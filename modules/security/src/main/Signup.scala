@@ -131,7 +131,7 @@ final class Signup(
                 data.username,
                 passwordHash,
                 email.acceptable,
-                false,
+                blind = false,
                 apiVersion.some,
                 mustConfirmEmail = mustConfirm.value
               )

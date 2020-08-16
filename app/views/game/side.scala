@@ -83,7 +83,7 @@ object side {
               game.pgnImport.exists(_.date.isDefined) option small(
                 "Imported ",
                 game.pgnImport.flatMap(_.user).map { user =>
-                  trans.by(userIdLink(user.some, None, false))
+                  trans.by(userIdLink(user.some, None, withOnline = false))
                 }
               )
             )
@@ -94,7 +94,7 @@ object side {
                 div(cls := s"player color-icon is ${p.color.name} text")(
                   playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
                 ),
-                tour.flatMap(_.teamVs).map(_.teams(p.color)) map { teamLink(_, false)(cls := "team") }
+                tour.flatMap(_.teamVs).map(_.teams(p.color)) map { teamLink(_, withIcon = false)(cls := "team") }
               )
             }
           )

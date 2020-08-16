@@ -65,7 +65,7 @@ object ServerEval {
                             chapterRepo.setComments(
                               node.comments + Comment(
                                 Comment.Id.make,
-                                Comment.Text(adv.makeComment(false, true)),
+                                Comment.Text(adv.makeComment(withEval = false, withBestMove = true)),
                                 Comment.Author.Lichess
                               )
                             )(chapter, path + node) >>

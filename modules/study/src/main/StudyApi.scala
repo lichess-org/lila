@@ -316,7 +316,7 @@ final class StudyApi(
                   }
                   .collect {
                     case (node, path) if node.forceVariation =>
-                      doForceVariation(Study.WithChapter(study, newChapter), path, false, who)
+                      doForceVariation(Study.WithChapter(study, newChapter), path, force = false, who)
                   }
                   .sequenceFu
                   .void

@@ -71,7 +71,7 @@ final private[tournament] class PairingSystem(
       preps.zip(ids).map {
         case (prep, id) =>
           //color was chosen in prepWithColor function
-          prep.toPairing(id)(true)
+          prep.toPairing(id)(firstGetsWhite = true)
       }
     }
 

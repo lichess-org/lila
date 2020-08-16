@@ -74,7 +74,7 @@ final class JsonView(
       games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
       jsons <- (puzzles zip games).collect {
         case (puzzle, Some(game)) =>
-          gameJson.noCache(game, puzzle.initialPly, true) map { gameJson =>
+          gameJson.noCache(game, puzzle.initialPly, onlyLast = true) map { gameJson =>
             Json.obj(
               "game"   -> gameJson,
               "puzzle" -> puzzleJson(puzzle, isOldMobile = false)
@@ -82,7 +82,7 @@ final class JsonView(
           }
       }.sequenceFu
     } yield Json.obj(
-      "user"    -> JsonView.infos(false)(userInfos),
+      "user"    -> JsonView.infos(isOldMobile = false)(userInfos),
       "puzzles" -> jsons
     )
 

@@ -43,7 +43,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain) {
               move =>
                 move.copy(
                   glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
-                  comments = advice.makeComment(true, true) :: move.comments,
+                  comments = advice.makeComment(withEval = true, withBestMove = true) :: move.comments,
                   variations = makeVariation(turn, advice) :: Nil
                 )
             )

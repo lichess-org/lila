@@ -31,7 +31,7 @@ object widgets {
                   frag(
                     span("IMPORT"),
                     g.pgnImport.flatMap(_.user).map { user =>
-                      frag(" ", trans.by(userIdLink(user.some, None, false)))
+                      frag(" ", trans.by(userIdLink(user.some, None, withOnline = false)))
                     },
                     separator,
                     if (g.variant.exotic) bits.variantLink(g.variant, g.variant.name.toUpperCase)
@@ -138,7 +138,7 @@ object widgets {
       } getOrElse {
         player.aiLevel map { level =>
           frag(
-            span(aiName(level, false)),
+            span(aiName(level, withRating = false)),
             br,
             aiRating(level)
           )

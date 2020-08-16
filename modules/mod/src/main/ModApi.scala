@@ -49,7 +49,7 @@ final class ModApi(
         reportApi.getMod(modId.value) flatMap {
           _ ?? { mod =>
             lila.mon.cheat.autoMark.increment()
-            setEngine(mod, sus, true)
+            setEngine(mod, sus, v = true)
           }
         }
       }
@@ -94,8 +94,8 @@ final class ModApi(
   def garbageCollect(sus: Suspect): Funit =
     for {
       mod <- reportApi.getLichessMod
-      _   <- setAlt(mod, sus, true)
-      _   <- setTroll(mod, sus, false)
+      _   <- setAlt(mod, sus, v = true)
+      _   <- setTroll(mod, sus, value = false)
     } yield logApi.garbageCollect(mod, sus)
 
   def disableTwoFactor(mod: String, username: String): Funit =

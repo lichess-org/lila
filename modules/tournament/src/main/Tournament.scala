@@ -200,7 +200,7 @@ object Tournament {
   def scheduleAs(sched: Schedule, minutes: Int) =
     Tournament(
       id = makeId,
-      name = sched.name(false)(defaultLang),
+      name = sched.name(full = false)(defaultLang),
       status = Status.Created,
       clock = Schedule clockFor sched,
       minutes = minutes,

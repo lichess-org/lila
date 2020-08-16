@@ -115,14 +115,14 @@ final class Simul(
   def accept(simulId: String, userId: String) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
-        env.simul.api.accept(simul.id, userId, true) inject jsonOkResult
+        env.simul.api.accept(simul.id, userId, v = true) inject jsonOkResult
       }
     }
 
   def reject(simulId: String, userId: String) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
-        env.simul.api.accept(simul.id, userId, false) inject jsonOkResult
+        env.simul.api.accept(simul.id, userId, v = false) inject jsonOkResult
       }
     }
 
