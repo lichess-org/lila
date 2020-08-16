@@ -1,13 +1,15 @@
 package lila.evalCache
 
-import play.api.libs.json.{ JsObject, JsString }
+import play.api.libs.json.{JsObject, JsString}
+
 import scala.collection.mutable.AnyRefMap
 import scala.concurrent.duration._
-
 import chess.format.FEN
 import chess.variant.Variant
 import lila.socket.Socket
 import lila.memo.ExpireCallbackMemo
+
+import scala.collection.mutable
 
 /* Upgrades the user's eval when a better one becomes available,
  * by remembering the last evalGet of each socket member,
@@ -19,8 +21,8 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
 ) {
   import EvalCacheUpgrade._
 
-  private val members       = AnyRefMap.empty[SriString, WatchingMember]
-  private val evals         = AnyRefMap.empty[SetupId, Set[SriString]]
+  private val members       = mutable.AnyRefMap.empty[SriString, WatchingMember]
+  private val evals         = mutable.AnyRefMap.empty[SetupId, Set[SriString]]
   private val expirableSris = new ExpireCallbackMemo(20 minutes, sri => unregister(Socket.Sri(sri)))
 
   private val upgradeMon = lila.mon.evalCache.upgrade

@@ -2,23 +2,25 @@ package lila.app
 package templating
 
 import java.util.Locale
-import play.api.i18n.Lang
-import scala.collection.mutable.AnyRefMap
 
+import play.api.i18n.Lang
+
+import scala.collection.mutable.AnyRefMap
 import org.joda.time.format._
 import org.joda.time.format.ISODateTimeFormat
-import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period, PeriodType }
-
+import org.joda.time.{DateTime, DateTimeZone, DurationFieldType, Period, PeriodType}
 import lila.app.ui.ScalatagsTemplate._
+
+import scala.collection.mutable
 
 trait DateHelper { self: I18nHelper with StringHelper =>
 
   private val dateTimeStyle = "MS"
   private val dateStyle     = "M-"
 
-  private val dateTimeFormatters = AnyRefMap.empty[String, DateTimeFormatter]
-  private val dateFormatters     = AnyRefMap.empty[String, DateTimeFormatter]
-  private val periodFormatters   = AnyRefMap.empty[String, PeriodFormatter]
+  private val dateTimeFormatters = mutable.AnyRefMap.empty[String, DateTimeFormatter]
+  private val dateFormatters     = mutable.AnyRefMap.empty[String, DateTimeFormatter]
+  private val periodFormatters   = mutable.AnyRefMap.empty[String, PeriodFormatter]
   private val periodType = PeriodType forFields Array(
     DurationFieldType.days,
     DurationFieldType.hours,

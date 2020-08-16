@@ -56,7 +56,7 @@ trait SetupHelper { self: I18nHelper =>
     "165",
     "180"
   ).map { v =>
-    (v.toString, v.toString, none)
+    (v, v, none)
   }
 
   val clockIncrementChoices: List[SelectChoice] = {

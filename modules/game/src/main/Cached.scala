@@ -42,7 +42,7 @@ final class Cached(
     4096,
     "game:imported",
     30 days,
-    _.toString
+    identity
   ) { loader =>
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture {
