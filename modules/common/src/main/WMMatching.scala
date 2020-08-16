@@ -744,14 +744,12 @@ object WMMatching {
         for (v <- vertices) {
           label(inblossom(v)) match {
             case 0 => ()
-            case 1 => {
+            case 1 =>
               //S-vertex: 2*u = 2*u - 2*delta
               dualvar(v) -= dt.delta
-            }
-            case 2 => {
+            case 2 =>
               //T-vertex: 2*u = 2*u + 2*delta
               dualvar(v) += dt.delta
-            }
           }
         }
 
@@ -768,24 +766,21 @@ object WMMatching {
         // Take action at the point where minimum delta occurred.
         dt.tp match {
           case 0 => false
-          case 1 => {
+          case 1 =>
             // Use the least-slack edge to continue the search.
             allowedge(dt.extra) = true
             val kk = 2 * dt.extra
             val ei = endpoint(kk)
             queue ::= (if (label(inblossom(ei)) == 0) endpoint(kk + 1) else ei)
             true
-          }
-          case 2 => {
+          case 2 =>
             // Use the least-slack edge to continue the search.
             allowedge(dt.extra) = true
             queue ::= endpoint(2 * dt.extra)
             true
-          }
-          case 3 => {
+          case 3 =>
             expandBlossom(dt.extra, endstage = false)
             true
-          }
         }
       }
     }

@@ -113,11 +113,10 @@ final class ModApi(
   def setTitle(mod: String, username: String, title: Option[Title]): Funit =
     withUser(username) { user =>
       title match {
-        case None => {
+        case None =>
           userRepo.removeTitle(user.id) >>-
             logApi.removeTitle(mod, user.id) >>-
             lightUserApi.invalidate(user.id)
-        }
         case Some(t) =>
           Title.names.get(t) ?? { tFull =>
             userRepo.addTitle(user.id, t) >>-

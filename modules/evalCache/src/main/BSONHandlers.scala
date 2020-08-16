@@ -42,11 +42,11 @@ private object BSONHandlers {
                     scoreRead(score) err s"Invalid score $score",
                     movesRead(moves) err s"Invalid moves $moves"
                   )
-                case x => sys error s"Invalid PV $pvStr: ${x.toList} (in ${value})"
+                case x => sys error s"Invalid PV $pvStr: ${x.toList} (in $value)"
               }
             }
           }.flatMap {
-            _.toNel toTry s"Empty PVs ${value}"
+            _.toNel toTry s"Empty PVs $value"
           }
         case b => lila.db.BSON.handlerBadType[NonEmptyList[Pv]](b)
       }
@@ -70,7 +70,7 @@ private object BSONHandlers {
                 SmallFen raw fen
               )
             )
-          case _ => lila.db.BSON.handlerBadValue(s"Invalid evalcache id ${value}")
+          case _ => lila.db.BSON.handlerBadValue(s"Invalid evalcache id $value")
         }
     },
     x =>

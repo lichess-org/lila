@@ -40,7 +40,7 @@ case class NormalizedEmailAddress(value: String) extends AnyVal with StringValue
 case class EmailAddress(value: String) extends AnyVal with StringValue {
   def conceal =
     value split '@' match {
-      case Array(user, domain) => s"${user take 3}*****@${domain}"
+      case Array(user, domain) => s"${user take 3}*****@$domain"
       case _                   => value
     }
   def normalize =

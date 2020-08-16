@@ -22,7 +22,7 @@ final class GifExport(
 
   def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
     lightUserApi preloadMany pov.game.userIds flatMap { _ =>
-      ws.url(s"${url}/game.gif")
+      ws.url(s"$url/game.gif")
         .withMethod("POST")
         .addHttpHeaders("Content-Type" -> "application/json")
         .withBody(
@@ -55,7 +55,7 @@ final class GifExport(
     ).flatten
 
     lightUserApi preloadMany game.userIds flatMap { _ =>
-      ws.url(s"${url}/image.gif")
+      ws.url(s"$url/image.gif")
         .withMethod("GET")
         .withQueryStringParameters(query: _*)
         .stream() flatMap {
@@ -75,12 +75,12 @@ final class GifExport(
       lastMove.map { "lastMove" -> _ }
     ).flatten
 
-    ws.url(s"${url}/image.gif")
+    ws.url(s"$url/image.gif")
       .withMethod("GET")
       .withQueryStringParameters(query: _*)
       .stream() flatMap {
       case res if res.status != 200 =>
-        logger.warn(s"GifExport thumbnail ${fen} ${res.status}")
+        logger.warn(s"GifExport thumbnail $fen ${res.status}")
         fufail(res.statusText)
       case res => fuccess(res.bodyAsSource)
     }

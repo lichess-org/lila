@@ -59,7 +59,7 @@ final class GarbageCollector(
           ipSusp <- ipTrust.isSuspicious(ip)
         } yield {
           val printOpt = spy.prints.headOption
-          logger.debug(s"apply ${data.user.username} print=${printOpt}")
+          logger.debug(s"apply ${data.user.username} print=$printOpt")
           Bus.publish(
             lila.security.UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
             "userSignup"

@@ -159,8 +159,8 @@ final object RawHtml {
       while (
         (sArr(last): @switch) match {
           case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' => true
-          case '('                                                        => { parenCnt -= 1; true }
-          case ')'                                                        => { parenCnt += 1; parenCnt <= 0 }
+          case '('                                                        => parenCnt -= 1; true
+          case ')'                                                        => parenCnt += 1; parenCnt <= 0
           case _                                                          => false
         }
       ) { last -= 1 }

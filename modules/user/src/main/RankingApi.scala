@@ -59,7 +59,7 @@ final class RankingApi(
     }
 
   private def makeId(userId: User.ID, perfType: PerfType) =
-    s"${userId}:${perfType.id}"
+    s"$userId:${perfType.id}"
 
   private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId) ?? { perfKey =>

@@ -60,7 +60,7 @@ final class Analyser(
   def study(req: lila.hub.actorApi.fishnet.StudyChapterRequest): Fu[Boolean] =
     analysisRepo exists req.chapterId flatMap {
       case true => fuFalse
-      case _ => {
+      case _ =>
         import req._
         val sender =
           Work.Sender(req.userId.some, none, mod = false, system = lila.user.User isOfficial req.userId)
@@ -92,7 +92,6 @@ final class Analyser(
             }
           } inject accepted
         }
-      }
     }
 
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =

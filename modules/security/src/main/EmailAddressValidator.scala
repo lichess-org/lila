@@ -84,7 +84,7 @@ final class EmailAddressValidator(
       90.millis,
       "dns", {
         logger.warn(
-          s"EmailAddressValidator.withAcceptableDns timeout! ${e} records should have been preloaded"
+          s"EmailAddressValidator.withAcceptableDns timeout! $e records should have been preloaded"
         )
         false
       }

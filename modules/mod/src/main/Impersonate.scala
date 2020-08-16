@@ -21,7 +21,7 @@ final class ImpersonateApi(userRepo: UserRepo) {
     userToMod.get(user.id) ?? { modId =>
       modToUser = modToUser - modId
       userToMod = userToMod - user.id
-      logger.info(s"${modId} stops impersonating ${user.username}")
+      logger.info(s"$modId stops impersonating ${user.username}")
       Bus.publish(Impersonate(user.id, none), "impersonate")
     }
 

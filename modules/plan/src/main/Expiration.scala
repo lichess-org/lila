@@ -19,7 +19,7 @@ final private class Expiration(
       _.map { patron =>
         patronColl.update.one($id(patron.id), patron.removeStripe.removePayPal) >>
           disableUserPlanOf(patron) >>-
-          logger.info(s"Expired ${patron}")
+          logger.info(s"Expired $patron")
       }.sequenceFu.void
     }
 

@@ -163,7 +163,7 @@ Allow: /
           "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map { size =>
             Json.obj(
               "src"   -> s"//${env.net.assetDomain.value}/assets/logo/lichess-favicon-$size.png",
-              "sizes" -> s"${size}x${size}",
+              "sizes" -> s"${size}x$size",
               "type"  -> "image/png"
             )
           },

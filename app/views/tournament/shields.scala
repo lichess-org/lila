@@ -23,7 +23,7 @@ object shields {
           h1("Tournament shields"),
           div(cls := "tournament-shields")(
             history.sorted.map {
-              case (categ, awards) => {
+              case (categ, awards) =>
                 section(
                   h2(
                     a(href := routes.Tournament.categShields(categ.key))(
@@ -38,7 +38,6 @@ object shields {
                     )
                   })
                 )
-              }
             }
           )
         )

@@ -67,7 +67,7 @@ trait SetupHelper { self: I18nHelper =>
 
   val corresDaysChoices: List[SelectChoice] =
     ("1", "One day", none) :: List(2, 3, 5, 7, 10, 14).map { d =>
-      (d.toString, s"${d} days", none)
+      (d.toString, s"$d days", none)
     }
 
   def translatedTimeModeChoices(implicit lang: Lang) =

@@ -124,10 +124,9 @@ final private class StripeClient(
   private def getOne[A: Reads](url: String, queryString: (String, Any)*): Fu[Option[A]] =
     get[A](url, queryString) dmap Some.apply recover {
       case _: NotFoundException => None
-      case e: DeletedException => {
+      case e: DeletedException =>
         play.api.Logger("stripe").warn(e.getMessage)
         None
-      }
     }
 
   private def getList[A: Reads](url: String, queryString: (String, Any)*): Fu[List[A]] =

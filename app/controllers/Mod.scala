@@ -191,7 +191,7 @@ final class Mod(
             err => BadRequest(err.toString).fuccess,
             rawEmail => {
               val email = env.security.emailAddressValidator
-                .validate(EmailAddress(rawEmail)) err s"Invalid email ${rawEmail}"
+                .validate(EmailAddress(rawEmail)) err s"Invalid email $rawEmail"
               modApi.setEmail(me.id, user.id, email.acceptable) inject redirect(user.username, mod = true)
             }
           )

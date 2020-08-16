@@ -19,7 +19,7 @@ final class SelfReport(
   private object recent {
     private val cache = new lila.memo.ExpireSetMemo(10 minutes)
     def isNew(user: User, fullId: Game.FullId): Boolean = {
-      val key = s"${user.id}:${fullId}"
+      val key = s"${user.id}:$fullId"
       val res = !cache.get(key)
       cache.put(key)
       res

@@ -26,7 +26,7 @@ case class Student(
 
 object Student {
 
-  def id(userId: User.ID, clasId: Clas.Id) = Id(s"${userId}:${clasId}")
+  def id(userId: User.ID, clasId: Clas.Id) = Id(s"$userId:$clasId")
 
   def make(user: User, clas: Clas, teacherId: User.ID, realName: String, managed: Boolean) =
     Student(

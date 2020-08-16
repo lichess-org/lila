@@ -77,7 +77,7 @@ object ChatTimeout {
     def apply(key: String) = all.find(_.key == key)
   }
   implicit val ReasonBSONHandler: BSONHandler[Reason] = tryHandler[Reason](
-    { case BSONString(value) => Reason(value) toTry s"Invalid reason ${value}" },
+    { case BSONString(value) => Reason(value) toTry s"Invalid reason $value" },
     x => BSONString(x.key)
   )
 

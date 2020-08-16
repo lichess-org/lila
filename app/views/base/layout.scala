@@ -64,7 +64,7 @@ object layout {
       .map { px =>
         s"""<link rel="icon" type="image/png" href="${staticUrl(
           s"logo/lichess-favicon-$px.png"
-        )}" sizes="${px}x${px}">"""
+        )}" sizes="${px}x$px">"""
       }
       .mkString(
         "",

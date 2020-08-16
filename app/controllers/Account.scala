@@ -413,10 +413,9 @@ final class Account(
   def reopenLogin(token: String) =
     Open { implicit ctx =>
       env.security.reopen confirm token flatMap {
-        case None => {
+        case None =>
           lila.mon.user.auth.reopenConfirm("token_fail").increment()
           notFound
-        }
         case Some(user) =>
           env.report.api.reopenReports(lila.report.Suspect(user)) >>
             auth.authenticateUser(user) >>-

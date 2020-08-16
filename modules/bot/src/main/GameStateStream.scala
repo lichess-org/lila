@@ -64,7 +64,7 @@ final class GameStateStream(
 
       private val classifiers = List(
         MoveGameEvent makeChan id,
-        s"boardDrawOffer:${id}",
+        s"boardDrawOffer:$id",
         "finishGame",
         "abortGame",
         uniqChan(init.game pov as),

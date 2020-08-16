@@ -64,7 +64,7 @@ final private class PoolActor(
       nextWave.cancel()
       hookThieve.candidates(config.clock) pipeTo self
 
-    case HookThieve.PoolHooks(hooks) => {
+    case HookThieve.PoolHooks(hooks) =>
 
       monitor.withRange(monId).record(members.count(_.hasRange))
 
@@ -96,7 +96,6 @@ final private class PoolActor(
       }
 
       scheduleWave()
-    }
 
     case Sris(sris) =>
       members = members.filter { m =>

@@ -91,7 +91,7 @@ final private[puzzle] class PuzzleApi(
       }
 
     def update(id: PuzzleId, user: User, v1: Option[Vote], v: Boolean): Fu[(Puzzle, Vote)] =
-      puzzle find id orFail s"Can't vote for non existing puzzle ${id}" flatMap { p1 =>
+      puzzle find id orFail s"Can't vote for non existing puzzle $id" flatMap { p1 =>
         val (p2, v2) = v1 match {
           case Some(from) =>
             (

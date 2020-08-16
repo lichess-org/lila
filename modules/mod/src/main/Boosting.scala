@@ -53,7 +53,7 @@ final class BoostingApi(
       && game.clock.fold(false) { _.limitInMinutes >= 1 }
     ) {
       game.winnerColor match {
-        case Some(a) => {
+        case Some(a) =>
           val result: GameResult = a match {
             case Color.White => GameResult(winner = whiteUser, loser = blackUser)
             case Color.Black => GameResult(winner = blackUser, loser = whiteUser)
@@ -74,7 +74,6 @@ final class BoostingApi(
                 )
               )
           }
-        }
         case None => funit
       }
     } else {

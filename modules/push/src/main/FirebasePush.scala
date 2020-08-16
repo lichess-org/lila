@@ -70,7 +70,7 @@ final private class FirebasePush(
       ) flatMap {
       case res if res.status == 200 => funit
       case res if res.status == 404 =>
-        logger.info(s"Delete missing firebase device ${device}")
+        logger.info(s"Delete missing firebase device $device")
         deviceApi delete device
       case res => fufail(s"[push] firebase: ${res.status}")
     }

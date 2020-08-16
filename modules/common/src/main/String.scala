@@ -107,13 +107,12 @@ object String {
         case JsNumber(n)    => n.toString
         case JsBoolean(b)   => if (b) "true" else "false"
         case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
-        case JsObject(fields) => {
+        case JsObject(fields) =>
           fields
             .map {
               case (k, v) => s"${safeJsonString(k)}:${safeJsonValue(v)}"
             }
             .mkString("{", ",", "}")
-        }
       }
     }
   }

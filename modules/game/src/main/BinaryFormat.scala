@@ -111,7 +111,7 @@ object BinaryFormat {
         }
 
         ia match {
-          case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) => {
+          case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) =>
             val config      = Clock.Config(readClockLimit(b1), b2)
             val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
             val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
@@ -130,7 +130,6 @@ object BinaryFormat {
               ),
               timer = timer
             )
-          }
           case _ => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
         }
       }
