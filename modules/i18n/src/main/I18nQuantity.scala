@@ -75,7 +75,7 @@ private object I18nQuantity {
     def romanian(c: Count) = {
       val rem100 = c % 100;
       if (c == 1) One
-      else if ((c == 0 || (rem100 >= 1 && rem100 <= 19))) Few
+      else if (c == 0 || (rem100 >= 1 && rem100 <= 19)) Few
       else Other
     }
 

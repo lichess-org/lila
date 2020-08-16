@@ -22,7 +22,7 @@ final private class Pause {
 
   private def baseDelayOf(tour: Tournament) =
     Delay {
-      (tour.clock.estimateTotalSeconds / 15)
+      tour.clock.estimateTotalSeconds / 15
     }
 
   private def delayOf(record: Record, tour: Tournament) =

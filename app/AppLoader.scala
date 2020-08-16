@@ -58,7 +58,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   implicit def system = actorSystem
   implicit lazy val ws: StandaloneWSClient = {
     import play.shaded.ahc.org.asynchttpclient.DefaultAsyncHttpClient
-    import play.api.libs.ws.{ WSConfigParser }
+    import play.api.libs.ws.WSConfigParser
     import play.api.libs.ws.ahc.{ AhcConfigBuilder, AhcWSClientConfigParser, StandaloneAhcWSClient }
     new StandaloneAhcWSClient(
       new DefaultAsyncHttpClient(

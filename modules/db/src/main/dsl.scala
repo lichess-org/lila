@@ -296,7 +296,7 @@ trait dsl {
   }
 
   trait LogicalOperators { self: ElementBuilder =>
-    def $not(f: (String => Expression[Bdoc])): SimpleExpression[Bdoc] = {
+    def $not(f: String => Expression[Bdoc]): SimpleExpression[Bdoc] = {
       val expression = f(field)
       SimpleExpression(field, $doc("$not" -> expression.value))
     }

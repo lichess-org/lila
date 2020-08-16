@@ -1,6 +1,6 @@
 package lila.gameSearch
 
-import chess.{ Mode }
+import chess.Mode
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._

@@ -242,8 +242,8 @@ final class SlackApi(
           SlackMessage(
             username = mod.username,
             icon = "spiral_note_pad",
-            text = (s"_*${userLink(user.username)}*_ (${userNotesLink(user.username)}):\n" +
-              linkifyUsers(note.text take 2000)),
+            text = s"_*${userLink(user.username)}*_ (${userNotesLink(user.username)}):\n" +
+              linkifyUsers(note.text take 2000),
             channel = rooms.tavern
           )
       } flatMap client.apply

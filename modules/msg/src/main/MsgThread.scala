@@ -47,7 +47,6 @@ object MsgThread {
   def make(u1: User.ID, u2: User.ID, msg: Msg): MsgThread =
     sortUsers(u1, u2) match {
       case (user1, user2) =>
-        s"$user1/$user2"
         MsgThread(
           id = id(user1, user2),
           user1 = user1,

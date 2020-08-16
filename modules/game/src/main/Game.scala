@@ -97,7 +97,7 @@ case class Game(
   // because if moretime was given,
   // elapsed time is no longer representing the game duration
   def durationSeconds: Option[Int] =
-    (movedAt.getSeconds - createdAt.getSeconds) match {
+    movedAt.getSeconds - createdAt.getSeconds match {
       case seconds if seconds > 60 * 60 * 12 => none // no way it lasted more than 12 hours, come on.
       case seconds                           => seconds.toInt.some
     }

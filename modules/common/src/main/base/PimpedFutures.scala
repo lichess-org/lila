@@ -59,7 +59,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
   def addFailureEffect(effect: Throwable => Unit)(implicit ec: EC) = {
     fua.failed.foreach {
-      case e: Throwable => effect(e)
+      e: Throwable => effect(e)
     }
     fua
   }

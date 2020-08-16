@@ -458,9 +458,9 @@ object WMMatching {
         val l1                 = blossomchilds(b).length - 1
         val (jstep, endptrick) =
           // Start index is odd; go forward and wrap.
-          if ((j & 1) != 0) ((j: Int) => { if (j == l1) 0 else (j + 1) }, 0)
+          if ((j & 1) != 0) ((j: Int) => { if (j == l1) 0 else j + 1 }, 0)
           // Start index is even; go backward.
-          else ((j: Int) => { if (j == 0) l1 else (j - 1) }, 1)
+          else ((j: Int) => { if (j == 0) l1 else j - 1 }, 1)
         // Move along the blossom until we get to the base.
         var p = labelend(b)
         while (j != 0) {
@@ -534,8 +534,8 @@ object WMMatching {
       val i  = blossomchilds(b).indexOf(t)
       var j  = i
       val (jstep, endptrick) =
-        if ((j & 1) != 0) ((j: Int) => { if (j == l1) 0 else (j + 1) }, 0)
-        else ((j: Int) => { if (j == 0) l1 else (j - 1) }, 1)
+        if ((j & 1) != 0) ((j: Int) => { if (j == l1) 0 else j + 1 }, 0)
+        else ((j: Int) => { if (j == 0) l1 else j - 1 }, 1)
       // Move along the blossom until we get to the base.
       while (j != 0) {
         // Step to the next sub-blossom and augment it recursively.

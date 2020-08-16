@@ -65,12 +65,12 @@ object BinaryFormat {
 
     def write(mts: Vector[Centis]): ByteArray = {
       def enc(mt: Centis) = encodeCutoffs.search(mt.centis).insertionPoint
-      (mts
+      mts
         .grouped(2)
         .map {
           case Vector(a, b) => (enc(a) << 4) + enc(b)
           case Vector(a)    => enc(a) << 4
-        })
+        }
         .map(_.toByte)
         .toArray
     }

@@ -57,8 +57,8 @@ final class PostApi(
                 shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, value = true)
               } >>
                 env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>- {
-                (!categ.quiet ?? (indexer ! InsertPost(post)))
-                (!categ.quiet ?? env.recent.invalidate())
+                !categ.quiet ?? (indexer ! InsertPost(post))
+                !categ.quiet ?? env.recent.invalidate()
                 promotion.save(me, post.text)
                 shutup ! {
                   if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
@@ -199,7 +199,7 @@ final class PostApi(
       _ ?? { post =>
         viewOf(post) flatMap {
           _ ?? { view =>
-            (for {
+            for {
               first <- env.postRepo.isFirstPost(view.topic.id, view.post.id)
               _ <-
                 if (first) env.topicApi.delete(view.categ, view.topic)
@@ -215,7 +215,7 @@ final class PostApi(
                 post.author,
                 text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
               )
-            } yield ())
+            } yield ()
           }
         }
       }
