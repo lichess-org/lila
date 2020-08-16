@@ -48,9 +48,12 @@ object widget {
       pic(c, if (link) 300 else 350),
       div(cls := "overview")(
         (if (link) h2 else h1)(cls := "coach-name")(titleName(c)),
-        c.coach.profile.headline.map { h =>
-          p(cls := s"headline ${if (h.length < 60) "small" else if (h.length < 120) "medium" else "large"}")(h)
-        },
+        c.coach.profile.headline
+          .map { h =>
+            p(
+              cls := s"headline ${if (h.length < 60) "small" else if (h.length < 120) "medium" else "large"}"
+            )(h)
+          },
         table(
           tbody(
             tr(

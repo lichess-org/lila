@@ -185,8 +185,8 @@ final private class StripeClient(
   private def fixInput(in: Seq[(String, Any)]): Seq[(String, String)] =
     in flatMap {
       case (name, Some(x)) => Some(name -> x.toString)
-      case (_, None) => None
-      case (name, x) => Some(name -> x.toString)
+      case (_, None)       => None
+      case (name, x)       => Some(name -> x.toString)
     }
 
   private def listReader[A: Reads]: Reads[List[A]] = (__ \ "data").read[List[A]]

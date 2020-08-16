@@ -19,7 +19,7 @@ object StudyTopic {
   def fromStr(str: String): Option[StudyTopic] =
     str.trim match {
       case s if s.length >= minLength && s.length <= maxLength => StudyTopic(s).some
-      case _                                               => none
+      case _                                                   => none
     }
 
   implicit val topicIso = lila.common.Iso.string[StudyTopic](StudyTopic.apply, _.value)
