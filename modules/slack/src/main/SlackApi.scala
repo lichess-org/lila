@@ -33,7 +33,7 @@ final class SlackApi(
         val firsts    = buffer.sortBy(-_.amount).take(10).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.amount).sum
         val patrons =
-          if (firsts.size > 10) s"$firsts and, like, ${firsts.size - 10} others,"
+          if (firsts.length > 10) s"$firsts and, like, ${firsts.length - 10} others,"
           else firsts
         displayMessage {
           s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"

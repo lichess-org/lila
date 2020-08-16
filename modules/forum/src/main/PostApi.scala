@@ -135,12 +135,12 @@ final class PostApi(
     for {
       topics <- env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
       categs <- env.categRepo.coll.byIds[Categ](topics.map(_.categId).distinct)
-    } yield posts map { post =>
+    } yield posts flatMap { post =>
       for {
         topic <- topics find (_.id == post.topicId)
         categ <- categs find (_.slug == topic.categId)
       } yield PostView(post, topic, categ, lastPageOf(topic))
-    } flatten
+    }
 
   def viewsFromIds(postIds: Seq[Post.ID]): Fu[List[PostView]] =
     env.postRepo.coll.byOrderedIds[Post, Post.ID](postIds)(_.id) flatMap views

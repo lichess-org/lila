@@ -132,7 +132,7 @@ private object Registry {
   private val badChars = """[<>&"'\r\n]""".r.pattern
   private def escapeHtmlOption(s: String): Option[String] =
     if (badChars.matcher(s).find) Some {
-      val sb = new java.lang.StringBuilder(s.size + 10) // wet finger style
+      val sb = new java.lang.StringBuilder(s.length + 10) // wet finger style
       var i  = 0
       while (i < s.length) {
         s.charAt(i) match {

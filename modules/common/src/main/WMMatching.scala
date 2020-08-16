@@ -79,7 +79,7 @@ object WMMatching {
   private[this] def mateToList(endpoint: Array[Int], mate: Array[Int]): List[(Int, Int)] = {
     // Transform mate such that mate(v) is the vertex to which v is paired.
     var l: List[(Int, Int)] = Nil
-    for (v <- Range(mate.size - 2, -1, -1)) {
+    for (v <- Range(mate.length - 2, -1, -1)) {
       val k = mate(v)
       if (k >= 0) {
         val e = endpoint(k)

@@ -124,7 +124,7 @@ final class RankingApi(
       cache.getUnit map { all =>
         all.flatMap {
           case (pt, ranking) => ranking get userId map (pt -> _)
-        } toMap
+        }
       }
 
     private val cache = cacheApi.unit[Map[PerfType, Map[User.ID, Rank]]] {
@@ -226,7 +226,7 @@ final class RankingApi(
      * rating.distribution.bullet.2800 => 0.9997
      */
     private def monitorRatingDistribution(perfId: Perf.ID)(nbUsersList: List[NbUsers]): Unit = {
-      val total = nbUsersList.foldLeft(0)(_ + _)
+      val total = nbUsersList.sum
       (Stat.minRating to 2800 by Stat.group).toList.zip(nbUsersList).foldLeft(0) {
         case (prev, (rating, nbUsers)) =>
           val acc = prev + nbUsers

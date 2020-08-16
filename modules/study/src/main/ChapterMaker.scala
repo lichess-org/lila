@@ -170,8 +170,8 @@ final private class ChapterMaker(
 
   private def parseGame(str: String): Fu[Option[Game]] =
     str match {
-      case s if s.size == Game.gameIdSize => gameRepo game s
-      case s if s.size == Game.fullIdSize => gameRepo game Game.takeGameId(s)
+      case s if s.length == Game.gameIdSize => gameRepo game s
+      case s if s.length == Game.fullIdSize => gameRepo game Game.takeGameId(s)
       case UrlRegex(id)                   => parseGame(id)
       case _                              => fuccess(none)
     }

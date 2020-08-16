@@ -21,9 +21,7 @@ object EvalCacheSelector {
       .sortBy(-_._1)
       .map(_._2)
       // then sort each group's evals, and keep only the best eval in each group
-      .map(_ sortBy ranking)
-      .map(_.lastOption)
-      .flatten
+      .map(_ sortBy ranking).flatMap(_.lastOption)
       // now remove obsolete evals
       .foldLeft(Nil: Evals) {
         case (acc, e) if acc.exists { makesObsolete(_, e) } => acc

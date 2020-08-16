@@ -13,33 +13,34 @@ case class JsonQuestion(
     for {
       realMetric <- Metric.byKey get metric
       realFilters =
-        filters
-          .map {
-            case (filterKey, valueKeys) => {
-              def build[X](dimension: Dimension[X]) =
-                Filter[X](dimension, valueKeys.flatMap { Dimension.valueByKey(dimension, _) }).some
-              filterKey match {
-                case Period.key           => build(Period)
-                case Perf.key             => build(Perf)
-                case Phase.key            => build(Phase)
-                case Result.key           => build(Result)
-                case Termination.key      => build(Termination)
-                case Color.key            => build(Color)
-                case Opening.key          => build(Opening)
-                case OpponentStrength.key => build(OpponentStrength)
-                case PieceRole.key        => build(PieceRole)
-                case MovetimeRange.key    => build(MovetimeRange)
-                case MyCastling.key       => build(MyCastling)
-                case OpCastling.key       => build(OpCastling)
-                case QueenTrade.key       => build(QueenTrade)
-                case MaterialRange.key    => build(MaterialRange)
-                case Blur.key             => build(Blur)
-                case TimeVariance.key     => build(TimeVariance)
-                case _                    => none
-              }
+        filters.flatMap {
+          case (filterKey, valueKeys) => {
+            def build[X](dimension: Dimension[X]) =
+              Filter[X](dimension, valueKeys.flatMap {
+                Dimension.valueByKey(dimension, _)
+              }).some
+
+            filterKey match {
+              case Period.key => build(Period)
+              case Perf.key => build(Perf)
+              case Phase.key => build(Phase)
+              case Result.key => build(Result)
+              case Termination.key => build(Termination)
+              case Color.key => build(Color)
+              case Opening.key => build(Opening)
+              case OpponentStrength.key => build(OpponentStrength)
+              case PieceRole.key => build(PieceRole)
+              case MovetimeRange.key => build(MovetimeRange)
+              case MyCastling.key => build(MyCastling)
+              case OpCastling.key => build(OpCastling)
+              case QueenTrade.key => build(QueenTrade)
+              case MaterialRange.key => build(MaterialRange)
+              case Blur.key => build(Blur)
+              case TimeVariance.key => build(TimeVariance)
+              case _ => none
             }
           }
-          .flatten
+        }
           .filterNot(_.isEmpty)
           .toList
       question <- {

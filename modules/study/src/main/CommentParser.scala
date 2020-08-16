@@ -91,8 +91,8 @@ private[study] object CommentParser {
         val arrows = str.split(',').toList.flatMap { c =>
           for {
             color <- c.headOption
-            orig  <- Pos posAt c.drop(1).take(2)
-            dest  <- Pos posAt c.drop(3).take(2)
+            orig  <- Pos posAt c.slice(1, 3)
+            dest  <- Pos posAt c.slice(3, 5)
           } yield Shape.Arrow(toBrush(color), orig, dest)
         }
         Shapes(arrows) -> arrowsRemoveRegex.replaceAllIn(comment, "").trim

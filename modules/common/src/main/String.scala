@@ -32,7 +32,7 @@ object String {
 
   def shorten(text: String, length: Int, sep: String = "…") = {
     val t = text.replace('\n', ' ')
-    if (t.size > (length + sep.size)) (t take length) ++ sep
+    if (t.length > (length + sep.length)) (t take length) ++ sep
     else t
   }
 

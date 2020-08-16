@@ -101,7 +101,7 @@ final class PersonalDataExport(
 
     private val bigSep = "\n\n------------------------------------------\n\n"
 
-    private def textTitle(t: String) = s"\n\n${"=" * t.size}\n$t\n${"=" * t.size}\n\n\n"
+    private def textTitle(t: String) = s"\n\n${"=" * t.length}\n$t\n${"=" * t.length}\n\n\n"
 
     private val englishDateTimeFormatter = DateTimeFormat forStyle "MS"
     private def textDate(date: DateTime) = englishDateTimeFormatter print date

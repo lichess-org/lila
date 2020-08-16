@@ -292,7 +292,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     !nameExists(username) flatMap {
       _ ?? {
         val doc = newUser(username, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
-          ("len" -> BSONInteger(username.size))
+          ("len" -> BSONInteger(username.length))
         coll.insert.one(doc) >> named(normalize(username))
       }
     }

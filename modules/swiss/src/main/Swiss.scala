@@ -39,7 +39,7 @@ case class Swiss(
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 
   def allRounds: List[SwissRound.Number]      = (1 to round.value).toList.map(SwissRound.Number.apply)
-  def finishedRounds: List[SwissRound.Number] = (1 to (round.value - 1)).toList.map(SwissRound.Number.apply)
+  def finishedRounds: List[SwissRound.Number] = (1 until round.value).toList.map(SwissRound.Number.apply)
 
   def guessNbRounds  = (nbPlayers - 1) atMost settings.nbRounds atLeast 2
   def actualNbRounds = if (isFinished) round.value else guessNbRounds

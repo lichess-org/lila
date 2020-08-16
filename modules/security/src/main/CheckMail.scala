@@ -44,7 +44,7 @@ final private class CheckMail(
         ),
         ReadPreference.secondaryPreferred
       ) map { ids =>
-      val dropSize = prefix.size + 1
+      val dropSize = prefix.length + 1
       ids.map(_ drop dropSize)
     }
 

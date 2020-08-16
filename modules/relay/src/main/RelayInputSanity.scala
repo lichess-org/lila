@@ -17,7 +17,7 @@ private object RelayInputSanity {
       val relayChapters: List[RelayChapter] = chapters.flatMap { chapter =>
         chapter.relay map chapter.->
       }
-      detectMissingOrMisplaced(relayChapters, games.toVector)
+      detectMissingOrMisplaced(relayChapters, games)
     }
 
   private def detectMissingOrMisplaced(chapters: List[RelayChapter], games: Vector[RelayGame]): Option[Fail] =

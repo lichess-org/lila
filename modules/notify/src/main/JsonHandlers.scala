@@ -87,12 +87,8 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
   }
   implicit val andUnreadWrites: Writes[Notification.AndUnread] = Json.writes[Notification.AndUnread]
 
-  implicit val newNotificationWrites: Writes[NewNotification] = new Writes[NewNotification] {
-
-    def writes(newNotification: NewNotification) =
-      Json.obj(
-        "notification" -> newNotification.notification,
-        "unread"       -> newNotification.unreadNotifications
-      )
-  }
+  implicit val newNotificationWrites: Writes[NewNotification] = (newNotification: NewNotification) => Json.obj(
+    "notification" -> newNotification.notification,
+    "unread" -> newNotification.unreadNotifications
+  )
 }

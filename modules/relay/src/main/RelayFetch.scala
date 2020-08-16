@@ -178,7 +178,7 @@ final private class RelayFetch(
             }
             .sequenceFu
             .map { results =>
-              MultiPgn(results.sortBy(_._1).map(_._2).toList)
+              MultiPgn(results.sortBy(_._1).map(_._2))
             }
         }
     } flatMap RelayFetch.multiPgnToGames.apply

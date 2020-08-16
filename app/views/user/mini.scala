@@ -24,7 +24,7 @@ object mini {
           div(cls := "left")(
             userLink(u, withPowerTip = false),
             u.profileOrDefault.countryInfo map { c =>
-              val hasRoomForNameText = u.username.size + c.shortName.size < 20
+              val hasRoomForNameText = u.username.length + c.shortName.length < 20
               span(
                 cls := "upt__info__top__country",
                 title := (!hasRoomForNameText).option(c.name)

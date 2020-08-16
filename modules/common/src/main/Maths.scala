@@ -12,7 +12,7 @@ object Maths {
     a.nonEmpty option {
       val arr = a.toArray
       Sorting.stableSort(arr)
-      val size = arr.size
+      val size = arr.length
       val mid  = size / 2
       if (size % 2 == 0) n.toDouble(arr(mid) + arr(mid - 1)) / 2
       else n.toDouble(arr(mid))

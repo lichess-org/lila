@@ -55,7 +55,7 @@ object mine {
                           spellcheck := "false",
                           readonly,
                           value := challengeLink,
-                          size := challengeLink.size
+                          size := challengeLink.length
                         ),
                         button(
                           title := "Copy URL",

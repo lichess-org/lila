@@ -41,7 +41,7 @@ object IdGenerator {
   def player(color: Color): Player.ID = {
     // Trick to avoid collisions between player ids in the same game.
     val suffixChars = color.fold(whiteSuffixChars, blackSuffixChars)
-    val suffix      = suffixChars(secureRandom nextInt suffixChars.size)
+    val suffix      = suffixChars(secureRandom nextInt suffixChars.length)
     Random.secureString(Game.playerIdSize - 1) + suffix
   }
 }

@@ -80,7 +80,7 @@ final class SwissTrf(
 
   private def formatLine(bits: Bits): String =
     bits.foldLeft("") {
-      case (acc, (pos, txt)) => s"""$acc${" " * (pos - txt.size - acc.size)}$txt"""
+      case (acc, (pos, txt)) => s"""$acc${" " * (pos - txt.length - acc.length)}$txt"""
     }
 
   private val dateFormatter = org.joda.time.format.DateTimeFormat forStyle "M-"

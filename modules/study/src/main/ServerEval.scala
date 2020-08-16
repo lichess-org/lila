@@ -32,7 +32,7 @@ object ServerEval {
                 variant = chapter.setup.variant
               )
               .toOption
-              .map(_.map(chess.format.Uci.apply).flatten) | List.empty,
+              .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
             userId = userId
           )
         }

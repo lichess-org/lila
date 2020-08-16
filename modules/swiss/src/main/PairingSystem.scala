@@ -71,5 +71,5 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
 }
 
 private object PairingSystem {
-  case class BBPairingException(val message: String, val swiss: Swiss) extends lila.base.LilaException
+  case class BBPairingException(message: String, swiss: Swiss) extends lila.base.LilaException
 }

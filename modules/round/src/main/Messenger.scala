@@ -34,7 +34,7 @@ final class Messenger(api: ChatApi) {
     whisperCommands.collectFirst {
       case command if text startsWith command =>
         val source = PublicSource.Watcher(gameId.value)
-        api.userChat.write(watcherId(gameId), userId, text drop command.size, source.some, _.Round)
+        api.userChat.write(watcherId(gameId), userId, text drop command.length, source.some, _.Round)
     } getOrElse {
       if (!text.startsWith("/")) // mistyped command?
         api.userChat.write(Chat.Id(gameId.value), userId, text, publicSource = none, _.Round).some

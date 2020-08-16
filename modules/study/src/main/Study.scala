@@ -141,7 +141,7 @@ object Study {
       description: String
   ) {
     import Settings._
-    def vis = Visibility.byKey get visibility getOrElse Visibility.Public
+    def vis = Visibility.byKey.getOrElse(visibility, Visibility.Public)
     def settings =
       for {
         comp <- UserSelection.byKey get computer

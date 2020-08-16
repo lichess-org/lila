@@ -18,7 +18,7 @@ object StudyTopic {
 
   def fromStr(str: String): Option[StudyTopic] =
     str.trim match {
-      case s if s.size >= minLength && s.size <= maxLength => StudyTopic(s).some
+      case s if s.length >= minLength && s.length <= maxLength => StudyTopic(s).some
       case _                                               => none
     }
 
@@ -67,7 +67,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     topicRepo.coll.byId[Bdoc](str) dmap { _ flatMap docTopic }
 
   def findLike(str: String, myId: Option[User.ID], nb: Int = 10): Fu[StudyTopics] = {
-    (str.size >= 2) ?? {
+    (str.length >= 2) ?? {
       val favsFu: Fu[List[StudyTopic]] =
         myId.?? { userId =>
           userTopics(userId).map {

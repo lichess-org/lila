@@ -54,7 +54,7 @@ final class Msg(
   def search(q: String) =
     Auth { ctx => me =>
       ctx.hasInbox ?? {
-        q.trim.some.filter(_.size > 1).filter(lila.user.User.couldBeUsername) match {
+        q.trim.some.filter(_.length > 1).filter(lila.user.User.couldBeUsername) match {
           case None    => env.msg.json.searchResult(me)(env.msg.search.empty) map { Ok(_) }
           case Some(q) => env.msg.search(me, q) flatMap env.msg.json.searchResult(me) map { Ok(_) }
         }

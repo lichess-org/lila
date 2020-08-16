@@ -83,7 +83,7 @@ object HTTPRequest {
 
   def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)
 
-  def weirdUA(req: RequestHeader) = userAgent(req).fold(true)(_.size < 30)
+  def weirdUA(req: RequestHeader) = userAgent(req).fold(true)(_.length < 30)
 
   def print(req: RequestHeader) = s"${printReq(req)} ${printClient(req)}"
 
