@@ -65,7 +65,6 @@ final private class PoolActor(
       hookThieve.candidates(config.clock) pipeTo self
 
     case HookThieve.PoolHooks(hooks) =>
-
       monitor.withRange(monId).record(members.count(_.hasRange))
 
       val candidates = members ++ hooks.map(_.member)

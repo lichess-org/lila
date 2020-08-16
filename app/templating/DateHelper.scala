@@ -8,7 +8,7 @@ import play.api.i18n.Lang
 import scala.collection.mutable.AnyRefMap
 import org.joda.time.format._
 import org.joda.time.format.ISODateTimeFormat
-import org.joda.time.{DateTime, DateTimeZone, DurationFieldType, Period, PeriodType}
+import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period, PeriodType }
 import lila.app.ui.ScalatagsTemplate._
 
 import scala.collection.mutable

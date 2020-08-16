@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import play.api.libs.json.{JsObject, JsString}
+import play.api.libs.json.{ JsObject, JsString }
 
 import scala.collection.mutable.AnyRefMap
 import scala.concurrent.duration._

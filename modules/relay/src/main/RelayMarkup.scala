@@ -18,7 +18,10 @@ final private class RelayMarkup {
   private type Html = String
 
   private val options = new MutableDataSet()
-  options.set(Parser.EXTENSIONS, util.Arrays.asList(TablesExtension.create(), StrikethroughExtension.create()))
+  options.set(
+    Parser.EXTENSIONS,
+    util.Arrays.asList(TablesExtension.create(), StrikethroughExtension.create())
+  )
   options.set(HtmlRenderer.SOFT_BREAK, "<br>\n")
   options.set(TablesExtension.CLASS_NAME, "slist")
   private val parser   = Parser.builder(options).build()

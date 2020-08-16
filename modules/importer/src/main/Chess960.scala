@@ -5,7 +5,7 @@ import chess._
 private object Chess960 {
 
   def isStartPosition(board: Board) =
-    board valid true && {
+    board valid {
 
       def rankMatches(f: Option[Piece] => Boolean)(rank: Int) =
         (1 to 8) forall { file =>
