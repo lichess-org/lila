@@ -135,41 +135,41 @@ private object I18nQuantity {
     case (lang, _) =>
       lang.language -> (lang.language match {
 
-        case "fr" | "ff" | "kab" => french _
+        case "fr" | "ff" | "kab" => french
 
-        case "cs" | "sk" => czech _
+        case "cs" | "sk" => czech
 
-        case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" => balkan _
+        case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" => balkan
 
-        case "lv" => latvian _
+        case "lv" => latvian
 
-        case "lt" => lithuanian _
+        case "lt" => lithuanian
 
-        case "pl" => polish _
+        case "pl" => polish
 
-        case "ro" | "mo" => romanian _
+        case "ro" | "mo" => romanian
 
-        case "sl" => slovenian _
+        case "sl" => slovenian
 
-        case "ar" => arabic _
+        case "ar" => arabic
 
-        case "mk" => macedonian _
+        case "mk" => macedonian
 
-        case "cy" | "br" => welsh _
+        case "cy" | "br" => welsh
 
-        case "mt" => maltese _
+        case "mt" => maltese
 
-        case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => two _
+        case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => two
 
         case "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" | "ti" | "wa" =>
-          selectors.zero _
+          selectors.zero
 
         case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" |
             "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" |
             "tp" | "io" | "ia" =>
-          selectors.none _
+          selectors.none
 
-        case _ => default _
+        case _ => default
       })
   }
 }

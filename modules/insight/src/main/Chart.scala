@@ -65,7 +65,7 @@ object Chart {
     def xAxis(implicit lang: Lang) =
       Xaxis(
         name = dimension.name,
-        categories = clusters.map(_.x).map(Dimension.valueJson(dimension) _),
+        categories = clusters.map(_.x).map(Dimension.valueJson(dimension)),
         dataType = Dimension dataTypeOf dimension
       )
 

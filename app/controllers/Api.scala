@@ -40,7 +40,7 @@ final class Api(
 
   val status = Action { req =>
     val appVersion  = get("v", req)
-    val mustUpgrade = appVersion exists lila.api.Mobile.AppVersion.mustUpgrade _
+    val mustUpgrade = appVersion exists lila.api.Mobile.AppVersion.mustUpgrade
     Ok(apiStatusJson.add("mustUpgrade", mustUpgrade)) as JSON
   }
 
@@ -203,7 +203,7 @@ final class Api(
             page = page.some,
             me = none,
             getUserTeamIds = _ => fuccess(Nil),
-            getTeamName = env.team.getTeamName.apply _,
+            getTeamName = env.team.getTeamName.apply,
             playerInfoExt = none,
             socketVersion = none,
             partial = false
@@ -427,7 +427,7 @@ final class Api(
   private[controllers] def GlobalConcurrencyLimitPerUserOption[T](
       user: Option[lila.user.User]
   ): Option[SourceIdentity[T]] =
-    user.fold(some[SourceIdentity[T]](identity _)) { u =>
+    user.fold(some[SourceIdentity[T]](identity)) { u =>
       GlobalConcurrencyLimitUser.compose[T](u.id)
     }
 

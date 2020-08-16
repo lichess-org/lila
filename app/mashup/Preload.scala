@@ -59,7 +59,7 @@ final class Preload(
             data,
             povs
           ) ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ blindGames =>
-        (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync) _)
+        (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync))
           .mon(_.lobby segment "currentGame") zip
           lightUserApi
             .preloadMany {

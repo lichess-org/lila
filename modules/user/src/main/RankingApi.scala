@@ -211,7 +211,7 @@ final class RankingApi(
             (Glicko.minRating to 2800 by Stat.group).map { r =>
               hash.getOrElse(r, 0)
             }.toList
-          } addEffect monitorRatingDistribution(perfId) _
+          } addEffect monitorRatingDistribution(perfId)
       }
 
     /* monitors cumulated ratio of players in each rating group, for a perf
