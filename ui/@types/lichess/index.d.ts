@@ -58,7 +58,8 @@ interface Lichess {
       events: {
         fen(e: any): void;
       }
-    }
+    },
+    firstConnect: Promise<(tpe: string, data: any) => void>
   }
 
   // timeago.js

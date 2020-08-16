@@ -201,19 +201,15 @@ lichess.widget = (name, prototype) => {
   };
   constructor.prototype = prototype;
   $.fn[name] = function(method) {
-    var returnValue = this;
     var args = Array.prototype.slice.call(arguments, 1);
     if (typeof method === 'string') this.each(function() {
-      var instance = $.data(this, name);
-      if (!instance) return;
-      if (!$.isFunction(instance[method]) || method.charAt(0) === "_")
-        return $.error("no such method '" + method + "' for " + name + " widget instance");
-      returnValue = instance[method].apply(instance, args);
+      const instance = $.data(this, name);
+      if (instance && $.isFunction(instance[method])) instance[method].apply(instance, args);
     });
     else this.each(function() {
       if (!$.data(this, name)) $.data(this, name, new constructor(method, this));
     });
-    return returnValue;
+    return this;
   };
 };
 lichess.isHoverable = () => {

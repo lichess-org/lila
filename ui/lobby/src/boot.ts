@@ -28,7 +28,7 @@ export default function boot(cfg, element) {
     getParameterByName = name => {
       var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
       return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-    },
+    };
     window.lichess.socket = window.lichess.StrongSocket(
       '/lobby/socket/v4',
       false, {

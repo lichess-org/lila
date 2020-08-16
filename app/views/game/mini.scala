@@ -44,7 +44,7 @@ object mini {
     a(
       href := (if (tv) routes.Tv.index() else routes.Round.watcher(pov.gameId, pov.color.name)),
       title := gameTitle(pov.game, pov.color),
-      cls := s"mini-game mini-game-${game.id} is2d ${isLive ?? "mini-game--live"} ${game.variant.key}",
+      cls := s"mini-game mini-game-${game.id} mini-game--init is2d ${isLive ?? "mini-game--live"} ${game.variant.key}",
       dataLive := isLive.option(game.id),
       renderState(pov)
     )(
@@ -72,7 +72,7 @@ object mini {
       cls := s"mini-game__clock mini-game__clock--${color.name}",
       dataTime := s
     )(
-      f"${s / 60}%02d:${s % 60}%02d"
+      f"${s / 60}:${s % 60}%02d"
     )
   }
 }

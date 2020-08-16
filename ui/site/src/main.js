@@ -196,7 +196,6 @@
       Array.from(document.getElementsByClassName('mini-board--init')).forEach(lichess.miniBoard.init);
     },
     init(node) {
-      console.log(node);
       if (!window.Chessground) return setTimeout(() => lichess.miniBoard.init(node), 500);
       const $el = $(node).removeClass('mini-board--init'),
         [fen, orientation, lm] = $el.data('state').split(','),
@@ -274,7 +273,9 @@
       },
       finish(node, win) {
         ['white', 'black'].forEach(color =>
-          $(node).find('.mini-game__clock--' + color).replaceWith(`<span class="mini-game__result">${win ? (win == color[0] ? 1 : 0) : '½'}</span>`)
+          $(node).find('.mini-game__clock--' + color).each(function() {
+            $(this).clock('destroy');
+          }).replaceWith(`<span class="mini-game__result">${win ? (win == color[0] ? 1 : 0) : '½'}</span>`)
         );
       }
     }
@@ -864,35 +865,37 @@
   lichess.widget("clock", {
     _create: function() {
       this.target = this.options.time * 1000 + Date.now();
-      if (!this.options.pause) this.interval = setInterval(this._render.bind(this), 1000);
-      this._render();
+      if (!this.options.pause) this.interval = setInterval(this.render.bind(this), 1000);
+      this.render();
     },
 
     set: function(opts) {
       this.options = opts;
       this.target = this.options.time * 1000 + Date.now();
-      this._render();
+      this.render();
       clearInterval(this.interval);
-      if (!opts.pause) this.interval = setInterval(this._render.bind(this), 1000);
+      if (!opts.pause) this.interval = setInterval(this.render.bind(this), 1000);
     },
 
-    _render: function() {
-      this.element.text(this._formatMs(this.target - Date.now()));
-      this.element.toggleClass('clock--run', !this.options.pause);
+    render: function() {
+      if (document.body.contains(this.element[0])) {
+        this.element.text(this.formatMs(this.target - Date.now()));
+        this.element.toggleClass('clock--run', !this.options.pause);
+      } else clearInterval(this.interval);
     },
 
-    _pad: function(x) {
+    pad: function(x) {
       return (x < 10 ? '0' : '') + x;
     },
 
-    _formatMs: function(msTime) {
+    formatMs: function(msTime) {
       const date = new Date(Math.max(0, msTime + 500)),
         hours = date.getUTCHours(),
         minutes = date.getUTCMinutes(),
         seconds = date.getUTCSeconds();
       return hours > 0 ?
-        hours + ':' + this._pad(minutes) + ':' + this._pad(seconds) :
-        minutes + ':' + this._pad(seconds);
+        hours + ':' + this.pad(minutes) + ':' + this.pad(seconds) :
+        minutes + ':' + this.pad(seconds);
     }
   });
 
