@@ -59,12 +59,11 @@ object SettingStore {
   final class StringReader[A](val read: String => Option[A])
 
   object StringReader {
-    implicit val booleanReader = new StringReader[Boolean](v =>
-      v match {
-        case "on" | "yes" | "true" | "1"  => true.some
-        case "off" | "no" | "false" | "0" => false.some
-        case _                            => none
-      }
+    implicit val booleanReader = new StringReader[Boolean]({
+      case "on" | "yes" | "true" | "1" => true.some
+      case "off" | "no" | "false" | "0" => false.some
+      case _ => none
+    }
     )
     implicit val intReader                          = new StringReader[Int](_.toIntOption)
     implicit val stringReader                       = new StringReader[String](some)
