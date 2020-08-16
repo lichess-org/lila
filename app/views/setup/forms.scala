@@ -51,7 +51,7 @@ object forms {
     layout("ai", trans.playWithTheMachine(), routes.Setup.ai()) {
       frag(
         renderVariant(form, translatedAiVariantChoices),
-        fenInput(form("fen"), true, validFen),
+        fenInput(form("fen"), strict = true, validFen),
         renderTimeMode(form),
         if (ctx.blind)
           frag(
@@ -95,7 +95,7 @@ object forms {
           userLink(u, cssClass = "target".some)
         },
         renderVariant(form, translatedVariantChoicesWithVariantsAndFen),
-        fenInput(form("fen"), false, validFen),
+        fenInput(form("fen"), strict = false, validFen),
         renderTimeMode(form),
         ctx.isAuth option div(cls := "mode_choice buttons")(
           renderRadios(form("mode"), translatedModeChoices)

@@ -65,12 +65,12 @@ object BinaryFormat {
 
     def write(mts: Vector[Centis]): ByteArray = {
       def enc(mt: Centis) = encodeCutoffs.search(mt.centis).insertionPoint
-      (mts
+      mts
         .grouped(2)
         .map {
           case Vector(a, b) => (enc(a) << 4) + enc(b)
           case Vector(a)    => enc(a) << 4
-        })
+        }
         .map(_.toByte)
         .toArray
     }
@@ -106,12 +106,12 @@ object BinaryFormat {
         // ba.size might be 8 if there was no timer.
         // #TODO remove 5 byte timer case! But fix the DB first!
         val timer = {
-          if (ia.size == 12) readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
+          if (ia.length == 12) readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
           else None
         }
 
         ia match {
-          case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) => {
+          case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) =>
             val config      = Clock.Config(readClockLimit(b1), b2)
             val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
             val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
@@ -130,7 +130,6 @@ object BinaryFormat {
               ),
               timer = timer
             )
-          }
           case _ => sys error s"BinaryFormat.clock.read invalid bytes: ${ba.showBytes}"
         }
       }

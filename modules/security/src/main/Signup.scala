@@ -131,7 +131,7 @@ final class Signup(
                 data.username,
                 passwordHash,
                 email.acceptable,
-                false,
+                blind = false,
                 apiVersion.some,
                 mustConfirmEmail = mustConfirm.value
               )
@@ -174,7 +174,7 @@ final class Signup(
     authLog(
       user.username,
       email.value,
-      s"fp: ${fingerPrint} mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)} api: ${apiVersion.??(_.value)}"
+      s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)} api: ${apiVersion.??(_.value)}"
     )
     val ip = HTTPRequest lastRemoteAddress req
     ipTrust.isSuspicious(ip) foreach { susp =>

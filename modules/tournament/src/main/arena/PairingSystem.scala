@@ -55,7 +55,7 @@ final private[tournament] class PairingSystem(
           // make sure groupSize is even with / 4 * 2
           val groupSize = (nbIdles / 4 * 2) atMost maxGroupSize
           bestPairings(data, idles take groupSize) :::
-            bestPairings(data, idles drop groupSize take groupSize)
+            bestPairings(data, idles.slice(groupSize, groupSize + groupSize))
         } else if (nbIdles > 1) bestPairings(data, idles)
         else Nil
       }
@@ -71,7 +71,7 @@ final private[tournament] class PairingSystem(
       preps.zip(ids).map {
         case (prep, id) =>
           //color was chosen in prepWithColor function
-          prep.toPairing(id)(true)
+          prep.toPairing(id)(firstGetsWhite = true)
       }
     }
 

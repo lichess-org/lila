@@ -51,12 +51,12 @@ object list {
                       p(
                         cls := List(
                           "text"  -> true,
-                          "large" -> (atom.text.size > 100 || atom.text.linesIterator.size > 3)
+                          "large" -> (atom.text.length > 100 || atom.text.linesIterator.size > 3)
                         )
                       )(shorten(atom.text, 200))
                     )
                   },
-                  r.atoms.size > 3 option i(cls := "more")("And ", (r.atoms.size - 3), " more")
+                  r.atoms.size > 3 option i(cls := "more")("And ", r.atoms.size - 3, " more")
                 ),
                 td(
                   r.inquiry match {

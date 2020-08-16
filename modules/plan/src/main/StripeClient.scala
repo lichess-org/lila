@@ -124,10 +124,9 @@ final private class StripeClient(
   private def getOne[A: Reads](url: String, queryString: (String, Any)*): Fu[Option[A]] =
     get[A](url, queryString) dmap Some.apply recover {
       case _: NotFoundException => None
-      case e: DeletedException => {
+      case e: DeletedException =>
         play.api.Logger("stripe").warn(e.getMessage)
         None
-      }
     }
 
   private def getList[A: Reads](url: String, queryString: (String, Any)*): Fu[List[A]] =
@@ -178,16 +177,16 @@ final private class StripeClient(
     }
 
   private def isDeleted(js: JsValue): Boolean =
-    (js.asOpt[JsObject] flatMap { o =>
+    js.asOpt[JsObject] flatMap { o =>
       (o \ "deleted").asOpt[Boolean]
-    }) == Some(true)
+    } contains true
 
   private def fixInput(in: Seq[(String, Any)]): Seq[(String, String)] =
-    (in map {
+    in flatMap {
       case (name, Some(x)) => Some(name -> x.toString)
       case (_, None)       => None
       case (name, x)       => Some(name -> x.toString)
-    }).flatten
+    }
 
   private def listReader[A: Reads]: Reads[List[A]] = (__ \ "data").read[List[A]]
 

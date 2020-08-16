@@ -30,7 +30,7 @@ final private[video] class VideoApi(
     userOption match {
       case None =>
         fuccess {
-          videos map { VideoView(_, false) }
+          videos map { VideoView(_, view = false) }
         }
       case Some(user) =>
         view.seenVideoIds(user, videos) map { ids =>

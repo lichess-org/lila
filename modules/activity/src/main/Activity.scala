@@ -46,7 +46,7 @@ object Activity {
     val genesis = new DateTime(2010, 1, 1, 0, 0).withTimeAtStartOfDay
     def today   = Day(Days.daysBetween(genesis, DateTime.now.withTimeAtStartOfDay).getDays)
     def recent(nb: Int): List[Day] =
-      (0 to (nb - 1)).toList.map { delta =>
+      (0 until nb).toList.map { delta =>
         Day(Days.daysBetween(genesis, DateTime.now.minusDays(delta).withTimeAtStartOfDay).getDays)
       }
   }

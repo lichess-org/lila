@@ -112,7 +112,7 @@ case class Tournament(
 
   def durationString =
     if (minutes < 60) s"${minutes}m"
-    else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
+    else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${minutes % 60}m" else "")
 
   def berserkable = !noBerserk && clock.berserkable
   def streakable  = !noStreak
@@ -200,7 +200,7 @@ object Tournament {
   def scheduleAs(sched: Schedule, minutes: Int) =
     Tournament(
       id = makeId,
-      name = sched.name(false)(defaultLang),
+      name = sched.name(full = false)(defaultLang),
       status = Status.Created,
       clock = Schedule clockFor sched,
       minutes = minutes,

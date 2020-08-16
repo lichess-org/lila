@@ -84,7 +84,7 @@ object RelayForm {
     def cleanUrl: Option[String] =
       syncUrl.map { u =>
         val trimmed = u.trim
-        if (trimmed endsWith "/") trimmed.take(trimmed.size - 1)
+        if (trimmed endsWith "/") trimmed.take(trimmed.length - 1)
         else trimmed
       }
 

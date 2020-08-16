@@ -102,7 +102,7 @@ final class Env(
   )
 
   private def disable(username: String) =
-    repo toKey username flatMap { repo.enableClient(_, false) }
+    repo toKey username flatMap { repo.enableClient(_, v = false) }
 
   def cli =
     new lila.common.Cli {
@@ -115,7 +115,7 @@ final class Env(
         case "fishnet" :: "client" :: "delete" :: key :: Nil =>
           repo toKey key flatMap repo.deleteClient inject "done!"
         case "fishnet" :: "client" :: "enable" :: key :: Nil =>
-          repo toKey key flatMap { repo.enableClient(_, true) } inject "done!"
+          repo toKey key flatMap { repo.enableClient(_, v = true) } inject "done!"
         case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
       }
     }

@@ -26,13 +26,13 @@ final class SwissTrf(
     Source(
       List(
         s"012 ${swiss.name}",
-        s"022 ${baseUrl}/swiss/${swiss.id}",
+        s"022 $baseUrl/swiss/${swiss.id}",
         s"032 Lichess",
         s"042 ${dateFormatter print swiss.startsAt}",
         s"052 ${swiss.finishedAt ?? dateFormatter.print}",
         s"062 ${swiss.nbPlayers}",
         s"092 Individual: Swiss-System",
-        s"102 ${baseUrl}/swiss",
+        s"102 $baseUrl/swiss",
         s"XXR ${swiss.settings.nbRounds}",
         s"XXC ${chess.Color(swiss.id.value(0).toInt % 2 == 0).name}1"
       )
@@ -80,7 +80,7 @@ final class SwissTrf(
 
   private def formatLine(bits: Bits): String =
     bits.foldLeft("") {
-      case (acc, (pos, txt)) => s"""$acc${" " * (pos - txt.size - acc.size)}$txt"""
+      case (acc, (pos, txt)) => s"""$acc${" " * (pos - txt.length - acc.length)}$txt"""
     }
 
   private val dateFormatter = org.joda.time.format.DateTimeFormat forStyle "M-"

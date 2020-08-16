@@ -358,7 +358,7 @@ final class User(
         }
         val spyFu = env.security.userSpy(user, nbOthers)
         val others = spyFu flatMap { spy =>
-          val familyUserIds = user.id :: spy.otherUserIds.toList
+          val familyUserIds = user.id :: spy.otherUserIds
           (isGranted(_.ModNote) ?? env.user.noteApi
             .forMod(familyUserIds)
             .logTimeIfGt(s"$username noteApi.forMod", 2 seconds)) zip

@@ -83,7 +83,7 @@ final class Env(
       if (tour.isShield) scheduler.scheduleOnce(10 seconds) { shieldApi.clear() }
       else if (Revolution is tour) scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }
     },
-    indexLeaderboard = leaderboardIndexer.indexOne _
+    indexLeaderboard = leaderboardIndexer.indexOne
   )
 
   private lazy val colorHistoryApi = wire[ColorHistoryApi]

@@ -29,7 +29,7 @@ final class ActivityWriteApi(
               .add(pt, Score.make(game wonBy player.color, RatingProg make player))
           )
           setCorres = game.hasCorrespondenceClock ?? $doc(
-            ActivityFields.corres -> a.corres.orDefault.add(GameId(game.id), false, true)
+            ActivityFields.corres -> a.corres.orDefault.add(GameId(game.id), moved = false, ended = true)
           )
           setters = setGames ++ setCorres
           _ <-
@@ -89,7 +89,7 @@ final class ActivityWriteApi(
 
   def corresMove(gameId: Game.ID, userId: User.ID) =
     update(userId) { a =>
-      a.copy(corres = Some((~a.corres).add(GameId(gameId), true, false))).some
+      a.copy(corres = Some((~a.corres).add(GameId(gameId), moved = true, ended = false))).some
     }
 
   def plan(userId: User.ID, months: Int) =

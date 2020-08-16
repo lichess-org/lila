@@ -173,9 +173,9 @@ object JsonApi {
 
   object readers {
     import play.api.libs.functional.syntax._
-    implicit val ClientVersionReads = Reads.of[String].map(new Client.Version(_))
-    implicit val ClientPythonReads  = Reads.of[String].map(new Client.Python(_))
-    implicit val ClientKeyReads     = Reads.of[String].map(new Client.Key(_))
+    implicit val ClientVersionReads = Reads.of[String].map(Client.Version(_))
+    implicit val ClientPythonReads  = Reads.of[String].map(Client.Python(_))
+    implicit val ClientKeyReads     = Reads.of[String].map(Client.Key(_))
     implicit val EngineOptionsReads = Json.reads[Request.EngineOptions]
     implicit val BaseEngineReads    = Json.reads[Request.BaseEngine]
     implicit val FullEngineReads    = Json.reads[Request.FullEngine]

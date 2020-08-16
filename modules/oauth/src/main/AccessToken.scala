@@ -21,7 +21,7 @@ object AccessToken {
   val idSize = 16
 
   case class Id(value: String) extends AnyVal {
-    def isPersonal = value.size == idSize
+    def isPersonal = value.length == idSize
   }
 
   def makeId = Id(ornicar.scalalib.Random secureString idSize)

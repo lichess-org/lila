@@ -484,7 +484,7 @@ final class SwissApi(
                     systemChat(s.id, s"Round ${s.round.value} started.")
                     funit
                   case s =>
-                    systemChat(s.id, s"Round ${s.round.value} failed.", true)
+                    systemChat(s.id, s"Round ${s.round.value} failed.", volatile = true)
                     colls.swiss.update
                       .one($id(s.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(61)))
                       .void
@@ -493,7 +493,7 @@ final class SwissApi(
             else {
               if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)
               else {
-                systemChat(swiss.id, "Not enough players for first round; delaying start.", true)
+                systemChat(swiss.id, "Not enough players for first round; delaying start.", volatile = true)
                 colls.swiss.update
                   .one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(121)))
                   .void

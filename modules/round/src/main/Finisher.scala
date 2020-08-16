@@ -134,7 +134,7 @@ final private class Finisher(
           g.blackPlayer.userId
         )
         .flatMap {
-          case (whiteO, blackO) => {
+          case (whiteO, blackO) =>
             val finish = FinishGame(g, whiteO, blackO)
             updateCountAndPerfs(finish) map { ratingDiffs =>
               message foreach { messenger.system(g, _) }
@@ -144,7 +144,6 @@ final private class Finisher(
               }
               prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
             }
-          }
         }
   }
 

@@ -33,7 +33,7 @@ final private class Player(
           case Pov(game, color) if game playableBy color =>
             applyUci(game, uci, blur, lag)
               .leftMap(e => s"$pov $e")
-              .fold(errs => fufail(ClientError(errs.toString)), fuccess)
+              .fold(errs => fufail(ClientError(errs)), fuccess)
               .flatMap {
                 case Flagged => finisher.outOfTime(game)
                 case MoveApplied(progress, moveOrDrop) =>
@@ -53,8 +53,8 @@ final private class Player(
         round ! TooManyPlies
         fuccess(Nil)
       case Pov(game, color) if game playableBy color =>
-        applyUci(game, uci, false, botLag)
-          .fold(errs => fufail(ClientError(errs.toString)), fuccess)
+        applyUci(game, uci, blur = false, botLag)
+          .fold(errs => fufail(ClientError(errs)), fuccess)
           .flatMap {
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop) =>
@@ -90,7 +90,7 @@ final private class Player(
   private[round] def fishnet(game: Game, ply: Int, uci: Uci)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi && game.playedTurns == ply) {
       applyUci(game, uci, blur = false, metrics = fishnetLag)
-        .fold(errs => fufail(ClientError(errs.toString)), fuccess)
+        .fold(errs => fufail(ClientError(errs)), fuccess)
         .flatMap {
           case Flagged => finisher.outOfTime(game)
           case MoveApplied(progress, moveOrDrop) =>
@@ -105,7 +105,7 @@ final private class Player(
     } else
       fufail(
         FishnetError(
-          s"Not AI turn move: ${uci} id: ${game.id} playable: ${game.playable} player: ${game.player}"
+          s"Not AI turn move: $uci id: ${game.id} playable: ${game.playable} player: ${game.player}"
         )
       )
 
@@ -134,7 +134,7 @@ final private class Player(
           case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
         }
     }).map {
-      case (ncg, _) if ncg.clock.exists(_.outOfTime(game.turnColor, false)) => Flagged
+      case (ncg, _) if ncg.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
       case (newChessGame, moveOrDrop) =>
         MoveApplied(
           game.update(newChessGame, moveOrDrop, blur),

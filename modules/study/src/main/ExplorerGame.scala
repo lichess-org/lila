@@ -28,7 +28,7 @@ final private class ExplorerGame(
       importer(gameId) map {
         _ ?? { game =>
           position.node ?? { fromNode =>
-            GameToRoot(game, none, false).pipe { root =>
+            GameToRoot(game, none, withClocks = false).pipe { root =>
               root.setCommentAt(
                 comment = gameComment(game),
                 path = Path(root.mainline.map(_.id))

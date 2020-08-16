@@ -46,7 +46,7 @@ final class PuzzleActivity(
   private def enrich(rounds: Seq[Round]): Fu[Seq[JsObject]] =
     puzzleColl {
       _.primitiveMap[Int, Double](
-        ids = rounds.map(_.id.puzzleId).toSeq,
+        ids = rounds.map(_.id.puzzleId),
         field = "perf.gl.r",
         fieldExtractor = obj =>
           for {
@@ -55,7 +55,7 @@ final class PuzzleActivity(
             rating <- gl.double("r")
           } yield rating
       ) map { ratings =>
-        rounds.toSeq flatMap { round =>
+        rounds flatMap { round =>
           ratings get round.id.puzzleId map { puzzleRating =>
             Json.obj(
               "id"           -> round.id.puzzleId,

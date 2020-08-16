@@ -22,7 +22,7 @@ object Rewind {
       )
       .flatMap(_.valid) map { replay =>
       val rewindedGame = replay.state
-      val color        = game.turnColor;
+      val color        = game.turnColor
       val newClock = game.clock.map(_.takeback) map { clk =>
         game.clockHistory.flatMap(_.last(color)).fold(clk) { t =>
           clk.setRemainingTime(color, t)

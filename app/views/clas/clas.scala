@@ -101,7 +101,7 @@ object clas {
         innerForm(form, c.some),
         hr,
         c.isActive option postForm(
-          action := routes.Clas.archive(c.id.value, true),
+          action := routes.Clas.archive(c.id.value, v = true),
           cls := "clas-edit__archive"
         )(
           form3.submit(trans.clas.closeClass(), icon = none)(

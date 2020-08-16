@@ -54,7 +54,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         }
         .takeWhile(
           r => r.size < nbUsers,
-          true
+          inclusive = true
         )
         .toMat(Sink.lastOption)(Keep.right)
         .run()

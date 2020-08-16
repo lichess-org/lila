@@ -157,7 +157,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def incColor(userId: User.ID, value: Int): Unit =
     coll
-      .update(false, WriteConcern.Unacknowledged)
+      .update(ordered = false, WriteConcern.Unacknowledged)
       .one(
         $id(userId) ++ (value < 0).??($doc(F.colorIt $gt -3)),
         $inc(F.colorIt -> value)
@@ -292,7 +292,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     !nameExists(username) flatMap {
       _ ?? {
         val doc = newUser(username, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
-          ("len" -> BSONInteger(username.size))
+          ("len" -> BSONInteger(username.length))
         coll.insert.one(doc) >> named(normalize(username))
       }
     }

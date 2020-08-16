@@ -103,12 +103,12 @@ case object Perf {
         latest = r dateO "la",
         recent = r intsD "re"
       )
-      p.copy(glicko = p.glicko.copy(deviation = Glicko.liveDeviation(p, false)))
+      p.copy(glicko = p.glicko.copy(deviation = Glicko.liveDeviation(p, reverse = false)))
     }
 
     def writes(w: BSON.Writer, o: Perf) =
       BSONDocument(
-        "gl" -> o.glicko.copy(deviation = Glicko.liveDeviation(o, true)),
+        "gl" -> o.glicko.copy(deviation = Glicko.liveDeviation(o, reverse = true)),
         "nb" -> w.int(o.nb),
         "re" -> w.listO(o.recent),
         "la" -> o.latest.map(w.date)

@@ -38,7 +38,7 @@ object Iso {
       strs => strs.value mkString sep
     )
 
-  implicit def isoIdentity[A]: Iso[A, A] = apply(identity[A] _, identity[A] _)
+  implicit def isoIdentity[A]: Iso[A, A] = apply(identity[A], identity[A])
 
   implicit val stringIsoIdentity: Iso[String, String] = isoIdentity[String]
 

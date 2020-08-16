@@ -83,7 +83,7 @@ object TreeBuilder {
             eval = info map makeEval,
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
             comments = Node.Comments {
-              advice.map(_.makeComment(false, true)).toList.map { text =>
+              advice.map(_.makeComment(withEval = false, withBestMove = true)).toList.map { text =>
                 Node.Comment(
                   Node.Comment.Id.make,
                   Node.Comment.Text(text),

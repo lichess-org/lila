@@ -94,7 +94,7 @@ final class Tournament(
         negotiate(
           html = tourOption
             .fold(tournamentNotFound.fuccess) { tour =>
-              (for {
+              for {
                 verdicts <- api.verdicts(tour, ctx.me, getUserTeamIds)
                 version  <- env.tournament.version(tour.id)
                 json <- jsonView(
@@ -119,9 +119,9 @@ final class Tournament(
                 }
                 streamers   <- streamerCache get tour.id
                 shieldOwner <- env.tournament.shieldApi currentOwner tour
-              } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)))
+              } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))
             }
-            .monSuccess(_.tournament.apiShowPartial(false, HTTPRequest clientName ctx.req)),
+            .monSuccess(_.tournament.apiShowPartial(partial = false, HTTPRequest clientName ctx.req)),
           api = _ =>
             tourOption
               .fold(notFoundJson("No such tournament")) { tour =>

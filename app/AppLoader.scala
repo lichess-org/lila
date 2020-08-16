@@ -23,10 +23,10 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
 
   lila.log("boot").info {
     val java             = System.getProperty("java.version")
-    val mem              = Runtime.getRuntime().maxMemory() / 1024 / 1024
+    val mem              = Runtime.getRuntime.maxMemory() / 1024 / 1024
     val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
     val appVersionDate   = ~configuration.getOptional[String]("app.version.date")
-    s"lila ${ctx.environment.mode} $appVersionCommit $appVersionDate / java ${java}, memory: ${mem}MB"
+    s"lila ${ctx.environment.mode} $appVersionCommit $appVersionDate / java $java, memory: ${mem}MB"
   }
 
   import _root_.controllers._
@@ -58,7 +58,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   implicit def system = actorSystem
   implicit lazy val ws: StandaloneWSClient = {
     import play.shaded.ahc.org.asynchttpclient.DefaultAsyncHttpClient
-    import play.api.libs.ws.{ WSConfigParser }
+    import play.api.libs.ws.WSConfigParser
     import play.api.libs.ws.ahc.{ AhcConfigBuilder, AhcWSClientConfigParser, StandaloneAhcWSClient }
     new StandaloneAhcWSClient(
       new DefaultAsyncHttpClient(

@@ -11,6 +11,7 @@ case class Retry(move: String)              extends Line
 object Line {
 
   def minDepth(lines: Lines): Int = {
+    @scala.annotation.tailrec
     def walk(subs: Vector[(Lines, Int)]): Option[Int] =
       subs match {
         case Vector() => none
@@ -23,7 +24,7 @@ object Line {
               walk(rest :+ (siblings -> depth) :+ (children -> (depth + 1)))
           }
       }
-    (1 + ~(walk(Vector(lines -> 1)))) / 2
+    (1 + ~walk(Vector(lines -> 1))) / 2
   }
 
   def solution(lines: Lines): List[String] = {

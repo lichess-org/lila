@@ -91,7 +91,7 @@ final class NoteApi(
   def lichessWrite(to: User, text: String) =
     userRepo.lichess flatMap {
       _ ?? {
-        write(to, text, _, true, false)
+        write(to, text, _, modOnly = true, dox = false)
       }
     }
 

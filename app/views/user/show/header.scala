@@ -135,11 +135,11 @@ object header {
             div(cls := "mod-note")(
               submitButton(cls := "button")(trans.send()),
               div(
-                div(form3.cmnToggle("note-mod", "mod", true)),
+                div(form3.cmnToggle("note-mod", "mod", checked = true)),
                 label(`for` := "note-mod")("For moderators only")
               ),
               isGranted(_.Doxing) option div(
-                div(form3.cmnToggle("note-dox", "dox", false)),
+                div(form3.cmnToggle("note-dox", "dox", checked = false)),
                 label(`for` := "note-dox")("Doxing info")
               )
             )

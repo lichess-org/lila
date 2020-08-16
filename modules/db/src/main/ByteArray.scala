@@ -6,7 +6,7 @@ import reactivemongo.api.bson._
 
 case class ByteArray(value: Array[Byte]) {
 
-  def isEmpty = value.size == 0
+  def isEmpty = value.length == 0
 
   def toHexStr = ByteArray.hex hex2Str value
 

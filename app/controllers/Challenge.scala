@@ -66,7 +66,7 @@ final class Challenge(
               Ok(html.challenge.theirs(c, json, user, get("color") flatMap chess.Color.apply))
             },
         api = _ => Ok(json).fuccess
-      ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, true)
+      ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
     } dmap env.lilaCookie.ensure(ctx.req)
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) =
@@ -90,7 +90,7 @@ final class Challenge(
               negotiate(
                 html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))).fuccess,
                 api = apiVersion => env.api.roundApi.player(pov, none, apiVersion) map { Ok(_) }
-              ) flatMap withChallengeAnonCookie(ctx.isAnon, c, false)
+              ) flatMap withChallengeAnonCookie(ctx.isAnon, c, owner = false)
             case None =>
               negotiate(
                 html = Redirect(routes.Round.watcher(c.id, cc.fold("white")(_.name))).fuccess,

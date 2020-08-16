@@ -140,9 +140,8 @@ final class Round(
                 case _ =>
                   Redirect(routes.Round.watcher(gameId, "white")).fuccess
               }
-            case None => {
+            case None =>
               watch(pov)
-            }
           }
         case None => challengeC showId gameId
       }

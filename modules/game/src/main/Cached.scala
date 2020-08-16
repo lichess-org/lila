@@ -25,7 +25,7 @@ final class Cached(
   private val lastPlayedPlayingIdCache: LoadingCache[User.ID, Fu[Option[Game.ID]]] =
     CacheApi.scaffeineNoScheduler
       .expireAfterWrite(5 seconds)
-      .build(gameRepo.lastPlayedPlayingId _)
+      .build(gameRepo.lastPlayedPlayingId)
 
   lila.common.Bus.subscribeFun("startGame") {
     case lila.game.actorApi.StartGame(game) => game.userIds foreach { lastPlayedPlayingIdCache.invalidate(_) }
@@ -42,7 +42,7 @@ final class Cached(
     4096,
     "game:imported",
     30 days,
-    _.toString
+    identity
   ) { loader =>
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture {

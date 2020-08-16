@@ -64,7 +64,7 @@ final class GameStateStream(
 
       private val classifiers = List(
         MoveGameEvent makeChan id,
-        s"boardDrawOffer:${id}",
+        s"boardDrawOffer:$id",
         "finishGame",
         "abortGame",
         uniqChan(init.game pov as),
@@ -83,7 +83,7 @@ final class GameStateStream(
           else self ! SetOnline
         }
         lila.mon.bot.gameStream("start").increment()
-        Bus.publish(Tell(init.game.id, BotConnected(as, true)), "roundSocket")
+        Bus.publish(Tell(init.game.id, BotConnected(as, v = true)), "roundSocket")
       }
 
       override def postStop(): Unit = {
@@ -92,7 +92,7 @@ final class GameStateStream(
         // hang around if game is over
         // so the opponent has a chance to rematch
         context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
-          Bus.publish(Tell(init.game.id, BotConnected(as, false)), "roundSocket")
+          Bus.publish(Tell(init.game.id, BotConnected(as, v = false)), "roundSocket")
         }
         queue.complete()
         lila.mon.bot.gameStream("stop").increment()
@@ -101,7 +101,7 @@ final class GameStateStream(
       def receive = {
         case MoveGameEvent(g, _, _) if g.id == id => pushState(g)
         case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
-          pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
+          pushChatLine(username, text, chatId.value.length == Game.gameIdSize)
         case FinishGame(g, _, _) if g.id == id                          => onGameOver(g.some)
         case AbortedBy(pov) if pov.gameId == id                         => onGameOver(pov.game.some)
         case lila.game.actorApi.BoardDrawOffer(pov) if pov.gameId == id => pushState(pov.game)

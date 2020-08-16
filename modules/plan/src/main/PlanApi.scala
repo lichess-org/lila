@@ -170,7 +170,7 @@ final class PlanApi(
           setDbUserPlan(user, user.plan.disable) >>
             patronColl.update.one($id(user.id), patron.removeStripe).void >>
             notifier.onExpire(user) >>-
-            logger.info(s"Unsubed ${user.username} ${sub}")
+            logger.info(s"Unsubed ${user.username} $sub")
         }
     }
 

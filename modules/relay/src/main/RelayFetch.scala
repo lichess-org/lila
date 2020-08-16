@@ -178,7 +178,7 @@ final private class RelayFetch(
             }
             .sequenceFu
             .map { results =>
-              MultiPgn(results.sortBy(_._1).map(_._2).toList)
+              MultiPgn(results.sortBy(_._1).map(_._2))
             }
         }
     } flatMap RelayFetch.multiPgnToGames.apply
@@ -260,7 +260,7 @@ private object RelayFetch {
             secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
           )
         } mkString " "
-        s"${extraTags}\n\n$strMoves"
+        s"$extraTags\n\n$strMoves"
       }
     }
     implicit val gameReads = Json.reads[GameJson]

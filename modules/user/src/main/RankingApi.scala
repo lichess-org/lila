@@ -59,7 +59,7 @@ final class RankingApi(
     }
 
   private def makeId(userId: User.ID, perfType: PerfType) =
-    s"${userId}:${perfType.id}"
+    s"$userId:${perfType.id}"
 
   private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId) ?? { perfKey =>
@@ -124,7 +124,7 @@ final class RankingApi(
       cache.getUnit map { all =>
         all.flatMap {
           case (pt, ranking) => ranking get userId map (pt -> _)
-        } toMap
+        }
       }
 
     private val cache = cacheApi.unit[Map[PerfType, Map[User.ID, Rank]]] {
@@ -211,7 +211,7 @@ final class RankingApi(
             (Glicko.minRating to 2800 by Stat.group).map { r =>
               hash.getOrElse(r, 0)
             }.toList
-          } addEffect monitorRatingDistribution(perfId) _
+          } addEffect monitorRatingDistribution(perfId)
       }
 
     /* monitors cumulated ratio of players in each rating group, for a perf
@@ -226,7 +226,7 @@ final class RankingApi(
      * rating.distribution.bullet.2800 => 0.9997
      */
     private def monitorRatingDistribution(perfId: Perf.ID)(nbUsersList: List[NbUsers]): Unit = {
-      val total = nbUsersList.foldLeft(0)(_ + _)
+      val total = nbUsersList.sum
       (Stat.minRating to 2800 by Stat.group).toList.zip(nbUsersList).foldLeft(0) {
         case (prev, (rating, nbUsers)) =>
           val acc = prev + nbUsers

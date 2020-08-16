@@ -42,7 +42,7 @@ final class ChatApi(
       def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] =
         me match {
           case Some(user) => findMine(chatId, user)
-          case None       => cache.get(chatId) dmap { UserChat.Mine(_, false) }
+          case None       => cache.get(chatId) dmap { UserChat.Mine(_, timeout = false) }
         }
 
       private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] =
@@ -62,14 +62,14 @@ final class ChatApi(
     def findAll(chatIds: List[Chat.Id]): Fu[List[UserChat]] =
       coll.byIds[UserChat](chatIds.map(_.value), ReadPreference.secondaryPreferred)
 
-    def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, true)
+    def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, cond = true)
 
     def findMineIf(chatId: Chat.Id, me: Option[User], cond: Boolean): Fu[UserChat.Mine] =
       me match {
         case Some(user) if cond => findMine(chatId, user)
-        case Some(user)         => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, false))
-        case None if cond       => find(chatId) dmap { UserChat.Mine(_, false) }
-        case None               => fuccess(UserChat.Mine(Chat.makeUser(chatId), false))
+        case Some(user)         => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, timeout = false))
+        case None if cond       => find(chatId) dmap { UserChat.Mine(_, timeout = false) }
+        case None               => fuccess(UserChat.Mine(Chat.makeUser(chatId), timeout = false))
       }
 
     private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] =
@@ -243,7 +243,7 @@ final class ChatApi(
       makeLine(chatId, color, text) ?? { line =>
         pushLine(chatId, line) >>- {
           publish(chatId, actorApi.ChatLine(chatId, line), busChan)
-          lila.mon.chat.message("anonPlayer", false).increment()
+          lila.mon.chat.message("anonPlayer", troll = false).increment()
         }
       }
 
@@ -288,7 +288,8 @@ final class ChatApi(
     def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 
     private val gameUrlRegex                      = (Pattern.quote(netDomain.value) + """\b/(\w{8})\w{4}\b""").r
-    private val gameUrlReplace                    = Matcher.quoteReplacement(netDomain.value) + "/$1";
+    private val gameUrlReplace                    = Matcher.quoteReplacement(netDomain.value) + "/$1"
+
     private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
     private val multilineRegex                    = """\n\n{2,}+""".r
     private def multiline(str: String)            = multilineRegex.replaceAllIn(str, """\n\n""")

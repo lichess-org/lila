@@ -63,8 +63,8 @@ final private class Monitor(
     val significantPvSizes =
       result.evaluations.filterNot(_.mateFound).filterNot(_.deadDraw).map(_.pv.size)
 
-    monBy.pv(userId, false).increment(significantPvSizes.count(_ < 3))
-    monBy.pv(userId, true).increment(significantPvSizes.count(_ >= 6))
+    monBy.pv(userId, isLong = false).increment(significantPvSizes.count(_ < 3))
+    monBy.pv(userId, isLong = true).increment(significantPvSizes.count(_ >= 6))
   }
 
   private def sample[A](elems: List[A], n: Int) =

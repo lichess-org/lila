@@ -112,7 +112,7 @@ final class Streamer(
                     }
                   else {
                     val next = if (sws.streamer is me) "" else s"?u=${sws.user.id}"
-                    Redirect(s"${routes.Streamer.edit().url}${next}").fuccess
+                    Redirect(s"${routes.Streamer.edit().url}$next").fuccess
                   }
                 }
             )

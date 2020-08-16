@@ -94,7 +94,7 @@ final class AssessApi(
         (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
           (gs map { g =>
             analysisRepo.byGame(g) flatMap {
-              _ ?? { onAnalysisReady(g, _, false) }
+              _ ?? { onAnalysisReady(g, _, thenAssessUser = false) }
             }
           }).sequenceFu.void
         }) >> assessUser(user.id)

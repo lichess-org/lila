@@ -76,8 +76,8 @@ final private[forum] class TopicApi(
         env.postRepo.coll.insert.one(post) >>
           env.topicRepo.coll.insert.one(topic withPost post) >>
           env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>- {
-          (!categ.quiet ?? (indexer ! InsertPost(post)))
-          (!categ.quiet ?? env.recent.invalidate())
+          !categ.quiet ?? (indexer ! InsertPost(post))
+          !categ.quiet ?? env.recent.invalidate()
           promotion.save(me, post.text)
           shutup ! {
             val text = s"${topic.name} ${post.text}"

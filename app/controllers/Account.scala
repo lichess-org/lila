@@ -293,7 +293,7 @@ final class Account(
         implicit val req = ctx.body
         env.security.forms closeAccount me flatMap { form =>
           FormFuResult(form) { err =>
-            fuccess(html.account.close(me, err, false))
+            fuccess(html.account.close(me, err, managed = false))
           } { _ =>
             env.closeAccount(me.id, self = true) inject {
               Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
@@ -326,7 +326,7 @@ final class Account(
             .fold(
               err =>
                 negotiate(
-                  html = BadRequest(html.account.kid(me, err, false)).fuccess,
+                  html = BadRequest(html.account.kid(me, err, managed = false)).fuccess,
                   api = _ => BadRequest(errorsAsJson(err)).fuccess
                 ),
               _ =>
@@ -388,7 +388,7 @@ final class Account(
           err => BadRequest(renderReopen(err.some, none)).fuccess,
           data =>
             env.security.reopen
-              .prepare(data.username, data.realEmail, env.mod.logApi.hasModClose _) flatMap {
+              .prepare(data.username, data.realEmail, env.mod.logApi.hasModClose) flatMap {
               case Left((code, msg)) =>
                 lila.mon.user.auth.reopenRequest(code).increment()
                 BadRequest(renderReopen(none, msg.some)).fuccess
@@ -413,10 +413,9 @@ final class Account(
   def reopenLogin(token: String) =
     Open { implicit ctx =>
       env.security.reopen confirm token flatMap {
-        case None => {
+        case None =>
           lila.mon.user.auth.reopenConfirm("token_fail").increment()
           notFound
-        }
         case Some(user) =>
           env.report.api.reopenReports(lila.report.Suspect(user)) >>
             auth.authenticateUser(user) >>-

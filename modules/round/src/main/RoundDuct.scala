@@ -60,7 +60,7 @@ final private[round] class RoundDuct(
     def isOnline = offlineSince.isEmpty || botConnected
 
     def setOnline(on: Boolean): Unit = {
-      isLongGone foreach { _ ?? notifyGone(color, false) }
+      isLongGone foreach { _ ?? notifyGone(color, gone = false) }
       offlineSince = if (on) None else offlineSince orElse nowMillis.some
       bye = bye && !on
     }
@@ -382,7 +382,7 @@ final private[round] class RoundDuct(
       handle { game =>
         forecastApi.nextMove(game, lastMove) map { mOpt =>
           mOpt foreach { move =>
-            this ! HumanPlay(PlayerId(game.player.id), move, false)
+            this ! HumanPlay(PlayerId(game.player.id), move, blur = false)
           }
           Nil
         }
@@ -444,7 +444,7 @@ final private[round] class RoundDuct(
             if (!getPlayer(c).isOnline && getPlayer(!c).isOnline) {
               getPlayer(c).showMillisToGone foreach {
                 _ ?? { millis =>
-                  if (millis <= 0) notifyGone(c, true)
+                  if (millis <= 0) notifyGone(c, gone = true)
                   else if (g.clock.exists(_.remainingTime(c).millis > millis + 3000)) notifyGoneIn(c, millis)
                 }
               }
@@ -512,7 +512,7 @@ final private[round] class RoundDuct(
 
   private def publish[A](events: Events): Unit =
     if (events.nonEmpty) {
-      events map { e =>
+      events foreach { e =>
         version = version.inc
         socketSend {
           Protocol.Out.tellVersion(roomId, version, e)

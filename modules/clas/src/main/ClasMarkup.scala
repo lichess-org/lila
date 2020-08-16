@@ -1,5 +1,7 @@
 package lila.clas
 
+import java.util
+
 import com.github.blemale.scaffeine.LoadingCache
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
 import com.vladsch.flexmark.ext.tables.TablesExtension
@@ -8,6 +10,7 @@ import com.vladsch.flexmark.html.HtmlRenderer
 import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.data.MutableDataSet
 import java.util.Arrays
+
 import scala.concurrent.duration._
 
 final class ClasMarkup {
@@ -18,7 +21,7 @@ final class ClasMarkup {
   private val options = new MutableDataSet()
   options.set(
     Parser.EXTENSIONS,
-    Arrays.asList(
+    util.Arrays.asList(
       TablesExtension.create(),
       StrikethroughExtension.create(),
       AutolinkExtension.create()

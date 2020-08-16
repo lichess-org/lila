@@ -36,8 +36,7 @@ final private class PovToEntry(
       gameRepo setUnanalysed game.id
       analysisRepo remove game.id
       true
-    }
-    false
+    } else false
   }
 
   private def enrich(game: Game, userId: String, provisional: Boolean): Fu[Option[RichPov]] =
@@ -103,7 +102,7 @@ final private class PovToEntry(
     }
     val blurs = {
       val bools = from.pov.player.blurs.booleans
-      bools ++ Array.fill(movetimes.size - bools.size)(false)
+      bools ++ Array.fill(movetimes.size - bools.length)(false)
     }
     val timeCvs = slidingMoveTimesCvs(movetimes)
     movetimes.zip(roles).zip(boards).zip(blurs).zip(timeCvs).zipWithIndex.map {
@@ -152,7 +151,7 @@ final private class PovToEntry(
         .sliding(sliding)
         .map { a =>
           // drop outliers
-          coefVariation(a.map(_.centis + 10).toSeq.sorted.drop(1).dropRight(1))
+          coefVariation(a.map(_.centis + 10).sorted.drop(1).dropRight(1))
         }
       sides ++ cvs ++ sides
     }

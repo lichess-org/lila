@@ -32,7 +32,7 @@ object String {
 
   def shorten(text: String, length: Int, sep: String = "…") = {
     val t = text.replace('\n', ' ')
-    if (t.size > (length + sep.size)) (t take length) ++ sep
+    if (t.length > (length + sep.length)) (t take length) ++ sep
     else t
   }
 
@@ -107,13 +107,12 @@ object String {
         case JsNumber(n)    => n.toString
         case JsBoolean(b)   => if (b) "true" else "false"
         case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
-        case JsObject(fields) => {
+        case JsObject(fields) =>
           fields
             .map {
               case (k, v) => s"${safeJsonString(k)}:${safeJsonValue(v)}"
             }
             .mkString("{", ",", "}")
-        }
       }
     }
   }

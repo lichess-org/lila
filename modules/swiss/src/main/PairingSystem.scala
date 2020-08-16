@@ -33,7 +33,7 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
       if (status != 0) {
         val error = stderr.toString
         if (error contains "No valid pairing exists") Nil
-        else throw new PairingSystem.BBPairingException(error, swiss)
+        else throw PairingSystem.BBPairingException(error, swiss)
       } else stdout.toList
     }
 
@@ -71,5 +71,5 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
 }
 
 private object PairingSystem {
-  case class BBPairingException(val message: String, val swiss: Swiss) extends lila.base.LilaException
+  case class BBPairingException(message: String, swiss: Swiss) extends lila.base.LilaException
 }

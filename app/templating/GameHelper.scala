@@ -191,10 +191,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         }
       case S.Draw      => trans.draw.txt()
       case S.Outoftime => trans.timeOut.txt()
-      case S.NoStart => {
+      case S.NoStart =>
         val color = game.loser.fold(Color.white)(_.color).name.capitalize
         s"$color didn't move"
-      }
       case S.Cheat => "Cheat detected"
       case S.VariantEnd =>
         game.variant match {

@@ -73,7 +73,7 @@ final class SecurityApi(
       case None if User.couldBeUsername(str) => authenticator.loginCandidateById(User normalize str)
       case _                                 => fuccess(none)
     }
-  } map loadedLoginForm _
+  } map loadedLoginForm
 
   @nowarn("cat=unused")
   private def authenticateCandidate(candidate: Option[LoginCandidate])(

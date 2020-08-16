@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 
 import lila.common.paginator.Paginator
 import lila.db.dsl._
-import lila.db.paginator.{ Adapter }
+import lila.db.paginator.Adapter
 import lila.user.{ User, UserRepo }
 
 final class CoachPager(

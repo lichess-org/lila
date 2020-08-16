@@ -178,8 +178,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
           .groupBy(_.compositeKey)
           .view
           .values
-          .map(_ drop 1)
-          .flatten
+          .flatMap(_ drop 1)
           .filter(_._id != keepSessionId)
           .map(_._id)
         coll.delete.one($inIds(olds)).void

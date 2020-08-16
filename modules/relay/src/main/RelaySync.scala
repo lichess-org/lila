@@ -31,7 +31,7 @@ final private class RelaySync(
                     } inject chapter.root.mainline.size
                   }
               }
-            } map { _.foldLeft(0)(_ + _) } dmap { SyncResult.Ok(_, games) }
+            } map { _.sum } dmap { SyncResult.Ok(_, games) }
         }
       }
     }

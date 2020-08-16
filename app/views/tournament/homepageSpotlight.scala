@@ -11,7 +11,7 @@ object homepageSpotlight {
   def apply(tour: lila.tournament.Tournament)(implicit ctx: Context) = {
     val schedClass = tour.schedule ?? { sched =>
       val invert  = (sched.freq.isWeeklyOrBetter && tour.isNowOrSoon) ?? " invert"
-      val distant = (tour.isDistant) ?? " distant little"
+      val distant = tour.isDistant ?? " distant little"
       s"${sched.freq} ${sched.speed} ${sched.variant.key}$invert$distant"
     }
     val tourClass = s"tour-spotlight id_${tour.id} $schedClass"

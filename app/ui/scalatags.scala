@@ -147,9 +147,7 @@ trait ScalatagsExtensions {
   val emptyFrag: Frag                   = new RawFrag("")
   implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)
 
-  val emptyModifier: Modifier = new Modifier {
-    def applyTo(t: Builder) = {}
-  }
+  val emptyModifier: Modifier = (t: Builder) => {}
 
   def ariaTitle(v: String) =
     new Modifier {
@@ -161,11 +159,9 @@ trait ScalatagsExtensions {
     }
 
   def titleOrText(blind: Boolean, v: String): Modifier =
-    new Modifier {
-      def applyTo(t: Builder) = {
-        if (blind) t.addChild(v)
-        else t.setAttr("title", Builder.GenericAttrValueSource(v))
-      }
+    (t: Builder) => {
+      if (blind) t.addChild(v)
+      else t.setAttr("title", Builder.GenericAttrValueSource(v))
     }
 
   def titleOrText(v: String)(implicit ctx: Context): Modifier = titleOrText(ctx.blind, v)

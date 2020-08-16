@@ -50,7 +50,7 @@ ${Mailgun.txt.serviceNote}
       val body = s"""Hello,
 
 Thank you for confirming your $title title on Lichess.
-It is now visible on your profile page: ${baseUrl}/@/${user.username}.
+It is now visible on your profile page: $baseUrl/@/${user.username}.
 
 $regards
 """
@@ -76,7 +76,7 @@ ${Mailgun.txt.serviceNote}
         val body          = s"""Hello,
 
 It is our pleasure to welcome you as a Lichess coach.
-Your coach profile awaits you on ${baseUrl}/coach/edit.
+Your coach profile awaits you on $baseUrl/coach/edit.
 
 $regards
 """
@@ -131,16 +131,16 @@ ${Mailgun.txt.serviceNote}
     }
 
   def onAppealReply(user: User): Funit = {
-      val body = s"""Hello,
+    val body = s"""Hello,
 
       Your appeal has received a response from the moderation team: ${baseUrl}/appeal
 
 $regards
 """
 
-      lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
-      funit
-    }
+    lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
+    funit
+  }
 
   private def userLang(user: User) = user.realLang | lila.i18n.defaultLang
 }

@@ -42,10 +42,10 @@ final class Env(
 
   lila.common.Bus.subscribeFun("adjustCheater", "finishGame", "shadowban", "setPermissions") {
     case lila.hub.actorApi.mod.Shadowban(userId, true) =>
-      api.toggleApproved(userId, false)
+      api.toggleApproved(userId, value = false)
       api.reviews deleteAllBy userId
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-      api.toggleApproved(userId, false)
+      api.toggleApproved(userId, value = false)
       api.reviews deleteAllBy userId
     case lila.hub.actorApi.mod.SetPermissions(userId, permissions) =>
       api.toggleApproved(userId, permissions.has(Permission.Coach.dbKey))
@@ -60,8 +60,8 @@ final class Env(
   def cli =
     new lila.common.Cli {
       def process = {
-        case "coach" :: "enable" :: username :: Nil  => api.toggleApproved(username, true)
-        case "coach" :: "disable" :: username :: Nil => api.toggleApproved(username, false)
+        case "coach" :: "enable" :: username :: Nil  => api.toggleApproved(username, value = true)
+        case "coach" :: "disable" :: username :: Nil => api.toggleApproved(username, value = false)
       }
     }
 }

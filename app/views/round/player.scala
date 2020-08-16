@@ -69,7 +69,7 @@ LichessRound.boot(${safeJsonValue(
           bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
           chatOption.map(_ => chat.frag)
         ),
-        bits.roundAppPreload(pov, true),
+        bits.roundAppPreload(pov, controls = true),
         div(cls := "round__underboard")(
           bits.crosstable(cross, pov.game),
           (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option

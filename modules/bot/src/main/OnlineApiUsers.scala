@@ -12,14 +12,14 @@ final class OnlineApiUsers(
 
   private val cache = new ExpireCallbackMemo(
     10.seconds,
-    userId => publish(userId, false)
+    userId => publish(userId, isOnline = false)
   )
 
   def setOnline(userId: lila.user.User.ID): Unit = {
     // We must delay the event publication, because caffeine
     // delays the removal listener, therefore when a bot reconnects,
     // the offline event is sent after the online event.
-    if (!cache.get(userId)) scheduler.scheduleOnce(1 second) { publish(userId, true) }
+    if (!cache.get(userId)) scheduler.scheduleOnce(1 second) { publish(userId, isOnline = true) }
     cache.put(userId)
   }
 

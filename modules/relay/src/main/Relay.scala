@@ -2,7 +2,7 @@ package lila.relay
 
 import org.joda.time.DateTime
 
-import lila.study.{ Study }
+import lila.study.Study
 import lila.user.User
 
 case class Relay(

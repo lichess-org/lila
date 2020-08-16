@@ -16,7 +16,7 @@ final class Importer(gameRepo: GameRepo)(implicit ec: scala.concurrent.Execution
       (data preprocess user).toFuture flatMap {
         case Preprocessed(g, _, initialFen, _) =>
           val game = forceId.fold(g.sloppy)(g.withId)
-          (gameRepo.insertDenormalized(game, initialFen = initialFen)) >> {
+          gameRepo.insertDenormalized(game, initialFen = initialFen) >> {
             game.pgnImport.flatMap(_.user).isDefined ?? gameRepo.setImportCreatedAt(game)
           } >> {
             gameRepo.finish(

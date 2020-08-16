@@ -169,7 +169,7 @@ final class Env(
 
   system.actorOf(Props(wire[Titivate]), name = "titivate")
 
-  new CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game _)
+  new CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game)
 
   private lazy val takebacker = wire[Takebacker]
 

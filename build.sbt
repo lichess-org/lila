@@ -42,7 +42,7 @@ lazy val modules = Seq(
 )
 
 lazy val moduleRefs = modules map projectToRef
-lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
+lazy val moduleCPDeps = moduleRefs map { sbt.ClasspathDependency(_, None) }
 
 lazy val api = module("api",
   moduleCPDeps,

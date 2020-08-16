@@ -70,5 +70,5 @@ object show {
       )
     )
 
-  def socketUrl(id: String) = s"/study/$id/socket/v${apiVersion}"
+  def socketUrl(id: String) = s"/study/$id/socket/v$apiVersion"
 }

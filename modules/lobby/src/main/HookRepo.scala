@@ -16,7 +16,7 @@ private object HookRepo {
 
   def truncateIfNeeded() =
     if (size >= hardLimit) {
-      logger.warn(s"Found ${size} hooks, cleaning up!")
+      logger.warn(s"Found $size hooks, cleaning up!")
       hooks = hooks.sortBy(-_.createdAt.getMillis).take(hardLimit * 2 / 3)
       logger.warn(s"Kept ${hooks.size} hooks")
     }

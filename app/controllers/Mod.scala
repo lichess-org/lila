@@ -191,7 +191,7 @@ final class Mod(
             err => BadRequest(err.toString).fuccess,
             rawEmail => {
               val email = env.security.emailAddressValidator
-                .validate(EmailAddress(rawEmail)) err s"Invalid email ${rawEmail}"
+                .validate(EmailAddress(rawEmail)) err s"Invalid email $rawEmail"
               modApi.setEmail(me.id, user.id, email.acceptable) inject redirect(user.username, mod = true)
             }
           )
@@ -268,8 +268,8 @@ final class Mod(
       }
     }
 
-  def communicationPublic(username: String)  = communications(username, false)
-  def communicationPrivate(username: String) = communications(username, true)
+  def communicationPublic(username: String)  = communications(username, priv = false)
+  def communicationPrivate(username: String) = communications(username, priv = true)
 
   protected[controllers] def redirect(username: String, mod: Boolean = true) =
     Redirect(userUrl(username, mod))
@@ -296,7 +296,7 @@ final class Mod(
             else env.report.api.inquiries.spontaneous _
           f(AsMod(me), Suspect(user)) inject {
             if (isAppeal) Redirect(routes.Appeal.show(user.username))
-            else redirect(user.username, true)
+            else redirect(user.username, mod = true)
           }
         }
       }

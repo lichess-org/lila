@@ -106,7 +106,7 @@ object form {
         )
       ),
       form3.split(
-        (teams.size > 0) ?? {
+        teams.nonEmpty ?? {
           form3.group(form("team"), raw("Only members of team"), half = true)(
             form3.select(_, List(("", "No Restriction")) ::: teams.map(_.pair))
           )

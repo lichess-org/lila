@@ -126,7 +126,7 @@ object inquiry {
       div(cls := "links")(
         in.report.boostWith
           .map { userId =>
-            a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${userId}")("View", br, "Games")
+            a(href := s"${routes.User.games(in.user.id, "search")}?players.b=$userId")("View", br, "Games")
           }
           .getOrElse {
             in.report.bestAtomByHuman.map { atom =>
@@ -214,7 +214,7 @@ object inquiry {
       div(cls := "actions close")(
         span(cls := "switcher", title := "Automatically open next report")(
           span(cls := "switch")(
-            form3.cmnToggle("auto-next", "auto-next", true)
+            form3.cmnToggle("auto-next", "auto-next", checked = true)
           )
         ),
         postForm(

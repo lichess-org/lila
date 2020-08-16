@@ -21,7 +21,7 @@ final class UserInfosApi(roundColl: AsyncColl, currentPuzzleId: User => Fu[Optio
     for {
       current <- currentPuzzleId(user)
       rounds  <- fetchRounds(user.id, current)
-    } yield new UserInfos(user, rounds)
+    } yield UserInfos(user, rounds)
 
   private def fetchRounds(userId: User.ID, currentPuzzleId: Option[PuzzleId]): Fu[List[Round]] = {
     val idSelector = $doc("$regex" -> BSONRegex(s"^$userId:", "")) ++

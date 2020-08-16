@@ -81,7 +81,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     Auth { implicit ctx => me =>
       postApi.react(id, me, reaction, v) map {
         _ ?? { post =>
-          Ok(views.html.forum.post.reactions(post, true))
+          Ok(views.html.forum.post.reactions(post, canReact = true))
         }
       }
     }

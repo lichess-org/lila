@@ -33,7 +33,7 @@ final class SlackApi(
         val firsts    = buffer.sortBy(-_.amount).take(10).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.amount).sum
         val patrons =
-          if (firsts.size > 10) s"$firsts and, like, ${firsts.size - 10} others,"
+          if (firsts.length > 10) s"$firsts and, like, ${firsts.length - 10} others,"
           else firsts
         displayMessage {
           s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
@@ -242,8 +242,8 @@ final class SlackApi(
           SlackMessage(
             username = mod.username,
             icon = "spiral_note_pad",
-            text = (s"_*${userLink(user.username)}*_ (${userNotesLink(user.username)}):\n" +
-              linkifyUsers(note.text take 2000)),
+            text = s"_*${userLink(user.username)}*_ (${userNotesLink(user.username)}):\n" +
+              linkifyUsers(note.text take 2000),
             channel = rooms.tavern
           )
       } flatMap client.apply

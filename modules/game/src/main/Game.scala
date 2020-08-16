@@ -50,7 +50,7 @@ case class Game(
   def player(c: Color.type => Color): Player = player(c(Color))
 
   def isPlayerFullId(player: Player, fullId: String): Boolean =
-    (fullId.size == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
+    (fullId.length == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
 
   def player: Player = player(turnColor)
 
@@ -95,7 +95,7 @@ case class Game(
   // because if moretime was given,
   // elapsed time is no longer representing the game duration
   def durationSeconds: Option[Int] =
-    (movedAt.getSeconds - createdAt.getSeconds) match {
+    movedAt.getSeconds - createdAt.getSeconds match {
       case seconds if seconds > 60 * 60 * 12 => none // no way it lasted more than 12 hours, come on.
       case seconds                           => seconds.toInt.some
     }
@@ -180,7 +180,7 @@ case class Game(
       whitePlayer = copyPlayer(whitePlayer),
       blackPlayer = copyPlayer(blackPlayer),
       chess = game,
-      binaryMoveTimes = (!isPgnImport && !chess.clock.isDefined).option {
+      binaryMoveTimes = (!isPgnImport && chess.clock.isEmpty).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
             BinaryFormat.moveTime.read(t, playedTurns)

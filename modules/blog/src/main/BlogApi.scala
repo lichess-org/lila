@@ -26,7 +26,7 @@ final class BlogApi(
       .pageSize(maxPerPage.value)
       .page(page)
       .submit()
-      .fold(_ => none, some _)
+      .fold(_ => none, some)
       .dmap2 { PrismicPaginator(_, page, maxPerPage) }
 
   def recent(

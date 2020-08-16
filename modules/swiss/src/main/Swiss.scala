@@ -39,7 +39,7 @@ case class Swiss(
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 
   def allRounds: List[SwissRound.Number]      = (1 to round.value).toList.map(SwissRound.Number.apply)
-  def finishedRounds: List[SwissRound.Number] = (1 to (round.value - 1)).toList.map(SwissRound.Number.apply)
+  def finishedRounds: List[SwissRound.Number] = (1 until round.value).toList.map(SwissRound.Number.apply)
 
   def guessNbRounds  = (nbPlayers - 1) atMost settings.nbRounds atLeast 2
   def actualNbRounds = if (isFinished) round.value else guessNbRounds
@@ -62,7 +62,7 @@ case class Swiss(
   def estimatedDurationString = {
     val minutes = estimatedDuration.toMinutes
     if (minutes < 60) s"${minutes}m"
-    else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
+    else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${minutes % 60}m" else "")
   }
 
   def roundInfo = Swiss.RoundInfo(teamId, settings.chatFor)

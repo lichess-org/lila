@@ -49,7 +49,7 @@ final class ModApi(
         reportApi.getMod(modId.value) flatMap {
           _ ?? { mod =>
             lila.mon.cheat.autoMark.increment()
-            setEngine(mod, sus, true)
+            setEngine(mod, sus, v = true)
           }
         }
       }
@@ -94,8 +94,8 @@ final class ModApi(
   def garbageCollect(sus: Suspect): Funit =
     for {
       mod <- reportApi.getLichessMod
-      _   <- setAlt(mod, sus, true)
-      _   <- setTroll(mod, sus, false)
+      _   <- setAlt(mod, sus, v = true)
+      _   <- setTroll(mod, sus, value = false)
     } yield logApi.garbageCollect(mod, sus)
 
   def disableTwoFactor(mod: String, username: String): Funit =
@@ -113,11 +113,10 @@ final class ModApi(
   def setTitle(mod: String, username: String, title: Option[Title]): Funit =
     withUser(username) { user =>
       title match {
-        case None => {
+        case None =>
           userRepo.removeTitle(user.id) >>-
             logApi.removeTitle(mod, user.id) >>-
             lightUserApi.invalidate(user.id)
-        }
         case Some(t) =>
           Title.names.get(t) ?? { tFull =>
             userRepo.addTitle(user.id, t) >>-

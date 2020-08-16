@@ -22,7 +22,7 @@ object Spotlight {
 
   private def sort(tours: List[Tournament]) =
     tours.sortBy { t =>
-      -(t.schedule.??(_.freq.importance))
+      -t.schedule.??(_.freq.importance)
     }
 
   private def select(tour: Tournament, user: User): Boolean =

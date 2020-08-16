@@ -57,7 +57,7 @@ LichessRound.boot(${safeJsonValue(
           bits.side(pov, data, tour, simul, userTv, bookmarked),
           chatOption.map(_ => chat.frag)
         ),
-        bits.roundAppPreload(pov, false),
+        bits.roundAppPreload(pov, controls = false),
         div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
         div(cls := "round__underchat")(bits underchat pov.game)
       )

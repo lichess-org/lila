@@ -12,6 +12,7 @@ object Levenshtein {
         val i = j - dd
         ((i - (threshold - 1)) max 0) until (1 + ((i + t) min a.length))
       }
+      @scala.annotation.tailrec
       def loop(j: Int, prev: Array[Int], prevr: Range, next: Array[Int]): Int = {
         if (j > b.length) prev.last
         else {
@@ -22,7 +23,7 @@ object Levenshtein {
               if (i == 0) j
               else {
                 val t0 = if (i < prevr.end) prev(i) else inf
-                val t1 = 1 + (if (i > q.start) t0 min (next(i - 1)) else t0)
+                val t1 = 1 + (if (i > q.start) t0 min next(i - 1) else t0)
                 if (prevr.start < i) {
                   val t = prev(i - 1)
                   t1 min (if (c != a(i - 1)) 1 + t else t)

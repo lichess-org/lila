@@ -54,11 +54,11 @@ final class PostApi(
             case _ =>
               env.postRepo.coll.insert.one(post) >>
                 env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
-                shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, true)
+                shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, value = true)
               } >>
                 env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>- {
-                (!categ.quiet ?? (indexer ! InsertPost(post)))
-                (!categ.quiet ?? env.recent.invalidate())
+                !categ.quiet ?? (indexer ! InsertPost(post))
+                !categ.quiet ?? env.recent.invalidate()
                 promotion.save(me, post.text)
                 shutup ! {
                   if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
@@ -135,12 +135,12 @@ final class PostApi(
     for {
       topics <- env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
       categs <- env.categRepo.coll.byIds[Categ](topics.map(_.categId).distinct)
-    } yield posts map { post =>
+    } yield posts flatMap { post =>
       for {
         topic <- topics find (_.id == post.topicId)
         categ <- categs find (_.slug == topic.categId)
       } yield PostView(post, topic, categ, lastPageOf(topic))
-    } flatten
+    }
 
   def viewsFromIds(postIds: Seq[Post.ID]): Fu[List[PostView]] =
     env.postRepo.coll.byOrderedIds[Post, Post.ID](postIds)(_.id) flatMap views
@@ -199,7 +199,7 @@ final class PostApi(
       _ ?? { post =>
         viewOf(post) flatMap {
           _ ?? { view =>
-            (for {
+            for {
               first <- env.postRepo.isFirstPost(view.topic.id, view.post.id)
               _ <-
                 if (first) env.topicApi.delete(view.categ, view.topic)
@@ -215,7 +215,7 @@ final class PostApi(
                 post.author,
                 text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
               )
-            } yield ())
+            } yield ()
           }
         }
       }

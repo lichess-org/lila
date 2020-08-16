@@ -27,7 +27,7 @@ final private class ExplorerIndexer(
   private val separator           = "\n\n\n"
   private val datePattern         = "yyyy-MM-dd"
   private val dateFormatter       = DateTimeFormat forPattern datePattern
-  private val pgnDateFormat       = DateTimeFormat forPattern "yyyy.MM.dd";
+  private val pgnDateFormat       = DateTimeFormat forPattern "yyyy.MM.dd"
   private val internalEndPointUrl = s"$internalEndpoint/import/lichess"
 
   private def parseDate(str: String): Option[DateTime] =

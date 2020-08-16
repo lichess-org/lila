@@ -82,9 +82,9 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
             teamId      <- doc.getAsOpt[TeamID]("_id")
             leadersBson <- doc.getAsOpt[List[Bdoc]]("p")
             leaders = leadersBson.flatMap {
-              case p: Bdoc =>
+              p: Bdoc =>
                 for {
-                  id    <- p.getAsOpt[User.ID]("u")
+                  id <- p.getAsOpt[User.ID]("u")
                   magic <- p.int("m")
                 } yield TeamLeader(id, magic)
             }

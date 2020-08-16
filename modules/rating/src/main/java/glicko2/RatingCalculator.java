@@ -147,7 +147,7 @@ public class RatingCalculator {
 
     // step 5.2 - set the initial values of the iterative algorithm to come in step 5.4
     double A = a;
-    double B = 0.0;
+    double B;
     if ( Math.pow(delta, 2) > Math.pow(phi, 2) + v ) {
       B = Math.log( Math.pow(delta, 2) - Math.pow(phi, 2) - v );
     } else {

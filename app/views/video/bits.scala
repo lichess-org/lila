@@ -50,7 +50,7 @@ object bits {
         videos.currentPageResults.map { card(_, control) },
         videos.nextPage.map { next =>
           div(cls := "pager none")(
-            a(rel := "next", href := s"${routes.Video.author(name)}?${control.queryString}&page=${next}")(
+            a(rel := "next", href := s"${routes.Video.author(name)}?${control.queryString}&page=$next")(
               "Next"
             )
           )

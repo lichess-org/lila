@@ -23,7 +23,8 @@ final class MsgCompat(
   def inbox(me: User, pageOpt: Option[Int]): Fu[JsObject] = {
     val page = pageOpt.fold(1)(_ atLeast 1 atMost 2)
     api.threadsOf(me) flatMap { allThreads =>
-      val threads = allThreads.drop((page - 1) * maxPerPage.value).take(maxPerPage.value)
+      val threads =
+        allThreads.slice((page - 1) * maxPerPage.value, (page - 1) * maxPerPage.value + maxPerPage.value)
       lightUserApi.preloadMany(threads.map(_ other me)) inject
         PaginatorJson {
           Paginator

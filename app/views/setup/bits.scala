@@ -75,7 +75,7 @@ private object bits {
           div(
             input(
               `type` := "radio",
-              id := s"$prefix${field.id}_${key}",
+              id := s"$prefix${field.id}_$key",
               st.name := field.name,
               value := key,
               field.value.has(key) option checked

@@ -73,13 +73,13 @@ object WMMatching {
 
   private[this] def minWeightMatching(endpoint: Array[Int], weights: Array[Int]): List[(Int, Int)] = {
     val maxweight = weights.max
-    maxWeightMatching(endpoint, weights.map { maxweight - _ }, true)
+    maxWeightMatching(endpoint, weights.map { maxweight - _ }, maxcardinality = true)
   }
 
   private[this] def mateToList(endpoint: Array[Int], mate: Array[Int]): List[(Int, Int)] = {
     // Transform mate such that mate(v) is the vertex to which v is paired.
     var l: List[(Int, Int)] = Nil
-    for (v <- Range(mate.size - 2, -1, -1)) {
+    for (v <- Range(mate.length - 2, -1, -1)) {
       val k = mate(v)
       if (k >= 0) {
         val e = endpoint(k)
@@ -458,9 +458,9 @@ object WMMatching {
         val l1                 = blossomchilds(b).length - 1
         val (jstep, endptrick) =
           // Start index is odd; go forward and wrap.
-          if ((j & 1) != 0) ((j: Int) => { if (j == l1) 0 else (j + 1) }, 0)
+          if ((j & 1) != 0) ((j: Int) => { if (j == l1) 0 else j + 1 }, 0)
           // Start index is even; go backward.
-          else ((j: Int) => { if (j == 0) l1 else (j - 1) }, 1)
+          else ((j: Int) => { if (j == 0) l1 else j - 1 }, 1)
         // Move along the blossom until we get to the base.
         var p = labelend(b)
         while (j != 0) {
@@ -534,8 +534,8 @@ object WMMatching {
       val i  = blossomchilds(b).indexOf(t)
       var j  = i
       val (jstep, endptrick) =
-        if ((j & 1) != 0) ((j: Int) => { if (j == l1) 0 else (j + 1) }, 0)
-        else ((j: Int) => { if (j == 0) l1 else (j - 1) }, 1)
+        if ((j & 1) != 0) ((j: Int) => { if (j == l1) 0 else j + 1 }, 0)
+        else ((j: Int) => { if (j == 0) l1 else j - 1 }, 1)
       // Move along the blossom until we get to the base.
       while (j != 0) {
         // Step to the next sub-blossom and augment it recursively.
@@ -744,14 +744,12 @@ object WMMatching {
         for (v <- vertices) {
           label(inblossom(v)) match {
             case 0 => ()
-            case 1 => {
+            case 1 =>
               //S-vertex: 2*u = 2*u - 2*delta
               dualvar(v) -= dt.delta
-            }
-            case 2 => {
+            case 2 =>
               //T-vertex: 2*u = 2*u + 2*delta
               dualvar(v) += dt.delta
-            }
           }
         }
 
@@ -768,24 +766,21 @@ object WMMatching {
         // Take action at the point where minimum delta occurred.
         dt.tp match {
           case 0 => false
-          case 1 => {
+          case 1 =>
             // Use the least-slack edge to continue the search.
             allowedge(dt.extra) = true
             val kk = 2 * dt.extra
             val ei = endpoint(kk)
             queue ::= (if (label(inblossom(ei)) == 0) endpoint(kk + 1) else ei)
             true
-          }
-          case 2 => {
+          case 2 =>
             // Use the least-slack edge to continue the search.
             allowedge(dt.extra) = true
             queue ::= endpoint(2 * dt.extra)
             true
-          }
-          case 3 => {
-            expandBlossom(dt.extra, false)
+          case 3 =>
+            expandBlossom(dt.extra, endstage = false)
             true
-          }
         }
       }
     }

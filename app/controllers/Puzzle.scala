@@ -163,7 +163,7 @@ final class Puzzle(
                       voted <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
                     } yield Ok(
                       Json.obj(
-                        "user"  -> lila.puzzle.JsonView.infos(false)(infos),
+                        "user"  -> lila.puzzle.JsonView.infos(isOldMobile = false)(infos),
                         "round" -> lila.puzzle.JsonView.round(round),
                         "voted" -> voted
                       )
@@ -234,7 +234,7 @@ final class Puzzle(
                   infos <- env.puzzle userInfos me2
                 } yield Ok(
                   Json.obj(
-                    "user" -> lila.puzzle.JsonView.infos(false)(infos)
+                    "user" -> lila.puzzle.JsonView.infos(isOldMobile = false)(infos)
                   )
                 )
             )

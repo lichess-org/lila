@@ -28,9 +28,9 @@ final class PublicChat(
     tournamentApi.fetchVisibleTournaments.flatMap { visibleTournaments =>
       val ids = visibleTournaments.all.map(_.id) map Chat.Id.apply
       chatApi.userChat.findAll(ids).map { chats =>
-        chats.map { chat =>
+        chats.flatMap { chat =>
           visibleTournaments.all.find(_.id == chat.id.value).map(tour => (tour, chat))
-        }.flatten
+        }
       } map sortTournamentsByRelevance
     }
 
@@ -38,9 +38,9 @@ final class PublicChat(
     fetchVisibleSimuls.flatMap { simuls =>
       val ids = simuls.map(_.id) map Chat.Id.apply
       chatApi.userChat.findAll(ids).map { chats =>
-        chats.map { chat =>
+        chats.flatMap { chat =>
           simuls.find(_.id == chat.id.value).map(simul => (simul, chat))
-        }.flatten
+        }
       }
     }
 
