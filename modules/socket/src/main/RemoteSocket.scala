@@ -49,9 +49,9 @@ final class RemoteSocket(
 
   val baseHandler: Handler = {
     case In.ConnectUser(userId) =>
-      onlineUserIds.getAndUpdate((x: UserIds) => x + userId)
+      onlineUserIds.getAndUpdate(_ + userId)
     case In.DisconnectUsers(userIds) =>
-      onlineUserIds.getAndUpdate((x: UserIds) => x -- userIds)
+      onlineUserIds.getAndUpdate(_ -- userIds)
     case In.NotifiedBatch(userIds) => notification ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
     case In.Lags(lags) =>
       lags foreach (UserLagCache.put _).tupled
