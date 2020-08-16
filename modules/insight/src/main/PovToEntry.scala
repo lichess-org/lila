@@ -36,8 +36,7 @@ final private class PovToEntry(
       gameRepo setUnanalysed game.id
       analysisRepo remove game.id
       true
-    }
-    false
+    } else false
   }
 
   private def enrich(game: Game, userId: String, provisional: Boolean): Fu[Option[RichPov]] =
