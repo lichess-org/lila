@@ -83,9 +83,15 @@ ${puts mkString "\n"}
       }
   }
 
-  private def isFileEmpty(file: File) = {
-    !file.exists() || Source.fromFile(file, "UTF-8").getLines.drop(1).next == "<resources></resources>"
-  }
+  private def isFileEmpty(file: File) =
+    !file.exists() || {
+      val source = Source.fromFile(file, "UTF-8")
+      try {
+        source.getLines.drop(1).next == "<resources></resources>"
+      } finally {
+        source.close()
+      }
+    }
 
   private def packageName(db: String) = if (db == "class") "clas" else db
 
