@@ -11,7 +11,7 @@ final private[app] class Renderer extends Actor {
   def receive = {
 
     case lila.tv.actorApi.RenderFeaturedJs(game) =>
-      sender() ! V.game.bits.featuredJs(Pov first game).render
+      sender() ! V.game.bits.featuredJs(Pov naturalOrientation game).render
 
     case lila.puzzle.RenderDaily(puzzle, fen, lastMove) =>
       sender() ! V.puzzle.bits.daily(puzzle, fen, lastMove).render

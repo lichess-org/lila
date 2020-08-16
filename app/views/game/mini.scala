@@ -61,7 +61,7 @@ object mini {
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
         playerUsername(pov.player, withRating = false, withTitle = true),
-        span(cls := "mini-game__rating")(lila.game.Namer ratingString pov.player)
+        span(cls := "rating")(lila.game.Namer ratingString pov.player)
       ),
       pov.game.clock.map { renderClock(_, pov.color) }
     )

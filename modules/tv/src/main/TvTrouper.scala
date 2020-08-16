@@ -57,7 +57,7 @@ final private[tv] class TvTrouper(
     case Selected(channel, game) =>
       import lila.socket.Socket.makeMessage
       import cats.implicits._
-      val player = game.firstPlayer
+      val player = game player game.naturalOrientation
       val user   = player.userId flatMap lightUser
       (user, player.rating) mapN { (u, r) =>
         channelChampions += (channel -> Tv.Champion(u, r, game.id))
@@ -66,7 +66,7 @@ final private[tv] class TvTrouper(
       val data = Json.obj(
         "channel" -> channel.key,
         "id"      -> game.id,
-        "color"   -> game.firstColor.name,
+        "color"   -> game.naturalOrientation.name,
         "player" -> user.map { u =>
           Json.obj(
             "name"   -> u.name,
@@ -86,7 +86,7 @@ final private[tv] class TvTrouper(
                 "featured",
                 Json.obj(
                   "html"  -> html,
-                  "color" -> game.firstColor.name,
+                  "color" -> game.naturalOrientation.name,
                   "id"    -> game.id
                 )
               )

@@ -61,9 +61,7 @@ case class Game(
 
   def opponent(c: Color): Player = player(!c)
 
-  lazy val firstColor = Color(whitePlayer before blackPlayer)
-  def firstPlayer     = player(firstColor)
-  def secondPlayer    = player(!firstColor)
+  lazy val naturalOrientation = if (variant.racingKings) White else Color(whitePlayer before blackPlayer)
 
   def turnColor = chess.player
 

@@ -24,6 +24,29 @@ export interface TournamentOpts extends Untyped {
 export interface TournamentData extends Untyped {
   teamBattle?: TeamBattle;
   teamStanding?: RankedTeam[];
+  featured?: FeaturedGame;
+}
+
+export interface FeaturedGame {
+  id: string;
+  fen: Fen;
+  orientation: Color;
+  lastMove: string;
+  white: FeaturedPlayer;
+  black: FeaturedPlayer;
+  clock?: {
+    white: number;
+    black: number;
+  };
+  winner?: Color
+}
+
+interface FeaturedPlayer {
+  rank: number;
+  name: string;
+  rating: number;
+  title?: string;
+  berserk?: boolean;
 }
 
 export interface TeamBattle {

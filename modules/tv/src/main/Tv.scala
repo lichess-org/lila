@@ -30,7 +30,7 @@ final class Tv(
               }
               .sequenceFu
               .dmap(_.flatten)
-          history = games map Pov.first
+          history = games map Pov.naturalOrientation
         } yield game map (_ -> history)
     }
 

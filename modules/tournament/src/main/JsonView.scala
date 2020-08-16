@@ -273,17 +273,24 @@ final class JsonView(
         .add("title" -> light.flatMap(_.title))
         .add("berserk" -> p.berserk)
     }
-    Json.obj(
-      "id"  -> game.id,
-      "fen" -> (chess.format.Forsyth exportBoard game.board),
-      "color" -> (game.variant match {
-        case chess.variant.RacingKings => chess.White
-        case _                         => game.firstColor
-      }).name,
-      "lastMove" -> ~game.lastMoveKeys,
-      "white"    -> ofPlayer(featured.white, game player chess.White),
-      "black"    -> ofPlayer(featured.black, game player chess.Black)
-    )
+    Json
+      .obj(
+        "id"          -> game.id,
+        "fen"         -> (chess.format.Forsyth exportBoard game.board),
+        "orientation" -> game.naturalOrientation.name,
+        "lastMove"    -> ~game.lastMoveKeys,
+        "white"       -> ofPlayer(featured.white, game player chess.White),
+        "black"       -> ofPlayer(featured.black, game player chess.Black)
+      )
+      .add(
+        "clock" -> game.clock.ifTrue(game.isBeingPlayed).map { c =>
+          Json.obj(
+            "white" -> c.remainingTime(chess.White).roundSeconds,
+            "black" -> c.remainingTime(chess.Black).roundSeconds
+          )
+        }
+      )
+      .add("winner" -> game.winnerColor.map(_.name))
   }
 
   private def myInfoJson(u: Option[User], delay: Option[Pause.Delay])(i: MyInfo) =

@@ -41,9 +41,10 @@ final class Tv(
   private def lichessTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
     OptionFuResult(env.tv.tv getGameAndHistory channel) {
       case (game, history) =>
-        val flip = getBool("flip")
-        val pov  = if (flip) Pov second game else Pov first game
-        val onTv = lila.round.OnLichessTv(channel.key, flip)
+        val flip    = getBool("flip")
+        val natural = Pov naturalOrientation game
+        val pov     = if (flip) !natural else natural
+        val onTv    = lila.round.OnLichessTv(channel.key, flip)
         negotiate(
           html = env.tournament.api.gameView.watcher(pov.game) flatMap { tour =>
             env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
@@ -67,7 +68,7 @@ final class Tv(
         env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) map {
           case (champs, games) =>
             NoCache {
-              Ok(html.tv.games(channel, games map lila.game.Pov.first, champs))
+              Ok(html.tv.games(channel, games map Pov.naturalOrientation, champs))
             }
         }
       }
@@ -89,7 +90,7 @@ final class Tv(
     Action.async { implicit req =>
       env.tv.tv.getBestGame map {
         case None       => NotFound
-        case Some(game) => Ok(views.html.tv.embed(Pov first game))
+        case Some(game) => Ok(views.html.tv.embed(Pov naturalOrientation game))
       }
     }
 }

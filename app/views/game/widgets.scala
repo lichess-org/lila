@@ -17,7 +17,7 @@ object widgets {
   )(implicit ctx: Context): Frag =
     games map { g =>
       val fromPlayer  = user flatMap g.player
-      val firstPlayer = fromPlayer | g.firstPlayer
+      val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
       st.article(cls := "game-row paginated")(
         a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
         div(cls := "game-row__board")(

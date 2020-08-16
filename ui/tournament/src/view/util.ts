@@ -27,25 +27,6 @@ export function dataIcon(icon: string): Attrs {
   };
 }
 
-export function miniBoard(game) {
-  return h('a.mini-board.parse-fen.is2d.mini-board-' + game.id, {
-    key: game.id,
-    attrs: {
-      href: '/' + game.id + (game.color === 'white' ? '' : '/black'),
-      'data-color': game.color,
-      'data-fen': game.fen,
-      'data-lastmove': game.lastMove
-    },
-    hook: {
-      insert(vnode) {
-        window.lichess.parseFen($(vnode.elm as HTMLElement));
-      }
-    }
-  }, [
-    h('div.cg-wrap')
-  ]);
-}
-
 export function ratio2percent(r: number) {
   return Math.round(100 * r) + '%';
 }

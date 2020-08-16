@@ -10,7 +10,7 @@
     @extend %flex-between-nowrap;
     padding: 0 2px;
   }
-  &__rating {
+  .rating {
     @extend %roboto;
     font-size: .9em;
     margin-left: 1ch;

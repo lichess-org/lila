@@ -229,7 +229,7 @@
     const fenColor = fen => fen.indexOf(' b') > 0 ? 'black' : 'white';
     return {
       init(node, data) {
-        const [fen, orientation, lm] = node.getAttribute('data-state').split(','),
+        const [fen, orientation, lm] = (data || node.getAttribute('data-state')).split(','),
           config = {
             coordinates: false,
             viewOnly: true,

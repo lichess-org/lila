@@ -48,7 +48,7 @@ final class GifExport(
       "fen"         -> (Forsyth >> game.chess),
       "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
       "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
-      "orientation" -> game.firstColor.name
+      "orientation" -> game.naturalOrientation.name
     ) ::: List(
       game.lastMoveKeys.map { "lastMove" -> _ },
       game.situation.checkSquare.map { "check" -> _.key }
