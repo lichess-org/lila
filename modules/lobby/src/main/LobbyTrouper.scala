@@ -160,6 +160,7 @@ final private class LobbyTrouper(
   private def findCompatible(hook: Hook): Option[Hook] =
     findCompatibleIn(hook, HookRepo findCompatible hook)
 
+  @scala.annotation.tailrec
   private def findCompatibleIn(hook: Hook, in: Vector[Hook]): Option[Hook] =
     in match {
       case Vector() => none

@@ -168,6 +168,7 @@ final private class ChapterMaker(
     s"""$escapedDomain/(\\w{8,12})"""
   }.r.unanchored
 
+  @scala.annotation.tailrec
   private def parseGame(str: String): Fu[Option[Game]] =
     str match {
       case s if s.length == Game.gameIdSize => gameRepo game s
