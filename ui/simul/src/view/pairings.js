@@ -1,41 +1,48 @@
-var m = require('mithril');
-var util = require('./util');
-var status = require('game/status');
+const m = require('mithril');
+const util = require('./util');
+const status = require('game/status');
+const opposite = require('chessground/util').opposite;
 
 function miniPairing(ctrl) {
   return function(pairing) {
-    var game = pairing.game;
-    var player = pairing.player;
-    var result = pairing.game.status >= status.ids.mate ? (
-      pairing.winnerColor === 'white' ? '1-0' : (pairing.winnerColor === 'black' ? '0-1' : '½/½')
-    ) : '*';
-    return m('a', {
-      href: '/' + game.id + '/' + game.orient,
-      class: ctrl.data.host.gameId === game.id ? 'host' : ''
-    }, [
-      m('span', {
-        class: 'mini-board mini-board-' + game.id + ' parse-fen is2d',
-        'data-color': game.orient,
-        'data-fen': game.fen,
-        'data-lastmove': game.lastMove,
-        config: function(el, isUpdate) {
-          if (!isUpdate) lichess.parseFen($(el));
+    const game = pairing.game,
+      player = pairing.player;
+    return m(`a.mini-game.mini-game--init.mini-game-${game.id} is2d`, {
+      class: ctrl.data.host.gameId === game.id ? 'host' : '',
+      'data-live': game.clock ? game.id : '',
+      config(el, isUpdate) {
+        if (!isUpdate) {
+          window.lichess.miniGame.init(el, `${game.fen},${game.orient},${game.lastMove}`)
+          window.lichess.powertip.manualUserIn(el);
         }
-      }, m('div.cg-wrap')),
-      m('span.vstext', [
-        m('span.vstext__pl', [
-          util.playerVariant(ctrl, player).name,
-          m('br'),
-          result
+      }
+    }, [
+      m('span.mini-game__player', [
+        m('a.mini-game__user.ulpt', {
+          href: `/@/${player.name}`
+        }, [
+          m('span.name', player.title ? [m('span.title', player.title), ' ', player.name] : [player.name]),
+          ' ',
+          m('span.rating', player.rating)
         ]),
-        m('div.vstext__op', [
-          player.name,
-          m('br'),
-          player.title ? player.title + ' ' : '',
-          player.rating
-        ])
-      ])
-    ]);
+        game.clock ?
+        m(`span.mini-game__clock.mini-game__clock--${opposite(game.orient)}`, {
+          'data-time': game.clock[opposite(game.orient)]
+        }) :
+        m('span.mini-game__result', game.winner ? (game.winner == game.orient ? 0 : 1) : '½'),
+      ]),
+      m('a.cg-wrap', {
+        href: `/${game.id}/${game.orient}`
+      }),
+      m('span.mini-game__player', [
+        m('span'),
+        game.clock ?
+        m(`span.mini-game__clock.mini-game__clock--${game.orient}`, {
+          'data-time': game.clock[game.orient]
+        }) :
+        m('span.mini-game__result', game.winner ? (game.winner == game.orient ? 1 : 0) : '½'),
+      ]),
+    ])
   };
 }
 

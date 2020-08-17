@@ -9,26 +9,14 @@
 
   grid-template-columns: repeat(auto-fill, minmax(var(--np-min-width), 1fr));
 
-  > a {
+  .mini-game {
     @extend %box-radius;
 
     color: $c-font;
     padding: .3em;
-
-    @include transition(background);
-
-    background: fade-out($c-bg-box, 0.6);
-
-    &:hover {
-      background: fade-out($c-link, 0.6);
-      color: $c-font-clear;
-    }
   }
-
-  .meta {
-    display: block;
-    text-align: center;
-    overflow: hidden;
+  a {
+    color: $c-font;
   }
 
   .indicator {

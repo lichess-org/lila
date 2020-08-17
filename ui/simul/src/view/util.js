@@ -19,9 +19,5 @@ module.exports = {
   player: function(p) {
     return m.trust(playerHtml(p));
   },
-  playerVariant: function(ctrl, p) {
-    return ctrl.data.variants.find(function(v) {
-      return v.key === p.variant;
-    });
-  }
+  playerVariant: (ctrl, p) => ctrl.data.variants.find(v => v.key === p.variant)
 };

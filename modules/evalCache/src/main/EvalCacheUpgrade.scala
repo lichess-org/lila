@@ -2,7 +2,6 @@ package lila.evalCache
 
 import play.api.libs.json.{ JsObject, JsString }
 
-import scala.collection.mutable.AnyRefMap
 import scala.concurrent.duration._
 import chess.format.FEN
 import chess.variant.Variant

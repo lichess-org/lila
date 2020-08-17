@@ -55,7 +55,7 @@ object mini {
   }
 
   private def renderState(pov: Pov) =
-    dataState := s"${Forsyth.exportBoard(pov.game.board)},${pov.color.name},${~pov.game.lastMoveKeys}"
+    dataState := s"${Forsyth boardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
 
   private def renderPlayer(pov: Pov) =
     span(cls := "mini-game__player")(

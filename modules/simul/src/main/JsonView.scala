@@ -123,13 +123,23 @@ final class JsonView(
     }
 
   private def gameJson(hostId: User.ID, g: Game) =
-    Json.obj(
-      "id"       -> g.id,
-      "status"   -> g.status.id,
-      "fen"      -> (chess.format.Forsyth exportBoard g.board),
-      "lastMove" -> ~g.lastMoveKeys,
-      "orient"   -> g.playerByUserId(hostId).map(_.color)
-    )
+    Json
+      .obj(
+        "id"       -> g.id,
+        "status"   -> g.status.id,
+        "fen"      -> (chess.format.Forsyth boardAndColor g.situation),
+        "lastMove" -> ~g.lastMoveKeys,
+        "orient"   -> g.playerByUserId(hostId).map(_.color)
+      )
+      .add(
+        "clock" -> g.clock.ifTrue(g.isBeingPlayed).map { c =>
+          Json.obj(
+            "white" -> c.remainingTime(chess.White).roundSeconds,
+            "black" -> c.remainingTime(chess.Black).roundSeconds
+          )
+        }
+      )
+      .add("winner" -> g.winnerColor.map(_.name))
 
   private def pairingJson(games: List[Game], hostId: String)(p: SimulPairing): Fu[Option[JsObject]] =
     games.find(_.id == p.gameId) ?? { game =>
