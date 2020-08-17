@@ -2,16 +2,13 @@ package lila.app
 package templating
 
 import java.util.Locale
-
-import play.api.i18n.Lang
-
-import scala.collection.mutable.AnyRefMap
 import org.joda.time.format._
 import org.joda.time.format.ISODateTimeFormat
 import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period, PeriodType }
-import lila.app.ui.ScalatagsTemplate._
-
+import play.api.i18n.Lang
 import scala.collection.mutable
+
+import lila.app.ui.ScalatagsTemplate._
 
 trait DateHelper { self: I18nHelper with StringHelper =>
 
