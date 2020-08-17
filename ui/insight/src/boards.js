@@ -3,15 +3,12 @@ var m = require('mithril');
 function miniGame(game) {
   return m('a', {
     key: game.id,
-    href: '/' + game.id + (game.color === 'white' ? '' : '/black')
+    href: `/${game.id}/${game.color}`
   }, [
-    m('span', {
-      class: 'mini-board cg-wrap mini-board-' + game.id + ' parse-fen is2d',
-      'data-color': game.color,
-      'data-fen': game.fen,
-      'data-lastmove': game.lastMove,
-      config: function(el, isUpdate) {
-        if (!isUpdate) lichess.parseFen($(el));
+    m('span.mini-board.is2d', {
+      'data-state': `${game.fen},${game.color},${game.lastMove}`,
+      config(el, isUpdate) {
+        if (!isUpdate) window.lichess.miniBoard.init(el)
       }
     }),
     m('span.vstext', [

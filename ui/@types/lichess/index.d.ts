@@ -41,7 +41,10 @@ interface Lichess {
   reverse(s: string): string;
   sound: any;
   userAutocomplete: any;
-  parseFen(el: any): void;
+  miniBoard: {
+    init(node: HTMLElement): void;
+    initAll(): void;
+  };
   miniGame: {
     init(node: HTMLElement, data?: string): string;
     initAll(): void;
