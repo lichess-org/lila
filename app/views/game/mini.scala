@@ -60,7 +60,15 @@ object mini {
         playerUsername(pov.player, withRating = false),
         span(cls := "rating")(lila.game.Namer ratingString pov.player)
       ),
-      pov.game.clock.map { renderClock(_, pov.color) }
+      if (pov.game.finished) renderResult(pov)
+      else pov.game.clock.map { renderClock(_, pov.color) }
+    )
+
+  private def renderResult(pov: Pov) =
+    span(cls := "mini-game__result")(
+      pov.game.winnerColor.fold("½") { c =>
+        if (c == pov.color) "1" else "0"
+      }
     )
 
   private def renderClock(clock: chess.Clock, color: chess.Color) = {
