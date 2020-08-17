@@ -4,19 +4,14 @@ body {
 }
 
 .embedded {
-  .vstext, cg-board {
+  background: $c-bg-page;
+  padding: .3em;
+
+  cg-board {
     box-shadow: none;
   }
 
   cg-board {
     border-radius: 3px 3px 0 0;
-  }
-
-  .vstext {
-    @extend %metal;
-
-    border-radius: 0 0 3px 3px;
-    border: $border;
-    border-top: 0;
   }
 }

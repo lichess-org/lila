@@ -31,6 +31,7 @@ object embed {
           ),
           jQueryTag,
           jsAt("javascripts/vendor/chessground.min.js", defer = false),
+          jsAt("compiled/util.js", defer = false),
           jsAt("compiled/tv.js", defer = false)
         )
       )

@@ -10,12 +10,6 @@
   z-index: z("powertip");
 }
 
-#powerTip {
-  .mini-board {
-    border-width: 0 0 1px 0;
-  }
-}
-
 .upt {
   &__info {
     @extend %flex-column;

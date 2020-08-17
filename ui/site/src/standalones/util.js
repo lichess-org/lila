@@ -235,7 +235,7 @@ lichess.loadCss = url => {
 lichess.loadCssPath = key =>
   lichess.loadCss(`css/${key}.${$('body').data('theme')}.${$('body').data('dev') ? 'dev' : 'min'}.css`);
 
-lichess.jsModule = name => 
+lichess.jsModule = name =>
   `compiled/lichess.${name}${$('body').data('dev') ? '' : '.min'}.js`;
 
 lichess.loadScript = (url, opts) =>
@@ -404,3 +404,130 @@ $.modal.close = function() {
     $(this).remove();
   });
 };
+
+lichess.miniBoard = {
+  initAll() {
+    Array.from(document.getElementsByClassName('mini-board--init')).forEach(lichess.miniBoard.init);
+  },
+  init(node) {
+    if (!window.Chessground) return setTimeout(() => lichess.miniBoard.init(node), 500);
+    const $el = $(node).removeClass('mini-board--init'),
+      [fen, orientation, lm] = $el.data('state').split(',');
+    $el.data('chessground', Chessground(node, {
+      orientation,
+      coordinates: false,
+      viewOnly: !node.getAttribute('data-playable'),
+      resizable: false,
+      fen,
+      lastMove: lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
+      drawable: {
+        enabled: false,
+        visible: false
+      }
+    }));
+  }
+};
+
+lichess.miniGame = (() => {
+  const fenColor = fen => fen.indexOf(' b') > 0 ? 'black' : 'white';
+  return {
+    init(node, data) {
+      const [fen, orientation, lm] = ((typeof data == 'string' && data) || node.getAttribute('data-state')).split(','),
+        config = {
+          coordinates: false,
+          viewOnly: true,
+          resizable: false,
+          fen,
+          orientation,
+          lastMove: lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
+          drawable: {
+            enabled: false,
+            visible: false
+          }
+        },
+        $el = $(node).removeClass('mini-game--init'),
+        $cg = $el.find('.cg-wrap'),
+        turnColor = fenColor(fen);
+      $cg.data('chessground', Chessground($cg[0], config));
+      ['white', 'black'].forEach(color =>
+        $el.find('.mini-game__clock--' + color).each(function() {
+          $(this).clock({
+            time: parseInt(this.getAttribute('data-time')),
+            pause: color != turnColor
+          });
+        })
+      );
+      return node.getAttribute('data-live');
+    },
+    initAll() {
+      const nodes = Array.from(document.getElementsByClassName('mini-game--init')),
+        ids = nodes.map(lichess.miniGame.init).filter(id => id);
+      if (ids.length) window.lichess.StrongSocket.firstConnect.then(send =>
+        send('startWatching', ids.join(' '))
+      );
+    },
+    update(node, data) {
+      const $el = $(node),
+        lm = data.lm,
+        lastMove = lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
+        cg = $el.find('.cg-wrap').data('chessground');
+      cg.set({
+        fen: data.fen,
+        lastMove
+      });
+      const turnColor = fenColor(data.fen);
+      const renderClock = (time, color) => {
+        if (!isNaN(time)) $el.find('.mini-game__clock--' + color).clock('set', {
+          time,
+          pause: color != turnColor
+        });
+      };
+      renderClock(data.wc, 'white');
+      renderClock(data.bc, 'black');
+    },
+    finish(node, win) {
+      ['white', 'black'].forEach(color =>
+        $(node).find('.mini-game__clock--' + color).each(function() {
+          $(this).clock('destroy');
+        }).replaceWith(`<span class="mini-game__result">${win ? (win == color[0] ? 1 : 0) : '½'}</span>`)
+      );
+    }
+  }
+})();
+
+lichess.widget("clock", {
+  _create: function() {
+    this.target = this.options.time * 1000 + Date.now();
+    if (!this.options.pause) this.interval = setInterval(this.render.bind(this), 1000);
+    this.render();
+  },
+
+  set: function(opts) {
+    this.options = opts;
+    this.target = this.options.time * 1000 + Date.now();
+    this.render();
+    clearInterval(this.interval);
+    if (!opts.pause) this.interval = setInterval(this.render.bind(this), 1000);
+  },
+
+  render: function() {
+    if (document.body.contains(this.element[0])) {
+      this.element.text(this.formatMs(this.target - Date.now()));
+      this.element.toggleClass('clock--run', !this.options.pause);
+    } else clearInterval(this.interval);
+  },
+
+  pad: function(x) {
+    return (x < 10 ? '0' : '') + x;
+  },
+
+  formatMs: function(msTime) {
+    const date = new Date(Math.max(0, msTime + 500)),
+      hours = date.getUTCHours(),
+      minutes = date.getUTCMinutes(),
+      seconds = date.getUTCSeconds();
+    return hours > 0 ?
+      hours + ':' + this.pad(minutes) + ':' + this.pad(seconds) :
+      minutes + ':' + this.pad(seconds);
+  }
+});

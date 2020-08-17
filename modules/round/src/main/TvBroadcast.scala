@@ -47,13 +47,16 @@ final private class TvBroadcast extends Actor {
       featuredId = id.some
       queues.foreach(_ offer msg)
 
-    case MoveGameEvent(_, fen, move) if queues.nonEmpty =>
+    case MoveGameEvent(game, fen, move) if queues.nonEmpty =>
       val msg = makeMessage(
         "fen",
-        Json.obj(
-          "fen" -> fen,
-          "lm"  -> move
-        )
+        Json
+          .obj(
+            "fen" -> s"$fen ${game.turnColor.letter}",
+            "lm"  -> move
+          )
+          .add("cw" -> game.clock.map(_.remainingTime(chess.White).roundSeconds))
+          .add("bw" -> game.clock.map(_.remainingTime(chess.Black).roundSeconds))
       )
       queues.foreach(_ offer msg)
   }
