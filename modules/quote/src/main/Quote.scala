@@ -329,7 +329,6 @@ object Quote {
       "The battle for the ultimate truth will never be won.  And that’s why chess is so fascinating.",
       "Hans Kmoch"
     ),
-    new Quote("Chess makes man wiser and clear-sighted.", "Vladimir Putin"),
     new Quote(
       "I am still a victim of chess. It has all the beauty of art and much more. It cannot be commercialized. chess is much purer than art in its social position.",
       "Marcel Duchamp"
