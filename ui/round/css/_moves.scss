@@ -22,17 +22,12 @@
     text-align: center;
   }
 
-  .moves,
-  .message {
-    flex: 0 0 auto;
-  }
-
-  .moves,
+  #{$moves-tag},
   .message {
     flex: 0 0 7.4rem;
   }
 
-  .moves {
+  #{$moves-tag} {
     @extend %zen;
   }
 

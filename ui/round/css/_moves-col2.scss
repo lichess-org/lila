@@ -2,7 +2,7 @@
 @include breakpoint($mq-col2) {
   background: $c-bg-box;
 
-  .moves {
+  #{$moves-tag} {
     display: flex;
     flex-flow: row wrap;
     align-items: center;

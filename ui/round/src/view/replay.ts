@@ -10,7 +10,7 @@ import * as util from '../util';
 import RoundController from '../ctrl';
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
 
-const scrollMax = 99999, moveTag = 'u8t', indexTag = 'i5z', indexTagUC = indexTag.toUpperCase();
+const scrollMax = 99999, moveTag = 'u8t', indexTag = 'i5z', indexTagUC = indexTag.toUpperCase(), movesTag = 'bp0';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
@@ -183,7 +183,7 @@ function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: 
 export function render(ctrl: RoundController): VNode | undefined {
   const d = ctrl.data,
     col1 = window.lichess.isCol1(),
-    moves = ctrl.replayEnabledByPref() && h('div.moves', {
+    moves = ctrl.replayEnabledByPref() && h(movesTag, {
       hook: util.onInsert(el => {
         el.addEventListener('mousedown', e => {
           let node = e.target as HTMLElement, offset = -2;
