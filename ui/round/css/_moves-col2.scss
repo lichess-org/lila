@@ -21,7 +21,7 @@
     }
   }
 
-  index {
+  #{$index-tag} {
     /* Edge 18: flex: 0 0 calc(100% / 6); causes wrap */
     flex: 0 0 16.666%;
     display: flex;

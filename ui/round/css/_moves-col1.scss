@@ -41,7 +41,7 @@
     }
   }
 
-  index,
+  #{$index-tag},
   #{$move-tag},
   .result-wrap {
     display: flex;
@@ -50,7 +50,7 @@
     padding: 0 .3rem;
   }
 
-  index {
+  #{$index-tag} {
     padding-right: .15em;
   }
 

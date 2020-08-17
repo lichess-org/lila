@@ -10,7 +10,7 @@ import * as util from '../util';
 import RoundController from '../ctrl';
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
 
-const scrollMax = 99999, moveTag = 'u8t';
+const scrollMax = 99999, moveTag = 'u8t', indexTag = 'i5z', indexTagUC = indexTag.toUpperCase();
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
@@ -84,7 +84,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
 
   const els: MaybeVNodes = [], curPly = ctrl.ply;
   for (let i = 0; i < pairs.length; i++) {
-    els.push(h('index', i + 1 + ''));
+    els.push(h(indexTag, i + 1 + ''));
     els.push(renderMove(pairs[i][0], curPly, true));
     els.push(renderMove(pairs[i][1], curPly, false));
   }
@@ -190,7 +190,7 @@ export function render(ctrl: RoundController): VNode | undefined {
           if (node.tagName !== moveTag.toUpperCase()) return;
           while(node = node.previousSibling as HTMLElement) {
             offset++;
-            if (node.tagName === 'INDEX') {
+            if (node.tagName === indexTagUC) {
               ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
               ctrl.redraw();
               break;

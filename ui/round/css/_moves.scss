@@ -36,7 +36,7 @@
     @extend %zen;
   }
 
-  index {
+  #{$index-tag} {
     @extend %roboto;
   }
 
