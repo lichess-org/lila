@@ -12,6 +12,9 @@
 
     padding: 0 2px;
   }
+  &__user {
+    overflow: hidden;
+  }
 
   .rating {
     @extend %roboto;

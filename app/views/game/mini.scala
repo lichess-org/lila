@@ -18,16 +18,13 @@ object mini {
       pov: Pov,
       ownerLink: Boolean = false,
       tv: Boolean = false,
-      withTitle: Boolean = true,
-      withLink: Boolean = true,
-      withLive: Boolean = true
+      withLink: Boolean = true
   )(implicit ctx: Context): Tag = {
     val game   = pov.game
-    val isLive = withLive && game.isBeingPlayed
+    val isLive = game.isBeingPlayed
     val tag    = if (withLink) a else span
     tag(
       href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
-      title := withTitle.option(gameTitle(game, pov.color)),
       cls := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
       dataLive := isLive.option(game.id),
       renderState(pov)
@@ -60,7 +57,7 @@ object mini {
   private def renderPlayer(pov: Pov) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
-        playerUsername(pov.player, withRating = false, withTitle = true),
+        playerUsername(pov.player, withRating = false),
         span(cls := "rating")(lila.game.Namer ratingString pov.player)
       ),
       pov.game.clock.map { renderClock(_, pov.color) }
