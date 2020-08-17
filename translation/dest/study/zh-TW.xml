@@ -5,6 +5,7 @@
   <string name="myPublicStudies">我的公開研究</string>
   <string name="myPrivateStudies">我的私人研究</string>
   <string name="myFavoriteStudies">我最愛的研究</string>
+  <string name="whatAreStudies">研究是什麼?</string>
   <string name="allStudies">所有研究</string>
   <string name="studiesCreatedByX">%s創建的研究</string>
   <string name="noneYet">暫時沒有...</string>
