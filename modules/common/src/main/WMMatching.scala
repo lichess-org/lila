@@ -384,7 +384,7 @@ object WMMatching {
       // Trace back from w to base.
       val (path2, endps2) = traceBack(b, bb, w, 1, Nil, Nil)
       // Trace back from v to base.
-      val (path1, endps1) = traceBack(b, bb, v, 0, path2.reverse, ll :: (endps2.reverse))
+      val (path1, endps1) = traceBack(b, bb, v, 0, path2.reverse, ll :: endps2.reverse)
       blossomchilds(b) = (bb :: path1).toArray
       blossomendps(b) = endps1.toArray
 

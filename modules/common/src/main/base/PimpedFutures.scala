@@ -194,12 +194,12 @@ final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal
 
   def orFail(msg: => String)(implicit ec: EC): Fu[A] =
     fua flatMap {
-      _.fold[Fu[A]](fufail(msg))(fuccess(_))
+      _.fold[Fu[A]](fufail(msg))(fuccess)
     }
 
   def orFailWith(err: => Exception)(implicit ec: EC): Fu[A] =
     fua flatMap {
-      _.fold[Fu[A]](fufail(err))(fuccess(_))
+      _.fold[Fu[A]](fufail(err))(fuccess)
     }
 
   def orElse(other: => Fu[Option[A]])(implicit ec: EC): Fu[Option[A]] =
