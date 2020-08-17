@@ -32,7 +32,7 @@ object String {
 
   private[this] def oneline(s: String) = s.replace('\n', ' ')
   def shorten(text: String, length: Int, sep: String = "…") = {
-    if (text.length > length + sep.length) oneline(text take length) ++ sep
+    if (text.lengthIs > length + sep.length) oneline(text take length) ++ sep
     else oneline(text)
   }
 
