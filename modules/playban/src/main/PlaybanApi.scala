@@ -185,7 +185,7 @@ final class PlaybanApi(
         case Outcome.RageQuit | Outcome.Sitting | Outcome.NoPlay | Outcome.Abort => false
         case Outcome.Good                                                        => true
       } match {
-        case c if c.size >= 5 => Some(c.count(identity).toDouble / c.size)
+        case c if c.sizeIs >= 5 => Some(c.count(identity).toDouble / c.size)
         case _                => none
       }
     }

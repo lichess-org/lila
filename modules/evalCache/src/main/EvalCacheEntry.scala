@@ -89,7 +89,7 @@ object EvalCacheEntry {
 
     def looksValid =
       score.mate match {
-        case None       => moves.value.size > MIN_PV_SIZE
+        case None       => moves.value.toList.sizeIs > MIN_PV_SIZE
         case Some(mate) => mate.value != 0 // sometimes we get #0. Dunno why.
       }
 

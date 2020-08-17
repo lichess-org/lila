@@ -53,7 +53,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
             if (!b2 || acc.contains(u2)) acc1 else acc1.updated(u2, u1)
         }
         .takeWhile(
-          r => r.size < nbUsers,
+          r => r.sizeIs < nbUsers,
           inclusive = true
         )
         .toMat(Sink.lastOption)(Keep.right)

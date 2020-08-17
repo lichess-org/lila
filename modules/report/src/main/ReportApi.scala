@@ -183,7 +183,7 @@ final class ReportApi(
           userRepo.byId(userId) zip
             getLichessReporter zip
             findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
-            case Some(abuser) ~ reporter ~ past if past.size < 1 =>
+            case Some(abuser) ~ reporter ~ past if past.sizeIs < 1 =>
               create(
                 Candidate(
                   reporter = reporter,
@@ -433,7 +433,7 @@ final class ReportApi(
               .sort(sortLastAtomAt)
               .cursor[Report](ReadPreference.secondaryPreferred)
               .list(20) flatMap { reports =>
-              if (reports.size < 4) fuccess(none) // not enough data to know
+              if (reports.sizeIs < 4) fuccess(none) // not enough data to know
               else {
                 val userIds = reports.map(_.user).distinct
                 userRepo countEngines userIds map { nbEngines =>

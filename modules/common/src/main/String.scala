@@ -37,7 +37,7 @@ object String {
   }
 
   def isShouting(text: String) =
-    text.length >= 5 && {
+    text.lengthIs >= 5 && {
       import java.lang.Character._
       // true if >1/2 of the latin letters are uppercase
       (text take 80).foldLeft(0) { (i, c) =>

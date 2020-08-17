@@ -103,7 +103,7 @@ final class Cached(
   }
 
   def userIdsLike(text: String): Fu[List[User.ID]] = {
-    if (text.length < 5) userIdsLikeCache get text
+    if (text.lengthIs < 5) userIdsLikeCache get text
     else userIdsLikeFetch(text)
   }
 }

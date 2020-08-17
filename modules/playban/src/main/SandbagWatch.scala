@@ -78,7 +78,7 @@ private object SandbagWatch {
 
     def latestIsSandbag = outcomes.headOption.exists(Sandbag ==)
 
-    def immaculate = outcomes.size == maxOutcomes && outcomes.forall(Good ==)
+    def immaculate = outcomes.sizeIs == maxOutcomes && outcomes.forall(Good ==)
   }
 
   val newRecord = Record(Nil)

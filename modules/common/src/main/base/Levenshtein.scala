@@ -35,6 +35,6 @@ object Levenshtein {
       }
       loop(1, Array.range(0, a.length + 1), rowRange(0), Array.ofDim[Int](a.length + 1)) < threshold
     }
-    if (a.length < b.length) f(b, a) else f(a, b)
+    if (a.lengthIs < b.length) f(b, a) else f(a, b)
   }
 }

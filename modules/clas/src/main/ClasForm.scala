@@ -23,7 +23,7 @@ final class ClasForm(
           "Invalid teacher list",
           str => {
             val ids = readTeacherIds(str)
-            ids.nonEmpty && ids.size <= 10 && ids.forall { id =>
+            ids.nonEmpty && ids.sizeIs <= 10 && ids.forall { id =>
               blockingFetchUser(id).isDefined
             }
           }

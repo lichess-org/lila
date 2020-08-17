@@ -13,7 +13,7 @@ final class PromotionApi(domain: NetDomain) {
       val promotions = extract(text)
       promotions.isEmpty || {
         val prev   = ~cache.getIfPresent(user.id)
-        val accept = prev.size < 3 && !prev.exists(promotions.contains)
+        val accept = prev.sizeIs < 3 && !prev.exists(promotions.contains)
         if (!accept) logger.info(s"Promotion @${user.username} ${identify(text) mkString ", "}")
         accept
       }

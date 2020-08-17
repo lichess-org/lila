@@ -99,7 +99,7 @@ case class Domain private (value: String) extends AnyVal with StringValue {
   // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
   def withoutSubdomain: Option[Domain] =
     value.split('.').toList.reverse match {
-      case tld :: sld :: tail :: _ if sld.length <= 3 => Domain from s"$tail.$sld.$tld"
+      case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain from s"$tail.$sld.$tld"
       case tld :: sld :: _                            => Domain from s"$sld.$tld"
       case _                                          => none
     }

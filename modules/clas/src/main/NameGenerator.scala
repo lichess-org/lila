@@ -7,7 +7,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
 
   def apply(maxSize: Int = 16, triesLeft: Int = 100): Fu[Option[String]] = {
     val name = anyOf(combinations).map(anyOf).mkString
-    if (name.length <= maxSize) userRepo.nameExists(name) flatMap {
+    if (name.lengthIs <= maxSize) userRepo.nameExists(name) flatMap {
       case true => apply(maxSize, triesLeft - 1)
       case _    => fuccess(name.some)
     }

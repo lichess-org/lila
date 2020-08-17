@@ -117,7 +117,7 @@ case class Simul(
 
   def applicantRatio = s"${applicants.count(_.accepted)}/${applicants.size}"
 
-  def variantRich = variants.size > 3
+  def variantRich = variants.sizeIs > 3
 
   def isHost(userOption: Option[User]): Boolean = userOption ?? isHost
   def isHost(user: User): Boolean               = user.id == hostId

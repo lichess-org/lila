@@ -179,7 +179,7 @@ final class ChapterRepo(val coll: Coll)(implicit
           case (hash, doc) =>
             doc.getAsOpt[Study.Id]("studyId").fold(hash) { studyId =>
               hash get studyId match {
-                case Some(chapters) if chapters.size >= nbChaptersPerStudy => hash
+                case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
                 case maybe =>
                   val chapters = ~maybe
                   hash + (studyId -> readIdName(doc).fold(chapters)(chapters :+ _))

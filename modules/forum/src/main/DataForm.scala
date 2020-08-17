@@ -70,7 +70,7 @@ object DataForm {
   }
 
   private def mostlyUpperCase(text: String) =
-    text.length > 5 && {
+    text.lengthIs > 5 && {
       import java.lang.Character._
       // true if >2/3 of the latin letters are upper
       (text take 300).foldLeft(0) { (i, c) =>

@@ -46,7 +46,7 @@ final private[tournament] class PairingSystem(
 
   private def makePreps(data: Data, users: Set[User.ID]): Fu[List[Pairing.Prep]] = {
     import data._
-    if (users.size < 2) fuccess(Nil)
+    if (users.sizeIs < 2) fuccess(Nil)
     else
       playerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
         val nbIdles = idles.size
@@ -81,7 +81,7 @@ final private[tournament] class PairingSystem(
     } toList
 
   private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =
-    (players.size > 1) ?? AntmaPairing(data, addColorHistory(players))
+    (players.sizeIs > 1) ?? AntmaPairing(data, addColorHistory(players))
 
   private def addColorHistory(players: RankedPlayers) = players.map(_ withColorHistory colorHistoryApi.get)
 }

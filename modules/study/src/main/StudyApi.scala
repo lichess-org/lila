@@ -706,7 +706,7 @@ final class StudyApi(
           _ ?? { chapter =>
             chapterRepo.orderedMetadataByStudy(studyId).flatMap { chaps =>
               // deleting the only chapter? Automatically create an empty one
-              if (chaps.size < 2) {
+              if (chaps.sizeIs < 2) {
                 chapterMaker(study, ChapterMaker.Data(Chapter.Name("Chapter 1")), 1, who.u) flatMap { c =>
                   doAddChapter(study, c, sticky = true, who) >> doSetChapter(study, c.id, who)
                 }

@@ -95,11 +95,11 @@ object Form {
     import play.api.data.{ validation => V }
     def minLength[A](from: A => String)(length: Int): Constraint[A] =
       Constraint[A]("constraint.minLength", length) { o =>
-        if (from(o).length >= length) V.Valid else V.Invalid(V.ValidationError("error.minLength", length))
+        if (from(o).lengthIs >= length) V.Valid else V.Invalid(V.ValidationError("error.minLength", length))
       }
     def maxLength[A](from: A => String)(length: Int): Constraint[A] =
       Constraint[A]("constraint.maxLength", length) { o =>
-        if (from(o).length <= length) V.Valid else V.Invalid(V.ValidationError("error.maxLength", length))
+        if (from(o).lengthIs <= length) V.Valid else V.Invalid(V.ValidationError("error.maxLength", length))
       }
   }
 

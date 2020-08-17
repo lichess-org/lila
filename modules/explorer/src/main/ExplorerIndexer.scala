@@ -79,7 +79,7 @@ final private class ExplorerIndexer(
     def apply(pgn: String): Unit = {
       buf += pgn
       val startAt = nowMillis
-      if (buf.size >= max) {
+      if (buf.sizeIs >= max) {
         ws.url(internalEndPointUrl).put(buf mkString separator) andThen {
           case Success(res) if res.status == 200 =>
             lila.mon.explorer.index.time.record((nowMillis - startAt) / max)

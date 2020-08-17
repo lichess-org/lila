@@ -26,7 +26,7 @@ final private[puzzle] class PuzzleBatch(
       first <- puzzles.headOption.flatten
       last  <- puzzles.lastOption.flatten
     } {
-      if (puzzles.size > 1) logger.info(s"Batch solve ${user.id} ${puzzles.size} ${first.id}->${last.id}")
+      if (puzzles.sizeIs > 1) logger.info(s"Batch solve ${user.id} ${puzzles.size} ${first.id}->${last.id}")
     }
 
   object select {
@@ -85,7 +85,7 @@ final private[puzzle] class PuzzleBatch(
         )
         .cursor[Puzzle]()
         .list(nb) flatMap {
-        case res if res.size < nb && (tolerance + step) <= toleranceMax =>
+        case res if res.sizeIs < nb && (tolerance + step) <= toleranceMax =>
           tryRange(
             coll = coll,
             rating = rating,

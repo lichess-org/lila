@@ -93,7 +93,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
           case (rt, pos) => rt.updateRank(pos + 1)
         }
       } map { ranked =>
-      if (ranked.size == battle.teams.size) ranked
+      if (ranked.sizeIs == battle.teams.size) ranked
       else
         ranked ::: battle.teams
           .foldLeft(List.empty[RankedTeam]) {

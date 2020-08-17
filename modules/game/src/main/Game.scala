@@ -50,7 +50,7 @@ case class Game(
   def player(c: Color.type => Color): Player = player(c(Color))
 
   def isPlayerFullId(player: Player, fullId: String): Boolean =
-    (fullId.length == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
+    (fullId.lengthIs == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
 
   def player: Player = player(turnColor)
 
@@ -116,7 +116,7 @@ case class Game(
       val pairs = clocks.iterator zip clocks.iterator.drop(1)
 
       // We need to determine if this color's last clock had inc applied.
-      // if finished and history.size == playedTurns then game was ended
+      // if finished and history.sizeIs == playedTurns then game was ended
       // by a players move, such as with mate or autodraw. In this case,
       // the last move of the game, and the only one without inc, is the
       // last entry of the clock history for !turnColor.
@@ -244,7 +244,7 @@ case class Game(
     else
       copy(
         status = Status.Started,
-        mode = Mode(mode.rated && userIds.distinct.size == 2)
+        mode = Mode(mode.rated && userIds.distinct.sizeIs == 2)
       )
 
   def startClock =

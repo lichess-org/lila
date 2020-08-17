@@ -106,7 +106,7 @@ object BinaryFormat {
         // ba.size might be 8 if there was no timer.
         // #TODO remove 5 byte timer case! But fix the DB first!
         val timer = {
-          if (ia.length == 12) readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
+          if (ia.lengthIs == 12) readTimer(readInt(ia(8), ia(9), ia(10), ia(11)))
           else None
         }
 
