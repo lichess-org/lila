@@ -183,7 +183,7 @@ final class ReportApi(
           userRepo.byId(userId) zip
             getLichessReporter zip
             findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
-            case Some(abuser) ~ reporter ~ past if past.sizeIs < 1 =>
+            case Some(abuser) ~ reporter ~ past if past.isEmpty =>
               create(
                 Candidate(
                   reporter = reporter,
