@@ -30,10 +30,10 @@ object String {
     }
   }
 
+  private[this] def oneline(s: String) = s.replace('\n', ' ')
   def shorten(text: String, length: Int, sep: String = "…") = {
-    val t = text.replace('\n', ' ')
-    if (t.length > (length + sep.length)) (t take length) ++ sep
-    else t
+    if (text.length > length + sep.length) oneline(text take length) ++ sep
+    else oneline(text)
   }
 
   def isShouting(text: String) =
