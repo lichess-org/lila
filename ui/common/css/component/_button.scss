@@ -7,10 +7,10 @@
   border: none;
   cursor: pointer;
   text-align: center;
+  user-select: none;
+  white-space: nowrap;
 
   @include transition;
-
-  white-space: nowrap;
 
   &,
   &:visited {
