@@ -102,7 +102,7 @@
     .rmoves {
       margin-bottom: 1px;
 
-      .moves {
+      #{$moves-tag} {
         display: none;
         background: none;
       }
@@ -113,7 +113,7 @@
     }
 
     @include breakpoint($mq-short) {
-      & .rmoves .moves {
+      & .rmoves #{$moves-tag} {
         display: flex;
       }
     }

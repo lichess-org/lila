@@ -7,6 +7,7 @@ import play.api.{ Configuration, Mode }
 import scala.concurrent.duration._
 
 import lila.common.config._
+import lila.user.User
 
 @Module
 final class Env(
@@ -41,6 +42,7 @@ final class Env(
     swissEnv: lila.swiss.Env,
     onlineApiUsers: lila.bot.OnlineApiUsers,
     challengeEnv: lila.challenge.Env,
+    socketEnv: lila.socket.Env,
     msgEnv: lila.msg.Env,
     cacheApi: lila.memo.CacheApi,
     mongoCacheApi: lila.memo.MongoCache.Api,
@@ -83,7 +85,10 @@ final class Env(
   )
   if (mode == Mode.Prod) system.scheduler.scheduleOnce(5 seconds)(influxEvent.start())
 
-  system.scheduler.scheduleWithFixedDelay(20 seconds, 10 seconds) { () =>
+  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size)
+    // ensure the Lichess user is online
+    socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)
+    userEnv.repo.setSeenAt(User.lichessId)
   }
 }

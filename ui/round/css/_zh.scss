@@ -23,14 +23,14 @@
 .round__app {
   @include breakpoint($mq-col2) {
     @include breakpoint($mq-short) {
-      .rmoves .moves {
+      .rmoves #{$moves-tag} {
         display: none;
       }
     }
 
 
     @include breakpoint($mq-tall) {
-      .rmoves .moves {
+      .rmoves #{$moves-tag} {
         display: flex;
       }
     }

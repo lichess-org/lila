@@ -553,9 +553,9 @@ export default class RoundController {
     promotion.cancel(this);
   };
 
-  resign = (v: boolean): void => {
+  resign = (v: boolean, immediately?: boolean): void => {
     if (v) {
-      if (this.resignConfirm || !this.data.pref.confirmResign || this.keyboardMove) {
+      if (this.resignConfirm || !this.data.pref.confirmResign || immediately) {
         this.socket.sendLoading('resign');
         clearTimeout(this.resignConfirm);
       } else {
