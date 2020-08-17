@@ -17,7 +17,7 @@ object search {
       ),
       div(cls := "list infinitescroll box__pad")(
         videos.currentPageResults.map { bits.card(_, control) },
-        videos.currentPageResults.size < 4 option div(cls := s"not_much nb_${videos.nbResults}")(
+        videos.currentPageResults.sizeIs < 4 option div(cls := s"not_much nb_${videos.nbResults}")(
           if (videos.currentPageResults.isEmpty) "No videos for this search:"
           else "That's all we got for this search:",
           s""""${~control.query}"""",

@@ -73,7 +73,7 @@ object side {
           )
         )(
           div(
-            (verdicts.list.size < 2) option p(trans.conditionOfEntry()),
+            verdicts.list.sizeIs < 2 option p(trans.conditionOfEntry()),
             verdicts.list map { v =>
               p(
                 cls := List(

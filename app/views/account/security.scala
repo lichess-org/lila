@@ -19,7 +19,7 @@ object security {
         standardFlash(cls := "box__pad"),
         div(cls := "box__pad")(
           p(trans.thisIsAListOfDevicesThatHaveLoggedIntoYourAccount()),
-          sessions.length > 1 option div(
+          sessions.sizeIs > 1 option div(
             trans.alternativelyYouCanX {
               postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
                 submitButton(cls := "button button-empty button-red confirm")(

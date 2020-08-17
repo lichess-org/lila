@@ -512,7 +512,7 @@ final class Clas(
   private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(
       f: => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
-    if (students.size <= lila.clas.Clas.maxStudents) f
+    if (students.sizeIs <= lila.clas.Clas.maxStudents) f
     else Unauthorized(views.html.clas.teacherDashboard.unreasonable(clas, students, active)).fuccess
 
   private def WithClass(me: lila.user.User, clasId: String)(
