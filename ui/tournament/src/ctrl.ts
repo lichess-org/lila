@@ -29,7 +29,6 @@ export default class TournamentController {
   joinWithTeamSelector: boolean = false;
   redraw: () => void;
 
-  private watchingGameId: string;
   private lastStorage = window.lichess.storage.make('last-redirect');
 
   constructor(opts: TournamentOpts, redraw: () => void) {
@@ -46,7 +45,6 @@ export default class TournamentController {
     sound.end(this.data);
     sound.countDown(this.data);
     this.redirectToMyGame();
-    if (this.data.featured) this.startWatching(this.data.featured.id);
   }
 
   askReload = (): void => {
@@ -63,7 +61,6 @@ export default class TournamentController {
       this.playerInfo.data = data.playerInfo;
     this.loadPage(data.standing);
     if (this.focusOnMe) this.scrollToMe();
-    if (data.featured) this.startWatching(data.featured.id);
     sound.end(data);
     sound.countDown(data);
     this.joinSpinner = false;
@@ -136,13 +133,6 @@ export default class TournamentController {
       this.focusOnMe = true;
     }
   }
-
-  private startWatching(id: string) {
-    if (id !== this.watchingGameId) {
-      this.watchingGameId = id;
-      setTimeout(() => this.socket.send("startWatching", id), 1000);
-    }
-  };
 
   scrollToMe = () => {
     const page = myPage(this);
