@@ -4,7 +4,7 @@ $(function() {
       $('div.captcha').each(function() {
         const $captcha = $(this),
           $board = $captcha.find('.mini-board'),
-          // $input = $captcha.find('input').val(''),
+          $input = $captcha.find('input').val(''),
           cg = $board.data('chessground'),
           fen = cg.getFen(),
           destsObj = $board.data('moves'),
@@ -26,7 +26,7 @@ $(function() {
         });
 
         const submit = function(solution) {
-          // $input.val(solution);
+          $input.val(solution);
           $.ajax({
             url: $captcha.data('check-url'),
             data: {
