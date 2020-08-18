@@ -60,4 +60,11 @@ Paroli: %3$s</string>
   <string name="onlyVisibleToTeachers">Faqat sinf oʻqituvchilariga koʻrinadi</string>
   <string name="lastActiveDate">Faol</string>
   <string name="managed">Oʻqituvchi tomonidan yaratilgan</string>
+  <string name="thisStudentAccountIsManaged">Ushbu oʻquvchi hisobi oʻqituvchi tomonidan yaratilgan</string>
+  <string name="upgradeFromManaged">Boshqarilgan rejimidan avtonom rejimiga oʻtish</string>
+  <string name="release">Toʻla qonli hisob yaratish</string>
+  <string name="releaseTheAccount">Hisobni toʻla qonli hisobga aylantirish - bu oʻquvchi hisobini avtonom boshqara oladi degani.</string>
+  <string name="releaseDesc1">Toʻla qonli hisobga aylantirilgan hisob boshqatdan boshqariladigan etib yaratilmaydi. Oʻquvchi oʻzi bola rejimi va parolni qayta tiklash ishlarini qila oladi.</string>
+  <string name="releaseDesc2">Oʻquvchi uning hisobi toʻla qonli hisobga aylanganda ham sinfda qoladi.</string>
+  <string name="realUniqueEmail">Oʻquvchining haqiqiy, unikal email manzili. Biz unga emailni tasdiqlash linkini yuboramiz.</string>
 </resources>
