@@ -1,9 +1,6 @@
 export function skip(txt: string) {
   return analyse(txt) && window.lichess.storage.get('chat-spam') != '1';
 }
-export function hasTeamUrl(txt: string) {
-  return !!txt.match(teamUrlRegex);
-}
 export function report(txt: string) {
   if (analyse(txt)) {
     $.post('/jslog/' + window.location.href.substr(-12) + '?n=spam');
@@ -35,12 +32,15 @@ const spamRegex = new RegExp([
   'hide.su',
   'wyon.de',
   'sexdatingcz.club'
-].map(url => {
-  return url.replace(/\./g, '\\.').replace(/\//g, '\\/');
-}).join('|'));
+].map(url =>
+  url.replace(/\./g, '\\.').replace(/\//g, '\\/')
+).join('|'));
 
-function analyse(txt: string) {
-  return !!txt.match(spamRegex);
-}
+const followMe = (txt: string) => txt.toLowerCase().includes('follow me');
+
+const analyse = (txt: string) => !!txt.match(spamRegex) || followMe(txt);
 
 const teamUrlRegex = /lichess\.org\/team\//
+export function hasTeamUrl(txt: string) {
+  return !!txt.match(teamUrlRegex);
+}
