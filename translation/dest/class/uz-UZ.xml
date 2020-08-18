@@ -4,4 +4,21 @@
   <string name="teachClassesOfChessStudents">Shaxmat oʻquvchilarini Lichess Sinflar uskunasi yordamida oʻrgating.</string>
   <string name="features">Imkoniyatlar</string>
   <string name="quicklyGenerateSafeUsernames">Oʻquvchilarga foydalanuvchi nomi va parollarini tez generatsiya qilish</string>
+  <string name="trackStudentProgress">Oʻquvchilar rivojini oʻyinlaridan va boshqotirmalarni yechishidan kuzatib boring</string>
+  <string name="messageAllStudents">Sinf yangi mavzusi haqidagi habarni barcha oʻquvchilarga yetkazish</string>
+  <string name="freeForAllForever">Hech qanday kuzatuvlarsiz va reklamalarsiz, abadiyga 100% bepul</string>
+  <string name="applyToBeLichessTeacher">Lichess oʻqituvchisi boʻlish uchun ariza bering</string>
+  <string name="noClassesYet">Xozircha sinflar yoʻq.</string>
+  <string name="teachersX">Oʻqituvchilar: %s</string>
+  <string name="newClass">Yangi sinf</string>
+  <string name="closeClass">Sinfni yopish</string>
+  <string name="closedByX">%s tomonidan yopilgan</string>
+  <string name="reopen">Qayta ochish</string>
+  <string name="removeStudent">Oʻquvchini oʻchirish</string>
+  <string name="removedStudents">Oʻchirildi</string>
+  <string name="inviteTheStudentBack">Oʻquvchini qayta taklif qilish</string>
+  <string name="sendAMessage">Barcha oʻquvchilarga habar yuborish.</string>
+  <string name="aLinkToTheClassWillBeAdded">Sinfga tegishli link habarni oxirida avtomatik tarzda qoʻshiladi, shu bois uni oʻzingiz qoʻshishingizga hojat yoʻq.</string>
+  <string name="className">Sinf nomi</string>
+  <string name="classDescription">Sinf haqida</string>
 </resources>
