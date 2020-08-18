@@ -102,7 +102,7 @@ final class Swiss(
     }
 
   def apiCreate(teamId: String) =
-    ScopedBody() { implicit req => me =>
+    ScopedBody(_.Tournament.Write) { implicit req => me =>
       if (me.isBot || me.lame) notFoundJson("This account cannot create tournaments")
       else
         env.team.cached.isLeader(teamId, me.id) flatMap {
