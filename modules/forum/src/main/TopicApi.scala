@@ -75,7 +75,7 @@ final private[forum] class TopicApi(
         )
         env.postRepo.coll.insert.one(post) >>
           env.topicRepo.coll.insert.one(topic withPost post) >>
-          env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>- {
+          env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
           !categ.quiet ?? (indexer ! InsertPost(post))
           !categ.quiet ?? env.recent.invalidate()
           promotion.save(me, post.text)
@@ -115,7 +115,7 @@ final private[forum] class TopicApi(
     )
     env.postRepo.coll.insert.one(post) >>
       env.topicRepo.coll.insert.one(topic withPost post) >>
-      env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
+      env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>-
       (indexer ! InsertPost(post)) >>-
       env.recent.invalidate() >>-
       Bus.publish(actorApi.CreatePost(post), "forumPost") void

@@ -63,7 +63,7 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
       env.categRepo.coll.insert.one(categ).void >>
         env.postRepo.coll.insert.one(post).void >>
         env.topicRepo.coll.insert.one(topic withPost post).void >>
-        env.categRepo.coll.update.one($id(categ.id), categ withTopic post).void
+        env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
     }
 
   def show(slug: String, page: Int, forUser: Option[User]): Fu[Option[(Categ, Paginator[TopicView])]] =
