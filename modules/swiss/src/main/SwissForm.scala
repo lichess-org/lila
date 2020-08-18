@@ -23,8 +23,8 @@ final class SwissForm(implicit mode: Mode) {
             Constraints minLength 2,
             Constraints maxLength 30,
             Constraints.pattern(
-              regex = """[\p{L}\p{N}-\s:,;]+""".r,
-              error = "error.unknown"
+              regex = """[\p{L}\p{N}-\s:,;\+]+""".r,
+              error = "Invalid characters"
             )
           )
         ),
