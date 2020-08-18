@@ -67,4 +67,31 @@ Paroli: %3$s</string>
   <string name="releaseDesc1">Toʻla qonli hisobga aylantirilgan hisob boshqatdan boshqariladigan etib yaratilmaydi. Oʻquvchi oʻzi bola rejimi va parolni qayta tiklash ishlarini qila oladi.</string>
   <string name="releaseDesc2">Oʻquvchi uning hisobi toʻla qonli hisobga aylanganda ham sinfda qoladi.</string>
   <string name="realUniqueEmail">Oʻquvchining haqiqiy, unikal email manzili. Biz unga emailni tasdiqlash linkini yuboramiz.</string>
+  <string name="teachers">Oʻqituvchilar</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Oʻqituvchi</item>
+    <item quantity="other">%s oʻqituvchilar</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Oʻquvchi</item>
+    <item quantity="other">%s oʻquvchilar</item>
+  </plurals>
+  <string name="students">Oʻquvchilar</string>
+  <string name="progress">Rivojlar</string>
+  <string name="noStudents">Xozirda, sinfda oʻquvchilar yoʻq.</string>
+  <string name="noRemovedStudents">Oʻchirilgan oʻquvchilar yoʻq.</string>
+  <string name="overDays">Bir necha kun</string>
+  <string name="timePlaying">Oʻyin vaqti</string>
+  <string name="variantXOverLastY">Oxirgi %2$s dan %1$s koʻproq</string>
+  <string name="winrate">Gʻalaba uchun imkoniyat</string>
+  <string name="na">Mavjud emas</string>
+  <string name="news">Sinf yangiliklari</string>
+  <string name="editNews">Yangiliklarni tahrirlash</string>
+  <string name="notifyAllStudents">Barcha oʻquvchilarni habardor etish</string>
+  <string name="nothingHere">Xozirda, bu yerda hech nima yoʻq.</string>
+  <string name="newsEdit1">Barcha sinf yangiliklari erkin maydon.</string>
+  <string name="newsEdit2">Yangi habarlarni tepaga qoʻshing. Avvalgi yangiliklarni oʻchirmang.</string>
+  <string name="newsEdit3">Yangiliklarni --- 
+bilan ajrating, u gorizontal chiziqni tasvirlaydi.</string>
+  <string name="markdownAvailable">%s yanada kengroq sintaksisga ega.</string>
 </resources>
