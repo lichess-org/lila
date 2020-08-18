@@ -82,7 +82,7 @@ object appeal {
                     submitButton("Open")(cls := "button button-green button-thin")
                   )
               )
-            case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), " is handling this.")
+            case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
           }
         )
       )
@@ -121,7 +121,7 @@ object appeal {
               td(
                 a(href := routes.Appeal.show(appeal.id), cls := "button button-empty")("View"),
                 inquiries.get(appeal.id) map { i =>
-                  frag(userIdLink(i.mod.some), " is handling this")
+                  frag(userIdLink(i.mod.some), nbsp, "is handling this")
                 }
               )
             )
