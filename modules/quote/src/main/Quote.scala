@@ -1,7 +1,7 @@
 package lila.quote
 
-import play.api.libs.json._
 import scala.util.Random
+import play.api.libs.json._
 
 final class Quote(val text: String, val author: String)
 

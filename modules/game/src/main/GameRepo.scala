@@ -1,6 +1,6 @@
 package lila.game
 
-import scala.util.Random
+import lila.common.ThreadLocalRandom
 
 import chess.format.{ FEN, Forsyth }
 import chess.{ Color, Status }
@@ -343,7 +343,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         Query.mate ++ Query.variantStandard
       )
       .sort(Query.sortCreated)
-      .skip(Random nextInt distribution)
+      .skip(ThreadLocalRandom nextInt distribution)
       .one[Game]
 
   def insertDenormalized(g: Game, initialFen: Option[chess.format.FEN] = None): Funit = {
@@ -459,7 +459,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.ext
       .find($empty)
       .sort(Query.sortCreated)
-      .skip(Random nextInt 1000)
+      .skip(ThreadLocalRandom nextInt 1000)
       .one[Game]
 
   def findPgnImport(pgn: String): Fu[Option[Game]] =

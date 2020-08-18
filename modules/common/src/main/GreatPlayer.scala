@@ -604,7 +604,7 @@ object GreatPlayer {
     case (k, _) => k
   }.toVector
 
-  def randomName: String = names(scala.util.Random nextInt size)
+  def randomName: String = names(lila.common.ThreadLocalRandom nextInt size)
 
   def wikiUrl(name: String) =
     all get name map { s =>
