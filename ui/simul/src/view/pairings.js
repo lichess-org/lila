@@ -7,12 +7,12 @@ function miniPairing(ctrl) {
   return function(pairing) {
     const game = pairing.game,
       player = pairing.player;
-    return m(`span.mini-game.mini-game-${game.id}.is2d`, {
+    return m(`span.mini-game.mini-game-${game.id}.mini-game--init.is2d`, {
       class: ctrl.data.host.gameId === game.id ? 'host' : '',
+      'data-state': `${game.fen},${game.orient},${game.lastMove}`,
       'data-live': game.clock ? game.id : '',
       config(el, isUpdate) {
         if (!isUpdate) {
-          window.lichess.miniGame.init(el, `${game.fen},${game.orient},${game.lastMove}`)
           window.lichess.powertip.manualUserIn(el);
         }
       }
