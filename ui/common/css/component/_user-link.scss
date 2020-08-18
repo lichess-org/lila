@@ -45,15 +45,14 @@
   }
 
   .title {
-    color: $c-brag;
-    font-weight: bold;
-
-    &[data-bot] {
-      color: $c-bot;
-    }
+    @extend %user-title;
   }
 }
 
 a.user-link:hover {
   color: $c-link;
+}
+
+.utitle {
+  @extend %user-title;
 }

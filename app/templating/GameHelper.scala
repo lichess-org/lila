@@ -98,7 +98,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
         val title = user.title ifTrue withTitle map { t =>
           frag(
             span(
-              cls := "title",
+              cls := "utitle",
               (Title(t) == Title.BOT) option dataBotAttr,
               st.title := Title titleName Title(t)
             )(t),
