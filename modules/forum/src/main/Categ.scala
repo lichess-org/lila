@@ -26,14 +26,14 @@ case class Categ(
 
   def isTeam = team.nonEmpty
 
-  def withTopic(post: Post): Categ =
+  def withPost(topic: Topic, post: Post): Categ =
     copy(
       nbTopics = if (post.troll) nbTopics else nbTopics + 1,
       nbPosts = if (post.troll) nbPosts else nbPosts + 1,
-      lastPostId = if (post.troll) lastPostId else post.id,
+      lastPostId = if (topic.isTooBig) lastPostId else post.id,
       nbTopicsTroll = nbTopicsTroll + 1,
       nbPostsTroll = nbPostsTroll + 1,
-      lastPostIdTroll = post.id
+      lastPostIdTroll = if (topic.isTooBig) lastPostIdTroll else post.id
     )
 
   def slug = id

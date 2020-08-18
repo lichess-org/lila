@@ -56,7 +56,7 @@ final class PostApi(
                 env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
                 shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, value = true)
               } >>
-                env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>- {
+                env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
                 !categ.quiet ?? (indexer ! InsertPost(post))
                 !categ.quiet ?? env.recent.invalidate()
                 promotion.save(me, post.text)
