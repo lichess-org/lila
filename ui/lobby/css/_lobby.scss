@@ -78,3 +78,13 @@ body {
     margin-left: $block-gap;
   }
 }
+
+
+.now-playing {
+
+  .meta {
+    @extend %flex-column;
+
+    align-items: center;
+  }
+}

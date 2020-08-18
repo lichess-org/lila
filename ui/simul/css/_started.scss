@@ -21,10 +21,19 @@
   }
 
   .game-list {
+    .mini-game {
+      padding: .3em;
+    }
+
+    a {
+      color: $c-font;
+    }
+
     .host {
       @extend %box-radius;
 
       background: fade-out($c-accent, 0.7);
+
       &, a, .mini-game__clock {
         color: $c-accent-over;
       }
