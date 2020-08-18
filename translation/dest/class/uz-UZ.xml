@@ -40,4 +40,24 @@ Paroli: %3$s</string>
   <string name="inviteALichessAccount">Lichess hisobini taklif qilish</string>
   <string name="inviteDesc1">Agar oʻquvchi Lichess hisobiga ega boʻlsa uni sinfga taklif qilishingiz mumkin.</string>
   <string name="inviteDesc2">Ular sinfga qoʻshilish haqidagi taklif habarini olishadi.</string>
+  <string name="inviteDesc3">Muhim: faqat oʻzingiz taniydigan yoki haqiqatdan ham sinfga aʻzo boʻlish istagi boʻlgan oʻquvchilarni taklif qiling.</string>
+  <string name="inviteDesc4">Hech qachon ixtiyoriy oʻyinchilarga taklif yubormang.</string>
+  <string name="createANewLichessAccount">Yangi Lichess hisobini yaratish</string>
+  <string name="createDesc1">Agar oʻquvchi Lichess hisobiga ega boʻlmasa, siz unga shu yerda bitta hisob yaratib berishingiz mumkin.</string>
+  <string name="createDesc2">Email manzil talab etilmaydi. Parol generatsiya qilinadi va siz uni oʻquvchiga berishingiz mumkin. Soʻng u login qila oladi.</string>
+  <string name="createDesc3">Muhim: oʻquvchi bir nechta hisobga ega boʻlmasligi kerak.</string>
+  <string name="createDesc4">Agar bor boʻlsa yaratish oʻrniga taklif yuboring.</string>
+  <string name="lichessUsername">Lichess foydalanuvchi nomi</string>
+  <string name="generateANewUsername">Yangi foydalanuvchi nomini generatsiya qilish</string>
+  <string name="welcomeToClass">%s : sinfiga xush kelibsiz!</string>
+  <string name="invitationToClass">Siz \"%s\" sinfiga oʻquvchi sifatida qoʻshilishga taklif qilindingiz.</string>
+  <string name="clickToViewInvitation">Taklifni koʻrish uchun linkni bosing:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Bitta kutilayotgan taklif</item>
+    <item quantity="other">%s kutilayotgan takliflar</item>
+  </plurals>
+  <string name="noPendingInvitations">Kutilayotgan takliflar mavjud emas</string>
+  <string name="onlyVisibleToTeachers">Faqat sinf oʻqituvchilariga koʻrinadi</string>
+  <string name="lastActiveDate">Faol</string>
+  <string name="managed">Oʻqituvchi tomonidan yaratilgan</string>
 </resources>
