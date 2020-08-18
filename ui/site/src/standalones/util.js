@@ -431,8 +431,8 @@ lichess.miniBoard = {
 lichess.miniGame = (() => {
   const fenColor = fen => fen.indexOf(' b') > 0 ? 'black' : 'white';
   return {
-    init(node, data) {
-      const [fen, orientation, lm] = ((typeof data == 'string' && data) || node.getAttribute('data-state')).split(','),
+    init(node) {
+      const [fen, orientation, lm] = node.getAttribute('data-state').split(','),
         config = {
           coordinates: false,
           viewOnly: true,
