@@ -15,11 +15,14 @@ export function top(boards: Board[]): VNode {
 }
 
 const renderBoard = (board: Board): VNode =>
-  h(`div.swiss__board.mini-game.mini-game-${board.id}.mini-game--init is2d`, {
+  h(`div.swiss__board.mini-game.mini-game-${board.id}.mini-game--init.is2d`, {
     key: board.id,
+    attrs: {
+      'data-state': `${board.fen},${board.orientation},${board.lastMove}`,
+      'data-live': board.id
+    },
     hook: {
       insert(vnode) {
-        window.lichess.miniGame.init(vnode.elm as HTMLElement, `${board.fen},${board.orientation},${board.lastMove}`)
         window.lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
       }
     }
