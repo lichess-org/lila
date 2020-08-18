@@ -20,7 +20,7 @@ function clock(d): VNode | undefined {
   if (d.secondsToFinish) return h('div.clock', [
     h('div.time', {
       hook: startClock(d.secondsToFinish)
-    }, d.secondsToFinish)
+    })
   ]);
   if (d.secondsToStart) {
     if (d.secondsToStart > oneDayInSeconds) return h('div.clock', [
