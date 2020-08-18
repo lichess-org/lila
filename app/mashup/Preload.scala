@@ -102,15 +102,7 @@ final class Preload(
       case p1 if p1.game.nonAi && p1.game.hasClock && p1.isMyTurn =>
         roundProxy.pov(p1.gameId, user) dmap (_ | p1) map { pov =>
           val opponent = lila.game.Namer.playerTextBlocking(pov.opponent)(lightUser)
-          CurrentGame(
-            pov = pov,
-            opponent = opponent,
-            json = Json.obj(
-              "id"       -> pov.gameId,
-              "color"    -> pov.color.name,
-              "opponent" -> opponent
-            )
-          ).some
+          CurrentGame(pov = pov, opponent = opponent).some
         }
     }
 }
@@ -136,5 +128,5 @@ object Preload {
       blindGames: List[Pov]
   )
 
-  case class CurrentGame(pov: Pov, json: JsObject, opponent: String)
+  case class CurrentGame(pov: Pov, opponent: String)
 }
