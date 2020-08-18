@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Közvetítések</string>
-  <string name="liveBroadcasts">Versenyek élő közvetítései</string>
-  <string name="newBroadcast">Új élő közvetítés</string>
+  <string name="broadcasts">Adások</string>
+  <string name="liveBroadcasts">Versenyek élő adásai</string>
+  <string name="newBroadcast">Új élő adás</string>
   <string name="ongoing">Folyamatban</string>
   <string name="upcoming">Közelgő</string>
   <string name="completed">Befejeződött</string>
@@ -16,6 +16,6 @@
   <string name="startDate">Kezdés időpontja a saját időzónádban</string>
   <string name="startDateHelp">Opcionális, csak ha tudod mikor kezdődik az esemény</string>
   <string name="credits">Forrásmegjelölés</string>
-  <string name="cloneBroadcast">Közvetítés klónozása</string>
-  <string name="resetBroadcast">Közvetítés újraindítása</string>
+  <string name="cloneBroadcast">Adás klónozása</string>
+  <string name="resetBroadcast">Adás újraindítása</string>
 </resources>
