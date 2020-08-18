@@ -1,6 +1,6 @@
 package lila.common
 
-import scala.collection.mutable.{ ArrayBuffer, StringBuilder }
+import scala.collection.mutable.StringBuilder
 
 object ThreadLocalRandom {
   private[this] def current()             = java.util.concurrent.ThreadLocalRandom.current()
@@ -20,27 +20,8 @@ object ThreadLocalRandom {
      else i - 4).toChar
   }
   def alphanumeric: LazyList[Char] = LazyList.continually(nextChar())
-
-  /** Returns a new collection of the same type in a randomly chosen order.
-    *
-    *  @return         the shuffled collection
-    */
-  def shuffle[T, C](xs: IterableOnce[T])(implicit bf: scala.collection.BuildFrom[xs.type, T, C]): C = {
-    val buf = new ArrayBuffer[T] ++= xs
-
-    def swap(i1: Int, i2: Int): Unit = {
-      val tmp = buf(i1)
-      buf(i1) = buf(i2)
-      buf(i2) = tmp
-    }
-
-    for (n <- buf.length to 2 by -1) {
-      val k = nextInt(n)
-      swap(n - 1, k)
-    }
-
-    (bf.newBuilder(xs) ++= buf).result()
-  }
+  def shuffle[T, C](xs: IterableOnce[T])(implicit bf: scala.collection.BuildFrom[xs.type, T, C]): C =
+    new scala.util.Random(current()).shuffle(xs)
   def nextString(len: Int): String = {
     val sb = new StringBuilder(len)
     for (_ <- 0 until len) sb += nextChar()
