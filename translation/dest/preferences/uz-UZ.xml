@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Sipoh belgisi</string>
   <string name="pgnLetter">Harflar (K, Q, R, B, N)</string>
   <string name="zenMode">Zen holati (faqat doska va soat)</string>
+  <string name="displayBoardResizeHandle">Doskani o\'lchamini o\'gartiruvchi uskunani namoyishi</string>
   <string name="onlyOnInitialPosition">Faqat boshlang\'ich holatda</string>
   <string name="blindfoldChess">Ko\'zlar berklitilgan shahmat (sipohlar ko\'rinmas holda)</string>
   <string name="chessClock">Shaxmat Soati</string>
@@ -20,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Gorizantal yashil rangdagi jarayon indikatori</string>
   <string name="soundWhenTimeGetsCritical">Vaqt kritik holatga kelganda ovoz ovoz berish</string>
   <string name="giveMoreTime">Takroran berish</string>
+  <string name="gameBehavior">O\'yindagi boshqaruv</string>
   <string name="howDoYouMovePieces">Sipohlarni qanday yurasiz?</string>
   <string name="clickTwoSquares">Ikkita kvadratni bosing</string>
   <string name="dragPiece">Sipohni suring</string>
