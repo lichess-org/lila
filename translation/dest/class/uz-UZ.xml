@@ -21,4 +21,23 @@
   <string name="aLinkToTheClassWillBeAdded">Sinfga tegishli link habarni oxirida avtomatik tarzda qoʻshiladi, shu bois uni oʻzingiz qoʻshishingizga hojat yoʻq.</string>
   <string name="className">Sinf nomi</string>
   <string name="classDescription">Sinf haqida</string>
+  <string name="visibleByBothStudentsAndTeachers">Sinf oʻquvchilari va oʻqituvchilariga ham koʻrinarli</string>
+  <string name="teachersOfTheClass">Sinf oʻqituvchilari</string>
+  <string name="addLichessUsernames">Oʻqituvchi sifatida qoʻshmoqchi boʻlgan Lichess foydalanuvchilar nomlarini qatorma qator kiriting.</string>
+  <string name="theyMustFirstApply">Ular avval taklifni qabul qilishlari kerak oʻqituvchi boʻlishlari uchun.</string>
+  <string name="resetPassword">Parolni qayta tiklash</string>
+  <string name="makeSureToCopy">Parolingizni nushalang yoki toʻgʻriligini tekshiring. Uni siz boshqa koʻrmaysiz!</string>
+  <string name="passwordX">Parol: %s</string>
+  <string name="generateANewPassword">Oʻquvchiga yangi parol generatsiya qilish</string>
+  <string name="invitedToXByY">%2$s tomonidan %1$s ga taklif yuborildi</string>
+  <string name="realName">Haqiqiy nomi</string>
+  <string name="privateWillNeverBeShown">Yashirin. Hech qachon dars tashqarisida koʻrsatilmaydi. Oʻquvchi kimligini eslashga yordam beradi.</string>
+  <string name="addStudent">Oʻquvchi qoʻshish</string>
+  <string name="lichessProfileXCreatedForY">%1$s Lichess profili %2$s uchun yaratildi.</string>
+  <string name="studentCredentials">Oʻquvchi:  %1$s
+Foydalanuvchi nomi: %2$s
+Paroli: %3$s</string>
+  <string name="inviteALichessAccount">Lichess hisobini taklif qilish</string>
+  <string name="inviteDesc1">Agar oʻquvchi Lichess hisobiga ega boʻlsa uni sinfga taklif qilishingiz mumkin.</string>
+  <string name="inviteDesc2">Ular sinfga qoʻshilish haqidagi taklif habarini olishadi.</string>
 </resources>
