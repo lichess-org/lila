@@ -184,7 +184,7 @@ export default class LobbyController {
     this.socket.poolIn(this.poolMember);
   };
 
-  gameActivity = gameId => {
+  gameActivity = (gameId: string) => {
     if (this.data.nowPlaying.find(p => p.gameId === gameId))
       xhr.nowPlaying().then(povs => {
         this.data.nowPlaying = povs;
