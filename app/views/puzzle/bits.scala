@@ -6,16 +6,12 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 
-import controllers.routes
-
 object bits {
 
   private val dataLastmove = attr("data-lastmove")
 
   def daily(p: lila.puzzle.Puzzle, fen: chess.format.FEN, lastMove: String) =
-    views.html.board.bits.mini(fen, p.color, lastMove) {
-      a(href := routes.Puzzle.daily())
-    }
+    views.html.board.bits.mini(fen, p.color, lastMove)(span)
 
   def jsI18n()(implicit lang: Lang) = i18nJsObject(i18nKeys)
 

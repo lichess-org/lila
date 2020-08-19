@@ -4,14 +4,18 @@ body {
 }
 
 .embedded {
+  display: block;
   background: $c-bg-page;
   padding: .3em;
+  color: $c-font !important;
 
   cg-board {
     box-shadow: none;
   }
 
-  cg-board {
-    border-radius: 3px 3px 0 0;
+  .text {
+    display: block;
+    text-align: center;
+    margin: .3em 0;
   }
 }
