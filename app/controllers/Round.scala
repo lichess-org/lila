@@ -2,16 +2,16 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.game.{ Pov, Game => GameModel, PgnDump }
-import lila.tournament.{ Tournament => Tour }
 import lila.swiss.Swiss.{ Id => SwissId }
+import lila.tournament.{ Tournament => Tour }
 import lila.user.{ User => UserModel }
-import views._
 
 final class Round(
     env: Env,
@@ -19,7 +19,8 @@ final class Round(
     challengeC: => Challenge,
     analyseC: => Analyse,
     tournamentC: => Tournament,
-    swissC: => Swiss
+    swissC: => Swiss,
+    userC: => User
 ) extends LilaController(env)
     with TheftPrevention {
 
@@ -143,7 +144,7 @@ final class Round(
             case None =>
               watch(pov)
           }
-        case None => challengeC showId gameId
+        case None => userC.tryRedirect(gameId) getOrElse challengeC.showId(gameId)
       }
     }
 
