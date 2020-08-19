@@ -74,9 +74,8 @@ function renderDuel(battle?: TeamBattle, duelTeams?: DuelTeams) {
 export default function(ctrl: TournamentController): VNode {
   return h('div.tour__table', {
     hook: {
-      postpatch() {
-        window.lichess.miniGame.initAll();
-      }
+      insert: window.lichess.miniGame.initAll,
+      postpatch: window.lichess.miniGame.initAll
     }
   }, [
     ctrl.data.featured ? featured(ctrl.data.featured) : null,
