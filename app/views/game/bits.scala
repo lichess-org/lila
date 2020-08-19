@@ -3,8 +3,7 @@ package views.html.game
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.game.{ Game, Player, Pov }
-import lila.user.Title
+import lila.game.{ Game, Pov }
 
 import controllers.routes
 
@@ -53,40 +52,4 @@ object bits {
       target := "_blank",
       title := variant.title
     )(name)
-
-  private def playerTitle(player: Player) =
-    player.userId.flatMap(lightUser).flatMap(_.title) map Title.apply map userTitleTag
-
-  def vstext(pov: Pov)(ctxOption: Option[Context]): Frag =
-    span(cls := "vstext")(
-      span(cls := "vstext__pl user-link")(
-        playerUsername(pov.player, withRating = false, withTitle = false),
-        br,
-        playerTitle(pov.player) map { t =>
-          frag(t, " ")
-        },
-        pov.player.rating,
-        pov.player.provisional option "?"
-      ),
-      pov.game.clock map { c =>
-        span(cls := "vstext__clock")(shortClockName(c.config))
-      } orElse {
-        ctxOption flatMap { implicit ctx =>
-          pov.game.daysPerTurn map { days =>
-            span(cls := "vstext__clock")(
-              if (days == 1) trans.oneDay() else trans.nbDays.pluralSame(days)
-            )
-          }
-        }
-      },
-      span(cls := "vstext__op user-link")(
-        playerUsername(pov.opponent, withRating = false, withTitle = false),
-        br,
-        pov.opponent.rating,
-        pov.opponent.provisional option "?",
-        playerTitle(pov.opponent) map { t =>
-          frag(" ", t)
-        }
-      )
-    )
 }
