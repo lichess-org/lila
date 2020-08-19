@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
-import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress }
+import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress, ThreadLocalRandom }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.rating.{ Perf, PerfType }
@@ -143,7 +143,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .sort($doc(F.colorIt -> 1))
       .one[Bdoc]
       .map {
-        _.fold(lila.common.ThreadLocalRandom.nextBoolean()) { doc =>
+        _.fold(ThreadLocalRandom.nextBoolean()) { doc =>
           doc.string("_id") contains u1
         }
       }
@@ -153,7 +153,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       }
 
   def firstGetsWhite(u1O: Option[User.ID], u2O: Option[User.ID]): Fu[Boolean] =
-    (u1O, u2O).mapN(firstGetsWhite) | fuccess(scala.util.Random.nextBoolean())
+    (u1O, u2O).mapN(firstGetsWhite) | fuccess(ThreadLocalRandom.nextBoolean())
 
   def incColor(userId: User.ID, value: Int): Unit =
     coll
