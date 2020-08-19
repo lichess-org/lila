@@ -109,7 +109,3 @@ final private class SwissDirector(
   private def makePlayer(color: Color, player: SwissPlayer) =
     lila.game.Player.make(color, player.userId, player.rating, player.provisional)
 }
-
-//   private object SwissDirector {
-
-//     case class Result(swiss: Swiss, playerMap: SwissPlayer
