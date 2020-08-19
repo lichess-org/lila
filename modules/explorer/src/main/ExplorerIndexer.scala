@@ -136,7 +136,7 @@ final private class ExplorerIndexer(
       if blackRating >= minPlayerRating
       averageRating = (whiteRating + blackRating) / 2
       if averageRating >= minAverageRating
-      if probability(game, averageRating) > nextFloat()
+      if probability(game, averageRating) > nextFloat
       if !game.userIds.exists(botUserIds.contains)
       if valid(game)
     } yield gameRepo initialFen game flatMap { initialFen =>
