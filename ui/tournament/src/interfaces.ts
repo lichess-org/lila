@@ -34,7 +34,7 @@ export interface FeaturedGame {
   lastMove: string;
   white: FeaturedPlayer;
   black: FeaturedPlayer;
-  clock?: {
+  c?: {
     white: number;
     black: number;
   };

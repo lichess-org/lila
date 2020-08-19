@@ -283,7 +283,8 @@ final class JsonView(
         "black"       -> ofPlayer(featured.black, game player chess.Black)
       )
       .add(
-        "clock" -> game.clock.ifTrue(game.isBeingPlayed).map { c =>
+        // not named `clock` to avoid conflict with lichobile
+        "c" -> game.clock.ifTrue(game.isBeingPlayed).map { c =>
           Json.obj(
             "white" -> c.remainingTime(chess.White).roundSeconds,
             "black" -> c.remainingTime(chess.Black).roundSeconds
