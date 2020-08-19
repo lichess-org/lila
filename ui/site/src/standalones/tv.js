@@ -1,7 +1,7 @@
 function resize() {
   var el = document.querySelector('#featured-game');
   if (el.offsetHeight > window.innerHeight)
-    el.style.maxWidth = (window.innerHeight - el.querySelector('.vstext').offsetHeight) + 'px';
+    el.style.maxWidth = (window.innerHeight - el.querySelector('.mini-game__player').offsetHeight * 2) + 'px';
 }
 
 $(function() {
