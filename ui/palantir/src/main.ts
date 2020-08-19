@@ -100,9 +100,11 @@ export function palantir(opts: PalantirOpts) {
     opts.redraw();
   }
 
+  const reverse = (s: string) => s.split('').reverse().join('');
+
   function peerIdOf(uid: string) {
     const host = location.hostname;
-    const hash = btoa(li.reverse(btoa(li.reverse(uid + host)))).replace(/=/g,'');
+    const hash = btoa(reverse(btoa(reverse(uid + host)))).replace(/=/g,'');
     return `${host.replace('.', '-')}-${uid}-${hash}`;
   }
 

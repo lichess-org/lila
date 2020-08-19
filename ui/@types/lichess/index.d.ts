@@ -38,7 +38,6 @@ interface Lichess {
 
   // main.js
   socket: any;
-  reverse(s: string): string;
   sound: any;
   userAutocomplete: any;
   miniBoard: {
