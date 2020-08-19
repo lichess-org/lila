@@ -10,6 +10,7 @@ import scala.concurrent.duration._
 import scala.language.existentials
 import scala.util.chaining._
 import scalatags.Text.Frag
+import views._
 
 import lila.api.{ BodyContext, Context }
 import lila.app._
@@ -20,7 +21,6 @@ import lila.game.{ Pov, Game => GameModel }
 import lila.rating.PerfType
 import lila.socket.UserLagCache
 import lila.user.{ User => UserModel }
-import views._
 
 final class User(
     env: Env,
@@ -551,5 +551,15 @@ final class User(
   def myself =
     Auth { _ => me =>
       fuccess(Redirect(routes.User.show(me.username)))
+    }
+
+  def redirect(username: String) =
+    Open { implicit ctx =>
+      tryRedirect(username) getOrElse notFound
+    }
+
+  def tryRedirect(username: String)(implicit ctx: Context): Fu[Option[Result]] =
+    env.user.repo named username map2 { user =>
+      Redirect(routes.User.show(user.username))
     }
 }
