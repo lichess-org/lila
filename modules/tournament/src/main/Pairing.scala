@@ -86,7 +86,7 @@ private[tournament] object Pairing {
   }
 
   def prepWithColor(tour: Tournament, p1: RankedPlayerWithColorHistory, p2: RankedPlayerWithColorHistory) =
-    if (p1.colorHistory.firstGetsWhite(p2.colorHistory)(() => lila.common.ThreadLocalRandom.nextBoolean))
+    if (p1.colorHistory.firstGetsWhite(p2.colorHistory)(() => lila.common.ThreadLocalRandom.nextBoolean()))
       Prep(tour.id, p1.player.userId, p2.player.userId)
     else Prep(tour.id, p2.player.userId, p1.player.userId)
 }

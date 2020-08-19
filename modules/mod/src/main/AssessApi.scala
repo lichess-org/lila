@@ -178,7 +178,7 @@ final class AssessApi(
 
     def suspCoefVariation(c: Color) = {
       val x = noFastCoefVariation(game player c)
-      x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(ThreadLocalRandom.nextBoolean)
+      x.filter(_ < 0.45f) orElse x.filter(_ < 0.5f).ifTrue(ThreadLocalRandom.nextBoolean())
     }
     lazy val whiteSuspCoefVariation = suspCoefVariation(chess.White)
     lazy val blackSuspCoefVariation = suspCoefVariation(chess.Black)
