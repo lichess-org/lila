@@ -18,7 +18,7 @@ export default function(ctrl: LobbyController) {
   return h('div.now-playing',
     ctrl.data.nowPlaying.map(pov =>
       h('a.' + pov.variant.key, {
-        key: pov.gameId,
+        key: `${pov.gameId}${pov.lastMove}`,
         attrs: { href: '/' + pov.fullId }
       }, [
         h('span.mini-board.cg-wrap.is2d', {
