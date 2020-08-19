@@ -1,8 +1,9 @@
 import { h } from 'snabbdom';
 import LobbyController from '../ctrl';
+import { NowPlaying } from '../interfaces';
 
-function timer(pov) {
-  const date = Date.now() + pov.secondsLeft * 1000;
+function timer(pov: NowPlaying) {
+  const date = Date.now() + pov.secondsLeft! * 1000;
   return h('time.timeago', {
     hook: {
       insert(vnode) {
@@ -13,6 +14,7 @@ function timer(pov) {
 }
 
 export default function(ctrl: LobbyController) {
+
   return h('div.now-playing',
     ctrl.data.nowPlaying.map(pov =>
       h('a.' + pov.variant.key, {

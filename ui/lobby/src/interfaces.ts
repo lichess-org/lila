@@ -34,6 +34,31 @@ export interface LobbyOpts extends Untyped {
 export interface LobbyData extends Untyped {
   hooks: Hook[];
   seeks: Seek[];
+  nowPlaying: NowPlaying[];
+}
+
+export interface NowPlaying {
+  fullId: string;
+  gameId: string;
+  fen: Fen;
+  color: Color;
+  lastMove: String;
+  variant: {
+    key: string;
+    name: string;
+  };
+  speed: string;
+  perf: string;
+  rated: boolean;
+  hasMoved: boolean;
+  opponent: {
+    id: string;
+    username: string;
+    rating?: number;
+    ai?: number;
+  };
+  isMyTurn: boolean;
+  secondsLeft?: number;
 }
 
 export interface PoolMember {
