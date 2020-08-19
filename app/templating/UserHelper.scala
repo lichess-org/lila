@@ -131,7 +131,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     title map { t =>
       frag(
         span(
-          cls := s"utitle${(t == Title.BOT) ?? " data-bot"}",
+          cls := "utitle",
           st.title := Title.titleName(t)
         )(t),
         nbsp

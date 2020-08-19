@@ -95,18 +95,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true): Frag =
     player.aiLevel.fold[Frag](
       player.userId.flatMap(lightUser).fold[Frag](lila.user.User.anonymous) { user =>
-        val title = user.title ifTrue withTitle map { t =>
-          frag(
-            span(
-              cls := "utitle",
-              (Title(t) == Title.BOT) option dataBotAttr,
-              st.title := Title titleName Title(t)
-            )(t),
-            " "
-          )
-        }
         frag(
-          title,
+          user.title ifTrue withTitle map Title.apply map { t =>
+            frag(userTitleTag(t), " ")
+          },
           if (withRating) s"${user.name} (${lila.game.Namer ratingString player})"
           else user.name
         )

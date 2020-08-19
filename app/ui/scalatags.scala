@@ -2,12 +2,12 @@ package lila.app
 package ui
 
 import ornicar.scalalib.Zero
-
 import scalatags.Text.all._
 import scalatags.text.Builder
 import scalatags.Text.{ Aggregate, Cap }
 
 import lila.api.Context
+import lila.user.Title
 
 // collection of lila attrs
 trait ScalatagsAttrs {
@@ -53,9 +53,12 @@ trait ScalatagsSnippets extends Cap {
   val badTag                                 = tag("bad")
   val timeTag                                = tag("time")
 
-  def dataBot(title: lila.user.Title): Modifier =
-    if (title == lila.user.Title.BOT) dataBotAttr
-    else emptyModifier
+  def userTitleTag(t: Title) =
+    span(
+      cls := "utitle",
+      t == lila.user.Title.BOT option dataBotAttr,
+      title := Title titleName t
+    )(t.value)
 
   def pagerNext(pager: lila.common.paginator.Paginator[_], url: Int => String): Option[Frag] =
     pager.nextPage.map { np =>

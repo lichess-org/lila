@@ -55,9 +55,7 @@ object bits {
     )(name)
 
   private def playerTitle(player: Player) =
-    player.userId.flatMap(lightUser).flatMap(_.title) map Title.apply map { t =>
-      span(cls := "title", dataBot(t), title := Title titleName t)(t.value)
-    }
+    player.userId.flatMap(lightUser).flatMap(_.title) map Title.apply map userTitleTag
 
   def vstext(pov: Pov)(ctxOption: Option[Context]): Frag =
     span(cls := "vstext")(
