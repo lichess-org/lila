@@ -31,7 +31,9 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       description = tour.spotlight.??(_.description),
       conditions = Condition.DataForm.AllSetup(tour.conditions),
       berserkable = !tour.noBerserk,
-      teamBattle = tour.isTeamBattle
+      streakable = tour.streakable,
+      teamBattle = tour.isTeamBattle,
+      hasChat = tour.hasChat
     )
 
   def update(old: Tournament, data: CrudForm.Data) =
@@ -105,7 +107,9 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       ).some,
       position = DataForm.startingPosition(data.position, realVariant),
       noBerserk = !data.berserkable,
-      teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10))
+      noStreak = !data.streakable,
+      teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10)),
+      hasChat = data.hasChat
     ) pipe { tour =>
       tour.perfType.fold(tour) { perfType =>
         tour.copy(conditions =

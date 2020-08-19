@@ -31,7 +31,9 @@ object CrudForm {
       "description"    -> text(minLength = 10, maxLength = 400),
       "conditions"     -> Condition.DataForm.all,
       "berserkable"    -> boolean,
-      "teamBattle"     -> boolean
+      "streakable"     -> boolean,
+      "teamBattle"     -> boolean,
+      "hasChat"        -> boolean
     )(CrudForm.Data.apply)(CrudForm.Data.unapply)
       .verifying("Invalid clock", _.validClock)
       .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
@@ -49,7 +51,9 @@ object CrudForm {
     description = "",
     conditions = Condition.DataForm.AllSetup.default,
     berserkable = true,
-    teamBattle = false
+    streakable = true,
+    teamBattle = false,
+    hasChat = true
   )
 
   case class Data(
@@ -66,7 +70,9 @@ object CrudForm {
       description: String,
       conditions: Condition.DataForm.AllSetup,
       berserkable: Boolean,
-      teamBattle: Boolean
+      streakable: Boolean,
+      teamBattle: Boolean,
+      hasChat: Boolean
   ) {
 
     def realVariant = Variant orDefault variant
