@@ -1,6 +1,9 @@
 .lobby__puzzle {
-  .vstext {
+  .text {
+    @extend %roboto;
+    color: $c-font;
     display: block;
     text-align: center;
+    margin: .3em;
   }
 }
