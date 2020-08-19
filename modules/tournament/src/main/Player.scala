@@ -5,8 +5,6 @@ import lila.hub.LightTeam.TeamID
 import lila.rating.Perf
 import lila.user.{ Perfs, User }
 
-import ornicar.scalalib.Random
-
 private[tournament] case class Player(
     _id: Player.ID, // random
     tourId: Tournament.ID,
@@ -51,7 +49,7 @@ private[tournament] object Player {
       team: Option[TeamID]
   ): Player =
     new Player(
-      _id = Random.nextString(8),
+      _id = lila.common.ThreadLocalRandom.nextString(8),
       tourId = tourId,
       userId = user.id,
       rating = perfLens(user.perfs).intRating,

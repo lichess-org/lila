@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
-import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress }
+import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress, ThreadLocalRandom }
 import lila.user.User
 
 // codename UGC
@@ -97,7 +97,7 @@ final class GarbageCollector(
     !done.get(user.id) ?? {
       done put user.id
       val armed = isArmed()
-      val wait  = (30 + scala.util.Random.nextInt(300)).seconds
+      val wait  = (30 + ThreadLocalRandom.nextInt(300)).seconds
       val message =
         s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed ?? " [SIMULATION]"}"
       logger.info(message)

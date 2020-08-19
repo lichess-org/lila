@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import scala.util.Random
+import lila.common.ThreadLocalRandom
 import reactivemongo.api.ReadPreference
 
 import lila.db.AsyncColl
@@ -33,7 +33,7 @@ final private[puzzle] class Selector(
       case None =>
         anonIdsCache flatMap { ids =>
           puzzleColl {
-            _.byId[Puzzle, Int](ids(Random nextInt ids.size))
+            _.byId[Puzzle, Int](ids(ThreadLocalRandom nextInt ids.size))
           }
         }
       // user

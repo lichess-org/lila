@@ -143,7 +143,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .sort($doc(F.colorIt -> 1))
       .one[Bdoc]
       .map {
-        _.fold(scala.util.Random.nextBoolean()) { doc =>
+        _.fold(lila.common.ThreadLocalRandom.nextBoolean()) { doc =>
           doc.string("_id") contains u1
         }
       }

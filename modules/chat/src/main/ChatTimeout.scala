@@ -61,7 +61,7 @@ final class ChatTimeout(
 
   private val idSize = 8
 
-  private def makeId = scala.util.Random.alphanumeric take idSize mkString
+  private def makeId = lila.common.ThreadLocalRandom nextString idSize
 }
 
 object ChatTimeout {

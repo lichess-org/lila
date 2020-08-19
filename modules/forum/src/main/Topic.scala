@@ -1,7 +1,7 @@
 package lila.forum
 
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
+import lila.common.ThreadLocalRandom
 import scala.util.chaining._
 
 import lila.user.User
@@ -64,7 +64,7 @@ object Topic {
   def nameToId(name: String) =
     (lila.common.String slugify name) pipe { slug =>
       // if most chars are not latin, go for random slug
-      if (slug.lengthIs > (name.lengthIs / 2)) slug else Random nextString 8
+      if (slug.lengthIs > (name.lengthIs / 2)) slug else ThreadLocalRandom nextString 8
     }
 
   val idSize = 8
@@ -78,7 +78,7 @@ object Topic {
       hidden: Boolean
   ): Topic =
     Topic(
-      _id = Random nextString idSize,
+      _id = ThreadLocalRandom nextString idSize,
       categId = categId,
       slug = slug,
       name = name,

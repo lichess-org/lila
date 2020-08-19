@@ -1,7 +1,6 @@
 package lila.report
 
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import cats.data.NonEmptyList
 
 import lila.user.User
@@ -162,7 +161,7 @@ object Report {
       case c @ Candidate.Scored(candidate, score) =>
         existing.fold(
           Report(
-            _id = Random nextString 8,
+            _id = lila.common.ThreadLocalRandom nextString 8,
             user = candidate.suspect.user.id,
             reason = candidate.reason,
             room = Room(candidate.reason),

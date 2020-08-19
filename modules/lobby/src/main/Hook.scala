@@ -2,7 +2,6 @@ package lila.lobby
 
 import chess.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import play.api.i18n.Lang
 import play.api.libs.json._
 
@@ -123,7 +122,7 @@ object Hook {
       boardApi: Boolean = false
   ): Hook =
     new Hook(
-      id = Random nextString idSize,
+      id = lila.common.ThreadLocalRandom nextString idSize,
       sri = sri,
       variant = variant.id,
       clock = clock,

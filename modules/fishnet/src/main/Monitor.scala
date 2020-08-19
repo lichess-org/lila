@@ -68,7 +68,7 @@ final private class Monitor(
   }
 
   private def sample[A](elems: List[A], n: Int) =
-    if (elems.sizeIs <= n) elems else scala.util.Random shuffle elems take n
+    if (elems.sizeIs <= n) elems else lila.common.ThreadLocalRandom shuffle elems take n
 
   private def monitorClients(): Funit =
     repo.allRecentClients map { clients =>

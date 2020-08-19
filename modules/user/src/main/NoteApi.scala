@@ -63,7 +63,7 @@ final class NoteApi(
   def write(to: User, text: String, from: User, modOnly: Boolean, dox: Boolean) = {
 
     val note = Note(
-      _id = ornicar.scalalib.Random nextString 8,
+      _id = lila.common.ThreadLocalRandom nextString 8,
       from = from.id,
       to = to.id,
       text = text,
