@@ -48,7 +48,7 @@ object RageSit {
     Inc {
       game.speed match {
         case s if s < Speed.Bullet => 0
-        case Speed.Bullet          => scala.util.Random.nextInt(2)
+        case Speed.Bullet          => lila.common.ThreadLocalRandom.nextInt(2)
         case Speed.Blitz           => 1
         case _                     => 2
       }
