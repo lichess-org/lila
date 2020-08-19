@@ -38,6 +38,10 @@ export interface FeaturedGame {
     white: number;
     black: number;
   };
+  clock?: { // temporary BC, remove me
+    white: number;
+    black: number;
+  };
   winner?: Color
 }
 
