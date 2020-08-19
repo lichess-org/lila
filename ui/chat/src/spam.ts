@@ -1,8 +1,8 @@
 export function skip(txt: string) {
   return analyse(txt) && window.lichess.storage.get('chat-spam') != '1';
 }
-export function report(txt: string) {
-  if (analyse(txt)) {
+export function reportMine(txt: string) {
+  if (skip(txt)) {
     $.post('/jslog/' + window.location.href.substr(-12) + '?n=spam');
     window.lichess.storage.set('chat-spam', '1');
   }
