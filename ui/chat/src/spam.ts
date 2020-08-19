@@ -1,12 +1,15 @@
 export function skip(txt: string) {
-  return analyse(txt) && window.lichess.storage.get('chat-spam') != '1';
+  return (suspLink(txt) || followMe(txt)) && !isKnownSpammer();
 }
-export function reportMine(txt: string) {
-  if (skip(txt)) {
-    $.post('/jslog/' + window.location.href.substr(-12) + '?n=spam');
+export function selfReport(txt: string) {
+  if (isKnownSpammer()) return;
+  const hasSuspLink = suspLink(txt);
+  if (hasSuspLink) $.post('/jslog/' + window.location.href.substr(-12) + '?n=spam');
+  if (hasSuspLink || followMe(txt))
     window.lichess.storage.set('chat-spam', '1');
-  }
 }
+
+const isKnownSpammer = () => window.lichess.storage.get('chat-spam') == '1'
 
 const spamRegex = new RegExp([
   'xcamweb.com',
@@ -36,9 +39,8 @@ const spamRegex = new RegExp([
   url.replace(/\./g, '\\.').replace(/\//g, '\\/')
 ).join('|'));
 
+const suspLink = (txt: string) => !!txt.match(spamRegex);
 const followMe = (txt: string) => txt.toLowerCase().includes('follow me');
-
-const analyse = (txt: string) => !!txt.match(spamRegex) || followMe(txt);
 
 const teamUrlRegex = /lichess\.org\/team\//
 export function hasTeamUrl(txt: string) {

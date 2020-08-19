@@ -100,7 +100,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
       if (e.which == 10 || e.which == 13) {
         if (txt === '') $('.keyboard-move input').focus();
         else {
-          if (!ctrl.opts.kobold) spam.reportMine(txt);
+          if (!ctrl.opts.kobold) spam.selfReport(txt);
           if (pub && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
           else ctrl.post(txt);
           el.value = '';
