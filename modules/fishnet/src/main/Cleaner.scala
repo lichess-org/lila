@@ -20,8 +20,11 @@ final private class Cleaner(
 
   import BSONHandlers._
 
-  private def analysisTimeout(plies: Int) = plies * 6.seconds + 3.seconds
-  private def analysisTimeoutBase         = analysisTimeout(20)
+  private def analysisTimeout(nbMoves: Int, system: Boolean) = 3.seconds + nbMoves * {
+    if (system) 12.seconds
+    else 6.seconds
+  }
+  private def analysisTimeoutBase = analysisTimeout(20, system = false)
 
   private def durationAgo(d: FiniteDuration) = DateTime.now.minusSeconds(d.toSeconds.toInt)
 
@@ -32,7 +35,7 @@ final private class Cleaner(
       .cursor[Work.Analysis]()
       .documentSource()
       .filter { ana =>
-        ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbMoves)))
+        ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbMoves, system = ana.sender.system)))
       }
       .take(200)
       .mapAsyncUnordered(4) { ana =>
