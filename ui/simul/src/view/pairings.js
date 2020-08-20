@@ -12,9 +12,7 @@ function miniPairing(ctrl) {
       'data-state': `${game.fen},${game.orient},${game.lastMove}`,
       'data-live': game.clock ? game.id : '',
       config(el, isUpdate) {
-        if (!isUpdate) {
-          window.lichess.powertip.manualUserIn(el);
-        }
+        if (!isUpdate) window.lichess.powertip.manualUserIn(el);
       }
     }, [
       m('span.mini-game__player', [

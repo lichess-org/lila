@@ -267,14 +267,10 @@ lichess.StrongSocket = function(url, version, settings) {
 lichess.StrongSocket.defaults = {
   events: {
     fen(e) {
-      $('.mini-game-' + e.id).each(function() {
-        lichess.miniGame.update(this, e);
-      });
+      document.querySelectorAll('.mini-game-' + e.id).forEach(el => lichess.miniGame.update(el, e));
     },
     finish(e) {
-      $('.mini-game-' + e.id).each(function() {
-        lichess.miniGame.finish(this, e.win);
-      });
+      document.querySelectorAll('.mini-game-' + e.id).forEach(el => lichess.miniGame.finish(el, e.win));
     },
     challenges(d) {
       lichess.challengeApp.update(d);
