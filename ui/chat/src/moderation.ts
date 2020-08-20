@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces'
 import { userModInfo } from './xhr'
-import { userLink, spinner, bind } from './util';
+import { userLink, bind } from './util';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
 
@@ -59,7 +59,7 @@ export const lineAction = () => h('i.mod', { attrs: { 'data-icon': '' } });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
-  if (ctrl.loading()) return [h('div.loading', spinner())];
+  if (ctrl.loading()) return [h('div.loading')];
   const data = ctrl.data();
   if (!data) return;
   const perms = ctrl.permissions();
