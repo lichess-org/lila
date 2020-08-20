@@ -23,7 +23,7 @@ object show {
       title = sim.fullName,
       moreJs = frag(
         jsModule("simul"),
-        embedJsUnsafe(s"""lichess.simul=${safeJsonValue(
+        embedJsUnsafe(s"""LichessSimul.start(${safeJsonValue(
           Json.obj(
             "data"          -> data,
             "i18n"          -> bits.jsI18n(),
@@ -39,7 +39,7 @@ object show {
               )
             }
           )
-        )}""")
+        )})""")
       )
     ) {
       main(

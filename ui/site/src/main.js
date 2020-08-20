@@ -199,7 +199,6 @@
     else if (lichess.relay) startRelay(lichess.relay);
     else if (lichess.puzzle) startPuzzle(lichess.puzzle);
     else if (lichess.tournament) startTournament(lichess.tournament);
-    else if (lichess.simul) startSimul(lichess.simul);
     else if (lichess.team) startTeam(lichess.team);
 
     // delay so round starts first (just for perceived perf)

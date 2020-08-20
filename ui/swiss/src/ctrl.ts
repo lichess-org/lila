@@ -1,13 +1,11 @@
-import makeSocket from './socket';
+import { makeSocket, SwissSocket } from './socket';
 import xhr from './xhr';
 import throttle from 'common/throttle';
 import { myPage, players } from './pagination';
 import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
-import { SwissSocket } from './socket';
 
 export default class SwissCtrl {
 
-  opts: SwissOpts;
   data: SwissData;
   trans: Trans;
   socket: SwissSocket;
@@ -19,14 +17,11 @@ export default class SwissCtrl {
   playerInfoId?: string;
   disableClicks: boolean = true;
   searching: boolean = false;
-  redraw: () => void;
 
   private lastStorage = window.lichess.storage.make('last-redirect');
 
-  constructor(opts: SwissOpts, redraw: () => void) {
-    this.opts = opts;
+  constructor(readonly opts: SwissOpts, readonly redraw: () => void) {
     this.data = this.readData(opts.data);
-    this.redraw = redraw;
     this.trans = window.lichess.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
