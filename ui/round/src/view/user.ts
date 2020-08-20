@@ -41,7 +41,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
         }
       }, user.title ? [
         h(
-          'span.title',
+          'span.utitle',
           user.title == 'BOT' ? { attrs: {'data-bot': true } } : {},
           user.title
         ), ' ', user.username
