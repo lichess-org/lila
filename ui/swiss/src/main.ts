@@ -16,7 +16,7 @@ export function start(opts: SwissOpts) {
   const li = window.lichess;
   const element = document.querySelector('main.swiss') as HTMLElement;
   li.socket = li.StrongSocket(
-    '/swiss/' + opts.data.id, opts.data.socketVersion, {
+    '/swiss/' + opts.data.id, opts.data.socketVersion || 0, {
       receive: (t: string, d: any) => ctrl.socket.receive(t, d)
     });
   opts.classes = element.getAttribute('class');
