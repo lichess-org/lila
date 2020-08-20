@@ -257,8 +257,11 @@ final class TeamApi(
   def enable(team: Team): Funit =
     teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
 
-  def disable(team: Team): Funit =
-    teamRepo.disable(team).void >>- (indexer ! RemoveTeam(team.id))
+  def disable(team: Team, by: User): Funit =
+    if (lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id)
+      teamRepo.disable(team).void >>- (indexer ! RemoveTeam(team.id))
+    else
+      teamRepo.setLeaders(team.id, team.leaders - by.id)
 
   // delete for ever, with members but not forums
   def delete(team: Team): Funit =
