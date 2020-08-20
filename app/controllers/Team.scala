@@ -173,7 +173,7 @@ final class Team(
   def close(id: String) =
     Secure(_.ManageTeam) { implicit ctx => me =>
       OptionFuResult(api team id) { team =>
-        api.delete(team, me) >>
+        api.delete(team) >>
           env.mod.logApi.deleteTeam(me.id, team.name, team.description) inject
           Redirect(routes.Team all 1).flashSuccess
       }
@@ -182,7 +182,7 @@ final class Team(
   def disable(id: String) =
     Auth { implicit ctx => me =>
       WithOwnedTeam(id) { team =>
-        (api disable team) >>
+        api.disable(team, me) >>
           env.mod.logApi.disableTeam(me.id, team.name, team.description) inject
           Redirect(routes.Team show id).flashSuccess
       }
