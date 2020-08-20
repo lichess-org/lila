@@ -29,7 +29,7 @@ object CrudForm {
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
       "description"    -> text(minLength = 10, maxLength = 400),
-      "conditions"     -> Condition.DataForm.all,
+      "conditions"     -> Condition.DataForm.all(Nil),
       "berserkable"    -> boolean,
       "streakable"     -> boolean,
       "teamBattle"     -> boolean,

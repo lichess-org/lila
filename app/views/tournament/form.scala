@@ -1,18 +1,18 @@
 package views.html
 package tournament
 
+import controllers.routes
 import play.api.data.{ Field, Form }
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.hub.LeaderTeam
 import lila.tournament.{ Condition, DataForm, Tournament }
-
-import controllers.routes
 
 object form {
 
-  def create(form: Form[_], myTeams: List[lila.hub.LightTeam])(implicit ctx: Context) =
+  def create(form: Form[_], leaderTeams: List[LeaderTeam])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
@@ -39,7 +39,7 @@ object form {
             fieldset(cls := "conditions")(
               fields.advancedSettings,
               div(cls := "form")(
-                condition(form, fields, auto = true, teams = myTeams, tour = none),
+                condition(form, fields, auto = true, teams = leaderTeams, tour = none),
                 fields.startDate
               )
             ),
@@ -54,7 +54,7 @@ object form {
       )
     }
 
-  def edit(tour: Tournament, form: Form[_], myTeams: List[lila.hub.LightTeam])(implicit ctx: Context) =
+  def edit(tour: Tournament, form: Form[_], myTeams: List[LeaderTeam])(implicit ctx: Context) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
@@ -110,7 +110,7 @@ object form {
       form: Form[_],
       fields: TourFields,
       auto: Boolean,
-      teams: List[lila.hub.LightTeam],
+      teams: List[LeaderTeam],
       tour: Option[Tournament]
   )(implicit
       ctx: Context

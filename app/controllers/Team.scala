@@ -10,7 +10,6 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
-import lila.hub.LightTeam
 import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel }
 import lila.user.{ User => UserModel }
@@ -522,10 +521,4 @@ You received this because you are subscribed to messages of the team $url."""
       if (ctx.userId.exists(team.leaders.contains) || isGranted(_.ManageTeam)) f(team)
       else renderTeam(team) map { Forbidden(_) }
     }
-
-  private[controllers] def teamsIBelongTo(me: lila.user.User): Fu[List[LightTeam]] =
-    api mine me map { _.map(_.light) }
-
-  private[controllers] def teamsILead(me: lila.user.User): Fu[List[LightTeam]] =
-    api mine me map { _.map(_.light) }
 }

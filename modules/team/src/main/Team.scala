@@ -25,8 +25,6 @@ case class Team(
 
   def disabled = !enabled
 
-  def light = lila.hub.LightTeam(_id, name)
-
   def isChatFor(f: Team.ChatFor.type => Team.ChatFor) =
     chat == f(Team.ChatFor)
 }

@@ -7,6 +7,7 @@ import play.api.data.validation.{ Constraint, Constraints }
 
 import lila.common.Form._
 import lila.user.User
+import lila.hub.LeaderTeam
 
 object SimulForm {
 
@@ -59,8 +60,8 @@ object SimulForm {
       }
     )
 
-  def create(host: User) =
-    baseForm(host) fill Setup(
+  def create(host: User, teams: List[LeaderTeam]) =
+    baseForm(host, teams) fill Setup(
       name = host.titleUsername,
       clockTime = clockTimeDefault,
       clockIncrement = clockIncrementDefault,
@@ -72,8 +73,8 @@ object SimulForm {
       team = none
     )
 
-  def edit(host: User, simul: Simul) =
-    baseForm(host) fill Setup(
+  def edit(host: User, teams: List[LeaderTeam], simul: Simul) =
+    baseForm(host, teams) fill Setup(
       name = simul.name,
       clockTime = simul.clock.config.limitInMinutes.toInt,
       clockIncrement = simul.clock.config.increment.roundSeconds,
@@ -85,7 +86,7 @@ object SimulForm {
       team = simul.team
     )
 
-  private def baseForm(host: User) =
+  private def baseForm(host: User, teams: List[LeaderTeam]) =
     Form(
       mapping(
         "name"           -> nameType(host),
@@ -110,7 +111,7 @@ object SimulForm {
         "position" -> optional(nonEmptyText),
         "color"    -> stringIn(colorChoices),
         "text"     -> clean(text),
-        "team"     -> optional(nonEmptyText)
+        "team"     -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id)))
       )(Setup.apply)(Setup.unapply)
     )
 

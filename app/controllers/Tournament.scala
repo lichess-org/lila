@@ -17,7 +17,6 @@ import views._
 
 final class Tournament(
     env: Env,
-    teamC: => Team,
     apiC: => Api
 )(implicit
     mat: akka.stream.Materializer
@@ -231,8 +230,8 @@ final class Tournament(
   def form =
     Auth { implicit ctx => me =>
       NoLameOrBot {
-        env.team.teamRepo.enabledTeamsByLeader(me.id) map { teams =>
-          Ok(html.tournament.form.create(forms.create(me), teams.map(_.light)))
+        env.team.api.lightsByLeader(me.id) map { teams =>
+          Ok(html.tournament.form.create(forms.create(me, teams), teams))
         }
       }
     }
@@ -240,9 +239,11 @@ final class Tournament(
   def teamBattleForm(teamId: TeamID) =
     Auth { implicit ctx => me =>
       NoLameOrBot {
-        env.team.api.leads(teamId, me.id) map {
-          _ ?? {
-            Ok(html.tournament.form.create(forms.create(me, teamId.some), Nil))
+        env.team.api.lightsByLeader(me.id) flatMap { teams =>
+          env.team.api.leads(teamId, me.id) map {
+            _ ?? {
+              Ok(html.tournament.form.create(forms.create(me, teams, teamId.some), Nil))
+            }
           }
         }
       }
@@ -284,17 +285,17 @@ final class Tournament(
   def create =
     AuthBody { implicit ctx => me =>
       NoLameOrBot {
-        teamC.teamsIBelongTo(me) flatMap { teams =>
+        env.team.api.lightsByLeader(me.id) flatMap { teams =>
           implicit val req = ctx.body
           negotiate(
             html = forms
-              .create(me)
+              .create(me, teams)
               .bindFromRequest()
               .fold(
                 err => BadRequest(html.tournament.form.create(err, teams)).fuccess,
                 setup =>
                   rateLimitCreation(me, setup.isPrivate, ctx.req) {
-                    api.createTournament(setup, me, teams, getLeaderTeamIds) map { tour =>
+                    api.createTournament(setup, me, teams) map { tour =>
                       Redirect {
                         if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
                         else routes.Tournament.show(tour.id)
@@ -315,29 +316,31 @@ final class Tournament(
     }
 
   private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
-    forms
-      .create(me)
-      .bindFromRequest()
-      .fold(
-        jsonFormErrorDefaultLang,
-        setup =>
-          rateLimitCreation(me, setup.isPrivate, req) {
-            teamC.teamsIBelongTo(me) flatMap { teams =>
-              api.createTournament(setup, me, teams, getLeaderTeamIds, andJoin = false) flatMap { tour =>
-                jsonView(
-                  tour,
-                  none,
-                  none,
-                  getLeaderTeamIds,
-                  env.team.getTeamName,
-                  none,
-                  none,
-                  partial = false
-                )(reqLang) map { Ok(_) }
+    env.team.api.lightsByLeader(me.id) flatMap { teams =>
+      forms
+        .create(me, teams)
+        .bindFromRequest()
+        .fold(
+          jsonFormErrorDefaultLang,
+          setup =>
+            rateLimitCreation(me, setup.isPrivate, req) {
+              env.team.api.lightsByLeader(me.id) flatMap { teams =>
+                api.createTournament(setup, me, teams, andJoin = false) flatMap { tour =>
+                  jsonView(
+                    tour,
+                    none,
+                    none,
+                    getUserTeamIds = _ => fuccess(teams.map(_.id)),
+                    env.team.getTeamName,
+                    none,
+                    none,
+                    partial = false
+                  )(reqLang) map { Ok(_) }
+                }
               }
             }
-          }
-      )
+        )
+    }
 
   def teamBattleEdit(id: String) =
     Auth { implicit ctx => me =>
@@ -421,8 +424,8 @@ final class Tournament(
   def edit(id: String) =
     Auth { implicit ctx => me =>
       WithEditableTournament(id, me) { tour =>
-        teamC.teamsIBelongTo(me) map { teams =>
-          val form = forms.edit(me, tour)
+        env.team.api.lightsByLeader(me.id) map { teams =>
+          val form = forms.edit(me, teams, tour)
           Ok(html.tournament.form.edit(tour, form, teams))
         }
       }
@@ -432,9 +435,9 @@ final class Tournament(
     AuthBody { implicit ctx => me =>
       WithEditableTournament(id, me) { tour =>
         implicit val req = ctx.body
-        teamC.teamsIBelongTo(me) flatMap { teams =>
+        env.team.api.lightsByLeader(me.id) flatMap { teams =>
           forms
-            .edit(me, tour)
+            .edit(me, teams, tour)
             .bindFromRequest()
             .fold(
               err => BadRequest(html.tournament.form.edit(tour, err, teams)).fuccess,
@@ -497,7 +500,4 @@ final class Tournament(
 
   private def getUserTeamIds(user: lila.user.User): Fu[List[TeamID]] =
     env.team.cached.teamIdsList(user.id)
-
-  private def getLeaderTeamIds(user: lila.user.User): Fu[List[TeamID]] =
-    env.team.teamRepo.enabledTeamIdsByLeader(user.id)
 }

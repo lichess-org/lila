@@ -2,18 +2,15 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.simul.{ Simul => Sim }
-import views._
 
-final class Simul(
-    env: Env,
-    apiC: => Team
-) extends LilaController(env) {
+final class Simul(env: Env) extends LilaController(env) {
 
   private def forms = lila.simul.SimulForm
 
@@ -142,8 +139,8 @@ final class Simul(
   def form =
     Auth { implicit ctx => me =>
       NoLameOrBot {
-        apiC.teamsIBelongTo(me) map { teams =>
-          Ok(html.simul.form.create(forms.create(me), teams))
+        env.team.api.lightsByLeader(me.id) map { teams =>
+          Ok(html.simul.form.create(forms.create(me, teams), teams))
         }
       }
     }
@@ -152,19 +149,21 @@ final class Simul(
     AuthBody { implicit ctx => implicit me =>
       NoLameOrBot {
         implicit val req = ctx.body
-        forms
-          .create(me)
-          .bindFromRequest()
-          .fold(
-            err =>
-              apiC.teamsIBelongTo(me) map { teams =>
-                BadRequest(html.simul.form.create(err, teams))
-              },
-            setup =>
-              env.simul.api.create(setup, me) map { simul =>
-                Redirect(routes.Simul.show(simul.id))
-              }
-          )
+        env.team.api.lightsByLeader(me.id) flatMap { teams =>
+          forms
+            .create(me, teams)
+            .bindFromRequest()
+            .fold(
+              err =>
+                env.team.api.lightsByLeader(me.id) map { teams =>
+                  BadRequest(html.simul.form.create(err, teams))
+                },
+              setup =>
+                env.simul.api.create(setup, me) map { simul =>
+                  Redirect(routes.Simul.show(simul.id))
+                }
+            )
+        }
       }
     }
 
@@ -189,8 +188,8 @@ final class Simul(
   def edit(id: String) =
     Auth { implicit ctx => me =>
       WithEditableSimul(id, me) { simul =>
-        apiC.teamsIBelongTo(me) map { teams =>
-          Ok(html.simul.form.edit(forms.edit(me, simul), teams, simul))
+        env.team.api.lightsByLeader(me.id) map { teams =>
+          Ok(html.simul.form.edit(forms.edit(me, teams, simul), teams, simul))
         }
       }
     }
@@ -199,16 +198,15 @@ final class Simul(
     AuthBody { implicit ctx => me =>
       WithEditableSimul(id, me) { simul =>
         implicit val req = ctx.body
-        forms
-          .edit(me, simul)
-          .bindFromRequest()
-          .fold(
-            err =>
-              apiC.teamsIBelongTo(me) map { teams =>
-                BadRequest(html.simul.form.edit(err, teams, simul))
-              },
-            data => env.simul.api.update(simul, data) inject Redirect(routes.Simul.show(id))
-          )
+        env.team.api.lightsByLeader(me.id) flatMap { teams =>
+          forms
+            .edit(me, teams, simul)
+            .bindFromRequest()
+            .fold(
+              err => BadRequest(html.simul.form.edit(err, teams, simul)).fuccess,
+              data => env.simul.api.update(simul, data) inject Redirect(routes.Simul.show(id))
+            )
+        }
       }
     }
 

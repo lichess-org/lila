@@ -2,6 +2,7 @@ package lila.tournament
 
 import play.api.i18n.Lang
 
+import lila.hub.LeaderTeam
 import lila.hub.LightTeam._
 import lila.i18n.{ I18nKeys => trans }
 import lila.rating.BSONHandlers.perfTypeKeyHandler
@@ -270,9 +271,10 @@ object Condition {
       "perf"   -> optional(text.verifying(perfKeys.contains _)),
       "rating" -> optional(numberIn(minRatings))
     )(RatingSetup.apply)(RatingSetup.unapply)
-    val teamMember = mapping(
-      "teamId" -> optional(text)
-    )(TeamMemberSetup.apply)(TeamMemberSetup.unapply)
+    def teamMember(leaderTeams: List[LeaderTeam]) =
+      mapping(
+        "teamId" -> optional(text.verifying(id => leaderTeams.exists(_.id == id)))
+      )(TeamMemberSetup.apply)(TeamMemberSetup.unapply)
     case class TeamMemberSetup(teamId: Option[TeamID]) {
       def convert(teams: Map[TeamID, TeamName]): Option[TeamMember] =
         teamId flatMap { id =>
@@ -282,14 +284,15 @@ object Condition {
     object TeamMemberSetup {
       def apply(x: TeamMember): TeamMemberSetup = TeamMemberSetup(x.teamId.some)
     }
-    val all = mapping(
-      "nbRatedGame" -> optional(nbRatedGame),
-      "maxRating"   -> maxRating,
-      "minRating"   -> minRating,
-      "titled"      -> optional(boolean),
-      "teamMember"  -> optional(teamMember)
-    )(AllSetup.apply)(AllSetup.unapply)
-      .verifying("Invalid ratings", _.validRatings)
+    def all(leaderTeams: List[LeaderTeam]) =
+      mapping(
+        "nbRatedGame" -> optional(nbRatedGame),
+        "maxRating"   -> maxRating,
+        "minRating"   -> minRating,
+        "titled"      -> optional(boolean),
+        "teamMember"  -> optional(teamMember(leaderTeams))
+      )(AllSetup.apply)(AllSetup.unapply)
+        .verifying("Invalid ratings", _.validRatings)
 
     case class AllSetup(
         nbRatedGame: Option[NbRatedGameSetup],

@@ -7,12 +7,12 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.simul.Simul
-import lila.hub.LightTeam
+import lila.hub.LeaderTeam
 import lila.simul.SimulForm
 
 object form {
 
-  def create(form: Form[SimulForm.Setup], teams: List[LightTeam])(implicit
+  def create(form: Form[SimulForm.Setup], teams: List[LeaderTeam])(implicit
       ctx: Context
   ) =
     views.html.base.layout(
@@ -35,7 +35,7 @@ object form {
       )
     }
 
-  def edit(form: Form[SimulForm.Setup], teams: List[LightTeam], simul: Simul)(implicit
+  def edit(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Simul)(implicit
       ctx: Context
   ) =
     views.html.base.layout(
@@ -54,7 +54,7 @@ object form {
       )
     }
 
-  private def formContent(form: Form[SimulForm.Setup], teams: List[LightTeam], simul: Option[Simul])(implicit
+  private def formContent(form: Form[SimulForm.Setup], teams: List[LeaderTeam], simul: Option[Simul])(implicit
       ctx: Context
   ) = {
     import lila.simul.SimulForm._

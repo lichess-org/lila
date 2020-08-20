@@ -9,6 +9,7 @@ import play.api.data.validation.{ Constraint, Constraints }
 import chess.Mode
 import chess.StartingPosition
 import lila.common.Form._
+import lila.hub.LeaderTeam
 import lila.hub.LightTeam._
 import lila.user.User
 
@@ -16,8 +17,8 @@ final class DataForm {
 
   import DataForm._
 
-  def create(user: User, teamBattleId: Option[TeamID] = None) =
-    form(user) fill TournamentSetup(
+  def create(user: User, leaderTeams: List[LeaderTeam], teamBattleId: Option[TeamID] = None) =
+    form(user, leaderTeams) fill TournamentSetup(
       name = teamBattleId.isEmpty option user.titleUsername,
       clockTime = clockTimeDefault,
       clockIncrement = clockIncrementDefault,
@@ -37,8 +38,8 @@ final class DataForm {
       hasChat = true.some
     )
 
-  def edit(user: User, tour: Tournament) =
-    form(user) fill TournamentSetup(
+  def edit(user: User, leaderTeams: List[LeaderTeam], tour: Tournament) =
+    form(user, leaderTeams) fill TournamentSetup(
       name = tour.name.some,
       clockTime = tour.clock.limitInMinutes,
       clockIncrement = tour.clock.incrementSeconds,
@@ -72,7 +73,7 @@ final class DataForm {
     }
   )
 
-  private def form(user: User) =
+  private def form(user: User, leaderTeams: List[LeaderTeam]) =
     Form(
       mapping(
         "name"           -> optional(nameType),
@@ -89,7 +90,7 @@ final class DataForm {
         "mode"             -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
         "rated"            -> optional(boolean),
         "password"         -> optional(clean(nonEmptyText)),
-        "conditions"       -> Condition.DataForm.all,
+        "conditions"       -> Condition.DataForm.all(leaderTeams),
         "teamBattleByTeam" -> optional(nonEmptyText),
         "berserkable"      -> optional(boolean),
         "streakable"       -> optional(boolean),

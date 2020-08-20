@@ -11,7 +11,7 @@ import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
-import lila.hub.LightTeam
+import lila.hub.LeaderTeam
 import lila.memo.CacheApi._
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo }
@@ -32,7 +32,9 @@ final class TeamApi(
 
   def team(id: Team.ID) = teamRepo.coll.byId[Team](id)
 
-  def light(id: Team.ID) = teamRepo.coll.byId[LightTeam](id, $doc("name" -> true))
+  def leaderTeam(id: Team.ID) = teamRepo.coll.byId[LeaderTeam](id, $doc("name" -> true))
+
+  def lightsByLeader = teamRepo.lightsByLeader _
 
   def request(id: Team.ID) = requestRepo.coll.byId[Request](id)
 

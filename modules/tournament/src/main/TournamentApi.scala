@@ -12,7 +12,7 @@ import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.paginator.Paginator
 import lila.common.{ Bus, Debouncer, LightUser }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
-import lila.hub.LightTeam
+import lila.hub.LeaderTeam
 import lila.hub.LightTeam._
 import lila.round.actorApi.round.{ AbortForce, GoBerserk }
 import lila.socket.Socket.SendToFlag
@@ -60,8 +60,7 @@ final class TournamentApi(
   def createTournament(
       setup: TournamentSetup,
       me: User,
-      myTeams: List[LightTeam],
-      getUserTeamIds: User => Fu[List[TeamID]],
+      leaderTeams: List[LeaderTeam],
       andJoin: Boolean = true
   ): Fu[Tournament] = {
     val tour = Tournament.make(
@@ -83,7 +82,7 @@ final class TournamentApi(
       hasChat = setup.hasChat | true
     ) pipe { tour =>
       tour.perfType.fold(tour) { perfType =>
-        tour.copy(conditions = setup.conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
+        tour.copy(conditions = setup.conditions.convert(perfType, leaderTeams.view.map(_.pair).toMap))
       }
     }
     tournamentRepo.insert(tour) >> {
@@ -96,14 +95,14 @@ final class TournamentApi(
         me,
         tour.password,
         setup.teamBattleByTeam,
-        getUserTeamIds,
-        isLeader = false,
+        getUserTeamIds = _ => fuccess(leaderTeams.map(_.id)),
+        asLeader = false,
         none
       )
     } inject tour
   }
 
-  def update(old: Tournament, data: TournamentSetup, myTeams: List[LightTeam]): Funit = {
+  def update(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Funit = {
     import data._
     val tour = old.copy(
       name = name | old.name,
@@ -126,7 +125,7 @@ final class TournamentApi(
       tour.perfType.fold(tour) { perfType =>
         tour.copy(conditions =
           conditions
-            .convert(perfType, myTeams.view.map(_.pair).toMap)
+            .convert(perfType, leaderTeams.view.map(_.pair).toMap)
             .copy(teamMember = old.conditions.teamMember) // can't change that
         )
       }
@@ -295,7 +294,7 @@ final class TournamentApi(
       password: Option[String],
       withTeamId: Option[String],
       getUserTeamIds: User => Fu[List[TeamID]],
-      isLeader: Boolean,
+      asLeader: Boolean,
       promise: Option[Promise[Boolean]]
   ): Funit =
     Sequencing(tourId)(tournamentRepo.enterableById) { tour =>
@@ -319,7 +318,6 @@ final class TournamentApi(
                         case Some(battle) if battle.teams contains team =>
                           getUserTeamIds(me) flatMap { myTeams =>
                             if (myTeams has team) proceedWithTeam(team.some)
-                            // else proceedWithTeam(team.some) // listress
                             else fuccess(false)
                           }
                         case _ => fuccess(false)
@@ -333,7 +331,7 @@ final class TournamentApi(
             fuccess(false)
           }
         fuJoined map { joined =>
-          withTeamId.ifTrue(joined && isLeader && tour.isTeamBattle) foreach {
+          withTeamId.ifTrue(joined && asLeader && tour.isTeamBattle) foreach {
             tournamentRepo.setForTeam(tour.id, _)
           }
           promise.foreach(_ success joined)

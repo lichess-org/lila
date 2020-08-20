@@ -6,16 +6,26 @@ import reactivemongo.api._
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
+import lila.hub.LeaderTeam
 import lila.user.User
 
 final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
+  private val lightProjection = $doc("name" -> true)
+
   def byOrderedIds(ids: Seq[Team.ID]) = coll.byOrderedIds[Team, Team.ID](ids)(_.id)
 
   def byLeader(id: Team.ID, leaderId: User.ID): Fu[Option[Team]] =
     coll.one[Team]($id(id) ++ $doc("leaders" -> leaderId))
+
+  def lightsByLeader(leaderId: User.ID): Fu[List[LeaderTeam]] =
+    coll
+      .find($doc("leaders" -> leaderId) ++ enabledSelect, lightProjection)
+      .sort(sortPopular)
+      .cursor[LeaderTeam](ReadPreference.secondaryPreferred)
+      .list(100)
 
   def enabled(id: Team.ID) = coll.one[Team]($id(id) ++ enabledSelect)
 
