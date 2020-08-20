@@ -74,8 +74,10 @@ final private[tv] class ChannelTrouper(
 
   private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id) ?? proxyGame
 
-  private def bestOf(candidates: List[Game]) =
-    candidates sortBy { -score(_) } headOption
+  private def bestOf(candidates: List[Game]) = {
+    import cats.implicits._
+    candidates.maximumByOption(score)
+  }
 
   private def score(game: Game): Int =
     math.round {

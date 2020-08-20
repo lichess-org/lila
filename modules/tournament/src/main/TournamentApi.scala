@@ -195,10 +195,11 @@ final class TournamentApi(
           .result
       }
 
-  private def featureOneOf(tour: Tournament, pairings: Pairings, ranking: Ranking): Funit =
+  private def featureOneOf(tour: Tournament, pairings: Pairings, ranking: Ranking): Funit = {
+    import cats.implicits._
     tour.featuredId.ifTrue(pairings.nonEmpty) ?? pairingRepo.byId map2
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
-      pairings.flatMap(RankedPairing(ranking)).sortBy(_.bestRank).headOption ?? { bestCandidate =>
+      pairings.flatMap(RankedPairing(ranking)).minimumByOption(_.bestRank) ?? { bestCandidate =>
         def switch = tournamentRepo.setFeaturedGameId(tour.id, bestCandidate.pairing.gameId)
         curOption.filter(_.pairing.playing) match {
           case Some(current) if bestCandidate.bestRank < current.bestRank => switch
@@ -207,6 +208,7 @@ final class TournamentApi(
         }
       }
     }
+  }
 
   private[tournament] def start(oldTour: Tournament): Funit =
     Sequencing(oldTour.id)(tournamentRepo.createdById) { tour =>

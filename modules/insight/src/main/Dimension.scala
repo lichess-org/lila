@@ -281,7 +281,8 @@ object Dimension {
       case TimeVariance            => JsString(v.name)
     }
 
-  def filtersOf[X](d: Dimension[X], selected: List[X]): Bdoc =
+  def filtersOf[X](d: Dimension[X], selected: List[X]): Bdoc = {
+    import cats.implicits._
     d match {
       case Dimension.MovetimeRange =>
         selected match {
@@ -289,7 +290,7 @@ object Dimension {
           case xs  => $doc(d.dbKey $in xs.flatMap(_.tenths.toList))
         }
       case Dimension.Period =>
-        selected.sortBy(-_.days).headOption.fold($empty) { period =>
+        selected.maximumByOption(_.days).fold($empty) { period =>
           $doc(d.dbKey $gt period.min)
         }
       case _ =>
@@ -299,6 +300,7 @@ object Dimension {
           case xs      => $doc(d.dbKey -> $doc("$in" -> BSONArray(xs)))
         }
     }
+  }
 
   def dataTypeOf[X](d: Dimension[X]): String =
     d match {
