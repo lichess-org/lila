@@ -108,7 +108,7 @@ function nextRound(ctrl: SwissCtrl): VNode | undefined {
       attrs: {
         name: 'date',
         placeholder: 'Schedule the next round',
-        value: ctrl.data.nextRound?.at
+        value: ctrl.data.nextRound?.at || ''
       },
       hook: onInsert((el: HTMLInputElement) =>
         setTimeout(() => $(el).flatpickr({
@@ -161,6 +161,8 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       attrs: dataIcon('b'),
       hook: bind('click', ctrl.withdraw, ctrl.redraw)
     }, ctrl.trans.noarg('withdraw')));
+
+    return undefined;
 }
 
 function joinTheGame(ctrl: SwissCtrl) {
