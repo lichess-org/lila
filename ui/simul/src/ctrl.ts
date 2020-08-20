@@ -13,6 +13,7 @@ export default class SimulCtrl {
   socket: SimulSocket;
 
   constructor(readonly opts: SimulOpts, readonly redraw: () => void) {
+    this.data = opts.data;
     this.trans = window.lichess.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     if (this.createdByMe() && this.data.isCreated)

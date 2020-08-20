@@ -13,7 +13,7 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
     return [
       h('div.box__top', [
         util.title(ctrl),
-        h('div.box__top__actions', [
+        h('div.box__top__actions',
           ctrl.opts.userId ? (
             isHost ? [
               startOrCancel(ctrl, accepted),
@@ -47,7 +47,7 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
                   href: '/login?referrer=' + window.location.pathname
                 }
               }, ctrl.trans('signIn'))
-        ])
+        )
       ]),
       showText(ctrl),
       ctrl.acceptedContainsMe() ? h('p.instructions',
