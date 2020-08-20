@@ -487,11 +487,13 @@ lichess.miniGame = (() => {
       renderClock(data.bc, 'black');
     },
     finish(node, win) {
-      ['white', 'black'].forEach(color =>
-        $(node).find('.mini-game__clock--' + color).each(function() {
+      ['white', 'black'].forEach(color => {
+        const $clock = $(node).find('.mini-game__clock--' + color).each(function() {
           $(this).clock('destroy');
-        }).replaceWith(`<span class="mini-game__result">${win ? (win == color[0] ? 1 : 0) : '½'}</span>`)
-      );
+        });
+        if (!$clock.data('managed')) // snabbdom
+          $clock.replaceWith(`<span class="mini-game__result">${win ? (win == color[0] ? 1 : 0) : '½'}</span>`)
+      });
     }
   }
 })();

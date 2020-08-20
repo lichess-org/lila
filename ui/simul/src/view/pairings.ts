@@ -8,6 +8,14 @@ export default function(ctrl: SimulCtrl) {
   return h('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));
 };
 
+const renderClock = (color: Color, time: number) =>
+  h(`span.mini-game__clock.mini-game__clock--${color}`, {
+    attrs: {
+      'data-time': time,
+      'data-managed': 1
+    }
+  });
+
 const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
   const game = pairing.game,
     player = pairing.player;
@@ -31,12 +39,8 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
         ' ',
         h('span.rating', player.rating)
       ]),
-      game.clock ?
-        h(`span.mini-game__clock.mini-game__clock--${opposite(game.orient)}`, {
-          attrs: {
-            'data-time': game.clock[opposite(game.orient)]
-          }
-        }) :
+      game.clock ? 
+        renderClock(opposite(game.orient), game.clock[opposite(game.orient)]) :
         h('span.mini-game__result', game.winner ? (game.winner == game.orient ? 0 : 1) : '½'),
     ]),
     h('a.cg-wrap', {
@@ -47,11 +51,7 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
     h('span.mini-game__player', [
       h('span'),
       game.clock ?
-        h(`span.mini-game__clock.mini-game__clock--${game.orient}`, {
-          attrs: {
-            'data-time': game.clock[game.orient]
-          }
-        }) :
+        renderClock(game.orient, game.clock[game.orient]) :
         h('span.mini-game__result', game.winner ? (game.winner == game.orient ? 1 : 0) : '½'),
     ]),
   ])
