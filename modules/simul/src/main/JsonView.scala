@@ -104,9 +104,8 @@ final class JsonView(
     getLightUser(player.user) map { light =>
       Json
         .obj(
-          "id"      -> player.user,
-          "variant" -> player.variant.key,
-          "rating"  -> player.rating
+          "id"     -> player.user,
+          "rating" -> player.rating
         )
         .add("name" -> light.map(_.name))
         .add("title" -> light.map(_.title))
@@ -118,6 +117,7 @@ final class JsonView(
     playerJson(app.player) map { player =>
       Json.obj(
         "player"   -> player,
+        "variant"  -> app.player.variant.key,
         "accepted" -> app.accepted
       )
     }
@@ -146,11 +146,10 @@ final class JsonView(
       playerJson(p.player) map { player =>
         Json
           .obj(
-            "player"      -> player,
-            "hostColor"   -> p.hostColor,
-            "winnerColor" -> p.winnerColor,
-            "wins"        -> p.wins, // can't be normalized because BC
-            "game"        -> gameJson(hostId, game)
+            "player"    -> player,
+            "variant"   -> p.player.variant.key,
+            "hostColor" -> p.hostColor,
+            "game"      -> gameJson(hostId, game)
           )
           .some
       }
