@@ -1,21 +1,21 @@
-var el = document.querySelector('#daily-puzzle');
-var board = el.querySelector('.mini-board');
+const el = document.querySelector('#daily-puzzle');
+const board = el.querySelector('.mini-board');
 board.target = '_blank';
-var lm = board.getAttribute('data-lastmove');
 board.innerHTML = '<div class="cg-wrap">';
+const [fen, orientation, lm] = board.getAttribute('data-state').split(',');
 Chessground(board.firstChild, {
   coordinates: false,
   resizable: false,
   drawable: { enabled: false, visible: false },
   viewOnly: true,
-  fen: board.getAttribute('data-fen'),
+  fen: fen,
   lastMove: lm && [lm[0] + lm[1], lm[2] + lm[3]],
-  orientation: board.getAttribute('data-color')
+  orientation: orientation
 });
 
 function resize() {
   if (el.offsetHeight > window.innerHeight)
-    el.style.maxWidth = (window.innerHeight - el.querySelector('.vstext').offsetHeight) + 'px';
+    el.style.maxWidth = (window.innerHeight - el.querySelector('span.text').offsetHeight) + 'px';
 }
 resize();
 window.addEventListener('resize', resize);

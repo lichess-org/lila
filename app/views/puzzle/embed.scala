@@ -24,12 +24,10 @@ object embed {
           layout.pieceSprite(lila.pref.PieceSet.default),
           cssTagWithTheme("tv.embed", config.bg)
         ),
-        body(
-          cls := s"base ${config.board}",
-          dataStreamUrl := routes.Tv.feed()
-        )(
+        body(cls := s"base ${config.board}")(
           a(
             href := routes.Puzzle.daily(),
+            target := "_blank",
             id := "daily-puzzle",
             cls := "embedded",
             title := trans.clickToSolve.txt()
@@ -38,7 +36,6 @@ object embed {
             raw(daily.html),
             span(cls := "text")(daily.color.fold(trans.whitePlays, trans.blackPlays)())
           ),
-          jQueryTag,
           jsAt("javascripts/vendor/chessground.min.js", defer = false),
           jsAt("compiled/puzzle.js", defer = false)
         )
