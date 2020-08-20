@@ -262,8 +262,12 @@ object layout {
               jsModule("deps", defer = deferJs),
               jsModule("site", defer = deferJs)
             ),
+          embedJsUnsafe(
+            s"""lichess=window.lichess||{};lichess.quantity=${lila.i18n.JsQuantity(
+              ctx.lang
+            )};$timeagoLocaleScript"""
+          ),
           moreJs,
-          embedJsUnsafe(s"""lichess.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
           ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
         )
       )
