@@ -10,6 +10,14 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
     const candidates = ctrl.candidates().sort(byName),
       accepted = ctrl.accepted().sort(byName),
       isHost = ctrl.createdByMe();
+    const variantIconFor = (a: Applicant) => {
+      const variant = ctrl.data.variants.find(v => a.variant == v.key);
+      return variant && h('td.variant', {
+        attrs: {
+          'data-icon': variant.icon
+        }
+      });
+    }
     return [
       h('div.box__top', [
         util.title(ctrl),
@@ -17,7 +25,7 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
           ctrl.opts.userId ? (
             isHost ? [
               startOrCancel(ctrl, accepted),
-              randomButton(ctrl, candidates)
+              randomButton(ctrl)
             ] : (
                 ctrl.containsMe() ?
                   h('a.button', {
@@ -57,7 +65,13 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
             'Share this page URL to let people enter the simul!'
           ) : null
         ),
-      h('div.halves',
+      h('div.halves', {
+        hook: {
+          postpatch(_old, vnode) {
+            window.lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
+          }
+        }
+      }, [
         h('div.half.candidates',
           h('table.slist.slist-pad',
             h('thead', h('tr', h('th', {
@@ -67,7 +81,6 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
               ' candidate players'
             ]))),
             h('tbody', candidates.map(applicant => {
-              const variant = ctrl.data.variants.find(v => applicant.variant == v.key);
               return h('tr', {
                 key: applicant.player.id,
                 class: {
@@ -75,19 +88,15 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
                 }
               }, [
                 h('td', util.player(applicant.player)),
-                h('td.variant', {
-                  attrs: {
-                    'data-icon': variant?.icon
-                  }
-                }),
-                h('td.action', isHost ? h('a.button', {
+                variantIconFor(applicant),
+                h('td.action', isHost ? [h('a.button', {
                   attrs: {
                     'data-icon': 'E',
                     title: 'Accept'
                   },
                   hook: util.bind('click', () =>
                     xhr.accept(applicant.player.id)(ctrl.data.id))
-                }) : null)
+                })] : [])
               ])
             })))
         ),
@@ -99,11 +108,10 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
               }, [
                 h('strong', accepted.length),
                 ' accepted players'
-              ])), (isHost && candidates.length && !accepted.length) ? h('tr.help',
-                h('th', 'Now you get to accept some players, then start the simul')) : null
+              ])), (isHost && candidates.length && !accepted.length) ? [h('tr.help',
+                h('th', 'Now you get to accept some players, then start the simul'))] : []
             ]),
             h('tbody', accepted.map(applicant => {
-              const variant = ctrl.data.variants.find(v => applicant.variant == v.key);
               return h('tr', {
                 key: applicant.player.id,
                 class: {
@@ -111,28 +119,26 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
                 }
               }, [
                 h('td', util.player(applicant.player)),
-                h('td.variant', {
-                  attrs: {
-                    'data-icon': variant?.icon
-                  }
-                }),
-                h('td.action', isHost ? h('a.button.button-red', {
+                variantIconFor(applicant),
+                h('td.action', isHost ? [h('a.button.button-red', {
                   attrs: {
                     'data-icon': 'L',
                   },
                   hook: util.bind('click', () => xhr.reject(applicant.player.id)(ctrl.data.id))
-                }) : null)
+                })] : [])
               ])
             })))
         ])
-      ),
+      ]),
       h('blockquote.pull-quote', [
         h('p', ctrl.data.quote.text),
         h('footer', ctrl.data.quote.author)
       ]),
       h('div.continue-with.none', ctrl.data.variants.map(function(variant) {
         return h('a.button', {
-          'data-variant': variant.key
+          attrs: {
+            'data-variant': variant.key
+          }
         }, variant.name);
       }))
     ];
@@ -141,12 +147,13 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
 
 const byName = (a: Applicant, b: Applicant) => a.player.name > b.player.name ? 1 : -1;
 
-const randomButton = (ctrl: SimulCtrl, candidates: Applicant[]) =>
-  candidates.length ? h('a.button.text', {
+const randomButton = (ctrl: SimulCtrl) =>
+  ctrl.candidates().length ? h('a.button.text', {
     attrs: {
       'data-icon': 'E'
     },
     hook: util.bind('click', () => {
+      const candidates = ctrl.candidates();
       const randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
       xhr.accept(randomCandidate.player.id)(ctrl.data.id);
     })

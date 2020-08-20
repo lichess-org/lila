@@ -18,7 +18,6 @@ export function start(opts: SimulOpts) {
     `/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
       receive: (t: string, d: any) => ctrl.socket.receive(t, d)
     });
-  opts.classes = element.getAttribute('class').replace(' ', '.');
   opts.socketSend = li.socket.send;
   opts.element = element;
   opts.$side = $('.simul__side').clone();

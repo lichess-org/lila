@@ -11,11 +11,9 @@ export default function(ctrl: SimulCtrl) {
     ctrl.data.isFinished ? finished : created(showText)
   );
 
-  return h('main.' + ctrl.opts.classes, {
-    hook: {
-      postpatch() {
-        window.lichess.miniGame.initAll();
-      }
+  return h('main.simul', {
+    class: {
+      'simul-created': ctrl.data.isCreated
     }
   }, [
     h('aside.simul__side', {

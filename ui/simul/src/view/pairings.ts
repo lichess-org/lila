@@ -23,7 +23,9 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
   }, [
     h('span.mini-game__player', [
       h('a.mini-game__user.ulpt', {
-        href: `/@/${player.name}`
+        attrs: {
+          href: `/@/${player.name}`
+        }
       }, [
         h('span.name', player.title ? [h('span.title', player.title), ' ', player.name] : [player.name]),
         ' ',
@@ -31,18 +33,24 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
       ]),
       game.clock ?
         h(`span.mini-game__clock.mini-game__clock--${opposite(game.orient)}`, {
-          'data-time': game.clock[opposite(game.orient)]
+          attrs: {
+            'data-time': game.clock[opposite(game.orient)]
+          }
         }) :
         h('span.mini-game__result', game.winner ? (game.winner == game.orient ? 0 : 1) : '½'),
     ]),
     h('a.cg-wrap', {
-      href: `/${game.id}/${game.orient}`
+      attrs: {
+        href: `/${game.id}/${game.orient}`
+      }
     }),
     h('span.mini-game__player', [
       h('span'),
       game.clock ?
         h(`span.mini-game__clock.mini-game__clock--${game.orient}`, {
-          'data-time': game.clock[game.orient]
+          attrs: {
+            'data-time': game.clock[game.orient]
+          }
         }) :
         h('span.mini-game__result', game.winner ? (game.winner == game.orient ? 1 : 0) : '½'),
     ]),

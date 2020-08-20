@@ -13,7 +13,6 @@ export interface SimulOpts {
   chat: any;
   i18n: any;
   socketSend: SocketSend;
-  classes: string;
 }
 
 export interface SimulData {
