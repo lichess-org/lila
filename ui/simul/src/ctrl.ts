@@ -1,6 +1,5 @@
 import { makeSocket, SimulSocket } from './socket';
 import xhr from './xhr';
-import simul from './simul';
 import * as status from 'game/status';
 import {
   SimulData,
@@ -16,7 +15,7 @@ export default class SimulCtrl {
   constructor(readonly opts: SimulOpts, readonly redraw: () => void) {
     this.trans = window.lichess.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
-    if (simul.createdByMe(this) && this.data.isCreated)
+    if (this.createdByMe() && this.data.isCreated)
       window.lichess.storage.set('lichess.move_on', '1'); // hideous hack :D
     this.hostPing();
   }
@@ -32,7 +31,7 @@ export default class SimulCtrl {
 
   hostPing = () => {
     if (this.createdByMe() && this.data.isCreated) {
-      xhr.ping(this);
+      xhr.ping(this.data.id);
       setTimeout(this.hostPing, 10000);
     }
   }
