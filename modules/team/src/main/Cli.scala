@@ -14,8 +14,6 @@ final private[team] class Cli(
 
     case "team" :: "enable" :: team :: Nil => perform(team)(api.enable)
 
-    case "team" :: "disable" :: team :: Nil => perform(team)(api.disable)
-
     case "team" :: "recompute" :: "nbMembers" :: "all" :: Nil =>
       api.recomputeNbMembers
       fuccess("In progress... it will take a while")
