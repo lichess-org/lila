@@ -16,10 +16,10 @@ export function start(opts: SimulOpts) {
   const li = window.lichess;
   const element = document.querySelector('main.swiss') as HTMLElement;
   li.socket = li.StrongSocket(
-    '/simul/' + opts.data.id, opts.data.socketVersion, {
+    `/simul/${opts.data.id}`, opts.socketVersion, {
       receive: (t: string, d: any) => ctrl.socket.receive(t, d)
     });
-  opts.classes = element.getAttribute('class');
+  opts.classes = element.getAttribute('class').replace(' ', '.');
   opts.socketSend = li.socket.send;
   opts.element = element;
   opts.$side = $('.simul__side').clone();

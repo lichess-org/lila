@@ -16,7 +16,7 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
 
 export function onInsert(f: (element: HTMLElement) => void): Hooks {
   return {
-    insert(vnode) {
+    insert(vnode: VNode) {
       f(vnode.elm as HTMLElement)
     }
   };
@@ -28,7 +28,7 @@ export function dataIcon(icon: string): Attrs {
   };
 }
 
-export const userName = (u: LightUser) => u.title ? [h('span.title', u.title), ' ' + u.name] : [u.name];
+export const userName = (u: LightUser) => u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name];
 
 export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
   return h('a.ulpt.user-link' + (((p.user.title || '') + p.user.name).length > 15 ? '.long' : ''), {
