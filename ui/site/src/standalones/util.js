@@ -113,7 +113,7 @@ lichess.powertip = (() => {
 
   function onPowertipPreRender(id, preload) {
     return function() {
-      let url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
+      const url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
       if (preload) preload(url);
       $.ajax({
         url: url + '/mini',
@@ -125,9 +125,9 @@ lichess.powertip = (() => {
     };
   };
 
-  let uptA = (url, icon) => '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
+  const uptA = (url, icon) => '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
 
-  let userPowertip = (el, pos) => {
+  const userPowertip = (el, pos) => {
     pos = pos || el.getAttribute('data-pt-pos') || (
       inCrosstable(el) ? 'n' : 's'
     );
@@ -187,6 +187,7 @@ lichess.powertip = (() => {
       onIdleForAll(parent, '.glpt', gamePowertip);
     },
     manualGame: gamePowertip,
+    manualUser: userPowertip,
     manualUserIn(parent) {
       onIdleForAll(parent, '.ulpt', userPowertip);
     }
