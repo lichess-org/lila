@@ -54,6 +54,7 @@ private object DisposableEmailDomain {
   )
 
   private val whitelist = Set(
+    "fide.com", // https://check-mail.org/domain/fide.com/ says DISPOSABLE / TEMPORARY DOMAIN
     /* Default domains included */
     "aol.com",
     "att.net",
