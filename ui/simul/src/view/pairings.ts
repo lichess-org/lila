@@ -35,7 +35,7 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
           href: `/@/${player.name}`
         }
       }, [
-        h('span.name', player.title ? [h('span.title', player.title), ' ', player.name] : [player.name]),
+        h('span.name', player.title ? [h('span.utitle', player.title), ' ', player.name] : [player.name]),
         ' ',
         h('span.rating', player.rating)
       ]),

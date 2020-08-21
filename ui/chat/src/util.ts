@@ -13,7 +13,7 @@ export function userLink(u: string, title?: string) {
       href: '/@/' + u
     }
   }, (title && title != 'BOT') ? [
-    h('span.title', title), trunc
+    h('span.utitle', title), trunc
   ] : [trunc]);
 }
 
