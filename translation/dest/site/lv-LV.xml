@@ -146,7 +146,7 @@
   </plurals>
   <string name="viewInFullSize">Skatīt pilnā izmērā</string>
   <string name="logOut">Izrakstīties</string>
-  <string name="signIn">Ierakstīties</string>
+  <string name="signIn">Pierakstīties</string>
   <string name="youNeedAnAccountToDoThat">Lai veiktu šo darbību, nepieciešams konts</string>
   <string name="signUp">Reģistrēties</string>
   <string name="computersAreNotAllowedToPlay">Datoriem un spēlētājiem, kuri izmanto datoru palīdzību, nav atļauts spēlēt. Lūdzu, spēlējot neizmantojiet šaha programmu, datubāžu vai citu spēlētāju palīdzību. Aicinām neizmantot vairākus kontus - tas var novest pie piekļuves pārtraukšanas.</string>
