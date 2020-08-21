@@ -16,10 +16,20 @@ export default class SimulCtrl {
     this.data = opts.data;
     this.trans = window.lichess.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
-    if (this.createdByMe() && this.data.isCreated)
-      window.lichess.storage.set('lichess.move_on', '1'); // hideous hack :D
-    this.hostPing();
+    if (this.createdByMe() && this.data.isCreated) this.setupCreatedHost();
   }
+
+  private setupCreatedHost = () => {
+    window.lichess.storage.set('lichess.move_on', '1'); // hideous hack :D
+    let hostIsAround = true;
+    window.lichess.idleTimer(
+      15 * 60 * 1000,
+      () => { hostIsAround = false; },
+      () => { hostIsAround = true; });
+    setInterval(() => {
+      if (this.data.isCreated && hostIsAround) xhr.ping(this.data.id);
+    }, 10 * 1000);
+  };
 
   reload = (data: SimulData) => {
     this.data = {
@@ -29,13 +39,6 @@ export default class SimulCtrl {
   };
 
   teamBlock = () => this.data.team && !this.data.team.isIn;
-
-  hostPing = () => {
-    if (this.createdByMe() && this.data.isCreated) {
-      xhr.ping(this.data.id);
-      setTimeout(this.hostPing, 10000);
-    }
-  }
 
   createdByMe = () => this.opts.userId === this.data.host.id;
   candidates = () => this.data.applicants.filter(a => !a.accepted);
