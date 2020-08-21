@@ -72,7 +72,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     coll.primitiveOne[User.ID]($id(id), "createdBy")
 
   private[tournament] def startedCursor =
-    coll.ext.find(startedSelect).sort($doc("createdAt" -> -1)).batchSize(1).cursor[Tournament]()
+    coll.find(startedSelect).sort($doc("createdAt" -> -1)).batchSize(1).cursor[Tournament]()
 
   def startedIds: Fu[List[Tournament.ID]] =
     coll.primitive[Tournament.ID](startedSelect, sort = $doc("createdAt" -> -1), "_id")
@@ -87,7 +87,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     )
 
   private[tournament] def notableFinished(limit: Int): Fu[List[Tournament]] =
-    coll.ext
+    coll
       .find(finishedSelect ++ scheduledSelect)
       .sort($sort desc "startsAt")
       .cursor[Tournament]()
@@ -109,13 +109,13 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
   def byTeamCursor(teamId: TeamID) =
-    coll.ext
+    coll
       .find(forTeamSelect(teamId))
       .sort($sort desc "startsAt")
       .cursor[Tournament]()
 
   private[tournament] def upcomingByTeam(teamId: TeamID, nb: Int) =
-    (nb > 0) ?? coll.ext
+    (nb > 0) ?? coll
       .find(
         forTeamSelect(teamId) ++ enterableSelect ++ $doc(
           "startsAt" $gt DateTime.now.minusDays(1)
@@ -126,7 +126,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .list(nb)
 
   private[tournament] def finishedByTeam(teamId: TeamID, nb: Int) =
-    (nb > 0) ?? coll.ext
+    (nb > 0) ?? coll
       .find(forTeamSelect(teamId) ++ finishedSelect)
       .sort($sort desc "startsAt")
       .cursor[Tournament]()
@@ -214,7 +214,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     }
 
   private[tournament] def shouldStartCursor =
-    coll.ext
+    coll
       .find($doc("startsAt" $lt DateTime.now) ++ createdSelect)
       .batchSize(1)
       .cursor[Tournament]()
@@ -262,14 +262,14 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .list(max)
 
   def scheduledUnfinished: Fu[List[Tournament]] =
-    coll.ext
+    coll
       .find(scheduledSelect ++ unfinishedSelect)
       .sort($doc("startsAt" -> 1))
       .cursor[Tournament]()
       .list()
 
   def allScheduledDedup: Fu[List[Tournament]] =
-    coll.ext
+    coll
       .find(createdSelect ++ scheduledSelect)
       .sort($doc("startsAt" -> 1))
       .cursor[Tournament]()
@@ -292,7 +292,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     }
 
   def lastFinishedScheduledByFreq(freq: Schedule.Freq, since: DateTime): Fu[List[Tournament]] =
-    coll.ext
+    coll
       .find(
         finishedSelect ++ sinceSelect(since) ++ variantSelect(chess.variant.Standard) ++ $doc(
           "schedule.freq" -> freq.name,
@@ -304,7 +304,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .list(Schedule.Speed.mostPopular.size)
 
   def lastFinishedDaily(variant: Variant): Fu[Option[Tournament]] =
-    coll.ext
+    coll
       .find(
         finishedSelect ++ sinceSelect(DateTime.now minusDays 1) ++ variantSelect(variant) ++
           $doc("schedule.freq" -> Schedule.Freq.Daily.name)
@@ -335,7 +335,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def exists(id: Tournament.ID) = coll exists $id(id)
 
   def calendar(from: DateTime, to: DateTime): Fu[List[Tournament]] =
-    coll.ext
+    coll
       .find(
         $doc(
           "startsAt" $gte from $lte to,
@@ -351,7 +351,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       batchSize: Int,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Tournament] =
-    coll.ext
+    coll
       .find($doc("createdBy" -> owner.id))
       .sort($sort desc "startsAt")
       .batchSize(batchSize)

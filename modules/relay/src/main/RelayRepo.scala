@@ -12,21 +12,21 @@ final private class RelayRepo(val coll: Coll)(implicit ec: scala.concurrent.Exec
   import BSONHandlers._
 
   def scheduled =
-    coll.ext
+    coll
       .find($doc(selectors scheduled true))
       .sort($sort asc "startsAt")
       .cursor[Relay]()
       .list()
 
   def ongoing =
-    coll.ext
+    coll
       .find($doc(selectors ongoing true))
       .sort($sort asc "startedAt")
       .cursor[Relay]()
       .list()
 
   private[relay] def officialCursor(batchSize: Int): AkkaStreamCursor[Relay] =
-    coll.ext
+    coll
       .find(selectors officialOption true)
       .sort($sort desc "startsAt")
       .batchSize(batchSize)

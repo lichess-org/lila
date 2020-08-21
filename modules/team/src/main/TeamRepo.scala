@@ -13,7 +13,7 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   import BSONHandlers._
 
-  private val lightProjection = $doc("name" -> true)
+  private val lightProjection = $doc("name" -> true).some
 
   def byOrderedIds(ids: Seq[Team.ID]) = coll.byOrderedIds[Team, Team.ID](ids)(_.id)
 
@@ -30,21 +30,21 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def enabled(id: Team.ID) = coll.one[Team]($id(id) ++ enabledSelect)
 
   def byIdsSortPopular(ids: Seq[Team.ID]): Fu[List[Team]] =
-    coll.ext
+    coll
       .find($inIds(ids))
       .sort(sortPopular)
       .cursor[Team](ReadPreference.secondaryPreferred)
       .list(100)
 
   def enabledTeamsByLeader(userId: User.ID): Fu[List[Team]] =
-    coll.ext
+    coll
       .find($doc("leaders" -> userId) ++ enabledSelect)
       .sort(sortPopular)
       .cursor[Team](ReadPreference.secondaryPreferred)
       .list(100)
 
   def enabledTeamIdsByLeader(userId: User.ID): Fu[List[Team.ID]] =
-    coll.ext
+    coll
       .primitive[Team.ID](
         $doc("leaders" -> userId) ++ enabledSelect,
         sortPopular,
@@ -89,7 +89,7 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .void
 
   def cursor =
-    coll.ext
+    coll
       .find(enabledSelect)
       .cursor[Team](ReadPreference.secondaryPreferred)
 

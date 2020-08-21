@@ -10,7 +10,7 @@ import lila.user.User
 final class WebSubscriptionApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def getSubscriptions(max: Int)(userId: User.ID): Fu[List[WebSubscription]] =
-    coll.ext
+    coll
       .find(
         $doc(
           "userId" -> userId

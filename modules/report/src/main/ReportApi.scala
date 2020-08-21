@@ -333,14 +333,14 @@ final class ReportApi(
       nb: Int,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): Fu[List[Report]] =
-    coll.ext
+    coll
       .find($doc("user" -> suspect.id.value))
       .sort(sortLastAtomAt)
       .cursor[Report](readPreference)
       .list(nb)
 
   def moreLike(report: Report, nb: Int): Fu[List[Report]] =
-    coll.ext
+    coll
       .find($doc("user" -> report.user, "_id" $ne report.id))
       .sort(sortLastAtomAt)
       .cursor[Report]()
@@ -349,7 +349,7 @@ final class ReportApi(
   def byAndAbout(user: User, nb: Int): Fu[Report.ByAndAbout] =
     for {
       by <-
-        coll.ext
+        coll
           .find(
             $doc("atoms.by" -> user.id)
           )
@@ -422,7 +422,7 @@ final class ReportApi(
       cacheApi[User.ID, Option[Accuracy]](512, "report.accuracy") {
         _.expireAfterWrite(24 hours)
           .buildAsyncFuture { reporterId =>
-            coll.ext
+            coll
               .find(
                 $doc(
                   "atoms.by" -> reporterId,
@@ -478,10 +478,10 @@ final class ReportApi(
       }
 
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] =
-    (nb > 0) ?? coll.ext.find(selector).sort(sortLastAtomAt).cursor[Report]().list(nb)
+    (nb > 0) ?? coll.find(selector).sort(sortLastAtomAt).cursor[Report]().list(nb)
 
   private def findBest(nb: Int, selector: Bdoc): Fu[List[Report]] =
-    (nb > 0) ?? coll.ext.find(selector).sort($sort desc "score").cursor[Report]().list(nb)
+    (nb > 0) ?? coll.find(selector).sort($sort desc "score").cursor[Report]().list(nb)
 
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =
     $doc(

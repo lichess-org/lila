@@ -106,14 +106,14 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     }
 
   def allStarted: Fu[List[Simul]] =
-    simulColl.ext
+    simulColl
       .find(startedSelect)
       .sort(createdSort)
       .cursor[Simul]()
       .list()
 
   def allFinishedFeaturable(max: Int): Fu[List[Simul]] =
-    simulColl.ext
+    simulColl
       .find(finishedSelect ++ featurableSelect)
       .sort($sort desc "finishedAt")
       .cursor[Simul]()

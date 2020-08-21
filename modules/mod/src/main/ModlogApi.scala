@@ -220,7 +220,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
     add { Modlog(mod, user.some, Modlog.appealClose, details = none) }
 
   def recent =
-    coll.ext
+    coll
       .find(
         $or(
           $doc("mod"    -> $ne("lichess")),
@@ -248,7 +248,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
     )
 
   def userHistory(userId: User.ID): Fu[List[Modlog]] =
-    coll.ext.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
+    coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
 
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create.increment()

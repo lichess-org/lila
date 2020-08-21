@@ -77,7 +77,7 @@ final class SwissStandingApi(
     for {
       rankedPlayers <- bestWithRankByPage(swiss.id, 10, page atLeast 1)
       pairings <- !swiss.isCreated ?? SwissPairing.fields { f =>
-        colls.pairing.ext
+        colls.pairing
           .find($doc(f.swissId -> swiss.id, f.players $in rankedPlayers.map(_.player.userId)))
           .sort($sort asc f.round)
           .cursor[SwissPairing]()
@@ -120,7 +120,7 @@ final class SwissStandingApi(
 
   private def best(id: Swiss.Id, nb: Int, skip: Int): Fu[List[SwissPlayer]] =
     SwissPlayer.fields { f =>
-      colls.player.ext
+      colls.player
         .find($doc(f.swissId -> id))
         .sort($sort desc f.score)
         .skip(skip)

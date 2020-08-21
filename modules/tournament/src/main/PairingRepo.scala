@@ -26,7 +26,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
   private val recentSort     = $doc("d" -> -1)
   private val chronoSort     = $doc("d" -> 1)
 
-  def byId(id: Tournament.ID): Fu[Option[Pairing]] = coll.ext.find($id(id)).one[Pairing]
+  def byId(id: Tournament.ID): Fu[Option[Pairing]] = coll.find($id(id)).one[Pairing]
 
   private[tournament] def lastOpponents(
       tourId: Tournament.ID,
@@ -143,7 +143,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
   def removePlaying(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId) ++ selectPlaying).void
 
   def findPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Option[Pairing]] =
-    coll.ext.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
+    coll.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
 
   def isPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
     coll.exists(selectTourUser(tourId, userId) ++ selectPlaying)
@@ -152,7 +152,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
       tourId: Tournament.ID,
       userId: User.ID
   ): Fu[Pairings] =
-    coll.ext
+    coll
       .find(
         selectTourUser(tourId, userId) ++ selectFinished
       )
@@ -197,7 +197,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
       batchSize: Int = 0,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Pairing] =
-    coll.ext
+    coll
       .find(selectTour(tournamentId))
       .sort(recentSort)
       .batchSize(batchSize)

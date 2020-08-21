@@ -47,7 +47,7 @@ final class AssessApi(
     assessRepo.coll.byId[PlayerAssessment](id)
 
   private def getPlayerAssessmentsByUserId(userId: String, nb: Int) =
-    assessRepo.coll.ext
+    assessRepo.coll
       .find($doc("userId" -> userId))
       .sort($doc("date" -> -1))
       .cursor[PlayerAssessment](ReadPreference.secondaryPreferred)

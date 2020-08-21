@@ -75,7 +75,7 @@ final private[puzzle] class PuzzleBatch(
         idRange: Range,
         nb: Int
     ): Fu[List[Puzzle]] =
-      coll.ext
+      coll
         .find(
           rangeSelector(
             rating = rating,

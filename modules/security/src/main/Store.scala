@@ -114,14 +114,14 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
   implicit private val UserSessionBSONHandler = Macros.handler[UserSession]
   def openSessions(userId: User.ID, nb: Int): Fu[List[UserSession]] =
-    coll.ext
+    coll
       .find($doc("user" -> userId, "up" -> true))
       .sort($doc("date" -> -1))
       .cursor[UserSession]()
       .gather[List](nb)
 
   def allSessions(userId: User.ID): Fu[List[UserSession]] =
-    coll.ext
+    coll
       .find($doc("user" -> userId))
       .sort($doc("date" -> -1))
       .cursor[UserSession](ReadPreference.secondaryPreferred)
@@ -141,13 +141,13 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
     }
 
   def chronoInfoByUser(user: User): Fu[List[Info]] =
-    coll.ext
+    coll
       .find(
         $doc(
           "user" -> user.id,
           "date" $gt (user.createdAt atLeast DateTime.now.minusYears(1))
         ),
-        $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
+        $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true).some
       )
       .sort($sort desc "date")
       .cursor[Info]()(InfoReader, implicitly[CursorProducer[Info]])
@@ -163,7 +163,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
   implicit private val DedupInfoReader = Macros.reader[DedupInfo]
 
   def dedup(userId: User.ID, keepSessionId: String): Funit =
-    coll.ext
+    coll
       .find(
         $doc(
           "user" -> userId,

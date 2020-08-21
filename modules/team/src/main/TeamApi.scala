@@ -284,7 +284,7 @@ final class TeamApi(
     teamRepo.coll.distinctEasy[Team.ID, Set]("_id", $doc("_id" $in ids), ReadPreference.secondaryPreferred)
 
   def autocomplete(term: String, max: Int): Fu[List[Team]] =
-    teamRepo.coll.ext
+    teamRepo.coll
       .find(
         $doc(
           "name".$startsWith(java.util.regex.Pattern.quote(term), "i"),
@@ -298,8 +298,8 @@ final class TeamApi(
   def nbRequests(teamId: Team.ID) = cached.nbRequests get teamId
 
   private[team] def recomputeNbMembers: Funit =
-    teamRepo.coll.ext
-      .find($empty, $id(true))
+    teamRepo.coll
+      .find($empty, $id(true).some)
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
       .foldWhileM {} { (_, doc) =>
         (doc.string("_id") ?? recomputeNbMembers) inject Cursor.Cont {}

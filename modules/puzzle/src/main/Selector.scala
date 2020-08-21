@@ -1,13 +1,13 @@
 package lila.puzzle
 
-import lila.common.ThreadLocalRandom
+import Puzzle.{ BSONFields => F }
 import reactivemongo.api.ReadPreference
 
+import lila.common.ThreadLocalRandom
 import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.user.User
-import Puzzle.{ BSONFields => F }
 
 final private[puzzle] class Selector(
     puzzleColl: AsyncColl,
@@ -19,8 +19,7 @@ final private[puzzle] class Selector(
 
   private lazy val anonIdsCache: Fu[Vector[Int]] =
     puzzleColl { // this query precisely matches a mongodb partial index
-      _.ext
-        .find($doc(F.voteNb $gte 100), $id(true))
+      _.find($doc(F.voteNb $gte 100), $id(true).some)
         .sort($sort desc F.voteRatio)
         .cursor[Bdoc](ReadPreference.secondaryPreferred)
         .vector(anonPuzzles)
@@ -95,7 +94,7 @@ final private[puzzle] class Selector(
       step: Int,
       idRange: Range
   ): Fu[Option[Puzzle]] =
-    coll.ext
+    coll
       .find(
         rangeSelector(
           rating = rating,

@@ -1,14 +1,13 @@
 package lila.puzzle
 
-import scala.concurrent.duration._
-
 import akka.pattern.ask
 import org.joda.time.DateTime
+import Puzzle.{ BSONFields => F }
+import scala.concurrent.duration._
 
 import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.memo.CacheApi._
-import Puzzle.{ BSONFields => F }
 
 final private[puzzle] class Daily(
     coll: AsyncColl,
@@ -49,20 +48,17 @@ final private[puzzle] class Daily(
 
   private def findCurrent =
     coll {
-      _.ext
-        .find(
-          $doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15))
-        )
+      _.find(
+        $doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15))
+      )
         .one[Puzzle]
     }
 
   private def findNew =
     coll { c =>
-      c.ext
-        .find(
-          $doc(F.day $exists false, F.voteNb $gte 200)
-        )
-        .sort($doc(F.voteRatio -> -1))
+      c.find(
+        $doc(F.day $exists false, F.voteNb $gte 200)
+      ).sort($doc(F.voteRatio -> -1))
         .one[Puzzle] flatMap {
         case Some(puzzle) =>
           c.update.one(

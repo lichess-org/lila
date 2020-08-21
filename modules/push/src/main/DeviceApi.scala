@@ -11,10 +11,10 @@ final private class DeviceApi(coll: Coll)(implicit ec: scala.concurrent.Executio
   implicit private val DeviceBSONHandler = Macros.handler[Device]
 
   private[push] def findByDeviceId(deviceId: String): Fu[Option[Device]] =
-    coll.ext.find($id(deviceId)).one[Device]
+    coll.find($id(deviceId)).one[Device]
 
   private[push] def findLastManyByUserId(platform: String, max: Int)(userId: String): Fu[List[Device]] =
-    coll.ext
+    coll
       .find(
         $doc(
           "platform" -> platform,

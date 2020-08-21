@@ -45,7 +45,7 @@ final private[video] class VideoApi(
     private val maxPerPage = lila.common.config.MaxPerPage(18)
 
     def find(id: Video.ID): Fu[Option[Video]] =
-      videoColl.ext.find($id(id)).one[Video]
+      videoColl.find($id(id)).one[Video]
 
     def search(user: Option[User], query: String, page: Int): Fu[Paginator[VideoView]] = {
       val q = query.split(' ').map { word =>
@@ -177,7 +177,7 @@ final private[video] class VideoApi(
   object view {
 
     def find(videoId: Video.ID, userId: String): Fu[Option[View]] =
-      viewColl.ext
+      viewColl
         .find(
           $doc(
             View.BSONFields.id -> View.makeId(videoId, userId)

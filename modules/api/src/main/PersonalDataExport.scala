@@ -41,7 +41,7 @@ final class PersonalDataExport(
       following <- relationEnv.api.fetchFollowing(userId)
       chats <-
         gameEnv.gameRepo.coll
-          .find($doc(Game.BSONFields.playerUids -> userId), $id(true))
+          .find($doc(Game.BSONFields.playerUids -> userId), $id(true).some)
           .cursor[Bdoc](ReadPreference.secondaryPreferred)
           .documentSource(90_000)
           .mapConcat { doc =>

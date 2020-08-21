@@ -11,15 +11,15 @@ final class PersonalTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Ex
 
   def list(u: User): Fu[List[AccessToken]] =
     colls.token {
-      _.ext
-        .find(
-          $doc(
-            F.userId   -> u.id,
-            F.clientId -> clientId
-          )
+      _.find(
+        $doc(
+          F.userId   -> u.id,
+          F.clientId -> clientId
         )
+      )
         .sort($sort desc F.createdAt)
-        .cursor[AccessToken]().list(100)
+        .cursor[AccessToken]()
+        .list(100)
     }
 
   def create(token: AccessToken) = colls.token(_.insert.one(token).void)

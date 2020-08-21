@@ -13,12 +13,12 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
   import BSONHandlers._
   import Challenge._
 
-  def byId(id: Challenge.ID) = coll.ext.find($id(id)).one[Challenge]
+  def byId(id: Challenge.ID) = coll.find($id(id)).one[Challenge]
 
   def byIdFor(id: Challenge.ID, dest: lila.user.User) =
-    coll.ext.find($id(id) ++ $doc("destUser.id" -> dest.id)).one[Challenge]
+    coll.find($id(id) ++ $doc("destUser.id" -> dest.id)).one[Challenge]
   def byIdBy(id: Challenge.ID, orig: lila.user.User) =
-    coll.ext.find($id(id) ++ $doc("challenger.id" -> orig.id)).one[Challenge]
+    coll.find($id(id) ++ $doc("challenger.id" -> orig.id)).one[Challenge]
 
   def exists(id: Challenge.ID) = coll.countSel($id(id)).dmap(0 <)
 
@@ -33,14 +33,14 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
   def update(c: Challenge): Funit = coll.update.one($id(c.id), c).void
 
   def createdByChallengerId(userId: String): Fu[List[Challenge]] =
-    coll.ext
+    coll
       .find(selectCreated ++ $doc("challenger.id" -> userId))
       .sort($doc("createdAt" -> 1))
       .cursor[Challenge]()
       .list()
 
   def createdByDestId(userId: String): Fu[List[Challenge]] =
-    coll.ext
+    coll
       .find(selectCreated ++ $doc("destUser.id" -> userId))
       .sort($doc("createdAt" -> 1))
       .cursor[Challenge]()
@@ -124,10 +124,10 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
   def accept(challenge: Challenge)  = setStatus(challenge, Status.Accepted, Some(_ plusHours 3))
 
   def statusById(id: Challenge.ID) =
-    coll.ext
+    coll
       .find(
         $id(id),
-        $doc("status" -> true, "_id" -> false)
+        $doc("status" -> true, "_id" -> false).some
       )
       .one[Bdoc]
       .map { _.flatMap(_.getAsOpt[Status]("status")) }

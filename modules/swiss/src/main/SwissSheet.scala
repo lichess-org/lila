@@ -78,7 +78,7 @@ final private class SwissSheetApi(colls: SwissColls)(implicit
       else ReadPreference.primary
     SwissPlayer
       .fields { f =>
-        colls.player.ext
+        colls.player
           .find($doc(f.swissId -> swiss.id))
           .sort($sort desc f.score)
       }
@@ -86,7 +86,7 @@ final private class SwissSheetApi(colls: SwissColls)(implicit
       .documentSource()
       .mapAsync(4) { player =>
         SwissPairing.fields { f =>
-          colls.pairing.ext.list[SwissPairing](
+          colls.pairing.list[SwissPairing](
             $doc(f.swissId -> swiss.id, f.players -> player.userId),
             readPreference
           ) dmap { player -> _ }

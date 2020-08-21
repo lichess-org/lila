@@ -164,10 +164,10 @@ final class PlaybanApi(
 
   def currentBan(userId: User.ID): Fu[Option[TempBan]] =
     !cleanUserIds.get(userId) ?? {
-      coll.ext
+      coll
         .find(
           $doc("_id" -> userId, "b.0" $exists true),
-          $doc("_id" -> false, "b" -> $doc("$slice" -> -1))
+          $doc("_id" -> false, "b" -> $doc("$slice" -> -1)).some
         )
         .one[Bdoc]
         .dmap {
@@ -186,15 +186,15 @@ final class PlaybanApi(
         case Outcome.Good                                                        => true
       } match {
         case c if c.sizeIs >= 5 => Some(c.count(identity).toDouble / c.size)
-        case _                => none
+        case _                  => none
       }
     }
 
   def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
-    coll.ext
+    coll
       .find(
         $inIds(userIds),
-        $doc("b" -> true)
+        $doc("b" -> true).some
       )
       .cursor[Bdoc]()
       .list()

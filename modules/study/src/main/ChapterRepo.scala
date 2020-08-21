@@ -33,7 +33,7 @@ final class ChapterRepo(val coll: Coll)(implicit
     coll.byId[Chapter, Chapter.Id](id).dmap { _.filter(_.studyId == studyId) }
 
   def firstByStudy(studyId: Study.Id): Fu[Option[Chapter]] =
-    coll.ext.find($studyId(studyId)).sort($sort asc "order").one[Chapter]
+    coll.find($studyId(studyId)).sort($sort asc "order").one[Chapter]
 
   def existsByStudy(studyId: Study.Id): Fu[Boolean] =
     coll exists $studyId(studyId)
@@ -49,7 +49,7 @@ final class ChapterRepo(val coll: Coll)(implicit
       .list()
 
   def orderedByStudySource(studyId: Study.Id): Source[Chapter, _] =
-    coll.ext
+    coll
       .find($studyId(studyId))
       .sort($sort asc "order")
       .cursor[Chapter](readPreference = ReadPreference.secondaryPreferred)
@@ -57,7 +57,7 @@ final class ChapterRepo(val coll: Coll)(implicit
 
   // loads all study chapters in memory!
   def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
-    coll.ext
+    coll
       .find($studyId(studyId))
       .sort($sort asc "order")
       .cursor[Chapter]()

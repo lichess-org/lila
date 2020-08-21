@@ -22,7 +22,7 @@ final private class LeaderboardIndexer(
 
   def generateAll: Funit =
     leaderboardRepo.coll.delete.one($empty) >>
-      tournamentRepo.coll.ext
+      tournamentRepo.coll
         .find(tournamentRepo.finishedSelect)
         .sort($sort desc "startsAt")
         .cursor[Tournament](ReadPreference.secondaryPreferred)

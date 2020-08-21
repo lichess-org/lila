@@ -27,7 +27,7 @@ final class Gamify(
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] = {
     val until  = DateTime.now minusMonths 1 withDayOfMonth 1
     val lastId = HistoryMonth.makeId(until.getYear, until.getMonthOfYear)
-    historyRepo.coll.ext
+    historyRepo.coll
       .find($empty)
       .sort(
         $doc(

@@ -33,7 +33,7 @@ final class MsgApi(
   import MsgApi._
 
   def threadsOf(me: User): Fu[List[MsgThread]] =
-    colls.thread.ext
+    colls.thread
       .find($doc("users" -> me.id, "del" $ne me.id))
       .sort($sort desc "lastMsg.date")
       .cursor[MsgThread]()
@@ -170,14 +170,14 @@ final class MsgApi(
     }
 
   def recentByForMod(user: User, nb: Int): Fu[List[MsgConvo]] =
-    colls.thread.ext
+    colls.thread
       .find($doc("users" -> user.id))
       .sort($sort desc "lastMsg.date")
       .cursor[MsgThread]()
       .list(nb)
       .flatMap {
         _.map { thread =>
-          colls.msg.ext
+          colls.msg
             .find($doc("tid" -> thread.id), msgProjection)
             .sort($sort desc "date")
             .cursor[Msg]()
@@ -211,10 +211,10 @@ final class MsgApi(
       }
   }
 
-  private val msgProjection = $doc("_id" -> false, "tid" -> false)
+  private val msgProjection = $doc("_id" -> false, "tid" -> false).some
 
   private def threadMsgsFor(threadId: MsgThread.Id, me: User, before: Option[DateTime]): Fu[List[Msg]] =
-    colls.msg.ext
+    colls.msg
       .find(
         $doc("tid" -> threadId, "del" $ne me.id) ++ before.?? { b =>
           $doc("date" $lt b)

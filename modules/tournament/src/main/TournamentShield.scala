@@ -47,7 +47,7 @@ final class TournamentShieldApi(
   private val cache = cacheApi.unit[History] {
     _.refreshAfterWrite(1 day)
       .buildAsyncFuture { _ =>
-        tournamentRepo.coll.ext
+        tournamentRepo.coll
           .find(
             $doc(
               "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Shield).get,

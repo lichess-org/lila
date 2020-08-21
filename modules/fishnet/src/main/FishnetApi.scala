@@ -55,7 +55,7 @@ final class FishnetApi(
 
   private def acquireAnalysis(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
     workQueue {
-      analysisColl.ext
+      analysisColl
         .find(
           $doc("acquired" $exists false) ++ {
             !client.offline ?? $doc("lastTryByKey" $ne client.key) // client alternation

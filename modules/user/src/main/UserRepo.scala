@@ -21,7 +21,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   val normalize = User normalize _
 
   def topNbGame(nb: Int): Fu[List[User]] =
-    coll.ext.find(enabledSelect).sort($sort desc "count.game").cursor[User]().list(nb)
+    coll.find(enabledSelect).sort($sort desc "count.game").cursor[User]().list(nb)
 
   def byId(id: ID): Fu[Option[User]] = coll.byId[User](id)
 
@@ -45,7 +45,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       batchSize: Int = 0,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   )(implicit cp: CursorProducer[Bdoc]): cp.ProducedCursor = {
-    coll.ext
+    coll
       .find(selector)
       .batchSize(batchSize)
       .cursor[Bdoc](readPreference)
@@ -92,7 +92,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   // expensive, send to secondary
   def byIdsSortRatingNoBot(ids: Iterable[ID], nb: Int): Fu[List[User]] =
-    coll.ext
+    coll
       .find(
         $doc(
           F.enabled -> true,
@@ -104,7 +104,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .list(nb)
 
   def botsByIds(ids: Iterable[ID]): Fu[List[User]] =
-    coll.ext.list[User]($inIds(ids) ++ botSelect(true), ReadPreference.secondaryPreferred)
+    coll.list[User]($inIds(ids) ++ botSelect(true), ReadPreference.secondaryPreferred)
 
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)
@@ -116,10 +116,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.primitiveOne[DateTime]($id(id), F.createdAt)
 
   def orderByGameCount(u1: User.ID, u2: User.ID): Fu[Option[(User.ID, User.ID)]] = {
-    coll.ext
+    coll
       .find(
         $inIds(List(u1, u2)),
-        $doc(s"${F.count}.game" -> true)
+        $doc(s"${F.count}.game" -> true).some
       )
       .cursor[Bdoc]()
       .list() map { docs =>
@@ -135,10 +135,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   }
 
   def firstGetsWhite(u1: User.ID, u2: User.ID): Fu[Boolean] =
-    coll.ext
+    coll
       .find(
         $inIds(List(u1, u2)),
-        $id(true)
+        $id(true).some
       )
       .sort($doc(F.colorIt -> 1))
       .one[Bdoc]
@@ -314,10 +314,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   private[user] def userIdsLikeFilter(text: String, filter: Bdoc, max: Int): Fu[List[User.ID]] =
     User.couldBeUsername(text) ?? {
-      coll.ext
+      coll
         .find(
           $doc(F.id $startsWith normalize(text)) ++ enabledSelect ++ filter,
-          $doc(F.id -> true)
+          $doc(F.id -> true).some
         )
         .sort($doc("len" -> 1))
         .cursor[Bdoc](ReadPreference.secondaryPreferred)
@@ -413,13 +413,13 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     anyEmail(doc) orElse doc.getAsOpt[EmailAddress](F.prevEmail)
 
   def email(id: ID): Fu[Option[EmailAddress]] =
-    coll.ext
-      .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true))
+    coll
+      .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true).some)
       .one[Bdoc]
       .map { _ ?? anyEmail }
 
   def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
-    coll.ext
+    coll
       .find($doc(F.email -> email, F.enabled -> true))
       .one[Bdoc]
       .map { maybeDoc =>
@@ -433,7 +433,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.primitiveOne[EmailAddress]($id(id), F.prevEmail)
 
   def withEmails(name: String): Fu[Option[User.WithEmails]] =
-    coll.ext.find($id(normalize(name))).one[Bdoc].map {
+    coll.find($id(normalize(name))).one[Bdoc].map {
       _ ?? { doc =>
         User
           .WithEmails(
@@ -448,7 +448,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
 
   def withEmails(names: List[String]): Fu[List[User.WithEmails]] =
-    coll.ext
+    coll
       .list[Bdoc]($inIds(names map normalize), ReadPreference.secondaryPreferred)
       .map {
         _ map { doc =>
@@ -465,8 +465,11 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def withEmailsU(users: List[User]): Fu[List[User.WithEmails]] = withEmails(users.map(_.id))
 
   def emailMap(names: List[String]): Fu[Map[User.ID, EmailAddress]] =
-    coll.ext
-      .find($inIds(names map normalize), $doc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true))
+    coll
+      .find(
+        $inIds(names map normalize),
+        $doc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true).some
+      )
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
       .list()
       .map { docs =>
@@ -508,10 +511,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     doc.child(F.perfs).flatMap(_.getAsOpt[Perf](perfType.key))
 
   def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] =
-    coll.ext
+    coll
       .find(
         $id(id),
-        $doc(s"${F.perfs}.${perfType.key}" -> true)
+        $doc(s"${F.perfs}.${perfType.key}" -> true).some
       )
       .one[Bdoc]
       .dmap {
@@ -519,10 +522,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       }
 
   def perfOf(ids: Iterable[ID], perfType: PerfType): Fu[Map[ID, Perf]] =
-    coll.ext
+    coll
       .find(
         $inIds(ids),
-        $doc(s"${F.perfs}.${perfType.key}" -> true)
+        $doc(s"${F.perfs}.${perfType.key}" -> true).some
       )
       .cursor[Bdoc]()
       .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[Bdoc]]())

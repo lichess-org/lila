@@ -20,15 +20,14 @@ final private[puzzle] class PuzzleApi(
   object puzzle {
 
     def find(id: PuzzleId): Fu[Option[Puzzle]] =
-      puzzleColl(_.ext.find($doc(F.id -> id)).one[Puzzle])
+      puzzleColl(_.find($doc(F.id -> id)).one[Puzzle])
 
     def findMany(ids: List[PuzzleId]): Fu[List[Option[Puzzle]]] =
       puzzleColl(_.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id))
 
     def latest(nb: Int): Fu[List[Puzzle]] =
       puzzleColl {
-        _.ext
-          .find($empty)
+        _.find($empty)
           .sort($doc(F.date -> -1))
           .cursor[Puzzle]()
           .list(nb)
@@ -40,14 +39,6 @@ final private[puzzle] class PuzzleApi(
           puzzleColl(lila.db.Util.findNextId) dmap (_ - 1)
         }
     }
-
-    // def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
-    //   puzzleColl {
-    //     _.ext.find($doc(F.mate -> mate))
-    //       .sort($doc(F.voteRatio -> -1))
-    //       .list[Puzzle](nb / 2)
-    //   }
-    // }.sequenceFu.map(_.flatten)
 
     def disable(id: PuzzleId): Funit =
       puzzleColl {

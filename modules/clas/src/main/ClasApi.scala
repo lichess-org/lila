@@ -30,14 +30,14 @@ final class ClasApi(
     def byId(id: Clas.Id) = coll.byId[Clas](id.value)
 
     def of(teacher: User): Fu[List[Clas]] =
-      coll.ext
+      coll
         .find($doc("teachers" -> teacher.id))
         .sort($doc("archived" -> 1, "viewedAt" -> -1))
         .cursor[Clas]()
         .list(100)
 
     def byIds(clasIds: List[Clas.Id]): Fu[List[Clas]] =
-      coll.ext
+      coll
         .find($inIds(clasIds))
         .sort($sort desc "createdAt")
         .cursor[Clas]()
@@ -137,7 +137,7 @@ final class ClasApi(
       of($doc("clasId" -> clas.id) ++ selectArchived(false)) flatMap withUsers
 
     private def of(selector: Bdoc): Fu[List[Student]] =
-      coll.ext
+      coll
         .find(selector)
         .sort($sort asc "userId")
         .cursor[Student]()
@@ -165,7 +165,7 @@ final class ClasApi(
       coll.updateField($doc("userId" -> user.id, "managed" -> true), "managed", false).void
 
     def get(clas: Clas, userId: User.ID): Fu[Option[Student]] =
-      coll.ext.one[Student]($id(Student.id(userId, clas.id)))
+      coll.one[Student]($id(Student.id(userId, clas.id)))
 
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
       get(clas, user.id) map2 { Student.WithUser(_, user) }
@@ -300,7 +300,7 @@ ${clas.desc}""",
         )
 
     def listPending(clas: Clas): Fu[List[ClasInvite]] =
-      colls.invite.ext
+      colls.invite
         .find($doc("clasId" -> clas.id, "accepted" $ne true))
         .sort($sort desc "created.at")
         .cursor[ClasInvite]()

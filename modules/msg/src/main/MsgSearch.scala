@@ -29,7 +29,7 @@ final class MsgSearch(
   val empty = MsgSearch.Result(Nil, Nil, Nil)
 
   private def searchThreads(me: User, q: String): Fu[List[MsgThread]] =
-    colls.thread.ext
+    colls.thread
       .find(
         $doc(
           "users" -> $doc(

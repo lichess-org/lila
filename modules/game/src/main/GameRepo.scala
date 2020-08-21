@@ -94,7 +94,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
 
   def recentPovsByUserFromSecondary(user: User, nb: Int): Fu[List[Pov]] =
-    coll.ext
+    coll
       .find(Query user user)
       .sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)
@@ -102,7 +102,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .map { _.flatMap(g => Pov(g, user)) }
 
   def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] =
-    coll.ext
+    coll
       .find(
         Query.finished
           ++ Query.rated
@@ -116,7 +116,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .list(nb)
 
   def extraGamesForIrwin(userId: String, nb: Int): Fu[List[Game]] =
-    coll.ext
+    coll
       .find(
         Query.finished
           ++ Query.rated
@@ -133,13 +133,13 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       selector: Bdoc,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Game] =
-    coll.ext.find(selector).cursor[Game](readPreference)
+    coll.find(selector).cursor[Game](readPreference)
 
   def docCursor(
       selector: Bdoc,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Bdoc] =
-    coll.ext.find(selector).cursor[Bdoc](readPreference)
+    coll.find(selector).cursor[Bdoc](readPreference)
 
   def sortedCursor(
       selector: Bdoc,
@@ -147,7 +147,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       batchSize: Int = 0,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Game] =
-    coll.ext.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPreference)
+    coll.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPreference)
 
   def goBerserk(pov: Pov): Funit =
     coll.update
@@ -212,7 +212,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .dmap { _ flatMap { Pov.ofUserId(_, userId) } }
 
   def lastPlayed(user: User): Fu[Option[Pov]] =
-    coll.ext
+    coll
       .find(Query user user.id)
       .sort($sort desc F.createdAt)
       .cursor[Game]()
@@ -222,14 +222,14 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       }
 
   def quickLastPlayedId(userId: User.ID): Fu[Option[Game.ID]] =
-    coll.ext
-      .find(Query user userId, $id(true))
+    coll
+      .find(Query user userId, $id(true).some)
       .sort($sort desc F.createdAt)
       .one[Bdoc]
       .dmap { _.flatMap(_.getAsOpt[Game.ID](F.id)) }
 
   def lastFinishedRatedNotFromPosition(user: User): Fu[Option[Game]] =
-    coll.ext
+    coll
       .find(
         Query.user(user.id) ++
           Query.rated ++
@@ -338,7 +338,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     )
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] =
-    coll.ext
+    coll
       .find(
         Query.mate ++ Query.variantStandard
       )
@@ -456,7 +456,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   }
 
   def random: Fu[Option[Game]] =
-    coll.ext
+    coll
       .find($empty)
       .sort(Query.sortCreated)
       .skip(ThreadLocalRandom nextInt 1000)
@@ -495,7 +495,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
 
   def recentAnalysableGamesByUserId(userId: User.ID, nb: Int) =
-    coll.ext
+    coll
       .find(
         Query.finished
           ++ Query.rated

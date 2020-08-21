@@ -53,7 +53,7 @@ final private class FishnetRepo(
     )
 
   def addAnalysis(ana: Work.Analysis)    = analysisColl.insert.one(ana).void
-  def getAnalysis(id: Work.Id)           = analysisColl.ext.find(selectWork(id)).one[Work.Analysis]
+  def getAnalysis(id: Work.Id)           = analysisColl.find(selectWork(id)).one[Work.Analysis]
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one(selectWork(ana.id), ana).void
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.delete.one(selectWork(ana.id)).void
   def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
@@ -64,8 +64,8 @@ final private class FishnetRepo(
     private def system(v: Boolean)   = $doc("sender.system" -> v)
     private def acquired(v: Boolean) = $doc("acquired" $exists v)
     private def oldestSeconds(system: Boolean): Fu[Int] =
-      analysisColl.ext
-        .find($doc("sender.system" -> system) ++ acquired(false), $doc("createdAt" -> true))
+      analysisColl
+        .find($doc("sender.system" -> system) ++ acquired(false), $doc("createdAt" -> true).some)
         .sort($sort asc "createdAt")
         .one[Bdoc]
         .map(~_.flatMap(_.getAsOpt[DateTime]("createdAt").map { date =>

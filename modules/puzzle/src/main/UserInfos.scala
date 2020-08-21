@@ -29,8 +29,7 @@ final class UserInfosApi(roundColl: AsyncColl, currentPuzzleId: User => Fu[Optio
         $doc("$lte" -> s"$userId:${Round encode id}")
       }
     roundColl {
-      _.ext
-        .find($doc(Round.BSONFields.id -> idSelector))
+      _.find($doc(Round.BSONFields.id -> idSelector))
         .sort($sort desc Round.BSONFields.id)
         .cursor[Round]()
         .list(historySize atLeast chartSize)

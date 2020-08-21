@@ -185,7 +185,7 @@ final class CoachApi(
       } yield ()
 
     private def findRecent(selector: Bdoc): Fu[CoachReview.Reviews] =
-      reviewColl.ext
+      reviewColl
         .find(selector)
         .sort($sort desc "createdAt")
         .cursor[CoachReview]()

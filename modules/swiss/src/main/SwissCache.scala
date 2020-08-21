@@ -69,7 +69,7 @@ final private class SwissCache(
     }
 
     private def compute(startsAtRange: Bdoc): Fu[List[Swiss]] =
-      colls.swiss.ext
+      colls.swiss
         .find(
           $doc(
             "featurable" -> true,

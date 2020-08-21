@@ -31,7 +31,7 @@ final class NoteApi(
   implicit private val noteBSONHandler = Macros.handler[Note]
 
   def get(user: User, me: User, isMod: Boolean): Fu[List[Note]] =
-    coll.ext
+    coll
       .find(
         $doc("to" -> user.id) ++ {
           if (isMod)
@@ -47,14 +47,14 @@ final class NoteApi(
       .list(20)
 
   def forMod(id: User.ID): Fu[List[Note]] =
-    coll.ext
+    coll
       .find($doc("to" -> id, "mod" -> true))
       .sort($sort desc "date")
       .cursor[Note]()
       .list(20)
 
   def forMod(ids: List[User.ID]): Fu[List[Note]] =
-    coll.ext
+    coll
       .find($doc("to" $in ids, "mod" -> true))
       .sort($sort desc "date")
       .cursor[Note]()

@@ -32,7 +32,7 @@ final private class RatingRefund(
       case true => funit
       case false =>
         def lastGames =
-          gameRepo.coll.ext
+          gameRepo.coll
             .find(
               Query.user(sus.user.id) ++ Query.rated ++ Query
                 .createdSince(DateTime.now minusDays 3) ++ Query.finished

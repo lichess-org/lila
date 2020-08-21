@@ -16,10 +16,6 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def ext = this
 
-    def find(selector: Bdoc) = coll.find(selector, none[Bdoc])
-
-    def find(selector: Bdoc, proj: Bdoc) = coll.find(selector, proj.some)
-
     def one[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
       coll.find(selector, none[Bdoc]).one[D]
 
@@ -101,8 +97,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         readPreference: ReadPreference
     )(docId: D => I): Fu[Map[I, D]] =
       projection
-        .fold(find($inIds(ids))) { proj =>
-          find($inIds(ids), proj)
+        .fold(coll.find($inIds(ids))) { proj =>
+          coll.find($inIds(ids), proj.some)
         }
         .cursor[D](readPreference)
         .collect[List](Int.MaxValue)
@@ -119,7 +115,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       }
 
     def primitive[V: BSONReader](selector: Bdoc, field: String): Fu[List[V]] =
-      find(selector, $doc(field -> true))
+      coll
+        .find(selector, $doc(field -> true).some)
         .cursor[Bdoc]()
         .list()
         .dmap {
@@ -127,7 +124,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         }
 
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[List[V]] =
-      find(selector, $doc(field -> true))
+      coll
+        .find(selector, $doc(field -> true).some)
         .sort(sort)
         .cursor[Bdoc]()
         .list()
@@ -136,7 +134,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         }
 
     def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, nb: Int, field: String): Fu[List[V]] =
-      (nb > 0) ?? find(selector, $doc(field -> true))
+      (nb > 0) ?? coll
+        .find(selector, $doc(field -> true).some)
         .sort(sort)
         .cursor[Bdoc]()
         .list(nb)
@@ -145,14 +144,16 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         }
 
     def primitiveOne[V: BSONReader](selector: Bdoc, field: String): Fu[Option[V]] =
-      find(selector, $doc(field -> true))
+      coll
+        .find(selector, $doc(field -> true).some)
         .one[Bdoc]
         .dmap {
           _ flatMap { _.getAsOpt[V](field) }
         }
 
     def primitiveOne[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[Option[V]] =
-      find(selector, $doc(field -> true))
+      coll
+        .find(selector, $doc(field -> true).some)
         .sort(sort)
         .one[Bdoc]
         .dmap {
@@ -164,7 +165,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         field: String,
         fieldExtractor: Bdoc => Option[V]
     ): Fu[Map[I, V]] =
-      find($inIds(ids), $doc(field -> true))
+      coll
+        .find($inIds(ids), $doc(field -> true).some)
         .cursor[Bdoc]()
         .list()
         .dmap {

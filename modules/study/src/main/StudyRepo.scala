@@ -46,7 +46,7 @@ final class StudyRepo(private[study] val coll: Coll)(implicit ec: scala.concurre
       sort: Bdoc,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Study] =
-    coll.ext.find(selector).sort(sort).cursor[Study](readPreference)
+    coll.find(selector).sort(sort).cursor[Study](readPreference)
 
   def exists(id: Study.Id) = coll.exists($id(id))
 

@@ -63,12 +63,12 @@ final private class Indexer(
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if (user.count.rated == 0) fuccess(none)
     else {
-      (user.count.rated >= maxGames) ?? gameRepo.coll.ext
+      (user.count.rated >= maxGames) ?? gameRepo.coll
         .find(gameQuery(user))
         .sort(Query.sortCreated)
         .skip(maxGames - 1)
         .one[Game](readPreference = ReadPreference.secondaryPreferred)
-    } orElse gameRepo.coll.ext
+    } orElse gameRepo.coll
       .find(gameQuery(user))
       .sort(Query.sortChronological)
       .one[Game](readPreference = ReadPreference.secondaryPreferred)

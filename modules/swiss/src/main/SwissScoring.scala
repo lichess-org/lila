@@ -86,7 +86,7 @@ final private class SwissScoring(
 
   private def fetchPlayers(swiss: Swiss) =
     SwissPlayer.fields { f =>
-      colls.player.ext
+      colls.player
         .find($doc(f.swissId -> swiss.id))
         .sort($sort asc f.score)
         .cursor[SwissPlayer]()

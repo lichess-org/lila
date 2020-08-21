@@ -14,10 +14,10 @@ final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.E
   import Entry.{ BSONFields => F }
 
   def fetchFirst(userId: String): Fu[Option[Entry]] =
-    coll(_.ext.find(selectUserId(userId)).sort(sortChronological).one[Entry])
+    coll(_.find(selectUserId(userId)).sort(sortChronological).one[Entry])
 
   def fetchLast(userId: String): Fu[Option[Entry]] =
-    coll(_.ext.find(selectUserId(userId)).sort(sortAntiChronological).one[Entry])
+    coll(_.find(selectUserId(userId)).sort(sortAntiChronological).one[Entry])
 
   def count(userId: String): Fu[Int] =
     coll(_.countSel(selectUserId(userId)))
@@ -37,7 +37,7 @@ final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.E
 
   def removeAll(userId: String) = coll(_.delete.one(selectUserId(userId)).void)
 
-  def find(id: String) = coll(_.ext.find(selectId(id)).one[Entry])
+  def find(id: String) = coll(_.one[Entry](selectId(id)))
 
   def ecos(userId: String): Fu[Set[String]] =
     coll {

@@ -10,8 +10,7 @@ final class OAuthAppApi(colls: OauthColls)(implicit ec: scala.concurrent.Executi
 
   def mine(u: User): Fu[List[OAuthApp]] =
     colls.app {
-      _.ext.find($doc(F.author -> u.id)).sort($sort desc F.createdAt).
-        cursor[OAuthApp]().list(30)
+      _.find($doc(F.author -> u.id)).sort($sort desc F.createdAt).cursor[OAuthApp]().list(30)
     }
 
   def create(app: OAuthApp) = colls.app(_.insert.one(app).void)

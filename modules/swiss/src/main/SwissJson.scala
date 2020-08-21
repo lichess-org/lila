@@ -109,7 +109,7 @@ final class SwissJson(
   private def podiumJson(swiss: Swiss): Fu[Option[JsArray]] =
     swiss.isFinished ?? {
       SwissPlayer.fields { f =>
-        colls.player.ext
+        colls.player
           .find($doc(f.swissId -> swiss.id))
           .sort($sort desc f.score)
           .cursor[SwissPlayer]()

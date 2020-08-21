@@ -46,7 +46,7 @@ final class ChatTimeout(
     )
 
   def history(user: User, nb: Int): Fu[List[UserEntry]] =
-    coll.ext.find($doc("user" -> user.id)).sort($sort desc "createdAt").cursor[UserEntry]().list(nb)
+    coll.find($doc("user" -> user.id)).sort($sort desc "createdAt").cursor[UserEntry]().list(nb)
 
   def checkExpired: Fu[List[Reinstate]] =
     coll.list[Reinstate](

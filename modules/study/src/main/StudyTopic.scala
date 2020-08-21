@@ -75,7 +75,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
           }
         }
       favsFu flatMap { favs =>
-        topicRepo.coll.ext
+        topicRepo.coll
           .find($doc("_id".$startsWith(str, "i")))
           .sort($sort.naturalAsc)
           .cursor[Bdoc](ReadPreference.secondaryPreferred)
@@ -124,7 +124,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
         .void
 
   def popular(nb: Int): Fu[StudyTopics] =
-    topicRepo.coll.ext
+    topicRepo.coll
       .find($empty)
       .sort($sort.naturalAsc)
       .cursor[Bdoc]()

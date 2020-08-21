@@ -21,7 +21,7 @@ final class SeekApi(
   private object ForUser extends CacheKey
 
   private def allCursor =
-    coll.ext
+    coll
       .find($empty)
       .sort($sort desc "createdAt")
       .cursor[Seek]()
@@ -67,7 +67,7 @@ final class SeekApi(
       .reverse
 
   def find(id: String): Fu[Option[Seek]] =
-    coll.ext.find($id(id)).one[Seek]
+    coll.find($id(id)).one[Seek]
 
   def insert(seek: Seek) =
     coll.insert.one(seek) >> findByUser(seek.user.id).flatMap {
@@ -76,7 +76,7 @@ final class SeekApi(
     }.void >>- cacheClear()
 
   def findByUser(userId: String): Fu[List[Seek]] =
-    coll.ext
+    coll
       .find($doc("user.id" -> userId))
       .sort($sort desc "createdAt")
       .cursor[Seek]()
@@ -96,7 +96,7 @@ final class SeekApi(
   }
 
   def findArchived(gameId: String): Fu[Option[Seek]] =
-    archiveColl.ext.find($doc("gameId" -> gameId)).one[Seek]
+    archiveColl.find($doc("gameId" -> gameId)).one[Seek]
 
   def removeBy(seekId: String, userId: String) =
     coll.delete

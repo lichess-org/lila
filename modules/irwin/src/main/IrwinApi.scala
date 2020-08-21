@@ -27,7 +27,7 @@ final class IrwinApi(
   import BSONHandlers._
 
   def dashboard: Fu[IrwinDashboard] =
-    reportColl.ext
+    reportColl
       .find($empty)
       .sort($sort desc "date")
       .cursor[IrwinReport]()
@@ -42,7 +42,7 @@ final class IrwinApi(
         lila.mon.mod.irwin.ownerReport(report.owner).increment()
 
     def get(user: User): Fu[Option[IrwinReport]] =
-      reportColl.ext.find($id(user.id)).one[IrwinReport]
+      reportColl.find($id(user.id)).one[IrwinReport]
 
     def withPovs(user: User): Fu[Option[IrwinReport.WithPovs]] =
       get(user) flatMap {
@@ -132,7 +132,7 @@ final class IrwinApi(
         Query.createdSince(DateTime.now minusMonths 6)
 
     private def getAnalyzedGames(suspect: Suspect, nb: Int): Fu[List[Analyzed]] =
-      gameRepo.coll.ext
+      gameRepo.coll
         .find(baseQuery(suspect) ++ Query.analysed(true))
         .sort(Query.sortCreated)
         .cursor[Game](ReadPreference.secondaryPreferred)
@@ -141,7 +141,7 @@ final class IrwinApi(
 
     private def getMoreGames(suspect: Suspect, nb: Int): Fu[List[Game]] =
       (nb > 0) ??
-        gameRepo.coll.ext
+        gameRepo.coll
           .find(baseQuery(suspect) ++ Query.analysed(false))
           .sort(Query.sortCreated)
           .cursor[Game](ReadPreference.secondaryPreferred)

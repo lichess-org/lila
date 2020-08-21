@@ -26,8 +26,7 @@ final class PuzzleActivity(
   def stream(config: Config): Source[String, _] =
     Source futureSource {
       roundColl.map {
-        _.ext
-          .find($doc("_id" $startsWith config.user.id))
+        _.find($doc("_id" $startsWith config.user.id))
           .sort($sort desc "_id")
           .batchSize(config.perSecond.value)
           .cursor[Round](ReadPreference.secondaryPreferred)

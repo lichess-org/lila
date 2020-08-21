@@ -83,7 +83,7 @@ final class EntryApi(
     }
 
     private def fetch: Fu[Vector[Entry]] =
-      coll.ext
+      coll
         .find(
           $doc(
             "users" $exists false,

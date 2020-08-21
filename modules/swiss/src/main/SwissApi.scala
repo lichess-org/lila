@@ -155,8 +155,8 @@ final class SwissApi(
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): Source[Game.ID, _] =
     SwissPairing.fields { f =>
-      colls.pairing.ext
-        .find($doc(f.swissId -> swissId), $id(true))
+      colls.pairing
+        .find($doc(f.swissId -> swissId), $id(true).some)
         .sort($sort asc f.round)
         .batchSize(batchSize)
         .cursor[Bdoc](readPreference)
@@ -171,14 +171,14 @@ final class SwissApi(
 
   def visibleByTeam(teamId: TeamID, nbPast: Int, nbSoon: Int): Fu[Swiss.PastAndNext] =
     (nbPast > 0).?? {
-      colls.swiss.ext
+      colls.swiss
         .find($doc("teamId" -> teamId, "finishedAt" $exists true))
         .sort($sort desc "startsAt")
         .cursor[Swiss]()
         .list(nbPast)
     } zip
       (nbSoon > 0).?? {
-        colls.swiss.ext
+        colls.swiss
           .find($doc("teamId" -> teamId, "finishedAt" $exists false))
           .sort($sort asc "startsAt")
           .cursor[Swiss]()
@@ -192,7 +192,7 @@ final class SwissApi(
         colls.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, user.id).value) flatMap {
           _ ?? { player =>
             SwissPairing.fields { f =>
-              colls.pairing.ext
+              colls.pairing
                 .find($doc(f.swissId -> swiss.id, f.players -> player.userId))
                 .sort($sort asc f.round)
                 .cursor[SwissPairing]()
@@ -449,7 +449,7 @@ final class SwissApi(
   def roundInfo = cache.roundInfo.get _
 
   def byTeamCursor(teamId: TeamID) =
-    colls.swiss.ext
+    colls.swiss
       .find($doc("teamId" -> teamId))
       .sort($sort desc "startsAt")
       .cursor[Swiss]()
@@ -466,7 +466,7 @@ final class SwissApi(
 
   private[swiss] def startPendingRounds: Funit =
     colls.swiss
-      .find($doc("nextRoundAt" $lt DateTime.now), $id(true))
+      .find($doc("nextRoundAt" $lt DateTime.now), $id(true).some)
       .cursor[Bdoc]()
       .list(10)
       .map(_.flatMap(_.getAsOpt[Swiss.Id]("_id")))

@@ -42,8 +42,8 @@ final private[team] class PaginatorBuilder(
     def slice(offset: Int, length: Int): Fu[Seq[LightUser]] =
       for {
         docs <-
-          memberRepo.coll.ext
-            .find(selector, $doc("user" -> true, "_id" -> false))
+          memberRepo.coll
+            .find(selector, $doc("user" -> true, "_id" -> false).some)
             .sort(sorting)
             .skip(offset)
             .cursor[Bdoc]()
