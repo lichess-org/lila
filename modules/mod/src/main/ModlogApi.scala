@@ -148,9 +148,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       Modlog(mod, none, Modlog.deleteTeam, details = s"$name / $desc".take(200).some)
     }
 
-  def disableTeam(mod: User.ID, name: String, desc: String) =
+  def disableTeam(mod: User.ID, id: String, name: String) =
     add {
-      Modlog(mod, none, Modlog.disableTeam, details = s"$name / $desc".take(200).some)
+      Modlog(mod, none, Modlog.disableTeam, details = s"$id / $name".take(200).some)
     }
 
   def terminateTournament(mod: User.ID, name: String) =
