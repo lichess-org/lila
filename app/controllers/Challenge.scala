@@ -157,6 +157,13 @@ final class Challenge(
         else notFound
       }
     }
+  def apiCancel(id: String) =
+    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
+      api.activeByIdBy(id, me) flatMap {
+        case None    => notFoundJson()
+        case Some(c) => api.cancel(c) inject jsonOkResult
+      }
+    }
 
   private val ChallengeIpRateLimit = new lila.memo.RateLimit[IpAddress](
     100,

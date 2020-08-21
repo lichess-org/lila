@@ -17,6 +17,8 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
 
   def byIdFor(id: Challenge.ID, dest: lila.user.User) =
     coll.ext.find($id(id) ++ $doc("destUser.id" -> dest.id)).one[Challenge]
+  def byIdBy(id: Challenge.ID, orig: lila.user.User) =
+    coll.ext.find($id(id) ++ $doc("challenger.id" -> orig.id)).one[Challenge]
 
   def exists(id: Challenge.ID) = coll.countSel($id(id)).dmap(0 <)
 
