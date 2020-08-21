@@ -87,14 +87,16 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   private val featurableSelect = $doc("featurable" -> true)
 
   def allCreatedFeaturable: Fu[List[Simul]] =
-    simulColl.ext
+    simulColl
       .find(
         // hits partial index hostSeenAt_-1
         createdSelect ++ featurableSelect ++ $doc(
-          "hostSeenAt" $gte DateTime.now.minusSeconds(12)
+          "hostSeenAt" $gte DateTime.now.minusSeconds(12),
+          "createdAt" $gte DateTime.now.minusHours(1)
         )
       )
       .sort(createdSort)
+      .hint(simulColl hint $doc("hostSeenAt" -> -1))
       .cursor[Simul]()
       .list() map {
       _.foldLeft(List.empty[Simul]) {
