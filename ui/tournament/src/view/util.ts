@@ -32,7 +32,7 @@ export function ratio2percent(r: number) {
 }
 
 export function playerName(p) {
-  return p.title ? [h('span.title', p.title), ' ' + p.name] : p.name;
+  return p.title ? [h('span.utitle', p.title), ' ' + p.name] : p.name;
 }
 
 export function player(p, asLink: boolean, withRating: boolean, defender: boolean = false, leader: boolean = false) {
