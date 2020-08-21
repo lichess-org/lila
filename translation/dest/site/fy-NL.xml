@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Spylje mei in freon</string>
-  <string name="playWithTheMachine">Spylje mei de kompjûter</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Om ien út te nûgjen foar in potsje, jou dizze URL</string>
+  <string name="playWithTheMachine">Spylje tsjin de kompjûter</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Om ien út te noegjen foar in partij, stjoer dizze URL</string>
   <string name="gameOver">De partij is dien</string>
   <string name="waitingForOpponent">Wachtet op in tsjinstanner</string>
   <string name="waiting">Wachtsje</string>
