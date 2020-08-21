@@ -36,7 +36,9 @@ export default function(ctrl: SimulCtrl) {
 }
 
 const showText = (ctrl: SimulCtrl) =>
-  ctrl.data.text ? h('div.simul-text', h('p', richHTML(ctrl.data.text))) : null;
+  ctrl.data.text ? h('div.simul-text', [h('p', {
+    hook: richHTML(ctrl.data.text)
+  })]) : null;
 
 const started = (ctrl: SimulCtrl) => [
   util.title(ctrl),
