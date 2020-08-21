@@ -45,7 +45,7 @@ $('#asset-version-message').text(lichess.info.message);"""
         ),
         br,
         st.section(cls := "box")(
-          h1("lila version"),
+          h1(id := "version")("lila version"),
           table(cls := "slist slist-pad")(
             env.appVersionDate zip env.appVersionCommit zip env.appVersionMessage map {
               case ((date, commit), message) =>
