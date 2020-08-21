@@ -2,7 +2,7 @@ package lila.clas
 
 import scala.concurrent.ExecutionContext
 
-final private class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionContext) {
+final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionContext) {
 
   def apply(maxSize: Int = 17, triesLeft: Int = 100): Fu[Option[String]] = {
     val name = anyOf(combinations).map(anyOf).mkString
