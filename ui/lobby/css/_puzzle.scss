@@ -1,9 +1,8 @@
 .lobby__puzzle {
   .text {
-    @extend %roboto;
-    color: $c-font;
+    color: $c-font-dim;
     display: block;
-    text-align: center;
-    margin: .3em;
+    text-align: right;
+    margin-right: 1ch;
   }
 }
