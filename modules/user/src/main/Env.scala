@@ -70,7 +70,7 @@ final class Env(
 
   lazy val authenticator = wire[Authenticator]
 
-  lazy val forms = wire[DataForm]
+  lazy val forms = wire[UserForm]
 
   lila.common.Bus.subscribeFuns(
     "adjustCheater" -> {

@@ -3,7 +3,7 @@ package lila.coordinate
 import play.api.data._
 import play.api.data.Forms._
 
-object DataForm {
+object CoordinateForm {
 
   val color = Form(
     single(

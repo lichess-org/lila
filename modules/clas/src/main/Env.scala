@@ -13,7 +13,7 @@ final class Env(
     puzzleRoundRepo: lila.puzzle.RoundRepo,
     msgApi: lila.msg.MsgApi,
     lightUserAsync: lila.common.LightUser.Getter,
-    securityForms: lila.security.DataForm,
+    securityForms: lila.security.SecurityForm,
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl

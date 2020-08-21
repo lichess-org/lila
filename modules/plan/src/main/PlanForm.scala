@@ -4,7 +4,7 @@ import cats.implicits._
 import play.api.data._
 import play.api.data.Forms._
 
-object DataForm {
+object PlanForm {
 
   private val txnTypes = Set("express_checkout", "web_accept", "recurring_payment", "subscr_payment")
   // ignored types = subscr_cancel, ...

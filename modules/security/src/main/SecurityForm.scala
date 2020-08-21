@@ -9,7 +9,7 @@ import lila.common.{ EmailAddress, LameName, Form => LilaForm }
 import lila.user.{ TotpSecret, User, UserRepo }
 import User.{ ClearPassword, TotpToken }
 
-final class DataForm(
+final class SecurityForm(
     userRepo: UserRepo,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
@@ -17,7 +17,7 @@ final class DataForm(
     recaptchaPublicConfig: RecaptchaPublicConfig
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import DataForm._
+  import SecurityForm._
 
   private val recaptchaField = "g-recaptcha-response" -> optional(nonEmptyText)
 
@@ -232,7 +232,7 @@ final class DataForm(
     text.verifying("incorrectPassword", p => candidate.check(ClearPassword(p)))
 }
 
-object DataForm {
+object SecurityForm {
 
   case class AgreementData(
       assistance: Boolean,

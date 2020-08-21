@@ -3,7 +3,7 @@ package lila.pref
 import play.api.data._
 import play.api.data.Forms._
 
-object DataForm {
+object PrefForm {
 
   private def containedIn(choices: Seq[(Int, String)]): Int => Boolean =
     choice => choices.exists(_._1 == choice)

@@ -105,7 +105,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
         iconFont = none,
         iconImg = image.some.filter(_.nonEmpty)
       ).some,
-      position = DataForm.startingPosition(data.position, realVariant),
+      position = TournamentForm.startingPosition(data.position, realVariant),
       noBerserk = !data.berserkable,
       noStreak = !data.streakable,
       teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10)),

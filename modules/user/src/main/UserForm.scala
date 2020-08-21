@@ -7,7 +7,7 @@ import play.api.data.Forms._
 import User.ClearPassword
 import lila.common.Form.clean
 
-final class DataForm(authenticator: Authenticator) {
+final class UserForm(authenticator: Authenticator) {
 
   val note = Form(
     mapping(
@@ -69,7 +69,7 @@ final class DataForm(authenticator: Authenticator) {
     }
 }
 
-object DataForm {
+object UserForm {
 
   val title = Form(single("title" -> optional(nonEmptyText)))
 

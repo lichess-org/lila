@@ -15,7 +15,7 @@ final class Signup(
     store: Store,
     api: SecurityApi,
     ipTrust: IpTrust,
-    forms: DataForm,
+    forms: SecurityForm,
     emailAddressValidator: EmailAddressValidator,
     emailConfirm: EmailConfirm,
     recaptcha: Recaptcha,

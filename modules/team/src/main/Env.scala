@@ -31,7 +31,7 @@ final class Env(
   lazy val memberRepo  = new MemberRepo(db(CollName("team_member")))
   lazy val requestRepo = new RequestRepo(db(CollName("team_request")))
 
-  lazy val forms = wire[DataForm]
+  lazy val forms = wire[TeamForm]
 
   lazy val memberStream = wire[TeamMemberStream]
 

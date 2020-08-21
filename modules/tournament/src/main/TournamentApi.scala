@@ -68,13 +68,13 @@ final class TournamentApi(
       name = setup.name,
       clock = setup.clockConfig,
       minutes = setup.minutes,
-      waitMinutes = setup.waitMinutes | DataForm.waitMinuteDefault,
+      waitMinutes = setup.waitMinutes | TournamentForm.waitMinuteDefault,
       startDate = setup.startDate,
       mode = setup.realMode,
       password = setup.password,
       variant = setup.realVariant,
       position =
-        DataForm.startingPosition(setup.position | chess.StartingPosition.initial.fen, setup.realVariant),
+        TournamentForm.startingPosition(setup.position | chess.StartingPosition.initial.fen, setup.realVariant),
       berserkable = setup.berserkable | true,
       streakable = setup.streakable | true,
       teamBattle = setup.teamBattleByTeam map TeamBattle.init,
@@ -114,7 +114,7 @@ final class TournamentApi(
       password = data.password,
       position =
         if (old.isCreated || !old.position.initial)
-          DataForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant)
+          TournamentForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant)
         else old.position,
       noBerserk = !(~berserkable),
       noStreak = !(~streakable),

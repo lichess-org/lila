@@ -168,7 +168,7 @@ final class Mod(
   def setTitle(username: String) =
     SecureBody(_.SetTitle) { implicit ctx => me =>
       implicit def req = ctx.body
-      lila.user.DataForm.title
+      lila.user.UserForm.title
         .bindFromRequest()
         .fold(
           _ => fuccess(redirect(username, mod = true)),

@@ -61,7 +61,7 @@ final class Env(
   }
 
   lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
-  lazy val forms                            = wire[DataForm]
+  lazy val forms                            = wire[ForumForm]
   lazy val recent                           = wire[Recent]
 
   lila.common.Bus.subscribeFun("team", "gdprErase") {

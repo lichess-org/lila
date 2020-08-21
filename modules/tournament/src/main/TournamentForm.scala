@@ -13,9 +13,9 @@ import lila.hub.LeaderTeam
 import lila.hub.LightTeam._
 import lila.user.User
 
-final class DataForm {
+final class TournamentForm {
 
-  import DataForm._
+  import TournamentForm._
 
   def create(user: User, leaderTeams: List[LeaderTeam], teamBattleId: Option[TeamID] = None) =
     form(user, leaderTeams) fill TournamentSetup(
@@ -104,7 +104,7 @@ final class DataForm {
     )
 }
 
-object DataForm {
+object TournamentForm {
 
   import chess.variant._
 
@@ -172,7 +172,7 @@ private[tournament] case class TournamentSetup(
 
   def realMode = Mode(rated.orElse(mode.map(Mode.Rated.id ==)) | true)
 
-  def realVariant = variant.flatMap(DataForm.guessVariant) | chess.variant.Standard
+  def realVariant = variant.flatMap(TournamentForm.guessVariant) | chess.variant.Standard
 
   def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
 

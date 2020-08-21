@@ -8,7 +8,7 @@ import play.api.data.Forms._
 import lila.common.Form._
 import lila.search.Range
 
-final private[gameSearch] class DataForm {
+final private[gameSearch] class GameSearchForm {
 
   val search = Form(
     mapping(
@@ -39,8 +39,8 @@ final private[gameSearch] class DataForm {
         "incMin"  -> optional(numberIn(Query.clockIncs)),
         "incMax"  -> optional(numberIn(Query.clockIncs))
       )(SearchClock.apply)(SearchClock.unapply),
-      "dateMin"  -> DataForm.dateField,
-      "dateMax"  -> DataForm.dateField,
+      "dateMin"  -> GameSearchForm.dateField,
+      "dateMax"  -> GameSearchForm.dateField,
       "status"   -> optional(numberIn(Query.statuses)),
       "analysed" -> optional(number),
       "sort" -> optional(
@@ -53,7 +53,7 @@ final private[gameSearch] class DataForm {
   ) fill SearchData()
 }
 
-private[gameSearch] object DataForm {
+private[gameSearch] object GameSearchForm {
   val dateField = optional(ISODateOrTimestamp.isoDateOrTimestamp)
 }
 

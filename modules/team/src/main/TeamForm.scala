@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.common.Form.{ clean, numberIn }
 
-final private[team] class DataForm(
+final private[team] class TeamForm(
     teamRepo: TeamRepo,
     lightUserApi: lila.user.LightUserApi,
     val captcher: lila.hub.actors.Captcher
@@ -76,7 +76,7 @@ final private[team] class DataForm(
 
   val selectMember = Form(
     single(
-      "userId" -> lila.user.DataForm.historicalUsernameField
+      "userId" -> lila.user.UserForm.historicalUsernameField
     )
   )
 

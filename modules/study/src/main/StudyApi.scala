@@ -104,14 +104,14 @@ final class StudyApi(
 
   def importGame(data: StudyMaker.ImportGame, user: User): Fu[Option[Study.WithChapter]] =
     (data.form.as match {
-      case DataForm.importGame.AsNewStudy =>
+      case StudyForm.importGame.AsNewStudy =>
         studyMaker(data, user) flatMap { res =>
           studyRepo.insert(res.study) >>
             chapterRepo.insert(res.chapter) >>-
             indexStudy(res.study) >>-
             scheduleTimeline(res.study.id) inject res.some
         }
-      case DataForm.importGame.AsChapterOf(studyId) =>
+      case StudyForm.importGame.AsChapterOf(studyId) =>
         byId(studyId) flatMap {
           case Some(study) if study.canContribute(user.id) =>
             addChapter(

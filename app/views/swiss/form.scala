@@ -5,7 +5,7 @@ import play.api.data.Form
 import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.tournament.{ DataForm => TourForm }
+import lila.tournament.TournamentForm
 import lila.swiss.{ Swiss, SwissForm }
 import lila.app.ui.ScalatagsTemplate._
 import lila.hub.LightTeam.TeamID
@@ -134,7 +134,7 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
         form3.select(_, SwissForm.clockLimitChoices)
       ),
       form3.group(form("clock.increment"), trans.clockIncrement(), half = true)(
-        form3.select(_, TourForm.clockIncrementChoices)
+        form3.select(_, TournamentForm.clockIncrementChoices)
       )
     )
   def roundInterval =

@@ -6,7 +6,7 @@ import scala.annotation.nowarn
 
 import lila.api.Context
 import lila.app._
-import lila.security.DataForm.Reopen
+import lila.security.SecurityForm.Reopen
 import lila.user.{ User => UserModel, TotpSecret }
 import views.html
 

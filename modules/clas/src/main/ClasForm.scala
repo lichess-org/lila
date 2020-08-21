@@ -9,7 +9,7 @@ import lila.user.User
 
 final class ClasForm(
     lightUserAsync: lila.common.LightUser.Getter,
-    securityForms: lila.security.DataForm,
+    securityForms: lila.security.SecurityForm,
     nameGenerator: NameGenerator
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -69,7 +69,7 @@ final class ClasForm(
     def invite(c: Clas) =
       Form(
         mapping(
-          "username" -> lila.user.DataForm.historicalUsernameField
+          "username" -> lila.user.UserForm.historicalUsernameField
             .verifying("Unknown username", { blockingFetchUser(_).isDefined })
             .verifying("This is a teacher", u => !c.teachers.toList.contains(u.toLowerCase)),
           "realName" -> clean(nonEmptyText)

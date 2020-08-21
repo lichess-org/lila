@@ -11,7 +11,7 @@ import scala.util.Try
 import lila.api.Context
 import lila.app._
 import lila.common.{ EmailAddress, HTTPRequest }
-import lila.security.DataForm.{ MagicLink, PasswordReset }
+import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.user.{ User => UserModel, PasswordHasher }
 import UserModel.ClearPassword
