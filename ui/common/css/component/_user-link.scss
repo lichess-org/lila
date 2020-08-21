@@ -43,10 +43,6 @@
       content: '';
     }
   }
-
-  .title {
-    @extend %user-title;
-  }
 }
 
 a.user-link:hover {
@@ -54,5 +50,10 @@ a.user-link:hover {
 }
 
 .utitle {
-  @extend %user-title;
+  color: $c-brag;
+  font-weight: bold;
+
+  &[data-bot] {
+    color: $c-bot;
+  }
 }

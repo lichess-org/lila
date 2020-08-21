@@ -237,12 +237,3 @@
   width: 100%;
   height: 100%;
 }
-
-%user-title {
-  color: $c-brag;
-  font-weight: bold;
-
-  &[data-bot] {
-    color: $c-bot;
-  }
-}
