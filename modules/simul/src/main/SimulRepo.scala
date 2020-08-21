@@ -125,8 +125,15 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
       SimulBSONHandler.writeTry(simul).get ++ featurable.??(featurableSelect)
     } void
 
-  def update(simul: Simul) =
-    simulColl.update.one($id(simul.id), $set(SimulBSONHandler writeTry simul get)).void
+  def update(simul: Simul, featurable: Option[Boolean]) =
+    simulColl.update
+      .one(
+        $id(simul.id),
+        $set(SimulBSONHandler writeTry simul get) ++ featurable.?? { feat =>
+          if (feat) $set(featurableSelect) else $unset("featurable")
+        }
+      )
+      .void
 
   def remove(simul: Simul) =
     simulColl.delete.one($id(simul.id)).void

@@ -58,12 +58,12 @@ final class SimulApi(
       text = setup.text,
       team = setup.team
     )
-    repo.create(simul, me.hasTitle) >>- publish() >>- {
+    repo.create(simul, me.hasTitle && ~setup.featured) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
     } inject simul
   }
 
-  def update(prev: Simul, setup: SimulForm.Setup): Fu[Simul] = {
+  def update(prev: Simul, setup: SimulForm.Setup, me: User): Fu[Simul] = {
     val simul = prev.copy(
       name = setup.name,
       clock = setup.clock,
@@ -73,7 +73,7 @@ final class SimulApi(
       text = setup.text,
       team = setup.team
     )
-    repo.update(simul) >>- publish() inject simul
+    repo.update(simul, some(me.hasTitle && ~setup.featured)) >>- publish() inject simul
   }
 
   def addApplicant(simulId: Simul.ID, user: User, variantKey: String): Funit =
@@ -249,8 +249,8 @@ final class SimulApi(
         } yield game2 -> hostColor
     }
 
-  private def update(simul: Simul) =
-    repo.update(simul) >>- socket.reload(simul.id) >>- publish()
+  private def update(simul: Simul): Funit =
+    repo.update(simul, none) >>- socket.reload(simul.id) >>- publish()
 
   private def WithSimul(
       finding: Simul.ID => Fu[Option[Simul]],

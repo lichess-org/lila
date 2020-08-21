@@ -70,7 +70,8 @@ object SimulForm {
       position = StartingPosition.initial.fen.some,
       color = colorDefault,
       text = "",
-      team = none
+      team = none,
+      featured = host.hasTitle.some
     )
 
   def edit(host: User, teams: List[LeaderTeam], simul: Simul) =
@@ -83,7 +84,8 @@ object SimulForm {
       position = simul.position.map(_.fen),
       color = simul.color | "random",
       text = simul.text,
-      team = simul.team
+      team = simul.team,
+      featured = host.hasTitle.some
     )
 
   private def baseForm(host: User, teams: List[LeaderTeam]) =
@@ -111,7 +113,8 @@ object SimulForm {
         "position" -> optional(nonEmptyText),
         "color"    -> stringIn(colorChoices),
         "text"     -> clean(text),
-        "team"     -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id)))
+        "team"     -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
+        "featured" -> optional(boolean)
       )(Setup.apply)(Setup.unapply)
     )
 
@@ -135,7 +138,8 @@ object SimulForm {
       position: Option[String],
       color: String,
       text: String,
-      team: Option[String]
+      team: Option[String],
+      featured: Option[Boolean]
   ) {
     def clock =
       SimulClock(

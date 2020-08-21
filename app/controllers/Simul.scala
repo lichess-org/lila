@@ -204,7 +204,7 @@ final class Simul(env: Env) extends LilaController(env) {
             .bindFromRequest()
             .fold(
               err => BadRequest(html.simul.form.edit(err, teams, simul)).fuccess,
-              data => env.simul.api.update(simul, data) inject Redirect(routes.Simul.show(id))
+              data => env.simul.api.update(simul, data, me) inject Redirect(routes.Simul.show(id))
             )
         }
       }

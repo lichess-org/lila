@@ -6,8 +6,8 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.simul.Simul
 import lila.hub.LeaderTeam
+import lila.simul.Simul
 import lila.simul.SimulForm
 
 object form {
@@ -141,7 +141,12 @@ object form {
         form("text"),
         raw("Simul description"),
         help = frag("Anything you want to tell the participants?").some
-      )(form3.textarea(_)(rows := 10))
+      )(form3.textarea(_)(rows := 10)),
+      form3.checkbox(
+        form("featured"),
+        frag("Feature on lichess.org/simul"),
+        help = frag("Show your simul to everyone on lichess.org/simul. Disable for private simuls.").some
+      )
     )
   }
 }
