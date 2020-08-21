@@ -34,7 +34,7 @@ final class Env(
 
   lazy val paginator = wire[PaginatorBuilder[lila.game.Game, Query]]
 
-  lazy val forms = wire[DataForm]
+  lazy val forms = wire[GameSearchForm]
 
   lazy val userGameSearch = wire[UserGameSearch]
 

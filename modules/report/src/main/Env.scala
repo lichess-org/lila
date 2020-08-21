@@ -60,7 +60,7 @@ final class Env(
     slack = slackScoreThresholdSetting.get _
   )
 
-  lazy val forms = wire[DataForm]
+  lazy val forms = wire[ReportForm]
 
   private lazy val autoAnalysis = wire[AutoAnalysis]
 

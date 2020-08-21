@@ -52,7 +52,7 @@ final class Env(
     if (config.recaptcha.enabled) wire[RecaptchaGoogle]
     else RecaptchaSkip
 
-  lazy val forms = wire[DataForm]
+  lazy val forms = wire[SecurityForm]
 
   lazy val geoIP: GeoIP = wire[GeoIP]
 

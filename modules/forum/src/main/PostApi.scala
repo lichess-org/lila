@@ -31,7 +31,7 @@ final class PostApi(
   def makePost(
       categ: Categ,
       topic: Topic,
-      data: DataForm.PostData,
+      data: ForumForm.PostData,
       me: User
   ): Fu[Post] =
     lastNumberOf(topic) flatMap { number =>

@@ -60,11 +60,6 @@
     max-width: 60%;
   }
 
-  .title {
-    color: $c-brag;
-    font-weight: bold;
-  }
-
   .rank {
     @extend %box-radius;
 

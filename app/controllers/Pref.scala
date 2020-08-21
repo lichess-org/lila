@@ -9,7 +9,7 @@ import views._
 final class Pref(env: Env) extends LilaController(env) {
 
   private def api   = env.pref.api
-  private def forms = lila.pref.DataForm
+  private def forms = lila.pref.PrefForm
 
   def apiGet =
     Scoped(_.Preference.Read) { _ => me =>
@@ -33,7 +33,7 @@ final class Pref(env: Env) extends LilaController(env) {
 
   def formApply =
     AuthBody { implicit ctx => _ =>
-      def onSuccess(data: lila.pref.DataForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
+      def onSuccess(data: lila.pref.PrefForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
       implicit val req                                 = ctx.body
       forms.pref
         .bindFromRequest()

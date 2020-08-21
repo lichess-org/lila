@@ -49,7 +49,7 @@ final class Env(
 
   private def scheduler = system.scheduler
 
-  lazy val forms = wire[DataForm]
+  lazy val forms = wire[TournamentForm]
 
   lazy val tournamentRepo          = new TournamentRepo(db(config.tournamentColl), config.playerColl)
   lazy val pairingRepo             = new PairingRepo(db(config.pairingColl))

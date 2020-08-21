@@ -48,7 +48,7 @@ final private[forum] class TopicApi(
 
   def makeTopic(
       categ: Categ,
-      data: DataForm.TopicData,
+      data: ForumForm.TopicData,
       me: User
   ): Fu[Topic] =
     env.topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap {

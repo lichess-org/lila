@@ -84,7 +84,7 @@ final class Env(
     currentPuzzleId = api.head.currentPuzzleId
   )
 
-  lazy val forms = DataForm
+  lazy val forms = PuzzleForm
 
   lazy val daily = new Daily(
     puzzleColl,

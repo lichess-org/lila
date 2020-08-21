@@ -266,7 +266,7 @@ final class Study(
   def createAs =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.study.DataForm.importGame.form
+      lila.study.StudyForm.importGame.form
         .bindFromRequest()
         .fold(
           _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
@@ -284,7 +284,7 @@ final class Study(
   def create =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.study.DataForm.importGame.form
+      lila.study.StudyForm.importGame.form
         .bindFromRequest()
         .fold(
           _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
@@ -292,7 +292,7 @@ final class Study(
         )
     }
 
-  private def createStudy(data: lila.study.DataForm.importGame.Data, me: lila.user.User)(implicit
+  private def createStudy(data: lila.study.StudyForm.importGame.Data, me: lila.user.User)(implicit
       ctx: Context
   ) =
     env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me) flatMap {
@@ -319,7 +319,7 @@ final class Study(
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
       get("sri") ?? { sri =>
-        lila.study.DataForm.importPgn.form
+        lila.study.StudyForm.importPgn.form
           .bindFromRequest()
           .fold(
             jsonFormError,
@@ -507,7 +507,7 @@ final class Study(
       env.study.topicApi.popular(50) zip
         ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map {
         case (popular, mine) =>
-          val form = mine map lila.study.DataForm.topicsForm
+          val form = mine map lila.study.StudyForm.topicsForm
           Ok(html.study.topic.index(popular, mine, form))
       }
     }
@@ -515,7 +515,7 @@ final class Study(
   def setTopics =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.study.DataForm.topicsForm
+      lila.study.StudyForm.topicsForm
         .bindFromRequest()
         .fold(
           _ => Redirect(routes.Study.topics()).fuccess,

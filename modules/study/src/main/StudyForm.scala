@@ -5,7 +5,7 @@ import play.api.data.Forms._
 
 import lila.common.Form.clean
 
-object DataForm {
+object StudyForm {
 
   object importGame {
 

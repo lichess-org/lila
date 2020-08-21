@@ -8,7 +8,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.tournament.crud.CrudForm
-import lila.tournament.{ DataForm, Tournament }
+import lila.tournament.{ TournamentForm, Tournament }
 
 import controllers.routes
 
@@ -104,10 +104,10 @@ object crud {
       ),
       form3.split(
         form3.group(form("clockTime"), raw("Clock time"), half = true)(
-          form3.select(_, DataForm.clockTimeChoices)
+          form3.select(_, TournamentForm.clockTimeChoices)
         ),
         form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
-          form3.select(_, DataForm.clockIncrementChoices)
+          form3.select(_, TournamentForm.clockIncrementChoices)
         )
       ),
       form3.split(

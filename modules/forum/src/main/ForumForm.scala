@@ -5,13 +5,13 @@ import play.api.data._
 import play.api.data.Forms._
 import lila.user.User
 
-final private[forum] class DataForm(
+final private[forum] class ForumForm(
     promotion: lila.security.PromotionApi,
     val captcher: lila.hub.actors.Captcher
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.hub.CaptchedForm {
 
-  import DataForm._
+  import ForumForm._
 
   def postMapping(user: User) =
     mapping(
@@ -49,7 +49,7 @@ final private[forum] class DataForm(
       )
 }
 
-object DataForm {
+object ForumForm {
 
   case class PostData(
       text: String,

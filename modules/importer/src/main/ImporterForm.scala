@@ -10,7 +10,7 @@ import scala.util.chaining._
 
 import lila.game._
 
-final class DataForm {
+final class ImporterForm {
 
   lazy val importForm = Form(
     mapping(

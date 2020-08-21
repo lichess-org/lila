@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.hub.LeaderTeam
-import lila.tournament.{ Condition, DataForm, Tournament }
+import lila.tournament.{ Condition, TournamentForm, Tournament }
 
 object form {
 
@@ -73,7 +73,7 @@ object form {
             fields.startPosition,
             fields.clock,
             form3.split(
-              if (DataForm.minutes contains tour.minutes) form3.split(fields.minutes)
+              if (TournamentForm.minutes contains tour.minutes) form3.split(fields.minutes)
               else
                 form3.group(form("minutes"), trans.duration(), half = true)(
                   form3.input(_)(tpe := "number")
@@ -258,19 +258,19 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
   def clock =
     form3.split(
       form3.group(form("clockTime"), trans.clockInitialTime(), half = true)(
-        form3.select(_, DataForm.clockTimeChoices, disabled = disabledAfterStart)
+        form3.select(_, TournamentForm.clockTimeChoices, disabled = disabledAfterStart)
       ),
       form3.group(form("clockIncrement"), trans.clockIncrement(), half = true)(
-        form3.select(_, DataForm.clockIncrementChoices, disabled = disabledAfterStart)
+        form3.select(_, TournamentForm.clockIncrementChoices, disabled = disabledAfterStart)
       )
     )
   def minutes =
     form3.group(form("minutes"), trans.duration(), half = true)(
-      form3.select(_, DataForm.minuteChoices)
+      form3.select(_, TournamentForm.minuteChoices)
     )
   def waitMinutes =
     form3.group(form("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true)(
-      form3.select(_, DataForm.waitMinuteChoices)
+      form3.select(_, TournamentForm.waitMinuteChoices)
     )
   def description =
     form3.group(

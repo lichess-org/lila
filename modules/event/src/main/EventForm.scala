@@ -24,7 +24,7 @@ object EventForm {
       "startsAt"      -> utcDate,
       "finishesAt"    -> utcDate,
       "hostedBy" -> optional {
-        lila.user.DataForm.historicalUsernameField
+        lila.user.UserForm.historicalUsernameField
           .transform[User.ID](_.toLowerCase, identity)
       }
     )(Data.apply)(Data.unapply)

@@ -11,7 +11,7 @@ import lila.common.Form._
 
 object CrudForm {
 
-  import DataForm._
+  import TournamentForm._
   import lila.common.Form.UTCDate._
 
   val maxHomepageHours = 72
@@ -24,7 +24,7 @@ object CrudForm {
       "clockIncrement" -> numberIn(clockIncrementChoices),
       "minutes"        -> number(min = 20, max = 1440),
       "variant"        -> number.verifying(Variant exists _),
-      "position"       -> text.verifying(DataForm.positions contains _),
+      "position"       -> text.verifying(TournamentForm.positions contains _),
       "date"           -> utcDate,
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
