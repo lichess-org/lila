@@ -36,7 +36,7 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
                       disabled: ctrl.teamBlock(),
                       'data-icon': 'G'
                     },
-                    hook: ctrl.teamBlock() ? null : util.bind('click', () => {
+                    hook: ctrl.teamBlock() ? {} : util.bind('click', () => {
                       if (ctrl.data.variants.length === 1)
                         xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
                       else {
