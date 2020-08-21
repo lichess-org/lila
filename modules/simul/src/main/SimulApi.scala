@@ -9,6 +9,7 @@ import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi._
+import lila.socket.IsOnline
 import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
 
@@ -199,6 +200,20 @@ final class SimulApi(
               }
             }
           }
+        }
+      }
+    }
+
+  def hostPing(simul: Simul): Funit =
+    simul.isCreated ?? {
+      repo.setHostSeenNow(simul) >> {
+        val applicantIds = simul.applicants.view.map(_.player.user).toSet
+        socket.filterPresent(simul, applicantIds) flatMap { online =>
+          val leaving = applicantIds diff online.toSet
+          leaving.nonEmpty ??
+            WithSimul(repo.findCreated, simul.id) {
+              _.copy(applicants = simul.applicants.filterNot(a => leaving(a.player.user)))
+            }
         }
       }
     }

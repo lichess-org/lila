@@ -6,6 +6,7 @@ import lila.game.{ Game, Pov }
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.makeMessage
+import lila.user.User
 
 final private class SimulSocket(
     repo: SimulRepo,
@@ -42,6 +43,12 @@ final private class SimulSocket(
       redirectPlayer(simul, Pov(game, !opponent.color))
     }
 
+  def filterPresent(simul: Simul, userIds: Set[User.ID]): Fu[Seq[User.ID]] =
+    remoteSocketApi.request[Seq[User.ID]](
+      id => send(SimulSocket.Protocol.Out.filterPresent(id, simul.id, userIds)),
+      userIds => lila.socket.RemoteSocket.Protocol.In.commas(userIds).toSeq
+    )
+
   private def redirectPlayer(simul: Simul, pov: Pov): Unit =
     pov.player.userId foreach { userId =>
       send(RP.Out.tellRoomUser(RoomId(simul.id), userId, makeMessage("redirect", pov.fullId)))
@@ -59,4 +66,14 @@ final private class SimulSocket(
   remoteSocketApi.subscribe("simul-in", RP.In.reader)(
     handler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
+}
+
+private object SimulSocket {
+  object Protocol {
+    object Out {
+      import lila.socket.RemoteSocket.Protocol.Out.commas
+      def filterPresent(reqId: Int, simulId: Simul.ID, userIds: Set[User.ID]) =
+        s"room/filter-present $reqId $simulId ${commas(userIds)}"
+    }
+  }
 }

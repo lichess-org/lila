@@ -91,7 +91,7 @@ final class Simul(env: Env) extends LilaController(env) {
   def hostPing(simulId: String) =
     Open { implicit ctx =>
       AsHost(simulId) { simul =>
-        env.simul.repo setHostSeenNow simul inject jsonOkResult
+        env.simul.api hostPing simul inject jsonOkResult
       }
     }
 

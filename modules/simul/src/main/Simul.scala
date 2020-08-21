@@ -54,7 +54,7 @@ case class Simul(
 
   def removeApplicant(userId: String) =
     Created {
-      copy(applicants = applicants filterNot (_ is userId))
+      copy(applicants = applicants.filterNot(_ is userId))
     }
 
   def accept(userId: String, v: Boolean) =
