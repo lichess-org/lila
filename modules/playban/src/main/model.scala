@@ -106,7 +106,7 @@ object TempBan {
       (bans.lastOption ?? { prev =>
         prev.endsAt.toNow.getStandardHours.toSaturatedInt match {
           case h if h < 72 => prev.mins * (132 - h) / 60
-          case h           => prev.mins - Math.pow(h / 12, 1.5).toInt
+          case h           => (55.6 * prev.mins / (Math.pow(5.56 * prev.mins - 54.6, h / 720) + 54.6)).toInt
         }
       } atLeast baseMinutes) * (if (accountCreationDate.plusDays(3).isAfterNow) 2 else 1)
     }
