@@ -68,13 +68,13 @@
   <string name="insufficientMaterial">Net genôch materiaal</string>
   <string name="pawnMove">Pion set</string>
   <string name="capture">Slaan</string>
-  <string name="close">Slute</string>
+  <string name="close">Ôfslute</string>
   <string name="winning">Winnend</string>
   <string name="losing">Ferliezend</string>
   <string name="drawn">Remize</string>
   <string name="unknown">Ûnbekend</string>
   <string name="database">Databank</string>
-  <string name="whiteDrawBlack">Wyt / Remise / Swart</string>
+  <string name="whiteDrawBlack">Wyt / Remize / Swart</string>
   <string name="averageRatingX">Gemiddelde rating: %s</string>
   <string name="recentGames">Resinte partijen</string>
   <string name="topGames">Top partijen</string>
