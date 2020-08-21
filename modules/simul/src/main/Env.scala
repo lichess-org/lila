@@ -9,7 +9,6 @@ import scala.concurrent.duration._
 import lila.common.Bus
 import lila.common.config._
 import lila.socket.Socket.{ GetVersion, SocketVersion }
-import lila.socket.IsOnline
 
 @Module
 private class SimulConfig(

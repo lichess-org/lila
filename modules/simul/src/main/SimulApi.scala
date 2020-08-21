@@ -9,7 +9,6 @@ import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi._
-import lila.socket.IsOnline
 import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
 
