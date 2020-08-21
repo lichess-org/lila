@@ -28,7 +28,7 @@
   <string name="threeChecks">Trije kear skaak</string>
   <string name="raceFinished">Race is foarby</string>
   <string name="variantEnding">Fariant beëinige</string>
-  <string name="newOpponent">Nije tsjinstander</string>
+  <string name="newOpponent">Nije tsjinstanner</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Dyn tsjinstanner wol in nij spul mei dy dwaan</string>
   <string name="joinTheGame">Meidwaan oan it spul</string>
   <string name="whitePlays">Wyt oan set</string>
@@ -38,15 +38,15 @@
   <string name="forceResignation">Claim oerwinning</string>
   <string name="forceDraw">Pat neame</string>
   <string name="talkInChat">Wês aardich by it chatten!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">De earste persoan dy nei dizzen URL komt sil mei jo spylje.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">De earste persoan dy\'t nei dizze URL komt sil mei dy spylje.</string>
   <string name="whiteResigned">Wyt hat opjûn</string>
-  <string name="blackResigned">Swart hat opjaan</string>
+  <string name="blackResigned">Swart hat opjûn</string>
   <string name="whiteLeftTheGame">Wyt hat it spul ferlitten</string>
   <string name="blackLeftTheGame">Swart hat it spul ferlitten</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Diel dizze URL om taskôgers it spul te litten sjen</string>
   <string name="theComputerAnalysisHasFailed">De kompjûter analyze is mislearje</string>
   <string name="viewTheComputerAnalysis">De kompjûter analyze besjen</string>
-  <string name="requestAComputerAnalysis">Fersyk in kompjûter analyze</string>
+  <string name="requestAComputerAnalysis">Fersykje in kompjûter analyze</string>
   <string name="computerAnalysis">Kompjûter analyze</string>
   <string name="computerAnalysisAvailable">Kompjûteranalyze beskikber</string>
   <string name="analysis">Boerd analyze</string>
