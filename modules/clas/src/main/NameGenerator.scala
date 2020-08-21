@@ -40,7 +40,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Chestnut",
       "Cobalt",
       "Copper",
-      "Crimson"
+      "Crimson",
       "Cyan",
       "Emberald",
       "Fuschia",
@@ -1210,7 +1210,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
       "Zooty"
     )
 
-  def Jobs =
+  def jobs =
     Vector(
       "Actor",
       "Architect",
