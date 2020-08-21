@@ -1,8 +1,9 @@
 package views.html.clas
 
-import play.api.data.Form
-
 import controllers.routes
+import play.api.data.Form
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -109,25 +110,20 @@ object student {
     )(form3.input(_))
 
   def form(
-      c: Clas,
+      clas: Clas,
       students: List[Student],
       invite: Form[_],
       create: Form[_],
       nbStudents: Int,
       created: Option[lila.clas.Student.WithPassword] = none
   )(implicit ctx: Context) =
-    bits.layout(trans.clas.addStudent.txt(), Left(c withStudents students))(
+    bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
       cls := "box-pad student-add",
       h1(
         trans.clas.addStudent(),
         s" ($nbStudents/${lila.clas.Clas.maxStudents})"
       ),
-      nbStudents > (lila.clas.Clas.maxStudents / 2) option p(dataIcon := "", cls := "text")(
-        s"Note that a class can have up to ${lila.clas.Clas.maxStudents} students.",
-        "To manage more students, ",
-        a(href := routes.Clas.studentForm(c.id.value))("create more classes"),
-        "."
-      ),
+      nbStudents > (lila.clas.Clas.maxStudents / 2) option maxStudentsWarning(clas),
       created map {
         case Student.WithPassword(student, password) =>
           flashMessage(cls := "student-add__created")(
@@ -156,7 +152,7 @@ object student {
               trans.clas.inviteDesc4()
             )
           ),
-          postForm(cls := "form3", action := routes.Clas.studentInvite(c.id.value))(
+          postForm(cls := "form3", action := routes.Clas.studentInvite(clas.id.value))(
             form3.group(invite("username"), trans.clas.lichessUsername())(
               form3.input(_, klass = "user-autocomplete")(created.isEmpty option autofocus)(dataTag := "span")
             ),
@@ -172,11 +168,11 @@ object student {
             p(trans.clas.createDesc2()),
             p(strong(trans.clas.createDesc3()), br, trans.clas.createDesc4())
           ),
-          postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
+          postForm(cls := "form3", action := routes.Clas.studentCreate(clas.id.value))(
             form3.group(
               create("create-username"),
               trans.clas.lichessUsername(),
-              help = a(cls := "name-regen", href := s"${routes.Clas.studentForm(c.id.value)}?gen=1")(
+              help = a(cls := "name-regen", href := s"${routes.Clas.studentForm(clas.id.value)}?gen=1")(
                 trans.clas.generateANewUsername()
               ).some
             )(
@@ -185,8 +181,80 @@ object student {
             realNameField(create, "create-realName"),
             form3.submit(trans.signUp(), icon = none)
           )
+        ),
+        div(cls := "student-add__or")("~ or ~"),
+        div(cls := "student-add__choice")(
+          div(cls := "info")(
+            h2("Create multiple Lichess accounts at once"),
+            "You can also ",
+            a(href := routes.Clas.studentManyForm(clas.id.value))(
+              "use this form"
+            ),
+            " to create multiple Lichess accounts from a list of student names."
+          )
         )
       )
+    )
+
+  def manyForm(
+      clas: Clas,
+      students: List[Student],
+      form: Form[_],
+      nbStudents: Int,
+      created: Seq[lila.clas.Student.WithPassword] = Nil
+  )(implicit ctx: Context) =
+    bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
+      cls := "box-pad student-add-many",
+      h1("Create multiple Lichess accounts at once"),
+      maxStudentsWarning(clas),
+      created.nonEmpty option frag(
+        flashMessage(cls := "student-add-many__created")(
+          s"${created.size} students accounts have been created."
+        ),
+        div(cls := "student-add-many__list")(
+          p(strong(trans.clas.makeSureToCopy())),
+          table(cls := "slist")(
+            thead(
+              tr(
+                th("Real name"),
+                th("Lichess username"),
+                th("Lichess password")
+              )
+            ),
+            tbody(
+              created map {
+                case Student.WithPassword(student, password) =>
+                  tr(
+                    td(student.realName),
+                    td(usernameOrId(student.userId)),
+                    td(password.value)
+                  )
+              }
+            )
+          )
+        )
+      ),
+      (nbStudents <= lila.clas.Clas.maxStudents) option frag(
+        postForm(cls := "form3", action := routes.Clas.studentManyCreate(clas.id.value))(
+          form3.globalError(form),
+          form3.group(
+            form("realNames"),
+            "Students real names, one per line",
+            help = trans.clas.privateWillNeverBeShown().some
+          )(
+            form3.textarea(_)(autofocus, rows := 20)
+          ),
+          form3.submit(trans.apply(), icon = none)
+        )
+      )
+    )
+
+  private def maxStudentsWarning(clas: Clas)(implicit lang: Lang) =
+    p(dataIcon := "", cls := "text")(
+      s"Note that a class can have up to ${lila.clas.Clas.maxStudents} students.",
+      "To manage more students, ",
+      a(href := routes.Clas.studentForm(clas.id.value))("create more classes"),
+      "."
     )
 
   def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[_])(implicit ctx: Context) =

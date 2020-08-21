@@ -3,6 +3,8 @@ package lila.clas
 import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
+
+import lila.common.Form._
 import lila.user.User
 
 final class ClasForm(
@@ -17,8 +19,8 @@ final class ClasForm(
 
     val form = Form(
       mapping(
-        "name" -> text(minLength = 3, maxLength = 100),
-        "desc" -> text(minLength = 0, maxLength = 2000),
+        "name" -> clean(text(minLength = 3, maxLength = 100)),
+        "desc" -> clean(text(minLength = 0, maxLength = 2000)),
         "teachers" -> nonEmptyText.verifying(
           "Invalid teacher list",
           str => {
@@ -51,7 +53,7 @@ final class ClasForm(
       Form(
         mapping(
           "create-username" -> securityForms.signup.username,
-          "create-realName" -> nonEmptyText(maxLength = 100)
+          "create-realName" -> clean(nonEmptyText(maxLength = 100))
         )(NewStudent.apply)(NewStudent.unapply)
       )
 
@@ -70,14 +72,14 @@ final class ClasForm(
           "username" -> lila.user.DataForm.historicalUsernameField
             .verifying("Unknown username", { blockingFetchUser(_).isDefined })
             .verifying("This is a teacher", u => !c.teachers.toList.contains(u.toLowerCase)),
-          "realName" -> nonEmptyText
+          "realName" -> clean(nonEmptyText)
         )(NewStudent.apply)(NewStudent.unapply)
       )
 
     def edit(s: Student) =
       Form(
         mapping(
-          "realName" -> nonEmptyText,
+          "realName" -> clean(nonEmptyText),
           "notes"    -> text(maxLength = 20000)
         )(StudentData.apply)(StudentData.unapply)
       ) fill StudentData(s.realName, s.notes)
@@ -88,6 +90,16 @@ final class ClasForm(
           "email" -> securityForms.signup.emailField
         )
       )
+
+    def manyCreate(max: Int): Form[ManyNewStudent] =
+      Form(
+        mapping(
+          "realNames" -> clean(nonEmptyText)
+        )(ManyNewStudent.apply)(ManyNewStudent.unapply).verifying(
+          s"There can't be more than ${lila.clas.Clas.maxStudents} per class. Split the students into more classes.",
+          _.realNames.lengthIs <= max
+        )
+      )
   }
 
   private def blockingFetchUser(username: String) =
@@ -95,6 +107,8 @@ final class ClasForm(
 }
 
 object ClasForm {
+
+  private val realNameMaxSize = 100
 
   case class ClasData(
       name: String,
@@ -128,5 +142,10 @@ object ClasForm {
         realName = realName,
         notes = notes
       )
+  }
+
+  case class ManyNewStudent(realNamesText: String) {
+    def realNames =
+      realNamesText.linesIterator.map(_.trim take realNameMaxSize).filter(_.nonEmpty).distinct.toList
   }
 }

@@ -1,19 +1,20 @@
 package lila.clas
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 import reactivemongo.api._
+import scala.concurrent.duration._
 
 import lila.common.config.BaseUrl
 import lila.common.EmailAddress
-import lila.security.Permission
 import lila.db.dsl._
-import lila.msg.MsgApi
-import lila.user.{ Authenticator, User, UserRepo }
 import lila.memo.CacheApi._
+import lila.msg.MsgApi
+import lila.security.Permission
+import lila.user.{ Authenticator, User, UserRepo }
 
 final class ClasApi(
     colls: ClasColls,
+    nameGenerator: NameGenerator,
     userRepo: UserRepo,
     msgApi: MsgApi,
     authenticator: Authenticator,
@@ -179,7 +180,7 @@ final class ClasApi(
         clas: Clas,
         data: ClasForm.NewStudent,
         teacher: User
-    ): Fu[(User, ClearPassword)] = {
+    ): Fu[Student.WithPassword] = {
       val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
       val password = Student.password.generate
       lila.mon.clas.studentCreate(teacher.id)
@@ -195,13 +196,31 @@ final class ClasApi(
         )
         .orFail(s"No user could be created for ${data.username}")
         .flatMap { user =>
+          val student = Student.make(user, clas, teacher.id, data.realName, managed = true)
           userRepo.setKid(user, v = true) >>
             userRepo.setManagedUserInitialPerfs(user.id) >>
-            coll.insert.one(Student.make(user, clas, teacher.id, data.realName, managed = true)) >>
+            coll.insert.one(student) >>
             sendWelcomeMessage(teacher.id, user, clas) inject
-            (user -> password)
+            Student.WithPassword(student, password)
         }
     }
+
+    def manyCreate(
+        clas: Clas,
+        data: ClasForm.ManyNewStudent,
+        teacher: User
+    ): Fu[List[Student.WithPassword]] =
+      count(clas.id) flatMap { nbCurrentStudents =>
+        lila.common.Future.linear(data.realNames.take(Clas.maxStudents - nbCurrentStudents)) { realName =>
+          nameGenerator() flatMap { username =>
+            val data = ClasForm.NewStudent(
+              username = username | lila.common.ThreadLocalRandom.nextString(10),
+              realName = realName
+            )
+            create(clas, data, teacher)
+          }
+        }
+      }
 
     def resetPassword(s: Student): Fu[ClearPassword] = {
       val password = Student.password.generate

@@ -570,6 +570,11 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     }
   }
 }
+.student-add-many {
+  form {
+    margin-top: 2em;
+  }
+}
 
 .student-edit {
   h2 {
