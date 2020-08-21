@@ -146,6 +146,7 @@ export default class TournamentController {
   };
 
   showPlayerInfo = (player) => {
+    if (this.data.secondsToStart) return;
     const userId = player.name.toLowerCase();
     this.teamInfo.requested = undefined;
     this.playerInfo = {
