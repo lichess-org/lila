@@ -79,8 +79,9 @@ final class Round(
 
   def player(fullId: String) =
     Open { implicit ctx =>
-      OptionFuResult(env.round.proxyRepo.pov(fullId)) { pov =>
-        renderPlayer(pov)
+      env.round.proxyRepo.pov(fullId) flatMap {
+        case Some(pov) => renderPlayer(pov)
+        case None      => userC.tryRedirect(fullId) getOrElse notFound
       }
     }
 
