@@ -58,8 +58,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def logFailure(logger: => lila.log.Logger)(implicit ec: EC): Fu[A] = logFailure(logger, _.toString)
 
   def addFailureEffect(effect: Throwable => Unit)(implicit ec: EC) = {
-    fua.failed.foreach {
-      e: Throwable => effect(e)
+    fua.failed.foreach { e: Throwable =>
+      effect(e)
     }
     fua
   }
@@ -129,7 +129,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     }
 
   def withTimeout(duration: FiniteDuration)(implicit ec: EC, system: ActorSystem): Fu[A] =
-    withTimeout(duration, LilaException(s"Future timed out after $duration"))
+    withTimeout(duration, LilaTimeout(s"Future timed out after $duration"))
 
   def withTimeout(
       duration: FiniteDuration,

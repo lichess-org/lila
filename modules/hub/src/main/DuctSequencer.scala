@@ -1,8 +1,11 @@
 package lila.hub
 
+
 import com.github.blemale.scaffeine.LoadingCache
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.{ ExecutionContext, Promise }
+
+import lila.base.LilaTimeout
 
 final class DuctSequencer(maxSize: Int, timeout: FiniteDuration, name: String, logging: Boolean = true)(
     implicit
@@ -19,7 +22,18 @@ final class DuctSequencer(maxSize: Int, timeout: FiniteDuration, name: String, l
   private[this] val duct = new BoundedDuct(maxSize, name, logging)({
     case TaskWithPromise(task, promise) =>
       promise.completeWith {
-        task().withTimeout(timeout)
+        task()
+          .withTimeout(timeout)
+          .transform(
+            identity,
+            {
+              case LilaTimeout(msg) =>
+                val fullMsg = s"$name DuctSequencer $msg"
+                if (logging) lila.log("duct").warn(fullMsg)
+                LilaTimeout(fullMsg)
+              case e => e
+            }
+          )
       }.future
   })
 }
