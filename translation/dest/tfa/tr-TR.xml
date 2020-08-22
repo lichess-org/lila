@@ -6,9 +6,9 @@
   <string name="scanTheCode">QR kodunu uygulama ile tarayın.</string>
   <string name="enterPassword">Kurulumu tamamlamak için şifrenizi ve uygulama tarafından oluşturulan kimlik doğrulama kodunu girin. Her oturum açtığınızda bir kimlik doğrulama koduna ihtiyacınız olacak.</string>
   <string name="authenticationCode">Kimlik doğrulama kodu</string>
-  <string name="ifYouLoseAccess">Not: İki faktörlü kimlik doğrulama kodlarınıza erişimi kaybederseniz, elektronik posta yoluyla bir şifre sıfırlama işlemi yapabilirsiniz.</string>
+  <string name="ifYouLoseAccess">Not: İki faktörlü kimlik doğrulama kodunuza erişimi kaybederseniz, elektronik posta yoluyla bir şifre sıfırlama işlemi yapabilirsiniz.</string>
   <string name="enableTwoFactor">İki faktörlü kimlik doğrulamayı etkinleştirin</string>
-  <string name="disableTwoFactor">İki faktörlü kimlik doğrulamayı devre dışı bırakın</string>
+  <string name="disableTwoFactor">İki faktörlü kimlik doğrulamayı devre dışı bırak</string>
   <string name="twoFactorEnabled">İki faktörlü kimlik doğrulama etkinleştirildi</string>
-  <string name="twoFactorDisable">İki faktörlü kimlik doğrulamayı devre dışı bırakmak için, kimlik doğrulama uygulamanızdan şifrenize ve bir kimlik doğrulama koduna ihtiyacınız vardır. Kimlik doğrulama kodlarınıza erişimi kaybettiyseniz, e-posta yoluyla da bir şifre sıfırlama işlemi yapabilirsiniz.</string>
+  <string name="twoFactorDisable">İki faktörlü kimlik doğrulamayı devre dışı bırakmak için, kimlik doğrulama uygulamanızdan şifrenize ve bir kimlik doğrulama koduna ihtiyacınız vardır. Kimlik doğrulama kodunuza erişimi kaybettiyseniz, elektronik posta yoluyla da bir şifre sıfırlama işlemi yapabilirsiniz.</string>
 </resources>
