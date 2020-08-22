@@ -11,8 +11,8 @@
   <string name="studiesCreatedByX">Çalışmalar %s tarafından oluşturulmuştur</string>
   <string name="noneYet">Henüz yok.</string>
   <string name="hot">Popüler</string>
-  <string name="dateAddedNewest">Eklenme tarihi (yeniden eskiye)</string>
-  <string name="dateAddedOldest">Eklenme tarihi (eskiden yeniye)</string>
+  <string name="dateAddedNewest">Eklenme tarihi (en yeni)</string>
+  <string name="dateAddedOldest">Eklenme tarihi (en eski)</string>
   <string name="recentlyUpdated">Yeni güncellenmiş</string>
   <string name="mostPopular">En popüler</string>
   <string name="addNewChapter">Yeni bir bölüm ekle</string>
