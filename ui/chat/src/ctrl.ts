@@ -41,14 +41,16 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
    * then select that tab over discussion */
   if (allTabs.length > 1 && vm.tab === 'discussion' && li.storage.get('nochat')) vm.tab = allTabs[1];
 
-  const post = function(text: string): void {
+  const post = function(text: string): boolean {
     text = text.trim();
-    if (!text) return;
+    if (!text) return false;
+    if (text == 'You too!' && !data.lines.some(l => l.u != data.userId)) return false;
     if (text.length > 140) {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
-      return;
+      return false;
     }
     li.pubsub.emit('socket.send', 'talk', text);
+    return true;
   };
 
   const onTimeout = function(userId: string) {

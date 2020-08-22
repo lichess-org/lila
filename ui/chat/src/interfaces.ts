@@ -32,7 +32,7 @@ export interface ChatPlugin {
 export interface ChatData {
   id: string
   name: string
-  lines: Array<Line>
+  lines: Line[];
   userId?: string
   resourceId: string
   loginRequired: boolean
