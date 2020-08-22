@@ -229,6 +229,7 @@
   <string name="rematchOfferDeclined">Boði um aðra skák hafnað</string>
   <string name="cancelRematchOffer">Afturkalla boð um aðra skák</string>
   <string name="viewRematch">Skoða endurleik</string>
+  <string name="confirmMove">Staðfesta leik</string>
   <string name="play">Spila</string>
   <string name="inbox">Innhólf</string>
   <string name="chatRoom">Spjallherbergi</string>
@@ -722,6 +723,7 @@
   <string name="seeBestMove">Sjá besta leik</string>
   <string name="hideBestMove">Fela besta leik</string>
   <string name="whiteWinsGame">Hvítt vinnur</string>
+  <string name="blackWinsGame">Svartur vinnur</string>
   <string name="learnFromYourMistakes">Lærðu af mistökum þínum</string>
   <string name="learnFromThisMistake">Lærðu af þessum mistökum</string>
   <string name="skipThisMove">Sleppa þessum leik</string>
@@ -768,4 +770,6 @@
   <string name="yourQuestionMayHaveBeenAnswered">Spurningin þín gæti verið búin að fá svar %1$s</string>
   <string name="inTheFAQ">í FAQ-ið</string>
   <string name="youCannotPostYetPlaySomeGames">Þú mátt ekki pósta enn. Spilaðu nokkra leiki!</string>
+  <string name="subscribe">Gerast áskrifandi</string>
+  <string name="unsubscribe">Taka úr áskrift</string>
 </resources>
