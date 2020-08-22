@@ -28,8 +28,8 @@
     <item quantity="other">%s katılma talebi</item>
   </plurals>
   <string name="willBeReviewed">Katılma talebiniz takım lideri tarafından incelenecek.</string>
-  <string name="beingReviewed">Katılma talebiniz takım lideri tarafından inceleniyor.</string>
-  <string name="teamBattle">Takım Çarpışması</string>
+  <string name="beingReviewed">Katılım talebiniz takım lideri tarafından inceleniyor.</string>
+  <string name="teamBattle">Takım Savaşı</string>
   <string name="teamBattleOverview">Bu birden fazla takımın mücadelesidir, her oyuncu kendi takımına puan kazandırır</string>
   <string name="teamTournament">Takım turnuvası</string>
   <string name="teamTournamentOverview">Yalnızca sizin takımınızdaki kişilerin katılabileceği bir arena turnuvası</string>
