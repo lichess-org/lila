@@ -8,6 +8,7 @@ trait LilaException extends Exception {
 }
 
 case class LilaInvalid(message: String) extends LilaException
+case class LilaTimeout(message: String) extends LilaException
 
 object LilaException {
 

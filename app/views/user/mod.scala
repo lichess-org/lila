@@ -636,7 +636,7 @@ object mod {
             )
           ),
           tbody(
-            spy.ips.sortBy(-_.alts.score).map { ip =>
+            spy.ips.sortBy(ip => (-ip.alts.score, -ip.ip.seconds)).map { ip =>
               tr(cls := ip.blocked option "blocked")(
                 td(a(href := routes.Mod.singleIp(ip.ip.value.value))(ip.ip.value)),
                 td(dataSort := ip.alts.score)(altMarks(ip.alts)),
@@ -667,7 +667,7 @@ object mod {
             )
           ),
           tbody(
-            spy.prints.sortBy(-_.alts.score).map { fp =>
+            spy.prints.sortBy(fp => (-fp.alts.score, -fp.fp.seconds)).map { fp =>
               tr(cls := fp.banned option "blocked")(
                 td(a(href := routes.Mod.print(fp.fp.value.value))(fp.fp.value)),
                 td(dataSort := fp.alts.score)(altMarks(fp.alts)),
