@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="private">Gizli</string>
-  <string name="myStudies">Benim çalışmalarım</string>
+  <string name="private">Özel</string>
+  <string name="myStudies">Çalışmalarım</string>
   <string name="studiesIContributeTo">Katkıda bulunduğum çalışmalar</string>
   <string name="myPublicStudies">Paylaştığım çalışmalar</string>
   <string name="myPrivateStudies">Gizli çalışmalarım</string>
@@ -56,7 +56,7 @@
   <string name="next">Sonraki</string>
   <string name="last">Son</string>
   <string name="shareAndExport">Paylaş ve dışa aktar</string>
-  <string name="cloneStudy">Klonla</string>
+  <string name="cloneStudy">Klon</string>
   <string name="studyPgn">Çalışma PGN\'si</string>
   <string name="downloadAllGames">Bütün oyunları indir</string>
   <string name="chapterPgn">Bölüm PGN\'si</string>
