@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="activity">Virkni</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Studdi lichess.org í %1$s mánuð sem %2$s</item>
+    <item quantity="other">Studdi lichess.org í %1$s mánuði sem %2$s</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Æfði %1$s stöðu í %2$s</item>
+    <item quantity="other">Æfði %1$s stöður í %2$s</item>
+  </plurals>
+</resources>
