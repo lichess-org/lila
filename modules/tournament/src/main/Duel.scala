@@ -58,16 +58,23 @@ final private class DuelStore {
         p2 = p2,
         averageRating = Rating((p1.rating.value + p2.rating.value) / 2)
       )
-    } byTourId.put(tour.id, get(tour.id).fold(Vector(tb)) { _ :+ tb })
+    } byTourId.compute(
+      tour.id,
+      (_: Tournament.ID, v: Vector[Duel]) => {
+        if (v == null) Vector(tb)
+        else v :+ tb
+      }
+    )
 
   def remove(game: Game): Unit =
     for {
       tourId <- game.tournamentId
-      tb     <- get(tourId)
-    } {
-      if (tb.sizeIs <= 1) byTourId.remove(tourId)
-      else byTourId.put(tourId, tb.filter(_.gameId != game.id))
-    }
-
+    } byTourId.computeIfPresent(
+      tourId,
+      (_: Tournament.ID, tb: Vector[Duel]) => {
+        val w = tb.filter(_.gameId != game.id)
+        if (w.isEmpty) null else w
+      }
+    )
   def remove(tour: Tournament): Unit = byTourId.remove(tour.id)
 }
