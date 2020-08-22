@@ -5,6 +5,7 @@
     align-items: center;
     flex-flow: row nowrap;
     line-height: 1.4em;
+    user-select: none;
 
     span {
       flex: 1 1 auto;
