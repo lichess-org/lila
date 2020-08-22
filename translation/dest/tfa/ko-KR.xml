@@ -7,6 +7,4 @@
   <string name="enableTwoFactor">2단계 인증 활성화</string>
   <string name="disableTwoFactor">2 단계 인증 비활성화</string>
   <string name="twoFactorEnabled">2단계 인증 필요</string>
-  <string name="twoFactorDisable">2 단계 인증을 비활성화하려면 인증 자 앱의 비밀번호와 인증 코드가 필요합니다.
-인증 코드에 액세스 할 수없는 경우 이메일을 통해 비밀번호를 재설정 할 수도 있습니다.</string>
 </resources>
