@@ -260,7 +260,7 @@ final class TeamApi(
     teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
 
   def disable(team: Team, by: User): Funit =
-    if (lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id)
+    if (lila.security.Granter(_.ManageTeam)(by) || team.createdBy == by.id || !team.leaders(team.createdBy))
       teamRepo.disable(team).void >>- (indexer ! RemoveTeam(team.id))
     else
       teamRepo.setLeaders(team.id, team.leaders - by.id)
