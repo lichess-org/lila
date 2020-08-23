@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">فصول</string>
+  <string name="teachClassesOfChessStudents">قم بتدريس فصول من تلامذة الشطرنج باستخدام مجموعة أدوات فصول ليتشيس.</string>
   <string name="features">مزايا</string>
+  <string name="quicklyGenerateSafeUsernames">أنشئ أسماء مستخدمين آمنة وكلمات مرور للطلاب بسرعة</string>
   <string name="trackStudentProgress">تابع مستوي تقدم الطلبة في الألعاب و الألغاز</string>
   <string name="noClassesYet">لا يوجد حصص.</string>
   <string name="closedByX">أغلقه %s</string>
