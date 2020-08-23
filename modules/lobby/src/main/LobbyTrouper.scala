@@ -1,11 +1,12 @@
 package lila.lobby
 
+import actorApi._
+import cats.implicits._
 import org.joda.time.DateTime
 import scala.annotation.nowarn
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import actorApi._
 import lila.common.config.Max
 import lila.common.{ AtMost, Bus, Every }
 import lila.game.Game
@@ -158,22 +159,12 @@ final private class LobbyTrouper(
     }
 
   private def findCompatible(hook: Hook): Option[Hook] =
-    findCompatibleIn(hook, HookRepo findCompatible hook)
-
-  @scala.annotation.tailrec
-  private def findCompatibleIn(hook: Hook, in: Vector[Hook]): Option[Hook] =
-    in match {
-      case Vector() => none
-      case h +: rest =>
-        import cats.implicits._
-        if (
-          biter.canJoin(h, hook.user) && !(
-            (h.user, hook.user).mapN((_, _)) ?? {
-              case (u1, u2) => recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
-            }
-          )
-        ) h.some
-        else findCompatibleIn(hook, rest)
+    HookRepo findCompatible hook find { existing =>
+      biter.canJoin(existing, hook.user) && !(
+        (existing.user, hook.user).mapN((_, _)) ?? {
+          case (u1, u2) => recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
+        }
+      )
     }
 
   def registerAbortedGame(g: Game) = recentlyAbortedUserIdPairs register g
