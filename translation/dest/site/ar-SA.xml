@@ -1002,4 +1002,6 @@
   <string name="correspondenceDesc">ألعاب المراسلة: يوم أو عدة أيام لكل نقلة</string>
   <string name="puzzleDesc">مدرب تكتيكات الشطرنج</string>
   <string name="important">مهم</string>
+  <string name="yourQuestionMayHaveBeenAnswered">قد يكون سؤالك مجاوب %1$s</string>
+  <string name="inTheFAQ">فى صفحة الأسإلة المتكررة.</string>
 </resources>
