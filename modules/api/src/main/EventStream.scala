@@ -101,6 +101,9 @@ final class EventStream(
         case lila.challenge.Event.Decline(c) if c.challengerUserId has me.id =>
           queue offer toJson("challengeDeclined")(c).some
 
+        case lila.challenge.Event.Cancel(c) if c.destUserId has me.id =>
+          queue offer toJson("challengeCanceled")(c).some
+
         // pretend like the rematch is a challenge
         case lila.hub.actorApi.round.RematchOffer(gameId) =>
           challengeMaker.makeRematchFor(gameId, me) foreach {
