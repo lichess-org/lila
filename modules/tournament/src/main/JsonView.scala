@@ -243,7 +243,7 @@ final class JsonView(
           duels = duelStore.bestRated(id, 6)
           jsonDuels <- duels.map(duelJson).sequenceFu
           duelTeams <- tour.exists(_.isTeamBattle) ?? {
-            playerRepo.teamsOfPlayers(id, duels.foldLeft(List.empty[User.ID])(_ ::: _.userIds)) map { teams =>
+            playerRepo.teamsOfPlayers(id, duels.flatMap(_.userIds)) map { teams =>
               JsObject(teams map {
                 case (userId, teamId) => (userId, JsString(teamId))
               }).some

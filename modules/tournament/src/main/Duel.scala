@@ -37,13 +37,17 @@ object Duel {
 final private class DuelStore {
 
   import Duel._
+  import scala.collection.immutable.TreeSet
 
-  private val byTourId = new ConcurrentHashMap[Tournament.ID, Vector[Duel]](256)
+  private val byTourId = new ConcurrentHashMap[Tournament.ID, TreeSet[Duel]](256)
 
-  def get(tourId: Tournament.ID): Option[Vector[Duel]] = Option(byTourId get tourId)
+  def get(tourId: Tournament.ID): Option[TreeSet[Duel]] = Option(byTourId get tourId)
 
-  def bestRated(tourId: Tournament.ID, nb: Int): Vector[Duel] =
-    ~get(tourId) sortBy (-_.averageRating.value) take nb
+  def bestRated(tourId: Tournament.ID, nb: Int): List[Duel] = {
+    get(tourId).fold(List.empty[Duel])(v =>
+      lila.common.Heapsort.topNToList(v, nb, Ordering.by[Duel, Int](_.averageRating.value))
+    )
+  }
 
   def find(tour: Tournament, user: User): Option[Game.ID] =
     get(tour.id) flatMap { _.find(_ has user).map(_.gameId) }
@@ -60,9 +64,9 @@ final private class DuelStore {
       )
     } byTourId.compute(
       tour.id,
-      (_: Tournament.ID, v: Vector[Duel]) => {
-        if (v == null) Vector(tb)
-        else v :+ tb
+      (_: Tournament.ID, v: TreeSet[Duel]) => {
+        if (v == null) TreeSet(tb)(Ordering.by[Duel, Game.ID](_.gameId))
+        else v + tb
       }
     )
 
@@ -71,8 +75,8 @@ final private class DuelStore {
       tourId <- game.tournamentId
     } byTourId.computeIfPresent(
       tourId,
-      (_: Tournament.ID, tb: Vector[Duel]) => {
-        val w = tb.filter(_.gameId != game.id)
+      (_: Tournament.ID, tb: TreeSet[Duel]) => {
+        val w = tb - Duel(game.id, null, null, Rating(0))
         if (w.isEmpty) null else w
       }
     )
