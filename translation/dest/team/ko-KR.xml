@@ -19,6 +19,8 @@
   </plurals>
   <string name="teamBestPlayers">팀 내 최고 플레이어</string>
   <string name="teamRecentMembers">최근 가입 멤버</string>
+  <string name="kickSomeone">클럽에서 누군가 제거</string>
+  <string name="whoToKick">클럽에서 누구를 제외하고 싶습니까?</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s개의 가입 요청</item>
   </plurals>
@@ -31,5 +33,7 @@
   <string name="messageAllMembers">팀원 전원에게 메시지 보내기</string>
   <string name="messageAllMembersOverview">팀원 전원에게 메시지 보내기</string>
   <string name="messageAllMembersLongDescription">팀원 전원에게 메시지 보내기. 팀 내 대회나 팀 배틀에 참가를 독려하기 위해 사용할 수 있습니다. 메시지를 받기 싫어하는 팀원이 팀을 탈퇴할 수 있습니다.</string>
+  <string name="teamsIlead">내가 이끄는 팀</string>
   <string name="usersWhoCanManageThisTeam">팀 관리자</string>
+  <string name="leadersChat">지도자 \'대화</string>
 </resources>

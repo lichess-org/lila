@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Gizli</string>
-  <string name="myStudies">Benim çalışmalarım</string>
+  <string name="myStudies">Çalışmalarım</string>
   <string name="studiesIContributeTo">Katkıda bulunduğum çalışmalar</string>
-  <string name="myPublicStudies">Paylaştığım çalışmalar</string>
+  <string name="myPublicStudies">Herkese açık çalışmalarım</string>
   <string name="myPrivateStudies">Gizli çalışmalarım</string>
   <string name="myFavoriteStudies">En sevdiğim çalışmalar</string>
-  <string name="whatAreStudies">Çalışmalar ne işe yarar?</string>
+  <string name="whatAreStudies">Çalışmalar nedir?</string>
   <string name="allStudies">Bütün çalışmalar</string>
   <string name="studiesCreatedByX">Çalışmalar %s tarafından oluşturulmuştur</string>
   <string name="noneYet">Henüz yok.</string>
-  <string name="hot">Revaçta</string>
-  <string name="dateAddedNewest">Eklenme tarihi (yeniden eskiye)</string>
-  <string name="dateAddedOldest">Eklenme tarihi (eskiden yeniye)</string>
+  <string name="hot">Popüler</string>
+  <string name="dateAddedNewest">Eklenme tarihi (en yeni)</string>
+  <string name="dateAddedOldest">Eklenme tarihi (en eski)</string>
   <string name="recentlyUpdated">Yeni güncellenmiş</string>
   <string name="mostPopular">En popüler</string>
   <string name="addNewChapter">Yeni bir bölüm ekle</string>
@@ -56,7 +56,7 @@
   <string name="next">Sonraki</string>
   <string name="last">Son</string>
   <string name="shareAndExport">Paylaş ve dışa aktar</string>
-  <string name="cloneStudy">Klonla</string>
+  <string name="cloneStudy">Klon</string>
   <string name="studyPgn">Çalışma PGN\'si</string>
   <string name="downloadAllGames">Bütün oyunları indir</string>
   <string name="chapterPgn">Bölüm PGN\'si</string>
@@ -65,6 +65,7 @@
   <string name="broadcastUrl">Yayın Linki</string>
   <string name="currentChapterUrl">Mevcut Bölümün Adresi</string>
   <string name="currentGameUrl">Şu anki oyunun adresi</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Bunu gömmek için foruma yapıştırabilirsiniz</string>
   <string name="startAtInitialPosition">İlk pozisyondan başlasın</string>
   <string name="startAtX">%s pozisyonundan başlasın</string>
   <string name="embedInYourWebsite">İnternet sitenizde ya da blogunuzda gömülü olarak paylaşın</string>
