@@ -1,9 +1,10 @@
 package lila.perfStat
 
+import org.joda.time.{ DateTime, Period }
+
+import lila.common.Heapsort
 import lila.game.Pov
 import lila.rating.PerfType
-
-import org.joda.time.{ DateTime, Period }
 
 case class PerfStat(
     _id: String, // userId/perfId
@@ -27,8 +28,8 @@ case class PerfStat(
       copy(
         highest = RatingAt.agg(highest, pov, 1),
         lowest = if (thisYear) RatingAt.agg(lowest, pov, -1) else lowest,
-        bestWins = if (~pov.win) bestWins.agg(pov, -1) else bestWins,
-        worstLosses = if (thisYear && ~pov.loss) worstLosses.agg(pov, 1) else worstLosses,
+        bestWins = if (~pov.win) bestWins.agg(pov, 1) else bestWins,
+        worstLosses = if (thisYear && ~pov.loss) worstLosses.agg(pov, -1) else worstLosses,
         count = count(pov),
         resultStreak = resultStreak agg pov,
         playStreak = playStreak agg pov
@@ -194,12 +195,16 @@ case class Results(results: List[Result]) extends AnyVal {
       .ifTrue(pov.game.bothPlayersHaveMoved)
       .fold(this) { opInt =>
         Results(
-          (Result(
-            opInt,
-            UserId(~pov.opponent.userId),
-            pov.game.movedAt,
-            pov.gameId
-          ) :: results).sortBy(_.opInt * comp) take Results.nb
+          Heapsort.topN(
+            Result(
+              opInt,
+              UserId(~pov.opponent.userId),
+              pov.game.movedAt,
+              pov.gameId
+            ) :: results,
+            Results.nb,
+            Ordering.by[Result, Int](_.opInt * comp)
+          )
         )
       }
   def userIds = results.map(_.opId)

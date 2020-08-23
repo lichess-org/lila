@@ -5,13 +5,14 @@ import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import BSONHandlers._
 import lila.common.Bus
+import lila.common.Heapsort.implicits._
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.hub.actors
 import lila.memo.CacheApi._
+import lila.relation.BSONHandlers._
 import lila.user.User
 
 final class RelationApi(
@@ -229,5 +230,5 @@ final class RelationApi(
     }
 
   def searchFollowedBy(u: User, term: String, max: Int): Fu[List[User.ID]] =
-    repo.followingLike(u.id, term) map { _.sorted take max }
+    repo.followingLike(u.id, term) map { _ botN max } // alphabetical order
 }

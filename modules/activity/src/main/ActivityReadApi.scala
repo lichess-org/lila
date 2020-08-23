@@ -3,10 +3,12 @@ package lila.activity
 import org.joda.time.{ DateTime, Interval }
 import reactivemongo.api.ReadPreference
 
+import lila.common.Heapsort
 import lila.db.dsl._
 import lila.game.LightPov
 import lila.practice.PracticeStructure
 import lila.user.User
+import lila.tournament.LeaderboardApi
 
 final class ActivityReadApi(
     coll: Coll,
@@ -95,7 +97,11 @@ final class ActivityReadApi(
           .dmap { entries =>
             entries.nonEmpty option ActivityView.Tours(
               nb = entries.size,
-              best = entries.sortBy(_.rankRatio.value).take(activities.maxSubEntries)
+              best = Heapsort.topN(
+                entries,
+                activities.maxSubEntries,
+                Ordering.by[LeaderboardApi.Entry, Double](-_.rankRatio.value)
+              )
             )
           }
           .mon(_.user segment "activity.tours")

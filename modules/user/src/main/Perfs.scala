@@ -1,8 +1,9 @@
 package lila.user
 
+import chess.Speed
 import org.joda.time.DateTime
 
-import chess.Speed
+import lila.common.Heapsort.implicits._
 import lila.db.BSON
 import lila.rating.{ Glicko, Perf, PerfType }
 
@@ -59,12 +60,14 @@ case class Perfs(
     }
   }
 
+  implicit private val ratingOrdering = Ordering.by[(PerfType, Perf), Int](_._2.intRating)
+
   def bestPerfs(nb: Int): List[(PerfType, Perf)] = {
     val ps = PerfType.nonPuzzle map { pt =>
       pt -> apply(pt)
     }
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
-    ps.filter(p => p._2.nb >= minNb).sortBy(-_._2.intRating) take nb
+    ps.filter(p => p._2.nb >= minNb).topN(nb)
   }
 
   def bestPerfType: Option[PerfType] = bestPerf.map(_._1)

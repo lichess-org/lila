@@ -1,5 +1,6 @@
 package lila.tournament
 
+import lila.common.Heapsort.implicits._
 import lila.user.User
 
 case class Spotlight(
@@ -14,16 +15,13 @@ object Spotlight {
 
   import Schedule.Freq._
 
+  implicit private val importanceOrdering = Ordering.by[Tournament, Int](_.schedule.??(_.freq.importance))
+
   def select(tours: List[Tournament], user: Option[User], max: Int): List[Tournament] =
-    user.fold(sort(tours) take max) { select(tours, _, max) }
+    user.fold(tours topN max) { select(tours, _, max) }
 
   def select(tours: List[Tournament], user: User, max: Int): List[Tournament] =
-    sort(tours.filter { select(_, user) }) take max
-
-  private def sort(tours: List[Tournament]) =
-    tours.sortBy { t =>
-      -t.schedule.??(_.freq.importance)
-    }
+    tours.filter { select(_, user) } topN max
 
   private def select(tour: Tournament, user: User): Boolean =
     !tour.isFinished &&

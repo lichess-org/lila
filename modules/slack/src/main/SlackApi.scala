@@ -2,7 +2,7 @@ package lila.slack
 
 import org.joda.time.DateTime
 
-import lila.common.{ ApiVersion, EmailAddress, IpAddress, LightUser }
+import lila.common.{ ApiVersion, EmailAddress, Heapsort, IpAddress, LightUser }
 import lila.hub.actorApi.slack._
 import lila.user.User
 
@@ -20,6 +20,8 @@ final class SlackApi(
 
     private var buffer: Vector[ChargeEvent] = Vector.empty
 
+    implicit private val amountOrdering = Ordering.by[ChargeEvent, Int](_.amount)
+
     def apply(event: ChargeEvent): Funit =
       if (event.amount < 10000) addToBuffer(event)
       else
@@ -30,7 +32,7 @@ final class SlackApi(
     private def addToBuffer(event: ChargeEvent): Funit = {
       buffer = buffer :+ event
       (buffer.head.date isBefore DateTime.now.minusHours(12)) ?? {
-        val firsts    = buffer.sortBy(-_.amount).take(10).map(_.username).map(userAt).mkString(", ")
+        val firsts    = Heapsort.topN(buffer, 10, amountOrdering).map(_.username).map(userAt).mkString(", ")
         val amountSum = buffer.map(_.amount).sum
         val patrons =
           if (firsts.lengthIs > 10) s"$firsts and, like, ${firsts.lengthIs - 10} others,"
