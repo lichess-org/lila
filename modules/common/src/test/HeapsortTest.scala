@@ -13,8 +13,8 @@ class HeapsortTest extends Specification {
     "hand" in {
       List.range(0, 10).topN(3) must_=== List(9, 8, 7)
       List.range(0, 10).topN(0) must_=== List()
-      List(5, 3, 1, 4, 2).topN(2) must_=== List(5,4)
-      List(5, 3, 1, 4, 2).botN(2) must_=== List(1,2)
+      List(5, 3, 1, 4, 2).topN(2) must_=== List(5, 4)
+      List(5, 3, 1, 4, 2).botN(2) must_=== List(1, 2)
     }
     "Vector" in {
       Heapsort.topN(Vector(5, 3, 1, 4, 2), 2, Ordering.Int) must_=== Vector(5, 4)
