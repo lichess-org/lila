@@ -1,9 +1,10 @@
 package lila.tournament
 
+import java.util.concurrent.ConcurrentHashMap
+import scala.collection.immutable.TreeSet
+
 import lila.game.Game
 import lila.user.User
-
-import java.util.concurrent.ConcurrentHashMap
 
 case class Duel(
     gameId: Game.ID,
@@ -32,22 +33,22 @@ object Duel {
     ranking get User.normalize(p._1) map { rank =>
       DuelPlayer(Name(p._1), Rating(p._2), Rank(rank + 1))
     }
+
+  val ratingOrdering = Ordering.by[Duel, Int](_.averageRating.value)
 }
 
 final private class DuelStore {
 
   import Duel._
-  import scala.collection.immutable.TreeSet
 
   private val byTourId = new ConcurrentHashMap[Tournament.ID, TreeSet[Duel]](256)
 
   def get(tourId: Tournament.ID): Option[TreeSet[Duel]] = Option(byTourId get tourId)
 
-  def bestRated(tourId: Tournament.ID, nb: Int): List[Duel] = {
-    get(tourId).fold(List.empty[Duel])(v =>
-      lila.common.Heapsort.topNToList(v, nb, Ordering.by[Duel, Int](_.averageRating.value))
-    )
-  }
+  def bestRated(tourId: Tournament.ID, nb: Int): List[Duel] =
+    get(tourId) ?? {
+      lila.common.Heapsort.topNToList(_, nb, ratingOrdering)
+    }
 
   def find(tour: Tournament, user: User): Option[Game.ID] =
     get(tour.id) flatMap { _.find(_ has user).map(_.gameId) }
