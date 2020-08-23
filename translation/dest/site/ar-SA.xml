@@ -1004,4 +1004,14 @@
   <string name="important">مهم</string>
   <string name="yourQuestionMayHaveBeenAnswered">قد يكون سؤالك مجاوب %1$s</string>
   <string name="inTheFAQ">فى صفحة الأسإلة المتكررة.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">للإبلاغ عن مستخدم بسبب الغش أو السلوك السيئ، %1$s</string>
+  <string name="useTheReportForm">إستخدم نموذج التبليغ</string>
+  <string name="toRequestSupport">لطلب الدعم، %1$s</string>
+  <string name="tryTheContactPage">جرب صفحة الإتصال</string>
+  <string name="thisTopicIsArchived">تم أرشفة هذا الموضوع ولم يعد يمكن الرد عليه.</string>
+  <string name="joinTheTeamXToPost">انضم إلى %1$s، للمشاركة في هذا المنتدى</string>
+  <string name="teamNamedX">فريق %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">لا يمكنك النشر في المنتديات حتى الآن. إلعب بعض المباريات!</string>
+  <string name="subscribe">اشترك</string>
+  <string name="unsubscribe">إلغاء الإشتراك</string>
 </resources>
