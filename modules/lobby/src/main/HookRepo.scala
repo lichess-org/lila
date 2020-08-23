@@ -12,7 +12,7 @@ private object HookRepo {
 
   def size = hooks.size
 
-  def findCompatible(hook: Hook): Vector[Hook] = hooks filter (_ compatibleWith hook)
+  def findCompatible(hook: Hook): Vector[Hook] = hooks.filter(_ compatibleWith hook)
 
   def truncateIfNeeded() =
     if (size >= hardLimit) {
