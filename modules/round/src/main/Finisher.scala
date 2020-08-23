@@ -140,7 +140,11 @@ final private class Finisher(
               message foreach { messenger.system(g, _) }
               gameRepo game g.id foreach { newGame =>
                 newGame foreach proxy.setFinishedGame
-                Bus.publish(finish.copy(game = newGame | g), "finishGame")
+                val newFinish = finish.copy(game = newGame | g)
+                Bus.publish(newFinish, "finishGame")
+                game.userIds foreach { userId =>
+                  Bus.publish(newFinish, s"userFinishGame:$userId")
+                }
               }
               prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
             }

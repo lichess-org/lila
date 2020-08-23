@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 import lila.challenge.Challenge
 import lila.common.Bus
-import lila.game.actorApi.StartGame
+import lila.game.actorApi.{ FinishGame, StartGame }
 import lila.game.Game
 import lila.user.{ User, UserRepo }
 
@@ -37,8 +37,8 @@ final class EventStream(
     Bus.publish(PoisonPill, s"eventStreamFor:${me.id}")
 
     blueprint mapMaterializedValue { queue =>
-      gamesInProgress map toJson map some foreach queue.offer
-      challenges map toJson("challenge") map some foreach queue.offer
+      gamesInProgress map gameJson("gameStart") map some foreach queue.offer
+      challenges map challengeJson("challenge") map some foreach queue.offer
 
       val actor = system.actorOf(Props(mkActor(me, queue)))
 
@@ -53,6 +53,7 @@ final class EventStream(
 
       val classifiers = List(
         s"userStartGame:${me.id}",
+        s"userFinishGame:${me.id}",
         s"rematchFor:${me.id}",
         s"eventStreamFor:${me.id}",
         "challenge"
@@ -93,34 +94,36 @@ final class EventStream(
             }
           }
 
-        case StartGame(game) => queue offer toJson(game).some
+        case StartGame(game) => queue offer gameJson("gameStart")(game).some
+
+        case FinishGame(game, _, _) => queue offer gameJson("gameFinish")(game).some
 
         case lila.challenge.Event.Create(c) if c.destUserId has me.id =>
-          queue offer toJson("challenge")(c).some
+          queue offer challengeJson("challenge")(c).some
 
         case lila.challenge.Event.Decline(c) if c.challengerUserId has me.id =>
-          queue offer toJson("challengeDeclined")(c).some
+          queue offer challengeJson("challengeDeclined")(c).some
 
         case lila.challenge.Event.Cancel(c) if c.destUserId has me.id =>
-          queue offer toJson("challengeCanceled")(c).some
+          queue offer challengeJson("challengeCanceled")(c).some
 
         // pretend like the rematch is a challenge
         case lila.hub.actorApi.round.RematchOffer(gameId) =>
           challengeMaker.makeRematchFor(gameId, me) foreach {
             _ foreach { c =>
-              queue offer toJson("challenge")(c.copy(_id = gameId)).some
+              queue offer challengeJson("challenge")(c.copy(_id = gameId)).some
             }
           }
       }
     }
 
-  private def toJson(game: Game) =
+  private def gameJson(tpe: String)(game: Game) =
     Json.obj(
-      "type" -> "gameStart",
+      "type" -> tpe,
       "game" -> Json.obj("id" -> game.id)
     )
 
-  private def toJson(tpe: String)(c: lila.challenge.Challenge) =
+  private def challengeJson(tpe: String)(c: lila.challenge.Challenge) =
     Json.obj(
       "type"      -> tpe,
       "challenge" -> challengeJsonView(none)(c)(lila.i18n.defaultLang)
