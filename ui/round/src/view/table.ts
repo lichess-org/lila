@@ -56,7 +56,7 @@ export function renderTablePlay(ctrl: RoundController) {
       game.abortable(d) ? button.standard(ctrl, undefined, 'L', 'abortGame', 'abort') :
       button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
       ctrl.drawConfirm ? button.drawConfirm(ctrl) : button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true)),
-      ctrl.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', () => ctrl.resign(true)),
+      ctrl.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign', () => ctrl.resign(true)),
       replay.analysisButton(ctrl)
     ],
     buttons: MaybeVNodes = loading ? [loader()] : (submit ? [submit] : [
