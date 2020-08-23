@@ -13,4 +13,5 @@ object Direction {
 object Event {
   case class Create(c: Challenge)
   case class Accept(c: Challenge, joinerId: Option[String])
+  case class Decline(c: Challenge)
 }

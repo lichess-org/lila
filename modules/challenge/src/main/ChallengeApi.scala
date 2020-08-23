@@ -7,8 +7,8 @@ import lila.common.Bus
 import lila.common.config.Max
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
-import lila.user.{ User, UserRepo }
 import lila.memo.CacheApi._
+import lila.user.{ User, UserRepo }
 
 final class ChallengeApi(
     repo: ChallengeRepo,
@@ -68,7 +68,11 @@ final class ChallengeApi(
       case _                    => fuccess(socketReload(id))
     }
 
-  def decline(c: Challenge) = (repo decline c) >>- uncacheAndNotify(c)
+  def decline(c: Challenge) =
+    repo.decline(c) >>- {
+      uncacheAndNotify(c)
+      Bus.publish(Event.Decline(c), "challenge")
+    }
 
   private val acceptQueue = new lila.hub.DuctSequencer(maxSize = 64, timeout = 5 seconds, "challengeAccept")
 

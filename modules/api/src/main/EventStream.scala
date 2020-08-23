@@ -2,9 +2,9 @@ package lila.api
 
 import akka.actor._
 import akka.stream.scaladsl._
+import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
-import org.joda.time.DateTime
 
 import lila.challenge.Challenge
 import lila.common.Bus
@@ -38,7 +38,7 @@ final class EventStream(
 
     blueprint mapMaterializedValue { queue =>
       gamesInProgress map toJson map some foreach queue.offer
-      challenges map toJson map some foreach queue.offer
+      challenges map toJson("challenge") map some foreach queue.offer
 
       val actor = system.actorOf(Props(mkActor(me, queue)))
 
@@ -95,13 +95,17 @@ final class EventStream(
 
         case StartGame(game) => queue offer toJson(game).some
 
-        case lila.challenge.Event.Create(c) if c.destUserId has me.id => queue offer toJson(c).some
+        case lila.challenge.Event.Create(c) if c.destUserId has me.id =>
+          queue offer toJson("challenge")(c).some
+
+        case lila.challenge.Event.Decline(c) if c.challengerUserId has me.id =>
+          queue offer toJson("challengeDeclined")(c).some
 
         // pretend like the rematch is a challenge
         case lila.hub.actorApi.round.RematchOffer(gameId) =>
           challengeMaker.makeRematchFor(gameId, me) foreach {
             _ foreach { c =>
-              queue offer toJson(c.copy(_id = gameId)).some
+              queue offer toJson("challenge")(c.copy(_id = gameId)).some
             }
           }
       }
@@ -112,9 +116,10 @@ final class EventStream(
       "type" -> "gameStart",
       "game" -> Json.obj("id" -> game.id)
     )
-  private def toJson(c: Challenge) =
+
+  private def toJson(tpe: String)(c: lila.challenge.Challenge) =
     Json.obj(
-      "type"      -> "challenge",
+      "type"      -> tpe,
       "challenge" -> challengeJsonView(none)(c)(lila.i18n.defaultLang)
     )
 }
