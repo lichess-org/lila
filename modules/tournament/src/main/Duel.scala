@@ -34,7 +34,9 @@ object Duel {
       DuelPlayer(Name(p._1), Rating(p._2), Rank(rank + 1))
     }
 
-  val ratingOrdering = Ordering.by[Duel, Int](_.averageRating.value)
+  private[tournament] val ratingOrdering               = Ordering.by[Duel, Int](_.averageRating.value)
+  private[tournament] val gameIdOrdering               = Ordering.by[Duel, Game.ID](_.gameId)
+  private[tournament] def emptyGameId(gameId: Game.ID) = Duel(gameId, null, null, Rating(0))
 }
 
 final private class DuelStore {
@@ -66,20 +68,20 @@ final private class DuelStore {
     } byTourId.compute(
       tour.id,
       (_: Tournament.ID, v: TreeSet[Duel]) => {
-        if (v == null) TreeSet(tb)(Ordering.by[Duel, Game.ID](_.gameId))
+        if (v == null) TreeSet(tb)(gameIdOrdering)
         else v + tb
       }
     )
 
   def remove(game: Game): Unit =
-    for {
-      tourId <- game.tournamentId
-    } byTourId.computeIfPresent(
-      tourId,
-      (_: Tournament.ID, tb: TreeSet[Duel]) => {
-        val w = tb - Duel(game.id, null, null, Rating(0))
-        if (w.isEmpty) null else w
-      }
-    )
+    game.tournamentId foreach { tourId =>
+      byTourId.computeIfPresent(
+        tourId,
+        (_: Tournament.ID, tb: TreeSet[Duel]) => {
+          val w = tb - emptyGameId(game.id)
+          if (w.isEmpty) null else w
+        }
+      )
+    }
   def remove(tour: Tournament): Unit = byTourId.remove(tour.id)
 }
