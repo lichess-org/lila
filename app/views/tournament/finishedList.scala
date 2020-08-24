@@ -9,27 +9,28 @@ import controllers.routes
 
 object finishedList {
 
-  def apply(finished: List[Tournament])(implicit ctx: Context) =
-    tbody(
-      finished.map { t =>
-        tr(cls := List("tour-scheduled" -> t.isScheduled))(
-          td(cls := "icon")(iconTag(tournamentIconChar(t))),
-          header(t),
-          td(cls := "duration")(t.durationString),
-          td(cls := "winner")(
-            userIdLink(t.winnerId, withOnline = false),
-            br
-          ),
-          td(cls := "text", dataIcon := "r")(t.nbPlayers.localize)
+  def apply(finished: List[Tournament])(implicit ctx: Context): Tag =
+    tbody(finished map apply)
+
+  def apply(t: Tournament)(implicit ctx: Context): Tag =
+    tr(cls := "paginated")(
+      td(cls := "icon")(iconTag(tournamentIconChar(t))),
+      header(t),
+      td(cls := "date")(momentFromNow(t.startsAt)),
+      td(cls := "players")(
+        span(trans.nbPlayers.plural(t.nbPlayers, t.nbPlayers.localize)),
+        span(
+          iconTag('C')(cls := "text"),
+          userIdLink(t.winnerId, withOnline = false)
         )
-      }
+      )
     )
 
   def header(t: Tournament)(implicit ctx: Context) =
     td(cls := "header")(
       a(href := routes.Tournament.show(t.id))(
         span(cls := "name")(t.name()),
-        span(cls := "setup")(
+        span(
           t.clock.show,
           " • ",
           if (t.variant.exotic) t.variant.name else t.perfType.map(_.trans),

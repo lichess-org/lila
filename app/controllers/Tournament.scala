@@ -4,6 +4,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.annotation.nowarn
 import scala.concurrent.duration._
+import views._
 
 import lila.api.Context
 import lila.app._
@@ -13,7 +14,6 @@ import lila.hub.LightTeam._
 import lila.memo.CacheApi._
 import lila.tournament.{ VisibleTournaments, Tournament => Tour }
 import lila.user.{ User => UserModel }
-import views._
 
 final class Tournament(
     env: Env,
@@ -418,6 +418,16 @@ final class Tournament(
     Open { implicit ctx =>
       api.calendar map { tours =>
         Ok(html.tournament.calendar(env.tournament.apiJsonView calendar tours))
+      }
+    }
+
+  def history(freq: String, page: Int) =
+    Open { implicit ctx =>
+      lila.tournament.Schedule.Freq(freq) ?? { fr =>
+        api.history(fr, page) flatMap { pager =>
+          env.user.lightUserApi preloadMany pager.currentPageResults.flatMap(_.winnerId) inject
+            Ok(html.tournament.history(fr, pager))
+        }
       }
     }
 
