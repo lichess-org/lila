@@ -1,13 +1,12 @@
 package views.html
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-
-import controllers.routes
 
 object event {
 
@@ -51,15 +50,13 @@ object event {
           p(cls := "desc")(richText(d))
         },
         if (e.isFinished) p(cls := "desc")("The event is finished.")
-        else {
-          if (e.isNow) a(href := e.url, cls := "button button-fat")(trans.eventInProgress())
-          else
-            ul(cls := "countdown", dataSeconds := ~e.secondsToStart)(
-              List("Days", "Hours", "Minutes", "Seconds") map { t =>
-                li(span(cls := t.toLowerCase), t)
-              }
-            )
-        }
+        else if (e.isNow) a(href := e.url, cls := "button button-fat")(trans.eventInProgress())
+        else
+          ul(cls := "countdown", dataSeconds := (~e.secondsToStart + 1))(
+            List("Days", "Hours", "Minutes", "Seconds") map { t =>
+              li(span(cls := t.toLowerCase), t)
+            }
+          )
       )
     }
 
