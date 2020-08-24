@@ -9,7 +9,7 @@
   <string name="whatAreStudies">Kas ir izpētes?</string>
   <string name="allStudies">Visas izpētes</string>
   <string name="studiesCreatedByX">Izpētes, ko izveidoja %s</string>
-  <string name="noneYet">Vēl nav.</string>
+  <string name="noneYet">Pagaidām nevienas.</string>
   <string name="hot">Nesen populārās</string>
   <string name="dateAddedNewest">Pievienošanas datums (jaunākās)</string>
   <string name="dateAddedOldest">Pievienošanas datums (vecākās)</string>
@@ -41,11 +41,11 @@
   <string name="leaveTheStudy">Pamest izpēti</string>
   <string name="youAreNowAContributor">Tagad esat ieguldītājs</string>
   <string name="youAreNowASpectator">Tagad esat skatītājs</string>
-  <string name="pgnTags">PGN etiķetes</string>
+  <string name="pgnTags">PGN birkas</string>
   <string name="like">Patīk</string>
-  <string name="newTag">Jauna etiķete</string>
-  <string name="commentThisPosition">Komentēt par šo pozīciju</string>
-  <string name="commentThisMove">Komentēt par šo gājienu</string>
+  <string name="newTag">Jauna birka</string>
+  <string name="commentThisPosition">Komentēt šo pozīciju</string>
+  <string name="commentThisMove">Komentēt šo gājienu</string>
   <string name="annotateWithGlyphs">Anotēt ar glifiem</string>
   <string name="theChapterIsTooShortToBeAnalysed">Šī nodaļa ir par īsu lai to analizētu.</string>
   <string name="onlyContributorsCanRequestAnalysis">Tikai izpētes ieguldītāji var pieprasīt datoranalīzi.</string>
