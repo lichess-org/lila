@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.hub.LeaderTeam
-import lila.tournament.{ Condition, TournamentForm, Tournament }
+import lila.tournament.{ Condition, Tournament, TournamentForm }
 
 object form {
 
@@ -290,7 +290,9 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
     form3.group(
       form("startDate"),
       frag("Custom start date"),
-      help = frag("""This overrides the "Time before tournament starts" setting""").some
+      help = frag(
+        """In your own local timezone. This overrides the "Time before tournament starts" setting"""
+      ).some
     )(form3.flatpickr(_))
   def advancedSettings =
     frag(
