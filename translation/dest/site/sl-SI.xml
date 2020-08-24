@@ -929,8 +929,11 @@ v %3$s</string>
   <string name="correspondenceDesc">Dopisne igre: dan ali več za potezo</string>
   <string name="puzzleDesc">Trening šahovskih taktik</string>
   <string name="important">Pomembno</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Odgovor na vaše vprašanje, je lahko že v %1$s</string>
   <string name="inTheFAQ">v odgovorih na pogosta vprašanja.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Za prijavo uporabnika zaradi goljufanja ali neprimernega vedenja, %1$s</string>
   <string name="useTheReportForm">uporabi prijavni obrazec</string>
+  <string name="toRequestSupport">Za zahtevo podpore, %1$s</string>
   <string name="tryTheContactPage">poskusi s stranjo za stike</string>
   <string name="thisTopicIsArchived">Ta tema je arhivirana in nanjo ni mogoče več odgovarjati.</string>
   <string name="joinTheTeamXToPost">Pridruži se ekipi %1$s, da boš lahko objavljal sporočila na forumu</string>
