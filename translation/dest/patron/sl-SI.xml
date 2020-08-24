@@ -70,6 +70,7 @@ Ali pa %s.</string>
   <string name="amount">Znesek</string>
   <string name="transactionCompleted">Vaša transakcija je zaključena in poslali smo vam potrdilo o prejemu donacije.</string>
   <string name="permanentPatron">Zdaj imate stalen račun pokrovitelja.</string>
+  <string name="checkOutProfile">Preglejte svojo stran s profilom!</string>
   <string name="nowLifetime">Zdaj ste doživljenski Lichess pokrovitelj!</string>
   <string name="nowOneMonth">Zdaj ste Lichess pokrovitelj za en mesec!</string>
   <string name="downgradeNextMonth">V enem mesecu vam NE bomo spet zaračunali in vaš Lichess račun se bo vrnil na običajni račun.</string>
