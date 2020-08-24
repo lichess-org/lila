@@ -11,4 +11,7 @@
   <string name="monthlyRapid">Ай сайынғы Рапид</string>
   <string name="yearlyRapidArena">Жыл сайынғы Рапид Алаңы</string>
   <string name="yearlyRapid">Жыл сайынғы Рапид</string>
+  <string name="rapidShieldArena">Рапид Қалқан Алаңы</string>
+  <string name="rapidShield">Рапид Қалқаны</string>
+  <string name="openingRapid">%s Рапид</string>
 </resources>
