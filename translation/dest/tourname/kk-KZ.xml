@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Бір сағаттық Рапид алаңы</string>
-  <string name="hourlyRapid">Бір сағаттық Рапид</string>
+  <string name="hourlyRapidArena">Сағат сайынғы Рапид Алаңы</string>
+  <string name="hourlyRapid">Сағат сайынғы Рапид</string>
+  <string name="dailyRapidArena">Күн сайынғы Рапид Алаңы</string>
+  <string name="dailyRapid">Күн сайынғы Рапид</string>
+  <string name="easternRapidArena">Шығыс Рапид Алаңы</string>
+  <string name="easternRapid">Шығыс Рапид</string>
+  <string name="weeklyRapidArena">Апта сайынғы Рапид Алаңы</string>
+  <string name="weeklyRapid">Апта сайынғы Рапид</string>
+  <string name="monthlyRapid">Ай сайынғы Рапид</string>
+  <string name="yearlyRapidArena">Жыл сайынғы Рапид Алаңы</string>
+  <string name="yearlyRapid">Жыл сайынғы Рапид</string>
 </resources>
