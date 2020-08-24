@@ -328,6 +328,12 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       )
     )
 
+  def setSchedule(tourId: Tournament.ID, schedule: Option[Schedule]) =
+    schedule match {
+      case None    => coll.unsetField($id(tourId), "schedule").void
+      case Some(s) => coll.updateField($id(tourId), "schedule", s).void
+    }
+
   def insert(tour: Tournament) = coll.insert.one(tour)
 
   def remove(tour: Tournament) = coll.delete.one($id(tour.id))

@@ -73,8 +73,8 @@ final class TournamentApi(
       mode = setup.realMode,
       password = setup.password,
       variant = setup.realVariant,
-      position =
-        TournamentForm.startingPosition(setup.position | chess.StartingPosition.initial.fen, setup.realVariant),
+      position = TournamentForm
+        .startingPosition(setup.position | chess.StartingPosition.initial.fen, setup.realVariant),
       berserkable = setup.berserkable | true,
       streakable = setup.streakable | true,
       teamBattle = setup.teamBattleByTeam map TeamBattle.init,
@@ -685,6 +685,16 @@ final class TournamentApi(
     tournamentRepo.finishedByTeam(teamId, nbPast) zip
       tournamentRepo.upcomingByTeam(teamId, nbNext) map
       (Tournament.PastAndNext.apply _).tupled
+
+  def toggleFeaturing(tourId: Tournament.ID, v: Boolean): Funit =
+    if (v)
+      tournamentRepo.byId(tourId) flatMap {
+        _ ?? { tour =>
+          tournamentRepo.setSchedule(tour.id, Schedule.uniqueFor(tour).some)
+        }
+      }
+    else
+      tournamentRepo.setSchedule(tourId, none)
 
   private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[LightPov]] =
     pairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap
