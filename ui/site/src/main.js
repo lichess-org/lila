@@ -48,7 +48,7 @@
       timeout = undefined;
       $('#announce').remove();
     };
-    const set = (d) => {
+    const set = d => {
       if (!d) return;
       kill();
       if (d.msg) {
@@ -71,41 +71,31 @@
   const $friendsBox = $('#friend_box');
   $.extend(true, lichess.StrongSocket.defaults, {
     events: {
-      following_onlines: function(_, d) {
+      following_onlines(_, d) {
         d.users = d.d;
         $friendsBox.friends("set", d);
       },
-      following_enters: function(_, d) {
+      following_enters(_, d) {
         $friendsBox.friends('enters', d);
       },
-      following_leaves: function(name) {
+      following_leaves(name) {
         $friendsBox.friends('leaves', name);
       },
-      following_playing: function(name) {
+      following_playing(name) {
         $friendsBox.friends('playing', name);
       },
-      following_stopped_playing: function(name) {
+      following_stopped_playing(name) {
         $friendsBox.friends('stopped_playing', name);
       },
-      following_joined_study: function(name) {
-        $friendsBox.friends('study_join', name);
-      },
-      following_left_study: function(name) {
-        $friendsBox.friends('study_leave', name);
-      },
-      new_notification: function(e) {
-        $('#notify-toggle').attr('data-count', e.unread || 0);
-        lichess.sound.newPM();
-      },
-      redirect: function(o) {
-        setTimeout(function() {
+      redirect(o) {
+        setTimeout(() => {
           lichess.hasToReload = true;
           lichess.redirect(o);
         }, 200);
       },
-      tournamentReminder: function(data) {
+      tournamentReminder(data) {
         if ($('#announce').length || $('body').data("tournament-id") == data.id) return;
-        var url = '/tournament/' + data.id;
+        const url = '/tournament/' + data.id;
         $('body').append(
           '<div id="announce">' +
           '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>' +
