@@ -19,10 +19,12 @@ object EvalCacheSelector {
       .toList
       // and sort the groups by multiPv, higher first
       .sortBy(-_._1)
-      .map(_._2)
-      // then sort each group's evals, and keep only the best eval in each group
-      .map(_ sortBy ranking)
-      .flatMap(_.lastOption)
+      //keep only the best eval in each group
+      .flatMap(t => {
+          import cats.implicits._
+          t._2.maximumByOption(ranking)
+        }
+      )
       // now remove obsolete evals
       .foldLeft(Nil: Evals) {
         case (acc, e) if acc.exists { makesObsolete(_, e) } => acc
