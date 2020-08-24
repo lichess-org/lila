@@ -544,6 +544,8 @@
   <string name="drawVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
   <string name="timeline">Уақыт тізбегі</string>
   <string name="starting">Басталуы:</string>
+  <string name="allInformationIsPublicAndOptional">Бүкіл мәлімет жалпыға ашық және оны көрсету - әркімнің өз еркі.</string>
+  <string name="yourCityRegionOrDepartment">Сіз тұратын қала, облыс немесе аймақ.</string>
   <string name="learnMenu">Үйрену</string>
   <string name="studyMenu">Зерттеу</string>
   <string name="practice">Жаттығу</string>
