@@ -1,12 +1,11 @@
 package lila.swiss
 
+import cats.implicits._
 import scala.concurrent.duration._
-import org.joda.time.DateTime
 
 import lila.db.dsl._
 import lila.hub.LightTeam.TeamID
 import lila.memo._
-import lila.memo.CacheApi._
 
 final private class SwissCache(
     colls: SwissColls,
@@ -57,31 +56,4 @@ final private class SwissCache(
     def get(teamId: TeamID)        = cache get teamId
     def invalidate(teamId: TeamID) = cache.put(teamId, compute(teamId))
   }
-
-  private[swiss] object feature {
-
-    private val cache = cacheApi.unit[(List[Swiss], List[Swiss])] {
-      _.refreshAfterWrite(10 seconds)
-        .buildAsyncFuture { _ =>
-          compute($doc("$lt" -> DateTime.now)) zip
-            compute($doc("$gt" -> DateTime.now, "$lt" -> DateTime.now.plusHours(1)))
-        }
-    }
-
-    private def compute(startsAtRange: Bdoc): Fu[List[Swiss]] =
-      colls.swiss
-        .find(
-          $doc(
-            "featurable" -> true,
-            "settings.i" $lte 600, // hits the partial index
-            "startsAt" -> startsAtRange
-          )
-        )
-        .sort($sort desc "nbPlayers")
-        .cursor[Swiss]()
-        .list(5)
-
-    def get = cache.getUnit
-  }
-
 }

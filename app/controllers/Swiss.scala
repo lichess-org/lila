@@ -22,9 +22,7 @@ final class Swiss(
 
   def home =
     Open { implicit ctx =>
-      env.swiss.api.featurable map {
-        case (now, soon) => Ok(html.swiss.home(now, soon))
-      }
+      env.swiss.api.feature.get map html.swiss.home.apply map { Ok(_) }
     }
 
   def show(id: String) =
