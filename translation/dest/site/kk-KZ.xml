@@ -600,12 +600,12 @@
   <string name="wishYouGreatGames">Личес-та әдемі ойындар болсын деп тілейміз.</string>
   <string name="thankYouForReading">Оқығаныңыз үшін рахмет!</string>
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
-  <string name="rapid">Шапшаң</string>
+  <string name="rapid">Рапид</string>
   <string name="classical">Классикалық</string>
   <string name="ultraBulletDesc">Лезде ойындар: 30 секундтан кем</string>
   <string name="bulletDesc">Аса жылдам ойындар: 3 минуттан кем</string>
   <string name="blitzDesc">Жылдам ойындар: 3-тен 8 минутке дейін</string>
-  <string name="rapidDesc">Шапшаң ойындар: 8-ден 25 минутке дейін</string>
+  <string name="rapidDesc">Рапид ойындары: 8-ден 25 минутке дейін</string>
   <string name="classicalDesc">Классикалық ойындар: 25 минут және одан артық</string>
   <string name="subscribe">Жазылу</string>
   <string name="unsubscribe">Жазылымды тоқтату</string>
