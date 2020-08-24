@@ -29,7 +29,7 @@ export default function(opts: RoundOpts): void {
         end() {
           $.ajax({
             url: [(data.tv ? '/tv' : ''), data.game.id, data.player.color, 'sides'].join('/'),
-            success: function(html) {
+            success(html) {
               const $html = $(html), $meta = $html.find('.game__meta');
               $meta.length && $('.game__meta').replaceWith($meta);
               $('.crosstable').replaceWith($html.find('.crosstable'));
@@ -83,7 +83,7 @@ export default function(opts: RoundOpts): void {
   $('.round__now-playing .move-on input')
   .change(round.moveOn.toggle)
   .prop('checked', round.moveOn.get())
-  .on('click', 'a', function() {
+  .on('click', 'a', () => {
     li.hasToReload = true;
     return true;
   });

@@ -25,12 +25,10 @@ const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redir
 
 const loader = () => h('i.ddloader');
 
-function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes) {
-  return [
-    replay.render(ctrl),
-    buttons.find(x => !!x) ? h('div.rcontrols', buttons) : null
-  ];
-}
+const renderTableWith = (ctrl: RoundController, buttons: MaybeVNodes) => [
+  replay.render(ctrl),
+  buttons.find(x => !!x) ? h('div.rcontrols', buttons) : null
+];
 
 export const renderTableEnd = (ctrl: RoundController) =>
   renderTableWith(ctrl, [
