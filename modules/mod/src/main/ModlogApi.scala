@@ -143,9 +143,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       )
     }
 
-  def deleteTeam(mod: User.ID, name: String, desc: String) =
+  def deleteTeam(mod: User.ID, id: String, name: String) =
     add {
-      Modlog(mod, none, Modlog.deleteTeam, details = s"$name / $desc".take(200).some)
+      Modlog(mod, none, Modlog.deleteTeam, details = s"$id / $name".take(200).some)
     }
 
   def disableTeam(mod: User.ID, id: String, name: String) =
