@@ -546,6 +546,20 @@
   <string name="starting">Басталуы:</string>
   <string name="allInformationIsPublicAndOptional">Бүкіл мәлімет жалпыға ашық және оны көрсету - әркімнің өз еркі.</string>
   <string name="yourCityRegionOrDepartment">Сіз тұратын қала, облыс немесе аймақ.</string>
+  <string name="biographyDescription">Өзіңіз туралы айтып беріңізші: айналысатын істеріңіз, неге шахматпен шұғылданасыз, ұнайтын бастаулар, ойыншылар, ...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Ең көбі: %s таңба.</item>
+    <item quantity="other">Ең көбі: %s таңба.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s бұғатталды</item>
+    <item quantity="other">%s бұғатталды</item>
+  </plurals>
+  <string name="listBlockedPlayers">Бұғатталған ойыншыларды көрсету</string>
+  <string name="human">Адам</string>
+  <string name="computer">Компьютер</string>
+  <string name="side">Жақ</string>
+  <string name="clock">Сағат-құрал</string>
   <string name="learnMenu">Үйрену</string>
   <string name="studyMenu">Зерттеу</string>
   <string name="practice">Жаттығу</string>
