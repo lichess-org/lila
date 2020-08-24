@@ -17,7 +17,8 @@ print(db.game5.update({
 }, {
   $pull: {
     us: userId
-  }
+  },
+  $unset: { p1: true }
 }, multi).nModified + ' done');
 
 print('Set white games as anon');
@@ -27,13 +28,24 @@ print(db.game5.update({
 }, {
   $set: {
     'us.0': ''
-  }
+  },
+  $unset: { p0: true }
 }, multi).nModified + ' done');
 print('done');
 
-print('Delete PMs');
+print('Delete old PMs');
 print(db.m_thread.remove({
   visibleByUserIds: userId
+}).nRemoved + ' done');
+
+print('Delete new PMs');
+print(db.msg_thread.remove({
+  users: userId
+}).nRemoved + ' done');
+
+print('Delete mod log');
+print(db.modlog.remove({
+  user: userId
 }).nRemoved + ' done');
 
 print('Delete rating history');
