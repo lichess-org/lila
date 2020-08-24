@@ -517,8 +517,14 @@
   <string name="clockInitialTime">Сағаттың бастапқы уақыты</string>
   <string name="clockIncrement">Уақыт қосылғышы</string>
   <string name="privacy">Даралық</string>
-  <string name="letOtherPlayersFollowYou">Сізге серік болуды ойыншыларға рұқсат ету</string>
+  <string name="letOtherPlayersFollowYou">Ойыншылар сізге серік бола ала ма?</string>
+  <string name="letOtherPlayersChallengeYou">Ойыншылар сізді ойынға шақыра ала ма?</string>
+  <string name="letOtherPlayersInviteYouToStudy">Ойыншылар сізді зерттеуге шақыра ала ма?</string>
   <string name="sound">Дыбыстар</string>
+  <string name="none">Жоқ</string>
+  <string name="fast">Тез</string>
+  <string name="normal">Қалыпты</string>
+  <string name="slow">Баяу</string>
   <string name="always">Әрқашан</string>
   <string name="never">Ешқашан</string>
   <string name="learnMenu">Үйрену</string>
