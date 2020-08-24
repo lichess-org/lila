@@ -352,6 +352,7 @@
   <string name="block">Блок</string>
   <string name="blocked">Блоктар</string>
   <string name="unblock">Бұғаттан шығару</string>
+  <string name="followsYou">Сізге серік болды</string>
   <string name="xStartedFollowingY">%1$s %2$s серігі болды</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s серік</item>
@@ -513,6 +514,8 @@
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>
   <string name="newPasswordAgain">Жаңа құпиясөз (қайтадан)</string>
+  <string name="clockInitialTime">Сағаттың бастапқы уақыты</string>
+  <string name="clockIncrement">Уақыт қосылғышы</string>
   <string name="sound">Дыбыстар</string>
   <string name="always">Әрқашан</string>
   <string name="never">Ешқашан</string>
