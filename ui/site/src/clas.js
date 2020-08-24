@@ -51,7 +51,7 @@ $(function() {
         },
         template: function(o, i) {
           return '<span class="ulpt user-link' + (o.online ? ' online' : '') + '" href="/@/' + o.name + '">' +
-            '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '')  + o.name +
+            '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="utitle">' + o.title + '</span>&nbsp;' : '')  + o.name +
             '</span>';
         },
         replace: function(o) {
