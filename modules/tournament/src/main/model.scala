@@ -26,9 +26,7 @@ case class GameView(
 }
 
 case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.ID]) {
-  def page = {
-    math.floor((rank - 1) / 10) + 1
-  }.toInt
+  def page = (rank + 9) / 10
 }
 
 case class VisibleTournaments(

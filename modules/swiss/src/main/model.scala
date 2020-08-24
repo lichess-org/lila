@@ -9,7 +9,7 @@ object SwissRound {
 }
 
 case class MyInfo(rank: Int, gameId: Option[Game.ID], user: User, player: SwissPlayer) {
-  def page = { math.floor((rank - 1) / 10) + 1 }.toInt
+  def page = (rank + 9) / 10
 }
 
 final class GetSwissName(f: Swiss.Id => Option[String]) extends (Swiss.Id => Option[String]) {
