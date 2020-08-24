@@ -222,6 +222,8 @@ GET   /tournament/team-battle/new/:teamId     controllers.Tournament.teamBattleF
 GET   /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleEdit(id: String)
 POST  /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleUpdate(id: String)
 GET   /tournament/calendar                    controllers.Tournament.calendar
+GET   /tournament/history                     controllers.Tournament.history(freq: String = "unique", page: Int ?= 1)
+GET   /tournament/history/:freq               controllers.Tournament.history(freq: String, page: Int ?= 1)
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: String)
 GET   /tournament/$id<\w{8}>/standing/:page   controllers.Tournament.standing(id: String, page: Int)
 GET   /tournament/$id<\w{8}>/page-of/:userId  controllers.Tournament.pageOf(id: String, userId: String)
