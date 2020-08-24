@@ -5,6 +5,7 @@ import BSONHandlers._
 import org.joda.time.DateTime
 import scala.util.chaining._
 
+import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
@@ -60,7 +61,8 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
         projection = none,
         sort = $doc("startsAt" -> -1)
       ),
-      currentPage = page
+      currentPage = page,
+      maxPerPage = MaxPerPage(20)
     )
 
   private def empty =
