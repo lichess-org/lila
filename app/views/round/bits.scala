@@ -136,6 +136,6 @@ object bits {
       div(cls := "rclock rclock-top preload")(div(cls := "time")(nbsp)),
       div(cls := "rclock rclock-bottom preload")(div(cls := "time")(nbsp)),
       div(cls := "rmoves")(div(cls := "moves")),
-      controls option div(cls := "rcontrols")(i(cls := "ddloader"))
+      controls option div(cls := "rcontrols rcontrols-preload")
     )
 }

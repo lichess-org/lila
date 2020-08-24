@@ -151,6 +151,7 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
     form3.group(
       form("startsAt"),
       frag("Tournament start date"),
+      help = frag("In your own local timezone").some,
       half = true
     )(form3.flatpickr(_))
 

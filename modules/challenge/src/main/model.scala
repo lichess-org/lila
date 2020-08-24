@@ -14,4 +14,5 @@ object Event {
   case class Create(c: Challenge)
   case class Accept(c: Challenge, joinerId: Option[String])
   case class Decline(c: Challenge)
+  case class Cancel(c: Challenge)
 }

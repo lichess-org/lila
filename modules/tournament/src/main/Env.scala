@@ -134,6 +134,10 @@ final class Env(
       def process = {
         case "tournament" :: "leaderboard" :: "generate" :: Nil =>
           leaderboardIndexer.generateAll inject "Done!"
+        case "tournament" :: "feature" :: id :: Nil =>
+          api.toggleFeaturing(id, true) inject "Done!"
+        case "tournament" :: "unfeature" :: id :: Nil =>
+          api.toggleFeaturing(id, false) inject "Done!"
       }
     }
 }

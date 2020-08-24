@@ -1,14 +1,14 @@
 package views.html.tournament
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
+import lila.tournament.Schedule.Freq
 import lila.tournament.Tournament
-
-import controllers.routes
 
 object home {
 
@@ -67,6 +67,8 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
             },
             a(href := routes.Tournament.calendar())(trans.tournamentCalendar()),
             br,
+            a(href := routes.Tournament.history(Freq.Unique.name))(trans.arena.history()),
+            br,
             a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ())
           ),
           h2(trans.lichessTournaments()),
@@ -94,14 +96,13 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
           ),
           div(cls := "tour-chart")
         ),
-        div(cls := "tour-home__list box")(
-          table(cls := "slist")(
+        div(cls := "arena-list box")(
+          table(cls := "slist slist-pad")(
             thead(
               tr(
                 th(colspan := 2, cls := "large")(trans.finished()),
-                th(trans.duration()),
-                th(trans.winner()),
-                th(trans.players())
+                th(cls := "date"),
+                th(cls := "players")
               )
             ),
             finishedList(finished)

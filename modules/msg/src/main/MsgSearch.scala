@@ -1,6 +1,8 @@
 package lila.msg
 
+
 import reactivemongo.api.bson._
+import reactivemongo.api.ReadPreference
 
 import lila.common.LightUser
 import lila.db.dsl._
@@ -40,7 +42,13 @@ final class MsgSearch(
         )
       )
       .sort($sort desc "lastMsg.date")
-      .cursor[MsgThread]()
+      .hint(
+        colls.thread hint $doc(
+          "users"        -> 1,
+          "lastMsg.date" -> -1
+        )
+      )
+      .cursor[MsgThread](ReadPreference.secondaryPreferred)
       .list(5)
 
   private def searchFriends(me: User, q: String): Fu[List[LightUser]] =

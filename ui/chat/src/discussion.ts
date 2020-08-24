@@ -71,7 +71,8 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
       placeholder,
       autocomplete: 'off',
       maxlength: 140,
-      disabled: ctrl.vm.timeout || !ctrl.vm.writeable
+      disabled: ctrl.vm.timeout || !ctrl.vm.writeable,
+      'aria-label': 'Chat input'
     },
     hook: {
       insert(vnode) {

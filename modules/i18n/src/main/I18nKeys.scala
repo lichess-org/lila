@@ -775,6 +775,7 @@ val `thereIsACountdown` = new I18nKey("arena:thereIsACountdown")
 val `thisIsPrivate` = new I18nKey("arena:thisIsPrivate")
 val `shareUrl` = new I18nKey("arena:shareUrl")
 val `drawStreak` = new I18nKey("arena:drawStreak")
+val `history` = new I18nKey("arena:history")
 val `drawingWithinNbMoves` = new I18nKey("arena:drawingWithinNbMoves")
 }
 

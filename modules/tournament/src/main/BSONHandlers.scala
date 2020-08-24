@@ -26,6 +26,13 @@ object BSONHandlers {
     x => BSONString(x.key)
   )
 
+  implicit val scheduleWriter = BSONWriter[Schedule](s =>
+    $doc(
+      "freq"  -> s.freq,
+      "speed" -> s.speed
+    )
+  )
+
   implicit val tournamentClockBSONHandler = tryHandler[ClockConfig](
     {
       case doc: BSONDocument =>
@@ -93,25 +100,20 @@ object BSONHandlers {
     }
     def writes(w: BSON.Writer, o: Tournament) =
       $doc(
-        "_id"        -> o.id,
-        "name"       -> o.name,
-        "status"     -> o.status,
-        "clock"      -> o.clock,
-        "minutes"    -> o.minutes,
-        "variant"    -> o.variant.some.filterNot(_.standard).map(_.id),
-        "fen"        -> o.position.some.filterNot(_.initial).map(_.fen),
-        "mode"       -> o.mode.some.filterNot(_.rated).map(_.id),
-        "password"   -> o.password,
-        "conditions" -> o.conditions.ifNonEmpty,
-        "teamBattle" -> o.teamBattle,
-        "noBerserk"  -> w.boolO(o.noBerserk),
-        "noStreak"   -> w.boolO(o.noStreak),
-        "schedule" -> o.schedule.map { s =>
-          $doc(
-            "freq"  -> s.freq,
-            "speed" -> s.speed
-          )
-        },
+        "_id"         -> o.id,
+        "name"        -> o.name,
+        "status"      -> o.status,
+        "clock"       -> o.clock,
+        "minutes"     -> o.minutes,
+        "variant"     -> o.variant.some.filterNot(_.standard).map(_.id),
+        "fen"         -> o.position.some.filterNot(_.initial).map(_.fen),
+        "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
+        "password"    -> o.password,
+        "conditions"  -> o.conditions.ifNonEmpty,
+        "teamBattle"  -> o.teamBattle,
+        "noBerserk"   -> w.boolO(o.noBerserk),
+        "noStreak"    -> w.boolO(o.noStreak),
+        "schedule"    -> o.schedule,
         "nbPlayers"   -> o.nbPlayers,
         "createdAt"   -> w.date(o.createdAt),
         "createdBy"   -> o.nonLichessCreatedBy,

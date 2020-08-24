@@ -68,8 +68,10 @@
   <string name="analysisMode">وضع التحليل</string>
   <string name="pinnedChapterComment">التعليق المثبت على الفصل</string>
   <string name="saveChapter">حفظ الفصل</string>
+  <string name="clearAnnotations">مسح العلامات</string>
   <string name="deleteChapter">حذف الفصل</string>
   <string name="deleteThisChapter">هل تريد حذف الفصل ؟ لايمكنك التراجع عن ذلك لاحقاً!</string>
+  <string name="clearAllCommentsInThisChapter">مسح جميع التعليقات والغلافات والأشكال المرسومة في هذا الفصل؟</string>
   <string name="rightUnderTheBoard">تحت الرقعة مباشرة</string>
   <string name="noPinnedComment">بدون</string>
   <string name="normalAnalysis">تحليل عادي</string>
@@ -77,6 +79,7 @@
   <string name="interactiveLesson">درس تفاعلي</string>
   <string name="chapterX">الفصل %s</string>
   <string name="empty">فارغ</string>
+  <string name="startFromInitialPosition">البدء من وضعية البداية</string>
   <string name="editor">المحرر</string>
   <string name="startFromCustomPosition">البدء من وضع مخصص</string>
   <string name="loadAGameByUrl">تحميل لعبة من رابط</string>
@@ -89,6 +92,7 @@
   <string name="configureLiveBroadcast">تهيئة بث مباشر</string>
   <string name="createStudy">أنشى الدراسة</string>
   <string name="editStudy">حرر الدراسة</string>
+  <string name="visibility">الظهور</string>
   <string name="public">عامة</string>
   <string name="unlisted">غير مدرجة</string>
   <string name="inviteOnly">دعوة فقط</string>
@@ -99,6 +103,14 @@
   <string name="members">اعضاء</string>
   <string name="everyone">الجميع</string>
   <string name="enableSync">مكن المزامنة</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">نعم: إبقاء الجميع في نفس الوضعية</string>
+  <string name="noLetPeopleBrowseFreely">لا: دع الناس يتصفحون بحرية</string>
+  <string name="pinnedStudyComment">تعليق الدراسة المثبتة</string>
+  <string name="start">ابدأ</string>
   <string name="save">حفظ</string>
   <string name="clearChat">مسح المحادثة</string>
+  <string name="deleteTheStudyChatHistory">هل تريد حذف سجل الدردشة الدراسية؟ لا يمكن إرجاعها!</string>
+  <string name="deleteStudy">حذف الدراسة</string>
+  <string name="deleteTheEntireStudy">هل تريد حذف الدراسة كلها؟ لا يمكن إرجاعها!</string>
+  <string name="whereDoYouWantToStudyThat">أين تريد دراسة ذلك؟</string>
 </resources>

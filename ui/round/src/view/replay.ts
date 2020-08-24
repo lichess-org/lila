@@ -39,7 +39,7 @@ function renderMove(step: Step, curPly: number, orEmpty: boolean) {
 }
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
-  let result;
+  let result: string | undefined;
   if (status.finished(ctrl.data)) switch (ctrl.data.game.winner) {
     case 'white':
       result = '1-0';
@@ -61,7 +61,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
         })
       }, [
         viewStatus(ctrl),
-        winner ? ' • ' + ctrl.trans.noarg(winner + 'IsVictorious') : ''
+        winner ? ' • ' + ctrl.noarg(winner + 'IsVictorious') : ''
       ])
     ]);
   }
@@ -100,7 +100,7 @@ export function analysisButton(ctrl: RoundController): VNode | undefined {
       'text': !!forecastCount
     },
     attrs: {
-      title: ctrl.trans.noarg('analysis'),
+      title: ctrl.noarg('analysis'),
       href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
       'data-icon': 'A'
     }
@@ -130,7 +130,7 @@ function renderButtons(ctrl: RoundController) {
     h('button.fbt.flip', {
       class: { active: ctrl.flip },
       attrs: {
-        title: ctrl.trans.noarg('flipBoard'),
+        title: ctrl.noarg('flipBoard'),
         'data-act': 'flip',
         'data-icon': 'B'
       }

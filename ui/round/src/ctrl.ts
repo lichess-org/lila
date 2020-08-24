@@ -625,7 +625,7 @@ export default class RoundController {
     if (this.opts.onChange) setTimeout(() => this.opts.onChange(this.data), 150);
   };
 
-  private goneTick;
+  private goneTick?: number;
   setGone = (gone: number | boolean) => {
     game.setGone(this.data, this.data.opponent.color, gone);
     clearTimeout(this.goneTick);

@@ -19,7 +19,7 @@ export function userLink(u: string, title?: string) {
 
 export function bind(eventName: string, f: (e: Event) => void) {
   return {
-    insert: (vnode: VNode) => {
+    insert(vnode: VNode) {
       (vnode.elm as HTMLElement).addEventListener(eventName, f);
     }
   };
