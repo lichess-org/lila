@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Рапид сағаттық арена</string>
+  <string name="hourlyRapidArena">Бір сағаттық Рапид алаңы</string>
+  <string name="hourlyRapid">Бір сағаттық Рапид</string>
 </resources>
