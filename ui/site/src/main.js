@@ -246,46 +246,43 @@
       setTimeago(1200);
       lichess.pubsub.on('content_loaded', renderTimeago);
 
-      if (!window.customWS) setTimeout(function() {
-        if (lichess.socket === null) {
-          lichess.socket = lichess.StrongSocket("/socket/v4", false);
-        }
+      if (!window.customWS) setTimeout(() => {
+        if (!lichess.socket) 
+          lichess.socket = lichess.StrongSocket("/socket/v5", false);
       }, 300);
 
       const initiatingHtml = '<div class="initiating">' + lichess.spinnerHtml + '</div>';
 
       lichess.challengeApp = (function() {
-        var instance, booted;
-        var $toggle = $('#challenge-toggle');
-        $toggle.one('mouseover click', function() {
-          load();
-        });
-        var load = function(data) {
+        let instance, booted;
+        const $toggle = $('#challenge-toggle');
+        $toggle.one('mouseover click', () => load());
+        const load = function(data) {
           if (booted) return;
           booted = true;
-          var $el = $('#challenge-app').html(lichess.initiatingHtml);
+          const $el = $('#challenge-app').html(lichess.initiatingHtml);
           lichess.loadCssPath('challenge');
           lichess.loadScript(lichess.jsModule('challenge')).done(function() {
             instance = LichessChallenge($el[0], {
               data: data,
-              show: function() {
+              show() {
                 if (!$('#challenge-app').is(':visible')) $toggle.click();
               },
-              setCount: function(nb) {
+              setCount(nb) {
                 $toggle.find('span').attr('data-count', nb);
               },
-              pulse: function() {
+              pulse() {
                 $toggle.addClass('pulse');
               }
             });
           });
         };
         return {
-          update: function(data) {
+          update(data) {
             if (!instance) load(data);
             else instance.update(data);
           },
-          open: function() {
+          open() {
             $toggle.click();
           }
         };
@@ -786,7 +783,7 @@
     $('body').data('tournament-id', cfg.data.id);
     let tournament;
     lichess.socket = lichess.StrongSocket(
-      '/tournament/' + cfg.data.id + '/socket/v4', cfg.data.socketVersion, {
+      '/tournament/' + cfg.data.id + '/socket/v5', cfg.data.socketVersion, {
         receive: (t, d) => tournament.socketReceive(t, d)
       });
     cfg.socketSend = lichess.socket.send;
@@ -799,7 +796,7 @@
     $('body').data('simul-id', cfg.data.id);
     var simul;
     lichess.socket = lichess.StrongSocket(
-      '/simul/' + cfg.data.id + '/socket/v4', cfg.socketVersion, {
+      '/simul/' + cfg.data.id + '/socket/v5', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
         }
@@ -830,7 +827,7 @@
     var analyse;
     cfg.initialPly = 'url';
     cfg.trans = lichess.trans(cfg.i18n);
-    lichess.socket = lichess.StrongSocket('/analysis/socket/v4', false, {
+    lichess.socket = lichess.StrongSocket('/analysis/socket/v5', false, {
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
@@ -864,7 +861,7 @@
   function startPractice(cfg) {
     var analyse;
     cfg.trans = lichess.trans(cfg.i18n);
-    lichess.socket = lichess.StrongSocket('/analysis/socket/v4', false, {
+    lichess.socket = lichess.StrongSocket('/analysis/socket/v5', false, {
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
