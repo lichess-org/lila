@@ -539,6 +539,11 @@
   <string name="xCommentedY">%1$s %2$s деп пікір айтты</string>
   <string name="victory">Жеңіс</string>
   <string name="defeat">Жеңіліс</string>
+  <string name="victoryVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
+  <string name="defeatVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
+  <string name="drawVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
+  <string name="timeline">Уақыт тізбегі</string>
+  <string name="starting">Басталуы:</string>
   <string name="learnMenu">Үйрену</string>
   <string name="studyMenu">Зерттеу</string>
   <string name="practice">Жаттығу</string>
