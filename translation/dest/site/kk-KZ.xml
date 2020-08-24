@@ -573,6 +573,10 @@
   <string name="practice">Жаттығу</string>
   <string name="community">Қауым</string>
   <string name="tools">Құралдар</string>
+  <string name="increment">Қосылғыш</string>
+  <string name="sharePGN">PGN бөлісу</string>
+  <string name="playOnline">Онлайн ойнау</string>
+  <string name="playOffline">Оффлайн ойнау</string>
   <string name="shareGameURL">Ойын сілтемесімен бөлісу</string>
   <string name="error.required">Бұл жолды толтырыңыз</string>
   <string name="error.email">Бұл пошта мекенжайы қате</string>
