@@ -469,6 +469,7 @@ GET   /inbox/:username                 controllers.Msg.convo(username: String, b
 DELETE /inbox/:username                controllers.Msg.convoDelete(username: String)
 # Msg API/compat
 POST  /inbox/:username                 controllers.Msg.apiPost(username: String)
+POST /inbox/:username/delete           controllers.Msg.convoDelete(username: String)
 
 # Coach
 GET   /coach                           controllers.Coach.all(page: Int ?= 1)
