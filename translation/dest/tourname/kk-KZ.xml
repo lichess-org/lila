@@ -30,4 +30,5 @@
   <string name="openingRapid">%s Рапид</string>
   <string name="eliteXArena">Асылдар %s Алаңы</string>
   <string name="eliteX">Асылдар %s-і</string>
+  <string name="xArena">%s Алаңы</string>
 </resources>
