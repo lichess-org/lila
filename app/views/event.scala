@@ -26,7 +26,7 @@ object event {
       div(cls := "crud edit page-menu__content box box-pad")(
         div(cls := "box__top")(
           h1(
-            event.title,
+            a(href := routes.Event.show(event.id))(event.title),
             span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt))
           ),
           st.form(cls := "box__top__actions", action := routes.Event.cloneE(event.id), method := "get")(
