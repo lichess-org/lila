@@ -25,22 +25,9 @@
     padding: .5em .7em;
     white-space: nowrap;
     line-height: 1.9em;
-    border: 1px solid $c-border-page;
-    border-bottom: none;
+    border-top: 1px solid mix($c-bg-page, $c-border-page, 50%);
 
     @include transition;
-
-    &:first-child {
-      border-top: none;
-    }
-
-    &:nth-child(even) {
-      border-left: none;
-    }
-
-    &:nth-child(odd) {
-      border-right: none;
-    }
 
     &:hover {
       background: mix($c-link, $c-bg-page, 20%);
@@ -64,8 +51,7 @@
     @extend %box-radius;
 
     padding: .1em .5em;
-    background: $c-secondary;
-    color: $c-secondary-over;
+    background: $c-bg-zebra;
   }
 
   .b .utitle,

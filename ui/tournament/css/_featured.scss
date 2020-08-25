@@ -1,10 +1,8 @@
 .tour__featured {
-  @extend %box-neat-force, %flex-column;
+  @extend %flex-column;
 
   .mini-game__player {
     @extend %flex-center-nowrap;
-
-    padding: .2em;
 
     & i {
       flex: 0 0 auto;
