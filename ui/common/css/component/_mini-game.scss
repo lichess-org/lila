@@ -10,7 +10,11 @@
   &__player {
     @extend %flex-between-nowrap;
 
-    padding: 0 2px;
+    padding: 3px 2px 0 2px;
+
+    &:first-child {
+      padding: 0 2px 2px 2px;
+    }
   }
 
   &__user {
