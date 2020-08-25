@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <linearGradient id="linearGradient8837" x1="6960.5" x2="6892.6" y1="-1724.4" y2="-1824.4" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient7764"/>
+  <linearGradient id="linearGradient7764">
+   <stop offset="0"/>
+   <stop stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient8565-29" x1="3169.7" x2="3193.8" y1="99.268" y2="99.268" gradientTransform="matrix(-3.75,0,0,3.75,18845,-2068)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient7764"/>
+  <linearGradient id="linearGradient2615-7-3" x1="7007.4" x2="7017.2" y1="-1863.9" y2="-1863.9" gradientTransform="translate(-13961,185.02)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient7764"/>
+  <linearGradient id="linearGradient2649-4-3" x1="6991" x2="7052.1" y1="-1889.4" y2="-1889.4" gradientTransform="matrix(1,0,0,5.5962,-13962,8870.4)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient7764"/>
+ </defs>
+ <g transform="matrix(.27831 0 0 .2784 -1899.2 514.22)">
+  <g transform="translate(5468.9,-1133.1)" stroke-width="1.0538">
+   <g transform="matrix(.98884 0 0 .93268 35.386 40.041)">
+    <path d="m1425.4-781.47s-18.514 10.813-6.1353 20.551c-7.6386 8.6953-21.66 23.271-37.763 44.023-24.269 31.274 11.422 57.651 15.704 59.535h56.388c4.2828-1.8841 39.973-28.261 15.704-59.535-16.103-20.751-30.124-35.327-37.763-44.023 12.378-9.7378-6.1353-20.551-6.1353-20.551z" fill="#eadbb8" stroke="#141414" stroke-linejoin="round" stroke-width="2.8802"/>
+    <path d="m1420.6-761.82s-10.296-6.1403 3.3323-16.624c-0.082-0.0289-10.196 7.5314-3.3323 16.624z" fill="#fff" stroke-width="1.1105"/>
+   </g>
+  </g>
+  <g stroke-width="1.1105">
+   <path d="m6913.9-1821.9c-1.2249 8.1996 13.86 11.646 4.083 19.074 11.179 18.509 58.112 62.509 15.86 96.585 1.0397-0.5368 7.9375 0.093 7.9375 0.093 4.235-1.7573 39.526-26.357 15.528-55.526-15.924-19.354-29.787-32.95-37.341-41.06 12.24-9.0821-6.0674-19.167-6.0674-19.167z" fill="url(#linearGradient8837)" opacity=".3"/>
+   <path d="m6877.3-1714.4s-23.414-19.675-8.9063-41.808c2.2239-4.2647 19.486-23.807 23.51-27.852 0 0-41.261 39.782-14.603 69.66z" fill="#fff"/>
+   <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
+    <path d="m6880.1-1700.6-12.956 6.5741v12.786h93.472v-12.786l-12.956-6.5741h-33.779z" fill="#eadbb8" image-rendering="optimizeQuality" stroke="#141414" stroke-width="2.7662"/>
+    <path d="m6958.9-1692.8-11.684-6.0139-66.754 0.038-11.701 6.0139z" fill="url(#linearGradient8565-29)" image-rendering="optimizeQuality" opacity=".3" stroke-width="3.9517"/>
+    <path d="m6872.8-1681.3v4.8758h82.144v-4.8758z" fill="#eadbb8" image-rendering="optimizeQuality" stroke="#141414" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7662" style="paint-order:normal"/>
+    <path d="m6881.1-1706.1c-1.4562 0-2.6297 1.1715-2.6297 2.6276v0.2636c0 1.4561 1.1735 2.6276 2.6297 2.6276h65.542c1.4561 0 2.6276-1.1715 2.6276-2.6276v-0.2636c0-1.4561-1.1716-2.6276-2.6276-2.6276z" fill="#eadbb8" image-rendering="optimizeQuality" stroke="#141414" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7662" style="paint-order:normal"/>
+   </g>
+   <rect transform="scale(-1,1)" x="-6953.6" y="-1679.9" width="9.8096" height="2.1716" ry="0" fill="url(#linearGradient2615-7-3)" opacity=".6" style="paint-order:markers fill stroke"/>
+   <rect transform="scale(-1,1)" x="-6948" y="-1704.9" width="58.192" height="2.9632" ry="1.4816" fill="url(#linearGradient2649-4-3)" opacity=".48852" style="paint-order:markers fill stroke"/>
+  </g>
+ </g>
+</svg>
