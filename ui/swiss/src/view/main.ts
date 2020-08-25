@@ -76,7 +76,7 @@ function started(ctrl: SwissCtrl): MaybeVNodes {
 function finished(ctrl: SwissCtrl): MaybeVNodes {
   const pag = pagination.players(ctrl);
   return [
-    h('div.big_top', [
+    h('div.podium-wrap', [
       confetti(ctrl.data),
       header(ctrl),
       podium(ctrl)

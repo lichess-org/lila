@@ -1,4 +1,26 @@
-.tour__podium {
+.podium-wrap {
+  position: relative;
+  padding-bottom: 20px;
+
+  #confetti {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 25s;
+
+    &.faded {
+      opacity: 0;
+    }
+  }
+}
+
+.podium {
   > div {
     @extend %ellipsis;
 
@@ -13,12 +35,12 @@
 
   .second {
     font-size: 1.3em;
-    width: 31%;
+    width: 29%;
   }
 
   .third {
     font-size: 1.2em;
-    width: 25%;
+    width: 27%;
   }
 
   .trophy {
@@ -59,42 +81,20 @@
   .stats {
     margin: .5em auto 0 auto;
     font-size: .7em;
-  }
 
-  .stats th {
-    letter-spacing: -1px;
-    text-align: left;
-  }
+    th {
+      letter-spacing: -1px;
+      text-align: left;
+    }
 
-  .stats td {
-    font-weight: bold;
-    padding-left: 5px;
-    text-align: right;
+    td {
+      font-weight: bold;
+      padding-left: 5px;
+      text-align: right;
+    }
   }
 
   .third .stats {
     font-size: .8em;
-  }
-}
-
-.tour .big_top {
-  position: relative;
-  padding-bottom: 20px;
-
-  #confetti {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    opacity: 1;
-    transition: opacity 25s;
-  }
-
-  #confetti.faded {
-    opacity: 0;
   }
 }

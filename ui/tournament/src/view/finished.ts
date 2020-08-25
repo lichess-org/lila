@@ -47,7 +47,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
   const teamS = teamStanding(ctrl, 'finished');
   return [
     ...(teamS ? [header(ctrl), teamS] : [
-      h('div.big_top', [
+      h('div.podium-wrap', [
         confetti(ctrl.data),
         header(ctrl),
         podium(ctrl)
