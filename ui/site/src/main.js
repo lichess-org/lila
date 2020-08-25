@@ -293,7 +293,7 @@
         const $toggle = $('#notify-toggle'),
           isVisible = () => $('#notify-app').is(':visible');
 
-        if ('permissions' in navigator) navigator.permissions.query({ name: 'notifications' });
+        if ('Notification' in window) Notification.requestPermission();
 
         const load = function(data, incoming) {
           if (booted) return;
