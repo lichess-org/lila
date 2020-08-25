@@ -39,5 +39,5 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="thisIsPrivate">Toto je soukromý turnaj</string>
   <string name="shareUrl">Sdílejte tuto adresu URL, aby se mohli lidé připojit: %s</string>
   <string name="drawStreak">Série remíz: Když hráč několikrát po sobě skončí hru remízou v aréně, pouze první remíza mu dá bod, nebo pokud k remíze dojde po více než %s tazích. Série může být ukončena pouze výhrou, ne prohrou nebo další remízou.</string>
-  <string name="history" comment="history&#10;&#10;List of past arenas by type. Can be found on https://lichess.org/tournament/history">Historie arény</string>
+  <string name="history">Historie arény</string>
 </resources>
