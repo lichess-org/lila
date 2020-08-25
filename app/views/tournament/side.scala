@@ -1,13 +1,13 @@
 package views
 package html.tournament
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.richText
+import lila.common.String.html.markdownLinksOrRichText
 import lila.tournament.{ TeamBattle, Tournament, TournamentShield }
-
-import controllers.routes
 
 object side {
 
@@ -51,7 +51,7 @@ object side {
         tour.teamBattle map teamBattle(tour),
         tour.spotlight map { s =>
           st.section(
-            lila.common.String.html.markdownLinks(s.description),
+            markdownLinksOrRichText(s.description),
             shieldOwner map { owner =>
               p(cls := "defender", dataIcon := "5")(
                 "Defender:",
@@ -61,7 +61,7 @@ object side {
           )
         },
         tour.description map { d =>
-          st.section(cls := "description")(richText(d))
+          st.section(cls := "description")(markdownLinksOrRichText(d))
         },
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
         verdicts.relevant option st.section(
