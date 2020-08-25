@@ -34,7 +34,7 @@
   grid-area: clock-bot;
 }
 
-.rmoves {
+#{$rmoves-tag} {
   grid-area: moves;
 }
 
@@ -78,7 +78,7 @@
       // replace move list with move confirmation
       grid-template-areas: 'controls' 'mat-top' 'user-top' 'board' 'expi-bot' 'user-bot' 'mat-bot' 'kb-move';
 
-      .rmoves {
+      #{$rmoves-tag} {
         display: none;
       }
     }
@@ -99,13 +99,13 @@
       display: flex;
     }
 
-    .rmoves {
+    #{$rmoves-tag} {
       margin-bottom: 1px;
+    }
 
-      #{$moves-tag} {
-        display: none;
-        background: none;
-      }
+    #{$moves-tag} {
+      display: none;
+      background: none;
     }
 
     .keyboard-move {
@@ -113,7 +113,7 @@
     }
 
     @include breakpoint($mq-short) {
-      & .rmoves #{$moves-tag} {
+      #{$moves-tag} {
         display: flex;
       }
     }

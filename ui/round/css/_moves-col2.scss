@@ -1,4 +1,4 @@
-/* context: .rmoves */
+/* context: #{$rmoves-tag} */
 @include breakpoint($mq-col2) {
   background: $c-bg-box;
 

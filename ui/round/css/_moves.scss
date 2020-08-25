@@ -1,4 +1,16 @@
-.rmoves {
+#{$moves-tag} {
+  @extend %zen;
+}
+
+#{$index-tag} {
+  @extend %roboto;
+}
+
+#{$move-tag} {
+  @extend %san;
+}
+
+#{$rmoves-tag} {
   @extend %flex-column;
 
   .buttons {
@@ -25,18 +37,6 @@
   #{$moves-tag},
   .message {
     flex: 0 0 7.4rem;
-  }
-
-  #{$moves-tag} {
-    @extend %zen;
-  }
-
-  #{$index-tag} {
-    @extend %roboto;
-  }
-
-  #{$move-tag} {
-    @extend %san;
   }
 
   @import "moves-col1";

@@ -20,19 +20,17 @@
   }
 }
 
-.round__app {
-  @include breakpoint($mq-col2) {
-    @include breakpoint($mq-short) {
-      .rmoves #{$moves-tag} {
-        display: none;
-      }
+@include breakpoint($mq-col2) {
+  @include breakpoint($mq-short) {
+    #{$moves-tag} {
+      display: none;
     }
+  }
 
 
-    @include breakpoint($mq-tall) {
-      .rmoves #{$moves-tag} {
-        display: flex;
-      }
+  @include breakpoint($mq-tall) {
+    #{$moves-tag} {
+      display: flex;
     }
   }
 }
