@@ -12,74 +12,67 @@ export default function boot(cfg, element) {
     { id: "30+0", lim: 30, inc: 0, perf: "Classical" },
     { id: "30+20", lim: 30, inc: 20, perf: "Classical" }
   ];
+  const li = window.lichess;
   let lobby;
   const nbRoundSpread = spreadNumber(
-    document.querySelector('#nb_games_in_play > strong'),
-    8,
-    function() {
-      return window.lichess.socket.pingInterval();
-    }),
+    document.querySelector('#nb_games_in_play > strong') as HTMLElement,
+    8),
     nbUserSpread = spreadNumber(
-      document.querySelector('#nb_connected_players > strong'),
-      10,
-      function() {
-        return window.lichess.socket.pingInterval();
-      }),
-    getParameterByName = name => {
-      var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+      document.querySelector('#nb_connected_players > strong') as HTMLElement,
+      10),
+    getParameterByName = (name: string) => {
+      const match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
       return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
-    window.lichess.socket = window.lichess.StrongSocket(
-      '/lobby/socket/v4',
-      false, {
-      receive: function(t, d) {
-        lobby.socketReceive(t, d);
+  li.socket = li.StrongSocket(
+    '/lobby/socket/v5',
+    false, {
+    receive(t: string, d: any) {
+      lobby.socketReceive(t, d);
+    },
+    events: {
+      n(_: string, msg: any) {
+        nbUserSpread(msg.d);
+        setTimeout(() => nbRoundSpread(msg.r), li.socket.pingInterval() / 2);
       },
-      events: {
-        n: function(_nbUsers, msg) {
-          nbUserSpread(msg.d);
-          setTimeout(function() {
-            nbRoundSpread(msg.r);
-          }, window.lichess.socket.pingInterval() / 2);
-        },
-        reload_timeline: function() {
-          $.ajax({
-            url: '/timeline',
-            success: function(html) {
-              $('.timeline').html(html);
-              window.lichess.pubsub.emit('content_loaded');
-            }
-          });
-        },
-        featured: function(o) {
-          $('.lobby__tv').html(o.html);
-          window.lichess.pubsub.emit('content_loaded');
-        },
-        redirect: function(e) {
-          lobby.leavePool();
-          lobby.setRedirecting();
-          window.lichess.redirect(e);
-        },
-        fen: function(e) {
-          window.lichess.StrongSocket.defaults.events.fen(e);
-          lobby.gameActivity(e.id);
-        }
+      reload_timeline() {
+        $.ajax({
+          url: '/timeline',
+          success: function(html) {
+            $('.timeline').html(html);
+            li.pubsub.emit('content_loaded');
+          }
+        });
       },
-      options: {
-        name: 'lobby'
+      featured(o) {
+        $('.lobby__tv').html(o.html);
+        li.pubsub.emit('content_loaded');
+      },
+      redirect(e) {
+        lobby.leavePool();
+        lobby.setRedirecting();
+        li.redirect(e);
+      },
+      fen(e) {
+        li.StrongSocket.defaults.events.fen(e);
+        lobby.gameActivity(e.id);
       }
-    });
-  window.lichess.StrongSocket.firstConnect.then(() => {
+    },
+    options: {
+      name: 'lobby'
+    }
+  });
+  li.StrongSocket.firstConnect.then(() => {
     var gameId = getParameterByName('hook_like');
     if (!gameId) return;
-    $.post(`/setup/hook/${window.lichess.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`);
+    $.post(`/setup/hook/${li.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`);
     lobby.setTab('real_time');
     history.replaceState(null, '', '/');
   });
 
   cfg.blindMode = $('body').hasClass('blind-mode');
-  cfg.trans = window.lichess.trans(cfg.i18n);
-  cfg.socketSend = window.lichess.socket.send;
+  cfg.trans = li.trans(cfg.i18n);
+  cfg.socketSend = li.socket.send;
   cfg.element = element;
   lobby = window.LichessLobby.start(cfg);
 
@@ -88,7 +81,7 @@ export default function boot(cfg, element) {
 
   $startButtons.find('a:not(.disabled)').on(clickEvent, function() {
     $(this).addClass('active').siblings().removeClass('active');
-    window.lichess.loadCssPath('lobby.setup');
+    li.loadCssPath('lobby.setup');
     lobby.leavePool();
     $.ajax({
       url: $(this).attr('href'),
@@ -96,11 +89,11 @@ export default function boot(cfg, element) {
         lobby.setup.prepareForm($.modal(html, 'game-setup', () => {
           $startButtons.find('.active').removeClass('active');
         }));
-        window.lichess.pubsub.emit('content_loaded');
+        li.pubsub.emit('content_loaded');
       },
       error: function(res) {
         if (res.status == 400) alert(res.responseText);
-        window.lichess.reload();
+        li.reload();
       }
     });
     return false;
@@ -126,25 +119,25 @@ export default function boot(cfg, element) {
   }
 };
 
-function spreadNumber(el, nbSteps, getDuration) {
-  let previous, displayed;
-  const display = function(prev, cur, it) {
-    var val = window.lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
+function spreadNumber(el: HTMLElement, nbSteps: number) {
+  let previous: number, displayed: string;
+  const display = (prev: number, cur: number, it: number) => {
+    const val = window.lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
     if (val !== displayed) {
       el.textContent = val;
       displayed = val;
     }
   };
   let timeouts: number[] = [];
-  return function(nb, overrideNbSteps?) {
+  return (nb: number, overrideNbSteps?: number) => {
     if (!el || (!nb && nb !== 0)) return;
     if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
     timeouts.forEach(clearTimeout);
     timeouts = [];
     let prev = previous === 0 ? 0 : (previous || nb);
     previous = nb;
-    let interv = Math.abs(getDuration() / nbSteps);
+    let interv = Math.abs(window.lichess.socket.pingInterval() / nbSteps);
     for (let i = 0; i < nbSteps; i++)
-      timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
+      timeouts.push(setTimeout(() => display(prev, nb, i), Math.round(i * interv)));
   };
 }
