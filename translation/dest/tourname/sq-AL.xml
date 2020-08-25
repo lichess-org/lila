@@ -2,6 +2,8 @@
 <resources>
   <string name="hourlyRapidArena">Arena Rapid e çdo ore</string>
   <string name="hourlyRapid">Rapid i çdo ore</string>
+  <string name="hourlyXArena">Arena e Çdo Ore %s</string>
+  <string name="hourlyX">%s e Çdo Ore</string>
   <string name="dailyRapidArena">Arena Rapid Ditore</string>
   <string name="dailyRapid">Rapid Ditor</string>
   <string name="dailyClassicalArena">Arena Klasike Ditore</string>
@@ -10,6 +12,7 @@
   <string name="dailyX">%s Ditore</string>
   <string name="easternRapidArena">Arena Rapid Lindore</string>
   <string name="easternRapid">Rapid Lindor</string>
+  <string name="easternClassicalArena">Arena Klasike Lindore</string>
   <string name="easternClassical">Klasikja Lindore</string>
   <string name="easternXArena">Arena Lindore %s</string>
   <string name="easternX">%s Lindore</string>
