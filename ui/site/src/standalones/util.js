@@ -103,13 +103,9 @@ lichess.debounce = (func, wait, immediate) => {
 };
 lichess.powertip = (() => {
 
-  function containedIn(el, container) {
-    return container && container.contains(el);
-  }
+  const containedIn = (el, container) => container && container.contains(el);
 
-  function inCrosstable(el) {
-    return containedIn(el, document.querySelector('.crosstable'));
-  }
+  const inCrosstable = el => containedIn(el, document.querySelector('.crosstable'));
 
   function onPowertipPreRender(id, preload) {
     return function() {
