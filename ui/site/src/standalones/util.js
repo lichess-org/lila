@@ -171,9 +171,9 @@ lichess.powertip = (() => {
   };
 
   function onIdleForAll(par, sel, fun) {
-    lichess.requestIdleCallback(function() {
-      Array.prototype.forEach.call(par.querySelectorAll(sel), fun);
-    });
+    lichess.requestIdleCallback(() =>
+      Array.prototype.forEach.call(par.querySelectorAll(sel), el => fun(el)) // do not codegolf to `fun`
+    )
   }
 
   return {
