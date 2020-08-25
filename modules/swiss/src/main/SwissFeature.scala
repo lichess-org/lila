@@ -36,8 +36,8 @@ final class SwissFeature(
       _.filter(_.isNotFinished).partition(_.isCreated) match {
         case (created, started) =>
           FeaturedSwisses(
-            created = Heapsort.topN(created, 10, startsAtOrdering),
-            started = Heapsort.topN(started, 10, startsAtOrdering.reverse)
+            created = Heapsort.topN(created, 10, startsAtOrdering.reverse),
+            started = Heapsort.topN(started, 10, startsAtOrdering)
           )
       }
     }
