@@ -18,11 +18,11 @@ object finishedList {
       header(t),
       td(cls := "date")(momentFromNow(t.startsAt)),
       td(cls := "players")(
-        span(trans.nbPlayers.plural(t.nbPlayers, t.nbPlayers.localize)),
         span(
-          iconTag('C')(cls := "text"),
+          iconTag('g')(cls := "text"),
           userIdLink(t.winnerId, withOnline = false)
-        )
+        ),
+        span(trans.nbPlayers.plural(t.nbPlayers, t.nbPlayers.localize))
       )
     )
 
