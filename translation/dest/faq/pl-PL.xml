@@ -98,7 +98,7 @@ Nie proś nas o przyznanie tytułu LM.</string>
   <string name="goldenZeeExplanation">ZugAddict przez 2 godziny próbował bez powodzenia pokonać 8 poziom A.I. w grze 1+0, streamując swoje zmagania. Thibault powiedział mu, że jeśli uda mu się to zrobić podczas streamu, dostanie wyjątkowe trofeum. Godzinę później Stockfish został pokonany, a obietnica została dotrzymana.</string>
   <string name="lichessRatings">Rankingi Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Jakiego systemu rankingowego używa Lichess?</string>
-  <string name="whatIsProvisionalRating">Dlaczego obok rankingu wyświetlany jest znak zapytania?</string>
+  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Dlaczego obok rankingu wyświetlany jest znak zapytania?</string>
   <string name="provisionalRatingExplanation">Znak zapytania oznacza, że ranking ma charakter tymczasowy. Powodem może być:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Gracz nie ukończył jeszcze wystarczająco dużo rankingowych partii przeciwko %1$s.</string>
   <string name="similarOpponents">przeciwnikom o podobnej sile gry</string>
@@ -123,6 +123,7 @@ Najlepiej myśleć o rankingu jako o „względnej” liczbie: wewnątrz danej p
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Niestety, nie możemy przywrócić punktów utraconych z powodu opóźnień lub rozłączenia, niezależnie od tego, czy problem był po Twojej stronie czy po naszej. Te ostatnie są jednak bardzo rzadkie. Zauważ również, że gdy następuje restart Lichess i z tego powodu tracisz czas, przerywamy partię, aby zapobiec nieuczciwej stracie.</string>
   <string name="howToThreeDots">W jaki sposób...</string>
   <string name="enableDisableNotificationPopUps">Włączyć lub wyłączyć wyskakujące okienka powiadomień?</string>
+  <string name="viewSiteInformationPopUp">Wyświetl informacje o witrynie</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess może opcjonalnie wysyłać wyskakujące powiadomienia, na przykład wtedy, gdy jest Twoja kolej na ruch lub gdy otrzymałeś prywatną wiadomość.
 
 Kliknij ikonę blokady obok adresu lichess.org na pasku adresu w przeglądarce.
