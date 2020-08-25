@@ -10,7 +10,7 @@ import * as util from '../util';
 import RoundController from '../ctrl';
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
 
-const scrollMax = 99999, moveTag = 'u8t', indexTag = 'i5z', indexTagUC = indexTag.toUpperCase(), movesTag = 'bp0';
+const scrollMax = 99999, moveTag = 'u8t', indexTag = 'i5z', indexTagUC = indexTag.toUpperCase(), movesTag = 'bp0', activeClass = 'a1t';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
@@ -19,7 +19,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
     if (ctrl.ply < 3) st = 0;
     else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
     else {
-      const plyEl = movesEl.querySelector('.active') as HTMLElement | undefined;
+      const plyEl = movesEl.querySelector('.' + activeClass) as HTMLElement | undefined;
       if (plyEl) st = window.lichess.isCol1() ?
         plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2 :
         plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
@@ -34,7 +34,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
 
 function renderMove(step: Step, curPly: number, orEmpty: boolean) {
   return step ? h(moveTag, {
-    class: { active: step.ply === curPly }
+    class: { [activeClass]: step.ply === curPly }
   }, step.san[0] === 'P' ? step.san.slice(1) : step.san) : (orEmpty ? h(moveTag, '…') : undefined);
 }
 

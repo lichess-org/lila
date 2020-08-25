@@ -58,7 +58,7 @@
     font-size: 1.1em;
     cursor: pointer;
 
-    &.active,
+    &.#{$active-class},
     &:hover {
       @if $theme-light {
         background: hsl($c-site-hue, 20%, 85%);
@@ -68,7 +68,7 @@
       }
     }
 
-    &.active {
+    &.#{$active-class} {
       color: $c-font-clearer;
     }
   }

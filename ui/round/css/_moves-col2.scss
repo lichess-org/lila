@@ -41,7 +41,7 @@
       color: #fff;
     }
 
-    &.active {
+    &.#{$active-class} {
       font-weight: bold;
       background: mix($c-primary, $c-bg-box, 20%);
       color: $c-font-clear;

@@ -35,7 +35,7 @@
     font-weight: bold;
   }
 
-  .active {
+  .#{$active-class} {
     font-weight: bold;
     color: $c-accent;
   }
