@@ -131,7 +131,6 @@ lichess.powertip = (() => {
       intentPollInterval: 200,
       placement: pos,
       smartPlacement: true,
-      mouseOnToPopup: true,
       closeDelay: 200
     }).data('powertip', ' ').on({
       powerTipRender: onPowertipPreRender('powerTip', (url) => {
@@ -151,7 +150,6 @@ lichess.powertip = (() => {
       intentPollInterval: 200,
       placement: inCrosstable(el) ? 'n' : 'w',
       smartPlacement: true,
-      mouseOnToPopup: true,
       closeDelay: 200,
       popupId: 'miniGame'
     }).on({

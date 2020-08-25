@@ -52,17 +52,13 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
     hook: {
       insert(vnode) {
         $(vnode.elm as HTMLElement).powerTip({
-          intentPollInterval: 100,
           placement: hook.rating > 1800 ? 'se' : 'ne',
-          mouseOnToPopup: true,
           closeDelay: 200,
           popupId: 'hook'
         }).data('powertipjq', $(renderHook(ctrl, hook)))
           .on({
             powerTipRender() {
-              $('#hook .inner-clickable').click(() => {
-                ctrl.clickHook(hook.id);
-              });
+              $('#hook .inner-clickable').click(() => ctrl.clickHook(hook.id));
             }
           });
         setTimeout(function() {
