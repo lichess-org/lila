@@ -73,7 +73,7 @@ object Paginator {
   def apply[A](
       adapter: AdapterLike[A],
       currentPage: Int,
-      maxPerPage: MaxPerPage = MaxPerPage(10)
+      maxPerPage: MaxPerPage
   )(implicit ec: scala.concurrent.ExecutionContext): Fu[Paginator[A]] =
     validate(adapter, currentPage, maxPerPage) getOrElse apply(adapter, 1, maxPerPage)
 

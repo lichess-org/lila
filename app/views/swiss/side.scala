@@ -4,7 +4,7 @@ package html.swiss
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.richText
+import lila.common.String.html.markdownLinksOrRichText
 import lila.swiss.Swiss
 
 import controllers.routes
@@ -45,7 +45,7 @@ object side {
           )
         ),
         s.settings.description map { d =>
-          st.section(cls := "description")(richText(d))
+          st.section(cls := "description")(markdownLinksOrRichText(d))
         },
         s.looksLikePrize option views.html.tournament.bits.userPrizeDisclaimer(s.createdBy),
         teamLink(s.teamId),

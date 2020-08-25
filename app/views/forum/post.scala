@@ -95,10 +95,10 @@ object post {
   }
 
   def reactions(post: Post, canReact: Boolean)(implicit ctx: Context) = {
-    val mine             = ctx.me ?? { Post.reactionsOf(~post.reactions, _) }
+    val mine             = ctx.me ?? { Post.Reaction.of(~post.reactions, _) }
     val canActuallyReact = canReact && ctx.me.exists(!_.isBot)
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
-      Post.reactionsList.map { r =>
+      Post.Reaction.list.map { r =>
         val users = ~post.reactions.flatMap(_ get r)
         val size  = users.size
         button(

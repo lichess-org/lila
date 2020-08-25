@@ -133,20 +133,20 @@ class RawHtmlTest extends Specification {
   "markdown links" should {
     "add http links" in {
       val md = "[Example](http://example.com)"
-      markdownLinks(md) must_== """<a href="http://example.com">Example</a>"""
+      justMarkdownLinks(md) must_== """<a href="http://example.com">Example</a>"""
     }
 
     "only allow safe protocols" in {
       val md = "A [link](javascript:powned) that is not safe."
-      markdownLinks(md) must_== md
+      justMarkdownLinks(md) must_== md
     }
 
-    "addBr" in {
-      markdownLinks("\n") must_== "<br>"
+    " not addBr" in {
+      justMarkdownLinks("\n") must_== "\n"
     }
 
     "escape html" in {
-      markdownLinks("&") must_== "&amp;"
+      justMarkdownLinks("&") must_== "&amp;"
     }
   }
 

@@ -3,12 +3,12 @@ package controllers
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.swiss.Swiss.{ Id => SwissId, ChatFor }
 import lila.swiss.{ Swiss => SwissModel }
-import views._
 
 final class Swiss(
     env: Env,
@@ -22,9 +22,8 @@ final class Swiss(
 
   def home =
     Open { implicit ctx =>
-      env.swiss.api.featurable map {
-        case (now, soon) => Ok(html.swiss.home(now, soon))
-      }
+      ctx.userId.??(env.team.cached.teamIdsList) flatMap
+        env.swiss.feature.get map html.swiss.home.apply map { Ok(_) }
     }
 
   def show(id: String) =

@@ -47,7 +47,7 @@ function featured(game: FeaturedGame): VNode {
 function duelPlayerMeta(p: DuelPlayer) {
   return [
     h('em.rank', '#' + p.k),
-    p.t ? h('em.title', p.t) : null,
+    p.t ? h('em.utitle', p.t) : null,
     h('em.rating', '' + p.r)
   ];
 }

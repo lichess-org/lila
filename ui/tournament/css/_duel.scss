@@ -64,16 +64,16 @@
     @extend %box-radius;
 
     padding: .1em .5em;
-    background: $c-brag;
-    color: #fff;
+    background: $c-secondary;
+    color: $c-secondary-over;
   }
 
-  .b .title,
+  .b .utitle,
   .b .rank {
     margin-right: .3em;
   }
 
-  .a .title,
+  .a .utitle,
   .a .rank {
     margin-left: .3em;
   }
