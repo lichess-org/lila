@@ -32,7 +32,7 @@ Luaj shpejt dhe të ktheheni në holl për të luajtur më shumë lojëra dhe t�
   <string name="howDoesItEnd">Si përfundon tournament?</string>
   <string name="howDoesItEndAnswer">Turneu ka një orë të numërimit. Kur arrin zero, renditja e turneut ngrihet dhe fituesi shpallet. Lojërat në vazhdim duhet të përfundojnë, por nuk llogariten për turneun.</string>
   <string name="otherRules">Rregulla tjera me rendësi</string>
-  <string name="thereIsACountdown">Ka nje limit kohe per te bere levizjen e pare. Nese nuk e ben levizjen e pare brenda ketij limiti loja do te dorezohet automatikisht.</string>
+  <string name="thereIsACountdown">Ka një limit kohe për të bërë levizjen e pare. Nëse nuk e bën lëvizjen e parë brenda këtij limiti loja do të dorëzohet automatikisht.</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="one">Te barazoni lojen me levizjen e pare nuk do ti japi pike asnje lojtari.</item>
     <item quantity="other">Te bini dakord ber barazim me %s levizjet e para nuk do i japi pike asnje lojtari.</item>
