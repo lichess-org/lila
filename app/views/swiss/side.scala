@@ -45,7 +45,7 @@ object side {
           )
         ),
         s.settings.description map { d =>
-          st.section(cls := "description")(richText(d))
+          st.section(cls := "description")(markdownLinksOrRichText(d))
         },
         s.looksLikePrize option views.html.tournament.bits.userPrizeDisclaimer(s.createdBy),
         teamLink(s.teamId),
