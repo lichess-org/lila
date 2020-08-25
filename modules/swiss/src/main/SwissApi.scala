@@ -51,8 +51,6 @@ final class SwissApi(
   def createdById(id: Swiss.Id)     = byId(id).dmap(_.filter(_.isCreated))
   def startedById(id: Swiss.Id)     = byId(id).dmap(_.filter(_.isStarted))
 
-  def featurable(teamIds: Seq[TeamID]): Fu[FeaturedSwisses] = cache.feature.get
-
   def create(data: SwissForm.SwissData, me: User, teamId: TeamID): Fu[Swiss] = {
     val swiss = Swiss(
       _id = Swiss.makeId,
