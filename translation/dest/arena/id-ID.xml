@@ -24,4 +24,5 @@
   <string name="thisIsPrivate">Ini adalah sebuah turnamen privat</string>
   <string name="shareUrl">Berbagi URL ini agar orang lain bisa bergabung: %s</string>
   <string name="drawStreak">Remis beruntun: Ketika pemain memiliki remis beruntun, hanya remis pertama yang akan mendapat satu poin, atau remis dengan lebih dari %s langkah. Remis beruntun hanya dapat dibatalkan dengan menang, bukan kalah atau remis.</string>
+  <string name="history">Laporan Arena</string>
 </resources>
