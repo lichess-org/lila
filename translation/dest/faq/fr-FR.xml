@@ -26,7 +26,7 @@
   <string name="leavingGameWithoutResigningExplanation">Si votre adversaire interrompt ou abandonne fréquemment les parties, il se voit interdire de jouer, ce qui signifie qu\'il est temporairement interdit de jouer. Cela n\'est pas indiqué publiquement sur leur profil. Si ce comportement se poursuit, la durée du bannissement augmente - et un comportement prolongé de cette nature peut entraîner la fermeture du compte.</string>
   <string name="howCanIBecomeModerator">Comment puis-je devenir modérateur ?</string>
   <string name="youCannotApply">Il n\'est pas possible de postuler pour devenir modérateur. Si nous rencontrons quelqu\'un qui nous semble être efficace comme modérateur, nous le contacterons directement.</string>
-  <string name="isCorrespondenceDifferent">La correspondance est-elle différente des échecs normaux ?</string>
+  <string name="isCorrespondenceDifferent">Les parties par correspondance sont-elle différentes de celles des échecs normaux ?</string>
   <string name="youCanUseOpeningBookNoEngine">Sur Lichess, la principale différence entre les règles des échecs par correspondance est qu\'un livre d\'ouverture est autorisé. L\'utilisation de moteurs est toujours interdite et entraînera le signalement d\'une assistance moteur. Bien que l\'ICCF autorise l\'utilisation des moteurs dans la correspondance, ce n\'est pas le cas du Lichess.</string>
   <string name="gameplay">Règles du jeu et jouabilité</string>
   <string name="howBulletBlitzEtcDecided">Comment sont décidés les bullet, blitz et autres cadences ?</string>
@@ -46,7 +46,7 @@ Le coup le plus élevé de l\'ordinateur perdra zéro centipion, mais des coups 
 Cette valeur peut être utilisée comme un indicateur de la qualité du jeu. Moins on perd de centipions par coup, plus le jeu est fort.
 
 L\'analyse informatique sur Lichess est réalisée par Stockfish.</string>
-  <string name="insufficientMaterial">Perte de temps, nulle et matériel insuffisant</string>
+  <string name="insufficientMaterial">Pertes au temps, nulles et matériel insuffisant</string>
   <string name="lichessFollowFIDErules">Si un joueur manque de temps, il perd généralement la partie. Toutefois, la partie est nulle si la position est telle que l\'adversaire ne peut pas mettre en échec le roi du joueur par une éventuelle série de coups légaux (%1$s).
 
 Dans de rares cas, il peut être difficile de prendre une décision automatique (lignes forcées, forteresses). Par défaut, nous nous rangeons toujours du côté du joueur qui n\'a pas manqué de temps.
@@ -68,10 +68,10 @@ Voir les %3$s sur ce coup pour vous entraîner.</string>
   <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lichess applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 (d) des %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple répétition</string>
   <string name="handBookPDF">manuel (pdf)</string>
-  <string name="notRepeatedMoves">Nous n\'avons pas répété les mouvements. Pourquoi le jeu était-il fini par une nulle par répétition ?</string>
+  <string name="notRepeatedMoves">Nous n\'avons pas répété les coups. Pourquoi la partie a-t-elle quand même été déclarée nulle par répétition ?</string>
   <string name="repeatedPositionsThatMatters">La triple répétition concerne les %1$s répétés, pas les coups. La répétition ne doit pas nécessairement se faire de manière consécutive.</string>
   <string name="positions">positions</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Nous avons répété une position à trois reprises. Pourquoi le jeu n\'a-t-il pas été nul ?</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Nous avons répété une position à trois reprises. Pourquoi la partie n\'a-t-elle pas été déclarée nulle ?</string>
   <string name="threeFoldHasToBeClaimed">La répétition doit être réclamée par l\'un des joueurs. Vous pouvez le faire en appuyant sur le bouton qui s\'affiche, ou en proposant un match nul avant votre dernier coup de répétition. Peu importe si votre adversaire rejette la proposition de match nul, le triple coup de répétition sera quand même réclamé. Vous pouvez également utiliser %1$s Lichess pour réclamer automatiquement les répétitions pour vous. En outre, la répétition quintuple met toujours immédiatement fin à la partie.</string>
   <string name="configure">configurer</string>
   <string name="accounts">Comptes</string>
@@ -117,12 +117,12 @@ Il faut également noter que l\'intervalle de confiance augmente avec le temps. 
   <string name="howDoLeaderoardsWork">Comment fonctionnent les classements et les listes des leaders ?</string>
   <string name="inOrderToAppearsYouMust">Pour être sur la %1$s vous devez:</string>
   <string name="ratingLeaderboards">classement des leaders</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">avoir joué à au moins 30 parties classées dans un jeu donné,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">avoir à un jeu classé au cours de la dernière semaine pour cette classification</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">avoir joué au moins 30 parties classées dans une catégorie donnée,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">avoir joué une partie classée de cette catégorie durant la semaine précédente</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">avoir un écart de notation inférieur à %1$s, aux échecs standards, et inférieur à %2$s dans les variantes,</string>
   <string name="beInTopTen">être dans le top 10 de ce classement.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La deuxième exigence est pour que les joueurs qui n\'utilisent plus leur compte cessent de remplir les classements.</string>
-  <string name="whyAreRatingHigher">Pourquoi les notes sont-elles plus élevées que celles d\'autres sites et organisations tels que la FIDE, l\'USCF et la CPI ?</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La 2ème condition est là pour que les joueurs qui n\'utilisent plus leurs comptes cessent de d\'apparaître dans les classements.</string>
+  <string name="whyAreRatingHigher">Pourquoi les classements sont-ils plus élevés que ceux d’autres sites et organisations tels que la FIDE, l\'USCF et l’ICC ?</string>
   <string name="whyAreRatingHigherExplanation">Il est préférable de ne pas considérer les notations comme des chiffres absolus, ni de les comparer à d\'autres organisations. Les différentes organisations ont différents niveaux d\'acteurs, différents systèmes de notation (Elo, Glicko, Glicko-2, ou une version modifiée de ce qui précède). Ces facteurs peuvent avoir une incidence considérable sur les chiffres absolus (notations).
 
 Il est préférable de considérer les notations comme des chiffres \"relatifs\" (par opposition aux chiffres \"absolus\") : Au sein d\'un groupe de joueurs, les différences relatives de classement vous aideront à estimer qui gagnera, tirera ou perdra, et à quelle fréquence. Dire \"j\'ai une cote X\" ne signifie rien, sauf s\'il y a d\'autres joueurs avec lesquels comparer cette cote.</string>
