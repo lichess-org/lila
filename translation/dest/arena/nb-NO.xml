@@ -32,4 +32,5 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="thisIsPrivate">Dette er en privat turnering</string>
   <string name="shareUrl">Del denne URL-en for å la folk bli med: %s</string>
   <string name="drawStreak">Remisrekke: En spiller med en ubrutt rekke partier som ender med remis i en arena, får bare poeng for den første remisen, eller ved remiser etter mer enn %s trekk. En remisrekke blir bare brutt av en seier, ikke av et nederlag eller en remis.</string>
+  <string name="history">Arena-historikk</string>
 </resources>
