@@ -68,8 +68,10 @@
   <string name="chapterPgn">PGN kapitoly</string>
   <string name="downloadGame">Stiahnúť hru</string>
   <string name="studyUrl">URL štúdie</string>
+  <string name="broadcastUrl">Adresa vysielania</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
   <string name="currentGameUrl">URL aktuálnej hry</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Vložte pre zobrazenie vo fóre</string>
   <string name="startAtInitialPosition">Začať zo základného postavenia</string>
   <string name="startAtX">Začať na %s</string>
   <string name="open">Otvoriť</string>
