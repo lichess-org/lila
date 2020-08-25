@@ -21,15 +21,10 @@
     width: 25%;
   }
 
-  /* ratios:
-  $first-ratio: 1.3;
-  $trophy-ratio: 1.1056;
-   */
   .first .trophy {
-    height: 150px;
-    width: 195px;
-    background: img-url("icons/trophy-1.svg") no-repeat;
-    background-size: cover;
+    height: 10em;
+    width: 10em;
+    background: img-url("trophy/lichess-massive.svg") no-repeat;
   }
 
   .second .trophy {
@@ -45,7 +40,7 @@
   }
 
   .trophy {
-    margin: 0 auto 8px auto;
+    margin: auto;
     background-size: contain !important;
   }
 
