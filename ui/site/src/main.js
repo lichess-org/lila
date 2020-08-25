@@ -247,7 +247,7 @@
       lichess.pubsub.on('content_loaded', renderTimeago);
 
       if (!window.customWS) setTimeout(() => {
-        if (!lichess.socket) 
+        if (!lichess.socket)
           lichess.socket = lichess.StrongSocket("/socket/v5", false);
       }, 300);
 
@@ -291,25 +291,14 @@
       lichess.notifyApp = (() => {
         let instance, booted;
         const $toggle = $('#notify-toggle'),
-          isVisible = () => $('#notify-app').is(':visible'),
-          permissionChanged = () => {
-            $toggle.find('span').attr('data-icon', 'Notification' in window && Notification.permission == 'granted' ? '\ue00f' : '\xbf');
-            if (instance) instance.redraw();
-          };
-
-        if ('permissions' in navigator) navigator.permissions.query({
-          name: 'notifications'
-        }).then(perm => {
-          perm.onchange = permissionChanged;
-        });
-        permissionChanged();
+          isVisible = () => $('#notify-app').is(':visible');
 
         const load = function(data, incoming) {
           if (booted) return;
           booted = true;
           var $el = $('#notify-app').html(initiatingHtml);
           lichess.loadCssPath('notify');
-          lichess.loadScript(lichess.jsModule('notify')).done(function() {
+          lichess.loadScript(lichess.jsModule('notify')).done(() => {
             instance = LichessNotify($el.empty()[0], {
               data: data,
               incoming: incoming,
@@ -331,7 +320,7 @@
         };
 
         $toggle.one('mouseover click', () => load()).click(() => {
-          if ('Notification' in window) Notification.requestPermission(p => permissionChanged());
+          if ('Notification' in window) Notification.requestPermission();
           setTimeout(() => {
             if (instance && isVisible()) instance.setVisible();
           }, 200);

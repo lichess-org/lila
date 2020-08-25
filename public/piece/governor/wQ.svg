@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <linearGradient id="linearGradient8565" x1="3169.7" x2="3193.8" y1="99.268" y2="99.268" gradientTransform="matrix(-3.75,0,0,3.75,18990,-1963.1)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient7764"/>
+  <linearGradient id="linearGradient7764">
+   <stop offset="0"/>
+   <stop stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient8839" x1="7112.9" x2="7076.9" y1="-1705.7" y2="-1754.3" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient7764"/>
+  <linearGradient id="linearGradient8841" x1="7084.1" x2="7077.7" y1="-1755.1" y2="-1756.6" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient7764"/>
+  <linearGradient id="linearGradient8843" x1="7054.9" x2="7051.1" y1="-1766.9" y2="-1766.9" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient7764"/>
+  <linearGradient id="linearGradient8845" x1="7027.3" x2="7020.2" y1="-1763.4" y2="-1760.7" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient7764"/>
+  <linearGradient id="linearGradient2605" x1="7002.4" x2="6999.7" y1="-1754.7" y2="-1753.9" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient7764"/>
+  <linearGradient id="linearGradient2615-7" x1="7007.4" x2="7017.2" y1="-1863.9" y2="-1863.9" gradientTransform="translate(-14096,185.72)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient7764"/>
+  <linearGradient id="linearGradient2649-4" x1="6991" x2="7052.1" y1="-1889.4" y2="-1889.4" gradientTransform="matrix(1,0,0,5.5962,-14097,8871.1)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient7764"/>
+ </defs>
+ <g transform="matrix(.94943 0 0 .94915 -271.84 226.21)">
+  <g transform="matrix(.29333 0 0 .29333 -1755 303.26)" stroke-width="1.0534">
+   <g transform="translate(5468.9,-1133.1)" stroke-width="1.0534">
+    <g transform="translate(-57.803,-246.18)" stroke-width="1.0534">
+     <path d="m1637.8-451.4c-3.4671 0.0258-6.265 2.8329-6.2651 6.2864-1e-4 3.2312 2.4596 5.936 5.6876 6.2554l-7.1061 71.188c-2.9583 0.14105-5.8768 0.36443-8.7282 0.66468l-20.683-67.32c2.7176-0.76546 4.5946-3.2351 4.5947-6.0481-2e-4 -3.4718-2.8261-6.2865-6.3117-6.2864-3.4856-1e-5 -6.3114 2.8147-6.3116 6.2864 2e-4 3.4717 2.826 6.2864 6.3116 6.2864 0.2966 2.9e-4 0.5939-0.0208 0.8876-0.062l3.3099 70.422c-1.7749 0.48306-3.4593 1.0046-5.0423 1.558l-31.281-60.644c2.2872-1.0055 3.7633-3.2614 3.7633-5.7516-2e-4 -3.4717-2.8261-6.2864-6.3116-6.2864-3.4856-6e-5 -6.3115 2.8147-6.3117 6.2864-3e-4 3.4721 2.8258 6.2865 6.3117 6.2864 0.4819-2.1e-4 0.9627-0.0557 1.432-0.16472l17.009 73.509c2.9373 10.101 10.962 19.111 24.553 22.752h60.985c13.591-3.6418 21.616-12.651 24.553-22.752l17.009-73.509c0.4693 0.10908 0.9502 0.16451 1.4321 0.16472 3.4858 6e-5 6.3119-2.8144 6.3116-6.2864-2e-4 -3.4718-2.8261-6.2865-6.3116-6.2864-3.4856-1e-5 -6.3115 2.8147-6.3117 6.2864 0 2.4902 1.4761 4.7461 3.7633 5.7516l-31.281 60.644c-1.583-0.55342-3.2674-1.075-5.0424-1.558l3.31-70.422c0.2937 0.0412 0.5909 0.0623 0.8875 0.062 3.4855 1e-5 6.3114-2.8147 6.3116-6.2864-2e-4 -3.4718-2.8261-6.2864-6.3116-6.2864-3.4856-6e-5 -6.3114 2.8146-6.3116 6.2864 1e-4 2.813 1.877 5.2826 4.5946 6.0481l-20.683 67.32c-2.8514-0.30025-5.7699-0.52363-8.7281-0.66468l-7.1062-71.188c3.2281-0.31946 5.6858-3.0242 5.6857-6.2554-1e-4 -3.4535-2.7961-6.2606-6.2632-6.2864z" fill="#eadbb8" stroke="#141414" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7652" style="paint-order:markers fill stroke"/>
+     <g fill="#fff" stroke-width="1.0534">
+      <path d="m1605.2-364 2.6094 0.13121-5.9495-63.115z"/>
+      <path transform="matrix(.99219 0 0 .99219 -5411.1 1379.3)" d="m7034.5-1809.8 14.701 60.375s1.6619 23.339 24.379 28.547c-25.226-14.692-27.263-59.309-39.08-88.922z"/>
+      <path d="m1632-367.47 5.6127-61.633-3.0424 61.184z"/>
+      <path d="m1655.8-366.77 17.87-58.858c-5.98 19.434-10.647 39.529-15.699 59.307z"/>
+      <path d="m1678.9-361.53 27.931-55.113-26.059 56.087z"/>
+     </g>
+     <g fill="#fefefe" stroke-width="1.0534">
+      <ellipse cx="1562.1" cy="-429.79" rx="2.0241" ry="1.9244" style="paint-order:markers fill stroke"/>
+      <ellipse cx="1596.5" cy="-441.61" rx="1.945" ry="1.8653" style="paint-order:markers fill stroke"/>
+      <ellipse cx="1636.2" cy="-447.06" rx="1.8852" ry="2.0247" style="paint-order:markers fill stroke"/>
+      <ellipse cx="1674.8" cy="-442.51" rx="1.4909" ry="1.5657" style="paint-order:markers fill stroke"/>
+     </g>
+     <ellipse cx="1709.9" cy="-430.59" rx="1.4643" ry="1.5096" fill="#fff" stroke-width="1.1097" style="paint-order:markers fill stroke"/>
+    </g>
+   </g>
+   <g transform="translate(-9.8724,-104.2)" clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
+    <path d="m7025-1595.7-12.956 6.5741v12.786h93.472v-12.786l-12.956-6.5741h-33.779z" fill="#eadbb8" image-rendering="optimizeQuality" stroke="#141414" stroke-width="2.7652"/>
+    <path d="m7103.9-1587.9-11.684-6.0139-66.754 0.038-11.701 6.0139z" fill="url(#linearGradient8565)" image-rendering="optimizeQuality" opacity=".3" stroke-width="3.9503"/>
+    <path d="m7017.7-1576.4v4.8758h82.144v-4.8758z" fill="#eadbb8" image-rendering="optimizeQuality" stroke="#141414" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7652" style="paint-order:normal"/>
+    <path d="m7026-1601.2c-1.4562 0-2.6297 1.1715-2.6297 2.6276v0.2636c0 1.4561 1.1735 2.6276 2.6297 2.6276h65.542c1.4561 0 2.6276-1.1715 2.6276-2.6276v-0.2636c0-1.4561-1.1716-2.6276-2.6276-2.6276z" fill="#eadbb8" image-rendering="optimizeQuality" stroke="#141414" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7652" style="paint-order:normal"/>
+   </g>
+   <g stroke-width="1.1097">
+    <path d="m7122.4-1814.1c9.4448 8.768-8.9481 8.4012-2.5483 12.038-15.943 38.254-6.8203 90.227-86.184 96.632l45.738 1e-4c13.592-3.6418 21.616-12.651 24.553-22.753l17.009-73.511c0.4693 0.109 0.9502 0.1645 1.4321 0.1647 3.4858 1e-4 6.3119-2.8124 6.3116-6.2845-2e-4 -3.4718-2.8261-6.2865-6.3116-6.2864z" fill="url(#linearGradient8839)" opacity=".3" style="paint-order:markers fill stroke"/>
+    <path d="m7083.6-1743-8.9762-2.1324 10.994-40.792z" fill="url(#linearGradient8841)" opacity=".3"/>
+    <path d="m7056.6-1747.4-6.3137 0.1543 1.9263-44.106z" fill="url(#linearGradient8843)" opacity=".3"/>
+    <path d="m7032.5-1746.3-5.2407 0.8862-10.068-50.715z" fill="url(#linearGradient8845)" opacity=".3"/>
+    <path d="m7009.3-1741.4-3.6682 1.7099-19.872-47.346z" fill="url(#linearGradient2605)" opacity=".3"/>
+    <rect transform="scale(-1,1)" x="-7088.7" y="-1679.2" width="9.8096" height="2.1716" ry="0" fill="url(#linearGradient2615-7)" opacity=".6" style="paint-order:markers fill stroke"/>
+    <rect transform="scale(-1,1)" x="-7083.1" y="-1704.2" width="58.192" height="2.9632" ry="1.4816" fill="url(#linearGradient2649-4)" opacity=".48852" style="paint-order:markers fill stroke"/>
+   </g>
+  </g>
+  <g stroke-width="1.1097">
+   <path d="m324.65-232.26s2.9856 1.3935 0.0762 3.2637c0.033-9e-3 1.0616-1.9781-0.0762-3.2637z" opacity=".2"/>
+   <path d="m334.94-228.6s2.9856 1.3935 0.0762 3.2637c0.033-9e-3 1.0616-1.9781-0.0762-3.2637z" opacity=".2"/>
+   <path d="m313.29-233.42s2.9856 1.3935 0.0762 3.2637c0.033-9e-3 1.0616-1.9781-0.0762-3.2637z" opacity=".2"/>
+   <path d="m301.81-232.28s2.9856 1.3935 0.0762 3.2637c0.033-9e-3 1.0616-1.9781-0.0762-3.2637z" opacity=".2"/>
+   <path d="m291.85-228.61s2.9856 1.3935 0.0762 3.2637c0.033-9e-3 1.0616-1.9781-0.0762-3.2637z" opacity=".2"/>
+  </g>
+ </g>
+</svg>

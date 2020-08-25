@@ -5,7 +5,6 @@ import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 
-import BSONHandlers._
 import lila.common.config.CollName
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
@@ -16,6 +15,7 @@ import lila.user.User
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
+  import BSONHandlers._
 
   private val enterableSelect                  = $doc("status" $lt Status.Finished.id)
   private val createdSelect                    = $doc("status" -> Status.Created.id)
@@ -102,10 +102,10 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       readPreference = ReadPreference.secondaryPreferred
     )
 
-  def byFreqAdapter(freq: Schedule.Freq) =
+  def finishedByFreqAdapter(freq: Schedule.Freq) =
     new lila.db.paginator.Adapter[Tournament](
       collection = coll,
-      selector = $doc("schedule.freq" -> freq),
+      selector = $doc("schedule.freq" -> freq, "status" -> Status.Finished.id),
       projection = none,
       sort = $sort desc "startsAt",
       readPreference = ReadPreference.secondaryPreferred

@@ -315,7 +315,7 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
   }, 10000);
 };
 lichess.pubsub = (function() {
-  var subs = [];
+  let subs = [];
   return {
     on(name, cb) {
       subs[name] = subs[name] || [];

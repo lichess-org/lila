@@ -276,8 +276,10 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
     form3.group(
       form("description"),
       frag("Tournament description"),
-      help = frag("Anything special you want to tell the participants? Try to keep it short.").some
-    )(form3.textarea(_)(rows := 2))
+      help = frag(
+        "Anything special you want to tell the participants? Try to keep it short. Markdown links are available: [name](https://url)"
+      ).some
+    )(form3.textarea(_)(rows := 4))
   def password =
     !isTeamBattle option
       form3.group(
