@@ -98,13 +98,13 @@ final class EventStream(
 
         case FinishGame(game, _, _) => queue offer gameJson("gameFinish")(game).some
 
-        case lila.challenge.Event.Create(c) if c.destUserId has me.id =>
+        case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
           queue offer challengeJson("challenge")(c).some
 
-        case lila.challenge.Event.Decline(c) if c.challengerUserId has me.id =>
+        case lila.challenge.Event.Decline(c) if isMyChallenge(c) =>
           queue offer challengeJson("challengeDeclined")(c).some
 
-        case lila.challenge.Event.Cancel(c) if c.destUserId has me.id =>
+        case lila.challenge.Event.Cancel(c) if isMyChallenge(c) =>
           queue offer challengeJson("challengeCanceled")(c).some
 
         // pretend like the rematch is a challenge
@@ -115,6 +115,9 @@ final class EventStream(
             }
           }
       }
+
+      private def isMyChallenge(c: Challenge) =
+        c.destUserId.has(me.id) || c.challengerUserId.has(me.id)
     }
 
   private def gameJson(tpe: String)(game: Game) =
@@ -123,7 +126,7 @@ final class EventStream(
       "game" -> Json.obj("id" -> game.id)
     )
 
-  private def challengeJson(tpe: String)(c: lila.challenge.Challenge) =
+  private def challengeJson(tpe: String)(c: Challenge) =
     Json.obj(
       "type"      -> tpe,
       "challenge" -> challengeJsonView(none)(c)(lila.i18n.defaultLang)
