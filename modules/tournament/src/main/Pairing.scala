@@ -80,9 +80,8 @@ private[tournament] object Pairing {
     )
 
   case class Prep(tourId: Tournament.ID, user1: User.ID, user2: User.ID) {
-    def toPairing(gameId: Game.ID)(firstGetsWhite: Boolean): Pairing =
-      if (firstGetsWhite) make(gameId, tourId, user1, user2)
-      else make(gameId, tourId, user2, user1)
+    def toPairing(gameId: Game.ID): Pairing =
+      make(gameId, tourId, user1, user2)
   }
 
   def prepWithColor(tour: Tournament, p1: RankedPlayerWithColorHistory, p2: RankedPlayerWithColorHistory) =

@@ -40,7 +40,7 @@ object Forecast {
 
   type Steps = List[List[Step]]
 
-  def maxPlies(steps: Steps): Int = ~steps.map(_.size).sortBy(-_).lastOption
+  def maxPlies(steps: Steps): Int = steps.foldLeft(0)(_ max _.size)
 
   case class Step(
       ply: Int,
