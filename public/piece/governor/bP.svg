@@ -22,8 +22,8 @@
  <g transform="matrix(.89936 0 0 .90046 -132.54 257.2)" stroke-width="1.1112">
   <g transform="matrix(.308 0 0 .308 -108.73 -54.428)">
    <g transform="matrix(3.75,0,0,3.75,828,-746.38)" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision">
-    <path transform="matrix(.22908 0 0 .22908 -77.713 245.07)" d="m427.22-964.54c-4.5212 0-8.1602 2.847-8.1602 6.3848 0 3.538 3.6392 6.3848 8.1602 6.3848h5.3203c-3.3034 39.206-39.135 55.33-39.135 55.33l3.5996 15.59h102.75l3.5977-15.59s-35.829-16.125-39.133-55.33h5.3164c4.5212 0 8.1602-2.8466 8.1602-6.3848 0-3.5376-3.6392-6.3848-8.1602-6.3848z" fill="#16120b" stroke="#000" stroke-width="3.3957"/>
-    <path d="m21.214 24.115c-1.905-1.2423-3.0493-3.3365-3.0493-5.5792 0-3.7011 3.0605-6.7016 6.8362-6.7016 3.7755 0 6.8363 3.0005 6.8363 6.7016v0c0 2.2433-1.1448 4.3375-3.0502 5.5798z" fill="#16120b" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".77786" style="paint-order:normal"/>
+    <path transform="matrix(.22908 0 0 .22908 -77.713 245.07)" d="m427.22-964.54c-4.5212 0-8.1602 2.847-8.1602 6.3848 0 3.538 3.6392 6.3848 8.1602 6.3848h5.3203c-3.3034 39.206-39.135 55.33-39.135 55.33l3.5996 15.59h102.75l3.5977-15.59s-35.829-16.125-39.133-55.33h5.3164c4.5212 0 8.1602-2.8466 8.1602-6.3848 0-3.5376-3.6392-6.3848-8.1602-6.3848z" fill="#2e2924" stroke="#000" stroke-width="3.3957"/>
+    <path d="m21.214 24.115c-1.905-1.2423-3.0493-3.3365-3.0493-5.5792 0-3.7011 3.0605-6.7016 6.8362-6.7016 3.7755 0 6.8363 3.0005 6.8363 6.7016v0c0 2.2433-1.1448 4.3375-3.0502 5.5798z" fill="#2e2924" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".77786" style="paint-order:normal"/>
     <g stroke-width="1.2347">
      <path d="m18.979 20.523c-0.39793-0.11676-1.6635-6.5583 4.9087-8.2181 1.458 0.66656 3.6116 8.5328-4.9087 8.2181z" fill="url(#linearGradient2586)" opacity=".25"/>
      <path d="m18.843 26.105c0.11889-1.2538 7.9392-1.5384 7.9392-1.5384l-6.8611-0.07894c-0.82665 0.09259-1.6107 0.84273-1.078 1.6173z" fill="url(#linearGradient2588)" opacity=".25"/>
@@ -32,7 +32,7 @@
    </g>
   </g>
   <g transform="matrix(.29333 0 0 .29333 -1733.5 371.59)">
-   <path d="m6465.9-2065.6v4.8718h82.145v-4.8718z" clip-rule="evenodd" fill="#16120b" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#0a0805" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.917" style="paint-order:normal"/>
+   <path d="m6465.9-2065.6v4.8718h82.145v-4.8718z" clip-rule="evenodd" fill="#2e2924" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#0a0805" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.917" style="paint-order:normal"/>
    <rect x="6467.2" y="-2064.2" width="9.8096" height="2.1716" ry="0" fill="url(#linearGradient2942-6)" opacity=".15" stroke-width="1.1714" style="paint-order:markers fill stroke"/>
   </g>
  </g>

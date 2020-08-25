@@ -27,7 +27,7 @@
  </defs>
  <g transform="matrix(.27836 0 0 .27842 -1864.4 563.84)" stroke-width="1.0537">
   <g transform="translate(-483.04,261.38)">
-   <path d="m7270.7-2275.9c-3.3797 0.7563-5.5512 3.1076-6.5955 7.0847v10.664h-16.004v11.864h14.613v7.4673l4.6326 5.355c-14.52 7.4587-3.5867 16.177-3.5867 16.177h0.06c-103.62 18.484-25.186 71.655-25.186 71.655h64.016s78.43-53.171-25.186-71.655h0.1342s10.871-8.7181-3.6573-16.177h0.1077l4.6326-5.355v-7.4673h14.611v-11.864h-16.004v-10.664c-1.0445-3.9771-3.2141-6.3284-6.5938-7.0847z" fill="#16120b" stroke="#0a0805" stroke-linejoin="round" stroke-width="2.7657"/>
+   <path d="m7270.7-2275.9c-3.3797 0.7563-5.5512 3.1076-6.5955 7.0847v10.664h-16.004v11.864h14.613v7.4673l4.6326 5.355c-14.52 7.4587-3.5867 16.177-3.5867 16.177h0.06c-103.62 18.484-25.186 71.655-25.186 71.655h64.016s78.43-53.171-25.186-71.655h0.1342s10.871-8.7181-3.6573-16.177h0.1077l4.6326-5.355v-7.4673h14.611v-11.864h-16.004v-10.664c-1.0445-3.9771-3.2141-6.3284-6.5938-7.0847z" fill="#2e2924" stroke="#0a0805" stroke-linejoin="round" stroke-width="2.7657"/>
    <g stroke-width="1.1102">
     <path d="m7264.9-2220.4c-5.5563-7.3442 3.1451-13.14 6.0764-8.2197 1.9519 3.4925-5.1218 2.0642-6.0764 8.2197z" fill="url(#linearGradient2257)" opacity=".25"/>
     <path d="m7250-2248.2v-8.1391h35.992s-34.447 4.4395-35.992 8.1391z" fill="url(#linearGradient2259)" opacity=".25"/>
@@ -37,10 +37,10 @@
   </g>
   <g transform="translate(-558.06,152.1)" stroke-width="1.1102">
    <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
-    <path d="m7311.9-2030.9-12.956 6.5742v12.786h93.472v-12.786l-12.956-6.5742h-33.779z" fill="#16120b" image-rendering="optimizeQuality" stroke="#0a0805" stroke-width="2.7659"/>
+    <path d="m7311.9-2030.9-12.956 6.5742v12.786h93.472v-12.786l-12.956-6.5742h-33.779z" fill="#2e2924" image-rendering="optimizeQuality" stroke="#0a0805" stroke-width="2.7659"/>
     <path d="m7300.6-2023 11.684-6.0138 66.754 0.038 11.701 6.0139z" fill="url(#linearGradient1634)" image-rendering="optimizeQuality" opacity=".25" stroke-width="3.9513"/>
-    <path d="m7304.6-2011.5v4.8718h82.145v-4.8718z" fill="#16120b" image-rendering="optimizeQuality" stroke="#0a0805" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7659" style="paint-order:normal"/>
-    <path d="m7312.9-2036.4c-1.4561 0-2.6297 1.1716-2.6297 2.6277v0.2635c0 1.4561 1.1736 2.6278 2.6297 2.6278h65.542c1.4561 0 2.6276-1.1717 2.6276-2.6278v-0.2635c0-1.4561-1.1715-2.6277-2.6276-2.6277z" fill="#16120b" image-rendering="optimizeQuality" stroke="#0a0805" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7659" style="paint-order:normal"/>
+    <path d="m7304.6-2011.5v4.8718h82.145v-4.8718z" fill="#2e2924" image-rendering="optimizeQuality" stroke="#0a0805" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7659" style="paint-order:normal"/>
+    <path d="m7312.9-2036.4c-1.4561 0-2.6297 1.1716-2.6297 2.6277v0.2635c0 1.4561 1.1736 2.6278 2.6297 2.6278h65.542c1.4561 0 2.6276-1.1717 2.6276-2.6278v-0.2635c0-1.4561-1.1715-2.6277-2.6276-2.6277z" fill="#2e2924" image-rendering="optimizeQuality" stroke="#0a0805" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.7659" style="paint-order:normal"/>
    </g>
    <rect x="7305.9" y="-2010.2" width="9.8096" height="2.1716" ry="0" fill="url(#linearGradient1636)" opacity=".15" style="paint-order:markers fill stroke"/>
    <rect x="7312.4" y="-2035" width="58.192" height=".5295" ry=".26475" fill="url(#linearGradient1638)" opacity=".25" style="paint-order:markers fill stroke"/>
