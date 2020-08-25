@@ -7,8 +7,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="lichess-silver-2.svg"
    inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="lichess-silver-2.svg"
    id="svg807"
    version="1.1"
    viewBox="0 0 95.149117 116.92294"
@@ -24,11 +24,11 @@
      inkscape:window-width="1920"
      showgrid="false"
      inkscape:document-rotation="0"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g1926-9-5"
      inkscape:document-units="mm"
-     inkscape:cy="220.95674"
-     inkscape:cx="179.80935"
-     inkscape:zoom="0.35"
+     inkscape:cy="223.14501"
+     inkscape:cx="198.64455"
+     inkscape:zoom="1.979899"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -117,9 +117,10 @@
              id="path1094-4-664-6"
              style="fill:#c1c1c1;fill-opacity:1;stroke-width:0.752377" />
           <path
+             inkscape:label="logo"
              inkscape:connector-curvature="0"
-             style="opacity:1;fill:#adadad;fill-opacity:1;stroke:#adadad;stroke-width:2.80569;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
-             d="m 70.79028,-1647.1343 c -5.53533,0.6556 -10.11775,1.4151 -14.56271,4.6799 -37.84969,-2.6629 -47.6139704,23.603 -45.46137,40.5929 4.41096,32.6984 48.98619,41.4381 63.7456,19.3475 -11.67333,12.0713 -30.2278,13.7279 -44.41509,4.8378 -14.18712,-8.89 -21.1893904,-27.2787 -13.0516,-42.6885 8.13783,-15.4101 22.44521,-20.4396 38.18188,-17.5067 3.81138,-2.224 8.19391,-5.05 12.00531,-4.9992 l -2.65779,7.6215 19.47311,33.8822 c -0.68735,8.8677 -7.67139,8.7384 -7.67139,8.7384 -0.90105,-2.307 -2.92624,-4.1291 -7.95633,-8.9827 -5.03025,-4.8535 -27.3878,-15.9628 -24.75909,-25.4195 -3.13899,10.928 16.17017,22.1973 22.0178,27.7039 5.84747,5.5067 8.96978,9.2238 9.08721,10.5971 0,0 14.72916,-3.9276 12.29152,-14.0023 L 68.353,-1636.6698 Z m 4.15261,57.0669 v 0.011 z"
+             style="display:inline;opacity:1;fill:#adadad;fill-opacity:1;stroke:#adadad;stroke-width:3.57411;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+             d="m 81.756024,-1650.7179 c -7.13337,0.8255 -13.038725,1.7819 -18.766936,5.893 -48.776813,-3.3532 -61.3600208,29.7216 -58.5859698,51.1158 5.6843948,41.1749 63.1283988,52.1803 82.1488198,24.363 -15.043396,15.2006 -38.954502,17.2867 -57.237632,6.0919 -18.282911,-11.1945 -27.306723,-34.3501 -16.81957,-53.7546 10.487205,-19.405 28.925095,-25.7382 49.204908,-22.0451 4.911717,-2.8004 10.559474,-6.359 15.471217,-6.2951 l -3.425087,9.5973 25.09495,42.6654 c -0.885782,11.1667 -9.886102,11.0037 -9.886102,11.0037 -1.161176,-2.905 -3.77104,-5.1995 -10.253303,-11.3113 -6.482472,-6.1116 -35.2946,-20.1007 -31.906987,-32.0089 -4.04521,13.7609 20.838464,27.9514 28.374293,34.8856 7.535617,6.9342 11.559337,11.6149 11.710667,13.3441 0,0 18.981438,-4.9458 15.840058,-17.6321 l -24.104245,-42.7354 z m 5.351459,71.8603 v 0.014 z"
              id="path2669-5-6-8-4-5-2-6-9-9-2-4-9-5-0-6"
              sodipodi:nodetypes="ccccczccccccccccccccc" />
         </g>
