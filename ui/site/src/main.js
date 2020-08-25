@@ -293,8 +293,6 @@
         const $toggle = $('#notify-toggle'),
           isVisible = () => $('#notify-app').is(':visible');
 
-        if ('permissions' in navigator) navigator.permissions.query({ name: 'notifications' });
-
         const load = function(data, incoming) {
           if (booted) return;
           booted = true;
@@ -322,6 +320,7 @@
         };
 
         $toggle.one('mouseover click', () => load()).click(() => {
+          if ('Notification' in window) Notification.requestPermission();
           setTimeout(() => {
             if (instance && isVisible()) instance.setVisible();
           }, 200);
