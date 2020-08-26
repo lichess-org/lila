@@ -41,8 +41,8 @@ final class Auth(
     referrer.nonEmpty &&
       !sillyLoginReferrers(referrer) && Try {
       val url = Url.parse(referrer)
-      url.schemeOption.exists(scheme => scheme == "http" || scheme == "https") &&
-      url.hostOption.exists(host =>
+      url.schemeOption.fold(true)(scheme => scheme == "http" || scheme == "https") &&
+      url.hostOption.fold(true)(host =>
         s".${host.value}".endsWith(s".${AbsoluteUrl.parse(env.net.baseUrl.value).host.value}")
       )
     }.getOrElse(false)
