@@ -275,6 +275,7 @@
     <item quantity="one">Anna %s sekuntia</item>
     <item quantity="other">Anna %s sekuntia</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Tämä tili rikkoi Lichessin käyttöehtoja</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tämä pelaaja yrittää keinotekoisesti nostaa pisteitään</string>
   <string name="openingExplorerAndTablebase">Avaus- ja loppupelitietokanta</string>
   <string name="takeback">Peruuta siirto</string>
