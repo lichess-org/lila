@@ -36,7 +36,10 @@ private[tournament] class RankingMap(users: Array[User.ID]) {
     h(pos) = i
   }
   /* betterRank stops searching after finding slot with rank not lesser than rank parameter
-   * returns Some(rank)
+   * if return value is less than parameter then it is precise
+   * otherwise it is just estimation
+   * (guaranteed only that user's rank not less than given parameter or user couldn't be found)
+   * returned None value guaranteed that user is not in ranks
    */
   final def betterRank(key: User.ID, rank: Int): Option[Int] = {
     val k = h(seek(key, rank))
