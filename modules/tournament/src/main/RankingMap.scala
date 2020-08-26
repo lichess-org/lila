@@ -24,7 +24,7 @@ private[tournament] class RankingMap(users: Array[User.ID]) {
     val hc  = key.hashCode
     var pos = hc & mask
     //use odd steps, since step should be relative prime to hash size equal to 2^bits
-    val step = ((hc >>> (bits - 1)) & bits) | 1
+    val step = ((hc >>> (bits - 1)) & mask) | 1
     while (h(pos) < rank && users(h(pos)) != key) {
       pos = (pos + step) & mask
     }
