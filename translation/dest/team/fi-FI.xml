@@ -39,5 +39,6 @@
 Voit kutsua tällä pelaajia liittymään turnauksiin tai joukkuetaisteluihin.
 Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä joukkueesta.</string>
   <string name="teamsIlead">Johtamani joukkueet</string>
+  <string name="usersWhoCanManageThisTeam">Käyttäjät, jotka voivat hallita tätä joukkuetta</string>
   <string name="leadersChat">Johtajien chat</string>
 </resources>
