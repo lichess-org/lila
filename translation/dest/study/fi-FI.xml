@@ -70,6 +70,7 @@
   <string name="startAtX">Aloita siirrosta %s</string>
   <string name="embedInYourWebsite">Upota sivustoosi tai blogiisi</string>
   <string name="readMoreAboutEmbedding">Lue lisää upottamisesta</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Vain julkiset tutkielmat voidaan upottaa!</string>
   <string name="open">Avaa</string>
   <string name="xBroughtToYouByY">%1$s, sivustolta %2$s</string>
   <string name="studyNotFound">Tutkielmaa ei löydy</string>
