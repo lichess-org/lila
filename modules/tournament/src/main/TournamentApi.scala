@@ -200,12 +200,19 @@ final class TournamentApi(
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
       {
         val curBestRank = curOption.filter(_.pairing.playing).fold(Int.MaxValue)(_.bestRank)
-        pairings.flatMap(RankedPairing.betterRank(ranking)(_, curBestRank)).minimumByOption(_.bestRank) ?? {
-          bestCandidate =>
-            (bestCandidate.bestRank < curBestRank) ?? tournamentRepo.setFeaturedGameId(
-              tour.id,
-              bestCandidate.pairing.gameId
-            )
+        pairings
+          .foldLeft((curBestRank, Option.empty[RankedPairing]))((acc, p) => {
+            RankedPairing.betterRank(ranking)(p, acc._1) match {
+              case None                               => acc
+              case o @ Some(v) if v.bestRank < acc._1 => (v.bestRank, o)
+              case _                                  => acc
+            }
+          })
+          ._2 ?? { bestCandidate =>
+          tournamentRepo.setFeaturedGameId(
+            tour.id,
+            bestCandidate.pairing.gameId
+          )
         }
       }
     }
