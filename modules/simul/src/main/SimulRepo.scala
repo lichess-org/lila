@@ -10,7 +10,7 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.User
 
-final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final private[simul] class SimulRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val SimulStatusBSONHandler = tryHandler[SimulStatus](
     { case BSONInteger(v) => SimulStatus(v) toTry s"No such simul status: $v" },
@@ -57,13 +57,13 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   private val createdSort    = $sort desc "createdAt"
 
   def find(id: Simul.ID): Fu[Option[Simul]] =
-    simulColl.byId[Simul](id)
+    coll.byId[Simul](id)
 
   def byIds(ids: List[Simul.ID]): Fu[List[Simul]] =
-    simulColl.byIds[Simul](ids)
+    coll.byIds[Simul](ids)
 
   def exists(id: Simul.ID): Fu[Boolean] =
-    simulColl.exists($id(id))
+    coll.exists($id(id))
 
   def findStarted(id: Simul.ID): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isStarted))
@@ -72,22 +72,22 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     find(id) map (_ filter (_.isCreated))
 
   def findPending(hostId: User.ID): Fu[List[Simul]] =
-    simulColl.list[Simul](createdSelect ++ $doc("hostId" -> hostId))
+    coll.list[Simul](createdSelect ++ $doc("hostId" -> hostId))
 
   def byTeamLeaders(teamId: String, hostIds: Seq[User.ID]): Fu[List[Simul]] =
-    simulColl
+    coll
       .find(
         createdSelect ++
           $doc("hostId" $in hostIds, "team" $in List(BSONString(teamId)))
       )
-      .hint(simulColl hint $doc("hostId" -> 1))
+      .hint(coll hint $doc("hostId" -> 1))
       .cursor[Simul]()
       .list()
 
   private val featurableSelect = $doc("featurable" -> true)
 
   def allCreatedFeaturable: Fu[List[Simul]] =
-    simulColl
+    coll
       .find(
         // hits partial index hostSeenAt_-1
         createdSelect ++ featurableSelect ++ $doc(
@@ -96,7 +96,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
         )
       )
       .sort(createdSort)
-      .hint(simulColl hint $doc("hostSeenAt" -> -1))
+      .hint(coll hint $doc("hostSeenAt" -> -1))
       .cursor[Simul]()
       .list() map {
       _.foldLeft(List.empty[Simul]) {
@@ -106,29 +106,29 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
     }
 
   def allStarted: Fu[List[Simul]] =
-    simulColl
+    coll
       .find(startedSelect)
       .sort(createdSort)
       .cursor[Simul]()
       .list()
 
   def allFinishedFeaturable(max: Int): Fu[List[Simul]] =
-    simulColl
+    coll
       .find(finishedSelect ++ featurableSelect)
       .sort($sort desc "finishedAt")
       .cursor[Simul]()
       .list(max)
 
   def allNotFinished =
-    simulColl.list[Simul]($doc("status" $ne SimulStatus.Finished.id))
+    coll.list[Simul]($doc("status" $ne SimulStatus.Finished.id))
 
   def create(simul: Simul, featurable: Boolean): Funit =
-    simulColl.insert one {
+    coll.insert one {
       SimulBSONHandler.writeTry(simul).get ++ featurable.??(featurableSelect)
     } void
 
   def update(simul: Simul, featurable: Option[Boolean]) =
-    simulColl.update
+    coll.update
       .one(
         $id(simul.id),
         $set(SimulBSONHandler writeTry simul get) ++ featurable.?? { feat =>
@@ -138,10 +138,10 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
       .void
 
   def remove(simul: Simul) =
-    simulColl.delete.one($id(simul.id)).void
+    coll.delete.one($id(simul.id)).void
 
   def setHostGameId(simul: Simul, gameId: String) =
-    simulColl.update
+    coll.update
       .one(
         $id(simul.id),
         $set("hostGameId" -> gameId)
@@ -149,7 +149,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
       .void
 
   def setHostSeenNow(simul: Simul) =
-    simulColl.update
+    coll.update
       .one(
         $id(simul.id),
         $set("hostSeenAt" -> DateTime.now)
@@ -157,7 +157,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
       .void
 
   def setText(simul: Simul, text: String) =
-    simulColl.update
+    coll.update
       .one(
         $id(simul.id),
         $set("text" -> text)
@@ -165,7 +165,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
       .void
 
   def cleanup =
-    simulColl.delete.one(
+    coll.delete.one(
       createdSelect ++ $doc(
         "createdAt" -> $doc("$lt" -> (DateTime.now minusMinutes 60))
       )

@@ -32,7 +32,8 @@ case class StudyMembers(members: StudyMember.MemberMap) {
 
   def get = members.get _
 
-  def ids = members.keys
+  def ids   = members.keys
+  def idSet = members.keySet
 
   def contributorIds: Set[User.ID] =
     members.view.collect {

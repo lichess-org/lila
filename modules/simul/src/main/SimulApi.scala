@@ -6,8 +6,10 @@ import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import lila.common.{ Bus, Debouncer }
+import lila.db.dsl._
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
+import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi._
 import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
@@ -221,6 +223,9 @@ final class SimulApi(
 
   def idToName(id: Simul.ID): Fu[Option[String]] =
     repo find id dmap2 { _.fullName }
+
+  def teamOf(id: Simul.ID): Fu[Option[TeamID]] =
+    repo.coll.primitiveOne[TeamID]($id(id), "team")
 
   private def makeGame(simul: Simul, host: User)(
       pairingAndNumber: (SimulPairing, Int)

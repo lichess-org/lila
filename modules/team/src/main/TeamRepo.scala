@@ -15,6 +15,8 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   private val lightProjection = $doc("name" -> true).some
 
+  def byId(id: Team.ID) = coll.byId[Team](id)
+
   def byOrderedIds(ids: Seq[Team.ID]) = coll.byOrderedIds[Team, Team.ID](ids)(_.id)
 
   def byLeader(id: Team.ID, leaderId: User.ID): Fu[Option[Team]] =

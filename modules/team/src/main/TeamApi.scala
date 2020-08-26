@@ -30,7 +30,7 @@ final class TeamApi(
 
   import BSONHandlers._
 
-  def team(id: Team.ID) = teamRepo.coll.byId[Team](id)
+  def team(id: Team.ID) = teamRepo byId id
 
   def leaderTeam(id: Team.ID) = teamRepo.coll.byId[LeaderTeam](id, $doc("name" -> true))
 

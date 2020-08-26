@@ -9,7 +9,7 @@ import lila.common.config.NetDomain
 final class PromotionApi(domain: NetDomain) {
 
   def test(user: User)(text: String): Boolean =
-    user.isVerified || {
+    user.isVerified || user.isAdmin || {
       val promotions = extract(text)
       promotions.isEmpty || {
         val prev   = ~cache.getIfPresent(user.id)
@@ -35,6 +35,8 @@ final class PromotionApi(domain: NetDomain) {
     s"$domain/team/([\\w-]+)",
     s"$domain/tournament/(\\w+)",
     s"$domain/swiss/(\\w+)",
+    s"$domain/simul/(\\w+)",
+    s"$domain/study/(\\w+)",
     """(?:youtube\.com|youtu\.be)/(?:watch)?(?:\?v=)?([^"&?/ ]{11})""",
     """youtube\.com/channel/([\w-]{24})""",
     """twitch\.tv/([a-zA-Z0-9](?:\w{2,24}+))"""

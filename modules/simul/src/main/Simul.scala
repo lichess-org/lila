@@ -17,7 +17,7 @@ case class Simul(
     variants: List[Variant],
     position: Option[StartingPosition],
     createdAt: DateTime,
-    hostId: String,
+    hostId: User.ID,
     hostRating: Int,
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],

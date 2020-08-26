@@ -4,9 +4,9 @@ import chess.Color
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.common.config.NetDomain
 import lila.common.String.noShouting
-import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
 import lila.memo.CacheApi._
@@ -23,7 +23,7 @@ final class ChatApi(
     cacheApi: lila.memo.CacheApi,
     maxLinesPerChat: Chat.MaxLines,
     netDomain: NetDomain
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, actorSystem: akka.actor.ActorSystem) {
 
   import Chat.{ chatIdBSONHandler, userChatBSONHandler }
 
@@ -88,18 +88,29 @@ final class ChatApi(
     ): Funit =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
-          pushLine(chatId, line) >>- {
-            if (publicSource.isDefined) cached invalidate chatId
-            shutup ! {
-              publicSource match {
-                case Some(source) => RecordPublicChat(userId, text, source)
-                case _            => RecordPrivateChat(chatId.value, userId, text)
+          linkCheck(line, publicSource) flatMap {
+            case false =>
+              logger.info(s"Link check rejected $line in $publicSource")
+              funit
+            case true =>
+              pushLine(chatId, line) >>- {
+                if (publicSource.isDefined) cached invalidate chatId
+                shutup ! {
+                  publicSource match {
+                    case Some(source) => RecordPublicChat(userId, text, source)
+                    case _            => RecordPrivateChat(chatId.value, userId, text)
+                  }
+                }
+                publish(chatId, actorApi.ChatLine(chatId, line), busChan)
+                lila.mon.chat.message(publicSource.fold("player")(_.parentName), line.troll).increment()
               }
-            }
-            publish(chatId, actorApi.ChatLine(chatId, line), busChan)
-            lila.mon.chat.message(publicSource.fold("player")(_.parentName), line.troll).increment()
           }
         }
+      }
+
+    private def linkCheck(line: UserLine, source: Option[PublicSource]) =
+      source.fold(fuccess(true)) { s =>
+        Bus.ask[Boolean]("chatLinkCheck") { GetLinkCheck(line, s, _) }
       }
 
     def clear(chatId: Chat.Id) = coll.delete.one($id(chatId)).void

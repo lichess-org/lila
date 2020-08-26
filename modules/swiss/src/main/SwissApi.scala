@@ -452,6 +452,9 @@ final class SwissApi(
       .sort($sort desc "startsAt")
       .cursor[Swiss]()
 
+  def teamOf(id: Swiss.Id): Fu[Option[TeamID]] =
+    colls.swiss.primitiveOne[TeamID]($id(id), "teamId")
+
   private def recomputeAndUpdateAll(id: Swiss.Id): Funit =
     scoring(id).flatMap {
       _ ?? { res =>
