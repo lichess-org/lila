@@ -194,8 +194,7 @@ final class TournamentApi(
           .result
       }
 
-  private def featureOneOf(tour: Tournament, pairings: Pairings, ranking: Ranking): Funit = {
-    import cats.implicits._
+  private def featureOneOf(tour: Tournament, pairings: Pairings, ranking: Ranking): Funit =
     tour.featuredId.ifTrue(pairings.nonEmpty) ?? pairingRepo.byId map2
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
       {
@@ -216,7 +215,6 @@ final class TournamentApi(
         }
       }
     }
-  }
 
   private[tournament] def start(oldTour: Tournament): Funit =
     Sequencing(oldTour.id)(tournamentRepo.createdById) { tour =>
