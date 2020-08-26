@@ -238,18 +238,17 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
         List(Match(selectTour(tourId)), Sort(Descending("m")), Group(BSONNull)("uids" -> PushField("uid")))
       }
       .headOption map {
+      import RankingMap.implicits._
       _ ?? {
         _ get "uids" match {
           case Some(BSONArray(uids)) =>
             // mutable optimized implementation
-            val b = Map.newBuilder[User.ID, Int]
-            var r = 0
+            val b = Array.newBuilder[User.ID]
             for (u <- uids) {
-              b += (u.asInstanceOf[BSONString].value -> r)
-              r = r + 1
+              b += u.asInstanceOf[BSONString].value
             }
-            b.result()
-          case _ => Map.empty
+            new RankingMap(b.result())
+          case _ => RankingMap.empty
         }
       }
     }

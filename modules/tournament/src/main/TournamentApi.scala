@@ -198,12 +198,14 @@ final class TournamentApi(
     import cats.implicits._
     tour.featuredId.ifTrue(pairings.nonEmpty) ?? pairingRepo.byId map2
       RankedPairing(ranking) map (_.flatten) flatMap { curOption =>
-      pairings.flatMap(RankedPairing(ranking)).minimumByOption(_.bestRank) ?? { bestCandidate =>
-        def switch = tournamentRepo.setFeaturedGameId(tour.id, bestCandidate.pairing.gameId)
-        curOption.filter(_.pairing.playing) match {
-          case Some(current) if bestCandidate.bestRank < current.bestRank => switch
-          case Some(_)                                                    => funit
-          case _                                                          => switch
+      {
+        val curBestRank = curOption.filter(_.pairing.playing).fold(Int.MaxValue)(_.bestRank)
+        pairings.flatMap(RankedPairing.betterRank(ranking)(_, curBestRank)).minimumByOption(_.bestRank) ?? {
+          bestCandidate =>
+            (bestCandidate.bestRank < curBestRank) ?? tournamentRepo.setFeaturedGameId(
+              tour.id,
+              bestCandidate.pairing.gameId
+            )
         }
       }
     }

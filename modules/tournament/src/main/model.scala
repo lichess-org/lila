@@ -69,6 +69,12 @@ object RankedPairing {
       r1 <- ranking get pairing.user1
       r2 <- ranking get pairing.user2
     } yield RankedPairing(pairing, r1 + 1, r2 + 1)
+
+  def betterRank(ranking: Ranking)(pairing: Pairing, rank: Int): Option[RankedPairing] =
+    for {
+      r1 <- ranking.betterRank(pairing.user1, rank)
+      r2 <- ranking.betterRank(pairing.user2, rank)
+    } yield RankedPairing(pairing, r1 + 1, r2 + 1)
 }
 
 case class RankedPlayer(rank: Int, player: Player) {
