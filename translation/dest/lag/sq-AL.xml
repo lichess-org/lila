@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">A ka ngecje në Lichess?</string>
+  <string name="measurementInProgressThreeDot">Duke u bërë matjet...</string>
+  <string name="noAndYourNetworkIsGood">Jo. Dhe rrjeti juaj është në rregull.</string>
+  <string name="noAndYourNetworkIsBad">Jo. Dhe rrjeti juaj nuk është në rregull.</string>
+  <string name="yesItWillBeFixedSoon">Po. Do të ndreqet së shpejti!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Dhe tani, përgjigjja e gjatë! Ngecja e lojës përbëhet nga dy vlera që nuk ndërlidhen (sa më e ultë aq më mirë):</string>
+  <string name="lichessServerLatency">Lidhja me serverin e Lichess</string>
+</resources>
