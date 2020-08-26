@@ -123,7 +123,7 @@ final class Signup(
             val email = emailAddressValidator
               .validate(data.realEmail) err s"Invalid email ${data.email}"
             val mustConfirm = MustConfirmEmail.YesBecauseMobile
-            lila.mon.user.register.count(apiVersion.some)
+            lila.mon.user.register.count(apiVersion.some).increment()
             lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
             val passwordHash = authenticator passEnc User.ClearPassword(data.password)
             userRepo
