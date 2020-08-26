@@ -19,8 +19,13 @@
   <string name="inviteTheStudentBack">Fto nxënësin përsëri</string>
   <string name="sendAMessage">Dërgo një mesazh te të gjithë nxënësit.</string>
   <string name="aLinkToTheClassWillBeAdded">Një link i mësimit do të shtohet automatikisht në fund të mesazhit, ashtuqë nuk keni nevojë ta shkruani ju vetë.</string>
+  <string name="className">Emri i mësimit</string>
+  <string name="classDescription">Përshkrimi i mësimit</string>
+  <string name="visibleByBothStudentsAndTeachers">E dukshme edhe nga mësuesit edhe nga nxënësit</string>
+  <string name="teachersOfTheClass">Mësuesit</string>
+  <string name="addLichessUsernames">Shto emra të përdoruesve të Lichess për ti ftuar ata si mësues. Një për linjë.</string>
   <string name="theyMustFirstApply">Ata duhet te aplikojne per te qene Mesues Lichessi ne fillim.</string>
-  <string name="resetPassword">Ndero fjalekalimin</string>
+  <string name="resetPassword">Rivendos fjalëkalimin</string>
   <string name="makeSureToCopy">Sigurohu qe e kopjove ose e shkruajte dikund fjalekalimin tani. S\'do te keni mundesi ta shifni perseri!</string>
   <string name="passwordX">Fjalekalimi: %s</string>
   <string name="generateANewPassword">Gjenero nje fjalekalim te ri per studentin</string>
