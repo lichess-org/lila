@@ -78,7 +78,7 @@ final class Env(
 
   lazy val cli = wire[Cli]
 
-  lazy val influxEvent = new InfluxEvent(
+  private lazy val influxEvent = new InfluxEvent(
     ws = ws,
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv

@@ -13,8 +13,6 @@ final class InfluxEvent(
 
   def start() = apply("lila_start", s"Lila starts: $seed")
 
-  def friendListToggle(value: Boolean) = apply(s"friend_list_$value", s"Toggle friend list: $value")
-
   private def apply(key: String, text: String) =
     ws.url(endpoint)
       .post(s"""event,program=lila,env=$env,title=$key text="$text"""")
