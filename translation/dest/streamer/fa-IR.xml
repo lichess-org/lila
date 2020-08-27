@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">استریمر لیچس</string>
+  <string name="lichessStreamer">استریمر لیچس</string>
+  <string name="live">زنده</string>
+  <string name="offline">افلاین</string>
+  <string name="currentlyStreaming">درحال استریم</string>
+  <string name="lastStream">اخرین استربم</string>
+  <string name="becomeStreamer">تبدیل شدن به استریمر</string>
+  <string name="doYouHaveStream">ایا شما استریم دارید؟</string>
+  <string name="hereWeGo">اینجا برویم</string>
+  <string name="allStreamers">همه ی استریمر ها</string>
+  <string name="editPage">ویرایش صفحه استریم</string>
+  <string name="yourPage">ویرایش صفحه استریم</string>
+</resources>
