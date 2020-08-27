@@ -428,31 +428,33 @@ lichess.miniGame = (() => {
   return {
     init(node) {
       if (!window.Chessground) setTimeout(() => lichess.miniGame.init(node), 200);
-      const [fen, orientation, lm] = node.getAttribute('data-state').split(','),
-        config = {
-          coordinates: false,
-          viewOnly: true,
-          resizable: false,
-          fen,
-          orientation,
-          lastMove: lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
-          drawable: {
-            enabled: false,
-            visible: false
-          }
-        },
-        $el = $(node).removeClass('mini-game--init'),
-        $cg = $el.find('.cg-wrap'),
-        turnColor = fenColor(fen);
-      $cg.data('chessground', Chessground($cg[0], config));
-      ['white', 'black'].forEach(color =>
-        $el.find('.mini-game__clock--' + color).each(function() {
-          $(this).clock({
-            time: parseInt(this.getAttribute('data-time')),
-            pause: color != turnColor
-          });
-        })
-      );
+      else {
+        const [fen, orientation, lm] = node.getAttribute('data-state').split(','),
+          config = {
+            coordinates: false,
+            viewOnly: true,
+            resizable: false,
+            fen,
+            orientation,
+            lastMove: lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
+            drawable: {
+              enabled: false,
+              visible: false
+            }
+          },
+          $el = $(node).removeClass('mini-game--init'),
+          $cg = $el.find('.cg-wrap'),
+          turnColor = fenColor(fen);
+        $cg.data('chessground', Chessground($cg[0], config));
+        ['white', 'black'].forEach(color =>
+          $el.find('.mini-game__clock--' + color).each(function() {
+            $(this).clock({
+              time: parseInt(this.getAttribute('data-time')),
+              pause: color != turnColor
+            });
+          })
+        );
+      }
       return node.getAttribute('data-live');
     },
     initAll() {
