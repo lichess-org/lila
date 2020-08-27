@@ -431,7 +431,7 @@ final class Study(
         OptionFuResult(env.study.api byId id) { study =>
           CanViewResult(study) {
             lila.mon.export.pgn.study.increment()
-            Ok.chunked(env.study.pgnDump(study))
+            Ok.chunked(env.study.pgnDump(study, requestPgnFlags(ctx.req)))
               .withHeaders(
                 noProxyBufferHeader,
                 CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump filename study}.pgn"
@@ -450,7 +450,7 @@ final class Study(
           case WithChapter(study, chapter) =>
             CanViewResult(study) {
               lila.mon.export.pgn.studyChapter.increment()
-              Ok(env.study.pgnDump.ofChapter(study)(chapter).toString)
+              Ok(env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter).toString)
                 .withHeaders(
                   CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.pgn"
                 )
@@ -460,6 +460,13 @@ final class Study(
         }
       }
     }
+
+  private def requestPgnFlags(req: RequestHeader) =
+    lila.study.PgnDump.WithFlags(
+      comments = getBoolOpt("comments", req) | true,
+      variations = getBoolOpt("variations", req) | true,
+      clocks = getBoolOpt("clocks", req) | true
+    )
 
   def chapterGif(id: String, chapterId: String) =
     Open { implicit ctx =>
