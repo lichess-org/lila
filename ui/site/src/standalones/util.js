@@ -427,6 +427,7 @@ lichess.miniGame = (() => {
   const fenColor = fen => fen.indexOf(' b') > 0 ? 'black' : 'white';
   return {
     init(node) {
+      if (!window.Chessground) setTimeout(() => lichess.miniGame.init(node), 200);
       const [fen, orientation, lm] = node.getAttribute('data-state').split(','),
         config = {
           coordinates: false,
@@ -466,7 +467,7 @@ lichess.miniGame = (() => {
         lm = data.lm,
         lastMove = lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
         cg = $el.find('.cg-wrap').data('chessground');
-      cg.set({
+      if (cg) cg.set({
         fen: data.fen,
         lastMove
       });
