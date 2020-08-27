@@ -27,6 +27,12 @@
   <string name="teamRecentMembers">Nedavni člani</string>
   <string name="kickSomeone">Odstranite nekoga iz ekipe</string>
   <string name="whoToKick">Koga hočete odstraniti iz ekipe?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s prošnja za članstvo</item>
+    <item quantity="two">%s prošnji za članstvo</item>
+    <item quantity="few">%s prošnje za članstvo</item>
+    <item quantity="other">%s prošenj za članstvo</item>
+  </plurals>
   <string name="willBeReviewed">Vašo prošnjo bo pregledal voditelj ekipe.</string>
   <string name="beingReviewed">Vašo prošnjo je pregledal vodja ekipe.</string>
   <string name="teamBattle">Bitka ekip</string>

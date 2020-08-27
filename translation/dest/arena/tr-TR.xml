@@ -37,4 +37,5 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="thisIsPrivate">Bu özel bir turnuvadır</string>
   <string name="shareUrl">Arkadaşlarını davet etmek için bu URL\'yi kullanabilirsin: %s</string>
   <string name="drawStreak">Beraberlik serisi: Bir oyuncu turnuvada üst üste berabere kaldığında yalnızca ilk beraberlikten veya %s hamleden uzun süren maçın sonunda elde edilen beraberlikten puan kazanır. Beraberlik serisi sadece oyuncu bir maç kazandığı vakit sona erer; mağlubiyet veya beraberlik ile sonuçlanan maçlarda bu seri devam eder.</string>
+  <string name="history">Arena Geçmişi</string>
 </resources>

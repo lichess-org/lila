@@ -71,12 +71,25 @@ Tukaj je povezava za dostop do razreda.</string>
   <string name="releaseDesc2">Študent bo ostal v razredu po objavi njegovega računa.</string>
   <string name="realUniqueEmail">Reničen, unikaten elektronski naslov študenta. Poslali bomo potrditveno pošto na ta elektronski naslov s povezavo za objavo računa.</string>
   <string name="teachers">Učitelji</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Učitelj</item>
+    <item quantity="two">%s učitelja</item>
+    <item quantity="few">%s učitelji</item>
+    <item quantity="other">%s učiteljev</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Študent</item>
+    <item quantity="two">%s študenta</item>
+    <item quantity="few">%s študenti</item>
+    <item quantity="other">%s študentov</item>
+  </plurals>
   <string name="students">Študenti</string>
   <string name="progress">Napredek</string>
   <string name="noStudents">V razredu še ni študentov.</string>
   <string name="noRemovedStudents">Ni odstranjenih študentov.</string>
   <string name="overDays">Čez dneve</string>
   <string name="timePlaying">Čas igranja</string>
+  <string name="variantXOverLastY">%1$s v zadnjih %2$s</string>
   <string name="winrate">Delež zmag</string>
   <string name="na">Ni na voljo</string>
   <string name="news">Novice razreda</string>

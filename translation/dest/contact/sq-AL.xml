@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="contact">Kontakti</string>
+  <string name="contactLichess">Kontaktoni me Lichessin</string>
+  <string name="whatCanWeHelpYouWith">Si mund të iu ndihmojmë?</string>
+  <string name="visitThisPage">Vizitoni këtë faqe për të zgjidhur problemin</string>
+  <string name="iCantLogIn">Nuk mund të kyçem në lojë</string>
+  <string name="noConfirmationEmail">Nuk kam pranuar email-in e konfirmimit</string>
+  <string name="forgotPassword">E kam harruar fjalekalimin</string>
+  <string name="forgotUsername">Kam harruar emrin e përdoruesit</string>
+  <string name="youCanLoginWithEmail">Ju mund të kyçeni me email adresën me të cilën jeni regjistruar</string>
+  <string name="lost2FA">Kam humbur çasjen te kodet e vërtetimit me dy faktorë</string>
+  <string name="doPasswordReset">Kompletoni një rivendosje të fjalëkalimit për të larguar faktorin e dytë</string>
+  <string name="accountSupport">Kam nevojë për ndihmë në llogarinë time</string>
+  <string name="wantTitle">Dua që titulli im të më shfaqet në Lichess</string>
+  <string name="visitTitleConfirmation">Për të shfaqur titullin tuaj në profilin tuaj në Lichess, dhe për të marrë pjesë në Turnire të Titujve, vizitoni faqen e konfirmimit të titullit</string>
+  <string name="wantCloseAccount">Dua të fshij llogarinë time</string>
+  <string name="closeYourAccount">Ju mund të fshini llogarinë tuaj në këtë faqe</string>
+  <string name="doNotAskByEmail">Mos kërkoni të fshijmë llogari përmes email-it, sepse nuk e bëjmë.</string>
+  <string name="wantReopen">Dua të rihap llogarinë time</string>
+  <string name="reopenOnThisPage">Ju mund të rihapni llogarinë tuaj në këtë faqe. Funksionon vetëm një herë.</string>
+  <string name="doNotAskByEmailToReopen">Mos kërkoni përmes email-it të ua rihapim llogarinë, sepse nuk e bëjmë.</string>
+  <string name="wantChangeUsername">Dua të ndryshoj emrin e përdoruesit</string>
+  <string name="changeUsernameCase">Vizitoni këtë faqe për të ndërruar madhësinë e shkronjave të emrit tuaj të përdoruesit</string>
+  <string name="cantChangeMore">Nuk mund të ndërrojmë më tepër se sa madhësinë e shkronjave. Për arsye teknike, është e pamundur.</string>
+  <string name="orCloseAccount">Megjithatë, ju mund të fshini llogarinë aktuale, dhe të krijoni një të re.</string>
+  <string name="wantClearHistory">Dua të fshij historinë time ose rating-un</string>
+  <string name="cantClearHistory">Nuk është e mundur të fshini historinë e lojëve, historinë e taktikave, dhe as rating-ut.</string>
+  <string name="wantReport">Dua të raportoj një lojtar</string>
+  <string name="cheating">mashtrim</string>
+  <string name="sandbagging">shtiret si i dobët</string>
+  <string name="trolling">përqesh</string>
+  <string name="insults">ofendime</string>
   <string name="otherReason">arsye tjetër</string>
   <string name="toReportAPlayer">Për të raportuar një lojtar për %s, përdorni formularin e raportimit</string>
   <string name="youCanAlsoReachReportPage">Ju mund të shkoni në atë faqe edhe duke klikuar butonin e raportimit %s në një faqe profili.</string>

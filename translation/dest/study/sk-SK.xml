@@ -68,10 +68,15 @@
   <string name="chapterPgn">PGN kapitoly</string>
   <string name="downloadGame">Stiahnúť hru</string>
   <string name="studyUrl">URL štúdie</string>
+  <string name="broadcastUrl">Adresa vysielania</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
   <string name="currentGameUrl">URL aktuálnej hry</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Vložte pre zobrazenie vo fóre</string>
   <string name="startAtInitialPosition">Začať zo základného postavenia</string>
   <string name="startAtX">Začať na %s</string>
+  <string name="embedInYourWebsite">Vložte na svoju webstránku alebo blog</string>
+  <string name="readMoreAboutEmbedding">Prečítajte si viac o vkladaní</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Vložené môžu byť iba verejné štúdie!</string>
   <string name="open">Otvoriť</string>
   <string name="xBroughtToYouByY">%1$s Vám priniesol %2$s</string>
   <string name="studyNotFound">Štúdia sa nenašla</string>

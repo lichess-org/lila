@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">Turne i ri</string>
-  <string name="isItRated">A është me klasifikim?</string>
+  <string name="arenaTournaments">Turniret</string>
+  <string name="isItRated">A është me rank?</string>
   <string name="willBeNotified">Ju do të njoftoheni kur fillon turneu, kështu që është e sigurt të luhet në një tab tjetër gjatë pritjes.</string>
   <string name="isRated">Ky turne është me klasifikim dhe do të ndikojë në klasifikimin tuaj.</string>
-  <string name="isNotRated">Ky turne është *pas* klasifikim dhe *nuk* të ndikojë në klasifikimin tuaj.</string>
+  <string name="isNotRated">Ky turne është *pa* klasifikim dhe *nuk* do të ndikojë në klasifikimin tuaj.</string>
   <string name="someRated">Disa turne janë të klasifikuara dhe do të ndikojnë në klasifikimin tuaj.</string>
-  <string name="howAreScoresCalculated">Si llogaritet pika?</string>
-  <string name="howAreScoresCalculatedAnswer">Një fitore ka një rezultat bazë prej 2 pikësh, një barazim: 1 pikë, dhe një humbje nuk vlen asnjë pikë.
+  <string name="howAreScoresCalculated">Si llogariten rezultatet?</string>
+  <string name="howAreScoresCalculatedAnswer">Një fitore ka një vlerësim prej 2 pikësh, një barazim: 1 pikë, dhe një humbje nuk vlen asnjë pikë.
 Nëse fitoni dy ndeshje rresht, do të filloni një brez të dyfishtë, të përfaqësuar nga një ikonë e flakës.
 Lojërat e mëposhtme do të vazhdojnë të jenë me vlerë pikët e dyfishta derisa të mos fitoni një lojë.
 Kjo është, një fitore do të jetë me vlerë 4 pikë, një barazim: 2 pikë, dhe një humbje do të mbetet pa pikë.
 
 Për shembull, dy fitore të ndjekura nga barazimi do të jenë me vlerë 6 pikë: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">Kur një lojtar klikon butonin Berserk në fillim të lojës, ata humbasin gjysmën e orës së tyre të orës, por fitore vlen një pikë shtesë në turne.
+  <string name="berserkAnswer">Kur një lojtar klikon butonin Berserk në fillim të lojës, ata humbasin gjysmën e kohës së tyre të orës, por fitorja vlen një pikë shtesë në turne.
 
 Shkuarja Berserk në kontrollet kohë me një rritje edhe anulon rritjen. (1 + 2 është një përjashtim, ai jep 1 + 0)
 
 Berserk nuk është në dispozicion për lojëra me zero kohë fillestare (0 + 1, 0 + 2).
 
 Berserk jep vetëm një pikë shtesë nëse luani të paktën 7 lëvizje në lojë.</string>
-  <string name="howIsTheWinnerDecided">Si është vendosur fituesi?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Lojtari (t) me më shumë pikë në përfundim të afatit të caktuar të turneut do të shpallet fituesi (et).
+  <string name="howIsTheWinnerDecided">Si caktohet fituesi?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Lojtari me më shumë pikë në përfundim të afatit të caktuar të turneut do të shpallet fitues.
 
-Kur dy lojtarë kanë të njëjtin numër pikësh, performanca e turneut është pushimi i lidhjes.</string>
-  <string name="howDoesPairingWork">Si punon \"pairing\" nër tournament?</string>
-  <string name="howDoesPairingWorkAnswer">Në fillim të turneut, lojtarët çiftohen sipas vlerësimit të tyre.
-Sapo të përfundoni një lojë, kthehuni në lobi i turneut: atëherë ju do të çiftoseni me një lojtar të afërt me renditjen tuaj. Kjo siguron kohën minimale të pritjes, megjithatë ju nuk mund të përballeni me të gjithë lojtarët e tjerë në turne.
+Kur dy lojtarë kanë të njëjtin numër pikësh, performanca e turneut është thyerja e barazimit.</string>
+  <string name="howDoesPairingWork">Si punon pairing?</string>
+  <string name="howDoesPairingWorkAnswer">Në fillim të turneut, kundërshtarët përzgjidhen sipas vlerësimit të tyre.
+Sapo të përfundoni një lojë, kthehuni te lobi i turneut: atëherë ju do të caktoheni me një kundërshtar të afërt me renditjen tuaj. Kjo siguron kohën minimale të pritjes, megjithatë ju nuk mund të përballeni me të gjithë lojtarët e tjerë në turne.
 Luaj shpejt dhe të ktheheni në holl për të luajtur më shumë lojëra dhe të fitoni më shumë pikë.</string>
   <string name="howDoesItEnd">Si përfundon tournament?</string>
-  <string name="howDoesItEndAnswer">Turneu ka një orë të numërimit. Kur arrin zero, renditja e turneut ngrihet dhe fituesi shpallet. Lojrat në vazhdim duhet të përfundojnë, por nuk llogariten për turneun.</string>
-  <string name="otherRules">Rregullat e tjera të meranti</string>
-  <string name="thereIsACountdown">Ka nje limit kohe per te bere levizjen e pare. Nese nuk e ben levizjen e pare brenda ketij limiti loja do te dorezohet automatikisht.</string>
+  <string name="howDoesItEndAnswer">Turneu ka një orë të numërimit. Kur arrin zero, renditja e turneut ngrihet dhe fituesi shpallet. Lojërat në vazhdim duhet të përfundojnë, por nuk llogariten për turneun.</string>
+  <string name="otherRules">Rregulla tjera me rendësi</string>
+  <string name="thereIsACountdown">Ka një limit kohe për të bërë levizjen e pare. Nëse nuk e bën lëvizjen e parë brenda këtij limiti loja do të dorëzohet automatikisht.</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="one">Te barazoni lojen me levizjen e pare nuk do ti japi pike asnje lojtari.</item>
     <item quantity="other">Te bini dakord ber barazim me %s levizjet e para nuk do i japi pike asnje lojtari.</item>
@@ -40,4 +40,5 @@ Luaj shpejt dhe të ktheheni në holl për të luajtur më shumë lojëra dhe t�
   <string name="thisIsPrivate">Ky është një turne privat</string>
   <string name="shareUrl">Përdor këtë URL për t\'i lejuar të tjerët: %s</string>
   <string name="drawStreak">Barazime te njepasnjeshme: Kur nje lojtar ka barazime te njepasnjeshme ne arena, vetem barazimi i pare do te japi pike, ose barazimet qe zgjasin me shume se %s levizje. Ritmi barazimeve mund te thyhet vetem nga nje fitore, jo nga nje humbje apo nje barazim.</string>
+  <string name="history">Historia e Arenave</string>
 </resources>

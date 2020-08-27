@@ -39,4 +39,5 @@ Berserk нөлдік бастапқы уақыт ойын үшін қол жет
   </plurals>
   <string name="thisIsPrivate">Бұл жеке турнир</string>
   <string name="shareUrl">Адамдар қосыла алатын URL мекенжайын бөлісіңіз: %s</string>
+  <string name="history">Алаң журналы</string>
 </resources>
