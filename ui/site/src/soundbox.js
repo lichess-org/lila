@@ -4,7 +4,6 @@ class SoundBox {
   sounds = {}; // The loaded sounds and their instances
 
   load(name, path) {
-    console.log(name, path);
     this.sounds[name] = new Audio(path);
     return new Promise((resolve, reject) => {
       this.sounds[name].addEventListener("canplaythrough", resolve);
