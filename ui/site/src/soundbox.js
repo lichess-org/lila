@@ -19,11 +19,8 @@ class SoundBox {
     this.load(name, `${path}.ogg`).catch(() => this.load(name, `${path}.mp3`));
 
   play(name, volume = 1) {
-    if (!this.sounds[name]) {
-      console.error(`Can't find sound ${name}`);
-      return false;
-    }
-    try {
+    if (!this.sounds[name]) console.error(`Can't find sound ${name}`);
+    else try {
       const sound = this.sounds[name].cloneNode();
       sound.volume = volume;
       sound.play();
