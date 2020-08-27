@@ -129,7 +129,7 @@
       }, {
         hint: true,
         highlight: false,
-        source: function(query, _, runAsync) {
+        source(query, _, runAsync) {
           query = query.trim();
           if (!query.match(/^[a-z0-9][\w-]{2,29}$/i)) return;
           else if (cache[query]) setTimeout(() => runAsync(cache[query]), 50);
@@ -164,8 +164,8 @@
         templates: {
           empty: '<div class="empty">No player found</div>',
           pending: lichess.spinnerHtml,
-          suggestion: function(o) {
-            var tag = opts.tag || 'a';
+          suggestion(o) {
+            const tag = opts.tag || 'a';
             return '<' + tag + ' class="ulpt user-link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
               '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="utitle">' + o.title + '</span>&nbsp;' : '') + o.name +
               '</' + tag + '>';
