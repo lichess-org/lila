@@ -3,17 +3,11 @@ class SoundBox {
 
   sounds = {}; // The loaded sounds and their instances
 
-  load(name, path) {
-    try {
-      return new Promise((resolve, reject) => {
-        this.sounds[name] = new Audio(path);
-        this.sounds[name].addEventListener("canplaythrough", resolve);
-        this.sounds[name].addEventListener("error", reject);
-      });
-    } catch (e) {
-      return new Promise((_, reject) => reject(e));
-    }
-  };
+  load = (name, path) => new Promise((resolve, reject) => {
+    this.sounds[name] = new Audio(path);
+    this.sounds[name].addEventListener("canplaythrough", resolve);
+    this.sounds[name].addEventListener("error", reject);
+  });
 
   loadOggOrMp3 = (name, path) =>
     this.load(name, `${path}.ogg`).catch(() => this.load(name, `${path}.mp3`));
