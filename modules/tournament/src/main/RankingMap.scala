@@ -30,10 +30,19 @@ private[tournament] class RankingMap(users: Array[User.ID]) {
     }
     pos
   }
-  //adding better ranked users first (c)
-  for (i <- 0 until users.length) {
-    val pos = seek(users(i), i)
-    h(pos) = i
+  //caller should log if duplicates > 0
+  final val duplicates = {
+    var dups = 0
+    //adding better ranked users first c)
+    for (i <- 0 until users.length) {
+      val pos = seek(users(i), i)
+      if (h(pos) >= i) {
+        h(pos) = i
+      } else {
+        dups += 1
+      }
+    }
+    dups
   }
   /* betterRank stops searching after finding slot with rank not lesser than rank parameter
    * if return value is less than parameter then it is precise
