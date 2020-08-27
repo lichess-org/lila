@@ -19,7 +19,7 @@
   <meta content="noindex, nofollow" name="robots">
 </head>
 
-<body data-asset-url="http://l1.org">
+<body>
   <h1>Sound Test Page</h1>
   <script src="http://l1.org/assets/_dl41cQ/compiled/lichess.deps.js"></script>
   <script src="http://l1.org/assets/_dl41cQ/compiled/lichess.site.js"></script>
@@ -59,8 +59,9 @@
       $.each(soundSets, function(i, soundSet) {
         var id = "soundSet_" + soundSet;
         $('<td>').append($("<button>").click(function() {
-          lichess.sound.changeSet(soundSet);
-          lichess.sound[soundKey]();
+          // lichess.sound.changeSet(soundSet);
+          // lichess.sound[soundKey]();
+          new Audio(`${soundSet}/${soundName}.ogg`).play();
         }).text(soundName)).appendTo(tr);
       });
       tr.appendTo($('#sounds'));
