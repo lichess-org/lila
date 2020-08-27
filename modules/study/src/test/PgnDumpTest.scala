@@ -8,6 +8,8 @@ import org.specs2.mutable._
 
 class PgnDumpTest extends Specification {
 
+  implicit private val flags = PgnDump.WithFlags(true, true, true)
+
   val P = PgnDump
 
   def node(ply: Int, uci: String, san: String, children: Children = emptyChildren) =
