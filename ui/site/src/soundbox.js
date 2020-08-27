@@ -4,11 +4,15 @@ class SoundBox {
   sounds = {}; // The loaded sounds and their instances
 
   load(name, path) {
-    this.sounds[name] = new Audio(path);
-    return new Promise((resolve, reject) => {
-      this.sounds[name].addEventListener("canplaythrough", resolve);
-      this.sounds[name].addEventListener("error", reject);
-    });
+    try {
+      return new Promise((resolve, reject) => {
+        this.sounds[name] = new Audio(path);
+        this.sounds[name].addEventListener("canplaythrough", resolve);
+        this.sounds[name].addEventListener("error", reject);
+      });
+    } catch (e) {
+      return new Promise((_, reject) => reject(e));
+    }
   };
 
   loadOggOrMp3 = (name, path) =>
@@ -19,12 +23,13 @@ class SoundBox {
       console.error(`Can't find sound ${name}`);
       return false;
     }
-
-    const sound = this.sounds[name].cloneNode();
-    sound.volume = volume;
-    sound.play();
-
-    return new Promise(resolve => sound.addEventListener("ended", resolve));
+    try {
+      const sound = this.sounds[name].cloneNode();
+      sound.volume = volume;
+      sound.play();
+    } catch (e) {
+      console.log(e);
+    }
   };
 }
 lichess.soundBox = new SoundBox

@@ -42,7 +42,7 @@ interface Lichess {
   soundBox: {
     load(name: string, path: string): Promise<void>;
     loadOggOrMp3(name: string, path: string): Promise<void>;
-    play(name: string): Promise<void>;
+    play(name: string): void;
   };
   userAutocomplete: any;
   miniBoard: {
