@@ -1,51 +1,27 @@
-// based on https://raw.githubusercontent.com/sbrl/soundbox/master/soundbox.js
+// loosely based on https://raw.githubusercontent.com/sbrl/soundbox/master/soundbox.js
 class SoundBox {
 
   sounds = {}; // The loaded sounds and their instances
-  instances = []; // Sounds that are currently playing
 
-  load(soundName, path) {
-    this.sounds[soundName] = new Audio(path);
+  load(name, path) {
+    this.sounds[name] = new Audio(path);
     return new Promise((resolve, reject) => {
-      this.sounds[soundName].addEventListener("canplaythrough", resolve);
-      this.sounds[soundName].addEventListener("error", reject);
+      this.sounds[name].addEventListener("canplaythrough", resolve);
+      this.sounds[name].addEventListener("error", reject);
     });
   };
 
-  play(soundName, volume = 1) {
-    if (!this.sounds[soundName]) {
-      console.error(`Can't find sound ${soundName}`);
+  play(name, volume = 1) {
+    if (!this.sounds[name]) {
+      console.error(`Can't find sound ${name}`);
       return false;
     }
 
-    const soundInstance = this.sounds[soundName].cloneNode(true);
-    this.instances.push(soundInstance);
-    soundInstance.volume = volume;
+    const sound = this.sounds[name].cloneNode();
+    sound.volume = volume;
+    sound.play();
 
-    soundInstance.play().catch(e => {
-      console.log(e);
-      this.deleteInstance(soundInstance);
-    });
-
-    return new Promise(resolve => soundInstance.addEventListener("ended", () => {
-      this.deleteInstance(soundInstance);
-      resolve();
-    }));
+    return new Promise(resolve => sound.addEventListener("ended", resolve));
   };
-
-  deleteInstance = soundInstance => {
-    let index = this.instances.indexOf(soundInstance);
-    if (index != -1) this.instances.splice(index, 1);
-  };
-
-  // stopAll() {
-  //   // Pause all currently playing sounds
-
-  //   // Shallow clone the array to avoid issues with instances auto-removing themselves
-  //   this.instances.slice().forEach(instance => {
-  //     instance.pause();
-  //     instance.dispatchEvent(new Event("ended"));
-  //   });
-  // }
 }
 lichess.soundBox = new SoundBox
