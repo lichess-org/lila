@@ -54,8 +54,6 @@ export function countDown(data: TournamentData) {
     doCountDown(performance.now() + 1000 * data.secondsToStart - 100),
     900);  // wait 900ms before starting countdown.
 
-  setTimeout(li.sound.warmup, (data.secondsToStart - 15) * 1000);
-
   // Preload countdown sounds.
   for (let i = 10; i>=0; i--) li.sound.load('countDown' + i);
 }

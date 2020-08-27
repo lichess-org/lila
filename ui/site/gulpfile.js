@@ -103,7 +103,6 @@ function makeDependencies(filename) {
   '../../public/javascripts/vendor/jquery.min.js',
   './dist/jquery.fill.js',
   './dep/powertip.min.js',
-  './dep/howler.min.js',
   './dep/mousetrap.min.js',
   './dist/consolemsg.js',
   ...(abFile ? ['./dist/ab.js'] : []),
