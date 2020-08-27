@@ -123,6 +123,25 @@
     opts = opts || {};
     const cache = {};
     lichess.loadCssPath('autocomplete');
+    const sendXhr = lichess.debounce((query, runAsync) =>
+      $.ajax({
+        url: '/player/autocomplete',
+        cache: true,
+        data: {
+          term: query,
+          friend: opts.friend ? 1 : 0,
+          tour: opts.tour,
+          swiss: opts.swiss,
+          object: 1
+        },
+        success(res) {
+          res = res.result;
+          // hack to fix typeahead limit bug
+          if (res.length === 10) res.push(null);
+          cache[query] = res;
+          runAsync(res);
+        }
+      }), 150);
     return lichess.loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function() {
       $input.typeahead({
         minLength: opts.minLength || 3,
@@ -140,24 +159,7 @@
               cache[sub] && !cache[sub].length
             )
           ) return;
-          else $.ajax({
-            url: '/player/autocomplete',
-            cache: true,
-            data: {
-              term: query,
-              friend: opts.friend ? 1 : 0,
-              tour: opts.tour,
-              swiss: opts.swiss,
-              object: 1
-            },
-            success(res) {
-              res = res.result;
-              // hack to fix typeahead limit bug
-              if (res.length === 10) res.push(null);
-              cache[query] = res;
-              runAsync(res);
-            }
-          });
+          else sendXhr(query, runAsync);
         },
         limit: 10,
         displayKey: 'name',
