@@ -58,10 +58,7 @@ lichess.sound = (() => {
     const baseUrl = lichess.assetUrl('sound', {
       noVersion: true
     });
-    const path = `${baseUrl}/${set}/${names[k]}`;
-    lichess.soundBox.load(k, `${path}.ogg`).catch(() =>
-      lichess.soundBox.load(k, `${path}.mp3`)
-    );
+    lichess.soundBox.loadOggOrMp3(k, `${baseUrl}/${set}/${names[k]}`);
     return () => lichess.soundBox.play(k, (volumes[k] || 1) * api.getVolume());
   });
   const enabled = () => soundSet !== 'silent';

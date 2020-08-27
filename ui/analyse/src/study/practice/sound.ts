@@ -1,15 +1,10 @@
-let baseUrl: string;
-
 function make(file: string) {
-  baseUrl = baseUrl || $('body').data('asset-url') + '/assets/sound/';
-  const sound = new window.Howl({
-    src: [
-      baseUrl + file + '.ogg',
-      baseUrl + file + '.mp3'
-    ]
+  const baseUrl = window.lichess.assetUrl('sound', {
+    noVersion: true
   });
-  return function() {
-    if (window.lichess.sound.set() !== 'silent') sound.play();
+  window.lichess.soundBox.loadOggOrMp3(file, `${baseUrl}/${file}`);
+  return () => {
+    if (window.lichess.sound.set() !== 'silent') window.lichess.soundBox.play(file);
   };
 };
 

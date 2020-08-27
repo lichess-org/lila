@@ -5,9 +5,9 @@ function lichessOrchestra() {
   });
 
   const load = (instrument, index, filename) =>
-    lichess.soundBox.load(
+    lichess.soundBox.loadOggOrMp3(
       `orchestra.${instrument}.${index}`,
-      `${soundDir}${instrument}/${filename}.ogg`
+      `${soundDir}${instrument}/${filename}`
     );
 
   const volumes = {

@@ -39,6 +39,11 @@ interface Lichess {
   // main.js
   socket: any;
   sound: any;
+  soundBox: {
+    load(name: string, path: string): Promise<void>;
+    loadOggOrMp3(name: string, path: string): Promise<void>;
+    play(name: string): Promise<void>;
+  };
   userAutocomplete: any;
   miniBoard: {
     init(node: HTMLElement): void;
@@ -174,7 +179,6 @@ interface Window {
 
   moment: any
   Mousetrap: any
-  Howl: any
   Chessground: any
   Highcharts: any
   lichessReplayMusic: () => {
