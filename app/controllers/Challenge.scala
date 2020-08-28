@@ -1,5 +1,7 @@
 package controllers
 
+
+
 import play.api.libs.json.Json
 import play.api.mvc.Result
 import scala.annotation.nowarn
@@ -231,16 +233,17 @@ final class Challenge(
                     } orElse config.days.map {
                       TimeControl.Correspondence.apply
                     } getOrElse TimeControl.Unlimited
-                    val challenge = lila.challenge.Challenge.make(
-                      variant = config.variant,
-                      initialFen = config.position,
-                      timeControl = timeControl,
-                      mode = config.mode,
-                      color = config.color.name,
-                      challenger = ChallengeModel.toRegistered(config.variant, timeControl)(me),
-                      destUser = destUser,
-                      rematchOf = none
-                    )
+                    val challenge = lila.challenge.Challenge
+                      .make(
+                        variant = config.variant,
+                        initialFen = config.position,
+                        timeControl = timeControl,
+                        mode = config.mode,
+                        color = config.color.name,
+                        challenger = ChallengeModel.toRegistered(config.variant, timeControl)(me),
+                        destUser = destUser,
+                        rematchOf = none
+                      )
                     (destUser, config.acceptByToken) match {
                       case (Some(dest), Some(strToken)) => apiChallengeAccept(dest, challenge, strToken)
                       case _ =>

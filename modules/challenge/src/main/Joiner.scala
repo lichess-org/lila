@@ -23,19 +23,20 @@ final private class Joiner(
           def makeChess(variant: chess.variant.Variant): chess.Game =
             chess.Game(situation = Situation(variant), clock = c.clock.map(_.config.toClock))
 
-          val baseState = c.initialFen.ifTrue(c.variant.fromPosition) flatMap { fen =>
-            Forsyth.<<<@(chess.variant.FromPosition, fen.value)
+          val baseState = c.initialFen.ifTrue(c.variant.fromPosition || c.variant.chess960) flatMap { fen =>
+            Forsyth.<<<@(c.variant, fen.value)
           }
           val (chessGame, state) = baseState.fold(makeChess(c.variant) -> none[SituationPlus]) {
-            case sit @ SituationPlus(s, _) =>
+            case SituationPlus(sit, turns) =>
               val game = chess.Game(
-                situation = s,
-                turns = sit.turns,
-                startedAtTurn = sit.turns,
+                situation = sit,
+                turns = turns,
+                startedAtTurn = turns,
                 clock = c.clock.map(_.config.toClock)
               )
-              if (Forsyth.>>(game) == Forsyth.initial) makeChess(chess.variant.Standard) -> none
-              else game                                                                  -> baseState
+              if (c.variant.fromPosition && Forsyth.>>(game) == Forsyth.initial)
+                makeChess(chess.variant.Standard) -> none
+              else game                           -> baseState
           }
           val perfPicker = (perfs: lila.user.Perfs) => perfs(c.perfType)
           val game = Game
@@ -55,10 +56,7 @@ final private class Joiner(
                   g.copy(
                     chess = g.chess.copy(
                       situation = g.situation.copy(
-                        board = g.board.copy(
-                          history = board.history,
-                          variant = chess.variant.FromPosition
-                        )
+                        board = g.board.copy(history = board.history)
                       ),
                       turns = sit.turns
                     )
