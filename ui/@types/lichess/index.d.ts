@@ -15,6 +15,7 @@ interface Lichess {
   isHoverable(): boolean;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
+  soundUrl: string;
   loadedCss: { [key: string]: boolean };
   loadCss(path: string): void;
   loadCssPath(path: string): void;
