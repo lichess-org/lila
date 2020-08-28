@@ -1,11 +1,14 @@
 package lila.setup
 
-import chess.{ Clock, Speed }
 import chess.format.{ FEN, Forsyth }
+import chess.variant.Chess960
 import chess.variant.FromPosition
+import chess.{ Clock, Speed }
+
+import lila.game.PerfPicker
 import lila.lobby.Color
 import lila.rating.PerfType
-import lila.game.PerfPicker
+import chess.variant.Variant
 
 final case class ApiConfig(
     variant: chess.variant.Variant,
@@ -17,18 +20,11 @@ final case class ApiConfig(
     acceptByToken: Option[String] = None
 ) {
 
-  val strictFen = false
-
   def >> = (variant.key.some, clock, days, rated, color.name.some, position.map(_.value), acceptByToken).some
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, days)
 
-  def validFen =
-    variant != FromPosition || {
-      position ?? { f =>
-        ~(Forsyth <<< f.value).map(_.situation playable strictFen)
-      }
-    }
+  def validFen = ApiConfig.validFen(variant, position)
 
   def validSpeed(isBot: Boolean) =
     !isBot || clock.fold(true) { c =>
@@ -64,4 +60,12 @@ object ApiConfig extends BaseHumanConfig {
       position = pos map FEN,
       acceptByToken = tok
     ).autoVariant
+
+  def validFen(variant: Variant, fen: Option[FEN]) =
+    if (variant.chess960) fen.forall(f => Chess960.positionNumber(f).isDefined)
+    else if (variant.fromPosition)
+      fen exists { f =>
+        (Forsyth <<< f.value).exists(_.situation playable false)
+      }
+    else true
 }

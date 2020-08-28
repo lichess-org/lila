@@ -28,7 +28,8 @@ final class Cached(
       .build(gameRepo.lastPlayedPlayingId)
 
   lila.common.Bus.subscribeFun("startGame") {
-    case lila.game.actorApi.StartGame(game) => game.userIds foreach { lastPlayedPlayingIdCache.invalidate(_) }
+    case lila.game.actorApi.StartGame(game) =>
+      game.userIds foreach lastPlayedPlayingIdCache.invalidate
   }
 
   private val nbPlayingCache = cacheApi[User.ID, Int](256, "game.nbPlaying") {

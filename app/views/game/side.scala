@@ -114,7 +114,6 @@ object side {
         },
         initialFen
           .ifTrue(game.variant.chess960)
-          .map(_.value)
           .flatMap {
             chess.variant.Chess960.positionNumber
           }
