@@ -22,7 +22,6 @@
 <body>
   <h1>Sound Test Page</h1>
   <script src="http://l1.org/assets/_dl41cQ/compiled/lichess.deps.js"></script>
-  <script src="http://l1.org/assets/_dl41cQ/compiled/lichess.site.js"></script>
   <table>
     <thead>
       <tr id="sets"></tr>
@@ -31,6 +30,9 @@
     </tbody>
   </table>
   <script>
+    function playSound(set, name) {
+      new Audio(`${set}/${name}.ogg`).play();
+    }
     var soundSets = ["standard", "piano", "nes", "sfx", "futuristic", "robot"];
     var soundNames = {
       genericNotify: 'GenericNotify',
@@ -61,7 +63,7 @@
         $('<td>').append($("<button>").click(function() {
           // lichess.sound.changeSet(soundSet);
           // lichess.sound[soundKey]();
-          new Audio(`${soundSet}/${soundName}.ogg`).play();
+          playSound(soundSet, soundName);
         }).text(soundName)).appendTo(tr);
       });
       tr.appendTo($('#sounds'));
@@ -71,11 +73,7 @@
       $('<td>').append($("<button>").click(function() {
         var i = 10;
         var tId = setInterval(function() {
-          new Howl({
-            src: ["ogg", "mp3"].map(function(ext) {
-              return [soundSet, "CountDown" + i + "." + ext].join("/");
-            }),
-          }).play();
+          playSound(soundSet, "CountDown" + i);
           i-- || clearInterval(tId);
         }, 1000);
       }).text("CountDown10 --1> 0")).appendTo(tr);
