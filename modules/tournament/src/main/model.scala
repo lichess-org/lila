@@ -70,11 +70,15 @@ object RankedPairing {
       r2 <- ranking get pairing.user2
     } yield RankedPairing(pairing, r1 + 1, r2 + 1)
 
-  def betterRank(ranking: Ranking)(pairing: Pairing, rank: Int): Option[RankedPairing] =
+  //returns None if pairing isn't better than pairing with given rank
+  def betterRankedPairing(ranking: Ranking)(pairing: Pairing, rank: Int): Option[RankedPairing] = {
+    val r0 = rank - 1
     for {
-      r1 <- ranking.betterRank(pairing.user1, rank)
-      r2 <- ranking.betterRank(pairing.user2, rank)
+      r1 <- ranking.betterRank(pairing.user1, r0)
+      r2 <- ranking.betterRank(pairing.user2, r0 atMost r1)
+      if r1 < r0 || r2 < r0
     } yield RankedPairing(pairing, r1 + 1, r2 + 1)
+  }
 }
 
 case class RankedPlayer(rank: Int, player: Player) {

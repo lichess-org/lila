@@ -201,10 +201,9 @@ final class TournamentApi(
         val curBestRank = curOption.filter(_.pairing.playing).fold(Int.MaxValue)(_.bestRank)
         pairings
           .foldLeft((curBestRank, Option.empty[RankedPairing]))((acc, p) => {
-            RankedPairing.betterRank(ranking)(p, acc._1) match {
-              case None                               => acc
-              case o @ Some(v) if v.bestRank < acc._1 => (v.bestRank, o)
-              case _                                  => acc
+            RankedPairing.betterRankedPairing(ranking)(p, acc._1) match {
+              case None        => acc
+              case o @ Some(v) => (v.bestRank, o)
             }
           })
           ._2 ?? { bestCandidate =>
