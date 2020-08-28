@@ -79,7 +79,7 @@ lichess.sound = (() => {
   };
   api.setVolume = api.volumeStorage.set;
   api.getVolume = () => {
-    // garbage has been stored stored by accident (e972d5612d)
+    // garbage has been stored here by accident (e972d5612d)
     const v = parseFloat(api.volumeStorage.get());
     return v >= 0 ? v : 0.7;
   }
