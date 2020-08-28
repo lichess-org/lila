@@ -86,8 +86,8 @@ case class Challenge(
 
   def notableInitialFen: Option[FEN] =
     variant match {
-      case FromPosition | Horde | RacingKings => initialFen
-      case _                                  => none
+      case FromPosition | Horde | RacingKings | Chess960 => initialFen
+      case _                                             => none
     }
 
   def isOpen = ~open
@@ -202,7 +202,9 @@ object Challenge {
       variant = variant,
       initialFen =
         if (variant == FromPosition) initialFen
-        else if (variant == Chess960) none // only decided on game start
+        else if (variant == Chess960) initialFen filter { fen =>
+          Chess960.positionNumber(fen).isDefined
+        }
         else !variant.standardInitialPosition option FEN(variant.initialFen),
       timeControl = timeControl,
       mode = finalMode,
