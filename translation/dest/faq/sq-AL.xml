@@ -20,4 +20,16 @@
   <string name="whyFlaggedRatingManipulationOrCheater">Pse jam qortuar për manipulimi të rating-ut artificial ose asistencës së kompjuterit?</string>
   <string name="cheatDetectionMethods">Lichessi ka metoda të forta të detektimit dhe një proces të detajuar për rishikimin e evidencave dhe marrjen e një vendimi. Procesi shpesh përfshin shumë moderator dhe mund të marrë mjaftë kohë. Përveç shënjimit, ne nuk do të hyjmë në detaje rreth dëshmive ose procesit të vendimmarrjes për raste individuale. Duke bërë kështu do ta bënte më të lehtë shmangien nga zbulimi në të ardhmen, and do të ishte ftesë e debateve joproduktive. Ajo kohë dhe mund do të shpenzohen më mirë në raste tjera më të rëndësishme. Përdoruesit mund të bëjnë kërkesë përmes emailit %1$s, por vendimet rrallë kthehen mbrapsht.</string>
   <string name="whenAmIEligibleRatinRefund">Kur mund të më rikthehen pikët e humbura nga lojtarët hileqarë?</string>
+  <string name="ratingRefundExplanation">Një minutë pasi një lojtar të markohet, merren 40 lojët e tyre të rankuara në 3 ditët e fundit. Nëse jeni kundërshtar i tyre në këto lojë, you keni humbur rating (për shkak të humbjes ose barazimit), dhe ratingu juaj nuk ishte provizional, you merrni prapë pikët e humbura. Kthimi i pikëve bazohen në ratingun tuaj më të mirë dhe progresin e ratingut tuaj pas përfundimit të lojës.
+(Për shembull, nëse ratingu juaj është rritur dukshëm pas këtyre lojëve, ju nuk do të merrni pikët e humbura, ose vetëm një pjesë të tyre). Kthimi i pikëve kurr nuk do të jetë më i lartë se 150 pikë.</string>
+  <string name="preventLeavingGameWithoutResigning">Çfarë ndodhë me lojtarët që e lënë lojën pa dhënë dorëheqje?</string>
+  <string name="leavingGameWithoutResigningExplanation">Nëse kundërshtari juaj aborton ose lë lojën shpesh, atyre u ndalohet të luajnë përkohësisht. Kjo nuk shfaqet publikisht në profilin e tyre. Nëse kjo sjellje vazhdon, ndalesa zgjatet - dhe përseritja e këtyre sjelljeve mund të çojë në mbyllje të llogarisë.</string>
+  <string name="howCanIBecomeModerator">Si mund të bëhem moderator?</string>
+  <string name="youCannotApply">Nuk është e mundur të aplikoni që të bëheni moderator. Nëse e shohim dikë që mendojmë se do të ishte moderator i mirë, ne do ti kontaktojmë ata direkt.</string>
+  <string name="isCorrespondenceDifferent">A është loja me korrespondence ndryshe nga shahu normal?</string>
+  <string name="youCanUseOpeningBookNoEngine">Në Lichess, dallimi kryesor në rregullat për shahun me korrespondenë është se lejohet hapja e librave. Përdorimi i makinave të shahut është ende e ndaluar dhe do të rezultojë në ndëshkim. Edhepse ICCF lejon përdorimin e makinave llogaritëse në korrespondencë, Lichessi nuk e lejon.</string>
+  <string name="gameplay">Loja</string>
+  <string name="howBulletBlitzEtcDecided">Si caktohen Bullet, Blit dhe kontrollat tjera të kohës?</string>
+  <string name="basedOnGameDuration">Kontrollat e kohës në Lichess bazohen në zgjatjen e përafërt të lojës = %1$s
+Për shembull, kohëzgjatja e përafërt e një loje 5+3 është 5*60 + 40*3 =420 sekonda.</string>
 </resources>
