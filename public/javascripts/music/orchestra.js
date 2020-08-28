@@ -1,13 +1,9 @@
 function lichessOrchestra() {
 
-  const soundDir = lichess.assetUrl('sound/instrument/', {
-    noVersion: true
-  });
-
   const load = (instrument, index, filename) =>
     lichess.soundBox.loadOggOrMp3(
       `orchestra.${instrument}.${index}`,
-      `${soundDir}${instrument}/${filename}`
+      `${lichess.soundUrl}/instrument/${instrument}/${filename}`
     );
 
   const volumes = {

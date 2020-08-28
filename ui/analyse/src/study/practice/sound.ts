@@ -1,8 +1,5 @@
 function make(file: string) {
-  const baseUrl = window.lichess.assetUrl('sound', {
-    noVersion: true
-  });
-  window.lichess.soundBox.loadOggOrMp3(file, `${baseUrl}/${file}`);
+  window.lichess.soundBox.loadOggOrMp3(file, `${window.lichess.soundUrl}/${file}`);
   return () => {
     if (window.lichess.sound.set() !== 'silent') window.lichess.soundBox.play(file);
   };

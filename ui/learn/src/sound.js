@@ -1,10 +1,7 @@
 var util = require('./util');
 
 const make = (file, volume) => {
-  const baseUrl = window.lichess.assetUrl('sound', {
-    noVersion: true
-  });
-  lichess.soundBox.loadOggOrMp3(file, `${baseUrl}${file}`);
+  lichess.soundBox.loadOggOrMp3(file, `${window.lichess.soundUrl}/${file}`);
   return () => {
     if (lichess.sound.set() !== 'silent') lichess.soundBox.play(file, volume);
   };

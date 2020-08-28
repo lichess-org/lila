@@ -55,10 +55,7 @@ lichess.sound = (() => {
       if (['move', 'capture', 'check'].includes(k)) return $.noop;
       set = 'standard';
     }
-    const baseUrl = lichess.assetUrl('sound', {
-      noVersion: true
-    });
-    lichess.soundBox.loadOggOrMp3(k, `${baseUrl}/${set}/${names[k]}`);
+    lichess.soundBox.loadOggOrMp3(k, `${lichess.soundUrl}/${set}/${names[k]}`);
     return () => lichess.soundBox.play(k, (volumes[k] || 1) * api.getVolume());
   });
   const enabled = () => soundSet !== 'silent';

@@ -216,9 +216,10 @@ lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=
 lichess.assetUrl = (path, opts) => {
   opts = opts || {};
   const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
-    version = document.body.getAttribute('data-asset-version');
+    version = opts.version || document.body.getAttribute('data-asset-version');
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
+lichess.soundUrl = lichess.assetUrl('sound', { version: '000002' });
 
 lichess.loadedCss = {};
 lichess.loadCss = url => {
