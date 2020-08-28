@@ -21,4 +21,6 @@
   <string name="aLinkToTheClassWillBeAdded">Ji bo polê wê lînkek di dawiya peyamê de bê dan, ne hewce ye ku tu bixwe têxê.</string>
   <string name="className">Navê polê</string>
   <string name="classDescription">Raveya Polê</string>
+  <string name="visibleByBothStudentsAndTeachers">Ji aliyê mamoste û xwendekarên polê herdûya tê dîtin</string>
+  <string name="teachersOfTheClass">Mamosteyên polê</string>
 </resources>
