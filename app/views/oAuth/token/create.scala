@@ -26,7 +26,7 @@ object create {
             form("description"),
             raw("Token description"),
             help = raw("For you to remember what this token is for").some
-          )(form3.input(_)),
+          )(form3.input(_)(autofocus)),
           br,
           br,
           h2("Scopes define the access for personal tokens:"),
