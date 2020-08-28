@@ -32,4 +32,11 @@
   <string name="howBulletBlitzEtcDecided">Si caktohen Bullet, Blit dhe kontrollat tjera të kohës?</string>
   <string name="basedOnGameDuration">Kontrollat e kohës në Lichess bazohen në zgjatjen e përafërt të lojës = %1$s
 Për shembull, kohëzgjatja e përafërt e një loje 5+3 është 5*60 + 40*3 =420 sekonda.</string>
+  <string name="durationFormula">(koha fillestrare e orës) + 40 * (shtesa e orës)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
+  <string name="whatVariantsCanIplay">Cilat variante mund ti luaj në Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichessi mundëson shah standard dhe %1$s.</string>
+  <string name="eightVariants">8 variante të shahut</string>
+  <string name="whatIsACPL">Sa është mesatarja e humbjes së centipawnit (ACPL)?</string>
 </resources>
