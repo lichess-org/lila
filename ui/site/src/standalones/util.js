@@ -219,7 +219,7 @@ lichess.assetUrl = (path, opts) => {
     version = opts.version || document.body.getAttribute('data-asset-version');
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
-lichess.soundUrl = lichess.assetUrl('sound', { version: '000002' });
+lichess.soundUrl = lichess.assetUrl('sound', { version: '000003' });
 
 lichess.loadedCss = {};
 lichess.loadCss = url => {
