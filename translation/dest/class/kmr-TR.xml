@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Wane</string>
+  <string name="teachClassesOfChessStudents">Bi alavên Polên Lichessê ders pêş xwendekarên setrencê bike.</string>
   <string name="newClass">Waneya nû</string>
   <string name="closeClass">Waneyê bigir</string>
   <string name="closedByX">Ji aliyê %s ve hat girtin</string>
