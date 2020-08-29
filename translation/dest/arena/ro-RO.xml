@@ -39,4 +39,5 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe meciuri și pentr
   <string name="thisIsPrivate">Acesta este o competiție privată</string>
   <string name="shareUrl">Pentru a distribui, folosiți acest URL: %s</string>
   <string name="drawStreak">Serie de remize consecutive: Când un jucător are remize consecutive într-un turneu de tip arenă, numai prima remiză este punctată, sau remize în partide care au mai mult de %s mutări. Seria de remize poate fi întreruptă doar de o victorie, nu de o înfrângere sau remiză.</string>
+  <string name="history">Istoricul turneelor de tip arenă</string>
 </resources>
