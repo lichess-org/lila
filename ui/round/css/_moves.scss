@@ -10,6 +10,10 @@
   @extend %san;
 }
 
+#{$muted-tag} {
+  display: none;
+}
+
 #{$rmoves-tag} {
   @extend %flex-column;
 
