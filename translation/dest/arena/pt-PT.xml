@@ -39,4 +39,5 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   <string name="thisIsPrivate">Este é um torneio privado</string>
   <string name="shareUrl">Partilha este link para que as pessoas possam entrar: %s</string>
   <string name="drawStreak">Sequência de empates: Quando um jogador tem empates consecutivos numa arena, apenas o primeiro resultará em um ponto, ou empates que duraram mais de %s movimentos. A sequência de empates só pode ser quebrada por uma vitória, não por uma derrota ou empate.</string>
+  <string name="history">Histórias das arenas</string>
 </resources>
