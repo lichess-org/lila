@@ -27,7 +27,7 @@
   <string name="dragPiece">Arrastar a peça</string>
   <string name="bothClicksAndDrag">Ambos</string>
   <string name="premovesPlayingDuringOpponentTurn">Jogadas antecipadas (jogadas durante a vez do adversário)</string>
-  <string name="takebacksWithOpponentApproval">Voltar jogada (com aprovação do oponente)</string>
+  <string name="takebacksWithOpponentApproval">Voltar jogadas atrás (com aprovação do adversário)</string>
   <string name="inCasualGamesOnly">Somente em jogos casuais</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
   <string name="whenPremoving">Quando mover antecipadamente</string>
