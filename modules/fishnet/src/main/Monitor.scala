@@ -79,13 +79,13 @@ final private class Monitor(
 
       val instances = clients.flatMap(_.instance)
 
-      instances.map(_.version.value).groupBy(identity).view.mapValues(_.size) foreach {
+      instances.groupMapReduce(_.version.value)(_ => 1)(_ + _) foreach {
         case (v, nb) => version(v).update(nb)
       }
-      instances.map(_.engines.stockfish.name).groupBy(identity).view.mapValues(_.size) foreach {
+      instances.groupMapReduce(_.engines.stockfish.name)(_ => 1)(_ + _) foreach {
         case (s, nb) => stockfish(s).update(nb)
       }
-      instances.map(_.python.value).groupBy(identity).view.mapValues(_.size) foreach {
+      instances.groupMapReduce(_.python.value)(_ => 1)(_ + _) foreach {
         case (s, nb) => python(s).update(nb)
       }
     }
