@@ -394,7 +394,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="openTournaments">Torneios abertos</string>
   <string name="duration">Duração</string>
   <string name="winner">Vencedor</string>
-  <string name="standing">Classificação</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Classificação</string>
   <string name="createANewTournament">Criar um torneio</string>
   <string name="tournamentCalendar">Calendário de torneios</string>
   <string name="conditionOfEntry">Condições de participação:</string>
@@ -658,7 +658,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneios de xadrez com diversos ritmos de jogo e variantes</string>
   <string name="tournamentHomeDescription">Joga xadrez em ritmo acelerado! Entra num torneio oficial agendado ou cria o teu próprio. Bullet, blitz, clássico, chess960, rei da colina, três xeques e mais opções disponíveis para uma diversão ilimitada.</string>
-  <string name="tournamentNotFound">Torneio não encontrado</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Torneio não encontrado</string>
   <string name="tournamentDoesNotExist">Este torneio não existe.</string>
   <string name="tournamentMayHaveBeenCanceled">O torneio pode ter sido cancelado, se todos os jogadores tiverem saíram antes do seu começo.</string>
   <string name="returnToTournamentsHomepage">Voltar à página inicial de torneios</string>
