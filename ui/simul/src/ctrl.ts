@@ -40,6 +40,6 @@ export default class SimulCtrl {
   accepted = () => this.data.applicants.filter(a => a.accepted);
   acceptedContainsMe = () => this.accepted().some(a => a.player.id === this.opts.userId);
   applicantsContainsMe = () => this.candidates().some(a => a.player.id === this.opts.userId);
-  containsMe = () => this.opts.userId && (this.applicantsContainsMe() || this.pairingsContainMe());
+  containsMe = () => this.opts.userId && (this.applicantsContainsMe() || this.acceptedContainsMe() || this.pairingsContainMe());
   pairingsContainMe = () => this.data.pairings.some(a => a.player.id === this.opts.userId);
 }
