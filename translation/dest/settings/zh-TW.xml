@@ -6,5 +6,5 @@
   <string name="cantOpenSimilarAccount">即使名稱大小寫不同，您也不能使用相同的名稱開設新帳戶</string>
   <string name="changedMindDoNotCloseAccount">我改主意了，不要注销账号</string>
   <string name="closeAccountExplanation">您真的確定要刪除帳戶嗎？ 關閉帳戶是永久性的決定， 您將「永遠無法」再次登錄。</string>
-  <string name="thisAccountIsClosed">此帐号已被注销。</string>
+  <string name="thisAccountIsClosed">此帳號已被關閉。</string>
 </resources>
