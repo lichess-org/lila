@@ -38,39 +38,34 @@ object MatchMaking {
 
     // quality of a potential pairing. Lower is better.
     // None indicates a forbidden pairing
-    private def pairScore(a: PoolMember, b: PoolMember): Option[Int] = {
-      val score = a.ratingDiff(b) - {
-        missBonus(a) atMost missBonus(b)
-      } + {
-        rangeMalus(a, b) + rangeMalus(b, a)
-      } - {
-        rangeBonus(a, b)
-      } + {
-        blockMalus(a, b) + blockMalus(b, a)
-      } - {
-        ragesitBonus(a, b)
-      }
-      val maxScore = ratingToMaxScore(a.rating atMost b.rating)
-      if (score <= maxScore) Some(score) else None
-    }
+    private def pairScore(a: PoolMember, b: PoolMember): Option[Int] =
+      !(rangeMalus(a, b) || rangeMalus(b, a) || blockMalus(a, b) || blockMalus(b, a)) ?? {
+        a.ratingDiff(b) - {
+          missBonus(a) atMost missBonus(b)
+        } - {
+          rangeBonus(a, b)
+        } - {
+          ragesitBonus(a, b)
+        }
+      }.some.filter(score => score <= ratingToMaxScore(a.rating atMost b.rating))
 
     // score bonus based on how many waves the member missed
     // when the user's sit counter is lower than -3, the maximum bonus becomes lower
     private def missBonus(p: PoolMember) =
       (p.misses * 12) atMost ((460 + (p.rageSitCounter atMost -3) * 20) atLeast 0)
 
-    // big malus if players have conflicting rating ranges
+    // if players have conflicting rating ranges
     private def rangeMalus(a: PoolMember, b: PoolMember) =
-      if (a.ratingRange.exists(!_.contains(b.rating))) 9000 else 0
+      a.ratingRange.exists(!_.contains(b.rating))
 
     // bonus if both players have rating ranges, and they're compatible
     private def rangeBonus(a: PoolMember, b: PoolMember) =
       if (a.ratingRange.exists(_ contains b.rating) && b.ratingRange.exists(_ contains a.rating)) 200
       else 0
 
-    // huge malus if players block each other
+    // if players block each other
     private def blockMalus(a: PoolMember, b: PoolMember) =
-      if (a.blocking.ids contains b.userId) 9000 else 0
+      a.blocking.ids contains b.userId
 
     // bonus if the two players both have a good sit counter
     // bonus if the two players both have a bad sit counter
