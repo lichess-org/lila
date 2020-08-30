@@ -150,17 +150,23 @@ final class IrwinApi(
 
   object notification {
 
-    private var subs = Map.empty[SuspectId, ModId]
+    private var subs = Map.empty[SuspectId, Set[ModId]]
 
-    def add(suspectId: SuspectId, modId: ModId): Unit = subs += (suspectId -> modId)
+    def add(suspectId: SuspectId, modId: ModId): Unit =
+      subs.updated(suspectId, (~subs.get(suspectId)) + modId)
 
     private[IrwinApi] def apply(report: IrwinReport): Funit =
-      subs.get(report.suspectId) ?? { modId =>
+      subs.get(report.suspectId) ?? { modIds =>
         subs = subs - report.suspectId
         import lila.notify.{ IrwinDone, Notification }
-        notifyApi.addNotification(
-          Notification.make(Notification.Notifies(modId.value), IrwinDone(report.suspectId.value))
-        )
+        modIds
+          .map { modId =>
+            notifyApi.addNotification(
+              Notification.make(Notification.Notifies(modId.value), IrwinDone(report.suspectId.value))
+            )
+          }
+          .sequenceFu
+          .void
       }
   }
 }
