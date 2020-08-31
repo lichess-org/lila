@@ -7,6 +7,7 @@ import io.lemonlabs.uri.AbsoluteUrl
 
 import lila.security.Granter
 import lila.user.User
+import lila.common.Form.clean
 
 final class RelayForm {
 
@@ -15,15 +16,15 @@ final class RelayForm {
 
   val form = Form(
     mapping(
-      "name"        -> text(minLength = 3, maxLength = 80),
-      "description" -> text(minLength = 3, maxLength = 400),
+      "name"        -> clean(text(minLength = 3, maxLength = 80)),
+      "description" -> clean(text(minLength = 3, maxLength = 400)),
       "markup"      -> optional(text(maxLength = 20000)),
       "official"    -> optional(boolean),
       "syncUrl" -> optional {
         nonEmptyText.verifying("Invalid source", validSource _)
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
-      "credit"       -> optional(nonEmptyText),
+      "credit"       -> optional(clean(nonEmptyText)),
       "startsAt"     -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
       "throttle"     -> optional(number(min = 2, max = 60))
     )(Data.apply)(Data.unapply)
