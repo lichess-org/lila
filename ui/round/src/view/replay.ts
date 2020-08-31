@@ -10,7 +10,7 @@ import * as util from '../util';
 import RoundController from '../ctrl';
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
 
-const scrollMax = 99999, moveTag = 'u8t', indexTag = 'i5z', indexTagUC = indexTag.toUpperCase(), movesTag = 'l2j', rmovesTag = 'iu9', activeClass = 'a1t', mutedTag = 'x2n.active';
+const scrollMax = 99999, moveTag = 'n1a', indexTag = 'i5z', indexTagUC = indexTag.toUpperCase(), movesTag = 'l2j', rmovesTag = 'iu9', activeClass = 'a1t', mutedTag = `${moveTag}.active`;
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {

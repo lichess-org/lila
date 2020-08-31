@@ -5,11 +5,11 @@ $mq-col3: $mq-col3-uniboard;
 
 $col1-player-clock-height: 50px;
 $col1-moves-height: 2.5em;
-$move-tag: "u8t";
+$move-tag: "n1a";
 $rmoves-tag: "iu9";
 $moves-tag: "l2j";
 $index-tag: "i5z";
-$muted-tag: "x2n";
+$muted-tag: $move-tag;
 $active-class: "a1t";
 
 // app-layout

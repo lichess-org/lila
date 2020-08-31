@@ -6,12 +6,13 @@
   @extend %roboto;
 }
 
-#{$move-tag} {
-  @extend %san;
-}
-
 #{$muted-tag} {
   display: none;
+}
+
+#{$moves-tag} #{$move-tag} {
+  @extend %san;
+  display: inherit;
 }
 
 #{$rmoves-tag} {
