@@ -11,7 +11,7 @@ class SoundBox {
 
   play(name, volume = 1) {
     const doPlay = () => {
-      this.sounds[name].volume(volume * this.volume.get());
+      this.sounds[name].volume(volume * this.getVolume());
       this.sounds[name].play();
     };
     if (Howler.ctx.state == "suspended") Howler.ctx.resume().then(doPlay);

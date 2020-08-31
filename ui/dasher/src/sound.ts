@@ -15,7 +15,7 @@ export interface SoundData {
 export interface SoundCtrl {
   makeList(): Sound[];
   api: any;
-  box: SoundBox;
+  box: SoundBoxI;
   set(k: Key): void;
   volume(v: number): void;
   redraw: Redraw;
@@ -30,6 +30,9 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
   const api = window.lichess.sound;
   const box = window.lichess.soundBox;
 
+  const postSet = (set: string) =>
+    $.post('/pref/soundSet', { set }).fail(() => window.lichess.announce({ msg: 'Failed to save sound preference' }));
+
   return {
     makeList() {
       const canSpeech = window.speechSynthesis?.getVoices().length;
@@ -40,11 +43,15 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
     set(k: Key) {
       api.speech(k == 'speech');
       window.lichess.pubsub.emit('speech.enabled', api.speech());
-      if (api.speech()) api.say('Speech synthesis ready');
+      if (api.speech()) {
+        api.changeSet('standard');
+        postSet('standard');
+        api.say('Speech synthesis ready');
+      }
       else {
         api.changeSet(k);
         api.genericNotify();
-        $.post('/pref/soundSet', { set: k }).fail(() => window.lichess.announce({msg: 'Failed to save sound preference'}));
+        postSet(k);
       }
       redraw();
     },
