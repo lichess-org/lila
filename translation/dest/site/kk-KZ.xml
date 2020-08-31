@@ -49,7 +49,7 @@
   <string name="blackLeftTheGame">Қара ойыннан шықты</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Осы сілтемені бөліссеңіз, көрермендер ойынды қарай алатын болады</string>
   <string name="theComputerAnalysisHasFailed">Компьютерлік талдау ақауға ұшырады</string>
-  <string name="viewTheComputerAnalysis">Компьютелік талдауды көрсету</string>
+  <string name="viewTheComputerAnalysis">Компьютерлік талдауды көрсету</string>
   <string name="requestAComputerAnalysis">Компьютерлік талдауға жіберу</string>
   <string name="computerAnalysis">Компьютерлік талдау</string>
   <string name="computerAnalysisAvailable">Компьютерлік талдау ашық</string>
@@ -57,7 +57,7 @@
   <string name="depthX">Тереңдігі %s</string>
   <string name="usingServerAnalysis">Сервердік талдау жүруде</string>
   <string name="loadingEngine">Есептеуіш жүктелуде...</string>
-  <string name="cloudAnalysis">Бұлтттық талдау</string>
+  <string name="cloudAnalysis">Бұлттық талдау</string>
   <string name="goDeeper">Терең кету</string>
   <string name="showThreat">Қауіп көрсету</string>
   <string name="inLocalBrowser">Жергілікті браузерде</string>
@@ -738,8 +738,17 @@
   <string name="youCannotChallengeX">Сіз %s деген ойыншыны шақыра алмайсыз.</string>
   <string name="xDoesNotAcceptChallenges">%s шақыруды қабылдамады.</string>
   <string name="yourXRatingIsTooFarFromY">Сіз %1$s бен %2$s-ның рейтинг айырмашылығы тым көп.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s рейтингіңіз болжамалы күйде тұрғанша, ешкімді ойынға шақыра алмайсыз.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
+  <string name="conditionalPremoves">Шартты алдын-ала жүрістер</string>
+  <string name="addCurrentVariation">Осы нұсқаны қосу</string>
+  <string name="playVariationToCreateConditionalPremoves">Шартты алдын-ала жүрістерді құру үшін бір нұсқаны ойнаңыз</string>
+  <string name="noConditionalPremoves">Шартты алдын-ала жүрістер жоқ</string>
   <string name="playX">%s жүріңіз</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">алдын-ала жүрістердің %s қатарын сақтау</item>
+    <item quantity="other">алдын-ала жүрістердің %s қатарын сақтау</item>
+  </plurals>
   <string name="sorry">Өкінішті-ақ :(</string>
   <string name="weHadToTimeYouOutForAWhile">Сізді уақытша шектеуге мәжбүрміз.</string>
   <string name="timeoutExpires">Шектеудің аяқталуына %s қалды.</string>
@@ -754,6 +763,7 @@
   <string name="temporaryInconvenience">Осы уақытша жайсыздық үшін біз өкінішімізді білдіріп,</string>
   <string name="wishYouGreatGames">Личес-та әдемі ойындар болсын деп тілейміз.</string>
   <string name="thankYouForReading">Оқығаныңыз үшін рахмет!</string>
+  <string name="lifetimeScore">Жалпы ұпайлар</string>
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классикалық</string>
