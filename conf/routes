@@ -139,6 +139,7 @@ GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 GET   /broadcast                           controllers.Relay.index(page: Int ?= 1)
 GET   /broadcast/new                       controllers.Relay.form
 POST  /broadcast/new                       controllers.Relay.create
+GET   /broadcast/embed/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.embed(slug: String, id: String, chapterId: String)
 GET   /broadcast/:slug/$id<\w{8}>          controllers.Relay.show(slug: String, id: String)
 GET   /broadcast/:slug/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(slug: String, id: String, chapterId: String)
 GET   /broadcast/:slug/$id<\w{8}>/edit     controllers.Relay.edit(slug: String, id: String)

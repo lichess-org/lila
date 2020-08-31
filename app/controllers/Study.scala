@@ -340,7 +340,7 @@ final class Study(
 
   def embed(id: String, chapterId: String) =
     Action.async { implicit req =>
-      env.study.api.byIdWithChapter(id, chapterId).map(_.filterNot(_.study.isPrivate)) flatMap {
+      env.study.api.byIdWithChapter(id, chapterId).dmap(_.filterNot(_.study.isPrivate)) flatMap {
         _.fold(embedNotFound) {
           case WithChapter(study, chapter) =>
             for {

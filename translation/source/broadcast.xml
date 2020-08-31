@@ -18,4 +18,5 @@
   <string name="credits">Credit the source</string>
   <string name="cloneBroadcast">Clone the broadcast</string>
   <string name="resetBroadcast">Reset the broadcast</string>
+  <string name="broadcastNotFound">Broadcast not found</string>
 </resources>

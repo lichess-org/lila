@@ -3,18 +3,21 @@ package controllers
 import play.api.data.Form
 import play.api.mvc._
 import scala.annotation.nowarn
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
 import lila.relay.{ Relay => RelayModel, RelayForm }
+import lila.study.Study.WithChapter
+import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.{ User => UserModel }
-import views._
 
 final class Relay(
     env: Env,
     studyC: => Study,
-    apiC: => Api
+    apiC: => Api,
+    userAnalysisC: => UserAnalysis
 ) extends LilaController(env) {
 
   def index(page: Int) =
@@ -119,18 +122,8 @@ final class Relay(
     OpenOrScoped(_.Study.Read)(
       open = implicit ctx => {
         pageHit
-        WithRelay(slug, id) {
-          relay =>
-            val sc =
-              if (relay.sync.ongoing) env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap {
-                chapters =>
-                  chapters.find(_.looksAlive) orElse chapters.headOption match {
-                    case Some(chapter) => env.study.api.byIdWithChapter(relay.studyId, chapter.id)
-                    case None          => env.study.api byIdWithChapter relay.studyId
-                  }
-              }
-              else env.study.api byIdWithChapter relay.studyId
-            sc flatMap { _ ?? { doShow(relay, _) } }
+        WithRelay(slug, id) { relay =>
+          currentChapter(relay) flatMap { _ ?? { doShow(relay, _) } }
         }
       },
       scoped = _ =>
@@ -174,6 +167,44 @@ final class Relay(
       }.fuccess
     }
 
+  def embed(slug: String, id: String) =
+    Action.async { implicit req =>
+      env.relay.api byId id flatMap {
+        _.fold(embedNotFound) { relay =>
+          currentChapter(relay).dmap(_.filterNot(_.study.isPrivate)) flatMap {
+            _.fold(embedNotFound) {
+              case WithChapter(study, chapter) =>
+                for {
+                  chapters <- env.study.chapterRepo.orderedMetadataByStudy(study.id)
+                  pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
+                  baseData = env.round.jsonView.userAnalysisJson(
+                    pov,
+                    lila.pref.RequestPref.fromRequest(req),
+                    chapter.root.fen.some,
+                    chapter.setup.orientation,
+                    owner = false,
+                    me = none,
+                    division = none
+                  )
+                  studyJson <- env.study.jsonView(study, chapters, chapter, none)
+                  studyData = lila.study.JsonView.JsData(
+                    study = studyJson,
+                    analysis = baseData
+                      .add(
+                        "treeParts" -> partitionTreeJsonWriter.writes {
+                          lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+                        }.some
+                      )
+                  )
+                  data = env.relay.jsonView.makeData(relay, studyData, false)
+                  sVersion <- env.study.version(study.id)
+                } yield Ok(html.relay.embed(relay, study, data, chat = none, sVersion, streams = None))
+            }
+          }
+        }
+      }
+    }
+
   private def WithRelay(slug: String, id: String)(
       f: RelayModel => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
@@ -181,6 +212,15 @@ final class Relay(
       if (relay.slug != slug) Redirect(showRoute(relay)).fuccess
       else f(relay)
     }
+
+  private def currentChapter(relay: RelayModel): Fu[Option[WithChapter]] =
+    if (relay.sync.ongoing) env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap { chapters =>
+      chapters.find(_.looksAlive) orElse chapters.headOption match {
+        case Some(chapter) => env.study.api.byIdWithChapter(relay.studyId, chapter.id)
+        case None          => env.study.api byIdWithChapter relay.studyId
+      }
+    }
+    else env.study.api byIdWithChapter relay.studyId
 
   private def doShow(relay: RelayModel, oldSc: lila.study.Study.WithChapter)(implicit
       ctx: Context
@@ -196,6 +236,9 @@ final class Relay(
     }
 
   private def showRoute(r: RelayModel) = routes.Relay.show(r.slug, r.id.value)
+
+  private def embedNotFound(implicit req: RequestHeader): Fu[Result] =
+    fuccess(NotFound(html.relay.embed.notFound))
 
   implicit private def makeRelayId(id: String): RelayModel.Id           = RelayModel.Id(id)
   implicit private def makeChapterId(id: String): lila.study.Chapter.Id = lila.study.Chapter.Id(id)

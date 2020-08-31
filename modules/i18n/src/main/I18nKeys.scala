@@ -1412,6 +1412,7 @@ val `startDateHelp` = new I18nKey("broadcast:startDateHelp")
 val `credits` = new I18nKey("broadcast:credits")
 val `cloneBroadcast` = new I18nKey("broadcast:cloneBroadcast")
 val `resetBroadcast` = new I18nKey("broadcast:resetBroadcast")
+val `broadcastNotFound` = new I18nKey("broadcast:broadcastNotFound")
 }
 
 object streamer {
