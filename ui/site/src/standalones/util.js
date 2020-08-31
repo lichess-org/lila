@@ -219,7 +219,9 @@ lichess.assetUrl = (path, opts) => {
     version = opts.version || document.body.getAttribute('data-asset-version');
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
-lichess.soundUrl = lichess.assetUrl('sound', { version: '000003' });
+lichess.soundUrl = lichess.assetUrl('sound', {
+  version: '000003'
+});
 
 lichess.loadedCss = {};
 lichess.loadCss = url => {
@@ -251,11 +253,13 @@ lichess.slider = () =>
   lichess.loadScript(
     'javascripts/vendor/jquery-ui.slider' + (lichess.hasTouchEvents ? '.touch' : '') + '.min.js'
   );
-lichess.makeChat = (data, callback) =>
-  requestAnimationFrame(function() {
-    data.loadCss = lichess.loadCssPath;
-    (callback || $.noop)(LichessChat(document.querySelector('.mchat'), data));
-  });
+lichess.makeChat = data =>
+  new Promise(resolve =>
+    requestAnimationFrame(() => {
+      data.loadCss = lichess.loadCssPath;
+      resolve(LichessChat(document.querySelector('.mchat'), data));
+    })
+  );
 lichess.formAjax = $form => ({
   url: $form.attr('action'),
   method: $form.attr('method') || 'post',
