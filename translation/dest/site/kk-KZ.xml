@@ -665,6 +665,11 @@
   <string name="networkLagBetweenYouAndLichess">Личес пен сіздің араңыздағы кідіріс</string>
   <string name="timeToProcessAMoveOnLichessServer">Личес сервері жүрісті өңдеуге жұмсайтын уақыт</string>
   <string name="downloadAnnotated">Жазбасы барды алу</string>
+  <string name="downloadRaw">Қарасын алу</string>
+  <string name="downloadImported">Жүктеп салынғанды алу</string>
+  <string name="printFriendlyPDF">Қағазға бастыруға лайық PDF</string>
+  <string name="crosstable">Қос дерек</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сонымен қатар, сіз тақта үстінен тінтуір доңғалағын айналдырып, жүріс жасай аласыз.</string>
   <string name="withFriends">Достармен</string>
   <string name="bulletBlitzClassical">Буллит, блитц, классикалық</string>
   <string name="viewTheSolution">Жауабты қарау</string>
@@ -691,7 +696,12 @@
   <string name="error.maxLength">%s таңбадан аспаңыз</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <string name="practiceWithComputer">Компьютермен жаттығу</string>
+  <string name="youBrowsedAway">Аяғына жеттіңіз</string>
   <string name="resumePractice">Жаттығуды жалғастыру</string>
+  <string name="theGameIsADraw">Ойын тең аяқталды.</string>
+  <string name="computerThinking">Компьютер ойлануда ...</string>
+  <string name="seeBestMove">Үздік жүрісті көру</string>
+  <string name="hideBestMove">Үздік жүрісті жасыру</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
   <string name="playX">%s жүріңіз</string>
   <string name="sorry">Өкінішті-ақ :(</string>
