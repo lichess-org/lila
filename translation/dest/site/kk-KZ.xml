@@ -655,7 +655,10 @@
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s ойышының %2$s-ынан күштірек.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Сіздің ресми %s рейтингіңіз жоқ.</string>
   <string name="yourRating">Рейтингіңіз</string>
+  <string name="cumulative">Жинақылық</string>
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
+  <string name="checkYourEmail">Поштаңызды қараңыз</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Біз сізге хат жібердік. Хаттағы сілтемеге бассаңыз, аккаунтыңыз расталады.</string>
   <string name="withFriends">Достармен</string>
   <string name="bulletBlitzClassical">Буллит, блитц, классикалық</string>
   <string name="viewTheSolution">Жауабты қарау</string>
