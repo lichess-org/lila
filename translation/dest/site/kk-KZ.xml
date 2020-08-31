@@ -659,6 +659,9 @@
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
   <string name="checkYourEmail">Поштаңызды қараңыз</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Біз сізге хат жібердік. Хаттағы сілтемеге бассаңыз, аккаунтыңыз расталады.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Егер хат көрінбей тұрса, басқа болжамды жерлерді қарап көріңіз, мысалы – қоржын, спам, әлеуметтік желілер сияқты қалталар.</string>
+  <string name="weHaveSentYouAnEmailTo">Біз хатты %s-ға жібердік. Құпиясөзді арылту үшін хаттағы сілтемеге басыңыз.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Сіздің тіркелуіңіз – %s-н мойындайтыныңыздың белгісі.</string>
   <string name="withFriends">Достармен</string>
   <string name="bulletBlitzClassical">Буллит, блитц, классикалық</string>
   <string name="viewTheSolution">Жауабты қарау</string>
