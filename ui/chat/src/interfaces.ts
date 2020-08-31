@@ -58,7 +58,7 @@ export interface Permissions {
 
 export type Tab = string;
 
-export interface Ctrl extends Chat {
+export interface Ctrl {
   data: ChatData
   opts: ChatOpts
   vm: ViewModel
