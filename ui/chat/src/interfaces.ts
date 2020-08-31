@@ -58,7 +58,7 @@ export interface Permissions {
 
 export type Tab = string;
 
-export interface Ctrl {
+export interface Ctrl extends Chat {
   data: ChatData
   opts: ChatOpts
   vm: ViewModel
@@ -66,7 +66,7 @@ export interface Ctrl {
   preset: PresetCtrl
   note?: NoteCtrl
   moderation(): ModerationCtrl | undefined
-  post(text: string): void
+  post(text: string): boolean
   trans: Trans
   setTab(tab: Tab): void
   setEnabled(v: boolean): void

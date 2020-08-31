@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+
 import { VNode } from 'snabbdom/vnode'
 import { parseFen } from 'chessops/fen';
 import * as chessground from './ground';
@@ -356,11 +357,10 @@ export default function(ctrl: AnalyseCtrl): VNode {
     study && study.relay && relayManager(study.relay),
     ctrl.opts.chat && h('section.mchat', {
       hook: onInsert(_ => {
-        if (ctrl.opts.chat.instance) ctrl.opts.chat.instance.destroy();
-        ctrl.opts.chat.parseMoves = true;
-        li.makeChat(ctrl.opts.chat, chat => {
-          ctrl.opts.chat.instance = chat;
-        });
+        const chatOpts = ctrl.opts.chat;
+        chatOpts.instance?.then(c => c.destroy());
+        chatOpts.parseMoves = true;
+        chatOpts.instance = li.makeChat(chatOpts);
       })
     }),
     ctrl.embed ? null : h('div.chat__members.none', {

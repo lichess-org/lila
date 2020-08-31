@@ -31,5 +31,5 @@ $(function() {
   });
 
   $(`#irbehavior_arrowSnap_${arrowSnapStore.get() || 1}`).prop('checked', true);
-  $(`#irbehavior_courtesy_${courtesyStore.get() || 1}`).prop('checked', true);
+  $(`#irbehavior_courtesy_${courtesyStore.get() || 0}`).prop('checked', true);
 });

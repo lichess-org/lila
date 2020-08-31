@@ -23,7 +23,7 @@ interface Lichess {
   loadScript(url: string, opts?: AssetUrlOpts): Promise<unknown>;
   hopscotch: any;
   slider(): any;
-  makeChat(data: any): Promise<Chat>;
+  makeChat(data: any): any;
   formAjax(form: JQuery): any;
   numberFormat(n: number): string;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
@@ -91,10 +91,6 @@ interface Lichess {
   notifyApp: {
     setMsgRead(user: string): void;
   }
-}
-
-interface Chat {
-  post(msg: string): boolean;
 }
 
 interface SoundBoxI {

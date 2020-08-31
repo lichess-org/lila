@@ -3,7 +3,7 @@ import { GameData, Status } from 'game';
 import { ClockData, Seconds, Centis } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
 import RoundController from './ctrl';
-import { ChatPlugin } from 'chat';
+import { ChatCtrl, ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
 
 export type MaybeVNode = VNode | null | undefined;
@@ -87,10 +87,10 @@ export interface RoundOpts {
   element: HTMLElement;
   crosstableEl: HTMLElement;
   i18n: any;
-  chat?: Chat;
+  chat?: ChatOpts;
 }
 
-export interface Chat {
+export interface ChatOpts {
   preset: 'start' | 'end' | undefined;
   parseMoves?: boolean;
   plugin?: ChatPlugin;
@@ -98,6 +98,7 @@ export interface Chat {
   noteId?: string;
   noteAge?: number;
   noteText?: string;
+  instance?: Promise<ChatCtrl>;
 }
 
 export interface Step {
