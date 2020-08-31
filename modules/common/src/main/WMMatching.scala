@@ -32,10 +32,14 @@ object WMMatching {
       }
     }
 
+  //founds minimum-weighted matching amoung maximum-cardinality matchings
   private[this] def lowLevel(nvertex: Int, pairScore: (Int, Int) => Option[Int]): List[(Int, Int)] = {
     val (endpoint, weights) = fullGraph(nvertex, pairScore)
     if (endpoint.isEmpty) Nil
-    else minWeightMatching(endpoint, weights)
+    else {
+      val maxweight = weights.max
+      maxWeightMatching(endpoint, weights.mapInPlace { maxweight - _ }, maxcardinality = true)
+    }
   }
 
   private[common] def maxWeightMatching(
@@ -69,11 +73,6 @@ object WMMatching {
 
      */
     mateToList(endpoint, new Impl(endpoint, weights, maxcardinality).result)
-  }
-
-  private[this] def minWeightMatching(endpoint: Array[Int], weights: Array[Int]): List[(Int, Int)] = {
-    val maxweight = weights.max
-    maxWeightMatching(endpoint, weights.map { maxweight - _ }, maxcardinality = true)
   }
 
   private[this] def mateToList(endpoint: Array[Int], mate: Array[Int]): List[(Int, Int)] = {
