@@ -190,9 +190,7 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 
   var debug = function(msg, always) {
-    if (always || options.debug) {
-      console.debug("[" + options.name + " " + settings.params.sri + "]", msg);
-    }
+    if (always || options.debug) console.debug(msg);
   };
 
   var destroy = function() {
@@ -283,7 +281,6 @@ lichess.StrongSocket.defaults = {
     sri: lichess.sri
   },
   options: {
-    name: "unnamed",
     idle: false,
     pingMaxLag: 9000, // time to wait for pong before reseting the connection
     pingDelay: 2500, // time between pong and ping

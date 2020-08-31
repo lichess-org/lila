@@ -8,9 +8,6 @@ export default function(cfg: AnalyseOpts) {
   li.socket = li.StrongSocket(
     data.url.socket,
     data.player.version, {
-      options: {
-        name: 'analyse'
-      },
       params: {
         userTv: data.userTv && data.userTv.id
       },

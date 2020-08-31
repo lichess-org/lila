@@ -57,9 +57,6 @@ export default function boot(cfg, element) {
         li.StrongSocket.defaults.events.fen(e);
         lobby.gameActivity(e.id);
       }
-    },
-    options: {
-      name: 'lobby'
     }
   });
   li.StrongSocket.firstConnect.then(() => {

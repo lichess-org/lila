@@ -13,7 +13,6 @@ export default function(opts: RoundOpts): void {
   li.socket = li.StrongSocket(
     data.url.socket,
     data.player.version, {
-    options: { name: 'round' },
     params: { userTv: data.userTv && data.userTv.id },
     receive(t: string, d: any) { round.socketReceive(t, d); },
     events: {
