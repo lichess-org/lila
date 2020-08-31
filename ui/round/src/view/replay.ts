@@ -34,7 +34,10 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
 
 function renderMove(step: Step, curPly: number, orEmpty: boolean) {
   return step ? h(moveTag, {
-    class: { [activeClass]: step.ply === curPly }
+    class: { 
+      active: step.ply === 1,
+      [activeClass]: step.ply === curPly 
+    }
   }, step.san[0] === 'P' ? step.san.slice(1) : step.san) : (orEmpty ? h(moveTag, '…') : undefined);
 }
 
