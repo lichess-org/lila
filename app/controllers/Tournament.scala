@@ -124,10 +124,10 @@ final class Tournament(
           api = _ =>
             tourOption
               .fold(notFoundJson("No such tournament")) { tour =>
-                get("playerInfo").?? { api.playerInfo(tour, _) } zip
-                  getBool("socketVersion").??(env.tournament version tour.id dmap some) flatMap {
-                  case (playerInfoExt, socketVersion) =>
-                    jsonView(
+                for {
+                  playerInfoExt <- get("playerInfo").?? { api.playerInfo(tour, _) }
+                  socketVersion <- getBool("socketVersion").??(env.tournament version tour.id dmap some)
+                  json <- jsonView(
                       tour = tour,
                       page = page,
                       me = ctx.me,
@@ -136,8 +136,17 @@ final class Tournament(
                       playerInfoExt = playerInfoExt,
                       socketVersion = socketVersion,
                       partial = getBool("partial")
-                    )
-                } dmap { Ok(_) }
+                  )
+                  chatOpt <-
+                    canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
+                      .findMine(Chat.Id(tour.id), ctx.me)
+                      .dmap(some)
+                  _ <- chatOpt ?? { c =>
+                    env.user.lightUserApi.preloadMany(c.chat.userIds)
+                  }
+                } yield Ok(json ++ chatOpt.fold(Json.obj()) { c =>
+                    Json.obj("chat" -> lila.chat.JsonView.mobile(chat = c.chat))
+                  })
               }
               .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
         ) dmap NoCache
