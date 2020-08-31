@@ -40,11 +40,7 @@ interface Lichess {
   // main.js
   socket: any;
   sound: any;
-  soundBox: {
-    load(name: string, path: string): Promise<void>;
-    loadOggOrMp3(name: string, path: string): Promise<void>;
-    play(name: string): void;
-  };
+  soundBox: SoundBox;
   userAutocomplete: any;
   miniBoard: {
     init(node: HTMLElement): void;
@@ -95,6 +91,13 @@ interface Lichess {
   notifyApp: {
     setMsgRead(user: string): void;
   }
+}
+
+interface SoundBox {
+  loadOggOrMp3(name: string, path: string): Promise<void>;
+  play(name: string): void;
+  getVolume(): number;
+  setVolume(v: number): void;
 }
 
 interface LichessSpeech {

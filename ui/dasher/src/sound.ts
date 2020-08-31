@@ -15,6 +15,7 @@ export interface SoundData {
 export interface SoundCtrl {
   makeList(): Sound[];
   api: any;
+  box: SoundBox;
   set(k: Key): void;
   volume(v: number): void;
   redraw: Redraw;
@@ -27,6 +28,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
   const list: Sound[] = raw.map(s => s.split(' '));
 
   const api = window.lichess.sound;
+  const box = window.lichess.soundBox;
 
   return {
     makeList() {
@@ -34,6 +36,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
       return list.filter(s => s[0] != 'speech' || canSpeech);
     },
     api,
+    box,
     set(k: Key) {
       api.speech(k == 'speech');
       window.lichess.pubsub.emit('speech.enabled', api.speech());
@@ -46,7 +49,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
       redraw();
     },
     volume(v: number) {
-      api.setVolume(v);
+      box.setVolume(v);
       // plays a move sound if speech is off
       api.move('knight F 7');
     },
@@ -84,7 +87,7 @@ function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
       max: 1,
       range: 'min',
       step: 0.01,
-      value: ctrl.api.getVolume(),
+      value: ctrl.box.getVolume(),
       slide: (_: any, ui: any) => setVolume(ui.value)
     });
   });

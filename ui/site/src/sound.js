@@ -8,7 +8,6 @@ lichess.sound = (() => {
     speechStorage.set(v);
     api.collection.clear();
   };
-  api.volumeStorage = lichess.storage.make('sound-volume');
 
   function memoize(factory) {
     let loaded = {};
@@ -51,7 +50,7 @@ lichess.sound = (() => {
       set = 'standard';
     }
     lichess.soundBox.loadOggOrMp3(k, `${lichess.soundUrl}/${set}/${names[k]}`);
-    return () => lichess.soundBox.play(k, (volumes[k] || 1) * api.getVolume());
+    return () => lichess.soundBox.play(k, volumes[k] || 1);
   });
   const enabled = () => soundSet !== 'silent';
   api.load = (name, file) => {
@@ -64,19 +63,13 @@ lichess.sound = (() => {
   api.say = (text, cut, force) => {
     if (!speechStorage.get() && !force) return false;
     const msg = text.text ? text : new SpeechSynthesisUtterance(text);
-    msg.volume = api.getVolume();
+    msg.volume = lichess.soundBox.getVolume();
     msg.lang = 'en-US';
     if (cut) speechSynthesis.cancel();
     speechSynthesis.speak(msg);
     // console.log(`%c${msg.text}`, 'color: blue');
     return true;
   };
-  api.setVolume = api.volumeStorage.set;
-  api.getVolume = () => {
-    // garbage has been stored here by accident (e972d5612d)
-    const v = parseFloat(api.volumeStorage.get());
-    return v >= 0 ? v : 0.7;
-  }
 
   const publish = () => lichess.pubsub.emit('sound_set', soundSet);
   if (soundSet == 'music') setTimeout(publish, 500);
