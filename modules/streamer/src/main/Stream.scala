@@ -63,7 +63,7 @@ object Stream {
     case class Result(items: List[Item]) {
       def streams(keyword: Keyword, streamers: List[Streamer]): List[Stream] =
         items
-          .filter { item =>
+          .withFilter { item =>
             item.snippet.liveBroadcastContent == "live" &&
             item.snippet.title.toLowerCase.contains(keyword.toLowerCase)
           }

@@ -61,7 +61,7 @@ final private class Monitor(
     avgOf(_.pv.size.some) foreach { monBy.pvSize(userId).record(_) }
 
     val significantPvSizes =
-      result.evaluations.filterNot(_.mateFound).filterNot(_.deadDraw).map(_.pv.size)
+      result.evaluations.withFilter(e => !(e.mateFound || e.deadDraw)).map(_.pv.size)
 
     monBy.pv(userId, isLong = false).increment(significantPvSizes.count(_ < 3))
     monBy.pv(userId, isLong = true).increment(significantPvSizes.count(_ >= 6))

@@ -54,7 +54,7 @@ private object HookRepo {
   }
 
   def poolCandidates(clock: chess.Clock.Config): Vector[lila.pool.HookThieve.PoolHook] =
-    hooks.filter(_ compatibleWithPool clock).map(_.toPool)
+    hooks.withFilter(_ compatibleWithPool clock).map(_.toPool)
 
   // keeps hooks that hold true
   // returns removed hooks

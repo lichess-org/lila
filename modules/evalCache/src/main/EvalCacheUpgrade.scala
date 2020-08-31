@@ -40,7 +40,7 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
     (1 to input.eval.multiPv) flatMap { multiPv =>
       evals get makeSetupId(input.id.variant, input.fen, multiPv)
     } foreach { sris =>
-      val wms = sris.filter(sri.value !=) flatMap members.get
+      val wms = sris.withFilter(sri.value !=) flatMap members.get
       if (wms.nonEmpty) {
         val json = JsonHandlers.writeEval(input.eval, input.fen)
         wms foreach { wm =>

@@ -58,7 +58,7 @@ final private class Streaming(
           (twitchStreams ::: youTubeStreams) pipe dedupStreamers
         }
       }
-      _ <- api.setLiveNow(streamers.filter(streams.has).map(_.id))
+      _ <- api.setLiveNow(streamers.withFilter(streams.has).map(_.id))
     } yield publishStreams(streamers, streams)
 
   def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) = {

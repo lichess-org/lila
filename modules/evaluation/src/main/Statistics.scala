@@ -45,9 +45,9 @@ object Statistics {
     moveTimes(pov) ?? {
       _.iterator
         .sliding(14)
-        .map(a => a.toList.sorted.drop(1).dropRight(1))
+        .map(_.toList.sorted.drop(1).dropRight(1))
         .filter(_.count(instantaneous ==) < 4)
-        .flatMap(a => moveTimeCoefVariationNoDrop(a))
+        .flatMap(moveTimeCoefVariationNoDrop)
         .some
     }
 

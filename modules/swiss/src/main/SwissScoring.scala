@@ -53,7 +53,7 @@ final private class SwissScoring(
           _ <- SwissPlayer.fields { f =>
             prevPlayers
               .zip(players)
-              .filter {
+              .withFilter {
                 case (a, b) => a != b
               }
               .map {
