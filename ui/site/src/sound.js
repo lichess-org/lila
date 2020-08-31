@@ -6,7 +6,7 @@ lichess.sound = (() => {
   api.speech = v => {
     if (typeof v == 'undefined') return speechStorage.get();
     speechStorage.set(v);
-    collection.clear();
+    api.collection.clear();
   };
   api.volumeStorage = lichess.storage.make('sound-volume');
 
@@ -31,10 +31,6 @@ lichess.sound = (() => {
     victory: 'Victory',
     defeat: 'Defeat',
     draw: 'Draw',
-    tournament1st: 'Tournament1st',
-    tournament2nd: 'Tournament2nd',
-    tournament3rd: 'Tournament3rd',
-    tournamentOther: 'TournamentOther',
     berserk: 'Berserk',
     check: 'Check',
     newChallenge: 'NewChallenge',
@@ -42,14 +38,13 @@ lichess.sound = (() => {
     confirmation: 'Confirmation',
     error: 'Error'
   };
-  for (let i = 0; i <= 10; i++) names['countDown' + i] = 'CountDown' + i;
 
   const volumes = {
     lowtime: 0.5,
     explode: 0.35,
     confirmation: 0.5
   };
-  const collection = new memoize(k => {
+  api.collection = new memoize(k => {
     let set = soundSet;
     if (set === 'music' || speechStorage.get()) {
       if (['move', 'capture', 'check'].includes(k)) return $.noop;
@@ -59,11 +54,13 @@ lichess.sound = (() => {
     return () => lichess.soundBox.play(k, (volumes[k] || 1) * api.getVolume());
   });
   const enabled = () => soundSet !== 'silent';
-  Object.keys(names).forEach(name => {
+  api.load = (name, file) => {
+    if (!names[name]) names[name] = file;
     api[name] = text => {
-      if (enabled() && (!text || !api.say(text))) collection(name)();
+      if (enabled() && (!text || !api.say(text))) api.collection(name)();
     }
-  });
+  }
+  Object.keys(names).forEach(api.load);
   api.say = (text, cut, force) => {
     if (!speechStorage.get() && !force) return false;
     const msg = text.text ? text : new SpeechSynthesisUtterance(text);
@@ -73,9 +70,6 @@ lichess.sound = (() => {
     speechSynthesis.speak(msg);
     // console.log(`%c${msg.text}`, 'color: blue');
     return true;
-  };
-  api.load = name => {
-    if (enabled() && name in names) collection(name);
   };
   api.setVolume = api.volumeStorage.set;
   api.getVolume = () => {
@@ -89,7 +83,7 @@ lichess.sound = (() => {
 
   api.changeSet = s => {
     soundSet = s;
-    collection.clear();
+    api.collection.clear();
     publish();
   };
 
