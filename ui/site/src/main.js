@@ -1,797 +1,152 @@
-(function() {
+const $friendsBox = $('#friend_box');
 
-  $.ajaxSetup({
-    cache: false
-  });
-  $.ajaxTransport('script', function(s) {
-    // Monkeypatch jQuery to load scripts with nonce. Upstream patch:
-    // - https://github.com/jquery/jquery/pull/3766
-    // - https://github.com/jquery/jquery/pull/3782
-    // Original transport:
-    // https://github.com/jquery/jquery/blob/master/src/ajax/script.js
-    var script, callback;
-    return {
-      send: function(_, complete) {
-        script = $("<script>").prop({
-          nonce: document.body.getAttribute('data-nonce'), // Add the nonce!
-          charset: s.scriptCharset,
-          src: s.url
-        }).on("load error", callback = function(evt) {
-          script.remove();
-          callback = null;
-          if (evt) {
-            complete(evt.type === "error" ? 404 : 200, evt.type);
-          }
-        });
-        document.head.appendChild(script[0]);
-      },
-      abort: function() {
-        if (callback) {
-          callback();
-        }
-      }
-    };
-  });
-  $.userLink = function(u) {
-    return $.userLinkLimit(u, false);
-  };
-  $.userLinkLimit = function(u, limit, klass) {
-    var split = u.split(' ');
-    var id = split.length == 1 ? split[0] : split[1];
-    return u ? '<a class="user-link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + (limit ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
-  };
+lichess.setSocketDefaults($friendsBox);
 
-  lichess.announce = (() => {
-    let timeout;
-    const kill = () => {
-      if (timeout) clearTimeout(timeout);
-      timeout = undefined;
-      $('#announce').remove();
-    };
-    const set = d => {
-      if (!d) return;
-      kill();
-      if (d.msg) {
-        $('body').append(
-          '<div id="announce" class="announce">' +
-          lichess.escapeHtml(d.msg) +
-          (d.date ? '<time class="timeago" datetime="' + d.date + '"></time>' : '') +
-          '<div class="actions"><a class="close">X</a></div>' +
-          '</div>'
-        ).find('#announce .close').click(kill);
-        timeout = setTimeout(kill, d.date ? new Date(d.date) - Date.now() : 5000);
-        if (d.date) lichess.pubsub.emit('content_loaded');
-      }
-    };
-    set($('body').data('announce'));
-    return set;
-  })();
+$(() => {
 
-  lichess.socket = null;
-  const $friendsBox = $('#friend_box');
-  $.extend(true, lichess.StrongSocket.defaults, {
-    events: {
-      following_onlines(_, d) {
-        d.users = d.d;
-        $friendsBox.friends("set", d);
-      },
-      following_enters(_, d) {
-        $friendsBox.friends('enters', d);
-      },
-      following_leaves(name) {
-        $friendsBox.friends('leaves', name);
-      },
-      following_playing(name) {
-        $friendsBox.friends('playing', name);
-      },
-      following_stopped_playing(name) {
-        $friendsBox.friends('stopped_playing', name);
-      },
-      redirect(o) {
-        setTimeout(() => {
-          lichess.hasToReload = true;
-          lichess.redirect(o);
-        }, 200);
-      },
-      tournamentReminder(data) {
-        if ($('#announce').length || $('body').data("tournament-id") == data.id) return;
-        const url = '/tournament/' + data.id;
-        $('body').append(
-          '<div id="announce">' +
-          '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>' +
-          '<div class="actions">' +
-          '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
-          '<a class="text" href="' + url + '" data-icon="G">Resume</a>' +
-          '</div></div>'
-        ).find('#announce .withdraw').click(function() {
-          $.post($(this).attr("href"));
-          $('#announce').remove();
-          return false;
-        });
-      },
-      announce: lichess.announce
-    },
-    params: {},
-    options: {
-      name: "site",
-      lagTag: null,
-      isAuth: !!$('body').data('user')
-    }
-  });
+  lichess.moduleLaunchers();
 
-  lichess.userAutocomplete = ($input, opts) => {
-    opts = opts || {};
-    const cache = {};
-    lichess.loadCssPath('autocomplete');
-    const sendXhr = lichess.debounce((query, runAsync) =>
+  lichess.pubsub.on('content_loaded', lichess.miniBoard.initAll);
+  lichess.pubsub.on('content_loaded', lichess.miniGame.initAll);
+
+  lichess.requestIdleCallback(() => {
+
+    $friendsBox.friends();
+
+    $('#main-wrap')
+      .on('click', '.autoselect', function() {
+        $(this).select();
+      })
+      .on('click', 'button.copy', function() {
+        $('#' + $(this).data('rel')).select();
+        document.execCommand('copy');
+        $(this).attr('data-icon', 'E');
+      });
+
+    $('body').on('click', 'a.relation-button', function() {
+      var $a = $(this).addClass('processing').css('opacity', 0.3);
       $.ajax({
-        url: '/player/autocomplete',
-        cache: true,
-        data: {
-          term: query,
-          friend: opts.friend ? 1 : 0,
-          tour: opts.tour,
-          swiss: opts.swiss,
-          object: 1
-        },
-        success(res) {
-          res = res.result;
-          // hack to fix typeahead limit bug
-          if (res.length === 10) res.push(null);
-          cache[query] = res;
-          runAsync(res);
+        url: $a.attr('href'),
+        type: 'post',
+        success: function(html) {
+          if (html.includes('relation-actions')) $a.parent().replaceWith(html);
+          else $a.replaceWith(html);
         }
-      }), 150);
-    return lichess.loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function() {
-      $input.typeahead({
-        minLength: opts.minLength || 3,
-      }, {
-        hint: true,
-        highlight: false,
-        source(query, _, runAsync) {
-          query = query.trim();
-          if (!query.match(/^[a-z0-9][\w-]{2,29}$/i)) return;
-          else if (cache[query]) setTimeout(() => runAsync(cache[query]), 50);
-          else if (
-            query.length > 3 && Array.from({
-              length: query.length - 3
-            }, (_, i) => -i - 1).map(i => query.slice(0, i)).some(sub =>
-              cache[sub] && !cache[sub].length
-            )
-          ) return;
-          else sendXhr(query, runAsync);
-        },
-        limit: 10,
-        displayKey: 'name',
-        templates: {
-          empty: '<div class="empty">No player found</div>',
-          pending: lichess.spinnerHtml,
-          suggestion(o) {
-            const tag = opts.tag || 'a';
-            return '<' + tag + ' class="ulpt user-link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
-              '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="utitle">' + o.title + '</span>&nbsp;' : '') + o.name +
-              '</' + tag + '>';
-          }
-        }
-      }).on('typeahead:render', () => lichess.pubsub.emit('content_loaded'));
-      if (opts.focus) $input.focus();
-      if (opts.onSelect) $input
-        .on('typeahead:select', (_, sel) => opts.onSelect(sel))
-        .on('keypress', function(e) {
-          if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
-        });
+      });
+      return false;
     });
-  };
 
-  $(function() {
-    if (lichess.analyse) LichessAnalyse.boot(lichess.analyse);
-    else if (lichess.user_analysis) startUserAnalysis(lichess.user_analysis);
-    else if (lichess.study) startStudy(lichess.study);
-    else if (lichess.practice) startPractice(lichess.practice);
-    else if (lichess.relay) startRelay(lichess.relay);
-    else if (lichess.puzzle) startPuzzle(lichess.puzzle);
-    else if (lichess.tournament) startTournament(lichess.tournament);
-    else if (lichess.team) startTeam(lichess.team);
+    $('.mselect .button').on('click', function() {
+      const $p = $(this).parent();
+      $p.toggleClass('shown');
+      setTimeout(function() {
+        const handler = function(e) {
+          if ($.contains($p[0], e.target)) return;
+          $p.removeClass('shown');
+          $('html').off('click', handler);
+        };
+        $('html').on('click', handler);
+      }, 10);
+    });
 
-    // delay so round starts first (just for perceived perf)
-    lichess.requestIdleCallback(function() {
+    document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
-      $('#friend_box').friends();
-
-      $('#main-wrap')
-        .on('click', '.autoselect', function() {
-          $(this).select();
-        })
-        .on('click', 'button.copy', function() {
-          $('#' + $(this).data('rel')).select();
-          document.execCommand('copy');
-          $(this).attr('data-icon', 'E');
-        });
-      $('body').on('click', 'a.relation-button', function() {
-        var $a = $(this).addClass('processing').css('opacity', 0.3);
-        $.ajax({
-          url: $a.attr('href'),
-          type: 'post',
-          success: function(html) {
-            if (html.includes('relation-actions')) $a.parent().replaceWith(html);
-            else $a.replaceWith(html);
-          }
-        });
-        return false;
-      });
-
-      $('.mselect .button').on('click', function() {
-        var $p = $(this).parent();
-        $p.toggleClass('shown');
-        setTimeout(function() {
-          var handler = function(e) {
-            if ($.contains($p[0], e.target)) return;
-            $p.removeClass('shown');
-            $('html').off('click', handler);
-          };
-          $('html').on('click', handler);
-        }, 10);
-      });
-
-      document.body.addEventListener('mouseover', lichess.powertip.mouseover);
-
-      function renderTimeago() {
+    { // timeago
+      const renderTimeago = () =>
         requestAnimationFrame(() =>
           lichess.timeago.render([].slice.call(document.getElementsByClassName('timeago'), 0, 99))
         );
-      }
 
-      function setTimeago(interval) {
+      const setTimeago = interval => {
         renderTimeago();
         setTimeout(() => setTimeago(interval * 1.1), interval);
       }
       setTimeago(1200);
       lichess.pubsub.on('content_loaded', renderTimeago);
-
-      if (!window.customWS) setTimeout(() => {
-        if (!lichess.socket)
-          lichess.socket = lichess.StrongSocket("/socket/v5", false);
-      }, 300);
-
-      const initiatingHtml = '<div class="initiating">' + lichess.spinnerHtml + '</div>';
-
-      lichess.challengeApp = (function() {
-        let instance, booted;
-        const $toggle = $('#challenge-toggle');
-        $toggle.one('mouseover click', () => load());
-        const load = function(data) {
-          if (booted) return;
-          booted = true;
-          const $el = $('#challenge-app').html(lichess.initiatingHtml);
-          lichess.loadCssPath('challenge');
-          lichess.loadScript(lichess.jsModule('challenge')).done(function() {
-            instance = LichessChallenge($el[0], {
-              data: data,
-              show() {
-                if (!$('#challenge-app').is(':visible')) $toggle.click();
-              },
-              setCount(nb) {
-                $toggle.find('span').attr('data-count', nb);
-              },
-              pulse() {
-                $toggle.addClass('pulse');
-              }
-            });
-          });
-        };
-        return {
-          update(data) {
-            if (!instance) load(data);
-            else instance.update(data);
-          },
-          open() {
-            $toggle.click();
-          }
-        };
-      })();
-
-      lichess.notifyApp = (() => {
-        let instance, booted;
-        const $toggle = $('#notify-toggle'),
-          isVisible = () => $('#notify-app').is(':visible');
-
-        const load = function(data, incoming) {
-          if (booted) return;
-          booted = true;
-          var $el = $('#notify-app').html(initiatingHtml);
-          lichess.loadCssPath('notify');
-          lichess.loadScript(lichess.jsModule('notify')).done(() => {
-            instance = LichessNotify($el.empty()[0], {
-              data: data,
-              incoming: incoming,
-              isVisible: isVisible,
-              setCount(nb) {
-                $toggle.find('span').attr('data-count', nb);
-              },
-              show() {
-                if (!isVisible()) $toggle.click();
-              },
-              setNotified() {
-                lichess.socket.send('notified');
-              },
-              pulse() {
-                $toggle.addClass('pulse');
-              }
-            });
-          });
-        };
-
-        $toggle.one('mouseover click', () => load()).click(() => {
-          if ('Notification' in window) Notification.requestPermission();
-          setTimeout(() => {
-            if (instance && isVisible()) instance.setVisible();
-          }, 200);
-        });
-
-        return {
-          update(data, incoming) {
-            if (!instance) load(data, incoming);
-            else instance.update(data, incoming);
-          },
-          setMsgRead(user) {
-            if (!instance) load();
-            else instance.setMsgRead(user);
-          }
-        };
-      })();
-
-      window.addEventListener('resize', () => lichess.dispatchEvent(document.body, 'chessground.resize'));
-
-      // dasher
-      {
-        let booted;
-        $('#top .dasher .toggle').one('mouseover click', function() {
-          if (booted) return;
-          booted = true;
-          const $el = $('#dasher_app').html(initiatingHtml),
-            playing = $('body').hasClass('playing');
-          lichess.loadCssPath('dasher');
-          lichess.loadScript(lichess.jsModule('dasher')).done(() =>
-            LichessDasher($el.empty()[0], {
-              playing
-            })
-          );
-        });
-      }
-
-      // cli
-      {
-        const $wrap = $('#clinput');
-        if (!$wrap.length) return;
-        let booted;
-        const $input = $wrap.find('input');
-        const boot = () => {
-          if (booted) return;
-          booted = true;
-          lichess.loadScript(lichess.jsModule('cli')).done(() =>
-            LichessCli.app($wrap, toggle)
-          );
-        };
-        const toggle = () => {
-          boot();
-          $('body').toggleClass('clinput');
-          if ($('body').hasClass('clinput')) $input.focus();
-        };
-        $wrap.find('a').on('mouseover click', e => (e.type === 'mouseover' ? boot : toggle)());
-        Mousetrap.bind('/', () => {
-          $input.val('/');
-          requestAnimationFrame(() => toggle());
-          return false;
-        });
-        Mousetrap.bind('s', () => requestAnimationFrame(() => toggle()));
-        if ($('body').hasClass('blind-mode')) $input.one('focus', () => toggle());
-      }
-
-      $('.user-autocomplete').each(function() {
-        const opts = {
-          focus: 1,
-          friend: $(this).data('friend'),
-          tag: $(this).data('tag')
-        };
-        if ($(this).attr('autofocus')) lichess.userAutocomplete($(this), opts);
-        else $(this).one('focus', function() {
-          lichess.userAutocomplete($(this), opts);
-        });
-      });
-
-      $('#topnav-toggle').on('change', e => {
-        document.body.classList.toggle('masked', e.target.checked);
-      });
-
-      lichess.loadInfiniteScroll = function(el) {
-        $(el).each(function() {
-          if (!$('.pager a', this).length) return;
-          var $scroller = $(this).infinitescroll({
-            navSelector: ".pager",
-            nextSelector: ".pager a",
-            itemSelector: ".infinitescroll .paginated",
-            errorCallback: function() {
-              $("#infscr-loading").remove();
-            },
-            loading: {
-              msg: $('<div id="infscr-loading">').html(lichess.spinnerHtml)
-            }
-          }, function() {
-            $("#infscr-loading").remove();
-            lichess.pubsub.emit('content_loaded');
-            var ids = [];
-            $(el).find('.paginated[data-dedup]').each(function() {
-              var id = $(this).data('dedup');
-              if (id) {
-                if (ids.includes(id)) $(this).remove();
-                else ids.push(id);
-              }
-            });
-          }).find('div.pager').hide().end();
-          $scroller.parent().append($('<button class="inf-more button button-empty">&hellip;</button>').on('click', function() {
-            $scroller.infinitescroll('retrieve');
-          }));
-        });
-      }
-      lichess.loadInfiniteScroll('.infinitescroll');
-
-      $('#top').on('click', 'a.toggle', function() {
-        var $p = $(this).parent();
-        $p.toggleClass('shown');
-        $p.siblings('.shown').removeClass('shown');
-        lichess.pubsub.emit('top.toggle.' + $(this).attr('id'));
-        setTimeout(function() {
-          var handler = function(e) {
-            if ($.contains($p[0], e.target)) return;
-            $p.removeClass('shown');
-            $('html').off('click', handler);
-          };
-          $('html').on('click', handler);
-        }, 10);
-        return false;
-      });
-
-      $('a.delete, input.delete').click(() => confirm('Delete?'));
-      $('input.confirm, button.confirm').click(function() {
-        return confirm($(this).attr('title') || 'Confirm this action?');
-      });
-
-      $('#main-wrap').on('click', 'a.bookmark', function() {
-        var t = $(this).toggleClass("bookmarked");
-        $.post(t.attr("href"));
-        var count = (parseInt(t.text(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
-        t.find('span').html(count > 0 ? count : "");
-        return false;
-      });
-
-      // still bind esc even in form fields
-      Mousetrap.prototype.stopCallback = function(e, el, combo) {
-        return combo != 'esc' && (el.isContentEditable || el.tagName == 'INPUT' || el.tagName == 'SELECT' || el.tagName == 'TEXTAREA');
-      };
-      Mousetrap.bind('esc', function() {
-        var $oc = $('#modal-wrap .close');
-        if ($oc.length) $oc.trigger('click');
-        else {
-          var $input = $(':focus');
-          if ($input.length) $input.trigger('blur');
-        }
-        return false;
-      });
-
-      if (!lichess.storage.get('grid')) setTimeout(function() {
-        if (getComputedStyle(document.body).getPropertyValue('--grid'))
-          lichess.storage.set('grid', 1);
-        else
-          $.get(lichess.assetUrl('oops/browser.html'), html => $('body').prepend(html))
-      }, 3000);
-
-      /* A disgusting hack for a disgusting browser
-       * Edge randomly fails to rasterize SVG on page load
-       * A different SVG must be loaded so a new image can be rasterized */
-      if (navigator.userAgent.indexOf('Edge/') > -1) setTimeout(function() {
-        const sprite = $('#piece-sprite');
-        sprite.attr('href', sprite.attr('href').replace('.css', '.external.css'));
-      }, 1000);
-
-      // prevent zoom when keyboard shows on iOS
-      if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-        const el = document.querySelector('meta[name=viewport]');
-        el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
-      }
-    });
-  });
-
-  lichess.widget('watchers', {
-    _create: function() {
-      this.list = this.element.find(".list");
-      this.number = this.element.find(".number");
-      lichess.pubsub.on('socket.in.crowd', data => this.set(data.watchers || data));
-      lichess.watchersData && this.set(lichess.watchersData);
-    },
-    set: function(data) {
-      lichess.watchersData = data;
-      if (!data || !data.nb) return this.element.addClass('none');
-      if (this.number.length) this.number.text(data.nb);
-      if (data.users) {
-        var tags = data.users.map($.userLink);
-        if (data.anons === 1) tags.push('Anonymous');
-        else if (data.anons) tags.push('Anonymous (' + data.anons + ')');
-        this.list.html(tags.join(', '));
-      } else if (!this.number.length) this.list.html(data.nb + ' players in the chat');
-      this.element.removeClass('none');
     }
-  });
 
-  lichess.widget("friends", (function() {
-    var getId = function(titleName) {
-      return titleName.toLowerCase().replace(/^\w+\s/, '');
-    };
-    var makeUser = function(titleName) {
-      var split = titleName.split(' ');
-      return {
-        id: split[split.length - 1].toLowerCase(),
-        name: split[split.length - 1],
-        title: (split.length > 1) ? split[0] : undefined,
-        playing: false,
-        patron: false
+    if (!window.customWS) setTimeout(() => {
+      if (!lichess.socket)
+        lichess.socket = lichess.StrongSocket("/socket/v5", false);
+    }, 300);
+
+    lichess.topBar();
+
+    window.addEventListener('resize', () => lichess.dispatchEvent(document.body, 'chessground.resize'));
+
+    $('.user-autocomplete').each(function() {
+      const opts = {
+        focus: 1,
+        friend: $(this).data('friend'),
+        tag: $(this).data('tag')
       };
-    };
-    var renderUser = function(user) {
-      const icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>',
-        titleTag = user.title ? ('<span class="utitle"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;') : '',
-        url = '/@/' + user.name,
-        tvButton = user.playing ? '<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
-      return '<div><a class="user-link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + user.name + '</a>' + tvButton + '</div>';
-    };
-    return {
-      _create: function() {
-        const self = this,
-          el = self.element;
-
-        self.$friendBoxTitle = el.find('.friend_box_title').click(function() {
-          el.find('.content_wrap').toggleNone();
-          if (!self.loaded) {
-            self.loaded = true;
-            lichess.socket.send('following_onlines');
-          }
-        });
-
-        self.$nobody = el.find(".nobody");
-
-        const data = {
-          users: [],
-          playing: [],
-          patrons: [],
-          ...el.data('preload')
-        };
-        self.trans = lichess.trans(data.i18n);
-        self.set(data);
-      },
-      repaint: function() {
-        if (this.loaded) requestAnimationFrame(function() {
-          const users = this.users,
-            ids = Object.keys(users).sort();
-          this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, this.loaded ? $('<strong>').text(ids.length) : '-'));
-          this.$nobody.toggleNone(!ids.length);
-          this.element.find('.list').html(
-            ids.map(function(id) {
-              return renderUser(users[id]);
-            }).join('')
-          );
-        }.bind(this));
-      },
-      insert: function(titleName) {
-        const id = getId(titleName);
-        if (!this.users[id]) this.users[id] = makeUser(titleName);
-        return this.users[id];
-      },
-      set: function(d) {
-        this.users = {};
-        let i;
-        for (i in d.users) this.insert(d.users[i]);
-        for (i in d.playing) this.insert(d.playing[i]).playing = true;
-        for (i in d.patrons) this.insert(d.patrons[i]).patron = true;
-        this.repaint();
-      },
-      enters: function(d) {
-        const user = this.insert(d.d);
-        user.playing = d.playing;
-        user.patron = d.patron;
-        this.repaint();
-      },
-      leaves: function(titleName) {
-        delete this.users[getId(titleName)];
-        this.repaint();
-      },
-      playing: function(titleName) {
-        this.insert(titleName).playing = true;
-        this.repaint();
-      },
-      stopped_playing: function(titleName) {
-        this.insert(titleName).playing = false;
-        this.repaint();
-      }
-    };
-  })());
-
-  $(function() {
-    lichess.pubsub.on('content_loaded', lichess.miniBoard.initAll);
-    lichess.pubsub.on('content_loaded', lichess.miniGame.initAll);
-
-    lichess.requestIdleCallback(function() {
-      lichess.miniBoard.initAll();
-      lichess.miniGame.initAll();
-      $('.chat__members').watchers();
-      if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
-        $.post('/toggle-blind-mode', {
-          enable: 1,
-          redirect: '/'
-        }, lichess.reload);
+      if ($(this).attr('autofocus')) lichess.userAutocomplete($(this), opts);
+      else $(this).one('focus', function() {
+        lichess.userAutocomplete($(this), opts);
+      });
     });
+
+    lichess.loadInfiniteScroll('.infinitescroll');
+
+    $('a.delete, input.delete').click(() => confirm('Delete?'));
+    $('input.confirm, button.confirm').click(function() {
+      return confirm($(this).attr('title') || 'Confirm this action?');
+    });
+
+    $('#main-wrap').on('click', 'a.bookmark', function() {
+      const t = $(this).toggleClass("bookmarked");
+      $.post(t.attr("href"));
+      const count = (parseInt(t.text(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
+      t.find('span').html(count > 0 ? count : "");
+      return false;
+    });
+
+    // still bind esc even in form fields
+    Mousetrap.prototype.stopCallback = function(e, el, combo) {
+      return combo != 'esc' && (el.isContentEditable || el.tagName == 'INPUT' || el.tagName == 'SELECT' || el.tagName == 'TEXTAREA');
+    };
+    Mousetrap.bind('esc', function() {
+      var $oc = $('#modal-wrap .close');
+      if ($oc.length) $oc.trigger('click');
+      else {
+        var $input = $(':focus');
+        if ($input.length) $input.trigger('blur');
+      }
+      return false;
+    });
+
+    if (!lichess.storage.get('grid')) setTimeout(() => {
+      if (getComputedStyle(document.body).getPropertyValue('--grid'))
+        lichess.storage.set('grid', 1);
+      else
+        $.get(lichess.assetUrl('oops/browser.html'), html => $('body').prepend(html))
+    }, 3000);
+
+    /* A disgusting hack for a disgusting browser
+     * Edge randomly fails to rasterize SVG on page load
+     * A different SVG must be loaded so a new image can be rasterized */
+    if (navigator.userAgent.includes('Edge/')) setTimeout(() => {
+      const sprite = $('#piece-sprite');
+      sprite.attr('href', sprite.attr('href').replace('.css', '.external.css'));
+    }, 1000);
+
+    // prevent zoom when keyboard shows on iOS
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+      const el = document.querySelector('meta[name=viewport]');
+      el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
+    }
+
+    lichess.miniBoard.initAll();
+    lichess.miniGame.initAll();
+
+    $('.chat__members').watchers();
+
+    if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
+      $.post('/toggle-blind-mode', {
+        enable: 1,
+        redirect: '/'
+      }, lichess.reload);
+
+    lichess.serviceWorker();
   });
-
-  ///////////////////
-  // tournament.js //
-  ///////////////////
-
-  function startTournament(cfg) {
-    var element = document.querySelector('main.tour');
-    $('body').data('tournament-id', cfg.data.id);
-    let tournament;
-    lichess.socket = lichess.StrongSocket(
-      '/tournament/' + cfg.data.id + '/socket/v5', cfg.data.socketVersion, {
-        receive: (t, d) => tournament.socketReceive(t, d)
-      });
-    cfg.socketSend = lichess.socket.send;
-    cfg.element = element;
-    tournament = LichessTournament.start(cfg);
-  }
-
-  function startSimul(cfg) {
-    cfg.element = document.querySelector('main.simul');
-    $('body').data('simul-id', cfg.data.id);
-    var simul;
-    lichess.socket = lichess.StrongSocket(
-      '/simul/' + cfg.data.id + '/socket/v5', cfg.socketVersion, {
-        receive: function(t, d) {
-          simul.socketReceive(t, d);
-        }
-      });
-    cfg.socketSend = lichess.socket.send;
-    cfg.$side = $('.simul__side').clone();
-    simul = LichessSimul(cfg);
-  }
-
-  function startTeam(cfg) {
-    lichess.socket = lichess.StrongSocket('/team/' + cfg.id, cfg.socketVersion);
-    cfg.chat && lichess.makeChat(cfg.chat);
-    $('#team-subscribe').on('change', function() {
-      const v = this.checked;
-      $(this).parents('form').each(function() {
-        $.post($(this).attr('action'), {
-          v: v
-        });
-      });
-    });
-  }
-
-  ////////////////
-  // user_analysis.js //
-  ////////////////
-
-  function startUserAnalysis(cfg) {
-    var analyse;
-    cfg.initialPly = 'url';
-    cfg.trans = lichess.trans(cfg.i18n);
-    lichess.socket = lichess.StrongSocket('/analysis/socket/v5', false, {
-      receive: function(t, d) {
-        analyse.socketReceive(t, d);
-      }
-    });
-    cfg.socketSend = lichess.socket.send;
-    cfg.$side = $('.analyse__side').clone();
-    analyse = LichessAnalyse.start(cfg);
-  }
-
-  ////////////////
-  // study.js //
-  ////////////////
-
-  function startStudy(cfg) {
-    var analyse;
-    cfg.initialPly = 'url';
-    lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
-      receive: function(t, d) {
-        analyse.socketReceive(t, d);
-      }
-    });
-    cfg.socketSend = lichess.socket.send;
-    cfg.trans = lichess.trans(cfg.i18n);
-    analyse = LichessAnalyse.start(cfg);
-  }
-
-  ////////////////
-  // practice.js //
-  ////////////////
-
-  function startPractice(cfg) {
-    var analyse;
-    cfg.trans = lichess.trans(cfg.i18n);
-    lichess.socket = lichess.StrongSocket('/analysis/socket/v5', false, {
-      receive: function(t, d) {
-        analyse.socketReceive(t, d);
-      }
-    });
-    cfg.socketSend = lichess.socket.send;
-    analyse = LichessAnalyse.start(cfg);
-  }
-
-  ////////////////
-  // relay.js //
-  ////////////////
-
-  function startRelay(cfg) {
-    var analyse;
-    cfg.initialPly = 'url';
-    lichess.socket = lichess.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
-      receive: function(t, d) {
-        analyse.socketReceive(t, d);
-      }
-    });
-    cfg.socketSend = lichess.socket.send;
-    cfg.trans = lichess.trans(cfg.i18n);
-    analyse = LichessAnalyse.start(cfg);
-  }
-
-  ////////////////
-  // puzzle.js //
-  ////////////////
-
-  function startPuzzle(cfg) {
-    cfg.element = document.querySelector('main.puzzle');
-    LichessPuzzle(cfg);
-  }
-
-  ////////////////////
-  // service worker //
-  ////////////////////
-
-  if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-    const workerUrl = new URL(lichess.assetUrl(lichess.jsModule('serviceWorker'), {
-      sameDomain: true
-    }), self.location.href);
-    workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url'));
-    if (document.body.getAttribute('data-dev')) workerUrl.searchParams.set('dev', '1');
-    const updateViaCache = document.body.getAttribute('data-dev') ? 'none' : 'all';
-    navigator.serviceWorker.register(workerUrl.href, {
-      scope: '/',
-      updateViaCache
-    }).then(reg => {
-      const storage = lichess.storage.make('push-subscribed');
-      const vapid = document.body.getAttribute('data-vapid');
-      if (vapid && Notification.permission == 'granted') return reg.pushManager.getSubscription().then(sub => {
-        const resub = parseInt(storage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
-        const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
-        if (!sub || resub) {
-          return reg.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: applicationServerKey
-          }).then(sub => fetch('/push/subscribe', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(sub)
-          }).then(res => {
-            if (res.ok) storage.set('' + Date.now());
-            else console.log('submitting push subscription failed', response.statusText);
-          }), err => {
-            console.log('push subscribe failed', err.message);
-            if (sub) sub.unsubscribe();
-          });
-        }
-      });
-      else storage.remove();
-    });
-  }
-})();
+});

@@ -1,7 +1,16 @@
 import './standalones/util';
+import './jquery-ajax';
 import './timeago';
+import './watchers';
+import './friends';
 import './soundbox';
 import './sound';
 import './standalones/trans';
+import './user-autocomplete';
+import './infinite-scroll';
 import './socket';
+import './socket-defaults';
+import './top-bar';
+import './service-worker';
+import './module-launchers';
 import './main';
