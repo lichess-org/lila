@@ -604,6 +604,7 @@
   <string name="webmasters">Веб-құрастырушылар</string>
   <string name="about">Сипаттама</string>
   <string name="aboutX">%s туралы</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s тегін (%2$s), еркін, жарнамасыз, код-жазуы ашық шахмат сервері.</string>
   <string name="really">шынымен</string>
   <string name="contribute">Үлес қосу</string>
   <string name="termsOfService">Қызмет көрсету шарты</string>
