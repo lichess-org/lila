@@ -639,9 +639,20 @@
   <string name="keyShowOrHideComments">пікірлерді көрсету/жасыру</string>
   <string name="keyEnterOrExitVariation">нұсқаларға ауысу/шығу</string>
   <string name="newTournament">Жаңа жарыс</string>
+  <string name="tournamentHomeTitle">Шахмат жарыстары әр-түрлі уақыт қалыптары мен шахмат түрлерін қамтиды</string>
   <string name="tournamentHomeDescription">Жылдам қарқындағы жарыста ойнаңыз! Мезгілі белгіленген жарысқа қатысып, немесе өзіңіз жарыс құрсаңыз болады. Буллит, Блитц, Классикалық, Шахмат960, Тау Патшасы, Үш Шах және тағы басқа шахмат қызықтарын көріңіз.</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Жарыс табылмады</string>
+  <string name="tournamentDoesNotExist">Бұл жарыс жоқ.</string>
+  <string name="tournamentMayHaveBeenCanceled">Егер ойыншылардың барлығы жарыстан шықса, бұл жарыс тоқталуы мүмкін.</string>
+  <string name="returnToTournamentsHomepage">Жарыстың бастапқы бетіне оралу</string>
   <string name="weeklyPerfTypeRatingDistribution">Апта ішінде %s рейтингтердің таралуы</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Осы аптада %1$s %2$s-ойыншы.</item>
+    <item quantity="other">Осы аптада %1$s %2$s-ойыншы.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Сіздің %1$s рейтингіңіз – %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Сіз %2$s ойышының %1$s-ынан күштірексіз.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s ойышының %2$s-ынан күштірек.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Сіздің ресми %s рейтингіңіз жоқ.</string>
   <string name="yourRating">Рейтингіңіз</string>
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
