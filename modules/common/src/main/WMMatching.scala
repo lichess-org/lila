@@ -133,29 +133,13 @@ object WMMatching {
       usedIds.lastOption.getOrElse(n) + 1
     }
   }
-  private class DuelDelta {
-    var delta = Int.MaxValue
+  private class DuelDelta(val tp: Int, var delta: Int) {
     var extra = -1
-    private[WMMatching] def update(d: Int, e: Int): Unit = {
+    def update(d: Int, e: Int): Unit = {
       if (delta > d) {
         delta = d
         extra = e
       }
-    }
-  }
-  private class DuelTypedDelta {
-    var delta = Int.MaxValue
-    var extra = -1
-    var tp    = -1
-    def update(d: Int, t: Int, e: Int): Unit = {
-      if (delta > d) {
-        delta = d
-        tp = t
-        extra = e
-      }
-    }
-    def update(dd: DuelDelta, t: Int): Unit = {
-      update(dd.delta, t, dd.extra)
     }
   }
   private object Impl {
@@ -692,17 +676,17 @@ object WMMatching {
       // (Note that our vertex dual variables, edge slacks and delta's
       // are pre-multiplied by two.)
 
-      val dt = new DuelTypedDelta()
+      val dt0 = new DuelDelta(0, Int.MaxValue)
 
       // Compute delta0: the minimum value of any vertex dual.
       if (!maxcardinality) {
-        dt.update(dualvar.view.slice(0, nvertex).min, 0, -1)
+        dt0.update(dualvar.view.slice(0, nvertex).min, -1)
       }
 
       // Compute delta1: the minimum slack on any edge between
       // an S-vertex and a free vertex.
 
-      val dt1 = new DuelDelta()
+      val dt1 = new DuelDelta(1, dt0.delta)
       for {
         v <- vertices
         if label(inblossom(v)) == 0
@@ -712,9 +696,8 @@ object WMMatching {
           dt1.update(slack(be), be)
         }
       }
-      dt.update(dt1, 1)
 
-      val dt2 = new DuelDelta()
+      val dt2 = new DuelDelta(2, dt1.delta)
       // Compute delta2: half the minimum slack on any edge between
       // a pair of S-blossoms.
       for {
@@ -726,20 +709,20 @@ object WMMatching {
           dt2.update(slack(be) >> 1, be)
         }
       }
-      dt.update(dt2, 2)
-      val dt3 = new DuelDelta()
+
+      val dt3 = new DuelDelta(3, dt2.delta)
       // Compute delta3: minimum z variable of any T-blossom.
       for (b <- nvertex until allocatedvertex) {
         if (blossombase(b) >= 0 && blossomparent(b) == -1 && label(b) == 2) {
           dt3.update(dualvar(b), b)
         }
       }
-      dt.update(dt3, 3)
 
-      if (dt.tp == -1) {
+      if (dt3.delta == Int.MaxValue) {
         // No further improvement possible; max-cardinality optimum reached.
         false
       } else {
+        val dt = List(dt0, dt1, dt2, dt3).find(_.delta == dt3.delta).head
         // Update dual variables according to delta.
         for (v <- vertices) {
           label(inblossom(v)) match {
