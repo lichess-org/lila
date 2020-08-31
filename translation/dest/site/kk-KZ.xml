@@ -735,6 +735,9 @@
   <string name="middlegame">Ойын ортасы</string>
   <string name="endgame">Ойынсоңы</string>
   <string name="registerToSendChallenges">Ойынға шақыру үшін тіркеліңіз.</string>
+  <string name="youCannotChallengeX">Сіз %s деген ойыншыны шақыра алмайсыз.</string>
+  <string name="xDoesNotAcceptChallenges">%s шақыруды қабылдамады.</string>
+  <string name="yourXRatingIsTooFarFromY">Сіз %1$s бен %2$s-ның рейтинг айырмашылығы тым көп.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
   <string name="playX">%s жүріңіз</string>
   <string name="sorry">Өкінішті-ақ :(</string>
