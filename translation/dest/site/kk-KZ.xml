@@ -604,10 +604,11 @@
   <string name="webmasters">Веб-құрастырушылар</string>
   <string name="about">Сипаттама</string>
   <string name="aboutX">%s туралы</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s тегін (%2$s), еркін, жарнамасыз, код-жазуы ашық шахмат сервері.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s тегін (%2$s), еркін, жарнамасыз, түбір коды ашық шахмат сервері.</string>
   <string name="really">шынымен</string>
   <string name="contribute">Үлес қосу</string>
   <string name="termsOfService">Қызмет көрсету шарты</string>
+  <string name="sourceCode">Түбір код</string>
   <string name="tournamentHomeDescription">Жылдам қарқындағы жарыста ойнаңыз! Мезгілі белгіленген жарысқа қатысып, немесе өзіңіз жарыс құрсаңыз болады. Буллит, Блитц, Классикалық, Шахмат960, Тау Патшасы, Үш Шах және тағы басқа шахмат қызықтарын көріңіз.</string>
   <string name="weeklyPerfTypeRatingDistribution">Апта ішінде %s рейтингтердің таралуы</string>
   <string name="yourPerfTypeRatingIsRating">Сіздің %1$s рейтингіңіз – %2$s.</string>
