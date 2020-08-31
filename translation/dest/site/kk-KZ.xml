@@ -714,6 +714,27 @@
   <string name="findBetterMoveForWhite">Ақтар пайдасына ең дұрыс жүрісті табыңыз</string>
   <string name="findBetterMoveForBlack">Қаралар пайдасына ең дұрыс жүрісті табыңыз</string>
   <string name="resumeLearning">Үйренуді қорытындылау</string>
+  <string name="youCanDoBetter">Тағы талпынып көріңіз</string>
+  <string name="tryAnotherMoveForWhite">Ақтар пайдасына басқаша жүріп көріңіз</string>
+  <string name="tryAnotherMoveForBlack">Қаралар пайдасына басқаша жүріп көріңіз</string>
+  <string name="solution">Шешімі</string>
+  <string name="waitingForAnalysis">Талдауды күту</string>
+  <string name="noMistakesFoundForWhite">Ақтар жағының қатесі табылмады</string>
+  <string name="noMistakesFoundForBlack">Қаралар жағының қатесі табылмады</string>
+  <string name="doneReviewingWhiteMistakes">Ақтардың қателері қаралды</string>
+  <string name="doneReviewingBlackMistakes">Қаралардың қателері қаралды</string>
+  <string name="doItAgain">Қайта жасау</string>
+  <string name="reviewWhiteMistakes">Ақтардың қателерін қарау</string>
+  <string name="reviewBlackMistakes">Қаралардың қателерін қарау</string>
+  <string name="advantage">Артықшылық</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s секунд</item>
+    <item quantity="other">%s секунд</item>
+  </plurals>
+  <string name="opening">Бастау</string>
+  <string name="middlegame">Ойын ортасы</string>
+  <string name="endgame">Ойынсоңы</string>
+  <string name="registerToSendChallenges">Ойынға шақыру үшін тіркеліңіз.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
   <string name="playX">%s жүріңіз</string>
   <string name="sorry">Өкінішті-ақ :(</string>
