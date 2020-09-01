@@ -45,7 +45,7 @@ private object BSONHandlers {
     o => BSONArray(o.before, o.after)
   )
 
-  implicit private lazy val scoreHandler: BSONHandler[Score] = new lila.db.BSON[Score] {
+  implicit private lazy val scoreHandler = new lila.db.BSON[Score] {
     private val win  = "w"
     private val loss = "l"
     private val draw = "d"
