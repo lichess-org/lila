@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Har Soatli Rapid Arenasi</string>
+  <string name="hourlyRapid">Har Soatli Rapid</string>
+  <string name="hourlyXArena">Har Soatli %s Arena</string>
+  <string name="hourlyX">Har Soatli %s</string>
+  <string name="dailyRapidArena">Har Soatli Rapid Arenasi</string>
+  <string name="dailyRapid">Har Kunli Rapid</string>
+  <string name="dailyClassicalArena">Har Kunli Klassika Arenasi</string>
+</resources>
