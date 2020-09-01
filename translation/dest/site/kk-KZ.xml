@@ -683,6 +683,7 @@
   <string name="enableKidMode">Балалық нұсқаны іске қосу</string>
   <string name="disableKidMode">Балалық нұсқаны сөндіру</string>
   <string name="security">Қауіпсіздік</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Бұл – сіздің аккаунтыңызға жалғанған құрылғылар тізімі. Арасында бейтаныс жайт болса, оны ажыратыңыз.</string>
   <string name="bulletBlitzClassical">Буллит, блитц, классикалық</string>
   <string name="viewTheSolution">Жауабты қарау</string>
   <string name="followAndChallengeFriends">Достарыңызға серік болып, ойынға шақыру</string>
