@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="hourlyRapidArena">Har Soatlik Rapid Arenasi</string>
-  <string name="hourlyRapid">Har Soatli Rapid</string>
-  <string name="hourlyXArena">Har Soatli %s Arenasi</string>
-  <string name="hourlyX">Har Soatli %s</string>
-  <string name="dailyRapidArena">Har Soatli Rapid Arenasi</string>
-  <string name="dailyRapid">Har Kunli Rapid</string>
-  <string name="dailyClassicalArena">Har Kunli Klassika Arenasi</string>
-  <string name="dailyClassical">Har Kunli Klassika</string>
-  <string name="dailyXArena">Har Kunli %s Arenasi</string>
-  <string name="dailyX">Har Kunli %s</string>
+  <string name="hourlyRapid">Har Soatlik Rapid</string>
+  <string name="hourlyXArena">Har Soatlik %s Arenasi</string>
+  <string name="hourlyX">Har Soatlik %s</string>
+  <string name="dailyRapidArena">Har Soatlik Rapid Arenasi</string>
+  <string name="dailyRapid">Har Kunlik Rapid</string>
+  <string name="dailyClassicalArena">Har Kunlik Klassika Arenasi</string>
+  <string name="dailyClassical">Har Kunlik Klassika</string>
+  <string name="dailyXArena">Har Kunlik %s Arenasi</string>
+  <string name="dailyX">Har Kunlik %s</string>
   <string name="easternRapidArena">Sharqiy Rapid Arenasi</string>
   <string name="easternRapid">Sharqiy Rapid</string>
   <string name="easternClassicalArena">Sharqiy Klassika Arenasi</string>
   <string name="easternClassical">Sharqiy Klassika</string>
   <string name="easternXArena">Sharqiy %s Arenasi</string>
   <string name="easternX">Sharqiy %s</string>
+  <string name="weeklyRapidArena">Har Haftalik Rapid Arenasi</string>
+  <string name="weeklyRapid">Har Haftalik Rapid</string>
+  <string name="weeklyClassicalArena">Har Haftalik Klassika Arenasi</string>
+  <string name="weeklyClassical">Har Haftalik Klassika</string>
+  <string name="weeklyXArena">Har Haftalik %s Arenasi</string>
+  <string name="weeklyX">Har Haftalik %s</string>
+  <string name="monthlyRapidArena">Har Oylik Rapid Arenasi</string>
+  <string name="monthlyRapid">Har Oylik Rapid</string>
+  <string name="monthlyClassicalArena">Har Oylik Klassika Arenasi</string>
+  <string name="monthlyClassical">Har Oylik Klassika</string>
+  <string name="monthlyXArena">Har Oylik %s Arenasi</string>
 </resources>
