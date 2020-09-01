@@ -18,9 +18,7 @@ object show {
       moreJs = frag(
         jsTag("vendor/sparkline.min.js"),
         jsModule("puzzle"),
-        embedJsUnsafe(s"""
-lichess = lichess || {};
-lichess.puzzle = ${safeJsonValue(
+        embedJsUnsafe(s"""lichess.puzzle=${safeJsonValue(
           Json.obj(
             "data" -> data,
             "pref" -> pref,

@@ -1,4 +1,7 @@
 import { storage } from './storage';
+import pubsub from './pubsub';
+import soundBox from './soundbox';
+import { soundUrl } from './assets';
 
 const api: any = {};
 
@@ -46,14 +49,14 @@ const volumes = {
   explode: 0.35,
   confirmation: 0.5
 };
-api.collection = new memoize(k => {
+api.collection = memoize(k => {
   let set = soundSet;
   if (set === 'music' || speechStorage.get()) {
     if (['move', 'capture', 'check'].includes(k)) return $.noop;
     set = 'standard';
   }
-  lichess.soundBox.loadOggOrMp3(k, `${lichess.soundUrl}/${set}/${names[k]}`);
-  return () => lichess.soundBox.play(k, volumes[k] || 1);
+  soundBox.loadOggOrMp3(k, `${soundUrl}/${set}/${names[k]}`);
+  return () => soundBox.play(k, volumes[k] || 1);
 });
 const enabled = () => soundSet !== 'silent';
 api.load = (name, file) => {
@@ -66,7 +69,7 @@ Object.keys(names).forEach(api.load);
 api.say = (text, cut, force) => {
   if (!speechStorage.get() && !force) return false;
   const msg = text.text ? text : new SpeechSynthesisUtterance(text);
-  msg.volume = lichess.soundBox.getVolume();
+  msg.volume = soundBox.getVolume();
   msg.lang = 'en-US';
   if (cut) speechSynthesis.cancel();
   speechSynthesis.speak(msg);
@@ -74,7 +77,8 @@ api.say = (text, cut, force) => {
   return true;
 };
 
-const publish = () => lichess.pubsub.emit('sound_set', soundSet);
+const publish = () => pubsub.emit('sound_set', soundSet);
+
 if (soundSet == 'music') setTimeout(publish, 500);
 
 api.changeSet = s => {

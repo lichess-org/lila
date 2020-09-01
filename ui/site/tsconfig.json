@@ -3,6 +3,7 @@
   "include": ["src/*.ts", "src/*.js"],
   "compilerOptions": {
     "allowJs": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "noImplicitReturns": false
   }
 }

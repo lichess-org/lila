@@ -12,7 +12,6 @@ interface Lichess {
   powertip: any;
   widget: any;
   hoverable?: boolean;
-  isHoverable(): boolean;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   soundUrl: string;
@@ -27,7 +26,9 @@ interface Lichess {
   numberFormat(n: number): string;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
-  hasToReload: boolean;
+  unload: {
+    expected: boolean;
+  };
   redirect(o: string | { url: string, cookie: Cookie }): void;
   reload(): void;
   escapeHtml(str: string): string;
@@ -50,17 +51,11 @@ interface Lichess {
     update(node: HTMLElement, data: { fen: string, lm: string, wc?: number, bc?: number }): void;
     finish(node: HTMLElement, win?: Color): void;
   };
-  challengeApp: any;
   ab?: any;
 
   // socket.js
   StrongSocket: {
     (url: string, version: number | false, cfg: any): any;
-    defaults: {
-      events: {
-        fen(e: any): void;
-      }
-    },
     firstConnect: Promise<(tpe: string, data: any) => void>
   }
 
@@ -70,6 +65,7 @@ interface Lichess {
     format(date: number | Date): string;
     absolute(date: number | Date): string;
   }
+  timeagoLocale(a: number, b: number, c: number): any;
 
   // misc
   advantageChart: {
@@ -86,9 +82,6 @@ interface Lichess {
   playMusic(): any;
   quietMode?: boolean;
   keyboardMove?: any;
-  notifyApp: {
-    setMsgRead(user: string): void;
-  };
   modal: {
     (html: JQuery | string, cls?: string, onClose?: () => void): void;
     close(): void;

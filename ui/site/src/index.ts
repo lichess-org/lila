@@ -22,7 +22,6 @@ import './component/trans';
 import './component/user-autocomplete';
 import './component/infinite-scroll';
 import './component/socket';
-import './component/socket-defaults';
 import './component/top-bar';
 import './component/service-worker';
 import './component/module-launchers';

@@ -82,7 +82,7 @@ export default function(opts: RoundOpts): void {
     .change(round.moveOn.toggle)
     .prop('checked', round.moveOn.get())
     .on('click', 'a', () => {
-      li.hasToReload = true;
+      li.unload.expected = true;
       return true;
     });
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0)

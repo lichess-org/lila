@@ -1,20 +1,22 @@
+import { storage } from './storage';
+
 class SoundBox {
 
-  sounds = {}; // The loaded sounds and their instances
+  sounds = new Map(); // The loaded sounds and their instances
 
-  volume = lichess.storage.make('sound-volume');
+  volume = storage.make('sound-volume');
 
-  loadOggOrMp3 = (name, path) => 
-    this.sounds[name] = new Howl({
+  loadOggOrMp3 = (name: string, path: string) => 
+    this.sounds.set(name, new window.Howl({
       src: ['ogg', 'mp3'].map(ext => `${path}.${ext}`)
-    });
+    }));
 
-  play(name, volume = 1) {
+  play(name: string, volume: number = 1) {
     const doPlay = () => {
-      this.sounds[name].volume(volume * this.getVolume());
-      this.sounds[name].play();
+      this.sounds.get(name).volume(volume * this.getVolume());
+      this.sounds.get(name).play();
     };
-    if (Howler.ctx.state == "suspended") Howler.ctx.resume().then(doPlay);
+    if (window.Howler.ctx.state == "suspended") window.Howler.ctx.resume().then(doPlay);
     else doPlay();
   };
 
@@ -26,4 +28,7 @@ class SoundBox {
     return v >= 0 ? v : 0.7;
   }
 }
-lichess.soundBox = new SoundBox
+
+const soundBox = new SoundBox;
+
+export default soundBox;

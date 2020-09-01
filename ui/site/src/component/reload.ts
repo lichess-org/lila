@@ -1,4 +1,3 @@
-export let hasToReload = false;
 export let redirectInProgress: false | string = false;
 
 export const redirect = obj => {
@@ -22,9 +21,13 @@ export const redirect = obj => {
   location.href = href;
 };
 
+export const unload = {
+  expected: false
+}
+
 export const reload = () => {
   if (redirectInProgress) return;
-  hasToReload = true;
+  unload.expected = true;
   window.lichess.socket?.disconnect();
   if (location.hash) location.reload();
   else location.href = location.href;

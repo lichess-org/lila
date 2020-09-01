@@ -1,5 +1,6 @@
 import widget from './widget';
 import trans from './trans';
+import pubsub from './pubsub';
 
 widget("friends", (() => {
   const getId = function(titleName) {
@@ -45,6 +46,14 @@ widget("friends", (() => {
       };
       self.trans = trans(data.i18n);
       self.set(data);
+
+      pubsub.on('socket.in.following_onlines', d => {
+        d.users = d.d;
+        self.set(d);
+      });
+      ['enters', 'leaves', 'playing', 'stopped_playing'].forEach(k =>
+        pubsub.on('socket.in.following_' + k, self[k])
+      );
     },
     repaint: function() {
       const self: any = this;

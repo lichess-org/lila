@@ -44,7 +44,7 @@ function makeAckable(send) {
 }
 
 // versioned events, acks, retries, resync
-const StrongSocket = function(url, version, settings) {
+const StrongSocket = function(url: string, version: number | false, settings?: any) {
 
   var settings = $.extend(true, {}, StrongSocket.defaults, settings);
   var options = settings.options;
@@ -175,12 +175,12 @@ const StrongSocket = function(url, version, settings) {
   };
 
   var handle = function(m) {
-    if (m.v) {
+    if (m.v && version !== false) {
       if (m.v <= version) {
         debug("already has event " + m.v);
         return;
       }
-      // it's impossible but according to previous login, it happens nonetheless
+      // it's impossible but according to previous logging, it happens nonetheless
       if (m.v > version + 1) return reload();
       version = m.v;
     }
@@ -281,7 +281,8 @@ StrongSocket.defaults = {
     pingMaxLag: 9000, // time to wait for pong before reseting the connection
     pingDelay: 2500, // time between pong and ping
     autoReconnectDelay: 3500,
-    protocol: location.protocol === 'https:' ? 'wss:' : 'ws:'
+    protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
+    isAuth: document.body.hasAttribute('user')
   }
 };
 

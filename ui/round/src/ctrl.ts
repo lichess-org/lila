@@ -700,7 +700,7 @@ export default class RoundController {
 
         window.addEventListener('beforeunload', e => {
           const d = this.data;
-          if (li.hasToReload ||
+          if (li.unload.expected ||
             this.nvui ||
             !game.playable(d) ||
             !d.clock ||
