@@ -261,7 +261,7 @@
   <string name="ratingRange">Рейтинг ауқымы</string>
   <string name="thisAccountViolatedTos">Бұл аккаунт Личес-тің Қызмет көрсету шартын бұзды</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Бұл ойыншы өз рейтингін жасанды жолмен арттырып не кемітіп жүр</string>
-  <string name="openingExplorerAndTablebase">&amp;Amp ótkizgishin ashý; kesteniń negizi</string>
+  <string name="openingExplorerAndTablebase">Бастаулар мен аяқталулар қоры</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүріс қайтаруды сұрау</string>
   <string name="takebackPropositionSent">Жүрісті қайтару сұралуда</string>
@@ -818,6 +818,10 @@
   <string name="thankYouForReading">Оқығаныңыз үшін рахмет!</string>
   <string name="lifetimeScore">Жалпы ұпайлар</string>
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
+  <string name="agreementAssistance">Мен ойнап отырғанда, сырттан (басқа адамнан, компьютер, кітап не дерекқорды пайдалана) ешбір көмек алмаймын деп уәде беремін.</string>
+  <string name="agreementNice">Мен басқа ойыншыларға құрметпен қараймын деп уәде беремін.</string>
+  <string name="agreementAccount">Мен бірнеше аккаунт жасамаймын деп уәде беремін.</string>
+  <string name="agreementPolicy">Мен Личестің барлық қағидаларын ұстанамын деп уәде беремін.</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классикалық</string>
   <string name="ultraBulletDesc">Лезде ойындар: 30 секундтан кем</string>
