@@ -42,4 +42,8 @@
   <string name="xShield">%s Qalqon</string>
   <string name="openingRapidArena">%s Rapid Arenasi</string>
   <string name="openingRapid">%s Rapid</string>
+  <string name="xTeamBattle">%s Jamoaviy jang</string>
+  <string name="eliteXArena">%s Elita Arenasi</string>
+  <string name="eliteX">%s Elita</string>
+  <string name="xArena">%s Arena</string>
 </resources>
