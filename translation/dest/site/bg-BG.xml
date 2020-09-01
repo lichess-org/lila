@@ -846,4 +846,9 @@
   <string name="toRequestSupport">За да поискате помощ, %1$s</string>
   <string name="tryTheContactPage">опитайте страницата за контакти</string>
   <string name="thisTopicIsArchived">Тази тема е архивирана и не може да получава повече мнения.</string>
+  <string name="joinTheTeamXToPost">Присъединете се към %1$s, за да публикувате в този форум</string>
+  <string name="teamNamedX">екипа %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Все още не можете да публивате във форумите. Изиграйте няколко игри!</string>
+  <string name="subscribe">Абонирай се</string>
+  <string name="unsubscribe">Отпиши ме</string>
 </resources>
