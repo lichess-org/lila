@@ -8,11 +8,7 @@ import scala.util.{ Success, Try }
 
 import dsl._
 
-abstract class BSON[T]
-    extends BSONReadOnly[T]
-    with BSONHandler[T]
-    with BSONDocumentReader[T]
-    with BSONDocumentWriter[T] {
+abstract class BSON[T] extends BSONReadOnly[T] with BSONDocumentReader[T] with BSONDocumentWriter[T] {
 
   import BSON._
 
