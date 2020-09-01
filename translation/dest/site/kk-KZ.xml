@@ -253,12 +253,28 @@
     <item quantity="one">%s nomınaldy</item>
     <item quantity="other">%s nomınaldy</item>
   </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s ұтыс</item>
+    <item quantity="other">%s ұтыс</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s ұтылыс</item>
+    <item quantity="other">%s ұтылыс</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s тепе-тең</item>
+    <item quantity="other">%s тепе-тең</item>
+  </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s ойналуда</item>
     <item quantity="other">%s ойналуда</item>
   </plurals>
   <string name="exportGames">Ойынды экспорттау</string>
   <string name="ratingRange">Рейтинг ауқымы</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">%s секунд беру</item>
+    <item quantity="other">%s секунд беру</item>
+  </plurals>
   <string name="thisAccountViolatedTos">Бұл аккаунт Личес-тің Қызмет көрсету шартын бұзды</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Бұл ойыншы өз рейтингін жасанды жолмен арттырып не кемітіп жүр</string>
   <string name="openingExplorerAndTablebase">Бастаулар мен аяқталулар қоры</string>
@@ -840,6 +856,10 @@
   <string name="useTheReportForm">шағым үлгісін қолданыңыз</string>
   <string name="toRequestSupport">Жәрдем іздесеңіз %1$s</string>
   <string name="tryTheContactPage">байланыс туралы бетке өтіңіз</string>
+  <string name="thisTopicIsArchived">Бұл мақала мұрағатталған, сондықтан жауап жазу шектелді.</string>
+  <string name="joinTheTeamXToPost">Осы форумда хабар қалдыру үшін %1$s тобына қосылыңыз</string>
+  <string name="teamNamedX">%1$s тобы</string>
+  <string name="youCannotPostYetPlaySomeGames">Сіз форумда әлі хабар қалдыра алмайсыз. Ойнаңыз!</string>
   <string name="subscribe">Жазылу</string>
   <string name="unsubscribe">Жазылымды тоқтату</string>
 </resources>
