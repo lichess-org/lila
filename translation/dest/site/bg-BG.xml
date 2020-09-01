@@ -604,6 +604,7 @@
   <string name="tpTimeSpentOnTV">Време пред TV: %s</string>
   <string name="watch">Гледай</string>
   <string name="videoLibrary">Видео хранилище</string>
+  <string name="streamersMenu">Стриймъри</string>
   <string name="mobileApp">Мобилно Приложение</string>
   <string name="webmasters">Управители</string>
   <string name="about">Относно</string>
@@ -656,8 +657,11 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Вашият %1$s рейтинг е %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вие сте по-добър от %1$s от %2$s играчите.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s в по-добър от %2$s от %3$s играчите.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Нямате установен %s рейтинг.</string>
   <string name="yourRating">Твоят рейтинг</string>
+  <string name="cumulative">С натрупване</string>
+  <string name="glicko2Rating">Рейтинг по Glicko-2</string>
   <string name="checkYourEmail">Проверете вашата ел. поща</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Изпратихме ви писмо. Натиснете върху връзката в писмото, за да задействате вашата регистрация.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не намирате писмото, проверете и на другите места, в които може бъде, като например кошче, спам, социални или други папки.</string>
@@ -804,6 +808,8 @@
     <item quantity="other">и запиши %s като предварителен ход</item>
   </plurals>
   <string name="sorry">Съжалявам :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Наложи се да Ви сложим в принудителна почивка за известно време.</string>
+  <string name="timeoutExpires">Принудителната почивка приключва %s.</string>
   <string name="why">Защо?</string>
   <string name="pleasantChessExperience">Стремим се да доставим приятно удоволствие от Шаха на всеки.</string>
   <string name="howToAvoidThis">Как да се избегне това?</string>
