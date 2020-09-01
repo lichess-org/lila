@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Har Soatli Rapid Arenasi</string>
+  <string name="hourlyRapidArena">Har Soatlik Rapid Arenasi</string>
   <string name="hourlyRapid">Har Soatli Rapid</string>
-  <string name="hourlyXArena">Har Soatli %s Arena</string>
+  <string name="hourlyXArena">Har Soatli %s Arenasi</string>
   <string name="hourlyX">Har Soatli %s</string>
   <string name="dailyRapidArena">Har Soatli Rapid Arenasi</string>
   <string name="dailyRapid">Har Kunli Rapid</string>
   <string name="dailyClassicalArena">Har Kunli Klassika Arenasi</string>
+  <string name="dailyClassical">Har Kunli Klassika</string>
+  <string name="dailyXArena">Har Kunli %s Arenasi</string>
+  <string name="dailyX">Har Kunli %s</string>
+  <string name="easternRapidArena">Sharqiy Rapid Arenasi</string>
+  <string name="easternRapid">Sharqiy Rapid</string>
+  <string name="easternClassicalArena">Sharqiy Klassika Arenasi</string>
+  <string name="easternClassical">Sharqiy Klassika</string>
+  <string name="easternXArena">Sharqiy %s Arenasi</string>
+  <string name="easternX">Sharqiy %s</string>
 </resources>
