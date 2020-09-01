@@ -1,6 +1,7 @@
-lichess.hasToReload = false;
-lichess.redirectInProgress = false;
-lichess.redirect = obj => {
+export let hasToReload = false;
+export let redirectInProgress: false | string = false;
+
+export const redirect = obj => {
   let url;
   if (typeof obj == "string") url = obj;
   else {
@@ -17,13 +18,14 @@ lichess.redirect = obj => {
     }
   }
   const href = '//' + location.host + '/' + url.replace(/^\//, '');
-  lichess.redirectInProgress = href;
+  redirectInProgress = href;
   location.href = href;
 };
-lichess.reload = () => {
-  if (lichess.redirectInProgress) return;
-  lichess.hasToReload = true;
-  lichess.socket?.disconnect();
+
+export const reload = () => {
+  if (redirectInProgress) return;
+  hasToReload = true;
+  window.lichess.socket?.disconnect();
   if (location.hash) location.reload();
   else location.href = location.href;
 };

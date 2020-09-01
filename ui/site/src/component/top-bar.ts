@@ -1,3 +1,5 @@
+import pubsub from './pubsub';
+
 lichess.topBar = () => {
 
   const initiatingHtml = '<div class="initiating">' + lichess.spinnerHtml + '</div>';
@@ -46,15 +48,11 @@ lichess.topBar = () => {
         });
       });
     };
-    lichess.challengeApp = {
-      update(data) {
-        if (!instance) load(data);
-        else instance.update(data);
-      },
-      open() {
-        $toggle.click();
-      }
-    };
+    pubsub.on('socket.in.challenges', data => {
+      if (!instance) load(data);
+      else instance.update(data);
+    });
+    pubsub.on('challenge-app.open', () => $toggle.click());
   }
 
   { // notifyApp
@@ -95,11 +93,11 @@ lichess.topBar = () => {
       }, 200);
     });
 
+    pubsub.on('socket.in.notifications', data => {
+      if (!instance) load(data, true);
+      else instance.update(data, true);
+    });
     lichess.notifyApp = {
-      update(data, incoming) {
-        if (!instance) load(data, incoming);
-        else instance.update(data, incoming);
-      },
       setMsgRead(user) {
         if (!instance) load();
         else instance.setMsgRead(user);

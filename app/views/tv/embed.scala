@@ -30,9 +30,8 @@ object embed {
             views.html.game.mini.noCtx(pov, tv = true, blank = true)
           ),
           jQueryTag,
-          jsAt("javascripts/vendor/chessground.min.js", defer = false),
-          jsAt("compiled/util.js", defer = false),
-          jsAt("compiled/tv.js", defer = false)
+          chessgroundTag,
+          jsAt("compiled/tv.js")
         )
       )
     )

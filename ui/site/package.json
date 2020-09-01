@@ -17,7 +17,8 @@
     "typescript": "^3",
     "vinyl-buffer": "^1",
     "vinyl-source-stream": "^2",
-    "watchify": "^3"
+    "watchify": "^3",
+    "@build/rollupProject": "2.0.0"
   },
   "dependencies": {
     "highcharts": "=4.2.5",

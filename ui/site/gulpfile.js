@@ -132,7 +132,7 @@ const gitSha = (cb) => {
 };
 
 const standalonesJs = () => gulp.src([
-  'tv.js', 'puzzle.js', 'user.js', 'coordinate.js', 'captcha.js', 'embed-analyse.js'
+  'puzzle.js', 'user.js', 'coordinate.js', 'captcha.js', 'embed-analyse.js'
 ].map(f => `src/standalones/${f}`))
   .pipe(buffer())
   .pipe(terser({safari10: true}))
@@ -149,6 +149,7 @@ function singlePackage(file, dest) {
 
 const userMod = singlePackage('./src/user-mod.js', 'user-mod.js');
 const clas = singlePackage('./src/clas.js', 'clas.js');
+const tv = singlePackage('./src/tv.ts', 'tv.js');
 
 const deps = makeDependencies('lichess.deps.js');
 
@@ -164,3 +165,5 @@ const dev = gulp.series(tasks.concat([devSource]));
 gulp.task('prod', gulp.series(tasks, prodSource, makeBundle(`${fileBaseName}.source.min.js`)));
 gulp.task('dev', gulp.series(tasks, dev));
 gulp.task('default', gulp.series(tasks, dev, () => gulp.watch('src/**/*.js', dev)));
+
+gulp.task('tv', tv);

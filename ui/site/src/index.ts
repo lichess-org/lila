@@ -1,5 +1,4 @@
 import './component/intro';
-import './component/sri';
 import './component/storage';
 import './component/pubsub';
 import './component/functions';

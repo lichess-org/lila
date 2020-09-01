@@ -1,9 +1,12 @@
-lichess.widget("friends", (() => {
-  var getId = function(titleName) {
+import widget from './widget';
+import trans from './trans';
+
+widget("friends", (() => {
+  const getId = function(titleName) {
     return titleName.toLowerCase().replace(/^\w+\s/, '');
   };
-  var makeUser = function(titleName) {
-    var split = titleName.split(' ');
+  const makeUser = function(titleName) {
+    const split = titleName.split(' ');
     return {
       id: split[split.length - 1].toLowerCase(),
       name: split[split.length - 1],
@@ -12,7 +15,7 @@ lichess.widget("friends", (() => {
       patron: false
     };
   };
-  var renderUser = function(user) {
+  const renderUser = function(user) {
     const icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>',
       titleTag = user.title ? ('<span class="utitle"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;') : '',
       url = '/@/' + user.name,
@@ -21,14 +24,14 @@ lichess.widget("friends", (() => {
   };
   return {
     _create: function() {
-      const self = this,
+      const self: any = this,
         el = self.element;
 
       self.$friendBoxTitle = el.find('.friend_box_title').click(function() {
         el.find('.content_wrap').toggleNone();
         if (!self.loaded) {
           self.loaded = true;
-          lichess.socket.send('following_onlines');
+          window.lichess.socket.send('following_onlines');
         }
       });
 
@@ -40,29 +43,32 @@ lichess.widget("friends", (() => {
         patrons: [],
         ...el.data('preload')
       };
-      self.trans = lichess.trans(data.i18n);
+      self.trans = trans(data.i18n);
       self.set(data);
     },
     repaint: function() {
-      if (this.loaded) requestAnimationFrame(function() {
-        const users = this.users,
+      const self: any = this;
+      if (self.loaded) requestAnimationFrame(function() {
+        const users = self.users,
           ids = Object.keys(users).sort();
-        this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, this.loaded ? $('<strong>').text(ids.length) : '-'));
-        this.$nobody.toggleNone(!ids.length);
-        this.element.find('.list').html(
+        self.$friendBoxTitle.html(self.trans.vdomPlural('nbFriendsOnline', ids.length, self.loaded ? $('<strong>').text(ids.length) : '-'));
+        self.$nobody.toggleNone(!ids.length);
+        self.element.find('.list').html(
           ids.map(function(id) {
             return renderUser(users[id]);
           }).join('')
         );
-      }.bind(this));
+      }.bind(self));
     },
     insert: function(titleName) {
+      const self: any = this;
       const id = getId(titleName);
-      if (!this.users[id]) this.users[id] = makeUser(titleName);
-      return this.users[id];
+      if (!self.users[id]) self.users[id] = makeUser(titleName);
+      return self.users[id];
     },
     set: function(d) {
-      this.users = {};
+      const self: any = this;
+      self.users = {};
       let i;
       for (i in d.users) this.insert(d.users[i]);
       for (i in d.playing) this.insert(d.playing[i]).playing = true;
@@ -76,7 +82,8 @@ lichess.widget("friends", (() => {
       this.repaint();
     },
     leaves: function(titleName) {
-      delete this.users[getId(titleName)];
+      const self: any = this;
+      delete self.users[getId(titleName)];
       this.repaint();
     },
     playing: function(titleName) {

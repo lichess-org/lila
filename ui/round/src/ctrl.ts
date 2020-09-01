@@ -503,7 +503,7 @@ export default class RoundController {
   challengeRematch = (): void => {
     this.challengeRematched = true;
     xhr.challengeRematch(this.data.game.id).then(() => {
-      li.challengeApp.open();
+      li.pubsub.emit('challenge-app.open');
       if (li.once('rematch-challenge')) setTimeout(() => {
         li.hopscotch(function() {
           window.hopscotch.configure({

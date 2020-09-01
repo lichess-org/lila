@@ -1,4 +1,4 @@
-lichess.idleTimer = function(delay, onIdle, onWakeUp) {
+export default function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void) {
 
   const events = ['mousemove', 'touchstart'];
 

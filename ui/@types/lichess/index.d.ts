@@ -10,7 +10,7 @@ interface Lichess {
   once(key: string, mod?: 'always'): boolean;
   debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
   powertip: any;
-  widget: unknown;
+  widget: any;
   hoverable?: boolean;
   isHoverable(): boolean;
   spinnerHtml: string;
@@ -19,7 +19,7 @@ interface Lichess {
   loadCss(path: string): void;
   loadCssPath(path: string): void;
   jsModule(name: string): string;
-  loadScript(url: string, opts?: AssetUrlOpts): Promise<unknown>;
+  loadScript(url: string, opts?: AssetUrlOpts): JQueryXHR;
   hopscotch: any;
   slider(): any;
   makeChat(data: any): any;
@@ -33,10 +33,9 @@ interface Lichess {
   escapeHtml(str: string): string;
   announce(d: LichessAnnouncement): void;
 
-  // standalones/trans.js
   trans(i18n: { [key: string]: string | undefined }): Trans
+  quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
 
-  // main.js
   socket: any;
   sound: any;
   soundBox: SoundBoxI;
@@ -125,6 +124,7 @@ interface Cookie {
 interface AssetUrlOpts {
   sameDomain?: boolean;
   noVersion?: boolean;
+  version?: string;
 }
 
 declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
@@ -365,6 +365,7 @@ interface JQuery {
   slider(key: string, value: any): any;
   slider(opts: any): any;
   flatpickr(opts: any): any;
+  infinitescroll: any;
 }
 
 declare namespace PowerTip {

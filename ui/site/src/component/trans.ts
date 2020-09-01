@@ -1,4 +1,4 @@
-lichess.trans = function(i18n) {
+const builder = i18n => {
   var format = function(str, args) {
     if (args.length && str.includes('$s'))
       for (var i = 1; i < 4; i++)
@@ -22,12 +22,12 @@ lichess.trans = function(i18n) {
     return segments;
   };
 
-  var trans = function(key) {
+  const trans: Trans = function(key) {
     var str = i18n[key];
     return str ? format(str, Array.prototype.slice.call(arguments, 1)) : key;
   };
   trans.plural = function(key, count) {
-    var pluralKey = key + ':' + lichess.quantity(count);
+    var pluralKey = key + ':' + window.lichess.quantity(count);
     var str = i18n[pluralKey] || i18n[key];
     return str ? format(str, Array.prototype.slice.call(arguments, 1)) : key;
   };
@@ -40,9 +40,11 @@ lichess.trans = function(i18n) {
     return str ? list(str, Array.prototype.slice.call(arguments, 1)) : [key];
   };
   trans.vdomPlural = function(key, count) {
-    var pluralKey = key + ':' + lichess.quantity(count);
+    var pluralKey = key + ':' + window.lichess.quantity(count);
     var str = i18n[pluralKey] || i18n[key];
     return str ? list(str, Array.prototype.slice.call(arguments, 2)) : [key];
   };
   return trans;
 };
+
+export default builder;

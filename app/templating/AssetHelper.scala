@@ -58,6 +58,8 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
+  lazy val chessgroundTag = jsAt("javascripts/vendor/chessground.min.js")
+
   def roundTag = jsAt(s"compiled/lichess.round${minifiedAssets ?? ".min"}.js", defer = true)
   def roundNvuiTag(implicit ctx: Context) =
     ctx.blind option
