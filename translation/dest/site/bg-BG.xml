@@ -831,4 +831,19 @@
   <string name="edit">Промени</string>
   <string name="rapid">Скоростен</string>
   <string name="classical">Класически</string>
+  <string name="ultraBulletDesc">Ненормално бързи игри: под 30 секунди</string>
+  <string name="bulletDesc">Много бързи игри: под 3 минути</string>
+  <string name="blitzDesc">Бързи игри: 3 до 8 минути</string>
+  <string name="rapidDesc">Скоростни игри: 8 до 25 минути</string>
+  <string name="classicalDesc">Класически игри: над 25 минути</string>
+  <string name="correspondenceDesc">Задочни игри: един или повече дни на ход</string>
+  <string name="puzzleDesc">Инструктор шахматни тактики</string>
+  <string name="important">Важно</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Вашият въпрос може вече да има отговор %1$s</string>
+  <string name="inTheFAQ">в Ч.З.В.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">За да докладвате потребител за нечестна игра или лошо поведение, %1$s</string>
+  <string name="useTheReportForm">използвайте формуляра за докладване</string>
+  <string name="toRequestSupport">За да поискате помощ, %1$s</string>
+  <string name="tryTheContactPage">опитайте страницата за контакти</string>
+  <string name="thisTopicIsArchived">Тази тема е архивирана и не може да получава повече мнения.</string>
 </resources>
