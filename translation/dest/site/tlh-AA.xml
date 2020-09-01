@@ -32,6 +32,10 @@
   <string name="joinTheGame">Quj muv</string>
   <string name="whitePlays">Quj chISwI\'</string>
   <string name="blackPlays">Quj HurghwI\'</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">mejpu\' ghollI\'. bIQap \'e\' DamaqmeH, qaStaHvIS %s lup bIloSnIS.</item>
+    <item quantity="other">mejpu\' ghollI\'. bIQap \'e\' DamaqmeH, qaStaHvIS %s lup bIloSnIS.</item>
+  </plurals>
   <string name="computerAnalysis">De\'wI\' poj</string>
   <string name="computerAnalysisAvailable">SaH De\'wI\' poj</string>
   <string name="analysis">poj Quj \'echlet</string>
