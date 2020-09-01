@@ -812,8 +812,23 @@
   <string name="timeoutExpires">Принудителната почивка приключва %s.</string>
   <string name="why">Защо?</string>
   <string name="pleasantChessExperience">Стремим се да доставим приятно удоволствие от Шаха на всеки.</string>
+  <string name="goodPractice">С тази цел трябва да подсигурим, че всички играчи спазват добри практики.</string>
+  <string name="potentialProblem">Ако е налице потенциален проблем, показваме това съобщение.</string>
   <string name="howToAvoidThis">Как да се избегне това?</string>
+  <string name="playEveryGame">Играйте всяка игра, която започнете.</string>
+  <string name="tryToWin">Опитайте да спечелите (или поне да свършите наравно) всяка игра, която играете.</string>
+  <string name="resignLostGames">Предавайте се, когато играта е загубена (не оставяйте часовникът просто да спре).</string>
+  <string name="temporaryInconvenience">Извиняваме се за временното неудобство</string>
+  <string name="wishYouGreatGames">и Ви желаем чудесни игри на lichess.org.</string>
+  <string name="thankYouForReading">Благодарим, че прочетохте това!</string>
+  <string name="lifetimeScore">Общ резултат</string>
+  <string name="currentMatchScore">Текущ резултат</string>
+  <string name="agreementAssistance">Съгласявам се, че никога няма да получавам помощ по време на игра (от компютър, книга, база данни или друг човек).</string>
   <string name="agreementNice">Съгласявам се, че винаги ще уважавам другите играчи.</string>
   <string name="agreementAccount">Съгласявам се, че няма да си правя няколко акаунта.</string>
   <string name="agreementPolicy">Съгласявам се, че ше спазвам всички правила на Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Търси или започни нов разговор</string>
+  <string name="edit">Промени</string>
+  <string name="rapid">Скоростен</string>
+  <string name="classical">Класически</string>
 </resources>
