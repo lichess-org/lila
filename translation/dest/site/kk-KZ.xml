@@ -721,6 +721,13 @@
   <string name="boardTheme">Тақта өңі</string>
   <string name="boardSize">Тақта үлкендігі</string>
   <string name="pieceSet">Тастар келбеті</string>
+  <string name="embedInYourWebsite">Өз сайтыңызға енгізу</string>
+  <string name="usernameAlreadyUsed">Бұл ат қолданыста, басқасын жазып көріңіз.</string>
+  <string name="usernamePrefixInvalid">Атыңыз әріптен басталуы керек.</string>
+  <string name="usernameSuffixInvalid">Атыңыз әріп не санмен аяқталуы керек.</string>
+  <string name="usernameCharsInvalid">Атты тек қана әріптер, сандар, төменгі сызықтар мен сызықтардан құрастыруға рұқсат.</string>
+  <string name="usernameUnacceptable">Бұл атты қолдануға болмайды.</string>
+  <string name="directlySupportLichess">Личесті тікелей қолдау</string>
   <string name="chessBasics">Шахмат әліппесі</string>
   <string name="coaches">Ұстаздар</string>
   <string name="error.minLength">Кем дегенде %s таңба керек</string>
