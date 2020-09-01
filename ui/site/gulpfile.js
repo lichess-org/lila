@@ -127,7 +127,7 @@ const gitSha = (cb) => {
   if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
   fs.writeFileSync(
     './dist/consolemsg.js',
-    `window.lichess=window.lichess||{};console.info("Lichess is open source! https://github.com/ornicar/lila");lichess.info=${info};`);
+    `window.lichess=window.lichess||{};console.info("Lichess is open source! https://lichess.org/source");lichess.info=${info};`);
   cb();
 };
 
