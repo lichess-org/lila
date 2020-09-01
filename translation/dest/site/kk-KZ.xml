@@ -728,11 +728,24 @@
   <string name="usernameCharsInvalid">Атты тек қана әріптер, сандар, төменгі сызықтар мен сызықтардан құрастыруға рұқсат.</string>
   <string name="usernameUnacceptable">Бұл атты қолдануға болмайды.</string>
   <string name="directlySupportLichess">Личесті тікелей қолдау</string>
+  <string name="playChessInStyle">Сәнді бола ойнаңыз</string>
   <string name="chessBasics">Шахмат әліппесі</string>
   <string name="coaches">Ұстаздар</string>
+  <string name="invalidPgn">Қате PGN</string>
+  <string name="invalidFen">Қате FEN</string>
   <string name="error.minLength">Кем дегенде %s таңба керек</string>
   <string name="error.maxLength">%s таңбадан аспаңыз</string>
+  <string name="error.min">%s мөлшерінен үлкен не тең болу керек</string>
+  <string name="error.max">%s мөлшерінен кіші не тең болу керек</string>
+  <string name="error.unknown">Қателік</string>
+  <string name="custom">Қалыпты</string>
+  <string name="notifications">Хабарлама</string>
+  <string name="challenges">Шақырулар</string>
   <string name="perfRatingX">Рейтинг: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">Бірінші жүріске %s секунд бар</item>
+    <item quantity="other">Бірінші жүріске %s секунд бар</item>
+  </plurals>
   <string name="practiceWithComputer">Компьютермен жаттығу</string>
   <string name="youBrowsedAway">Аяғына жеттіңіз</string>
   <string name="resumePractice">Жаттығуды жалғастыру</string>
