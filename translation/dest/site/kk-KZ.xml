@@ -836,6 +836,10 @@
   <string name="important">Ескерту</string>
   <string name="yourQuestionMayHaveBeenAnswered">Сіздің сұрағыңызға %1$s жауап табылар</string>
   <string name="inTheFAQ">ЖҚС-да</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Бір қолданушының дөрекі қылығына не алдап ойнады деп шағымдану үшін %1$s</string>
+  <string name="useTheReportForm">шағым үлгісін қолданыңыз</string>
+  <string name="toRequestSupport">Жәрдем іздесеңіз %1$s</string>
+  <string name="tryTheContactPage">байланыс туралы бетке өтіңіз</string>
   <string name="subscribe">Жазылу</string>
   <string name="unsubscribe">Жазылымды тоқтату</string>
 </resources>
