@@ -104,7 +104,7 @@
   <string name="replayMode">Қайталап көру тәртіптемесі</string>
   <string name="realtimeReplay">Өз қарқыны</string>
   <string name="byCPL">CPL тілі арқылы</string>
-  <string name="openStudy">Ойын бастамасын зерделеу</string>
+  <string name="openStudy">Зерттеуді ашу</string>
   <string name="enable">Қол жетімді</string>
   <string name="bestMoveArrow">Ең үздік жүріс жебесі</string>
   <string name="evaluationGauge">Бағалау мөлшері</string>
@@ -706,6 +706,7 @@
   <string name="xHostsY">%1$s %2$s-ны бастады</string>
   <string name="xJoinsY">%1$s %2$s-ға қосылды</string>
   <string name="xLikesY">%1$s %2$s-ны ұнатады</string>
+  <string name="xCreatesStudyY">%1$s %2$s деген зерттеуді құрды</string>
   <string name="quickPairing">Дайын қалыптар</string>
   <string name="lobby">Алаң</string>
   <string name="yourScore">Жетістігіңіз: %s</string>
