@@ -143,7 +143,7 @@
   <string name="signIn">Кіру</string>
   <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге аккаунт қажет</string>
   <string name="signUp">Тіркелу</string>
-  <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат програмдарын, дереккөздерін не басқа бір ойыншының көмегін пайдаланбаңыз. Сонымен қатар, бірнеше аккаунт жасауды құптамаймыз, тым көп аккаунт жасауыңыз сізді шектеуге әкеліп соқтырады.</string>
+  <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат програмдарын, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше аккаунт жасауды құптамаймыз, тым көп аккаунт жасауыңыз сізді шектеуге әкеліп соқтырады.</string>
   <string name="games">Ойындар</string>
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s %2$s мақаласында жазды</string>
@@ -261,7 +261,7 @@
   <string name="ratingRange">Рейтинг ауқымы</string>
   <string name="thisAccountViolatedTos">Бұл аккаунт Личес-тің Қызмет көрсету шартын бұзды</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Бұл ойыншы өз рейтингін жасанды жолмен арттырып не кемітіп жүр</string>
-  <string name="openingExplorerAndTablebase">Бастаулар мен аяқталу мұрағаты</string>
+  <string name="openingExplorerAndTablebase">&amp;Amp ótkizgishin ashý; kesteniń negizi</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүріс қайтаруды сұрау</string>
   <string name="takebackPropositionSent">Жүрісті қайтару сұралуда</string>
@@ -747,6 +747,8 @@
     <item quantity="other">Бірінші жүріске %s секунд бар</item>
   </plurals>
   <string name="practiceWithComputer">Компьютермен жаттығу</string>
+  <string name="anotherWasX">Тағы %s</string>
+  <string name="bestWasX">Үздігі %s</string>
   <string name="youBrowsedAway">Аяғына жеттіңіз</string>
   <string name="resumePractice">Жаттығуды жалғастыру</string>
   <string name="theGameIsADraw">Ойын тең аяқталды.</string>
