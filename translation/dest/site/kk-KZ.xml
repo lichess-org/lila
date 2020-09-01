@@ -670,6 +670,7 @@
   <string name="printFriendlyPDF">Қағазға бастыруға лайық PDF</string>
   <string name="crosstable">Қос дерек</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Сонымен қатар, сіз тақта үстінен тінтуір доңғалағын айналдырып, жүріс жасай аласыз.</string>
+  <string name="analysisShapesHowTo">Тақтада домалақ пен бағыт сызу үшін shift+шерту немесе оң шертуді (тінтуірмен) басыңыз.</string>
   <string name="withFriends">Достармен</string>
   <string name="bulletBlitzClassical">Буллит, блитц, классикалық</string>
   <string name="viewTheSolution">Жауабты қарау</string>
