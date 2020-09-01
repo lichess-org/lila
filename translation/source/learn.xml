@@ -37,7 +37,7 @@ You need both!</string>
   <string name="lastOne">Last one!</string>
   <string name="kingComplete">You can now command the commander!</string>
   <string name="theKnight">The knight</string>
-  <string name="itMovesInAnLShape">It moves in an L shape</string>
+  <string name="itMovesInAnLShape">It moves in an L shape, but in shogi only FORWARD!</string>
   <string name="knightIntro">Here's a challenge for you. The knight is... a tricky piece.</string>
   <string name="knightsHaveAFancyWay">Knights have a fancy way
 of jumping around!</string>
@@ -60,7 +60,7 @@ No need to promote.</string>
   <string name="grabAllTheStarsNoNeedToPromote">Grab all the stars!
 No need to promote.</string>
   <string name="pawnComplete">Congratulations! Pawns have no secrets for you.</string>
-  <string name="pawnPromotion">Pawn promotion</string>
+  <string name="promotion">This piece can be promoted.</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Your pawn reached the end of the board!</string>
   <string name="itNowPromotesToAStrongerPiece">It now promotes to a stronger piece.</string>
   <string name="selectThePieceYouWant">Select the piece you want!</string>

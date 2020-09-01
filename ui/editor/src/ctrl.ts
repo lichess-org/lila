@@ -1,12 +1,16 @@
-import { EditorConfig, EditorOptions, EditorState, Selected, Redraw, OpeningPosition, CastlingToggle, CastlingToggles, CASTLING_TOGGLES } from './interfaces';
+
+import { EditorConfig, EditorOptions, EditorState, Selected, Redraw, OpeningPosition } from './interfaces';
 import { Api as CgApi } from 'shogiground/api';
-import { Rules, Square } from 'chessops/types';
-import { SquareSet } from 'chessops/squareSet';
-import { Board } from 'chessops/board';
-import { Setup, Material, RemainingChecks } from 'chessops/setup';
-import { Castles, setupPosition } from 'chessops/variant';
-import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD } from 'chessops/fen';
-import { defined, prop, Prop } from 'common';
+
+//import { Setup, Material, RemainingChecks } from 'shogiops/setup';
+//import { setupPosition } from 'shogiops/variant';
+
+import { prop, Prop } from 'common';
+import { initialFen, breakSfen, fixSfen } from 'shogiutil/util'
+import { GameSituation } from 'shogiutil/types'
+// @ts-ignore
+import { Init } from 'shogiutil/vendor/shogijs.js'
+
 
 export default class EditorCtrl {
   cfg: EditorConfig;
@@ -18,15 +22,7 @@ export default class EditorCtrl {
 
   selected: Prop<Selected>;
 
-  pockets: Material | undefined;
   turn: Color;
-  unmovedRooks: SquareSet | undefined;
-  castlingToggles: CastlingToggles<boolean>;
-  epSquare: Square | undefined;
-  remainingChecks: RemainingChecks | undefined;
-  rules: Rules;
-  halfmoves: number;
-  fullmoves: number;
 
   constructor(cfg: EditorConfig, redraw: Redraw) {
     this.cfg = cfg;
@@ -37,8 +33,8 @@ export default class EditorCtrl {
     this.selected = prop('pointer');
 
     this.extraPositions = [{
-      fen: INITIAL_FEN,
-      epd: INITIAL_EPD,
+      fen: initialFen,
+      epd: '1',
       name: this.trans('startPosition')
     }, {
       fen: 'prompt',
@@ -55,9 +51,6 @@ export default class EditorCtrl {
       redraw();
     });
 
-    this.castlingToggles = { K: false, Q: false, k: false, q: false };
-    this.rules = (!this.cfg.embed && window.history.state && window.history.state.rules) ? window.history.state.rules : 'chess';
-
     this.redraw = () => { };
     this.setFen(cfg.fen);
     this.redraw = redraw;
@@ -66,71 +59,45 @@ export default class EditorCtrl {
   onChange(): void {
     const fen = this.getFen();
     if (!this.cfg.embed) {
-      const state = { rules: this.rules };
-      if (fen == INITIAL_FEN) window.history.replaceState(state, '', '/editor');
-      else window.history.replaceState(state, '', this.makeUrl('/editor/', fen));
+      if (fen == initialFen) window.history.replaceState('crazyhouse', '', '/editor');
+      else window.history.replaceState('crazyhouse', '', this.makeUrl('/editor/', fen));
     }
     this.options.onChange && this.options.onChange(fen);
     this.redraw();
   }
 
-  private castlingToggleFen(): string {
-    let fen = '';
-    for (const toggle of CASTLING_TOGGLES) {
-      if (this.castlingToggles[toggle]) fen += toggle;
-    }
-    return fen;
-  }
-
-  private getSetup(): Setup {
-    const boardFen = this.shogiground ? this.shogiground.getFen() : this.cfg.fen;
-    const board = parseFen(boardFen).unwrap(setup => setup.board, _ => Board.empty());
-    return {
-      board,
-      pockets: this.pockets,
-      turn: this.turn,
-      unmovedRooks: this.unmovedRooks || parseCastlingFen(board, this.castlingToggleFen()).unwrap(),
-      epSquare: this.epSquare,
-      remainingChecks: this.remainingChecks,
-      halfmoves: this.halfmoves,
-      fullmoves: this.fullmoves,
-    };
+  private getSetup(): GameSituation {
+    var boardFen = this.shogiground ? this.shogiground.getFen() : this.cfg.fen;
+    console.log(boardFen)
+    console.log(breakSfen(boardFen))
+    const gs = Init.init(breakSfen(boardFen));
+    this.turn = gs.player;
+    return gs;
   }
 
   getFen(): string {
-    return makeFen(this.getSetup(), { promoted: this.rules == 'crazyhouse' });
+    return fixSfen(this.getSetup().fen);
   }
 
-  private getLegalFen(): string | undefined {
-    return setupPosition(this.rules, this.getSetup()).unwrap(pos => {
-      return makeFen(pos.toSetup(), { promoted: pos.rules == 'crazyhouse' });
-    }, _ => undefined);
+  private getLegalFen(): string {
+    return this.getFen();
   }
 
   private isPlayable(): boolean {
-    return setupPosition(this.rules, this.getSetup()).unwrap(pos => !pos.isEnd(), _ => false);
+    const gs = this.getSetup();
+    return gs.playable && gs.validity!;
   }
 
   getState(): EditorState {
     return {
       fen: this.getFen(),
       legalFen: this.getLegalFen(),
-      playable: this.rules == 'chess' && this.isPlayable(),
+      playable: this.isPlayable(),
     };
   }
 
   makeAnalysisUrl(legalFen: string): string {
-    switch (this.rules) {
-      case 'chess': return this.makeUrl('/analysis/', legalFen);
-      case '3check': return this.makeUrl('/analysis/threeCheck/', legalFen);
-      case 'kingofthehill': return this.makeUrl('/analysis/kingOfTheHill/', legalFen);
-      case 'racingkings': return this.makeUrl('/analysis/racingKings/', legalFen);
-      case 'antichess':
-      case 'atomic':
-      case 'horde':
-      case 'crazyhouse':
-        return this.makeUrl(`/analysis/${this.rules}/`, legalFen);
-    }
+    return this.makeUrl(`/analysis/crazyhouse/`, legalFen);
   }
 
   makeUrl(baseUrl: string, fen: string): string {
@@ -143,23 +110,17 @@ export default class EditorCtrl {
       this.options.orientation || 'white';
   }
 
-  setCastlingToggle(id: CastlingToggle, value: boolean): void {
-    if (this.castlingToggles[id] != value) this.unmovedRooks = undefined;
-    this.castlingToggles[id] = value;
-    this.onChange();
-  }
-
   setTurn(turn: Color): void {
     this.turn = turn;
     this.onChange();
   }
 
   startPosition(): void {
-    this.setFen(INITIAL_FEN);
+    this.setFen('lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1');
   }
 
   clearBoard(): void {
-    this.setFen(EMPTY_FEN);
+    this.setFen('9/9/9/9/9/9/9/9/9');
   }
 
   loadNewFen(fen: string | 'prompt'): void {
@@ -171,34 +132,9 @@ export default class EditorCtrl {
   }
 
   setFen(fen: string): boolean {
-    return parseFen(fen).unwrap(setup => {
-      if (this.shogiground) this.shogiground.set({ fen });
-      this.pockets = setup.pockets;
-      this.turn = setup.turn;
-      this.unmovedRooks = setup.unmovedRooks;
-      this.epSquare = setup.epSquare;
-      this.remainingChecks = setup.remainingChecks;
-      this.halfmoves = setup.halfmoves;
-      this.fullmoves = setup.fullmoves;
-
-      const castles = Castles.fromSetup(setup);
-      this.castlingToggles['K'] = defined(castles.rook.white.h);
-      this.castlingToggles['Q'] = defined(castles.rook.white.a);
-      this.castlingToggles['k'] = defined(castles.rook.black.h);
-      this.castlingToggles['q'] = defined(castles.rook.black.a);
-
-      this.onChange();
-      return true;
-    }, _ => false);
-  }
-
-  setRules(rules: Rules): void {
-    this.rules = rules;
-    if (rules != 'crazyhouse') this.pockets = undefined;
-    else if (!this.pockets) this.pockets = Material.empty();
-    if (rules != '3check') this.remainingChecks = undefined;
-    else if (!this.remainingChecks) this.remainingChecks = RemainingChecks.default();
+    if (this.shogiground) this.shogiground.set({ fen });
     this.onChange();
+    return true;
   }
 
   setOrientation(o: Color): void {

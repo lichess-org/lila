@@ -21,7 +21,11 @@
     "node": ">=10"
   },
   "dependencies": {
+    "editor": "2.0.0",
     "fs-extra": "^4.0.2",
+    "learn": "2.0.0",
+    "shogiground": "7.8.1",
+    "shogiutil": "1.0.0",
     "xml2js": "^0.4.19"
   },
   "workspaces": [
@@ -47,6 +51,7 @@
     "ui/round",
     "ui/serviceWorker",
     "ui/shogiground",
+    "ui/shogiutil",
     "ui/simul",
     "ui/site",
     "ui/swiss",

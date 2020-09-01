@@ -82,13 +82,13 @@ $(function () {
 
     var newCoord = function (prevCoord) {
       // disallow the previous coordinate's row or file from being selected
-      var files = 'abcdefgh';
+      var files = 'abcdefghi';
       var fileIndex = files.indexOf(prevCoord[0]);
-      files = files.slice(0, fileIndex) + files.slice(fileIndex + 1, 8);
+      files = files.slice(0, fileIndex) + files.slice(fileIndex + 1, 9);
 
-      var rows = '12345678';
+      var rows = '123456789';
       var rowIndex = rows.indexOf(prevCoord[1]);
-      rows = rows.slice(0, rowIndex) + rows.slice(rowIndex + 1, 8);
+      rows = rows.slice(0, rowIndex) + rows.slice(rowIndex + 1, 9);
 
       return files[Math.round(Math.random() * (files.length - 1))] + rows[Math.round(Math.random() * (rows.length - 1))];
     };
@@ -151,6 +151,8 @@ $(function () {
           events: {
             select: function (key) {
               var hit = key == $coords[0].text();
+              console.log(key);
+              console.log($coords[0].text());
               if (hit) {
                 score++;
                 $score.text(score);

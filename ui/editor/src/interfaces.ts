@@ -1,13 +1,5 @@
 import { Role } from 'shogiground/types';
 
-export type CastlingToggle = 'K' | 'Q' | 'k' | 'q';
-
-export const CASTLING_TOGGLES: CastlingToggle[] = ['K', 'Q', 'k', 'q'];
-
-export type CastlingToggles<T> = {
-  [side in CastlingToggle]: T;
-};
-
 export interface OpeningPosition {
   eco?: string;
   name: string;

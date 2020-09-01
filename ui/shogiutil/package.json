@@ -1,0 +1,13 @@
+{
+  "name": "shogiutil",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "typings": "shogiutil.d.ts",
+  "scripts": {
+    "dev": "../../node_modules/typescript/bin/tsc --outDir . --sourceMap --declaration",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wanderer",
+  "license": "MIT"
+}

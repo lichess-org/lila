@@ -10,11 +10,11 @@ export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 const nato: { [letter: string]: string } = { a: 'alpha', b: 'bravo', c: 'charlie', d: 'delta', e: 'echo', f: 'foxtrot', g: 'golf', h: 'hotel' };
 const anna: { [letter: string]: string } = { a: 'anna', b: 'bella', c: 'cesar', d: 'david', e: 'eva', f: 'felix', g: 'gustav', h: 'hector' };
 const roles: { [letter: string]: string } = {
-  P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', Q: 'queen', K: 'king', G: 'gold', S: 'silver', L: 'lance',
+  P: 'pawn', R: 'rook', N: 'knight', B: 'bishop', K: 'king', G: 'gold', S: 'silver', L: 'lance',
   T: 'tokin', A: 'promotedSilver', M: 'promotedKnight', U: 'promotedLance', H: 'horse', D: 'dragon'
 };
 const letters = {
-  pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k',
+  pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', king: 'k',
   gold: 'g', silver: 's', lance: 'l', tokin: 't', promotedSilver: 'a', promotedKnight: 'm', promotedLance: 'u', horse: 'h', dragon: 'd'
 };
 

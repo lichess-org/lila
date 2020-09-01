@@ -1,6 +1,5 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { fixCrazySan } from 'chess';
 import { defined } from 'common';
 import { view as cevalView, renderEval as normalizeEval } from 'ceval';
 
@@ -33,8 +32,8 @@ export function renderIndex(ply: Ply, withDots?: boolean): VNode {
 }
 
 export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
-  const ev: any = cevalView.getBestEval({client: node.ceval, server: node.eval}) || {};
-  return [h('san', fixCrazySan(node.san!))]
+  const ev: any = cevalView.getBestEval({ client: node.ceval, server: node.eval }) || {};
+  return [h('san', node.san!)]
     .concat((node.glyphs && ctx.showGlyphs) ? renderGlyphs(node.glyphs) : [])
     .concat(ctx.showEval ? (
       defined(ev.cp) ? [renderEval(normalizeEval(ev.cp))] : (

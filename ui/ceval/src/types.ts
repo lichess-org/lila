@@ -1,4 +1,4 @@
-import { Outcome } from 'chessops/types';
+import { Outcome } from 'shogiutil/types';
 import { Prop } from 'common';
 import { StoredProp, StoredBooleanProp } from 'common/storage';
 

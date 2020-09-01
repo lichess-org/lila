@@ -14,6 +14,7 @@ export function readDests(lines?: string): Dests | null {
   if (lines) for (const line of lines.split(' ')) {
     dests.set(piotr[line[0]], line.slice(1).split('').map(c => piotr[c]));
   }
+  console.log("DESTS:", dests);
   return dests;
 }
 

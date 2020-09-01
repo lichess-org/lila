@@ -15,9 +15,9 @@
     "@build/rollupProject": "2.0.0"
   },
   "dependencies": {
-    "chessops": "^0.6.0",
     "common": "2.0.0",
     "shogiground": "file:/home/liskadan/lila/ui/shogiground",
+    "shogiutil": "file:/home/liskadan/lila/ui/shogiutil",
     "snabbdom": "^0.7.4"
   },
   "scripts": {

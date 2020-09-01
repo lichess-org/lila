@@ -20,7 +20,7 @@ export function valid(shogiground: ShogigroundApi, possibleDrops: string | undef
 
   if (piece.color !== shogiground.state.movable.color) return false;
 
-  if (piece.role === 'pawn' && (pos[1] === '1' || pos[1] === '8')) return false;
+  if (piece.role === 'pawn' && (pos[1] === '1' || pos[1] === '9')) return false; //todo
 
   const drops = readDrops(possibleDrops);
 

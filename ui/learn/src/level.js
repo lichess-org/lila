@@ -1,17 +1,16 @@
-var m = require('mithril');
-var makeItems = require('./item').ctrl;
-var itemView = require('./item').view;
-var makeScenario = require('./scenario');
-var makeChess = require('./chess');
-var ground = require('./ground');
-var scoring = require('./score');
-var sound = require('./sound');
-var promotion = require('./promotion');
+var m = require("mithril");
+var makeItems = require("./item").ctrl;
+var itemView = require("./item").view;
+var makeScenario = require("./scenario");
+var makeShogi = require("./chess");
+var ground = require("./ground");
+var scoring = require("./score");
+var sound = require("./sound");
+var promotion = require("./promotion");
 
-module.exports = function(blueprint, opts) {
-
+module.exports = function (blueprint, opts) {
   var items = makeItems({
-    apples: blueprint.apples
+    apples: blueprint.apples,
   });
 
   var vm = {
@@ -20,48 +19,54 @@ module.exports = function(blueprint, opts) {
     willComplete: false,
     failed: false,
     score: 0,
-    nbMoves: 0
+    nbMoves: 0,
   };
 
-  var complete = function() {
+  var complete = function () {
     vm.willComplete = true;
-    setTimeout(function() {
-      vm.lastStep = false;
-      vm.completed = true;
-      sound.levelEnd();
-      vm.score += scoring.getLevelBonus(blueprint, vm.nbMoves);
-      ground.stop();
-      m.redraw();
-      if (!blueprint.nextButton) setTimeout(opts.onComplete, 1200);
-    }, ground.data().stats.dragged ? 1 : 250);
+    setTimeout(
+      function () {
+        vm.lastStep = false;
+        vm.completed = true;
+        sound.levelEnd();
+        vm.score += scoring.getLevelBonus(blueprint, vm.nbMoves);
+        ground.stop();
+        m.redraw();
+        if (!blueprint.nextButton) setTimeout(opts.onComplete, 1200);
+      },
+      ground.data().stats.dragged ? 1 : 250
+    );
   };
 
   // cheat
-  Mousetrap.bind(['shift+enter'], complete);
+  Mousetrap.bind(["shift+enter"], complete);
 
-  var assertData = function() {
+  var assertData = function () {
     return {
       scenario: scenario,
-      chess: chess,
-      vm: vm
+      shogi: shogi,
+      vm: vm,
     };
-  }
+  };
 
-  var detectFailure = function() {
+  var detectFailure = function () {
     var failed = blueprint.failure && blueprint.failure(assertData());
     if (failed) sound.failure();
     return failed;
   };
 
-  var detectSuccess = function() {
+  var detectSuccess = function () {
     if (blueprint.success) return blueprint.success(assertData());
-    else return !items.hasItem('apple')
+    else return !items.hasItem("apple");
   };
 
-  var detectCapture = function() {
+  var detectCapture = function () {
     if (!blueprint.detectCapture) return false;
-    var fun = blueprint.detectCapture === 'unprotected' ? 'findUnprotectedCapture' : 'findCapture';
-    var move = chess[fun]();
+    var fun =
+      blueprint.detectCapture === "unprotected"
+        ? "findUnprotectedCapture"
+        : "findCapture";
+    var move = shogi[fun]();
     if (!move) return;
     vm.failed = true;
     ground.stop();
@@ -70,21 +75,22 @@ module.exports = function(blueprint, opts) {
     return true;
   };
 
-  var sendMove = function(orig, dest, prom) {
+  var sendMove = function (orig, dest, prom) {
     vm.nbMoves++;
-    var move = chess.move(orig, dest, prom);
-    if (move) ground.fen(chess.fen(), blueprint.color, {});
-    else { // moving into check
+    var move = shogi.move(orig, dest, prom);
+    if (move) ground.fen(shogi.fen(), blueprint.color, {});
+    else {
+      // moving into check
       vm.failed = true;
-      ground.showCheckmate(chess);
+      ground.showCheckmate(shogi);
       sound.failure();
       return m.redraw();
     }
     var took = false,
       inScenario,
       captured = false;
-    items.withItem(move.to, function(item) {
-      if (item === 'apple') {
+    items.withItem(move.to, function (item) {
+      if (item === "apple") {
         vm.score += scoring.apple;
         items.remove(move.to);
         took = true;
@@ -93,12 +99,11 @@ module.exports = function(blueprint, opts) {
     if (!took && move.captured && blueprint.pointsForCapture) {
       if (blueprint.showPieceValues)
         vm.score += scoring.pieceValue(move.captured);
-      else
-        vm.score += scoring.capture;
+      else vm.score += scoring.capture;
       took = true;
     }
-    ground.check(chess);
-    if (scenario.player(move.from + move.to + (move.promotion || ''))) {
+    ground.check(shogi);
+    if (scenario.player(move.from + move.to + (move.promotion || ""))) {
       vm.score += scoring.scenario;
       inScenario = true;
     } else {
@@ -111,55 +116,57 @@ module.exports = function(blueprint, opts) {
     else if (inScenario) sound.take();
     else sound.move();
     if (vm.failed) {
-      if (blueprint.showFailureFollowUp && !captured) setTimeout(function() {
-        var rm = chess.playRandomMove();
-        ground.fen(chess.fen(), blueprint.color, {}, [rm.orig, rm.dest]);
-      }, 600);
+      if (blueprint.showFailureFollowUp && !captured)
+        setTimeout(function () {
+          var rm = shogi.playRandomMove();
+          ground.fen(shogi.fen(), blueprint.color, {}, [rm.orig, rm.dest]);
+        }, 600);
     } else {
       ground.select(dest);
       if (!inScenario) {
-        chess.color(blueprint.color);
-        ground.color(blueprint.color, makeChessDests());
+        shogi.color(blueprint.color);
+        ground.color(blueprint.color, makeShogiDests());
       }
     }
     m.redraw();
   };
 
-  var makeChessDests = function() {
-    return chess.dests({
-      illegal: blueprint.offerIllegalMove
+  var makeShogiDests = function () {
+    return shogi.dests({
+      illegal: blueprint.offerIllegalMove,
     });
   };
 
-  var onMove = function(orig, dest) {
+  var onMove = function (orig, dest) {
     var piece = ground.get(dest);
     if (!piece || piece.color !== blueprint.color) return;
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
   };
 
-  var chess = makeChess(
+  var shogi = makeShogi(
     blueprint.fen,
-    blueprint.emptyApples ? [] : items.appleKeys());
+    blueprint.emptyApples ? [] : items.appleKeys()
+  );
 
   var scenario = makeScenario(blueprint.scenario, {
-    chess: chess,
-    makeChessDests: makeChessDests
+    shogi: shogi,
+    makeShogiDests: makeShogiDests,
   });
 
   promotion.reset();
 
   ground.set({
-    chess: chess,
+    shogi: shogi,
     offerIllegalMove: blueprint.offerIllegalMove,
     autoCastle: blueprint.autoCastle,
     orientation: blueprint.color,
     onMove: onMove,
     items: {
-      render: function(pos, key) {
+      render: function (pos, key) {
         return items.withItem(key, itemView);
-      }
+      },
     },
-    shapes: blueprint.shapes
+    shapes: blueprint.shapes,
   });
 
   return {
@@ -167,11 +174,11 @@ module.exports = function(blueprint, opts) {
     items: items,
     vm: vm,
     scenario: scenario,
-    start: function() {
+    start: function () {
       sound.levelStart();
-      if (chess.color() !== blueprint.color)
+      if (shogi.color() !== blueprint.color)
         setTimeout(scenario.opponent, 1000);
     },
-    onComplete: opts.onComplete
+    onComplete: opts.onComplete,
   };
 };

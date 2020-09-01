@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { parseFen } from 'chessops/fen';
+import { validFen } from 'shogiutil/util'
 import * as shogiground from './ground';
 import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
 import { defined } from 'common';
@@ -112,7 +112,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
             });
             el.addEventListener('input', _ => {
               ctrl.fenInput = el.value;
-              el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN');
+              el.setCustomValidity(validFen(el.value.trim()) ? '' : 'Invalid FEN');
             });
           },
           postpatch: (_, vnode) => {

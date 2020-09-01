@@ -1,5 +1,5 @@
-import { lichessVariantRules } from 'chessops/compat';
 import { WorkerOpts, Work } from './types';
+import { chessToShogiUsi, fixSfen } from 'shogiutil/util';
 
 const EVAL_REGEX = new RegExp(''
   + /^info depth (\d+) seldepth \d+ multipv (\d+) /.source
@@ -23,18 +23,11 @@ export default class Protocol {
 
   init(): void {
     // get engine name/version
-    this.send('uci');
+    this.send('usi');
 
     // analyse without contempt
     this.setOption('UCI_AnalyseMode', 'true');
     this.setOption('Analysis Contempt', 'Off');
-
-    if (this.opts.variant === 'fromPosition' || this.opts.variant === 'chess960')
-      this.setOption('UCI_Chess960', 'true');
-    else if (this.opts.variant === 'antichess')
-      this.setOption('UCI_Variant', 'giveaway');
-    else if (this.opts.variant !== 'standard')
-      this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
   }
 
   private setOption(name: string, value: string | number): void {
@@ -52,7 +45,7 @@ export default class Protocol {
     if (!this.work) return;
 
     const matches = text.match(EVAL_REGEX);
-    if (!matches) return;
+    if (!matches) { console.log("Failed match"); return; }
 
     const depth = parseInt(matches[1]),
       multiPv = parseInt(matches[2]),
@@ -63,6 +56,7 @@ export default class Protocol {
       elapsedMs: number = parseInt(matches[7]),
       moves = matches[8].split(' ');
 
+    console.log(depth, multiPv, isMate, povEv, evalType, nodes)
     // Sometimes we get #0. Let's just skip it.
     if (isMate && !povEv) return;
 
@@ -128,8 +122,15 @@ export default class Protocol {
     this.expectedPvs = 1;
     if (this.opts.threads) this.setOption('Threads', this.opts.threads());
     if (this.opts.hashSize) this.setOption('Hash', this.opts.hashSize());
+    const splitted = this.work.initialFen.split(' ');
+    const oppositeColor = splitted[1] == 'w' ? 'b' : 'w';
+    const boardFen = splitted[0].slice(-1) == '/' ? splitted[0].substring(0, splitted[0].length - 1) : splitted[0];
+    const oppositeColorSfen = fixSfen(boardFen) + ' ' + oppositeColor; // because white goes first in chess - lichess
+    console.log(this.work.moves, this.work.moves.map(chessToShogiUsi));
+    const usiMoves = this.work.moves.map(chessToShogiUsi);
+    console.log("sending this sfen: ", oppositeColorSfen, "and these moves", usiMoves)
     this.setOption('MultiPV', this.work.multiPv);
-    this.send(['position', 'fen', this.work.initialFen, 'moves'].concat(this.work.moves).join(' '));
+    this.send(['position', 'sfen', oppositeColorSfen, 'moves'].concat(usiMoves).join(' '));
     if (this.work.maxDepth >= 99) this.send('go depth 99');
     else this.send('go movetime 90000 depth ' + this.work.maxDepth);
   }

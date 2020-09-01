@@ -1,5 +1,6 @@
-import { parseUci, makeSquare } from 'chessops/util';
-import { isDrop } from 'chessops/types';
+import { parseUci, makeSquare, shogiToChessUci, promotesTo } from 'shogiutil/util';
+import { isDrop, Role } from 'shogiutil/types';
+
 import { winningChances } from 'ceval';
 import * as cg from 'shogiground/types';
 import { opposite } from 'shogiground/util';
@@ -18,9 +19,12 @@ function pieceDrop(key: cg.Key, role: cg.Role, color: Color): DrawShape {
   };
 }
 
-export function makeShapesFromUci(color: Color, uci: Uci, brush: string, modifiers?: any): DrawShape[] {
-  const move = parseUci(uci)!;
+export function makeShapesFromUci(color: Color, uci: Uci, brush: string, modifiers?: any, role?: Role): DrawShape[] {
+  console.log(uci)
+  const move = parseUci(shogiToChessUci(uci))!;
+  console.log("MOVE:", move)
   const to = makeSquare(move.to);
+  console.log("to: ", to)
   if (isDrop(move)) return [
     { orig: to, brush },
     pieceDrop(to, move.role, color)
@@ -32,20 +36,21 @@ export function makeShapesFromUci(color: Color, uci: Uci, brush: string, modifie
     brush,
     modifiers
   }];
-  if (move.promotion) shapes.push(pieceDrop(to, move.promotion, color));
+  if (move.promotion) shapes.push(pieceDrop(to, promotesTo(role!), color));
   return shapes;
 }
 
 export function compute(ctrl: AnalyseCtrl): DrawShape[] {
-  const color = ctrl.node.fen.includes(' w ') ? 'white' : 'black';
+  const color = ctrl.node.fen.includes(' w ') ? 'white' : 'black'; //todo
   const rcolor = opposite(color);
   if (ctrl.practice) {
     if (ctrl.practice.hovering()) return makeShapesFromUci(color, ctrl.practice.hovering().uci, 'green');
     const hint = ctrl.practice.hinting();
+    const piece = ctrl.shogiground.state.pieces.get(hint.uci.slice(0, 2));
     if (hint) {
-      if (hint.mode === 'move') return makeShapesFromUci(color, hint.uci, 'paleBlue');
+      if (hint.mode === 'move') return makeShapesFromUci(color, hint.uci, 'paleBlue', piece!.role);
       else return [{
-        orig: hint.uci[1] === '@' ? hint.uci.slice(2, 4) : hint.uci.slice(0, 2),
+        orig: hint.uci[1] === '*' ? hint.uci.slice(2, 4) : hint.uci.slice(0, 2),
         brush: 'paleBlue'
       }];
     }

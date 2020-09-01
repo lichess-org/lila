@@ -1,10 +1,9 @@
-import { Outcome, isNormal } from 'chessops/types';
-import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
-import { lichessVariantRules } from 'chessops/compat';
-import { Position, PositionError } from 'chessops/chess';
-import { parseFen } from 'chessops/fen';
-import { Result } from '@badrap/result';
-import { setupPosition } from 'chessops/variant';
+import { Outcome, isNormal } from 'shogiutil/types';
+import { opposite, parseUci, makeSquare, roleToChar } from 'shogiutil/util';
+import { GameSituation } from 'shogiutil/types';
+// @ts-ignore
+import { Init } from 'shogiutil/vendor/shogijs.js'
+
 import { Api as ShogigroundApi } from 'shogiground/api';
 import { DrawShape } from 'shogiground/draw';
 import * as cg from 'shogiground/types';
@@ -40,6 +39,7 @@ import * as speech from './speech';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
+//import { init } from 'snabbdom';
 
 const li = window.lichess;
 
@@ -249,8 +249,9 @@ export default class AnalyseCtrl {
   }
 
   private uciToLastMove(uci?: Uci): Key[] | undefined {
+    console.log("ucitolastmove", uci)
     if (!uci) return;
-    if (uci[1] === '@') return [uci.substr(2, 2), uci.substr(2, 2)] as Key[];
+    if (uci[1] === '*') return [uci.substr(2, 2), uci.substr(2, 2)] as Key[];
     return [uci.substr(0, 2), uci.substr(2, 2)] as Key[];
   };
 
@@ -265,6 +266,7 @@ export default class AnalyseCtrl {
   }
 
   getDests: () => void = throttle(800, () => {
+    console.log("GetDests", this.node.fen)
     if (!this.embed && !defined(this.node.dests)) this.socket.sendAnaDests({
       variant: this.data.game.variant.key,
       fen: this.node.fen,
@@ -441,7 +443,7 @@ export default class AnalyseCtrl {
 
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
     if (crazyValid(this.shogiground, this.node.drops, piece, pos)) {
-      this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
+      this.justPlayed = roleToChar(piece.role).toUpperCase() + '*' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
       this.sound.move();
@@ -462,7 +464,8 @@ export default class AnalyseCtrl {
     this.justPlayed = orig;
     this.justDropped = undefined;
     const piece = this.shogiground.state.pieces.get(dest);
-    const isCapture = capture || (piece && piece.role == 'pawn' && orig[0] != dest[0]);
+    console.log("UserMove", piece)
+    const isCapture = capture;
     this.sound[isCapture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, capture, this.sendMove)) this.sendMove(orig, dest, capture);
   }
@@ -475,6 +478,7 @@ export default class AnalyseCtrl {
       fen: this.node.fen,
       path: this.path
     };
+    console.log("sendMove", orig, dest, prom)
     if (capture) this.justCaptured = capture;
     if (prom) move.promotion = prom;
     if (this.practice) this.practice.onUserMove();
@@ -616,12 +620,12 @@ export default class AnalyseCtrl {
   }
 
   outcome(node?: Tree.Node): Outcome | undefined {
-    return this.position(node || this.node).unwrap(pos => pos.outcome(), _ => undefined);
+    const res = this.position(node || this.node);
+    return res.winner ? { winner: res.winner } : undefined;
   }
 
-  position(node: Tree.Node): Result<Position, PositionError> {
-    const setup = parseFen(node.fen).unwrap();
-    return setupPosition(lichessVariantRules(this.data.game.variant.key), setup);
+  position(node: Tree.Node): GameSituation {
+    return Init.init(node.fen);
   }
 
   canUseCeval(): boolean {

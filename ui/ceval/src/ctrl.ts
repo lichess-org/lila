@@ -10,11 +10,11 @@ import { sanIrreversible } from './util';
 const li = window.lichess;
 
 function officialStockfish(variant: VariantKey): boolean {
-  return variant === 'standard' || variant === 'chess960';
+  return variant === 'standard' || variant === 'crazyhouse';
 }
 
 function is64Bit(): boolean {
-  const x64 = ['x86_64', 'x86-64', 'Win64','x64', 'amd64', 'AMD64'];
+  const x64 = ['x86_64', 'x86-64', 'Win64', 'x64', 'amd64', 'AMD64'];
   for (const substr of x64) if (navigator.userAgent.includes(substr)) return true;
   return navigator.platform === 'Linux x86_64' || navigator.platform === 'MacIntel';
 }
@@ -32,7 +32,7 @@ function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory 
   if (typeof SharedArrayBuffer !== 'function') return;
 
   // Shared memory
-  const mem = new WebAssembly.Memory({shared: true, initial, maximum} as WebAssembly.MemoryDescriptor);
+  const mem = new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
   if (!(mem.buffer instanceof SharedArrayBuffer)) return;
 
   // Structured cloning
@@ -51,7 +51,7 @@ function median(values: number[]): number {
   return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2.0;
 }
 
-export default function(opts: CevalOpts): CevalCtrl {
+export default function (opts: CevalOpts): CevalCtrl {
   const storageKey = (k: string) => {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
   };
@@ -107,14 +107,14 @@ export default function(opts: CevalOpts): CevalCtrl {
   });
 
   // adjusts maxDepth based on nodes per second
-  const npsRecorder = (function() {
+  const npsRecorder = (function () {
     const values: number[] = [];
     const applies = (ev: Tree.ClientEval) => {
       return ev.knps && ev.depth >= 16 &&
         typeof ev.cp !== 'undefined' && Math.abs(ev.cp) < 500 &&
         (ev.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
     };
-    return function(ev: Tree.ClientEval) {
+    return function (ev: Tree.ClientEval) {
       if (!applies(ev)) return;
       values.push(ev.knps);
       if (values.length > 9) {
@@ -151,7 +151,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   const effectiveMaxDepth = () => (isDeeper() || infinite()) ? 99 : parseInt(maxDepth());
 
   const sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
-    pvs.sort(function(a, b) {
+    pvs.sort(function (a, b) {
       return povChances(color, b) - povChances(color, a);
     });
 

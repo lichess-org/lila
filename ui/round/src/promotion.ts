@@ -94,8 +94,8 @@ export function cancel(ctrl: RoundController) {
 
 function renderPromotion(ctrl: RoundController, dest: cg.Key, roles: cg.Role[], color: Color, orientation: Color): MaybeVNode {
   console.log("dest promt: ", key2pos(dest))
-  var left = (8 - key2pos(dest)[0]) * 11.08;
-  if (orientation === 'white') left = (key2pos(dest)[0]) * 11;
+  var left = (8 - key2pos(dest)[0]) * 11.11 - 0.29;
+  if (orientation === 'white') left = (key2pos(dest)[0]) * 11.11;
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return h('div#promotion-choice.' + vertical, {
@@ -107,8 +107,8 @@ function renderPromotion(ctrl: RoundController, dest: cg.Key, roles: cg.Role[], 
       });
     })
   }, roles.map((serverRole, i) => {
-    var top = (i + key2pos(dest)[1]) * 11.08;
-    if (orientation === 'white') top = (9 - (i + key2pos(dest)[1])) * 11.08;
+    var top = (i + key2pos(dest)[1]) * 11.11 - 0.29;
+    if (orientation === 'white') top = (9 - (i + key2pos(dest)[1])) * 11.11 - 0.29;
     //var top = (color === orientation ? i : 8 - i) * 11.33;
     return h('square', {
       attrs: {
@@ -141,7 +141,9 @@ function promotesTo(role: typeof prePromotionRole): cg.Role {
 
 export function view(ctrl: RoundController): MaybeVNode {
   if (!promoting) return;
-
+  if ((promoting.role === 'pawn' || promoting.role === 'knight') && ['1', '2', '8', '9'].includes(promoting.move[1][1])) {
+    console.log("Force promotion: ", promoting.move);
+  }
   const roles: cg.Role[] = [promotesTo(promoting.role), promoting.role]
   return renderPromotion(ctrl, promoting.move[1],
     roles,

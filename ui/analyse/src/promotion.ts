@@ -10,6 +10,7 @@ interface Promoting {
   orig: Key;
   dest: Key;
   capture?: JustCaptured;
+  role: Role,
   callback: Callback
 }
 
@@ -20,13 +21,19 @@ let promoting: Promoting | undefined;
 export function start(ctrl: AnalyseCtrl, orig: Key, dest: Key, capture: JustCaptured | undefined, callback: Callback): boolean {
   const s = ctrl.shogiground.state;
   const piece = s.pieces.get(dest);
-  if (piece && piece.role == 'pawn' && (
-    (dest[1] == '8' && s.turnColor == 'black') ||
-    (dest[1] == '1' && s.turnColor == 'white'))) {
+  console.log("promotion: ", piece)
+  const role = piece ? piece.role : 'pawn';
+  if (piece && ['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(piece.role) &&
+    (
+      ((['7', '8', '9'].includes(dest[1]) || ['7', '8', '9'].includes(orig[1])) && s.turnColor === 'black') ||
+      ((['1', '2', '3'].includes(dest[1]) || ['1', '2', '3'].includes(orig[1])) && s.turnColor === 'white')
+    )
+  ) {
     promoting = {
       orig,
       dest,
       capture,
+      role,
       callback
     };
     ctrl.redraw();
@@ -78,13 +85,23 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: 
   }));
 }
 
-const roles: Role[] = ['lance', 'knight', 'rook', 'bishop'];
+function promotesTo(role: Role): Role {
+  switch (role) {
+    case 'silver': return 'promotedSilver';
+    case 'knight': return 'promotedKnight';
+    case 'lance': return 'promotedLance';
+    case 'bishop': return 'horse';
+    case 'rook': return 'dragon';
+    default: return 'tokin';
+  }
+}
 
 export function view(ctrl: AnalyseCtrl): MaybeVNode {
   if (!promoting) return;
 
+  const roles: Role[] = [promotesTo(promoting.role), promoting.role]
   return renderPromotion(ctrl, promoting.dest,
-    ctrl.data.game.variant.key === 'antichess' ? roles.concat('king') : roles,
-    promoting.dest[1] === '8' ? 'white' : 'black',
+    roles,
+    promoting.dest[1] >= '7' ? 'white' : 'black',
     ctrl.shogiground.state.orientation);
 }

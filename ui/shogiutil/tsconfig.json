@@ -1,0 +1,17 @@
+{
+    "extends": "../tsconfig.base.json",
+    "include": [
+        "src/*.ts"
+    ],
+    "exclude": [],
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "removeComments": true,
+        "module": "commonjs",
+        "target": "ES2016",
+        "lib": [
+            "DOM",
+            "ES2016"
+        ]
+    }
+}

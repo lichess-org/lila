@@ -1,4 +1,4 @@
-import { Outcome } from 'chessops/types';
+import { Outcome } from 'shogiutil/types';
 import { bind } from '../util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
@@ -20,7 +20,7 @@ function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVN
         destroy: () => ctrl.commentShape(false)
       }
     },
-    c.best.san)
+      c.best.san)
   ) : [];
 }
 
@@ -75,7 +75,7 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   ]);
 }
 
-export default function(root: AnalyseCtrl): VNode | undefined {
+export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.practice;
   if (!ctrl) return;
   const comment: Comment | null = ctrl.comment();
@@ -88,7 +88,7 @@ export default function(root: AnalyseCtrl): VNode | undefined {
       h('span.verdict', root.trans.noarg(comment.verdict)),
       ' '
     ] as MaybeVNodes).concat(commentBest(comment, root, ctrl)) : [ctrl.isMyTurn() || end ? '' : h('span.wait', root.trans.noarg('evaluatingYourMove'))]) : (
-      running ? h('div.comment') : null
-    )
+        running ? h('div.comment') : null
+      )
   ]);
 };

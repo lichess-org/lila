@@ -7,8 +7,6 @@ import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
 import { defined, prop, Prop } from 'common';
 import { altCastles } from 'chess';
-import { parseUci } from 'chessops/util';
-import { makeSan } from 'chessops/san';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -53,11 +51,11 @@ export interface PracticeCtrl {
 export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCtrl {
 
   const variant = root.data.game.variant.key,
-  running = prop(true),
-  comment = prop<Comment | null>(null),
-  hovering = prop<any>(null),
-  hinting = prop<Hinting | null>(null),
-  played = prop(false);
+    running = prop(true),
+    comment = prop<Comment | null>(null),
+    hovering = prop<any>(null),
+    hinting = prop<Hinting | null>(null),
+    played = prop(false);
 
   function ensureCevalRunning() {
     if (!root.showComputer()) root.toggleComputer();
@@ -119,7 +117,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       verdict,
       best: best ? {
         uci: best,
-        san: root.position(prev).unwrap(pos => makeSan(pos, parseUci(best)!), _ => '--'),
+        san: 'Pe3', //todo
       } : undefined
     };
   }
@@ -231,7 +229,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     },
     hint() {
       const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null,
-      prev = hinting();
+        prev = hinting();
       if (!best || (prev && prev.mode === 'move')) hinting(null);
       else hinting({
         mode: prev ? 'move' : 'piece',

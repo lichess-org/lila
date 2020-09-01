@@ -3,26 +3,13 @@ import { VNode } from 'snabbdom/vnode';
 import { MouchEvent, NumberPair } from 'shogiground/types';
 import { dragNewPiece } from 'shogiground/drag';
 import { eventPosition, opposite } from 'shogiground/util';
-import { Rules } from 'chessops/types';
-import { parseFen, EMPTY_FEN } from 'chessops/fen';
+
 import EditorCtrl from './ctrl';
 import shogiground from './shogiground';
-import { OpeningPosition, Selected, CastlingToggle, EditorState } from './interfaces';
+import { OpeningPosition, Selected, EditorState } from './interfaces';
+// @ts-ignore
+import { Init } from 'shogiutil/vendor/shogijs.js'
 
-function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
-  const input = h('input', {
-    attrs: {
-      type: 'checkbox',
-      checked: ctrl.castlingToggles[id],
-    },
-    on: {
-      change(e) {
-        ctrl.setCastlingToggle(id, (e.target as HTMLInputElement).checked);
-      }
-    }
-  });
-  return h('label', reversed ? [input, label] : [label, input]);
-}
 
 function optgroup(name: string, opts: VNode[]): VNode {
   return h('optgroup', { attrs: { label: name } }, opts);
@@ -36,7 +23,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
     }
   }, [
     h('input', { attrs: { type: 'hidden', name: 'orientation', value: ctrl.bottomColor() } }),
-    h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.rules } }),
+    //h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.rules } }),
     h('input', { attrs: { type: 'hidden', name: 'fen', value: state.legalFen || '' } }),
     h('button', {
       attrs: {
@@ -53,26 +40,6 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
     }, ctrl.trans.noarg('toStudy'))
   ]);
 }
-
-function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
-  return h('option', {
-    attrs: {
-      value: key,
-      selected: key == ctrl.rules
-    },
-  }, `${ctrl.trans.noarg('variant')} | ${name}`);
-}
-
-const allVariants: Array<[Rules, string]> = [
-  ['chess', 'Standard'],
-  ['antichess', 'Antichess'],
-  ['atomic', 'Atomic'],
-  ['crazyhouse', 'Crazyhouse'],
-  ['horde', 'Horde'],
-  ['kingofthehill', 'King of the Hill'],
-  ['racingkings', 'Racing Kings'],
-  ['3check', 'Three-check'],
-];
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
   const position2option = function (pos: OpeningPosition): VNode {
@@ -125,18 +92,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             }
           }, ctrl.trans(key));
         }))
-      ),
-      h('div.castling', [
-        h('strong', ctrl.trans.noarg('castling')),
-        h('div', [
-          castleCheckBox(ctrl, 'K', ctrl.trans.noarg('whiteCastlingKingside'), !!ctrl.options.inlineCastling),
-          castleCheckBox(ctrl, 'Q', 'O-O-O', true)
-        ]),
-        h('div', [
-          castleCheckBox(ctrl, 'k', ctrl.trans.noarg('blackCastlingKingside'), !!ctrl.options.inlineCastling),
-          castleCheckBox(ctrl, 'q', 'O-O-O', true)
-        ])
-      ])
+      )
     ]),
     ...(ctrl.cfg.embed ? [h('div.actions', [
       h('a.button.button-empty', {
@@ -154,22 +110,12 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
         }
       }, ctrl.trans.noarg('clearBoard'))
     ])] : [
-        h('div', [
-          h('select', {
-            attrs: { id: 'variants' },
-            on: {
-              change(e) {
-                ctrl.setRules((e.target as HTMLSelectElement).value as Rules);
-              }
-            }
-          }, allVariants.map(x => variant2option(x[0], x[1], ctrl)))
-        ]),
         h('div.actions', [
           h('a.button.button-empty.text', {
             attrs: { 'data-icon': 'q' },
             on: {
               click() {
-                ctrl.setFen(EMPTY_FEN);
+                ctrl.setFen('9/9/9/9/9/9/9/9/9');
               }
             }
           }, ctrl.trans.noarg('clearBoard')),
@@ -246,8 +192,9 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
           },
           input(e) {
             const el = e.target as HTMLInputElement;
-            const valid = parseFen(el.value.trim()).isOk;
-            el.setCustomValidity(valid ? '' : 'Invalid FEN');
+            console.log("VALID?", el.value.trim())
+            const gs = Init.init(el.value.trim());
+            el.setCustomValidity(gs.validity ? '' : 'Invalid FEN');
           },
           blur(e) {
             const el = e.target as HTMLInputElement;
@@ -280,7 +227,8 @@ let lastTouchMovePos: NumberPair | undefined;
 function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, position: 'top' | 'bottom'): VNode {
   const selectedClass = selectedToClass(ctrl.selected());
 
-  const pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function (role) {
+  const pieces = ['king', 'rook', 'bishop', 'gold', 'silver', 'knight', 'lance', 'pawn', 'dragon', 'horse', 'promotedSilver', 'promotedKnight', 'promotedLance', 'tokin'].map(function (role) {
+    console.log(color, role);
     return [color, role];
   });
 

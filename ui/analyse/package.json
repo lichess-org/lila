@@ -23,11 +23,12 @@
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",
-    "chessops": "^0.6.0",
     "common": "2.0.0",
     "game": "2.0.0",
     "nvui": "2.0.0",
+    "shogi.js": "^2.0.3",
     "shogiground": "file:/home/liskadan/lila/ui/shogiground",
+    "shogiutil": "file:/home/liskadan/lila/ui/shogiutil",
     "snabbdom": "^0.7.4",
     "tree": "2.0.0"
   },

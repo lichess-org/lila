@@ -1,14 +1,13 @@
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
-import { renderEval } from './util';
+import { renderEval, cubicRegressionEval } from './util';
 import * as winningChances from './winningChances';
 import { defined } from 'common';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { opposite, parseUci } from 'chessops/util';
-import { lichessVariantRules } from 'chessops/compat';
-import { parseFen } from 'chessops/fen';
-import { makeSanVariation } from 'chessops/san';
-import { setupPosition } from 'chessops/variant';
+//import { opposite, parseUci } from 'shogiutil/util';
+import { GameSituation } from 'shogiutil/types';
+// @ts-ignore
+import { Init } from 'shogiutil/vendor/shogijs.js'
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -25,8 +24,8 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
     trans('depthX', evs.client.depth || 0),
     h('span.cloud', { attrs: { title: trans.noarg('cloudAnalysis') } }, 'Cloud')
   ] : [
-    trans('depthX', (evs.client.depth || 0) + '/' + evs.client.maxDepth)
-  ];
+      trans('depthX', (evs.client.depth || 0) + '/' + evs.client.maxDepth)
+    ];
   if (ceval.canGoDeeper()) t.push(h('a.deeper', {
     attrs: {
       title: trans.noarg('goDeeper'),
@@ -108,7 +107,7 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
       reverse: ctrl.getOrientation() === 'black'
     }
   }, [
-    h('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }),
+    h('div.black', { attrs: { style: `height: ${100 - cubicRegressionEval(ev) * 50}%` } }),
     ...gaugeTicks
   ]);
 }
@@ -163,17 +162,17 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
       ...(threatMode ? [trans.noarg('showThreat')] : engineName(instance)),
       h('span.info',
         ctrl.outcome() ? [trans.noarg('gameOver')] :
-        (threatMode ? [threatInfo(ctrl, threat)] : localEvalInfo(ctrl, evs))
+          (threatMode ? [threatInfo(ctrl, threat)] : localEvalInfo(ctrl, evs))
       )
     ])
   ] : [
-    pearl ? h('pearl', [pearl]) : null,
-    h('help', [
-      ...engineName(instance),
-      h('br'),
-      trans.noarg('inLocalBrowser')
-    ])
-  ];
+      pearl ? h('pearl', [pearl]) : null,
+      h('help', [
+        ...engineName(instance),
+        h('br'),
+        trans.noarg('inLocalBrowser')
+      ])
+    ];
 
   const switchButton: VNode | null = ctrl.mandatoryCeval && ctrl.mandatoryCeval() ? null : h('div.switch', {
     attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' }
@@ -221,15 +220,14 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = parseInt(instance.multiPv()),
     node = ctrl.getNode(),
-    setup = parseFen(node.fen).unwrap();
-  let pvs : Tree.PvData[], threat = false;
+    gs: GameSituation = Init.init(node.fen);
+  let pvs: Tree.PvData[], threat = false;
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     threat = true;
   } else if (node.ceval) pvs = node.ceval.pvs;
   else pvs = [];
-  if (threat) setup.turn = opposite(setup.turn);
-  const pos = setupPosition(lichessVariantRules(instance.variant.key), setup);
+  if (threat) console.log("Threat", gs);//player = opposite(gs.player);
   return h('div.pv_box', {
     attrs: { 'data-fen': node.fen },
     hook: {
@@ -249,13 +247,13 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
       },
       postpatch: (_, vnode) => checkHover(vnode.elm as HTMLElement, instance)
     }
-  }, [...Array(multiPv).keys()].map(function(i) {
+  }, [...Array(multiPv).keys()].map(function (i) {
     if (!pvs[i]) return h('div.pv');
     return h('div.pv', threat ? {} : {
       attrs: { 'data-uci': pvs[i].moves[0] }
     }, [
       multiPv > 1 ? h('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp!)) : null,
-      h('span', pos.unwrap(pos => makeSanVariation(pos, pvs[i].moves.slice(0, 12).map(m => parseUci(m)!)), _ => '--'))
+      h('span', '--')
     ]);
   }));
 }

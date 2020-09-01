@@ -1,138 +1,135 @@
-var Chess = require('chess.js').Chess;
-var util = require('./util');
+var Shogi = require("shogiutil/vendor/Shogi").Shogi;
+var util = require("./util");
+const { roleToSan } = require("./util");
 
-module.exports = function(fen, appleKeys) {
-
-  var chess = new Chess(fen);
+module.exports = function (fen, appleKeys) {
+  var shogi = Shogi.init(fen);
+  var oldShogi;
+  console.log(shogi);
 
   // adds enemy pawns on apples, for collisions
   if (appleKeys) {
-    var color = chess.turn() === 'w' ? 'b' : 'w';
-    appleKeys.forEach(function(key) {
-      chess.put({
-        type: 'p',
-        color: color
-      }, key);
+    var color = shogi.player === "white" ? "black" : "white";
+    appleKeys.forEach(function (key) {
+      console.log("updateApple", color);
+      shogi = Shogi.init(Shogi.place(shogi.fen, "pawn", color, key));
+      console.log(shogi.fen);
     });
   }
 
-  function getColor() {
-    return chess.turn() == "w" ? "white" : "black";
+  function updateShogi(s) {
+    console.log("UPDATING WITH ", s);
+    oldShogi = shogi;
+    shogi = s;
   }
 
-  function setColor(c) {
-    var turn = c === 'white' ? 'w' : 'b';
-    var newFen = util.setFenTurn(chess.fen(), turn);
-    chess.load(newFen);
-    if (getColor() !== c) {
-      // the en passant square prevents setting color
-      newFen = newFen.replace(/ (w|b) ([kKqQ-]{1,4}) \w\d /, ' ' + turn + ' $2 - ');
-      chess.load(newFen);
+  function undo() {
+    shogi = oldShogi;
+  }
+
+  function getSquarePiece(key) {
+    if (shogi.pieceMap[key]) {
+      var role = shogi.pieceMap[key].slice(6, 7);
+      var color = shogi.pieceMap[key].slice(0, 5);
+      return { type: role, color: color };
+    } else {
+      return null;
     }
   }
 
-  var findCaptures = function() {
-    return chess.moves({
-      verbose: true
-    }).filter(function(move) {
-      return move.captured;
-    }).map(function(move) {
-      return {
-        orig: move.from,
-        dest: move.to
-      };
-    });
+  function getColor() {
+    return shogi.player == "white" ? "white" : "black";
   }
 
+  function setColor(c) {
+    var turn = c === "white" ? "w" : "b";
+    var newFen = util.setFenTurn(shogi.fen, turn);
+    console.log("setColor:");
+    updateShogi(Shogi.init(newFen));
+    console.log(shogi.fen);
+  }
+
+  function filterPieces(c) {
+    var allPos = [];
+    for (var i in shogi.pieceMap) {
+      if (shogi.pieceMap[i].startsWith(c)) {
+        allPos.push(i);
+      }
+    }
+    return allPos;
+  }
+
+  function findKing(c) {
+    let king;
+    if (color === "white") king = "white-king";
+    else king = "black-king";
+    for (var i in shogi.pieceMap) {
+      if (shogi.pieceMap[i] === king) {
+        return i;
+      }
+    }
+  }
+
+  var findCaptures = function () {
+    var allCaptures = [];
+    const pieces = filterPieces(getColor());
+    for (var i in shogi.dests) {
+      for (var j in shogi.dests[i]) {
+        if (pieces.includes(shogi.dests[i][j]))
+          allCaptures.push({ orig: i, dest: shogi.dests[i][j] });
+      }
+    }
+    return allCaptures;
+  };
+
   return {
-    dests: function(opts) {
+    dests: function (opts) {
       opts = opts || {};
-      var dests = {};
-      chess.SQUARES.forEach(function(s) {
-        var ms = chess.moves({
-          square: s,
-          verbose: true,
-          legal: !opts.illegal
-        });
-        if (ms.length) dests[s] = ms.map(function(m) {
-          return m.to;
-        });
-      });
-      return dests;
+      if (opts.illegal) return Shogi.getUnsafeDests(shogi.fen);
+      return shogi.dests;
     },
-    color: function(c) {
+    color: function (c) {
       if (c) setColor(c);
       else return getColor();
     },
-    fen: chess.fen,
-    move: function(orig, dest, prom) {
-      return chess.move({
-        from: orig,
-        to: dest,
-        promotion: prom ? util.roleToSan[prom].toLowerCase() : null
-      });
+    fen: function () {
+      return shogi.fen;
     },
-    occupation: function() {
-      var map = {};
-      chess.SQUARES.forEach(function(s) {
-        var p = chess.get(s);
-        if (p) map[s] = p;
-      });
-      return map;
+    move: function (orig, dest, prom) {
+      console.log("move:");
+      updateShogi(Shogi.move(shogi.fen, orig, dest, prom ? prom : "")); // valid?
+      console.log(shogi.fen);
+      return { from: orig, to: dest, promotion: prom };
     },
-    kingKey: function(color) {
-      for (var i in chess.SQUARES) {
-        var p = chess.get(chess.SQUARES[i]);
-        if (p && p.type === 'k' && p.color === (color === 'white' ? 'w' : 'b'))
-          return chess.SQUARES[i];
-      }
+    occupation: function () {
+      return shogi.pieceMap;
     },
-    findCapture: function() {
+    kingKey: function (color) {
+      return findKing(color);
+    },
+    findCapture: function () {
       return findCaptures()[0];
     },
-    findUnprotectedCapture: function() {
-      return findCaptures().find(function(capture) {
-        var clone = new Chess(chess.fen());
-        clone.move({from: capture.orig, to: capture.dest});
-        return !clone.moves({
-          verbose: true
-        }).some(function(m) {
-          return m.captured && m.to === capture.dest;
-        });
-      });
+    findUnprotectedCapture: function () {
+      return false;
     },
-    checks: function() {
-      if (!chess.in_check()) return null;
-      var color = getColor()
-      setColor(color === 'white' ? 'black' : 'white');
-      var checks = chess.moves({
-        verbose: true
-      }).filter(function(move) {
-        return move.captured === 'k';
-      }).map(function(move) {
-        return {
-          orig: move.from,
-          dest: move.to
-        };
-      });
-      setColor(color);
-      return checks;
+    checks: function () {
+      if (!shogi.check) return null;
+      return shogi.check;
     },
-    playRandomMove: function() {
-      var moves = chess.moves({
-        verbose: true
-      });
-      if (moves.length) {
-        var move = moves[Math.floor(Math.random() * moves.length)];
-        chess.move(move);
-        return {
-          orig: move.from,
-          dest: move.to
-        };
-      }
+    playRandomMove: function () {
+      const orig = Object.keys(shogi.dests)[
+        Math.floor(Math.random() * Object.keys(shogi.dests).length)
+      ];
+      const moves = shogi.dests[orig];
+      const dest = moves[Math.floor(Math.random() * moves.length)];
+      console.log("randomMove");
+      updateShogi(Shogi.move(shogi.fen, orig, dest));
+      console.log(shogi.fen);
+      return { orig: orig, dest: dest };
     },
-    get: chess.get,
-    undo: chess.undo,
-    instance: chess
+    get: getSquarePiece,
+    undo: undo,
+    instance: shogi,
   };
 };

@@ -5,7 +5,7 @@ import { onInsert } from '../util';
 import AnalyseCtrl from '../ctrl';
 
 const eventNames = ['mousedown', 'touchstart'];
-const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+const oKeys = ['pawn', 'knight', 'bishop', 'rook', 'lance', 'silver', 'gold'];
 
 type Position = 'top' | 'bottom';
 

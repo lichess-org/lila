@@ -37,7 +37,7 @@ You need both!</string>
   <string name="lastOne">Last one!</string>
   <string name="kingComplete">You can now command the commander!</string>
   <string name="theKnight">The knight</string>
-  <string name="itMovesInAnLShape">It moves in an L shape</string>
+  <string name="itMovesInAnLShape">It moves in an L shape, but in Shogi only forward!</string>
   <string name="knightIntro">Here\'s a challenge for you. The knight is... a tricky piece.</string>
   <string name="knightsHaveAFancyWay">Knights have a fancy way
 of jumping around!</string>

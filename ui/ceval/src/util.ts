@@ -8,9 +8,13 @@ export function renderEval(e: number): string {
 }
 
 export function sanIrreversible(variant: VariantKey, san: string): boolean {
-  if (san.startsWith('O-O')) return true;
   if (variant === 'crazyhouse') return false;
   if (san.includes('x')) return true; // capture
   if (san.toLowerCase() === san) return true; // pawn move
   return variant === 'threeCheck' && san.includes('+');
+}
+
+// making the evalbar a bit more flat, because sente's getting +1.6 right off the bat, which doesn't look good
+export function cubicRegressionEval(x: number): number {
+  return 1 + 0.4505495 * x + 1.284439 * Math.pow(10, -16) * Math.pow(x, 2) + 0.5494505 * Math.pow(x, 3)
 }

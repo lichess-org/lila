@@ -1,45 +1,47 @@
-var util = require('../util');
+var util = require("../util");
 var arrow = util.arrow;
 
 module.exports = {
-  key: 'rook',
-  title: 'theRook',
-  subtitle: 'itMovesInStraightLines',
-  image: util.assetUrl + 'images/learn/pieces/R.svg',
-  intro: 'rookIntro',
-  illustration: util.pieceImg('rook'),
-  levels: [{
-    goal: 'rookGoal',
-    fen: '8/8/8/8/8/8/4R3/8 w - -',
-    apples: 'e7',
-    nbMoves: 1,
-    shapes: [arrow('e2e7')]
-  }, {
-    goal: 'grabAllTheStars',
-    fen: '8/2R5/8/8/8/8/8/8 w - -',
-    apples: 'c5 g5',
-    nbMoves: 2,
-    shapes: [arrow('c7c5'), arrow('c5g5')]
-  }, {
-    goal: 'theFewerMoves',
-    fen: '8/8/8/8/3R4/8/8/8 w - -',
-    apples: 'a4 g3 g4',
-    nbMoves: 3
-  }, {
-    goal: 'theFewerMoves',
-    fen: '7R/8/8/8/8/8/8/8 w - -',
-    apples: 'f8 g1 g7 g8 h7',
-    nbMoves: 5
-  }, {
-    goal: 'useTwoRooks',
-    fen: '8/1R6/8/8/3R4/8/8/8 w - -',
-    apples: 'a4 g3 g7 h4',
-    nbMoves: 4
-  }, {
-    goal: 'useTwoRooks',
-    fen: '8/8/8/8/8/5R2/8/R7 w - -',
-    apples: 'b7 d1 d5 f2 f7 g4 g7',
-    nbMoves: 7
-  }].map(util.toLevel),
-  complete: 'rookComplete'
+  key: "rook",
+  title: "theRook",
+  subtitle: "itMovesInStraightLines",
+  image: util.assetUrl + "images/learn/pieces/R.svg",
+  intro: "rookIntro",
+  illustration: util.pieceImg("rook"),
+  levels: [
+    {
+      goal: "rookGoal",
+      fen: "9/9/9/9/9/9/9/4R4/9 w -",
+      apples: "e6",
+      nbMoves: 1,
+      shapes: [arrow("e2e6")],
+    },
+    {
+      goal: "grabAllTheStars",
+      fen: "9/9/9/2R5/9/9/9/9/9 w -",
+      apples: "c3 g3",
+      nbMoves: 2,
+      shapes: [arrow("c6c3"), arrow("c3g3")],
+    },
+    {
+      goal: "useTwoRooks",
+      fen: "9/9/9/1R7/9/3R5/9/9/9 w -",
+      apples: "a4 g3 g6 h4",
+      nbMoves: 4,
+    },
+    {
+      goal: "theFewerMoves",
+      fen: "9/9/9/9/9/9/9/9/8R w -",
+      apples: "g9 h1 h8 h9 i8",
+      nbMoves: 5,
+      explainPromotion: true,
+    },
+    {
+      goal: "theFewerMoves",
+      fen: "9/7R1/9/9/9/9/9/9/9 w -",
+      apples: "h2 g1 g8 f7",
+      nbMoves: 4,
+    },
+  ].map(util.toLevel),
+  complete: "rookComplete",
 };

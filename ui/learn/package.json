@@ -15,10 +15,12 @@
     "@build/rollupProject": "2.0.0"
   },
   "dependencies": {
+    "shogiutil": "1.0.0",
     "chess.js": "github:ornicar/chess.js#learn",
     "common": "2.0.0",
+    "merge": "^1.2.1",
     "mithril": "github:ornicar/mithril.js#lila-1",
-    "shogiground": "file:/home/liskadan/lila/ui/shogiground"
+    "snabbdom": "0.7.4"
   },
   "scripts": {
     "dev": "rollup --config",

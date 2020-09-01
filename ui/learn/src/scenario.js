@@ -1,46 +1,51 @@
-var util = require('./util');
-var ground = require('./ground');
+var util = require("./util");
+var ground = require("./ground");
 
-module.exports = function(blueprint, opts) {
-
-  var steps = (blueprint || []).map(function(step) {
+module.exports = function (blueprint, opts) {
+  var steps = (blueprint || []).map(function (step) {
     if (step.move) return step;
     return {
       move: step,
-      shapes: []
+      shapes: [],
     };
   });
 
   var it = 0;
   var isFailed = false;
 
-  var fail = function() {
+  var fail = function () {
     isFailed = true;
     return false;
-  }
+  };
 
-  var opponent = function() {
+  var opponent = function () {
     var step = steps[it];
     if (!step) return;
     var move = util.decomposeUci(step.move);
-    var res = opts.chess.move(move[0], move[1], move[2]);
+    var res = opts.shogi.move(move[0], move[1], move[2]);
     if (!res) return fail();
     it++;
-    ground.fen(opts.chess.fen(), opts.chess.color(), opts.makeChessDests(), move);
-    if (step.shapes) setTimeout(function() {
-      ground.setShapes(step.shapes);
-    }, 500);
+    ground.fen(
+      opts.shogi.fen(),
+      opts.shogi.color(),
+      opts.makeShogiDests(),
+      move
+    );
+    if (step.shapes)
+      setTimeout(function () {
+        ground.setShapes(step.shapes);
+      }, 500);
   };
 
   return {
-    isComplete: function() {
+    isComplete: function () {
       return it === steps.length;
     },
-    isFailed: function() {
+    isFailed: function () {
       return isFailed;
     },
     opponent: opponent,
-    player: function(move) {
+    player: function (move) {
       var step = steps[it];
       if (!step) return;
       if (step.move !== move) return fail();
@@ -48,6 +53,6 @@ module.exports = function(blueprint, opts) {
       if (step.shapes) ground.setShapes(step.shapes);
       setTimeout(opponent, 1000);
       return true;
-    }
+    },
   };
 };

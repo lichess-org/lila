@@ -26,13 +26,13 @@ const abFile = process.env.LILA_AB_FILE;
 
 const jqueryFill = () => gulp.src('src/jquery.fill.js')
   .pipe(buffer())
-  .pipe(terser({safari10: true}))
+  .pipe(terser({ safari10: true }))
   .pipe(gulp.dest('./dist'));
 
 const ab = () => {
   if (abFile) return gulp.src(abFile)
     .pipe(buffer())
-    .pipe(terser({safari10: true}))
+    .pipe(terser({ safari10: true }))
     .pipe(gulp.dest('./dist'));
   else {
     logger.info(colors.yellow('Building without AB file'));
@@ -65,31 +65,31 @@ const highcharts = () => gulp.src([
   cwdbase: true
 }).pipe(gulp.dest('../../public/vendor/highcharts-4.2.5/'));
 
-const stockfishJs = () => gulp.src([
-  require.resolve('stockfish.js/stockfish.wasm.js'),
-  require.resolve('stockfish.js/stockfish.wasm'),
-  require.resolve('stockfish.js/stockfish.js')
-]).pipe(gulp.dest('../../public/vendor/stockfish.js'));
-
-const stockfishWasm = () => gulp.src([
-  require.resolve('stockfish.wasm/stockfish.js'),
-  require.resolve('stockfish.wasm/stockfish.wasm'),
-  require.resolve('stockfish.wasm/stockfish.worker.js')
-]).pipe(gulp.dest('../../public/vendor/stockfish.wasm/'));
-
-const stockfishMvWasm = () => gulp.src([
-  require.resolve('stockfish-mv.wasm/stockfish.js'),
-  require.resolve('stockfish-mv.wasm/stockfish.js.mem'),
-  require.resolve('stockfish-mv.wasm/stockfish.wasm'),
-  require.resolve('stockfish-mv.wasm/pthread-main.js')
-]).pipe(gulp.dest('../../public/vendor/stockfish-mv.wasm/'));
+// const stockfishJs = () => gulp.src([
+//   require.resolve('stockfish.js/stockfish.wasm.js'),
+//   require.resolve('stockfish.js/stockfish.wasm'),
+//   require.resolve('stockfish.js/stockfish.js')
+// ]).pipe(gulp.dest('../../public/vendor/stockfish.js'));
+// 
+// const stockfishWasm = () => gulp.src([
+//   require.resolve('stockfish.wasm/stockfish.js'),
+//   require.resolve('stockfish.wasm/stockfish.wasm'),
+//   require.resolve('stockfish.wasm/stockfish.worker.js')
+// ]).pipe(gulp.dest('../../public/vendor/stockfish.wasm/'));
+// 
+// const stockfishMvWasm = () => gulp.src([
+//   require.resolve('stockfish-mv.wasm/stockfish.js'),
+//   require.resolve('stockfish-mv.wasm/stockfish.js.mem'),
+//   require.resolve('stockfish-mv.wasm/stockfish.wasm'),
+//   require.resolve('stockfish-mv.wasm/pthread-main.js')
+// ]).pipe(gulp.dest('../../public/vendor/stockfish-mv.wasm/'));
 
 const prodSource = () => browserify(browserifyOpts('src/index.ts', false))
   .plugin(tsify)
   .bundle()
   .pipe(source(`${fileBaseName}.source.min.js`))
   .pipe(buffer())
-  .pipe(terser({safari10: true}))
+  .pipe(terser({ safari10: true }))
   .pipe(gulp.dest('./dist'));
 
 const devSource = () => browserify(browserifyOpts('src/index.ts', true))
@@ -101,14 +101,14 @@ const devSource = () => browserify(browserifyOpts('src/index.ts', true))
 function makeDependencies(filename) {
   return function bundleDeps() {
     return gulp.src([
-  '../../public/javascripts/vendor/jquery.min.js',
-  './dist/jquery.fill.js',
-  './dep/powertip.min.js',
-  './dep/howler.min.js',
-  './dep/mousetrap.min.js',
-  './dist/consolemsg.js',
-  ...(abFile ? ['./dist/ab.js'] : []),
-])
+      '../../public/javascripts/vendor/jquery.min.js',
+      './dist/jquery.fill.js',
+      './dep/powertip.min.js',
+      './dep/howler.min.js',
+      './dep/mousetrap.min.js',
+      './dist/consolemsg.js',
+      ...(abFile ? ['./dist/ab.js'] : []),
+    ])
       .pipe(concat(filename))
       .pipe(destination());
   };
@@ -128,8 +128,8 @@ function makeBundle(filename) {
 const gitSha = (cb) => {
   const info = JSON.stringify({
     date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
-    commit: execSync('git rev-parse -q --short HEAD', {encoding: 'utf-8'}).trim(),
-    message: execSync('git log -1 --pretty=%s', {encoding: 'utf-8'}).trim(),
+    commit: execSync('git rev-parse -q --short HEAD', { encoding: 'utf-8' }).trim(),
+    message: execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim(),
   });
   if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
   fs.writeFileSync(
@@ -142,16 +142,16 @@ const standalonesJs = () => gulp.src([
   'util.js', 'trans.js', 'tv.js', 'puzzle.js', 'user.js', 'coordinate.js', 'captcha.js', 'embed-analyse.js'
 ].map(f => `src/standalones/${f}`))
   .pipe(buffer())
-  .pipe(terser({safari10: true}))
+  .pipe(terser({ safari10: true }))
   .pipe(destination());
 
 function singlePackage(file, dest) {
   return () => browserify(browserifyOpts(file, false))
-  .bundle()
-  .pipe(source(dest))
-  .pipe(buffer())
-  .pipe(terser({safari10: false}))
-  .pipe(destination());
+    .bundle()
+    .pipe(source(dest))
+    .pipe(buffer())
+    .pipe(terser({ safari10: false }))
+    .pipe(destination());
 }
 
 const userMod = singlePackage('./src/user-mod.js', 'user-mod.js');
@@ -161,7 +161,6 @@ const deps = makeDependencies('lichess.deps.js');
 
 const tasks = [
   gitSha, jqueryFill, ab, standalonesJs, userMod, clas,
-  stockfishWasm, stockfishMvWasm, stockfishJs,
   deps,
   hopscotch, jqueryBarRating, highcharts
 ];
