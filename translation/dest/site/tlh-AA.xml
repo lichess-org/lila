@@ -2,9 +2,12 @@
 <resources>
   <string name="playWithAFriend">maqaDchuq</string>
   <string name="playWithTheMachine">maQuj jIH De\'wI\' je</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">QujmeH vay\' DarItmeH, tlharwIlvam yInob</string>
   <string name="gameOver">Quj bertlham</string>
+  <string name="waitingForOpponent">narghmeH ghol bIloStaH</string>
   <string name="waiting">loS</string>
   <string name="yourTurn">poHlIj</string>
+  <string name="aiNameLevelAiLevel">%1$s patlh%2$s</string>
   <string name="level">mIw</string>
   <string name="toggleTheChat">choH QumwI\'</string>
   <string name="toggleSound">choH wab</string>
@@ -17,10 +20,18 @@
   <string name="createAGame">tagh Quj</string>
   <string name="whiteIsVictorious">Zha riest\'n, teskas tal tai-kleon</string>
   <string name="blackIsVictorious">Zha riest\'n, teskas tal tai-kleon</string>
+  <string name="youPlayTheWhitePieces">QujwI\' lIw chIS tIlo\'</string>
+  <string name="youPlayTheBlackPieces">QujwI\' lIw Hurgh tIlo\'</string>
+  <string name="itsYourTurn">yIjop!</string>
   <string name="kingInTheCenter">botlh \'el ta\'</string>
   <string name="threeChecks">wej ta\' buQlu\'</string>
+  <string name="raceFinished">rIn Do qaD</string>
+  <string name="variantEnding">rIn Sar</string>
   <string name="newOpponent">chu\' ghol</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">SuQujqa\' \'e\' neH ghollI\'</string>
   <string name="joinTheGame">Quj muv</string>
+  <string name="whitePlays">Quj chISwI\'</string>
+  <string name="blackPlays">Quj HurghwI\'</string>
   <string name="computerAnalysis">De\'wI\' poj</string>
   <string name="computerAnalysisAvailable">SaH De\'wI\' poj</string>
   <string name="analysis">poj Quj \'echlet</string>
