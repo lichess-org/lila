@@ -676,6 +676,7 @@
   <string name="withNobody">Ешкіммен</string>
   <string name="withFriends">Достармен</string>
   <string name="withEverybody">Бәрімен</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">%s деген поштаны сіз өткенде тіркегенсіз</string>
   <string name="bulletBlitzClassical">Буллит, блитц, классикалық</string>
   <string name="viewTheSolution">Жауабты қарау</string>
   <string name="followAndChallengeFriends">Достарыңызға серік болып, ойынға шақыру</string>
