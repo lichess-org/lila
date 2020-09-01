@@ -709,6 +709,7 @@
   <string name="xCreatesStudyY">%1$s %2$s деген зерттеуді құрды</string>
   <string name="quickPairing">Дайын қалыптар</string>
   <string name="lobby">Алаң</string>
+  <string name="anonymous">Аноним</string>
   <string name="yourScore">Жетістігіңіз: %s</string>
   <string name="language">Тіл</string>
   <string name="background">Фон</string>
@@ -718,6 +719,7 @@
   <string name="backgroundImageUrl">Фон суретіне сілтеме:</string>
   <string name="boardGeometry">Тақта пішіні</string>
   <string name="boardTheme">Тақта өңі</string>
+  <string name="boardSize">Тақта үлкендігі</string>
   <string name="pieceSet">Тастар келбеті</string>
   <string name="chessBasics">Шахмат әліппесі</string>
   <string name="coaches">Ұстаздар</string>
