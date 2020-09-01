@@ -77,7 +77,7 @@ case class Report(
 
   def boostWith: Option[User.ID] =
     (reason == Reason.Boost) ?? {
-      atoms.toList.filter(_.byLichess).map(_.text).flatMap(_.linesIterator).collectFirst {
+      atoms.toList.withFilter(_.byLichess).flatMap(_.text.linesIterator).collectFirst {
         case Report.farmWithRegex(userId)    => userId
         case Report.sandbagWithRegex(userId) => userId
       }

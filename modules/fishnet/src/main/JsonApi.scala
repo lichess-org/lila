@@ -86,8 +86,7 @@ object JsonApi {
       def medianNodes =
         Maths.median {
           evaluations
-            .filterNot(_.mateFound)
-            .filterNot(_.deadDraw)
+            .withFilter(e => !(e.mateFound || e.deadDraw))
             .flatMap(_.nodes)
         }
 

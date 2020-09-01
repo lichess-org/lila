@@ -162,7 +162,7 @@ final class StudyApi(
   private def scheduleTimeline(studyId: Study.Id) =
     scheduler.scheduleOnce(1 minute) {
       byId(studyId) foreach {
-        _.filter(_.isPublic) foreach { study =>
+        _.withFilter(_.isPublic) foreach { study =>
           timeline ! (Propagate(
             StudyCreate(study.ownerId, study.id.value, study.name.value)
           ) toFollowersOf study.ownerId)

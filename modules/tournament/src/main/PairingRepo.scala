@@ -106,7 +106,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
     coll
       .list[Pairing](selectTourUser(tourId, userId))
       .flatMap {
-        _.filter(_ notLostBy userId).map { p =>
+        _.withFilter(_ notLostBy userId).map { p =>
           coll.update.one(
             $id(p.id),
             $set(

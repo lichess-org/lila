@@ -166,7 +166,7 @@ final class RelayApi(
 
   private def sendToContributors(id: Relay.Id, t: String, msg: JsObject): Funit =
     studyApi members Study.Id(id.value) map {
-      _.map(_.contributorIds).filter(_.nonEmpty) foreach { userIds =>
+      _.map(_.contributorIds).withFilter(_.nonEmpty) foreach { userIds =>
         import lila.hub.actorApi.socket.SendTos
         import JsonView.idWrites
         import lila.socket.Socket.makeMessage
