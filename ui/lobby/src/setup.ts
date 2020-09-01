@@ -198,7 +198,7 @@ export default class Setup {
       }
       const ajaxSubmit = color => {
         const poolMember = this.hookToPoolMember(color, $form.serializeArray());
-        $.modal.close();
+        window.lichess.modal.close();
         if (poolMember) {
           this.root.enterPool(poolMember);
           this.root.redraw();

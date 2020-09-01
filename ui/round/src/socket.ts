@@ -145,7 +145,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     simulEnd(simul: game.Simul) {
       li.loadCssPath('modal');
-      $.modal($(
+      window.lichess.modal($(
         '<p>Simul complete!</p><br /><br />' +
         '<a class="button" href="/simul/' + simul.id + '">Back to ' + simul.name + ' simul</a>'
       ));

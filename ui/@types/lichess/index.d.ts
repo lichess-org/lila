@@ -1,5 +1,5 @@
 interface Lichess {
-  // standalones/util.js
+  // components
   requestIdleCallback(f: () => void): void;
   dispatchEvent(el: HTMLElement | Window, eventName: string): void;
   hasTouchEvents: boolean;
@@ -16,7 +16,6 @@ interface Lichess {
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   soundUrl: string;
-  loadedCss: { [key: string]: boolean };
   loadCss(path: string): void;
   loadCssPath(path: string): void;
   jsModule(name: string): string;
@@ -90,6 +89,10 @@ interface Lichess {
   keyboardMove?: any;
   notifyApp: {
     setMsgRead(user: string): void;
+  };
+  modal: {
+    (html: JQuery | string, cls?: string, onClose?: () => void): void;
+    close(): void;
   }
 }
 
