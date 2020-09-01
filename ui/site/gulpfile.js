@@ -24,11 +24,6 @@ const fileBaseName = 'lichess.site';
 
 const abFile = process.env.LILA_AB_FILE;
 
-const jqueryFill = () => gulp.src('src/jquery.fill.js')
-  .pipe(buffer())
-  .pipe(terser({safari10: true}))
-  .pipe(gulp.dest('./dist'));
-
 const ab = () => {
   if (abFile) return gulp.src(abFile)
     .pipe(buffer())
@@ -101,7 +96,6 @@ function makeDependencies(filename) {
   return function bundleDeps() {
     return gulp.src([
   '../../public/javascripts/vendor/jquery.min.js',
-  './dist/jquery.fill.js',
   './dep/powertip.min.js',
   './dep/howler.min.js',
   './dep/mousetrap.min.js',
@@ -159,7 +153,7 @@ const clas = singlePackage('./src/clas.js', 'clas.js');
 const deps = makeDependencies('lichess.deps.js');
 
 const tasks = [
-  gitSha, jqueryFill, ab, standalonesJs, userMod, clas,
+  gitSha, ab, standalonesJs, userMod, clas,
   stockfishWasm, stockfishMvWasm, stockfishJs,
   deps,
   hopscotch, jqueryBarRating, highcharts
