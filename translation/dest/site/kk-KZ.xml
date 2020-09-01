@@ -691,13 +691,21 @@
   <string name="builtForTheLoveOfChessNotMoney">Ақша қуып емес, шахматты қызыққаннан жасап отырмыз</string>
   <string name="everybodyGetsAllFeaturesForFree">Барлық құралдары бүкіл адам үшін тегін</string>
   <string name="zeroAdvertisement">Еш жарнамасыз</string>
+  <string name="fullFeatured">Толыққанды жабдықталған</string>
+  <string name="phoneAndTablet">Телепон мен планшет</string>
   <string name="bulletBlitzClassical">Буллит, блитц, классикалық</string>
+  <string name="correspondenceChess">Пошталық шахмат</string>
+  <string name="onlineAndOfflinePlay">Онлайн және оффлайн ойнау</string>
   <string name="viewTheSolution">Жауабты қарау</string>
   <string name="followAndChallengeFriends">Достарыңызға серік болып, ойынға шақыру</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">%s тіліндегі нұсқасы бар!</item>
     <item quantity="other">%s тіліндегі нұсқасы бар!</item>
   </plurals>
+  <string name="gameAnalysis">Ойынды талдау</string>
+  <string name="xHostsY">%1$s %2$s-ны бастады</string>
+  <string name="xJoinsY">%1$s %2$s-ға қосылды</string>
+  <string name="xLikesY">%1$s %2$s-ны ұнатады</string>
   <string name="quickPairing">Дайын қалыптар</string>
   <string name="lobby">Алаң</string>
   <string name="yourScore">Жетістігіңіз: %s</string>
