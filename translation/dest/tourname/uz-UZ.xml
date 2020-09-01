@@ -27,4 +27,19 @@
   <string name="monthlyClassicalArena">Har Oylik Klassika Arenasi</string>
   <string name="monthlyClassical">Har Oylik Klassika</string>
   <string name="monthlyXArena">Har Oylik %s Arenasi</string>
+  <string name="monthlyX">Har oylik %s</string>
+  <string name="yearlyRapidArena">Har Yillik Rapid Arenasi</string>
+  <string name="yearlyRapid">Har Yillik Rapid</string>
+  <string name="yearlyClassicalArena">Har Yillik Klassika Arenasi</string>
+  <string name="yearlyClassical">Har Yillik Klassika</string>
+  <string name="yearlyXArena">Har Yillik %s Arenasi</string>
+  <string name="yearlyX">Har Yillik %s</string>
+  <string name="rapidShieldArena">Rapid Qalqon Arenasi</string>
+  <string name="rapidShield">Rapid Qalqoni</string>
+  <string name="classicalShieldArena">Klassika Qalqon Arenasi</string>
+  <string name="classicalShield">Klassika Qalqoni</string>
+  <string name="xShieldArena">%s Qalqon Arenasi</string>
+  <string name="xShield">%s Qalqon</string>
+  <string name="openingRapidArena">%s Rapid Arenasi</string>
+  <string name="openingRapid">%s Rapid</string>
 </resources>
