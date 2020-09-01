@@ -822,6 +822,8 @@
   <string name="agreementNice">Мен басқа ойыншыларға құрметпен қараймын деп уәде беремін.</string>
   <string name="agreementAccount">Мен бірнеше аккаунт жасамаймын деп уәде беремін.</string>
   <string name="agreementPolicy">Мен Личестің барлық қағидаларын ұстанамын деп уәде беремін.</string>
+  <string name="searchOrStartNewDiscussion">Жаңа әңгімелесуді бастау не іздеу</string>
+  <string name="edit">Өзгерту</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классикалық</string>
   <string name="ultraBulletDesc">Лезде ойындар: 30 секундтан кем</string>
@@ -829,6 +831,11 @@
   <string name="blitzDesc">Жылдам ойындар: 3-тен 8 минутке дейін</string>
   <string name="rapidDesc">Рапид ойындары: 8-ден 25 минутке дейін</string>
   <string name="classicalDesc">Классикалық ойындар: 25 минут және одан артық</string>
+  <string name="correspondenceDesc">Хат алмасып ойнау: бір жүріске бір не бірнеше күн</string>
+  <string name="puzzleDesc">Шахмат тактикасын үйретуші</string>
+  <string name="important">Ескерту</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Сіздің сұрағыңызға %1$s жауап табылар</string>
+  <string name="inTheFAQ">ЖҚС-да</string>
   <string name="subscribe">Жазылу</string>
   <string name="unsubscribe">Жазылымды тоқтату</string>
 </resources>
