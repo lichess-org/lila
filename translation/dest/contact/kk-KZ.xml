@@ -49,5 +49,8 @@
   <string name="tryEnPassant">\"en passant\" туралы көбірек білу үшін осы шағын интерактивті ойынды ойнап көріңіз.</string>
   <string name="illegalCastling">Қате жасылынған не мүмкін емес бекіну</string>
   <string name="castlingPrevented">Патша бақылаудағы шаршыдан өтсе ғана бекіну мүмкіндігі үзіледі.</string>
-  <string name="castlingRules">Бекіну ережелерін толықтай менгердіңіз бе?</string>
+  <string name="castlingRules">Бекіну ережелерін толықтай меңгеріңіз</string>
+  <string name="tryCastling">Бекінуді жаттығу үшін осы шағын интерактивті ойынды ойнап көріңіз</string>
+  <string name="castlingImported">Егер сіз ойынды жүктеп салсаңыз не бір күйден бастасаңыз, онда бекіну шартын дұрыс орнатуды ұмытпаңыз.</string>
+  <string name="insufficientMaterial">Мат үшін тастар жеткіліксіз</string>
 </resources>
