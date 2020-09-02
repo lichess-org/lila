@@ -59,7 +59,7 @@
   <string name="ratedGame">Seules les parties classées sont prises en compte dans le calcul du classement. Les parties amicales ne sont pas comptées.</string>
   <string name="errorPage">Page d\'erreur</string>
   <string name="reportErrorPage">Si un message d\'erreur s\'est affiché, vous pouvez le signaler :</string>
-  <string name="banAppeal">Demande d\'appel pour un bannissement ou une restriction IP</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Demande d\'appel pour un bannissement ou une restriction IP</string>
   <string name="engineAppeal">Tricherie ou utilisation d\'un programme</string>
   <string name="sendAppealTo">Vous pouvez soumettre une demande d\'appel à %s.</string>
   <string name="falsePositives">De faux positifs se produisent parfois et nous en sommes désolés.</string>

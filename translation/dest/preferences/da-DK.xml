@@ -6,7 +6,7 @@
   <string name="materialDifference">Materialeforskel</string>
   <string name="boardHighlights">Fremhævninger på brættet (af sidste træk og skak)</string>
   <string name="pieceDestinations">Brikdestinationer (gyldige træk og forhånds-træk)</string>
-  <string name="boardCoordinates">Brætkoordinater (A-H, 1-8)</string>
+  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Brætkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Trækliste mens der spilles</string>
   <string name="pgnPieceNotation">Notation</string>
   <string name="chessPieceSymbol">Skakbrik-symbol</string>
@@ -31,13 +31,13 @@
   <string name="inCasualGamesOnly">Kun i ikke-ratede spil</string>
   <string name="promoteToQueenAutomatically">Forfrem til Dronning automatisk</string>
   <string name="whenPremoving">Ved forhåndstræk</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Kræv remis ved trefold gentagelse automatisk</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Kræv remis ved trefold gentagelse automatisk</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når tilbageværende tid &lt; 30 sekunder</string>
   <string name="moveConfirmation">Bekræft træk</string>
   <string name="inCorrespondenceGames">I korrespondancepartier</string>
   <string name="correspondenceAndUnlimited">Korrespondance og ubegrænset</string>
   <string name="confirmResignationAndDrawOffers">Bekræft opgivelse og tilbud om remis</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokade metode</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokade-metode</string>
   <string name="castleByMovingTwoSquares">Flyt kongen to felter</string>
   <string name="castleByMovingOntoTheRook">Flyt kongen over på tårn</string>
   <string name="inputMovesWithTheKeyboard">Lav træk med tastaturet</string>

@@ -6,7 +6,7 @@
   <string name="materialDifference">子力差距</string>
   <string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
   <string name="pieceDestinations">棋子目的地（有效着法与预先走棋）</string>
-  <string name="boardCoordinates">棋盘坐标（A-H, 1-8）</string>
+  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">棋盤座標（A-H, 1-8）</string>
   <string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>
   <string name="zenMode">禪意模式</string>
   <string name="blindfoldChess">蒙眼象棋 (看不见棋子)</string>
