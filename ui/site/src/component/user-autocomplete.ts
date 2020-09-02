@@ -1,7 +1,6 @@
-import {loadCssPath, loadScript} from "./assets";
-import {debounce} from "./functions";
-import {spinnerHtml} from "./intro";
-import pubsub from "./pubsub";
+import { loadCssPath, loadScript } from "./assets";
+import { debounce } from "./functions";
+import spinnerHtml from "./spinner";
 
 export default function($input: JQuery, opts?: any) {
   opts = opts || {};
@@ -57,7 +56,7 @@ export default function($input: JQuery, opts?: any) {
             '</' + tag + '>';
         }
       }
-    }).on('typeahead:render', () => pubsub.emit('content_loaded'));
+    }).on('typeahead:render', () => window.lichess.pubsub.emit('content_loaded'));
     if (opts.focus) $input.focus();
     if (opts.onSelect) $input
       .on('typeahead:select', (_, sel) => opts.onSelect(sel))

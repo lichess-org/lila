@@ -1,4 +1,4 @@
-import { sri } from './intro';
+import sri from './sri';
 
 const builder = storage => {
   const api = {

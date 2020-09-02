@@ -1,5 +1,5 @@
 import pubsub from './pubsub';
-import { spinnerHtml } from './intro';
+import spinnerHtml from './spinner';
 import { loadCssPath, loadScript, jsModule } from './assets';
 
 export default function() {

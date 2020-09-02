@@ -1,5 +1,5 @@
-import { hasTouchEvents, spinnerHtml } from './intro';
-import pubsub from './pubsub';
+import spinnerHtml from './spinner';
+import hasTouchEvents from './touchEvents';
 import { requestIdleCallback } from './functions';
 
 let hoverable: boolean;
@@ -20,7 +20,7 @@ function onPowertipPreRender(id: string, preload?: (url: string) => void) {
       url: url + '/mini',
       success(html) {
         $('#' + id).html(html);
-        pubsub.emit('content_loaded');
+        window.lichess.pubsub.emit('content_loaded');
       }
     });
   };

@@ -88,7 +88,7 @@ object page {
         )
       },
       withSearch option frag(jsTag("search.js")),
-      isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
+      isGranted(_.UserSpy) option jsModule("mod.user")
     )
 
   def disabled(u: User)(implicit ctx: Context) =

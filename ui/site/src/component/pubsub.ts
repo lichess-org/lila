@@ -6,16 +6,17 @@ const pubsub: Pubsub = {
     subs[name].push(cb);
   },
   off(name: string, cb) {
-    if (!subs[name]) return;
-    for (var i in subs[name]) {
-      if (subs[name][i] === cb) {
-        subs[name].splice(i);
-        break;
+    if (subs[name])
+      for (let i in subs[name]) {
+        if (subs[name][i] === cb) {
+          subs[name].splice(i);
+          break;
+        }
       }
-    }
   },
   emit(name: string, ...args: any[]) {
-    if (subs[name]) for (let i in subs[name]) subs[name][i].apply(null, args);
+    if (subs[name]) 
+      for (let i in subs[name]) subs[name][i].apply(null, args);
   }
 };
 

@@ -1,6 +1,5 @@
 import { storage as makeStorage } from './storage';
-import { sri } from './intro';
-import pubsub from './pubsub';
+import sri from './sri';
 import { reload } from './reload';
 import idleTimer from './idle-timer';
 
@@ -46,6 +45,7 @@ function makeAckable(send) {
 // versioned events, acks, retries, resync
 const StrongSocket = function(url: string, version: number | false, settings?: any) {
 
+  const pubsub = window.lichess.pubsub;
   var settings = $.extend(true, {}, StrongSocket.defaults, settings);
   var options = settings.options;
   var ws;
@@ -274,7 +274,7 @@ const StrongSocket = function(url: string, version: number | false, settings?: a
 };
 
 StrongSocket.defaults = {
-  events: { },
+  events: {},
   params: { sri },
   options: {
     idle: false,

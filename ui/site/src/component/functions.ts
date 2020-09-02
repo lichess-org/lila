@@ -1,16 +1,4 @@
-import { storage } from './storage';
-import { loadCssPath } from './assets';
-
 export const requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
-
-export const once = (key: string, mod: 'always' | undefined) => {
-  if (mod === 'always') return true;
-  if (!storage.get(key)) {
-    storage.set(key, '1');
-    return true;
-  }
-  return false;
-};
 
 type Debounced = (...args) => any;
 
@@ -47,14 +35,6 @@ export const escapeHtml = str =>
       .replace(/'/g, '&#39;')
       .replace(/"/g, '&quot;') :
     str;
-
-export const makeChat = data =>
-  new Promise(resolve =>
-    requestAnimationFrame(() => {
-      data.loadCss = loadCssPath;
-      resolve(window.LichessChat(document.querySelector('.mchat'), data));
-    })
-  );
 
 export const formAjax = $form => ({
   url: $form.attr('action'),

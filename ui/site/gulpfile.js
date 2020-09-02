@@ -133,14 +133,13 @@ function singlePackage(file, dest) {
   .pipe(destination());
 }
 
-const userMod = singlePackage('./src/user-mod.js', 'user-mod.js');
 const clas = singlePackage('./src/clas.js', 'clas.js');
 const tv = singlePackage('./src/tv.ts', 'tv.js');
 
 const deps = makeDependencies('lichess.deps.js');
 
 const tasks = [
-  gitSha, ab, standalonesJs, userMod, clas,
+  gitSha, ab, standalonesJs, clas,
   stockfishWasm, stockfishMvWasm, stockfishJs,
   deps,
   hopscotch, jqueryBarRating, highcharts

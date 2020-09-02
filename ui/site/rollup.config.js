@@ -9,4 +9,8 @@ export default rollupProject({
     input: 'src/tv-embed.ts',
     output: 'lichess.tv.embed',
   },
+  modUser: {
+    input: 'src/mod-user.ts',
+    output: 'lichess.mod.user',
+  },
 });

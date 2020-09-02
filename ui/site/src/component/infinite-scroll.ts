@@ -1,5 +1,4 @@
-import { spinnerHtml } from './intro';
-import pubsub from './pubsub';
+import spinnerHtml from './spinner';
 
 export default function loadInfiniteScroll(selector: string) {
   $(selector).each(function(this: HTMLElement) {
@@ -17,7 +16,7 @@ export default function loadInfiniteScroll(selector: string) {
       }
     }, function() {
       $("#infscr-loading").remove();
-      pubsub.emit('content_loaded');
+      window.lichess.pubsub.emit('content_loaded');
       const ids: string[] = [];
       $(self).find('.paginated[data-dedup]').each(function(this: HTMLElement) {
         const id = $(this).data('dedup');

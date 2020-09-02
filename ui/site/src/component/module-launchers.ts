@@ -1,5 +1,5 @@
 import StrongSocket from './socket';
-import { makeChat } from './functions';
+import makeChat from './chat';
 import trans from './trans';
 
 export default function moduleLaunchers() {
@@ -20,8 +20,8 @@ function startTournament(cfg) {
   let tournament;
   window.lichess.socket = StrongSocket(
     `/tournament/${cfg.data.id}/socket/v5`, cfg.data.socketVersion, {
-      receive: (t, d) => tournament.socketReceive(t, d)
-    });
+    receive: (t, d) => tournament.socketReceive(t, d)
+  });
   cfg.socketSend = window.lichess.socket.send;
   cfg.element = element;
   tournament = window.LichessTournament.start(cfg);

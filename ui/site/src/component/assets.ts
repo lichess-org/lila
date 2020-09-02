@@ -1,4 +1,4 @@
-import { hasTouchEvents } from './intro';
+import hasTouchEvents from './touchEvents';
 
 export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
   opts = opts || {};
