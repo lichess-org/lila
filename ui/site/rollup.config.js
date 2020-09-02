@@ -65,4 +65,8 @@ export default rollupProject({
     input: 'src/coordinate.ts',
     output: 'lichess.coordinate',
   },
+  captcha: {
+    input: 'src/captcha.ts',
+    output: 'lichess.captcha',
+  },
 });

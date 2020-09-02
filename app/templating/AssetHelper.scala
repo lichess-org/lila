@@ -70,7 +70,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     ctx.blind option
       jsAt(s"compiled/lichess.analyse.nvui.min.js")
 
-  def captchaTag = jsAt(s"compiled/captcha.js")
+  def captchaTag = jsModule("captcha")
 
   lazy val highchartsLatestTag = raw {
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""
