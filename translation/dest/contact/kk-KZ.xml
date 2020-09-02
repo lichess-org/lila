@@ -46,4 +46,6 @@
   <string name="howToReportBug">Ақауды сипаттап беріңізші, ақаудың орнына не күткен едіңіз, осы ақауды қайталау үшін қандай қадамдар жасау керек.</string>
   <string name="illegalPawnCapture">Сарбазды қате жолмен жеу</string>
   <string name="calledEnPassant">Бұл \"en passant\" деп аталады, шахматтағы ереженің бірі.</string>
+  <string name="tryEnPassant">\"en passant\" туралы көбірек білу үшін осы шағын интерактивті ойынды ойнап көріңіз.</string>
+  <string name="illegalCastling">Қате жасылынған не мүмкін емес бекіну</string>
 </resources>
