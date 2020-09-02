@@ -12,6 +12,7 @@
   <string name="lost2FA">Мен екі сатылы анықтау кодтарын ала алмай отырмын</string>
   <string name="doPasswordReset">Екінші сатыны өшіру үшін құпиясөздің қайта орнатуын аяқтаңыз</string>
   <string name="accountSupport">Маған көмек керек</string>
+  <string name="wantTitle">Личесте менің атауым көрсетілгенін қалаймын</string>
   <string name="doNotReportInForum">Форумдағы ойыншыларға қарсы шағым жібермеңіз.</string>
   <string name="reportBugInForum">Форумның Личес Пікір қалдыру бөлімінде</string>
 </resources>
