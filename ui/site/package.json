@@ -15,6 +15,7 @@
     "gulp-size": "^3",
     "gulp-terser": "^1",
     "request": "^2",
+    "rollup-plugin-copy": "^3.3.0",
     "tsify": "^4.0.0",
     "typescript": "^3",
     "vinyl-buffer": "^1",

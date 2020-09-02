@@ -60,24 +60,6 @@ const highcharts = () => gulp.src([
   cwdbase: true
 }).pipe(gulp.dest('../../public/vendor/highcharts-4.2.5/'));
 
-const stockfishJs = () => gulp.src([
-  require.resolve('stockfish.js/stockfish.wasm.js'),
-  require.resolve('stockfish.js/stockfish.wasm'),
-  require.resolve('stockfish.js/stockfish.js')
-]).pipe(gulp.dest('../../public/vendor/stockfish.js'));
-
-const stockfishWasm = () => gulp.src([
-  require.resolve('stockfish.wasm/stockfish.js'),
-  require.resolve('stockfish.wasm/stockfish.wasm'),
-  require.resolve('stockfish.wasm/stockfish.worker.js')
-]).pipe(gulp.dest('../../public/vendor/stockfish.wasm/'));
-
-const stockfishMvWasm = () => gulp.src([
-  require.resolve('stockfish-mv.wasm/stockfish.js'),
-  require.resolve('stockfish-mv.wasm/stockfish.wasm'),
-  require.resolve('stockfish-mv.wasm/stockfish.worker.js')
-]).pipe(gulp.dest('../../public/vendor/stockfish-mv.wasm/'));
-
 function makeDependencies(filename) {
   return function bundleDeps() {
     return gulp.src([
@@ -127,7 +109,6 @@ const deps = makeDependencies('lichess.deps.js');
 
 const tasks = [
   ab, standalonesJs, userMod, clas,
-  stockfishWasm, stockfishMvWasm, stockfishJs,
   deps,
   hopscotch, jqueryBarRating, highcharts
 ];
