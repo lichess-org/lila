@@ -69,4 +69,8 @@ export default rollupProject({
     input: 'src/captcha.ts',
     output: 'lichess.captcha',
   },
+  expandText: {
+    input: 'src/expand-text.ts',
+    output: 'lichess.expand-text',
+  },
 });

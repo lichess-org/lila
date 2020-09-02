@@ -77,7 +77,7 @@ object topic {
       moreJs = frag(
         jsTag("forum-post.js"),
         formWithCaptcha.isDefined option captchaTag,
-        jsAt("compiled/embed-analyse.js")
+        jsModule("expand-text")
       ),
       moreCss = cssTag("forum"),
       openGraph = lila.app.ui
@@ -101,7 +101,7 @@ object topic {
           topic.name
         ),
         pager,
-        div(cls := "forum-topic__posts embed_analyse")(
+        div(cls := "forum-topic__posts expand-text")(
           posts.currentPageResults.map { p =>
             post.show(
               categ,

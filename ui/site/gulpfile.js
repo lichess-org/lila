@@ -73,17 +73,10 @@ function makeBundle(filename) {
   };
 }
 
-const standalonesJs = () => gulp.src([
-  'embed-analyse.js'
-].map(f => `src/standalones/${f}`))
-  .pipe(buffer())
-  .pipe(terser({safari10: true}))
-  .pipe(destination());
-
 const deps = makeDependencies('lichess.deps.js');
 
 const tasks = [
-  ab, standalonesJs,
+  ab,
   deps,
   hopscotch, jqueryBarRating, highcharts
 ];
