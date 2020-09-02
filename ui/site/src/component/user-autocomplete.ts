@@ -1,8 +1,13 @@
-lichess.userAutocomplete = ($input, opts) => {
+import {loadCssPath, loadScript} from "./assets";
+import {debounce} from "./functions";
+import {spinnerHtml} from "./intro";
+import pubsub from "./pubsub";
+
+export default function($input: JQuery, opts?: any) {
   opts = opts || {};
   const cache = {};
-  lichess.loadCssPath('autocomplete');
-  const sendXhr = lichess.debounce((query, runAsync) =>
+  loadCssPath('autocomplete');
+  const sendXhr = debounce((query, runAsync) =>
     $.ajax({
       url: '/player/autocomplete',
       cache: true,
@@ -21,7 +26,7 @@ lichess.userAutocomplete = ($input, opts) => {
         runAsync(res);
       }
     }), 150);
-  return lichess.loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function() {
+  return loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function() {
     $input.typeahead({
       minLength: opts.minLength || 3,
     }, {
@@ -44,7 +49,7 @@ lichess.userAutocomplete = ($input, opts) => {
       displayKey: 'name',
       templates: {
         empty: '<div class="empty">No player found</div>',
-        pending: lichess.spinnerHtml,
+        pending: spinnerHtml,
         suggestion(o) {
           const tag = opts.tag || 'a';
           return '<' + tag + ' class="ulpt user-link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
@@ -52,11 +57,11 @@ lichess.userAutocomplete = ($input, opts) => {
             '</' + tag + '>';
         }
       }
-    }).on('typeahead:render', () => lichess.pubsub.emit('content_loaded'));
+    }).on('typeahead:render', () => pubsub.emit('content_loaded'));
     if (opts.focus) $input.focus();
     if (opts.onSelect) $input
       .on('typeahead:select', (_, sel) => opts.onSelect(sel))
-      .on('keypress', function(e) {
+      .on('keypress', function(this: HTMLElement, e) {
         if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
       });
   });

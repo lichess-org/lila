@@ -3,8 +3,6 @@ import { loadCssPath } from './assets';
 
 export const requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
 
-export const dispatchEvent = (el: HTMLElement, eventName: string) => el.dispatchEvent(new Event(eventName));
-
 export const once = (key: string, mod: 'always' | undefined) => {
   if (mod === 'always') return true;
   if (!storage.get(key)) {
@@ -14,7 +12,9 @@ export const once = (key: string, mod: 'always' | undefined) => {
   return false;
 };
 
-export const debounce = (func, wait, immediate) => {
+type Debounced = (...args) => any;
+
+export const debounce = (func: (...args) => any, wait: number, immediate = false): Debounced => {
   let timeout, lastBounce = 0;
   return function(this: any) {
     let context = this,

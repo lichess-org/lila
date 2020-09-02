@@ -9,7 +9,7 @@ const kill = () => {
   $('#announce').remove();
 };
 
-const announce = (d?: { msg: string, date: Date }) => {
+const announce = (d?: LichessAnnouncement) => {
   if (!d) return;
   kill();
   if (d.msg) {

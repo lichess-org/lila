@@ -1,4 +1,4 @@
-const builder = i18n => {
+const trans = i18n => {
   var format = function(str, args) {
     if (args.length && str.includes('$s'))
       for (var i = 1; i < 4; i++)
@@ -47,4 +47,4 @@ const builder = i18n => {
   return trans;
 };
 
-export default builder;
+export default trans;

@@ -63,32 +63,33 @@ function gamePowertip(el: HTMLElement) {
   }).data('powertip', spinnerHtml);
 };
 
-function powerTipWith(el, ev, f) {
+function powerTipWith(el: HTMLElement, ev, f) {
   if (isHoverable()) {
     f(el);
     $.powerTip.show(el, ev);
   }
 };
 
-function onIdleForAll(par, sel, fun) {
+function onIdleForAll(par: HTMLElement, sel, fun) {
   requestIdleCallback(() =>
-    Array.prototype.forEach.call(par.querySelectorAll(sel), el => fun(el)) // do not codegolf to `fun`
+    Array.prototype.forEach.call(par.querySelectorAll(sel), (el: HTMLElement) => fun(el)) // do not codegolf to `fun`
   )
 }
 
 const powertip = {
-  mouseover(e) {
-    var t = e.target,
-      cl = t.classList;
-    if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
-    else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
+  watchMouse() {
+    document.body.addEventListener('mouseover', e => {
+      const t = e.target as HTMLElement, cl = t.classList;
+      if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
+      else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
+    });
   },
-  manualGameIn(parent) {
+  manualGameIn(parent: HTMLElement) {
     onIdleForAll(parent, '.glpt', gamePowertip);
   },
   manualGame: gamePowertip,
   manualUser: userPowertip,
-  manualUserIn(parent) {
+  manualUserIn(parent: HTMLElement) {
     onIdleForAll(parent, '.ulpt', userPowertip);
   }
 };

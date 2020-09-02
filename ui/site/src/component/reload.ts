@@ -1,4 +1,4 @@
-export let redirectInProgress: false | string = false;
+let redirectInProgress: false | string = false;
 
 export const redirect = obj => {
   let url;

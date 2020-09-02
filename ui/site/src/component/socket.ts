@@ -287,7 +287,7 @@ StrongSocket.defaults = {
 };
 
 let resolveFirstConnect;
-StrongSocket.firstConnect = new Promise(r => {
+StrongSocket.firstConnect = new Promise<(tpe: string, data: any) => void>(r => {
   resolveFirstConnect = r;
 });
 

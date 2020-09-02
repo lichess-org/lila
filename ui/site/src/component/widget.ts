@@ -1,4 +1,4 @@
-const builder = (name: string, prototype: any) => {
+const widget = (name: string, prototype: any) => {
   const constructor = $[name] = function(options, element) {
     const self: any = this;
     self.element = $(element);
@@ -20,4 +20,4 @@ const builder = (name: string, prototype: any) => {
   };
 };
 
-export default builder;
+export default widget;

@@ -1,17 +1,14 @@
 interface Lichess {
   // components
   requestIdleCallback(f: () => void): void;
-  dispatchEvent(el: HTMLElement | Window, eventName: string): void;
   hasTouchEvents: boolean;
   sri: string;
   isCol1(): boolean;
   storage: LichessStorageHelper;
-  tempStorage: LichessStorageHelper; // TODO: unused
   once(key: string, mod?: 'always'): boolean;
   debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
   powertip: any;
   widget: any;
-  hoverable?: boolean;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   soundUrl: string;
@@ -46,7 +43,7 @@ interface Lichess {
     initAll(): void;
   };
   miniGame: {
-    init(node: HTMLElement, data?: string): string;
+    init(node: HTMLElement): string | null;
     initAll(): void;
     update(node: HTMLElement, data: { fen: string, lm: string, wc?: number, bc?: number }): void;
     finish(node: HTMLElement, win?: Color): void;
@@ -89,7 +86,7 @@ interface Lichess {
 }
 
 interface SoundBoxI {
-  loadOggOrMp3(name: string, path: string): Promise<void>;
+  loadOggOrMp3(name: string, path: string): void;
   play(name: string): void;
   getVolume(): number;
   setVolume(v: number): void;
@@ -354,6 +351,7 @@ interface JQuery {
   clock: any;
   watchers(): JQuery;
   watchers(method: 'set', data: any): void;
+  friends(): JQuery; // TODO remove friends widget
   highcharts(conf?: any): any;
   slider(key: string, value: any): any;
   slider(opts: any): any;

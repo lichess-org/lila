@@ -1,8 +1,9 @@
 import { spinnerHtml } from './intro';
 import pubsub from './pubsub';
 
-export default function loadInfiniteScroll(el: HTMLElement) {
-  $(el).each(function(this: HTMLElement) {
+export default function loadInfiniteScroll(selector: string) {
+  $(selector).each(function(this: HTMLElement) {
+    const self = this;
     if (!$('.pager a', this).length) return;
     var $scroller = $(this).infinitescroll({
       navSelector: ".pager",
@@ -18,7 +19,7 @@ export default function loadInfiniteScroll(el: HTMLElement) {
       $("#infscr-loading").remove();
       pubsub.emit('content_loaded');
       const ids: string[] = [];
-      $(el).find('.paginated[data-dedup]').each(function(this: HTMLElement) {
+      $(self).find('.paginated[data-dedup]').each(function(this: HTMLElement) {
         const id = $(this).data('dedup');
         if (id) {
           if (ids.includes(id)) $(this).remove();

@@ -51,35 +51,46 @@ function formatter() {
   )
 }
 
+function render(nodes: any[]) {
+  var cl, abs, set, str, diff, now = Date.now();
+  nodes.forEach(function(node) {
+    cl = node.classList,
+      abs = cl.contains('abs'),
+      set = cl.contains('set');
+    node.date = node.date || toDate(node.getAttribute('datetime'));
+    if (!set) {
+      str = formatter()(node.date);
+      if (abs) node.textContent = str;
+      else node.setAttribute('title', str);
+      cl.add('set');
+      if (abs || cl.contains('once')) cl.remove('timeago');
+    }
+    if (!abs) {
+      diff = (now - node.date) / 1000;
+      node.textContent = formatDiff(diff);
+      if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
+    }
+  });
+}
+
+function findAndRender() {
+  requestAnimationFrame(() =>
+    render([].slice.call(document.getElementsByClassName('timeago'), 0, 99))
+  )
+}
+
+function updateRegularly(interval: number) {
+  findAndRender();
+  setTimeout(() => updateRegularly(interval * 1.1), interval);
+}
+
 const timeago = {
-  render: function(nodes) {
-    var cl, abs, set, str, diff, now = Date.now();
-    nodes.forEach(function(node) {
-      cl = node.classList,
-        abs = cl.contains('abs'),
-        set = cl.contains('set');
-      node.date = node.date || toDate(node.getAttribute('datetime'));
-      if (!set) {
-        str = formatter()(node.date);
-        if (abs) node.textContent = str;
-        else node.setAttribute('title', str);
-        cl.add('set');
-        if (abs || cl.contains('once')) cl.remove('timeago');
-      }
-      if (!abs) {
-        diff = (now - node.date) / 1000;
-        node.textContent = formatDiff(diff);
-        if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
-      }
-    });
-  },
+  render,
   // relative
-  format: function(date) {
-    return formatDiff((Date.now() - toDate(date).getTime()) / 1000);
-  },
-  absolute: function(date) {
-    return formatter()(toDate(date));
-  }
+  format: date => formatDiff((Date.now() - toDate(date).getTime()) / 1000),
+  absolute: date => formatter()(toDate(date)),
+  findAndRender,
+  updateRegularly
 };
 
 export default timeago;

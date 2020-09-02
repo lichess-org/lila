@@ -1,11 +1,28 @@
+import exportLichessGlobals from "./site.lichess.globals"
 import StrongSocket from "./component/socket";
-import { unload, redirect } from "./component/reload";
+import { unload, redirect, reload } from "./component/reload";
 import announce from './component/announce';
 import moduleLaunchers from "./component/module-launchers";
 import pubsub from "./component/pubsub";
 import miniBoard from "./component/mini-board";
 import miniGame from "./component/mini-game";
-import {requestIdleCallback} from "./component/functions";
+import { requestIdleCallback } from "./component/functions";
+import powertip from "./component/powertip";
+import timeago from "./component/timeago";
+import topBar from "./component/top-bar";
+import userAutocomplete from "./component/user-autocomplete";
+import loadInfiniteScroll from "./component/infinite-scroll";
+import { storage } from "./component/storage";
+import { assetUrl } from "./component/assets";
+import serviceWorker from "./component/service-worker";
+import loadFriendsWidget from "./component/friends-widget";
+import loadWatchersWidget from "./component/watchers-widget";
+import loadClockWidget from "./component/clock-widget";
+
+window.lichess = {
+  ...window.lichess,
+  ...exportLichessGlobals()
+};
 
 StrongSocket.defaults.events = {
   redirect(o) {
@@ -37,8 +54,8 @@ $(() => {
 
   moduleLaunchers();
 
-  pubsub.on('content_loaded', miniBoard.initAll);
-  pubsub.on('content_loaded', miniGame.initAll);
+  loadWatchersWidget();
+  loadClockWidget();
 
   pubsub.on('socket.in.fen', e =>
     document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e))
@@ -49,24 +66,25 @@ $(() => {
 
   requestIdleCallback(() => {
 
+    loadFriendsWidget();
     $('#friend_box').friends();
 
     $('#main-wrap')
-      .on('click', '.autoselect', function() {
+      .on('click', '.autoselect', function(this: HTMLElement) {
         $(this).select();
       })
-      .on('click', 'button.copy', function() {
+      .on('click', 'button.copy', function(this: HTMLElement) {
         $('#' + $(this).data('rel')).select();
         document.execCommand('copy');
         $(this).attr('data-icon', 'E');
       });
 
-    $('body').on('click', 'a.relation-button', function() {
-      var $a = $(this).addClass('processing').css('opacity', 0.3);
+    $('body').on('click', 'a.relation-button', function(this: HTMLElement) {
+      const $a = $(this).addClass('processing').css('opacity', 0.3);
       $.ajax({
         url: $a.attr('href'),
         type: 'post',
-        success: function(html) {
+        success(html) {
           if (html.includes('relation-actions')) $a.parent().replaceWith(html);
           else $a.replaceWith(html);
         }
@@ -74,90 +92,81 @@ $(() => {
       return false;
     });
 
-    $('.mselect .button').on('click', function() {
+    $('.mselect .button').on('click', function(this: HTMLElement) {
       const $p = $(this).parent();
       $p.toggleClass('shown');
-      setTimeout(function() {
-        const handler = function(e) {
-          if ($.contains($p[0], e.target)) return;
+      requestIdleCallback(() => {
+        const handler = (e: Event) => {
+          if ($p[0].contains(e.target as HTMLElement)) return;
           $p.removeClass('shown');
           $('html').off('click', handler);
         };
         $('html').on('click', handler);
-      }, 10);
+      });
     });
 
-    document.body.addEventListener('mouseover', lichess.powertip.mouseover);
+    powertip.watchMouse();
 
-    { // timeago
-      const renderTimeago = () =>
-        requestAnimationFrame(() =>
-          lichess.timeago.render([].slice.call(document.getElementsByClassName('timeago'), 0, 99))
-        );
-
-      const setTimeago = interval => {
-        renderTimeago();
-        setTimeout(() => setTimeago(interval * 1.1), interval);
-      }
-      setTimeago(1200);
-      lichess.pubsub.on('content_loaded', renderTimeago);
-    }
+    timeago.updateRegularly(1000);
+    pubsub.on('content_loaded', timeago.findAndRender);
 
     if (!window.customWS) setTimeout(() => {
-      if (!lichess.socket)
-        lichess.socket = lichess.StrongSocket("/socket/v5", false);
+      if (!window.lichess.socket)
+        window.lichess.socket = StrongSocket("/socket/v5", false);
     }, 300);
 
-    lichess.topBar();
+    topBar();
 
-    window.addEventListener('resize', () => lichess.dispatchEvent(document.body, 'chessground.resize'));
+    window.addEventListener('resize', () => document.body.dispatchEvent(new Event('chessground.resize')));
 
-    $('.user-autocomplete').each(function() {
+    $('.user-autocomplete').each(function(this: HTMLElement) {
       const opts = {
         focus: 1,
         friend: $(this).data('friend'),
         tag: $(this).data('tag')
       };
-      if ($(this).attr('autofocus')) lichess.userAutocomplete($(this), opts);
-      else $(this).one('focus', function() {
-        lichess.userAutocomplete($(this), opts);
+      if ($(this).attr('autofocus')) userAutocomplete($(this), opts);
+      else $(this).one('focus', function(this: HTMLElement) {
+        userAutocomplete($(this), opts);
       });
     });
 
-    lichess.loadInfiniteScroll('.infinitescroll');
+    loadInfiniteScroll('.infinitescroll');
 
     $('a.delete, input.delete').click(() => confirm('Delete?'));
-    $('input.confirm, button.confirm').click(function() {
+    $('input.confirm, button.confirm').click(function(this: HTMLElement) {
       return confirm($(this).attr('title') || 'Confirm this action?');
     });
 
-    $('#main-wrap').on('click', 'a.bookmark', function() {
-      const t = $(this).toggleClass("bookmarked");
-      $.post(t.attr("href"));
-      const count = (parseInt(t.text(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
-      t.find('span').html(count > 0 ? count : "");
+    $('#main-wrap').on('click', 'a.bookmark', function(this: HTMLElement) {
+      const t = $(this).toggleClass('bookmarked');
+      $.post(t.attr('href'));
+      const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
+      t.find('span').html('' + (count > 0 ? count : ''));
       return false;
     });
 
     // still bind esc even in form fields
-    Mousetrap.prototype.stopCallback = function(e, el, combo) {
-      return combo != 'esc' && (el.isContentEditable || el.tagName == 'INPUT' || el.tagName == 'SELECT' || el.tagName == 'TEXTAREA');
+    window.Mousetrap.prototype.stopCallback = function(_, el, combo) {
+      return combo != 'esc' && (
+        el.isContentEditable || el.tagName == 'INPUT' || el.tagName == 'SELECT' || el.tagName == 'TEXTAREA'
+      );
     };
-    Mousetrap.bind('esc', function() {
-      var $oc = $('#modal-wrap .close');
+    window.Mousetrap.bind('esc', function() {
+      const $oc = $('#modal-wrap .close');
       if ($oc.length) $oc.trigger('click');
       else {
-        var $input = $(':focus');
+        const $input = $(':focus');
         if ($input.length) $input.trigger('blur');
       }
       return false;
     });
 
-    if (!lichess.storage.get('grid')) setTimeout(() => {
+    if (!storage.get('grid')) setTimeout(() => {
       if (getComputedStyle(document.body).getPropertyValue('--grid'))
-        lichess.storage.set('grid', 1);
+        storage.set('grid', 1);
       else
-        $.get(lichess.assetUrl('oops/browser.html'), html => $('body').prepend(html))
+        $.get(assetUrl('oops/browser.html'), html => $('body').prepend(html))
     }, 3000);
 
     /* A disgusting hack for a disgusting browser
@@ -170,12 +179,14 @@ $(() => {
 
     // prevent zoom when keyboard shows on iOS
     if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-      const el = document.querySelector('meta[name=viewport]');
+      const el = document.querySelector('meta[name=viewport]') as HTMLElement;
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    lichess.miniBoard.initAll();
-    lichess.miniGame.initAll();
+    miniBoard.initAll();
+    miniGame.initAll();
+    pubsub.on('content_loaded', miniBoard.initAll);
+    pubsub.on('content_loaded', miniGame.initAll);
 
     $('.chat__members').watchers();
 
@@ -183,8 +194,8 @@ $(() => {
       $.post('/toggle-blind-mode', {
         enable: 1,
         redirect: '/'
-      }, lichess.reload);
+      }, reload);
 
-    lichess.serviceWorker();
+    serviceWorker();
   });
 });
