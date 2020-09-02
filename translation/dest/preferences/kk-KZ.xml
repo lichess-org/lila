@@ -4,9 +4,10 @@
   <string name="gameDisplay">Ойын көрінісі</string>
   <string name="chessClock">Шахмат сағаты</string>
   <string name="tenthsOfSeconds">Секундтың ондық бөлігін көрсету</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">10 секунд қалғанда</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">10 секунд қалғанда</string>
   <string name="soundWhenTimeGetsCritical">Уақыт аз қалғанда, дыбыс белгі беру</string>
-  <string name="giveMoreTime">Қосымша уақыт беру</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">30 секунд қалғанда</string>
+  <string name="giveMoreTime">Уақыт қосу</string>
+  <string name="inCasualGamesOnly">Қалыпты ойындарда ғана</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">30 секунд қалғанда</string>
   <string name="yourPreferencesHaveBeenSaved">Баптауыңыз сақталды.</string>
 </resources>
