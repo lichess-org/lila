@@ -202,6 +202,10 @@ JSONStream@^1.0.3:
     jsonparse "^1.2.0"
     through ">=2.2.7 <3"
 
+"ab@https://github.com/lichess-org/ab-stub":
+  version "1.0.0"
+  resolved "https://github.com/lichess-org/ab-stub#d977fa6b784b38df2e734491fb742b31f5136ac0"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"

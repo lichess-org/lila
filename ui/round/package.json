@@ -16,6 +16,7 @@
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
+    "ab": "https://github.com/lichess-org/ab-stub",
     "chat": "2.0.0",
     "chessground": "^7.9.2",
     "common": "2.0.0",
