@@ -2,7 +2,7 @@ import miniGame from "./component/mini-game";
 import loadClockWidget from "./component/clock-widget";
 
 function resize() {
-  var el = document.querySelector('#featured-game') as HTMLElement;
+  const el = document.querySelector('#featured-game') as HTMLElement;
   if (el.offsetHeight > window.innerHeight)
     el.style.maxWidth = (window.innerHeight - (el.querySelector('.mini-game__player') as HTMLElement).offsetHeight * 2) + 'px';
 }
@@ -17,8 +17,7 @@ window.onload = () => {
     .addEventListener('message', function(e) {
       const msg = JSON.parse(e.data);
       if (msg.t == "featured") {
-        const el = document.getElementById('featured-game') as HTMLElement;
-        el.innerHTML = msg.d.html;
+        document.getElementById('featured-game')!.innerHTML = msg.d.html;
         setup();
       } else if (msg.t == "fen") {
         miniGame.update(findGame(), msg.d);
