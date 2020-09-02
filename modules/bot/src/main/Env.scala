@@ -8,7 +8,8 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     lightUserApi: lila.user.LightUserApi,
     rematches: lila.game.Rematches,
-    isOfferingRematch: lila.round.IsOfferingRematch
+    isOfferingRematch: lila.round.IsOfferingRematch,
+    spam: lila.security.Spam
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
