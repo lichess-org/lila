@@ -41,9 +41,13 @@ export default rollupProject({
       }),
     ],
   },
-  tv: {
+  tvEmbed: {
     input: 'src/tv-embed.ts',
     output: 'lichess.tv.embed',
+  },
+  puzzleEmbed: {
+    input: 'src/puzzle-embed.ts',
+    output: 'lichess.puzzle.embed',
   },
   user: {
     input: 'src/user.ts',
