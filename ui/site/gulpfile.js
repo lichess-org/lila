@@ -74,7 +74,7 @@ function makeBundle(filename) {
 }
 
 const standalonesJs = () => gulp.src([
-  'coordinate.js', 'captcha.js', 'embed-analyse.js'
+  'captcha.js', 'embed-analyse.js'
 ].map(f => `src/standalones/${f}`))
   .pipe(buffer())
   .pipe(terser({safari10: true}))

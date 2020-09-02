@@ -1,5 +1,5 @@
-$(function() {
-  $('#trainer').each(function() {
+window.lichess.load.then(() => {
+  $('#trainer').each(function(this: HTMLElement) {
     var $trainer = $(this);
     var $board = $('.coord-trainer__board .cg-wrap');
     var ground;
@@ -23,7 +23,7 @@ $(function() {
 
     var showColor = function() {
       color = colorPref == 'random' ? ['white', 'black'][Math.round(Math.random())] : colorPref;
-      if (!ground) ground = Chessground($board[0], {
+      if (!ground) ground = window.Chessground($board[0], {
         coordinates: false,
         drawable: { enabled: false },
         movable: {
@@ -38,7 +38,7 @@ $(function() {
     };
     showColor();
 
-    $trainer.find('form.color').each(function() {
+    $trainer.find('form.color').each(function(this: HTMLElement) {
       var $form = $(this);
       $form.find('input').on('change', function() {
         var selected = $form.find('input:checked').val();
@@ -63,7 +63,7 @@ $(function() {
         lineColor: dark ? '#4444ff' : '#0000ff',
         fillColor: dark ? '#222255' : '#ccccff'
       };
-      $side.find('.user_chart').each(function() {
+      $side.find('.user_chart').each(function(this: HTMLElement) {
         $(this).sparkline($(this).data('points'), theme);
       });
     };
@@ -75,7 +75,7 @@ $(function() {
     centerRight();
 
     var clearCoords = function() {
-      $.each($coords, function(i, e) {
+      $.each($coords, function(_, e) {
         e.text('');
       });
     };
@@ -95,7 +95,7 @@ $(function() {
 
     var advanceCoords = function() {
       $('#next_coord0').removeClass('nope');
-      var lastElement = $coords.shift();
+      var lastElement = $coords.shift()!;
       $.each($coords, function(i, e) {
         e.attr('id', 'next_coord' + i);
       });
@@ -129,7 +129,7 @@ $(function() {
     };
 
     var tick = function() {
-      var spent = Math.min(duration, (new Date() - startAt));
+      var spent = Math.min(duration, (new Date().getTime() - startAt));
       $bar.css('width', (100 * spent / duration) + '%');
       if (spent < duration) setTimeout(tick, tickDelay);
       else stop();

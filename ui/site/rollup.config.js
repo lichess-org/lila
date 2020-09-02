@@ -61,4 +61,8 @@ export default rollupProject({
     input: 'src/clas.ts',
     output: 'lichess.clas',
   },
+  coordinate: {
+    input: 'src/coordinate.ts',
+    output: 'lichess.coordinate',
+  },
 });
