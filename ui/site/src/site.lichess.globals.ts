@@ -5,6 +5,7 @@ import once from './component/once';
 import hasTouchEvents from './component/touchEvents';
 import spinnerHtml from './component/spinner';
 import sri from './component/sri';
+import info from './component/info';
 import { isCol1 } from "./component/is-col1";
 import { storage, tempStorage } from "./component/storage";
 import powertip from "./component/powertip";
