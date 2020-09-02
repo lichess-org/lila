@@ -1,23 +1,11 @@
 const gulp = require('gulp');
-const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const colors = require('ansi-colors');
 const logger = require('fancy-log');
-const watchify = require('watchify');
-const browserify = require('browserify');
 const terser = require('gulp-terser');
-const size = require('gulp-size');
-const tsify = require('tsify');
 const concat = require('gulp-concat');
-const execSync = require('child_process').execSync;
-const fs = require('fs');
 const path = require('path');
 
-const browserifyOpts = (entries, debug) => ({
-  entries: entries,
-  standalone: 'Lichess',
-  debug: debug
-});
 const destinationPath = '../../public/compiled/';
 const destination = () => gulp.dest(destinationPath);
 const fileBaseName = 'lichess.site';
@@ -91,15 +79,6 @@ const standalonesJs = () => gulp.src([
   .pipe(buffer())
   .pipe(terser({safari10: true}))
   .pipe(destination());
-
-function singlePackage(file, dest) {
-  return () => browserify(browserifyOpts(file, false))
-  .bundle()
-  .pipe(source(dest))
-  .pipe(buffer())
-  .pipe(terser({safari10: false}))
-  .pipe(destination());
-}
 
 const deps = makeDependencies('lichess.deps.js');
 
