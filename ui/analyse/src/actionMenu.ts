@@ -149,7 +149,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         }
       }, noarg('boardEditor')),
       canContinue ? h('a.button.button-empty', {
-        hook: bind('click', _ => window.lichess.modal($('.continue-with.g_' + d.game.id))),
+        hook: bind('click', _ => $.modal($('.continue-with.g_' + d.game.id))),
         attrs: dataIcon('U')
       }, noarg('continueFromHere')) : null,
       studyButton(ctrl)

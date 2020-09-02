@@ -132,7 +132,7 @@ const gitSha = (cb) => {
 };
 
 const standalonesJs = () => gulp.src([
-  'tv.js', 'puzzle.js', 'user.js', 'coordinate.js', 'captcha.js', 'embed-analyse.js'
+  'util.js', 'tv.js', 'puzzle.js', 'user.js', 'coordinate.js', 'captcha.js', 'embed-analyse.js'
 ].map(f => `src/standalones/${f}`))
   .pipe(buffer())
   .pipe(terser({safari10: true}))

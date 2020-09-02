@@ -59,7 +59,7 @@ function commandHelp(aliases: string, args: string, desc: string) {
 
 function help() {
   li.loadCssPath('clinput.help')
-  window.lichess.modal(
+  $.modal(
     '<h3>Commands</h3>' +
     commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
     commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
