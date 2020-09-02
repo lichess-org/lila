@@ -67,4 +67,8 @@
   <string name="accountLost">Бірақ, егер де сіз шынымен програмға жүгінсеңіз (бір рет болса да), сіздің аккаунтыңыз құрдымға кетті деген сөз.</string>
   <string name="doNotDeny">Алдап ойнағаныңызды жасырмаңыз. Егер сіз жаңа аккаунтқа рұқсат аламын десеңіз, жасаған істі мойындаңыз, және ол істі қателік деп қабылдайтыныңызды көрсетіңіз.</string>
   <string name="otherRestriction">Басқа шектеу</string>
+  <string name="collaboration">Ынтымақтастық, заңдылық, сауда-саттық</string>
+  <string name="monetizing">Личес-тен табыс табу</string>
+  <string name="buyingLichess">Личес-ті сатып алу</string>
+  <string name="authorizationToUse">Личес-ті пайдалануға рұқсаттама</string>
 </resources>
