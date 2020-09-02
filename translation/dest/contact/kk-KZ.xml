@@ -8,6 +8,10 @@
   <string name="noConfirmationEmail">Маған растау хаты келген жоқ</string>
   <string name="forgotPassword">Мен құпиясөзімді ұмыттым</string>
   <string name="forgotUsername">Мен аккаунт атын ұмыттым</string>
+  <string name="youCanLoginWithEmail">Сіз поштаңыздың мекенжайын жазып, аккаунтқа кіре аласыз</string>
+  <string name="lost2FA">Мен екі сатылы анықтау кодтарын ала алмай отырмын</string>
+  <string name="doPasswordReset">Екінші сатыны өшіру үшін құпиясөздің қайта орнатуын аяқтаңыз</string>
+  <string name="accountSupport">Маған көмек керек</string>
   <string name="doNotReportInForum">Форумдағы ойыншыларға қарсы шағым жібермеңіз.</string>
   <string name="reportBugInForum">Форумның Личес Пікір қалдыру бөлімінде</string>
 </resources>
