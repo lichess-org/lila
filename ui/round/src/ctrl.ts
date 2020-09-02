@@ -1,3 +1,4 @@
+import * as ab from 'ab';
 import * as round from './round';
 import * as game from 'game';
 import * as status from 'game/status';
@@ -133,7 +134,7 @@ export default class RoundController {
       }
     });
 
-    if (li.ab && this.isPlaying()) li.ab.init(this);
+    if (this.isPlaying()) ab.init(this);
   }
 
   private showExpiration = () => {
@@ -143,7 +144,7 @@ export default class RoundController {
   }
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-    if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedSan)) li.ab.move(this, meta);
+    if (!this.keyboardMove || !this.keyboardMove.usedSan) ab.move(this, meta);
     if (!promotion.start(this, orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 

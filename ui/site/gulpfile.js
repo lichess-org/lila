@@ -10,19 +10,6 @@ const destinationPath = '../../public/compiled/';
 const destination = () => gulp.dest(destinationPath);
 const fileBaseName = 'lichess.site';
 
-const abFile = process.env.LILA_AB_FILE;
-
-const ab = () => {
-  if (abFile) return gulp.src(abFile)
-    .pipe(buffer())
-    .pipe(terser({safari10: true}))
-    .pipe(gulp.dest('./dist'));
-  else {
-    logger.info(colors.yellow('Building without AB file'));
-    return gulp.src('.');
-  }
-};
-
 function makeDependencies(filename) {
   return function bundleDeps() {
     return gulp.src([
@@ -30,7 +17,6 @@ function makeDependencies(filename) {
   './dep/powertip.min.js',
   './dep/howler.min.js',
   './dep/mousetrap.min.js',
-  ...(abFile ? ['./dist/ab.js'] : []),
 ])
       .pipe(concat(filename))
       .pipe(destination());
@@ -52,7 +38,7 @@ function makeBundle(filename) {
 const deps = makeDependencies('lichess.deps.js');
 
 const tasks = [
-  ab, 
+  standalonesJs,
   deps
 ];
 
