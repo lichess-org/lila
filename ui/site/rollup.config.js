@@ -49,6 +49,10 @@ export default rollupProject({
     input: 'src/puzzle-embed.ts',
     output: 'lichess.puzzle.embed',
   },
+  analyseEmbed: {
+    input: 'src/analyse-embed.ts',
+    output: 'lichess.analyse.embed',
+  },
   user: {
     input: 'src/user.ts',
     output: 'lichess.user',
