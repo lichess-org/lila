@@ -23,8 +23,8 @@
   <string name="blackIsVictorious">Қара жеңді</string>
   <string name="youPlayTheWhitePieces">Сіз ақ таспен ойнайсыз</string>
   <string name="youPlayTheBlackPieces">Сіз қара таспен ойнайсыз</string>
-  <string name="itsYourTurn">Сіздің кезегіңіз!</string>
-  <string name="kingInTheCenter">Патша – тақтаның ортасында</string>
+  <string name="itsYourTurn">Кезек сізде!</string>
+  <string name="kingInTheCenter">Патша тақтаның ортасында</string>
   <string name="threeChecks">Үш рет шах жариялануы тіркелді</string>
   <string name="raceFinished">Бәйге аяқталды</string>
   <string name="variantEnding">Нұсқа аяқталды</string>
