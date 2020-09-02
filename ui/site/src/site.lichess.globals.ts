@@ -5,7 +5,6 @@ import once from './component/once';
 import hasTouchEvents from './component/touchEvents';
 import spinnerHtml from './component/spinner';
 import sri from './component/sri';
-import info from './component/info';
 import { isCol1 } from "./component/is-col1";
 import { storage, tempStorage } from "./component/storage";
 import powertip from "./component/powertip";
@@ -25,12 +24,12 @@ import timeago from "./component/timeago";
 import modal from "./component/modal";
 
 export default function() {
-  return {
+  window.lichess = {
+    ...window.lichess,
     StrongSocket,
     requestIdleCallback,
     hasTouchEvents,
     sri,
-    info,
     isCol1,
     storage,
     tempStorage,
@@ -65,5 +64,5 @@ export default function() {
     miniGame,
     timeago,
     modal
-  };
+  }
 }

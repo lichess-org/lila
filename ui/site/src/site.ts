@@ -18,11 +18,10 @@ import serviceWorker from "./component/service-worker";
 import loadFriendsWidget from "./component/friends-widget";
 import loadWatchersWidget from "./component/watchers-widget";
 import loadClockWidget from "./component/clock-widget";
+import info from "./component/info";
 
-window.lichess = {
-  ...window.lichess,
-  ...exportLichessGlobals()
-};
+exportLichessGlobals();
+window.lichess.info = info;
 
 StrongSocket.defaults.events = {
   redirect(o) {

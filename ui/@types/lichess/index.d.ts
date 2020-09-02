@@ -1,6 +1,7 @@
 interface Lichess {
   load: Promise<unknown>; // window.onload promise
   // components
+  info: any;
   requestIdleCallback(f: () => void): void;
   hasTouchEvents: boolean;
   sri: string;

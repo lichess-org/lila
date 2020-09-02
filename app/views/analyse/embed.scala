@@ -1,14 +1,13 @@
 package views.html.analyse
 
+import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
+import views.html.base.layout.{ bits => layout }
 
 import lila.app.templating.Environment._
 import lila.app.ui.EmbedConfig
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import views.html.base.layout.{ bits => layout }
-
-import controllers.routes
 
 object embed {
 
@@ -49,18 +48,16 @@ object embed {
           },
           jQueryTag,
           jsTag("vendor/mousetrap.js"),
-          jsAt("compiled/util.js"),
-          jsAt("compiled/trans.js"),
-          jsAt("compiled/embed-analyse.js"),
+          jsModule("analyse.embed"),
           analyseTag,
           embedJsUnsafe(
-            s"""lichess.startEmbeddedAnalyse(${safeJsonValue(
+            s"""analyseEmbedOpts=${safeJsonValue(
               Json.obj(
                 "data"  -> data,
                 "embed" -> true,
                 "i18n"  -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
               )
-            )})""",
+            )}""",
             config.nonce
           )
         )
