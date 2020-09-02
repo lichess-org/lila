@@ -204,7 +204,7 @@ JSONStream@^1.0.3:
 
 "ab@https://github.com/lichess-org/ab-stub":
   version "1.0.0"
-  resolved "https://github.com/lichess-org/ab-stub#d977fa6b784b38df2e734491fb742b31f5136ac0"
+  resolved "https://github.com/lichess-org/ab-stub#cd8818ee3905ed167539f78dc0e46de3889eb862"
 
 abbrev@1:
   version "1.1.1"
