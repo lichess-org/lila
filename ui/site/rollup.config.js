@@ -1,4 +1,5 @@
 import { execSync } from 'child_process';
+import { dirname } from 'path';
 import { rollupProject } from '@build/rollupProject';
 import copy from 'rollup-plugin-copy';
 import replace from '@rollup/plugin-replace';
@@ -9,28 +10,62 @@ export default rollupProject({
     output: 'lichess.site',
     plugins: [
       copy({
-        targets: [{
-          src: [
-            require.resolve('stockfish.js/stockfish.js'),
-            require.resolve('stockfish.js/stockfish.wasm'),
-            require.resolve('stockfish.js/stockfish.wasm.js'),
-          ],
-          dest: '../../public/vendor/stockfish.js',
-        }, {
-          src: [
-            require.resolve('stockfish.wasm/stockfish.js'),
-            require.resolve('stockfish.wasm/stockfish.wasm'),
-            require.resolve('stockfish.wasm/stockfish.worker.js'),
-          ],
-          dest: '../../public/vendor/stockfish.wasm',
-        }, {
-          src: [
-            require.resolve('stockfish-mv.wasm/stockfish.js'),
-            require.resolve('stockfish-mv.wasm/stockfish.wasm'),
-            require.resolve('stockfish-mv.wasm/stockfish.worker.js'),
-          ],
-          dest: '../../public/vendor/stockfish-mv.wasm',
-        }],
+        targets: [
+          // hopscotch
+          {
+            src: require.resolve('hopscotch/dist/js/hopscotch.min.js'),
+            dest: '../../public/vendor/hopscotch/dist/js',
+          },
+          {
+            src: require.resolve('hopscotch/dist/css/hopscotch.min.css'),
+            dest: '../../public/vendor/hopscotch/dist/css',
+          },
+          {
+            src: dirname(require.resolve('hopscotch/package.json')) + '/dist/img/*',
+            dest: '../../public/vendor/hopscotch/dist/img',
+          },
+          // highcharts
+          {
+            src: [
+              'highcharts/highcharts.js',
+              'highcharts/highcharts-more.js',
+              'highcharts/highstock.js',
+            ].map(require.resolve),
+            dest: '../../public/vendor/highcharts-4.2.5',
+          },
+          // jquery-bar-rating
+          {
+            src: require.resolve('jquery-bar-rating/dist/jquery.barrating.min.js'),
+            dest: '../../public/vendor/bar-rating/dist',
+          },
+          // stockfish.js
+          {
+            src: [
+              'stockfish.js/stockfish.js',
+              'stockfish.js/stockfish.wasm',
+              'stockfish.js/stockfish.wasm.js',
+            ].map(require.resolve),
+            dest: '../../public/vendor/stockfish.js',
+          },
+          // stockfish.wasm
+          {
+            src: [
+              'stockfish.wasm/stockfish.js',
+              'stockfish.wasm/stockfish.wasm',
+              'stockfish.wasm/stockfish.worker.js',
+            ].map(require.resolve),
+            dest: '../../public/vendor/stockfish.wasm',
+          },
+          // stockfish-mv.wasm
+          {
+            src: [
+              'stockfish-mv.wasm/stockfish.js',
+              'stockfish-mv.wasm/stockfish.wasm',
+              'stockfish-mv.wasm/stockfish.worker.js',
+            ].map(require.resolve),
+            dest: '../../public/vendor/stockfish-mv.wasm',
+          },
+        ],
       }),
       replace({
         __info__: JSON.stringify({
