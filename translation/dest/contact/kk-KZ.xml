@@ -38,9 +38,10 @@
   <string name="doNotSendReportEmails">Бізге поштамен шағым жібермеңіз.</string>
   <string name="doNotMessageModerators">Тікелей модераторларға хабарлама жібермеңіз.</string>
   <string name="onlyReports">Шағымды шағым үлгісі арқылы ғана жіберсеңіз, нәтижелі болар.</string>
-  <string name="wantReportBug">Қателік туралы хабар жібергім келеді</string>
+  <string name="wantReportBug">Ақау туралы хабар жібергім келеді</string>
   <string name="reportBugInForum">Форумның Личес Пікір қалдыру бөлімінде</string>
   <string name="reportWebsiteIssue">GitHub-та Личес сайтындағы ақаулық туралы</string>
   <string name="reportMobileIssue">GitHub-та Личес мобилді қолданбасының ақаулығы туралы</string>
   <string name="reportBugInDiscord">Личестің Discord серверінде</string>
+  <string name="howToReportBug">Ақауды сипаттап беріңізші, ақаудың орнына не күткен едіңіз, осы ақауды қайталау үшін қандай қадамдар жасау керек.</string>
 </resources>
