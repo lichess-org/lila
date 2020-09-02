@@ -38,5 +38,6 @@
   <string name="doNotSendReportEmails">Бізге поштамен шағым жібермеңіз.</string>
   <string name="doNotMessageModerators">Тікелей модераторларға хабарлама жібермеңіз.</string>
   <string name="onlyReports">Шағымды шағым үлгісі арқылы ғана жіберсеңіз, нәтижелі болар.</string>
+  <string name="wantReportBug">Қателік туралы хабар жібергім келеді</string>
   <string name="reportBugInForum">Форумның Личес Пікір қалдыру бөлімінде</string>
 </resources>
