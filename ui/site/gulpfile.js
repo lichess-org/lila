@@ -101,8 +101,6 @@ function singlePackage(file, dest) {
   .pipe(destination());
 }
 
-const tv = singlePackage('./src/tv.ts', 'tv.js');
-
 const deps = makeDependencies('lichess.deps.js');
 
 const tasks = [
@@ -116,5 +114,3 @@ const dev = gulp.series(tasks);
 gulp.task('prod', gulp.series(tasks, makeBundle(`${fileBaseName}.source.min.js`)));
 gulp.task('dev', gulp.series(tasks, dev));
 gulp.task('default', gulp.series(tasks, dev, () => gulp.watch('src/**/*.js', dev)));
-
-gulp.task('tv', tv);
