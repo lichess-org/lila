@@ -182,7 +182,7 @@
   <string name="changeEmail">Поштаны ауыстыру</string>
   <string name="email">Пошта</string>
   <string name="passwordReset">Құпиясөзді қайта орнату</string>
-  <string name="forgotPassword">Құпиясөзді ұмыттыңыз ба?</string>
+  <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
   <string name="rank">Орын</string>
   <string name="rankX">Орын: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -327,7 +327,7 @@
   <string name="backToGame">Ойынға оралу</string>
   <string name="siteDescription">Тегін онлайн шахмат алаңы. Кескіні таза сайтта шахмат ойнаңыз. Жарнама жоқ, тіркелу мен қосымша програмды қажет етпейді. Шахматты компьютермен, достарыңызбен не кез-келген қарсыласпен ойнаңыз.</string>
   <string name="xJoinedTeamY">%1$s, %2$s s командасына қосылды</string>
-  <string name="xCreatedTeamY">%1$s, %2$s командасын жасады</string>
+  <string name="xCreatedTeamY">%1$s %2$s тобын құрды</string>
   <string name="xStartedStreaming">%s ағын бастады</string>
   <string name="averageElo">Орташа рейтинг</string>
   <string name="location">Орналасқан жері</string>
@@ -404,7 +404,7 @@
   <string name="recommendNotTouching">Biz olardy ustamaýǵa keńes beremiz.</string>
   <string name="fewerPlayers">Егер сіз кіру талаптарын қойсаңыз, жарысқа аз ғана ойыншы қатысады.</string>
   <string name="showAdvancedSettings">Qosymsha parametrlerdi kórsetý</string>
-  <string name="makePrivateTournament">Турнирді жеке етіп жасаңыз және құпия сөзбен кіруді шектеңіз</string>
+  <string name="makePrivateTournament">Жарысты оңашалаңыз, кіруді құпиясөз арқылы шектеңіз</string>
   <string name="join">Qosylyńyz</string>
   <string name="withdraw">Shyǵarý</string>
   <string name="points">Núkteler</string>
