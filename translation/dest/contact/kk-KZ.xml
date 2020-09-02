@@ -14,6 +14,12 @@
   <string name="accountSupport">Маған көмек керек</string>
   <string name="wantTitle">Личесте менің атауым көрсетілгенін қалаймын</string>
   <string name="visitTitleConfirmation">Сіздің куәлік парақшаңызда атауды көрсету үшін, Атаулы Алаңға қатысу үшін растау парақшасына өтіңіз</string>
+  <string name="wantCloseAccount">Мен аккаунтымды жабамын деп шештім</string>
+  <string name="closeYourAccount">Аккаунтыңызды осы парақшаға өтіп, жаба аласыз</string>
+  <string name="doNotAskByEmail">Поштамен аккаунт жабуды сұрамаңыз, біз оны орындамаймыз.</string>
+  <string name="wantReopen">Мен аккаунтымды қайта ашқым келеді</string>
+  <string name="reopenOnThisPage">Сіз аккаунтыңызды осы парақшада қайта аша аласыз. Бұны бір рет қана істеуге болады.</string>
+  <string name="doNotAskByEmailToReopen">Поштамен аккаунтты қайта ашуды сұрамаңыз, біз оны орындамаймыз.</string>
   <string name="doNotReportInForum">Форумдағы ойыншыларға қарсы шағым жібермеңіз.</string>
   <string name="reportBugInForum">Форумның Личес Пікір қалдыру бөлімінде</string>
 </resources>
