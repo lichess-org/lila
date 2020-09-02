@@ -76,4 +76,5 @@
   <string name="creditAppreciated">Біз туралы мәліметті көрсетсеңіз – жақсы, бірақ міндетті емес.</string>
   <string name="noneOfTheAbove">Осылардан басқа</string>
   <string name="sendEmailAt">Бізге %s мекенжайына хат жіберіңіз.</string>
+  <string name="explainYourRequest">Өз ойыңызды жан-жақты сипаттап анық жазыңыз. Личестегі атыңыз бен басқа да сізге көмектесуді жеңілдететін ақпаратты көрсетуді сұраймыз.</string>
 </resources>
