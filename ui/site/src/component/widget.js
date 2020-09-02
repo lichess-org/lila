@@ -1,23 +1,20 @@
-const builder = (name: string, prototype: any) => {
+lichess.widget = (name, prototype) => {
   const constructor = $[name] = function(options, element) {
-    const self: any = this;
-    self.element = $(element);
+    this.element = $(element);
     $.data(element, name, this);
-    self.options = options;
-    self._create();
+    this.options = options;
+    this._create();
   };
   constructor.prototype = prototype;
-  $.fn[name] = function(method: string) {
+  $.fn[name] = function(method) {
     const args = Array.prototype.slice.call(arguments, 1);
-    if (typeof method === 'string') this.each(function(this: HTMLElement) {
-        const instance = $.data(this, name);
+    if (typeof method === 'string') this.each(function() {
+      const instance = $.data(this, name);
       if (instance && $.isFunction(instance[method])) instance[method].apply(instance, args);
     });
-    else this.each(function(this: HTMLElement) {
+    else this.each(function() {
       if (!$.data(this, name)) $.data(this, name, new constructor(method, this));
     });
     return this;
   };
 };
-
-export default builder;

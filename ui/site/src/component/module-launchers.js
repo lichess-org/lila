@@ -1,13 +1,12 @@
-export default function moduleLaunchers() {
-  const li: any = window.lichess;
-  if (li.analyse) window.LichessAnalyse.boot(li.analyse);
-  else if (li.user_analysis) startUserAnalysis(li.user_analysis);
-  else if (li.study) startStudy(li.study);
-  else if (li.practice) startPractice(li.practice);
-  else if (li.relay) startRelay(li.relay);
-  else if (li.puzzle) startPuzzle(li.puzzle);
-  else if (li.tournament) startTournament(li.tournament);
-  else if (li.team) startTeam(li.team);
+lichess.moduleLaunchers = () => {
+  if (lichess.analyse) LichessAnalyse.boot(lichess.analyse);
+  else if (lichess.user_analysis) startUserAnalysis(lichess.user_analysis);
+  else if (lichess.study) startStudy(lichess.study);
+  else if (lichess.practice) startPractice(lichess.practice);
+  else if (lichess.relay) startRelay(lichess.relay);
+  else if (lichess.puzzle) startPuzzle(lichess.puzzle);
+  else if (lichess.tournament) startTournament(lichess.tournament);
+  else if (lichess.team) startTeam(lichess.team);
 }
 
 function startTournament(cfg) {

@@ -1,12 +1,9 @@
-import widget from './widget';
-import trans from './trans';
-
-widget("friends", (() => {
-  const getId = function(titleName) {
+lichess.widget("friends", (() => {
+  var getId = function(titleName) {
     return titleName.toLowerCase().replace(/^\w+\s/, '');
   };
-  const makeUser = function(titleName) {
-    const split = titleName.split(' ');
+  var makeUser = function(titleName) {
+    var split = titleName.split(' ');
     return {
       id: split[split.length - 1].toLowerCase(),
       name: split[split.length - 1],
@@ -15,7 +12,7 @@ widget("friends", (() => {
       patron: false
     };
   };
-  const renderUser = function(user) {
+  var renderUser = function(user) {
     const icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>',
       titleTag = user.title ? ('<span class="utitle"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;') : '',
       url = '/@/' + user.name,
@@ -24,14 +21,14 @@ widget("friends", (() => {
   };
   return {
     _create: function() {
-      const self: any = this,
+      const self = this,
         el = self.element;
 
       self.$friendBoxTitle = el.find('.friend_box_title').click(function() {
         el.find('.content_wrap').toggleNone();
         if (!self.loaded) {
           self.loaded = true;
-          window.lichess.socket.send('following_onlines');
+          lichess.socket.send('following_onlines');
         }
       });
 
@@ -43,32 +40,29 @@ widget("friends", (() => {
         patrons: [],
         ...el.data('preload')
       };
-      self.trans = trans(data.i18n);
+      self.trans = lichess.trans(data.i18n);
       self.set(data);
     },
     repaint: function() {
-      const self: any = this;
-      if (self.loaded) requestAnimationFrame(function() {
-        const users = self.users,
+      if (this.loaded) requestAnimationFrame(function() {
+        const users = this.users,
           ids = Object.keys(users).sort();
-        self.$friendBoxTitle.html(self.trans.vdomPlural('nbFriendsOnline', ids.length, self.loaded ? $('<strong>').text(ids.length) : '-'));
-        self.$nobody.toggleNone(!ids.length);
-        self.element.find('.list').html(
+        this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, this.loaded ? $('<strong>').text(ids.length) : '-'));
+        this.$nobody.toggleNone(!ids.length);
+        this.element.find('.list').html(
           ids.map(function(id) {
             return renderUser(users[id]);
           }).join('')
         );
-      }.bind(self));
+      }.bind(this));
     },
     insert: function(titleName) {
-      const self: any = this;
       const id = getId(titleName);
-      if (!self.users[id]) self.users[id] = makeUser(titleName);
-      return self.users[id];
+      if (!this.users[id]) this.users[id] = makeUser(titleName);
+      return this.users[id];
     },
     set: function(d) {
-      const self: any = this;
-      self.users = {};
+      this.users = {};
       let i;
       for (i in d.users) this.insert(d.users[i]);
       for (i in d.playing) this.insert(d.playing[i]).playing = true;
@@ -82,8 +76,7 @@ widget("friends", (() => {
       this.repaint();
     },
     leaves: function(titleName) {
-      const self: any = this;
-      delete self.users[getId(titleName)];
+      delete this.users[getId(titleName)];
       this.repaint();
     },
     playing: function(titleName) {

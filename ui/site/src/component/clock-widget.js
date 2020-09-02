@@ -1,6 +1,4 @@
-import widget from './widget';
-
-widget("clock", {
+lichess.widget("clock", {
   _create: function() {
     this.target = this.options.time * 1000 + Date.now();
     if (!this.options.pause) this.interval = setInterval(this.render.bind(this), 1000);

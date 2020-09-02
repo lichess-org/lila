@@ -7,7 +7,7 @@ $.ajaxTransport('script', function(s) {
   // - https://github.com/jquery/jquery/pull/3782
   // Original transport:
   // https://github.com/jquery/jquery/blob/master/src/ajax/script.js
-  let script: JQuery, callback;
+  var script, callback;
   return {
     send: function(_, complete) {
       script = $("<script>").prop({
