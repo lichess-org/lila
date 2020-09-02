@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="activity">Белсенділігі</string>
   <plurals name="postedNbMessages">
     <item quantity="one">%2$s ішінде %1$s хабарлама жариялады</item>
     <item quantity="other">%2$s ішінде %1$s хабарлама жариялады</item>
