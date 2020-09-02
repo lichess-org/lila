@@ -5,4 +5,6 @@
   <string name="closingIsDefinitive">Жабу - түпкілікті! Кері жол жоқ. Сенімдісіз бе?</string>
   <string name="cantOpenSimilarAccount">Аттары бірдей аккаунт жасауға жол жоқ (әріптер үлкендігі әр-түрлі болса да).</string>
   <string name="changedMindDoNotCloseAccount">Мен ойымды өзгерттім, аккаунтымды жаппаңызшы</string>
+  <string name="closeAccountExplanation">Сіз өз аккаунтыңызды жабуды растайсыз ба? Аккаут жабу - қайтарымсыз әрекет. Қайтадан аккаунтқа ЕШҚАШАН КІРЕ АЛМАЙСЫЗ.</string>
+  <string name="thisAccountIsClosed">Бұл аккаунт жабылды.</string>
 </resources>
