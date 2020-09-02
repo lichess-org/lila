@@ -30,7 +30,7 @@
     "tablesort": "^5.1"
   },
   "scripts": {
-    "dev": "gulp dev",
-    "prod": "gulp prod"
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
   }
 }

@@ -128,7 +128,7 @@ export default class RoundController {
       if (this.isPlaying()) {
         const zen = !$('body').hasClass('zen');
         $('body').toggleClass('zen', zen);
-        li.dispatchEvent(window, 'resize');
+        window.dispatchEvent(new Event('resize'));
         xhr.setZen(zen);
       }
     });

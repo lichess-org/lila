@@ -45,6 +45,6 @@ export function start(opts: LobbyOpts) {
 // without having to include it a second time
 window.Chessground = Chessground;
 
-window.lichess.onLoadPromise.then(() =>
+window.lichess.load.then(() =>
   boot(window['lichess_lobby'], document.querySelector('.lobby__app'))
 );

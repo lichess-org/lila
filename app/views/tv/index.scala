@@ -26,7 +26,7 @@ object index {
       moreJs = frag(
         roundTag,
         embedJsUnsafe(
-          s"""window.lichess.onLoadPromise.then(() => LichessRound.boot(${safeJsonValue(
+          s"""window.lichess.load.then(() => LichessRound.boot(${safeJsonValue(
             Json.obj(
               "data" -> data,
               "i18n" -> views.html.round.jsI18n(pov.game)

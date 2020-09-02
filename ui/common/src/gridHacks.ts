@@ -30,7 +30,7 @@ export function fixMainBoardHeight(container: HTMLElement): void {
       lastMainBoardHeight = width;
       mainBoard.style.height = width + 'px';
       (mainBoard.querySelector('.cg-wrap') as HTMLElement).style.height = width + 'px';
-      window.lichess.dispatchEvent(document.body, 'chessground.resize');
+      document.body.dispatchEvent(new Event('chessground.resize'));
     }
   }
 }

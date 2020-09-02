@@ -31,7 +31,7 @@ object embed {
           ),
           jQueryTag,
           chessgroundTag,
-          jsAt("compiled/tv.js")
+          jsModule("tv.embed")
         )
       )
     )

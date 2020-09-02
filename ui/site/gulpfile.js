@@ -78,20 +78,6 @@ const stockfishMvWasm = () => gulp.src([
   require.resolve('stockfish-mv.wasm/stockfish.worker.js')
 ]).pipe(gulp.dest('../../public/vendor/stockfish-mv.wasm/'));
 
-const prodSource = () => browserify(browserifyOpts('src/index.ts', false))
-  .plugin(tsify)
-  .bundle()
-  .pipe(source(`${fileBaseName}.source.min.js`))
-  .pipe(buffer())
-  .pipe(terser({safari10: true}))
-  .pipe(gulp.dest('./dist'));
-
-const devSource = () => browserify(browserifyOpts('src/index.ts', true))
-  .plugin(tsify)
-  .bundle()
-  .pipe(source(`${fileBaseName}.js`))
-  .pipe(destination());
-
 function makeDependencies(filename) {
   return function bundleDeps() {
     return gulp.src([
@@ -160,9 +146,9 @@ const tasks = [
   hopscotch, jqueryBarRating, highcharts
 ];
 
-const dev = gulp.series(tasks.concat([devSource]));
+const dev = gulp.series(tasks);
 
-gulp.task('prod', gulp.series(tasks, prodSource, makeBundle(`${fileBaseName}.source.min.js`)));
+gulp.task('prod', gulp.series(tasks, makeBundle(`${fileBaseName}.source.min.js`)));
 gulp.task('dev', gulp.series(tasks, dev));
 gulp.task('default', gulp.series(tasks, dev, () => gulp.watch('src/**/*.js', dev)));
 

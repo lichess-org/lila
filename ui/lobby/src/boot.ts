@@ -54,7 +54,6 @@ export default function boot(cfg, element) {
         li.redirect(e);
       },
       fen(e) {
-        li.StrongSocket.defaults.events.fen(e);
         lobby.gameActivity(e.id);
       }
     }

@@ -290,7 +290,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         forceInnerCoords(ctrl, needsInnerCoords);
       },
       postpatch(old, vnode) {
-        if (old.data!.gaugeOn !== gaugeOn) li.dispatchEvent(document.body, 'chessground.resize');
+        if (old.data!.gaugeOn !== gaugeOn) document.body.dispatchEvent(new Event('chessground.resize'));
         vnode.data!.gaugeOn = gaugeOn;
       }
     },

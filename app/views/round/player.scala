@@ -49,7 +49,7 @@ object player {
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJsUnsafe(s"""window.lichess.onLoadPromise.then(()=>LichessRound.boot(${safeJsonValue(
+        embedJsUnsafe(s"""window.lichess.load.then(()=>LichessRound.boot(${safeJsonValue(
           Json
             .obj(
               "data"   -> data,

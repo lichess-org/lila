@@ -34,7 +34,7 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
       zoom = Math.round(Math.min(100, Math.max(0, initialZoom + delta / 10)));
 
       document.body.setAttribute('style', '--zoom:' + zoom);
-      window.lichess.dispatchEvent(window, 'resize');
+      window.dispatchEvent(new Event('resize'));
 
       saveZoom();
     };

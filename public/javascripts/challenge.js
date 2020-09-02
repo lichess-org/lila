@@ -1,4 +1,4 @@
-window.lichess.onLoadPromise.then(() => {
+window.lichess.load.then(() => {
   var opts = lichess_challenge;
   var selector = '.challenge-page';
   var element = document.querySelector(selector);

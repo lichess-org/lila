@@ -82,7 +82,7 @@ export function bind(ctrl: AnalyseCtrl): void {
     const keyToMousedown = (key: string, selector: string) => {
       kbd.bind(key, preventing(() => {
         $(selector).each(function(this: HTMLElement) {
-          window.lichess.dispatchEvent(this, 'mousedown');
+          this.dispatchEvent(new Event('mousedown'));
         });
       }));
     };
