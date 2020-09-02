@@ -58,4 +58,8 @@
   <string name="noRatingPoints">Ешбір рейтинг ұпайы қосылмады</string>
   <string name="ratedGame">Бағаланатын ойын екенін тексеріңіз. Қалыпты ойындар ойыншының рейтингіне әсер етпейді.</string>
   <string name="errorPage">Ақаулық парақшасы</string>
+  <string name="reportErrorPage">Ақаулық парақшасына тап болсаңыз, осында хабарлауыңызға болады:</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Шектеулік тапсырысын жіберу не IP шектеу</string>
+  <string name="engineAppeal">Програм не чит марк</string>
+  <string name="sendAppealTo">Сіз өтінішті %s жібере аласыз.</string>
 </resources>
