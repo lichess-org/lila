@@ -1,6 +1,7 @@
 import tablesort from 'tablesort';
 import { debounce, formAjax } from './component/functions';
 import spinnerHtml from './component/spinner';
+import extendTablesortNumber from './component/tablesort-number';
 
 window.lichess.load.then(() => {
 
@@ -139,23 +140,7 @@ window.lichess.load.then(() => {
     $zone.toggleClass('stick-menu', window.scrollY > 200);
   });
 
-  function cleanNumber(i: string) {
-    return i.replace(/[^\-?0-9.]/g, '');
-  }
-
-  function compareNumber(a: any, b: any) {
-    a = parseFloat(a);
-    b = parseFloat(b);
-
-    a = isNaN(a) ? 0 : a;
-    b = isNaN(b) ? 0 : b;
-
-    return a - b;
-  };
-
-  tablesort.extend('number', function(item: string) {
-    return item.match(/^[-+]?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/); // Number
-  }, (a, b) => compareNumber(cleanNumber(b), cleanNumber(a)));
+  extendTablesortNumber();
 
   if (location.search.startsWith('?mod')) $toggle.click();
 

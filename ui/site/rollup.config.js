@@ -49,4 +49,8 @@ export default rollupProject({
     input: 'src/mod-user.ts',
     output: 'lichess.mod.user',
   },
+  clas: {
+    input: 'src/clas.ts',
+    output: 'lichess.clas',
+  },
 });

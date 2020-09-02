@@ -101,13 +101,12 @@ function singlePackage(file, dest) {
   .pipe(destination());
 }
 
-const clas = singlePackage('./src/clas.js', 'clas.js');
 const tv = singlePackage('./src/tv.ts', 'tv.js');
 
 const deps = makeDependencies('lichess.deps.js');
 
 const tasks = [
-  ab, standalonesJs, clas,
+  ab, standalonesJs,
   deps,
   hopscotch, jqueryBarRating, highcharts
 ];
