@@ -48,4 +48,5 @@
   <string name="calledEnPassant">Бұл \"en passant\" деп аталады, шахматтағы ереженің бірі.</string>
   <string name="tryEnPassant">\"en passant\" туралы көбірек білу үшін осы шағын интерактивті ойынды ойнап көріңіз.</string>
   <string name="illegalCastling">Қате жасылынған не мүмкін емес бекіну</string>
+  <string name="castlingPrevented">Патша бақылаудағы шаршыдан өтсе ғана бекіну мүмкіндігі үзіледі.</string>
 </resources>
