@@ -33,6 +33,10 @@
   <string name="insults">қорлау, кемсіту</string>
   <string name="otherReason">басқа себеп</string>
   <string name="toReportAPlayer">%s қатысты шағым жіберу үшін шағым үлгісін қолданыңыз</string>
+  <string name="youCanAlsoReachReportPage">Сонымен қатар, сіз сол парақшаны, куәлік парақшадағы %s шағым батырмасына басып, аша аласыз.</string>
   <string name="doNotReportInForum">Форумдағы ойыншыларға қарсы шағым жібермеңіз.</string>
+  <string name="doNotSendReportEmails">Бізге поштамен шағым жібермеңіз.</string>
+  <string name="doNotMessageModerators">Тікелей модераторларға хабарлама жібермеңіз.</string>
+  <string name="onlyReports">Шағымды шағым үлгісі арқылы ғана жіберсеңіз, нәтижелі болар.</string>
   <string name="reportBugInForum">Форумның Личес Пікір қалдыру бөлімінде</string>
 </resources>
