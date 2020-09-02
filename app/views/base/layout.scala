@@ -136,6 +136,8 @@ object layout {
       "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
   )
 
+  private val lichessJsObject = """{load:new Promise(r=>{window.onload=r})}"""
+
   private val spaceRegex              = """\s{2,}+""".r
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
@@ -255,6 +257,11 @@ object layout {
           a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
           chessground option jsTag("vendor/chessground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
+          embedJsUnsafe(
+            s"""lichess=$lichessJsObject;lichess.quantity=${lila.i18n.JsQuantity(
+              ctx.lang
+            )};$timeagoLocaleScript"""
+          ),
           if (netConfig.minifiedAssets)
             jsModule("site", defer = deferJs)
           else
@@ -262,11 +269,6 @@ object layout {
               jsModule("deps", defer = deferJs),
               jsModule("site", defer = deferJs)
             ),
-          embedJsUnsafe(
-            s"""lichess=window.lichess||{};lichess.quantity=${lila.i18n.JsQuantity(
-              ctx.lang
-            )};$timeagoLocaleScript"""
-          ),
           moreJs,
           ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
         )

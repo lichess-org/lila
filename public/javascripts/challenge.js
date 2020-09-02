@@ -1,4 +1,4 @@
-window.onload = function() {
+window.lichess.onLoadPromise.then(() => {
   var opts = lichess_challenge;
   var selector = '.challenge-page';
   var element = document.querySelector(selector);
@@ -62,4 +62,4 @@ window.onload = function() {
   }
 
   pingNow();
-}
+});

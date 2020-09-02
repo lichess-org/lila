@@ -50,12 +50,12 @@ StrongSocket.defaults.events = {
   announce
 };
 
-$(() => {
-
-  moduleLaunchers();
+window.lichess.load.then(() => {
 
   loadWatchersWidget();
   loadClockWidget();
+
+  moduleLaunchers();
 
   pubsub.on('socket.in.fen', e =>
     document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e))

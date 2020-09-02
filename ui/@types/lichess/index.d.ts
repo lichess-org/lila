@@ -1,10 +1,12 @@
 interface Lichess {
+  load: Promise<unknown>; // window.onload promise
   // components
   requestIdleCallback(f: () => void): void;
   hasTouchEvents: boolean;
   sri: string;
   isCol1(): boolean;
   storage: LichessStorageHelper;
+  tempStorage: LichessStorageHelper;
   once(key: string, mod?: 'always'): boolean;
   debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
   powertip: any;

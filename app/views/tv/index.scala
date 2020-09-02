@@ -26,12 +26,12 @@ object index {
       moreJs = frag(
         roundTag,
         embedJsUnsafe(
-          s"""lichess=window.lichess||{};customWS=true;onload=function(){LichessRound.boot(${safeJsonValue(
+          s"""window.lichess.onLoadPromise.then(() => LichessRound.boot(${safeJsonValue(
             Json.obj(
               "data" -> data,
               "i18n" -> views.html.round.jsI18n(pov.game)
             )
-          )})}"""
+          )}))"""
         )
       ),
       moreCss = cssTag("tv.single"),

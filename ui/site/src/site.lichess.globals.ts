@@ -2,7 +2,7 @@ import StrongSocket from "./component/socket";
 import { requestIdleCallback, once, debounce, makeChat, formAjax, numberFormat, escapeHtml } from "./component/functions";
 import { hasTouchEvents, sri, spinnerHtml } from "./component/intro";
 import { isCol1 } from "./component/is-col1";
-import { storage } from "./component/storage";
+import { storage, tempStorage } from "./component/storage";
 import powertip from "./component/powertip";
 import { assetUrl, soundUrl, loadCss, loadCssPath, jsModule, loadScript, hopscotch, slider } from "./component/assets";
 import widget from "./component/widget";
@@ -27,6 +27,7 @@ export default function() {
     sri,
     isCol1,
     storage,
+    tempStorage,
     once,
     debounce,
     powertip,

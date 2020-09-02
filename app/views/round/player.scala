@@ -49,7 +49,7 @@ object player {
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJsUnsafe(s"""customWS=true;onload=()=>LichessRound.boot(${safeJsonValue(
+        embedJsUnsafe(s"""window.lichess.onLoadPromise.then(()=>LichessRound.boot(${safeJsonValue(
           Json
             .obj(
               "data"   -> data,
@@ -57,7 +57,7 @@ object player {
               "userId" -> ctx.userId,
               "chat"   -> chatJson
             )
-        )})""")
+        )}))""")
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false,
