@@ -1,6 +1,6 @@
 import StrongSocket from "./component/socket";
 import { requestIdleCallback, once, debounce, makeChat, formAjax, numberFormat, escapeHtml } from "./component/functions";
-import { hasTouchEvents, sri, spinnerHtml } from "./component/intro";
+import { hasTouchEvents, sri, spinnerHtml, info } from "./component/intro";
 import { isCol1 } from "./component/is-col1";
 import { storage, tempStorage } from "./component/storage";
 import powertip from "./component/powertip";
@@ -25,6 +25,7 @@ export default function() {
     requestIdleCallback,
     hasTouchEvents,
     sri,
+    info,
     isCol1,
     storage,
     tempStorage,

@@ -1,3 +1,9 @@
+/// <reference types="../../types/info" />
+
+console.info("Lichess is open source! https://lichess.org/source");
+
+export const info = __info__;
+
 export const hasTouchEvents = 'ontouchstart' in window;
 export const spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
 

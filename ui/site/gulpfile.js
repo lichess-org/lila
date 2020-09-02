@@ -85,7 +85,6 @@ function makeDependencies(filename) {
   './dep/powertip.min.js',
   './dep/howler.min.js',
   './dep/mousetrap.min.js',
-  './dist/consolemsg.js',
   ...(abFile ? ['./dist/ab.js'] : []),
 ])
       .pipe(concat(filename))
@@ -103,19 +102,6 @@ function makeBundle(filename) {
       .pipe(destination());
   };
 }
-
-const gitSha = (cb) => {
-  const info = JSON.stringify({
-    date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
-    commit: execSync('git rev-parse -q --short HEAD', {encoding: 'utf-8'}).trim(),
-    message: execSync('git log -1 --pretty=%s', {encoding: 'utf-8'}).trim(),
-  });
-  if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
-  fs.writeFileSync(
-    './dist/consolemsg.js',
-    `window.lichess=window.lichess||{};console.info("Lichess is open source! https://lichess.org/source");lichess.info=${info};`);
-  cb();
-};
 
 const standalonesJs = () => gulp.src([
   'puzzle.js', 'user.js', 'coordinate.js', 'captcha.js', 'embed-analyse.js'
@@ -140,7 +126,7 @@ const tv = singlePackage('./src/tv.ts', 'tv.js');
 const deps = makeDependencies('lichess.deps.js');
 
 const tasks = [
-  gitSha, ab, standalonesJs, userMod, clas,
+  ab, standalonesJs, userMod, clas,
   stockfishWasm, stockfishMvWasm, stockfishJs,
   deps,
   hopscotch, jqueryBarRating, highcharts
