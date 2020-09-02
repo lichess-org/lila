@@ -27,7 +27,7 @@ object perfStat {
       title = s"${u.username} - ${perfStats.txt(perfType.trans)}",
       robots = false,
       moreJs = frag(
-        jsAt("compiled/user.js"),
+        jsModule("user"),
         ratingChart.map { rc =>
           frag(
             jsTag("chart/ratingHistory.js"),

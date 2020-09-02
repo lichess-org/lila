@@ -80,7 +80,7 @@ object page {
   private def moreJs(info: UserInfo, withSearch: Boolean = false)(implicit ctx: Context) =
     frag(
       infiniteScrollTag,
-      jsAt("compiled/user.js"),
+      jsModule("user"),
       info.ratingChart.map { ratingChart =>
         frag(
           jsTag("chart/ratingHistory.js"),
