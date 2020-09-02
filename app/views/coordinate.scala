@@ -18,7 +18,7 @@ object coordinate {
       moreCss = cssTag("coordinate"),
       moreJs = frag(
         jsTag("vendor/sparkline.min.js"),
-        jsAt("compiled/coordinate.js")
+        jsModule("coordinate")
       ),
       openGraph = lila.app.ui
         .OpenGraph(
