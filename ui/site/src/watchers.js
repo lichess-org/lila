@@ -10,9 +10,9 @@ lichess.widget('watchers', {
     if (!data || !data.nb) return this.element.addClass('none');
     if (this.number.length) this.number.text(data.nb);
     if (data.users) {
-      const tags = data.users.map(u => {
-        u ? `<a class="user-link ulpt" href="/@/${u.includes(' ') ? u.split(' ')[1] : u}">${u}</a>` : 'Anonymous';
-      });
+      const tags = data.users.map(u =>
+        u ? `<a class="user-link ulpt" href="/@/${u.includes(' ') ? u.split(' ')[1] : u}">${u}</a>` : 'Anonymous'
+      );
       if (data.anons === 1) tags.push('Anonymous');
       else if (data.anons) tags.push('Anonymous (' + data.anons + ')');
       this.list.html(tags.join(', '));
