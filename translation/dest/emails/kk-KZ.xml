@@ -17,6 +17,6 @@
 Тастарыңызды әрдайым қарсылас ханға жетіп алар түрде ойнатып, ойынның рақатына бөленіңіз!</string>
   <string name="logInToLichess">%s, lichess.org сайтына кіріңіз</string>
   <string name="common_orPaste">(Басылмай жатыр ма? Браузердің жолағына көшіріп көріңіз!)</string>
-  <string name="common_note">Бұл хат э-пошта тарату қызметі сіздің пайдалану %s-на байланысты.</string>
-  <string name="common_contact">Бізбен байланыс құру үшін мына сілтемені қолданыңыз %s.</string>
+  <string name="common_note">Осы қызметтік хат сіздің %s сайтын пайдалануыңызға қатысты.</string>
+  <string name="common_contact">Бізбен байланысу үшін - %s.</string>
 </resources>
