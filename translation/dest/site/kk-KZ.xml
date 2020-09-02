@@ -88,7 +88,7 @@
     <item quantity="other">%s жарты жүрістік мат</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">%s жарты жүрістен кейін келесі алу немесе ер жүрісі жасалады (50 жүріс аяқталар аралығы)</item>
+    <item quantity="one">Келесі жеу немесе сарбаз жүрісі %s жартыжүрістен кейін (50-ші жүріске дейінгі қашықтық)</item>
     <item quantity="other">%s жарты жүрістен кейін келесі алу немесе ер жүрісі жасалады (50 жүріс аяқталар аралығы)</item>
   </plurals>
   <string name="noGameFound">Ешбір ойын табылмады</string>
