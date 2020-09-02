@@ -23,31 +23,6 @@ const ab = () => {
   }
 };
 
-const hopscotch = () => gulp.src([
-  'dist/js/hopscotch.min.js',
-  'dist/**/*.min.css',
-  'dist/img/*'
-], {
-  cwd: path.dirname(require.resolve('hopscotch/package.json')),
-  cwdbase: true
-}).pipe(gulp.dest('../../public/vendor/hopscotch/'));
-
-const jqueryBarRating = () => gulp.src([
-  'dist/jquery.barrating.min.js'
-], {
-  cwd: path.dirname(require.resolve('jquery-bar-rating/package.json')),
-  cwdbase: true
-}).pipe(gulp.dest('../../public/vendor/bar-rating/'));
-
-const highcharts = () => gulp.src([
-  'highcharts.js',
-  'highcharts-more.js',
-  'highstock.js'
-], {
-  cwd: path.dirname(require.resolve('highcharts/package.json')),
-  cwdbase: true
-}).pipe(gulp.dest('../../public/vendor/highcharts-4.2.5/'));
-
 function makeDependencies(filename) {
   return function bundleDeps() {
     return gulp.src([
@@ -73,12 +48,12 @@ function makeBundle(filename) {
   };
 }
 
+
 const deps = makeDependencies('lichess.deps.js');
 
 const tasks = [
-  ab,
-  deps,
-  hopscotch, jqueryBarRating, highcharts
+  ab, 
+  deps
 ];
 
 const dev = gulp.series(tasks);
