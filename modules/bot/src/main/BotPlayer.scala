@@ -1,9 +1,9 @@
 package lila.bot
 
+import chess.format.Uci
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import chess.format.Uci
 import lila.common.Bus
 import lila.game.Game.PlayerId
 import lila.game.{ Game, GameRepo, Pov }
@@ -15,7 +15,8 @@ import lila.user.User
 final class BotPlayer(
     chatApi: lila.chat.ChatApi,
     gameRepo: GameRepo,
-    isOfferingRematch: lila.round.IsOfferingRematch
+    isOfferingRematch: lila.round.IsOfferingRematch,
+    spam: lila.security.Spam
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
@@ -39,16 +40,17 @@ final class BotPlayer(
     }
 
   def chat(gameId: Game.ID, me: User, d: BotForm.ChatData) =
-    fuccess {
-      lila.mon.bot.chats(me.username).increment()
-      val chatId = lila.chat.Chat.Id {
-        if (d.room == "player") gameId else s"$gameId/w"
+    !spam.detect(d.text) ??
+      fuccess {
+        lila.mon.bot.chats(me.username).increment()
+        val chatId = lila.chat.Chat.Id {
+          if (d.room == "player") gameId else s"$gameId/w"
+        }
+        val source = d.room == "spectator" option {
+          lila.hub.actorApi.shutup.PublicSource.Watcher(gameId)
+        }
+        chatApi.userChat.write(chatId, me.id, d.text, publicSource = source, _.Round)
       }
-      val source = d.room == "spectator" option {
-        lila.hub.actorApi.shutup.PublicSource.Watcher(gameId)
-      }
-      chatApi.userChat.write(chatId, me.id, d.text, publicSource = source, _.Round)
-    }
 
   def rematchAccept(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, accept = true)
 
