@@ -10,8 +10,28 @@
     <item quantity="one">%2$s-да %1$s күйді меңгерді</item>
     <item quantity="other">%2$s-да %1$s күйді меңгерді</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">%s тактикалық жұмбақ шешті</item>
+    <item quantity="other">%s тактикалық жұмбақ шешті</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%1$s %2$s ойнады</item>
+    <item quantity="other">%1$s %2$s ойнады</item>
+  </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">%2$s ішінде %1$s хабарлама жариялады</item>
     <item quantity="other">%2$s ішінде %1$s хабарлама жариялады</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s жүріс жасады</item>
+    <item quantity="other">%1$s жүріс жасады</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">%1$s пошталық ойында</item>
+    <item quantity="other">%1$s пошталық ойында</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">%s ойыншыға серік болып қосылды</item>
+    <item quantity="other">%s ойыншыға серік болып қосылды</item>
   </plurals>
 </resources>
