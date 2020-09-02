@@ -1,9 +1,45 @@
+import { execSync } from 'child_process';
 import { rollupProject } from '@build/rollupProject';
+import copy from 'rollup-plugin-copy';
+import replace from '@rollup/plugin-replace';
 
 export default rollupProject({
   main: {
     input: 'src/site.ts',
     output: 'lichess.site',
+    plugins: [
+      copy({
+        targets: [{
+          src: [
+            require.resolve('stockfish.js/stockfish.js'),
+            require.resolve('stockfish.js/stockfish.wasm'),
+            require.resolve('stockfish.js/stockfish.wasm.js'),
+          ],
+          dest: '../../public/vendor/stockfish.js',
+        }, {
+          src: [
+            require.resolve('stockfish.wasm/stockfish.js'),
+            require.resolve('stockfish.wasm/stockfish.wasm'),
+            require.resolve('stockfish.wasm/stockfish.worker.js'),
+          ],
+          dest: '../../public/vendor/stockfish.wasm',
+        }, {
+          src: [
+            require.resolve('stockfish-mv.wasm/stockfish.js'),
+            require.resolve('stockfish-mv.wasm/stockfish.wasm'),
+            require.resolve('stockfish-mv.wasm/stockfish.worker.js'),
+          ],
+          dest: '../../public/vendor/stockfish-mv.wasm',
+        }],
+      }),
+      replace({
+        __info__: JSON.stringify({
+          date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
+          commit: execSync('git rev-parse -q --short HEAD', {encoding: 'utf-8'}).trim(),
+          message: execSync('git log -1 --pretty=%s', {encoding: 'utf-8'}).trim(),
+        }),
+      }),
+    ],
   },
   tv: {
     input: 'src/tv-embed.ts',

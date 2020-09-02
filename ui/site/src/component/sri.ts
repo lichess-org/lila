@@ -1,3 +1,9 @@
+/// <reference types="../../types/info" />
+
+console.info("Lichess is open source! https://lichess.org/source");
+
+export const info = __info__;
+
 // Unique id for the current document/navigation. Should be different after
 // each page load and for each tab. Should be unpredictable and secret while
 // in use.

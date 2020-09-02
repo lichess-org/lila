@@ -60,24 +60,6 @@ const highcharts = () => gulp.src([
   cwdbase: true
 }).pipe(gulp.dest('../../public/vendor/highcharts-4.2.5/'));
 
-const stockfishJs = () => gulp.src([
-  require.resolve('stockfish.js/stockfish.wasm.js'),
-  require.resolve('stockfish.js/stockfish.wasm'),
-  require.resolve('stockfish.js/stockfish.js')
-]).pipe(gulp.dest('../../public/vendor/stockfish.js'));
-
-const stockfishWasm = () => gulp.src([
-  require.resolve('stockfish.wasm/stockfish.js'),
-  require.resolve('stockfish.wasm/stockfish.wasm'),
-  require.resolve('stockfish.wasm/stockfish.worker.js')
-]).pipe(gulp.dest('../../public/vendor/stockfish.wasm/'));
-
-const stockfishMvWasm = () => gulp.src([
-  require.resolve('stockfish-mv.wasm/stockfish.js'),
-  require.resolve('stockfish-mv.wasm/stockfish.wasm'),
-  require.resolve('stockfish-mv.wasm/stockfish.worker.js')
-]).pipe(gulp.dest('../../public/vendor/stockfish-mv.wasm/'));
-
 function makeDependencies(filename) {
   return function bundleDeps() {
     return gulp.src([
@@ -85,7 +67,6 @@ function makeDependencies(filename) {
   './dep/powertip.min.js',
   './dep/howler.min.js',
   './dep/mousetrap.min.js',
-  './dist/consolemsg.js',
   ...(abFile ? ['./dist/ab.js'] : []),
 ])
       .pipe(concat(filename))
@@ -103,19 +84,6 @@ function makeBundle(filename) {
       .pipe(destination());
   };
 }
-
-const gitSha = (cb) => {
-  const info = JSON.stringify({
-    date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
-    commit: execSync('git rev-parse -q --short HEAD', {encoding: 'utf-8'}).trim(),
-    message: execSync('git log -1 --pretty=%s', {encoding: 'utf-8'}).trim(),
-  });
-  if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
-  fs.writeFileSync(
-    './dist/consolemsg.js',
-    `window.lichess=window.lichess||{};console.info("Lichess is open source! https://lichess.org/source");lichess.info=${info};`);
-  cb();
-};
 
 const standalonesJs = () => gulp.src([
   'puzzle.js', 'user.js', 'coordinate.js', 'captcha.js', 'embed-analyse.js'
@@ -139,8 +107,7 @@ const tv = singlePackage('./src/tv.ts', 'tv.js');
 const deps = makeDependencies('lichess.deps.js');
 
 const tasks = [
-  gitSha, ab, standalonesJs, clas,
-  stockfishWasm, stockfishMvWasm, stockfishJs,
+  ab, standalonesJs, clas,
   deps,
   hopscotch, jqueryBarRating, highcharts
 ];

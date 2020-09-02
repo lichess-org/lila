@@ -29,6 +29,7 @@ export default function() {
     requestIdleCallback,
     hasTouchEvents,
     sri,
+    info,
     isCol1,
     storage,
     tempStorage,
