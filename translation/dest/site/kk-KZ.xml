@@ -436,7 +436,7 @@
   <string name="loadPosition">Күйді жүктеп алу</string>
   <string name="isPrivate">Жасырын</string>
   <string name="reportXToModerators">%s туралы модераторға шағымдану</string>
-  <string name="profileCompletion">Куәлігіңіздің толтырылғаны: %s</string>
+  <string name="profileCompletion">Куәлігіңіздің толуы: %s</string>
   <string name="xRating">%s рейтингі</string>
   <string name="ifNoneLeaveEmpty">Жоқ болса, бос қалдырыңыз</string>
   <string name="gameCompletionRate">Ойындарды аяқтау деңгейі: %s</string>
