@@ -388,6 +388,8 @@
   <string name="advancedSettings">प्रगत सेटिंग्ज</string>
   <string name="safeTournamentName">स्पर्धेसाठी खूप सुरक्षित नाव निवडा.</string>
   <string name="inappropriateNameWarning">थोडे अनुचित काहीही आपले खाते बंद करू शकते.</string>
+  <string name="showAdvancedSettings">प्रगत सेटिंग्ज दाखवा</string>
+  <string name="makePrivateTournament">खाजगीत प्रतियोगिता करा आणि संकेतशब्दाने मर्यादित करा</string>
   <string name="join">सामील व्हा</string>
   <string name="withdraw">मागे घ्या</string>
   <string name="points">गुण</string>
@@ -402,6 +404,7 @@
   <string name="whiteWins">पांढऱ्याचे विजय</string>
   <string name="blackWins">काळ्याचे विजय</string>
   <string name="draws">बरोबरी सुटलेले</string>
+  <string name="nextXTournament">पुढील %s प्रतियोगिता:</string>
   <string name="averageOpponent">प्रतिस्पर्धी सरासरी</string>
   <string name="membersOnly">फक्त सदस्यांसाठी</string>
   <string name="boardEditor">पट संपादक (Board editor)</string>
@@ -508,6 +511,7 @@
   <string name="newPasswordAgain">नवीन गुप्त शब्द (पुनः)</string>
   <string name="clockInitialTime">प्रारंभिक वेळ</string>
   <string name="clockIncrement">वेळवाढ</string>
+  <string name="privacy">गोपनीयता</string>
   <string name="difficultyHard">कठीण</string>
   <string name="victory">शाब्बास रे! पठ्ठ्या!!!</string>
   <string name="defeat">हार</string>
