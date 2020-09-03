@@ -480,10 +480,10 @@ export default class RoundController {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
     }
-    if (!d.player.spectator && d.game.turns > 6 && !d.tournament && !d.swiss) {
+    if (!d.player.spectator && d.game.turns > 1) {
       const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
       li.sound[key]();
-      if (key != 'victory' && li.storage.get('courtesy')) 
+      if (key != 'victory' && d.game.turns > 6 && !d.tournament && !d.swiss && li.storage.get('courtesy')) 
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
     if (d.crazyhouse) crazyEndHook();
