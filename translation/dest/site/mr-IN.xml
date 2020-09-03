@@ -549,13 +549,19 @@
     <item quantity="other">कमाल: %s शब्द.</item>
   </plurals>
   <string name="listBlockedPlayers">खालील खेळाडूंना बंदी केली</string>
+  <string name="human">मानव</string>
+  <string name="computer">संगणक</string>
   <string name="noInternetConnection">आंतरजालाशी संपर्क  नाही. तरीदेखील तुम्ही offline खेळू शकता</string>
   <string name="playOnTheBoardOffline">त्या समयी सुचलेली चाल</string>
   <string name="playOfflineComputer">संगणक</string>
   <string name="opponent">प्रतिस्पर्धी</string>
+  <string name="learnMenu">शिका</string>
+  <string name="practice">सराव</string>
   <string name="community">समुदाय</string>
   <string name="tools">साधने</string>
   <string name="increment">वाढ</string>
+  <string name="playOnline">ऑनलाइन खेळा</string>
+  <string name="playOffline">ऑफलाईन खेळा</string>
   <string name="error.email">हा ईमेल अवैध आहे</string>
   <string name="error.email_acceptable">हा ईमेल स्वीकार्य नाही. कृपया तपासून पहा आणि पुन्हा प्रयत्न करा.</string>
   <string name="error.email_unique">हा ईमेल आधीपासून आहे</string>
@@ -642,4 +648,9 @@
   <string name="practiceWithComputer">कॉम्प्युटर सोबत सराव करा</string>
   <string name="anotherWasX">इतर %s</string>
   <string name="bestWasX">उत्तम %s</string>
+  <string name="resumePractice">अभ्यास पुन्हा सुरू करा</string>
+  <string name="theGameIsADraw">खेळ बरोबरीत सुटला आहे.</string>
+  <string name="computerThinking">संगणक विचार करत आहे...</string>
+  <string name="evaluatingYourMove">तुमच्या चालीचे मुल्यमापन सुरू आहे...</string>
+  <string name="solution">उत्तर</string>
 </resources>
