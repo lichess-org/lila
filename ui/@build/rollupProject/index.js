@@ -15,7 +15,6 @@ exports.rollupProject = (targets) => {
           format: 'iife',
           name: target.name,
           plugins: [
-            ...(target.plugins || []),
             terser({
               safari10: true,
               output: {
