@@ -24,45 +24,43 @@ import timeago from "./component/timeago";
 import modal from "./component/modal";
 
 export default function() {
-  window.lichess = {
-    ...window.lichess,
-    StrongSocket,
-    requestIdleCallback,
-    hasTouchEvents,
-    sri,
-    isCol1,
-    storage,
-    tempStorage,
-    once,
-    debounce,
-    powertip,
-    widget,
-    spinnerHtml,
-    assetUrl,
-    soundUrl,
-    loadCss,
-    loadCssPath,
-    jsModule,
-    loadScript,
-    hopscotch,
-    slider,
-    makeChat,
-    formAjax,
-    numberFormat,
-    idleTimer,
-    pubsub,
-    unload,
-    redirect,
-    reload,
-    escapeHtml,
-    announce,
-    trans,
-    sound,
-    soundBox,
-    userAutocomplete,
-    miniBoard,
-    miniGame,
-    timeago,
-    modal
-  }
+  const l = window.lichess;
+  l.StrongSocket = StrongSocket;
+  l.requestIdleCallback = requestIdleCallback;
+  l.hasTouchEvents = hasTouchEvents;
+  l.sri = sri;
+  l.isCol1 = isCol1;
+  l.storage = storage;
+  l.tempStorage = tempStorage;
+  l.once = once;
+  l.debounce = debounce;
+  l.powertip = powertip;
+  l.widget = widget;
+  l.spinnerHtml = spinnerHtml;
+  l.assetUrl = assetUrl;
+  l.soundUrl = soundUrl;
+  l.loadCss = loadCss;
+  l.loadCssPath = loadCssPath;
+  l.jsModule = jsModule;
+  l.loadScript = loadScript;
+  l.hopscotch = hopscotch;
+  l.slider = slider;
+  l.makeChat = makeChat;
+  l.formAjax = formAjax;
+  l.numberFormat = numberFormat;
+  l.idleTimer = idleTimer;
+  l.pubsub = pubsub;
+  l.unload = unload;
+  l.redirect = redirect;
+  l.reload = reload;
+  l.escapeHtml = escapeHtml;
+  l.announce = announce;
+  l.trans = trans;
+  l.sound = sound;
+  l.soundBox = soundBox;
+  l.userAutocomplete = userAutocomplete;
+  l.miniBoard = miniBoard;
+  l.miniGame = miniGame;
+  l.timeago = timeago;
+  l.modal = modal;
 }
