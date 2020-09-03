@@ -537,7 +537,18 @@
   <string name="xCommentedY">%1$s प्रतिक्रिया दिली %2$s</string>
   <string name="victory">शाब्बास रे! पठ्ठ्या!!!</string>
   <string name="defeat">हार</string>
-  <string name="victoryVsYInZ">%1$s विरुद्ध %2$s in %3$s</string>
+  <string name="victoryVsYInZ">%1$s विरुद्ध %2$s खेळाचा प्रकार %3$s</string>
+  <string name="defeatVsYInZ">%1$s विरुद्ध %2$s खेळाचा प्रकार %3$s</string>
+  <string name="drawVsYInZ">%1$s विरुद्ध %2$s खेळाचा प्रकार %3$s</string>
+  <string name="starting">खेळ सुरू होत आहे:</string>
+  <string name="allInformationIsPublicAndOptional">सर्व माहिती सार्वजनिक आणि ऐच्छिक आहे.</string>
+  <string name="yourCityRegionOrDepartment">तुमच्या गाव आणि राज्य.</string>
+  <string name="biographyDescription">तुमच्या बद्दल सांगा, तुमच्या आवडी, बुद्धिबळात तुम्हाला काय आवडते, तुमची आवडती बुद्धिबळातील opening, खेळाडू,...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">कमाल: %s शब्द मर्यादा.</item>
+    <item quantity="other">कमाल: %s शब्द.</item>
+  </plurals>
+  <string name="listBlockedPlayers">खालील खेळाडूंना बंदी केली</string>
   <string name="noInternetConnection">आंतरजालाशी संपर्क  नाही. तरीदेखील तुम्ही offline खेळू शकता</string>
   <string name="playOnTheBoardOffline">त्या समयी सुचलेली चाल</string>
   <string name="playOfflineComputer">संगणक</string>
