@@ -1,9 +1,8 @@
 $(function() {
 
   var $variant = $('#form3-variant');
-  var $position = $('.form3 .position');
   function showPosition() {
-    $position.toggleNone($variant.val() == 1);
+    document.querySelector('.form3 .position')?.classList.toggle('none', $variant.val() != 1);
   };
   $variant.on('change', showPosition);
   showPosition();

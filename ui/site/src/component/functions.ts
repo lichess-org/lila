@@ -2,6 +2,10 @@ export const requestIdleCallback = (window.requestIdleCallback || window.setTime
 
 type Debounced = (...args) => any;
 
+export function notEmpty<T>(value: T | null | undefined): value is T {
+  return value !== null && value !== undefined;
+}
+
 export const debounce = (func: (...args) => any, wait: number, immediate = false): Debounced => {
   let timeout, lastBounce = 0;
   return function(this: any) {

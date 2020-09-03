@@ -16,10 +16,10 @@ import loadInfiniteScroll from "./component/infinite-scroll";
 import { storage } from "./component/storage";
 import { assetUrl } from "./component/assets";
 import serviceWorker from "./component/service-worker";
-import loadFriendsWidget from "./component/friends-widget";
 import loadWatchersWidget from "./component/watchers-widget";
 import loadClockWidget from "./component/clock-widget";
 import info from "./component/info";
+import OnlineFriends from "./component/friends-widget";
 
 exportLichessGlobals();
 window.lichess.info = info;
@@ -66,8 +66,7 @@ window.lichess.load.then(() => {
 
   requestIdleCallback(() => {
 
-    loadFriendsWidget();
-    $('#friend_box').friends();
+    new OnlineFriends(document.getElementById('friend_box')!);
 
     $('#main-wrap')
       .on('click', '.autoselect', function(this: HTMLElement) {

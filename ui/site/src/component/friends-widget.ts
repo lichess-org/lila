@@ -1,111 +1,98 @@
-import widget from './widget';
 import trans from './trans';
 import pubsub from './pubsub';
+import { notEmpty } from './functions';
 
-// TODO doesn't need to be a widget.
-// all interactions come from pubsub
-export default function loadFriendsWidget() {
-  widget("friends", (() => {
-    const getId = function(titleName) {
-      return titleName.toLowerCase().replace(/^\w+\s/, '');
-    };
-    const makeUser = function(titleName) {
-      const split = titleName.split(' ');
-      return {
-        id: split[split.length - 1].toLowerCase(),
-        name: split[split.length - 1],
-        title: (split.length > 1) ? split[0] : undefined,
-        playing: false,
-        patron: false
-      };
-    };
-    const renderUser = function(user) {
-      const icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>',
-        titleTag = user.title ? ('<span class="utitle"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;') : '',
-        url = '/@/' + user.name,
-        tvButton = user.playing ? '<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
-      return '<div><a class="user-link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + user.name + '</a>' + tvButton + '</div>';
-    };
-    return {
-      _create: function() {
-        const self: any = this,
-          el = self.element;
+type TitleName = string;
 
-        self.$friendBoxTitle = el.find('.friend_box_title').click(function() {
-          el.find('.content_wrap').toggleNone();
-          if (!self.loaded) {
-            self.loaded = true;
-            window.lichess.socket.send('following_onlines');
-          }
-        });
+interface Friend {
+  id: string;
+  name: string;
+  title?: string;
+  playing: boolean;
+  patron: boolean;
+}
 
-        self.$nobody = el.find(".nobody");
+export default class OnlineFriends {
 
-        const data = {
-          users: [],
-          playing: [],
-          patrons: [],
-          ...el.data('preload')
-        };
-        self.trans = trans(data.i18n);
-        self.set(data);
+  titleEl: HTMLElement;
+  loaded: boolean = false;
+  trans: Trans;
+  users: Map<string, Friend>;
 
-        pubsub.on('socket.in.following_onlines', d => {
-          d.users = d.d;
-          self.set(d);
-        });
-        ['enters', 'leaves', 'playing', 'stopped_playing'].forEach(k =>
-          pubsub.on('socket.in.following_' + k, self[k])
-        );
-      },
-      repaint: function() {
-        const self: any = this;
-        if (self.loaded) requestAnimationFrame(function() {
-          const users = self.users,
-            ids = Object.keys(users).sort();
-          self.$friendBoxTitle.html(self.trans.vdomPlural('nbFriendsOnline', ids.length, self.loaded ? $('<strong>').text(ids.length) : '-'));
-          self.$nobody.toggleNone(!ids.length);
-          self.element.find('.list').html(
-            ids.map(function(id) {
-              return renderUser(users[id]);
-            }).join('')
-          );
-        }.bind(self));
-      },
-      insert: function(titleName) {
-        const self: any = this;
-        const id = getId(titleName);
-        if (!self.users[id]) self.users[id] = makeUser(titleName);
-        return self.users[id];
-      },
-      set: function(d) {
-        const self: any = this;
-        self.users = {};
-        let i;
-        for (i in d.users) this.insert(d.users[i]);
-        for (i in d.playing) this.insert(d.playing[i]).playing = true;
-        for (i in d.patrons) this.insert(d.patrons[i]).patron = true;
-        this.repaint();
-      },
-      enters: function(d) {
-        const user = this.insert(d.d);
-        user.playing = d.playing;
-        user.patron = d.patron;
-        this.repaint();
-      },
-      leaves: function(titleName) {
-        const self: any = this;
-        delete self.users[getId(titleName)];
-        this.repaint();
-      },
-      playing: function(titleName) {
-        this.insert(titleName).playing = true;
-        this.repaint();
-      },
-      stopped_playing: function(titleName) {
-        this.insert(titleName).playing = false;
-        this.repaint();
+  constructor(readonly el: HTMLElement) {
+    this.titleEl = this.el.querySelector('.friend_box_title') as HTMLElement;
+    this.titleEl.addEventListener('click', () => {
+      this.el.querySelector('.content_wrap')?.classList.toggle('none');
+      if (!this.loaded) {
+        this.loaded = true;
+        pubsub.emit('socket.send', 'following_onlines');
       }
+    });
+    this.trans = trans(JSON.parse(this.el.getAttribute('data-i18n')!));
+    this.users = new Map();
+    pubsub.on('socket.in.following_onlines', this.receive);
+    ['enters', 'leaves', 'playing', 'stopped_playing'].forEach(k =>
+      pubsub.on('socket.in.following_' + k, this[k])
+    );
+  }
+  receive = (friends: TitleName[], msg: { playing: string[], patrons: string[] }) => {
+    this.users.clear();
+    friends.forEach(this.insert);
+    msg.playing.map(p => this.users.get(p)).filter(notEmpty).forEach(u => u.playing = true);
+    msg.patrons.map(p => this.users.get(p)).filter(notEmpty).forEach(u => u.patron = true);
+    this.repaint();
+  }
+  repaint = () => {
+    if (this.loaded) requestAnimationFrame(() => {
+      const ids = Array.from(this.users.keys()).sort();
+      this.titleEl.innerHTML = this.trans.plural('nbFriendsOnline', ids.length, this.loaded ? `<strong>${ids.length}</strong>` : '-');
+      this.el.querySelector('.nobody')?.classList.toggle('none', !!ids[0]);
+      this.el.querySelector('.list')!.innerHTML = ids.map(id => this.renderFriend(this.users.get(id)!)).join('');
+    });
+  }
+  renderFriend = (friend: Friend) => {
+    const icon = `<i class="line${friend.patron ? ' patron' : ''}"></i>`,
+      titleTag = friend.title ? `<span class="utitle"${friend.title === 'BOT' ? ' data-bot' : ''}>${friend.title}</span>&nbsp;` : '',
+      url = '/@/' + friend.name,
+      tvButton = friend.playing ? `<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="${url}/tv" data-href="${url}"></a>` : '';
+    return `<div><a class="user-link ulpt" data-pt-pos="nw" href="${url}">${icon}${titleTag}${friend.name}</a>${tvButton}</div>`;
+  }
+
+  enters = (titleName: TitleName, msg: { playing: boolean, patron: boolean }) => {
+    const friend = this.insert(titleName);
+    friend.playing = msg.playing;
+    friend.patron = msg.patron;
+    this.repaint();
+  }
+  leaves = (titleName: TitleName) => {
+    this.users.delete(this.getId(titleName));
+    this.repaint();
+  }
+  playing = (titleName: TitleName) => {
+    this.insert(titleName).playing = true;
+    this.repaint();
+  }
+  stopped_playing = (titleName: TitleName) => {
+    this.insert(titleName).playing = false;
+    this.repaint();
+  }
+
+  insert = (titleName: TitleName): Partial<Friend> => {
+    const id = this.getId(titleName);
+    if (!this.users.has(id)) this.users.set(id, this.toFriend(titleName));
+    return this.users.get(id)!;
+  };
+
+  getId = (titleName: TitleName) => titleName.toLowerCase().replace(/^\w+\s/, '');
+
+  toFriend = (titleName: TitleName): Friend => {
+    const split = titleName.split(' ');
+    return {
+      id: split[split.length - 1].toLowerCase(),
+      name: split[split.length - 1],
+      title: (split.length > 1) ? split[0] : undefined,
+      playing: false,
+      patron: false
     };
-  })());
+  };
 }

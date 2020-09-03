@@ -194,7 +194,7 @@ const StrongSocket = function(url: string, version: number | false, settings?: a
         ackable.gotAck(m.d);
         break;
       default:
-        pubsub.emit('socket.in.' + m.t, m.d);
+        pubsub.emit('socket.in.' + m.t, m.d, m);
         var processed = settings.receive && settings.receive(m.t, m.d);
         if (!processed && settings.events[m.t]) settings.events[m.t](m.d || null, m);
     }

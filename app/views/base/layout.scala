@@ -1,5 +1,6 @@
 package views.html.base
 
+import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
@@ -8,8 +9,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.ContentSecurityPolicy
 import lila.common.String.html.safeJsonValue
-
-import controllers.routes
 
 object layout {
 
@@ -145,7 +144,7 @@ object layout {
   private val dataUser          = attr("data-user")
   private val dataSoundSet      = attr("data-sound-set")
   private val dataSocketDomains = attr("data-socket-domains")
-  private val dataPreload       = attr("data-preload")
+  private val dataI18n          = attr("data-i18n")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
 
@@ -247,7 +246,7 @@ object layout {
           )(body),
           ctx.isAuth option div(
             id := "friend_box",
-            dataPreload := safeJsonValue(Json.obj("i18n" -> i18nJsObject(i18nKeys)))
+            dataI18n := safeJsonValue(i18nJsObject(i18nKeys))
           )(
             div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag("S"))),
             div(cls := "content_wrap none")(
