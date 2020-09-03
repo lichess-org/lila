@@ -512,6 +512,14 @@
   <string name="clockInitialTime">प्रारंभिक वेळ</string>
   <string name="clockIncrement">वेळवाढ</string>
   <string name="privacy">गोपनीयता</string>
+  <string name="letOtherPlayersFollowYou">इतर खेळाडूंना Follow करू द्या</string>
+  <string name="letOtherPlayersChallengeYou">इतर खेळाडूंना द्वंद्वाला ललकारू द्या</string>
+  <string name="letOtherPlayersInviteYouToStudy">इतर खेळाडूंना अभ्यासासाठी आमंत्रित करू द्या</string>
+  <string name="sound">आवाज</string>
+  <string name="none">नको</string>
+  <string name="fast">जलद</string>
+  <string name="normal">सामान्य</string>
+  <string name="slow">संथ</string>
   <string name="difficultyHard">कठीण</string>
   <string name="victory">शाब्बास रे! पठ्ठ्या!!!</string>
   <string name="defeat">हार</string>
