@@ -38,5 +38,5 @@ const builder = storage => {
 };
 
 
-export const storage = builder(window.localStorage);
-export const tempStorage = builder(window.sessionStorage);
+export const storage: LichessStorageHelper = builder(window.localStorage);
+export const tempStorage: LichessStorageHelper = builder(window.sessionStorage);
