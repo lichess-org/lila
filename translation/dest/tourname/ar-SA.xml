@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="hourlyRapidArena">ساحة اللعب السريع الساعية</string>
-  <string name="hourlyRapid">ساعة سريعة</string>
-  <string name="hourlyXArena">الساحة %s المستمرة بالساعة</string>
-  <string name="hourlyX">بأستمرار %s</string>
+  <string name="hourlyRapid">النمط السريع الساعي</string>
+  <string name="hourlyXArena">ساحة %s الساعية</string>
+  <string name="hourlyX">%s المستمر ساعياً</string>
   <string name="dailyRapidArena">ساحة اللعب اليومي السريع</string>
   <string name="dailyRapid">سريع يومي</string>
   <string name="dailyClassicalArena">الساحة الكلاسيكية اليومية</string>
@@ -38,4 +38,12 @@
   <string name="rapidShield">الدرع السريع</string>
   <string name="classicalShieldArena">ساحة الدرع التقليدي</string>
   <string name="classicalShield">الدرع التقليدي</string>
+  <string name="xShieldArena">ساحة الدفاع عن درع %s</string>
+  <string name="xShield">درع %s</string>
+  <string name="openingRapidArena">ساحة اللعب السريع بافتتاحية %s</string>
+  <string name="openingRapid">اللعب السريع بافتتاحية %s</string>
+  <string name="xTeamBattle">معركة فريق اللاعب %s</string>
+  <string name="eliteXArena">ساحة نخبة لاعبي %s</string>
+  <string name="eliteX">نخبة لاعبي %s</string>
+  <string name="xArena">ساحة %s</string>
 </resources>
