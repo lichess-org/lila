@@ -1,11 +1,10 @@
 package controllers
 
-
-
 import play.api.libs.json.Json
 import play.api.mvc.Result
 import scala.annotation.nowarn
 import scala.concurrent.duration._
+import views.html
 
 import lila.api.Context
 import lila.app._
@@ -14,7 +13,6 @@ import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ AnonCookie, Pov }
 import lila.socket.Socket.SocketVersion
 import lila.user.{ User => UserModel }
-import views.html
 
 final class Challenge(
     env: Env
@@ -162,8 +160,24 @@ final class Challenge(
   def apiCancel(id: String) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
       api.activeByIdBy(id, me) flatMap {
-        case None    => notFoundJson()
         case Some(c) => api.cancel(c) inject jsonOkResult
+        case None =>
+          api.activeByIdFor(id, me) flatMap {
+            case Some(c) => api.decline(c) inject jsonOkResult
+            case None =>
+              env.game.gameRepo game id dmap {
+                _ flatMap { Pov.ofUserId(_, me.id) }
+              } flatMap {
+                _ ?? { p => env.round.proxyRepo.upgradeIfPresent(p) dmap some }
+              } dmap (_.filter(_.game.abortable)) flatMap {
+                case Some(pov) =>
+                  import lila.hub.actorApi.map.Tell
+                  import lila.hub.actorApi.round.Abort
+                  lila.common.Bus.publish(Tell(id, Abort(pov.playerId)), "roundSocket")
+                  jsonOkResult.fuccess
+                case None => notFoundJson()
+              }
+          }
       }
     }
 
