@@ -41,5 +41,5 @@
   <string name="castleByMovingTwoSquares">राजा दो चौकों ले जाएँ</string>
   <string name="castleByMovingOntoTheRook">राजा हाथी पर ले जाएँ</string>
   <string name="inputMovesWithTheKeyboard">कंप्यूटर कीबोर्ड के साथ इनपुट करें</string>
-  <string name="yourPreferencesHaveBeenSaved">आपकी प्राथमिकताओं को सुरक्षित (स्मरण) कर दिया गया है।</string>
+  <string name="yourPreferencesHaveBeenSaved">आपकी प्राथमिकताएं सेव कर ली गई हैं</string>
 </resources>
