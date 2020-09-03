@@ -8,19 +8,8 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@rollup/plugin-replace": "^2.3.3",
-    "browserify": "^16",
-    "fancy-log": "^1",
-    "gulp": "^4",
-    "gulp-concat": "^2.6",
-    "gulp-size": "^3",
-    "gulp-terser": "^1",
-    "request": "^2",
     "rollup-plugin-copy": "^3.3.0",
-    "tsify": "^4.0.0",
-    "typescript": "^3",
-    "vinyl-buffer": "^1",
-    "vinyl-source-stream": "^2",
-    "watchify": "^3"
+    "typescript": "^3"
   },
   "dependencies": {
     "highcharts": "=4.2.5",
@@ -32,7 +21,8 @@
     "tablesort": "^5.1"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "deps": "cat ../../public/javascripts/vendor/jquery.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/lichess.deps.js",
+    "dev": "yarn run deps && rollup --config",
+    "prod": "yarn run deps && rollup --config --config-prod"
   }
 }

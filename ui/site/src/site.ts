@@ -1,4 +1,5 @@
-import exportLichessGlobals from "./site.lichess.globals"
+import "./component/jquery-ajax";
+import exportLichessGlobals from "./site.lichess.globals";
 import StrongSocket from "./component/socket";
 import { unload, redirect, reload } from "./component/reload";
 import announce from './component/announce';
