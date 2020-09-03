@@ -11,6 +11,7 @@ import './infinite-scroll';
 import './socket';
 import './socket-defaults';
 import './top-bar';
+import './announce';
 import './service-worker';
 import './module-launchers';
 import './main';
