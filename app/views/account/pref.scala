@@ -27,7 +27,7 @@ object pref {
             st.id := s"$prefix$id",
             checked option st.checked,
             cls := checked option "active",
-            `type` := "radio",
+            tpe := "radio",
             value := v._1.toString,
             name := field.name
           ),

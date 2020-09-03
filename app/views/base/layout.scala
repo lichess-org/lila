@@ -217,7 +217,7 @@ object layout {
           openGraph.map(_.frags),
           link(
             href := routes.Blog.atom(),
-            `type` := "application/atom+xml",
+            tpe := "application/atom+xml",
             rel := "alternate",
             st.title := trans.blog.txt()
           ),

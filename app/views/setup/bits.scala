@@ -69,7 +69,7 @@ private object bits {
         case (key, name, hint) =>
           div(
             input(
-              `type` := "radio",
+              tpe := "radio",
               id := s"$prefix${field.id}_$key",
               st.name := field.name,
               value := key,
@@ -85,7 +85,7 @@ private object bits {
     )
 
   def renderInput(field: Field) =
-    input(name := field.name, value := field.value, `type` := "hidden")
+    input(name := field.name, value := field.value, tpe := "hidden")
 
   def renderLabel(field: Field, content: Frag) =
     label(`for` := s"$prefix${field.id}")(content)
