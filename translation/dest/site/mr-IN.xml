@@ -266,13 +266,13 @@
   <string name="thisAccountViolatedTos">या खात्याने अटींचे उल्लंघन केले</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">हा खेळाडू कृत्रिमरित्या दर्जा वाढवितो / कमी करतो</string>
   <string name="openingExplorerAndTablebase">उघडणी अन्वेषक नि साठा</string>
-  <string name="takeback">परत घ्या</string>
-  <string name="proposeATakeback">Mage ghenyas vinanti</string>
-  <string name="takebackPropositionSent">Mage ghenyas vinanti pohochli</string>
-  <string name="takebackPropositionDeclined">Mage ghenyas vinanti aamanya</string>
-  <string name="takebackPropositionAccepted">Mage ghenyas vinanti manya</string>
-  <string name="takebackPropositionCanceled">Mage ghenyas vinanti radda</string>
-  <string name="yourOpponentProposesATakeback">Mitrachi mage ghenyas vinanti</string>
+  <string name="takeback">चाल परत घ्या</string>
+  <string name="proposeATakeback">चाल मागे घेण्यास विनंती करा</string>
+  <string name="takebackPropositionSent">चाल मागे घेण्यास विनंती पाठवली</string>
+  <string name="takebackPropositionDeclined">चाल मागे घेण्याची विनंती अमान्य केली</string>
+  <string name="takebackPropositionAccepted">चाल मागे घेण्याची विनंती मान्य केली</string>
+  <string name="takebackPropositionCanceled">चाल मागे घेण्याची विनंती रद्द केली</string>
+  <string name="yourOpponentProposesATakeback">प्रतिस्पर्ध्याने चाल मागे घेण्याची विनंती केली आहे</string>
   <string name="bookmarkThisGame">Khelala bookamrk kara</string>
   <string name="tournament">स्पर्धा</string>
   <string name="tournaments">स्पर्धा</string>
@@ -381,7 +381,7 @@
   <string name="openTournaments">खुली स्पर्धा</string>
   <string name="duration">कालावधी</string>
   <string name="winner">विजेता</string>
-  <string name="standing">पद</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">पद</string>
   <string name="createANewTournament">नवीन स्पर्धा तयार  करा</string>
   <string name="tournamentCalendar">स्पर्धा दिनदर्शिका</string>
   <string name="conditionOfEntry">प्रवेशाच्या आवश्यकता:</string>
@@ -502,6 +502,7 @@
   <string name="newPasswordAgain">नवीन गुप्त शब्द (पुनः)</string>
   <string name="clockInitialTime">प्रारंभिक वेळ</string>
   <string name="clockIncrement">वेळवाढ</string>
+  <string name="difficultyHard">कठीण</string>
   <string name="victory">शाब्बास रे! पठ्ठ्या!!!</string>
   <string name="noInternetConnection">आंतरजालाशी संपर्क  नाही. तरीदेखील तुम्ही offline खेळू शकता</string>
   <string name="playOnTheBoardOffline">त्या समयी सुचलेली चाल</string>
