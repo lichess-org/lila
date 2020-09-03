@@ -480,7 +480,7 @@ export default class RoundController {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
     }
-    if (!d.player.spectator && d.game.turns > 1) {
+    if (!d.player.spectator && d.game.turns > 6 && !d.tournament && !d.swiss) {
       const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
       li.sound[key]();
       if (key != 'victory' && li.storage.get('courtesy')) 
