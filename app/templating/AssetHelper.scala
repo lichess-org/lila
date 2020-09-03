@@ -36,7 +36,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     cssAt(s"css/$name.${if (minifiedAssets) "min" else "dev"}.css")
 
   private def cssAt(path: String): Frag =
-    link(href := assetUrl(path), tpe := "text/css", rel := "stylesheet")
+    link(href := assetUrl(path), rel := "stylesheet")
 
   // load scripts in <head> and always use defer
   def jsAt(path: String): Frag = script(deferAttr, src := assetUrl(path))

@@ -34,7 +34,6 @@ object layout {
       link(
         id := "piece-sprite",
         href := assetUrl(s"piece-css/$ps.css"),
-        tpe := "text/css",
         rel := "stylesheet"
       )
   }
@@ -224,7 +223,7 @@ object layout {
           ),
           ctx.transpBgImg map { img =>
             raw(
-              s"""<style type="text/css" id="bg-data">body.transp::before{background-image:url('$img');}</style>"""
+              s"""<style id="bg-data">body.transp::before{background-image:url('$img');}</style>"""
             )
           },
           fontPreload,

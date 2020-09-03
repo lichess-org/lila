@@ -103,7 +103,6 @@ function applyBackground(data: BackgroundData, list: Background[]) {
   $('body').data('theme', key);
   $('link[href*=".' + prev + '."]').each(function(this: HTMLElement) {
     var link = document.createElement('link');
-    link.type = 'text/css';
     link.rel = 'stylesheet';
     link.href = $(this).attr('href').replace('.' + prev + '.', '.' + key + '.');
     link.onload = () => setTimeout(() => this.remove(), 100);

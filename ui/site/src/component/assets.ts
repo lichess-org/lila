@@ -12,7 +12,7 @@ const loadedCss = new Map();
 export const loadCss = (url: string) => {
   if (!loadedCss.has(url)) {
     loadedCss.set(url, true);
-    $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', assetUrl(url)));
+    $('head').append($('<link rel="stylesheet" />').attr('href', assetUrl(url)));
   }
 };
 
