@@ -27,19 +27,19 @@
   <string name="kingInTheCenter">الملك في الوسط</string>
   <string name="threeChecks">كش ملك ثلاثا</string>
   <string name="raceFinished">نهاية السباق</string>
-  <string name="variantEnding">نهاية مختلفة</string>
+  <string name="variantEnding">نهاية خاصة</string>
   <string name="newOpponent">خصم جديد</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">يريد متحديك أن يلعب مباراة جديدة معك</string>
   <string name="joinTheGame">انضم إلى المباراة</string>
   <string name="whitePlays">دور الأبيض</string>
   <string name="blackPlays">دور الأسود</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="zero">لقد غادر خصمك اللعبة. يمكنك الفوز في %s ثانية.</item>
-    <item quantity="one">لقد غادر خصمك اللعبة. يمكنك الفوز في %s ثانية.</item>
-    <item quantity="two">لقد غادر خصمك اللعبة. يمكنك الفوز في %s ثانية.</item>
-    <item quantity="few">لقد غادر خصمك اللعبة. يمكنك الفوز في %s ثانية.</item>
-    <item quantity="many">لقد غادر خصمك اللعبة. يمكنك الفوز في %s ثانية.</item>
-    <item quantity="other">لقد غادر خصمك اللعبة. يمكنك الفوز في %s ثانية.</item>
+    <item quantity="zero">لقد غادر خصمك اللعبة. يمكنك المطالبة بالانتصار بعد %s ثانية.</item>
+    <item quantity="one">لقد غادر خصمك اللعبة. يمكنك الفوز بعد ثانية.</item>
+    <item quantity="two">لقد غادر خصمك اللعبة. يمكنك الفوز بعد ثانيتين.</item>
+    <item quantity="few">لقد غادر خصمك اللعبة. يمكنك الفوز بعد %s ثانية.</item>
+    <item quantity="many">لقد غادر خصمك اللعبة. يمكنك الفوز بعد %s ثانية.</item>
+    <item quantity="other">لقد غادر خصمك اللعبة. يمكنك الفوز بعد %s ثانية.</item>
   </plurals>
   <string name="opponentLeftChoices">يبدو أن الخصم ترك المباراة. يمكنك انتزاع الفوز، إعلان التعادل أو الانتظار.</string>
   <string name="makeYourOpponentResign">أعلن استسلام خصمك</string>
@@ -62,16 +62,16 @@
   <string name="usingServerAnalysis">استخدام تحليل الخادم</string>
   <string name="loadingEngine">تحميل المحرك...</string>
   <string name="cloudAnalysis">تحليل سحابي</string>
-  <string name="goDeeper">لتحليل أعمق</string>
+  <string name="goDeeper">تحليل أعمق</string>
   <string name="showThreat">إظهار التهديد</string>
-  <string name="inLocalBrowser">في متصفحك</string>
+  <string name="inLocalBrowser">باستخدام متصفحك</string>
   <string name="toggleLocalEvaluation">التبديل للتحليل بالمتصفح</string>
-  <string name="promoteVariation">تغيير النوع</string>
-  <string name="makeMainLine">اجعله التفريع الرئيسي</string>
+  <string name="promoteVariation">رفع سلسلة الحركات</string>
+  <string name="makeMainLine">رفع الى التسلسل الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
   <string name="forceVariation">فرض التسلسل</string>
-  <string name="move">تحريك</string>
-  <string name="variantLoss">تفريع خاسر</string>
+  <string name="move">التقلة</string>
+  <string name="variantLoss">فوز بطريقة خاصة</string>
   <string name="variantWin">تفريع رابح</string>
   <string name="insufficientMaterial">مادة غير كافية</string>
   <string name="pawnMove">نقلة بيدق</string>
@@ -505,7 +505,7 @@
   <string name="openTournaments">المسابقات المفتوحة</string>
   <string name="duration">المدة</string>
   <string name="winner">الفائز</string>
-  <string name="standing">الترتيب</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">الترتيب</string>
   <string name="createANewTournament">ابدأ مسابقة جديدة</string>
   <string name="tournamentCalendar">جدول البطولات</string>
   <string name="conditionOfEntry">شروط الدخول:</string>
@@ -789,7 +789,7 @@
   <string name="newTournament">مسابقة جديدة</string>
   <string name="tournamentHomeTitle">مسابقات بانواع شطرنج مختلفة وساعات مختلفة</string>
   <string name="tournamentHomeDescription">العب مسابقات شطرنج بكل السرعات. انضم للمسابقات الرسمية المجدولة، أو ابدأ مسابقاتك الخاصة.</string>
-  <string name="tournamentNotFound">المسابقة غير موجودة</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">المسابقة غير موجودة</string>
   <string name="tournamentDoesNotExist">هذه المسابقة غير موجودة</string>
   <string name="tournamentMayHaveBeenCanceled">إذا غادر جميع اللاعبين قبل بداية المسابقة قإنها تُلغى</string>
   <string name="returnToTournamentsHomepage">الرجوع إلى المسابقات</string>
