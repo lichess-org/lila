@@ -21,7 +21,7 @@
     "tablesort": "^5.1"
   },
   "scripts": {
-    "deps": "cat ../../public/javascripts/vendor/jquery.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/lichess.deps.js",
+    "deps": "cat ../../public/javascripts/vendor/jquery.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.js",
     "dev": "yarn run deps && rollup --config",
     "prod": "yarn run deps && rollup --config --config-prod"
   }

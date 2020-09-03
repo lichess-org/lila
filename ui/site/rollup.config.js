@@ -7,7 +7,7 @@ import replace from '@rollup/plugin-replace';
 export default rollupProject({
   main: {
     input: 'src/site.ts',
-    output: 'lichess.site',
+    output: 'site',
     plugins: [
       copy({
         targets: [
@@ -78,38 +78,38 @@ export default rollupProject({
   },
   tvEmbed: {
     input: 'src/tv-embed.ts',
-    output: 'lichess.tv.embed',
+    output: 'tv.embed',
   },
   puzzleEmbed: {
     input: 'src/puzzle-embed.ts',
-    output: 'lichess.puzzle.embed',
+    output: 'puzzle.embed',
   },
   analyseEmbed: {
     input: 'src/analyse-embed.ts',
-    output: 'lichess.analyse.embed',
+    output: 'analyse.embed',
   },
   user: {
     input: 'src/user.ts',
-    output: 'lichess.user',
+    output: 'user',
   },
   modUser: {
     input: 'src/mod-user.ts',
-    output: 'lichess.mod.user',
+    output: 'mod.user',
   },
   clas: {
     input: 'src/clas.ts',
-    output: 'lichess.clas',
+    output: 'clas',
   },
   coordinate: {
     input: 'src/coordinate.ts',
-    output: 'lichess.coordinate',
+    output: 'coordinate',
   },
   captcha: {
     input: 'src/captcha.ts',
-    output: 'lichess.captcha',
+    output: 'captcha',
   },
   expandText: {
     input: 'src/expand-text.ts',
-    output: 'lichess.expand-text',
+    output: 'expand-text',
   },
 });

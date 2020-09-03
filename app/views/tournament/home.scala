@@ -24,7 +24,7 @@ object home {
       wrapClass = "full-screen-force",
       moreJs = frag(
         infiniteScrollTag,
-        jsModule("tournamentSchedule"),
+        jsModule("tournament.schedule"),
         embedJsUnsafe(
           s"""var app=LichessTournamentSchedule.app(document.querySelector('.tour-chart'), ${safeJsonValue(
             Json.obj(

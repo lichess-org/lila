@@ -13,7 +13,7 @@ object calendar {
     views.html.base.layout(
       title = "Tournament calendar",
       moreJs = frag(
-        jsModule("tournamentCalendar"),
+        jsModule("tournament.calendar"),
         embedJsUnsafe(
           s"""LichessTournamentCalendar.app(document.getElementById('tournament-calendar'), ${safeJsonValue(
             Json.obj(

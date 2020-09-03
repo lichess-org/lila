@@ -4,6 +4,6 @@ export default rollupProject({
   main: {
     name: 'LichessSimul',
     input: 'src/main.ts',
-    output: 'lichess.simul',
+    output: 'simul',
   },
 });

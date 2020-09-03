@@ -52,7 +52,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     )
 
   def jsModule(name: String, defer: Boolean = false): Frag =
-    jsAt(s"compiled/lichess.$name${minifiedAssets ?? ".min"}.js", defer = defer)
+    jsAt(s"compiled/$name${minifiedAssets ?? ".min"}.js", defer = defer)
 
   lazy val jQueryTag = raw {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""

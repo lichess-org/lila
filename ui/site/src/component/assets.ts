@@ -22,7 +22,7 @@ export const loadCssPath = (key: string) =>
   loadCss(`css/${key}.${$('body').data('theme')}.${$('body').data('dev') ? 'dev' : 'min'}.css`);
 
 export const jsModule = (name: string) =>
-  `compiled/lichess.${name}${$('body').data('dev') ? '' : '.min'}.js`;
+  `compiled/${name}${$('body').data('dev') ? '' : '.min'}.js`;
 
 export const loadScript = (url: string, opts: AssetUrlOpts = {}) =>
   $.ajax({

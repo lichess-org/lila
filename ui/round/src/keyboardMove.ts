@@ -114,10 +114,10 @@ export function render(ctrl: KeyboardMove) {
         spellcheck: false,
         autocomplete: false
       },
-      hook: onInsert(el => {
-        window.lichess.loadScript(window.lichess.jsModule('round.keyboardMove')).then(() => {
+      hook: onInsert(input => {
+        window.lichess.loadScript(window.lichess.jsModule('round.keyboard-move')).then(() => {
           ctrl.registerHandler(window.lichess.keyboardMove({
-            input: el,
+            input,
             ctrl
           }));
         });
