@@ -26,10 +26,10 @@
   <string name="aiLevel">مستوى الذكاء الاصطناعي</string>
   <string name="source">المصدر</string>
   <string name="nbTurns">عدد الادوار</string>
-  <string name="result">نتيجة</string>
+  <string name="result">النتيجة</string>
   <string name="winnerColor">لون الفائز</string>
   <string name="date">تاريخ</string>
   <string name="sortBy">ترتيب حسب</string>
   <string name="analysis">تحليل</string>
-  <string name="onlyAnalysed">فقط الادوار حيث يتوفر تحليل الكمبيوتر</string>
+  <string name="onlyAnalysed">فقط المباريات التي يتوفر تحليل الكمبيوتر لها</string>
 </resources>
