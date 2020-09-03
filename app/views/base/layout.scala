@@ -263,7 +263,7 @@ object layout {
             )};$timeagoLocaleScript"""
           ),
           if (netConfig.minifiedAssets)
-            jsModule("site", defer = deferJs)
+            jsModule("lichess", defer = deferJs)
           else
             frag(
               jsModule("deps", defer = deferJs),
