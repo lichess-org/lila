@@ -395,7 +395,13 @@
   <string name="losses">एकूण  पराभव</string>
   <string name="winStreak">सलग विजय</string>
   <string name="youArePlaying">आपण खेळत आहात!</string>
+  <string name="winRate">जिंकण्याचे प्रमाण</string>
   <string name="performance">कामगिरी</string>
+  <string name="tournamentComplete">प्रतियोगिता संपली</string>
+  <string name="movesPlayed">खेळलेल्या चाली</string>
+  <string name="whiteWins">पांढऱ्याचे विजय</string>
+  <string name="blackWins">काळ्याचे विजय</string>
+  <string name="draws">बरोबरी सुटलेले</string>
   <string name="averageOpponent">प्रतिस्पर्धी सरासरी</string>
   <string name="membersOnly">फक्त सदस्यांसाठी</string>
   <string name="boardEditor">पट संपादक (Board editor)</string>
@@ -504,6 +510,7 @@
   <string name="clockIncrement">वेळवाढ</string>
   <string name="difficultyHard">कठीण</string>
   <string name="victory">शाब्बास रे! पठ्ठ्या!!!</string>
+  <string name="defeat">हार</string>
   <string name="noInternetConnection">आंतरजालाशी संपर्क  नाही. तरीदेखील तुम्ही offline खेळू शकता</string>
   <string name="playOnTheBoardOffline">त्या समयी सुचलेली चाल</string>
   <string name="playOfflineComputer">संगणक</string>
@@ -552,7 +559,7 @@
   <string name="aboutSimulImage">50 विरोधकांपैकी फिशरने 47 गेम जिंकले, 2 ड्रॉ केले आणि 1 गमावला.</string>
   <string name="aboutSimulRealLife">वास्तविक जगातील घटनांमधून संकल्पना घेतली आहे. वास्तविक जीवनात, यामध्ये होस्ट एकाच चालीसाठी टेबल वरून दुसर्‍या टेबलवर फिरत असतो.</string>
   <string name="aboutSimulRules">जेव्हा सिमूल सुरू होतो, तेव्हा प्रत्येक खेळाडू यजमानासह खेळ सुरू करतो, ज्याला पांढरे तुकडे खेळायला मिळतात. जेव्हा सर्व खेळ पूर्ण होतात तेव्हा प्रदर्शन संपेल.</string>
-  <string name="aboutSimulSettings">सिमूल नेहमीच प्रासंगिक असतात. रीमॅच, टेकबॅक आणि वेळ जोडणे अक्षम केले आहेत.</string>
+  <string name="aboutSimulSettings">सिमूल नेहमीच प्रासंगिक असतात. रीमॅच, टेकबॅक आणि वेळ जोडणे असमर्थ केले आहेत.</string>
   <string name="create">तयार करा</string>
   <string name="whenCreateSimul">जेव्हा आपण एखादे सिमुल तयार करता तेव्हा आपल्याला एकाच वेळी अनेक खेळाडू खेळायला मिळतात.</string>
   <string name="simulVariantsHint">आपण कित्येक प्रकार निवडल्यास प्रत्येक खेळाडूला कोणता खेळायचा हे निवडले जाईल.</string>
