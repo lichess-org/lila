@@ -10,23 +10,23 @@
   </rdf:RDF>
  </metadata>
  <defs>
-  <linearGradient id="linearGradient4543" x1="-115.84" x2="-78.433" y1="315.71" y2="315.71" gradientTransform="matrix(1.0336 0 0 1.0313 124.73 -298.29)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient4563"/>
-  <linearGradient id="linearGradient4563" x1="-15.796" x2="15.796" y1="316.7" y2="316.7" gradientTransform="matrix(1.0125 0 0 .9819 -59.002 -94.528)" gradientUnits="userSpaceOnUse">
+  <linearGradient id="linearGradient4543-0" x1="-115.84" x2="-78.433" y1="315.71" y2="315.71" gradientTransform="matrix(1.0337 0 0 1.0313 124.74 -298.82)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient4563-2"/>
+  <linearGradient id="linearGradient4563-2" x1="-15.796" x2="15.796" y1="316.7" y2="316.7" gradientTransform="matrix(1.0125 0 0 .9819 -59.002 -94.528)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#968270" offset="0"/>
    <stop stop-color="#342c22" offset="1"/>
   </linearGradient>
-  <linearGradient id="linearGradient4545" x1="-116.32" x2="-78.639" y1="299.9" y2="299.97" gradientTransform="matrix(1.0336 0 0 1.0313 124.73 -298.29)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient4563"/>
+  <linearGradient id="linearGradient4545-1" x1="-116.32" x2="-78.639" y1="299.9" y2="299.97" gradientTransform="matrix(1.0337 0 0 1.0313 124.74 -298.82)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient4563-2"/>
  </defs>
- <path d="m12.046 35.882c2.7016 2.2927 3.5811-1.0135 4.5365-3.2533 1.5269-3.3948 6.4893-2.0759 8.4817-6.1271 2.5177 10.026-7.6858 7.9948-8.1742 19.3h26.069c1.79-21.053-4.6811-35.644-24.291-33.612-1.9497-2.0728-4.6719-3.3892-4.6719-3.3892-1.0569 1.9858-0.94734 4.4927 0.62403 5.4502 0.4109 0.38191-3.3007 1.9797-2.8032 7.517 0 0-2.9877 5.0648-4.7306 8.3934-0.81468 1.6707-0.014264 3.8883 1.3978 5.1007 0.38544 0.59586 2.8467 1.4274 2.8467 1.1754" clip-rule="evenodd" fill="url(#linearGradient4543)" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#000" stroke-dashoffset="1.852" stroke-linecap="round" stroke-linejoin="round"/>
- <path d="m14.641 21.289s0.4809-2.4093 2.9242-2.8138" fill="none" stroke="#040404" stroke-linecap="round" stroke-linejoin="round"/>
- <ellipse transform="matrix(.97345 -.22888 .20098 .97959 0 0)" cx="11.923" cy="23.414" rx="1.1267" ry="1.0654" style="paint-order:markers fill stroke"/>
+ <path d="m12.047 35.348c2.7019 2.2927 3.5814-1.0135 4.5368-3.2533 1.527-3.3948 6.4899-2.0759 8.4825-6.1271 2.5179 10.026-7.6865 7.9948-8.1749 19.299h26.071c1.7901-21.053-4.6815-35.644-24.293-33.612-1.9499-2.0728-4.6723-3.3891-4.6723-3.3891-1.057 1.9858-0.94743 4.4926 0.62408 5.4502 0.41093 0.38191-3.3009 1.9797-2.8034 7.5169 0 0-2.9879 5.0648-4.731 8.3933-0.81475 1.6707-0.014265 3.8883 1.3979 5.1008 0.38547 0.59586 2.847 1.4274 2.847 1.1753" clip-rule="evenodd" fill="url(#linearGradient4543-0)" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#000" stroke-dashoffset="1.852" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="m14.648 20.753s0.48095-2.4093 2.9245-2.8138" fill="none" stroke="#040404" stroke-linecap="round" stroke-linejoin="round"/>
+ <ellipse transform="matrix(.97346 -.22886 .201 .97959 0 0)" cx="12.035" cy="22.897" rx="1.1268" ry="1.0654" style="paint-order:markers fill stroke"/>
  <g stroke="#000" stroke-linecap="round">
   <g stroke-linejoin="round">
-   <path d="m9.5346 32.035s-0.050854-0.5574 0.6682-1.2855" fill="#fff"/>
-   <path d="m25.063 26.497s0.69666-1.2955 0.95888-2.5746c0.26222-1.2791 0.16646-2.5503 0.16646-2.5503" fill="none"/>
-   <path d="m18.651 13.492s0.6105-3.946 3.6501-4.6176c0 0 2.162 0.84488 1.0616 5.6854" fill="url(#linearGradient4545)" style="paint-order:markers fill stroke"/>
+   <path d="m9.5348 31.504s-0.050859-0.5574 0.66827-1.2856" fill="#fff"/>
+   <path d="m25.066 25.967s0.69672-1.2955 0.95896-2.5746 0.16648-2.5503 0.16648-2.5503" fill="none"/>
+   <path d="m18.655 12.96s0.61055-3.946 3.6504-4.6176c0 0 2.1622 0.84488 1.0617 5.6854" fill="url(#linearGradient4545-1)" style="paint-order:markers fill stroke"/>
   </g>
-  <path d="m13.741 33.86c-0.28683 0.50118-1.3587 1.6637-2.4102 2.5729" fill="none"/>
+  <path d="m13.743 33.329c-0.28686 0.50118-1.3588 1.6637-2.4104 2.5729" fill="none"/>
  </g>
- <path d="m23.189 13.087c16 0.61165 18.059 14.221 16.465 32.705h3.2996c1.6409-19.298-3.6623-33.165-19.663-33.776z" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" opacity=".15" shape-rendering="geometricPrecision"/>
+ <path d="m23.197 12.561c16.002 0.61165 18.061 14.222 16.466 32.706h3.2999c1.641-19.299-3.6627-33.165-19.664-33.777z" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" opacity=".15" shape-rendering="geometricPrecision"/>
 </svg>
