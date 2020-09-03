@@ -610,6 +610,15 @@
   <string name="timeBeforeTournamentStarts">स्पर्धा सुरू होण्यापूर्वीचा वेळ</string>
   <string name="averageCentipawnLoss">प्यादानचे सरासरी नुकसान</string>
   <string name="keyboardShortcuts">कीबोर्ड शॉर्टकट</string>
+  <string name="crosstable">पटाची बाजू बदला</string>
+  <string name="letOtherPlayersMessageYou">इतर खेळाडूंना संदेश पाठवू द्या</string>
+  <string name="withNobody">कोणासोबाही नाही</string>
+  <string name="withFriends">मित्रांसोबत</string>
+  <string name="withEverybody">सर्वांसोबत</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">तुमचा email अगोदरच पंजीकृत आहे: %s</string>
+  <string name="kidMode">Kid Mode</string>
+  <string name="enableKidMode">Kid Mode सुरू करा</string>
+  <string name="disableKidMode">Kid Mode बंद करा</string>
   <string name="asFreeAsLichess">लिचेस सारखे निशुल्क</string>
   <string name="builtForTheLoveOfChessNotMoney">पैशासाठी नव्हे तर बुद्धिबळांच्या प्रेमासाठी बांधले गेले</string>
   <string name="everybodyGetsAllFeaturesForFree">प्रत्येकास सर्व वैशिष्ट्ये विनामूल्य मिळतात</string>
@@ -626,4 +635,11 @@
     <item quantity="other">%s भाषेत उपलब्ध!</item>
   </plurals>
   <string name="gameAnalysis">डेटा विश्लेषण</string>
+  <string name="playChessInStyle">खेळा बुद्धिबळ तुमच्या शैलीत</string>
+  <string name="notifications">Notifications</string>
+  <string name="challenges">आव्हाने</string>
+  <string name="perfRatingX">दर्जा: %s</string>
+  <string name="practiceWithComputer">कॉम्प्युटर सोबत सराव करा</string>
+  <string name="anotherWasX">इतर %s</string>
+  <string name="bestWasX">उत्तम %s</string>
 </resources>
