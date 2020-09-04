@@ -59,7 +59,7 @@
   <string name="ratedGame">Maak seker dat jy \'n gegradeerde spel gespeel het. Vriendskaplike wedstryde beïnvloed nie jou gradeering nie.</string>
   <string name="errorPage">Foutblad</string>
   <string name="reportErrorPage">As daar \'n foutblad opduik kan jy dit rapporteer:</string>
-  <string name="banAppeal">Appéleer vir \'n ban of IP beperking</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Appéleer vir \'n ban of IP beperking</string>
   <string name="engineAppeal">Rekenaarhulp of vuilspel</string>
   <string name="sendAppealTo">Jy kan appélleer by %s.</string>
   <string name="falsePositives">Vals positiewe gebeur soms en ons vra onverskoning daarvoor.</string>
