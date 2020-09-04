@@ -1,8 +1,6 @@
-var selector = '.auth-login form';
+const selector = '.auth-login form';
 
-$(function() {
-  load($(selector));
-});
+$(() => load($(selector)));
 
 function load($f) {
   $f.submit(function() {

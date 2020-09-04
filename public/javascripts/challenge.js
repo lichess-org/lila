@@ -1,15 +1,10 @@
 function challengeStart(opts) {
   var selector = '.challenge-page';
-  var element = document.querySelector(selector);
-  var challenge = opts.data.challenge;
   var accepting;
 
   lichess.socket = new lichess.StrongSocket(
     opts.socketUrl,
     opts.data.socketVersion, {
-      options: {
-        name: "challenge"
-      },
       events: {
         reload: function() {
           $.ajax({

@@ -33,7 +33,8 @@ window.lichess.load.then(() => {
 
   requestIdleCallback(() => {
 
-    new OnlineFriends(document.getElementById('friend_box')!);
+    const friendsEl = document.getElementById('friend_box');
+    if (friendsEl) new OnlineFriends(friendsEl);
 
     $('#main-wrap')
       .on('click', '.autoselect', function(this: HTMLElement) {

@@ -139,7 +139,7 @@ object layout {
 
   private def loadScripts(moreJs: Frag, chessground: Boolean)(implicit ctx: Context) =
     frag(
-      chessground option jsAt("vendor/chessground.min.js"),
+      chessground option chessgroundTag,
       ctx.requiresFingerprint option fingerprintTag,
       embedJsUnsafe(
         s"""lichess={load:new Promise(r=>{window.onload=r}),quantity:${lila.i18n

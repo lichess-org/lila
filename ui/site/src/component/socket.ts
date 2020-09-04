@@ -219,8 +219,9 @@ export default class StrongSocket {
         break;
       default:
         this.pubsub.emit('socket.in.' + m.t, m.d, m);
-        const processed = this.settings.receive && this.settings.receive(m.t, m.d);
-        if (!processed && this.settings.events[m.t]) this.settings.events[m.t](m.d || null, m);
+        (this.settings.receive && this.settings.receive(m.t, m.d)) || (
+          this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m)
+        );
     }
   };
 
