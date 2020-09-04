@@ -59,7 +59,7 @@
   <string name="ratedGame">Asegúrate de haber jugado una partida por puntuación. Las partidas amistosas no afectan a las puntuaciones de los jugadores.</string>
   <string name="errorPage">Página de error</string>
   <string name="reportErrorPage">Si una página te da error, puedes reportarla:</string>
-  <string name="banAppeal">Apelar por un bloqueo o una restricción de IP</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apelar por un bloqueo o una restricción de IP</string>
   <string name="engineAppeal">Motor o marca de trampa</string>
   <string name="sendAppealTo">Puedes enviar una apelación a %s.</string>
   <string name="falsePositives">A veces ocurren falsos positivos, y lo lamentamos.</string>
