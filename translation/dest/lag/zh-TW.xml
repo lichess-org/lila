@@ -3,7 +3,7 @@
   <string name="isLichessLagging">Lichess伺服器Lag了嗎?</string>
   <string name="measurementInProgressThreeDot">正在檢查連線</string>
   <string name="noAndYourNetworkIsGood">沒有，而且您的網路是正常的</string>
-  <string name="noAndYourNetworkIsBad">沒有，但是您的網路不穩</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">沒有，但是您的網路不穩</string>
   <string name="yesItWillBeFixedSoon">是的，我會盡快被修復!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">棋局因為以下條件而lag(這些數字越小越好):</string>
   <string name="lichessServerLatency">Lichess 伺服器延遲數據</string>
