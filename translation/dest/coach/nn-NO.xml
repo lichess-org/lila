@@ -3,7 +3,7 @@
   <string name="lichessCoaches">Lichess-trenarar</string>
   <string name="lichessCoach">Lichess-trenar</string>
   <string name="areYouCoach">Er du ein god sjakktrenar med ein %s?</string>
-  <string name="nmOrFideTitle">NM- eller FIDE-tittel</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM- eller FIDE-tittel</string>
   <string name="confirmTitle">Stadfest tittelen din her, så går vi gjennom søknaden.</string>
   <string name="sendApplication">Send oss ein e-post på %s, så vil vi vurdere søknaden din.</string>
   <string name="location">Stad</string>
