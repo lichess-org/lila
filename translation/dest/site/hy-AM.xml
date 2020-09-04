@@ -280,7 +280,7 @@
   <string name="openTournaments">Բաց մրցաշարեր</string>
   <string name="duration">Տևողություն</string>
   <string name="winner">Հաղթող</string>
-  <string name="standing">Զբաղեցրած դիրք</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Զբաղեցրած դիրք</string>
   <string name="createANewTournament">Ստեղծել նոր մրցաշար</string>
   <string name="join">Միանալ</string>
   <string name="withdraw">Չեղարկել</string>
