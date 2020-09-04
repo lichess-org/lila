@@ -59,7 +59,7 @@
   <string name="ratedGame">Forsikre deg om at partiet du spela var rangert. Uforpliktande parti påverkar ikkje ratinga til spelarane.</string>
   <string name="errorPage">Feilside</string>
   <string name="reportErrorPage">Dersom du støtte på ei feilside kan du rapportere det:</string>
-  <string name="banAppeal">Protest ved utestenging eller IP-restriksjon</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Protest ved utestenging eller IP-restriksjon</string>
   <string name="engineAppeal">Merknad om juks eller bruk av sjakkcomputer</string>
   <string name="sendAppealTo">Du kan sende ein appell til %s.</string>
   <string name="falsePositives">Vi er lei for at falske positiv kan skje.</string>
