@@ -651,6 +651,8 @@
   <string name="returnToTournamentsHomepage">प्रतियोगितेच्या मुख्य पृष्ठावर जा</string>
   <string name="weeklyPerfTypeRatingDistribution">साप्ताहिक %s रेटिंग वितरण</string>
   <string name="yourPerfTypeRatingIsRating">तुमची %1$s रेटिंग %2$s आहे.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">तुम्ही %1$s पेक्षा उत्तम आहात %2$s खेळाडूंमध्ये.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s उत्तम आहे %3$s खेळाडूंमध्ये.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपल्याकडे %s रेटिंग नाही.</string>
   <string name="yourRating">तुमचे रेटिंग</string>
   <string name="cumulative">एकत्रित</string>
@@ -676,6 +678,7 @@
   <string name="enableKidMode">Kid Mode सुरू करा</string>
   <string name="disableKidMode">Kid Mode बंद करा</string>
   <string name="security">सुरक्षितता</string>
+  <string name="revokeAllSessions">सर्व सत्र रद्द करा</string>
   <string name="playChessEverywhere">सगळीकडे बुद्धिबळ खेळा</string>
   <string name="asFreeAsLichess">लिचेस सारखे निशुल्क</string>
   <string name="builtForTheLoveOfChessNotMoney">पैशासाठी नव्हे तर बुद्धिबळांच्या प्रेमासाठी बांधले गेले</string>
@@ -696,6 +699,7 @@
   <string name="xHostsY">%1$s यजमान %2$s</string>
   <string name="xJoinsY">%1$s जोडले %2$s</string>
   <string name="xLikesY">%1$s आवडले %2$s</string>
+  <string name="xCreatesStudyY">%1$s %2$s सराव अभ्यास बनवला</string>
   <string name="quickPairing">जलद जोड्या</string>
   <string name="lobby">लॉबी</string>
   <string name="anonymous">अनामिक</string>
@@ -737,6 +741,7 @@
   <string name="computerThinking">संगणक विचार करत आहे...</string>
   <string name="seeBestMove">सर्वोत्तम चाल पहा</string>
   <string name="hideBestMove">सर्वोत्तम चाल लपवा</string>
+  <string name="getAHint">मदत घ्या</string>
   <string name="evaluatingYourMove">तुमच्या चालीचे मुल्यमापन सुरू आहे...</string>
   <string name="whiteWinsGame">पांढरा जिंकला</string>
   <string name="blackWinsGame">काळा जिंकला</string>
@@ -760,6 +765,10 @@
   <string name="doItAgain">परत समीक्षा करा</string>
   <string name="reviewWhiteMistakes">पांढऱ्याच्या चुकांची समीक्षा करा</string>
   <string name="reviewBlackMistakes">काळ्याच्या चुकांची समीक्षा करा</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s सेकंद</item>
+    <item quantity="other">%s सेकंद</item>
+  </plurals>
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मध्यखेळ</string>
   <string name="endgame">खेळाचा शेवट</string>
