@@ -199,8 +199,8 @@
   <string name="yourOpponentOffersADraw">तुमच्या विरोधकाने डाव अनिर्णीत ठेवण्याचा प्रस्ताव पाठवला आहे</string>
   <string name="accept">स्वीकारा</string>
   <string name="decline">नाकारा</string>
-  <string name="playingRightNow">या वेळी खेळत</string>
-  <string name="eventInProgress">चालू खेळ</string>
+  <string name="playingRightNow">या वेळी खेळत आहे</string>
+  <string name="eventInProgress">या वेळी खेळत आहे</string>
   <string name="finished">संपली</string>
   <string name="finishesX">समाप्ती %s</string>
   <string name="abortGame">डाव बंद करा</string>
@@ -208,9 +208,9 @@
   <string name="standard">मानक</string>
   <string name="unlimited">अमर्याद</string>
   <string name="mode">पध्दती</string>
-  <string name="casual">नैमित्तिक</string>
+  <string name="casual">अनौपचारिक</string>
   <string name="rated">दर्जा दिला</string>
-  <string name="casualTournament">उद्‍देशरहित</string>
+  <string name="casualTournament">अनौपचारिक</string>
   <string name="ratedTournament">रेट केलेले</string>
   <string name="thisGameIsRated">या डावाचा दर्जा</string>
   <string name="rematch">पुनः खेळा</string>
@@ -274,19 +274,19 @@
   <string name="takebackPropositionCanceled">चाल मागे घेण्याची विनंती रद्द केली</string>
   <string name="yourOpponentProposesATakeback">प्रतिस्पर्ध्याने चाल मागे घेण्याची विनंती केली आहे</string>
   <string name="bookmarkThisGame">Khelala bookamrk kara</string>
-  <string name="tournament">क्रीडासत्र</string>
-  <string name="tournaments">क्रीडासत्र</string>
+  <string name="tournament">प्रतियोगिता</string>
+  <string name="tournaments">प्रतियोगिता</string>
   <string name="tournamentPoints">प्रतियोगितेतील गुण</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s प्रतियोगितेतील गुण</item>
-    <item quantity="other">%s स्पर्धा दर्जा</item>
+    <item quantity="one">%s प्रतियोगितेचे गुण</item>
+    <item quantity="other">%s प्रतियोगितेतील गुण</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s अभ्यास</item>
     <item quantity="other">%s अभ्यास</item>
   </plurals>
-  <string name="viewTournament">स्पर्धा पाहा</string>
-  <string name="backToTournament">स्पर्धेत परत या</string>
+  <string name="viewTournament">प्रतियोगिता पहा</string>
+  <string name="backToTournament">प्रतियोगितेत परत जा</string>
   <string name="thematic">विषयगत</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s दर्जाचा खेळ</item>
@@ -378,18 +378,18 @@
     <item quantity="other">%s मिनिटांपेक्षा कमी</item>
   </plurals>
   <string name="required">गरजेचे आहे</string>
-  <string name="openTournaments">खुली स्पर्धा</string>
+  <string name="openTournaments">खुली प्रतियोगिता</string>
   <string name="duration">कालावधी</string>
   <string name="winner">विजेता</string>
   <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">पद</string>
-  <string name="createANewTournament">नवीन स्पर्धा तयार  करा</string>
-  <string name="tournamentCalendar">स्पर्धा दिनदर्शिका</string>
+  <string name="createANewTournament">नवीन प्रतियोगिता तयार करा</string>
+  <string name="tournamentCalendar">प्रतियोगिता दिनदर्शिका</string>
   <string name="conditionOfEntry">प्रवेशाच्या आवश्यकता:</string>
   <string name="advancedSettings">प्रगत सेटिंग्ज</string>
-  <string name="safeTournamentName">स्पर्धेसाठी खूप सुरक्षित नाव निवडा.</string>
+  <string name="safeTournamentName">प्रतियोगितेसाठी खूप सुरक्षित नाव निवडा.</string>
   <string name="inappropriateNameWarning">थोडे अनुचित काहीही आपले खाते बंद करू शकते.</string>
   <string name="showAdvancedSettings">प्रगत सेटिंग्ज दाखवा</string>
-  <string name="makePrivateTournament">खाजगीत प्रतियोगिता करा आणि संकेतशब्दाने मर्यादित करा</string>
+  <string name="makePrivateTournament">प्रतियोगिता खाजगी करा, व पासवर्डने प्रवेश मर्यादित करा</string>
   <string name="join">सामील व्हा</string>
   <string name="withdraw">मागे घ्या</string>
   <string name="points">गुण</string>
@@ -398,7 +398,7 @@
   <string name="winStreak">सलग विजय</string>
   <string name="createdBy">तयार करणारा</string>
   <string name="tournamentIsStarting">प्रतियोगिता सुरू होत आहे</string>
-  <string name="tournamentPairingsAreNowClosed">प्रतियोगिते मधील जोड्या लावणे आता बंद झाले आहे.</string>
+  <string name="tournamentPairingsAreNowClosed">प्रतियोगितेतील जोड्या लावणे आता बंद झाले आहे.</string>
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
   <string name="youArePlaying">आपण खेळत आहात!</string>
   <string name="winRate">जिंकण्याचे प्रमाण</string>
@@ -473,7 +473,7 @@
   <string name="autoSwitch">आपोआप बदला</string>
   <string name="puzzles">कोडी</string>
   <string name="latestUpdates">नवीनतम अद्यतने</string>
-  <string name="tournamentWinners">स्पर्धेचे विजेते</string>
+  <string name="tournamentWinners">प्रतियोगितेतील विजेते</string>
   <string name="name">नाव</string>
   <string name="description">माहिती</string>
   <string name="no">नाही</string>
@@ -620,10 +620,10 @@
   <string name="simulClockHint">फिशर क्लॉक सेटअप. आपण जितके अधिक खेळाडू घेता, तितके आपल्याला अधिक वेळ लागेल.</string>
   <string name="simulAddExtraTime">आपणास सिमूलचा सामना करण्यास मदत करण्यासाठी आपण आपल्या घड्याळात अतिरिक्त वेळ घालवू शकता.</string>
   <string name="simulHostExtraTime">जास्तवेळ घ्या</string>
-  <string name="lichessTournaments">लीचेस स्पर्धा</string>
+  <string name="lichessTournaments">लीचेस प्रतियोगिता</string>
   <string name="tournamentFAQ">अरेना स्पर्धा सामान्य प्रश्न</string>
   <string name="tournamentOfficial">अधिकृत</string>
-  <string name="timeBeforeTournamentStarts">स्पर्धा सुरू होण्यापूर्वीचा वेळ</string>
+  <string name="timeBeforeTournamentStarts">प्रतियोगिता सुरू होण्यास बाकी वेळ</string>
   <string name="averageCentipawnLoss">प्यादानचे सरासरी नुकसान</string>
   <string name="keyboardShortcuts">कीबोर्ड शॉर्टकट</string>
   <string name="keyMoveBackwardOrForward">मागे/पुढे चला</string>
