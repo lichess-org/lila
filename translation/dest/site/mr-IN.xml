@@ -669,15 +669,22 @@
   <string name="downloadImported">डाउनलोड imported</string>
   <string name="printFriendlyPDF">प्रिंट-friendly PDF</string>
   <string name="crosstable">पटाची बाजू बदला</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">गेममध्ये जाण्यासाठी आपण बोर्डवर स्क्रोल देखील करू शकता.</string>
+  <string name="analysisShapesHowTo">पटावर वर्तुळे आणि बाण काढण्यासाठी शिफ्ट + क्लिक दाबा किंवा उजवे-क्लिक दाबा.</string>
   <string name="letOtherPlayersMessageYou">इतर खेळाडूंना संदेश पाठवू द्या</string>
+  <string name="shareYourInsightsData">आपला बुद्धिबळ अंतर्गत डेटा सामायिक करा</string>
   <string name="withNobody">कोणासोबाही नाही</string>
   <string name="withFriends">मित्रांसोबत</string>
   <string name="withEverybody">सर्वांसोबत</string>
   <string name="youHaveAlreadyRegisteredTheEmail">तुमचा email अगोदरच पंजीकृत आहे: %s</string>
   <string name="kidMode">Kid Mode</string>
+  <string name="kidModeExplanation">हे सुरक्षिततेबद्दल आहे. किड मोडमध्ये, सर्व साइट संप्रेषणे अक्षम केली आहेत. आपल्या मुलांना आणि शालेय विद्यार्थ्यांसाठी इतर इंटरनेट वापरकर्त्यांपासून त्यांचे संरक्षण करण्यासाठी हे सक्षम करा.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">किड मोडमध्ये, लीचेस लोगोला %s चिन्ह येते, यावरून आपल्या समजते की आपले पाल्य सुरक्षित आहे.</string>
   <string name="enableKidMode">Kid Mode सुरू करा</string>
   <string name="disableKidMode">Kid Mode बंद करा</string>
   <string name="security">सुरक्षितता</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">ही आपल्या खात्यात लॉग इन केलेल्या उपकरणांची सूची आहे. आपण ओळखत नसलेली कोणतीही सत्रे मागे घ्या.</string>
+  <string name="alternativelyYouCanX">याव्यतिरिक्त आपण हे करू शकता %s.</string>
   <string name="revokeAllSessions">सर्व सत्र रद्द करा</string>
   <string name="playChessEverywhere">सगळीकडे बुद्धिबळ खेळा</string>
   <string name="asFreeAsLichess">लिचेस सारखे निशुल्क</string>
@@ -709,6 +716,7 @@
   <string name="light">सौम्य</string>
   <string name="dark">गडद</string>
   <string name="transparent">पारदर्शक</string>
+  <string name="backgroundImageUrl">Background चित्रासाठी URL:</string>
   <string name="boardTheme">बुद्धिबळ पटाची Theme</string>
   <string name="boardSize">बुद्धिबळ पटाचा आकार</string>
   <string name="pieceSet">सोंगाड्यां</string>
@@ -809,6 +817,7 @@
   <string name="important">महत्वाचे</string>
   <string name="yourQuestionMayHaveBeenAnswered">तुमच्या प्रश्नाचे उत्तर अगोदरच दिलेले आहे %1$s</string>
   <string name="inTheFAQ">सामान्य प्रश्न संचामध्ये.</string>
+  <string name="toRequestSupport">मदत मिळवण्यासाठी, %1$s</string>
   <string name="teamNamedX">%1$s संघ</string>
   <string name="youCannotPostYetPlaySomeGames">तुम्ही मंचावर लिहू शकत नाही. काही डाव खेळा!</string>
 </resources>
