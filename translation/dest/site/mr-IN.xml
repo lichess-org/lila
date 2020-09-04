@@ -665,6 +665,7 @@
     <item quantity="other">%s भाषेत उपलब्ध!</item>
   </plurals>
   <string name="gameAnalysis">डेटा विश्लेषण</string>
+  <string name="language">भाषा</string>
   <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
   <string name="usernameAlreadyUsed">हे नाव अगोदर वापरलेले आहे, कृपया अन्य वापरा.</string>
   <string name="playChessInStyle">खेळा बुद्धिबळ तुमच्या शैलीत</string>
@@ -679,4 +680,8 @@
   <string name="computerThinking">संगणक विचार करत आहे...</string>
   <string name="evaluatingYourMove">तुमच्या चालीचे मुल्यमापन सुरू आहे...</string>
   <string name="solution">उत्तर</string>
+  <string name="agreementAssistance">मी खेळतांना इतर सहाय्य घेणार नाही (कॉम्प्युटर, पुस्तक, डेटाबेस किंवा इतर व्यक्ती).</string>
+  <string name="agreementNice">मी इतर खेळाडू सोबत आदरयुक्त व्यवहार ठेवील.</string>
+  <string name="agreementAccount">मी एकापेक्षा जास्त खाती उघडणार नाही.</string>
+  <string name="agreementPolicy">मी Lichess च्या सर्व नियमांचे पालन करेल.</string>
 </resources>
