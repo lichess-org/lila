@@ -26,12 +26,12 @@
   <string name="youCannotApply">无法申请成为仲裁人。 如果我们看到我们认为会成为很好的仲裁人的人，我们将直接与他们联系。</string>
   <string name="isCorrespondenceDifferent">通信赛是否不同于常规赛？</string>
   <string name="youCanUseOpeningBookNoEngine">在Lichess平台，通讯赛的主要区别是允许使用开局库，但仍然禁止使用引擎，否则结果将被标记为引擎援助。 尽管ICCF允许在通信中使用引擎，但Lichess不允许。</string>
-  <string name="gameplay">对弈</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">对弈</string>
   <string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何决定的？</string>
   <string name="basedOnGameDuration">Lichess时限基于预计的游戏持续时间 = %1$s
 。 例如，5+3的估计持续时间是 5 × 60 + 40 × 3 = 420 秒。</string>
   <string name="durationFormula">(时钟初始时间) + 40 × (加时)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s秒 = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$s秒 = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s秒 = %2$s</string>
   <string name="whatVariantsCanIplay">我可以在 Lichess上玩哪些变体？</string>
   <string name="lichessSupportChessAnd">Lichess支持标准国际象棋和 %1$s。</string>
@@ -84,7 +84,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
   <string name="lichessRatings">Lichess 排名</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么排名系统？</string>
-  <string name="whatIsProvisionalRating">为什么在分数旁边有一个问号 (?) ？</string>
+  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">为什么在分数旁边有一个问号 (?) ？</string>
   <string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
   <string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
   <string name="ratingLeaderboards">排行榜：</string>
