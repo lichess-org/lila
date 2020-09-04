@@ -23,7 +23,7 @@ object home {
       moreJs = frag(
         jsModule("lobby", defer = true),
         embedJsUnsafe(
-          s"""window.lichess.load.then(()=>window.LichessLobby(${safeJsonValue(
+          s"""lichess.load.then(()=>LichessLobby(${safeJsonValue(
             Json.obj(
               "data" -> data,
               "playban" -> playban.map { pb =>

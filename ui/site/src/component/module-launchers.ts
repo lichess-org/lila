@@ -10,21 +10,7 @@ export default function moduleLaunchers() {
   else if (li.practice) startPractice(li.practice);
   else if (li.relay) startRelay(li.relay);
   else if (li.puzzle) startPuzzle(li.puzzle);
-  else if (li.tournament) startTournament(li.tournament);
   else if (li.team) startTeam(li.team);
-}
-
-function startTournament(cfg) {
-  const element = document.querySelector('main.tour') as HTMLElement;
-  $('body').data('tournament-id', cfg.data.id);
-  let tournament;
-  window.lichess.socket = new StrongSocket(
-    `/tournament/${cfg.data.id}/socket/v5`, cfg.data.socketVersion, {
-    receive: (t, d) => tournament.socketReceive(t, d)
-  });
-  cfg.socketSend = window.lichess.socket.send;
-  cfg.element = element;
-  tournament = window.LichessTournament.start(cfg);
 }
 
 function startTeam(cfg) {
