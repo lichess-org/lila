@@ -19,7 +19,7 @@ import serviceWorker from "./component/service-worker";
 import loadClockWidget from "./component/clock-widget";
 import info from "./component/info";
 import OnlineFriends from "./component/friends";
-import watchers from "./component/watchers-widget";
+import watchers from "./component/watchers";
 
 exportLichessGlobals();
 window.lichess.info = info;

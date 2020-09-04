@@ -22,6 +22,7 @@ import miniBoard from "./component/mini-board";
 import miniGame from "./component/mini-game";
 import timeago from "./component/timeago";
 import modal from "./component/modal";
+import watchers from "./component/watchers";
 
 export default function() {
   const l = window.lichess;
@@ -53,6 +54,7 @@ export default function() {
   l.unload = unload;
   l.redirect = redirect;
   l.reload = reload;
+  l.watchers = watchers;
   l.escapeHtml = escapeHtml;
   l.announce = announce;
   l.trans = trans;

@@ -29,6 +29,7 @@ interface Lichess {
   unload: {
     expected: boolean;
   };
+  watchers(el: HTMLElement): void;
   redirect(o: RedirectTo): void;
   reload(): void;
   escapeHtml(str: string): string;
@@ -356,9 +357,6 @@ interface JQuery {
   typeahead: any;
   sparkline: any;
   clock: any;
-  watchers(): JQuery;
-  watchers(method: 'set', data: any): void;
-  friends(): JQuery; // TODO remove friends widget
   highcharts(conf?: any): any;
   slider(key: string, value: any): any;
   slider(opts: any): any;

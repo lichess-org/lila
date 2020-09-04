@@ -30,7 +30,7 @@ export default function(ctrl: SimulCtrl) {
       }
     }, handler(ctrl)),
     h('div.chat__members.none', {
-      hook: util.onInsert(el => $(el).watchers())
+      hook: util.onInsert(window.lichess.watchers)
     }, h('span.list'))
   ]);
 }
