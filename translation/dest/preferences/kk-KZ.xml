@@ -8,12 +8,13 @@
   <string name="pieceDestinations">Тастың жолын көрсету (жүріс пен алдын-ала жүріс)</string>
   <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Тақта координаттары (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Ойын кезіндегі жүрістер тізімі</string>
-  <string name="pgnPieceNotation">Жүріс таңбасы</string>
-  <string name="chessPieceSymbol">Тас бейнесі</string>
+  <string name="pgnPieceNotation">Жүріс жазылуы</string>
+  <string name="chessPieceSymbol">Тас таңбасы</string>
   <string name="pgnLetter">Әріптер (K, Q, R, B, N)</string>
   <string name="zenMode">Зен нұсқасы</string>
   <string name="displayBoardResizeHandle">Тақтаны үлкейту тұтқасын көрсету</string>
   <string name="onlyOnInitialPosition">Тек бастапқы күйде ғана</string>
+  <string name="blindfoldChess">Бүркемелі шахмат (көрінбейтін тастар)</string>
   <string name="chessClock">Шахмат сағаты</string>
   <string name="tenthsOfSeconds">Секундтың ондық бөлігін көрсету</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">10 секунд қалғанда</string>
