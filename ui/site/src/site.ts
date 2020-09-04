@@ -24,9 +24,9 @@ import watchers from "./component/watchers";
 exportLichessGlobals();
 window.lichess.info = info;
 
-window.lichess.load.then(() => {
+loadClockWidget();
 
-  loadClockWidget();
+window.lichess.load.then(() => {
 
   moduleLaunchers();
 

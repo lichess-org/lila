@@ -364,7 +364,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       })
     }),
     ctrl.embed ? null : h('div.chat__members.none', {
-      hook: onInsert(el => $(el).watchers())
+      hook: onInsert(window.lichess.watchers)
     }, [h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators'), ' ', h('span.list')])
   ]);
 }
