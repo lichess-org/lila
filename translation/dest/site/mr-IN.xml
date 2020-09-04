@@ -649,6 +649,7 @@
   <string name="kidMode">Kid Mode</string>
   <string name="enableKidMode">Kid Mode सुरू करा</string>
   <string name="disableKidMode">Kid Mode बंद करा</string>
+  <string name="playChessEverywhere">सगळीकडे बुद्धिबळ खेळा</string>
   <string name="asFreeAsLichess">लिचेस सारखे निशुल्क</string>
   <string name="builtForTheLoveOfChessNotMoney">पैशासाठी नव्हे तर बुद्धिबळांच्या प्रेमासाठी बांधले गेले</string>
   <string name="everybodyGetsAllFeaturesForFree">प्रत्येकास सर्व वैशिष्ट्ये विनामूल्य मिळतात</string>
@@ -665,7 +666,17 @@
     <item quantity="other">%s भाषेत उपलब्ध!</item>
   </plurals>
   <string name="gameAnalysis">डेटा विश्लेषण</string>
+  <string name="xHostsY">%1$s यजमान %2$s</string>
+  <string name="xJoinsY">%1$s जोडले %2$s</string>
+  <string name="quickPairing">जलद जोड्या</string>
+  <string name="lobby">लॉबी</string>
+  <string name="anonymous">अनामिक</string>
+  <string name="yourScore">तुमचे गुण: %s</string>
   <string name="language">भाषा</string>
+  <string name="background">पार्श्वभूमी</string>
+  <string name="light">सौम्य</string>
+  <string name="dark">गडद</string>
+  <string name="transparent">पारदर्शक</string>
   <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
   <string name="usernameAlreadyUsed">हे नाव अगोदर वापरलेले आहे, कृपया अन्य वापरा.</string>
   <string name="playChessInStyle">खेळा बुद्धिबळ तुमच्या शैलीत</string>
