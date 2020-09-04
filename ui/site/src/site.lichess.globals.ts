@@ -5,7 +5,6 @@ import once from './component/once';
 import hasTouchEvents from './component/touchEvents';
 import spinnerHtml from './component/spinner';
 import sri from './component/sri';
-import { isCol1 } from "./component/is-col1";
 import { storage, tempStorage } from "./component/storage";
 import powertip from "./component/powertip";
 import { assetUrl, soundUrl, loadCss, loadCssPath, jsModule, loadScript, hopscotch, slider } from "./component/assets";
@@ -30,7 +29,6 @@ export default function() {
   l.requestIdleCallback = requestIdleCallback;
   l.hasTouchEvents = hasTouchEvents;
   l.sri = sri;
-  l.isCol1 = isCol1;
   l.storage = storage;
   l.tempStorage = tempStorage;
   l.once = once;

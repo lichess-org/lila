@@ -1,6 +1,6 @@
 let cache: 'init' | 'rec' | boolean = 'init';
 
-export function isCol1() {
+export default function(): boolean {
   if (typeof cache == 'string') {
     if (cache == 'init') { // only once
       window.addEventListener('resize', () => {

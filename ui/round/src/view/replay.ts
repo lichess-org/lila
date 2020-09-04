@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as round from '../round';
 import throttle from 'common/throttle';
+import isCol1 from 'common/isCol1';
 import * as game from 'game';
 import * as status from 'game/status';
 import { game as gameRoute } from 'game/router';
@@ -20,13 +21,13 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
     else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
     else {
       const plyEl = movesEl.querySelector('.' + activeClass) as HTMLElement | undefined;
-      if (plyEl) st = window.lichess.isCol1() ?
+      if (plyEl) st = isCol1() ?
         plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2 :
         plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
     }
     if (typeof st == 'number') {
       if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
-      else if (window.lichess.isCol1()) movesEl.scrollLeft = st;
+      else if (isCol1()) movesEl.scrollLeft = st;
       else movesEl.scrollTop = st;
     }
   })
@@ -185,7 +186,6 @@ function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: 
 
 export function render(ctrl: RoundController): VNode | undefined {
   const d = ctrl.data,
-    col1 = window.lichess.isCol1(),
     moves = ctrl.replayEnabledByPref() && h(movesTag, {
       hook: util.onInsert(el => {
         el.addEventListener('mousedown', e => {
@@ -208,7 +208,7 @@ export function render(ctrl: RoundController): VNode | undefined {
   return ctrl.nvui ? undefined : h(rmovesTag, [
     renderButtons(ctrl),
     initMessage(d, ctrl.trans.noarg) || (moves ? (
-      col1 ? h('div.col1-moves', [
+      isCol1() ? h('div.col1-moves', [
         col1Button(ctrl, -1, 'Y', ctrl.ply == round.firstPly(d)),
         moves,
         col1Button(ctrl, 1, 'X', ctrl.ply == round.lastPly(d))
