@@ -8,6 +8,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
+    "noEmitOnError": false,
     "moduleResolution": "node",
     "target": "ES2016",
     "module": "commonjs",
