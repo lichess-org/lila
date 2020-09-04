@@ -421,7 +421,7 @@
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Трајање</string>
   <string name="winner">Победник</string>
-  <string name="standing">Позиција</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Позиција</string>
   <string name="createANewTournament">Направите нови турнир</string>
   <string name="tournamentCalendar">Календар турнира</string>
   <string name="conditionOfEntry">Услови за улаз:</string>
@@ -690,7 +690,7 @@
   <string name="newTournament">Нови турнир</string>
   <string name="tournamentHomeTitle">Шаховски турнир који комбинује различита временска ограничења и варијанте</string>
   <string name="tournamentHomeDescription">Играјте брзи турнир у шаху! Придружите се званичном организованом турниру или направите свој. Буллет, Блитз, Цлассицал, Цхесс960, Кинг оф тхе Хилл, Тхреецхецк и друге опције су доступне за неограничену шаховску забаву.</string>
-  <string name="tournamentNotFound">Турнир није пронађен</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Турнир није пронађен</string>
   <string name="tournamentDoesNotExist">Овај турнир не постоји.</string>
   <string name="tournamentMayHaveBeenCanceled">Можда је отказан зато што су играчи напустили турнир пре његовог почетка</string>
   <string name="returnToTournamentsHomepage">Вратите се на почетну страницу \"турнири\"</string>
