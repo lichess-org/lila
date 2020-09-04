@@ -53,7 +53,7 @@ Lösenord: %3$s</string>
 Här är länken för att komma till klassen.</string>
   <string name="invitationToClass">Du är inbjuden att gå med i klassen \"%s\" som student.</string>
   <string name="clickToViewInvitation">Klicka på länken för att se inbjudan:</string>
-  <plurals name="nbPendingInvitations">
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
     <item quantity="one">En väntande inbjudan</item>
     <item quantity="other">%s väntande inbjudningar</item>
   </plurals>
