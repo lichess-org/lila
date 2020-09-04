@@ -1,7 +1,7 @@
 import "./component/jquery-ajax";
 import exportLichessGlobals from "./site.lichess.globals";
 import StrongSocket from "./component/socket";
-import { unload, redirect, reload } from "./component/reload";
+import { reload } from "./component/reload";
 import announce from './component/announce';
 import moduleLaunchers from "./component/module-launchers";
 import pubsub from "./component/pubsub";
@@ -24,45 +24,16 @@ import OnlineFriends from "./component/friends-widget";
 exportLichessGlobals();
 window.lichess.info = info;
 
-StrongSocket.defaults.events = {
-  redirect(o) {
-    setTimeout(() => {
-      unload.expected = true;
-      redirect(o);
-    }, 200);
-  },
-  tournamentReminder(data) {
-    if ($('#announce').length || $('body').data("tournament-id") == data.id) return;
-    const url = '/tournament/' + data.id;
-    $('body').append(
-      '<div id="announce">' +
-      '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>' +
-      '<div class="actions">' +
-      '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
-      '<a class="text" href="' + url + '" data-icon="G">Resume</a>' +
-      '</div></div>'
-    ).find('#announce .withdraw').click(function(this: HTMLElement) {
-      $.post($(this).attr("href"));
-      $('#announce').remove();
-      return false;
-    });
-  },
-  announce
-};
+console.log('eval site.js');
 
 window.lichess.load.then(() => {
+
+console.log('onload site.js');
 
   loadWatchersWidget();
   loadClockWidget();
 
   moduleLaunchers();
-
-  pubsub.on('socket.in.fen', e =>
-    document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e))
-  );
-  pubsub.on('socket.in.finish', e =>
-    document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.finish(el, e.win))
-  );
 
   requestIdleCallback(() => {
 
@@ -109,7 +80,7 @@ window.lichess.load.then(() => {
     timeago.updateRegularly(1000);
     pubsub.on('content_loaded', timeago.findAndRender);
 
-    if (!window.customWS) setTimeout(() => {
+    setTimeout(() => {
       if (!window.lichess.socket)
         window.lichess.socket = new StrongSocket("/socket/v5", false);
     }, 300);
@@ -195,5 +166,30 @@ window.lichess.load.then(() => {
       }, reload);
 
     serviceWorker();
+
+    // socket default receive handlers
+    pubsub.on('socket.in.fen', e =>
+      document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e))
+    );
+    pubsub.on('socket.in.finish', e =>
+      document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.finish(el, e.win))
+    );
+    pubsub.on('socket.in.announce', announce);
+    pubsub.on('socket.in.tournamentReminder', (data: { id: string, name: string }) => {
+      if ($('#announce').length || $('body').data("tournament-id") == data.id) return;
+      const url = '/tournament/' + data.id;
+      $('body').append(
+        '<div id="announce">' +
+        '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>' +
+        '<div class="actions">' +
+        '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
+        '<a class="text" href="' + url + '" data-icon="G">Resume</a>' +
+        '</div></div>'
+      ).find('#announce .withdraw').click(function(this: HTMLElement) {
+        $.post($(this).attr("href"));
+        $('#announce').remove();
+        return false;
+      });
+    });
   });
 });

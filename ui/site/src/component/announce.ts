@@ -1,7 +1,7 @@
 import { escapeHtml } from './functions';
 import pubsub from './pubsub';
 
-let timeout;
+let timeout: Timeout | undefined;
 
 const kill = () => {
   if (timeout) clearTimeout(timeout);
@@ -9,8 +9,7 @@ const kill = () => {
   $('#announce').remove();
 };
 
-const announce = (d?: LichessAnnouncement) => {
-  if (!d) return;
+const announce = (d: LichessAnnouncement) => {
   kill();
   if (d.msg) {
     $('body').append(
@@ -25,6 +24,7 @@ const announce = (d?: LichessAnnouncement) => {
   }
 };
 
-announce($('body').data('announce'));
+const initial = document.body.getAttribute('data-announce');
+if (initial) announce(JSON.parse(initial));
 
 export default announce;

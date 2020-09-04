@@ -20,7 +20,6 @@ interface MsgAck extends MsgOut {
   at: number;
 }
 type Send = (t: Tpe, d: Payload) => void;
-type Timer = ReturnType<typeof setTimeout>;
 
 interface Options {
   idle: boolean;
@@ -50,8 +49,8 @@ export default class StrongSocket {
   options: Options;
   version: number | false;
   ws: WebSocket | undefined;
-  pingSchedule: Timer;
-  connectSchedule: Timer;
+  pingSchedule: Timeout;
+  connectSchedule: Timeout;
   ackable: Ackable = new Ackable((t, d) => this.send(t, d));
   lastPingTime: number = performance.now();
   pongCount: number = 0;
@@ -257,7 +256,7 @@ export default class StrongSocket {
     this.nbConnects++;
     if (this.nbConnects == 1) {
       StrongSocket.resolveFirstConnect(this.send);
-      let disconnectTimeout: Timer | undefined;
+      let disconnectTimeout: Timeout | undefined;
       idleTimer(10 * 60 * 1000, () => {
         this.options.idle = true;
         disconnectTimeout = setTimeout(this.destroy, 2 * 60 * 60 * 1000);

@@ -21,7 +21,7 @@ object home {
         s"lichess.${if (netConfig.isProd) "org" else "dev"} • ${trans.freeOnlineChess.txt()}"
       },
       moreJs = frag(
-        jsModule("lobby", defer = true),
+        jsModule("lobby"),
         embedJsUnsafe(
           s"""lichess.load.then(()=>LichessLobby(${safeJsonValue(
             Json.obj(
@@ -41,14 +41,13 @@ object home {
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          image = staticUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = staticUrl("logo/lichess-tile.png").some,
+          image = assetUrl("logo/lichess-tile-wide.png").some,
+          twitterImage = assetUrl("logo/lichess-tile.png").some,
           title = "The best free, adless Chess server",
           url = netBaseUrl,
           description = trans.siteDescription.txt()
         )
-        .some,
-      deferJs = true
+        .some
     ) {
       main(
         cls := List(

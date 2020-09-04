@@ -1,7 +1,11 @@
 import { LobbyOpts } from './interfaces';
 import main from './main';
 
+console.log('eval lobby.js');
+
 export default function LichessLobby(opts: LobbyOpts) {
+
+  console.log('onload lobby.js');
 
   opts.element = document.querySelector('.lobby__app') as HTMLElement;
   opts.pools = [ // mirrors modules/pool/src/main/PoolList.scala
@@ -18,9 +22,9 @@ export default function LichessLobby(opts: LobbyOpts) {
     { id: "30+20", lim: 30, inc: 20, perf: "Classical" }
   ];
   const li = window.lichess,
-  nbRoundSpread = spreadNumber(
-    document.querySelector('#nb_games_in_play > strong') as HTMLElement,
-    8),
+    nbRoundSpread = spreadNumber(
+      document.querySelector('#nb_games_in_play > strong') as HTMLElement,
+      8),
     nbUserSpread = spreadNumber(
       document.querySelector('#nb_connected_players > strong') as HTMLElement,
       10),
@@ -47,7 +51,7 @@ export default function LichessLobby(opts: LobbyOpts) {
           }
         });
       },
-      featured(o: { html: string}) {
+      featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
         li.pubsub.emit('content_loaded');
       },

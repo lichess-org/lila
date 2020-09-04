@@ -36,8 +36,8 @@ object embed {
             raw(daily.html),
             span(cls := "text")(daily.color.fold(trans.whitePlays, trans.blackPlays)())
           ),
-          jsAt("javascripts/vendor/chessground.min.js", defer = false),
-          jsAt("compiled/puzzle.js", defer = false)
+          jsAt("javascripts/vendor/chessground.min.js"),
+          jsAt("compiled/puzzle.js")
         )
       )
     )

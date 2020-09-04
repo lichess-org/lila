@@ -1,17 +1,16 @@
 package views.html.analyse
 
+import bits.dataPanel
 import chess.variant.Crazyhouse
+import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import bits.dataPanel
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
-
-import controllers.routes
 
 object replay {
 
@@ -83,19 +82,20 @@ object replay {
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJsUnsafe(s"""lichess=lichess||{};lichess.analyse=${safeJsonValue(
-          Json.obj(
-            "data"   -> data,
-            "i18n"   -> jsI18n(),
-            "userId" -> ctx.userId,
-            "chat"   -> chatJson,
-            "explorer" -> Json.obj(
-              "endpoint"          -> explorerEndpoint,
-              "tablebaseEndpoint" -> tablebaseEndpoint
-            ),
-            "hunter" -> isGranted(_.Hunter)
-          )
-        )}""")
+        embedJsUnsafe(s"""lichess.load.then(()=>LichessAnalyse.boot(${safeJsonValue(
+          Json
+            .obj(
+              "data"   -> data,
+              "i18n"   -> jsI18n(),
+              "userId" -> ctx.userId,
+              "chat"   -> chatJson,
+              "explorer" -> Json.obj(
+                "endpoint"          -> explorerEndpoint,
+                "tablebaseEndpoint" -> tablebaseEndpoint
+              )
+            )
+            .add("hunter" -> isGranted(_.Hunter))
+        )}))""")
       ),
       openGraph = povOpenGraph(pov).some
     )(

@@ -35,7 +35,6 @@ object bits {
       chessground = chessground,
       playing = playing,
       robots = robots,
-      deferJs = true,
       zoomable = true,
       csp = defaultCsp.withPeer.some
     )(body)

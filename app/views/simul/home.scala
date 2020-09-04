@@ -35,7 +35,7 @@ object home {
       main(cls := "page-menu simul-list")(
         st.aside(cls := "page-menu__menu simul-list__help")(
           p(trans.aboutSimul()),
-          img(src := staticUrl("images/fischer-simul.jpg"), alt := "Simul IRL with Bobby Fischer")(
+          img(src := assetUrl("images/fischer-simul.jpg"), alt := "Simul IRL with Bobby Fischer")(
             em("[1964] ", trans.aboutSimulImage()),
             p(trans.aboutSimulRealLife()),
             p(trans.aboutSimulRules()),

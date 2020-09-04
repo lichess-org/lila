@@ -122,6 +122,8 @@ interface AssetUrlOpts {
   version?: string;
 }
 
+type Timeout = ReturnType<typeof setTimeout>;
+
 declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
 
 type TransNoArg = (key: string) => string;

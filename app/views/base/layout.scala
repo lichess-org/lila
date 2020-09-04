@@ -60,14 +60,14 @@ object layout {
   private val favicons = raw {
     List(512, 256, 192, 128, 64)
       .map { px =>
-        s"""<link rel="icon" type="image/png" href="${staticUrl(
+        s"""<link rel="icon" type="image/png" href="${assetUrl(
           s"logo/lichess-favicon-$px.png"
         )}" sizes="${px}x$px">"""
       }
       .mkString(
         "",
         "",
-        s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl(
+        s"""<link id="favicon" rel="icon" type="image/png" href="${assetUrl(
           "logo/lichess-favicon-32.png"
         )}" sizes="32x32">"""
       )
@@ -127,14 +127,36 @@ object layout {
       )
     )
 
-  private lazy val botImage = img(
-    src := staticUrl("images/icons/bot.png"),
-    title := "Robot chess",
-    style :=
-      "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
-  )
+  private def botImage =
+    img(
+      src := assetUrl("images/icons/bot.png"),
+      title := "Robot chess",
+      style :=
+        "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
+    )
 
   private val lichessJsObject = """{load:new Promise(r=>{window.onload=r})}"""
+
+  private def loadScripts(moreJs: Frag, chessground: Boolean)(implicit ctx: Context) =
+    frag(
+      chessground option jsAt("vendor/chessground.min.js"),
+      ctx.requiresFingerprint option fingerprintTag,
+      embedJsUnsafe(
+        s"""lichess={load:new Promise(r=>{window.onload=r}),quantity:${lila.i18n
+          .JsQuantity(
+            ctx.lang
+          )}};$timeagoLocaleScript"""
+      ),
+      if (netConfig.minifiedAssets)
+        jsModule("lichess")
+      else
+        frag(
+          jsModule("deps"),
+          jsModule("site")
+        ),
+      moreJs,
+      ctx.pageData.inquiry.isDefined option jsAt("inquiry.js")
+    )
 
   private val spaceRegex              = """\s{2,}+""".r
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
@@ -157,7 +179,6 @@ object layout {
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       chessground: Boolean = true,
       zoomable: Boolean = false,
-      deferJs: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = ""
   )(body: Frag)(implicit ctx: Context): Frag =
@@ -186,7 +207,7 @@ object layout {
             content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
             name := "description"
           ),
-          link(rel := "mask-icon", href := staticUrl("logo/lichess.svg"), color := "black"),
+          link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), color := "black"),
           favicons,
           !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
           noTranslate,
@@ -253,22 +274,7 @@ object layout {
             )
           ),
           a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
-          chessground option jsTag("vendor/chessground.min.js"),
-          ctx.requiresFingerprint option fingerprintTag,
-          embedJsUnsafe(
-            s"""lichess=$lichessJsObject;lichess.quantity=${lila.i18n.JsQuantity(
-              ctx.lang
-            )};$timeagoLocaleScript"""
-          ),
-          if (netConfig.minifiedAssets)
-            jsModule("lichess", defer = deferJs)
-          else
-            frag(
-              jsModule("deps", defer = deferJs),
-              jsModule("site", defer = deferJs)
-            ),
-          moreJs,
-          ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
+          loadScripts(moreJs, chessground)
         )
       )
     )

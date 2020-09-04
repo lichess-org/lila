@@ -19,10 +19,10 @@ object homepageSpotlight {
       a(href := routes.Tournament.show(tour.id), cls := tourClass)(
         frag(
           spot.iconImg map { i =>
-            img(cls := "img", src := staticUrl(s"images/$i"))
+            img(cls := "img", src := assetUrl(s"images/$i"))
           } getOrElse {
             spot.iconFont.fold[Frag](iconTag("g")(cls := "img")) {
-              case "\\" => img(cls := "img icon", src := staticUrl(s"images/globe.svg"))
+              case "\\" => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
               case i    => iconTag(i)(cls := "img")
             }
           },

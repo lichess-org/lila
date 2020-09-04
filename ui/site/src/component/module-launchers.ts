@@ -4,8 +4,7 @@ import trans from './trans';
 
 export default function moduleLaunchers() {
   const li: any = window.lichess;
-  if (li.analyse) window.LichessAnalyse.boot(li.analyse);
-  else if (li.userAnalysis) startUserAnalysis(li.userAnalysis);
+  if (li.userAnalysis) startUserAnalysis(li.userAnalysis);
   else if (li.study) startStudy(li.study);
   else if (li.practice) startPractice(li.practice);
   else if (li.relay) startRelay(li.relay);

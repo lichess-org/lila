@@ -109,7 +109,7 @@ object gamify {
       lang: Lang
   ) =
     div(cls := "champ")(
-      st.img(src := staticUrl(s"images/mod/$img.png")),
+      st.img(src := assetUrl(s"images/mod/$img.png")),
       h2("Mod of the ", period.name),
       champ.map { m =>
         frag(

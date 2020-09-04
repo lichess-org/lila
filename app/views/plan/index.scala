@@ -258,7 +258,7 @@ object index {
         ),
         dt(otherMethods()),
         dd(
-          a(href := staticUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), target := "_blank")(bankTransfers()),
+          a(href := assetUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), target := "_blank")(bankTransfers()),
           ".",
           br,
           bitcoin(code("15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8"))
