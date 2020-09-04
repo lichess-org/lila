@@ -393,6 +393,8 @@
   <string name="safeTournamentName">प्रतियोगितेसाठी खूप सुरक्षित नाव निवडा.</string>
   <string name="inappropriateNameWarning">थोडे अनुचित काहीही आपले खाते बंद करू शकते.</string>
   <string name="emptyTournamentName">प्रतियोगीतेला उल्लेखनीय बुद्धिबळपटूचे नाव देणीसाठी रिकामे सोडा.</string>
+  <string name="recommendNotTouching">आमच्या मते तुम्ही याला बदलू नये.</string>
+  <string name="fewerPlayers">आपण प्रविष्टी आवश्यकता सेट केल्यास, आपल्या स्पर्धेत कमी खेळाडू असतील.</string>
   <string name="showAdvancedSettings">प्रगत सेटिंग्ज दाखवा</string>
   <string name="makePrivateTournament">प्रतियोगिता खाजगी करा, व पासवर्डने प्रवेश मर्यादित करा</string>
   <string name="join">सामील व्हा</string>
