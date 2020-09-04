@@ -274,11 +274,11 @@
   <string name="takebackPropositionCanceled">चाल मागे घेण्याची विनंती रद्द केली</string>
   <string name="yourOpponentProposesATakeback">प्रतिस्पर्ध्याने चाल मागे घेण्याची विनंती केली आहे</string>
   <string name="bookmarkThisGame">Khelala bookamrk kara</string>
-  <string name="tournament">स्पर्धा</string>
-  <string name="tournaments">स्पर्धा</string>
-  <string name="tournamentPoints">स्पधेतील अंक</string>
+  <string name="tournament">क्रीडासत्र</string>
+  <string name="tournaments">क्रीडासत्र</string>
+  <string name="tournamentPoints">प्रतियोगितेतील गुण</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s स्पर्धा दर्जा</item>
+    <item quantity="one">%s प्रतियोगितेतील गुण</item>
     <item quantity="other">%s स्पर्धा दर्जा</item>
   </plurals>
   <plurals name="nbStudies">
@@ -649,6 +649,7 @@
   <string name="kidMode">Kid Mode</string>
   <string name="enableKidMode">Kid Mode सुरू करा</string>
   <string name="disableKidMode">Kid Mode बंद करा</string>
+  <string name="security">सुरक्षितता</string>
   <string name="playChessEverywhere">सगळीकडे बुद्धिबळ खेळा</string>
   <string name="asFreeAsLichess">लिचेस सारखे निशुल्क</string>
   <string name="builtForTheLoveOfChessNotMoney">पैशासाठी नव्हे तर बुद्धिबळांच्या प्रेमासाठी बांधले गेले</string>
@@ -714,6 +715,8 @@
   <string name="doneReviewingWhiteMistakes">पांढऱ्याची समीक्षा झाली</string>
   <string name="doneReviewingBlackMistakes">काळ्याची समीक्षा झाली</string>
   <string name="doItAgain">परत समीक्षा करा</string>
+  <string name="reviewWhiteMistakes">पांढऱ्याच्या चुकांची समीक्षा करा</string>
+  <string name="reviewBlackMistakes">काळ्याच्या चुकांची समीक्षा करा</string>
   <string name="agreementAssistance">मी खेळतांना इतर सहाय्य घेणार नाही (कॉम्प्युटर, पुस्तक, डेटाबेस किंवा इतर व्यक्ती).</string>
   <string name="agreementNice">मी इतर खेळाडू सोबत आदरयुक्त व्यवहार ठेवील.</string>
   <string name="agreementAccount">मी एकापेक्षा जास्त खाती उघडणार नाही.</string>
