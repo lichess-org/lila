@@ -393,7 +393,7 @@
   <string name="openTournaments">Öppna turneringar</string>
   <string name="duration">Varaktighet</string>
   <string name="winner">Vinnare</string>
-  <string name="standing">Ställning</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Ställning</string>
   <string name="createANewTournament">Skapa en ny turnering</string>
   <string name="tournamentCalendar">Turneringskalender</string>
   <string name="conditionOfEntry">Inträdesvillkor:</string>
@@ -657,7 +657,7 @@
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Schackturnering med olika betänketider och schackvarianter</string>
   <string name="tournamentHomeDescription">Spela snabba schackturneringar! Delta i en officiell schemalagd turnering, eller skapa din egen. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck och fler alternativ erbjuds för ändlösa schacknöjen.</string>
-  <string name="tournamentNotFound">Turneringen kunde inte hittas</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turneringen kunde inte hittas</string>
   <string name="tournamentDoesNotExist">Denna turnering finns inte.</string>
   <string name="tournamentMayHaveBeenCanceled">Turneringen kan blivit inställd om alla spelare lämnade innan den började.</string>
   <string name="returnToTournamentsHomepage">Återgå till turneringens hemsida</string>
