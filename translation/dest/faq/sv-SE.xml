@@ -28,12 +28,12 @@
   <string name="youCannotApply">Det går inte att ansöka om att bli moderator. Om vi ser någon som vi tror skulle vara bra som moderator, kommer vi att kontakta dem direkt.</string>
   <string name="isCorrespondenceDifferent">Är korrespondens annorlunda än vanlig schack?</string>
   <string name="youCanUseOpeningBookNoEngine">På Lichess är den största skillnaden i regler för korrespondensschack att en öppningsbok är tillåten. Användande av schackdatorer är fortfarande förbjudet och kommer att resultera i att man flaggas för datorstöd. Även om ICCF tillåter schackdatorer i korrespondens, så gör inte Lichess det.</string>
-  <string name="gameplay">Spelet</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Spelet</string>
   <string name="howBulletBlitzEtcDecided">Hur bestäms Bullet, Blixt och andra tidskontroller?</string>
   <string name="basedOnGameDuration">Lichess tidskontroller är baserade på uppskattad partilängd = %1$s
  Till exempel, den uppskattade längden av ett 5+3 parti är 5 * 60 + 40 * 3 = 420 sekunder.</string>
   <string name="durationFormula">(initial klocktid) + 40 · (tidstillägg)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Vilka varianter kan jag spela på Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess stöder standardschack och %1$s.</string>
@@ -110,7 +110,7 @@ någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
   Enkelt sagt, systemet är 90% säkert på att din rating är någonstans mellan 800 och 2200. Det är otroligt osäkert. På grund av detta, när en spelare precis har börjat, kommer deras rating förändras mycket dramatiskt, potentiellt flera hundra poäng i taget. Men efter några partier mot etablerade spelare så kommer konfidensintervallet att minska, och mängden poäng vunna / förlorade efter varje parti kommer att minska.
 
   En annan sak att notera är att över tid så kommerkonfidensintervallet att öka. Detta gör att du kan vinna / förlora poäng snabbare för att matcha eventuella förändringar av din skicklighetsnivå under den tiden.</string>
-  <string name="whatIsProvisionalRating">Varför är det ett frågetecken (?) bredvid ratingen?</string>
+  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Varför är det ett frågetecken (?) bredvid ratingen?</string>
   <string name="provisionalRatingExplanation">Frågetecknet betyder att ratingen är provisorisk. Anledningar inkluderar:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Spelaren har ännu inte avslutat tillräckligt många rankade partier mot %1$s i ratingkategorin.</string>
   <string name="similarOpponents">motståndare med liknande styrka</string>
