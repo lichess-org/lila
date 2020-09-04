@@ -364,7 +364,7 @@
   <string name="openTournaments">Những giải đấu mở</string>
   <string name="duration">Thời gian</string>
   <string name="winner">Người chiến thắng</string>
-  <string name="standing">Đang suy nghĩ</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Đang suy nghĩ</string>
   <string name="createANewTournament">Tạo giải đấu mới</string>
   <string name="tournamentCalendar">Lịch giải đấu</string>
   <string name="conditionOfEntry">Điều kiện tham gia:</string>
@@ -622,7 +622,7 @@
   <string name="newTournament">Giải đấu mới</string>
   <string name="tournamentHomeTitle">Giải đấu cờ vua với nhiều thiết lập thời gian và thể loại phong phú</string>
   <string name="tournamentHomeDescription">Chơi các giải đấu cờ vua tốc độ! Tham gia một giải đấu chính thức, hoặc tự tạo giải đấu của bạn. Cờ Chớp, cờ Nhanh, cờ Cổ Điển, cờ 960, cờ \"Vua của Đồi\", cờ \"Ba lần Chiếu\", và nhiều lựa chọn khác cho niềm vui đánh cờ vô tận.</string>
-  <string name="tournamentNotFound">Giải đấu không tìm thấy</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Giải đấu không tìm thấy</string>
   <string name="tournamentDoesNotExist">Giải đấu này không tồn tại.</string>
   <string name="tournamentMayHaveBeenCanceled">Nó có thể đã bị huỷ, nếu tất cả người chơi rời giải trước khi giải đấu bắt đầu.</string>
   <string name="returnToTournamentsHomepage">Trở về trang chủ các giải đấu</string>
