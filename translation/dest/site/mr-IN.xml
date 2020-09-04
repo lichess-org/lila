@@ -539,6 +539,7 @@
   <string name="difficultyEasy">सोपे</string>
   <string name="difficultyNormal">साधारण</string>
   <string name="difficultyHard">कठीण</string>
+  <string name="xCompetesInY">%1$s स्पर्धक %2$s आहे</string>
   <string name="xAskedY">%1$s विचारले %2$s</string>
   <string name="xAnsweredY">%1$s उत्तर दिले %2$s</string>
   <string name="xCommentedY">%1$s प्रतिक्रिया दिली %2$s</string>
@@ -547,6 +548,7 @@
   <string name="victoryVsYInZ">%1$s विरुद्ध %2$s खेळाचा प्रकार %3$s</string>
   <string name="defeatVsYInZ">%1$s विरुद्ध %2$s खेळाचा प्रकार %3$s</string>
   <string name="drawVsYInZ">%1$s विरुद्ध %2$s खेळाचा प्रकार %3$s</string>
+  <string name="timeline">टाइमलाइन</string>
   <string name="starting">खेळ सुरू होत आहे:</string>
   <string name="allInformationIsPublicAndOptional">सर्व माहिती सार्वजनिक आणि ऐच्छिक आहे.</string>
   <string name="yourCityRegionOrDepartment">तुमच्या गाव आणि राज्य.</string>
@@ -577,6 +579,7 @@
   <string name="sharePGN">PGN पाठवा</string>
   <string name="playOnline">ऑनलाइन खेळा</string>
   <string name="playOffline">ऑफलाईन खेळा</string>
+  <string name="allowAnalytics">अज्ञात आकडेवारीस परवानगी द्या</string>
   <string name="shareGameURL">खेळाची URL पाठवा</string>
   <string name="error.required">ही माहिती अनिवार्य आहे</string>
   <string name="error.email">हा ईमेल अवैध आहे</string>
@@ -636,11 +639,17 @@
   <string name="keyMoveBackwardOrForward">मागे/पुढे चला</string>
   <string name="keyGoToStartOrEnd">सुरवातीला/शेवटी जा</string>
   <string name="keyShowOrHideComments">प्रतिक्रिया दाखवा/लपवा</string>
+  <string name="keyEnterOrExitVariation">variation च्या आत/बाहेर</string>
   <string name="newTournament">नविन प्रतियोगिता</string>
+  <string name="tournamentHomeTitle">विविध वेळ नियंत्रणे आणि प्रकार दर्शविणारी बुद्धीबळ स्पर्धा</string>
+  <string name="tournamentHomeDescription">वेगवान-वेगवान बुद्धीबळ स्पर्धा खेळा! अधिकृत शेड्यूल टूर्नामेंटमध्ये सामील व्हा किंवा स्वतःचे तयार करा. बुलेट, ब्लीटझ, क्लासिकल, चेस 960, किंग ऑफ द हिल, थ्रीचेक आणि अंतहीन बुद्धिबळ मनोरंजनासाठी अधिक पर्याय उपलब्ध.</string>
   <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">प्रतियोगिता सापडली नाही</string>
   <string name="tournamentDoesNotExist">ही प्रतियोगिता उपलब्ध नाही.</string>
   <string name="tournamentMayHaveBeenCanceled">जर सर्व खेळाडू प्रतियोगिता सुरू होण्यापूर्वी निघून गेले तर प्रतियोगिता रद्द केली जाऊ शकते.</string>
   <string name="returnToTournamentsHomepage">प्रतियोगितेच्या मुख्य पृष्ठावर जा</string>
+  <string name="weeklyPerfTypeRatingDistribution">साप्ताहिक %s रेटिंग वितरण</string>
+  <string name="yourPerfTypeRatingIsRating">तुमची %1$s रेटिंग %2$s आहे.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपल्याकडे %s रेटिंग नाही.</string>
   <string name="yourRating">तुमचे रेटिंग</string>
   <string name="cumulative">एकत्रित</string>
   <string name="glicko2Rating">Glicko-2 रेटिंग</string>
@@ -649,6 +658,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">जर तुम्हाला ईमेल मिळाला नसेल, तर इतर ठिकाणी तपास, जसे की junk, spam, social, किंवा इतर फोल्डर्स.</string>
   <string name="weHaveSentYouAnEmailTo">आम्ही %s वर ईमेल पाठवला आहे. पासवर्ड रेसेट करण्यासाठी ईमेल मधील लिंक क्लिक करा.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">नोंदणी करतेवेळी, तुम्ही आमच्या %s ला बांधील आहात.</string>
+  <string name="networkLagBetweenYouAndLichess">आपण आणि लाइचेस दरम्यान नेटवर्कचा अडथळा आहे</string>
   <string name="crosstable">पटाची बाजू बदला</string>
   <string name="letOtherPlayersMessageYou">इतर खेळाडूंना संदेश पाठवू द्या</string>
   <string name="withNobody">कोणासोबाही नाही</string>
@@ -688,6 +698,7 @@
   <string name="light">सौम्य</string>
   <string name="dark">गडद</string>
   <string name="transparent">पारदर्शक</string>
+  <string name="boardSize">पटाचा आकार</string>
   <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
   <string name="usernameAlreadyUsed">हे नाव अगोदर वापरलेले आहे, कृपया अन्य वापरा.</string>
   <string name="playChessInStyle">खेळा बुद्धिबळ तुमच्या शैलीत</string>
