@@ -556,6 +556,8 @@
   <string name="unauthorizedError">प्रवेश अनधिकृत आहे.</string>
   <string name="noInternetConnection">आंतरजालाशी संपर्क  नाही. तरीदेखील तुम्ही offline खेळू शकता</string>
   <string name="connectedToLichess">तुम्ही आता lichess.org जोडल्या गेला आहात</string>
+  <string name="signedOut">तुम्ही बाहेर निघाला आहात</string>
+  <string name="loginSuccessful">तुम्ही आत आला आहात</string>
   <string name="playOnTheBoardOffline">त्या समयी सुचलेली चाल</string>
   <string name="playOfflineComputer">संगणक</string>
   <string name="opponent">प्रतिस्पर्धी</string>
@@ -624,11 +626,18 @@
   <string name="timeBeforeTournamentStarts">स्पर्धा सुरू होण्यापूर्वीचा वेळ</string>
   <string name="averageCentipawnLoss">प्यादानचे सरासरी नुकसान</string>
   <string name="keyboardShortcuts">कीबोर्ड शॉर्टकट</string>
+  <string name="keyMoveBackwardOrForward">मागे/पुढे चला</string>
   <string name="keyGoToStartOrEnd">सुरवातीला/शेवटी जा</string>
   <string name="keyShowOrHideComments">प्रतिक्रिया दाखवा/लपवा</string>
   <string name="newTournament">नविन प्रतियोगिता</string>
   <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">प्रतियोगिता सापडली नाही</string>
   <string name="tournamentDoesNotExist">ही प्रतियोगिता उपलब्ध नाही.</string>
+  <string name="yourRating">तुमचे रेटिंग</string>
+  <string name="cumulative">एकत्रित</string>
+  <string name="glicko2Rating">Glicko-2 रेटिंग</string>
+  <string name="checkYourEmail">तुमचा ईमेल तपासा</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">आम्ही तुम्हाला ईमेल पाठवला आहे. दिलेल्या लिंक वर क्लिक करून आपले खाते सक्रिय करा.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">जर तुम्हाला ईमेल मिळाला नसेल, तर इतर ठिकाणी तपास, जसे की junk, spam, social, किंवा इतर फोल्डर्स.</string>
   <string name="crosstable">पटाची बाजू बदला</string>
   <string name="letOtherPlayersMessageYou">इतर खेळाडूंना संदेश पाठवू द्या</string>
   <string name="withNobody">कोणासोबाही नाही</string>
