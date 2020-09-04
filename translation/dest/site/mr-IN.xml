@@ -638,6 +638,8 @@
   <string name="checkYourEmail">तुमचा ईमेल तपासा</string>
   <string name="weHaveSentYouAnEmailClickTheLink">आम्ही तुम्हाला ईमेल पाठवला आहे. दिलेल्या लिंक वर क्लिक करून आपले खाते सक्रिय करा.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">जर तुम्हाला ईमेल मिळाला नसेल, तर इतर ठिकाणी तपास, जसे की junk, spam, social, किंवा इतर फोल्डर्स.</string>
+  <string name="weHaveSentYouAnEmailTo">आम्ही %s वर ईमेल पाठवला आहे. पासवर्ड रेसेट करण्यासाठी ईमेल मधील लिंक क्लिक करा.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">नोंदणी करतेवेळी, तुम्ही आमच्या %s ला बांधील आहात.</string>
   <string name="crosstable">पटाची बाजू बदला</string>
   <string name="letOtherPlayersMessageYou">इतर खेळाडूंना संदेश पाठवू द्या</string>
   <string name="withNobody">कोणासोबाही नाही</string>
@@ -664,6 +666,7 @@
   </plurals>
   <string name="gameAnalysis">डेटा विश्लेषण</string>
   <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
+  <string name="usernameAlreadyUsed">हे नाव अगोदर वापरलेले आहे, कृपया अन्य वापरा.</string>
   <string name="playChessInStyle">खेळा बुद्धिबळ तुमच्या शैलीत</string>
   <string name="notifications">Notifications</string>
   <string name="challenges">आव्हाने</string>
