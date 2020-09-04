@@ -53,7 +53,7 @@ Heslo: %3$s</string>
 Zde je odkaz pro přístup ke třídě.</string>
   <string name="invitationToClass">Jste pozváni k účasti v hodině \"%s\" jako student.</string>
   <string name="clickToViewInvitation">Klikněte na odkaz pro zobrazení pozvánky:</string>
-  <plurals name="nbPendingInvitations">
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
     <item quantity="one">Jedna čekající pozvánka</item>
     <item quantity="few">%s čekající pozvánky</item>
     <item quantity="many">%s čekajících pozvánek</item>
