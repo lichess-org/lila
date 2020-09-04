@@ -99,19 +99,19 @@
   <string name="openStudy">अभ्यास</string>
   <string name="enable">सक्षम करा</string>
   <string name="bestMoveArrow">उत्तम चाल बाण</string>
-  <string name="evaluationGauge">मूल्यांकन गेज</string>
+  <string name="evaluationGauge">मूल्यांकन परिमाण</string>
   <string name="multipleLines">अनेक रेखा</string>
   <string name="cpus">गणक</string>
   <string name="memory">मेमरी</string>
   <string name="infiniteAnalysis">अमर्यादित विश्लेषण</string>
   <string name="removesTheDepthLimit">खोली मर्यादा काढून टाकते आणि आपला संगणक उष्ण ठेवतो</string>
   <string name="blunder">घोडचूक</string>
-  <string name="blunders">घोडचूक</string>
-  <string name="mistake">चुका</string>
+  <string name="blunders">घोडचूका</string>
+  <string name="mistake">चुक</string>
   <string name="mistakes">चुका</string>
-  <string name="inaccuracy">चुका</string>
-  <string name="inaccuracies">अचूकपणा</string>
-  <string name="moveTimes">चालीसाठी खर्चिलेला वेळ</string>
+  <string name="inaccuracy">त्रुटी</string>
+  <string name="inaccuracies">त्रुटी</string>
+  <string name="moveTimes">चालीसाठी लागलेला वेळ</string>
   <string name="flipBoard">पटाला पलटा</string>
   <string name="threefoldRepetition">तीनदा पुनरावृत्ती</string>
   <string name="claimADraw">डाव अनिर्णीत राहण्याचा दावा करा</string>
@@ -181,6 +181,10 @@
     <item quantity="one">दर्जा प्रत्येक मिनिटाला अद्यतनित केला जातो</item>
     <item quantity="other">दर्जा प्रत्येक %s मिनिटाला अद्यतनित केला जातो</item>
   </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s कोडी</item>
+    <item quantity="other">%s कोडी</item>
+  </plurals>
   <string name="gamesPlayed">खेळलेले डाव</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s  तुमच्याशी खेळलेले डाव</item>
@@ -211,7 +215,7 @@
   <string name="casual">अनौपचारिक</string>
   <string name="rated">दर्जा दिला</string>
   <string name="casualTournament">अनौपचारिक</string>
-  <string name="ratedTournament">रेट केलेले</string>
+  <string name="ratedTournament">दर्जाचे</string>
   <string name="thisGameIsRated">या डावाचा दर्जा</string>
   <string name="rematch">पुनः खेळा</string>
   <string name="rematchOfferSent">पुनः खेळण्याचा प्रस्ताव पाठवला</string>
@@ -388,6 +392,7 @@
   <string name="advancedSettings">प्रगत सेटिंग्ज</string>
   <string name="safeTournamentName">प्रतियोगितेसाठी खूप सुरक्षित नाव निवडा.</string>
   <string name="inappropriateNameWarning">थोडे अनुचित काहीही आपले खाते बंद करू शकते.</string>
+  <string name="emptyTournamentName">प्रतियोगीतेला उल्लेखनीय बुद्धिबळपटूचे नाव देणीसाठी रिकामे सोडा.</string>
   <string name="showAdvancedSettings">प्रगत सेटिंग्ज दाखवा</string>
   <string name="makePrivateTournament">प्रतियोगिता खाजगी करा, व पासवर्डने प्रवेश मर्यादित करा</string>
   <string name="join">सामील व्हा</string>
@@ -632,6 +637,8 @@
   <string name="newTournament">नविन प्रतियोगिता</string>
   <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">प्रतियोगिता सापडली नाही</string>
   <string name="tournamentDoesNotExist">ही प्रतियोगिता उपलब्ध नाही.</string>
+  <string name="tournamentMayHaveBeenCanceled">जर सर्व खेळाडू प्रतियोगिता सुरू होण्यापूर्वी निघून गेले तर प्रतियोगिता रद्द केली जाऊ शकते.</string>
+  <string name="returnToTournamentsHomepage">प्रतियोगितेच्या मुख्य पृष्ठावर जा</string>
   <string name="yourRating">तुमचे रेटिंग</string>
   <string name="cumulative">एकत्रित</string>
   <string name="glicko2Rating">Glicko-2 रेटिंग</string>
@@ -717,8 +724,41 @@
   <string name="doItAgain">परत समीक्षा करा</string>
   <string name="reviewWhiteMistakes">पांढऱ्याच्या चुकांची समीक्षा करा</string>
   <string name="reviewBlackMistakes">काळ्याच्या चुकांची समीक्षा करा</string>
+  <string name="opening">ओपनिंग</string>
+  <string name="middlegame">मध्यखेळ</string>
+  <string name="endgame">खेळाचा शेवट</string>
+  <string name="registerToSendChallenges">कृपया आव्हान देण्यासाठी नोंदणी करा.</string>
+  <string name="youCannotChallengeX">तुम्ही आव्हान देऊ शकत नाही %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s आपले आव्हान स्विकारले नाही.</string>
+  <string name="sorry">माफ करा</string>
+  <string name="weHadToTimeYouOutForAWhile">आम्हाला आपल्याला काही वेळ खेळू देता येणार नाही.</string>
+  <string name="timeoutExpires">विश्रांती संपेल %s.</string>
+  <string name="why">कारण?</string>
+  <string name="pleasantChessExperience">प्रत्येकासाठी एक सुखद बुद्धिबळ अनुभव देण्याचे आमचे ध्येय आहे.</string>
+  <string name="goodPractice">त्या दृष्टीने, आम्ही हे सुनिश्चित केले पाहिजे की सर्व खेळाडूंनी चांगल्या कार्यपद्धतीचे अनुसरण केले आहे.</string>
+  <string name="potentialProblem">जेव्हा संभाव्य अडचण सापडेल, आम्ही संदेश देऊ.</string>
+  <string name="howToAvoidThis">याला कसे रोखाल?</string>
+  <string name="playEveryGame">प्रत्येक डाव संपूर्ण खेळा.</string>
+  <string name="tryToWin">प्रत्येक डाव जिंकण्याचा प्रयत्न करा (किंवा बरोबरीत सोडवण्याचा).</string>
+  <string name="resignLostGames">हारलेल्या डावातून निवृत्ती घ्या (घड्याळ चालू राहू देऊ नका).</string>
+  <string name="temporaryInconvenience">तात्पुरत्या गैरसोयीबद्दल आम्ही दिलगीर आहोत,</string>
+  <string name="wishYouGreatGames">आणि लीचेसवर आपल्याला उत्कृष्ट खेळांसाठी शुभेच्छा.</string>
+  <string name="thankYouForReading">वाचल्याबद्दल धन्यवाद!</string>
+  <string name="lifetimeScore">आजीवन गुण</string>
+  <string name="currentMatchScore">चालू डावाचे गुण</string>
   <string name="agreementAssistance">मी खेळतांना इतर सहाय्य घेणार नाही (कॉम्प्युटर, पुस्तक, डेटाबेस किंवा इतर व्यक्ती).</string>
   <string name="agreementNice">मी इतर खेळाडू सोबत आदरयुक्त व्यवहार ठेवील.</string>
   <string name="agreementAccount">मी एकापेक्षा जास्त खाती उघडणार नाही.</string>
   <string name="agreementPolicy">मी Lichess च्या सर्व नियमांचे पालन करेल.</string>
+  <string name="searchOrStartNewDiscussion">संभाषण शोधा किंवा नविन सुरू करा</string>
+  <string name="edit">सुधार करा</string>
+  <string name="rapid">द्रुतगती</string>
+  <string name="classical">क्लासिकल</string>
+  <string name="ultraBulletDesc">अत्यंत वेगवान खेळ: ३० सेकंदांपेक्षा कमी</string>
+  <string name="bulletDesc">खूप वेगवान खेळ: ३ मिनिटांपेक्षा कमी</string>
+  <string name="blitzDesc">फारच जलद खेळ: ३ ते ८ मिनिटे</string>
+  <string name="rapidDesc">जलद खेळ: ८ ते २५ मिनिटे</string>
+  <string name="classicalDesc">जुन्या पद्धतीचा खेळ: २५ मिनिटांपेक्षा जास्त</string>
+  <string name="teamNamedX">%1$s संघ</string>
+  <string name="youCannotPostYetPlaySomeGames">तुम्ही मंचावर लिहू शकत नाही. काही डाव खेळा!</string>
 </resources>
