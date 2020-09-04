@@ -330,7 +330,7 @@
   <string name="continueFromHere">येथून खेळायला सुरवात करा</string>
   <string name="toStudy">अभ्यास</string>
   <string name="importGame">खेळ मागवा</string>
-  <string name="importGameExplanation">संगणक विश्लेषण, संभाषण, खेळ पुनः बघण्यासाठी PGN चिकटवा.</string>
+  <string name="importGameExplanation">प्रतिक्रिया, संगणक विश्लेषण, संभाषण, URL मिळवण्यासाठी खेळाची PGN टाका.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s खेळ मागवला</item>
     <item quantity="other">%s खेळ मागवले</item>
@@ -564,6 +564,7 @@
   <string name="sharePGN">PGN पाठवा</string>
   <string name="playOnline">ऑनलाइन खेळा</string>
   <string name="playOffline">ऑफलाईन खेळा</string>
+  <string name="shareGameURL">खेळाची URL पाठवा</string>
   <string name="error.email">हा ईमेल अवैध आहे</string>
   <string name="error.email_acceptable">हा ईमेल स्वीकार्य नाही. कृपया तपासून पहा आणि पुन्हा प्रयत्न करा.</string>
   <string name="error.email_unique">हा ईमेल आधीपासून आहे</string>
@@ -643,6 +644,7 @@
     <item quantity="other">%s भाषेत उपलब्ध!</item>
   </plurals>
   <string name="gameAnalysis">डेटा विश्लेषण</string>
+  <string name="embedInYourWebsite">तुमच्या वेबसाइटवर टाका</string>
   <string name="playChessInStyle">खेळा बुद्धिबळ तुमच्या शैलीत</string>
   <string name="notifications">Notifications</string>
   <string name="challenges">आव्हाने</string>
