@@ -28,12 +28,12 @@
   <string name="youCannotApply">Moderatör olmak için başvuru yapmak mümkün değildir. Moderatör olarak iyi olacağını düşündüğümüz birini görürsek, onlarla doğrudan iletişime geçeceğiz.</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyun normal satrançtan farklı mıdır?</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess\'te, yazışma satrancı kurallarındaki temel fark, bir açılış kitabına izin verilmesidir. Motorların kullanımı hala yasaktır ve motor yardımı alırsanız hesabınız işaretlenecektir. ICCF yazışmalarda motor kullanımına izin verse de, Lichess buna izin vermez.</string>
-  <string name="gameplay">Oynanış</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Oynanış</string>
   <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri neye göre karar veriliyor?</string>
   <string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor = %1$s
 Örneğin, bir 5+3 blitz oyununun yaklaşık süresi 5 x 60 + 40 x 3 = 420 saniyedir.</string>
   <string name="durationFormula">(zaman) + 40 x (arttırma)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess\'te hangi varyantları oynayabilirim?</string>
   <string name="lichessSupportChessAnd">Lichess standart satranç ve%1$s\'yi destekler.</string>
@@ -108,7 +108,7 @@ Temel olarak, glicko derecelendirmeleri, derecelendirmenizi hesaplarken ve temsi
 Temel olarak, sistem, derecelendirmenizin 800 ile 2200 arasında bir yerde olduğundan %90 emin. Bu inanılmaz derecede belirsiz. Bu nedenle, bir oyuncu yeni başladığında, derecelendirmeleri çok önemli ölçüde değişecek, bir seferde potansiyel olarak birkaç yüz puan. Ancak köklü oyunculara karşı bazı oyunlardan sonra güven aralığı daralır ve her oyundan sonra kazanılan/kaybedilen puan miktarı azalacaktır.
 
 Dikkat edilmesi gereken bir diğer nokta, zaman geçtikçe güven aralığının artacağıdır. Bu daha hızlı zamanla beceri düzeyi değişiklikleri için puan kaybetmek/ puan kazanmak için izin verir.</string>
-  <string name="whatIsProvisionalRating">Neden puanımın yanında soru işareti(?) var?</string>
+  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Neden puanımın yanında soru işareti(?) var?</string>
   <string name="provisionalRatingExplanation">Soru işareti, derecelendirmenin geçici olduğu anlamına gelir. Nedenleri şunlardır:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Oyuncu henüz derecelendirmeli oyun kategorisinde %1$s karşısında yeterince puanlı oyun bitirmedi.</string>
   <string name="similarOpponents">benzer puanlı oyuncular</string>
