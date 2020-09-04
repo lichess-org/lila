@@ -394,7 +394,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="openTournaments">Open tournaments</string>
   <string name="duration">Duration</string>
   <string name="winner">Winner</string>
-  <string name="standing">Standing</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Standing</string>
   <string name="createANewTournament">Create a new tournament</string>
   <string name="tournamentCalendar">Tournament calendar</string>
   <string name="conditionOfEntry">Entry requirements:</string>
@@ -658,7 +658,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="newTournament">New tournament</string>
   <string name="tournamentHomeTitle">Chess tournaments featuring various time controls and variants</string>
   <string name="tournamentHomeDescription">Play fast-paced chess tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, and more options available for endless chess fun.</string>
-  <string name="tournamentNotFound">Tournament not found</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Tournament not found</string>
   <string name="tournamentDoesNotExist">This tournament does not exist.</string>
   <string name="tournamentMayHaveBeenCanceled">The tournament may have been canceled if all players left before it started.</string>
   <string name="returnToTournamentsHomepage">Return to tournaments homepage</string>
