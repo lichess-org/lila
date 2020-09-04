@@ -59,7 +59,7 @@
   <string name="ratedGame">Varmistu että pelasit pisteytetyn pelin. Rennot pelit eivät vaikuta pelaajien vahvuuslukuihin.</string>
   <string name="errorPage">Virhesivu</string>
   <string name="reportErrorPage">Jos törmäsit virhesivuun, voit raportoida sen:</string>
-  <string name="banAppeal">Valita porttikiellosta tai IP-estosta</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Valita porttikiellosta tai IP-estosta</string>
   <string name="engineAppeal">Tietokone- tai huijarimerkinnästä</string>
   <string name="sendAppealTo">Voit valittaa osoitteeseen %s.</string>
   <string name="falsePositives">Vääriä positiivisia voi tulla joskus ja olemme pahoillamme siitä.</string>
