@@ -1,29 +1,32 @@
-import widget from './widget';
-import pubsub from './pubsub';
+interface Data {
+  nb: number;
+  users?: string[];
+  anons?: number;
+  watchers?: Data;
+}
 
-export default function loadWatchersWidget() {
-  let watchersData;
+let watchersData: Data | undefined;
 
-  widget('watchers', {
-    _create: function() {
-      this.list = this.element.find(".list");
-      this.number = this.element.find(".number");
-      pubsub.on('socket.in.crowd', data => this.set(data.watchers || data));
-      watchersData && this.set(watchersData);
-    },
-    set: function(data) {
-      watchersData = data;
-      if (!data || !data.nb) return this.element.addClass('none');
-      if (this.number.length) this.number.text(data.nb);
-      if (data.users) {
-        const tags = data.users.map(u =>
-          u ? `<a class="user-link ulpt" href="/@/${u.includes(' ') ? u.split(' ')[1] : u}">${u}</a>` : 'Anonymous'
-        );
-        if (data.anons === 1) tags.push('Anonymous');
-        else if (data.anons) tags.push('Anonymous (' + data.anons + ')');
-        this.list.html(tags.join(', '));
-      } else if (!this.number.length) this.list.html(data.nb + ' players in the chat');
-      this.element.removeClass('none');
-    }
-  });
+export default function watchers(element: HTMLElement) {
+
+  const listEl: HTMLElement | null = element.querySelector('.list');
+  const numberEl: HTMLElement | null = element.querySelector('.number');
+  window.lichess.pubsub.on('socket.in.crowd', data => set(data.watchers || data));
+
+  const set = (data: Data) => {
+    watchersData = data;
+    if (!data || !data.nb) return element.classList.add('none');
+    if (numberEl) numberEl.textContent = '' + data.nb;
+    if (data.users && listEl) {
+      const tags = data.users.map(u =>
+        u ? `<a class="user-link ulpt" href="/@/${u.includes(' ') ? u.split(' ')[1] : u}">${u}</a>` : 'Anonymous'
+      );
+      if (data.anons === 1) tags.push('Anonymous');
+      else if (data.anons) tags.push('Anonymous (' + data.anons + ')');
+      listEl.innerHTML = tags.join(', ');
+    } else if (!numberEl && listEl) listEl.innerHTML = `${data.nb} players in the chat`;
+    element.classList.remove('none');
+  }
+
+  if (watchersData) set(watchersData);
 }

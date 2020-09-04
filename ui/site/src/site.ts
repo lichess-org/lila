@@ -16,17 +16,16 @@ import loadInfiniteScroll from "./component/infinite-scroll";
 import { storage } from "./component/storage";
 import { assetUrl } from "./component/assets";
 import serviceWorker from "./component/service-worker";
-import loadWatchersWidget from "./component/watchers-widget";
 import loadClockWidget from "./component/clock-widget";
 import info from "./component/info";
-import OnlineFriends from "./component/friends-widget";
+import OnlineFriends from "./component/friends";
+import watchers from "./component/watchers-widget";
 
 exportLichessGlobals();
 window.lichess.info = info;
 
 window.lichess.load.then(() => {
 
-  loadWatchersWidget();
   loadClockWidget();
 
   moduleLaunchers();
@@ -154,7 +153,8 @@ window.lichess.load.then(() => {
     pubsub.on('content_loaded', miniBoard.initAll);
     pubsub.on('content_loaded', miniGame.initAll);
 
-    $('.chat__members').watchers();
+    const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
+    if (chatMembers) watchers(chatMembers);
 
     if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
       $.post('/toggle-blind-mode', {
