@@ -759,6 +759,11 @@
   <string name="blitzDesc">फारच जलद खेळ: ३ ते ८ मिनिटे</string>
   <string name="rapidDesc">जलद खेळ: ८ ते २५ मिनिटे</string>
   <string name="classicalDesc">जुन्या पद्धतीचा खेळ: २५ मिनिटांपेक्षा जास्त</string>
+  <string name="correspondenceDesc">अतिशय संथ खेळ: एक किंवा अनेक दिवस एका चालीसाठी</string>
+  <string name="puzzleDesc">बुद्धिबळाच्या डावपेचाचा प्रशिक्षक</string>
+  <string name="important">महत्वाचे</string>
+  <string name="yourQuestionMayHaveBeenAnswered">तुमच्या प्रश्नाचे उत्तर अगोदरच दिलेले आहे %1$s</string>
+  <string name="inTheFAQ">सामान्य प्रश्न संचामध्ये.</string>
   <string name="teamNamedX">%1$s संघ</string>
   <string name="youCannotPostYetPlaySomeGames">तुम्ही मंचावर लिहू शकत नाही. काही डाव खेळा!</string>
 </resources>
