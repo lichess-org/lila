@@ -28,12 +28,12 @@
   <string name="youCannotApply">Solliciteren om moderator te worden is niet mogelijk. Als we iemand zien van wie we denken dat hij geschikt zou zijn als moderator, zullen we direct contact met hem opnemen.</string>
   <string name="isCorrespondenceDifferent">Is correspondentieschaak anders dan standaard schaak?</string>
   <string name="youCanUseOpeningBookNoEngine">Op Lichess is het belangrijkste verschil in de regels voor correspondentieschaak dat een openingsboek is toegestaan. Het gebruik van engines is nog steeds verboden en leidt tot een overeenkomstige markering. Hoewel ICCF gebruik van engines in correspondentieschaak toestaat, doet Lichess dat niet.</string>
-  <string name="gameplay">Spelregels</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Spelregels</string>
   <string name="howBulletBlitzEtcDecided">Hoe worden bullet, blitz en andere speeltempo\'s bepaald?</string>
   <string name="basedOnGameDuration">Lichess speeltempo\'s zijn gebaseerd op de geschatte partijduur = %1$s
   Bijvoorbeeld, de geschatte duur van een 5+3 partij is 5 * 60 + 40 * 3 = 420 seconden.</string>
   <string name="durationFormula">(initiële kloktijd) + 40 * (increment)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess ondersteunt standaard schaak en %1$s.</string>
@@ -108,7 +108,7 @@ Het belangrijkste is dat Glicko-ratings gebruikmaken van \"betrouwbaarheidsinter
 In principe is het systeem 90% zeker dat je rating ergens tussen 800 en 2200 ligt. Het is dus ontzettend onzeker. Hierom, als een speler net begint, verandert zijn/haar rating enorm, mogelijk enkele honderden punten per keer. Maar na wat partijen tegen gevestigde spelers zal het betrouwbaarheidsinterval kleiner worden en neemt het aantal verdiende/verloren punten na elke partij af.
 
 Een ander punt is dat naarmate de tijd verstrijkt het betrouwbaarheidsinterval groter zal worden. Dit maakt het mogelijk om sneller punten te verdienen/verliezen, afhankelijk van je veranderingen in je vaardighedeniveau in die periode.</string>
-  <string name="whatIsProvisionalRating">Waarom staat er een vraagteken naast een beoordeling?</string>
+  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Waarom staat er een vraagteken naast een beoordeling?</string>
   <string name="provisionalRatingExplanation">Het vraagteken betekent dat de beoordeling voorlopig is. Redenen zijn:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">De speler heeft nog niet genoeg partijen met rating gespeeld tegen %1$s in de ratingcategorie.</string>
   <string name="similarOpponents">tegenstanders van gelijke sterkte</string>
