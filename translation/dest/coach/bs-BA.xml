@@ -3,7 +3,7 @@
   <string name="lichessCoaches">Lichess treneri</string>
   <string name="lichessCoach">Lichess trener</string>
   <string name="areYouCoach">Da li ste sjajni trener šaha sa %s?</string>
-  <string name="nmOrFideTitle">Nacionalni majstor ili FIDE titulom</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Nacionalni majstor ili FIDE titulom</string>
   <string name="confirmTitle">Ootvrdite Vašu titulu ovde i pregledaćemo Vašu prijavu.</string>
   <string name="sendApplication">Pošaljite nam e-mail poruku na %s i mi ćemo pregledati vašu prijavu.</string>
   <string name="location">Lokacija</string>
