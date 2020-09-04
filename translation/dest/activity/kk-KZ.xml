@@ -59,8 +59,8 @@
     <item quantity="other">%s жарысқа қатысты</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">%4$s-да %3$s ойын нәтижесінде %1$s-ші орында (%2$s%% үздік)</item>
-    <item quantity="other">%4$s-да %3$s ойын нәтижесінде %1$s-ші орында (%2$s%% үздік)</item>
+    <item quantity="one">%4$s %3$s ойын нәтижесінде %1$s-ші орында (%2$s%% үздік)</item>
+    <item quantity="other">%4$s %3$s ойын нәтижесінде %1$s-ші орында (%2$s%% үздік)</item>
   </plurals>
   <string name="signedUp">Личес-те тіркелді</string>
   <plurals name="joinedNbTeams">
