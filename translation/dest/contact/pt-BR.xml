@@ -59,7 +59,7 @@
   <string name="ratedGame">Certifique-se de ter jogado uma partida por pontuação. Jogos casuais não alteram a pontuação dos jogadores.</string>
   <string name="errorPage">Página de erro</string>
   <string name="reportErrorPage">Se você encontrou uma página de erro, você pode reportá-la:</string>
-  <string name="banAppeal">Solicitar por proibição ou restrição de IP</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Solicitar por proibição ou restrição de IP</string>
   <string name="engineAppeal">Assistência de software de xadrez</string>
   <string name="sendAppealTo">Você pode enviar um apelo para %s.</string>
   <string name="falsePositives">Erros acontecem às vezes, e lamentamos que isso aconteça.</string>
