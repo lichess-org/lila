@@ -18,8 +18,8 @@
   <linearGradient id="linearGradient2075" x1="317.4" x2="324.5" y1="-336.99" y2="-336.99" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2334"/>
   <linearGradient id="linearGradient2083" x1="320.17" x2="324.12" y1="-354.41" y2="-353.2" gradientTransform="translate(.48196)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2334"/>
  </defs>
- <g transform="translate(-299.27 412.32)" opacity=".88">
-  <g transform="matrix(1.0979 0 0 1.0966 -33.902 -8.3985)" opacity="1" stroke-width=".91134">
+ <g transform="translate(-299.27 412.32)">
+  <g transform="matrix(1.0979 0 0 1.0966 -33.902 -8.3985)" stroke-width=".91134">
    <g stroke="#000" stroke-linejoin="round" stroke-width="1.0936">
     <path d="m323.13-345.24c-0.10551 9.4177-6.796 13.016-6.796 13.016v2.9923l1.4371 0.83413h16.904l1.4371-0.83413v-2.9923s-6.6906-3.5982-6.7961-13.016h-3.0926z" fill="#514b46" stroke-width="1.0935"/>
     <path d="m326.2-359.4c-3.628 0.0145-6.5609 2.8225-6.5609 6.2813-1e-5 2.1646 1.169 4.1767 3.0938 5.3249-2.2396 0.33015-3.6252 0.95051-3.6252 1.6231-7.5e-4 1.029 3.1873 1.3334 7.1203 1.3334 3.9329 0 7.121-0.30433 7.1203-1.3334-2.1e-4 -0.67263-1.3861-1.293-3.626-1.6231 1.9249-1.1481 3.0941-3.1602 3.0942-5.3249-2e-5 -3.469-2.9497-6.2812-6.5884-6.2813-9e-3 -2e-5 -0.0186-2e-5 -0.0279 0z" fill="#514b46" stroke-linecap="round" style="paint-order:markers fill stroke"/>
