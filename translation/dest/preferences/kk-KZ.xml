@@ -2,6 +2,9 @@
 <resources>
   <string name="preferences">Баптаулар</string>
   <string name="gameDisplay">Ойын көрінісі</string>
+  <string name="pieceAnimation">Тастар анимациясы</string>
+  <string name="materialDifference">Тас мөлшерінің айырмашылығы</string>
+  <string name="boardHighlights">Жүріс іздерін көрсету (кейінгі жүріс пен шах)</string>
   <string name="chessClock">Шахмат сағаты</string>
   <string name="tenthsOfSeconds">Секундтың ондық бөлігін көрсету</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">10 секунд қалғанда</string>
