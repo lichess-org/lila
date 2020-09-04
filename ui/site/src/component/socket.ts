@@ -42,37 +42,6 @@ interface Settings {
   options: Options;
 }
 
-
-class Ackable {
-
-  currentId = 1; // increment with each ackable message sent
-  messages: MsgAck[] = [];
-
-  constructor(readonly send: Send) {
-    setInterval(this.resend, 1200);
-  }
-
-  resend = () => {
-    const resendCutoff = performance.now() - 2500;
-    this.messages.forEach(m => {
-      if (m.at < resendCutoff) this.send(m.t, m.d);
-    });
-  }
-
-  register = (t: Tpe, d: Payload) => {
-    d.a = this.currentId++;
-    this.messages.push({
-      t: t,
-      d: d,
-      at: performance.now()
-    });
-  }
-
-  onServerAck = (id: number) => {
-    this.messages = this.messages.filter(m => m.d.a !== id);
-  }
-}
-
 // versioned events, acks, retries, resync
 export default class StrongSocket {
 
@@ -110,10 +79,10 @@ export default class StrongSocket {
     StrongSocket.resolveFirstConnect = r;
   });
 
-  constructor(readonly url: string, initialVersion: number | false, settings?: any) {
+  constructor(readonly url: string, version: number | false, settings?: any) {
     this.settings = $.extend(true, {}, StrongSocket.defaults, settings);
     this.options = this.settings.options;
-    this.version = initialVersion;
+    this.version = version;
     this.pubsub.on('socket.send', this.send);
     window.addEventListener('unload', this.destroy);
     this.connect();
@@ -312,4 +281,34 @@ export default class StrongSocket {
 
   pingInterval = () => this.computePingDelay() + this.averageLag;
   getVersion = () => this.version;
+}
+
+class Ackable {
+
+  currentId = 1; // increment with each ackable message sent
+  messages: MsgAck[] = [];
+
+  constructor(readonly send: Send) {
+    setInterval(this.resend, 1200);
+  }
+
+  resend = () => {
+    const resendCutoff = performance.now() - 2500;
+    this.messages.forEach(m => {
+      if (m.at < resendCutoff) this.send(m.t, m.d);
+    });
+  }
+
+  register = (t: Tpe, d: Payload) => {
+    d.a = this.currentId++;
+    this.messages.push({
+      t: t,
+      d: d,
+      at: performance.now()
+    });
+  }
+
+  onServerAck = (id: number) => {
+    this.messages = this.messages.filter(m => m.d.a !== id);
+  }
 }

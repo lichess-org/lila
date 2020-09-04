@@ -15,7 +15,7 @@ object msg {
       moreJs = frag(
         jsModule("msg"),
         embedJsUnsafe(
-          s"""$$(() =>LichessMsg(document.querySelector('.msg-app'), ${safeJsonValue(
+          s"""window.lichess.load.then(()=>LichessMsg(${safeJsonValue(
             Json.obj(
               "data" -> json,
               "i18n" -> jsI18n

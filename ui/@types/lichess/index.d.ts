@@ -29,7 +29,7 @@ interface Lichess {
   unload: {
     expected: boolean;
   };
-  redirect(o: string | { url: string, cookie: Cookie }): void;
+  redirect(o: RedirectTo): void;
   reload(): void;
   escapeHtml(str: string): string;
   announce(d: LichessAnnouncement): void;
@@ -55,7 +55,7 @@ interface Lichess {
 
   // socket.js
   StrongSocket: {
-    (url: string, version: number | false, cfg: any): any;
+    new(url: string, version: number | false, cfg: any): any;
     firstConnect: Promise<(tpe: string, data: any) => void>
   }
 
@@ -87,6 +87,8 @@ interface Lichess {
     close(): void;
   }
 }
+
+type RedirectTo = string | { url: string, cookie: Cookie };
 
 interface SoundBoxI {
   loadOggOrMp3(name: string, path: string): void;

@@ -18,7 +18,7 @@ function startTournament(cfg) {
   const element = document.querySelector('main.tour') as HTMLElement;
   $('body').data('tournament-id', cfg.data.id);
   let tournament;
-  window.lichess.socket = StrongSocket(
+  window.lichess.socket = new StrongSocket(
     `/tournament/${cfg.data.id}/socket/v5`, cfg.data.socketVersion, {
     receive: (t, d) => tournament.socketReceive(t, d)
   });
@@ -28,7 +28,7 @@ function startTournament(cfg) {
 }
 
 function startTeam(cfg) {
-  window.lichess.socket = StrongSocket('/team/' + cfg.id, cfg.socketVersion);
+  window.lichess.socket = new StrongSocket('/team/' + cfg.id, cfg.socketVersion);
   cfg.chat && makeChat(cfg.chat);
   $('#team-subscribe').on('change', function(this: HTMLInputElement) {
     const v = this.checked;
@@ -42,7 +42,7 @@ function startUserAnalysis(cfg) {
   var analyse;
   cfg.initialPly = 'url';
   cfg.trans = trans(cfg.i18n);
-  window.lichess.socket = StrongSocket('/analysis/socket/v5', false, {
+  window.lichess.socket = new StrongSocket('/analysis/socket/v5', false, {
     receive: (t, d) => analyse.socketReceive(t, d)
   });
   cfg.socketSend = window.lichess.socket.send;
@@ -53,7 +53,7 @@ function startUserAnalysis(cfg) {
 function startStudy(cfg) {
   var analyse;
   cfg.initialPly = 'url';
-  window.lichess.socket = StrongSocket(cfg.socketUrl, cfg.socketVersion, {
+  window.lichess.socket = new StrongSocket(cfg.socketUrl, cfg.socketVersion, {
     receive: (t, d) => analyse.socketReceive(t, d)
   });
   cfg.socketSend = window.lichess.socket.send;
@@ -64,7 +64,7 @@ function startStudy(cfg) {
 function startPractice(cfg) {
   var analyse;
   cfg.trans = trans(cfg.i18n);
-  window.lichess.socket = StrongSocket('/analysis/socket/v5', false, {
+  window.lichess.socket = new StrongSocket('/analysis/socket/v5', false, {
     receive: (t, d) => analyse.socketReceive(t, d)
   });
   cfg.socketSend = window.lichess.socket.send;
@@ -74,7 +74,7 @@ function startPractice(cfg) {
 function startRelay(cfg) {
   var analyse;
   cfg.initialPly = 'url';
-  window.lichess.socket = StrongSocket(cfg.socketUrl, cfg.socketVersion, {
+  window.lichess.socket = new StrongSocket(cfg.socketUrl, cfg.socketVersion, {
     receive: (t, d) => analyse.socketReceive(t, d)
   });
   cfg.socketSend = window.lichess.socket.send;

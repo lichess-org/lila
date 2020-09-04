@@ -111,7 +111,7 @@ window.lichess.load.then(() => {
 
     if (!window.customWS) setTimeout(() => {
       if (!window.lichess.socket)
-        window.lichess.socket = StrongSocket("/socket/v5", false);
+        window.lichess.socket = new StrongSocket("/socket/v5", false);
     }, 300);
 
     topBar();
@@ -146,12 +146,11 @@ window.lichess.load.then(() => {
     });
 
     // still bind esc even in form fields
-    window.Mousetrap.prototype.stopCallback = function(_, el, combo) {
-      return combo != 'esc' && (
+    window.Mousetrap.prototype.stopCallback = (_: any, el: HTMLElement, combo: string) =>
+      combo != 'esc' && (
         el.isContentEditable || el.tagName == 'INPUT' || el.tagName == 'SELECT' || el.tagName == 'TEXTAREA'
       );
-    };
-    window.Mousetrap.bind('esc', function() {
+    window.Mousetrap.bind('esc', () => {
       const $oc = $('#modal-wrap .close');
       if ($oc.length) $oc.trigger('click');
       else {
@@ -163,7 +162,7 @@ window.lichess.load.then(() => {
 
     if (!storage.get('grid')) setTimeout(() => {
       if (getComputedStyle(document.body).getPropertyValue('--grid'))
-        storage.set('grid', 1);
+        storage.set('grid', '1');
       else
         $.get(assetUrl('oops/browser.html'), html => $('body').prepend(html))
     }, 3000);

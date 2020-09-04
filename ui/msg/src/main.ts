@@ -9,11 +9,11 @@ import { MsgOpts } from './interfaces'
 import { upgradeData } from './network'
 import MsgCtrl from './ctrl';
 
-export default function LichessMsg(element: HTMLElement, opts: MsgOpts) {
+export default function LichessMsg(opts: MsgOpts) {
 
-  const patch = init([klass, attributes]);
-
-  const appHeight = () => document.body.style.setProperty('--app-height', `${window.innerHeight}px`);
+  const element = document.querySelector('.msg-app') as HTMLElement,
+  patch = init([klass, attributes]),
+  appHeight = () => document.body.style.setProperty('--app-height', `${window.innerHeight}px`);
   window.addEventListener('resize', appHeight);
   appHeight();
 

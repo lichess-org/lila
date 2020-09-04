@@ -24,7 +24,7 @@ class SoundBox {
 
   getVolume = () => {
     // garbage has been stored here by accident (e972d5612d)
-    const v = parseFloat(this.volume.get());
+    const v = parseFloat(this.volume.get() || '');
     return v >= 0 ? v : 0.7;
   }
 }
