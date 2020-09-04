@@ -59,7 +59,7 @@
   <string name="ratedGame">Upewnij się, że grałeś partię rankingową. Zwykłe gry nie mają wpływu na ranking graczy.</string>
   <string name="errorPage">Strona błędu</string>
   <string name="reportErrorPage">Jeśli znalazłeś się na stronie błędu, możesz to zgłosić:</string>
-  <string name="banAppeal">Odwołanie od zablokowania konta lub ograniczenia IP</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Odwołanie od zablokowania konta lub ograniczenia IP</string>
   <string name="engineAppeal">Silnik szachowy lub inne oszustwo</string>
   <string name="sendAppealTo">Możesz wysłać odwołanie do %s.</string>
   <string name="falsePositives">Niestety czasami zdarzają się fałszywe zgłoszenia i przykro nam z tego powodu.</string>
