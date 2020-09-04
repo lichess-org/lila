@@ -362,7 +362,7 @@
   <string name="openTournaments">ทัวร์นาเมนต์ที่เปิด</string>
   <string name="duration">ระยะเวลา</string>
   <string name="winner">ผู้ชนะ</string>
-  <string name="standing">อันดับ</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">อันดับ</string>
   <string name="createANewTournament">สร้างทัวร์นาเมนต์ใหม่</string>
   <string name="tournamentCalendar">ปฏิทินทัวร์นาเมนต์</string>
   <string name="conditionOfEntry">เงื่อนไขการเข้าร่วม:</string>
@@ -621,7 +621,7 @@
   <string name="newTournament">ทัวร์นาเมนต์ใหม่</string>
   <string name="tournamentHomeTitle">ทัวร์นาเมนต์หมากรุกซึ่งมีการควบคุมเวลาและตัวแปรกติกาต่างๆ</string>
   <string name="tournamentHomeDescription">เล่นทัวร์นาเมนต์หมากรุกได้ทันที! เข้าร่วมทัวร์นาเมนต์ที่กำหนดเวลาไว้อย่างเป็นทางการ หรือสร้างขึ้นด้วยตัวคุณเอง  มีทั้งบุลลิท, บลิทซ์, คลาสสิก, หมากรุก960, ราชันย์แห่งขุนเขา, สามรุก, และตัวเลือกที่มีให้อีกมากมายเพื่อความสนุกที่ไม่รู้จบของหมากรุก</string>
-  <string name="tournamentNotFound">ไม่พบทัวร์นาเมนต์</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">ไม่พบทัวร์นาเมนต์</string>
   <string name="tournamentDoesNotExist">ทัวร์นาเมนต์นี้ไม่มีอยู่</string>
   <string name="tournamentMayHaveBeenCanceled">มันอาจถูกยกเลิกไปแล้ว หากผู้เล่นทุกคนออกไปก่อนที่ทัวร์นาเมนต์จะเริ่มต้น</string>
   <string name="returnToTournamentsHomepage">กลับสู่หน้าหลักของทัวร์นาเมนต์</string>
