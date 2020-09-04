@@ -382,7 +382,7 @@
   <string name="openTournaments">Opin mót</string>
   <string name="duration">Lengd</string>
   <string name="winner">Sigurvegari</string>
-  <string name="standing">Staða</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Staða</string>
   <string name="createANewTournament">Búa til nýtt mót</string>
   <string name="tournamentCalendar">Mótadagatal</string>
   <string name="conditionOfEntry">Skilyrði fyrir þátttöku:</string>
@@ -635,7 +635,7 @@
   <string name="newTournament">Nýtt mót</string>
   <string name="tournamentHomeTitle">Skákmót með mismunandi tímaskorðum og afbrigðum</string>
   <string name="tournamentHomeDescription">Tefldu í hröðum skákmótum! Skráðu þig til leiks í skipulögðum opinberum mótum, eða búðu til þitt eigið. 1-mínútu, hraðskák, klassísk tímamörk, Chess960, King of the Hill, Þrískák og fleiri möguleikar í boði fyrir botnlausa skemmtun.</string>
-  <string name="tournamentNotFound">Mót ekki fundið</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Mót ekki fundið</string>
   <string name="tournamentDoesNotExist">Þetta mót er ekki til</string>
   <string name="tournamentMayHaveBeenCanceled">Því kann að hafa verið aflýst, ef allir leikmenn yfirgefa áður en það hefst.</string>
   <string name="returnToTournamentsHomepage">Aftur á heimasvæði móts</string>
