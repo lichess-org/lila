@@ -59,7 +59,7 @@
   <string name="ratedGame">Ujistěte se, že jste hráli hodnocenou hru. Neformální hry neovlivňují hodnocení hráčů.</string>
   <string name="errorPage">Chybová stránka</string>
   <string name="reportErrorPage">Pokud jste narazili na chybovou stránku, můžete ji nahlásit:</string>
-  <string name="banAppeal">Žádost o zákaz nebo IP omezení</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Žádost o zákaz nebo IP omezení</string>
   <string name="engineAppeal">Ozčnačení za engine nebo podvádění</string>
   <string name="sendAppealTo">Můžete poslat odvolání na %s.</string>
   <string name="falsePositives">Někdy dochází k falešným označením, a to je nám líto.</string>
