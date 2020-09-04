@@ -560,7 +560,7 @@
   <string name="drawVsYInZ">%3$s %2$s-ға қарсы %1$s</string>
   <string name="timeline">Уақыт тізбегі</string>
   <string name="starting">Басталуы:</string>
-  <string name="allInformationIsPublicAndOptional">Бүкіл мәлімет жалпыға ашық және оны көрсету - әркімнің өз еркі.</string>
+  <string name="allInformationIsPublicAndOptional">Бүкіл мәлімет жалпыға ашық және оны көрсету – сіздің өз еркіңіз.</string>
   <string name="yourCityRegionOrDepartment">Сіз тұратын қала, облыс немесе аймақ.</string>
   <string name="biographyDescription">Өзіңіз туралы айтып беріңізші: айналысатын істеріңіз, неге шахматпен шұғылданасыз, ұнайтын бастаулар, ойыншылар, ...</string>
   <plurals name="maximumNbCharacters">
@@ -661,14 +661,14 @@
   <string name="tournamentDoesNotExist">Бұл жарыс жоқ.</string>
   <string name="tournamentMayHaveBeenCanceled">Егер ойыншылардың барлығы жарыстан шықса, бұл жарыс тоқталуы мүмкін.</string>
   <string name="returnToTournamentsHomepage">Жарыстың бастапқы бетіне оралу</string>
-  <string name="weeklyPerfTypeRatingDistribution">Апта ішінде %s рейтингтердің таралуы</string>
+  <string name="weeklyPerfTypeRatingDistribution">Апталық %s рейтингтер таралымы</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">Осы аптада %1$s %2$s-ойыншы.</item>
     <item quantity="other">Осы аптада %1$s %2$s-ойыншы.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Сіздің %1$s рейтингіңіз – %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Сіз %2$s ойышының %1$s-ынан күштірексіз.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s ойышының %2$s-ынан күштірек.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Сіз %2$s ойышыларының %1$s-ынан күштірексіз.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s ойышыларының %2$s-ынан күштірек.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Сіздің ресми %s рейтингіңіз жоқ.</string>
   <string name="yourRating">Рейтингіңіз</string>
   <string name="cumulative">Жинақылық</string>
