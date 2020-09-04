@@ -3,7 +3,7 @@
   <string name="isLichessLagging">O Lichess está com atraso?</string>
   <string name="measurementInProgressThreeDot">Medições em andamento...</string>
   <string name="noAndYourNetworkIsGood">Não. E a sua rede é boa.</string>
-  <string name="noAndYourNetworkIsBad">Não. E a sua rede está ruim.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Não. E a sua rede está ruim.</string>
   <string name="yesItWillBeFixedSoon">Sim. Será corrigido em breve!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">E agora, a resposta longa. O atraso de jogo é composto por dois valores não relacionados (quanto mais baixos melhor):</string>
   <string name="lichessServerLatency">Latência do servidor do Lichess</string>
