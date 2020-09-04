@@ -3,7 +3,7 @@
   <string name="lichessCoaches">Gourdonerien Lichess</string>
   <string name="lichessCoach">Gourdoner Lichess</string>
   <string name="areYouCoach">Ur c\'helenner eus ar c\'hentañ gant ur %s oc\'h?</string>
-  <string name="nmOrFideTitle">Titl FIDE pe NM</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Titl FIDE pe NM</string>
   <string name="confirmTitle">Kadarnait ho titl amañ hag e vo pledet gant ho koulenn.</string>
   <string name="sendApplication">Kasit ur postel da %s hag e vo pledet gant ho koulenn.</string>
   <string name="location">Bro</string>
