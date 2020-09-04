@@ -28,12 +28,12 @@
   <string name="youCannotApply">Ezin da moderatzaile izateko eskaerarik egin. Norbait moderatzaile izan daitekeela uste badugu zuzenean jarriko gara berarekin kontaktuan.</string>
   <string name="isCorrespondenceDifferent">Zein dira posta bidezko partidak eta xake arruntaren arteko desberdintasunak?</string>
   <string name="youCanUseOpeningBookNoEngine">Lichessen posta bidezko xakearen arauen desberdintasun handiena, hasiera liburua erabili daitekeela da. Analisi-motoreak erabiltzea debekatuta dago eta laguntza erabiltzeagatik markatuko ditugu hori egiten duten jokalariak. Nahiz eta ICCFk analisi-motoreak erabiltzea uztean duen, Lichessek ez.</string>
-  <string name="gameplay">Jokoa</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Jokoa</string>
   <string name="howBulletBlitzEtcDecided">Nola erabakizen da zer diren Bullet, Blitz edo beste erritmo batzuk?</string>
   <string name="basedOnGameDuration">Lichesseko joko erritmoak partiden ustezko iraupenaren arabera ezartzen dira = %1$s
   Adibidez, 5+3 partida baten ustezko iraupena hauxe da: 5 * 60 + 40 * 3 = 420 segundo.</string>
   <string name="durationFormula">(erlojuaren hasierako denbora) + 40 * (denbora gehigarria)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Zein aldaeratara jokatu dezaket Lichessen?</string>
   <string name="lichessSupportChessAnd">Lichessen ohiko xakean eta %1$s jokatu dezakezu.</string>
@@ -108,7 +108,7 @@ Glicko sistemak \"konfiantza tarteak\" erabiltzen ditu zure puntuazioa kalkulatu
 Oinarrian, sistemak %90eko ziurtasuna du zure puntuazioa 800 eta 2000 puntuen artean dagoela. Hau ez da oso zehatza. Honegatik jokalarien puntuazioa asko aldatuko da hasieran. Baina zenbat eta partida gehiago jokatu, konfiantza tartea txikitu egingo da eta irabazi edo galdutako puntu kopurua txikitu egingo da.
 
 Kontutan hartu beharreko beste gauza bat denbora pasatu ahala konfiantza tartea handitu egingo dela da. Honekin denbora horretan zehar zure indarraren aldaketak azkarrago egokituko dira irabazitako edo galdutako puntuetara.</string>
-  <string name="whatIsProvisionalRating">Zergatik dago galdera ikur bat (?) puntuazio batzuen ondoan?</string>
+  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Zergatik dago galdera ikur bat (?) puntuazio batzuen ondoan?</string>
   <string name="provisionalRatingExplanation">Galdera ikurrak puntuazioa behin-behinekoa dela esan nahi du. Honegatik izan daiteke:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Jokalariak ez ditu puntuaziorako balio duten behar adina partida jokatu %1$s aurka.</string>
   <string name="similarOpponents">puntuazio beretsuko aurkarien</string>
