@@ -1,5 +1,4 @@
 import StrongSocket from './socket';
-import makeChat from './chat';
 
 export default function moduleLaunchers() {
   const li: any = window.lichess;
@@ -7,18 +6,6 @@ export default function moduleLaunchers() {
   else if (li.study) startAnalyse(li.study);
   else if (li.practice) startAnalyse(li.practice);
   else if (li.relay) startAnalyse(li.relay);
-  else if (li.team) startTeam(li.team);
-}
-
-function startTeam(cfg) {
-  window.lichess.socket = new StrongSocket('/team/' + cfg.id, cfg.socketVersion);
-  cfg.chat && makeChat(cfg.chat);
-  $('#team-subscribe').on('change', function(this: HTMLInputElement) {
-    const v = this.checked;
-    $(this).parents('form').each(function(this: HTMLElement) {
-      $.post($(this).attr('action'), { v });
-    });
-  });
 }
 
 function startUserAnalysis(cfg) {
