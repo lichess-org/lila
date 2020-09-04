@@ -257,7 +257,7 @@
   <string name="backToTournament">Weromgean nei it toernoai</string>
   <string name="thematic">Tematysk</string>
   <string name="backToGame">Weromgean nei it spul</string>
-  <string name="tournamentNotFound">Toernoai net fûn</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
   <string name="playChessEverywhere">Oeral skaken spyljen</string>
