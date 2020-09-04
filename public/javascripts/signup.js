@@ -1,5 +1,5 @@
 $(function() {
-  const $form = $('#signup_form');
+  const $form = $('#signup-form');
   const $exists = $form.find('.username-exists');
 
   const usernameCheck = lichess.debounce(() => {
@@ -32,6 +32,6 @@ $(function() {
   );
 });
 window.signupSubmit = () => {
-  const form = document.getElementById('signup_form');
+  const form = document.getElementById('signup-form');
   if (form.reportValidity()) form.submit();
 }
