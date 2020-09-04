@@ -409,6 +409,7 @@
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
   <string name="youArePlaying">आपण खेळत आहात!</string>
   <string name="winRate">जिंकण्याचे प्रमाण</string>
+  <string name="berserkRate">Berserk रेट</string>
   <string name="performance">कामगिरी</string>
   <string name="tournamentComplete">प्रतियोगिता संपली</string>
   <string name="movesPlayed">खेळलेल्या चाली</string>
@@ -424,6 +425,7 @@
   <string name="startPosition">सुरवातीची स्थिती</string>
   <string name="clearBoard">पट रिकामा करा</string>
   <string name="savePosition">स्थिती संग्रहीत करा (Save position)</string>
+  <string name="loadPosition">पटस्थिती लोड करा</string>
   <string name="isPrivate">खाजगी</string>
   <string name="reportXToModerators">सरपरिक्षकाकडे (moderator) %s तक्रार करा</string>
   <string name="profileCompletion">प्रोफाइल पूर्णता: %s</string>
@@ -659,6 +661,11 @@
   <string name="weHaveSentYouAnEmailTo">आम्ही %s वर ईमेल पाठवला आहे. पासवर्ड रेसेट करण्यासाठी ईमेल मधील लिंक क्लिक करा.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">नोंदणी करतेवेळी, तुम्ही आमच्या %s ला बांधील आहात.</string>
   <string name="networkLagBetweenYouAndLichess">आपण आणि लाइचेस दरम्यान नेटवर्कचा अडथळा आहे</string>
+  <string name="timeToProcessAMoveOnLichessServer">लीचेस सर्व्हरवर प्रक्रिया करण्याची वेळ</string>
+  <string name="downloadAnnotated">डाउनलोड annotated</string>
+  <string name="downloadRaw">डाउनलोड raw</string>
+  <string name="downloadImported">डाउनलोड imported</string>
+  <string name="printFriendlyPDF">प्रिंट-friendly PDF</string>
   <string name="crosstable">पटाची बाजू बदला</string>
   <string name="letOtherPlayersMessageYou">इतर खेळाडूंना संदेश पाठवू द्या</string>
   <string name="withNobody">कोणासोबाही नाही</string>
@@ -714,7 +721,11 @@
   <string name="invalidPgn">अवैध PGN</string>
   <string name="invalidFen">अवैध FEN</string>
   <string name="error.minLength">किमान लांबी %s</string>
+  <string name="error.maxLength">कमाल लांबी %s</string>
+  <string name="error.min">%s यापेक्षा मोठे किंवा समान असणे आवश्यक आहे</string>
+  <string name="error.max">%s यापेक्षा कमी किंवा समान असणे आवश्यक आहे</string>
   <string name="error.unknown">चूक</string>
+  <string name="custom">इतर</string>
   <string name="notifications">Notifications</string>
   <string name="challenges">आव्हाने</string>
   <string name="perfRatingX">दर्जा: %s</string>
