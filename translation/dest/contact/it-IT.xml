@@ -59,7 +59,7 @@
   <string name="ratedGame">Assicurati di aver giocato a un gioco classificato. Le partite occasionali non influenzano il rating dei giocatori.</string>
   <string name="errorPage">Pagina di errore</string>
   <string name="reportErrorPage">Se hai riscontrato una pagina di errore, puoi segnalarla:</string>
-  <string name="banAppeal">Reclamo per un ban o una restrizione IP</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Reclamo per un ban o una restrizione IP</string>
   <string name="engineAppeal">Motore o cheat mark</string>
   <string name="sendAppealTo">Puoi inviare una segnalazione a %s.</string>
   <string name="falsePositives">Talvolta si verificano falsi positivi, e ce ne dispiace.</string>
