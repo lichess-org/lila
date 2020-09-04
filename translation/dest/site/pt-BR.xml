@@ -394,7 +394,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="openTournaments">Torneios abertos</string>
   <string name="duration">Duração</string>
   <string name="winner">Vencedor</string>
-  <string name="standing">Aguardando</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Aguardando</string>
   <string name="createANewTournament">Criar novo torneio</string>
   <string name="tournamentCalendar">Calendário do torneio</string>
   <string name="conditionOfEntry">Condição de participação:</string>
@@ -658,7 +658,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneio de xadrez apresentando diversos controles de tempo e variações</string>
   <string name="tournamentHomeDescription">Jogue xadrez em ritmo acelerado! Entre em um torneio oficial agendado ou crie seu próprio. Bullet, Blitz, Clássico, Chess960, King of the Hill, Três Xeques e outras modalidades disponíveis para uma ilimitada diversão enxadrística.</string>
-  <string name="tournamentNotFound">Torneio não encontrado</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Torneio não encontrado</string>
   <string name="tournamentDoesNotExist">Este torneio não existe.</string>
   <string name="tournamentMayHaveBeenCanceled">O evento pode ter sido cancelado, se todos os jogadores saíram antes de seu início.</string>
   <string name="returnToTournamentsHomepage">Volte à página inicial de torneios</string>
