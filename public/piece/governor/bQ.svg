@@ -23,7 +23,7 @@
   <linearGradient id="linearGradient1845" x1="491.59" x2="499.17" y1="-377.43" y2="-377.43" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient1859"/>
   <linearGradient id="linearGradient2539-0" x1="1609.3" x2="1624.2" y1="-310.48" y2="-279.45" gradientTransform="matrix(.21285 0 0 .21284 114.26 -321.28)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient1859"/>
  </defs>
- <g transform="translate(-438.1 412.49)" opacity=".88">
+ <g transform="translate(-438.1 412.49)">
   <g transform="translate(54.63 -55.752)" clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
    <g transform="translate(383.47 -355.76)" image-rendering="optimizeQuality">
     <g transform="matrix(.90137 0 0 .90085 -256.82 215.52)" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke-width="1.0535">
@@ -68,7 +68,7 @@
    <path d="m490.96-383.12-1.2692 0.78752v3.1293l1.2692 0.78795h19.564l1.2692-0.78795v-3.1293l-1.2692-0.78752h-9.782z" fill="#514b46" stroke="#000" stroke-linejoin="round" stroke-width="1.1999"/>
    <path d="m511.24-381.97-20.994 9e-3 0.88442-0.54198 19.247-0.015z" fill="url(#linearGradient1837)" opacity=".5"/>
    <path d="m511.24-381.97-8e-3 2.4035-0.86604 0.52378-8.4393-0.0102s2.9487-0.62841 1.9391-2.8938c-1e-3 -4e-3 5.2771-0.0199 7.3742-0.0233z" opacity=".2"/>
-   <path d="m490.96-378.42v1.9595h19.564v-1.9595z" clip-rule="evenodd" fill="#514b46" fill-rule="evenodd" image-rendering="optimizeQuality" opacity="1" shape-rendering="geometricPrecision" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" style="paint-order:normal"/>
+   <path d="m490.96-378.42v1.9595h19.564v-1.9595z" clip-rule="evenodd" fill="#514b46" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" style="paint-order:normal"/>
    <rect x="491.59" y="-377.79" width="7.5756" height=".70898" ry="0" clip-rule="evenodd" fill="url(#linearGradient1845)" fill-rule="evenodd" image-rendering="optimizeQuality" opacity=".5" shape-rendering="geometricPrecision" stroke-width=".7" style="paint-order:markers fill stroke"/>
   </g>
   <path d="m461.41-384.6c-5.05 0.0153-8.3189 1.4342-8.3189 1.4342-1.6888 0.59415-3.045 1.2327-3.2015 2.2891-0.14706 0.99237 0.69019 1.932 1.1231 2.4989 1.2914 1.6907 2.3368 2.4091 3.3207 2.8359 1.4388 0.45895 0.98243-1.009 0.52133-1.8741-2.5892-4.4687 6.8298-6.0898 10.958-5.871 3.2092 0.25115 6.4331 0.76681 8.8611 1.3985-1.8137-1.1672-7.0634-2.2686-12.268-2.6761-0.32658-0.0256-0.65941-0.0368-0.99603-0.0358z" clip-rule="evenodd" fill="url(#linearGradient2539-0)" fill-rule="evenodd" image-rendering="optimizeQuality" opacity=".5" shape-rendering="geometricPrecision" stroke-width=".90087"/>
