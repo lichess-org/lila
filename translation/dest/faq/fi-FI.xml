@@ -28,12 +28,12 @@
   <string name="youCannotApply">Moderaattoriksi ei voi hakea. Jos me huomaamme jonkun, joka meidän mielestämme olisi hyvä moderaattori, me otamme häneen suoraan yhteyttä.</string>
   <string name="isCorrespondenceDifferent">Onko kirjeshakki erilaista kuin tavallinen shakki?</string>
   <string name="youCanUseOpeningBookNoEngine">Lichessissä kirjeshakin sääntöjen suurin ero on se, että avauskirjojen käyttö on sallittu. Tietokoneanalyysi on kuitenkin kielletty, ja sen käyttö johtaa merkintään tietokoneavusta. Vaikka ICCF hyväksyy tietokoneanalyysin kirjeshakissa, Lichess ei hyväksy sitä.</string>
-  <string name="gameplay">Pelaaminen</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Pelaaminen</string>
   <string name="howBulletBlitzEtcDecided">Kuinka Bullet, Blitz ja muut aikakontrollit on määritelty?</string>
   <string name="basedOnGameDuration">Lichessin aikakontrollit perustuvat pelin arvioituun kestoon = %1$s
 Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</string>
   <string name="durationFormula">(aloitusaika minuutteina) + 40 × (lisäaika sekunteina)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">Mitä variantteja voin pelata Lichessissä?</string>
   <string name="lichessSupportChessAnd">Lichessissä voi pelata tavallista shakkia ja %1$s.</string>
@@ -109,7 +109,7 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
  Järjestelmä on 90-prosenttisen varma, että sinun vahvuuslukusi on jossain 800:n ja 2200:n välillä. Se on äärimmäisen epävarma. Tämän takia juuri aloittelevan pelaajan vahvuusluku muuttuu hyvin dramaattisesti, mahdollisesti useita satoja pisteitä kerrallaan. Mutta kun hän on pelannut joitakin pelejä pitempiaikaisia pelaajia vastaan, luottamusintervalli kapenee, ja kunkin pelin jälkeen voitettujen tai hävittyjen pisteiden määrä vähenee.
 
  On myös huomattava, että ajan kuluessa luottamusintervalli kasvaa. Näin ollen pitemmän tauon jälkeen pisteiden voittaminen ja häviäminen eli vahvuusluvun korjautuminen vastaamaan tauon aikana muuttunutta taitotasoasi on tavallista nopeampaa.</string>
-  <string name="whatIsProvisionalRating">Miksi joidenkin vahvuuslukujen vieressä on kysymysmerkki?</string>
+  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Miksi joidenkin vahvuuslukujen vieressä on kysymysmerkki?</string>
   <string name="provisionalRatingExplanation">Kysymysmerkki tarkoittaa, että vahvuusluku on tilapäinen. Syynä voi olla:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Pelaaja ei ole vielä pelannut kyseisessä vahvuuslukukategoriassa tarpeeksi pisteytettyjä pelejä %1$s vastaan.</string>
   <string name="similarOpponents">vahvuudeltaan samankaltaisia pelaajia</string>
