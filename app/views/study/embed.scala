@@ -69,7 +69,7 @@ object embed {
           jsAt("compiled/trans.js"),
           jsAt("compiled/embed-analyse.js"),
           analyseTag,
-          embedJsUnsafe(
+          embedJsUnsafeLoadThen(
             s"""lichess.startEmbeddedAnalyse(${safeJsonValue(
               Json.obj(
                 "study"  -> data.study,

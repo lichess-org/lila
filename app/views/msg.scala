@@ -14,13 +14,13 @@ object msg {
       moreCss = frag(cssTag("msg")),
       moreJs = frag(
         jsModule("msg"),
-        embedJsUnsafe(
-          s"""window.lichess.load.then(()=>LichessMsg(${safeJsonValue(
+        embedJsUnsafeLoadThen(
+          s"""LichessMsg(${safeJsonValue(
             Json.obj(
               "data" -> json,
               "i18n" -> jsI18n
             )
-          )}))"""
+          )})"""
         )
       ),
       title = "Lichess Inbox"

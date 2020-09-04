@@ -80,7 +80,6 @@ export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
   i18n: { [key: string]: string | undefined };
-  element: HTMLElement;
 }
 
 export interface PuzzlePrefs {

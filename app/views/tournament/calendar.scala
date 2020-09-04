@@ -14,7 +14,7 @@ object calendar {
       title = "Tournament calendar",
       moreJs = frag(
         jsModule("tournament.calendar"),
-        embedJsUnsafe(
+        embedJsUnsafeLoadThen(
           s"""LichessTournamentCalendar.app(document.getElementById('tournament-calendar'), ${safeJsonValue(
             Json.obj(
               "data" -> json,

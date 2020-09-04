@@ -40,7 +40,7 @@ object checkYourEmail {
                   value := form.flatMap(_("email").value).getOrElse(email.value),
                   pattern := s"^((?!^${email.value}$$).)*$$"
                 ),
-                embedJsUnsafe("""
+                embedJsUnsafeLoadThen("""
 var email = document.getElementById("new-email");
 var currentError = "This is already your current email.";
 email.setCustomValidity(currentError);

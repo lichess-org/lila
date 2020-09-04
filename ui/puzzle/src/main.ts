@@ -16,6 +16,7 @@ const patch = init([klass, attributes]);
 
 export default function(opts: PuzzleOpts): void {
 
+  const element = document.querySelector('main.puzzle') as HTMLElement;
   let vnode: VNode, ctrl: Controller;
 
   function redraw() {
@@ -25,8 +26,8 @@ export default function(opts: PuzzleOpts): void {
   ctrl = makeCtrl(opts, redraw);
 
   const blueprint = view(ctrl);
-  opts.element.innerHTML = '';
-  vnode = patch(opts.element, blueprint);
+  element.innerHTML = '';
+  vnode = patch(element, blueprint);
 }
 
 // that's for the rest of lichess to access chessground

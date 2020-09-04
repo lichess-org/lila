@@ -22,8 +22,8 @@ object home {
       },
       moreJs = frag(
         jsModule("lobby"),
-        embedJsUnsafe(
-          s"""lichess.load.then(()=>LichessLobby(${safeJsonValue(
+        embedJsUnsafeLoadThen(
+          s"""LichessLobby(${safeJsonValue(
             Json.obj(
               "data" -> data,
               "playban" -> playban.map { pb =>
@@ -34,7 +34,7 @@ object home {
               },
               "i18n" -> i18nJsObject(i18nKeys)
             )
-          )}))"""
+          )})"""
         )
       ),
       moreCss = cssTag("lobby"),

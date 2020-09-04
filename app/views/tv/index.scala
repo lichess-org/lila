@@ -25,13 +25,13 @@ object index {
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
       moreJs = frag(
         roundTag,
-        embedJsUnsafe(
-          s"""window.lichess.load.then(() => LichessRound.boot(${safeJsonValue(
+        embedJsUnsafeLoadThen(
+          s"""LichessRound.boot(${safeJsonValue(
             Json.obj(
               "data" -> data,
               "i18n" -> views.html.round.jsI18n(pov.game)
             )
-          )}))"""
+          )})"""
         )
       ),
       moreCss = cssTag("tv.single"),

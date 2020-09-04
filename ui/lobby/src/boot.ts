@@ -1,11 +1,7 @@
 import { LobbyOpts } from './interfaces';
 import main from './main';
 
-console.log('eval lobby.js');
-
 export default function LichessLobby(opts: LobbyOpts) {
-
-  console.log('onload lobby.js');
 
   opts.element = document.querySelector('.lobby__app') as HTMLElement;
   opts.pools = [ // mirrors modules/pool/src/main/PoolList.scala

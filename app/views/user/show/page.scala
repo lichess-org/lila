@@ -84,7 +84,7 @@ object page {
       info.ratingChart.map { ratingChart =>
         frag(
           jsTag("chart/ratingHistory.js"),
-          embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);")
+          embedJsUnsafeLoadThen(s"lichess.ratingHistoryChart($ratingChart);")
         )
       },
       withSearch option frag(jsTag("search.js")),

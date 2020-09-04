@@ -82,7 +82,7 @@ object replay {
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJsUnsafe(s"""lichess.load.then(()=>LichessAnalyse.boot(${safeJsonValue(
+        embedJsUnsafeLoadThen(s"""LichessAnalyse.boot(${safeJsonValue(
           Json
             .obj(
               "data"   -> data,
@@ -95,7 +95,7 @@ object replay {
               )
             )
             .add("hunter" -> isGranted(_.Hunter))
-        )}))""")
+        )})""")
       ),
       openGraph = povOpenGraph(pov).some
     )(

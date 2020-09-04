@@ -21,16 +21,13 @@ object show {
       moreCss = cssTag("streamer.show"),
       moreJs = frag(
         jsTag("ads.js"),
-        embedJsUnsafe(
-          """
-$(function() {
-$('button.follow').click(function() {
+        embedJsUnsafeLoadThen(
+          """$('button.follow').click(function() {
 var klass = 'active';
 $(this).toggleClass(klass);
 $.ajax({
 url: '/rel/' + ($(this).hasClass('active') ? 'follow/' : 'unfollow/') + $(this).data('user'),
 method:'post'
-});
 });
 });"""
         )

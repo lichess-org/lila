@@ -64,18 +64,18 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def highchartsMoreTag   = jsAt("vendor/highcharts-4.2.5/highcharts-more.js")
 
   def delayFlatpickrStartUTC(implicit ctx: Context) =
-    embedJsUnsafe {
-      """lichess.load.then(() => setTimeout(() => $(".flatpickr").flatpickr(), 1000))"""
+    embedJsUnsafeLoadThen {
+      """setTimeout(() => $(".flatpickr").flatpickr(), 1000)"""
     }
 
   def delayFlatpickrStartLocal(implicit ctx: Context) =
-    embedJsUnsafe {
-      """lichess.load.then(() => setTimeout(() => $(".flatpickr").flatpickr({
+    embedJsUnsafeLoadThen {
+      """setTimeout(() => $(".flatpickr").flatpickr({
   maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
   dateFormat: 'Z',
   altInput: true,
   altFormat: 'Y-m-d h:i K'
-}), 1000));"""
+}), 1000)"""
     }
 
   def prismicJs(implicit ctx: Context): Frag =
@@ -122,4 +122,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     raw {
       s"""<script nonce="$nonce">$js</script>"""
     }
+
+  def embedJsUnsafeLoadThen(js: String)(implicit ctx: Context): Frag =
+    embedJsUnsafe(s"""lichess.load.then(()=>{$js})""")
+
+  def embedJsUnsafeLoadThen(js: String, nonce: Nonce): Frag =
+    embedJsUnsafe(s"""lichess.load.then(()=>{$js})""", nonce)
 }

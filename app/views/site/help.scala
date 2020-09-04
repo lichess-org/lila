@@ -32,7 +32,7 @@ object help {
       active = "source",
       moreCss = frag(cssTag("source")),
       contentCls = "page",
-      moreJs = embedJsUnsafe(
+      moreJs = embedJsUnsafeLoadThen(
         """$('#asset-version-date').text(lichess.info.date);
 $('#asset-version-commit').attr('href', 'https://github.com/ornicar/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit);
 $('#asset-version-message').text(lichess.info.message);"""

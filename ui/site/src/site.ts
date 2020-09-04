@@ -24,11 +24,7 @@ import OnlineFriends from "./component/friends-widget";
 exportLichessGlobals();
 window.lichess.info = info;
 
-console.log('eval site.js');
-
 window.lichess.load.then(() => {
-
-console.log('onload site.js');
 
   loadWatchersWidget();
   loadClockWidget();
