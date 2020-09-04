@@ -59,7 +59,7 @@
   <string name="ratedGame">सुनिश्चित करें कि आपने एक रेटेड गेम खेला है। आकस्मिक खेल खिलाड़ियों की रेटिंग को प्रभावित नहीं करते हैं।</string>
   <string name="errorPage">त्रुटि पृष्ठ</string>
   <string name="reportErrorPage">यदि आपको कोई त्रुटि आई है, तो आप इसकी रिपोर्ट कर सकते हैं:</string>
-  <string name="banAppeal">प्रतिबंध या आईपी प्रतिबंध के लिए अपील</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">प्रतिबंध या आईपी प्रतिबंध के लिए अपील</string>
   <string name="engineAppeal">इंजन या धोखा चिह्न</string>
   <string name="sendAppealTo">आप %s पर अपील भेज सकते हैं।</string>
   <string name="falsePositives">झूठी सकारात्मकता कभी-कभी होती है, और हमें इस पर खेद है</string>
