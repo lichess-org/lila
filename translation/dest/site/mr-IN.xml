@@ -43,7 +43,7 @@
   <string name="blackResigned">काळ्याने हार मानली</string>
   <string name="whiteLeftTheGame">पांढर्याने खेळ सोडले</string>
   <string name="blackLeftTheGame">काळ्याने खेळ सोडले</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">प्रेक्षकांना हा खेळ पाहायला देण्यासाठी हा युआरएल वाटावे</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">प्रेक्षकांना हा खेळ दाखवण्यासाठी हा URL पाठवा</string>
   <string name="theComputerAnalysisHasFailed">संगणक विश्लेषण अयशस्वी झाले आहे</string>
   <string name="viewTheComputerAnalysis">संगणक विश्लेषण पहा</string>
   <string name="requestAComputerAnalysis">संगणक विश्लेषणासाठी विनंती करा</string>
@@ -551,6 +551,7 @@
   <string name="listBlockedPlayers">खालील खेळाडूंना बंदी केली</string>
   <string name="human">मानव</string>
   <string name="computer">संगणक</string>
+  <string name="unauthorizedError">प्रवेश अनधिकृत आहे.</string>
   <string name="noInternetConnection">आंतरजालाशी संपर्क  नाही. तरीदेखील तुम्ही offline खेळू शकता</string>
   <string name="playOnTheBoardOffline">त्या समयी सुचलेली चाल</string>
   <string name="playOfflineComputer">संगणक</string>
@@ -560,6 +561,7 @@
   <string name="community">समुदाय</string>
   <string name="tools">साधने</string>
   <string name="increment">वाढ</string>
+  <string name="sharePGN">PGN पाठवा</string>
   <string name="playOnline">ऑनलाइन खेळा</string>
   <string name="playOffline">ऑफलाईन खेळा</string>
   <string name="error.email">हा ईमेल अवैध आहे</string>
