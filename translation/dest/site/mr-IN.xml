@@ -717,6 +717,7 @@
   <string name="dark">गडद</string>
   <string name="transparent">पारदर्शक</string>
   <string name="backgroundImageUrl">Background चित्रासाठी URL:</string>
+  <string name="boardGeometry">पटाचा प्रकार</string>
   <string name="boardTheme">बुद्धिबळ पटाची Theme</string>
   <string name="boardSize">बुद्धिबळ पटाचा आकार</string>
   <string name="pieceSet">सोंगाड्यां</string>
@@ -744,6 +745,7 @@
   <string name="practiceWithComputer">कॉम्प्युटर सोबत सराव करा</string>
   <string name="anotherWasX">इतर %s</string>
   <string name="bestWasX">उत्तम %s</string>
+  <string name="youBrowsedAway">आपण पुनर्वलोकण पूर्ण केले</string>
   <string name="resumePractice">अभ्यास पुन्हा सुरू करा</string>
   <string name="theGameIsADraw">खेळ बरोबरीत सुटला आहे.</string>
   <string name="computerThinking">संगणक विचार करत आहे...</string>
@@ -773,6 +775,7 @@
   <string name="doItAgain">परत समीक्षा करा</string>
   <string name="reviewWhiteMistakes">पांढऱ्याच्या चुकांची समीक्षा करा</string>
   <string name="reviewBlackMistakes">काळ्याच्या चुकांची समीक्षा करा</string>
+  <string name="advantage">सरस</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s सेकंद</item>
     <item quantity="other">%s सेकंद</item>
@@ -783,6 +786,14 @@
   <string name="registerToSendChallenges">कृपया आव्हान देण्यासाठी नोंदणी करा.</string>
   <string name="youCannotChallengeX">तुम्ही आव्हान देऊ शकत नाही %s.</string>
   <string name="xDoesNotAcceptChallenges">%s आपले आव्हान स्विकारले नाही.</string>
+  <string name="yourXRatingIsTooFarFromY">तुमची %1$s रेटिंग %2$s पेक्षा फार कमी आहे.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s च्या अस्थायी रेटिंगमुळे आव्हान देऊ शकत नाही.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s केवळ मित्रांकडील आव्हाने स्वीकारतात.</string>
+  <string name="conditionalPremoves">सशर्त premoves</string>
+  <string name="addCurrentVariation">वर्तमान variation जोडा</string>
+  <string name="playVariationToCreateConditionalPremoves">Play a variation to create conditional premoves</string>
+  <string name="noConditionalPremoves">No conditional premoves</string>
+  <string name="playX">%s खेळा</string>
   <string name="sorry">माफ करा</string>
   <string name="weHadToTimeYouOutForAWhile">आम्हाला आपल्याला काही वेळ खेळू देता येणार नाही.</string>
   <string name="timeoutExpires">विश्रांती संपेल %s.</string>
