@@ -789,10 +789,10 @@
   <string name="yourXRatingIsTooFarFromY">तुमची %1$s रेटिंग %2$s पेक्षा फार कमी आहे.</string>
   <string name="cannotChallengeDueToProvisionalXRating">%s च्या अस्थायी रेटिंगमुळे आव्हान देऊ शकत नाही.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s केवळ मित्रांकडील आव्हाने स्वीकारतात.</string>
-  <string name="conditionalPremoves">सशर्त premoves</string>
+  <string name="conditionalPremoves">सशर्त प्रिमुव्ह</string>
   <string name="addCurrentVariation">वर्तमान variation जोडा</string>
-  <string name="playVariationToCreateConditionalPremoves">Play a variation to create conditional premoves</string>
-  <string name="noConditionalPremoves">No conditional premoves</string>
+  <string name="playVariationToCreateConditionalPremoves">सशर्त प्रिमुव्ह तयार करण्यासाठी variation खेळा</string>
+  <string name="noConditionalPremoves">सशर्त प्रिमुव्ह नाही</string>
   <string name="playX">%s खेळा</string>
   <string name="sorry">माफ करा</string>
   <string name="weHadToTimeYouOutForAWhile">आम्हाला आपल्याला काही वेळ खेळू देता येणार नाही.</string>
@@ -828,7 +828,14 @@
   <string name="important">महत्वाचे</string>
   <string name="yourQuestionMayHaveBeenAnswered">तुमच्या प्रश्नाचे उत्तर अगोदरच दिलेले आहे %1$s</string>
   <string name="inTheFAQ">सामान्य प्रश्न संचामध्ये.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">वापरकर्त्यास फसवणूक किंवा वाईट वर्तन नोंदवण्यासाठी, %1$s</string>
+  <string name="useTheReportForm">अहवाल फॉर्म वापरा</string>
   <string name="toRequestSupport">मदत मिळवण्यासाठी, %1$s</string>
+  <string name="tryTheContactPage">संपर्क पृष्ठ वापरा</string>
+  <string name="thisTopicIsArchived">हा विषय संग्रहित केला गेला आहे आणि यापुढे त्यास प्रत्युत्तर दिले जाऊ शकत नाही.</string>
+  <string name="joinTheTeamXToPost">या मंचावर पोस्ट टाकण्यासाठी %1$s सामील व्हा</string>
   <string name="teamNamedX">%1$s संघ</string>
   <string name="youCannotPostYetPlaySomeGames">तुम्ही मंचावर लिहू शकत नाही. काही डाव खेळा!</string>
+  <string name="subscribe">सदस्यता घ्या</string>
+  <string name="unsubscribe">सदस्यता रद्द करा</string>
 </resources>
