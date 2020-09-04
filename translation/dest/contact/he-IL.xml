@@ -59,7 +59,7 @@
   <string name="ratedGame">בדוק אם שיחקת משחק מדורג. משחק לא מדורג לא משפיע על מד הכושר.</string>
   <string name="errorPage">שגיאה בדף</string>
   <string name="reportErrorPage">אם התמודדת עם שגיאה בדף, אתה יכול לדווח על זה:</string>
-  <string name="banAppeal">ערער על איסור או על הגבלה בIP</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">ערער על איסור או על הגבלה בIP</string>
   <string name="engineAppeal">סימן מנוע או רמאות</string>
   <string name="sendAppealTo">אתה יכול לשלוח ערעור ל%s.</string>
   <string name="falsePositives">אבחנות שגויות קורות לפעמים, ואנחנו מצטערים על כך.</string>
