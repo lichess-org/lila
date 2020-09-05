@@ -112,12 +112,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   lazy val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
 
   def prismicJs(implicit ctx: Context): Frag =
-    raw {
-      isGranted(_.Prismic) ?? {
-        embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
-          """<script type="text/javascript" src="//static.cdn.prismic.io/prismic.min.js"></script>"""
-      }
-    }
+    isGranted(_.Prismic) ?? frag(
+      embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}"""),
+      raw("""<script src="https://static.cdn.prismic.io/prismic.min.js"></script>""")
+    )
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
     val assets = if (req.secure) s"https://$assetDomain" else assetDomain.value

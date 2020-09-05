@@ -3,7 +3,7 @@
   <string name="preferences">Tənzimləmələr</string>
   <string name="gameDisplay">Oyun ekranı</string>
   <string name="pieceAnimation">Fiqur animasiyası</string>
-  <string name="materialDifference">Material farkı</string>
+  <string name="materialDifference">Material fərqi</string>
   <string name="boardHighlights">Taxta xəbərdarlıqları (son həmlə və şah çəkmə)</string>
   <string name="pieceDestinations">Daş istiqamətlərə (qaydalara uyğun hücumlar)</string>
   <string name="boardCoordinates">Taxta kordinatları</string>

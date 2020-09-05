@@ -53,9 +53,9 @@ Parole: %3$s</string>
 Lūk saite, lai piekļūtu grupai.</string>
   <string name="invitationToClass">Esat ielūgts pievienoties grupai \"%s\" kā skolēnam.</string>
   <string name="clickToViewInvitation">Noklikšķiniet uz saites, lai apskatītu ielūgumu:</string>
-  <plurals name="nbPendingInvitations">
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
     <item quantity="zero">%s neapstiprinātu ielūgumu</item>
-    <item quantity="one">Viens neapstiprināts ielūgums</item>
+    <item quantity="one">%s neapstiprināts ielūgums</item>
     <item quantity="other">%s neapstiprināti ielūgumi</item>
   </plurals>
   <string name="noPendingInvitations">Nav ielūgumu, kas gaida atbildi</string>

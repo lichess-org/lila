@@ -39,4 +39,5 @@ Chuga rapido y torna a lo recibidor pa chugar mas partidas y ganar mas puntos.</
   <string name="thisIsPrivate">Este ye un torneyo privau</string>
   <string name="shareUrl">Comparte este vinclo pa que atras personas s\'unan: %s</string>
   <string name="drawStreak">Tongada de taulas: Quan un chugador fa taulas en quantas partidas consecutivas en un torneyo, nomás conceden un punto la primera d\'ellas y las que haigan durau %s movimientos u mas. Una tongada de taulas nomás puede trencar-se per medio d\'una victoria, no sirven ni una redota ni unas taulas.</string>
+  <string name="history">Historial de torneyos arena</string>
 </resources>

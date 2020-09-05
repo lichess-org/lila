@@ -40,9 +40,9 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
                       if (ctrl.data.variants.length === 1)
                         xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
                       else {
-                        window.lichess.modal($('.simul .continue-with'));
+                        $.modal($('.simul .continue-with'));
                         $('#modal-wrap .continue-with a').click(function(this: HTMLElement) {
-                          window.lichess.modal.close();
+                          $.modal.close();
                           xhr.join(ctrl.data.id, $(this).data('variant'));
                         });
                       }

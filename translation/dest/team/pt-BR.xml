@@ -20,7 +20,7 @@
     <item quantity="other">Líderes da equipe</item>
   </plurals>
   <string name="teamBestPlayers">Melhores jogadores</string>
-  <string name="teamRecentMembers">Últimos membros</string>
+  <string name="teamRecentMembers">Membros recentes</string>
   <string name="kickSomeone">Expulsar alguém da equipe</string>
   <string name="whoToKick">Quem você quer expulsar da equipe?</string>
   <plurals name="xJoinRequests">

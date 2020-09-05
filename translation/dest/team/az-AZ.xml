@@ -20,7 +20,7 @@
     <item quantity="other">Komanda liderləri</item>
   </plurals>
   <string name="teamBestPlayers">Ən yaxşı oyunçular komandası</string>
-  <string name="teamRecentMembers">Yeni qoşulanların komandası</string>
+  <string name="teamRecentMembers">Son qoşulan üzvlər</string>
   <string name="kickSomeone">Kimisə komandadan qov</string>
   <string name="whoToKick">Kimi komandadan qovmaq istəyirsiniz?</string>
   <plurals name="xJoinRequests">
