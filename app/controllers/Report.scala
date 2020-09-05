@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.AnyContentAsFormUrlEncoded
-
 import views._
 
 import lila.api.{ BodyContext, Context }
@@ -17,9 +16,6 @@ final class Report(
 ) extends LilaController(env) {
 
   private def api = env.report.api
-
-  private def getScore(implicit ctx: Context) =
-    ctx.me.flatMap(mod => env.report.modFilters.updateThreshold(mod, getInt("score")))
 
   def list =
     Secure(_.SeeReport) { implicit ctx => me =>
@@ -38,7 +34,7 @@ final class Report(
     api.countOpenByRooms zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
   private def renderList(room: String)(implicit ctx: Context) =
-    api.openAndRecentWithFilter(12, Room(room), getScore) zip
+    api.openAndRecentWithFilter(12, Room(room)) zip
       getCounts flatMap {
       case (reports, counts ~ streamers ~ appeals) =>
         (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
