@@ -3,7 +3,7 @@
   <string name="isLichessLagging">Ar „Lichess“ stringa?</string>
   <string name="measurementInProgressThreeDot">Vyksta matavimai...</string>
   <string name="noAndYourNetworkIsGood">Ne. O jūsų ryšys yra geras.</string>
-  <string name="noAndYourNetworkIsBad">Ne. Bet jūsų ryšys yra blogas.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Ne. Bet jūsų ryšys yra blogas.</string>
   <string name="yesItWillBeFixedSoon">Taip. Netrukus bus sutvarkyta!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">O dabar, ilgas atsakymas! Žaidimo delsa susideda iš dviejų nesusijusių reikšmių (mažesnė yra geriau):</string>
   <string name="lichessServerLatency">„Lichess“ serverio delsa</string>

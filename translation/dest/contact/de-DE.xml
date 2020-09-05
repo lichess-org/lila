@@ -27,7 +27,7 @@
   <string name="wantClearHistory">Ich möchte meinen Verlauf oder meine Wertung löschen</string>
   <string name="cantClearHistory">Es ist nicht möglich deinen Spiel-, Puzzleverlauf oder deine Wertung zu löschen.</string>
   <string name="wantReport">Ich möchte einen Spieler melden</string>
-  <string name="cheating">Betrügens</string>
+  <string name="cheating">betrügen</string>
   <string name="sandbagging">absichtlichen Verlierens</string>
   <string name="trolling">Trollens</string>
   <string name="insults">Beleidigungen</string>
@@ -59,7 +59,7 @@
   <string name="ratedGame">Stelle sicher, dass du ein gewertetes Spiel spielst. Ungewertete Spiele beeinflussen nicht die Spielerwertungen.</string>
   <string name="errorPage">Fehlerseite</string>
   <string name="reportErrorPage">Falls du eine Fehlerseite entdeckt hast kannst du sie melden:</string>
-  <string name="banAppeal">Einspruch gegen einen Bann oder IP-Beschränkung</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Einspruch gegen einen Bann oder IP-Beschränkung</string>
   <string name="engineAppeal">Markierung für Computerunterstützung/Betrug</string>
   <string name="sendAppealTo">Du kannst deinen Einspruch an %s senden.</string>
   <string name="falsePositives">Falsche Positivergebnisse können gelegentlich auftreten und dafür möchten wir uns entschuldigen.</string>

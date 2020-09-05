@@ -393,7 +393,7 @@
   <string name="openTournaments">Torneyos ubiertos</string>
   <string name="duration">Duración</string>
   <string name="winner">Ganador</string>
-  <string name="standing">Posición</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Posición</string>
   <string name="createANewTournament">Crear un nuevo torneyo</string>
   <string name="tournamentCalendar">Calandario de torneyos</string>
   <string name="conditionOfEntry">Requisito de dentrada:</string>
@@ -657,7 +657,7 @@
   <string name="newTournament">Nuevo torneyo</string>
   <string name="tournamentHomeTitle">Torneyos d\'escaques con diferents variants y controls de tiempo</string>
   <string name="tournamentHomeDescription">Chuga torneyos d\'escaques rapidos! Une-te a un torneyo oficial programau u crea lo tuyo propio. Bala, Lampado, Clasico, Escaques960, Rei d\'o Pueyo, Tres escaques y muitas mas opcions pa que no remate la diversión con os escaques.</string>
-  <string name="tournamentNotFound">No se trobó lo torneyo</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">No se trobó lo torneyo</string>
   <string name="tournamentDoesNotExist">Este torneyo no existe.</string>
   <string name="tournamentMayHaveBeenCanceled">Puede que s\'haiga cancelau, si totz los chugadors se fueron antes que empecipiase lo torneyo.</string>
   <string name="returnToTournamentsHomepage">Tornar a la pachina prencipal de torneyos</string>

@@ -383,7 +383,7 @@
   <string name="openTournaments">തുറന്ന മൽസര പരമ്പരകൾ</string>
   <string name="duration">ദൈര്‍ഘ്യം</string>
   <string name="winner">ജേതാവ്‌</string>
-  <string name="standing">സ്ഥാനത്തു നിൽക്കുന്നു</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">സ്ഥാനത്തു നിൽക്കുന്നു</string>
   <string name="createANewTournament">ഒരു പുതിയ മൽസര പരമ്പര തുടങ്ങാം</string>
   <string name="tournamentCalendar">ടൂർണമെൻറ് കലണ്ടർ</string>
   <string name="conditionOfEntry">പ്രവേശനത്തിനുള്ള നിബന്ധനം:</string>
@@ -642,7 +642,7 @@
   <string name="newTournament">പുതിയ പരമ്പര</string>
   <string name="tournamentHomeTitle">പല വിധം സമയപരിധികളും വേരിയന്റുകളും ഉള്ള ചെസ്സ് ടൂർണമെന്റ്</string>
   <string name="tournamentHomeDescription">ദ്രുതഗതിയിലുള്ള ചെസ്സ് ടൂർണമെന്റുകൾ കളിക്കാം! ഒഫീഷ്യലായിട്ടുള്ള സമയബന്ധിത ടൂർണമെന്റുകളിൽ ചേരാം, അല്ലെങ്കിൽ സ്വന്തമായി ഒന്ന് ഉണ്ടാക്കാം. ബുള്ളറ്റ്, ബ്ലിറ്റ്സ്, ക്ലാസിക്കൽ, chess960, കുന്നിന്മുകളിലെ രാജാവ്, തുടങ്ങി അനന്തമായ ചെസ്സ് ആനന്ദത്തിന് നിങ്ങൾക്കായി കൂടുതൽ ഓപ്ഷൻസ് ഒരുക്കമാണ്.</string>
-  <string name="tournamentNotFound">പരമ്പര കണ്ടെത്തിയില്ല</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">പരമ്പര കണ്ടെത്തിയില്ല</string>
   <string name="tournamentDoesNotExist">ഈ പരമ്പര നിലവിലില്ല</string>
   <string name="tournamentMayHaveBeenCanceled">ടൂർണമെന്റ് തുടങ്ങുന്നതിനു മുൻപ് എല്ലാവരും അവിടം വിട്ടു പോയെങ്കിൽ ടൂർണമെന്റ് ക്യാൻസൽ ചെയ്യപ്പെട്ടിട്ടുണ്ടാകും.</string>
   <string name="returnToTournamentsHomepage">മടക്കം പരമ്പരകളുടെ ഹോംപേജിലേക്ക്</string>

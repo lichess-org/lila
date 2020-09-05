@@ -393,7 +393,7 @@
   <string name="openTournaments">Enireblaj turniroj</string>
   <string name="duration">Daŭro</string>
   <string name="winner">Venkinto</string>
-  <string name="standing">Pozicio</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Pozicio</string>
   <string name="createANewTournament">Krei novan turniron</string>
   <string name="tournamentCalendar">Turnira kalendaro</string>
   <string name="conditionOfEntry">Kondiĉo de eniro:</string>
@@ -657,7 +657,7 @@
   <string name="newTournament">Nova konkurso</string>
   <string name="tournamentHomeTitle">Ŝaka konkurso kun diversaj tempokontroloj kaj variaĵoj</string>
   <string name="tournamentHomeDescription">Ludu en rapidaj konkursoj! Aliĝu al oficialaj konkursoj aŭ kreu vian propran. Unminuta ŝako, Kvinminuta ŝako, Klasika ŝako, Ŝak960, Triŝako kaj aliaj variaĵoj haveblas por senfina ĝuo.</string>
-  <string name="tournamentNotFound">Konkurso netrovita</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Konkurso netrovita</string>
   <string name="tournamentDoesNotExist">Konkurso ne ekzistas</string>
   <string name="tournamentMayHaveBeenCanceled">Eble ĝi ne okazos ĉar malaliĝis ĉiuj ludontoj antaŭ la komenco de la konkurso.</string>
   <string name="returnToTournamentsHomepage">Returni al la hejmpaĝo de la konkursoj</string>

@@ -392,7 +392,7 @@
   <string name="openTournaments">खुल्ला प्रतियोगिताहरु</string>
   <string name="duration">अवधि</string>
   <string name="winner">विजेता</string>
-  <string name="standing">अग्रतालिक</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">अग्रतालिक</string>
   <string name="createANewTournament">नयाँ प्रतियोगिता रचना गरौं</string>
   <string name="tournamentCalendar">प्रतियोगिताको पात्रो</string>
   <string name="conditionOfEntry">प्रवेश गर्ने शर्तहरु:</string>
@@ -656,7 +656,7 @@
   <string name="newTournament">नयाँ प्रतियोगिता</string>
   <string name="tournamentHomeTitle">बिभिन्न समय सिमा र परिमार्जनका प्रतियोगिताहरु</string>
   <string name="tournamentHomeDescription">तिब्र गतिका बुद्धिचाल प्रतियोगितामा भाग लिनुहोस्! औपचारिक तालिकाबद्ध प्रतियोगितामा भाग लिनुहोस् वा आफै श्रीजना गर्नुहोस्। बुद्धिचाल वा यसका परिमार्जन बिभिन्न समय सिमामा खेली असीमित आनन्द लिनुहोस्।</string>
-  <string name="tournamentNotFound">प्रतियोगिता भेट्टिएन</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">प्रतियोगिता भेट्टिएन</string>
   <string name="tournamentDoesNotExist">यस्तो कुनै प्रतियोगिता छैन।</string>
   <string name="tournamentMayHaveBeenCanceled">शुरु हुनु अघि सबै खेलाडी बाहिर गएकोले प्रतियोगिता रद्द भएको हुन सक्छ।</string>
   <string name="returnToTournamentsHomepage">प्रतियोगिताको गृहपृष्ठमा फर्कनुहोस्</string>

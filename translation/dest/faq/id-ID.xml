@@ -18,7 +18,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ya. Lichess terinspirasi oleh website proyek open-source lainnya yang mana menggunakan kami %1$s, %2$s, or %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Mengapa saya ditandai telah memanipulasi rating (menambah atau mengurangi) atau mendapat bantuan dari komputer?</string>
-  <string name="gameplay">Aspek permainan</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Aspek permainan</string>
   <string name="noUpperCaseDot">Tidak.</string>
   <string name="ownerUniqueTrophies">Trofi itu unik dalam sejarah Lichess, tidak ada orang lain selain %1$s yang pernah memilikinya.</string>
   <string name="wayOfBerserkExplanation">Untuk mendapatkannya, hiimgosu menantang dirinya untuk berserk dan memenangkan game 100%% dari %s.</string>
@@ -33,7 +33,7 @@ Pada dasarnya, rating Glicko menggunakan \"interval kepercayaan\" saat menghitun
 Pada dasarnya, sistem ini 90% yakin bahwa rating anda berada di antara 800 dan 2200. Ini sangat tidak pasti. Karena itu, ketika seorang pemain baru memulai, rating mereka akan berubah sangat dramatis, berpotensi beberapa ratus poin pada suatu waktu. Tetapi setelah beberapa pertandingan melawan pemain mapan interval kepercayaan diri akan menyempit, dan jumlah poin yang didapat / hilang setelah setiap pertandingan akan berkurang.
 
 Poin lain yang perlu diperhatikan adalah, seiring berjalannya waktu, interval kepercayaan akan meningkat. Ini memungkinkan anda untuk mendapatkan / kehilangan poin poin lebih cepat untuk mencocokkan setiap perubahan pada tingkat keahlian anda selama waktu itu.</string>
-  <string name="whatIsProvisionalRating">Mengapa ada tanda tanya (?) di sebelah angka rating?</string>
+  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Mengapa ada tanda tanya (?) di sebelah angka rating?</string>
   <string name="provisionalRatingExplanation">Tanda tanya berarti rating tersebut bersifat sementara. Alasannya termasuk:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Pemain belum menyelesaikan game dengan rating cukup terhadap %1$s dalam kategori rating.</string>
   <string name="similarOpponents">lawan dengan kekuatan yang sama</string>

@@ -53,7 +53,7 @@ Salasana: %3$s</string>
 Tässä on linkki, josta pääset luokkaan.</string>
   <string name="invitationToClass">Sinut on kutsuttu liittymään oppilaana luokkaan \"%s\".</string>
   <string name="clickToViewInvitation">Katso kutsu napsauttamalla tätä linkkiä:</string>
-  <plurals name="nbPendingInvitations">
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
     <item quantity="one">Yksi odottava kutsu</item>
     <item quantity="other">%s odottavaa kutsua</item>
   </plurals>

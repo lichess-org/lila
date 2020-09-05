@@ -449,7 +449,7 @@
   <string name="openTournaments">Otvorené turnaje</string>
   <string name="duration">Dĺžka</string>
   <string name="winner">Víťaz</string>
-  <string name="standing">Pozícia</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Pozícia</string>
   <string name="createANewTournament">Vytvoriť nový turnaj</string>
   <string name="tournamentCalendar">Kalendár turnajov</string>
   <string name="conditionOfEntry">Podmienka vstupu:</string>
@@ -723,7 +723,7 @@
   <string name="newTournament">Nový turnaj</string>
   <string name="tournamentHomeTitle">Šachový turnaj ponúka rôzne časové nastavenia partie a rôzne varianty</string>
   <string name="tournamentHomeDescription">Hrajte šachové turnaje s rýchlym tempom! Pridajte sa k oficiálnym plánovaným turnajom, alebo si vytvorte vlastný turnaj. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, a viac možností na výber pre nekonečnú šachovú zábavu.</string>
-  <string name="tournamentNotFound">Turnaj nenájdený</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnaj nenájdený</string>
   <string name="tournamentDoesNotExist">Zvolený turnaj neexistuje</string>
   <string name="tournamentMayHaveBeenCanceled">Turnaj mohol byť zrušený, ak všetci hráči opustili turnaj pred jeho začatím.</string>
   <string name="returnToTournamentsHomepage">Späť na prehľad turnajov</string>

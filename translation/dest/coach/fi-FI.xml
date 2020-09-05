@@ -3,7 +3,7 @@
   <string name="lichessCoaches">Lichess-valmentajat</string>
   <string name="lichessCoach">Lichess-valmentaja</string>
   <string name="areYouCoach">Oletko hyvä shakkivalmentaja, jolla on %s?</string>
-  <string name="nmOrFideTitle">kansallinen tai FIDE-arvonimi</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">kansallinen tai FIDE-arvonimi</string>
   <string name="confirmTitle">Vahvista tittelisi tästä niin tarkastamme hakemuksesi.</string>
   <string name="sendApplication">Lähetä meille sähköpostia osoitteeseen %s niin tarkastamme hakemuksesi.</string>
   <string name="location">Sijainti</string>

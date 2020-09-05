@@ -59,7 +59,7 @@
   <string name="ratedGame">Asegura-te d\'haber chugau una partida per puntuación. Las partidas amistosas no afectan a las puntuacions d\'os chugadors.</string>
   <string name="errorPage">Pachina d\'error</string>
   <string name="reportErrorPage">Si una pachina te da error, puetz reportar-la:</string>
-  <string name="banAppeal">Apelar per un bloqueyo u una restricción d\'IP</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apelar per un bloqueyo u una restricción d\'IP</string>
   <string name="engineAppeal">Motor u marca de trapacería</string>
   <string name="sendAppealTo">Puetz ninviar una apelación a %s.</string>
   <string name="falsePositives">A vegadas ocurren falsos positivos, y lo lamentamos.</string>

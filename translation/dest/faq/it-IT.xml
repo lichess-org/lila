@@ -29,12 +29,12 @@
   <string name="youCannotApply">Non è possibile fare domanda per diventare un moderatore. Se vediamo qualcuno che pensiamo possa essere un moderatore, li contatteremo direttamente.</string>
   <string name="isCorrespondenceDifferent">La corrispondenza è diversa dagli scacchi normali?</string>
   <string name="youCanUseOpeningBookNoEngine">Su Lichess, la principale differenza nelle regole per gli scacchi per corrispondenza è che è consentito un libro di apertura. L\'uso dei motori è ancora proibito e comporterà la loro segnalazione per l\'assistenza del motore. Sebbene ICCF consenta l\'uso del motore in corrispondenza, Lichess no.</string>
-  <string name="gameplay">Dinamica di gioco</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Dinamica di gioco</string>
   <string name="howBulletBlitzEtcDecided">Come vengono decisi Bullet, Blitz e altri controlli temporali?</string>
   <string name="basedOnGameDuration">I controlli del tempo Lichess si basano sulla durata stimata del gioco = %1$s
 Ad esempio, la durata stimata di una partita 5 + 3 è 5 × 60 + 40 × 3 = 420 secondi.</string>
   <string name="durationFormula">(ora iniziale dell\'orologio) + 40 × (incremento dell\'orologio)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">&lt; %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">Quali varianti posso giocare su Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess supporta gli scacchi standard e %1$s.</string>
@@ -109,7 +109,7 @@ In sostanza, le valutazioni Glicko utilizzano \"intervalli di fiducia\" per il c
 Fondamentalmente, il sistema è sicuro al 90% che il tuo rating sia compreso tra 800 e 2200. Il sistema è duque molto incerto sulla tua valutazione iniziale. Per questo motivo, quando un giocatore gioca le prime partite, la sua valutazione cambierà molto drasticamente, potenzialmente anche di diverse centinaia di punti alla volta. Tuttavia, dopo alcuni partite contro giocatori il cui rating è ben definito, l\'intervallo di fiducia si ridurrà e l\'escursione di punti guadagnati/persi dopo ogni partita tenderà a diminuire.
 
 Un altro aspetto di rilievo è che, allo scorrere del tempo senza aver giocate partite valide per il rating, l\'intervallo di fiducia tornerà ad aumentare. Questo permette di guadagnare/perdere punti più rapidamente e dunque ad adattare il rating all\'evoluzione del tuo livello di abilità.</string>
-  <string name="whatIsProvisionalRating">Perché c\'è un punto interrogativo (?) accanto al rating?</string>
+  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Perché c\'è un punto interrogativo (?) accanto al rating?</string>
   <string name="provisionalRatingExplanation">Il punto interrogativo indica che il rating è provvisorio. I motivi includono:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Il giocatore non ha ancora partecipato in abbastanza partite valide per la classifica contro %1$s nella categoria di punteggio.</string>
   <string name="similarOpponents">avversari di rating simile</string>

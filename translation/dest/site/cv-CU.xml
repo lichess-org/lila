@@ -244,7 +244,7 @@
   <string name="openTournaments">Уҫӑ турнирсем</string>
   <string name="duration">Вӑрӑмӑш</string>
   <string name="winner">Ҫӗнтерӳҫӗ</string>
-  <string name="standing">Лару-тӑру</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Лару-тӑру</string>
   <string name="createANewTournament">Ҫӗнӗ турнир йӗркеле</string>
   <string name="tournamentCalendar">Турнир календарӗ</string>
   <string name="join">Хутшӑнас</string>
@@ -447,7 +447,7 @@
   <string name="keyGoToStartOrEnd">пуҫӗ/вӗҫӗ патне куҫ</string>
   <string name="keyShowOrHideComments">шухӑшсене кӑтарт / пытар</string>
   <string name="newTournament">Ҫӗнӗ турнир</string>
-  <string name="tournamentNotFound">Турнир тупӑнман</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Турнир тупӑнман</string>
   <string name="tournamentDoesNotExist">Ҫак турнирӗ ҫук вӑл.</string>
   <string name="tournamentMayHaveBeenCanceled">Турнир пуҫланиччен вӑйӑҫсем унран тухнӑран турнира пӑрахӑҫланӑ тен.</string>
   <string name="returnToTournamentsHomepage">Турнирсен ел патнелле таврӑн</string>

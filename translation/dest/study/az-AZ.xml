@@ -63,7 +63,7 @@
   <string name="currentChapterUrl">İndiki fəsil URL-si</string>
   <string name="startAtInitialPosition">İlk mövqedə başlasın</string>
   <string name="startAtX">%s mövqesində başlasın</string>
-  <string name="onlyPublicStudiesCanBeEmbedded">Yalnız ictimai işlər əlavə edilə bilər!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Yalnız ictimai işlər əlavə edilə bilər!</string>
   <string name="open">Aç</string>
   <string name="xBroughtToYouByY">%2$s sizə %1$s gətirdi</string>
   <string name="studyNotFound">Çalışma tapılmadı</string>

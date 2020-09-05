@@ -366,7 +366,7 @@
   <string name="openTournaments">参加募集中のトーナメント</string>
   <string name="duration">対局継続時間</string>
   <string name="winner">優勝者</string>
-  <string name="standing">順位</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">順位</string>
   <string name="createANewTournament">新しいトーナメントを作る</string>
   <string name="tournamentCalendar">トーナメント・カレンダー</string>
   <string name="conditionOfEntry">参加条件:</string>
@@ -625,7 +625,7 @@
   <string name="newTournament">新しいトーナメント</string>
   <string name="tournamentHomeTitle">さまざまな持時間とルールのチェストーナメント</string>
   <string name="tournamentHomeDescription">早指しのチェストーナメントに参加しよう！　定時のトーナメントに参加するほか、自分で作ることもできます。ブレット、ブリッツ、クラシック、チェス960、キングオブザヒル、3チェックなどチェスの無限の楽しみを。</string>
-  <string name="tournamentNotFound">トーナメントが見つかりません</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">トーナメントが見つかりません</string>
   <string name="tournamentDoesNotExist">このトーナメントは存在しません</string>
   <string name="tournamentMayHaveBeenCanceled">開始前に全員が棄権してキャンセルされた可能性があります。</string>
   <string name="returnToTournamentsHomepage">トーナメントトップに戻る</string>

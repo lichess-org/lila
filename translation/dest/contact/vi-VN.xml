@@ -58,7 +58,7 @@
   <string name="ratedGame">Xin hãy chắc việc bạn chơi ván cờ xếp hạng. Các ván đấu thường sẽ không ảnh hưởng đến hệ số của người chơi.</string>
   <string name="errorPage">Trang lỗi</string>
   <string name="reportErrorPage">Nếu bạn gặp một trang lỗi, bạn có thẻ báo cáo nó:</string>
-  <string name="banAppeal">Kháng cáo cho việc ban và chặn IP</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Kháng cáo cho việc ban và chặn IP</string>
   <string name="engineAppeal">Đánh dấu gian lận hoặc dùng máy tính</string>
   <string name="sendAppealTo">Bạn có thể gửi kháng cáo đến %s.</string>
   <string name="falsePositives">Những giá trị dương do đánh giá sai đôi khi vẫn xảy ra, và chúng tôi xin thứ lỗi vì điều đó.</string>

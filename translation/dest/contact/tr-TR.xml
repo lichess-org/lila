@@ -59,7 +59,7 @@
   <string name="ratedGame">Puanlı bir oyun oynadığınızdan emin olun. Puansız oyunlar oyun puanınızı etkilemez.</string>
   <string name="errorPage">Hata sayfası</string>
   <string name="reportErrorPage">Bir hata mesajı alırsanız lütfen bize bildirin:</string>
-  <string name="banAppeal">Yasaklamaya itiraz et</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Yasaklamaya itiraz et</string>
   <string name="engineAppeal">Satranç motoru ya da hile tespit edildi</string>
   <string name="sendAppealTo">Başvurunuzu bu adrese gönderebilirsiniz: %s .</string>
   <string name="falsePositives">Bazen yanlış şeyler olabilir, bunun için üzgünüz.</string>

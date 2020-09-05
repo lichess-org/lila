@@ -392,7 +392,7 @@
   <string name="openTournaments">खुली प्रतियोगिता</string>
   <string name="duration">अवधि</string>
   <string name="winner">विजयी</string>
-  <string name="standing">पद</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">पद</string>
   <string name="createANewTournament">नयी प्रतियोगिता आरम्भ करें</string>
   <string name="tournamentCalendar">टूर्नामेंट कैलेंडर</string>
   <string name="conditionOfEntry">प्रवेश की शर्त:</string>
@@ -659,7 +659,7 @@
   <string name="newTournament">नया टूर्नमेंट बनायें</string>
   <string name="tournamentHomeTitle">शतरंज का टूर्नमेंट, अलग अलग खेल समय और प्रकार के साथ</string>
   <string name="tournamentHomeDescription">तेज़ रफ़्तार वाले शतरंज टूर्नमेंट खेलिए! आधिकारिक अन्यूसशीट टूर्नमेंट मे भाग लें, या खुद का टूर्नमेंट बनायें! Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck और अधिक प्रकार के मज़ेदार शतरंज के किस्म खेलिए!</string>
-  <string name="tournamentNotFound">टूर्नामेंट नहीं मिला</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">टूर्नामेंट नहीं मिला</string>
   <string name="tournamentDoesNotExist">यह टूर्नामेंट मौजूद नहीं है।</string>
   <string name="tournamentMayHaveBeenCanceled">टूर्नमेंट रद्द् हो गया होगा, अगर सभी खिलाड़ी टूर्नमेंट शुरू होने से पहले चले तौंरमेंट छोड़ चुके है</string>
   <string name="returnToTournamentsHomepage">वापिस लौटें</string>

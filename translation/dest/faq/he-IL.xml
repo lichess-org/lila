@@ -28,12 +28,12 @@
   <string name="youCannotApply">לא ניתן להגיש בקשה להיות עורך. אם אנו רואים מישהו שלדעתנו יהיה טוב כעורך, אנו ניצור עימו קשר ישירות.</string>
   <string name="isCorrespondenceDifferent">האם משחקי התכתבות שונים ממשחקים רגילים?</string>
   <string name="youCanUseOpeningBookNoEngine">בליצ\'ס, ההבדל העיקרי בכללים לשחמט התכתבויות הוא שספר פתיחות חוקי. השימוש במנוע אסור ויביא לסימון על סיוע במנועים. למרות שICCF מאפשרת שימוש במנוע בהתכתבויות, ליצ\'ס לא.</string>
-  <string name="gameplay">משחק</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">משחק</string>
   <string name="howBulletBlitzEtcDecided">איך בולט, בליץ, וזמני משחק אחרים מוחלטים?</string>
   <string name="basedOnGameDuration">בקרות זמן ליצ\'ס מבוססות על משך המשחק המשוער =%1$s
 למשל, משך הזמן המשוער של משחק 5+3 הוא 5 × 60 + 40 × 3 = 420 שניות.</string>
   <string name="durationFormula">(זמן התחלתי בשעון) + 40 × (תוספת שעון)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">אילו סוגי שחמט אני יכול לשחק בליצ\'ס?</string>
   <string name="lichessSupportChessAnd">ליצ\'ס תומך בשחמט רגיל וב%1$s.</string>

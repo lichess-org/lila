@@ -3,7 +3,7 @@
   <string name="lichessCoaches">Lichess oktatók</string>
   <string name="lichessCoach">Lichess oktató</string>
   <string name="areYouCoach">Kiemelkedő sakkoktató vagy %s?</string>
-  <string name="nmOrFideTitle">Nemzeti Mester vagy FIDE címmel</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Nemzeti Mester vagy FIDE címmel</string>
   <string name="confirmTitle">Ellenőriztesd le a címed itt és mi átnézzük a jelentkezésed.</string>
   <string name="sendApplication">Küldj egy emailt a %s címre és átnézzük a jelentkezésed.</string>
   <string name="location">Hely</string>

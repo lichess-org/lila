@@ -191,7 +191,7 @@
   <string name="openTournaments">Fèill-chluichean fosgailte</string>
   <string name="duration">Faid</string>
   <string name="winner">Buannaiche</string>
-  <string name="standing">Suidheachadh</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Suidheachadh</string>
   <string name="createANewTournament">Cruthaich fèill-chluich ùr</string>
   <string name="join">Gabh pàirt ann</string>
   <string name="withdraw">Cùlaich</string>

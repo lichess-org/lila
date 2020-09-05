@@ -371,7 +371,7 @@
   <string name="openTournaments">Certamina publica</string>
   <string name="duration">Duratio</string>
   <string name="winner">Victor</string>
-  <string name="standing">Status</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Status</string>
   <string name="createANewTournament">Facere certamen novum</string>
   <string name="tournamentCalendar">Tabula certaminum</string>
   <string name="advancedSettings">Occasus provectus</string>
@@ -609,7 +609,7 @@
   <string name="newTournament">Certamen novum</string>
   <string name="tournamentHomeTitle">Certamen latruncularium moderaminibus temporalibus et variationibus ornatum</string>
   <string name="tournamentHomeDescription">Ludere certamina velocia latruncularia! Iungere certaminibus officialibus, aut unum tibi creare. Bullet, Blitz, Classical,   Scacci960, Rex Collis, Tres scacci, atque varationes plures sunt!</string>
-  <string name="tournamentNotFound">Nullum certamen repertum est.</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Nullum certamen repertum est.</string>
   <string name="tournamentDoesNotExist">Nullum certamen est.</string>
   <string name="tournamentMayHaveBeenCanceled">Id sublatum esset, si ante principio certaminis omnes lusores abiti essent.</string>
   <string name="returnToTournamentsHomepage">Revenire in paginam certaminum</string>

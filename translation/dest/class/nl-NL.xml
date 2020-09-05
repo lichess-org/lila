@@ -53,7 +53,7 @@ Wachtwoord: %3$s</string>
 Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="invitationToClass">Je bent uitgenodigd om als leerling deel te nemen aan klas \"%s\".</string>
   <string name="clickToViewInvitation">Klik op de link om de uitnodiging te bekijken:</string>
-  <plurals name="nbPendingInvitations">
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
     <item quantity="one">Eén openstaande uitnodiging</item>
     <item quantity="other">%s openstaande uitnodigingen</item>
   </plurals>

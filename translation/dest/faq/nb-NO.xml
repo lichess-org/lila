@@ -28,12 +28,12 @@
   <string name="youCannotApply">Det er ikke mulig å søke om å bli moderator. Hvis vi ser noen som vi tror kan gjøre en god jobb som moderator, så kontakter vi vedkommende direkte.</string>
   <string name="isCorrespondenceDifferent">Er fjernsjakk forskjellig fra vanlig sjakk?</string>
   <string name="youCanUseOpeningBookNoEngine">Hos Lichess er den viktigste regelforskjellen for fjernsjakk at det er lov å bruke åpningsbøker. Maskinanalyse er fremdeles forbudt og vil føre til at man får anmerkning for maskinbistand. Selv om ICCF tillater bruk av maskinanalyse i fjernsjakk, så er ikke det tilfellet hos Lichess.</string>
-  <string name="gameplay">Spillforløp</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Spillforløp</string>
   <string name="howBulletBlitzEtcDecided">Hvor går skillene mellom Bullet, Blitz og andre tidskontroller?</string>
   <string name="basedOnGameDuration">Tidskontrollene hos Lichess er basert på estimert varighet av partiet = %1$s
 For eksempel er den estimerte varigheten av et 5+3-parti 5 · 60 + 40 · 3 = 420 sekunder.</string>
   <string name="durationFormula">(starttid på sjakkuret) + 40 · (tilleggstid)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Hvilke varianter kan jeg spille hos Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess støtter standardsjakk og %1$s.</string>
@@ -108,7 +108,7 @@ Glicko-ratingene bygger på \"konfidensintervaller\" når ratingen din skal bere
 I bunn og grunn er systemet 90 % sikkert på at ratingen din ligger mellom 800 og 2200. Dette er utrolig usikkert. Det betyr at ratingen vil endre seg dramatisk for spillere i oppstarten, potensielt med flere hundre poeng om gangen. Etter noen partier mot etablerte spillere vil konfidensintervallet innsnevres, og antall poeng som oppnås/tapes etter hvert parti, vil avta.
 
 Et annet poeng å være oppmerksom på er at ettersom tiden går uten spille, så øker konfidensintervallet. Slik kan du oppnå/tape poeng hurtigere for å tilpasse ratingen til eventuelle endringer i ferdighetsnivået ditt i tiden uten å spille.</string>
-  <string name="whatIsProvisionalRating">Hvorfor er det spørsmålstegn (?) ved siden av ratingen?</string>
+  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Hvorfor er det spørsmålstegn (?) ved siden av ratingen?</string>
   <string name="provisionalRatingExplanation">Spørsmålstegnet betyr at ratingen er provisorisk. Grunnen til dette kan være:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Spilleren har så langt ikke fullført mange nok ratede partier mot %1$s i ratingkategorien.</string>
   <string name="similarOpponents">motstandere med om lag lik spillestyrke</string>

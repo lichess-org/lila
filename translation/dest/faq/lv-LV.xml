@@ -28,12 +28,12 @@
   <string name="youCannotApply">Nav iespējams pieteikties, lai kļūtu par moderatoru. Ja ieraudzīsim kādu, kas mūsuprāt būtu labs moderators, sazināsimies personīgi.</string>
   <string name="isCorrespondenceDifferent">Vai korespondencšahs atšķiras no parastā šaha?</string>
   <string name="youCanUseOpeningBookNoEngine">Vietnē Lichess galvenā atšķirība korespondencšaha noteikumos ir atļauja lietot atklātņu grāmatu. Datora palīdzība ir vēl joprojām aizliegta un novedīs pie atzīmes par datora palīdzības lietošanu. Kaut arī ICCF atļauj lietot datora palīdzību korespondencšahā, Lichess to aizliedz.</string>
-  <string name="gameplay">Spēles apraksts</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Spēles apraksts</string>
   <string name="howBulletBlitzEtcDecided">Kā nosaka bullet, blica un citas laika kontroles?</string>
   <string name="basedOnGameDuration">Lichess laika kontroles ir balstītas uz aprēķināto spēles ilgumu = %1$s
   Piemēram, 5+3 spēles aptuvenais ilgums ir 5 * 60 + 40 * 3 = 420 sekundes.</string>
   <string name="durationFormula">(sākotnējais laiks) + 40 * (gājiena pieaugums)</string>
-  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Kādus variantus varu spēlēt Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess atbalsta standarta šahu un %1$s.</string>
