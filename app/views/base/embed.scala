@@ -1,8 +1,9 @@
 package views.html.base
 
 import lila.app.templating.Environment._
-import lila.app.ui.ScalatagsTemplate._
 import lila.app.ui.EmbedConfig
+import lila.app.ui.ScalatagsTemplate._
+import lila.pref.SoundSet
 
 object embed {
 
@@ -14,12 +15,14 @@ object embed {
       layout.bits.htmlTag(config.lang)(
         head(
           layout.bits.charset,
-          layout.bits.metaCsp(basicCsp),
+          layout.bits.viewport,
+          layout.bits.metaCsp(basicCsp withNonce config.nonce),
           st.headTitle(title),
           layout.bits.pieceSprite(lila.pref.PieceSet.default),
           cssTagWithTheme(cssModule, config.bg)
         ),
         st.body(cls := s"base ${config.board}")(
+          layout.dataSoundSet := SoundSet.default.key,
           body
         )
       )

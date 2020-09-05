@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import lila.api.{ AnnounceStore, Context }
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.ContentSecurityPolicy
+import lila.common.{ ContentSecurityPolicy, Nonce }
 import lila.common.String.html.safeJsonValue
 
 object layout {
@@ -135,18 +135,18 @@ object layout {
         "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
     )
 
-  private val lichessJsObject = """{load:new Promise(r=>{window.onload=r})}"""
+  def lichessJsObject(nonce: Nonce)(implicit lang: Lang) =
+    embedJsUnsafe(
+      s"""lichess={load:new Promise(r=>{window.onload=r}),quantity:${lila.i18n
+        .JsQuantity(lang)}};$timeagoLocaleScript""",
+      nonce
+    )
 
   private def loadScripts(moreJs: Frag, chessground: Boolean)(implicit ctx: Context) =
     frag(
       chessground option chessgroundTag,
       ctx.requiresFingerprint option fingerprintTag,
-      embedJsUnsafe(
-        s"""lichess={load:new Promise(r=>{window.onload=r}),quantity:${lila.i18n
-          .JsQuantity(
-            ctx.lang
-          )}};$timeagoLocaleScript"""
-      ),
+      ctx.nonce map lichessJsObject,
       if (netConfig.minifiedAssets)
         jsModule("lichess")
       else
@@ -163,7 +163,7 @@ object layout {
 
   private val dataVapid         = attr("data-vapid")
   private val dataUser          = attr("data-user")
-  private val dataSoundSet      = attr("data-sound-set")
+  val dataSoundSet              = attr("data-sound-set")
   private val dataSocketDomains = attr("data-socket-domains")
   private val dataI18n          = attr("data-i18n")
   private val dataNonce         = attr("data-nonce")

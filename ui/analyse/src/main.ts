@@ -21,7 +21,6 @@ export function start(opts: AnalyseOpts): AnalyseApi {
 
   opts.element = document.querySelector('main.analyse') as HTMLElement;
   opts.trans = window.lichess.trans(opts.i18n);
-  opts.socketSend = window.lichess.socket.send;
 
   let vnode: VNode, ctrl: AnalyseCtrl;
 

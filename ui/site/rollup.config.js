@@ -87,6 +87,7 @@ export default rollupProject({
   analyseEmbed: {
     input: 'src/analyse-embed.ts',
     output: 'analyse.embed',
+    name: 'analyseEmbed'
   },
   user: {
     input: 'src/user.ts',
