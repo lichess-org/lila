@@ -256,22 +256,24 @@
     }
   }
 
-  #video .not_found {
-    margin-top: 200px;
-    text-align: center;
-  }
+  #video {
+    .not_found {
+      margin-top: 200px;
+      text-align: center;
+    }
 
-  #video .not_much {
-    margin-top: 100px;
-    text-align: center;
-  }
+    .not_much {
+      margin-top: 100px;
+      text-align: center;
+    }
 
-  #video .not_much.nb_0 {
-    margin-top: 200px;
-  }
+    .not_much.nb_0 {
+      margin-top: 200px;
+    }
 
-  #video .explain {
-    text-align: center;
-    margin: 50px 0 35px 0;
+    .explain {
+      text-align: center;
+      margin: 50px 0 35px 0;
+    }
   }
 }
