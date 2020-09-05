@@ -44,7 +44,7 @@ build_plugin() {
   echo "### ui/$1 plugin $2 ###"
   set -ev
   cd ui/$1
-  rollup --config --config-$target --config-plugin $2
+  yarn run plugin-$target $2
 }
 
 if [ $mode != "upgrade" ] && [ $mode != "js" ]; then
