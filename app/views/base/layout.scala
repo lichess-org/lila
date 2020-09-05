@@ -6,8 +6,8 @@ import play.api.i18n.Lang
 import lila.api.{ AnnounceStore, Context }
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.{ ContentSecurityPolicy, Nonce }
 import lila.common.String.html.safeJsonValue
+import lila.common.{ ContentSecurityPolicy, Nonce }
 
 object layout {
 
@@ -163,11 +163,15 @@ object layout {
 
   private val dataVapid         = attr("data-vapid")
   private val dataUser          = attr("data-user")
-  val dataSoundSet              = attr("data-sound-set")
   private val dataSocketDomains = attr("data-socket-domains")
   private val dataI18n          = attr("data-i18n")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
+  val dataSoundSet              = attr("data-sound-set")
+  val dataTheme                 = attr("data-theme")
+  val dataAssetUrl              = attr("data-asset-url")
+  val dataAssetVersion          = attr("data-asset-version")
+  val dataDev                   = attr("data-dev")
 
   def apply(
       title: String,

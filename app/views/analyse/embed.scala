@@ -17,11 +17,6 @@ object embed {
       title = replay titleOf pov,
       cssModule = "analyse.embed"
     )(
-      cls := s"highlight ${config.bg} ${config.board}",
-      dataDev := netConfig.minifiedAssets.option("true"),
-      dataAssetUrl := netConfig.assetBaseUrl,
-      dataAssetVersion := assetVersion.value,
-      dataTheme := config.bg,
       div(cls := "is2d")(
         main(cls := "analyse")
       ),

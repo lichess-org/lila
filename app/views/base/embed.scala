@@ -21,8 +21,10 @@ object embed {
           layout.bits.pieceSprite(lila.pref.PieceSet.default),
           cssTagWithTheme(cssModule, config.bg)
         ),
-        st.body(cls := s"base ${config.board}")(
+        st.body(cls := s"base highlight ${config.board}")(
           layout.dataSoundSet := SoundSet.default.key,
+          layout.dataAssetUrl := netConfig.assetBaseUrl,
+          layout.dataAssetVersion := assetVersion.value,
           body
         )
       )
