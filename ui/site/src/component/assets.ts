@@ -1,5 +1,3 @@
-import hasTouchEvents from './touchEvents';
-
 export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
   opts = opts || {};
   const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
@@ -40,5 +38,5 @@ export const hopscotch = () => {
 
 export const slider = () =>
   loadScript(
-    'javascripts/vendor/jquery-ui.slider' + (hasTouchEvents ? '.touch' : '') + '.min.js'
+    'javascripts/vendor/jquery-ui.slider' + ('ontouchstart' in window ? '.touch' : '') + '.min.js'
   );

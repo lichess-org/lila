@@ -63,7 +63,7 @@ export function main(ctrl: RoundController): VNode {
     hook: util.onInsert(gridHacks.start)
   }, [
     h('div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
-      hook: window.lichess.hasTouchEvents ? undefined :
+      hook: 'ontouchstart' in window ? undefined :
         util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false)
     }, [
       renderGround(ctrl),

@@ -2,7 +2,6 @@ interface Lichess {
   load: Promise<unknown>; // window.onload promise
   info: any;
   requestIdleCallback(f: () => void): void;
-  hasTouchEvents: boolean;
   sri: string;
   storage: LichessStorageHelper;
   tempStorage: LichessStorageHelper;

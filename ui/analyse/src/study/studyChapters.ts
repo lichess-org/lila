@@ -93,7 +93,7 @@ export function view(ctrl: StudyCtrl): VNode {
       const makeSortable = function() {
         vData.sortable = window['Sortable'].create(el, {
           draggable: '.draggable',
-          handle: window.lichess.hasTouchEvents ? 'span' : undefined,
+          handle: 'ontouchstart' in window ? 'span' : undefined,
           onSort() {
             ctrl.chapters.sort(vData.sortable.toArray());
           }

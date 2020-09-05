@@ -93,7 +93,7 @@ export default function(ctrl: Controller): VNode {
       side.userBox(ctrl)
     ]),
     h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
-      hook: window.lichess.hasTouchEvents ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
+      hook: 'ontouchstart' in window ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       chessground(ctrl),
       ctrl.promotion.view()

@@ -12,7 +12,7 @@ type State = any;
 
 const menuHover = () => {
 
-  if (window.lichess.hasTouchEvents) return;
+  if ('ontouchstart' in window) return;
 
   const interval = 100;
   const sensitivity = 10;

@@ -1,11 +1,10 @@
 import spinnerHtml from './spinner';
-import hasTouchEvents from './touchEvents';
 import { requestIdleCallback } from './functions';
 
 let hoverable: boolean;
 function isHoverable() {
   if (typeof hoverable === 'undefined')
-    hoverable = !hasTouchEvents /* Firefox <= 63 */ || !!getComputedStyle(document.body).getPropertyValue('--hoverable');
+    hoverable = !('ontouchstart' in window) /* Firefox <= 63 */ || !!getComputedStyle(document.body).getPropertyValue('--hoverable');
   return hoverable;
 }
 

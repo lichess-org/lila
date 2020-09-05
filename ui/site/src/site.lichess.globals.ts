@@ -2,7 +2,6 @@ import StrongSocket from "./component/socket";
 import { requestIdleCallback, formAjax, numberFormat, escapeHtml } from "./component/functions";
 import makeChat from './component/chat';
 import once from './component/once';
-import hasTouchEvents from './component/touchEvents';
 import spinnerHtml from './component/spinner';
 import sri from './component/sri';
 import { storage, tempStorage } from "./component/storage";
@@ -26,7 +25,6 @@ export default function() {
   const l = window.lichess;
   l.StrongSocket = StrongSocket;
   l.requestIdleCallback = requestIdleCallback;
-  l.hasTouchEvents = hasTouchEvents;
   l.sri = sri;
   l.storage = storage;
   l.tempStorage = tempStorage;

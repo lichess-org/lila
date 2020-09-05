@@ -306,7 +306,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     study ? studyView.overboard(study) : null,
     intro || h(addChapterId(study, 'div.analyse__board.main-board'), {
-      hook: (window.lichess.hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
+      hook: ('ontouchstart' in window || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       ...(clocks || []),
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
