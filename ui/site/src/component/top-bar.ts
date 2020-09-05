@@ -4,11 +4,11 @@ import { loadCssPath, loadScript, jsModule } from './assets';
 
 export default function() {
 
-  const initiatingHtml = '<div class="initiating">' + spinnerHtml + '</div>';
+  const initiatingHtml = `<div class="initiating">${spinnerHtml}</div>`;
 
-  $('#topnav-toggle').on('change', e => {
-    document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked);
-  });
+  $('#topnav-toggle').on('change', e =>
+    document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked)
+  );
 
   $('#top').on('click', 'a.toggle', function(this: HTMLElement) {
     var $p = $(this).parent();

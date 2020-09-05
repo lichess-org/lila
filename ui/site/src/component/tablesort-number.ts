@@ -1,10 +1,14 @@
 import tablesort from 'tablesort';
 
-function cleanNumber(i) {
-  return i.replace(/[^\-?0-9.]/g, '');
+export default function extendTablesortNumber() {
+  tablesort.extend('number', function(item) {
+    return item.match(/^[-+]?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/); // Number
+  }, (a, b) => compareNumber(cleanNumber(b), cleanNumber(a)));
 }
 
-function compareNumber(a, b) {
+const cleanNumber = (i: string) => i.replace(/[^\-?0-9.]/g, '');
+
+const compareNumber = (a: any, b: any) => {
   a = parseFloat(a);
   b = parseFloat(b);
 
@@ -12,12 +16,4 @@ function compareNumber(a, b) {
   b = isNaN(b) ? 0 : b;
 
   return a - b;
-};
-
-export default function extendTablesortNumber() {
-  tablesort.extend('number', function(item) {
-    return item.match(/^[-+]?(\d)*-?([,\.]){0,1}-?(\d)+([E,e][\-+][\d]+)?%?$/); // Number
-  }, function(a, b) {
-    return compareNumber(cleanNumber(b), cleanNumber(a));
-  });
 }
