@@ -1,4 +1,4 @@
-lichess.checkout = function (publicKey) {
+lichess.checkout = function(publicKey) {
 
   var $checkout = $('div.plan_checkout');
   var lifetime = {

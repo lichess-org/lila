@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-
 import { Redraw, Close, bind, header } from './util'
+import debounce from 'common/debounce';
 
 type Key = string;
 
@@ -86,7 +86,7 @@ export function view(ctrl: SoundCtrl): VNode {
 }
 
 function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
-  const setVolume = window.lichess.debounce(ctrl.volume, 50);
+  const setVolume = debounce(ctrl.volume, 50);
   window.lichess.slider().done(() => {
     $(vnode.elm as HTMLElement).slider({
       orientation: 'vertical',

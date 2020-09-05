@@ -16,7 +16,7 @@ object bits {
     views.html.base.layout(
       title = title,
       moreCss = cssTag("clas"),
-      moreJs = jsAt("compiled/clas.js")
+      moreJs = jsModule("clas")
     )(
       if (isGranted(_.Teacher))
         main(cls := "page-menu")(

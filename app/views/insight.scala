@@ -28,27 +28,25 @@ object insight {
         jsModule("insight"),
         jsTag("insight-refresh.js"),
         jsTag("insight-tour.js"),
-        embedJsUnsafe(s"""
-$$(function() {
-lichess = lichess || {};
-lichess.insight = LichessInsight(document.getElementById('insight'), ${safeJsonValue(
-          Json.obj(
-            "ui"              -> ui,
-            "initialQuestion" -> question,
-            "i18n"            -> Json.obj(),
-            "myUserId"        -> ctx.userId,
-            "user" -> Json.obj(
-              "id"      -> u.id,
-              "name"    -> u.username,
-              "nbGames" -> cache.count,
-              "stale"   -> stale,
-              "shareId" -> prefId
-            ),
-            "pageUrl" -> routes.Insight.index(u.username).url,
-            "postUrl" -> routes.Insight.json(u.username).url
-          )
-        )});
-});""")
+        embedJsUnsafeLoadThen(
+          s"""lichess.insight=LichessInsight(document.getElementById('insight'), ${safeJsonValue(
+            Json.obj(
+              "ui"              -> ui,
+              "initialQuestion" -> question,
+              "i18n"            -> Json.obj(),
+              "myUserId"        -> ctx.userId,
+              "user" -> Json.obj(
+                "id"      -> u.id,
+                "name"    -> u.username,
+                "nbGames" -> cache.count,
+                "stale"   -> stale,
+                "shareId" -> prefId
+              ),
+              "pageUrl" -> routes.Insight.index(u.username).url,
+              "postUrl" -> routes.Insight.json(u.username).url
+            )
+          )})"""
+        )
       ),
       moreCss = cssTag("insight")
     )(

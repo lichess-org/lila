@@ -17,7 +17,7 @@ export default class MoveOn {
 
   private redirect = (href: string) => {
     this.ctrl.setRedirecting();
-    window.lichess.hasToReload = true;
+    window.lichess.unload.expected = true;
     window.location.href = href;
   };
 

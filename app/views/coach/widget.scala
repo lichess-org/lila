@@ -36,7 +36,7 @@ object widget {
           width := size,
           height := size,
           cls := "default picture",
-          src := staticUrl("images/placeholder.png"),
+          src := assetUrl("images/placeholder.png"),
           alt := "Default Lichess coach picture"
         )
       }
@@ -65,7 +65,7 @@ object widget {
                 profile.countryInfo.map { c =>
                   frag(
                     span(cls := "country")(
-                      img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
+                      img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name
                     )

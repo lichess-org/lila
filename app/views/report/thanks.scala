@@ -15,7 +15,7 @@ object thanks {
     val title = "Thanks for the report"
 
     @nowarn("msg=possible missing interpolator")
-    val moreJs = embedJsUnsafe("""
+    val moreJs = embedJsUnsafeLoadThen("""
 $('button.report-block').one('click', function() {
 var $button = $(this);
 $button.find('span').text('Blocking...');

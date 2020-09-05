@@ -11,7 +11,7 @@
     "moduleResolution": "node",
     "target": "ES2016",
     "module": "commonjs",
-    "lib": ["DOM", "ES2016"],
+    "lib": ["DOM", "ES2016", "DOM.iterable"],
     "types": ["lichess", "jquery", "defer-promise"]
   }
 }

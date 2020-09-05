@@ -1,6 +1,6 @@
 import throttle from './throttle';
 
-export function runner(hacks: () => void, throttleMs: number = 100): void {
+export const runner = (hacks: () => void, throttleMs: number = 100): void => {
 
   let timeout: number | undefined;
 
@@ -22,7 +22,7 @@ export function runner(hacks: () => void, throttleMs: number = 100): void {
 let lastMainBoardHeight: number | undefined;
 
 // Firefox 60- needs this to properly compute the grid layout.
-export function fixMainBoardHeight(container: HTMLElement): void {
+export const fixMainBoardHeight = (container: HTMLElement): void => {
   const mainBoard = container.querySelector('.main-board') as HTMLElement;
   if (mainBoard) {
     const width = mainBoard.offsetWidth;
@@ -30,21 +30,21 @@ export function fixMainBoardHeight(container: HTMLElement): void {
       lastMainBoardHeight = width;
       mainBoard.style.height = width + 'px';
       (mainBoard.querySelector('.cg-wrap') as HTMLElement).style.height = width + 'px';
-      window.lichess.dispatchEvent(document.body, 'chessground.resize');
+      document.body.dispatchEvent(new Event('chessground.resize'));
     }
   }
 }
 
 let boundChessgroundResize = false;
 
-export function bindChessgroundResizeOnce(f: () => void): void {
+export const bindChessgroundResizeOnce = (f: () => void): void => {
   if (!boundChessgroundResize) {
     boundChessgroundResize = true;
     document.body.addEventListener('chessground.resize', f);
   }
 }
 
-export function needsBoardHeightFix(): boolean {
+export const needsBoardHeightFix = (): boolean => {
   // Chrome, Chromium, Brave, Opera, Safari 12+ are OK
   if (window.chrome) return false;
 

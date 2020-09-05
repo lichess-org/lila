@@ -2,10 +2,11 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { NoteCtrl, NoteOpts } from './interfaces'
 import * as xhr from './xhr'
+import debounce from 'common/debounce';
 
 export function noteCtrl(opts: NoteOpts): NoteCtrl {
   let text: string | undefined = opts.text;
-  const doPost = window.lichess.debounce(() => {
+  const doPost = debounce(() => {
     xhr.setNote(opts.id, text || '');
   }, 1000);
   return {

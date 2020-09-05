@@ -1,16 +1,15 @@
 package views.html.team
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
+import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.common.String.html.{ richText, safeJsonValue }
 import lila.team.Team
-import lila.app.mashup.TeamInfo
-
-import controllers.routes
 
 object show {
 
@@ -40,7 +39,7 @@ object show {
           chat <- chatOption
         } yield frag(
           jsModule("chat"),
-          embedJsUnsafe(s"""lichess.team=${safeJsonValue(
+          embedJsUnsafeLoadThen(s"""const cfg=${safeJsonValue(
             Json.obj(
               "id"            -> t.id,
               "socketVersion" -> v.value,
@@ -53,7 +52,15 @@ object show {
                 localMod = ctx.userId exists t.leaders.contains
               )
             )
-          )}""")
+          )};
+lichess.socket = new lichess.StrongSocket('/team/${t.id}',${v.value});
+cfg.chat && lichess.makeChat(cfg.chat);
+$$('#team-subscribe').on('change', function() {
+  const v = this.checked;
+  $$(this).parents('form').each(function() {
+    $$.post(this.action, { v });
+  });
+})""")
         )
     ) {
       val enabledOrLeader = t.enabled || info.ledByMe || isGranted(_.Admin)

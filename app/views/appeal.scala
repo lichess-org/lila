@@ -137,7 +137,7 @@ object appeal {
         cssTag("form3"),
         cssTag("appeal")
       ),
-      moreJs = embedJsUnsafe(
+      moreJs = embedJsUnsafeLoadThen(
         """$('select.appeal-presets').on('change', e => $('#form3-text').val(e.target.value))"""
       )
     )(body)

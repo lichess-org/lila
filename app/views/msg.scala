@@ -14,13 +14,13 @@ object msg {
       moreCss = frag(cssTag("msg")),
       moreJs = frag(
         jsModule("msg"),
-        embedJsUnsafe(
-          s"""$$(() =>LichessMsg(document.querySelector('.msg-app'), ${safeJsonValue(
+        embedJsUnsafeLoadThen(
+          s"""LichessMsg(${safeJsonValue(
             Json.obj(
               "data" -> json,
               "i18n" -> jsI18n
             )
-          )}))"""
+          )})"""
         )
       ),
       title = "Lichess Inbox"

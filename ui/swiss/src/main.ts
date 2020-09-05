@@ -13,9 +13,9 @@ import view from './view/main';
 
 export function start(opts: SwissOpts) {
 
-  const li = window.lichess;
-  const element = document.querySelector('main.swiss') as HTMLElement;
-  li.socket = li.StrongSocket(
+  const li = window.lichess,
+  element = document.querySelector('main.swiss') as HTMLElement;
+  li.socket = new li.StrongSocket(
     '/swiss/' + opts.data.id, opts.data.socketVersion || 0, {
       receive: (t: string, d: any) => ctrl.socket.receive(t, d)
     });

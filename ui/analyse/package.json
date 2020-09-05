@@ -23,7 +23,7 @@
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",
-    "chessground": "^7.9.1",
+    "chessground": "^7.9.2",
     "chessops": "^0.6.0",
     "common": "2.0.0",
     "game": "2.0.0",
@@ -33,6 +33,8 @@
   },
   "scripts": {
     "dev": "rollup --config",
-    "prod": "rollup --config --config-prod && rollup --config --config-prod --config-plugin nvui"
+    "prod": "rollup --config --config-prod",
+    "plugin-dev": "rollup --config --config-plugin",
+    "plugin-prod": "rollup --config --config-prod --config-plugin"
   }
 }

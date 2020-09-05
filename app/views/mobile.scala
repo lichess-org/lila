@@ -50,14 +50,14 @@ object mobile {
                 cls := "nexus5-playing",
                 width := "268",
                 height := "513",
-                src := staticUrl("images/mobile/nexus5-playing.png"),
+                src := assetUrl("images/mobile/nexus5-playing.png"),
                 alt := "Lichess mobile on nexus 5"
               ),
               img(
                 cls := "qrcode",
                 width := "200",
                 height := "200",
-                src := staticUrl("images/mobile/dynamic-qrcode.png"),
+                src := assetUrl("images/mobile/dynamic-qrcode.png"),
                 alt := "Download QR code"
               )
             )

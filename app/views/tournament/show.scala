@@ -26,7 +26,7 @@ object show {
       title = s"${tour.name()} #${tour.id}",
       moreJs = frag(
         jsModule("tournament"),
-        embedJsUnsafe(s"""lichess=lichess||{};lichess.tournament=${safeJsonValue(
+        embedJsUnsafeLoadThen(s"""LichessTournament(${safeJsonValue(
           Json.obj(
             "data"   -> data,
             "i18n"   -> bits.jsI18n,
@@ -42,7 +42,7 @@ object show {
               )
             }
           )
-        )}""")
+        )})""")
       ),
       moreCss = cssTag {
         if (tour.isTeamBattle) "tournament.show.team-battle"

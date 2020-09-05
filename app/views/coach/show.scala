@@ -33,13 +33,11 @@ object show {
       title = title,
       moreJs = frag(
         jsAt("vendor/bar-rating/dist/jquery.barrating.min.js"),
-        ctx.isAuth option embedJsUnsafe("""$(function() {
-$(".bar-rating").barrating();
+        ctx.isAuth option embedJsUnsafeLoadThen("""$(".bar-rating").barrating();
 $('.coach-review-form .toggle').click(function() {
 $(this).remove();
 $('.coach-review-form form').show();
-});
-});""")
+})""")
       ),
       moreCss = cssTag("coach"),
       openGraph = lila.app.ui

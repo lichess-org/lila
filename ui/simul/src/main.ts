@@ -14,7 +14,7 @@ export function start(opts: SimulOpts) {
 
   const element = document.querySelector('main.simul') as HTMLElement,
   li = window.lichess;
-  li.socket = li.StrongSocket(
+  li.socket = new li.StrongSocket(
     `/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
       receive: (t: string, d: any) => ctrl.socket.receive(t, d)
     });

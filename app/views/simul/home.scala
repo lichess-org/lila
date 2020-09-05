@@ -16,13 +16,12 @@ object home {
   )(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("simul.list"),
-      moreJs = embedJsUnsafe(s"""$$(function() {
-  lichess.StrongSocket.defaults.params.flag = 'simul';
-  lichess.pubsub.on('socket.in.reload', () => {
-    $$('.simul-list__content').load('${routes.Simul
+      moreJs = embedJsUnsafeLoadThen(s"""
+lichess.StrongSocket.defaults.params.flag = 'simul';
+lichess.pubsub.on('socket.in.reload', () => {
+  $$('.simul-list__content').load('${routes.Simul
         .homeReload()}', () => lichess.pubsub.emit('content_loaded'));
-  });
-});"""),
+})"""),
       title = trans.simultaneousExhibitions.txt(),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -35,7 +34,7 @@ object home {
       main(cls := "page-menu simul-list")(
         st.aside(cls := "page-menu__menu simul-list__help")(
           p(trans.aboutSimul()),
-          img(src := staticUrl("images/fischer-simul.jpg"), alt := "Simul IRL with Bobby Fischer")(
+          img(src := assetUrl("images/fischer-simul.jpg"), alt := "Simul IRL with Bobby Fischer")(
             em("[1964] ", trans.aboutSimulImage()),
             p(trans.aboutSimulRealLife()),
             p(trans.aboutSimulRules()),

@@ -59,7 +59,7 @@ object otherTrophies {
   animation: psyche 0.3s ease-in-out infinite alternate;
 }"""),
           a(awardCls(t), href := t.kind.url, ariaTitle(t.kind.name))(
-            img(src := staticUrl("images/trophy/zug-trophy.png"))
+            img(src := assetUrl("images/trophy/zug-trophy.png"))
           )
         )
       },
@@ -70,7 +70,7 @@ object otherTrophies {
           ariaTitle(t.kind.name),
           style := "width: 65px; margin: 0 3px!important;"
         )(
-          img(src := staticUrl(s"images/trophy/${t.kind._id}.png"), width := 65, height := 80)
+          img(src := assetUrl(s"images/trophy/${t.kind._id}.png"), width := 65, height := 80)
         )
       },
       info.trophies.filter(_.kind.klass.has("icon3d")).sorted.map { trophy =>

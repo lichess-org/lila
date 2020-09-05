@@ -9,11 +9,11 @@ import { MsgOpts } from './interfaces'
 import { upgradeData } from './network'
 import MsgCtrl from './ctrl';
 
-const patch = init([klass, attributes]);
+export default function LichessMsg(opts: MsgOpts) {
 
-export default function LichessMsg(element: HTMLElement, opts: MsgOpts) {
-
-  const appHeight = () => document.body.style.setProperty('--app-height', `${window.innerHeight}px`);
+  const element = document.querySelector('.msg-app') as HTMLElement,
+  patch = init([klass, attributes]),
+  appHeight = () => document.body.style.setProperty('--app-height', `${window.innerHeight}px`);
   window.addEventListener('resize', appHeight);
   appHeight();
 
@@ -35,5 +35,3 @@ export default function LichessMsg(element: HTMLElement, opts: MsgOpts) {
 
   redraw();
 }
-
-LichessMsg.default = LichessMsg; // TODO: remove bc after next deploy

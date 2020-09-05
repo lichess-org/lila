@@ -151,7 +151,7 @@ export default class MsgCtrl {
   setRead = () => {
     const msg = this.currentContact()?.lastMsg;
     if (msg && msg.user != this.data.me.id) {
-      window.lichess.notifyApp.setMsgRead(msg.user);
+      window.lichess.pubsub.emit('notify-app.set-read', msg.user);
       if (msg.read) return false;
       msg.read = true;
       network.setRead(msg.user);

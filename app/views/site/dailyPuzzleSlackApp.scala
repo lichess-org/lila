@@ -27,7 +27,7 @@ object dailyPuzzleSlackApp {
               alt := "Add to Slack",
               height := 40,
               width := 139,
-              src := staticUrl("images/add-to-slack.png")
+              src := assetUrl("images/add-to-slack.png")
             )
           ),
           h2("Summary"),

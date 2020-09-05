@@ -82,7 +82,7 @@ export default function(ctrl: Controller): VNode {
             $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
             changeColorHandle();
           }
-          window.lichess.dispatchEvent(document.body, 'chessground.resize');
+          document.body.dispatchEvent(new Event('chessground.resize'));
         }
         vnode.data!.gaugeOn = gaugeOn;
       }

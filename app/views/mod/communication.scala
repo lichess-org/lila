@@ -26,7 +26,7 @@ object communication {
         isGranted(_.UserSpy) option cssTag("mod.user")
       ),
       moreJs = frag(
-        isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
+        isGranted(_.UserSpy) option jsModule("mod.user")
       )
     ) {
       main(id := "communication", cls := "box box-pad")(

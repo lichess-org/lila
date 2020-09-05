@@ -25,8 +25,8 @@ object page {
       title = s"${u.username} : ${trans.activity.activity.txt()}",
       openGraph = lila.app.ui
         .OpenGraph(
-          image = staticUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = staticUrl("logo/lichess-tile.png").some,
+          image = assetUrl("logo/lichess-tile-wide.png").some,
+          twitterImage = assetUrl("logo/lichess-tile.png").some,
           title = u.titleUsernameWithBestRating,
           url = s"$netBaseUrl${routes.User.show(u.username).url}",
           description = describeUser(u)
@@ -80,15 +80,15 @@ object page {
   private def moreJs(info: UserInfo, withSearch: Boolean = false)(implicit ctx: Context) =
     frag(
       infiniteScrollTag,
-      jsAt("compiled/user.js"),
+      jsModule("user"),
       info.ratingChart.map { ratingChart =>
         frag(
           jsTag("chart/ratingHistory.js"),
-          embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);")
+          embedJsUnsafeLoadThen(s"lichess.ratingHistoryChart($ratingChart);")
         )
       },
       withSearch option frag(jsTag("search.js")),
-      isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
+      isGranted(_.UserSpy) option jsModule("mod.user")
     )
 
   def disabled(u: User)(implicit ctx: Context) =

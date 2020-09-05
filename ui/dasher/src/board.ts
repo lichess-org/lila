@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-
 import { Redraw, Close, bind, header } from './util'
+import debounce from 'common/debounce';
 
 export interface BoardCtrl {
   data: BoardData
@@ -22,7 +22,7 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
 
   const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom')) + 100;
 
-  const saveZoom = window.lichess.debounce(() => {
+  const saveZoom = debounce(() => {
     $.ajax({
       method: 'post',
       url: '/pref/zoom?v=' + readZoom()
@@ -40,7 +40,7 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
     readZoom,
     setZoom(v: number) {
       document.body.setAttribute('style', '--zoom:' + (v - 100));
-      window.lichess.dispatchEvent(window, 'resize');
+      window.dispatchEvent(new Event('resize'));
       redraw();
       saveZoom();
     },

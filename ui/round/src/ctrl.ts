@@ -1,3 +1,4 @@
+import * as ab from 'ab';
 import * as round from './round';
 import * as game from 'game';
 import * as status from 'game/status';
@@ -128,12 +129,12 @@ export default class RoundController {
       if (this.isPlaying()) {
         const zen = !$('body').hasClass('zen');
         $('body').toggleClass('zen', zen);
-        li.dispatchEvent(window, 'resize');
+        window.dispatchEvent(new Event('resize'));
         xhr.setZen(zen);
       }
     });
 
-    if (li.ab && this.isPlaying()) li.ab.init(this);
+    if (this.isPlaying()) ab.init(this);
   }
 
   private showExpiration = () => {
@@ -143,7 +144,7 @@ export default class RoundController {
   }
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-    if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedSan)) li.ab.move(this, meta);
+    if (!this.keyboardMove || !this.keyboardMove.usedSan) ab.move(this, meta);
     if (!promotion.start(this, orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
@@ -503,7 +504,7 @@ export default class RoundController {
   challengeRematch = (): void => {
     this.challengeRematched = true;
     xhr.challengeRematch(this.data.game.id).then(() => {
-      li.challengeApp.open();
+      li.pubsub.emit('challenge-app.open');
       if (li.once('rematch-challenge')) setTimeout(() => {
         li.hopscotch(function() {
           window.hopscotch.configure({
@@ -700,7 +701,7 @@ export default class RoundController {
 
         window.addEventListener('beforeunload', e => {
           const d = this.data;
-          if (li.hasToReload ||
+          if (li.unload.expected ||
             this.nvui ||
             !game.playable(d) ||
             !d.clock ||

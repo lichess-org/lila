@@ -16,7 +16,7 @@ object recaptcha {
         """<script src="https://www.google.com/recaptcha/api.js" async defer></script>"""
       ),
       embedJsUnsafe(
-        s"""$callbackFunction = function(t) { document.getElementById('${re.formId}').submit(); }"""
+        s"""$callbackFunction=t=>document.getElementById('${re.formId}').submit()"""
       )
     )
 

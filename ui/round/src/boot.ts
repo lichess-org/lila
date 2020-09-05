@@ -10,7 +10,7 @@ export default function(opts: RoundOpts): void {
     data: RoundData = opts.data;
   let round: RoundApi;
   if (data.tournament) $('body').data('tournament-id', data.tournament.id);
-  li.socket = li.StrongSocket(
+  li.socket = new li.StrongSocket(
     data.url.socket,
     data.player.version, {
     params: { userTv: data.userTv && data.userTv.id },
@@ -82,7 +82,7 @@ export default function(opts: RoundOpts): void {
     .change(round.moveOn.toggle)
     .prop('checked', round.moveOn.get())
     .on('click', 'a', () => {
-      li.hasToReload = true;
+      li.unload.expected = true;
       return true;
     });
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0)

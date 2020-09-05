@@ -31,7 +31,7 @@ $(function() {
       options.push(option.join(""));
     });
     $(row).find('select').html(options.join(""));
-    $(row).toggleNone(options.length > 1);
+    row.classList.toggle('none', options.length < 2);
   }
 
   function reloadUserChoices() {
@@ -44,8 +44,8 @@ $(function() {
 
   var toggleAiLevel = function() {
     $form.find(".opponent select").each(function() {
-      $form.find(".aiLevel").toggleNone($(this).val() == 1);
-      $form.find(".opponentName").toggleNone($(this).val() != 1);
+      $form[0].querySelector('.aiLevel')?.classList.toggle('none', $(this).val() != 1);
+      $form[0].querySelector('.opponentName')?.classList.toggle('none', $(this).val() == 1);
     });
   };
   toggleAiLevel();

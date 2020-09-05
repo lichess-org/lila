@@ -22,8 +22,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
 
-  def cdnUrl(path: String)    = s"$assetBaseUrl$path"
-  def staticUrl(path: String) = s"$assetBaseUrl/assets/$path"
+  def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
@@ -39,83 +38,53 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   private def cssAt(path: String): Frag =
     link(href := assetUrl(path), tpe := "text/css", rel := "stylesheet")
 
-  def jsTag(name: String, defer: Boolean = false): Frag =
-    jsAt("javascripts/" + name, defer = defer)
+  // load scripts in <head> and always use defer
+  def jsAt(path: String): Frag = script(deferAttr, src := assetUrl(path))
 
-  /* about async & defer, see https://flaviocopes.com/javascript-async-defer/
-   * we want defer only, to ensure scripts are executed in order of declaration,
-   * so that round.js doesn't run before site.js */
-  def jsAt(path: String, defer: Boolean = false): Frag =
-    script(
-      defer option deferAttr,
-      src := assetUrl(path)
-    )
+  def jsTag(name: String): Frag = jsAt(s"javascripts/$name")
 
-  def jsModule(name: String, defer: Boolean = false): Frag =
-    jsAt(s"compiled/lichess.$name${minifiedAssets ?? ".min"}.js", defer = defer)
+  def jsModule(name: String): Frag =
+    jsAt(s"compiled/$name${minifiedAssets ?? ".min"}.js")
 
-  lazy val jQueryTag = raw {
-    s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
-  }
+  def roundTag                            = jsModule("round")
+  def roundNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("round.nvui")
 
-  def roundTag = jsAt(s"compiled/lichess.round${minifiedAssets ?? ".min"}.js", defer = true)
-  def roundNvuiTag(implicit ctx: Context) =
-    ctx.blind option
-      jsAt(s"compiled/lichess.round.nvui.min.js", defer = true)
+  def analyseTag                            = jsModule("analyse")
+  def analyseNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("analyse.nvui")
 
-  def analyseTag = jsAt(s"compiled/lichess.analyse${minifiedAssets ?? ".min"}.js")
-  def analyseNvuiTag(implicit ctx: Context) =
-    ctx.blind option
-      jsAt(s"compiled/lichess.analyse.nvui.min.js")
+  def captchaTag = jsModule("captcha")
 
-  def captchaTag = jsAt(s"compiled/captcha.js")
-
-  lazy val highchartsLatestTag = raw {
-    s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""
-  }
-
-  lazy val highchartsMoreTag = raw {
-    s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts-more.js")}"></script>"""
-  }
-
-  lazy val fingerprintTag = raw {
-    s"""<script async src="${staticUrl("javascripts/fipr.js")}"></script>"""
-  }
-
-  lazy val flatpickrTag = raw {
-    s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
-  }
-
-  lazy val nonAsyncFlatpickrTag = raw {
-    s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
-  }
-
-  lazy val tagifyTag = raw {
-    s"""<script src="${staticUrl("vendor/tagify/tagify.min.js")}"></script>"""
-  }
+  def jQueryTag           = jsAt("javascripts/vendor/jquery.min.js")
+  def chessgroundTag      = jsAt("javascripts/vendor/chessground.min.js")
+  def fingerprintTag      = jsAt("javascripts/fipr.js")
+  def flatpickrTag        = jsAt("javascripts/vendor/flatpickr.min.js")
+  def infiniteScrollTag   = jsAt("javascripts/vendor/jquery.infinitescroll.min.js")
+  def tagifyTag           = jsAt("vendor/tagify/tagify.min.js")
+  def highchartsLatestTag = jsAt("vendor/highcharts-4.2.5/highcharts.js")
+  def highchartsMoreTag   = jsAt("vendor/highcharts-4.2.5/highcharts-more.js")
 
   def delayFlatpickrStartUTC(implicit ctx: Context) =
-    embedJsUnsafe {
-      """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 1000) });"""
+    embedJsUnsafeLoadThen {
+      """setTimeout(() => $(".flatpickr").flatpickr(), 1000)"""
     }
 
   def delayFlatpickrStartLocal(implicit ctx: Context) =
-    embedJsUnsafe {
-      """$(function() { setTimeout(function() { $(".flatpickr").flatpickr({
+    embedJsUnsafeLoadThen {
+      """setTimeout(() => $(".flatpickr").flatpickr({
   maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
   dateFormat: 'Z',
   altInput: true,
   altFormat: 'Y-m-d h:i K'
-}); }, 1000) });"""
+}), 1000)"""
     }
 
-  lazy val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
-
   def prismicJs(implicit ctx: Context): Frag =
-    isGranted(_.Prismic) ?? frag(
-      embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}"""),
-      raw("""<script src="https://static.cdn.prismic.io/prismic.min.js"></script>""")
-    )
+    raw {
+      isGranted(_.Prismic) ?? {
+        embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
+          """<script src="//static.cdn.prismic.io/prismic.min.js"></script>"""
+      }
+    }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
     val assets = if (req.secure) s"https://$assetDomain" else assetDomain.value
@@ -153,4 +122,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     raw {
       s"""<script nonce="$nonce">$js</script>"""
     }
+
+  def embedJsUnsafeLoadThen(js: String)(implicit ctx: Context): Frag =
+    embedJsUnsafe(s"""lichess.load.then(()=>{$js})""")
+
+  def embedJsUnsafeLoadThen(js: String, nonce: Nonce): Frag =
+    embedJsUnsafe(s"""lichess.load.then(()=>{$js})""", nonce)
 }

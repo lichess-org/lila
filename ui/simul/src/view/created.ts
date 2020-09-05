@@ -3,6 +3,7 @@ import SimulCtrl from '../ctrl';
 import { Applicant } from '../interfaces';
 import xhr from '../xhr';
 import * as util from './util';
+import modal from 'common/modal';
 import { VNode } from 'snabbdom/vnode';
 
 export default function(showText: (ctrl: SimulCtrl) => VNode) {
@@ -40,9 +41,9 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
                       if (ctrl.data.variants.length === 1)
                         xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
                       else {
-                        $.modal($('.simul .continue-with'));
+                        modal($('.simul .continue-with'));
                         $('#modal-wrap .continue-with a').click(function(this: HTMLElement) {
-                          $.modal.close();
+                          modal.close();
                           xhr.join(ctrl.data.id, $(this).data('variant'));
                         });
                       }

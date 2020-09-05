@@ -29,7 +29,7 @@ object mini {
                 cls := "upt__info__top__country",
                 title := (!hasRoomForNameText).option(c.name)
               )(
-                img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
+                img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
                 hasRoomForNameText option c.shortName
               )
             }

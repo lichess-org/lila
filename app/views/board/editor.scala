@@ -19,8 +19,8 @@ object editor {
       title = trans.boardEditor.txt(),
       moreJs = frag(
         jsModule("editor"),
-        embedJsUnsafe(
-          s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
+        embedJsUnsafeLoadThen(
+          s"""const data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
 LichessEditor(document.getElementById('board-editor'), data);"""
         )
       ),

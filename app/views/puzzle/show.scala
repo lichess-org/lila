@@ -18,15 +18,13 @@ object show {
       moreJs = frag(
         jsTag("vendor/sparkline.min.js"),
         jsModule("puzzle"),
-        embedJsUnsafe(s"""
-lichess = lichess || {};
-lichess.puzzle = ${safeJsonValue(
+        embedJsUnsafeLoadThen(s"""LichessPuzzle(${safeJsonValue(
           Json.obj(
             "data" -> data,
             "pref" -> pref,
             "i18n" -> bits.jsI18n()
           )
-        )}""")
+        )})""")
       ),
       csp = defaultCsp.withWebAssembly.some,
       chessground = false,

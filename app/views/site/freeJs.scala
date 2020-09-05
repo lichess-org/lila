@@ -24,13 +24,13 @@ object freeJs {
     "palantir",
     "puzzle",
     "round",
-    "serviceWorker",
+    "service-worker",
     "simul",
     "site",
     "speech",
-    "tournamentCalendar",
+    "tournament.calendar",
     "tournament",
-    "tournamentSchedule",
+    "tournament.schedule",
     "swiss"
   )
 
@@ -52,7 +52,7 @@ object freeJs {
         ),
         tbody(
           uiModules map { module =>
-            val file = s"lichess.$module.min.js"
+            val file = s"$module.min.js"
             tr(
               td(a(href := assetUrl(s"compiled/$file"))(file)),
               td(agpl),

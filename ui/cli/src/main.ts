@@ -1,3 +1,5 @@
+import modal from 'common/modal';
+
 const li = window.lichess;
 
 export function app($wrap: JQuery, toggle: () => void) {
@@ -59,7 +61,7 @@ function commandHelp(aliases: string, args: string, desc: string) {
 
 function help() {
   li.loadCssPath('clinput.help')
-  $.modal(
+  modal(
     '<h3>Commands</h3>' +
     commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
     commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +

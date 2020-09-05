@@ -1,5 +1,11 @@
-export default function boot(cfg, element) {
-  cfg.pools = [ // mirrors modules/pool/src/main/PoolList.scala
+import { LobbyOpts } from './interfaces';
+import main from './main';
+import modal from 'common/modal';
+
+export default function LichessLobby(opts: LobbyOpts) {
+
+  opts.element = document.querySelector('.lobby__app') as HTMLElement;
+  opts.pools = [ // mirrors modules/pool/src/main/PoolList.scala
     { id: "1+0", lim: 1, inc: 0, perf: "Bullet" },
     { id: "2+1", lim: 2, inc: 1, perf: "Bullet" },
     { id: "3+0", lim: 3, inc: 0, perf: "Blitz" },
@@ -12,11 +18,10 @@ export default function boot(cfg, element) {
     { id: "30+0", lim: 30, inc: 0, perf: "Classical" },
     { id: "30+20", lim: 30, inc: 20, perf: "Classical" }
   ];
-  const li = window.lichess;
-  let lobby;
-  const nbRoundSpread = spreadNumber(
-    document.querySelector('#nb_games_in_play > strong') as HTMLElement,
-    8),
+  const li = window.lichess,
+    nbRoundSpread = spreadNumber(
+      document.querySelector('#nb_games_in_play > strong') as HTMLElement,
+      8),
     nbUserSpread = spreadNumber(
       document.querySelector('#nb_connected_players > strong') as HTMLElement,
       10),
@@ -24,12 +29,11 @@ export default function boot(cfg, element) {
       const match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
       return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
-  li.socket = li.StrongSocket(
+  let lobby: any;
+  li.socket = new li.StrongSocket(
     '/lobby/socket/v5',
     false, {
-    receive(t: string, d: any) {
-      lobby.socketReceive(t, d);
-    },
+    receive(t: string, d: any) { lobby.socketReceive(t, d) },
     events: {
       n(_: string, msg: any) {
         nbUserSpread(msg.d);
@@ -44,17 +48,16 @@ export default function boot(cfg, element) {
           }
         });
       },
-      featured(o) {
+      featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
         li.pubsub.emit('content_loaded');
       },
-      redirect(e) {
+      redirect(e: RedirectTo) {
         lobby.leavePool();
         lobby.setRedirecting();
         li.redirect(e);
       },
-      fen(e) {
-        li.StrongSocket.defaults.events.fen(e);
+      fen(e: any) {
         lobby.gameActivity(e.id);
       }
     }
@@ -67,23 +70,22 @@ export default function boot(cfg, element) {
     history.replaceState(null, '', '/');
   });
 
-  cfg.blindMode = $('body').hasClass('blind-mode');
-  cfg.trans = li.trans(cfg.i18n);
-  cfg.socketSend = li.socket.send;
-  cfg.element = element;
-  lobby = window.LichessLobby.start(cfg);
+  opts.blindMode = $('body').hasClass('blind-mode');
+  opts.trans = li.trans(opts.i18n);
+  opts.socketSend = li.socket.send;
+  lobby = main(opts);
 
   const $startButtons = $('.lobby__start'),
-    clickEvent = cfg.blindMode ? 'click' : 'mousedown';
+    clickEvent = opts.blindMode ? 'click' : 'mousedown';
 
-  $startButtons.find('a:not(.disabled)').on(clickEvent, function() {
+  $startButtons.find('a:not(.disabled)').on(clickEvent, function(this: HTMLElement) {
     $(this).addClass('active').siblings().removeClass('active');
     li.loadCssPath('lobby.setup');
     lobby.leavePool();
     $.ajax({
       url: $(this).attr('href'),
       success: function(html) {
-        lobby.setup.prepareForm($.modal(html, 'game-setup', () => {
+        lobby.setup.prepareForm(modal(html, 'game-setup', () => {
           $startButtons.find('.active').removeClass('active');
         }));
         li.pubsub.emit('content_loaded');
@@ -101,7 +103,7 @@ export default function boot(cfg, element) {
   if (['#ai', '#friend', '#hook'].includes(location.hash)) {
     $startButtons
       .find('.config_' + location.hash.replace('#', ''))
-      .each(function() {
+      .each(function(this: HTMLElement) {
         $(this).attr("href", $(this).attr("href") + location.search);
       }).trigger(clickEvent);
 
@@ -114,7 +116,7 @@ export default function boot(cfg, element) {
 
     history.replaceState(null, '', '/');
   }
-};
+}
 
 function spreadNumber(el: HTMLElement, nbSteps: number) {
   let previous: number, displayed: string;
