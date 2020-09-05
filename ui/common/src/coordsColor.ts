@@ -28,11 +28,11 @@ const changeColorHandle = (): void => {
 
   for (const theme of document.body.className.split(' ')) {
     if (theme in dict) {
-      const set = document.documentElement.style.setProperty,
+      const style = document.documentElement.style,
         colors = dict[theme].split(' ');
-      set('--cg-coord-color-white', colors[0]);
-      set('--cg-coord-color-black', colors[1]);
-      set('--cg-coord-shadow', 'none');
+      style.setProperty('--cg-coord-color-white', colors[0]);
+      style.setProperty('--cg-coord-color-black', colors[1]);
+      style.setProperty('--cg-coord-shadow', 'none');
     }
   }
 }
