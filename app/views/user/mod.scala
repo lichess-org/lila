@@ -27,7 +27,7 @@ object mod {
     mzSection("actions")(
       isGranted(_.UserEvaluate) option div(cls := "btn-rack")(
         postForm(action := routes.Mod.spontaneousInquiry(u.username), title := "Start an inquiry")(
-          submitButton(cls := "btn-rack__btn inquiry")(i)
+          submitButton(cls := "btn-rack__btn inquiry", title := "Hotkey: i")(i)
         ),
         postForm(
           action := routes.Mod.refreshUserAssess(u.username),

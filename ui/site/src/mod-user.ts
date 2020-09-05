@@ -146,4 +146,5 @@ window.lichess.load.then(() => {
   if (location.search.startsWith('?mod')) $toggle.click();
 
   window.Mousetrap.bind('m', () => $toggle.click());
+  window.Mousetrap.bind('i', () => $zone.find('button.inquiry').click());
 });
