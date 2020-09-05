@@ -46,7 +46,8 @@ object Environment
 
   def isChatPanicEnabled = env.chat.panic.enabled
 
-  def blockingReportNbOpen: Int = env.report.api.nbOpen.awaitOrElse(20.millis, "nbReports", 0)
+  def blockingReportNbOpen(me: lila.user.User): Int =
+    env.report.api.nbOpen(me).awaitOrElse(20.millis, "nbReports", 0)
 
   val spinner: Frag = raw(
     """<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>"""

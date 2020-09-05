@@ -20,7 +20,8 @@ final class ReportApi(
     slackApi: lila.slack.SlackApi,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
-    thresholds: Thresholds
+    thresholds: Thresholds,
+    modFilters: ModReportFilter
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
@@ -75,7 +76,7 @@ final class ReportApi(
                   Bus.publish(lila.hub.actorApi.report.CheatReportCreated(report.user), "cheatReport")
               }
             } >>-
-            nbOpenCache.invalidateUnit()
+            nbOpenCache.invalidateAll()
       }
     }
 
@@ -261,7 +262,7 @@ final class ReportApi(
         }
         accuracy.invalidate(reportSelector) >>
           doProcessReport(reportSelector, mod.id).void >>- {
-          nbOpenCache.invalidateUnit()
+          nbOpenCache.invalidateAll()
           lila.mon.mod.report.close.increment()
         }
       }
@@ -314,19 +315,24 @@ final class ReportApi(
   private def selectOpenInRoom(room: Option[Room], score: Option[Int] = none) =
     $doc("open" -> true) ++ roomSelect(room) ++ scoreThresholdSelect(score)
 
-  private def selectOpenAvailableInRoom(room: Option[Room]) =
-    selectOpenInRoom(room) ++ $doc("inquiry" $exists false)
+  private def selectOpenAvailableInRoom(room: Option[Room], score: Option[Int] = none) =
+    selectOpenInRoom(room, score) ++ $doc("inquiry" $exists false)
 
-  private val nbOpenCache = cacheApi.unit[Int] {
+  private def getScore(user: Option[User]): Option[Int] =
+    user.flatMap(modFilters.getThreshold)
+
+  def invalidateNbCache(user: User) = nbOpenCache.invalidate(user)
+
+  private val nbOpenCache = cacheApi[User, Int](64, "report.counts") {
     _.refreshAfterWrite(5 minutes)
-      .buildAsyncFuture { _ =>
+      .buildAsyncFuture { user =>
         coll
-          .countSel(selectOpenAvailableInRoom(none))
-          .addEffect(lila.mon.mod.report.unprocessed.update(_))
+          .countSel(selectOpenAvailableInRoom(none, getScore(some(user))))
+          .addEffect(lila.mon.mod.report.unprocessed.update(_)) // This is wrong now.
       }
   }
 
-  def nbOpen = nbOpenCache.getUnit
+  def nbOpen(user: lila.user.User) = nbOpenCache.get(user)
 
   def recent(
       suspect: Suspect,
@@ -402,8 +408,8 @@ final class ReportApi(
       withNotes <- addSuspectsAndNotes(opens ++ closed)
     } yield withNotes
 
-  private def findNext(room: Room): Fu[Option[Report]] =
-    findBest(1, selectOpenAvailableInRoom(room.some)).map(_.headOption)
+  private def findNext(room: Room, user: User): Fu[Option[Report]] =
+    findBest(1, selectOpenAvailableInRoom(room.some, getScore(some(user)))).map(_.headOption)
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
     userRepo byIdsSecondary (reports.map(_.user).distinct) map { users =>
@@ -461,11 +467,11 @@ final class ReportApi(
         .void
   }
 
-  def countOpenByRooms: Fu[Room.Counts] =
+  def countOpenByRooms(user: User): Fu[Room.Counts] =
     coll
       .aggregateList(maxDocs = 100) { framework =>
         import framework._
-        Match(selectOpenAvailableInRoom(none)) -> List(
+        Match(selectOpenAvailableInRoom(none, getScore(some(user)))) -> List(
           GroupField("room")("nb" -> SumAll)
         )
       }
@@ -543,7 +549,7 @@ final class ReportApi(
 
     def toggleNext(mod: Mod, room: Room): Fu[Option[Report]] =
       workQueue {
-        findNext(room) flatMap {
+        findNext(room, mod.user) flatMap {
           _ ?? { report =>
             doToggle(mod, report.id).dmap(_._2)
           }

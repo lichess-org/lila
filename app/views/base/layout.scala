@@ -283,14 +283,16 @@ object layout {
     )
 
     private def reports(implicit ctx: Context) =
-      isGranted(_.SeeReport) option
-        a(
-          cls := "link data-count link-center",
-          title := "Moderation",
-          href := routes.Report.list(),
-          dataCount := blockingReportNbOpen,
-          dataIcon := ""
-        )
+      ctx.me.map(me =>
+        isGranted(_.SeeReport) option
+          a(
+            cls := "link data-count link-center",
+            title := "Moderation",
+            href := routes.Report.list(),
+            dataCount := blockingReportNbOpen(me),
+            dataIcon := ""
+          )
+      )
 
     private def teamRequests(implicit ctx: Context) =
       ctx.teamNbRequests > 0 option
