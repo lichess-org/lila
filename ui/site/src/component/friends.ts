@@ -1,6 +1,6 @@
 import trans from './trans';
 import pubsub from './pubsub';
-import { notEmpty } from './functions';
+import { notNull } from 'common/common';
 
 type TitleName = string;
 
@@ -38,8 +38,8 @@ export default class OnlineFriends {
   receive = (friends: TitleName[], msg: { playing: string[], patrons: string[] }) => {
     this.users.clear();
     friends.forEach(this.insert);
-    msg.playing.map(p => this.users.get(p)).filter(notEmpty).forEach(u => u.playing = true);
-    msg.patrons.map(p => this.users.get(p)).filter(notEmpty).forEach(u => u.patron = true);
+    msg.playing.map(p => this.users.get(p)).filter(notNull).forEach(u => u.playing = true);
+    msg.patrons.map(p => this.users.get(p)).filter(notNull).forEach(u => u.patron = true);
     this.repaint();
   }
   repaint = () => {

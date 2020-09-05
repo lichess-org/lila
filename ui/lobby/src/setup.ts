@@ -1,5 +1,6 @@
 import { FormStore, toFormLines, makeStore } from './form';
 import modal from 'common/modal';
+import debounce from 'common/debounce';
 import LobbyController from './ctrl';
 
 const li = window.lichess;
@@ -306,7 +307,7 @@ export default class Setup {
       showRating();
     }).trigger('change');
 
-    var validateFen = li.debounce(function() {
+    var validateFen = debounce(() => {
       $fenInput.removeClass("success failure");
       var fen = $fenInput.val();
       if (fen) {

@@ -1,5 +1,5 @@
 import { loadCssPath, loadScript } from "./assets";
-import { debounce } from "./functions";
+import debounce from 'common/debounce';
 import spinnerHtml from "./spinner";
 
 export default function($input: JQuery, opts?: any) {

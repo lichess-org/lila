@@ -1,4 +1,5 @@
 import * as cg from 'chessground/types';
+import debounce from './debounce';
 
 export type MouchEvent = MouseEvent & TouchEvent;
 
@@ -21,7 +22,7 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
     initialZoom = parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
     let zoom = initialZoom;
 
-    const saveZoom = window.lichess.debounce(() => {
+    const saveZoom = debounce(() => {
       $.ajax({ method: 'post', url: '/pref/zoom?v=' + (100 + zoom) });
     }, 700);
 

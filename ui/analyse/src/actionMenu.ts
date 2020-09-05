@@ -1,4 +1,4 @@
-import { empty } from 'common';
+import { isEmpty } from 'common';
 import modal from 'common/modal';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
@@ -59,7 +59,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
   const speeds = [
     ...baseSpeeds,
-    ...(d.game.speed !== 'correspondence' && !empty(d.game.moveCentis) ? [realtimeSpeed] : []),
+    ...(d.game.speed !== 'correspondence' && !isEmpty(d.game.moveCentis) ? [realtimeSpeed] : []),
     ...(d.analysis ? [cplSpeed] : [])
   ];
   return h('div.autoplay', speeds.map(speed => {

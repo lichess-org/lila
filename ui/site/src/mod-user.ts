@@ -1,5 +1,6 @@
 import tablesort from 'tablesort';
-import { debounce, formAjax } from './component/functions';
+import { formAjax } from './component/functions';
+import debounce from 'common/debounce';
 import spinnerHtml from './component/spinner';
 import extendTablesortNumber from './component/tablesort-number';
 
@@ -10,8 +11,8 @@ window.lichess.load.then(() => {
   let nbOthers = 100;
 
   function streamLoad() {
-    const source = new EventSource($toggle.attr('href') + '?nbOthers=' + nbOthers);
-    const callback = debounce(() => userMod($zone), 300);
+    const source = new EventSource($toggle.attr('href') + '?nbOthers=' + nbOthers),
+    callback = debounce(() => userMod($zone), 300);
     source.addEventListener('message', e => {
       if (!e.data) return;
       const html = $('<output>').append($.parseHTML(e.data));

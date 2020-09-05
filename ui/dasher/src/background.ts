@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-
 import { Redraw, Close, bind, header } from './util'
+import debounce from 'common/debounce';
 
 export interface BackgroundCtrl {
   list: Background[]
@@ -82,7 +82,7 @@ function imageInput(ctrl: BackgroundCtrl) {
       },
       hook: {
         insert: vnode => {
-          $(vnode.elm as HTMLElement).on('change keyup paste', window.lichess.debounce(function(this: HTMLElement) {
+          $(vnode.elm as HTMLElement).on('change keyup paste', debounce(function(this: HTMLElement) {
             ctrl.setImage($(this).val());
           }, 200));
         }

@@ -2,7 +2,11 @@ export function defined<A>(v: A | undefined): v is A {
   return typeof v !== 'undefined';
 }
 
-export function empty(a: any): boolean {
+export function notNull<T>(value: T | null | undefined): value is T {
+  return value !== null && value !== undefined;
+}
+
+export function isEmpty(a: any): boolean {
   return !a || a.length === 0;
 }
 

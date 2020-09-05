@@ -10,7 +10,7 @@ import { enrichText, innerHTML } from '../util';
 import { path as treePath } from 'tree';
 import column from './columnView';
 import inline from './inlineView';
-import { empty, defined } from 'common';
+import { isEmpty, defined } from 'common';
 import throttle from 'common/throttle';
 import isCol1 from 'common/isCol1';
 import { storedProp, StoredProp } from 'common/storage';
@@ -90,7 +90,7 @@ export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
 }
 
 export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node): MaybeVNodes {
-  if (!ctx.ctrl.showComments || empty(node.comments)) return [];
+  if (!ctx.ctrl.showComments || isEmpty(node.comments)) return [];
   return node.comments!.map(comment => {
     if (comment.by === 'lichess' && !ctx.showComputer) return;
     const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',

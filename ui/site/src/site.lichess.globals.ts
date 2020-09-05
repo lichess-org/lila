@@ -1,5 +1,5 @@
 import StrongSocket from "./component/socket";
-import { requestIdleCallback, debounce, formAjax, numberFormat, escapeHtml } from "./component/functions";
+import { requestIdleCallback, formAjax, numberFormat, escapeHtml } from "./component/functions";
 import makeChat from './component/chat';
 import once from './component/once';
 import hasTouchEvents from './component/touchEvents';
@@ -31,7 +31,6 @@ export default function() {
   l.storage = storage;
   l.tempStorage = tempStorage;
   l.once = once;
-  l.debounce = debounce;
   l.powertip = powertip;
   l.widget = widget;
   l.spinnerHtml = spinnerHtml;

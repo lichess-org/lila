@@ -7,7 +7,6 @@ interface Lichess {
   storage: LichessStorageHelper;
   tempStorage: LichessStorageHelper;
   once(key: string, mod?: 'always'): boolean;
-  debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
   powertip: any;
   widget: any;
   spinnerHtml: string;
