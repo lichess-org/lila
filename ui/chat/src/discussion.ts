@@ -198,7 +198,7 @@ function report(ctrl: Ctrl, line: HTMLElement) {
   );
 }
 
-function renderLine(ctrl: Ctrl, line: Line) {
+function renderLine(ctrl: Ctrl, line: Line): VNode {
 
   const textNode = renderText(line.t, ctrl.opts.parseMoves);
 
@@ -214,6 +214,7 @@ function renderLine(ctrl: Ctrl, line: Line) {
   return h('li', ctrl.moderation() ? [
     line.u ? modLineAction() : null,
     userNode,
+    ' ',
     textNode
   ] : [
     ctrl.data.userId && line.u && ctrl.data.userId != line.u ? h('i.flag', {
@@ -223,6 +224,7 @@ function renderLine(ctrl: Ctrl, line: Line) {
       }
     }) : null,
     userNode,
+    ' ',
     textNode
   ]);
 }
