@@ -42,7 +42,7 @@ window.lichess.load.then(() => {
   const domain = window.location.host,
     studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b'),
     gameRegex = new RegExp(domain + '/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?\\b'),
-    notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer'];
+    notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer', 'timeline'];
 
   function parseLink(a: HTMLAnchorElement): Parsed | undefined {
     const yt = toYouTubeEmbedUrl(a.href);
