@@ -1,5 +1,6 @@
 import { LobbyOpts } from './interfaces';
 import main from './main';
+import modal from 'common/modal';
 
 export default function LichessLobby(opts: LobbyOpts) {
 
@@ -84,7 +85,7 @@ export default function LichessLobby(opts: LobbyOpts) {
     $.ajax({
       url: $(this).attr('href'),
       success: function(html) {
-        lobby.setup.prepareForm(window.lichess.modal(html, 'game-setup', () => {
+        lobby.setup.prepareForm(modal(html, 'game-setup', () => {
           $startButtons.find('.active').removeClass('active');
         }));
         li.pubsub.emit('content_loaded');

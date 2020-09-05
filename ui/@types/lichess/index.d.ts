@@ -81,10 +81,6 @@ interface Lichess {
   playMusic(): any;
   quietMode?: boolean;
   keyboardMove?: any;
-  modal: {
-    (html: JQuery | string, cls?: string, onClose?: () => void): void;
-    close(): void;
-  }
 }
 
 type RedirectTo = string | { url: string, cookie: Cookie };
@@ -341,7 +337,6 @@ declare namespace Tree {
 }
 
 interface JQueryStatic {
-  modal: LichessModal;
   powerTip: any;
 }
 

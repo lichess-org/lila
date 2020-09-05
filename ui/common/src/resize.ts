@@ -15,11 +15,10 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
 
     start.preventDefault();
 
-    const mousemoveEvent = start.type === 'touchstart' ? 'touchmove' : 'mousemove';
-    const mouseupEvent = start.type === 'touchstart' ? 'touchend' : 'mouseup';
-
-    const startPos = eventPosition(start)!;
-    const initialZoom = parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
+    const mousemoveEvent = start.type === 'touchstart' ? 'touchmove' : 'mousemove',
+    mouseupEvent = start.type === 'touchstart' ? 'touchend' : 'mouseup',
+    startPos = eventPosition(start)!,
+    initialZoom = parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
     let zoom = initialZoom;
 
     const saveZoom = window.lichess.debounce(() => {
@@ -28,8 +27,8 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
 
     const resize = (move: MouchEvent) => {
 
-      const pos = eventPosition(move)!;
-      const delta = pos[0] - startPos[0] + pos[1] - startPos[1];
+      const pos = eventPosition(move)!,
+      delta = pos[0] - startPos[0] + pos[1] - startPos[1];
 
       zoom = Math.round(Math.min(100, Math.max(0, initialZoom + delta / 10)));
 

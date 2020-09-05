@@ -20,7 +20,6 @@ import userAutocomplete from "./component/user-autocomplete";
 import miniBoard from "./component/mini-board";
 import miniGame from "./component/mini-game";
 import timeago from "./component/timeago";
-import modal from "./component/modal";
 import watchers from "./component/watchers";
 
 export default function() {
@@ -62,5 +61,4 @@ export default function() {
   l.miniBoard = miniBoard;
   l.miniGame = miniGame;
   l.timeago = timeago;
-  l.modal = modal;
 }

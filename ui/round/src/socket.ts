@@ -1,5 +1,6 @@
 import * as game from 'game';
 import throttle from 'common/throttle';
+import modal from 'common/modal';
 import notify from 'common/notification';
 import { isPlayerTurn } from 'game';
 import * as xhr from './xhr';
@@ -145,9 +146,9 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     simulEnd(simul: game.Simul) {
       li.loadCssPath('modal');
-      window.lichess.modal($(
+      modal($(
         '<p>Simul complete!</p><br /><br />' +
-        '<a class="button" href="/simul/' + simul.id + '">Back to ' + simul.name + ' simul</a>'
+        `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a>`
       ));
     }
   };

@@ -1,4 +1,5 @@
 import { FormStore, toFormLines, makeStore } from './form';
+import modal from 'common/modal';
 import LobbyController from './ctrl';
 
 const li = window.lichess;
@@ -26,7 +27,7 @@ export default class Setup {
   }
 
   private sliderTimes = [
-    0, 1/4, 1/2, 3/4, 1, 3/2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+    0, 1 / 4, 1 / 2, 3 / 4, 1, 3 / 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
     17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180
   ];
 
@@ -83,7 +84,7 @@ export default class Setup {
     const hash: any = {};
     for (var i in data) hash[data[i].name] = data[i].value;
     const valid = color == 'random' && hash.variant == 1 && hash.mode == 1 && hash.timeMode == 1,
-    id = parseFloat(hash.time) + '+' + parseInt(hash.increment);
+      id = parseFloat(hash.time) + '+' + parseInt(hash.increment);
     return (valid && this.root.pools.find(p => p.id === id)) ? {
       id: id,
       range: hash.ratingRange
@@ -92,48 +93,48 @@ export default class Setup {
 
   prepareForm = ($modal: JQuery) => {
     const self = this,
-    $form = $modal.find('form'),
-    $timeModeSelect = $form.find('#sf_timeMode'),
-    $modeChoicesWrap = $form.find('.mode_choice'),
-    $modeChoices = $modeChoicesWrap.find('input'),
-    $casual = $modeChoices.eq(0),
-    $rated = $modeChoices.eq(1),
-    $variantSelect = $form.find('#sf_variant'),
-    $fenPosition = $form.find(".fen_position"),
-    $fenInput = $fenPosition.find('input'),
-    forceFormPosition = !!$fenInput.val(),
-    $timeInput = $form.find('.time_choice [name=time]'),
-    $incrementInput = $form.find('.increment_choice [name=increment]'),
-    $daysInput = $form.find('.days_choice [name=days]'),
-    typ = $form.data('type'),
-    $ratings = $modal.find('.ratings > div'),
-    randomColorVariants = $form.data('random-color-variants').split(','),
-    $submits = $form.find('.color-submits__button'),
-    toggleButtons = function() {
-      const variantId = $variantSelect.val(),
-      timeMode = $timeModeSelect.val(),
-      rated = $rated.prop('checked'),
-      limit = $timeInput.val(),
-      inc = $incrementInput.val(),
-      // no rated variants with less than 30s on the clock
-      cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
-        (variantId != '1' && timeMode != '1');
-      if (cantBeRated && rated) {
-        $casual.click();
-        return toggleButtons();
-      }
-      $rated.prop('disabled', !!cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
-      const timeOk = timeMode != '1' || limit > 0 || inc > 0,
-      ratedOk = typ != 'hook' || !rated || timeMode != '0',
-      aiOk = typ != 'ai' || variantId != '3' || limit >= 1;
-      if (timeOk && ratedOk && aiOk) {
-        $submits.toggleClass('nope', false);
-        $submits.filter(':not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
-      } else $submits.toggleClass('nope', true);
-    },
-    save = function() {
-      self.save($form[0] as HTMLFormElement);
-    };
+      $form = $modal.find('form'),
+      $timeModeSelect = $form.find('#sf_timeMode'),
+      $modeChoicesWrap = $form.find('.mode_choice'),
+      $modeChoices = $modeChoicesWrap.find('input'),
+      $casual = $modeChoices.eq(0),
+      $rated = $modeChoices.eq(1),
+      $variantSelect = $form.find('#sf_variant'),
+      $fenPosition = $form.find(".fen_position"),
+      $fenInput = $fenPosition.find('input'),
+      forceFormPosition = !!$fenInput.val(),
+      $timeInput = $form.find('.time_choice [name=time]'),
+      $incrementInput = $form.find('.increment_choice [name=increment]'),
+      $daysInput = $form.find('.days_choice [name=days]'),
+      typ = $form.data('type'),
+      $ratings = $modal.find('.ratings > div'),
+      randomColorVariants = $form.data('random-color-variants').split(','),
+      $submits = $form.find('.color-submits__button'),
+      toggleButtons = function() {
+        const variantId = $variantSelect.val(),
+          timeMode = $timeModeSelect.val(),
+          rated = $rated.prop('checked'),
+          limit = $timeInput.val(),
+          inc = $incrementInput.val(),
+          // no rated variants with less than 30s on the clock
+          cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
+            (variantId != '1' && timeMode != '1');
+        if (cantBeRated && rated) {
+          $casual.click();
+          return toggleButtons();
+        }
+        $rated.prop('disabled', !!cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
+        const timeOk = timeMode != '1' || limit > 0 || inc > 0,
+          ratedOk = typ != 'hook' || !rated || timeMode != '0',
+          aiOk = typ != 'ai' || variantId != '3' || limit >= 1;
+        if (timeOk && ratedOk && aiOk) {
+          $submits.toggleClass('nope', false);
+          $submits.filter(':not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
+        } else $submits.toggleClass('nope', true);
+      },
+      save = function() {
+        self.save($form[0] as HTMLFormElement);
+      };
 
     const c = this.stores[typ].get();
     if (c) {
@@ -198,7 +199,7 @@ export default class Setup {
       }
       const ajaxSubmit = color => {
         const poolMember = this.hookToPoolMember(color, $form.serializeArray());
-        window.lichess.modal.close();
+        modal.close();
         if (poolMember) {
           this.root.enterPool(poolMember);
           this.root.redraw();
@@ -233,11 +234,11 @@ export default class Setup {
           $value = $input.siblings('span'),
           isTimeSlider = $input.parent().hasClass('time_choice'),
           showTime = (v: number) => {
-              if (v == 1 / 4) return '¼';
-              if (v == 1 / 2) return '½';
-              if (v == 3 / 4) return '¾';
-              return v;
-            },
+            if (v == 1 / 4) return '¼';
+            if (v == 1 / 2) return '½';
+            if (v == 3 / 4) return '¾';
+            return v;
+          },
           valueToTime = (v: number) => (isTimeSlider ? self.sliderTime : self.sliderIncrement)(v),
           show = (time: number) => $value.text(isTimeSlider ? showTime(time) : time);
         show(parseFloat($input.val()));
@@ -276,11 +277,11 @@ export default class Setup {
       });
       $form.find('.rating-range').each(function(this: HTMLElement) {
         const $this = $(this),
-        $input = $this.find("input"),
-        $span = $this.siblings("span.range"),
-        min = $input.data("min"),
-        max = $input.data("max"),
-        values = $input.val() ? $input.val().split("-") : [min, max];
+          $input = $this.find("input"),
+          $span = $this.siblings("span.range"),
+          min = $input.data("min"),
+          max = $input.data("max"),
+          values = $input.val() ? $input.val().split("-") : [min, max];
 
         $span.text(values.join('–'));
         $this.slider({
