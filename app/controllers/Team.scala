@@ -10,7 +10,6 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
-import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel }
 import lila.user.{ User => UserModel }
 
