@@ -1,3 +1,5 @@
+import { Chessground } from 'chessground';
+
 window.onload = () => {
 
   const el = document.querySelector('#daily-puzzle') as HTMLElement,
@@ -5,14 +7,14 @@ window.onload = () => {
   [fen, orientation, lm] = board.getAttribute('data-state')!.split(',');
   board.innerHTML = '<div class="cg-wrap">';
 
-  window.Chessground(board.firstChild, {
+  Chessground(board.firstChild as HTMLElement, {
     coordinates: false,
     resizable: false,
     drawable: { enabled: false, visible: false },
     viewOnly: true,
     fen: fen,
-    lastMove: lm && [lm[0] + lm[1], lm[2] + lm[3]],
-    orientation: orientation
+    lastMove: lm ? [lm[0] + lm[1], lm[2] + lm[3]] as Key[] : undefined,
+    orientation: orientation as 'white' | 'black'
   });
 
   const resize = () => {
