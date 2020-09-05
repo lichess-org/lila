@@ -22,11 +22,12 @@ import OnlineFriends from "./component/friends";
 import watchers from "./component/watchers";
 
 exportLichessGlobals();
-window.lichess.info = info;
+const li = window.lichess;
+li.info = info;
 
 loadClockWidget();
 
-window.lichess.load.then(() => {
+li.load.then(() => {
 
   moduleLaunchers();
 
@@ -77,8 +78,8 @@ window.lichess.load.then(() => {
     pubsub.on('content_loaded', timeago.findAndRender);
 
     setTimeout(() => {
-      if (!window.lichess.socket)
-        window.lichess.socket = new StrongSocket("/socket/v5", false);
+      if (!li.socket)
+        li.socket = new StrongSocket("/socket/v5", false);
     }, 300);
 
     topBar();
@@ -165,6 +166,10 @@ window.lichess.load.then(() => {
     serviceWorker();
 
     // socket default receive handlers
+    pubsub.on('socket.in.redirect', (d: RedirectTo) => {
+      li.unload.expected = true;
+      li.redirect(d);
+    });
     pubsub.on('socket.in.fen', e =>
       document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e))
     );

@@ -603,6 +603,7 @@ export default class RoundController {
 
   setRedirecting = () => {
     this.redirecting = true;
+    window.lichess.unload.expected = true;
     setTimeout(() => {
       this.redirecting = false;
       this.redraw();

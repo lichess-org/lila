@@ -140,7 +140,6 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         !isPlayerTurn(ctrl.data)) {
         ctrl.setRedirecting();
         sound.move();
-        li.unload.expected = true;
         location.href = '/' + gameId;
       }
     },
