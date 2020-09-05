@@ -10,8 +10,6 @@ object embed {
 
   import EmbedConfig.implicits._
 
-  private val dataStreamUrl = attr("data-stream-url")
-
   def apply(daily: lila.puzzle.DailyPuzzle)(implicit config: EmbedConfig) =
     views.html.base.embed(
       title = "lichess.org chess puzzle",
