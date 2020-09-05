@@ -16,6 +16,9 @@ mkdir -p public/compiled
 apps1="common"
 apps2="chess ceval game tree chat nvui"
 apps3="site swiss msg chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker"
+site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText"
+round_plugins="keyboardMove nvui"
+analyse_plugins="nvui"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive
@@ -36,6 +39,13 @@ build() {
   fi
 }
 
+build_plugin() {
+  echo
+  echo "### ui/$1 plugin $2 ###"
+  set -ev
+  cd ui/$1
+  rollup --config --config-$target --config-plugin $2
+}
 
 if [ $mode != "upgrade" ] && [ $mode != "js" ]; then
   apps3="css $apps3"
@@ -53,8 +63,14 @@ else
     parallel --gnu $P_OPTS build ::: $apps1
     parallel --gnu $P_OPTS build ::: $apps2
     parallel --gnu $P_OPTS build ::: $apps3
+    parallel --gnu $P_OPTS build_plugin site ::: $site_plugins
+    parallel --gnu $P_OPTS build_plugin round ::: $round_plugins
+    parallel --gnu $P_OPTS build_plugin analyse ::: $analyse_plugins
   else # sequential execution
     echo "For faster builds, install GNU parallel."
     for app in $apps1 $apps2 $apps3; do (build $app); done
+    for plugin in $site_plugins; do (build_plugin site $plugin); done
+    for plugin in $round_plugins; do (build_plugin round $plugin); done
+    for plugin in $analyse_plugins; do (build_plugin analyse $plugin); done
   fi
 fi
