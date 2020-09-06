@@ -156,7 +156,7 @@ interface LichessStorage {
 
 interface LichessBooleanStorage {
   get(): boolean;
-  set(v: boolean): boolean;
+  set(v: boolean): void;
   toggle(): void;
 }
 
