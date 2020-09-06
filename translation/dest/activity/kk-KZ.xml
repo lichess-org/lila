@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Белсенділігі</string>
-  <string name="hostedALiveStream">Тікелей эфирді бастады</string>
+  <string name="hostedALiveStream">Стрим бастады</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Личес-қа %1$s ай %2$s ретінде қолдау көрсетті</item>
     <item quantity="other">Личес-қа %1$s ай %2$s ретінде қолдау көрсетті</item>
