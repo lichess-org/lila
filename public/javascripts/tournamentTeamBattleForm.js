@@ -21,7 +21,7 @@ $(function() {
         id: 'team',
         match: /(^|\s)(.+)$/,
         index: 2,
-        search: function(term, callback) {
+        search(term, callback) {
           $.ajax({
             url: "/team/autocomplete",
             data: {

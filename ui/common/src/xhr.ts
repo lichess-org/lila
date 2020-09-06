@@ -39,7 +39,7 @@ export const text = (url: string, init: RequestInit = {}): Promise<string> =>
 export const script = (src: string): Promise<void> =>
   new Promise((resolve, reject) => {
     const nonce = document.body.getAttribute('data-nonce'),
-    el = document.createElement('script');
+      el = document.createElement('script');
     if (nonce) el.setAttribute('nonce', nonce);
     el.onload = resolve as () => void;
     el.onerror = reject;
