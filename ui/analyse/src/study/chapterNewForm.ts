@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { defined, prop, Prop } from 'common';
 import { storedProp, StoredProp } from 'common/storage';
+import * as xhr from 'common/xhr';
 import { bind, bindSubmit, spinner, option, onInsert } from '../util';
 import { variants as xhrVariants, importPgn } from './studyXhr';
 import * as modal from '../modal';
@@ -170,14 +171,13 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
         ]),
         activeTab === 'edit' ? h('div.board-editor-wrap', {
           hook: {
-            insert: vnode => {
-              $.when(
-                window.lichess.loadScript('compiled/lichess.editor.min.js'),
-                $.get('/editor.json', {
+            insert(vnode) {
+              Promise.all([
+                window.lichess.loadScript(window.lichess.jsModule('editor')),
+                xhr.json(xhr.url('/editor.json', {
                   fen: ctrl.root.node.fen
-                })
-              ).then(function(_, b) {
-                const data = b[0];
+                }))
+              ]).then(([_, data]) => {
                 data.embed = true;
                 data.options = {
                   inlineCastling: true,
