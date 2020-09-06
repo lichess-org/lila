@@ -154,7 +154,7 @@ object layout {
           jsModule("site")
         ),
       moreJs,
-      ctx.pageData.inquiry.isDefined option jsAt("inquiry.js")
+      ctx.pageData.inquiry.isDefined option jsTag("inquiry.js")
     )
 
   private val spaceRegex              = """\s{2,}+""".r
