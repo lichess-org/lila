@@ -1,4 +1,3 @@
-import "./component/jquery-ajax";
 import * as xhr from 'common/xhr';
 import exportLichessGlobals from "./site.lichess.globals";
 import StrongSocket from "./component/socket";
