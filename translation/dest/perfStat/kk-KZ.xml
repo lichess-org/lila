@@ -25,4 +25,9 @@
   <string name="longestStreak">Ең ұзақ тізбек: %s</string>
   <string name="currentStreak">Ағымдағы тізбек: %s</string>
   <string name="bestRated">Үздік бағаламалы жеңістер</string>
+  <string name="worstRated">Ең төмен бағаламалы жеңілістер</string>
+  <string name="gamesInARow">Қатарынан ойналған ойындар</string>
+  <string name="lessThanOneHour">Ойындар арасы бір сағаттан кем</string>
+  <string name="maxTimePlaying">Ойынмен өткен ең ұзақ уақыт</string>
+  <string name="now">қазір</string>
 </resources>
