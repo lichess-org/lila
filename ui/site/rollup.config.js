@@ -129,5 +129,10 @@ export default rollupProject({
   coachForm: {
     input: 'src/coach-form.ts',
     output: 'coach-form',
+  },
+  challengePage: {
+    input: 'src/challenge-page.ts',
+    output: 'challenge-page',
+    name: 'challengePageStart'
   }
 });

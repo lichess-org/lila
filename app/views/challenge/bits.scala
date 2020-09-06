@@ -16,8 +16,8 @@ object bits {
       implicit ctx: Context
   ) =
     frag(
-      jsTag("challenge.js"),
-      embedJsUnsafeLoadThen(s"""challengeStart(${safeJsonValue(
+      jsModule("challenge-page"),
+      embedJsUnsafeLoadThen(s"""challengePageStart(${safeJsonValue(
         Json.obj(
           "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
           "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
