@@ -113,4 +113,9 @@ export default rollupProject({
     input: 'src/expand-text.ts',
     output: 'expand-text',
   },
+  team: {
+    input: 'src/team.ts',
+    output: 'team',
+    name: 'teamStart'
+  }
 });

@@ -283,11 +283,11 @@ final class Team(
 
   def subscribe(teamId: String) = {
     def doSub(req: Request[_], me: UserModel) =
-      Form(single("v" -> boolean))
+      Form(single("subscribe" -> optional(boolean)))
         .bindFromRequest()(req)
-        .fold(_ => funit, v => api.subscribe(teamId, me.id, v))
+        .fold(_ => funit, v => api.subscribe(teamId, me.id, ~v))
     AuthOrScopedBody(_.Team.Write)(
-      auth = ctx => me => doSub(ctx.body, me) inject Redirect(routes.Team.show(teamId)),
+      auth = ctx => me => doSub(ctx.body, me) inject jsonOkResult,
       scoped = req => me => doSub(req, me) inject jsonOkResult
     )
   }

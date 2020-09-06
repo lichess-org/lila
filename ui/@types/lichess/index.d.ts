@@ -51,7 +51,7 @@ interface Lichess {
 
   // socket.js
   StrongSocket: {
-    new(url: string, version: number | false, cfg: any): any;
+    new(url: string, version: number | false, cfg?: any): any;
     firstConnect: Promise<(tpe: string, data: any) => void>
   }
 

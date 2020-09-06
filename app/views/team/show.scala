@@ -38,8 +38,8 @@ object show {
           v    <- socketVersion
           chat <- chatOption
         } yield frag(
-          jsModule("chat"),
-          embedJsUnsafeLoadThen(s"""const cfg=${safeJsonValue(
+          jsModule("team"),
+          embedJsUnsafeLoadThen(s"""teamStart(${safeJsonValue(
             Json.obj(
               "id"            -> t.id,
               "socketVersion" -> v.value,
@@ -52,15 +52,7 @@ object show {
                 localMod = ctx.userId exists t.leaders.contains
               )
             )
-          )};
-lichess.socket = new lichess.StrongSocket('/team/${t.id}',${v.value});
-cfg.chat && lichess.makeChat(cfg.chat);
-$$('#team-subscribe').on('change', function() {
-  const v = this.checked;
-  $$(this).parents('form').each(function() {
-    $$.post(this.action, { v });
-  });
-})""")
+          )})""")
         )
     ) {
       val enabledOrLeader = t.enabled || info.ledByMe || isGranted(_.Admin)
