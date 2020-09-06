@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Redraw, Close, bind, header } from './util'
 import debounce from 'common/debounce';
+import * as xhr from 'common/xhr';
 
 export interface BackgroundCtrl {
   list: Background[];
@@ -33,20 +34,28 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
 
   const announceFail = () => window.lichess.announce({ msg: 'Failed to save background preference' });
 
+  const reloadAllTheThings = () => { if (window.Highcharts) window.lichess.reload() }
+
   return {
     list,
     trans,
     get: () => data.current,
     set(c: string) {
       data.current = c;
-      $.post('/pref/bg', { bg: c }, reloadAllTheThings).fail(announceFail);
+      xhr.text('/pref/bg', {
+        body: xhr.form({ bg: c }),
+        method: 'post'
+      }).then(reloadAllTheThings).catch(announceFail);
       applyBackground(data, list);
       redraw();
     },
     getImage: () => data.image,
     setImage(i: string) {
       data.image = i;
-      $.post('/pref/bgImg', { bgImg: i }, reloadAllTheThings).fail(announceFail);
+      xhr.text('/pref/bgImg', {
+        body: xhr.form({ bgImg: i }),
+        method: 'post'
+      }).then(reloadAllTheThings).catch(announceFail);
       applyBackground(data, list);
       redraw();
     },
@@ -114,8 +123,4 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     bgData ? bgData.innerHTML = 'body.transp::before{background-image:url(' + data.image + ');}' :
       $('head').append('<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>');
   }
-}
-
-function reloadAllTheThings() {
-  if (window.Highcharts) window.lichess.reload();
 }

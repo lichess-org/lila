@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Redraw, Close, bind, header } from './util'
 import debounce from 'common/debounce';
+import * as xhr from 'common/xhr';
 
 type Key = string;
 
@@ -31,7 +32,12 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
   const box = window.lichess.soundBox;
 
   const postSet = (set: string) =>
-    $.post('/pref/soundSet', { set }).fail(() => window.lichess.announce({ msg: 'Failed to save sound preference' }));
+    xhr.text(
+      '/pref/soundSet', {
+      body: xhr.form({ set }),
+      method: 'post'
+    })
+      .catch(() => window.lichess.announce({ msg: 'Failed to save sound preference' }));
 
   return {
     makeList() {
@@ -87,7 +93,7 @@ export function view(ctrl: SoundCtrl): VNode {
 
 function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
   const setVolume = debounce(ctrl.volume, 50);
-  window.lichess.slider().then(() => 
+  window.lichess.slider().then(() =>
     $(vnode.elm as HTMLElement).slider({
       orientation: 'vertical',
       min: 0,

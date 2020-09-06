@@ -19,13 +19,15 @@ export interface BoardData {
 
 export type PublishZoom = (v: number) => void;
 
+const li = window.lichess;
+
 export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close): BoardCtrl {
 
   const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom')) + 100;
 
   const saveZoom = debounce(() =>
     xhr.text('/pref/zoom?v=' + readZoom(), { method: 'post' })
-      .catch(() => window.lichess.announce({ msg: 'Failed to save zoom' }))
+      .catch(() => li.announce({ msg: 'Failed to save zoom' }))
     , 1000);
 
   return {
@@ -33,7 +35,12 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
     trans,
     setIs3d(v: boolean) {
       data.is3d = v;
-      $.post('/pref/is3d', { is3d: v }, window.lichess.reload).fail(() => window.lichess.announce({ msg: 'Failed to save geometry preference' }));
+      xhr.text(
+        '/pref/is3d', {
+        body: xhr.form({ is3d: v }),
+        method: 'post'
+      }).then(li.reload)
+        .catch(() => li.announce({ msg: 'Failed to save geometry  preference' }));
       redraw();
     },
     readZoom,
@@ -83,7 +90,7 @@ export function view(ctrl: BoardCtrl): VNode {
 }
 
 function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {
-  window.lichess.slider().then(() =>
+  li.slider().then(() =>
     $(el).slider({
       orientation: 'horizontal',
       min: 100,
