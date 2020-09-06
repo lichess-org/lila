@@ -33,7 +33,7 @@ object embed {
       },
       views.html.base.layout.lichessJsObject(config.nonce)(config.lang),
       jsModule("deps"),
-      jsModule("analyse.embed"),
+      jsModule("analysis-board.embed"),
       analyseTag,
       embedJsUnsafeLoadThen(
         s"""analyseEmbed(${safeJsonValue(

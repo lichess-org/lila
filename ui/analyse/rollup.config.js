@@ -4,10 +4,10 @@ export default rollupProject({
   main: {
     name: 'LichessAnalyse',
     input: 'src/main.ts',
-    output: 'analyse',
+    output: 'analysis-board', // can't call it analyse.js, triggers adblockers :facepalm:
   },
   nvui: {
     input: 'src/plugins/nvui.ts',
-    output: 'analyse.nvui',
+    output: 'analysis-board.nvui',
   },
 });
