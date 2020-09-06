@@ -1,3 +1,5 @@
+import { formToXhr } from "common/xhr";
+
 window.lichess.load.then(() => {
   $('#trainer').each(function(this: HTMLElement) {
     var $trainer = $(this);
@@ -38,8 +40,8 @@ window.lichess.load.then(() => {
     };
     showColor();
 
-    $trainer.find('form.color').each(function(this: HTMLElement) {
-      var $form = $(this);
+    $trainer.find('form.color').each(function(this: HTMLFormElement) {
+      const form = this, $form = $(this);
       $form.find('input').on('change', function() {
         var selected = $form.find('input:checked').val();
         var c = {
@@ -47,7 +49,7 @@ window.lichess.load.then(() => {
           2: 'random',
           3: 'black'
         }[selected];
-        if (c !== colorPref) $.ajax(window.lichess.formAjax($form));
+        if (c !== colorPref) formToXhr(form);
         colorPref = c;
         showColor();
         return false;

@@ -50,7 +50,7 @@ object coordinate {
                 )
               )
           ),
-          form(cls := "color buttons", action := routes.Coordinate.color())(
+          form(cls := "color buttons", action := routes.Coordinate.color(), method := "post")(
             st.group(cls := "radio")(
               List(Color.BLACK, Color.RANDOM, Color.WHITE).map { id =>
                 div(

@@ -50,6 +50,6 @@ export const url = (base: string, params: any) => {
 export const formToXhr = (el: HTMLFormElement) =>
   text(
     el.action, {
-    method: el.method || 'post',
-    body: form($(el).serialize())
+    method: el.method,
+    body: new FormData(el)
   })

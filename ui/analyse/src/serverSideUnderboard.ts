@@ -1,7 +1,8 @@
 import AnalyseCtrl from './ctrl';
-import { defined } from 'common';
 import { baseUrl } from './util';
+import { defined } from 'common';
 import modal from 'common/modal';
+import { formToXhr } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 
 export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
@@ -97,7 +98,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
       li.loadScript('javascripts/chart/movetime.js').then(function() {
         li.movetimeChart(data, ctrl.trans);
       });
-    } catch (e) {}
+    } catch (e) { }
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $("#acpl-chart").length)
       setTimeout(startAdvantageChart, 200);
   };
@@ -113,16 +114,12 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
   }
   if (!data.analysis) {
-    $panels.find('form.future-game-analysis').submit(function(this: HTMLElement) {
+    $panels.find('form.future-game-analysis').submit(function(this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {
         if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
         return false;
       }
-      $.ajax({
-        ...li.formAjax($(this)),
-        success: startAdvantageChart,
-        error: li.reload
-      });
+      formToXhr(this).then(startAdvantageChart).catch(li.reload);
       return false;
     });
   }
