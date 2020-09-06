@@ -4,7 +4,8 @@ import { defined } from "./common";
 const jsonHeader = {
   'Accept': 'application/vnd.lichess.v5+json'
 };
-const xhrHeader = {
+
+export const xhrHeader = {
   'X-Requested-With': 'XMLHttpRequest' // so lila knows it's XHR
 };
 
