@@ -1,4 +1,4 @@
-import * as xhr from './xhr';
+import * as xhr from 'common/xhr';
 import notify from 'common/notification';
 import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser } from './interfaces';
 
@@ -50,7 +50,10 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
       data.in.forEach(c => {
         if (c.id === id) {
           c.declined = true;
-          xhr.decline(id).fail(() => window.lichess.announce({msg: 'Failed to send challenge decline'}));
+          xhr.text(
+            `/challenge/${id}/decline`,
+            { method: 'post' }
+          ).catch(() => window.lichess.announce({ msg: 'Failed to send challenge decline' }));
         }
       });
     },
@@ -58,7 +61,10 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
       data.out.forEach(c => {
         if (c.id === id) {
           c.declined = true;
-          xhr.cancel(id).fail(() => window.lichess.announce({msg: 'Failed to send challenge cancellation'}));
+          xhr.text(
+            `/challenge/${id}/cancel`,
+            { method: 'post' }
+          ).catch(() => window.lichess.announce({ msg: 'Failed to send challenge cancellation' }));
         }
       });
     },
