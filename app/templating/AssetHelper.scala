@@ -46,6 +46,8 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def jsModule(name: String): Frag =
     jsAt(s"compiled/$name${minifiedAssets ?? ".min"}.js")
 
+  def depsTag = jsAt("compiled/deps.min.js")
+
   def roundTag                            = jsModule("round")
   def roundNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("round.nvui")
 

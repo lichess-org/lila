@@ -48,7 +48,7 @@ object embed {
         )
       },
       views.html.base.layout.lichessJsObject(config.nonce)(config.lang),
-      jsModule("deps"),
+      depsTag,
       jsModule("analysis-board.embed"),
       analyseTag,
       embedJsUnsafeLoadThen(
