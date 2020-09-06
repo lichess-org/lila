@@ -125,5 +125,9 @@ export default rollupProject({
   account: {
     input: 'src/account.ts',
     output: 'account',
+  },
+  coachForm: {
+    input: 'src/coach-form.ts',
+    output: 'coach-form',
   }
 });

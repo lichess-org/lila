@@ -38,9 +38,7 @@ window.lichess.load.then(() => {
       // We only ask the server for the thread participants once the user has clicked the text box as most hits to the
       // forums will be only to read the thread. So the 'thread participants' starts out empty until the post text area
       // is focused.
-      var threadParticipants = $.ajax({
-        url: "/forum/participants/" + topicId
-      });
+      const threadParticipants = xhr.json("/forum/participants/" + topicId);
 
       const textcomplete = new window.Textcomplete(new window.Textcomplete.editors.Textarea(textarea));
 
@@ -60,16 +58,11 @@ window.lichess.load.then(() => {
             else if (term.length >= 3) {
               // We fall back to every site user after 3 letters of the username have been entered
               // and there are no matches in the forum thread participants
-              $.ajax({
-                url: "/player/autocomplete",
-                data: {
-                  term: term
-                },
-                success: function(candidateUsers) {
-                  callback(searchCandidates(term, candidateUsers));
-                },
-                cache: true
-              });
+              xhr.json(
+                xhr.url("/player/autocomplete", { term }),
+                { cache: 'default' }
+              )
+                .then((candidateUsers) => callback(searchCandidates(term, candidateUsers)))
             } else {
               callback([]);
             }

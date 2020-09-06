@@ -36,10 +36,9 @@ object edit {
       title = s"${c.user.titleUsername} coach page",
       evenMoreCss = frag(cssTag("coach.editor"), cssTag("tagify")),
       evenMoreJs = frag(
-        jsAt("vendor/jquery.form.min.js"),
         jsAt("vendor/bar-rating/dist/jquery.barrating.min.js"),
         tagifyTag,
-        jsTag("coach.form.js")
+        jsModule("coach-form")
       ),
       active = "coach"
     )(
