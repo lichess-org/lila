@@ -17,15 +17,10 @@ object thanks {
     @nowarn("msg=possible missing interpolator")
     val moreJs = embedJsUnsafeLoadThen("""
 $('button.report-block').one('click', function() {
-var $button = $(this);
+const $button = $(this);
 $button.find('span').text('Blocking...');
-$.ajax({
-url:$button.data('action'),
-method:'post',
-success: function() {
-$button.find('span').text('Blocked!');
-}
-});
+fetch($button.data('action'), {method:'post'})
+  .then(() => $button.find('span').text('Blocked!'));
 });
 """)
 

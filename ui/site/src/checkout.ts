@@ -1,4 +1,6 @@
-lichess.checkout = function(publicKey) {
+import * as xhr from 'common/xhr';
+
+export default function(publicKey: string) {
 
   var $checkout = $('div.plan_checkout');
   var lifetime = {
@@ -10,7 +12,7 @@ lichess.checkout = function(publicKey) {
   if (location.hash === '#onetime') $('#freq_onetime').click();
   if (location.hash === '#lifetime') $('#freq_lifetime').click();
 
-  var getFreq = function () {
+  const getFreq = function() {
     return $checkout.find('group.freq input:checked').val();
   };
 
@@ -19,7 +21,7 @@ lichess.checkout = function(publicKey) {
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
     $checkout.find('#plan_monthly_1000').click();
 
-  var selectAmountGroup = function () {
+  const selectAmountGroup = function() {
     var freq = getFreq();
     $checkout.find('.amount_fixed').toggle(freq == 'lifetime');
     $checkout.find('.amount_choice').toggle(freq != 'lifetime');
@@ -28,9 +30,9 @@ lichess.checkout = function(publicKey) {
 
   $checkout.find('group.freq input').on('change', selectAmountGroup);
 
-  $checkout.find('group.amount .other label').on('click', function () {
-    var amount;
-    var raw = prompt($(this).attr('title'));
+  $checkout.find('group.amount .other label').on('click', function(this) {
+    let amount: number;
+    const raw: string = prompt($(this).attr('title')) || '';
     try {
       amount = parseFloat(raw.replace(',', '.').replace(/[^0-9\.]/gim, ''));
     } catch (e) {
@@ -49,29 +51,29 @@ lichess.checkout = function(publicKey) {
     $(this).siblings('input').data('amount', cents).data('usd', usd);
   });
 
-  $checkout.find('button.paypal').on('click', function () {
-    var freq = getFreq(), cents;
+  $checkout.find('button.paypal').on('click', function() {
+    let freq = getFreq(), cents: number;
     if (freq == 'lifetime') {
       cents = lifetime.cents;
     } else {
-      var cents = parseInt($checkout.find('group.amount input:checked').data('amount'));
+      cents = parseInt($checkout.find('group.amount input:checked').data('amount'));
     }
     if (!cents || cents < min || cents > max) return;
     var amount = cents / 100;
     var $form = $checkout.find('form.paypal_checkout.' + getFreq());
     $form.find('input.amount').val(amount);
     $form.submit();
-    $checkout.find('.service').html(lichess.spinnerHtml);
+    $checkout.find('.service').html(window.lichess.spinnerHtml);
   });
 
-  let stripe = Stripe(publicKey);
-  let showError = (error) => {
+  let stripe = window.Stripe(publicKey);
+  let showError = (error: string) => {
     // TODO: consider a more sophisticated error handling mechanism,
     //       for now, this should work just fine.
     alert(error);
   };
-  $checkout.find('button.stripe').on('click', function () {
-    var freq = getFreq(), amount;
+  $checkout.find('button.stripe').on('click', function() {
+    let freq = getFreq(), amount: number;
     if (freq == 'lifetime') {
       amount = lifetime.cents;
     } else {
@@ -79,36 +81,28 @@ lichess.checkout = function(publicKey) {
       amount = parseInt($input.data('amount'));
     }
     if (amount < min || amount > max) return;
-    $checkout.find('.service').html(lichess.spinnerHtml);
+    $checkout.find('.service').html(window.lichess.spinnerHtml);
 
-    $.ajax({
-      url: "/patron/stripe-checkout",
+    xhr.json("/patron/stripe-checkout", {
       method: "post",
-      data: {
+      body: xhr.form({
         email: $checkout.data('email'),
-        amount: amount,
-        freq: freq
+        amount,
+        freq
+      })
+    }).then(data => {
+      if (data.session && data.session.id) {
+        stripe.redirectToCheckout({
+          sessionId: data.session.id
+        }).then(result => showError(result.error.message));
+      } else {
+        location.assign("/patron");
       }
-    }).then(
-      data => {
-        if (data.session && data.session.id) {
-          stripe.redirectToCheckout({
-            sessionId: data.session.id
-          }).then(
-            (result) => showError(result.error.message)
-          );
-        } else {
-          location.assign("/patron");
-        }
-      },
-      err => {
-        showError(err);
-      }
-    );
+    }).catch(showError);
   });
 
   // Close Checkout on page navigation:
-  $(window).on('popstate', function () {
-    stripeHandler.close();
+  $(window).on('popstate', function() {
+    window.stripeHandler.close();
   });
-};
+}

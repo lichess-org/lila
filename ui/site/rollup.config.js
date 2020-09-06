@@ -134,5 +134,10 @@ export default rollupProject({
     input: 'src/challenge-page.ts',
     output: 'challenge-page',
     name: 'challengePageStart'
+  },
+  checkout: {
+    input: 'src/checkout.ts',
+    output: 'checkout',
+    name: 'checkoutStart'
   }
 });
