@@ -37,7 +37,7 @@
     <item quantity="one">Ойынның бірінші кезеңінде сурет салу %s бірде-бір ойыншыға ешқандай ұпай әкелмейді.</item>
     <item quantity="other">Ойынның бірінші кезеңінде сурет салу %s бірде-бір ойыншыға ешқандай ұпай әкелмейді.</item>
   </plurals>
-  <string name="thisIsPrivate">Бұл жеке турнир</string>
+  <string name="thisIsPrivate">Бұл оңаша жарыс</string>
   <string name="shareUrl">Адамдар қосылсын десеңіз, осы URL-мен бөлісіңіз: %s</string>
   <string name="history">Алаң журналы</string>
 </resources>
