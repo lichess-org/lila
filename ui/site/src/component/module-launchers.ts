@@ -10,6 +10,7 @@ export default function moduleLaunchers() {
 }
 
 function startUserAnalysis(cfg) {
+  cfg.initialPly = 'url';
   cfg.$side = $('.analyse__side').clone();
   startAnalyse(cfg);
 }
