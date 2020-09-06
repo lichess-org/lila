@@ -1,5 +1,3 @@
-@import "coords-colors";
-
 coords {
   /* handle hidden coords */
   .coords-no & {
@@ -68,7 +66,7 @@ coords {
   }
 }
 
-@include coords-colors;
+@import "coords-colors";
 
 /* handle outer coords */
 @include breakpoint($mq-col2-uniboard) {
