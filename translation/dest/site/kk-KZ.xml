@@ -384,17 +384,17 @@
   <string name="challengeToPlay">Ойынға шақыру</string>
   <string name="player">ойыншы</string>
   <string name="list">Тiзiм</string>
-  <string name="graph">Dıagram</string>
+  <string name="graph">Диаграм</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">%s минуттан аз</item>
     <item quantity="other">%s минуттан аз</item>
   </plurals>
-  <string name="required">Talap etiletin.</string>
-  <string name="openTournaments">Ashyq týrnır</string>
-  <string name="duration">Uzaqtyǵy</string>
-  <string name="winner">Jeńimpaz</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Turǵan</string>
-  <string name="createANewTournament">Jańa týrnır jasańyz</string>
+  <string name="required">Талап қойылады.</string>
+  <string name="openTournaments">Ашық жарыстар</string>
+  <string name="duration">Ұзақтығы</string>
+  <string name="winner">Жеңімпаз</string>
+  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Орны</string>
+  <string name="createANewTournament">Жаңа жарыс құру</string>
   <string name="tournamentCalendar">Жарыс күнтізбесі</string>
   <string name="conditionOfEntry">Кіру талаптары:</string>
   <string name="advancedSettings">Қосымша баптаулар</string>
