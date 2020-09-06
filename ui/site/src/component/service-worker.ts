@@ -1,5 +1,5 @@
-import {assetUrl, jsModule} from "./assets";
-import {storage} from "./storage";
+import { assetUrl, jsModule } from "./assets";
+import { storage } from "./storage";
 
 export default function() {
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {

@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import * as modal from '../modal';
 import { bind, bindSubmit, onInsert } from '../util';
 import { prop, Prop } from 'common';
+import * as xhr from 'common/xhr';
 import { StudyCtrl, Topic } from './interfaces';
 import { Redraw } from '../interfaces';
 
@@ -33,13 +34,13 @@ export function ctrl(save: (data: string) => void, getTopics: () => Topic[], tra
 export function view(ctrl: StudyCtrl): VNode {
   return h('div.study__topics', [
     ...ctrl.topics.getTopics().map(topic =>
-    h('a.topic', {
-      attrs: { href: `/study/topic/${encodeURIComponent(topic)}/hot` }
-    }, topic)
-  ),
+      h('a.topic', {
+        attrs: { href: `/study/topic/${encodeURIComponent(topic)}/hot` }
+      }, topic)
+    ),
     ctrl.members.canContribute() ? h('a.manage', {
       hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw)
-    }, [ 'Manage topics' ]) : null
+    }, ['Manage topics']) : null
   ]);
 }
 
@@ -78,7 +79,7 @@ function setupTagify(elm: HTMLElement, userId?: string) {
       pattern: /.{2,}/,
       maxTags: 30
     });
-    let abortCtrl; // for aborting the call
+    let abortCtrl: AbortController; // for aborting the call
     tagify.on('input', e => {
       const term = e.detail.value.trim();
       if (term.length < 2) return;
@@ -87,9 +88,10 @@ function setupTagify(elm: HTMLElement, userId?: string) {
       abortCtrl = new AbortController();
       // show loading animation and hide the suggestions dropdown
       tagify.loading(true).dropdown.hide.call(tagify);
-
-      fetch(`/study/topic/autocomplete?term=${encodeURIComponent(term)}&user=${userId}`, {signal: abortCtrl.signal})
-        .then(r => r.json())
+      xhr.json(
+        xhr.url('/study/topic/autocomplete', { term, user: userId }),
+        { signal: abortCtrl.signal }
+      )
         .then(list => {
           tagify.settings.whitelist.splice(0, list.length, ...list); // update whitelist Array in-place
           tagify.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
