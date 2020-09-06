@@ -32,6 +32,13 @@ const init = (node: HTMLElement) => {
   return node.getAttribute('data-live');
 }
 
+interface UpdateData {
+  lm: string;
+  fen: string;
+  wc?: number;
+  bc?: number;
+}
+
 const miniGame = {
   init,
   initAll() {
@@ -41,7 +48,7 @@ const miniGame = {
       send('startWatching', ids.join(' '))
     );
   },
-  update(node: HTMLElement, data) {
+  update(node: HTMLElement, data: UpdateData) {
     const $el = $(node),
       lm = data.lm,
       lastMove = lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
@@ -51,8 +58,8 @@ const miniGame = {
       lastMove
     });
     const turnColor = fenColor(data.fen);
-    const renderClock = (time, color) => {
-      if (!isNaN(time)) $el.find('.mini-game__clock--' + color).clock('set', {
+    const renderClock = (time: number | undefined, color: string) => {
+      if (!isNaN(time!)) $el.find('.mini-game__clock--' + color).clock('set', {
         time,
         pause: color != turnColor
       });
@@ -60,7 +67,7 @@ const miniGame = {
     renderClock(data.wc, 'white');
     renderClock(data.bc, 'black');
   },
-  finish(node, win) {
+  finish(node: HTMLElement, win?: string) {
     ['white', 'black'].forEach(color => {
       const $clock = $(node).find('.mini-game__clock--' + color).each(function(this: HTMLElement) {
         $(this).clock('destroy');
