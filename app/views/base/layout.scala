@@ -150,7 +150,7 @@ object layout {
         jsModule("lichess")
       else
         frag(
-          jsModule("deps"),
+          jsModule("deps.min"),
           jsModule("site")
         ),
       moreJs,
