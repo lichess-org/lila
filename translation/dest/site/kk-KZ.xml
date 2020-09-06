@@ -339,9 +339,9 @@
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
   <string name="fromPosition">Позициядан</string>
-  <string name="continueFromHere">Осы жерден жалғастырыңыз</string>
+  <string name="continueFromHere">Осы жерден жалғастыру</string>
   <string name="toStudy">Зертхана</string>
-  <string name="importGame">Ойынды экспорттау</string>
+  <string name="importGame">Ойынды жүктеп салу</string>
   <string name="importGameExplanation">Ойынның PGN -ын салыңыз. Бұл ойынды қайта көруге, компьютерлік талдауға, чат және бөліспелі URL-ға жол ашады.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s ойын алынды</item>
@@ -354,7 +354,7 @@
   <string name="whiteCheckmatesInOneMove">Ақ жағы бір жүріспен мат қояды</string>
   <string name="blackCheckmatesInOneMove">Қара жағы бір жүріспен мат қояды</string>
   <string name="retry">Қайталау</string>
-  <string name="reconnecting">Қайта қосылу</string>
+  <string name="reconnecting">Қайта байланысу</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s дос желіде</item>
     <item quantity="other">%s дос желіде</item>
@@ -365,10 +365,10 @@
   <string name="follow">Серік болу</string>
   <string name="following">Серіксіз</string>
   <string name="unfollow">Серік болмау</string>
-  <string name="block">Блок</string>
+  <string name="block">Бұғаттау</string>
   <string name="blocked">Блоктар</string>
   <string name="unblock">Бұғаттан шығару</string>
-  <string name="followsYou">Сізге серік болды</string>
+  <string name="followsYou">Сізге серік</string>
   <string name="xStartedFollowingY">%1$s %2$s серігі болды</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s серік</item>
