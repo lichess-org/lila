@@ -313,15 +313,15 @@
     <item quantity="other">Сіз тағы %1$s бағаланатын %2$s ойнауыңыз керек</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Сіз тағы %s бағаланатын ойын ойнауыңыз керек</item>
-    <item quantity="other">Сіз тағы %s бағаланатын ойын ойнауыңыз керек</item>
+    <item quantity="one">Сіз тағы бағаланатын %s ойнауыңыз керек</item>
+    <item quantity="other">Сіз тағы бағаланатын %s ойнауыңыз керек</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Сіздің %s рейтингіңіз болжамалы</string>
-  <string name="yourPerfRatingIsTooHigh">%1$s рейтингіңіз тым жоғары (%2$s)</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Үздік апталық %1$s рейтингіңіз тым жоғары (%2$s)</string>
+  <string name="yourPerfRatingIsTooHigh">%1$s рейтингіңіз (%2$s) тым жоғары</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Үздік апталық %1$s рейтингіңіз (%2$s) тым жоғары</string>
   <string name="yourPerfRatingIsTooLow">%1$s рейтингіңіз тым аз (%2$s)</string>
-  <string name="ratedMoreThanInPerf">Reıtıń = %1$s sin %2$s</string>
-  <string name="ratedLessThanInPerf">Nomınaldy ≤ %1$s sin %2$s</string>
+  <string name="ratedMoreThanInPerf">%2$s рейтингі ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s рейтингі ≤ %1$s</string>
   <string name="mustBeInTeam">Сіздің тобыңыз – %s</string>
   <string name="youAreNotInTeam">Сіз %s тобының мүшесі емессіз</string>
   <string name="backToGame">Ойынға оралу</string>
