@@ -9,7 +9,12 @@ window.lichess.load.then(() => {
       storage.set(hash);
       const $i = $('#signup-fp-input');
       if ($i.length) $i.val(hash);
-      else $.post('/auth/set-fp/' + hash + '/' + Math.round(performance.now() - t));
+      else fetch(
+        '/auth/set-fp/' + hash + '/' + Math.round(performance.now() - t), {
+          method: 'post',
+          credentials: 'same-origin',
+        }
+      );
     };
     if (storage.get()) send(storage.get());
     else fipr.get(c => send(fipr.x64hash128(c.map(x => x.value).join(''), 31)));
