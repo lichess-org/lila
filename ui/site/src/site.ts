@@ -101,9 +101,9 @@ li.load.then(() => {
       return confirm($(this).attr('title') || 'Confirm this action?');
     });
 
-    $('#main-wrap').on('click', 'a.bookmark', function(this: HTMLElement) {
+    $('#main-wrap').on('click', 'a.bookmark', function(this: HTMLAnchorElement) {
       const t = $(this).toggleClass('bookmarked');
-      $.post(t.attr('href'));
+      xhr.text(this.href, { method: 'post' });
       const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
       t.find('span').html('' + (count > 0 ? count : ''));
       return false;
@@ -128,7 +128,7 @@ li.load.then(() => {
       if (getComputedStyle(document.body).getPropertyValue('--grid'))
         storage.set('grid', '1');
       else
-        $.get(assetUrl('oops/browser.html'), html => $('body').prepend(html))
+        xhr.text(assetUrl('oops/browser.html')).then(html => $('body').prepend(html))
     }, 3000);
 
     /* A disgusting hack for a disgusting browser
@@ -154,10 +154,13 @@ li.load.then(() => {
     if (chatMembers) watchers(chatMembers);
 
     if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
-      $.post('/toggle-blind-mode', {
-        enable: 1,
-        redirect: '/'
-      }, reload);
+      xhr.text('/toggle-blind-mode', {
+        method: 'post',
+        body: xhr.form({
+          enable: 1,
+          redirect: '/'
+        })
+      }).then(reload);
 
     serviceWorker();
 
@@ -183,8 +186,8 @@ li.load.then(() => {
         '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
         '<a class="text" href="' + url + '" data-icon="G">Resume</a>' +
         '</div></div>'
-      ).find('#announce .withdraw').click(function(this: HTMLElement) {
-        $.post($(this).attr("href"));
+      ).find('#announce .withdraw').click(function(this: HTMLAnchorElement) {
+        xhr.text(this.href, { method: 'post' });
         $('#announce').remove();
         return false;
       });

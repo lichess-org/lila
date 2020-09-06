@@ -14,8 +14,8 @@ window.lichess.load.then(() => {
 
   $(".user-show .claim_title_zone").each(function(this: HTMLElement) {
     var $zone = $(this);
-    $zone.find('.actions a').click(function(this: HTMLElement) {
-      $.post($(this).attr('href'));
+    $zone.find('.actions a').click(function(this: HTMLAnchorElement) {
+      xhr.text(this.href, { method: 'post' });
       $zone.remove();
       return false;
     });

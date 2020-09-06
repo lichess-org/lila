@@ -12,7 +12,7 @@ window.lichess.load.then(() => {
     });
   });
   $('.name-regen').click(function(this: HTMLAnchorElement) {
-    $.get(this.href, name => $('#form3-create-username').val(name));
+    xhr.text(this.href).then(name => $('#form3-create-username').val(name));
     return false;
   });
 

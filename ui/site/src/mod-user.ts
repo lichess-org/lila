@@ -1,5 +1,5 @@
 import tablesort from 'tablesort';
-import { formToXhr } from 'common/xhr';
+import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
 import spinnerHtml from './component/spinner';
 import extendTablesortNumber from './component/tablesort-number';
@@ -76,7 +76,7 @@ window.lichess.load.then(() => {
     makeReady('form.xhr', (el: HTMLFormElement) => {
       $(el).submit(() => {
         $(el).addClass('ready').find('input').prop('disabled', true);
-        formToXhr(el).then(html => {
+        xhr.formToXhr(el).then(html => {
           $('#mz_actions').replaceWith(html);
           userMod($zone);
         });
@@ -92,9 +92,9 @@ window.lichess.load.then(() => {
 
     makeReady('#mz_others', el => {
       $(el).height($(el).height());
-      $(el).find('.mark-alt').on('click', function(this: HTMLElement) {
+      $(el).find('.mark-alt').on('click', function(this: HTMLAnchorElement) {
         if (confirm('Close alt account?')) {
-          $.post(this.getAttribute('href')!);
+          xhr.text(this.href, { method: 'post' });
           $(this).remove();
         }
       });
@@ -103,8 +103,8 @@ window.lichess.load.then(() => {
       tablesort(el, { descending: true });
     });
     makeReady('#mz_identification .spy_filter', el => {
-      $(el).find('.button').click(function(this: HTMLElement) {
-        $.post($(this).attr('href'));
+      $(el).find('.button').click(function(this: HTMLAnchorElement) {
+        xhr.text(this.href, { method: 'post' });
         $(this).parent().parent().toggleClass('blocked');
         return false;
       });
