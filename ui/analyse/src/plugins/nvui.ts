@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { prop, Prop } from 'common';
+import * as xhr from 'common/xhr';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
 import { Chessground } from 'chessground';
@@ -46,7 +47,7 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
           h('h2', 'Moves'),
           h('p.moves', {
             attrs: {
-              role : 'log',
+              role: 'log',
               'aria-live': 'off'
             }
           }, renderMainline(ctrl.mainline, ctrl.path, style)),
@@ -55,8 +56,8 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
           h('h2', 'Current position'),
           h('p.position', {
             attrs: {
-              'aria-live' : 'assertive',
-              'aria-atomic' : true
+              'aria-live': 'assertive',
+              'aria-atomic': true
             }
           }, renderCurrentNode(ctrl.node, style)),
           h('h2', 'Move form'),
@@ -178,17 +179,15 @@ function requestAnalysisButton(ctrl: AnalyseController, inProgress: Prop<boolean
   if (inProgress()) return h('p', 'Server-side analysis in progress');
   if (ctrl.ongoing || ctrl.synthetic) return undefined;
   return h('button', {
-    hook: bind('click', _ =>  {
-      $.ajax({
-        method: 'post',
-        url: `/${ctrl.data.game.id}/request-analysis`,
-        success: () => {
-          inProgress(true);
-          notify('Server-side analysis in progress')
-        },
-        error: () => notify('Cannot run server-side analysis'),
-      });
-    })
+    hook: bind('click', _ =>
+      xhr.text(`/${ctrl.data.game.id}/request-analysis`, {
+        method: 'post'
+      }).then(() => {
+        inProgress(true);
+        notify('Server-side analysis in progress')
+      })
+        .catch(() => notify('Cannot run server-side analysis'))
+    )
   }, 'Request a computer analysis');
 }
 
@@ -231,7 +230,7 @@ function renderComment(comment: Tree.Comment, style: Style): string {
   return comment.by === 'lichess' ?
     comment.text.replace(/Best move was (.+)\./, (_, san) =>
       'Best move was ' + renderSan(san, undefined, style)) :
-      comment.text;
+    comment.text;
 }
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {
@@ -244,7 +243,7 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     perf = user ? user.perfs[d.game.perf] : null,
     rating = player.rating ? player.rating : (perf && perf.rating),
     rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? '+' + rd : ( rd < 0 ? '−' + (-rd) : '')) : '';
+    ratingDiff = rd ? (rd > 0 ? '+' + rd : (rd < 0 ? '−' + (-rd) : '')) : '';
   return user ? h('span', [
     h('a', {
       attrs: { href: '/@/' + user.username }

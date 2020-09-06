@@ -6,6 +6,8 @@ export const notNull = <T>(value: T | null | undefined): value is T =>
 
 export const isEmpty = (a: any): boolean => !a || a.length === 0;
 
+export const notEmpty = (a: any): boolean => !isEmpty(a);
+
 /* export const foreach = <A>(a: A | undefined, f: (a: A) => void): void => { */
 /*   if (a) f(a); */
 /* } */

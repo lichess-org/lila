@@ -18,6 +18,7 @@ import * as util from './util';
 import * as chessUtil from 'chess';
 import { defined, prop, Prop } from 'common';
 import throttle from 'common/throttle';
+import * as xhr from 'common/xhr';
 import { storedProp, StoredBooleanProp } from 'common/storage';
 import { make as makeSocket, Socket } from './socket';
 import { ForecastCtrl } from './forecast/interfaces';
@@ -197,7 +198,7 @@ export default class AnalyseCtrl {
     else this.socket = makeSocket(this.opts.socketSend, this);
     this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath = this.synthetic || this.ongoing ? undefined :
-    treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
+      treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
   }
 
@@ -290,9 +291,9 @@ export default class AnalyseCtrl {
           color: undefined,
           dests: new Map(),
         } : {
-          color: movableColor,
-          dests: (movableColor === color && dests) || new Map(),
-        },
+            color: movableColor,
+            dests: (movableColor === color && dests) || new Map(),
+          },
         check: !!node.check,
         lastMove: this.uciToLastMove(node.uci)
       };
@@ -314,10 +315,10 @@ export default class AnalyseCtrl {
     capture: throttle(50, li.sound.capture),
     check: throttle(50, li.sound.check)
   } : {
-    move: $.noop,
-    capture: $.noop,
-    check: $.noop
-  };
+      move: $.noop,
+      capture: $.noop,
+      check: $.noop
+    };
 
   private onChange: () => void = throttle(300, () => {
     li.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
@@ -336,7 +337,7 @@ export default class AnalyseCtrl {
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
-    isForwardStep = pathChanged && path.length == this.path.length + 2;
+      isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
     this.showGround();
     if (pathChanged) {
@@ -418,21 +419,20 @@ export default class AnalyseCtrl {
 
   changePgn(pgn: string): void {
     this.redirecting = true;
-    $.ajax({
-      url: '/analysis/pgn',
+    xhr.json('/analysis/pgn', {
       method: 'post',
-      data: { pgn },
-      success: (data: AnalyseData) => {
+      body: xhr.form({ pgn })
+    })
+      .then((data: AnalyseData) => {
         this.reloadData(data, false);
         this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
         this.redraw();
-      },
-      error: error => {
+      })
+      .catch(error => {
         console.log(error);
         this.redirecting = false;
         this.redraw();
-      }
-    });
+      });
   }
 
   changeFen(fen: Fen): void {

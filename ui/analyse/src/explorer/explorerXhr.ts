@@ -1,6 +1,7 @@
 import { OpeningData, TablebaseData } from './interfaces';
+import * as xhr from 'common/xhr';
 
-export function opening(endpoint: string, variant: VariantKey, fen: Fen, rootFen: Fen, play: string[], config, withGames: boolean): JQueryPromise<OpeningData> {
+export function opening(endpoint: string, variant: VariantKey, fen: Fen, rootFen: Fen, play: string[], config, withGames: boolean): Promise<OpeningData> {
   let url: string;
   const params: any = {
     fen: rootFen,
@@ -14,24 +15,22 @@ export function opening(endpoint: string, variant: VariantKey, fen: Fen, rootFen
     params['speeds[]'] = config.speed.selected();
     params['ratings[]'] = config.rating.selected();
   }
-  return $.ajax({
-    url: endpoint + url,
-    data: params,
-    cache: true
-  }).then((data: Partial<OpeningData>) => {
+  return xhr.json(
+    xhr.url(endpoint + url, params), 
+    { cache: 'default' }
+  ).then((data: Partial<OpeningData>) => {
     data.isOpening = true;
     data.fen = fen;
     return data as OpeningData;
   });
 }
 
-export function tablebase(endpoint: string, variant: VariantKey, fen: Fen): JQueryPromise<TablebaseData> {
+export function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Promise<TablebaseData> {
   const effectiveVariant = (variant === 'fromPosition' || variant === 'chess960') ? 'standard' : variant;
-  return $.ajax({
-    url: endpoint + '/' + effectiveVariant,
-    data: { fen },
-    cache: true
-  }).then((data: Partial<TablebaseData>) => {
+  return xhr.json(
+    xhr.url(`${endpoint}/${effectiveVariant}`, { fen }),
+    { cache: 'default' }
+  ).then((data: Partial<TablebaseData>) => {
     data.tablebase = true;
     data.fen = fen;
     return data as TablebaseData;

@@ -60,7 +60,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
 
   const fetch = debounce(() => {
     const fen = root.node.fen;
-    const request: JQueryPromise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
+    const request: Promise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
       xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :
       xhr.opening(opts.endpoint, effectiveVariant, fen, root.nodeList[0].fen, root.nodeList.slice(1).map(s => s.uci!), config.data, withGames);
 
@@ -132,10 +132,10 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
       } : null);
       root.setAutoShapes();
     },
-    fetchMasterOpening: (function() {
+    fetchMasterOpening: (() => {
       const masterCache = {};
-      return (fen: Fen): JQueryPromise<OpeningData> => {
-        if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]).promise() as JQueryPromise<OpeningData>;
+      return (fen: Fen): Promise<OpeningData> => {
+        if (masterCache[fen]) return Promise.resolve(masterCache[fen]);
         return xhr.opening(opts.endpoint, 'standard', fen, fen, [], {
           db: {
             selected: prop('masters')
@@ -146,7 +146,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
         });
       }
     })(),
-    fetchTablebaseHit(fen: Fen): JQueryPromise<SimpleTablebaseHit> {
+    fetchTablebaseHit(fen: Fen): Promise<SimpleTablebaseHit> {
       return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen).then((res: TablebaseData) => {
         const move = res.moves[0];
         if (move && move.dtz == null) throw 'unknown tablebase position';

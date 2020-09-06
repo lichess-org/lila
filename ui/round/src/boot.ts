@@ -1,3 +1,4 @@
+import * as xhr from 'common/xhr';
 import { RoundOpts, RoundData } from './interfaces';
 import { RoundApi, RoundMain } from './main';
 import { ChatCtrl } from 'chat';
@@ -26,16 +27,14 @@ export default function(opts: RoundOpts): void {
           ].filter(x => x).join('&nbsp') : 'Anonymous');
       },
       end() {
-        $.ajax({
-          url: [(data.tv ? '/tv' : ''), data.game.id, data.player.color, 'sides'].join('/'),
-          success(html) {
+        xhr.text(`${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`)
+          .then(html => {
             const $html = $(html), $meta = $html.find('.game__meta');
             $meta.length && $('.game__meta').replaceWith($meta);
             $('.crosstable').replaceWith($html.find('.crosstable'));
             startTournamentClock();
             li.pubsub.emit('content_loaded');
-          }
-        });
+          });
       },
       tourStanding(s: TourPlayer[]) {
         opts.chat?.plugin && opts.chat?.instance?.then(chat => {
