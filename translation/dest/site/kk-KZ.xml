@@ -298,7 +298,7 @@
     <item quantity="other">%s зерттеу</item>
   </plurals>
   <string name="viewTournament">Жарысты қарап шығу</string>
-  <string name="backToTournament">Týrnırge oralaıyq</string>
+  <string name="backToTournament">Жарысқа оралу</string>
   <string name="thematic">Тақырыптық</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s бағаланатын ойын</item>
@@ -418,7 +418,7 @@
   <string name="youArePlaying">Сіз ойындасыз!</string>
   <string name="winRate">Жеңіс үлесі</string>
   <string name="berserkRate">Берсерк үлесі</string>
-  <string name="performance">Әлеуеті</string>
+  <string name="performance">Жетістігі</string>
   <string name="tournamentComplete">Жарыс қорытындысы</string>
   <string name="movesPlayed">Жүрістер саны</string>
   <string name="whiteWins">Ақтардың жеңісі</string>
