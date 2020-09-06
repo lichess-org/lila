@@ -17,7 +17,6 @@ export interface DasherData {
   board: BoardData;
   theme: ThemeData;
   piece: PieceData;
-  inbox: boolean;
   coach: boolean;
   streamer: boolean;
   i18n: any;
