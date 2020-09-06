@@ -27,3 +27,9 @@ export const form = (data: any) => {
   for (const k of Object.keys(data)) formData.append(k, data[k]);
   return formData;
 }
+
+export const url = (base: string, params: any) => {
+  const searchParams = new URLSearchParams();
+  for (const k of Object.keys(params)) searchParams.append(k, params[k]);
+  return `${base}?${searchParams.toString()}`;
+}

@@ -1,6 +1,8 @@
 import tablesort from 'tablesort';
+
 import { loadScript } from './component/assets';
 import extendTablesortNumber from './component/tablesort-number';
+import * as xhr from 'common/xhr';
 
 window.lichess.load.then(() => {
 
@@ -37,25 +39,21 @@ window.lichess.load.then(() => {
         index: 2,
         search: function(term: string, callback: (res: any[]) => void) {
           if (term.length < 2) callback([]);
-          else $.ajax({
-            url: "/player/autocomplete?object=1&teacher=1",
-            data: {
-              term: term
-            },
-            success: function(res) {
-              const current = currentUserIds();
-              callback(res.result.filter(t => !current.includes(t.id)));
-            },
-            error: function() {
-              callback([]);
-            },
-            cache: true
-          })
+          else xhr.json(
+            xhr.url('/player/autocomplete', {
+              object: 1,
+              teacher: 1,
+              term
+            })
+          ).then(res => {
+            const current = currentUserIds();
+            callback(res.result.filter(t => !current.includes(t.id)));
+          }).catch(() => callback([]))
         },
         template: o =>
           '<span class="ulpt user-link' + (o.online ? ' online' : '') + '" href="/@/' + o.name + '">' +
-            '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="utitle">' + o.title + '</span>&nbsp;' : '') + o.name +
-            '</span>',
+          '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="utitle">' + o.title + '</span>&nbsp;' : '') + o.name +
+          '</span>',
         replace: o => '$1' + o.name + '\n'
       }]);
 
