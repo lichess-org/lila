@@ -84,10 +84,10 @@ li.load.then(() => {
 
     $('.user-autocomplete').each(function(this: HTMLElement) {
       const opts = {
-        focus: 1,
+        focus: true,
         friend: $(this).data('friend'),
         tag: $(this).data('tag')
-      };
+      } as UserAutocompleteOpts;
       if ($(this).attr('autofocus')) userAutocomplete($(this), opts);
       else $(this).one('focus', function(this: HTMLElement) {
         userAutocomplete($(this), opts);

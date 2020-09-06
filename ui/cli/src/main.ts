@@ -5,19 +5,19 @@ const li = window.lichess;
 export function app($wrap: JQuery, toggle: () => void) {
   const $input = $wrap.find('input');
   li.userAutocomplete($input, {
-    focus: 1,
+    focus: true,
     friend: true,
     onSelect(q: any) {
       $input.val('').blur();
       execute(q.name || q.trim());
       $('body').hasClass('clinput') && toggle()
     }
-  }).done(function() {
+  }).then(() =>
     $input.on('blur', () => {
       $input.val('');
       $('body').hasClass('clinput') && toggle()
-    });
-  });
+    })
+  );
 }
 
 function execute(q: string) {

@@ -34,18 +34,18 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
   });
   $ratingRange.each(function(this: HTMLElement) {
     var $this = $(this);
-    window.lichess.slider().done(function() {
-      var $input = $this.find("input");
-      var $span = $this.siblings(".range");
-      var min = $input.data("min");
-      var max = $input.data("max");
-      var values = $input.val() ? $input.val().split("-") : [min, max];
+    window.lichess.slider().then(() => {
+      const $input = $this.find("input"),
+        $span = $this.siblings(".range"),
+        min = $input.data("min"),
+        max = $input.data("max"),
+        values = $input.val() ? $input.val().split("-") : [min, max];
       $span.text(values.join('–'));
       $this.slider({
         range: true,
-        min: min,
-        max: max,
-        values: values,
+        min,
+        max,
+        values,
         step: 50,
         slide(_, ui) {
           changeRatingRange(ui.values);

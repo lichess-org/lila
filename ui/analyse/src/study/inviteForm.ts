@@ -71,8 +71,8 @@ export function view(ctrl): VNode {
           hook: onInsert<HTMLInputElement>(el => {
             window.lichess.userAutocomplete($(el), {
               tag: 'span',
-              onSelect(v) {
-                ctrl.invite(v.name);
+              onSelect(v: any) {
+                ctrl.invite(v.name || v);
                 $(el).typeahead('close');
                 el.value = '';
                 ctrl.redraw();

@@ -84,7 +84,7 @@ export function view(ctrl: BoardCtrl): VNode {
 }
 
 function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {
-  window.lichess.slider().done(() => {
+  window.lichess.slider().then(() => 
     $(el).slider({
       orientation: 'horizontal',
       min: 100,
@@ -93,6 +93,6 @@ function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {
       step: 1,
       value: ctrl.readZoom(),
       slide: (_: any, ui: any) => ctrl.setZoom(ui.value)
-    });
-  });
+    })
+  );
 }

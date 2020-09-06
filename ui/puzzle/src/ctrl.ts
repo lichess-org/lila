@@ -247,7 +247,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     ceval.stop();
     vm.loading = true;
     redraw();
-    xhr.nextPuzzle().done((d: PuzzleData) => {
+    xhr.nextPuzzle().then((d: PuzzleData) => {
       vm.round = null;
       vm.loading = false;
       initiate(d);

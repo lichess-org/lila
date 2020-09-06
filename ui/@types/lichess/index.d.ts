@@ -36,7 +36,7 @@ interface Lichess {
   socket: any;
   sound: any;
   soundBox: SoundBoxI;
-  userAutocomplete: any;
+  userAutocomplete($input: JQuery, opts?: UserAutocompleteOpts): Promise<void>;
   miniBoard: {
     init(node: HTMLElement): void;
     initAll(): void;
@@ -81,6 +81,16 @@ interface Lichess {
 }
 
 type RedirectTo = string | { url: string, cookie: Cookie };
+
+interface UserAutocompleteOpts {
+  tag?: 'a' | 'span';
+  minLength?: number;
+  onSelect?: (value: string | { id: string; name: string }) => void;
+  focus?: boolean;
+  friend?: boolean;
+  tour?: string;
+  swiss?: string;
+}
 
 interface SoundBoxI {
   loadOggOrMp3(name: string, path: string): void;

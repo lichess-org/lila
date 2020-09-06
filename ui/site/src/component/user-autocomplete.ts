@@ -3,8 +3,7 @@ import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import spinnerHtml from "./spinner";
 
-export default function($input: JQuery, opts?: any): Promise<void> {
-  opts = opts || {};
+export default function($input: JQuery, opts: UserAutocompleteOpts = {}): Promise<void> {
   const cache = {};
   loadCssPath('autocomplete');
   const sendXhr = debounce((query, runAsync) =>
@@ -57,9 +56,9 @@ export default function($input: JQuery, opts?: any): Promise<void> {
     }).on('typeahead:render', () => window.lichess.pubsub.emit('content_loaded'));
     if (opts.focus) $input.focus();
     if (opts.onSelect) $input
-      .on('typeahead:select', (_, sel) => opts.onSelect(sel))
+      .on('typeahead:select', (_, sel) => opts.onSelect!(sel))
       .on('keypress', function(this: HTMLElement, e) {
-        if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
+        if (e.which == 10 || e.which == 13) opts.onSelect!($(this).val());
       });
   });
 };

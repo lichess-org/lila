@@ -229,7 +229,7 @@ export default class Setup {
         toggleButtons();
         showRating();
       });
-    } else li.slider().done(function() {
+    } else li.slider().then(() => {
       $timeInput.add($incrementInput).each(function(this: HTMLElement) {
         const $input = $(this),
           $value = $input.siblings('span'),

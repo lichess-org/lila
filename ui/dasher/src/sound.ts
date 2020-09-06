@@ -87,7 +87,7 @@ export function view(ctrl: SoundCtrl): VNode {
 
 function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
   const setVolume = debounce(ctrl.volume, 50);
-  window.lichess.slider().done(() => {
+  window.lichess.slider().then(() => 
     $(vnode.elm as HTMLElement).slider({
       orientation: 'vertical',
       min: 0,
@@ -96,8 +96,8 @@ function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
       step: 0.01,
       value: ctrl.box.getVolume(),
       slide: (_: any, ui: any) => setVolume(ui.value)
-    });
-  });
+    })
+  );
 }
 
 function soundView(ctrl: SoundCtrl, current: Key) {

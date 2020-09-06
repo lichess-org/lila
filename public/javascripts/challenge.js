@@ -37,7 +37,7 @@ function challengeStart(opts) {
         focus: 1,
         friend: 1,
         tag: 'span',
-        onSelect: function() {
+        onSelect() {
           $input.parents('form').submit();
         }
       });
