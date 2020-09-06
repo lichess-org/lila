@@ -1,3 +1,4 @@
+import * as xhr from 'common/xhr';
 import spinnerHtml from './spinner';
 import { requestIdleCallback } from './functions';
 
@@ -15,12 +16,9 @@ function onPowertipPreRender(id: string, preload?: (url: string) => void) {
   return function(this: HTMLElement) {
     const url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
     if (preload) preload(url);
-    $.ajax({
-      url: url + '/mini',
-      success(html) {
-        $('#' + id).html(html);
-        window.lichess.pubsub.emit('content_loaded');
-      }
+    xhr.text(url + '/mini').then(html => {
+      $('#' + id).html(html);
+      window.lichess.pubsub.emit('content_loaded');
     });
   };
 };

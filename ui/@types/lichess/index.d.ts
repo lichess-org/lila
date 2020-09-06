@@ -14,7 +14,7 @@ interface Lichess {
   loadCss(path: string): void;
   loadCssPath(path: string): void;
   jsModule(name: string): string;
-  loadScript(url: string, opts?: AssetUrlOpts): JQueryXHR;
+  loadScript(url: string, opts?: AssetUrlOpts): Promise<void>;
   hopscotch: any;
   slider(): any;
   makeChat(data: any): any;

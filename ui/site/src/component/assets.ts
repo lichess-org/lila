@@ -1,3 +1,5 @@
+import * as xhr from 'common/xhr';
+
 export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
   opts = opts || {};
   const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
@@ -22,12 +24,8 @@ export const loadCssPath = (key: string) =>
 export const jsModule = (name: string) =>
   `compiled/${name}${$('body').data('dev') ? '' : '.min'}.js`;
 
-export const loadScript = (url: string, opts: AssetUrlOpts = {}) =>
-  $.ajax({
-    dataType: "script",
-    cache: true,
-    url: assetUrl(url, opts)
-  });
+export const loadScript = (url: string, opts: AssetUrlOpts = {}): Promise<void> =>
+  xhr.script(assetUrl(url, opts)); 
 
 export const hopscotch = () => {
   loadCss('vendor/hopscotch/dist/css/hopscotch.min.css');

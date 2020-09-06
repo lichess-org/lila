@@ -3,7 +3,7 @@ import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import spinnerHtml from "./spinner";
 
-export default function($input: JQuery, opts?: any) {
+export default function($input: JQuery, opts?: any): Promise<void> {
   opts = opts || {};
   const cache = {};
   loadCssPath('autocomplete');
@@ -23,7 +23,7 @@ export default function($input: JQuery, opts?: any) {
       cache[query] = res;
       runAsync(res)
     }), 150);
-  return loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function() {
+  return loadScript('javascripts/vendor/typeahead.jquery.min.js').then(() => {
     $input.typeahead({
       minLength: opts.minLength || 3,
     }, {

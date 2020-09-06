@@ -1,4 +1,5 @@
 import "./component/jquery-ajax";
+import * as xhr from 'common/xhr';
 import exportLichessGlobals from "./site.lichess.globals";
 import StrongSocket from "./component/socket";
 import { reload } from "./component/reload";
@@ -46,15 +47,11 @@ li.load.then(() => {
         $(this).attr('data-icon', 'E');
       });
 
-    $('body').on('click', 'a.relation-button', function(this: HTMLElement) {
+    $('body').on('click', 'a.relation-button', function(this: HTMLAnchorElement) {
       const $a = $(this).addClass('processing').css('opacity', 0.3);
-      $.ajax({
-        url: $a.attr('href'),
-        type: 'post',
-        success(html) {
-          if (html.includes('relation-actions')) $a.parent().replaceWith(html);
-          else $a.replaceWith(html);
-        }
+      xhr.text(this.href, { method: 'post' }).then(html => {
+        if (html.includes('relation-actions')) $a.parent().replaceWith(html);
+        else $a.replaceWith(html);
       });
       return false;
     });

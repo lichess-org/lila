@@ -31,15 +31,15 @@ window.lichess.load.then(() => {
         xhr.text(
           xhr.url($captcha.data('check-url'), { solution })
         ).then(data => {
-          $captcha.toggleClass('success', data == 1).toggleClass('failure', data != 1);
-          if (data == 1) $board.data('chessground').stop();
-          else setTimeout(function() {
+          $captcha.toggleClass('success', data == '1').toggleClass('failure', data != '1');
+          if (data == '1') $board.data('chessground').stop();
+          else setTimeout(() =>
             cg.set({
               fen: fen,
               turnColor: cg.state.orientation,
               movable: { dests }
-            });
-          }, 300);
+            }),
+            300);
         });
       };
     });

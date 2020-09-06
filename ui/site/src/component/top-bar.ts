@@ -16,8 +16,8 @@ export default function() {
     $p.siblings('.shown').removeClass('shown');
     pubsub.emit('top.toggle.' + $(this).attr('id'));
     setTimeout(() => {
-      const handler = function(e) {
-        if ($.contains($p[0], e.target)) return;
+      const handler = (e: Event) => {
+        if ($.contains($p[0], e.target as HTMLElement)) return;
         $p.removeClass('shown');
         $('html').off('click', handler);
       };
@@ -27,7 +27,7 @@ export default function() {
   });
 
   { // challengeApp
-    let instance, booted;
+    let instance, booted: boolean;
     const $toggle = $('#challenge-toggle');
     $toggle.one('mouseover click', () => load());
     const load = function(data?: any) {
@@ -35,20 +35,20 @@ export default function() {
       booted = true;
       const $el = $('#challenge-app').html(initiatingHtml);
       loadCssPath('challenge');
-      loadScript(jsModule('challenge')).done(function() {
+      loadScript(jsModule('challenge')).then(() =>
         instance = window.LichessChallenge($el[0], {
-          data: data,
+          data,
           show() {
             if (!$('#challenge-app').is(':visible')) $toggle.click();
           },
-          setCount(nb) {
+          setCount(nb: number) {
             $toggle.find('span').attr('data-count', nb);
           },
           pulse() {
             $toggle.addClass('pulse');
           }
-        });
-      });
+        })
+      );
     };
     pubsub.on('socket.in.challenges', data => {
       if (!instance) load(data);
@@ -58,7 +58,7 @@ export default function() {
   }
 
   { // notifyApp
-    let instance, booted;
+    let instance, booted: boolean;
     const $toggle = $('#notify-toggle'),
       isVisible = () => $('#notify-app').is(':visible');
 
@@ -67,12 +67,12 @@ export default function() {
       booted = true;
       var $el = $('#notify-app').html(initiatingHtml);
       loadCssPath('notify');
-      loadScript(jsModule('notify')).done(() => {
+      loadScript(jsModule('notify')).then(() =>
         instance = window.LichessNotify($el.empty()[0], {
-          data: data,
-          incoming: incoming,
-          isVisible: isVisible,
-          setCount(nb) {
+          data,
+          incoming,
+          isVisible,
+          setCount(nb: number) {
             $toggle.find('span').attr('data-count', nb);
           },
           show() {
@@ -84,8 +84,8 @@ export default function() {
           pulse() {
             $toggle.addClass('pulse');
           }
-        });
-      });
+        })
+      );
     };
 
     $toggle.one('mouseover click', () => load()).click(() => {
@@ -106,14 +106,14 @@ export default function() {
   }
 
   { // dasher
-    let booted;
+    let booted: boolean;
     $('#top .dasher .toggle').one('mouseover click', function() {
       if (booted) return;
       booted = true;
       const $el = $('#dasher_app').html(initiatingHtml),
         playing = $('body').hasClass('playing');
       loadCssPath('dasher');
-      loadScript(jsModule('dasher')).done(() =>
+      loadScript(jsModule('dasher')).then(() =>
         window.LichessDasher($el.empty()[0], {
           playing
         })
@@ -124,12 +124,12 @@ export default function() {
   { // cli
     const $wrap = $('#clinput');
     if (!$wrap.length) return;
-    let booted;
+    let booted: boolean;
     const $input = $wrap.find('input');
     const boot = () => {
       if (booted) return;
       booted = true;
-      loadScript(jsModule('cli')).done(() =>
+      loadScript(jsModule('cli')).then(() =>
         window.LichessCli.app($wrap, toggle)
       );
     };

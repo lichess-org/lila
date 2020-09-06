@@ -1,4 +1,4 @@
-import { formToXhr } from "common/xhr";
+import * as xhr from "common/xhr";
 
 window.lichess.load.then(() => {
   $('#trainer').each(function(this: HTMLElement) {
@@ -49,7 +49,7 @@ window.lichess.load.then(() => {
           2: 'random',
           3: 'black'
         }[selected];
-        if (c !== colorPref) formToXhr(form);
+        if (c !== colorPref) xhr.formToXhr(form);
         colorPref = c;
         showColor();
         return false;
@@ -116,17 +116,12 @@ window.lichess.load.then(() => {
           select: false
         }
       });
-      if (scoreUrl) $.ajax({
-        url: scoreUrl,
+      if (scoreUrl) xhr.text(scoreUrl, {
         method: 'post',
-        data: {
-          color: color,
-          score: score
-        },
-        success: function(charts) {
-          $side.find('.scores').html(charts);
-          showCharts();
-        }
+        body: xhr.form({ color, score })
+      }).then(charts => {
+        $side.find('.scores').html(charts);
+        showCharts();
       });
     };
 

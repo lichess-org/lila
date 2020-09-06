@@ -1,5 +1,6 @@
 import { defined } from "./common";
 
+
 const jsonHeader = {
   'Accept': 'application/vnd.lichess.v5+json'
 };
@@ -23,7 +24,7 @@ export const json = (url: string, init: RequestInit = {}): Promise<any> =>
     });
 
 
-export const text = (url: string, init: RequestInit = {}): Promise<any> =>
+export const text = (url: string, init: RequestInit = {}): Promise<string> =>
   fetch(url, {
     headers: { ...xhrHeader },
     cache: 'no-cache',
@@ -34,6 +35,15 @@ export const text = (url: string, init: RequestInit = {}): Promise<any> =>
     throw res.statusText;
   });
 
+export const script = (src: string): Promise<void> =>
+  new Promise((resolve, reject) => {
+    const el = document.createElement('script');
+    el.type = 'text/javascript';
+    el.onload = resolve as () => void;
+    el.onerror = reject;
+    el.src = src;
+    document.head.append(el);
+  })
 
 export const form = (data: any) => {
   const formData = new FormData();
