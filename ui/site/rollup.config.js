@@ -121,6 +121,9 @@ export default rollupProject({
   forum: {
     input: 'src/forum.ts',
     output: 'forum',
-    name: 'forumStart'
+  },
+  account: {
+    input: 'src/account.ts',
+    output: 'account',
   }
 });
