@@ -4,23 +4,23 @@ import { Redraw, Close, bind, header } from './util'
 import debounce from 'common/debounce';
 
 export interface BackgroundCtrl {
-  list: Background[]
-  set(k: string): void
-    get(): string
-  getImage(): string
-  setImage(i: string): void
-    trans: Trans
-  close: Close
+  list: Background[];
+  set(k: string): void;
+  get(): string;
+  getImage(): string;
+  setImage(i: string): void;
+  trans: Trans;
+  close: Close;
 }
 
 export interface BackgroundData {
-  current: string
-  image: string
+  current: string;
+  image: string;
 }
 
 interface Background {
-  key: string
-  name: string
+  key: string;
+  name: string;
 }
 
 export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: Close): BackgroundCtrl {
@@ -31,7 +31,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     { key: 'transp', name: trans.noarg('transparent') }
   ];
 
-  const announceFail = () => window.lichess.announce({msg: 'Failed to save background preference'});
+  const announceFail = () => window.lichess.announce({ msg: 'Failed to save background preference' });
 
   return {
     list,

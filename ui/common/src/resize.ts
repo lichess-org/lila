@@ -1,4 +1,5 @@
 import * as cg from 'chessground/types';
+import * as xhr from './xhr';
 import debounce from './debounce';
 
 export type MouchEvent = MouseEvent & TouchEvent;
@@ -17,19 +18,19 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
     start.preventDefault();
 
     const mousemoveEvent = start.type === 'touchstart' ? 'touchmove' : 'mousemove',
-    mouseupEvent = start.type === 'touchstart' ? 'touchend' : 'mouseup',
-    startPos = eventPosition(start)!,
-    initialZoom = parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
+      mouseupEvent = start.type === 'touchstart' ? 'touchend' : 'mouseup',
+      startPos = eventPosition(start)!,
+      initialZoom = parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
     let zoom = initialZoom;
 
-    const saveZoom = debounce(() => {
-      $.ajax({ method: 'post', url: '/pref/zoom?v=' + (100 + zoom) });
-    }, 700);
+    const saveZoom = debounce(() =>
+      xhr.text(`/pref/zoom?v=${100 + zoom}`, { method: 'post' })
+      , 700);
 
     const resize = (move: MouchEvent) => {
 
       const pos = eventPosition(move)!,
-      delta = pos[0] - startPos[0] + pos[1] - startPos[1];
+        delta = pos[0] - startPos[0] + pos[1] - startPos[1];
 
       zoom = Math.round(Math.min(100, Math.max(0, initialZoom + delta / 10)));
 

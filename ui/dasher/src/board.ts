@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Redraw, Close, bind, header } from './util'
 import debounce from 'common/debounce';
+import * as xhr from 'common/xhr';
 
 export interface BoardCtrl {
   data: BoardData
@@ -22,19 +23,17 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
 
   const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom')) + 100;
 
-  const saveZoom = debounce(() => {
-    $.ajax({
-      method: 'post',
-      url: '/pref/zoom?v=' + readZoom()
-    }).fail(() => window.lichess.announce({msg: 'Failed to save zoom'}));
-  }, 1000);
+  const saveZoom = debounce(() =>
+    xhr.text('/pref/zoom?v=' + readZoom(), { method: 'post' })
+      .catch(() => window.lichess.announce({ msg: 'Failed to save zoom' }))
+    , 1000);
 
   return {
     data,
     trans,
     setIs3d(v: boolean) {
       data.is3d = v;
-      $.post('/pref/is3d', { is3d: v }, window.lichess.reload).fail(() => window.lichess.announce({msg: 'Failed to save geometry preference'}));
+      $.post('/pref/is3d', { is3d: v }, window.lichess.reload).fail(() => window.lichess.announce({ msg: 'Failed to save geometry preference' }));
       redraw();
     },
     readZoom,
@@ -70,21 +69,21 @@ export function view(ctrl: BoardCtrl): VNode {
       isNaN(domZoom) ? [
         h('p', 'No board to zoom here!')
       ] : [
-        h('p', [
-          ctrl.trans.noarg('boardSize'),
-          ': ',
-          (domZoom - 100),
-          '%'
-        ]),
-        h('div.slider', {
-          hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
-        })
-      ])
+          h('p', [
+            ctrl.trans.noarg('boardSize'),
+            ': ',
+            (domZoom - 100),
+            '%'
+          ]),
+          h('div.slider', {
+            hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
+          })
+        ])
   ]);
 }
 
 function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {
-  window.lichess.slider().then(() => 
+  window.lichess.slider().then(() =>
     $(el).slider({
       orientation: 'horizontal',
       min: 100,
