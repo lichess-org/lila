@@ -395,12 +395,12 @@
   <string name="winner">Jeńimpaz</string>
   <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Turǵan</string>
   <string name="createANewTournament">Jańa týrnır jasańyz</string>
-  <string name="tournamentCalendar">Týrnır kúntizbesi</string>
-  <string name="conditionOfEntry">Kirý sharttary:</string>
-  <string name="advancedSettings">Qosymsha parametrler</string>
-  <string name="safeTournamentName">Týrnır úshin óte qaýipsiz ataýdy tańdańyz.</string>
-  <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет сіздің аккаунтыңыздың жабылуына әкеліп соқтыруы мүмкін.</string>
-  <string name="emptyTournamentName">Belgili shahmatshynyń qurmetine týrnırdi ataý úshin bos qaldyryńyz.</string>
+  <string name="tournamentCalendar">Жарыс күнтізбесі</string>
+  <string name="conditionOfEntry">Кіру талаптары:</string>
+  <string name="advancedSettings">Қосымша баптаулар</string>
+  <string name="safeTournamentName">Жарысты түзу, жөнді сөз таңдап атаңыз.</string>
+  <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет аккаунтыңызды жабылуға шалдықтыру мүмкін.</string>
+  <string name="emptyTournamentName">Елеулі бір шахматшының атымен атау үшін бос қалдырыңыз.</string>
   <string name="recommendNotTouching">Бұны тиіспеуге кеңес береміз.</string>
   <string name="fewerPlayers">Егер сіз кіру талаптарын қоятын болсаңыз, ойыншылар саны азырақ болар.</string>
   <string name="showAdvancedSettings">Қосымша баптауларды көрсету</string>
