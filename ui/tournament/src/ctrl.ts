@@ -1,5 +1,5 @@
 import makeSocket from './socket';
-import xhr from './xhr';
+import * as xhr from './xhr';
 import { myPage, players } from './pagination';
 import * as sound from './sound';
 import * as tour from './tournament';
