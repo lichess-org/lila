@@ -45,10 +45,9 @@ final class Streamer(
         OptionFuResult(api find username) { s =>
           WithVisibleStreamer(s) {
             for {
-              sws       <- env.streamer.liveStreamApi of s
-              activity  <- env.activity.read.recent(sws.user, 10)
-              following <- ctx.userId.??(env.relation.api.fetchFollows(_, sws.user.id))
-            } yield Ok(html.streamer.show(sws, activity, following))
+              sws      <- env.streamer.liveStreamApi of s
+              activity <- env.activity.read.recent(sws.user, 10)
+            } yield Ok(html.streamer.show(sws, activity))
           }
         }
       }

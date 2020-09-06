@@ -1,6 +1,7 @@
 package views.html.streamer
 
 import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -9,7 +10,7 @@ object header {
 
   import trans.streamer._
 
-  def apply(s: lila.streamer.Streamer.WithUserAndStream, following: Option[Boolean])(implicit ctx: Context) =
+  def apply(s: lila.streamer.Streamer.WithUserAndStream)(implicit ctx: Context) =
     div(cls := "streamer-header")(
       bits.pic(s.streamer, s.user),
       div(cls := "overview")(
@@ -22,28 +23,34 @@ object header {
             d
           )
         },
-        div(cls := "services")(
+        ul(cls := "services")(
           s.streamer.twitch.map { twitch =>
-            a(
-              cls := List(
-                "service twitch" -> true,
-                "live"           -> s.stream.exists(_.twitch)
-              ),
-              href := twitch.fullUrl
-            )(twitch.minUrl)
+            li(
+              a(
+                cls := List(
+                  "service twitch" -> true,
+                  "live"           -> s.stream.exists(_.twitch)
+                ),
+                href := twitch.fullUrl
+              )(twitch.minUrl)
+            )
           },
           s.streamer.youTube.map { youTube =>
-            a(
-              cls := List(
-                "service youTube" -> true,
-                "live"            -> s.stream.exists(_.twitch)
-              ),
-              href := youTube.fullUrl
-            )(youTube.minUrl)
+            li(
+              a(
+                cls := List(
+                  "service youTube" -> true,
+                  "live"            -> s.stream.exists(_.twitch)
+                ),
+                href := youTube.fullUrl
+              )(youTube.minUrl)
+            )
           },
-          a(cls := "service lichess", href := routes.User.show(s.user.username))(
-            netConfig.domain,
-            routes.User.show(s.user.username).url
+          li(
+            a(cls := "service lichess ulpt", href := routes.User.show(s.user.username))(
+              netConfig.domain,
+              routes.User.show(s.user.username).url
+            )
           )
         ),
         div(cls := "ats")(
@@ -55,21 +62,7 @@ object header {
               p(cls := "at")(lastStream(momentFromNow(liveAt)))
             }
           )
-        ),
-        following.map { f =>
-          (ctx.isAuth && !ctx.is(s.user)) option
-            submitButton(
-              attr("data-user") := s.user.id,
-              dataIcon := "h",
-              cls := List(
-                "follow button text" -> true,
-                "active"             -> f
-              )
-            )(
-              span(cls := "active-no")(trans.follow()),
-              span(cls := "active-yes")(trans.following())
-            )
-        }
+        )
       )
     )
 }
