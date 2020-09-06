@@ -83,16 +83,11 @@ $c-slider: $c-setup;
     .fen_form input {
       flex: 1 1 100%;
     }
-
-    .fen_form .button {}
   }
 
-  input#fen.success {
-    border-color: $c-good;
-  }
-
-  input#fen.failure {
-    border-color: $c-bad;
+  #form3-fen.failure {
+    background: mix($c-bg-box, $c-bad, 80%);
+    box-shadow: 0 0 13px $c-bad;
   }
 
   .ui-slider {
