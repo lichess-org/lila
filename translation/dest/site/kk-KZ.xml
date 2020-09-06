@@ -361,7 +361,7 @@
   </plurals>
   <string name="noFriendsOnline">Желіде достар жоқ</string>
   <string name="findFriends">Дос іздестіру</string>
-  <string name="favoriteOpponents">Қымбатты қарсыластар</string>
+  <string name="favoriteOpponents">Қарсыластардың қалаулылары</string>
   <string name="follow">Серік болу</string>
   <string name="following">Серіксіз</string>
   <string name="unfollow">Серік болмау</string>
@@ -404,7 +404,7 @@
   <string name="recommendNotTouching">Biz olardy ustamaýǵa keńes beremiz.</string>
   <string name="fewerPlayers">Егер сіз кіру талаптарын қойсаңыз, жарысқа аз ғана ойыншы қатысады.</string>
   <string name="showAdvancedSettings">Qosymsha parametrlerdi kórsetý</string>
-  <string name="makePrivateTournament">Жарысты оңашалаңыз, кіруді құпиясөз арқылы шектеңіз</string>
+  <string name="makePrivateTournament">Кіруді құпиясөз арқылы шектеп, жарысты оңашалаңыз</string>
   <string name="join">Qosylyńyz</string>
   <string name="withdraw">Shyǵarý</string>
   <string name="points">Núkteler</string>
