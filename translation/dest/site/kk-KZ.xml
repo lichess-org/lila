@@ -193,7 +193,7 @@
     <item quantity="one">%s жұмбақ</item>
     <item quantity="other">%s жұмбақ</item>
   </plurals>
-  <string name="gamesPlayed">Ойналған ойындар</string>
+  <string name="gamesPlayed">Ойындар саны</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">Сізбен %s ойын</item>
     <item quantity="other">Сізбен %s ойын</item>
@@ -299,14 +299,14 @@
   </plurals>
   <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="backToTournament">Týrnırge oralaıyq</string>
-  <string name="thematic">Taqyryptyq</string>
+  <string name="thematic">Тақырыптық</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s бағаланатын ойын</item>
     <item quantity="other">≥ %s бағаланатын ойын</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s бағаланатын ойын</item>
-    <item quantity="other">≥ %1$s %2$s бағаланатын ойын</item>
+    <item quantity="one">≥ %1$s бағаланатын %2$s ойын</item>
+    <item quantity="other">≥ %1$s бағаланатын %2$s ойын</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Сіз тағы %1$s бағаланатын %2$s ойнауыңыз керек</item>
