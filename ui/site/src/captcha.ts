@@ -1,3 +1,5 @@
+import * as xhr from 'common/xhr';
+
 window.lichess.load.then(() => {
   setTimeout(() => {
     $('div.captcha').each(function(this: HTMLElement) {
@@ -26,22 +28,18 @@ window.lichess.load.then(() => {
 
       const submit = function(solution: string) {
         $input.val(solution);
-        $.ajax({
-          url: $captcha.data('check-url'),
-          data: {
-            solution
-          },
-          success: function(data) {
-            $captcha.toggleClass('success', data == 1).toggleClass('failure', data != 1);
-            if (data == 1) $board.data('chessground').stop();
-            else setTimeout(function() {
-              cg.set({
-                fen: fen,
-                turnColor: cg.state.orientation,
-                movable: { dests }
-              });
-            }, 300);
-          }
+        xhr.text(
+          xhr.url($captcha.data('check-url'), { solution })
+        ).then(data => {
+          $captcha.toggleClass('success', data == 1).toggleClass('failure', data != 1);
+          if (data == 1) $board.data('chessground').stop();
+          else setTimeout(function() {
+            cg.set({
+              fen: fen,
+              turnColor: cg.state.orientation,
+              movable: { dests }
+            });
+          }, 300);
         });
       };
     });
