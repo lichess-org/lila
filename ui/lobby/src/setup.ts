@@ -1,6 +1,7 @@
 import { FormStore, toFormLines, makeStore } from './form';
 import modal from 'common/modal';
 import debounce from 'common/debounce';
+import * as xhr from 'common/xhr';
 import LobbyController from './ctrl';
 
 const li = window.lichess;
@@ -206,11 +207,17 @@ export default class Setup {
           this.root.redraw();
         } else {
           this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
-          $.ajax({
-            url: $form.attr('action').replace(/sri-placeholder/, li.sri),
-            data: $form.serialize() + "&color=" + color,
-            type: 'post'
-          });
+          xhr.text(
+            $form.attr('action').replace(/sri-placeholder/, li.sri),
+            {
+              method: 'post',
+              body: (() => {
+                const data = new FormData($form[0] as HTMLFormElement)
+                data.append('color', color);
+                console.log(data);
+                return data;
+              })()
+            });
         }
         return false;
       };
@@ -310,28 +317,21 @@ export default class Setup {
     var validateFen = debounce(() => {
       $fenInput.removeClass("success failure");
       var fen = $fenInput.val();
-      if (fen) {
-        $.ajax({
-          url: $fenInput.parent().data('validate-url'),
-          data: {
-            fen: fen
-          },
-          success: function(data) {
-            $fenInput.addClass("success");
-            $fenPosition.find('.preview').html(data);
-            $fenPosition.find('a.board_editor').each(function(this: HTMLElement) {
-              $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
-            });
-            $submits.removeClass('nope');
-            li.pubsub.emit('content_loaded');
-          },
-          error: function() {
-            $fenInput.addClass("failure");
-            $fenPosition.find('.preview').html("");
-            $submits.addClass('nope');
-          }
-        });
-      }
+      if (fen) xhr.text(xhr.url($fenInput.parent().data('validate-url'), { fen }))
+        .then(data => {
+          $fenInput.addClass("success");
+          $fenPosition.find('.preview').html(data);
+          $fenPosition.find('a.board_editor').each(function(this: HTMLElement) {
+            $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
+          });
+          $submits.removeClass('nope');
+          li.pubsub.emit('content_loaded');
+        })
+        .catch(() => {
+          $fenInput.addClass("failure");
+          $fenPosition.find('.preview').html("");
+          $submits.addClass('nope');
+        })
     }, 200);
     $fenInput.on('keyup', validateFen);
 

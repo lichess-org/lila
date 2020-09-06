@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+import * as xhr from 'common/xhr';
 import { bind } from '../util';
 import LobbyController from '../../ctrl';
 
@@ -71,21 +72,18 @@ export interface FilterNode extends HTMLElement {
   filterLoaded?: boolean;
 }
 
-export function render(ctrl: LobbyController) {
-  return h('div.hook__filters', {
+export const render = (ctrl: LobbyController) =>
+  h('div.hook__filters', {
     hook: {
       insert(vnode) {
         const el = vnode.elm as FilterNode;
         if (el.filterLoaded) return;
-        $.ajax({
-          url: '/setup/filter',
-          success(html) {
+        xhr.text('/setup/filter')
+          .then(html => {
             el.innerHTML = html;
             el.filterLoaded = true;
             initialize(ctrl, el);
-          }
-        });
+          });
       }
     }
   });
-}

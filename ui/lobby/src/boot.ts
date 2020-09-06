@@ -1,6 +1,7 @@
 import { LobbyOpts } from './interfaces';
 import main from './main';
 import modal from 'common/modal';
+import * as xhr from 'common/xhr';
 
 export default function LichessLobby(opts: LobbyOpts) {
 
@@ -40,12 +41,9 @@ export default function LichessLobby(opts: LobbyOpts) {
         setTimeout(() => nbRoundSpread(msg.r), li.socket.pingInterval() / 2);
       },
       reload_timeline() {
-        $.ajax({
-          url: '/timeline',
-          success: function(html) {
-            $('.timeline').html(html);
-            li.pubsub.emit('content_loaded');
-          }
+        xhr.text('/timeline').then(html => {
+          $('.timeline').html(html);
+          li.pubsub.emit('content_loaded');
         });
       },
       featured(o: { html: string }) {
@@ -63,9 +61,11 @@ export default function LichessLobby(opts: LobbyOpts) {
     }
   });
   li.StrongSocket.firstConnect.then(() => {
-    var gameId = getParameterByName('hook_like');
+    const gameId = getParameterByName('hook_like');
     if (!gameId) return;
-    $.post(`/setup/hook/${li.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`);
+    xhr.text(
+      `/setup/hook/${li.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`,
+      { method: 'post' });
     lobby.setTab('real_time');
     history.replaceState(null, '', '/');
   });
@@ -78,27 +78,20 @@ export default function LichessLobby(opts: LobbyOpts) {
   const $startButtons = $('.lobby__start'),
     clickEvent = opts.blindMode ? 'click' : 'mousedown';
 
-  $startButtons.find('a:not(.disabled)').on(clickEvent, function(this: HTMLElement) {
+  $startButtons.find('a:not(.disabled)').on(clickEvent, function(this: HTMLAnchorElement) {
     $(this).addClass('active').siblings().removeClass('active');
     li.loadCssPath('lobby.setup');
     lobby.leavePool();
-    $.ajax({
-      url: $(this).attr('href'),
-      success: function(html) {
+    xhr.text(this.href)
+      .then(html => {
         lobby.setup.prepareForm(modal(html, 'game-setup', () => {
           $startButtons.find('.active').removeClass('active');
         }));
         li.pubsub.emit('content_loaded');
-      },
-      error: function(res) {
-        if (res.status == 400) alert(res.responseText);
-        li.reload();
-      }
-    });
+      })
+      .catch(li.reload);
     return false;
-  }).on('click', function() {
-    return false;
-  });
+  }).on('click', () => false);
 
   if (['#ai', '#friend', '#hook'].includes(location.hash)) {
     $startButtons
