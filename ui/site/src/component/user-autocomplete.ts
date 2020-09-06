@@ -1,5 +1,6 @@
 import { loadCssPath, loadScript } from "./assets";
 import debounce from 'common/debounce';
+import * as xhr from 'common/xhr';
 import spinnerHtml from "./spinner";
 
 export default function($input: JQuery, opts?: any) {
@@ -7,23 +8,20 @@ export default function($input: JQuery, opts?: any) {
   const cache = {};
   loadCssPath('autocomplete');
   const sendXhr = debounce((query, runAsync) =>
-    $.ajax({
-      url: '/player/autocomplete',
-      cache: true,
-      data: {
+    xhr.json(
+      xhr.url('/player/autocomplete', {
         term: query,
         friend: opts.friend ? 1 : 0,
         tour: opts.tour,
         swiss: opts.swiss,
         object: 1
-      },
-      success(res) {
-        res = res.result;
-        // hack to fix typeahead limit bug
-        if (res.length === 10) res.push(null);
-        cache[query] = res;
-        runAsync(res);
-      }
+      })
+    ).then(res => {
+      res = res.result;
+      // hack to fix typeahead limit bug
+      if (res.length === 10) res.push(null);
+      cache[query] = res;
+      runAsync(res)
     }), 150);
   return loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function() {
     $input.typeahead({

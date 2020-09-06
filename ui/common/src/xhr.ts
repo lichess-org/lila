@@ -1,3 +1,5 @@
+import {defined} from "./common";
+
 export const json = (url: string, init: RequestInit = {}): Promise<any> => 
   fetch(url, {
     headers: { 'Accept': 'application/vnd.lichess.v5+json' },
@@ -30,6 +32,6 @@ export const form = (data: any) => {
 
 export const url = (base: string, params: any) => {
   const searchParams = new URLSearchParams();
-  for (const k of Object.keys(params)) searchParams.append(k, params[k]);
+  for (const k of Object.keys(params)) if (defined(params[k])) searchParams.append(k, params[k]);
   return `${base}?${searchParams.toString()}`;
 }
