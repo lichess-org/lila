@@ -34,8 +34,8 @@
   <string name="otherRules">Басқа маңызды ережелер</string>
   <string name="thereIsACountdown">Бар кері санау үшін сіздің бірінші қадам. Егер сіз осы уақыт ішінде жүрмейтін болсаңыз, қарсыласыңызды жеңе аласыз.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Ойынның бірінші кезеңінде сурет салу %s бірде-бір ойыншыға ешқандай ұпай әкелмейді.</item>
-    <item quantity="other">Ойынның бірінші кезеңінде сурет салу %s бірде-бір ойыншыға ешқандай ұпай әкелмейді.</item>
+    <item quantity="one">Ойынның алғашқы %s жүрісінде тепе-теңдік ешбір ойыншыға ұпай әкелмейді.</item>
+    <item quantity="other">Ойынның алғашқы %s жүрісінде тепе-теңдік ешбір ойыншыға ұпай әкелмейді.</item>
   </plurals>
   <string name="thisIsPrivate">Бұл оңаша жарыс</string>
   <string name="shareUrl">Адамдар қосылсын десеңіз, осы URL-мен бөлісіңіз: %s</string>
