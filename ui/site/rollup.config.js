@@ -117,5 +117,10 @@ export default rollupProject({
     input: 'src/team.ts',
     output: 'team',
     name: 'teamStart'
+  },
+  forum: {
+    input: 'src/forum.ts',
+    output: 'forum',
+    name: 'forumStart'
   }
 });

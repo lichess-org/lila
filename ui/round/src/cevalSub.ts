@@ -1,6 +1,7 @@
 import { lastStep } from './round';
 import RoundController from './ctrl';
 import { ApiMove, RoundData } from './interfaces';
+import * as xhr from 'common/xhr';
 
 const li = window.lichess;
 let found = false;
@@ -21,7 +22,7 @@ export function subscribe(ctrl: RoundController): void {
     const d = ctrl.data, step = lastStep(ctrl.data);
     if (!found && step.ply > 14 && ctrl.isPlaying() &&
       e.value && truncateFen(step.fen) === truncateFen(e.value)) {
-      $.post('/jslog/' + d.game.id + d.player.id + '?n=ceval');
+      xhr.text(`/jslog/${d.game.id}${d.player.id}?n=ceval`, { method: 'post' });
       found = true;
     }
     return;

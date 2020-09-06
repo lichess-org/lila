@@ -17,7 +17,7 @@ object topic {
       title = "New forum topic",
       moreCss = cssTag("forum"),
       moreJs = frag(
-        jsTag("forum-post.js"),
+        jsModule("forum"),
         captchaTag
       )
     ) {
@@ -75,7 +75,7 @@ object topic {
     views.html.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
-        jsTag("forum-post.js"),
+        jsModule("forum"),
         formWithCaptcha.isDefined option captchaTag,
         jsModule("expand-text")
       ),

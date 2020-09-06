@@ -1,10 +1,15 @@
+import * as xhr from 'common/xhr';
+
 export function skip(txt: string) {
   return (suspLink(txt) || followMe(txt)) && !isKnownSpammer();
 }
 export function selfReport(txt: string) {
   if (isKnownSpammer()) return;
   const hasSuspLink = suspLink(txt);
-  if (hasSuspLink) $.post('/jslog/' + window.location.href.substr(-12) + '?n=spam');
+  if (hasSuspLink) xhr.text(
+    `/jslog/${window.location.href.substr(-12)}?n=spam`,
+    {method: 'post'}
+  );
   if (hasSuspLink || followMe(txt))
     window.lichess.storage.set('chat-spam', '1');
 }

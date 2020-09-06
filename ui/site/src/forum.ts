@@ -1,33 +1,35 @@
-$(function() {
+import * as xhr from 'common/xhr';
 
-  $('.forum').on('click', 'a.delete', function() {
-    $.post($(this).attr("href"));
+window.lichess.load.then(() => {
+
+  $('.forum').on('click', 'a.delete', function(this: HTMLAnchorElement) {
+    xhr.text(this.href, { method: 'post' });
     $(this).closest(".forum-post").hide();
     return false;
-  }).on('click', 'form.unsub button', function() {
-    var $form = $(this).parent().toggleClass('on off');
-    $.post($form.attr("action") + '?unsub=' + $(this).data('unsub'));
+  }).on('click', 'form.unsub button', function(this: HTMLButtonElement) {
+    const form = $(this).parent().toggleClass('on off')[0] as HTMLFormElement;
+    xhr.text(`${form.action}?unsub=${$(this).data('unsub')}`, { method: 'post' });
     return false;
   });
 
-  $('.edit.button').add('.edit-post-cancel').click(function(e) {
+  $('.edit.button').add('.edit-post-cancel').click(function(this: HTMLButtonElement, e) {
     e.preventDefault();
 
-    var post = $(this).closest('.forum-post');
-    var message = post.find('.message').toggle();
-    var form = post.find('form.edit-post-form').toggle();
+    const post = $(this).closest('.forum-post'),
+      message = post.find('.message').toggle(),
+      form = post.find('form.edit-post-form').toggle();
 
-    form[0].reset();
+    (form[0] as HTMLFormElement).reset();
     form.find('textarea').height(message.height());
   });
 
-  $('.post-text-area').one('focus', function() {
+  $('.post-text-area').one('focus', function(this: HTMLTextAreaElement) {
 
-    var textarea = this, topicId = $(this).attr('data-topic');
+    const textarea = this, topicId = $(this).attr('data-topic');
 
-    if (topicId) lichess.loadScript('vendor/textcomplete.min.js').then(function() {
+    if (topicId) window.lichess.loadScript('vendor/textcomplete.min.js').then(function() {
 
-      var searchCandidates = function(term, candidateUsers) {
+      const searchCandidates = function(term, candidateUsers) {
         return candidateUsers.filter(function(user) {
           return user.toLowerCase().startsWith(term.toLowerCase());
         });
@@ -40,7 +42,7 @@ $(function() {
         url: "/forum/participants/" + topicId
       });
 
-      var textcomplete = new Textcomplete(new Textcomplete.editors.Textarea(textarea));
+      const textcomplete = new window.Textcomplete(new window.Textcomplete.editors.Textarea(textarea));
 
       textcomplete.register([{
         match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
@@ -73,9 +75,7 @@ $(function() {
             }
           });
         },
-        replace: function(mention) {
-          return '$1@' + mention + ' ';
-        }
+        replace: mention => '$1@' + mention + ' '
       }], {
         placement: 'top',
         appendTo: '#lichess_forum'
@@ -89,12 +89,14 @@ $(function() {
       const $rels = $(e.target).parent();
       if ($rels.hasClass('loading')) return;
       $rels.addClass('loading');
-      fetch(href, { method: 'post', credentials: 'same-origin' }).then(res => {
-        if (res.ok) return res.text();
-        else throw res.statusText;
-      }).then(html => $rels.replaceWith(html)).catch(() => {
-        lichess.announce({msg: 'Failed to send forum post reaction'});
-      }).finally(() => $rels.removeClass('loading'));
+      xhr.text(href, { method: 'post' })
+        .then(html => {
+          $rels.replaceWith(html);
+          $rels.removeClass('loading');
+        })
+        .catch(() => {
+          window.lichess.announce({ msg: 'Failed to send forum post reaction' });
+        });
     }
   });
 });

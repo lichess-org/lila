@@ -1,5 +1,6 @@
 // import RoundController from './ctrl';
 import { RoundSocket } from './socket';
+import * as xhr from 'common/xhr';
 
 /* Tracks moves that were played on the board,
  * sent to the server, possibly acked,
@@ -25,7 +26,7 @@ export default class TransientMove {
   }
 
   expire = () => {
-    $.post('/statlog?e=roundTransientExpire');
+    xhr.text('/statlog?e=roundTransientExpire', {method:'post'});
     this.socket.reload({});
   }
 }
