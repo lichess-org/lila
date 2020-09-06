@@ -16,7 +16,7 @@ interface Lichess {
   jsModule(name: string): string;
   loadScript(url: string, opts?: AssetUrlOpts): Promise<void>;
   hopscotch: any;
-  slider(): any;
+  slider(): Promise<void>;
   makeChat(data: any): any;
   numberFormat(n: number): string;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;

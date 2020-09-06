@@ -1,3 +1,4 @@
+import * as xhr from 'common/xhr';
 import once from "./component/once";
 import { hopscotch } from "./component/assets";
 import loadInfiniteScroll from "./component/infinite-scroll";
@@ -44,7 +45,7 @@ window.lichess.load.then(() => {
       $content = $('.angle-content'),
       browseTo = (path: string) => {
         $('.angle-content .infinitescroll').infinitescroll('destroy');
-        $.get(path).then(html => {
+        xhr.text(path).then(html => {
           $content.html(html);
           window.lichess.pubsub.emit('content_loaded');
           history.replaceState({}, '', path);

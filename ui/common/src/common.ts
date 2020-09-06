@@ -1,10 +1,14 @@
 export const defined = <A>(v: A | undefined): v is A =>
   typeof v !== 'undefined';
 
-export const notNull = <T>(value: T | null | undefined): value is T => 
+export const notNull = <T>(value: T | null | undefined): value is T =>
   value !== null && value !== undefined;
 
 export const isEmpty = (a: any): boolean => !a || a.length === 0;
+
+/* export const foreach = <A>(a: A | undefined, f: (a: A) => void): void => { */
+/*   if (a) f(a); */
+/* } */
 
 export interface Prop<T> {
   (): T
