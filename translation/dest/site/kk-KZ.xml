@@ -401,8 +401,8 @@
   <string name="safeTournamentName">Týrnır úshin óte qaýipsiz ataýdy tańdańyz.</string>
   <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет сіздің аккаунтыңыздың жабылуына әкеліп соқтыруы мүмкін.</string>
   <string name="emptyTournamentName">Belgili shahmatshynyń qurmetine týrnırdi ataý úshin bos qaldyryńyz.</string>
-  <string name="recommendNotTouching">Biz olardy ustamaýǵa keńes beremiz.</string>
-  <string name="fewerPlayers">Егер сіз кіру талаптарын қойсаңыз, жарысқа аз ғана ойыншы қатысады.</string>
+  <string name="recommendNotTouching">Бұны тиіспеуге кеңес береміз.</string>
+  <string name="fewerPlayers">Егер сіз кіру талаптарын қоятын болсаңыз, ойыншылар саны азырақ болар.</string>
   <string name="showAdvancedSettings">Қосымша баптауларды көрсету</string>
   <string name="makePrivateTournament">Кіруді құпиясөз арқылы шектеп, жарысты оңашалаңыз</string>
   <string name="join">Қосылыңыз</string>
