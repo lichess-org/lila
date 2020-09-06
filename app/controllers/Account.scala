@@ -136,13 +136,22 @@ final class Account(
           FormFuResult(form) { err =>
             fuccess(html.account.passwd(err))
           } { data =>
-            env.user.authenticator.setPassword(me.id, UserModel.ClearPassword(data.newPasswd1))
-            env.security.store.closeUserExceptSessionId(me.id, ~env.security.api.reqSessionId(ctx.req)) >>
-              env.push.webSubscriptionApi.unsubscribeByUser(me) inject
-              Redirect(routes.Account.passwd()).flashSuccess
+            env.user.authenticator.setPassword(me.id, UserModel.ClearPassword(data.newPasswd1)) >>
+              refreshSessionId(me, Redirect(routes.Account.passwd()).flashSuccess)
           }
         }
       }(rateLimitedFu)
+    }
+
+  private def refreshSessionId(me: UserModel, result: Result)(implicit ctx: Context): Fu[Result] =
+    env.security.store.closeAllSessionsOf(me.id) >>
+      env.push.webSubscriptionApi.unsubscribeByUser(me) >>
+      env.security.api.saveAuthentication(me.id, ctx.mobileApiVersion) map { sessionId =>
+      result.withCookies(
+        env.lilaCookie.withSession {
+          _ + (env.security.api.sessionIdKey -> sessionId)
+        }
+      )
     }
 
   private def emailForm(user: UserModel) =
@@ -248,16 +257,13 @@ final class Account(
   def setupTwoFactor =
     AuthBody { implicit ctx => me =>
       auth.HasherRateLimit(me.username, ctx.req) { _ =>
-        implicit val req     = ctx.body
-        val currentSessionId = ~env.security.api.reqSessionId(ctx.req)
+        implicit val req = ctx.body
         env.security.forms.setupTwoFactor(me) flatMap { form =>
           FormFuResult(form) { err =>
             fuccess(html.account.twoFactor.setup(me, err))
           } { data =>
             env.user.repo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
-              env.security.store.closeUserExceptSessionId(me.id, currentSessionId) >>
-              env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
-              Redirect(routes.Account.twoFactor()).flashSuccess
+              refreshSessionId(me, Redirect(routes.Account.twoFactor()).flashSuccess)
           }
         }
       }(rateLimitedFu)
