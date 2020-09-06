@@ -243,15 +243,15 @@
   <string name="spectatorRoom">Көрермендер бөлмесі</string>
   <string name="composeMessage">Хат жазу</string>
   <string name="noNewMessages">Eshqandaı jańa habarlamalar</string>
-  <string name="subject">Pán</string>
-  <string name="recipient">Recipient</string>
+  <string name="subject">Тақырып</string>
+  <string name="recipient">Алушы</string>
   <string name="send">Жіберу</string>
   <string name="incrementInSeconds">Секунд қосылады</string>
   <string name="freeOnlineChess">Тегін онлайн шахмат</string>
   <string name="spectators">Көрермен</string>
   <plurals name="nbRated">
-    <item quantity="one">%s nomınaldy</item>
-    <item quantity="other">%s nomınaldy</item>
+    <item quantity="one">бағаланатын %s</item>
+    <item quantity="other">бағаланатын %s</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s ұтыс</item>
@@ -287,7 +287,7 @@
   <string name="yourOpponentProposesATakeback">Қарсылас жүріс қайтаруды сұрап тұр</string>
   <string name="bookmarkThisGame">Бұл ойынды бетбелгіге сақтаңыз</string>
   <string name="tournament">Жарыс</string>
-  <string name="tournaments">Týrnırler</string>
+  <string name="tournaments">Жарыстар</string>
   <string name="tournamentPoints">Жарыс ұпайы</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s жарыс ұпайы</item>
