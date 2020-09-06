@@ -322,8 +322,8 @@
   <string name="yourPerfRatingIsTooLow">%1$s рейтингіңіз тым аз (%2$s)</string>
   <string name="ratedMoreThanInPerf">Reıtıń = %1$s sin %2$s</string>
   <string name="ratedLessThanInPerf">Nomınaldy ≤ %1$s sin %2$s</string>
-  <string name="mustBeInTeam">%s komandasynda bolý kerek</string>
-  <string name="youAreNotInTeam">Siz komandada emes %s</string>
+  <string name="mustBeInTeam">Сіздің тобыңыз – %s</string>
+  <string name="youAreNotInTeam">Сіз %s тобының мүшесі емессіз</string>
   <string name="backToGame">Ойынға оралу</string>
   <string name="siteDescription">Тегін онлайн шахмат алаңы. Кескіні таза сайтта шахмат ойнаңыз. Жарнама жоқ, тіркелу мен қосымша програмды қажет етпейді. Шахматты компьютермен, достарыңызбен не кез-келген қарсыласпен ойнаңыз.</string>
   <string name="xJoinedTeamY">%1$s %2$s тобына қосылды</string>
@@ -375,12 +375,12 @@
     <item quantity="other">%s серік</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">kelesi %s</item>
-    <item quantity="other">kelesi %s</item>
+    <item quantity="one">%s серік</item>
+    <item quantity="other">%s серік</item>
   </plurals>
   <string name="more">Жаю</string>
   <string name="memberSince">Тіркелген күні</string>
-  <string name="lastSeenActive">Belsendi %s</string>
+  <string name="lastSeenActive">%s белсенді болды</string>
   <string name="challengeToPlay">Ойынға шақыру</string>
   <string name="player">ойыншы</string>
   <string name="list">Тiзiм</string>
