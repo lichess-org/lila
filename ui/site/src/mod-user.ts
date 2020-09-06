@@ -1,5 +1,5 @@
 import tablesort from 'tablesort';
-import { formAjax } from './component/functions';
+import { formToXhr } from 'common/xhr';
 import debounce from 'common/debounce';
 import spinnerHtml from './component/spinner';
 import extendTablesortNumber from './component/tablesort-number';
@@ -12,7 +12,7 @@ window.lichess.load.then(() => {
 
   function streamLoad() {
     const source = new EventSource($toggle.attr('href') + '?nbOthers=' + nbOthers),
-    callback = debounce(() => userMod($zone), 300);
+      callback = debounce(() => userMod($zone), 300);
     source.addEventListener('message', e => {
       if (!e.data) return;
       const html = $('<output>').append($.parseHTML(e.data));
@@ -73,15 +73,12 @@ window.lichess.load.then(() => {
       });
     });
 
-    makeReady('form.xhr', el => {
+    makeReady('form.xhr', (el: HTMLFormElement) => {
       $(el).submit(() => {
         $(el).addClass('ready').find('input').prop('disabled', true);
-        $.ajax({
-          ...formAjax($(el)),
-          success(html) {
-            $('#mz_actions').replaceWith(html);
-            userMod($zone);
-          }
+        formToXhr(el).then(html => {
+          $('#mz_actions').replaceWith(html);
+          userMod($zone);
         });
         return false;
       });

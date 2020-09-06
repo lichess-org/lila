@@ -7,7 +7,7 @@ export const numberFormat = n => {
   return numberFormatter.format(n);
 };
 
-export const escapeHtml = str =>
+export const escapeHtml = (str: string) =>
   /[&<>"']/.test(str) ?
     str
       .replace(/&/g, '&amp;')
@@ -17,7 +17,7 @@ export const escapeHtml = str =>
       .replace(/"/g, '&quot;') :
     str;
 
-export const formAjax = $form => ({
+export const formAjax = ($form: JQuery) => ({
   url: $form.attr('action'),
   method: $form.attr('method') || 'post',
   data: $form.serialize()

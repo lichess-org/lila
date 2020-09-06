@@ -1,20 +1,31 @@
-import {defined} from "./common";
+import { defined } from "./common";
 
-export const json = (url: string, init: RequestInit = {}): Promise<any> => 
+const jsonHeader = {
+  'Accept': 'application/vnd.lichess.v5+json'
+};
+const xhrHeader = {
+  'X-Requested-With': 'XMLHttpRequest' // so lila knows it's XHR
+};
+
+export const json = (url: string, init: RequestInit = {}): Promise<any> =>
   fetch(url, {
-    headers: { 'Accept': 'application/vnd.lichess.v5+json' },
+    headers: {
+      ...jsonHeader,
+      ...xhrHeader
+    },
     cache: 'no-cache',
     credentials: 'same-origin',
     ...init
   })
-  .then(res => {
-    if (res.ok) return res.json();
-    throw res.statusText;
-  });
+    .then(res => {
+      if (res.ok) return res.json();
+      throw res.statusText;
+    });
 
 
-export const text = (url: string, init: RequestInit = {}): Promise<any> => 
+export const text = (url: string, init: RequestInit = {}): Promise<any> =>
   fetch(url, {
+    headers: { ...xhrHeader },
     cache: 'no-cache',
     credentials: 'same-origin',
     ...init
@@ -35,3 +46,10 @@ export const url = (base: string, params: any) => {
   for (const k of Object.keys(params)) if (defined(params[k])) searchParams.append(k, params[k]);
   return `${base}?${searchParams.toString()}`;
 }
+
+export const formToXhr = (el: HTMLFormElement) =>
+  text(
+    el.action, {
+    method: el.method || 'post',
+    body: form($(el).serialize())
+  })
