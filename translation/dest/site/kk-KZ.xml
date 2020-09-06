@@ -379,7 +379,7 @@
     <item quantity="other">kelesi %s</item>
   </plurals>
   <string name="more">Жаю</string>
-  <string name="memberSince">Sodan beri múshesi</string>
+  <string name="memberSince">Тіркелген күні</string>
   <string name="lastSeenActive">Belsendi %s</string>
   <string name="challengeToPlay">Ойынға шақыру</string>
   <string name="player">ойыншы</string>
