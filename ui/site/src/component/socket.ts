@@ -95,7 +95,7 @@ export default class StrongSocket {
       this.options.protocol + '//' + this.baseUrl() + this.url,
       {
         ...this.settings.params,
-        version: this.version === false ? undefined : this.version
+        v: this.version === false ? undefined : this.version
       }
     );
     this.debug("connection attempt to " + fullUrl);
