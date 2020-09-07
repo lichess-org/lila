@@ -20,12 +20,14 @@
   <string name="theBishop">Афіцэр</string>
   <string name="itMovesDiagonally">Перасоўваецца па дыяганалях</string>
   <string name="bishopIntro">Далей мы навучымся хадзіць афіцэрам!</string>
-  <string name="youNeedBothBishops">Палі белага колеру кантралюе адзін афіцэр, палі чорнага колеру — іншы. Вам патрэбныя абодва афіцэра!</string>
+  <string name="youNeedBothBishops">Палі белага колеру кантралюе адзін афіцэр,
+палі чорнага колеру — іншы.
+Вам патрэбныя абодва афіцэры!</string>
   <string name="bishopComplete">Віншуем! Вы навучыліся хадзіць афіцэрам.</string>
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = ладдзя + афіцэр</string>
   <string name="queenIntro">Наймагутная фігура. Яго вялікасць — ферзь!</string>
-  <string name="queenComplete">Віншуем! Вы навучыліся хадзіць фярзём.</string>
+  <string name="queenComplete">Віншуем! Вы навучыліся хадзіць ферзём.</string>
   <string name="theKing">Кароль</string>
   <string name="theMostImportantPiece">Найважная фігура</string>
   <string name="kingIntro">Вы - кароль. Калі вы загінеце ў бітве - гульня прайграна.</string>
