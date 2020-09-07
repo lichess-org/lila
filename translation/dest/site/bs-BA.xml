@@ -893,4 +893,12 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="inTheFAQ">u sekciji F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Da prijavite korisnika zbog varanja ili lošeg ponašanja,</string>
   <string name="useTheReportForm">koristite formular za prijavu</string>
+  <string name="toRequestSupport">Da zatražite podršku,</string>
+  <string name="tryTheContactPage">pokušajte na stranici za kontakt</string>
+  <string name="thisTopicIsArchived">Ova je tema arhivirana i na nju se više ne može odgovarati.</string>
+  <string name="joinTheTeamXToPost">Pridružite se %1$su da biste objavljivali na ovom forumu</string>
+  <string name="teamNamedX">%1$s tim</string>
+  <string name="youCannotPostYetPlaySomeGames">Još ne možete objavljivati na forumima. Odigrajte nekoliko partija!</string>
+  <string name="subscribe">Pretplatite se</string>
+  <string name="unsubscribe">Odjavite pretplatu</string>
 </resources>
