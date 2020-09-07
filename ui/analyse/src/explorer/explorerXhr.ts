@@ -2,24 +2,24 @@ import { OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'common/xhr';
 
 export function opening(endpoint: string, variant: VariantKey, fen: Fen, rootFen: Fen, play: string[], config, withGames: boolean): Promise<OpeningData> {
-  let url: string;
-  const params: any = {
-    fen: rootFen,
-    play: play.join(',')
-  };
-  if (!withGames) params.topGames = params.recentGames = 0;
-  if (config.db.selected() === 'masters') url = '/master';
-  else {
-    url = '/lichess';
-    params['variant'] = variant;
-    params['speeds[]'] = config.speed.selected();
-    params['ratings[]'] = config.rating.selected();
+  const url = new URL(config.db.selected() === 'masters' ? '/master' : '/lichess', endpoint);
+  const params = url.searchParams;
+  params.set('fen', rootFen);
+  params.set('play', play.join(','));
+  if (config.db.selected() !== 'masters') {
+    params.set('variant', variant);
+    for (const speed of config.speed.selected()) params.append('speeds[]', speed);
+    for (const rating of config.rating.selected()) params.append('ratings[]', rating);
+  }
+  if (!withGames) {
+    params.set('topGames', '0');
+    params.set('recentGames', '0');
   }
   return xhr.json(
-    xhr.url(endpoint + url, params), 
-    { 
+    url.href,
+    {
       cache: 'default',
-      headers: {}
+      headers: {}, // avoid default headers for cors
     }
   ).then((data: Partial<OpeningData>) => {
     data.isOpening = true;
@@ -32,9 +32,9 @@ export function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Prom
   const effectiveVariant = (variant === 'fromPosition' || variant === 'chess960') ? 'standard' : variant;
   return xhr.json(
     xhr.url(`${endpoint}/${effectiveVariant}`, { fen }),
-    { 
+    {
       cache: 'default',
-      headers: {}
+      headers: {}, // avoid default headers for cors
     }
   ).then((data: Partial<TablebaseData>) => {
     data.tablebase = true;
