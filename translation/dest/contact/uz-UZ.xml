@@ -16,4 +16,9 @@
   <string name="visitTitleConfirmation">Lichessda profilida o\'z nomingizni ko\'rsatish va Titul Arenenada qatnashish uchun darajangizni tasdiqlash sahifasiga tashrif buyuring</string>
   <string name="wantCloseAccount">Profilimni yopmoqchiman</string>
   <string name="closeYourAccount">Siz ushbu sahifada profilingizni yopishingiz mumkin</string>
+  <string name="otherRestriction">Boshqa cheklovlar</string>
+  <string name="collaboration">Birga ishlash, qonuniy, tijoriy</string>
+  <string name="monetizing">Pullash litsenziyasi</string>
+  <string name="buyingLichess">Litsenziyani sotib olish</string>
+  <string name="authorizationToUse">Lichess dan foydalanish uchun mualliflik tekshiruvidan oʻtish</string>
 </resources>
