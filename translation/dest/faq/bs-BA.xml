@@ -2,4 +2,7 @@
 <resources>
   <string name="frequentlyAskedQuestions">Česta pitanja</string>
   <string name="whyIsLichessCalledLichess">Zašto se Lichess zove tako?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinacija \"uživo / opušteno / slobodno\" i šaha. Izgovara se %1$s.</string>
+  <string name="leechess">lî-čes</string>
+  <string name="hearItPronouncedBySpecialist">Poslušajte kako ga izgovara specijalist.</string>
 </resources>
