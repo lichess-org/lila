@@ -38,7 +38,7 @@ export const loadPageOf = (ctrl: TournamentController, userId: string) =>
 export const reloadNow = (ctrl: TournamentController) =>
   xhr.json(
     xhr.url('/tournament/' + ctrl.data.id, {
-      page: ctrl.focusOnMe ? null : ctrl.page,
+      page: ctrl.focusOnMe ? undefined : ctrl.page,
       playerInfo: ctrl.playerInfo.id,
       partial: true
     })
