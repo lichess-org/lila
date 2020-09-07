@@ -31,8 +31,11 @@ final class DgtCtrl(env: Env) extends LilaController(env) {
     }
 
   def play =
-    Auth { implicit ctx => _ =>
-      Ok(views.html.dgt.play).fuccess
+    Auth { implicit ctx => me =>
+      findToken(me) map { t =>
+        if (t.isEmpty) Redirect(routes.DgtCtrl.config())
+        else Ok(views.html.dgt.play)
+      }
     }
 
   private val dgtScopes: Set[OAuthScope] = {

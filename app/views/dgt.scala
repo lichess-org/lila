@@ -1,6 +1,7 @@
 package views.html
 
 import controllers.routes
+import scala.util.chaining._
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -51,28 +52,32 @@ object dgt {
     layout("config", embedJsUnsafeLoadThen("lichessDgt.configPage()"))(
       div(cls := "account")(
         h1("DGT - configure"),
-        st.section(
-          h2("Lichess connectivity"),
-          if (token.isDefined)
-            p(cls := "text", dataIcon := "E")("You have an OAuth token suitable for DGT play.")
-          else
-            form(action := routes.DgtCtrl.generateToken(), method := "post")(
-              p("No suitable OAuth token available yet."),
-              form3.submit("Click to generate one")
-            )
+        form(action := routes.DgtCtrl.generateToken(), method := "post")(
+          st.section(
+            h2("Lichess connectivity"),
+            if (token.isDefined)
+              p(cls := "text", dataIcon := "E")("You have an OAuth token suitable for DGT play.")
+            else
+              frag(
+                p("No suitable OAuth token available yet."),
+                form3.submit("Click to generate one")
+              )
+          )
         ),
-        form(cls := "form3")(
+        form(cls := "form3", id := "dgt-config")(
           st.section(
             h2("DGT board connectivity"),
-            div(cls := "form-group")(
-              st.label(`for` := "dgt-livechess-url", cls := "form-label")(
-                s"LiveChess $liveChessVersion WebSocket URL"
-              ),
-              st.input(id := "dgt-livechess-url", cls := "form-control", required := true),
-              st.small(cls := "form-help")(
-                """Use "ws://localhost:1982/api/v1.0" unless LiveChess is running on a different machine or different port."""
+            "dgt-livechess-url" pipe { name =>
+              div(cls := "form-group")(
+                st.label(`for` := name, cls := "form-label")(
+                  s"LiveChess $liveChessVersion WebSocket URL"
+                ),
+                st.input(id := name, st.name := name, cls := "form-control", required := true),
+                st.small(cls := "form-help")(
+                  """Use "ws://localhost:1982/api/v1.0" unless LiveChess is running on a different machine or different port."""
+                )
               )
-            )
+            }
           ),
           st.section(
             h2("Text to speech"),
@@ -83,20 +88,22 @@ object dgt {
               st.label(cls := "form-label")("Enable Speech Synthesis"),
               radios(
                 "dgt-speech-synthesis",
-                List((0, trans.no.txt()), (1, trans.yes.txt()))
+                List((false, trans.no.txt()), (true, trans.yes.txt()))
               )
             ),
-            div(cls := "form-group")(
-              st.label(`for` := "dgt-voice-select", cls := "form-label")(
-                s"Speech synthesis voice"
-              ),
-              st.select(id := "dgt-voice-select", cls := "form-control")
-            ),
+            "dgt-speech-voice" pipe { name =>
+              div(cls := "form-group")(
+                st.label(`for` := name, cls := "form-label")(
+                  s"Speech synthesis voice"
+                ),
+                st.select(id := name, st.name := name, cls := "form-control")
+              )
+            },
             div(cls := "form-group")(
               st.label(cls := "form-label")("Announce All Moves"),
               radios(
-                "dgt-speech-announce-al-moves",
-                List((0, trans.no.txt()), (1, trans.yes.txt()))
+                "dgt-speech-announce-all-moves",
+                List((false, trans.no.txt()), (true, trans.yes.txt()))
               ),
               st.small(cls := "form-help")(
                 """Select YES to annouce both your moves and your opponent's moves. Select NO to annouce only your opponent's moves."""
@@ -106,24 +113,27 @@ object dgt {
               st.label(cls := "form-label")("Announce Move Format"),
               radios(
                 "dgt-speech-announce-move-format",
-                List((0, "SAN (Nf6)"), (1, "UCI (g8f6)"))
+                List(("san", "SAN (Nf6)"), ("uci", "UCI (g8f6)"))
               ),
               st.small(cls := "form-help")(
                 """San is the standard on Lichess like "Nf6". UCI is common on engines like "g8f6""""
               )
             ),
-            div(cls := "form-group")(
-              st.label(`for` := "dgt-speech-keywords", cls := "form-label")("Keywords"),
-              st.textarea(
-                id := "dgt-speech-keywords",
-                cls := "form-control",
-                maxlength := 600,
-                rows := 10
-              ),
-              st.small(cls := "form-help")(
-                """Keywords are in JSON format. They are used to translate moves and results into your language. Default is English, but feel free to change it."""
+            "dgt-speech-keywords" pipe { name =>
+              div(cls := "form-group")(
+                st.label(`for` := name, cls := "form-label")("Keywords"),
+                st.textarea(
+                  id := name,
+                  st.name := name,
+                  cls := "form-control",
+                  maxlength := 600,
+                  rows := 10
+                ),
+                st.small(cls := "form-help")(
+                  """Keywords are in JSON format. They are used to translate moves and results into your language. Default is English, but feel free to change it."""
+                )
               )
-            )
+            }
           ),
           st.section(
             h2("Debug"),
@@ -131,13 +141,14 @@ object dgt {
               st.label(cls := "form-label")("Verbose logging"),
               radios(
                 "dgt-verbose",
-                List((0, trans.no.txt()), (1, trans.yes.txt()))
+                List((false, trans.no.txt()), (true, trans.yes.txt()))
               ),
               st.small(cls := "form-help")(
                 """To see console message press Command + Option + C (Mac) or Control + Shift + C (Windows, Linux, Chrome OS)"""
               )
             )
-          )
+          ),
+          form3.submit(trans.save())
         )
       )
     )
@@ -145,7 +156,7 @@ object dgt {
   private def radios(name: String, options: Iterable[(Any, String)]) =
     st.group(cls := "radio")(
       options.map { v =>
-        val id = s"dgt-${name}_${v._1}"
+        val id = s"${name}_${v._1}"
         div(
           input(
             st.id := id,
