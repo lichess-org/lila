@@ -16,3 +16,9 @@ export const escapeHtml = (str: string) =>
       .replace(/'/g, '&#39;')
       .replace(/"/g, '&quot;') :
     str;
+
+export const formAjax = ($form: JQuery) => ({
+  url: $form.attr('action'),
+  method: $form.attr('method') || 'post',
+  data: $form.serialize()
+});

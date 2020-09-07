@@ -18,6 +18,7 @@ interface Lichess {
   hopscotch: any;
   slider(): Promise<void>;
   makeChat(data: any): any;
+  formAjax(form: JQuery): any;
   numberFormat(n: number): string;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
