@@ -7,4 +7,10 @@
   <string name="yesItWillBeFixedSoon">Ja. Dit sal binnekort vasgestel word!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">En nou, die lang antwoord! Game lag is saamgestel uit twee onverwante waardes (laer is beter):</string>
   <string name="lichessServerLatency">Lichess server latency</string>
+  <string name="lichessServerLatencyExplanation">Die tyd wat dit neem om die proses\'n skuif op die bediener. Dit is dieselfde vir almal, en net hang op die bediener te laai. Die meer spelers en die hoër dit kry, maar Lichess ontwikkelaars het hul bes doen om dit te hou laag. Dit selde meer as 10 millisekondes.</string>
+  <string name="networkBetweenLichessAndYou">Netwerk tussen Lichess en jy</string>
+  <string name="networkBetweenLichessAndYouExplanation">Die tyd wat dit neem om te stuur\'n skuif van jou rekenaar te Lichess bediener, en kry die antwoord terug. Dit is spesifiek om jou afstand te Lichess (Frankryk), en om die kwaliteit van jou Internet-verbinding. Lichess ontwikkelaars kan nie los jou wifi of maak die lig gaan vinniger.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Jy kan vind beide hierdie waardes op enige tyd, deur te kliek met jou gebruikersnaam in die top bar.</string>
+  <string name="lagCompensation">Lag vergoeding</string>
+  <string name="lagCompensationExplanation">Lichess vergoed netwerk lag. Dit sluit volgehoue lag en die af en toe lag spykers. Daar is perke en heuristiek gebaseer op die tyd beheer en die vergoed lag so ver, so dat die resultaat moet voel redelik vir beide spelers. As\'n resultaat, met\'n hoër netwerk lag as jou teenstander is nie\'n voorgee!</string>
 </resources>
