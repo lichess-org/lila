@@ -20,6 +20,7 @@ import miniBoard from "./component/mini-board";
 import miniGame from "./component/mini-game";
 import timeago from "./component/timeago";
 import watchers from "./component/watchers";
+import debounce from "common/debounce";
 
 export default function() {
   const l = window.lichess;
@@ -42,6 +43,7 @@ export default function() {
   l.slider = slider;
   l.makeChat = makeChat;
   l.formAjax = formAjax;
+  l.debounce = debounce;
   l.numberFormat = numberFormat;
   l.idleTimer = idleTimer;
   l.pubsub = pubsub;
