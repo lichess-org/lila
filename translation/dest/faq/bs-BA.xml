@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">ČPP</string>
   <string name="frequentlyAskedQuestions">Česta pitanja</string>
   <string name="whyIsLichessCalledLichess">Zašto se Lichess zove tako?</string>
   <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess je kombinacija \"uživo / lahko / slobodno\" i šaha. Izgovara se %1$s.</string>
@@ -7,4 +8,16 @@
   <string name="hearItPronouncedBySpecialist">Poslušajte kako ga izgovara specijalist.</string>
   <string name="whyLiveLightLibre">\"Uživo\", zato što se pertije igraju i gledaju u stvarnom vremenu 24 sata sedmično; \"lahko\" i \"slobodno\" zato što Lichess radi na otvorenom kodu i neopterećen je vlasničkim procedurama koje muče druge sajtove.</string>
   <string name="whyIsLilaCalledLila">Slično tome, izvorni kod za Lichess, %1$s, skraćenica je od \"li[chess in Sca]la\", s obzirom na to da je većina Lichessa napisana u intuitivnom programskom jeziku %2$s.</string>
+  <string name="howCanIContributeToLichess">Kako mogu doprinijeti Lichessu?</string>
+  <string name="otherWaysToHelp">drugi načini da pomognete</string>
+  <string name="areThereWebsitesBasedOnLichess">Postoje li sajtovi zasnovani na Lichessu?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Da, Lichess je zaista nadahnuo druge sajtove s otvorenim kodom koji koriste naš %1$s, %2$s ili bazu podataka.</string>
+  <string name="fairPlay">Fer-plej</string>
+  <string name="whatVariantsCanIplay">Koje varijante šaha mogu igrati na Lichessu?</string>
+  <string name="lichessSupportChessAnd">Lichess podržava standardni šah i još osam varijanti.</string>
+  <string name="eightVariants">8 varijanti šaha</string>
+  <string name="goodIntroduction">dobar uvod</string>
+  <string name="officialRulesPDF">službena pravila (PDF)</string>
+  <string name="lichessTraining">Lichessov trening</string>
+  <string name="threefoldRepetition">Trostruko ponavljanje pozicije</string>
 </resources>
