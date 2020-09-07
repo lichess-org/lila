@@ -292,6 +292,7 @@
     <item quantity="few">Dodajte protivniku %s sekundi</item>
     <item quantity="other">Dodajte protivniku %s sekundi</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Ovaj račun prekršio je Lichessove uvjete korištenja</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno podiže/spušta svoj rejting</string>
   <string name="openingExplorerAndTablebase">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="takeback">Vratite potez</string>
@@ -356,6 +357,7 @@
   <string name="filterGames">Filtriraj partije</string>
   <string name="reset">Resetujte postavke na originalne</string>
   <string name="apply">Primijeni</string>
+  <string name="save">Sačuvaj</string>
   <string name="leaderboard">Tabela rezultata</string>
   <string name="pasteTheFenStringHere">Zalijepi FEN tekst ovdje</string>
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>
@@ -701,6 +703,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Vaš %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji ste od %1$s od %2$s igrača.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">Bolji ste od %1$s od %2$s igrača.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemate utvrđen %s rejting.</string>
   <string name="yourRating">Vaš rejting</string>
   <string name="cumulative">Kumulativno</string>
@@ -876,4 +879,5 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="agreementPolicy">Slažem se da ću se pridržavati svih Lichess pravila.</string>
   <string name="searchOrStartNewDiscussion">Traži ili pokrenite novu diskusiju</string>
   <string name="edit">Uredite</string>
+  <string name="rapid">Ubrzani šah</string>
 </resources>
