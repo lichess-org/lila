@@ -60,7 +60,7 @@ export const form = (data: any) => {
 }
 
 /* constructs a url with escaped parameters */
-export const url = (path: string, params: {[k: string]: string | number | undefined}): string => {
+export const url = (path: string, params: {[k: string]: string | number | boolean | undefined}) => {
   const searchParams = new URLSearchParams();
   for (const k of Object.keys(params)) if (defined(params[k])) searchParams.append(k, params[k] as string);
   const query = searchParams.toString();

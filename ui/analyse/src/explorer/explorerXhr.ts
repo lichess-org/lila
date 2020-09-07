@@ -1,17 +1,29 @@
-import { OpeningData, TablebaseData } from './interfaces';
+import { ExplorerDb, ExplorerSpeed, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'common/xhr';
 
-export function opening(endpoint: string, variant: VariantKey, fen: Fen, rootFen: Fen, play: string[], config, withGames: boolean): Promise<OpeningData> {
-  const url = new URL(config.db.selected() === 'masters' ? '/master' : '/lichess', endpoint);
+interface OpeningXhrOpts {
+  endpoint: string,
+  db: ExplorerDb,
+  rootFen: Fen,
+  play: string[],
+  fen: Fen,
+  variant?: VariantKey, // only lichess
+  speeds?: ExplorerSpeed[], // only lichess
+  ratings?: number[], // only lichess
+  withGames?: boolean,
+}
+
+export function opening(opts: OpeningXhrOpts): Promise<OpeningData> {
+  const url = new URL(opts.db === 'lichess' ? '/lichess' : '/master', opts.endpoint);
   const params = url.searchParams;
-  params.set('fen', rootFen);
-  params.set('play', play.join(','));
-  if (config.db.selected() !== 'masters') {
-    params.set('variant', variant);
-    for (const speed of config.speed.selected()) params.append('speeds[]', speed);
-    for (const rating of config.rating.selected()) params.append('ratings[]', rating);
+  params.set('fen', opts.rootFen);
+  params.set('play', opts.play.join(','));
+  if (opts.db === 'lichess') {
+    params.set('variant', opts.variant || 'standard');
+    if (opts.speeds) for (const speed of opts.speeds) params.append('speeds[]', speed);
+    if (opts.ratings) for (const rating of opts.ratings) params.append('ratings[]', rating.toString());
   }
-  if (!withGames) {
+  if (!opts.withGames) {
     params.set('topGames', '0');
     params.set('recentGames', '0');
   }
@@ -24,7 +36,7 @@ export function opening(endpoint: string, variant: VariantKey, fen: Fen, rootFen
     }
   ).then((data: Partial<OpeningData>) => {
     data.isOpening = true;
-    data.fen = fen;
+    data.fen = opts.fen;
     return data as OpeningData;
   });
 }

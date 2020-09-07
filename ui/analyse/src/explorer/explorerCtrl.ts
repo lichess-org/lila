@@ -7,7 +7,7 @@ import * as xhr from './explorerXhr';
 import { winnerOf, colorOf } from './explorerUtil';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
-import { Hovering, ExplorerCtrl, ExplorerData, OpeningData, TablebaseData, SimpleTablebaseHit } from './interfaces';
+import { Hovering, ExplorerCtrl, ExplorerData, ExplorerDb, OpeningData, TablebaseData, SimpleTablebaseHit } from './interfaces';
 
 function pieceCount(fen: Fen) {
   const parts = fen.split(/\s/);
@@ -62,7 +62,17 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     const fen = root.node.fen;
     const request: Promise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
       xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :
-      xhr.opening(opts.endpoint, effectiveVariant, fen, root.nodeList[0].fen, root.nodeList.slice(1).map(s => s.uci!), config.data, withGames);
+      xhr.opening({
+        endpoint: opts.endpoint,
+        db: config.data.db.selected() as ExplorerDb,
+        variant: effectiveVariant,
+        rootFen: root.nodeList[0].fen,
+        play: root.nodeList.slice(1).map(s => s.uci!),
+        fen,
+        speeds: config.data.speed.selected(),
+        ratings: config.data.rating.selected(),
+        withGames,
+      });
 
     request.then((res: ExplorerData) => {
       cache[fen] = res;
@@ -136,11 +146,13 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
       const masterCache = {};
       return (fen: Fen): Promise<OpeningData> => {
         if (masterCache[fen]) return Promise.resolve(masterCache[fen]);
-        return xhr.opening(opts.endpoint, 'standard', fen, fen, [], {
-          db: {
-            selected: prop('masters')
-          }
-        }, false).then((res: OpeningData) => {
+        return xhr.opening({
+          endpoint: opts.endpoint,
+          db: 'masters',
+          rootFen: fen,
+          play: [],
+          fen,
+        }).then((res: OpeningData) => {
           masterCache[fen] = res;
           return res;
         });
