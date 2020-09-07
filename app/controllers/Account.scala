@@ -147,11 +147,7 @@ final class Account(
     env.security.store.closeAllSessionsOf(me.id) >>
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
       env.security.api.saveAuthentication(me.id, ctx.mobileApiVersion) map { sessionId =>
-      result.withCookies(
-        env.lilaCookie.withSession {
-          _ + (env.security.api.sessionIdKey -> sessionId)
-        }
-      )
+      result.withCookies(env.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
     }
 
   private def emailForm(user: UserModel) =
