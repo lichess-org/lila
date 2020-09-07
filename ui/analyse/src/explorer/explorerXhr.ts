@@ -20,6 +20,7 @@ export function opening(endpoint: string, variant: VariantKey, fen: Fen, rootFen
     {
       cache: 'default',
       headers: {}, // avoid default headers for cors
+      credentials: 'omit',
     }
   ).then((data: Partial<OpeningData>) => {
     data.isOpening = true;
@@ -35,6 +36,7 @@ export function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Prom
     {
       cache: 'default',
       headers: {}, // avoid default headers for cors
+      credentials: 'omit',
     }
   ).then((data: Partial<TablebaseData>) => {
     data.tablebase = true;
