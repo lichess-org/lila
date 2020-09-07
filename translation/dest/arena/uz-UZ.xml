@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Turnirlar maydoni</string>
   <string name="isItRated">Reytinggami?</string>
   <string name="willBeNotified">Turnir boshlanganda siz habardaor bo\'lasiz shu tufayli siz qo\'rqmasdan yangi tahlamda boshqa o\'yinni bemalol o\'ynashingiz mumkin.</string>
   <string name="isRated">Bu turnir reytingli va sizni reytingingizga ta\'sir etadi.</string>
