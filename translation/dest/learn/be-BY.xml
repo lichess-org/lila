@@ -139,9 +139,12 @@
   <string name="enPassant">Узяцце на праходзе</string>
   <string name="theSpecialPawnMove">Адмысловы ход пешкай</string>
   <string name="enPassantIntro">Калі пешка суперніка робіць ход на дзве клеткі, вы можаце ўзяць яе, як калі б яна зрабіла ход на адну.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Чорныя толькі што схадзілі пешкай на два палі! Вазьміце яе.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Чорныя толькі што схадзілі пешкай
+на дзве клеткі!
+Вазьміце яе.</string>
   <string name="enPassantOnlyWorksImmediately">Пешка суперніка можа быць узята на праходзе толькі наўпростае пасля ходу.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Узяцце на праходзе можна зрабіць, калі ваша пешка на пятым шэрагу.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Узяцце на праходзе можна зрабіць,
+калі ваша пешка на пятым шэрагу.</string>
   <string name="takeAllThePawnsEnPassant">Вазьміце ўсе пешкі на праходзе!</string>
   <string name="enPassantComplete">Віншуем! Зараз вы можаце рабіць узяцце на праходзе.</string>
   <string name="stalemate">Пат</string>
@@ -153,7 +156,7 @@
   <string name="stalemateComplete">Віншуем! Лепш атрымаць пат, чым мат!</string>
   <string name="advanced">Прасунуты этап</string>
   <string name="pieceValue">Каштоўнасць фігур</string>
-  <string name="evaluatePieceStrength">Ацэніце сілу фігуры</string>
+  <string name="evaluatePieceStrength">Ацаніце сілу фігуры</string>
   <string name="pieceValueIntro">Фігуры з высокай рухомасцю маюць больш высокую каштоўнасць!
 Ферзь = 9 пешак
 Ладдзя= 5 пешак
