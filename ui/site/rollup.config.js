@@ -142,6 +142,7 @@ export default rollupProject({
   },
   login: {
     input: 'src/login.ts',
-    output: 'login'
+    output: 'login',
+    name: 'loginSignup'
   }
 });

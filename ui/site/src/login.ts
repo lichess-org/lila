@@ -1,6 +1,8 @@
 import * as xhr from 'common/xhr';
+import debounce from 'common/debounce';
+import spinnerHtml from './component/spinner';
 
-window.lichess.load.then(() => {
+export function loginStart() {
 
   const selector = '.auth-login form';
 
@@ -45,4 +47,35 @@ window.lichess.load.then(() => {
         });
     });
   })();
-});
+}
+
+export function signupStart() {
+
+  const $form = $('#signup-form'),
+    $exists = $form.find('.username-exists'),
+    $username = $form.find('input[name="username"]')
+      .on('change keyup paste', () => {
+        $exists.hide();
+        usernameCheck();
+      });
+
+  const usernameCheck = debounce(() => {
+    const name = $username.val();
+    if (name.length >= 3) xhr.text(
+      xhr.url('/player/autocomplete', { term: name, exists: 1 })
+    ).then(res => $exists.toggle(res))
+  }, 300);
+
+  $form.on('submit', () =>
+    $form.find('button.submit')
+      .prop('disabled', true)
+      .removeAttr('data-icon')
+      .addClass('frameless')
+      .html(spinnerHtml)
+  );
+
+  window.signupSubmit = () => {
+    const form = document.getElementById('signup-form') as HTMLFormElement;
+    if (form.reportValidity()) form.submit();
+  }
+}
