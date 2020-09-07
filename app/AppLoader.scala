@@ -4,12 +4,12 @@ import akka.actor.CoordinatedShutdown
 import com.softwaremill.macwire._
 import play.api._
 import play.api.libs.crypto.CookieSignerProvider
-import scala.annotation.nowarn
+import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
 import router.Routes
-import play.api.libs.ws.StandaloneWSClient
+import scala.annotation.nowarn
 
 final class AppLoader extends ApplicationLoader {
   def load(ctx: ApplicationLoader.Context): Application = new LilaComponents(ctx).application
@@ -144,6 +144,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val userTournament: UserTournament = wire[UserTournament]
   lazy val video: Video                   = wire[Video]
   lazy val swiss: Swiss                   = wire[Swiss]
+  lazy val dgt: DgtCtrl                   = wire[DgtCtrl]
 
   // eagerly wire up all controllers
   val router: Router = {

@@ -711,6 +711,11 @@ GET   /variant/:key                    controllers.Page.variant(key)
 GET   /help/contribute                 controllers.Page.help
 GET   /help/master                     controllers.Page.master
 
+# DGT
+GET   /dgt                             controllers.DgtCtrl.index
+GET   /dgt/play                        controllers.DgtCtrl.play
+GET   /dgt/config                      controllers.DgtCtrl.config
+
 GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
