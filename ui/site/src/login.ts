@@ -11,7 +11,9 @@ window.lichess.load.then(() => {
       $f.find('.submit').prop('disabled', true);
       fetch(form.action, {
         ...xhr.defaultInit,
-        method: 'post'
+        headers: xhr.xhrHeader,
+        method: 'post',
+        body: new FormData(form)
       })
         .then(res => res.text().then(text => [res, text]))
         .then(([res, text]: [Response, string]) => {
