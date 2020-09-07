@@ -30,7 +30,7 @@ case class Categ(
     copy(
       nbTopics = if (post.troll) nbTopics else nbTopics + 1,
       nbPosts = if (post.troll) nbPosts else nbPosts + 1,
-      lastPostId = if (topic.isTooBig) lastPostId else post.id,
+      lastPostId = if (post.troll || topic.isTooBig) lastPostId else post.id,
       nbTopicsTroll = nbTopicsTroll + 1,
       nbPostsTroll = nbPostsTroll + 1,
       lastPostIdTroll = if (topic.isTooBig) lastPostIdTroll else post.id
