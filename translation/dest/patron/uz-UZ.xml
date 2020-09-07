@@ -7,4 +7,8 @@
   <string name="xBecamePatron">%s lichess xomiysi boʻldi</string>
   <string name="newPatrons">Yangi xomiylar</string>
   <string name="freeChess">Bepul shaxmat har kimga, abadiyga!</string>
+  <string name="noAdsNoSubs">Reklamalarsiz, obunalarsiz; ammo ochiq-kodli va gʻayratli.</string>
+  <string name="thankYou">Хайриянгиз учун раҳмат!</string>
+  <string name="youHaveLifetime">Siz xomiy hisobiga ega boʻldingiz. Bu juda ajoyib!</string>
+  <string name="patronUntil">%s gacha siz xomiy hisobiga ega boʻlasiz.</string>
 </resources>
