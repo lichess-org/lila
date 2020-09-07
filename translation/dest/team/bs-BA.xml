@@ -16,6 +16,11 @@
   <string name="anyoneCanJoin">Slobodno za sve</string>
   <string name="aConfirmationIsRequiredToJoin">Za pridruživanje je potrebna potvrda</string>
   <string name="joiningPolicy">Pravila pridruživanja</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Vođa tima</item>
+    <item quantity="few">Vođe tima</item>
+    <item quantity="other">Vođe tima</item>
+  </plurals>
   <string name="teamBestPlayers">Najbolji igrači</string>
   <string name="teamRecentMembers">Najnoviji članovi</string>
   <string name="kickSomeone">Izbacite nekoga iz tima</string>
@@ -28,4 +33,8 @@
   <string name="willBeReviewed">Vođa tima će pregledati Vaš zahtjev za pridruživanje.</string>
   <string name="beingReviewed">Vođa tima pregleda Vaš zahtjev za pridruživanje.</string>
   <string name="teamBattle">Bitka timova</string>
+  <string name="teamBattleOverview">Borba više timova; svaki igrač osvaja bodove za svoj</string>
+  <string name="teamTournament">Timski turnir</string>
+  <string name="teamTournamentOverview">Turnir u Areni kojem se mogu pridružiti samo članovi Vašeg tima</string>
+  <string name="messageAllMembers">Pošalji poruku svim članovima</string>
 </resources>
