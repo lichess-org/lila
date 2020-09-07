@@ -9,6 +9,7 @@ export const xhrHeader = {
   'X-Requested-With': 'XMLHttpRequest' // so lila knows it's XHR
 };
 
+/* fetch a JSON value */
 export const json = (url: string, init: RequestInit = {}): Promise<any> =>
   fetch(url, {
     headers: {
@@ -24,7 +25,7 @@ export const json = (url: string, init: RequestInit = {}): Promise<any> =>
       throw res.statusText;
     });
 
-
+/* fetch a string */
 export const text = (url: string, init: RequestInit = {}): Promise<string> =>
   fetch(url, {
     headers: { ...xhrHeader },
@@ -36,6 +37,7 @@ export const text = (url: string, init: RequestInit = {}): Promise<string> =>
     throw res.statusText;
   });
 
+/* load a remote script */
 export const script = (src: string): Promise<void> =>
   new Promise((resolve, reject) => {
     const nonce = document.body.getAttribute('data-nonce'),
@@ -47,19 +49,22 @@ export const script = (src: string): Promise<void> =>
     document.head.append(el);
   })
 
+/* produce HTTP form data from a JS object */
 export const form = (data: any) => {
   const formData = new FormData();
   for (const k of Object.keys(data)) formData.append(k, data[k]);
   return formData;
 }
 
-export const url = (base: string, params: any) => {
+/* constructs a url with escaped parameters */
+export const url = (base: string, params: any): string => {
   const searchParams = new URLSearchParams();
   for (const k of Object.keys(params)) if (defined(params[k])) searchParams.append(k, params[k]);
   return `${base}?${searchParams.toString()}`;
 }
 
-export const formToXhr = (el: HTMLFormElement) =>
+/* submit a form with XHR */
+export const formToXhr = (el: HTMLFormElement): Promise<string> =>
   text(
     el.action, {
     method: el.method,
