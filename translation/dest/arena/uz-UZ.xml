@@ -37,4 +37,6 @@ Tez o\'ynang va turnir zaliga qayting, ko\'p yutib ko\'proq bal to\'plang.</stri
   </plurals>
   <string name="thisIsPrivate">Bu yopiq turnir</string>
   <string name="shareUrl">Odamlarga qo\'shilishi uchun URL ni ulashing: %s</string>
+  <string name="drawStreak">Yutuqlar chizigʻi: Agar oʻyinchida maydonda ketma-ket durrang boʻlsa, faqat birinchi durrang yoki %s ta yurishdan oshgan durrang oʻyinlar hisob beradi. Durranglar chizigʻi faqat gʻalaba bilan kesib oʻtilishi mumkin, magʻlubiyat yoki durrang bilan emas.</string>
+  <string name="history">Maydon tarixi</string>
 </resources>
