@@ -82,7 +82,7 @@ object dgt {
             div(cls := "form-group")(
               st.label(cls := "form-label")("Enable Speech Synthesis"),
               radios(
-                "speech-synthesis",
+                "dgt-speech-synthesis",
                 List((0, trans.no.txt()), (1, trans.yes.txt()))
               )
             ),
@@ -95,7 +95,7 @@ object dgt {
             div(cls := "form-group")(
               st.label(cls := "form-label")("Announce All Moves"),
               radios(
-                "speech-announce-al-moves",
+                "dgt-speech-announce-al-moves",
                 List((0, trans.no.txt()), (1, trans.yes.txt()))
               ),
               st.small(cls := "form-help")(
@@ -105,11 +105,36 @@ object dgt {
             div(cls := "form-group")(
               st.label(cls := "form-label")("Announce Move Format"),
               radios(
-                "speech-announce-move-format",
+                "dgt-speech-announce-move-format",
                 List((0, "SAN (Nf6)"), (1, "UCI (g8f6)"))
               ),
               st.small(cls := "form-help")(
                 """San is the standard on Lichess like "Nf6". UCI is common on engines like "g8f6""""
+              )
+            ),
+            div(cls := "form-group")(
+              st.label(`for` := "dgt-speech-keywords", cls := "form-label")("Keywords"),
+              st.textarea(
+                id := "dgt-speech-keywords",
+                cls := "form-control",
+                maxlength := 600,
+                rows := 10
+              ),
+              st.small(cls := "form-help")(
+                """Keywords are in JSON format. They are used to translate moves and results into your language. Default is English, but feel free to change it."""
+              )
+            )
+          ),
+          st.section(
+            h2("Debug"),
+            div(cls := "form-group")(
+              st.label(cls := "form-label")("Verbose logging"),
+              radios(
+                "dgt-verbose",
+                List((0, trans.no.txt()), (1, trans.yes.txt()))
+              ),
+              st.small(cls := "form-help")(
+                """To see console message press Command + Option + C (Mac) or Control + Shift + C (Windows, Linux, Chrome OS)"""
               )
             )
           )
