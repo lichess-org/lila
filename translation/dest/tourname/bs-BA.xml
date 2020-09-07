@@ -32,4 +32,7 @@
   <string name="yearlyRapid">Godišnji Rapid</string>
   <string name="yearlyClassicalArena">Godišnja Klasična arena</string>
   <string name="yearlyClassical">Godišnji klasični</string>
+  <string name="yearlyXArena">Godišnja %s Arena</string>
+  <string name="yearlyX">Godišnji %s</string>
+  <string name="xArena">%s Arena</string>
 </resources>
