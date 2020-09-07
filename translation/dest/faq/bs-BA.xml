@@ -2,7 +2,8 @@
 <resources>
   <string name="frequentlyAskedQuestions">Česta pitanja</string>
   <string name="whyIsLichessCalledLichess">Zašto se Lichess zove tako?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinacija \"uživo / opušteno / slobodno\" i šaha. Izgovara se %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinacija \"uživo / lahko / slobodno\" i šaha. Izgovara se %1$s.</string>
   <string name="leechess">lî-čes</string>
   <string name="hearItPronouncedBySpecialist">Poslušajte kako ga izgovara specijalist.</string>
+  <string name="whyLiveLightLibre">\"Uživo\", zato što se pertije igraju i gledaju u stvarnom vremenu 24 sata sedmično; \"lahko\" i \"slobodno\" zato što Lichess radi na otvorenom kodu i neopterećen je vlasničkim procedurama koje muče druge sajtove.</string>
 </resources>
