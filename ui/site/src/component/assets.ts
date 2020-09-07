@@ -14,7 +14,10 @@ const loadedCss = new Map();
 export const loadCss = (url: string) => {
   if (!loadedCss.has(url)) {
     loadedCss.set(url, true);
-    $('head').append($('<link rel="stylesheet" />').attr('href', assetUrl(url)));
+    const el = document.createElement('link');
+    el.rel = 'stylesheet';
+    el.href = assetUrl(url);
+    document.head.append(el);
   }
 };
 
@@ -25,7 +28,7 @@ export const jsModule = (name: string) =>
   `compiled/${name}${$('body').data('dev') ? '' : '.min'}.js`;
 
 export const loadScript = (url: string, opts: AssetUrlOpts = {}): Promise<void> =>
-  xhr.script(assetUrl(url, opts)); 
+  xhr.script(assetUrl(url, opts));
 
 export const hopscotch = () => {
   loadCss('vendor/hopscotch/dist/css/hopscotch.min.css');
