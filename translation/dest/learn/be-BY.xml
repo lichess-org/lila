@@ -112,12 +112,12 @@
 Яны стаяць каля ладдзей.</string>
   <string name="placeTheBishops">Расстаўце афіцэраў!
 Яны стаяць каля коней.</string>
-  <string name="placeTheQueen">Пастаўце фярзя!
-Ферзь кахае свой колер.</string>
+  <string name="placeTheQueen">Пастаўце ферзя!
+Ён ставіцца на свой колер.</string>
   <string name="placeTheKing">Пастаўце караля!
 Ён стаіць каля ферзя.</string>
   <string name="pawnsFormTheFrontLine">Пешкі стаяць на пярэдняй лініі.
-Зрабіце кожны ход, каб працягнуць.</string>
+Зрабіце які-небудзь ход, каб працягнуць.</string>
   <string name="boardSetupComplete">Віншуем! Зараз вы ведаеце, як ставіць фігуры на шахматнай дошцы.</string>
   <string name="castling">Ракіроўка</string>
   <string name="theSpecialKingMove">Адмысловы ход караля</string>
