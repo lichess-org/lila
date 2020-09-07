@@ -127,7 +127,9 @@
   <string name="theKnightIsInTheWay">Конь у дарозе! Зрабіце ход канём, потым зрабіце ракіроўку.</string>
   <string name="castleKingSideMovePiecesFirst">Кароткая ракіроўка! Спачатку вам трэба развіць фігуры.</string>
   <string name="castleQueenSideMovePiecesFirst">Доўгая ракіроўка! Спачатку вам трэба развіць фігуры.</string>
-  <string name="youCannotCastleIfMoved">Вы не можаце рабіць ракіроўку, калі кароль ці тура, якія ўдзельнічаюць у ракіроўцы, рабілі ход.</string>
+  <string name="youCannotCastleIfMoved">Вы не можаце рабіць ракіроўку,
+калі кароль ці ладдзя,
+якія ўдзельнічаюць у ракіроўцы, рабілі ход.</string>
   <string name="youCannotCastleIfAttacked">Вы не можаце ракіравацца,
 калі кароль знаходзіцца пад шахам.
 Спачатку абароніце караля!</string>
