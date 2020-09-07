@@ -45,7 +45,8 @@
   <string name="itMovesForwardOnly">Ходзіць толькі наперад</string>
   <string name="pawnIntro">Пешкі слабыя, але ў іх шмат патэнцыялу.</string>
   <string name="pawnsMoveOneSquareOnly">Пешкі ходзяць толькі на адну клетку наперад. Але дасягнуўшы іншага канца дошкі, яны ператвараюцца ў моцную фігуру!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">У большасці выпадку пешку лепш ператварыць у фярзя. Але часам ператварэнне ў каня можа быць выгадней!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">У большасці выпадкаў пешку лепш ператварыць у ферзя.
+Але часам ператварэнне ў каня можа быць выгадней!</string>
   <string name="pawnsMoveForward">Пешкі рухаюцца наперад, але б\'юць па дыяганалях!</string>
   <string name="captureThenPromote">Пабіце, потым ператварыцеся!</string>
   <string name="useAllThePawns">Скарыстайце ўсе пешкі!
