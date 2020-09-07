@@ -85,30 +85,34 @@ object dgt {
                 "speech-synthesis",
                 List((0, trans.no.txt()), (1, trans.yes.txt()))
               )
+            ),
+            div(cls := "form-group")(
+              st.label(`for` := "dgt-voice-select", cls := "form-label")(
+                s"Speech synthesis voice"
+              ),
+              st.select(id := "dgt-voice-select", cls := "form-control")
+            ),
+            div(cls := "form-group")(
+              st.label(cls := "form-label")("Announce All Moves"),
+              radios(
+                "speech-announce-al-moves",
+                List((0, trans.no.txt()), (1, trans.yes.txt()))
+              ),
+              st.small(cls := "form-help")(
+                """Select YES to annouce both your moves and your opponent's moves. Select NO to annouce only your opponent's moves."""
+              )
+            ),
+            div(cls := "form-group")(
+              st.label(cls := "form-label")("Announce Move Format"),
+              radios(
+                "speech-announce-move-format",
+                List((0, "SAN (Nf6)"), (1, "UCI (g8f6)"))
+              ),
+              st.small(cls := "form-help")(
+                """San is the standard on Lichess like "Nf6". UCI is common on engines like "g8f6""""
+              )
             )
           )
-          // <div class="form-group">
-          //     <div class="form-group">
-          //         <label class="form-label" for="voiceSelect">Voice</label>
-          //         <select id="voiceSelect" name="voiceSelect" class="form-control"></select>
-          //     </div>
-          // </div>
-          // <div class="form-group">
-          // <label class="form-label" for="form3-announceAllMoves">Announce All Moves</label>
-          // <group class="radio">
-          //     <div><input id="announceAllMoves_0" checked="checked" class="active" type="radio" value="false" name="announceAllMoves"><label for="announceAllMoves_0">No</label></div>
-          //     <div><input id="announceAllMoves_1" type="radio" value="true" name="announceAllMoves"><label for="announceAllMoves_1">Yes</label></div>
-          // </group>
-          // <small class="form-help">Select YES to annouce both your moves and your opponent's moves. Select NO to annouce only your opponent's moves.</small>
-          // </div>
-          // <div class="form-group">
-          // <label class="form-label" for="form3-announceMoveFormat">Announce Move Format</label>
-          // <group class="radio">
-          //     <div><input id="announceMoveFormat_0" checked="checked" class="active" type="radio" value="san" name="announceMoveFormat"><label for="announceMoveFormat_0">SAN</label></div>
-          //     <div><input id="announceMoveFormat_1" type="radio" value="uci" name="announceMoveFormat"><label for="announceMoveFormat_1">UCI</label></div>
-          // </group>
-          // <small class="form-help">San is the standard on Lichess like "Nf6". UCI is common on engines like "g8f6"</small>
-          // </div>
         )
       )
     )
