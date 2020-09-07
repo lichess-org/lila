@@ -37,4 +37,9 @@
   <string name="teamTournament">Timski turnir</string>
   <string name="teamTournamentOverview">Turnir u Areni kojem se mogu pridružiti samo članovi Vašeg tima</string>
   <string name="messageAllMembers">Pošalji poruku svim članovima</string>
+  <string name="messageAllMembersOverview">Pošalji privatnu poruku svakom članu tima</string>
+  <string name="messageAllMembersLongDescription">Pošalji privatnu poruku SVIM članovima tima.
+Možete koristiti ovo da pozovete igrače da se pridruže turniru ili timskoj borbi.
+Igrači koji ne vole primati Vaše poruke mogli bi napustiti tim.</string>
+  <string name="teamsIlead">Timovi koje vodim</string>
 </resources>
