@@ -8,7 +8,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.tournament.crud.CrudForm
-import lila.tournament.{ TournamentForm, Tournament }
+import lila.tournament.{ Tournament, TournamentForm }
 
 import controllers.routes
 
