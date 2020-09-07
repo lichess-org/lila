@@ -17,7 +17,10 @@ export function opening(endpoint: string, variant: VariantKey, fen: Fen, rootFen
   }
   return xhr.json(
     xhr.url(endpoint + url, params), 
-    { cache: 'default' }
+    { 
+      cache: 'default',
+      headers: {}
+    }
   ).then((data: Partial<OpeningData>) => {
     data.isOpening = true;
     data.fen = fen;
@@ -29,7 +32,10 @@ export function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Prom
   const effectiveVariant = (variant === 'fromPosition' || variant === 'chess960') ? 'standard' : variant;
   return xhr.json(
     xhr.url(`${endpoint}/${effectiveVariant}`, { fen }),
-    { cache: 'default' }
+    { 
+      cache: 'default',
+      headers: {}
+    }
   ).then((data: Partial<TablebaseData>) => {
     data.tablebase = true;
     data.fen = fen;
