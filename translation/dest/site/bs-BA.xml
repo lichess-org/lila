@@ -292,7 +292,7 @@
     <item quantity="few">Dodajte protivniku %s sekundi</item>
     <item quantity="other">Dodajte protivniku %s sekundi</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Ovaj račun prekršio je Lichessove uvjete korištenja</string>
+  <string name="thisAccountViolatedTos">Korisnik ovog računa prekršio je Lichessove uvjete korištenja</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno podiže/spušta svoj rejting</string>
   <string name="openingExplorerAndTablebase">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="takeback">Vratite potez</string>
