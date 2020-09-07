@@ -1,4 +1,5 @@
 type Board = {pieces: {[key: number]: string}, turn: boolean};
+export type SanToUci = {[key: string]: Uci};
 
 function fixCrazySan(san: string) {
   return san[0] === 'P' ? san.slice(1) : san;
@@ -126,9 +127,9 @@ function sanOf(board: Board, uci: string) {
   return san;
 }
 
-export default function sanWriter(fen: string, ucis: string[]) {
+export function sanWriter(fen: string, ucis: string[]): SanToUci {
   var board = readFen(fen);
-  var sans: {[key: string]: string} = {}
+  var sans: SanToUci = {}
   ucis.forEach(function(uci) {
     var san = sanOf(board, uci);
     sans[san] = uci;
