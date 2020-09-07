@@ -1,4 +1,4 @@
-export function configPage() {
+export default function() {
 
   const form = document.getElementById('dgt-config') as HTMLFormElement,
     voiceSelector = document.getElementById("dgt-speech-voice") as HTMLSelectElement;
@@ -75,8 +75,4 @@ export function configPage() {
     e.preventDefault();
     Array.from(new FormData(form).entries()).forEach(([k, v]) => localStorage.setItem(k, v.toString()));
   });
-}
-
-export function playPage() {
-  console.log('play');
 }

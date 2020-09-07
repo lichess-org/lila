@@ -150,7 +150,7 @@ export default rollupProject({
     output: 'team-battle-form'
   },
   dgt: {
-    input: 'src/dgt.ts',
+    input: 'src/dgt/dgt.ts',
     output: 'dgt',
     name: 'lichessDgt'
   }
