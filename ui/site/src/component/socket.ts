@@ -218,10 +218,11 @@ export default class StrongSocket {
         this.ackable.onServerAck(m.d);
         break;
       default:
-        this.pubsub.emit('socket.in.' + m.t, m.d, m);
-        (this.settings.receive && this.settings.receive(m.t, m.d)) || (
-          this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m)
-        );
+        // return true in a receive handler to prevent pubsub and events
+        if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
+          this.pubsub.emit('socket.in.' + m.t, m.d, m);
+          if (this.settings.events[m.t]) this.settings.events[m.t](m.d || null, m)
+        }
     }
   };
 
