@@ -130,9 +130,9 @@
   <string name="youCannotCastleIfMoved">Вы не можаце рабіць ракіроўку,
 калі кароль ці ладдзя,
 якія ўдзельнічаюць у ракіроўцы, рабілі ход.</string>
-  <string name="youCannotCastleIfAttacked">Вы не можаце ракіравацца,
+  <string name="youCannotCastleIfAttacked">Вы не можаце рабіць ракіроўку,
 калі кароль знаходзіцца пад шахам.
-Спачатку абароніце караля!</string>
+Спачатку абараніце караля!</string>
   <string name="findAWayToCastleKingSide">Знайдзіце спосаб зрабіць кароткую ракіроўку!</string>
   <string name="findAWayToCastleQueenSide">Знайдзіце спосаб зрабіць доўгую ракіроўку!</string>
   <string name="castlingComplete">Віншуем! Вы павінны амаль заўсёды ракіравацца ў партыях.</string>
