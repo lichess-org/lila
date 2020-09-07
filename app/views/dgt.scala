@@ -17,9 +17,10 @@ object dgt {
       p(
         "This page allows you to connect your DGT board to Lichess, and to use it for playing games."
       ),
+      br,
+      br,
       st.section(
         h2("DGT Board Requirements"),
-        br,
         br,
         p(
           s"To connect to the DGT Electronic Board you will need to install DGT LiveChess $liveChessVersion."
@@ -45,7 +46,8 @@ object dgt {
 
   def play(implicit ctx: Context) =
     layout("play", embedJsUnsafeLoadThen("lichessDgt.playPage()"))(
-      h1("DGT - play")
+      h1("DGT - play"),
+      div(id := "dgt-play-zone")("Do the thing here.")
     )
 
   def config(token: Option[lila.oauth.AccessToken])(implicit ctx: Context) =
