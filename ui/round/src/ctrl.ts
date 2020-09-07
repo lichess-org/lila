@@ -336,7 +336,7 @@ export default class RoundController {
   playerByColor = (c: Color) =>
     this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
-  apiMove = (o: ApiMove): void => {
+  apiMove = (o: ApiMove): true => {
     const d = this.data,
       playing = this.isPlaying();
 
@@ -437,6 +437,7 @@ export default class RoundController {
     if (this.keyboardMove) this.keyboardMove.update(step, playedColor != d.player.color);
     if (this.music) this.music.jump(o);
     speech.step(step);
+    return true; // prevents default socket pubsub
   };
 
   private playPredrop = () => {
