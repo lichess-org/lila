@@ -28,8 +28,7 @@ object HTTPRequest {
     "capacitor://localhost", // ios
     "ionic://localhost",     // ios
     "http://localhost",      // android
-    "http://localhost:8080", // local dev
-    "file://"                // old app
+    "http://localhost:8080"  // local dev
   )
 
   def appOrigin(req: RequestHeader) = origin(req) filter appOrigins
