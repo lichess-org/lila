@@ -1,4 +1,4 @@
-export default function() {
+export default function(token: string) {
   // here's the new setting keys
   [
     'dgt-livechess-url',
@@ -12,7 +12,8 @@ export default function() {
   });
 
   // put your UI in there
-  const root = document.getElementById('dgt-play-zone');
+  const root = document.getElementById('dgt-play-zone') as HTMLDivElement;
 
   // and your code in here.
+  root.innerHTML = 'token: ' + token
 }

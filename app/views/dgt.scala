@@ -6,6 +6,7 @@ import scala.util.chaining._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.oauth.AccessToken
 
 object dgt {
 
@@ -44,8 +45,8 @@ object dgt {
       )
     )
 
-  def play(implicit ctx: Context) =
-    layout("play", embedJsUnsafeLoadThen("lichessDgt.playPage()"))(
+  def play(token: AccessToken)(implicit ctx: Context) =
+    layout("play", embedJsUnsafeLoadThen(s"""lichessDgt.playPage("${token.id.value}")"""))(
       h1("DGT - play"),
       div(id := "dgt-play-zone")("Do the thing here.")
     )
