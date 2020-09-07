@@ -139,5 +139,9 @@ export default rollupProject({
     input: 'src/checkout.ts',
     output: 'checkout',
     name: 'checkoutStart'
+  },
+  login: {
+    input: 'src/login.ts',
+    output: 'login'
   }
 });

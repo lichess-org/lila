@@ -5,7 +5,7 @@ const jsonHeader = {
   'Accept': 'application/vnd.lichess.v5+json'
 };
 
-const defaultInit: RequestInit = {
+export const defaultInit: RequestInit = {
   cache: 'no-cache',
   credentials: 'same-origin' // required for safari < 12
 };
