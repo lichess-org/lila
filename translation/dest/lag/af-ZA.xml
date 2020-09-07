@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">Is lichess agter?</string>
+  <string name="measurementInProgressThreeDot">Metings in die gang...</string>
+  <string name="noAndYourNetworkIsGood">Geen. En jou netwerk is goed.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Geen. En jou netwerk is sleg.</string>
+  <string name="yesItWillBeFixedSoon">Ja. Dit sal binnekort vasgestel word!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">En nou, die lang antwoord! Game lag is saamgestel uit twee onverwante waardes (laer is beter):</string>
+  <string name="lichessServerLatency">Lichess server latency</string>
+</resources>
