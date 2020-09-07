@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import sanWriter from './sanWriter';
+import { sanWriter, SanToUci } from './sanWriter';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
@@ -17,10 +17,6 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { castlingFlavours, supportedVariant, Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
-
-type Sans = {
-  [key: string]: Uci;
-}
 
 window.lichess.RoundNVUI = function(redraw: Redraw) {
 
@@ -154,12 +150,12 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
     else {
       const d = ctrl.data,
         legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!),
-        sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans;
-      let uci = sanToUci(input, sans) || input,
+        legalSans: SanToUci = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as SanToUci;
+      let uci = sanToUci(input, legalSans) || input,
         promotion = '';
 
       if (input.match(promotionRegex)) {
-        uci = sanToUci(input.slice(0, -2), sans) || input;
+        uci = sanToUci(input.slice(0, -2), legalSans) || input;
         promotion = input.slice(-1).toLowerCase();
       }
 
@@ -215,11 +211,11 @@ function destsToUcis(dests: Dests) {
   return ucis;
 }
 
-function sanToUci(san: string, sans: Sans): Uci | undefined {
-  if (san in sans) return sans[san];
+function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
+  if (san in legalSans) return legalSans[san];
   const lowered = san.toLowerCase();
-  for (let i in sans)
-    if (i.toLowerCase() === lowered) return sans[i];
+  for (let i in legalSans)
+    if (i.toLowerCase() === lowered) return legalSans[i];
   return;
 }
 
