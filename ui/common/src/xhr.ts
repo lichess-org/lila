@@ -5,6 +5,11 @@ const jsonHeader = {
   'Accept': 'application/vnd.lichess.v5+json'
 };
 
+const defaultInit: RequestInit = {
+  cache: 'no-cache',
+  credentials: 'same-origin' // required for safari < 12
+};
+
 export const xhrHeader = {
   'X-Requested-With': 'XMLHttpRequest' // so lila knows it's XHR
 };
@@ -12,12 +17,11 @@ export const xhrHeader = {
 /* fetch a JSON value */
 export const json = (url: string, init: RequestInit = {}): Promise<any> =>
   fetch(url, {
+    ...defaultInit,
     headers: {
       ...jsonHeader,
       ...xhrHeader
     },
-    cache: 'no-cache',
-    credentials: 'same-origin',
     ...init
   })
     .then(res => {
@@ -28,9 +32,8 @@ export const json = (url: string, init: RequestInit = {}): Promise<any> =>
 /* fetch a string */
 export const text = (url: string, init: RequestInit = {}): Promise<string> =>
   fetch(url, {
+    ...defaultInit,
     headers: { ...xhrHeader },
-    cache: 'no-cache',
-    credentials: 'same-origin',
     ...init
   }).then(res => {
     if (res.ok) return res.text();
