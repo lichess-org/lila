@@ -61,8 +61,11 @@
   <string name="shareAndExport">Podijelite i izvezite</string>
   <string name="cloneStudy">Klonirajte</string>
   <string name="studyPgn">Studirajte PGN</string>
+  <string name="downloadAllGames">Skinite sve partije</string>
   <string name="chapterPgn">PGN poglavlja</string>
+  <string name="downloadGame">Skini partiju</string>
   <string name="studyUrl">Link studije</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Link za prenos</string>
   <string name="currentChapterUrl">Link trenutnog poglavlja</string>
   <string name="startAtInitialPosition">Krenite sa inicijalnom pozicijom</string>
   <string name="startAtX">Krenite sa %s</string>
