@@ -144,5 +144,9 @@ export default rollupProject({
     input: 'src/login.ts',
     output: 'login',
     name: 'loginSignup'
+  },
+  teamBattleForm: {
+    input: 'src/team-battle-form.ts',
+    output: 'team-battle-form'
   }
 });

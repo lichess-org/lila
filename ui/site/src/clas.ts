@@ -37,7 +37,7 @@ window.lichess.load.then(() => {
         id: 'teacher',
         match: /(^|\s)(.+)$/,
         index: 2,
-        search: function(term: string, callback: (res: any[]) => void) {
+        search(term: string, callback: (res: any[]) => void) {
           if (term.length < 2) callback([]);
           else xhr.json(
             xhr.url('/player/autocomplete', {
