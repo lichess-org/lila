@@ -715,6 +715,7 @@ GET   /help/master                     controllers.Page.master
 GET   /dgt                             controllers.DgtCtrl.index
 GET   /dgt/play                        controllers.DgtCtrl.play
 GET   /dgt/config                      controllers.DgtCtrl.config
+POST  /dgt/config/token                controllers.DgtCtrl.generateToken
 
 GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)

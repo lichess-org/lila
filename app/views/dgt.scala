@@ -43,9 +43,18 @@ object dgt {
       h1("DGT - play")
     )
 
-  def config(implicit ctx: Context) =
+  def config(token: Option[lila.oauth.AccessToken])(implicit ctx: Context) =
     layout("config", embedJsUnsafeLoadThen("lichessDgt.configPage()"))(
-      h1("DGT - configure")
+      h1("DGT - configure"),
+      st.section(
+        if (token.isDefined)
+          p(cls := "text", dataIcon := "E")("You have an OAuth token suitable for DGT play.")
+        else
+          form(action := routes.DgtCtrl.generateToken(), method := "post")(
+            p("No suitable OAuth token available yet."),
+            form3.submit("Click to generate one")
+          )
+      )
     )
 
   private def layout(path: String, jsCall: Frag = emptyFrag)(body: Modifier*)(implicit ctx: Context) =
