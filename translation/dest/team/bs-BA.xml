@@ -42,4 +42,7 @@
 Možete koristiti ovo da pozovete igrače da se pridruže turniru ili timskoj borbi.
 Igrači koji ne vole primati Vaše poruke mogli bi napustiti tim.</string>
   <string name="teamsIlead">Timovi koje vodim</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Želite li postaviti link na jedan od nadolazećih turnira?</string>
+  <string name="usersWhoCanManageThisTeam">Korisnici koji mogu upravljati ovim timom</string>
+  <string name="leadersChat">Razgovor vođa</string>
 </resources>
