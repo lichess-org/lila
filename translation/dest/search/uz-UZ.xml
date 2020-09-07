@@ -23,4 +23,5 @@
   <string name="date">Sana</string>
   <string name="sortBy">Saralash turi</string>
   <string name="analysis">Tahlillar</string>
+  <string name="onlyAnalysed">Kompyuter tahlil qilish imkoni mavjud oʻyinlar</string>
 </resources>
