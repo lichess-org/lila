@@ -33,4 +33,12 @@
   <string name="verificationForm">formular za verifikaciju</string>
   <string name="canIbecomeLM">Mogu li steći titulu Lichess majstora (LM)?</string>
   <string name="noUpperCaseDot">Ne.</string>
+  <string name="whatUsernameCanIchoose">Šta može biti moje korisničko ime?</string>
+  <string name="usernamesNotOffensive">Korisnička imena ne bi trebala biti uvredljiva, marketinška ili takva da označavaju drugu osobu. Možete pročitati više o %1$s.</string>
+  <string name="guidelines">smjernicama</string>
+  <string name="uniqueTrophies">Jedinstveni trofeji</string>
+  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Zašto pored rejtinga stoji upitnik?</string>
+  <string name="provisionalRatingExplanation">Upitnik znači da je rejting provizoran / privremen. Razlozi za to uključuju:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Igrač još nije završio dovoljno rejtingovanih partija protiv %1$s u datoj kategoriji rejtinga.</string>
+  <string name="similarOpponents">protivnika slične jačine</string>
 </resources>
