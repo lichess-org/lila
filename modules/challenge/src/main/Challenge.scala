@@ -5,7 +5,7 @@ import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
-import lila.game.PerfPicker
+import lila.game.{ Game, PerfPicker }
 import lila.rating.PerfType
 import lila.user.User
 
@@ -20,7 +20,7 @@ case class Challenge(
     finalColor: chess.Color,
     challenger: Challenge.Challenger,
     destUser: Option[Challenge.Challenger.Registered],
-    rematchOf: Option[String],
+    rematchOf: Option[Game.ID],
     createdAt: DateTime,
     seenAt: Option[DateTime], // None for open challenges, so they don't sweep
     expiresAt: DateTime,
@@ -184,7 +184,7 @@ object Challenge {
       color: String,
       challenger: Challenger,
       destUser: Option[User],
-      rematchOf: Option[String]
+      rematchOf: Option[Game.ID]
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
       case "white" => ColorChoice.White  -> chess.White
