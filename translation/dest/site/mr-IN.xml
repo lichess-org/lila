@@ -659,7 +659,8 @@
   <string name="tournamentHomeDescription">वेगवान-वेगवान बुद्धीबळ क्रीडासत्र खेळा! अधिकृत शेड्यूल टूर्नामेंटमध्ये सामील व्हा किंवा स्वतःचे तयार करा. बुलेट, ब्लीटझ, क्लासिकल, चेस 960, किंग ऑफ द हिल, थ्रीचेक आणि अंतहीन बुद्धिबळ मनोरंजनासाठी अधिक पर्याय उपलब्ध.</string>
   <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">क्रीडासत्र सापडले नाही</string>
   <string name="tournamentDoesNotExist">हे क्रीडासत्र उपलब्ध नाही.</string>
-  <string name="returnToTournamentsHomepage">प्रतियोगितेच्या मुख्य पृष्ठावर जा</string>
+  <string name="tournamentMayHaveBeenCanceled">जर सर्व खेळाडू क्रीडासत्र सुरू होण्यापूर्वी निघून गेले तर क्रीडासत्र रद्द होऊ शकते.</string>
+  <string name="returnToTournamentsHomepage">क्रीडासत्राच्या मुख्य पृष्ठावर जा</string>
   <string name="weeklyPerfTypeRatingDistribution">साप्ताहिक %s रेटिंग वितरण</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s या आठवड्यातील खेळाडू.</item>
