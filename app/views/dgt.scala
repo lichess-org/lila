@@ -177,7 +177,7 @@ object dgt {
       moreCss = cssTag("dgt"),
       moreJs = frag(jsModule("dgt"), jsCall),
       title = "Play with a DGT board",
-      csp = defaultCsp.withDgt.some
+      csp = defaultCsp.withAnyWs.some
     )(
       main(cls := "page-menu dgt")(
         st.nav(cls := "page-menu__menu subnav")(

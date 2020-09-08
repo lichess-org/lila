@@ -53,15 +53,7 @@ case class ContentSecurityPolicy(
       frameSrc = "https://www.google.com" :: frameSrc
     )
 
-  def withPeer =
-    copy(
-      connectSrc = "wss://0.peerjs.com" :: connectSrc
-    )
-
-  def withDgt =
-    copy(
-      connectSrc = "ws://localhost:1982" :: connectSrc
-    )
+  def withPeer = copy(connectSrc = "wss://0.peerjs.com" :: connectSrc)
 
   private def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy =
     if (maybe)
@@ -73,6 +65,8 @@ case class ContentSecurityPolicy(
     else this
 
   def withPrismic(editor: Boolean): ContentSecurityPolicy = withPrismicEditor(editor).withTwitter
+
+  def withAnyWs = copy(connectSrc = "ws:" :: "wss:" :: connectSrc)
 
   override def toString: String =
     List(
