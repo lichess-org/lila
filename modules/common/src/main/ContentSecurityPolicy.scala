@@ -58,6 +58,11 @@ case class ContentSecurityPolicy(
       connectSrc = "wss://0.peerjs.com" :: connectSrc
     )
 
+  def withDgt =
+    copy(
+      connectSrc = "ws://localhost:1982" :: connectSrc
+    )
+
   private def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy =
     if (maybe)
       copy(
