@@ -33,6 +33,10 @@
   <string name="joinTheGame">खेळात दाखल व्हा</string>
   <string name="whitePlays">पांढऱ्याची चाल</string>
   <string name="blackPlays">काळ्याची चाल</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">प्रतिस्पर्ध्याने गेम सोडला. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
+    <item quantity="other">प्रतिस्पर्ध्याने गेम सोडला. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
+  </plurals>
   <string name="opponentLeftChoices">प्रतिस्पर्ध्याने खेळ सोडला आहे. तुम्ही विजयाचा दावा करू शकतात, नाही तर त्यांची वाट पाहू शकतात.</string>
   <string name="makeYourOpponentResign">विरोधकाला हार मानायला लावा</string>
   <string name="forceResignation">विजयाचा दावा करा</string>
@@ -82,6 +86,10 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s अर्ध्याचालीत मात</item>
     <item quantity="other">%s अर्ध चालीत मात</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">पुढील सोंगटी कैद किंवा प्यादीची चाल %s अर्धी-चाल (५० चालींची उलटी मोजणी सुरू)</item>
+    <item quantity="other">पुढील सोंगटी कैद किंवा प्यादीची चाल %s अर्धी-चाल (५० चालींची उलटी मोजणी सुरू)</item>
   </plurals>
   <string name="noGameFound">कोणताही खेळ सापडला नाही</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक गेम समाविष्ट कराल?</string>
@@ -278,19 +286,19 @@
   <string name="takebackPropositionCanceled">चाल मागे घेण्याची विनंती रद्द केली</string>
   <string name="yourOpponentProposesATakeback">प्रतिस्पर्ध्याने चाल मागे घेण्याची विनंती केली आहे</string>
   <string name="bookmarkThisGame">Khelala bookamrk kara</string>
-  <string name="tournament">प्रतियोगिता</string>
-  <string name="tournaments">प्रतियोगिता</string>
-  <string name="tournamentPoints">प्रतियोगितेतील गुण</string>
+  <string name="tournament">क्रीडासत्र</string>
+  <string name="tournaments">क्रीडासत्रे</string>
+  <string name="tournamentPoints">क्रीडासत्रतील गुण</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s प्रतियोगितेचे गुण</item>
-    <item quantity="other">%s प्रतियोगितेतील गुण</item>
+    <item quantity="one">%s क्रीडासत्रतील गुण</item>
+    <item quantity="other">%s क्रीडासत्रतील गुण</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s अभ्यास</item>
     <item quantity="other">%s अभ्यास</item>
   </plurals>
-  <string name="viewTournament">प्रतियोगिता पहा</string>
-  <string name="backToTournament">प्रतियोगितेत परत जा</string>
+  <string name="viewTournament">क्रीडासत्र पहा</string>
+  <string name="backToTournament">क्रीडासत्रात परत जा</string>
   <string name="thematic">विषयगत</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s दर्जाचा खेळ</item>
@@ -382,21 +390,21 @@
     <item quantity="other">%s मिनिटांपेक्षा कमी</item>
   </plurals>
   <string name="required">गरजेचे आहे</string>
-  <string name="openTournaments">खुली प्रतियोगिता</string>
+  <string name="openTournaments">खुले क्रीडासत्र</string>
   <string name="duration">कालावधी</string>
   <string name="winner">विजेता</string>
   <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">पद</string>
-  <string name="createANewTournament">नवीन प्रतियोगिता तयार करा</string>
-  <string name="tournamentCalendar">प्रतियोगिता दिनदर्शिका</string>
+  <string name="createANewTournament">नवीन क्रीडासत्र तयार करा</string>
+  <string name="tournamentCalendar">क्रीडासत्र दिनदर्शिका</string>
   <string name="conditionOfEntry">प्रवेशाच्या आवश्यकता:</string>
   <string name="advancedSettings">प्रगत सेटिंग्ज</string>
-  <string name="safeTournamentName">प्रतियोगितेसाठी खूप सुरक्षित नाव निवडा.</string>
+  <string name="safeTournamentName">क्रीडासत्रासाठी खूप सुरक्षित नाव निवडा.</string>
   <string name="inappropriateNameWarning">थोडे अनुचित काहीही आपले खाते बंद करू शकते.</string>
-  <string name="emptyTournamentName">प्रतियोगीतेला उल्लेखनीय बुद्धिबळपटूचे नाव देणीसाठी रिकामे सोडा.</string>
+  <string name="emptyTournamentName">क्रीडासत्राला उल्लेखनीय बुद्धिबळपटूचे नाव देणीसाठी रिकामे सोडा.</string>
   <string name="recommendNotTouching">आमच्या मते तुम्ही याला बदलू नये.</string>
-  <string name="fewerPlayers">आपण प्रविष्टी आवश्यकता सेट केल्यास, आपल्या स्पर्धेत कमी खेळाडू असतील.</string>
+  <string name="fewerPlayers">आपण प्रविष्टी आवश्यकता सेट केल्यास, आपल्या क्रीडासत्रात कमी खेळाडू असतील.</string>
   <string name="showAdvancedSettings">प्रगत सेटिंग्ज दाखवा</string>
-  <string name="makePrivateTournament">प्रतियोगिता खाजगी करा, व पासवर्डने प्रवेश मर्यादित करा</string>
+  <string name="makePrivateTournament">क्रीडासत्र खाजगी करा, व पासवर्डने प्रवेश मर्यादित करा</string>
   <string name="join">सामील व्हा</string>
   <string name="withdraw">मागे घ्या</string>
   <string name="points">गुण</string>
@@ -404,19 +412,19 @@
   <string name="losses">एकूण  पराभव</string>
   <string name="winStreak">सलग विजय</string>
   <string name="createdBy">तयार करणारा</string>
-  <string name="tournamentIsStarting">प्रतियोगिता सुरू होत आहे</string>
-  <string name="tournamentPairingsAreNowClosed">प्रतियोगितेतील जोड्या लावणे आता बंद झाले आहे.</string>
+  <string name="tournamentIsStarting">क्रीडासत्र सुरू होत आहे</string>
+  <string name="tournamentPairingsAreNowClosed">क्रीडासत्रातील जोड्या लावणे आता बंद झाले आहे.</string>
   <string name="standByX">जरा थांबा %s, खेळाडूंच्या जोड्या लागत आहेत, तयार रहा!</string>
   <string name="youArePlaying">आपण खेळत आहात!</string>
   <string name="winRate">जिंकण्याचे प्रमाण</string>
   <string name="berserkRate">Berserk रेट</string>
   <string name="performance">कामगिरी</string>
-  <string name="tournamentComplete">प्रतियोगिता संपली</string>
+  <string name="tournamentComplete">क्रीडासत्र संपले</string>
   <string name="movesPlayed">खेळलेल्या चाली</string>
   <string name="whiteWins">पांढऱ्याचे विजय</string>
   <string name="blackWins">काळ्याचे विजय</string>
   <string name="draws">बरोबरी सुटलेले</string>
-  <string name="nextXTournament">पुढील %s प्रतियोगिता:</string>
+  <string name="nextXTournament">पुढील %s क्रीडासत्र:</string>
   <string name="averageOpponent">प्रतिस्पर्धी सरासरी</string>
   <string name="membersOnly">फक्त सदस्यांसाठी</string>
   <string name="boardEditor">पट संपादक (Board editor)</string>
@@ -482,7 +490,7 @@
   <string name="autoSwitch">आपोआप बदला</string>
   <string name="puzzles">कोडी</string>
   <string name="latestUpdates">नवीनतम अद्यतने</string>
-  <string name="tournamentWinners">प्रतियोगितेतील विजेते</string>
+  <string name="tournamentWinners">क्रीडासत्रातील विजेते</string>
   <string name="name">नाव</string>
   <string name="description">माहिती</string>
   <string name="no">नाही</string>
@@ -559,6 +567,10 @@
     <item quantity="one">कमाल: %s शब्द मर्यादा.</item>
     <item quantity="other">कमाल: %s शब्द.</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s बंदी घातली</item>
+    <item quantity="other">%s बंदी घातली</item>
+  </plurals>
   <string name="listBlockedPlayers">खालील खेळाडूंना बंदी केली</string>
   <string name="human">मानव</string>
   <string name="computer">संगणक</string>
@@ -632,24 +644,27 @@
   <string name="simulClockHint">फिशर क्लॉक सेटअप. आपण जितके अधिक खेळाडू घेता, तितके आपल्याला अधिक वेळ लागेल.</string>
   <string name="simulAddExtraTime">आपणास सिमूलचा सामना करण्यास मदत करण्यासाठी आपण आपल्या घड्याळात अतिरिक्त वेळ घालवू शकता.</string>
   <string name="simulHostExtraTime">जास्तवेळ घ्या</string>
-  <string name="lichessTournaments">लीचेस प्रतियोगिता</string>
-  <string name="tournamentFAQ">अरेना स्पर्धा सामान्य प्रश्न</string>
+  <string name="lichessTournaments">लीचेस क्रीडासत्र</string>
+  <string name="tournamentFAQ">क्रीडासत्राचे सामान्य प्रश्न</string>
   <string name="tournamentOfficial">अधिकृत</string>
-  <string name="timeBeforeTournamentStarts">प्रतियोगिता सुरू होण्यास बाकी वेळ</string>
+  <string name="timeBeforeTournamentStarts">क्रीडासत्र सुरू होण्यास बाकी वेळ</string>
   <string name="averageCentipawnLoss">प्यादानचे सरासरी नुकसान</string>
   <string name="keyboardShortcuts">कीबोर्ड शॉर्टकट</string>
   <string name="keyMoveBackwardOrForward">मागे/पुढे चला</string>
   <string name="keyGoToStartOrEnd">सुरवातीला/शेवटी जा</string>
   <string name="keyShowOrHideComments">प्रतिक्रिया दाखवा/लपवा</string>
   <string name="keyEnterOrExitVariation">variation च्या आत/बाहेर</string>
-  <string name="newTournament">नविन प्रतियोगिता</string>
-  <string name="tournamentHomeTitle">विविध वेळ नियंत्रणे आणि प्रकार दर्शविणारी बुद्धीबळ स्पर्धा</string>
-  <string name="tournamentHomeDescription">वेगवान-वेगवान बुद्धीबळ स्पर्धा खेळा! अधिकृत शेड्यूल टूर्नामेंटमध्ये सामील व्हा किंवा स्वतःचे तयार करा. बुलेट, ब्लीटझ, क्लासिकल, चेस 960, किंग ऑफ द हिल, थ्रीचेक आणि अंतहीन बुद्धिबळ मनोरंजनासाठी अधिक पर्याय उपलब्ध.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">प्रतियोगिता सापडली नाही</string>
-  <string name="tournamentDoesNotExist">ही प्रतियोगिता उपलब्ध नाही.</string>
-  <string name="tournamentMayHaveBeenCanceled">जर सर्व खेळाडू प्रतियोगिता सुरू होण्यापूर्वी निघून गेले तर प्रतियोगिता रद्द केली जाऊ शकते.</string>
+  <string name="newTournament">नविन क्रीडासत्र</string>
+  <string name="tournamentHomeTitle">विविध वेळ नियंत्रणे आणि प्रकार दर्शविणारे बुद्धीबळ क्रीडासत्र</string>
+  <string name="tournamentHomeDescription">वेगवान-वेगवान बुद्धीबळ क्रीडासत्र खेळा! अधिकृत शेड्यूल टूर्नामेंटमध्ये सामील व्हा किंवा स्वतःचे तयार करा. बुलेट, ब्लीटझ, क्लासिकल, चेस 960, किंग ऑफ द हिल, थ्रीचेक आणि अंतहीन बुद्धिबळ मनोरंजनासाठी अधिक पर्याय उपलब्ध.</string>
+  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">क्रीडासत्र सापडले नाही</string>
+  <string name="tournamentDoesNotExist">हे क्रीडासत्र उपलब्ध नाही.</string>
   <string name="returnToTournamentsHomepage">प्रतियोगितेच्या मुख्य पृष्ठावर जा</string>
   <string name="weeklyPerfTypeRatingDistribution">साप्ताहिक %s रेटिंग वितरण</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s या आठवड्यातील खेळाडू.</item>
+    <item quantity="other">%1$s %2$s या आठवड्यातील खेळाडू.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">तुमची %1$s रेटिंग %2$s आहे.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">तुम्ही %1$s पेक्षा उत्तम आहात %2$s खेळाडूंमध्ये.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s उत्तम आहे %3$s खेळाडूंमध्ये.</string>
@@ -742,6 +757,10 @@
   <string name="notifications">Notifications</string>
   <string name="challenges">आव्हाने</string>
   <string name="perfRatingX">दर्जा: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
+    <item quantity="other">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
+  </plurals>
   <string name="practiceWithComputer">कॉम्प्युटर सोबत सराव करा</string>
   <string name="anotherWasX">इतर %s</string>
   <string name="bestWasX">उत्तम %s</string>
@@ -794,6 +813,10 @@
   <string name="playVariationToCreateConditionalPremoves">सशर्त प्रिमुव्ह तयार करण्यासाठी variation खेळा</string>
   <string name="noConditionalPremoves">सशर्त प्रिमुव्ह नाही</string>
   <string name="playX">%s खेळा</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">आणि %s प्रिमुव्ह संपादित करा</item>
+    <item quantity="other">आणि %s प्रिमुव्ह संपादित करा</item>
+  </plurals>
   <string name="sorry">माफ करा</string>
   <string name="weHadToTimeYouOutForAWhile">आम्हाला आपल्याला काही वेळ खेळू देता येणार नाही.</string>
   <string name="timeoutExpires">विश्रांती संपेल %s.</string>
