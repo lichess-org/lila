@@ -1,11 +1,11 @@
 import { PuzzleRound, PuzzleVote, PuzzleData } from './interfaces';
 import * as xhr from 'common/xhr';
 
-
 export function round(puzzleId: number, win: boolean): Promise<PuzzleRound> {
   return xhr.json(`/training/${puzzleId}/round2`, {
     method: 'POST',
-    body: xhr.form({ win: win ? 1 : 0 })
+    body: xhr.form({ win: win ? 1 : 0 }),
+    headers: { ...xhr.xhrHeader }
   });
 }
 
