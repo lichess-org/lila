@@ -139,5 +139,19 @@ export default rollupProject({
     input: 'src/checkout.ts',
     output: 'checkout',
     name: 'checkoutStart'
+  },
+  login: {
+    input: 'src/login.ts',
+    output: 'login',
+    name: 'loginSignup'
+  },
+  teamBattleForm: {
+    input: 'src/team-battle-form.ts',
+    output: 'team-battle-form'
+  },
+  dgt: {
+    input: 'src/dgt/dgt.ts',
+    output: 'dgt',
+    name: 'lichessDgt'
   }
 });

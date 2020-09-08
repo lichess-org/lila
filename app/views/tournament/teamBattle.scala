@@ -16,7 +16,10 @@ object teamBattle {
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
-      moreJs = jsTag("tournamentTeamBattleForm.js")
+      moreJs = frag(
+        jsAt("vendor/textcomplete.min.js"),
+        jsModule("team-battle-form")
+      )
     )(
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(

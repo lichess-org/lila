@@ -27,7 +27,6 @@ object insight {
         jsAt("vendor/multiple-select/multiple-select.js"),
         jsModule("insight"),
         jsTag("insight-refresh.js"),
-        jsTag("insight-tour.js"),
         embedJsUnsafeLoadThen(
           s"""lichess.insight=LichessInsight(document.getElementById('insight'), ${safeJsonValue(
             Json.obj(

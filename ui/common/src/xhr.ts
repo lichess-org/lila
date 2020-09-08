@@ -5,18 +5,23 @@ const jsonHeader = {
   'Accept': 'application/vnd.lichess.v5+json'
 };
 
+export const defaultInit: RequestInit = {
+  cache: 'no-cache',
+  credentials: 'same-origin' // required for safari < 12
+};
+
 export const xhrHeader = {
   'X-Requested-With': 'XMLHttpRequest' // so lila knows it's XHR
 };
 
+/* fetch a JSON value */
 export const json = (url: string, init: RequestInit = {}): Promise<any> =>
   fetch(url, {
+    ...defaultInit,
     headers: {
       ...jsonHeader,
       ...xhrHeader
     },
-    cache: 'no-cache',
-    credentials: 'same-origin',
     ...init
   })
     .then(res => {
@@ -24,18 +29,18 @@ export const json = (url: string, init: RequestInit = {}): Promise<any> =>
       throw res.statusText;
     });
 
-
+/* fetch a string */
 export const text = (url: string, init: RequestInit = {}): Promise<string> =>
   fetch(url, {
+    ...defaultInit,
     headers: { ...xhrHeader },
-    cache: 'no-cache',
-    credentials: 'same-origin',
     ...init
   }).then(res => {
     if (res.ok) return res.text();
     throw res.statusText;
   });
 
+/* load a remote script */
 export const script = (src: string): Promise<void> =>
   new Promise((resolve, reject) => {
     const nonce = document.body.getAttribute('data-nonce'),
@@ -47,12 +52,14 @@ export const script = (src: string): Promise<void> =>
     document.head.append(el);
   })
 
+/* produce HTTP form data from a JS object */
 export const form = (data: any) => {
   const formData = new FormData();
   for (const k of Object.keys(data)) formData.append(k, data[k]);
   return formData;
 }
 
+/* constructs a url with escaped parameters */
 export const url = (path: string, params: {[k: string]: string | number | boolean | undefined}) => {
   const searchParams = new URLSearchParams();
   for (const k of Object.keys(params)) if (defined(params[k])) searchParams.append(k, params[k] as string);
@@ -60,7 +67,8 @@ export const url = (path: string, params: {[k: string]: string | number | boolea
   return query ? `${path}?${query}` : path;
 }
 
-export const formToXhr = (el: HTMLFormElement) =>
+/* submit a form with XHR */
+export const formToXhr = (el: HTMLFormElement): Promise<string> =>
   text(
     el.action, {
     method: el.method,

@@ -1,7 +1,8 @@
-import { storage as makeStorage } from './storage';
+import * as xhr from 'common/xhr';
+import idleTimer from './idle-timer';
 import sri from './sri';
 import { reload } from './reload';
-import idleTimer from './idle-timer';
+import { storage as makeStorage } from './storage';
 
 type Sri = string;
 type Tpe = string;
@@ -90,9 +91,13 @@ export default class StrongSocket {
   connect = () => {
     this.destroy();
     this.autoReconnect = true;
-    let params = $.param(this.settings.params);
-    if (this.version !== false) params += (params ? '&' : '') + 'v=' + this.version;
-    const fullUrl = this.options.protocol + '//' + this.baseUrl() + this.url + '?' + params;
+    const fullUrl = xhr.url(
+      this.options.protocol + '//' + this.baseUrl() + this.url,
+      {
+        ...this.settings.params,
+        v: this.version === false ? undefined : this.version
+      }
+    );
     this.debug("connection attempt to " + fullUrl);
     try {
       const ws = this.ws = new WebSocket(fullUrl);

@@ -13,7 +13,8 @@ object signup {
     views.html.base.layout(
       title = trans.signUp.txt(),
       moreJs = frag(
-        jsTag("signup.js"),
+        jsModule("login"),
+        embedJsUnsafeLoadThen("""loginSignup.signupStart()"""),
         views.html.base.recaptcha.script(form),
         fingerprintTag
       ),
