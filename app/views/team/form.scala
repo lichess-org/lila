@@ -17,7 +17,7 @@ object form {
     views.html.base.layout(
       title = newTeam.txt(),
       moreCss = cssTag("team"),
-      moreJs = frag(infiniteScrollTag, captchaTag)
+      moreJs = captchaTag
     ) {
       main(cls := "page-menu page-small")(
         bits.menu("form".some),
