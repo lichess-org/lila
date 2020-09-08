@@ -337,7 +337,7 @@ final class User(
 
         val modLog = for {
           history <- env.mod.logApi.userHistory(user.id)
-          appeal  <- env.appeal.api.get(user)
+          appeal  <- isGranted(_.Appeals) ?? env.appeal.api.get(user)
         } yield view.modLog(history, appeal)
 
         val plan = env.plan.api.recentChargesOf(user).map(view.plan).dmap(~_)
