@@ -52,17 +52,16 @@ $(function() {
   $form.find(".opponent select").change(toggleAiLevel);
 
   function serialize() {
-    const data = new FormData($form[0]);
-    const params = new URLSearchParams(data);
-    params.forEach((v, k) => { 
-      // console.log(`${k}: "${v}"`);
-      if (!v) params.delete(k);
-    })
-    // console.log(params.toString());
+    const data = new FormData($form[0]),
+    params = new URLSearchParams(data),
+    keys = Array.from(params.keys());
+    for (let k of keys) {
+      if (params.get(k) == '') params.delete(k);
+    }
     return params.toString();
   }
 
-  var serialized = serialize();
+  const serialized = serialize();
   $result.find("a.permalink").each(function() {
     $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + serialized);
   });
