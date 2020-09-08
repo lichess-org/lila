@@ -1,10 +1,10 @@
 window.lichess.load.then(() => {
 
   const form = document.querySelector('.search__form') as HTMLFormElement,
-  $form = $(form),
-  $usernames = $form.find(".usernames input"),
-  $userRows = $form.find(".user-row"),
-  $result = $(".search__result");
+    $form = $(form),
+    $usernames = $form.find(".usernames input"),
+    $userRows = $form.find(".user-row"),
+    $result = $(".search__result");
 
   function getUsernames() {
     const us: string[] = [];
@@ -53,10 +53,9 @@ window.lichess.load.then(() => {
   $form.find(".opponent select").change(toggleAiLevel);
 
   function serialize() {
-    const params = new URLSearchParams(new FormData(form) as any),
-    keys = Array.from(params.keys());
-    for (let k of keys) {
-      if (params.get(k) == '') params.delete(k);
+    const params = new URLSearchParams();
+    for (let [k, v] of new FormData(form).entries()) {
+      if (v != '') params.set(k, v as any); // typescript wants v to be a File
     }
     return params.toString();
   }
