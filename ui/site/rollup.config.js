@@ -157,5 +157,9 @@ export default rollupProject({
   gameSearch: {
     input: 'src/gameSearch.ts',
     output: 'game-search'
+  },
+  infiniteScroll: {
+    input: 'src/infiniteScroll.ts',
+    output: 'infinite-scroll'
   }
 });
