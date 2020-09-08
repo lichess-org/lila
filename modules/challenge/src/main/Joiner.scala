@@ -41,11 +41,11 @@ private object Joiner {
       Forsyth.<<<@(c.variant, fen.value)
     }
     val (chessGame, state) = baseState.fold(makeChess(c.variant) -> none[SituationPlus]) {
-      case SituationPlus(sit, turns) =>
+      case sp @ SituationPlus(sit, _) =>
         val game = chess.Game(
           situation = sit,
-          turns = turns,
-          startedAtTurn = turns,
+          turns = sp.turns,
+          startedAtTurn = sp.turns,
           clock = c.clock.map(_.config.toClock)
         )
         if (c.variant.fromPosition && Forsyth.>>(game) == Forsyth.initial)
