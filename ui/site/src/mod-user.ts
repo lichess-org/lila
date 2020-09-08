@@ -94,7 +94,7 @@ window.lichess.load.then(() => {
       $(el).height($(el).height());
       $(el).find('.mark-alt').on('click', function(this: HTMLAnchorElement) {
         if (confirm('Close alt account?')) {
-          xhr.text(this.href, { method: 'post' });
+          xhr.text(this.getAttribute('href')!, { method: 'post' });
           $(this).remove();
         }
       });
@@ -104,7 +104,7 @@ window.lichess.load.then(() => {
     });
     makeReady('#mz_identification .spy_filter', el => {
       $(el).find('.button').click(function(this: HTMLAnchorElement) {
-        xhr.text(this.href, { method: 'post' });
+        xhr.text(this.getAttribute('href')!, { method: 'post' });
         $(this).parent().parent().toggleClass('blocked');
         return false;
       });
