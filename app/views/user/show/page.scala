@@ -1,17 +1,16 @@
 package views.html.user.show
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
+import lila.app.mashup.UserInfo
 import lila.app.mashup.UserInfo.Angle
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.app.mashup.UserInfo
 import lila.game.Game
 import lila.user.User
-
-import controllers.routes
 
 object page {
 
@@ -87,7 +86,7 @@ object page {
           embedJsUnsafeLoadThen(s"lichess.ratingHistoryChart($ratingChart);")
         )
       },
-      withSearch option frag(jsTag("search.js")),
+      withSearch option jsModule("game-search"),
       isGranted(_.UserSpy) option jsModule("mod.user")
     )
 

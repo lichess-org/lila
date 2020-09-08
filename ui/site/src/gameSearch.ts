@@ -1,14 +1,15 @@
-$(function() {
+window.lichess.load.then(() => {
 
-  var $form = $(".search__form");
-  var $usernames = $form.find(".usernames input");
-  var $userRows = $form.find(".user-row");
-  var $result = $(".search__result");
+  const form = document.querySelector('.search__form') as HTMLFormElement,
+  $form = $(form),
+  $usernames = $form.find(".usernames input"),
+  $userRows = $form.find(".user-row"),
+  $result = $(".search__result");
 
   function getUsernames() {
-    var us = [];
-    $usernames.each(function() {
-      var u = $(this).val().trim();
+    const us: string[] = [];
+    $usernames.each(function(this: HTMLInputElement) {
+      const u = this.value.trim();
       if (u) us.push(u);
     });
     return us;
@@ -21,7 +22,7 @@ $(function() {
       return (row.classList.contains(rowClassName) && player.length && user == player) ? "selected" : ""
     }
     getUsernames().forEach(function(user) {
-      var option = [];
+      const option: string[] = [];
       option.push("<option value='" + user + "'");
       option.push(isSelected(row, "winner", user, 'req-winner'));
       option.push(isSelected(row, "loser", user, 'req-loser'));
@@ -35,7 +36,7 @@ $(function() {
   }
 
   function reloadUserChoices() {
-    $userRows.each(function() {
+    $userRows.each(function(this: HTMLTableRowElement) {
       userChoices(this);
     });
   }
@@ -43,17 +44,16 @@ $(function() {
   $usernames.on("input paste", reloadUserChoices);
 
   var toggleAiLevel = function() {
-    $form.find(".opponent select").each(function() {
-      $form[0].querySelector('.aiLevel')?.classList.toggle('none', $(this).val() != 1);
-      $form[0].querySelector('.opponentName')?.classList.toggle('none', $(this).val() == 1);
+    $form.find(".opponent select").each(function(this: HTMLSelectElement) {
+      $form[0].querySelector('.aiLevel')?.classList.toggle('none', this.value != "1");
+      $form[0].querySelector('.opponentName')?.classList.toggle('none', this.value == "1");
     });
   };
   toggleAiLevel();
   $form.find(".opponent select").change(toggleAiLevel);
 
   function serialize() {
-    const data = new FormData($form[0]),
-    params = new URLSearchParams(data),
+    const params = new URLSearchParams(new FormData(form) as any),
     keys = Array.from(params.keys());
     for (let k of keys) {
       if (params.get(k) == '') params.delete(k);
@@ -62,10 +62,10 @@ $(function() {
   }
 
   const serialized = serialize();
-  $result.find("a.permalink").each(function() {
+  $result.find("a.permalink").each(function(this: HTMLAnchorElement) {
     $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + serialized);
   });
-  $result.find('.search__rows').each(function() {
+  $result.find('.search__rows').each(function(this: HTMLTableRowElement) {
     var $next = $(this).find(".pager a");
     if (!$next.length) return;
     $next.attr("href", $next.attr("href") + "&" + serialized);
@@ -79,12 +79,12 @@ $(function() {
       }
     }, function() {
       $("#infscr-loading").remove();
-      lichess.pubsub.emit('content_loaded');
+      window.lichess.pubsub.emit('content_loaded');
     });
   });
 
   $form.submit(function() {
-    $form.find("input,select").filter(function() { return !this.value; }).attr("disabled", "disabled");
+    $form.find("input,select").filter(function(this: HTMLInputElement) { return !this.value; }).attr("disabled", "disabled");
     $form.addClass('searching');
   });
 });
