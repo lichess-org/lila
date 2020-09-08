@@ -51,17 +51,20 @@ $(function() {
   toggleAiLevel();
   $form.find(".opponent select").change(toggleAiLevel);
 
-  var serialize = function(all) {
-    var sel = $form.find("input,select");
-    return (all ? sel : sel.not('[type=hidden]')).filter(function() {
-      return !!this.value;
-    }).serialize()
-  };
+  function serialize() {
+    const data = new FormData($form[0]);
+    const params = new URLSearchParams(data);
+    params.forEach((v, k) => { 
+      // console.log(`${k}: "${v}"`);
+      if (!v) params.delete(k);
+    })
+    // console.log(params.toString());
+    return params.toString();
+  }
 
   var serialized = serialize();
   $result.find("a.permalink").each(function() {
-    var s = $(this).hasClass('download') ? serialize(true) : serialized;
-    $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + s);
+    $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + serialized);
   });
   $result.find('.search__rows').each(function() {
     var $next = $(this).find(".pager a");
