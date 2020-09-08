@@ -54,8 +54,8 @@ window.lichess.load.then(() => {
 
   function serialize() {
     const params = new URLSearchParams();
-    for (let [k, v] of new FormData(form).entries()) {
-      if (v != '') params.set(k, v as any); // typescript wants v to be a File
+    for (const [k, v] of new FormData(form).entries()) {
+      if (v != '') params.set(k, v as string);
     }
     return params.toString();
   }
