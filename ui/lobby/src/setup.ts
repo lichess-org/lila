@@ -82,13 +82,14 @@ export default class Setup {
     return undefined;
   }
 
-  private hookToPoolMember = (color, data) => {
+  private hookToPoolMember = (color: string, form: HTMLFormElement) => {
+    const data = Array.from(new FormData(form).entries());
     const hash: any = {};
-    for (var i in data) hash[data[i].name] = data[i].value;
+    for (let i in data) hash[data[i][0]] = data[i][1];
     const valid = color == 'random' && hash.variant == 1 && hash.mode == 1 && hash.timeMode == 1,
       id = parseFloat(hash.time) + '+' + parseInt(hash.increment);
     return (valid && this.root.pools.find(p => p.id === id)) ? {
-      id: id,
+      id,
       range: hash.ratingRange
     } : undefined;
   }
@@ -200,7 +201,7 @@ export default class Setup {
           .attr('title', this.root.trans('youNeedAnAccountToDoThat'));
       }
       const ajaxSubmit = color => {
-        const poolMember = this.hookToPoolMember(color, $form.serializeArray());
+        const poolMember = this.hookToPoolMember(color, $form[0] as HTMLFormElement);
         modal.close();
         if (poolMember) {
           this.root.enterPool(poolMember);
