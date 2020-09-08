@@ -569,7 +569,7 @@
   <string name="connectedToLichess">तुम्ही आता lichess.org जोडल्या गेला आहात</string>
   <string name="signedOut">तुम्ही बाहेर निघाला आहात</string>
   <string name="loginSuccessful">तुम्ही आत आला आहात</string>
-  <string name="playOnTheBoardOffline">त्या समयी सुचलेली चाल</string>
+  <string name="playOnTheBoardOffline">पटावर खेळा</string>
   <string name="playOfflineComputer">संगणक</string>
   <string name="opponent">प्रतिस्पर्धी</string>
   <string name="learnMenu">शिका</string>
@@ -688,7 +688,7 @@
   <string name="revokeAllSessions">सर्व सत्र रद्द करा</string>
   <string name="playChessEverywhere">सगळीकडे बुद्धिबळ खेळा</string>
   <string name="asFreeAsLichess">लिचेस सारखे निशुल्क</string>
-  <string name="builtForTheLoveOfChessNotMoney">पैशासाठी नव्हे तर बुद्धिबळांच्या प्रेमासाठी बांधले गेले</string>
+  <string name="builtForTheLoveOfChessNotMoney">बुद्धिबळांच्या प्रेमासाठी तयार केले, पैशासाठी नव्हे</string>
   <string name="everybodyGetsAllFeaturesForFree">प्रत्येकास सर्व वैशिष्ट्ये विनामूल्य मिळतात</string>
   <string name="zeroAdvertisement">शून्य जाहिरात</string>
   <string name="fullFeatured">पूर्ण वैशिष्ट्यीकृत</string>
