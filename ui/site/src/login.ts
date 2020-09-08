@@ -61,7 +61,7 @@ export function signupStart() {
 
   const usernameCheck = debounce(() => {
     const name = $username.val();
-    if (name.length >= 3) xhr.text(
+    if (name.length >= 3) xhr.json(
       xhr.url('/player/autocomplete', { term: name, exists: 1 })
     ).then(res => $exists.toggle(res))
   }, 300);
