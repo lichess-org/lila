@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">शिकवणी</string>
+  <string name="features">वैशिष्ट्ये</string>
+  <string name="teachersX">शिक्षक: %s</string>
+  <string name="newClass">नविन शिकवणी</string>
+  <string name="closeClass">शिकवणी संपली</string>
+  <string name="reopen">परत सुरू करा</string>
+  <string name="removeStudent">विद्यार्थी हटवा</string>
+  <string name="removedStudents">काढून टाका</string>
+  <string name="inviteTheStudentBack">विद्यार्थ्याला परत आमंत्रित करा</string>
+  <string name="sendAMessage">सर्व विद्यार्थ्याना संदेश पाठवा.</string>
+  <string name="className">शिकवणीचे नाव</string>
+  <string name="classDescription">शिकवणीचे वर्णन</string>
+  <string name="teachers">शिक्षक</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">शिक्षक</item>
+    <item quantity="other">%s शिक्षक</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">विद्यार्थी</item>
+    <item quantity="other">%s विद्यार्थी</item>
+  </plurals>
+  <string name="students">विद्यार्थी</string>
+  <string name="progress">प्रगती</string>
+  <string name="noStudents">अजून शिकवणीत कोणताही विद्यार्थी नाही.</string>
+</resources>
