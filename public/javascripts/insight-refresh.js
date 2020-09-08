@@ -4,8 +4,7 @@ lichess.refreshInsightForm = function() {
       method: 'post',
       credentials: 'same-origin',
     }).then(lichess.reload);
-    if (lichess.modal) lichess.modal($(this).find('.crunching'));
-    else $(this).replaceWith($(this).find('.crunching').show());
+    $(this).replaceWith($(this).find('.crunching').show());
     return false;
   });
 }
