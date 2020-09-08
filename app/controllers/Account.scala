@@ -361,9 +361,7 @@ final class Account(
   def signout(sessionId: String) =
     Auth { implicit _ctx => me =>
       if (sessionId == "all")
-        env.security.store.closeUserExceptSessionId(me.id, currentSessionId) >>
-          env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
-          Redirect(routes.Account.security()).flashSuccess
+        refreshSessionId(me, Redirect(routes.Account.security()).flashSuccess)
       else
         env.security.store.closeUserAndSessionId(me.id, sessionId) >>
           env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
