@@ -26,4 +26,14 @@
   <string name="verificationForm">نموذج التحقق</string>
   <string name="canIbecomeLM">هل يمكنني الحصول على لقب أستاذ ليشيس؟</string>
   <string name="noUpperCaseDot">لا.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">هذا اللقب شرفي غير رسمي ولا يوجد إلا في ليشس.
+
+نادرا ما نمنحه للاعبين البارزين الذين يعتبرون مواطنين صالحين في ليشيس، حسب تقديرنا. لا يمكنك أن تحصل على لقب أستاذ ليشيس، اللقب هو من سيحصل عليك. إذا كنت مؤهلاً، ستحصل على رسالة منا بشأن ذلك وسيعود إليك الخيار إما بالقبول أو الرفض.
+
+لا تسأل أبدا عن لقب أستاذ ليشيس.</string>
+  <string name="whatUsernameCanIchoose">ماذا يمكن أن يكون اسم المستخدم الخاص بي؟</string>
+  <string name="usernamesNotOffensive">عموما، لا ينبغي أن تكون أسماء المستخدمين: مهينة، أو تنتحل صفة شخص آخر، أو تقوم بالإعلان. يمكنك قراءة المزيد عن %1$s.</string>
+  <string name="guidelines">الإرشادات</string>
+  <string name="uniqueTrophies">كؤوس فريدة</string>
+  <string name="ownerUniqueTrophies">هذه الكأس فريدة من نوعها في تاريخ ليشس، لن يحصل عليها أحد سوى %1$s.</string>
 </resources>
