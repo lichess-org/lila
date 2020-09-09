@@ -2,7 +2,7 @@
 <resources>
   <string name="lichessStreamers">بثوث ليشس</string>
   <string name="lichessStreamer">بثوث ليشس</string>
-  <string name="live">LIVE!</string>
+  <string name="live">مباشر!</string>
   <string name="offline">غير متصل</string>
   <string name="currentlyStreaming">يبث حاليا: %s</string>
   <string name="lastStream">آخر بث %s</string>
@@ -35,4 +35,19 @@
   <string name="optionalOrEmpty">اختياري. اتركه فارغاً إذا لم يكن هناك</string>
   <string name="youtubeChannel">معرف قناة اليوتيوب أو عنوان URL الخاص بك</string>
   <string name="streamerName">اسم البث الخاص بك على Lichess</string>
+  <string name="visibility">إظهار على قائمة بثوث اللاعبين</string>
+  <string name="whenApproved">بعد الموافقة من قبل المشرفين</string>
+  <string name="headline">العنوان</string>
+  <string name="tellUsAboutTheStream">أخبرنا عن البث الخاص بك في جملة واحدة</string>
+  <string name="longDescription">وصف مطول</string>
+  <string name="xStreamerPicture">%s صورة الستريمر</string>
+  <string name="changePicture">تغيير/حذف صورتك</string>
+  <string name="uploadPicture">رفع صورة</string>
+  <string name="deletePicture">حذف الصورة</string>
+  <string name="maxSize">الحجم الأقصى: %s</string>
+  <string name="installBlocker">قم بتثبيت مضاد البرمجيات الخبيثة!</string>
+  <string name="beSafe">ابقى آمناً من الإعلانات والمتعقبين
+بينما تنشر على تويتش ويوتيوب.
+يوصي موقع Lichess باستخدام إضافة uBlock Origin
+المجانية والمفتوحة المصدر.</string>
 </resources>
