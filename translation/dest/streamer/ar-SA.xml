@@ -15,4 +15,6 @@
   <string name="downloadKit">تحميل streamer kit</string>
   <string name="xIsStreaming">%s يقوم بعمل بث</string>
   <string name="rules">قواعد البث</string>
+  <string name="rule1">قم بإدراج الكلمة المفتاحية \"lichess.org\" في عنوان البث الخاص بك ولا تنسى كذلك تصنيفه تحت فئة \"Chess\".</string>
+  <string name="rule2">قم بنزع الكلمة المفتاحية عندما تبث أمور غير متعلقة بليشيس.</string>
 </resources>
