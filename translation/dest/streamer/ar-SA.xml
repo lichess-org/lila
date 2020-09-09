@@ -28,4 +28,11 @@
   <string name="pleaseFillIn">الرجاء ملء معلومات البث الخاصة بك، و قم برفع صورة.</string>
   <string name="whenReady">عندما تكون جاهزاً لتصبح ستريمر Lichess ، %s</string>
   <string name="requestReview">أطلب مراجعة مشرف</string>
+  <string name="anotherLanguage">إذا كنت تقوم بالبث بلغة غير الإنجليزية، قم بإدراج الوسم المناسب (%s) بين معقّفين وهذا في بداية عنوان البث الخاص بك.
+على سبيل المثال، تستطيع إدراج \"[AR]\" من أجل اللغة العربية، و \"[FR]\" من أجل الفرنسية، و \"[TR]\" من أجل التركية، إذا كان البث باللغة الإنجليزية فلا حاجة إلى إضافة الوسم.
+لا تقم بوضع الوسم في إعدادات بث Lichess الخاصة بك، بل قم بوضعه في عنوان البث الخاص باليوتيوب أو تويتش.</string>
+  <string name="twitchUsername">اسم مستخدم تويتش أو عنوان URL الخاص بك</string>
+  <string name="optionalOrEmpty">اختياري. اتركه فارغاً إذا لم يكن هناك</string>
+  <string name="youtubeChannel">معرف قناة اليوتيوب أو عنوان URL الخاص بك</string>
+  <string name="streamerName">اسم البث الخاص بك على Lichess</string>
 </resources>
