@@ -123,7 +123,7 @@ export default class Setup {
           cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
             (variantId != '1' && timeMode != '1');
         if (cantBeRated && rated) {
-          $casual.click();
+          $casual.trigger('click');
           return toggleButtons();
         }
         $rated.prop('disabled', !!cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
@@ -222,7 +222,7 @@ export default class Setup {
         }
         return false;
       };
-      $submits.click(function(this: HTMLElement) {
+      $submits.on('click', function(this: HTMLElement) {
         return ajaxSubmit($(this).val());
       }).prop('disabled', false);
       $form.submit(function() {
@@ -342,7 +342,7 @@ export default class Setup {
       $fenPosition.toggle(isFen);
       $modeChoicesWrap.toggle(!isFen);
       if (isFen) {
-        $casual.click();
+        $casual.trigger('click');
         requestAnimationFrame(() => document.body.dispatchEvent(new Event('chessground.resize')));
       }
       showRating();

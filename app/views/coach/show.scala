@@ -34,7 +34,7 @@ object show {
       moreJs = frag(
         jsAt("vendor/bar-rating/dist/jquery.barrating.min.js"),
         ctx.isAuth option embedJsUnsafeLoadThen("""$(".bar-rating").barrating();
-$('.coach-review-form .toggle').click(function() {
+$('.coach-review-form .toggle').on('click', function() {
 $(this).remove();
 $('.coach-review-form form').show();
 })""")

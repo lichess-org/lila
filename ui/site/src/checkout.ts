@@ -9,8 +9,8 @@ export default function(publicKey: string) {
   };
   var min = 100, max = 100 * 100000;
 
-  if (location.hash === '#onetime') $('#freq_onetime').click();
-  if (location.hash === '#lifetime') $('#freq_lifetime').click();
+  if (location.hash === '#onetime') $('#freq_onetime').trigger('click');
+  if (location.hash === '#lifetime') $('#freq_lifetime').trigger('click');
 
   const getFreq = function() {
     return $checkout.find('group.freq input:checked').val();
@@ -19,7 +19,7 @@ export default function(publicKey: string) {
   // Other is selected but no amount specified
   // happens with backward button
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
-    $checkout.find('#plan_monthly_1000').click();
+    $checkout.find('#plan_monthly_1000').trigger('click');
 
   const selectAmountGroup = function() {
     var freq = getFreq();
@@ -41,7 +41,7 @@ export default function(publicKey: string) {
     var cents = Math.round(amount * 100);
     if (!cents) {
       $(this).text($(this).data('trans-other'));
-      $checkout.find('#plan_monthly_1000').click();
+      $checkout.find('#plan_monthly_1000').trigger('click');
       return false;
     }
     if (cents < min) cents = min;

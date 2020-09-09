@@ -132,7 +132,7 @@ window.lichess.load.then(() => {
       else stop();
     };
 
-    $start.click(function() {
+    $start.on('click', () => {
       $explanation.remove();
       $trainer.addClass('play').removeClass('init');
       showColor();
@@ -146,7 +146,7 @@ window.lichess.load.then(() => {
         startAt = new Date();
         ground.set({
           events: {
-            select: function(key) {
+            select(key) {
               var hit = key == $coords[0].text();
               if (hit) {
                 score++;

@@ -12,7 +12,7 @@ window.lichess.load.then(() => {
     return false;
   });
 
-  $('.edit.button').add('.edit-post-cancel').click(function(this: HTMLButtonElement, e) {
+  $('.edit.button').add('.edit-post-cancel').on('click', function(this: HTMLButtonElement, e) {
     e.preventDefault();
 
     const post = $(this).closest('.forum-post'),
@@ -76,7 +76,7 @@ window.lichess.load.then(() => {
     });
   });
 
-  $('.forum').click('.reactions-auth button', e => {
+  $('.forum').on('click', '.reactions-auth button', e => {
     const href = e.target.getAttribute('data-href');
     if (href) {
       const $rels = $(e.target).parent();

@@ -6,15 +6,13 @@ import loadInfiniteScroll from "./component/infinite-scroll";
 window.lichess.load.then(() => {
 
   $(".user-show .note-zone-toggle").each(function(this: HTMLElement) {
-    $(this).click(function(this: HTMLElement) {
-      $(".user-show .note-zone").toggle();
-    });
-    if (location.search.includes('note')) $(this).click();
+    $(this).on('click', () => $(".user-show .note-zone").toggle());
+    if (location.search.includes('note')) $(this).trigger('click');
   });
 
   $(".user-show .claim_title_zone").each(function(this: HTMLElement) {
-    var $zone = $(this);
-    $zone.find('.actions a').click(function(this: HTMLAnchorElement) {
+    const $zone = $(this);
+    $zone.find('.actions a').on('click', function(this: HTMLAnchorElement) {
       xhr.text(this.href, { method: 'post' });
       $zone.remove();
       return false;

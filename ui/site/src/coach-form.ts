@@ -51,7 +51,7 @@ window.lichess.load.then(() => {
     };
   })();
 
-  $editor.find('.tabs > div').click(function(this: HTMLElement) {
+  $editor.find('.tabs > div').on('click', function(this: HTMLElement) {
     $editor.find('.tabs > div').removeClass('active');
     $(this).addClass('active');
     $editor.find('.panel').removeClass('active');
@@ -73,10 +73,10 @@ window.lichess.load.then(() => {
     });
 
   if ($editor.find('.reviews .review').length)
-    $editor.find('.tabs div[data-tab=reviews]').click();
+    $editor.find('.tabs div[data-tab=reviews]').trigger('click');
 
   const $reviews = $editor.find('.reviews');
-  $reviews.find('.actions a').click(function(this: HTMLAnchorElement) {
+  $reviews.find('.actions a').on('click', function(this: HTMLAnchorElement) {
     const $review = $(this).parents('.review');
     xhr.text(
       $review.data('action') + '?v=' + $(this).data('value'),

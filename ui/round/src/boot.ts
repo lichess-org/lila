@@ -86,6 +86,6 @@ export default function(opts: RoundOpts): void {
     });
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
     history.replaceState(null, '', '/' + data.game.id);
-  $('#zentog').click(() => li.pubsub.emit('zen'));
+  $('#zentog').on('click', () => li.pubsub.emit('zen'));
   li.storage.make('reload-round-tabs').listen(li.reload);
 }

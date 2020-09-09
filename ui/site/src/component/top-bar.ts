@@ -39,7 +39,7 @@ export default function() {
         instance = window.LichessChallenge($el[0], {
           data,
           show() {
-            if (!$('#challenge-app').is(':visible')) $toggle.click();
+            if (!$('#challenge-app').is(':visible')) $toggle.trigger('click');
           },
           setCount(nb: number) {
             $toggle.find('span').attr('data-count', nb);
@@ -54,7 +54,7 @@ export default function() {
       if (!instance) load(data);
       else instance.update(data);
     });
-    pubsub.on('challenge-app.open', () => $toggle.click());
+    pubsub.on('challenge-app.open', () => $toggle.trigger('click'));
   }
 
   { // notifyApp
@@ -76,7 +76,7 @@ export default function() {
             $toggle.find('span').attr('data-count', nb);
           },
           show() {
-            if (!isVisible()) $toggle.click();
+            if (!isVisible()) $toggle.trigger('click');
           },
           setNotified() {
             window.lichess.socket.send('notified');
@@ -88,7 +88,7 @@ export default function() {
       );
     };
 
-    $toggle.one('mouseover click', () => load()).click(() => {
+    $toggle.one('mouseover click', () => load()).on('click', () => {
       if ('Notification' in window) Notification.requestPermission();
       setTimeout(() => {
         if (instance && isVisible()) instance.setVisible();

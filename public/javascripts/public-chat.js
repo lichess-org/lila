@@ -12,7 +12,7 @@ $(function() {
   var onPageReload = function() {
 
     $("#communication").append(
-      $('<a id="auto_refresh" class="button">Auto refresh</a>').click(function() {
+      $('<a id="auto_refresh" class="button">Auto refresh</a>').on('click', () => {
         autoRefreshEnabled = !autoRefreshEnabled;
         renderButton();
       })

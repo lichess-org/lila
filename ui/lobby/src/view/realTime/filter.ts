@@ -24,12 +24,12 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
     save();
   }
   $div.find('input').change(save);
-  $div.find('button.reset').click(function() {
+  $div.find('button.reset').on('click', () => {
     ctrl.filter.set(null);
     ctrl.filter.open = false;
     ctrl.redraw();
   });
-  $div.find('button.apply').click(function() {
+  $div.find('button.apply').on('click', () => {
     ctrl.filter.open = false;
     ctrl.redraw();
   });

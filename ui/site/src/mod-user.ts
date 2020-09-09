@@ -52,7 +52,7 @@ window.lichess.load.then(() => {
     }
   }
 
-  $toggle.click(function() {
+  $toggle.on('click', () => {
     if ($zone.hasClass('none')) loadZone();
     else unloadZone();
     return false;
@@ -103,8 +103,8 @@ window.lichess.load.then(() => {
       tablesort(el, { descending: true });
     });
     makeReady('#mz_identification .spy_filter', el => {
-      $(el).find('.button').click(function(this: HTMLAnchorElement) {
-        xhr.text(this.getAttribute('href')!, { method: 'post' });
+      $(el).find('.button').on('click', function(this: HTMLAnchorElement) {
+        xhr.text(this.href!, { method: 'post' });
         $(this).parent().parent().toggleClass('blocked');
         return false;
       });
@@ -120,7 +120,7 @@ window.lichess.load.then(() => {
       tablesort(el, { descending: true });
     }, 'ready-sort');
     makeReady('#mz_others .more-others', el => {
-      $(el).addClass('.ready').click(() => {
+      $(el).addClass('.ready').on('click', () => {
         nbOthers = 1000;
         reloadZone();
       });
@@ -140,8 +140,8 @@ window.lichess.load.then(() => {
 
   extendTablesortNumber();
 
-  if (location.search.startsWith('?mod')) $toggle.click();
+  if (location.search.startsWith('?mod')) $toggle.trigger('click');
 
-  window.Mousetrap.bind('m', () => $toggle.click());
-  window.Mousetrap.bind('i', () => $zone.find('button.inquiry').click());
+  window.Mousetrap.bind('m', () => $toggle.trigger('click'));
+  window.Mousetrap.bind('i', () => $zone.find('button.inquiry').trigger('click'));
 });

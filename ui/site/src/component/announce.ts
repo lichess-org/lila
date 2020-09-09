@@ -18,7 +18,7 @@ const announce = (d: LichessAnnouncement) => {
       (d.date ? '<time class="timeago" datetime="' + d.date + '"></time>' : '') +
       '<div class="actions"><a class="close">X</a></div>' +
       '</div>'
-    ).find('#announce .close').click(kill);
+    ).find('#announce .close').on('click', kill);
     timeout = setTimeout(kill, d.date ? new Date(d.date).getTime() - Date.now() : 5000);
     if (d.date) pubsub.emit('content_loaded');
   }

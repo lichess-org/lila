@@ -10,6 +10,6 @@ export { ctrl, view, winningChances };
 // as the ctrl can be instanciated several times.
 // gotta do the click on the toggle to have it visually change.
 window.lichess.storage.make('ceval.pool.start').listen(_ => {
-  const toggle = document.getElementById('analyse-toggle-ceval');
-  if (toggle && (toggle as HTMLInputElement).checked) toggle.click();
+  const toggle = document.getElementById('analyse-toggle-ceval') as HTMLInputElement | undefined;
+  if (toggle?.checked) toggle.click();
 });

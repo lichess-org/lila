@@ -96,9 +96,9 @@ li.load.then(() => {
 
     loadInfiniteScroll('.infinitescroll');
 
-    $('a.delete, input.delete').click(() => confirm('Delete?'));
-    $('input.confirm, button.confirm').click(function(this: HTMLElement) {
-      return confirm($(this).attr('title') || 'Confirm this action?');
+    $('a.delete, input.delete').on('click', () => confirm('Delete?'));
+    $('input.confirm, button.confirm').on('click', function(this: HTMLElement) {
+      return confirm(this.title || 'Confirm this action?');
     });
 
     $('#main-wrap').on('click', 'a.bookmark', function(this: HTMLAnchorElement) {
@@ -186,7 +186,7 @@ li.load.then(() => {
         '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
         '<a class="text" href="' + url + '" data-icon="G">Resume</a>' +
         '</div></div>'
-      ).find('#announce .withdraw').click(function(this: HTMLAnchorElement) {
+      ).find('#announce .withdraw').on('click', function(this: HTMLAnchorElement) {
         xhr.text(this.href, { method: 'post' });
         $('#announce').remove();
         return false;
