@@ -44,4 +44,12 @@
   <string name="castlingPrevented">لا يسمح بالتبييت إذا كان الملك في وضع الكش في مكانه الحالي، في المربع الذي سيمر فوقه، أو في مربع الوصول بعد التبييت.</string>
   <string name="castlingRules">تأكد من فهمك لقواعد التبييت</string>
   <string name="tryCastling">جرب هذه اللعبة التفاعلية الصغيرة للتدريب على التبييت في الشطرنج</string>
+  <string name="castlingImported">إذا قمت باستيراد المباراة، أو بدأتها من وضعية محددة، تأكد من تعيين حقوق التبييت بشكل صحيح.</string>
+  <string name="insufficientMaterial">قطع غير كافية لعمل كش مات</string>
+  <string name="fideMate">وفقاً للفقرة 6 من قوانين الشطرنج الصادرة عن الاتحاد الدولي للشطرنج، تعدّ المباراة تعادلاً إذا وصلت إلى وضع لا يمكن معه تنفيذ كش مات بأية سلسلة نقلات قانونية ممكنة</string>
+  <string name="knightMate">من الممكن عمل كش مات للخص باستعمال الحصان والفيل فقط، وهذا حتى إذا كان للخصم أكثر من قطعة متبقية على الرقعة.</string>
+  <string name="noRatingPoints">لم يتم منح أي نقاط تقييم</string>
+  <string name="ratedGame">تأكد من أنك لعبت لعبة مقيمة. الألعاب الاستعراضية لا تؤثر على تقييم اللاعبين.</string>
+  <string name="errorPage">صفحة خطأ</string>
+  <string name="reportErrorPage">إذا واجهت صفحة خطأ، فيمكنك الإبلاغ عنها:</string>
 </resources>
