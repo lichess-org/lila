@@ -31,7 +31,7 @@ li.load.then(() => {
 
   moduleLaunchers();
 
-  requestIdleCallback(() => {
+  requestAnimationFrame(() => {
 
     const friendsEl = document.getElementById('friend_box');
     if (friendsEl) new OnlineFriends(friendsEl);
