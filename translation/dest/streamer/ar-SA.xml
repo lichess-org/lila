@@ -4,6 +4,8 @@
   <string name="lichessStreamer">بثوث ليشس</string>
   <string name="live">LIVE!</string>
   <string name="offline">غير متصل</string>
+  <string name="currentlyStreaming">يبث حاليا: %s</string>
+  <string name="lastStream">آخر بث %s</string>
   <string name="becomeStreamer">اصبح ستريمرز لموقع الليتش</string>
   <string name="doYouHaveStream">هل لديك قناة تويتش أو يوتيوب؟</string>
   <string name="hereWeGo">فلنبدأ!</string>
