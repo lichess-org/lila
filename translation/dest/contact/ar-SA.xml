@@ -9,4 +9,16 @@
   <string name="forgotPassword">لقد نسيت كلمة السر الخاصة بي</string>
   <string name="forgotUsername">لقد نسيت اسم المستخدم الخاص بي</string>
   <string name="youCanLoginWithEmail">يمكنك تسجيل الدخول باستخدام عنوان البريد الإلكتروني الذي قمت بالتسجيل به</string>
+  <string name="lost2FA">لقد فقدت الوصول إلى رموز المصادقة الثنائية الخاصة بي</string>
+  <string name="doPasswordReset">أكمل إعادة تعيين كلمة المرور لإزالة المصادقة الثنائية</string>
+  <string name="wantTitle">أريد أن يتم عرض لقبي على Lichess</string>
+  <string name="visitTitleConfirmation">لإظهار لقبك على ملفك الشخصي في Lichess، والمشاركة في بطولات حملة الألقاب، قم بزيارة صفحة تأكيد اللقب</string>
+  <string name="wantCloseAccount">أريد إغلاق حسابي</string>
+  <string name="closeYourAccount">يمكنك إغلاق حسابك في هذه الصفحة</string>
+  <string name="doNotAskByEmail">لا تطلب إغلاق الحساب عن طريق البريد الإلكتروني، فنحن لن نقوم بذلك.</string>
+  <string name="wantReopen">أريد إعادة فتح حسابي</string>
+  <string name="reopenOnThisPage">يمكنك إعادة فتح حسابك في هذه الصفحة. تستطيع عمل هذا مرة واحدة فقط.</string>
+  <string name="doNotAskByEmailToReopen">لا تطلب إعادة فتح الحساب عن طريق البريد الإلكتروني، فنحن لن نقوم بذلك.</string>
+  <string name="wantChangeUsername">أريد تغير اسم المستخدم الخاص بي</string>
+  <string name="changeUsernameCase">قم بزيارة هذه الصفحة لتغيير اسم المستخدم الخاص بك</string>
 </resources>
