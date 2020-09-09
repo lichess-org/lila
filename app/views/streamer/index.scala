@@ -32,7 +32,7 @@ object index {
         stream.isDefined option span(cls := "ribbon")(span(trans.streamer.live())),
         bits.pic(s.streamer, s.user),
         div(cls := "overview")(
-          h1(dataIcon := "")(titleTag(s.user.title), stringValueFrag(s.streamer.name)),
+          h1(dataIcon := "")(titleTag(s.user.title), s.streamer.name),
           s.streamer.headline.map(_.value).map { d =>
             p(
               cls := s"headline ${if (d.length < 60) "small" else if (d.length < 120) "medium" else "large"}"

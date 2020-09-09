@@ -33,8 +33,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
       "/",
       cookieDomain.some,
       baker.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
-      httpOnly | baker.httpOnly,
-      baker.sameSite
+      httpOnly | baker.httpOnly
     )
 
   def discard(name: String) =
