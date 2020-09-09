@@ -129,13 +129,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def titleTag(title: Option[Title]): Option[Frag] =
     title map { t =>
-      frag(
-        span(
-          cls := "utitle",
-          st.title := Title.titleName(t)
-        )(t),
-        nbsp
-      )
+      frag(userTitleTag(t), nbsp)
     }
   def titleTag(lu: LightUser): Frag = titleTag(lu.title map Title.apply)
 

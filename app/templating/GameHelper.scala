@@ -96,9 +96,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     player.aiLevel.fold[Frag](
       player.userId.flatMap(lightUser).fold[Frag](lila.user.User.anonymous) { user =>
         frag(
-          user.title ifTrue withTitle map Title.apply map { t =>
-            frag(userTitleTag(t), " ")
-          },
+          titleTag(user.title ifTrue withTitle map Title.apply),
           if (withRating) s"${user.name} (${lila.game.Namer ratingString player})"
           else user.name
         )
