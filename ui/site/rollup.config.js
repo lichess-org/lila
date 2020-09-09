@@ -153,5 +153,9 @@ export default rollupProject({
     input: 'src/dgt/dgt.ts',
     output: 'dgt',
     name: 'lichessDgt'
+  },
+  gameSearch: {
+    input: 'src/gameSearch.ts',
+    output: 'game-search'
   }
 });
