@@ -87,9 +87,9 @@ window.lichess.load.then(() => {
     return false;
   });
 
-  $('.coach_picture form.upload input[type=file]').change(function(this: HTMLInputElement) {
+  $('.coach_picture form.upload input[type=file]').on('change', function(this: HTMLInputElement) {
     $('.picture_wrap').html(spinnerHtml);
-    $(this).parents('form').submit();
+    $(this).parents('form').trigger('submit');
   });
 
   const langInput = document.getElementById('form3-languages');

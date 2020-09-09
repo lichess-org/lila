@@ -7,7 +7,7 @@ li.load.then(() => {
   const arrowSnapStore = li.storage.make('arrow.snap');
   const courtesyStore = li.storage.make('courtesy');
 
-  $('.security table form').submit(function(this: HTMLFormElement) {
+  $('.security table form').on('submit', function(this: HTMLFormElement) {
     xhr.text(this.action, { method: 'post' });
     $(this).parent().parent().remove();
     return false;
@@ -17,7 +17,7 @@ li.load.then(() => {
     const form = this,
       $form = $(form),
       showSaved = () => $form.find('.saved').fadeIn();
-    $form.find('input').change(function(this: HTMLInputElement) {
+    $form.find('input').on('change', function(this: HTMLInputElement) {
       if (this.name == 'behavior.arrowSnap') {
         arrowSnapStore.set(this.value);
         showSaved();

@@ -78,7 +78,7 @@ export default function(opts: RoundOpts): void {
   }
   startTournamentClock();
   $('.round__now-playing .move-on input')
-    .change(round.moveOn.toggle)
+    .on('change', round.moveOn.toggle)
     .prop('checked', round.moveOn.get())
     .on('click', 'a', () => {
       li.unload.expected = true;

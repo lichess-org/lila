@@ -50,7 +50,7 @@ window.lichess.load.then(() => {
     });
   };
   toggleAiLevel();
-  $form.find(".opponent select").change(toggleAiLevel);
+  $form.find(".opponent select").on('change', toggleAiLevel);
 
   function serialize() {
     const params = new URLSearchParams();
@@ -82,7 +82,7 @@ window.lichess.load.then(() => {
     });
   });
 
-  $form.submit(function() {
+  $form.on('submit', () => {
     $form.find("input,select").filter(function(this: HTMLInputElement) { return !this.value; }).attr("disabled", "disabled");
     $form.addClass('searching');
   });

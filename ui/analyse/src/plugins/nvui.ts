@@ -66,7 +66,7 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
               insert(vnode) {
                 const $form = $(vnode.elm as HTMLFormElement),
                   $input = $form.find('.move').val('').focus();
-                $form.submit(onSubmit(ctrl, notify.set, moveStyle.get, $input));
+                $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
               }
             }
           }, [

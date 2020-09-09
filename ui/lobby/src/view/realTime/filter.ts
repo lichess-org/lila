@@ -23,7 +23,7 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
     $ratingRange.siblings('.range').text(values[0] + "–" + values[1]);
     save();
   }
-  $div.find('input').change(save);
+  $div.find('input').on('change', save);
   $div.find('button.reset').on('click', () => {
     ctrl.filter.set(null);
     ctrl.filter.open = false;

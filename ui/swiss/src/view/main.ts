@@ -119,7 +119,7 @@ function nextRound(ctrl: SwissCtrl): VNode | undefined {
           altFormat: 'Y-m-d h:i K',
           enableTime: true,
           onClose() {
-            (el.parentNode as HTMLFormElement).submit();
+            (el.parentNode as HTMLFormElement).trigger('submit');
           }
         }), 600))
     })

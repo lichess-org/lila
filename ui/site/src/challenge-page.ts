@@ -31,11 +31,11 @@ export default function(opts: ChallengeOpts) {
     if (!accepting) $('#challenge-redirect').each(function(this: HTMLAnchorElement) {
       location.href = this.href;
     });
-    $(selector).find('form.accept').submit(function(this: HTMLFormElement) {
+    $(selector).find('form.accept').on('submit', function(this: HTMLFormElement) {
       accepting = true;
       $(this).html('<span class="ddloader"></span>');
     });
-    $(selector).find('form.xhr').submit(function(this: HTMLFormElement, e) {
+    $(selector).find('form.xhr').on('submit', function(this: HTMLFormElement, e) {
       e.preventDefault();
       xhr.formToXhr(this);
       $(this).html('<span class="ddloader"></span>');
@@ -47,7 +47,7 @@ export default function(opts: ChallengeOpts) {
         friend: true,
         tag: 'span',
         onSelect() {
-          $input.parents('form').submit();
+          $input.parents('form').trigger('submit');
         }
       });
     });

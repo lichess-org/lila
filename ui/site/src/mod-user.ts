@@ -74,7 +74,7 @@ window.lichess.load.then(() => {
     });
 
     makeReady('form.xhr', (el: HTMLFormElement) => {
-      $(el).submit(() => {
+      $(el).on('submit', () => {
         $(el).addClass('ready').find('input').prop('disabled', true);
         xhr.formToXhr(el).then(html => {
           $('#mz_actions').replaceWith(html);
@@ -85,9 +85,7 @@ window.lichess.load.then(() => {
     });
 
     makeReady('form.fide_title select', el => {
-      $(el).on('change', function() {
-        $(el).parent('form').submit();
-      });
+      $(el).on('change', () => $(el).parent('form').trigger('submit'));
     });
 
     makeReady('#mz_others', el => {

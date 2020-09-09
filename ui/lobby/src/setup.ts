@@ -215,7 +215,6 @@ export default class Setup {
               body: (() => {
                 const data = new FormData($form[0] as HTMLFormElement)
                 data.append('color', color);
-                console.log(data);
                 return data;
               })()
             });
@@ -225,15 +224,11 @@ export default class Setup {
       $submits.on('click', function(this: HTMLElement) {
         return ajaxSubmit($(this).val());
       }).prop('disabled', false);
-      $form.submit(function() {
-        return ajaxSubmit('random');
-      });
-    } else $form.one('submit', function() {
-      $submits.hide().end().append(li.spinnerHtml);
-    });
+      $form.on('submit', () => ajaxSubmit('random'));
+    } else $form.one('submit', () => $submits.hide().end().append(li.spinnerHtml));
     if (this.root.opts.blindMode) {
       $variantSelect.focus();
-      $timeInput.add($incrementInput).on('change', function() {
+      $timeInput.add($incrementInput).on('change', () => {
         toggleButtons();
         showRating();
       });

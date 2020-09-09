@@ -82,7 +82,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
             hook: onInsert(el => {
               const $form = $(el as HTMLFormElement),
                 $input = $form.find('.move').val('').focus();
-              $form.submit(onSubmit(ctrl, notify.set, moveStyle.get, $input));
+              $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
             })
           }, [
             h('label', [
@@ -143,7 +143,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
-  return function() {
+  return () => {
     let input = castlingFlavours($input.val().trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
