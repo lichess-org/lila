@@ -55,6 +55,7 @@
     "ui/tree",
     "ui/msg",
     "ui/@build/rollupProject",
-    "ui/@types/lichess"
+    "ui/@types/lichess",
+    "ui/@types/cash"
   ]
 }
