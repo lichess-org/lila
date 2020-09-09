@@ -16,6 +16,22 @@
   <string name="recentlyUpdated">تم تحديثه مؤخرا</string>
   <string name="mostPopular">الاكثر شعبية</string>
   <string name="addNewChapter">أضف فصلاً جديدا</string>
+  <plurals name="nbChapters">
+    <item quantity="zero">%s فصل</item>
+    <item quantity="one">%s فصل</item>
+    <item quantity="two">فصلان</item>
+    <item quantity="few">%s فصول</item>
+    <item quantity="many">%s فصل</item>
+    <item quantity="other">%s فصول</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="zero">%s مباراة</item>
+    <item quantity="one">%s مباراة</item>
+    <item quantity="two">مبارتان</item>
+    <item quantity="few">%s مبارايات</item>
+    <item quantity="many">%s مباراة</item>
+    <item quantity="other">%s مباراة</item>
+  </plurals>
   <string name="addMembers">إضافة أعضاء</string>
   <string name="inviteToTheStudy">دعوة الى دراسة</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">يرجى فقط إضافة اشخاص تعرفهم، ويريدون المشاركة في هذه الدراسة</string>
