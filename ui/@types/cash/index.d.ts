@@ -1,13 +1,3 @@
-interface Event {
-    namespace: string;
-    data: any;
-    relatedTarget?: Node | null;
-    ___cd?: boolean;
-    ___ifocus?: boolean;
-    ___iblur?: boolean;
-    ___ot?: string;
-    ___td?: boolean;
-}
 interface Cash {
     [index: number]: EleLoose | undefined;
     length: number;
@@ -317,7 +307,7 @@ interface CashStatic {
   (selector: string, context?: Element|Cash): Cash;
   (element: Cash): Cash;
   (element: Element): Cash;
-  /* (elementArray: Element[]): JQuery; */
+  (elementArray: Element[]): Cash;
 }
 declare module "cash" {
     export = $;

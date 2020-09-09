@@ -36,7 +36,7 @@ interface Lichess {
   socket: any;
   sound: any;
   soundBox: SoundBoxI;
-  userAutocomplete($input: JQuery, opts?: UserAutocompleteOpts): Promise<void>;
+  userAutocomplete($input: Cash, opts?: UserAutocompleteOpts): Promise<void>;
   miniBoard: {
     init(node: HTMLElement): void;
     initAll(): void;
@@ -343,16 +343,11 @@ declare namespace Tree {
   }
 }
 
-interface JQueryStatic {
+interface CashStatic {
   powerTip: any;
 }
 
-interface LichessModal {
-  (html: string | JQuery, cls?: string, onClose?: () => void): JQuery;
-  close(): void;
-}
-
-interface JQuery {
+interface Cash {
   powerTip(options?: PowerTip.Options | 'show' | 'hide'): JQuery;
   typeahead: any;
   sparkline: any;

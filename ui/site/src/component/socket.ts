@@ -74,7 +74,7 @@ export default class StrongSocket {
     StrongSocket.resolveFirstConnect = r;
   });
 
-  constructor(readonly url: string, version: number | false, settings?: any) {
+  constructor(readonly url: string, version: number | false, settings: any = {}) {
     this.settings = {
       events: settings.events || {},
       params: {

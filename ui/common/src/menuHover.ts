@@ -21,7 +21,7 @@ const menuHover = () => {
   let cX: number, cY: number;
 
   // saves the current pointer position coordinates based on the given mousemove event
-  const track = (ev: JQueryEventObject) => {
+  const track = (ev: any) => {
     cX = ev.pageX;
     cY = ev.pageY;
   };
@@ -57,7 +57,7 @@ const menuHover = () => {
     };
 
     // A private function for handling mouse 'hovering'
-    const handleHover = function(ev: JQueryEventObject) {
+    const handleHover = function(ev: any) {
 
       // clear any existing timeout
       if (state.timeoutId) state.timeoutId = clearTimeout(state.timeoutId);

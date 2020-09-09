@@ -18,7 +18,7 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
 
   const save = () => ctrl.filter.save($div.find('form')[0] as HTMLFormElement);
 
-  function changeRatingRange(values) {
+  function changeRatingRange(values: [number, number]) {
     $ratingRange.find('input').val(values[0] + "-" + values[1]);
     $ratingRange.siblings('.range').text(values[0] + "–" + values[1]);
     save();
@@ -40,7 +40,7 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
         $span = $this.siblings(".range"),
         min = $input.data("min"),
         max = $input.data("max"),
-        values = $input.val() ? $input.val().split("-") : [min, max];
+        values = $input.val() ? ($input.val() as string).split("-") : [min, max];
       $span.text(values.join('–'));
       $this.slider({
         range: true,
@@ -48,7 +48,7 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
         max,
         values,
         step: 50,
-        slide(_, ui) {
+        slide(_: any, ui: {values: [number, number]}) {
           changeRatingRange(ui.values);
         }
       });

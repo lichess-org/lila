@@ -1,13 +1,12 @@
-export default function modal(html: any, cls?: string, onClose?: () => void) {
+export default function modal(content: Cash, cls?: string, onClose?: () => void) {
   modal.close();
-  if (!html.clone) html = $('<div>' + html + '</div>');
   const $wrap: any = $('<div id="modal-wrap">')
-    .html(html.clone().removeClass('none'))
+    .html(content.clone().removeClass('none').html())
     .prepend('<span class="close" data-icon="L"></span>'),
   $overlay = $('<div id="modal-overlay">')
     .addClass(cls || '')
-    .data('onClose', onClose)
     .html($wrap);
+  modal.onClose = onClose;
   $wrap.find('.close').on('click', modal.close);
   $overlay.on('click', function() {
     // disgusting hack
@@ -21,7 +20,9 @@ export default function modal(html: any, cls?: string, onClose?: () => void) {
 modal.close = () => {
   $('body').removeClass('overlayed');
   $('#modal-overlay').each(function(this: HTMLElement) {
-    ($(this).data('onClose') || $.noop)();
+    if (modal.onClose) modal.onClose();
     $(this).remove();
   });
+  delete modal.onClose;
 };
+modal.onClose = undefined as (() => void) | undefined;

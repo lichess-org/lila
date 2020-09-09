@@ -75,7 +75,7 @@ export default class Setup {
     }
   }
 
-  private sliderInitVal = (v, f, max) => {
+  private sliderInitVal = (v: number, f: (x: number) => number, max: number) => {
     for (let i = 0; i < max; i++) {
       if (f(i) === v) return i;
     }
@@ -94,7 +94,7 @@ export default class Setup {
     } : undefined;
   }
 
-  prepareForm = ($modal: JQuery) => {
+  prepareForm = ($modal: Cash) => {
     const self = this,
       $form = $modal.find('form'),
       $timeModeSelect = $form.find('#sf_timeMode'),
@@ -117,8 +117,8 @@ export default class Setup {
         const variantId = $variantSelect.val(),
           timeMode = $timeModeSelect.val(),
           rated = $rated.prop('checked'),
-          limit = $timeInput.val(),
-          inc = $incrementInput.val(),
+          limit = parseFloat($timeInput.val() as string),
+          inc = parseFloat($incrementInput.val() as string),
           // no rated variants with less than 30s on the clock
           cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
             (variantId != '1' && timeMode != '1');
@@ -142,28 +142,28 @@ export default class Setup {
     const c = this.stores[typ].get();
     if (c) {
       Object.keys(c).forEach(k => {
-        $form[0].querySelectorAll(`[name="${k}"]`).forEach((input: HTMLInputElement) => {
-          if (input.type == 'checkbox') input.checked = true;
-          else if (input.type == 'radio') input.checked = input.value == c[k];
-          else if (k != 'fen' || !input.value) input.value = c[k];
+        $form.find(`[name="${k}"]`).each(function(this: HTMLInputElement) {
+          if (this.type == 'checkbox') this.checked = true;
+          else if (this.type == 'radio') this.checked = this.value == c[k];
+          else if (k != 'fen' || !this.value) this.value = c[k];
         });
       });
     }
 
     const showRating = () => {
       const timeMode = $timeModeSelect.val();
-      let key;
+      let key: string = 'correspondence';
       switch ($variantSelect.val()) {
         case '1':
         case '3':
           if (timeMode == '1') {
-            const time = $timeInput.val() * 60 + $incrementInput.val() * 40;
+            const time = parseFloat($timeInput.val() as string) * 60 + parseFloat($incrementInput.val() as string) * 40;
             if (time < 30) key = 'ultraBullet';
             else if (time < 180) key = 'bullet';
             else if (time < 480) key = 'blitz';
             else if (time < 1500) key = 'rapid';
             else key = 'classical';
-          } else key = 'correspondence';
+          }
           break;
         case '10':
           key = 'crazyhouse';
@@ -195,12 +195,12 @@ export default class Setup {
     };
     if (typ == 'hook') {
       if ($form.data('anon')) {
-        $timeModeSelect.val(1)
+        $timeModeSelect.val('1')
           .children('.timeMode_2, .timeMode_0')
           .prop('disabled', true)
           .attr('title', this.root.trans('youNeedAnAccountToDoThat'));
       }
-      const ajaxSubmit = color => {
+      const ajaxSubmit = (color: string) => {
         const poolMember = this.hookToPoolMember(color, $form[0] as HTMLFormElement);
         modal.close();
         if (poolMember) {
@@ -209,7 +209,7 @@ export default class Setup {
         } else {
           this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
           xhr.text(
-            $form.attr('action').replace(/sri-placeholder/, li.sri),
+            $form.attr('action')!.replace(/sri-placeholder/, li.sri),
             {
               method: 'post',
               body: (() => {
@@ -222,12 +222,12 @@ export default class Setup {
         return false;
       };
       $submits.on('click', function(this: HTMLElement) {
-        return ajaxSubmit($(this).val());
+        return ajaxSubmit($(this).val() as string);
       }).prop('disabled', false);
       $form.on('submit', () => ajaxSubmit('random'));
-    } else $form.one('submit', () => $submits.hide().end().append(li.spinnerHtml));
+    } else $form.one('submit', $submits.hide);
     if (this.root.opts.blindMode) {
-      $variantSelect.focus();
+      $variantSelect[0]!.focus();
       $timeInput.add($incrementInput).on('change', () => {
         toggleButtons();
         showRating();
@@ -241,21 +241,21 @@ export default class Setup {
             if (v == 1 / 4) return '¼';
             if (v == 1 / 2) return '½';
             if (v == 3 / 4) return '¾';
-            return v;
+            return '' + v;
           },
           valueToTime = (v: number) => (isTimeSlider ? self.sliderTime : self.sliderIncrement)(v),
-          show = (time: number) => $value.text(isTimeSlider ? showTime(time) : time);
-        show(parseFloat($input.val()));
+          show = (time: number) => $value.text(isTimeSlider ? showTime(time) : '' + time);
+        show(parseFloat($input.val() as string));
         $input.after($('<div>').slider({
-          value: self.sliderInitVal(parseFloat($input.val()), isTimeSlider ? self.sliderTime : self.sliderIncrement, 100),
+          value: self.sliderInitVal(parseFloat($input.val() as string), isTimeSlider ? self.sliderTime : self.sliderIncrement, 100),
           min: 0,
           max: isTimeSlider ? 38 : 30,
           range: 'min',
           step: 1,
-          slide: function(_, ui) {
+          slide(_: any, ui: { value: number }) {
             const time = valueToTime(ui.value);
             show(time);
-            $input.val(time);
+            $input.val('' + time);
             showRating();
             toggleButtons();
           }
@@ -264,17 +264,17 @@ export default class Setup {
       $daysInput.each(function(this: HTMLElement) {
         var $input = $(this),
           $value = $input.siblings('span');
-        $value.text($input.val());
+        $value.text($input.val() as string);
         $input.after($('<div>').slider({
-          value: self.sliderInitVal(parseInt($input.val()), self.sliderDays, 20),
+          value: self.sliderInitVal(parseInt($input.val() as string), self.sliderDays, 20),
           min: 1,
           max: 7,
           range: 'min',
           step: 1,
-          slide: function(_, ui) {
+          slide(_: any, ui: {value: number}) {
             const days = self.sliderDays(ui.value);
-            $value.text(days);
-            $input.attr('value', days);
+            $value.text('' + days);
+            $input.val('' + days);
             save();
           }
         }));
@@ -285,7 +285,7 @@ export default class Setup {
           $span = $this.siblings("span.range"),
           min = $input.data("min"),
           max = $input.data("max"),
-          values = $input.val() ? $input.val().split("-") : [min, max];
+          values = $input.val() ? ($input.val() as string).split("-") : [min, max];
 
         $span.text(values.join('–'));
         $this.slider({
@@ -294,7 +294,7 @@ export default class Setup {
           max: max,
           values: values,
           step: 50,
-          slide: function(_, ui) {
+          slide(_: any, ui: {values: [number, number]}) {
             $input.val(ui.values[0] + "-" + ui.values[1]);
             $span.text(ui.values[0] + "–" + ui.values[1]);
             save();
@@ -312,13 +312,13 @@ export default class Setup {
 
     var validateFen = debounce(() => {
       $fenInput.removeClass("success failure");
-      var fen = $fenInput.val();
+      var fen = $fenInput.val() as string;
       if (fen) xhr.text(xhr.url($fenInput.parent().data('validate-url'), { fen }))
         .then(data => {
           $fenInput.addClass("success");
           $fenPosition.find('.preview').html(data);
-          $fenPosition.find('a.board_editor').each(function(this: HTMLElement) {
-            $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
+          $fenPosition.find('a.board_editor').each(function(this: HTMLAnchorElement) {
+            this.href = this.href.replace(/editor\/.+$/, "editor/" + fen);
           });
           $submits.removeClass('nope');
           li.pubsub.emit('content_loaded');
@@ -331,7 +331,7 @@ export default class Setup {
     }, 200);
     $fenInput.on('keyup', validateFen);
 
-    if (forceFormPosition) $variantSelect.val(3);
+    if (forceFormPosition) $variantSelect.val('' + 3);
     $variantSelect.on('change', function(this: HTMLElement) {
       var isFen = $(this).val() == '3';
       $fenPosition.toggle(isFen);
