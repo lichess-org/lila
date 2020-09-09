@@ -22,4 +22,10 @@
   <string name="perk1">احصل على أيقونة بث مشتعلة على ملفك الشخصي \"Lichess\".</string>
   <string name="perk2">احجز مكانك مباشرة في أعلى القائمة الخاصة بالستريمرز.</string>
   <string name="perk3">أعلِم متابعيك على Lichess.</string>
+  <string name="perk4">أظهر البث الخاص بك في المباريات والبطولات التي تلعبها إضافة إلى الدراسات.</string>
+  <string name="approved">لقد تمت الموافقة على البث الخاص بك.</string>
+  <string name="pendingReview">تتم حاليا مراجعة البث الخاص بك من قبل المشرفين.</string>
+  <string name="pleaseFillIn">الرجاء ملء معلومات البث الخاصة بك، و قم برفع صورة.</string>
+  <string name="whenReady">عندما تكون جاهزاً لتصبح ستريمر Lichess ، %s</string>
+  <string name="requestReview">أطلب مراجعة مشرف</string>
 </resources>
