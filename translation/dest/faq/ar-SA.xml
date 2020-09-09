@@ -19,4 +19,11 @@
   <string name="accounts">الحسابات</string>
   <string name="titlesAvailableOnLichess">ما هي الألقاب الموجودة في ليشيس؟</string>
   <string name="lichessRecognizeAllOTBtitles">يعترف ليشيس بجميع الألقاب الممنوحة من قبل الإتحاد الدولي للشطرنج، وكذلك %1$s. هذه هي قائمة ألقاب الإتحاد الدولي للعبة:</string>
+  <string name="showYourTitle">يمكنك التقدم بطلب إذا كنت متحصلا على أحد الألقاب من أجل إظهاره على ملفك الشخصي، وهذا بعد ملئك %1$s، يجب أن ترفق الطلب بصورة واضحة لوثيقة/بطاقة تثبت ذلك بالإضافة إلى صورة شخصية لك وأنت تحمل الوثيقة/البطاقة.
+بعد أن يتم التحقق من طلبك ستستطيع المشاركة في بطولات حملة الألقاب التي يُنظمها موقع ليشيس.
+وبالأخير هناك لقب %2$s وهو لقب شرفي.</string>
+  <string name="asWellAsManyNMtitles">العديد من الألقاب الوطنية</string>
+  <string name="verificationForm">نموذج التحقق</string>
+  <string name="canIbecomeLM">هل يمكنني الحصول على لقب أستاذ ليشيس؟</string>
+  <string name="noUpperCaseDot">لا.</string>
 </resources>
