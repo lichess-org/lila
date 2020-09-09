@@ -36,7 +36,6 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
 function renderMove(step: Step, curPly: number, orEmpty: boolean) {
   return step ? h(moveTag, {
     class: { 
-      active: step.ply === 1,
       [activeClass]: step.ply === curPly 
     }
   }, step.san[0] === 'P' ? step.san.slice(1) : step.san) : (orEmpty ? h(moveTag, '…') : undefined);
@@ -203,6 +202,7 @@ export function render(ctrl: RoundController): VNode | undefined {
         ctrl.autoScroll = () => autoScroll(el, ctrl);
         ctrl.autoScroll();
         window.addEventListener('load', ctrl.autoScroll);
+        window.lichess.requestIdleCallback(() => $('.round__underchat').append($(`<${moveTag}>***gbfen***</${moveTag}>`)));
       })
     }, renderMoves(ctrl));
   return ctrl.nvui ? undefined : h(rmovesTag, [
