@@ -35,6 +35,14 @@
   <string name="optionalOrEmpty">اختياري. اتركه فارغاً إذا لم يكن هناك</string>
   <string name="youtubeChannel">معرف قناة اليوتيوب أو عنوان URL الخاص بك</string>
   <string name="streamerName">اسم البث الخاص بك على Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="zero">ابقه قصيرًا: %s حرف أقصى</item>
+    <item quantity="one">ابقه قصيرًا: حرف واحد كحد أقصى</item>
+    <item quantity="two">ابقه قصيرًا: حرفان كحد أقصى</item>
+    <item quantity="few">ابقه قصيرًا: %s حروف كحد أقصى</item>
+    <item quantity="many">ابقه قصيرًا: %s حرف أقصى</item>
+    <item quantity="other">ابقه قصيرًا: %s حرف كحد أقصى</item>
+  </plurals>
   <string name="visibility">إظهار على قائمة بثوث اللاعبين</string>
   <string name="whenApproved">بعد الموافقة من قبل المشرفين</string>
   <string name="headline">العنوان</string>
