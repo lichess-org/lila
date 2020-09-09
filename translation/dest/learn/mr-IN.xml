@@ -10,7 +10,7 @@
   <string name="chessPieces">बुद्धिबळातील सोंगट्या</string>
   <string name="theRook">हत्ती</string>
   <string name="itMovesInStraightLines">तो सरळ रेषेत फिरतो</string>
-  <string name="rookIntro">हत्ती एक शक्तिशाली गोटी आहे. आपण त्याला आज्ञा करण्यास तयार आहात?</string>
+  <string name="rookIntro">हत्ती एक शक्तिशाली सोंगटी आहे. आपण त्याला आज्ञा करण्यास तयार आहात?</string>
   <string name="rookGoal">हत्ती वर क्लिक करा
 त्याला ताऱ्यावर वर आणण्यासाठी!</string>
   <string name="grabAllTheStars">सर्व तारे पकडा!</string>
@@ -48,18 +48,18 @@
   <string name="itMovesForwardOnly">हे फक्त पुढे जाते</string>
   <string name="pawnIntro">प्यादे कमकुवत आहेत, पण ते हि महत्वाचे कामं करू शकतात.</string>
   <string name="pawnsMoveOneSquareOnly">प्यादे केवळ एक चौरस चालतात.
-पण जेव्हा ते बोर्डच्या दुसर्‍या बाजूला पोहोचतात तेव्हा ते अधिक मजबूत गोटी बनतात!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">बऱ्याच वेळा प्याद्याला राणी बनवणेच सर्वोत्तम आहे.
+पण जेव्हा ते बोर्डच्या दुसर्‍या बाजूला पोहोचतात तेव्हा ते अधिक मजबूत सोंगटी बनतात!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">बऱ्याच वेळा प्याद्याला वजीर बनवणेच सर्वोत्तम आहे.
 पण कधीतरी प्याद्याला घोडा बनवण्यात फायदा असतो!</string>
   <string name="pawnsMoveForward">प्यादे सरळ पुढे चालतात,
 पण तिरकं मारतात!</string>
   <string name="captureThenPromote">मारा मग, उन्नती(Promote) करा! </string>
   <string name="useAllThePawns">सर्व प्यादे वापरा!
 उन्नती करण्याची गरज नाही.</string>
-  <string name="aPawnOnTheSecondRank">दुसर्‍या क्रमांकावरील मोहरा एकाच वेळी 2 चौरस चालू शकतो!</string>
+  <string name="aPawnOnTheSecondRank">मूळ घरातील प्यादा एकाच वेळी 2 चौरस चालू शकतो!</string>
   <string name="grabAllTheStarsNoNeedToPromote">सर्व तारे पकडा!
 उन्नती करण्याची गरज नाही.</string>
-  <string name="pawnComplete">अभिनंदन! तुला प्याद्याबद्दल सर्व काही माहित झालय.</string>
+  <string name="pawnComplete">अभिनंदन! तुम्हाला प्याद्याबद्दल सर्व काही माहित झालय.</string>
   <string name="pawnPromotion">प्याद्याची उन्नती</string>
   <string name="yourPawnReachedTheEndOfTheBoard">आपला प्यादा बोर्डाच्या शेवटी पोहोचला!</string>
   <string name="itNowPromotesToAStrongerPiece">तुम्ही प्याद्याला कोणती हि दुसरी गोटी म्हणून उन्नत करू शकता.</string>
@@ -150,4 +150,37 @@
   <string name="youCannotCastleIfAttacked">तुम्ही कॅसलिंग करू शकत नाही जर 
 जर राज्याच्या मार्गात हल्ला झाला आहे.
 आधी हल्ला आडवा आणि मग कॅसलिंग करा!</string>
+  <string name="enPassant">इन पासंट</string>
+  <string name="theSpecialPawnMove">प्याद्याची विशेष चाल</string>
+  <string name="stalemate">अर्धवट मात</string>
+  <string name="theGameIsADraw">खेळ बरोबरीत सुटला आहे</string>
+  <string name="advanced">प्रगत</string>
+  <string name="pieceValue">सोंगट्यांचे मूल्य</string>
+  <string name="checkInTwo">दोन चालीमध्ये शह</string>
+  <string name="twoMovesToGiveCheck">दोन चालीमध्ये शह द्या</string>
+  <string name="checkInTwoGoal">प्रतिस्पर्ध्याच्या राजाला दोन चालीमध्ये धमकवा!</string>
+  <string name="whatNext">पुढे काय?</string>
+  <string name="register">सदस्य खाते तयार करा</string>
+  <string name="practice">सराव</string>
+  <string name="puzzles">कोडी</string>
+  <string name="videos">व्हिडिओ</string>
+  <string name="playPeople">लोकांसोबत खेळा</string>
+  <string name="playMachine">मशीन सोबत खेळा</string>
+  <string name="testYourSkillsWithTheComputer">तुमच्या कौशल्याची कॉम्प्युटर सोबत चाचणी करा</string>
+  <string name="letsGo">चला!</string>
+  <string name="stageX">पायरी %s</string>
+  <string name="awesome">खूपच छान!</string>
+  <string name="excellent">उत्कृष्ट!</string>
+  <string name="greatJob">मस्तच!</string>
+  <string name="perfect">अतिशय छान!</string>
+  <string name="outstanding">एकदम छान!</string>
+  <string name="yesYesYes">बरोबर!</string>
+  <string name="youreGoodAtThis">तुम्ही यात उत्तम आहात!</string>
+  <string name="nailedIt">पूर्ण करा.</string>
+  <string name="rightOn">आत्ताच!</string>
+  <string name="stageXComplete">टप्पा %s पूर्ण</string>
+  <string name="yourScore">तुमचे गुण</string>
+  <string name="next">पुढे</string>
+  <string name="puzzleFailed">कोड्याचे उत्तर चुकीचे आहे!</string>
+  <string name="retry">पुन्हा प्रयत्न करा</string>
 </resources>
