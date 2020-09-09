@@ -312,5 +312,17 @@ interface Cash {
 interface Cash {
     siblings(comparator?: Comparator): Cash;
 }
-export default cash;
-export { Cash, CashStatic, Ele as Element, Selector, Comparator, Context };
+/* hacks */
+interface CashStatic {
+  (selector: string, context?: Element|Cash): Cash;
+  (element: Cash): Cash;
+  (element: Element): Cash;
+  /* (elementArray: Element[]): JQuery; */
+}
+declare module "cash" {
+    export = $;
+}
+declare var $: CashStatic;
+/* export default cash; */
+/* export { Cash, CashStatic, Ele as Element, Selector, Comparator, Context }; */
+/* end hacks */
