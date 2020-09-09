@@ -36,4 +36,9 @@
   <string name="guidelines">الإرشادات</string>
   <string name="uniqueTrophies">كؤوس فريدة</string>
   <string name="ownerUniqueTrophies">هذه الكأس فريدة من نوعها في تاريخ ليشس، لن يحصل عليها أحد سوى %1$s.</string>
+  <string name="wayOfBerserkExplanation">من أجل الحصول على هذا اللقب، تحدى hiimgosu نفسه وقام بالمخاطرة والفوز بـ 100%% من مباريات %s.</string>
+  <string name="aHourlyBulletTournament">بطولة شطرنج الطلقة السَّاعية</string>
+  <string name="goldenZeeExplanation">حاول ZugAddict هزيمة المستوى 8 من ستوكفيش لساعتين متواصلتين بينما كان يقوم بالبث في مباراة 1+0 لكن لم يحالفه الحظ في النجاح. أخبره Thibault أنه إذا نجح في القيام بذلك أثناء البث فسوف يحصل على كأس فريد. بعد ذلك بساعة، قام بهزم المحرك هزيمة نكراء وتم الوفاء بالوعد.</string>
+  <string name="lichessRatings">تقييمات Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">ما هو نظام التقييم الذي يستخدمه ليشيس؟</string>
 </resources>
