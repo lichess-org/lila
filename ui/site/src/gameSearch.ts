@@ -45,8 +45,8 @@ window.lichess.load.then(() => {
 
   var toggleAiLevel = function() {
     $form.find(".opponent select").each(function(this: HTMLSelectElement) {
-      $form[0].querySelector('.aiLevel')?.classList.toggle('none', this.value != "1");
-      $form[0].querySelector('.opponentName')?.classList.toggle('none', this.value == "1");
+      $form.find('.aiLevel').toggleClass('none', this.value != "1");
+      $form.find('.opponentName').toggleClass('none', this.value == "1");
     });
   };
   toggleAiLevel();
@@ -62,15 +62,15 @@ window.lichess.load.then(() => {
 
   const serialized = serialize();
   $result.find("a.permalink").each(function(this: HTMLAnchorElement) {
-    $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + serialized);
+    this.href = this.href.split('?')[0] + "?" + serialized;
   });
   $result.find('.search__rows').each(function(this: HTMLTableRowElement) {
-    var $next = $(this).find(".pager a");
-    if (!$next.length) return;
-    $next.attr("href", $next.attr("href") + "&" + serialized);
+    const next = this.querySelector(".pager a") as HTMLAnchorElement | null;
+    if (!next) return;
+    next.href = next.href + "&" + serialized;
     $(this).infinitescroll({
       navSelector: ".pager",
-      nextSelector: $next,
+      nextSelector: $(next),
       itemSelector: ".search__rows .paginated",
       loading: {
         msgText: "",

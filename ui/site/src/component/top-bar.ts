@@ -11,13 +11,13 @@ export default function() {
   );
 
   $('#top').on('click', 'a.toggle', function(this: HTMLElement) {
-    var $p = $(this).parent();
+    const $p = $(this).parent();
     $p.toggleClass('shown');
     $p.siblings('.shown').removeClass('shown');
-    pubsub.emit('top.toggle.' + $(this).attr('id'));
+    pubsub.emit('top.toggle.' + this.id);
     setTimeout(() => {
       const handler = (e: Event) => {
-        if ($.contains($p[0], e.target as HTMLElement)) return;
+        if ($p[0]?.contains(e.target as HTMLElement)) return;
         $p.removeClass('shown');
         $('html').off('click', handler);
       };
@@ -42,7 +42,7 @@ export default function() {
             if (!$('#challenge-app').is(':visible')) $toggle.trigger('click');
           },
           setCount(nb: number) {
-            $toggle.find('span').attr('data-count', nb);
+            $toggle.find('span').data('count', nb);
           },
           pulse() {
             $toggle.addClass('pulse');
@@ -73,7 +73,7 @@ export default function() {
           incoming,
           isVisible,
           setCount(nb: number) {
-            $toggle.find('span').attr('data-count', nb);
+            $toggle.find('span').data('count', '' + nb);
           },
           show() {
             if (!isVisible()) $toggle.trigger('click');
@@ -136,7 +136,7 @@ export default function() {
     const toggle = () => {
       boot();
       $('body').toggleClass('clinput');
-      if ($('body').hasClass('clinput')) $input.focus();
+      if ($('body').hasClass('clinput')) $input[0]!.focus();
     };
     $wrap.find('a').on('mouseover click', e => (e.type === 'mouseover' ? boot : toggle)());
     window.Mousetrap.bind('/', () => {
@@ -144,7 +144,7 @@ export default function() {
       requestAnimationFrame(() => toggle());
       return false;
     });
-    window.Mousetrap.bind('s', () => requestAnimationFrame(() => toggle()));
-    if ($('body').hasClass('blind-mode')) $input.one('focus', () => toggle());
+    window.Mousetrap.bind('s', () => requestAnimationFrame(toggle));
+    if ($('body').hasClass('blind-mode')) $input.one('focus', toggle);
   }
 }

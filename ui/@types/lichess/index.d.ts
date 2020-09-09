@@ -18,7 +18,6 @@ interface Lichess {
   hopscotch: any;
   slider(): Promise<void>;
   makeChat(data: any): any;
-  numberFormat(n: number): string;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
   unload: {
@@ -348,7 +347,7 @@ interface CashStatic {
 }
 
 interface Cash {
-  powerTip(options?: PowerTip.Options | 'show' | 'hide'): JQuery;
+  powerTip(options?: PowerTip.Options | 'show' | 'hide'): Cash;
   typeahead: any;
   sparkline: any;
   clock: any;

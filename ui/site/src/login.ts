@@ -23,7 +23,7 @@ export function loginStart() {
             $f.find('.one-factor').hide();
             $f.find('.two-factor').show();
             requestAnimationFrame(() => {
-              $f.find('.two-factor input').val('').focus();
+              $f.find('.two-factor input').val('')[0]!.focus();
             });
             $f.find('.submit').prop('disabled', false);
             if (text === 'InvalidTotpToken') $f.find('.two-factor .error').show();
@@ -60,7 +60,7 @@ export function signupStart() {
       });
 
   const usernameCheck = debounce(() => {
-    const name = $username.val();
+    const name = $username.val() as string;
     if (name.length >= 3) xhr.json(
       xhr.url('/player/autocomplete', { term: name, exists: 1 })
     ).then(res => $exists.toggle(res))

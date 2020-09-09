@@ -16,7 +16,7 @@ li.load.then(() => {
   $('form.autosubmit').each(function(this: HTMLFormElement) {
     const form = this,
       $form = $(form),
-      showSaved = () => $form.find('.saved').fadeIn();
+      showSaved = () => $form.find('.saved').show();
     $form.find('input').on('change', function(this: HTMLInputElement) {
       if (this.name == 'behavior.arrowSnap') {
         arrowSnapStore.set(this.value);

@@ -13,8 +13,8 @@ const inCrosstable = (el: HTMLElement) =>
   document.querySelector('.crosstable')?.contains(el);
 
 function onPowertipPreRender(id: string, preload?: (url: string) => void) {
-  return function(this: HTMLElement) {
-    const url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
+  return function(this: HTMLAnchorElement) {
+    const url = ($(this).data('href') || this.href).replace(/\?.+$/, '');
     if (preload) preload(url);
     xhr.text(url + '/mini').then(html => {
       $('#' + id).html(html);

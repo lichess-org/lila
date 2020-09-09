@@ -41,7 +41,7 @@ window.lichess.load.then(() => {
     }];
 
     return function() {
-      const points: JQuery[] = [];
+      const points: Cash[] = [];
       for (let o of must) if (!o.check()) points.push($('<li>').html(o.html));
       $el.find('ul').html(points as any);
       var fail = !!points.length;
@@ -83,7 +83,7 @@ window.lichess.load.then(() => {
       { method: 'post' }
     );
     $review.hide();
-    $editor.find('.tabs div[data-tab=reviews]').attr('data-count', $reviews.find('.review').length - 1);
+    $editor.find('.tabs div[data-tab=reviews]').data('count', ($reviews.find('.review').length - 1));
     return false;
   });
 

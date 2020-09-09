@@ -37,11 +37,9 @@ li.load.then(() => {
     if (friendsEl) new OnlineFriends(friendsEl);
 
     $('#main-wrap')
-      .on('click', '.autoselect', function(this: HTMLElement) {
-        $(this).select();
-      })
+      .on('click', '.autoselect', function(this: HTMLInputElement) { this.select(); })
       .on('click', 'button.copy', function(this: HTMLElement) {
-        $('#' + $(this).data('rel')).select();
+        $('#' + $(this).data('rel')).each(function(this: HTMLInputElement) { this.select(); });
         document.execCommand('copy');
         $(this).attr('data-icon', 'E');
       });
@@ -60,7 +58,7 @@ li.load.then(() => {
       $p.toggleClass('shown');
       requestIdleCallback(() => {
         const handler = (e: Event) => {
-          if ($p[0].contains(e.target as HTMLElement)) return;
+          if ($p[0]!.contains(e.target as HTMLElement)) return;
           $p.removeClass('shown');
           $('html').off('click', handler);
         };
@@ -135,8 +133,8 @@ li.load.then(() => {
      * Edge randomly fails to rasterize SVG on page load
      * A different SVG must be loaded so a new image can be rasterized */
     if (navigator.userAgent.includes('Edge/')) setTimeout(() => {
-      const sprite = $('#piece-sprite');
-      sprite.attr('href', sprite.attr('href').replace('.css', '.external.css'));
+      const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
+      sprite.href = sprite.href.replace('.css', '.external.css');
     }, 1000);
 
     // prevent zoom when keyboard shows on iOS

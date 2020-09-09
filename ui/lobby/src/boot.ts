@@ -1,6 +1,7 @@
 import { LobbyOpts } from './interfaces';
 import main from './main';
 import modal from 'common/modal';
+import { numberFormat } from 'common/number';
 import * as xhr from 'common/xhr';
 
 export default function LichessLobby(opts: LobbyOpts) {
@@ -85,12 +86,12 @@ export default function LichessLobby(opts: LobbyOpts) {
     lobby.leavePool();
     xhr.text(this.href)
       .then(html => {
-        lobby.setup.prepareForm(modal($(html), 'game-setup', () => 
+        lobby.setup.prepareForm(modal($(html), 'game-setup', () =>
           $startButtons.find('.active').removeClass('active')
         ));
         li.pubsub.emit('content_loaded');
       })
-      /* .catch(li.reload); */
+    /* .catch(li.reload); */
   })
   /* }).on('click', e => e.preventDefault()); */
 
@@ -115,7 +116,7 @@ export default function LichessLobby(opts: LobbyOpts) {
 function spreadNumber(el: HTMLElement, nbSteps: number) {
   let previous: number, displayed: string;
   const display = (prev: number, cur: number, it: number) => {
-    const val = window.lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
+    const val = numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
     if (val !== displayed) {
       el.textContent = val;
       displayed = val;

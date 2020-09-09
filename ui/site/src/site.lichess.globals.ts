@@ -1,5 +1,5 @@
 import StrongSocket from "./component/socket";
-import { requestIdleCallback, numberFormat, escapeHtml } from "./component/functions";
+import { requestIdleCallback, escapeHtml } from "./component/functions";
 import makeChat from './component/chat';
 import once from './component/once';
 import spinnerHtml from './component/spinner';
@@ -41,7 +41,6 @@ export default function() {
   l.hopscotch = hopscotch;
   l.slider = slider;
   l.makeChat = makeChat;
-  l.numberFormat = numberFormat;
   l.idleTimer = idleTimer;
   l.pubsub = pubsub;
   l.unload = unload;

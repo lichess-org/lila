@@ -17,7 +17,7 @@ api.speech = v => {
 
 function memoize(factory) {
   let loaded = {};
-  const f = key => {
+  const f = (key: string) => {
     if (!loaded[key]) loaded[key] = factory(key);
     return loaded[key];
   };
@@ -49,10 +49,10 @@ const volumes = {
   explode: 0.35,
   confirmation: 0.5
 };
-api.collection = memoize(k => {
+api.collection = memoize((k: string) => {
   let set = soundSet;
   if (set === 'music' || speechStorage.get()) {
-    if (['move', 'capture', 'check'].includes(k)) return $.noop;
+    if (['move', 'capture', 'check'].includes(k)) return () => {};
     set = 'standard';
   }
   soundBox.loadOggOrMp3(k, `${soundUrl}/${set}/${names[k]}`);

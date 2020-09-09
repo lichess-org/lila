@@ -43,7 +43,7 @@ window.lichess.load.then(() => {
     $trainer.find('form.color').each(function(this: HTMLFormElement) {
       const form = this, $form = $(this);
       $form.find('input').on('change', function() {
-        var selected = $form.find('input:checked').val();
+        var selected = $form.find('input:checked').val() as string;
         var c = {
           1: 'white',
           2: 'random',

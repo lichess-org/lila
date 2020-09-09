@@ -304,10 +304,7 @@ interface Cash {
 }
 /* hacks */
 interface CashStatic {
-  (selector: string, context?: Element|Cash): Cash;
-  (element: Cash): Cash;
-  (element: Element): Cash;
-  (elementArray: Element[]): Cash;
+  (selector: Selector, context?: Element|Cash): Cash;
 }
 declare module "cash" {
     export = $;

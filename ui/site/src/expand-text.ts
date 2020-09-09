@@ -89,7 +89,7 @@ window.lichess.load.then(() => {
     return $iframe.on('load', function(this: HTMLIFrameElement) {
       if (this.contentDocument?.title.startsWith("404")) this.style.height = '100px';
     }).on('mouseenter', function(this: HTMLElement) {
-      $(this).focus();
+      this.focus();
     });
   };
 

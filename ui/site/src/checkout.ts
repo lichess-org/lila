@@ -30,9 +30,9 @@ export default function(publicKey: string) {
 
   $checkout.find('group.freq input').on('change', selectAmountGroup);
 
-  $checkout.find('group.amount .other label').on('click', function(this) {
+  $checkout.find('group.amount .other label').on('click', function(this: HTMLLabelElement) {
     let amount: number;
-    const raw: string = prompt($(this).attr('title')) || '';
+    const raw: string = prompt(this.title) || '';
     try {
       amount = parseFloat(raw.replace(',', '.').replace(/[^0-9\.]/gim, ''));
     } catch (e) {
@@ -61,7 +61,7 @@ export default function(publicKey: string) {
     if (!cents || cents < min || cents > max) return;
     var amount = cents / 100;
     var $form = $checkout.find('form.paypal_checkout.' + getFreq());
-    $form.find('input.amount').val(amount);
+    $form.find('input.amount').val('' + amount);
     $form.trigger('submit');
     $checkout.find('.service').html(window.lichess.spinnerHtml);
   });

@@ -58,12 +58,12 @@ window.lichess.load.then(() => {
     return false;
   });
 
-  function userMod($zone: JQuery) {
+  function userMod($zone: Cash) {
 
     window.lichess.pubsub.emit('content_loaded');
 
-    $('#mz_menu > a:not(.available)').each(function(this: HTMLElement) {
-      $(this).toggleClass('available', !!$($(this).attr('href')).length);
+    $('#mz_menu > a:not(.available)').each(function(this: HTMLAnchorElement) {
+      $(this).toggleClass('available', !!$(this.href).length);
     });
     makeReady('#mz_menu', el => {
       $(el).find('a').each(function(this: HTMLAnchorElement, i: number) {

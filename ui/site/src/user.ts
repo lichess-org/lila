@@ -50,10 +50,10 @@ window.lichess.load.then(() => {
           loadInfiniteScroll('.angle-content .infinitescroll');
         });
       };
-    $angles.on('click', 'a', function(this: HTMLElement) {
+    $angles.on('click', 'a', function(this: HTMLAnchorElement) {
       $angles.find('.active').removeClass('active');
       $(this).addClass('active');
-      browseTo($(this).attr('href'));
+      browseTo(this.href);
       return false;
     });
     $('.user-show').on('click', '#games a', function(this: HTMLAnchorElement) {
