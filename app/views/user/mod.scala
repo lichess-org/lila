@@ -559,7 +559,7 @@ object mod {
           }
         )
       ),
-      (max < 1000 && max <= othersWithEmail.size) option button(cls := "button more-others")(
+      (max < 1000 && othersWithEmail.others.sizeIs >= max) option button(cls := "button more-others")(
         "Load more users"
       )
     )

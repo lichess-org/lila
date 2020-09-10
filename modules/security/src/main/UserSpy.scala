@@ -227,7 +227,6 @@ object UserSpy {
 
   case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[User.ID, EmailAddress]) {
     def emailValueOf(u: User) = emails.get(u.id).map(_.value)
-    def size                  = others.size
   }
 
   def withMeSortedWithEmails(
