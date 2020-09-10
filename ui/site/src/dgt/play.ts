@@ -11,9 +11,19 @@ export default function(token: string) {
     console.log(k, localStorage.getItem(k));
   });
 
-  // put your UI in there
+  // Get a Reference to dgt output console zone - put your UI in there
   const root = document.getElementById('dgt-play-zone') as HTMLDivElement;
 
   // and your code in here.
-  root.innerHTML = 'token: ' + token
+  root.innerHTML = '<pre id="dgt-play-zone-log"></pre>'
+  window.personalToken = token;
+
+  //Capture console output and send it to root element 'dgt-play-zone' and its inner pre dgt-play-zone-log 
+  window.lichess.loadScript('/javascripts/dgt/console-interceptor.js');
+
+  //Loading browserfied version of DGT Electronic Board connector for Lichess Board APIs
+  window.lichess.loadScript('/javascripts/dgt/lichess-dgt-boards-browser.js');
+
+
 }
+

@@ -8,4 +8,12 @@
 
 #dgt-play-zone {
   /* style goes here */
+  overflow: auto; height: 500px;
 }
+
+.log-warn { color: orange }
+.log-error { color: red }
+.log-info { color: skyblue }
+.log-log { color: silver }
+.log-table { color: cyan }
+.log-warn, .log-error { font-weight: bold; }    
