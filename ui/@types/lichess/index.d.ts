@@ -352,8 +352,6 @@ interface Cash {
   sparkline: any;
   clock: any;
   highcharts(conf?: any): any;
-  slider(key: string, value: any): any;
-  slider(opts: any): any;
   flatpickr(opts: any): any;
   infinitescroll: any;
 }

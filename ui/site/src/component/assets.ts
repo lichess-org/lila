@@ -36,8 +36,3 @@ export const hopscotch = () => {
     noVersion: true
   })
 };
-
-export const slider = () =>
-  loadScript(
-    'javascripts/vendor/jquery-ui.slider' + ('ontouchstart' in window ? '.touch' : '') + '.min.js'
-  );
