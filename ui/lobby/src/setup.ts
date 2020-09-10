@@ -24,9 +24,8 @@ export default class Setup {
     };
   }
 
-  private save = (form: HTMLFormElement) => {
+  private save = (form: HTMLFormElement) =>
     this.stores[form.getAttribute('data-type')!].set(toFormLines(form));
-  }
 
   private sliderTimes = [
     0, 1 / 4, 1 / 2, 3 / 4, 1, 3 / 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
@@ -106,14 +105,14 @@ export default class Setup {
       $fenPosition = $form.find(".fen_position"),
       $fenInput = $fenPosition.find('input'),
       forceFormPosition = !!$fenInput.val(),
-      $timeInput = $form.find('.time_choice input'),
-      $incrementInput = $form.find('.increment_choice input'),
-      $daysInput = $form.find('.days_choice input'),
+      $timeInput = $form.find('.time_choice [name=time]'),
+      $incrementInput = $form.find('.increment_choice [name=increment]'),
+      $daysInput = $form.find('.days_choice [name=days]'),
       typ = $form.data('type'),
       $ratings = $modal.find('.ratings > div'),
       randomColorVariants = $form.data('random-color-variants').split(','),
       $submits = $form.find('.color-submits__button'),
-      toggleButtons = function() {
+      toggleButtons = () => {
         const variantId = $variantSelect.val(),
           timeMode = $timeModeSelect.val(),
           rated = $rated.prop('checked'),
@@ -234,8 +233,10 @@ export default class Setup {
       });
     } else {
       $timeInput.add($incrementInput).each(function(this: HTMLInputElement) {
-        const input = this, $input = $(input),
+        const $input = $(this),
           $value = $input.siblings('span'),
+          $range = $input.siblings('.range-slider'),
+          range = $range[0] as HTMLInputElement,
           isTimeSlider = $input.parent().hasClass('time_choice'),
           showTime = (v: number) => {
             if (v == 1 / 4) return '¼';
@@ -245,57 +246,56 @@ export default class Setup {
           },
           valueToTime = (v: number) => (isTimeSlider ? self.sliderTime : self.sliderIncrement)(v),
           show = (time: number) => $value.text(isTimeSlider ? showTime(time) : '' + time);
-        show(parseFloat(input.value));
-        input.value = '' + self.sliderInitVal(parseFloat(input.value), isTimeSlider ? self.sliderTime : self.sliderIncrement, 100);
-        input.max = '' + (isTimeSlider ? 38 : 30);
-        $input.on('input', () => {
-          const time = valueToTime(parseInt(input.value));
+        show(parseFloat($input.val() as string));
+        range.min = '0';
+        range.max = '' + (isTimeSlider ? 38 : 30);
+        range.value = '' + self.sliderInitVal(parseFloat($input.val() as string), isTimeSlider ? self.sliderTime : self.sliderIncrement, 100);
+        $range.on('input', () => {
+          const time = valueToTime(parseInt(range.value));
           show(time);
-          /* input.value = '' + time; */
+          $input.val('' + time);
           showRating();
           toggleButtons();
         });
       });
-      $daysInput.each(function(this: HTMLElement) {
+      $daysInput.each(function(this: HTMLInputElement) {
         var $input = $(this),
-          $value = $input.siblings('span');
+          $value = $input.siblings('span'),
+          $range = $input.siblings('.range-slider'),
+          range = $range[0] as HTMLInputElement;
         $value.text($input.val() as string);
-        /* $input.after($('<div>').slider({ */
-        /*   value: self.sliderInitVal(parseInt($input.val() as string), self.sliderDays, 20), */
-        /*   min: 1, */
-        /*   max: 7, */
-        /*   range: 'min', */
-        /*   step: 1, */
-        /*   slide(_: any, ui: { value: number }) { */
-        /*     const days = self.sliderDays(ui.value); */
-        /*     $value.text('' + days); */
-        /*     $input.val('' + days); */
+        range.min = '1';
+        range.max = '7';
+        range.value = '' + self.sliderInitVal(parseInt($input.val() as string), self.sliderDays, 20);
+        $range.on('input', () => {
+          const days = self.sliderDays(parseInt(range.value));
+          $value.text('' + days);
+          $input.val('' + days);
+          save();
+        });
+      });
+      $form.find('.rating-range').each(function(this: HTMLElement) {
+        const $this = $(this),
+          $input = $this.find("input"),
+          $span = $this.siblings("span.range"),
+          min = $input.data("min"),
+          max = $input.data("max"),
+          values = $input.val() ? ($input.val() as string).split("-") : [min, max];
+
+        $span.text(values.join('–'));
+        /* $this.slider({ */
+        /*   range: true, */
+        /*   min: min, */
+        /*   max: max, */
+        /*   values: values, */
+        /*   step: 50, */
+        /*   slide(_: any, ui: { values: [number, number] }) { */
+        /*     $input.val(ui.values[0] + "-" + ui.values[1]); */
+        /*     $span.text(ui.values[0] + "–" + ui.values[1]); */
         /*     save(); */
         /*   } */
-        /* })); */
+        /* }); */
       });
-      /* $form.find('.rating-range').each(function(this: HTMLElement) { */
-      /*   const $this = $(this), */
-      /*     $input = $this.find("input"), */
-      /*     $span = $this.siblings("span.range"), */
-      /*     min = $input.data("min"), */
-      /*     max = $input.data("max"), */
-      /*     values = $input.val() ? ($input.val() as string).split("-") : [min, max]; */
-
-      /*   $span.text(values.join('–')); */
-      /*   $this.slider({ */
-      /*     range: true, */
-      /*     min: min, */
-      /*     max: max, */
-      /*     values: values, */
-      /*     step: 50, */
-      /*     slide(_: any, ui: { values: [number, number] }) { */
-      /*       $input.val(ui.values[0] + "-" + ui.values[1]); */
-      /*       $span.text(ui.values[0] + "–" + ui.values[1]); */
-      /*       save(); */
-      /*     } */
-      /*   }); */
-      /* }); */
     }
     $timeModeSelect.on('change', function(this: HTMLElement) {
       var timeMode = $(this).val();

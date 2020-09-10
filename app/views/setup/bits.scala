@@ -1,12 +1,11 @@
 package views.html.setup
 
+import controllers.routes
 import play.api.data.{ Field, Form }
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 private object bits {
 
@@ -87,8 +86,11 @@ private object bits {
   def renderInput(field: Field) =
     input(name := field.name, value := field.value, tpe := "hidden")
 
-  def renderRange(field: Field) =
-    input(name := field.name, value := field.value, tpe := "range")
+  def renderDissociatedRange(field: Field) =
+    frag(
+      renderInput(field)(cls := "range-value"),
+      input(name := s"${field.name}_range", tpe := "range")(cls := "range-slider")
+    )
 
   def renderLabel(field: Field, content: Frag) =
     label(`for` := s"$prefix${field.id}")(content)
@@ -116,13 +118,13 @@ private object bits {
             trans.minutesPerSide(),
             ": ",
             span(chess.Clock.Config(~form("time").value.map(x => (x.toDouble * 60).toInt), 0).limitString),
-            renderRange(form("time"))(min := 0)
+            renderDissociatedRange(form("time"))
           ),
           div(cls := "increment_choice range")(
             trans.incrementInSeconds(),
             ": ",
             span(form("increment").value),
-            renderRange(form("increment"))(min := 0)
+            renderDissociatedRange(form("increment"))
           )
         ),
       div(cls := "correspondence")(
@@ -136,7 +138,7 @@ private object bits {
             trans.daysPerTurn(),
             ": ",
             span(form("days").value),
-            renderRange(form("days"))(min := 1)
+            renderDissociatedRange(form("days"))
           )
       )
     )
