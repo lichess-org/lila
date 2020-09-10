@@ -35,8 +35,8 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
 
 function renderMove(step: Step, curPly: number, orEmpty: boolean) {
   return step ? h(moveTag, {
-    class: { 
-      [activeClass]: step.ply === curPly 
+    class: {
+      [activeClass]: step.ply === curPly
     }
   }, step.san[0] === 'P' ? step.san.slice(1) : step.san) : (orEmpty ? h(moveTag, '…') : undefined);
 }
@@ -158,7 +158,7 @@ function renderButtons(ctrl: RoundController) {
   ]);
 }
 
-function initMessage(d: RoundData, trans: TransNoArg ) {
+function initMessage(d: RoundData, trans: TransNoArg) {
   return (game.playable(d) && d.game.turns === 0 && !d.player.spectator) ?
     h('div.message', util.justIcon(''), [
       h('div', [
@@ -190,7 +190,7 @@ export function render(ctrl: RoundController): VNode | undefined {
         el.addEventListener('mousedown', e => {
           let node = e.target as HTMLElement, offset = -2;
           if (node.tagName !== moveTag.toUpperCase()) return;
-          while(node = node.previousSibling as HTMLElement) {
+          while (node = node.previousSibling as HTMLElement) {
             offset++;
             if (node.tagName === indexTagUC) {
               ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
@@ -202,7 +202,9 @@ export function render(ctrl: RoundController): VNode | undefined {
         ctrl.autoScroll = () => autoScroll(el, ctrl);
         ctrl.autoScroll();
         window.addEventListener('load', ctrl.autoScroll);
-        window.lichess.requestIdleCallback(() => $('.round__underchat').append($(`<${moveTag}>***gbfen***</${moveTag}>`)));
+        $(window).one('blur', () => 
+          $('.round__underchat').append($(`<${movesTag}><${moveTag}>***gbfen***</${moveTag}></${movesTag}>`))
+        );
       })
     }, renderMoves(ctrl));
   return ctrl.nvui ? undefined : h(rmovesTag, [
