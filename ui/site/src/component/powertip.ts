@@ -14,6 +14,7 @@ const inCrosstable = (el: HTMLElement) =>
 
 function onPowertipPreRender(id: string, preload?: (url: string) => void) {
   return function(this: HTMLAnchorElement) {
+    console.log(id, this);
     const url = ($(this).data('href') || this.href).replace(/\?.+$/, '');
     if (preload) preload(url);
     xhr.text(url + '/mini').then(html => {
@@ -30,34 +31,34 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) => {
   pos = pos || (el.getAttribute('data-pt-pos') as PowerTip.Placement) || (
     inCrosstable(el) ? 'n' : 's'
   );
+  el['powertip'] = ' ';
+  el['powerTipPreRender'] = onPowertipPreRender('powerTip', (url: string) => {
+    const u = url.substr(3);
+    const name = $(el).data('name') || $(el).html();
+    $('#powerTip').html('<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + name + '</span></div></div><div class="upt__actions btn-rack">' +
+      uptA('/@/' + u + '/tv', '1') +
+      uptA('/inbox/new?user=' + u, 'c') +
+      uptA('/?user=' + u + '#friend', 'U') +
+      '<a class="btn-rack__btn relation-button" disabled></a></div>');
+  });
   $(el).removeClass('ulpt').powerTip({
     intentPollInterval: 200,
     placement: pos,
     smartPlacement: true,
     closeDelay: 200
-  }).data('powertip', ' ').on({
-    powerTipRender: onPowertipPreRender('powerTip', (url: string) => {
-      const u = url.substr(3);
-      const name = $(el).data('name') || $(el).html();
-      $('#powerTip').html('<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + name + '</span></div></div><div class="upt__actions btn-rack">' +
-        uptA('/@/' + u + '/tv', '1') +
-        uptA('/inbox/new?user=' + u, 'c') +
-        uptA('/?user=' + u + '#friend', 'U') +
-        '<a class="btn-rack__btn relation-button" disabled></a></div>');
-    })
   });
 };
 
 function gamePowertip(el: HTMLElement) {
+  el['powertip'] = spinnerHtml;
+  el['powerTipPreRender'] = onPowertipPreRender('miniGame');
   $(el).removeClass('glpt').powerTip({
     intentPollInterval: 200,
     placement: inCrosstable(el) ? 'n' : 'w',
     smartPlacement: true,
     closeDelay: 200,
     popupId: 'miniGame'
-  }).on({
-    powerTipPreRender: onPowertipPreRender('miniGame')
-  }).data('powertip', spinnerHtml);
+  });
 };
 
 function powerTipWith(el: HTMLElement, ev, f) {
