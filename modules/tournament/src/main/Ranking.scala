@@ -54,9 +54,6 @@ private class UpdatableRanking(
         else this
       })
 
-  def ++(that: IterableOnce[UserIdWithMagicScore]): UpdatableRanking =
-    that.iterator.foldLeft(this)((acc, x) => acc.updated(x.userId, x.magicScore))
-
   def getRank(userId: User.ID): Option[Int] =
     magicScores.get(userId).map(m => ranks.rangeUntil(UserIdWithMagicScore("", m)).size)
 
@@ -68,10 +65,11 @@ private object UpdatableRanking {
     scala.collection.immutable.Map.empty[User.ID, Int],
     scala.collection.immutable.TreeSet.empty[UserIdWithMagicScore]
   )
+  def from(coll: IterableOnce[UserIdWithMagicScore]) =
+    coll.iterator.foldLeft(empty)((acc, x) => acc.updated(x.userId, x.magicScore))
 }
 
-private[tournament] class OngoingRanking extends Ranking {
-  var ranking = UpdatableRanking.empty
+private[tournament] class OngoingRanking(private var ranking: UpdatableRanking) extends Ranking {
   def update(userId: User.ID, magicScore: Int): Unit = {
     ranking = ranking.updated(userId, magicScore)
   }
@@ -81,4 +79,9 @@ private[tournament] class OngoingRanking extends Ranking {
     }
   def get(userId: User.ID) = ranking getRank userId
   def size                 = ranking.size
+}
+
+private[tournament] object OngoingRanking {
+  def from(coll: IterableOnce[UserIdWithMagicScore]): OngoingRanking =
+    new OngoingRanking(UpdatableRanking.from(coll))
 }

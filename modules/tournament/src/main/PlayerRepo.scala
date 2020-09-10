@@ -255,8 +255,22 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       }
     }
 
-  private[tournament] def computeOngoingRanking(tourId: Tournament.ID): Fu[OngoingRanking] = ???
-
+  private[tournament] def computeOngoingRanking(tourId: Tournament.ID): Fu[OngoingRanking] =
+    coll
+      .find(
+        selectTour(tourId),
+        $doc("_id" -> false, "m" -> true, "uid" -> true).some
+      )
+      .cursor[Bdoc]()
+      .list()
+      .map(docs =>
+        OngoingRanking.from(docs.flatMap { p: Bdoc =>
+          for {
+            id    <- p.getAsOpt[User.ID]("u")
+            magic <- p.int("m")
+          } yield UserIdWithMagicScore(id, magic)
+        })
+      )
   def computeRankOf(player: Player): Fu[Int] =
     coll.countSel(selectTour(player.tourId) ++ $doc("m" $gt player.magicScore))
 
