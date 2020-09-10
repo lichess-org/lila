@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "debounce-promise": "^3.1.2",
+    "chessops": "^0.7.0",
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
     "jquery-bar-rating": "^1.2.2",
