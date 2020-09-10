@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { numberFormat } from 'common/number';
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces'
 import { userModInfo } from './xhr'
 import { userLink, bind } from './util';
@@ -65,7 +66,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   const perms = ctrl.permissions();
 
   const infos = data.history ? h('div.infos.block', [
-    window.lichess.numberFormat(data.games || 0) + ' games',
+    numberFormat(data.games || 0) + ' games',
     data.troll ? 'TROLL' : undefined,
     data.engine ? 'ENGINE' : undefined,
     data.booster ? 'BOOSTER' : undefined

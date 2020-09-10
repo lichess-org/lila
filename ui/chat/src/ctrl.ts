@@ -96,7 +96,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   function instanciateModeration() {
     if (opts.permissions.timeout || opts.permissions.local) {
       moderation = moderationCtrl({
-        reasons: opts.timeoutReasons || ([{key: 'other', name: 'Inappropriate behavior'}]),
+        reasons: opts.timeoutReasons || ([{ key: 'other', name: 'Inappropriate behavior' }]),
         permissions: opts.permissions,
         redraw
       });
@@ -118,7 +118,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     redraw
   });
 
-  const subs: [string, PubsubCallback][]  = [
+  const subs: [string, PubsubCallback][] = [
     ['socket.in.message', onMessage],
     ['socket.in.chat_timeout', onTimeout],
     ['socket.in.chat_reinstate', onReinstate],
@@ -144,7 +144,9 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       vm.tab = t;
       tabStorage.set(t);
       // It's a lame way to do it. Give me a break.
-      if (t === 'discussion') li.requestIdleCallback(() => $('.mchat__say').focus());
+      if (t === 'discussion') li.requestIdleCallback(() =>
+        $('.mchat__say').each(function(this: HTMLElement) { this.focus() })
+      );
       redraw();
     },
     moderation: () => moderation,
