@@ -78,20 +78,19 @@ body {
   }
 }
 
+
 .lobby__tv .mini-game {
   overflow: visible;
 }
-.lobby__puzzle {
-  .text {
-    color: $c-font-dim;
-    display: block;
-    text-align: right;
-    margin-right: 1ch;
-  }
+
+.lobby__puzzle .text {
+  color: $c-font-dim;
+  display: block;
+  text-align: right;
+  margin-right: 1ch;
 }
 
 .now-playing {
-
   .meta {
     @extend %flex-column;
 
