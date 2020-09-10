@@ -107,7 +107,7 @@ export default function() {
 
   { // dasher
     let booted: boolean;
-    $('#top .dasher .toggle').one('mouseover click', function() {
+    $('#top .dasher .toggle').one('mouseover click', () => {
       if (booted) return;
       booted = true;
       const $el = $('#dasher_app').html(initiatingHtml),
@@ -118,7 +118,7 @@ export default function() {
           playing
         })
       );
-    });
+    }).trigger('click');
   }
 
   { // cli

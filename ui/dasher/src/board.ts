@@ -82,23 +82,20 @@ export function view(ctrl: BoardCtrl): VNode {
             (domZoom - 100),
             '%'
           ]),
-          h('div.slider', {
-            hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
+          h('input.range', {
+            attrs: {
+              type: 'range',
+              min: 100,
+              max: 200,
+              value: ctrl.readZoom()
+            },
+            hook: { 
+              insert(vnode) {
+                const input = vnode.elm as HTMLInputElement;
+                $(input).on('input', () => ctrl.setZoom(parseInt(input.value)));
+              }
+            }
           })
         ])
   ]);
-}
-
-function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {
-  li.slider().then(() =>
-    $(el).slider({
-      orientation: 'horizontal',
-      min: 100,
-      max: 200,
-      range: 'min',
-      step: 1,
-      value: ctrl.readZoom(),
-      slide: (_: any, ui: any) => ctrl.setZoom(ui.value)
-    })
-  );
 }

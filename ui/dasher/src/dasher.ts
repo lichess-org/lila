@@ -24,7 +24,7 @@ export interface DasherData {
 
 export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'theme' | 'piece';
 
-const defaultMode = 'links';
+const defaultMode = 'board';
 
 export interface DasherCtrl {
   mode: Prop<Mode>;

@@ -83,7 +83,7 @@ function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
   if (is3d) {
     $('body').removeClass(list.join(' ')).addClass(t);
   } else {
-    const sprite = $('#piece-sprite');
-    sprite.attr('href', sprite.attr('href').replace(/\w+\.css/, t + '.css'));
+    const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
+    sprite.href = sprite.href.replace(/\w+\.css/, t + '.css');
   }
 }
