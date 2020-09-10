@@ -33,12 +33,13 @@ interface Options {
 }
 interface Settings {
   receive?: (t: Tpe, d: Payload) => void;
-  events: {
+  events?: {
     [tpe: string]: (d: Payload | null, msg: MsgIn) => any;
   };
-  params: {
+  params?: {
     sri: Sri;
   };
+  options?: Partial<Options>;
 }
 
 // versioned events, acks, retries, resync
@@ -74,8 +75,9 @@ export default class StrongSocket {
     StrongSocket.resolveFirstConnect = r;
   });
 
-  constructor(readonly url: string, version: number | false, settings: any = {}) {
+  constructor(readonly url: string, version: number | false, settings: Partial<Settings> = {}) {
     this.settings = {
+      receive: settings.receive,
       events: settings.events || {},
       params: {
         sri,

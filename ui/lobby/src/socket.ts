@@ -72,9 +72,9 @@ export default class LobbySocket {
     this.send('poolOut', member.id);
   };
 
-  receive = (type: string, data: any): boolean => {
-    if (this.handlers[type]) {
-      this.handlers[type](data);
+  receive = (tpe: string, data: any): boolean => {
+    if (this.handlers[tpe]) {
+      this.handlers[tpe](data);
       return true;
     }
     return false;
