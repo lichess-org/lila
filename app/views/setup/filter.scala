@@ -56,7 +56,7 @@ object filter {
                     input(
                       name := s"${field.name}_range_min",
                       tpe := "range",
-                      cls := "range-slider rating-range__min",
+                      cls := "range rating-range__min",
                       min := RatingRange.min,
                       max := RatingRange.max
                     ),
@@ -64,7 +64,7 @@ object filter {
                     input(
                       name := s"${field.name}_range_max",
                       tpe := "range",
-                      cls := "range-slider rating-range__max",
+                      cls := "range rating-range__max",
                       min := RatingRange.min,
                       max := RatingRange.max
                     )

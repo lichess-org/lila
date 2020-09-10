@@ -85,25 +85,26 @@ export function view(ctrl: SoundCtrl): VNode {
   }, [
     header(ctrl.trans('sound'), ctrl.close),
     h('div.content', [
-      h('div.slider', { hook: { insert: vn => makeSlider(ctrl, vn) } }),
+      h('input', {
+        attrs: {
+          type: 'range',
+          min: 0,
+          max: 1,
+          step: 0.01,
+          value: ctrl.box.getVolume(),
+          orient: 'vertical'
+        },
+        hook: {
+          insert(vnode) {
+            const input = vnode.elm as HTMLInputElement,
+            setVolume = debounce(ctrl.volume, 50);
+            $(input).on('input', () => setVolume(parseFloat(input.value)));
+          }
+        }
+      }),
       h('div.selector', ctrl.makeList().map(soundView(ctrl, current)))
     ])
   ]);
-}
-
-function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
-  const setVolume = debounce(ctrl.volume, 50);
-  window.lichess.slider().then(() =>
-    $(vnode.elm as HTMLElement).slider({
-      orientation: 'vertical',
-      min: 0,
-      max: 1,
-      range: 'min',
-      step: 0.01,
-      value: ctrl.box.getVolume(),
-      slide: (_: any, ui: any) => setVolume(ui.value)
-    })
-  );
 }
 
 function soundView(ctrl: SoundCtrl, current: Key) {

@@ -87,6 +87,7 @@ export function view(ctrl: BoardCtrl): VNode {
               type: 'range',
               min: 100,
               max: 200,
+              step: 1,
               value: ctrl.readZoom()
             },
             hook: { 

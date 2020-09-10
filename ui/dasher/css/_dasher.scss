@@ -157,12 +157,15 @@
       border-radius: $box-radius-size 0 0 $box-radius-size;
     }
 
-    .range {
-      // flex: 0 0 $slider-width;
-      // margin: 1rem 1.3rem 1rem 1rem;
+    input[type="range"] {
+      flex: 0 0 1em;
+      width: 1em;
+      margin: 1rem;
+      writing-mode: bt-lr;
+      -webkit-appearance: slider-vertical;
     }
 
-    &.silent .range {
+    &.silent input[type="range"] {
       opacity: 0.2;
     }
   }

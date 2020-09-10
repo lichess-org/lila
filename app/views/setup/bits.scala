@@ -89,7 +89,7 @@ private object bits {
   def renderDissociatedRange(field: Field) =
     frag(
       renderInput(field)(cls := "range-value"),
-      input(name := s"${field.name}_range", tpe := "range")(cls := "range-slider")
+      input(name := s"${field.name}_range", tpe := "range")(cls := "range")
     )
 
   def renderLabel(field: Field, content: Frag) =

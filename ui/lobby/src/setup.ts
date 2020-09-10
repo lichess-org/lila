@@ -240,7 +240,7 @@ export default class Setup {
       $timeInput.add($incrementInput).each(function(this: HTMLInputElement) {
         const $input = $(this),
           $value = $input.siblings('span'),
-          $range = $input.siblings('.range-slider'),
+          $range = $input.siblings('.range'),
           isTimeSlider = $input.parent().hasClass('time_choice'),
           showTime = (v: number) => {
             if (v == 1 / 4) return '¼';
@@ -267,7 +267,7 @@ export default class Setup {
       $daysInput.each(function(this: HTMLInputElement) {
         var $input = $(this),
           $value = $input.siblings('span'),
-          $range = $input.siblings('.range-slider');
+          $range = $input.siblings('.range');
         $value.text($input.val() as string);
         $range.attr({
           min: '1',

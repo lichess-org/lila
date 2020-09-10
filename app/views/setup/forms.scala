@@ -36,7 +36,7 @@ object forms {
                   input(
                     name := s"${field.name}_range_min",
                     tpe := "range",
-                    cls := "range-slider rating-range__min"
+                    cls := "range rating-range__min"
                   ),
                   span(cls := "rating-min"),
                   "/",
@@ -44,7 +44,7 @@ object forms {
                   input(
                     name := s"${field.name}_range_max",
                     tpe := "range",
-                    cls := "range-slider rating-range__max"
+                    cls := "range rating-range__max"
                   )
                 )
               }
