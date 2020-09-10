@@ -28,7 +28,7 @@ jobs:
       with:
         repository: lichess-org/ab
         ssh-key: ${{ secrets.id_rsa_ab }}
-        ref: commonjs
+        ref: master
         path: ab
       continue-on-error: true
       id: ab
