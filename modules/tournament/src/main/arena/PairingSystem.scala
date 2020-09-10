@@ -91,7 +91,7 @@ private object PairingSystem {
   case class Data(
       tour: Tournament,
       lastOpponents: Pairing.LastOpponents,
-      ranking: Map[User.ID, Int],
+      ranking: Ranking,
       onlyTwoActivePlayers: Boolean
   )
 

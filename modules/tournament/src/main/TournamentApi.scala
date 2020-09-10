@@ -457,7 +457,12 @@ final class TournamentApi(
             } | player.performance
           )
         } >>- finishing.flatMap(_.whitePlayer.userId).foreach { whiteUserId =>
-          colorHistoryApi.inc(player.id, chess.Color(player is whiteUserId))
+          {
+            cached.ongoingRanking.get(tour.id).foreach { ranking =>
+              ranking.synchronizedUpdate(userId, player.score)
+            }
+            colorHistoryApi.inc(player.id, chess.Color(player is whiteUserId))
+          }
         }
       }
     }

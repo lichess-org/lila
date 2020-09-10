@@ -1,7 +1,27 @@
 package lila.tournament
 
 import lila.user.User
-import java.util.concurrent.ConcurrentHashMap
+import ornicar.scalalib.Zero
+
+private[tournament] trait Ranking {
+  def get(userId: User.ID): Option[Int]
+  def size: Int
+}
+
+private[tournament] object Ranking {
+  final val empty = new Ranking {
+    def get(userId: User.ID) = None
+    def size                 = 0
+  }
+  object implicits {
+    implicit final val rankingZero: Zero[Ranking] = Zero.instance(empty)
+  }
+}
+
+private[tournament] class FinishedRanking(m: Map[User.ID, Int]) extends Ranking {
+  def get(userId: User.ID) = m get userId
+  def size                 = m.size
+}
 
 case class UserIdWithMagicScore(userId: User.ID, magicScore: Int) extends Ordered[UserIdWithMagicScore] {
   override def compare(that: UserIdWithMagicScore) =
@@ -10,7 +30,7 @@ case class UserIdWithMagicScore(userId: User.ID, magicScore: Int) extends Ordere
     else userId compare that.userId
 }
 
-class UpdatableRanking(
+private class UpdatableRanking(
     magicScores: scala.collection.immutable.Map[User.ID, Int],
     ranks: scala.collection.immutable.TreeSet[UserIdWithMagicScore]
 ) {
@@ -39,23 +59,26 @@ class UpdatableRanking(
 
   def getRank(userId: User.ID): Option[Int] =
     magicScores.get(userId).map(m => ranks.rangeUntil(UserIdWithMagicScore("", m)).size)
+
+  def size = magicScores.size
 }
 
-object UpdatableRanking {
-  def apply(it: Seq[UserIdWithMagicScore]) =
-    new UpdatableRanking(
-      it.map(p => (p.userId, p.magicScore)).toMap,
-      scala.collection.immutable.TreeSet(it: _*)
-    )
+private object UpdatableRanking {
+  val empty = new UpdatableRanking(
+    scala.collection.immutable.Map.empty[User.ID, Int],
+    scala.collection.immutable.TreeSet.empty[UserIdWithMagicScore]
+  )
 }
 
-class RankingStore {
-  private val byTourId = new ConcurrentHashMap[Tournament.ID, UpdatableRanking]
-  def update(tourId: Tournament.ID, userId: User.ID, magicScore: Int): Unit =
-    byTourId.computeIfPresent(
-      tourId,
-      (_: Tournament.ID, v: UpdatableRanking) => v.updated(userId, magicScore)
-    )
-  def updateAll(tourId: Tournament.ID, userIds: IterableOnce[UserIdWithMagicScore]): Unit =
-    byTourId.computeIfPresent(tourId, (_: Tournament.ID, v: UpdatableRanking) => v ++ userIds)
+private[tournament] class OngoingRanking extends Ranking {
+  var ranking = UpdatableRanking.empty
+  def update(userId: User.ID, magicScore: Int): Unit = {
+    ranking = ranking.updated(userId, magicScore)
+  }
+  def synchronizedUpdate(userId: User.ID, magicScore: Int) =
+    synchronized {
+      update(userId, magicScore)
+    }
+  def get(userId: User.ID) = ranking getRank userId
+  def size                 = ranking.size
 }
