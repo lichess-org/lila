@@ -202,9 +202,7 @@ export function render(ctrl: RoundController): VNode | undefined {
         ctrl.autoScroll = () => autoScroll(el, ctrl);
         ctrl.autoScroll();
         window.addEventListener('load', ctrl.autoScroll);
-        $(window).one('blur', () => 
-          $('.round__underchat').append($(`<${movesTag}><${moveTag}>***gbfen***</${moveTag}></${movesTag}>`))
-        );
+        $(window).one('blur', () => $(moveTag).first().append($('<i>')));
       })
     }, renderMoves(ctrl));
   return ctrl.nvui ? undefined : h(rmovesTag, [
