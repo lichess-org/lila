@@ -49,12 +49,27 @@ object filter {
               td(trans.ratingRange()),
               td(
                 label(cls := "range")("? - ?"),
-                div(cls := "rating-range")(
-                  renderInput(form("ratingRange"))(
-                    dataMin := RatingRange.min,
-                    dataMax := RatingRange.max
+                div(cls := "rating-range") {
+                  val field = form("ratingRange")
+                  frag(
+                    form3.hidden(field),
+                    input(
+                      name := s"${field.name}_range_min",
+                      tpe := "range",
+                      cls := "range-slider rating-range__min",
+                      min := RatingRange.min,
+                      max := RatingRange.max
+                    ),
+                    "/",
+                    input(
+                      name := s"${field.name}_range_max",
+                      tpe := "range",
+                      cls := "range-slider rating-range__max",
+                      min := RatingRange.min,
+                      max := RatingRange.max
+                    )
                   )
-                )
+                }
               )
             )
           )

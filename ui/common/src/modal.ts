@@ -1,7 +1,7 @@
 export default function modal(content: Cash, cls?: string, onClose?: () => void) {
   modal.close();
   const $wrap: any = $('<div id="modal-wrap"><span class="close" data-icon="L"></span></div>');
-  const $overlay = $(`<div id="modal-overlay" class="${cls}">`);
+  const $overlay = $(`<div id="modal-overlay" class="${cls}">`).on('click', modal.close);
   $wrap.appendTo($overlay);
   content.clone().removeClass('none').appendTo($wrap);
   modal.onClose = onClose;

@@ -79,8 +79,7 @@ export default function LichessLobby(opts: LobbyOpts) {
   const $startButtons = $('.lobby__start'),
     clickEvent = opts.blindMode ? 'click' : 'mousedown';
 
-  $startButtons.find('a:not(.disabled)').on(clickEvent, function(this: HTMLAnchorElement, e) {
-    e.preventDefault();
+  $startButtons.find('a:not(.disabled)').on(clickEvent, function(this: HTMLAnchorElement) {
     $(this).addClass('active').siblings().removeClass('active');
     li.loadCssPath('lobby.setup');
     lobby.leavePool();
@@ -91,9 +90,8 @@ export default function LichessLobby(opts: LobbyOpts) {
         ));
         li.pubsub.emit('content_loaded');
       })
-    /* .catch(li.reload); */
+    .catch(li.reload);
   }).on('click', e => e.preventDefault());
-  $($startButtons.find('a')[0]).trigger(clickEvent);
 
   if (['#ai', '#friend', '#hook'].includes(location.hash)) {
     $startButtons

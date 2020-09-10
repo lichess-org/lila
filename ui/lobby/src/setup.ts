@@ -202,7 +202,7 @@ export default class Setup {
         const form = $form[0] as HTMLFormElement;
         const rating = parseInt($modal.find('.ratings input').val() as string) || 1500;
         form.ratingRange.value = [
-          rating + parseInt(form.ratingRange_range_min.value), 
+          rating + parseInt(form.ratingRange_range_min.value),
           rating + parseInt(form.ratingRange_range_max.value)
         ].join('-');
         const poolMember = this.hookToPoolMember(color, form);
@@ -241,7 +241,6 @@ export default class Setup {
         const $input = $(this),
           $value = $input.siblings('span'),
           $range = $input.siblings('.range-slider'),
-          range = $range[0] as HTMLInputElement,
           isTimeSlider = $input.parent().hasClass('time_choice'),
           showTime = (v: number) => {
             if (v == 1 / 4) return '¼';
@@ -252,11 +251,13 @@ export default class Setup {
           valueToTime = (v: number) => (isTimeSlider ? self.sliderTime : self.sliderIncrement)(v),
           show = (time: number) => $value.text(isTimeSlider ? showTime(time) : '' + time);
         show(parseFloat($input.val() as string));
-        range.min = '0';
-        range.max = '' + (isTimeSlider ? 38 : 30);
-        range.value = '' + self.sliderInitVal(parseFloat($input.val() as string), isTimeSlider ? self.sliderTime : self.sliderIncrement, 100);
+        $range.attr({
+          min: '0',
+          max: '' + (isTimeSlider ? 38 : 30),
+          value: '' + self.sliderInitVal(parseFloat($input.val() as string), isTimeSlider ? self.sliderTime : self.sliderIncrement, 100)
+        });
         $range.on('input', () => {
-          const time = valueToTime(parseInt(range.value));
+          const time = valueToTime(parseInt($range.val() as string));
           show(time);
           $input.val('' + time);
           showRating();
@@ -266,14 +267,15 @@ export default class Setup {
       $daysInput.each(function(this: HTMLInputElement) {
         var $input = $(this),
           $value = $input.siblings('span'),
-          $range = $input.siblings('.range-slider'),
-          range = $range[0] as HTMLInputElement;
+          $range = $input.siblings('.range-slider');
         $value.text($input.val() as string);
-        range.min = '1';
-        range.max = '7';
-        range.value = '' + self.sliderInitVal(parseInt($input.val() as string), self.sliderDays, 20);
+        $range.attr({
+          min: '1',
+          max: '7',
+          value: '' + self.sliderInitVal(parseInt($input.val() as string), self.sliderDays, 20)
+        });
         $range.on('input', () => {
-          const days = self.sliderDays(parseInt(range.value));
+          const days = self.sliderDays(parseInt($range.val() as string));
           $value.text('' + days);
           $input.val('' + days);
           save();
