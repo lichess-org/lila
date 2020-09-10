@@ -82,7 +82,8 @@ li.load.then(() => {
     $('.user-autocomplete').each(function(this: HTMLInputElement) {
       const focus = !!this.autofocus;
       const start = () => li.loadScript(li.jsModule('user-autocomplete')).then(() => {
-        window.LichessUserAutocomplete(this, {
+        window.LichessUserAutocomplete({
+          input: this,
           friend: $(this).data('friend'),
           tag: $(this).data('tag'),
           focus

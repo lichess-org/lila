@@ -26,7 +26,7 @@ object form {
           action := s"${routes.Report.create()}${reqUser.??(u => "?username=" + u.username)}"
         )(
           form3.globalError(form),
-          form3.group(form("username"), trans.user(), klass = "field_to") { f =>
+          form3.group(form("username"), trans.user(), klass = "field_to complete-parent") { f =>
             reqUser
               .map { user =>
                 frag(userLink(user), form3.hidden(f, user.id.some))

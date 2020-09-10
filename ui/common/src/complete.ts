@@ -19,5 +19,7 @@ export default function<Result>(opts: Opts<Result>) {
     );
   };
 
+  opts.input.value = 'chess';
+  $(opts.input).trigger('input');
   renderResults([]);
 }
