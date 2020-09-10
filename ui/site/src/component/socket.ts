@@ -33,7 +33,7 @@ interface Options {
 }
 interface Settings {
   receive?: (t: Tpe, d: Payload) => void;
-  events?: {
+  events: {
     [tpe: string]: (d: Payload | null, msg: MsgIn) => any;
   };
   params?: {

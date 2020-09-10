@@ -117,7 +117,7 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
   };
 }
 
-function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
+function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return function() {
     let input = $input.val().trim();
     if (isShortCommand(input)) input = '/' + input;

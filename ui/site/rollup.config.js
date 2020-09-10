@@ -157,5 +157,10 @@ export default rollupProject({
   gameSearch: {
     input: 'src/gameSearch.ts',
     output: 'game-search'
+  },
+  userAutocomplete: {
+    input: 'src/userAutocomplete.ts',
+    output: 'user-autocomplete',
+    name: 'LichessUserAutocomplete'
   }
 });

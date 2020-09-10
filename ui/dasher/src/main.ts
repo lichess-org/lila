@@ -9,7 +9,7 @@ import attributes from 'snabbdom/modules/attributes';
 
 const patch = init([klass, attributes]);
 
-export default async function LichessDasher(element: Element, opts: DasherOpts) {
+export default function LichessDasher(element: Element, opts: DasherOpts) {
 
   let vnode: VNode, ctrl: DasherCtrl;
 
@@ -19,7 +19,7 @@ export default async function LichessDasher(element: Element, opts: DasherOpts) 
 
   redraw();
 
-  await xhr.json('/dasher').then(data => {
+  return xhr.json('/dasher').then(data => {
     ctrl = makeCtrl(opts, data, redraw);
     redraw();
     return ctrl;

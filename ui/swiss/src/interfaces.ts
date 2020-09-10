@@ -9,7 +9,7 @@ export interface SwissOpts {
   userId?: string;
   schedule?: boolean;
   element: HTMLElement;
-  $side: JQuery;
+  $side: Cash;
   socketSend: SocketSend;
   chat: any;
   i18n: any;

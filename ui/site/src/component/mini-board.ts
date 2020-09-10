@@ -1,8 +1,10 @@
+import * as domData from 'common/data';
+
 const init = (node: HTMLElement) => {
   if (!window.Chessground) return setTimeout(() => init(node), 500);
   const $el = $(node).removeClass('mini-board--init'),
     [fen, orientation, lm] = $el.data('state').split(',');
-  $el.data('chessground', window.Chessground(node, {
+  domData.set(node, 'chessground', window.Chessground(node, {
     orientation,
     coordinates: false,
     viewOnly: !node.getAttribute('data-playable'),

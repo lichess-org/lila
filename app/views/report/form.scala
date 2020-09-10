@@ -32,7 +32,7 @@ object form {
                 frag(userLink(user), form3.hidden(f, user.id.some))
               }
               .getOrElse {
-                div(form3.input(f, klass = "user-autocomplete")(dataTag := "span"))
+                div(form3.input(f, klass = "user-autocomplete")(dataTag := "span", autofocus))
               }
           },
           form3.group(form("reason"), trans.reason()) { f =>

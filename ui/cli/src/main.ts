@@ -2,13 +2,13 @@ import modal from 'common/modal';
 
 const li = window.lichess;
 
-export function app($wrap: JQuery, toggle: () => void) {
+export function app($wrap: Cash, toggle: () => void) {
   const $input = $wrap.find('input');
   li.userAutocomplete($input, {
     focus: true,
     friend: true,
     onSelect(q: any) {
-      $input.val('').blur();
+      $input.val('')[0]!.blur();
       execute(q.name || q.trim());
       $('body').hasClass('clinput') && toggle()
     }
@@ -62,16 +62,18 @@ function commandHelp(aliases: string, args: string, desc: string) {
 function help() {
   li.loadCssPath('clinput.help')
   modal(
-    '<h3>Commands</h3>' +
-    commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
-    commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
-    commandHelp('/light /dark /transp', '', 'Change the background theme') +
-    commandHelp('/stream', '<user>', 'Watch someone stream') +
-    '<h3>Global hotkeys</h3>' +
-    commandHelp('s', '', 'Search for a user') +
-    commandHelp('/', '', 'Type a command') +
-    commandHelp('c', '', 'Focus the chat input') +
-    commandHelp('esc', '', 'Close modals like this one'),
+    $(
+      '<h3>Commands</h3>' +
+      commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
+      commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
+      commandHelp('/light /dark /transp', '', 'Change the background theme') +
+      commandHelp('/stream', '<user>', 'Watch someone stream') +
+      '<h3>Global hotkeys</h3>' +
+      commandHelp('s', '', 'Search for a user') +
+      commandHelp('/', '', 'Type a command') +
+      commandHelp('c', '', 'Focus the chat input') +
+      commandHelp('esc', '', 'Close modals like this one')
+    ),
     'clinput-help'
   );
 }

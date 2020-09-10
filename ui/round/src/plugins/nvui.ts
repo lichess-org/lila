@@ -142,7 +142,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 
-function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
+function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return () => {
     let input = castlingFlavours($input.val().trim());
     if (isShortCommand(input)) input = '/' + input;

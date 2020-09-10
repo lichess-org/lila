@@ -11,7 +11,6 @@ import { requestIdleCallback } from "./component/functions";
 import powertip from "./component/powertip";
 import timeago from "./component/timeago";
 import topBar from "./component/top-bar";
-import userAutocomplete from "./component/user-autocomplete";
 import loadInfiniteScroll from "./component/infinite-scroll";
 import { storage } from "./component/storage";
 import { assetUrl } from "./component/assets";
@@ -80,16 +79,17 @@ li.load.then(() => {
 
     window.addEventListener('resize', () => document.body.dispatchEvent(new Event('chessground.resize')));
 
-    $('.user-autocomplete').each(function(this: HTMLElement) {
-      const opts = {
-        focus: true,
-        friend: $(this).data('friend'),
-        tag: $(this).data('tag')
-      } as UserAutocompleteOpts;
-      if ($(this).attr('autofocus')) userAutocomplete($(this), opts);
-      else $(this).one('focus', function(this: HTMLElement) {
-        userAutocomplete($(this), opts);
+    $('.user-autocomplete').each(function(this: HTMLInputElement) {
+      const focus = !!this.autofocus;
+      const start = () => li.loadScript(li.jsModule('user-autocomplete')).then(() => {
+        window.LichessUserAutocomplete(this, {
+          friend: $(this).data('friend'),
+          tag: $(this).data('tag'),
+          focus
+        });
       });
+      if (focus) start();
+      else $(this).one('focus', start);
     });
 
     loadInfiniteScroll('.infinitescroll');
