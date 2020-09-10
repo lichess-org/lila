@@ -1,18 +1,11 @@
 export default function modal(content: Cash, cls?: string, onClose?: () => void) {
   modal.close();
-  const $wrap: any = $('<div id="modal-wrap">')
-    .html(content.clone().removeClass('none').html())
-    .prepend('<span class="close" data-icon="L"></span>'),
-  $overlay = $('<div id="modal-overlay">')
-    .addClass(cls || '')
-    .html($wrap);
+  const $wrap: any = $('<div id="modal-wrap"><span class="close" data-icon="L"></span></div>');
+  const $overlay = $(`<div id="modal-overlay" class="${cls}">`);
+  $wrap.appendTo($overlay);
+  content.clone().removeClass('none').appendTo($wrap);
   modal.onClose = onClose;
   $wrap.find('.close').on('click', modal.close);
-  $overlay.on('click', function() {
-    // disgusting hack
-    // dragging slider out of a modal closes the modal
-    if (!$('.ui-slider-handle.ui-state-focus').length) modal.close();
-  });
   $wrap.on('click', (e: Event) => e.stopPropagation());
   $('body').addClass('overlayed').prepend($overlay);
   return $wrap;

@@ -6,8 +6,8 @@ import LobbyController from '../../ctrl';
 function initialize(ctrl: LobbyController, el: HTMLElement) {
 
   const f = ctrl.filter.data?.form,
-    $div = $(el),
-    $ratingRange = $div.find('.rating-range');
+    $div = $(el);
+    /* $ratingRange = $div.find('.rating-range'); */
 
   if (f) Object.keys(f).forEach(k => {
     const input = $div.find(`input[name="${k}"]`)[0] as HTMLInputElement;
@@ -18,11 +18,6 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
 
   const save = () => ctrl.filter.save($div.find('form')[0] as HTMLFormElement);
 
-  function changeRatingRange(values: [number, number]) {
-    $ratingRange.find('input').val(values[0] + "-" + values[1]);
-    $ratingRange.siblings('.range').text(values[0] + "–" + values[1]);
-    save();
-  }
   $div.find('input').on('change', save);
   $div.find('button.reset').on('click', () => {
     ctrl.filter.set(null);
@@ -33,27 +28,32 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
     ctrl.filter.open = false;
     ctrl.redraw();
   });
-  $ratingRange.each(function(this: HTMLElement) {
-    var $this = $(this);
-    window.lichess.slider().then(() => {
-      const $input = $this.find("input"),
-        $span = $this.siblings(".range"),
-        min = $input.data("min"),
-        max = $input.data("max"),
-        values = $input.val() ? ($input.val() as string).split("-") : [min, max];
-      $span.text(values.join('–'));
-      $this.slider({
-        range: true,
-        min,
-        max,
-        values,
-        step: 50,
-        slide(_: any, ui: {values: [number, number]}) {
-          changeRatingRange(ui.values);
-        }
-      });
-    });
-  });
+  /* function changeRatingRange(values: [number, number]) { */
+  /*   $ratingRange.find('input').val(values[0] + "-" + values[1]); */
+  /*   $ratingRange.siblings('.range').text(values[0] + "–" + values[1]); */
+  /*   save(); */
+  /* } */
+  /* $ratingRange.each(function(this: HTMLElement) { */
+  /*   var $this = $(this); */
+  /*   window.lichess.slider().then(() => { */
+  /*     const $input = $this.find("input"), */
+  /*       $span = $this.siblings(".range"), */
+  /*       min = $input.data("min"), */
+  /*       max = $input.data("max"), */
+  /*       values = $input.val() ? ($input.val() as string).split("-") : [min, max]; */
+  /*     $span.text(values.join('–')); */
+  /*     $this.slider({ */
+  /*       range: true, */
+  /*       min, */
+  /*       max, */
+  /*       values, */
+  /*       step: 50, */
+  /*       slide(_: any, ui: {values: [number, number]}) { */
+  /*         changeRatingRange(ui.values); */
+  /*       } */
+  /*     }); */
+  /*   }); */
+  /* }); */
 }
 
 export function toggle(ctrl: LobbyController, nbFiltered: number) {

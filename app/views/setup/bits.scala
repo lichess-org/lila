@@ -87,6 +87,9 @@ private object bits {
   def renderInput(field: Field) =
     input(name := field.name, value := field.value, tpe := "hidden")
 
+  def renderRange(field: Field) =
+    input(name := field.name, value := field.value, tpe := "range")
+
   def renderLabel(field: Field, content: Frag) =
     label(`for` := s"$prefix${field.id}")(content)
 
@@ -109,17 +112,17 @@ private object bits {
         )
       else
         frag(
-          div(cls := "time_choice slider")(
+          div(cls := "time_choice range")(
             trans.minutesPerSide(),
             ": ",
             span(chess.Clock.Config(~form("time").value.map(x => (x.toDouble * 60).toInt), 0).limitString),
-            renderInput(form("time"))
+            renderRange(form("time"))(min := 0)
           ),
-          div(cls := "increment_choice slider")(
+          div(cls := "increment_choice range")(
             trans.incrementInSeconds(),
             ": ",
             span(form("increment").value),
-            renderInput(form("increment"))
+            renderRange(form("increment"))(min := 0)
           )
         ),
       div(cls := "correspondence")(
@@ -129,11 +132,11 @@ private object bits {
             renderSelect(form("days"), corresDaysChoices)
           )
         else
-          div(cls := "days_choice slider")(
+          div(cls := "days_choice range")(
             trans.daysPerTurn(),
             ": ",
             span(form("days").value),
-            renderInput(form("days"))
+            renderRange(form("days"))(min := 1)
           )
       )
     )
