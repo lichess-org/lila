@@ -14,9 +14,7 @@ export default class Setup {
     ai: FormStore;
   }
 
-  ratingRange = () => this.stores.hook.get()?.ratingRange;
-
-  constructor(makeStorage: (name: string) => LichessStorage, readonly root: LobbyController) {
+  constructor(readonly makeStorage: (name: string) => LichessStorage, readonly root: LobbyController) {
     this.stores = {
       hook: makeStore(makeStorage('lobby.setup.hook')),
       friend: makeStore(makeStorage('lobby.setup.friend')),
@@ -189,7 +187,8 @@ export default class Setup {
           key = "racingKings"
           break;
       }
-      $ratings.hide().filter('.' + key).show();
+      const $selected = $ratings.hide().filter('.' + key).show();
+      $modal.find('.ratings input').val($selected.find('strong').text());
       save();
     };
     if (typ == 'hook') {
@@ -200,7 +199,13 @@ export default class Setup {
           .attr('title', this.root.trans('youNeedAnAccountToDoThat'));
       }
       const ajaxSubmit = (color: string) => {
-        const poolMember = this.hookToPoolMember(color, $form[0] as HTMLFormElement);
+        const form = $form[0] as HTMLFormElement;
+        const rating = parseInt($modal.find('.ratings input').val() as string) || 1500;
+        form.ratingRange.value = [
+          rating + parseInt(form.ratingRange_range_min.value), 
+          rating + parseInt(form.ratingRange_range_max.value)
+        ].join('-');
+        const poolMember = this.hookToPoolMember(color, form);
         modal.close();
         if (poolMember) {
           this.root.enterPool(poolMember);
@@ -274,27 +279,37 @@ export default class Setup {
           save();
         });
       });
-      $form.find('.rating-range').each(function(this: HTMLElement) {
+      $form.find('.rating-range').each(function(this: HTMLDivElement) {
         const $this = $(this),
-          $input = $this.find("input"),
-          $span = $this.siblings("span.range"),
-          min = $input.data("min"),
-          max = $input.data("max"),
-          values = $input.val() ? ($input.val() as string).split("-") : [min, max];
+          $minInput = $this.find('.rating-range__min'),
+          $maxInput = $this.find('.rating-range__max'),
+          minStorage = self.makeStorage('lobby.ratingRange.min'),
+          maxStorage = self.makeStorage('lobby.ratingRange.max'),
+          update = (e?: Event) => {
+            const min = $minInput.val() as string,
+              max = $maxInput.val() as string;
+            minStorage.set(min);
+            maxStorage.set(max);
+            $this.find('.rating-min').text(`-${min.replace('-', '')}`);
+            $this.find('.rating-max').text(`+${max}`);
+            if (e) save();
+          };
 
-        $span.text(values.join('–'));
-        /* $this.slider({ */
-        /*   range: true, */
-        /*   min: min, */
-        /*   max: max, */
-        /*   values: values, */
-        /*   step: 50, */
-        /*   slide(_: any, ui: { values: [number, number] }) { */
-        /*     $input.val(ui.values[0] + "-" + ui.values[1]); */
-        /*     $span.text(ui.values[0] + "–" + ui.values[1]); */
-        /*     save(); */
-        /*   } */
-        /* }); */
+        $minInput.attr({
+          min: '-500',
+          max: '0',
+          step: '50',
+          value: minStorage.get() || '-500'
+        }).on('input', update);
+
+        $maxInput.attr({
+          min: '0',
+          max: '500',
+          step: '50',
+          value: maxStorage.get() || '500'
+        }).on('input', update);
+
+        update();
       });
     }
     $timeModeSelect.on('change', function(this: HTMLElement) {

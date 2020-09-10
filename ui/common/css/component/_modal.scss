@@ -16,7 +16,8 @@
     max-height: 96vh;
 
     > div {
-      overflow: auto;
+      overflow: hidden;
+      overflow-y: auto;
     }
 
     .close {
