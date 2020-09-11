@@ -360,6 +360,7 @@ declare namespace PowerTip {
   type Placement = 'n' | 'e' | 's' | 'w' | 'nw' | 'ne' | 'sw' | 'se' | 'nw-alt' | 'ne-alt' | 'sw-alt' | 'se-alt';
 
   interface Options {
+    preRender?: (el: HTMLElement) => void;
     placement?: Placement;
     smartPlacement?: boolean;
     popupId?: string;

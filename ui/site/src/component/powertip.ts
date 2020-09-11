@@ -13,9 +13,8 @@ const inCrosstable = (el: HTMLElement) =>
   document.querySelector('.crosstable')?.contains(el);
 
 function onPowertipPreRender(id: string, preload?: (url: string) => void) {
-  return function(this: HTMLAnchorElement) {
-    console.log(id, this);
-    const url = ($(this).data('href') || this.href).replace(/\?.+$/, '');
+  return function(el: HTMLAnchorElement) {
+    const url = ($(el).data('href') || el.href).replace(/\?.+$/, '');
     if (preload) preload(url);
     xhr.text(url + '/mini').then(html => {
       $('#' + id).html(html);
@@ -31,46 +30,38 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) => {
   pos = pos || (el.getAttribute('data-pt-pos') as PowerTip.Placement) || (
     inCrosstable(el) ? 'n' : 's'
   );
-  el['powertip'] = ' ';
-  el['powerTipPreRender'] = onPowertipPreRender('powerTip', (url: string) => {
-    const u = url.substr(3);
-    const name = $(el).data('name') || $(el).html();
-    $('#powerTip').html('<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + name + '</span></div></div><div class="upt__actions btn-rack">' +
-      uptA('/@/' + u + '/tv', '1') +
-      uptA('/inbox/new?user=' + u, 'c') +
-      uptA('/?user=' + u + '#friend', 'U') +
-      '<a class="btn-rack__btn relation-button" disabled></a></div>');
-  });
   $(el).removeClass('ulpt').powerTip({
-    intentPollInterval: 200,
-    placement: pos,
-    smartPlacement: true,
-    closeDelay: 200
+    preRender: onPowertipPreRender('powerTip', (url: string) => {
+      const u = url.substr(3);
+      const name = $(el).data('name') || $(el).html();
+      $('#powerTip').html('<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + name + '</span></div></div><div class="upt__actions btn-rack">' +
+        uptA('/@/' + u + '/tv', '1') +
+        uptA('/inbox/new?user=' + u, 'c') +
+        uptA('/?user=' + u + '#friend', 'U') +
+        '<a class="btn-rack__btn relation-button" disabled></a></div>');
+    }),
+    placement: pos
   });
 };
 
 function gamePowertip(el: HTMLElement) {
-  el['powertip'] = spinnerHtml;
-  el['powerTipPreRender'] = onPowertipPreRender('miniGame');
   $(el).removeClass('glpt').powerTip({
-    intentPollInterval: 200,
+    preRender: onPowertipPreRender('miniGame', () => spinnerHtml),
     placement: inCrosstable(el) ? 'n' : 'w',
-    smartPlacement: true,
-    closeDelay: 200,
     popupId: 'miniGame'
   });
 };
 
-function powerTipWith(el: HTMLElement, ev, f) {
+function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) {
   if (isHoverable()) {
     f(el);
     $.powerTip.show(el, ev);
   }
 };
 
-function onIdleForAll(par: HTMLElement, sel, fun) {
+function onIdleForAll(par: HTMLElement, sel: string, f: (el: HTMLElement) => void) {
   requestIdleCallback(() =>
-    Array.prototype.forEach.call(par.querySelectorAll(sel), (el: HTMLElement) => fun(el)) // do not codegolf to `fun`
+    Array.prototype.forEach.call(par.querySelectorAll(sel), (el: HTMLElement) => f(el)) // do not codegolf to `f`
   )
 }
 
