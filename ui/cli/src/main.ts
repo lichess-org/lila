@@ -10,17 +10,23 @@ export function app($wrap: Cash, toggle: () => void) {
       input: $input[0] as HTMLInputElement,
       friend: true,
       focus: true,
-      onSelect(r: { name: string }) {
-        execute($input.val() as string);
-        $input.trigger('blur');
-        close();
-      }
+      populate: r => r.name,
+      onSelect: r => execute(r.name)
     });
     const close = () => {
       $input.val('');
       $('body').hasClass('clinput') && toggle()
     };
-    $input.on('blur', () => setTimeout(close, 100));
+    $input.on({
+      blur: () => setTimeout(close, 100),
+      keydown(e: KeyboardEvent) {
+        if (e.code == 'Enter') {
+          execute($input.val() as string);
+          $input.trigger('blur');
+          close();
+        }
+      }
+    })
   });
 }
 

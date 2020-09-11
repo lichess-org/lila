@@ -65,6 +65,7 @@ export default function <Result>(opts: Opts<Result>) {
     // must be delayed, otherwise the result click event doesn't fire
     blur() { setTimeout(() => $container.addClass('none'), 100); return true; },
     keydown(e: KeyboardEvent) {
+      if ($container.hasClass('none')) return;
       if (e.code == 'ArrowDown') {
         moveSelection(1);
         return false;
@@ -81,7 +82,6 @@ export default function <Result>(opts: Opts<Result>) {
           return false;
         }
       }
-      return true;
     }
   });
 
