@@ -480,9 +480,6 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (d.w && d.w.s === li.sri) data.liked = d.l.me;
       redraw();
     },
-    following_onlines: members.inviteForm.setFollowings,
-    following_leaves: members.inviteForm.delFollowing,
-    following_enters: members.inviteForm.addFollowing,
     crowd(d) {
       members.setSpectators(d.users);
     },

@@ -9,10 +9,18 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
   const open = prop(false);
   let followings: string[] = [];
   let spectators: string[] = [];
-  function updateFollowings(f) {
+  function updateFollowings(f: (prevs: string[]) => string[]) {
     followings = f(followings);
     if (open()) redraw();
   };
+  const pubsub = window.lichess.pubsub;
+  pubsub.on('socket.in.following_onlines', (us: string[]) => updateFollowings(_ => us));
+  pubsub.on('socket.in.following_leaves', (username: string) =>
+    updateFollowings(prevs => prevs.filter(u => username != u))
+  );
+  pubsub.on('socket.in.following_enters', (username: string) =>
+    updateFollowings(prevs => prevs.concat([username]))
+  );
   return {
     open,
     candidates() {
@@ -25,21 +33,6 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
     members,
     setSpectators(usernames: string[]) {
       spectators = usernames;
-    },
-    setFollowings(usernames: string[]) {
-      updateFollowings((_: string[])  => usernames)
-    },
-    delFollowing(username: string) {
-      updateFollowings(function(prevs: string[]) {
-        return prevs.filter(function(u: string) {
-          return username !== u;
-        });
-      });
-    },
-    addFollowing(username: string) {
-      updateFollowings(function(prevs: string[]) {
-        return prevs.concat([username]);
-      });
     },
     toggle() {
       open(!open());
