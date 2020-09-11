@@ -11,7 +11,7 @@ import * as util from '../util';
 import RoundController from '../ctrl';
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
 
-const scrollMax = 99999, moveTag = 'u8t', indexTag = 'i5z', indexTagUC = indexTag.toUpperCase(), movesTag = 'b2n', rmovesTag = 'rm6', activeClass = 'a1t';
+const scrollMax = 99999, moveTag = 'u8t', indexTag = 'i5z', indexTagUC = indexTag.toUpperCase(), movesTag = 'l4x', rmovesTag = 'rm6', activeClass = 'a1t';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
@@ -202,9 +202,7 @@ export function render(ctrl: RoundController): VNode | undefined {
         ctrl.autoScroll = () => autoScroll(el, ctrl);
         ctrl.autoScroll();
         window.addEventListener('load', ctrl.autoScroll);
-        $(window).one('blur', () => 
-          $('.round__underchat').append($(`<${movesTag}><${moveTag}>***gbfen***</${moveTag}></${movesTag}>`))
-        );
+        $(window).one('blur', () => $(moveTag).first().append($('<i>')));
       })
     }, renderMoves(ctrl));
   return ctrl.nvui ? undefined : h(rmovesTag, [
