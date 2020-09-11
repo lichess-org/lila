@@ -62,7 +62,7 @@ export default class RoundController {
   resignConfirm?: Timeout = undefined;
   drawConfirm?: Timeout = undefined;
   // will be replaced by view layer
-  autoScroll: () => void = $.noop;
+  autoScroll: () => void = () => {};
   challengeRematched: boolean = false;
   justDropped?: cg.Role;
   justCaptured?: cg.Piece;

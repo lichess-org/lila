@@ -315,9 +315,9 @@ export default class AnalyseCtrl {
     capture: throttle(50, li.sound.capture),
     check: throttle(50, li.sound.check)
   } : {
-      move: $.noop,
-      capture: $.noop,
-      check: $.noop
+      move() {},
+      capture() {},
+      check() {}
     };
 
   private onChange: () => void = throttle(300, () => {
