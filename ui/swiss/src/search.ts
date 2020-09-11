@@ -21,13 +21,13 @@ export function input(ctrl: TournamentController): VNode {
         window.lichess.userComplete().then(uac => {
           uac({
             input: el,
-            tag: 'span',
             swiss: ctrl.data.id,
+            tag: 'span',
             focus: true,
-            select(r) {
+            populate: r => r.name,
+            onSelect(r) {
               ctrl.jumpToPageOf(r.id);
               ctrl.redraw();
-              return '';
             }
           });
           el.focus()

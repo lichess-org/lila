@@ -83,6 +83,7 @@ li.load.then(() => {
       const start = () => userComplete().then(uac =>
         uac({
           input: this,
+          populate: r => r.name,
           friend: $(this).data('friend'),
           tag: $(this).data('tag'),
           focus

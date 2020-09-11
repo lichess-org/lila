@@ -49,10 +49,8 @@ export default function(opts: ChallengeOpts) {
           friend: true,
           tag: 'span',
           focus: true,
-          select: r => {
-            setTimeout(() => (input.parentNode as HTMLFormElement).submit(), 100);
-            return r.name;
-          }
+          populate: r => r.name,
+          onSelect: () => setTimeout(() => (input.parentNode as HTMLFormElement).submit(), 100)
         })
       )
     });

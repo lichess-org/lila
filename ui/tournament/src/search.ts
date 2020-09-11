@@ -24,10 +24,10 @@ export function input(ctrl: TournamentController): VNode {
             tour: ctrl.data.id,
             tag: 'span',
             focus: true,
-            select(v) {
+            populate: r => r.name,
+            onSelect(v) {
               ctrl.jumpToPageOf(v.id);
               ctrl.redraw();
-              return '';
             }
           });
           el.focus();
