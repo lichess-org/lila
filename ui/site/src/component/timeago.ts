@@ -73,13 +73,12 @@ function render(nodes: any[]) {
   });
 }
 
-function findAndRender() {
+const findAndRender = (parent?: HTMLElement) =>
   requestAnimationFrame(() =>
-    render([].slice.call(document.getElementsByClassName('timeago'), 0, 99))
-  )
-}
+    render([].slice.call((parent || document).getElementsByClassName('timeago'), 0, 99))
+  );
 
-function updateRegularly(interval: number) {
+const updateRegularly = (interval: number) => {
   findAndRender();
   setTimeout(() => updateRegularly(interval * 1.1), interval);
 }

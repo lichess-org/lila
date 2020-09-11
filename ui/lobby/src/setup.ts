@@ -333,7 +333,7 @@ export default class Setup {
             this.href = this.href.replace(/editor\/.+$/, "editor/" + fen);
           });
           $submits.removeClass('nope');
-          li.pubsub.emit('content_loaded');
+          li.contentLoaded();
         })
         .catch(() => {
           $fenInput.addClass("failure");

@@ -105,7 +105,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       h('strong', 'Timeout history'),
       h('table', h('tbody.slist', {
         hook: {
-          insert: () => window.lichess.pubsub.emit('content_loaded')
+          insert() { window.lichess.contentLoaded() }
         }
       }, data.history.map(function(e) {
         return h('tr', [

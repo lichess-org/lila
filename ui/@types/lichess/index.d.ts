@@ -21,6 +21,7 @@ interface Lichess {
   makeChat(data: any): any;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
+  contentLoaded(parent?: HTMLElement): void;
   unload: {
     expected: boolean;
   };

@@ -44,12 +44,12 @@ export default function LichessLobby(opts: LobbyOpts) {
       reload_timeline() {
         xhr.text('/timeline').then(html => {
           $('.timeline').html(html);
-          li.pubsub.emit('content_loaded');
+          li.contentLoaded();
         });
       },
       featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
-        li.pubsub.emit('content_loaded');
+        li.contentLoaded();
       },
       redirect(e: RedirectTo) {
         lobby.leavePool();
@@ -88,7 +88,7 @@ export default function LichessLobby(opts: LobbyOpts) {
         lobby.setup.prepareForm(modal($(html), 'game-setup', () =>
           $startButtons.find('.active').removeClass('active')
         ));
-        li.pubsub.emit('content_loaded');
+        li.contentLoaded();
       })
     .catch(li.reload);
   }).on('click', e => e.preventDefault());

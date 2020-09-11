@@ -33,7 +33,7 @@ export default function(opts: RoundOpts): void {
             $meta.length && $('.game__meta').replaceWith($meta);
             $('.crosstable').replaceWith($html.find('.crosstable'));
             startTournamentClock();
-            li.pubsub.emit('content_loaded');
+            li.contentLoaded();
           });
       },
       tourStanding(s: TourPlayer[]) {

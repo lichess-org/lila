@@ -22,7 +22,7 @@ export default function(opts: ChallengeOpts) {
         xhr.text(opts.xhrUrl).then(html => {
           $(selector).replaceWith($(html).find(selector));
           init();
-          li.pubsub.emit('content_loaded', $(selector));
+          li.contentLoaded($(selector)[0]);
         });
       }
     }

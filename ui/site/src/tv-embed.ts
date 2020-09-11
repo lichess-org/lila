@@ -1,5 +1,5 @@
 import { Chessground } from 'chessground';
-import miniGame from "./component/mini-game";
+import * as miniGame from "./component/mini-game";
 import loadClockWidget from "./component/clock-widget";
 
 window.Chessground = Chessground;

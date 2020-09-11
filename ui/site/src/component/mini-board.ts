@@ -1,6 +1,6 @@
 import * as domData from 'common/data';
 
-const init = (node: HTMLElement) => {
+export const init = (node: HTMLElement) => {
   if (!window.Chessground) return setTimeout(() => init(node), 500);
   const $el = $(node).removeClass('mini-board--init'),
     [fen, orientation, lm] = $el.data('state').split(',');
@@ -18,11 +18,5 @@ const init = (node: HTMLElement) => {
   }));
 }
 
-const miniBoard = {
-  initAll() {
-    Array.from(document.getElementsByClassName('mini-board--init')).forEach(init);
-  },
-  init
-};
-
-export default miniBoard;
+export const initAll = (parent?: HTMLElement) =>
+  Array.from((parent || document).getElementsByClassName('mini-board--init')).forEach(init);

@@ -60,7 +60,7 @@ window.lichess.load.then(() => {
 
   function userMod($zone: Cash) {
 
-    window.lichess.pubsub.emit('content_loaded');
+    window.lichess.contentLoaded($zone[0]);
 
     $('#mz_menu > a:not(.available)').each(function(this: HTMLAnchorElement) {
       $(this).toggleClass('available', !!$(this.href).length);

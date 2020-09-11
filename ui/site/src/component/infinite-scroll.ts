@@ -16,7 +16,7 @@ export default function loadInfiniteScroll(selector: string) {
       }
     }, function() {
       $("#infscr-loading").remove();
-      window.lichess.pubsub.emit('content_loaded');
+      window.lichess.contentLoaded(self);
       const ids: string[] = [];
       $(self).find('.paginated[data-dedup]').each(function(this: HTMLElement) {
         const id = $(this).data('dedup');

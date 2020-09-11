@@ -45,7 +45,7 @@ window.lichess.load.then(() => {
         $('.angle-content .infinitescroll').infinitescroll('destroy');
         xhr.text(path).then(html => {
           $content.html(html);
-          window.lichess.pubsub.emit('content_loaded');
+          window.lichess.contentLoaded($content[0]);
           history.replaceState({}, '', path);
           loadInfiniteScroll('.angle-content .infinitescroll');
         });

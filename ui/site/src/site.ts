@@ -5,8 +5,8 @@ import { reload } from "./component/reload";
 import announce from './component/announce';
 import moduleLaunchers from "./component/module-launchers";
 import pubsub from "./component/pubsub";
-import miniBoard from "./component/mini-board";
-import miniGame from "./component/mini-game";
+import * as miniBoard from "./component/mini-board";
+import * as miniGame from "./component/mini-game";
 import { requestIdleCallback } from "./component/functions";
 import powertip from "./component/powertip";
 import timeago from "./component/timeago";
@@ -68,7 +68,7 @@ li.load.then(() => {
     powertip.watchMouse();
 
     timeago.updateRegularly(1000);
-    pubsub.on('content_loaded', timeago.findAndRender);
+    pubsub.on('content-loaded', timeago.findAndRender);
 
     setTimeout(() => {
       if (!li.socket)
@@ -146,8 +146,8 @@ li.load.then(() => {
 
     miniBoard.initAll();
     miniGame.initAll();
-    pubsub.on('content_loaded', miniBoard.initAll);
-    pubsub.on('content_loaded', miniGame.initAll);
+    pubsub.on('content-loaded', miniBoard.initAll);
+    pubsub.on('content-loaded', miniGame.initAll);
 
     const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
     if (chatMembers) watchers(chatMembers);

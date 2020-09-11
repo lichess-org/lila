@@ -231,12 +231,10 @@ export function view(ctrl: StudyCtrl): VNode {
   var ordered = members.ordered();
 
   return h('div.study__members', {
-    hook: {
-      insert: _ => {
-        window.lichess.pubsub.emit('content_loaded');
+    hook: onInsert(el => {
+        window.lichess.contentLoaded(el);
         window.lichess.pubsub.emit('chat.resize');
-      }
-    }
+    })
   }, [
     ...ordered.map(function(member) {
       const confing = members.confing() === member.user.id;

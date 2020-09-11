@@ -65,10 +65,10 @@ window.lichess.load.then(() => {
     this.href = this.href.split('?')[0] + "?" + serialized;
   });
   $result.find('.search__rows').each(function(this: HTMLTableRowElement) {
-    const next = this.querySelector(".pager a") as HTMLAnchorElement | null;
+    const table = this, next = table.querySelector(".pager a") as HTMLAnchorElement | null;
     if (!next) return;
     next.href = next.href + "&" + serialized;
-    $(this).infinitescroll({
+    $(table).infinitescroll({
       navSelector: ".pager",
       nextSelector: $(next),
       itemSelector: ".search__rows .paginated",
@@ -78,7 +78,7 @@ window.lichess.load.then(() => {
       }
     }, function() {
       $("#infscr-loading").remove();
-      window.lichess.pubsub.emit('content_loaded');
+      window.lichess.contentLoaded(table);
     });
   });
 
