@@ -68,18 +68,18 @@ window.lichess.load.then(() => {
     const table = this, next = table.querySelector(".pager a") as HTMLAnchorElement | null;
     if (!next) return;
     next.href = next.href + "&" + serialized;
-    $(table).infinitescroll({
-      navSelector: ".pager",
-      nextSelector: $(next),
-      itemSelector: ".search__rows .paginated",
-      loading: {
-        msgText: "",
-        finishedMsg: "---"
-      }
-    }, function() {
-      $("#infscr-loading").remove();
-      window.lichess.contentLoaded(table);
-    });
+    /* $(table).infinitescroll({ */
+    /*   navSelector: ".pager", */
+    /*   nextSelector: $(next), */
+    /*   itemSelector: ".search__rows .paginated", */
+    /*   loading: { */
+    /*     msgText: "", */
+    /*     finishedMsg: "---" */
+    /*   } */
+    /* }, function() { */
+    /*   $("#infscr-loading").remove(); */
+    /*   window.lichess.contentLoaded(table); */
+    /* }); */
   });
 
   $form.on('submit', () => {

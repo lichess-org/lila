@@ -162,5 +162,10 @@ export default rollupProject({
     input: 'src/user-complete.ts',
     output: 'user-complete',
     name: 'UserComplete'
+  },
+  infiniteScroll: {
+    input: 'src/infinite-scroll.ts',
+    output: 'infinite-scroll',
+    name: 'InfiniteScroll'
   }
 });

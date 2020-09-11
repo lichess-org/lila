@@ -190,6 +190,7 @@ interface Window {
   Mousetrap: any
   Chessground: any
   Highcharts: any
+  InfiniteScroll(selector: string): void;
   lichessReplayMusic: () => {
     jump(node: Tree.Node): void
   }
@@ -352,12 +353,11 @@ interface CashStatic {
 
 interface Cash {
   powerTip(options?: PowerTip.Options | 'show' | 'hide'): Cash;
-  typeahead: any;
   sparkline: any;
   clock: any;
   highcharts(conf?: any): any;
   flatpickr(opts: any): any;
-  infinitescroll: any;
+  infinitescroll: any; // TODO migrate
 }
 
 declare namespace PowerTip {

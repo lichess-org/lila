@@ -11,7 +11,6 @@ import { requestIdleCallback } from "./component/functions";
 import powertip from "./component/powertip";
 import timeago from "./component/timeago";
 import topBar from "./component/top-bar";
-import loadInfiniteScroll from "./component/infinite-scroll";
 import { storage } from "./component/storage";
 import { assetUrl, userComplete } from "./component/assets";
 import serviceWorker from "./component/service-worker";
@@ -93,7 +92,7 @@ li.load.then(() => {
       else $(this).one('focus', start);
     });
 
-    loadInfiniteScroll('.infinitescroll');
+    if (window.InfiniteScroll) window.InfiniteScroll('.infinite-scroll');
 
     $('a.delete, input.delete').on('click', () => confirm('Delete?'));
     $('input.confirm, button.confirm').on('click', function(this: HTMLElement) {

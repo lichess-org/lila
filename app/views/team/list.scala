@@ -87,9 +87,9 @@ object list {
           standardFlash(),
           table(cls := "slist slist-pad")(
             if (teams.nbResults > 0)
-              tbody(cls := "infinitescroll")(
-                pagerNextTable(teams, nextPageUrl),
-                teams.currentPageResults map { bits.teamTr(_) }
+              tbody(cls := "infinite-scroll")(
+                teams.currentPageResults map { bits.teamTr(_) },
+                pagerNextTable(teams, nextPageUrl)
               )
             else noTeam()
           )
