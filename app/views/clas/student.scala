@@ -153,8 +153,12 @@ object student {
             )
           ),
           postForm(cls := "form3", action := routes.Clas.studentInvite(clas.id.value))(
-            form3.group(invite("username"), trans.clas.lichessUsername())(
-              form3.input(_, klass = "user-autocomplete")(created.isEmpty option autofocus)(dataTag := "span")
+            form3.group(invite("username"), trans.clas.lichessUsername())(field =>
+              div(cls := "complete-parent")(
+                form3.input(field, klass = "user-autocomplete")(created.isEmpty option autofocus)(
+                  dataTag := "span"
+                )
+              )
             ),
             realNameField(invite),
             form3.submit("Invite", icon = none)

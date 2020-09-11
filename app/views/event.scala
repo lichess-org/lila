@@ -138,12 +138,14 @@ object event {
           help = raw("Username that must not be featured while the event is ongoing").some,
           half = true
         ) { f =>
-          input(
-            cls := "form-control user-autocomplete",
-            name := f.name,
-            id := form3.id(f),
-            value := f.value,
-            dataTag := "span"
+          div(cls := "complete-parent")(
+            input(
+              cls := "form-control user-autocomplete",
+              name := f.name,
+              id := form3.id(f),
+              value := f.value,
+              dataTag := "span"
+            )
           )
         }
       ),
