@@ -53,6 +53,7 @@ export default function <Result>(opts: Opts<Result>) {
     if (results[0])
       results.forEach(result =>
         $(opts.render(result))
+          /* can't use click because blur fires first and removes the click target */
           .on('mousedown touchdown', () => {
             /* crazy shit here
                just `opts.input.value = opts.select(result);`
