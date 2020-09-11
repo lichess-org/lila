@@ -162,9 +162,6 @@ interface Cash {
     trigger(event: Event | string, data?: any): this;
 }
 interface Cash {
-    serialize(): string;
-}
-interface Cash {
     val(): string | string[];
     val(value: string | string[]): this;
 }
