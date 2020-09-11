@@ -53,7 +53,7 @@ export default function <Result>(opts: Opts<Result>) {
     if (results[0])
       results.forEach(result =>
         $(opts.render(result))
-          .on('click', () => {
+          .on('mousedown touchdown', () => {
             /* crazy shit here
                just `opts.input.value = opts.select(result);`
                does nothing. `opts.select` is not called.
