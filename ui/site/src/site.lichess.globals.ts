@@ -6,7 +6,7 @@ import spinnerHtml from './component/spinner';
 import sri from './component/sri';
 import { storage, tempStorage } from "./component/storage";
 import powertip from "./component/powertip";
-import { assetUrl, soundUrl, loadCss, loadCssPath, jsModule, loadScript, hopscotch } from "./component/assets";
+import { assetUrl, soundUrl, loadCss, loadCssPath, jsModule, loadScript, hopscotch, userComplete } from "./component/assets";
 import widget from "./component/widget";
 import idleTimer from "./component/idle-timer";
 import pubsub from "./component/pubsub";
@@ -38,6 +38,7 @@ export default function() {
   l.jsModule = jsModule;
   l.loadScript = loadScript;
   l.hopscotch = hopscotch;
+  l.userComplete = userComplete;
   l.makeChat = makeChat;
   l.idleTimer = idleTimer;
   l.pubsub = pubsub;

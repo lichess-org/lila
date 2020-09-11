@@ -22,6 +22,7 @@ export default function(opts: ChallengeOpts) {
         xhr.text(opts.xhrUrl).then(html => {
           $(selector).replaceWith($(html).find(selector));
           init();
+          li.pubsub.emit('content_loaded', $(selector));
         });
       }
     }
@@ -41,15 +42,19 @@ export default function(opts: ChallengeOpts) {
       $(this).html('<span class="ddloader"></span>');
     });
     $(selector).find('input.friend-autocomplete').each(function(this: HTMLInputElement) {
-      const $input = $(this);
-      li.userAutocomplete($input, {
-        focus: true,
-        friend: true,
-        tag: 'span',
-        onSelect() {
-          $input.parents('form').trigger('submit');
-        }
-      });
+      const input = this;
+      li.userComplete().then(uac =>
+        uac({
+          input: input,
+          friend: true,
+          tag: 'span',
+          focus: true,
+          select: r => {
+            setTimeout(() => (input.parentNode as HTMLFormElement).submit(), 100);
+            return r.name;
+          }
+        })
+      )
     });
   }
 

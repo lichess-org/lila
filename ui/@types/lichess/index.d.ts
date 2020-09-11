@@ -16,6 +16,7 @@ interface Lichess {
   jsModule(name: string): string;
   loadScript(url: string, opts?: AssetUrlOpts): Promise<void>;
   hopscotch: any;
+  userComplete: () => Promise<UserComplete>;
   slider(): Promise<void>;
   makeChat(data: any): any;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
@@ -35,7 +36,6 @@ interface Lichess {
   socket: any;
   sound: any;
   soundBox: SoundBoxI;
-  userAutocomplete($input: Cash, opts?: UserAutocompleteOpts): Promise<void>;
   miniBoard: {
     init(node: HTMLElement): void;
     initAll(): void;
@@ -81,10 +81,13 @@ interface Lichess {
 
 type RedirectTo = string | { url: string, cookie: Cookie };
 
-interface UserAutocompleteOpts {
+type UserComplete = (opts: UserCompleteOpts) => void;
+
+interface UserCompleteOpts {
+  input: HTMLInputElement,
   tag?: 'a' | 'span';
   minLength?: number;
-  select?: (value: string | { id: string; name: string }) => string;
+  select?: (result: LightUser) => string;
   focus?: boolean;
   friend?: boolean;
   tour?: string;

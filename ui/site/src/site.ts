@@ -13,7 +13,7 @@ import timeago from "./component/timeago";
 import topBar from "./component/top-bar";
 import loadInfiniteScroll from "./component/infinite-scroll";
 import { storage } from "./component/storage";
-import { assetUrl } from "./component/assets";
+import { assetUrl, userComplete } from "./component/assets";
 import serviceWorker from "./component/service-worker";
 import loadClockWidget from "./component/clock-widget";
 import info from "./component/info";
@@ -81,14 +81,14 @@ li.load.then(() => {
 
     $('.user-autocomplete').each(function(this: HTMLInputElement) {
       const focus = !!this.autofocus;
-      const start = () => li.loadScript(li.jsModule('user-autocomplete')).then(() => {
-        window.LichessUserAutocomplete({
+      const start = () => userComplete().then(uac =>
+        uac({
           input: this,
           friend: $(this).data('friend'),
           tag: $(this).data('tag'),
           focus
-        });
-      });
+        })
+      );
       if (focus) start();
       else $(this).one('focus', start);
     });

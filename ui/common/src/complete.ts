@@ -54,7 +54,12 @@ export default function <Result>(opts: Opts<Result>) {
       results.forEach(result =>
         $(opts.render(result))
           .on('click', () => {
-            opts.input.value = opts.select(result);
+            /* crazy shit here
+               just `opts.input.value = opts.select(result);`
+               does nothing. `opts.select` is not called.
+               */
+            const newValue = opts.select(result);
+            opts.input.value = newValue;
             return true;
           })
           .appendTo($container)

@@ -9,8 +9,7 @@ export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
 
 export const soundUrl = assetUrl('sound', { version: '000003' });
 
-const loadedCss = new Map();
-
+const loadedCss = new Map<string, true>();
 export const loadCss = (url: string) => {
   if (!loadedCss.has(url)) {
     loadedCss.set(url, true);
@@ -27,8 +26,16 @@ export const loadCssPath = (key: string) =>
 export const jsModule = (name: string) =>
   `compiled/${name}${$('body').data('dev') ? '' : '.min'}.js`;
 
-export const loadScript = (url: string, opts: AssetUrlOpts = {}): Promise<void> =>
-  xhr.script(assetUrl(url, opts));
+const loadedScript = new Map<string, Promise<void>>();
+export const loadScript = (url: string, opts: AssetUrlOpts = {}): Promise<void> => {
+  if (!loadedScript.has(url)) loadedScript.set(url, xhr.script(assetUrl(url, opts)));
+  return loadedScript.get(url)!;
+}
+
+export const userComplete = (): Promise<UserComplete> => {
+  loadCssPath('complete');
+  return loadScript(jsModule('user-complete')).then(_ => window.UserComplete);
+}
 
 export const hopscotch = () => {
   loadCss('vendor/hopscotch/dist/css/hopscotch.min.css');

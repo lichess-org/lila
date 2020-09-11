@@ -5,8 +5,8 @@ const li = window.lichess;
 export function app($wrap: Cash, toggle: () => void) {
   const $input = $wrap.find('input');
 
-  li.loadScript(li.jsModule('user-autocomplete')).then(() => {
-    window.LichessUserAutocomplete({
+  li.userComplete().then(uac => {
+    uac({
       input: $input[0] as HTMLInputElement,
       friend: true,
       focus: true

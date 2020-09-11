@@ -1,4 +1,3 @@
-import { loadCssPath } from "./component/assets";
 import debounce from 'debounce-promise';
 import * as xhr from 'common/xhr';
 import complete from 'common/complete';
@@ -18,9 +17,7 @@ interface Opts {
   swiss?: string;
 }
 
-export default function(opts: Opts) {
-
-  loadCssPath('complete');
+export default function(opts: Opts): void {
 
   complete<Result>({
     input: opts.input,
