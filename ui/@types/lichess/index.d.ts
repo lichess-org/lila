@@ -357,7 +357,6 @@ interface Cash {
   clock: any;
   highcharts(conf?: any): any;
   flatpickr(opts: any): any;
-  infinitescroll: any; // TODO migrate
 }
 
 declare namespace PowerTip {
