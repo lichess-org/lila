@@ -62,7 +62,7 @@ export function ctrl(opts: Opts) {
     if (opts.tab() !== 'members') return;
     if (active[id]) active[id]();
     else active[id] = memberActivity(function() {
-      delete(active[id]);
+      delete (active[id]);
       opts.redraw();
     });
     opts.redraw();
@@ -76,6 +76,13 @@ export function ctrl(opts: Opts) {
     });
     if (opts.tab() === 'members') opts.redraw();
   }
+
+  window.lichess.pubsub.on('socket.in.crowd', d => {
+    const names: string[] = d.users || [];
+    inviteForm.setSpectators(names);
+    spectatorIds = names.map(titleNameToId);
+    updateOnline();
+  });
 
   return {
     dict,
@@ -136,12 +143,6 @@ export function ctrl(opts: Opts) {
     size() {
       return Object.keys(dict()).length;
     },
-    setSpectators(usernames?: string[]) {
-      const names = usernames || [];
-      this.inviteForm.setSpectators(names);
-      spectatorIds = names.map(titleNameToId);
-      updateOnline();
-    },
     isOnline(userId: string) {
       return online[userId];
     },
@@ -196,7 +197,7 @@ export function view(ctrl: StudyCtrl): VNode {
         },
         hook: bind('click', members.leave, ctrl.redraw)
       });
-      return undefined;
+    return undefined;
   };
 
   function memberConfig(member: StudyMember): VNode {
