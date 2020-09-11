@@ -1,5 +1,4 @@
 .complete {
-
   &-parent {
     position: relative;
   }
@@ -11,19 +10,15 @@
     top: 100%;
     z-index: z("complete");
     width: 14em;
-    min-height: 3em;
+    min-height: 2em;
     background-color: $c-bg-box;
+
+    &__empty {
+      text-align: center;
+      font-style: italic;
+      padding: 1em;
+    }
   }
-
-  // .tt-menu .empty {
-  //   padding: .5em 0 .5em 1em;
-  // }
-
-  // .tt-menu .spinner {
-  //   margin: 10px auto;
-  //   width: 20px;
-  //   height: 20px;
-  // }
 
   &-result {
     color: $c-font;

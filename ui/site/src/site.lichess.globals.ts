@@ -15,7 +15,6 @@ import announce from "./component/announce";
 import trans from "./component/trans";
 import sound from "./component/sound";
 import soundBox from "./component/soundbox";
-import userAutocomplete from "./component/user-autocomplete";
 import miniBoard from "./component/mini-board";
 import miniGame from "./component/mini-game";
 import timeago from "./component/timeago";
@@ -51,7 +50,6 @@ export default function() {
   l.trans = trans;
   l.sound = sound;
   l.soundBox = soundBox;
-  l.userAutocomplete = userAutocomplete;
   l.miniBoard = miniBoard;
   l.miniGame = miniGame;
   l.timeago = timeago;
