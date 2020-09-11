@@ -13,14 +13,15 @@ function register(el: HTMLElement, selector: string) {
     next = nav?.querySelector('.pager a') as HTMLAnchorElement | null,
     nextUrl = next?.href;
 
-  if (nav && nextUrl) new Promise(res =>
-    window.addEventListener('scroll', function scrollListener() {
+  if (nav && nextUrl) new Promise(res => {
+    if (isVisible(nav)) res();
+    else window.addEventListener('scroll', function scrollListener() {
       if (isVisible(nav)) {
         window.removeEventListener('scroll', scrollListener);
         res();
       }
     }, { passive: true })
-  )
+  })
     .then(() => {
       nav.innerHTML = spinnerHtml;
       return xhr.text(nextUrl);
@@ -29,7 +30,7 @@ function register(el: HTMLElement, selector: string) {
       nav.remove();
       $(el).append($(html).find(selector).html());
       window.lichess.contentLoaded(el);
-      register(el, selector);
+      setTimeout(() => register(el, selector), 500); // recursion without bursts
     })
     .catch(e => {
       console.log(e);
