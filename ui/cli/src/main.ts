@@ -9,22 +9,18 @@ export function app($wrap: Cash, toggle: () => void) {
     uac({
       input: $input[0] as HTMLInputElement,
       friend: true,
-      focus: true
+      focus: true,
+      onSelect(r: { name: string }) {
+        execute($input.val() as string);
+        $input.trigger('blur');
+        close();
+      }
     });
     const close = () => {
       $input.val('');
       $('body').hasClass('clinput') && toggle()
     };
-    $input.on({
-      blur: () => setTimeout(close, 100),
-      keypress(e) {
-        if (e.key == 'Enter') {
-          execute($input.val() as string);
-          $input.trigger('blur');
-          close();
-        }
-      }
-    })
+    $input.on('blur', () => setTimeout(close, 100));
   });
 }
 

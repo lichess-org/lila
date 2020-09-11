@@ -26,12 +26,13 @@
     display: block;
     cursor: pointer;
 
-    @include transition;
-
     &:hover,
     &:focus,
-    &.active {
-      color: $c-font-clear !important;
+    &.complete-selected {
+      &, & i {
+        color: $c-font-clearer !important;
+      }
+
       background: mix($c-link, $c-bg-box, 20%);
     }
   }

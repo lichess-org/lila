@@ -10,7 +10,8 @@ interface Opts {
   input: HTMLInputElement,
   tag?: 'a' | 'span';
   minLength?: number;
-  select?: (result: Result) => string;
+  populate?: (result: Result) => string;
+  onSelect?: (result: Result) => void;
   focus?: boolean;
   friend?: boolean;
   tour?: string;
@@ -39,7 +40,8 @@ export default function(opts: Opts): void {
         '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="utitle">' + o.title + '</span>&nbsp;' : '') + o.name +
         '</' + tag + '>';
     },
-    select: opts.select || (r => r.name),
+    populate: opts.populate || (r => r.name),
+    onSelect: opts.onSelect,
     regex: /^[a-z0-9][\w-]{2,29}$/i
   });
 }

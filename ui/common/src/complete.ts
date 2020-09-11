@@ -4,7 +4,8 @@ interface Opts<Result> {
   input: HTMLInputElement;
   fetch: Fetch<Result>;
   render: (result: Result) => string;
-  select: (result: Result) => string; // return the new input content
+  populate: (result: Result) => string; // input value from a search result
+  onSelect?: (result: Result) => void;
   empty?: () => string;
   minLength?: number;
   regex?: RegExp;
@@ -15,7 +16,7 @@ export default function <Result>(opts: Opts<Result>) {
   const minLength = opts.minLength || 3,
     empty = opts.empty || (() => '<div class="complete-list__empty">No results.</div>'),
     cache = new Map<string, Result[]>(),
-    getResults: Fetch<Result> = term => {
+    fetchResults: Fetch<Result> = term => {
       if (cache.has(term)) return new Promise(res => setTimeout(() => res(cache.get(term)), 50));
       else if (
         term.length > 3 && Array.from({
@@ -28,16 +29,33 @@ export default function <Result>(opts: Opts<Result>) {
         cache.set(term, results);
         return results;
       });
-    }
+    },
+    domResults = () => $container.find('.complete-result'),
+    selectedResult = (): Result | undefined => {
+      if (selectedIndex === null) return;
+      return renderedResults[selectedIndex];
+    },
+    moveSelection = (offset: number) => {
+      selectedIndex = (selectedIndex === null ? (offset == 1 ? 0 : -1) : selectedIndex + offset) % domResults().length;
+      renderSelection();
+      const result = selectedResult();
+      if (result) opts.input.value = opts.populate(result);
+    },
+    renderSelection = () => {
+      $container.find('.complete-selected').removeClass('complete-selected');
+      if (selectedIndex !== null) $(domResults().get(selectedIndex)).addClass('complete-selected');
+    };
 
-  let $container: Cash = $('<div class="complete-list none"></div>').insertAfter(opts.input);
+  let $container: Cash = $('<div class="complete-list none"></div>').insertAfter(opts.input),
+    selectedIndex: number | null = null,
+    renderedResults: Result[] = [];
 
   opts.input.autocomplete = 'off';
 
   const update = () => {
     const term = opts.input.value.trim();
     if (term.length >= minLength && (!opts.regex || term.match(opts.regex)))
-      getResults(term).then(renderResults);
+      fetchResults(term).then(renderResults);
     else $container.addClass('none');
   }
 
@@ -45,7 +63,26 @@ export default function <Result>(opts: Opts<Result>) {
     input: update,
     focus: update,
     // must be delayed, otherwise the result click event doesn't fire
-    blur() { setTimeout(() => $container.addClass('none'), 100); return true; }
+    blur() { setTimeout(() => $container.addClass('none'), 100); return true; },
+    keydown(e: KeyboardEvent) {
+      if (e.code == 'ArrowDown') {
+        moveSelection(1);
+        return false;
+      }
+      if (e.code == 'ArrowUp') {
+        moveSelection(-1);
+        return false;
+      }
+      if (e.code == 'Enter') {
+        $container.addClass('none');
+        const result = selectedResult();
+        if (result) {
+          if (opts.onSelect) opts.onSelect(result);
+          return false;
+        }
+      }
+      return true;
+    }
   });
 
   const renderResults = (results: Result[]) => {
@@ -59,13 +96,20 @@ export default function <Result>(opts: Opts<Result>) {
                just `opts.input.value = opts.select(result);`
                does nothing. `opts.select` is not called.
                */
-            const newValue = opts.select(result);
+            const newValue = opts.populate(result);
             opts.input.value = newValue;
+            if (opts.onSelect) opts.onSelect(result);
             return true;
           })
           .appendTo($container)
       );
     else $container.html(empty());
+    renderedResults = results;
+    selectedIndex = null;
+    renderSelection();
     $container.removeClass('none');
   };
+
+  /* opts.input.value = 'chess'; */
+  /* $(opts.input).trigger('input'); */
 }
