@@ -7,6 +7,7 @@ interface Opts<Result> {
   select: (result: Result) => string; // return the new input content
   empty?: () => string;
   minLength?: number;
+  regex?: RegExp;
 }
 
 export default function <Result>(opts: Opts<Result>) {
@@ -35,7 +36,8 @@ export default function <Result>(opts: Opts<Result>) {
 
   const update = () => {
     const term = opts.input.value.trim();
-    if (term.length >= minLength) getResults(term).then(renderResults);
+    if (term.length >= minLength && (!opts.regex || term.match(opts.regex)))
+      getResults(term).then(renderResults);
     else $container.addClass('none');
   }
 
@@ -52,7 +54,8 @@ export default function <Result>(opts: Opts<Result>) {
       results.forEach(result =>
         $(opts.render(result))
           .on('click', () => {
-            opts.input.value = opts.select(result)
+            opts.input.value = opts.select(result);
+            return true;
           })
           .appendTo($container)
       );

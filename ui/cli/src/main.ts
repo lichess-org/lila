@@ -4,20 +4,28 @@ const li = window.lichess;
 
 export function app($wrap: Cash, toggle: () => void) {
   const $input = $wrap.find('input');
-  li.userAutocomplete($input, {
-    focus: true,
-    friend: true,
-    onSelect(q: any) {
-      $input.val('')[0]!.blur();
-      execute(q.name || q.trim());
-      $('body').hasClass('clinput') && toggle()
-    }
-  }).then(() =>
-    $input.on('blur', () => {
+
+  li.loadScript(li.jsModule('user-autocomplete')).then(() => {
+    window.LichessUserAutocomplete({
+      input: $input[0] as HTMLInputElement,
+      friend: true,
+      focus: true
+    });
+    const close = () => {
       $input.val('');
       $('body').hasClass('clinput') && toggle()
+    };
+    $input.on({
+      blur: () => setTimeout(close, 100),
+      keypress(e) {
+        if (e.key == 'Enter') {
+          execute($input.val() as string);
+          $input.trigger('blur');
+          close();
+        }
+      }
     })
-  );
+  });
 }
 
 function execute(q: string) {

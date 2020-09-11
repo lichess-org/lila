@@ -84,7 +84,7 @@ type RedirectTo = string | { url: string, cookie: Cookie };
 interface UserAutocompleteOpts {
   tag?: 'a' | 'span';
   minLength?: number;
-  onSelect?: (value: string | { id: string; name: string }) => void;
+  select?: (value: string | { id: string; name: string }) => string;
   focus?: boolean;
   friend?: boolean;
   tour?: string;
