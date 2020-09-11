@@ -1,15 +1,14 @@
 package views.html
 package coach
 
+import controllers.routes
 import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.LangList
 import lila.common.paginator.Paginator
-
-import controllers.routes
+import lila.i18n.LangList
 
 object index {
 
@@ -72,7 +71,7 @@ object index {
               )
             )
           ),
-          div(cls := "list infinitescroll")(
+          div(cls := "list infinite-scroll")(
             pager.currentPageResults.map { c =>
               st.article(cls := "coach-widget paginated", attr("data-dedup") := c.coach.id.value)(
                 widget(c, link = true)
@@ -82,9 +81,7 @@ object index {
               pager,
               np =>
                 addQueryParameter(routes.Coach.search(lang.fold("all")(_.code), order.key).url, "page", np)
-            ).map {
-              frag(_, div(cls := "none")) // don't break the even/odd CSS flow
-            }
+            )
           )
         )
       )

@@ -120,7 +120,7 @@ object list {
         p(trans.study.noneYet())
       )
     else
-      div(cls := "studies list infinitescroll")(
+      div(cls := "studies list infinite-scroll")(
         pager.currentPageResults.map { s =>
           div(cls := "study paginated")(bits.widget(s))
         },

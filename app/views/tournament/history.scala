@@ -27,9 +27,9 @@ object history {
           h1(freq.name, " tournaments"),
           div(cls := "arena-list")(
             table(cls := "slist slist-pad")(
-              tbody(cls := "infinitescroll")(
-                pagerNextTable(pager, p => routes.Tournament.history(freq.name, p).url),
-                pager.currentPageResults map finishedList.apply
+              tbody(cls := "infinite-scroll")(
+                pager.currentPageResults map finishedList.apply,
+                pagerNextTable(pager, p => routes.Tournament.history(freq.name, p).url)
               )
             )
           )

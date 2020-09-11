@@ -84,8 +84,8 @@ object index {
                   permalink
                 ),
                 div(cls := "search__rows")(
-                  pagerNext(pager, np => routes.Search.index(np).url),
-                  views.html.game.widgets(pager.currentPageResults)
+                  views.html.game.widgets(pager.currentPageResults),
+                  pagerNext(pager, np => routes.Search.index(np).url)
                 )
               )
             else

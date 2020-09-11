@@ -7,7 +7,7 @@ export default function InfiniteScroll(selector: string) {
   });
 }
 
-function register(el: HTMLElement, selector: string) {
+function register(el: HTMLElement, selector: string, backoff: number = 500) {
 
   const nav = el.querySelector('.pager') as HTMLAnchorElement | null,
     next = nav?.querySelector('.pager a') as HTMLAnchorElement | null,
@@ -30,7 +30,7 @@ function register(el: HTMLElement, selector: string) {
       nav.remove();
       $(el).append($(html).find(selector).html());
       window.lichess.contentLoaded(el);
-      setTimeout(() => register(el, selector), 500); // recursion without bursts
+      setTimeout(() => register(el, selector, backoff * 1.05), backoff); // recursion with backoff
     })
     .catch(e => {
       console.log(e);

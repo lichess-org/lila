@@ -41,10 +41,8 @@ object gamesContent {
                 permalink
               ),
               div(cls := "search__rows")(
-                pagerNext(pager, np => routes.User.games(u.username, filterName, np).url) | div(
-                  cls := "none"
-                ),
-                views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u)
+                views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u),
+                pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
               )
             )
           else
@@ -56,16 +54,16 @@ object gamesContent {
         } else
           div(
             cls := List(
-              "games infinitescroll" -> true,
-              "now-playing center"   -> (filterName == "playing" && pager.nbResults > 2)
+              "games infinite-scroll" -> true,
+              "now-playing center"    -> (filterName == "playing" && pager.nbResults > 2)
             )
           )(
-            pagerNext(pager, np => routes.User.games(u.username, filterName, np).url) | div(cls := "none"),
             if (filterName == "playing" && pager.nbResults > 2)
               pager.currentPageResults.flatMap { Pov(_, u) }.map { pov =>
                 views.html.game.mini(pov)(ctx)(cls := "paginated")
               }
-            else views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u)
+            else views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u),
+            pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
           )
       )
     )
