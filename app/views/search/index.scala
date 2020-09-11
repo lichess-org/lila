@@ -83,7 +83,7 @@ object index {
                   " • ",
                   permalink
                 ),
-                div(cls := "search__rows")(
+                div(cls := "search__rows infinite-scroll")(
                   views.html.game.widgets(pager.currentPageResults),
                   pagerNext(pager, np => routes.Search.index(np).url)
                 )

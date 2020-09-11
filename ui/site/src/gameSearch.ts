@@ -64,23 +64,13 @@ window.lichess.load.then(() => {
   $result.find("a.permalink").each(function(this: HTMLAnchorElement) {
     this.href = this.href.split('?')[0] + "?" + serialized;
   });
-  $result.find('.search__rows').each(function(this: HTMLTableRowElement) {
-    const table = this, next = table.querySelector(".pager a") as HTMLAnchorElement | null;
-    if (!next) return;
-    next.href = next.href + "&" + serialized;
-    /* $(table).infinitescroll({ */
-    /*   navSelector: ".pager", */
-    /*   nextSelector: $(next), */
-    /*   itemSelector: ".search__rows .paginated", */
-    /*   loading: { */
-    /*     msgText: "", */
-    /*     finishedMsg: "---" */
-    /*   } */
-    /* }, function() { */
-    /*   $("#infscr-loading").remove(); */
-    /*   window.lichess.contentLoaded(table); */
-    /* }); */
-  });
+
+  const updatePagerLink = () =>
+    $result.find('.infinite-scroll .pager a').each(function(this: HTMLAnchorElement) {
+      this.href = this.href + "&" + serialized;
+    });
+  updatePagerLink();
+  window.lichess.pubsub.on('content-loaded', updatePagerLink);
 
   $form.on('submit', () => {
     $form.find("input,select").filter(function(this: HTMLInputElement) { return !this.value; }).attr("disabled", "disabled");
