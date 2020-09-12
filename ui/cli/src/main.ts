@@ -10,7 +10,6 @@ export function app($wrap: Cash, toggle: () => void) {
       input: $input[0] as HTMLInputElement,
       friend: true,
       focus: true,
-      populate: r => r.name,
       onSelect: r => execute(r.name)
     });
     const close = () => {

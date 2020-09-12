@@ -24,7 +24,6 @@ export function input(ctrl: TournamentController): VNode {
             swiss: ctrl.data.id,
             tag: 'span',
             focus: true,
-            populate: r => r.name,
             onSelect(r) {
               ctrl.jumpToPageOf(r.id);
               ctrl.redraw();

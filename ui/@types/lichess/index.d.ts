@@ -88,7 +88,7 @@ interface UserCompleteOpts {
   input: HTMLInputElement,
   tag?: 'a' | 'span';
   minLength?: number;
-  populate: (result: LightUser) => string;
+  populate?: (result: LightUser) => string;
   onSelect?: (result: LightUser) => void;
   focus?: boolean;
   friend?: boolean;
