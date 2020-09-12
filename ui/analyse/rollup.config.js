@@ -10,4 +10,8 @@ export default rollupProject({
     input: 'src/plugins/nvui.ts',
     output: 'analysis-board.nvui',
   },
+  studyTopicForm: {
+    input: 'src/plugins/studyTopicForm.ts',
+    output: 'study.topic.form',
+  }
 });

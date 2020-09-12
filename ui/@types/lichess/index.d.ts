@@ -380,3 +380,7 @@ declare namespace PowerTip {
     closeEvents?: string[];
   }
 }
+
+declare module '@yaireo/tagify';
+
+declare var lichess: Lichess;
