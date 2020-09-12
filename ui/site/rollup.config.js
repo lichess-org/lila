@@ -173,7 +173,7 @@ export default rollupProject({
     name: 'LichessFlatpickr'
   },
   teamAdmin: {
-    input: 'src/team-admin.ts',
-    output: 'team-admin',
+    input: 'src/teamAdmin.ts',
+    output: 'team.admin',
   }
 });
