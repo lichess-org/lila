@@ -25,15 +25,12 @@ object home {
       moreJs = frag(
         infiniteScrollTag,
         jsModule("tournament.schedule"),
-        embedJsUnsafeLoadThen(
-          s"""const app=LichessTournamentSchedule.app(document.querySelector('.tour-chart'), ${safeJsonValue(
-            Json.obj(
-              "data" -> json,
-              "i18n" -> bits.jsI18n
-            )
-          )}),
-d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=app.update;"""
-        )
+        embedJsUnsafeLoadThen(s"""LichessTournamentSchedule(${safeJsonValue(
+          Json.obj(
+            "data" -> json,
+            "i18n" -> bits.jsI18n
+          )
+        )})""")
       ),
       openGraph = lila.app.ui
         .OpenGraph(

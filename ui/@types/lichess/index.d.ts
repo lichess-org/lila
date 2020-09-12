@@ -53,6 +53,7 @@ interface Lichess {
   StrongSocket: {
     new(url: string, version: number | false, cfg?: any): any;
     firstConnect: Promise<(tpe: string, data: any) => void>
+    defaultParams: Record<string, any>;
   }
 
   // timeago.js
