@@ -16,7 +16,7 @@ object admin {
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("team"), cssTag("tagify")),
-      moreJs = frag(tagifyTag, jsTag("team-admin.js"))
+      moreJs = jsModule("team-admin")
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),

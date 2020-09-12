@@ -33,11 +33,6 @@ export default rollupProject({
             ].map(require.resolve),
             dest: '../../public/vendor/highcharts-4.2.5',
           },
-          // jquery-bar-rating
-          {
-            src: require.resolve('jquery-bar-rating/dist/jquery.barrating.min.js'),
-            dest: '../../public/vendor/bar-rating/dist',
-          },
           // stockfish.js
           {
             src: [
@@ -176,5 +171,9 @@ export default rollupProject({
     input: 'src/flatpickr.ts',
     output: 'flatpickr',
     name: 'LichessFlatpickr'
+  },
+  teamAdmin: {
+    input: 'src/team-admin.ts',
+    output: 'team-admin',
   }
 });
