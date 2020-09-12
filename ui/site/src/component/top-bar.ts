@@ -72,7 +72,7 @@ export default function() {
           incoming,
           isVisible,
           setCount(nb: number) {
-            $toggle.find('span').data('count', '' + nb);
+            $toggle.find('span').data('count', nb);
           },
           show() {
             if (!isVisible()) $toggle.trigger('click');
