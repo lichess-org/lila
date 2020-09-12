@@ -2,7 +2,7 @@ import Tagify from '@yaireo/tagify'
 import debounce from 'debounce-promise';
 import * as xhr from 'common/xhr';
 
-window.lichess.load.then(() => {
+lichess.load.then(() => {
 
   const input = document.getElementById('form3-leaders') as HTMLInputElement;
 
@@ -13,7 +13,7 @@ window.lichess.load.then(() => {
     whitelist: input.value.trim().split(/\s*,\s*/)
   });
   const doFetch: (term: string) => Promise<string[]> = debounce(
-    (term: string) => xhr.json(`/player/autocomplete?term=${encodeURIComponent(term)}&names=1`),
+    (term: string) => xhr.json(xhr.url('/player/autocomplete', { term, names: 1 })),
     300
   );
   tagify.on('input', e => {
