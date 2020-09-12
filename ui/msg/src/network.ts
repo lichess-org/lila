@@ -2,6 +2,8 @@ import MsgCtrl from './ctrl';
 import { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
 import { json, form } from 'common/xhr';
 
+const li = window.lichess;
+
 export function loadConvo(userId: string): Promise<MsgData> {
   return json(`/inbox/${userId}`).then(upgradeData);
 }
@@ -47,19 +49,19 @@ export function report(name: string, text: string): Promise<any> {
 }
 
 export function post(dest: string, text: string) {
-  window.lichess.pubsub.emit('socket.send', 'msgSend', { dest, text });
+  li.pubsub.emit('socket.send', 'msgSend', { dest, text });
 }
 
 export function setRead(dest: string) {
-  window.lichess.pubsub.emit('socket.send', 'msgRead', dest);
+  li.pubsub.emit('socket.send', 'msgRead', dest);
 }
 
 export function typing(dest: string) {
-  window.lichess.pubsub.emit('socket.send', 'msgType', dest);
+  li.pubsub.emit('socket.send', 'msgType', dest);
 }
 
 export function websocketHandler(ctrl: MsgCtrl) {
-  const listen = window.lichess.pubsub.on;
+  const listen = li.pubsub.on;
   listen('socket.in.msgNew', msg => {
     ctrl.receive({
       ...upgradeMsg(msg),

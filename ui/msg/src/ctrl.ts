@@ -196,12 +196,12 @@ export default class MsgCtrl {
     if (this.textStore?.get()) network.typing(user);
   });
 
-  receiveTyping = (userId: string, cancel?: boolean) => {
+  receiveTyping = (userId: string, cancel?: any) => {
     if (this.typing) {
       clearTimeout(this.typing.timeout);
       this.typing = undefined;
     }
-    if (!cancel && this.data.convo?.user.id == userId) {
+    if (cancel !== true && this.data.convo?.user.id == userId) {
       this.typing = {
         user: userId,
         timeout: setTimeout(() => {

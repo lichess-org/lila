@@ -9,18 +9,10 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
   const open = prop(false);
   let followings: string[] = [];
   let spectators: string[] = [];
-  function updateFollowings(f: (prevs: string[]) => string[]) {
-    followings = f(followings);
+  window.lichess.pubsub.on('socket.in.following_onlines', (us: string[]) => {
+    followings = us;
     if (open()) redraw();
-  };
-  const pubsub = window.lichess.pubsub;
-  pubsub.on('socket.in.following_onlines', (us: string[]) => updateFollowings(_ => us));
-  pubsub.on('socket.in.following_leaves', (username: string) =>
-    updateFollowings(prevs => prevs.filter(u => username != u))
-  );
-  pubsub.on('socket.in.following_enters', (username: string) =>
-    updateFollowings(prevs => prevs.concat([username]))
-  );
+  });
   return {
     open,
     candidates() {
