@@ -11,8 +11,7 @@ export default function() {
   );
 
   $('#top').on('click', 'a.toggle', function(this: HTMLElement) {
-    const $p = $(this).parent();
-    $p.toggleClass('shown');
+    const $p = $(this).parent().toggleClass('shown');
     $p.siblings('.shown').removeClass('shown');
     pubsub.emit('top.toggle.' + this.id);
     setTimeout(() => {
@@ -65,7 +64,7 @@ export default function() {
     const load = (data?: any, incoming = false) => {
       if (booted) return;
       booted = true;
-      var $el = $('#notify-app').html(initiatingHtml);
+      const $el = $('#notify-app').html(initiatingHtml);
       loadCssPath('notify');
       loadScript(jsModule('notify')).then(() =>
         instance = window.LichessNotify($el.empty()[0], {
