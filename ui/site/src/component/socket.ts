@@ -31,14 +31,16 @@ interface Options {
   isAuth: boolean;
   debug?: boolean;
 }
+interface Params {
+  sri: Sri;
+  flag?: string;
+}
 interface Settings {
   receive?: (t: Tpe, d: Payload) => void;
   events: {
     [tpe: string]: (d: Payload | null, msg: MsgIn) => any;
   };
-  params?: {
-    sri: Sri;
-  };
+  params?: Params;
   options?: Partial<Options>;
 }
 
@@ -69,6 +71,9 @@ export default class StrongSocket {
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     isAuth: document.body.hasAttribute('user')
   };
+  static defaultParams: Params = {
+    sri: sri
+  }
 
   static resolveFirstConnect: (send: Send) => void;
   static firstConnect = new Promise<Send>(r => {
@@ -80,7 +85,7 @@ export default class StrongSocket {
       receive: settings.receive,
       events: settings.events || {},
       params: {
-        sri,
+        ...StrongSocket.defaultParams,
         ...settings.params || {}
       }
     };
