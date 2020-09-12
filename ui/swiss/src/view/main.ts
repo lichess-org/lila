@@ -59,7 +59,7 @@ function created(ctrl: SwissCtrl): MaybeVNodes {
 const notice = (ctrl: SwissCtrl): VNode | undefined => {
   const d = ctrl.data;
   return (d.me && !d.me.absent && d.status == 'started' && d.nextRound) ?
-  h('div.swiss__notice.bar-glider', ctrl.trans('standByX', d.me.name)) : undefined;
+    h('div.swiss__notice.bar-glider', ctrl.trans('standByX', d.me.name)) : undefined;
 }
 
 function started(ctrl: SwissCtrl): MaybeVNodes {
@@ -111,17 +111,19 @@ function nextRound(ctrl: SwissCtrl): VNode | undefined {
         value: ctrl.data.nextRound?.at || ''
       },
       hook: onInsert((el: HTMLInputElement) =>
-        setTimeout(() => $(el).flatpickr({
+        window['LichessFlatpickr'](el, {
           minDate: 'today',
           maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
           dateFormat: 'Z',
           altInput: true,
           altFormat: 'Y-m-d h:i K',
           enableTime: true,
+          monthSelectorType: 'static',
           onClose() {
-            (el.parentNode as HTMLFormElement).trigger('submit');
+            (el.parentNode as HTMLFormElement).submit();
           }
-        }), 600))
+        })
+      )
     })
   ]);
 }
@@ -154,15 +156,15 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
     }, ctrl.trans.noarg('join'));
 
   if (d.me && d.status != 'finished') return d.me.absent ? (ctrl.joinSpinner ? spinner() : h('button.fbt.text.highlight', {
-      attrs: dataIcon('G'),
-      hook: bind('click', _ => ctrl.join(), ctrl.redraw)
-    }, ctrl.trans.noarg('join'))) :
+    attrs: dataIcon('G'),
+    hook: bind('click', _ => ctrl.join(), ctrl.redraw)
+  }, ctrl.trans.noarg('join'))) :
     (ctrl.joinSpinner ? spinner() : h('button.fbt.text', {
       attrs: dataIcon('b'),
       hook: bind('click', ctrl.withdraw, ctrl.redraw)
     }, ctrl.trans.noarg('withdraw')));
 
-    return undefined;
+  return;
 }
 
 function joinTheGame(ctrl: SwissCtrl) {

@@ -202,8 +202,8 @@ trait FormHelper { self: I18nHelper =>
         div(cls := "form-group is-invalid")(error(err))
       }
 
-    def flatpickr(field: Field, withTime: Boolean = true): Frag =
-      input(field, klass = "flatpickr")(
+    def flatpickr(field: Field, withTime: Boolean = true, utc: Boolean = false): Tag =
+      input(field, klass = s"flatpickr${if (utc) " flatpickr-utc" else ""}")(
         dataEnableTime := withTime,
         datatime24h := withTime
       )

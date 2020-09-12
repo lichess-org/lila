@@ -20,8 +20,7 @@ object crud {
       title = title,
       moreCss = cssTag(css),
       moreJs = frag(
-        flatpickrTag,
-        delayFlatpickrStartUTC,
+        jsModule("flatpickr"),
         evenMoreJs
       )
     ) {
@@ -70,7 +69,9 @@ object crud {
   private def inForm(form: Form[_], tour: Option[Tournament])(implicit ctx: Context) =
     frag(
       form3.split(
-        form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
+        form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(
+          form3.flatpickr(_, utc = true)
+        ),
         form3.group(
           form("name"),
           raw("Name"),

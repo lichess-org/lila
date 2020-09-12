@@ -171,5 +171,10 @@ export default rollupProject({
     input: 'src/infinite-scroll.ts',
     output: 'infinite-scroll',
     name: 'InfiniteScroll'
+  },
+  flatpickr: {
+    input: 'src/flatpickr.ts',
+    output: 'flatpickr',
+    name: 'LichessFlatpickr'
   }
 });

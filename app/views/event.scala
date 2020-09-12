@@ -108,8 +108,12 @@ object event {
   private def inForm(form: Form[_])(implicit ctx: Context) =
     frag(
       form3.split(
-        form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
-        form3.group(form("finishesAt"), frag("End date ", strong(utcLink)), half = true)(form3.flatpickr(_))
+        form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(
+          form3.flatpickr(_, utc = true)
+        ),
+        form3.group(form("finishesAt"), frag("End date ", strong(utcLink)), half = true)(
+          form3.flatpickr(_, utc = true)
+        )
       ),
       form3.group(
         form("title"),
@@ -165,10 +169,7 @@ object event {
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
-      moreJs = frag(
-        flatpickrTag,
-        delayFlatpickrStartUTC
-      )
+      moreJs = jsModule("flatpickr")
     ) {
       main(cls := "page-menu")(
         mod.menu("event"),

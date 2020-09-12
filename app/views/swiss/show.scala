@@ -24,7 +24,7 @@ object show {
       title = s"${s.name} #${s.id}",
       moreJs = frag(
         jsModule("swiss"),
-        hasScheduleInput option flatpickrTag,
+        hasScheduleInput option jsModule("flatpickr"),
         embedJsUnsafeLoadThen(s"""LichessSwiss.start(${safeJsonValue(
           Json
             .obj(

@@ -11,8 +11,10 @@ window.lichess.load.then(() => {
     flatpickr(this, {
       minDate: 'today',
       maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31 * 3),
-      monthSelectorType: 'static'
+      monthSelectorType: 'static',
       ...config
     });
   });
 });
+
+export default flatpickr;

@@ -358,7 +358,6 @@ interface Cash {
   sparkline: any;
   clock: any;
   highcharts(conf?: any): any;
-  flatpickr(opts: any): any;
 }
 
 declare namespace PowerTip {
