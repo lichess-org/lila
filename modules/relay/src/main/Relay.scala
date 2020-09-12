@@ -2,7 +2,7 @@ package lila.relay
 
 import org.joda.time.DateTime
 
-import lila.study.{ Study }
+import lila.study.Study
 import lila.user.User
 
 case class Relay(
@@ -34,26 +34,30 @@ case class Relay(
     if (s.isEmpty) "-" else s
   }
 
-  def finish = copy(
-    finished = true,
-    sync = sync.pause
-  )
+  def finish =
+    copy(
+      finished = true,
+      sync = sync.pause
+    )
 
-  def resume = copy(
-    finished = false,
-    sync = sync.play
-  )
+  def resume =
+    copy(
+      finished = false,
+      sync = sync.play
+    )
 
-  def ensureStarted = copy(
-    startedAt = startedAt orElse DateTime.now.some
-  )
+  def ensureStarted =
+    copy(
+      startedAt = startedAt orElse DateTime.now.some
+    )
 
   def hasStarted = startedAt.isDefined
 
-  def shouldGiveUp = !hasStarted && (startsAt match {
-    case Some(at) => at.isBefore(DateTime.now minusHours 3)
-    case None => createdAt.isBefore(DateTime.now minusDays 1)
-  })
+  def shouldGiveUp =
+    !hasStarted && (startsAt match {
+      case Some(at) => at.isBefore(DateTime.now minusHours 3)
+      case None     => createdAt.isBefore(DateTime.now minusDays 1)
+    })
 
   def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
 
@@ -64,38 +68,44 @@ object Relay {
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  def makeId = Id(ornicar.scalalib.Random nextString 8)
+  def makeId = Id(lila.common.ThreadLocalRandom nextString 8)
 
   case class Sync(
-      upstream: Sync.Upstream,
-      until: Option[DateTime], // sync until then; resets on move
-      nextAt: Option[DateTime], // when to run next sync
-      delay: Option[Int], // override time between two sync (rare)
+      upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN
+      until: Option[DateTime],         // sync until then; resets on move
+      nextAt: Option[DateTime],        // when to run next sync
+      delay: Option[Int],              // override time between two sync (rare)
       log: SyncLog
   ) {
 
-    def renew = copy(
-      until = DateTime.now.plusHours(1).some
-    )
+    def hasUpstream = upstream.isDefined
+
+    def renew =
+      if (hasUpstream) copy(until = DateTime.now.plusHours(1).some)
+      else pause
+
     def ongoing = until ?? DateTime.now.isBefore
 
-    def play = renew.copy(
-      nextAt = nextAt orElse DateTime.now.plusSeconds(3).some
-    )
-    def pause = copy(
-      nextAt = none,
-      until = none
-    )
+    def play =
+      if (hasUpstream) renew.copy(nextAt = nextAt orElse DateTime.now.plusSeconds(3).some)
+      else pause
 
-    def seconds: Option[Int] = until map { u =>
-      (u.getSeconds - nowSeconds).toInt
-    } filter (0<)
+    def pause =
+      copy(
+        nextAt = none,
+        until = none
+      )
+
+    def seconds: Option[Int] =
+      until map { u =>
+        (u.getSeconds - nowSeconds).toInt
+      } filter (0 <)
 
     def playing = nextAt.isDefined
-    def paused = !playing
+    def paused  = !playing
 
     def addLog(event: SyncLog.Event) = copy(log = log add event)
-    def clearLog = copy(log = SyncLog.empty)
+    def clearLog                     = copy(log = SyncLog.empty)
 
     override def toString = upstream.toString
   }
@@ -103,13 +113,14 @@ object Relay {
   object Sync {
     case class Upstream(url: String) extends AnyVal {
       def isLocal = url.contains("://127.0.0.1") || url.contains("://localhost")
-      def withRound = url.split(" ", 2) match {
-        case Array(u, round) => UpstreamWithRound(u, parseIntOption(round))
-        case _ => UpstreamWithRound(url, none)
-      }
+      def withRound =
+        url.split(" ", 2) match {
+          case Array(u, round) => UpstreamWithRound(u, round.toIntOption)
+          case _               => UpstreamWithRound(url, none)
+        }
     }
     case class UpstreamWithRound(url: String, round: Option[Int])
-    val LccRegex = """.*view\.livechesscloud\.com/([0-9a-f\-]+)""".r
+    val LccRegex = """.*view\.livechesscloud\.com/#?([0-9a-f\-]+)""".r
   }
 
   case class WithStudy(relay: Relay, study: Study)

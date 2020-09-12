@@ -19,10 +19,11 @@ case class CorrespondenceClock(
 
   def moretimeable(c: Color) = remainingTime(c) < (increment - hourSeconds)
 
-  def giveTime(c: Color) = c.fold(
-    copy(whiteTime = whiteTime + daySeconds),
-    copy(blackTime = blackTime + daySeconds)
-  )
+  def giveTime(c: Color) =
+    c.fold(
+      copy(whiteTime = whiteTime + daySeconds),
+      copy(blackTime = blackTime + daySeconds)
+    )
 
   // in seconds
   def estimateTotalTime = increment * 40 / 2
@@ -33,5 +34,5 @@ case class CorrespondenceClock(
 private object CorrespondenceClock {
 
   private val hourSeconds = 60 * 60
-  private val daySeconds = 24 * hourSeconds
+  private val daySeconds  = 24 * hourSeconds
 }

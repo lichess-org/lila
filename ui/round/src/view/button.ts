@@ -82,9 +82,7 @@ export function standard(
   onclick?: () => void
 ): VNode {
   // disabled if condition callback is provided and is falsy
-  const enabled = function() {
-    return !condition || condition(ctrl.data);
-  };
+  const enabled = () => !condition || condition(ctrl.data);
   return h('button.fbt.' + socketMsg, {
     attrs: {
       disabled: !enabled(),
@@ -94,12 +92,13 @@ export function standard(
       if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
     })
   }, [
-    h('span', ctrl.nvui ? [ctrl.noarg(hint)] : util.justIcon(icon))
+    h('span', hint == 'offerDraw' ? ['½'] : (ctrl.nvui ? [ctrl.noarg(hint)] : util.justIcon(icon)))
   ]);
 }
 
-export function forceResign(ctrl: RoundController) {
-  return ctrl.forceResignable() ? h('div.suggestion', [
+export function opponentGone(ctrl: RoundController) {
+  const gone = ctrl.opponentGone();
+  return gone === true ? h('div.suggestion', [
     h('p', { hook: onSuggestionHook }, ctrl.noarg('opponentLeftChoices')),
     h('button.button', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force'))
@@ -107,29 +106,36 @@ export function forceResign(ctrl: RoundController) {
     h('button.button', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('draw-force'))
     }, ctrl.noarg('forceDraw'))
-  ]) : null;
+  ]) : (
+      gone ? h('div.suggestion', [
+        h('p', ctrl.trans.vdomPlural('opponentLeftCounter', gone, h('strong', '' + gone)))
+      ]) : null
+    );
 }
 
-function actConfirm(ctrl: RoundController, f: (v: boolean) => void, transKey: string, icon: string, klass?: string): VNode {
-  return h('div.act-confirm.' + transKey, [
-    h('button.fbt.yes.' + (klass || ''), {
-      attrs: { title: ctrl.noarg(transKey), 'data-icon': icon },
-      hook: util.bind('click', () => f(true))
+const fbtCancel = (ctrl: RoundController, f: (v: boolean) => void) =>
+  h('button.fbt.no', {
+    attrs: { title: ctrl.noarg('cancel'), 'data-icon': 'L' },
+    hook: util.bind('click', () => f(false))
+  });
+
+export const resignConfirm = (ctrl: RoundController): VNode =>
+  h('div.act-confirm', [
+    h('button.fbt.yes', {
+      attrs: { title: ctrl.noarg('resign'), 'data-icon': 'b' },
+      hook: util.bind('click', () => ctrl.resign(true))
     }),
-    h('button.fbt.no', {
-      attrs: { title: ctrl.noarg('cancel'), 'data-icon': 'L' },
-      hook: util.bind('click', () => f(false))
-    })
+    fbtCancel(ctrl, ctrl.resign)
   ]);
-}
 
-export function resignConfirm(ctrl: RoundController): VNode {
-  return actConfirm(ctrl, ctrl.resign, 'resign', 'b');
-}
-
-export function drawConfirm(ctrl: RoundController): VNode {
-  return actConfirm(ctrl, ctrl.offerDraw, 'offerDraw', '2', 'draw-yes');
-}
+export const drawConfirm = (ctrl: RoundController): VNode =>
+  h('div.act-confirm', [
+    h('button.fbt.yes.draw-yes', {
+      attrs: { title: ctrl.noarg('offerDraw') },
+      hook: util.bind('click', () => ctrl.offerDraw(true))
+    }, h('span', '½')),
+    fbtCancel(ctrl, ctrl.offerDraw)
+  ]);
 
 export function threefoldClaimDraw(ctrl: RoundController) {
   return ctrl.data.game.threefold ? h('div.suggestion', [
@@ -200,7 +206,7 @@ export function answerOpponentTakebackProposition(ctrl: RoundController) {
 
 export function submitMove(ctrl: RoundController): VNode | undefined {
   return (ctrl.moveToSubmit || ctrl.dropToSubmit) ? h('div.negotiation.move-confirm', [
-    h('p', ctrl.noarg('moveConfirmation')),
+    h('p', ctrl.noarg('confirmMove')),
     acceptButton(ctrl, 'confirm-yes', () => ctrl.submitMove(true)),
     declineButton(ctrl, () => ctrl.submitMove(false), 'cancel')
   ]) : undefined;
@@ -208,7 +214,7 @@ export function submitMove(ctrl: RoundController): VNode | undefined {
 
 export function backToTournament(ctrl: RoundController): VNode | undefined {
   const d = ctrl.data;
-  return (d.tournament && d.tournament.running) ? h('div.follow-up', [
+  return d.tournament?.running ? h('div.follow-up', [
     h('a.text.fbt.strong.glowing', {
       attrs: {
         'data-icon': 'G',
@@ -228,11 +234,25 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
   ]) : undefined;
 }
 
+export function backToSwiss(ctrl: RoundController): VNode | undefined {
+  const d = ctrl.data;
+  return d.swiss?.running ? h('div.follow-up', [
+    h('a.text.fbt.strong.glowing', {
+      attrs: {
+        'data-icon': 'G',
+        href: '/swiss/' + d.swiss.id
+      },
+      hook: util.bind('click', ctrl.setRedirecting)
+    }, ctrl.noarg('backToTournament')),
+    analysisButton(ctrl)
+  ]) : undefined;
+}
+
 export function moretime(ctrl: RoundController) {
   return game.moretimeable(ctrl.data) ? h('a.moretime', {
     attrs: {
       title: ctrl.data.clock ? ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime) :
-      ctrl.noarg('giveMoreTime'),
+        ctrl.noarg('giveMoreTime'),
       'data-icon': 'O'
     },
     hook: util.bind('click', ctrl.socket.moreTime)
@@ -241,7 +261,7 @@ export function moretime(ctrl: RoundController) {
 
 export function followUp(ctrl: RoundController): VNode {
   const d = ctrl.data,
-    rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted,
+    rematchable = !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.swiss && !d.game.boosted,
     newable = (status.finished(d) || status.aborted(d)) && (
       d.game.source === 'lobby' ||
       d.game.source === 'pool'),
@@ -253,7 +273,10 @@ export function followUp(ctrl: RoundController): VNode {
   return h('div.follow-up', [
     ...rematchZone,
     d.tournament ? h('a.fbt', {
-      attrs: {href: '/tournament/' + d.tournament.id}
+      attrs: { href: '/tournament/' + d.tournament.id }
+    }, ctrl.noarg('viewTournament')) : null,
+    d.swiss ? h('a.fbt', {
+      attrs: { href: '/swiss/' + d.swiss.id }
     }, ctrl.noarg('viewTournament')) : null,
     newable ? h('a.fbt', {
       attrs: { href: d.game.source === 'pool' ? poolUrl(d.clock!, d.opponent.user) : '/?hook_like=' + d.game.id },
@@ -264,18 +287,21 @@ export function followUp(ctrl: RoundController): VNode {
 
 export function watcherFollowUp(ctrl: RoundController): VNode | null {
   const d = ctrl.data,
-  content = [
-    d.game.rematch ? h('a.fbt.text', {
-      attrs: {
-        'data-icon': 'v',
-        href: `/${d.game.rematch}/${d.opponent.color}`
-      }
-    }, ctrl.noarg('viewRematch')) : null,
-    d.tournament ? h('a.fbt', {
-      attrs: {href: '/tournament/' + d.tournament.id}
-    }, ctrl.noarg('viewTournament')) : null,
-    analysisButton(ctrl)
-  ];
+    content = [
+      d.game.rematch ? h('a.fbt.text', {
+        attrs: {
+          'data-icon': 'v',
+          href: `/${d.game.rematch}/${d.opponent.color}`
+        }
+      }, ctrl.noarg('viewRematch')) : null,
+      d.tournament ? h('a.fbt', {
+        attrs: { href: '/tournament/' + d.tournament.id }
+      }, ctrl.noarg('viewTournament')) : null,
+      d.swiss ? h('a.fbt', {
+        attrs: { href: '/swiss/' + d.swiss.id }
+      }, ctrl.noarg('viewTournament')) : null,
+      analysisButton(ctrl)
+    ];
   return content.find(x => !!x) ? h('div.follow-up', content) : null;
 }
 

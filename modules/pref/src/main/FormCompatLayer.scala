@@ -1,6 +1,7 @@
 package lila.pref
 
 import play.api.mvc.Request
+import scala.util.chaining._
 
 // because the form structure has changed
 // and the mobile app keeps sending the old format
@@ -9,34 +10,43 @@ object FormCompatLayer {
   private type FormData = Map[String, Seq[String]]
 
   def apply(pref: Pref, req: Request[_]): FormData =
-    reqToFormData(req) |>
-      moveToAndRename("clock", List(
-        "clockTenths" -> "tenths",
-        "clockBar" -> "bar",
-        "clockSound" -> "sound",
-        "moretime" -> "moretime"
-      )) |>
-      addMissing("clock.moretime", pref.moretime.toString) |>
-      moveTo("behavior", List(
-        "moveEvent",
-        "premove",
-        "takeback",
-        "autoQueen",
-        "autoThreefold",
-        "submitMove",
-        "confirmResign",
-        "keyboardMove"
-      )) |>
-      moveTo("display", List(
-        "animation",
-        "captured",
-        "highlight",
-        "destination",
-        "coords",
-        "replay",
-        "pieceNotation",
-        "blindfold"
-      ))
+    reqToFormData(req) pipe
+      moveToAndRename(
+        "clock",
+        List(
+          "clockTenths" -> "tenths",
+          "clockBar"    -> "bar",
+          "clockSound"  -> "sound",
+          "moretime"    -> "moretime"
+        )
+      ) pipe
+      addMissing("clock.moretime", pref.moretime.toString) pipe
+      moveTo(
+        "behavior",
+        List(
+          "moveEvent",
+          "premove",
+          "takeback",
+          "autoQueen",
+          "autoThreefold",
+          "submitMove",
+          "confirmResign",
+          "keyboardMove"
+        )
+      ) pipe
+      moveTo(
+        "display",
+        List(
+          "animation",
+          "captured",
+          "highlight",
+          "destination",
+          "coords",
+          "replay",
+          "pieceNotation",
+          "blindfold"
+        )
+      )
 
   private def addMissing(path: String, default: String)(data: FormData): FormData =
     data.updated(path, data.get(path).filter(_.nonEmpty) | List(default))
@@ -54,7 +64,8 @@ object FormCompatLayer {
   private def reqToFormData(req: Request[_]): FormData = {
     (req.body match {
       case body: play.api.mvc.AnyContent if body.asFormUrlEncoded.isDefined => body.asFormUrlEncoded.get
-      case body: play.api.mvc.AnyContent if body.asMultipartFormData.isDefined => body.asMultipartFormData.get.asFormUrlEncoded
+      case body: play.api.mvc.AnyContent if body.asMultipartFormData.isDefined =>
+        body.asMultipartFormData.get.asFormUrlEncoded
       case _ => Map.empty[String, Seq[String]]
     }) ++ req.queryString
   }

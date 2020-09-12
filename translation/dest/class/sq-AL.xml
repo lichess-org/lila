@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessClasses">Mësimet</string>
+  <string name="teachClassesOfChessStudents">Mësoni klasë të studentëve të shahut me suiten e mjeteve të Lichess Classes.</string>
+  <string name="features">Karakteristikat</string>
+  <string name="quicklyGenerateSafeUsernames">Gjenero shpejtë emra përdorues dhe fjalëkalime të sigurta për studentët</string>
+  <string name="trackStudentProgress">Përcill progresin e nxënësit në lojëra dhe enigma</string>
+  <string name="messageAllStudents">Dërgo mesazh te të gjithë nxënësit për materiale të reja mësimore</string>
+  <string name="freeForAllForever">100% pa pagesë për të gjithë, pa reklama dhe gjurmues</string>
+  <string name="applyToBeLichessTeacher">Apliko për tu bërë Mësues i Lichess-it</string>
+  <string name="noClassesYet">Asnjë mësim deri më tani.</string>
+  <string name="teachersX">Mësuesit: %s</string>
+  <string name="newClass">Mësim i ri</string>
+  <string name="closeClass">Mbyll mësimin</string>
+  <string name="closedByX">Mbyllur nga %s</string>
+  <string name="reopen">Rihap</string>
+  <string name="removeStudent">Fshij nxënësin</string>
+  <string name="removedStudents">U fshi</string>
+  <string name="inviteTheStudentBack">Fto nxënësin përsëri</string>
+  <string name="sendAMessage">Dërgo një mesazh te të gjithë nxënësit.</string>
+  <string name="aLinkToTheClassWillBeAdded">Një link i mësimit do të shtohet automatikisht në fund të mesazhit, ashtuqë nuk keni nevojë ta shkruani ju vetë.</string>
+  <string name="className">Emri i mësimit</string>
+  <string name="classDescription">Përshkrimi i mësimit</string>
+  <string name="visibleByBothStudentsAndTeachers">E dukshme edhe nga mësuesit edhe nga nxënësit</string>
+  <string name="teachersOfTheClass">Mësuesit</string>
+  <string name="addLichessUsernames">Shto emra të përdoruesve të Lichess për ti ftuar ata si mësues. Një për linjë.</string>
+  <string name="theyMustFirstApply">Ata duhet te aplikojne per te qene Mesues Lichessi ne fillim.</string>
+  <string name="resetPassword">Rivendos fjalëkalimin</string>
+  <string name="makeSureToCopy">Sigurohu qe e kopjove ose e shkruajte dikund fjalekalimin tani. S\'do te keni mundesi ta shifni perseri!</string>
+  <string name="passwordX">Fjalekalimi: %s</string>
+  <string name="generateANewPassword">Gjenero nje fjalekalim te ri per studentin</string>
+  <string name="invitedToXByY">I ftuar ne %1$s nga %2$s</string>
+  <string name="realName">Emri i vertet</string>
+  <string name="privateWillNeverBeShown">Privat. Nuk do te tregohet kurre jashte klases. Ndihmon te kujtohesh kush eshte studenti.</string>
+  <string name="addStudent">Shto studentin</string>
+  <string name="lichessProfileXCreatedForY">Profil lichessi %1$s krijuar per %2$s.</string>
+  <string name="studentCredentials">Studenti: %1$s
+Nofka: %2$s
+Fjalekalimi: %3$s</string>
+  <string name="inviteALichessAccount">Fto nje llogari lichessi</string>
+  <string name="inviteDesc1">Nese studenti ka nje llogari Lichessi, mund ta ftoni ne klase.</string>
+  <string name="inviteDesc2">Ata do te marrin nje mesazh ne Lichess me nje adrese ku mund ti bashkangjiten klases.</string>
+  <string name="inviteDesc3">E rendesishme: ftoni vetem studente qe i njihni, dhe qe kane deshire te bashkangjiten ne klase.</string>
+  <string name="inviteDesc4">Kurre mos i dergoni ftesa lojtareve qe si njihni.</string>
+  <string name="createANewLichessAccount">Krijoni nje llogari te re Lichessi</string>
+  <string name="createDesc1">Nese studenti nuk ka nje llogari Lichessi, ju mund te krijoni nje per te ketu.</string>
+  <string name="createDesc2">Nuk nevojitet nje adrese emaili. Nje fjalekalim do te gjenerohet automatikisht, dhe ju mund tja jepni ate studentit, keshtu qe ata mund te hyjne ne lichess.</string>
+  <string name="createDesc3">E rendesishme: sudenti nuk duhet te kete shume llogari.</string>
+  <string name="createDesc4">Nese ata e kane nje llogari, atehere perdorni formularin e fteses.</string>
+  <string name="lichessUsername">Nofka e Lichessit</string>
+  <string name="generateANewUsername">Gjenero nje nofke</string>
+  <string name="welcomeToClass">Miresevini tek klasa: %s.
+Kjo eshte adresa per tu futur ne klase.</string>
+  <string name="invitationToClass">Jeni i ftuar per t\'ju bashkangjitur klasses \"%s\" si student.</string>
+  <string name="clickToViewInvitation">Klikoni adresen per te pare ftesen:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="one">Nje ftese ne pritje</item>
+    <item quantity="other">%s ftesa ne pritje</item>
+  </plurals>
+  <string name="noPendingInvitations">Ska ftesa ne pritje</string>
+  <string name="onlyVisibleToTeachers">E dukshme vetem nga mesuesi i klases</string>
+  <string name="lastActiveDate">Aktive</string>
+  <string name="managed">E menaxhuar</string>
+  <string name="thisStudentAccountIsManaged">Kjo llogari studenti menaxhohet</string>
+  <string name="upgradeFromManaged">Ngrije ne funksion nga llogari e menaxhuar ne llogari autonome</string>
+  <string name="release">Liroje</string>
+  <string name="releaseTheAccount">Liroje llogarine ne menyre te tille qe studenti ta menaxhoje vet ate.</string>
+  <string name="releaseDesc1">Nje llogari e liruar nuk mund te behet e menaxhuar perseri. Studenti do te jete i afte te vendosi vet gjendjen femije dhe te nderoje fjalekalimin.</string>
+  <string name="releaseDesc2">Sudenti do vazhdoje te jete ne klase mbasi llogarija e tyre lirohet.</string>
+  <string name="realUniqueEmail">Adresa e vertete e emailit qe eshte vetem e studentit. Ne do ti dergojme nje email konfirmues, me nje adrese interneti ku mund te liroje llogarine.</string>
+  <string name="teachers">Mesuesit</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Mesuesi</item>
+    <item quantity="other">%s mesuesit</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Nxënësi</item>
+    <item quantity="other">%s nxenes</item>
+  </plurals>
+  <string name="students">Nxenesit</string>
+  <string name="progress">Perparimi</string>
+  <string name="noStudents">Ska akoma studente ne klase.</string>
+  <string name="noRemovedStudents">Nuk ka studente te hequr.</string>
+  <string name="overDays">Brenda diteve</string>
+  <string name="timePlaying">Koha duke luajtur</string>
+  <string name="variantXOverLastY">%1$s over last %2$s</string>
+  <string name="winrate">Perqindja e fitoreve</string>
+  <string name="na">Nuk aplikohet</string>
+</resources>

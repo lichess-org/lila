@@ -1,15 +1,14 @@
-@import 'layout';
-@import 'app/app';
-@import 'puzzle';
-@import 'table';
-@import 'stream';
-@import 'spotlight';
-@import 'timeline';
-@import 'box';
-@import 'forum';
-@import 'blog';
-@import 'support';
-@import 'about';
+@import "layout";
+@import "app/app";
+@import "table";
+@import "stream";
+@import "spotlight";
+@import "timeline";
+@import "box";
+@import "forum";
+@import "blog";
+@import "support";
+@import "about";
 
 body {
   /* improves preload */
@@ -20,25 +19,45 @@ body {
   --main-max-width: 1400px;
 }
 
+%lobby__side__more {
+  @extend %roboto;
+
+  font-size: .9em;
+  margin: .5em 1em .5em 0;
+  display: block;
+  text-align: right;
+  color: $c-font-dim;
+
+  &:hover {
+    color: $c-link;
+  }
+}
+
 .lobby__side {
   @extend %flex-column;
+
   overflow: hidden;
 }
 
 .lobby__nope {
   @include lobby-app-size;
+
   text-align: center;
+
   .lobby__app__content {
     @extend %flex-column;
+
     height: 100%;
     align-items: center;
     padding-top: 2em;
   }
+
   ul {
     margin: .6em auto;
     display: inline-block;
     text-align: left;
   }
+
   li {
     list-style: disc outside;
     font-size: 1.1em;
@@ -48,30 +67,33 @@ body {
 .game-setup {
   display: none;
 }
+
 .about-side {
   margin-top: $block-gap;
 }
+
 @include breakpoint($mq-not-col3) {
   .about-side, .lobby__streams, .lobby__about {
     margin-left: $block-gap;
   }
 }
 
-#announce.fff {
-  background: $c-good;
-  .link {
-    @extend %flex-center-nowrap;
-    img {
-      width: 50px;
-      height: 50px;
-      margin: -25px 1rem -5px 0;
-    }
-  }
-  .close {
-    font-weight: bold;
-    margin-left: 2rem;
-  }
-  @include breakpoint($mq-not-col3) {
-    font-size: 1.1em;
+
+.lobby__tv .mini-game {
+  overflow: visible;
+}
+
+.lobby__puzzle .text {
+  color: $c-font-dim;
+  display: block;
+  text-align: right;
+  margin-right: 1ch;
+}
+
+.now-playing {
+  .meta {
+    @extend %flex-column;
+
+    align-items: center;
   }
 }

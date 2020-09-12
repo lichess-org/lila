@@ -1,8 +1,8 @@
 import { ops as treeOps } from 'tree';
 
-export default function(initialNode: Tree.Node, solution, color: Color) {
+export default function(initialNode: Tree.Node, solution: Tree.Node, color: Color): void {
 
-  treeOps.updateAll(solution, function(node) {
+  treeOps.updateAll(solution, node => {
     if ((color === 'white') === (node.ply % 2 === 1)) node.puzzle = 'good';
   });
 
@@ -10,4 +10,4 @@ export default function(initialNode: Tree.Node, solution, color: Color) {
 
   if (solutionNode) treeOps.merge(solutionNode, solution);
   else initialNode.children.push(solution);
-};
+}

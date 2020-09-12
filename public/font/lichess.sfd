@@ -21,7 +21,7 @@ OS2Version: 3
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 0
 CreationTime: 1554434404
-ModificationTime: 1573426620
+ModificationTime: 1598341544
 PfmFamily: 17
 TTFWeight: 400
 TTFWidth: 5
@@ -84,16 +84,17 @@ NameList: AGL For New Fonts
 DisplaySize: -48
 AntiAlias: 1
 FitToEm: 0
-WinInfo: 0 38 14
+WinInfo: 0 38 16
 Grid
 -512 468.027770996 m 0
  1024 468.027770996 l 1024
 EndSplineSet
-BeginChars: 65538 115
+BeginChars: 65538 112
 
 StartChar: .notdef
 Encoding: 0 -1 0
 AltUni2: 000000.ffffffff.0
+GlifName: _notdef
 Width: 512
 Flags: W
 LayerCount: 2
@@ -103,6 +104,7 @@ EndChar
 
 StartChar: uniE020
 Encoding: 57376 57376 1
+GlifName: uniE_020
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -132,6 +134,7 @@ EndChar
 
 StartChar: fontawesome-webfont-40
 Encoding: 33 33 2
+GlifName: fontawesome-webfont-40
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -184,6 +187,7 @@ EndChar
 
 StartChar: link
 Encoding: 34 34 3
+GlifName: link
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -241,6 +245,7 @@ EndChar
 
 StartChar: rabbit
 Encoding: 35 35 4
+GlifName: rabbit
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -342,6 +347,7 @@ EndChar
 
 StartChar: share-alt
 Encoding: 36 36 5
+GlifName: share-alt
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -383,6 +389,7 @@ EndChar
 
 StartChar: gear
 Encoding: 37 37 6
+GlifName: gear
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -445,6 +452,7 @@ EndChar
 
 StartChar: repo
 Encoding: 38 38 7
+GlifName: repo
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -513,6 +521,7 @@ EndChar
 
 StartChar: die-six
 Encoding: 39 39 8
+GlifName: die-six
 Width: 535
 GlyphClass: 2
 Flags: W
@@ -592,6 +601,7 @@ EndChar
 
 StartChar: flag
 Encoding: 40 40 9
+GlifName: flag
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -625,6 +635,7 @@ EndChar
 
 StartChar: flame
 Encoding: 41 41 10
+GlifName: flame
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -667,6 +678,7 @@ EndChar
 
 StartChar: feather
 Encoding: 42 42 11
+GlifName: feather
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -715,6 +727,7 @@ EndChar
 
 StartChar: turtle
 Encoding: 43 43 12
+GlifName: turtle
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -797,6 +810,7 @@ EndChar
 
 StartChar: nuclear
 Encoding: 44 44 13
+GlifName: nuclear
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1029,6 +1043,7 @@ EndChar
 
 StartChar: arrow-streamline-target
 Encoding: 45 45 14
+GlifName: arrow-streamline-target
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1152,6 +1167,7 @@ EndChar
 
 StartChar: buffer
 Encoding: 46 46 15
+GlifName: buffer
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1211,6 +1227,7 @@ EndChar
 
 StartChar: upload-cloud
 Encoding: 47 47 16
+GlifName: upload-cloud
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1248,6 +1265,7 @@ EndChar
 
 StartChar: fontawesome-webfont-42
 Encoding: 48 48 17
+GlifName: fontawesome-webfont-42
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1312,6 +1330,7 @@ EndChar
 
 StartChar: television-tv
 Encoding: 49 49 18
+GlifName: television-tv
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1360,81 +1379,9 @@ EndSplineSet
 Validated: 553
 EndChar
 
-StartChar: hand-stop
-Encoding: 50 50 19
-Width: 512
-GlyphClass: 2
-Flags: W
-LayerCount: 2
-Fore
-SplineSet
-32 384 m 2,0,-1
- 32 128 l 2,1,2
- 32 104 32 104 32.5 91 c 128,-1,3
- 33 78 33 78 38 57.5 c 128,-1,4
- 43 37 43 37 52.5 27 c 128,-1,5
- 62 17 62 17 81 8.5 c 128,-1,6
- 100 0 100 0 128 0 c 2,7,-1
- 256 0 l 2,8,9
- 306 0 306 0 326.5 22.5 c 128,-1,10
- 347 45 347 45 350 83 c 1,11,-1
- 473 236 l 2,12,13
- 490 258 490 258 471 279 c 1,14,15
- 440 302 440 302 415 302 c 0,16,17
- 385 302 385 302 361 279 c 2,18,-1
- 320 237 l 1,19,-1
- 320 448 l 2,20,21
- 320 462 320 462 311 471 c 128,-1,22
- 302 480 302 480 288 480 c 2,23,-1
- 256 480 l 1,24,25
- 256 494 256 494 247 503 c 128,-1,26
- 238 512 238 512 224 512 c 2,27,-1
- 192 512 l 2,28,29
- 178 512 178 512 169 503 c 128,-1,30
- 160 494 160 494 160 480 c 1,31,-1
- 128 480 l 2,32,33
- 114 480 114 480 105 471 c 128,-1,34
- 96 462 96 462 96 448 c 2,35,-1
- 96 416 l 1,36,-1
- 64 416 l 2,37,38
- 50 416 50 416 41 407 c 128,-1,39
- 32 398 32 398 32 384 c 2,0,-1
-64 384 m 1,40,-1
- 96 384 l 1,41,-1
- 96 256 l 1,42,-1
- 128 256 l 1,43,-1
- 128 448 l 1,44,-1
- 160 448 l 1,45,-1
- 160 256 l 1,46,-1
- 192 256 l 1,47,-1
- 192 480 l 1,48,-1
- 224 480 l 1,49,-1
- 224 256 l 1,50,-1
- 256 256 l 1,51,-1
- 256 448 l 1,52,-1
- 288 448 l 1,53,-1
- 288 192 l 1,54,-1
- 320 192 l 1,55,-1
- 384 256 l 2,56,57
- 398 270 398 270 415 270 c 0,58,59
- 423 270 423 270 431.5 266.5 c 128,-1,60
- 440 263 440 263 444 260 c 2,61,-1
- 448 256 l 1,62,-1
- 320 97 l 1,63,-1
- 320 96 l 1,64,-1
- 319 96 l 1,65,66
- 318 62 318 62 305.5 47 c 128,-1,67
- 293 32 293 32 256 32 c 2,68,-1
- 128 32 l 2,69,70
- 84 32 84 32 74 52 c 128,-1,71
- 64 72 64 72 64 128 c 2,72,-1
- 64 384 l 1,40,-1
-EndSplineSet
-Validated: 553
-EndChar
-
 StartChar: ionicons
-Encoding: 51 51 20
+Encoding: 51 51 19
+GlifName: ionicons
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1469,7 +1416,8 @@ Validated: 1
 EndChar
 
 StartChar: delicious
-Encoding: 52 52 21
+Encoding: 52 52 20
+GlifName: delicious
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1507,7 +1455,8 @@ Validated: 5
 EndChar
 
 StartChar: shield
-Encoding: 53 53 22
+Encoding: 53 53 21
+GlifName: shield
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1539,7 +1488,8 @@ Validated: 5
 EndChar
 
 StartChar: ink-pen
-Encoding: 54 54 23
+Encoding: 54 54 22
+GlifName: ink-pen
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1597,7 +1547,8 @@ Validated: 553
 EndChar
 
 StartChar: ionicons-1
-Encoding: 55 55 24
+Encoding: 55 55 23
+GlifName: ionicons-1
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1649,7 +1600,8 @@ Validated: 513
 EndChar
 
 StartChar: crown
-Encoding: 56 56 25
+Encoding: 56 56 24
+GlifName: crown
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1733,7 +1685,8 @@ Validated: 5
 EndChar
 
 StartChar: chart-line
-Encoding: 57 57 26
+Encoding: 57 57 25
+GlifName: chart-line
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1782,7 +1735,8 @@ Validated: 545
 EndChar
 
 StartChar: graduate-cap
-Encoding: 58 58 27
+Encoding: 58 58 26
+GlifName: graduate-cap
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1836,7 +1790,8 @@ Validated: 517
 EndChar
 
 StartChar: email-plane
-Encoding: 59 59 28
+Encoding: 59 59 27
+GlifName: email-plane
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1860,7 +1815,8 @@ Validated: 517
 EndChar
 
 StartChar: zoom-in
-Encoding: 60 60 29
+Encoding: 60 60 28
+GlifName: zoom-in
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1909,7 +1865,8 @@ Validated: 513
 EndChar
 
 StartChar: screen-full
-Encoding: 61 61 30
+Encoding: 61 61 29
+GlifName: screen-full
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -1959,7 +1916,8 @@ Validated: 521
 EndChar
 
 StartChar: atom
-Encoding: 62 62 31
+Encoding: 62 62 30
+GlifName: atom
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2064,7 +2022,8 @@ Validated: 41
 EndChar
 
 StartChar: list
-Encoding: 63 63 32
+Encoding: 63 63 31
+GlifName: list
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2180,7 +2139,8 @@ Validated: 1
 EndChar
 
 StartChar: antichess
-Encoding: 64 64 33
+Encoding: 64 64 32
+GlifName: antichess
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2310,7 +2270,8 @@ Validated: 41
 EndChar
 
 StartChar: microscope
-Encoding: 65 65 34
+Encoding: 65 65 33
+GlifName: microscope
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2373,7 +2334,8 @@ Validated: 41
 EndChar
 
 StartChar: loop-alt2
-Encoding: 66 66 35
+Encoding: 66 66 34
+GlifName: loop-alt2
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2425,7 +2387,8 @@ Validated: 513
 EndChar
 
 StartChar: crown-king-1
-Encoding: 67 67 36
+Encoding: 67 67 35
+GlifName: crown-king-1
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2474,7 +2437,8 @@ Validated: 521
 EndChar
 
 StartChar: fontawesome-webfont-24
-Encoding: 68 68 37
+Encoding: 68 68 36
+GlifName: fontawesome-webfont-24
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2501,7 +2465,8 @@ Validated: 545
 EndChar
 
 StartChar: fontawesome-webfont-25
-Encoding: 69 69 38
+Encoding: 69 69 37
+GlifName: fontawesome-webfont-25
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2531,7 +2496,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-26
-Encoding: 70 70 39
+Encoding: 70 70 38
+GlifName: fontawesome-webfont-26
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2599,7 +2565,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-27
-Encoding: 71 71 40
+Encoding: 71 71 39
+GlifName: fontawesome-webfont-27
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2621,7 +2588,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-28
-Encoding: 72 72 41
+Encoding: 72 72 40
+GlifName: fontawesome-webfont-28
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2650,7 +2618,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-29
-Encoding: 73 73 42
+Encoding: 73 73 41
+GlifName: fontawesome-webfont-29
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2679,7 +2648,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-30
-Encoding: 74 74 43
+Encoding: 74 74 42
+GlifName: fontawesome-webfont-30
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2704,7 +2674,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-31
-Encoding: 75 75 44
+Encoding: 75 75 43
+GlifName: fontawesome-webfont-31
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2742,7 +2713,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-32
-Encoding: 76 76 45
+Encoding: 76 76 44
+GlifName: fontawesome-webfont-32
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2783,7 +2755,8 @@ Validated: 513
 EndChar
 
 StartChar: arrow-full-lowerright
-Encoding: 77 77 46
+Encoding: 77 77 45
+GlifName: arrow-full-lowerright
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2803,7 +2776,8 @@ Validated: 521
 EndChar
 
 StartChar: arrow-full-upperright
-Encoding: 78 78 47
+Encoding: 78 78 46
+GlifName: arrow-full-upperright
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2823,7 +2797,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-33
-Encoding: 79 79 48
+Encoding: 79 79 47
+GlifName: fontawesome-webfont-33
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2877,7 +2852,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-41
-Encoding: 80 80 49
+Encoding: 80 80 48
+GlifName: fontawesome-webfont-41
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2929,7 +2905,8 @@ Validated: 545
 EndChar
 
 StartChar: burning-fire
-Encoding: 81 81 50
+Encoding: 81 81 49
+GlifName: burning-fire
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -2989,7 +2966,8 @@ Validated: 553
 EndChar
 
 StartChar: arrow-sans-down
-Encoding: 82 82 51
+Encoding: 82 82 50
+GlifName: arrow-sans-down
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3005,7 +2983,8 @@ Validated: 521
 EndChar
 
 StartChar: arrow-sans-up
-Encoding: 83 83 52
+Encoding: 83 83 51
+GlifName: arrow-sans-up
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3021,43 +3000,140 @@ Validated: 521
 EndChar
 
 StartChar: fontawesome-webfont-34
-Encoding: 84 84 53
+Encoding: 84 84 52
+GlifName: fontawesome-webfont-34
 Width: 512
 GlyphClass: 2
-Flags: W
 LayerCount: 2
 Fore
 SplineSet
-381 350 m 0,0,1
- 386 344 386 344 383 338 c 2,2,-1
- 229 7 l 2,3,4
- 225 0 225 0 217 0 c 0,5,6
- 214 0 214 0 213 1 c 0,7,8
- 207 2 207 2 205 6 c 0,9,10
- 203 12 203 12 204 15 c 2,11,-1
- 260 245 l 1,12,-1
- 144 217 l 2,13,14
- 144 216 144 216 141 216 c 0,15,16
- 135 216 135 216 132 219 c 0,17,18
- 127 224 127 224 128 231 c 2,19,-1
- 186 466 l 2,20,21
- 186 469 186 469 190 473 c 0,22,23
- 193 475 193 475 198 475 c 2,24,-1
- 292 475 l 2,25,26
- 298 475 298 475 301 472 c 0,27,28
- 305 468 305 468 305 463 c 0,29,30
- 305 462 305 462 303 458 c 2,31,-1
- 255 326 l 1,32,-1
- 368 354 l 1,33,-1
- 369 354 l 2,34,35
- 370 355 370 355 371 355 c 0,36,37
- 376 355 376 355 381 350 c 0,0,1
+198.686523438 350.911132812 m 5,0,1
+ 206.57421875 351.729492188 206.57421875 351.729492188 223.322265625 351.864257812 c 4,2,3
+ 360.80859375 351.138671875 360.80859375 351.138671875 459.08203125 264.416992188 c 5,4,5
+ 368.12890625 318.12890625 368.12890625 318.12890625 219.860351562 318.12890625 c 4,6,7
+ 203.37109375 318.12890625 203.37109375 318.12890625 191.560546875 317.393554688 c 5,8,9
+ 197.240234375 345.703125 197.240234375 345.703125 198.686523438 350.911132812 c 5,0,1
+464.181640625 261.314453125 m 5,10,11
+ 363.880859375 352.959960938 363.880859375 352.959960938 221.493164062 352.959960938 c 4,12,13
+ 198.689453125 352.959960938 198.689453125 352.959960938 197.836914062 351.735351562 c 132,-1,14
+ 197.055664062 350.609375 197.055664062 350.609375 190.198242188 316.196289062 c 5,15,16
+ 201.737304688 317.029296875 201.737304688 317.029296875 219.860351562 317.029296875 c 4,17,18
+ 372.454101562 317.029296875 372.454101562 317.029296875 463.521484375 260.44140625 c 5,19,-1
+ 464.181640625 261.314453125 l 5,10,11
+139.873046875 245.994140625 m 132,-1,21
+ 139.873046875 294.934570312 139.873046875 294.934570312 150.520507812 334.354492188 c 132,-1,22
+ 161.166992188 373.774414062 161.166992188 373.774414062 174.19921875 375.702148438 c 4,23,24
+ 195.446289062 379.247070312 195.446289062 379.247070312 225.848632812 379.247070312 c 4,25,26
+ 249.7421875 379.170898438 249.7421875 379.170898438 273.66796875 376.475585938 c 132,-1,27
+ 297.594726562 373.780273438 297.594726562 373.780273438 329.962890625 365.134765625 c 132,-1,28
+ 362.331054688 356.489257812 362.331054688 356.489257812 391.658203125 342.559570312 c 132,-1,29
+ 420.986328125 328.62890625 420.986328125 328.62890625 452.965820312 303.734375 c 132,-1,30
+ 484.946289062 278.838867188 484.946289062 278.838867188 510.811523438 245.994140625 c 5,31,32
+ 478.686523438 205.19921875 478.686523438 205.19921875 438.606445312 176.889648438 c 132,-1,33
+ 398.52734375 148.579101562 398.52734375 148.579101562 358.434570312 135.663085938 c 132,-1,34
+ 318.340820312 122.747070312 318.340820312 122.747070312 286.868164062 117.743164062 c 132,-1,35
+ 255.395507812 112.739257812 255.395507812 112.739257812 224.603515625 112.739257812 c 6,36,-1
+ 174.216796875 116.284179688 l 6,37,38
+ 161.184570312 118.212890625 161.184570312 118.212890625 150.528320312 157.637695312 c 132,-1,20
+ 139.873046875 197.061523438 139.873046875 197.061523438 139.873046875 245.994140625 c 132,-1,21
+44.546875 347.490234375 m 5,39,-1
+ 130.40234375 364.662109375 l 5,40,-1
+ 108.689453125 327.975585938 l 5,41,-1
+ 35.470703125 331.9296875 l 5,42,-1
+ 44.546875 347.490234375 l 5,39,-1
+132.604492188 366.223632812 m 5,43,44
+ 124.600585938 364.58984375 124.600585938 364.58984375 92.6748046875 358.254882812 c 132,-1,45
+ 60.75 351.919921875 60.75 351.919921875 43.720703125 348.2578125 c 5,46,47
+ 38.38671875 339.112304688 38.38671875 339.112304688 33.6123046875 330.928710938 c 5,48,-1
+ 109.295898438 326.840820312 l 5,49,-1
+ 132.604492188 366.223632812 l 5,43,44
+105.588867188 245.997070312 m 132,-1,51
+ 105.588867188 239.866210938 105.588867188 239.866210938 107.676757812 227.078125 c 5,52,-1
+ 0.8759765625 239.6484375 l 5,53,-1
+ 0.8759765625 252.345703125 l 5,54,-1
+ 107.676757812 264.916015625 l 5,55,50
+ 105.588867188 252.1328125 105.588867188 252.1328125 105.588867188 245.997070312 c 132,-1,51
+-0.224609375 253.323242188 m 5,56,-1
+ -0.224609375 238.670898438 l 5,57,-1
+ 109.00390625 225.815429688 l 5,58,59
+ 106.688476562 239.528320312 106.688476562 239.528320312 106.688476562 245.997070312 c 132,-1,60
+ 106.688476562 252.552734375 106.688476562 252.552734375 109.00390625 266.178710938 c 5,61,-1
+ -0.224609375 253.323242188 l 5,56,-1
+108.689453125 164.01953125 m 5,62,-1
+ 130.40234375 127.333007812 l 5,63,-1
+ 44.546875 144.50390625 l 5,64,-1
+ 35.470703125 160.065429688 l 5,65,-1
+ 108.689453125 164.01953125 l 5,62,-1
+132.604492188 125.770507812 m 5,66,-1
+ 109.295898438 165.154296875 l 5,67,-1
+ 33.6123046875 161.06640625 l 5,68,-1
+ 43.8466796875 143.522460938 l 5,69,-1
+ 132.604492188 125.770507812 l 5,66,-1
+225.842773438 380.346679688 m 6,70,-1
+ 174.038085938 376.7890625 l 6,71,72
+ 160.137695312 374.733398438 160.137695312 374.733398438 149.455078125 335.065429688 c 132,-1,73
+ 138.7734375 295.397460938 138.7734375 295.397460938 138.7734375 245.994140625 c 132,-1,74
+ 138.7734375 196.587890625 138.7734375 196.587890625 149.447265625 156.923828125 c 132,-1,75
+ 160.12109375 117.258789062 160.12109375 117.258789062 174.01953125 115.201171875 c 4,76,77
+ 194.501953125 111.639648438 194.501953125 111.639648438 224.603515625 111.639648438 c 4,78,79
+ 244.158203125 111.639648438 244.158203125 111.639648438 264.064453125 113.635742188 c 132,-1,80
+ 283.971679688 115.631835938 283.971679688 115.631835938 309.5546875 120.545898438 c 132,-1,81
+ 335.138671875 125.459960938 335.138671875 125.459960938 360.614257812 135.365234375 c 132,-1,82
+ 386.08984375 145.270507812 386.08984375 145.270507812 412.268554688 159.419921875 c 132,-1,83
+ 438.447265625 173.569335938 438.447265625 173.569335938 464.358398438 195.817382812 c 132,-1,84
+ 490.26953125 218.065429688 490.26953125 218.065429688 512.2109375 245.994140625 c 5,85,86
+ 480.134765625 286.823242188 480.134765625 286.823242188 440.143554688 315.256835938 c 132,-1,87
+ 400.153320312 343.690429688 400.153320312 343.690429688 360.123046875 356.805664062 c 132,-1,88
+ 320.092773438 369.920898438 320.092773438 369.920898438 288.453125 375.084960938 c 132,-1,89
+ 256.813476562 380.249023438 256.813476562 380.249023438 225.842773438 380.346679688 c 6,70,-1
+131.502929688 126.551757812 m 5,90,-1
+ 44.197265625 144.013671875 l 5,91,-1
+ 34.5419921875 160.56640625 l 5,92,-1
+ 108.993164062 164.586914062 l 5,93,-1
+ 131.502929688 126.551757812 l 5,90,-1
+108.338867188 265.546875 m 5,94,95
+ 106.138671875 252.54296875 106.138671875 252.54296875 106.138671875 245.997070312 c 6,96,-1
+ 108.338867188 226.446289062 l 5,97,-1
+ 0.326171875 239.16015625 l 5,98,-1
+ 0.326171875 252.834960938 l 5,99,-1
+ 108.338867188 265.546875 l 5,94,95
+131.502929688 365.443359375 m 5,100,-1
+ 108.993164062 327.408203125 l 5,101,-1
+ 34.5419921875 331.428710938 l 5,102,-1
+ 44.197265625 347.981445312 l 5,103,-1
+ 131.502929688 365.443359375 l 5,100,-1
+225.850585938 379.796875 m 5,104,105
+ 256.736328125 379.700195312 256.736328125 379.700195312 288.23828125 374.587890625 c 132,-1,106
+ 319.741210938 369.475585938 319.741210938 369.475585938 359.711914062 356.442382812 c 132,-1,107
+ 399.682617188 343.408203125 399.682617188 343.408203125 439.594726562 315.0703125 c 132,-1,108
+ 479.506835938 286.731445312 479.506835938 286.731445312 511.510742188 245.994140625 c 5,109,110
+ 474.640625 199.060546875 474.640625 199.060546875 426.326171875 168.379882812 c 132,-1,111
+ 378.01171875 137.698242188 378.01171875 137.698242188 335.393554688 127.435546875 c 132,-1,112
+ 292.776367188 117.172851562 292.776367188 117.172851562 255.42578125 113.614257812 c 132,-1,113
+ 218.075195312 110.056640625 218.075195312 110.056640625 196.096679688 112.899414062 c 6,114,-1
+ 174.118164062 115.743164062 l 6,115,116
+ 167.557617188 116.713867188 167.557617188 116.713867188 161.177734375 128.026367188 c 132,-1,117
+ 154.796875 139.338867188 154.796875 139.338867188 150.009765625 157.025390625 c 132,-1,118
+ 145.22265625 174.711914062 145.22265625 174.711914062 142.2734375 198.27734375 c 132,-1,119
+ 139.323242188 221.842773438 139.323242188 221.842773438 139.323242188 245.994140625 c 4,120,121
+ 139.323242188 295.166015625 139.323242188 295.166015625 149.98828125 334.709960938 c 132,-1,122
+ 160.65234375 374.25390625 160.65234375 374.25390625 174.118164062 376.245117188 c 6,123,-1
+ 225.850585938 379.796875 l 5,104,105
+223.23046875 352.40625 m 4,124,-1
+ 198.2890625 351.420898438 l 5,125,-1
+ 190.87890625 316.796875 l 5,126,127
+ 197.555664062 317.26953125 197.555664062 317.26953125 209.266601562 317.661132812 c 132,-1,128
+ 220.977539062 318.052734375 220.977539062 318.052734375 255.147460938 316.422851562 c 132,-1,129
+ 289.317382812 314.793945312 289.317382812 314.793945312 321.165039062 309.986328125 c 132,-1,130
+ 353.012695312 305.178710938 353.012695312 305.178710938 393.171875 292.513671875 c 132,-1,131
+ 433.331054688 279.848632812 433.331054688 279.848632812 463.811523438 260.908203125 c 5,132,133
+ 364.486328125 351.662109375 364.486328125 351.662109375 223.23046875 352.40625 c 4,124,-1
 EndSplineSet
-Validated: 513
 EndChar
 
 StartChar: crossed-swords-small
-Encoding: 85 85 54
+Encoding: 85 85 53
+GlifName: crossed-swords-small
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3104,7 +3180,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-35
-Encoding: 86 86 55
+Encoding: 86 86 54
+GlifName: fontawesome-webfont-35
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3149,7 +3226,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-36
-Encoding: 87 87 56
+Encoding: 87 87 55
+GlifName: fontawesome-webfont-36
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3194,7 +3272,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-37
-Encoding: 88 88 57
+Encoding: 88 88 56
+GlifName: fontawesome-webfont-37
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3229,7 +3308,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-38
-Encoding: 89 89 58
+Encoding: 89 89 57
+GlifName: fontawesome-webfont-38
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3264,7 +3344,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-39
-Encoding: 90 90 59
+Encoding: 90 90 58
+GlifName: fontawesome-webfont-39
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3302,7 +3383,8 @@ Validated: 513
 EndChar
 
 StartChar: reorder
-Encoding: 91 91 60
+Encoding: 91 91 59
+GlifName: reorder
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3347,7 +3429,8 @@ Validated: 1
 EndChar
 
 StartChar: earth-globe-streamline
-Encoding: 92 92 61
+Encoding: 92 92 60
+GlifName: earth-globe-streamline
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3413,7 +3496,8 @@ Validated: 553
 EndChar
 
 StartChar: book
-Encoding: 93 93 62
+Encoding: 93 93 61
+GlifName: book
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3515,7 +3599,8 @@ Validated: 33
 EndChar
 
 StartChar: graph
-Encoding: 94 94 63
+Encoding: 94 94 62
+GlifName: graph
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3567,7 +3652,8 @@ Validated: 9
 EndChar
 
 StartChar: keypad
-Encoding: 95 95 64
+Encoding: 95 95 63
+GlifName: keypad
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3669,7 +3755,8 @@ Validated: 1
 EndChar
 
 StartChar: body-cut
-Encoding: 96 96 65
+Encoding: 96 96 64
+GlifName: body-cut
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3859,7 +3946,8 @@ Validated: 553
 EndChar
 
 StartChar: fontawesome-webfont-1
-Encoding: 97 97 66
+Encoding: 97 97 65
+GlifName: fontawesome-webfont-1
 Width: 642
 VWidth: 1000
 GlyphClass: 2
@@ -3896,11 +3984,12 @@ SplineSet
  484.40625 262.6875 484.40625 262.6875 492.84375 254.25 c 132,-1,31
  501.28125 245.8125 501.28125 245.8125 501.84375 232.875 c 6,8,-1
 EndSplineSet
-Validated: 524833
+Validated: 545
 EndChar
 
 StartChar: fontawesome-webfont-2
-Encoding: 98 98 67
+Encoding: 98 98 66
+GlifName: fontawesome-webfont-2
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -3975,7 +4064,8 @@ Validated: 545
 EndChar
 
 StartChar: fontawesome-webfont-3
-Encoding: 99 99 68
+Encoding: 99 99 67
+GlifName: fontawesome-webfont-3
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4040,7 +4130,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-4
-Encoding: 100 100 69
+Encoding: 100 100 68
+GlifName: fontawesome-webfont-4
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4140,7 +4231,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-5
-Encoding: 101 101 70
+Encoding: 101 101 69
+GlifName: fontawesome-webfont-5
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4207,7 +4299,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-6
-Encoding: 102 102 71
+Encoding: 102 102 70
+GlifName: fontawesome-webfont-6
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4300,7 +4393,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-7
-Encoding: 103 103 72
+Encoding: 103 103 71
+GlifName: fontawesome-webfont-7
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4369,7 +4463,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-8
-Encoding: 104 104 73
+Encoding: 104 104 72
+GlifName: fontawesome-webfont-8
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4466,7 +4561,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont
-Encoding: 105 105 74
+Encoding: 105 105 73
+GlifName: fontawesome-webfont
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4514,7 +4610,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-9
-Encoding: 106 106 75
+Encoding: 106 106 74
+GlifName: fontawesome-webfont-9
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4565,7 +4662,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-10
-Encoding: 107 107 76
+Encoding: 107 107 75
+GlifName: fontawesome-webfont-10
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4609,7 +4707,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-11
-Encoding: 108 108 77
+Encoding: 108 108 76
+GlifName: fontawesome-webfont-11
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4642,7 +4741,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-12
-Encoding: 109 109 78
+Encoding: 109 109 77
+GlifName: fontawesome-webfont-12
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4686,7 +4786,8 @@ Validated: 513
 EndChar
 
 StartChar: cogs
-Encoding: 110 110 79
+Encoding: 110 110 78
+GlifName: cogs
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4887,7 +4988,8 @@ Validated: 1
 EndChar
 
 StartChar: tag
-Encoding: 111 111 80
+Encoding: 111 111 79
+GlifName: tag
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4937,7 +5039,8 @@ Validated: 9
 EndChar
 
 StartChar: fontawesome-webfont-15
-Encoding: 112 112 81
+Encoding: 112 112 80
+GlifName: fontawesome-webfont-15
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -4992,7 +5095,8 @@ Validated: 513
 EndChar
 
 StartChar: trash-bin
-Encoding: 113 113 82
+Encoding: 113 113 81
+GlifName: trash-bin
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5090,7 +5194,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-17
-Encoding: 114 114 83
+Encoding: 114 114 82
+GlifName: fontawesome-webfont-17
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5139,7 +5244,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-18
-Encoding: 115 115 84
+Encoding: 115 115 83
+GlifName: fontawesome-webfont-18
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5186,7 +5292,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-19
-Encoding: 116 116 85
+Encoding: 116 116 84
+GlifName: fontawesome-webfont-19
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5223,7 +5330,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-20
-Encoding: 117 117 86
+Encoding: 117 117 85
+GlifName: fontawesome-webfont-20
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5247,7 +5355,8 @@ Validated: 513
 EndChar
 
 StartChar: eye-view-1
-Encoding: 118 118 87
+Encoding: 118 118 86
+GlifName: eye-view-1
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5287,7 +5396,8 @@ Validated: 553
 EndChar
 
 StartChar: fontawesome-webfont-21
-Encoding: 119 119 88
+Encoding: 119 119 87
+GlifName: fontawesome-webfont-21
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5343,7 +5453,8 @@ Validated: 545
 EndChar
 
 StartChar: fontawesome-webfont-22
-Encoding: 120 120 89
+Encoding: 120 120 88
+GlifName: fontawesome-webfont-22
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5409,7 +5520,8 @@ Validated: 545
 EndChar
 
 StartChar: search-find
-Encoding: 121 121 90
+Encoding: 121 121 89
+GlifName: search-find
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5451,7 +5563,8 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-23
-Encoding: 122 122 91
+Encoding: 122 122 90
+GlifName: fontawesome-webfont-23
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5498,117 +5611,72 @@ Validated: 513
 EndChar
 
 StartChar: pointer
-Encoding: 123 123 92
+Encoding: 123 123 91
+GlifName: pointer
 Width: 512
 GlyphClass: 2
-Flags: W
 LayerCount: 2
 Fore
 SplineSet
-459 214 m 2,0,1
- 467 206 467 206 463 194 c 0,2,3
- 458 183 458 183 446 183 c 2,4,-1
- 337 183 l 1,5,-1
- 394 47 l 2,6,7
- 397 39 397 39 394 33 c 0,8,9
- 391 26 391 26 385 23 c 2,10,-1
- 334 1 l 2,11,12
- 327 0 327 0 320 1 c 0,13,14
- 314 4 314 4 310 11 c 2,15,-1
- 255 140 l 1,16,-1
- 166 51 l 2,17,18
- 161 46 161 46 153 46 c 0,19,20
- 149 46 149 46 147 47 c 0,21,22
- 135 51 135 51 135 64 c 2,23,-1
- 135 494 l 2,24,25
- 135 505 135 505 147 511 c 0,26,27
- 149 512 149 512 153 512 c 0,28,29
- 161 512 161 512 166 507 c 2,30,-1
- 459 214 l 2,0,1
+299.43359375 397.6640625 m 5,0,1
+ 305.479492188 396.5 305.479492188 396.5 313.684570312 392.483398438 c 4,2,3
+ 322.650390625 388.419921875 322.650390625 388.419921875 349.352539062 375.822265625 c 4,4,5
+ 375.169921875 363.169921875 375.169921875 363.169921875 400.827148438 346.7109375 c 4,6,7
+ 425.669921875 330.849609375 425.669921875 330.849609375 457.3125 303.424804688 c 4,8,9
+ 489.299804688 276.309570312 489.299804688 276.309570312 513.194335938 244.997070312 c 5,10,11
+ 474.150390625 195.509765625 474.150390625 195.509765625 421.208007812 157.525390625 c 4,12,13
+ 367.25 119.155273438 367.25 119.155273438 333.6015625 105.846679688 c 6,14,-1
+ 299.43359375 92.3330078125 l 5,15,-1
+ 299.43359375 131.500976562 l 5,16,-1
+ 122.244140625 129.919921875 l 5,17,-1
+ 168.831054688 197.76953125 l 5,18,-1
+ 0.8115234375 244.998046875 l 5,19,-1
+ 168.831054688 292.2265625 l 5,20,-1
+ 122.244140625 360.077148438 l 5,21,-1
+ 299.43359375 358.49609375 l 5,22,-1
+ 299.43359375 397.6640625 l 5,0,1
+332.590820312 339.741210938 m 5,23,-1
+ 332.590820312 315.43359375 l 5,24,-1
+ 206.97265625 316.4140625 l 5,25,-1
+ 235.883789062 274.307617188 l 5,26,-1
+ 110.46484375 244.998046875 l 5,27,-1
+ 235.883789062 215.688476562 l 5,28,-1
+ 206.97265625 173.58203125 l 5,29,-1
+ 332.590820312 174.5625 l 5,30,-1
+ 332.590820312 150.254882812 l 5,31,32
+ 335.481445312 151.3125 335.481445312 151.3125 340.588867188 153.467773438 c 132,-1,33
+ 345.697265625 155.623046875 345.697265625 155.623046875 360.848632812 163.80859375 c 132,-1,34
+ 376 171.994140625 376 171.994140625 390.415039062 181.875 c 132,-1,35
+ 404.829101562 191.756835938 404.829101562 191.756835938 423.592773438 208.73828125 c 132,-1,36
+ 442.356445312 225.721679688 442.356445312 225.721679688 457.427734375 244.998046875 c 5,37,38
+ 433.502929688 275.596679688 433.502929688 275.596679688 402.293945312 299.282226562 c 132,-1,39
+ 371.084960938 322.96875 371.084960938 322.96875 351.836914062 331.35546875 c 6,40,-1
+ 332.590820312 339.741210938 l 5,23,-1
+302.104492188 294.483398438 m 5,41,42
+ 371.03515625 294.26953125 371.03515625 294.26953125 410.89453125 244.999023438 c 5,43,44
+ 388.60546875 217.44921875 388.60546875 217.44921875 356.484375 205.40625 c 132,-1,45
+ 324.362304688 193.36328125 324.362304688 193.36328125 303.383789062 195.096679688 c 6,46,-1
+ 282.40625 196.830078125 l 6,47,48
+ 277.278320312 197.567382812 277.278320312 197.567382812 273.215820312 212.190429688 c 132,-1,49
+ 269.155273438 226.815429688 269.155273438 226.815429688 269.155273438 244.999023438 c 132,-1,50
+ 269.155273438 263.18359375 269.155273438 263.18359375 273.215820312 277.80859375 c 132,-1,51
+ 277.278320312 292.431640625 277.278320312 292.431640625 282.40625 293.16796875 c 6,52,-1
+ 302.104492188 294.483398438 l 5,41,42
+301.106445312 284.352539062 m 5,53,-1
+ 291.611328125 283.987304688 l 5,54,-1
+ 288.115234375 265.838867188 l 6,55,56
+ 288.076171875 265.748046875 288.076171875 265.748046875 294.298828125 266.080078125 c 132,-1,57
+ 300.520507812 266.412109375 300.520507812 266.412109375 311.666992188 266.27734375 c 132,-1,58
+ 322.813476562 266.141601562 322.813476562 266.141601562 335.747070312 265.061523438 c 132,-1,59
+ 348.680664062 263.982421875 348.680664062 263.982421875 364.2578125 260.263671875 c 132,-1,60
+ 379.8359375 256.544921875 379.8359375 256.544921875 392.7265625 250.514648438 c 5,61,62
+ 354.900390625 284.080078125 354.900390625 284.080078125 301.106445312 284.352539062 c 5,53,-1
 EndSplineSet
-Validated: 33
-EndChar
-
-StartChar: color-palette
-Encoding: 125 125 93
-Width: 512
-GlyphClass: 2
-Flags: W
-LayerCount: 2
-Fore
-SplineSet
-288 480 m 0,0,1
- 220 480 220 480 163 448.5 c 128,-1,2
- 106 417 106 417 71.5 368 c 128,-1,3
- 37 319 37 319 18.5 264.5 c 128,-1,4
- 0 210 0 210 0 160 c 0,5,6
- 0 150 0 150 7 138 c 128,-1,7
- 14 126 14 126 25 118.5 c 128,-1,8
- 36 111 36 111 48.5 109.5 c 128,-1,9
- 61 108 61 108 74 120.5 c 128,-1,10
- 87 133 87 133 96 160 c 0,11,12
- 103 181 103 181 126.5 185.5 c 128,-1,13
- 150 190 150 190 171 174 c 128,-1,14
- 192 158 192 158 192 128 c 0,15,16
- 192 72 192 72 217 36 c 128,-1,17
- 242 0 242 0 288 0 c 0,18,19
- 343 0 343 0 385 18 c 128,-1,20
- 427 36 427 36 450.5 62.5 c 128,-1,21
- 474 89 474 89 488.5 125 c 128,-1,22
- 503 161 503 161 507.5 192 c 128,-1,23
- 512 223 512 223 512 256 c 0,24,25
- 512 480 512 480 288 480 c 0,0,1
-128 248 m 128,-1,27
- 112 248 112 248 100 260 c 128,-1,28
- 88 272 88 272 88 288 c 128,-1,29
- 88 304 88 304 100 316 c 128,-1,30
- 112 328 112 328 128 328 c 128,-1,31
- 144 328 144 328 156 316 c 128,-1,32
- 168 304 168 304 168 288 c 128,-1,33
- 168 272 168 272 156 260 c 128,-1,26
- 144 248 144 248 128 248 c 128,-1,27
-200 368 m 128,-1,35
- 200 384 200 384 212 396 c 128,-1,36
- 224 408 224 408 240 408 c 128,-1,37
- 256 408 256 408 268 396 c 128,-1,38
- 280 384 280 384 280 368 c 128,-1,39
- 280 352 280 352 268 340 c 128,-1,40
- 256 328 256 328 240 328 c 128,-1,41
- 224 328 224 328 212 340 c 128,-1,34
- 200 352 200 352 200 368 c 128,-1,35
-304 88 m 128,-1,43
- 281 88 281 88 264.5 104.5 c 128,-1,44
- 248 121 248 121 248 144 c 128,-1,45
- 248 167 248 167 264.5 183.5 c 128,-1,46
- 281 200 281 200 304 200 c 128,-1,47
- 327 200 327 200 343.5 183.5 c 128,-1,48
- 360 167 360 167 360 144 c 128,-1,49
- 360 121 360 121 343.5 104.5 c 128,-1,42
- 327 88 327 88 304 88 c 128,-1,43
-400 184 m 128,-1,51
- 390 184 390 184 383 191 c 128,-1,52
- 376 198 376 198 376 208 c 128,-1,53
- 376 218 376 218 383 225 c 128,-1,54
- 390 232 390 232 400 232 c 128,-1,55
- 410 232 410 232 417 225 c 128,-1,56
- 424 218 424 218 424 208 c 128,-1,57
- 424 198 424 198 417 191 c 128,-1,50
- 410 184 410 184 400 184 c 128,-1,51
-368 280 m 128,-1,59
- 345 280 345 280 328.5 296.5 c 128,-1,60
- 312 313 312 313 312 336 c 128,-1,61
- 312 359 312 359 328.5 375.5 c 128,-1,62
- 345 392 345 392 368 392 c 128,-1,63
- 391 392 391 392 407.5 375.5 c 128,-1,64
- 424 359 424 359 424 336 c 128,-1,65
- 424 313 424 313 407.5 296.5 c 128,-1,58
- 391 280 391 280 368 280 c 128,-1,59
-EndSplineSet
-Validated: 553
 EndChar
 
 StartChar: hookah
-Encoding: 126 126 94
+Encoding: 126 126 92
+GlifName: hookah
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5734,7 +5802,8 @@ Validated: 9
 EndChar
 
 StartChar: tools
-Encoding: 57344 57344 95
+Encoding: 57344 57344 93
+GlifName: tools
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5818,7 +5887,8 @@ Validated: 33
 EndChar
 
 StartChar: bullseye
-Encoding: 57345 57345 96
+Encoding: 57345 57345 94
+GlifName: bullseye
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -5887,7 +5957,8 @@ Validated: 1
 EndChar
 
 StartChar: agent
-Encoding: 57346 57346 97
+Encoding: 57346 57346 95
+GlifName: agent
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6004,7 +6075,8 @@ Validated: 41
 EndChar
 
 StartChar: mic
-Encoding: 57347 57347 98
+Encoding: 57347 57347 96
+GlifName: mic
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6062,7 +6134,8 @@ Validated: 5
 EndChar
 
 StartChar: bar-chart
-Encoding: 57348 57348 99
+Encoding: 57348 57348 97
+GlifName: bar-chart
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6120,7 +6193,8 @@ Validated: 513
 EndChar
 
 StartChar: info-circled
-Encoding: 57349 57349 100
+Encoding: 57349 57349 98
+GlifName: info-circled
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6164,7 +6238,8 @@ Validated: 545
 EndChar
 
 StartChar: screen-desktop
-Encoding: 57350 57350 101
+Encoding: 57350 57350 99
+GlifName: screen-desktop
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6214,7 +6289,8 @@ Validated: 513
 EndChar
 
 StartChar: phone-mobile
-Encoding: 57351 57351 102
+Encoding: 57351 57351 100
+GlifName: phone-mobile
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6268,7 +6344,8 @@ Validated: 513
 EndChar
 
 StartChar: th-large
-Encoding: 57352 57352 103
+Encoding: 57352 57352 101
+GlifName: th-large
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6332,7 +6409,8 @@ Validated: 513
 EndChar
 
 StartChar: heart-o
-Encoding: 57353 57353 104
+Encoding: 57353 57353 102
+GlifName: heart-o
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6395,7 +6473,8 @@ Validated: 513
 EndChar
 
 StartChar: flag-checkered
-Encoding: 57354 57354 105
+Encoding: 57354 57354 103
+GlifName: flag-checkered
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6498,7 +6577,8 @@ Validated: 549
 EndChar
 
 StartChar: h-square
-Encoding: 57355 57355 106
+Encoding: 57355 57355 104
+GlifName: h-square
 Width: 488
 GlyphClass: 2
 Flags: W
@@ -6552,7 +6632,8 @@ Validated: 513
 EndChar
 
 StartChar: t-shirt
-Encoding: 57356 57356 107
+Encoding: 57356 57356 105
+GlifName: t-shirt
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6607,7 +6688,8 @@ Validated: 553
 EndChar
 
 StartChar: heart
-Encoding: 57357 57357 108
+Encoding: 57357 57357 106
+GlifName: heart
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6643,7 +6725,8 @@ Validated: 1
 EndChar
 
 StartChar: radio-tower
-Encoding: 57358 57358 109
+Encoding: 57358 57358 107
+GlifName: radio-tower
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6730,7 +6813,8 @@ Validated: 553
 EndChar
 
 StartChar: bell-o
-Encoding: 57359 57359 110
+Encoding: 57359 57359 108
+GlifName: bell-o
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6794,7 +6878,8 @@ Validated: 513
 EndChar
 
 StartChar: disc
-Encoding: 57360 57360 111
+Encoding: 57360 57360 109
+GlifName: disc
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6819,7 +6904,8 @@ Validated: 1
 EndChar
 
 StartChar: crown1-1
-Encoding: 57369 57369 112
+Encoding: 57369 57369 110
+GlifName: crown1-1
 Width: 512
 GlyphClass: 2
 Flags: W
@@ -6911,82 +6997,9 @@ EndSplineSet
 Validated: 553
 EndChar
 
-StartChar: questiondown
-Encoding: 191 191 113
-Width: 512
-VWidth: 1000
-GlyphClass: 2
-Flags: W
-LayerCount: 2
-Fore
-SplineSet
-258.58984375 28.3349609375 m 0,0,1
- 258.58984375 32.419921875 258.58984375 32.419921875 253.95703125 32.419921875 c 0,2,3
- 237.486328125 32.419921875 237.486328125 32.419921875 225.1328125 44.6796875 c 128,-1,4
- 212.779296875 56.9365234375 212.779296875 56.9365234375 212.779296875 73.79296875 c 0,5,6
- 212.779296875 78.3896484375 212.779296875 78.3896484375 208.1484375 78.3896484375 c 128,-1,7
- 203.514648438 78.3896484375 203.514648438 78.3896484375 203.514648438 73.79296875 c 0,8,9
- 203.514648438 52.8515625 203.514648438 52.8515625 218.44140625 38.0400390625 c 128,-1,10
- 233.368164062 23.228515625 233.368164062 23.228515625 253.95703125 23.73828125 c 0,11,12
- 258.58984375 23.73828125 258.58984375 23.73828125 258.58984375 28.3349609375 c 0,0,1
-104.688476562 163.689453125 m 1,13,-1
- 356.38671875 380.256835938 l 1,14,15
- 344.546875 405.282226562 344.546875 405.282226562 318.296875 422.137695312 c 128,-1,16
- 292.046875 438.993164062 292.046875 438.993164062 253.95703125 438.482421875 c 0,17,18
- 227.706054688 438.482421875 227.706054688 438.482421875 205.57421875 429.799804688 c 128,-1,19
- 183.440429688 421.116210938 183.440429688 421.116210938 170.572265625 406.814453125 c 128,-1,20
- 157.704101562 392.513671875 157.704101562 392.513671875 151.013671875 377.190429688 c 128,-1,21
- 144.322265625 361.8671875 144.322265625 361.8671875 143.807617188 347.565429688 c 0,22,23
- 143.807617188 237.75 143.807617188 237.75 104.688476562 163.689453125 c 1,13,-1
-493.299804688 110.05859375 m 1,24,25
- 493.299804688 97.2900390625 493.299804688 97.2900390625 482.4921875 86.5634765625 c 0,26,27
- 469.623046875 73.79296875 469.623046875 73.79296875 456.241210938 73.79296875 c 2,28,-1
- 327.561523438 73.79296875 l 1,29,30
- 327.561523438 43.6572265625 327.561523438 43.6572265625 305.944335938 22.2060546875 c 128,-1,31
- 284.32421875 0.75390625 284.32421875 0.75390625 253.95703125 0.75390625 c 128,-1,32
- 223.587890625 0.75390625 223.587890625 0.75390625 202.485351562 22.2060546875 c 128,-1,33
- 181.380859375 43.6572265625 181.380859375 43.6572265625 180.8671875 73.283203125 c 1,34,-1
- 223.587890625 110.05859375 l 1,35,-1
- 440.799804688 110.05859375 l 1,36,37
- 393.4453125 163.689453125 393.4453125 163.689453125 375.9453125 240.815429688 c 1,38,-1
- 407.341796875 268.90625 l 1,39,40
- 425.358398438 167.263671875 425.358398438 167.263671875 493.299804688 110.05859375 c 1,24,25
-518.0078125 506.924804688 m 2,41,-1
- 542.198242188 479.853515625 l 2,42,43
- 544.256835938 477.299804688 544.256835938 477.299804688 544.256835938 472.704101562 c 0,44,45
- 544.256835938 469.228515625 544.256835938 469.228515625 541.16796875 466.575195312 c 2,46,-1
- 3.2890625 4.3291015625 l 2,47,48
- 0.2001953125 1.7763671875 0.2001953125 1.7763671875 -3.4013671875 2.287109375 c 0,49,50
- -7.2685546875 2.765625 -7.2685546875 2.765625 -9.5791015625 5.3505859375 c 2,51,-1
- -33.771484375 32.419921875 l 2,52,53
- -35.830078125 34.9736328125 -35.830078125 34.9736328125 -35.830078125 39.572265625 c 0,54,55
- -35.830078125 43.048828125 -35.830078125 43.048828125 -32.7412109375 45.7001953125 c 2,56,-1
- 20.7900390625 91.669921875 l 1,57,58
- 15.12890625 100.352539062 15.12890625 100.352539062 15.12890625 110.05859375 c 1,59,60
- 29.5390625 122.31640625 29.5390625 122.31640625 41.3798828125 135.084960938 c 128,-1,61
- 53.216796875 147.85546875 53.216796875 147.85546875 65.5703125 169.307617188 c 128,-1,62
- 77.9228515625 190.758789062 77.9228515625 190.758789062 87.1884765625 214.765625 c 128,-1,63
- 96.453125 238.771484375 96.453125 238.771484375 101.600585938 273.50390625 c 128,-1,64
- 106.74609375 308.23828125 106.74609375 308.23828125 107.260742188 347.565429688 c 0,65,66
- 107.260742188 390.46875 107.260742188 390.46875 140.71875 427.755859375 c 128,-1,67
- 174.17578125 465.041992188 174.17578125 465.041992188 228.735351562 473.213867188 c 1,68,69
- 226.676757812 478.321289062 226.676757812 478.321289062 226.676757812 483.938476562 c 0,70,71
- 226.676757812 495.690429688 226.676757812 495.690429688 234.912109375 503.349609375 c 128,-1,72
- 243.146484375 511.01171875 243.146484375 511.01171875 253.95703125 511.522460938 c 128,-1,73
- 264.765625 512.033203125 264.765625 512.033203125 273.515625 503.349609375 c 128,-1,74
- 282.265625 494.66796875 282.265625 494.66796875 281.752929688 483.938476562 c 0,75,76
- 281.752929688 478.321289062 281.752929688 478.321289062 279.693359375 473.213867188 c 1,77,78
- 315.208984375 468.108398438 315.208984375 468.108398438 342.48828125 449.719726562 c 128,-1,79
- 369.767578125 431.329101562 369.767578125 431.329101562 384.6953125 404.770507812 c 1,80,-1
- 505.138671875 507.946289062 l 2,81,82
- 508.228515625 510.5 508.228515625 510.5 511.831054688 509.991210938 c 0,83,84
- 515.94921875 509.48046875 515.94921875 509.48046875 518.0078125 506.924804688 c 2,41,-1
-EndSplineSet
-Validated: 524321
-EndChar
-
 StartChar: Ograve
-Encoding: 210 210 114
+Encoding: 210 210 111
+GlifName: O_grave
 Width: 512
 GlyphClass: 2
 Flags: W

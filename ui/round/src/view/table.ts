@@ -17,48 +17,44 @@ function renderPlayer(ctrl: RoundController, position: Position) {
       h('i.line'),
       h('name', renderUser.aiName(ctrl, player.ai))
     ]) :
-    renderUser.userHtml(ctrl, player, position)
+      renderUser.userHtml(ctrl, player, position)
   );
 }
 
-function isLoading(ctrl: RoundController): boolean {
-  return ctrl.loading || ctrl.redirecting;
-}
+const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;
 
-function loader() { return h('i.ddloader'); }
+const loader = () => h('i.ddloader');
 
-function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes) {
-  return [
-    replay.render(ctrl),
-    buttons.find(x => !!x) ? h('div.rcontrols', buttons) : null
-  ];
-}
+const renderTableWith = (ctrl: RoundController, buttons: MaybeVNodes) => [
+  replay.render(ctrl),
+  buttons.find(x => !!x) ? h('div.rcontrols', buttons) : null
+];
 
-export function renderTableEnd(ctrl: RoundController) {
-  return renderTableWith(ctrl, [
-    isLoading(ctrl) ? loader() : (button.backToTournament(ctrl) || button.followUp(ctrl))
+export const renderTableEnd = (ctrl: RoundController) =>
+  renderTableWith(ctrl, [
+    isLoading(ctrl) ? loader() : (
+      button.backToTournament(ctrl) || button.backToSwiss(ctrl) || button.followUp(ctrl)
+    )
   ]);
-}
 
-export function renderTableWatch(ctrl: RoundController) {
-  return renderTableWith(ctrl, [
+export const renderTableWatch = (ctrl: RoundController) =>
+  renderTableWith(ctrl, [
     isLoading(ctrl) ? loader() : (game.playable(ctrl.data) ? undefined : button.watcherFollowUp(ctrl))
   ]);
-}
 
-export function renderTablePlay(ctrl: RoundController) {
+export const renderTablePlay = (ctrl: RoundController) => {
   const d = ctrl.data,
     loading = isLoading(ctrl),
     submit = button.submitMove(ctrl),
     icons = (loading || submit) ? [] : [
       game.abortable(d) ? button.standard(ctrl, undefined, 'L', 'abortGame', 'abort') :
-      button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
+        button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
       ctrl.drawConfirm ? button.drawConfirm(ctrl) : button.standard(ctrl, ctrl.canOfferDraw, '2', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true)),
-      ctrl.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', () => ctrl.resign(true)),
+      ctrl.resignConfirm ? button.resignConfirm(ctrl) : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign', () => ctrl.resign(true)),
       replay.analysisButton(ctrl)
     ],
     buttons: MaybeVNodes = loading ? [loader()] : (submit ? [submit] : [
-      button.forceResign(ctrl),
+      button.opponentGone(ctrl),
       button.threefoldClaimDraw(ctrl),
       button.cancelDrawOffer(ctrl),
       button.answerOpponentDrawOffer(ctrl),
@@ -68,13 +64,13 @@ export function renderTablePlay(ctrl: RoundController) {
   return [
     replay.render(ctrl),
     h('div.rcontrols', [
+      ...buttons,
       h('div.ricons', {
         class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
-      }, icons),
-      ...buttons
+      }, icons)
     ])
   ];
-}
+};
 
 function whosTurn(ctrl: RoundController, color: Color, position: Position) {
   const d = ctrl.data;
@@ -98,20 +94,18 @@ function anyClock(ctrl: RoundController, position: Position) {
   else return whosTurn(ctrl, player.color, position);
 }
 
-export function renderTable(ctrl: RoundController): MaybeVNodes {
-  return [
-    h('div.round__app__table'),
-    renderExpiration(ctrl),
-    renderPlayer(ctrl, 'top'),
-    ...(ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
-      game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
-    )),
-    renderPlayer(ctrl, 'bottom'),
-    /* render clocks after players so they display on top of them in col1,
-     * since they occupy the same grid cell. This is required to avoid
-     * having two columns with min-content, which causes the horizontal moves
-     * to overflow: it couldn't be contained in the parent anymore */
-    anyClock(ctrl, 'top'),
-    anyClock(ctrl, 'bottom'),
-  ];
-};
+export const renderTable = (ctrl: RoundController): MaybeVNodes => [
+  h('div.round__app__table'),
+  renderExpiration(ctrl),
+  renderPlayer(ctrl, 'top'),
+  ...(ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
+    game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
+  )),
+  renderPlayer(ctrl, 'bottom'),
+  /* render clocks after players so they display on top of them in col1,
+   * since they occupy the same grid cell. This is required to avoid
+   * having two columns with min-content, which causes the horizontal moves
+   * to overflow: it couldn't be contained in the parent anymore */
+  anyClock(ctrl, 'top'),
+  anyClock(ctrl, 'bottom'),
+];

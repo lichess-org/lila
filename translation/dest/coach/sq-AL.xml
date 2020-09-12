@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessCoaches">Trajnerat e Lichess</string>
+  <string name="lichessCoach">Trajnier Lichessi</string>
+  <string name="areYouCoach">A jeni nje trajner i mire me %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Mjeshter KOMBETAR ose titull FIDE</string>
+  <string name="confirmTitle">Konfirmoni titullin tuaj ketu dhe ne do t\'ju shofim aplikimin.</string>
+  <string name="sendApplication">Na dergoni nje email tek %s dhe ne do te shqyrtojme aplikim tuaj.</string>
+  <string name="location">Vendodhja</string>
+  <string name="languages">Gjuha</string>
+  <string name="rating">Vleresimi (piket)</string>
+  <string name="hourlyRate">Pagesa per ore</string>
+  <string name="availability">Disponueshmeria</string>
+  <string name="accepting">Pranon student</string>
+  <string name="notAccepting">Nuk pranon studente per momentin</string>
+  <string name="xCoachesStudents">%s trajnon studente shahu</string>
+  <string name="viewXProfile">Shif %s profilin e Lichessit</string>
+  <string name="sendPM">Dergo nje mesazh privat</string>
+  <string name="aboutMe">Rreth meje</string>
+  <string name="playingExperience">Eksperienca e lojerave</string>
+  <string name="teachingExperience">Eksperienca e mesimdhenies</string>
+  <string name="otherExperiences">Eksperience tjeter</string>
+  <string name="bestSkills">Aftesite me te mira</string>
+  <string name="teachingMethod">Metodologjia e mesimdhenies</string>
+  <string name="publicStudies">Studimet publike</string>
+  <string name="youtubeVideos">Video jutubi</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Vleresim nga nje student</item>
+    <item quantity="other">%s vleresime nga student</item>
+  </plurals>
+  <string name="thankYouForReview">Faleminderit per vleresimin!</string>
+  <string name="xWillApproveIt">%s do ta aprovoje shume shpejt, ose nje moderator duhet ta shohi.</string>
+  <string name="reviewCoach">Vlereso kete trajnier</string>
+  <string name="describeExperienceWith">Pershkruani eksperiencen tuaj me %s</string>
+</resources>

@@ -1,394 +1,409 @@
 import com.typesafe.sbt.packager.Keys.scriptClasspath
-import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
-import com.typesafe.sbt.web.SbtWeb.autoImport._
-import play.Play.autoImport._
-import play.sbt.PlayImport._
-import PlayKeys._
 
 import BuildSettings._
 import Dependencies._
 
 lazy val root = Project("lila", file("."))
-  .enablePlugins(_root_.play.sbt.PlayScala)
+  .enablePlugins(PlayScala, if (useEpoll) PlayNettyServer else PlayAkkaHttpServer)
+  .disablePlugins(if (useEpoll) PlayAkkaHttpServer else PlayNettyServer)
   .dependsOn(api)
   .aggregate(api)
+  .settings(buildSettings)
 
-scalaVersion := globalScalaVersion
-resolvers ++= Dependencies.Resolvers.commons
-scalacOptions ++= compilerOptions
-incOptions := incOptions.value.withNameHashing(true)
-updateOptions := updateOptions.value.withCachedResolution(true)
-sources in doc in Compile := List()
-// disable publishing the main API jar
-publishArtifact in (Compile, packageDoc) := false
-// disable publishing the main sources jar
-publishArtifact in (Compile, packageSrc) := false
-// don't stage the conf dir
-externalizeResources := false
 // shorter prod classpath
 scriptClasspath := Seq("*")
-// offline := true
-libraryDependencies ++= Seq(
-  scalaz, chess, compression, scalalib, hasher, typesafeConfig, findbugs,
-  reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
-  maxmind, prismic, netty, guava, markdown,
-  kamon.core, kamon.influxdb, scalatags,
-  java8compat, semver, scrimage, scalaConfigs, scaffeine, lettuce, epoll
-)
-resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
-unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public") else Nil)
+maintainer := "contact@lichess.org"
+resourceDirectory in Compile := baseDirectory.value / "conf"
 
-scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
-excludeFilter in scalariformFormat := "*Routes*"
-
-routesGenerator := LilaRoutesGenerator
+// format: off
+libraryDependencies ++= akka.bundle ++ playWs.bundle ++ Seq(
+  macwire.macros, macwire.util, play.json, jodaForms,
+  chess, compression, scalalib, hasher,
+  reactivemongo.driver, maxmind, prismic, scalatags,
+  kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
+  scrimage, scaffeine, lettuce, uaparser
+) ++ {
+  if (useEpoll) Seq(epoll, reactivemongo.epoll)
+  else Seq.empty
+}
 
 lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,
-  message, notifyModule, i18n, game, bookmark, search,
+  msg, notifyModule, i18n, game, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
   importer, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, blog,
-  history, video, shutup, push,
+  history, video, shutup, push, appeal,
   playban, insight, perfStat, slack, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
-  activity, relay, streamer, bot
+  activity, relay, streamer, bot, clas, swiss
 )
 
 lazy val moduleRefs = modules map projectToRef
-lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
+lazy val moduleCPDeps = moduleRefs map { sbt.ClasspathDependency(_, None) }
 
-lazy val api = module("api", moduleCPDeps)
-  .settings(
-    libraryDependencies ++= provided(
-      play.api, hasher, typesafeConfig, findbugs,
-      reactivemongo.driver, reactivemongo.iteratees,
-      kamon.core, kamon.influxdb, lettuce
-    ),
-    aggregate in Runtime := false,
-    aggregate in Test := true  // Test <: Runtime
-  ) aggregate (moduleRefs: _*)
-
-lazy val puzzle = module("puzzle", Seq(
-  common, memo, hub, history, db, user, rating, pref, tree, game
-)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
-)
-
-lazy val quote = module("quote", Seq())
-
-lazy val video = module("video", Seq(
-  common, memo, hub, db, user
-)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val coach = module("coach", Seq(
-  common, hub, db, user, security, notifyModule
-)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val streamer = module("streamer", Seq(
-  common, hub, db, user, notifyModule
-)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val coordinate = module("coordinate", Seq(common, db)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val blog = module("blog", Seq(common, memo, timeline)).settings(
-  libraryDependencies ++= provided(play.api, prismic,
-    reactivemongo.driver, reactivemongo.iteratees)
-)
-
-lazy val evaluation = module("evaluation", Seq(
-  common, hub, db, user, game, analyse
-)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val common = module("common", Seq()).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, kamon.core, scalatags) ++ Seq(scaffeine)
-)
-
-lazy val rating = module("rating", Seq(common, db, memo)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val perfStat = module("perfStat", Seq(common, db, user, game, rating)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val history = module("history", Seq(common, db, memo, game, user)).settings(
-  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
-)
-
-lazy val db = module("db", Seq(common)).settings(
-  libraryDependencies ++= provided(play.test, play.api, reactivemongo.driver, hasher, scrimage)
-)
-
-lazy val memo = module("memo", Seq(common, db)).settings(
-  libraryDependencies ++= Seq(findbugs, scaffeine, scalaConfigs) ++ provided(play.api, reactivemongo.driver)
-)
-
-lazy val search = module("search", Seq(common, hub)).settings(
-  libraryDependencies ++= provided(play.api)
-)
-
-lazy val chat = module("chat", Seq(common, db, user, security, i18n, socket)).settings(
-  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
-)
-
-lazy val room = module("room", Seq(common, socket, chat)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, lettuce)
-)
-
-lazy val timeline = module("timeline", Seq(common, db, game, user, hub, security, relation)).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
-)
-
-lazy val event = module("event", Seq(common, db, memo, i18n)).settings(
-  libraryDependencies ++= provided(play.api, play.test, scalatags, reactivemongo.driver)
-)
-
-lazy val mod = module("mod", Seq(common, db, user, hub, security, tournament, simul, game, analyse, evaluation,
-  report, notifyModule, history, perfStat)).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
-)
-
-lazy val user = module("user", Seq(common, memo, db, hub, rating, socket)).settings(
-  libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, hasher,
-    reactivemongo.iteratees // only for bcrypt migration
-    )
-)
-
-lazy val game = module("game", Seq(common, memo, db, hub, user, chat)).settings(
-  libraryDependencies ++= provided(compression, play.api, reactivemongo.driver, reactivemongo.iteratees)
-)
-
-lazy val gameSearch = module("gameSearch", Seq(common, hub, search, game)).settings(
-  libraryDependencies ++= provided(
-    play.api, reactivemongo.driver, reactivemongo.iteratees
-  )
-)
-
-lazy val tv = module("tv", Seq(common, db, hub, socket, game, round, user)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, hasher)
-)
-
-lazy val bot = module("bot", Seq(common, db, hub, game, user, challenge, chat)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val analyse = module("analyse", Seq(common, hub, game, user, notifyModule, evalCache)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val round = module("round", Seq(
-  common, db, memo, hub, socket, game, user,
-  i18n, fishnet, pref, chat, history, playban, room
-)).settings(
-  libraryDependencies ++= provided(play.api, scalatags, hasher, kamon.core,
-    reactivemongo.driver, reactivemongo.iteratees, lettuce)
-)
-
-lazy val pool = module("pool", Seq(common, game, user, playban)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val activity = module("activity", Seq(common, game, analyse, user, forum, study, pool, puzzle, tournament, practice, team)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val lobby = module("lobby", Seq(
-  common, db, memo, hub, socket, game, user,
-  round, timeline, relation, playban, security, pool
-)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, lettuce)
-)
-
-lazy val setup = module("setup", Seq(
-  common, db, memo, hub, socket, game, user, lobby, pref, relation
-)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val importer = module("importer", Seq(common, game, round)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val insight = module(
-  "insight",
-  Seq(common, game, user, analyse, relation, pref, socket, round, security)
+lazy val api = module("api",
+  moduleCPDeps,
+  Seq(play.api, play.json, hasher, kamon.core, kamon.influxdb, lettuce) ++ reactivemongo.bundle
 ).settings(
-    libraryDependencies ++= provided(
-      play.api, reactivemongo.driver, reactivemongo.iteratees, scalatags
-    )
-  )
+  aggregate in Runtime := false,
+  aggregate in Test := true  // Test <: Runtime
+) aggregate (moduleRefs: _*)
 
-lazy val tournament = module("tournament", Seq(
-  common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n, room
-)).settings(
-  libraryDependencies ++= provided(
-    play.api, scalatags, reactivemongo.driver, reactivemongo.iteratees, lettuce
-  )
-)
-
-lazy val simul = module("simul", Seq(
-  common, hub, socket, game, round, chat, memo, quote, room
-)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, lettuce)
-)
-
-lazy val fishnet = module("fishnet", Seq(common, game, analyse, db, evalCache)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, semver, lettuce)
-)
-
-lazy val irwin = module("irwin", Seq(common, db, user, game, tournament, mod)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val oauth = module("oauth", Seq(common, db, user)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val security = module("security", Seq(common, hub, db, user, i18n, slack, oauth)).settings(
-  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver, maxmind, hasher)
-)
-
-lazy val shutup = module("shutup", Seq(common, db, hub, game, relation)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val challenge = module("challenge", Seq(common, db, hub, setup, game, relation, pref, socket, room)).settings(
-  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver, lettuce)
-)
-
-lazy val study = module("study", Seq(
-  common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer, i18n, room
-)).settings(
-  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver, lettuce)
-)
-
-lazy val relay = module("relay", Seq(common, study)).settings(
-  libraryDependencies ++= Seq(scalaUri) ++ provided(play.api, reactivemongo.driver, markdown)
-)
-
-lazy val studySearch = module("studySearch", Seq(common, hub, study, search)).settings(
-  libraryDependencies ++= provided(
-    play.api,
-    reactivemongo.driver, reactivemongo.iteratees
-  )
-)
-
-lazy val learn = module("learn", Seq(common, db, user)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val evalCache = module("evalCache", Seq(common, db, user, security, socket, tree)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val practice = module("practice", Seq(common, db, memo, user, study)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val playban = module("playban", Seq(common, db, game, message, chat)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val push = module("push", Seq(common, db, user, game, challenge, message)).settings(
-  libraryDependencies ++= Seq(googleOAuth) ++ provided(play.api, reactivemongo.driver)
-)
-
-lazy val slack = module("slack", Seq(common, hub, user)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val plan = module("plan", Seq(common, user, notifyModule)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val relation = module("relation", Seq(common, db, memo, hub, user, game, pref)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
-)
-
-lazy val pref = module("pref", Seq(common, db, user)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val message = module("message", Seq(common, db, user, hub, relation, security, shutup, notifyModule)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val forum = module("forum", Seq(common, db, user, security, hub, mod, notifyModule)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val forumSearch = module("forumSearch", Seq(common, hub, forum, search)).settings(
-  libraryDependencies ++= provided(
-    play.api,
-    reactivemongo.driver, reactivemongo.iteratees
-  )
-)
-
-lazy val team = module("team", Seq(common, memo, db, user, forum, security, hub, notifyModule)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
-)
-
-lazy val teamSearch = module("teamSearch", Seq(common, hub, team, search)).settings(
-  libraryDependencies ++= provided(
-    play.api,
-    reactivemongo.driver, reactivemongo.iteratees
-  )
-)
-
-lazy val i18n = module("i18n", Seq(common, db, user, hub)).settings(
+lazy val i18n = smallModule("i18n",
+  Seq(common, db, hub),
+  Seq(scalatags, specs2)
+).settings(
   sourceGenerators in Compile += Def.task {
     MessageCompiler(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = List("site", "arena", "emails", "learn", "activity", "coordinates", "study"),
-      compileTo = (sourceManaged in Compile).value / "messages"
+      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss".split(' ').toList,
+      compileTo = (sourceManaged in Compile).value
     )
-  }.taskValue,
-  libraryDependencies ++= provided(play.api, scalatags)
+  }.taskValue
 )
 
-lazy val bookmark = module("bookmark", Seq(common, memo, db, hub, user, game)).settings(
-  libraryDependencies ++= provided(
-    play.api, play.test, reactivemongo.driver
-  )
+lazy val puzzle = module("puzzle",
+  Seq(common, memo, hub, history, db, user, rating, pref, tree, game),
+  reactivemongo.bundle
 )
 
-lazy val report = module("report", Seq(common, db, user, game, security, playban)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, reactivemongo.iteratees)
+lazy val quote = smallModule("quote",
+  Seq(),
+  Seq(play.json)
 )
 
-lazy val explorer = module("explorer", Seq(common, db, game, importer)).settings(
-  libraryDependencies ++= provided(
-    play.api,
-    reactivemongo.driver, reactivemongo.iteratees
-  )
+lazy val video = smallModule("video",
+  Seq(common, memo, hub, db, user),
+  Seq(autoconfig) ++ reactivemongo.bundle ++ macwire.bundle
 )
 
-lazy val notifyModule = module("notify", Seq(common, db, game, user, hub, relation)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+lazy val coach = module("coach",
+  Seq(common, hub, db, user, security, notifyModule),
+  reactivemongo.bundle
 )
 
-lazy val tree = module("tree", Seq(common)).settings(
-  libraryDependencies ++= provided(play.api)
+lazy val streamer = module("streamer",
+  Seq(common, hub, db, user, notifyModule),
+  reactivemongo.bundle
 )
 
-lazy val socket = module("socket", Seq(common, hub, memo, tree)).settings(
-  libraryDependencies ++= provided(play.api, lettuce)
+lazy val coordinate = smallModule("coordinate",
+  Seq(common, db, user),
+  Seq(autoconfig) ++ reactivemongo.bundle ++ macwire.bundle
 )
 
-lazy val hub = module("hub", Seq(common)).settings(
-  libraryDependencies ++= Seq(scaffeine) ++ provided(play.api)
+lazy val blog = module("blog",
+  Seq(common, memo, timeline),
+  Seq(prismic, specs2) ++ flexmark.bundle ++ reactivemongo.bundle
+)
+
+lazy val evaluation = module("evaluation",
+  Seq(common, hub, db, user, game, analyse),
+  Seq(specs2) ++ reactivemongo.bundle
+)
+
+lazy val common = smallModule("common",
+  Seq(),
+  Seq(
+    scalalib, chess, autoconfig,
+    kamon.core, scalatags, jodaForms, scaffeine, specs2, apacheText) ++ reactivemongo.bundle
+)
+
+lazy val rating = module("rating",
+  Seq(common, db, memo, i18n),
+  reactivemongo.bundle
+)
+
+lazy val perfStat = module("perfStat",
+  Seq(common, db, user, game, rating),
+  reactivemongo.bundle
+)
+
+lazy val history = module("history",
+  Seq(common, db, memo, game, user),
+  Seq(scalatags) ++ reactivemongo.bundle
+)
+
+lazy val db = smallModule("db",
+  Seq(common),
+  Seq(hasher, scrimage) ++ reactivemongo.bundle
+)
+
+lazy val memo = smallModule("memo",
+  Seq(common, db),
+  Seq(scaffeine, autoconfig, scalatest, akka.testkit) ++ reactivemongo.bundle ++ macwire.bundle
+)
+
+lazy val search = smallModule("search",
+  Seq(common, hub),
+  playWs.bundle ++ Seq(autoconfig) ++ macwire.bundle
+)
+
+lazy val chat = module("chat",
+  Seq(common, db, user, security, i18n, socket),
+  Seq(scalatags) ++ reactivemongo.bundle
+)
+
+lazy val room = module("room",
+  Seq(common, socket, chat),
+  Seq(lettuce) ++ reactivemongo.bundle
+)
+
+lazy val timeline = module("timeline",
+  Seq(common, db, game, user, hub, security, relation),
+  reactivemongo.bundle
+)
+
+lazy val event = module("event",
+  Seq(common, db, memo, i18n, user),
+  Seq(scalatags) ++ reactivemongo.bundle
+)
+
+lazy val mod = module("mod",
+  Seq(common, db, user, hub, security, tournament, simul, game, analyse, evaluation, report, notifyModule, history, perfStat, slack),
+  reactivemongo.bundle
+)
+
+lazy val user = smallModule("user",
+  Seq(common, memo, db, hub, rating, socket),
+  Seq(hasher, specs2, autoconfig) ++ playWs.bundle ++ reactivemongo.bundle ++ macwire.bundle
+)
+
+lazy val game = module("game",
+  Seq(common, memo, db, hub, user, chat),
+  Seq(compression, specs2) ++ reactivemongo.bundle
+)
+
+lazy val gameSearch = module("gameSearch",
+  Seq(common, hub, search, game),
+  reactivemongo.bundle
+)
+
+lazy val tv = module("tv",
+  Seq(common, db, hub, socket, game, round, user),
+  Seq(hasher) ++ reactivemongo.bundle
+)
+
+lazy val bot = module("bot",
+  Seq(common, db, hub, game, user, challenge, chat),
+  reactivemongo.bundle
+)
+
+lazy val analyse = module("analyse",
+  Seq(common, hub, game, user, notifyModule, evalCache),
+  reactivemongo.bundle
+)
+
+lazy val round = module("round",
+  Seq(common, db, memo, hub, socket, game, user, i18n, fishnet, pref, chat, history, playban, room),
+  Seq(scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle
+)
+
+lazy val pool = module("pool",
+  Seq(common, game, user, playban),
+  reactivemongo.bundle
+)
+
+lazy val activity = module("activity",
+  Seq(common, game, analyse, user, forum, study, pool, puzzle, tournament, practice, team),
+  reactivemongo.bundle
+)
+
+lazy val lobby = module("lobby",
+  Seq(common, db, memo, hub, socket, game, user, round, timeline, relation, playban, security, pool),
+  Seq(lettuce) ++ reactivemongo.bundle
+)
+
+lazy val setup = module("setup",
+  Seq(common, db, memo, hub, socket, game, user, lobby, pref, relation),
+  reactivemongo.bundle
+)
+
+lazy val importer = module("importer",
+  Seq(common, game, round),
+  reactivemongo.bundle
+)
+
+lazy val insight = module("insight",
+  Seq(common, game, user, analyse, relation, pref, socket, round, security),
+  Seq(scalatags) ++ reactivemongo.bundle
+)
+
+lazy val tournament = module("tournament",
+  Seq(common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n, room),
+  Seq(scalatags, lettuce, specs2) ++ reactivemongo.bundle
+)
+
+lazy val swiss = module("swiss",
+  Seq(common, hub, socket, game, round, security, chat, memo, quote, i18n, room),
+  Seq(scalatags, lettuce) ++ reactivemongo.bundle
+)
+
+lazy val simul = module("simul",
+  Seq(common, hub, socket, game, round, chat, memo, quote, room),
+  Seq(lettuce) ++ reactivemongo.bundle
+)
+
+lazy val fishnet = module("fishnet",
+  Seq(common, game, analyse, db, evalCache),
+  Seq(lettuce, specs2) ++ reactivemongo.bundle
+)
+
+lazy val irwin = module("irwin",
+  Seq(common, db, user, game, tournament, mod),
+  reactivemongo.bundle
+)
+
+lazy val oauth = smallModule("oauth",
+  Seq(common, db, user),
+  Seq(autoconfig) ++ reactivemongo.bundle ++ macwire.bundle
+)
+
+lazy val security = module("security",
+  Seq(common, hub, db, user, i18n, slack, oauth),
+  Seq(scalatags, maxmind, hasher, uaparser, specs2) ++ reactivemongo.bundle
+)
+
+lazy val shutup = module("shutup",
+  Seq(common, db, hub, game, relation),
+  Seq(specs2) ++ reactivemongo.bundle
+)
+
+lazy val challenge = module("challenge",
+  Seq(common, db, hub, setup, game, relation, pref, socket, room),
+  Seq(scalatags, lettuce, specs2) ++ reactivemongo.bundle
+)
+
+lazy val study = module("study",
+  Seq(common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer, i18n, room),
+  Seq(scalatags, lettuce, specs2) ++ reactivemongo.bundle
+)
+
+lazy val relay = module("relay",
+  Seq(common, study),
+  Seq(scalaUri) ++ flexmark.bundle ++ reactivemongo.bundle
+)
+
+lazy val studySearch = module("studySearch",
+  Seq(common, hub, study, search),
+  reactivemongo.bundle
+)
+
+lazy val learn = smallModule("learn",
+  Seq(common, db, user),
+  Seq(autoconfig) ++ reactivemongo.bundle
+)
+
+lazy val evalCache = module("evalCache",
+  Seq(common, db, user, security, socket, tree),
+  reactivemongo.bundle
+)
+
+lazy val practice = module("practice",
+  Seq(common, db, memo, user, study),
+  reactivemongo.bundle
+)
+
+lazy val playban = module("playban",
+  Seq(common, db, game, msg, chat),
+  reactivemongo.bundle
+)
+
+lazy val push = module("push",
+  Seq(common, db, user, game, challenge, msg),
+  Seq(googleOAuth) ++ reactivemongo.bundle
+)
+
+lazy val slack = smallModule("slack",
+  Seq(common, hub, user),
+  reactivemongo.bundle ++ macwire.bundle
+)
+
+lazy val plan = module("plan",
+  Seq(common, user, notifyModule),
+  reactivemongo.bundle
+)
+
+lazy val relation = module("relation",
+  Seq(common, db, memo, hub, user, game, pref),
+  reactivemongo.bundle
+)
+
+lazy val pref = module("pref",
+  Seq(common, db, user),
+  Seq(macwire.util) ++ reactivemongo.bundle
+)
+
+lazy val msg = module("msg",
+  Seq(common, db, user, hub, relation, security, shutup, notifyModule, chat),
+  reactivemongo.bundle
+)
+
+lazy val forum = module("forum",
+  Seq(common, db, user, security, hub, mod, notifyModule),
+  reactivemongo.bundle
+)
+
+lazy val forumSearch = module("forumSearch",
+  Seq(common, hub, forum, search),
+  reactivemongo.bundle
+)
+
+lazy val team = module("team",
+  Seq(common, memo, db, user, forum, security, hub, notifyModule),
+  reactivemongo.bundle
+)
+
+lazy val teamSearch = module("teamSearch",
+  Seq(common, hub, team, search),
+  reactivemongo.bundle
+)
+
+lazy val clas = module("clas",
+  Seq(common, memo, db, user, security, msg, history, puzzle),
+  flexmark.bundle ++ reactivemongo.bundle
+)
+
+lazy val bookmark = module("bookmark",
+  Seq(common, memo, db, hub, user, game),
+  reactivemongo.bundle
+)
+
+lazy val report = module("report",
+  Seq(common, db, user, game, security, playban),
+  reactivemongo.bundle
+)
+
+lazy val appeal = module("appeal",
+  Seq(common, db, user),
+  reactivemongo.bundle
+)
+
+lazy val explorer = module("explorer",
+  Seq(common, db, game, importer),
+  reactivemongo.bundle
+)
+
+lazy val notifyModule = module("notify",
+  Seq(common, db, game, user, hub, relation),
+  reactivemongo.bundle
+)
+
+lazy val tree = smallModule("tree",
+  Seq(common),
+  Seq()
+)
+
+lazy val socket = smallModule("socket",
+  Seq(common, hub, memo, tree),
+  Seq(lettuce) ++ macwire.bundle
+)
+
+lazy val hub = smallModule("hub",
+  Seq(common),
+  Seq(scaffeine, macwire.util)
 )

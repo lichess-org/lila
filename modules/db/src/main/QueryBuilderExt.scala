@@ -1,44 +1,28 @@
 package lila.db
 
-import scala.collection.generic.CanBuildFrom
+import scala.collection.Factory
+
+import scala.concurrent.ExecutionContext
 
 import reactivemongo.api._
-import reactivemongo.bson._
 
 trait QueryBuilderExt { self: dsl =>
+  implicit final class ExtendCursor[A](cursor: Cursor.WithOps[A])(implicit ec: ExecutionContext) { // CursorProducer?
 
-  final implicit class ExtendQueryBuilder[A](val b: dsl.QueryBuilder) {
+    def gather[M[_]](upTo: Int)(implicit factory: Factory[A, M[A]]): Fu[M[A]] =
+      cursor.collect[M](upTo, Cursor.ContOnError[M[A]]())
 
-    def skip(nb: Int) = b.options(b.options skip nb)
+    def list(): Fu[List[A]] =
+      gather[List](Int.MaxValue)
 
-    def batch(nb: Int) = b.options(b.options batchSize nb)
+    def list(limit: Int): Fu[List[A]] =
+      gather[List](limit)
 
-    // like collect, but with stopOnError defaulting to false
-    def gather[A, M[_]](upTo: Int, readPreference: ReadPreference = ReadPreference.primary)(implicit cbf: CanBuildFrom[M[_], A, M[A]], reader: BSONDocumentReader[A]): Fu[M[A]] =
-      b.cursor[A](readPreference = readPreference).collect[M](upTo, Cursor.ContOnError[M[A]]())
+    def list(limit: Option[Int]): Fu[List[A]] =
+      gather[List](limit | Int.MaxValue)
 
-    def list[A: BSONDocumentReader](): Fu[List[A]] =
-      gather[A, List](Int.MaxValue)
+    def vector(limit: Int): Fu[Vector[A]] =
+      gather[Vector](limit)
 
-    def list[A: BSONDocumentReader](limit: Int): Fu[List[A]] =
-      gather[A, List](limit)
-
-    def list[A: BSONDocumentReader](limit: Option[Int]): Fu[List[A]] =
-      gather[A, List](limit | Int.MaxValue)
-
-    def list[A: BSONDocumentReader](limit: Option[Int], readPreference: ReadPreference): Fu[List[A]] =
-      gather[A, List](limit | Int.MaxValue, readPreference)
-
-    def list[A: BSONDocumentReader](limit: Int, readPreference: ReadPreference): Fu[List[A]] =
-      gather[A, List](limit, readPreference)
-
-    def uno[A: BSONDocumentReader]: Fu[Option[A]] = uno[A](ReadPreference.primary)
-
-    // like one, but with stopOnError defaulting to false
-    def uno[A: BSONDocumentReader](readPreference: ReadPreference): Fu[Option[A]] =
-      b.copy(options = b.options.batchSize(1))
-        .cursor[A](readPreference = readPreference)
-        .collect[Iterable](1, Cursor.ContOnError[Iterable[A]]())
-        .dmap(_.headOption)
   }
 }

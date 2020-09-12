@@ -3,10 +3,10 @@ package lila.playban
 import lila.chat.{ Chat, ChatApi }
 import lila.game.Pov
 
-private final class PlaybanFeedback(
+final private class PlaybanFeedback(
     chatApi: ChatApi,
     lightUser: lila.common.LightUser.Getter
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val tempBan = "will result in a temporary ban."
 
@@ -16,7 +16,8 @@ private final class PlaybanFeedback(
 
   def rageQuit(pov: Pov): Unit = tell(pov, s"Warning, {user}. Leaving games without resigning $tempBan")
 
-  def sitting(pov: Pov): Unit = tell(pov, s"Warning, {user}. Letting time run out instead of resigning $tempBan")
+  def sitting(pov: Pov): Unit =
+    tell(pov, s"Warning, {user}. Letting time run out instead of resigning $tempBan")
 
   def sandbag(pov: Pov): Unit = tell(pov, s"Warning, {user}. Losing games on purpose will result in a ban.")
 
@@ -24,7 +25,7 @@ private final class PlaybanFeedback(
     pov.player.userId foreach { userId =>
       lightUser(userId) foreach { light =>
         val message = template.replace("{user}", light.fold(userId)(_.name))
-        chatApi.userChat.volatile(Chat.Id(pov.gameId), message)
+        chatApi.userChat.volatile(Chat.Id(pov.gameId), message, _.Round)
       }
     }
 }

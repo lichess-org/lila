@@ -1,58 +1,59 @@
 package lila.forumSearch
 
 import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
 
-import lila.forum.PostApi
+import lila.common.config._
 import lila.search._
+import Query.jsonWriter
+
+@Module
+private class ForumSearchConfig(
+    @ConfigName("index") val indexName: String,
+    @ConfigName("paginator.max_per_page") val maxPerPage: MaxPerPage,
+    @ConfigName("actor.name") val actorName: String
+)
 
 final class Env(
-    config: Config,
-    postApi: PostApi,
+    appConfig: Configuration,
     makeClient: Index => ESClient,
-    system: ActorSystem
+    postApi: lila.forum.PostApi,
+    postRepo: lila.forum.PostRepo
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    mat: akka.stream.Materializer
 ) {
 
-  private val IndexName = config getString "index"
-  private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
-  private val ActorName = config getString "actor.name"
+  private val config = appConfig.get[ForumSearchConfig]("forumSearch")(AutoConfig.loader)
 
-  private val client = makeClient(Index(IndexName))
+  private lazy val client = makeClient(Index(config.indexName))
 
-  val api = new ForumSearchApi(client, postApi)
+  lazy val api: ForumSearchApi = wire[ForumSearchApi]
 
   def apply(text: String, page: Int, troll: Boolean) =
     paginatorBuilder(Query(text, troll), page)
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "forum" :: "search" :: "reset" :: Nil => api.reset inject "done"
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "forum" :: "search" :: "reset" :: Nil => api.reset inject "done"
+      }
     }
-  }
 
-  import Query.jsonWriter
+  private lazy val paginatorBuilder = wire[lila.search.PaginatorBuilder[lila.forum.PostView, Query]]
 
-  private lazy val paginatorBuilder = new lila.search.PaginatorBuilder(
-    searchApi = api,
-    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
-  )
-
-  system.actorOf(Props(new Actor {
-    import lila.forum.actorApi._
-    def receive = {
-      case InsertPost(post) => api store post
-      case RemovePost(id) => client deleteById Id(id)
-      case RemovePosts(ids) => client deleteByIds ids.map(Id.apply)
-    }
-  }), name = ActorName)
-}
-
-object Env {
-
-  lazy val current = "forumSearch" boot new Env(
-    config = lila.common.PlayApp loadConfig "forumSearch",
-    postApi = lila.forum.Env.current.postApi,
-    makeClient = lila.search.Env.current.makeClient,
-    system = lila.common.PlayApp.system
+  system.actorOf(
+    Props(new Actor {
+      import lila.forum.actorApi._
+      def receive = {
+        case InsertPost(post) => api store post
+        case RemovePost(id)   => client deleteById Id(id)
+        case RemovePosts(ids) => client deleteByIds ids.map(Id.apply)
+      }
+    }),
+    name = config.actorName
   )
 }

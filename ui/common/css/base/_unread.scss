@@ -1,13 +1,16 @@
 .data-count {
   position: relative;
 }
+
 .data-count::after,
 .unread {
   @extend %active, %box-radius;
+
   padding: 1px 5px 1px 4px;
   font-weight: bold;
   font-size: 13px;
 }
+
 .data-count::after {
   content: attr(data-count);
   top: -5px;
@@ -17,6 +20,7 @@
   height: 15px;
   line-height: 15px;
 }
+
 .data-count[data-count='0']::after {
   display: none;
 }

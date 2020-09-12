@@ -35,9 +35,9 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
           const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
             window.lichess.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
           });
-          if (mod) $el.on('click', '.mod', (e: Event) => {
-            mod.open(((e.target as HTMLElement).getAttribute('data-username') as string).split(' ')[0]);
-          });
+          if (mod) $el.on('click', '.mod', (e: Event) =>
+            mod.open((e.target as HTMLElement).parentNode as HTMLElement)
+          );
           else $el.on('click', '.flag', (e: Event) =>
             report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement)
           );
@@ -71,11 +71,12 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
       placeholder,
       autocomplete: 'off',
       maxlength: 140,
-      disabled: ctrl.vm.timeout || !ctrl.vm.writeable
+      disabled: ctrl.vm.timeout || !ctrl.vm.writeable,
+      'aria-label': 'Chat input'
     },
     hook: {
       insert(vnode) {
-        setupHooks(ctrl, vnode.elm as HTMLElement);
+        setupHooks(ctrl, vnode.elm as HTMLInputElement);
       }
     }
   });
@@ -83,19 +84,28 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
 
 let mouchListener: EventListener;
 
-const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
+const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
+  const storage = window.lichess.tempStorage.make('chatInput');
+  if(storage.get()){
+    chatEl.value = storage.get()!;
+    storage.remove();
+    chatEl.focus();
+  }
+
   chatEl.addEventListener('keypress',
     (e: KeyboardEvent) => setTimeout(() => {
       const el = e.target as HTMLInputElement,
         txt = el.value,
         pub = ctrl.opts.public;
+      storage.set(el.value);
       if (e.which == 10 || e.which == 13) {
         if (txt === '') $('.keyboard-move input').focus();
         else {
-          spam.report(txt);
+          if (!ctrl.opts.kobold) spam.selfReport(txt);
           if (pub && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
           else ctrl.post(txt);
           el.value = '';
+          storage.remove();
           if (!pub) el.classList.remove('whisper');
         }
       }
@@ -148,7 +158,7 @@ function selectLines(ctrl: Ctrl): Array<Line> {
   ctrl.data.lines.forEach(line => {
     if (!line.d &&
       (!prev || !sameLines(prev, line)) &&
-      (!line.r || ctrl.opts.kobold) &&
+      (!line.r || (line.u || '').toLowerCase() == ctrl.data.userId) &&
       !spam.skip(line.t)
     ) ls.push(line);
     prev = line;
@@ -188,7 +198,7 @@ function report(ctrl: Ctrl, line: HTMLElement) {
   );
 }
 
-function renderLine(ctrl: Ctrl, line: Line) {
+function renderLine(ctrl: Ctrl, line: Line): VNode {
 
   const textNode = renderText(line.t, ctrl.opts.parseMoves);
 
@@ -201,10 +211,10 @@ function renderLine(ctrl: Ctrl, line: Line) {
 
   const userNode = thunk('a', line.u, userLink, [line.u, line.title]);
 
-  return h('li', {
-  }, ctrl.moderation() ? [
-    line.u ? modLineAction(line.u) : null,
+  return h('li', ctrl.moderation() ? [
+    line.u ? modLineAction() : null,
     userNode,
+    ' ',
     textNode
   ] : [
     ctrl.data.userId && line.u && ctrl.data.userId != line.u ? h('i.flag', {
@@ -214,6 +224,7 @@ function renderLine(ctrl: Ctrl, line: Line) {
       }
     }) : null,
     userNode,
+    ' ',
     textNode
   ]);
 }

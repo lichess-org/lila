@@ -1,50 +1,67 @@
 package lila.puzzle
 
-import akka.actor.{ ActorSelection, ActorSystem }
-import com.typesafe.config.Config
+import akka.actor.ActorSystem
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
+import scala.concurrent.duration.FiniteDuration
 
+import lila.common.config._
+
+@Module
+private class PuzzleConfig(
+    @ConfigName("mongodb.uri") val mongoUri: String,
+    @ConfigName("collection.puzzle") val puzzleColl: CollName,
+    @ConfigName("collection.round") val roundColl: CollName,
+    @ConfigName("collection.vote") val voteColl: CollName,
+    @ConfigName("collection.head") val headColl: CollName,
+    @ConfigName("api.token") val apiToken: Secret,
+    @ConfigName("animation.duration") val animationDuration: FiniteDuration,
+    @ConfigName("selector.puzzle_id_min") val puzzleIdMin: Int
+)
+
+case class RoundRepo(coll: lila.db.AsyncColl)
+
+@Module
 final class Env(
-    config: Config,
-    renderer: ActorSelection,
+    appConfig: Configuration,
+    renderer: lila.hub.actors.Renderer,
     historyApi: lila.history.HistoryApi,
     lightUserApi: lila.user.LightUserApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    system: ActorSystem,
-    lifecycle: play.api.inject.ApplicationLifecycle
+    cacheApi: lila.memo.CacheApi,
+    gameRepo: lila.game.GameRepo,
+    userRepo: lila.user.UserRepo,
+    mongo: lila.db.Env
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
 ) {
 
-  private val settings = new {
-    val CollectionPuzzle = config getString "collection.puzzle"
-    val CollectionRound = config getString "collection.round"
-    val CollectionVote = config getString "collection.vote"
-    val CollectionHead = config getString "collection.head"
-    val ApiToken = config getString "api.token"
-    val AnimationDuration = config duration "animation.duration"
-    val PuzzleIdMin = config getInt "selector.puzzle_id_min"
-  }
-  import settings._
+  private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
 
-  private val db = new lila.db.Env("puzzle", config getConfig "mongodb", lifecycle)
+  private lazy val db    = mongo.asyncDb("puzzle", config.mongoUri)
+  private def puzzleColl = db(config.puzzleColl)
+  private def roundColl  = db(config.roundColl)
+  private def voteColl   = db(config.voteColl)
+  private def headColl   = db(config.headColl)
 
-  private lazy val gameJson = new GameJson(asyncCache, lightUserApi)
+  private lazy val gameJson = wire[GameJson]
 
-  lazy val jsonView = new JsonView(
-    gameJson,
-    animationDuration = AnimationDuration
-  )
+  lazy val jsonView = wire[JsonView]
 
   lazy val api = new PuzzleApi(
     puzzleColl = puzzleColl,
     roundColl = roundColl,
     voteColl = voteColl,
     headColl = headColl,
-    puzzleIdMin = PuzzleIdMin,
-    asyncCache = asyncCache,
-    apiToken = ApiToken
+    cacheApi = cacheApi
   )
+
+  lazy val roundRepo = RoundRepo(roundColl)
 
   lazy val finisher = new Finisher(
     historyApi = historyApi,
+    userRepo = userRepo,
     api = api,
     puzzleColl = puzzleColl
   )
@@ -52,14 +69,14 @@ final class Env(
   lazy val selector = new Selector(
     puzzleColl = puzzleColl,
     api = api,
-    puzzleIdMin = PuzzleIdMin
+    puzzleIdMin = config.puzzleIdMin
   )
 
   lazy val batch = new PuzzleBatch(
     puzzleColl = puzzleColl,
     api = api,
     finisher = finisher,
-    puzzleIdMin = PuzzleIdMin
+    puzzleIdMin = config.puzzleIdMin
   )
 
   lazy val userInfos = new UserInfosApi(
@@ -67,43 +84,26 @@ final class Env(
     currentPuzzleId = api.head.currentPuzzleId
   )
 
-  lazy val forms = DataForm
+  lazy val forms = PuzzleForm
 
   lazy val daily = new Daily(
     puzzleColl,
     renderer,
-    asyncCache = asyncCache,
-    system.scheduler
+    cacheApi = cacheApi
   )
 
   lazy val activity = new PuzzleActivity(
     puzzleColl = puzzleColl,
     roundColl = roundColl
-  )(system)
+  )
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "puzzle" :: "disable" :: id :: Nil => parseIntOption(id) ?? { id =>
-        api.puzzle disable id inject "Done"
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "puzzle" :: "disable" :: id :: Nil =>
+          id.toIntOption ?? { id =>
+            api.puzzle disable id inject "Done"
+          }
       }
     }
-  }
-
-  private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
-  private[puzzle] lazy val roundColl = db(CollectionRound)
-  private[puzzle] lazy val voteColl = db(CollectionVote)
-  private[puzzle] lazy val headColl = db(CollectionHead)
-}
-
-object Env {
-
-  lazy val current: Env = "puzzle" boot new Env(
-    config = lila.common.PlayApp loadConfig "puzzle",
-    renderer = lila.hub.Env.current.renderer,
-    historyApi = lila.history.Env.current.api,
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system,
-    lifecycle = lila.common.PlayApp.lifecycle
-  )
 }

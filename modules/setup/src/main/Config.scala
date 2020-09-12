@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.{ Game => ChessGame, Situation, Clock, Speed }
-import chess.variant.{ Variant, FromPosition }
+import chess.variant.{ FromPosition, Variant }
 import chess.format.FEN
 
 import lila.game.Game
@@ -38,6 +38,11 @@ private[setup] trait Config {
 
   def validClock = !hasClock || clockHasTime
 
+  def validSpeed(isBot: Boolean) =
+    !isBot || makeClock.fold(true) { c =>
+      Speed(c) >= Speed.Bullet
+    }
+
   def clockHasTime = time + increment > 0
 
   def makeClock = hasClock option justMakeClock
@@ -57,7 +62,9 @@ trait Positional { self: Config =>
   def strictFen: Boolean
 
   lazy val validFen = variant != FromPosition || {
-    fen ?? { f => ~(Forsyth <<< f.value).map(_.situation playable strictFen) }
+    fen ?? { f =>
+      ~(Forsyth <<< f.value).map(_.situation playable strictFen)
+    }
   }
 
   def fenGame(builder: ChessGame => Game): Game = {
@@ -73,21 +80,22 @@ trait Positional { self: Config =>
           clock = makeClock.map(_.toClock)
         )
         if (Forsyth.>>(game) == Forsyth.initial) makeGame(chess.variant.Standard) -> none
-        else game -> baseState
+        else game                                                                 -> baseState
     }
     val game = builder(chessGame)
     state.fold(game) {
-      case sit @ SituationPlus(Situation(board, _), _) => game.copy(
-        chess = game.chess.copy(
-          situation = game.situation.copy(
-            board = game.board.copy(
-              history = board.history,
-              variant = FromPosition
-            )
-          ),
-          turns = sit.turns
+      case sit @ SituationPlus(Situation(board, _), _) =>
+        game.copy(
+          chess = game.chess.copy(
+            situation = game.situation.copy(
+              board = game.board.copy(
+                history = board.history,
+                variant = FromPosition
+              )
+            ),
+            turns = sit.turns
+          )
         )
-      )
     }
   }
 }
@@ -95,7 +103,7 @@ trait Positional { self: Config =>
 object Config extends BaseConfig
 
 trait BaseConfig {
-  val variants = List(chess.variant.Standard.id, chess.variant.Chess960.id)
+  val variants       = List(chess.variant.Standard.id, chess.variant.Chess960.id)
   val variantDefault = chess.variant.Standard
 
   val variantsWithFen = variants :+ FromPosition.id
@@ -122,13 +130,13 @@ trait BaseConfig {
 
   val speeds = Speed.all.map(_.id)
 
-  private val timeMin = 0
-  private val timeMax = 180
+  private val timeMin             = 0
+  private val timeMax             = 180
   private val acceptableFractions = Set(1 / 4d, 1 / 2d, 3 / 4d, 3 / 2d)
   def validateTime(t: Double) =
     t >= timeMin && t <= timeMax && (t.isWhole || acceptableFractions(t))
 
-  private val incrementMin = 0
-  private val incrementMax = 180
+  private val incrementMin      = 0
+  private val incrementMax      = 180
   def validateIncrement(i: Int) = i >= incrementMin && i <= incrementMax
 }

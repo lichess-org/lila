@@ -11,8 +11,8 @@
     "chess",
     "lichess"
   ],
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0",
+  "author": "Thibault Duplessis and the gang",
+  "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/ornicar/lila/issues"
   },
@@ -48,14 +48,13 @@
     "ui/serviceWorker",
     "ui/simul",
     "ui/site",
+    "ui/swiss",
     "ui/tournament",
     "ui/tournamentSchedule",
     "ui/tournamentCalendar",
     "ui/tree",
-    "ui/@build/cssProject",
-    "ui/@build/jsProject",
-    "ui/@build/tsProject",
-    "ui/@build/tsPlugins",
+    "ui/msg",
+    "ui/@build/rollupProject",
     "ui/@types/lichess"
   ]
 }

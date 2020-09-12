@@ -4,6 +4,7 @@ $mq-col3: $mq-x-large;
 
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+
   @include breakpoint($mq-col2) {
     --main-max-width: auto;
   }
@@ -12,48 +13,55 @@ $mq-col3: $mq-x-large;
 .coord-trainer {
   grid-area: main;
   display: grid;
+  overflow: hidden;
 
-  overflow: hidden; // coords cause mobile to have horiz scrolling
+  // coords cause mobile to have horiz scrolling
 
-  &__side { grid-area: side; }
-  &__board { grid-area: board; }
-  &__table { grid-area: table; }
-  &__progress { grid-area: progress; }
-  &__score { grid-area: score; }
+  &__side {
+    grid-area: side;
+  }
 
-  grid-template-areas:
-  'board'
-  'progress'
-  'score'
-  'table'
-  'side';
+  &__board {
+    grid-area: board;
+  }
+
+  &__table {
+    grid-area: table;
+  }
+
+  &__progress {
+    grid-area: progress;
+  }
+
+  &__score {
+    grid-area: score;
+  }
+
+  grid-template-areas: 'board' 'progress' 'score' 'table' 'side';
   grid-row-gap: $block-gap;
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width $block-gap $col2-uniboard-table;
     grid-template-rows: fit-content(0);
-    grid-template-areas:
-    'board    . table'
-    'board    . side'
-    'progress . .'
-    'score    . .';
+    grid-template-areas: 'board    . table' 'board    . side' 'progress . .' 'score    . .';
   }
 
+
   @include breakpoint($mq-col3) {
-    grid-template-areas:
-    'side . board    . table'
-    '.    . progress . .'
-    '.    . score    . .';
+    grid-template-areas: 'side . board    . table' '.    . progress . .' '.    . score    . .';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $block-gap $col3-uniboard-table;
   }
 
+
   .box {
     padding: $block-gap;
+
     h1 {
       font-size: 1.5em;
       padding: 0 !important;
       text-align: center;
     }
+
     p {
       margin-top: 1em;
     }
@@ -61,6 +69,7 @@ $mq-col3: $mq-x-large;
 
   form.color {
     margin-top: $block-gap;
+
     .color i {
       display: block;
       width: 30px;
@@ -69,12 +78,15 @@ $mq-col3: $mq-x-large;
       background-repeat: no-repeat;
       padding: 0;
     }
+
     .color_1 i {
       background-image: url(../piece/cburnett/wK.svg);
     }
+
     .color_2 i {
       background-image: url(../images/wbK.svg);
     }
+
     .color_3 i {
       background-image: url(../piece/cburnett/bK.svg);
     }
@@ -82,6 +94,7 @@ $mq-col3: $mq-x-large;
 
   .next_coord {
     @extend %flex-center;
+
     z-index: 2;
     justify-content: center;
     position: absolute;
@@ -96,20 +109,25 @@ $mq-col3: $mq-x-large;
     color: #eee;
     text-shadow: 0 10px 10px #444;
     opacity: 0.8;
-    @include transition();
+
+    @include transition;
+
     &.nope {
       color: $c-bad !important;
     }
   }
+
   #next_coord0 {
     color: #fff;
   }
+
   #next_coord1 {
     left: 26%;
     top: 10%;
     font-size: 75px;
     opacity: 0.7;
   }
+
   #next_coord2 {
     transition: none;
     left: 38%;
@@ -117,27 +135,35 @@ $mq-col3: $mq-x-large;
     font-size: 38px;
     opacity: 0.4;
   }
+
   #next_coord1,
   #next_coord2,
   #next_coord0 {
     user-select: none;
   }
+
   .progress_bar {
     @extend %box-radius;
+
     width: 100%;
     height: 10px;
     background-color: $c-secondary;
   }
+
   &__table {
     @extend %flex-center;
+
     justify-content: space-around;
+
     .explanation li {
       list-style: outside disc;
       margin: .5em 0 .5em 1em;
     }
   }
+
   &__score {
     @extend %roboto, %flex-center, %box-radius;
+
     justify-content: center;
     font-weight: bold;
     font-size: 70px;
@@ -147,17 +173,21 @@ $mq-col3: $mq-x-large;
     line-height: 110px;
     background-color: $c-secondary;
     color: $c-secondary-over;
-    @include transition();
+
+    @include transition;
   }
+
   &.wrong .progress_bar,
   &.wrong .coord-trainer__score {
     background-color: $c-bad;
   }
+
   &.play .start,
   #next_coord,
   &.play form.color {
     display: none;
   }
+
   &.play #next_coord {
     display: block;
   }
@@ -167,14 +197,18 @@ $mq-col3: $mq-x-large;
       .coord-trainer__score {
         display: none;
       }
+
       .explanation {
         order: 2;
         margin-top: 1em;
       }
     }
+
+
     .coord-trainer__score {
       opacity: 0;
     }
+
     form.color {
       margin-bottom: $block-gap;
     }

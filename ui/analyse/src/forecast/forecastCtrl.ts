@@ -1,4 +1,5 @@
-import { prop } from 'common';
+import { prop, notEmpty } from 'common';
+import * as xhr from 'common/xhr';
 import { ForecastCtrl, ForecastData, ForecastStep } from './interfaces';
 import { AnalyseData } from '../interfaces';
 
@@ -35,7 +36,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
 
   function truncate(fc: ForecastStep[]): ForecastStep[] {
     if (cfg.onMyTurn)
-    return (fc.length % 2 !== 1 ? fc.slice(0, -1) : fc).slice(0, 30);
+      return (fc.length % 2 !== 1 ? fc.slice(0, -1) : fc).slice(0, 30);
     // must end with player move
     return (fc.length % 2 !== 0 ? fc.slice(0, -1) : fc).slice(0, 30);
   }
@@ -82,12 +83,11 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     if (cfg.onMyTurn) return;
     loading(true);
     redraw();
-    $.ajax({
+    xhr.json(saveUrl, {
       method: 'POST',
-      url: saveUrl,
-      data: JSON.stringify(forecasts),
-      contentType: 'application/json'
-    }).then(function(data) {
+      body: JSON.stringify(forecasts),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(data => {
       if (data.reload) reloadToLastPly();
       else {
         loading(false);
@@ -101,16 +101,13 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     if (!cfg.onMyTurn) return;
     loading(true);
     redraw();
-    $.ajax({
+    xhr.json(`${saveUrl}/${node.uci}`, {
       method: 'POST',
-      url: saveUrl + '/' + node.uci,
-      data: JSON.stringify(findStartingWithNode(node).filter(function(fc) {
-        return fc.length > 1;
-      }).map(function(fc) {
-        return fc.slice(1);
-      })),
-      contentType: 'application/json'
-    }).then(function(data) {
+      body: JSON.stringify(findStartingWithNode(node)
+        .filter(notEmpty)
+        .map(fc => fc.slice(1))),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(data => {
       if (data.reload) reloadToLastPly();
       else {
         loading(false);
@@ -131,7 +128,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     isCandidate,
     removeIndex(index) {
       forecasts = forecasts.filter((_, i) => i !== index)
-        save();
+      save();
     },
     list: () => forecasts,
     truncate,

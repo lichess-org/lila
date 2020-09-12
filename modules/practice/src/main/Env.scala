@@ -1,37 +1,25 @@
 package lila.practice
 
-import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
 
+import lila.common.config._
+
+@Module
 final class Env(
-    config: Config,
-    configStore: lila.memo.ConfigStore.Builder,
+    configStoreApi: lila.memo.ConfigStore.Builder,
     studyApi: lila.study.StudyApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    db: lila.db.Env
-) {
+    cacheApi: lila.memo.CacheApi,
+    db: lila.db.Db
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val CollectionProgress = config getString "collection.progress"
+  private lazy val coll = db(CollName("practice_progress"))
 
-  lazy val api = new PracticeApi(
-    coll = db(CollectionProgress),
-    configStore = configStore[PracticeConfig]("practice", logger),
-    asyncCache = asyncCache,
-    studyApi = studyApi
-  )
+  import PracticeConfig.loader
+  private lazy val configStore = configStoreApi[PracticeConfig]("practice", logger)
 
-  lila.common.Bus.subscribeFun('study) {
+  lazy val api: PracticeApi = wire[PracticeApi]
+
+  lila.common.Bus.subscribeFun("study") {
     case lila.study.actorApi.SaveStudy(study) => api.structure onSave study
   }
-}
-
-object Env {
-
-  lazy val current: Env = "practice" boot new Env(
-    config = lila.common.PlayApp loadConfig "practice",
-    configStore = lila.memo.Env.current.configStore,
-    studyApi = lila.study.Env.current.api,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    db = lila.db.Env.current
-  )
 }

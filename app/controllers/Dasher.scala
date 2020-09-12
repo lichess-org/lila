@@ -5,100 +5,101 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app._
 import lila.common.LightUser.lightUserWrites
-import lila.i18n.{ I18nKeys, I18nLangPicker, enLang }
+import lila.i18n.{ enLang, I18nKeys => trans, I18nLangPicker, LangList }
 
-object Dasher extends LilaController {
+final class Dasher(env: Env) extends LilaController(env) {
 
   private val translationsBase = List(
-    I18nKeys.networkLagBetweenYouAndLichess,
-    I18nKeys.timeToProcessAMoveOnLichessServer,
-    I18nKeys.sound,
-    I18nKeys.background,
-    I18nKeys.light,
-    I18nKeys.dark,
-    I18nKeys.transparent,
-    I18nKeys.backgroundImageUrl,
-    I18nKeys.boardGeometry,
-    I18nKeys.boardTheme,
-    I18nKeys.boardSize,
-    I18nKeys.pieceSet,
-    I18nKeys.zenMode
-  )
+    trans.networkLagBetweenYouAndLichess,
+    trans.timeToProcessAMoveOnLichessServer,
+    trans.sound,
+    trans.background,
+    trans.light,
+    trans.dark,
+    trans.transparent,
+    trans.backgroundImageUrl,
+    trans.boardGeometry,
+    trans.boardTheme,
+    trans.boardSize,
+    trans.pieceSet,
+    trans.preferences.zenMode
+  ).map(_.key)
 
   private val translationsAnon = List(
-    I18nKeys.signIn,
-    I18nKeys.signUp
-  ) ::: translationsBase
+    trans.signIn,
+    trans.signUp
+  ).map(_.key) ::: translationsBase
 
   private val translationsAuth = List(
-    I18nKeys.profile,
-    I18nKeys.inbox,
-    I18nKeys.preferences,
-    I18nKeys.logOut
-  ) ::: translationsBase
+    trans.profile,
+    trans.inbox,
+    trans.preferences.preferences,
+    trans.logOut
+  ).map(_.key) ::: translationsBase
 
-  private def translations(implicit ctx: Context) = lila.i18n.JsDump.keysToObject(
-    if (ctx.isAnon) translationsAnon else translationsAuth,
-    lila.i18n.I18nDb.Site,
-    ctx.lang
-  ) ++ lila.i18n.JsDump.keysToObject(
+  private def translations(implicit ctx: Context) =
+    lila.i18n.JsDump.keysToObject(
+      if (ctx.isAnon) translationsAnon else translationsAuth,
+      ctx.lang
+    ) ++ lila.i18n.JsDump.keysToObject(
       // the language settings should never be in a totally foreign language
-      List(I18nKeys.language),
-      lila.i18n.I18nDb.Site,
+      List(trans.language.key),
       if (I18nLangPicker.allFromRequestHeaders(ctx.req).has(ctx.lang)) ctx.lang
       else I18nLangPicker.bestFromRequestHeaders(ctx.req) | enLang
     )
 
-  def get = Open { implicit ctx =>
-    negotiate(
-      html = notFound,
-      api = _ => ctx.me.??(Env.streamer.api.isStreamer) map { isStreamer =>
-        Ok {
-          Json.obj(
-            "user" -> ctx.me.map(_.light),
-            "lang" -> Json.obj(
-              "current" -> ctx.lang.code,
-              "accepted" -> I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code)
-            ),
-            "sound" -> Json.obj(
-              "list" -> lila.pref.SoundSet.list.map { set =>
-                s"${set.key} ${set.name}"
-              }
-            ),
-            "background" -> Json.obj(
-              "current" -> ctx.currentBg,
-              "image" -> ctx.pref.bgImgOrDefault
-            ),
-            "board" -> Json.obj(
-              "is3d" -> ctx.pref.is3d
-            ),
-            "theme" -> Json.obj(
-              "d2" -> Json.obj(
-                "current" -> ctx.currentTheme.name,
-                "list" -> lila.pref.Theme.all.map(_.name)
-              ),
-              "d3" -> Json.obj(
-                "current" -> ctx.currentTheme3d.name,
-                "list" -> lila.pref.Theme3d.all.map(_.name)
+  def get =
+    Open { implicit ctx =>
+      negotiate(
+        html = notFound,
+        api = _ =>
+          ctx.me.??(env.streamer.api.isPotentialStreamer) map { isStreamer =>
+            Ok {
+              Json.obj(
+                "user" -> ctx.me.map(_.light),
+                "lang" -> Json.obj(
+                  "current"  -> ctx.lang.code,
+                  "accepted" -> I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code),
+                  "list"     -> LangList.choices
+                ),
+                "sound" -> Json.obj(
+                  "list" -> lila.pref.SoundSet.list.map { set =>
+                    s"${set.key} ${set.name}"
+                  }
+                ),
+                "background" -> Json.obj(
+                  "current" -> ctx.currentBg,
+                  "image"   -> ctx.pref.bgImgOrDefault
+                ),
+                "board" -> Json.obj(
+                  "is3d" -> ctx.pref.is3d
+                ),
+                "theme" -> Json.obj(
+                  "d2" -> Json.obj(
+                    "current" -> ctx.currentTheme.name,
+                    "list"    -> lila.pref.Theme.all.map(_.name)
+                  ),
+                  "d3" -> Json.obj(
+                    "current" -> ctx.currentTheme3d.name,
+                    "list"    -> lila.pref.Theme3d.all.map(_.name)
+                  )
+                ),
+                "piece" -> Json.obj(
+                  "d2" -> Json.obj(
+                    "current" -> ctx.currentPieceSet.name,
+                    "list"    -> lila.pref.PieceSet.all.map(_.name)
+                  ),
+                  "d3" -> Json.obj(
+                    "current" -> ctx.currentPieceSet3d.name,
+                    "list"    -> lila.pref.PieceSet3d.all.map(_.name)
+                  )
+                ),
+                "coach"    -> isGranted(_.Coach),
+                "streamer" -> isStreamer,
+                "i18n"     -> translations
               )
-            ),
-            "piece" -> Json.obj(
-              "d2" -> Json.obj(
-                "current" -> ctx.currentPieceSet.name,
-                "list" -> lila.pref.PieceSet.all.map(_.name)
-              ),
-              "d3" -> Json.obj(
-                "current" -> ctx.currentPieceSet3d.name,
-                "list" -> lila.pref.PieceSet3d.all.map(_.name)
-              )
-            ),
-            "kid" -> ctx.me ?? (_.kid),
-            "coach" -> isGranted(_.Coach),
-            "streamer" -> isStreamer,
-            "i18n" -> translations
-          )
-        }
-      }
-    )
-  }
+            }
+          }
+      )
+    }
 }

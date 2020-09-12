@@ -1,21 +1,23 @@
+import modal from 'common/modal';
+
 const li = window.lichess;
 
 export function app($wrap: JQuery, toggle: () => void) {
   const $input = $wrap.find('input');
   li.userAutocomplete($input, {
-    focus: 1,
+    focus: true,
     friend: true,
     onSelect(q: any) {
       $input.val('').blur();
       execute(q.name || q.trim());
       $('body').hasClass('clinput') && toggle()
     }
-  }).done(function() {
+  }).then(() =>
     $input.on('blur', () => {
       $input.val('');
       $('body').hasClass('clinput') && toggle()
-    });
-  });
+    })
+  );
 }
 
 function execute(q: string) {
@@ -59,7 +61,7 @@ function commandHelp(aliases: string, args: string, desc: string) {
 
 function help() {
   li.loadCssPath('clinput.help')
-  $.modal(
+  modal(
     '<h3>Commands</h3>' +
     commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
     commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
@@ -75,8 +77,8 @@ function help() {
 }
 
 function getDasher(cb: (dasher: any) => void) {
-  li.loadScript(li.compiledScript('dasher')).then(function() {
-    window['LichessDasher'].default(document.createElement('div'), {
+  li.loadScript(li.jsModule('dasher')).then(function() {
+    window['LichessDasher'](document.createElement('div'), {
       playing: $('body').hasClass('playing')
     }).then(cb);
   });

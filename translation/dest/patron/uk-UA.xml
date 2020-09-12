@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="donate">Зробити внесок</string>
+  <string name="lichessPatron">Покровитель Lichess</string>
+  <string name="freeAccount">Безкоштовний обліковий запис</string>
+  <string name="becomePatron">Стати Покровителем Lichess</string>
+  <string name="xBecamePatron">%s став Покровителем Lichess</string>
+  <string name="newPatrons">Нові Покровителі</string>
+  <string name="freeChess">Безкоштовні шахи для всіх, назавжди!</string>
+  <string name="noAdsNoSubs">Без реклами та підписок, але з відкритим вихідним кодом і відданістю.</string>
+  <string name="thankYou">Дякуємо Вам за внесок!</string>
+  <string name="youHaveLifetime">У Вас пожиттєвий обліковий запис \"Покровителя\". Це доволі круто!</string>
+  <string name="patronUntil">У вас є обліковий запис Покровителя до %s.</string>
+  <string name="ifNotRenewed">Якщо не продовжите, то Ви будете знижені до безкоштовного.</string>
+  <string name="weAreNonProfit">Ми неприбуткова асоціація, тому що ми вважаємо, що кожен повинен мати доступ до безкоштовної шахової платформи світового рівня.</string>
+  <string name="weRelyOnSupport">Ми покладаємося на підтримку таких як Ви, щоб зробити його можливим. Якщо Вам подобається користуватися Lichess, будь ласка, підтримайте нас, зробивши внесок і ставши Покровителем!</string>
+  <string name="lifetime">Пожиттєва</string>
+  <string name="payLifetimeOnce">Заплатіть %s один раз. Станьте Покровителем назавжди!</string>
+  <string name="lifetimePatron">Пожиттєве покровительство Lichess</string>
+  <string name="makeExtraDonation">Зробити додатковий внесок?</string>
+  <string name="monthly">Щомісячно</string>
+  <string name="recurringBilling">Регулярні платежі продовжують ваші \"крила\" Покровителя щомісяця.</string>
+  <string name="onetime">Одноразовий</string>
+  <string name="singleDonation">Один внесок, який дасть Вам крила Покровителя на один місяць.</string>
+  <string name="otherAmount">Інше</string>
+  <string name="pleaseEnterAmount">Будь ласка, введіть суму в долларах США</string>
+  <string name="withCreditCard">Кредитна карта</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Ми невелика команда, тому Ваша підтримка має велике значення!</string>
+  <string name="celebratedPatrons">Видатні Покровителі, завдяки яким існує Lichess</string>
+  <string name="whereMoneyGoes">Куди підуть мої гроші?</string>
+  <string name="serversAndDeveloper">Перш за все, потужні сервери.
+Потім ми оплачуємо повний робочий час розробнику: %s, засновнику Lichess.</string>
+  <string name="costBreakdown">Переглянути детальний розподіл витрат</string>
+  <string name="officialNonProfit">Чи Lichess офіційно некомерційний?</string>
+  <string name="actOfCreation">Так, ось акт створення (французькою)</string>
+  <string name="changeMonthlySupport">Я можу змінити/скасувати свою місячну підтримку?</string>
+  <string name="changeOrContact">Так, у будь-який момент з цієї сторінки.
+Або Ви можете %s.</string>
+  <string name="contactSupport">зв\'язатися з підтримкою Lichess</string>
+  <string name="otherMethods">Інші методи пожертвування?</string>
+  <string name="bankTransfers">Ми також приймаємо банківські перекази</string>
+  <string name="bitcoin">А ось наша біткойн адреса: %s</string>
+  <string name="patronFeatures">Чи деякі функції зарезервовані для Покровителів?</string>
+  <string name="noPatronFeatures">Ні, тому що Lichess повністю безкоштовний, назавжди і для всіх. Це обіцянка.
+Тим не менш, Покровителі отримують нову класну іконку профілю.</string>
+  <string name="featuresComparison">Ознайомтеся з докладним порівнянням функцій</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Покровитель Lichess на один місяць</item>
+    <item quantity="few">Покровитель Lichess на %s місяці</item>
+    <item quantity="many">Покровитель Lichess на %s місяців</item>
+    <item quantity="other">Покровитель Lichess на %s місяців</item>
+  </plurals>
+  <string name="youSupportWith">Ви підтримуєте lichess.org сумою %s на місяць.</string>
+  <string name="tyvm">Дуже дякуємо за Вашу допомогу. Ви круті!</string>
+  <string name="currentStatus">Поточний статус</string>
+  <string name="nextPayment">Наступний платіж</string>
+  <string name="youWillBeChargedXOnY">З %2$s буде знято %1$s.</string>
+  <string name="makeAdditionalDonation">Зробити додатковий внесок зараз</string>
+  <string name="update">Оновити</string>
+  <string name="changeMonthlyAmount">Змінити місячну суму (%s)</string>
+  <string name="cancelSupport">скасувати підтримку</string>
+  <string name="xOrY">%1$s або %2$s</string>
+  <string name="decideHowMuch">Виріште, наскільки цінним Lichess є для Вас:</string>
+  <string name="stopPayments">Відкликати вашу кредитну картку і припинити платежі:</string>
+  <string name="noLongerSupport">Припинити підтримку Lichess</string>
+  <string name="paymentHistory">Історія платежів</string>
+  <string name="paid">Сплачено</string>
+  <string name="viewOthers">Переглянути інших Покровителів Lichess</string>
+  <string name="date">Дата</string>
+  <string name="amount">Сума</string>
+  <string name="transactionCompleted">Вашу транзакцію завершено, а на пошту надіслано квитанцію про Ваше пожертвування.</string>
+  <string name="permanentPatron">Тепер у Вас обліковий запис пожиттєвого Покровителя.</string>
+  <string name="checkOutProfile">Перевірте свою сторінку профілю!</string>
+  <string name="nowLifetime">Тепер Ви - пожиттєвий Покровитель Lichess!</string>
+  <string name="nowOneMonth">Тепер Ви Покровитель Lichess на один місяць!</string>
+  <string name="downgradeNextMonth">Через один місяць з Вас НЕ буде списано кошти знову, а Ваш обліковий запис Lichess буде повернено до звичайного.</string>
+</resources>

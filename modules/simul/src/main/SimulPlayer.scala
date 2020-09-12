@@ -11,7 +11,7 @@ private[simul] case class SimulPlayer(
     provisional: Option[Boolean]
 ) {
 
-  def is(userId: User.ID): Boolean = user == userId
+  def is(userId: User.ID): Boolean    = user == userId
   def is(other: SimulPlayer): Boolean = is(other.user)
 }
 

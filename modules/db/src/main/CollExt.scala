@@ -1,193 +1,310 @@
 package lila.db
 
-import scala.collection.breakOut
-import scala.collection.generic.CanBuildFrom
-import scala.util.{ Success, Failure }
+import scala.collection.Factory
+import scala.annotation.nowarn
 
 import reactivemongo.api._
-import reactivemongo.api.collections.bson.BSONBatchCommands._
-import reactivemongo.api.commands.GetLastError
-import reactivemongo.bson._
-import reactivemongo.core.protocol.MongoWireVersion
+import reactivemongo.api.bson._
+import reactivemongo.api.{ WriteConcern => CWC }
 
 trait CollExt { self: dsl with QueryBuilderExt =>
 
-  final implicit class ExtendColl(coll: Coll) {
+  implicit final class ExtendColl(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-    def uno[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
-      coll.find(selector).uno[D]
+    def secondaryPreferred = coll withReadPreference ReadPreference.secondaryPreferred
+    def secondary          = coll withReadPreference ReadPreference.secondary
 
-    def uno[D: BSONDocumentReader](selector: Bdoc, projection: Bdoc): Fu[Option[D]] =
-      coll.find(selector, projection).uno[D]
+    def ext = this
 
-    def list[D: BSONDocumentReader](selector: Bdoc, readPreference: ReadPreference = ReadPreference.primary): Fu[List[D]] =
-      coll.find(selector).list[D](Int.MaxValue, readPreference = readPreference)
+    def one[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
+      coll.find(selector, none[Bdoc]).one[D]
+
+    def one[D: BSONDocumentReader](selector: Bdoc, projection: Bdoc): Fu[Option[D]] =
+      coll.find(selector, projection.some).one[D]
+
+    def list[D: BSONDocumentReader](
+        selector: Bdoc,
+        readPreference: ReadPreference = ReadPreference.primary
+    ): Fu[List[D]] =
+      coll.find(selector, none[Bdoc]).cursor[D](readPreference).list(Int.MaxValue)
 
     def list[D: BSONDocumentReader](selector: Bdoc, limit: Int): Fu[List[D]] =
-      coll.find(selector).list[D](limit = limit)
+      coll.find(selector, none[Bdoc]).cursor[D]().list(limit = limit)
 
-    def byId[D: BSONDocumentReader, I: BSONValueWriter](id: I): Fu[Option[D]] =
-      uno[D]($id(id))
+    def byId[D: BSONDocumentReader, I: BSONWriter](id: I): Fu[Option[D]] =
+      one[D]($id(id))
 
-    def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] = uno[D]($id(id))
-    def byId[D: BSONDocumentReader](id: String, projection: Bdoc): Fu[Option[D]] = uno[D]($id(id), projection)
+    def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] = one[D]($id(id))
 
-    def byId[D: BSONDocumentReader](id: Int): Fu[Option[D]] = uno[D]($id(id))
+    def byId[D: BSONDocumentReader](id: String, projection: Bdoc): Fu[Option[D]] = one[D]($id(id), projection)
 
-    def byIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference): Fu[List[D]] =
-      list[D]($inIds(ids))
+    def byIds[D: BSONDocumentReader, I: BSONWriter](
+        ids: Iterable[I],
+        readPreference: ReadPreference
+    ): Fu[List[D]] =
+      list[D]($inIds(ids), readPreference)
 
-    def byIds[D: BSONDocumentReader](ids: Iterable[String], readPreference: ReadPreference = ReadPreference.primary): Fu[List[D]] =
+    def byIds[D: BSONDocumentReader](
+        ids: Iterable[String],
+        readPreference: ReadPreference = ReadPreference.primary
+    ): Fu[List[D]] =
       byIds[D, String](ids, readPreference)
 
-    def countSel(
-      selector: Bdoc,
-      readPreference: ReadPreference = ReadPreference.primary
-    ): Fu[Int] =
-      coll.runValueCommand(
-        CountCommand.Count(query = selector.some, limit = 0, skip = 0, hint = None),
-        readPreference
-      )
+    def countSel(selector: coll.pack.Document): Fu[Int] =
+      coll
+        .count(
+          selector = selector.some,
+          limit = None,
+          skip = 0,
+          hint = None,
+          readConcern = ReadConcern.Local
+        )
+        .dmap(_.toInt)
 
-    def exists(selector: Bdoc, readPreference: ReadPreference = ReadPreference.primary): Fu[Boolean] =
-      countSel(selector, readPreference).dmap(0!=)
+    def countAll: Fu[Long] =
+      coll
+        .count(
+          selector = none,
+          limit = None,
+          skip = 0,
+          hint = None,
+          readConcern = ReadConcern.Local
+        )
 
-    def byOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], projection: Option[Bdoc] = None, readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[List[D]] =
-      projection.fold(coll.find($inIds(ids))) { proj =>
-        coll.find($inIds(ids), proj)
-      }.cursor[D](readPreference = readPreference)
-        .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[D]]())
-        .map { docs =>
-          val docsMap: Map[I, D] = docs.map(u => docId(u) -> u)(breakOut)
-          ids.flatMap(docsMap.get)(breakOut)
-        }
+    def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).dmap(0 !=)
 
-    def optionsByOrderedIds[D: BSONDocumentReader, I: BSONValueWriter](
-      ids: Iterable[I],
-      readPreference: ReadPreference = ReadPreference.primary
+    def byOrderedIds[D: BSONDocumentReader, I: BSONWriter](
+        ids: Iterable[I],
+        projection: Option[Bdoc] = None,
+        readPreference: ReadPreference = ReadPreference.primary
+    )(docId: D => I): Fu[List[D]] =
+      mapByOrderedIds[D, I](ids, projection, readPreference)(docId) map { m =>
+        ids.view.flatMap(m.get).toList
+      }
+
+    def optionsByOrderedIds[D: BSONDocumentReader, I: BSONWriter](
+        ids: Iterable[I],
+        projection: Option[Bdoc] = None,
+        readPreference: ReadPreference = ReadPreference.primary
     )(docId: D => I): Fu[List[Option[D]]] =
-      byIds[D, I](ids, readPreference) map { docs =>
-        val docsMap: Map[I, D] = docs.map(u => docId(u) -> u)(breakOut)
-        ids.map(docsMap.get)(breakOut)
+      mapByOrderedIds[D, I](ids, projection, readPreference)(docId) map { m =>
+        ids.view.map(m.get).toList
       }
 
-    def idsMap[D: BSONDocumentReader, I: BSONValueWriter](ids: Iterable[I], readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[Map[I, D]] =
+    private def mapByOrderedIds[D: BSONDocumentReader, I: BSONWriter](
+        ids: Iterable[I],
+        projection: Option[Bdoc],
+        readPreference: ReadPreference
+    )(docId: D => I): Fu[Map[I, D]] =
+      projection
+        .fold(coll.find($inIds(ids))) { proj =>
+          coll.find($inIds(ids), proj.some)
+        }
+        .cursor[D](readPreference)
+        .collect[List](Int.MaxValue)
+        .map {
+          _.view.map(u => docId(u) -> u).toMap
+        }
+
+    def idsMap[D: BSONDocumentReader, I: BSONWriter](
+        ids: Iterable[I],
+        readPreference: ReadPreference = ReadPreference.primary
+    )(docId: D => I): Fu[Map[I, D]] =
       byIds[D, I](ids, readPreference) map { docs =>
-        docs.map(u => docId(u) -> u)(breakOut)
+        docs.view.map(u => docId(u) -> u).to(Map)
       }
 
-    def primitive[V: BSONValueReader](selector: Bdoc, field: String): Fu[List[V]] =
-      coll.find(selector, $doc(field -> true))
-        .list[Bdoc]()
+    def primitive[V: BSONReader](selector: Bdoc, field: String): Fu[List[V]] =
+      coll
+        .find(selector, $doc(field -> true).some)
+        .cursor[Bdoc]()
+        .list()
         .dmap {
-          _ flatMap { _.getAs[V](field) }
+          _ flatMap { _.getAsOpt[V](field) }
         }
 
-    def primitive[V: BSONValueReader](selector: Bdoc, sort: Bdoc, field: String): Fu[List[V]] =
-      coll.find(selector, $doc(field -> true))
+    def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[List[V]] =
+      coll
+        .find(selector, $doc(field -> true).some)
         .sort(sort)
-        .list[Bdoc]()
+        .cursor[Bdoc]()
+        .list()
         .dmap {
-          _ flatMap { _.getAs[V](field) }
+          _ flatMap { _.getAsOpt[V](field) }
         }
 
-    def primitive[V: BSONValueReader](selector: Bdoc, sort: Bdoc, nb: Int, field: String): Fu[List[V]] =
-      coll.find(selector, $doc(field -> true))
+    def primitive[V: BSONReader](selector: Bdoc, sort: Bdoc, nb: Int, field: String): Fu[List[V]] =
+      (nb > 0) ?? coll
+        .find(selector, $doc(field -> true).some)
         .sort(sort)
-        .list[Bdoc](nb)
+        .cursor[Bdoc]()
+        .list(nb)
         .dmap {
-          _ flatMap { _.getAs[V](field) }
+          _ flatMap { _.getAsOpt[V](field) }
         }
 
-    def primitiveOne[V: BSONValueReader](selector: Bdoc, field: String): Fu[Option[V]] =
-      coll.find(selector, $doc(field -> true))
-        .uno[Bdoc]
+    def primitiveOne[V: BSONReader](selector: Bdoc, field: String): Fu[Option[V]] =
+      coll
+        .find(selector, $doc(field -> true).some)
+        .one[Bdoc]
         .dmap {
-          _ flatMap { _.getAs[V](field) }
+          _ flatMap { _.getAsOpt[V](field) }
         }
 
-    def primitiveOne[V: BSONValueReader](selector: Bdoc, sort: Bdoc, field: String): Fu[Option[V]] =
-      coll.find(selector, $doc(field -> true))
+    def primitiveOne[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[Option[V]] =
+      coll
+        .find(selector, $doc(field -> true).some)
         .sort(sort)
-        .uno[Bdoc]
+        .one[Bdoc]
         .dmap {
-          _ flatMap { _.getAs[V](field) }
+          _ flatMap { _.getAsOpt[V](field) }
         }
 
-    def primitiveMap[I: BSONValueReader: BSONValueWriter, V](
-      ids: Iterable[I],
-      field: String,
-      fieldExtractor: Bdoc => Option[V]
+    def primitiveMap[I: BSONReader: BSONWriter, V](
+        ids: Iterable[I],
+        field: String,
+        fieldExtractor: Bdoc => Option[V]
     ): Fu[Map[I, V]] =
-      coll.find($inIds(ids), $doc(field -> true))
-        .list[Bdoc]()
+      coll
+        .find($inIds(ids), $doc(field -> true).some)
+        .cursor[Bdoc]()
+        .list()
         .dmap {
           _ flatMap { obj =>
-            obj.getAs[I]("_id") flatMap { id =>
+            obj.getAsOpt[I]("_id") flatMap { id =>
               fieldExtractor(obj) map { id -> _ }
             }
           } toMap
         }
 
-    def updateField[V: BSONValueWriter](selector: Bdoc, field: String, value: V) =
-      coll.update(selector, $set(field -> value))
+    def updateField[V: BSONWriter](selector: Bdoc, field: String, value: V) =
+      coll.update.one(selector, $set(field -> value))
 
-    def updateFieldUnchecked[V: BSONValueWriter](selector: Bdoc, field: String, value: V): Unit =
-      coll.update(selector, $set(field -> value), writeConcern = GetLastError.Unacknowledged)
+    def updateFieldUnchecked[V: BSONWriter](selector: Bdoc, field: String, value: V): Unit =
+      coll
+        .update(ordered = false, writeConcern = WriteConcern.Unacknowledged)
+        .one(selector, $set(field -> value))
 
     def incField(selector: Bdoc, field: String, value: Int = 1) =
-      coll.update(selector, $inc(field -> value))
+      coll.update.one(selector, $inc(field -> value))
 
     def incFieldUnchecked(selector: Bdoc, field: String, value: Int = 1): Unit =
-      coll.update(selector, $inc(field -> value), writeConcern = GetLastError.Unacknowledged)
+      coll
+        .update(ordered = false, writeConcern = WriteConcern.Unacknowledged)
+        .one(selector, $inc(field -> value))
 
     def unsetField(selector: Bdoc, field: String, multi: Boolean = false) =
-      coll.update(selector, $unset(field), multi = multi)
+      coll.update.one(selector, $unset(field), multi = multi)
 
     def fetchUpdate[D: BSONDocumentHandler](selector: Bdoc)(update: D => Bdoc): Funit =
-      uno[D](selector) flatMap {
+      one[D](selector) flatMap {
         _ ?? { doc =>
-          coll.update(selector, update(doc)).void
+          coll.update.one(selector, update(doc)).void
         }
       }
-
-    // sadly we can't access the connection metadata
-    private val mongoWireVersion = MongoWireVersion.V34
 
     def aggregateList(
-      firstOperator: AggregationFramework.PipelineOperator,
-      otherOperators: List[AggregationFramework.PipelineOperator] = Nil,
-      maxDocs: Int,
-      readPreference: ReadPreference = ReadPreference.primary,
-      allowDiskUse: Boolean = false
-    ): Fu[List[Bdoc]] = coll.aggregatorContext[Bdoc](
-      firstOperator,
-      otherOperators,
-      readPreference = readPreference
-    ).prepared[Cursor](CursorProducer.defaultCursorProducer[Bdoc]).cursor.collect[List](maxDocs = maxDocs, Cursor.FailOnError[List[Bdoc]]())
+        maxDocs: Int,
+        readPreference: ReadPreference = ReadPreference.primary,
+        allowDiskUse: Boolean = false
+    )(
+        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator])
+    )(implicit cp: CursorProducer[Bdoc]): Fu[List[Bdoc]] =
+      coll
+        .aggregateWith[Bdoc](
+          allowDiskUse = allowDiskUse,
+          readPreference = readPreference
+        )(agg => {
+          val nonEmpty = f(agg)
+          nonEmpty._1 +: nonEmpty._2
+        })
+        .collect[List](maxDocs = maxDocs)
 
     def aggregateOne(
-      firstOperator: AggregationFramework.PipelineOperator,
-      otherOperators: List[AggregationFramework.PipelineOperator] = Nil,
-      readPreference: ReadPreference = ReadPreference.primary
-    ): Fu[Option[Bdoc]] =
-      coll.aggregatorContext[Bdoc](firstOperator, otherOperators, readPreference = readPreference)
-        .prepared[Cursor](CursorProducer.defaultCursorProducer[Bdoc]).cursor.headOption
+        readPreference: ReadPreference = ReadPreference.primary,
+        allowDiskUse: Boolean = false
+    )(
+        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator])
+    )(implicit cp: CursorProducer[Bdoc]): Fu[Option[Bdoc]] =
+      coll
+        .aggregateWith[Bdoc](
+          allowDiskUse = allowDiskUse,
+          readPreference = readPreference
+        )(agg => {
+          val nonEmpty = f(agg)
+          nonEmpty._1 +: nonEmpty._2
+        })
+        .collect[List](maxDocs = 1)
+        .dmap(_.headOption) // .one[Bdoc] ?
 
-    def distinctWithReadPreference[T, M[_] <: Iterable[_]](
-      key: String,
-      selector: Option[Bdoc],
-      readPreference: ReadPreference
-    )(implicit reader: BSONValueReader[T], cbf: CanBuildFrom[M[_], T, M[T]]): Fu[M[T]] = {
-      implicit val widenReader = pack.widenReader(reader)
-      coll.runCommand(DistinctCommand.Distinct(
-        key, selector, ReadConcern.Local, mongoWireVersion
-      ), readPreference).flatMap {
-        _.result[T, M] match {
-          case Failure(cause) => scala.concurrent.Future.failed[M[T]](cause)
-          case Success(result) => fuccess(result)
-        }
+    def aggregateExists(
+        readPreference: ReadPreference = ReadPreference.primary,
+        allowDiskUse: Boolean = false
+    )(
+        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator])
+    )(implicit cp: CursorProducer[Bdoc]): Fu[Boolean] =
+      coll
+        .aggregateWith[Bdoc](
+          allowDiskUse = allowDiskUse,
+          readPreference = readPreference
+        )(agg => {
+          val nonEmpty = f(agg)
+          nonEmpty._1 +: nonEmpty._2
+        })
+        .headOption
+        .dmap(_.isDefined)
+
+    def distinctEasy[T, M[_] <: Iterable[_]](
+        key: String,
+        selector: coll.pack.Document,
+        readPreference: ReadPreference = ReadPreference.primary
+    )(implicit
+        reader: coll.pack.NarrowValueReader[T],
+        cbf: Factory[T, M[T]]
+    ): Fu[M[T]] =
+      coll.withReadPreference(readPreference).distinct(key, selector.some, ReadConcern.Local, None)
+
+    def findAndUpdate[D: BSONDocumentReader](
+        selector: coll.pack.Document,
+        update: coll.pack.Document,
+        fetchNewObject: Boolean = false,
+        upsert: Boolean = false,
+        sort: Option[coll.pack.Document] = None,
+        fields: Option[coll.pack.Document] = None,
+        @nowarn writeConcern: CWC = CWC.Acknowledged
+    ): Fu[Option[D]] =
+      coll.findAndUpdate(
+        selector = selector,
+        update = update,
+        fetchNewObject = fetchNewObject,
+        upsert = upsert,
+        sort = sort,
+        fields = fields,
+        bypassDocumentValidation = false,
+        writeConcern = writeConcern,
+        maxTime = none,
+        collation = none,
+        arrayFilters = Seq.empty
+      ) map {
+        _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
       }
-    }
+
+    def findAndRemove[D: BSONDocumentReader](
+        selector: coll.pack.Document,
+        sort: Option[coll.pack.Document] = None,
+        fields: Option[coll.pack.Document] = None,
+        @nowarn writeConcern: CWC = CWC.Acknowledged
+    ): Fu[Option[D]] =
+      coll.findAndRemove(
+        selector = selector,
+        sort = sort,
+        fields = fields,
+        writeConcern = writeConcern,
+        maxTime = none,
+        collation = none,
+        arrayFilters = Seq.empty
+      ) map {
+        _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
+      }
   }
 }

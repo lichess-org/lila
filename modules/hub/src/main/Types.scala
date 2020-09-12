@@ -1,15 +1,14 @@
 package lila.hub
 
-package object lightTeam {
-  type TeamId = String
-  type TeamName = String
-  case class LightTeam(_id: TeamId, name: TeamName) {
-    def id = _id
-    def pair = id -> name
-  }
+trait TellMap {
+  def tell(id: String, msg: Any): Unit
 }
 
-trait TellMap {
-
-  def tell(id: String, msg: Any): Unit
+object LightTeam {
+  type TeamID   = String
+  type TeamName = String
+}
+case class LeaderTeam(_id: LightTeam.TeamID, name: LightTeam.TeamName) {
+  def id   = _id
+  def pair = id -> name
 }

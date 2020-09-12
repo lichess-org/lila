@@ -7,7 +7,7 @@ sealed abstract class OAuthScope(val key: String, val name: String) {
 object OAuthScope {
 
   object Preference {
-    case object Read extends OAuthScope("preference:read", "Read preferences")
+    case object Read  extends OAuthScope("preference:read", "Read preferences")
     case object Write extends OAuthScope("preference:write", "Write preferences")
   }
 
@@ -16,8 +16,13 @@ object OAuthScope {
   }
 
   object Challenge {
-    case object Read extends OAuthScope("challenge:read", "Read incoming challenges")
+    case object Read  extends OAuthScope("challenge:read", "Read incoming challenges")
     case object Write extends OAuthScope("challenge:write", "Create, accept, decline challenges")
+  }
+
+  object Study {
+    case object Read  extends OAuthScope("study:read", "Read private studies and broadcasts")
+    case object Write extends OAuthScope("study:write", "Create, update, delete studies and broadcasts")
   }
 
   object Tournament {
@@ -32,8 +37,16 @@ object OAuthScope {
     case object Write extends OAuthScope("team:write", "Join, leave, and manage teams")
   }
 
+  object Msg {
+    case object Write extends OAuthScope("msg:write", "Send private messages to other players")
+  }
+
+  object Board {
+    case object Play extends OAuthScope("board:play", "Play games with the board API")
+  }
+
   object Bot {
-    case object Play extends OAuthScope("bot:play", "Play as a bot")
+    case object Play extends OAuthScope("bot:play", "Play games with the bot API")
   }
 
   case class Scoped(user: lila.user.User, scopes: List[OAuthScope])
@@ -41,25 +54,33 @@ object OAuthScope {
   type Selector = OAuthScope.type => OAuthScope
 
   val all = List(
-    Preference.Read, Preference.Write,
+    Preference.Read,
+    Preference.Write,
     Email.Read,
-    Challenge.Read, Challenge.Write,
+    Challenge.Read,
+    Challenge.Write,
+    Study.Read,
+    Study.Write,
     Tournament.Write,
     Puzzle.Read,
     Team.Write,
+    Msg.Write,
+    Board.Play,
     Bot.Play
   )
 
-  val byKey: Map[String, OAuthScope] = all.map { s => s.key -> s } toMap
+  val byKey: Map[String, OAuthScope] = all.map { s =>
+    s.key -> s
+  } toMap
 
   def keyList(scopes: Iterable[OAuthScope]) = scopes.map(_.key) mkString ", "
 
   def select(selectors: Iterable[OAuthScope.type => OAuthScope]) = selectors.map(_(OAuthScope)).toList
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.dsl._
-  private[oauth] implicit val scopeHandler = new BSONHandler[BSONString, OAuthScope] {
-    def read(b: BSONString): OAuthScope = OAuthScope.byKey.get(b.value) err s"No such scope: ${b.value}"
-    def write(s: OAuthScope) = BSONString(s.key)
-  }
+  implicit private[oauth] val scopeHandler = tryHandler[OAuthScope](
+    { case b: BSONString => OAuthScope.byKey.get(b.value) toTry s"No such scope: ${b.value}" },
+    s => BSONString(s.key)
+  )
 }

@@ -30,8 +30,8 @@ export interface Socket {
 
 export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
 
-  let anaMoveTimeout;
-  let anaDestsTimeout;
+  let anaMoveTimeout: number | undefined;
+  let anaDestsTimeout: number | undefined;
 
   let anaDestsCache: DestCache = {};
 
@@ -55,6 +55,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
 
   function currentChapterId(): string | undefined {
     if (ctrl.study) return ctrl.study.vm.chapterId;
+    return undefined;
   };
 
   function addStudyData(req, isWrite = false): void {
@@ -87,7 +88,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       clearTimeout(anaDestsTimeout);
       if (!data.ch || data.ch === currentChapterId()) {
         anaDestsCache[data.path] = data;
-        ctrl.addDests(data.dests, data.path, data.opening);
+        ctrl.addDests(data.dests, data.path);
       } else
       console.log('socket handler node got wrong chapter id', data);
     },
@@ -107,9 +108,6 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     },
     evalHit(e) {
       ctrl.evalCache.onCloudEval(e);
-    },
-    crowd(d) {
-      ctrl.evalCache.upgradable(d.nb > 2);
     }
   };
 

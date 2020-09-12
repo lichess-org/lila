@@ -1,27 +1,38 @@
 package lila.insight
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
+import lila.db.AsyncColl
+import lila.user.User
 
 case class UserCache(
-    _id: String, // user id
-    count: Int, // nb insight entries
+    _id: User.ID, // user id
+    count: Int,   // nb insight entries
     ecos: Set[String],
-    date: DateTime
+    date: DateTime,
+    version: Option[Int]
 ) {
 
   def id = _id
 }
 
-private final class UserCacheApi(coll: Coll) {
+object UserCache {
 
-  private implicit val userCacheBSONHandler = Macros.handler[UserCache]
+  def make(userId: User.ID, count: Int, ecos: Set[String]) =
+    UserCache(userId, count, ecos, DateTime.now, latestVersion.some)
+}
 
-  def find(id: String) = coll.uno[UserCache]($id(id))
+final private class UserCacheApi(coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def save(u: UserCache) = coll.update($id(u.id), u, upsert = true).void
+  implicit private val userCacheBSONHandler = Macros.handler[UserCache]
 
-  def remove(id: String) = coll.remove($id(id)).void
+  def find(id: String) = coll(_.one[UserCache]($id(id)))
+
+  def save(u: UserCache) = coll(_.update.one($id(u.id), u, upsert = true).void)
+
+  def remove(id: String) = coll(_.delete.one($id(id)).void)
+
+  def version(id: String) = coll(_.primitiveOne[Int]($id(id), "version"))
 }

@@ -1,96 +1,68 @@
 import throttle from 'common/throttle';
+import * as xhr from 'common/xhr';
 import TournamentController from './ctrl';
 
-const headers = {
-  'Accept': 'application/vnd.lichess.v3+json'
-};
-
 // when the tournament no longer exists
-function onFail(_1, _2, errorMessage) {
-  if (errorMessage === 'Forbidden') location.href = '/';
-  else window.lichess.reload();
-}
+const onFail = () => window.lichess.reload();
 
-function join(ctrl: TournamentController, password?: string, team?: string) {
-  return $.ajax({
-    method: 'POST',
-    url: '/tournament/' + ctrl.data.id + '/join',
-    data: JSON.stringify({
-      p: password || null,
-      team: team || null
-    }),
-    contentType: 'application/json; charset=utf-8',
-    headers
-  }).fail(onFail);
-}
+export const join = throttle(
+  1000,
+  (ctrl: TournamentController, password?: string, team?: string) =>
+    xhr.text('/tournament/' + ctrl.data.id + '/join', {
+      method: 'POST',
+      body: JSON.stringify({
+        p: password || null,
+        team: team || null
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    }).catch(onFail));
 
-function withdraw(ctrl: TournamentController) {
-  return $.ajax({
-    method: 'POST',
-    url: '/tournament/' + ctrl.data.id + '/withdraw',
-    headers
-  }).fail(onFail);
-}
+export const withdraw = throttle(
+  1000,
+  (ctrl: TournamentController) =>
+    xhr.text('/tournament/' + ctrl.data.id + '/withdraw', {
+      method: 'POST',
+    }).catch(onFail));
 
-function loadPage(ctrl: TournamentController, p: number) {
-  $.ajax({
-    url: '/tournament/' + ctrl.data.id + '/standing/' + p,
-    headers
-  }).then(data => {
-    ctrl.loadPage(data);
-    ctrl.redraw();
-  }, onFail);
-}
+export const loadPage = throttle(
+  1000,
+  (ctrl: TournamentController, p: number) =>
+    xhr.json(`/tournament/${ctrl.data.id}/standing/${p}`).then(data => {
+      ctrl.loadPage(data);
+      ctrl.redraw();
+    }).catch(onFail));
 
-function loadPageOf(ctrl: TournamentController, userId: string): JQueryXHR {
-  return $.ajax({
-    url: '/tournament/' + ctrl.data.id + '/page-of/' + userId,
-    headers
-  });
-}
+export const loadPageOf = (ctrl: TournamentController, userId: string) =>
+  xhr.json(`/tournament/${ctrl.data.id}/page-of/${userId}`);
 
-function reload(ctrl: TournamentController) {
-  return $.ajax({
-    url: '/tournament/' + ctrl.data.id,
-    data: {
-      page: ctrl.focusOnMe ? null : ctrl.page,
+export const reloadNow = (ctrl: TournamentController) =>
+  xhr.json(
+    xhr.url('/tournament/' + ctrl.data.id, {
+      page: ctrl.focusOnMe ? undefined : ctrl.page,
       playerInfo: ctrl.playerInfo.id,
       partial: true
-    },
-    headers
-  }).then(data => {
-    ctrl.reload(data);
-    ctrl.redraw();
-  }, onFail);
-}
+    })
+  )
+    .then(data => {
+      ctrl.reload(data);
+      ctrl.redraw();
+    })
+    .catch(onFail);
 
-function playerInfo(ctrl: TournamentController, userId: string) {
-  return $.ajax({
-    url: ['/tournament', ctrl.data.id, 'player', userId].join('/'),
-    headers
-  }).then(data => {
-    ctrl.setPlayerInfoData(data);
-    ctrl.redraw();
-  }, onFail);
-}
+export const reloadSoon = throttle(4000, reloadNow);
 
-function teamInfo(ctrl: TournamentController, teamId: string) {
-  return $.ajax({
-    url: ['/tournament', ctrl.data.id, 'team', teamId].join('/'),
-    headers
-  }).then(data => {
-    ctrl.setTeamInfo(data);
-    ctrl.redraw();
-  }, onFail);
-}
+export const playerInfo = (ctrl: TournamentController, userId: string) =>
+  xhr.json(`/tournament/${ctrl.data.id}/player/${userId}`)
+    .then(data => {
+      ctrl.setPlayerInfoData(data);
+      ctrl.redraw();
+    })
+    .catch(onFail);
 
-export default {
-  join: throttle(1000, join),
-  withdraw: throttle(1000, withdraw),
-  loadPage: throttle(1000, loadPage),
-  loadPageOf,
-  reloadSoon: throttle(4000, reload),
-  reloadNow: reload,
-  playerInfo,
-  teamInfo
-};
+export const teamInfo = (ctrl: TournamentController, teamId: string) =>
+  xhr.json(`/tournament/${ctrl.data.id}/team/${teamId}`)
+    .then(data => {
+      ctrl.setTeamInfo(data);
+      ctrl.redraw();
+    })
+    .catch(onFail);

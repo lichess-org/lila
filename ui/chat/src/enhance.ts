@@ -12,20 +12,18 @@ export function isMoreThanText(str: string) {
   return moreThanTextPattern.test(str) || possibleLinkPattern.test(str);
 }
 
-const linkPattern = /\b(https?:\/\/|lichess\.org\/)[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|]/gi;
+const linkPattern = /\b\b(?:https?:\/\/)?(lichess\.org\/[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|])/gi;
 
-function linkReplace(url: string, scheme: string) {
+function linkReplace(_: string, url: string) {
   if (url.includes('&quot;')) return url;
-  const fullUrl = scheme === 'lichess.org/' ? 'https://' + url : url;
-  const minUrl = url.replace(/^https:\/\//, '');
-  return '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';
+  return `<a target="_blank" rel="nofollow noopener noreferrer" href="https://${url}">${url}</a>`;
 }
 
-const userPattern = /(^|[^\w@#/])(@|(?:https:\/\/)?lichess\.org\/@\/)([\w-]{2,})/g;
+const userPattern = /(^|[^\w@#/])@([\w-]{2,})/g;
 const pawnDropPattern = /^[a-h][2-7]$/;
 
-function userLinkReplace(orig: string, prefix: String, scheme: String, user: string) {
-  if (user.length > 20 || (scheme === '@' && user.match(pawnDropPattern))) return orig;
+function userLinkReplace(orig: string, prefix: String, user: string) {
+  if (user.length > 20 || user.match(pawnDropPattern)) return orig;
   return prefix + '<a href="/@/' + user + '">@' + user + "</a>";
 }
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferences">Shaxsiy sozlanmalar</string>
+  <string name="gameDisplay">O\'yin oynasi</string>
+  <string name="pieceAnimation">Qism animatsiyalar</string>
+  <string name="materialDifference">Materiallar farqi</string>
+  <string name="boardHighlights">Doskadagi rang bilan ajratsih (oxirgi yurish va shoh)</string>
+  <string name="pieceDestinations">Mumkin bo\'lgan yurishlani ko\'rsatish</string>
+  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Doska koordinatalari (A-H, 1-8)</string>
+  <string name="moveListWhilePlaying">O\'yin davomida yurishlar ro\'yhatini ko\'rsatish</string>
+  <string name="pgnPieceNotation">Yurishlarni qayd qilib borish</string>
+  <string name="chessPieceSymbol">Sipoh belgisi</string>
+  <string name="pgnLetter">Harflar (K, Q, R, B, N)</string>
+  <string name="zenMode">Zen holati (faqat doska va soat)</string>
+  <string name="displayBoardResizeHandle">Doskani o\'lchamini o\'gartiruvchi uskunani namoyishi</string>
+  <string name="onlyOnInitialPosition">Faqat boshlang\'ich holatda</string>
+  <string name="blindfoldChess">Ko\'zlar berklitilgan shahmat (sipohlar ko\'rinmas holda)</string>
+  <string name="chessClock">Shaxmat Soati</string>
+  <string name="tenthsOfSeconds">10 lab sekundlar</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Qachonki vaqt tugashiga &lt; 10 sekundlar bo\'lsa</string>
+  <string name="horizontalGreenProgressBars">Gorizantal yashil rangdagi jarayon indikatori</string>
+  <string name="soundWhenTimeGetsCritical">Vaqt kritik holatga kelganda ovoz ovoz berish</string>
+  <string name="giveMoreTime">Takroran berish</string>
+  <string name="gameBehavior">O\'yindagi boshqaruv</string>
+  <string name="howDoYouMovePieces">Sipohlarni qanday yurasiz?</string>
+  <string name="clickTwoSquares">Ikkita kvadratni bosing</string>
+  <string name="dragPiece">Sipohni suring</string>
+  <string name="bothClicksAndDrag">Ikkalasi ham</string>
+  <string name="premovesPlayingDuringOpponentTurn">Oldindan yurishlar (sherik yurganicha yurish)</string>
+  <string name="takebacksWithOpponentApproval">Ortga qaytarishlar (sherik roziligi bilan)</string>
+  <string name="inCasualGamesOnly">Faqat vaqtinchalik o\'yinlarda</string>
+  <string name="promoteToQueenAutomatically">Qirolicha darajasigacha avtomatik tarzda oshirish</string>
+  <string name="whenPremoving">Oldindan yurilganda</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Avtomatik tarzda uch karra takrorlashga ariza berish</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Qachonki vaqt tugashiga &lt; 30 sekundlar bo\'lsa</string>
+  <string name="moveConfirmation">Yurishni tasdiqlash</string>
+  <string name="inCorrespondenceGames">Yozishmali o\'yinlar</string>
+  <string name="correspondenceAndUnlimited">Yozishmali va vaqtda chegaralanmagan</string>
+  <string name="confirmResignationAndDrawOffers">Durrangga rozi bo\'lib, o\'yinni yakunlashni tasdiqlash</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokirovka usuli</string>
+  <string name="castleByMovingTwoSquares">Qirolni ikki katakka yuring</string>
+  <string name="castleByMovingOntoTheRook">Qirolni to\'ra tomonga yuring</string>
+  <string name="inputMovesWithTheKeyboard">Yurish klaviatura orqali amalga oshiriladi</string>
+  <string name="yourPreferencesHaveBeenSaved">Sizning sozlashlaringiz saqlandi.</string>
+</resources>

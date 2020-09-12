@@ -1,48 +1,57 @@
 package lila.team
 
+import lila.common.config.MaxPerPage
 import lila.common.paginator._
-import lila.common.MaxPerPage
+import lila.common.LightUser
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.user.UserRepo
 
-private[team] final class PaginatorBuilder(
-    coll: Colls,
-    maxPerPage: MaxPerPage,
-    maxUserPerPage: MaxPerPage
-) {
+final private[team] class PaginatorBuilder(
+    teamRepo: TeamRepo,
+    memberRepo: MemberRepo,
+    lightUserApi: lila.user.LightUserApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
+  private val maxPerPage     = MaxPerPage(15)
+  private val maxUserPerPage = MaxPerPage(30)
 
   import BSONHandlers._
 
-  def popularTeams(page: Int): Fu[Paginator[Team]] = Paginator(
-    adapter = new Adapter(
-      collection = coll.team,
-      selector = TeamRepo.enabledQuery,
-      projection = $empty,
-      sort = TeamRepo.sortPopular
-    ),
-    page,
-    maxPerPage
-  )
+  def popularTeams(page: Int): Fu[Paginator[Team]] =
+    Paginator(
+      adapter = new Adapter(
+        collection = teamRepo.coll,
+        selector = teamRepo.enabledSelect,
+        projection = none,
+        sort = teamRepo.sortPopular
+      ),
+      page,
+      maxPerPage
+    )
 
-  def teamMembers(team: Team, page: Int): Fu[Paginator[MemberWithUser]] = Paginator(
-    adapter = new TeamAdapter(team),
-    page,
-    maxUserPerPage
-  )
+  def teamMembers(team: Team, page: Int): Fu[Paginator[LightUser]] =
+    Paginator(
+      adapter = new TeamAdapter(team),
+      page,
+      maxUserPerPage
+    )
 
-  private final class TeamAdapter(team: Team) extends AdapterLike[MemberWithUser] {
+  final private class TeamAdapter(team: Team) extends AdapterLike[LightUser] {
 
     val nbResults = fuccess(team.nbMembers)
 
-    def slice(offset: Int, length: Int): Fu[Seq[MemberWithUser]] = for {
-      members ← coll.member.find(selector)
-        .sort(sorting).skip(offset).cursor[Member]().gather[List](length)
-      users ← UserRepo usersFromSecondary members.map(_.user)
-    } yield members zip users map {
-      case (member, user) => MemberWithUser(member, user)
-    }
-    private def selector = MemberRepo teamQuery team.id
-    private def sorting = $sort desc "date"
+    def slice(offset: Int, length: Int): Fu[Seq[LightUser]] =
+      for {
+        docs <-
+          memberRepo.coll
+            .find(selector, $doc("user" -> true, "_id" -> false).some)
+            .sort(sorting)
+            .skip(offset)
+            .cursor[Bdoc]()
+            .list(length)
+        userIds = docs.flatMap(_ string "user")
+        users <- lightUserApi asyncMany userIds
+      } yield users.flatten
+    private def selector = memberRepo teamQuery team.id
+    private def sorting  = $sort desc "date"
   }
 }

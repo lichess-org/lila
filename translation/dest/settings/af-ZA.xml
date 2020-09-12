@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Instellings</string>
+  <string name="closeAccount">Sluit rekening</string>
+  <string name="closingIsDefinitive">Sluiting is finaal. Daar is geen omdraaikans nie. Is jy seker?</string>
+  <string name="cantOpenSimilarAccount">Jy sal nie toegelaat word om \'n nuwe rekening met dieselfde naam te open nie, selfs al is die hoof- en kleinletters verskillend.</string>
+  <string name="changedMindDoNotCloseAccount">Ek het van gedagte verander, moenie my rekening sluit nie</string>
+  <string name="closeAccountExplanation">Is jy seker jy wil die rekening toemaak? Om die rekening toe te maak is \'n permanente besluit. Jy sal NOOIT WEER kan aanmeld nie.</string>
+  <string name="thisAccountIsClosed">Hierdie rekening is gesluit.</string>
+</resources>

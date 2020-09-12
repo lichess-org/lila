@@ -1,25 +1,46 @@
 package lila.security
 
-import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
-import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
+import com.github.blemale.scaffeine.LoadingCache
+import com.sanoma.cda.geoip.{ IpLocation, MaxMindIpGeo }
+import io.methvin.play.autoconfig._
 import scala.concurrent.duration._
 
 import lila.common.IpAddress
 
-final class GeoIP(file: String, cacheTtl: FiniteDuration) {
+final class GeoIP(config: GeoIP.Config) {
 
-  private val geoIp = MaxMindIpGeo(file, 0)
+  private lazy val geoIp: Option[MaxMindIpGeo] =
+    config.file.nonEmpty ?? {
+      try {
+        val m = MaxMindIpGeo(config.file, 0)
+        logger.info("MaxMindIpGeo is enabled")
+        m.some
+      } catch {
+        case e: java.io.FileNotFoundException =>
+          logger.info(s"MaxMindIpGeo is disabled: $e")
+          none
+      }
+    }
 
-  private val cache: LoadingCache[IpAddress, Option[Location]] = Scaffeine()
-    .expireAfterAccess(cacheTtl)
-    .build(compute)
+  private val cache: LoadingCache[IpAddress, Option[Location]] =
+    lila.memo.CacheApi.scaffeineNoScheduler
+      .expireAfterAccess(config.cacheTtl)
+      .build(compute)
 
   private def compute(ip: IpAddress): Option[Location] =
-    geoIp getLocation ip.value map Location.apply
+    geoIp.flatMap(_ getLocation ip.value) map Location.apply
 
   def apply(ip: IpAddress): Option[Location] = cache get ip
 
   def orUnknown(ip: IpAddress): Location = apply(ip) | Location.unknown
+}
+
+object GeoIP {
+  case class Config(
+      file: String,
+      @ConfigName("cache_ttl") cacheTtl: FiniteDuration
+  )
+  implicit val configLoader = AutoConfig.loader[Config]
 }
 
 case class Location(
@@ -27,8 +48,6 @@ case class Location(
     region: Option[String],
     city: Option[String]
 ) {
-
-  def comparable = (country, ~region, ~city)
 
   def shortCountry: String = ~country.split(',').headOption
 

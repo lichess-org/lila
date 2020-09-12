@@ -1,37 +1,36 @@
 package lila.db
 
-import java.io.File
+import java.nio.file.Path
 
-import dsl._
-
-final class Photographer(coll: Coll, prefix: String) {
+final class Photographer(repo: ImageRepo, prefix: String) {
 
   import Photographer.uploadMaxMb
-  private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
+  private val uploadMaxBytes        = uploadMaxMb * 1024 * 1024
   private def pictureId(id: String) = s"$prefix:$id:picture"
 
   def apply(id: String, uploaded: Photographer.Uploaded): Fu[DbImage] =
-    if (uploaded.ref.file.length > uploadMaxBytes)
+    if (uploaded.fileSize > uploadMaxBytes)
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else {
 
-      process(uploaded.ref.file)
+      process(uploaded.ref.path)
 
       val image = DbImage.make(
         id = pictureId(id),
         name = sanitizeName(uploaded.filename),
         contentType = uploaded.contentType,
-        file = uploaded.ref.file
+        path = uploaded.ref.path,
+        size = uploaded.fileSize.toInt
       )
 
-      coll.update($id(image.id), image, upsert = true) inject image
+      repo save image inject image
     }
 
-  private def process(file: File) = {
+  private def process(path: Path) = {
 
     import com.sksamuel.scrimage._
 
-    Image.fromFile(file).cover(500, 500).output(file)
+    ImmutableImage.loader().fromPath(path).cover(500, 500).output(new nio.JpegWriter(), path)
   }
 
   private def sanitizeName(name: String) = {

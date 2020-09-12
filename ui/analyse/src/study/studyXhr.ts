@@ -1,61 +1,36 @@
-import { StudyChapterConfig } from './interfaces';
+import { StudyChapterConfig, ReloadData } from './interfaces';
+import * as xhr from 'common/xhr';
 
-const headers = {
-  'Accept': 'application/vnd.lichess.v3+json'
-};
-
-export function reload(baseUrl: string, id: string, chapterId?: string) {
+export const reload = (baseUrl: string, id: string, chapterId?: string): Promise<ReloadData> => {
   let url = '/' + baseUrl + '/' + id;
   if (chapterId) url += '/' + chapterId;
-  return $.ajax({
-    url,
-    headers
-  });
+  return xhr.json(url);
 }
 
-export function variants() {
-  return $.ajax({
-    url: '/variant',
-    headers,
-    cache: true
-  });
-}
+export const variants = () => xhr.json('/variant', { cache: 'default' });
 
-export function glyphs() {
-  return $.ajax({
-    url: window.lichess.assetUrl('glyphs.json', { noVersion: true }),
-    headers,
-    cache: true
-  });
-}
+export const glyphs = () =>
+  xhr.json(
+    window.lichess.assetUrl('glyphs.json', { noVersion: true }),
+    {
+      cache: 'default',
+      headers: {}
+    }
+  );
 
-export function chapterConfig(studyId: string, chapterId: string): JQueryPromise<StudyChapterConfig> {
-  return $.ajax({
-    url: `/study/${studyId}/${chapterId}/meta`,
-    headers
-  });
-}
+export const chapterConfig = (studyId: string, chapterId: string): Promise<StudyChapterConfig> =>
+  xhr.json(`/study/${studyId}/${chapterId}/meta`);
 
-export function practiceComplete(chapterId: string, nbMoves: number) {
-  return $.ajax({
+export const practiceComplete = (chapterId: string, nbMoves: number) =>
+  xhr.json(`/practice/complete/${chapterId}/${nbMoves}`, {
+    method: 'POST'
+  });
+
+export const importPgn = (studyId: string, data: any) =>
+  xhr.json(`/study/${studyId}/import-pgn?sri=${window.lichess.sri}`, {
     method: 'POST',
-    url: `/practice/complete/${chapterId}/${nbMoves}`,
-    headers
+    body: xhr.form(data)
   });
-}
 
-export function importPgn(studyId: string, data: any, sri: string) {
-  return $.ajax({
-    method: 'POST',
-    url: `/study/${studyId}/import-pgn?sri=${sri}`,
-    data: data,
-    headers
-  });
-}
-
-export function multiBoard(studyId: string, page: number, playing: boolean) {
-  return $.ajax({
-    url: `/study/${studyId}/multi-board?page=${page}&playing=${playing}`,
-    headers
-  });
-}
+export const multiBoard = (studyId: string, page: number, playing: boolean) =>
+  xhr.json(`/study/${studyId}/multi-board?page=${page}&playing=${playing}`);

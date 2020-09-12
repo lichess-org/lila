@@ -2,7 +2,7 @@ import { Redraw } from './util'
 
 import { DasherCtrl, DasherOpts, makeCtrl } from './dasher';
 import { loading, loaded } from './view';
-import { get } from './xhr';
+import * as xhr from 'common/xhr';
 
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
@@ -20,7 +20,7 @@ export default function LichessDasher(element: Element, opts: DasherOpts) {
 
   redraw();
 
-  return get('/dasher').then(data => {
+  return xhr.json('/dasher').then(data => {
     ctrl = makeCtrl(opts, data, redraw);
     redraw();
     return ctrl;

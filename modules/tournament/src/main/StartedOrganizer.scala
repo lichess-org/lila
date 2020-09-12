@@ -1,27 +1,29 @@
 package lila.tournament
 
 import akka.actor._
+import akka.stream.scaladsl._
 import scala.concurrent.duration._
-import scala.concurrent.Promise
+import lila.common.ThreadLocalRandom
 
-import lila.user.User
-import makeTimeout.short
-
-private final class StartedOrganizer(
+final private class StartedOrganizer(
     api: TournamentApi,
+    tournamentRepo: TournamentRepo,
+    playerRepo: PlayerRepo,
     socket: TournamentSocket
-) extends Actor {
+)(implicit mat: akka.stream.Materializer)
+    extends Actor {
 
-  override def preStart: Unit = {
-    pairingLogger.info("Start StartedOrganizer")
-    context setReceiveTimeout 15.seconds
+  override def preStart(): Unit = {
+    context setReceiveTimeout 120.seconds
     scheduleNext
   }
+
+  implicit def ec = context.dispatcher
 
   case object Tick
 
   def scheduleNext =
-    context.system.scheduler.scheduleOnce(3 seconds, self, Tick)
+    context.system.scheduler.scheduleOnce(2 seconds, self, Tick)
 
   def receive = {
 
@@ -31,31 +33,43 @@ private final class StartedOrganizer(
       throw new RuntimeException(msg)
 
     case Tick =>
-      val startAt = nowMillis
-      TournamentRepo.startedTours.flatMap { started =>
-        lila.common.Future.traverseSequentially(started) { tour =>
-          if (tour.secondsToFinish <= 0) fuccess(api finish tour)
-          else {
-            def pairIfStillTime = (!tour.pairingsClosed && tour.nbPlayers > 1) ?? startPairing(tour, startAt)
-            if (!tour.isScheduled && tour.nbPlayers < 40)
-              PlayerRepo nbActiveUserIds tour.id flatMap { nb =>
-                if (nb < 2) fuccess(api finish tour)
-                else pairIfStillTime
-              }
-            else pairIfStillTime
+      tournamentRepo.startedCursor
+        .documentSource()
+        .mapAsyncUnordered(4) { tour =>
+          processTour(tour) recover {
+            case e: Exception =>
+              logger.error(s"StartedOrganizer $tour", e)
+              0
           }
-        }.addEffect { _ =>
-          // lila.mon.tournament.player(playerCounts.sum)
-          lila.mon.tournament.started(started.size)
         }
-      }.chronometer
-        .mon(_.tournament.startedOrganizer.tickTime)
-        .logIfSlow(500, logger)(_ => "StartedOrganizer.Tick")
-        .result addEffectAnyway scheduleNext
+        .toMat(Sink.fold(0 -> 0) {
+          case ((tours, users), tourUsers) => (tours + 1, users + tourUsers)
+        })(Keep.right)
+        .run()
+        .addEffect {
+          case (tours, users) =>
+            lila.mon.tournament.started.update(tours)
+            lila.mon.tournament.waitingPlayers.record(users)
+        }
+        .monSuccess(_.tournament.startedOrganizer.tick)
+        .addEffectAnyway(scheduleNext)
   }
 
-  private def startPairing(tour: Tournament, startAt: Long): Funit =
-    socket.getWaitingUsers(tour).mon(_.tournament.startedOrganizer.waitingUsersTime) map {
-      api.makePairings(tour, _, startAt)
-    }
+  private def processTour(tour: Tournament): Fu[Int] =
+    if (tour.secondsToFinish <= 0) api finish tour inject 0
+    else if (!tour.isScheduled && tour.nbPlayers < 30 && ThreadLocalRandom.nextInt(10) == 0) {
+      playerRepo nbActiveUserIds tour.id flatMap { nb =>
+        (nb >= 2) ?? startPairing(tour)
+      }
+    } else startPairing(tour)
+
+  // returns number of users actively awaiting a pairing
+  private def startPairing(tour: Tournament): Fu[Int] =
+    (!tour.pairingsClosed && tour.nbPlayers > 1) ??
+      socket
+        .getWaitingUsers(tour)
+        .monSuccess(_.tournament.startedOrganizer.waitingUsers)
+        .flatMap { waiting =>
+          api.makePairings(tour, waiting) inject waiting.size
+        }
 }

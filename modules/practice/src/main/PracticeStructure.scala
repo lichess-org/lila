@@ -1,8 +1,6 @@
 package lila.practice
 
-import scala.collection.breakOut
-
-import lila.study.{ Study, Chapter }
+import lila.study.{ Chapter, Study }
 
 case class PracticeStructure(
     sections: List[PracticeSection]
@@ -12,16 +10,19 @@ case class PracticeStructure(
     sections.flatMap(_ study id).headOption
 
   lazy val studiesByIds: Map[Study.Id, PracticeStudy] =
-    sections.flatMap(_.studies).map { s =>
-      s.id -> s
-    }(breakOut)
+    sections.view
+      .flatMap(_.studies)
+      .map { s =>
+        s.id -> s
+      }
+      .toMap
 
   lazy val sectionsByStudyIds: Map[Study.Id, PracticeSection] =
-    sections.flatMap { sec =>
+    sections.view.flatMap { sec =>
       sec.studies.map { stu =>
         stu.id -> sec
       }
-    }(breakOut)
+    }.toMap
 
   lazy val chapterIds: List[Chapter.Id] = sections.flatMap(_.studies).flatMap(_.chapterIds)
 
@@ -39,9 +40,9 @@ case class PracticeSection(
 ) {
 
   lazy val studiesByIds: Map[Study.Id, PracticeStudy] =
-    studies.map { s =>
+    studies.view.map { s =>
       s.id -> s
-    }(breakOut)
+    }.toMap
 
   def study(id: Study.Id): Option[PracticeStudy] = studiesByIds get id
 }
@@ -60,6 +61,8 @@ case class PracticeStudy(
 
 object PracticeStructure {
 
+  val totalChapters = 233
+
   def isChapterNameCommented(name: Chapter.Name) = name.value.startsWith("//")
 
   def make(conf: PracticeConfig, chapters: Map[Study.Id, Vector[Chapter.IdName]]) =
@@ -74,9 +77,11 @@ object PracticeStructure {
               id = id,
               name = stu.name,
               desc = stu.desc,
-              chapters = chapters.get(id).??(_.filterNot { c =>
-                isChapterNameCommented(c.name)
-              }.toList)
+              chapters = chapters
+                .get(id)
+                .??(_.filterNot { c =>
+                  isChapterNameCommented(c.name)
+                }.toList)
             )
           }
         )

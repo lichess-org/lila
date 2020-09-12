@@ -1,7 +1,7 @@
 package lila.relay
 
 import lila.db.dsl._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 object BSONHandlers {
 
@@ -16,7 +16,7 @@ object BSONHandlers {
   import SyncLog.Event
   implicit val syncLogEventHandler = Macros.handler[Event]
 
-  implicit val syncLogHandler = isoHandler[SyncLog, Vector[Event], Barr]((s: SyncLog) => s.events, SyncLog.apply _)
+  implicit val syncLogHandler = isoHandler[SyncLog, Vector[Event]]((s: SyncLog) => s.events, SyncLog.apply _)
 
   implicit val syncHandler = Macros.handler[Sync]
 

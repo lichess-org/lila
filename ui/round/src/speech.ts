@@ -11,7 +11,7 @@ function onSpeechChange(ctrl: RoundController) {
   return function(enabled: boolean) {
     if (!window.LichessSpeech && enabled)
       window.lichess.loadScript(
-        window.lichess.compiledScript('speech')
+        window.lichess.jsModule('speech')
       ).then(() => status(ctrl));
     else if (window.LichessSpeech && !enabled) window.LichessSpeech = undefined;
   };

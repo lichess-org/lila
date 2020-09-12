@@ -9,26 +9,34 @@ import controllers.routes
 
 object close {
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
-    title = s"${u.username} - ${trans.closeAccount.txt()}",
-    active = "close"
-  ) {
-    div(cls := "account box box-pad")(
-      h1(dataIcon := "j", cls := "text")(trans.closeAccount()),
-      postForm(cls := "form3", action := routes.Account.closeConfirm)(
-        div(cls := "form-group")(trans.closeAccountExplanation()),
-        div(cls := "form-group")("You will not be allowed to open a new account with the same name, even if the case if different."),
-        form3.passwordModified(form("passwd"), trans.password())(autocomplete := "off"),
-        form3.actions(frag(
-          a(href := routes.User.show(u.username))(trans.changedMindDoNotCloseAccount()),
-          form3.submit(
-            trans.closeAccount(),
-            icon = "j".some,
-            confirm = "Closing is definitive. There is no going back. Are you sure?".some,
-            klass = "button-red"
+  import trans.settings._
+
+  def apply(u: lila.user.User, form: play.api.data.Form[_], managed: Boolean)(implicit ctx: Context) =
+    account.layout(
+      title = s"${u.username} - ${closeAccount.txt()}",
+      active = "close"
+    ) {
+      div(cls := "account box box-pad")(
+        h1(dataIcon := "j", cls := "text")(closeAccount()),
+        if (managed)
+          p("Your account is managed, and cannot be closed.")
+        else
+          postForm(cls := "form3", action := routes.Account.closeConfirm())(
+            div(cls := "form-group")(closeAccountExplanation()),
+            div(cls := "form-group")(cantOpenSimilarAccount()),
+            form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "off"),
+            form3.actions(
+              frag(
+                a(href := routes.User.show(u.username))(changedMindDoNotCloseAccount()),
+                form3.submit(
+                  closeAccount(),
+                  icon = "j".some,
+                  confirm = closingIsDefinitive.txt().some,
+                  klass = "button-red"
+                )
+              )
+            )
           )
-        ))
       )
-    )
-  }
+    }
 }

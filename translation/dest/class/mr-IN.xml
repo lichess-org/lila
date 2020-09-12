@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessClasses">शिकवणी</string>
+  <string name="features">वैशिष्ट्ये</string>
+  <string name="teachersX">शिक्षक: %s</string>
+  <string name="newClass">नविन शिकवणी</string>
+  <string name="closeClass">शिकवणी संपली</string>
+  <string name="closedByX">%s ला बंद झाले</string>
+  <string name="reopen">परत सुरू करा</string>
+  <string name="removeStudent">विद्यार्थी हटवा</string>
+  <string name="removedStudents">काढून टाका</string>
+  <string name="inviteTheStudentBack">विद्यार्थ्याला परत आमंत्रित करा</string>
+  <string name="sendAMessage">सर्व विद्यार्थ्याना संदेश पाठवा.</string>
+  <string name="className">शिकवणीचे नाव</string>
+  <string name="classDescription">शिकवणीचे वर्णन</string>
+  <string name="resetPassword">पासवर्ड रिसेट करा</string>
+  <string name="passwordX">पासवर्ड: %s</string>
+  <string name="generateANewPassword">या विद्यार्थी साठी नवीन पासवर्ड बनवा</string>
+  <string name="realName">खरे नाव</string>
+  <string name="addStudent">विद्यार्थी जोडा</string>
+  <string name="lichessUsername">लीचेस वापरकर्तानाव</string>
+  <string name="generateANewUsername">नविन वापरकर्तानाव</string>
+  <string name="teachers">शिक्षक</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">शिक्षक</item>
+    <item quantity="other">%s शिक्षक</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">विद्यार्थी</item>
+    <item quantity="other">%s विद्यार्थी</item>
+  </plurals>
+  <string name="students">विद्यार्थी</string>
+  <string name="progress">प्रगती</string>
+  <string name="noStudents">अजून शिकवणीत कोणताही विद्यार्थी नाही.</string>
+  <string name="variantXOverLastY">%1$s मागील %2$s</string>
+  <string name="winrate">जिंकण्याचे प्रमाण</string>
+  <string name="na">लागू नाही</string>
+  <string name="news">शिकवणीच्या बातम्या</string>
+  <string name="editNews">बातमीत बदल</string>
+  <string name="notifyAllStudents">सर्व विद्यार्थ्याना सूचित करा</string>
+  <string name="nothingHere">अजून येथे काही नाही.</string>
+</resources>

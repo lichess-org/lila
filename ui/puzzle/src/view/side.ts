@@ -1,9 +1,9 @@
 import { h, thunk } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { dataIcon } from '../util';
-import { Controller } from '../interfaces';
+import { Controller, Puzzle, PuzzleGame, MaybeVNode } from '../interfaces';
 
-export function puzzleBox(ctrl: Controller) {
+export function puzzleBox(ctrl: Controller): VNode {
   var data = ctrl.getData();
   return h('div.puzzle__side__metas', [
     puzzleInfos(ctrl, data.puzzle),
@@ -11,7 +11,7 @@ export function puzzleBox(ctrl: Controller) {
   ]);
 }
 
-function puzzleInfos(ctrl: Controller, puzzle): VNode {
+function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
   return h('div.infos.puzzle', {
     attrs: dataIcon('-')
   }, [h('div', [
@@ -23,7 +23,7 @@ function puzzleInfos(ctrl: Controller, puzzle): VNode {
   ])]);
 }
 
-function gameInfos(ctrl: Controller, game, puzzle): VNode {
+function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
   return h('div.infos', {
     attrs: dataIcon(game.perf.icon)
   }, [h('div', [
@@ -45,7 +45,7 @@ function gameInfos(ctrl: Controller, game, puzzle): VNode {
   ])]);
 }
 
-export function userBox(ctrl: Controller) {
+export function userBox(ctrl: Controller): MaybeVNode {
   const data = ctrl.getData();
   if (!data.user) return;
   const diff = ctrl.vm.round && ctrl.vm.round.ratingDiff;
@@ -53,14 +53,14 @@ export function userBox(ctrl: Controller) {
   return h('div.puzzle__side__user', [
     h('h2', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [
       data.user.rating,
-      ...(diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
+      ...(diff >= 0 ? [' ', h('good.rp', '+' + diff)] : []),
       ...(diff < 0 ? [' ', h('bad.rp', '−' + (-diff))] : [])
     ]))),
     h('div', thunk('div.rating_chart.' + hash, ratingChart, [ctrl, hash]))
   ]);
 }
 
-function ratingChart(ctrl: Controller, hash: string) {
+function ratingChart(ctrl: Controller, hash: string): VNode {
   return h('div.rating_chart.' + hash, {
     hook: {
       insert(vnode) { drawRatingChart(ctrl, vnode) },
@@ -69,10 +69,10 @@ function ratingChart(ctrl: Controller, hash: string) {
   });
 }
 
-function drawRatingChart(ctrl: Controller, vnode: VNode) {
+function drawRatingChart(ctrl: Controller, vnode: VNode): void {
   const $el = $(vnode.elm as HTMLElement);
   const dark = document.body.classList.contains('dark');
-  const points = ctrl.getData().user.recent.map(function(r) {
+  const points = ctrl.getData().user!.recent.map(function(r) {
     return r[2] + r[1];
   });
   const redraw = () => $el['sparkline'](points, {
@@ -83,6 +83,6 @@ function drawRatingChart(ctrl: Controller, vnode: VNode) {
     fillColor: dark ? '#222255' : '#ccccff',
     numberFormatter: (x: number) => { return x; }
   });
-  window.lichess.raf(redraw);
+  requestAnimationFrame(redraw);
   window.addEventListener('resize', redraw);
 }

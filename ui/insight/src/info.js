@@ -6,10 +6,6 @@ module.exports = function(ctrl) {
   var shareText = 'Shared with ' + shareStates[ctrl.user.shareId] + '.';
   return m('div.info.box', [
     m('div.top', [
-      m('a.help', {
-        title: 'How does this work?',
-        onclick: lichess.startInsightTour
-      }, '?'),
       m('a.username.user-link.insight-ulpt', {
         href: '/@/' + ctrl.user.name
       }, ctrl.user.name)

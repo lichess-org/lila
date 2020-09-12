@@ -1,7 +1,11 @@
 import { h } from 'snabbdom'
+
 import { VNode } from 'snabbdom/vnode'
+import { parseFen } from 'chessops/fen';
 import * as chessground from './ground';
 import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
+import { defined } from 'common';
+import changeColorHandle from 'common/coordsColor';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
@@ -15,7 +19,7 @@ import * as pgnExport from './pgnExport';
 import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
 import crazyView from './crazy/crazyView';
-import { view as keyboardView} from './keyboard';
+import { view as keyboardView } from './keyboard';
 import explorerView from './explorer/explorerView';
 import retroView from './retrospect/retroView';
 import practiceView from './practice/practiceView';
@@ -72,12 +76,12 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
       return conceal.owner ? 'conceal' : 'hide';
     };
   };
+  return undefined;
 }
 
 function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
   return h('div.analyse__moves.areplay', [
     (ctrl.embed && ctrl.study) ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
-    renderOpeningBox(ctrl),
     renderTreeView(ctrl, concealOf),
   ].concat(renderResult(ctrl)));
 }
@@ -99,14 +103,27 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
     h('div.pair', [
       h('label.name', 'FEN'),
       h('input.copyable.autoselect.analyse__underboard__fen', {
-        attrs: {
-          spellCheck: false,
-          value: ctrl.node.fen
-        },
-        hook: bind('change', e => {
-          const value = (e.target as HTMLInputElement).value;
-          if (value !== ctrl.node.fen) ctrl.changeFen(value);
-        })
+        attrs: { spellCheck: false },
+        hook: {
+          insert: vnode => {
+            const el = vnode.elm as HTMLInputElement;
+            el.value = defined(ctrl.fenInput) ? ctrl.fenInput : ctrl.node.fen;
+            el.addEventListener('change', _ => {
+              if (el.value !== ctrl.node.fen && el.reportValidity()) ctrl.changeFen(el.value.trim());
+            });
+            el.addEventListener('input', _ => {
+              ctrl.fenInput = el.value;
+              el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN');
+            });
+          },
+          postpatch: (_, vnode) => {
+            const el = vnode.elm as HTMLInputElement;
+            if (!defined(ctrl.fenInput)) {
+              el.value = ctrl.node.fen;
+              el.setCustomValidity('');
+            } else if (el.value != ctrl.fenInput) el.value = ctrl.fenInput;
+          },
+        }
       })
     ]),
     h('div.pgn', [
@@ -115,9 +132,13 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         h('textarea.copyable.autoselect', {
           attrs: { spellCheck: false },
           hook: {
+            ...onInsert(el => {
+              (el as HTMLTextAreaElement).value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
+              el.addEventListener('input', e => ctrl.pgnInput = (e.target as HTMLTextAreaElement).value);
+            }),
             postpatch: (_, vnode) => {
-              (vnode.elm as HTMLInputElement).value = pgnExport.renderFullTxt(ctrl);
-            }
+              (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
+            },
           }
         }),
         h('button.button.button-thin.action.text', {
@@ -157,7 +178,7 @@ function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
   let timeout = setTimeout(repeat, 500);
   control[action](ctrl);
   const eventName = e.type == 'touchstart' ? 'touchend' : 'mouseup';
-  document.addEventListener(eventName, () => clearTimeout(timeout), {once: true});
+  document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 }
 
 function controls(ctrl: AnalyseCtrl) {
@@ -188,29 +209,29 @@ function controls(ctrl: AnalyseCtrl) {
         }
       })
     ] : [
-      h('button.fbt', {
-        attrs: {
-          title: noarg('openingExplorerAndTablebase'),
-          'data-act': 'explorer',
-          'data-icon': ']'
-        },
-        class: {
-          hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
-          active: ctrl.explorer.enabled()
-        }
-      }),
-      ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.fbt', {
-        attrs: {
-          title: noarg('practiceWithComputer'),
-          'data-act': 'practice',
-          'data-icon': ''
-        },
-        class: {
-          hidden: menuIsOpen || !!ctrl.retro,
-          active: !!ctrl.practice
-        }
-      }) : null
-    ]),
+        h('button.fbt', {
+          attrs: {
+            title: noarg('openingExplorerAndTablebase'),
+            'data-act': 'explorer',
+            'data-icon': ']'
+          },
+          class: {
+            hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
+            active: ctrl.explorer.enabled()
+          }
+        }),
+        ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.fbt', {
+          attrs: {
+            title: noarg('practiceWithComputer'),
+            'data-act': 'practice',
+            'data-icon': ''
+          },
+          class: {
+            hidden: menuIsOpen || !!ctrl.retro,
+            active: !!ctrl.practice
+          }
+        }) : null
+      ]),
     h('div.jumps', [
       jumpButton('W', 'first', canJumpPrev),
       jumpButton('Y', 'prev', canJumpPrev),
@@ -228,20 +249,11 @@ function controls(ctrl: AnalyseCtrl) {
   ]);
 }
 
-function renderOpeningBox(ctrl: AnalyseCtrl) {
-  let opening = ctrl.tree.getOpening(ctrl.nodeList);
-  if (!opening && !ctrl.path) opening = ctrl.data.game.opening;
-  if (opening) return h('div.opening_box', {
-    attrs: { title: opening.eco + ' ' + opening.name }
-  }, [
-    h('strong', opening.eco),
-    ' ' + opening.name
-  ]);
-}
-
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
-  if (ctrl.data.pref.coords == 2)
+  if (ctrl.data.pref.coords == 2) {
     $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
+    changeColorHandle();
+  }
 }
 
 function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
@@ -267,7 +279,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       insert: vn => {
         forceInnerCoords(ctrl, needsInnerCoords);
         if (!!playerBars != $('body').hasClass('header-margin')) {
-          li.raf(() => {
+          requestAnimationFrame(() => {
             $('body').toggleClass('header-margin', !!playerBars);
             ctrl.redraw();
           });
@@ -278,7 +290,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         forceInnerCoords(ctrl, needsInnerCoords);
       },
       postpatch(old, vnode) {
-        if (old.data!.gaugeOn !== gaugeOn) li.dispatchEvent(document.body, 'chessground.resize');
+        if (old.data!.gaugeOn !== gaugeOn) document.body.dispatchEvent(new Event('chessground.resize'));
         vnode.data!.gaugeOn = gaugeOn;
       }
     },
@@ -287,13 +299,14 @@ export default function(ctrl: AnalyseCtrl): VNode {
       'gauge-on': gaugeOn,
       'has-players': !!playerBars,
       'has-clocks': !!clocks,
-      'has-intro': !!intro
+      'has-intro': !!intro,
+      'analyse-hunter': ctrl.opts.hunter
     }
   }, [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     study ? studyView.overboard(study) : null,
     intro || h(addChapterId(study, 'div.analyse__board.main-board'), {
-      hook: (window.lichess.hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
+      hook: ('ontouchstart' in window || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       ...(clocks || []),
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
@@ -320,39 +333,38 @@ export default function(ctrl: AnalyseCtrl): VNode {
     intro ? null : acplView(ctrl),
     ctrl.embed ? null : (
       ctrl.studyPractice ? studyPracticeView.side(study!) :
-      h('aside.analyse__side', {
-        hook: onInsert(elm => {
-          ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
-          $(elm).append($('.streamers').clone().removeClass('none'));
-        })
-      },
-        ctrl.studyPractice ? [studyPracticeView.side(study!)] : (
-          study ? [studyView.side(study)] : [
-            ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
-            (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back-to-game',
-              h('a.button.button-empty.text', {
-                attrs: {
-                  href: router.game(ctrl.data, ctrl.data.player.color),
-                  'data-icon': 'i'
-                }
-              }, ctrl.trans.noarg('backToGame'))
-            ) : null
-          ]
+        h('aside.analyse__side', {
+          hook: onInsert(elm => {
+            ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+            $(elm).append($('.streamers').clone().removeClass('none'));
+          })
+        },
+          ctrl.studyPractice ? [studyPracticeView.side(study!)] : (
+            study ? [studyView.side(study)] : [
+              ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
+              (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back-to-game',
+                h('a.button.button-empty.text', {
+                  attrs: {
+                    href: router.game(ctrl.data, ctrl.data.player.color),
+                    'data-icon': 'i'
+                  }
+                }, ctrl.trans.noarg('backToGame'))
+              ) : null
+            ]
+          )
         )
-      )
     ),
     study && study.relay && relayManager(study.relay),
     ctrl.opts.chat && h('section.mchat', {
       hook: onInsert(_ => {
-        if (ctrl.opts.chat.instance) ctrl.opts.chat.instance.destroy();
-        ctrl.opts.chat.parseMoves = true;
-        li.makeChat(ctrl.opts.chat, chat => {
-          ctrl.opts.chat.instance = chat;
-        });
+        const chatOpts = ctrl.opts.chat;
+        chatOpts.instance?.then(c => c.destroy());
+        chatOpts.parseMoves = true;
+        chatOpts.instance = li.makeChat(chatOpts);
       })
     }),
     ctrl.embed ? null : h('div.chat__members.none', {
-      hook: onInsert(el => $(el).watchers())
+      hook: onInsert(window.lichess.watchers)
     }, [h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators'), ' ', h('span.list')])
   ]);
 }

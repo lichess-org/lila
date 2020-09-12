@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessCoaches">Lichess treneri</string>
+  <string name="lichessCoach">Lichess trener</string>
+  <string name="areYouCoach">Da li ste sjajni trener šaha sa %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Nacionalni majstor ili FIDE titulom</string>
+  <string name="confirmTitle">Ootvrdite Vašu titulu ovde i pregledaćemo Vašu prijavu.</string>
+  <string name="sendApplication">Pošaljite nam e-mail poruku na %s i mi ćemo pregledati vašu prijavu.</string>
+  <string name="location">Lokacija</string>
+  <string name="languages">Jezici</string>
+  <string name="rating">Rejting</string>
+  <string name="hourlyRate">Satnica</string>
+  <string name="availability">Dostupnost</string>
+  <string name="accepting">Prihvatam učenike</string>
+  <string name="notAccepting">Trenutno ne prihvatam učenike</string>
+  <string name="xCoachesStudents">%s podučava učenike u šahu</string>
+  <string name="viewXProfile">Pogledajte Lichess profil %s</string>
+  <string name="sendPM">Pošaljite privatnu poruku</string>
+  <string name="aboutMe">O meni</string>
+  <string name="playingExperience">Igračko iskustvo</string>
+  <string name="teachingExperience">Predavačko iskustvo</string>
+  <string name="otherExperiences">Dodatna iskustva</string>
+  <string name="bestSkills">Najbolje sposobnosti</string>
+  <string name="teachingMethod">Metodologija predavanja</string>
+  <string name="publicStudies">Javni učenici</string>
+  <string name="youtubeVideos">Youtube videozapisi</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Recenzija jednog studenta</item>
+    <item quantity="few">Recenzija %s studenta</item>
+    <item quantity="other">Recenzija %s studenata</item>
+  </plurals>
+  <string name="thankYouForReview">Hvala Vam na recenziji!</string>
+  <string name="xWillApproveIt">%s će vrlo brzo odobriti ili će moderator pogledati.</string>
+  <string name="reviewCoach">Napišite recenziju o ovom treneru</string>
+  <string name="describeExperienceWith">Opišite kako je Vaše iskustvo bilo sa %s</string>
+</resources>

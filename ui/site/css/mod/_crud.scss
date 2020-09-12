@@ -2,23 +2,28 @@
   .slist time {
     display: block;
   }
+
   .slist strong {
     font-size: 1.2em;
     display: block;
   }
+
   .material.form button {
     font-size: 1.7em;
     font-weight: normal;
     padding: 10px 20px;
   }
+
   .material.form textarea {
     height: 10em;
   }
+
   h2 {
     font-size: 1.5em;
-    margin: 0px 0 30px 0;
+    margin: 2em 0;
     text-align: center;
   }
+
   &.edit {
     h1 {
       span {

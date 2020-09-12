@@ -2,7 +2,8 @@ package lila.blog
 
 object Fixtures {
 
-  def noYoutube = """
+  def noYoutube =
+    """
 <h2>YES! We did it. Crazyhouse is here!</h2>
 
 <p>It's everywhere. <strong>Lobby games, tournaments, simuls, and the analysis board; </strong>Crazyhouse is a first-class variant on lichess.org.</p>
@@ -34,7 +35,8 @@ object Fixtures {
 <p><em>[EDIT] The first tournament is over. Second crazyhouse tournament: </em><a href="http://lichess.org/tournament/crazy2nd"><em><strong>Join here!</strong></em></a></p>
 """
 
-  def withYoutube = """
+  def withYoutube =
+    """
 <p><em>Note: this article was </em><a href="https://www.reddit.com/r/chess/comments/42zpnv/crazyhouse_an_overview_strategic_concepts/"><em>posted on reddit</em></a><em> first.</em></p>
 
 <h2>Introduction to Crazyhouse</h2>

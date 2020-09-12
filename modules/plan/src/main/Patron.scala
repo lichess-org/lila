@@ -9,40 +9,45 @@ case class Patron(
     free: Option[Patron.Free] = none,
     expiresAt: Option[DateTime] = none,
     lifetime: Option[Boolean] = None,
-    lastLevelUp: DateTime
+    lastLevelUp: Option[DateTime] = None
 ) {
 
   def id = _id
 
   def userId = _id.value
 
-  def canLevelUp = lastLevelUp isBefore DateTime.now.minusDays(25)
+  def canLevelUp = lastLevelUp.exists(_.isBefore(DateTime.now.minusDays(25)))
 
-  def levelUpNow = copy(
-    lastLevelUp = DateTime.now
-  )
+  def levelUpNow =
+    copy(
+      lastLevelUp = Some(DateTime.now)
+    )
 
-  def levelUpIfPossible = copy(
-    lastLevelUp = if (canLevelUp) DateTime.now else lastLevelUp
-  )
+  def levelUpIfPossible =
+    copy(
+      lastLevelUp = if (canLevelUp) Some(DateTime.now) else lastLevelUp
+    )
 
-  def expireInOneMonth: Patron = copy(
-    expiresAt = DateTime.now.plusMonths(1).plusDays(7).some
-  )
+  def expireInOneMonth: Patron =
+    copy(
+      expiresAt = DateTime.now.plusMonths(1).plusDays(7).some
+    )
 
   def expireInOneMonth(cond: Boolean): Patron =
     if (cond) expireInOneMonth
     else copy(expiresAt = none)
 
-  def removeStripe = copy(
-    stripe = none,
-    expiresAt = none
-  )
+  def removeStripe =
+    copy(
+      stripe = none,
+      expiresAt = none
+    )
 
-  def removePayPal = copy(
-    payPal = none,
-    expiresAt = none
-  )
+  def removePayPal =
+    copy(
+      payPal = none,
+      expiresAt = none
+    )
 
   def isDefined = stripe.isDefined || payPal.isDefined
 

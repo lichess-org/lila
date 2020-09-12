@@ -60,14 +60,14 @@ case class Root(
     crazyData: Option[Crazyhouse.Data]
 ) extends Node {
 
-  def idOption = None
-  def moveOption = None
-  def comp = false
+  def idOption       = None
+  def moveOption     = None
+  def comp           = false
   def forceVariation = false
 
-  def addChild(branch: Branch) = copy(children = children :+ branch)
+  def addChild(branch: Branch)     = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
-  def dropFirstChild = copy(children = if (children.isEmpty) children else children.tail)
+  def dropFirstChild               = copy(children = if (children.isEmpty) children else children.tail)
 }
 
 case class Branch(
@@ -92,12 +92,12 @@ case class Branch(
     forceVariation: Boolean = false // cannot be mainline
 ) extends Node {
 
-  def idOption = Some(id)
+  def idOption   = Some(id)
   def moveOption = Some(move)
 
-  def addChild(branch: Branch) = copy(children = children :+ branch)
+  def addChild(branch: Branch)     = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
-  def dropFirstChild = copy(children = if (children.isEmpty) children else children.tail)
+  def dropFirstChild               = copy(children = if (children.isEmpty) children else children.tail)
 
   def setComp = copy(comp = true)
 }
@@ -106,30 +106,32 @@ object Node {
 
   sealed trait Shape
   object Shape {
-    type ID = String
+    type ID    = String
     type Brush = String
-    case class Circle(brush: Brush, orig: Pos) extends Shape
+    case class Circle(brush: Brush, orig: Pos)           extends Shape
     case class Arrow(brush: Brush, orig: Pos, dest: Pos) extends Shape
   }
   case class Shapes(value: List[Shape]) extends AnyVal {
     def list = value
-    def ++(shapes: Shapes) = Shapes {
-      (value ::: shapes.value).distinct
-    }
+    def ++(shapes: Shapes) =
+      Shapes {
+        (value ::: shapes.value).distinct
+      }
   }
   object Shapes {
     val empty = Shapes(Nil)
   }
 
   case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author) {
-    def removeMeta = text.removeMeta map { t =>
-      copy(text = t)
-    }
+    def removeMeta =
+      text.removeMeta map { t =>
+        copy(text = t)
+      }
   }
   object Comment {
     case class Id(value: String) extends AnyVal
     object Id {
-      def make = Id(scala.util.Random.alphanumeric take 4 mkString)
+      def make = Id(lila.common.ThreadLocalRandom nextString 4)
     }
     private val metaReg = """\[%[^\]]+\]""".r
     case class Text(value: String) extends AnyVal {
@@ -141,32 +143,36 @@ object Node {
     sealed trait Author
     object Author {
       case class User(id: String, titleName: String) extends Author
-      case class External(name: String) extends Author
-      case object Lichess extends Author
-      case object Unknown extends Author
+      case class External(name: String)              extends Author
+      case object Lichess                            extends Author
+      case object Unknown                            extends Author
     }
-    def sanitize(text: String) = Text {
-      text.trim.take(4000)
-        .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
-        .replaceAll("""(?m)(^ *| +(?= |$))""", "")
-        .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
-        .replaceAll("\\{|\\}", "") // {} are reserved in PGN comments
-    }
+    def sanitize(text: String) =
+      Text {
+        text.trim
+          .take(4000)
+          .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
+          .replaceAll("""(?m)(^ *| +(?= |$))""", "")
+          .replaceAll("""(?m)^$([\n]+?)(^$[\n]+?^)+""", "$1")
+          .replaceAll("[{}]", "") // {} are reserved in PGN comments
+      }
   }
   case class Comments(value: List[Comment]) extends AnyVal {
-    def list = value
+    def list                           = value
     def findBy(author: Comment.Author) = list.find(_.by == author)
-    def set(comment: Comment) = Comments {
-      if (list.exists(_.by == comment.by)) list.map {
-        case c if c.by == comment.by => c.copy(text = comment.text)
-        case c => c
+    def set(comment: Comment) =
+      Comments {
+        if (list.exists(_.by == comment.by)) list.map {
+          case c if c.by == comment.by => c.copy(text = comment.text)
+          case c                       => c
+        }
+        else list :+ comment
       }
-      else list :+ comment
-    }
-    def delete(commentId: Comment.Id) = Comments {
-      value.filterNot(_.id == commentId)
-    }
-    def +(comment: Comment) = Comments(comment :: value)
+    def delete(commentId: Comment.Id) =
+      Comments {
+        value.filterNot(_.id == commentId)
+      }
+    def +(comment: Comment)    = Comments(comment :: value)
     def ++(comments: Comments) = Comments(value ::: comments.value)
 
     def filterEmpty = Comments(value.filter(_.text.value.nonEmpty))
@@ -177,16 +183,17 @@ object Node {
 
   case class Gamebook(deviation: Option[String], hint: Option[String]) {
     private def trimOrNone(txt: Option[String]) = txt.map(_.trim).filter(_.nonEmpty)
-    def cleanUp = copy(
-      deviation = trimOrNone(deviation),
-      hint = trimOrNone(hint)
-    )
+    def cleanUp =
+      copy(
+        deviation = trimOrNone(deviation),
+        hint = trimOrNone(hint)
+      )
     def nonEmpty = deviation.nonEmpty || hint.nonEmpty
   }
 
   // TODO copied from lila.game
   // put all that shit somewhere else
-  private implicit val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
+  implicit private val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
     JsObject(
       Crazyhouse.storableRoles.flatMap { role =>
         Some(v.roles.count(role ==)).filter(0 <).map { count =>
@@ -195,25 +202,25 @@ object Node {
       }
     )
   }
-  private implicit val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
+  implicit private val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
     Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
   }
 
   implicit val openingWriter: OWrites[chess.opening.FullOpening] = OWrites { o =>
     Json.obj(
-      "eco" -> o.eco,
+      "eco"  -> o.eco,
       "name" -> o.name
     )
   }
 
-  private implicit val posWrites: Writes[Pos] = Writes[Pos] { p =>
+  implicit private val posWrites: Writes[Pos] = Writes[Pos] { p =>
     JsString(p.key)
   }
-  private implicit val shapeCircleWrites = Json.writes[Shape.Circle]
-  private implicit val shapeArrowWrites = Json.writes[Shape.Arrow]
+  implicit private val shapeCircleWrites = Json.writes[Shape.Circle]
+  implicit private val shapeArrowWrites  = Json.writes[Shape.Arrow]
   implicit val shapeWrites: Writes[Shape] = Writes[Shape] {
     case s: Shape.Circle => shapeCircleWrites writes s
-    case s: Shape.Arrow => shapeArrowWrites writes s
+    case s: Shape.Arrow  => shapeArrowWrites writes s
   }
   implicit val shapesWrites: Writes[Node.Shapes] = Writes[Node.Shapes] { s =>
     JsArray(s.list.map(shapeWrites.writes))
@@ -235,53 +242,74 @@ object Node {
   implicit val commentAuthorWrites: Writes[Comment.Author] = Writes[Comment.Author] {
     case Comment.Author.User(id, name) => Json.obj("id" -> id, "name" -> name)
     case Comment.Author.External(name) => JsString(s"${name.trim}")
-    case Comment.Author.Lichess => JsString("lichess")
-    case Comment.Author.Unknown => JsNull
+    case Comment.Author.Lichess        => JsString("lichess")
+    case Comment.Author.Unknown        => JsNull
   }
-  implicit val commentWriter = Json.writes[Node.Comment]
-  private implicit val commentsWriter: Writes[Node.Comments] = Writes[Node.Comments] { s =>
-    JsArray(s.list.map(commentWriter.writes))
-  }
+  implicit val commentWriter  = Json.writes[Node.Comment]
   implicit val gamebookWriter = Json.writes[Node.Gamebook]
   import Eval.JsonHandlers.evalWrites
 
   @inline implicit private def toPimpedJsObject(jo: JsObject) = new lila.base.PimpedJsObject(jo)
 
-  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] = Writes { node =>
-    import node._
-    try {
-      val comments = node.comments.list.flatMap(_.removeMeta)
-      Json.obj(
-        "ply" -> ply,
-        "fen" -> fen
-      ).add("id", idOption.map(_.toString))
-        .add("uci", moveOption.map(_.uci.uci))
-        .add("san", moveOption.map(_.san))
-        .add("check", check)
-        .add("eval", eval.filterNot(_.isEmpty))
-        .add("comments", if (comments.nonEmpty) Some(comments) else None)
-        .add("gamebook", gamebook)
-        .add("glyphs", glyphs.nonEmpty)
-        .add("shapes", if (shapes.list.nonEmpty) Some(shapes.list) else None)
-        .add("opening", opening)
-        .add("dests", dests)
-        .add("drops", drops.map { drops =>
-          JsString(drops.map(_.key).mkString)
-        })
-        .add("clock", clock)
-        .add("crazy", crazyData)
-        .add("comp", comp)
-        .add("children", if (alwaysChildren || children.nonEmpty) Some(children) else None)
-        .add("forceVariation", forceVariation)
-    } catch {
-      case e: StackOverflowError =>
-        e.printStackTrace
-        sys error s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)"
+  implicit val defaultNodeJsonWriter: Writes[Node] =
+    makeNodeJsonWriter(alwaysChildren = true)
+
+  val minimalNodeJsonWriter: Writes[Node] =
+    makeNodeJsonWriter(alwaysChildren = false)
+
+  implicit def nodeListJsonWriter(alwaysChildren: Boolean): Writes[List[Node]] =
+    Writes[List[Node]] { list =>
+      val writer = if (alwaysChildren) defaultNodeJsonWriter else minimalNodeJsonWriter
+      JsArray(list map writer.writes)
     }
-  }
+
+  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] =
+    Writes { node =>
+      import node._
+      try {
+        val comments = node.comments.list.flatMap(_.removeMeta)
+        Json
+          .obj(
+            "ply" -> ply,
+            "fen" -> fen
+          )
+          .add("id", idOption.map(_.toString))
+          .add("uci", moveOption.map(_.uci.uci))
+          .add("san", moveOption.map(_.san))
+          .add("check", check)
+          .add("eval", eval.filterNot(_.isEmpty))
+          .add("comments", if (comments.nonEmpty) Some(comments) else None)
+          .add("gamebook", gamebook)
+          .add("glyphs", glyphs.nonEmpty)
+          .add("shapes", if (shapes.list.nonEmpty) Some(shapes.list) else None)
+          .add("opening", opening)
+          .add("dests", dests)
+          .add(
+            "drops",
+            drops.map { drops =>
+              JsString(drops.map(_.key).mkString)
+            }
+          )
+          .add("clock", clock)
+          .add("crazy", crazyData)
+          .add("comp", comp)
+          .add(
+            "children",
+            if (alwaysChildren || children.nonEmpty) Some {
+              nodeListJsonWriter(true) writes children
+            }
+            else None
+          )
+          .add("forceVariation", forceVariation)
+      } catch {
+        case e: StackOverflowError =>
+          e.printStackTrace()
+          sys error s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)"
+      }
+    }
 
   def destString(dests: Map[Pos, List[Pos]]): String = {
-    val sb = new java.lang.StringBuilder(80)
+    val sb    = new java.lang.StringBuilder(80)
     var first = true
     dests foreach {
       case (orig, dests) =>
@@ -296,12 +324,6 @@ object Node {
   implicit val destsJsonWriter: Writes[Map[Pos, List[Pos]]] = Writes { dests =>
     JsString(destString(dests))
   }
-
-  implicit val defaultNodeJsonWriter: Writes[Node] =
-    makeNodeJsonWriter(alwaysChildren = true)
-
-  val minimalNodeJsonWriter: Writes[Node] =
-    makeNodeJsonWriter(alwaysChildren = false)
 
   val partitionTreeJsonWriter: Writes[Node] = Writes { node =>
     JsArray {

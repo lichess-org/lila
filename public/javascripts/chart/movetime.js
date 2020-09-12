@@ -2,9 +2,10 @@ function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
 lichess.movetimeChart = function(data, trans) {
-  lichess.loadScript('javascripts/chart/common.js').done(function() {
-    lichess.loadScript('javascripts/chart/division.js').done(function() {
-      lichess.chartCommon('highchart').done(function() {
+  if (!data.game.moveCentis) return; // imported games
+  lichess.loadScript('javascripts/chart/common.js').then(function() {
+    lichess.loadScript('javascripts/chart/division.js').then(function() {
+      lichess.chartCommon('highchart').then(function() {
         lichess.movetimeChart.render = function() {
           $('#movetimes-chart:not(.rendered)').each(function() {
             var $this = $(this).addClass('rendered');
@@ -15,8 +16,6 @@ lichess.movetimeChart = function(data, trans) {
             };
 
             var tree = data.treeParts;
-            var moveCentis = data.game.moveCentis ||
-              data.game.moveTimes.map(function(i) { return i * 10; });
             var ply = 0;
             var max = 0;
 
@@ -25,7 +24,7 @@ lichess.movetimeChart = function(data, trans) {
             var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
             if (data.player.color === 'white') blurs.reverse();
 
-            moveCentis.forEach(function(time, i) {
+            data.game.moveCentis.forEach(function(time, i) {
               var node = tree[i + 1];
               ply = node ? node.ply : ply + 1;
               var san = node ? node.san : '-';
@@ -79,7 +78,7 @@ lichess.movetimeChart = function(data, trans) {
               },
               tooltip: {
                 formatter: function() {
-                  var seconds = moveCentis[this.x] / 100;
+                  var seconds = data.game.moveCentis[this.x] / 100;
                   if (seconds) seconds = seconds.toFixed(seconds >= 2 ? 1 : 2);
                   return this.point.name + '<br />' + trans('nbSeconds', '<strong>' + seconds + '</strong>');
                 }

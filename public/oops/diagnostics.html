@@ -1,3 +1,5 @@
+<meta charset="utf-8">
+<pre>
 <script>
 function is64Bit() {
   const x64 = ['x86_64', 'x86-64', 'Win64','x64', 'amd64', 'AMD64'];
@@ -14,20 +16,23 @@ function wasmInfo() {
 
   if (info.WebAssembly !== 'object') return info;
 
+  info.validate = typeof WebAssembly.validate;
+  if (info.validate !== 'function') return info;
+
   var source = Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00);
   info.mvp = WebAssembly.validate(source);
   if (!info.mvp) return info;
 
+  if (info.SharedArrayBuffer !== 'function') return info;
+  var mem = new WebAssembly.Memory({shared: true, initial: 8, maximum: 16});
+  info.sharedMem = mem.buffer instanceof SharedArrayBuffer;
+
   try {
-    window.postMessage(new WebAssembly.Module(source), '*');
+    window.postMessage(mem, '*');
     info.structuredCloning = 'ok';
   } catch (e) {
     info.structuredCloning = e.toString();
   }
-
-  if (info.SharedArrayBuffer !== 'function') return info;
-  var mem = new WebAssembly.Memory({shared: true, initial: 8, maximum: 16});
-  info.sharedMem = mem.buffer instanceof SharedArrayBuffer;
 
   try {
     mem.grow(8);
@@ -59,15 +64,13 @@ function localStorageInfo() {
     'analyse.ceval.threads',
     'analyse.ceval.hash-size',
     'analyse.ceval.infinite',
-    'ceval.pool.start',
-    'ceval.fen',
     'just-notified',
     'push-subscribed',
     'grid',
     'resize-nag',
     'speech.enabled',
     'sound-volume',
-    'surl6'
+    'surl7'
   ];
   var info = {};
   for (var i = 0; i < intresting.length; i++) {
@@ -91,7 +94,7 @@ function serviceWorkerInfo() {
 }
 
 var info = {
-  diagnosticsVersion: 4,
+  diagnosticsVersion: 5,
   navigator: {
     userAgent: navigator.userAgent,
     platform: navigator.platform,
@@ -111,3 +114,4 @@ var info = {
 
 document.write(JSON.stringify(info));
 </script>
+</pre>

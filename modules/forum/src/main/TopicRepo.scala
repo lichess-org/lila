@@ -1,24 +1,31 @@
 package lila.forum
 
+import Filter._
 import lila.db.dsl._
+import lila.user.User
 
-object TopicRepo extends TopicRepo(false) {
+final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
 
-  def apply(troll: Boolean): TopicRepo = if (troll) TopicRepoTroll else TopicRepo
-}
-
-object TopicRepoTroll extends TopicRepo(true)
-
-sealed abstract class TopicRepo(troll: Boolean) {
+  def forUser(user: Option[User]) =
+    withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
+      SafeAnd(u.id)
+    })
+  def withFilter(f: Filter) = if (f == filter) this else new TopicRepo(coll, f)
+  def unsafe                = withFilter(Unsafe)
 
   import BSONHandlers.TopicBSONHandler
 
-  // dirty
-  private val coll = Env.current.topicColl
+  private val noTroll = $doc("troll" -> false)
+  private val trollFilter = filter match {
+    case Safe       => noTroll
+    case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
+    case Unsafe     => $empty
+  }
 
-  private val trollFilter = !troll ?? $doc("troll" -> false)
-  private val notStickyQuery = $doc("sticky" $ne true)
-  private val stickyQuery = $doc("sticky" -> true)
+  private lazy val notStickyQuery = $doc("sticky" $ne true)
+  private lazy val stickyQuery    = $doc("sticky" -> true)
 
   def close(id: String, value: Boolean): Funit =
     coll.updateField($id(id), "closed", value).void
@@ -36,7 +43,7 @@ sealed abstract class TopicRepo(troll: Boolean) {
     coll.countSel(byCategQuery(categ))
 
   def byTree(categSlug: String, slug: String): Fu[Option[Topic]] =
-    coll.uno[Topic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
+    coll.one[Topic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
 
   def existsByTree(categSlug: String, slug: String): Fu[Boolean] =
     coll.exists($doc("categId" -> categSlug, "slug" -> slug))
@@ -47,7 +54,7 @@ sealed abstract class TopicRepo(troll: Boolean) {
   def nextSlug(categ: Categ, name: String, it: Int = 1): Fu[String] = {
     val slug = Topic.nameToId(name) + ~(it != 1).option("-" + it)
     // also take troll topic into accounts
-    TopicRepoTroll.byTree(categ.slug, slug) flatMap { found =>
+    unsafe.byTree(categ.slug, slug) flatMap { found =>
       if (found.isDefined) nextSlug(categ, name, it + 1)
       else fuccess(slug)
     }
@@ -56,6 +63,6 @@ sealed abstract class TopicRepo(troll: Boolean) {
   def incViews(topic: Topic) =
     coll.incFieldUnchecked($id(topic.id), "views")
 
-  def byCategQuery(categ: Categ) = $doc("categId" -> categ.slug) ++ trollFilter
+  def byCategQuery(categ: Categ)          = $doc("categId" -> categ.slug) ++ trollFilter
   def byCategNotStickyQuery(categ: Categ) = byCategQuery(categ) ++ notStickyQuery
 }

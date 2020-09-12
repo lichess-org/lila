@@ -5,69 +5,124 @@ import scala.xml.XML
 
 object MessageCompiler {
 
-  def apply(sourceDir: File, destDir: File, dbs: List[String], compileTo: File): Seq[File] =
-    dbs.flatMap { db =>
-      doFile(
-        db = db,
-        sourceFile = sourceDir / s"$db.xml",
-        destDir = destDir / db,
-        compileTo = compileTo / db
-      )
+  def apply(sourceDir: File, destDir: File, dbs: List[String], compileTo: File): Seq[File] = {
+    compileTo.mkdirs()
+    val locales: List[String] = "en-GB" ::
+      (destDir / "site").list.toList.map { _.takeWhile('.' !=) }.sorted
+    val localeFiles = locales
+      .map { locale =>
+        locale -> writeLocale(locale, sourceDir, destDir, compileTo, dbs)
+      }
+      .filter(_._2.exists)
+    writeRegistry(compileTo, localeFiles.map(_._1)) :: localeFiles.map(_._2)
+  }
+
+  private def writeLocale(
+      locale: String,
+      sourceDir: File,
+      destDir: File,
+      compileTo: File,
+      dbs: List[String]
+  ): File = {
+    val scalaFile = compileTo / s"$locale.scala"
+    val xmlFiles =
+      if (locale == "en-GB") dbs.map { db =>
+        db -> (sourceDir / s"$db.xml")
+      }
+      else
+        dbs.map { db =>
+          db -> (destDir / db / s"$locale.xml")
+        }
+
+    val isNew = xmlFiles.exists {
+      case (_, file) => !isFileEmpty(file) && file.lastModified > scalaFile.lastModified
+    }
+    if (!isNew) scalaFile
+    else
+      printToFile(scalaFile) {
+        val puts = xmlFiles flatMap {
+          case (db, file) =>
+            try {
+              val xml = XML.loadFile(file)
+              xml.child.collect {
+                case e if e.label == "string" =>
+                  val safe = escape(e.text)
+                  val translation = escapeHtmlOption(safe) match {
+                    case None          => s"""new Simple(\"\"\"$safe\"\"\")"""
+                    case Some(escaped) => s"""new Escaped(\"\"\"$safe\"\"\",\"\"\"$escaped\"\"\")"""
+                  }
+                  s"""m.put(${toKey(e, db)},$translation)"""
+                case e if e.label == "plurals" =>
+                  val items: Map[String, String] = e.child
+                    .filter(_.label == "item")
+                    .map { i =>
+                      ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
+                    }
+                    .toMap
+                  s"""m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}))"""
+              }
+            } catch {
+              case _: Exception => Nil
+            }
+        }
+
+        s"""package lila.i18n
+
+${if (puts.exists(_ contains "new Plurals(")) "import I18nQuantity._" else ""}
+
+// format: OFF
+private object `$locale` {
+
+  def load: java.util.HashMap[MessageKey, Translation] = {
+    val m = new java.util.HashMap[MessageKey, Translation](${puts.size + 1})
+${puts mkString "\n"}
+    m
+  }
+}
+"""
+      }
+  }
+
+  private def isFileEmpty(file: File) =
+    !file.exists() || {
+      val source = Source.fromFile(file, "UTF-8")
+      try {
+        source.getLines.drop(1).next == "<resources></resources>"
+      } finally {
+        source.close()
+      }
     }
 
-  private def doFile(db: String, sourceFile: File, destDir: File, compileTo: File): Seq[File] = {
-    destDir.mkdirs()
-    val registry = ("en-GB" -> sourceFile) :: destDir.list.toList.map { f =>
-      f.takeWhile('.' !=) -> (destDir / f)
-    }.sortBy(_._1)
-    compileTo.mkdirs()
-    var translatedLocales = Set.empty[String]
-    val res = for {
-      entry <- registry
-      compilable <- {
-        val (locale, file) = entry
-        val compileToFile = compileTo / s"$locale.scala"
-        if (!isFileEmpty(file)) {
-          translatedLocales = translatedLocales + locale
-          if (file.lastModified > compileToFile.lastModified) {
-            printToFile(compileToFile)(render(db, locale, file))
-          }
-          Some(compileToFile)
-        }
-        else None
-      }
-    } yield compilable
-    writeRegistry(db, compileTo, translatedLocales) :: res
-  }
+  private def packageName(db: String) = if (db == "class") "clas" else db
 
-  private def isFileEmpty(f: File) = {
-    Source.fromFile(f, "UTF-8").getLines.drop(2).next == "<resources></resources>"
-  }
-
-  private def writeRegistry(db: String, compileTo: File, locales: Iterable[String]) = {
-    val file = compileTo / "Registry.scala"
-    printToFile(file) {
+  private def writeRegistry(destDir: File, locales: Iterable[String]) =
+    printToFile(destDir / "Registry.scala") {
       val content = locales.map { locale =>
         s"""Lang("${locale.replace("-", "\",\"")}")->`$locale`.load"""
       } mkString ",\n"
       s"""package lila.i18n
-package db.$db
 
 import play.api.i18n.Lang
 
 // format: OFF
-private[i18n] object Registry {
+private object Registry {
 
-  def load = Map[Lang, java.util.HashMap[MessageKey, Translation]]($content)
+  val all = Map[Lang, java.util.HashMap[MessageKey, Translation]](\n$content)
+
+  val default: java.util.HashMap[MessageKey, Translation] = all(defaultLang)
+
+  val langs: Set[Lang] = all.keys.toSet
 }
 """
     }
-    file
-  }
 
   private def ucfirst(str: String) = str(0).toUpper + str.drop(1)
 
-  private def toKey(e: scala.xml.Node) = s""""${e.\("@name")}""""
+  private def toKey(e: scala.xml.Node, db: String) =
+    if (db == "site") s""""${e.\("@name")}""""
+    else s""""$db:${e.\("@name")}""""
+
+  private def quote(msg: String) = s"""""\"$msg""\""""
 
   private def escape(str: String) = {
     // is someone trying to inject scala code?
@@ -76,55 +131,15 @@ private[i18n] object Registry {
     else str.replace("\\'", "'").replace("\\\"", "\"")
   }
 
-  private def render(db: String, locale: String, file: File): String = {
-    val xml = try {
-      XML.loadFile(file)
-    }
-    catch {
-      case e: Exception => println(file); throw e;
-    }
-    def quote(msg: String) = s"""""\"$msg""\""""
-    val content = xml.child.collect {
-      case e if e.label == "string" =>
-        val safe = escape(e.text)
-        val translation = escapeHtmlOption(safe) match {
-          case None => s"""new Simple(\"\"\"$safe\"\"\")"""
-          case Some(escaped) => s"""new Escaped(\"\"\"$safe\"\"\",\"\"\"$escaped\"\"\")"""
-        }
-        s"""m.put(${toKey(e)},$translation)"""
-      case e if e.label == "plurals" =>
-        val items: Map[String, String] = e.child.filter(_.label == "item").map { i =>
-          ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
-        }.toMap
-        s"""m.put(${toKey(e)},new Plurals(${pluralMap(items)}))"""
-    }
-    s"""package lila.i18n
-package db.$db
-
-import I18nQuantity._
-
-// format: OFF
-private object `$locale` {
-
-  def load: java.util.HashMap[MessageKey, Translation] = {
-    val m = new java.util.HashMap[MessageKey, Translation](${content.size + 1}, 1f)
-${content mkString "\n"}
-    m
-  }
-}
-"""
-  }
-
   private def pluralMap(items: Map[String, String]): String =
     if (items.size > 4) s"""Map(${items.map { case (k, v) => s"$k->$v" } mkString ","})"""
     else s"""new Map.Map${items.size}(${items.map { case (k, v) => s"$k,$v" } mkString ","})"""
 
-
   private val badChars = """[<>&"'\r\n]""".r.pattern
   private def escapeHtmlOption(s: String): Option[String] =
     if (badChars.matcher(s).find) Some {
-      val sb = new java.lang.StringBuilder(s.size + 10) // wet finger style
-      var i = 0
+      val sb = new java.lang.StringBuilder(s.length + 10) // wet finger style
+      var i  = 0
       while (i < s.length) {
         s.charAt(i) match {
           case '<'  => sb append "&lt;"
@@ -139,10 +154,16 @@ ${content mkString "\n"}
         i += 1
       }
       sb.toString
-    } else None
+    }
+    else None
 
-  private def printToFile(f: File)(content: String): Unit = {
-    val p = new java.io.PrintWriter(f, "UTF-8")
-    try { content.foreach(p.print) } finally { p.close() }
+  private def printToFile(file: File)(content: String): File = {
+    val p = new java.io.PrintWriter(file, "UTF-8")
+    try {
+      p.write(content)
+    } finally {
+      p.close()
+    }
+    file
   }
 }

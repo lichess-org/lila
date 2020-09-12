@@ -10,9 +10,9 @@ case class Answer[X](
 
 // a row per dimension value
 case class Cluster[X](
-    x: X, // dimension value
+    x: X,             // dimension value
     insight: Insight, // metric values
-    size: Int, // sample size
+    size: Int,        // sample size
     insightIds: List[String]
 ) {
 
@@ -21,7 +21,7 @@ case class Cluster[X](
 
 sealed trait Insight
 object Insight {
-  case class Single(point: Point) extends Insight
+  case class Single(point: Point)                                   extends Insight
   case class Stacked(points: List[(Metric.MetricValueName, Point)]) extends Insight
 }
 

@@ -9,18 +9,17 @@ object ResilientScheduler {
   private case object Done
 
   def apply(
-    every: Every,
-    atMost: AtMost,
-    logger: lila.log.Logger,
-    initialDelay: FiniteDuration
-  )(f: => Funit)(implicit system: ActorSystem): Unit = {
+      every: Every,
+      atMost: AtMost,
+      initialDelay: FiniteDuration
+  )(f: => Funit)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem): Unit = {
     val run = () => f
-    def runAndScheduleNext: Unit =
+    def runAndScheduleNext(): Unit =
       run() withTimeout atMost.value addEffectAnyway {
-        system.scheduler.scheduleOnce(every.value) { runAndScheduleNext }
+        system.scheduler.scheduleOnce(every.value) { runAndScheduleNext() }
       }
     system.scheduler.scheduleOnce(initialDelay) {
-      runAndScheduleNext
+      runAndScheduleNext()
     }
   }
 }

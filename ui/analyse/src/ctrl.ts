@@ -1,4 +1,10 @@
-import { opposite } from 'chessground/util';
+import { Outcome, isNormal } from 'chessops/types';
+import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
+import { lichessVariantRules } from 'chessops/compat';
+import { Position, PositionError } from 'chessops/chess';
+import { parseFen } from 'chessops/fen';
+import { Result } from '@badrap/result';
+import { setupPosition } from 'chessops/variant';
 import { Api as ChessgroundApi } from 'chessground/api';
 import { DrawShape } from 'chessground/draw';
 import * as cg from 'chessground/types';
@@ -12,11 +18,12 @@ import * as util from './util';
 import * as chessUtil from 'chess';
 import { defined, prop, Prop } from 'common';
 import throttle from 'common/throttle';
+import * as xhr from 'common/xhr';
 import { storedProp, StoredBooleanProp } from 'common/storage';
 import { make as makeSocket, Socket } from './socket';
 import { ForecastCtrl } from './forecast/interfaces';
 import { make as makeForecast } from './forecast/forecastCtrl';
-import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
+import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
 import explorerCtrl from './explorer/explorerCtrl';
 import { ExplorerCtrl } from './explorer/interfaces';
 import * as game from 'game';
@@ -31,9 +38,10 @@ import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
 import * as speech from './speech';
-import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
+import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
+import debounce from 'common/debounce';
 
 const li = window.lichess;
 
@@ -90,6 +98,10 @@ export default class AnalyseCtrl {
     js: 1, // increment to recreate chessground
     dom: 1
   };
+
+  // underboard inputs
+  fenInput?: string;
+  pgnInput?: string;
 
   // other paths
   initialPath: Tree.Path;
@@ -186,7 +198,7 @@ export default class AnalyseCtrl {
     else this.socket = makeSocket(this.opts.socketSend, this);
     this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath = this.synthetic || this.ongoing ? undefined :
-    treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
+      treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
   }
 
@@ -196,6 +208,8 @@ export default class AnalyseCtrl {
     this.node = treeOps.last(this.nodeList) as Tree.Node;
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.onMainline = this.tree.pathIsMainline(path)
+    this.fenInput = undefined;
+    this.pgnInput = undefined;
   }
 
   flip = () => {
@@ -203,9 +217,8 @@ export default class AnalyseCtrl {
     this.chessground.set({
       orientation: this.bottomColor()
     });
-    if (this.retro) {
-      this.retro = undefined;
-      this.toggleRetro();
+    if (this.retro && this.data.game.variant.key !== 'racingKings') {
+      this.retro = makeRetro(this, this.bottomColor());
     }
     if (this.practice) this.restartPractice();
     this.redraw();
@@ -268,7 +281,7 @@ export default class AnalyseCtrl {
       drops = chessUtil.readDrops(this.node.drops),
       movableColor = (this.practice || this.gamebookPlay()) ? this.bottomColor() : (
         !this.embed && (
-          (dests && Object.keys(dests).length > 0) ||
+          (dests && dests.size > 0) ||
           drops === null || drops.length
         ) ? color : undefined),
       config: ChessgroundConfig = {
@@ -276,11 +289,11 @@ export default class AnalyseCtrl {
         turnColor: color,
         movable: this.embed ? {
           color: undefined,
-          dests: {} as CgDests
+          dests: new Map(),
         } : {
-          color: movableColor,
-          dests: (movableColor === color ? (dests || {}) : {}) as CgDests
-        },
+            color: movableColor,
+            dests: (movableColor === color && dests) || new Map(),
+          },
         check: !!node.check,
         lastMove: this.uciToLastMove(node.uci)
       };
@@ -302,16 +315,16 @@ export default class AnalyseCtrl {
     capture: throttle(50, li.sound.capture),
     check: throttle(50, li.sound.check)
   } : {
-    move: $.noop,
-    capture: $.noop,
-    check: $.noop
-  };
+      move: $.noop,
+      capture: $.noop,
+      check: $.noop
+    };
 
   private onChange: () => void = throttle(300, () => {
     li.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
   });
 
-  private updateHref: () => void = li.debounce(() => {
+  private updateHref: () => void = debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
   }, 750);
 
@@ -324,7 +337,7 @@ export default class AnalyseCtrl {
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
-    isForwardStep = pathChanged && path.length == this.path.length + 2;
+      isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
     this.showGround();
     if (pathChanged) {
@@ -406,21 +419,20 @@ export default class AnalyseCtrl {
 
   changePgn(pgn: string): void {
     this.redirecting = true;
-    $.ajax({
-      url: '/analysis/pgn',
+    xhr.json('/analysis/pgn', {
       method: 'post',
-      data: { pgn },
-      success: (data: AnalyseData) => {
+      body: xhr.form({ pgn })
+    })
+      .then((data: AnalyseData) => {
         this.reloadData(data, false);
         this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
         this.redraw();
-      },
-      error: error => {
+      })
+      .catch(error => {
         console.log(error);
         this.redirecting = false;
         this.redraw();
-      }
-    });
+      });
   }
 
   changeFen(fen: Fen): void {
@@ -430,7 +442,7 @@ export default class AnalyseCtrl {
 
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
     if (crazyValid(this.chessground, this.node.drops, piece, pos)) {
-      this.justPlayed = chessUtil.roleToSan[piece.role] + '@' + pos;
+      this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
       this.sound.move();
@@ -450,7 +462,7 @@ export default class AnalyseCtrl {
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
     this.justPlayed = orig;
     this.justDropped = undefined;
-    const piece = this.chessground.state.pieces[dest];
+    const piece = this.chessground.state.pieces.get(dest);
     const isCapture = capture || (piece && piece.role == 'pawn' && orig[0] != dest[0]);
     this.sound[isCapture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, capture, this.sendMove)) this.sendMove(orig, dest, capture);
@@ -499,12 +511,11 @@ export default class AnalyseCtrl {
     this.chessground.playPremove();
   }
 
-  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening): void {
-    this.tree.addDests(dests, path, opening);
+  addDests(dests: string, path: Tree.Path): void {
+    this.tree.addDests(dests, path);
     if (path === this.path) {
       this.showGround();
-      // this.redraw();
-      if (this.gameOver()) this.ceval.stop();
+      if (this.outcome()) this.ceval.stop();
     }
     this.withCg(cg => cg.playPremove());
   }
@@ -558,7 +569,7 @@ export default class AnalyseCtrl {
     this.withCg(cg => cg.setAutoShapes(computeAutoShapes(this)));
   }
 
-  private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat: boolean): void => {
+  private onNewCeval = (ev: Tree.ClientEval, path: Tree.Path, isThreat?: boolean): void => {
     this.tree.updateAt(path, (node: Tree.Node) => {
       if (node.fen !== ev.fen && !isThreat) return;
       if (isThreat) {
@@ -605,15 +616,17 @@ export default class AnalyseCtrl {
     return this.ceval;
   }
 
-  gameOver(node?: Tree.Node): 'draw' | 'checkmate' | false {
-    const n = node || this.node;
-    if (n.dests !== '' || n.drops) return false;
-    if (n.check) return 'checkmate';
-    return 'draw';
+  outcome(node?: Tree.Node): Outcome | undefined {
+    return this.position(node || this.node).unwrap(pos => pos.outcome(), _ => undefined);
+  }
+
+  position(node: Tree.Node): Result<Position, PositionError> {
+    const setup = parseFen(node.fen).unwrap();
+    return setupPosition(lichessVariantRules(this.data.game.variant.key), setup);
   }
 
   canUseCeval(): boolean {
-    return !this.gameOver() && !this.node.threefold;
+    return !this.node.threefold && !this.outcome();
   }
 
   startCeval = throttle(800, () => {
@@ -687,7 +700,7 @@ export default class AnalyseCtrl {
   }
 
   showEvalGauge(): boolean {
-    return this.hasAnyComputerAnalysis() && this.showGauge() && !this.gameOver() && this.showComputer();
+    return this.hasAnyComputerAnalysis() && this.showGauge() && !this.outcome() && this.showComputer();
   }
 
   hasAnyComputerAnalysis(): boolean {
@@ -743,16 +756,16 @@ export default class AnalyseCtrl {
   }
 
   playUci(uci: Uci): void {
-    const move = chessUtil.decomposeUci(uci);
-    if (uci[1] === '@') this.chessground.newPiece({
+    const move = parseUci(uci)!;
+    const to = makeSquare(move.to);
+    if (isNormal(move)) {
+      const piece = this.chessground.state.pieces.get(makeSquare(move.from));
+      const capture = this.chessground.state.pieces.get(to);
+      this.sendMove(makeSquare(move.from), to, (capture && piece && capture.color !== piece.color) ? capture : undefined, move.promotion);
+    } else this.chessground.newPiece({
       color: this.chessground.state.movable.color as Color,
-      role: chessUtil.sanToRole[uci[0]]
-    }, move[1]);
-    else {
-      const capture = this.chessground.state.pieces[move[1]];
-      const promotion = move[2] && chessUtil.sanToRole[move[2].toUpperCase()];
-      this.sendMove(move[0], move[1], capture, promotion);
-    }
+      role: move.role,
+    }, to);
   }
 
   explorerMove(uci: Uci) {
@@ -765,18 +778,29 @@ export default class AnalyseCtrl {
     if (uci) this.playUci(uci);
   }
 
-  canEvalGet = (node: Tree.Node): boolean => this.opts.study || node.ply < 15;
+  canEvalGet(): boolean {
+    if (this.node.ply >= 15 && !this.opts.study) return false;
+
+    // cloud eval does not support threefold repetition
+    const fens = new Set();
+    for (let i = this.nodeList.length - 1; i >= 0; i--) {
+      const node = this.nodeList[i];
+      const fen = node.fen.split(' ').slice(0, 4).join(' ');
+      if (fens.has(fen)) return false;
+      if (node.san && sanIrreversible(this.data.game.variant.key, node.san)) return true;
+      fens.add(fen);
+    }
+    return true;
+  }
 
   instanciateEvalCache() {
     this.evalCache = makeEvalCache({
       variant: this.data.game.variant.key,
-      canGet: this.canEvalGet,
-      canPut: (node: Tree.Node) => {
-        return this.data.evalPut && this.canEvalGet(node) && (
-          // if not in study, only put decent opening moves
-          this.opts.study || (!node.ceval!.mate && Math.abs(node.ceval!.cp!) < 99)
-        );
-      },
+      canGet: () => this.canEvalGet(),
+      canPut: () => this.data.evalPut && this.canEvalGet() && (
+        // if not in study, only put decent opening moves
+        this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99)
+      ),
       getNode: () => this.node,
       send: this.opts.socketSend,
       receive: this.onNewCeval
@@ -786,7 +810,7 @@ export default class AnalyseCtrl {
   toggleRetro = (): void => {
     if (this.retro) this.retro = undefined;
     else {
-      this.retro = makeRetro(this);
+      this.retro = makeRetro(this, this.bottomColor());
       if (this.practice) this.togglePractice();
       if (this.explorer.enabled()) this.toggleExplorer();
     }
@@ -795,7 +819,7 @@ export default class AnalyseCtrl {
 
   toggleExplorer = (): void => {
     if (this.practice) this.togglePractice();
-    this.explorer.toggle();
+    if (this.explorer.enabled() || this.explorer.allowed()) this.explorer.toggle();
   }
 
   togglePractice = () => {
@@ -826,5 +850,6 @@ export default class AnalyseCtrl {
   withCg<A>(f: (cg: ChessgroundApi) => A): A | undefined {
     if (this.chessground && this.cgVersion.js === this.cgVersion.dom)
       return f(this.chessground);
+    return undefined;
   }
 };

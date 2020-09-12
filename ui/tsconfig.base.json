@@ -1,6 +1,4 @@
 {
-  "include": [],
-  "exclude": [],
   "compilerOptions": {
     "alwaysStrict": true,
     "strictNullChecks": true,
@@ -11,9 +9,9 @@
     "noImplicitThis": true,
     "noUnusedParameters": true,
     "moduleResolution": "node",
-    "target": "ES6",
+    "target": "ES2016",
     "module": "commonjs",
-    "lib": ["DOM", "ES6"],
+    "lib": ["DOM", "ES2016", "DOM.iterable"],
     "types": ["lichess", "jquery", "defer-promise"]
   }
 }

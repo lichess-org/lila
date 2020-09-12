@@ -1,9 +1,9 @@
 import makeSocket from './socket';
-import xhr from './xhr';
+import * as xhr from './xhr';
 import { myPage, players } from './pagination';
 import * as sound from './sound';
 import * as tour from './tournament';
-import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo } from './interfaces';
+import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing } from './interfaces';
 import { TournamentSocket } from './socket';
 
 interface CtrlTeamInfo {
@@ -29,7 +29,6 @@ export default class TournamentController {
   joinWithTeamSelector: boolean = false;
   redraw: () => void;
 
-  private watchingGameId: string;
   private lastStorage = window.lichess.storage.make('last-redirect');
 
   constructor(opts: TournamentOpts, redraw: () => void) {
@@ -46,7 +45,6 @@ export default class TournamentController {
     sound.end(this.data);
     sound.countDown(this.data);
     this.redirectToMyGame();
-    if (this.data.featured) this.startWatching(this.data.featured.id);
   }
 
   askReload = (): void => {
@@ -63,14 +61,13 @@ export default class TournamentController {
       this.playerInfo.data = data.playerInfo;
     this.loadPage(data.standing);
     if (this.focusOnMe) this.scrollToMe();
-    if (data.featured) this.startWatching(data.featured.id);
     sound.end(data);
     sound.countDown(data);
     this.joinSpinner = false;
     this.redirectToMyGame();
   };
 
-  myGameId = () => this.data.me && this.data.me.gameId;
+  myGameId = () => this.data.me?.gameId;
 
   private redirectToMyGame() {
     const gameId = this.myGameId();
@@ -87,8 +84,8 @@ export default class TournamentController {
     }, delay);
   };
 
-  loadPage = (data: TournamentData) => {
-    this.pages[data.page] = data.players;
+  loadPage = (data: Standing) => {
+    if (!data.failed || !this.pages[data.page]) this.pages[data.page] = data.players;
   }
 
   setPage = (page: number) => {
@@ -137,13 +134,6 @@ export default class TournamentController {
     }
   }
 
-  private startWatching(id: string) {
-    if (id !== this.watchingGameId) {
-      this.watchingGameId = id;
-      setTimeout(() => this.socket.send("startWatching", id), 1000);
-    }
-  };
-
   scrollToMe = () => {
     const page = myPage(this);
     if (page && page !== this.page) this.setPage(page);
@@ -156,6 +146,7 @@ export default class TournamentController {
   };
 
   showPlayerInfo = (player) => {
+    if (this.data.secondsToStart) return;
     const userId = player.name.toLowerCase();
     this.teamInfo.requested = undefined;
     this.playerInfo = {

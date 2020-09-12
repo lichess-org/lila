@@ -1,17 +1,22 @@
 .ricons {
   display: flex;
   justify-content: center;
+  margin-top: 10px;
+
   .fbt {
     font-size: 1.4em;
     padding: .1em 1em;
   }
+
   &.confirm > button {
     visibility: hidden;
   }
+
   .act-confirm {
     visibility: visible;
     position: relative;
     width: 60px;
+
     .fbt.no {
       padding: .1em 0;
       width: 30px;
@@ -21,8 +26,9 @@
       right: -34px;
     }
 
-    .fbt.yes  {
+    .fbt.yes {
       $act-confirm-shade: mix(#000, $c-accent, 30%);
+
       position: absolute;
       right: 0;
       top: -3px;
@@ -32,13 +38,17 @@
       background: $c-accent;
       border-bottom: 5px solid $act-confirm-shade;
       text-shadow: 0 -1px $act-confirm-shade;
-      @include transition();
-      transform: translate(0px,0px);
+
+      @include transition;
+
+      transform: translate(0px, 0px);
+
       &:hover {
         filter: brightness(1.07);
       }
+
       &:active {
-        transform: translate(0px,5px);
+        transform: translate(0px, 5px);
         border-bottom-width: 1px;
         text-shadow: 0 0 $act-confirm-shade;
         filter: brightness(1);

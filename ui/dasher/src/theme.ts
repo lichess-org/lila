@@ -1,5 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import changeColorHandle from 'common/coordsColor';
+import * as xhr from 'common/xhr';
 
 import { Redraw, Open, bind, header } from './util'
 
@@ -37,9 +39,12 @@ export function ctrl(data: ThemeData, trans: Trans, dimension: () => keyof Theme
       const d = dimensionData();
       d.current = t;
       applyTheme(t, d.list);
-      $.post('/pref/theme' + (dimension() === 'd3' ? '3d' : ''), {
-        theme: t
-      });
+      xhr.text(
+        '/pref/theme' + (dimension() === 'd3' ? '3d' : ''), {
+        body: xhr.form({ theme: t }),
+        method: 'post'
+      })
+        .catch(() => window.lichess.announce({ msg: 'Failed to save theme preference' }));
       redraw();
     },
     open
@@ -52,15 +57,14 @@ export function view(ctrl: ThemeCtrl): VNode {
 
   return h('div.sub.theme.' + ctrl.dimension(), [
     header(ctrl.trans.noarg('boardTheme'), () => ctrl.open('links')),
-    h('div.list', {
-      attrs: { method: 'post', action: '/pref/soundSet' }
-    }, d.list.map(themeView(d.current, ctrl.set)))
+    h('div.list', d.list.map(themeView(d.current, ctrl.set)))
   ]);
 }
 
 function themeView(current: Theme, set: (t: Theme) => void) {
   return (t: Theme) => h('a', {
     hook: bind('click', () => set(t)),
+    attrs: { title: t },
     class: { active: current === t }
   }, [
     h('span.' + t)
@@ -69,4 +73,5 @@ function themeView(current: Theme, set: (t: Theme) => void) {
 
 function applyTheme(t: Theme, list: Theme[]) {
   $('body').removeClass(list.join(' ')).addClass(t);
+  changeColorHandle()
 }

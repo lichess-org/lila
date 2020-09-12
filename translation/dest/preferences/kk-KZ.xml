@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferences">Баптаулар</string>
+  <string name="gameDisplay">Ойын көрінісі</string>
+  <string name="pieceAnimation">Тастар анимациясы</string>
+  <string name="materialDifference">Тас мөлшерінің айырмашылығы</string>
+  <string name="boardHighlights">Жүріс ізін көрсету (кейінгі жүріс пен шах)</string>
+  <string name="pieceDestinations">Тастың жолын көрсету (жүріс пен алдын-ала жүріс)</string>
+  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Тақта координаттары (A-H, 1-8)</string>
+  <string name="moveListWhilePlaying">Ойын кезіндегі жүрістер тізімі</string>
+  <string name="pgnPieceNotation">Жүрісті жазу тәртібі</string>
+  <string name="chessPieceSymbol">Тас таңбасы</string>
+  <string name="pgnLetter">Әріптер (K, Q, R, B, N)</string>
+  <string name="zenMode">Зен нұсқасы</string>
+  <string name="displayBoardResizeHandle">Тақтаны үлкейту тұтқасын көрсету</string>
+  <string name="onlyOnInitialPosition">Тек бастапқы күйде ғана</string>
+  <string name="blindfoldChess">Бүркемелі шахмат (көрінбейтін тастар)</string>
+  <string name="chessClock">Шахмат сағаты</string>
+  <string name="tenthsOfSeconds">Секундтың ондық бөлігін көрсету</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">10 секунд қалғанда</string>
+  <string name="horizontalGreenProgressBars">Уақыт жүрісін көрсететін көлденең жасыл жолақ</string>
+  <string name="soundWhenTimeGetsCritical">Уақыт аз қалғанда, дыбыс белгі беру</string>
+  <string name="giveMoreTime">Қарсыласқа уақыт беру мүмкіндігі</string>
+  <string name="gameBehavior">Ойын тәртібі</string>
+  <string name="howDoYouMovePieces">Тасты қалай жүресіз?</string>
+  <string name="clickTwoSquares">Екі шаршыны басып</string>
+  <string name="dragPiece">Тасты тартып</string>
+  <string name="bothClicksAndDrag">Екі әдіспен де</string>
+  <string name="premovesPlayingDuringOpponentTurn">Алдын-ала жүру (қарсыластың жүру кезегі кезінде жүру)</string>
+  <string name="takebacksWithOpponentApproval">Жүрісті қайтару (қарсыластың келісімі қажет)</string>
+  <string name="inCasualGamesOnly">Қалыпты ойындарда ғана</string>
+  <string name="promoteToQueenAutomatically">Уәзірге автоматты түрде айналдыру</string>
+  <string name="whenPremoving">Алдын-ала жүрісте</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Үш реттік қайталау болса, автоматты түрде тепе-теңдік жариялау</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">30 секунд қалғанда</string>
+  <string name="moveConfirmation">Жүрісті растау</string>
+  <string name="inCorrespondenceGames">Хат алмасып ойнағанда</string>
+  <string name="correspondenceAndUnlimited">Хат алмасып және шексіз уақытпен</string>
+  <string name="confirmResignationAndDrawOffers">Берілу мен тепе-теңдік ұсынысын растау</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Бекіну әдісі</string>
+  <string name="castleByMovingTwoSquares">Патшаны екі шаршы жүру</string>
+  <string name="castleByMovingOntoTheRook">Патшаны тура тасына қою</string>
+  <string name="inputMovesWithTheKeyboard">Пернетақта арқылы жүру</string>
+  <string name="yourPreferencesHaveBeenSaved">Баптауыңыз сақталды.</string>
+</resources>

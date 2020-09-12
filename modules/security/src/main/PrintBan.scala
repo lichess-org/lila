@@ -1,29 +1,31 @@
 package lila.security
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
-import lila.user.User
 
-final class PrintBan(coll: Coll) {
+final class PrintBan(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private var current: Set[String] = Set.empty
 
   def blocks(hash: FingerHash): Boolean = current contains hash.value
 
   def toggle(hash: FingerHash, block: Boolean): Funit = {
-    if (block) coll.update(
-      $id(hash.value),
-      $doc("_id" -> hash.value, "date" -> DateTime.now),
-      upsert = true
-    ).void
-    else coll.remove($id(hash.value))
-  } >> loadFromDb
+    current = if (block) current + hash.value else current - hash.value
+    if (block)
+      coll.update
+        .one(
+          $id(hash.value),
+          $doc("_id" -> hash.value, "date" -> DateTime.now),
+          upsert = true
+        )
+        .void
+    else coll.delete.one($id(hash.value)).void
+  }
 
-  private def loadFromDb: Funit =
-    coll.distinct[String, Set]("_id", none).map { hashes =>
-      current = hashes
-      lila.mon.security.firewall.prints(hashes.size)
-    }
+  coll.secondaryPreferred.distinctEasy[String, Set]("_id", $empty).map { hashes =>
+    current = hashes
+    lila.mon.security.firewall.prints.update(hashes.size)
+  }
 }

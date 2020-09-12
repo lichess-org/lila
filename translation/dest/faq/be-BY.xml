@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="faqAbbreviation">Пытанні і адказы</string>
+  <string name="frequentlyAskedQuestions">Частыя пытанні</string>
+  <string name="whyIsLichessCalledLichess">Чаму Lichess называецца Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess — гэта камбінацыя live/light/libre і chess. Lichess вымаўляцца як %1$s.</string>
+  <string name="leechess">лі-чэсс</string>
+  <string name="hearItPronouncedBySpecialist">Праслухайце, як гэта прамаўляе спецыяліст.</string>
+  <string name="findMoreAndSeeHowHelp">Вы можаце даведацца больш пра %1$s (уключаючы %2$s). Калі вы хочаце дапамагчы Lichess валанцёрствам, сваімі навыкамі і часам, то ёсць шмат %3$s.</string>
+  <string name="beingAPatron">стаўшы донарам</string>
+  <string name="otherWaysToHelp">іншых спосабаў дапамагчы</string>
+  <string name="areThereWebsitesBasedOnLichess">Ёсць лі іншыя сайты, якія былі заснаваныя на Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Так. Lichess натхніў многія сайты, якія цяпер выкарыстоўваюць наш %1$s, %2$s и %3$s.</string>
+  <string name="fairPlay">Сумленная гульня</string>
+  <string name="durationFormula">(пачатковы час) + 40 * (прыбаўка часу)</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$s с = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
+</resources>

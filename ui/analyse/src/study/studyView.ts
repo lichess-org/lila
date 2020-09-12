@@ -13,6 +13,7 @@ import { view as studyShareView } from './studyShare';
 import { view as multiBoardView } from './multiBoard';
 import { view as notifView } from './notif';
 import { view as tagsView } from './studyTags';
+import { view as topicsView, formView as topicsFormView } from './topics';
 import { view as serverEvalView } from './serverEval';
 import * as practiceView from './practice/studyPracticeView';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
@@ -108,10 +109,10 @@ function buttons(root: AnalyseCtrl): VNode {
         hint: noarg('shareAndExport'),
         icon: iconTag('$')
       }),
-      h('span.help', {
+      !ctrl.relay ? h('span.help', {
         attrs: { title: 'Need help? Get the tour!', 'data-icon': '' },
         hook: bind('click', ctrl.startTour)
-      })
+      }) : null,
     ]),
     h('div.right', [
       gbOverrideButton(ctrl)
@@ -121,12 +122,12 @@ function buttons(root: AnalyseCtrl): VNode {
 
 function metadata(ctrl: StudyCtrl): VNode {
   const d = ctrl.data,
-    credit = ctrl.relay && ctrl.relay.data.credit;
+    credit = ctrl.relay && ctrl.relay.data.credit,
+    title = `${d.name}: ${ctrl.currentChapter().name}`;
   return h('div.study__metadata', [
     h('h2', [
-      h('span.name', [
-        d.name,
-        ': ' + ctrl.currentChapter().name,
+      h('span.name', { attrs: { title } }, [
+        title,
         credit ?  h('span.credit', { hook: richHTML(credit, false) }) : undefined
       ]),
       h('span.liking.text', {
@@ -138,6 +139,7 @@ function metadata(ctrl: StudyCtrl): VNode {
         hook: bind('click', ctrl.toggleLike)
       }, '' + d.likes)
     ]),
+    topicsView(ctrl),
     tagsView(ctrl)
   ]);
 }
@@ -199,7 +201,9 @@ export function overboard(ctrl: StudyCtrl) {
   if (ctrl.chapters.newForm.vm.open) return chapterNewFormView(ctrl.chapters.newForm);
   if (ctrl.chapters.editForm.current()) return chapterEditFormView(ctrl.chapters.editForm);
   if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
+  if (ctrl.topics.open()) return topicsFormView(ctrl.topics, ctrl.members.myId);
   if (ctrl.form.open()) return studyFormView(ctrl.form);
+  return undefined;
 }
 
 export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {

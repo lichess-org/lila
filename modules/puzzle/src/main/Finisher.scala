@@ -1,31 +1,41 @@
 package lila.puzzle
 
-import org.goochjs.glicko2._
+import org.goochjs.glicko2.{ Rating, RatingCalculator, RatingPeriodResults }
 import org.joda.time.DateTime
 
 import chess.Mode
+import lila.common.Bus
+import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.rating.{ Glicko, PerfType }
-import lila.common.Bus
 import lila.user.{ User, UserRepo }
 
-private[puzzle] final class Finisher(
+final private[puzzle] class Finisher(
     api: PuzzleApi,
+    userRepo: UserRepo,
     historyApi: lila.history.HistoryApi,
-    puzzleColl: Coll
-) {
+    puzzleColl: AsyncColl
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(puzzle: Puzzle, user: User, result: Result, mobile: Boolean): Fu[(Round, Mode)] = {
+  def apply(
+      puzzle: Puzzle,
+      user: User,
+      result: Result,
+      mobile: Boolean,
+      isStudent: Boolean
+  ): Fu[(Round, Mode)] = {
     val formerUserRating = user.perfs.puzzle.intRating
     api.head.find(user) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id || mobile =>
         api.head.solved(user, puzzle.id) >> {
-          val userRating = user.perfs.puzzle.toRating
+          val userRating   = user.perfs.puzzle.toRating
           val puzzleRating = puzzle.perf.toRating
           updateRatings(userRating, puzzleRating, result.glicko)
           val date = DateTime.now
-          val puzzlePerf = puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating)
-          val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
+          val puzzlePerf =
+            puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating)
+          val userPerf =
+            user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
           val round = new Round(
             id = Round.Id(user.id, puzzle.id),
             date = date,
@@ -35,26 +45,31 @@ private[puzzle] final class Finisher(
           )
           historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf)
           (api.round upsert round) >> {
-            puzzleColl.update(
-              $id(puzzle.id),
-              $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
-                $set(Puzzle.BSONFields.perf -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
-            ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
+            isStudent ?? api.round.addDenormalizedUser(round, user)
+          } >> {
+            puzzleColl {
+              _.update.one(
+                $id(puzzle.id),
+                $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
+                  $set(Puzzle.BSONFields.perf   -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
+              )
+            } zip userRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
           } inject {
-            Bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating), 'finishPuzzle)
+            Bus.publish(
+              Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
+              "finishPuzzle"
+            )
             round -> Mode.Rated
           }
         }
-      case _ => fuccess {
-        incPuzzleAttempts(puzzle)
-        new Round(
+      case _ =>
+        incPuzzleAttempts(puzzle) inject new Round(
           id = Round.Id(user.id, puzzle.id),
           date = DateTime.now,
           result = result,
           rating = formerUserRating,
           ratingDiff = 0
         ) -> Mode.Casual
-      }
     }
   }
 
@@ -64,11 +79,12 @@ private[puzzle] final class Finisher(
    * Returns the user with updated puzzle rating */
   def ratedUntrusted(puzzle: Puzzle, user: User, result: Result): Fu[User] = {
     val formerUserRating = user.perfs.puzzle.intRating
-    val userRating = user.perfs.puzzle.toRating
-    val puzzleRating = puzzle.perf.toRating
+    val userRating       = user.perfs.puzzle.toRating
+    val puzzleRating     = puzzle.perf.toRating
     updateRatings(userRating, puzzleRating, result.glicko)
     val date = DateTime.now
-    val userPerf = user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
+    val userPerf =
+      user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
     val a = new Round(
       id = Round.Id(user.id, puzzle.id),
       date = date,
@@ -77,29 +93,29 @@ private[puzzle] final class Finisher(
       ratingDiff = userPerf.intRating - formerUserRating
     )
     (api.round add a) >>
-      UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
+      userRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
       Bus.publish(
         Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
-        'finishPuzzle
+        "finishPuzzle"
       ) inject
-        user.copy(perfs = user.perfs.copy(puzzle = userPerf))
+      user.copy(perfs = user.perfs.copy(puzzle = userPerf))
   } recover lila.db.recoverDuplicateKey { _ =>
     // logger.info(s"ratedUntrusted ${user.id} ${puzzle.id} duplicate round")
     user // has already been solved!
   }
 
   private val VOLATILITY = Glicko.default.volatility
-  private val TAU = 0.75d
-  private val system = new RatingCalculator(VOLATILITY, TAU)
+  private val TAU        = 0.75d
+  private val system     = new RatingCalculator(VOLATILITY, TAU)
 
-  def incPuzzleAttempts(puzzle: Puzzle) =
-    puzzleColl.incFieldUnchecked($id(puzzle.id), Puzzle.BSONFields.attempts)
+  def incPuzzleAttempts(puzzle: Puzzle): Funit =
+    puzzleColl.map(_.incFieldUnchecked($id(puzzle.id), Puzzle.BSONFields.attempts))
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(u1, u2)
-      case Glicko.Result.Win => results.addResult(u1, u2)
+      case Glicko.Result.Win  => results.addResult(u1, u2)
       case Glicko.Result.Loss => results.addResult(u2, u1)
     }
     try {
@@ -108,7 +124,7 @@ private[puzzle] final class Finisher(
       // never take away more than 30 rating points - it just causes upsets
       List(r1 -> u1, r2 -> u2).foreach {
         case (prev, next) if next.getRating - prev < -30 => next.setRating(prev - 30)
-        case _ =>
+        case _                                           =>
       }
     } catch {
       case e: Exception => logger.error("finisher", e)

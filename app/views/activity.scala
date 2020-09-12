@@ -46,7 +46,7 @@ object activity {
     div(cls := "entry plan")(
       iconTag(""),
       div(
-        trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index)("Patron"))
+        trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index())("Patron"))
       )
     )
 
@@ -57,21 +57,22 @@ object activity {
       div(
         ps.headOption map onePractice,
         ps match {
-          case first :: rest if rest.nonEmpty => subTag(rest map onePractice)
-          case _ => emptyFrag
+          case _ :: rest if rest.nonEmpty => subTag(rest map onePractice)
+          case _                          => emptyFrag
         }
       )
     )
   }
 
-  private def onePractice(tup: (lila.practice.PracticeStudy, Int))(implicit ctx: Context) = tup match {
-    case (study, nb) =>
-      val href = routes.Practice.show("-", study.slug, study.id.value)
-      frag(
-        trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
-        br
-      )
-  }
+  private def onePractice(tup: (lila.practice.PracticeStudy, Int))(implicit ctx: Context) =
+    tup match {
+      case (study, nb) =>
+        val href = routes.Practice.show("-", study.slug, study.id.value)
+        frag(
+          trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
+          br
+        )
+    }
 
   private def renderPuzzles(p: Puzzles)(implicit ctx: Context) =
     entryTag(
@@ -90,21 +91,22 @@ object activity {
           iconTag(pt.iconChar),
           scoreFrag(score),
           div(
-            trans.activity.playedNbGames.plural(score.size, score.size, pt.name),
+            trans.activity.playedNbGames.plural(score.size, score.size, pt.trans),
             score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
           )
         )
     }
 
   private def renderPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]])(implicit ctx: Context) =
-    entryTag(
+    ctx.noKid option entryTag(
       iconTag("d"),
       div(
         posts.toSeq.map {
           case (topic, posts) =>
             val url = routes.ForumTopic.show(topic.categId, topic.slug)
             frag(
-              trans.activity.postedNbMessages.plural(posts.size, posts.size, a(href := url)(shorten(topic.name, 70))),
+              trans.activity.postedNbMessages
+                .plural(posts.size, posts.size, a(href := url)(shorten(topic.name, 70))),
               subTag(
                 posts.map { post =>
                   div(cls := "line")(a(href := routes.ForumPost.redirect(post.id))(shorten(post.text, 120)))
@@ -147,9 +149,9 @@ object activity {
             frag(
               a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color.name))(
                 pov.game.wonBy(pov.color) match {
-                  case Some(true) => trans.victory()
+                  case Some(true)  => trans.victory()
                   case Some(false) => trans.defeat()
-                  case _ => "Draw"
+                  case _           => "Draw"
                 }
               ),
               " vs ",
@@ -166,16 +168,17 @@ object activity {
       iconTag("h"),
       div(
         List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten map {
-          case (f, in) => frag(
-            if (in) trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
-            else trans.activity.followedNbPlayers.pluralSame(f.actualNb),
-            subTag(
-              fragList(f.ids.map(id => userIdLink(id.some))),
-              f.nb.map { nb =>
-                frag(" and ", nb - maxSubEntries, " more")
-              }
+          case (f, in) =>
+            frag(
+              if (in) trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
+              else trans.activity.followedNbPlayers.pluralSame(f.actualNb),
+              subTag(
+                fragList(f.ids.map(id => userIdLink(id.some))),
+                f.nb.map { nb =>
+                  frag(" and ", nb - maxSubEntries, " more")
+                }
+              )
             )
-          )
         }
       )
     )
@@ -185,22 +188,23 @@ object activity {
       iconTag("f"),
       div(
         simuls.groupBy(_.isHost(u.some)).toSeq.map {
-          case (isHost, simuls) => frag(
-            if (isHost) trans.activity.hostedNbSimuls.pluralSame(simuls.size)
-            else trans.activity.joinedNbSimuls.pluralSame(simuls.size),
-            subTag(
-              simuls.map { s =>
-                div(
-                  a(href := routes.Simul.show(s.id))(
-                    s.name,
-                    " simul by ",
-                    userIdLink(s.hostId.some)
-                  ),
-                  scoreFrag(Score(s.wins, s.losses, s.draws, none))
-                )
-              }
+          case (isHost, simuls) =>
+            frag(
+              if (isHost) trans.activity.hostedNbSimuls.pluralSame(simuls.size)
+              else trans.activity.joinedNbSimuls.pluralSame(simuls.size),
+              subTag(
+                simuls.map { s =>
+                  div(
+                    a(href := routes.Simul.show(s.id))(
+                      s.name,
+                      " simul by ",
+                      userIdLink(s.hostId.some)
+                    ),
+                    scoreFrag(Score(s.wins, s.losses, s.draws, none))
+                  )
+                }
+              )
             )
-          )
         }
       )
     )
@@ -219,7 +223,7 @@ object activity {
     )
 
   private def renderTeams(teams: Teams)(implicit ctx: Context) =
-    entryTag(
+    ctx.noKid option entryTag(
       iconTag("f"),
       div(
         trans.activity.joinedNbTeams.pluralSame(teams.value.size),
@@ -238,23 +242,28 @@ object activity {
             div(
               cls := List(
                 "is-gold" -> (t.rank == 1),
-                "text" -> (t.rank <= 3)
+                "text"    -> (t.rank <= 3)
               ),
               dataIcon := (t.rank <= 3).option("g")
             )(
-                trans.activity.rankedInTournament.plural(t.nbGames, strong(t.rank), (t.rankRatio.value * 100).toInt atLeast 1, t.nbGames, link),
-                br
-              )
+              trans.activity.rankedInTournament.plural(
+                t.nbGames,
+                strong(t.rank),
+                (t.rankRatio.value * 100).toInt atLeast 1,
+                t.nbGames,
+                link
+              ),
+              br
+            )
           }
         )
       )
     )
 
-  private def renderStream(u: User) =
-    entryTag(
+  private def renderStream(u: User)(implicit ctx: Context) =
+    ctx.noKid option entryTag(
       iconTag(""),
-      "Hosted a ",
-      a(href := routes.Streamer.show(u.username))("live stream")
+      a(href := routes.Streamer.show(u.username))(trans.activity.hostedALiveStream())
     )
 
   private def renderSignup(implicit ctx: Context) =
@@ -264,21 +273,27 @@ object activity {
     )
 
   private val entryTag = div(cls := "entry")
-  private val subTag = div(cls := "sub")
+  private val subTag   = div(cls := "sub")
 
-  private def scoreFrag(s: Score)(implicit ctx: Context) = raw {
-    s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr("draw", s.draw, trans.nbDraws)}${scoreStr("loss", s.loss, trans.nbLosses)}</score>"""
-  }
+  private def scoreFrag(s: Score)(implicit ctx: Context) =
+    raw {
+      s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr("draw", s.draw, trans.nbDraws)}${scoreStr(
+        "loss",
+        s.loss,
+        trans.nbLosses
+      )}</score>"""
+    }
 
-  private def ratingProgFrag(r: RatingProg)(implicit ctx: Context) = ratingTag(
-    r.after.value,
-    ratingProgress(r.diff)
-  )
+  private def ratingProgFrag(r: RatingProg) =
+    ratingTag(
+      r.after.value,
+      ratingProgress(r.diff)
+    )
 
   private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(implicit ctx: Context) =
     if (p == 0) ""
     else s"""<$tag>${wrapNumber(name.pluralSameTxt(p))}</$tag>"""
 
-  private val wrapNumberRegex = """(\d++)""".r
+  private val wrapNumberRegex         = """(\d++)""".r
   private def wrapNumber(str: String) = wrapNumberRegex.replaceAllIn(str, "<strong>$1</strong>")
 }

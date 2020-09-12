@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessClasses">فصول</string>
+  <string name="teachClassesOfChessStudents">قم بتدريس فصول من تلامذة الشطرنج باستخدام مجموعة أدوات فصول ليتشيس.</string>
+  <string name="features">مزايا</string>
+  <string name="quicklyGenerateSafeUsernames">أنشئ أسماء مستخدمين آمنة وكلمات مرور للطلاب بسرعة</string>
+  <string name="trackStudentProgress">تابع مستوي تقدم الطلبة في الألعاب و الألغاز</string>
+  <string name="messageAllStudents">أرسل جميع الطلاب عن مواد دراسية جديدة</string>
+  <string name="freeForAllForever">100% مجانية للجميع، للأبد، بدون إعلانات أو متتبعيت</string>
+  <string name="applyToBeLichessTeacher">تقدم بطلب لتكون معلماً في ليتشيس</string>
+  <string name="noClassesYet">لا يوجد حصص.</string>
+  <string name="teachersX">المعلمون: %s</string>
+  <string name="newClass">فصل جديد</string>
+  <string name="closeClass">إغلاق الصف الدراسي</string>
+  <string name="closedByX">أغلقه %s</string>
+  <string name="reopen">إعاده فتح</string>
+  <string name="removeStudent">احذف طالب</string>
+  <string name="removedStudents">مزال</string>
+  <string name="inviteTheStudentBack">دعوة التلميذ من جديد</string>
+  <string name="sendAMessage">أرسل رسالة الي كل الطلبة.</string>
+  <string name="aLinkToTheClassWillBeAdded">سيتم إضافة رابط إلى الصف تلقائياً في نهاية الرسالة، لذلك لا تحتاج إلى تضمينه بنفسك.</string>
+  <string name="className">اسم الفصل</string>
+  <string name="classDescription">وصف الفصل</string>
+  <string name="visibleByBothStudentsAndTeachers">مرئي من قبل المدرسين وطلاب الفصل</string>
+  <string name="teachersOfTheClass">مدرسون الفصل</string>
+  <string name="addLichessUsernames">أضف أسماء مستخدمي ليتشيس لدعوتهم كمعلمين. واحد فى كل سطر.</string>
+  <string name="theyMustFirstApply">ويجب عليهم أولاً أن يتقدموا بطلب أن يكونوا معلمين في ليتشيس.</string>
+  <string name="resetPassword">إعاده تعيين كلمة المرور</string>
+  <string name="makeSureToCopy">تأكد من حفظ أو كتابه كلمه المرور. لن تتمكن من رؤيتها مجددا!</string>
+  <string name="passwordX">كلمة المرور: %s</string>
+  <string name="generateANewPassword">إنشاء كلمة مرور جديدة للطالب</string>
+  <string name="invitedToXByY">دعوة إلى %1$s من قبل %2$s</string>
+  <string name="realName">الاسم الحقيقي</string>
+  <string name="addStudent">أضف طالب</string>
+  <string name="createANewLichessAccount">إنشاء حساب مستخدم جديد</string>
+  <string name="progress">مستوي التقدم</string>
+  <string name="winrate">نسبة الفوز</string>
+  <string name="na">غير متوفر</string>
+</resources>

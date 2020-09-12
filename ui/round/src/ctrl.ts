@@ -1,3 +1,4 @@
+import * as ab from 'ab';
 import * as round from './round';
 import * as game from 'game';
 import * as status from 'game/status';
@@ -15,14 +16,14 @@ import { ClockController } from './clock/clockCtrl';
 import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
 import TransientMove from './transientMove';
-import atomic = require('./atomic');
-import sound = require('./sound');
-import util = require('./util');
-import xhr = require('./xhr');
+import * as atomic from './atomic';
+import * as sound from './sound';
+import * as util from './util';
+import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
-import renderUser = require('./view/user');
-import cevalSub = require('./cevalSub');
+import * as renderUser from './view/user';
+import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
 
 import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position, NvuiPlugin } from './interfaces';
@@ -128,12 +129,12 @@ export default class RoundController {
       if (this.isPlaying()) {
         const zen = !$('body').hasClass('zen');
         $('body').toggleClass('zen', zen);
-        li.dispatchEvent(window, 'resize');
-        $.post('/pref/zen', { zen: zen ? 1 : 0 });
+        window.dispatchEvent(new Event('resize'));
+        xhr.setZen(zen);
       }
     });
 
-    if (li.ab && this.isPlaying()) li.ab.init(this);
+    if (this.isPlaying()) ab.init(this);
   }
 
   private showExpiration = () => {
@@ -143,7 +144,7 @@ export default class RoundController {
   }
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-    if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedSan)) li.ab.move(this, meta);
+    if (!this.keyboardMove || !this.keyboardMove.usedSan) ab.move(this, meta);
     if (!promotion.start(this, orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
@@ -335,7 +336,7 @@ export default class RoundController {
   playerByColor = (c: Color) =>
     this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
-  apiMove = (o: ApiMove): void => {
+  apiMove = (o: ApiMove): true => {
     const d = this.data,
       playing = this.isPlaying();
 
@@ -358,37 +359,27 @@ export default class RoundController {
         color: playedColor
       }, o.uci.substr(2, 2) as cg.Key);
       else {
-        const keys = util.uci2move(o.uci);
-        this.chessground.move(keys![0], keys![1]);
+        // This block needs to be idempotent, even for castling moves in
+        // Chess960.
+        const keys = util.uci2move(o.uci)!,
+        pieces = this.chessground.state.pieces;
+        if (!o.castle || (pieces.get(o.castle.king[0])?.role === 'king' && pieces.get(o.castle.rook[0])?.role === 'rook')) {
+          this.chessground.move(keys[0], keys[1]);
+        }
       }
       if (o.enpassant) {
-        const p = o.enpassant, pieces: cg.PiecesDiff = {};
-        pieces[p.key] = undefined;
-        this.chessground.setPieces(pieces);
+        const p = o.enpassant;
+        this.chessground.setPieces(new Map([[p.key, undefined]]));
         if (d.game.variant.key === 'atomic') {
           atomic.enpassant(this, p.key, p.color);
           sound.explode();
         } else sound.capture();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
-      if (o.castle && !this.chessground.state.autoCastle) {
-        const c = o.castle, pieces: cg.PiecesDiff = {};
-        pieces[c.king[0]] = undefined;
-        pieces[c.rook[0]] = undefined;
-        pieces[c.king[1]] = {
-          role: 'king',
-          color: c.color
-        };
-        pieces[c.rook[1]] = {
-          role: 'rook',
-          color: c.color
-        };
-        this.chessground.setPieces(pieces);
-      }
       this.chessground.set({
         turnColor: d.game.player,
         movable: {
-          dests: playing ? util.parsePossibleMoves(d.possibleMoves) : {}
+          dests: playing ? util.parsePossibleMoves(d.possibleMoves) : new Map(),
         },
         check: !!o.check
       });
@@ -446,6 +437,7 @@ export default class RoundController {
     if (this.keyboardMove) this.keyboardMove.update(step, playedColor != d.player.color);
     if (this.music) this.music.jump(o);
     speech.step(step);
+    return true; // prevents default socket pubsub
   };
 
   private playPredrop = () => {
@@ -490,8 +482,12 @@ export default class RoundController {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
     }
-    if (!d.player.spectator && d.game.turns > 1)
-      li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
+    if (!d.player.spectator && d.game.turns > 1) {
+      const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
+      li.sound[key]();
+      if (key != 'victory' && d.game.turns > 6 && !d.tournament && !d.swiss && li.storage.get('courtesy') == '1')
+        this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
+    }
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
     this.setTitle();
@@ -509,7 +505,7 @@ export default class RoundController {
   challengeRematch = (): void => {
     this.challengeRematched = true;
     xhr.challengeRematch(this.data.game.id).then(() => {
-      li.challengeApp.open();
+      li.pubsub.emit('challenge-app.open');
       if (li.once('rematch-challenge')) setTimeout(() => {
         li.hopscotch(function() {
           window.hopscotch.configure({
@@ -563,9 +559,9 @@ export default class RoundController {
     promotion.cancel(this);
   };
 
-  resign = (v: boolean): void => {
+  resign = (v: boolean, immediately?: boolean): void => {
     if (v) {
-      if (this.resignConfirm || !this.data.pref.confirmResign) {
+      if (this.resignConfirm || !this.data.pref.confirmResign || immediately) {
         this.socket.sendLoading('resign');
         clearTimeout(this.resignConfirm);
       } else {
@@ -608,6 +604,7 @@ export default class RoundController {
 
   setRedirecting = () => {
     this.redirecting = true;
+    window.lichess.unload.expected = true;
     setTimeout(() => {
       this.redirecting = false;
       this.redraw();
@@ -635,13 +632,24 @@ export default class RoundController {
     if (this.opts.onChange) setTimeout(() => this.opts.onChange(this.data), 150);
   };
 
-  forceResignable = (): boolean => {
+  private goneTick?: number;
+  setGone = (gone: number | boolean) => {
+    game.setGone(this.data, this.data.opponent.color, gone);
+    clearTimeout(this.goneTick);
+    if (Number(gone) > 1)
+      this.goneTick = setTimeout(() => {
+        const g = Number(this.opponentGone());
+        if (g > 1) this.setGone(g - 1);
+      }, 1000);
+    this.redraw();
+  }
+
+  opponentGone = (): number | boolean => {
     const d = this.data;
-    return !d.opponent.ai &&
-      !!d.clock &&
-      d.opponent.isGone &&
+    return d.opponent.gone !== false &&
       !game.isPlayerTurn(d) &&
-      game.resignable(d);
+      game.resignable(d) &&
+      d.opponent.gone;
   }
 
   canOfferDraw = (): boolean =>
@@ -672,7 +680,7 @@ export default class RoundController {
     this.chessground = cg;
     if (this.data.pref.keyboardMove) {
       this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
-      li.raf(this.redraw);
+      requestAnimationFrame(() => this.redraw());
     }
   };
 
@@ -684,6 +692,7 @@ export default class RoundController {
       li.sound.genericNotify();
     }
     li.requestIdleCallback(() => {
+      const d = this.data;
       if (this.isPlaying()) {
         if (!d.simul) blur.init(d.steps.length > 2);
 
@@ -693,7 +702,8 @@ export default class RoundController {
         if (d.crazyhouse) crazyInit(this);
 
         window.addEventListener('beforeunload', e => {
-          if (li.hasToReload ||
+          const d = this.data;
+          if (li.unload.expected ||
             this.nvui ||
             !game.playable(d) ||
             !d.clock ||

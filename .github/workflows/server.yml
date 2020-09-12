@@ -3,40 +3,52 @@ name: Build server
 on:
   push:
     paths:
+    - '.github/workflows/server.yml'
     - 'app/**'
     - 'conf/**'
     - 'modules/**'
     - 'project/**'
+    - 'translation/**'
     - 'build.sbt'
+    - 'lila'
+    - 'conf/application.conf.default'
+    - '.sbtopts.default'
     branches-ignore:
     - 'l10n_master'
   pull_request:
     paths:
+    - '.github/workflows/server.yml'
     - 'app/**'
     - 'conf/**'
     - 'modules/**'
     - 'project/**'
+    - 'translation/source/**'
     - 'build.sbt'
-    branches-ignore:
-    - 'l10n_master'
+    - 'lila'
+    - 'conf/application.conf.default'
+    - '.sbtopts.default'
 
 jobs:
-  server:
+  openjdk14:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v2
       with:
-        fetch-depth: 1
-    - run: echo "autoformat=false" > ~/.scalariform.conf
-    - run: mkdir -p target/universal/stage && cp LICENSE COPYING.md README.md target/universal/stage/ && git log -n 1 --pretty=oneline > target/universal/stage/commit.txt
-    - uses: actions/cache@v1
+        path: |
+          ~/.sbt
+          ~/.ivy2/cache
+        key: ${{ runner.os }}-sbt-${{ hashFiles('**/project/build.properties') }}-${{ hashFiles('**/build.sbt') }}-${{ hashFiles('**/project/Dependencies.scala') }}
+    - uses: actions/setup-java@v1
       with:
-        path: ~/.ivy2/cache
-        key: ${{ runner.os }}-ivy2
-    - uses: olafurpg/setup-scala@6068b77a47ebd5c365972f14142aa0d1b6aa4ced
-    - run: ./bin/dev.default test:compile test stage
-    - run: du -d2 -h ~
+        java-version: 14.0.1
+    - run: TZ=UTC git log -1 --date=iso-strict-local --pretty='format:app.version.commit = "%h"%napp.version.date = "%ad"%napp.version.message = """%s"""%n' | tee conf/version.conf
+    - run: ./lila -Depoll=true "test;stage"
+    - run: cp LICENSE COPYING.md README.md target/universal/stage && git log -n 1 --pretty=oneline > target/universal/stage/commit.txt
+    - run: cd target/universal/stage && tar -cvpJf ../../../lila-3.0.tar.xz . && cd -
+      env:
+        XZ_OPT: '-0'
     - uses: actions/upload-artifact@v1
       with:
         name: lila-server
-        path: target/universal/stage
+        path: lila-3.0.tar.xz

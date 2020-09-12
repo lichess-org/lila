@@ -3,24 +3,31 @@ package lila.evalCache
 import EvalCacheEntry._
 
 /**
- * selects the evals to store
- * for a given position
- */
+  * selects the evals to store
+  * for a given position
+  */
 object EvalCacheSelector {
 
   private type Evals = List[Eval]
 
+  implicit private val order = Ordering.Double.TotalOrdering
+
   def apply(evals: Evals): Evals =
     // first, let us group evals by multiPv
-    evals.groupBy(_.multiPv).toList
+    evals
+      .groupBy(_.multiPv)
+      .toList
       // and sort the groups by multiPv, higher first
-      .sortBy(-_._1).map(_._2)
-      // then sort each group's evals, and keep only the best eval in each group
-      .map(_ sortBy ranking).map(_.lastOption).flatten
+      .sortBy(-_._1)
+      //keep only the best eval in each group
+      .flatMap {
+        import cats.implicits._
+        _._2.maximumByOption(ranking)
+      }
       // now remove obsolete evals
       .foldLeft(Nil: Evals) {
         case (acc, e) if acc.exists { makesObsolete(_, e) } => acc
-        case (acc, e) => e :: acc
+        case (acc, e)                                       => e :: acc
       }
       // and finally ensure ordering by depth and nodes, best first
       .sortBy(negativeNodesAndDepth)

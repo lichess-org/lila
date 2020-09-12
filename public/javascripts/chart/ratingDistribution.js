@@ -1,7 +1,7 @@
 lichess.ratingDistributionChart = function(data) {
   const trans = lichess.trans(data.i18n);
-  lichess.loadScript('javascripts/chart/common.js').done(function() {
-    lichess.chartCommon('highchart').done(function() {
+  lichess.loadScript('javascripts/chart/common.js').then(function() {
+    lichess.chartCommon('highchart').then(function() {
       var disabled = {
         enabled: false
       };

@@ -6,23 +6,18 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.Promise
 
-sealed abstract class Deploy(val key: String)
-case object DeployPre extends Deploy("deployPre")
-case object DeployPost extends Deploy("deployPost")
-
-case object Shutdown // on actor system termination
-
 // announce something to all clients
 case class Announce(msg: String, date: DateTime, json: JsObject)
 
 package streamer {
-  case class StreamsOnAir(html: String)
   case class StreamStart(userId: String)
 }
 
 package map {
   case class Tell(id: String, msg: Any)
   case class TellIfExists(id: String, msg: Any)
+  case class TellMany(ids: Seq[String], msg: Any)
+  case class TellAll(msg: Any)
   case class Exists(id: String, promise: Promise[Boolean])
 }
 
@@ -40,42 +35,55 @@ package socket {
   object remote {
     case class TellSriIn(sri: String, user: Option[String], msg: JsObject)
     case class TellSriOut(sri: String, payload: JsValue)
+    case class TellUserIn(user: String, msg: JsObject)
   }
-  case class BotIsOnline(userId: String, isOnline: Boolean)
+  case class ApiUserIsOnline(userId: String, isOnline: Boolean)
+}
+
+package clas {
+  case class IsTeacherOf(teacherId: String, studentId: String, promise: Promise[Boolean])
 }
 
 package report {
   case class Cheater(userId: String, text: String)
   case class Shutup(userId: String, text: String, major: Boolean)
   case class Booster(winnerId: String, loserId: String)
+  case class AutoFlag(suspectId: String, resource: String, text: String)
+  case class CheatReportCreated(userId: String)
 }
 
 package security {
-  case class GarbageCollect(userId: String, ipBan: Boolean)
+  case class GarbageCollect(userId: String)
   case class GCImmediateSb(userId: String)
   case class CloseAccount(userId: String)
+}
+
+package msg {
+  case class SystemMsg(userId: String, text: String)
 }
 
 package shutup {
   case class RecordPublicForumMessage(userId: String, text: String)
   case class RecordTeamForumMessage(userId: String, text: String)
-  case class RecordPrivateMessage(userId: String, toUserId: String, text: String, muted: Boolean)
+  case class RecordPrivateMessage(userId: String, toUserId: String, text: String)
   case class RecordPrivateChat(chatId: String, userId: String, text: String)
   case class RecordPublicChat(userId: String, text: String, source: PublicSource)
 
-  sealed trait PublicSource
+  sealed abstract class PublicSource(val parentName: String)
   object PublicSource {
-    case class Tournament(id: String) extends PublicSource
-    case class Simul(id: String) extends PublicSource
-    case class Study(id: String) extends PublicSource
-    case class Watcher(gameId: String) extends PublicSource
+    case class Tournament(id: String)  extends PublicSource("tournament")
+    case class Simul(id: String)       extends PublicSource("simul")
+    case class Study(id: String)       extends PublicSource("study")
+    case class Watcher(gameId: String) extends PublicSource("watcher")
+    case class Team(id: String)        extends PublicSource("team")
+    case class Swiss(id: String)       extends PublicSource("swiss")
   }
 }
 
 package mod {
   case class MarkCheater(userId: String, value: Boolean)
   case class MarkBooster(userId: String)
-  case class ChatTimeout(mod: String, user: String, reason: String)
+  case class ChatTimeout(mod: String, user: String, reason: String, text: String)
   case class Shadowban(user: String, value: Boolean)
   case class KickFromRankings(userId: String)
   case class SetPermissions(userId: String, permissions: List[String])
@@ -93,11 +101,6 @@ package captcha {
   case class ValidCaptcha(id: String, solution: String)
 }
 
-package lobby {
-  case class ReloadTournaments(html: String)
-  case class ReloadSimuls(html: String)
-}
-
 package simul {
   case class GetHostIds(promise: Promise[Set[String]])
   case class PlayerMove(gameId: String)
@@ -105,10 +108,10 @@ package simul {
 
 package slack {
   sealed trait Event
-  case class Error(msg: String) extends Event
-  case class Warning(msg: String) extends Event
-  case class Info(msg: String) extends Event
-  case class Victory(msg: String) extends Event
+  case class Error(msg: String)                                                 extends Event
+  case class Warning(msg: String)                                               extends Event
+  case class Info(msg: String)                                                  extends Event
+  case class Victory(msg: String)                                               extends Event
   case class TournamentName(userName: String, tourId: String, tourName: String) extends Event
 }
 
@@ -127,25 +130,26 @@ package timeline {
   case class TeamCreate(userId: String, teamId: String) extends Atom("teamCreate", false) {
     def userIds = List(userId)
   }
-  case class ForumPost(userId: String, topicId: Option[String], topicName: String, postId: String) extends Atom(s"forum:${~topicId}", false) {
+  case class ForumPost(userId: String, topicId: Option[String], topicName: String, postId: String)
+      extends Atom(s"forum:${~topicId}", false) {
     def userIds = List(userId)
-  }
-  case class NoteCreate(from: String, to: String) extends Atom("note", false) {
-    def userIds = List(from, to)
   }
   case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom("tournament", true) {
     def userIds = List(userId)
   }
-  case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom("gameEnd", true) {
+  case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String)
+      extends Atom("gameEnd", true) {
     def userIds = opponent.toList
   }
-  case class SimulCreate(userId: String, simulId: String, simulName: String) extends Atom("simulCreate", true) {
+  case class SimulCreate(userId: String, simulId: String, simulName: String)
+      extends Atom("simulCreate", true) {
     def userIds = List(userId)
   }
   case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom("simulJoin", true) {
     def userIds = List(userId)
   }
-  case class StudyCreate(userId: String, studyId: String, studyName: String) extends Atom("studyCreate", true) {
+  case class StudyCreate(userId: String, studyId: String, studyName: String)
+      extends Atom("studyCreate", true) {
     def userIds = List(userId)
   }
   case class StudyLike(userId: String, studyId: String, studyName: String) extends Atom("studyLike", true) {
@@ -164,21 +168,21 @@ package timeline {
   object propagation {
     sealed trait Propagation
     case class Users(users: List[String]) extends Propagation
-    case class Followers(user: String) extends Propagation
-    case class Friends(user: String) extends Propagation
-    case class ExceptUser(user: String) extends Propagation
-    case class ModsOnly(value: Boolean) extends Propagation
+    case class Followers(user: String)    extends Propagation
+    case class Friends(user: String)      extends Propagation
+    case class ExceptUser(user: String)   extends Propagation
+    case class ModsOnly(value: Boolean)   extends Propagation
   }
 
   import propagation._
 
   case class Propagate(data: Atom, propagations: List[Propagation] = Nil) {
-    def toUsers(ids: List[String]) = add(Users(ids))
-    def toUser(id: String) = add(Users(List(id)))
-    def toFollowersOf(id: String) = add(Followers(id))
-    def toFriendsOf(id: String) = add(Friends(id))
-    def exceptUser(id: String) = add(ExceptUser(id))
-    def modsOnly(value: Boolean) = add(ModsOnly(value))
+    def toUsers(ids: List[String])  = add(Users(ids))
+    def toUser(id: String)          = add(Users(List(id)))
+    def toFollowersOf(id: String)   = add(Followers(id))
+    def toFriendsOf(id: String)     = add(Friends(id))
+    def exceptUser(id: String)      = add(ExceptUser(id))
+    def modsOnly(value: Boolean)    = add(ModsOnly(value))
     private def add(p: Propagation) = copy(propagations = p :: propagations)
   }
 }
@@ -200,6 +204,10 @@ package notify {
 package team {
   case class CreateTeam(id: String, name: String, userId: String)
   case class JoinTeam(id: String, userId: String)
+  case class IsLeader(id: String, userId: String, promise: Promise[Boolean])
+  case class IsLeaderOf(leaderId: String, memberId: String, promise: Promise[Boolean])
+  case class KickFromTeam(teamId: String, userId: String)
+  case class TeamIdsJoinedBy(userId: String, promise: Promise[List[LightTeam.TeamID]])
 }
 
 package fishnet {
@@ -234,6 +242,7 @@ package round {
   )
   case class CorresTakebackOfferEvent(gameId: String)
   case class CorresDrawOfferEvent(gameId: String)
+  case class BoardDrawEvent(gameId: String)
   case class SimulMoveEvent(
       move: MoveEvent,
       simulId: String,
@@ -265,18 +274,13 @@ package bookmark {
 }
 
 package relation {
-  case class ReloadOnlineFriends(userId: String)
   case class Block(u1: String, u2: String)
   case class UnBlock(u1: String, u2: String)
   case class Follow(u1: String, u2: String)
+  case class UnFollow(u1: String, u2: String)
 }
 
 package study {
-  case class StudyDoor(userId: String, studyId: String, contributor: Boolean, public: Boolean, enters: Boolean)
-  case class StudyBecamePrivate(studyId: String, contributors: Set[String])
-  case class StudyBecamePublic(studyId: String, contributors: Set[String])
-  case class StudyMemberGotWriteAccess(userId: String, studyId: String)
-  case class StudyMemberLostWriteAccess(userId: String, studyId: String)
   case class RemoveStudy(studyId: String, contributors: Set[String])
 }
 

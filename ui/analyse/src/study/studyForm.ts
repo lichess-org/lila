@@ -77,7 +77,7 @@ export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: ()
 export function view(ctrl: StudyFormCtrl): VNode {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
-  const updateName = function(vnode, isUpdate) {
+  const updateName = function(vnode: VNode, isUpdate: boolean) {
     const el = vnode.elm as HTMLInputElement;
     if (!isUpdate && !el.value) {
       el.value = data.name;
@@ -94,7 +94,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
   ];
   return modal.modal({
     class: 'study-edit',
-    onClose: function() {
+    onClose() {
       ctrl.open(false);
       ctrl.redraw();
     },
@@ -181,7 +181,14 @@ export function view(ctrl: StudyFormCtrl): VNode {
           ],
           selected: '' + data.settings.description
         })),
-        modal.button(ctrl.trans.noarg(isNew ? 'start' : 'save'))
+        h(`div.form-actions${ctrl.relay ? '' : '.single'}`, [
+          ctrl.relay ? h('a', {
+            attrs: { href: `/broadcast/-/${data.id}/edit` }
+          }, 'Broadcast settings') : null,
+          h('button.button', {
+            attrs: { type: 'submit' },
+          }, ctrl.trans.noarg(isNew ? 'start' : 'save'))
+        ])
       ]),
       h('div.destructive', [
         isNew ? null : h('form', {

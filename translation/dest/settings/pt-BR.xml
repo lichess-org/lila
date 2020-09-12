@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Configurações</string>
+  <string name="closeAccount">Encerrar conta</string>
+  <string name="closingIsDefinitive">Encerramento é definitivo. Não há como desfazer. Tem certeza?</string>
+  <string name="cantOpenSimilarAccount">Você não poderá abrir uma nova conta com o mesmo nome, mesmo que alterne entre maiúsculas e minúsculas.</string>
+  <string name="changedMindDoNotCloseAccount">Eu mudei de ideia, não encerre minha conta</string>
+  <string name="closeAccountExplanation">Tem certeza de que deseja encerrar sua conta? Encerrar sua conta é uma decisão permanente. Você NUNCA MAIS será capaz de entrar com ela novamente.</string>
+  <string name="thisAccountIsClosed">Esta conta foi encerrada.</string>
+</resources>

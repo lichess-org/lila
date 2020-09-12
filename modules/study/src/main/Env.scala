@@ -1,40 +1,39 @@
 package lila.study
 
-import akka.actor._
-import com.typesafe.config.Config
-import scala.concurrent.duration._
+import com.softwaremill.macwire._
+import play.api.Configuration
+import play.api.libs.ws.StandaloneWSClient
 
-import lila.hub.{ Duct, DuctMap }
+import lila.common.config._
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
+@Module
 final class Env(
-    config: Config,
+    appConfig: Configuration,
+    ws: StandaloneWSClient,
     lightUserApi: lila.user.LightUserApi,
     gamePgnDump: lila.game.PgnDump,
     divider: lila.game.Divider,
-    importer: lila.importer.Importer,
+    gameRepo: lila.game.GameRepo,
+    userRepo: lila.user.UserRepo,
     explorerImporter: lila.explorer.ExplorerImporter,
     notifyApi: lila.notify.NotifyApi,
-    getPref: User => Fu[lila.pref.Pref],
-    getRelation: (User.ID, User.ID) => Fu[Option[lila.relation.Relation]],
+    prefApi: lila.pref.PrefApi,
+    relationApi: lila.relation.RelationApi,
     remoteSocketApi: lila.socket.RemoteSocket,
-    system: ActorSystem,
-    hub: lila.hub.Env,
+    timeline: lila.hub.actors.Timeline,
+    fishnet: lila.hub.actors.Fishnet,
     chatApi: lila.chat.ChatApi,
-    db: lila.db.Env,
-    asyncCache: lila.memo.AsyncCache.Builder
+    db: lila.db.Db,
+    net: lila.common.config.NetConfig,
+    cacheApi: lila.memo.CacheApi
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
+    mat: akka.stream.Materializer,
+    mode: play.api.Mode
 ) {
-
-  private val settings = new {
-    val CollectionStudy = config getString "collection.study"
-    val CollectionChapter = config getString "collection.chapter"
-    val SequencerTimeout = config duration "sequencer.timeout"
-    val NetDomain = config getString "net.domain"
-    val NetBaseUrl = config getString "net.base_url"
-    val MaxPerPage = config getInt "paginator.max_per_page"
-  }
-  import settings._
 
   def version(studyId: Study.Id): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](studyId.value)(GetVersion)
@@ -42,143 +41,60 @@ final class Env(
   def isConnected(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
     socket.isPresent(studyId, userId)
 
-  private val socket = new StudySocket(
-    api = api,
-    jsonView = jsonView,
-    lightStudyCache = lightStudyCache,
-    remoteSocketApi = remoteSocketApi,
-    chatApi = chatApi
-  )
+  private def scheduler = system.scheduler
 
-  private lazy val chapterColl = db(CollectionChapter)
+  private val socket = wire[StudySocket]
 
-  lazy val studyRepo = new StudyRepo(coll = db(CollectionStudy))
-  lazy val chapterRepo = new ChapterRepo(coll = chapterColl)
+  lazy val studyRepo             = new StudyRepo(db(CollName("study")))
+  lazy val chapterRepo           = new ChapterRepo(db(CollName("study_chapter")))
+  private lazy val topicRepo     = new StudyTopicRepo(db(CollName("study_topic")))
+  private lazy val userTopicRepo = new StudyUserTopicRepo(db(CollName("study_user_topic")))
 
-  lazy val jsonView = new JsonView(
-    studyRepo,
-    lightUserApi.sync
-  )
+  lazy val jsonView = wire[JsonView]
 
-  private lazy val chapterMaker = new ChapterMaker(
-    importer = importer,
-    pgnFetch = new PgnFetch,
-    pgnDump = gamePgnDump,
-    lightUser = lightUserApi,
-    chatApi = chatApi,
-    domain = NetDomain
-  )
+  private lazy val pgnFetch = wire[PgnFetch]
 
-  private lazy val explorerGame = new ExplorerGame(
-    importer = explorerImporter,
-    lightUser = lightUserApi.sync,
-    baseUrl = NetBaseUrl
-  )
+  private lazy val chapterMaker = wire[ChapterMaker]
 
-  private lazy val studyMaker = new StudyMaker(
-    lightUser = lightUserApi.sync,
-    chapterMaker = chapterMaker
-  )
+  private lazy val explorerGame = wire[ExplorerGame]
 
-  private lazy val studyInvite = new StudyInvite(
-    studyRepo = studyRepo,
-    notifyApi = notifyApi,
-    getRelation = getRelation,
-    getPref = getPref
-  )
+  private lazy val studyMaker = wire[StudyMaker]
 
-  private lazy val sequencer = new StudySequencer(
-    studyRepo,
-    chapterRepo,
-    sequencers = new DuctMap(
-      mkDuct = _ => Duct.extra.lazyPromise(5.seconds.some)(system),
-      accessTimeout = SequencerTimeout
-    )
-  )
+  private lazy val studyInvite = wire[StudyInvite]
 
-  private lazy val serverEvalRequester = new ServerEval.Requester(
-    fishnetActor = hub.fishnet,
-    chapterRepo = chapterRepo
-  )
+  private lazy val serverEvalRequester = wire[ServerEval.Requester]
 
-  lazy val serverEvalMerger = new ServerEval.Merger(
-    sequencer = sequencer,
-    api = api,
-    chapterRepo = chapterRepo,
-    socket = socket,
-    divider = divider
-  )
+  private lazy val sequencer = wire[StudySequencer]
 
-  lazy val api = new StudyApi(
-    studyRepo = studyRepo,
-    chapterRepo = chapterRepo,
-    sequencer = sequencer,
-    chapterMaker = chapterMaker,
-    studyMaker = studyMaker,
-    inviter = studyInvite,
-    explorerGameHandler = explorerGame,
-    lightUser = lightUserApi.sync,
-    scheduler = system.scheduler,
-    chatApi = chatApi,
-    timeline = hub.timeline,
-    serverEvalRequester = serverEvalRequester,
-    lightStudyCache = lightStudyCache
-  )
+  lazy val serverEvalMerger = wire[ServerEval.Merger]
 
-  lazy val pager = new StudyPager(
-    studyRepo = studyRepo,
-    chapterRepo = chapterRepo,
-    maxPerPage = lila.common.MaxPerPage(MaxPerPage)
-  )
+  lazy val topicApi = wire[StudyTopicApi]
 
-  lazy val multiBoard = new StudyMultiBoard(
-    runCommand = db.runCommand,
-    chapterColl = chapterColl,
-    maxPerPage = lila.common.MaxPerPage(9)
-  )
+  lazy val api: StudyApi = wire[StudyApi]
 
-  lazy val pgnDump = new PgnDump(
-    chapterRepo = chapterRepo,
-    gamePgnDump = gamePgnDump,
-    lightUser = lightUserApi.sync,
-    netBaseUrl = NetBaseUrl
-  )
+  lazy val pager = wire[StudyPager]
 
-  lazy val lightStudyCache: LightStudyCache = asyncCache.multi(
-    name = "study.lightStudyCache",
-    f = studyRepo.lightById,
-    expireAfter = _.ExpireAfterWrite(20 minutes)
-  )
+  private def runCommand = db.runCommand
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "study" :: "rank" :: "reset" :: Nil => api.resetAllRanks.map { count => s"$count done" }
+  lazy val multiBoard = wire[StudyMultiBoard]
+
+  lazy val pgnDump = wire[PgnDump]
+
+  lazy val gifExport = new GifExport(ws, appConfig.get[String]("game.gifUrl"))
+
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "study" :: "rank" :: "reset" :: Nil =>
+          api.resetAllRanks.map { count =>
+            s"$count done"
+          }
+      }
     }
-  }
 
-  lila.common.Bus.subscribeFun('gdprErase, 'studyAnalysisProgress) {
+  lila.common.Bus.subscribeFun("gdprErase", "studyAnalysisProgress") {
     case lila.user.User.GDPRErase(user) => api erase user
-    case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)
+    case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) =>
+      serverEvalMerger(analysis, complete)
   }
-}
-
-object Env {
-
-  lazy val current: Env = "study" boot new Env(
-    config = lila.common.PlayApp loadConfig "study",
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    gamePgnDump = lila.game.Env.current.pgnDump,
-    divider = lila.game.Env.current.divider,
-    importer = lila.importer.Env.current.importer,
-    explorerImporter = lila.explorer.Env.current.importer,
-    notifyApi = lila.notify.Env.current.api,
-    getPref = lila.pref.Env.current.api.getPref,
-    getRelation = lila.relation.Env.current.api.fetchRelation,
-    remoteSocketApi = lila.socket.Env.current.remoteSocket,
-    system = lila.common.PlayApp.system,
-    hub = lila.hub.Env.current,
-    chatApi = lila.chat.Env.current.api,
-    db = lila.db.Env.current,
-    asyncCache = lila.memo.Env.current.asyncCache
-  )
 }

@@ -1,12 +1,13 @@
-@import 'default';
+@import "default";
 
-$theme: 'dark';
+$theme: "dark";
 $theme-light: false;
 $theme-dark: true;
 
 @function c-dimmer($color, $weight: 20%) {
   @return mix(#000, $color, $weight);
 }
+
 @function c-clearer($color, $weight: 20%) {
   @return mix(#fff, $color, $weight);
 }
@@ -86,9 +87,11 @@ $text-shadow: none;
 @mixin metal-bg {
   background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 22), hsl($c-site-hue, 5%, 19) 100%);
 }
+
 @mixin metal {
   @include metal-bg;
 }
+
 @mixin metal-hover {
   background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 25), hsl($c-site-hue, 5%, 22) 100%);
   color: $c-font-clear;
@@ -97,8 +100,9 @@ $text-shadow: none;
 @mixin page-metal {
   @include metal;
 }
+
 @mixin page-metal-hover {
   @include metal-hover;
 }
 
-@mixin theme-style { }
+@mixin theme-style {}

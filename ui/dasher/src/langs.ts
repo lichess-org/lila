@@ -1,77 +1,63 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-import { Redraw, Close, spinner, header } from './util'
-import { get } from './xhr'
-
-export interface Lang {
-  0: Code,
-  1: string
-}
+import { Close, header } from './util'
 
 type Code = string;
+
+export interface Lang {
+  0: Code
+  1: string
+}
 
 export interface LangsData {
   current: Code
   accepted: Code[]
+  list: Lang[]
 }
 
 export interface LangsCtrl {
-  data: LangsData
-  list(): Lang[] | undefined
-  load(): void
+  list(): Lang[],
+  current: Code,
+  accepted: Set<Code>,
   trans: Trans
   close: Close
 }
 
-export function ctrl(data: LangsData, trans: Trans, redraw: Redraw, close: Close): LangsCtrl {
-
-  let list: Lang[] | undefined;
-
+export function ctrl(data: LangsData, trans: Trans, close: Close): LangsCtrl {
+  const accepted = new Set(data.accepted);
   return {
-    data,
-    list: () => list,
-    load() {
-      get(window.lichess.assetUrl('trans/refs.json'), true).then(d => {
-        const accs: Lang[] = [];
-        const others: Lang[] = [];
-        d.forEach((l: Lang) => {
-          if (data.accepted.includes(l[0])) accs.push(l);
-          else others.push(l);
-        });
-        list = accs.concat(others) as Lang[];
-        redraw();
-      });
+    list() {
+      return [
+        ...data.list.filter(lang => accepted.has(lang[0])),
+        ...data.list.filter(lang => !accepted.has(lang[0])),
+      ];
     },
+    current: data.current,
+    accepted,
     trans,
     close
   };
 }
 
 export function view(ctrl: LangsCtrl): VNode {
-
-  const list = ctrl.list();
-  if (!list) ctrl.load();
-
   return h('div.sub.langs', [
     header(ctrl.trans.noarg('language'), ctrl.close),
-    list ? h('form', {
+    h('form', {
       attrs: { method: 'post', action: '/translation/select' }
-    }, langLinks(ctrl, list)) : spinner()
+    }, ctrl.list().map(langView(ctrl.current, ctrl.accepted))),
+    h('a.help.text', {
+      attrs: {
+        href: 'https://crowdin.com/project/lichess',
+        'data-icon': ''
+      }
+    }, 'Help translate Lichess')
   ]);
 }
 
-function langLinks(ctrl: LangsCtrl, list: Lang[]) {
-  const links = list.map(langView(ctrl.data.current, ctrl.data.accepted));
-  links.push(h('a', {
-    attrs: { href: 'https://crowdin.com/project/lichess' }
-  }, 'Help translate lichess'));
-  return links;
-}
-
-function langView(current: Code, accepted: Code[]) {
+function langView(current: Code, accepted: Set<Code>) {
   return (l: Lang) =>
-  h('button' + (current === l[0] ? '.current' : '') + (accepted.includes(l[0]) ? '.accepted' : ''), {
+  h('button' + (current === l[0] ? '.current' : '') + (accepted.has(l[0]) ? '.accepted' : ''), {
     attrs: {
       type: 'submit',
       name: 'lang',

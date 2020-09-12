@@ -60,6 +60,7 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[], trans: Tr
         h('option', trans.noarg('newTag')),
         ...types.map(t => {
           if (!existingTypes.includes(t)) return option(t, '', t);
+          return undefined;
         })
       ]),
       editable('', (value, el) => {

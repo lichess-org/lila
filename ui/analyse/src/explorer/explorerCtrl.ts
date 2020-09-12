@@ -1,12 +1,13 @@
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
+import debounce from 'common/debounce';
 import { opposite } from 'chessground/util';
 import { controller as configCtrl } from './explorerConfig';
-import xhr = require('./explorerXhr');
+import * as xhr from './explorerXhr';
 import { winnerOf, colorOf } from './explorerUtil';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
-import { Hovering, ExplorerCtrl, ExplorerData, OpeningData, TablebaseData, SimpleTablebaseHit } from './interfaces';
+import { Hovering, ExplorerCtrl, ExplorerData, ExplorerDb, OpeningData, TablebaseData, SimpleTablebaseHit } from './interfaces';
 
 function pieceCount(fen: Fen) {
   const parts = fen.split(/\s/);
@@ -57,11 +58,21 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
   effectiveVariant = data.game.variant.key === 'fromPosition' ? 'standard' : data.game.variant.key,
   config = configCtrl(data.game, onConfigClose, root.trans, root.redraw);
 
-  const fetch = window.lichess.debounce(function() {
+  const fetch = debounce(() => {
     const fen = root.node.fen;
-    const request: JQueryPromise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
+    const request: Promise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
       xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :
-      xhr.opening(opts.endpoint, effectiveVariant, fen, config.data, withGames);
+      xhr.opening({
+        endpoint: opts.endpoint,
+        db: config.data.db.selected() as ExplorerDb,
+        variant: effectiveVariant,
+        rootFen: root.nodeList[0].fen,
+        play: root.nodeList.slice(1).map(s => s.uci!),
+        fen,
+        speeds: config.data.speed.selected(),
+        ratings: config.data.rating.selected(),
+        withGames,
+      });
 
     request.then((res: ExplorerData) => {
       cache[fen] = res;
@@ -77,7 +88,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
   }, 250, true);
 
   const empty = {
-    opening: true,
+    isOpening: true,
     moves: {}
   };
 
@@ -88,7 +99,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     if (node.ply > 50 && !tablebaseRelevant(effectiveVariant, node.fen)) {
       cache[node.fen] = empty;
     }
-    const cached = cache[root.node.fen];
+    const cached = cache[node.fen];
     if (cached) {
       movesAway(cached.moves.length ? 0 : movesAway() + 1);
       loading(false);
@@ -131,21 +142,23 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
       } : null);
       root.setAutoShapes();
     },
-    fetchMasterOpening: (function() {
+    fetchMasterOpening: (() => {
       const masterCache = {};
-      return (fen: Fen): JQueryPromise<OpeningData> => {
-        if (masterCache[fen]) return $.Deferred().resolve(masterCache[fen]).promise() as JQueryPromise<OpeningData>;
-        return xhr.opening(opts.endpoint, 'standard', fen, {
-          db: {
-            selected: prop('masters')
-          }
-        }, false).then((res: OpeningData) => {
+      return (fen: Fen): Promise<OpeningData> => {
+        if (masterCache[fen]) return Promise.resolve(masterCache[fen]);
+        return xhr.opening({
+          endpoint: opts.endpoint,
+          db: 'masters',
+          rootFen: fen,
+          play: [],
+          fen,
+        }).then((res: OpeningData) => {
           masterCache[fen] = res;
           return res;
         });
       }
     })(),
-    fetchTablebaseHit(fen: Fen): JQueryPromise<SimpleTablebaseHit> {
+    fetchTablebaseHit(fen: Fen): Promise<SimpleTablebaseHit> {
       return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen).then((res: TablebaseData) => {
         const move = res.moves[0];
         if (move && move.dtz == null) throw 'unknown tablebase position';

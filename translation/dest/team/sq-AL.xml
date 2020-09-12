@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Ekipi</string>
+  <string name="teams">Ekipet</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s anëtarë</item>
+    <item quantity="other">%s anëtarë</item>
+  </plurals>
+  <string name="allTeams">Të gjithë ekipet</string>
+  <string name="newTeam">Ekip i ri</string>
+  <string name="myTeams">Ekipet e mia</string>
+  <string name="noTeamFound">Nuk u gjet ekip</string>
+  <string name="joinTeam">Hyr në ekip</string>
+  <string name="quitTeam">Largohu nga ekipi</string>
+  <string name="anyoneCanJoin">I lirë për të gjithë</string>
+  <string name="aConfirmationIsRequiredToJoin">Nevojitet  konfirmim për të hyrë</string>
+  <string name="joiningPolicy">Rregullat e  hyrjes</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Lideri i ekipit</item>
+    <item quantity="other">Liderët e ekipit</item>
+  </plurals>
+  <string name="teamBestPlayers">Lojtarët më të mirë të ekipit</string>
+  <string name="teamRecentMembers">Anëtarët e rinj</string>
+  <string name="kickSomeone">Largoni dikë nga grupi</string>
+  <string name="whoToKick">Kë doni të largoni nga ekipi?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s kërkesë për të hyrë</item>
+    <item quantity="other">%s kërkesa për të hyrë</item>
+  </plurals>
+  <string name="willBeReviewed">Kërkesa juaj për tu bashkangjitur do të shqyrtohet nga udhëheqësi i ekipit.</string>
+  <string name="beingReviewed">Kërkesa juaj për tu bashkangjitur po shqyrtohet nga udhëheqësi i ekipit.</string>
+  <string name="teamBattle">Ndeshje ekipore</string>
+  <string name="teamBattleOverview">Ndeshje e disa ekipeve, secili lojtar shënon pikë për ekipin e tij/saj</string>
+  <string name="teamTournament">Turnir i ekipit</string>
+  <string name="teamTournamentOverview">Turnir Arena në të cilin mund të marrin pjesë vetëm lojtarët e ekipit tuaj</string>
+  <string name="messageAllMembers">Dërgo mesazh te të gjithë anëtarët</string>
+  <string name="messageAllMembersOverview">Dërgo mesazh privat te secili anëtar i ekipit</string>
+  <string name="messageAllMembersLongDescription">Dërgo mesazh privat te të gjithë anëtarët e ekipit.
+Ju mund ta përdorni këtë për të thirrur lojtarët të bashkangjiten në një turnir ose ndeshje ekipesh.
+Lojtarët të cilëve nuk u pëlqen të marrin mesazhe nga ju mund të dalin nga ekipi.</string>
+  <string name="teamsIlead">Ekipet e udhëhequra nga unë</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">A dëshironi të shpërndani linkun e ndonjërit prej turnireve në vijim?</string>
+  <string name="usersWhoCanManageThisTeam">Përdoruesit të cilët mund të menagjojnë këtë ekip</string>
+  <string name="leadersChat">Biseda e udhëheqësve</string>
+</resources>

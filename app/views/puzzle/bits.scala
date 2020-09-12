@@ -1,28 +1,21 @@
 package views
 package html.puzzle
 
-import lila.api.Context
+import play.api.i18n.Lang
+
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object bits {
 
   private val dataLastmove = attr("data-lastmove")
 
-  def daily(p: lila.puzzle.Puzzle, fen: String, lastMove: String) = a(
-    href := routes.Puzzle.daily(),
-    cls := "mini-board cg-wrap parse-fen is2d",
-    dataColor := p.color.name,
-    dataFen := fen,
-    dataLastmove := lastMove
-  )(cgWrapContent)
+  def daily(p: lila.puzzle.Puzzle, fen: chess.format.FEN, lastMove: String) =
+    views.html.board.bits.mini(fen, p.color, lastMove)(span)
 
-  def jsI18n()(implicit ctx: Context) = i18nJsObject(translations)
+  def jsI18n()(implicit lang: Lang) = i18nJsObject(i18nKeys)
 
-  private val translations = List(
-    trans.training,
+  private val i18nKeys = List(
     trans.yourPuzzleRatingX,
     trans.goodMove,
     trans.butYouCanDoBetter,
@@ -50,10 +43,8 @@ object bits {
     trans.retryThisPuzzle,
     trans.toTrackYourProgress,
     trans.signUp,
-    trans.trainingSignupExplanation,
     trans.thisPuzzleIsCorrect,
     trans.thisPuzzleIsWrong,
-    trans.puzzles,
     trans.analysis,
     trans.rated,
     trans.casual,
@@ -67,5 +58,5 @@ object bits {
     trans.gameOver,
     trans.inLocalBrowser,
     trans.toggleLocalEvaluation
-  )
+  ).map(_.key)
 }

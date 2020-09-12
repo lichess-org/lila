@@ -1,79 +1,42 @@
 package lila.relation
 
 import akka.actor._
-import com.typesafe.config.Config
-import scala.concurrent.duration._
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
 
+import lila.common.config._
+import lila.hub.actors
+
+@Module
+private class RelationConfig(
+    @ConfigName("collection.relation") val collection: CollName,
+    @ConfigName("limit.follow") val maxFollow: Max,
+    @ConfigName("limit.block") val maxBlock: Max
+)
+
+@Module
 final class Env(
-    config: Config,
-    db: lila.db.Env,
-    hub: lila.hub.Env,
-    onlineUserIds: () => Set[lila.user.User.ID],
-    lightUserApi: lila.user.LightUserApi,
-    followable: String => Fu[Boolean],
-    system: ActorSystem,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    scheduler: lila.common.Scheduler
+    appConfig: Configuration,
+    db: lila.db.Db,
+    timeline: actors.Timeline,
+    userRepo: lila.user.UserRepo,
+    prefApi: lila.pref.PrefApi,
+    cacheApi: lila.memo.CacheApi
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
 ) {
 
-  private val settings = new {
-    val CollectionRelation = config getString "collection.relation"
-    val ActorNotifyFreq = config duration "actor.notify_freq"
-    val ActorName = config getString "actor.name"
-    val MaxBlock = config getInt "limit.block"
-  }
-  import settings._
+  private val config = appConfig.get[RelationConfig]("relation")(AutoConfig.loader)
 
-  val MaxFollow = config getInt "limit.follow"
+  def maxFollow = config.maxFollow
 
-  private[relation] val coll = db(CollectionRelation)
+  private lazy val coll = db(config.collection)
 
-  lazy val api = new RelationApi(
-    coll = coll,
-    actor = hub.relation,
-    timeline = hub.timeline,
-    reporter = hub.report,
-    followable = followable,
-    asyncCache = asyncCache,
-    maxFollow = MaxFollow,
-    maxBlock = MaxBlock
-  )
+  private lazy val repo: RelationRepo = wire[RelationRepo]
 
-  lazy val stream = new RelationStream(coll = coll)(system)
+  lazy val api: RelationApi = wire[RelationApi]
 
-  val online = new OnlineDoing(
-    api,
-    lightUser = lightUserApi.sync,
-    onlineUserIds
-  )
-
-  def isPlaying(userId: lila.user.User.ID): Boolean =
-    online.playing.get(userId)
-
-  private[relation] val actor = system.actorOf(Props(new RelationActor(
-    lightUser = lightUserApi.sync,
-    api = api,
-    online = online
-  )), name = ActorName)
-
-  scheduler.once(15 seconds) {
-    scheduler.message(ActorNotifyFreq) {
-      actor -> actorApi.ComputeMovement
-    }
-  }
-}
-
-object Env {
-
-  lazy val current = "relation" boot new Env(
-    config = lila.common.PlayApp loadConfig "relation",
-    db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
-    onlineUserIds = lila.socket.Env.current.onlineUserIds,
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    followable = lila.pref.Env.current.api.followable _,
-    system = lila.common.PlayApp.system,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    scheduler = lila.common.PlayApp.scheduler
-  )
+  lazy val stream = wire[RelationStream]
 }

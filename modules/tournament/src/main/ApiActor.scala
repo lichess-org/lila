@@ -5,10 +5,21 @@ import org.joda.time.DateTime
 
 import lila.game.actorApi.FinishGame
 
-private[tournament] final class ApiActor(
+final private[tournament] class ApiActor(
     api: TournamentApi,
     leaderboard: LeaderboardApi
 ) extends Actor {
+
+  implicit def ec = context.dispatcher
+
+  lila.common.Bus.subscribe(
+    self,
+    "finishGame",
+    "adjustCheater",
+    "adjustBooster",
+    "playban",
+    "teamKick"
+  )
 
   def receive = {
 
@@ -17,7 +28,7 @@ private[tournament] final class ApiActor(
     case lila.playban.SittingDetected(game, player) => api.sittingDetected(game, player)
 
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-      leaderboard.getAndDeleteRecent(userId, DateTime.now minusDays 3) foreach {
+      leaderboard.getAndDeleteRecent(userId, DateTime.now minusDays 3) flatMap {
         api.ejectLame(userId, _)
       }
 
@@ -26,5 +37,7 @@ private[tournament] final class ApiActor(
     case lila.hub.actorApi.round.Berserk(gameId, userId) => api.berserk(gameId, userId)
 
     case lila.hub.actorApi.playban.Playban(userId, _) => api.pausePlaybanned(userId)
+
+    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId)
   }
 }

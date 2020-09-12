@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">Статистика %s</string>
+  <string name="viewTheGames">Переглянути партії</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">умовний</string>
+  <string name="notEnoughRatedGames">Зіграно недостатньо рейтингових ігор для встановлення точного рейтингу.</string>
+  <string name="progressOverLastXGames">Прогрес за останні %s ігор:</string>
+  <string name="ratingDeviation">Відхилення рейтингу: %s.</string>
+  <string name="ratingDeviationHelp">Нижнє значення означає, що рейтинг є більш стабільним. Вище %s, рейтинг вважається умовним.</string>
+  <string name="totalGames">Всього партій</string>
+  <string name="ratedGames">Рейтингові партії</string>
+  <string name="tournamentGames">Турнірні партії</string>
+  <string name="berserkedGames">Партії з Берсерком</string>
+  <string name="timeSpentPlaying">Проведено часу у грі</string>
+  <string name="averageOpponent">Середній рейтинг суперників</string>
+  <string name="victories">Перемог</string>
+  <string name="defeats">Поразок</string>
+  <string name="disconnections">Від’єднань</string>
+  <string name="notEnoughGames">Недостатньо зіграних партій</string>
+  <string name="highestRating">Найвищий рейтинг: %s</string>
+  <string name="lowestRating">Найнижчий рейтинг: %s</string>
+  <string name="fromXToY">з %1$s до %2$s</string>
+  <string name="winningStreak">Серія перемог</string>
+  <string name="losingStreak">Серія поразок</string>
+  <string name="longestStreak">Найдовша серія: %s</string>
+  <string name="currentStreak">Поточна серія: %s</string>
+  <string name="bestRated">Найкращі перемоги в рейтингових іграх</string>
+  <string name="worstRated">Найгірші поразки в рейтингових іграх</string>
+  <string name="gamesInARow">Ігор зіграно поспіль</string>
+  <string name="lessThanOneHour">Менш ніж за годину між іграми</string>
+  <string name="maxTimePlaying">Максимальний час, проведений у грі</string>
+  <string name="now">зараз</string>
+</resources>

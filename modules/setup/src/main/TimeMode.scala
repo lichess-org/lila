@@ -4,8 +4,8 @@ sealed abstract class TimeMode(val id: Int)
 
 object TimeMode {
 
-  case object Unlimited extends TimeMode(0)
-  case object RealTime extends TimeMode(1)
+  case object Unlimited      extends TimeMode(0)
+  case object RealTime       extends TimeMode(1)
   case object Correspondence extends TimeMode(2)
 
   val default = RealTime
@@ -14,7 +14,9 @@ object TimeMode {
 
   val ids = all map (_.id)
 
-  val byId = all map { v => (v.id, v) } toMap
+  val byId = all map { v =>
+    (v.id, v)
+  } toMap
 
   def apply(id: Int): Option[TimeMode] = byId get id
 

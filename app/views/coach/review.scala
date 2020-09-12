@@ -9,9 +9,11 @@ import controllers.routes
 
 object review {
 
-  def list(c: lila.coach.Coach.WithUser, reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context) =
+  import trans.coach._
+
+  def list(reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context) =
     reviews.list.nonEmpty option div(cls := "coach-show__reviews")(
-      h2(pluralize("Player review", reviews.list.size)),
+      h2(studentReviews(reviews.list.size)),
       reviews.list.map { r =>
         div(cls := "coach-review")(
           div(cls := "top")(
@@ -21,7 +23,10 @@ object review {
           div(cls := "content")(richText(r.text)),
           isGranted(_.DisapproveCoachReview) option
             postForm(cls := "disapprove", action := routes.Coach.modReview(r.id))(
-              submitButton(cls := "button button-empty button-red button-thin confirm", title := "Instructs the coach to reject the review, or to ask the author to rephrase it.")("Disapprove")
+              submitButton(
+                cls := "button button-empty button-red button-thin confirm",
+                title := "Instructs the coach to reject the review, or to ask the author to rephrase it."
+              )("Disapprove")
             )
         )
       }
@@ -31,11 +36,11 @@ object review {
     div(cls := "coach-review-form")(
       if (mine.exists(_.pendingApproval))
         div(cls := "approval")(
-        p("Thank you for the review!"),
-        p(c.user.realNameOrUsername, " will approve it very soon, or a moderator will have a look at it.")
-      )
+          p(thankYouForReview()),
+          p(xWillApproveIt(c.user.realNameOrUsername))
+        )
       else if (ctx.isAuth) a(cls := "button button-empty toggle")("Write a review")
-      else a(href := s"${routes.Auth.login}?referrer=${ctx.req.path}", cls := "button")("Review this coach"),
+      else a(href := s"${routes.Auth.login()}?referrer=${ctx.req.path}", cls := "button")(reviewCoach()),
       postForm(action := routes.Coach.review(c.user.username))(
         barRating(selected = mine.map(_.score), enabled = true),
         textarea(
@@ -43,7 +48,7 @@ object review {
           required,
           minlength := 3,
           maxlength := 2000,
-          placeholder := s"Describe your coaching experience with ${c.user.realNameOrUsername}"
+          placeholder := describeExperienceWith.txt(c.user.realNameOrUsername)
         )(mine.map(_.text)),
         submitButton(cls := "button")(trans.apply())
       )
@@ -57,11 +62,12 @@ object review {
           option(value := score, selected.contains(score) option st.selected)(score)
         }
       )
-    else div(cls := "br-wrapper")(
-      div(cls := "br-widget br-readonly")(
-        List(1, 2, 3, 4, 5).map { s =>
-          a(cls := List("br-selected" -> selected.exists(s.<=)))
-        }
+    else
+      div(cls := "br-wrapper")(
+        div(cls := "br-widget br-readonly")(
+          List(1, 2, 3, 4, 5).map { s =>
+            a(cls := List("br-selected" -> selected.exists(s.<=)))
+          }
+        )
       )
-    )
 }

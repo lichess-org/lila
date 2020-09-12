@@ -1,49 +1,39 @@
 function lichessOrchestra() {
 
-  var soundDir = lichess.assetUrl('sound/instrument/', {noVersion: true});
+  const load = (instrument, index, filename) =>
+    lichess.soundBox.loadOggOrMp3(
+      `orchestra.${instrument}.${index}`,
+      `${lichess.soundUrl}/instrument/${instrument}/${filename}`
+    );
 
-  var makeSoundPair = function(sound) {
-    return [soundDir + sound + '.ogg', soundDir + sound + '.mp3'];
-  };
-
-  var instruments = {
-      celesta: [],
-      clav: [],
-      swells: []
+  const volumes = {
+      celesta: 0.3,
+      clav: 0.2,
+      swells: 0.8
     },
     noteOverlap = 15,
     noteTimeout = 300,
-    currentNotes = 0,
     maxPitch = 23;
 
+  let currentNotes = 0;
+
   // load celesta and clav sounds
-  for (var i = 1; i <= 24; i++) {
+  for (let i = 1; i <= 24; i++) {
     if (i > 9) fn = 'c0' + i;
     else fn = 'c00' + i;
-    instruments.celesta.push(new Howl({
-      src: makeSoundPair('celesta/' + fn),
-      volume: 0.3
-    }));
-    instruments.clav.push(new Howl({
-      src: makeSoundPair('clav/' + fn),
-      volume: 0.2
-    }));
+    load('celesta', i - 1, fn);
+    load('clav', i - 1, fn);
   }
   // load swell sounds
-  for (var i = 1; i <= 3; i++) {
-    instruments.swells.push(new Howl({
-      src: makeSoundPair('swells/swell' + i),
-      volume: 0.8
-    }));
-  }
+  for (let i = 1; i <= 3; i++) load('swells', i - 1, `swell${i}`);
 
-  var play = function(instrument, pitch) {
+  const play = (instrument, pitch) => {
     pitch = Math.round(Math.max(0, Math.min(maxPitch, pitch)));
     if (instrument === 'swells') pitch = Math.floor(pitch / 8);
     if (currentNotes < noteOverlap) {
       currentNotes++;
-      instruments[instrument][pitch].play();
-      setTimeout(function() {
+      lichess.soundBox.play(`orchestra.${instrument}.${pitch}`, volumes[instrument]);
+      setTimeout(() => {
         currentNotes--;
       }, noteTimeout);
     }

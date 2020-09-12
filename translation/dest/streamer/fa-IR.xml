@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessStreamers">استریمر لیچس</string>
+  <string name="lichessStreamer">استریمر لیچس</string>
+  <string name="live">زنده</string>
+  <string name="offline">افلاین</string>
+  <string name="currentlyStreaming">درحال استریم</string>
+  <string name="lastStream">اخرین استربم</string>
+  <string name="becomeStreamer">تبدیل شدن به استریمر</string>
+  <string name="doYouHaveStream">ایا شما استریم دارید؟</string>
+  <string name="hereWeGo">اینجا برویم</string>
+  <string name="allStreamers">همه ی استریمر ها</string>
+  <string name="editPage">ویرایش صفحه استریم</string>
+  <string name="yourPage">ویرایش صفحه استریم</string>
+  <string name="downloadKit">دانلود کیت استریمر</string>
+  <string name="xIsStreaming">استریم میکند</string>
+  <string name="rules">قونین استریم</string>
+  <string name="rule1">Twitch این گروه را \"شطرنج\" در همه زبانها می نامد: https://www.twitch.tv/directory/game/Chess - بنابراین توصیه می کنیم متن انگلیسی را در اینجا نگه دارید.</string>
+  <string name="rule2">هنگام پخش چیزهای غیر مجوز ، کلمه کلیدی را حذف کنید.</string>
+  <string name="rule3">لیچس جریان شما را به صورت خودکار تشخیص داده و قدرت پردازش زیر را فعال می کند:</string>
+  <string name="perks">مزایای جریان با کلمه کلیدی</string>
+  <string name="perk1">یک نماد جریان مستقیم شعله ور در نمایه لیچس خود دریافت کنید.</string>
+  <string name="perk2">در بالای لیست پخش کننده ها پرش کنید.</string>
+  <string name="perk3">به فالوور های خود در لیچس اطلاع دهید</string>
+  <string name="perk4">جریان خود را در بازی ها مسابقات و مطالعات خود نشان دهید</string>
+  <string name="approved">استریم شما تایید شده است</string>
+  <string name="pendingReview">استریم شما توسط مدیران سایت درحال بررسی است</string>
+  <string name="pleaseFillIn">لطفاً اطلاعات جابجایی خود را پر کنید و تصویری بارگذاری کنید.</string>
+  <string name="whenReady">هنگامی که شما آماده هستید تا به عنوان یک برنامه نویس مجوز ثبت نام کنید</string>
+  <string name="requestReview">درخواست بررسی مدیر کنید</string>
+  <string name="anotherLanguage">اگر جریان شما به زبانی غیر از انگلیسی است ، در ابتدای عنوان جریان ، برچسب صحیح زبان (٪ s) را که در براکت های مربع محصور شده است ، درج کنید.
+به عنوان نمونه ، می توانید \"[RU]\" برای روسی ، \"[TR]\" برای ترکی ، \"[FR]\" برای فرانسوی و غیره را درج کنید.
+این را در عنوان جریان در صفحه Twitch یا YouTube قرار دهید ، نه در تنظیمات جریان مجوز.
+اگر جریان شما به زبان انگلیسی است ، دیگر نیازی به درج برچسب زبان نیست.</string>
+  <string name="twitchUsername">نام کاربری شما در توییچ</string>
+  <string name="optionalOrEmpty">اختیاری. اگر هیچ کدام خالی نیست</string>
+  <string name="youtubeChannel">ایدی شما در یوتیوب ویا کانال .</string>
+  <string name="streamerName">نام استریم شما رد لیچس</string>
+  <plurals name="keepItShort">
+    <item quantity="one">آن را کوتاه نگه دارید نویسه حداکثر20</item>
+    <item quantity="other">آن را کوتاه نگه دارید:٪ s نویسه حداکثر</item>
+  </plurals>
+  <string name="visibility">در صفحه استریم قابل دیدن است.</string>
+  <string name="whenApproved">هنگام تأیید مدیران سایت</string>
+  <string name="headline">عنوان .</string>
+  <string name="tellUsAboutTheStream">موضوع خود را در یک جمله به ما بگویید.</string>
+  <string name="longDescription">توضیحات  طولانی.</string>
+  <string name="xStreamerPicture">هنگامی که تصویر خود را برای جریان تنظیم می کنید در صفحه تنظیمات استریم ظاهر می شوددیدن</string>
+  <string name="changePicture">تصویر خود را تغییر دهید / حذف کنید</string>
+  <string name="uploadPicture">بارگذاری تصویر</string>
+  <string name="deletePicture">پاک کردن تصویر</string>
+  <string name="maxSize">حداکثر اندازه</string>
+  <string name="installBlocker">یک بلاکر بدافزار نصب کنید!</string>
+  <string name="beSafe">از تبلیغات و ردیابها ایمن باشید
+Twitch و YouTube را آلوده کنید.
+لیچسuBlock Orig را توصیه می کند
+رایگان و منبع باز است</string>
+</resources>

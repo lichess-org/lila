@@ -1,4 +1,6 @@
 import * as cg from 'chessground/types';
+import * as xhr from './xhr';
+import debounce from './debounce';
 
 export type MouchEvent = MouseEvent & TouchEvent;
 
@@ -15,26 +17,25 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
 
     start.preventDefault();
 
-    const mousemoveEvent = start.type === 'touchstart' ? 'touchmove' : 'mousemove';
-    const mouseupEvent = start.type === 'touchstart' ? 'touchend' : 'mouseup';
-
-    const startPos = eventPosition(start)!;
-    const initialZoom = parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
+    const mousemoveEvent = start.type === 'touchstart' ? 'touchmove' : 'mousemove',
+      mouseupEvent = start.type === 'touchstart' ? 'touchend' : 'mouseup',
+      startPos = eventPosition(start)!,
+      initialZoom = parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
     let zoom = initialZoom;
 
-    const saveZoom = window.lichess.debounce(() => {
-      $.ajax({ method: 'post', url: '/pref/zoom?v=' + (100 + zoom) });
-    }, 700);
+    const saveZoom = debounce(() =>
+      xhr.text(`/pref/zoom?v=${100 + zoom}`, { method: 'post' })
+      , 700);
 
     const resize = (move: MouchEvent) => {
 
-      const pos = eventPosition(move)!;
-      const delta = pos[0] - startPos[0] + pos[1] - startPos[1];
+      const pos = eventPosition(move)!,
+        delta = pos[0] - startPos[0] + pos[1] - startPos[1];
 
       zoom = Math.round(Math.min(100, Math.max(0, initialZoom + delta / 10)));
 
       document.body.setAttribute('style', '--zoom:' + zoom);
-      window.lichess.dispatchEvent(window, 'resize');
+      window.dispatchEvent(new Event('resize'));
 
       saveZoom();
     };
@@ -49,8 +50,8 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
     }, { once: true });
   };
 
-  el.addEventListener('touchstart', startResize);
-  el.addEventListener('mousedown', startResize);
+  el.addEventListener('touchstart', startResize, { passive: false });
+  el.addEventListener('mousedown', startResize, { passive: false });
 
   if (pref == 1) {
     const toggle = (ply: number) => el.classList.toggle('none', visible ? !visible(ply) : ply >= 2);

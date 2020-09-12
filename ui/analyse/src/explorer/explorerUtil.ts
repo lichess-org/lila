@@ -10,4 +10,5 @@ export function winnerOf(fen: Fen, move: TablebaseMoveStats): Color | undefined 
     return 'white';
   if ((stm[0] == 'b' && move.wdl! < 0) || (stm[0] == 'w' && move.wdl! > 0))
     return 'black';
+  return undefined;
 }

@@ -1,10 +1,9 @@
 package lila.api
 
 import org.joda.time.DateTime
-import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 
-import lila.common.ApiVersion
+import lila.common.{ ApiVersion, HTTPRequest }
 
 object Mobile {
 
@@ -14,7 +13,9 @@ object Mobile {
 
     // only call if a more recent version is available in both stores!
     private val mustUpgradeFromVersions = Set(
-      "5.1.0", "5.1.1", "5.2.0"
+      "5.1.0",
+      "5.1.1",
+      "5.2.0"
     )
 
   }
@@ -29,9 +30,9 @@ object Mobile {
         unsupportedAt: DateTime
     )
 
-    val currentVersion = ApiVersion(4)
+    val currentVersion = ApiVersion(5)
 
-    val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3, 4) map ApiVersion.apply
+    val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3, 4, 5) map ApiVersion.apply
 
     val oldVersions: List[Old] = List(
       Old( // chat messages are html escaped
@@ -44,23 +45,15 @@ object Mobile {
         deprecatedAt = new DateTime("2017-10-23"),
         unsupportedAt = new DateTime("2018-03-23")
       )
-    // Old( // old ping API
-    //   version = ApiVersion(3),
-    //   deprecatedAt = new DateTime("2018-12-14"),
-    //   unsupportedAt = new DateTime("2019-12-14")
-    // )
+      // Old( // old ping API
+      //   version = ApiVersion(3),
+      //   deprecatedAt = new DateTime("2018-12-14"),
+      //   unsupportedAt = new DateTime("2019-12-14")
+      // )
     )
 
-    private val PathPattern = """/socket/v(\d++)$""".r.unanchored
-    private val HeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
-
-    def requestVersion(req: RequestHeader): Option[ApiVersion] = {
-      (req.headers.get(HeaderNames.ACCEPT), req.path) match {
-        case (Some(HeaderPattern(v)), _) => parseIntOption(v) map ApiVersion.apply
-        case (_, PathPattern(v)) => parseIntOption(v) map ApiVersion.apply
-        case _ => none
-      }
-    } filter acceptedVersions.contains
+    def requestVersion(req: RequestHeader): Option[ApiVersion] =
+      HTTPRequest apiVersion req filter acceptedVersions.contains
 
     def requested(req: RequestHeader) = requestVersion(req).isDefined
   }

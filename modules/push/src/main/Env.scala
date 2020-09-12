@@ -1,103 +1,87 @@
 package lila.push
 
 import akka.actor._
-import collection.JavaConverters._
 import com.google.auth.oauth2.{ GoogleCredentials, ServiceAccountCredentials }
-import com.typesafe.config.Config
-import play.api.Play
-import Play.current
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
+import play.api.libs.ws.StandaloneWSClient
+import scala.jdk.CollectionConverters._
 
-import lila.game.Game
+import lila.common.config._
+import FirebasePush.configLoader
+
+@Module
+final private class PushConfig(
+    @ConfigName("collection.device") val deviceColl: CollName,
+    @ConfigName("collection.subscription") val subscriptionColl: CollName,
+    val web: WebPush.Config,
+    val onesignal: OneSignalPush.Config,
+    val firebase: FirebasePush.Config
+)
 
 final class Env(
-    config: Config,
-    db: lila.db.Env,
-    getLightUser: lila.common.LightUser.GetterSync,
-    gameProxy: Game.ID => Fu[Option[Game]],
-    scheduler: lila.common.Scheduler,
+    appConfig: Configuration,
+    ws: StandaloneWSClient,
+    db: lila.db.Db,
+    userRepo: lila.user.UserRepo,
+    getLightUser: lila.common.LightUser.Getter,
+    proxyRepo: lila.round.GameProxyRepo
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
 ) {
 
-  private val CollectionDevice = config getString "collection.device"
-  private val CollectionSubscription = config getString "collection.subscription"
+  private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)
 
-  private val OneSignalUrl = config getString "onesignal.url"
-  private val OneSignalAppId = config getString "onesignal.app_id"
-  private val OneSignalKey = config getString "onesignal.key"
+  def vapidPublicKey = config.web.vapidPublicKey
 
-  private val FirebaseUrl = config getString "firebase.url"
+  private lazy val deviceApi  = new DeviceApi(db(config.deviceColl))
+  lazy val webSubscriptionApi = new WebSubscriptionApi(db(config.subscriptionColl))
 
-  private val WebUrl = config getString "web.url"
-  val WebVapidPublicKey = config getString "web.vapid_public_key"
-
-  private lazy val deviceApi = new DeviceApi(db(CollectionDevice))
-  lazy val webSubscriptionApi = new WebSubscriptionApi(db(CollectionSubscription))
-
-  def registerDevice = deviceApi.register _
+  def registerDevice    = deviceApi.register _
   def unregisterDevices = deviceApi.unregister _
 
-  private lazy val oneSignalPush = new OneSignalPush(
-    deviceApi.findLastManyByUserId("onesignal", 3) _,
-    url = OneSignalUrl,
-    appId = OneSignalAppId,
-    key = OneSignalKey
-  )
+  private lazy val oneSignalPush = wire[OneSignalPush]
 
-  val googleCredentials: Option[GoogleCredentials] = try {
-    config.getString("firebase.json").some.filter(_.nonEmpty).map { json =>
-      ServiceAccountCredentials
-        .fromStream(new java.io.ByteArrayInputStream(json.getBytes()))
-        .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
+  private lazy val googleCredentials: Option[GoogleCredentials] =
+    try {
+      config.firebase.json.value.some.filter(_.nonEmpty).map { json =>
+        ServiceAccountCredentials
+          .fromStream(new java.io.ByteArrayInputStream(json.getBytes()))
+          .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
+      }
+    } catch {
+      case e: Exception =>
+        logger.warn("Failed to create google credentials", e)
+        none
     }
-  } catch {
-    case e: Exception =>
-      logger.warn("Failed to create google credentials", e)
-      none
-  }
   if (googleCredentials.isDefined) logger.info("Firebase push notifications are enabled.")
 
-  private lazy val firebasePush = new FirebasePush(
-    googleCredentials,
-    deviceApi.findLastManyByUserId("firebase", 3) _,
-    url = FirebaseUrl
-  )(system)
+  private lazy val firebasePush = wire[FirebasePush]
 
-  private lazy val webPush = new WebPush(
-    webSubscriptionApi.getSubscriptions(5) _,
-    url = WebUrl,
-    vapidPublicKey = WebVapidPublicKey
-  )
+  private lazy val webPush = wire[WebPush]
 
-  private lazy val pushApi = new PushApi(
-    firebasePush,
-    oneSignalPush,
-    webPush,
-    getLightUser,
-    gameProxy,
-    scheduler = scheduler,
-    system = system
-  )
+  private lazy val pushApi: PushApi = wire[PushApi]
 
-  lila.common.Bus.subscribeFun('finishGame, 'moveEventCorres, 'newMessage, 'challenge, 'corresAlarm, 'offerEventCorres) {
+  lila.common.Bus.subscribeFun(
+    "finishGame",
+    "moveEventCorres",
+    "newMessage",
+    "msgUnread",
+    "challenge",
+    "corresAlarm",
+    "offerEventCorres"
+  ) {
     case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game logFailure logger
-    case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move logFailure logger
-    case lila.hub.actorApi.round.CorresTakebackOfferEvent(gameId) => pushApi takebackOffer gameId logFailure logger
+    case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
+      pushApi move move logFailure logger
+    case lila.hub.actorApi.round.CorresTakebackOfferEvent(gameId) =>
+      pushApi takebackOffer gameId logFailure logger
     case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId logFailure logger
-    case lila.message.Event.NewMessage(t, p) => pushApi newMessage (t, p) logFailure logger
-    case lila.challenge.Event.Create(c) => pushApi challengeCreate c logFailure logger
-    case lila.challenge.Event.Accept(c, joinerId) => pushApi.challengeAccept(c, joinerId) logFailure logger
-    case lila.game.actorApi.CorresAlarmEvent(pov) => pushApi corresAlarm pov logFailure logger
+    case lila.msg.MsgThread.Unread(t)                         => pushApi newMsg t logFailure logger
+    case lila.challenge.Event.Create(c)                       => pushApi challengeCreate c logFailure logger
+    case lila.challenge.Event.Accept(c, joinerId)             => pushApi.challengeAccept(c, joinerId) logFailure logger
+    case lila.game.actorApi.CorresAlarmEvent(pov)             => pushApi corresAlarm pov logFailure logger
   }
-}
-
-object Env {
-
-  lazy val current: Env = "push" boot new Env(
-    db = lila.db.Env.current,
-    system = lila.common.PlayApp.system,
-    getLightUser = lila.user.Env.current.lightUserSync,
-    gameProxy = lila.round.Env.current.proxy.game _,
-    scheduler = lila.common.PlayApp.scheduler,
-    config = lila.common.PlayApp loadConfig "push"
-  )
 }

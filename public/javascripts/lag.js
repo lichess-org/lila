@@ -217,12 +217,9 @@ $(function() {
 
   lichess.socket = new lichess.StrongSocket('/socket/v4', false, {
     options: {
-      name: "analyse",
-      onFirstConnect: function() {
-        lichess.socket.send('moveLat', true);
-      }
+      name: 'analyse'
     },
-    receive: function(t, d) {
+    receive(t, d) {
       if (t === 'mlat') {
         var v = parseInt(d);
         charts.server.series[0].points[0].update(v);
@@ -231,9 +228,10 @@ $(function() {
       }
     }
   });
+  lichess.StrongSocket.firstConnect.then(() =>lichess.socket.send('moveLat', true));
 
   setInterval(function() {
-    var v = Math.round(lichess.socket.averageLag());
+    const v = Math.round(lichess.socket.averageLag);
     charts.network.series[0].points[0].update(v);
     values.network = v;
     updateAnswer();

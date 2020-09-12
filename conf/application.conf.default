@@ -1,10 +1,4 @@
 include "base"
+include "version"
 
-# copy to conf/application.conf, then
 # override values from base.conf here
-
-net {
-  domain = localhost
-  socket.domain = localhost
-  asset.domain = assets.localhost
-}

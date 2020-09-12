@@ -15,7 +15,8 @@ case class FriendConfig(
     mode: Mode,
     color: Color,
     fen: Option[FEN] = None
-) extends HumanConfig with Positional {
+) extends HumanConfig
+    with Positional {
 
   val strictFen = false
 
@@ -28,7 +29,7 @@ case class FriendConfig(
 
 object FriendConfig extends BaseHumanConfig {
 
-  def <<(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], c: String, fen: Option[String]) =
+  def from(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], c: String, fen: Option[String]) =
     new FriendConfig(
       variant = chess.variant.Variant(v) err "Invalid game variant " + v,
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
@@ -54,29 +55,29 @@ object FriendConfig extends BaseHumanConfig {
   import lila.db.dsl._
   import lila.game.BSONHandlers.FENBSONHandler
 
-  private[setup] implicit val friendConfigBSONHandler = new BSON[FriendConfig] {
+  implicit private[setup] val friendConfigBSONHandler = new BSON[FriendConfig] {
 
-    override val logMalformed = false
+    def reads(r: BSON.Reader): FriendConfig =
+      FriendConfig(
+        variant = chess.variant.Variant orDefault (r int "v"),
+        timeMode = TimeMode orDefault (r int "tm"),
+        time = r double "t",
+        increment = r int "i",
+        days = r int "d",
+        mode = Mode orDefault (r int "m"),
+        color = Color.White,
+        fen = r.getO[FEN]("f") filter (_.value.nonEmpty)
+      )
 
-    def reads(r: BSON.Reader): FriendConfig = FriendConfig(
-      variant = chess.variant.Variant orDefault (r int "v"),
-      timeMode = TimeMode orDefault (r int "tm"),
-      time = r double "t",
-      increment = r int "i",
-      days = r int "d",
-      mode = Mode orDefault (r int "m"),
-      color = Color.White,
-      fen = r.getO[FEN]("f") filter (_.value.nonEmpty)
-    )
-
-    def writes(w: BSON.Writer, o: FriendConfig) = $doc(
-      "v" -> o.variant.id,
-      "tm" -> o.timeMode.id,
-      "t" -> o.time,
-      "i" -> o.increment,
-      "d" -> o.days,
-      "m" -> o.mode.id,
-      "f" -> o.fen
-    )
+    def writes(w: BSON.Writer, o: FriendConfig) =
+      $doc(
+        "v"  -> o.variant.id,
+        "tm" -> o.timeMode.id,
+        "t"  -> o.time,
+        "i"  -> o.increment,
+        "d"  -> o.days,
+        "m"  -> o.mode.id,
+        "f"  -> o.fen
+      )
   }
 }

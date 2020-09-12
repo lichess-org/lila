@@ -19,30 +19,37 @@ case class Path(ids: List[UciCharPair]) extends AnyVal {
 
   def prepend(id: UciCharPair) = Path(id :: ids)
 
-  def intersect(other: Path): Path = Path {
-    ids zip other.ids takeWhile {
-      case (a, b) => a == b
-    } map (_._1)
-  }
+  def intersect(other: Path): Path =
+    Path {
+      ids zip other.ids takeWhile {
+        case (a, b) => a == b
+      } map (_._1)
+    }
 
   override def toString = ids.mkString
 }
 
 object Path {
 
-  def apply(str: String): Path = Path {
-    str.grouped(2).flatMap { p =>
-      p lift 1 map { b =>
-        UciCharPair(p(0), b)
-      }
-    }.toList
-  }
+  def apply(str: String): Path =
+    Path {
+      str
+        .grouped(2)
+        .flatMap { p =>
+          p lift 1 map { b =>
+            UciCharPair(p(0), b)
+          }
+        }
+        .toList
+    }
 
   val root = Path("")
 
-  def isMainline(node: RootOrNode, path: Path): Boolean = path.split.fold(true) {
-    case (id, rest) => node.children.first ?? { child =>
-      child.id == id && isMainline(child, rest)
+  def isMainline(node: RootOrNode, path: Path): Boolean =
+    path.split.fold(true) {
+      case (id, rest) =>
+        node.children.first ?? { child =>
+          child.id == id && isMainline(child, rest)
+        }
     }
-  }
 }

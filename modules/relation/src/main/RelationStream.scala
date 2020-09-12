@@ -1,37 +1,46 @@
 package lila.relation
 
-import play.api.libs.iteratee._
+import akka.stream.scaladsl._
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
-import reactivemongo.play.iteratees.cursorProducer
 import scala.concurrent.duration._
 
-import lila.common.MaxPerSecond
+import lila.common.config.MaxPerSecond
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
-final class RelationStream(coll: Coll)(implicit system: akka.actor.ActorSystem) {
+final class RelationStream(
+    coll: Coll,
+    userRepo: UserRepo
+)(implicit mat: akka.stream.Materializer) {
 
   import RelationStream._
 
-  def follow(user: User, direction: Direction, perSecond: MaxPerSecond): Enumerator[User] = {
-    val field = direction match {
+  def follow(user: User, direction: Direction, perSecond: MaxPerSecond): Source[User, _] =
+    coll
+      .find(
+        $doc(selectField(direction) -> user.id, "r" -> Follow),
+        $doc(projectField(direction) -> true, "_id" -> false).some
+      )
+      .batchSize(perSecond.value)
+      .cursor[Bdoc](ReadPreference.secondaryPreferred)
+      .documentSource()
+      .grouped(perSecond.value)
+      .map(_.flatMap(_.getAsOpt[User.ID](projectField(direction))))
+      .throttle(1, 1 second)
+      .mapAsync(1)(userRepo.usersFromSecondary)
+      .mapConcat(identity)
+
+  private def selectField(d: Direction) =
+    d match {
+      case Direction.Following => "u1"
+      case Direction.Followers => "u2"
+    }
+  private def projectField(d: Direction) =
+    d match {
       case Direction.Following => "u2"
       case Direction.Followers => "u1"
     }
-    val projection = $doc(field -> true, "_id" -> false)
-    val query = direction match {
-      case Direction.Following => coll.find($doc("u1" -> user.id, "r" -> Follow), projection)
-      case Direction.Followers => coll.find($doc("u2" -> user.id, "r" -> Follow), projection)
-    }
-    query.copy(options = query.options.batchSize(perSecond.value))
-      .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
-      .bulkEnumerator() &>
-      lila.common.Iteratee.delay(1 second) &>
-      Enumeratee.mapM { docs =>
-        UserRepo usersFromSecondary docs.toSeq.flatMap(_.getAs[User.ID](field))
-      } &>
-      Enumeratee.mapConcat(_.toSeq)
-  }
 }
 
 object RelationStream {

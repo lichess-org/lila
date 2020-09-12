@@ -2,12 +2,12 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { NoteCtrl, NoteOpts } from './interfaces'
 import * as xhr from './xhr'
-import { spinner } from './util'
+import debounce from 'common/debounce';
 
 export function noteCtrl(opts: NoteOpts): NoteCtrl {
-  let text: string
-  const doPost = window.lichess.debounce(() => {
-    xhr.setNote(opts.id, text);
+  let text: string | undefined = opts.text;
+  const doPost = debounce(() => {
+    xhr.setNote(opts.id, text || '');
   }, 1000);
   return {
     id: opts.id,
@@ -32,7 +32,7 @@ export function noteView(ctrl: NoteCtrl): VNode {
     hook: {
       insert: ctrl.fetch
     },
-  }, [spinner()])
+  })
   return h('textarea', {
     attrs: {
       placeholder: ctrl.trans('typePrivateNotesHere')

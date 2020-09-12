@@ -28,19 +28,19 @@ export interface ExplorerConfigData {
 
 export interface ExplorerConfigCtrl {
   trans: Trans;
-  redraw();
+  redraw(): void;
   data: ExplorerConfigData;
-  toggleOpen();
-  toggleDb(db: ExplorerDb);
-  toggleRating(rating: number);
-  toggleSpeed(speed: string);
+  toggleOpen(): void;
+  toggleDb(db: ExplorerDb): void;
+  toggleRating(rating: number): void;
+  toggleSpeed(speed: string): void;
   fullHouse(): boolean;
 }
 
 export interface ExplorerData {
   fen: Fen;
   moves: MoveStats[];
-  opening?: true;
+  isOpening?: true;
   tablebase?: true;
 }
 
@@ -48,6 +48,12 @@ export interface OpeningData extends ExplorerData {
   moves: OpeningMoveStats[];
   topGames?: OpeningGame[];
   recentGames?: OpeningGame[];
+  opening?: Opening;
+}
+
+export interface Opening {
+  eco: string;
+  name: string;
 }
 
 export interface OpeningGame {
@@ -99,7 +105,7 @@ export interface TablebaseMoveStats extends MoveStats {
 }
 
 export function isOpening(m: ExplorerData): m is OpeningData {
-  return !!m.opening;
+  return !!m.isOpening;
 }
 export function isTablebase(m: ExplorerData): m is TablebaseData {
   return !!m.tablebase;
@@ -122,10 +128,10 @@ export interface ExplorerCtrl {
   gameMenu: Prop<string | null>;
   current(): ExplorerData | undefined;
   hovering: Prop<Hovering | null>;
-  setNode();
-  toggle();
-  disable();
-  setHovering(fen: Fen, uci: Uci | null);
-  fetchMasterOpening(fen: Fen): JQueryPromise<OpeningData>;
-  fetchTablebaseHit(fen: Fen): JQueryPromise<SimpleTablebaseHit>;
+  setNode(): void;
+  toggle(): void;
+  disable(): void;
+  setHovering(fen: Fen, uci: Uci | null): void;
+  fetchMasterOpening(fen: Fen): Promise<OpeningData>;
+  fetchTablebaseHit(fen: Fen): Promise<SimpleTablebaseHit>;
 }

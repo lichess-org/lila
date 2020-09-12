@@ -1,4 +1,5 @@
-import { empty } from 'common';
+import { isEmpty } from 'common';
+import modal from 'common/modal';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
@@ -58,7 +59,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
   const speeds = [
     ...baseSpeeds,
-    ...(d.game.speed !== 'correspondence' && !empty(d.game.moveCentis) ? [realtimeSpeed] : []),
+    ...(d.game.speed !== 'correspondence' && !isEmpty(d.game.moveCentis) ? [realtimeSpeed] : []),
     ...(d.analysis ? [cplSpeed] : [])
   ];
   return h('div.autoplay', speeds.map(speed => {
@@ -149,7 +150,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         }
       }, noarg('boardEditor')),
       canContinue ? h('a.button.button-empty', {
-        hook: bind('click', _ => $.modal($('.continue-with.g_' + d.game.id))),
+        hook: bind('click', _ => modal($('.continue-with.g_' + d.game.id))),
         attrs: dataIcon('U')
       }, noarg('continueFromHere')) : null,
       studyButton(ctrl)
@@ -162,7 +163,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ctrlBoolSetting({
       name: 'enable',
       title: (
-        mandatoryCeval ? "Required by practice mode" : window.lichess.engineName
+        mandatoryCeval ? 'Required by practice mode' : 'Stockfish'
       ) + ' (Hotkey: z)',
       id: 'all',
       checked: ctrl.showComputer(),
@@ -232,7 +233,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           attrs: {
             type: 'range',
             min: 4,
-            max: 10,
+            max: Math.floor(Math.log2(ceval.maxHashSize)),
             step: 1
           },
           hook: rangeConfig(
@@ -258,26 +259,26 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
   return h('div.action-menu',
     tools
-    .concat(notationConfig)
-    .concat(cevalConfig)
-    .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
-    .concat([
-      deleteButton(ctrl, ctrl.opts.userId),
-      canContinue ? h('div.continue-with.none.g_' + d.game.id, [
-        h('a.button', {
-          attrs: {
-            href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
-            rel: 'nofollow'
-          }
-        }, noarg('playWithTheMachine')),
-        h('a.button', {
-          attrs: {
-            href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
-            rel: 'nofollow'
-          }
-        }, noarg('playWithAFriend'))
-      ]) : null
-    ])
+      .concat(notationConfig)
+      .concat(cevalConfig)
+      .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
+      .concat([
+        deleteButton(ctrl, ctrl.opts.userId),
+        canContinue ? h('div.continue-with.none.g_' + d.game.id, [
+          h('a.button', {
+            attrs: {
+              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
+              rel: 'nofollow'
+            }
+          }, noarg('playWithTheMachine')),
+          h('a.button', {
+            attrs: {
+              href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
+              rel: 'nofollow'
+            }
+          }, noarg('playWithAFriend'))
+        ]) : null
+      ])
   );
 }
 

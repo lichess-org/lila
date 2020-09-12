@@ -5,25 +5,26 @@ import java.util.concurrent.ConcurrentHashMap
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import lila.game.{ Game, Pov }
+import lila.game.Game
 import lila.hub.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.makeMessage
 import lila.user.User
 
-private final class TournamentSocket(
+final private class TournamentSocket(
+    repo: TournamentRepo,
     remoteSocketApi: lila.socket.RemoteSocket,
-    chat: lila.chat.ChatApi,
-    system: ActorSystem
+    chat: lila.chat.ChatApi
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    mode: play.api.Mode
 ) {
 
   private val allWaitingUsers = new ConcurrentHashMap[Tournament.ID, WaitingUsers.WithNext](64)
 
-  private val reloadThrottler = system.actorOf(Props(new LateMultiThrottler(
-    executionTimeout = 1.seconds.some,
-    logger = logger
-  )))
+  private val reloadThrottler = LateMultiThrottler(executionTimeout = 1.seconds.some, logger = logger)
 
   def reload(tourId: Tournament.ID): Unit =
     reloadThrottler ! LateMultiThrottler.work(
@@ -44,14 +45,14 @@ private final class TournamentSocket(
   }
 
   def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] = {
-    send(Protocol.Out.getWaitingUsers(RoomId(tour.id), tour.fullName))
-    val promise = Promise[WaitingUsers]
+    send(Protocol.Out.getWaitingUsers(RoomId(tour.id), tour.name()(lila.i18n.defaultLang)))
+    val promise = Promise[WaitingUsers]()
     allWaitingUsers.compute(
       tour.id,
       (_: Tournament.ID, cur: WaitingUsers.WithNext) =>
         Option(cur).getOrElse(WaitingUsers emptyWithNext tour.clock).copy(next = promise.some)
     )
-    promise.future.withTimeout(2.seconds, lila.base.LilaException("getWaitingUsers timeout"))(system)
+    promise.future.withTimeout(2.seconds, lila.base.LilaException("getWaitingUsers timeout"))
   }
 
   def hasUser(tourId: Tournament.ID, userId: User.ID): Boolean =
@@ -62,10 +63,21 @@ private final class TournamentSocket(
     reload(tourId)
   }
 
-  lazy val rooms = makeRoomMap(send, true)
+  lazy val rooms = makeRoomMap(send)
 
-  private lazy val handler: Handler = roomHandler(rooms, chat, logger,
-    roomId => _.Tournament(roomId.value).some)
+  subscribeChat(rooms, _.Tournament)
+
+  private lazy val handler: Handler =
+    roomHandler(
+      rooms,
+      chat,
+      logger,
+      roomId => _.Tournament(roomId.value).some,
+      chatBusChan = _.Tournament,
+      localTimeout = Some { (roomId, modId, _) =>
+        repo.fetchCreatedBy(roomId.value).map(_ has modId)
+      }
+    )
 
   private lazy val tourHandler: Handler = {
     case Protocol.In.WaitingUsers(roomId, users) =>
@@ -93,13 +105,15 @@ private final class TournamentSocket(
 
       val reader: P.In.Reader = raw => tourReader(raw) orElse RP.In.reader(raw)
 
-      val tourReader: P.In.Reader = raw => raw.path match {
-        case "tour/waiting" => raw.get(2) {
-          case Array(roomId, users) =>
-            WaitingUsers(RoomId(roomId), P.In.commas(users).toSet).some
+      val tourReader: P.In.Reader = raw =>
+        raw.path match {
+          case "tour/waiting" =>
+            raw.get(2) {
+              case Array(roomId, users) =>
+                WaitingUsers(RoomId(roomId), P.In.commas(users).toSet).some
+            }
+          case _ => none
         }
-        case _ => none
-      }
     }
 
     object Out {

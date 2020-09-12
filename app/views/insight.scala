@@ -13,51 +13,50 @@ import controllers.routes
 object insight {
 
   def index(
-    u: User,
-    cache: lila.insight.UserCache,
-    prefId: Int,
-    ui: play.api.libs.json.JsObject,
-    question: play.api.libs.json.JsObject,
-    stale: Boolean
+      u: User,
+      cache: lila.insight.UserCache,
+      prefId: Int,
+      ui: play.api.libs.json.JsObject,
+      question: play.api.libs.json.JsObject,
+      stale: Boolean
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${u.username}'s chess insights",
       moreJs = frag(
         highchartsLatestTag,
         jsAt("vendor/multiple-select/multiple-select.js"),
-        jsAt(s"compiled/lichess.insight${isProd ?? (".min")}.js"),
+        jsModule("insight"),
         jsTag("insight-refresh.js"),
-        jsTag("insight-tour.js"),
-        embedJsUnsafe(s"""
-$$(function() {
-lichess = lichess || {};
-lichess.insight = LichessInsight(document.getElementById('insight'), ${
-          safeJsonValue(Json.obj(
-            "ui" -> ui,
-            "initialQuestion" -> question,
-            "i18n" -> Json.obj(),
-            "myUserId" -> ctx.userId,
-            "user" -> Json.obj(
-              "id" -> u.id,
-              "name" -> u.username,
-              "nbGames" -> cache.count,
-              "stale" -> stale,
-              "shareId" -> prefId
-            ),
-            "pageUrl" -> routes.Insight.index(u.username).url,
-            "postUrl" -> routes.Insight.json(u.username).url
-          ))
-        });
-});""")
+        embedJsUnsafeLoadThen(
+          s"""lichess.insight=LichessInsight(document.getElementById('insight'), ${safeJsonValue(
+            Json.obj(
+              "ui"              -> ui,
+              "initialQuestion" -> question,
+              "i18n"            -> Json.obj(),
+              "myUserId"        -> ctx.userId,
+              "user" -> Json.obj(
+                "id"      -> u.id,
+                "name"    -> u.username,
+                "nbGames" -> cache.count,
+                "stale"   -> stale,
+                "shareId" -> prefId
+              ),
+              "pageUrl" -> routes.Insight.index(u.username).url,
+              "postUrl" -> routes.Insight.json(u.username).url
+            )
+          )})"""
+        )
       ),
       moreCss = cssTag("insight")
-    )(frag(
+    )(
+      frag(
         main(id := "insight"),
         stale option div(cls := "insight-stale none")(
           p("There are new games to learn from!"),
           refreshForm(u, "Update insights")
         )
-      ))
+      )
+    )
 
   def empty(u: User)(implicit ctx: Context) =
     views.html.base.layout(
@@ -65,18 +64,17 @@ lichess.insight = LichessInsight(document.getElementById('insight'), ${
       moreJs = jsTag("insight-refresh.js"),
       moreCss = cssTag("insight")
     )(
-        main(cls := "box box-pad page-small")(
-          h1(cls := "text", dataIcon := "7")(u.username, " chess insights"),
-          p(userLink(u), " has no chess insights yet!"),
-          refreshForm(u, s"Generate ${u.username}'s chess insights")
-        )
+      main(cls := "box box-pad page-small")(
+        h1(cls := "text", dataIcon := "7")(u.username, " chess insights"),
+        p(userLink(u), " has no chess insights yet!"),
+        refreshForm(u, s"Generate ${u.username}'s chess insights")
       )
+    )
 
   def forbidden(u: User)(implicit ctx: Context) =
     views.html.site.message(
       title = s"${u.username}'s chess insights are protected",
-      back = true,
-      icon = "7".some
+      back = routes.User.show(u.id).url.some
     )(
       p("Sorry, you cannot see ", userLink(u), "'s chess insights."),
       br,
@@ -87,7 +85,7 @@ lichess.insight = LichessInsight(document.getElementById('insight'), ${
       )
     )
 
-  def refreshForm(u: User, action: String)(implicit ctx: Context) =
+  def refreshForm(u: User, action: String) =
     postForm(cls := "insight-refresh", st.action := routes.Insight.refresh(u.username))(
       button(dataIcon := "E", cls := "button text")(action),
       div(cls := "crunching none")(

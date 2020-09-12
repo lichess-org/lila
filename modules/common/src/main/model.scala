@@ -3,34 +3,27 @@ package lila.common
 import scala.concurrent.duration._
 
 case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion] {
-  def v1 = value == 1
-  def v2 = value == 2
-  def v3 = value == 3
-  def v4 = value == 4
   def compare(other: ApiVersion) = Integer.compare(value, other.value)
-  def gt(other: Int) = value > other
-  def gte(other: Int) = value >= other
+  def gt(other: Int)             = value > other
+  def gte(other: Int)            = value >= other
 }
 
 case class AssetVersion(value: String) extends AnyVal with StringValue
 
 object AssetVersion {
   var current = random
-  def change = { current = random }
+  def change() = { current = random }
   private def random = AssetVersion(ornicar.scalalib.Random secureString 6)
 }
 
 case class IsMobile(value: Boolean) extends AnyVal with BooleanValue
 
-case class MaxPerPage(value: Int) extends AnyVal with IntValue
-
-case class MaxPerSecond(value: Int) extends AnyVal with IntValue
-
 case class IpAddress(value: String) extends AnyVal with StringValue
 
 object IpAddress {
   // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
-  private val ipv4Regex = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
+  private val ipv4Regex =
+    """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
   // ipv6 address in standard form (no compression, no leading zeros)
   private val ipv6Regex = """^((0|[1-9a-f][0-9a-f]{0,3}+):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r
 
@@ -45,26 +38,33 @@ object IpAddress {
 case class NormalizedEmailAddress(value: String) extends AnyVal with StringValue
 
 case class EmailAddress(value: String) extends AnyVal with StringValue {
-  def conceal = value split '@' match {
-    case Array(user, domain) => s"${user take 3}*****@${domain}"
-    case _ => value
-  }
-  def normalize = NormalizedEmailAddress {
-    val lower = value.toLowerCase
-    lower.split('@') match {
-      case Array(name, domain) if domain == "gmail.com" || domain == "googlemail.com" => {
-        val normalizedName = name
-          .replace(".", "") // remove all dots
-          .takeWhile('+'!=) // skip everything after the first '+'
-        if (normalizedName.isEmpty) lower else s"$normalizedName@$domain"
-      }
-      case _ => lower
+  def conceal =
+    value split '@' match {
+      case Array(user, domain) => s"${user take 3}*****@$domain"
+      case _                   => value
     }
-  }
-  def domain: Option[Domain] = value split '@' match {
-    case Array(_, domain) => Domain from domain.toLowerCase
-    case _ => none
-  }
+  def normalize =
+    NormalizedEmailAddress {
+      val lower = value.toLowerCase
+      lower.split('@') match {
+        case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
+          val normalizedName = name
+            .replace(".", "")  // remove all dots
+            .takeWhile('+' !=) // skip everything after the first '+'
+          if (normalizedName.isEmpty) lower else s"$normalizedName@$domain"
+        case _ => lower
+      }
+    }
+  def domain: Option[Domain] =
+    value split '@' match {
+      case Array(_, domain) => Domain from domain.toLowerCase
+      case _                => none
+    }
+
+  def similarTo(other: EmailAddress) = normalize == other.normalize
+
+  def isNoReply  = EmailAddress isNoReply value
+  def isSendable = !isNoReply
 
   // safer logs
   override def toString = "EmailAddress(****)"
@@ -73,30 +73,46 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
 object EmailAddress {
 
   private val regex =
-    """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]++@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
+    """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
 
-  def matches(str: String): Boolean = regex find str
+  private val gmailLikeNormalizedDomains =
+    Set("gmail.com", "googlemail.com", "protonmail.com", "protonmail.ch", "pm.me")
+
+  private def hasDotAt(str: String)           = str contains ".@"  // mailgun will reject it
+  private def hasConsecutiveDots(str: String) = str contains ".."  // mailgun will reject it
+  private def startsWithDot(str: String)      = str startsWith "." // mailgun will reject it
+
+  def matches(str: String): Boolean =
+    regex.find(str) &&
+      !hasDotAt(str) &&
+      !hasConsecutiveDots(str) &&
+      !startsWithDot(str)
 
   def from(str: String): Option[EmailAddress] =
     matches(str) option EmailAddress(str)
+
+  private def isNoReply(str: String) = str.startsWith("noreply.") && str.endsWith("@lichess.org")
 }
 
 case class Domain private (value: String) extends AnyVal with StringValue {
   // heuristic to remove user controlled subdomain tails:
   // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
-  def withoutSubdomain: Option[Domain] = value.split('.').toList.reverse match {
-    case tld :: sld :: tail :: _ if sld.length <= 3 => Domain from s"$tail.$sld.$tld"
-    case tld :: sld :: _ => Domain from s"$sld.$tld"
-    case _ => none
-  }
+  def withoutSubdomain: Option[Domain] =
+    value.split('.').toList.reverse match {
+      case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain from s"$tail.$sld.$tld"
+      case tld :: sld :: _                              => Domain from s"$sld.$tld"
+      case _                                            => none
+    }
   def lower = Domain.Lower(value.toLowerCase)
 }
 
 object Domain {
   // https://stackoverflow.com/a/26987741/1744715
-  private val regex = """^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?([a-z0-9][a-z0-9\-]{0,60}|[a-z0-9-]{1,30}\.[a-z]{2,})$""".r
-  def isValid(str: String) = regex.matches(str)
+  private val regex =
+    """^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?([a-z0-9][a-z0-9\-]{0,60}|[a-z0-9-]{1,30}\.[a-z]{2,})$""".r
+  def isValid(str: String)              = regex.matches(str)
   def from(str: String): Option[Domain] = isValid(str) option Domain(str)
+  def unsafe(str: String): Domain       = Domain(str)
 
   case class Lower(value: String) extends AnyVal with StringValue {
     def domain = Domain(value)
@@ -104,6 +120,7 @@ object Domain {
 }
 
 case class Strings(value: List[String]) extends AnyVal
+case class UserIds(value: List[String]) extends AnyVal
 
-case class Every(value: FiniteDuration) extends AnyVal
+case class Every(value: FiniteDuration)  extends AnyVal
 case class AtMost(value: FiniteDuration) extends AnyVal

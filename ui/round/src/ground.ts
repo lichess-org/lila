@@ -2,7 +2,8 @@ import { h } from 'snabbdom'
 import { Chessground } from 'chessground';
 import * as cg from 'chessground/types';
 import { Api as CgApi } from 'chessground/api';
-import { Config } from 'chessground/config'
+import { Config } from 'chessground/config';
+import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import * as util from './util';
 import { plyStep } from './round';
@@ -21,7 +22,6 @@ export function makeConfig(ctrl: RoundController): Config {
     check: !!step.check,
     coordinates: data.pref.coords !== 0,
     addPieceZIndex: ctrl.data.pref.is3d,
-    autoCastle: data.game.variant.key === 'standard',
     highlight: {
       lastMove: data.pref.highlight,
       check: data.pref.highlight
@@ -31,12 +31,13 @@ export function makeConfig(ctrl: RoundController): Config {
       dropNewPiece: hooks.onNewPiece,
       insert(elements) {
         resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply);
+        if (data.pref.coords == 1) changeColorHandle();
       }
     },
     movable: {
       free: false,
       color: playing ? data.player.color : undefined,
-      dests: playing ? util.parsePossibleMoves(data.possibleMoves) : {},
+      dests: playing ? util.parsePossibleMoves(data.possibleMoves) : new Map(),
       showDests: data.pref.destination,
       rookCastle: data.pref.rookCastle,
       events: {
@@ -72,7 +73,8 @@ export function makeConfig(ctrl: RoundController): Config {
       enabled: data.pref.moveEvent !== 1
     },
     drawable: {
-      enabled: true
+      enabled: true,
+      defaultSnapToValidMove: (window.lichess.storage.get('arrow.snap') || 1) != '0'
     },
     disableContextMenu: true
   };
@@ -83,15 +85,13 @@ export function reload(ctrl: RoundController) {
 }
 
 export function promote(ground: CgApi, key: cg.Key, role: cg.Role) {
-  const piece = ground.state.pieces[key];
+  const piece = ground.state.pieces.get(key);
   if (piece && piece.role === 'pawn') {
-    const pieces: cg.Pieces = {};
-    pieces[key] = {
+    ground.setPieces(new Map([[key, {
       color: piece.color,
       role,
-      promoted: true
-    };
-    ground.setPieces(pieces);
+      promoted: true,
+    }]]));
   }
 }
 

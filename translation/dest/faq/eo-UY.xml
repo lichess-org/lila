@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="faqAbbreviation">Plej Oftaj Demandoj</string>
+  <string name="frequentlyAskedQuestions">Plej Oftaj Demandoj</string>
+  <string name="whyIsLichessCalledLichess">Kial Lichess nomiĝas tiel?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess estas kombino de realtempe/malpeza/libera (angle: live/light/libre) kaj ŝako (angle: chess). Ĝi estas prononcita %1$s.</string>
+  <string name="leechess">li-ĉes</string>
+  <string name="hearItPronouncedBySpecialist">Aŭskultu ĝin prononcita de fakulo.</string>
+  <string name="whyLiveLightLibre">Realtempe, ĉar ludoj estas ludataj kaj spektataj plentempe 24/7; malpeza kaj libera pro la fakto, ke Lichess estas malferma-kodo kaj sen proprietaj rubaĵoj, kiuj multas en aliaj retejoj.</string>
+  <string name="howCanIContributeToLichess">Kiel mi povas kontribui kun Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess ekzistas danke al donacoj de patronoj kaj klopodoj de volontula teamo.</string>
+  <string name="findMoreAndSeeHowHelp">Vi povas ekscii pli pri %1$s (inkluzive de %2$s). Se vi volas helpi Lichess volontulante vian tempon kaj kapablojn, ekzistas multaj %3$s.</string>
+  <string name="beingAPatron">esti patrono</string>
+  <string name="breakdownOfOurCosts">detaligo de niaj elspezoj</string>
+  <string name="otherWaysToHelp">aliaj formoj por helpi</string>
+  <string name="areThereWebsitesBasedOnLichess">Ĉu estas retejoj bazitaj sur Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Jes. Lichess efektive inspiris aliajn malfermkodajn retejojn, kiuj uzas niajn %1$s, %2$s aŭ %3$s.</string>
+  <string name="isCorrespondenceDifferent">Ĉu koresponda ŝako diferencas de normala ŝako?</string>
+  <string name="basedOnGameDuration">Lichess tempokontroloj baziĝas sur laŭtaksa daŭro de ludo = %1$s
+Ekzemple, la laŭtaksa daŭro de ludo 5+3 estas 5 × 60 + 40 × 3 = 420 sekundoj.</string>
+  <string name="durationFormula">(horloĝa komenca horo) + 40 × (horloĝa pliigo)</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Kiujn ŝakvariantojn mi povas ludi en Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess subtenas norman ŝakon kaj %1$s.</string>
+  <string name="eightVariants">8 ŝakvariantojn</string>
+  <string name="insufficientMaterial">Perdi pro tempo, egaleco kaj nesufiĉa materialo</string>
+  <string name="linkToFIDErules">Manlibro FIDE §6.9, PDF</string>
+  <string name="goodIntroduction">bona enkonduko</string>
+  <string name="officialRulesPDF">oficialaj reguloj (PDF)</string>
+  <string name="lichessTraining">trejniĝo en Lichess</string>
+  <string name="threefoldRepetition">Triobla ripeto</string>
+  <string name="threefoldRepetitionLowerCase">triobla ripeto</string>
+  <string name="handBookPDF">manlibro (PDF)</string>
+  <string name="positions">pozicioj</string>
+  <string name="configure">agordi</string>
+  <string name="accounts">Kontoj</string>
+  <string name="noUpperCaseDot">Ne.</string>
+  <string name="guidelines">gvidlinioj</string>
+  <string name="lichessRatings">Lichess rangoj</string>
+  <string name="similarOpponents">kontraŭuloj kun simila forteco</string>
+  <string name="inOrderToAppearsYouMust">Por alveni al %1$s vi devus:</string>
+  <string name="beInTopTen">esti en la supraj 10 en ĉi tiu rango.</string>
+  <string name="howToHideRatingWhilePlaying">Kiel kaŝi mian rangon dum la ludoj?</string>
+  <string name="enableZenMode">Ŝaltu amikan reĝimon en %1$s, aŭ per premo de %2$s dum ludo.</string>
+  <string name="displayPreferences">aperigi preferojn</string>
+  <string name="connexionLostCanIGetMyRatingBack">Mi perdis ludon pro malfruo/malkonekto. Ĉu mi povas ricevi la perditajn rangpoentojn?</string>
+  <string name="howToThreeDots">Kiel...</string>
+  <string name="enableDisableNotificationPopUps">Ŝalti aǔ malŝalti komentojn en ŝprucfenestroj?</string>
+  <string name="viewSiteInformationPopUp">Vidi komentan ŝprucfenestron de la retejo</string>
+</resources>

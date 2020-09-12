@@ -1,78 +1,118 @@
 package lila.db
 
-import scala.collection.breakOut
+import cats.data.NonEmptyList
 import org.joda.time.DateTime
-import reactivemongo.bson._
-import scalaz.NonEmptyList
+import reactivemongo.api.bson._
+import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
+import scala.util.{ Failure, Success, Try }
 
 import lila.common.Iso._
-import lila.common.{ Iso, IpAddress, EmailAddress, NormalizedEmailAddress }
+import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
 
 trait Handlers {
 
-  implicit val BSONJodaDateTimeHandler = new BSONHandler[BSONDateTime, DateTime] {
-    def read(x: BSONDateTime) = new DateTime(x.value)
-    def write(x: DateTime) = BSONDateTime(x.getMillis)
-  }
+  implicit val BSONJodaDateTimeHandler = quickHandler[DateTime](
+    { case v: BSONDateTime => new DateTime(v.value) },
+    v => BSONDateTime(v.getMillis)
+  )
 
-  def isoHandler[A, B, C <: BSONValue](iso: Iso[B, A])(implicit handler: BSONHandler[C, B]): BSONHandler[C, A] = new BSONHandler[C, A] {
-    def read(x: C): A = iso.from(handler read x)
-    def write(x: A): C = handler write iso.to(x)
-  }
-  def isoHandler[A, B, C <: BSONValue](to: A => B, from: B => A)(implicit handler: BSONHandler[C, B]): BSONHandler[C, A] =
+  def isoHandler[A, B](iso: Iso[B, A])(implicit handler: BSONHandler[B]): BSONHandler[A] =
+    new BSONHandler[A] {
+      def readTry(x: BSONValue) = handler.readTry(x) map iso.from
+      def writeTry(x: A)        = handler writeTry iso.to(x)
+    }
+  def isoHandler[A, B](to: A => B, from: B => A)(implicit handler: BSONHandler[B]): BSONHandler[A] =
     isoHandler(Iso(from, to))
 
-  def stringIsoHandler[A](implicit iso: StringIso[A]): BSONHandler[BSONString, A] = isoHandler[A, String, BSONString](iso)
-  def stringAnyValHandler[A](to: A => String, from: String => A): BSONHandler[BSONString, A] = stringIsoHandler(Iso(from, to))
+  def stringIsoHandler[A](implicit iso: StringIso[A]): BSONHandler[A] =
+    BSONStringHandler.as[A](iso.from, iso.to)
+  def stringAnyValHandler[A](to: A => String, from: String => A): BSONHandler[A] =
+    stringIsoHandler(Iso(from, to))
 
-  def intIsoHandler[A](implicit iso: IntIso[A]): BSONHandler[BSONInteger, A] = isoHandler[A, Int, BSONInteger](iso)
-  def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[BSONInteger, A] = intIsoHandler(Iso(from, to))
+  def intIsoHandler[A](implicit iso: IntIso[A]): BSONHandler[A]         = BSONIntegerHandler.as[A](iso.from, iso.to)
+  def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[A] = intIsoHandler(Iso(from, to))
 
-  def booleanIsoHandler[A](implicit iso: BooleanIso[A]): BSONHandler[BSONBoolean, A] = isoHandler[A, Boolean, BSONBoolean](iso)
-  def booleanAnyValHandler[A](to: A => Boolean, from: Boolean => A): BSONHandler[BSONBoolean, A] = booleanIsoHandler(Iso(from, to))
+  def booleanIsoHandler[A](implicit iso: BooleanIso[A]): BSONHandler[A] =
+    BSONBooleanHandler.as[A](iso.from, iso.to)
+  def booleanAnyValHandler[A](to: A => Boolean, from: Boolean => A): BSONHandler[A] =
+    booleanIsoHandler(Iso(from, to))
 
-  def doubleIsoHandler[A](implicit iso: DoubleIso[A]): BSONHandler[BSONDouble, A] = isoHandler[A, Double, BSONDouble](iso)
-  def doubleAnyValHandler[A](to: A => Double, from: Double => A): BSONHandler[BSONDouble, A] = doubleIsoHandler(Iso(from, to))
+  def doubleIsoHandler[A](implicit iso: DoubleIso[A]): BSONHandler[A] =
+    BSONDoubleHandler.as[A](iso.from, iso.to)
+  def doubleAnyValHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
+    doubleIsoHandler(Iso(from, to))
 
-  def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[BSONDateTime, A] = isoHandler[A, DateTime, BSONDateTime](iso)
+  def floatIsoHandler[A](implicit iso: FloatIso[A]): BSONHandler[A] =
+    BSONFloatHandler.as[A](iso.from, iso.to)
+  def floatAnyValHandler[A](to: A => Float, from: Float => A): BSONHandler[A] =
+    floatIsoHandler(Iso(from, to))
 
-  implicit def nullableHandler[T, B <: BSONValue](implicit reader: BSONReader[B, T], writer: BSONWriter[T, B]): BSONHandler[BSONValue, Option[T]] = new BSONHandler[BSONValue, Option[T]] {
-    private val generalizedReader = reader.asInstanceOf[BSONReader[BSONValue, T]]
-    def read(bv: BSONValue): Option[T] = generalizedReader.readOpt(bv)
-    def write(v: Option[T]): BSONValue = v.fold[BSONValue](BSONNull)(writer.write)
+  def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[A] =
+    BSONJodaDateTimeHandler.as[A](iso.from, iso.to)
+
+  def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] =
+    new BSONHandler[T] {
+      def readTry(bson: BSONValue) =
+        read
+          .andThen(Success(_))
+          .applyOrElse(
+            bson,
+            (b: BSONValue) => handlerBadType(b)
+          )
+      def writeTry(t: T) = Success(write(t))
+    }
+
+  def tryHandler[T](read: PartialFunction[BSONValue, Try[T]], write: T => BSONValue): BSONHandler[T] =
+    new BSONHandler[T] {
+      def readTry(bson: BSONValue) =
+        read.applyOrElse(
+          bson,
+          (b: BSONValue) => handlerBadType(b)
+        )
+      def writeTry(t: T) = Success(write(t))
+    }
+
+  def handlerBadType[T](b: BSONValue): Try[T] =
+    Failure(TypeDoesNotMatchException("BSONValue", b.getClass.getSimpleName))
+
+  def handlerBadValue[T](msg: String): Try[T] =
+    Failure(new IllegalArgumentException(msg))
+
+  def stringMapHandler[V](implicit
+      reader: BSONReader[Map[String, V]],
+      writer: BSONWriter[Map[String, V]]
+  ) =
+    new BSONHandler[Map[String, V]] {
+      def readTry(bson: BSONValue)    = reader readTry bson
+      def writeTry(v: Map[String, V]) = writer writeTry v
+    }
+
+  def typedMapHandler[K, V: BSONReader: BSONWriter](keyIso: StringIso[K]) =
+    stringMapHandler[V].as[Map[K, V]](
+      _.map { case (k, v) => keyIso.from(k) -> v },
+      _.map { case (k, v) => keyIso.to(k) -> v }
+    )
+
+  implicit def bsonArrayToNonEmptyListHandler[T](implicit handler: BSONHandler[T]) = {
+    def listWriter = collectionWriter[T, List[T]]
+    def listReader = collectionReader[List, T]
+    tryHandler[NonEmptyList[T]](
+      {
+        case array: BSONArray =>
+          listReader.readTry(array).flatMap {
+            _.toNel toTry s"BSONArray is empty, can't build NonEmptyList"
+          }
+      },
+      nel => listWriter.writeTry(nel.toList).get
+    )
   }
 
-  implicit def bsonArrayToListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, List[T]] = new BSONHandler[BSONArray, List[T]] {
-    def read(array: BSONArray) = readStreamList(array, reader.asInstanceOf[BSONReader[BSONValue, T]])
-    def write(repr: List[T]) =
-      new BSONArray(repr.map(s => scala.util.Try(writer.write(s))).to[Stream])
-  }
+  implicit val ipAddressHandler = isoHandler[IpAddress, String](ipAddressIso)
 
-  implicit def bsonArrayToVectorHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, Vector[T]] = new BSONHandler[BSONArray, Vector[T]] {
-    def read(array: BSONArray) = readStreamVector(array, reader.asInstanceOf[BSONReader[BSONValue, T]])
-    def write(repr: Vector[T]) =
-      new BSONArray(repr.map(s => scala.util.Try(writer.write(s))).to[Stream])
-  }
+  implicit val emailAddressHandler = isoHandler[EmailAddress, String](emailAddressIso)
 
-  implicit def bsonArrayToNonEmptyListHandler[T](implicit reader: BSONReader[_ <: BSONValue, T], writer: BSONWriter[T, _ <: BSONValue]): BSONHandler[BSONArray, NonEmptyList[T]] = new BSONHandler[BSONArray, NonEmptyList[T]] {
-    private val listHandler = bsonArrayToListHandler[T]
-    def read(array: BSONArray) = listHandler.read(array).toNel err s"BSONArray is empty, can't build NonEmptyList"
-    def write(repr: NonEmptyList[T]) = listHandler.write(repr.toList)
-  }
+  implicit val normalizedEmailAddressHandler =
+    isoHandler[NormalizedEmailAddress, String](normalizedEmailAddressIso)
 
-  private def readStreamList[T](array: BSONArray, reader: BSONReader[BSONValue, T]): List[T] =
-    array.stream.filter(_.isSuccess).map { v =>
-      reader.read(v.get)
-    }(breakOut)
-
-  private def readStreamVector[T](array: BSONArray, reader: BSONReader[BSONValue, T]): Vector[T] =
-    array.stream.filter(_.isSuccess).map { v =>
-      reader.read(v.get)
-    }(breakOut)
-
-  implicit val ipAddressHandler = isoHandler[IpAddress, String, BSONString](ipAddressIso)
-
-  implicit val emailAddressHandler = isoHandler[EmailAddress, String, BSONString](emailAddressIso)
-
-  implicit val normalizedEmailAddressHandler = isoHandler[NormalizedEmailAddress, String, BSONString](normalizedEmailAddressIso)
+  implicit val colorBoolHandler = BSONBooleanHandler.as[chess.Color](chess.Color.apply, _.white)
 }

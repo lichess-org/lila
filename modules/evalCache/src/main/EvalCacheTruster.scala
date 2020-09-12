@@ -1,34 +1,38 @@
 package lila.evalCache
 
-import scala.concurrent.duration._
 import org.joda.time.{ DateTime, Days }
+import scala.concurrent.duration._
 
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
-private final class EvalCacheTruster(asyncCache: lila.memo.AsyncCache.Builder) {
+final private class EvalCacheTruster(
+    cacheApi: lila.memo.CacheApi,
+    userRepo: UserRepo
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import EvalCacheEntry.{ Trust, TrustedUser }
 
-  private val LOWER = Trust(-9999)
+  private val LOWER  = Trust(-9999)
   private val HIGHER = Trust(9999)
 
   def apply(user: User): Trust =
     if (user.lameOrTroll) LOWER
     else if (Granter(_.SeeReport)(user)) HIGHER
-    else Trust {
-      seniorityBonus(user) +
-        patronBonus(user) +
-        titleBonus(user) +
-        nbGamesBonus(user)
-    }
+    else
+      Trust {
+        seniorityBonus(user) +
+          patronBonus(user) +
+          titleBonus(user) +
+          nbGamesBonus(user)
+      }
 
-  private val userIdCache = asyncCache.multi[User.ID, Option[TrustedUser]](
-    name = "evalCache.userIdTrustCache  ",
-    f = userId => UserRepo named userId map2 makeTrusted,
-    expireAfter = _.ExpireAfterWrite(10 minutes),
-    resultTimeout = 10 seconds
-  )
+  private val userIdCache = cacheApi[User.ID, Option[TrustedUser]](256, "evalCache.userIdTrustCache") {
+    _.expireAfterWrite(10 minutes)
+      .buildAsyncFuture { userId =>
+        userRepo named userId map2 makeTrusted
+      }
+  }
 
   def cachedTrusted(userId: User.ID): Fu[Option[TrustedUser]] = userIdCache get userId
 

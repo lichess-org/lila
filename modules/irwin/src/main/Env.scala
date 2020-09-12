@@ -1,62 +1,40 @@
 package lila.irwin
 
 import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
 import scala.concurrent.duration._
 
+import lila.common.config._
 import lila.tournament.TournamentApi
 
 final class Env(
-    config: Config,
-    system: ActorSystem,
-    scheduler: lila.common.Scheduler,
     tournamentApi: TournamentApi,
     modApi: lila.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     userCache: lila.user.Cached,
+    gameRepo: lila.game.GameRepo,
+    userRepo: lila.user.UserRepo,
+    analysisRepo: lila.analyse.AnalysisRepo,
     settingStore: lila.memo.SettingStore.Builder,
-    db: lila.db.Env
+    db: lila.db.Db
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
 ) {
 
-  private val reportColl = db(config getString "collection.report")
+  private lazy val reportColl = db(CollName("irwin_report"))
 
-  lazy val irwinModeSetting = settingStore[String](
-    "irwinMode",
-    default = "none",
-    text = "Allow Irwin to: [mark|report|none]".some
-  )
+  lazy val irwinThresholdsSetting = IrwinThresholds makeSetting settingStore
 
-  val stream = new IrwinStream(system)
+  lazy val stream = wire[IrwinStream]
 
-  lazy val api = new IrwinApi(
-    reportColl = reportColl,
-    modApi = modApi,
-    reportApi = reportApi,
-    notifyApi = notifyApi,
-    mode = irwinModeSetting.get
-  )
+  lazy val api = wire[IrwinApi]
 
-  scheduler.future(5 minutes, "irwin tournament leaders") {
+  system.scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
     tournamentApi.allCurrentLeadersInStandard flatMap api.requests.fromTournamentLeaders
   }
-  scheduler.future(15 minutes, "irwin leaderboards") {
-    api.requests fromLeaderboard userCache.getTop50Online
+  system.scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
+    userCache.getTop50Online flatMap api.requests.fromLeaderboard
   }
-}
-
-object Env {
-
-  lazy val current: Env = "irwin" boot new Env(
-    db = lila.db.Env.current,
-    config = lila.common.PlayApp loadConfig "irwin",
-    tournamentApi = lila.tournament.Env.current.api,
-    modApi = lila.mod.Env.current.api,
-    reportApi = lila.report.Env.current.api,
-    notifyApi = lila.notify.Env.current.api,
-    userCache = lila.user.Env.current.cached,
-    settingStore = lila.memo.Env.current.settingStore,
-    scheduler = lila.common.PlayApp.scheduler,
-    system = lila.common.PlayApp.system
-  )
 }

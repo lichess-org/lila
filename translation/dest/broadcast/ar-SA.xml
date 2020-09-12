@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">البثوث</string>
+  <string name="liveBroadcasts">بث البطولة المباشرة</string>
+  <string name="newBroadcast">بث مباشر جديد</string>
+  <string name="ongoing">الجارية</string>
+  <string name="upcoming">القادمة</string>
+  <string name="completed">المكتملة</string>
+  <string name="eventName">إسم الحدث</string>
+  <string name="eventDescription">وصف مختصر</string>
+  <string name="fullDescription">الوصف الكامل</string>
+  <string name="fullDescriptionHelp">الوصف الاختياري الطويل للبث. %1$s متوفر. يجب أن لا يتجاوز طول النص %2$s حرفاً.</string>
+  <string name="sourceUrl">المصدر :</string>
+</resources>

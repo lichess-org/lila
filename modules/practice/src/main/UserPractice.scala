@@ -1,6 +1,6 @@
 package lila.practice
 
-import lila.study.{ Study, Chapter }
+import lila.study.{ Chapter, Study }
 
 case class UserPractice(
     structure: PracticeStructure,
@@ -17,7 +17,7 @@ case class UserPractice(
 
   lazy val nbDoneChapters = structure.chapterIds count progress.chapters.contains
 
-  lazy val progressPercent = nbDoneChapters * 100 / structure.nbChapters
+  lazy val progressPercent = nbDoneChapters * 100 / structure.nbChapters.atLeast(1)
 }
 
 case class UserStudy(

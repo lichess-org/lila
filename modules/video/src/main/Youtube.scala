@@ -2,57 +2,73 @@ package lila.video
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.StandaloneWSClient
+import scala.concurrent.Future
 
-private[video] final class Youtube(
+import lila.common.config._
+
+final private[video] class Youtube(
+    ws: StandaloneWSClient,
     url: String,
-    apiKey: String,
-    max: Int,
+    apiKey: Secret,
+    max: Max,
     api: VideoApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Youtube._
 
-  private implicit val readSnippet = Json.reads[Snippet]
-  private implicit val readStatistics = Json.reads[Statistics]
-  private implicit val readContentDetails = Json.reads[ContentDetails]
-  private implicit val readEntry = Json.reads[Entry]
-  private implicit val readEntries: Reads[Seq[Entry]] =
+  implicit private val readSnippet        = Json.reads[Snippet]
+  implicit private val readStatistics     = Json.reads[Statistics]
+  implicit private val readContentDetails = Json.reads[ContentDetails]
+  implicit private val readEntry          = Json.reads[Entry]
+  implicit private val readEntries: Reads[Seq[Entry]] =
     (__ \ "items").read(Reads seq readEntry)
 
-  def updateAll: Funit = fetch flatMap { entries =>
-    entries.map { entry =>
-      api.video.setMetadata(entry.id, Metadata(
-        views = ~parseIntOption(entry.statistics.viewCount),
-        likes = ~parseIntOption(entry.statistics.likeCount) -
-          ~parseIntOption(entry.statistics.dislikeCount),
-        description = entry.snippet.description,
-        duration = Some(entry.contentDetails.seconds),
-        publishedAt = entry.snippet.publishedAt.flatMap { at =>
-          scala.util.Try { new DateTime(at) }.toOption
+  def updateAll: Funit =
+    fetch flatMap { entries =>
+      Future
+        .traverse(entries) { entry =>
+          api.video
+            .setMetadata(
+              entry.id,
+              Metadata(
+                views = ~entry.statistics.viewCount.toIntOption,
+                likes = ~entry.statistics.likeCount.toIntOption -
+                  ~entry.statistics.dislikeCount.toIntOption,
+                description = entry.snippet.description,
+                duration = Some(entry.contentDetails.seconds),
+                publishedAt = entry.snippet.publishedAt.flatMap { at =>
+                  scala.util.Try { new DateTime(at) }.toOption
+                }
+              )
+            )
+            .recover {
+              case e: Exception => logger.warn("update all youtube", e)
+            }
         }
-      )).recover {
-        case e: Exception => logger.warn("update all youtube", e)
-      }
-    }.sequenceFu.void
-  }
+        .void
+    }
 
-  private def fetch: Fu[List[Entry]] = api.video.allIds flatMap { ids =>
-    WS.url(url).withQueryString(
-      "id" -> scala.util.Random.shuffle(ids).take(max).mkString(","),
-      "part" -> "id,statistics,snippet,contentDetails",
-      "key" -> apiKey
-    ).get() flatMap {
-        case res if res.status == 200 => readEntries reads res.json match {
-          case JsError(err) => fufail(err.toString)
-          case JsSuccess(entries, _) => fuccess(entries.toList)
-        }
+  private def fetch: Fu[List[Entry]] =
+    api.video.allIds flatMap { ids =>
+      ws.url(url)
+        .withQueryStringParameters(
+          "id"   -> lila.common.ThreadLocalRandom.shuffle(ids).take(max.value).mkString(","),
+          "part" -> "id,statistics,snippet,contentDetails",
+          "key"  -> apiKey.value
+        )
+        .get() flatMap {
+        case res if res.status == 200 =>
+          readEntries reads res.body[JsValue] match {
+            case JsError(err)          => fufail(err.toString)
+            case JsSuccess(entries, _) => fuccess(entries.toList)
+          }
         case res =>
           println(res.body)
           fufail(s"[video youtube] fetch ${res.status}")
       }
-  }
+    }
 }
 
 object Youtube {

@@ -1,28 +1,25 @@
 package views.html
 package round
 
-import play.api.libs.json.{ Json, JsObject }
+import play.api.libs.json.{ JsObject, Json }
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.HTTPRequest
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
-
-import controllers.routes
 
 object watcher {
 
   def apply(
-    pov: Pov,
-    data: JsObject,
-    tour: Option[lila.tournament.TourMiniView],
-    simul: Option[lila.simul.Simul],
-    cross: Option[lila.game.Crosstable.WithMatchup],
-    userTv: Option[lila.user.User] = None,
-    chatOption: Option[lila.chat.UserChat.Mine],
-    bookmarked: Boolean
+      pov: Pov,
+      data: JsObject,
+      tour: Option[lila.tournament.TourAndTeamVs],
+      simul: Option[lila.simul.Simul],
+      cross: Option[lila.game.Crosstable.WithMatchup],
+      userTv: Option[lila.user.User] = None,
+      chatOption: Option[lila.chat.UserChat.Mine],
+      bookmarked: Boolean
   )(implicit ctx: Context) = {
 
     val chatJson = chatOption map { c =>
@@ -30,7 +27,7 @@ object watcher {
         c.chat,
         name = trans.spectatorRoom.txt(),
         timeout = c.timeout,
-        withNote = ctx.isAuth,
+        withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
         public = true,
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
         palantir = ctx.me.exists(_.canPalantir)
@@ -39,41 +36,43 @@ object watcher {
 
     bits.layout(
       variant = pov.game.variant,
-      title = gameVsText(pov.game, withRatings = true),
+      title = s"${gameVsText(pov.game, withRatings = true)} • spectator",
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJsUnsafe(s"""lichess=window.lichess||{};customWS=true;onload=function(){
-LichessRound.boot(${
-          safeJsonValue(Json.obj(
+        embedJsUnsafeLoadThen(s"""LichessRound.boot(${safeJsonValue(
+          Json.obj(
             "data" -> data,
             "i18n" -> jsI18n(pov.game),
             "chat" -> chatJson
-          ))
-        })}""")
+          )
+        )})""")
       ),
       openGraph = povOpenGraph(pov).some,
       chessground = false
     )(
-        main(cls := "round")(
-          st.aside(cls := "round__side")(
-            bits.side(pov, data, tour, simul, userTv, bookmarked),
-            chatOption.map(_ => chat.frag)
-          ),
-          bits.roundAppPreload(pov, false),
-          div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
-          div(cls := "round__underchat")(bits underchat pov.game)
-        )
+      main(cls := "round")(
+        st.aside(cls := "round__side")(
+          bits.side(pov, data, tour, simul, userTv, bookmarked),
+          chatOption.map(_ => chat.frag)
+        ),
+        bits.roundAppPreload(pov, controls = false),
+        div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
+        div(cls := "round__underchat")(bits underchat pov.game)
       )
+    )
   }
 
-  def crawler(pov: Pov, initialFen: Option[chess.format.FEN], pgn: chess.format.pgn.Pgn)(implicit ctx: Context) =
+  def crawler(pov: Pov, initialFen: Option[chess.format.FEN], pgn: chess.format.pgn.Pgn)(implicit
+      ctx: Context
+  ) =
     bits.layout(
       variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
       openGraph = povOpenGraph(pov).some,
       chessground = false
-    )(frag(
+    )(
+      frag(
         main(cls := "round")(
           st.aside(cls := "round__side")(
             game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
@@ -85,5 +84,6 @@ LichessRound.boot(${
           ),
           div(cls := "round__board main-board")(chessground(pov))
         )
-      ))
+      )
+    )
 }

@@ -1,32 +1,19 @@
-const headers = {
-  'Accept': 'application/vnd.lichess.v3+json'
-};
+import * as xhr from 'common/xhr';
+import { Pool } from './interfaces';
 
-export function seeks() {
-  return $.ajax({
-    url: '/lobby/seeks',
-    headers: headers
-  });
-}
+export const seeks = () => xhr.json('/lobby/seeks');
 
-export function nowPlaying() {
-  return $.ajax({
-    url: '/account/now-playing',
-    headers: headers
-  }).then(o => o.nowPlaying);
-}
+export const nowPlaying = () => xhr.json('/account/now-playing').then(o => o.nowPlaying);
 
-export function anonPoolSeek(pool) {
-  return $.ajax({
+export const anonPoolSeek = (pool: Pool) =>
+  xhr.json('/setup/hook/' + window.lichess.sri, {
     method: 'POST',
-    url: '/setup/hook/' + window.lichess.StrongSocket.sri,
-    data: {
+    body: xhr.form({
       variant: 1,
       timeMode: 1,
       time: pool.lim,
       increment: pool.inc,
       days: 1,
       color: 'random'
-    }
+    })
   });
-}

@@ -26,11 +26,13 @@ final class PoolApi(
   }.toMap
 
   def join(poolId: PoolConfig.Id, joiner: Joiner) =
-    playbanApi.hasCurrentBan(joiner.userId) foreach {
-      case false => actors foreach {
-        case (id, actor) if id == poolId => playbanApi.getRageSit(joiner.userId).foreach(actor ! Join(joiner, _))
-        case (_, actor) => actor ! Leave(joiner.userId)
-      }
+    playbanApi.hasCurrentBan(joiner.userId) dforeach {
+      case false =>
+        actors foreach {
+          case (id, actor) if id == poolId =>
+            playbanApi.getRageSit(joiner.userId).dforeach(actor ! Join(joiner, _))
+          case (_, actor) => actor ! Leave(joiner.userId)
+        }
       case _ =>
     }
 

@@ -1,19 +1,11 @@
 var util = require('./util');
 
-var baseUrl = util.assetUrl + 'sound/';
-
-var make = function(file, volume) {
-  var sound = new Howl({
-    src: [
-      baseUrl + file + '.ogg',
-      baseUrl + file + '.mp3'
-    ],
-    volume: volume || 1
-  });
-  return function() {
-    if (lichess.sound.set() !== 'silent') sound.play();
+const make = (file, volume) => {
+  lichess.soundBox.loadOggOrMp3(file, `${window.lichess.soundUrl}/${file}`);
+  return () => {
+    if (lichess.sound.set() !== 'silent') lichess.soundBox.play(file, volume);
   };
-};
+}
 
 module.exports = {
   move: make('standard/Move'),

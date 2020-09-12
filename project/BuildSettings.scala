@@ -1,61 +1,99 @@
-import com.typesafe.sbt.SbtScalariform.autoImport.scalariformPreferences
-import play.sbt.Play.autoImport._
+import play.sbt.PlayImport._
 import sbt._, Keys._
-import scalariform.formatter.preferences._
+import bloop.integrations.sbt.BloopKeys.bloopGenerate
 
 object BuildSettings {
 
   import Dependencies._
 
-  val globalScalaVersion = "2.11.12"
+  val lilaVersion        = "3.2"
+  val globalScalaVersion = "2.13.3"
 
-  def buildSettings = Defaults.coreDefaultSettings ++ Seq(
-    organization := "org.lichess",
-    scalaVersion := globalScalaVersion,
-    resolvers ++= Dependencies.Resolvers.commons,
-    scalacOptions ++= compilerOptions,
-    javacOptions += "-Xlint:unchecked",
-    incOptions := incOptions.value.withNameHashing(true),
-    updateOptions := updateOptions.value.withCachedResolution(true),
-    sources in doc in Compile := List(),
-    // disable publishing the main API jar
-    publishArtifact in (Compile, packageDoc) := false,
-    // disable publishing the main sources jar
-    publishArtifact in (Compile, packageSrc) := false,
-    scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
-  )
+  val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
+  if (useEpoll) println("--- epoll build ---")
 
-  def scalariformPrefs(prefs: IFormattingPreferences) = prefs
-    .setPreference(DanglingCloseParenthesis, Force)
-    .setPreference(DoubleIndentConstructorArguments, true)
+  def buildSettings =
+    Defaults.coreDefaultSettings ++ Seq(
+      version := lilaVersion,
+      organization := "org.lichess",
+      resolvers += lilaMaven,
+      scalaVersion := globalScalaVersion,
+      scalacOptions ++= compilerOptions,
+      // No bloop project for tests
+      bloopGenerate in Test := None,
+      // disable publishing doc and sources
+      sources in (Compile, doc) := Seq.empty,
+      publishArtifact in (Compile, packageDoc) := false,
+      publishArtifact in (Compile, packageSrc) := false
+    )
 
-  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, ws, java8compat, specs2, specs2Scalaz)
+  lazy val defaultLibs: Seq[ModuleID] =
+    akka.bundle ++ macwire.bundle ++ Seq(
+      play.api,
+      chess,
+      scalalib,
+      jodaTime,
+      autoconfig
+    )
 
-  def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
-  def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
-
-  def module(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
+  def smallModule(
+      name: String,
+      deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
+      libs: Seq[ModuleID]
+  ) =
     Project(
       name,
       file("modules/" + name)
-    )
-      .dependsOn(deps: _*)
+    ).dependsOn(deps: _*)
       .settings(
-        version := "2.0",
-        libraryDependencies ++= defaultDeps,
+        libraryDependencies ++= libs,
         buildSettings,
         srcMain
       )
 
+  def module(
+      name: String,
+      deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
+      libs: Seq[ModuleID]
+  ) =
+    smallModule(name, deps, defaultLibs ++ libs)
+
   val compilerOptions = Seq(
-    "-deprecation", "-unchecked", "-feature", "-language:_",
-    "-Xfatal-warnings",
-    "-Ywarn-dead-code",
-    // "-Ywarn-unused-import",
-    // "-Ywarn-unused",
-    // "-Xlint:missing-interpolator",
-    // "-Ywarn-unused-import",
-    "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8"
+    "-explaintypes",
+    "-feature",
+    "-language:higherKinds",
+    "-language:implicitConversions",
+    "-language:postfixOps",
+    "-Ymacro-annotations",
+    // Warnings as errors!
+    // "-Xfatal-warnings",
+    // Linting options
+    "-unchecked",
+    "-Xcheckinit",
+    "-Xlint:adapted-args",
+    "-Xlint:constant",
+    "-Xlint:delayedinit-select",
+    "-Xlint:deprecation",
+    "-Xlint:inaccessible",
+    "-Xlint:infer-any",
+    "-Xlint:missing-interpolator",
+    "-Xlint:nullary-unit",
+    "-Xlint:option-implicit",
+    "-Xlint:package-object-classes",
+    "-Xlint:poly-implicit-overload",
+    "-Xlint:private-shadow",
+    "-Xlint:stars-align",
+    "-Xlint:type-parameter-shadow",
+    "-Wdead-code",
+    "-Wextra-implicit",
+    // "-Wnumeric-widen",
+    "-Wunused:imports",
+    "-Wunused:locals",
+    "-Wunused:patvars"
+    // "-Wunused:privates", // unfortunately doesn't work with macros
+    // "-Wunused:implicits",
+    // "-Wunused:params"
+    // "-Wvalue-discard",
   )
 
   val srcMain = Seq(

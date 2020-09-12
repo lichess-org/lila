@@ -1,5 +1,5 @@
-import sanWriter from './sanWriter';
-import { DecodedDests } from '../interfaces';
+import { sanWriter, SanToUci } from './sanWriter';
+import { Dests } from '../interfaces';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
@@ -17,28 +17,32 @@ type Submit = (v: string, submitOpts: SubmitOpts) => void;
 window.lichess.keyboardMove = function(opts: any) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
-  let sans: any = null;
+  let legalSans: SanToUci | null = null;
 
   const submit: Submit = function(v: string, submitOpts: SubmitOpts) {
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
-    const foundUci = v.length >= 2 && sans && sanToUci(v, sans);
-    if (foundUci) {
+    const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
+    if (v == 'resign') {
+      opts.ctrl.resign(true, true);
+      clear();
+    }
+    else if (legalSans && foundUci) {
       // ambiguous castle
-      if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !submitOpts.force) return;
+      if (v.toLowerCase() === 'o-o' && legalSans['O-O-O'] && !submitOpts.force) return;
       // ambiguous UCI
       if (v.match(keyRegex) && opts.ctrl.hasSelected()) opts.ctrl.select(v);
-      // ambiguous promotion (also check sans[v] here because bc8 could mean Bc8)
-      if (v.match(ambiguousPromotionCaptureRegex) && sans[v] && !submitOpts.force) return;
+      // ambiguous promotion (also check legalSans[v] here because bc8 could mean Bc8)
+      if (v.match(ambiguousPromotionCaptureRegex) && legalSans[v] && !submitOpts.force) return;
       else opts.ctrl.san(foundUci.slice(0, 2), foundUci.slice(2));
       clear();
-    } else if (sans && v.match(keyRegex)) {
+    } else if (legalSans && v.match(keyRegex)) {
       opts.ctrl.select(v);
       clear();
-    } else if (sans && v.match(fileRegex)) {
+    } else if (legalSans && v.match(fileRegex)) {
       // do nothing
-    } else if (sans && v.match(promotionRegex)) {
-      const foundUci = sanToUci(v.replace('=', '').slice(0, -1), sans);
+    } else if (legalSans && v.match(promotionRegex)) {
+      const foundUci = sanToUci(v.replace('=', '').slice(0, -1), legalSans);
       if (!foundUci) return;
       opts.ctrl.promote(foundUci.slice(0, 2), foundUci.slice(2), v.slice(-1).toUpperCase());
       clear();
@@ -56,7 +60,7 @@ window.lichess.keyboardMove = function(opts: any) {
       opts.input.value = '';
     }
     else {
-      const wrong = v.length && sans && !sanCandidates(v, sans).length;
+      const wrong = v.length && legalSans && !sanCandidates(v, legalSans).length;
       if (wrong && !opts.input.classList.contains('wrong')) window.lichess.sound.error();
       opts.input.classList.toggle('wrong', wrong);
     }
@@ -66,8 +70,8 @@ window.lichess.keyboardMove = function(opts: any) {
     opts.input.classList.remove('wrong');
   };
   makeBindings(opts, submit, clear);
-  return function(fen: string, dests: DecodedDests, yourMove: boolean) {
-    sans = dests && Object.keys(dests).length ? sanWriter(fen, destsToUcis(dests)) : null;
+  return function(fen: string, dests: Dests | undefined, yourMove: boolean) {
+    legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     submit(opts.input.value, {
       server: true,
       yourMove: yourMove
@@ -113,28 +117,28 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
   });
 }
 
-function sanToUci(san: string, sans: DecodedDests): Key[] | undefined {
-  if (san in sans) return sans[san];
+function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
+  if (san in legalSans) return legalSans[san];
   const lowered = san.toLowerCase();
-  for (let i in sans)
-    if (i.toLowerCase() === lowered) return sans[i];
+  for (let i in legalSans)
+    if (i.toLowerCase() === lowered) return legalSans[i];
   return;
 }
 
-function sanCandidates(san: string, sans: DecodedDests) {
+function sanCandidates(san: string, legalSans: SanToUci): San[] {
   const lowered = san.toLowerCase();
-  return Object.keys(sans).filter(function(s) {
+  return Object.keys(legalSans).filter(function(s) {
     return s.toLowerCase().startsWith(lowered);
   });
 }
 
-function destsToUcis(dests: DecodedDests) {
+function destsToUcis(dests: Dests): Uci[] {
   const ucis: string[] = [];
-  Object.keys(dests).forEach(function(orig) {
-    dests[orig].forEach(function(dest) {
+  for (const [orig, d] of dests) {
+    d.forEach(function(dest) {
       ucis.push(orig + dest);
     });
-  });
+  }
   return ucis;
 }
 

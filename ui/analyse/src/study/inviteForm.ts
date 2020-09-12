@@ -7,12 +7,12 @@ import { StudyMemberMap } from './interfaces';
 
 export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void, trans: Trans) {
   const open = prop(false);
-  let followings = [];
-  let spectators = [];
-  function updateFollowings(f) {
-    followings = f(followings);
+  let followings: string[] = [];
+  let spectators: string[] = [];
+  window.lichess.pubsub.on('socket.in.following_onlines', (us: string[]) => {
+    followings = us;
     if (open()) redraw();
-  };
+  });
   return {
     open,
     candidates() {
@@ -23,29 +23,14 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
       }).sort();
     },
     members,
-    setSpectators(usernames) {
+    setSpectators(usernames: string[]) {
       spectators = usernames;
-    },
-    setFollowings(usernames) {
-      updateFollowings(_ => usernames)
-    },
-    delFollowing(username) {
-      updateFollowings(function(prevs) {
-        return prevs.filter(function(u) {
-          return username !== u;
-        });
-      });
-    },
-    addFollowing(username) {
-      updateFollowings(function(prevs) {
-        return prevs.concat([username]);
-      });
     },
     toggle() {
       open(!open());
       if (open()) send('following_onlines');
     },
-    invite(titleName) {
+    invite(titleName: string) {
       send("invite", titleNameToId(titleName));
       setTab();
     },
@@ -71,8 +56,8 @@ export function view(ctrl): VNode {
           hook: onInsert<HTMLInputElement>(el => {
             window.lichess.userAutocomplete($(el), {
               tag: 'span',
-              onSelect(v) {
-                ctrl.invite(v.name);
+              onSelect(v: any) {
+                ctrl.invite(v.name || v);
                 $(el).typeahead('close');
                 el.value = '';
                 ctrl.redraw();
@@ -81,7 +66,7 @@ export function view(ctrl): VNode {
           })
         })
       ]),
-      candidates.length ? h('div.users', candidates.map(function(username) {
+      candidates.length ? h('div.users', candidates.map(function(username: string) {
         return h('span.button.button-metal', {
           key: username,
           hook: bind('click', _ => ctrl.invite(username))

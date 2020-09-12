@@ -1,157 +1,190 @@
 package lila.tournament
 
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, PushField, Sort, AvgField }
-import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
-import reactivemongo.bson._
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.api._
+import reactivemongo.api.bson._
 
 import BSONHandlers._
-import lila.common.MaxPerSecond
 import lila.db.dsl._
-import lila.hub.lightTeam.TeamId
+import lila.hub.LightTeam.TeamID
 import lila.rating.Perf
-import lila.user.{ User, Perfs }
+import lila.user.{ Perfs, User }
 
-object PlayerRepo {
+final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private lazy val coll = Env.current.playerColl
-
-  private def selectId(id: Tournament.ID) = $doc("_id" -> id)
+  private def selectId(id: Tournament.ID)       = $doc("_id" -> id)
   private def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
-  private def selectTourUser(tourId: Tournament.ID, userId: User.ID) = $doc(
-    "tid" -> tourId,
-    "uid" -> userId
-  )
-  private val selectActive = $doc("w" $ne true)
+  private def selectTourUser(tourId: Tournament.ID, userId: User.ID) =
+    $doc(
+      "tid" -> tourId,
+      "uid" -> userId
+    )
+  private val selectActive   = $doc("w" $ne true)
   private val selectWithdraw = $doc("w" -> true)
-  private val bestSort = $doc("m" -> -1)
+  private val bestSort       = $doc("m" -> -1)
 
-  def byId(id: Tournament.ID): Fu[Option[Player]] = coll.uno[Player](selectId(id))
+  def byId(id: Tournament.ID): Fu[Option[Player]] = coll.one[Player](selectId(id))
 
   private[tournament] def bestByTour(tourId: Tournament.ID, nb: Int, skip: Int = 0): Fu[List[Player]] =
-    coll.find(selectTour(tourId)).sort(bestSort).skip(skip).list[Player](nb)
+    coll.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player]().list(nb)
 
-  private[tournament] def bestByTourWithRank(tourId: Tournament.ID, nb: Int, skip: Int = 0): Fu[RankedPlayers] =
+  private[tournament] def bestByTourWithRank(
+      tourId: Tournament.ID,
+      nb: Int,
+      skip: Int = 0
+  ): Fu[RankedPlayers] =
     bestByTour(tourId, nb, skip).map { res =>
-      res.foldRight(List.empty[RankedPlayer] -> (res.size + skip)) {
-        case (p, (res, rank)) => (RankedPlayer(rank, p) :: res, rank - 1)
-      }._1
+      res
+        .foldRight(List.empty[RankedPlayer] -> (res.size + skip)) {
+          case (p, (res, rank)) => (RankedPlayer(rank, p) :: res, rank - 1)
+        }
+        ._1
     }
 
-  private[tournament] def bestByTourWithRankByPage(tourId: Tournament.ID, nb: Int, page: Int): Fu[RankedPlayers] =
+  private[tournament] def bestByTourWithRankByPage(
+      tourId: Tournament.ID,
+      nb: Int,
+      page: Int
+  ): Fu[RankedPlayers] =
     bestByTourWithRank(tourId, nb, (page - 1) * nb)
 
   // very expensive
-  private[tournament] def bestTeamIdsByTour(tourId: Tournament.ID, battle: TeamBattle): Fu[List[TeamBattle.RankedTeam]] = {
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+  private[tournament] def bestTeamIdsByTour(
+      tourId: Tournament.ID,
+      battle: TeamBattle
+  ): Fu[List[TeamBattle.RankedTeam]] = {
     import TeamBattle.{ RankedTeam, TeamLeader }
-    coll.aggregateList(
-      Match(selectTour(tourId)),
-      List(
-        Sort(Descending("m")),
-        GroupField("t")(
-          "m" -> Push($doc(
-            "u" -> "$uid",
-            "m" -> "$m"
-          ))
-        ),
-        Project($doc(
-          "p" -> $doc(
-            "$slice" -> $arr("$m", battle.nbLeaders)
+    coll
+      .aggregateList(maxDocs = 10) { framework =>
+        import framework._
+        Match(selectTour(tourId)) -> List(
+          Sort(Descending("m")),
+          GroupField("t")(
+            "m" -> Push(
+              $doc(
+                "u" -> "$uid",
+                "m" -> "$m"
+              )
+            )
+          ),
+          Project(
+            $doc(
+              "p" -> $doc(
+                "$slice" -> $arr("$m", battle.nbLeaders)
+              )
+            )
           )
-        ))
-      ),
-      maxDocs = 10
-    ).map {
+        )
+      }
+      .map {
         _.flatMap { doc =>
           for {
-            teamId <- doc.getAs[TeamId]("_id")
-            leadersBson <- doc.getAs[List[Bdoc]]("p")
-            leaders = leadersBson.flatMap {
-              case p: Bdoc => for {
-                id <- p.getAs[User.ID]("u")
-                magic <- p.getAs[Int]("m")
+            teamId      <- doc.getAsOpt[TeamID]("_id")
+            leadersBson <- doc.getAsOpt[List[Bdoc]]("p")
+            leaders = leadersBson.flatMap { p: Bdoc =>
+              for {
+                id    <- p.getAsOpt[User.ID]("u")
+                magic <- p.int("m")
               } yield TeamLeader(id, magic)
             }
-          } yield RankedTeam(0, teamId, leaders)
-        }.sortBy(-_.magicScore).zipWithIndex map {
-          case (rt, pos) => rt.copy(rank = pos + 1)
+          } yield new RankedTeam(0, teamId, leaders)
+        }.sorted.zipWithIndex map {
+          case (rt, pos) => rt.updateRank(pos + 1)
         }
       } map { ranked =>
-        if (ranked.size == battle.teams.size) ranked
-        else ranked ::: battle.teams.foldLeft(List.empty[RankedTeam]) {
-          case (missing, team) if !ranked.exists(_.teamId == team) =>
-            RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, Nil) :: missing
-          case (acc, _) => acc
-        }.reverse
-      }
+      if (ranked.sizeIs == battle.teams.size) ranked
+      else
+        ranked ::: battle.teams
+          .foldLeft(List.empty[RankedTeam]) {
+            case (missing, team) if !ranked.exists(_.teamId == team) =>
+              new RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, Nil, 0) :: missing
+            case (acc, _) => acc
+          }
+          .reverse
+    }
   }
+
   // very expensive
-  private[tournament] def teamInfo(tourId: Tournament.ID, teamId: TeamId, battle: TeamBattle): Fu[TeamBattle.TeamInfo] = {
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregateOne(
-      Match(selectTour(tourId) ++ $doc("t" -> teamId)),
-      List(
-        Sort(Descending("m")),
-        Facet($doc(
-          "agg" -> $arr($doc(
-            "$group" -> $doc(
-              "_id" -> BSONNull,
-              "nb" -> $doc("$sum" -> 1),
-              "rating" -> $doc("$avg" -> "$r"),
-              "perf" -> $doc("$avg" -> "$e"),
-              "score" -> $doc("$avg" -> "$s")
+  private[tournament] def teamInfo(
+      tourId: Tournament.ID,
+      teamId: TeamID
+  ): Fu[TeamBattle.TeamInfo] = {
+    coll
+      .aggregateWith[Bdoc]() { framework =>
+        import framework._
+        List(
+          Match(selectTour(tourId) ++ $doc("t" -> teamId)),
+          Sort(Descending("m")),
+          Facet(
+            List(
+              "agg" -> List(
+                Group(BSONNull)(
+                  "nb"     -> SumAll,
+                  "rating" -> AvgField("r"),
+                  "perf"   -> AvgField("e"),
+                  "score"  -> AvgField("s")
+                )
+              ),
+              "topPlayers" -> List(Limit(50))
             )
-          )),
-          "topPlayers" -> $arr($doc("$limit" -> 50))
-        ))
-      )
-    ).map {
+          )
+        )
+      }
+      .headOption
+      .map {
         _.flatMap { doc =>
           for {
-            aggs <- doc.getAs[List[Bdoc]]("agg")
-            agg <- aggs.headOption
-            nbPlayers <- agg.getAs[Int]("nb")
-            rating = agg.getAs[Double]("rating").??(math.round)
-            perf = agg.getAs[Double]("perf").??(math.round)
-            score = agg.getAs[Double]("score").??(math.round)
-            topPlayers <- doc.getAs[List[Player]]("topPlayers")
+            aggs      <- doc.getAsOpt[List[Bdoc]]("agg")
+            agg       <- aggs.headOption
+            nbPlayers <- agg.int("nb")
+            rating = agg.double("rating").??(math.round)
+            perf   = agg.double("perf").??(math.round)
+            score  = agg.double("score").??(math.round)
+            topPlayers <- doc.getAsOpt[List[Player]]("topPlayers")
           } yield TeamBattle.TeamInfo(teamId, nbPlayers, rating.toInt, perf.toInt, score.toInt, topPlayers)
         } | TeamBattle.TeamInfo(teamId, 0, 0, 0, 0, Nil)
       }
   }
 
-  def bestTeamPlayers(tourId: Tournament.ID, teamId: TeamId, nb: Int): Fu[List[Player]] =
-    coll.find($doc("tid" -> tourId, "t" -> teamId)).sort($sort desc "m").list[Player](nb)
+  def bestTeamPlayers(tourId: Tournament.ID, teamId: TeamID, nb: Int): Fu[List[Player]] =
+    coll.find($doc("tid" -> tourId, "t" -> teamId)).sort($sort desc "m").cursor[Player]().list(nb)
 
-  def countTeamPlayers(tourId: Tournament.ID, teamId: TeamId): Fu[Int] =
+  def countTeamPlayers(tourId: Tournament.ID, teamId: TeamID): Fu[Int] =
     coll.countSel($doc("tid" -> tourId, "t" -> teamId))
 
-  def teamsOfPlayers(tourId: Tournament.ID, userIds: List[User.ID]): Fu[List[(User.ID, TeamId)]] =
-    coll.find($doc("tid" -> tourId, "uid" $in userIds), $doc("_id" -> false, "uid" -> true, "t" -> true))
-      .list[Bdoc]()
+  def teamsOfPlayers(tourId: Tournament.ID, userIds: Seq[User.ID]): Fu[List[(User.ID, TeamID)]] =
+    coll
+      .find($doc("tid" -> tourId, "uid" $in userIds), $doc("_id" -> false, "uid" -> true, "t" -> true).some)
+      .cursor[Bdoc]()
+      .list()
       .map {
         _.flatMap { doc =>
-          doc.getAs[User.ID]("uid") flatMap { userId =>
-            doc.getAs[TeamId]("t") map { (userId, _) }
+          doc.getAsOpt[User.ID]("uid") flatMap { userId =>
+            doc.getAsOpt[TeamID]("t") map { (userId, _) }
           }
         }
       }
+
+  def teamVs(tourId: Tournament.ID, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
+    game.twoUserIds ?? {
+      case (w, b) =>
+        teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
+          import cats.implicits._
+          (m.get(w), m.get(b)).mapN((_, _)) ?? {
+            case (wt, bt) => TeamBattle.TeamVs(chess.Color.Map(wt, bt)).some
+          }
+        }
+    }
 
   def countActive(tourId: Tournament.ID): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)
 
   def count(tourId: Tournament.ID): Fu[Int] = coll.countSel(selectTour(tourId))
 
-  def removeByTour(tourId: Tournament.ID) = coll.remove(selectTour(tourId)).void
+  def removeByTour(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId)).void
 
   def remove(tourId: Tournament.ID, userId: User.ID) =
-    coll.remove(selectTourUser(tourId, userId)).void
-
-  def filterExists(tourIds: List[Tournament.ID], userId: User.ID): Fu[List[Tournament.ID]] =
-    coll.primitive[Tournament.ID]($doc(
-      "tid" $in tourIds,
-      "uid" -> userId
-    ), "tid")
+    coll.delete.one(selectTourUser(tourId, userId)).void
 
   def existsActive(tourId: Tournament.ID, userId: User.ID) =
     coll.exists(selectTourUser(tourId, userId) ++ selectActive)
@@ -159,50 +192,52 @@ object PlayerRepo {
   def exists(tourId: Tournament.ID, userId: User.ID) =
     coll.exists(selectTourUser(tourId, userId))
 
-  def unWithdraw(tourId: Tournament.ID) = coll.update(
-    selectTour(tourId) ++ selectWithdraw,
-    $doc("$unset" -> $doc("w" -> true)),
-    multi = true
-  ).void
+  def unWithdraw(tourId: Tournament.ID) =
+    coll.update
+      .one(
+        selectTour(tourId) ++ selectWithdraw,
+        $doc("$unset" -> $doc("w" -> true)),
+        multi = true
+      )
+      .void
 
   def find(tourId: Tournament.ID, userId: User.ID): Fu[Option[Player]] =
-    coll.find(selectTourUser(tourId, userId)).uno[Player]
+    coll.find(selectTourUser(tourId, userId)).one[Player]
 
   def update(tourId: Tournament.ID, userId: User.ID)(f: Player => Fu[Player]) =
-    find(tourId, userId) flatten s"No such player: $tourId/$userId" flatMap f flatMap { player =>
-      coll.update(selectId(player._id), player).void
+    find(tourId, userId) orFail s"No such player: $tourId/$userId" flatMap f flatMap { player =>
+      coll.update.one(selectId(player._id), player).void
     }
 
-  def join(tourId: Tournament.ID, user: User, perfLens: Perfs => Perf, team: Option[TeamId]) =
+  def join(tourId: Tournament.ID, user: User, perfLens: Perfs => Perf, team: Option[TeamID]) =
     find(tourId, user.id) flatMap {
-      case Some(p) if p.withdraw => coll.update(selectId(p._id), $unset("w"))
-      case Some(p) => funit
-      case None => coll.insert(Player.make(tourId, user, perfLens, team))
+      case Some(p) if p.withdraw => coll.update.one(selectId(p._id), $unset("w"))
+      case Some(_)               => funit
+      case None                  => coll.insert.one(Player.make(tourId, user, perfLens, team))
     } void
 
   def withdraw(tourId: Tournament.ID, userId: User.ID) =
-    coll.update(selectTourUser(tourId, userId), $set("w" -> true)).void
+    coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
 
   private[tournament] def withPoints(tourId: Tournament.ID): Fu[List[Player]] =
-    coll.find(
+    coll.list[Player](
       selectTour(tourId) ++ $doc("m" $gt 0)
-    ).list[Player]()
-
-  private[tournament] def userIds(tourId: Tournament.ID): Fu[List[User.ID]] =
-    coll.distinct[User.ID, List]("uid", selectTour(tourId).some)
+    )
 
   private[tournament] def nbActiveUserIds(tourId: Tournament.ID): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)
 
   def winner(tourId: Tournament.ID): Fu[Option[Player]] =
-    coll.find(selectTour(tourId)).sort(bestSort).uno[Player]
+    coll.find(selectTour(tourId)).sort(bestSort).one[Player]
 
   // freaking expensive (marathons)
   private[tournament] def computeRanking(tourId: Tournament.ID): Fu[Ranking] =
-    coll.aggregateOne(Match(selectTour(tourId)), List(
-      Sort(Descending("m")),
-      Group(BSONNull)("uids" -> PushField("uid"))
-    )) map {
+    coll
+      .aggregateWith[Bdoc]() { framework =>
+        import framework._
+        List(Match(selectTour(tourId)), Sort(Descending("m")), Group(BSONNull)("uids" -> PushField("uid")))
+      }
+      .headOption map {
       _ ?? {
         _ get "uids" match {
           case Some(BSONArray(uids)) =>
@@ -210,10 +245,10 @@ object PlayerRepo {
             val b = Map.newBuilder[User.ID, Int]
             var r = 0
             for (u <- uids) {
-              b += (u.get.asInstanceOf[BSONString].value -> r)
+              b += (u.asInstanceOf[BSONString].value -> r)
               r = r + 1
             }
-            b.result
+            b.result()
           case _ => Map.empty
         }
       }
@@ -224,44 +259,57 @@ object PlayerRepo {
 
   // expensive, cache it
   private[tournament] def averageRating(tourId: Tournament.ID): Fu[Int] =
-    coll.aggregateOne(Match(selectTour(tourId)), List(
-      Group(BSONNull)("rating" -> AvgField("r"))
-    )) map {
-      ~_.flatMap(_.getAs[Double]("rating").map(_.toInt))
+    coll
+      .aggregateWith[Bdoc]() { framework =>
+        import framework._
+        List(Match(selectTour(tourId)), Group(BSONNull)("rating" -> AvgField("r")))
+      }
+      .headOption map {
+      ~_.flatMap(_.double("rating").map(_.toInt))
     }
 
   def byTourAndUserIds(tourId: Tournament.ID, userIds: Iterable[User.ID]): Fu[List[Player]] =
-    coll.find(selectTour(tourId) ++ $doc("uid" $in userIds))
-      .list[Player]()
-      .chronometer.logIfSlow(200, logger) { players =>
+    coll
+      .list[Player](selectTour(tourId) ++ $doc("uid" $in userIds))
+      .chronometer
+      .logIfSlow(200, logger) { players =>
         s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"
-      }.result
+      }
+      .result
 
   def pairByTourAndUserIds(tourId: Tournament.ID, id1: User.ID, id2: User.ID): Fu[Option[(Player, Player)]] =
     byTourAndUserIds(tourId, List(id1, id2)) map {
       case List(p1, p2) if p1.is(id1) && p2.is(id2) => Some(p1 -> p2)
       case List(p1, p2) if p1.is(id2) && p2.is(id1) => Some(p2 -> p1)
-      case _ => none
+      case _                                        => none
     }
 
   def setPerformance(player: Player, performance: Int) =
-    coll.update(selectId(player.id), $doc("$set" -> $doc("e" -> performance))).void
+    coll.update.one(selectId(player.id), $doc("$set" -> $doc("e" -> performance))).void
 
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
-    players.flatMap { p =>
-      ranking get p.userId map { RankedPlayer(_, p) }
-    }.sortBy(_.rank)
+    players
+      .flatMap { p =>
+        ranking get p.userId map { RankedPlayer(_, p) }
+      }
+      .sortBy(_.rank)
 
-  def rankedByTourAndUserIds(tourId: Tournament.ID, userIds: Iterable[User.ID], ranking: Ranking): Fu[RankedPlayers] =
-    byTourAndUserIds(tourId, userIds).map { rankPlayers(_, ranking) }
+  def rankedByTourAndUserIds(
+      tourId: Tournament.ID,
+      userIds: Iterable[User.ID],
+      ranking: Ranking
+  ): Fu[RankedPlayers] =
+    byTourAndUserIds(tourId, userIds)
+      .map { rankPlayers(_, ranking) }
       .chronometer
       .logIfSlow(200, logger) { players =>
         s"PlayerRepo.rankedByTourAndUserIds $tourId ${userIds.size} user IDs, ${ranking.size} ranking, ${players.size} players"
-      }.result
+      }
+      .result
 
   def searchPlayers(tourId: Tournament.ID, term: String, nb: Int): Fu[List[User.ID]] =
     User.couldBeUsername(term) ?? {
-      term.nonEmpty ?? coll.primitive[User.ID](
+      coll.primitive[User.ID](
         selector = $doc(
           "tid" -> tourId,
           "uid" $startsWith term.toLowerCase
@@ -272,14 +320,15 @@ object PlayerRepo {
       )
     }
 
-  private[tournament] def cursor(
-    tournamentId: Tournament.ID,
-    batchSize: Int,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Player]): cp.ProducedCursor = {
-    val query = coll
+  private[tournament] def sortedCursor(
+      tournamentId: Tournament.ID,
+      batchSize: Int,
+      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  ): AkkaStreamCursor[Player] =
+    coll
       .find(selectTour(tournamentId))
       .sort($sort desc "m")
-    query.copy(options = query.options.batchSize(batchSize)).cursor[Player](readPreference)
-  }
+      .batchSize(batchSize)
+      .cursor[Player](readPreference)
+
 }

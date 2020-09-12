@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="isLichessLagging">리체스에 렉이 있나요?</string>
+  <string name="measurementInProgressThreeDot">측정중</string>
+  <string name="noAndYourNetworkIsGood">아니오. 그리고 귀하의 네트워크도 좋습니다.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">아니오. 하지만 귀하의 네트워크가 좋지 않습니다.</string>
+  <string name="yesItWillBeFixedSoon">네. 금방 고쳐질 것입니다.</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">게임에 걸리는 렉은 두개의 서로 상관이 없는 (낮을수록 좋은) 수치로 정해집니다.</string>
+  <string name="lichessServerLatency">리체스 서버 지연</string>
+  <string name="lichessServerLatencyExplanation">서버에서 수를 처리하는데 걸리는 시간. 이 시간은 모두에게 같으며 리체스 서버의 접속량에 따라 정해집니다. 리체스에 회원이 많아질수록 올라가지만 리체스 개발자는 이 수치를 최소화하려고 노력하고 있습니다. 보통 10ms를 넘지 않습니다.</string>
+  <string name="networkBetweenLichessAndYou">리체스와 귀하의 컴퓨터 사이의 네트워크</string>
+  <string name="networkBetweenLichessAndYouExplanation">귀하의 컴퓨터에서 리체스 서버에 수를 보내고 응답을 받는데 걸리는 시간. 귀하의 리체스 서버 (프랑스) 와의 거리와 귀하의 인터넷 연결 상태에 따라 정해집니다. 리체스 개발자가 고칠 수 없는 부분입니다.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">아이디를 클릭해서 두개의 수치를 확인할 수 있습니다.</string>
+  <string name="lagCompensation">렉 보상</string>
+  <string name="lagCompensationExplanation">리체스는 렉에 대한 보상을 합니다. 지속되는 렉과 갑자기 일어나는 렉에 대해 최대한 공평하게 보상을 하고 있습니다. 그렇기 때문에 상대보다 네트워크에 렉이 심해도 크게 불리해지지 않습니다.</string>
+</resources>

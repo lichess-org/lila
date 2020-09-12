@@ -9,48 +9,68 @@ import controllers.routes
 
 object list {
 
-  def search(text: String, teams: Paginator[lila.team.Team])(implicit ctx: Context) = list(
-    name = trans.search.txt() + " \"" + text + "\"",
-    teams = teams,
-    nextPageUrl = n => routes.Team.search(text, n).url,
-    tab = "all",
-    search = text
-  )
+  import trans.team._
 
-  def all(teams: Paginator[lila.team.Team])(implicit ctx: Context) = list(
-    name = trans.teams.txt(),
-    teams = teams,
-    nextPageUrl = n => routes.Team.all(n).url,
-    tab = "all"
-  )
+  def search(text: String, teams: Paginator[lila.team.Team])(implicit ctx: Context) =
+    list(
+      name = s"""${trans.search.search.txt()} "$text"""",
+      teams = teams,
+      nextPageUrl = n => routes.Team.search(text, n).url,
+      search = text
+    )
+
+  def all(teams: Paginator[lila.team.Team])(implicit ctx: Context) =
+    list(
+      name = trans.team.teams.txt(),
+      teams = teams,
+      nextPageUrl = n => routes.Team.all(n).url
+    )
 
   def mine(teams: List[lila.team.Team])(implicit ctx: Context) =
-    bits.layout(title = trans.myTeams.txt()) {
+    bits.layout(title = myTeams.txt()) {
       main(cls := "team-list page-menu")(
         bits.menu("mine".some),
         div(cls := "page-menu__content box")(
-          h1(trans.myTeams()),
+          h1(myTeams()),
+          standardFlash(),
           table(cls := "slist slist-pad")(
-            if (teams.size > 0) tbody(teams.map(bits.teamTr(_)))
+            if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))
             else noTeam()
           )
         )
       )
     }
 
-  private def noTeam()(implicit ctx: Context) = tbody(
-    tr(td(colspan := "2")(
-      br,
-      trans.noTeamFound()
-    ))
-  )
+  def ledByMe(teams: List[lila.team.Team])(implicit ctx: Context) =
+    bits.layout(title = myTeams.txt()) {
+      main(cls := "team-list page-menu")(
+        bits.menu("leader".some),
+        div(cls := "page-menu__content box")(
+          h1(teamsIlead()),
+          standardFlash(),
+          table(cls := "slist slist-pad")(
+            if (teams.nonEmpty) tbody(teams.map(bits.teamTr(_)))
+            else noTeam()
+          )
+        )
+      )
+    }
+
+  private def noTeam()(implicit ctx: Context) =
+    tbody(
+      tr(
+        td(colspan := "2")(
+          br,
+          noTeamFound()
+        )
+      )
+    )
 
   private def list(
-    name: String,
-    teams: Paginator[lila.team.Team],
-    nextPageUrl: Int => String,
-    tab: String,
-    search: String = ""
+      name: String,
+      teams: Paginator[lila.team.Team],
+      nextPageUrl: Int => String,
+      search: String = ""
   )(implicit ctx: Context) =
     bits.layout(title = "%s - page %d".format(name, teams.currentPage)) {
       main(cls := "team-list page-menu")(
@@ -60,16 +80,17 @@ object list {
             h1(name),
             div(cls := "box__top__actions")(
               st.form(cls := "search", action := routes.Team.search())(
-                input(st.name := "text", value := search, placeholder := trans.search.txt())
+                input(st.name := "text", value := search, placeholder := trans.search.search.txt())
               )
             )
           ),
+          standardFlash(),
           table(cls := "slist slist-pad")(
-            if (teams.nbResults > 0) tbody(cls := "infinitescroll")(
-              pagerNext(teams, nextPageUrl),
-              tr,
-              teams.currentPageResults map { bits.teamTr(_) }
-            )
+            if (teams.nbResults > 0)
+              tbody(cls := "infinitescroll")(
+                pagerNextTable(teams, nextPageUrl),
+                teams.currentPageResults map { bits.teamTr(_) }
+              )
             else noTeam()
           )
         )

@@ -3,7 +3,6 @@ package lila.notify
 import lila.common.paginator.Paginator
 import lila.notify.MentionedInThread.PostId
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 
 case class NewNotification(notification: Notification, unreadNotifications: Int)
 
@@ -17,18 +16,24 @@ case class Notification(
   def id = _id
 
   def unread = !read.value
+
+  def isMsg =
+    content match {
+      case _: PrivateMessage => true
+      case _                 => false
+    }
 }
 
 object Notification {
 
   case class UnreadCount(value: Int) extends AnyVal
   case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
-  case class Notifies(value: String) extends AnyVal with StringValue
+  case class Notifies(value: String)          extends AnyVal with StringValue
   case class NotificationRead(value: Boolean) extends AnyVal
 
   def make(notifies: Notification.Notifies, content: NotificationContent): Notification = {
     val idSize = 8
-    val id = Random nextString idSize
+    val id     = lila.common.ThreadLocalRandom nextString idSize
     new Notification(id, notifies, content, NotificationRead(false), DateTime.now)
   }
 }
@@ -45,10 +50,10 @@ case class MentionedInThread(
 
 object MentionedInThread {
   case class MentionedBy(value: String) extends AnyVal with StringValue
-  case class Topic(value: String) extends AnyVal with StringValue
-  case class TopicId(value: String) extends AnyVal with StringValue
-  case class Category(value: String) extends AnyVal with StringValue
-  case class PostId(value: String) extends AnyVal with StringValue
+  case class Topic(value: String)       extends AnyVal with StringValue
+  case class TopicId(value: String)     extends AnyVal with StringValue
+  case class Category(value: String)    extends AnyVal with StringValue
+  case class PostId(value: String)      extends AnyVal with StringValue
 }
 
 case class InvitedToStudy(
@@ -60,19 +65,17 @@ case class InvitedToStudy(
 object InvitedToStudy {
   case class InvitedBy(value: String) extends AnyVal with StringValue
   case class StudyName(value: String) extends AnyVal with StringValue
-  case class StudyId(value: String) extends AnyVal with StringValue
+  case class StudyId(value: String)   extends AnyVal with StringValue
 }
 
 case class PrivateMessage(
-    senderId: PrivateMessage.SenderId,
-    thread: PrivateMessage.Thread,
+    user: PrivateMessage.Sender,
     text: PrivateMessage.Text
 ) extends NotificationContent("privateMessage")
 
 object PrivateMessage {
-  case class SenderId(value: String) extends AnyVal with StringValue
-  case class Thread(id: String, name: String)
-  case class Text(value: String) extends AnyVal with StringValue
+  case class Sender(value: String) extends AnyVal with StringValue
+  case class Text(value: String)   extends AnyVal with StringValue
 }
 
 case class TeamJoined(
@@ -81,17 +84,7 @@ case class TeamJoined(
 ) extends NotificationContent("teamJoined")
 
 object TeamJoined {
-  case class Id(value: String) extends AnyVal with StringValue
-  case class Name(value: String) extends AnyVal with StringValue
-}
-
-case class TeamMadeOwner(
-    id: TeamMadeOwner.Id,
-    name: TeamMadeOwner.Name
-) extends NotificationContent("teamMadeOwner")
-
-object TeamMadeOwner {
-  case class Id(value: String) extends AnyVal with StringValue
+  case class Id(value: String)   extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue
 }
 
@@ -107,9 +100,9 @@ case class GameEnd(
 ) extends NotificationContent("gameEnd")
 
 object GameEnd {
-  case class GameId(value: String) extends AnyVal
+  case class GameId(value: String)     extends AnyVal
   case class OpponentId(value: String) extends AnyVal
-  case class Win(value: Boolean) extends AnyVal
+  case class Win(value: Boolean)       extends AnyVal
 }
 
 case object ReportedBanned extends NotificationContent("reportedBanned")
@@ -118,7 +111,7 @@ case class RatingRefund(perf: String, points: Int) extends NotificationContent("
 
 case object CoachReview extends NotificationContent("coachReview")
 
-case class PlanStart(userId: String) extends NotificationContent("planStart")
+case class PlanStart(userId: String)  extends NotificationContent("planStart")
 case class PlanExpire(userId: String) extends NotificationContent("planExpire")
 
 case class CorresAlarm(

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Ток игре</string>
+</resources>

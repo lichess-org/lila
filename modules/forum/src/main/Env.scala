@@ -1,96 +1,71 @@
 package lila.forum
 
-import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
 
-import lila.common.{ DetectLanguage, MaxPerPage }
-
+import lila.common.config._
 import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.relation.RelationApi
+import play.api.libs.ws.StandaloneWSClient
 
+@Module
+final private class ForumConfig(
+    @ConfigName("topic.max_per_page") val topicMaxPerPage: MaxPerPage,
+    @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage,
+    @ConfigName("public_categ_ids") val publicCategIds: List[String]
+)
+
+@Module
 final class Env(
-    config: Config,
-    db: lila.db.Env,
+    appConfig: Configuration,
+    db: lila.db.Db,
     modLog: ModlogApi,
     spam: lila.security.Spam,
-    shutup: ActorSelection,
-    hub: lila.hub.Env,
-    detectLanguage: DetectLanguage,
+    promotion: lila.security.PromotionApi,
+    captcher: lila.hub.actors.Captcher,
+    timeline: lila.hub.actors.Timeline,
+    shutup: lila.hub.actors.Shutup,
+    forumSearch: lila.hub.actors.ForumSearch,
     notifyApi: NotifyApi,
     relationApi: RelationApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    system: ActorSystem
-) {
+    userRepo: lila.user.UserRepo,
+    cacheApi: lila.memo.CacheApi,
+    ws: StandaloneWSClient
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val settings = new {
-    val TopicMaxPerPage = config getInt "topic.max_per_page"
-    val PostMaxPerPage = config getInt "post.max_per_page"
-    val RecentTtl = config duration "recent.ttl"
-    val RecentNb = config getInt "recent.nb"
-    val CollectionCateg = config getString "collection.categ"
-    val CollectionTopic = config getString "collection.topic"
-    val CollectionPost = config getString "collection.post"
-    import scala.collection.JavaConversions._
-    val PublicCategIds = (config getStringList "public_categ_ids").toList
+  private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
+
+  lazy val categRepo = new CategRepo(db(CollName("f_categ")))
+  lazy val topicRepo = new TopicRepo(db(CollName("f_topic")))
+  lazy val postRepo  = new PostRepo(db(CollName("f_post")))
+
+  private lazy val detectLanguage =
+    new DetectLanguage(ws, appConfig.get[DetectLanguage.Config]("detectlanguage.api"))
+
+  lazy val categApi: CategApi = {
+    val mk = (env: Env) => wire[CategApi]
+    mk(this)
   }
-  import settings._
 
-  lazy val categApi = new CategApi(env = this)
+  lazy val topicApi: TopicApi = {
+    val mk = (max: MaxPerPage, env: Env) => wire[TopicApi]
+    mk(config.topicMaxPerPage, this)
+  }
 
-  lazy val mentionNotifier = new MentionNotifier(notifyApi = notifyApi, relationApi = relationApi)
+  lazy val postApi: PostApi = {
+    val mk = (max: MaxPerPage, env: Env) => wire[PostApi]
+    mk(config.postMaxPerPage, this)
+  }
 
-  lazy val topicApi = new TopicApi(
-    env = this,
-    indexer = hub.forumSearch,
-    maxPerPage = MaxPerPage(TopicMaxPerPage),
-    modLog = modLog,
-    spam = spam,
-    shutup = shutup,
-    timeline = hub.timeline,
-    detectLanguage = detectLanguage,
-    mentionNotifier = mentionNotifier
-  )
+  lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
+  lazy val forms                            = wire[ForumForm]
+  lazy val recent                           = wire[Recent]
 
-  lazy val postApi = new PostApi(
-    env = this,
-    indexer = hub.forumSearch,
-    maxPerPage = MaxPerPage(PostMaxPerPage),
-    modLog = modLog,
-    spam = spam,
-    shutup = shutup,
-    timeline = hub.timeline,
-    detectLanguage = detectLanguage,
-    mentionNotifier = mentionNotifier
-  )
-
-  lazy val forms = new DataForm(hub.captcher)
-  lazy val recent = new Recent(postApi, RecentTtl, RecentNb, asyncCache, PublicCategIds)
-
-  lila.common.Bus.subscribeFun('team, 'gdprErase) {
-    case CreateTeam(id, name, _) => categApi.makeTeam(id, name)
+  lila.common.Bus.subscribeFun("team", "gdprErase") {
+    case CreateTeam(id, name, _)        => categApi.makeTeam(id, name)
     case lila.user.User.GDPRErase(user) => postApi erase user
   }
-
-  private[forum] lazy val categColl = db(CollectionCateg)
-  private[forum] lazy val topicColl = db(CollectionTopic)
-  private[forum] lazy val postColl = db(CollectionPost)
-}
-
-object Env {
-
-  lazy val current = "forum" boot new Env(
-    config = lila.common.PlayApp loadConfig "forum",
-    db = lila.db.Env.current,
-    modLog = lila.mod.Env.current.logApi,
-    spam = lila.security.Env.current.spam,
-    shutup = lila.hub.Env.current.shutup,
-    hub = lila.hub.Env.current,
-    detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),
-    notifyApi = lila.notify.Env.current.api,
-    relationApi = lila.relation.Env.current.api,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system
-  )
 }

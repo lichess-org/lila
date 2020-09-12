@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="broadcasts">Vysielanie</string>
+  <string name="liveBroadcasts">Živé vysielanie turnaja</string>
+  <string name="upcoming">Nasledujúce</string>
+  <string name="completed">Ukončené</string>
+  <string name="eventName">Názov podujatia</string>
+</resources>

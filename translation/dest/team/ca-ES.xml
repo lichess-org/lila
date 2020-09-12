@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Equip</string>
+  <string name="teams">Equips</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s membres</item>
+    <item quantity="other">%s membres</item>
+  </plurals>
+  <string name="allTeams">Tots els equips</string>
+  <string name="newTeam">Nou equip</string>
+  <string name="myTeams">Els meus equips</string>
+  <string name="noTeamFound">No s\'ha trobat cap equip</string>
+  <string name="joinTeam">Uneix-te a l\'equip</string>
+  <string name="quitTeam">Abandona l\'equip</string>
+  <string name="anyoneCanJoin">Tothom s\'hi pot unir</string>
+  <string name="aConfirmationIsRequiredToJoin">Cal una confirmació per unir-s\'hi</string>
+  <string name="joiningPolicy">Política d\'adhesió</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Capità de l\'equip</item>
+    <item quantity="other">Capitans de l\'equip</item>
+  </plurals>
+  <string name="teamBestPlayers">Millors jugadors de l\'equip</string>
+  <string name="teamRecentMembers">Membres recents de l\'equip</string>
+  <string name="kickSomeone">Expulsar algú de l\'equip</string>
+  <string name="whoToKick">Qui voleu expulsar de l\'equip?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s solicitud d\'adhesió</item>
+    <item quantity="other">%s solicituds d\'adhesió</item>
+  </plurals>
+  <string name="willBeReviewed">La teva petició serà revisada pel líder de l\'equip.</string>
+  <string name="beingReviewed">La teva petició està sent revisada pel líder de l\'equip.</string>
+  <string name="teamBattle">Batalla d\'equips</string>
+  <string name="teamBattleOverview">Batalla de múltiples equips, cada jugador puntua per al seu equip</string>
+  <string name="teamTournament">Torneig intern</string>
+  <string name="teamTournamentOverview">Torneig Arena només membres del teu equip poden inscriure\'s</string>
+  <string name="messageAllMembers">Missatge a tots</string>
+  <string name="messageAllMembersOverview">Enviar missatge privat a tots els membres de l\'equip</string>
+  <string name="messageAllMembersLongDescription">Envia un missatge privat a TOTS els membres de l\'equip.
+Pots usar això per a cridar a jugadors a unir-se a un torneig o a una batalla d\'equips.
+Els jugadors als que no els agradi rebre els teus missatges poden abandonar l\'equip.</string>
+  <string name="teamsIlead">Equips que lidero</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers tornejos?</string>
+  <string name="usersWhoCanManageThisTeam">Usuaris que poden administrar aquest equip</string>
+  <string name="leadersChat">Xat de líders</string>
+</resources>

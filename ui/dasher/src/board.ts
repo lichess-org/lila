@@ -1,7 +1,8 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-
 import { Redraw, Close, bind, header } from './util'
+import debounce from 'common/debounce';
+import * as xhr from 'common/xhr';
 
 export interface BoardCtrl {
   data: BoardData
@@ -18,26 +19,34 @@ export interface BoardData {
 
 export type PublishZoom = (v: number) => void;
 
+const li = window.lichess;
+
 export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close): BoardCtrl {
 
   const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom')) + 100;
 
-  const saveZoom = window.lichess.debounce(() => {
-    $.ajax({ method: 'post', url: '/pref/zoom?v=' + readZoom() });
-  }, 1000);
+  const saveZoom = debounce(() =>
+    xhr.text('/pref/zoom?v=' + readZoom(), { method: 'post' })
+      .catch(() => li.announce({ msg: 'Failed to save zoom' }))
+    , 1000);
 
   return {
     data,
     trans,
     setIs3d(v: boolean) {
       data.is3d = v;
-      $.post('/pref/is3d', { is3d: v }, window.lichess.reload);
+      xhr.text(
+        '/pref/is3d', {
+        body: xhr.form({ is3d: v }),
+        method: 'post'
+      }).then(li.reload)
+        .catch(() => li.announce({ msg: 'Failed to save geometry  preference' }));
       redraw();
     },
     readZoom,
     setZoom(v: number) {
       document.body.setAttribute('style', '--zoom:' + (v - 100));
-      window.lichess.dispatchEvent(window, 'resize');
+      window.dispatchEvent(new Event('resize'));
       redraw();
       saveZoom();
     },
@@ -67,21 +76,21 @@ export function view(ctrl: BoardCtrl): VNode {
       isNaN(domZoom) ? [
         h('p', 'No board to zoom here!')
       ] : [
-        h('p', [
-          ctrl.trans.noarg('boardSize'),
-          ': ',
-          (domZoom - 100),
-          '%'
-        ]),
-        h('div.slider', {
-          hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
-        })
-      ])
+          h('p', [
+            ctrl.trans.noarg('boardSize'),
+            ': ',
+            (domZoom - 100),
+            '%'
+          ]),
+          h('div.slider', {
+            hook: { insert: vnode => makeSlider(ctrl, vnode.elm as HTMLElement) }
+          })
+        ])
   ]);
 }
 
 function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {
-  window.lichess.slider().done(() => {
+  li.slider().then(() =>
     $(el).slider({
       orientation: 'horizontal',
       min: 100,
@@ -90,6 +99,6 @@ function makeSlider(ctrl: BoardCtrl, el: HTMLElement) {
       step: 1,
       value: ctrl.readZoom(),
       slide: (_: any, ui: any) => ctrl.setZoom(ui.value)
-    });
-  });
+    })
+  );
 }

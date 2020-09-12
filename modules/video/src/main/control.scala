@@ -11,9 +11,10 @@ case class TagNb(_id: Tag, nb: Int) {
 
 case class Filter(tags: List[String]) {
 
-  def toggle(tag: String) = copy(
-    tags = if (tags contains tag) tags filter (tag!=) else tags :+ tag
-  )
+  def toggle(tag: String) =
+    copy(
+      tags = if (tags contains tag) tags filter (tag !=) else tags :+ tag
+    )
 }
 
 case class UserControl(
@@ -23,15 +24,19 @@ case class UserControl(
     bot: Boolean
 ) {
 
-  def toggleTag(tag: String) = copy(
-    filter = filter toggle tag,
-    query = none
-  )
+  def toggleTag(tag: String) =
+    copy(
+      filter = filter toggle tag,
+      query = none
+    )
 
-  def queryString = List(
-    filter.tags.nonEmpty option s"tags=${filter.tags.sorted mkString "/"}".replace(' ', '+'),
-    query.map { q => s"q=$q" }
-  ).flatten mkString "&"
+  def queryString =
+    List(
+      filter.tags.nonEmpty option s"tags=${filter.tags.sorted mkString "/"}".replace(' ', '+'),
+      query.map { q =>
+        s"q=$q"
+      }
+    ).flatten mkString "&"
 
   def queryStringUnlessBot = !bot ?? queryString
 }

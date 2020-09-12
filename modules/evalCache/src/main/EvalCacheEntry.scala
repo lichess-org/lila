@@ -1,9 +1,9 @@
 package lila.evalCache
 
-import chess.format.{ Forsyth, FEN, Uci }
+import chess.format.{ FEN, Forsyth, Uci }
 import chess.variant.Variant
 import org.joda.time.DateTime
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 import lila.tree.Eval.Score
 import lila.user.User
@@ -12,17 +12,20 @@ case class EvalCacheEntry(
     _id: EvalCacheEntry.Id,
     nbMoves: Int, // multipv cannot be greater than number of legal moves
     evals: List[EvalCacheEntry.Eval],
-    usedAt: DateTime
+    usedAt: DateTime,
+    updatedAt: DateTime
 ) {
 
   import EvalCacheEntry._
 
   def id = _id
 
-  def add(eval: Eval) = copy(
-    evals = EvalCacheSelector(eval :: evals),
-    usedAt = DateTime.now
-  )
+  def add(eval: Eval) =
+    copy(
+      evals = EvalCacheSelector(eval :: evals),
+      usedAt = DateTime.now,
+      updatedAt = DateTime.now
+    )
 
   // finds the best eval with at least multiPv pvs,
   // and truncates its pvs to multiPv
@@ -37,10 +40,10 @@ case class EvalCacheEntry(
 
 object EvalCacheEntry {
 
-  val MIN_KNODES = 3000
-  val MIN_DEPTH = 20
-  val MIN_PV_SIZE = 6
-  val MAX_PV_SIZE = 10
+  val MIN_KNODES   = 3000
+  val MIN_DEPTH    = 20
+  val MIN_PV_SIZE  = 6
+  val MAX_PV_SIZE  = 10
   val MAX_MULTI_PV = 5
 
   case class Eval(
@@ -57,15 +60,17 @@ object EvalCacheEntry {
 
     def bestMove: Uci = bestPv.moves.value.head
 
-    def looksValid = pvs.toList.forall(_.looksValid) && {
-      pvs.toList.forall(_.score.mateFound) || (knodes.value >= MIN_KNODES || depth >= MIN_DEPTH)
-    }
+    def looksValid =
+      pvs.toList.forall(_.looksValid) && {
+        pvs.toList.forall(_.score.mateFound) || (knodes.value >= MIN_KNODES || depth >= MIN_DEPTH)
+      }
 
     def truncatePvs = copy(pvs = pvs.map(_.truncate))
 
-    def takePvs(multiPv: Int) = copy(
-      pvs = NonEmptyList.nel(pvs.head, pvs.tail.take(multiPv - 1))
-    )
+    def takePvs(multiPv: Int) =
+      copy(
+        pvs = NonEmptyList(pvs.head, pvs.tail.take(multiPv - 1))
+      )
 
     def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
   }
@@ -82,17 +87,18 @@ object EvalCacheEntry {
 
   case class Pv(score: Score, moves: Moves) {
 
-    def looksValid = score.mate match {
-      case None => moves.value.size > MIN_PV_SIZE
-      case Some(mate) => mate.value != 0 // sometimes we get #0. Dunno why.
-    }
+    def looksValid =
+      score.mate match {
+        case None       => moves.value.toList.sizeIs > MIN_PV_SIZE
+        case Some(mate) => mate.value != 0 // sometimes we get #0. Dunno why.
+      }
 
     def truncate = copy(moves = moves.truncate)
   }
 
   case class Moves(value: NonEmptyList[Uci]) extends AnyVal {
 
-    def truncate = copy(value = NonEmptyList.nel(value.head, value.tail.take(MAX_PV_SIZE - 1)))
+    def truncate = copy(value = NonEmptyList(value.head, value.tail.take(MAX_PV_SIZE - 1)))
   }
 
   case class Trust(value: Double) extends AnyVal {
@@ -112,7 +118,7 @@ object EvalCacheEntry {
       }
       val str = variant match {
         case chess.variant.ThreeCheck => base + ~fen.value.split(' ').lift(6)
-        case _ => base
+        case _                        => base
       }
       new SmallFen(str)
     }
@@ -126,9 +132,10 @@ object EvalCacheEntry {
 
   object Input {
     case class Candidate(variant: Variant, fen: String, eval: Eval) {
-      def input = SmallFen.validate(variant, FEN(fen)) ifTrue eval.looksValid map { smallFen =>
-        Input(Id(variant, smallFen), FEN(fen), eval.truncatePvs)
-      }
+      def input =
+        SmallFen.validate(variant, FEN(fen)) ifTrue eval.looksValid map { smallFen =>
+          Input(Id(variant, smallFen), FEN(fen), eval.truncatePvs)
+        }
     }
   }
 }

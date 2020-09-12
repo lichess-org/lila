@@ -1,65 +1,66 @@
 package lila.insight
 
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.bson._
-import scalaz.NonEmptyList
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
+import lila.db.AsyncColl
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
-private final class Storage(coll: Coll) {
+final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Storage._
   import BSONHandlers._
   import Entry.{ BSONFields => F }
 
-  def aggregate(operators: NonEmptyList[PipelineOperator]): Fu[List[Bdoc]] =
-    coll.aggregateList(
-      operators.head,
-      operators.tail.toList,
-      maxDocs = Int.MaxValue,
-      allowDiskUse = true
-    )
-
   def fetchFirst(userId: String): Fu[Option[Entry]] =
-    coll.find(selectUserId(userId)).sort(sortChronological).uno[Entry]
+    coll(_.find(selectUserId(userId)).sort(sortChronological).one[Entry])
 
   def fetchLast(userId: String): Fu[Option[Entry]] =
-    coll.find(selectUserId(userId)).sort(sortAntiChronological).uno[Entry]
+    coll(_.find(selectUserId(userId)).sort(sortAntiChronological).one[Entry])
 
   def count(userId: String): Fu[Int] =
-    coll.count(selectUserId(userId).some)
+    coll(_.countSel(selectUserId(userId)))
 
-  def insert(p: Entry) = coll.insert(p).void
+  def insert(p: Entry) = coll(_.insert.one(p).void)
 
-  def bulkInsert(ps: Seq[Entry]) = coll.bulkInsert(
-    documents = ps.map(BSONHandlers.EntryBSONHandler.write).toStream,
-    ordered = false
-  )
+  def bulkInsert(ps: Seq[Entry]) =
+    coll {
+      _.insert.many(
+        ps.flatMap(BSONHandlers.EntryBSONHandler.writeOpt)
+      )
+    }
 
-  def update(p: Entry) = coll.update(selectId(p.id), p, upsert = true).void
+  def update(p: Entry) = coll(_.update.one(selectId(p.id), p, upsert = true).void)
 
-  def remove(p: Entry) = coll.remove(selectId(p.id)).void
+  def remove(p: Entry) = coll(_.delete.one(selectId(p.id)).void)
 
-  def removeAll(userId: String) = coll.remove(selectUserId(userId)).void
+  def removeAll(userId: String) = coll(_.delete.one(selectUserId(userId)).void)
 
-  def find(id: String) = coll.find(selectId(id)).uno[Entry]
+  def find(id: String) = coll(_.one[Entry](selectId(id)))
 
   def ecos(userId: String): Fu[Set[String]] =
-    coll.distinct[String, Set](F.eco, selectUserId(userId).some)
+    coll {
+      _.distinctEasy[String, Set](F.eco, selectUserId(userId))
+    }
 
-  def nbByPerf(userId: String): Fu[Map[PerfType, Int]] = coll.aggregateList(
-    Match(BSONDocument(F.userId -> userId)),
-    List(GroupField(F.perf)("nb" -> SumValue(1))),
-    maxDocs = 50
-  ).map {
-      _.flatMap { doc =>
-        for {
-          perfType <- doc.getAs[PerfType]("_id")
-          nb <- doc.getAs[Int]("nb")
-        } yield perfType -> nb
-      }(scala.collection.breakOut)
+  def nbByPerf(userId: String): Fu[Map[PerfType, Int]] =
+    coll {
+      _.aggregateList(
+        maxDocs = 50
+      ) { framework =>
+        import framework._
+        Match(BSONDocument(F.userId -> userId)) -> List(
+          GroupField(F.perf)("nb" -> SumAll)
+        )
+      }.map {
+        _.flatMap { doc =>
+          for {
+            perfType <- doc.getAsOpt[PerfType]("_id")
+            nb       <- doc.int("nb")
+          } yield perfType -> nb
+        }.toMap
+      }
     }
 }
 
@@ -67,12 +68,13 @@ private object Storage {
 
   import Entry.{ BSONFields => F }
 
-  def selectId(id: String) = BSONDocument(F.id -> id)
+  def selectId(id: String)     = BSONDocument(F.id -> id)
   def selectUserId(id: String) = BSONDocument(F.userId -> id)
-  val sortChronological = BSONDocument(F.date -> 1)
-  val sortAntiChronological = BSONDocument(F.date -> -1)
+  val sortChronological        = BSONDocument(F.date -> 1)
+  val sortAntiChronological    = BSONDocument(F.date -> -1)
 
-  def combineDocs(docs: List[BSONDocument]) = docs.foldLeft(BSONDocument()) {
-    case (acc, doc) => acc ++ doc
-  }
+  def combineDocs(docs: List[BSONDocument]) =
+    docs.foldLeft(BSONDocument()) {
+      case (acc, doc) => acc ++ doc
+    }
 }

@@ -1,25 +1,18 @@
 package lila.coordinate
 
-import com.typesafe.config.Config
+import play.api.Configuration
+import com.softwaremill.macwire._
+
+import lila.common.config.CollName
 
 final class Env(
-    config: Config,
-    db: lila.db.Env
-) {
+    appConfig: Configuration,
+    db: lila.db.Db
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val CollectionScore = config getString "collection.score"
+  private lazy val scoreColl = db(appConfig.get[CollName]("coordinate.collection.score"))
 
-  lazy val api = new CoordinateApi(scoreColl = scoreColl)
+  lazy val api = wire[CoordinateApi]
 
-  lazy val forms = DataForm
-
-  private[coordinate] lazy val scoreColl = db(CollectionScore)
-}
-
-object Env {
-
-  lazy val current: Env = "coordinate" boot new Env(
-    config = lila.common.PlayApp loadConfig "coordinate",
-    db = lila.db.Env.current
-  )
+  lazy val forms = CoordinateForm
 }

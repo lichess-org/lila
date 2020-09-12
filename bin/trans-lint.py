@@ -3,120 +3,171 @@
 import os
 import re
 import sys
+import pathlib
+import urllib
+
+# Do not load C implementation, so that we can override some parser methods.
+sys.modules["_elementtree"] = None
 import xml.etree.ElementTree as ET
 
 
-def lint(path):
-    errors, warnings = 0, 0
+class AnnotatingParser(ET.XMLParser):
+    def _start(self, tag, attrs):
+        elem = super()._start(tag, attrs)
+        elem.line = self.parser.CurrentLineNumber
+        elem.col = self.parser.CurrentColumnNumber
+        return elem
 
-    dirname = os.path.dirname(path)
-    db = os.path.basename(dirname) # site, study, ...
 
-    source = ET.parse(os.path.join(dirname, "..", "..", "source", "{}.xml".format(db))).getroot()
+class Report:
+    def __init__(self):
+        self.errors = 0
+        self.warnings = 0
 
-    root = ET.parse(path).getroot()
+
+def short_lang(lang):
+    if lang in ["ne-NP", "la-LA", "nn-NO", "zh-CN"]:
+        return lang.replace("-", "").lower()
+    else:
+        return lang.split("-")[0]
+
+
+def western_punctuation(lang):
+    return lang not in [
+        "zh-TW", "zh-CN", "hi-IN", "ja-JP", "bn-BD", "ar-SA", "th-TH", "ne-NP",
+        "ko-KR", "ur-PK", "hy-AM", "ml-IN", "ka-GE", "he-IL", "jbo-EN",
+    ]
+
+
+def crowdin_q(text):
+    return urllib.parse.quote(text or "")
+
+
+class ReportContext:
+    def __init__(self, report, path, el, name, text):
+        self.report = report
+        self.path = path
+        self.el = el
+        self.name = name
+        self.text = text
+
+    def lang(self):
+        return self.path.stem
+
+    def log(self, level, message):
+        if level == "error":
+            self.report.errors += 1
+        elif level == "warning":
+            self.report.warnings += 1
+        lang = short_lang(self.lang())
+        url = f"https://crowdin.com/translate/lichess/all/en-{lang}#q={crowdin_q(self.text)}"
+        print(f"::{level} file={self.path},line={self.el.line},col={self.el.col}::{message} ({self.name}): {self.text!r} @ {url}")
+
+    def error(self, message):
+        self.log("error", message)
+
+    def warning(self, message):
+        self.log("warning", message)
+
+    def notice(self, message):
+        self.log("notice", message)
+
+
+def lint(report, path):
+    db = path.parent.name # site, study, ...
+    source = ET.parse(path.parent.parent.parent / "source" / f"{db}.xml", parser=AnnotatingParser()).getroot()
+
+    root = ET.parse(path, parser=AnnotatingParser()).getroot()
     for el in root:
         name = el.attrib["name"]
+        ctx = ReportContext(report, path, el, name, el.text)
         if "'" in name or " " in name:
-            print("ERROR:", path, "bad {} name:".format(el.tag, name))
-            errors += 1
+            ctx.error(f"bad {el.tag} name")
             continue
 
-        source_el = source.find(".//{}[@name='{}']".format(el.tag, name))
-
-        if el.tag == "string":
-            errs, warns = lint_string(path, name, el.text, source_el.text)
-            errors += errs
-            warnings += warns
+        source_el = source.find(f".//{el.tag}[@name='{name}']")
+        if source_el is None:
+            ctx.error(f"did not find source element for {el.tag}")
+        elif el.tag == "string":
+            lint_string(ctx, el.text, source_el.text)
         elif el.tag == "plurals":
             for item in el:
                 quantity = item.attrib["quantity"]
                 allow_missing = 1 if quantity in ["zero", "one", "two"] else 0
-                errs, warns = lint_string(path, "{}:{}".format(name, quantity), item.text, source_el.find("./item[@quantity='other']").text, allow_missing)
-                errors += errs
-                warnings += warns
+                plural_name = f"{name}:{quantity}"
+                lint_string(ReportContext(report, path, item, plural_name, item.text), item.text, source_el.find("./item[@quantity='other']").text, allow_missing)
         else:
-            print("ERROR:", path, "bad resources tag:", el.tag)
-            errors += 1
-
-    return errors, warnings
+            ctx.error(f"bad resources tag: {el.tag}")
 
 
-def lint_string(path, name, dest, source, allow_missing=0):
-    errs, warns = 0, 0
+def lint_string(ctx, dest, source, allow_missing=0):
+    if not dest:
+        ctx.error("empty translation")
+        return
 
     placeholders = source.count("%s")
     if placeholders > 1:
-        print("ERROR", path, "more than 1 %s in source:", name, source)
-        errs += 1
+        ctx.error("more than 1 %s in source")
 
     diff = placeholders - dest.count("%s")
     if diff > 0:
         allow_missing -= diff
-        print("ERROR" if allow_missing < 0 else "WARNING", path, "missing %s:", name, dest)
-        errs += 1 if allow_missing < 0 else 0
-        warns += 0 if allow_missing < 0 else 1
+        if allow_missing < 0:
+            ctx.log("error", "missing %s")
     elif diff < 0:
-        print("ERROR", path, "too many %s:", name, dest)
-        errs += 1
+        ctx.error("too many %s")
 
     for placeholder in re.findall(r"%\d+\$s", source):
         if placeholder == "%1$s" and placeholder not in dest and allow_missing > 0:
-            print("WARNING", path, "missing %1$s:", name, dest)
             allow_missing -= 1
-            warns += 1
         elif dest.count(placeholder) < 1:
-            print("ERROR", path, "missing {}:".format(placeholder), name, dest)
-            errs += 1
+            ctx.error(f"missing {placeholder}")
 
     for placeholder in re.findall(r"%\d+\$s", dest):
         if source.count(placeholder) < 1:
-            print("ERROR", path, "unexpected {}:".format(placeholder), name, dest)
-            errs += 1
+            ctx.error(f"unexpected {placeholder}")
 
     for pattern in ["O-O", "SAN", "FEN", "PGN", "K, Q, R, B, N"]:
         m_source = source if pattern.isupper() else source.lower()
         m_dest = dest if pattern.isupper() else dest.lower()
         if pattern in m_source and pattern not in m_dest:
-            print("NOTICE", path, "missing {}:".format(pattern), name, dest)
-        #elif pattern not in m_source and pattern in m_dest:
-        #    print("NOTICE", path, "unexpected {}:".format(pattern), name, dest)
+            ctx.notice(f"missing {pattern}")
+
+    if "%%" in source and "%%" not in dest:
+        ctx.warning("missing %%")
+
+    if "PGN" in source and "PNG" in dest:
+        ctx.warning("PNG instead of PGN")
 
     if "\n" not in source and "\n" in dest:
-        print("NOTICE", path, "expected single line string:", name, dest)
+        ctx.notice("expected single line string")
+
+    if western_punctuation(ctx.lang()) and source.rstrip().endswith(".") and not dest.rstrip().endswith("."):
+        ctx.warning("translation does not end with dot")
 
     if re.match(r"\n", dest):
-        print("ERROR", path, "has leading newlines:", name, dest)
-        errs += 1
+        ctx.error("has leading newlines")
     elif re.match(r"\s+", dest):
-        print("WARNING", path, "has leading spaces:", name, dest)
-        warns += 1
+        ctx.warning("has leading spaces")
 
     if re.search(r"\s+$", dest):
-        print("WARNING", path, "has trailing spaces:", name, dest)
-        warns += 1
+        ctx.warning("has trailing spaces")
 
     if re.search(r"\t", dest):
-        print("WARNING", path, "has tabs:", name, dest)
-        warns += 1
+        ctx.warning("has tabs")
 
     if re.search(r"\n{3,}", dest):
-        print("WARNING", path, "has more than one successive empty line:", name, dest)
-        warns += 1
-
-    return errs, warns
+        ctx.warning("has more than one successive empty line")
 
 
 if __name__ == "__main__":
     args = sys.argv[1:]
     if args:
-        errors, warnings = 0, 0
+        report = Report()
         for arg in sys.argv[1:]:
-            errs, warns = lint(arg)
-            errors += errs
-            warnings += warns
-        print("{} error(s), {} warning(s)".format(errors, warnings))
-        if errors:
+            lint(report, pathlib.Path(arg))
+        print(f"{report.errors} error(s), {report.warnings} warning(s)")
+        if report.errors:
             sys.exit(1)
     else:
-        print("Usage: {} translation/dest/*/*.xml".format(sys.argv[0]))
+        print(f"Usage: {sys.argv[0]} translation/dest/*/*.xml")

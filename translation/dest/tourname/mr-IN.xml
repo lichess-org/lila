@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">ताशी जलद आखाडा</string>
+  <string name="hourlyRapid">ताशी जलद</string>
+  <string name="hourlyXArena">ताशी %s आखाडा</string>
+  <string name="hourlyX">ताशी %s</string>
+  <string name="dailyRapidArena">दैनिक जलद आखाडा</string>
+  <string name="dailyRapid">दैनिक जलद</string>
+  <string name="dailyXArena">दैनिक %s आखाडा</string>
+  <string name="dailyX">दैनिक %s</string>
+  <string name="weeklyRapidArena">साप्ताहिक जलद आखाडा</string>
+  <string name="weeklyRapid">साप्ताहिक जलद</string>
+  <string name="weeklyXArena">साप्ताहिक %s आखाडा</string>
+  <string name="weeklyX">साप्ताहिक %s</string>
+  <string name="monthlyXArena">मासिक %s आखाडा</string>
+  <string name="monthlyX">मासिक %s</string>
+  <string name="yearlyXArena">वार्षिक %s आखाडा</string>
+  <string name="yearlyX">वार्षिक %s</string>
+</resources>

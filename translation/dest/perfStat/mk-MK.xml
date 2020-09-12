@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s статистика</string>
+  <string name="viewTheGames">Прегледај ги партиите</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">привремен</string>
+  <string name="notEnoughRatedGames">Нема одиграно доволно рангирани игри за воспоставување на рејтинг.</string>
+  <string name="progressOverLastXGames">Напредок во последните %s партии:</string>
+  <string name="ratingDeviation">Девијација на рејтингот: %s.</string>
+  <string name="ratingDeviationHelp">Пониска вредност значи дека рејтингот е постабилен. Над %s, рејтингот се смета за привремен.</string>
+  <string name="totalGames">Вкупно партии</string>
+  <string name="ratedGames">Рангирани партии</string>
+  <string name="tournamentGames">Турнирски партии</string>
+  <string name="berserkedGames">Берсерк парии</string>
+  <string name="timeSpentPlaying">Време поминато во играње</string>
+  <string name="averageOpponent">Просечен противник</string>
+  <string name="victories">Победи</string>
+  <string name="defeats">Порази</string>
+  <string name="disconnections">Прекинати партии</string>
+  <string name="notEnoughGames">Недоволно одиграни партии</string>
+  <string name="highestRating">Највисок рејтинг: %s</string>
+  <string name="lowestRating">Најнизок рејтинг: %s</string>
+  <string name="fromXToY">од %1$s до %2$s</string>
+  <string name="winningStreak">Победничка низа</string>
+  <string name="losingStreak">Губитничка низа</string>
+  <string name="longestStreak">Најдолга низа: %s</string>
+  <string name="currentStreak">Сегашна низа: %s</string>
+  <string name="bestRated">Најдобро рангирани победи</string>
+  <string name="worstRated">Најлошо рангирани порази</string>
+  <string name="gamesInARow">Број одиграни партии во низа</string>
+  <string name="lessThanOneHour">Помалку од еден час меѓу партии</string>
+  <string name="maxTimePlaying">Макс. време поминато во играње</string>
+  <string name="now">сега</string>
+</resources>

@@ -1,36 +1,36 @@
 /* Widths */
 
-$mq-xx-small: (min-width 500px);
-$mq-x-small: (min-width 650px);
-$mq-small: (min-width 800px);
-$mq-medium: (min-width 980px);
-$mq-large: (min-width 1120px);
-$mq-x-large: (min-width 1260px);
+$mq-xx-small: min-width 500px;
+$mq-x-small: min-width 650px;
+$mq-small: min-width 800px;
+$mq-medium: min-width 980px;
+$mq-large: min-width 1120px;
+$mq-x-large: min-width 1260px;
 
-$mq-not-xx-small: (max-width 499px);
-$mq-not-x-small: (max-width 649px);
-$mq-not-small: (max-width 799px);
-$mq-not-medium: (max-width 979px);
-$mq-not-x-large: (max-width 1259px);
+$mq-not-xx-small: max-width 499px;
+$mq-not-x-small: max-width 649px;
+$mq-not-small: max-width 799px;
+$mq-not-medium: max-width 979px;
+$mq-not-x-large: max-width 1259px;
 
 /* Heights */
 
-$mq-x-short: (min-height 400px);
-$mq-short: (min-height 500px);
-$mq-tall: (min-height 600px);
-$mq-x-tall: (min-height 700px);
+$mq-x-short: min-height 400px;
+$mq-short: min-height 500px;
+$mq-tall: min-height 600px;
+$mq-x-tall: min-height 700px;
 
-$mq-not-x-short: (max-height 399px);
+$mq-not-x-short: max-height 399px;
 
 /* Orientations */
 
-$mq-portrait: (orientation portrait);
-$mq-landscape: (orientation landscape);
+$mq-portrait: orientation portrait;
+$mq-landscape: orientation landscape;
 
 /* Capabilities */
 
-$mq-hover-yes: 'hover: hover';
-$mq-hover-no: (hover none);
+$mq-hover-yes: "hover: hover";
+$mq-hover-no: hover none;
 
 /* Aliases */
 

@@ -2,26 +2,29 @@ package lila.security
 
 import lila.common.IpAddress
 
-final class IpTrust(intelApi: IpIntel, geoApi: GeoIP, torApi: Tor, firewallApi: Firewall) {
+final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi: Firewall) {
 
   def isSuspicious(ip: IpAddress): Fu[Boolean] =
-    if (IpIntel isBlacklisted ip) fuTrue
-    else if (firewallApi blocksIp ip) fuTrue
+    if (firewallApi blocksIp ip) fuTrue
     else if (torApi isExitNode ip) fuTrue
     else {
       val location = geoApi orUnknown ip
       if (location == Location.unknown || location == Location.tor) fuTrue
       else if (isUndetectedProxy(location)) fuTrue
-      else intelApi(ip).map { 75 < _ }
+      else proxyApi(ip)
     }
 
-  def isSuspicious(ipData: UserSpy.IPData): Fu[Boolean] = isSuspicious(ipData.ip.value)
+  def isSuspicious(ipData: UserSpy.IPData): Fu[Boolean] =
+    isSuspicious(ipData.ip.value)
 
-  /* lichess blacklist of proxies that ipintel doesn't know about */
+  /* lichess blacklist of proxies that ip2proxy doesn't know about */
   private def isUndetectedProxy(location: Location): Boolean =
     location.shortCountry == "Iran" ||
-      location.shortCountry == "United Arab Emirates" ||
-      location == Location("Poland", "Subcarpathian Voivodeship".some, "Stalowa Wola".some) ||
-      location == Location("Poland", "Lesser Poland Voivodeship".some, "Krakow".some) ||
-      location == Location("Russia", "Bashkortostan".some, "Ufa".some)
+      location.shortCountry == "United Arab Emirates" || (location match {
+      case Location("Poland", Some("Subcarpathian Voivodeship"), Some("Stalowa Wola")) => true
+      case Location("Poland", Some("Lesser Poland Voivodeship"), Some("Krakow"))       => true
+      case Location("Russia", Some(region), Some("Ufa" | "Sterlitamak")) if region contains "Bashkortostan" =>
+        true
+      case _ => false
+    })
 }

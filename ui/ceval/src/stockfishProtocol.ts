@@ -1,3 +1,4 @@
+import { lichessVariantRules } from 'chessops/compat';
 import { WorkerOpts, Work } from './types';
 
 const EVAL_REGEX = new RegExp(''
@@ -16,32 +17,28 @@ export default class Protocol {
   public engineName: string | undefined;
 
   constructor(private send: (cmd: string) => void, private opts: WorkerOpts) {
-
     this.stopped = defer<void>();
     this.stopped.resolve();
+  }
 
+  init(): void {
     // get engine name/version
     this.send('uci');
 
     // analyse without contempt
+    this.setOption('UCI_Chess960', 'true');
     this.setOption('UCI_AnalyseMode', 'true');
     this.setOption('Analysis Contempt', 'Off');
 
-    if (opts.variant === 'fromPosition' || opts.variant === 'chess960')
-      this.setOption('UCI_Chess960', 'true');
-    else if (opts.variant === 'antichess')
-      this.setOption('UCI_Variant', 'giveaway');
-    else if (opts.variant === 'threeCheck')
-      this.setOption('UCI_Variant', '3check');
-    else if (opts.variant !== 'standard')
-      this.setOption('UCI_Variant', opts.variant.toLowerCase());
+    if (this.opts.variant === 'antichess') this.setOption('UCI_Variant', 'giveaway'); // for old asmjs fallback
+    else this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
   }
 
-  private setOption(name: string, value: string | number) {
+  private setOption(name: string, value: string | number): void {
     this.send(`setoption name ${name} value ${value}`);
   }
 
-  received(text: string) {
+  received(text: string): void {
     if (text.startsWith('id name ')) this.engineName = text.substring('id name '.length);
     else if (text.startsWith('bestmove ')) {
       if (!this.stopped) this.stopped = defer<void>();
@@ -51,28 +48,28 @@ export default class Protocol {
     }
     if (!this.work) return;
 
-    let matches = text.match(EVAL_REGEX);
+    const matches = text.match(EVAL_REGEX);
     if (!matches) return;
 
-    let depth = parseInt(matches[1]),
+    const depth = parseInt(matches[1]),
       multiPv = parseInt(matches[2]),
       isMate = matches[3] === 'mate',
-      ev = parseInt(matches[4]),
+      povEv = parseInt(matches[4]),
       evalType = matches[5],
       nodes = parseInt(matches[6]),
       elapsedMs: number = parseInt(matches[7]),
       moves = matches[8].split(' ');
 
     // Sometimes we get #0. Let's just skip it.
-    if (isMate && !ev) return;
+    if (isMate && !povEv) return;
 
     // Track max pv index to determine when pv prints are done.
     if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;
 
     if (depth < this.opts.minDepth) return;
 
-    let pivot = this.work.threatMode ? 0 : 1;
-    if (this.work.ply % 2 === pivot) ev = -ev;
+    const pivot = this.work.threatMode ? 0 : 1;
+    const ev = (this.work.ply % 2 === pivot) ? -povEv : povEv;
 
     // For now, ignore most upperbound/lowerbound messages.
     // The exception is for multiPV, sometimes non-primary PVs
@@ -80,7 +77,7 @@ export default class Protocol {
     // See: https://github.com/ddugovic/Stockfish/issues/228
     if (evalType && multiPv === 1) return;
 
-    let pvData = {
+    const pvData = {
       moves,
       cp: isMate ? undefined : ev,
       mate: isMate ? ev : undefined,
@@ -109,7 +106,7 @@ export default class Protocol {
     }
   }
 
-  start(w: Work) {
+  start(w: Work): void {
     if (!this.stopped) {
       // TODO: Work is started by basically doing stop().then(() => start(w)).
       // There is a race condition where multiple callers are waiting for
@@ -146,13 +143,13 @@ export default class Protocol {
   isComputing(): boolean {
     return !this.stopped;
   }
-};
+}
 
 function defer<A>(): DeferPromise.Deferred<A> {
-  const deferred: Partial<DeferPromise.Deferred<A>> = {}
-  deferred.promise = new Promise<A>(function (resolve, reject) {
-    deferred.resolve = resolve
-    deferred.reject = reject
-  })
+  const deferred: Partial<DeferPromise.Deferred<A>> = {};
+  deferred.promise = new Promise<A>((resolve, reject) => {
+    deferred.resolve = resolve;
+    deferred.reject = reject;
+  });
   return deferred as DeferPromise.Deferred<A>;
 }

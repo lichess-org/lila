@@ -1,5 +1,6 @@
 package lila.relay
 
+import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
@@ -7,26 +8,31 @@ import lila.user.User
 
 final class RelayPager(
     repo: RelayRepo,
-    withStudy: RelayWithStudy,
-    maxPerPage: lila.common.MaxPerPage
-) {
+    withStudy: RelayWithStudy
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
-  def finished(me: Option[User], page: Int) = paginator(
-    repo.selectors finished true, me, page, fuccess(9999).some
-  )
+  private lazy val maxPerPage = MaxPerPage(20)
+
+  def finished(me: Option[User], page: Int) =
+    paginator(
+      repo.selectors finished true,
+      me,
+      page,
+      fuccess(9999).some
+    )
 
   private def paginator(
-    selector: Bdoc,
-    me: Option[User],
-    page: Int,
-    nbResults: Option[Fu[Int]] = none
+      selector: Bdoc,
+      me: Option[User],
+      page: Int,
+      nbResults: Option[Fu[Int]]
   ): Fu[Paginator[Relay.WithStudyAndLiked]] = {
     val adapter = new Adapter[Relay](
       collection = repo.coll,
       selector = selector,
-      projection = $empty,
+      projection = none,
       sort = $sort desc "startedAt"
     ) mapFutureList withStudy.andLiked(me)
     Paginator(

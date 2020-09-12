@@ -6,42 +6,48 @@ import chess.format.pgn.{ Tag, Tags }
 import lila.socket.Socket.Sri
 import lila.study._
 
-private final class RelaySync(
+final private class RelaySync(
     studyApi: StudyApi,
     chapterRepo: ChapterRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private type NbMoves = Int
 
   def apply(relay: Relay, games: RelayGames): Fu[SyncResult.Ok] =
-    studyApi byId relay.studyId flatten "Missing relay study!" flatMap { study =>
+    studyApi byId relay.studyId orFail "Missing relay study!" flatMap { study =>
       chapterRepo orderedByStudy study.id flatMap { chapters =>
         RelayInputSanity(chapters, games) match {
           case Some(fail) => fufail(fail.msg)
-          case None => lila.common.Future.traverseSequentially(games) { game =>
-            findCorrespondingChapter(game, chapters, games.size) match {
-              case Some(chapter) => updateChapter(study, chapter, game)
-              case None => createChapter(study, game) flatMap { chapter =>
-                chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
-                  studyApi.deleteChapter(study.id, initial.id) {
-                    actorApi.Who(study.ownerId, sri)
+          case None =>
+            lila.common.Future.linear(games) { game =>
+              findCorrespondingChapter(game, chapters, games.size) match {
+                case Some(chapter) => updateChapter(study, chapter, game)
+                case None =>
+                  createChapter(study, game) flatMap { chapter =>
+                    chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
+                      studyApi.deleteChapter(study.id, initial.id) {
+                        actorApi.Who(study.ownerId, sri)
+                      }
+                    } inject chapter.root.mainline.size
                   }
-                } inject chapter.root.mainline.size
               }
-            }
-          } map { _.foldLeft(0)(_ + _) } map { SyncResult.Ok(_, games) }
+            } map { _.sum } dmap { SyncResult.Ok(_, games) }
         }
       }
     }
 
   /*
    * If the source contains several games, use their index to match them with the study chapter.
-   * If the source contains only one game, use the player tags to match with the study chapter.
+   * If the source contains only one game, use the player tags (and site) to match with the study chapter.
    * So the TCEC style - one game per file, reusing the file for all games - is supported.
    * lichess will create a new chapter when the game player tags differ.
    */
-  private def findCorrespondingChapter(game: RelayGame, chapters: List[Chapter], nbGames: Int): Option[Chapter] =
-    if (nbGames == 1) chapters find game.staticTagsMatch
+  private def findCorrespondingChapter(
+      game: RelayGame,
+      chapters: List[Chapter],
+      nbGames: Int
+  ): Option[Chapter] =
+    if (nbGames == 1 || game.looksLikeLichess) chapters find game.staticTagsMatch
     else chapters.find(_.relay.exists(_.index == game.index))
 
   private def updateChapter(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
@@ -77,17 +83,20 @@ private final class RelaySync(
           )(who) >> chapterRepo.setRelayPath(chapter.id, path)
         } >> newNode.?? { node =>
           lila.common.Future.fold(node.mainline)(Position(chapter, path).ref) {
-            case (position, n) => studyApi.addNode(
-              studyId = study.id,
-              position = position,
-              node = n,
-              opts = moveOpts.copy(clock = n.clock),
-              relay = Chapter.Relay(
-                index = game.index,
-                path = position.path + n,
-                lastMoveAt = DateTime.now
-              ).some
-            )(who) inject position + n
+            case (position, n) =>
+              studyApi.addNode(
+                studyId = study.id,
+                position = position,
+                node = n,
+                opts = moveOpts.copy(clock = n.clock),
+                relay = Chapter
+                  .Relay(
+                    index = game.index,
+                    path = position.path + n,
+                    lastMoveAt = DateTime.now
+                  )
+                  .some
+              )(who) inject position + n
           } inject node.mainline.size
         }
     }
@@ -152,11 +161,13 @@ private final class RelaySync(
         practice = false,
         gamebook = false,
         conceal = none,
-        relay = Chapter.Relay(
-          index = game.index,
-          path = game.root.mainlinePath,
-          lastMoveAt = DateTime.now
-        ).some
+        relay = Chapter
+          .Relay(
+            index = game.index,
+            path = game.root.mainlinePath,
+            lastMoveAt = DateTime.now
+          )
+          .some
       )
       studyApi.doAddChapter(study, chapter, sticky = false, actorApi.Who(study.ownerId, sri)) inject chapter
     }
@@ -184,7 +195,7 @@ object SyncResult {
     val reportKey = "ok"
   }
   case object Timeout extends Exception with SyncResult {
-    val reportKey = "timeout"
+    val reportKey           = "timeout"
     override def getMessage = "In progress..."
   }
   case class Error(msg: String) extends SyncResult {

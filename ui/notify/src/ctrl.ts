@@ -1,4 +1,5 @@
 import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
+import * as xhr from 'common/xhr';
 import notify from 'common/notification';
 import { asText } from './view';
 
@@ -6,13 +7,13 @@ const li = window.lichess;
 
 export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
 
-  let data: NotifyData | undefined
-  let initiating = true;
-  let scrolling = false;
+  let data: NotifyData | undefined,
+    initiating = true,
+    scrolling = false;
 
   const readAllStorage = li.storage.make('notify-read-all');
 
-  readAllStorage.listen(() => {
+  readAllStorage.listen(_ => {
     if (data) {
       data.unread = 0;
       opts.setCount(0);
@@ -25,7 +26,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     if (data.pager.currentPage === 1 && data.unread && opts.isVisible()) {
       opts.setNotified();
       data.unread = 0;
-      readAllStorage.set('' + Math.random()); // tell other tabs
+      readAllStorage.fire();
     }
     initiating = false;
     scrolling = false;
@@ -45,9 +46,10 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     if (!pushSubsribed && text) notify(text);
   }
 
-  function loadPage(page: number) {
-    return $.get('/notify', {page: page || 1}).then(d => update(d, false));
-  }
+  const loadPage = (page: number) =>
+    xhr.json(xhr.url('/notify', { page: page || 1 }))
+      .then(d => update(d, false))
+      .catch(() => li.announce({ msg: 'Failed to load notifications' }));
 
   function nextPage() {
     if (!data || !data.pager.nextPage) return;
@@ -67,6 +69,16 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     if (!data || data.pager.currentPage === 1) loadPage(1);
   }
 
+  function setMsgRead(user: string) {
+    if (data) data.pager.currentPageResults.forEach(n => {
+      if (n.type == 'privateMessage' && n.content.user.id == user && !n.read) {
+        n.read = true;
+        data!.unread = Math.max(0, data!.unread - 1);
+        opts.setCount(data!.unread);
+      }
+    });
+  }
+
   return {
     data: () => data,
     initiating: () => initiating,
@@ -75,6 +87,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     nextPage,
     previousPage,
     loadPage,
-    setVisible
+    setVisible,
+    setMsgRead
   };
 }

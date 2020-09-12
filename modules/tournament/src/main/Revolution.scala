@@ -7,47 +7,56 @@ import reactivemongo.api.ReadPreference
 import chess.variant.Variant
 import lila.db.dsl._
 import lila.user.User
+import lila.memo.CacheApi._
 
 final class RevolutionApi(
-    coll: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder
-) {
+    tournamentRepo: TournamentRepo,
+    cacheApi: lila.memo.CacheApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Revolution._
   import BSONHandlers._
 
-  def active(u: User): Fu[List[Award]] = cache.get map { ~_.get(u.id) }
+  def active(u: User): Fu[List[Award]] = cache.getUnit dmap { ~_.get(u.id) }
 
-  private[tournament] def clear = cache.refresh
+  private[tournament] def clear() = cache.invalidateUnit()
 
-  private val cache = asyncCache.single[PerOwner](
-    name = "tournament.shield",
-    expireAfter = _.ExpireAfterWrite(1 day),
-    f = coll.find($doc(
-      "schedule.freq" -> scheduleFreqHandler.write(Schedule.Freq.Unique),
-      "startsAt" $lt DateTime.now $gt DateTime.now.minusYears(1).minusDays(1),
-      "name" $regex Revolution.namePattern,
-      "status" -> statusBSONHandler.write(Status.Finished)
-    ), $doc("winner" -> true, "variant" -> true)).list[Bdoc](none, ReadPreference.secondaryPreferred) map { docOpt =>
-      val awards = for {
-        doc <- docOpt
-        winner <- doc.getAs[User.ID]("winner")
-        variant <- doc.getAs[Int]("variant") flatMap Variant.apply
-        id <- doc.getAs[Tournament.ID]("_id")
-      } yield Award(
-        owner = winner,
-        variant = variant,
-        tourId = id
-      )
-      awards.groupBy(_.owner)
-    }
-  )
+  private val cache = cacheApi.unit[PerOwner] {
+    _.refreshAfterWrite(1 day)
+      .buildAsyncFuture { _ =>
+        tournamentRepo.coll
+          .find(
+            $doc(
+              "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Unique).get,
+              "startsAt" $lt DateTime.now $gt DateTime.now.minusYears(1).minusDays(1),
+              "name" $regex Revolution.namePattern,
+              "status" -> statusBSONHandler.writeTry(Status.Finished).get
+            ),
+            $doc("winner" -> true, "variant" -> true).some
+          )
+          .cursor[Bdoc](ReadPreference.secondaryPreferred)
+          .list() map { docOpt =>
+          val awards =
+            for {
+              doc     <- docOpt
+              winner  <- doc.getAsOpt[User.ID]("winner")
+              variant <- doc.int("variant") flatMap Variant.apply
+              id      <- doc.getAsOpt[Tournament.ID]("_id")
+            } yield Award(
+              owner = winner,
+              variant = variant,
+              tourId = id
+            )
+          awards.groupBy(_.owner)
+        }
+      }
+  }
 }
 
 object Revolution {
 
   val namePattern = """ Revolution #\d+$"""
-  val nameRegex = namePattern.r
+  val nameRegex   = namePattern.r
 
   def is(tour: Tournament) = tour.isUnique && nameRegex.pattern.matcher(tour.name).find
 

@@ -4,7 +4,8 @@ import { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
 import { Rules } from 'chessops/types';
-import { parseFen } from 'chessops/fen';
+import { parseFen, EMPTY_FEN } from 'chessops/fen';
+import modal from 'common/modal';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
 import { OpeningPosition, Selected, CastlingToggle, EditorState } from './interfaces';
@@ -154,67 +155,75 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
         }
       }, ctrl.trans.noarg('clearBoard'))
     ])] : [
-      h('div', [
-        h('select', {
-          attrs: { id: 'variants' },
-          on: {
-            change(e) {
-              ctrl.setRules((e.target as HTMLSelectElement).value as Rules);
+        h('div', [
+          h('select', {
+            attrs: { id: 'variants' },
+            on: {
+              change(e) {
+                ctrl.setRules((e.target as HTMLSelectElement).value as Rules);
+              }
             }
-          }
-        }, allVariants.map(x => variant2option(x[0], x[1], ctrl)))
-      ]),
-      h('div.actions', [
-        h('a.button.button-empty.text', {
-          attrs: { 'data-icon': 'B' },
-          on: {
-            click() {
-              ctrl.chessground!.toggleOrientation();
+          }, allVariants.map(x => variant2option(x[0], x[1], ctrl)))
+        ]),
+        h('div.actions', [
+          h('a.button.button-empty.text', {
+            attrs: { 'data-icon': 'q' },
+            on: {
+              click() {
+                ctrl.setFen(EMPTY_FEN);
+              }
             }
-          }
-        }, ctrl.trans.noarg('flipBoard')),
-        h('a', {
-          attrs: {
-            'data-icon': 'A',
-            rel: 'nofollow',
-            ...(state.legalFen ? { href: ctrl.makeAnalysisUrl(state.legalFen) } : {})
-          },
-          class: {
-            button: true,
-            'button-empty': true,
-            text: true,
-            disabled: !state.legalFen
-          }
-        }, ctrl.trans.noarg('analysis')),
-        h('a', {
-          class: {
-            button: true,
-            'button-empty': true,
-            disabled: !state.playable,
-          },
-          on: {
-            click: () => {
-              if (state.playable) $.modal($('.continue-with'));
+          }, ctrl.trans.noarg('clearBoard')),
+          h('a.button.button-empty.text', {
+            attrs: { 'data-icon': 'B' },
+            on: {
+              click() {
+                ctrl.chessground!.toggleOrientation();
+              }
             }
-          }
-        }, [h('span.text', { attrs: { 'data-icon' : 'U' } }, ctrl.trans.noarg('continueFromHere'))]),
-        studyButton(ctrl, state)
-      ]),
-      h('div.continue-with.none', [
-        h('a.button', {
-          attrs: {
-            href: '/?fen=' + state.legalFen + '#ai',
-            rel: 'nofollow'
-          }
-        }, ctrl.trans.noarg('playWithTheMachine')),
-        h('a.button', {
-          attrs: {
-            href: '/?fen=' + state.legalFen + '#friend',
-            rel: 'nofollow'
-          }
-        }, ctrl.trans.noarg('playWithAFriend'))
+          }, ctrl.trans.noarg('flipBoard')),
+          h('a', {
+            attrs: {
+              'data-icon': 'A',
+              rel: 'nofollow',
+              ...(state.legalFen ? { href: ctrl.makeAnalysisUrl(state.legalFen) } : {})
+            },
+            class: {
+              button: true,
+              'button-empty': true,
+              text: true,
+              disabled: !state.legalFen
+            }
+          }, ctrl.trans.noarg('analysis')),
+          h('a', {
+            class: {
+              button: true,
+              'button-empty': true,
+              disabled: !state.playable,
+            },
+            on: {
+              click: () => {
+                if (state.playable) modal($('.continue-with'));
+              }
+            }
+          }, [h('span.text', { attrs: { 'data-icon': 'U' } }, ctrl.trans.noarg('continueFromHere'))]),
+          studyButton(ctrl, state)
+        ]),
+        h('div.continue-with.none', [
+          h('a.button', {
+            attrs: {
+              href: '/?fen=' + state.legalFen + '#ai',
+              rel: 'nofollow'
+            }
+          }, ctrl.trans.noarg('playWithTheMachine')),
+          h('a.button', {
+            attrs: {
+              href: '/?fen=' + state.legalFen + '#friend',
+              rel: 'nofollow'
+            }
+          }, ctrl.trans.noarg('playWithAFriend'))
+        ])
       ])
-    ])
   ]);
 }
 

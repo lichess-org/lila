@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessCoaches">Huấn luyện viên Lichess</string>
+  <string name="lichessCoach">Huấn luyện viên Lichess</string>
+  <string name="areYouCoach">Bạn là huấn luyện viên nổi tiếng với %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Danh hiệu chuẩn Quốc gia hoặc Quốc tế</string>
+  <string name="confirmTitle">Xác nhận danh hiệu của bạn ở đây và chúng tôi sẽ xem xét đơn ứng tuyển của bạn.</string>
+  <string name="sendApplication">Gửi email cho chúng tôi tại %s và chúng tôi sẽ xem xét đơn ứng tuyển của bạn.</string>
+  <string name="location">Địa điểm</string>
+  <string name="languages">Ngôn ngữ</string>
+  <string name="rating">Hệ số</string>
+  <string name="hourlyRate">Mức giá theo giờ</string>
+  <string name="availability">Sẵn sàng</string>
+  <string name="accepting">Đang nhận học viên</string>
+  <string name="notAccepting">Hiện tại không nhận học viên</string>
+  <string name="xCoachesStudents">%s huấn luyện học viên</string>
+  <string name="viewXProfile">Xem hồ sơ của %s</string>
+  <string name="sendPM">Gửi tin nhắn riêng</string>
+  <string name="aboutMe">Thông tin về tôi</string>
+  <string name="playingExperience">Kinh nghiệm chơi cờ</string>
+  <string name="teachingExperience">Kinh nghiệm dạy cờ</string>
+  <string name="otherExperiences">Kinh nghiệm khác</string>
+  <string name="bestSkills">Những kỹ năng tốt nhất</string>
+  <string name="teachingMethod">Phương pháp giảng dạy</string>
+  <string name="youtubeVideos">Các video trên YouTube</string>
+  <string name="thankYouForReview">Cảm ơn đánh giá của bạn!</string>
+  <string name="reviewCoach">Đánh giá huấn luyện viên này</string>
+  <string name="describeExperienceWith">Mô tả kinh nghiệm huấn luyện của %s</string>
+</resources>

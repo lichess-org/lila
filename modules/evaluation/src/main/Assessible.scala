@@ -2,7 +2,7 @@ package lila.evaluation
 
 import chess.{ Color, Speed }
 import lila.analyse.{ Accuracy, Analysis }
-import lila.game.{ Game, Pov, Player }
+import lila.game.{ Game, Player, Pov }
 import org.joda.time.DateTime
 
 case class Analysed(game: Game, analysis: Analysis, holdAlerts: Player.HoldAlert.Map)
@@ -14,13 +14,15 @@ case class Assessible(analysed: Analysed, color: Color) {
   lazy val suspiciousErrorRate: Boolean =
     listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < (game.speed match {
       case Speed.Bullet => 25
-      case Speed.Blitz => 20
-      case _ => 15
+      case Speed.Blitz  => 20
+      case _            => 15
     })
 
   lazy val alwaysHasAdvantage: Boolean =
     !analysis.infos.exists { info =>
-      info.cp.fold(info.mate.fold(false) { a => (a.signum == color.fold(-1, 1)) }) { cp =>
+      info.cp.fold(info.mate.fold(false) { a =>
+        a.signum == color.fold(-1, 1)
+      }) { cp =>
         color.fold(cp.centipawns < -100, cp.centipawns > 100)
       }
     }
@@ -35,10 +37,7 @@ case class Assessible(analysed: Analysed, color: Color) {
     analysed.holdAlerts(color).exists(_.suspicious)
 
   lazy val highestChunkBlurs: Int =
-    game.player(color).blurs match {
-      case bits: lila.game.Blurs.Bits => bits.booleans.sliding(12).map(_.count(identity)).max
-      case _ => 0
-    }
+    game.player(color).blurs.booleans.sliding(12).map(_.count(identity)).max
 
   lazy val highChunkBlurRate: Boolean =
     highestChunkBlurs >= 11
@@ -93,33 +92,43 @@ case class Assessible(analysed: Analysed, color: Color) {
       case PlayerFlags(_, T, T, _, _, _, _, _) => LikelyCheating // always has advantage, high blurs
 
       case PlayerFlags(_, T, _, _, _, T, T, _) => Unclear // always has advantage, consistent move times
-      case PlayerFlags(T, _, _, _, _, T, T, _) => Unclear // high accuracy, consistent move times, no fast moves
-      case PlayerFlags(T, _, _, F, _, F, T, _) => Unclear // high accuracy, no fast moves, but doesn't blur or flat line
+      case PlayerFlags(T, _, _, _, _, T, T, _) =>
+        Unclear // high accuracy, consistent move times, no fast moves
+      case PlayerFlags(T, _, _, F, _, F, T, _) =>
+        Unclear // high accuracy, no fast moves, but doesn't blur or flat line
 
       case PlayerFlags(T, _, _, _, _, _, F, _) => UnlikelyCheating // high accuracy, but has fast moves
 
       case PlayerFlags(F, F, _, _, _, _, _, _) => NotCheating // low accuracy, doesn't hold advantage
-      case _ => NotCheating
+      case _                                   => NotCheating
     }
 
     if (flags.suspiciousHoldAlert) assessment
     else if (~game.wonBy(color)) assessment
-    else if (assessment == Cheating || assessment == LikelyCheating) Unclear
+    else if (assessment == Cheating) LikelyCheating
+    else if (assessment == LikelyCheating) Unclear
     else assessment
   }
 
   lazy val sfAvg: Int = listAverage(Accuracy.diffsList(Pov(game, color), analysis)).toInt
-  lazy val sfSd: Int = listDeviation(Accuracy.diffsList(Pov(game, color), analysis)).toInt
+  lazy val sfSd: Int  = listDeviation(Accuracy.diffsList(Pov(game, color), analysis)).toInt
   lazy val mtAvg: Int = listAverage(~game.moveTimes(color) map (_.roundTenths)).toInt
-  lazy val mtSd: Int = listDeviation(~game.moveTimes(color) map (_.roundTenths)).toInt
+  lazy val mtSd: Int  = listDeviation(~game.moveTimes(color) map (_.roundTenths)).toInt
   lazy val blurs: Int = game.playerBlurPercent(color)
+
+  lazy val tcFactor: Double = game.speed match {
+    case Speed.Bullet | Speed.Blitz => 1.25
+    case Speed.Rapid                => 1.0
+    case Speed.Classical            => 0.6
+    case _                          => 1.0
+  }
 
   def playerAssessment: PlayerAssessment =
     PlayerAssessment(
       _id = game.id + "/" + color.name,
       gameId = game.id,
       userId = ~game.player(color).userId,
-      white = (color == Color.White),
+      white = color == Color.White,
       assessment = rankCheating,
       date = DateTime.now,
       // meta
@@ -131,6 +140,7 @@ case class Assessible(analysed: Analysed, color: Color) {
       blurs = blurs,
       hold = suspiciousHoldAlert,
       blurStreak = highestChunkBlurs.some.filter(0 <),
-      mtStreak = highlyConsistentMoveTimeStreaks.some.filter(identity)
+      mtStreak = highlyConsistentMoveTimeStreaks.some.filter(identity),
+      tcFactor = tcFactor.some
     )
 }

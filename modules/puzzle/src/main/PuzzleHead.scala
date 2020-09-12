@@ -3,7 +3,7 @@ package lila.puzzle
 case class PuzzleHead(
     _id: lila.user.User.ID,
     current: Option[PuzzleId], // current puzzle assigned to user (rated)
-    last: PuzzleId // last puzzle assigned to user
+    last: PuzzleId             // last puzzle assigned to user
 ) {
 
   def id = _id
@@ -12,12 +12,12 @@ case class PuzzleHead(
 object PuzzleHead {
 
   object BSONFields {
-    val id = "_id"
+    val id      = "_id"
     val current = "current"
-    val last = "last"
+    val last    = "last"
   }
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
 
-  private[puzzle] implicit val puzzleHeadBSONHandler = Macros.handler[PuzzleHead]
+  implicit private[puzzle] val puzzleHeadBSONHandler = Macros.handler[PuzzleHead]
 }

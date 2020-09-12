@@ -6,7 +6,8 @@
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/lichess/localized.svg)](https://crowdin.com/project/lichess)
 [![Twitter](https://img.shields.io/badge/Twitter-%40lichess-blue.svg)](https://twitter.com/lichess)
 
-<img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/home-bicolor.png" alt="lichess.org" />
+<img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/home-bicolor.png" alt="Lichess homepage" title="Lichess comes with light and dark theme, this screenshot shows both." />
+
 
 Lila (li[chess in sca]la) is a free online chess game server focused on [realtime](https://lichess.org/games) gameplay and ease of use.
 
@@ -21,20 +22,21 @@ a [mobile app](https://lichess.org/mobile),
 and a [shared analysis board](https://lichess.org/study).
 The UI is available in more than [130 languages](https://crowdin.com/project/lichess) thanks to the community.
 
-Lichess is written in [Scala 2.11](https://www.scala-lang.org/),
-and relies on the [Play 2.4](https://www.playframework.com/) framework.
+Lichess is written in [Scala 2.13](https://www.scala-lang.org/),
+and relies on the [Play 2.8](https://www.playframework.com/) framework.
 [scalatags](http://www.lihaoyi.com/scalatags/) is used for templating.
 Pure chess logic is contained in the [scalachess](https://github.com/ornicar/scalachess) submodule.
-The server is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
-Some WebSocket connections are handled by a [seperate server](https://github.com/ornicar/lila-ws) that communicates using [redis](https://redis.io/).
+The server is fully asynchronous, making heavy use of Scala Futures and [Akka streams](http://akka.io).
+WebSocket connections are handled by a [seperate server](https://github.com/ornicar/lila-ws) that communicates using [redis](https://redis.io/).
 Lichess talks to [Stockfish](http://stockfishchess.org/) deployed in an [AI cluster](https://github.com/niklasf/fishnet) of donated servers.
-It uses [MongoDB](https://mongodb.org) to store more than 1 billion games, which are indexed by [elasticsearch](http://elasticsearch.org).
-HTTP requests and WebSocket connections are proxied by [nginx](http://nginx.org).
-The web client is written in [TypeScript](https://typescriptlang.org) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
+It uses [MongoDB](https://mongodb.org) to store more than 1.7 billion games, which are indexed by [elasticsearch](http://elasticsearch.org).
+HTTP requests and WebSocket connections can be proxied by [nginx](http://nginx.org).
+The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 All rated games are published in a [free PGN database](https://database.lichess.org).
 Browser testing done with [![Browserstack](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
-Please help us [translate lichess with Crowdin](https://crowdin.com/project/lichess).
+Proxy detection done with [IP2Proxy database](https://www.ip2location.com/database/ip2proxy).
+Please help us [translate Lichess with Crowdin](https://crowdin.com/project/lichess).
 
 See [lichess.org/source](https://lichess.org/source) for a list of repositories.
 
@@ -44,9 +46,12 @@ Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and 
 Installation
 ------------
 
-The Wiki describes [how to setup a development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
+```
+./lila # thin wrapper around sbt
+run
+```
 
-The source code is available for learning and contribution, but please don't just setup a public Lichess clone. Don't expect developers to help you run your own instance. Questions about the installation and runtime issues will probably be ignored.
+The Wiki describes [how to setup a development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
 
 HTTP API
 --------
@@ -63,15 +68,14 @@ Supported browsers
 
 | Name              | Version | Notes |
 | ----------------- | ------- | ----- |
-| Chromium / Chrome | last 10 | Full support, fastest local analysis |
-| Firefox           | 55+     | Full support, second fastest local analysis |
+| Chromium / Chrome | last 10 | Full support |
+| Firefox           | 55+     | Full support (fastest local analysis since FF 79) |
 | Safari            | 10.1+   | Reasonable support |
 | Opera             | 55+     | Reasonable support |
 | Edge              | 17+     | Reasonable support |
 
 Older browsers (including any version of Internet Explorer) will not work.
-For your own sake, please upgrade. Security and performance, think about
-it!
+For your own sake, please upgrade. Security and performance, think about it!
 
 License
 -------

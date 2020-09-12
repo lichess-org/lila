@@ -1,25 +1,32 @@
 package lila.plan
 
 import org.joda.time.DateTime
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.bson.BSONNull
+import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl._
 
-private final class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll) {
+final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
 
-  def get: Fu[MonthlyGoal] = monthAmount map { amount =>
-    MonthlyGoal(current = amount, goal = getGoal().cents)
-  }
+  def get: Fu[MonthlyGoal] =
+    monthAmount dmap { amount =>
+      MonthlyGoal(current = amount, goal = getGoal().cents)
+    }
 
   def monthAmount: Fu[Cents] =
-    chargeColl.aggregateOne(
-      Match($doc("date" $gt DateTime.now.withDayOfMonth(1).withTimeAtStartOfDay)), List(
-        Group(BSONNull)("cents" -> SumField("cents"))
-      )
-    ).map {
-        ~_.flatMap { _.getAs[Int]("cents") }
-      } map Cents.apply
+    chargeColl
+      .aggregateWith() { framework =>
+        import framework._
+        List(
+          Match($doc("date" $gt DateTime.now.withDayOfMonth(1).withTimeAtStartOfDay)),
+          Group(BSONNull)("cents" -> SumField("cents"))
+        )
+      }
+      .headOption
+      .map {
+        ~_.flatMap { _.int("cents") }
+      } dmap Cents.apply
 }
 
 case class MonthlyGoal(current: Cents, goal: Cents) {

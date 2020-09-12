@@ -1,9 +1,13 @@
 .study__server-eval {
   @extend %box-neat;
+
   background: $c-bg-box;
+  text-align: center;
+
   &.padded {
     padding: 4em;
   }
+
   &.ready {
     height: 15em;
   }

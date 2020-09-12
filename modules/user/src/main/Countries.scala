@@ -1,25 +1,21 @@
 package lila.user
 
 import scala._
-import scala.collection.breakOut
 
-sealed trait Country {
-  def code: String
-  def name: String
-  def shortName: String
-}
-
-case class C(code: String, name: String) extends Country {
-  def shortName = name
-}
-
-case class CC(code: String, name: String, shortName: String) extends Country
+final class Country(
+    val code: String,
+    val name: String,
+    val shortName: String
+)
 
 object Countries {
 
+  @inline private def C(code: String, name: String)                    = new Country(code, name, name)
+  @inline private def C(code: String, name: String, shortName: String) = new Country(code, name, shortName)
+
   val all = List(
     C("AD", "Andorra"),
-    CC("AE", "United Arab Emirates", "UAE"),
+    C("AE", "United Arab Emirates", "UAE"),
     C("AF", "Afghanistan"),
     C("AG", "Antigua and Barbuda"),
     C("AI", "Anguilla"),
@@ -94,7 +90,7 @@ object Countries {
     C("FO", "Faroe Islands"),
     C("FR", "France"),
     C("GA", "Gabon"),
-    CC("GB", "United Kingdom", "UK"),
+    C("GB", "United Kingdom", "UK"),
     C("GB-ENG", "England"),
     C("GB-NIR", "Northern Ireland"),
     C("GB-SCT", "Scotland"),
@@ -234,7 +230,7 @@ object Countries {
     C("SV", "El Salvador"),
     C("SX", "Sint Maarten"),
     C("SY", "Syria"),
-    C("SZ", "Swaziland"),
+    C("SZ", "Eswatini"),
     C("TC", "Turks and Caicos"),
     C("TD", "Chad"),
     C("TF", "French Southern Territories"),
@@ -254,28 +250,43 @@ object Countries {
     C("UA", "Ukraine"),
     C("UG", "Uganda"),
     C("UM", "United States Minor Outlying Islands"),
-    CC("US", "United States", "USA"),
+    C("US", "United States", "USA"),
     C("UY", "Uruguay"),
     C("UZ", "Uzbekistan"),
     C("VA", "Holy See"),
     C("VC", "Saint Vincent and the Grenadines"),
     C("VE", "Venezuela"),
-    CC("VG", "British Virgin Islands", "BVI"),
+    C("VG", "British Virgin Islands", "BVI"),
     C("VI", "U.S. Virgin Islands"),
     C("VN", "Vietnam"),
     C("VU", "Vanuatu"),
     C("WF", "Wallis and Futuna"),
     C("WS", "Samoa"),
+    C("XK", "Kosovo"),
     C("YE", "Yemen"),
     C("YT", "Mayotte"),
     C("ZA", "South Africa"),
     C("ZM", "Zambia"),
     C("ZW", "Zimbabwe")
-  ).sortBy(_.name)
+  ).sortBy(_.name) ::: List(
+    // whatever
+    C("_adygea", "Adygea"),
+    C("_east-turkestan", "East Turkestan"),
+    C("EU", "European Union"),
+    C("_united-nations", "United Nations"),
+    C("_rainbow", "Rainbow"),
+    C("_pirate", "Pirate")
+  )
 
-  val allPairs = all map { c => c.code -> c.name }
+  val allPairs = all map { c =>
+    c.code -> c.name
+  }
 
-  val map: Map[String, Country] = all.map { c => c.code -> c }(breakOut)
+  val map: Map[String, Country] = all.view
+    .map { c =>
+      c.code -> c
+    }
+    .to(Map)
 
   val codeSet = map.keySet
 

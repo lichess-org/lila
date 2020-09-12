@@ -15,6 +15,7 @@ export interface ChatOpts {
   i18n: { [key: string]: string | undefined }
   preset?: string
   noteId?: string
+  noteText?: string
   loadCss: (url: string) => void
   plugin?: ChatPlugin
   alwaysEnabled: boolean;
@@ -31,7 +32,7 @@ export interface ChatPlugin {
 export interface ChatData {
   id: string
   name: string
-  lines: Array<Line>
+  lines: Line[];
   userId?: string
   resourceId: string
   loginRequired: boolean
@@ -65,7 +66,7 @@ export interface Ctrl {
   preset: PresetCtrl
   note?: NoteCtrl
   moderation(): ModerationCtrl | undefined
-  post(text: string): void
+  post(text: string): boolean
   trans: Trans
   setTab(tab: Tab): void
   setEnabled(v: boolean): void
@@ -92,6 +93,7 @@ export interface ViewModel {
 
 export interface NoteOpts {
   id: string
+  text?: string
   trans: Trans
   redraw: Redraw
 }
@@ -99,7 +101,7 @@ export interface NoteOpts {
 export interface NoteCtrl {
   id: string
   trans: Trans
-  text(): string
+  text(): string | undefined
   fetch(): void
   post(text: string): void
 }
@@ -115,15 +117,15 @@ export interface ModerationCtrl {
   data(): ModerationData | undefined
   reasons: ModerationReason[]
   permissions(): Permissions
-  open(username: string): void
+  open(line: HTMLElement): void
   close(): void
-  timeout(reason: ModerationReason): void
-  shadowban(): void
+  timeout(reason: ModerationReason, text: string): void
 }
 
 export interface ModerationData {
   id: string
   username: string
+  text: string
   games?: number
   troll?: boolean
   engine?: boolean

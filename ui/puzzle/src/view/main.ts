@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import changeColorHandle from 'common/coordsColor';
 import chessground from './chessground';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
@@ -11,24 +12,13 @@ import * as gridHacks from './gridHacks';
 import { onInsert, bind, bindMobileMousedown } from '../util';
 import { Controller } from '../interfaces';
 
-function renderOpeningBox(ctrl: Controller) {
-  var opening = ctrl.getTree().getOpening(ctrl.vm.nodeList);
-  if (opening) return h('div.opening_box', {
-    attrs: { title: opening.eco + ' ' + opening.name }
-  }, [
-    h('strong', opening.eco),
-    ' ' + opening.name
-  ]);
-}
-
-function renderAnalyse(ctrl: Controller) {
+function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [
-    renderOpeningBox(ctrl),
     treeView(ctrl)
   ]);
 }
 
-function wheel(ctrl: Controller, e: WheelEvent) {
+function wheel(ctrl: Controller, e: WheelEvent): false | undefined {
   const target = e.target as HTMLElement;
   if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD') return;
   e.preventDefault();
@@ -38,11 +28,12 @@ function wheel(ctrl: Controller, e: WheelEvent) {
   return false;
 }
 
-function dataAct(e) {
-  return e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
+function dataAct(e: Event): string | null {
+  const target = e.target as HTMLElement;
+  return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 }
 
-function jumpButton(icon, effect) {
+function jumpButton(icon: string, effect: string): VNode {
   return h('button.fbt', {
     attrs: {
       'data-act': effect,
@@ -51,7 +42,7 @@ function jumpButton(icon, effect) {
   });
 }
 
-function controls(ctrl: Controller) {
+function controls(ctrl: Controller): VNode {
   return h('div.puzzle__controls.analyse-controls', {
     hook: onInsert(el => {
       bindMobileMousedown(el, e => {
@@ -87,9 +78,11 @@ export default function(ctrl: Controller): VNode {
       postpatch(old, vnode) {
         gridHacks.start(vnode.elm as HTMLElement)
         if (old.data!.gaugeOn !== gaugeOn) {
-          if (ctrl.pref.coords == 2)
+          if (ctrl.pref.coords == 2){
             $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
-          window.lichess.dispatchEvent(document.body, 'chessground.resize');
+            changeColorHandle();
+          }
+          document.body.dispatchEvent(new Event('chessground.resize'));
         }
         vnode.data!.gaugeOn = gaugeOn;
       }
@@ -100,7 +93,7 @@ export default function(ctrl: Controller): VNode {
       side.userBox(ctrl)
     ]),
     h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
-      hook: window.lichess.hasTouchEvents ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
+      hook: 'ontouchstart' in window ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       chessground(ctrl),
       ctrl.promotion.view()

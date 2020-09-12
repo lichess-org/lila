@@ -2,57 +2,61 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
-import scala.concurrent.duration._
 
-import lila.api.Context
 import lila.app._
-import lila.common.IpAddress
 import views._
 
-object Lobby extends LilaController {
+final class Lobby(
+    env: Env
+) extends LilaController(env) {
 
-  private val lobbyJson = Json.obj(
+  private lazy val lobbyJson = Json.obj(
     "lobby" -> Json.obj(
       "version" -> 0,
-      "pools" -> Env.api.lobbyApi.poolsJson
+      "pools"   -> lila.pool.PoolList.json
+    ),
+    "assets" -> Json.obj(
+      "domain" -> env.net.assetDomain.value
     )
   )
 
-  def home = Open { implicit ctx =>
-    negotiate(
-      html = renderHome(Results.Ok).map(NoCache),
-      api = _ => fuccess {
-        val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
-        Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
-      }
-    )
-  }
+  def home =
+    Open { implicit ctx =>
+      pageHit
+      negotiate(
+        html = env.pageCache { () =>
+          keyPages.homeHtml.dmap { html =>
+            NoCache(Ok(html))
+          }
+        } dmap env.lilaCookie.ensure(ctx.req),
+        api = _ =>
+          fuccess {
+            val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
+            Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
+          }
+      )
+    }
 
   def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
-    reqToCtx(req) flatMap { ctx => renderHome(status)(ctx) }
-
-  def renderHome(status: Results.Status)(implicit ctx: Context): Fu[Result] = {
-    pageHit
-    Env.current.preloader(
-      posts = Env.forum.recent(ctx.me, Env.team.cached.teamIdsList).nevermind,
-      tours = Env.tournament.cached.promotable.get.nevermind,
-      events = Env.event.api.promoteTo(ctx.req).nevermind,
-      simuls = Env.simul.allCreatedFeaturable.get.nevermind
-    ) map (html.lobby.home.apply _).tupled dmap { html =>
-      ensureSessionId(ctx.req)(status(html))
+    reqToCtx(req) flatMap { ctx =>
+      keyPages.home(status)(ctx)
     }
-  }.mon(_.http.response.home)
 
-  def seeks = Open { implicit ctx =>
-    negotiate(
-      html = fuccess(NotFound),
-      api = _ => ctx.me.fold(Env.lobby.seekApi.forAnon)(Env.lobby.seekApi.forUser) map { seeks =>
-        Ok(JsArray(seeks.map(_.render)))
+  def seeks =
+    Open { implicit ctx =>
+      negotiate(
+        html = fuccess(NotFound),
+        api = _ =>
+          ctx.me.fold(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forUser) map { seeks =>
+            Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
+          }
+      )
+    }
+
+  def timeline =
+    Auth { implicit ctx => me =>
+      env.timeline.entryApi.userEntries(me.id) map { entries =>
+        Ok(html.timeline.entries(entries)).withHeaders(CACHE_CONTROL -> s"max-age=20")
       }
-    )
-  }
-
-  def timeline = Auth { implicit ctx => me =>
-    Env.timeline.entryApi.userEntries(me.id) map { html.timeline.entries(_) }
-  }
+    }
 }

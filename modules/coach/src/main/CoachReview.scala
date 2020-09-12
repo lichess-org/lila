@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class CoachReview(
-    _id: String, // user:coach
+    _id: String,     // user:coach
     userId: User.ID, // reviewer
     coachId: Coach.Id,
     score: Int,

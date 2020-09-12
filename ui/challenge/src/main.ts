@@ -1,9 +1,8 @@
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
-
 import makeCtrl from './ctrl';
 import { loaded, loading } from './view';
-import { load } from './xhr'
+import { json } from 'common/xhr';
 import { ChallengeOpts, ChallengeData, Ctrl } from './interfaces'
 
 import klass from 'snabbdom/modules/class';
@@ -29,7 +28,9 @@ export default function LichessChallenge(element: Element, opts: ChallengeOpts) 
   }
 
   if (opts.data) update(opts.data);
-  else load().then(update);
+  else json('/challenge')
+    .then(update)
+    .catch(() => window.lichess.announce({ msg: 'Failed to load challenges' }));
 
   return {
     update

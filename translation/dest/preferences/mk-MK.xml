@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferences">Поставки</string>
+  <string name="gameDisplay">Приказ на играта</string>
+  <string name="pieceAnimation">Движење на фигурите</string>
+  <string name="materialDifference">Материјална разлика</string>
+  <string name="boardHighlights">Нагласени полиња (последен потег и шах)</string>
+  <string name="pieceDestinations">Легални потези (важечки потези и претпотези)</string>
+  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Координати на таблата (А-H, 1-8)</string>
+  <string name="moveListWhilePlaying">Листа на потези за време на партијата</string>
+  <string name="pgnPieceNotation">Запишување на потезите</string>
+  <string name="chessPieceSymbol">Симбол на фигурата</string>
+  <string name="pgnLetter">Буква (K, Q, R, B, N)</string>
+  <string name="zenMode">Зен режим</string>
+  <string name="displayBoardResizeHandle">Прикажи ја рачката за промена на големината на таблата</string>
+  <string name="onlyOnInitialPosition">Само на почетокот на партијата</string>
+  <string name="blindfoldChess">Слеп шах (невидливи фигури)</string>
+  <string name="chessClock">Шаховски часовник</string>
+  <string name="tenthsOfSeconds">Стотинки</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Кога останатото време е &lt; 10 секунди</string>
+  <string name="horizontalGreenProgressBars">Хоризонтална зелена линија за напредок</string>
+  <string name="soundWhenTimeGetsCritical">Звук кога има преостанато малку време</string>
+  <string name="giveMoreTime">Додај време</string>
+  <string name="gameBehavior">Начин на играње</string>
+  <string name="howDoYouMovePieces">Како да ги движите фигурите?</string>
+  <string name="clickTwoSquares">Кликни на двете полиња</string>
+  <string name="dragPiece">Влечи ја фигурата</string>
+  <string name="bothClicksAndDrag">И двете</string>
+  <string name="premovesPlayingDuringOpponentTurn">Претпотези (играње додека противникот е на ред)</string>
+  <string name="takebacksWithOpponentApproval">Враќање потези (со дозвола на противникот)</string>
+  <string name="inCasualGamesOnly">Само во пријателски партии</string>
+  <string name="promoteToQueenAutomatically">Автоматски унапреди во кралица</string>
+  <string name="whenPremoving">Кога изигрувам претпотег</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Автоматско прогласување реми по третото повторување на потегот</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Кога останатото време е &lt; 30 секунди</string>
+  <string name="moveConfirmation">Потврда за потегот</string>
+  <string name="inCorrespondenceGames">Дописен шах</string>
+  <string name="correspondenceAndUnlimited">Дописен шах и неограничени партии</string>
+  <string name="confirmResignationAndDrawOffers">Потврди предавање и понуда за реми</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Метод за рокада</string>
+  <string name="castleByMovingTwoSquares">Помести го кралот две полиња</string>
+  <string name="castleByMovingOntoTheRook">Помести го кралот врз топот</string>
+  <string name="inputMovesWithTheKeyboard">Внеси потези со тастатура</string>
+  <string name="yourPreferencesHaveBeenSaved">Вашите поставки се зачувани.</string>
+</resources>

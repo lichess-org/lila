@@ -24,7 +24,7 @@ final class PimpedJsObject(private val js: JsObject) extends AnyVal {
 
   def arrAs[A](key: String)(as: JsValue => Option[A]): Option[List[A]] =
     arr(key) map { j =>
-      (j.value.map(as)(scala.collection.breakOut): List[Option[A]]).flatten
+      j.value.iterator.map(as).to(List).flatten
     }
 
   def ints(key: String): Option[List[Int]] = arrAs(key)(_.asOpt[Int])
@@ -36,18 +36,30 @@ final class PimpedJsObject(private val js: JsObject) extends AnyVal {
   def get[A: Reads](key: String): Option[A] =
     (js \ key).asOpt[A]
 
-  def noNull = JsObject {
-    js.fields collect {
-      case (key, value) if value != JsNull => key -> value
+  def noNull =
+    JsObject {
+      js.fields collect {
+        case (key, value) if value != JsNull => key -> value
+      }
     }
-  }
 
   def add(pair: (String, Boolean)): JsObject =
     if (pair._2) js + (pair._1 -> JsBoolean(true))
     else js
 
+  def add(key: String, value: Boolean): JsObject =
+    if (value) js + (key -> JsBoolean(true))
+    else js
+
   def add[A: Writes](pair: (String, Option[A])): JsObject =
-    pair._2.fold(js) { a => js + (pair._1 -> Json.toJson(a)) }
+    pair._2.fold(js) { a =>
+      js + (pair._1 -> Json.toJson(a))
+    }
+
+  def add[A: Writes](key: String, value: Option[A]): JsObject =
+    value.fold(js) { a =>
+      js + (key -> Json.toJson(a))
+    }
 }
 
 final class PimpedJsValue(private val js: JsValue) extends AnyVal {

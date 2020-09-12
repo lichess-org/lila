@@ -26,7 +26,9 @@ case class Activity(
 
   def interval = new Interval(date, date plusDays 1)
 
-  def isEmpty = !stream && List(games, posts, puzzles, learn, practice, simuls, corres, patron, follows, studies, teams).forall(_.isEmpty)
+  def isEmpty =
+    !stream && List(games, posts, puzzles, learn, practice, simuls, corres, patron, follows, studies, teams)
+      .forall(_.isEmpty)
 }
 
 object Activity {
@@ -42,10 +44,11 @@ object Activity {
   case class Day(value: Int) extends AnyVal
   object Day {
     val genesis = new DateTime(2010, 1, 1, 0, 0).withTimeAtStartOfDay
-    def today = Day(Days.daysBetween(genesis, DateTime.now.withTimeAtStartOfDay).getDays)
-    def recent(nb: Int): List[Day] = (0 to (nb - 1)).toList.map { delta =>
-      Day(Days.daysBetween(genesis, DateTime.now.minusDays(delta).withTimeAtStartOfDay).getDays)
-    }
+    def today   = Day(Days.daysBetween(genesis, DateTime.now.withTimeAtStartOfDay).getDays)
+    def recent(nb: Int): List[Day] =
+      (0 until nb).toList.map { delta =>
+        Day(Days.daysBetween(genesis, DateTime.now.minusDays(delta).withTimeAtStartOfDay).getDays)
+      }
   }
 
   def make(userId: User.ID) = Activity(Id today userId)

@@ -1,66 +1,77 @@
 package controllers
 
 import play.api.data._, Forms._
-import play.api.mvc._
-
-import lila.app._
 import views._
 
-import lila.user.User.{ ClearPassword, TotpToken, PasswordAndToken }
+import lila.app._
 
-object Dev extends LilaController {
+final class Dev(env: Env) extends LilaController(env) {
 
   private lazy val settingsList = List[lila.memo.SettingStore[_]](
-    Env.security.ugcArmedSetting,
-    Env.security.spamKeywordsSetting,
-    Env.irwin.irwinModeSetting,
-    Env.explorer.indexFlowSetting,
-    Env.report.scoreThresholdSetting,
-    Env.report.slackScoreThresholdSetting,
-    Env.streamer.alwaysFeaturedSetting,
-    Env.rating.ratingFactorsSetting,
-    Env.plan.donationGoalSetting
+    env.security.ugcArmedSetting,
+    env.security.spamKeywordsSetting,
+    env.irwin.irwinThresholdsSetting,
+    env.explorer.indexFlowSetting,
+    env.report.scoreThresholdSetting,
+    env.report.slackScoreThresholdSetting,
+    env.streamer.homepageMaxSetting,
+    env.streamer.alwaysFeaturedSetting,
+    env.streamer.twitchCredentialsSetting,
+    env.rating.ratingFactorsSetting,
+    env.plan.donationGoalSetting,
+    env.apiTimelineSetting,
+    env.noDelaySecretSetting,
+    env.featuredTeamsSetting,
+    env.prizeTournamentMakers
   )
 
-  def settings = Secure(_.Settings) { implicit ctx => me =>
-    Ok(html.dev.settings(settingsList)).fuccess
-  }
-
-  def settingsPost(id: String) = SecureBody(_.Settings) { implicit ctx => me =>
-    settingsList.find(_.id == id) ?? { setting =>
-      implicit val req = ctx.body
-      setting.form.bindFromRequest.fold(
-        err => BadRequest(html.dev.settings(settingsList)).fuccess,
-        v => setting.setString(v.toString) inject Redirect(routes.Dev.settings)
-      )
+  def settings =
+    Secure(_.Settings) { implicit ctx => _ =>
+      Ok(html.dev.settings(settingsList)).fuccess
     }
-  }
 
-  private val commandForm = Form(single(
-    "command" -> nonEmptyText
-  ))
-
-  def cli = Secure(_.Cli) { implicit ctx => me =>
-    Ok(html.dev.cli(commandForm, none)).fuccess
-  }
-
-  def cliPost = SecureBody(_.Cli) { implicit ctx => me =>
-    implicit val req = ctx.body
-    commandForm.bindFromRequest.fold(
-      err => BadRequest(html.dev.cli(err, "Invalid command".some)).fuccess,
-      command => runAs(me.id, command) map { res =>
-        Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
+  def settingsPost(id: String) =
+    SecureBody(_.Settings) { implicit ctx => _ =>
+      settingsList.find(_.id == id) ?? { setting =>
+        implicit val req = ctx.body
+        setting.form
+          .bindFromRequest()
+          .fold(
+            _ => BadRequest(html.dev.settings(settingsList)).fuccess,
+            v => setting.setString(v.toString) inject Redirect(routes.Dev.settings())
+          )
       }
-    )
-  }
-
-  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { implicit req => me =>
-    lila.security.Granter(_.Cli)(me) ?? {
-      runAs(me.id, req.body) map { Ok(_) }
     }
-  }
+
+  private val commandForm = Form(single("command" -> nonEmptyText))
+
+  def cli =
+    Secure(_.Cli) { implicit ctx => _ =>
+      Ok(html.dev.cli(commandForm, none)).fuccess
+    }
+
+  def cliPost =
+    SecureBody(_.Cli) { implicit ctx => me =>
+      implicit val req = ctx.body
+      commandForm
+        .bindFromRequest()
+        .fold(
+          err => BadRequest(html.dev.cli(err, "Invalid command".some)).fuccess,
+          command =>
+            runAs(me.id, command) map { res =>
+              Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
+            }
+        )
+    }
+
+  def command =
+    ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { implicit req => me =>
+      lila.security.Granter(_.Cli)(me) ?? {
+        runAs(me.id, req.body) map { Ok(_) }
+      }
+    }
 
   private def runAs(user: lila.user.User.ID, command: String): Fu[String] =
-    Env.mod.logApi.cli(user, command) >>
-      Env.api.cli(command.split(" ").toList)
+    env.mod.logApi.cli(user, command) >>
+      env.api.cli(command.split(" ").toList)
 }

@@ -3,14 +3,16 @@ package paginator
 
 import dsl._
 import reactivemongo.api._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
+import scala.util.chaining._
 
 import lila.common.paginator.AdapterLike
 
 final class CachedAdapter[A](
     adapter: AdapterLike[A],
     val nbResults: Fu[Int]
-) extends AdapterLike[A] {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends AdapterLike[A] {
 
   def slice(offset: Int, length: Int): Fu[Seq[A]] =
     adapter.slice(offset, length)
@@ -19,18 +21,28 @@ final class CachedAdapter[A](
 final class Adapter[A: BSONDocumentReader](
     collection: Coll,
     selector: Bdoc,
-    projection: Bdoc,
+    projection: Option[Bdoc],
     sort: Bdoc,
-    readPreference: ReadPreference = ReadPreference.primary
-) extends AdapterLike[A] {
+    readPreference: ReadPreference = ReadPreference.primary,
+    hint: Option[Bdoc] = None
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends AdapterLike[A] {
 
-  def nbResults: Fu[Int] = collection.countSel(selector, readPreference)
+  def nbResults: Fu[Int] = collection.secondaryPreferred.countSel(selector)
 
   def slice(offset: Int, length: Int): Fu[List[A]] =
-    collection.find(selector, projection)
+    collection
+      .find(selector, projection)
       .sort(sort)
       .skip(offset)
-      .list[A](length, readPreference)
+      .pipe { query =>
+        hint match {
+          case None    => query
+          case Some(h) => query.hint(collection hint h)
+        }
+      }
+      .cursor[A](readPreference)
+      .list(length)
 }
 
 /*
@@ -47,27 +59,30 @@ final class MapReduceAdapter[A: BSONDocumentReader](
     runCommand: RunCommand,
     command: Bdoc,
     readPreference: ReadPreference = ReadPreference.primary
-) extends AdapterLike[A] {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends AdapterLike[A] {
 
-  def nbResults: Fu[Int] = collection.countSel(selector, readPreference)
+  def nbResults: Fu[Int] = collection.secondaryPreferred.countSel(selector)
 
   def slice(offset: Int, length: Int): Fu[List[A]] =
-    collection.find(selector, $id(true))
+    collection
+      .find(selector, $id(true).some)
       .sort(sort)
       .skip(offset)
-      .list[Bdoc](length, readPreference)
-      .dmap { _ flatMap { _.getAs[BSONString]("_id") } }
+      .cursor[Bdoc](readPreference)
+      .list(length)
+      .dmap { _ flatMap { _.getAsOpt[BSONString]("_id") } }
       .flatMap { ids =>
         runCommand(
           $doc(
             "mapreduce" -> collection.name,
-            "query" -> $inIds(ids),
-            "sort" -> sort,
-            "out" -> $doc("inline" -> true)
+            "query"     -> $inIds(ids),
+            "sort"      -> sort,
+            "out"       -> $doc("inline" -> true)
           ) ++ command,
           readPreference
         ) map { res =>
-            res.getAs[List[Bdoc]]("results").??(_ map implicitly[BSONDocumentReader[A]].read)
-          }
+          res.getAsOpt[List[Bdoc]]("results").??(_ flatMap implicitly[BSONDocumentReader[A]].readOpt)
+        }
       }
 }

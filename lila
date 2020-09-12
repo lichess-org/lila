@@ -1,0 +1,37 @@
+#!/bin/sh -e
+
+# Starts a dev console to compile and run lichess.
+
+# Usage:
+# ./lila
+# Then in the sbt console:
+# run
+
+# We use .sbtopts instead
+export SBT_OPTS=""
+
+if [ ! -f ".sbtopts" ]; then
+  cp .sbtopts.default .sbtopts
+fi
+
+if [ ! -f "conf/application.conf" ]; then
+  cp conf/application.conf.default conf/application.conf
+fi
+
+java_env="-Dreactivemongo.api.bson.document.strict=false"
+
+cat << "BANNER"
+   |\_    _ _      _
+   /o \  | (_) ___| |__   ___  ___ ___   ___  _ __ __ _
+ (_. ||  | | |/ __| '_ \ / _ \/ __/ __| / _ \| '__/ _` |
+   /__\  | | | (__| | | |  __/\__ \__ \| (_) | | | (_| |
+  )___(  |_|_|\___|_| |_|\___||___/___(_)___/|_|  \__, |
+                                                   |___/
+BANNER
+
+version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
+echo Java "$version"
+
+command="sbt $java_env $@"
+echo $command
+$command

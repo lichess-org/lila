@@ -5,9 +5,10 @@ case class Progress(origin: Game, game: Game, events: List[Event] = Nil) {
 
   def map(f: Game => Game) = copy(game = f(game))
 
-  def flatMap(f: Game => Progress) = f(game) match {
-    case Progress(_, g2, e2) => copy(game = g2, events = events ::: e2)
-  }
+  def flatMap(f: Game => Progress) =
+    f(game) match {
+      case Progress(_, g2, e2) => copy(game = g2, events = events ::: e2)
+    }
 
   def >>(next: => Progress): Progress = flatMap(_ => next)
 
@@ -20,8 +21,6 @@ case class Progress(origin: Game, game: Game, events: List[Event] = Nil) {
   def statusChanged = origin.status != game.status
 
   def dropEvents = copy(events = Nil)
-
-  def withgame(g: Game) = copy(game = game)
 
   override def toString = s"Progress ${game.id}: ${origin.turns} -> ${game.turns} ${game.status}"
 }

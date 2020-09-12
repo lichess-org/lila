@@ -9,12 +9,13 @@ import controllers.routes
 
 object notFound {
 
-  def apply()(implicit ctx: Context) = layout(
-    title = "Page not found",
-    moreJs = prismicJs,
-    moreCss = cssTag("not-found"),
-    csp = isGranted(_.Prismic) option defaultCsp.withPrismic(true)
-  ) {
+  def apply()(implicit ctx: Context) =
+    layout(
+      title = "Page not found",
+      moreJs = prismicJs,
+      moreCss = cssTag("not-found"),
+      csp = isGranted(_.Prismic) option defaultCsp.withPrismic(true)
+    ) {
       main(cls := "not-found page-small box box-pad")(
         header(
           h1("404"),
@@ -22,14 +23,14 @@ object notFound {
             strong("Page not found!"),
             p(
               "Return to ",
-              a(href := routes.Lobby.home)("the homepage"),
+              a(href := routes.Lobby.home())("the homepage"),
               span(cls := "or-play")(" or play this mini-game")
             )
           )
         ),
         div(cls := "game")(
           iframe(
-            src := staticUrl(s"vendor/ChessPursuit/bin-release/index.html"),
+            src := assetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
             st.frameborder := 0,
             width := 400,
             height := 500

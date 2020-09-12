@@ -11,10 +11,9 @@ const li = window.lichess;
 
 export default class LobbySocket {
 
-  send: SocketSend;
   handlers: Handlers;
 
-  constructor(send: SocketSend, ctrl: LobbyController) {
+  constructor(readonly send: SocketSend, ctrl: LobbyController) {
 
     this.send = send;
 

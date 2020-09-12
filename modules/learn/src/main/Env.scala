@@ -1,23 +1,14 @@
 package lila.learn
 
-import com.typesafe.config.Config
+import play.api.Configuration
+
+import lila.common.config._
 
 final class Env(
-    config: Config,
-    db: lila.db.Env
-) {
-
-  private val CollectionProgress = config getString "collection.progress"
-
+    appConfig: Configuration,
+    db: lila.db.Db
+)(implicit ec: scala.concurrent.ExecutionContext) {
   lazy val api = new LearnApi(
-    coll = db(CollectionProgress)
-  )
-}
-
-object Env {
-
-  lazy val current: Env = "learn" boot new Env(
-    config = lila.common.PlayApp loadConfig "learn",
-    db = lila.db.Env.current
+    coll = db(appConfig.get[CollName]("learn.collection.progress"))
   )
 }

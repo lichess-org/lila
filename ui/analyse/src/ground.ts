@@ -5,6 +5,7 @@ import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
 import * as cg from 'chessground/types';
 import { DrawShape } from 'chessground/draw';
+import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import AnalyseCtrl from './ctrl';
 
@@ -23,15 +24,13 @@ export function render(ctrl: AnalyseCtrl): VNode {
 }
 
 export function promote(ground: CgApi, key: Key, role: cg.Role) {
-  const pieces = {};
-  const piece = ground.state.pieces[key];
+  const piece = ground.state.pieces.get(key);
   if (piece && piece.role == 'pawn') {
-    pieces[key] = {
+    ground.setPieces(new Map([[key, {
       color: piece.color,
       role,
-      promoted: true
-    };
-    ground.setPieces(pieces);
+      promoted: true,
+    }]]));
   }
 }
 
@@ -58,6 +57,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       dropNewPiece: ctrl.userNewPiece,
       insert(elements) {
         if (!ctrl.embed) resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.node.ply);
+        if (!ctrl.embed && ctrl.data.pref.coords == 1) changeColorHandle();
       }
     },
     premovable: {
@@ -69,7 +69,8 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     },
     drawable: {
       enabled: !ctrl.embed,
-      eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice
+      eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice,
+      defaultSnapToValidMove: (window.lichess.storage.get('arrow.snap') || 1) != '0'
     },
     highlight: {
       lastMove: pref.highlight,

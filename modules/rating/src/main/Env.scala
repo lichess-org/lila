@@ -1,19 +1,17 @@
 package lila.rating
 
+import com.softwaremill.macwire._
+
+@Module
 final class Env(settingStore: lila.memo.SettingStore.Builder) {
 
   import RatingFactor.implicits._
 
-  val ratingFactorsSetting = settingStore[RatingFactors](
+  lazy val ratingFactorsSetting = settingStore[RatingFactors](
     "ratingFactor",
     default = Map.empty,
     text = "Rating gain factor per perf type".some
   )
-}
 
-object Env {
-
-  lazy val current: Env = "rating" boot new Env(
-    settingStore = lila.memo.Env.current.settingStore
-  )
+  val getFactors = ratingFactorsSetting.get _
 }

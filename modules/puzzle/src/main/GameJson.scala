@@ -4,12 +4,14 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.game.{ Game, GameRepo, PerfPicker }
-import lila.tree.Node.{ partitionTreeJsonWriter, minimalNodeJsonWriter }
+import lila.tree.Node.{ minimalNodeJsonWriter, partitionTreeJsonWriter }
+import lila.i18n.defaultLang
 
-private final class GameJson(
-    asyncCache: lila.memo.AsyncCache.Builder,
+final private class GameJson(
+    gameRepo: GameRepo,
+    cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(gameId: Game.ID, plies: Int, onlyLast: Boolean): Fu[JsObject] =
     cache get CacheKey(gameId, plies, onlyLast)
@@ -19,42 +21,44 @@ private final class GameJson(
 
   private case class CacheKey(gameId: Game.ID, plies: Int, onlyLast: Boolean)
 
-  private val cache = asyncCache.multi[CacheKey, JsObject](
-    name = "puzzle.gameJson",
-    f = generate,
-    expireAfter = _.ExpireAfterAccess(1 hour),
-    maxCapacity = 1024
-  )
-
-  private def generate(ck: CacheKey): Fu[JsObject] = ck match {
-    case CacheKey(gameId, plies, onlyLast) =>
-      (GameRepo game gameId).flatten(s"Missing puzzle game $gameId!") flatMap {
-        generate(_, plies, onlyLast)
-      }
+  private val cache = cacheApi[CacheKey, JsObject](1024, "puzzle.gameJson") {
+    _.expireAfterAccess(5 minutes)
+      .maximumSize(1024)
+      .buildAsyncFuture(generate)
   }
+
+  private def generate(ck: CacheKey): Fu[JsObject] =
+    ck match {
+      case CacheKey(gameId, plies, onlyLast) =>
+        gameRepo game gameId orFail s"Missing puzzle game $gameId!" flatMap {
+          generate(_, plies, onlyLast)
+        }
+    }
 
   private def generate(game: Game, plies: Int, onlyLast: Boolean): Fu[JsObject] =
     lightUserApi preloadMany game.userIds map { _ =>
       val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
-      val tree = TreeBuilder(game, plies)
-      Json.obj(
-        "id" -> game.id,
-        "perf" -> Json.obj(
-          "icon" -> perfType.iconChar.toString,
-          "name" -> perfType.name
-        ),
-        "rated" -> game.rated,
-        "players" -> JsArray(game.players.map { p =>
-          Json.obj(
-            "userId" -> p.userId,
-            "name" -> lila.game.Namer.playerText(p, withRating = true)(lightUserApi.sync),
-            "color" -> p.color.name
-          )
-        }),
-        "treeParts" -> {
-          if (onlyLast) tree.mainlineNodeList.lastOption.map(minimalNodeJsonWriter.writes)
-          else partitionTreeJsonWriter.writes(tree).some
-        }
-      ).add("clock", game.clock.map(_.config.show))
+      val tree     = TreeBuilder(game, plies)
+      Json
+        .obj(
+          "id" -> game.id,
+          "perf" -> Json.obj(
+            "icon" -> perfType.iconChar.toString,
+            "name" -> perfType.trans(defaultLang)
+          ),
+          "rated" -> game.rated,
+          "players" -> JsArray(game.players.map { p =>
+            Json.obj(
+              "userId" -> p.userId,
+              "name"   -> lila.game.Namer.playerTextBlocking(p, withRating = true)(lightUserApi.sync),
+              "color"  -> p.color.name
+            )
+          }),
+          "treeParts" -> {
+            if (onlyLast) tree.mainlineNodeList.lastOption.map(minimalNodeJsonWriter.writes)
+            else partitionTreeJsonWriter.writes(tree).some
+          }
+        )
+        .add("clock", game.clock.map(_.config.show))
     }
 }

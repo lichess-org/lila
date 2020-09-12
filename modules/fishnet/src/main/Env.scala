@@ -1,146 +1,128 @@
 package lila.fishnet
 
 import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
 import io.lettuce.core._
-import scala.concurrent.duration._
-import scala.concurrent.Promise
+import io.methvin.play.autoconfig._
+import play.api.Configuration
 
 import lila.common.Bus
+import lila.common.config._
+import lila.game.Game
 
+@Module
+private class FishnetConfig(
+    @ConfigName("collection.analysis") val analysisColl: CollName,
+    @ConfigName("collection.client") val clientColl: CollName,
+    @ConfigName("actor.name") val actorName: String,
+    @ConfigName("offline_mode") val offlineMode: Boolean,
+    @ConfigName("analysis.nodes") val analysisNodes: Int,
+    @ConfigName("move.plies") val movePlies: Int,
+    @ConfigName("client_min_version") val clientMinVersion: String,
+    @ConfigName("redis.uri") val redisUri: String
+)
+
+@Module
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     uciMemo: lila.game.UciMemo,
     requesterApi: lila.analyse.RequesterApi,
     evalCacheApi: lila.evalCache.EvalCacheApi,
-    hub: lila.hub.Env,
-    db: lila.db.Env,
-    system: ActorSystem,
-    scheduler: lila.common.Scheduler,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    sink: lila.analyse.Analyser
+    gameRepo: lila.game.GameRepo,
+    analysisRepo: lila.analyse.AnalysisRepo,
+    db: lila.db.Db,
+    cacheApi: lila.memo.CacheApi,
+    sink: lila.analyse.Analyser,
+    shutdown: akka.actor.CoordinatedShutdown
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
 ) {
 
-  private val ActorName = config getString "actor.name"
-  private val OfflineMode = config getBoolean "offline_mode"
-  private val AnalysisNodes = config getInt "analysis.nodes"
-  private val MovePlies = config getInt "move.plies"
-  private val ClientMinVersion = config getString "client_min_version"
-  private val RedisUri = config getString "redis.uri"
+  private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
 
-  private val analysisColl = db(config getString "collection.analysis")
-  private val clientColl = db(config getString "collection.client")
+  private lazy val analysisColl = db(config.analysisColl)
 
-  private val redis = new FishnetRedis(
-    RedisClient create RedisURI.create(RedisUri),
+  private lazy val redis = new FishnetRedis(
+    RedisClient create RedisURI.create(config.redisUri),
     "fishnet-in",
     "fishnet-out",
-    system
+    shutdown
   )
 
-  private val clientVersion = new Client.ClientVersion(ClientMinVersion)
+  private lazy val clientVersion = new Client.ClientVersion(config.clientMinVersion)
 
-  private val repo = new FishnetRepo(
+  private lazy val repo = new FishnetRepo(
     analysisColl = analysisColl,
-    clientColl = clientColl,
-    asyncCache = asyncCache
+    clientColl = db(config.clientColl),
+    cacheApi = cacheApi
   )
 
-  private val sequencer = new lila.hub.FutureSequencer(
-    system = system,
-    executionTimeout = Some(1 second),
-    logger = logger
+  private lazy val monitor: Monitor = wire[Monitor]
+
+  private lazy val evalCache = wire[FishnetEvalCache]
+
+  private lazy val analysisBuilder = wire[AnalysisBuilder]
+
+  private lazy val apiConfig = FishnetApi.Config(
+    offlineMode = config.offlineMode,
+    analysisNodes = config.analysisNodes
   )
 
-  private val monitor = new Monitor(repo, sequencer, scheduler)
+  private lazy val socketExists: Game.ID => Fu[Boolean] = id =>
+    Bus.ask[Boolean]("roundSocket")(lila.hub.actorApi.map.Exists(id, _))
 
-  private val evalCache = new FishnetEvalCache(evalCacheApi)
+  lazy val api: FishnetApi = wire[FishnetApi]
 
-  private val analysisBuilder = new AnalysisBuilder(evalCache)
+  lazy val player = {
+    def mk = (plies: Int) => wire[Player]
+    mk(config.movePlies)
+  }
 
-  val api = new FishnetApi(
-    repo = repo,
-    analysisBuilder = analysisBuilder,
-    analysisColl = analysisColl,
-    sequencer = sequencer,
-    monitor = monitor,
-    sink = sink,
-    socketExists = id => Bus.ask[Boolean]('roundSocket)(lila.hub.actorApi.map.Exists(id, _))(system),
-    clientVersion = clientVersion,
-    offlineMode = OfflineMode,
-    analysisNodes = AnalysisNodes
-  )(system)
+  private val limiter = wire[Limiter]
 
-  val player = new Player(
-    redis = redis,
-    uciMemo = uciMemo,
-    maxPlies = MovePlies
-  )(system)
+  lazy val analyser = wire[Analyser]
 
-  private val limiter = new Limiter(
-    analysisColl = analysisColl,
-    requesterApi = requesterApi
-  )
+  lazy val aiPerfApi = wire[AiPerfApi]
 
-  val analyser = new Analyser(
-    repo = repo,
-    uciMemo = uciMemo,
-    sequencer = sequencer,
-    evalCache = evalCache,
-    limiter = limiter
-  )
+  wire[Cleaner]
 
-  val aiPerfApi = new AiPerfApi
-
-  new Cleaner(
-    repo = repo,
-    analysisColl = analysisColl,
-    monitor = monitor,
-    scheduler = scheduler
-  )
-
-  new MainWatcher(repo = repo, scheduler = scheduler)
+  wire[MainWatcher]
 
   // api actor
-  system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
-        analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true))
-      case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser study req
-    }
-  }), name = ActorName)
-
-  def cli = new lila.common.Cli {
-    def process = {
-      case "fishnet" :: "client" :: "create" :: userId :: skill :: Nil =>
-        api.createClient(Client.UserId(userId.toLowerCase), skill) map { client =>
-          Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), 'fishnet)
-          s"Created key: ${(client.key.value)} for: $userId"
-        }
-      case "fishnet" :: "client" :: "delete" :: key :: Nil =>
-        repo toKey key flatMap repo.deleteClient inject "done!"
-      case "fishnet" :: "client" :: "enable" :: key :: Nil =>
-        repo toKey key flatMap { repo.enableClient(_, true) } inject "done!"
-      case "fishnet" :: "client" :: "disable" :: key :: Nil =>
-        repo toKey key flatMap { repo.enableClient(_, false) } inject "done!"
-      case "fishnet" :: "client" :: "skill" :: key :: skill :: Nil =>
-        repo toKey key flatMap { api.setClientSkill(_, skill) } inject "done!"
-    }
-  }
-}
-
-object Env {
-
-  lazy val current: Env = "fishnet" boot new Env(
-    system = lila.common.PlayApp.system,
-    uciMemo = lila.game.Env.current.uciMemo,
-    requesterApi = lila.analyse.Env.current.requesterApi,
-    evalCacheApi = lila.evalCache.Env.current.api,
-    hub = lila.hub.Env.current,
-    db = lila.db.Env.current,
-    config = lila.common.PlayApp loadConfig "fishnet",
-    scheduler = lila.common.PlayApp.scheduler,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    sink = lila.analyse.Env.current.analyser
+  system.actorOf(
+    Props(new Actor {
+      def receive = {
+        case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
+          analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true))
+        case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser study req
+      }
+    }),
+    name = config.actorName
   )
+
+  private def disable(username: String) =
+    repo toKey username flatMap { repo.enableClient(_, v = false) }
+
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "fishnet" :: "client" :: "create" :: userId :: Nil =>
+          api.createClient(Client.UserId(userId.toLowerCase)) map { client =>
+            Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), "fishnet")
+            s"Created key: ${(client.key.value)} for: $userId"
+          }
+        case "fishnet" :: "client" :: "delete" :: key :: Nil =>
+          repo toKey key flatMap repo.deleteClient inject "done!"
+        case "fishnet" :: "client" :: "enable" :: key :: Nil =>
+          repo toKey key flatMap { repo.enableClient(_, v = true) } inject "done!"
+        case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
+      }
+    }
+
+  Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId)
+    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId)
+    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId)
+  }
 }

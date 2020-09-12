@@ -1,17 +1,14 @@
 package lila.study
 
-import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
 import lila.tree
-import lila.tree.Eval
-import lila.tree.Node.Comment
 
 object TreeBuilder {
 
   private val initialStandardDests = chess.Game(chess.variant.Standard).situation.destinations
 
-  def apply(root: Node.Root, variant: Variant) = {
+  def apply(root: Node.Root, variant: Variant): tree.Root = {
     val dests =
       if (variant.standard && root.fen.value == chess.format.Forsyth.initial) initialStandardDests
       else {
@@ -36,11 +33,11 @@ object TreeBuilder {
       crazyData = node.crazyData,
       eval = node.score.map(_.eval),
       children = toBranches(node.children, variant),
-      opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findByFen(node.fen.value),
+      opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findByFen(node.fen),
       forceVariation = node.forceVariation
     )
 
-  def makeRoot(root: Node.Root, variant: Variant) =
+  def makeRoot(root: Node.Root, variant: Variant): tree.Root =
     tree.Root(
       ply = root.ply,
       fen = root.fen.value,
@@ -53,9 +50,9 @@ object TreeBuilder {
       crazyData = root.crazyData,
       eval = root.score.map(_.eval),
       children = toBranches(root.children, variant),
-      opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findByFen(root.fen.value)
+      opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findByFen(root.fen)
     )
 
   private def toBranches(children: Node.Children, variant: Variant): List[tree.Branch] =
-    children.nodes.map(toBranch(_, variant))(scala.collection.breakOut)
+    children.nodes.view.map(toBranch(_, variant)).toList
 }

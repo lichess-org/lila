@@ -52,12 +52,15 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
     hook: {
       insert(vnode) {
         $(vnode.elm as HTMLElement).powerTip({
-          intentPollInterval: 100,
           placement: hook.rating > 1800 ? 'se' : 'ne',
-          mouseOnToPopup: true,
           closeDelay: 200,
           popupId: 'hook'
-        }).data('powertipjq', $(renderHook(ctrl, hook)));
+        }).data('powertipjq', $(renderHook(ctrl, hook)))
+          .on({
+            powerTipRender() {
+              $('#hook .inner-clickable').click(() => ctrl.clickHook(hook.id));
+            }
+          });
         setTimeout(function() {
           (vnode.elm as HTMLElement).classList.remove('new');
         }, 20);
@@ -80,8 +83,10 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
   } else {
     html += '<span class="opponent anon ' + color + '">' + ctrl.trans('anonymous') + '</span>';
   }
-  html += hook.clock;
+  html += '<div class="inner-clickable">';
+  html += `<div>${hook.clock}</div>`;
   html += '<i data-icon="' + perfIcons[hook.perf] + '"> ' + ctrl.trans(hook.ra ? 'rated' : 'casual') + '</i>';
+  html += '</div>';
   html += '</div>';
   return html;
 }

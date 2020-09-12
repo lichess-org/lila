@@ -1,50 +1,55 @@
 package lila.oauth
 
 import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
 import scala.concurrent.duration._
 
+import lila.common.config._
+import lila.db.AsyncColl
+
+private case class OauthConfig(
+    @ConfigName("mongodb.uri") mongoUri: String,
+    @ConfigName("collection.access_token") tokenColl: CollName,
+    @ConfigName("collection.app") appColl: CollName
+)
+
+@Module
 final class Env(
-    config: Config,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    system: ActorSystem,
-    lifecycle: play.api.inject.ApplicationLifecycle
+    appConfig: Configuration,
+    cacheApi: lila.memo.CacheApi,
+    userRepo: lila.user.UserRepo,
+    mongo: lila.db.Env
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem
 ) {
 
-  private val settings = new {
-    val DbConfig = config getConfig "mongodb"
-    val CollectionAccessToken = config getString "collection.access_token"
-    val CollectionApp = config getString "collection.app"
-  }
-  import settings._
+  private val config = appConfig.get[OauthConfig]("oauth")(AutoConfig.loader)
 
-  val baseUrl = config getString "base_url"
+  private lazy val db = mongo.asyncDb("oauth", config.mongoUri)
 
-  private val db = new lila.db.Env("oauth", DbConfig, lifecycle)
-  private val tokenColl = db(CollectionAccessToken)
-  private val appColl = db(CollectionApp)
+  private lazy val colls = new OauthColls(db(config.tokenColl), db(config.appColl))
 
-  lazy val appApi = new OAuthAppApi(appColl)
+  lazy val appApi = wire[OAuthAppApi]
 
-  lazy val server = new OAuthServer(
-    tokenColl = tokenColl,
-    appApi = appApi,
-    asyncCache = asyncCache
-  )
+  lazy val server = wire[OAuthServer]
 
-  lazy val tokenApi = new PersonalTokenApi(
-    tokenColl = tokenColl
-  )
+  lazy val tryServer: OAuthServer.Try = () =>
+    scala.concurrent
+      .Future {
+        server.some
+      }
+      .withTimeoutDefault(50 millis, none) recover {
+      case e: Exception =>
+        lila.log("security").warn("oauth", e)
+        none
+    }
+
+  lazy val tokenApi = wire[PersonalTokenApi]
 
   def forms = OAuthForm
 }
 
-object Env {
-
-  lazy val current = "oauth" boot new Env(
-    config = lila.common.PlayApp loadConfig "oauth",
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system,
-    lifecycle = lila.common.PlayApp.lifecycle
-  )
-}
+private class OauthColls(val token: AsyncColl, val app: AsyncColl)

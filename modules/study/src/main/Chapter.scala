@@ -1,13 +1,12 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Tag, Tags }
-import chess.format.FEN
+import chess.format.pgn.{ Glyph, Tags }
 import chess.variant.Variant
-import chess.{ Color, Centis }
+import chess.{ Centis, Color }
 import org.joda.time.DateTime
 
 import chess.opening.{ FullOpening, FullOpeningDB }
-import lila.tree.Node.{ Shapes, Comment, Gamebook }
+import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
 
 case class Chapter(
@@ -67,18 +66,19 @@ case class Chapter(
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
 
-  def cloneFor(study: Study) = copy(
-    _id = Chapter.makeId,
-    studyId = study.id,
-    ownerId = study.ownerId,
-    createdAt = DateTime.now
-  )
+  def cloneFor(study: Study) =
+    copy(
+      _id = Chapter.makeId,
+      studyId = study.id,
+      ownerId = study.ownerId,
+      createdAt = DateTime.now
+    )
 
   def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
 
   def isPractice = ~practice
   def isGamebook = ~gamebook
-  def isConceal = conceal.isDefined
+  def isConceal  = conceal.isDefined
 
   def withoutChildren = copy(root = root.withoutChildren)
 
@@ -157,27 +157,40 @@ object Chapter {
   def defaultName(order: Int) = Name(s"Chapter $order")
 
   private val defaultNameRegex = """Chapter \d+""".r
-  def isDefaultName(n: Name) = n.value.isEmpty || defaultNameRegex.matches(n.value)
+  def isDefaultName(n: Name)   = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
   def fixName(n: Name) = Name(n.value.trim take 80)
 
   val idSize = 8
 
-  def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
+  def makeId = Id(lila.common.ThreadLocalRandom nextString idSize)
 
-  def make(studyId: Study.Id, name: Name, setup: Setup, root: Node.Root, tags: Tags, order: Int, ownerId: User.ID, practice: Boolean, gamebook: Boolean, conceal: Option[Ply], relay: Option[Relay] = None) = Chapter(
-    _id = makeId,
-    studyId = studyId,
-    name = fixName(name),
-    setup = setup,
-    root = root,
-    tags = tags,
-    order = order,
-    ownerId = ownerId,
-    practice = practice option true,
-    gamebook = gamebook option true,
-    conceal = conceal,
-    relay = relay,
-    createdAt = DateTime.now
-  )
+  def make(
+      studyId: Study.Id,
+      name: Name,
+      setup: Setup,
+      root: Node.Root,
+      tags: Tags,
+      order: Int,
+      ownerId: User.ID,
+      practice: Boolean,
+      gamebook: Boolean,
+      conceal: Option[Ply],
+      relay: Option[Relay] = None
+  ) =
+    Chapter(
+      _id = makeId,
+      studyId = studyId,
+      name = fixName(name),
+      setup = setup,
+      root = root,
+      tags = tags,
+      order = order,
+      ownerId = ownerId,
+      practice = practice option true,
+      gamebook = gamebook option true,
+      conceal = conceal,
+      relay = relay,
+      createdAt = DateTime.now
+    )
 }

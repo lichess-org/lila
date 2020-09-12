@@ -6,83 +6,92 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-import lila.user.User
 
 import controllers.routes
 
-object edit {
+object edit extends Context.ToLang {
+
+  import trans.streamer._
 
   def apply(
-    s: lila.streamer.Streamer.WithUserAndStream,
-    form: Form[_],
-    modData: Option[(List[lila.mod.Modlog], List[lila.user.Note])]
+      s: lila.streamer.Streamer.WithUserAndStream,
+      form: Form[_],
+      modData: Option[(List[lila.mod.Modlog], List[lila.user.Note])]
   )(implicit ctx: Context) = {
 
-    val modsOnly = raw("Moderators only").some
-
     views.html.base.layout(
-      title = s"${s.user.titleUsername} streamer page",
+      title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
       moreCss = cssTag("streamer.form"),
       moreJs = jsTag("streamer.form.js")
     ) {
-        main(cls := "page-menu")(
-          bits.menu("edit", s.withoutStream.some),
-          div(cls := "page-menu__content box streamer-edit")(
-            if (ctx.is(s.user)) div(cls := "streamer-header")(
+      main(cls := "page-menu")(
+        bits.menu("edit", s.withoutStream.some),
+        div(cls := "page-menu__content box streamer-edit")(
+          if (ctx.is(s.user))
+            div(cls := "streamer-header")(
               if (s.streamer.hasPicture)
-                a(target := "_blank", href := routes.Streamer.picture, title := "Change/delete your picture")(
-                bits.pic(s.streamer, s.user)
-              )
-              else div(cls := "picture-create")(
-                ctx.is(s.user) option
-                  a(target := "_blank", cls := "button", href := routes.Streamer.picture)("Upload a picture")
-              ),
+                a(target := "_blank", href := routes.Streamer.picture(), title := changePicture.txt())(
+                  bits.pic(s.streamer, s.user)
+                )
+              else
+                div(cls := "picture-create")(
+                  ctx.is(s.user) option
+                    a(target := "_blank", cls := "button", href := routes.Streamer.picture())(
+                      uploadPicture()
+                    )
+                ),
               div(cls := "overview")(
                 h1(s.streamer.name),
-                bits.rules()
+                bits.rules
               )
             )
-            else header(s, none),
-            div(cls := "box__pad") {
-              val granted = s.streamer.approval.granted
-              frag(
-                (ctx.is(s.user) && s.streamer.listed.value) option div(
-                  cls := s"status is${granted ?? "-green"}",
-                  dataIcon := (if (granted) "E" else "")
-                )(
-                    if (granted) frag(
-                      "Your stream is approved and listed on ",
-                      a(href := routes.Streamer.index())("lichess streamers list"), "."
-                    )
-                    else frag(
-                      if (s.streamer.approval.requested) frag(
-                        "Your stream is being reviewed by moderators, and will soon be listed on ",
-                        a(href := routes.Streamer.index())("lichess streamers list"), "."
+          else views.html.streamer.header(s),
+          div(cls := "box__pad") {
+            val granted = s.streamer.approval.granted
+            frag(
+              (ctx.is(s.user) && s.streamer.listed.value) option div(
+                cls := s"status is${granted ?? "-green"}",
+                dataIcon := (if (granted) "E" else "")
+              )(
+                if (granted)
+                  frag(
+                    approved(),
+                    s.streamer.approval.tier > 0 option frag(
+                      br,
+                      strong("You have been selected for frontpage featuring!"),
+                      p(
+                        "Note that we can only show a limited number of streams on the homepage, ",
+                        "so yours may not always appear."
                       )
-                      else frag(
-                        if (s.streamer.completeEnough) frag(
-                          "When you are ready to be listed on ",
-                          a(href := routes.Streamer.index())("lichess streamers list"), ", ",
-                          postForm(action := routes.Streamer.approvalRequest)(
-                            button(tpe := "submmit", cls := "button", (!ctx.is(s.user)) option disabled)(
-                              "request a moderator review"
+                    )
+                  )
+                else
+                  frag(
+                    if (s.streamer.approval.requested) pendingReview()
+                    else
+                      frag(
+                        if (s.streamer.completeEnough)
+                          whenReady(
+                            postForm(action := routes.Streamer.approvalRequest())(
+                              button(tpe := "submit", cls := "button", (!ctx.is(s.user)) option disabled)(
+                                requestReview()
+                              )
                             )
                           )
-                        )
-                        else "Please fill in your streamer information, and upload a picture."
+                        else pleaseFillIn()
                       )
-                    )
-                  ),
-                ctx.is(s.user) option div(cls := "status")(
-                  strong("If your stream is in another language than English"),
-                  ", include the correct language tag (",
-                  a(href := "https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes")("2-letter ISO 639-1 code"),
-                  " enclosed in square brackets) at the start of your stream title. ",
-                  """As examples, include "[RU]" for Russian, "[TR]" for Turkish, "[FR]" for French, etc. """,
-                  "If your stream is in English, there is no need to include a language tag."
-                ),
-                modData.map {
-                  case (log, notes) => div(cls := "mod_log status")(
+                  )
+              ),
+              ctx.is(s.user) option div(cls := "status")(
+                anotherLanguage(
+                  a(href := "https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes")(
+                    "2-letter ISO 639-1 code"
+                  )
+                )
+              ),
+              modData.map {
+                case (log, notes) =>
+                  div(cls := "mod_log status")(
                     strong(cls := "text", dataIcon := "!")(
                       "Moderation history",
                       log.isEmpty option ": nothing to show."
@@ -90,8 +99,13 @@ object edit {
                     log.nonEmpty option ul(
                       log.map { e =>
                         li(
-                          userIdLink(e.mod.some, withTitle = false), " ",
-                          b(e.showAction), " ", e.details, " ", momentFromNow(e.date)
+                          userIdLink(e.mod.some, withTitle = false),
+                          " ",
+                          b(e.showAction),
+                          " ",
+                          e.details,
+                          " ",
+                          momentFromNow(e.date)
                         )
                       }
                     ),
@@ -109,41 +123,103 @@ object edit {
                       }
                     )
                   )
-                },
-                postForm(cls := "form3", action := s"${routes.Streamer.edit}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}")(
-                  isGranted(_.Streamers) option div(cls := "mod")(
-                    form3.split(
-                      form3.checkbox(form("approval.granted"), raw("Publish on the streamers list"), help = modsOnly, half = true),
-                      form3.checkbox(form("approval.requested"), raw("Active approval request"), help = modsOnly, half = true)
+              },
+              postForm(
+                cls := "form3",
+                action := s"${routes.Streamer.edit()}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}"
+              )(
+                isGranted(_.Streamers) option div(cls := "mod")(
+                  form3.split(
+                    form3.checkbox(
+                      form("approval.granted"),
+                      frag("Publish on the streamers list"),
+                      half = true
                     ),
-                    form3.split(
-                      form3.checkbox(form("approval.chat"), raw("Embed stream chat too"), help = modsOnly, half = true),
-                      if (granted)
-                        form3.checkbox(form("approval.featured"), raw("Feature on lichess homepage"), help = modsOnly, half = true)
-                      else
-                        form3.checkbox(form("approval.ignored"), raw("Ignore further approval requests"), help = modsOnly, half = true)
-                    ),
-                    form3.action(form3.submit(trans.apply()))
+                    form3.checkbox(
+                      form("approval.requested"),
+                      frag("Active approval request"),
+                      half = true
+                    )
                   ),
                   form3.split(
-                    form3.group(form("twitch"), raw("Your Twitch username or URL"), help = raw("Optional. Leave empty if none").some, half = true)(form3.input(_)),
-                    form3.group(form("youTube"), raw("Your YouTube channel ID or URL"), help = raw("Optional. Leave empty if none").some, half = true)(form3.input(_))
+                    form3.checkbox(
+                      form("approval.chat"),
+                      frag("Embed stream chat too"),
+                      half = true
+                    ),
+                    if (granted)
+                      form3.group(
+                        form("approval.tier"),
+                        raw("Homepage tier"),
+                        help =
+                          frag("Higher tier has more chance to hit homepage. Set to zero to unfeature.").some,
+                        half = true
+                      )(form3.select(_, lila.streamer.Streamer.tierChoices))
+                    else
+                      form3.checkbox(
+                        form("approval.ignored"),
+                        frag("Ignore further approval requests"),
+                        half = true
+                      )
                   ),
-                  form3.split(
-                    form3.group(form("name"), raw("Your streamer name on lichess"), help = raw("Keep it short: 20 characters max").some, half = true)(form3.input(_)),
-                    form3.checkbox(form("listed"), raw("Visible on the streamers page"), help = raw("When approved by moderators").some, half = true)
-                  ),
-                  form3.group(form("headline"), raw("Headline"), help = raw("In one sentence, tell us about your stream").some)(form3.input(_)),
-                  form3.group(form("description"), raw("Long description"))(form3.textarea(_)(rows := 10)),
                   form3.actions(
-                    a(href := routes.Streamer.show(s.user.username))("Cancel"),
+                    form3
+                      .submit("Approve and next")(
+                        cls := "button-green",
+                        name := "approval.quick",
+                        value := "approve"
+                      ),
+                    form3.submit("Decline and next", icon = "L".some)(
+                      cls := "button-red",
+                      name := "approval.quick",
+                      value := "decline"
+                    ),
                     form3.submit(trans.apply())
                   )
+                ),
+                form3.split(
+                  form3.group(
+                    form("twitch"),
+                    twitchUsername(),
+                    help = optionalOrEmpty().some,
+                    half = true
+                  )(form3.input(_)),
+                  form3.group(
+                    form("youTube"),
+                    youtubeChannel(),
+                    help = optionalOrEmpty().some,
+                    half = true
+                  )(form3.input(_))
+                ),
+                form3.split(
+                  form3.group(
+                    form("name"),
+                    streamerName(),
+                    help = keepItShort(25).some,
+                    half = true
+                  )(form3.input(_)),
+                  form3.checkbox(
+                    form("listed"),
+                    visibility(),
+                    help = whenApproved().some,
+                    half = true
+                  )
+                ),
+                form3.group(
+                  form("headline"),
+                  headline(),
+                  help = tellUsAboutTheStream().some
+                )(form3.input(_)),
+                form3.group(form("description"), longDescription())(form3.textarea(_)(rows := 10)),
+                form3.actions(
+                  a(href := routes.Streamer.show(s.user.username))(trans.cancel()),
+                  form3.submit(trans.apply())
                 )
               )
-            }
-          )
+            )
+          }
         )
-      }
+      )
+    }
   }
 }

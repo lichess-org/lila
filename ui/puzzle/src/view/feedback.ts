@@ -1,8 +1,10 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode';
 import afterView from './after';
 import { bind, spinner } from '../util';
+import { Controller, MaybeVNode } from '../interfaces';
 
-function viewSolution(ctrl) {
+function viewSolution(ctrl: Controller): VNode {
   return h('div.view_solution', {
     class: { show: ctrl.vm.canViewSolution }
   }, [
@@ -12,7 +14,7 @@ function viewSolution(ctrl) {
   ]);
 }
 
-function initial(ctrl) {
+function initial(ctrl: Controller): VNode {
   var puzzleColor = ctrl.getData().puzzle.color;
   return h('div.puzzle__feedback.play', [
     h('div.player', [
@@ -26,7 +28,7 @@ function initial(ctrl) {
   ]);
 }
 
-function good(ctrl) {
+function good(ctrl: Controller): VNode {
   return h('div.puzzle__feedback.good', [
     h('div.player', [
       h('div.icon', '✓'),
@@ -39,7 +41,7 @@ function good(ctrl) {
   ]);
 }
 
-function retry(ctrl) {
+function retry(ctrl: Controller): VNode {
   return h('div.puzzle__feedback.retry', [
     h('div.player', [
       h('div.icon', '!'),
@@ -52,7 +54,7 @@ function retry(ctrl) {
   ]);
 }
 
-function fail(ctrl) {
+function fail(ctrl: Controller): VNode {
   return h('div.puzzle__feedback.fail', [
     h('div.player', [
       h('div.icon', '✗'),
@@ -65,15 +67,16 @@ function fail(ctrl) {
   ]);
 }
 
-function loading() {
+function loading(): VNode {
   return h('div.puzzle__feedback.loading', spinner());
 }
 
-export default function(ctrl) {
+export default function(ctrl: Controller): MaybeVNode {
   if (ctrl.vm.loading) return loading();
   if (ctrl.vm.mode === 'view') return afterView(ctrl);
   if (ctrl.vm.lastFeedback === 'init') return initial(ctrl);
   if (ctrl.vm.lastFeedback === 'good') return good(ctrl);
   if (ctrl.vm.lastFeedback === 'retry') return retry(ctrl);
   if (ctrl.vm.lastFeedback === 'fail') return fail(ctrl);
+  return;
 }

@@ -23,8 +23,12 @@ object SoundSet {
     new SoundSet("speech", "Speech")
   )
 
-  lazy val allByKey = list map { c => c.key -> c } toMap
-  lazy val allByName = list map { c => c.name -> c } toMap
+  lazy val allByKey = list map { c =>
+    c.key -> c
+  } toMap
+  lazy val allByName = list map { c =>
+    c.name -> c
+  } toMap
 
   def apply(key: String) = allByKey.getOrElse(key.toLowerCase, default)
 

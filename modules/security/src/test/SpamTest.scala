@@ -6,9 +6,9 @@ import lila.common.Strings
 
 class SpamTest extends Specification {
 
-  val spam = new Spam(() => Strings(Nil))
+  val spam   = new Spam(() => Strings(Nil))
   val foobar = """foo bar"""
-  val _c2 = """https://chess24.com?ref=masterpart"""
+  val _c2    = """https://chess24.com?ref=masterpart"""
 
   "spam" should {
     "detect" in {

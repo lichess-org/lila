@@ -1,4 +1,4 @@
-import { opposite } from 'chessground/util';
+import { Outcome } from 'chessops/types';
 import { bind } from '../util';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
@@ -36,15 +36,14 @@ function renderOffTrack(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   ]);
 }
 
-function renderEnd(root: AnalyseCtrl, end: string): VNode {
-  const isMate = end === 'checkmate';
-  const color = isMate ? opposite(root.turnColor()) : root.turnColor();
+function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
+  const color = end.winner || root.turnColor();
   return h('div.player', [
     color ? h('div.no-square', h('piece.king.' + color)) : h('div.icon.off', '!'),
     h('div.instruction', [
-      h('strong', root.trans.noarg(end)),
-      isMate ?
-        h('em', h('color', root.trans.noarg(color === 'white' ? 'whiteWinsGame' : 'blackWinsGame'))) :
+      h('strong', root.trans.noarg(end.winner ? 'checkmate' : 'draw')),
+      end.winner ?
+        h('em', h('color', root.trans.noarg(end.winner === 'white' ? 'whiteWinsGame' : 'blackWinsGame'))) :
         h('em', root.trans.noarg('theGameIsADraw'))
     ])
   ]);
@@ -81,7 +80,7 @@ export default function(root: AnalyseCtrl): VNode | undefined {
   if (!ctrl) return;
   const comment: Comment | null = ctrl.comment();
   const running: boolean = ctrl.running();
-  const end = ctrl.currentNode().threefold ? 'threefoldRepetition' : root.gameOver();
+  const end = ctrl.currentNode().threefold ? { winner: undefined } : root.outcome();
   return h('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
     h('div.title', root.trans.noarg('practiceWithComputer')),
     h('div.feedback', !running ? renderOffTrack(root, ctrl) : (end ? renderEnd(root, end) : renderRunning(root, ctrl))),

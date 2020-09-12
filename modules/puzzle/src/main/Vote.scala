@@ -14,5 +14,5 @@ object Vote {
 
   def makeId(puzzleId: PuzzleId, userId: String) = s"$puzzleId/$userId"
 
-  implicit val voteBSONHandler = reactivemongo.bson.Macros.handler[Vote]
+  implicit val voteBSONHandler = reactivemongo.api.bson.Macros.handler[Vote]
 }

@@ -15,6 +15,7 @@ interface Opts {
   startTour(): void;
   notif: NotifCtrl;
   onBecomingContributor(): void;
+  admin: boolean;
   redraw(): void;
   trans: Trans;
 }
@@ -43,25 +44,25 @@ export function ctrl(opts: Opts) {
   };
 
   function isOwner() {
-    return opts.myId === opts.ownerId;
+    return opts.myId === opts.ownerId || (opts.admin && canContribute());
   };
 
   function myMember() {
     return opts.myId ? dict()[opts.myId] : null;
   };
 
-  function canContribute() {
-    var m = myMember();
-    return m && m.role === 'w';
+  function canContribute(): boolean {
+    const m = myMember();
+    return !!m && m.role === 'w';
   };
 
   const inviteForm = inviteFormCtrl(opts.send, dict, () => opts.tab('members'), opts.redraw, opts.trans);
 
-  function setActive(id) {
+  function setActive(id: string) {
     if (opts.tab() !== 'members') return;
     if (active[id]) active[id]();
     else active[id] = memberActivity(function() {
-      delete(active[id]);
+      delete (active[id]);
       opts.redraw();
     });
     opts.redraw();
@@ -75,6 +76,13 @@ export function ctrl(opts: Opts) {
     });
     if (opts.tab() === 'members') opts.redraw();
   }
+
+  window.lichess.pubsub.on('socket.in.crowd', d => {
+    const names: string[] = d.users || [];
+    inviteForm.setSpectators(names);
+    spectatorIds = names.map(titleNameToId);
+    updateOnline();
+  });
 
   return {
     dict,
@@ -102,7 +110,7 @@ export function ctrl(opts: Opts) {
       updateOnline();
     },
     setActive,
-    isActive(id) {
+    isActive(id: string) {
       return !!active[id];
     },
     owner,
@@ -110,7 +118,7 @@ export function ctrl(opts: Opts) {
     isOwner,
     canContribute,
     max,
-    setRole(id, role) {
+    setRole(id: string, role) {
       setActive(id);
       opts.send("setRole", {
         userId: id,
@@ -118,7 +126,7 @@ export function ctrl(opts: Opts) {
       });
       confing(undefined);
     },
-    kick(id) {
+    kick(id: string) {
       opts.send("kick", id);
       confing(undefined);
     },
@@ -135,12 +143,6 @@ export function ctrl(opts: Opts) {
     size() {
       return Object.keys(dict()).length;
     },
-    setSpectators(usernames?: string[]) {
-      const names = usernames || [];
-      this.inviteForm.setSpectators(names);
-      spectatorIds = names.map(titleNameToId);
-      updateOnline();
-    },
     isOnline(userId: string) {
       return online[userId];
     },
@@ -154,7 +156,7 @@ export function ctrl(opts: Opts) {
 
 export function view(ctrl: StudyCtrl): VNode {
 
-  const isOwner = ctrl.members.isOwner();
+  const members = ctrl.members, isOwner = members.isOwner();
 
   function username(member: StudyMember) {
     var u = member.user;
@@ -168,8 +170,8 @@ export function view(ctrl: StudyCtrl): VNode {
     return h('span.status', {
       class: {
         contrib,
-        active: ctrl.members.isActive(member.user.id),
-        online: ctrl.members.isOnline(member.user.id)
+        active: members.isActive(member.user.id),
+        online: members.isOnline(member.user.id)
       },
       attrs: { title: ctrl.trans.noarg(contrib ? 'contributor' : 'spectator') },
     }, [
@@ -178,23 +180,24 @@ export function view(ctrl: StudyCtrl): VNode {
   };
 
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
-    if (isOwner && member.user.id !== ctrl.members.myId)
+    if (isOwner && (member.user.id !== members.myId || ctrl.data.admin))
       return h('act', {
         key: 'cfg-' + member.user.id,
         attrs: dataIcon('%'),
         hook: bind('click', _ => {
-          ctrl.members.confing(ctrl.members.confing() === member.user.id ? null : member.user.id);
+          members.confing(members.confing() === member.user.id ? null : member.user.id);
         }, ctrl.redraw)
       });
-    if (!isOwner && member.user.id === ctrl.members.myId)
+    if (!isOwner && member.user.id === members.myId)
       return h('act.leave', {
         key: 'leave',
         attrs: {
           'data-icon': 'F',
           title: ctrl.trans.noarg('leaveTheStudy')
         },
-        hook: bind('click', ctrl.members.leave, ctrl.redraw)
+        hook: bind('click', members.leave, ctrl.redraw)
       });
+    return undefined;
   };
 
   function memberConfig(member: StudyMember): VNode {
@@ -212,7 +215,7 @@ export function view(ctrl: StudyCtrl): VNode {
               checked: member.role === 'w'
             },
             hook: bind('change', e => {
-              ctrl.members.setRole(member.user.id, (e.target as HTMLInputElement).checked ? 'w' : 'r');
+              members.setRole(member.user.id, (e.target as HTMLInputElement).checked ? 'w' : 'r');
             }, ctrl.redraw)
           }),
           h('label', { attrs: { 'for': roleId } })
@@ -221,12 +224,12 @@ export function view(ctrl: StudyCtrl): VNode {
       ]),
       h('div.kick', h('a.button.button-red.button-empty.text', {
         attrs: dataIcon('L'),
-        hook: bind('click', _ => ctrl.members.kick(member.user.id), ctrl.redraw)
+        hook: bind('click', _ => members.kick(member.user.id), ctrl.redraw)
       }, ctrl.trans.noarg('kick')))
     ]);
   };
 
-  var ordered = ctrl.members.ordered();
+  var ordered = members.ordered();
 
   return h('div.study__members', {
     hook: {
@@ -237,7 +240,7 @@ export function view(ctrl: StudyCtrl): VNode {
     }
   }, [
     ...ordered.map(function(member) {
-      const confing = ctrl.members.confing() === member.user.id;
+      const confing = members.confing() === member.user.id;
       return [
         h('div', {
           key: member.user.id,
@@ -252,14 +255,24 @@ export function view(ctrl: StudyCtrl): VNode {
         confing ? memberConfig(member) : null
       ];
     }).reduce((a, b) => a.concat(b), []),
-    (isOwner && ordered.length < ctrl.members.max) ? h('div.add', {
+    (isOwner && ordered.length < members.max) ? h('div.add', {
       key: 'add',
-      hook: bind('click', ctrl.members.inviteForm.toggle, ctrl.redraw)
+      hook: bind('click', members.inviteForm.toggle, ctrl.redraw)
     }, [
       h('div.left', [
         h('span.status', iconTag('O')),
         h('div.user-link', ctrl.trans.noarg('addMembers'))
       ])
+    ]) : null,
+    (!members.canContribute() && ctrl.data.admin) ? h('form.admin', {
+      attrs: {
+        method: 'post',
+        action: `/study/${ctrl.data.id}/admin`
+      }
+    }, [
+      h('button.button.button-red.button-thin', {
+        attrs: { type: 'submit' }
+      }, 'Enter as admin')
     ]) : null
   ]);
 }

@@ -1,10 +1,14 @@
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
+import { renderEval } from './util';
 import * as winningChances from './winningChances';
 import { defined } from 'common';
-import { renderEval } from 'chess';
-import pv2san from './pv2san';
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { opposite, parseUci } from 'chessops/util';
+import { lichessVariantRules } from 'chessops/compat';
+import { parseFen } from 'chessops/fen';
+import { makeSanVariation } from 'chessops/san';
+import { setupPosition } from 'chessops/variant';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -66,11 +70,10 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 function engineName(ctrl: CevalCtrl): VNode[] {
   const version = ctrl.engineName();
   return [
-    h('span', version ? { attrs: { title: version } } : {}, window.lichess.engineName),
-    ctrl.technology == 'pnacl' ? h('span.native', { attrs: { title: 'Portable Native Client (fast but deprecated)' } }, 'pnacl') :
-    (ctrl.technology == 'wasmx' ? h('span.native', { attrs: { title: 'Multi-threaded WebAssembly (experimental)' } }, 'wasmx') :
-      (ctrl.technology == 'wasm' ? h('span.native', { attrs: { title: 'WebAssembly' } }, 'wasm') :
-        h('span.asmjs', { attrs: { title: 'JavaScript fallback' } }, 'asmjs')))
+    h('span', version ? { attrs: { title: version } } : {}, ctrl.technology == 'wasmx' ? 'Stockfish 11+' : 'Stockfish 10+'),
+    ctrl.technology == 'wasmx' ? h('span.wasmx', { attrs: { title: 'Multi-threaded WebAssembly (fastest)' } }, 'wasmx') :
+      (ctrl.technology == 'wasm' ? h('span.wasm', { attrs: { title: 'Single-threaded WebAssembly fallback (second fastest)' } }, 'wasm') :
+        h('span.asmjs', { attrs: { title: 'Single-threaded JavaScript fallback (very slow)' } }, 'asmjs'))
   ];
 }
 
@@ -93,7 +96,8 @@ export function getBestEval(evs: NodeEvals): Eval | undefined {
 
 export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
   if (ctrl.ongoing || !ctrl.showEvalGauge()) return;
-  let ev, bestEv = getBestEval(ctrl.currentEvals());
+  const bestEv = getBestEval(ctrl.currentEvals());
+  let ev;
   if (bestEv) {
     ev = winningChances.povChances('white', bestEv);
     gaugeLast = ev;
@@ -124,7 +128,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   } else if (bestEv && defined(bestEv.mate)) {
     pearl = '#' + bestEv.mate;
     percent = 100;
-  } else if (ctrl.gameOver()) {
+  } else if (ctrl.outcome()) {
     pearl = '-';
     percent = 0;
   } else {
@@ -158,7 +162,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     h('div.engine', [
       ...(threatMode ? [trans.noarg('showThreat')] : engineName(instance)),
       h('span.info',
-        ctrl.gameOver() ? [trans.noarg('gameOver')] :
+        ctrl.outcome() ? [trans.noarg('gameOver')] :
         (threatMode ? [threatInfo(ctrl, threat)] : localEvalInfo(ctrl, evs))
       )
     ])
@@ -184,7 +188,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
       }
     }),
     h('label', { attrs: { 'for': 'analyse-toggle-ceval' } })
-  ])
+  ]);
 
   return h('div.ceval' + (enabled ? '.enabled' : ''), {
     class: {
@@ -212,17 +216,20 @@ function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   });
 }
 
-export function renderPvs(ctrl: ParentCtrl) {
+export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = parseInt(instance.multiPv()),
-    node = ctrl.getNode();
+    node = ctrl.getNode(),
+    setup = parseFen(node.fen).unwrap();
   let pvs : Tree.PvData[], threat = false;
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     threat = true;
   } else if (node.ceval) pvs = node.ceval.pvs;
   else pvs = [];
+  if (threat) setup.turn = opposite(setup.turn);
+  const pos = setupPosition(lichessVariantRules(instance.variant.key), setup);
   return h('div.pv_box', {
     attrs: { 'data-fen': node.fen },
     hook: {
@@ -244,12 +251,11 @@ export function renderPvs(ctrl: ParentCtrl) {
     }
   }, [...Array(multiPv).keys()].map(function(i) {
     if (!pvs[i]) return h('div.pv');
-    const san = pv2san(instance.variant.key, node.fen, threat, pvs[i].moves.slice(0, 12), pvs[i].mate);
     return h('div.pv', threat ? {} : {
       attrs: { 'data-uci': pvs[i].moves[0] }
     }, [
       multiPv > 1 ? h('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp!)) : null,
-      h('span', san)
+      h('span', pos.unwrap(pos => makeSanVariation(pos, pvs[i].moves.slice(0, 12).map(m => parseUci(m)!)), _ => '--'))
     ]);
   }));
 }

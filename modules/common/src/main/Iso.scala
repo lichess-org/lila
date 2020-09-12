@@ -1,7 +1,6 @@
 package lila.common
 
-import scala.collection.breakOut
-
+import play.api.i18n.Lang
 import chess.Centis
 
 trait Iso[A, B] {
@@ -11,26 +10,35 @@ trait Iso[A, B] {
 
 object Iso {
 
-  type StringIso[B] = Iso[String, B]
-  type IntIso[B] = Iso[Int, B]
+  type StringIso[B]  = Iso[String, B]
+  type IntIso[B]     = Iso[Int, B]
   type BooleanIso[B] = Iso[Boolean, B]
-  type DoubleIso[B] = Iso[Double, B]
+  type DoubleIso[B]  = Iso[Double, B]
+  type FloatIso[B]   = Iso[Float, B]
 
-  def apply[A, B](f: A => B, t: B => A): Iso[A, B] = new Iso[A, B] {
-    val from = f
-    val to = t
-  }
+  def apply[A, B](f: A => B, t: B => A): Iso[A, B] =
+    new Iso[A, B] {
+      val from = f
+      val to   = t
+    }
 
   def string[B](from: String => B, to: B => String): StringIso[B] = apply(from, to)
-  def int[B](from: Int => B, to: B => Int): IntIso[B] = apply(from, to)
+  def int[B](from: Int => B, to: B => Int): IntIso[B]             = apply(from, to)
   def double[B](from: Double => B, to: B => Double): DoubleIso[B] = apply(from, to)
+  def float[B](from: Float => B, to: B => Float): FloatIso[B]     = apply(from, to)
 
-  def strings(sep: String): StringIso[Strings] = Iso[String, Strings](
-    str => Strings(str.split(sep).map(_.trim)(breakOut)),
-    strs => strs.value mkString sep
-  )
+  def strings(sep: String): StringIso[Strings] =
+    Iso[String, Strings](
+      str => Strings(str.split(sep).iterator.map(_.trim).to(List)),
+      strs => strs.value mkString sep
+    )
+  def userIds(sep: String): StringIso[UserIds] =
+    Iso[String, UserIds](
+      str => UserIds(str.split(sep).iterator.map(_.trim.toLowerCase).to(List)),
+      strs => strs.value mkString sep
+    )
 
-  implicit def isoIdentity[A]: Iso[A, A] = apply(identity[A] _, identity[A] _)
+  implicit def isoIdentity[A]: Iso[A, A] = apply(identity[A], identity[A])
 
   implicit val stringIsoIdentity: Iso[String, String] = isoIdentity[String]
 
@@ -38,7 +46,10 @@ object Iso {
 
   implicit val emailAddressIso = string[EmailAddress](EmailAddress.apply, _.value)
 
-  implicit val normalizedEmailAddressIso = string[NormalizedEmailAddress](NormalizedEmailAddress.apply, _.value)
+  implicit val normalizedEmailAddressIso =
+    string[NormalizedEmailAddress](NormalizedEmailAddress.apply, _.value)
 
-  implicit val centisIso = Iso.int[Centis](Centis.apply, _.centis)
+  implicit val centisIso = int[Centis](Centis.apply, _.centis)
+
+  implicit val langIso = string[Lang](Lang.apply, _.toString)
 }

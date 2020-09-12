@@ -5,7 +5,7 @@ import { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
 import { Setup, Material, RemainingChecks } from 'chessops/setup';
 import { Castles, setupPosition } from 'chessops/variant';
-import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD, EMPTY_EPD } from 'chessops/fen';
+import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD } from 'chessops/fen';
 import { defined, prop, Prop } from 'common';
 
 export default class EditorCtrl {
@@ -41,10 +41,6 @@ export default class EditorCtrl {
       epd: INITIAL_EPD,
       name: this.trans('startPosition')
     }, {
-      fen: EMPTY_FEN,
-      epd: EMPTY_EPD,
-      name: this.trans('clearBoard')
-    }, {
       fen: 'prompt',
       name: this.trans('loadPosition')
     }];
@@ -60,7 +56,7 @@ export default class EditorCtrl {
     });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
-    this.rules = 'chess';
+    this.rules = (!this.cfg.embed && window.history.state && window.history.state.rules) ? window.history.state.rules : 'chess';
 
     this.redraw = () => {};
     this.setFen(cfg.fen);
@@ -70,8 +66,9 @@ export default class EditorCtrl {
   onChange(): void {
     const fen = this.getFen();
     if (!this.cfg.embed) {
-      if (fen == INITIAL_FEN) window.history.replaceState(null, '', '/editor');
-      else window.history.replaceState(null, '', this.makeUrl('/editor/', fen));
+      const state = { rules: this.rules };
+      if (fen == INITIAL_FEN) window.history.replaceState(state, '', '/editor');
+      else window.history.replaceState(state, '', this.makeUrl('/editor/', fen));
     }
     this.options.onChange && this.options.onChange(fen);
     this.redraw();

@@ -20,22 +20,25 @@ object Accuracy {
       startedAtTurn: Int
   )
 
-  implicit def povToPovLike(pov: Pov): PovLike = PovLike(
-    color = pov.color,
-    startColor = pov.game.startColor,
-    startedAtTurn = pov.game.chess.startedAtTurn
-  )
+  implicit def povToPovLike(pov: Pov): PovLike =
+    PovLike(
+      color = pov.color,
+      startColor = pov.game.startColor,
+      startedAtTurn = pov.game.chess.startedAtTurn
+    )
 
   def diffsList(pov: PovLike, analysis: Analysis): List[Int] = {
     if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
     else analysis.infos
-  }.grouped(2).foldLeft(List[Int]()) {
-    case (list, List(i1, i2)) =>
-      makeDiff.lift(i1.cp, i1.mate, i2.cp, i2.mate).fold(list) { diff =>
-        (if (pov.color.white) -diff else diff).max(0) :: list
-      }
-    case (list, _) => list
-  }.reverse
+  }.grouped(2)
+    .foldLeft(List[Int]()) {
+      case (list, List(i1, i2)) =>
+        makeDiff.lift((i1.cp, i1.mate, i2.cp, i2.mate)).fold(list) { diff =>
+          (if (pov.color.white) -diff else diff).max(0) :: list
+        }
+      case (list, _) => list
+    }
+    .reverse
 
   def prevColorInfos(pov: PovLike, analysis: Analysis): List[Info] = {
     if (pov.color == pov.startColor) Info.start(pov.startedAtTurn) :: analysis.infos
@@ -46,7 +49,7 @@ object Accuracy {
 
   def mean(pov: PovLike, analysis: Analysis): Option[Int] = {
     val diffs = diffsList(pov, analysis)
-    val nb = diffs.size
+    val nb    = diffs.size
     (nb != 0) option (diffs.sum / nb)
   }
   def mean(pov: Pov, analysis: Analysis): Option[Int] = mean(povToPovLike(pov), analysis)

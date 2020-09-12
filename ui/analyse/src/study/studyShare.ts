@@ -1,11 +1,23 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { bind, baseUrl } from '../util';
-import { prop } from 'common';
+import { prop, Prop } from 'common';
 import { renderIndexAndMove } from '../moveView';
 import { StudyData, StudyChapterMeta } from './interfaces';
 
-function fromPly(ctrl): VNode {
+interface StudyShareCtrl {
+  studyId: string;
+  chapter: () => StudyChapterMeta;
+  isPrivate(): boolean;
+  currentNode: () => Tree.Node;
+  withPly: Prop<boolean>;
+  relay: boolean;
+  cloneable: boolean;
+  redraw: () => void;
+  trans: Trans;
+}
+
+function fromPly(ctrl: StudyShareCtrl): VNode {
   const renderedMove = renderIndexAndMove({
     withDots: true,
     showEval: false
@@ -25,7 +37,7 @@ function fromPly(ctrl): VNode {
   ]));
 }
 
-export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, redraw: () => void, trans: Trans) {
+export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, relay: boolean, redraw: () => void, trans: Trans): StudyShareCtrl {
   const withPly = prop(false);
   return {
     studyId: data.id,
@@ -35,13 +47,14 @@ export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, cu
     },
     currentNode,
     withPly,
+    relay,
     cloneable: data.features.cloneable,
     redraw,
     trans
   }
 }
 
-export function view(ctrl): VNode {
+export function view(ctrl: StudyShareCtrl): VNode {
   const studyId = ctrl.studyId, chapter = ctrl.chapter();
   let fullUrl = `${baseUrl()}/study/${studyId}/${chapter.id}`;
   let embedUrl = `${baseUrl()}/study/embed/${studyId}/${chapter.id}`;
@@ -56,25 +69,31 @@ export function view(ctrl): VNode {
       ctrl.cloneable ? h('a.button.text', {
         attrs: {
           'data-icon': '4',
-          href: '/study/' + studyId + '/clone'
+          href: `/study/${studyId}/clone`
         }
       }, ctrl.trans.noarg('cloneStudy')) : null,
       h('a.button.text', {
         attrs: {
           'data-icon': 'x',
-          href: '/study/' + studyId + '.pgn'
+          href: `/study/${studyId}.pgn`
         }
-      }, ctrl.trans.noarg('studyPgn')),
+      }, ctrl.trans.noarg(ctrl.relay ? 'downloadAllGames' : 'studyPgn')),
       h('a.button.text', {
         attrs: {
           'data-icon': 'x',
-          href: '/study/' + studyId + '/' + chapter.id + '.pgn'
+          href: `/study/${studyId}/${chapter.id}.pgn`
         }
-      }, ctrl.trans.noarg('chapterPgn'))
+      }, ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterPgn')),
+      h('a.button.text', {
+        attrs: {
+          'data-icon': 'x',
+          href: `/study/${studyId}/${chapter.id}.gif`
+        }
+      }, 'GIF')
     ]),
     h('form.form3', [
       h('div.form-group', [
-        h('label.form-label', ctrl.trans.noarg('studyUrl')),
+        h('label.form-label', ctrl.trans.noarg(ctrl.relay ? 'broadcastUrl' : 'studyUrl')),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
@@ -83,7 +102,7 @@ export function view(ctrl): VNode {
         })
       ]),
       h('div.form-group', [
-        h('label.form-label', ctrl.trans.noarg('currentChapterUrl')),
+        h('label.form-label', ctrl.trans.noarg(ctrl.relay ? 'currentGameUrl' : 'currentChapterUrl')),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
@@ -93,15 +112,15 @@ export function view(ctrl): VNode {
         fromPly(ctrl),
         !isPrivate ? h('p.form-help.text', {
           attrs: { 'data-icon': '' }
-        }, ctrl.trans.noarg('youCanPasteThisInTheForumToEmbedTheChapter')) : null,
+        }, ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed')) : null,
       ]),
       h('div.form-group', [
-        h('label.form-label', ctrl.trans.noarg('embedThisChapter')),
+        h('label.form-label', ctrl.trans.noarg('embedInYourWebsite')),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
             disabled: isPrivate,
-            value: !isPrivate ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded')
+            value: !isPrivate ? `<iframe width=600 height=371 src="${embedUrl}" frameborder=0></iframe>` : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded')
           }
         })
       ].concat(
@@ -113,7 +132,7 @@ export function view(ctrl): VNode {
               target: '_blank',
               'data-icon': ''
             }
-          }, ctrl.trans.noarg('readMoreAboutEmbeddingAStudyChapter'))
+          }, ctrl.trans.noarg('readMoreAboutEmbedding'))
         ] : [])
       ),
       h('div.form-group', [

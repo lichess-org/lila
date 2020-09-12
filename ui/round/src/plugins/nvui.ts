@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import sanWriter from './sanWriter';
+import { sanWriter, SanToUci } from './sanWriter';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
@@ -10,17 +10,13 @@ import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { onInsert } from '../util';
-import { Step, DecodedDests, Position, Redraw } from '../interfaces';
+import { Step, Dests, Position, Redraw } from '../interfaces';
 import * as game from 'game';
 import { renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { castlingFlavours, supportedVariant, Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
-
-type Sans = {
-  [key: string]: Uci;
-}
 
 window.lichess.RoundNVUI = function(redraw: Redraw) {
 
@@ -125,6 +121,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
           'Type these commands in the move input.', h('br'),
           'c: Read clocks.', h('br'),
           'l: Read last move.', h('br'),
+          'o: Read name and rating of the opponent.', h('br'),
           commands.piece.help, h('br'),
           commands.scan.help, h('br'),
           'abort: Abort game.', h('br'),
@@ -153,12 +150,12 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
     else {
       const d = ctrl.data,
         legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!),
-        sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as Sans;
-      let uci = sanToUci(input, sans) || input,
+        legalSans: SanToUci = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as SanToUci;
+      let uci = sanToUci(input, legalSans) || input,
         promotion = '';
 
       if (input.match(promotionRegex)) {
-        uci = sanToUci(input.slice(0, -2), sans) || input;
+        uci = sanToUci(input.slice(0, -2), legalSans) || input;
         promotion = input.slice(-1).toLowerCase();
       }
 
@@ -172,25 +169,26 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
   };
 }
 
-const shortCommands = ['c', 'clock', 'l', 'last', 'abort', 'resign', 'draw', 'takeback', 'p', 'scan', 'o', 'opponent'];
+const shortCommands = ['c', 'clock', 'l', 'last', 'abort', 'resign', 'draw', 'takeback', 'p', 's', 'o', 'opponent'];
 
 function isShortCommand(input: string): boolean {
-  return shortCommands.includes(input.split(' ')[0]);
+  return shortCommands.includes(input.split(' ')[0].toLowerCase());
 }
 
 function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: Style) {
-  if (c == 'c' || c == 'clock') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
-  else if (c == 'l' || c == 'last') notify($('.lastMove').text());
-  else if (c == 'abort') $('.nvui button.abort').click();
-  else if (c == 'resign') $('.nvui button.resign-confirm').click();
-  else if (c == 'draw') $('.nvui button.draw-yes').click();
-  else if (c == 'takeback') $('.nvui button.takeback-yes').click();
-  else if (c == 'o' || c == 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
+  const lowered = c.toLowerCase();
+  if (lowered == 'c' || lowered == 'clock') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
+  else if (lowered == 'l' || lowered == 'last') notify($('.lastMove').text());
+  else if (lowered == 'abort') $('.nvui button.abort').click();
+  else if (lowered == 'resign') $('.nvui button.resign-confirm').click();
+  else if (lowered == 'draw') $('.nvui button.draw-yes').click();
+  else if (lowered == 'takeback') $('.nvui button.takeback-yes').click();
+  else if (lowered == 'o' || lowered == 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
   else {
     const pieces = ctrl.chessground.state.pieces;
     notify(
       commands.piece.apply(c, pieces, style) ||
-      commands.scan.apply(c, pieces) ||
+      commands.scan.apply(c, pieces, style) ||
       `Invalid command: ${c}`
     );
   }
@@ -203,21 +201,21 @@ function anyClock(ctrl: RoundController, position: Position) {
   ) || undefined;
 }
 
-function destsToUcis(dests: DecodedDests) {
+function destsToUcis(dests: Dests) {
   const ucis: string[] = [];
-  Object.keys(dests).forEach(function(orig) {
-    dests[orig].forEach(function(dest) {
+  for (const [orig, d] of dests) {
+    if (d) d.forEach(function(dest) {
       ucis.push(orig + dest);
     });
-  });
+  }
   return ucis;
 }
 
-function sanToUci(san: string, sans: Sans): Uci | undefined {
-  if (san in sans) return sans[san];
+function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
+  if (san in legalSans) return legalSans[san];
   const lowered = san.toLowerCase();
-  for (let i in sans)
-    if (i.toLowerCase() === lowered) return sans[i];
+  for (let i in legalSans)
+    if (i.toLowerCase() === lowered) return legalSans[i];
   return;
 }
 

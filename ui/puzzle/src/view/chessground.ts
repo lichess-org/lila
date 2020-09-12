@@ -1,18 +1,21 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
+import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
+import { Controller } from '../interfaces';
 
-export default function(ctrl) {
+export default function(ctrl: Controller): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => ctrl.ground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl))),
-      destroy: _ => ctrl.ground().destroy()
+      destroy: _ => ctrl.ground()!.destroy()
     }
   });
 }
 
-function makeConfig(ctrl): CgConfig {
+function makeConfig(ctrl: Controller): CgConfig {
   const opts = ctrl.makeCgOpts();
   return {
     fen: opts.fen,
@@ -24,8 +27,8 @@ function makeConfig(ctrl): CgConfig {
     addPieceZIndex: ctrl.pref.is3d,
     movable: {
       free: false,
-      color: opts.movable.color,
-      dests: opts.movable.dests,
+      color: opts.movable!.color,
+      dests: opts.movable!.dests,
       showDests: ctrl.pref.destination,
       rookCastle: ctrl.pref.rookCastle
     },
@@ -44,14 +47,16 @@ function makeConfig(ctrl): CgConfig {
           ctrl.pref.resizeHandle,
           ctrl.vm.node.ply,
           (_) => true
-        )
+        );
+        if (ctrl.pref.coords == 1) changeColorHandle();
       }
     },
     premovable: {
-      enabled: opts.premovable.enabled
+      enabled: opts.premovable!.enabled
     },
     drawable: {
-      enabled: true
+      enabled: true,
+      defaultSnapToValidMove: (window.lichess.storage.get('arrow.snap') || 1) != '0'
     },
     highlight: {
       lastMove: ctrl.pref.highlight,

@@ -1,17 +1,17 @@
 package lila.game
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 
 import chess.format.UciDump
 
-final class UciMemo(ttl: Duration) {
+final class UciMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
   type UciVector = Vector[String]
 
-  private val cache: Cache[Game.ID, UciVector] = Scaffeine()
-    .expireAfterAccess(ttl)
-    .build[Game.ID, UciVector]
+  private val cache: Cache[Game.ID, UciVector] = lila.memo.CacheApi.scaffeineNoScheduler
+    .expireAfterAccess(5 minutes)
+    .build[Game.ID, UciVector]()
 
   private val hardLimit = 300
 
@@ -30,7 +30,7 @@ final class UciMemo(ttl: Duration) {
       moves.size.min(max) == game.pgnMoves.size.min(max)
     } match {
       case Some(moves) => fuccess(moves)
-      case _ => compute(game, max) addEffect { set(game, _) }
+      case _           => compute(game, max) addEffect { set(game, _) }
     }
 
   def drop(game: Game, nb: Int) = {
@@ -38,8 +38,9 @@ final class UciMemo(ttl: Duration) {
     cache.put(game.id, current.take(current.size - nb))
   }
 
-  private def compute(game: Game, max: Int): Fu[UciVector] = for {
-    fen ← GameRepo initialFen game
-    uciMoves ← UciDump(game.pgnMoves.take(max), fen.map(_.value), game.variant).future
-  } yield uciMoves.toVector
+  private def compute(game: Game, max: Int): Fu[UciVector] =
+    for {
+      fen      <- gameRepo initialFen game
+      uciMoves <- UciDump(game.pgnMoves.take(max), fen.map(_.value), game.variant).toFuture
+    } yield uciMoves.toVector
 }

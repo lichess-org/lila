@@ -1,6 +1,8 @@
 import AnalyseCtrl from './ctrl';
-import { defined } from 'common';
 import { baseUrl } from './util';
+import { defined } from 'common';
+import modal from 'common/modal';
+import { formToXhr } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 
 export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
@@ -75,11 +77,8 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   function chartLoader() {
-    return '<div id="acpl-chart-loader">' +
-      '<span>' + li.engineName + '<br>server analysis</span>' +
-      li.spinnerHtml +
-      '</div>'
-  };
+    return `<div id="acpl-chart-loader"><span>Stockfish 11+<br>server analysis</span>${li.spinnerHtml}</div>`;
+  }
   function startAdvantageChart() {
     if (li.advantageChart || li.AnalyseNVUI) return;
     const loading = !data.treeParts[0].eval || !Object.keys(data.treeParts[0].eval).length;
@@ -95,12 +94,12 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   const setPanel = function(panel) {
     $menu.children('.active').removeClass('active').end().find(`[data-panel="${panel}"]`).addClass('active');
     $panels.removeClass('active').filter('.' + panel).addClass('active');
-    if (panel == 'move-times' && !li.movetimeChart) try {
+    if ((panel == 'move-times' || ctrl.opts.hunter) && !li.movetimeChart) try {
       li.loadScript('javascripts/chart/movetime.js').then(function() {
         li.movetimeChart(data, ctrl.trans);
       });
-    } catch (e) {}
-    if (panel == 'computer-analysis' && $("#acpl-chart").length)
+    } catch (e) { }
+    if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $("#acpl-chart").length)
       setTimeout(startAdvantageChart, 200);
   };
   $menu.on('mousedown', 'span', function(this: HTMLElement) {
@@ -115,16 +114,12 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
   }
   if (!data.analysis) {
-    $panels.find('form.future-game-analysis').submit(function(this: HTMLElement) {
+    $panels.find('form.future-game-analysis').submit(function(this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {
         if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
         return false;
       }
-      $.ajax({
-        ...li.formAjax($(this)),
-        success: startAdvantageChart,
-        error: li.reload
-      });
+      formToXhr(this).then(startAdvantageChart).catch(li.reload);
       return false;
     });
   }
@@ -139,7 +134,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   $panels.on('click', '.embed-howto', function(this: HTMLElement) {
     const url = `${baseUrl()}/embed/${data.game.id}${location.hash}`;
     const iframe = '<iframe src="' + url + '?theme=auto&bg=auto"\nwidth=600 height=397 frameborder=0></iframe>';
-    $.modal($(
+    modal($(
       '<strong style="font-size:1.5em">' + $(this).html() + '</strong><br /><br />' +
       '<pre>' + li.escapeHtml(iframe) + '</pre><br />' +
       iframe + '<br /><br />' +

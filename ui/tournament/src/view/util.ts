@@ -1,7 +1,7 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode';
-import { Hooks } from 'snabbdom/hooks'
 import { Attrs } from 'snabbdom/modules/attributes'
+import { h } from 'snabbdom'
+import { Hooks } from 'snabbdom/hooks'
+import { VNode } from 'snabbdom/vnode';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return onInsert(el =>
@@ -27,44 +27,26 @@ export function dataIcon(icon: string): Attrs {
   };
 }
 
-export function miniBoard(game) {
-  return h('a.mini-board.parse-fen.is2d.mini-board-' + game.id, {
-    key: game.id,
-    attrs: {
-      href: '/' + game.id + (game.color === 'white' ? '' : '/black'),
-      'data-color': game.color,
-      'data-fen': game.fen,
-      'data-lastmove': game.lastMove
-    },
-    hook: {
-      insert(vnode) {
-        window.lichess.parseFen($(vnode.elm as HTMLElement));
-      }
-    }
-  }, [
-    h('div.cg-wrap')
-  ]);
-}
-
 export function ratio2percent(r: number) {
   return Math.round(100 * r) + '%';
 }
 
 export function playerName(p) {
-  return p.title ? [h('span.title', p.title), ' ' + p.name] : p.name;
+  return p.title ? [h('span.utitle', p.title), ' ' + p.name] : p.name;
 }
 
-export function player(p, asLink: boolean, withRating: boolean, defender: boolean) {
-
-  const fullName = playerName(p);
-
-  return h('a.ulpt.user-link' + (fullName.length > 15 ? '.long' : ''), {
+export function player(p, asLink: boolean, withRating: boolean, defender: boolean = false, leader: boolean = false) {
+  return h('a.ulpt.user-link' + (((p.title || '') + p.name).length > 15 ? '.long' : ''), {
     attrs: asLink ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
     hook: {
       destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement)
     }
   }, [
-    h('span.name' + (defender ? '.defender' : ''), defender ? { attrs: dataIcon('5') } : {}, fullName),
+    h(
+      'span.name' + (defender ? '.defender' : (leader ? '.leader' : '')),
+      defender ? { attrs: dataIcon('5') } : (
+        leader ? { attrs: dataIcon('8') } : {}
+      ), playerName(p)),
     withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null
   ]);
 }

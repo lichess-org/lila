@@ -31,6 +31,7 @@ export interface Ctrl {
   previousPage(): void
   loadPage(page: number): void
   setVisible(): void
+  setMsgRead(user: string): void
 }
 
 export type Redraw = () => void

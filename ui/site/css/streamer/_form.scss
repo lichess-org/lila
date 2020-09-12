@@ -1,27 +1,32 @@
 $mq-picture: $mq-large;
 
-@import 'header';
+@import "header";
 
 .streamer-edit {
-
   .streamer-header {
     margin-bottom: 2em;
+
     .picture-create {
       @extend %flex-center;
+
       justify-content: center;
       width: 300px;
       height: 300px;
       display: none;
+
       @include breakpoint($mq-picture) {
         display: flex;
       }
     }
+
     .upload_picture .button {
       text-align: center;
       margin: 100px 30px 0 30px;
     }
+
     .picture {
       display: none;
+
       @include breakpoint($mq-picture) {
         display: block;
       }
@@ -30,17 +35,21 @@ $mq-picture: $mq-large;
 
   .status {
     @extend %box-radius;
+
     padding: 1em 1.5em;
     margin-bottom: 2em;
     background: $c-bg-zebra;
+
     &::before {
       font-size: 2em;
       margin-right: .4em;
     }
+
     form {
       display: inline;
     }
   }
+
   .mod {
     margin-bottom: 6em;
   }
@@ -56,6 +65,7 @@ $mq-picture: $mq-large;
   margin: .9em 0 .9em 2.2em;
   line-height: 1.6em;
   text-indent: -2.2em;
+
   &::before {
     font-family: 'lichess';
     content: 'E';
@@ -72,13 +82,16 @@ $mq-picture: $mq-large;
     border-top: $border;
     text-align: center;
   }
+
   .cancel {
     padding: 40px;
     border-top: $border;
   }
+
   .forms > *:first-child {
     margin-top: 40px;
   }
+
   .picture_wrap {
     text-align: center;
   }

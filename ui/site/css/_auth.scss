@@ -1,6 +1,7 @@
 #main-wrap {
   min-height: calc(95vh - #{$site-header-outer-height} - 4em);
 }
+
 .auth {
   width: 100%;
   margin: auto;
@@ -8,6 +9,7 @@
   @include breakpoint($mq-x-small) {
     width: 40em;
   }
+
 
   .button {
     width: 100%;
@@ -17,6 +19,7 @@
   .alternative {
     margin-top: 2rem;
     font-size: .9em;
+
     @extend %flex-between;
   }
 
@@ -33,6 +36,11 @@
 
 /* presumably the keyboard is up */
 @include breakpoint($mq-not-x-short) {
-  #top { display: none; }
-  .form-group { margin-bottom: 1rem; }
+  #top {
+    display: none;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
 }

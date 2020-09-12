@@ -3,16 +3,13 @@ package lila.hub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
-import scala.concurrent.duration._
 import scala.concurrent.Promise
-
-import lila.base.LilaException
 
 /*
  * Sequential like an actor, but for async functions,
- * and using an STM backend instead of akka actor.
+ * and using an atomic backend instead of akka actor.
  */
-trait Duct extends lila.common.Tellable {
+abstract class Duct(implicit ec: scala.concurrent.ExecutionContext) extends lila.common.Tellable {
 
   import Duct._
 
@@ -20,19 +17,13 @@ trait Duct extends lila.common.Tellable {
   protected val process: ReceiveAsync
 
   def !(msg: Any): Unit =
-    if (stateRef.getAndUpdate(
-      new UnaryOperator[State] {
-        override def apply(state: State): State = Some(state.fold(Queue.empty[Any])(_ enqueue msg))
-      }
-    ).isEmpty) run(msg)
+    if (stateRef.getAndUpdate(state => Some(state.fold(Queue.empty[Any])(_ enqueue msg))).isEmpty) run(msg)
 
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
-    val promise = Promise[A]
+    val promise = Promise[A]()
     this ! makeMsg(promise)
     promise.future
   }
-
-  def queueSize = stateRef.get().fold(0)(_.size + 1)
 
   /*
    * Idle: None
@@ -64,40 +55,5 @@ object Duct {
   private val fallback = { msg: Any =>
     lila.log("Duct").warn(s"unhandled msg: $msg")
     funit
-  }
-
-  case class Timeout(duration: FiniteDuration) extends lila.base.LilaException {
-    val message = s"FutureSequencer timed out after $duration"
-  }
-
-  /* Convenience functions to build upon Ducts */
-  object extra {
-
-    case class LazyFu[A](f: () => Fu[A]) {
-
-      def apply(timeout: Option[FiniteDuration])(implicit system: akka.actor.ActorSystem) =
-        timeout.foldLeft(f()) { (fu, dur) =>
-          fu.withTimeout(
-            duration = dur,
-            error = Timeout(dur)
-          )
-        }
-    }
-
-    // MUST be a def. Ducts cannot be reused.
-    def lazyFu = new Duct {
-      val process: Duct.ReceiveAsync = { case LazyFu(f) => f() }
-    }
-    def lazyFu(timeout: FiniteDuration)(implicit system: akka.actor.ActorSystem) = new Duct {
-      val process: Duct.ReceiveAsync = { case lf: LazyFu[_] => lf(timeout.some) }
-    }
-
-    case class LazyPromise[A](f: LazyFu[A], promise: Promise[A])
-
-    def lazyPromise(timeout: Option[FiniteDuration])(implicit system: akka.actor.ActorSystem) = new Duct {
-      val process: Duct.ReceiveAsync = {
-        case LazyPromise(lf, promise) => promise.completeWith { lf(timeout)(system) }.future
-      }
-    }
   }
 }

@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { spinner, bind, numberRow, playerName, dataIcon, player as renderPlayer } from './util';
+import { teamName } from './battle';
 import * as status from 'game/status';
 import TournamentController from '../ctrl';
 
@@ -57,7 +58,7 @@ export default function(ctrl: TournamentController): VNode {
       playerTitle(data.player),
       data.player.team ? h('team', {
         hook: bind('click', () => ctrl.showTeamInfo(data.player.team), ctrl.redraw)
-      }, ctrl.data.teamBattle!.teams[data.player.team]) : null,
+      }, [teamName(ctrl.data.teamBattle!, data.player.team)]) : null,
       h('table', [
         data.player.performance ? numberRow(
           noarg('performance'),

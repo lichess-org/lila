@@ -1,31 +1,20 @@
 package lila.history
 
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
 
+import lila.common.config.CollName
+
+@Module
 final class Env(
-    config: Config,
-    mongoCache: lila.memo.MongoCache.Builder,
-    db: lila.db.Env
-) {
+    mongoCache: lila.memo.MongoCache.Api,
+    userRepo: lila.user.UserRepo,
+    cacheApi: lila.memo.CacheApi,
+    db: lila.db.Db
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val CachedRatingChartTtl = config duration "cached.rating_chart.ttl"
+  private lazy val coll = db(CollName("history3"))
 
-  private val Collectionhistory = config getString "collection.history"
+  lazy val api = wire[HistoryApi]
 
-  lazy val api = new HistoryApi(db(Collectionhistory))
-
-  lazy val ratingChartApi = new RatingChartApi(
-    historyApi = api,
-    mongoCache = mongoCache,
-    cacheTtl = CachedRatingChartTtl
-  )
-}
-
-object Env {
-
-  lazy val current = "history" boot new Env(
-    config = lila.common.PlayApp loadConfig "history",
-    mongoCache = lila.memo.Env.current.mongoCache,
-    db = lila.db.Env.current
-  )
+  lazy val ratingChartApi = wire[RatingChartApi]
 }

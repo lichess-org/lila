@@ -1,4 +1,4 @@
-import { winningChances, pv2san } from 'ceval';
+import { winningChances } from 'ceval';
 import { Eval } from 'ceval';
 import { path as treePath } from 'tree';
 import { detectThreefold } from '../nodeFinder';
@@ -6,12 +6,17 @@ import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
 import { defined, prop, Prop } from 'common';
+import { altCastles } from 'chess';
+import { parseUci } from 'chessops/util';
+import { makeSan } from 'chessops/san';
+
+declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 
 export interface Comment {
   prev: Tree.Node;
   node: Tree.Node;
   path: Tree.Path;
-  verdict: 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
+  verdict: Verdict;
   best?: {
     uci: Uci;
     san: San;
@@ -61,7 +66,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function commentable(node: Tree.Node, bonus: number = 0): boolean {
-    if (root.gameOver(node) || node.tbhit) return true;
+    if (node.tbhit || root.outcome(node)) return true;
     const ceval = node.ceval;
     return ceval ? ((ceval.depth + bonus) >= 15 || (ceval.depth >= 13 && ceval.millis > 3000)) : false;
   }
@@ -72,13 +77,6 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       ceval.depth >= Math.min(ceval.maxDepth || 99, playableDepth()) ||
       (ceval.depth >= 15 && (ceval.cloud || ceval.millis > 5000))
     ) : false;
-  };
-
-  const altCastles = {
-    e1a1: 'e1c1',
-    e1h1: 'e1g1',
-    e8a8: 'e8c8',
-    e8h8: 'e8g8'
   };
 
   function tbhitToEval(hit: Tree.TablebaseHit | undefined | null) {
@@ -93,19 +91,19 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function makeComment(prev: Tree.Node, node: Tree.Node, path: Tree.Path): Comment {
-    let verdict, best;
-    const over = root.gameOver(node);
+    let verdict: Verdict, best;
+    const outcome = root.outcome(node);
 
-    if (over === 'checkmate') verdict = 'goodMove';
+    if (outcome && outcome.winner) verdict = 'goodMove';
     else {
       const nodeEval: Eval = tbhitToEval(node.tbhit) || (
-        (node.threefold || over === 'draw') ? { cp: 0 } : node.ceval as Eval
+        (node.threefold || (outcome && !outcome.winner)) ? { cp: 0 } : node.ceval as Eval
       );
       const prevEval: Eval = tbhitToEval(prev.tbhit) || prev.ceval!;
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
 
       best = nodeBestUci(prev)!;
-      if (best === node.uci || best === altCastles[node.uci!]) best = null;
+      if (best === node.uci || (node.san!.startsWith('O-O') && best === altCastles[node.uci!])) best = null;
 
       if (!best) verdict = 'goodMove';
       else if (shift < 0.025) verdict = 'goodMove';
@@ -121,7 +119,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       verdict,
       best: best ? {
         uci: best,
-        san: pv2san(variant, prev.fen, false, [best])
+        san: root.position(prev).unwrap(pos => makeSan(pos, parseUci(best)!), _ => '--'),
       } : undefined
     };
   }

@@ -14,7 +14,7 @@ export function sort(ctrl: LobbyController, hooks: Hook[]) {
 }
 
 export function init(hook: Hook) {
-  hook.action = hook.sri === window.lichess.StrongSocket.sri ? 'cancel' : 'join';
+  hook.action = hook.sri === window.lichess.sri ? 'cancel' : 'join';
   hook.variant = hook.variant || 'standard';
 }
 
@@ -31,20 +31,14 @@ export function setAll(ctrl: LobbyController, hooks: Hook[]) {
   initAll(ctrl);
 }
 export function remove(ctrl: LobbyController, id) {
-  ctrl.data.hooks = ctrl.data.hooks.filter(function(h) {
-    return h.id !== id;
-  });
-  ctrl.stepHooks.forEach(function(h) {
+  ctrl.data.hooks = ctrl.data.hooks.filter(h => h.id !== id);
+  ctrl.stepHooks.forEach(h => {
     if (h.id === id) h.disabled = true;
   });
 }
 export function syncIds(ctrl: LobbyController, ids) {
-  ctrl.data.hooks = ctrl.data.hooks.filter(function(h) {
-    return ids.includes(h.id);
-  });
+  ctrl.data.hooks = ctrl.data.hooks.filter(h => ids.includes(h.id));
 }
 export function find(ctrl: LobbyController, id) {
-  return ctrl.data.hooks.find(function(h) {
-    return h.id === id;
-  });
+  return ctrl.data.hooks.find(h => h.id === id);
 }

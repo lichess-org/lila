@@ -1,15 +1,16 @@
 package lila.memo
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
-import scala.concurrent.duration.Duration
+import com.github.blemale.scaffeine.Cache
+import scala.concurrent.duration.FiniteDuration
 
 // calls a function when a key expires
-final class ExpireCallbackMemo(ttl: Duration, callback: String => Unit) {
+final class ExpireCallbackMemo(ttl: FiniteDuration, callback: String => Unit)(implicit mode: play.api.Mode) {
 
-  private val cache: Cache[String, Boolean] = Scaffeine()
+  private val cache: Cache[String, Boolean] = lila.memo.CacheApi
+    .scaffeine(mode)
     .expireAfterWrite(ttl)
-    .removalListener((key: String, value: Boolean, cause) => callback(key))
-    .build[String, Boolean]
+    .removalListener((key: String, _: Boolean, _) => callback(key))
+    .build[String, Boolean]()
 
   @inline private def isNotNull[A](a: A) = a != null
 
@@ -19,5 +20,7 @@ final class ExpireCallbackMemo(ttl: Duration, callback: String => Unit) {
 
   def remove(key: String) = cache invalidate key
 
-  def count = cache.estimatedSize.toInt
+  def count = cache.estimatedSize().toInt
+
+  def keySet: Set[String] = cache.asMap().keys.toSet
 }

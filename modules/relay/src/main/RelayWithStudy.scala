@@ -3,7 +3,7 @@ package lila.relay
 import lila.study.{ Study, StudyApi }
 import lila.user.User
 
-private final class RelayWithStudy(studyApi: StudyApi) {
+final private class RelayWithStudy(studyApi: StudyApi)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(relays: List[Relay]): Fu[List[Relay.WithStudy]] =
     studyApi byIds relays.map(_.studyId) map { studies =>

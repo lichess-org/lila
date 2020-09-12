@@ -1,89 +1,57 @@
 package lila.lobby
 
-import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import play.api.Configuration
 import scala.concurrent.duration._
 
-import lila.user.User
+import lila.common.config._
 
+@Module
 final class Env(
-    config: Config,
-    db: lila.db.Env,
-    hub: lila.hub.Env,
-    onStart: String => Unit,
-    blocking: User.ID => Fu[Set[User.ID]],
-    playban: String => Fu[Option[lila.playban.TempBan]],
+    appConfig: Configuration,
+    db: lila.db.Db,
+    onStart: lila.round.OnStart,
+    relationApi: lila.relation.RelationApi,
+    playbanApi: lila.playban.PlaybanApi,
     gameCache: lila.game.Cached,
+    userRepo: lila.user.UserRepo,
+    gameRepo: lila.game.GameRepo,
     poolApi: lila.pool.PoolApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    remoteSocketApi: lila.socket.RemoteSocket,
-    system: ActorSystem
+    cacheApi: lila.memo.CacheApi,
+    remoteSocketApi: lila.socket.RemoteSocket
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
+    idGenerator: lila.game.IdGenerator
 ) {
 
-  private val settings = new {
-    val NetDomain = config getString "net.domain"
-    val ResyncIdsPeriod = config duration "resync_ids_period"
-    val CollectionSeek = config getString "collection.seek"
-    val CollectionSeekArchive = config getString "collection.seek_archive"
-    val SeekMaxPerPage = config getInt "seek.max_per_page"
-    val SeekMaxPerUser = config getInt "seek.max_per_user"
-    val MaxPlaying = config getInt "max_playing"
-  }
-  import settings._
+  private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
 
-  lazy val seekApi = new SeekApi(
-    coll = db(CollectionSeek),
-    archiveColl = db(CollectionSeekArchive),
-    blocking = blocking,
-    asyncCache = asyncCache,
-    maxPerPage = SeekMaxPerPage,
-    maxPerUser = SeekMaxPerUser
+  private lazy val seekApiConfig = new SeekApi.Config(
+    coll = db(CollName("seek")),
+    archiveColl = db(CollName("seek_archive")),
+    maxPerPage = MaxPerPage(13),
+    maxPerUser = Max(5)
   )
 
-  private val lobbyTrouper = LobbyTrouper.start(
-    broomPeriod = 2.seconds,
-    resyncIdsPeriod = ResyncIdsPeriod
+  lazy val seekApi = wire[SeekApi]
+
+  lazy val boardApiHookStream = wire[BoardApiHookStream]
+
+  private lazy val lobbyTrouper = LobbyTrouper.start(
+    broomPeriod = 2 seconds,
+    resyncIdsPeriod = 25 seconds
   ) { () =>
-    new LobbyTrouper(
-      system = system,
-      seekApi = seekApi,
-      gameCache = gameCache,
-      maxPlaying = MaxPlaying,
-      blocking = blocking,
-      playban = playban,
-      poolApi = poolApi,
-      onStart = onStart
-    )
-  }(system)
+    wire[LobbyTrouper]
+  }
 
-  private val remoteSocket: LobbySocket = new LobbySocket(
-    remoteSocketApi = remoteSocketApi,
-    lobby = lobbyTrouper,
-    blocking = blocking,
-    poolApi = poolApi,
-    system = system
-  )
+  private lazy val abortListener = wire[AbortListener]
 
-  private val abortListener = new AbortListener(seekApi, lobbyTrouper)
+  private lazy val biter = wire[Biter]
 
-  lila.common.Bus.subscribeFun('abortGame) {
+  wire[LobbySocket]
+
+  lila.common.Bus.subscribeFun("abortGame") {
     case lila.game.actorApi.AbortedBy(pov) => abortListener(pov)
   }
-}
-
-object Env {
-
-  lazy val current = "lobby" boot new Env(
-    config = lila.common.PlayApp loadConfig "lobby",
-    db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
-    onStart = lila.round.Env.current.onStart,
-    blocking = lila.relation.Env.current.api.fetchBlocking,
-    playban = lila.playban.Env.current.api.currentBan _,
-    gameCache = lila.game.Env.current.cached,
-    poolApi = lila.pool.Env.current.api,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    remoteSocketApi = lila.socket.Env.current.remoteSocket,
-    system = lila.common.PlayApp.system
-  )
 }

@@ -3,16 +3,13 @@ package lila.analyse
 import lila.db.dsl._
 import lila.game.Game
 
-object AnalysisRepo {
+final class AnalysisRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Analysis.analysisBSONHandler
 
-  // dirty
-  private val coll = Env.current.analysisColl
-
   type ID = String
 
-  def save(analysis: Analysis) = coll insert analysis void
+  def save(analysis: Analysis) = coll.insert one analysis void
 
   def byId(id: ID): Fu[Option[Analysis]] = coll.byId[Analysis](id)
 
@@ -29,7 +26,7 @@ object AnalysisRepo {
       }
     }
 
-  def remove(id: String) = coll remove $id(id)
+  def remove(id: String) = coll.delete one $id(id)
 
   def exists(id: String) = coll exists $id(id)
 }

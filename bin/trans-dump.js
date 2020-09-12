@@ -2,21 +2,25 @@ const fs = require('fs-extra');
 const parseString = require('xml2js').parseString;
 
 const baseDir = 'translation/source';
-const dbs = ['site', 'arena', 'emails', 'learn', 'activity', 'coordinates', 'study'];
+const dbs = 'site arena emails learn activity coordinates study clas contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss'.split(' ');
 
 function ucfirst(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+function xmlName(name) {
+  return name == 'clas' ? 'class' : name;
+}
+
 function keyListFrom(name) {
-  return fs.readFile(`${baseDir}/${name}.xml`, { encoding: 'utf8' }).then(txt => {
+  return fs.readFile(`${baseDir}/${xmlName(name)}.xml`, { encoding: 'utf8' }).then(txt => {
     return new Promise((resolve, reject) => parseString(txt, (_, xml) => {
       const strings = (xml.resources.string || []).map(e => e['$'].name);
       const plurals = (xml.resources.plurals || []).map(e => e['$'].name);
       const keys = strings.concat(plurals);
       resolve({
         name: name,
-        code: keys.map(k => 'val `' + k + '` = new Translated("' + k + '", ' + ucfirst(name) + ')').join('\n') + '\n',
+        code: keys.map(k => 'val `' + k + '` = new I18nKey("' + (name == 'site' ? '' : xmlName(name) + ':') + k + '")').join('\n') + '\n',
       });
     }));
   });
@@ -31,12 +35,8 @@ Promise.all(dbs.map(keyListFrom)).then(objs => {
   const code = `// Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ ${dbs.map(ucfirst).join(', ')} }
-
 // format: OFF
 object I18nKeys {
-
-def untranslated(message: String) = new Untranslated(message)
 
 ${objs.map(dbCode).join('\n')}
 }

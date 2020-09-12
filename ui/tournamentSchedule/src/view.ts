@@ -4,6 +4,13 @@ import { VNode } from 'snabbdom/vnode'
 const scale = 8;
 let now: number, startTime: number, stopTime: number;
 
+const i18nNames = {};
+
+function i18nName(t) {
+  if (!i18nNames[t.id]) i18nNames[t.id] = t.fullName;
+  return i18nNames[t.id];
+}
+
 function displayClockLimit(limit) {
   switch (limit) {
     case 15:
@@ -24,7 +31,8 @@ function displayClock(clock) {
 }
 
 function leftPos(time) {
-  return scale * (time - startTime) / 1000 / 60;
+  const rounded = 1000 * 60 * Math.floor(time / 1000 / 60);
+  return scale * (rounded - startTime) / 1000 / 60;
 }
 
 function laneGrouper(t) {
@@ -32,12 +40,14 @@ function laneGrouper(t) {
     return -1;
   } else if (t.variant.key !== 'standard') {
     return 99;
-  } else if (t.perf.key === 'ultraBullet') {
-    return 70;
   } else if (t.schedule && t.hasMaxRating) {
     return 50 + parseInt(t.fullName.slice(1,5)) / 10000;
-  } else if (t.schedule && t.schedule.speed === 'superblitz') {
+  } else if (t.schedule && t.schedule.speed === 'superBlitz') {
     return t.perf.position - 0.5;
+  } else if (t.schedule && t.schedule.speed === 'hyperBullet') {
+    return 4;
+  } else if (t.schedule && t.perf.key === 'ultraBullet') {
+    return 4;
   } else {
     return t.perf.position;
   }
@@ -95,9 +105,7 @@ function tournamentClass(tour) {
       'tsht-finished': finished,
       'tsht-joinable': !finished,
       'tsht-user-created': userCreated,
-      'tsht-major': tour.major,
       'tsht-thematic': !!tour.position,
-      'tsht-battle': !!tour.battle,
       'tsht-short': tour.minutes <= 30,
       'tsht-max-rating': !userCreated && tour.hasMaxRating
     };
@@ -135,7 +143,7 @@ function renderTournament(ctrl, tour) {
       }
     } : {}),
     h('span.body', [
-      h('span.name', tour.fullName),
+      h('span.name', i18nName(tour)),
       h('span.infos', [
         h('span.text', [
           displayClock(tour.clock) + ' ',
@@ -190,8 +198,6 @@ export default function(ctrl) {
   const data = ctrl.data();
 
   const systemTours: any[] = [],
-    majorTours: any[] = [],
-    teamBattles: any[] = [],
     userTours: any[] = [];
 
   data.finished
@@ -200,16 +206,12 @@ export default function(ctrl) {
     .filter(t => t.finishesAt > startTime)
     .forEach(t => {
       if (isSystemTournament(t)) systemTours.push(t);
-      else if (t.major) majorTours.push(t);
-      else if (t.battle) teamBattles.push(t);
       else userTours.push(t);
     });
 
   // group system tournaments into dedicated lanes for PerfType
   const tourLanes = splitOverlaping(
     group(systemTours, laneGrouper)
-    .concat([majorTours])
-    .concat([teamBattles])
     .concat([userTours])
   ).filter(lane => lane.length > 0);
 
@@ -236,8 +238,7 @@ export default function(ctrl) {
     }, [
       renderTimeline(),
       ...tourLanes.map(lane => {
-        const large = lane.find(t => isSystemTournament(t) || t.major || t.battle);
-        return h('div.tournamentline' + (large ? '.large' : ''), lane.map(tour =>
+        return h('div.tournamentline', lane.map(tour =>
           renderTournament(ctrl, tour)))
       })
     ])

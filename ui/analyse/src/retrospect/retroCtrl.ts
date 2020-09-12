@@ -1,7 +1,8 @@
+import { opposite } from 'chessground/util';
 import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
 import { path as treePath } from 'tree';
-import { empty, prop } from 'common';
+import { isEmpty, prop } from 'common';
 import { OpeningData } from '../explorer/interfaces';
 import AnalyseCtrl from '../ctrl';
 
@@ -13,10 +14,9 @@ export interface RetroCtrl {
 
 type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';
 
-export function make(root: AnalyseCtrl): RetroCtrl {
+export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
 
   const game = root.data.game;
-  const color = root.bottomColor();
   let candidateNodes: Tree.Node[] = [];
   const explorerCancelPlies: number[] = [];
   let solvedPlies: number[] = [];
@@ -27,13 +27,13 @@ export function make(root: AnalyseCtrl): RetroCtrl {
 
   function isPlySolved(ply: Ply): boolean {
     return solvedPlies.includes(ply);
-  };
+  }
 
   function findNextNode(): Tree.Node | undefined {
-    const colorModulo = root.bottomIsWhite() ? 1 : 0;
+    const colorModulo = color == 'white' ? 1 : 0;
     candidateNodes = evalSwings(root.mainline, n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply));
     return candidateNodes.find(n => !isPlySolved(n.ply));
-  };
+  }
 
   function jumpToNext(): void {
     feedback('find');
@@ -134,7 +134,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
       path: root.path
     };
     root.userJump(current().prev.path);
-    if (!root.tree.pathIsMainline(bad.path) && empty(bad.node.children))
+    if (!root.tree.pathIsMainline(bad.path) && isEmpty(bad.node.children))
       root.tree.deleteNodeAt(bad.path);
     redraw();
   }
@@ -161,6 +161,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
   function showBadNode(): Tree.Node | undefined {
     const cur = current();
     if (cur && isSolving() && cur.prev.path === root.path) return cur.fault.node;
+    return undefined;
   }
 
   function isSolving(): boolean {
@@ -192,6 +193,13 @@ export function make(root: AnalyseCtrl): RetroCtrl {
     reset() {
       solvedPlies = [];
       jumpToNext();
+    },
+    flip() {
+      if (root.data.game.variant.key !== 'racingKings') root.flip();
+      else {
+        root.retro = make(root, opposite(color));
+        redraw();
+      }
     },
     close: root.toggleRetro,
     trans: root.trans,

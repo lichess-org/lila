@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessClasses">As clases de Lichess permiten a un adestrador crear clases virtuais e supervisar o progreso dos seus alumnos</string>
+  <string name="features">Funcións</string>
+  <string name="quicklyGenerateSafeUsernames">Xenera rapidamente nomes de usuarios e contrasinais seguros para os usuarios</string>
+  <string name="trackStudentProgress">Segue o progreso dos alumnos en partidas e problemas</string>
+  <string name="messageAllStudents">Avisa os alumnos de que hai novo material</string>
+  <string name="freeForAllForever">100% gratuito para todo o mundo e sen anuncios ou uso de datos</string>
+  <string name="applyToBeLichessTeacher">Postúlate como adestrador en Lichess</string>
+  <string name="noClassesYet">Aínda non hay clases.</string>
+  <string name="teachersX">Adestradores: %s</string>
+  <string name="newClass">Clase nova</string>
+  <string name="closeClass">Pechar clase</string>
+  <string name="closedByX">Pechada por %s</string>
+  <string name="reopen">Reabrir</string>
+  <string name="removeStudent">Eliminar alumno</string>
+  <string name="removedStudents">Eliminar</string>
+  <string name="inviteTheStudentBack">Volver invitar a un alumno</string>
+  <string name="sendAMessage">Enviar unha mensaxe a tódolos alumnos.</string>
+  <string name="aLinkToTheClassWillBeAdded">Enviarase unha ligazón á clase automáticamente ó fondo da mensaxe. Non precisas incluilo.</string>
+  <string name="className">Nome da clase</string>
+  <string name="classDescription">Descrición da clase</string>
+  <string name="visibleByBothStudentsAndTeachers">Visible para adestradores e alumnos</string>
+  <string name="teachersOfTheClass">Adestradores desta clase</string>
+  <string name="addLichessUsernames">Invita usuarios de Lichess para seren adestradores (un por liña)</string>
+  <string name="theyMustFirstApply">Antes deben postularse como adestradores de Lichess.</string>
+  <string name="resetPassword">Reiniciar o contrasinal</string>
+  <string name="makeSureToCopy">Asegúrate de copiar agora o contrasinal. Non o volverás ver!</string>
+  <string name="passwordX">Contrasinal: %s</string>
+  <string name="generateANewPassword">Xenera un contrasinal novo para o alumno</string>
+  <string name="invitedToXByY">Invitado a %1$s por %2$s</string>
+  <string name="realName">Nome real</string>
+  <string name="privateWillNeverBeShown">Privado: non se amosará fóra desta clase. Está para axudarche a lembrar quen é cada alumno.</string>
+  <string name="addStudent">Engadir alumno</string>
+  <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creado por %2$s.</string>
+  <string name="studentCredentials">Alumno: %1$s
+Nome de usuario: %2$s
+Contrasinal %3$s</string>
+  <string name="inviteALichessAccount">Invita unha conta de Lichess</string>
+  <string name="inviteDesc1">Se o alumno xa tes conta en Lichess, invítao á clase.</string>
+  <string name="inviteDesc2">Recibirán unha mensaxe en Lichess coa ligazón para unirse á clase.</string>
+  <string name="inviteDesc3">Importante: invita só estudantes que coñezas e queiran unirse á clase.</string>
+  <string name="inviteDesc4">Non envíes invitacións non desexadas.</string>
+  <string name="createANewLichessAccount">Crea unha conta en Lichess</string>
+  <string name="createDesc1">Se o alumno non ten conta en Lichess, podes crearlla desde aquí.</string>
+  <string name="createDesc2">Non se precisa dirección de correo. Xerarase un contrasinal que debes pasar ó alumno para que poidan acceder.</string>
+  <string name="createDesc3">Importante: os alumnos non deben ter máis dunha conta.</string>
+  <string name="createDesc4">Se xa a teñen, usa o formulario de invitación.</string>
+  <string name="lichessUsername">Nome de usuario en Lichess</string>
+  <string name="generateANewUsername">Xenera un novo nome de usuario</string>
+  <string name="welcomeToClass">Benvido á túa clase %s
+Aquí está a ligazón para acceder.</string>
+  <string name="invitationToClass">Invitáronte a entrar como alumno na clase %s.</string>
+  <string name="clickToViewInvitation">Preme na ligazón para ver a invitación:</string>
+</resources>

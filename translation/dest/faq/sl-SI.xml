@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="faqAbbreviation">Odgovori na pogosto zastavljena vprašanja</string>
+  <string name="frequentlyAskedQuestions">Pogosto zastavljena vprašanja</string>
+  <string name="whyIsLichessCalledLichess">Zakaj se Lichess imenuje Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinacija live/light/ libre in šaha. Izgovarja se %1$s.</string>
+  <string name="leechess">li-čes</string>
+  <string name="hearItPronouncedBySpecialist">Slišite, da jo izgovori specialist.</string>
+  <string name="whyLiveLightLibre">V živo, ker se igre igrajo in gledajo v realnem času 24/7; lahek in svoboden za dejstvo, da je Lichess odprtokoden in neobremenjen z lastniškimi smeti, ki težijo druge spletne strani.</string>
+  <string name="whyIsLilaCalledLila">Podobno izvorna koda za Lichess, %1$s, pomeni li[chess in sca]la, saj je večina lichess napisana v %2$s, intuitivnem programskem jeziku.</string>
+  <string name="howCanIContributeToLichess">Kako lahko prispevam k Lichess-u?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess poganjajo donacije pokroviteljev in prizadevanja ekipe prostovoljcev.</string>
+  <string name="findMoreAndSeeHowHelp">Več o %1$s (vključno z %2$s). Če želite Lichessu pomagati s prostovoljnim časom in spretnostmi, je tukaj veliko %3$s.</string>
+  <string name="beingAPatron">biti pokrovitelj</string>
+  <string name="breakdownOfOurCosts">razčlenitev naših stroškov</string>
+  <string name="otherWaysToHelp">drugi načini pomoči</string>
+  <string name="areThereWebsitesBasedOnLichess">Ali obstajajo spletna mesta, ki temeljijo na Lichess-u?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess je resnično navdihnil druga mesta z odprto kodo, ki uporabljajo našo %1$s, %2$s ali %3$s.</string>
+  <string name="fairPlay">Poštena igra</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Zakaj sem označen za umetno manipulacijo z ratingom (peskanje in povečanje) ali računalniško pomoč?</string>
+  <string name="cheatDetectionMethods">Lichess ima močne metode odkrivanja in zelo temeljit postopek za pregled vseh dokazov in odločitev. V postopku pogosto sodeluje veliko moderatorjev in lahko traja veliko časa. Razen same znamke ne bomo spuščali podrobnosti o dokazih ali postopku odločanja za posamezne primere. S tem bi se lažje izognili odkrivanju v prihodnosti in bili povabilo k neproduktivnim razpravam. Ta čas in trud je bolje porabiti za druge pomembne primere. Uporabniki se lahko pritožijo po e-pošti %1$s, vendar se odločitve redko razveljavijo.</string>
+  <string name="whenAmIEligibleRatinRefund">Kdaj sem upravičen do samodejnega povračila ratinga od goljufov?</string>
+  <string name="ratingRefundExplanation">Minuto po tem, ko je igralec zaznamovan, se začne njegovih 40 zadnjih rangiranih iger v zadnjih 3 dneh. Če ste bili njegov nasprotnik na teh igrah, ste izgubili rejting (zaradi poraza ali remija) in vaš rejting ni bil začasen, prejmete povračilo za rejting. Nadomestilo se omeji na podlagi vašega najvišjega rejtinga in vašega napredka po igri. 
+ (Na primer, če se je vaš rejting po teh igrah močno povečal, morda ne boste dobili nobenega povračila ali samo delno povračilo.) Povračilo ne bo nikoli preseglo 150 točk.</string>
+  <string name="preventLeavingGameWithoutResigning">Kaj se naredi, ko igralci zapustijo igre, ne da bi predali?</string>
+  <string name="leavingGameWithoutResigningExplanation">Če vaš nasprotnik pogosto prekine / zapusti igre, se jim dodeli oznaka \"igranje prepovedano\", kar pomeni, da jim lahko začasno prepovejo igranje iger. To javno ni navedeno na njihovem profilu. Če se to vedenje nadaljuje, se dolžina prepovedi igranja poveča - in takšno dolgotrajno vedenje lahko privede do zaprtja računa.</string>
+  <string name="howCanIBecomeModerator">Kako lahko postanem moderator?</string>
+  <string name="youCannotApply">Če želite postati moderator, se ni mogoče prijaviti. Če vidimo nekoga, za katerega mislimo, da bi bil dober kot moderator, ga bomo kontaktirali neposredno.</string>
+  <string name="isCorrespondenceDifferent">Ali se dopisni šah razlikuje od običajnega šaha?</string>
+  <string name="youCanUseOpeningBookNoEngine">Na Lichess, je glavna razlika v pravilih ta, da je dovoljena uporaba otvoritvenih knjižnic. Uporaba računalniških motorjev je prepovedana in ima za posledico zaznamek za pomoč z računalnikom. Čeprav ICCF dovoljuje uporabo motorjev v dopisnem šahu jih Lichess ne.</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Igranje</string>
+  <string name="howBulletBlitzEtcDecided">Kako so izbrane Bullet, Blitz in druge časovne kontrole izbrane?</string>
+</resources>

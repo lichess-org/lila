@@ -4,20 +4,21 @@ $mq-col3: $mq-col3-uniboard;
 
 $box-padding: var(--box-padding);
 
-@import 'layout';
-@import 'side';
-@import 'created';
-@import 'started';
+@import "layout";
+@import "side";
+@import "created";
+@import "started";
 
 .simul {
-
   h1 {
     font-size: 2.1em;
+
     .author {
       margin-left: .7em;
       font-size: .7em;
     }
   }
+
   .finished {
     font-size: 2em;
   }
@@ -33,6 +34,7 @@ $box-padding: var(--box-padding);
 
   .simul-text {
     @extend %box-neat;
+
     margin: 0 auto 2em auto;
     padding: 1.5em 2.5em;
     background: $c-bg-zebra;
@@ -42,9 +44,11 @@ $box-padding: var(--box-padding);
       width: 100%;
       height: 10em;
     }
+
     .save {
       width: 100%;
     }
+
     p {
       margin: 0;
     }

@@ -1,7 +1,6 @@
 package lila.game
 
 import chess._
-import chess.Pos._
 import chess.format.Uci
 import org.specs2.mutable._
 

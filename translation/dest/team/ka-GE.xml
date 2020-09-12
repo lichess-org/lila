@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="teams">გუნდები</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s წევრი</item>
+    <item quantity="other">%s წევრი</item>
+  </plurals>
+  <string name="allTeams">ყველა გუნდი</string>
+  <string name="newTeam">ახალი გუნდი</string>
+  <string name="myTeams">ჩემი გუნდები</string>
+  <string name="noTeamFound">გუნდი არ მოდიძებნა</string>
+  <string name="joinTeam">შეუერთდით გუნდს</string>
+  <string name="quitTeam">დატოვეთ გუნდი</string>
+  <string name="anyoneCanJoin">ყველას შეუძლია შეუერთდეს</string>
+  <string name="aConfirmationIsRequiredToJoin">დასტური სჩირდება შესაერთებლად</string>
+  <string name="joiningPolicy">დაკავშირების პირობა</string>
+  <string name="teamBestPlayers">გუნდის საუკეთესო მოთამაშე</string>
+  <string name="teamRecentMembers">გუნდის ბოლო წევრები</string>
+  <string name="kickSomeone">გააგდე მოთამაშე ჯგუფიდან</string>
+  <string name="whoToKick">ვინ გინდა გუნდიდან გააგდო?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s გაწევრიანების მოთხოვნა</item>
+    <item quantity="other">%s გაწევრიანების მოთხოვნა</item>
+  </plurals>
+  <string name="willBeReviewed">შენი გაწევრიანების მოთხოვნას განიხილავს გუნდის ლიდერი.</string>
+  <string name="beingReviewed">შენი გაწევრიანების მოთხოვნას განიხილავს გუნდის ლიდერი.</string>
+  <string name="teamBattle">გუნდური ბრძოლა</string>
+  <string name="teamBattleOverview">რამდენიმე გუნდის ბრძოლა, ყველა თავისი გუნდს მატებს ქულას</string>
+  <string name="teamTournament">გუნდური ტურნირი</string>
+  <string name="teamTournamentOverview">არენა ტურნირი რომელშიც მხოლოდ შენს გუნდს შეუძლია თამაში</string>
+  <string name="messageAllMembers">მიწერე ყველა წევრს</string>
+  <string name="messageAllMembersOverview">გაუგზავნე პირადი გზავნილი გუნდის ყველა წევრს</string>
+  <string name="messageAllMembersLongDescription">გაუგზავნე პირადი გზავნილი გუნდის ყველა წევრს
+შეგიძლია ამით დაუძახო მათ ტურნირში ან გუნდურ ბრძოლაში სათამაშოდ.
+ვისაც არ მოეწონება მესიჯების მიღება შეიძლება დატოვონ გუნდი.</string>
+  <string name="teamsIlead">გუნდები რომლის ლიდერიც ვარ</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">ხომ არ გსურს დალინკო ერთერთი ტურნირი?</string>
+  <string name="usersWhoCanManageThisTeam">წევრები რომელთაც მართვა შეუძლიათ</string>
+  <string name="leadersChat">ლიდერების ჩატი</string>
+</resources>

@@ -35,7 +35,7 @@ Exceptions (free)
 
 Files | Author(s) | License
 --- | --- | ---
-public/font/lichess.{sfd,woff,woff2} | [Dave Gandy](http://fontawesome.io/), [GitHub](https://github.com/primer/octicons), [Webalys](http://www.webalys.com/), [Zurb](http://zurb.com/playground/foundation-icon-fonts-3), [Daniel Bruce](http://www.entypo.com/), [Shapemade](http://steadysets.com/), [Sergey Shmidt](http://designmodo.com/linecons-free/) and the lichess authors | [OFL](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL), [MIT](https://github.com/primer/octicons/blob/master/LICENSE), [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), AGPLv3+
+public/font/lichess.{sfd,woff,woff2} | [Dave Gandy](http://fontawesome.io/), [GitHub](https://github.com/primer/octicons), [Webalys](http://www.webalys.com/), [Zurb](http://zurb.com/playground/foundation-icon-fonts-3), [Daniel Bruce](http://www.entypo.com/), [Shapemade](http://steadysets.com/), [Sergey Shmidt](http://designmodo.com/linecons-free/) and the Lichess authors | [OFL](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL), [MIT](https://github.com/primer/octicons/blob/master/LICENSE), [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), AGPLv3+
 public/font/lichess.chess.{sfd,woff,woff2} | the [pgn4web](http://pgn4web.casaschi.net/home.html) authors | [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.txt)
 Noto Sans in public/font | [Google](https://fonts.google.com/specimen/Noto+Sans) | [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 Roboto in public/font | [Christian Robertson](https://fonts.google.com/specimen/Roboto) | [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
@@ -57,6 +57,7 @@ public/piece/california | [Jerry S.](https://sites.google.com/view/jerrychess/ho
 public/piece/maestro | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/fresca | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/cardinal | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/icpieces | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/gioco | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/tatiana | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/staunty | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
@@ -91,7 +92,7 @@ External services
 
 Lichess as deployed on https://lichess.org/ also uses these external services:
 
-* [Cloudflare](https://www.cloudflare.com/) to serve static assets
+* [Cloudflare](https://www.cloudflare.com/) to serve static assets, DNS lookups for email validation
 * [Mailgun](https://www.mailgun.com/) for transactional email
 * [prismic.io](https://prismic.io/) for help/documentation pages and the blog
 * [twitch](https://www.twitch.tv/) for featured livestreams
@@ -99,7 +100,6 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 * [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://lichess.org/patron)
 * [Spreadshirt](https://shop.spreadshirt.com/lichess-org) for the [Swag store](https://lichess.org/swag)
 * [check.torproject.org](https://check.torproject.org/exit-addresses) for a list or Tor exit nodes
-* [getipintel.net](https://getipintel.net/)
 * [detectlanguage.com](https://detectlanguage.com/)
 * Fallback to [Google Fonts](https://fonts.google.com/)
 * [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) and [OneSignal](https://onesignal.com/) for mobile notifications

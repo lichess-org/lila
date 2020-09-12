@@ -1,83 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>lichess - Sound Test Page</title>
-    <style type="text/css">
-      html, body {
-        font:16px monospace;
-        background: #000;
-        color: #ebd488
-      }
-      button {
-        width: 100%;
-      }
-    </style>
-    <meta content="noindex, nofollow" name="robots">
-  </head>
-  <body>
-    <h1>Sound Test Page</h1>
-      <script src="../compiled/lichess.site.js"></script>
-      <table>
-        <thead>
-          <tr id="sets"></tr>
-        </thead>
-        <tbody id="sounds">
-        </tbody>
-      </table>
-      <script>
-        var soundSets = ["standard", "piano", "nes", "sfx", "futuristic", "robot"];
-  var soundNames = {
-    genericNotify: 'GenericNotify',
-    move: 'Move',
-    capture: 'Capture',
-    explode: 'Explosion',
-    lowtime: 'LowTime',
-    victory: 'Victory',
-    defeat: 'Defeat',
-    draw: 'Draw',
-    tournament1st: 'Tournament1st',
+
+<head>
+  <meta charset="utf-8">
+  <title>lichess - Sound Test Page</title>
+  <style>
+    html,
+    body {
+      font: 16px monospace;
+      background: #000;
+      color: #ebd488
+    }
+
+    button {
+      width: 100%;
+    }
+  </style>
+  <meta content="noindex, nofollow" name="robots">
+</head>
+
+<body>
+  <h1>Sound Test Page</h1>
+  <script src="../compiled/lichess.site.min.js"></script>
+  <table>
+    <thead>
+      <tr id="sets"></tr>
+    </thead>
+    <tbody id="sounds">
+    </tbody>
+  </table>
+  <script>
+    function playSound(set, name) {
+      new Audio(`${set}/${name}.ogg`).play();
+    }
+    var soundSets = ["standard", "piano", "nes", "sfx", "futuristic", "robot"];
+    var soundNames = {
+      genericNotify: 'GenericNotify',
+      move: 'Move',
+      capture: 'Capture',
+      explode: 'Explosion',
+      lowtime: 'LowTime',
+      victory: 'Victory',
+      defeat: 'Defeat',
+      draw: 'Draw',
+      tournament1st: 'Tournament1st',
       tournament2nd: 'Tournament2nd',
-        tournament3rd: 'Tournament3rd',
-    tournamentOther: 'TournamentOther',
-    berserk: 'Berserk',
-    check: 'Check',
+      tournament3rd: 'Tournament3rd',
+      tournamentOther: 'TournamentOther',
+      berserk: 'Berserk',
+      check: 'Check',
       newChallenge: 'NewChallenge',
       newPM: 'NewPM',
-  };
-    for(var i = 0; i <= 10; i++) soundNames['countDown' + i] = 'CountDown' + i;
-      $.each(soundSets, function (i, soundSet) {
-        $('#sets').append($('<th>' + soundSet + '</th>'));
+    };
+    for (var i = 0; i <= 10; i++) soundNames['countDown' + i] = 'CountDown' + i;
+    $.each(soundSets, function(i, soundSet) {
+      $('#sets').append($('<th>' + soundSet + '</th>'));
+    });
+    $.each(soundNames, function(soundKey, soundName) {
+      var tr = $('<tr>');
+      $.each(soundSets, function(i, soundSet) {
+        var id = "soundSet_" + soundSet;
+        $('<td>').append($("<button>").click(function() {
+          // lichess.sound.changeSet(soundSet);
+          // lichess.sound[soundKey]();
+          playSound(soundSet, soundName);
+        }).text(soundName)).appendTo(tr);
       });
-      $.each(soundNames, function (i, soundName) {
-        var tr = $('<tr>');
-        $.each(soundSets, function (i, soundSet) {
-          var id = "soundSet_" + soundSet;
-          $('<td>').append($("<button>").click(function() {
-            new Howl({
-              src: ["ogg", "mp3"].map(function(ext) {
-                return [soundSet, soundName + "." + ext].join("/");
-              }),
-            }).play();
-          }).text(soundName)).appendTo(tr);
-        });
-        tr.appendTo($('#sounds'));
-      });
-        var tr = $('<tr>');
-        $.each(soundSets, function (i, soundSet) {
-          $('<td>').append($("<button>").click(function() {
-            var i = 10;
-            var tId = setInterval(function() {
-              new Howl({
-                src: ["ogg", "mp3"].map(function(ext) {
-                  return [soundSet, "CountDown" + i + "." + ext].join("/");
-                }),
-              }).play();
-              i-- || clearInterval(tId);
-            }, 1000);
-          }).text("CountDown10 --1> 0")).appendTo(tr);
-          tr.appendTo($('#sounds'));
-        });
-      </script>
-    </body>
-  </html>
+      tr.appendTo($('#sounds'));
+    });
+    var tr = $('<tr>');
+    $.each(soundSets, function(i, soundSet) {
+      $('<td>').append($("<button>").click(function() {
+        var i = 10;
+        var tId = setInterval(function() {
+          playSound(soundSet, "CountDown" + i);
+          i-- || clearInterval(tId);
+        }, 1000);
+      }).text("CountDown10 --1> 0")).appendTo(tr);
+      tr.appendTo($('#sounds'));
+    });
+  </script>
+</body>
+
+</html>

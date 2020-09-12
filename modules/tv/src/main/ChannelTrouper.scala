@@ -7,13 +7,13 @@ import chess.Color
 import lila.game.Game
 import lila.hub.Trouper
 
-private[tv] final class ChannelTrouper(
+final private[tv] class ChannelTrouper(
     channel: Tv.Channel,
-    lightUser: lila.common.LightUser.GetterSync,
     onSelect: TvTrouper.Selected => Unit,
     proxyGame: Game.ID => Fu[Option[Game]],
     rematchOf: Game.ID => Option[Game.ID]
-) extends Trouper {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends Trouper {
 
   import ChannelTrouper._
 
@@ -41,20 +41,25 @@ private[tv] final class ChannelTrouper(
       history = game.id :: history.take(2)
 
     case TvTrouper.Select =>
-      candidateIds.keys.map(proxyGame).sequenceFu
-        .map(_.collect {
+      candidateIds.keys
+        .map(proxyGame)
+        .sequenceFu
+        .map(_.view.collect {
           case Some(g) if channel isFresh g => g
-        }(scala.collection.breakOut): List[Game])
+        }.toList)
         .foreach { candidates =>
           oneId ?? proxyGame foreach {
             case Some(current) if channel isFresh current =>
               fuccess(wayBetter(current, candidates)) orElse rematch(current) foreach elect
             case Some(current) => rematch(current) orElse fuccess(bestOf(candidates)) foreach elect
-            case _ => elect(bestOf(candidates))
+            case _             => elect(bestOf(candidates))
           }
-          manyIds = candidates.sortBy { g =>
-            -(~g.averageUsersRating)
-          }.take(50).map(_.id)
+          manyIds = candidates
+            .sortBy { g =>
+              -(~g.averageUsersRating)
+            }
+            .take(50)
+            .map(_.id)
         }
   }
 
@@ -69,35 +74,37 @@ private[tv] final class ChannelTrouper(
 
   private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id) ?? proxyGame
 
-  private def bestOf(candidates: List[Game]) =
-    candidates sortBy { -score(_) } headOption
-
-  private def score(game: Game): Int = math.round {
-    (heuristics map {
-      case (fn, coefficient) => heuristicBox(fn(game)) * coefficient
-    }).sum * 1000
+  private def bestOf(candidates: List[Game]) = {
+    import cats.implicits._
+    candidates.maximumByOption(score)
   }
+
+  private def score(game: Game): Int =
+    math.round {
+      (heuristics map {
+        case (fn, coefficient) => heuristicBox(fn(game)) * coefficient
+      }).sum * 1000
+    }
 
   private type Heuristic = Game => Float
   private val heuristicBox = box(0 to 1) _
-  private val ratingBox = box(1000 to 2700) _
-  private val turnBox = box(1 to 25) _
+  private val ratingBox    = box(1000 to 2700) _
+  private val turnBox      = box(1 to 25) _
 
   private val heuristics: List[(Heuristic, Float)] = List(
     ratingHeuristic(Color.White) -> 1.2f,
     ratingHeuristic(Color.Black) -> 1.2f,
-    progressHeuristic -> 0.7f
+    progressHeuristic            -> 0.7f
   )
 
-  private def ratingHeuristic(color: Color): Heuristic = game =>
-    ratingBox(game.player(color).rating | 1400)
+  private def ratingHeuristic(color: Color): Heuristic =
+    game => ratingBox(game.player(color).rating.fold(1400f)(_.toFloat))
 
-  private def progressHeuristic: Heuristic = game =>
-    1 - turnBox(game.turns)
+  private def progressHeuristic: Heuristic = game => 1 - turnBox(game.turns.toFloat)
 
   // boxes and reduces to 0..1 range
   private def box(in: Range.Inclusive)(v: Float): Float =
-    (math.max(in.start, math.min(v, in.end)) - in.start) / (in.end - in.start).toFloat
+    (math.max(in.start.toFloat, math.min(v, in.end.toFloat)) - in.start) / (in.end - in.start).toFloat
 }
 
 object ChannelTrouper {

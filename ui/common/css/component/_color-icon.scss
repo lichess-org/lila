@@ -3,17 +3,21 @@
     &.white::before {
       content: "K";
     }
+
     &.black::before {
       content: "J";
     }
-  } @else {
+  }
+  @else {
     &.white::before {
       content: "J";
     }
+
     &.black::before {
       content: "K";
     }
   }
+
   &.random::before {
     content: "l";
   }

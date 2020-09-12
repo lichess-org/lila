@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="howBulletBlitzEtcDecided">Буллит, Блитц пен басқа да уақыт қалыптарын қалай таңдауға болады?</string>
+  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">&lt; %1$sс = %2$s</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі апта ішінде сәйкес баға үшін бағаланатын ойынға қатысу,</string>
+  <string name="displayPreferences">баптауларды көрсету</string>
+</resources>

@@ -16,7 +16,7 @@ export default function(ctrl: DasherCtrl): VNode {
         linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
         noarg('profile')),
 
-      d.kid ? null : h(
+      h(
         'a.text',
         linkCfg('/inbox', 'e'),
         noarg('inbox')),

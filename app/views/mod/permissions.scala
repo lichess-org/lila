@@ -1,45 +1,67 @@
 package views.html.mod
 
-import play.api.data.Form
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.user.User
+import lila.security.Permission
 
 import controllers.routes
 
 object permissions {
 
-  def apply(u: lila.user.User)(implicit ctx: Context) =
+  def apply(u: User, me: User)(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${u.username} permissions",
       moreCss = frag(
-        cssTag("mod.communication"),
+        cssTag("mod.permission"),
         cssTag("form3")
-      ),
-      moreJs = embedJsUnsafe("""$(function() {
-$('button.clear').on('click', function() {
-  $('#permissions option:selected').prop('selected', false);
-});});""")
+      )
     ) {
-        main(id := "permissions", cls := "page-small box box-pad")(
-          h1(userLink(u), " permissions"),
-          p("Use Ctrl+click to select multiple permissions"),
-          postForm(cls := "form3", action := routes.Mod.permissions(u.username))(
-            select(name := "permissions[]", multiple)(
-              lila.security.Permission.allButSuperAdmin.sortBy(_.name).flatMap { p =>
-                ctx.me.exists(canGrant(_, p)) option option(
-                  value := p.name,
-                  u.roles.contains(p.name) option selected,
-                  title := p.children.mkString(", ")
-                )(p.toString)
+      val userPerms = Permission(u.roles)
+      main(cls := "mod-permissions page-small box box-pad")(
+        h1(userLink(u), " permissions"),
+        standardFlash(),
+        postForm(cls := "form3", action := routes.Mod.permissions(u.username))(
+          p(cls := "granted")("In green, permissions enabled manually or by a package."),
+          div(cls := "permission-list")(
+            lila.security.Permission.categorized
+              .filter { case (_, ps) => ps.exists(canGrant(me, _)) }
+              .map {
+                case (categ, perms) =>
+                  st.section(
+                    h2(categ),
+                    perms
+                      .filter(canGrant(me, _))
+                      .map { perm =>
+                        val id = s"permission-${perm.dbKey}"
+                        div(
+                          cls := isGranted(perm, u) option "granted",
+                          title := isGranted(perm, u).?? {
+                            Permission.findGranterPackage(userPerms, perm).map { p =>
+                              s"Granted by package: $p"
+                            }
+                          }
+                        )(
+                          span(
+                            form3.cmnToggle(
+                              id,
+                              "permissions[]",
+                              checked = u.roles.contains(perm.dbKey),
+                              value = perm.dbKey
+                            )
+                          ),
+                          label(`for` := id)(perm.name)
+                        )
+                      }
+                  )
               }
-            ),
-            form3.actions(
-              button(cls := "button button-red clear", tpe := "button")("Clear"),
-              submitButton(cls := "button")("Save")
-            )
+          ),
+          form3.actions(
+            a(href := routes.User.show(u.username))(trans.cancel()),
+            submitButton(cls := "button")(trans.save())
           )
         )
-      }
+      )
+    }
 }

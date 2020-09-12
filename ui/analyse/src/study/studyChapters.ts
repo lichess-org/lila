@@ -74,7 +74,6 @@ export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined
 export function view(ctrl: StudyCtrl): VNode {
 
   const canContribute = ctrl.members.canContribute(),
-    configButton = canContribute ? h('act', { attrs: dataIcon('%') }) : null,
     current = ctrl.currentChapter();
 
   function update(vnode: VNode) {
@@ -94,7 +93,7 @@ export function view(ctrl: StudyCtrl): VNode {
       const makeSortable = function() {
         vData.sortable = window['Sortable'].create(el, {
           draggable: '.draggable',
-          handle: window.lichess.hasTouchEvents ? 'span' : undefined,
+          handle: 'ontouchstart' in window ? 'span' : undefined,
           onSort() {
             ctrl.chapters.sort(vData.sortable.toArray());
           }
@@ -141,7 +140,7 @@ export function view(ctrl: StudyCtrl): VNode {
     }, [
       h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
       h('h3', chapter.name),
-      configButton
+      canContribute ? h('act', { attrs: dataIcon('%') }) : null
     ]);
   }).concat(
     ctrl.members.canContribute() ? [

@@ -41,14 +41,16 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
    * then select that tab over discussion */
   if (allTabs.length > 1 && vm.tab === 'discussion' && li.storage.get('nochat')) vm.tab = allTabs[1];
 
-  const post = function(text: string): void {
+  const post = function(text: string): boolean {
     text = text.trim();
-    if (!text) return;
+    if (!text) return false;
+    if (text == 'You too!' && !data.lines.some(l => l.u != data.userId)) return false;
     if (text.length > 140) {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
-      return;
+      return false;
     }
     li.pubsub.emit('socket.send', 'talk', text);
+    return true;
   };
 
   const onTimeout = function(userId: string) {
@@ -91,22 +93,21 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const trans = li.trans(opts.i18n);
 
-  function canMod() {
-    return opts.permissions.timeout || opts.permissions.local;
-  }
-
   function instanciateModeration() {
-    moderation = canMod() ? moderationCtrl({
-      reasons: opts.timeoutReasons || ([{key: 'other', name: 'Inappropriate behavior'}]),
-      permissions: opts.permissions,
-      redraw
-    }) : undefined;
-    if (canMod()) opts.loadCss('chat.mod');
+    if (opts.permissions.timeout || opts.permissions.local) {
+      moderation = moderationCtrl({
+        reasons: opts.timeoutReasons || ([{key: 'other', name: 'Inappropriate behavior'}]),
+        permissions: opts.permissions,
+        redraw
+      });
+      opts.loadCss('chat.mod');
+    }
   }
   instanciateModeration();
 
   const note = opts.noteId ? noteCtrl({
     id: opts.noteId,
+    text: opts.noteText,
     trans,
     redraw
   }) : undefined;

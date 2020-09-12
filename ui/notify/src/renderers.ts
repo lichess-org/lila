@@ -36,9 +36,9 @@ export const renderers: Renderers = {
     text: n => userFullName(n.content.invitedBy) + ' invited you to « ' + n.content.studyName + ' ».'
   },
   privateMessage: {
-    html: n => generic(n, "/inbox/" + n.content.thread.id + '#bottom', 'c', [
+    html: n => generic(n, "/inbox/" + n.content.user.name, 'c', [
       h('span', [
-        h('strong', userFullName(n.content.sender)),
+        h('strong', userFullName(n.content.user)),
         drawTime(n)
       ]),
       h('span', n.content.text)
@@ -54,16 +54,6 @@ export const renderers: Renderers = {
       h('span', "You are now part of the team.")
     ]),
     text: n => "You have joined  « " + n.content.name + "  »."
-  },
-  teamMadeOwner: {
-    html: n => generic(n, "/team/" + n.content.id, 'f', [
-      h('span', [
-        h('strong', n.content.name),
-        drawTime(n)
-      ]),
-      h('span', "You are appointed as team owner.")
-    ]),
-    text: n => "You are now the owner of  « " + n.content.name + "  »."
   },
   titledTourney: {
     html: n => generic(n, '/tournament/' + n.content.id, 'g', [

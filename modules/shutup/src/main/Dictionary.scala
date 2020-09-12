@@ -1,10 +1,10 @@
 package lila.shutup
 
 /**
- * - words are automatically pluralized. "tit" will also match "tits"
- * - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
- * - words do not partial match. "anal" will NOT match "analysis".
- */
+  * - words are automatically pluralized. "tit" will also match "tits"
+  * - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
+  * - words do not partial match. "anal" will NOT match "analysis".
+  */
 private object Dictionary {
 
   def en = dict("""
@@ -39,7 +39,7 @@ buk?kake
 bull?shit
 cancer
 cawk
-cheat(er|)
+cheat(ed|er|s|)
 chess(|-|_)bot(.?com)?
 chicken
 chink
@@ -177,11 +177,13 @@ w?hore?
 wog
 """)
 
-  def ru = dict("""
+  def ru =
+    dict(
+      """
 сука
 пизда
-пидор
-пидераст
+пидор(|ас)
+педераст
 pid(a|o|)r
 Лох
 Сосать
@@ -199,8 +201,11 @@ pid(a|o|)r
 поебень
 ху(ё|е)(во|сос)
 хуй(|ня)
+читак
+читер(|ила?|ить?|ишь|ша)
 чмо
-""")
+"""
+    )
 
-  private def dict(words: String) = words.lines.filter(_.nonEmpty)
+  private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
 }

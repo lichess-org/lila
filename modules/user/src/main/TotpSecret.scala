@@ -1,7 +1,7 @@
 package lila.user
 
 import org.apache.commons.codec.binary.Base32
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import java.security.SecureRandom
 import javax.crypto.Mac
@@ -18,16 +18,17 @@ case class TotpSecret(secret: Array[Byte]) extends AnyVal {
 
   def currentTotp = totp(System.currentTimeMillis / 30000)
 
-  def totp(period: Long): TotpToken = TotpToken {
-    val msg = ByteBuffer.allocate(8).putLong(0, period).array
+  def totp(period: Long): TotpToken =
+    TotpToken {
+      val msg = ByteBuffer.allocate(8).putLong(0, period).array
 
-    val hmac = Mac.getInstance("HMACSHA1")
-    hmac.init(new SecretKeySpec(secret, "RAW"))
-    val hash = hmac.doFinal(msg)
+      val hmac = Mac.getInstance("HMACSHA1")
+      hmac.init(new SecretKeySpec(secret, "RAW"))
+      val hash = hmac.doFinal(msg)
 
-    val offset = hash.last & 0xf
-    otpString(ByteBuffer.wrap(hash).getInt(offset) & 0x7fffffff)
-  }
+      val offset = hash.last & 0xf
+      otpString(ByteBuffer.wrap(hash).getInt(offset) & 0x7fffffff)
+    }
 
   def verify(token: TotpToken): Boolean = {
     val period = System.currentTimeMillis / 30000
@@ -41,7 +42,7 @@ object TotpSecret {
 
   private def otpString(otp: Int) = {
     val s = (otp % 1000000).toString
-    if (s.length == 6) s
+    if (s.lengthIs == 6) s
     else "0" * (6 - s.length) + s
   }
 
@@ -55,8 +56,8 @@ object TotpSecret {
     TotpSecret(secret)
   }
 
-  private[user] val totpSecretBSONHandler = new BSONHandler[BSONBinary, TotpSecret] {
-    def read(bin: BSONBinary): TotpSecret = TotpSecret(bin.byteArray)
-    def write(s: TotpSecret): BSONBinary = BSONBinary(s.secret, Subtype.GenericBinarySubtype)
-  }
+  private[user] val totpSecretBSONHandler = lila.db.dsl.quickHandler[TotpSecret](
+    { case v: BSONBinary => TotpSecret(v.byteArray) },
+    v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
+  )
 }

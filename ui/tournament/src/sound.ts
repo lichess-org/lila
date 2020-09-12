@@ -4,6 +4,13 @@ import notify from 'common/notification';
 let countDownTimeout: number | undefined;
 const li = window.lichess;
 
+export function init() {
+  li.sound.load('tournament1st', 'Tournament1st');
+  li.sound.load('tournament2nd', 'Tournament2nd');
+  li.sound.load('tournament3rd', 'Tournament3rd');
+  li.sound.load('tournamentOther', 'TournamentOther');
+}
+
 function doCountDown(targetTime: number) {
 
   let started = false;
@@ -33,12 +40,13 @@ export function end(data: TournamentData) {
   if (!data.isRecentlyFinished) return;
   if (!li.once('tournament.end.sound.' + data.id)) return;
 
-  let soundKey = 'Other';
-  if (data.me.rank < 4) soundKey = '1st';
-  else if (data.me.rank < 11) soundKey = '2nd';
-  else if (data.me.rank < 21) soundKey = '3rd';
+  let key = 'Other';
+  if (data.me.rank < 4) key = '1st';
+  else if (data.me.rank < 11) key = '2nd';
+  else if (data.me.rank < 21) key = '3rd';
 
-  li.sound['tournament' + soundKey]();
+  li.sound.load('tournament' + key, 'Tournament' + key);
+  li.sound['tournament' + key]();
 }
 
 export function countDown(data: TournamentData) {
@@ -54,8 +62,9 @@ export function countDown(data: TournamentData) {
     doCountDown(performance.now() + 1000 * data.secondsToStart - 100),
     900);  // wait 900ms before starting countdown.
 
-  setTimeout(li.sound.warmup, (data.secondsToStart - 15) * 1000);
-
   // Preload countdown sounds.
-  for (let i = 10; i>=0; i--) li.sound.load('countDown' + i);
+  for (let i = 10; i >= 0; i--) {
+    li.sound.load('countDown' + i, 'CountDown' + i);
+    li.sound.collection('countDown' + i); // preload
+  }
 }

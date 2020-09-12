@@ -1,16 +1,16 @@
 package lila.challenge
 
 import play.api.libs.json._
-import scala.concurrent.duration._
 
-import lila.game.Pov
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.makeMessage
 
-private final class ChallengeSocket(
+final private class ChallengeSocket(
     api: ChallengeApi,
     remoteSocketApi: lila.socket.RemoteSocket
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mode: play.api.Mode
 ) {
 
   import ChallengeSocket._
@@ -18,7 +18,7 @@ private final class ChallengeSocket(
   def reload(challengeId: Challenge.ID): Unit =
     rooms.tell(challengeId, NotifyVersion("reload", JsNull))
 
-  lazy val rooms = makeRoomMap(send, false)
+  lazy val rooms = makeRoomMap(send)
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("chal-out").apply _
 
@@ -41,10 +41,11 @@ object ChallengeSocket {
 
       case class OwnerPings(ids: Iterable[String]) extends P.In
 
-      val reader: P.In.Reader = raw => raw.path match {
-        case "challenge/pings" => OwnerPings(P.In.commas(raw.args)).some
-        case _ => RP.In.reader(raw)
-      }
+      val reader: P.In.Reader = raw =>
+        raw.path match {
+          case "challenge/pings" => OwnerPings(P.In.commas(raw.args)).some
+          case _                 => RP.In.reader(raw)
+        }
     }
   }
 }

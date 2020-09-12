@@ -3,14 +3,27 @@
   align-content: flex-start;
   flex-flow: row wrap;
   font-size: .85em;
+  font-weight: bold;
+
   a {
     @extend %page-text;
-    font-weight: bold;
+
     margin-right: 1.2em;
     white-space: nowrap;
+
     @include transition(color);
-    &:hover{
+
+    &:hover {
       color: $c-link;
     }
+  }
+}
+
+.connect-links {
+  flex: 0 0 100%;
+  margin-top: .5em;
+
+  a {
+    font-weight: normal;
   }
 }

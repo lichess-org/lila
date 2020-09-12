@@ -13,9 +13,9 @@ export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.replaying() || !ctrl.isPlaying()) return;
   const el = e.target as HTMLElement,
-  role = el.getAttribute('data-role') as cg.Role,
-  color = el.getAttribute('data-color') as cg.Color,
-  number = el.getAttribute('data-nb');
+    role = el.getAttribute('data-role') as cg.Role,
+    color = el.getAttribute('data-color') as cg.Color,
+    number = el.getAttribute('data-nb');
   if (!role || !color || number === '0') return;
   e.stopPropagation();
   e.preventDefault();
@@ -123,7 +123,7 @@ export function init(ctrl: RoundController) {
   window.addEventListener('blur', resetKeys);
 
   // Handle focus on input bars – these will hide keyup events
-  window.addEventListener('focus', (e) => {
+  window.addEventListener('focus', e => {
     if (e.target && (e.target as HTMLElement).localName === 'input')
       resetKeys();
   }, { capture: true });
@@ -136,11 +136,8 @@ export function init(ctrl: RoundController) {
 // so preload when the feature might be used.
 // Images are used in _zh.scss, which should be kept in sync.
 function preloadMouseIcons(data: RoundData) {
-  const colorKey = data.player.color === 'white' ? 'w' : 'b';
-  if (window.fetch !== undefined) {
-    for (const pKey of 'PNBRQ') {
-      fetch(li.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
-    }
-  }
+  const colorKey = data.player.color[0];
+  for (const pKey of 'PNBRQ') 
+    fetch(li.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
   mouseIconsLoaded = true;
 }

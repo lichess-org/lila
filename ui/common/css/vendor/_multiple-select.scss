@@ -46,15 +46,16 @@
   right: 0;
   width: 20px;
   height: 25px;
-  background: url('../vendor/multiple-select/multiple-select.png') left top no-repeat;
+  background: url("../vendor/multiple-select/multiple-select.png") left top no-repeat;
 }
 
 .ms-choice > div.open {
-  background: url('../vendor/multiple-select/multiple-select.png') right top no-repeat;
+  background: url("../vendor/multiple-select/multiple-select.png") right top no-repeat;
 }
 
 .ms-drop {
   @extend %box-neat-force;
+
   width: 100%;
   display: none;
   margin-top: -1px;
@@ -67,12 +68,12 @@
 
 .ms-drop.bottom {
   top: 100%;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
 }
 
 .ms-drop.top {
   bottom: 100%;
-  box-shadow: 0 -4px 5px rgba(0, 0, 0, .15);
+  box-shadow: 0 -4px 5px rgba(0, 0, 0, 0.15);
 }
 
 .ms-search {
@@ -97,7 +98,7 @@
   border: $border;
   border-radius: 0;
   box-shadow: none;
-  background: img-url('../vendor/multiple-select/multiple-select.png') no-repeat 100% -22px;
+  background: img-url("../vendor/multiple-select/multiple-select.png") no-repeat 100% -22px;
 }
 
 .ms-drop ul {
@@ -128,6 +129,7 @@
 
 .ms-drop ul > li.multiple label {
   @extend %nowrap-hidden;
+
   width: 100%;
   display: block;
   text-overflow: ellipsis;

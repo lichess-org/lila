@@ -1,40 +1,41 @@
 package lila.streamer
 
 import akka.actor._
+import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.JsonBodyReadables._
+import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
+import scala.util.chaining._
 
-import lila.db.dsl._
 import lila.common.Bus
+import lila.common.config.Secret
 import lila.user.User
 
-private final class Streaming(
-    renderer: ActorSelection,
+final private class Streaming(
+    ws: StandaloneWSClient,
     api: StreamerApi,
     isOnline: User.ID => Boolean,
-    timeline: ActorSelection,
+    timeline: lila.hub.actors.Timeline,
     keyword: Stream.Keyword,
-    alwaysFeatured: () => lila.common.Strings,
-    googleApiKey: String,
-    twitchClientId: String,
-    lightUserApi: lila.user.LightUserApi
-)
-  extends Actor {
+    alwaysFeatured: () => lila.common.UserIds,
+    googleApiKey: Secret,
+    twitchCredentials: () => (String, String)
+) extends Actor {
 
   import Stream._
   import Twitch.Reads._
   import YouTube.Reads._
-  import BsonHandlers._
 
   private case object Tick
 
   private var liveStreams = LiveStreams(Nil)
 
+  implicit def ec = context.dispatcher
+
   def receive = {
 
-    case Streaming.Get => sender ! liveStreams
+    case Streaming.Get => sender() ! liveStreams
 
     case Tick => updateStreams addEffectAnyway scheduleTick
   }
@@ -43,29 +44,25 @@ private final class Streaming(
 
   self ! Tick
 
-  def updateStreams: Funit = for {
-    streamerIds <- api.allListedIds
-    activeIds = streamerIds.filter { id =>
-      liveStreams.has(id) || isOnline(id.value)
-    }
-    streamers <- api byIds activeIds
-    (twitchStreams, youTubeStreams) <- fetchTwitchStreams(streamers) zip fetchYouTubeStreams(streamers)
-    streams = LiveStreams {
-      scala.util.Random.shuffle {
-        (twitchStreams ::: youTubeStreams) |> dedupStreamers
+  def updateStreams: Funit =
+    for {
+      streamerIds <- api.allListedIds
+      activeIds = streamerIds.filter { id =>
+        liveStreams.has(id) || isOnline(id.value)
       }
-    }
-    _ <- api.setLiveNow(streamers.filter(streams.has).map(_.id))
-  } yield publishStreams(streamers, streams)
+      streamers <- api byIds activeIds
+      (twitchStreams, youTubeStreams) <-
+        fetchTwitchStreams(streamers, 0, None, Nil) zip fetchYouTubeStreams(streamers)
+      streams = LiveStreams {
+        lila.common.ThreadLocalRandom.shuffle {
+          (twitchStreams ::: youTubeStreams) pipe dedupStreamers
+        }
+      }
+      _ <- api.setLiveNow(streamers.withFilter(streams.has).map(_.id))
+    } yield publishStreams(streamers, streams)
 
   def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) = {
-    import makeTimeout.short
-    import akka.pattern.ask
     if (newStreams != liveStreams) {
-      renderer ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
-        case html: String =>
-          Bus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), 'streams)
-      }
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
       } foreach { s =>
@@ -75,86 +72,125 @@ private final class Streaming(
         }
         Bus.publish(
           lila.hub.actorApi.streamer.StreamStart(s.streamer.userId),
-          'streamStart
+          "streamStart"
         )
       }
     }
     liveStreams = newStreams
     streamers foreach { streamer =>
       streamer.twitch.foreach { t =>
-        lila.mon.tv.stream.name(s"${t.userId}@twitch") {
-          if (liveStreams.streams.exists(s => s.serviceName == "twitch" && s.is(streamer))) 1 else 0
-        }
+        if (liveStreams.streams.exists(s => s.serviceName == "twitch" && s.is(streamer)))
+          lila.mon.tv.streamer.present(s"${t.userId}@twitch").increment()
       }
       streamer.youTube.foreach { t =>
-        lila.mon.tv.stream.name(s"${t.channelId}@youtube") {
-          if (liveStreams.streams.exists(s => s.serviceName == "youTube" && s.is(streamer))) 1 else 0
-        }
+        if (liveStreams.streams.exists(s => s.serviceName == "youTube" && s.is(streamer)))
+          lila.mon.tv.streamer.present(s"${t.channelId}@youtube").increment()
       }
     }
   }
 
-  def fetchTwitchStreams(streamers: List[Streamer]): Fu[List[Twitch.Stream]] = {
-    val maxIds = 100
-    val allTwitchStreamers = streamers.flatMap { s =>
-      s.twitch map (s.id -> _)
-    }
-    val futureTwitchStreamers: Fu[List[Streamer.Twitch]] =
-      if (allTwitchStreamers.size > maxIds)
-        api.mostRecentlySeenIds(allTwitchStreamers.map(_._1), maxIds) map { ids =>
-          allTwitchStreamers collect {
-            case (streamerId, twitch) if ids(streamerId) => twitch
-          }
+  def fetchTwitchStreams(
+      streamers: List[Streamer],
+      page: Int,
+      pagination: Option[Twitch.Pagination],
+      acc: List[Twitch.Stream]
+  ): Fu[List[Twitch.Stream]] = {
+    val (clientId, secret) = twitchCredentials()
+    if (clientId.nonEmpty && secret.nonEmpty && page < 10) {
+      val query = List(
+        "game_id" -> "743", // chess
+        "first"   -> "100" // max results per page
+      ) ::: List(
+        pagination.flatMap(_.cursor).map { "after" -> _ }
+      ).flatten
+      ws.url("https://api.twitch.tv/helix/streams")
+        .withQueryStringParameters(query: _*)
+        .withHttpHeaders(
+          "Client-ID"     -> clientId,
+          "Authorization" -> s"Bearer $secret"
+        )
+        .get()
+        .flatMap {
+          case res if res.status == 200 =>
+            res.body[JsValue].validate[Twitch.Result](twitchResultReads) match {
+              case JsSuccess(result, _) => fuccess(result)
+              case JsError(err)         => fufail(s"twitch $err ${lila.log.http(res.status, res.body)}")
+            }
+          case res => fufail(s"twitch ${lila.log.http(res.status, res.body)}")
         }
-      else fuccess(allTwitchStreamers.map(_._2))
-    futureTwitchStreamers flatMap { twitchStreamers =>
-      twitchStreamers.nonEmpty ?? {
-        val twitchUserIds = twitchStreamers.map(_.userId)
-        val url = WS.url("https://api.twitch.tv/helix/streams")
-          .withQueryString(
-            (("first" -> maxIds.toString) :: twitchUserIds.map("user_login" -> _)): _*
-          )
-          .withHeaders(
-            "Client-ID" -> twitchClientId
-          )
-        url.get().map { res =>
-          res.json.validate[Twitch.Result](twitchResultReads) match {
-            case JsSuccess(data, _) => data.streams(
-              keyword,
+        .recover {
+          case e: Exception =>
+            logger.warn(e.getMessage)
+            Twitch.Result(None, None)
+        }
+        .monSuccess(_.tv.streamer.twitch)
+        .flatMap { result =>
+          if (result.data.exists(_.nonEmpty))
+            fetchTwitchStreams(
               streamers,
-              alwaysFeatured().value.map(_.toLowerCase)
+              page + 1,
+              result.pagination,
+              acc ::: result.streams(
+                keyword,
+                streamers,
+                alwaysFeatured().value
+              )
             )
-            case JsError(err) =>
-              logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
-              Nil
-          }
+          else fuccess(acc)
         }
+    } else fuccess(acc)
+  }
+
+  private var prevYouTubeStreams = YouTube.StreamsFetched(Nil, DateTime.now)
+
+  def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = {
+    val youtubeStreamers = streamers.filter(_.youTube.isDefined)
+    (youtubeStreamers.nonEmpty && googleApiKey.value.nonEmpty) ?? {
+      val now = DateTime.now
+      val res =
+        if (prevYouTubeStreams.list.isEmpty && prevYouTubeStreams.at.isAfter(now minusMinutes 3))
+          fuccess(prevYouTubeStreams)
+        else if (prevYouTubeStreams.at.isAfter(now minusMinutes 1))
+          fuccess(prevYouTubeStreams)
+        else {
+          ws.url("https://www.googleapis.com/youtube/v3/search")
+            .withQueryStringParameters(
+              "part"      -> "snippet",
+              "type"      -> "video",
+              "eventType" -> "live",
+              "q"         -> keyword.value,
+              "key"       -> googleApiKey.value
+            )
+            .get()
+            .flatMap { res =>
+              res.body[JsValue].validate[YouTube.Result](youtubeResultReads) match {
+                case JsSuccess(data, _) =>
+                  fuccess(YouTube.StreamsFetched(data.streams(keyword, youtubeStreamers), now))
+                case JsError(err) =>
+                  fufail(s"youtube ${res.status} $err ${res.body.take(500)}")
+              }
+            }
+            .monSuccess(_.tv.streamer.youTube)
+            .recover {
+              case e: Exception =>
+                logger.warn(e.getMessage)
+                YouTube.StreamsFetched(Nil, now)
+            }
+        }
+      res dmap { r =>
+        prevYouTubeStreams = r
+        r.list
       }
     }
   }
 
-  def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = googleApiKey.nonEmpty ?? {
-    val youtubeStreamers = streamers.filter(_.youTube.isDefined)
-    youtubeStreamers.nonEmpty ?? WS.url("https://www.googleapis.com/youtube/v3/search").withQueryString(
-      "part" -> "snippet",
-      "type" -> "video",
-      "eventType" -> "live",
-      "q" -> keyword.value,
-      "key" -> googleApiKey
-    ).get().map { res =>
-        res.json.validate[YouTube.Result](youtubeResultReads) match {
-          case JsSuccess(data, _) => data.streams(keyword, youtubeStreamers)
-          case JsError(err) =>
-            logger.warn(s"youtube ${res.status} $err ${~res.body.lines.toList.headOption}")
-            Nil
-        }
+  def dedupStreamers(streams: List[Stream]): List[Stream] =
+    streams
+      .foldLeft((Set.empty[Streamer.Id], List.empty[Stream])) {
+        case ((streamerIds, streams), stream) if streamerIds(stream.streamer.id) => (streamerIds, streams)
+        case ((streamerIds, streams), stream)                                    => (streamerIds + stream.streamer.id, stream :: streams)
       }
-  }
-
-  def dedupStreamers(streams: List[Stream]): List[Stream] = streams.foldLeft((Set.empty[Streamer.Id], List.empty[Stream])) {
-    case ((streamerIds, streams), stream) if streamerIds(stream.streamer.id) => (streamerIds, streams)
-    case ((streamerIds, streams), stream) => (streamerIds + stream.streamer.id, stream :: streams)
-  }._2
+      ._2
 }
 
 object Streaming {

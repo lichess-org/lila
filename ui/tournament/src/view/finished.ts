@@ -19,18 +19,24 @@ function confetti(data: TournamentData): VNode | undefined {
     });
 }
 
-function stats(st, noarg): VNode {
+function stats(data: TournamentData, noarg: any): VNode {
+  const tableData = [
+    numberRow(noarg('averageElo'), data.stats.averageRating, 'raw'),
+    numberRow(noarg('gamesPlayed'), data.stats.games),
+    numberRow(noarg('movesPlayed'), data.stats.moves),
+    numberRow(noarg('whiteWins'), [data.stats.whiteWins, data.stats.games], 'percent'),
+    numberRow(noarg('blackWins'), [data.stats.blackWins, data.stats.games], 'percent'),
+    numberRow(noarg('draws'), [data.stats.draws, data.stats.games], 'percent'),
+  ];
+
+  if (data.berserkable) {
+    const berserkRate = [data.stats.berserks / 2, data.stats.games];
+    tableData.push(numberRow(noarg('berserkRate'), berserkRate, 'percent'))
+  }
+
   return h('div.tour__stats', [
     h('h2', noarg('tournamentComplete')),
-    h('table', [
-      numberRow(noarg('averageElo'), st.averageRating, 'raw'),
-      numberRow(noarg('gamesPlayed'), st.games),
-      numberRow(noarg('movesPlayed'), st.moves),
-      numberRow(noarg('whiteWins'), [st.whiteWins, st.games], 'percent'),
-      numberRow(noarg('blackWins'), [st.blackWins, st.games], 'percent'),
-      numberRow(noarg('draws'), [st.draws, st.games], 'percent'),
-      numberRow(noarg('berserkRate'), [st.berserks / 2, st.games], 'percent')
-    ])
+    h('table', tableData)
   ]);
 }
 
@@ -41,7 +47,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
   const teamS = teamStanding(ctrl, 'finished');
   return [
     ...(teamS ? [header(ctrl), teamS] : [
-      h('div.big_top', [
+      h('div.podium-wrap', [
         confetti(ctrl.data),
         header(ctrl),
         podium(ctrl)
@@ -55,7 +61,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
 export function table(ctrl: TournamentController): VNode | undefined {
   return ctrl.playerInfo.id ? playerInfo(ctrl) : (
     ctrl.teamInfo.requested ? teamInfo(ctrl) : (
-      stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : undefined
+      stats ? stats(ctrl.data, ctrl.trans.noarg) : undefined
     )
   );
 }

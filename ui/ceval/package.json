@@ -12,19 +12,21 @@
     "replay"
   ],
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc"
+    "compile": "../../node_modules/typescript/bin/tsc --incremental",
+    "dev": "yarn run compile",
+    "prod": "yarn run compile"
   },
   "devDependencies": {
+    "@types/defer-promise": "1.0.0",
     "@types/jquery": "^2.0",
     "@types/lichess": "2.0.0",
-    "@types/defer-promise": "1.0.0",
-    "typescript": "^3"
+    "typescript": "^4.0.2"
   },
   "dependencies": {
-    "chess": "2.0.0",
+    "chessops": "^0.6.0",
     "common": "2.0.0",
-    "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
+    "snabbdom": "^0.7.4"
   }
 }

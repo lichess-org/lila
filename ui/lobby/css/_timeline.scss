@@ -1,16 +1,22 @@
 .timeline {
   @extend %page-text;
+
   flex: 1 1 auto;
   margin: 1em 0 0 $block-gap;
+
   @include hoverflow;
+
   .entry {
     @extend %roboto;
+
     a {
       @extend %base-font, %page-font;
     }
+
     &:hover a {
       color: $c-link;
     }
+
     &::after {
       content: '';
       display: block;
@@ -20,14 +26,8 @@
       margin: .7em 0;
     }
   }
+
   .more {
-    font-size: .9em;
-    margin: .5em;
-    display: block;
-    text-align: right;
-    color: $c-font-dim;
-    &:hover {
-      color: $c-link;
-    }
+    @extend %lobby__side__more;
   }
 }

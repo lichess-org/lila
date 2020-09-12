@@ -1,45 +1,79 @@
 package lila.round
 
 import akka.actor._
-import lila.hub.actorApi.game.ChangeFeatured
+import akka.stream.scaladsl._
 import lila.game.actorApi.MoveGameEvent
+import lila.hub.actorApi.game.ChangeFeatured
 import lila.socket.Socket.makeMessage
-import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import lila.common.Bus
 
-private final class TvBroadcast extends Actor {
+final private class TvBroadcast extends Actor {
 
-  private val (enumerator, channel) = Concurrent.broadcast[JsValue]
+  import TvBroadcast._
+
+  private var queues = Set.empty[Queue]
 
   private var featuredId = none[String]
 
-  Bus.subscribe(self, 'changeFeaturedGame)
+  Bus.subscribe(self, "changeFeaturedGame")
+
+  implicit def system = context.dispatcher
+
+  override def postStop() = {
+    super.postStop()
+    unsubscribeFromFeaturedId()
+  }
 
   def receive = {
 
-    case TvBroadcast.GetEnumerator => sender ! enumerator
+    case TvBroadcast.Connect =>
+      sender() ! Source
+        .queue[JsValue](8, akka.stream.OverflowStrategy.dropHead)
+        .mapMaterializedValue { queue =>
+          self ! Add(queue)
+          queue.watchCompletion().foreach { _ =>
+            self ! Remove(queue)
+          }
+        }
+
+    case Add(queue)    => queues = queues + queue
+    case Remove(queue) => queues = queues - queue
 
     case ChangeFeatured(id, msg) =>
-      featuredId foreach { previous =>
-        Bus.unsubscribe(self, MoveGameEvent makeSymbol previous)
-      }
-      Bus.subscribe(self, MoveGameEvent makeSymbol id)
+      unsubscribeFromFeaturedId()
+      Bus.subscribe(self, MoveGameEvent makeChan id)
       featuredId = id.some
-      channel push msg
+      queues.foreach(_ offer msg)
 
-    case MoveGameEvent(_, fen, move) =>
-      channel push makeMessage("fen", Json.obj(
-        "fen" -> fen,
-        "lm" -> move
-      ))
+    case MoveGameEvent(game, fen, move) if queues.nonEmpty =>
+      val msg = makeMessage(
+        "fen",
+        Json
+          .obj(
+            "fen" -> s"$fen ${game.turnColor.letter}",
+            "lm"  -> move
+          )
+          .add("wc" -> game.clock.map(_.remainingTime(chess.White).roundSeconds))
+          .add("bc" -> game.clock.map(_.remainingTime(chess.Black).roundSeconds))
+      )
+      queues.foreach(_ offer msg)
   }
+
+  def unsubscribeFromFeaturedId() =
+    featuredId foreach { previous =>
+      Bus.unsubscribe(self, MoveGameEvent makeChan previous)
+    }
 }
 
 object TvBroadcast {
 
-  type EnumeratorType = Enumerator[JsValue]
+  type SourceType = Source[JsValue, _]
+  type Queue      = SourceQueueWithComplete[JsValue]
 
-  case object GetEnumerator
+  case object Connect
+
+  case class Add(q: Queue)
+  case class Remove(q: Queue)
 }

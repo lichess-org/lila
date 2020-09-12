@@ -1,27 +1,24 @@
 package lila.security
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Cache
 import org.joda.time.Instant
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration.FiniteDuration
 
-import lila.common.base.StringUtils.levenshtein
+import lila.common.base.Levenshtein.isLevenshteinDistanceLessThan
 import lila.user.User
 
-final class Flood(duration: Duration) {
+final class Flood(duration: FiniteDuration) {
 
   import Flood._
 
   private val floodNumber = 4
 
-  private val cache: Cache[User.ID, Messages] = Scaffeine()
+  private val cache: Cache[User.ID, Messages] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(duration)
-    .build[User.ID, Messages]
-
-  private def filterMessage[A](uid: User.ID, text: String)(op: => Unit): Unit =
-    if (allowMessage(uid, text)) op
+    .build[User.ID, Messages]()
 
   def allowMessage(uid: User.ID, text: String): Boolean = {
-    val msg = Message(text, Instant.now)
+    val msg  = Message(text, Instant.now)
     val msgs = ~cache.getIfPresent(uid)
     !duplicateMessage(msg, msgs) && !quickPost(msg, msgs) ~ {
       _ ?? cache.put(uid, msg :: msgs)
@@ -46,7 +43,6 @@ private[security] object Flood {
     }
 
   private def similar(s1: String, s2: String): Boolean = {
-    val distance = levenshtein(s1, s2)
-    distance < 2 || distance < s1.length.min(s2.length) / 8
+    isLevenshteinDistanceLessThan(s1, s2, (s1.length.min(s2.length) >> 3) atLeast 2)
   }
 }

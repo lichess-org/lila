@@ -1,62 +1,47 @@
 package lila.insight
 
-import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import play.api.Configuration
 
+import lila.common.config._
+
+@Module
 final class Env(
-    config: Config,
-    getPref: String => Fu[lila.pref.Pref],
-    areFriends: (String, String) => Fu[Boolean],
-    system: ActorSystem,
-    lifecycle: play.api.inject.ApplicationLifecycle
+    appConfig: Configuration,
+    gameRepo: lila.game.GameRepo,
+    userRepo: lila.user.UserRepo,
+    analysisRepo: lila.analyse.AnalysisRepo,
+    prefApi: lila.pref.PrefApi,
+    relationApi: lila.relation.RelationApi,
+    mongo: lila.db.Env
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
 ) {
 
-  private val settings = new {
-    val CollectionEntry = config getString "collection.entry"
-    val CollectionUserCache = config getString "collection.user_cache"
+  private lazy val db = mongo.asyncDb(
+    "insight",
+    appConfig.get[String]("insight.mongodb.uri")
+  )
+
+  lazy val share = wire[Share]
+
+  lazy val jsonView = wire[JsonView]
+
+  private lazy val storage = new Storage(db(CollName("insight")))
+
+  private lazy val aggregationPipeline = wire[AggregationPipeline]
+
+  private lazy val povToEntry = wire[PovToEntry]
+
+  private lazy val indexer = wire[Indexer]
+
+  private lazy val userCacheApi = new UserCacheApi(db(CollName("insight_user_cache")))
+
+  lazy val api = wire[InsightApi]
+
+  lila.common.Bus.subscribeFun("analysisReady", "cheatReport") {
+    case lila.analyse.actorApi.AnalysisReady(game, _)        => api updateGame game
+    case lila.hub.actorApi.report.CheatReportCreated(userId) => api ensureLatest userId
   }
-  import settings._
-
-  private val db = new lila.db.Env("insight", config getConfig "mongodb", lifecycle)
-
-  lazy val share = new Share(getPref, areFriends)
-
-  lazy val jsonView = new JsonView
-
-  private lazy val storage = new Storage(coll = db(CollectionEntry))
-
-  private lazy val aggregationPipeline = new AggregationPipeline
-
-  private lazy val indexer = new Indexer(
-    storage = storage,
-    sequencer = new lila.hub.FutureSequencer(
-      system = system,
-      executionTimeout = None,
-      logger = logger
-    )
-  )
-
-  private lazy val userCacheApi = new UserCacheApi(coll = db(CollectionUserCache))
-
-  lazy val api = new InsightApi(
-    storage = storage,
-    userCacheApi = userCacheApi,
-    pipeline = aggregationPipeline,
-    indexer = indexer
-  )
-
-  lila.common.Bus.subscribeFun('analysisReady) {
-    case lila.analyse.actorApi.AnalysisReady(game, _) => api updateGame game
-  }
-}
-
-object Env {
-
-  lazy val current: Env = "insight" boot new Env(
-    config = lila.common.PlayApp loadConfig "insight",
-    getPref = lila.pref.Env.current.api.getPrefById,
-    areFriends = lila.relation.Env.current.api.fetchAreFriends,
-    system = lila.common.PlayApp.system,
-    lifecycle = lila.common.PlayApp.lifecycle
-  )
 }

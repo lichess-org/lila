@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="search">Kërko</string>
+  <string name="advancedSearch">Kërkim i avancuar</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Kërko në %s lojë shahu</item>
+    <item quantity="other">Kërko në %s lojë shahu</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">U gjet një lojë</item>
+    <item quantity="other">U gjetën %s lojë</item>
+  </plurals>
+  <string name="opponentName">Emri i kundërshtarit</string>
+  <string name="loser">Humbës</string>
+  <string name="from">Nga</string>
+  <string name="to">Për</string>
+  <string name="humanOrComputer">Nëse kundërshtari i lojtarit ishte njeri ose kompjuter</string>
+  <string name="aiLevel">Niveli i A.I</string>
+  <string name="source">Burimi</string>
+  <string name="nbTurns">Numri i radhëve</string>
+  <string name="result">Rezultati</string>
+  <string name="winnerColor">Ngjyra e fituesit</string>
+  <string name="date">Data</string>
+  <string name="sortBy">Rendit sipas</string>
+  <string name="analysis">Analiza</string>
+  <string name="onlyAnalysed">Vetëm lojët ku analiza e kompjuterit është në dispozicion</string>
+</resources>

@@ -1,7 +1,10 @@
 package lila.forum
 
 import actorApi._
-import akka.actor.ActorSelection
+import org.joda.time.DateTime
+import scala.util.chaining._
+import reactivemongo.api.ReadPreference
+
 import lila.common.Bus
 import lila.common.paginator._
 import lila.db.dsl._
@@ -9,69 +12,68 @@ import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.mod.ModlogApi
 import lila.security.{ Granter => MasterGranter }
-import lila.user.{ User, UserContext }
-import org.joda.time.DateTime
+import lila.user.User
 
 final class PostApi(
     env: Env,
-    indexer: ActorSelection,
-    maxPerPage: lila.common.MaxPerPage,
+    indexer: lila.hub.actors.ForumSearch,
+    maxPerPage: lila.common.config.MaxPerPage,
     modLog: ModlogApi,
     spam: lila.security.Spam,
-    shutup: ActorSelection,
-    timeline: ActorSelection,
-    detectLanguage: lila.common.DetectLanguage,
-    mentionNotifier: MentionNotifier
-) {
+    promotion: lila.security.PromotionApi,
+    timeline: lila.hub.actors.Timeline,
+    shutup: lila.hub.actors.Shutup,
+    detectLanguage: DetectLanguage
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
   def makePost(
-    categ: Categ,
-    topic: Topic,
-    data: DataForm.PostData
-  )(implicit ctx: UserContext): Fu[Post] =
-    lastNumberOf(topic) zip detectLanguage(data.text) zip userIds(topic) flatMap {
-      case ((number, lang), topicUserIds) =>
-        val post = Post.make(
-          topicId = topic.id,
-          author = none,
-          userId = ctx.me map (_.id),
-          ip = ctx.req.remoteAddress.some,
-          text = spam.replace(data.text),
-          number = number + 1,
-          lang = lang map (_.language),
-          troll = ctx.troll,
-          hidden = topic.hidden,
-          categId = categ.id,
-          modIcon = (~data.modIcon && ~ctx.me.map(MasterGranter(_.PublicMod))).option(true)
-        )
-        PostRepo findDuplicate post flatMap {
-          case Some(dup) => fuccess(dup)
-          case _ =>
-            env.postColl.insert(post) >>
-              env.topicColl.update($id(topic.id), topic withPost post) >> {
-                shouldHideOnPost(topic) ?? TopicRepo.hide(topic.id, true)
+      categ: Categ,
+      topic: Topic,
+      data: ForumForm.PostData,
+      me: User
+  ): Fu[Post] =
+    lastNumberOf(topic) flatMap { number =>
+      detectLanguage(data.text) zip recentUserIds(topic, number) flatMap {
+        case (lang, topicUserIds) =>
+          val post = Post.make(
+            topicId = topic.id,
+            author = none,
+            userId = me.id,
+            text = spam.replace(data.text),
+            number = number + 1,
+            lang = lang.map(_.language),
+            troll = me.marks.troll,
+            hidden = topic.hidden,
+            categId = categ.id,
+            modIcon = (~data.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
+          )
+          env.postRepo findDuplicate post flatMap {
+            case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
+            case _ =>
+              env.postRepo.coll.insert.one(post) >>
+                env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
+                shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, value = true)
               } >>
-              env.categColl.update($id(categ.id), categ withTopic post) >>-
-              (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
-              (!categ.quiet ?? env.recent.invalidate) >>-
-              ctx.userId.?? { userId =>
+                env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
+                !categ.quiet ?? (indexer ! InsertPost(post))
+                !categ.quiet ?? env.recent.invalidate()
+                promotion.save(me, post.text)
                 shutup ! {
-                  if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(userId, post.text)
-                  else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
+                  if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
+                  else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
                 }
-              } >>- {
-                (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
-                  timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|> { prop =>
-                    prop toFollowersOf userId toUsers topicUserIds exceptUser userId
+                if (!post.troll && !categ.quiet && !topic.isTooBig)
+                  timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
+                    _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
                   }
-                }
-                lila.mon.forum.post.create()
-                mentionNotifier.notifyMentionedUsers(post, topic)
-                Bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
+                lila.mon.forum.post.create.increment()
+                env.mentionNotifier.notifyMentionedUsers(post, topic)
+                Bus.publish(actorApi.CreatePost(post), "forumPost")
               } inject post
-        }
+          }
+      }
     }
 
   def editPost(postId: String, newText: String, user: User): Fu[Post] =
@@ -83,7 +85,9 @@ final class PostApi(
           fufail("Post can no longer be edited")
         case (_, post) =>
           val newPost = post.editPost(DateTime.now, spam replace newText)
-          env.postColl.update($id(post.id), newPost) inject newPost
+          (newPost.text != post.text).?? {
+            env.postRepo.coll.update.one($id(post.id), newPost).void
+          } inject newPost
       }
     }
 
@@ -93,114 +97,162 @@ final class PostApi(
     topic.visibleOnHome && {
       (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
         topic.nbPosts == maxPerPage.value ||
-          topic.createdAt.isBefore(DateTime.now minusDays 5)
+        topic.createdAt.isBefore(DateTime.now minusDays 5)
       }
     }
 
-  def urlData(postId: String, troll: Boolean): Fu[Option[PostUrlData]] = get(postId) flatMap {
-    case Some((topic, post)) if (!troll && post.troll) => fuccess(none[PostUrlData])
-    case Some((topic, post)) => PostRepo(troll).countBeforeNumber(topic.id, post.number) map { nb =>
-      val page = nb / maxPerPage.value + 1
-      PostUrlData(topic.categId, topic.slug, page, post.number).some
+  def urlData(postId: String, forUser: Option[User]): Fu[Option[PostUrlData]] =
+    get(postId) flatMap {
+      case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
+      case Some((topic, post)) =>
+        env.postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
+          val page = nb / maxPerPage.value + 1
+          PostUrlData(topic.categId, topic.slug, page, post.number).some
+        }
+      case _ => fuccess(none)
     }
-    case _ => fuccess(none)
-  }
 
-  def get(postId: String): Fu[Option[(Topic, Post)]] = {
-    for {
-      post ← optionT(env.postColl.byId[Post](postId))
-      topic ← optionT(env.topicColl.byId[Topic](post.topicId))
-    } yield topic -> post
-  } run
+  def get(postId: String): Fu[Option[(Topic, Post)]] =
+    env.postRepo.coll.byId[Post](postId) flatMap {
+      _ ?? { post =>
+        env.topicRepo.coll.byId[Topic](post.topicId) dmap2 { _ -> post }
+      }
+    }
 
-  def views(posts: List[Post]): Fu[List[PostView]] = for {
-    topics ← env.topicColl.byIds[Topic](posts.map(_.topicId).distinct)
-    categs ← env.categColl.byIds[Categ](topics.map(_.categId).distinct)
-  } yield posts map { post =>
+  def react(postId: String, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
+    Post.Reaction.set(reaction) ?? {
+      if (v) lila.mon.forum.reaction(reaction).increment()
+      env.postRepo.coll.ext
+        .findAndUpdate[Post](
+          selector = $id(postId),
+          update = {
+            if (v) $addToSet(s"reactions.$reaction" -> me.id)
+            else $pull(s"reactions.$reaction"       -> me.id)
+          },
+          fetchNewObject = true
+        )
+    }
+
+  def views(posts: List[Post]): Fu[List[PostView]] =
     for {
-      topic ← topics find (_.id == post.topicId)
-      categ ← categs find (_.slug == topic.categId)
-    } yield PostView(post, topic, categ, lastPageOf(topic))
-  } flatten
+      topics <- env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
+      categs <- env.categRepo.coll.byIds[Categ](topics.map(_.categId).distinct)
+    } yield posts flatMap { post =>
+      for {
+        topic <- topics find (_.id == post.topicId)
+        categ <- categs find (_.slug == topic.categId)
+      } yield PostView(post, topic, categ, lastPageOf(topic))
+    }
 
   def viewsFromIds(postIds: Seq[Post.ID]): Fu[List[PostView]] =
-    env.postColl.byOrderedIds[Post, Post.ID](postIds)(_.id) flatMap views
+    env.postRepo.coll.byOrderedIds[Post, Post.ID](postIds)(_.id) flatMap views
 
-  def view(post: Post): Fu[Option[PostView]] =
-    views(List(post)) map (_.headOption)
+  def viewOf(post: Post): Fu[Option[PostView]] =
+    views(List(post)) dmap (_.headOption)
 
-  def liteViews(posts: List[Post]): Fu[List[PostLiteView]] =
-    for {
-      topics ← env.topicColl.byIds[Topic](posts.map(_.topicId).distinct)
-    } yield posts flatMap { post =>
-      topics find (_.id == post.topicId) map { topic =>
-        PostLiteView(post, topic)
+  def liteViews(posts: Seq[Post]): Fu[Seq[PostLiteView]] =
+    env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct) map { topics =>
+      posts flatMap { post =>
+        topics.find(_.id == post.topicId) map { PostLiteView(post, _) }
       }
     }
-  def liteViewsByIds(postIds: List[Post.ID]): Fu[List[PostLiteView]] =
-    PostRepo.byIds(postIds) flatMap liteViews
+  def liteViewsByIds(postIds: Seq[Post.ID]): Fu[Seq[PostLiteView]] =
+    env.postRepo.byIds(postIds) flatMap liteViews
 
   def liteView(post: Post): Fu[Option[PostLiteView]] =
-    liteViews(List(post)) map (_.headOption)
+    liteViews(List(post)) dmap (_.headOption)
 
-  def miniPosts(posts: List[Post]): Fu[List[MiniForumPost]] = for {
-    topics ← env.topicColl.byIds[Topic](posts.map(_.topicId).distinct)
-  } yield posts flatMap { post =>
-    topics find (_.id == post.topicId) map { topic =>
-      MiniForumPost(
-        isTeam = post.isTeam,
-        postId = post.id,
-        topicName = topic.name,
-        userId = post.userId,
-        text = post.text take 200,
-        createdAt = post.createdAt
-      )
+  def miniPosts(posts: List[Post]): Fu[List[MiniForumPost]] =
+    env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct) map { topics =>
+      posts flatMap { post =>
+        topics find (_.id == post.topicId) map { topic =>
+          MiniForumPost(
+            isTeam = post.isTeam,
+            postId = post.id,
+            topicName = topic.name,
+            userId = post.userId,
+            text = post.text take 200,
+            createdAt = post.createdAt
+          )
+        }
+      }
     }
-  }
 
   def lastNumberOf(topic: Topic): Fu[Int] =
-    PostRepo lastByTopic topic map { _ ?? (_.number) }
+    env.postRepo lastByTopic topic dmap { _ ?? (_.number) }
 
-  def lastPageOf(topic: Topic) =
-    math.ceil(topic.nbPosts / maxPerPage.value.toFloat).toInt
+  def lastPageOf(topic: Topic): Int =
+    (topic.nbPosts + maxPerPage.value - 1) / maxPerPage.value
 
-  def paginator(topic: Topic, page: Int, troll: Boolean): Fu[Paginator[Post]] = Paginator(
-    new Adapter(
-      collection = env.postColl,
-      selector = PostRepo(troll) selectTopic topic.id,
-      projection = $empty,
-      sort = PostRepo.sortQuery
-    ),
-    currentPage = page,
-    maxPerPage = maxPerPage
-  )
+  def paginator(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
+    Paginator(
+      new Adapter(
+        collection = env.postRepo.coll,
+        selector = env.postRepo.forUser(me) selectTopic topic.id,
+        projection = none,
+        sort = env.postRepo.sortQuery
+      ),
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
 
-  def delete(categSlug: String, postId: String, mod: User): Funit = (for {
-    post ← optionT(PostRepo(true).byCategAndId(categSlug, postId))
-    view ← optionT(view(post))
-    _ ← optionT(for {
-      first ← PostRepo.isFirstPost(view.topic.id, view.post.id)
-      _ ← if (first) env.topicApi.delete(view.categ, view.topic)
-      else env.postColl.remove(view.post) >>
-        (env.topicApi denormalize view.topic) >>
-        (env.categApi denormalize view.categ) >>-
-        env.recent.invalidate >>-
-        (indexer ! RemovePost(post.id))
-      _ ← MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(mod.id, post.userId, post.author, post.ip,
-        text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
-    } yield true.some)
-  } yield ()).run.void
+  def delete(categSlug: String, postId: String, mod: User): Funit =
+    env.postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
+      _ ?? { post =>
+        viewOf(post) flatMap {
+          _ ?? { view =>
+            for {
+              first <- env.postRepo.isFirstPost(view.topic.id, view.post.id)
+              _ <-
+                if (first) env.topicApi.delete(view.categ, view.topic)
+                else
+                  env.postRepo.coll.delete.one($id(view.post.id)) >>
+                    (env.topicApi denormalize view.topic) >>
+                    (env.categApi denormalize view.categ) >>-
+                    env.recent.invalidate() >>-
+                    (indexer ! RemovePost(post.id))
+              _ <- MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(
+                mod.id,
+                post.userId,
+                post.author,
+                text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
+              )
+            } yield ()
+          }
+        }
+      }
+    }
 
-  def nbByUser(userId: String) = env.postColl.countSel($doc("userId" -> userId))
+  def allUserIds(topicId: Topic.ID) = env.postRepo allUserIdsByTopicId topicId
 
-  def userIds(topic: Topic) = PostRepo userIdsByTopicId topic.id
+  def nbByUser(userId: String) = env.postRepo.coll.countSel($doc("userId" -> userId))
 
-  def userIds(topicId: String) = PostRepo userIdsByTopicId topicId
+  def allByUser(userId: String) =
+    env.postRepo.coll
+      .find($doc("userId" -> userId))
+      .sort($doc("createdAt" -> -1))
+      .cursor[Post](ReadPreference.secondaryPreferred)
+      .list(2000)
 
-  def erase(user: User) = env.postColl.update(
-    $doc("userId" -> user.id),
-    $unset("userId", "editHistory", "lang", "ip") ++
-      $set("text" -> "", "erasedAt" -> DateTime.now),
-    multi = true
-  )
+  private def recentUserIds(topic: Topic, newPostNumber: Int) =
+    env.postRepo.coll
+      .distinctEasy[User.ID, List](
+        "userId",
+        $doc(
+          "topicId" -> topic.id,
+          "number" $gt (newPostNumber - 10),
+          "createdAt" $gt DateTime.now.minusDays(5)
+        ),
+        ReadPreference.secondaryPreferred
+      )
+
+  def erase(user: User): Funit =
+    env.postRepo.coll.update
+      .one(
+        $doc("userId" -> user.id),
+        $unset("userId", "editHistory", "lang", "ip") ++
+          $set("text" -> "", "erasedAt" -> DateTime.now),
+        multi = true
+      )
+      .void
 }

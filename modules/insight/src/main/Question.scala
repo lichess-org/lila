@@ -11,9 +11,9 @@ case class Filter[A](
     selected: List[A]
 ) {
 
-  def isEmpty = selected.isEmpty || selected.size == Dimension.valuesOf(dimension).size
+  def isEmpty = selected.isEmpty || selected.sizeIs == Dimension.valuesOf(dimension).size
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
 
   def matcher: BSONDocument = Dimension.filtersOf(dimension, selected)
 }

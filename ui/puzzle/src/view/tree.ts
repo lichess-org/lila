@@ -1,12 +1,28 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { Classes } from 'snabbdom/modules/class';
 import { defined } from 'common';
 import throttle from 'common/throttle';
-import { renderEval as normalizeEval } from 'chess';
+import { renderEval as normalizeEval } from 'ceval';
 import { path as treePath } from 'tree';
-import { MaybeVNodes } from '../interfaces';
+import { Controller, MaybeVNode, MaybeVNodes } from '../interfaces';
 
-const autoScroll = throttle(150, (ctrl, el) => {
+interface Ctx {
+  ctrl: Controller;
+}
+
+interface RenderOpts {
+  parentPath: string;
+  isMainline: boolean;
+  withIndex?: boolean;
+}
+
+interface Glyph {
+  name: string;
+  symbol: string;
+}
+
+const autoScroll = throttle(150, (ctrl: Controller, el) => {
   var cont = el.parentNode;
   var target = el.querySelector('.active');
   if (!target) {
@@ -16,19 +32,19 @@ const autoScroll = throttle(150, (ctrl, el) => {
   cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
 });
 
-function pathContains(ctx, path) {
+function pathContains(ctx: Ctx, path: Tree.Path): boolean {
   return treePath.contains(ctx.ctrl.vm.path, path);
 }
 
-function plyToTurn(ply) {
+function plyToTurn(ply: number): number {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
-export function renderIndex(ply, withDots): VNode {
+export function renderIndex(ply: number, withDots: boolean): VNode {
   return h('index', plyToTurn(ply) + (withDots ? (ply % 2 === 1 ? '.' : '...') : ''));
 }
 
-function renderChildrenOf(ctx, node, opts): MaybeVNodes {
+function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): MaybeVNodes {
   const cs = node.children, main = cs[0];
   if (!main) return [];
   if (opts.isMainline) {
@@ -66,7 +82,7 @@ function renderChildrenOf(ctx, node, opts): MaybeVNodes {
   return cs[1] ? [renderLines(ctx, cs, opts)] : renderMoveAndChildrenOf(ctx, main, opts);
 }
 
-function renderLines(ctx, nodes, opts): VNode {
+function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: RenderOpts): VNode {
   return h('lines', {
     class: { single: !!nodes[1] }
   }, nodes.map(function(n) {
@@ -78,16 +94,16 @@ function renderLines(ctx, nodes, opts): VNode {
   }));
 }
 
-function renderMoveOf(ctx, node, opts): VNode {
+function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
   return opts.isMainline ? renderMainlineMoveOf(ctx, node, opts) : renderVariationMoveOf(ctx, node, opts);
 }
 
-function renderMainlineMoveOf(ctx, node, opts): VNode {
+function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
   const path = opts.parentPath + node.id;
-  const classes: any = {
+  const classes: Classes = {
     active: path === ctx.ctrl.vm.path,
     current: path === ctx.ctrl.vm.initialPath,
-    hist: node.ply < ctx.ctrl.vm.initialNode.ply
+    hist: node.ply < ctx.ctrl.vm.initialNode.ply,
   };
   if (node.puzzle) classes[node.puzzle] = true;
   return h('move', {
@@ -96,13 +112,13 @@ function renderMainlineMoveOf(ctx, node, opts): VNode {
   }, renderMove(ctx, node));
 }
 
-function renderGlyph(glyph): VNode {
+function renderGlyph(glyph: Glyph): VNode {
   return h('glyph', {
     attrs: { title: glyph.name }
   }, glyph.symbol);
 }
 
-function puzzleGlyph(ctx, node): VNode | undefined {
+function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
   switch (node.puzzle) {
     case 'good':
     case 'win':
@@ -110,20 +126,22 @@ function puzzleGlyph(ctx, node): VNode | undefined {
         name: ctx.ctrl.trans.noarg('bestMove'),
         symbol: '✓'
       });
- case 'fail':
-   return renderGlyph({
-     name: ctx.ctrl.trans.noarg('puzzleFailed'),
-     symbol: '✗'
-   });
- case 'retry':
-   return renderGlyph({
-     name: ctx.ctrl.trans.noarg('goodMove'),
-     symbol: '?!'
-   });
+    case 'fail':
+      return renderGlyph({
+        name: ctx.ctrl.trans.noarg('puzzleFailed'),
+        symbol: '✗'
+      });
+    case 'retry':
+      return renderGlyph({
+        name: ctx.ctrl.trans.noarg('goodMove'),
+        symbol: '?!'
+      });
+    default:
+      return;
   }
 }
 
-export function renderMove(ctx, node): MaybeVNodes {
+export function renderMove(ctx: Ctx, node: Tree.Node): MaybeVNodes {
   const ev = node.eval || node.ceval || {};
   return [
     node.san,
@@ -134,11 +152,11 @@ export function renderMove(ctx, node): MaybeVNodes {
   ];
 }
 
-function renderVariationMoveOf(ctx, node, opts): VNode {
+function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
   const withIndex = opts.withIndex || node.ply % 2 === 1;
   const path = opts.parentPath + node.id;
   const active = path === ctx.ctrl.vm.path;
-  const classes: any = {
+  const classes: Classes = {
     active,
     parent: !active && pathContains(ctx, path)
   };
@@ -153,7 +171,7 @@ function renderVariationMoveOf(ctx, node, opts): VNode {
   ]);
 }
 
-function renderMoveAndChildrenOf(ctx, node, opts): MaybeVNodes {
+function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): MaybeVNodes {
   return [
     renderMoveOf(ctx, node, opts),
     ...renderChildrenOf(ctx, node, {
@@ -163,19 +181,20 @@ function renderMoveAndChildrenOf(ctx, node, opts): MaybeVNodes {
   ];
 }
 
-function emptyMove() {
+function emptyMove(): VNode {
   return h('move.empty', '...');
 }
 
-function renderEval(e) {
+function renderEval(e: string): VNode {
   return h('eval', e);
 }
 
-function eventPath(e) {
-  return e.target.getAttribute('p') || e.target.parentNode.getAttribute('p');
+function eventPath(e: Event): Tree.Path | null {
+  const target = e.target as HTMLElement;
+  return target.getAttribute('p') || (target.parentNode as HTMLElement).getAttribute('p');
 }
 
-export function render(ctrl): VNode {
+export function render(ctrl: Controller): VNode {
   const root = ctrl.getTree().root;
   const ctx = {
     ctrl: ctrl,

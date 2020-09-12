@@ -1,30 +1,38 @@
 package lila.tournament
 
-import reactivemongo.bson.Macros
+import reactivemongo.api.bson.Macros
 import scala.concurrent.duration._
 
 import chess.Color
 import lila.db.dsl._
 
-final class TournamentStatsApi(mongoCache: lila.memo.MongoCache.Builder) {
+final class TournamentStatsApi(
+    playerRepo: PlayerRepo,
+    pairingRepo: PairingRepo,
+    mongoCache: lila.memo.MongoCache.Api
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
-    tournament.isFinished ?? cache(tournament.id).map(some)
+    tournament.isFinished ?? cache.get(tournament.id).dmap(some)
 
-  private implicit val statsBSONHandler = Macros.handler[TournamentStats]
+  implicit private val statsBSONHandler = Macros.handler[TournamentStats]
 
-  private val cache = mongoCache[String, TournamentStats](
-    prefix = "tournament:stats",
-    keyToString = identity,
-    f = fetch,
-    timeToLive = 10 minutes,
-    timeToLiveMongo = 90.days.some
-  )
+  private val cache = mongoCache[Tournament.ID, TournamentStats](
+    64,
+    "tournament:stats",
+    60 days,
+    identity
+  ) { loader =>
+    _.expireAfterAccess(10 minutes)
+      .maximumSize(256)
+      .buildAsyncFuture(loader(fetch))
+  }
 
-  private def fetch(tournamentId: Tournament.ID): Fu[TournamentStats] = for {
-    rating <- PlayerRepo.averageRating(tournamentId)
-    rawStats <- PairingRepo.rawStats(tournamentId)
-  } yield TournamentStats.readAggregation(rating)(rawStats)
+  private def fetch(tournamentId: Tournament.ID): Fu[TournamentStats] =
+    for {
+      rating   <- playerRepo.averageRating(tournamentId)
+      rawStats <- pairingRepo.rawStats(tournamentId)
+    } yield TournamentStats.readAggregation(rating)(rawStats)
 }
 
 case class TournamentStats(
@@ -44,15 +52,15 @@ private object TournamentStats {
   }
 
   def readAggregation(rating: Int)(docs: List[Bdoc]): TournamentStats = {
-    val colorStats: Map[Option[Color], ColorStats] = docs.map { doc =>
-      doc.getAs[Boolean]("_id").map(Color.apply) ->
+    val colorStats: Map[Option[Color], ColorStats] = docs.view.map { doc =>
+      doc.getAsOpt[Boolean]("_id").map(Color.apply) ->
         ColorStats(
-          ~doc.getAs[Int]("games"),
-          ~doc.getAs[Int]("moves"),
-          ~doc.getAs[Int]("b1"),
-          ~doc.getAs[Int]("b2")
+          ~doc.int("games"),
+          ~doc.int("moves"),
+          ~doc.int("b1"),
+          ~doc.int("b2")
         )
-    }(scala.collection.breakOut)
+    }.toMap
     TournamentStats(
       games = colorStats.foldLeft(0)(_ + _._2.games),
       moves = colorStats.foldLeft(0)(_ + _._2.moves),

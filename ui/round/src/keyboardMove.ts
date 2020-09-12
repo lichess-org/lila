@@ -1,5 +1,4 @@
 import { h } from 'snabbdom'
-import { sanToRole } from 'chess'
 import * as cg from 'chessground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
@@ -9,10 +8,6 @@ import { sendPromotion } from './promotion'
 import { onInsert } from './util'
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
-
-interface SanMap {
-  [key: string]: cg.Role;
-}
 
 export interface KeyboardMove {
   drop(key: cg.Key, piece: string): void;
@@ -29,7 +24,17 @@ export interface KeyboardMove {
   jump(delta: number): void;
   justSelected(): boolean;
   clock(): ClockController | undefined;
+  resign(v: boolean): void;
 }
+
+const sanToRole: { [key: string]: cg.Role } = {
+  P: 'pawn',
+  N: 'knight',
+  B: 'bishop',
+  R: 'rook',
+  Q: 'queen',
+  K: 'king',
+};
 
 export function ctrl(root: RoundController, step: Step, redraw: Redraw): KeyboardMove {
   let focus = false;
@@ -37,7 +42,6 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let preHandlerBuffer = step.fen;
   let lastSelect = Date.now();
   const cgState = root.chessground.state;
-  const sanMap = sanToRole as SanMap;
   const select = function(key: cg.Key): void {
     if (cgState.selected === key) root.chessground.cancelMove();
     else {
@@ -48,11 +52,11 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let usedSan = false;
   return {
     drop(key, piece) {
-      const role = sanMap[piece];
+      const role = sanToRole[piece];
       const crazyData = root.data.crazyhouse;
       const color = root.data.player.color;
       // Square occupied
-      if (!role || !crazyData || cgState.pieces[key]) return;
+      if (!role || !crazyData || cgState.pieces.has(key)) return;
       // Piece not in Pocket
       if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
       if (!crazyValid(root.data, role, key)) return;
@@ -61,7 +65,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       root.sendNewPiece(role, key, false);
     },
     promote(orig, dest, piece) {
-      const role = sanMap[piece];
+      const role = sanToRole[piece];
       if (!role || role == 'pawn') return;
       root.chessground.cancelMove();
       sendPromotion(root, orig, dest, role, {premove: false});
@@ -98,7 +102,8 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     justSelected() {
       return Date.now() - lastSelect < 500;
     },
-    clock: () => root.clock
+    clock: () => root.clock,
+    resign: root.resign
   };
 }
 
@@ -109,10 +114,10 @@ export function render(ctrl: KeyboardMove) {
         spellcheck: false,
         autocomplete: false
       },
-      hook: onInsert(el => {
-        window.lichess.loadScript('compiled/lichess.round.keyboardMove.min.js').then(() => {
+      hook: onInsert(input => {
+        window.lichess.loadScript(window.lichess.jsModule('round.keyboard-move')).then(() => {
           ctrl.registerHandler(window.lichess.keyboardMove({
-            input: el,
+            input,
             ctrl
           }));
         });

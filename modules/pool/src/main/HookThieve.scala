@@ -4,20 +4,22 @@ import scala.concurrent.Promise
 
 import lila.common.Bus
 
-private final class HookThieve()(implicit system: akka.actor.ActorSystem) {
+final private class HookThieve()(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   import HookThieve._
 
-  def candidates(clock: chess.Clock.Config, monId: String): Fu[PoolHooks] =
-    Bus.ask[PoolHooks]('lobbyTrouper)(GetCandidates(clock, _)) recover {
-      case _ =>
-        lila.mon.lobby.pool.thieve.timeout(monId)()
-        PoolHooks(Vector.empty)
-    }
+  def candidates(clock: chess.Clock.Config): Fu[PoolHooks] =
+    Bus
+      .ask[PoolHooks]("lobbyTrouper")(GetCandidates(clock, _))
+      .logFailure(logger)
+      .nevermind(PoolHooks(Vector.empty))
 
   def stolen(poolHooks: Vector[PoolHook], monId: String) = {
-    lila.mon.lobby.pool.thieve.stolen(monId)(poolHooks.size)
-    if (poolHooks.nonEmpty) Bus.publish(StolenHookIds(poolHooks.map(_.hookId)), 'lobbyTrouper)
+    lila.mon.lobby.pool.thieve.stolen(monId).record(poolHooks.size)
+    if (poolHooks.nonEmpty) Bus.publish(StolenHookIds(poolHooks.map(_.hookId)), "lobbyTrouper")
   }
 }
 

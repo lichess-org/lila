@@ -1,7 +1,6 @@
 package lila.game
 
 import chess.Color
-import lila.rating.PerfType.Classical
 import lila.user.User
 
 case class Pov(game: Game, color: Color) {
@@ -16,16 +15,14 @@ case class Pov(game: Game, color: Color) {
 
   def opponent = game player !color
 
-  def isFirstPlayer = game.firstPlayer.color == color
-
   def unary_! = Pov(game, !color)
+
+  def flip = Pov(game, !color)
 
   def ref = PovRef(game.id, color)
 
-  def withGame(g: Game) = copy(game = g)
+  def withGame(g: Game)   = copy(game = g)
   def withColor(c: Color) = copy(color = c)
-
-  def forceResignable = !(game.fromFriend && game.isClassical)
 
   lazy val isMyTurn = game.started && game.playable && game.turnColor == color
 
@@ -49,10 +46,8 @@ object Pov {
 
   def apply(game: Game): List[Pov] = game.players.map { apply(game, _) }
 
-  def first(game: Game) = apply(game, if (!game.variant.racingKings) game.firstPlayer else game.whitePlayer)
-  def second(game: Game) = apply(game, if (!game.variant.racingKings) game.secondPlayer else game.blackPlayer)
-  def white(game: Game) = apply(game, game.whitePlayer)
-  def black(game: Game) = apply(game, game.blackPlayer)
+  def naturalOrientation(game: Game) = apply(game, game.naturalOrientation)
+
   def player(game: Game) = apply(game, game.player)
 
   def apply(game: Game, player: Player) = new Pov(game, player.color)
@@ -104,10 +99,10 @@ object PlayerRef {
 }
 
 case class LightPov(game: LightGame, color: Color) {
-  def gameId = game.id
-  def player = game player color
+  def gameId   = game.id
+  def player   = game player color
   def opponent = game player !color
-  def win = game wonBy color
+  def win      = game wonBy color
 }
 
 object LightPov {

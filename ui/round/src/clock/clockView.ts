@@ -149,9 +149,9 @@ function goBerserk(ctrl: RoundController) {
 }
 
 function tourRank(ctrl: RoundController, color: Color, position: Position) {
-  const d = ctrl.data;
-  return (d.tournament && d.tournament.ranks && !showBerserk(ctrl, color)) ?
+  const d = ctrl.data, ranks = d.tournament?.ranks || d.swiss?.ranks;
+  return (ranks && !showBerserk(ctrl, color)) ?
     h('div.tour-rank.' + position, {
       attrs: {title: 'Current tournament rank'}
-    }, '#' + d.tournament.ranks[color]) : null;
+    }, '#' + ranks[color]) : null;
 }

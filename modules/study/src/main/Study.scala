@@ -15,6 +15,7 @@ case class Study(
     from: Study.From,
     likes: Study.Likes,
     description: Option[String] = None,
+    topics: Option[StudyTopics] = None,
     createdAt: DateTime,
     updatedAt: DateTime
 ) {
@@ -41,9 +42,9 @@ case class Study(
   def rewindTo(c: Chapter.Like): Study =
     copy(position = Position.Ref(chapterId = c.id, path = Path.root))
 
-  def isPublic = visibility == Study.Visibility.Public
+  def isPublic   = visibility == Study.Visibility.Public
   def isUnlisted = visibility == Study.Visibility.Unlisted
-  def isPrivate = visibility == Study.Visibility.Private
+  def isPrivate  = visibility == Study.Visibility.Private
 
   def isNew = (nowSeconds - createdAt.getSeconds) < 4
 
@@ -68,6 +69,13 @@ case class Study(
   def withoutMembers = copy(members = StudyMembers.empty)
 
   def light = LightStudy(isPublic, members.contributorIds)
+
+  def topicsOrEmpty = topics | StudyTopics.empty
+
+  def addTopics(ts: StudyTopics) =
+    copy(
+      topics = topics.fold(ts)(_ ++ ts).some
+    )
 }
 
 object Study {
@@ -91,21 +99,24 @@ object Study {
     lazy val key = toString.toLowerCase
   }
   object Visibility {
-    case object Private extends Visibility
+    case object Private  extends Visibility
     case object Unlisted extends Visibility
-    case object Public extends Visibility
-    val byKey = List(Private, Unlisted, Public).map { v => v.key -> v }.toMap
+    case object Public   extends Visibility
+    val byKey = List(Private, Unlisted, Public).map { v =>
+      v.key -> v
+    }.toMap
   }
 
   case class Likes(value: Int) extends AnyVal
   case class Liking(likes: Likes, me: Boolean)
-  val emptyLiking = Liking(Likes(0), false)
+  val emptyLiking = Liking(Likes(0), me = false)
 
   case class Rank(value: DateTime) extends AnyVal
   object Rank {
-    def compute(likes: Likes, createdAt: DateTime) = Rank {
-      createdAt plusHours likesToHours(likes)
-    }
+    def compute(likes: Likes, createdAt: DateTime) =
+      Rank {
+        createdAt plusHours likesToHours(likes)
+      }
     private def likesToHours(likes: Likes): Int =
       if (likes.value < 1) 0
       else (5 * math.log(likes.value) + 1).toInt.min(likes.value) * 24
@@ -113,9 +124,9 @@ object Study {
 
   sealed trait From
   object From {
-    case object Scratch extends From
-    case class Game(id: String) extends From
-    case class Study(id: Id) extends From
+    case object Scratch                      extends From
+    case class Game(id: String)              extends From
+    case class Study(id: Id)                 extends From
     case class Relay(clonedFrom: Option[Id]) extends From
   }
 
@@ -130,15 +141,16 @@ object Study {
       description: String
   ) {
     import Settings._
-    def vis = Visibility.byKey get visibility getOrElse Visibility.Public
-    def settings = for {
-      comp <- UserSelection.byKey get computer
-      expl <- UserSelection.byKey get explorer
-      clon <- UserSelection.byKey get cloneable
-      chat <- UserSelection.byKey get chat
-      stic = sticky == "true"
-      desc = description == "true"
-    } yield Settings(comp, expl, clon, chat, stic, desc)
+    def vis = Visibility.byKey.getOrElse(visibility, Visibility.Public)
+    def settings =
+      for {
+        comp <- UserSelection.byKey get computer
+        expl <- UserSelection.byKey get explorer
+        clon <- UserSelection.byKey get cloneable
+        chat <- UserSelection.byKey get chat
+        stic = sticky == "true"
+        desc = description == "true"
+      } yield Settings(comp, expl, clon, chat, stic, desc)
   }
 
   case class WithChapter(study: Study, chapter: Chapter)
@@ -155,9 +167,15 @@ object Study {
 
   val idSize = 8
 
-  def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
+  def makeId = Id(lila.common.ThreadLocalRandom nextString idSize)
 
-  def make(user: User, from: From, id: Option[Study.Id] = None, name: Option[Name] = None, settings: Option[Settings] = None) = {
+  def make(
+      user: User,
+      from: From,
+      id: Option[Study.Id] = None,
+      name: Option[Name] = None,
+      settings: Option[Settings] = None
+  ) = {
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     Study(
       _id = id | makeId,

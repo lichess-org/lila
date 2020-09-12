@@ -1,0 +1,60 @@
+@import "constants";
+
+$player-height: 30px;
+
+@include breakpoint($mq-col2-uniboard) {
+  .round__app {
+    grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
+    grid-template-rows: $player-height 1fr $material-height $expiration-height $moves-height $controls-height $expiration-height $material-height 1fr $player-height;
+    grid-template-areas: 'user-top .' 'board .' 'board mat-top'  'board expi-top'  'board moves'  'board controls'  'board expi-bot'  'board mat-bot' 'board .'  'user-bot .'  'kb-move .';
+
+    margin-top: -.5em;
+
+    .rclock-top {
+      grid-area: 1 / 1 / 2 / 2;
+    }
+
+    .rclock-bottom {
+      grid-area: 10 / 1 / 10 / 2;
+    }
+
+    .round__app__table {
+      grid-area: 4 / 2 / 6 / 3;
+    }
+  }
+
+  .rclock {
+    /* that weird shit is required so the clock goes above the player since they share the same grid cell */
+    justify-self: flex-end;
+    z-index: 1;
+
+    .tour-rank,
+    .moretime,
+    .berserked {
+      order: -1;
+    }
+
+    .bar {
+      display: none;
+    }
+
+    .time {
+      font-size: 2em;
+      line-height: $player-height;
+      background: none;
+    }
+  }
+
+  .ruser {
+    padding: 0 .3em;
+    line-height: $player-height;
+
+    a {
+      flex: none;
+    }
+  }
+}
+
+#top .site-buttons a[title="Moderation"] {
+  display: none;
+}

@@ -2,23 +2,22 @@ package lila.app
 package templating
 
 import java.util.Locale
-import scala.collection.mutable.AnyRefMap
-
 import org.joda.time.format._
 import org.joda.time.format.ISODateTimeFormat
-import org.joda.time.{ Period, PeriodType, DurationFieldType, DateTime, DateTimeZone }
+import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period, PeriodType }
+import play.api.i18n.Lang
+import scala.collection.mutable
 
-import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 
-trait DateHelper { self: I18nHelper =>
+trait DateHelper { self: I18nHelper with StringHelper =>
 
   private val dateTimeStyle = "MS"
-  private val dateStyle = "M-"
+  private val dateStyle     = "M-"
 
-  private val dateTimeFormatters = AnyRefMap.empty[String, DateTimeFormatter]
-  private val dateFormatters = AnyRefMap.empty[String, DateTimeFormatter]
-  private val periodFormatters = AnyRefMap.empty[String, PeriodFormatter]
+  private val dateTimeFormatters = mutable.AnyRefMap.empty[String, DateTimeFormatter]
+  private val dateFormatters     = mutable.AnyRefMap.empty[String, DateTimeFormatter]
+  private val periodFormatters   = mutable.AnyRefMap.empty[String, PeriodFormatter]
   private val periodType = PeriodType forFields Array(
     DurationFieldType.days,
     DurationFieldType.hours,
@@ -27,48 +26,51 @@ trait DateHelper { self: I18nHelper =>
 
   private val isoFormatter = ISODateTimeFormat.dateTime
 
-  private val englishDateFormatter = DateTimeFormat forStyle dateStyle
+  private val englishDateFormatter     = DateTimeFormat forStyle dateStyle
+  private val englishDateTimeFormatter = DateTimeFormat forStyle dateTimeStyle
 
-  private def dateTimeFormatter(ctx: Context): DateTimeFormatter =
+  private def dateTimeFormatter(implicit lang: Lang): DateTimeFormatter =
     dateTimeFormatters.getOrElseUpdate(
-      ctx.lang.code,
-      DateTimeFormat forStyle dateTimeStyle withLocale ctx.lang.toLocale
+      lang.code,
+      DateTimeFormat forStyle dateTimeStyle withLocale lang.toLocale
     )
 
-  private def dateFormatter(ctx: Context): DateTimeFormatter =
+  private def dateFormatter(implicit lang: Lang): DateTimeFormatter =
     dateFormatters.getOrElseUpdate(
-      ctx.lang.code,
-      DateTimeFormat forStyle dateStyle withLocale ctx.lang.toLocale
+      lang.code,
+      DateTimeFormat forStyle dateStyle withLocale lang.toLocale
     )
 
-  private def periodFormatter(ctx: Context): PeriodFormatter =
+  private def periodFormatter(implicit lang: Lang): PeriodFormatter =
     periodFormatters.getOrElseUpdate(
-      ctx.lang.code, {
+      lang.code, {
         Locale setDefault Locale.ENGLISH
-        PeriodFormat wordBased ctx.lang.toLocale
+        PeriodFormat wordBased lang.toLocale
       }
     )
 
-  def showDateTimeZone(date: DateTime, zone: DateTimeZone)(implicit ctx: Context): String =
-    dateTimeFormatter(ctx) print date.toDateTime(zone)
+  def showDateTimeZone(date: DateTime, zone: DateTimeZone)(implicit lang: Lang): String =
+    dateTimeFormatter print date.toDateTime(zone)
 
-  def showDateTimeUTC(date: DateTime)(implicit ctx: Context): String =
+  def showDateTimeUTC(date: DateTime)(implicit lang: Lang): String =
     showDateTimeZone(date, DateTimeZone.UTC)
 
-  def showDate(date: DateTime)(implicit ctx: Context): String =
-    dateFormatter(ctx) print date
+  def showDate(date: DateTime)(implicit lang: Lang): String =
+    dateFormatter print date
 
   def showEnglishDate(date: DateTime): String =
     englishDateFormatter print date
+  def showEnglishDateTime(date: DateTime): String =
+    englishDateTimeFormatter print date
 
-  def semanticDate(date: DateTime)(implicit ctx: Context): Frag =
+  def semanticDate(date: DateTime)(implicit lang: Lang): Frag =
     timeTag(datetimeAttr := isoDate(date))(showDate(date))
 
-  def showPeriod(period: Period)(implicit ctx: Context): String =
-    periodFormatter(ctx) print period.normalizedStandard(periodType)
+  def showPeriod(period: Period)(implicit lang: Lang): String =
+    periodFormatter print period.normalizedStandard(periodType)
 
-  def showMinutes(minutes: Int)(implicit ctx: Context): String =
-    showPeriod(new Period(minutes * 60 * 1000l))
+  def showMinutes(minutes: Int)(implicit lang: Lang): String =
+    showPeriod(new Period(minutes * 60 * 1000L))
 
   def isoDate(date: DateTime): String = isoFormatter print date
 
@@ -84,10 +86,26 @@ trait DateHelper { self: I18nHelper =>
 
   def momentFromNowOnce(date: DateTime) = momentFromNow(date, once = true)
 
-  def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false)(implicit ctx: Context) =
+  def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false) =
     momentFromNow(DateTime.now plusSeconds seconds, alwaysRelative)
 
-  private val atomDateFormatter = ISODateTimeFormat.dateTime
+  def momentFromNowServer(date: DateTime): Frag = {
+    val (dateSec, nowSec) = (date.getMillis / 1000, nowSeconds)
+    val seconds           = (nowSec - dateSec) atLeast 0
+    val minutes           = seconds / 60
+    val hours             = minutes / 60
+    val days              = hours / 24
+    val years             = days / 365
+    val text =
+      if (minutes == 0) "Right now"
+      else if (hours == 0) s"$minutes minutes ago"
+      else if (days == 0) s"$hours hours ago"
+      else if (years == 0) s"$days days ago"
+      else s"${pluralize("year", years.toInt)} ago"
+    timeTag(title := showEnglishDateTime(date))(text)
+  }
+
+  private val atomDateFormatter        = ISODateTimeFormat.dateTime
   def atomDate(date: DateTime): String = atomDateFormatter print date
   def atomDate(field: String)(doc: io.prismic.Document): Option[String] =
     doc getDate field map (_.value.toDateTimeAtStartOfDay) map atomDate

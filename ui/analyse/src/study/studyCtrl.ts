@@ -1,5 +1,6 @@
 import { prop } from 'common';
 import throttle from 'common/throttle';
+import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
 import { ctrl as memberCtrl } from './studyMembers';
 import { ctrl as chapterCtrl } from './studyChapters';
@@ -8,6 +9,7 @@ import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
 import { ctrl as commentFormCtrl, CommentForm } from './commentForm';
 import { ctrl as glyphFormCtrl, GlyphCtrl } from './studyGlyph';
 import { ctrl as studyFormCtrl, StudyFormCtrl } from './studyForm';
+import { ctrl as topicsCtrl, TopicsCtrl } from './topics';
 import { ctrl as notifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
 import { ctrl as tagsCtrl } from './studyTags';
@@ -30,8 +32,6 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
-
-  const sri: string = li.StrongSocket ? li.StrongSocket.sri : '';
 
   const vm: StudyVm = (() => {
     const isManualChapter = data.chapter.id !== data.position.chapterId;
@@ -71,6 +71,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     onBecomingContributor() {
       vm.mode.write = true;
     },
+    admin: data.admin,
     redraw,
     trans: ctrl.trans
   });
@@ -79,7 +80,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     data.chapters,
     send,
     () => vm.tab('chapters'),
-    chapterId => xhr.chapterConfig(data.id, chapterId),
+    (chapterId: string) => xhr.chapterConfig(data.id, chapterId),
     ctrl);
 
   function currentChapter(): StudyChapterMeta {
@@ -124,6 +125,10 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   }, redraw);
 
   const serverEval = serverEvalCtrl(ctrl, () => vm.chapterId);
+
+  const topics: TopicsCtrl = topicsCtrl(
+    topics => send("setTopics", topics),
+    () => data.topics || [], ctrl.trans, redraw);
 
   function addChapterId(req) {
     req.ch = vm.chapterId;
@@ -211,14 +216,14 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     ctrl.startCeval();
   };
 
-  function xhrReload() {
+  const xhrReload = throttle(700, () => {
     vm.loading = true;
     return xhr.reload(
       practice ? 'practice/load' : 'study',
       data.id,
       vm.mode.sticky ? undefined : vm.chapterId
     ).then(onReload, li.reload);
-  };
+  });
 
   const onSetPath = throttle(300, (path: Tree.Path) => {
     if (vm.mode.sticky && path !== data.position.path) makeChange("setPath", addChapterId({
@@ -232,7 +237,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return ctrl.node;
   };
 
-  const share = shareCtrl(data, currentChapter, currentNode, redraw, ctrl.trans);
+  const share = shareCtrl(data, currentChapter, currentNode, !!relay, redraw, ctrl.trans);
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 
@@ -243,11 +248,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     if (gamebookPlay && gamebookPlay.chapterId === vm.chapterId) return;
     gamebookPlay = new GamebookPlayCtrl(ctrl, vm.chapterId, ctrl.trans, redraw);
     vm.mode.sticky = false;
+    return undefined;
   }
   instanciateGamebookPlay();
 
   function mutateCgConfig(config) {
-    config.drawable.onChange = shapes => {
+    config.drawable.onChange = (shapes: Tree.Shape[]) => {
       if (vm.mode.write) {
         ctrl.tree.setShapes(shapes, ctrl.path);
         makeChange("shapes", addChapterId({
@@ -265,6 +271,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (vm.mode.sticky && serverData.sticky) xhrReload();
       return true;
     }
+    return undefined;
   }
 
   function setMemberActive(who?: {u: string}) {
@@ -278,7 +285,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return obj;
   }
 
-  const likeToggler = li.debounce(() => send("like", { liked: data.liked }), 1000);
+  const likeToggler = debounce(() => send("like", { liked: data.liked }), 1000);
 
   const socketHandlers = {
     path(d) {
@@ -294,7 +301,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         return xhrReload();
       }
       data.position.path = position.path;
-      if (who && who.s === sri) return;
+      if (who && who.s === li.sri) return;
       ctrl.userJump(position.path);
       redraw();
     },
@@ -310,14 +317,14 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         if (sticky && !vm.mode.sticky) redraw();
         return;
       }
-      if (sticky && who && who.s === sri) {
+      if (sticky && who && who.s === li.sri) {
         data.position.path = position.path + node.id;
         return;
       }
       if (relay) relay.applyChapterRelay(data.chapter, d.relay);
       const newPath = ctrl.tree.addNode(node, position.path);
       if (!newPath) return xhrReload();
-      ctrl.tree.addDests(d.d, newPath, d.o);
+      ctrl.tree.addDests(d.d, newPath);
       if (sticky) data.position.path = newPath;
       if ((sticky && vm.mode.sticky) || (
         position.path === ctrl.path &&
@@ -331,7 +338,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       setMemberActive(who);
       if (wrongChapter(d)) return;
       // deleter already has it done
-      if (who && who.s === sri) return;
+      if (who && who.s === li.sri) return;
       if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
       ctrl.tree.deleteNodeAt(position.path);
       if (vm.mode.sticky) ctrl.jump(ctrl.path);
@@ -342,7 +349,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
-      if (who && who.s === sri) return;
+      if (who && who.s === li.sri) return;
       if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
       ctrl.tree.promoteAt(position.path, d.toMainline);
       if (vm.mode.sticky) ctrl.jump(ctrl.path);
@@ -362,7 +369,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     descChapter(d) {
       setMemberActive(d.w);
-      if (d.w && d.w.s === sri) return;
+      if (d.w && d.w.s === li.sri) return;
       if (data.chapter.id === d.chapterId) {
         data.chapter.description = d.desc;
         chapterDesc.set(d.desc);
@@ -371,16 +378,21 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     descStudy(d) {
       setMemberActive(d.w);
-      if (d.w && d.w.s === sri) return;
+      if (d.w && d.w.s === li.sri) return;
       data.description = d.desc;
       studyDesc.set(d.desc);
+      redraw();
+    },
+    setTopics(d) {
+      setMemberActive(d.w);
+      data.topics = d.topics;
       redraw();
     },
     addChapter(d) {
       setMemberActive(d.w);
       if (d.s && !vm.mode.sticky) vm.behind++;
       if (d.s) data.position = d.p;
-      else if (d.w && d.w.s === sri) {
+      else if (d.w && d.w.s === li.sri) {
         vm.mode.write = true;
         vm.chapterId = d.p.chapterId;
       }
@@ -404,7 +416,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
-      if (who && who.s === sri) return;
+      if (who && who.s === li.sri) return;
       ctrl.tree.setShapes(d.s, ctrl.path);
       if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
       redraw();
@@ -465,16 +477,10 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     liking(d) {
       data.likes = d.l.likes;
-      if (d.w && d.w.s === sri) data.liked = d.l.me;
+      if (d.w && d.w.s === li.sri) data.liked = d.l.me;
       redraw();
     },
-    following_onlines: members.inviteForm.setFollowings,
-    following_leaves: members.inviteForm.delFollowing,
-    following_enters: members.inviteForm.addFollowing,
-    crowd(d) {
-      members.setSpectators(d.users);
-    },
-    error(msg) {
+    error(msg: string) {
       alert(msg);
     }
   };
@@ -492,6 +498,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     tags,
     studyDesc,
     chapterDesc,
+    topics,
     vm,
     relay,
     multiBoard,
@@ -581,6 +588,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         currentId = currentChapter().id;
       for (let i in chapters)
         if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
+      return undefined;
     },
     setGamebookOverride(o) {
       vm.gamebookOverride = o;
@@ -606,6 +614,5 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       }
       return !!relay && relay.socketHandler(t, d);
     },
-    sri
   };
 };

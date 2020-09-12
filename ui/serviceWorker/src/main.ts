@@ -1,13 +1,20 @@
+const searchParams = new URL(self.location.href).searchParams;
+const assetBase = new URL(searchParams.get('asset-url')!, self.location.href).href;
+
+function assetUrl(path: string): string {
+  return `${assetBase}assets/${path}`;
+}
+
 self.addEventListener('push', event => {
   const data = event.data!.json();
-  return self.registration.showNotification(data.title, {
-    badge: 'https://lichess1.org/assets/logo/lichess-favicon-256.png',
-    icon: 'https://lichess1.org/assets/logo/lichess-favicon-256.png',
+  return event.waitUntil(self.registration.showNotification(data.title, {
+    badge: assetUrl('logo/lichess-mono-128.png'),
+    icon: assetUrl('logo/lichess-favicon-192.png'),
     body: data.body,
     tag: data.tag,
     data: data.payload,
     requireInteraction: true,
-  });
+  }));
 });
 
 async function handleNotificationClick(event: NotificationEvent) {
@@ -23,7 +30,7 @@ async function handleNotificationClick(event: NotificationEvent) {
   const data = event.notification.data.userData;
   let url = '/';
   if (data.fullId) url = '/' + data.fullId;
-  else if (data.threadId) url = '/inbox/' + data.threadId + '#bottom';
+  else if (data.threadId) url = '/inbox/' + data.threadId;
   else if (data.challengeId) url = '/' + data.challengeId;
 
   // focus open window with same url

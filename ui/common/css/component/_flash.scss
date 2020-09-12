@@ -1,0 +1,45 @@
+.flash {
+  margin: 1em 0 2em 0;
+
+  &__content {
+    @extend %box-radius;
+
+    padding: 1em 2em;
+    background: $c-good;
+    color: $c-good-over;
+
+    &::before {
+      @extend %data-icon;
+
+      content: 'E';
+      margin-right: 1em;
+      font-size: 1.5em;
+    }
+
+    a {
+      color: $c-good-over;
+    }
+  }
+
+  &-warning .flash__content {
+    background: $c-warn;
+    color: $c-warn-over;
+
+    &::before {
+      @extend %data-icon;
+
+      content: '';
+    }
+  }
+
+  &-failure .flash__content {
+    background: $c-bad;
+    color: $c-bad-over;
+
+    &::before {
+      @extend %data-icon;
+
+      content: 'j';
+    }
+  }
+}

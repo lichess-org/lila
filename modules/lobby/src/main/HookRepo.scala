@@ -2,29 +2,36 @@ package lila.lobby
 
 import org.joda.time.DateTime
 
+import lila.common.Heapsort
 import lila.socket.Socket.Sri
 
-object HookRepo {
+private object HookRepo {
 
   private var hooks = Vector[Hook]()
 
-  private val hardLimit = 150
+  private val hardLimit = 200
+
+  implicit private val creationOrdering = Ordering.by[Hook, Long](_.createdAt.getMillis)
 
   def size = hooks.size
 
-  def findCompatible(hook: Hook): Vector[Hook] = hooks filter (_ compatibleWith hook)
+  def findCompatible(hook: Hook): Vector[Hook] = hooks.filter(_ compatibleWith hook)
 
-  def truncateIfNeeded = if (size >= hardLimit) {
-    logger.warn(s"Found ${size} hooks, cleaning up!")
-    hooks = hooks.sortBy(-_.createdAt.getMillis).take(hardLimit * 2 / 3)
-    logger.warn(s"Kept ${hooks.size} hooks")
-  }
+  def truncateIfNeeded() =
+    if (size >= hardLimit) {
+      logger.warn(s"Found $size hooks, cleaning up!")
+      hooks = Heapsort.topN(hooks, hardLimit * 2 / 3, creationOrdering)
+      logger.warn(s"Kept ${hooks.size} hooks")
+    }
 
   def vector = hooks
 
   def byId(id: String) = hooks find (_.id == id)
 
-  def byIds(ids: Set[String]) = hooks filter { h => ids contains h.id }
+  def byIds(ids: Set[String]) =
+    hooks filter { h =>
+      ids contains h.id
+    }
 
   def bySri(sri: Sri) = hooks find (_.sri == sri)
 
@@ -42,12 +49,12 @@ object HookRepo {
 
   // returns removed hooks
   def cleanupOld = {
-    val limit = DateTime.now minusMinutes 10
+    val limit = DateTime.now minusMinutes 15
     partition(_.createdAt isAfter limit)
   }
 
   def poolCandidates(clock: chess.Clock.Config): Vector[lila.pool.HookThieve.PoolHook] =
-    hooks.filter(_ compatibleWithPool clock).map(_.toPool)
+    hooks.withFilter(_ compatibleWithPool clock).map(_.toPool)
 
   // keeps hooks that hold true
   // returns removed hooks

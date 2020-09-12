@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferences">Preferências</string>
+  <string name="gameDisplay">Exibição do jogo</string>
+  <string name="pieceAnimation">Animação das peças</string>
+  <string name="materialDifference">Diferença material</string>
+  <string name="boardHighlights">Destacar casas do tabuleiro (último movimento e xeque)</string>
+  <string name="pieceDestinations">Destino das peças (movimentos válidos e antecipados)</string>
+  <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">Coordenadas do tabuleiro</string>
+  <string name="moveListWhilePlaying">Lista de movimentos</string>
+  <string name="pgnPieceNotation">Anotação de movimentos</string>
+  <string name="chessPieceSymbol">Usar símbolo das peças</string>
+  <string name="pgnLetter">Usar letras (K, Q, R, B, N)</string>
+  <string name="zenMode">Modo Zen</string>
+  <string name="displayBoardResizeHandle">Mostrar o cursor de redimensionamento do tabuleiro</string>
+  <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
+  <string name="blindfoldChess">Xadrez às cegas (peças invisíveis)</string>
+  <string name="chessClock">Relógio de xadrez</string>
+  <string name="tenthsOfSeconds">Décimos de segundo</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Quando o tempo restante for menor que 10 segundos</string>
+  <string name="horizontalGreenProgressBars">Barras de progresso verdes horizontais</string>
+  <string name="soundWhenTimeGetsCritical">Som ao atingir tempo crítico</string>
+  <string name="giveMoreTime">Dar mais tempo</string>
+  <string name="gameBehavior">Funcionamento do jogo</string>
+  <string name="howDoYouMovePieces">Como queres mexer as peças?</string>
+  <string name="clickTwoSquares">Clicar em duas casas</string>
+  <string name="dragPiece">Arrastar a peça</string>
+  <string name="bothClicksAndDrag">Ambos</string>
+  <string name="premovesPlayingDuringOpponentTurn">Jogadas antecipadas (jogadas durante a vez do adversário)</string>
+  <string name="takebacksWithOpponentApproval">Voltar jogadas atrás (com aprovação do adversário)</string>
+  <string name="inCasualGamesOnly">Somente em jogos casuais</string>
+  <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
+  <string name="whenPremoving">Quando mover antecipadamente</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Reivindicar empate automaticamente após uma repetição tripla</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Quando o tempo restante for menor que 30 segundos</string>
+  <string name="moveConfirmation">Confirmação de movimento</string>
+  <string name="inCorrespondenceGames">Jogos por correspondência</string>
+  <string name="correspondenceAndUnlimited">Por correspondência e sem limites</string>
+  <string name="confirmResignationAndDrawOffers">Confirmar desistências e propostas de empate</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Método de rocar</string>
+  <string name="castleByMovingTwoSquares">Mover o rei duas casas</string>
+  <string name="castleByMovingOntoTheRook">Mover o rei até à torre</string>
+  <string name="inputMovesWithTheKeyboard">Lançar movimentos com o teclado</string>
+  <string name="yourPreferencesHaveBeenSaved">As tuas preferências foram guardadas.</string>
+</resources>

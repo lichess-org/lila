@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Piece, Pieces } from 'chessground/types';
+import { Pieces } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
 import { Setting, makeSetting } from './setting';
 import { files } from 'chessground/types';
@@ -61,8 +61,8 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
     const lists: any = [];
     ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].forEach(role => {
       const keys = [];
-      for (let key in pieces) {
-        if (pieces[key]!.color === color && pieces[key]!.role === role) keys.push(key);
+      for (const [key, piece] of pieces) {
+        if (piece.color === color && piece.role === role) keys.push(key);
       }
       if (keys.length) lists.push([`${role}${keys.length > 1 ? 's' : ''}`, ...keys]);
     });
@@ -76,39 +76,36 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
 }
 
 export function renderPieceKeys(pieces: Pieces, p: string, style: Style): string {
-  let name = `${p === p.toUpperCase() ? 'white' : 'black'} ${roles[p.toUpperCase()]}`;
-  let res: Key[] = [], piece: Piece | undefined;
-  for (let k in pieces) {
-    piece = pieces[k];
+  const name = `${p === p.toUpperCase() ? 'white' : 'black'} ${roles[p.toUpperCase()]}`;
+  const res: Key[] = [];
+  for (const [k, piece] of pieces) {
     if (piece && `${piece.color} ${piece.role}` === name) res.push(k as Key);
   }
   return `${name}: ${res.length ? res.map(k => renderKey(k, style)).join(', ') : 'none'}`;
 }
 
-export function renderPiecesOn(pieces: Pieces, rankOrFile: string): string {
-  let res: string[] = [], piece: Piece | undefined;
-  for (let k of allKeys) {
+export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: Style): string {
+  const res: string[] = [];
+  for (const k of allKeys) {
     if (k.includes(rankOrFile)) {
-      piece = pieces[k];
-      res.push(piece ? `${piece.color} ${piece.role}` : (
-        parseInt(k, 35) % 2 ? 'dark' : 'light'
-      ));
+      const piece = pieces.get(k);
+      if (piece) res.push(`${renderKey(k, style)} ${piece.color} ${piece.role}`);
     }
   }
-  return res.join(', ');
+  return res.length ? res.join(', ') : 'blank';
 }
 
 export function renderBoard(pieces: Pieces, pov: Color): string {
   const board = [[' ', ...files, ' ']];
-  for(let rank of invRanks) {
+  for (let rank of invRanks) {
     let line = [];
-    for(let file of files) {
-      let key = file + rank;
-      const piece = pieces[key];
+    for (let file of files) {
+      let key = file + rank as Key;
+      const piece = pieces.get(key);
       if (piece) {
         const letter = letters[piece.role];
         line.push(piece.color === 'white' ? letter.toUpperCase() : letter);
-      } else line.push((file.charCodeAt(0) + rank) % 2 ? '-' : '+');
+      } else line.push((key.charCodeAt(0) + key.charCodeAt(1)) % 2 ? '-' : '+');
     }
     board.push(['' + rank, ...line, '' + rank]);
   }

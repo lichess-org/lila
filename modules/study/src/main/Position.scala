@@ -22,10 +22,11 @@ case object Position {
 
   object Ref {
 
-    def decode(str: String): Option[Ref] = str.split(' ') match {
-      case Array(chapterId, path) => Ref(Chapter.Id(chapterId), Path(path)).some
-      case Array(chapterId) => Ref(Chapter.Id(chapterId), Path.root).some
-      case _ => none
-    }
+    def decode(str: String): Option[Ref] =
+      str.split(' ') match {
+        case Array(chapterId, path) => Ref(Chapter.Id(chapterId), Path(path)).some
+        case Array(chapterId)       => Ref(Chapter.Id(chapterId), Path.root).some
+        case _                      => none
+      }
   }
 }

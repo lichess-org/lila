@@ -49,7 +49,7 @@ export function main(ctrl: RoundController): VNode {
     bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
   let material: MaterialDiff, score: number = 0;
   if (d.pref.showCaptured) {
-    let pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
+    const pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
@@ -63,7 +63,7 @@ export function main(ctrl: RoundController): VNode {
     hook: util.onInsert(gridHacks.start)
   }, [
     h('div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
-      hook: window.lichess.hasTouchEvents ? undefined :
+      hook: 'ontouchstart' in window ? undefined :
         util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false)
     }, [
       renderGround(ctrl),

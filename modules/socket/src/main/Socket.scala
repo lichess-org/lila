@@ -8,19 +8,19 @@ object Socket extends Socket {
 
   case class Sri(value: String) extends AnyVal with StringValue
 
-  val sriIso = lila.common.Iso.string[Sri](Sri.apply, _.value)
-  implicit val sriFormat = lila.common.PimpedJson.stringIsoFormat(sriIso)
+  val sriIso             = lila.common.Iso.string[Sri](Sri.apply, _.value)
+  implicit val sriFormat = lila.common.Json.stringIsoFormat(sriIso)
 
   case class Sris(sris: Set[Sri])
 
   case class SocketVersion(value: Int) extends AnyVal with IntValue with Ordered[SocketVersion] {
     def compare(other: SocketVersion) = Integer.compare(value, other.value)
-    def inc = SocketVersion(value + 1)
+    def inc                           = SocketVersion(value + 1)
   }
 
-  val socketVersionIso = lila.common.Iso.int[SocketVersion](SocketVersion.apply, _.value)
-  implicit val socketVersionFormat = lila.common.PimpedJson.intIsoFormat(socketVersionIso)
-  implicit val socketVersionZero = Zero.instance[SocketVersion](SocketVersion(0))
+  val socketVersionIso             = lila.common.Iso.int[SocketVersion](SocketVersion.apply, _.value)
+  implicit val socketVersionFormat = lila.common.Json.intIsoFormat(socketVersionIso)
+  implicit val socketVersionZero   = Zero.instance[SocketVersion](SocketVersion(0))
 
   case class GetVersion(promise: Promise[SocketVersion])
 

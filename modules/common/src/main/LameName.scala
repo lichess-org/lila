@@ -1,22 +1,79 @@
 package lila.common
 
+import scala.util.matching.Regex
+
 object LameName {
 
-  def username(name: String) =
-    anyName(name) || lameTitlePrefix.matcher(name).lookingAt
+  def username(name: String): Boolean =
+    usernameRegex.find(name.replaceIf('_', "")) || lameTitlePrefix.matcher(name).lookingAt
 
-  def anyName(name: String) = lameWords.find(name.replaceIf('_', ""))
-
-  def anyNameButLichessIsOk(name: String) = lameWords find {
-    lichessRegex.replaceAllIn(name, "")
-  }
-
-  private val lichessRegex = "(?i)lichess".r
+  def tournament(name: String): Boolean = tournamentRegex find name
 
   private val lameTitlePrefix =
     "[Ww]?+[NCFIGl1L]M|(?i:w?+[ncfigl1])m[-_A-Z0-9]".r.pattern
 
-  private val lameWords = {
+  private val baseWords = List(
+    "1488",
+    "8814",
+    "administrator",
+    "anus",
+    "asshole",
+    "bastard",
+    "bitch",
+    "butthole",
+    "buttsex",
+    "cancer",
+    "cheat",
+    "cock",
+    "coon",
+    "cuck",
+    "cunniling",
+    "cunt",
+    "cyka",
+    "dick",
+    "douche",
+    "fag",
+    "fart",
+    "feces",
+    "fuck",
+    "fvck",
+    "golam",
+    "hitler",
+    "jerk",
+    "kanker",
+    "kunt",
+    "moderator",
+    "mongool",
+    "nazi",
+    "nigg",
+    "pedo",
+    "penis",
+    "pidar",
+    "pidr",
+    "piss",
+    "poon",
+    "poop",
+    "poxyu",
+    "pussy",
+    "resign",
+    "retard",
+    "shit",
+    "slut",
+    "vagin",
+    "wanker",
+    "whore",
+    "xyula",
+    "xyulo",
+    "xyuta"
+  )
+
+  private val usernameRegex = lameWords(
+    baseWords ::: List("lichess", "corona", "covid")
+  )
+
+  private val tournamentRegex = lameWords(baseWords)
+
+  private def lameWords(list: List[String]): Regex = {
     val extras = Map(
       'a' -> "4",
       'e' -> "38",
@@ -29,63 +86,15 @@ object LameName {
       'z' -> "2"
     )
 
-    val subs = ('a' to 'z' map {
-      c => c -> s"[$c${c.toUpper}${~extras.get(c)}]"
+    val subs = ('a' to 'z' map { c =>
+      c -> s"[$c${c.toUpper}${~extras.get(c)}]"
     }) ++ Seq('0' -> "[0O]", '1' -> "[1Il]", '8' -> "[8B]") toMap
 
-    List(
-      "hitler",
-      "fuck",
-      "fvck",
-      "penis",
-      "vagin",
-      "anus",
-      "bastard",
-      "bitch",
-      "shit",
-      "cunniling",
-      "cunt",
-      "kunt",
-      "douche",
-      "fag",
-      "golam",
-      "jerk",
-      "nigg",
-      "coon",
-      "piss",
-      "poon",
-      "poop",
-      "pussy",
-      "slut",
-      "whore",
-      "nazi",
-      "buttsex",
-      "retard",
-      "resign",
-      "pedo",
-      "lichess",
-      "moderator",
-      "cheat",
-      "administrator",
-      "cock",
-      "dick",
-      "wanker",
-      "feces",
-      "fart",
-      "cancer",
-      "cuck",
-      "butthole",
-      "cyka",
-      "xyuta",
-      "xyulo",
-      "xyula",
-      "poxyu",
-      "1488",
-      "8814",
-      "pidar",
-      "pidr"
-    ).map {
-        _.map(l => subs.getOrElse(l, l)).map(_ + "+").mkString
-      }.mkString("|").r
+    list
+      .map {
+        _.map(l => subs.getOrElse(l, l)).iterator.map(l => s"$l+").mkString
+      }
+      .mkString("|")
+      .r
   }
 }

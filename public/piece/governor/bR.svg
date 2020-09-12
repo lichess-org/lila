@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <linearGradient id="linearGradient2091" x1="284.57" x2="288.14" y1="-399.25" y2="-399.25" gradientTransform="matrix(1.0258 0 0 1.0253 -14.96 3.762)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2089"/>
+  <linearGradient id="linearGradient2089">
+   <stop stop-color="#fff" offset="0"/>
+   <stop stop-color="#fff" stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2093" x1="293.02" x2="296.47" y1="-400.76" y2="-400.76" gradientTransform="matrix(1.0258 0 0 1.0253 -14.96 3.762)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2089"/>
+  <linearGradient id="linearGradient2095" x1="301.35" x2="304.9" y1="-400.73" y2="-400.73" gradientTransform="matrix(1.0258 0 0 1.0253 -14.96 3.762)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2089"/>
+  <linearGradient id="linearGradient2103" x1="285.93" x2="292.3" y1="-383.26" y2="-383.26" gradientTransform="matrix(1.0258 0 0 1.0253 -14.43 3.762)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2089"/>
+  <linearGradient id="linearGradient1837-32" x1="490.24" x2="511.24" y1="-382.24" y2="-382.24" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2089"/>
+  <linearGradient id="linearGradient1845-2" x1="491.59" x2="499.17" y1="-377.43" y2="-377.43" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2089"/>
+ </defs>
+ <g transform="translate(-269.79 411.53)">
+  <g transform="matrix(.98758 0 0 .98775 10.979 2.1003)" stroke-width="1.0125">
+   <g clip-rule="evenodd" fill="#514b46" fill-rule="evenodd" shape-rendering="geometricPrecision" stroke="#000" stroke-width="1.215">
+    <path d="m276.32-409.42v7.6807l4.1545 3.1436-2.8266 19.346h19.46l-2.8266-19.346 4.1545-3.1436v-7.6807h-4.9103v3.372h-3.7483v-3.372h-4.7979v3.372h-3.7483v-3.372z" image-rendering="optimizeQuality" stroke-linejoin="round" stroke-width="1.2149"/>
+    <path d="m280.48-398.59h13.807" fill-opacity=".90196" image-rendering="optimizeQuality"/>
+    <path d="m298.44-401.74h-22.116" fill-opacity=".90196" image-rendering="optimizeQuality"/>
+   </g>
+   <path d="m276.95-402.38v-6.4396h3.6577v0.4901h-3.0613v4.8349z" fill="url(#linearGradient2091)" opacity=".5"/>
+   <path d="m285.62-405.47v-3.3513h3.5384v0.52985h-2.995v2.3048z" fill="url(#linearGradient2093)" opacity=".5"/>
+   <path d="m294.16-405.44v-3.3513h3.6444v0.43714h-3.2071v2.3048z" fill="url(#linearGradient2095)" opacity=".5"/>
+   <path d="m281.56-397.43-2.6844 17.52h6.5089s1.1265-16.751-3.8244-17.52z" fill="url(#linearGradient2103)" opacity=".5"/>
+   <path d="m296.4-379.9-2.6563-18.588h-11.866s12.395 0.52916 14.522 18.588z" fill-opacity=".90196" opacity=".2"/>
+  </g>
+  <g transform="translate(-205.95 10.621)">
+   <path d="m490.96-383.12-1.2692 0.78752v3.1293l1.2692 0.78795h19.564l1.2692-0.78795v-3.1293l-1.2692-0.78752h-9.782z" fill="#514b46" stroke="#000" stroke-linejoin="round" stroke-width="1.1999"/>
+   <path d="m511.24-381.97-20.994 9e-3 0.88442-0.54198 19.247-0.015z" fill="url(#linearGradient1837-32)" opacity=".4"/>
+   <path d="m511.24-381.97-8e-3 2.4035-0.86604 0.52378-8.4393-0.0102s2.9487-0.62841 1.9391-2.8938c-1e-3 -4e-3 5.2771-0.0199 7.3742-0.0233z" opacity=".2"/>
+   <path d="m490.96-378.42v1.9595h19.564v-1.9595z" clip-rule="evenodd" fill="#514b46" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" style="paint-order:normal"/>
+   <rect x="491.59" y="-377.79" width="7.5756" height=".70898" ry="0" clip-rule="evenodd" fill="url(#linearGradient1845-2)" fill-rule="evenodd" image-rendering="optimizeQuality" opacity=".4" shape-rendering="geometricPrecision" stroke-width=".7" style="paint-order:markers fill stroke"/>
+  </g>
+ </g>
+</svg>

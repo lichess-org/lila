@@ -117,7 +117,7 @@ export default class GamebookPlayCtrl {
     setTimeout(() => this.root.withCg(cg => cg.playPremove()), 100);
   }
 
-  onShapeChange = shapes => {
+  onShapeChange = (shapes: Tree.Shape[]) => {
     const node = this.root.node;
     if (node.gamebook && node.gamebook.shapes && !shapes.length) {
       node.shapes = node.gamebook.shapes.slice(0);

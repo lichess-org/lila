@@ -1,8 +1,8 @@
 export interface Piotr {
-  [p: string]: string;
+  [p: string]: Key;
 }
 
-const piotr: Piotr = {
+export const piotr: Piotr = {
   'a': 'a1',
   'b': 'b1',
   'c': 'c1',
@@ -66,7 +66,5 @@ const piotr: Piotr = {
   '8': 'e8',
   '9': 'f8',
   '!': 'g8',
-  '?': 'h8'
+  '?': 'h8',
 };
-
-export default piotr;

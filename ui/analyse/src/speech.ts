@@ -5,7 +5,7 @@ export function setup() {
 
 function onSpeechChange(enabled: boolean) {
   if (!window.LichessSpeech && enabled)
-    window.lichess.loadScript(window.lichess.compiledScript('speech'));
+    window.lichess.loadScript(window.lichess.jsModule('speech'));
   else if (window.LichessSpeech && !enabled) window.LichessSpeech = undefined;
 }
 

@@ -1,11 +1,19 @@
-import { defined, prop, Prop } from 'common';
+import { defined, prop } from 'common';
 import throttle from 'common/throttle';
+
+export interface EvalCacheOpts {
+  variant: VariantKey;
+  receive(ev: Tree.ClientEval, path: Tree.Path): void;
+  send(t: string, d: any): void;
+  getNode(): Tree.Node;
+  canPut(): boolean;
+  canGet(): boolean;
+}
 
 export interface EvalCache {
   onCeval(): void
   fetch(path: Tree.Path, multiPv: number): void
   onCloudEval(serverEval): void
-  upgradable: Prop<boolean>
 }
 
 const evalPutMinDepth = 20;
@@ -21,7 +29,7 @@ function qualityCheck(ev): boolean {
 }
 
 // from client eval to server eval
-function toPutData(variant, ev) {
+function toPutData(variant: VariantKey, ev) {
   const data: any = {
     fen: ev.fen,
     knodes: Math.round(ev.nodes / 1000),
@@ -60,24 +68,24 @@ function toCeval(e) {
   return res;
 }
 
-export function make(opts): EvalCache {
-  const fenFetched: string[] = [];
-  function hasFetched(node): boolean {
-    return fenFetched.includes(node.fen);
-  };
-  let upgradable = prop(false);
+export function make(opts: EvalCacheOpts): EvalCache {
+  const fetchedByFen = {};
+  const upgradable = prop(false);
+  window.lichess.pubsub.on('socket.in.crowd', d => upgradable(d.nb > 2));
   return {
     onCeval: throttle(500, function() {
       const node = opts.getNode(), ev = node.ceval;
-      if (ev && !ev.cloud && hasFetched(node) && qualityCheck(ev) && opts.canPut(node)) {
-        opts.send("evalPut", toPutData(opts.variant, ev));
+      if (ev && !ev.cloud && node.fen in fetchedByFen && qualityCheck(ev) && opts.canPut()) {
+        opts.send('evalPut', toPutData(opts.variant, ev));
       }
     }),
     fetch(path: Tree.Path, multiPv: number): void {
       const node = opts.getNode();
-      if ((node.ceval && node.ceval.cloud) || !opts.canGet(node)) return;
-      if (hasFetched(node)) return;
-      fenFetched.push(node.fen);
+      if ((node.ceval && node.ceval.cloud) || !opts.canGet()) return;
+      const serverEval = fetchedByFen[node.fen];
+      if (serverEval) return opts.receive(toCeval(serverEval), path);
+      else if (node.fen in fetchedByFen) return; // waiting for response
+      else fetchedByFen[node.fen] = undefined; // mark as waiting
       const obj: any = {
         fen: node.fen,
         path
@@ -85,11 +93,11 @@ export function make(opts): EvalCache {
       if (opts.variant !== 'standard') obj.variant = opts.variant;
       if (multiPv > 1) obj.mpv = multiPv;
       if (upgradable()) obj.up = true;
-      opts.send("evalGet", obj);
+      opts.send('evalGet', obj);
     },
-    onCloudEval(serverEval): void {
+    onCloudEval(serverEval) {
+      fetchedByFen[serverEval.fen] = serverEval;
       opts.receive(toCeval(serverEval), serverEval.path);
-    },
-    upgradable
+    }
   };
 };

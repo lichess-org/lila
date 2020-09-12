@@ -1,15 +1,16 @@
 package lila.fishnet
 
+import ornicar.scalalib.Random
 import com.gilt.gfc.semver.SemVer
 import lila.common.IpAddress
-import scala.util.{ Try, Success, Failure }
+import scala.util.{ Failure, Success, Try }
 
 import org.joda.time.DateTime
 
 case class Client(
-    _id: Client.Key, // API key used to authenticate and assign move or analysis
-    userId: Client.UserId, // lichess user ID
-    skill: Client.Skill, // what can this client do
+    _id: Client.Key,                   // API key used to authenticate and assign move or analysis
+    userId: Client.UserId,             // lichess user ID
+    skill: Client.Skill,               // what can this client do
     instance: Option[Client.Instance], // last seen instance
     enabled: Boolean,
     createdAt: DateTime
@@ -44,10 +45,10 @@ object Client {
     createdAt = DateTime.now
   )
 
-  case class Key(value: String) extends AnyVal with StringValue
+  case class Key(value: String)     extends AnyVal with StringValue
   case class Version(value: String) extends AnyVal with StringValue
-  case class Python(value: String) extends AnyVal with StringValue
-  case class UserId(value: String) extends AnyVal with StringValue
+  case class Python(value: String)  extends AnyVal with StringValue
+  case class UserId(value: String)  extends AnyVal with StringValue
   case class Engine(name: String)
   case class Engines(stockfish: Engine)
 
@@ -79,10 +80,10 @@ object Client {
     def key = toString.toLowerCase
   }
   object Skill {
-    case object Move extends Skill
+    case object Move     extends Skill
     case object Analysis extends Skill
-    case object All extends Skill
-    val all = List(Move, Analysis, All)
+    case object All      extends Skill
+    val all                = List(Move, Analysis, All)
     def byKey(key: String) = all.find(_.key == key)
   }
 
@@ -90,14 +91,18 @@ object Client {
 
     val minVersion = SemVer(minVersionString)
 
-    def accept(v: Client.Version): Try[Unit] = Try(SemVer(v.value)) match {
-      case Success(version) if version >= minVersion => Success(())
-      case Success(version) => Failure(new Exception(
-        s"Version $v is no longer supported. Please restart fishnet to upgrade."
-      ))
-      case Failure(error) => Failure(error)
-    }
+    def accept(v: Client.Version): Try[Unit] =
+      Try(SemVer(v.value)) match {
+        case Success(version) if version >= minVersion => Success(())
+        case Success(_) =>
+          Failure(
+            new Exception(
+              s"Version $v is no longer supported. Please restart fishnet to upgrade."
+            )
+          )
+        case Failure(error) => Failure(error)
+      }
   }
 
-  def makeKey = Key(scala.util.Random.alphanumeric take 8 mkString)
+  def makeKey = Key(Random.secureString(8))
 }

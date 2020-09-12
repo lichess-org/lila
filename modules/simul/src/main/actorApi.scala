@@ -4,7 +4,6 @@ package actorApi
 import scala.concurrent.Promise
 
 import lila.game.Game
-import lila.socket.Socket.{ Sri, SocketVersion }
 import lila.user.User
 
 private[simul] case class Talk(tourId: String, u: String, t: String, troll: Boolean)
@@ -17,5 +16,3 @@ private[simul] case object Aborted
 private[simul] case object NotifyCrowd
 
 private[simul] case class GetUserIdsP(promise: Promise[Iterable[User.ID]])
-
-case class SimulTable(simuls: List[Simul])

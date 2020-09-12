@@ -1,36 +1,53 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { opposite } from 'chessground/util';
-import { player as renderPlayer, miniBoard, bind } from './util';
-import { Duel, DuelPlayer, DuelTeams, TeamBattle } from '../interfaces';
+import { player as renderPlayer, bind, onInsert } from './util';
+import { Duel, DuelPlayer, DuelTeams, TeamBattle, FeaturedGame } from '../interfaces';
 import { teamName } from './battle';
 import TournamentController from '../ctrl';
 
-function featuredPlayer(player) {
-  return h('div.tour__featured__player', [
-    h('strong', '#' + player.rank),
-    renderPlayer(player, true, true, false),
-    player.berserk ? h('i', {
-      attrs: {
-        'data-icon': '`',
-        title: 'Berserk'
-      }
-    }) : null
+function featuredPlayer(game: FeaturedGame, color: Color) {
+  const player = game[color];
+  const clock = game.c || game.clock; // temporary BC, remove me
+  return h('span.mini-game__player', [
+    h('span.mini-game__user', [
+      h('strong', '#' + player.rank),
+      renderPlayer(player, true, true, false),
+      player.berserk ? h('i', {
+        attrs: {
+          'data-icon': '`',
+          title: 'Berserk'
+        }
+      }) : null
+    ]),
+    clock ? h(`span.mini-game__clock.mini-game__clock--${color}`, {
+      attrs: { 'data-time': clock[color] }
+    }) : h('span.mini-game__result', game.winner ? (game.winner == color ? 1 : 0) : '½')
   ]);
 }
 
-function featured(f): VNode {
-  return h('div.tour__featured', [
-    featuredPlayer(f[opposite(f.color)]),
-    miniBoard(f),
-    featuredPlayer(f[f.color])
+function featured(game: FeaturedGame): VNode {
+  return h(`div.tour__featured.mini-game.mini-game-${game.id}.mini-game--init.is2d`, {
+    attrs: {
+      'data-state': `${game.fen},${game.orientation},${game.lastMove}`,
+      'data-live': game.id
+    },
+    hook: onInsert(window.lichess.powertip.manualUserIn)
+  }, [
+    featuredPlayer(game, opposite(game.orientation)),
+    h('a.cg-wrap', {
+      attrs: {
+        href: `/${game.id}/${game.orientation}`
+      }
+    }),
+    featuredPlayer(game, game.orientation)
   ]);
 }
 
 function duelPlayerMeta(p: DuelPlayer) {
   return [
     h('em.rank', '#' + p.k),
-    p.t ? h('em.title', p.t) : null,
+    p.t ? h('em.utitle', p.t) : null,
     h('em.rating', '' + p.r)
   ];
 }
@@ -55,7 +72,12 @@ function renderDuel(battle?: TeamBattle, duelTeams?: DuelTeams) {
 }
 
 export default function(ctrl: TournamentController): VNode {
-  return h('div.tour__table', [
+  return h('div.tour__table', {
+    hook: {
+      insert: window.lichess.miniGame.initAll,
+      postpatch: window.lichess.miniGame.initAll
+    }
+  }, [
     ctrl.data.featured ? featured(ctrl.data.featured) : null,
     ctrl.data.duels.length ? h('section.tour__duels', {
       hook: bind('click', _ => !ctrl.disableClicks)

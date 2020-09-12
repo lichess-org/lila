@@ -1,5 +1,6 @@
 .not-found {
   @extend %flex-center;
+
   position: fixed;
   top: 0;
   left: 0;
@@ -8,11 +9,13 @@
   justify-content: center;
   height: 100%;
   background: radial-gradient(circle, #484848, #2F3031);
+
   h1 {
     @extend %roboto;
+
     font-size: 7vw;
     text-align: center;
-    color: rgba(255,255,255,0.3);
-    text-shadow: 0 0 9px rgba(0,0,0,0.3);
+    color: rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 9px rgba(0, 0, 0, 0.3);
   }
 }

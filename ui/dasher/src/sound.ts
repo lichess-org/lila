@@ -1,7 +1,8 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-
 import { Redraw, Close, bind, header } from './util'
+import debounce from 'common/debounce';
+import * as xhr from 'common/xhr';
 
 type Key = string;
 
@@ -15,6 +16,7 @@ export interface SoundData {
 export interface SoundCtrl {
   makeList(): Sound[];
   api: any;
+  box: SoundBoxI;
   set(k: Key): void;
   volume(v: number): void;
   redraw: Redraw;
@@ -27,26 +29,40 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
   const list: Sound[] = raw.map(s => s.split(' '));
 
   const api = window.lichess.sound;
+  const box = window.lichess.soundBox;
+
+  const postSet = (set: string) =>
+    xhr.text(
+      '/pref/soundSet', {
+      body: xhr.form({ set }),
+      method: 'post'
+    })
+      .catch(() => window.lichess.announce({ msg: 'Failed to save sound preference' }));
 
   return {
     makeList() {
-      const canSpeech = window.speechSynthesis && window.speechSynthesis.getVoices().length;
+      const canSpeech = window.speechSynthesis?.getVoices().length;
       return list.filter(s => s[0] != 'speech' || canSpeech);
     },
     api,
+    box,
     set(k: Key) {
       api.speech(k == 'speech');
       window.lichess.pubsub.emit('speech.enabled', api.speech());
-      if (api.speech()) api.say('Speech synthesis ready');
+      if (api.speech()) {
+        api.changeSet('standard');
+        postSet('standard');
+        api.say('Speech synthesis ready');
+      }
       else {
         api.changeSet(k);
         api.genericNotify();
-        $.post('/pref/soundSet', { set: k });
+        postSet(k);
       }
       redraw();
     },
     volume(v: number) {
-      api.setVolume(v);
+      box.setVolume(v);
       // plays a move sound if speech is off
       api.move('knight F 7');
     },
@@ -63,33 +79,31 @@ export function view(ctrl: SoundCtrl): VNode {
   return h('div.sub.sound.' + ctrl.api.set(), {
     hook: {
       insert() {
-        window.speechSynthesis.onvoiceschanged = ctrl.redraw;
+        if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = ctrl.redraw;
       }
     }
   }, [
     header(ctrl.trans('sound'), ctrl.close),
     h('div.content', [
       h('div.slider', { hook: { insert: vn => makeSlider(ctrl, vn) } }),
-      h('div.selector', {
-        attrs: { method: 'post', action: '/pref/soundSet' }
-      }, ctrl.makeList().map(soundView(ctrl, current)))
+      h('div.selector', ctrl.makeList().map(soundView(ctrl, current)))
     ])
   ]);
 }
 
 function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
-  const setVolume = window.lichess.debounce(ctrl.volume, 50);
-  window.lichess.slider().done(() => {
+  const setVolume = debounce(ctrl.volume, 50);
+  window.lichess.slider().then(() =>
     $(vnode.elm as HTMLElement).slider({
       orientation: 'vertical',
       min: 0,
       max: 1,
       range: 'min',
       step: 0.01,
-      value: ctrl.api.getVolume(),
+      value: ctrl.box.getVolume(),
       slide: (_: any, ui: any) => setVolume(ui.value)
-    });
-  });
+    })
+  );
 }
 
 function soundView(ctrl: SoundCtrl, current: Key) {

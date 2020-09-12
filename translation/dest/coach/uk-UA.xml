@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessCoaches">Тренери Lichess</string>
+  <string name="lichessCoach">Тренер Lichess</string>
+  <string name="areYouCoach">Ви чудовий шаховий тренер з титулом %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM або FM звання</string>
+  <string name="confirmTitle">Підтвердіть свій заголовок і ми розглянемо Вашу заявку.</string>
+  <string name="sendApplication">Надішліть нам лист на адресу %s, і ми розглянемо Вашу заявку.</string>
+  <string name="location">Місцезнаходження</string>
+  <string name="languages">Мови</string>
+  <string name="rating">Рейтинг</string>
+  <string name="hourlyRate">Погодинна ставка</string>
+  <string name="availability">Доступність</string>
+  <string name="accepting">Приймаю учнів</string>
+  <string name="notAccepting">Не приймаю учнів на даний момент</string>
+  <string name="xCoachesStudents">%s тренує учнів</string>
+  <string name="viewXProfile">Переглянути профіль %s Lichess</string>
+  <string name="sendPM">Надіслати приватне повідомлення</string>
+  <string name="aboutMe">Про себе</string>
+  <string name="playingExperience">Досвід гри</string>
+  <string name="teachingExperience">Досвід викладання</string>
+  <string name="otherExperiences">Інший досвід</string>
+  <string name="bestSkills">Найкращі навички</string>
+  <string name="teachingMethod">Методологія викладання</string>
+  <string name="publicStudies">Публічні дослідження</string>
+  <string name="youtubeVideos">Відео на YouTube</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Відгук учня</item>
+    <item quantity="few">%s відгуки учнів</item>
+    <item quantity="many">%s відгуків учнів</item>
+    <item quantity="other">%s відгуків учнів</item>
+  </plurals>
+  <string name="thankYouForReview">Дякуємо за відгук!</string>
+  <string name="xWillApproveIt">%s незабаром це підтвердить, або модератор перегляне його.</string>
+  <string name="reviewCoach">Написати відгук про цього тренера</string>
+  <string name="describeExperienceWith">Опишіть свій досвід тренувань з %s</string>
+</resources>

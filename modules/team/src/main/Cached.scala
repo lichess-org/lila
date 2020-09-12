@@ -1,44 +1,60 @@
 package lila.team
 
-import lila.memo.Syncache
 import scala.concurrent.duration._
 
-private[team] final class Cached(
-    asyncCache: lila.memo.AsyncCache.Builder
-)(implicit system: akka.actor.ActorSystem) {
+import lila.memo.Syncache
+import lila.user.User
 
-  val nameCache = new Syncache[String, Option[String]](
+final class Cached(
+    teamRepo: TeamRepo,
+    memberRepo: MemberRepo,
+    requestRepo: RequestRepo,
+    cacheApi: lila.memo.CacheApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
+
+  val nameCache = cacheApi.sync[String, Option[String]](
     name = "team.name",
-    compute = TeamRepo.name,
+    initialCapacity = 4096,
+    compute = teamRepo.name,
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(1 hour),
-    logger = logger
+    expireAfter = Syncache.ExpireAfterAccess(20 minutes)
   )
 
-  def name(id: String) = nameCache sync id
+  def blockingTeamName(id: Team.ID) = nameCache sync id
 
   def preloadSet = nameCache preloadSet _
 
-  // ~ 30k entries as of 04/02/17
-  private val teamIdsCache = new Syncache[lila.user.User.ID, Team.IdsStr](
+  private val teamIdsCache = cacheApi.sync[User.ID, Team.IdsStr](
     name = "team.ids",
-    compute = u => MemberRepo.teamIdsByUser(u).dmap(Team.IdsStr.apply),
+    initialCapacity = 65536,
+    compute = u => memberRepo.teamIdsByUser(u).dmap(ids => Team.IdsStr(ids take 100)),
     default = _ => Team.IdsStr.empty,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(1 hour),
-    logger = logger
+    expireAfter = Syncache.ExpireAfterWrite(1 hour)
   )
 
-  def syncTeamIds = teamIdsCache sync _
-  def teamIds = teamIdsCache async _
-  def teamIdsList(userId: lila.user.User.ID) = teamIds(userId).dmap(_.toList)
+  def syncTeamIds                  = teamIdsCache sync _
+  def teamIds                      = teamIdsCache async _
+  def teamIdsList(userId: User.ID) = teamIds(userId).dmap(_.toList)
 
   def invalidateTeamIds = teamIdsCache invalidate _
 
-  val nbRequests = asyncCache.clearable[lila.user.User.ID, Int](
-    name = "team.nbRequests",
-    f = userId => TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams,
-    expireAfter = _.ExpireAfterAccess(12 minutes)
-  )
+  val nbRequests = cacheApi[User.ID, Int](32768, "team.nbRequests") {
+    _.expireAfterAccess(25 minutes)
+      .maximumSize(65536)
+      .buildAsyncFuture[User.ID, Int] { userId =>
+        teamIds(userId) flatMap { ids =>
+          ids.value.nonEmpty ?? teamRepo.countRequestsOfLeader(userId, requestRepo.coll)
+        }
+      }
+  }
+
+  val leaders = cacheApi[Team.ID, Set[User.ID]](32, "team.leaders") {
+    _.expireAfterWrite(1 minute)
+      .buildAsyncFuture(teamRepo.leadersOf)
+  }
+
+  def isLeader(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
+    leaders.get(teamId).dmap(_ contains userId)
 }

@@ -10,24 +10,24 @@ export interface PresetCtrl {
   post(preset: Preset): void
 }
 
-export type PresetKey = string
-export type PresetText = string
+export type PresetKey = string;
+export type PresetText = string;
 
 export interface Preset {
-  key: PresetKey
-  text: PresetText
+  key: PresetKey;
+  text: PresetText;
 }
 
 export interface PresetGroups {
-  start: Preset[]
-  end: Preset[]
-  [key: string]: Preset[]
+  start: Preset[];
+  end: Preset[];
+  [key: string]: Preset[];
 }
 
 export interface PresetOpts {
-  initialGroup?: string
-  redraw: Redraw
-  post(text: string): void
+  initialGroup?: string;
+  redraw: Redraw;
+  post(text: string): boolean;
 }
 
 const groups: PresetGroups = {
@@ -60,8 +60,7 @@ export function presetCtrl(opts: PresetOpts): PresetCtrl {
       const sets = groups[group];
       if (!sets) return;
       if (said.includes(preset.key)) return;
-      opts.post(preset.text);
-      said.push(preset.key);
+      if (opts.post(preset.text)) said.push(preset.key);
     }
   }
 }

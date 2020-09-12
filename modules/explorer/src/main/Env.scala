@@ -1,35 +1,38 @@
 package lila.explorer
 
-import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import play.api.Configuration
 
+case class InternalEndpoint(value: String) extends AnyVal with StringValue
+
+@Module
 final class Env(
-    config: Config,
-    gameColl: lila.db.dsl.Coll,
+    appConfig: Configuration,
+    gameRepo: lila.game.GameRepo,
+    userRepo: lila.user.UserRepo,
     gameImporter: lila.importer.Importer,
-    getBotUserIds: () => Fu[Set[lila.user.User.ID]],
+    getBotUserIds: lila.user.GetBotIds,
     settingStore: lila.memo.SettingStore.Builder,
-    system: ActorSystem
+    ws: play.api.libs.ws.StandaloneWSClient
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
 ) {
 
-  private val InternalEndpoint = config getString "internal_endpoint"
-
-  private lazy val indexer = new ExplorerIndexer(
-    gameColl = gameColl,
-    getBotUserIds = getBotUserIds,
-    internalEndpoint = InternalEndpoint
-  )
-
-  lazy val importer = new ExplorerImporter(
-    endpoint = InternalEndpoint,
-    gameImporter = gameImporter
-  )
-
-  def cli = new lila.common.Cli {
-    def process = {
-      case "explorer" :: "index" :: since :: Nil => indexer(since) inject "done"
-    }
+  private lazy val internalEndpoint = InternalEndpoint {
+    appConfig.get[String]("explorer.internal_endpoint")
   }
+
+  private lazy val indexer: ExplorerIndexer = wire[ExplorerIndexer]
+
+  lazy val importer = wire[ExplorerImporter]
+
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "explorer" :: "index" :: since :: Nil => indexer(since) inject "done"
+      }
+    }
 
   lazy val indexFlowSetting = settingStore[Boolean](
     "explorerIndexFlow",
@@ -37,19 +40,7 @@ final class Env(
     text = "Explorer: index new games as soon as they complete".some
   )
 
-  lila.common.Bus.subscribeFun('finishGame) {
+  lila.common.Bus.subscribeFun("finishGame") {
     case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted && indexFlowSetting.get() => indexer(game)
   }
-}
-
-object Env {
-
-  lazy val current = "explorer" boot new Env(
-    config = lila.common.PlayApp loadConfig "explorer",
-    gameColl = lila.game.Env.current.gameColl,
-    gameImporter = lila.importer.Env.current.importer,
-    getBotUserIds = () => lila.user.Env.current.cached.botIds.get,
-    settingStore = lila.memo.Env.current.settingStore,
-    system = lila.common.PlayApp.system
-  )
 }

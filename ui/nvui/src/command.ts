@@ -9,9 +9,9 @@ export const commands = {
     }
   },
   scan: {
-    help: 'scan: Read pieces on a rank or file. Example: scan a, scan 1.',
-    apply(c: string, pieces: Pieces): string | undefined {
-      return tryC(c, /^scan ([a-h1-8])$/i, p => renderPiecesOn(pieces, p));
+    help: 's: Read pieces on a rank or file. Example: s a, s 1.',
+    apply(c: string, pieces: Pieces, style: Style): string | undefined {
+      return tryC(c, /^s ([a-h1-8])$/i, p => renderPiecesOn(pieces, p, style));
     }
   }
 };

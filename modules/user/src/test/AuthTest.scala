@@ -4,31 +4,37 @@ import org.specs2.mutable.Specification
 import java.util.Base64
 import Authenticator.AuthData
 import User.{ ClearPassword => P }
+import lila.common.config.Secret
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class AuthTest extends Specification {
 
-  val secret = Array.fill(32)(1.toByte).toBase64
-  def getAuth(passHasher: PasswordHasher) = new Authenticator(
-    passHasher = passHasher,
-    userRepo = null
-  )
+  val secret = Secret(Array.fill(32)(1.toByte).toBase64)
+  final def getAuth(passHasher: PasswordHasher) =
+    new Authenticator(
+      passHasher = passHasher,
+      userRepo = null
+    )
 
   val auth = getAuth(new PasswordHasher(secret, 2))
 
   "bcrypt checks" in {
     val bCryptUser = AuthData(
       "",
-      bpass = HashedPassword(Base64.getDecoder.decode(
-        "+p7ysDb8OU9yMQ/LuFxFNgJ0HBKH7iJy8tkowG65NWjPC3Y6CzYV"
-      ))
+      bpass = HashedPassword(
+        Base64.getDecoder.decode(
+          "+p7ysDb8OU9yMQ/LuFxFNgJ0HBKH7iJy8tkowG65NWjPC3Y6CzYV"
+        )
+      )
     )
     "correct" >> auth.compare(bCryptUser, P("password"))
     "wrong pass" >> !auth.compare(bCryptUser, P(""))
 
     // sanity check of aes encryption
-    "wrong secret" >> !{
-      getAuth(new PasswordHasher((new Array[Byte](32)).toBase64, 2)).compare(
-        bCryptUser, P("password")
+    "wrong secret" >> ! {
+      getAuth(new PasswordHasher(Secret((new Array[Byte](32)).toBase64), 2)).compare(
+        bCryptUser,
+        P("password")
       )
     }
 

@@ -1,4 +1,4 @@
-#! /usr/bin/python2
+#! /usr/bin/python3
 
 #config
 themes = {
@@ -14,5 +14,5 @@ whitePattern = 'body.{name} #GameBoard td.whiteSquare, body.{name} #GameBoard td
 for name in themes:
   def formatCss(pattern):
     return pattern.replace('{name}', name).replace('{white}', themes[name][0]).replace('{black}', themes[name][1])
-  print formatCss(whitePattern)
-  print formatCss(blackPattern)
+  print(formatCss(whitePattern))
+  print(formatCss(blackPattern))

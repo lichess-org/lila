@@ -21,13 +21,13 @@ object Eval {
 
   case class Score(value: Either[Cp, Mate]) extends AnyVal {
 
-    def cp: Option[Cp] = value.left.toOption
-    def mate: Option[Mate] = value.right.toOption
+    def cp: Option[Cp]     = value.left.toOption
+    def mate: Option[Mate] = value.toOption
 
     def isCheckmate = value == Score.checkmate
-    def mateFound = value.isRight
+    def mateFound   = value.isRight
 
-    def invert = copy(value = value.left.map(_.invert).right.map(_.invert))
+    def invert                  = copy(value = value.left.map(_.invert).map(_.invert))
     def invertIf(cond: Boolean) = if (cond) invert else this
 
     def eval = Eval(cp, mate, None)
@@ -35,7 +35,7 @@ object Eval {
 
   object Score {
 
-    def cp(x: Cp): Score = Score(Left(x))
+    def cp(x: Cp): Score     = Score(Left(x))
     def mate(y: Mate): Score = Score(Right(y))
 
     val checkmate: Either[Cp, Mate] = Right(Mate(0))
@@ -45,7 +45,7 @@ object Eval {
 
     def centipawns = value
 
-    def pawns: Float = value / 100f
+    def pawns: Float      = value / 100f
     def showPawns: String = "%.2f" format pawns
 
     def ceiled =
@@ -53,12 +53,12 @@ object Eval {
       else if (value < -Cp.CEILING) Cp(-Cp.CEILING)
       else this
 
-    def invert = Cp(value = -value)
+    def invert                  = Cp(value = -value)
     def invertIf(cond: Boolean) = if (cond) invert else this
 
     def compare(other: Cp) = Integer.compare(value, other.value)
 
-    def signum: Int = Math.signum(value).toInt
+    def signum: Int = Math.signum(value.toFloat).toInt
   }
 
   object Cp {
@@ -72,12 +72,12 @@ object Eval {
 
     def moves = value
 
-    def invert = Mate(value = -value)
+    def invert                  = Mate(value = -value)
     def invertIf(cond: Boolean) = if (cond) invert else this
 
     def compare(other: Mate) = Integer.compare(value, other.value)
 
-    def signum: Int = Math.signum(value).toInt
+    def signum: Int = Math.signum(value.toFloat).toInt
 
     def positive = value > 0
     def negative = value < 0
@@ -90,17 +90,21 @@ object Eval {
   object JsonHandlers {
     import play.api.libs.json._
 
-    private implicit val uciWrites: Writes[Uci] = Writes { uci =>
+    implicit private val uciWrites: Writes[Uci] = Writes { uci =>
       JsString(uci.uci)
     }
     implicit val cpFormat: Format[Cp] = Format[Cp](
       Reads.of[Int] map Cp.apply,
-      Writes { cp => JsNumber(cp.value) }
+      Writes { cp =>
+        JsNumber(cp.value)
+      }
     )
 
     implicit val mateFormat: Format[Mate] = Format[Mate](
       Reads.of[Int] map Mate.apply,
-      Writes { mate => JsNumber(mate.value) }
+      Writes { mate =>
+        JsNumber(mate.value)
+      }
     )
 
     implicit val evalWrites = Json.writes[Eval]

@@ -1,77 +1,75 @@
 package lila.game
 
-import akka.actor._
-import play.api.libs.iteratee._
+import akka.stream.scaladsl._
 import play.api.libs.json._
+import scala.concurrent.duration._
 
-import actorApi.{ StartGame, FinishGame }
+import actorApi.{ FinishGame, StartGame }
 import chess.format.FEN
 import lila.common.Bus
+import lila.common.Json.jodaWrites
+import lila.game.Game
 import lila.user.User
 
-final class GamesByUsersStream {
+final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
 
-  import GamesByUsersStream._
+  private val keepAliveInterval = 70.seconds // play's idleTimeout = 75s
+  private val chans             = List("startGame", "finishGame")
 
-  def apply(userIds: Set[User.ID]): Enumerator[JsObject] = {
+  private val blueprint = Source
+    .queue[Game](64, akka.stream.OverflowStrategy.dropHead)
+    .mapAsync(1)(gameRepo.withInitialFen)
+    .map(gameWithInitialFenWriter.writes)
+    .map(some)
+    .keepAlive(keepAliveInterval, () => none)
 
-    def matches(game: Game) = game.userIds match {
-      case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
-      case _ => false
+  def apply(userIds: Set[User.ID]): Source[Option[JsValue], _] =
+    blueprint mapMaterializedValue { queue =>
+      def matches(game: Game) =
+        game.userIds match {
+          case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
+          case _                        => false
+        }
+      val sub = Bus.subscribeFun(chans: _*) {
+        case StartGame(game) if matches(game)        => queue offer game
+        case FinishGame(game, _, _) if matches(game) => queue offer game
+      }
+      queue.watchCompletion().foreach { _ =>
+        Bus.unsubscribe(sub, chans)
+      }
     }
-    var subscriber: Option[lila.common.Tellable] = None
 
-    val enumerator = Concurrent.unicast[Game](
-      onStart = channel => {
-        subscriber = Bus.subscribeFun(classifiers: _*) {
-          case StartGame(game) if matches(game) => channel push game
-          case FinishGame(game, _, _) if matches(game) => channel push game
-        } some
-      },
-      onComplete = subscriber foreach { Bus.unsubscribe(_, classifiers) }
-    )
-
-    enumerator &> withInitialFen &> toJson
-  }
-
-  private val withInitialFen =
-    Enumeratee.mapM[Game].apply[Game.WithInitialFen](GameRepo.withInitialFen)
-
-  private val toJson =
-    Enumeratee.map[Game.WithInitialFen].apply[JsObject](gameWithInitialFenWriter.writes)
-}
-
-private object GamesByUsersStream {
-
-  private val classifiers = List('startGame, 'finishGame)
-
-  private implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
+  implicit private val fenWriter: Writes[FEN] = Writes[FEN] { f =>
     JsString(f.value)
   }
 
   private val gameWithInitialFenWriter: OWrites[Game.WithInitialFen] = OWrites {
     case Game.WithInitialFen(g, initialFen) =>
-      Json.obj(
-        "id" -> g.id,
-        "rated" -> g.rated,
-        "variant" -> g.variant.key,
-        "speed" -> g.speed.key,
-        "perf" -> PerfPicker.key(g),
-        "createdAt" -> g.createdAt,
-        "status" -> g.status.id,
-        "players" -> JsObject(g.players.zipWithIndex map {
-          case (p, i) => p.color.name -> Json.obj(
-            "userId" -> p.userId,
-            "rating" -> p.rating
-          ).add("provisional" -> p.provisional)
-            .add("name" -> p.name)
-        })
-      ).add("initialFen" -> initialFen)
+      Json
+        .obj(
+          "id"        -> g.id,
+          "rated"     -> g.rated,
+          "variant"   -> g.variant.key,
+          "speed"     -> g.speed.key,
+          "perf"      -> PerfPicker.key(g),
+          "createdAt" -> g.createdAt,
+          "status"    -> g.status.id,
+          "players" -> JsObject(g.players map { p =>
+            p.color.name -> Json
+              .obj(
+                "userId" -> p.userId,
+                "rating" -> p.rating
+              )
+              .add("provisional" -> p.provisional)
+          })
+        )
+        .add("initialFen" -> initialFen)
         .add("clock" -> g.clock.map { clock =>
           Json.obj(
-            "initial" -> clock.limitSeconds,
-            "increment" -> clock.incrementSeconds,
-            "totalTime" -> clock.estimateTotalSeconds
+            "initial"   -> clock.limitSeconds,
+            "increment" -> clock.incrementSeconds
           )
         })
         .add("daysPerTurn" -> g.daysPerTurn)

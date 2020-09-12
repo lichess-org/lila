@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessCoaches">Lichess oktatók</string>
+  <string name="lichessCoach">Lichess oktató</string>
+  <string name="areYouCoach">Kiemelkedő sakkoktató vagy %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Nemzeti Mester vagy FIDE címmel</string>
+  <string name="confirmTitle">Ellenőriztesd le a címed itt és mi átnézzük a jelentkezésed.</string>
+  <string name="sendApplication">Küldj egy emailt a %s címre és átnézzük a jelentkezésed.</string>
+  <string name="location">Hely</string>
+  <string name="languages">Nyelvek</string>
+  <string name="rating">Értékszám</string>
+  <string name="hourlyRate">Óradíj</string>
+  <string name="availability">Rendelkezésre állás</string>
+  <string name="accepting">Fogad tanulókat</string>
+  <string name="notAccepting">Jelenleg nem fogad tanulókat</string>
+  <string name="xCoachesStudents">%s sakkot oktat tanulóknak</string>
+  <string name="viewXProfile">%s Lichess profilja</string>
+  <string name="sendPM">Privát üzenet küldése</string>
+  <string name="aboutMe">Rólam</string>
+  <string name="playingExperience">Játéktapasztalat</string>
+  <string name="teachingExperience">Oktatói tapasztalat</string>
+  <string name="otherExperiences">Egyéb tapasztalat</string>
+  <string name="bestSkills">Legjobb képességek</string>
+  <string name="teachingMethod">Oktatói módszertan</string>
+  <string name="publicStudies">Nyilvános tanulmányok</string>
+  <string name="youtubeVideos">YouTube videók</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Egy tanulói értékelés</item>
+    <item quantity="other">%s tanulói értékelés</item>
+  </plurals>
+  <string name="thankYouForReview">Köszönjük az értékelésed!</string>
+  <string name="xWillApproveIt">%s hamarosan jóváhagyja, vagy egy moderátor fogja átnézni.</string>
+  <string name="reviewCoach">Oktató értékelése</string>
+  <string name="describeExperienceWith">Jellemezd %s oktatását és oszd meg élményeid</string>
+</resources>

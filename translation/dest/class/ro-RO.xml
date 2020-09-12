@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessClasses">Clase</string>
+  <string name="teachClassesOfChessStudents">Predă clase celor care învață șahul cu suita de aplicații Clase Lichess.</string>
+  <string name="features">Funcționalitate</string>
+  <string name="quicklyGenerateSafeUsernames">Generează rapid nume de utilizator și parole sigure pentru elevi</string>
+  <string name="trackStudentProgress">Urmărește progresul elevilor în jocuri și puzzle-uri</string>
+  <string name="messageAllStudents">Trimite un mesaj tuturor elevilor despre materiale noi pentru clasă</string>
+  <string name="freeForAllForever">100% gratuit pentru toți, pentru totdeauna, fără reclame sau trackere</string>
+  <string name="applyToBeLichessTeacher">Înscrie-te pentru a fi profesor de șah Lichess</string>
+  <string name="noClassesYet">Nu există încă nicio clasă.</string>
+  <string name="teachersX">Profesori: %s</string>
+  <string name="newClass">Clasă nouă</string>
+  <string name="closeClass">Închide clasa</string>
+  <string name="closedByX">Închisă de %s</string>
+  <string name="reopen">Redeschide</string>
+  <string name="removeStudent">Elimină elev</string>
+  <string name="removedStudents">Eliminat</string>
+  <string name="inviteTheStudentBack">Invită elevul înapoi</string>
+  <string name="sendAMessage">Trimite un mesaj tuturor elevilor.</string>
+  <string name="aLinkToTheClassWillBeAdded">Un link la clasă va fi adăugat automat la finalul mesajului, așa că nu trebuie să îl incluzi tu manual.</string>
+  <string name="className">Numele clasei</string>
+  <string name="classDescription">Descrierea clasei</string>
+  <string name="visibleByBothStudentsAndTeachers">Vizibil atât pentru profesori, cât și pentru elevii din clasă</string>
+  <string name="teachersOfTheClass">Profesorii clasei</string>
+  <string name="addLichessUsernames">Adaugă nume de utilizator Lichess, câte unul pe fiecare linie, pentru a-i invita ca profesori.</string>
+  <string name="theyMustFirstApply">Mai întâi, ei trebuie să se înscrie pentru a fi profesori Lichess.</string>
+  <string name="resetPassword">Resetează parola</string>
+  <string name="makeSureToCopy">Asigurăți-vă că ați copiat sau notat parola acum. Nu veți mai putea să o revedeți!</string>
+  <string name="passwordX">Parola: %s</string>
+  <string name="generateANewPassword">Generează o parolă nouă pentru elev</string>
+  <string name="invitedToXByY">Invitat la %1$s de către %2$s</string>
+  <string name="realName">Nume real</string>
+  <string name="privateWillNeverBeShown">Privat. Nu va fi afișat niciodată în afara clasei. Ajută la identificarea elevului.</string>
+  <string name="addStudent">Adaugă elev</string>
+  <string name="lichessProfileXCreatedForY">Profilul Lichess %1$s creat pentru %2$s.</string>
+  <string name="studentCredentials">Elev:  %1$s
+Nume de utilizator: %2$s
+Parolă: %3$s</string>
+  <string name="inviteALichessAccount">Invită un cont Lichess</string>
+  <string name="inviteDesc1">Dacă elevul sau eleva au deja un cont Lichess, îi poți invita la clasă.</string>
+  <string name="inviteDesc2">Ei vor primi un mesaj pe Lichess cu un link pentru a alătura clasei.</string>
+  <string name="inviteDesc3">Important: invitați doar elevi pe care îi cunoașteți și care doresc în mod activ să se alăture clasei.</string>
+  <string name="inviteDesc4">Nu trimiteți niciodată invitații nesolicitate la întâmplare.</string>
+</resources>

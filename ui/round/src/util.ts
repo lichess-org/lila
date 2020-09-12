@@ -3,7 +3,7 @@ import { VNodeData } from 'snabbdom/vnode'
 import { Hooks } from 'snabbdom/hooks'
 import * as cg from 'chessground/types'
 import { opposite } from 'chessground/util';
-import { Redraw, EncodedDests, DecodedDests, MaterialDiff, Step, CheckCount } from './interfaces';
+import { Redraw, EncodedDests, Dests, MaterialDiff, Step, CheckCount } from './interfaces';
 
 const pieceScores = {
   pawn: 1,
@@ -44,14 +44,14 @@ export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw, 
   });
 }
 
-export function parsePossibleMoves(dests?: EncodedDests): DecodedDests {
-  if (!dests) return {};
-  const dec: DecodedDests = {};
+export function parsePossibleMoves(dests?: EncodedDests): Dests {
+  const dec = new Map();
+  if (!dests) return dec;
   if (typeof dests == 'string')
-    dests.split(' ').forEach(ds => {
-      dec[ds.slice(0,2)] = ds.slice(2).match(/.{2}/g) as cg.Key[];
-    });
-  else for (let k in dests) dec[k] = dests[k].match(/.{2}/g) as cg.Key[];
+    for (const ds of dests.split(' ')) {
+      dec.set(ds.slice(0,2), ds.slice(2).match(/.{2}/g) as cg.Key[]);
+    }
+  else for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as cg.Key[]);
   return dec;
 }
 
@@ -61,8 +61,8 @@ export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
     white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
     black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
   };
-  for (let k in pieces) {
-    const p = pieces[k]!, them = diff[opposite(p.color)];
+  for (const p of pieces.values()) {
+    const them = diff[opposite(p.color)];
     if (them[p.role] > 0) them[p.role]--;
     else diff[p.color][p.role]++;
   }
@@ -70,9 +70,9 @@ export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
 }
 
 export function getScore(pieces: cg.Pieces): number {
-  let score = 0, k;
-  for (k in pieces) {
-    score += pieceScores[pieces[k]!.role] * (pieces[k]!.color === 'white' ? 1 : -1);
+  let score = 0;
+  for (const p of pieces.values()) {
+    score += pieceScores[p.role] * (p.color === 'white' ? 1 : -1);
   }
   return score;
 }
