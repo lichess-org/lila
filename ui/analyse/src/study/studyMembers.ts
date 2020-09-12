@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { titleNameToId, bind, dataIcon, iconTag, onInsert, scrollTo } from '../util';
 import { prop, Prop } from 'common';
-import { ctrl as inviteFormCtrl } from './inviteForm';
+import { makeCtrl as inviteFormCtrl } from './inviteForm';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { NotifCtrl } from './notif';
 
@@ -20,9 +20,9 @@ interface Opts {
   trans: Trans;
 }
 
-function memberActivity(onIdle) {
-  let timeout;
-  let schedule = function() {
+function memberActivity(onIdle: () => void) {
+  let timeout: Timeout;
+  let schedule = () => {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(onIdle, 100);
   };
@@ -61,7 +61,7 @@ export function ctrl(opts: Opts) {
   function setActive(id: string) {
     if (opts.tab() !== 'members') return;
     if (active[id]) active[id]();
-    else active[id] = memberActivity(function() {
+    else active[id] = memberActivity(() => {
       delete (active[id]);
       opts.redraw();
     });

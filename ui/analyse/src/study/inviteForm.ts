@@ -5,7 +5,7 @@ import { prop, Prop } from 'common';
 import { modal } from '../modal';
 import { StudyMemberMap } from './interfaces';
 
-export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void, trans: Trans) {
+export function makeCtrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void, trans: Trans) {
   const open = prop(false);
   let followings: string[] = [];
   let spectators: string[] = [];
@@ -39,7 +39,7 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
   };
 };
 
-export function view(ctrl): VNode {
+export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
   const candidates = ctrl.candidates();
   return modal({
     class: 'study__invite',
@@ -53,17 +53,18 @@ export function view(ctrl): VNode {
       h('div.input-wrapper', [ // because typeahead messes up with snabbdom
         h('input', {
           attrs: { placeholder: ctrl.trans.noarg('searchByUsername') },
-          hook: onInsert<HTMLInputElement>(el => {
-            window.lichess.userAutocomplete($(el), {
-              tag: 'span',
-              onSelect(v: any) {
-                ctrl.invite(v.name || v);
-                $(el).typeahead('close');
-                el.value = '';
-                ctrl.redraw();
-              }
-            });
-          })
+          hook: onInsert<HTMLInputElement>(input =>
+            window.lichess.userComplete().then(uac =>
+              uac({
+                input,
+                tag: 'span',
+                onSelect(v) {
+                  input.value = '';
+                  ctrl.invite(v.name);
+                  ctrl.redraw();
+                }
+              })
+            ))
         })
       ]),
       candidates.length ? h('div.users', candidates.map(function(username: string) {

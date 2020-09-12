@@ -91,8 +91,9 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   };
 
   const storage = li.storage.make('analysis.panel');
-  const setPanel = function(panel) {
-    $menu.children('.active').removeClass('active').end().find(`[data-panel="${panel}"]`).addClass('active');
+  const setPanel = function(panel: string) {
+    $menu.children('.active').removeClass('active');
+    $menu.find(`[data-panel="${panel}"]`).addClass('active');
     $panels.removeClass('active').filter('.' + panel).addClass('active');
     if ((panel == 'move-times' || ctrl.opts.hunter) && !li.movetimeChart) try {
       li.loadScript('javascripts/chart/movetime.js').then(function() {

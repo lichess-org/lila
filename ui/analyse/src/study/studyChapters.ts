@@ -5,7 +5,7 @@ import { bind, dataIcon, iconTag, scrollTo } from '../util';
 import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
 import { ctrl as chapterEditForm } from './chapterEditForm';
 import AnalyseCtrl from '../ctrl';
-import { StudyCtrl, StudyChapterMeta, LocalPaths, StudyChapter, TagArray } from './interfaces';
+import { StudyCtrl, StudyChapterMeta, LocalPaths, StudyChapter, TagArray, StudyChapterConfig } from './interfaces';
 
 export interface StudyChaptersCtrl {
   newForm: StudyChapterNewFormCtrl;
@@ -19,7 +19,13 @@ export interface StudyChaptersCtrl {
   localPaths: LocalPaths;
 }
 
-export function ctrl(initChapters: StudyChapterMeta[], send: SocketSend, setTab: () => void, chapterConfig, root: AnalyseCtrl): StudyChaptersCtrl {
+export function ctrl(
+  initChapters: StudyChapterMeta[],
+  send: SocketSend,
+  setTab: () => void,
+  chapterConfig: (id: string) => Promise<StudyChapterConfig>,
+  root: AnalyseCtrl
+): StudyChaptersCtrl {
 
   const list: Prop<StudyChapterMeta[]> = prop(initChapters);
 
@@ -63,7 +69,7 @@ export function findTag(tags: TagArray[], name: string): string | undefined {
 }
 
 export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
-  switch(findTag(tags, 'result')) {
+  switch (findTag(tags, 'result')) {
     case '1-0': return isWhite ? '1' : '0';
     case '0-1': return isWhite ? '0' : '1';
     case '1/2-1/2': return '1/2';

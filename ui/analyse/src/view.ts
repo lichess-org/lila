@@ -144,7 +144,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         h('button.button.button-thin.action.text', {
           attrs: dataIcon('G'),
           hook: bind('click', _ => {
-            const pgn = $('.copyables .pgn textarea').val();
+            const pgn = $('.copyables .pgn textarea').val() as string;
             if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn);
           }, ctrl.redraw)
         }, ctrl.trans.noarg('importPgn'))

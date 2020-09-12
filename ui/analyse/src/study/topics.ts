@@ -97,6 +97,6 @@ function setupTagify(elm: HTMLElement, userId?: string) {
           tagify.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
         })
     });
-    $('.tagify__input').focus();
+    $('.tagify__input').each(function(this: HTMLInputElement) { this.focus() });
   });
 }

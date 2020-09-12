@@ -80,7 +80,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     data.chapters,
     send,
     () => vm.tab('chapters'),
-    (chapterId: string) => xhr.chapterConfig(data.id, chapterId),
+    chapterId => xhr.chapterConfig(data.id, chapterId),
     ctrl);
 
   function currentChapter(): StudyChapterMeta {
