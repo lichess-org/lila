@@ -65,7 +65,8 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
             hook: {
               insert(vnode) {
                 const $form = $(vnode.elm as HTMLFormElement),
-                  $input = $form.find('.move').val('').focus();
+                  $input = $form.find('.move').val('');
+                $input[0]!.focus();
                 $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
               }
             }
@@ -119,7 +120,7 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
 
 function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return function() {
-    let input = $input.val().trim();
+    let input = ($input.val() as string).trim();
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else notify('Invalid command');

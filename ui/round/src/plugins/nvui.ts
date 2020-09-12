@@ -55,7 +55,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         h('h2', 'Moves'),
         h('p.moves', {
           attrs: {
-            role : 'log',
+            role: 'log',
             'aria-live': 'off'
           }
         }, renderMoves(d.steps.slice(1), style)),
@@ -64,16 +64,16 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         h('h2', 'Game status'),
         h('div.status', {
           attrs: {
-            role : 'status',
-            'aria-live' : 'assertive',
-            'aria-atomic' : true
+            role: 'status',
+            'aria-live': 'assertive',
+            'aria-atomic': true
           }
         }, [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)]),
         h('h2', 'Last move'),
         h('p.lastMove', {
           attrs: {
-            'aria-live' : 'assertive',
-            'aria-atomic' : true
+            'aria-live': 'assertive',
+            'aria-atomic': true
           }
         }, renderSan(step.san, step.uci, style)),
         ...(ctrl.isPlaying() ? [
@@ -81,7 +81,8 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
           h('form', {
             hook: onInsert(el => {
               const $form = $(el as HTMLFormElement),
-                $input = $form.find('.move').val('').focus();
+                $input = $form.find('.move').val('');
+              $input[0]!.focus();
               $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
             })
           }, [
@@ -99,7 +100,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
               })
             ])
           ])
-        ]: []),
+        ] : []),
         h('h2', 'Your clock'),
         h('div.botc', anyClock(ctrl, 'bottom')),
         h('h2', 'Opponent clock'),
@@ -144,7 +145,7 @@ const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return () => {
-    let input = castlingFlavours($input.val().trim());
+    let input = castlingFlavours(($input.val() as string).trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
@@ -240,7 +241,7 @@ function playerHtml(ctrl: RoundController, player: game.Player) {
     perf = user ? user.perfs[d.game.perf] : null,
     rating = player.rating ? player.rating : (perf && perf.rating),
     rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? '+' + rd : ( rd < 0 ? '−' + (-rd) : '')) : '';
+    ratingDiff = rd ? (rd > 0 ? '+' + rd : (rd < 0 ? '−' + (-rd) : '')) : '';
   return user ? h('span', [
     h('a', {
       attrs: { href: '/@/' + user.username }

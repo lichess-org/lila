@@ -82,6 +82,7 @@ export default function <Result>(opts: Opts<Result>) {
           return false;
         }
       }
+      return;
     }
   });
 

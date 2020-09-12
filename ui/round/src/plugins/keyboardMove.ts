@@ -99,12 +99,8 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
       force: e.which === 13
     });
   });
-  opts.input.addEventListener('focus', function() {
-    opts.ctrl.setFocus(true);
-  });
-  opts.input.addEventListener('blur', function() {
-    opts.ctrl.setFocus(false);
-  });
+  opts.input.addEventListener('focus', () => opts.ctrl.setFocus(true));
+  opts.input.addEventListener('blur', () => opts.ctrl.setFocus(false));
   // prevent default on arrow keys: they only replay moves
   opts.input.addEventListener('keydown', function(e: KeyboardEvent) {
     if (e.which > 36 && e.which < 41) {
