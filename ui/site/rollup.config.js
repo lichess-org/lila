@@ -149,6 +149,10 @@ export default rollupProject({
     input: 'src/team-battle-form.ts',
     output: 'team-battle-form'
   },
+  tourForm: {
+    input: 'src/tour-form.ts',
+    output: 'tour-form'
+  },
   dgt: {
     input: 'src/dgt/dgt.ts',
     output: 'dgt',
