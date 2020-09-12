@@ -42,6 +42,9 @@
   }
 
   .input-wrapper {
+    // for user complete
     overflow: visible !important;
+    position: relative;
+    display: inline-block;
   }
 }

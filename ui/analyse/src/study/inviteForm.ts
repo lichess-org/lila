@@ -54,7 +54,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
         h('input', {
           attrs: { placeholder: ctrl.trans.noarg('searchByUsername') },
           hook: onInsert<HTMLInputElement>(input =>
-            window.lichess.userComplete().then(uac =>
+            window.lichess.userComplete().then(uac => {
               uac({
                 input,
                 tag: 'span',
@@ -63,8 +63,10 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
                   ctrl.invite(v.name);
                   ctrl.redraw();
                 }
-              })
-            ))
+              });
+              input.focus();
+            })
+          )
         })
       ]),
       candidates.length ? h('div.users', candidates.map(function(username: string) {

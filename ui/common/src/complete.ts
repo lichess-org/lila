@@ -30,20 +30,21 @@ export default function <Result>(opts: Opts<Result>) {
         return results;
       });
     },
-    domResults = () => $container.find('.complete-result'),
     selectedResult = (): Result | undefined => {
       if (selectedIndex === null) return;
       return renderedResults[selectedIndex];
     },
     moveSelection = (offset: number) => {
-      selectedIndex = (selectedIndex === null ? (offset == 1 ? 0 : -1) : selectedIndex + offset) % domResults().length;
+      const nb = renderedResults.length;
+      selectedIndex = (selectedIndex === null ? (offset == 1 ? 0 : -1) : selectedIndex + offset) % nb;
+      if (selectedIndex < 0) selectedIndex += nb;
       renderSelection();
       const result = selectedResult();
       if (result) opts.input.value = opts.populate(result);
     },
     renderSelection = () => {
       $container.find('.complete-selected').removeClass('complete-selected');
-      if (selectedIndex !== null) domResults().eq(selectedIndex).addClass('complete-selected');
+      if (selectedIndex !== null) $container.find('.complete-result').eq(selectedIndex).addClass('complete-selected');
     };
 
   let $container: Cash = $('<div class="complete-list none"></div>').insertAfter(opts.input),
