@@ -76,7 +76,10 @@ export default function <Result>(opts: Opts<Result>) {
       }
       if (e.code == 'Enter') {
         $container.addClass('none');
-        const result = selectedResult();
+        const result = selectedResult() || (
+          renderedResults[0] && opts.populate(renderedResults[0]) == opts.input.value ?
+            renderedResults[0] : undefined
+        );
         if (result) {
           if (opts.onSelect) opts.onSelect(result);
           return false;
