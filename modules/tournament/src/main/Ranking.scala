@@ -53,6 +53,12 @@ private class UpdatableRanking(
           )
         else this
       })
+  def -(userId: User.ID) =
+    magicScores
+      .get(userId)
+      .fold(this)(score =>
+        new UpdatableRanking(magicScores - userId, ranks excl UserIdWithMagicScore(userId, score))
+      )
 
   def getRank(userId: User.ID): Option[Int] =
     magicScores.get(userId).map(m => ranks.rangeUntil(UserIdWithMagicScore("", m)).size)
@@ -70,12 +76,13 @@ private object UpdatableRanking {
 }
 
 private[tournament] class OngoingRanking(private var ranking: UpdatableRanking) extends Ranking {
-  def update(userId: User.ID, magicScore: Int): Unit = {
-    ranking = ranking.updated(userId, magicScore)
-  }
   def synchronizedUpdate(userId: User.ID, magicScore: Int) =
     synchronized {
-      update(userId, magicScore)
+      ranking = ranking.updated(userId, magicScore)
+    }
+  def synchronizedRemove(userId: User.ID) =
+    synchronized {
+      ranking -= userId
     }
   def get(userId: User.ID) = ranking getRank userId
   def size                 = ranking.size
