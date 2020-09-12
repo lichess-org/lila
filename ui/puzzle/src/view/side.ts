@@ -1,5 +1,6 @@
 import { h, thunk } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
+import { numberFormat } from 'common/number';
 import { dataIcon } from '../util';
 import { Controller, Puzzle, PuzzleGame, MaybeVNode } from '../interfaces';
 
@@ -19,7 +20,7 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
       attrs: { href: '/training/' + puzzle.id }
     }, ctrl.trans('puzzleId', puzzle.id)),
     h('p', ctrl.trans.vdom('ratingX', ctrl.vm.mode === 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('strong', puzzle.rating))),
-    h('p', ctrl.trans.vdom('playedXTimes', h('strong', window.lichess.numberFormat(puzzle.attempts))))
+    h('p', ctrl.trans.vdom('playedXTimes', h('strong', numberFormat(puzzle.attempts))))
   ])]);
 }
 
@@ -81,7 +82,7 @@ function drawRatingChart(ctrl: Controller, vnode: VNode): void {
     height: '80px',
     lineColor: dark ? '#4444ff' : '#0000ff',
     fillColor: dark ? '#222255' : '#ccccff',
-    numberFormatter: (x: number) => { return x; }
+    numberFormatter: (x: number) => x
   });
   requestAnimationFrame(redraw);
   window.addEventListener('resize', redraw);

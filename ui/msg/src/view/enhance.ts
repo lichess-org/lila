@@ -96,7 +96,7 @@ function expand(exp: Expandable): void {
         (this.parentNode as HTMLElement).classList.add('not-found');
       scroller.auto();
     })
-    .on('mouseenter', function(this: HTMLIFrameElement) { $(this).focus() });
+    .on('mouseenter', function(this: HTMLIFrameElement) { this.focus() });
 }
 
 function parseLink(a: HTMLAnchorElement): Link | undefined {
