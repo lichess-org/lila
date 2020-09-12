@@ -4,7 +4,7 @@ import { notNull } from 'common';
 import spinnerHtml from './component/spinner';
 import Tagify from '@yaireo/tagify'
 
-window.lichess.load.then(() => {
+lichess.load.then(() => {
 
   var $editor = $('.coach-edit');
 
