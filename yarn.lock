@@ -194,6 +194,11 @@
   resolved "https://registry.yarnpkg.com/@types/webrtc/-/webrtc-0.0.25.tgz#bd2b4e7b4c13250b3d58439623f2b9adfd7dee9e"
   integrity sha512-ep/e+p2uUKV1h96GBgRhwomrBch/bPDHPOKbCHODLGRUDuuKe2s7sErlFVKw+5BYUzvpxSmUNqoadaZ44MePoQ==
 
+"@yaireo/tagify@3.9.3":
+  version "3.9.3"
+  resolved "https://registry.yarnpkg.com/@yaireo/tagify/-/tagify-3.9.3.tgz#a6671345b9a3a38eb4a7b18728db2526023e1662"
+  integrity sha512-cS6WyMYY4YD8Op6qwsm1jE2zIxf9RQGJvYkuye4hOzgm4p77aZyByfz1+hmpAWXJZStSpff2iDn7aOB97Smoeg==
+
 "ab@https://github.com/lichess-org/ab-stub":
   version "1.0.0"
   resolved "https://github.com/lichess-org/ab-stub#cd8818ee3905ed167539f78dc0e46de3889eb862"

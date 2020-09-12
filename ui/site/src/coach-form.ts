@@ -1,7 +1,8 @@
 import debounce from "common/debounce";
 import * as xhr from 'common/xhr';
-import spinnerHtml from './component/spinner';
 import { notNull } from 'common';
+import spinnerHtml from './component/spinner';
+import Tagify from '@yaireo/tagify'
 
 window.lichess.load.then(() => {
 
@@ -93,7 +94,7 @@ window.lichess.load.then(() => {
   });
 
   const langInput = document.getElementById('form3-languages');
-  const tagify = new window.Tagify(langInput, {
+  const tagify = new Tagify(langInput, {
     delimiters: null,
     maxTags: 10,
     whitelist: JSON.parse(langInput?.getAttribute('data-all') || ''),
