@@ -40,7 +40,7 @@ final class UserForm(authenticator: Authenticator) {
       "lastName"   -> nameField,
       "fideRating" -> optional(number(min = 600, max = 3000)),
       "uscfRating" -> optional(number(min = 100, max = 3000)),
-      "ecfRating"  -> optional(number(min = 0, max = 300)),
+      "ecfRating"  -> optional(number(min = 0, max = 3000)),
       "links"      -> optional(clean(nonEmptyText(maxLength = 3000)))
     )(Profile.apply)(Profile.unapply)
   )
