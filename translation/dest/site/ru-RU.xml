@@ -221,7 +221,6 @@
     <item quantity="other">%s партий с вами</item>
   </plurals>
   <string name="cancel">Отменить</string>
-  <string name="timeOut">Время истекло</string>
   <string name="drawOfferSent">Предложение ничьей отправлено</string>
   <string name="drawOfferDeclined">Предложение ничьей отклонено</string>
   <string name="drawOfferAccepted">Предложение ничьей принято</string>
@@ -449,7 +448,7 @@
   <string name="openTournaments">Открытые турниры</string>
   <string name="duration">Длительность</string>
   <string name="winner">Победитель</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Турнирная таблица</string>
+  <string name="standing">Турнирная таблица</string>
   <string name="createANewTournament">Создать турнир</string>
   <string name="tournamentCalendar">Турнирный календарь</string>
   <string name="conditionOfEntry">Условия участия:</string>
@@ -723,7 +722,7 @@
   <string name="newTournament">Новый турнир</string>
   <string name="tournamentHomeTitle">Шахматный турнир по различным вариантам шахмат и контролем времени</string>
   <string name="tournamentHomeDescription">Играйте в быстрые шахматы на турнире! Выбирайте любой из официальных турниров Lichess или создайте свой собственный. Пуля, блиц, классика, шахматы Фишера, король в центре, три шаха и другие варианты игры обеспечат вам бесконечное шахматное удовольствие!</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Турнир не найден</string>
+  <string name="tournamentNotFound">Турнир не найден</string>
   <string name="tournamentDoesNotExist">Такого турнира не существует.</string>
   <string name="tournamentMayHaveBeenCanceled">Может быть отменён в том случае, если все игроки покинули турнир до его старта.</string>
   <string name="returnToTournamentsHomepage">Главная страница турниров</string>
