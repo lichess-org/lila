@@ -32,7 +32,7 @@
   <string name="promoteToQueenAutomatically">Promovează automat in damă</string>
   <string name="whenPremoving">În cazul mutărilor anticipate</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">Declară automat o remiză în cazul a trei repetări</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Cînd timpul rămas e mai scurt de 30 de secunde</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="whenTimeRemainingLessThanThirtySeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Când timpul rămas e mai scurt de 30 de secunde</string>
   <string name="moveConfirmation">Confirmare mutare</string>
   <string name="inCorrespondenceGames">În jocuri prin corespondență</string>
   <string name="correspondenceAndUnlimited">Corespondență sau timp nelimitat</string>
