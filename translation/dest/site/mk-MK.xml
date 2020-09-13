@@ -199,7 +199,6 @@
     <item quantity="other">%s игри со тебе</item>
   </plurals>
   <string name="cancel">Откажи</string>
-  <string name="timeOut">Времето истече</string>
   <string name="drawOfferSent">Понуда за реми е испратена</string>
   <string name="drawOfferDeclined">Понудата за реми е одбиена</string>
   <string name="drawOfferAccepted">Понудата за реми е прифатена</string>
@@ -394,7 +393,7 @@
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Времетраење</string>
   <string name="winner">Победник</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Положба</string>
+  <string name="standing">Положба</string>
   <string name="createANewTournament">Отвори нов турнир</string>
   <string name="tournamentCalendar">Календар на турнири</string>
   <string name="conditionOfEntry">Услови за влез:</string>
@@ -658,7 +657,7 @@
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шаховски турнир со различни временски контроли и варијанти</string>
   <string name="tournamentHomeDescription">Играј брзи турнири! Придружи се на официјален турнир, или започни свој. Стрела, Блиц, Класичен, Шах 960, Кралот на средина, Три шаха, и многу други варијанти за бескрајна забава.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Турнирот не е пронајден</string>
+  <string name="tournamentNotFound">Турнирот не е пронајден</string>
   <string name="tournamentDoesNotExist">Овој турнир не постои.</string>
   <string name="tournamentMayHaveBeenCanceled">Турнирот може да е откажан ако сите играчи го напуштиле пред да започне.</string>
   <string name="returnToTournamentsHomepage">Повраток на почетната страна</string>
