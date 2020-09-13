@@ -5,5 +5,8 @@
   <string name="myPublicStudies">Mo chuid staidéir phoiblí</string>
   <string name="myPrivateStudies">Mo chuid staidéir phríobháideacha</string>
   <string name="myFavoriteStudies">Na staidéir is fearr liom</string>
+  <string name="whatAreStudies">Cad is staidéir ann?</string>
+  <string name="allStudies">Gach staidéar</string>
+  <string name="studiesCreatedByX">Staidéir a chruthaigh %s</string>
   <string name="open">Oscailte</string>
 </resources>
