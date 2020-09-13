@@ -1,6 +1,6 @@
 import pubsub from './pubsub';
 import spinnerHtml from './spinner';
-import { loadCssPath, loadScript, jsModule } from './assets';
+import { loadCssPath, loadModule } from './assets';
 
 export default function() {
 
@@ -39,7 +39,7 @@ export default function() {
       booted = true;
       const $el = $('#challenge-app').html(initiatingHtml);
       loadCssPath('challenge');
-      loadScript(jsModule('challenge')).then(() =>
+      loadModule('challenge').then(() =>
         instance = window.LichessChallenge($el[0], {
           data,
           show() {
@@ -71,7 +71,7 @@ export default function() {
       booted = true;
       const $el = $('#notify-app').html(initiatingHtml);
       loadCssPath('notify');
-      loadScript(jsModule('notify')).then(() =>
+      loadModule('notify').then(() =>
         instance = window.LichessNotify($el.empty()[0], {
           data,
           incoming,
@@ -117,11 +117,7 @@ export default function() {
       const $el = $('#dasher_app').html(initiatingHtml),
         playing = $('body').hasClass('playing');
       loadCssPath('dasher');
-      loadScript(jsModule('dasher')).then(() =>
-        window.LichessDasher($el.empty()[0], {
-          playing
-        })
-      );
+      loadModule('dasher').then(() => window.LichessDasher($el.empty()[0], { playing }));
     });
   }
 
@@ -133,7 +129,7 @@ export default function() {
     const boot = () => {
       if (booted) return;
       booted = true;
-      loadScript(jsModule('cli')).then(() => window.LichessCli.app($wrap, toggle));
+      loadModule('cli').then(() => window.LichessCli.app($wrap, toggle));
     };
     const toggle = () => {
       boot();

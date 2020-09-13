@@ -50,7 +50,11 @@ function command(q: string) {
     location.href = '/?user=' + parts[1] + '#friend';
 
   else if (is('light dark transp'))
-    getDasher(dasher => dasher.subs.background.set(exec));
+    lichess.loadModule('dasher').then(() =>
+      window.LichessDasher(document.createElement('div'), {
+        playing: $('body').hasClass('playing')
+      })
+    ).then(dasher => dasher.subs.background.set(exec));
 
   else if (is('stream') && parts[1])
     location.href = '/streamer/' + parts[1];
@@ -83,12 +87,4 @@ function help() {
     ),
     'clinput-help'
   );
-}
-
-function getDasher(cb: (dasher: any) => void) {
-  lichess.loadScript(lichess.jsModule('dasher')).then(function() {
-    window['LichessDasher'](document.createElement('div'), {
-      playing: $('body').hasClass('playing')
-    }).then(cb);
-  });
 }

@@ -15,6 +15,7 @@ interface Lichess {
   loadCssPath(path: string): void;
   jsModule(name: string): string;
   loadScript(url: string, opts?: AssetUrlOpts): Promise<void>;
+  loadModule(name: string): Promise<void>;
   hopscotch: any;
   userComplete: () => Promise<UserComplete>;
   slider(): Promise<void>;

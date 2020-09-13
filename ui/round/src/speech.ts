@@ -9,10 +9,7 @@ export function setup(ctrl: RoundController) {
 
 function onSpeechChange(ctrl: RoundController) {
   return function(enabled: boolean) {
-    if (!window.LichessSpeech && enabled)
-      lichess.loadScript(
-        lichess.jsModule('speech')
-      ).then(() => status(ctrl));
+    if (!window.LichessSpeech && enabled) lichess.loadModule('speech').then(() => status(ctrl));
     else if (window.LichessSpeech && !enabled) window.LichessSpeech = undefined;
   };
 }

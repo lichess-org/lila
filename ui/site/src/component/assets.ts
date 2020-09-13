@@ -32,9 +32,11 @@ export const loadScript = (url: string, opts: AssetUrlOpts = {}): Promise<void> 
   return loadedScript.get(url)!;
 }
 
+export const loadModule = (name: string): Promise<void> => loadScript(jsModule(name))
+
 export const userComplete = (): Promise<UserComplete> => {
   loadCssPath('complete');
-  return loadScript(jsModule('user-complete')).then(_ => window.UserComplete);
+  return loadModule('user-complete').then(_ => window.UserComplete);
 }
 
 export const hopscotch = () => {

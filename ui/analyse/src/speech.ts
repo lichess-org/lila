@@ -4,8 +4,7 @@ export function setup() {
 }
 
 function onSpeechChange(enabled: boolean) {
-  if (!window.LichessSpeech && enabled)
-    lichess.loadScript(lichess.jsModule('speech'));
+  if (!window.LichessSpeech && enabled) lichess.loadModule('speech');
   else if (window.LichessSpeech && !enabled) window.LichessSpeech = undefined;
 }
 
