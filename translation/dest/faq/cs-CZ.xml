@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">Často kladené dotazy (FAQ)</string>
   <string name="frequentlyAskedQuestions">Často kladené otázky</string>
   <string name="whyIsLichessCalledLichess">Proč se Lichess nazývá Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinace slov live/light/libre a chess z angličtiny. Vyslovuje se %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess je kombinace slov live/light/libre a chess z angličtiny. Vyslovuje se %1$s.</string>
   <string name="leechess">ličes</string>
   <string name="hearItPronouncedBySpecialist">Poslechněte si, jak je vyslovováno profesionálem.</string>
   <string name="whyLiveLightLibre">Živé, protože hry jsou hrány a sledovány v reálném čase 24/7; lehké a volné, protože Lichess má otevřený zdrojový kód a je nezatížené proprietárním nepořádkem, který zaplavuje ostatní weby.</string>
