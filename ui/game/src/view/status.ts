@@ -24,7 +24,12 @@ export default function status(ctrl: Ctrl): string {
     case 'draw':
       return noarg('draw');
     case 'outoftime':
-      return noarg('timeOut');
+      switch (d.game.turns % 2) {
+        case 0:
+          return noarg('whiteTimeOut');
+        case 1:
+          return noarg('blackTimeOut');
+      }
     case 'noStart':
       return (d.game.winner == 'white' ? 'Black' : 'White') + ' didn\'t move';
     case 'cheat':

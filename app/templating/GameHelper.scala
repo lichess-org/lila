@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import chess.{ Status => S, Color, Clock, Mode }
+import chess.{ Status => S, Color, Black, White, Clock, Mode }
 import controllers.routes
 import play.api.i18n.Lang
 
@@ -180,7 +180,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           case None                     => trans.draw.txt()
         }
       case S.Draw      => trans.draw.txt()
-      case S.Outoftime => trans.timeOut.txt()
+      case S.Outoftime => game.turnColor match {
+        case White => trans.whiteTimeOut.txt()
+        case Black => trans.blackTimeOut.txt()
+      }
       case S.NoStart =>
         val color = game.loser.fold(Color.white)(_.color).name.capitalize
         s"$color didn't move"
