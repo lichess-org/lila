@@ -605,7 +605,7 @@
   <string name="onlyFriends">फक्त मित्र</string>
   <string name="menu">मेनू</string>
   <string name="castling">किल्ल्यात</string>
-  <string name="whiteCastlingKingside">पांढरा ओ-ओ</string>
+  <string name="whiteCastlingKingside">पांढरा 0-0</string>
   <string name="blackCastlingKingside">काळा ओ-ओ</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s मंचातील प्रतिक्रिया</item>
@@ -791,7 +791,7 @@
   <string name="waitingForAnalysis">विश्लेषणासाठी वाट पहा</string>
   <string name="noMistakesFoundForWhite">पांढऱ्याची चूक सापडली नाही</string>
   <string name="noMistakesFoundForBlack">काळ्याची चूक सापडली नाही</string>
-  <string name="doneReviewingWhiteMistakes">पांढऱ्याची समीक्षा झाली</string>
+  <string name="doneReviewingWhiteMistakes">पांढऱ्याच्या चुकांची समीक्षा झाली</string>
   <string name="doneReviewingBlackMistakes">काळ्याची समीक्षा झाली</string>
   <string name="doItAgain">परत समीक्षा करा</string>
   <string name="reviewWhiteMistakes">पांढऱ्याच्या चुकांची समीक्षा करा</string>
