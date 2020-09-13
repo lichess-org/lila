@@ -188,7 +188,6 @@
     <item quantity="other">%s partitas con te</item>
   </plurals>
   <string name="cancel">Cancellar</string>
-  <string name="timeOut">Tempore finite</string>
   <string name="drawOfferSent">Proposition de partita nulle inviate</string>
   <string name="drawOfferDeclined">Proposition de partita nulle declinate</string>
   <string name="drawOfferAccepted">Proposition de partita nulle acceptate</string>
@@ -374,7 +373,7 @@
   <string name="openTournaments">Torneos aperte</string>
   <string name="duration">Duration</string>
   <string name="winner">Vincitor</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Position</string>
+  <string name="standing">Position</string>
   <string name="createANewTournament">Crear un nove torneo</string>
   <string name="tournamentCalendar">Calendario del torneo</string>
   <string name="conditionOfEntry">Condition de entrata:</string>
@@ -633,7 +632,7 @@
   <string name="newTournament">Nove torneo</string>
   <string name="tournamentHomeTitle">Torneo de chacos con plure variantes e controlos de tempore</string>
   <string name="tournamentHomeDescription">Joca chacos in rhythmo veloce! Participa in torneos official, o crea tu proprie. Bullet, Blitz, Classic, Chacos960, Rege in le Collina, Tres Chacos, e ancora plus optiones disponibile pro illimitate divertimento con chacos.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Torneo non trovate</string>
+  <string name="tournamentNotFound">Torneo non trovate</string>
   <string name="tournamentDoesNotExist">Iste torneo non existe.</string>
   <string name="tournamentMayHaveBeenCanceled">Le evento forsan esseva cancellate, si tote le jocatores abandonava lo ante le initio.</string>
   <string name="returnToTournamentsHomepage">Retorna al pagina initial de torneos</string>
