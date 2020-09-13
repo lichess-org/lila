@@ -199,6 +199,8 @@
     <item quantity="other">%s ludoj kun vi</item>
   </plurals>
   <string name="cancel">Nuligi</string>
+  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when white's time has run out. Is followed by the end condition, for example&#10;'White time out. Draw'">La tempo de blanko finiĝis</string>
+  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when black's time has run out. Is followed by the end condition, for example&#10;'Black time out. Draw'">La tempo de nigro finiĝis</string>
   <string name="drawOfferSent">Egalvenka propono estis sendita</string>
   <string name="drawOfferDeclined">Egalvenka propono estis malakceptita</string>
   <string name="drawOfferAccepted">Egalvenka propono estis akceptita</string>
