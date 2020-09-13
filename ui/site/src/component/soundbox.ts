@@ -1,6 +1,6 @@
 import { storage } from './storage';
 
-class SoundBox {
+export class SoundBox {
 
   sounds = new Map(); // The loaded sounds and their instances
 

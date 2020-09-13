@@ -27,53 +27,34 @@ function memoize(factory) {
   return f;
 };
 
-const names = {
-  genericNotify: 'GenericNotify',
-  move: 'Move',
-  capture: 'Capture',
-  explode: 'Explosion',
-  lowtime: 'LowTime',
-  victory: 'Victory',
-  defeat: 'Defeat',
-  draw: 'Draw',
-  berserk: 'Berserk',
-  check: 'Check',
-  newChallenge: 'NewChallenge',
-  newPM: 'NewPM',
-  confirmation: 'Confirmation',
-  error: 'Error'
-};
-
 const volumes = {
   lowtime: 0.5,
-  explode: 0.35,
+  explosion: 0.35,
   confirmation: 0.5
 };
-api.collection = memoize((k: string) => {
+api.collection = memoize((k: string, name?: string) => {
   let set = soundSet;
   if (set === 'music' || speechStorage.get()) {
-    if (['move', 'capture', 'check'].includes(k)) return () => {};
+    if (['move', 'capture', 'check'].includes(k)) return () => { };
     set = 'standard';
   }
-  soundBox.loadOggOrMp3(k, `${soundUrl}/${set}/${names[k]}`);
+  name = name || k.charAt(0).toUpperCase() + k.slice(1);
+  soundBox.loadOggOrMp3(k, `${soundUrl}/${set}/${name}`);
   return () => soundBox.play(k, volumes[k] || 1);
 });
 const enabled = () => soundSet !== 'silent';
-api.load = (name, file) => {
-  if (!names[name]) names[name] = file;
-  api[name] = text => {
-    if (enabled() && (!text || !api.say(text))) api.collection(name)();
+api.load = (k: string, name?: string) => {
+  api[k] = (text: string) => {
+    if (enabled() && (!text || !api.say(text))) api.collection(k, name)();
   }
 }
-Object.keys(names).forEach(api.load);
-api.say = (text, cut, force) => {
+api.say = (text: SpeechSynthesisUtterance | string, cut: boolean, force: boolean) => {
   if (!speechStorage.get() && !force) return false;
-  const msg = text.text ? text : new SpeechSynthesisUtterance(text);
+  const msg = typeof text == 'string' ? new SpeechSynthesisUtterance(text) : text;
   msg.volume = soundBox.getVolume();
   msg.lang = 'en-US';
   if (cut) speechSynthesis.cancel();
   speechSynthesis.speak(msg);
-  // console.log(`%c${msg.text}`, 'color: blue');
   return true;
 };
 
@@ -81,7 +62,7 @@ const publish = () => pubsub.emit('sound_set', soundSet);
 
 if (soundSet == 'music') setTimeout(publish, 500);
 
-api.changeSet = s => {
+api.changeSet = (s: string) => {
   soundSet = s;
   api.collection.clear();
   publish();

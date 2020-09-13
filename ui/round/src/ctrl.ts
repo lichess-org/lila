@@ -155,7 +155,7 @@ export default class RoundController {
   private onMove = (_: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
     if (captured) {
       if (this.data.game.variant.key === 'atomic') {
-        sound.explode();
+        sound.explosion();
         atomic.capture(this, dest);
       } else sound.capture();
     } else sound.move();
@@ -370,7 +370,7 @@ export default class RoundController {
         this.chessground.setPieces(new Map([[p.key, undefined]]));
         if (d.game.variant.key === 'atomic') {
           atomic.enpassant(this, p.key, p.color);
-          sound.explode();
+          sound.explosion();
         } else sound.capture();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
