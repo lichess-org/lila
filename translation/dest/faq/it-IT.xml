@@ -71,7 +71,7 @@ Vedi l\'%3$s su questa mossa per fare un po\' di pratica con essa.</string>
   <string name="notRepeatedMoves">Non abbiamo ripetuto le mosse. Perché la partita è stata comunque dichiarata patta per ripetizione?</string>
   <string name="repeatedPositionsThatMatters">La triplice ripetizione riguarda la %1$s, non le mosse. La ripetizione non deve necessariamente avvenire consecutivamente.</string>
   <string name="positions">posizioni</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Abbiamo ripetuto una posizione tre volte. Perché il gioco non è stato disegnato?</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Abbiamo ripetuto una posizione tre volte. Perché la partita non è stata dichiarata patta?</string>
   <string name="threeFoldHasToBeClaimed">La ripetizione deve essere rivendicata da uno dei giocatori. Puoi farlo premendo il pulsante che appare, o offrendo una patta prima di ripetere la tua mossa finale. Puoi anche %1$s Lichess per reclamare automaticamente le tre ripetizioni. Inoltre, le cinque ripetizioni terminano sempre il gioco.</string>
   <string name="configure">configurare</string>
   <string name="accounts">Utenti</string>
@@ -99,8 +99,8 @@ Non chiedere il titolo di LM.</string>
   <string name="wayOfBerserkExplanation">Per ottenerlo hiimgosu si è superato nel vincere il 100%% delle partite di un %s in berserk.</string>
   <string name="aHourlyBulletTournament">un torneo Bullet orario</string>
   <string name="goldenZeeExplanation">ZugAddict, durante uno streaming, ha cercato per 2 ore di sconfiggere l\'A.I. livello 8 in partite 1+0 senza riuscirci. Thibault gli ha detto che se, durante lo streaming, fosse riuscito a sconfiggere l\'A.I., avrebbe ottenuto un trofeo personalizzato. ZugAddict, un\'ora dopo, ha distrutto Stockfish e dunque la promessa è stata mantenuta.</string>
-  <string name="lichessRatings">Rating di Lichess</string>
-  <string name="whichRatingSystemUsedByLichess">Quale sistema di rating utilizza Lichess?</string>
+  <string name="lichessRatings">Punteggio di Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Quale sistema di punteggio utilizza Lichess?</string>
   <string name="ratingSystemUsedByLichess">I rating sono calcolati utilizzando il metodo di valutazione Glicko-2 sviluppato da Mark Glickman. Si tratta di un metodo di rating molto popolare, è infatti utilizzato da un grande numero di organizzazioni scacchistiche (FIDE, tuttavia, è una notevole eccezione poiché utilizza ancora il datato sistema di valutazione Elo).
 
 In sostanza, le valutazioni Glicko utilizzano \"intervalli di fiducia\" per il calcolo e la rappresentazione del tuo rating. Quando inizi a giocare sul sito la tua valutazione parte da 1500 ± 700. I 1500 rappresentano il tuo rating e i 700 rappresentano l\'intervallo di fiducia.
