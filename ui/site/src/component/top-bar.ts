@@ -4,7 +4,12 @@ import { loadCssPath, loadScript, jsModule } from './assets';
 
 export default function() {
 
-  const initiatingHtml = `<div class="initiating">${spinnerHtml}</div>`;
+  const initiatingHtml = `<div class="initiating">${spinnerHtml}</div>`,
+    isVisible = (selector: string) => {
+      const el = document.querySelector(selector),
+      display = el && window.getComputedStyle(el).display;
+      return display && display != 'none';
+    };
 
   $('#topnav-toggle').on('change', e =>
     document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked)
@@ -38,7 +43,7 @@ export default function() {
         instance = window.LichessChallenge($el[0], {
           data,
           show() {
-            if (!$('#challenge-app').is(':visible')) $toggle.trigger('click');
+            if (!isVisible('#challenge-app')) $toggle.trigger('click');
           },
           setCount(nb: number) {
             $toggle.find('span').data('count', nb);
@@ -59,7 +64,7 @@ export default function() {
   { // notifyApp
     let instance, booted: boolean;
     const $toggle = $('#notify-toggle'),
-      isVisible = () => $('#notify-app').is(':visible');
+      selector = '#notify-app';
 
     const load = (data?: any, incoming = false) => {
       if (booted) return;
@@ -70,12 +75,12 @@ export default function() {
         instance = window.LichessNotify($el.empty()[0], {
           data,
           incoming,
-          isVisible,
+          isVisible: () => isVisible(selector),
           setCount(nb: number) {
             $toggle.find('span').data('count', nb);
           },
           show() {
-            if (!isVisible()) $toggle.trigger('click');
+            if (!isVisible(selector)) $toggle.trigger('click');
           },
           setNotified() {
             window.lichess.socket.send('notified');
@@ -90,7 +95,7 @@ export default function() {
     $toggle.one('mouseover click', () => load()).on('click', () => {
       if ('Notification' in window) Notification.requestPermission();
       setTimeout(() => {
-        if (instance && isVisible()) instance.setVisible();
+        if (instance && isVisible(selector)) instance.setVisible();
       }, 200);
     });
 
@@ -128,9 +133,7 @@ export default function() {
     const boot = () => {
       if (booted) return;
       booted = true;
-      loadScript(jsModule('cli')).then(() =>
-        window.LichessCli.app($wrap, toggle)
-      );
+      loadScript(jsModule('cli')).then(() => window.LichessCli.app($wrap, toggle));
     };
     const toggle = () => {
       boot();
