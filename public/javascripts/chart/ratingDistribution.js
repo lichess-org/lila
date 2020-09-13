@@ -22,7 +22,7 @@ lichess.ratingDistributionChart = function(data) {
         var cumul = [];
         for (var i = 0; i < data.freq.length; i++)
           cumul.push(Math.round(arraySum(data.freq.slice(0, i)) / sum * 100));
-        $(this).highcharts({
+        Highcharts.chart(this, {
           yAxis: {
             title: noText
           },

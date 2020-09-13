@@ -1,4 +1,4 @@
-$(function() {
+lichess.load.then(() => {
 
   Highcharts.makeFont = function(size) {
     return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
@@ -191,12 +191,13 @@ $(function() {
   };
 
   var charts = {};
-  $('.server .meter').highcharts(buildChart({
+
+  Highcharts.chart(document.querySelector('.server .meter'), buildChart({
     title: 'SERVER'
   }), function(c) {
     charts.server = c;
   });
-  $('.network .meter').highcharts(buildChart({
+  Highcharts.chart(document.querySelector('.network .meter'), buildChart({
     title: 'PING'
   }), function(c) {
     charts.network = c;
@@ -215,20 +216,14 @@ $(function() {
     $('.lag .answer span').hide().parent().find('.' + c).show();
   };
 
-  lichess.socket = new lichess.StrongSocket('/socket/v4', false, {
-    options: {
-      name: 'analyse'
-    },
-    receive(t, d) {
-      if (t === 'mlat') {
-        var v = parseInt(d);
-        charts.server.series[0].points[0].update(v);
-        values.server = v;
-        updateAnswer();
-      }
-    }
+  lichess.StrongSocket.firstConnect.then(() => lichess.socket.send('moveLat', true));
+
+  lichess.pubsub.on('socket.in.mlat', d => {
+    const v = parseInt(d);
+    charts.server.series[0].points[0].update(v);
+    values.server = v;
+    updateAnswer();
   });
-  lichess.StrongSocket.firstConnect.then(() =>lichess.socket.send('moveLat', true));
 
   setInterval(function() {
     const v = Math.round(lichess.socket.averageLag);

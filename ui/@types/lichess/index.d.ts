@@ -357,7 +357,6 @@ interface Cash {
   powerTip(options?: PowerTip.Options | 'show' | 'hide'): Cash;
   sparkline: any;
   clock: any;
-  highcharts(conf?: any): any;
 }
 
 declare namespace PowerTip {

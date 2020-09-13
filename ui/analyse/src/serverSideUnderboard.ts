@@ -38,7 +38,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         lastFen = fen;
       }
       if ($chart.length) {
-        chart = window.Highcharts && $chart.highcharts();
+        chart = $chart[0]!['highcharts'];
         if (chart) {
           if (mainlinePly != chart.lastPly) {
             if (mainlinePly === false) unselect(chart);
@@ -52,7 +52,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         }
       }
       if ($timeChart.length) {
-        chart = window.Highcharts && $timeChart.highcharts();
+        chart = $timeChart[0]!['highcharts'];
         if (chart) {
           if (mainlinePly != chart.lastPly) {
             if (mainlinePly === false) unselect(chart);
@@ -109,7 +109,12 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     setPanel(panel);
   });
   const stored = storage.get();
-  if (stored && $menu.children(`[data-panel="${stored}"]:visible`).length) setPanel(stored);
+  const foundStored = stored && $menu.children(`[data-panel="${stored}"]`).
+    filter(function(this: HTMLElement) {
+      const display = window.getComputedStyle(this).display;
+      return !!display && display != 'none';
+    }).length;
+  if (foundStored) setPanel(stored!);
   else {
     const $menuCt = $menu.children('[data-panel="ctable"]');
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');

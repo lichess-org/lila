@@ -61,7 +61,7 @@ lichess.movetimeChart = function(data, trans) {
             var noText = {
               text: null
             };
-            $this.highcharts({
+            this.highcharts = Highcharts.chart(this, {
               credits: disabled,
               legend: disabled,
               series: [{

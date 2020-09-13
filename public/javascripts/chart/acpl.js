@@ -7,7 +7,7 @@ lichess.advantageChart = function(data, trans, el) {
       lichess.chartCommon('highchart').then(function() {
 
         lichess.advantageChart.update = function(d) {
-          $(el).highcharts().series[0].setData(makeSerieData(d));
+          el.highcharts && el.highcharts.series[0].setData(makeSerieData(d));
         };
 
         var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
@@ -15,7 +15,7 @@ lichess.advantageChart = function(data, trans, el) {
 
         var makeSerieData = function(d) {
           var partial = !d.analysis || d.analysis.partial;
-          return d.treeParts.slice(1).map(function(node, i) {
+          return d.treeParts.slice(1).map(function(node) {
 
             var color = node.ply & 1, cp;
 
@@ -57,7 +57,7 @@ lichess.advantageChart = function(data, trans, el) {
           text: null
         };
         var serieData = makeSerieData(data);
-        var chart = $(el).highcharts({
+        el.highcharts = Highcharts.chart(el, {
           credits: disabled,
           legend: disabled,
           series: [{

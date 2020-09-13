@@ -30,19 +30,14 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
   li.pubsub.on('analysis.change', (_fen: string, _path: string, mainlinePly: number | false) => {
     if (!li.advantageChart || lastPly() === mainlinePly) return;
     const lp = lastPly(typeof mainlinePly === 'undefined' ? lastPly() : mainlinePly),
-      el = chartEl();
-    if (el && window.Highcharts) {
-      const $chart = $(el);
-      if ($chart.length) {
-        const chart = $chart.highcharts();
-        if (chart) {
-          if (lp === false) unselect(chart);
-          else {
-            const point = chart.series[0].data[lp - 1 - root.tree.root.ply];
-            if (defined(point)) point.select();
-            else unselect(chart);
-          }
-        } else lastPly(false);
+      el = chartEl(),
+      chart = el && el['highcharts'];
+    if (chart) {
+      if (lp === false) unselect(chart);
+      else {
+        const point = chart.series[0].data[lp - 1 - root.tree.root.ply];
+        if (defined(point)) point.select();
+        else unselect(chart);
       }
     } else lastPly(false);
   });

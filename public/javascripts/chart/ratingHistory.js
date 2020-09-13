@@ -56,7 +56,7 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
           'Dash', // Puzzle
           'Dash' // Ultrabullet
         ].filter(indexFilter);
-        $(this).highcharts('StockChart', {
+        Highcharts.stockChart(this, {
           yAxis: {
             title: noText
           },
