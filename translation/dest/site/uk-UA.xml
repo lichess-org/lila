@@ -221,7 +221,6 @@
     <item quantity="other">%s партій з вами</item>
   </plurals>
   <string name="cancel">Скасувати</string>
-  <string name="timeOut">Збіг час</string>
   <string name="drawOfferSent">Пропозицію нічиєї надіслано</string>
   <string name="drawOfferDeclined">Пропозицію нічиєї відхилено</string>
   <string name="drawOfferAccepted">Пропозицію нічиєї прийнято</string>
@@ -450,7 +449,7 @@
   <string name="openTournaments">Відкриті турніри</string>
   <string name="duration">Тривалість</string>
   <string name="winner">Переможець</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Позиція</string>
+  <string name="standing">Позиція</string>
   <string name="createANewTournament">Створити новий турнір</string>
   <string name="tournamentCalendar">Турнірний календар</string>
   <string name="conditionOfEntry">Умови участі:</string>
@@ -724,7 +723,7 @@
   <string name="newTournament">Новий турнір</string>
   <string name="tournamentHomeTitle">Шаховий турнір із різними контролем часу та варіантами</string>
   <string name="tournamentHomeDescription">Грайте у швидкі шахи на турнірі! Приєднуйтеся до запланованих офіційних турнірів або створіть власний. Куля, бліц, класичні шахи, шахи Фішера, \"Цар гори\", \"Три шахи\" та інші варіанти забезпечать нескінченне задоволення.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Турнір не знайдено</string>
+  <string name="tournamentNotFound">Турнір не знайдено</string>
   <string name="tournamentDoesNotExist">Цей турнір не існує.</string>
   <string name="tournamentMayHaveBeenCanceled">Турнір міг бути скасований, якщо всі гравці залишили його до початку.</string>
   <string name="returnToTournamentsHomepage">Повернутися до домашньої сторінки турніру</string>

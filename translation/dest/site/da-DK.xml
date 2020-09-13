@@ -199,7 +199,6 @@
     <item quantity="other">%s partier med dig</item>
   </plurals>
   <string name="cancel">Afbryd</string>
-  <string name="timeOut">Tiden er udløbet</string>
   <string name="drawOfferSent">Remistilbud afsendt</string>
   <string name="drawOfferDeclined">Remistilbud afslået</string>
   <string name="drawOfferAccepted">Remistilbud accepteret</string>
@@ -393,7 +392,7 @@
   <string name="openTournaments">Åben turnering</string>
   <string name="duration">Varighed</string>
   <string name="winner">Vinder</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Stilling</string>
+  <string name="standing">Stilling</string>
   <string name="createANewTournament">Opret en ny turnering</string>
   <string name="tournamentCalendar">Turneringskalender</string>
   <string name="conditionOfEntry">Betingelser for deltagelse:</string>
@@ -657,7 +656,7 @@
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Skakturnering med forskellige tidskontroller og varianter</string>
   <string name="tournamentHomeDescription">Spil tempofyldte skakturneringer! Meld dig til en officielt organiseret turnering eller opret din egen. Bullet, Blitz, Klassisk, Chess960, King of the Hill, Tre-check og andre muligheder for ubegrænset skaksjov.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnering ikke fundet</string>
+  <string name="tournamentNotFound">Turnering ikke fundet</string>
   <string name="tournamentDoesNotExist">Denne turnering eksisterer ikke.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan være blevet aflyst, hvis alle spillere forlod den før turneringsstart.</string>
   <string name="returnToTournamentsHomepage">Vend tilbage til turnerings-forsiden</string>

@@ -199,7 +199,6 @@
     <item quantity="other">%s parti med deg</item>
   </plurals>
   <string name="cancel">Avbryt</string>
-  <string name="timeOut">Tida er ute</string>
   <string name="drawOfferSent">Tilbod om remis er sendt</string>
   <string name="drawOfferDeclined">Remistilbod avslått</string>
   <string name="drawOfferAccepted">Remistilbod godtatt</string>
@@ -394,7 +393,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="openTournaments">Opne turneringar</string>
   <string name="duration">Tidslengd</string>
   <string name="winner">Vinnar</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Stilling</string>
+  <string name="standing">Stilling</string>
   <string name="createANewTournament">Lag ei ny turnering</string>
   <string name="tournamentCalendar">Turneringskalender</string>
   <string name="conditionOfEntry">Vilkår for å delta:</string>
@@ -661,7 +660,7 @@ i %3$s</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturnering med varierande tid og sjakkvariantar</string>
   <string name="tournamentHomeDescription">Spel fartsfylde sjakkturneringar! Delta i offisielle, planlagde turneringar eller lag dine eigne. Lynsjakk, snøggsjakk, og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Kan ikke finne turneringa</string>
+  <string name="tournamentNotFound">Kan ikke finne turneringa</string>
   <string name="tournamentDoesNotExist">Denna turneringa finst ikkje.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avbroten om alle spelarane trakk seg før turneringa starta.</string>
   <string name="returnToTournamentsHomepage">Returner til turneringas heimeside.</string>

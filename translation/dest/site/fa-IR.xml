@@ -195,7 +195,6 @@
     <item quantity="other">%s بازی با شما</item>
   </plurals>
   <string name="cancel">انصراف</string>
-  <string name="timeOut">وقت تمام شد</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
   <string name="drawOfferDeclined">پیشنهاد تساوی پذیرفته نشد</string>
   <string name="drawOfferAccepted">پیشنهاد تساوی پذیرفته شد</string>
@@ -389,7 +388,7 @@
   <string name="openTournaments">باز کردن مسابقه</string>
   <string name="duration">مدت</string>
   <string name="winner">برنده</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">رتبه بندی</string>
+  <string name="standing">رتبه بندی</string>
   <string name="createANewTournament">درست کردن یک مسابقه ی جدید</string>
   <string name="tournamentCalendar">برنامه ی مسابقات</string>
   <string name="conditionOfEntry">شرایط ورود:</string>
@@ -648,7 +647,7 @@
   <string name="newTournament">مسابقه جدید</string>
   <string name="tournamentHomeTitle">مسابقات شطرنج با ویژگی های مختلف مثل کنترل زمان و غیره</string>
   <string name="tournamentHomeDescription">مسابقات شطرنج حرکت سریع را بازی کنید! به مسابقات رسمی برنامه ریزی شده بپیوندید ، یا خودتان بسازید. گلوله، برق آسای، کلاسیک، شطرنج 960، پادشاه تپه، سه کیش، و گزینه های بیشتر موجود برای شطرنج سرگرم کننده بی پایان</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">مسابقات یافت نشد</string>
+  <string name="tournamentNotFound">مسابقات یافت نشد</string>
   <string name="tournamentDoesNotExist">این مسابقات وجود ندارد</string>
   <string name="tournamentMayHaveBeenCanceled">ممکن است مسابقه لغو شده باشد,شاید همه ی بازیکنان مسابقه را قبل از شروع ترک کرده باشند</string>
   <string name="returnToTournamentsHomepage">بازگشت به صفحه اصلی مسابقات</string>
