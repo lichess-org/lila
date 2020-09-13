@@ -182,9 +182,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.Draw      => trans.draw.txt()
       case S.Outoftime => (game.turnColor, game.loser) match {
         case (White, Some(_)) => trans.whiteTimeOut.txt()
-        case (White, None) => trans.whiteTimeOut.txt() + ". " + trans.draw.txt() + "."
+        case (White, None) => trans.whiteTimeOut.txt() + " • " + trans.draw.txt()
         case (Black, Some(_)) => trans.blackTimeOut.txt()
-        case (Black, None) => trans.blackTimeOut.txt() + ". " + trans.draw.txt() + "."
+        case (Black, None) => trans.blackTimeOut.txt() + " • " + trans.draw.txt()
       }
       case S.NoStart =>
         val color = game.loser.fold(Color.white)(_.color).name.capitalize
