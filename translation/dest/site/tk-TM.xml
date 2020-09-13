@@ -186,7 +186,6 @@
     <item quantity="other">Size garşy %s oýun</item>
   </plurals>
   <string name="cancel">Goýbolsun et</string>
-  <string name="timeOut">Gijikme</string>
   <string name="drawOfferSent">Deňlik teklibi iberildi</string>
   <string name="drawOfferDeclined">Deňlik teklibi ret edildi</string>
   <string name="drawOfferAccepted">Deňlik teklibi kabul edildi</string>
@@ -365,7 +364,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="openTournaments">Açyk bäsleşikler</string>
   <string name="duration">Dowamlylygy</string>
   <string name="winner">Ýeňiji</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Tablisa</string>
+  <string name="standing">Tablisa</string>
   <string name="createANewTournament">Täze bäsleşik döret</string>
   <string name="tournamentCalendar">Bäsleşik kalendary</string>
   <string name="conditionOfEntry">Gatnaşma şerti:</string>
@@ -618,7 +617,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="newTournament">Täze bäsleşik</string>
   <string name="tournamentHomeTitle">Dürli wagt dolandyrmasyny we küşt wariantlaryny öz içine alýan küşt bäsleşigi</string>
   <string name="tournamentHomeDescription">Çalt depginli küşt bäsleşiklerinde oýnaň! Rejelenen bäsleşiklere gatnaşyň ýa-da öz bäsleşigiňizi döredip. Çäksiz küşt lezzeti üçin bullet, blitz, nusgawy, küşt960, merkeziň şasy, 3-şah we beýleki opsiýalar.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Beýle bäsleşik tapylmady</string>
+  <string name="tournamentNotFound">Beýle bäsleşik tapylmady</string>
   <string name="tournamentDoesNotExist">Beýle bäsleşik ýok.</string>
   <string name="tournamentMayHaveBeenCanceled">Eger ähli gatnaşyjylar bäsleşik başlamanka bäsleşigi terketse bäsleşik ýatyrlan bolup biler.</string>
   <string name="returnToTournamentsHomepage">Bäsleşikler baş sahypasyna dolan</string>

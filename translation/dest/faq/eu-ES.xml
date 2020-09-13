@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">SEG / FAQ</string>
   <string name="frequentlyAskedQuestions">Maiz egiten diren galderak</string>
   <string name="whyIsLichessCalledLichess">Zergatik da Lichess Lichessen izena?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess inglesezko live/light/libre eta chessen arteko konbinazioa da. Xakea zuzenean/arina/librea. %1$s ahoskatzen da.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess inglesezko live/light/libre eta chessen arteko konbinazioa da. Xakea zuzenean/arina/librea. %1$s ahoskatzen da.</string>
   <string name="leechess">li-txes</string>
   <string name="hearItPronouncedBySpecialist">Entzun espezialista batek nola ahoskatzen duen.</string>
   <string name="whyLiveLightLibre">Zuzenean, partidak denbora errealean 24 orduz, astean 7 egunez jokatu eta ikusten direlako; arina eta librea, Lichess kode-irekikoa delako eta ez duelako programa jabedunik erabiltzen, beste webgune batzuek bezala.</string>

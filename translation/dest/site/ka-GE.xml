@@ -178,7 +178,6 @@
     <item quantity="other">%s თამაშები თქვენ წინააღმდეგ</item>
   </plurals>
   <string name="cancel">გაუქმება</string>
-  <string name="timeOut">დრო ამოიწერუა</string>
   <string name="drawOfferSent">ყაიმის შეთავაზება გაგზავნილია</string>
   <string name="drawOfferDeclined">ყაიმის შეთავაზება უარყოფილია</string>
   <string name="drawOfferAccepted">ყაიმის შეთავაზება მიღებულია</string>
@@ -348,7 +347,7 @@
   <string name="openTournaments">გახსენით ტურნირი</string>
   <string name="duration">ხანგრძლივობა</string>
   <string name="winner">გამარჯვებული</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">დგას</string>
+  <string name="standing">დგას</string>
   <string name="createANewTournament">შექმენით ახალი ტურნირი</string>
   <string name="tournamentCalendar">ტურნირის კალენდარი</string>
   <string name="conditionOfEntry">შესვლის პირობები:</string>
@@ -596,7 +595,7 @@
   <string name="keyEnterOrExitVariation">ვარიაციაში შესვლა/გამოსვლა</string>
   <string name="newTournament">ახალი ტურნირი</string>
   <string name="tournamentHomeTitle">ჭადრაკის ტურნირი სხვადასხვა დროითი კონტროლითა და ვარიანტებით</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">ტურნირი ნაპოვნი არ არის</string>
+  <string name="tournamentNotFound">ტურნირი ნაპოვნი არ არის</string>
   <string name="tournamentDoesNotExist">აღნიშნული ტურნირი არ არსებობს.</string>
   <string name="tournamentMayHaveBeenCanceled">ტურნირი შესაძლოა გაუქმებული იყოს, თუ ის ყველა მოთამაშემ დატოვა მის დაწყებამდე.</string>
   <string name="returnToTournamentsHomepage">ტურნირების მთავარ გვერდზე დაბრუნება</string>

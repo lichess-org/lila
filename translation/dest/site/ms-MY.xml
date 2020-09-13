@@ -185,7 +185,6 @@
     <item quantity="other">%s permainan dengan anda</item>
   </plurals>
   <string name="cancel">Batal</string>
-  <string name="timeOut">Kehabisan masa</string>
   <string name="drawOfferSent">Tawaran seri dihantar</string>
   <string name="drawOfferDeclined">Tawaran seri ditolak</string>
   <string name="drawOfferAccepted">Tawaran seri diterima</string>
@@ -295,7 +294,7 @@
   <string name="openTournaments">Pertandingan terbuka</string>
   <string name="duration">Jangka masa</string>
   <string name="winner">Pemenang</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Kedudukan</string>
+  <string name="standing">Kedudukan</string>
   <string name="createANewTournament">Buat pertandingan baharu</string>
   <string name="tournamentCalendar">Kalendar pertandingan</string>
   <string name="conditionOfEntry">Keperluan kemasukan:</string>
