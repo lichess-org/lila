@@ -199,6 +199,8 @@
     <item quantity="other">%s partidas contigo</item>
   </plurals>
   <string name="cancel">Cancelar</string>
+  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when white's time has run out. Is followed by the end condition, for example&#10;'White time out. Draw'">Las blancas agotaron su tiempo</string>
+  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when black's time has run out. Is followed by the end condition, for example&#10;'Black time out. Draw'">Las negras agotaron su tiempo</string>
   <string name="drawOfferSent">Oferta de tablas enviada</string>
   <string name="drawOfferDeclined">Oferta de tablas rechazada</string>
   <string name="drawOfferAccepted">Oferta de tablas aceptada</string>
