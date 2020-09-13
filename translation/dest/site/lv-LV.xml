@@ -210,6 +210,8 @@
     <item quantity="other">%s savstarpējas spēles</item>
   </plurals>
   <string name="cancel">Atcelt</string>
+  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when white's time has run out. Is followed by the end condition, for example&#10;'White time out. Draw'">Baltajiem beidzās laiks</string>
+  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when black's time has run out. Is followed by the end condition, for example&#10;'Black time out. Draw'">Melnajiem beidzās laiks</string>
   <string name="drawOfferSent">Neizšķirta piedāvājums nosūtīts</string>
   <string name="drawOfferDeclined">Neizšķirta piedāvājums noraidīts</string>
   <string name="drawOfferAccepted">Neizšķirta piedāvājums pieņemts</string>
