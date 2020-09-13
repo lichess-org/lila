@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Șah ”legat la ochi” (piese invizibile)</string>
   <string name="chessClock">Ceasul de șah</string>
   <string name="tenthsOfSeconds">Zecimi de secundă</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Când rămân mai puțin de 10 secunde</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">Când timpul rămas e mai scurt de 10 de secunde</string>
   <string name="horizontalGreenProgressBars">Bare orizontale verzi cu progresul</string>
   <string name="soundWhenTimeGetsCritical">Sunet când timpul e aproape de expirare</string>
   <string name="giveMoreTime">Adaugă timp adversarului</string>
