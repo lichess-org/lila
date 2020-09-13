@@ -46,7 +46,7 @@ La mossa migliore del computer perderà zero centesimi di pedoni, ma mosse minor
 Questo valore può essere utilizzato come indicatore della qualità del gioco. Meno centesimi di pedone si perde per mossa, più forte è il gioco.
 
 L\'analisi del computer su Lichess è fornita da Stockfish.</string>
-  <string name="insufficientMaterial">Perdere in tempo, disegno e materiale insufficiente</string>
+  <string name="insufficientMaterial">Perdere per il tempo, pareggiare e materiale insufficiente</string>
   <string name="lichessFollowFIDErules">Nel caso in cui un giocatore finisca il tempo, quel giocatore di solito perde la partita. Tuttavia, il gioco viene disegnato se la posizione è tale che l\'avversario non può dare scacco matto al re del giocatore con alcuna serie possibile di mosse legali (%1$s).
 
 In rari casi può essere difficile decidere automaticamente (linee forzate, fortezze). Di default ci schieriamo sempre con il giocatore che non è rimasto senza tempo.
