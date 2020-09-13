@@ -66,7 +66,44 @@
   <string name="lastActiveDate">ناشط</string>
   <string name="managed">تحت ادارة</string>
   <string name="thisStudentAccountIsManaged">حساب الطالب هذا تحت ادارة</string>
+  <string name="upgradeFromManaged">الترقية من حساب مدار إلى مستقل</string>
+  <string name="release">أطلق</string>
+  <string name="releaseTheAccount">اطلق الحساب حتى يستطيع الطالب ادارة الحساب بشكل مستقل.</string>
+  <string name="releaseDesc1">لا يمكن إدارة حساب نم إطلاقه مرة اخرى. سيستطيع الطالب تبديل وضع الأطفال وتغيير كلمة المرور بنفسه.</string>
+  <string name="releaseDesc2">سيبقى الطالب في الفصل بعد إطلاق حسابه.</string>
+  <string name="realUniqueEmail">عنوان بريد إلكتروني حقيقي وفريد من نوعه للطالب. سوف نرسل له رسالة تأكيد بالبريد الإلكتروني، مع رابط لإطلاق الحساب.</string>
+  <string name="teachers">معلمون</string>
+  <plurals name="nbTeachers">
+    <item quantity="zero">لا يوجد معلم</item>
+    <item quantity="one">معلم واحد</item>
+    <item quantity="two">معلمان</item>
+    <item quantity="few">%s معلمون</item>
+    <item quantity="many">%s معلم</item>
+    <item quantity="other">%s معلم</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="zero">لا يوجد طلاب</item>
+    <item quantity="one">طالب واحد</item>
+    <item quantity="two">طالبان</item>
+    <item quantity="few">%s طلاب</item>
+    <item quantity="many">%s طالب</item>
+    <item quantity="other">%s طالب</item>
+  </plurals>
+  <string name="students">طلاب</string>
   <string name="progress">مستوي التقدم</string>
+  <string name="noStudents">لا يوجد تلاميذ في الفصل، حتى الآن.</string>
+  <string name="noRemovedStudents">لا يوجد طلاب محذوفين.</string>
+  <string name="overDays">على مدى الأيام</string>
+  <string name="timePlaying">وقت اللعب</string>
+  <string name="variantXOverLastY">%1$s خلال آخر %2$s</string>
   <string name="winrate">نسبة الفوز</string>
   <string name="na">غير متوفر</string>
+  <string name="news">أخبار الفصل</string>
+  <string name="editNews">تعديل الأخبار</string>
+  <string name="notifyAllStudents">إعلام جميع التلاميذ</string>
+  <string name="nothingHere">لا يوجد شيء هنا, حتى الآن.</string>
+  <string name="newsEdit1">جميع أخبار الفصل في مكان.</string>
+  <string name="newsEdit2">إضافة الأخبار الأخيرة في الأعلى. لا تقم بحذف الأخبار السابقة.</string>
+  <string name="newsEdit3">إفصل الأخبار ب ---
+سيعرض سطرا أفقيا.</string>
 </resources>
