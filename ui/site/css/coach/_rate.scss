@@ -3,7 +3,9 @@ select.rate {
 }
 
 rate-stars {
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
+
   &.rate-active star {
     cursor: pointer;
   }
@@ -14,8 +16,7 @@ star {
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   text-decoration: none;
-  margin-right: 2px;
-  display: inline-block;
+  padding: 0 .1em;
 
   &:after {
     content: 't';

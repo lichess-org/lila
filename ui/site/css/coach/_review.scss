@@ -51,6 +51,13 @@
       display: block;
     }
   }
+
+  rate-stars {
+    font-size: .5em;
+    star {
+      padding: 0;
+    }
+  }
 }
 
 .coach-review-form {
