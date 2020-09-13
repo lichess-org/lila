@@ -21,8 +21,7 @@ object edit extends Context.ToLang {
 
     views.html.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
-      moreCss = cssTag("streamer.form"),
-      moreJs = jsTag("streamer.form.js")
+      moreCss = cssTag("streamer.form")
     ) {
       main(cls := "page-menu")(
         bits.menu("edit", s.withoutStream.some),
