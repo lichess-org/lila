@@ -19,8 +19,8 @@
   <string name="black">Negru</string>
   <string name="randomColor">Culoare aleatorie</string>
   <string name="createAGame">Creează un joc nou</string>
-  <string name="whiteIsVictorious">Albul a câştigat</string>
-  <string name="blackIsVictorious">Negrul a câştigat</string>
+  <string name="whiteIsVictorious">Albul a câștigat</string>
+  <string name="blackIsVictorious">Negrul a câștigat</string>
   <string name="youPlayTheWhitePieces">Joci cu albele</string>
   <string name="youPlayTheBlackPieces">Joci cu negrele</string>
   <string name="itsYourTurn">E rândul tău!</string>
