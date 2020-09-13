@@ -210,7 +210,6 @@
     <item quantity="other">%s savstarpējas spēles</item>
   </plurals>
   <string name="cancel">Atcelt</string>
-  <string name="timeOut">Laiks beidzies</string>
   <string name="drawOfferSent">Neizšķirta piedāvājums nosūtīts</string>
   <string name="drawOfferDeclined">Neizšķirta piedāvājums noraidīts</string>
   <string name="drawOfferAccepted">Neizšķirta piedāvājums pieņemts</string>
@@ -421,7 +420,7 @@
   <string name="openTournaments">Atvērtie turnīri</string>
   <string name="duration">Ilgums</string>
   <string name="winner">Uzvarētājs</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Pozīcija</string>
+  <string name="standing">Pozīcija</string>
   <string name="createANewTournament">Izveidot jaunu turnīru</string>
   <string name="tournamentCalendar">Turnīru kalendārs</string>
   <string name="conditionOfEntry">Dalības prasības:</string>
@@ -690,7 +689,7 @@
   <string name="newTournament">Jauns turnīrs</string>
   <string name="tournamentHomeTitle">Šaha turnīri ar dažādām laika kontrolēm un variantiem</string>
   <string name="tournamentHomeDescription">Piedalieties ātra tempa šaha turnīros! Pievienojieties oficiāli organizētā turnīrā, vai izveidojiet savu turnīru. Pieejamas Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck un citas iespējas nebeidzamiem šaha priekiem.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnīrs nav atrasts</string>
+  <string name="tournamentNotFound">Turnīrs nav atrasts</string>
   <string name="tournamentDoesNotExist">Šāds turnīrs neeksistē.</string>
   <string name="tournamentMayHaveBeenCanceled">Iespējams, tas tika atcelts, ja visi spēlētāji pameta turnīru pirms tā sākuma.</string>
   <string name="returnToTournamentsHomepage">Atgriezties turnīru lapā</string>
