@@ -748,7 +748,7 @@
   <string name="correspondenceChess">Șah prin corespondență</string>
   <string name="onlineAndOfflinePlay">Joc online și offline</string>
   <string name="viewTheSolution">Vezi soluţia</string>
-  <string name="followAndChallengeFriends">Urmareşte si provoacă-ţi prietenii</string>
+  <string name="followAndChallengeFriends">Urmăreşte și provoacă-ți prietenii</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibil într-o limbă!</item>
     <item quantity="few">Disponibil în %s limbi!</item>
