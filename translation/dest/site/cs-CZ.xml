@@ -221,7 +221,6 @@
     <item quantity="other">%s partií s Vámi</item>
   </plurals>
   <string name="cancel">Zrušit</string>
-  <string name="timeOut">Čas vypršel</string>
   <string name="drawOfferSent">Nabídka remízy byla odeslána</string>
   <string name="drawOfferDeclined">Soupeř remízu odmítl</string>
   <string name="drawOfferAccepted">Soupeř remízu přijal</string>
@@ -449,7 +448,7 @@
   <string name="openTournaments">Otevřené turnaje</string>
   <string name="duration">Trvání</string>
   <string name="winner">Vítěz</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Umístění</string>
+  <string name="standing">Umístění</string>
   <string name="createANewTournament">Vytvořit turnaj</string>
   <string name="tournamentCalendar">Kalendář turnajů</string>
   <string name="conditionOfEntry">Podmínka vstupu:</string>
@@ -723,7 +722,7 @@
   <string name="newTournament">Nový turnaj</string>
   <string name="tournamentHomeTitle">Šachový turnaj nabízí různé časové možnosti a varianty</string>
   <string name="tournamentHomeDescription">Zahrajte si rychlý šachový turnaj! Připojte se k oficiálnímu plánovanému turnaji, nebo si vytvořte vlastní. Bullet, Blitz, Klasické, Chess960(Fisherovky), Král v centru, Tři šachy a další možnosti jsou k dispozici pro nekonečnou šachovou zábavu.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnaj nenalezen</string>
+  <string name="tournamentNotFound">Turnaj nenalezen</string>
   <string name="tournamentDoesNotExist">Tento turnaj neexistuje.</string>
   <string name="tournamentMayHaveBeenCanceled">Možná byl zrušen, jestliže jej opustili všichni hráči před jeho začátkem.</string>
   <string name="returnToTournamentsHomepage">Návrat na stránku turnajů</string>
