@@ -188,7 +188,6 @@
     <item quantity="other">%s kali bermain dengan anda</item>
   </plurals>
   <string name="cancel">Batal</string>
-  <string name="timeOut">Waktu habis</string>
   <string name="drawOfferSent">Tawaran remis terkirim</string>
   <string name="drawOfferDeclined">Tawaran remis ditolak</string>
   <string name="drawOfferAccepted">Tawaran remis diterima</string>
@@ -365,7 +364,7 @@
   <string name="openTournaments">Turnamen terbuka</string>
   <string name="duration">Durasi</string>
   <string name="winner">Pemenang</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Klasemen</string>
+  <string name="standing">Klasemen</string>
   <string name="createANewTournament">Buat turnamen baru</string>
   <string name="tournamentCalendar">Jadwal turnamen</string>
   <string name="conditionOfEntry">Persyaratan masuk:</string>
@@ -624,7 +623,7 @@
   <string name="newTournament">Turnamen baru</string>
   <string name="tournamentHomeTitle">Turnamen catur dengan menampilkan berbagai kontrol waktu dan beberapa varian</string>
   <string name="tournamentHomeDescription">Turnamen catur cepat! ikuti jadwal pertandingan yang telah kami atur, atau buat sesuai keinginanmu.  bullet, blitz, classical, chess960, king of the hill, tiga langkah mati, dan banyak lagi pilihan yang tersedia untuk kesenangan bercatur yang tiada habisnya.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnamen tidak ditemukan</string>
+  <string name="tournamentNotFound">Turnamen tidak ditemukan</string>
   <string name="tournamentDoesNotExist">Turnamen tidak ada</string>
   <string name="tournamentMayHaveBeenCanceled">turnamen harus dibatalkan, jika semua pemain meninggalkannya sebelum turnamen dimulai.</string>
   <string name="returnToTournamentsHomepage">Kembali ke laman turnamen</string>
