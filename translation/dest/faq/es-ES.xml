@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">Preguntas frecuentes</string>
   <string name="frequentlyAskedQuestions">Preguntas frecuentes</string>
   <string name="whyIsLichessCalledLichess">¿Por qué Lichess se llama así?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess es una combinación de live/light/libre (en directo, ligero y libre, en inglés) y chess (ajedrez, en inglés). Se pronuncia %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess es una combinación de live/light/libre (en directo, ligero y libre, en inglés) y chess (ajedrez, en inglés). Se pronuncia %1$s.</string>
   <string name="leechess">liches</string>
   <string name="hearItPronouncedBySpecialist">Así es como lo pronuncia un especialista.</string>
   <string name="whyLiveLightLibre">En directo, porque los partidas se juegan y se ven en tiempo real 24/7; ligero y libre porque Lichess es de código abierto y sin la basura propietaria que abunda en otras páginas.</string>
