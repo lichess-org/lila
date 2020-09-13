@@ -155,7 +155,6 @@
   <string name="rankX">Safle: %s</string>
   <string name="gamesPlayed">Gêmau wedi\'u chwarae</string>
   <string name="cancel">Canslo</string>
-  <string name="timeOut">Amser wedi dod i\'w ben</string>
   <string name="drawOfferSent">Anfonwyd cynnig cyfartal</string>
   <string name="drawOfferDeclined">Cynnig cyfartal wedi\'i wrthod</string>
   <string name="drawOfferAccepted">Cynnig cyfartal wedi\'i dderbyn</string>
@@ -276,7 +275,7 @@
   <string name="openTournaments">Cystadleuaethau i bawb</string>
   <string name="duration">Cyfnod</string>
   <string name="winner">Ennillydd</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Safle</string>
+  <string name="standing">Safle</string>
   <string name="createANewTournament">Creu cystadleuaeth newydd</string>
   <string name="tournamentCalendar">Calendr talyrnau</string>
   <string name="conditionOfEntry">Telerau mynediad:</string>
@@ -508,7 +507,7 @@
   <string name="newTournament">Cystadleuaeth newydd</string>
   <string name="tournamentHomeTitle">Cystadleuaeth gwyddbwyll gyda amrywiadau a rheoliad amser.</string>
   <string name="tournamentHomeDescription">Chwaraewch cystadlaeaethau gwyddbwyll cyflym! Ymynwch at gystadleuaeth efo rheoliad swyddogol neu grewch eich cystadleuaeth eich hunan. Bwled, Mellten, Clasurol, Gwyddbwyll960, Teyrn y Bryn, Trisiach ac opsiynau arall ar gael ar gyfer hwyl gwyddbwyll dros ben.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Methais ffeindio\'r cystadleuaeth</string>
+  <string name="tournamentNotFound">Methais ffeindio\'r cystadleuaeth</string>
   <string name="tournamentDoesNotExist">Nid ydy\'r cystadleuaeth yn bodoli.</string>
   <string name="tournamentMayHaveBeenCanceled">Efallai erthylwyd y cystadleuaeth os gadawodd pob chwaraewr cyn iddo gychwyn.</string>
   <string name="returnToTournamentsHomepage">Nôl at dudalen cystadleuaethau</string>
