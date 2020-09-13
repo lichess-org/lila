@@ -27,7 +27,7 @@ const trans = i18n => {
     return str ? format(str, Array.prototype.slice.call(arguments, 1)) : key;
   };
   trans.plural = function(key, count) {
-    var pluralKey = key + ':' + window.lichess.quantity(count);
+    var pluralKey = key + ':' + lichess.quantity(count);
     var str = i18n[pluralKey] || i18n[key];
     return str ? format(str, Array.prototype.slice.call(arguments, 1)) : key;
   };
@@ -40,7 +40,7 @@ const trans = i18n => {
     return str ? list(str, Array.prototype.slice.call(arguments, 1)) : [key];
   };
   trans.vdomPlural = function(key, count) {
-    var pluralKey = key + ':' + window.lichess.quantity(count);
+    var pluralKey = key + ':' + lichess.quantity(count);
     var str = i18n[pluralKey] || i18n[key];
     return str ? list(str, Array.prototype.slice.call(arguments, 2)) : [key];
   };

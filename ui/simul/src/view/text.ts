@@ -16,7 +16,7 @@ export function richHTML(text: string): Hooks {
 }
 
 const toHtml = (text: string) =>
-  autolink(window.lichess.escapeHtml(text)).replace(newLineRegex, '<br>');
+  autolink(lichess.escapeHtml(text)).replace(newLineRegex, '<br>');
 
 const linkRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 const newLineRegex = /\n/g;

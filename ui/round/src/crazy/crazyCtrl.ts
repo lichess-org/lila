@@ -5,8 +5,6 @@ import RoundController from '../ctrl';
 import * as cg from 'chessground/types';
 import { RoundData } from '../interfaces';
 
-const li = window.lichess;
-
 export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
 export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
@@ -47,7 +45,7 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 }
 
 export function onEnd() {
-  const store = li.storage.make('crazyKeyHist');
+  const store = lichess.storage.make('crazyKeyHist');
   if (dropWithKey) store.set(10);
   else if (dropWithDrag) {
     const cur = parseInt(store.get()!);
@@ -88,7 +86,7 @@ export function init(ctrl: RoundController) {
   // chessground.setDropMove(state, undefined) is called, which means
   // clicks on the board will not drop a piece.
   // If the piece becomes available, we call into chessground again.
-  window.lichess.pubsub.on('ply', () => {
+  lichess.pubsub.on('ply', () => {
     if (crazyKeys.length > 0) setDrop();
   })
 
@@ -128,7 +126,7 @@ export function init(ctrl: RoundController) {
       resetKeys();
   }, { capture: true });
 
-  if (li.storage.get('crazyKeyHist') !== '0')
+  if (lichess.storage.get('crazyKeyHist') !== '0')
     preloadMouseIcons(ctrl.data);
 }
 
@@ -138,6 +136,6 @@ export function init(ctrl: RoundController) {
 function preloadMouseIcons(data: RoundData) {
   const colorKey = data.player.color[0];
   for (const pKey of 'PNBRQ') 
-    fetch(li.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
+    fetch(lichess.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
   mouseIconsLoaded = true;
 }

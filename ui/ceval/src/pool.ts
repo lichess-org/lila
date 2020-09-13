@@ -39,7 +39,7 @@ class WebWorker extends AbstractWorker {
   worker: Worker;
 
   boot(): Promise<Protocol> {
-    this.worker = new Worker(window.lichess.assetUrl(this.url, {sameDomain: true}));
+    this.worker = new Worker(lichess.assetUrl(this.url, {sameDomain: true}));
     const protocol = new Protocol(this.send.bind(this), this.workerOpts);
     this.worker.addEventListener('message', e => {
       protocol.received(e.data);
@@ -77,7 +77,7 @@ class ThreadedWasmWorker extends AbstractWorker {
 
   boot(): Promise<Protocol> {
     const name = officialStockfish(this.workerOpts.variant) ? 'Stockfish' : 'StockfishMv';
-    if (!ThreadedWasmWorker.scripts[name]) ThreadedWasmWorker.scripts[name] = window.lichess.loadScript(this.url, {sameDomain: true});
+    if (!ThreadedWasmWorker.scripts[name]) ThreadedWasmWorker.scripts[name] = lichess.loadScript(this.url, {sameDomain: true});
     return ThreadedWasmWorker.scripts[name].then(() => window[name]()).then((sf: any) => {
       this.sf = sf;
       const protocol = new Protocol(this.send.bind(this), this.workerOpts);
@@ -139,12 +139,12 @@ export class Pool {
   }
 
   start(work: Work): void {
-    window.lichess.storage.fire('ceval.pool.start');
+    lichess.storage.fire('ceval.pool.start');
     this.getWorker().then(function(worker) {
       worker.start(work);
     }).catch(function(error) {
       console.log(error);
-      setTimeout(() => window.lichess.reload(), 10000);
+      setTimeout(() => lichess.reload(), 10000);
     });
   }
 

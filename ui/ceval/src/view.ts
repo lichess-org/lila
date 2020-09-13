@@ -211,7 +211,7 @@ function getElUci(e: MouseEvent): string | undefined {
 }
 
 function checkHover(el: HTMLElement, instance: CevalCtrl): void {
-  window.lichess.requestIdleCallback(() =>
+  lichess.requestIdleCallback(() =>
     instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci') || undefined)
   );
 }

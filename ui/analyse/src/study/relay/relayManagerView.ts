@@ -6,7 +6,7 @@ import { LogEvent } from './interfaces';
 
 export default function(ctrl: RelayCtrl): VNode | undefined {
   if (ctrl.members.canContribute()) return h('div.relay-admin', {
-    hook: onInsert(_ => window.lichess.loadCssPath('analyse.relay-admin'))
+    hook: onInsert(_ => lichess.loadCssPath('analyse.relay-admin'))
   }, [
     h('h2', [
       h('span.text', { attrs: dataIcon('') }, 'Broadcast manager'),

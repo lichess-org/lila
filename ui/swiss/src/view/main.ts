@@ -16,14 +16,14 @@ export default function(ctrl: SwissCtrl) {
   return h('main.' + ctrl.opts.classes, {
     hook: {
       postpatch() {
-        window.lichess.miniGame.initAll();
+        lichess.miniGame.initAll();
       }
     }
   }, [
     h('aside.swiss__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
-        ctrl.opts.chat && window.lichess.makeChat(ctrl.opts.chat);
+        ctrl.opts.chat && lichess.makeChat(ctrl.opts.chat);
       })
     }),
     h('div.swiss__underchat', {
@@ -177,10 +177,10 @@ function joinTheGame(ctrl: SwissCtrl) {
 }
 
 function confetti(data: SwissData): VNode | undefined {
-  return (data.me && data.isRecentlyFinished && window.lichess.once('tournament.end.canvas.' + data.id)) ?
+  return (data.me && data.isRecentlyFinished && lichess.once('tournament.end.canvas.' + data.id)) ?
     h('canvas#confetti', {
       hook: {
-        insert: _ => window.lichess.loadScript('javascripts/confetti.js')
+        insert: _ => lichess.loadScript('javascripts/confetti.js')
       }
     }) : undefined;
 }

@@ -5,7 +5,7 @@ export const isMoreThanText = (str: string) => /(\n|(@|\.)\w{2,})/.test(str);
 
 export const enhance = (str: string) =>
   expandMentions(
-    expandUrls(window.lichess.escapeHtml(str))
+    expandUrls(lichess.escapeHtml(str))
   ).replace(/\n/g, '<br>');
 
 const expandMentions = (html: string) =>

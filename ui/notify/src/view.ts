@@ -65,7 +65,7 @@ function clickHook(f: () => void) {
 }
 
 const contentLoaded = (vnode: VNode) =>
-  window.lichess.contentLoaded(vnode.elm as HTMLElement);
+  lichess.contentLoaded(vnode.elm as HTMLElement);
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
   return h('div', {

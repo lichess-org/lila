@@ -4,8 +4,6 @@ import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import LobbyController from './ctrl';
 
-const li = window.lichess;
-
 export default class Setup {
 
   stores: {
@@ -213,7 +211,7 @@ export default class Setup {
         } else {
           this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
           xhr.text(
-            $form.attr('action')!.replace(/sri-placeholder/, li.sri),
+            $form.attr('action')!.replace(/sri-placeholder/, lichess.sri),
             {
               method: 'post',
               body: (() => {
@@ -333,7 +331,7 @@ export default class Setup {
             this.href = this.href.replace(/editor\/.+$/, "editor/" + fen);
           });
           $submits.removeClass('nope');
-          li.contentLoaded();
+          lichess.contentLoaded();
         })
         .catch(() => {
           $fenInput.addClass("failure");

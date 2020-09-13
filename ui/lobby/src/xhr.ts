@@ -6,7 +6,7 @@ export const seeks = () => xhr.json('/lobby/seeks');
 export const nowPlaying = () => xhr.json('/account/now-playing').then(o => o.nowPlaying);
 
 export const anonPoolSeek = (pool: Pool) =>
-  xhr.json('/setup/hook/' + window.lichess.sri, {
+  xhr.json('/setup/hook/' + lichess.sri, {
     method: 'POST',
     body: xhr.form({
       variant: 1,

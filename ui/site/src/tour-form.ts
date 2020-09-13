@@ -1,6 +1,6 @@
 import flatpickr from "flatpickr";
 
-window.lichess.load.then(() => {
+lichess.load.then(() => {
 
   const $variant = $('#form3-variant'),
     showPosition = () => $('.form3 .position').toggleClass('none', $variant.val() != '1');

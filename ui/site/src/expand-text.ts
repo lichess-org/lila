@@ -37,7 +37,7 @@ interface Group {
   index: number;
 }
 
-window.lichess.load.then(() => {
+lichess.load.then(() => {
 
   const domain = window.location.host,
     studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b'),

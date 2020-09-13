@@ -30,7 +30,7 @@ function register(el: HTMLElement, selector: string, backoff: number = 500) {
       nav.remove();
       $(el).append($(html).find(selector).html());
       dedupEntries(el);
-      window.lichess.contentLoaded(el);
+      lichess.contentLoaded(el);
       setTimeout(() => register(el, selector, backoff * 1.05), backoff); // recursion with backoff
     })
     .catch(e => {

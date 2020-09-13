@@ -44,7 +44,7 @@ export const init = (node: HTMLElement) => {
 export const initAll = (parent?: HTMLElement) => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
     ids = nodes.map(init).filter(id => id);
-  if (ids.length) window.lichess.StrongSocket.firstConnect.then(send =>
+  if (ids.length) lichess.StrongSocket.firstConnect.then(send =>
     send('startWatching', ids.join(' '))
   );
 };

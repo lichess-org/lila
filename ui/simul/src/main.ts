@@ -12,13 +12,13 @@ import view from './view/main';
 
 export function start(opts: SimulOpts) {
 
-  const element = document.querySelector('main.simul') as HTMLElement,
-  li = window.lichess;
-  li.socket = new li.StrongSocket(
+  const element = document.querySelector('main.simul') as HTMLElement;
+
+  lichess.socket = new lichess.StrongSocket(
     `/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
       receive: (t: string, d: any) => ctrl.socket.receive(t, d)
     });
-  opts.socketSend = li.socket.send;
+  opts.socketSend = lichess.socket.send;
   opts.element = element;
   opts.$side = $('.simul__side').clone();
 

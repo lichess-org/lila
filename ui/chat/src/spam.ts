@@ -11,10 +11,10 @@ export function selfReport(txt: string) {
     {method: 'post'}
   );
   if (hasSuspLink || followMe(txt))
-    window.lichess.storage.set('chat-spam', '1');
+    lichess.storage.set('chat-spam', '1');
 }
 
-const isKnownSpammer = () => window.lichess.storage.get('chat-spam') == '1'
+const isKnownSpammer = () => lichess.storage.get('chat-spam') == '1'
 
 const spamRegex = new RegExp([
   'xcamweb.com',

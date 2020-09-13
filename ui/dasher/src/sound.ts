@@ -28,8 +28,8 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
 
   const list: Sound[] = raw.map(s => s.split(' '));
 
-  const api = window.lichess.sound;
-  const box = window.lichess.soundBox;
+  const api = lichess.sound;
+  const box = lichess.soundBox;
 
   const postSet = (set: string) =>
     xhr.text(
@@ -37,7 +37,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
       body: xhr.form({ set }),
       method: 'post'
     })
-      .catch(() => window.lichess.announce({ msg: 'Failed to save sound preference' }));
+      .catch(() => lichess.announce({ msg: 'Failed to save sound preference' }));
 
   return {
     makeList() {
@@ -48,7 +48,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
     box,
     set(k: Key) {
       api.speech(k == 'speech');
-      window.lichess.pubsub.emit('speech.enabled', api.speech());
+      lichess.pubsub.emit('speech.enabled', api.speech());
       if (api.speech()) {
         api.changeSet('standard');
         postSet('standard');

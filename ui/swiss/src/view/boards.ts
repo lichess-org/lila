@@ -23,7 +23,7 @@ const renderBoard = (board: Board): VNode =>
     },
     hook: {
       insert(vnode) {
-        window.lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
+        lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
       }
     }
   }, [

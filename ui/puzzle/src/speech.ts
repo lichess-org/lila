@@ -1,11 +1,11 @@
 export function setup(): void {
-  window.lichess.pubsub.on('speech.enabled', onSpeechChange);
-  onSpeechChange(window.lichess.sound.speech());
+  lichess.pubsub.on('speech.enabled', onSpeechChange);
+  onSpeechChange(lichess.sound.speech());
 }
 
 function onSpeechChange(enabled: boolean): void {
   if (!window.LichessSpeech && enabled)
-    window.lichess.loadScript(window.lichess.jsModule('speech'));
+    lichess.loadScript(lichess.jsModule('speech'));
   else if (window.LichessSpeech && !enabled) window.LichessSpeech = undefined;
 }
 

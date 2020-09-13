@@ -69,7 +69,7 @@ export default function(showText: (ctrl: SimulCtrl) => VNode) {
       h('div.halves', {
         hook: {
           postpatch(_old, vnode) {
-            window.lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
+            lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
           }
         }
       }, [

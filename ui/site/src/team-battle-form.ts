@@ -7,7 +7,7 @@ interface Team {
   members: number;
 }
 
-window.lichess.load.then(() => {
+lichess.load.then(() => {
 
   $('#form3-teams').each(function(this: HTMLTextAreaElement) {
 

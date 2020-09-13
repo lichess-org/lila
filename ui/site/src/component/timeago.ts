@@ -33,7 +33,7 @@ function formatDiff(diff) {
   i *= 2;
 
   if (diff > (i === 0 ? 9 : 1)) i += 1;
-  return window.lichess.timeagoLocale(diff, i, totalSec)[agoin].replace('%s', diff);
+  return lichess.timeagoLocale(diff, i, totalSec)[agoin].replace('%s', diff);
 }
 
 let formatterInst;

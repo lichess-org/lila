@@ -18,15 +18,15 @@ import { Notify } from 'nvui/notify';
 import { castlingFlavours, supportedVariant, Style } from 'nvui/chess';
 import { commands } from 'nvui/command';
 
-window.lichess.RoundNVUI = function(redraw: Redraw) {
+lichess.RoundNVUI = function(redraw: Redraw) {
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting();
 
-  window.lichess.pubsub.on('socket.in.message', line => {
+  lichess.pubsub.on('socket.in.message', line => {
     if (line.u === 'lichess') notify.set(line.t);
   });
-  window.lichess.pubsub.on('round.suggestion', notify.set);
+  lichess.pubsub.on('round.suggestion', notify.set);
 
   return {
     render(ctrl: RoundController): VNode {

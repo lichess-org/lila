@@ -106,7 +106,7 @@ export function view(ctrl: StudyCtrl): VNode {
         });
       }
       if (window['Sortable']) makeSortable();
-      else window.lichess.loadScript('javascripts/vendor/Sortable.min.js').then(makeSortable);
+      else lichess.loadScript('javascripts/vendor/Sortable.min.js').then(makeSortable);
     }
   }
 
@@ -124,7 +124,7 @@ export function view(ctrl: StudyCtrl): VNode {
         });
         vnode.data!.li = {};
         update(vnode);
-        window.lichess.pubsub.emit('chat.resize');
+        lichess.pubsub.emit('chat.resize');
       },
       postpatch(old, vnode) {
         vnode.data!.li = old.data!.li;

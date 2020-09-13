@@ -1,11 +1,9 @@
 import modal from 'common/modal';
 
-const li = window.lichess;
-
 export function app($wrap: Cash, toggle: () => void) {
   const $input = $wrap.find('input');
 
-  li.userComplete().then(uac => {
+  lichess.userComplete().then(uac => {
     uac({
       input: $input[0] as HTMLInputElement,
       friend: true,
@@ -64,12 +62,12 @@ function command(q: string) {
 
 function commandHelp(aliases: string, args: string, desc: string) {
   return '<div class="command"><div>' +
-    aliases.split(' ').map(a => `<p>${a} ${li.escapeHtml(args)}</p>`).join('') +
+    aliases.split(' ').map(a => `<p>${a} ${lichess.escapeHtml(args)}</p>`).join('') +
     `</div> <span>${desc}<span></div>`;
 }
 
 function help() {
-  li.loadCssPath('clinput.help')
+  lichess.loadCssPath('clinput.help')
   modal(
     $(
       '<h3>Commands</h3>' +
@@ -88,7 +86,7 @@ function help() {
 }
 
 function getDasher(cb: (dasher: any) => void) {
-  li.loadScript(li.jsModule('dasher')).then(function() {
+  lichess.loadScript(lichess.jsModule('dasher')).then(function() {
     window['LichessDasher'](document.createElement('div'), {
       playing: $('body').hasClass('playing')
     }).then(cb);

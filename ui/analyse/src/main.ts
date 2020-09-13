@@ -16,7 +16,7 @@ export const patch = init([klass, attributes]);
 export function start(opts: AnalyseOpts): AnalyseApi {
 
   opts.element = document.querySelector('main.analyse') as HTMLElement;
-  opts.trans = window.lichess.trans(opts.i18n);
+  opts.trans = lichess.trans(opts.i18n);
 
   let vnode: VNode, ctrl: AnalyseCtrl;
 

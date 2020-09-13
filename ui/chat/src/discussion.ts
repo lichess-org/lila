@@ -33,7 +33,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
       hook: {
         insert(vnode) {
           const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
-            window.lichess.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
+            lichess.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
           });
           if (mod) $el.on('click', '.mod', (e: Event) =>
             mod.open((e.target as HTMLElement).parentNode as HTMLElement)
@@ -85,7 +85,7 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
 let mouchListener: EventListener;
 
 const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
-  const storage = window.lichess.tempStorage.make('chatInput');
+  const storage = lichess.tempStorage.make('chatInput');
   if(storage.get()){
     chatEl.value = storage.get()!;
     storage.remove();

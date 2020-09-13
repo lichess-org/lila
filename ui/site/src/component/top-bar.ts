@@ -83,7 +83,7 @@ export default function() {
             if (!isVisible(selector)) $toggle.trigger('click');
           },
           setNotified() {
-            window.lichess.socket.send('notified');
+            lichess.socket.send('notified');
           },
           pulse() {
             $toggle.addClass('pulse');

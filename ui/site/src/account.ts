@@ -1,11 +1,9 @@
 import * as xhr from 'common/xhr';
 
-const li = window.lichess
+lichess.load.then(() => {
 
-li.load.then(() => {
-
-  const arrowSnapStore = li.storage.make('arrow.snap');
-  const courtesyStore = li.storage.make('courtesy');
+  const arrowSnapStore = lichess.storage.make('arrow.snap');
+  const courtesyStore = lichess.storage.make('courtesy');
 
   $('.security table form').on('submit', function(this: HTMLFormElement) {
     xhr.text(this.action, { method: 'post' });
@@ -28,7 +26,7 @@ li.load.then(() => {
       }
       xhr.formToXhr(form).then(() => {
         showSaved();
-        li.storage.fire('reload-round-tabs');
+        lichess.storage.fire('reload-round-tabs');
       });
     });
   });

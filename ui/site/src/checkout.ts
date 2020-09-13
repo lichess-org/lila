@@ -63,7 +63,7 @@ export default function(publicKey: string) {
     var $form = $checkout.find('form.paypal_checkout.' + getFreq());
     $form.find('input.amount').val('' + amount);
     $form.trigger('submit');
-    $checkout.find('.service').html(window.lichess.spinnerHtml);
+    $checkout.find('.service').html(lichess.spinnerHtml);
   });
 
   let stripe = window.Stripe(publicKey);
@@ -81,7 +81,7 @@ export default function(publicKey: string) {
       amount = parseInt($input.data('amount'));
     }
     if (amount < min || amount > max) return;
-    $checkout.find('.service').html(window.lichess.spinnerHtml);
+    $checkout.find('.service').html(lichess.spinnerHtml);
 
     xhr.json("/patron/stripe-checkout", {
       method: "post",

@@ -47,7 +47,7 @@ interface Settings {
 // versioned events, acks, retries, resync
 export default class StrongSocket {
 
-  pubsub = window.lichess.pubsub;
+  pubsub = lichess.pubsub;
   settings: Settings;
   options: Options;
   version: number | false;

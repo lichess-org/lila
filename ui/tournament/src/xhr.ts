@@ -3,7 +3,7 @@ import * as xhr from 'common/xhr';
 import TournamentController from './ctrl';
 
 // when the tournament no longer exists
-const onFail = () => window.lichess.reload();
+const onFail = () => lichess.reload();
 
 export const join = throttle(
   1000,

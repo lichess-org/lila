@@ -8,7 +8,7 @@ function miniGame(game) {
     m('span.mini-board.is2d', {
       'data-state': `${game.fen},${game.color},${game.lastMove}`,
       config(el, isUpdate) {
-        if (!isUpdate) window.lichess.miniBoard.init(el)
+        if (!isUpdate) lichess.miniBoard.init(el)
       }
     }),
     m('span.vstext', [

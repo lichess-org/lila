@@ -44,7 +44,7 @@ export function ctrl(data: ThemeData, trans: Trans, dimension: () => keyof Theme
         body: xhr.form({ theme: t }),
         method: 'post'
       })
-        .catch(() => window.lichess.announce({ msg: 'Failed to save theme preference' }));
+        .catch(() => lichess.announce({ msg: 'Failed to save theme preference' }));
       redraw();
     },
     open

@@ -77,7 +77,7 @@ export function ctrl(opts: Opts) {
     if (opts.tab() === 'members') opts.redraw();
   }
 
-  window.lichess.pubsub.on('socket.in.crowd', d => {
+  lichess.pubsub.on('socket.in.crowd', d => {
     const names: string[] = d.users || [];
     inviteForm.setSpectators(names);
     spectatorIds = names.map(titleNameToId);
@@ -97,7 +97,7 @@ export function ctrl(opts: Opts) {
       const wasContrib = myMember() && canContribute();
       dict(members);
       if (wasViewer && canContribute()) {
-        if (window.lichess.once('study-tour')) opts.startTour();
+        if (lichess.once('study-tour')) opts.startTour();
         opts.onBecomingContributor();
         opts.notif.set({
           text: opts.trans.noarg('youAreNowAContributor'),
@@ -233,8 +233,8 @@ export function view(ctrl: StudyCtrl): VNode {
 
   return h('div.study__members', {
     hook: onInsert(el => {
-        window.lichess.contentLoaded(el);
-        window.lichess.pubsub.emit('chat.resize');
+        lichess.contentLoaded(el);
+        lichess.pubsub.emit('chat.resize');
     })
   }, [
     ...ordered.map(function(member) {

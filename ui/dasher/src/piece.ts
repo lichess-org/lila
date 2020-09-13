@@ -42,7 +42,7 @@ export function ctrl(data: PieceData, trans: Trans, dimension: () => keyof Piece
         body: xhr.form({ set: t }),
         method: 'post'
       })
-        .catch(() => window.lichess.announce({ msg: 'Failed to save piece set  preference' }));
+        .catch(() => lichess.announce({ msg: 'Failed to save piece set  preference' }));
       redraw();
     },
     open
@@ -74,7 +74,7 @@ function pieceView(current: Piece, set: (t: Piece) => void, is3d: boolean) {
     class: { active: current === t }
   }, [
     h('piece', {
-      attrs: { style: `background-image:url(${window.lichess.assetUrl(pieceImage(t, is3d))})` }
+      attrs: { style: `background-image:url(${lichess.assetUrl(pieceImage(t, is3d))})` }
     })
   ]);
 }

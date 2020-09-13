@@ -167,7 +167,7 @@ function toLink(url: string) {
 }
 
 export function enrichText(text: string, allowNewlines: boolean = true): string {
-  let html = autolink(window.lichess.escapeHtml(text), toLink);
+  let html = autolink(lichess.escapeHtml(text), toLink);
   if (allowNewlines) html = html.replace(newLineRegex, '<br>');
   return html;
 }

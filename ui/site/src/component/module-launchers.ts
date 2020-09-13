@@ -17,7 +17,7 @@ function startUserAnalysis(cfg) {
 
 function startAnalyse(cfg) {
   let analyse;
-  window.lichess.socket = new StrongSocket(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion, {
+  lichess.socket = new StrongSocket(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion, {
     receive: (t: string, d: any) => analyse.socketReceive(t, d)
   });
   cfg.socketSend = li.socket.send;

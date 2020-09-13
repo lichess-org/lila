@@ -35,8 +35,6 @@ interface GoneBerserk {
 
 type Timeout = number;
 
-const li = window.lichess;
-
 export default class RoundController {
 
   data: RoundData;
@@ -87,7 +85,7 @@ export default class RoundController {
 
     this.socket = makeSocket(opts.socketSend, this);
 
-    if (li.RoundNVUI) this.nvui = li.RoundNVUI(redraw) as NvuiPlugin;
+    if (lichess.RoundNVUI) this.nvui = lichess.RoundNVUI(redraw) as NvuiPlugin;
 
     if (d.clock) this.clock = new ClockController(d, {
       onFlag: this.socket.outoftime,
@@ -104,7 +102,7 @@ export default class RoundController {
     this.moveOn = new MoveOn(this, 'move-on');
     this.transientMove = new TransientMove(this.socket);
 
-    this.trans = li.trans(opts.i18n);
+    this.trans = lichess.trans(opts.i18n);
     this.noarg = this.trans.noarg;
 
     setTimeout(this.delayedInit, 200);
@@ -115,17 +113,17 @@ export default class RoundController {
       setTimeout(this.showYourMoveNotification, 500);
 
     // at the end:
-    li.pubsub.on('jump', ply => { this.jump(parseInt(ply)); this.redraw(); });
+    lichess.pubsub.on('jump', ply => { this.jump(parseInt(ply)); this.redraw(); });
 
-    li.pubsub.on('sound_set', set => {
+    lichess.pubsub.on('sound_set', set => {
       if (!this.music && set === 'music')
-        li.loadScript('javascripts/music/play.js').then(() => {
-          this.music = li.playMusic();
+        lichess.loadScript('javascripts/music/play.js').then(() => {
+          this.music = lichess.playMusic();
         });
       if (this.music && set !== 'music') this.music = undefined;
     });
 
-    li.pubsub.on('zen', () => {
+    lichess.pubsub.on('zen', () => {
       if (this.isPlaying()) {
         const zen = !$('body').hasClass('zen');
         $('body').toggleClass('zen', zen);
@@ -227,7 +225,7 @@ export default class RoundController {
     }
     this.autoScroll();
     if (this.keyboardMove) this.keyboardMove.update(s);
-    li.pubsub.emit('ply', ply);
+    lichess.pubsub.emit('ply', ply);
     return true;
   };
 
@@ -385,7 +383,7 @@ export default class RoundController {
       });
       if (o.check) sound.check();
       blur.onMove();
-      li.pubsub.emit('ply', this.ply);
+      lichess.pubsub.emit('ply', this.ply);
     }
     d.game.threefold = !!o.threefold;
     const step = {
@@ -484,8 +482,8 @@ export default class RoundController {
     }
     if (!d.player.spectator && d.game.turns > 1) {
       const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
-      li.sound[key]();
-      if (key != 'victory' && d.game.turns > 6 && !d.tournament && !d.swiss && li.storage.get('courtesy') == '1')
+      lichess.sound[key]();
+      if (key != 'victory' && d.game.turns > 6 && !d.tournament && !d.swiss && lichess.storage.get('courtesy') == '1')
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
     if (d.crazyhouse) crazyEndHook();
@@ -498,16 +496,16 @@ export default class RoundController {
     this.redraw();
     this.autoScroll();
     this.onChange();
-    if (d.tv) setTimeout(li.reload, 10000);
+    if (d.tv) setTimeout(lichess.reload, 10000);
     speech.status(this);
   };
 
   challengeRematch = (): void => {
     this.challengeRematched = true;
     xhr.challengeRematch(this.data.game.id).then(() => {
-      li.pubsub.emit('challenge-app.open');
-      if (li.once('rematch-challenge')) setTimeout(() => {
-        li.hopscotch(function() {
+      lichess.pubsub.emit('challenge-app.open');
+      if (lichess.once('rematch-challenge')) setTimeout(() => {
+        lichess.hopscotch(function() {
           window.hopscotch.configure({
             i18n: { doneBtn: 'OK, got it' }
           }).startTour({
@@ -542,10 +540,10 @@ export default class RoundController {
   };
 
   private setQuietMode = () => {
-    const was = li.quietMode;
+    const was = lichess.quietMode;
     const is = this.isPlaying();
     if (was !== is) {
-      li.quietMode = is;
+      lichess.quietMode = is;
       $('body')
         .toggleClass('playing', is)
         .toggleClass('no-select',
@@ -577,13 +575,13 @@ export default class RoundController {
 
   goBerserk = () => {
     this.socket.berserk();
-    li.sound.berserk();
+    lichess.sound.berserk();
   };
 
   setBerserk = (color: Color): void => {
     if (this.goneBerserk[color]) return;
     this.goneBerserk[color] = true;
-    if (color !== this.data.player.color) li.sound.berserk();
+    if (color !== this.data.player.color) lichess.sound.berserk();
     this.redraw();
   };
 
@@ -604,7 +602,7 @@ export default class RoundController {
 
   setRedirecting = () => {
     this.redirecting = true;
-    window.lichess.unload.expected = true;
+    lichess.unload.expected = true;
     setTimeout(() => {
       this.redirecting = false;
       this.redraw();
@@ -617,7 +615,7 @@ export default class RoundController {
     if (v && toSubmit) {
       if (this.moveToSubmit) this.actualSendMove('move', this.moveToSubmit);
       else this.actualSendMove('drop', this.dropToSubmit);
-      li.sound.confirmation();
+      lichess.sound.confirmation();
     } else this.jump(this.ply);
     this.cancelMove();
     if (toSubmit) this.setLoading(true, 300);
@@ -689,9 +687,9 @@ export default class RoundController {
   private delayedInit = () => {
     const d = this.data;
     if (this.isPlaying() && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
-      li.sound.genericNotify();
+      lichess.sound.genericNotify();
     }
-    li.requestIdleCallback(() => {
+    lichess.requestIdleCallback(() => {
       const d = this.data;
       if (this.isPlaying()) {
         if (!d.simul) blur.init(d.steps.length > 2);
@@ -703,7 +701,7 @@ export default class RoundController {
 
         window.addEventListener('beforeunload', e => {
           const d = this.data;
-          if (li.unload.expected ||
+          if (lichess.unload.expected ||
             this.nvui ||
             !game.playable(d) ||
             !d.clock ||

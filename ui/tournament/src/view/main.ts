@@ -22,7 +22,7 @@ export default function(ctrl: TournamentController) {
     h('aside.tour__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
-        ctrl.opts.chat && window.lichess.makeChat(ctrl.opts.chat);
+        ctrl.opts.chat && lichess.makeChat(ctrl.opts.chat);
       })
     }),
     h('div.tour__underchat', {

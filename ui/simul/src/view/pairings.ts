@@ -27,7 +27,7 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
       'data-state': `${game.fen},${game.orient},${game.lastMove}`,
       'data-live': game.clock ? game.id : ''
     },
-    hook: onInsert(window.lichess.powertip.manualUserIn)
+    hook: onInsert(lichess.powertip.manualUserIn)
   }, [
     h('span.mini-game__player', [
       h('a.mini-game__user.ulpt', {

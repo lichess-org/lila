@@ -4,7 +4,7 @@ import { loadScript } from './component/assets';
 import extendTablesortNumber from './component/tablesort-number';
 import * as xhr from 'common/xhr';
 
-window.lichess.load.then(() => {
+lichess.load.then(() => {
 
   $('table.sortable').each(function(this: HTMLElement) {
     tablesort(this, {

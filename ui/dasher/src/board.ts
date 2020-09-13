@@ -19,15 +19,13 @@ export interface BoardData {
 
 export type PublishZoom = (v: number) => void;
 
-const li = window.lichess;
-
 export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close): BoardCtrl {
 
   const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom')) + 100;
 
   const saveZoom = debounce(() =>
     xhr.text('/pref/zoom?v=' + readZoom(), { method: 'post' })
-      .catch(() => li.announce({ msg: 'Failed to save zoom' }))
+      .catch(() => lichess.announce({ msg: 'Failed to save zoom' }))
     , 1000);
 
   return {
@@ -39,8 +37,8 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
         '/pref/is3d', {
         body: xhr.form({ is3d: v }),
         method: 'post'
-      }).then(li.reload)
-        .catch(() => li.announce({ msg: 'Failed to save geometry  preference' }));
+      }).then(lichess.reload)
+        .catch(() => lichess.announce({ msg: 'Failed to save geometry  preference' }));
       redraw();
     },
     readZoom,

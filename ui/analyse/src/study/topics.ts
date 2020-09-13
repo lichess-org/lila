@@ -73,8 +73,8 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
 }
 
 function setupTagify(elm: HTMLElement, userId?: string) {
-  window.lichess.loadCssPath('tagify');
-  window.lichess.loadScript('vendor/tagify/tagify.min.js').then(() => {
+  lichess.loadCssPath('tagify');
+  lichess.loadScript('vendor/tagify/tagify.min.js').then(() => {
     tagify = new window.Tagify(elm, {
       pattern: /.{2,}/,
       maxTags: 30

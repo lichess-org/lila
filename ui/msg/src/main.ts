@@ -25,7 +25,7 @@ export default function LichessMsg(opts: MsgOpts) {
 
   ctrl = new MsgCtrl(
     upgradeData(opts.data),
-    window.lichess.trans(opts.i18n),
+    lichess.trans(opts.i18n),
     redraw
   );
 

@@ -1,4 +1,4 @@
-window.lichess.load.then(() => {
+lichess.load.then(() => {
 
   const form = document.querySelector('.search__form') as HTMLFormElement,
     $form = $(form),
@@ -70,7 +70,7 @@ window.lichess.load.then(() => {
       this.href = this.href + "&" + serialized;
     });
   updatePagerLink();
-  window.lichess.pubsub.on('content-loaded', updatePagerLink);
+  lichess.pubsub.on('content-loaded', updatePagerLink);
 
   $form.on('submit', () => {
     $form.find("input,select").filter(function(this: HTMLInputElement) { return !this.value; }).attr("disabled", "disabled");

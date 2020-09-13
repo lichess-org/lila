@@ -1,8 +1,8 @@
-import { LobbyOpts } from './interfaces';
+import * as xhr from 'common/xhr';
 import main from './main';
 import modal from 'common/modal';
+import { LobbyOpts } from './interfaces';
 import { numberFormat } from 'common/number';
-import * as xhr from 'common/xhr';
 
 export default function LichessLobby(opts: LobbyOpts) {
 
@@ -20,10 +20,9 @@ export default function LichessLobby(opts: LobbyOpts) {
     { id: "30+0", lim: 30, inc: 0, perf: "Classical" },
     { id: "30+20", lim: 30, inc: 20, perf: "Classical" }
   ];
-  const li = window.lichess,
-    nbRoundSpread = spreadNumber(
-      document.querySelector('#nb_games_in_play > strong') as HTMLElement,
-      8),
+  const nbRoundSpread = spreadNumber(
+    document.querySelector('#nb_games_in_play > strong') as HTMLElement,
+    8),
     nbUserSpread = spreadNumber(
       document.querySelector('#nb_connected_players > strong') as HTMLElement,
       10),
@@ -32,48 +31,48 @@ export default function LichessLobby(opts: LobbyOpts) {
       return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
   let lobby: any;
-  li.socket = new li.StrongSocket(
+  lichess.socket = new lichess.StrongSocket(
     '/lobby/socket/v5',
     false, {
     receive(t: string, d: any) { lobby.socketReceive(t, d) },
     events: {
       n(_: string, msg: any) {
         nbUserSpread(msg.d);
-        setTimeout(() => nbRoundSpread(msg.r), li.socket.pingInterval() / 2);
+        setTimeout(() => nbRoundSpread(msg.r), lichess.socket.pingInterval() / 2);
       },
       reload_timeline() {
         xhr.text('/timeline').then(html => {
           $('.timeline').html(html);
-          li.contentLoaded();
+          lichess.contentLoaded();
         });
       },
       featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
-        li.contentLoaded();
+        lichess.contentLoaded();
       },
       redirect(e: RedirectTo) {
         lobby.leavePool();
         lobby.setRedirecting();
-        li.redirect(e);
+        lichess.redirect(e);
       },
       fen(e: any) {
         lobby.gameActivity(e.id);
       }
     }
   });
-  li.StrongSocket.firstConnect.then(() => {
+  lichess.StrongSocket.firstConnect.then(() => {
     const gameId = getParameterByName('hook_like');
     if (!gameId) return;
     xhr.text(
-      `/setup/hook/${li.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`,
+      `/setup/hook/${lichess.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`,
       { method: 'post' });
     lobby.setTab('real_time');
     history.replaceState(null, '', '/');
   });
 
   opts.blindMode = $('body').hasClass('blind-mode');
-  opts.trans = li.trans(opts.i18n);
-  opts.socketSend = li.socket.send;
+  opts.trans = lichess.trans(opts.i18n);
+  opts.socketSend = lichess.socket.send;
   lobby = main(opts);
 
   const $startButtons = $('.lobby__start'),
@@ -81,16 +80,16 @@ export default function LichessLobby(opts: LobbyOpts) {
 
   $startButtons.find('a:not(.disabled)').on(clickEvent, function(this: HTMLAnchorElement) {
     $(this).addClass('active').siblings().removeClass('active');
-    li.loadCssPath('lobby.setup');
+    lichess.loadCssPath('lobby.setup');
     lobby.leavePool();
     xhr.text(this.href)
       .then(html => {
         lobby.setup.prepareForm(modal($(html), 'game-setup', () =>
           $startButtons.find('.active').removeClass('active')
         ));
-        li.contentLoaded();
+        lichess.contentLoaded();
       })
-    .catch(li.reload);
+      .catch(lichess.reload);
   }).on('click', e => e.preventDefault());
 
   if (['#ai', '#friend', '#hook'].includes(location.hash)) {
@@ -128,7 +127,7 @@ function spreadNumber(el: HTMLElement, nbSteps: number) {
     timeouts = [];
     let prev = previous === 0 ? 0 : (previous || nb);
     previous = nb;
-    let interv = Math.abs(window.lichess.socket.pingInterval() / nbSteps);
+    let interv = Math.abs(lichess.socket.pingInterval() / nbSteps);
     for (let i = 0; i < nbSteps; i++)
       timeouts.push(setTimeout(() => display(prev, nb, i), Math.round(i * interv)));
   };

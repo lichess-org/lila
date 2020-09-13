@@ -174,7 +174,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           hook: {
             insert(vnode) {
               Promise.all([
-                window.lichess.loadScript(window.lichess.jsModule('editor')),
+                lichess.loadScript(lichess.jsModule('editor')),
                 xhr.json(xhr.url('/editor.json', {
                   fen: ctrl.root.node.fen
                 }))

@@ -4,7 +4,7 @@ import * as xhr from 'common/xhr';
 import { RoundData } from './interfaces';
 
 export const reload = (ctrl: RoundController): Promise<RoundData> =>
-  xhr.json(ctrl.data.url.round).catch(window.lichess.reload);
+  xhr.json(ctrl.data.url.round).catch(lichess.reload);
 
 export const whatsNext = (ctrl: RoundController): Promise<{ next?: string }> =>
   xhr.json(`/whats-next/${ctrl.data.game.id}${ctrl.data.player.id}`);

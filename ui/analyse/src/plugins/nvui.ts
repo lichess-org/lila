@@ -15,13 +15,13 @@ import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind } from '../util';
 
-window.lichess.AnalyseNVUI = function(redraw: Redraw) {
+lichess.AnalyseNVUI = function(redraw: Redraw) {
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     analysisInProgress = prop(false);
 
-  window.lichess.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
+  lichess.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete')
   });
 

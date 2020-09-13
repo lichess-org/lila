@@ -1,6 +1,6 @@
 import throttle from 'common/throttle';
 
-const sounds = window.lichess.sound;
+const sounds = lichess.sound;
 
 export const sound = {
   move: throttle(50, sounds.move),

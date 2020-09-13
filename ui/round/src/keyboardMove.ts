@@ -115,8 +115,8 @@ export function render(ctrl: KeyboardMove) {
         autocomplete: false
       },
       hook: onInsert(input => {
-        window.lichess.loadScript(window.lichess.jsModule('round.keyboard-move')).then(() => {
-          ctrl.registerHandler(window.lichess.keyboardMove({
+        lichess.loadScript(lichess.jsModule('round.keyboard-move')).then(() => {
+          ctrl.registerHandler(lichess.keyboardMove({
             input,
             ctrl
           }));

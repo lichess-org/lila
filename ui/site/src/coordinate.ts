@@ -1,6 +1,6 @@
 import * as xhr from "common/xhr";
 
-window.lichess.load.then(() => {
+lichess.load.then(() => {
   $('#trainer').each(function(this: HTMLElement) {
     var $trainer = $(this);
     var $board = $('.coord-trainer__board .cg-wrap');

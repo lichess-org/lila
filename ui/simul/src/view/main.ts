@@ -19,18 +19,18 @@ export default function(ctrl: SimulCtrl) {
     h('aside.simul__side', {
       hook: util.onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
-        ctrl.opts.chat && window.lichess.makeChat(ctrl.opts.chat);
+        ctrl.opts.chat && lichess.makeChat(ctrl.opts.chat);
       })
     }),
     h('div.simul__main.box', {
       hook: {
         postpatch() {
-          window.lichess.miniGame.initAll();
+          lichess.miniGame.initAll();
         }
       }
     }, handler(ctrl)),
     h('div.chat__members.none', {
-      hook: util.onInsert(window.lichess.watchers)
+      hook: util.onInsert(lichess.watchers)
     }, h('span.list'))
   ]);
 }

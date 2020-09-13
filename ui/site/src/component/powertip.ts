@@ -19,7 +19,7 @@ function onPowertipPreRender(id: string, preload?: (url: string) => void) {
     xhr.text(url + '/mini').then(html => {
       const el = document.getElementById(id) as HTMLElement;
       el.innerHTML = html;
-      window.lichess.contentLoaded(el);
+      lichess.contentLoaded(el);
     });
   };
 };

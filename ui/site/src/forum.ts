@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 
-window.lichess.load.then(() => {
+lichess.load.then(() => {
 
   $('.forum').on('click', 'a.delete', function(this: HTMLAnchorElement) {
     xhr.text(this.href, { method: 'post' });
@@ -27,7 +27,7 @@ window.lichess.load.then(() => {
 
     const textarea = this, topicId = $(this).attr('data-topic');
 
-    if (topicId) window.lichess.loadScript('vendor/textcomplete.min.js').then(function() {
+    if (topicId) lichess.loadScript('vendor/textcomplete.min.js').then(function() {
 
       const searchCandidates = function(term, candidateUsers) {
         return candidateUsers.filter(function(user) {
@@ -88,7 +88,7 @@ window.lichess.load.then(() => {
           $rels.removeClass('loading');
         })
         .catch(() => {
-          window.lichess.announce({ msg: 'Failed to send forum post reaction' });
+          lichess.announce({ msg: 'Failed to send forum post reaction' });
         });
     }
   });

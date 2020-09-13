@@ -7,8 +7,6 @@ import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 import { sanIrreversible } from './util';
 
-const li = window.lichess;
-
 function is64Bit(): boolean {
   const x64 = ['x86_64', 'x86-64', 'Win64','x64', 'amd64', 'AMD64'];
   for (const substr of x64) if (navigator.userAgent.includes(substr)) return true;
@@ -81,7 +79,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
-  const enableStorage = li.storage.makeBoolean(storageKey('client-eval-enabled'));
+  const enableStorage = lichess.storage.makeBoolean(storageKey('client-eval-enabled'));
   const allowed = prop(true);
   const enabled = prop(opts.possible && allowed() && enableStorage.get() && !document.hidden);
   let started: Started | false = false;
@@ -139,7 +137,7 @@ export default function(opts: CevalOpts): CevalCtrl {
     opts.emit(ev, work);
     if (ev.fen !== lastEmitFen) {
       lastEmitFen = ev.fen;
-      li.storage.fire('ceval.fen', ev.fen);
+      lichess.storage.fire('ceval.fen', ev.fen);
     }
   });
 
@@ -218,8 +216,8 @@ export default function(opts: CevalOpts): CevalCtrl {
 
   // ask other tabs if a game is in progress
   if (enabled()) {
-    li.storage.fire('ceval.fen', 'start');
-    li.storage.make('round.ongoing').listen(_ => {
+    lichess.storage.fire('ceval.fen', 'start');
+    lichess.storage.make('round.ongoing').listen(_ => {
       enabled(false);
       opts.redraw();
     });

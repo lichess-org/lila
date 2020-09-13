@@ -9,7 +9,7 @@ export function makeCtrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab
   const open = prop(false);
   let followings: string[] = [];
   let spectators: string[] = [];
-  window.lichess.pubsub.on('socket.in.following_onlines', (us: string[]) => {
+  lichess.pubsub.on('socket.in.following_onlines', (us: string[]) => {
     followings = us;
     if (open()) redraw();
   });
@@ -54,7 +54,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
         h('input', {
           attrs: { placeholder: ctrl.trans.noarg('searchByUsername') },
           hook: onInsert<HTMLInputElement>(input =>
-            window.lichess.userComplete().then(uac => {
+            lichess.userComplete().then(uac => {
               uac({
                 input,
                 tag: 'span',

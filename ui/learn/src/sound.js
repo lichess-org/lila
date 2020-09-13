@@ -1,7 +1,7 @@
 var util = require('./util');
 
 const make = (file, volume) => {
-  lichess.soundBox.loadOggOrMp3(file, `${window.lichess.soundUrl}/${file}`);
+  lichess.soundBox.loadOggOrMp3(file, `${lichess.soundUrl}/${file}`);
   return () => {
     if (lichess.sound.set() !== 'silent') lichess.soundBox.play(file, volume);
   };
