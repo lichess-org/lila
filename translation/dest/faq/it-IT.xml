@@ -30,15 +30,15 @@
   <string name="youCanUseOpeningBookNoEngine">Su Lichess, la principale differenza nelle regole per gli scacchi per corrispondenza è che è consentito un libro di apertura. L\'uso dei motori scacchistici è ancora proibito e comporterà la loro segnalazione per l\'utilizzo del computer. Sebbene ICCF consenta l\'uso dei motori scacchistici nel gioco per corrispondenza, Lichess no.</string>
   <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Dinamica di gioco</string>
   <string name="howBulletBlitzEtcDecided">Come vengono decisi Bullet, Blitz e altre cadenze di gioco?</string>
-  <string name="basedOnGameDuration">I controlli del tempo Lichess si basano sulla durata stimata del gioco = %1$s
-Ad esempio, la durata stimata di una partita 5 + 3 è 5 × 60 + 40 × 3 = 420 secondi.</string>
-  <string name="durationFormula">(ora iniziale dell\'orologio) + 40 × (incremento dell\'orologio)</string>
+  <string name="basedOnGameDuration">Le cadenze di gioco Lichess si basano sulla durata stimata della partita = %1$s
+Ad esempio, la durata stimata di una partita 5+3 è 5 × 60 + 40 × 3 = 420 secondi.</string>
+  <string name="durationFormula">(tempo iniziale dell\'orologio) + 40 × (incremento dell\'orologio)</string>
   <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">&lt; %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">Quali varianti posso giocare su Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess supporta gli scacchi standard e %1$s.</string>
   <string name="eightVariants">8 varianti di scacchi</string>
-  <string name="whatIsACPL">Qual è la perdita media di centipawn (ACPL)?</string>
+  <string name="whatIsACPL">Cosa sono i \"centesimi di pedone persi in media\" (ACPL)?</string>
   <string name="acplExplanation">Il centopiedi è l\'unità di misura utilizzata negli scacchi come rappresentazione del vantaggio. Un centopiedi equivale a 1/100 di un pedone. Pertanto 100 centopiedi = 1 pedone. Questi valori non svolgono alcun ruolo formale nel gioco ma sono utili ai giocatori ed essenziali negli scacchi al computer per la valutazione delle posizioni.
 
 La mossa del computer superiore perderà zero centopiedi, ma mosse minori comporteranno un deterioramento della posizione, misurata in centopiedi.
