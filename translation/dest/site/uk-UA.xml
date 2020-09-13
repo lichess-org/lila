@@ -221,6 +221,8 @@
     <item quantity="other">%s партій з вами</item>
   </plurals>
   <string name="cancel">Скасувати</string>
+  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when white's time has run out. Is followed by the end condition, for example&#10;'White time out. Draw'">Час білих збіг</string>
+  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when black's time has run out. Is followed by the end condition, for example&#10;'Black time out. Draw'">Час чорних збіг</string>
   <string name="drawOfferSent">Пропозицію нічиєї надіслано</string>
   <string name="drawOfferDeclined">Пропозицію нічиєї відхилено</string>
   <string name="drawOfferAccepted">Пропозицію нічиєї прийнято</string>
