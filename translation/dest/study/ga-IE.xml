@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="private">Cé na daoine! Tá an leathanach seo príobháideach, ní féidir leat é a rochtain</string>
   <string name="myStudies">Mo chuid staidéir</string>
   <string name="studiesIContributeTo">Staidéir atá á n-iarraidh agam</string>
   <string name="myPublicStudies">Mo chuid staidéir phoiblí</string>
@@ -8,5 +9,6 @@
   <string name="whatAreStudies">Cad is staidéir ann?</string>
   <string name="allStudies">Gach staidéar</string>
   <string name="studiesCreatedByX">Staidéir a chruthaigh %s</string>
+  <string name="noneYet">Níl aon cheann fós.</string>
   <string name="open">Oscailte</string>
 </resources>
