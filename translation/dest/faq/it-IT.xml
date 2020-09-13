@@ -54,13 +54,13 @@ In rari casi può essere difficile decidere automaticamente (linee forzate, fort
 Nota che può essere possibile dare scacco matto con un solo cavallo o alfiere se l\'avversario ha un pezzo che potrebbe bloccare il re.</string>
   <string name="linkToFIDErules">Manuale FIDE §6.9, PDF</string>
   <string name="discoveringEnPassant">Perché una pedone può catturare un altro pedone quando è già passato? (en passant)</string>
-  <string name="explainingEnPassant">Questa è una mossa legale conosciuta come \"en passant\". L\'articolo di Wikipedia fornisce %1$s.
+  <string name="explainingEnPassant">Questa è una mossa legale conosciuta come \"en passant\" (\"al varco\"). L\'articolo di Wikipedia fornisce una %1$s.
 
-È descritto nella sezione 3.7 (d) di %2$s:
+È descritto nella sezione 3.7 (d) delle %2$s:
 
-\"Una pedina che occupa un quadrato dello stesso rango e su un file adiacente alla pedina di un avversario che ha appena avanzato due quadrati in una mossa dal suo quadrato originale può catturare il pedone di questo avversario come se quest\'ultimo fosse stato spostato di un solo quadrato. Questo la cattura è legale solo in movimento dopo questo anticipo ed è chiamata cattura \"en passant\". \"
+\"Un pedone che occupi la casa nella stessa traversa e sulla colonna adiacente di un pedone avversario il quale sia appena stato avanzato di due case dalla sua casa d’origine, può catturare il pedone avversario come se quest’ultimo fosse stato avanzato di una sola casa. Questa cattura è legale solo nella mossa immediatamente successiva al suddetto avanzamento ed è detta cattura ‘en passant’ (‘al varco’).\"
 
-Vedi %3$s su questa mossa per un po \'di pratica con esso.</string>
+Vedi l\'%3$s su questa mossa per fare un po\' di pratica con essa.</string>
   <string name="goodIntroduction">buona introduzione</string>
   <string name="officialRulesPDF">regole ufficiali (PDF)</string>
   <string name="lichessTraining">Allenamento Lichess</string>
@@ -68,7 +68,7 @@ Vedi %3$s su questa mossa per un po \'di pratica con esso.</string>
   <string name="threefoldRepetitionExplanation">Se una posizione avviene tre volte, i giocatori possono chiamare una patta da %1$s. Lichess implementa le regole ufficiali della FIDE, come descritto nell\'articolo 9.2 (d) del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triplice ripetizione</string>
   <string name="handBookPDF">manuale (PDF)</string>
-  <string name="notRepeatedMoves">Non abbiamo ripetuto le mosse. Perché il gioco è stato ancora disegnato dalla ripetizione?</string>
+  <string name="notRepeatedMoves">Non abbiamo ripetuto le mosse. Perché la partita è stata comunque dichiarata patta per ripetizione?</string>
   <string name="repeatedPositionsThatMatters">La triplice ripetizione riguarda la %1$s, non le mosse. La ripetizione non deve necessariamente avvenire consecutivamente.</string>
   <string name="positions">posizioni</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Abbiamo ripetuto una posizione tre volte. Perché il gioco non è stato disegnato?</string>
