@@ -92,7 +92,6 @@
   <string name="changeEmail">Broyt teldupost</string>
   <string name="email">teldupost</string>
   <string name="forgotPassword">Gloymt loyniorð?</string>
-  <string name="timeOut">Tíðin er úti</string>
   <string name="blackOffersDraw">Svartur bjóðar javnt</string>
   <string name="finished">Liðugt</string>
   <string name="rematch">Umaftur</string>
@@ -108,7 +107,7 @@
   <string name="more">Meira</string>
   <string name="player">Spælarar</string>
   <string name="winner">Vinnari</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Støðan</string>
+  <string name="standing">Støðan</string>
   <string name="wins">Vunni</string>
   <string name="losses">Tapt</string>
   <string name="winStreak">Vunni á ræð</string>
