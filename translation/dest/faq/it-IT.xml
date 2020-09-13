@@ -114,15 +114,15 @@ Un altro aspetto di rilievo è che, allo scorrere del tempo senza aver giocate p
   <string name="similarOpponents">avversari di abilità simile</string>
   <string name="notPlayedRecently">Il giocatore non ha giocato abbastanza partite recentemente. A seconda del numero di partite che hai giocato, potrebbe essere necessario circa un anno di inattività perché il tuo punteggio diventi di nuovo provvisorio.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Di fatto, significa che la deviazione Glicko-2 è maggiore di 110. La deviazione è il livello di confidenza che il sistema ripone nel punteggio. Più è bassa la deviazione, più è stabile il punteggio.</string>
-  <string name="howDoLeaderoardsWork">Come funzionano le calssifiche e le classifiche generali?</string>
+  <string name="howDoLeaderoardsWork">Come funzionano i piazzamenti e le classifiche generali?</string>
   <string name="inOrderToAppearsYouMust">Al fine di comparire nelle %1$s devi:</string>
   <string name="ratingLeaderboards">classifiche generali</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">aver giocato almeno 30 partite valide per il rating in una data categoria,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">aver giocato una partita valida per il rating nella categoria di riferimento</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">aver giocato almeno 30 partite valide per i punteggi in una data categoria,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">aver giocato nell\'ultima settimana una partita classificata per questa categoria di punteggio,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">avere una deviazione del rating inferiore a %1$s nella variante standard degli scacchi, e inferiore a %2$s nelle altre varianti,</string>
   <string name="beInTopTen">essere fra i 10 migliori giocatori in una data categoria di riferimento.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Il secondo requisito è che i giocatori che non utilizzano più i loro account smettano di essere inclusi nelle classifiche.</string>
-  <string name="whyAreRatingHigher">Perché i rating sono più elevati rispetto ad altri siti e organizzazioni quali FIDE, USCF e ICC?</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Il secondo requisito esiste affinché i giocatori che non utilizzano più i loro account smettano di essere inclusi nelle classifiche.</string>
+  <string name="whyAreRatingHigher">Perché i punteggi sono più elevati rispetto ad altri siti e organizzazioni quali FIDE, USCF e ICC?</string>
   <string name="whyAreRatingHigherExplanation">È meglio non considerare i rating come valutazioni assolute o confrontarli con quelli di altre organizzazioni. Infatti, diverse organizzazioni hanno diversi livelli di giocatori, diversi sistemi di rating (Elo, Glicko, Glicko-2 o una versione personalizzata di tali sistemi). Questi fattori possono influenzare drasticamente le valutazioni assolute (i rating).
 
 È meglio pensare ai rating come parametri \"relativi\" (e non come parametri \"assoluti\"): all\'interno di un bacino di giocatori le differenze relative nei rating ti aiuteranno a stimare chi vincerà/pareggerà/perderà e con che frequenza. Invece, dire \"ho un rating di X\" non significa nulla se non vi sono altri giocatori con cui confrontare il rating.</string>
