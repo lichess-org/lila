@@ -23,14 +23,13 @@
   <string name="ratingRefundExplanation">Un minuto dopo aver individuato un giocatore che imbroglia, vengono considerate le ultime 40 partite classificate negli ultimi 3 giorni. Se sei il loro avversario in una di quelle partite, hai perso punteggio (a causa di una sconfitta o un pareggio) e il tuo punteggio non era provvisorio, otterrai un rimborso del punteggio. Il rimborso è limitato in base al punteggio massimo e al progresso del tuo punteggio dopo la partita.
    (Ad esempio, se la tua valutazione aumenta notevolmente dopo tali partite, potresti non ottenere alcun rimborso o un rimborso parziale.) Un rimborso non supererà mai i 150 punti.</string>
   <string name="preventLeavingGameWithoutResigning">Cosa succede ai giocatori che lasciano la partita senza abbandonare?</string>
-  <string name="leavingGameWithoutResigningExplanation">Se il tuo avversario interrompe frequentemente / abbandona i giochi, viene \"bannato\", il che significa che viene temporaneamente bandito dai giochi. Questo non è indicato pubblicamente sul loro profilo. Se questo comportamento persiste, la lunghezza del playban aumenta e un comportamento prolungato di questo tipo può portare alla chiusura dell\'account.
- </string>
+  <string name="leavingGameWithoutResigningExplanation">Se il tuo avversario interrompe/abbandona le partite di frequente, viene \"bannato dal giocare\", il che significa che gli viene temporaneamente vieato di giocare partite. Ciò non è indicato pubblicamente sul loro profilo. Se questo comportamento persiste, la lunghezza del ban dal giocare aumenta e un comportamento prolungato di questo tipo può portare alla chiusura dell\'account.</string>
   <string name="howCanIBecomeModerator">Come posso diventare un moderatore?</string>
   <string name="youCannotApply">Non è possibile fare domanda per diventare un moderatore. Se vediamo qualcuno che pensiamo possa essere un moderatore, li contatteremo direttamente.</string>
-  <string name="isCorrespondenceDifferent">La corrispondenza è diversa dagli scacchi normali?</string>
-  <string name="youCanUseOpeningBookNoEngine">Su Lichess, la principale differenza nelle regole per gli scacchi per corrispondenza è che è consentito un libro di apertura. L\'uso dei motori è ancora proibito e comporterà la loro segnalazione per l\'assistenza del motore. Sebbene ICCF consenta l\'uso del motore in corrispondenza, Lichess no.</string>
+  <string name="isCorrespondenceDifferent">La partite per corrispondenza sono diverse dagli scacchi normali?</string>
+  <string name="youCanUseOpeningBookNoEngine">Su Lichess, la principale differenza nelle regole per gli scacchi per corrispondenza è che è consentito un libro di apertura. L\'uso dei motori scacchistici è ancora proibito e comporterà la loro segnalazione per l\'utilizzo del computer. Sebbene ICCF consenta l\'uso dei motori scacchistici nel gioco per corrispondenza, Lichess no.</string>
   <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Dinamica di gioco</string>
-  <string name="howBulletBlitzEtcDecided">Come vengono decisi Bullet, Blitz e altri controlli temporali?</string>
+  <string name="howBulletBlitzEtcDecided">Come vengono decisi Bullet, Blitz e altre cadenze di gioco?</string>
   <string name="basedOnGameDuration">I controlli del tempo Lichess si basano sulla durata stimata del gioco = %1$s
 Ad esempio, la durata stimata di una partita 5 + 3 è 5 × 60 + 40 × 3 = 420 secondi.</string>
   <string name="durationFormula">(ora iniziale dell\'orologio) + 40 × (incremento dell\'orologio)</string>
