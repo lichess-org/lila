@@ -199,7 +199,6 @@
     <item quantity="other">%s  तुमच्याशी खेळलेले डाव</item>
   </plurals>
   <string name="cancel">रद्द करा</string>
-  <string name="timeOut">वेळ समाप्त</string>
   <string name="drawOfferSent">डाव अनिर्णीत ठेवण्याचा प्रस्ताव पाठवला</string>
   <string name="drawOfferDeclined">डाव अनिर्णीत ठेवण्याचा प्रस्ताव नाकारला</string>
   <string name="drawOfferAccepted">डाव अनिर्णीत ठेवण्याचा प्रस्ताव स्वीकारला</string>
@@ -393,7 +392,7 @@
   <string name="openTournaments">खुले क्रीडासत्र</string>
   <string name="duration">कालावधी</string>
   <string name="winner">विजेता</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">पद</string>
+  <string name="standing">पद</string>
   <string name="createANewTournament">नवीन क्रीडासत्र तयार करा</string>
   <string name="tournamentCalendar">क्रीडासत्र दिनदर्शिका</string>
   <string name="conditionOfEntry">प्रवेशाच्या आवश्यकता:</string>
@@ -657,7 +656,7 @@
   <string name="newTournament">नविन क्रीडासत्र</string>
   <string name="tournamentHomeTitle">विविध वेळ नियंत्रणे आणि प्रकार दर्शविणारे बुद्धीबळ क्रीडासत्र</string>
   <string name="tournamentHomeDescription">वेगवान-वेगवान बुद्धीबळ क्रीडासत्र खेळा! अधिकृत शेड्यूल टूर्नामेंटमध्ये सामील व्हा किंवा स्वतःचे तयार करा. बुलेट, ब्लीटझ, क्लासिकल, चेस 960, किंग ऑफ द हिल, थ्रीचेक आणि अंतहीन बुद्धिबळ मनोरंजनासाठी अधिक पर्याय उपलब्ध.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">क्रीडासत्र सापडले नाही</string>
+  <string name="tournamentNotFound">क्रीडासत्र सापडले नाही</string>
   <string name="tournamentDoesNotExist">हे क्रीडासत्र उपलब्ध नाही.</string>
   <string name="tournamentMayHaveBeenCanceled">जर सर्व खेळाडू क्रीडासत्र सुरू होण्यापूर्वी निघून गेले तर क्रीडासत्र रद्द होऊ शकते.</string>
   <string name="returnToTournamentsHomepage">क्रीडासत्राच्या मुख्य पृष्ठावर जा</string>
