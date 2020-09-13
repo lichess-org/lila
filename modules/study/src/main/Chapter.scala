@@ -8,6 +8,10 @@ import org.joda.time.DateTime
 import chess.opening.{ FullOpening, FullOpeningDB }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
+import lila.i18n.{ LangList }
+import lila.i18n.Translator.txt
+import play.api.i18n.Lang
+
 
 case class Chapter(
     _id: Chapter.Id,
@@ -156,7 +160,12 @@ object Chapter {
 
   def defaultName(order: Int) = Name(s"Chapter $order")
 
-  private val defaultNameRegex = """Chapter \d+""".r
+  private val defaultNameRegex = LangList.all.keys.map { lang: Lang =>
+    txt.literal("study:chapterX", Seq(), lang).replace("%s", """\d+""")
+  }.fold("") { (regex: String, lang: String) =>
+    regex.concat(lang).concat("""|""")
+  }.r
+
   def isDefaultName(n: Name)   = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
   def fixName(n: Name) = Name(n.value.trim take 80)
