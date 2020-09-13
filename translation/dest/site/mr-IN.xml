@@ -21,7 +21,7 @@
   <string name="createAGame">डाव मांडा</string>
   <string name="whiteIsVictorious">पांढरा विजयी ठरला</string>
   <string name="blackIsVictorious">काळा विजयी ठरला</string>
-  <string name="youPlayTheWhitePieces">तुम्ही पांढऱ्या बाजूने खेळा</string>
+  <string name="youPlayTheWhitePieces">तुम्ही पांढऱ्या सोंगट्यानी खेळा</string>
   <string name="youPlayTheBlackPieces">तुम्ही काळ्या बाजूने खेळा</string>
   <string name="itsYourTurn">तुमची चाल!</string>
   <string name="kingInTheCenter">मध्यस्थानी राजा</string>
@@ -45,7 +45,7 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">या युआरएलवर येणारे पहिले व्यक्ती तुमच्याबरोबर खेळणार.</string>
   <string name="whiteResigned">पांढर्याने हार मानली</string>
   <string name="blackResigned">काळ्याने हार मानली</string>
-  <string name="whiteLeftTheGame">पांढर्याने खेळ सोडला</string>
+  <string name="whiteLeftTheGame">पांढऱ्याने खेळ सोडला</string>
   <string name="blackLeftTheGame">काळ्याने खेळ सोडला</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">प्रेक्षकांना हा खेळ दाखवण्यासाठी हा URL पाठवा</string>
   <string name="theComputerAnalysisHasFailed">संगणक विश्लेषण अयशस्वी झाले आहे</string>
@@ -228,7 +228,7 @@
   <string name="thisGameIsRated">या डावाचा दर्जा</string>
   <string name="rematch">पुनः खेळा</string>
   <string name="rematchOfferSent">पुनः खेळण्याचा प्रस्ताव पाठवला</string>
-  <string name="rematchOfferSentWhite">पंढऱ्याकडून पुन्हा खेळण्याची विनंती</string>
+  <string name="rematchOfferSentWhite">पांढऱ्याने पुन्हा खेळण्याची विनंती केली</string>
   <string name="rematchOfferSentBlack">काळ्याकडून पुन्हा खेळण्याची विनंती</string>
   <string name="rematchOfferAccepted">पुनः खेळण्याचा प्रस्ताव स्वीकारला</string>
   <string name="rematchOfferCanceled">पुनः खेळण्याचा प्रस्ताव रद्द</string>
@@ -763,7 +763,7 @@
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
     <item quantity="other">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
   </plurals>
-  <string name="practiceWithComputer">कॉम्प्युटर सोबत सराव करा</string>
+  <string name="practiceWithComputer">संगणकासोबत सराव करा</string>
   <string name="anotherWasX">इतर %s</string>
   <string name="bestWasX">उत्तम %s</string>
   <string name="youBrowsedAway">आपण पुनर्वलोकण पूर्ण केले</string>
@@ -835,7 +835,7 @@
   <string name="thankYouForReading">वाचल्याबद्दल धन्यवाद!</string>
   <string name="lifetimeScore">आजीवन गुण</string>
   <string name="currentMatchScore">चालू डावाचे गुण</string>
-  <string name="agreementAssistance">मी खेळतांना इतर सहाय्य घेणार नाही (कॉम्प्युटर, पुस्तक, डेटाबेस किंवा इतर व्यक्ती).</string>
+  <string name="agreementAssistance">मी खेळतांना इतर सहाय्य घेणार नाही (संगणक, पुस्तक, डेटाबेस किंवा इतर व्यक्ती).</string>
   <string name="agreementNice">मी इतर खेळाडू सोबत आदरयुक्त व्यवहार ठेवील.</string>
   <string name="agreementAccount">मी एकापेक्षा जास्त खाती उघडणार नाही.</string>
   <string name="agreementPolicy">मी Lichess च्या सर्व नियमांचे पालन करेल.</string>
