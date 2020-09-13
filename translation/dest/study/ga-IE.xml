@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="myStudies">Mo chuid staidéir</string>
+  <string name="studiesIContributeTo">Staidéir atá á n-iarraidh agam</string>
+  <string name="myPublicStudies">Mo chuid staidéir phoiblí</string>
+  <string name="myPrivateStudies">Mo chuid staidéir phríobháideacha</string>
+  <string name="myFavoriteStudies">Na staidéir is fearr liom</string>
   <string name="open">Oscailte</string>
 </resources>
