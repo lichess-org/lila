@@ -195,7 +195,6 @@
     <item quantity="other">%s игри с вас</item>
   </plurals>
   <string name="cancel">Отказ</string>
-  <string name="timeOut">Изтекло време</string>
   <string name="drawOfferSent">Изпратено предложение за реми</string>
   <string name="drawOfferDeclined">Предложението за реми е отказано</string>
   <string name="drawOfferAccepted">Предложението за реми е прието</string>
@@ -382,7 +381,7 @@
   <string name="openTournaments">Отворени турнири</string>
   <string name="duration">Продължителност</string>
   <string name="winner">Победител</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Място</string>
+  <string name="standing">Място</string>
   <string name="createANewTournament">Създай нов турнир</string>
   <string name="tournamentCalendar">Календар на турнирите</string>
   <string name="conditionOfEntry">Условие за участие:</string>
@@ -646,7 +645,7 @@
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шахматният турнир включва различни времеви контроли и варианти</string>
   <string name="tournamentHomeDescription">Играй в състезания по бърз шахмат! Участвай в разписаните състезания или създай свое собствено. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck и още възможности предоставящи безкрайна шахматна забава.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Турнирът не е намерен</string>
+  <string name="tournamentNotFound">Турнирът не е намерен</string>
   <string name="tournamentDoesNotExist">Този турнир не съществува.</string>
   <string name="tournamentMayHaveBeenCanceled">Може да е отменен, ако всички участници са напуснали преди да е започнало.</string>
   <string name="returnToTournamentsHomepage">Връщане към началната страница</string>
