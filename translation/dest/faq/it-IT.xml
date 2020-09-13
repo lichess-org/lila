@@ -6,20 +6,20 @@
   <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess è una combinazione di live/light/libre e scacchi. Si pronuncia %1$s.</string>
   <string name="leechess">lìcess</string>
   <string name="hearItPronouncedBySpecialist"> Sentilo pronunciare da uno specialista.</string>
-  <string name="whyLiveLightLibre">Live, perché le partite sono giocate e guardate in tempo reale 24/7; light e libre poichè Lichess è completamente open-source e non appesantito dalla spazzatura proprietaria che affligge altri siti web.</string>
-  <string name="whyIsLilaCalledLila">Allo stesso modo, il codice sorgente di Lichess, %1$s, prende il nome dalla contrazione di \"Li[chess fatto in sca]la\" poichè che la maggior parte di Lichess è scritta in %2$s, un linguaggio di programmazione intuitivo.</string>
+  <string name="whyLiveLightLibre">Live, perché le partite sono giocate e guardate in tempo reale 24/7; light e libre poiché Lichess è completamente open-source e non appesantito dalla spazzatura proprietaria che affligge altri siti web.</string>
+  <string name="whyIsLilaCalledLila">Allo stesso modo, il codice sorgente di Lichess, %1$s, prende il nome dalla contrazione di \"Li[chess fatto in sca]la\" poiché che la maggior parte di Lichess è scritta in %2$s, un linguaggio di programmazione intuitivo.</string>
   <string name="howCanIContributeToLichess">Come posso contribuire a Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess è sostenuto dalle donazioni dei patroni e dagli sforzi di volontari.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess è sostenuto dalle donazioni dei mecenati e dagli sforzi di un gruppo di volontari.</string>
   <string name="findMoreAndSeeHowHelp">Puoi saperne di più sull\' %1$s (incluso un %2$s). Se vuoi aiutare Lichess impegnando il tuo tempo e abilità, ci sono molti %3$s.</string>
-  <string name="beingAPatron">essere un patrono</string>
+  <string name="beingAPatron">essere un mecenate</string>
   <string name="breakdownOfOurCosts">dettaglio dei nostri costi</string>
   <string name="otherWaysToHelp">altri modi per aiutare</string>
   <string name="areThereWebsitesBasedOnLichess">Ci sono siti web basati su Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sì. Lichess ha ispirato altri siti open-source che usano il nostro %1$s, le nostre %2$s e il nostro %3$s.</string>
   <string name="fairPlay">Fair Play</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Perché sono stato contrassegnato per manipolazioni del rating (manipolazioni in ribasso e in rialzo del rating) o per l\'utilizzo del computer?</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Perché sono stato contrassegnato per manipolazioni del punteggio (manipolazioni in ribasso e in rialzo del punteggio) o per l\'utilizzo del computer?</string>
   <string name="cheatDetectionMethods">Lichess ha metodi di rilevazione efficaci e un processo molto approfondito per la revisione di tutte le prove e per prendere una decisione. Il processo coinvolge spesso molti moderatori e può richiedere molto tempo. Oltre al marchio stesso, non entreremo nei dettagli sulle prove o sul processo decisionale per singoli casi. In questo modo sarebbe più facile evitare il rilevamento in futuro ed essere un invito a dibattiti improduttivi. Quel tempo e gli sforzi vengono spesi meglio in altri casi importanti. Gli utenti possono presentare ricorso tramite e-mail %1$s, ma le decisioni vengono raramente annullate.</string>
-  <string name="whenAmIEligibleRatinRefund">Quando posso beneficiare del rimborso automatico del rating da parte di imbroglioni?</string>
+  <string name="whenAmIEligibleRatinRefund">Quando posso beneficiare del rimborso automatico del punteggio perso contro chi imbroglia?</string>
   <string name="ratingRefundExplanation">Un minuto dopo aver individuato un imbroglione, vengono considerate le ultime 40 partite classificate negli ultimi 3 giorni. Se sei il loro avversario in una di quelle partite, hai perso punteggio (a causa di una sconfitta o un pareggio) e il tuo punteggio non era provvisorio, otterrai un rimborso del punteggio. Il rimborso è limitato in base al punteggio massimo e al progresso del tuo punteggio dopo la partita.
    (Ad esempio, se la tua valutazione aumenta notevolmente dopo tali partite, potresti non ottenere alcun rimborso o un rimborso parziale.) Un rimborso non supererà mai i 150 punti.</string>
   <string name="preventLeavingGameWithoutResigning">Cosa si fa quando i giocatori lasciano i giochi senza dimettersi?</string>
