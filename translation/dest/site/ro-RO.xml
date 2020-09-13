@@ -251,7 +251,7 @@
   <string name="inbox">Căsuță poștală</string>
   <string name="chatRoom">Zona de chat</string>
   <string name="loginToChat">Conectare la chat</string>
-  <string name="youHaveBeenTimedOut">Timpul alocat v-a fost suprimat.</string>
+  <string name="youHaveBeenTimedOut">Pentru o perioadă, nu mai aveți acces la chat.</string>
   <string name="spectatorRoom">Zona spectatorilor</string>
   <string name="composeMessage">Compune un mesaj</string>
   <string name="noNewMessages">Niciun mesaj nou</string>
