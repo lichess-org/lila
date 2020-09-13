@@ -221,6 +221,8 @@
     <item quantity="other">%s partij s teboj</item>
   </plurals>
   <string name="cancel">Prekliči</string>
+  <string name="whiteTimeOut">Belemu se je čas iztekel</string>
+  <string name="blackTimeOut">Črnemu se je čas iztekel</string>
   <string name="drawOfferSent">Predlog za remi poslan</string>
   <string name="drawOfferDeclined">Predlog za remi zavrnjen</string>
   <string name="drawOfferAccepted">Predlog za remi sprejet</string>
