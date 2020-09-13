@@ -62,11 +62,11 @@ case object Glicko {
 
   val minRating = 600
 
-  val default = Glicko(1500d, 350d, 0.06d)
+  val default = Glicko(1500d, 500d, 0.08d)
 
-  val defaultManaged = Glicko(1000d, 350d, 0.06d)
-
-  val defaultManagedPuzzle = Glicko(800d, 350d, 0.06d)
+  // managed is for students invited to a class
+  val defaultManaged       = Glicko(900d, 500d, 0.08d)
+  val defaultManagedPuzzle = Glicko(800d, 500d, 0.08d)
 
   val defaultIntRating = default.rating.toInt
 
