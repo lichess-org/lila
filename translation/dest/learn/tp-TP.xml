@@ -40,10 +40,12 @@
   <string name="stalemate">ken ala tawa</string>
   <string name="advanced">pi sona mute</string>
   <string name="register">kama tawa</string>
+  <string name="practice">kama sona</string>
   <string name="puzzles">musi pi pilin lon</string>
   <string name="videos">sitelen tawa</string>
   <string name="letsGo">mi o open!</string>
-  <string name="awesome">pona a!</string>
+  <string name="stageX">ma %s</string>
+  <string name="awesome">pona pona a!</string>
   <string name="excellent">pona mute!</string>
   <string name="greatJob">pali pona!</string>
   <string name="perfect">pona ale!</string>
