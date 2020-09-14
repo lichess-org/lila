@@ -91,7 +91,7 @@ dar poți proteja!</string>
   <string name="escapeWithTheKing">Scăpa cu regele!</string>
   <string name="theKingCannotEscapeButBlock">Regele nu poate scăpa, dar poți bloca atacul!</string>
   <string name="youCanGetOutOfCheckByTaking">Poți ieși din șah capturând piesa care-ți atacă regele.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">Calul dă şah prin apărările tale!</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Calul dă șah prin apărările tale!</string>
   <string name="escapeOrBlock">Evadează cu regele
 sau blochează atacul!</string>
   <string name="outOfCheckComplete">Felicitări! Regele tău nu poate fi capturat, asigură-te că-l poți apăra de șah!</string>
@@ -103,7 +103,7 @@ sau blochează atacul!</string>
   <string name="mateInOneComplete">Felicitări! Așa câștigi jocurile de șah!</string>
   <string name="intermediate">Intermediar</string>
   <string name="boardSetup">Pregătirea tablei</string>
-  <string name="howTheGameStarts">Cum incepe jocul</string>
+  <string name="howTheGameStarts">Cum începe jocul</string>
   <string name="boardSetupIntro">Cele două armate sunt față în față, gata pentru bătălie.</string>
   <string name="thisIsTheInitialPosition">Aceasta este poziția inițială
 a fiecărui joc de șah!
