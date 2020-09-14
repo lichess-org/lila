@@ -4,5 +4,7 @@
   <string name="reopen">kama sin</string>
   <string name="removedStudents">tenpo pini la weka</string>
   <string name="lastActiveDate">tenpo pini la lon</string>
+  <string name="managed">jan pi pana sona li pana e pona</string>
+  <string name="release">jan pi pana sona o pini e pana e pona</string>
   <string name="na">jo ken ala</string>
 </resources>
