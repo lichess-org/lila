@@ -2,4 +2,6 @@
 <resources>
   <string name="search">alasa</string>
   <string name="advancedSearch">alasa pi sona mute</string>
+  <string name="from">tan</string>
+  <string name="date">tenpo</string>
 </resources>
