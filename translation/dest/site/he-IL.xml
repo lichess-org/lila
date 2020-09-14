@@ -310,6 +310,7 @@
     <item quantity="many">תן %s שניות</item>
     <item quantity="other">תן %s שניות</item>
   </plurals>
+  <string name="thisAccountViolatedTos">החשבון הזה הפר את תנאי השימוש של ליצ\'ס</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">שחקן זה מעלה/מוריד את דירוגו באופן מלאכותי</string>
   <string name="openingExplorerAndTablebase">סייר הפתיחות וניתוח סיומים</string>
   <string name="takeback">החזר מהלך</string>
