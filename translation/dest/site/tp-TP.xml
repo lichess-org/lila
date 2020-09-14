@@ -71,6 +71,7 @@
   <string name="unknown">sona ala</string>
   <string name="whiteDrawBlack">walo / ala / pimeja</string>
   <string name="openingExplorer">ilo open</string>
+  <string name="allSet">ali li pali a!</string>
   <string name="delete">weka</string>
   <string name="openStudy">o tawa e ma sona</string>
   <string name="enable">o ken</string>
@@ -424,6 +425,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="next">tawa</string>
   <string name="solution">pali pona</string>
   <string name="doItAgain">o pali sin</string>
+  <string name="opening">tenpo lon la kama open</string>
   <string name="youCannotChallengeX">sina ken ala musi e jan %s.</string>
   <string name="xDoesNotAcceptChallenges">jan %s li wile ala e wile musi.</string>
   <string name="playX">o pali e %s</string>
