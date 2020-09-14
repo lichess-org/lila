@@ -347,6 +347,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="normal">tawa</string>
   <string name="slow">tawa lon tenpo suli</string>
   <string name="never">tenpo ala la</string>
+  <string name="difficultyEasy">pona</string>
+  <string name="difficultyHard">ike</string>
   <string name="xCompetesInY">jan %1$s li musi lon musi %2$s</string>
   <string name="xAskedY">jan %1$s li toki e ni: %2$s</string>
   <string name="xAnsweredY">jan %1$s li toki e ni: %2$s</string>
@@ -371,6 +373,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tools">ilo musi</string>
   <string name="playOnline">o musi kepeken linja</string>
   <string name="onlyFriends">jan pona taso</string>
+  <string name="menu">lipu open</string>
   <string name="whiteCastlingKingside">walo O-O</string>
   <string name="blackCastlingKingside">pimeja O-O</string>
   <string name="tpTimeSpentPlaying">tenpo musi: %s</string>
@@ -378,6 +381,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tpTimeSpentOnTV">tenpo pi ilo lukin: %s</string>
   <string name="watch">o lukin</string>
   <string name="contribute">o pana e ijo</string>
+  <string name="host">jan suli</string>
   <string name="create">open</string>
   <string name="tournamentOfficial">suli</string>
   <string name="keyMoveBackwardOrForward">o tawa sinpin/monsi</string>
