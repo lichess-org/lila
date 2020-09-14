@@ -346,8 +346,10 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="fast">tawa lon tenpo lili</string>
   <string name="normal">tawa</string>
   <string name="slow">tawa lon tenpo suli</string>
+  <string name="always">tenpo ale</string>
   <string name="never">tenpo ala la</string>
   <string name="difficultyEasy">pona</string>
+  <string name="difficultyNormal">pona insa</string>
   <string name="difficultyHard">ike</string>
   <string name="xCompetesInY">jan %1$s li musi lon musi %2$s</string>
   <string name="xAskedY">jan %1$s li toki e ni: %2$s</string>
@@ -369,6 +371,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="playOfflineComputer">poki sona</string>
   <string name="opponent">jan ante</string>
   <string name="learnMenu">kama sona</string>
+  <string name="studyMenu">o kama sona</string>
   <string name="community">kulupu</string>
   <string name="tools">ilo musi</string>
   <string name="playOnline">o musi kepeken linja</string>
