@@ -70,6 +70,7 @@
   <string name="losing">pini ike</string>
   <string name="unknown">sona ala</string>
   <string name="whiteDrawBlack">walo / ala / pimeja</string>
+  <string name="topGames">musi pona pona</string>
   <string name="openingExplorer">ilo open</string>
   <string name="allSet">ali li pali a!</string>
   <string name="delete">weka</string>
@@ -93,6 +94,10 @@
     <item quantity="other">jan %s li lon</item>
   </plurals>
   <string name="currentGames">musi pi tenpo ni</string>
+  <plurals name="nbGames">
+    <item quantity="one">musi %s</item>
+    <item quantity="other">musi %s</item>
+  </plurals>
   <string name="viewInFullSize">lukin ale</string>
   <string name="logOut">tawa tan ni</string>
   <string name="signIn">open</string>
@@ -346,6 +351,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="currentPassword">nimi pi tawa lon tenpo ni</string>
   <string name="newPassword">nimi pi tawa sin</string>
   <string name="newPasswordAgain">o toki sin e nimi tawa ain</string>
+  <string name="privacy">ken sona pi sina taso</string>
   <string name="sound">kalama</string>
   <string name="none">tawa ala</string>
   <string name="fast">tawa lon tenpo lili</string>
@@ -365,7 +371,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="victoryVsYInZ">%1$s vs jan %2$s lon %3$s</string>
   <string name="defeatVsYInZ">%1$s vs jan %2$s lon %3$s</string>
   <string name="drawVsYInZ">%1$s vs jan %2$s lon %3$s</string>
-  <string name="starting">o open:</string>
+  <string name="starting">kama open:</string>
   <string name="allInformationIsPublicAndOptional">sona ale li open. sina wile pana sona ala.</string>
   <string name="yourCityRegionOrDepartment">ma sina</string>
   <string name="human">jan</string>
@@ -421,6 +427,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="boardGeometry">nena anu lipu, lili anu suli</string>
   <string name="boardTheme">sitelen lipu</string>
   <string name="pieceSet">sitelen ijo</string>
+  <string name="coaches">jan pi sona pana</string>
   <string name="learnFromYourMistakes">o kama sona kepeken pakala sina</string>
   <string name="next">tawa</string>
   <string name="solution">pali pona</string>
