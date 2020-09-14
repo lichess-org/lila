@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessClasses">toki awen sona</string>
   <string name="reopen">kama sin</string>
+  <string name="removedStudents">tenpo pini la weka</string>
   <string name="lastActiveDate">tenpo pini la lon</string>
   <string name="na">jo ken ala</string>
 </resources>
