@@ -74,6 +74,7 @@
   <string name="delete">weka</string>
   <string name="openStudy">o tawa e ma sona</string>
   <string name="enable">o ken</string>
+  <string name="memory">sona</string>
   <string name="blunder">pakala suli</string>
   <string name="blunders">pakala</string>
   <string name="mistake">pakala</string>
@@ -149,6 +150,7 @@
   <string name="mode">nasin</string>
   <string name="casual">nanpa ala pi pona jan</string>
   <string name="rated">nanpa pi pona jan</string>
+  <string name="casualTournament">nanpa ala pi pona jan</string>
   <string name="thisGameIsRated">sina kama jo e nanpa pi pona jan lon musi ni</string>
   <string name="rematch">musi sin</string>
   <string name="rematchOfferSent">sina wile e musi sin</string>
@@ -295,6 +297,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="wasThisPuzzleAnyGood">musi ni li pona ala pona?</string>
   <string name="pleaseVotePuzzle">o pona e Lichess. o pana e pilin sina kepeken nena sewi anu nena anpa.</string>
   <string name="thankYou">pona tawa sina!</string>
+  <string name="hidden">lukin ala</string>
   <string name="fromGameLink">tan musi nanpa %s</string>
   <string name="continueTraining">o awen kama sona</string>
   <string name="retryThisPuzzle">o musi e ni la tenpo sin</string>
@@ -357,6 +360,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="xAnsweredY">jan %1$s li toki e ni: %2$s</string>
   <string name="xCommentedY">jan %1$s li toki e ni: %2$s</string>
   <string name="victory">pini pona!</string>
+  <string name="defeat">pini ike</string>
   <string name="victoryVsYInZ">%1$s vs jan %2$s lon %3$s</string>
   <string name="defeatVsYInZ">%1$s vs jan %2$s lon %3$s</string>
   <string name="drawVsYInZ">%1$s vs jan %2$s lon %3$s</string>
@@ -385,6 +389,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tpTimeSpentOnTV">tenpo pi ilo lukin: %s</string>
   <string name="watch">o lukin</string>
   <string name="about">o kama sona e</string>
+  <string name="really">lon la</string>
   <string name="contribute">o pana e ijo</string>
   <string name="host">jan suli</string>
   <string name="create">open</string>
