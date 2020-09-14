@@ -36,7 +36,9 @@
   <string name="yourPawnReachedTheEndOfTheBoard">jan utala sina li kama lon poka ante!</string>
   <string name="itNowPromotesToAStrongerPiece">ona li kama wawa.</string>
   <string name="selectThePieceYouWant">sina wile seme e ona?</string>
+  <string name="combat">utala</string>
   <string name="stalemate">ken ala tawa</string>
+  <string name="videos">sitelen tawa</string>
   <string name="letsGo">mi o open!</string>
   <string name="awesome">pona a!</string>
   <string name="excellent">pona mute!</string>
