@@ -6,7 +6,10 @@
   <string name="first">o tawa e nanpa wan</string>
   <string name="next">tawa</string>
   <string name="last">o tawa monsi</string>
+  <string name="cloneStudy">o kama jo</string>
   <string name="open">o tawa</string>
   <string name="noPinnedComment">ala</string>
+  <string name="empty">ala</string>
+  <string name="start">o open</string>
   <string name="save">awen</string>
 </resources>
