@@ -77,9 +77,9 @@
   <string name="openStudy">o tawa e ma sona</string>
   <string name="enable">o ken</string>
   <string name="memory">sona</string>
-  <string name="blunder">pakala suli</string>
+  <string name="blunder">pali pakala suli</string>
   <string name="blunders">pakala</string>
-  <string name="mistake">pakala</string>
+  <string name="mistake">pali pakala</string>
   <string name="mistakes">pakala</string>
   <string name="inaccuracy">pakala lili</string>
   <string name="inaccuracies">pali pi ken ike</string>
@@ -300,6 +300,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="keepGoing">o awen pali.</string>
   <string name="puzzleFailed">sina pakala e musi</string>
   <string name="butYouCanKeepTrying">taso la sina ken awen oko pali</string>
+  <string name="success">pini pona</string>
   <string name="wasThisPuzzleAnyGood">musi ni li pona ala pona?</string>
   <string name="pleaseVotePuzzle">o pona e Lichess. o pana e pilin sina kepeken nena sewi anu nena anpa.</string>
   <string name="thankYou">pona tawa sina!</string>
@@ -315,7 +316,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">pali wan li pini la ilo sona o tawa musi poka</string>
   <string name="autoSwitch">ilo o tawa</string>
-  <string name="puzzles">musi sijelo</string>
+  <string name="puzzles">musi pi pilin lon</string>
   <string name="tournamentWinners">jan pi pini pona pi musi mute</string>
   <string name="name">nimi</string>
   <string name="description">toki pi kulupu</string>
@@ -433,6 +434,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="solution">pali pona</string>
   <string name="doItAgain">o pali sin</string>
   <string name="opening">tenpo lon la kama open</string>
+  <string name="endgame">musi pi pini kama</string>
   <string name="youCannotChallengeX">sina ken ala musi e jan %s.</string>
   <string name="xDoesNotAcceptChallenges">jan %s li wile ala e wile musi.</string>
   <string name="playX">o pali e %s</string>
