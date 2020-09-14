@@ -372,11 +372,12 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="victoryVsYInZ">%1$s vs jan %2$s lon %3$s</string>
   <string name="defeatVsYInZ">%1$s vs jan %2$s lon %3$s</string>
   <string name="drawVsYInZ">%1$s vs jan %2$s lon %3$s</string>
+  <string name="timeline">linja tenpo</string>
   <string name="starting">kama open:</string>
   <string name="allInformationIsPublicAndOptional">sona ale li open. sina wile pana sona ala.</string>
   <string name="yourCityRegionOrDepartment">ma sina</string>
   <string name="human">jan</string>
-  <string name="computer">poki sona</string>
+  <string name="computer">ilo sona</string>
   <string name="side">walo anu pimeja</string>
   <string name="clock">ilo tenpo</string>
   <string name="unauthorizedError">sina ken ala.</string>
@@ -417,6 +418,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="withNobody">tawa jan ala</string>
   <string name="withFriends">tawa jan pona</string>
   <string name="withEverybody">tawa jan ale</string>
+  <string name="kidMode">nasin pi jan lili</string>
   <string name="bulletBlitzClassical">nasin Bullet, Blitz, Classical</string>
   <string name="gameAnalysis">sona musi</string>
   <string name="xCreatesStudyY">jan %1$s li pali e ma sona. ma sona li nimi %2$s</string>
