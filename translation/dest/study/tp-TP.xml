@@ -10,6 +10,9 @@
   <string name="open">o tawa</string>
   <string name="noPinnedComment">ala</string>
   <string name="empty">ala</string>
+  <string name="editor">ilo pi kama ante</string>
+  <string name="public">lukin pi jan ante</string>
+  <string name="nobody">jan ala</string>
   <string name="start">o open</string>
   <string name="save">awen</string>
 </resources>
