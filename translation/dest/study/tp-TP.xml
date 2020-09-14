@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="hot">suli</string>
+  <string name="kick">o weka e jan</string>
+  <string name="like">pona tawa mi</string>
+  <string name="next">tawa</string>
+  <string name="last">tawa pini</string>
+  <string name="open">o tawa</string>
 </resources>
