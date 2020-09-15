@@ -68,6 +68,7 @@
   <string name="close">o pini</string>
   <string name="winning">pini pona</string>
   <string name="losing">pini ike</string>
+  <string name="drawn">sama</string>
   <string name="unknown">sona ala</string>
   <string name="database">ilo jo pi lipu sona</string>
   <string name="whiteDrawBlack">walo / ala / pimeja</string>
@@ -271,6 +272,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="winRate">pini pona</string>
   <string name="whiteWins">pini pona walo</string>
   <string name="blackWins">pini pona pimeja</string>
+  <string name="draws">sama</string>
   <string name="nextXTournament">musi mute %s kama:</string>
   <string name="membersOnly">jan nimi taso</string>
   <string name="boardEditor">ilo pi ante e supa</string>
@@ -435,6 +437,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="boardTheme">sitelen lipu</string>
   <string name="pieceSet">sitelen ijo</string>
   <string name="coaches">jan pi sona pana</string>
+  <string name="error.unknown">pakala</string>
   <string name="custom">nasin ante</string>
   <string name="learnFromYourMistakes">o kama sona kepeken pakala sina</string>
   <string name="next">tawa</string>
