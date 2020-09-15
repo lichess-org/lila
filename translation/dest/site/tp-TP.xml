@@ -405,6 +405,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="watchGames">o lukin e musi pi jan ni</string>
   <string name="tpTimeSpentOnTV">tenpo pi ilo lukin: %s</string>
   <string name="watch">o lukin</string>
+  <string name="mobileApp">pi ilo toki</string>
   <string name="about">o kama sona e</string>
   <string name="really">lon la</string>
   <string name="contribute">o pana e ijo</string>
@@ -432,7 +433,9 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="xCreatesStudyY">jan %1$s li pali e ma sona. ma sona li nimi %2$s</string>
   <string name="quickPairing">kama jo musi kepeken tenpo lili</string>
   <string name="lobby">tomo awen</string>
+  <string name="anonymous">jan pi nimi weka tawa sona sina</string>
   <string name="language">toki</string>
+  <string name="background">sitelen weka</string>
   <string name="light">walo</string>
   <string name="dark">pimeja</string>
   <string name="boardGeometry">nena anu lipu, lili anu suli</string>
@@ -445,6 +448,10 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="next">tawa</string>
   <string name="solution">pali pona</string>
   <string name="doItAgain">o pali sin</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">tenpo lili %s</item>
+    <item quantity="other">tenpo lili %s</item>
+  </plurals>
   <string name="opening">tenpo lon la kama open</string>
   <string name="endgame">musi pi pini kama</string>
   <string name="youCannotChallengeX">sina ken ala musi e jan %s.</string>
@@ -458,4 +465,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="edit">o ante</string>
   <string name="rapid">nasin Rapid</string>
   <string name="classical">nasin Classical</string>
+  <string name="important">suli</string>
+  <string name="teamNamedX">kulupu %1$s</string>
+  <string name="subscribe">o kama jo e sona</string>
 </resources>
