@@ -76,6 +76,7 @@
   <string name="openingExplorer">ilo open</string>
   <string name="allSet">ali li pali a!</string>
   <string name="delete">weka</string>
+  <string name="replayMode">nasin lukin pi kama sin</string>
   <string name="realtimeReplay">tenpo sama</string>
   <string name="openStudy">o tawa e ma sona</string>
   <string name="enable">o ken</string>
@@ -270,6 +271,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="createdBy">tan jan</string>
   <string name="tournamentIsStarting">musi li open</string>
   <string name="winRate">pini pona</string>
+  <string name="performance">pali pona seme</string>
   <string name="whiteWins">pini pona walo</string>
   <string name="blackWins">pini pona pimeja</string>
   <string name="draws">sama</string>
@@ -409,6 +411,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="about">o kama sona e</string>
   <string name="really">lon la</string>
   <string name="contribute">o pana e ijo</string>
+  <string name="sourceCode">lon pi pali ilo</string>
   <string name="host">jan suli</string>
   <string name="create">open</string>
   <string name="tournamentOfficial">suli</string>
@@ -423,6 +426,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="yourPerfTypeRatingIsRating">nanpa %1$s sina li nanpa %2$s</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">jan %1$s li pona mute. jan %2$s lon %3$s li pona lili.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">sina jo ala e nanpa %s</string>
+  <string name="cumulative">pi pali nanpa poka</string>
   <string name="glicko2Rating">nanpa Glicko-2</string>
   <string name="withNobody">tawa jan ala</string>
   <string name="withFriends">tawa jan pona</string>
@@ -438,12 +442,18 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="background">sitelen weka</string>
   <string name="light">walo</string>
   <string name="dark">pimeja</string>
+  <string name="transparent">ko</string>
   <string name="boardGeometry">nena anu lipu, lili anu suli</string>
   <string name="boardTheme">sitelen lipu</string>
+  <string name="boardSize">suli pi supa musi</string>
   <string name="pieceSet">sitelen ijo</string>
   <string name="coaches">jan pi sona pana</string>
   <string name="error.unknown">pakala</string>
   <string name="custom">nasin ante</string>
+  <string name="bestWasX">pona pona li %s</string>
+  <string name="getAHint">o jo e sona lili</string>
+  <string name="whiteWinsGame">walo li pini pona</string>
+  <string name="blackWinsGame">pimeja li pini pona</string>
   <string name="learnFromYourMistakes">o kama sona kepeken pakala sina</string>
   <string name="next">tawa</string>
   <string name="solution">pali pona</string>
@@ -453,6 +463,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
     <item quantity="other">tenpo lili %s</item>
   </plurals>
   <string name="opening">tenpo lon la kama open</string>
+  <string name="middlegame">musi insa</string>
   <string name="endgame">musi pi pini kama</string>
   <string name="youCannotChallengeX">sina ken ala musi e jan %s.</string>
   <string name="xDoesNotAcceptChallenges">jan %s li wile ala e wile musi.</string>
