@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">sina wile e nimi pi sona ala</string>
+  <string name="noneYet">tenpo ni la ala</string>
   <string name="hot">suli</string>
   <plurals name="nbGames">
     <item quantity="one">musi %s</item>
     <item quantity="other">musi %s</item>
   </plurals>
+  <string name="spectator">jan lukin</string>
   <string name="kick">o weka e jan</string>
   <string name="like">pona tawa mi</string>
   <string name="newTag">nomo sona sin</string>
