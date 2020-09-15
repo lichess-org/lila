@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">o pana e mani</string>
+  <string name="lifetime">tenpo kama ali</string>
+  <string name="onetime">tenpo wan</string>
   <string name="otherAmount">ante</string>
   <string name="withPaypal">ilo PayPal</string>
   <string name="update">o pali sin</string>
