@@ -12,6 +12,7 @@
     <item quantity="one">jan pi pana sona %s</item>
     <item quantity="other">jan pi pana sona %s</item>
   </plurals>
+  <string name="students">jan pi kama sona</string>
   <string name="progress">pali tawa</string>
   <string name="winrate">nanpa pi pini pona</string>
   <string name="na">jo ken ala</string>
