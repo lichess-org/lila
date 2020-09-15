@@ -28,7 +28,7 @@ object dgt {
         ),
         p(
           "You can download the software here: ",
-          a(href := "http://www.livechesscloud.com/software/")(s"LiveChess $liveChessVersion"),
+          a(href := "https://www.livechesscloud.com/software/")(s"LiveChess $liveChessVersion"),
           "."
         ),
         p(
