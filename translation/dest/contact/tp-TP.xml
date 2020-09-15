@@ -2,4 +2,5 @@
 <resources>
   <string name="contact">toki</string>
   <string name="insults">toki ike</string>
+  <string name="errorPage">lipu pakala</string>
 </resources>
