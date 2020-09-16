@@ -169,7 +169,7 @@
     <item quantity="one">%s तास</item>
     <item quantity="other">%s तास</item>
   </plurals>
-  <string name="time">vel</string>
+  <string name="time">वेळ</string>
   <string name="rating">गुणांकन</string>
   <string name="ratingStats">गुणांक आकडेवारी</string>
   <string name="username">वापरकर्त्याचे नाव</string>
@@ -199,8 +199,8 @@
     <item quantity="other">%s  तुमच्याशी खेळलेले डाव</item>
   </plurals>
   <string name="cancel">रद्द करा</string>
-  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when white's time has run out. Is followed by the end condition, for example&#10;'White time out. Draw'">पांढऱ्याची वेळ संपली</string>
-  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when black's time has run out. Is followed by the end condition, for example&#10;'Black time out. Draw'">काळ्याची वेळ संपली</string>
+  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White time out · Draw'">पांढऱ्याची वेळ संपली</string>
+  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black time out · Draw'">काळ्याची वेळ संपली</string>
   <string name="drawOfferSent">डाव अनिर्णीत ठेवण्याचा प्रस्ताव पाठवला</string>
   <string name="drawOfferDeclined">डाव अनिर्णीत ठेवण्याचा प्रस्ताव नाकारला</string>
   <string name="drawOfferAccepted">डाव अनिर्णीत ठेवण्याचा प्रस्ताव स्वीकारला</string>
