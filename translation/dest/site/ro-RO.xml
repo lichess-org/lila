@@ -210,8 +210,8 @@
     <item quantity="other">%s partide cu tine</item>
   </plurals>
   <string name="cancel">Anulare</string>
-  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when white's time has run out. Is followed by the end condition, for example&#10;'White time out. Draw'">Timpul pentru alb a expirat</string>
-  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when black's time has run out. Is followed by the end condition, for example&#10;'Black time out. Draw'">Timpul pentru negru a expirat</string>
+  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White time out · Draw'">Timpul pentru alb a expirat</string>
+  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black time out · Draw'">Timpul pentru negru a expirat</string>
   <string name="drawOfferSent">Propunere de remiză trimisă</string>
   <string name="drawOfferDeclined">Propunere de remiză refuzată</string>
   <string name="drawOfferAccepted">Propunere de remiză acceptată</string>
@@ -702,7 +702,7 @@
     <item quantity="other">%1$s %2$s jucători în această săptămână.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Palmaresul dumneavoastră %1$s este %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Sunteți mai bun decât %1$s din %2$s jucători.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Sunteți mai bun decât %1$s dintre jucătorii de %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">Jucătorul %1$s este mai bun decât %2$s dintre jucătorii de %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nu aveți un palmares %s definit.</string>
   <string name="yourRating">Scorul tău</string>
