@@ -69,9 +69,9 @@
   <string name="move">حرکت</string>
   <string name="variantLoss">حرکت بازنده</string>
   <string name="variantWin">حرکت برنده</string>
-  <string name="insufficientMaterial">مهره کافی نیست</string>
+  <string name="insufficientMaterial">مواد کافی وجود ندارد</string>
   <string name="pawnMove">حرکت پیاده</string>
-  <string name="capture">گرفتن مهره</string>
+  <string name="capture">بزن</string>
   <string name="close">بستن</string>
   <string name="winning">حرکت برنده</string>
   <string name="losing">حرکت بازنده</string>
@@ -828,4 +828,7 @@
   <string name="edit">ویرایش</string>
   <string name="rapid">سریع</string>
   <string name="classical">کلاسیک</string>
+  <string name="important">مهم!</string>
+  <string name="subscribe">مشترک شدن</string>
+  <string name="unsubscribe">لغو اشتراک</string>
 </resources>
