@@ -30,6 +30,7 @@ export interface StudyChapterNewFormCtrl {
     tab: StoredProp<string>;
     editor: any;
     editorFen: Prop<Fen | null>;
+    isDefaultName: boolean;
   };
   open(): void;
   openInitial(): void;
@@ -52,7 +53,8 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
     initial: prop(false),
     tab: storedProp('study.form.tab', 'init'),
     editor: null,
-    editorFen: prop(null)
+    editorFen: prop(null),
+    isDefaultName: true,
   };
 
   function loadVariants() {
@@ -118,7 +120,6 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
   const currentChapter = ctrl.root.study!.data.chapter;
   const mode = currentChapter.practice ? 'practice' : (defined(currentChapter.conceal) ? 'conceal' : (currentChapter.gamebook ? 'gamebook' : 'normal'));
   const noarg = trans.noarg;
-  let isDefaultName = true;
 
   return modal.modal({
     class: 'chapter-new',
@@ -139,7 +140,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
         hook: bindSubmit(e => {
           const o: any = {
             fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null),
-            isDefaultName: isDefaultName
+            isDefaultName: ctrl.vm.isDefaultName
           };
           'name game variant pgn orientation mode'.split(' ').forEach(field => {
             o[field] = fieldValue(e, field);
@@ -160,7 +161,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               if (!el.value) {
                 el.value = trans('chapterX', (ctrl.vm.initial() ? 1 : (ctrl.chapters().length + 1)));
                 el.onchange = function (){
-                  isDefaultName = false;
+                  ctrl.vm.isDefaultName = false;
                 };
                 el.select();
                 el.focus();
