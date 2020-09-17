@@ -199,6 +199,8 @@
     <item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>
   </plurals>
   <string name="cancel">İptal et</string>
+  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White time out · Draw'">Beyazın zamanı tükendi.</string>
+  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black time out · Draw'">Siyahın zamanı tükendi</string>
   <string name="drawOfferSent">Beraberlik teklifi gönderildi</string>
   <string name="drawOfferDeclined">Beraberlik teklifi reddedildi</string>
   <string name="drawOfferAccepted">Beraberlik teklifi kabul edildi</string>
