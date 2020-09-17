@@ -195,6 +195,8 @@
     <item quantity="other">%s بازی با شما</item>
   </plurals>
   <string name="cancel">انصراف</string>
+  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White time out · Draw'">زمان سفید به اتمام رسید</string>
+  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black time out · Draw'">زمان سیاه به اتمام رسید</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
   <string name="drawOfferDeclined">پیشنهاد تساوی پذیرفته نشد</string>
   <string name="drawOfferAccepted">پیشنهاد تساوی پذیرفته شد</string>
