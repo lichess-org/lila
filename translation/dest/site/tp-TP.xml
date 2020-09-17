@@ -80,6 +80,7 @@
   <string name="realtimeReplay">tenpo sama</string>
   <string name="openStudy">o tawa e ma sona</string>
   <string name="enable">o ken</string>
+  <string name="cpus">nanpa pi ilo pilin</string>
   <string name="memory">sona</string>
   <string name="blunder">pali pakala suli</string>
   <string name="blunders">pakala</string>
@@ -409,6 +410,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="watch">o lukin</string>
   <string name="mobileApp">pi ilo toki</string>
   <string name="about">o kama sona e</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">musi %1$s li esun ala (%2$s), li pona, li sitelen esun ala, li ilo pana pi lipu sona pi tan open</string>
   <string name="really">lon la</string>
   <string name="contribute">o pana e ijo</string>
   <string name="sourceCode">lon pi pali ilo</string>
