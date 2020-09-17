@@ -817,4 +817,15 @@
   <string name="goodPractice">به همین منظور، ما باید اطمینان حاصل کنیم که تمام بازیکنان تمرین خوب را دنبال میکنند.</string>
   <string name="potentialProblem">زمانی که مشکلی احتمالی شناسایی شد ، این پیام را نمایش می دهیم.</string>
   <string name="howToAvoidThis">چگونه از این امر جلوگیری کنیم؟</string>
+  <string name="playEveryGame">هر بازی که استارت میزنید را بازی کنید.</string>
+  <string name="tryToWin">در هر بازی برای پیروزی (یا حداقل تساوی) تلاش کنید.</string>
+  <string name="resignLostGames">بازی های از دست رفته را انصراف دهید(نگذارید زمان تمام شود).</string>
+  <string name="temporaryInconvenience">ما برای این مشکل موقت عذرخواهی می کنیم،</string>
+  <string name="wishYouGreatGames">و برای شما بازیهای عالی در lichess.org آرزو می کنیم.</string>
+  <string name="thankYouForReading">از اینکه متن را خواندید متشکریم!</string>
+  <string name="lifetimeScore">امتیاز کل</string>
+  <string name="currentMatchScore">امتیاز بازی فعلی</string>
+  <string name="edit">ویرایش</string>
+  <string name="rapid">سریع</string>
+  <string name="classical">کلاسیک</string>
 </resources>
