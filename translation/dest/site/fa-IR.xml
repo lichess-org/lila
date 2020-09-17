@@ -662,8 +662,10 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">.است %1$s شما %2$s ریتینگ</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">شما بهتر از %1$s بازیکن ها در %2$s هستید.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s بهتر از %2$s از بازیکنان %3$s میباشد.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">. ندارید %s چرا شما ریتینگ پایدار برای</string>
   <string name="yourRating">ریتینگ شما</string>
+  <string name="cumulative">تجمعی</string>
   <string name="checkYourEmail">ایمیل خود را چک کنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر ایمیل را مشاهده نمی کنید پوشه ی اسپم را بررسی کنید</string>
@@ -809,4 +811,10 @@
     <item quantity="one">و پیش حرکت %s را حفظ کنید</item>
     <item quantity="other">و پیش حرکت های %s را حفظ کنید</item>
   </plurals>
+  <string name="sorry">متاسفم :(</string>
+  <string name="why">چرا؟</string>
+  <string name="pleasantChessExperience">هدف ما مهیا ساختن تجربه لذت بخش شطرنج به همه افراد است.</string>
+  <string name="goodPractice">به همین منظور، ما باید اطمینان حاصل کنیم که تمام بازیکنان تمرین خوب را دنبال میکنند.</string>
+  <string name="potentialProblem">زمانی که مشکلی احتمالی شناسایی شد ، این پیام را نمایش می دهیم.</string>
+  <string name="howToAvoidThis">چگونه از این امر جلوگیری کنیم؟</string>
 </resources>
