@@ -118,6 +118,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
   const currentChapter = ctrl.root.study!.data.chapter;
   const mode = currentChapter.practice ? 'practice' : (defined(currentChapter.conceal) ? 'conceal' : (currentChapter.gamebook ? 'gamebook' : 'normal'));
   const noarg = trans.noarg;
+  let isDefaultName = true;
 
   return modal.modal({
     class: 'chapter-new',
@@ -137,7 +138,8 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
       h('form.form3', {
         hook: bindSubmit(e => {
           const o: any = {
-            fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null)
+            fen: fieldValue(e, 'fen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorFen() : null),
+            isDefaultName: isDefaultName
           };
           'name game variant pgn orientation mode'.split(' ').forEach(field => {
             o[field] = fieldValue(e, field);
@@ -157,6 +159,9 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             hook: onInsert<HTMLInputElement>(el => {
               if (!el.value) {
                 el.value = trans('chapterX', (ctrl.vm.initial() ? 1 : (ctrl.chapters().length + 1)));
+                el.onchange = function (){
+                  isDefaultName = false;
+                };
                 el.select();
                 el.focus();
               }
