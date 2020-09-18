@@ -4,18 +4,39 @@ import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json._
 import play.api.libs.ws.JsonBodyReadables._
 import play.api.libs.ws.StandaloneWSClient
+import scala.concurrent._
 import scala.concurrent.duration._
 
 import lila.common.IpAddress
 
-final class Ip2Proxy(
+trait Ip2Proxy {
+
+  def apply(ip: IpAddress): Fu[Boolean]
+
+  def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]]
+}
+
+final class Ip2ProxySkip(
+    ws: StandaloneWSClient,
+    cacheApi: lila.memo.CacheApi,
+) extends Ip2Proxy {
+
+  def apply(ip: IpAddress): Fu[Boolean] = Future.successful(false)
+
+  def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]] = {
+    val s: Set[IpAddress] = Set()
+    Future(s)(ExecutionContext.global)
+  }
+}
+
+final class Ip2ProxyServer(
     ws: StandaloneWSClient,
     cacheApi: lila.memo.CacheApi,
     checkUrl: String
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
-) {
+) extends Ip2Proxy {
 
   def apply(ip: IpAddress): Fu[Boolean] =
     cache.get(ip).recover { case e: Exception =>
