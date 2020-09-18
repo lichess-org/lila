@@ -274,6 +274,30 @@
   <plurals name="nbTournamentPoints">
     <item quantity="other">%s tournament points</item>
   </plurals>
+  <string name="backToTournament">Back to tournament</string>
+  <string name="thematic">Thematic</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="other">≥ %s rated games</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">≥ %1$s %2$s rated games</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="other">You need to play %1$s more %2$s rated games</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="other">You need to play %s more rated games</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Your %s rating is provisional</string>
+  <string name="yourPerfRatingIsTooHigh">Your %1$s rating (%2$s) is too high</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Your top weekly %1$s rating (%2$s) is too high</string>
+  <string name="yourPerfRatingIsTooLow">Your %1$s rating (%2$s) is too low</string>
+  <string name="ratedMoreThanInPerf">Rated ≥ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf">Rated ≤ %1$s in %2$s</string>
+  <string name="mustBeInTeam">Must be in team %s</string>
+  <string name="youAreNotInTeam">You are not in the team %s</string>
+  <string name="backToGame">Back to game</string>
+  <string name="siteDescription">Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents.</string>
   <string name="following">Senarai yang diikuti</string>
   <string name="unfollow">Berhenti mengikuti</string>
   <string name="block">Menghalang</string>
