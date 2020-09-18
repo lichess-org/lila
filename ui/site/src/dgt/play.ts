@@ -1,19 +1,12 @@
-import { parseFen } from 'chessops/fen';
+import { Chess } from 'chessops/chess';
+import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
+import { makeSan, makeSanAndPlay, parseSan } from 'chessops/san';
+import { Move, NormalMove } from 'chessops/types';
+import { board } from 'chessops/debug';
+import { defaultSetup, makeUci, parseUci } from 'chessops';
 
 export default function (token: string) {
-  // here's the new setting keys
-  [
-    'dgt-livechess-url',
-    'dgt-speech-keywords',
-    'dgt-speech-synthesis',
-    'dgt-speech-announce-all-moves',
-    'dgt-speech-announce-move-format',
-    'dgt-verbose'
-  ].forEach(k => {
-    console.log(k, localStorage.getItem(k));
-  });
 
-  // put your UI in there
   const root = document.getElementById('dgt-play-zone') as HTMLDivElement;
   const consoleOutput = document.getElementById('dgt-play-zone-log') as HTMLPreElement;
 
@@ -25,10 +18,10 @@ export default function (token: string) {
    * CONFIGURATION VALUES
    */
   const liveChessURL = localStorage.getItem('dgt-livechess-url');
-  const announceAllMoves = (localStorage.getItem('dgt-speech-announce-all-moves') == "true") ? true : false;
-  const verbose = (localStorage.getItem('dgt-verbose') == "true") ? true : false;
-  const speechSynthesisOn = (localStorage.getItem('dgt-speech-synthesis') == "true") ? true : false;
-  const announceMoveFormat = localStorage.getItem('dgt-speech-announce-move-format');
+  const announceAllMoves = (localStorage.getItem('dgt-speech-announce-all-moves') == "true");
+  const verbose = (localStorage.getItem('dgt-verbose') == "true");
+  const announceMoveFormat = localStorage.getItem('dgt-speech-announce-move-format') ? localStorage.getItem('dgt-speech-announce-move-format') : "san";
+  const speechSynthesisOn = (localStorage.getItem('dgt-speech-synthesis') == "true");
   const voice = localStorage.getItem('dgt-speech-voice');
   var keywords = {
     "K": "King",
@@ -61,26 +54,37 @@ export default function (token: string) {
   //Lichess Integration with Board API
 
   /**
-   * GLOBAL VATIABLES
+   * GLOBAL VATIABLES - Lichess Connectivity
    */
   var time = new Date(); //A Global time object
   var currentGameId = ''; //Track which is the current Game, in case there are several open games
-  var currentGameColor = ''; //Track which color is being currently played by the player
-  var me; //Track my information
+  var currentGameColor = ''; //Track which color is being currently played by the player. 'white' or 'black'
+  var me: { id: string; username: string }; //Track my information
   var gameInfoMap = new Map(); //A collection of key values to store game inmutable information of all open games
   var gameStateMap = new Map(); //A collection of key values to store the changing state of all open games
-  var gameConnectionMap = new Map(); //A collection of key values to store the network status of a game
-  var gameChessBoardMap = new Map(); //A collection of Chess Boads representing the current board of the games
+  var gameConnectionMap = new Map<string, { connected: boolean, lastEvent: number }>(); //A collection of key values to store the network status of a game
+  var gameChessBoardMap = new Map<string, Chess>(); //A collection of chessops Boads representing the current board of the games
   var eventSteamStatus = { connected: false, lastEvent: time.getTime() }; //An object to store network status of the main eventStream
-  //const dgtBoard = new BoardManager(); //Store the board manager object
-
+  const keywordsBase = ["K", "Q", "R", "B", "N", "P", "x", "+", "#", "(=)", "O-O-O", "O-O", "white", "black", "wins by", "timeout", "resignation"]
+  var lastSanMove: { player: string, move: string, by: string }; //Track last move in SAN format . This is because there is no easy way to keep history of san moves
+  /**
+   * Global Variables for DGT Board Connection (JACM)
+   */
+  var localBoard: Chess = startingPosition(); //Board with valid moves played on Lichess and DGT Board. May be half move behind Lichess or half move in advance
+  var DGTgameId = ''; //Used to track if DGT board was setup already with the lichess currentGameId
+  var boards = Array<{ serialnr: string, state: string }>(); //An array to store all the board recognized by DGT LiveChess 
+  var liveChessConnection: WebSocket; //Connection Object to LiveChess through websocket  
+  var isLiveChessConnected = false; //Used to track if a board there is a connection to DGT Live Chess
+  var currentSerialnr = '0'; //Public property to store the current serial number of the DGT Board in case there is more than one
+  //subscription stores the information about the board being connected, most importantly the serialnr
+  var subscription = { "id": 2, "call": "subscribe", "param": { "feed": "eboardevent", "id": 1, "param": { "serialnr": "" } } };
   /***
    * Bind console output to HTML pre Element
    */
   rewireLoggingToElement(consoleOutput, root, true);
   function rewireLoggingToElement(eleLocator: HTMLPreElement, eleOverflowLocator: HTMLDivElement, autoScroll: boolean) {
     //Clear the console
-    eleLocator.innerHTML = ""
+    eleLocator.innerHTML = "";
     //Bind to all types of console messages
     fixLoggingFunc('log');
     fixLoggingFunc('debug');
@@ -154,22 +158,19 @@ export default function (token: string) {
     if (verbose) console.log('getProfile - About to call /api/account');
     fetch('/api/account', {
       headers: { 'Authorization': 'Bearer ' + token }
-    }).then(
-      function (response) {
-        return response.json();
-      }).then(
-        function (data) {
-          //Log raw data received
-          if (verbose) console.log('/api/account Response:' + JSON.stringify(data));
-          //Diplay Title + UserName . Title may be undefined
-          console.log("\n");
-          console.log("┌─────────────────────────────────────────────────────┐");
-          console.log("│ " + (typeof (data.title) == "undefined" ? '' : data.title) + ' ' + data.username);
-          //Display performance ratings
-          console.table(data.perfs);
-          //Store my profile
-          me = data;
-        })
+    }).then(r => r.json()).then(
+      data => {
+        //Log raw data received
+        if (verbose) console.log('/api/account Response:' + JSON.stringify(data));
+        //Diplay Title + UserName . Title may be undefined
+        console.log("\n");
+        console.log("┌─────────────────────────────────────────────────────┐");
+        console.log("│ " + (typeof (data.title) == "undefined" ? '' : data.title) + ' ' + data.username);
+        //Display performance ratings
+        console.table(data.perfs);
+        //Store my profile
+        me = data;
+      })
       .catch(
         err => { console.error('getProfile - Error. ' + err.message) }
       );
@@ -284,14 +285,14 @@ export default function (token: string) {
   @param {string} gameId - The alphanumeric identifier of the game to be tracked
    */
 
-  async function connectToGameStream(gameId) {
+  async function connectToGameStream(gameId: string) {
     //Log intention
     if (verbose) console.log('connectToGameStream - About to call /api/board/game/stream/' + gameId);
     const response = await fetch('/api/board/game/stream/' + gameId, {
       headers: { 'Authorization': 'Bearer ' + token }
     });
     const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
-    while (true) {
+    while (reader) { //while (true)
       const { value, done } = await reader.read();
       if (done) break;
       //Log raw data received
@@ -315,20 +316,20 @@ export default function (token: string) {
               //Store game state on the gameStateMap dictionary collection
               gameStateMap.set(gameId, data.state);
               //Update the ChessBoard to the ChessBoard Map
-              /* PENDING MIGRATION initializeChessBoard(gameId, data); */
-              //Log the state. Note that we are doing this after storing the state and initializing the chess.js board
-              /* pending migration logGameState(gameId);*/
+              initializeChessBoard(gameId, data);
+              //Log the state. Note that we are doing this after storing the state and initializing the chessops board
+              logGameState(gameId);
               //Call chooseCurrentGame to determine if this stream will be the new current game
-              /* PENDING MIGRATION chooseCurrentGame();*/
+              chooseCurrentGame();
             }
             else if (data.type == "gameState") {
               if (!verbose) console.clear();
               //Update the ChessBoard Map
-              /* PENDING MIGRATION updateChessBoard(gameId, gameStateMap.get(gameId), data);*/
+              updateChessBoard(gameId, gameStateMap.get(gameId), data);
               //Update game state with most recent state
               gameStateMap.set(gameId, data);
-              //Log the state. Note that we are doing this after storing the state and updating the chess.js board
-              /* PENDING MIGRATION logGameState(gameId);*/
+              //Log the state. Note that we are doing this after storing the state and updating the chessops board
+              logGameState(gameId);
             }
             else if (data.type == "chatLine") {
               //Received chat line
@@ -354,11 +355,23 @@ export default function (token: string) {
     gameConnectionMap.set(gameId, { connected: false, lastEvent: time.getTime() });
   }
 
+  /**
+   * Return a string representation of the remaining time on the clock
+   * 
+   * @param {number} timer - Numeric representation of remaining time
+   * 
+   * @returns {String} - String representation of numeric time
+   */
+  function formattedTimer(timer: number): string {
+    // Pad function to pad with 0 to 2 or 3 digits, default is 2
+    var pad = (n: number, z = 2) => (`00${n}`).slice(-z);
+    return pad(timer / 3.6e6 | 0) + ':' + pad((timer % 3.6e6) / 6e4 | 0) + ':' + pad((timer % 6e4) / 1000 | 0) //+ '.' + pad(timer % 1000, 3);
+  }
 
   /**
   * mainLoop() is a function that tries to keep the streams connected at all times, up to a maximum of 20 retries
   */
-  async function mainLoop() {
+  async function lichessConnectionLoop() {
     //Program ends after 20 re-connection attempts
     for (let attempts = 0; attempts < 20; attempts++) {
       //Connect to main event stream
@@ -386,16 +399,594 @@ export default function (token: string) {
 
   }
 
+  /**
+   * This function will update the currentGameId with a valid active game
+   * and then will attach this game to the DGT Board
+   * It requires that all maps are up to date: gameInfoMap, gameStateMap, gameConnectionMap and gameChessBoardMap
+   */
+  async function chooseCurrentGame() {
+    //Determine new value for currentGameId. First create an array with only the started games
+    //So then there is none or more than one started game
+    var playableGames = playableGamesArray();
+    //If there is only one started game, then its easy
+    if (playableGames.length == 1) {
+      currentGameId = playableGames[0].gameId;
+      attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
+      console.log('Active game updated. currentGameId: ' + currentGameId);
+    }
+    else if (playableGames.length == 0) {
+      console.log('No started playable games, challenges or games are disconnected. Please start a new game or fix connection.');
+      //TODO What happens if the games reconnect and this move is not sent?
+    }
+    else {
+      console.table(playableGames);
+      //TODO
+      //If more than one game is playable player must pick one.
+      //for now alert user
+      console.warn('Currently only one game is supported. Ability to select game coming soon. Defaulting to latest.')
+      let index = playableGames.length - 1;
+      currentGameId = playableGames[Number(index)].gameId;
+      //Command looks good for currentGameId 
+      attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
+      console.log('Active game updated. currentGameId: ' + currentGameId);
+    }
+  }
+
+
+  /**
+   * Initialize a ChessBoard when connecting or re-connecting to a game
+   * 
+   * @param {string} gameId - The gameId of the game to store on the board
+   * @param {Object} data - The gameFull event from lichess.org
+   */
+  function initializeChessBoard(gameId: string, data: { initialFen: string; state: { moves: string; }; }) {
+    try {
+      var initialFen: string = INITIAL_FEN;
+      if (data.initialFen != "startpos")
+        initialFen = data.initialFen;
+      var setup = parseFen(initialFen).unwrap();
+      var chess: Chess = Chess.fromSetup(setup).unwrap();
+      var moves = data.state.moves.split(' ');
+      for (let i = 0; i < moves.length; i++) {
+        if (moves[i] != '') {
+          //Make any move that may have been already played on the ChessBoard. Useful when reconnecting
+          var uciMove = parseUci(moves[i]);
+          if (uciMove && chess.isLegal(uciMove))
+            chess.play(uciMove);
+        }
+      }
+      //Store the ChessBoard on the ChessBoardMap
+      gameChessBoardMap.set(gameId, chess);
+      if (verbose) console.log(`initializeChessBoard - New Board for gameId: ${gameId}`);
+      if (verbose) console.log(board(chess.board));
+      if (verbose) console.log(chess.turn + "'s turn");
+    }
+    catch (error) {
+      console.error(`initializeChessBoard - Error: ${error.message}`);
+    }
+  }
+
+  /**
+  * Update the ChessBoard for the specified gameId with the new moves on newState since the last stored state
+  * 
+  * @param {string} gameId - The gameId of the game to store on the board
+  * @param {Object} currentState - The state stored on the gameStateMap
+  * @param {Object} newState - The new state not yet stored
+  */
+  function updateChessBoard(gameId: string, currentState: { moves: string }, newState: { moves: string; }) {
+    try {
+      var chess = gameChessBoardMap.get(gameId);
+      if (chess) {
+        var pendingMoves: string
+        if (!currentState.moves) {
+          //No prior moves. Use the new moves
+          pendingMoves = newState.moves;
+        }
+        else {
+          //Get all the moves on the newState that are not present on the currentState
+          pendingMoves = newState.moves.substring(currentState.moves.length, newState.moves.length);
+        }
+        var moves = pendingMoves.split(' ');
+        for (let i = 0; i < moves.length; i++) {
+          if (moves[i] != '') {
+            //Make the new move
+            var uciMove = parseUci(moves[i]);
+            if (uciMove && chess.isLegal(uciMove)) {
+              //This is a good chance to get the move in SAN format
+              if (chess.turn == 'black')
+                lastSanMove = { player: 'black', move: makeSan(chess, uciMove), by: gameInfoMap.get(currentGameId).black.id };
+              else
+                lastSanMove = { player: 'white', move: makeSan(chess, uciMove), by: gameInfoMap.get(currentGameId).white.id };
+              chess.play(uciMove);
+            }
+          }
+        }
+        //Store the ChessBoard on the ChessBoardMap
+        if (verbose) console.log(`updateChessBoard - Updated Board for gameId: ${gameId}`);
+        if (verbose) console.log(board(chess.board));
+        if (verbose) console.log(chess.turn + "'s turn");
+      }
+    }
+    catch (error) {
+      console.error(`updateChessBoard - Error: ${error.message}`);
+    }
+  }
+
+  /**
+  * Utility function to update which color is being played with the board
+  */
+  function attachCurrentGameIdToDGTBoard() {
+    if (me.id == gameInfoMap.get(currentGameId).white.id)
+      currentGameColor = 'white';
+    else
+      currentGameColor = 'black';
+    //Send the position to LiveChess for synchronization
+    sendBoardToLiveChess(gameChessBoardMap.get(currentGameId));
+  }
+
+  /**
+   * Iterate the gameConnectionMap dictionary and return an arrays containing only the games that can be played with the board
+   * @returns {Array} - Array containing a summary of playable games
+   */
+  function playableGamesArray(): Array<{
+    'gameId': string,
+    'versus': string,
+    'vs rating': string,
+    'game rating': string,
+    'Timer': string,
+    'Last Move': string
+  }> {
+    var playableGames: Array<{
+      'gameId': string,
+      'versus': string,
+      'vs rating': string,
+      'game rating': string,
+      'Timer': string,
+      'Last Move': string
+    }> = [];
+    var keys = Array.from(gameConnectionMap.keys());
+    //The for each iterator is not used since we don't want to continue execution. We want a syncrhonous result
+    //for (let [gameId, networkState] of gameConnectionMap) {
+    //    if (gameConnectionMap.get(gameId).connected && gameStateMap.get(gameId).status == "started") {    
+    for (var i = 0; i < keys.length; i++) {
+      if (gameConnectionMap.get(keys[i]).connected && gameStateMap.get(keys[i]).status == "started") {
+        //Game is good for commands
+        var gameInfo = gameInfoMap.get(keys[i]);
+        //var gameState = gameStateMap.get(keys[i]);
+        var lastMove = getLastUCIMove(keys[i]);
+        var versus = (gameInfo.black.id == me.id) ? ((gameInfo.white.title !== null) ? gameInfo.white.title : '@') + ' ' + gameInfo.white.name : ((gameInfo.black.title !== null) ? gameInfo.black.title : '@') + ' ' + gameInfo.black.name;
+        playableGames.push({
+          'gameId': gameInfo.id,
+          'versus': versus,
+          'vs rating': (gameInfo.black.id == me.id) ? gameInfo.white.rating : gameInfo.black.rating,
+          'game rating': gameInfo.variant.short + ' ' + (gameInfo.rated ? 'rated' : 'unrated'),
+          'Timer': gameInfo.speed + ' ' + ((gameInfo.clock !== null) ? (String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''") : '∞'),
+          'Last Move': lastMove.player + ' ' + lastMove.move + ' by ' + lastMove.by
+        })
+      }
+    }
+    return playableGames;
+  }
+
+  /**
+   * Display the state as stored in the Dictionary collection
+   *
+   * @param {string} gameId - The alphanumeric identifier of the game for which state is going to be shown
+   */
+  function logGameState(gameId: string) {
+    if (gameStateMap.has(gameId) && gameInfoMap.has(gameId)) {
+      var gameInfo = gameInfoMap.get(gameId);
+      var gameState = gameStateMap.get(gameId);
+      var lastMove = getLastUCIMove(gameId);
+      console.log(""); //process.stdout.write("\n"); Changed to support browser
+      console.table({
+        'Title': { white: ((gameInfo.white.title !== null) ? gameInfo.white.title : '@'), black: ((gameInfo.black.title !== null) ? gameInfo.black.title : '@'), game: 'Id: ' + gameInfo.id },
+        'Username': { white: gameInfo.white.name, black: gameInfo.black.name, game: 'Status: ' + gameState.status },
+        'Rating': { white: gameInfo.white.rating, black: gameInfo.black.rating, game: gameInfo.variant.short + ' ' + (gameInfo.rated ? 'rated' : 'unrated') },
+        'Timer': { white: formattedTimer(gameState.wtime), black: formattedTimer(gameState.btime), game: gameInfo.speed + ' ' + ((gameInfo.clock !== null) ? (String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''") : '∞') },
+        'Last Move': { white: (lastMove.player == 'white' ? lastMove.move : '?'), black: (lastMove.player == 'black' ? lastMove.move : '?'), game: lastMove.player },
+      });
+      switch (gameState.status) {
+        case "started":
+          //Announce the last move
+          if (me.id !== lastMove.by || announceAllMoves) {
+            announcePlay(lastMove, gameState.wtime, gameState.btime);
+          }
+          break;
+        case "outoftime":
+          announceWinner(keywords[gameState.winner], 'flag', keywords[gameState.winner] + ' ' + keywords['wins by'] + ' ' + keywords['timeout']);
+          break;
+        case "resign":
+          announceWinner(keywords[gameState.winner], 'resign', keywords[gameState.winner] + ' ' + keywords['wins by'] + ' ' + keywords['resignation']);
+          break;
+        case "mate":
+          announceWinner(keywords[lastMove.player], 'mate', keywords[lastMove.player] + ' ' + keywords['wins by'] + ' ' + keywords['#']);
+          break;
+        case "draw":
+          announceWinner('draw', 'draw', keywords['(=)']);
+          break;
+        default:
+          console.log(`Unknown status received: ${gameState.status}`);
+      }
+    }
+  }
+
+
+
+  /**
+   * Peeks a game state and calculates who played the last move and what move it was
+   * 
+   * @param {string} gameId - The alphanumeric identifier of the game where the last move is going to be calculated
+   * 
+   * @return {Object} - The move in JSON
+   */
+  function getLastUCIMove(gameId: string): { player: string, move: string, by: string } {
+    if (gameStateMap.has(gameId) && gameInfoMap.has(gameId)) {
+      var gameInfo = gameInfoMap.get(gameId);
+      var gameState = gameStateMap.get(gameId);
+      //This is the original code that does not used chessops objects and can be used to get the UCI move but not SAN.
+      if (String(gameState.moves).length > 1) {
+        var moves = gameState.moves.split(' ');
+        if (verbose) console.log(`getLastUCIMove - ${moves.length} moves detected. Last one: ${moves[moves.length - 1]}`);
+        if (moves.length % 2 == 0)
+          return { player: 'black', move: moves[moves.length - 1], by: gameInfo.black.id };
+        else
+          return { player: 'white', move: moves[moves.length - 1], by: gameInfo.white.id };
+      }
+    }
+    if (verbose) console.log('getLastUCIMove - No moves.');
+    return { player: 'none', move: 'none', by: 'none' };
+  }
+
+  /**
+   * Fedback the user about the detected moved
+   * 
+   * @param lastMove JSON object with the move information
+   * @param wtime Remaining time for white
+   * @param btime Remaining time for black
+   */
+  function announcePlay(lastMove: { player: string, move: string, by: string }, wtime: number, btime: number) {
+    if (lastMove.player == 'white') {
+      console.log('  ' + lastMove.move + '  ' + 'by White' + '');
+    }
+    else {
+      console.log('  ' + lastMove.move + '  ' + 'by Black' + '');
+    }
+    //ttsSay(lastMove.player);
+    //Now play it using text to speech library
+    if (announceMoveFormat && announceMoveFormat.toLowerCase() == "san" && lastSanMove) {
+      ttsSay(raplaceKeywords(lastSanMove.move));
+    }
+    else {
+      ttsSay(lastMove.move);
+    }
+    //TODO
+    //Give feedback on running out of time
+  }
+
+  function announceWinner(winner, status, message) {
+    if (winner == 'white') {
+      console.log('  ' + status + '  -  ' + message);
+    }
+    else {
+      console.log('  ' + status + '  -  ' + message);
+    }
+    //Now play message using text to speech library
+    ttsSay(message);
+  }
+
+  function announceInvalidMove() {
+    if (currentGameColor == 'white') {
+      console.warn('  [ X X ]  - Illegal move by white.')
+    }
+    else {
+      console.warn('  [ X X ]  - Illegal move by black.')
+    }
+    //Now play it using text to speech library
+    ttsSay('Illegal Move');
+  }
+
+
+  async function connectToLiveChess() {
+    var SANMove: string; //a move in san format returned by liveChess
+    //Open the WebSocket
+    liveChessConnection = new WebSocket((liveChessURL) ? liveChessURL : "ws://localhost:1982/api/v1.0");
+
+    //Attach Events
+    liveChessConnection.onopen = () => {
+      isLiveChessConnected = true;
+      if (verbose) console.info("Websocket onopen: Connection to LiveChess was sucessful")
+      liveChessConnection.send('{"id":1,"call":"eboards"}');
+    }
+
+    liveChessConnection.onerror = () => {
+      console.error("Websocket ERROR: ");
+    }
+
+    liveChessConnection.onclose = () => {
+      console.error('Websocket to LiveChess disconnected');
+      //Clear the value of current serial number this serves as a diconnected status
+      currentSerialnr = '0';
+      //Set connection state to false
+      isLiveChessConnected = false;
+    };
+
+    liveChessConnection.onmessage = async e => {
+      if (verbose) console.info('Websocket onmessage with data:' + e.data);
+      var message = JSON.parse(e.data);
+      if (message.response == 'call' && message.id == '1') {
+        //Get the list of availble boards on LiveChess
+        boards = message.param;
+        console.table(boards)
+        console.info(boards[0].serialnr)
+        //TODO 
+        //we need to be able to handle more than one board
+        //for now using the first board found
+        //Update the base subscription message with the serial number
+        currentSerialnr = boards[0].serialnr;
+        subscription.param.param.serialnr = currentSerialnr;
+        if (verbose) console.info('Websocket onmessage[call]: board serial number updated to: ' + currentSerialnr);
+        if (verbose) console.info('Webscoket - about to send the following message \n' + JSON.stringify(subscription));
+        liveChessConnection.send(JSON.stringify(subscription))
+        //Check if the board is properly connected
+        if (boards[0].state != "ACTIVE" && boards[0].state != "INACTIVE") // "NOTRESPONDING" || "DELAYED"
+          console.error(`Board with serial ${currentSerialnr} is not properly connected. Please fix`);
+        //Send setup with stating position
+
+        if (gameStateMap.has(currentGameId) && gameConnectionMap.get(currentGameId).connected && gameStateMap.get(currentGameId).status == "started") {
+          //There is a game in progress, setup the board as per lichess board
+          if (currentGameId != DGTgameId) {
+            //We know we have not synchronized yet
+            if (verbose) console.info('There is a game in progress, calling liveChessBoardSetUp...');
+            sendBoardToLiveChess(gameChessBoardMap.get(currentGameId));
+          }
+        }
+      }
+      else if (message.response == 'feed' && !(!message.param.san)) {
+        //Received move from board
+        if (verbose) console.info('onmessage - san: ' + message.param.san)
+        //get last move known to lichess and avoid calling multiple times this function
+        var lastMove = getLastUCIMove(currentGameId); 
+        if (message.param.san.length == 0) {
+          if (verbose) console.info('onmessage - san is empty')
+        }
+        else {
+          //A move was received
+          SANMove = String(message.param.san[message.param.san.length - 1]).trim();
+          if (verbose) console.info('onmessage - SANMove = ' +SANMove);
+          var moveObject: NormalMove; //a move in chessops format
+          moveObject = parseSan(localBoard, SANMove); //get move from DGT LiveChess
+          //if valid move on local chessops
+          if (localBoard.isLegal(moveObject)) {
+            if (verbose) console.info('onmessage - Move is legal');
+            //if received move.color == this.currentGameColor
+            if (localBoard.turn == currentGameColor) {
+              //This is a valid new move send it to lichess
+              if (verbose) console.info('onmessage - Valid Move played: ' + SANMove)
+              await validateAndSendBoardMove(moveObject);
+              //Play the move on local board to keep it in sync
+              localBoard.play(moveObject);
+            }
+            else if (lastMove.move == makeUci(moveObject)) {
+              //This is a valid adjustment - Just making the move from Lichess
+              if (verbose) console.info('onmessage - Valid Adjustment: ' + SANMove);
+              //no need to send anything to Lichess moveObject required
+              //Play the move on local board to keep it in sync
+              localBoard.play(moveObject);
+            }
+            else {
+              //Invalid Adjustment. Move was legal but does not match last move received from Lichess
+              console.error('onmessage - Invalid Adjustment was made');
+              if (lastMove.move == makeUci(moveObject)) {
+                console.error('onmessage - Played move has not been received by Lichess.');
+              } else {
+                console.error('onmessage - Expected:' + lastMove.move + ' by ' + lastMove.player);
+                console.error('onmessage - Detected:' + makeUci(moveObject) + ' by ' + localBoard.turn);                
+              }
+              announceInvalidMove();
+              await sleep(1000);
+              //Repeat last game state announcement
+              var gameState = gameStateMap.get(currentGameId);
+              announcePlay(lastMove, gameState.wtime, gameState.btime);
+            }
+          }
+          else {
+            //Move was valid on DGT Board but not ilegal on localBoard
+            if (verbose) console.info('onmessage - Move is NOT legal');
+            if (lastMove.move == makeUci(moveObject)) {
+              //This is fine, the same last move was received again and seems ilegal
+              if (verbose) console.warn('onmessage - Move received is the same as the last moved played: ' + SANMove)
+            }
+            else {
+              //Receiving a legal move on DGT Board but invalid move on localBoard signals a de-sycnhronization
+              if (verbose) console.error('onmessage - invalidMove - Position Mismatch between DGT Board and internal in memory Board . SAN: ' + SANMove);
+              announceInvalidMove();
+              console.info(board(localBoard.board));
+            }
+          }
+        }
+      }
+      else if (message.response == 'feed') {
+        //feed received but not san
+        //No moves received, this may be an out of snc problem or just the starting position
+        if (verbose) console.info('onmessage - No move received on feed event.');
+        //TODO THIS MAY REQUIRE RE-SYNCHRONIZATION BETWEEN LICHESS AND DGT BOARD
+      }
+    }
+  }
+
+  async function DGTliveChessConnectionLoop() {
+    //Attempt connection right away
+    connectToLiveChess();
+    //Program ends after 20 re-connection attempts
+    for (let attempts = 0; attempts < 20; attempts++) {
+      do {
+        //Just sleep five seconds while there is a valid currentSerialnr
+        await sleep(5000);
+      }
+      while (currentSerialnr != '0' && isLiveChessConnected)
+      //currentSerialnr is 0 so still no connection to board. Retry
+      if (!isLiveChessConnected) {
+        console.warn("No connection to DGT Live Chess. Attempting re-connection. Attempt: " + attempts);
+        connectToLiveChess();
+      }
+      else {
+        //Websocket is fine but still no board detected
+        console.warn("Connection to DGT Live Chess is Fine but no board is detected. Attempting re-connection. Attempt: " + attempts);
+        liveChessConnection.send('{"id":1,"call":"eboards"}');
+      }
+    }
+    console.error("No connection to DGT Live Chess after maximum number of attempts 20. Reload page to start again.");
+  }
+
+  /**
+   * Syncrhonizes the position on Lichess with the position on the board
+   * If the position does not match, no moves will be received from LiveChess
+   * @param chess - The chessops Chess object with the position on Lichess
+   */
+  async function sendBoardToLiveChess(chess: Chess) {
+    var fen = makeFen(chess.toSetup());
+    var setupMessage = {
+      "id": 3,
+      "call": "call",
+      "param": {
+        "id": 1,
+        "method": "setup",
+        "param": {
+          "fen": fen
+        }
+      }
+    }
+    if (verbose) console.log("setUp -: " + JSON.stringify(setupMessage))
+    if (isLiveChessConnected) {
+      liveChessConnection.send(JSON.stringify(setupMessage))
+      //Store the gameId so we now we already synchronized
+      DGTgameId = currentGameId;
+      //Initialize localBoard too so it matched what was sent to LiveChess
+      localBoard = gameChessBoardMap.get(currentGameId).clone();
+    }
+    else {
+      console.error("WebSocket is not open - cannot send setup command.");
+    }
+  }
+
+  /**
+  * This functions hanldes the sending the move to the right lichess game. 
+  * If more than one game is being played, it will ask which game to connect to,
+  * thus waiting for user input and so, it becomes async
+  * 
+  * @param {Object} boardMove - The move in chessops format or string if in lichess format
+  */
+  async function validateAndSendBoardMove(boardMove: NormalMove) {
+    //While there is not and active game, keep trying to find one so the move is not lost
+    while (!(gameStateMap.has(currentGameId) && gameConnectionMap.get(currentGameId).connected && gameStateMap.get(currentGameId).status == "started")) {
+      //Wait a few seconds to see if the games reconnects or starts and give some space to other code to run
+      console.warn('validateAndSendBoardMove - Cannot send move while disconnected. Re-Trying in 2 seconds...')
+      await sleep(2000);
+      //Now attempt to select for which game is this command intented
+      await chooseCurrentGame();
+    }
+    //Now send the move
+    var command = makeUci(boardMove);
+    sendMove(currentGameId, command);
+  }
+
+  /**
+   * Make a Board move
+   * 
+   * /api/board/game/{gameId}/move/{move}
+   * 
+   * Make a move in a game being played with the Board API.
+   * The move can also contain a draw offer/agreement.
+   * 
+   * @param {string} gameId - The gameId for the active game
+   * @param {string} uciMove - The move un UCI format 
+   */
+  function sendMove(gameId: string, uciMove: string) {
+    //prevent sending empty moves
+    if (uciMove.length > 1) {
+      //Log intention
+      //Automatically decline draws when making a move
+      var url = `/api/board/game/${gameId}/move/${uciMove}?offeringDraw=false`;
+      if (verbose) console.log('sendMove - About to call ' + url);
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token }
+      }).then(response => {
+        try {
+          if (response.status == 200 || response.status == 201) {
+            //Move sucessfully sent
+            if (verbose) console.log('sendMove - Move sucessfully sent.');
+          }
+          else {
+            response.json().then((errorJson) => {
+              console.error('sendMove - Failed to send move. ' + errorJson.error);
+            })
+          }
+        }
+        catch (error) {
+          console.error('sendMove - Unexpected error. ' + error);
+        }
+
+      })
+        .catch(
+          err => { console.error('sendMove - Error. ' + err.message) }
+        );
+    }
+  }
+
+  /**
+   * Replaces letters with full name of the pieces or move name
+   * @param sanMove The move in san format
+   */
+  function raplaceKeywords(sanMove) {
+    var extendedSanMove = sanMove;
+    for (let i = 0; i < keywordsBase.length; i++) {
+      try {
+        extendedSanMove = extendedSanMove.replace(keywordsBase[i], ' ' + keywords[keywordsBase[i]] + ' ');
+      } catch (error) {
+        console.error(`raplaceKeywords - Error replacing keyword. ${keywordsBase[i]} . ${Error(error).message}`);
+      }
+    }
+    return extendedSanMove;
+  }
+
+
+  /**
+   * GLOBAL VATIABLES
+   */
+  async function ttsSay(text: string) {
+    //Check Voice is disables
+    if (!speechSynthesisOn) return;
+    if (verbose) console.log('TTS - for text: ' + text);
+    var utterThis = new SpeechSynthesisUtterance(text);
+    var selectedOption = voice;
+    var availableVoices = speechSynthesis.getVoices();
+    for (let i = 0; i < availableVoices.length; i++) {
+      if (availableVoices[i].name === selectedOption) {
+        utterThis.voice = availableVoices[i];
+        break;
+      }
+    }
+    //utterThis.pitch = pitch.value;
+    utterThis.rate = .60;
+    speechSynthesis.speak(utterThis);
+  }
 
   /**
    * Show the profile and then
    * Start the Main Loop
    */
   //start();
-  //connectToBoardEvents();  //Connect to events from DGT Board
   getProfile();
-  mainLoop();
-  ////keyboardInputHandler(); //This is to allow moves to be entered by keyboard
-  ////boardInputHandler(); //start monitoring moves one at a time instead of by events
-  console.log('Not Hanged');
+  lichessConnectionLoop();
+  DGTliveChessConnectionLoop();
+
+
+  function startingPosition(): Chess {
+    return Chess.fromSetup(defaultSetup()).unwrap();
+    //const setup = parseFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1").unwrap();
+    //return Chess.fromSetup(setup).unwrap();
+  }
+
 }
