@@ -188,6 +188,7 @@
     <item quantity="other">%s permainan dengan anda</item>
   </plurals>
   <string name="cancel">Batal</string>
+  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White time out · Draw'">White time out</string>
   <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black time out · Draw'">Black time out</string>
   <string name="drawOfferSent">Tawaran seri dihantar</string>
   <string name="drawOfferDeclined">Tawaran seri ditolak</string>
