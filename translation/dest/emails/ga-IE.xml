@@ -10,4 +10,14 @@
   <string name="emailChange_intro">D\'iarr tú do sheoladh ríomhphoist a athrú.</string>
   <string name="emailChange_click">Chun a dheimhniú go bhfuil rochtain agat ar an seoladh ríomhphoist seo, cliceáil ar an nasc thíos:</string>
   <string name="welcome_subject">Fáilte go Lichess.org %s</string>
+  <string name="welcome_text">Chruthaigh tú do chuntas go rathúil ar Https://Lichess.org.
+
+Seo do leathanach próifíle:
+%1$s. Féadtar é a chur in eagar ar %2$s
+
+Bíodh spraoi agat, agus beidh do phíosaí teacht i gcónaí ar a mbealach chuig do opponents rí!</string>
+  <string name="logInToLichess">Logáil isteach go lichess.org %s</string>
+  <string name="common_orPaste">(Cliceáil gan obair? Bain triail as é a chur isteach i do bhrabhsálaí!)</string>
+  <string name="common_note">Is ríomhphost seirbhíse é seo a bhaineann le d\'úsáid %s.</string>
+  <string name="common_contact">Chun teagmháil a dhéanamh linn, bain úsáid asChun teagmháil a dhéanamh linn, bain úsáid as %s.</string>
 </resources>
