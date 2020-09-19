@@ -516,6 +516,9 @@ export default function (token: string) {
   * Utility function to update which color is being played with the board
   */
   function attachCurrentGameIdToDGTBoard() {
+    //Every times a new game is connected clear the console
+    consoleOutput.innerHTML = "";
+    //
     if (me.id == gameInfoMap.get(currentGameId).white.id)
       currentGameColor = 'white';
     else
@@ -646,20 +649,23 @@ export default function (token: string) {
    * @param btime Remaining time for black
    */
   function announcePlay(lastMove: { player: string, move: string, by: string }, wtime: number, btime: number) {
-    if (lastMove.player == 'white') {
-      console.log('  ' + lastMove.move + '  ' + 'by White' + '');
-    }
-    else {
-      console.log('  ' + lastMove.move + '  ' + 'by Black' + '');
-    }
     //ttsSay(lastMove.player);
     //Now play it using text to speech library
+    var moveText: string;
     if (announceMoveFormat && announceMoveFormat.toLowerCase() == "san" && lastSanMove) {
+      moveText = lastSanMove.move;
       ttsSay(raplaceKeywords(lastSanMove.move));
     }
     else {
+      moveText = lastMove.move;
       ttsSay(lastMove.move);
     }
+    if (lastMove.player == 'white') {
+      console.log('<span class="dgt-white-move">' + moveText + ' by White' + '</span>');
+    }
+    else {
+      console.log('<span class="dgt-black-move">' + moveText + ' by Black' + '</span>');
+    }    
     //TODO
     //Give feedback on running out of time
   }
@@ -718,7 +724,7 @@ export default function (token: string) {
         //Get the list of availble boards on LiveChess
         boards = message.param;
         console.table(boards)
-        console.info(boards[0].serialnr)
+        if (verbose) console.info(boards[0].serialnr)
         //TODO 
         //we need to be able to handle more than one board
         //for now using the first board found
@@ -746,14 +752,14 @@ export default function (token: string) {
         //Received move from board
         if (verbose) console.info('onmessage - san: ' + message.param.san)
         //get last move known to lichess and avoid calling multiple times this function
-        var lastMove = getLastUCIMove(currentGameId); 
+        var lastMove = getLastUCIMove(currentGameId);
         if (message.param.san.length == 0) {
           if (verbose) console.info('onmessage - san is empty')
         }
         else {
           //A move was received
           SANMove = String(message.param.san[message.param.san.length - 1]).trim();
-          if (verbose) console.info('onmessage - SANMove = ' +SANMove);
+          if (verbose) console.info('onmessage - SANMove = ' + SANMove);
           var moveObject: NormalMove; //a move in chessops format
           moveObject = parseSan(localBoard, SANMove); //get move from DGT LiveChess
           //if valid move on local chessops
@@ -764,6 +770,8 @@ export default function (token: string) {
               //This is a valid new move send it to lichess
               if (verbose) console.info('onmessage - Valid Move played: ' + SANMove)
               await validateAndSendBoardMove(moveObject);
+              //Update the lastSanMove
+              lastSanMove = { player: localBoard.turn , move: SANMove, by: me.id }              
               //Play the move on local board to keep it in sync
               localBoard.play(moveObject);
             }
@@ -781,7 +789,7 @@ export default function (token: string) {
                 console.error('onmessage - Played move has not been received by Lichess.');
               } else {
                 console.error('onmessage - Expected:' + lastMove.move + ' by ' + lastMove.player);
-                console.error('onmessage - Detected:' + makeUci(moveObject) + ' by ' + localBoard.turn);                
+                console.error('onmessage - Detected:' + makeUci(moveObject) + ' by ' + localBoard.turn);
               }
               announceInvalidMove();
               await sleep(1000);
@@ -973,11 +981,32 @@ export default function (token: string) {
     speechSynthesis.speak(utterThis);
   }
 
+  function start() {
+      console.log("");
+      console.log("      ,....,                      ▄████▄   ██░ ██ ▓█████   ██████   ██████     ");
+      console.log("     ,::::::<                    ▒██▀ ▀█  ▓██░ ██▒▓█   ▀ ▒██    ▒ ▒██    ▒     ");
+      console.log("    ,::/^\\\"``.                   ▒▓█    ▄ ▒██▀▀██░▒███   ░ ▓██▄   ░ ▓██▄       ");
+      console.log("   ,::/, `   e`.                 ▒▓▓▄ ▄██▒░▓█ ░██ ▒▓█  ▄   ▒   ██▒  ▒   ██▒    ");
+      console.log("  ,::; |        '.               ▒ ▓███▀ ░░▓█▒░██▓░▒████▒▒██████▒▒▒██████▒▒    ");
+      console.log("  ,::|  \___,-.  c)               ░ ░▒ ▒  ░ ▒ ░░▒░▒░░ ▒░ ░▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░    ");
+      console.log("  ;::|     \\   '-'               ░  ▒    ▒ ░▒░ ░ ░ ░  ░░ ░▒  ░ ░░ ░▒  ░ ░      ");
+      console.log("  ;::|      \\                    ░         ░  ░░ ░   ░   ░  ░  ░  ░  ░  ░      ");
+      console.log("  ;::|   _.=`\\                   ░ ░       ░  ░  ░   ░  ░      ░        ░      ");
+      console.log("  `;:|.=` _.=`\\                  ░                                             ");
+      console.log("    '|_.=`   __\\                                                               ");
+      console.log("    `\\_..==`` /                 Lichess.org - DGT Electronic Board Connector   ");
+      console.log("     .'.___.-'.                Developed by Andres Cavallin and Juan Cavallin  ");
+      console.log("    /          \\                                                               ");
+      console.log("jgs('--......--')                                                             ");
+      console.log("   /'--......--'\\                                                              ");
+      console.log("   `\"--......--\"`                                                             ");
+  }
+
   /**
    * Show the profile and then
    * Start the Main Loop
    */
-  //start();
+  start();
   getProfile();
   lichessConnectionLoop();
   DGTliveChessConnectionLoop();

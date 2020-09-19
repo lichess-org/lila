@@ -48,7 +48,16 @@ object dgt {
   def play(token: AccessToken)(implicit ctx: Context) =
     layout("play", embedJsUnsafeLoadThen(s"""lichessDgt.playPage("${token.id.value}")"""))(
       h1("DGT - play"),
-      div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log"))("Console output to be shown here...")
+      div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log"))(),
+      form(method := "get")(
+        st.section(
+          h2("If move is not detected"),
+            frag(
+              p("Check that you have made your opponents' move on the DGT board first. Revert your move. Play again. As a last resort, setup the board identically as Lichess, then click restart. "),
+              form3.submit("Restart")
+          )
+        )
+      ) 
     )
 
   def config(token: Option[lila.oauth.AccessToken])(implicit ctx: Context) =

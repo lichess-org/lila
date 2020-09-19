@@ -8,7 +8,7 @@
 
 #dgt-play-zone {
   /* style goes here */
-  overflow: auto; height: 500px;
+  overflow: auto; height: 400px;
   @if $theme-dark {
     background-color: #222;
   } @else {
@@ -23,7 +23,8 @@
 .log-log { color: silver }
 .log-table { color: cyan }
 .log-warn, .log-error { font-weight: bold; }    
-
+.dgt-black-move { color: brown; font-size: xx-large;}
+.dgt-white-move { color: tan; font-size: xx-large;}
   
 
  
