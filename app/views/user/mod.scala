@@ -484,6 +484,9 @@ object mod {
       max: Int
   )(implicit ctx: Context): Frag =
     mzSection("others")(
+      (max < 1000 && othersWithEmail.others.sizeIs >= max) option button(cls := "button more-others")(
+        "Load more users"
+      ),
       table(cls := "slist")(
         thead(
           tr(
@@ -558,9 +561,6 @@ object mod {
               )
           }
         )
-      ),
-      (max < 1000 && othersWithEmail.others.sizeIs >= max) option button(cls := "button more-others")(
-        "Load more users"
       )
     )
 
