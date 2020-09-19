@@ -81,9 +81,8 @@ export default function(opts: CevalOpts): CevalCtrl {
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
-  const enableStorage = li.storage.makeBoolean(storageKey('client-eval-enabled'));
   const allowed = prop(true);
-  const enabled = prop(opts.possible && allowed() && enableStorage.get() && !document.hidden);
+  const enabled = prop(false);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
@@ -216,15 +215,6 @@ export default function(opts: CevalOpts): CevalCtrl {
     started = false;
   }
 
-  // ask other tabs if a game is in progress
-  if (enabled()) {
-    li.storage.fire('ceval.fen', 'start');
-    li.storage.make('round.ongoing').listen(_ => {
-      enabled(false);
-      opts.redraw();
-    });
-  }
-
   return {
     technology,
     start,
@@ -250,8 +240,6 @@ export default function(opts: CevalOpts): CevalCtrl {
       if (!opts.possible || !allowed()) return;
       stop();
       enabled(!enabled());
-      if (document.visibilityState !== 'hidden')
-        enableStorage.set(enabled());
     },
     curDepth: () => curEval ? curEval.depth : 0,
     effectiveMaxDepth,
