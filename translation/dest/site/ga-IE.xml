@@ -59,8 +59,12 @@
   <string name="inLocalBrowser">sa bhrabhsálaí logánta</string>
   <string name="toggleLocalEvaluation">Scóránú meastóireachta logánta</string>
   <string name="promoteVariation">Cuir an líne seo chun tosaigh</string>
+  <string name="makeMainLine">Déan príomhlíne</string>
   <string name="deleteFromHere">Scrios as seo amach</string>
+  <string name="forceVariation">Athrú fórsa</string>
   <string name="move">Bog</string>
+  <string name="variantLoss">Teip malairte</string>
+  <string name="variantWin">Bua malartach</string>
   <string name="insufficientMaterial">Easpa maoine</string>
   <string name="pawnMove">Bogadh shaighdiúir</string>
   <string name="capture">Gabh</string>
@@ -137,8 +141,8 @@
   <string name="rankX">Áit: %s</string>
   <string name="gamesPlayed">Cluichí imeartha</string>
   <string name="cancel">Cealaigh</string>
-  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when white's time has run out. Is followed by the end condition, for example&#10;'White time out. Draw'">Am an Bháin istigh</string>
-  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when black's time has run out. Is followed by the end condition, for example&#10;'Black time out. Draw'">Am an Duibh istigh</string>
+  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White time out · Draw'">Am an Bháin istigh</string>
+  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black time out · Draw'">Am an Duibh istigh</string>
   <string name="drawOfferSent">Tairiscint comhscóir seolta</string>
   <string name="drawOfferDeclined">Diúltaíodh an tairiscint comhscóir</string>
   <string name="drawOfferAccepted">Glacadh leis an tairiscint comhscóir</string>
