@@ -4,11 +4,11 @@ export default rollupProject({
   main: {
     name: 'LichessAnalyse',
     input: 'src/main.ts',
-    output: 'analysis-board', // can't call it analyse.js, triggers adblockers :facepalm:
+    output: 'analysisBoard', // can't call it analyse.js, triggers adblockers :facepalm:
   },
   nvui: {
     input: 'src/plugins/nvui.ts',
-    output: 'analysis-board.nvui',
+    output: 'analysisBoard.nvui',
   },
   studyTopicForm: {
     input: 'src/plugins/studyTopicForm.ts',
