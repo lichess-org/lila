@@ -118,7 +118,7 @@ export function ctrl(opts: Opts) {
     isOwner,
     canContribute,
     max,
-    setRole(id: string, role) {
+    setRole(id: string, role: string) {
       setActive(id);
       opts.send("setRole", {
         userId: id,
@@ -182,7 +182,6 @@ export function view(ctrl: StudyCtrl): VNode {
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
     if (isOwner && (member.user.id !== members.myId || ctrl.data.admin))
       return h('act', {
-        key: 'cfg-' + member.user.id,
         attrs: dataIcon('%'),
         hook: bind('click', _ => {
           members.confing(members.confing() === member.user.id ? null : member.user.id);
@@ -190,7 +189,6 @@ export function view(ctrl: StudyCtrl): VNode {
       });
     if (!isOwner && member.user.id === members.myId)
       return h('act.leave', {
-        key: 'leave',
         attrs: {
           'data-icon': 'F',
           title: ctrl.trans.noarg('leaveTheStudy')
@@ -229,15 +227,12 @@ export function view(ctrl: StudyCtrl): VNode {
     ]);
   };
 
-  var ordered = members.ordered();
+  const ordered: StudyMember[] = members.ordered();
 
   return h('div.study__members', {
-    hook: onInsert(el => {
-        lichess.contentLoaded(el);
-        lichess.pubsub.emit('chat.resize');
-    })
+    hook: onInsert(() => lichess.pubsub.emit('chat.resize'))
   }, [
-    ...ordered.map(function(member) {
+    ...ordered.map(member => {
       const confing = members.confing() === member.user.id;
       return [
         h('div', {
