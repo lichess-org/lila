@@ -3,7 +3,6 @@
   "include": ["src/**/*.ts"],
   "compilerOptions": {
     "noImplicitAny": false,
-    "noImplicitReturns": false,
-    "noEmitOnError": false
+    "noImplicitReturns": false
   }
 }
