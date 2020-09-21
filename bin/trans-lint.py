@@ -48,7 +48,7 @@ def ends_with_punctuation(text):
 
 
 def crowdin_q(text):
-    return urllib.parse.quote(text or "")
+    return urllib.parse.quote((text or "").replace("\\\"", "\""))
 
 
 class ReportContext:
