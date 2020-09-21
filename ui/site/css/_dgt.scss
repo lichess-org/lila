@@ -14,14 +14,14 @@
 }
 
 #dgt-play-zone {
-  /* style goes here */
-  overflow: auto; height: 400px;
-  @if $theme-dark {
-    background-color: #222;
-  } @else {
-    background-color: #333;
+  overflow: auto;
+  height: 60vh;
+  padding: 2em;
+  background: #333;
+  &-log {
+    font-family: monospace;
+    font-size: 1.2em;
   }
-
 }
 
 .log-warn { color: orange }
@@ -32,6 +32,3 @@
 .log-warn, .log-error { font-weight: bold; }    
 .dgt-black-move { color: brown; font-size: xx-large;}
 .dgt-white-move { color: tan; font-size: xx-large;}
-  
-
- 
