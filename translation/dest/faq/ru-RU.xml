@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Почему Lichess называется Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess — это комбинация live/light/libre и chess. Живые, легковесные и свободные шахматы. Lichess произносится %1$s.</string>
   <string name="leechess">личес</string>
-  <string name="hearItPronouncedBySpecialist"> Прослушайте это в исполнении диктора.</string>
+  <string name="hearItPronouncedBySpecialist">Прослушайте это в исполнении диктора.</string>
   <string name="whyLiveLightLibre">Живые, потому что можно играть партии и смотреть игры в реальном времени 24/7. Легковесные и свободные, потому что разрабатываются на принципах свободного программного обеспечения и не завалены проприетарным хламом, как коммерческие проекты.</string>
   <string name="whyIsLilaCalledLila">То же относится к исходному коду Lichess, %1$s, что означает li[chess in sca]la, основная часть Lichess написана на %2$s, интуитивно понятном языке программирования.</string>
   <string name="howCanIContributeToLichess">Как я могу внести свой вклад в Lichess?</string>
