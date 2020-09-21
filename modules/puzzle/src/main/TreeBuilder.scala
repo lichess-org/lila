@@ -31,8 +31,8 @@ object TreeBuilder {
         games.reverse match {
           case Nil => root
           case (g, m) :: rest =>
-            root prependChild rest.foldLeft(makeBranch(g, m)) {
-              case (node, (g, m)) => makeBranch(g, m) prependChild node
+            root prependChild rest.foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
+              makeBranch(g, m) prependChild node
             }
         }
     }

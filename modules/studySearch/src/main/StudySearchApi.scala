@@ -105,7 +105,8 @@ final class StudySearchApi(
 
   def reset(sinceStr: String) =
     client match {
-      case c: ESClientHttp => {
+      case c: ESClientHttp =>
+        {
           val sinceOption: Either[Unit, Option[DateTime]] =
             if (sinceStr == "reset") Left(()) else Right(parseDate(sinceStr))
           val since = sinceOption match {

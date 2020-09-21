@@ -80,8 +80,8 @@ object Info {
     }
 
   def decodeList(str: String, fromPly: Int): Option[List[Info]] = {
-    str.split(listSeparator).toList.zipWithIndex map {
-      case (infoStr, index) => decode(index + 1 + fromPly, infoStr)
+    str.split(listSeparator).toList.zipWithIndex map { case (infoStr, index) =>
+      decode(index + 1 + fromPly, infoStr)
     }
   }.sequence
 

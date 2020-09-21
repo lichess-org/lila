@@ -410,10 +410,9 @@ final class Tournament(
 
   def categShields(k: String) =
     Open { implicit ctx =>
-      OptionFuOk(env.tournament.shieldApi.byCategKey(k)) {
-        case (categ, awards) =>
-          env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
-            html.tournament.shields.byCateg(categ, awards)
+      OptionFuOk(env.tournament.shieldApi.byCategKey(k)) { case (categ, awards) =>
+        env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
+          html.tournament.shields.byCateg(categ, awards)
       }
     }
 

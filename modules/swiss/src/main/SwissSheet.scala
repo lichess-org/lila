@@ -92,12 +92,11 @@ final private class SwissSheetApi(colls: SwissColls)(implicit
           ) dmap { player -> _ }
         }
       }
-      .map {
-        case (player, pairings) =>
-          val pairingMap = pairings.map { p =>
-            p.round -> p
-          }.toMap
-          (player, pairingMap, SwissSheet.one(swiss, pairingMap, player))
+      .map { case (player, pairings) =>
+        val pairingMap = pairings.map { p =>
+          p.round -> p
+        }.toMap
+        (player, pairingMap, SwissSheet.one(swiss, pairingMap, player))
       }
   }
 }

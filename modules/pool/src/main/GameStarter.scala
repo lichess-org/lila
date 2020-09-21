@@ -40,27 +40,26 @@ final private class GameStarter(
   ): Fu[Option[Pairing]] = {
     import couple._
     import cats.implicits._
-    (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) ?? {
-      case (perf1, perf2) =>
-        for {
-          p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
-          (whitePerf, blackPerf)     = if (p1White) perf1 -> perf2 else perf2 -> perf1
-          (whiteMember, blackMember) = if (p1White) p1 -> p2 else p2 -> p1
-          game = makeGame(
-            id,
-            pool,
-            whiteMember.userId -> whitePerf,
-            blackMember.userId -> blackPerf
-          ).start
-          _ <- gameRepo insertDenormalized game
-        } yield {
-          onStart(Game.Id(game.id))
-          Pairing(
-            game,
-            whiteSri = whiteMember.sri,
-            blackSri = blackMember.sri
-          ).some
-        }
+    (perfs.get(p1.userId), perfs.get(p2.userId)).mapN((_, _)) ?? { case (perf1, perf2) =>
+      for {
+        p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
+        (whitePerf, blackPerf)     = if (p1White) perf1 -> perf2 else perf2 -> perf1
+        (whiteMember, blackMember) = if (p1White) p1 -> p2 else p2 -> p1
+        game = makeGame(
+          id,
+          pool,
+          whiteMember.userId -> whitePerf,
+          blackMember.userId -> blackPerf
+        ).start
+        _ <- gameRepo insertDenormalized game
+      } yield {
+        onStart(Game.Id(game.id))
+        Pairing(
+          game,
+          whiteSri = whiteMember.sri,
+          blackSri = blackMember.sri
+        ).some
+      }
     }
   }
 

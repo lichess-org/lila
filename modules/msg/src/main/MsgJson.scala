@@ -47,9 +47,8 @@ final class MsgJson(
 
   private def withContacts(me: User, threads: List[MsgThread]): Fu[List[MsgThread.WithContact]] =
     lightUserApi.asyncMany(threads.map(_ other me)) map { users =>
-      threads.zip(users).map {
-        case (thread, userOption) =>
-          MsgThread.WithContact(thread, userOption | LightUser.fallback(thread other me))
+      threads.zip(users).map { case (thread, userOption) =>
+        MsgThread.WithContact(thread, userOption | LightUser.fallback(thread other me))
       }
     }
 

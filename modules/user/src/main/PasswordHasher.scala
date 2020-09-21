@@ -67,10 +67,9 @@ final private class PasswordHasher(
   }
 
   def check(bytes: HashedPassword, p: ClearPassword): Boolean =
-    bytes.parse ?? {
-      case (salt, encHash) =>
-        val hash = aes.decrypt(Aes.iv(salt), encHash)
-        BCrypt.bytesEqualSecure(hash, bHash(salt, p))
+    bytes.parse ?? { case (salt, encHash) =>
+      val hash = aes.decrypt(Aes.iv(salt), encHash)
+      BCrypt.bytesEqualSecure(hash, bHash(salt, p))
     }
 }
 

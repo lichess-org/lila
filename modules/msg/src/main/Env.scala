@@ -43,27 +43,24 @@ final class Env(
 
   def cli =
     new lila.common.Cli {
-      def process = {
-        case "msg" :: "multi" :: orig :: dests :: words =>
-          api.cliMultiPost(orig, dests.split(',').toIndexedSeq, words mkString " ")
+      def process = { case "msg" :: "multi" :: orig :: dests :: words =>
+        api.cliMultiPost(orig, dests.split(',').toIndexedSeq, words mkString " ")
       }
     }
 
   Bus.subscribeFuns(
-    "msgSystemSend" -> {
-      case lila.hub.actorApi.msg.SystemMsg(userId, text) => api.systemPost(userId, text)
+    "msgSystemSend" -> { case lila.hub.actorApi.msg.SystemMsg(userId, text) =>
+      api.systemPost(userId, text)
     },
-    "remoteSocketIn:msgRead" -> {
-      case TellUserIn(userId, msg) =>
-        msg str "d" map User.normalize foreach { api.setRead(userId, _) }
+    "remoteSocketIn:msgRead" -> { case TellUserIn(userId, msg) =>
+      msg str "d" map User.normalize foreach { api.setRead(userId, _) }
     },
-    "remoteSocketIn:msgSend" -> {
-      case TellUserIn(userId, msg) =>
-        for {
-          obj  <- msg obj "d"
-          dest <- obj str "dest" map User.normalize
-          text <- obj str "text"
-        } api.post(userId, dest, text)
+    "remoteSocketIn:msgSend" -> { case TellUserIn(userId, msg) =>
+      for {
+        obj  <- msg obj "d"
+        dest <- obj str "dest" map User.normalize
+        text <- obj str "text"
+      } api.post(userId, dest, text)
     }
   )
 }

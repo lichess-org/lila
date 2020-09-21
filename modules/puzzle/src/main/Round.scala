@@ -42,12 +42,11 @@ object Round {
 
   private val idSep = ':'
   implicit val roundIdHandler = tryHandler[Id](
-    {
-      case BSONString(v) =>
-        v split idSep match {
-          case Array(userId, puzzleId) => Success(Id(userId, decode(Integer parseInt puzzleId)))
-          case _                       => handlerBadValue(s"Invalid puzzle round id $v")
-        }
+    { case BSONString(v) =>
+      v split idSep match {
+        case Array(userId, puzzleId) => Success(Id(userId, decode(Integer parseInt puzzleId)))
+        case _                       => handlerBadValue(s"Invalid puzzle round id $v")
+      }
     },
     id => {
       val puzzleId = "%05d".format(encode(id.puzzleId))

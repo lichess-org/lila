@@ -29,8 +29,8 @@ final class Env(
 
   def cli =
     new lila.common.Cli {
-      def process = {
-        case "explorer" :: "index" :: since :: Nil => indexer(since) inject "done"
+      def process = { case "explorer" :: "index" :: since :: Nil =>
+        indexer(since) inject "done"
       }
     }
 

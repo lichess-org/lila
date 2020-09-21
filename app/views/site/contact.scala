@@ -158,30 +158,29 @@ object contact {
             "trolling"          -> trolling(),
             "insults"           -> insults(),
             "some other reason" -> otherReason()
-          ).map {
-            case (reason, name) =>
-              Leaf(
-                reason,
-                frag("Report a player for ", name),
-                frag(
-                  p(
-                    a(href := routes.Report.form())(toReportAPlayer(name)),
-                    "."
-                  ),
-                  p(
-                    youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := "!"))
-                  ),
-                  p(
-                    doNotMessageModerators(),
-                    br,
-                    doNotReportInForum(),
-                    br,
-                    doNotSendReportEmails(),
-                    br,
-                    onlyReports()
-                  )
+          ).map { case (reason, name) =>
+            Leaf(
+              reason,
+              frag("Report a player for ", name),
+              frag(
+                p(
+                  a(href := routes.Report.form())(toReportAPlayer(name)),
+                  "."
+                ),
+                p(
+                  youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := "!"))
+                ),
+                p(
+                  doNotMessageModerators(),
+                  br,
+                  doNotReportInForum(),
+                  br,
+                  doNotSendReportEmails(),
+                  br,
+                  onlyReports()
                 )
               )
+            )
           }
         ),
         Branch(

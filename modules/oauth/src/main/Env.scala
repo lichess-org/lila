@@ -41,10 +41,9 @@ final class Env(
       .Future {
         server.some
       }
-      .withTimeoutDefault(50 millis, none) recover {
-      case e: Exception =>
-        lila.log("security").warn("oauth", e)
-        none
+      .withTimeoutDefault(50 millis, none) recover { case e: Exception =>
+      lila.log("security").warn("oauth", e)
+      none
     }
 
   lazy val tokenApi = wire[PersonalTokenApi]

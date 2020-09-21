@@ -152,15 +152,14 @@ final private[round] class RoundDuct(
       }
 
     case GetSocketStatus(promise) =>
-      whitePlayer.isLongGone zip blackPlayer.isLongGone map {
-        case (whiteIsGone, blackIsGone) =>
-          promise success SocketStatus(
-            version = version,
-            whiteOnGame = whitePlayer.isOnline,
-            whiteIsGone = whiteIsGone,
-            blackOnGame = blackPlayer.isOnline,
-            blackIsGone = blackIsGone
-          )
+      whitePlayer.isLongGone zip blackPlayer.isLongGone map { case (whiteIsGone, blackIsGone) =>
+        promise success SocketStatus(
+          version = version,
+          whiteOnGame = whitePlayer.isOnline,
+          whiteIsGone = whiteIsGone,
+          blackOnGame = blackPlayer.isOnline,
+          blackIsGone = blackIsGone
+        )
       }
 
     case HasUserId(userId, promise) =>
@@ -354,18 +353,16 @@ final private[round] class RoundDuct(
 
     case TakebackYes(playerId) =>
       handle(playerId) { pov =>
-        takebacker.yes(~takebackSituation)(pov) map {
-          case (events, situation) =>
-            takebackSituation = situation.some
-            events
+        takebacker.yes(~takebackSituation)(pov) map { case (events, situation) =>
+          takebackSituation = situation.some
+          events
         }
       }
     case TakebackNo(playerId) =>
       handle(playerId) { pov =>
-        takebacker.no(~takebackSituation)(pov) map {
-          case (events, situation) =>
-            takebackSituation = situation.some
-            events
+        takebacker.no(~takebackSituation)(pov) map { case (events, situation) =>
+          takebackSituation = situation.some
+          events
         }
       }
 

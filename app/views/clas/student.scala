@@ -124,20 +124,19 @@ object student {
         s" ($nbStudents/${lila.clas.Clas.maxStudents})"
       ),
       nbStudents > (lila.clas.Clas.maxStudents / 2) option maxStudentsWarning(clas),
-      created map {
-        case Student.WithPassword(student, password) =>
-          flashMessage(cls := "student-add__created")(
-            strong(
-              trans.clas.lichessProfileXCreatedForY(
-                userIdLink(student.userId.some, withOnline = false),
-                student.realName
-              ),
-              p(trans.clas.makeSureToCopy()),
-              pre(
-                trans.clas.studentCredentials(student.realName, usernameOrId(student.userId), password.value)
-              )
+      created map { case Student.WithPassword(student, password) =>
+        flashMessage(cls := "student-add__created")(
+          strong(
+            trans.clas.lichessProfileXCreatedForY(
+              userIdLink(student.userId.some, withOnline = false),
+              student.realName
+            ),
+            p(trans.clas.makeSureToCopy()),
+            pre(
+              trans.clas.studentCredentials(student.realName, usernameOrId(student.userId), password.value)
             )
           )
+        )
       },
       standardFlash(),
       (nbStudents <= lila.clas.Clas.maxStudents) option frag(
@@ -222,13 +221,12 @@ object student {
               )
             ),
             tbody(
-              created map {
-                case Student.WithPassword(student, password) =>
-                  tr(
-                    td(student.realName),
-                    td(usernameOrId(student.userId)),
-                    td(password.value)
-                  )
+              created map { case Student.WithPassword(student, password) =>
+                tr(
+                  td(student.realName),
+                  td(usernameOrId(student.userId)),
+                  td(password.value)
+                )
               }
             )
           )

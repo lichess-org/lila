@@ -59,8 +59,8 @@ final class AssessApi(
   def getGameResultsById(gameId: String) =
     getResultsByGameIdAndColor(gameId, Color.White) zip
       getResultsByGameIdAndColor(gameId, Color.Black) map { a =>
-      PlayerAssessments(a._1, a._2)
-    }
+        PlayerAssessments(a._1, a._2)
+      }
 
   private def getPlayerAggregateAssessment(
       userId: String,

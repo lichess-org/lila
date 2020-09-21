@@ -34,36 +34,35 @@ object MessageCompiler {
           db -> (destDir / db / s"$locale.xml")
         }
 
-    val isNew = xmlFiles.exists {
-      case (_, file) => !isFileEmpty(file) && file.lastModified > scalaFile.lastModified
+    val isNew = xmlFiles.exists { case (_, file) =>
+      !isFileEmpty(file) && file.lastModified > scalaFile.lastModified
     }
     if (!isNew) scalaFile
     else
       printToFile(scalaFile) {
-        val puts = xmlFiles flatMap {
-          case (db, file) =>
-            try {
-              val xml = XML.loadFile(file)
-              xml.child.collect {
-                case e if e.label == "string" =>
-                  val safe = escape(e.text)
-                  val translation = escapeHtmlOption(safe) match {
-                    case None          => s"""new Simple(\"\"\"$safe\"\"\")"""
-                    case Some(escaped) => s"""new Escaped(\"\"\"$safe\"\"\",\"\"\"$escaped\"\"\")"""
+        val puts = xmlFiles flatMap { case (db, file) =>
+          try {
+            val xml = XML.loadFile(file)
+            xml.child.collect {
+              case e if e.label == "string" =>
+                val safe = escape(e.text)
+                val translation = escapeHtmlOption(safe) match {
+                  case None          => s"""new Simple(\"\"\"$safe\"\"\")"""
+                  case Some(escaped) => s"""new Escaped(\"\"\"$safe\"\"\",\"\"\"$escaped\"\"\")"""
+                }
+                s"""m.put(${toKey(e, db)},$translation)"""
+              case e if e.label == "plurals" =>
+                val items: Map[String, String] = e.child
+                  .filter(_.label == "item")
+                  .map { i =>
+                    ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
                   }
-                  s"""m.put(${toKey(e, db)},$translation)"""
-                case e if e.label == "plurals" =>
-                  val items: Map[String, String] = e.child
-                    .filter(_.label == "item")
-                    .map { i =>
-                      ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
-                    }
-                    .toMap
-                  s"""m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}))"""
-              }
-            } catch {
-              case _: Exception => Nil
+                  .toMap
+                s"""m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}))"""
             }
+          } catch {
+            case _: Exception => Nil
+          }
         }
 
         s"""package lila.i18n

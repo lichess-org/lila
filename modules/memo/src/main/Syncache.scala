@@ -42,11 +42,10 @@ final private[memo] class Syncache[K, V](
         def load(k: K) =
           compute(k)
             .mon(_ => recCompute) // monitoring: record async time
-            .recover {
-              case e: Exception =>
-                logger.branch(s"syncache $name").warn(s"key=$k", e)
-                cache invalidate k
-                default(k)
+            .recover { case e: Exception =>
+              logger.branch(s"syncache $name").warn(s"key=$k", e)
+              cache invalidate k
+              default(k)
             }
       })
 

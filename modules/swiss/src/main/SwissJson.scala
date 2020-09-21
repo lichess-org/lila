@@ -180,15 +180,14 @@ object SwissJson {
       "sheet" -> swiss.allRounds
         .zip(view.sheet.outcomes)
         .reverse
-        .map {
-          case (round, outcome) =>
-            view.pairings.get(round).fold[JsValue](JsString(outcomeJson(outcome))) { p =>
-              pairingJson(view.player, p.pairing) ++
-                Json.obj(
-                  "user"   -> p.player.user,
-                  "rating" -> p.player.player.rating
-                )
-            }
+        .map { case (round, outcome) =>
+          view.pairings.get(round).fold[JsValue](JsString(outcomeJson(outcome))) { p =>
+            pairingJson(view.player, p.pairing) ++
+              Json.obj(
+                "user"   -> p.player.user,
+                "rating" -> p.player.player.rating
+              )
+          }
         }
     )
 

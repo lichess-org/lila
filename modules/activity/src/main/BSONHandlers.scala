@@ -22,12 +22,11 @@ private object BSONHandlers {
   implicit lazy val activityIdHandler = {
     val sep = ':'
     tryHandler[Id](
-      {
-        case BSONString(v) =>
-          v split sep match {
-            case Array(userId, dayStr) => Success(Id(userId, Day(Integer.parseInt(dayStr))))
-            case _                     => handlerBadValue(s"Invalid activity id $v")
-          }
+      { case BSONString(v) =>
+        v split sep match {
+          case Array(userId, dayStr) => Success(Id(userId, Day(Integer.parseInt(dayStr))))
+          case _                     => handlerBadValue(s"Invalid activity id $v")
+        }
       },
       id => BSONString(s"${id.userId}$sep${id.day.value}")
     )
@@ -35,12 +34,11 @@ private object BSONHandlers {
 
   implicit private lazy val ratingHandler = BSONIntegerHandler.as[Rating](Rating.apply, _.value)
   implicit private lazy val ratingProgHandler = tryHandler[RatingProg](
-    {
-      case v: BSONArray =>
-        for {
-          before <- v.getAsTry[Rating](0)
-          after  <- v.getAsTry[Rating](1)
-        } yield RatingProg(before, after)
+    { case v: BSONArray =>
+      for {
+        before <- v.getAsTry[Rating](0)
+        after  <- v.getAsTry[Rating](1)
+      } yield RatingProg(before, after)
     },
     o => BSONArray(o.before, o.after)
   )

@@ -311,12 +311,11 @@ object Node {
   def destString(dests: Map[Pos, List[Pos]]): String = {
     val sb    = new java.lang.StringBuilder(80)
     var first = true
-    dests foreach {
-      case (orig, dests) =>
-        if (first) first = false
-        else sb append " "
-        sb append orig.piotr
-        dests foreach { sb append _.piotr }
+    dests foreach { case (orig, dests) =>
+      if (first) first = false
+      else sb append " "
+      sb append orig.piotr
+      dests foreach { sb append _.piotr }
     }
     sb.toString
   }

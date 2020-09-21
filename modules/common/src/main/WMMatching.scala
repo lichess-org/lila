@@ -27,8 +27,8 @@ object WMMatching {
       lowLevel(
         vertices.length,
         (i, j) => pairScore(vertices(i), vertices(j))
-      ) map {
-        case (i, j) => vertices(i) -> vertices(j)
+      ) map { case (i, j) =>
+        vertices(i) -> vertices(j)
       }
     }
 

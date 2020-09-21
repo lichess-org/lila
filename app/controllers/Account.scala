@@ -44,10 +44,9 @@ final class Account(
       } { username =>
         env.user.repo
           .setUsernameCased(me.id, username) inject
-          Redirect(routes.User show me.username).flashSuccess recover {
-          case e =>
+          Redirect(routes.User show me.username).flashSuccess recover { case e =>
             BadRequest(html.account.username(me, env.user.forms.username(me))).flashFailure(e.getMessage)
-        }
+          }
       }
     }
 
@@ -61,21 +60,21 @@ final class Account(
             env.round.proxyRepo.urgentGames(me) zip
             env.challenge.api.countInFor.get(me.id) zip
             env.playban.api.currentBan(me.id) map {
-            case nbFollowers ~ prefs ~ povs ~ nbChallenges ~ playban =>
-              Ok {
-                import lila.pref.JsonView._
-                env.user.jsonView(me) ++ Json
-                  .obj(
-                    "prefs"        -> prefs,
-                    "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
-                    "nbFollowers"  -> nbFollowers,
-                    "nbChallenges" -> nbChallenges
-                  )
-                  .add("kid" -> me.kid)
-                  .add("troll" -> me.marks.troll)
-                  .add("playban" -> playban)
-              }.withHeaders(CACHE_CONTROL -> s"max-age=15")
-          }
+              case nbFollowers ~ prefs ~ povs ~ nbChallenges ~ playban =>
+                Ok {
+                  import lila.pref.JsonView._
+                  env.user.jsonView(me) ++ Json
+                    .obj(
+                      "prefs"        -> prefs,
+                      "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
+                      "nbFollowers"  -> nbFollowers,
+                      "nbChallenges" -> nbChallenges
+                    )
+                    .add("kid" -> me.kid)
+                    .add("troll" -> me.marks.troll)
+                    .add("playban" -> playban)
+                }.withHeaders(CACHE_CONTROL -> s"max-age=15")
+            }
         }
       )
     }
@@ -147,8 +146,8 @@ final class Account(
     env.security.store.closeAllSessionsOf(me.id) >>
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
       env.security.api.saveAuthentication(me.id, ctx.mobileApiVersion) map { sessionId =>
-      result.withCookies(env.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
-    }
+        result.withCookies(env.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
+      }
 
   private def emailForm(user: UserModel) =
     env.user.repo email user.id flatMap {
@@ -201,17 +200,16 @@ final class Account(
   def emailConfirm(token: String) =
     Open { implicit ctx =>
       env.security.emailChange.confirm(token) flatMap {
-        _ ?? {
-          case (user, prevEmail) =>
-            (prevEmail.exists(_.isNoReply) ?? env.clas.api.student.release(user)) >>
-              auth.authenticateUser(
-                user,
-                result =
-                  if (prevEmail.exists(_.isNoReply))
-                    Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
-                  else
-                    Some(_ => Redirect(routes.Account.email()).flashSuccess)
-              )
+        _ ?? { case (user, prevEmail) =>
+          (prevEmail.exists(_.isNoReply) ?? env.clas.api.student.release(user)) >>
+            auth.authenticateUser(
+              user,
+              result =
+                if (prevEmail.exists(_.isNoReply))
+                  Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
+                else
+                  Some(_ => Redirect(routes.Account.email()).flashSuccess)
+            )
         }
       }
     }
@@ -354,8 +352,8 @@ final class Account(
     Auth { implicit ctx => me =>
       env.security.api.dedup(me.id, ctx.req) >>
         env.security.api.locatedOpenSessions(me.id, 50) map { sessions =>
-        Ok(html.account.security(me, sessions, currentSessionId))
-      }
+          Ok(html.account.security(me, sessions, currentSessionId))
+        }
     }
 
   def signout(sessionId: String) =

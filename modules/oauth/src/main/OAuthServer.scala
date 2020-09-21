@@ -22,8 +22,8 @@ final class OAuthServer(
   def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] =
     reqToTokenId(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) {
       auth(_, scopes)
-    } recover {
-      case e: AuthError => Left(e)
+    } recover { case e: AuthError =>
+      Left(e)
     }
 
   def auth(tokenId: AccessToken.Id, scopes: List[OAuthScope]): Fu[AuthResult] =
@@ -34,8 +34,8 @@ final class OAuthServer(
           case None    => fufail(NoSuchUser)
           case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
         }
-    } dmap Right.apply recover {
-      case e: AuthError => Left(e)
+    } dmap Right.apply recover { case e: AuthError =>
+      Left(e)
     }
 
   def fetchAppAuthor(req: RequestHeader): Fu[Option[User.ID]] =
@@ -48,8 +48,8 @@ final class OAuthServer(
     }
 
   private def reqToTokenId(req: RequestHeader): Option[AccessToken.Id] =
-    req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) collect {
-      case Array("Bearer", tokenStr) => AccessToken.Id(tokenStr)
+    req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) collect { case Array("Bearer", tokenStr) =>
+      AccessToken.Id(tokenStr)
     }
 
   private val accessTokenCache =

@@ -161,8 +161,8 @@ final private class LobbyTrouper(
   private def findCompatible(hook: Hook): Option[Hook] =
     HookRepo findCompatible hook find { existing =>
       biter.canJoin(existing, hook.user) && !(
-        (existing.user, hook.user).mapN((_, _)) ?? {
-          case (u1, u2) => recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
+        (existing.user, hook.user).mapN((_, _)) ?? { case (u1, u2) =>
+          recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
         }
       )
     }

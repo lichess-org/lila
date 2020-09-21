@@ -48,71 +48,70 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         pgn,
         sans => sans.copy(value = sans.value take maxPlies),
         Tags.empty
-      ) map evenIncomplete map {
-        case replay @ Replay(setup, _, state) =>
-          val initBoard    = parsed.tags.fen.map(_.value) flatMap Forsyth.<< map (_.board)
-          val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.contains(FEN(Forsyth.initial))
-          val variant = {
-            parsed.tags.variant | {
-              if (fromPosition) chess.variant.FromPosition
-              else chess.variant.Standard
-            }
-          } match {
-            case chess.variant.Chess960 if !Chess960.isStartPosition(setup.board) =>
-              chess.variant.FromPosition
-            case chess.variant.FromPosition if parsed.tags.fen.isEmpty => chess.variant.Standard
-            case chess.variant.Standard if fromPosition                => chess.variant.FromPosition
-            case v                                                     => v
+      ) map evenIncomplete map { case replay @ Replay(setup, _, state) =>
+        val initBoard    = parsed.tags.fen.map(_.value) flatMap Forsyth.<< map (_.board)
+        val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.contains(FEN(Forsyth.initial))
+        val variant = {
+          parsed.tags.variant | {
+            if (fromPosition) chess.variant.FromPosition
+            else chess.variant.Standard
           }
-          val game = state.copy(situation = state.situation withVariant variant)
-          val initialFen = parsed.tags.fen.map(_.value) flatMap {
-            Forsyth.<<<@(variant, _)
-          } map Forsyth.>> map FEN.apply
+        } match {
+          case chess.variant.Chess960 if !Chess960.isStartPosition(setup.board) =>
+            chess.variant.FromPosition
+          case chess.variant.FromPosition if parsed.tags.fen.isEmpty => chess.variant.Standard
+          case chess.variant.Standard if fromPosition                => chess.variant.FromPosition
+          case v                                                     => v
+        }
+        val game = state.copy(situation = state.situation withVariant variant)
+        val initialFen = parsed.tags.fen.map(_.value) flatMap {
+          Forsyth.<<<@(variant, _)
+        } map Forsyth.>> map FEN.apply
 
-          val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
-            case Some("normal") | None    => Status.Resign
-            case Some("abandoned")        => Status.Aborted
-            case Some("time forfeit")     => Status.Outoftime
-            case Some("rules infraction") => Status.Cheat
-            case Some(_)                  => Status.UnknownFinish
-          }
+        val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
+          case Some("normal") | None    => Status.Resign
+          case Some("abandoned")        => Status.Aborted
+          case Some("time forfeit")     => Status.Outoftime
+          case Some("rules infraction") => Status.Cheat
+          case Some(_)                  => Status.UnknownFinish
+        }
 
-          val date = parsed.tags.anyDate
+        val date = parsed.tags.anyDate
 
-          def name(whichName: TagPicker, whichRating: TagPicker): String =
-            parsed.tags(whichName).fold("?") { n =>
-              n + ~parsed.tags(whichRating).map(e => s" (${e take 8})")
-            }
-
-          val dbGame = Game
-            .make(
-              chess = game,
-              whitePlayer = Player.make(chess.White, None) withName name(_.White, _.WhiteElo),
-              blackPlayer = Player.make(chess.Black, None) withName name(_.Black, _.BlackElo),
-              mode = Mode.Casual,
-              source = Source.Import,
-              pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
-            )
-            .sloppy
-            .start pipe { dbGame =>
-            // apply the result from the board or the tags
-            game.situation.status match {
-              case Some(situationStatus) => dbGame.finish(situationStatus, game.situation.winner).game
-              case None =>
-                parsed.tags.resultColor
-                  .map {
-                    case Some(color)                        => TagResult(status, color.some)
-                    case None if status == Status.Outoftime => TagResult(status, none)
-                    case None                               => TagResult(Status.Draw, none)
-                  }
-                  .filter(_.status > Status.Started)
-                  .fold(dbGame) { res =>
-                    dbGame.finish(res.status, res.winner).game
-                  }
-            }
+        def name(whichName: TagPicker, whichRating: TagPicker): String =
+          parsed.tags(whichName).fold("?") { n =>
+            n + ~parsed.tags(whichRating).map(e => s" (${e take 8})")
           }
 
-          Preprocessed(NewGame(dbGame), replay.copy(state = game), initialFen, parsed)
+        val dbGame = Game
+          .make(
+            chess = game,
+            whitePlayer = Player.make(chess.White, None) withName name(_.White, _.WhiteElo),
+            blackPlayer = Player.make(chess.Black, None) withName name(_.Black, _.BlackElo),
+            mode = Mode.Casual,
+            source = Source.Import,
+            pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
+          )
+          .sloppy
+          .start pipe { dbGame =>
+          // apply the result from the board or the tags
+          game.situation.status match {
+            case Some(situationStatus) => dbGame.finish(situationStatus, game.situation.winner).game
+            case None =>
+              parsed.tags.resultColor
+                .map {
+                  case Some(color)                        => TagResult(status, color.some)
+                  case None if status == Status.Outoftime => TagResult(status, none)
+                  case None                               => TagResult(Status.Draw, none)
+                }
+                .filter(_.status > Status.Started)
+                .fold(dbGame) { res =>
+                  dbGame.finish(res.status, res.winner).game
+                }
+          }
+        }
+
+        Preprocessed(NewGame(dbGame), replay.copy(state = game), initialFen, parsed)
       }
     }
 }

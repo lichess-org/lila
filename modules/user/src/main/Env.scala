@@ -73,21 +73,19 @@ final class Env(
   lazy val forms = wire[UserForm]
 
   lila.common.Bus.subscribeFuns(
-    "adjustCheater" -> {
-      case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-        rankingApi remove userId
-        repo.setRoles(userId, Nil)
+    "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+      rankingApi remove userId
+      repo.setRoles(userId, Nil)
     },
-    "adjustBooster" -> {
-      case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
+    "adjustBooster" -> { case lila.hub.actorApi.mod.MarkBooster(userId) =>
+      rankingApi remove userId
     },
-    "kickFromRankings" -> {
-      case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
+    "kickFromRankings" -> { case lila.hub.actorApi.mod.KickFromRankings(userId) =>
+      rankingApi remove userId
     },
-    "gdprErase" -> {
-      case User.GDPRErase(user) =>
-        repo erase user
-        noteApi erase user
+    "gdprErase" -> { case User.GDPRErase(user) =>
+      repo erase user
+      noteApi erase user
     }
   )
 }

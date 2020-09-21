@@ -38,15 +38,14 @@ object chart {
             )
           ),
           tbody(
-            data.perfResults.map {
-              case (pt, res) =>
-                tr(
-                  th(iconTag(pt.iconChar, pt.trans)),
-                  td(res.nb.localize),
-                  td(res.points.median.map(_.toInt)),
-                  td(res.points.sum.localize),
-                  td(res.rankPercentMedian, "%")
-                )
+            data.perfResults.map { case (pt, res) =>
+              tr(
+                th(iconTag(pt.iconChar, pt.trans)),
+                td(res.nb.localize),
+                td(res.points.median.map(_.toInt)),
+                td(res.points.sum.localize),
+                td(res.rankPercentMedian, "%")
+              )
             },
             tr(
               th("Total"),

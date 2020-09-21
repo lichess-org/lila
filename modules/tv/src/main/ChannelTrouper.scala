@@ -81,8 +81,8 @@ final private[tv] class ChannelTrouper(
 
   private def score(game: Game): Int =
     math.round {
-      (heuristics map {
-        case (fn, coefficient) => heuristicBox(fn(game)) * coefficient
+      (heuristics map { case (fn, coefficient) =>
+        heuristicBox(fn(game)) * coefficient
       }).sum * 1000
     }
 
