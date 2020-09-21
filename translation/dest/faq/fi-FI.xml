@@ -55,13 +55,12 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
   <string name="linkToFIDErules">FIDE:n käsikirja §6.9, PDF</string>
   <string name="discoveringEnPassant">Miksi sotilas voi lyödä toisen sotilaan, kun se on jo kulkenut ohitse? (ohestalyönti)</string>
   <string name="explainingEnPassant">Tämä sallittu siirto tunnetaan ohestalyöntinä (\"en passant\"). Wikipediassa on %1$s ohestalyöntiin.
- 
- Siirto on kuvattu %2$s kohdassa 3.7 (d):
 
-  \"Sotilas, joka uhkaa ruutua, jonka alkuruudustaan kaksi ruutua kerrallaan siirtynyt vastustajan sotilas on ylittänyt, voi lyödä tämän vastustajan sotilaan ikäänkuin se olisi siirtynyt vain yhden ruudun. Tämä lyönti on laillinen vain välittömästi vastauksena kahden ruudun siirtoon, ja tätä lyöntiä kutsutaan ohestalyönniksi (en passant).\"
+Siirto on kuvattu %2$s kohdassa 3.7 (d):
 
-  Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.
-  </string>
+\"Sotilas, joka uhkaa ruutua, jonka alkuruudustaan kaksi ruutua kerrallaan siirtynyt vastustajan sotilas on ylittänyt, voi lyödä tämän vastustajan sotilaan ikäänkuin se olisi siirtynyt vain yhden ruudun. Tämä lyönti on laillinen vain välittömästi vastauksena kahden ruudun siirtoon, ja tätä lyöntiä kutsutaan ohestalyönniksi (en passant).\"
+
+Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="goodIntroduction">hyvä johdanto</string>
   <string name="officialRulesPDF">virallisten sääntöjen (PDF)</string>
   <string name="lichessTraining">Lichess-harjoittelu</string>
