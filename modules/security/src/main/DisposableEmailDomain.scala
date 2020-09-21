@@ -16,10 +16,9 @@ final class DisposableEmailDomain(
 
   private[security] def refresh(): Unit =
     for {
-      blacklist <- ws.url(providerUrl).get().map(_.body.linesIterator) recover {
-        case e: Exception =>
-          logger.warn("DisposableEmailDomain.refresh", e)
-          Iterator.empty
+      blacklist <- ws.url(providerUrl).get().map(_.body.linesIterator) recover { case e: Exception =>
+        logger.warn("DisposableEmailDomain.refresh", e)
+        Iterator.empty
       }
       checked <- checkMailBlocked()
     } {

@@ -66,27 +66,27 @@ final class StreamerApi(
     val streamer = data(prev, asMod)
     coll.update.one($id(streamer.id), streamer) >>-
       cache.listedIds.invalidateUnit() inject {
-      val modChange = Streamer.ModChange(
-        list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
-        tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier
-      )
-      import lila.notify.Notification.Notifies
-      import lila.notify.Notification
-      ~modChange.list ?? {
-        notifyApi.addNotification(
-          Notification.make(
-            Notifies(streamer.userId),
-            lila.notify.GenericLink(
-              url = s"/streamer/edit",
-              title = "Listed on /streamer".some,
-              text = "Your streamer page is public".some,
-              icon = ""
+        val modChange = Streamer.ModChange(
+          list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
+          tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier
+        )
+        import lila.notify.Notification.Notifies
+        import lila.notify.Notification
+        ~modChange.list ?? {
+          notifyApi.addNotification(
+            Notification.make(
+              Notifies(streamer.userId),
+              lila.notify.GenericLink(
+                url = s"/streamer/edit",
+                title = "Listed on /streamer".some,
+                text = "Your streamer page is public".some,
+                icon = ""
+              )
             )
-          )
-        ) >>- cache.candidateIds.invalidateUnit()
+          ) >>- cache.candidateIds.invalidateUnit()
+        }
+        modChange
       }
-      modChange
-    }
   }
 
   def demote(userId: User.ID): Funit =

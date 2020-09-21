@@ -220,27 +220,25 @@ object RemoteSocket {
             }.toMap).some
           case "tell/sri" => raw.get(3)(tellSriMapper)
           case "tell/user" =>
-            raw.get(2) {
-              case Array(user, payload) =>
-                for {
-                  obj <- Json.parse(payload).asOpt[JsObject]
-                  typ <- obj str "t"
-                } yield TellUser(user, typ, obj)
+            raw.get(2) { case Array(user, payload) =>
+              for {
+                obj <- Json.parse(payload).asOpt[JsObject]
+                typ <- obj str "t"
+              } yield TellUser(user, typ, obj)
             }
           case "req/response" =>
-            raw.get(2) {
-              case Array(reqId, response) => reqId.toIntOption map { ReqResponse(_, response) }
+            raw.get(2) { case Array(reqId, response) =>
+              reqId.toIntOption map { ReqResponse(_, response) }
             }
           case "boot" => WsBoot.some
           case _      => none
         }
 
-      def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = {
-        case Array(sri, user, payload) =>
-          for {
-            obj <- Json.parse(payload).asOpt[JsObject]
-            typ <- obj str "t"
-          } yield TellSri(Sri(sri), optional(user), typ, obj)
+      def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = { case Array(sri, user, payload) =>
+        for {
+          obj <- Json.parse(payload).asOpt[JsObject]
+          typ <- obj str "t"
+        } yield TellSri(Sri(sri), optional(user), typ, obj)
       }
 
       def commas(str: String): Array[String]    = if (str == "-") Array.empty else str split ','

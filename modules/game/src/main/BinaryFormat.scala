@@ -57,8 +57,8 @@ object BinaryFormat {
     private val size = 16
     private val buckets =
       List(10, 50, 100, 150, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 3000, 4000, 6000)
-    private val encodeCutoffs = buckets zip buckets.tail map {
-      case (i1, i2) => (i1 + i2) / 2
+    private val encodeCutoffs = buckets zip buckets.tail map { case (i1, i2) =>
+      (i1 + i2) / 2
     } toVector
 
     private val decodeMap: Map[Int, MT] = buckets.view.zipWithIndex.map(x => x._2 -> x._1).toMap
@@ -179,8 +179,8 @@ object BinaryFormat {
       }
 
       def posInt(pos: Pos): Int = ((pos.x - 1) << 3) + pos.y - 1
-      val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) {
-        case (o, d) => (posInt(o) << 6) + posInt(d)
+      val lastMoveInt = clmt.lastMove.map(_.origDest).fold(0) { case (o, d) =>
+        (posInt(o) << 6) + posInt(d)
       }
       Array((castleInt << 4) + (lastMoveInt >> 8) toByte, lastMoveInt.toByte)
     }
@@ -205,8 +205,8 @@ object BinaryFormat {
 
   object piece {
 
-    private val groupedPos = Pos.all grouped 2 collect {
-      case List(p1, p2) => (p1, p2)
+    private val groupedPos = Pos.all grouped 2 collect { case List(p1, p2) =>
+      (p1, p2)
     } toArray
 
     def write(pieces: PieceMap): ByteArray = {
@@ -214,8 +214,8 @@ object BinaryFormat {
         (pieces get pos).fold(0) { piece =>
           piece.color.fold(0, 8) + roleToInt(piece.role)
         }
-      ByteArray(groupedPos map {
-        case (p1, p2) => ((posInt(p1) << 4) + posInt(p2)).toByte
+      ByteArray(groupedPos map { case (p1, p2) =>
+        ((posInt(p1) << 4) + posInt(p2)).toByte
       })
     }
 
@@ -230,8 +230,8 @@ object BinaryFormat {
         }
       val pieceInts = ba.value flatMap splitInts
       (Pos.all zip pieceInts).view
-        .flatMap {
-          case (pos, int) => intPiece(int) map (pos -> _)
+        .flatMap { case (pos, int) =>
+          intPiece(int) map (pos -> _)
         }
         .to(Map)
     }

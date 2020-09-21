@@ -55,13 +55,12 @@ final class Pref(env: Env) extends LilaController(env) {
         Ok.withCookies(env.lilaCookie.session("zoom2", (getInt("v") | 185).toString)).fuccess
       } else {
         implicit val req = ctx.body
-        (setters get name) ?? {
-          case (form, fn) =>
-            FormResult(form) { v =>
-              fn(v, ctx) map { cookie =>
-                Ok(()).withCookies(cookie)
-              }
+        (setters get name) ?? { case (form, fn) =>
+          FormResult(form) { v =>
+            fn(v, ctx) map { cookie =>
+              Ok(()).withCookies(cookie)
             }
+          }
         }
       }
     }

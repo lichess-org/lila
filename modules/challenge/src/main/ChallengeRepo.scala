@@ -57,8 +57,8 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
       .void
 
   private[challenge] def allWithUserId(userId: String): Fu[List[Challenge]] =
-    createdByChallengerId(userId) zip createdByDestId(userId) dmap {
-      case (x, y) => x ::: y
+    createdByChallengerId(userId) zip createdByDestId(userId) dmap { case (x, y) =>
+      x ::: y
     }
 
   @nowarn("cat=unused") def like(c: Challenge) =
@@ -87,9 +87,8 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
       .hint(coll hint $doc("seenAt" -> 1)) // partial index
       .cursor[Challenge]()
       .list(max)
-      .recoverWith {
-        case _: reactivemongo.core.errors.DatabaseException =>
-          coll.list[Challenge](selector, max)
+      .recoverWith { case _: reactivemongo.core.errors.DatabaseException =>
+        coll.list[Challenge](selector, max)
       }
   }
 

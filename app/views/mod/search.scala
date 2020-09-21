@@ -125,25 +125,24 @@ object search {
         )
       ),
       tbody(
-        users.map {
-          case lila.user.User.WithEmails(u, emails) =>
-            tr(
-              td(
-                userLink(u, withBestRating = true, params = "?mod"),
-                (isGranted(_.Doxing) && isGranted(_.SetEmail)) option
-                  email(emails.list.map(_.value).mkString(", "))
-              ),
-              td(u.count.game.localize),
-              td(
-                u.marks.alt option mark("ALT"),
-                u.marks.engine option mark("ENGINE"),
-                u.marks.boost option mark("BOOSTER"),
-                u.marks.troll option mark("SHADOWBAN")
-              ),
-              td(u.disabled option mark("CLOSED")),
-              td(momentFromNow(u.createdAt)),
-              td(u.seenAt.map(momentFromNow(_)))
-            )
+        users.map { case lila.user.User.WithEmails(u, emails) =>
+          tr(
+            td(
+              userLink(u, withBestRating = true, params = "?mod"),
+              (isGranted(_.Doxing) && isGranted(_.SetEmail)) option
+                email(emails.list.map(_.value).mkString(", "))
+            ),
+            td(u.count.game.localize),
+            td(
+              u.marks.alt option mark("ALT"),
+              u.marks.engine option mark("ENGINE"),
+              u.marks.boost option mark("BOOSTER"),
+              u.marks.troll option mark("SHADOWBAN")
+            ),
+            td(u.disabled option mark("CLOSED")),
+            td(momentFromNow(u.createdAt)),
+            td(u.seenAt.map(momentFromNow(_)))
+          )
         }
       )
     )

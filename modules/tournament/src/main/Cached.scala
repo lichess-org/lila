@@ -20,8 +20,8 @@ final private[tournament] class Cached(
   val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
     name = "tournament.name",
     initialCapacity = 32768,
-    compute = {
-      case (id, lang) => tournamentRepo byId id dmap2 { _.name()(lang) }
+    compute = { case (id, lang) =>
+      tournamentRepo byId id dmap2 { _.name()(lang) }
     },
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
@@ -41,8 +41,8 @@ final private[tournament] class Cached(
     cacheApi[(Tournament.ID, TeamID), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo") {
       _.expireAfterWrite(5 seconds)
         .maximumSize(64)
-        .buildAsyncFuture {
-          case (tourId, teamId) => playerRepo.teamInfo(tourId, teamId) dmap some
+        .buildAsyncFuture { case (tourId, teamId) =>
+          playerRepo.teamInfo(tourId, teamId) dmap some
         }
     }
 

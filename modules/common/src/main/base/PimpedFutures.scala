@@ -16,8 +16,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   @inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(EC.parasitic)
 
   def >>-(sideEffect: => Unit)(implicit ec: EC): Fu[A] =
-    fua andThen {
-      case _ => sideEffect
+    fua andThen { case _ =>
+      sideEffect
     }
 
   def >>[B](fub: => Fu[B])(implicit ec: EC): Fu[B] =
@@ -91,8 +91,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   }
 
   def mapFailure(f: Exception => Exception)(implicit ec: EC) =
-    fua recoverWith {
-      case cause: Exception => fufail(f(cause))
+    fua recoverWith { case cause: Exception =>
+      fufail(f(cause))
     }
 
   def prefixFailure(p: => String)(implicit ec: EC) =

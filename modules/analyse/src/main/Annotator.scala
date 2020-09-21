@@ -33,21 +33,20 @@ final class Annotator(netDomain: lila.common.config.NetDomain) {
     }
 
   private def annotateTurns(p: Pgn, advices: List[Advice]): Pgn =
-    advices.foldLeft(p) {
-      case (pgn, advice) =>
-        pgn.updateTurn(
-          advice.turn,
-          turn =>
-            turn.update(
-              advice.color,
-              move =>
-                move.copy(
-                  glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
-                  comments = advice.makeComment(withEval = true, withBestMove = true) :: move.comments,
-                  variations = makeVariation(turn, advice) :: Nil
-                )
-            )
-        )
+    advices.foldLeft(p) { case (pgn, advice) =>
+      pgn.updateTurn(
+        advice.turn,
+        turn =>
+          turn.update(
+            advice.color,
+            move =>
+              move.copy(
+                glyphs = Glyphs.fromList(advice.judgment.glyph :: Nil),
+                comments = advice.makeComment(withEval = true, withBestMove = true) :: move.comments,
+                variations = makeVariation(turn, advice) :: Nil
+              )
+          )
+      )
     }
 
   private def makeVariation(turn: Turn, advice: Advice): List[Turn] =

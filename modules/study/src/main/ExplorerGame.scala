@@ -34,8 +34,8 @@ final private class ExplorerGame(
                 path = Path(root.mainline.map(_.id))
               )
             } ?? { gameRoot =>
-              merge(fromNode, position.path, gameRoot) flatMap {
-                case (newNode, path) => position.chapter.addNode(newNode, path) map (_ -> path)
+              merge(fromNode, position.path, gameRoot) flatMap { case (newNode, path) =>
+                position.chapter.addNode(newNode, path) map (_ -> path)
               }
             }
           }

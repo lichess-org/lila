@@ -21,10 +21,11 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi:
   private def isUndetectedProxy(location: Location): Boolean =
     location.shortCountry == "Iran" ||
       location.shortCountry == "United Arab Emirates" || (location match {
-      case Location("Poland", Some("Subcarpathian Voivodeship"), Some("Stalowa Wola")) => true
-      case Location("Poland", Some("Lesser Poland Voivodeship"), Some("Krakow"))       => true
-      case Location("Russia", Some(region), Some("Ufa" | "Sterlitamak")) if region contains "Bashkortostan" =>
-        true
-      case _ => false
-    })
+        case Location("Poland", Some("Subcarpathian Voivodeship"), Some("Stalowa Wola")) => true
+        case Location("Poland", Some("Lesser Poland Voivodeship"), Some("Krakow"))       => true
+        case Location("Russia", Some(region), Some("Ufa" | "Sterlitamak"))
+            if region contains "Bashkortostan" =>
+          true
+        case _ => false
+      })
 }

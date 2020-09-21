@@ -53,11 +53,11 @@ final class ActivityReadApi(
           .mon(_.user segment "activity.posts") dmap some
       }
       practice = (for {
-          p      <- a.practice
-          struct <- practiceStructure
-        } yield p.value flatMap {
-          case (studyId, nb) => struct study studyId map (_ -> nb)
-        } toMap)
+        p      <- a.practice
+        struct <- practiceStructure
+      } yield p.value flatMap { case (studyId, nb) =>
+        struct study studyId map (_ -> nb)
+      } toMap)
       postView = posts.map { p =>
         p.groupBy(_.topic)
           .view

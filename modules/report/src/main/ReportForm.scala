@@ -32,15 +32,14 @@ final private[report] class ReportForm(
       "text"   -> text(minLength = 5, maxLength = 2000),
       "gameId" -> text,
       "move"   -> text
-    )({
-      case (username, reason, text, gameId, move) =>
-        ReportSetup(
-          user = blockingFetchUser(username) err "Unknown username " + username,
-          reason = reason,
-          text = text,
-          gameId = gameId,
-          move = move
-        )
+    )({ case (username, reason, text, gameId, move) =>
+      ReportSetup(
+        user = blockingFetchUser(username) err "Unknown username " + username,
+        reason = reason,
+        text = text,
+        gameId = gameId,
+        move = move
+      )
     })(_.export.some).verifying(captchaFailMessage, validateCaptcha _).verifying(cheatLinkConstraint)
   )
 

@@ -47,11 +47,10 @@ object SimulForm {
       Constraint[String] { (t: String) =>
         if (
           t.toUpperCase.split(' ').exists { word =>
-            lila.user.Title.all.exists {
-              case (title, name) =>
-                !host.title.has(title) && {
-                  title.value == word || name.toUpperCase == word
-                }
+            lila.user.Title.all.exists { case (title, name) =>
+              !host.title.has(title) && {
+                title.value == word || name.toUpperCase == word
+              }
             }
           }
         )

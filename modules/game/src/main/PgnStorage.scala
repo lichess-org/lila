@@ -46,8 +46,8 @@ private object PgnStorage {
         val unmovedRooks = decoded.unmovedRooks.asScala.view.flatMap(chessPos).to(Set)
         Decoded(
           pgnMoves = decoded.pgnMoves.toVector,
-          pieces = decoded.pieces.asScala.view.flatMap {
-            case (k, v) => chessPos(k).map(_ -> chessPiece(v))
+          pieces = decoded.pieces.asScala.view.flatMap { case (k, v) =>
+            chessPos(k).map(_ -> chessPiece(v))
           }.toMap,
           positionHashes = decoded.positionHashes,
           unmovedRooks = UnmovedRooks(unmovedRooks),

@@ -210,7 +210,6 @@
     <item quantity="other">%s partide cu tine</item>
   </plurals>
   <string name="cancel">Anulare</string>
-  <string name="timeOut">Timpul a expirat</string>
   <string name="drawOfferSent">Propunere de remiză trimisă</string>
   <string name="drawOfferDeclined">Propunere de remiză refuzată</string>
   <string name="drawOfferAccepted">Propunere de remiză acceptată</string>
@@ -421,7 +420,7 @@
   <string name="openTournaments">Turnee deschise</string>
   <string name="duration">Durată</string>
   <string name="winner">Câștigător</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Clasament</string>
+  <string name="standing">Clasament</string>
   <string name="createANewTournament">Creați un turneu nou</string>
   <string name="tournamentCalendar">Calendarul competiției</string>
   <string name="conditionOfEntry">Condiție de admitere:</string>
@@ -690,7 +689,7 @@
   <string name="newTournament">Turneu nou</string>
   <string name="tournamentHomeTitle">Turneu de șah cu control de timp și variante</string>
   <string name="tournamentHomeDescription">Joacă turnee rapide de șah! Intră într-un turneu oficial planificat sau crează-ți-l tu. Bullet (Glonț),  Blitz (Fulger), Classical (Clasic), Chess960, Regele în centru, Trei șahuri și alte opțiuni sunt disponibile pentru o distracție continuă.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turneul nu a fost găsit</string>
+  <string name="tournamentNotFound">Turneul nu a fost găsit</string>
   <string name="tournamentDoesNotExist">Acest turneu nu există.</string>
   <string name="tournamentMayHaveBeenCanceled">Posibil să fi fost anulat, dacă toți jucătorii au plecat înainte de începerea turneului.</string>
   <string name="returnToTournamentsHomepage">Înapoi la pagina turneului</string>

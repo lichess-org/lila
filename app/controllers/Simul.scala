@@ -18,25 +18,22 @@ final class Simul(env: Env) extends LilaController(env) {
 
   val home = Open { implicit ctx =>
     pageHit
-    fetchSimuls(ctx.me) flatMap {
-      case pending ~ created ~ started ~ finished =>
-        Ok(html.simul.home(pending, created, started, finished)).fuccess
+    fetchSimuls(ctx.me) flatMap { case pending ~ created ~ started ~ finished =>
+      Ok(html.simul.home(pending, created, started, finished)).fuccess
     }
   }
 
   val apiList = Action.async {
-    fetchSimuls(none) flatMap {
-      case pending ~ created ~ started ~ finished =>
-        env.simul.jsonView.apiAll(pending, created, started, finished) map { json =>
-          Ok(json) as JSON
-        }
+    fetchSimuls(none) flatMap { case pending ~ created ~ started ~ finished =>
+      env.simul.jsonView.apiAll(pending, created, started, finished) map { json =>
+        Ok(json) as JSON
+      }
     }
   }
 
   val homeReload = Open { implicit ctx =>
-    fetchSimuls(ctx.me) map {
-      case pending ~ created ~ started ~ finished =>
-        Ok(html.simul.homeInner(pending, created, started, finished))
+    fetchSimuls(ctx.me) map { case pending ~ created ~ started ~ finished =>
+      Ok(html.simul.homeInner(pending, created, started, finished))
     }
   }
 
@@ -83,10 +80,10 @@ final class Simul(env: Env) extends LilaController(env) {
       ctx.me.fold(true) { // anon can see public chats
         env.chat.panic.allowed
       } && simul.team.fold(true) { teamId =>
-      ctx.userId exists {
-        env.team.api.syncBelongsTo(teamId, _)
+        ctx.userId exists {
+          env.team.api.syncBelongsTo(teamId, _)
+        }
       }
-    }
 
   def hostPing(simulId: String) =
     Open { implicit ctx =>

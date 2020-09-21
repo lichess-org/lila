@@ -90,8 +90,8 @@ final class Env(
 
   private lazy val linkCheck = wire[LinkCheck]
 
-  Bus.subscribeFun("chatLinkCheck") {
-    case GetLinkCheck(line, source, promise) => promise completeWith linkCheck(line, source)
+  Bus.subscribeFun("chatLinkCheck") { case GetLinkCheck(line, source, promise) =>
+    promise completeWith linkCheck(line, source)
   }
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>

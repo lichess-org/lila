@@ -199,7 +199,6 @@
     <item quantity="other">%s lîstikên bi te re</item>
   </plurals>
   <string name="cancel">Betal bike</string>
-  <string name="timeOut">Dem bihurî</string>
   <string name="drawOfferSent">Pêşniyara wekheviyê hate şandin</string>
   <string name="drawOfferDeclined">Teklîfa wekheviyê hate redkirin</string>
   <string name="drawOfferAccepted">Teklîfa wekheviyê hate qebûlkirin</string>
@@ -392,7 +391,7 @@
   <string name="openTournaments">Pêşbirkên vekirî</string>
   <string name="duration">Mawe</string>
   <string name="winner">Yê biserketî</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Rêz</string>
+  <string name="standing">Rêz</string>
   <string name="createANewTournament">Pêşbirkeke nû çêbike</string>
   <string name="tournamentCalendar">Teqwîma pêşbirkan</string>
   <string name="conditionOfEntry">Şertên tevlîbûnê:</string>
@@ -656,7 +655,7 @@
   <string name="newTournament">Turnuwaya nû</string>
   <string name="tournamentHomeTitle">Turnuwayê kişikê yê ku çendîn kontrolên demê û varyantan dihewîne</string>
   <string name="tournamentHomeDescription">Turnuwayên kişikê yê zû-gavî bilîze! Tevlî pêşbirkeke pêşplankirî ya fermî bibe, an jî tu yek çêke. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, û zêtir vebijêrk berdest in ji bo şahiya kişikê ya bêdawî.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnuwa peyda nebû</string>
+  <string name="tournamentNotFound">Turnuwa peyda nebû</string>
   <string name="tournamentDoesNotExist">Ev turnuwa nemewcûd e.</string>
   <string name="tournamentMayHaveBeenCanceled">Dibe ku turnuwa hatibe betalkirin, ger hemû lîzer dev jê berda bin berî destpêkirina wê.</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela turnuwayan</string>

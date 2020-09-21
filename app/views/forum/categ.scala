@@ -135,15 +135,14 @@ object categ {
             td(cls := "right")(categ.nbTopics.localize),
             td(cls := "right")(categ.nbPosts.localize),
             td(
-              categ.lastPost.map {
-                case (topic, post, page) =>
-                  frag(
-                    a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, page)}#${post.number}")(
-                      momentFromNow(post.createdAt)
-                    ),
-                    br,
-                    trans.by(authorName(post))
-                  )
+              categ.lastPost.map { case (topic, post, page) =>
+                frag(
+                  a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, page)}#${post.number}")(
+                    momentFromNow(post.createdAt)
+                  ),
+                  br,
+                  trans.by(authorName(post))
+                )
               }
             )
           )

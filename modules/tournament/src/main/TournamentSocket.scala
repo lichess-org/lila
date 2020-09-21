@@ -79,16 +79,15 @@ final private class TournamentSocket(
       }
     )
 
-  private lazy val tourHandler: Handler = {
-    case Protocol.In.WaitingUsers(roomId, users) =>
-      allWaitingUsers.computeIfPresent(
-        roomId.value,
-        (_: Tournament.ID, cur: WaitingUsers.WithNext) => {
-          val newWaiting = cur.waiting.update(users)
-          cur.next.foreach(_ success newWaiting)
-          WaitingUsers.WithNext(newWaiting, none)
-        }
-      )
+  private lazy val tourHandler: Handler = { case Protocol.In.WaitingUsers(roomId, users) =>
+    allWaitingUsers.computeIfPresent(
+      roomId.value,
+      (_: Tournament.ID, cur: WaitingUsers.WithNext) => {
+        val newWaiting = cur.waiting.update(users)
+        cur.next.foreach(_ success newWaiting)
+        WaitingUsers.WithNext(newWaiting, none)
+      }
+    )
   }
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("tour-out").apply _
@@ -108,9 +107,8 @@ final private class TournamentSocket(
       val tourReader: P.In.Reader = raw =>
         raw.path match {
           case "tour/waiting" =>
-            raw.get(2) {
-              case Array(roomId, users) =>
-                WaitingUsers(RoomId(roomId), P.In.commas(users).toSet).some
+            raw.get(2) { case Array(roomId, users) =>
+              WaitingUsers(RoomId(roomId), P.In.commas(users).toSet).some
             }
           case _ => none
         }

@@ -36,20 +36,18 @@ final private class StartedOrganizer(
       tournamentRepo.startedCursor
         .documentSource()
         .mapAsyncUnordered(4) { tour =>
-          processTour(tour) recover {
-            case e: Exception =>
-              logger.error(s"StartedOrganizer $tour", e)
-              0
+          processTour(tour) recover { case e: Exception =>
+            logger.error(s"StartedOrganizer $tour", e)
+            0
           }
         }
-        .toMat(Sink.fold(0 -> 0) {
-          case ((tours, users), tourUsers) => (tours + 1, users + tourUsers)
+        .toMat(Sink.fold(0 -> 0) { case ((tours, users), tourUsers) =>
+          (tours + 1, users + tourUsers)
         })(Keep.right)
         .run()
-        .addEffect {
-          case (tours, users) =>
-            lila.mon.tournament.started.update(tours)
-            lila.mon.tournament.waitingPlayers.record(users)
+        .addEffect { case (tours, users) =>
+          lila.mon.tournament.started.update(tours)
+          lila.mon.tournament.waitingPlayers.record(users)
         }
         .monSuccess(_.tournament.startedOrganizer.tick)
         .addEffectAnyway(scheduleNext)

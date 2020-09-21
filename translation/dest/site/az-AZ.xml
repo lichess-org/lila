@@ -195,7 +195,6 @@
     <item quantity="other">%s sizinle oyunlar</item>
   </plurals>
   <string name="cancel">İmtina</string>
-  <string name="timeOut">Vaxt bitdi</string>
   <string name="drawOfferSent">Heç-heçə təklifi göndərildi</string>
   <string name="drawOfferDeclined">Heç-heçə təklifi rədd edildi</string>
   <string name="drawOfferAccepted">Heç-heçə təklifi qəbul edildi</string>
@@ -365,7 +364,7 @@
   <string name="openTournaments">Mövcud turnirlər</string>
   <string name="duration">Vaxt.</string>
   <string name="winner">Qalib</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Sıralama</string>
+  <string name="standing">Sıralama</string>
   <string name="createANewTournament">Yeni turnir yaradın.</string>
   <string name="tournamentCalendar">Turnir təqvimi</string>
   <string name="conditionOfEntry">Qatılma şərti:</string>
@@ -614,7 +613,7 @@
   <string name="newTournament">Yeni turnir</string>
   <string name="tournamentHomeTitle">Müxtəlif zaman kontrollu və variantlı şahmat turnuri.</string>
   <string name="tournamentHomeDescription">Sürətli şahmat turnirləri oyna! Rəsmi təyin olunmuş turnirlər qoşul və ya özün turnir yarat. Bulit, Blitz, Klassik, Chess960, King of the Hill, Threecheck və digər sonsuz şahmat əyləncəsi.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnir tapılmadı</string>
+  <string name="tournamentNotFound">Turnir tapılmadı</string>
   <string name="tournamentDoesNotExist">Bu turnir mövcud deyil</string>
   <string name="tournamentMayHaveBeenCanceled">Əgər turnir başlamadan öncə bütün oyunçular turniri tərk edərsə, o turnir ləğv oluna bilər.</string>
   <string name="returnToTournamentsHomepage">Turnirlərin ana səhifəsinə qayıt</string>

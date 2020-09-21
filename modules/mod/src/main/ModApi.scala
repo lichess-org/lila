@@ -87,8 +87,8 @@ final class ModApi(
       }
     } >>
       reportApi.process(mod, sus, Set(Room.Comm)) >>- {
-      if (value) notifier.reporters(mod, sus)
-    } inject sus
+        if (value) notifier.reporters(mod, sus)
+      } inject sus
   }
 
   def garbageCollect(sus: Suspect): Funit =
@@ -164,8 +164,8 @@ final class ModApi(
   def allMods =
     userRepo.userIdsWithRoles(Permission.modPermissions.view.map(_.dbKey).toList) flatMap
       userRepo.enabledByIds dmap {
-      _.sortBy(_.timeNoSee)
-    }
+        _.sortBy(_.timeNoSee)
+      }
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     userRepo named username orFail s"[mod] missing user $username" flatMap op

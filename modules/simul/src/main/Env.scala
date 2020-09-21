@@ -70,24 +70,23 @@ final class Env(
     simulSocket.rooms.ask[SocketVersion](simulId)(GetVersion)
 
   Bus.subscribeFuns(
-    "finishGame" -> {
-      case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
+    "finishGame" -> { case lila.game.actorApi.FinishGame(game, _, _) =>
+      api finishGame game
     },
-    "adjustCheater" -> {
-      case lila.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
+    "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+      api ejectCheater userId
     },
-    "simulGetHosts" -> {
-      case lila.hub.actorApi.simul.GetHostIds(promise) => promise completeWith api.currentHostIds
+    "simulGetHosts" -> { case lila.hub.actorApi.simul.GetHostIds(promise) =>
+      promise completeWith api.currentHostIds
     },
-    "moveEventSimul" -> {
-      case lila.hub.actorApi.round.SimulMoveEvent(move, _, opponentUserId) =>
-        Bus.publish(
-          lila.hub.actorApi.socket.SendTo(
-            opponentUserId,
-            lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
-          ),
-          "socketUsers"
-        )
+    "moveEventSimul" -> { case lila.hub.actorApi.round.SimulMoveEvent(move, _, opponentUserId) =>
+      Bus.publish(
+        lila.hub.actorApi.socket.SendTo(
+          opponentUserId,
+          lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
+        ),
+        "socketUsers"
+      )
     }
   )
 }

@@ -112,8 +112,8 @@ object String {
         case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
         case JsObject(fields) =>
           fields
-            .map {
-              case (k, v) => s"${safeJsonString(k)}:${safeJsonValue(v)}"
+            .map { case (k, v) =>
+              s"${safeJsonString(k)}:${safeJsonValue(v)}"
             }
             .mkString("{", ",", "}")
       }

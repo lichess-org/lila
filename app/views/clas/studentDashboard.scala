@@ -76,26 +76,25 @@ object studentDashboard {
         )
       ),
       tbody(
-        students.sortBy(-_.user.seenAt.??(_.getMillis)).map {
-          case Student.WithUser(student, user) =>
-            tr(
-              td(
-                userLink(
-                  user,
-                  name = span(
-                    strong(user.username),
-                    em(student.realName)
-                  ).some,
-                  withTitle = false
-                )
-              ),
-              td(dataSort := user.perfs.bestRating, cls := "rating")(cls := "rating")(user.best3Perfs.map {
-                showPerfRating(user, _)
-              }),
-              td(user.count.game.localize),
-              td(user.perfs.puzzle.nb.localize),
-              challengeTd(user)
-            )
+        students.sortBy(-_.user.seenAt.??(_.getMillis)).map { case Student.WithUser(student, user) =>
+          tr(
+            td(
+              userLink(
+                user,
+                name = span(
+                  strong(user.username),
+                  em(student.realName)
+                ).some,
+                withTitle = false
+              )
+            ),
+            td(dataSort := user.perfs.bestRating, cls := "rating")(cls := "rating")(user.best3Perfs.map {
+              showPerfRating(user, _)
+            }),
+            td(user.count.game.localize),
+            td(user.perfs.puzzle.nb.localize),
+            challengeTd(user)
+          )
         }
       )
     )

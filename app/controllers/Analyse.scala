@@ -50,8 +50,7 @@ final class Analyse(
               initialFen,
               analysis = none,
               PgnDump.WithFlags(clocks = false)
-            ) flatMap {
-            case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
+            ) flatMap { case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
               env.api.roundApi.review(
                 pov,
                 lila.api.Mobile.Api.currentVersion,
@@ -87,7 +86,7 @@ final class Analyse(
                   )
                 )
               }
-          }
+            }
         }
       }
 

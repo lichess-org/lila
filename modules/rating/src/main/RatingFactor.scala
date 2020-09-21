@@ -12,8 +12,8 @@ object RatingFactor {
   private val separator = ","
 
   private def write(rfs: RatingFactors): String =
-    rfs.map {
-      case (pt, f) => s"${pt.key}=$f"
+    rfs.map { case (pt, f) =>
+      s"${pt.key}=$f"
     } mkString separator
 
   private def read(s: String): RatingFactors =

@@ -199,7 +199,6 @@
     <item quantity="other">آپکے ساتھ %s مقابلے</item>
   </plurals>
   <string name="cancel">مسترد</string>
-  <string name="timeOut">دورانیہ ختم ہو گیا</string>
   <string name="drawOfferSent">مقابلہ برابری پر ختم کرنے کی پیشکش بھیج دی گئی</string>
   <string name="drawOfferDeclined">مقابلہ برابری پر ختم کرنے کی پیشکش مسترد کردی گئی</string>
   <string name="drawOfferAccepted">مقابلہ برابری پر ختم کرنے کی پیشکش قبول کرلی گئي</string>
@@ -393,7 +392,7 @@
   <string name="openTournaments">جاری مسابقہ جات</string>
   <string name="duration">دورانیہ</string>
   <string name="winner">فاتح</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">رتبٹ</string>
+  <string name="standing">رتبٹ</string>
   <string name="createANewTournament">نیا مسابقہ تشکیل کریں</string>
   <string name="tournamentCalendar">ٹورنامنٹ کیلنڈر</string>
   <string name="conditionOfEntry">داخلے کی ضروریات:</string>
@@ -657,7 +656,7 @@
   <string name="newTournament">نیا مسابقہ</string>
   <string name="tournamentHomeTitle">مختلف انواع اور دورانیوں پر مشتمل مسابقہ</string>
   <string name="tournamentHomeDescription">تیز رفتار مسابقوں میں حصہ لیں! مقررہ رسمی مسابقوں میں شامل ہوں، یا خود آپ مسابقہ شروع کریں۔ بلٹ، بلٹز، کلاسیکی،۹۶۰ شطرنج، میدان کا بادشاہ، تین شہ، اور دیگر نوع کی شطرنج کی لامتناہی تفریح کا موقعہ۔</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">مسابقہ موجود نہیں</string>
+  <string name="tournamentNotFound">مسابقہ موجود نہیں</string>
   <string name="tournamentDoesNotExist">یہ مسابقہ موجود نہیں</string>
   <string name="tournamentMayHaveBeenCanceled">مسابقہ شروع ہونے سے پہلے اگر تمام کھلاڑی خارج ہو جائیں تو مسابقہ باقی نہیں رہتا۔</string>
   <string name="returnToTournamentsHomepage">مسابقہ جات کے صفحہ اول کی جانپ</string>

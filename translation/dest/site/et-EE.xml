@@ -199,7 +199,6 @@
     <item quantity="other">%s mängu sinuga</item>
   </plurals>
   <string name="cancel">Katkesta</string>
-  <string name="timeOut">Aja ületus</string>
   <string name="drawOfferSent">Viigi pakkumine saadetud</string>
   <string name="drawOfferDeclined">Viigi pakkumine tagasi lükatud</string>
   <string name="drawOfferAccepted">Viigi pakkumine vastu võetud</string>
@@ -394,7 +393,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="openTournaments">Avatud turniirid</string>
   <string name="duration">Kestvus</string>
   <string name="winner">Võitja</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Tulemus</string>
+  <string name="standing">Tulemus</string>
   <string name="createANewTournament">Loo uus turniir</string>
   <string name="tournamentCalendar">Turniiride kalender</string>
   <string name="conditionOfEntry">Sisenemise tingimus:</string>
@@ -658,7 +657,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="newTournament">Uus turniir</string>
   <string name="tournamentHomeTitle">Turniirid erinevate ajakontrollide ja mängutüüpidega</string>
   <string name="tournamentHomeDescription">Mängi kiireid turniire males! Liitu ametliku turniiriga või loo oma turniir. Võimalik on valida supervälkmale, välkmale, kiirmale, klassikalise male, Chess960, King of the Hill, Threecheck ja teiste mängutüüpide vahel, et rõõm malest kunagi ei lõpeks!</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turniiri ei leitud</string>
+  <string name="tournamentNotFound">Turniiri ei leitud</string>
   <string name="tournamentDoesNotExist">Seda turniiri enam ei eksisteeri</string>
   <string name="tournamentMayHaveBeenCanceled">Turniir võidi katkestada, kuna kõik registreerijad lahkusid enne turniiri algust</string>
   <string name="returnToTournamentsHomepage">Tagasi avalehele</string>

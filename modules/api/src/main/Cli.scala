@@ -65,8 +65,8 @@ final private[api] class Cli(
 
   private def run(args: List[String]): Fu[String] = {
     (processors lift args) | fufail("Unknown command: " + args.mkString(" "))
-  } recover {
-    case e: Exception => "ERROR " + e
+  } recover { case e: Exception =>
+    "ERROR " + e
   }
 
   private def processors =

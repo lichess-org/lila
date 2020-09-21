@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">FAG</string>
   <string name="frequentlyAskedQuestions">Foar Ar Goulennoù</string>
   <string name="whyIsLichessCalledLichess">Perak e vez graet Lichess eus Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Ur ger savet digant pevar ger all eo, \"live/light/libre\" ha \"chess\". Distaget e vez %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Ur ger savet digant pevar ger all eo, \"live/light/libre\" ha \"chess\". Distaget e vez %1$s.</string>
   <string name="leechess">li-tchess</string>
   <string name="hearItPronouncedBySpecialist">Selaou ar ger distaget gant unan hag a oar mat.</string>
   <string name="whyLiveLightLibre">\"Live\" peogwir ez eus krogadoù da c\'hoari ha da sellet oute war-eeun a-hed an amzer; \"light\" ha \"libre\" dre ma \'z eo digor e vammenn ha gant se hep kudennoù perc\'hennañ a laka lec\'hiennoù all da vezañ pounner mat.</string>

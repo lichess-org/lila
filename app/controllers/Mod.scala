@@ -36,8 +36,8 @@ final class Mod(
         } yield (inquiry, sus).some
       }
     }(ctx =>
-      me => {
-        case (inquiry, suspect) => reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
+      me => { case (inquiry, suspect) =>
+        reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
       }
     )
 
@@ -50,16 +50,15 @@ final class Mod(
         } yield (inquiry, sus).some
       }
     }(ctx =>
-      me => {
-        case (inquiry, suspect) => reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
+      me => { case (inquiry, suspect) =>
+        reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
       }
     )
 
   def publicChat =
     Secure(_.ChatTimeout) { implicit ctx => _ =>
-      env.mod.publicChat.all map {
-        case (tournamentsAndChats, simulsAndChats) =>
-          Ok(html.mod.publicChat(tournamentsAndChats, simulsAndChats))
+      env.mod.publicChat.all map { case (tournamentsAndChats, simulsAndChats) =>
+        Ok(html.mod.publicChat(tournamentsAndChats, simulsAndChats))
       }
     }
 
@@ -72,8 +71,8 @@ final class Mod(
         } yield (inquiry, suspect).some
       }
     }(ctx =>
-      me => {
-        case (inquiry, suspect) => reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
+      me => { case (inquiry, suspect) =>
+        reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
       }
     )
 
@@ -86,8 +85,8 @@ final class Mod(
         } yield (inquiry, suspect).some
       }
     }(ctx =>
-      me => {
-        case (inquiry, suspect) => reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
+      me => { case (inquiry, suspect) =>
+        reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
       }
     )
 
@@ -104,8 +103,8 @@ final class Mod(
         }
       }
     }(ctx =>
-      me => {
-        case (inquiry, suspect) => reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
+      me => { case (inquiry, suspect) =>
+        reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
       }
     )
 
@@ -245,25 +244,29 @@ final class Mod(
               env.report.api.inquiries
                 .ofModId(me.id)
                 .mon(_.mod.comm.segment("inquiries")) map {
-              case chats ~ convos ~ publicLines ~ notes ~ history ~ inquiry =>
-                if (priv) {
-                  if (!inquiry.??(_.isRecentCommOf(Suspect(user))))
-                    env.slack.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
-                  if (isGranted(_.MonitoredMod))
-                    env.slack.api.monitorMod(me.id, "eyes", s"checked out @${user.username}'s private comms")
-                }
-                html.mod.communication(
-                  user,
-                  (povs zip chats) collect {
-                    case (p, Some(c)) if c.nonEmpty => p -> c
-                  } take 15,
-                  convos,
-                  publicLines,
-                  notes.filter(_.from != "irwin"),
-                  history,
-                  priv
-                )
-            }
+                case chats ~ convos ~ publicLines ~ notes ~ history ~ inquiry =>
+                  if (priv) {
+                    if (!inquiry.??(_.isRecentCommOf(Suspect(user))))
+                      env.slack.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
+                    if (isGranted(_.MonitoredMod))
+                      env.slack.api.monitorMod(
+                        me.id,
+                        "eyes",
+                        s"checked out @${user.username}'s private comms"
+                      )
+                  }
+                  html.mod.communication(
+                    user,
+                    (povs zip chats) collect {
+                      case (p, Some(c)) if c.nonEmpty => p -> c
+                    } take 15,
+                    convos,
+                    publicLines,
+                    notes.filter(_.from != "irwin"),
+                    history,
+                    priv
+                  )
+              }
           }
       }
     }
@@ -305,9 +308,9 @@ final class Mod(
   def gamify =
     Secure(_.SeeReport) { implicit ctx => _ =>
       env.mod.gamify.leaderboards zip
-        env.mod.gamify.history(orCompute = true) map {
-        case (leaderboards, history) => Ok(html.mod.gamify.index(leaderboards, history))
-      }
+        env.mod.gamify.history(orCompute = true) map { case (leaderboards, history) =>
+          Ok(html.mod.gamify.index(leaderboards, history))
+        }
     }
   def gamifyPeriod(periodStr: String) =
     Secure(_.SeeReport) { implicit ctx => _ =>
@@ -430,8 +433,8 @@ final class Mod(
                   modApi.setEmail(me.id, user.id, setEmail)
                 } >>
                   env.user.repo.email(user.id) map { email =>
-                  Ok(html.mod.emailConfirm("", user.some, email)).some
-                }
+                    Ok(html.mod.emailConfirm("", user.some, email)).some
+                  }
               case _ => fuccess(none)
             }
           email.?? { em =>

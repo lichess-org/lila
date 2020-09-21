@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">Ofte stilte spørsmål (FAQ)</string>
   <string name="frequentlyAskedQuestions">Ofte stilte spørsmål</string>
   <string name="whyIsLichessCalledLichess">Kvifor namnet Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess er ein kombinasjon av live/light/libre og chess. Uttalen er %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess er ein kombinasjon av live/light/libre og chess. Uttalen er %1$s.</string>
   <string name="leechess">li-sjess</string>
   <string name="hearItPronouncedBySpecialist"> Høyr uttalen av ein spesialist.</string>
   <string name="whyLiveLightLibre">Live, fordi partia vert spela og kan sjås i sanntid døgeret rundt; light og libre fordi Lichess er open-kjeldekode og ulikt andre webstader ikkje er nedtyngd av proprietært søppel.</string>

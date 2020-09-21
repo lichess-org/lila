@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">ЧаПи</string>
   <string name="frequentlyAskedQuestions">Часті запитання</string>
   <string name="whyIsLichessCalledLichess">Чому Lichess називається Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess — це комбінація live/light/libre і шахів. Вимовляється як %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess — це комбінація live/light/libre і шахів. Вимовляється як %1$s.</string>
   <string name="leechess">лі-чес</string>
   <string name="hearItPronouncedBySpecialist">Послухайте це у виконанні спеціаліста.</string>
   <string name="whyLiveLightLibre">Живі, тому що ігри грають і спостерігають в режимі реального часу 24/7; легкі і вільні через той факт, що Lichess має відкритий вихідний код і не нагромаджений мотлохом, який пропагує інші веб-сайти.</string>

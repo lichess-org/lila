@@ -19,12 +19,11 @@ final class SwissFeature(
   import BsonHandlers._
 
   def get(teams: Seq[TeamID]) =
-    cache.getUnit zip getForTeams(teams) map {
-      case (cached, teamed) =>
-        FeaturedSwisses(
-          created = teamed.created ::: cached.created,
-          started = teamed.started ::: cached.started
-        )
+    cache.getUnit zip getForTeams(teams) map { case (cached, teamed) =>
+      FeaturedSwisses(
+        created = teamed.created ::: cached.created,
+        started = teamed.started ::: cached.started
+      )
     }
 
   private val startsAtOrdering = Ordering.by[Swiss, Long](_.startsAt.getMillis)
@@ -46,9 +45,9 @@ final class SwissFeature(
     _.refreshAfterWrite(10 seconds)
       .buildAsyncFuture { _ =>
         cacheCompute($doc("$gt" -> DateTime.now, "$lt" -> DateTime.now.plusHours(1))) zip
-          cacheCompute($doc("$lt" -> DateTime.now)) map {
-          case (created, started) => FeaturedSwisses(created, started)
-        }
+          cacheCompute($doc("$lt" -> DateTime.now)) map { case (created, started) =>
+            FeaturedSwisses(created, started)
+          }
       }
   }
 

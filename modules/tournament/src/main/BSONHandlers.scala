@@ -34,12 +34,11 @@ object BSONHandlers {
   )
 
   implicit val tournamentClockBSONHandler = tryHandler[ClockConfig](
-    {
-      case doc: BSONDocument =>
-        for {
-          limit <- doc.getAsTry[Int]("limit")
-          inc   <- doc.getAsTry[Int]("increment")
-        } yield ClockConfig(limit, inc)
+    { case doc: BSONDocument =>
+      for {
+        limit <- doc.getAsTry[Int]("limit")
+        inc   <- doc.getAsTry[Int]("increment")
+      } yield ClockConfig(limit, inc)
     },
     c =>
       BSONDocument(

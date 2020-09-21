@@ -12,6 +12,6 @@ If you didn't find an answer in one of the official resources above, you can sea
 
 - Questions tagged 'lichess' on StackOverflow
 - Lichess.org discord channel: https://discord.gg/pw6Efvk
-- #lichess channel on chat.freenode.net. See http://nodeirc.info/ for more information.
+- #lichess channel on chat.freenode.net
 
 <!-- Enter your issue details below this comment. -->

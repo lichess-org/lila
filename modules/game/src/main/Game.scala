@@ -126,11 +126,11 @@ case class Game(
       // the last recorded time is in the history for turnColor.
       val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
 
-      pairs map {
-        case (first, second) => {
-            val d = first - second
-            if (pairs.hasNext || !noLastInc) d + inc else d
-          } nonNeg
+      pairs map { case (first, second) =>
+        {
+          val d = first - second
+          if (pairs.hasNext || !noLastInc) d + inc else d
+        } nonNeg
       } toList
     }
   } orElse binaryMoveTimes.map { binary =>
@@ -324,8 +324,8 @@ case class Game(
     finishedOrAborted &&
       nonMandatory &&
       !boosted && ! {
-      hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
-    }
+        hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
+      }
 
   def playerCanProposeTakeback(color: Color) =
     started && playable && !isTournament && !isSimul &&

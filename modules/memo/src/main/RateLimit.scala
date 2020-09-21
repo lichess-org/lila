@@ -68,15 +68,14 @@ object RateLimit {
       log: Boolean = true
   )(rules: (String, Int, FiniteDuration)*): RateLimiter[K] = {
 
-    val limiters: Seq[RateLimit[K]] = rules.map {
-      case (subKey, credits, duration) =>
-        new RateLimit[K](
-          credits = credits,
-          duration = duration,
-          key = s"$key.$subKey",
-          enforce = enforce,
-          log = log
-        )
+    val limiters: Seq[RateLimit[K]] = rules.map { case (subKey, credits, duration) =>
+      new RateLimit[K](
+        credits = credits,
+        duration = duration,
+        key = s"$key.$subKey",
+        enforce = enforce,
+        log = log
+      )
     }
 
     new RateLimiter[K] {

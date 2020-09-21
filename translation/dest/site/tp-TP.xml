@@ -126,7 +126,6 @@
   <string name="rankX">sona jan musi: %s</string>
   <string name="gamesPlayed">sina pini e musi ni</string>
   <string name="cancel">pali ala</string>
-  <string name="timeOut">tenpo li pini</string>
   <string name="drawOfferSent">jan ante li wile ala wile pini sama...</string>
   <string name="drawOfferDeclined">jan ante li wile ala pini sama</string>
   <string name="drawOfferAccepted">jan ante li wile pini sama</string>
@@ -246,7 +245,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="openTournaments">musi open</string>
   <string name="duration">tenpo</string>
   <string name="winner">jan li pini pona</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">nanpa</string>
+  <string name="standing">nanpa</string>
   <string name="createANewTournament">pali e musi sin</string>
   <string name="join">kama</string>
   <string name="withdraw">tawa weka</string>
@@ -384,7 +383,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="keyGoToStartOrEnd">o tawa open/pini</string>
   <string name="newTournament">o open e musi pi musi mute</string>
   <string name="tournamentHomeDescription">o musi e musi pi tenpo lili! musi mute li lon.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">musi pi musi mute li lon ala</string>
+  <string name="tournamentNotFound">musi pi musi mute li lon ala</string>
   <string name="tournamentDoesNotExist">musi pi musi mute li lon ala</string>
   <string name="tournamentMayHaveBeenCanceled">jan ale li lon, la ona li pini</string>
   <string name="returnToTournamentsHomepage">o tawa lon lipu monsi pi musi ale</string>
