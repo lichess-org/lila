@@ -199,8 +199,8 @@
     <item quantity="other">%s games with you</item>
   </plurals>
   <string name="cancel">Cancel</string>
-  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White time out · Draw'">White time out</string>
-  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black time out · Draw'">Black time out</string>
+  <string name="whiteTimeOut">White time out</string>
+  <string name="blackTimeOut">Black time out</string>
   <string name="drawOfferSent">Draw offer sent</string>
   <string name="drawOfferDeclined">Draw offer declined</string>
   <string name="drawOfferAccepted">Draw offer accepted</string>
