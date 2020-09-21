@@ -263,6 +263,7 @@ export function view(ctrl: StudyCtrl): VNode {
       ])
     ]) : null,
     (!members.canContribute() && ctrl.data.admin) ? h('form.admin', {
+      key: ':admin',
       attrs: {
         method: 'post',
         action: `/study/${ctrl.data.id}/admin`
