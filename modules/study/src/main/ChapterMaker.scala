@@ -48,7 +48,7 @@ final private class ChapterMaker(
         parsed
           .tags(_.Black)
           .ifTrue {
-            data.name.value.isEmpty || Chapter.isDefaultName(data.name)
+            data.name.value.isEmpty || data.isDefaultName
           }
           .map { black =>
             Chapter.Name(s"$white - $black")
@@ -125,7 +125,7 @@ final private class ChapterMaker(
       root <- game2root(game, initialFen)
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true)
       name <- {
-        if (Chapter isDefaultName data.name)
+        if (data.isDefaultName)
           Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply
         else fuccess(data.name)
       }
@@ -211,7 +211,8 @@ private[study] object ChapterMaker {
       pgn: Option[String] = None,
       orientation: String = "white",
       mode: String = ChapterMaker.Mode.Normal.key,
-      initial: Boolean = false
+      initial: Boolean = false,
+      isDefaultName: Boolean = true,
   ) extends ChapterData {
 
     def manyGames =
