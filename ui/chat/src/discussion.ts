@@ -8,7 +8,7 @@ import { lineAction as modLineAction } from './moderation';
 import { userLink } from './util';
 import { flag } from './xhr'
 
-const whisperRegex = /^\/w(?:hisper)?\s/;
+const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
 export default function(ctrl: Ctrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];

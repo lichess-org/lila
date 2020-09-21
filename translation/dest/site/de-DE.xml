@@ -199,7 +199,6 @@
     <item quantity="other">%s Partien mit dir</item>
   </plurals>
   <string name="cancel">Abbrechen</string>
-  <string name="timeOut">Zeit abgelaufen</string>
   <string name="drawOfferSent">Remisangebot gesendet</string>
   <string name="drawOfferDeclined">Remisangebot abgelehnt</string>
   <string name="drawOfferAccepted">Remisangebot angenommen</string>
@@ -393,7 +392,7 @@
   <string name="openTournaments">Offene Turniere</string>
   <string name="duration">Dauer</string>
   <string name="winner">Gewinner</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Tabelle</string>
+  <string name="standing">Tabelle</string>
   <string name="createANewTournament">Neues Turnier erstellen</string>
   <string name="tournamentCalendar">Turnierkalender</string>
   <string name="conditionOfEntry">Teilnahmebedingung:</string>
@@ -657,7 +656,7 @@
   <string name="newTournament">Neues Turnier</string>
   <string name="tournamentHomeTitle">Schachturnier mit verschiedenen Zeitkontrollen und Schachvarianten</string>
   <string name="tournamentHomeDescription">Spiele rasante Turniere! Trete einem geplanten Turnier bei oder erstelle ein neues. Bullet, Blitz, Klassisch, Chess960, King of the Hill, Threecheck und weitere Schachvarianten für grenzenlosen Spaß.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnier nicht gefunden</string>
+  <string name="tournamentNotFound">Turnier nicht gefunden</string>
   <string name="tournamentDoesNotExist">Dieses Turnier existiert nicht.</string>
   <string name="tournamentMayHaveBeenCanceled">Womöglich wurde es abgesagt, weil zu Turnierbeginn kein Spieler (mehr) registriert war.</string>
   <string name="returnToTournamentsHomepage">Zurück zur Turnier-Homepage</string>

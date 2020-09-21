@@ -199,7 +199,6 @@
     <item quantity="other">%s παιχνίδια με εσάς</item>
   </plurals>
   <string name="cancel">Ακύρωση</string>
-  <string name="timeOut">Τέλος χρόνου</string>
   <string name="drawOfferSent">Πρόταση ισοπαλίας εστάλη</string>
   <string name="drawOfferDeclined">Πρόταση ισοπαλίας μη αποδεκτή</string>
   <string name="drawOfferAccepted">Πρόταση ισοπαλίας αποδεκτή</string>
@@ -394,7 +393,7 @@
   <string name="openTournaments">Ανοικτά πρωταθλήματα</string>
   <string name="duration">Διάρκεια</string>
   <string name="winner">Νικητής</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Κατάταξη</string>
+  <string name="standing">Κατάταξη</string>
   <string name="createANewTournament">Δημιουργήστε νέο πρωτάθλημα</string>
   <string name="tournamentCalendar">Ημερολόγιο τουρνουά</string>
   <string name="conditionOfEntry">Προϋπόθεση εισόδου:</string>
@@ -658,7 +657,7 @@
   <string name="newTournament">Νέο πρωτάθλημα</string>
   <string name="tournamentHomeTitle">Σκακιστικό πρωτάθλημα διαφόρων χρόνων και εκδοχών</string>
   <string name="tournamentHomeDescription">Παίξτε στιγμιαία πρωταθλήματα. Συμμετάσχετε σε ένα επίσημο πρωτάθλημα ή δημιουργήστε δικά σας. Υπερταχέα, Ταχέα, Κλασσικά, 960, Βασιλιάς στο κέντρο, Τρία σαχ και πολλές άλλες επιλογές για ατελείωτη διασκέδαση.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Πρωτάθλημα δεν ευρέθη</string>
+  <string name="tournamentNotFound">Πρωτάθλημα δεν ευρέθη</string>
   <string name="tournamentDoesNotExist">Αυτό το πρωτάθλημα δεν υπάρχει.</string>
   <string name="tournamentMayHaveBeenCanceled">Ίσως έχει ακυρωθεί, εάν όλοι οι παίκτες αποχώρησαν πριν το πρωτάθλημα ξεκινήσει.</string>
   <string name="returnToTournamentsHomepage">Επιστροφή στην αρχική σελίδα πρωταθλημάτων</string>

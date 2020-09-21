@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">Skakbrik-symbol</string>
   <string name="pgnLetter">Bogstaver (K, Q, R, B, N)</string>
   <string name="zenMode">Zentilstand</string>
-  <string name="displayBoardResizeHandle">Vis indstilling af brætstørrelse</string>
+  <string name="displayBoardResizeHandle">Vis brætstørrelse justering</string>
   <string name="onlyOnInitialPosition">Kun ved indledende position</string>
   <string name="blindfoldChess">Blindskak</string>
   <string name="chessClock">Skakur</string>

@@ -24,7 +24,7 @@ object chart {
         ),
         p(cls := "box__pad")(
           "All averages on this page are ",
-          a(href := "http://dictionary.reference.com/help/faq/language/d72.html")("medians"),
+          a(href := "https://www.dictionary.com/e/average-vs-mean-vs-median-vs-mode/")("medians"),
           "."
         ),
         table(cls := "slist slist-pad perf-results")(

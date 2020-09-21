@@ -199,7 +199,6 @@
     <item quantity="other">%s pelejä kanssasi</item>
   </plurals>
   <string name="cancel">Peruuta</string>
-  <string name="timeOut">Aika loppui</string>
   <string name="drawOfferSent">Tasapeliehdotus lähetetty</string>
   <string name="drawOfferDeclined">Tasapeliehdotus hylätty</string>
   <string name="drawOfferAccepted">Tasapeliehdotus hyväksytty</string>
@@ -393,7 +392,7 @@
   <string name="openTournaments">Avoimet turnaukset</string>
   <string name="duration">Kesto</string>
   <string name="winner">Voittaja</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Sija</string>
+  <string name="standing">Sija</string>
   <string name="createANewTournament">Luo uusi turnaus</string>
   <string name="tournamentCalendar">Turnauskalenteri</string>
   <string name="conditionOfEntry">Liittymisehto:</string>
@@ -657,7 +656,7 @@
   <string name="newTournament">Uusi turnaus</string>
   <string name="tournamentHomeTitle">Shakkiturnaus, jossa on monia aikarajoja ja variantteja</string>
   <string name="tournamentHomeDescription">Pelaa nopeita shakkiturnauksia! Liity aikataulutettuihin turnauksiin tai luo omasi. Tarjolla monia variantteja loputtomaan hauskanpitoon.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnausta ei löydy</string>
+  <string name="tournamentNotFound">Turnausta ei löydy</string>
   <string name="tournamentDoesNotExist">Tätä turnausta ei ole olemassa.</string>
   <string name="tournamentMayHaveBeenCanceled">Se on saatettua perua, jos kaikki pelaajat poistuivat turnauksesta ennen sen alkamista.</string>
   <string name="returnToTournamentsHomepage">Palaa turnausten aloitussivulle</string>

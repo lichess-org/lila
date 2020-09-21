@@ -199,7 +199,6 @@
     <item quantity="other">Сізбен %s ойын</item>
   </plurals>
   <string name="cancel">Болдыртпау</string>
-  <string name="timeOut">Уақыт бітті</string>
   <string name="drawOfferSent">Тепе-теңдік сұрауда</string>
   <string name="drawOfferDeclined">Тепе-теңдікке келіспеді</string>
   <string name="drawOfferAccepted">Тепе-теңдікке келісті</string>
@@ -393,7 +392,7 @@
   <string name="openTournaments">Ашық жарыстар</string>
   <string name="duration">Ұзақтығы</string>
   <string name="winner">Жеңімпаз</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Орны</string>
+  <string name="standing">Орны</string>
   <string name="createANewTournament">Жаңа жарыс құру</string>
   <string name="tournamentCalendar">Жарыс күнтізбесі</string>
   <string name="conditionOfEntry">Кіру талаптары:</string>
@@ -657,7 +656,7 @@
   <string name="newTournament">Жаңа жарыс</string>
   <string name="tournamentHomeTitle">Шахмат жарыстары әр-түрлі уақыт қалыптары мен шахмат түрлерін қамтиды</string>
   <string name="tournamentHomeDescription">Жылдам қарқындағы жарыста ойнаңыз! Мезгілі белгіленген жарысқа қатысып, немесе өзіңіз жарыс құрсаңыз болады. Буллит, Блитц, Классикалық, Шахмат960, Тау Патшасы, Үш Шах және тағы басқа шахмат қызықтарын көріңіз.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Жарыс табылмады</string>
+  <string name="tournamentNotFound">Жарыс табылмады</string>
   <string name="tournamentDoesNotExist">Бұл жарыс жоқ.</string>
   <string name="tournamentMayHaveBeenCanceled">Егер ойыншылардың барлығы жарыстан шықса, бұл жарыс тоқталуы мүмкін.</string>
   <string name="returnToTournamentsHomepage">Жарыстың бастапқы бетіне оралу</string>

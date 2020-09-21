@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">Pertanyaan Umum</string>
   <string name="frequentlyAskedQuestions">Pertanyaan yang Sering Diajukan (FAQ)</string>
   <string name="whyIsLichessCalledLichess">Mengapa Lichess dikatakan Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess adalah kombinasi antara langsung/ringan/kebebasan dan catur. Itu diucapkan %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess adalah kombinasi antara langsung/ringan/kebebasan dan catur. Itu diucapkan %1$s.</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist">Mendengarkan yang diucapkan oleh seorang spesialis.</string>
   <string name="whyLiveLightLibre">Langsung, karena permainan dimainkan dan ditonton secara real-time 24/7; ringan dan bebas yang nyatanya bahwa Lichess adalah sumber-terbuka dan tidak terbebani oleh sampah eksklusif yang mengganggu situs web lain.</string>

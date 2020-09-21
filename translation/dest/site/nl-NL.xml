@@ -199,7 +199,6 @@
     <item quantity="other">%s partijen met u</item>
   </plurals>
   <string name="cancel">Annuleren</string>
-  <string name="timeOut">Tijd voorbij</string>
   <string name="drawOfferSent">Remiseaanbod verstuurd</string>
   <string name="drawOfferDeclined">Remiseaanbod geweigerd</string>
   <string name="drawOfferAccepted">Remiseaanbod geaccepteerd</string>
@@ -393,7 +392,7 @@
   <string name="openTournaments">Open toernooien</string>
   <string name="duration">Tijdsduur</string>
   <string name="winner">Winnaar</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Ranglijst</string>
+  <string name="standing">Ranglijst</string>
   <string name="createANewTournament">Start een nieuw toernooi</string>
   <string name="tournamentCalendar">Toernooikalender</string>
   <string name="conditionOfEntry">Voorwaarde voor deelname:</string>
@@ -657,7 +656,7 @@
   <string name="newTournament">Nieuw toernooi</string>
   <string name="tournamentHomeTitle">Schaaktoernooi met verschillende speelduur en varianten</string>
   <string name="tournamentHomeDescription">Speel snelle schaaktoernooien! Neem deel aan een officieel gepland toernooi, of maak er zelf een. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, en meer opties verkrijgbaar voor eindeloos schaakplezier.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Toernooi niet gevonden</string>
+  <string name="tournamentNotFound">Toernooi niet gevonden</string>
   <string name="tournamentDoesNotExist">Dit toernooi bestaat niet.</string>
   <string name="tournamentMayHaveBeenCanceled">Het is mogelijk afgelast, indien alle spelers zijn weggegaan voordat het toernooi gestart was.</string>
   <string name="returnToTournamentsHomepage">Ga terug naar de startpagina van de toernooien</string>

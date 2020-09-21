@@ -199,7 +199,6 @@
     <item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>
   </plurals>
   <string name="cancel">İptal et</string>
-  <string name="timeOut">Zaman doldu</string>
   <string name="drawOfferSent">Beraberlik teklifi gönderildi</string>
   <string name="drawOfferDeclined">Beraberlik teklifi reddedildi</string>
   <string name="drawOfferAccepted">Beraberlik teklifi kabul edildi</string>
@@ -393,7 +392,7 @@
   <string name="openTournaments">Mevcut turnuvalar</string>
   <string name="duration">Süre</string>
   <string name="winner">Kazanan</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Sıralama</string>
+  <string name="standing">Sıralama</string>
   <string name="createANewTournament">Yeni bir turnuva oluştur</string>
   <string name="tournamentCalendar">Turnuva takvimi</string>
   <string name="conditionOfEntry">Katılma şartı:</string>
@@ -657,7 +656,7 @@
   <string name="newTournament">Yeni turnuva</string>
   <string name="tournamentHomeTitle">Çeşitli zaman kontrolleri ve varyantları içeren satranç turnuvası</string>
   <string name="tournamentHomeDescription">Hızlı tempolu satranç turnuvalarında oynayın! Önceden planlanmış turnuvalara katılın, ya da kendi turnuvanızı oluşturun. Sınırsız satranç eğlenceniz için Kurşun, Yıldırım, Klasik, Satranç960, Tepenin Şahı, Üçşah ve daha fazla seçenek mevcuttur.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnuva bulunamadı.</string>
+  <string name="tournamentNotFound">Turnuva bulunamadı.</string>
   <string name="tournamentDoesNotExist">Böyle bir turnuva yok.</string>
   <string name="tournamentMayHaveBeenCanceled">Eğer bütün oyuncular turnuva başlamadan ayrıldıysa, iptal edilmiş olabilir.</string>
   <string name="returnToTournamentsHomepage">Turnuva sayfasına geri dön.</string>

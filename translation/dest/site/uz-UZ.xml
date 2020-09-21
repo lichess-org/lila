@@ -199,7 +199,6 @@
     <item quantity="other">siz o\'ynagan o\'yinlar - %s</item>
   </plurals>
   <string name="cancel">Bekor</string>
-  <string name="timeOut">Vaqt tugadi</string>
   <string name="drawOfferSent">Durrang uchun taklif yuborildi</string>
   <string name="drawOfferDeclined">Durrang taklifi inkor qilindi</string>
   <string name="drawOfferAccepted">Durrang taklifi qabul qilindi</string>
@@ -393,7 +392,7 @@
   <string name="openTournaments">Ochiq turnir</string>
   <string name="duration">Davomiyligi</string>
   <string name="winner">G\'olib</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Musobaqa jadvali</string>
+  <string name="standing">Musobaqa jadvali</string>
   <string name="createANewTournament">Yangi turnir yaratish</string>
   <string name="tournamentCalendar">Turnir kalendari</string>
   <string name="conditionOfEntry">Kirish sharti:</string>
@@ -657,7 +656,7 @@
   <string name="newTournament">Yangi turnir</string>
   <string name="tournamentHomeTitle">Turli xil vaqtlar va variantlar bilan yaratilgan shahmat turnirlari</string>
   <string name="tournamentHomeDescription">Dinamik shahmat turnirlarini o\'ynang! Rasmiy rejalashtirilgan turnirlarda qatnashing yoki o\'zingiz shaxsiy turnir yarating. Tezkor, Blitz, Klassik, Shahmat960, Tepalik qiroli, Uchtashoh va boshqa opsiyalardan foydalangan holatda o\'zingizga qiziqarli shahmat musobaqalarini uyushtirishingiz mumkin.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnir topilmadi</string>
+  <string name="tournamentNotFound">Turnir topilmadi</string>
   <string name="tournamentDoesNotExist">Bu turnir mavjud emas.</string>
   <string name="tournamentMayHaveBeenCanceled">Ehtimol, u bekor qilingan, agar xamma ishtirokchilar turnir boshlanmasdan uni tark erishgan bo\'lsa.</string>
   <string name="returnToTournamentsHomepage">Turnirlar bosh sahifasiga qaytish</string>
