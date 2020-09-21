@@ -28,6 +28,8 @@ class Report:
 def short_lang(lang):
     if lang in ["ne-NP", "la-LA", "nn-NO", "zh-CN", "ur-PK"]:
         return lang.replace("-", "").lower()
+    elif lang == "kab-DZ":
+        return "kaby"
     else:
         return lang.split("-")[0]
 
