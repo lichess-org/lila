@@ -23,31 +23,30 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       NoBot {
         CategGrantWrite(categSlug) {
           implicit val req = ctx.body
-          OptionFuResult(topicApi.show(categSlug, slug, page, ctx.me)) {
-            case (categ, topic, posts) =>
-              if (topic.closed) fuccess(BadRequest("This topic is closed"))
-              else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
-              else
-                forms
-                  .post(me)
-                  .bindFromRequest()
-                  .fold(
-                    err =>
-                      for {
-                        captcha     <- forms.anyCaptcha
-                        unsub       <- env.timeline.status(s"forum:${topic.id}")(me.id)
-                        canModCateg <- isGrantedMod(categ.slug)
-                      } yield BadRequest(
-                        html.forum.topic
-                          .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
-                      ),
-                    data =>
-                      CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-                        postApi.makePost(categ, topic, data, me) map { post =>
-                          Redirect(routes.ForumPost.redirect(post.id))
-                        }
-                      }(rateLimitedFu)
-                  )
+          OptionFuResult(topicApi.show(categSlug, slug, page, ctx.me)) { case (categ, topic, posts) =>
+            if (topic.closed) fuccess(BadRequest("This topic is closed"))
+            else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
+            else
+              forms
+                .post(me)
+                .bindFromRequest()
+                .fold(
+                  err =>
+                    for {
+                      captcha     <- forms.anyCaptcha
+                      unsub       <- env.timeline.status(s"forum:${topic.id}")(me.id)
+                      canModCateg <- isGrantedMod(categ.slug)
+                    } yield BadRequest(
+                      html.forum.topic
+                        .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
+                    ),
+                  data =>
+                    CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+                      postApi.makePost(categ, topic, data, me) map { post =>
+                        Redirect(routes.ForumPost.redirect(post.id))
+                      }
+                    }(rateLimitedFu)
+                )
           }
         }
       }
@@ -88,9 +87,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def redirect(id: String) =
     Open { implicit ctx =>
-      OptionResult(postApi.urlData(id, ctx.me)) {
-        case lila.forum.PostUrlData(categ, topic, page, number) =>
-          Redirect(routes.ForumTopic.show(categ, topic, page).url + "#" + number)
+      OptionResult(postApi.urlData(id, ctx.me)) { case lila.forum.PostUrlData(categ, topic, page, number) =>
+        Redirect(routes.ForumTopic.show(categ, topic, page).url + "#" + number)
       }
     }
 }

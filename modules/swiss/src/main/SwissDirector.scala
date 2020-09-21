@@ -32,16 +32,15 @@ final private class SwissDirector(
               colls.player.list[SwissPlayer]($doc(f.swissId -> swiss.id))
             }
             ids <- idGenerator.games(pendingPairings.size)
-            pairings = pendingPairings.zip(ids).map {
-              case (SwissPairing.Pending(w, b), id) =>
-                SwissPairing(
-                  id = id,
-                  swissId = swiss.id,
-                  round = swiss.round,
-                  white = w,
-                  black = b,
-                  status = Left(SwissPairing.Ongoing)
-                )
+            pairings = pendingPairings.zip(ids).map { case (SwissPairing.Pending(w, b), id) =>
+              SwissPairing(
+                id = id,
+                swissId = swiss.id,
+                round = swiss.round,
+                white = w,
+                black = b,
+                status = Left(SwissPairing.Ongoing)
+              )
             }
             _ <-
               colls.swiss.update
@@ -69,14 +68,13 @@ final private class SwissDirector(
           } yield swiss.some
         }
       }
-      .recover {
-        case PairingSystem.BBPairingException(msg, input) =>
-          if (msg contains "The number of rounds is larger than the reported number of rounds.") none
-          else {
-            logger.warn(s"BBPairing ${from.id} $msg")
-            logger.info(s"BBPairing ${from.id} $input")
-            from.some
-          }
+      .recover { case PairingSystem.BBPairingException(msg, input) =>
+        if (msg contains "The number of rounds is larger than the reported number of rounds.") none
+        else {
+          logger.warn(s"BBPairing ${from.id} $msg")
+          logger.info(s"BBPairing ${from.id} $input")
+          from.some
+        }
       }
       .monSuccess(_.swiss.startRound)
 

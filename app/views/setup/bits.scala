@@ -40,8 +40,8 @@ private object bits {
       renderLabel(form("variant"), trans.variant()),
       renderSelect(
         form("variant"),
-        variants.filter {
-          case (id, _, _) => ctx.noBlind || lila.game.Game.blindModeVariants.exists(_.id.toString == id)
+        variants.filter { case (id, _, _) =>
+          ctx.noBlind || lila.game.Game.blindModeVariants.exists(_.id.toString == id)
         }
       )
     )
@@ -52,34 +52,32 @@ private object bits {
       compare: (String, String) => Boolean = (a, b) => a == b
   ) =
     select(id := s"$prefix${field.id}", name := field.name)(
-      options.map {
-        case (value, name, title) =>
-          option(
-            st.value := value,
-            st.title := title,
-            field.value.exists(v => compare(v, value)) option selected
-          )(name)
+      options.map { case (value, name, title) =>
+        option(
+          st.value := value,
+          st.title := title,
+          field.value.exists(v => compare(v, value)) option selected
+        )(name)
       }
     )
 
   def renderRadios(field: Field, options: Seq[SelectChoice]) =
     st.group(cls := "radio")(
-      options.map {
-        case (key, name, hint) =>
-          div(
-            input(
-              tpe := "radio",
-              id := s"$prefix${field.id}_$key",
-              st.name := field.name,
-              value := key,
-              field.value.has(key) option checked
-            ),
-            label(
-              cls := "required",
-              title := hint,
-              `for` := s"$prefix${field.id}_$key"
-            )(name)
-          )
+      options.map { case (key, name, hint) =>
+        div(
+          input(
+            tpe := "radio",
+            id := s"$prefix${field.id}_$key",
+            st.name := field.name,
+            value := key,
+            field.value.has(key) option checked
+          ),
+          label(
+            cls := "required",
+            title := hint,
+            `for` := s"$prefix${field.id}_$key"
+          )(name)
+        )
       }
     )
 

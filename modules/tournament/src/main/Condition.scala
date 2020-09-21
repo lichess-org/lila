@@ -203,15 +203,14 @@ object Condition {
 
     def verdictsFor(verdicts: All.WithVerdicts, lang: Lang) =
       Json.obj(
-        "list" -> verdicts.list.map {
-          case WithVerdict(cond, verd) =>
-            Json.obj(
-              "condition" -> (cond name lang),
-              "verdict" -> (verd match {
-                case Refused(reason) => reason(lang)
-                case Accepted        => JsString("ok")
-              })
-            )
+        "list" -> verdicts.list.map { case WithVerdict(cond, verd) =>
+          Json.obj(
+            "condition" -> (cond name lang),
+            "verdict" -> (verd match {
+              case Refused(reason) => reason(lang)
+              case Accepted        => JsString("ok")
+            })
+          )
         },
         "accepted" -> verdicts.accepted
       )

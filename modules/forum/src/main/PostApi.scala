@@ -35,28 +35,27 @@ final class PostApi(
       me: User
   ): Fu[Post] =
     lastNumberOf(topic) flatMap { number =>
-      detectLanguage(data.text) zip recentUserIds(topic, number) flatMap {
-        case (lang, topicUserIds) =>
-          val post = Post.make(
-            topicId = topic.id,
-            author = none,
-            userId = me.id,
-            text = spam.replace(data.text),
-            number = number + 1,
-            lang = lang.map(_.language),
-            troll = me.marks.troll,
-            hidden = topic.hidden,
-            categId = categ.id,
-            modIcon = (~data.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
-          )
-          env.postRepo findDuplicate post flatMap {
-            case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
-            case _ =>
-              env.postRepo.coll.insert.one(post) >>
-                env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
+      detectLanguage(data.text) zip recentUserIds(topic, number) flatMap { case (lang, topicUserIds) =>
+        val post = Post.make(
+          topicId = topic.id,
+          author = none,
+          userId = me.id,
+          text = spam.replace(data.text),
+          number = number + 1,
+          lang = lang.map(_.language),
+          troll = me.marks.troll,
+          hidden = topic.hidden,
+          categId = categ.id,
+          modIcon = (~data.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
+        )
+        env.postRepo findDuplicate post flatMap {
+          case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
+          case _ =>
+            env.postRepo.coll.insert.one(post) >>
+              env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
                 shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, value = true)
               } >>
-                env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
+              env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
                 !categ.quiet ?? (indexer ! InsertPost(post))
                 !categ.quiet ?? env.recent.invalidate()
                 promotion.save(me, post.text)
@@ -72,7 +71,7 @@ final class PostApi(
                 env.mentionNotifier.notifyMentionedUsers(post, topic)
                 Bus.publish(actorApi.CreatePost(post), "forumPost")
               } inject post
-          }
+        }
       }
     }
 

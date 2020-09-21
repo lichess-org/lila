@@ -48,8 +48,8 @@ private object AntmaPairing {
             logger.error("WMMatching", err)
             Nil
           },
-          _ map {
-            case (a, b) => Pairing.prepWithColor(tour, a, b)
+          _ map { case (a, b) =>
+            Pairing.prepWithColor(tour, a, b)
           }
         )
       }

@@ -18,8 +18,8 @@ object MatchMaking {
     }
 
   private def naive(members: Vector[PoolMember]): Vector[Couple] =
-    members.sortBy(-_.rating) grouped 2 collect {
-      case Vector(p1, p2) => Couple(p1, p2)
+    members.sortBy(-_.rating) grouped 2 collect { case Vector(p1, p2) =>
+      Couple(p1, p2)
     } toVector
 
   private object wmMatching {

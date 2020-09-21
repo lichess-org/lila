@@ -27,34 +27,33 @@ object permissions {
           div(cls := "permission-list")(
             lila.security.Permission.categorized
               .filter { case (_, ps) => ps.exists(canGrant(me, _)) }
-              .map {
-                case (categ, perms) =>
-                  st.section(
-                    h2(categ),
-                    perms
-                      .filter(canGrant(me, _))
-                      .map { perm =>
-                        val id = s"permission-${perm.dbKey}"
-                        div(
-                          cls := isGranted(perm, u) option "granted",
-                          title := isGranted(perm, u).?? {
-                            Permission.findGranterPackage(userPerms, perm).map { p =>
-                              s"Granted by package: $p"
-                            }
+              .map { case (categ, perms) =>
+                st.section(
+                  h2(categ),
+                  perms
+                    .filter(canGrant(me, _))
+                    .map { perm =>
+                      val id = s"permission-${perm.dbKey}"
+                      div(
+                        cls := isGranted(perm, u) option "granted",
+                        title := isGranted(perm, u).?? {
+                          Permission.findGranterPackage(userPerms, perm).map { p =>
+                            s"Granted by package: $p"
                           }
-                        )(
-                          span(
-                            form3.cmnToggle(
-                              id,
-                              "permissions[]",
-                              checked = u.roles.contains(perm.dbKey),
-                              value = perm.dbKey
-                            )
-                          ),
-                          label(`for` := id)(perm.name)
-                        )
-                      }
-                  )
+                        }
+                      )(
+                        span(
+                          form3.cmnToggle(
+                            id,
+                            "permissions[]",
+                            checked = u.roles.contains(perm.dbKey),
+                            value = perm.dbKey
+                          )
+                        ),
+                        label(`for` := id)(perm.name)
+                      )
+                    }
+                )
               }
           ),
           form3.actions(

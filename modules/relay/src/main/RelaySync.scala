@@ -82,31 +82,29 @@ final private class RelaySync(
             toMainline = true
           )(who) >> chapterRepo.setRelayPath(chapter.id, path)
         } >> newNode.?? { node =>
-          lila.common.Future.fold(node.mainline)(Position(chapter, path).ref) {
-            case (position, n) =>
-              studyApi.addNode(
-                studyId = study.id,
-                position = position,
-                node = n,
-                opts = moveOpts.copy(clock = n.clock),
-                relay = Chapter
-                  .Relay(
-                    index = game.index,
-                    path = position.path + n,
-                    lastMoveAt = DateTime.now
-                  )
-                  .some
-              )(who) inject position + n
+          lila.common.Future.fold(node.mainline)(Position(chapter, path).ref) { case (position, n) =>
+            studyApi.addNode(
+              studyId = study.id,
+              position = position,
+              node = n,
+              opts = moveOpts.copy(clock = n.clock),
+              relay = Chapter
+                .Relay(
+                  index = game.index,
+                  path = position.path + n,
+                  lastMoveAt = DateTime.now
+                )
+                .some
+            )(who) inject position + n
           } inject node.mainline.size
         }
     }
   }
 
   private def updateChapterTags(study: Study, chapter: Chapter, game: RelayGame): Funit = {
-    val gameTags = game.tags.value.foldLeft(Tags(Nil)) {
-      case (newTags, tag) =>
-        if (!chapter.tags.value.exists(tag ==)) newTags + tag
-        else newTags
+    val gameTags = game.tags.value.foldLeft(Tags(Nil)) { case (newTags, tag) =>
+      if (!chapter.tags.value.exists(tag ==)) newTags + tag
+      else newTags
     }
     val tags = game.end
       .ifFalse(gameTags(_.Result).isDefined)
@@ -114,8 +112,8 @@ final private class RelaySync(
       .fold(gameTags) { end =>
         gameTags + Tag(_.Result, end.resultText)
       }
-    val chapterNewTags = tags.value.foldLeft(chapter.tags) {
-      case (chapterTags, tag) => PgnTags(chapterTags + tag)
+    val chapterNewTags = tags.value.foldLeft(chapter.tags) { case (chapterTags, tag) =>
+      PgnTags(chapterTags + tag)
     }
     (chapterNewTags != chapter.tags) ?? {
       if (vs(chapterNewTags) != vs(chapter.tags))

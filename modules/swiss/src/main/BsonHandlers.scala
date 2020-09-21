@@ -13,12 +13,11 @@ import reactivemongo.api.bson._
 private object BsonHandlers {
 
   implicit val clockHandler = tryHandler[ClockConfig](
-    {
-      case doc: BSONDocument =>
-        for {
-          limit <- doc.getAsTry[Int]("limit")
-          inc   <- doc.getAsTry[Int]("increment")
-        } yield ClockConfig(limit, inc)
+    { case doc: BSONDocument =>
+      for {
+        limit <- doc.getAsTry[Int]("limit")
+        inc   <- doc.getAsTry[Int]("increment")
+      } yield ClockConfig(limit, inc)
     },
     c =>
       BSONDocument(
@@ -87,7 +86,7 @@ private object BsonHandlers {
   implicit val pairingStatusHandler = lila.db.dsl.quickHandler[SwissPairing.Status](
     {
       case BSONBoolean(true)  => Left(SwissPairing.Ongoing)
-      case BSONInteger(index) => Right(Color(index == 0).some)
+      case BSONInteger(index) => Right(Color.fromWhite(index == 0).some)
       case _                  => Right(none)
     },
     {

@@ -79,10 +79,9 @@ final class Study(
     Auth { implicit ctx => me =>
       env.study.pager.mine(me, Order(order), page) flatMap { pag =>
         negotiate(
-          html =
-            env.study.topicApi.userTopics(me.id) map { topics =>
-              Ok(html.study.list.mine(pag, Order(order), me, topics))
-            },
+          html = env.study.topicApi.userTopics(me.id) map { topics =>
+            Ok(html.study.list.mine(pag, Order(order), me, topics))
+          },
           api = _ => apiStudies(pag)
         )
       }
@@ -112,10 +111,9 @@ final class Study(
     Auth { implicit ctx => me =>
       env.study.pager.mineMember(me, Order(order), page) flatMap { pag =>
         negotiate(
-          html =
-            env.study.topicApi.userTopics(me.id) map { topics =>
-              Ok(html.study.list.mineMember(pag, Order(order), me, topics))
-            },
+          html = env.study.topicApi.userTopics(me.id) map { topics =>
+            Ok(html.study.list.mineMember(pag, Order(order), me, topics))
+          },
           api = _ => apiStudies(pag)
         )
       }
@@ -137,10 +135,9 @@ final class Study(
         case None => notFound
         case Some(topic) =>
           env.study.pager.byTopic(topic, ctx.me, Order(order), page) zip
-            ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map {
-            case (pag, topics) =>
+            ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map { case (pag, topics) =>
               Ok(html.study.topic.show(topic, pag, Order(order), topics))
-          }
+            }
       }
     }
 
@@ -341,40 +338,39 @@ final class Study(
   def embed(id: String, chapterId: String) =
     Action.async { implicit req =>
       env.study.api.byIdWithChapter(id, chapterId).map(_.filterNot(_.study.isPrivate)) flatMap {
-        _.fold(embedNotFound) {
-          case WithChapter(study, chapter) =>
-            for {
-              chapters <- env.study.chapterRepo.idNames(study.id)
-              studyJson <- env.study.jsonView(
-                study.copy(
-                  members = lila.study.StudyMembers(Map.empty) // don't need no members
-                ),
-                List(chapter.metadata),
-                chapter,
-                none
-              )
-              setup      = chapter.setup
-              initialFen = chapter.root.fen.some
-              pov        = userAnalysisC.makePov(initialFen, setup.variant)
-              baseData = env.round.jsonView.userAnalysisJson(
-                pov,
-                lila.pref.Pref.default,
-                initialFen,
-                setup.orientation,
-                owner = false,
-                me = none
-              )
-              analysis = baseData ++ Json.obj(
-                "treeParts" -> partitionTreeJsonWriter.writes {
-                  lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
-                }
-              )
-              data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
-              result <- negotiate(
-                html = Ok(html.study.embed(study, chapter, chapters, data)).fuccess,
-                api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
-              )
-            } yield result
+        _.fold(embedNotFound) { case WithChapter(study, chapter) =>
+          for {
+            chapters <- env.study.chapterRepo.idNames(study.id)
+            studyJson <- env.study.jsonView(
+              study.copy(
+                members = lila.study.StudyMembers(Map.empty) // don't need no members
+              ),
+              List(chapter.metadata),
+              chapter,
+              none
+            )
+            setup      = chapter.setup
+            initialFen = chapter.root.fen.some
+            pov        = userAnalysisC.makePov(initialFen, setup.variant)
+            baseData = env.round.jsonView.userAnalysisJson(
+              pov,
+              lila.pref.Pref.default,
+              initialFen,
+              setup.orientation,
+              owner = false,
+              me = none
+            )
+            analysis = baseData ++ Json.obj(
+              "treeParts" -> partitionTreeJsonWriter.writes {
+                lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
+              }
+            )
+            data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
+            result <- negotiate(
+              html = Ok(html.study.embed(study, chapter, chapters, data)).fuccess,
+              api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
+            )
+          } yield result
         }
       } map NoCache
     }
@@ -446,17 +442,16 @@ final class Study(
   def chapterPgn(id: String, chapterId: String) =
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
-        _.fold(notFound) {
-          case WithChapter(study, chapter) =>
-            CanViewResult(study) {
-              lila.mon.export.pgn.studyChapter.increment()
-              Ok(env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter).toString)
-                .withHeaders(
-                  CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.pgn"
-                )
-                .as(pgnContentType)
-                .fuccess
-            }
+        _.fold(notFound) { case WithChapter(study, chapter) =>
+          CanViewResult(study) {
+            lila.mon.export.pgn.studyChapter.increment()
+            Ok(env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter).toString)
+              .withHeaders(
+                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.pgn"
+              )
+              .as(pgnContentType)
+              .fuccess
+          }
         }
       }
     }
@@ -471,17 +466,16 @@ final class Study(
   def chapterGif(id: String, chapterId: String) =
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
-        _.fold(notFound) {
-          case WithChapter(study, chapter) =>
-            CanViewResult(study) {
-              env.study.gifExport.ofChapter(chapter) map { stream =>
-                Ok.chunked(stream)
-                  .withHeaders(
-                    noProxyBufferHeader,
-                    CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.gif"
-                  ) as "image/gif"
-              }
+        _.fold(notFound) { case WithChapter(study, chapter) =>
+          CanViewResult(study) {
+            env.study.gifExport.ofChapter(chapter) map { stream =>
+              Ok.chunked(stream)
+                .withHeaders(
+                  noProxyBufferHeader,
+                  CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.gif"
+                ) as "image/gif"
             }
+          }
         }
       }
     }
@@ -512,11 +506,10 @@ final class Study(
   def topics =
     Open { implicit ctx =>
       env.study.topicApi.popular(50) zip
-        ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map {
-        case (popular, mine) =>
+        ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map { case (popular, mine) =>
           val form = mine map lila.study.StudyForm.topicsForm
           Ok(html.study.topic.index(popular, mine, form))
-      }
+        }
     }
 
   def setTopics =

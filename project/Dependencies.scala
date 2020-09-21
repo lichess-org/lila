@@ -8,7 +8,7 @@ object Dependencies {
   val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "7.0.1"
   val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"             % "joda-time"                       % "2.10.6"
-  val chess       = "org.lichess"          %% "scalachess"                      % "10.0.3"
+  val chess       = "org.lichess"          %% "scalachess"                      % "10.0.4"
   val compression = "org.lichess"          %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"       %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.19-THIB213"
@@ -17,7 +17,7 @@ object Dependencies {
   val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.21.1"
   val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "2.3.1"
   val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.8.5"
-  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.3.3.RELEASE"
+  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.3.4.RELEASE"
   val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.51.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2"  % "provided"
   val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0"  % Test

@@ -72,14 +72,13 @@ final class JsonView(
   def batch(puzzles: List[Puzzle], userInfos: UserInfos): Fu[JsObject] =
     for {
       games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
-      jsons <- (puzzles zip games).collect {
-        case (puzzle, Some(game)) =>
-          gameJson.noCache(game, puzzle.initialPly, onlyLast = true) map { gameJson =>
-            Json.obj(
-              "game"   -> gameJson,
-              "puzzle" -> puzzleJson(puzzle, isOldMobile = false)
-            )
-          }
+      jsons <- (puzzles zip games).collect { case (puzzle, Some(game)) =>
+        gameJson.noCache(game, puzzle.initialPly, onlyLast = true) map { gameJson =>
+          Json.obj(
+            "game"   -> gameJson,
+            "puzzle" -> puzzleJson(puzzle, isOldMobile = false)
+          )
+        }
       }.sequenceFu
     } yield Json.obj(
       "user"    -> JsonView.infos(isOldMobile = false)(userInfos),

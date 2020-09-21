@@ -15,8 +15,8 @@ final class FormFactory {
   val filter = Form(single("local" -> text))
 
   def aiFilled(fen: Option[FEN]): Form[AiConfig] =
-    ai fill fen.foldLeft(AiConfig.default) {
-      case (config, f) => config.copy(fen = f.some, variant = chess.variant.FromPosition)
+    ai fill fen.foldLeft(AiConfig.default) { case (config, f) =>
+      config.copy(fen = f.some, variant = chess.variant.FromPosition)
     }
 
   lazy val ai = Form(
@@ -35,8 +35,8 @@ final class FormFactory {
   )
 
   def friendFilled(fen: Option[FEN])(implicit ctx: UserContext): Form[FriendConfig] =
-    friend(ctx) fill fen.foldLeft(FriendConfig.default) {
-      case (config, f) => config.copy(fen = f.some, variant = chess.variant.FromPosition)
+    friend(ctx) fill fen.foldLeft(FriendConfig.default) { case (config, f) =>
+      config.copy(fen = f.some, variant = chess.variant.FromPosition)
     }
 
   def friend(ctx: UserContext) =

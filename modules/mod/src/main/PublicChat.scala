@@ -15,13 +15,12 @@ final class PublicChat(
     tournamentChats zip simulChats
 
   def delete(suspect: Suspect): Funit =
-    all.flatMap {
-      case (tours, simuls) =>
-        (tours.map(_._2) ::: simuls.map(_._2))
-          .filter(_ hasLinesOf suspect.user)
-          .map(chatApi.userChat.delete(_, suspect.user, _.Global))
-          .sequenceFu
-          .void
+    all.flatMap { case (tours, simuls) =>
+      (tours.map(_._2) ::: simuls.map(_._2))
+        .filter(_ hasLinesOf suspect.user)
+        .map(chatApi.userChat.delete(_, suspect.user, _.Global))
+        .sequenceFu
+        .void
     }
 
   private def tournamentChats: Fu[List[(Tournament, UserChat)]] =
@@ -47,10 +46,9 @@ final class PublicChat(
   private def fetchVisibleSimuls: Fu[List[Simul]] = {
     simulEnv.allCreatedFeaturable.get {} zip
       simulEnv.repo.allStarted zip
-      simulEnv.repo.allFinishedFeaturable(3) map {
-      case ((created, started), finished) =>
+      simulEnv.repo.allFinishedFeaturable(3) map { case ((created, started), finished) =>
         created ::: started ::: finished
-    }
+      }
   }
 
   /**

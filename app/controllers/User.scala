@@ -48,9 +48,9 @@ final class User(
       val userId = UserModel normalize username
       env.game.cached.lastPlayedPlayingId(userId) orElse
         env.game.gameRepo.quickLastPlayedId(userId) flatMap {
-        case None         => NotFound("No ongoing game").fuccess
-        case Some(gameId) => gameC.exportGame(gameId, req)
-      }
+          case None         => NotFound("No ongoing game").fuccess
+          case Some(gameId) => gameC.exportGame(gameId, req)
+        }
     }
 
   private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[_]) = {
@@ -146,26 +146,26 @@ final class User(
             ctx.userId.?? { env.game.crosstableApi.fetchOrEmpty(user.id, _) dmap some } zip
             ctx.isAuth.?? { env.pref.api.followable(user.id) } zip
             ctx.userId.?? { relationApi.fetchRelation(_, user.id) } flatMap {
-            case blocked ~ crosstable ~ followable ~ relation =>
-              val ping = env.socket.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
-              negotiate(
-                html = !ctx.is(user) ?? currentlyPlaying(user) map { pov =>
-                  Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
-                    .withHeaders(CACHE_CONTROL -> "max-age=5")
-                },
-                api = _ => {
-                  import lila.game.JsonView.crosstableWrites
-                  fuccess(
-                    Ok(
-                      Json.obj(
-                        "crosstable" -> crosstable,
-                        "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs)
+              case blocked ~ crosstable ~ followable ~ relation =>
+                val ping = env.socket.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
+                negotiate(
+                  html = !ctx.is(user) ?? currentlyPlaying(user) map { pov =>
+                    Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+                      .withHeaders(CACHE_CONTROL -> "max-age=5")
+                  },
+                  api = _ => {
+                    import lila.game.JsonView.crosstableWrites
+                    fuccess(
+                      Ok(
+                        Json.obj(
+                          "crosstable" -> crosstable,
+                          "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs)
+                        )
                       )
                     )
-                  )
-                }
-              )
-          }
+                  }
+                )
+            }
         else fuccess(Ok(html.user.bits.miniClosed(user)))
       }
     }
@@ -364,9 +364,9 @@ final class User(
             .logTimeIfGt(s"$username noteApi.forMod", 2 seconds)) zip
             env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
             lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy) map {
-            case notes ~ bans ~ othersWithEmail =>
-              html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans, nbOthers)
-          }
+              case notes ~ bans ~ othersWithEmail =>
+                html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans, nbOthers)
+            }
         }
         val identification = spyFu map { spy =>
           (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) ??
@@ -461,11 +461,10 @@ final class User(
         relateds <-
           ops
             .zip(followables)
-            .map {
-              case ((u, nb), followable) =>
-                relationApi.fetchRelation(me.id, u.id) map {
-                  lila.relation.Related(u, nb.some, followable, _)
-                }
+            .map { case ((u, nb), followable) =>
+              relationApi.fetchRelation(me.id, u.id) map {
+                lila.relation.Related(u, nb.some, followable, _)
+              }
             }
             .sequenceFu
       } yield html.user.opponents(me, relateds)
@@ -516,7 +515,8 @@ final class User(
           env.user.repo nameExists term map { r =>
             Ok(JsBoolean(r))
           }
-        case Some(term) => {
+        case Some(term) =>
+          {
             (get("tour"), get("swiss")) match {
               case (Some(tourId), _)  => env.tournament.playerRepo.searchPlayers(tourId, term, 10)
               case (_, Some(swissId)) => env.swiss.api.searchPlayers(lila.swiss.Swiss.Id(swissId), term, 10)

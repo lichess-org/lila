@@ -79,9 +79,8 @@ object JsonQuestion {
     JsonQuestion(
       dimension = q.dimension.key,
       metric = q.metric.key,
-      filters = q.filters.view.map {
-        case Filter(dimension, selected) =>
-          dimension.key -> selected.map(Dimension.valueKey(dimension))
+      filters = q.filters.view.map { case Filter(dimension, selected) =>
+        dimension.key -> selected.map(Dimension.valueKey(dimension))
       }.toMap
     )
 

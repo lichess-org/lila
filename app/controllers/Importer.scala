@@ -90,12 +90,11 @@ final class Importer(env: Env) extends LilaController(env) {
   ): Fu[Option[lila.game.Game]] =
     env.importer.importer(data, me.map(_.id)) flatMap { game =>
       me.map(_.id).??(env.game.cached.clearNbImportedByCache) inject game.some
-    } recover {
-      case e: Exception =>
-        lila
-          .log("importer")
-          .warn(s"Imported game validates but can't be replayed:\n${data.pgn}", e)
-        none
+    } recover { case e: Exception =>
+      lila
+        .log("importer")
+        .warn(s"Imported game validates but can't be replayed:\n${data.pgn}", e)
+      none
     }
 
   def masterGame(id: String, orientation: String) =

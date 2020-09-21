@@ -139,8 +139,8 @@ final class RoundSocket(
     case P.In.TellSri(sri, userId, tpe, msg) => // eval cache
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$tpe")
     case RP.In.SetVersions(versions) =>
-      versions foreach {
-        case (roomId, version) => rounds.tell(roomId, SetVersion(version))
+      versions foreach { case (roomId, version) =>
+        rounds.tell(roomId, SetVersion(version))
       }
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
@@ -261,53 +261,47 @@ object RoundSocket {
               }
             }.some
           case "r/do" =>
-            raw.get(2) {
-              case Array(fullId, payload) =>
-                for {
-                  obj <- Json.parse(payload).asOpt[JsObject]
-                  tpe <- obj str "t"
-                } yield PlayerDo(FullId(fullId), tpe)
+            raw.get(2) { case Array(fullId, payload) =>
+              for {
+                obj <- Json.parse(payload).asOpt[JsObject]
+                tpe <- obj str "t"
+              } yield PlayerDo(FullId(fullId), tpe)
             }
           case "r/move" =>
-            raw.get(5) {
-              case Array(fullId, uciS, blurS, lagS, mtS) =>
-                Uci(uciS) map { uci =>
-                  PlayerMove(FullId(fullId), uci, P.In.boolean(blurS), MoveMetrics(centis(lagS), centis(mtS)))
-                }
+            raw.get(5) { case Array(fullId, uciS, blurS, lagS, mtS) =>
+              Uci(uciS) map { uci =>
+                PlayerMove(FullId(fullId), uci, P.In.boolean(blurS), MoveMetrics(centis(lagS), centis(mtS)))
+              }
             }
           case "chat/say" =>
-            raw.get(3) {
-              case Array(roomId, author, msg) =>
-                PlayerChatSay(Game.Id(roomId), readColor(author).toRight(author), msg).some
+            raw.get(3) { case Array(roomId, author, msg) =>
+              PlayerChatSay(Game.Id(roomId), readColor(author).toRight(author), msg).some
             }
           case "chat/say/w" =>
-            raw.get(3) {
-              case Array(roomId, userId, msg) => WatcherChatSay(Game.Id(roomId), userId, msg).some
+            raw.get(3) { case Array(roomId, userId, msg) =>
+              WatcherChatSay(Game.Id(roomId), userId, msg).some
             }
           case "r/berserk" =>
-            raw.get(2) {
-              case Array(gameId, userId) => Berserk(Game.Id(gameId), userId).some
+            raw.get(2) { case Array(gameId, userId) =>
+              Berserk(Game.Id(gameId), userId).some
             }
           case "r/bye" => Bye(Game.FullId(raw.args)).some
           case "r/hold" =>
-            raw.get(4) {
-              case Array(fullId, ip, meanS, sdS) =>
-                for {
-                  mean <- meanS.toIntOption
-                  sd   <- sdS.toIntOption
-                } yield HoldAlert(FullId(fullId), IpAddress(ip), mean, sd)
+            raw.get(4) { case Array(fullId, ip, meanS, sdS) =>
+              for {
+                mean <- meanS.toIntOption
+                sd   <- sdS.toIntOption
+              } yield HoldAlert(FullId(fullId), IpAddress(ip), mean, sd)
             }
           case "r/report" =>
-            raw.get(4) {
-              case Array(fullId, ip, user, name) =>
-                SelfReport(FullId(fullId), IpAddress(ip), P.In.optional(user), name).some
+            raw.get(4) { case Array(fullId, ip, user, name) =>
+              SelfReport(FullId(fullId), IpAddress(ip), P.In.optional(user), name).some
             }
           case "r/flag" =>
-            raw.get(3) {
-              case Array(gameId, color, playerId) =>
-                readColor(color) map {
-                  Flag(Game.Id(gameId), _, P.In.optional(playerId) map PlayerId.apply)
-                }
+            raw.get(3) { case Array(gameId, color, playerId) =>
+              readColor(color) map {
+                Flag(Game.Id(gameId), _, P.In.optional(playerId) map PlayerId.apply)
+              }
             }
           case _ => RP.In.reader(raw)
         }

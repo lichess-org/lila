@@ -119,18 +119,17 @@ final class Relay(
     OpenOrScoped(_.Study.Read)(
       open = implicit ctx => {
         pageHit
-        WithRelay(slug, id) {
-          relay =>
-            val sc =
-              if (relay.sync.ongoing) env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap {
-                chapters =>
-                  chapters.find(_.looksAlive) orElse chapters.headOption match {
-                    case Some(chapter) => env.study.api.byIdWithChapter(relay.studyId, chapter.id)
-                    case None          => env.study.api byIdWithChapter relay.studyId
-                  }
+        WithRelay(slug, id) { relay =>
+          val sc =
+            if (relay.sync.ongoing)
+              env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap { chapters =>
+                chapters.find(_.looksAlive) orElse chapters.headOption match {
+                  case Some(chapter) => env.study.api.byIdWithChapter(relay.studyId, chapter.id)
+                  case None          => env.study.api byIdWithChapter relay.studyId
+                }
               }
-              else env.study.api byIdWithChapter relay.studyId
-            sc flatMap { _ ?? { doShow(relay, _) } }
+            else env.study.api byIdWithChapter relay.studyId
+          sc flatMap { _ ?? { doShow(relay, _) } }
         }
       },
       scoped = _ =>

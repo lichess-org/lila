@@ -222,8 +222,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     ) zip
       coll
         .list[Tournament](startedSelect ++ forTeamsSelect(teamIds), ReadPreference.secondaryPreferred) dmap {
-      case (created, started) => created ::: started
-    }
+        case (created, started) => created ::: started
+      }
 
   private[tournament] def shouldStartCursor =
     coll

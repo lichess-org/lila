@@ -81,9 +81,8 @@ final class PersonalDataExport(
     def privateMessages(msgs: Seq[(User.ID, String, DateTime)]) =
       List(
         textTitle(s"${msgs.size} Direct messages"),
-        msgs.map {
-          case (to, text, date) =>
-            s"$to ${textDate(date)}\n$text"
+        msgs.map { case (to, text, date) =>
+          s"$to ${textDate(date)}\n$text"
         } mkString bigSep
       )
 

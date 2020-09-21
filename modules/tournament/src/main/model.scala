@@ -59,7 +59,7 @@ case class RankedPairing(pairing: Pairing, rank1: Int, rank2: Int) {
   def bestRank = rank1 min rank2
   // def rankSum = rank1 + rank2
 
-  def bestColor = chess.Color(rank1 < rank2)
+  def bestColor = chess.Color.fromWhite(rank1 < rank2)
 }
 
 object RankedPairing {

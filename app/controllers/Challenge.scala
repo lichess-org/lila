@@ -63,7 +63,7 @@ final class Challenge(
           }
           else
             (c.challengerUserId ?? env.user.repo.named) map { user =>
-              Ok(html.challenge.theirs(c, json, user, get("color") flatMap chess.Color.apply))
+              Ok(html.challenge.theirs(c, json, user, get("color") flatMap chess.Color.fromName))
             },
         api = _ => Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
@@ -82,7 +82,7 @@ final class Challenge(
   def accept(id: String, color: Option[String]) =
     Open { implicit ctx =>
       OptionFuResult(api byId id) { c =>
-        val cc = color flatMap chess.Color.apply
+        val cc = color flatMap chess.Color.fromName
         isForMe(c) ?? api
           .accept(c, ctx.me, HTTPRequest sid ctx.req, cc)
           .flatMap {
@@ -239,43 +239,42 @@ final class Challenge(
             val cost = if (me.isApiHog) 0 else 1
             ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req, cost = cost) {
               ChallengeUserRateLimit(me.id, cost = cost) {
-                env.user.repo enabledById userId.toLowerCase flatMap {
-                  destUser =>
-                    import lila.challenge.Challenge._
-                    val timeControl = config.clock map {
-                      TimeControl.Clock.apply
-                    } orElse config.days.map {
-                      TimeControl.Correspondence.apply
-                    } getOrElse TimeControl.Unlimited
-                    val challenge = lila.challenge.Challenge
-                      .make(
-                        variant = config.variant,
-                        initialFen = config.position,
-                        timeControl = timeControl,
-                        mode = config.mode,
-                        color = config.color.name,
-                        challenger = ChallengeModel.toRegistered(config.variant, timeControl)(me),
-                        destUser = destUser,
-                        rematchOf = none
-                      )
-                    (destUser, config.acceptByToken) match {
-                      case (Some(dest), Some(strToken)) => apiChallengeAccept(dest, challenge, strToken)
-                      case _ =>
-                        destUser ?? { env.challenge.granter(me.some, _, config.perfType) } flatMap {
-                          case Some(denied) =>
-                            BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
-                          case _ =>
-                            (env.challenge.api create challenge) map {
-                              case true =>
-                                JsonOk(
-                                  env.challenge.jsonView
-                                    .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
-                                )
-                              case false =>
-                                BadRequest(jsonError("Challenge not created"))
-                            }
-                        } map (_ as JSON)
-                    }
+                env.user.repo enabledById userId.toLowerCase flatMap { destUser =>
+                  import lila.challenge.Challenge._
+                  val timeControl = config.clock map {
+                    TimeControl.Clock.apply
+                  } orElse config.days.map {
+                    TimeControl.Correspondence.apply
+                  } getOrElse TimeControl.Unlimited
+                  val challenge = lila.challenge.Challenge
+                    .make(
+                      variant = config.variant,
+                      initialFen = config.position,
+                      timeControl = timeControl,
+                      mode = config.mode,
+                      color = config.color.name,
+                      challenger = ChallengeModel.toRegistered(config.variant, timeControl)(me),
+                      destUser = destUser,
+                      rematchOf = none
+                    )
+                  (destUser, config.acceptByToken) match {
+                    case (Some(dest), Some(strToken)) => apiChallengeAccept(dest, challenge, strToken)
+                    case _ =>
+                      destUser ?? { env.challenge.granter(me.some, _, config.perfType) } flatMap {
+                        case Some(denied) =>
+                          BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
+                        case _ =>
+                          (env.challenge.api create challenge) map {
+                            case true =>
+                              JsonOk(
+                                env.challenge.jsonView
+                                  .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
+                              )
+                            case false =>
+                              BadRequest(jsonError("Challenge not created"))
+                          }
+                      } map (_ as JSON)
+                  }
                 }
               }(rateLimitedFu)
             }(rateLimitedFu)

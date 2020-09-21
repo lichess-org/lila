@@ -36,7 +36,7 @@ sealed trait Node {
   def moveOption: Option[Uci.WithSan]
 
   // who's color plays next
-  def color = chess.Color(ply % 2 == 0)
+  def color = chess.Color.fromPly(ply)
 
   def mainlineNodeList: List[Node] =
     dropFirstChild :: children.headOption.fold(List.empty[Node])(_.mainlineNodeList)
@@ -311,12 +311,11 @@ object Node {
   def destString(dests: Map[Pos, List[Pos]]): String = {
     val sb    = new java.lang.StringBuilder(80)
     var first = true
-    dests foreach {
-      case (orig, dests) =>
-        if (first) first = false
-        else sb append " "
-        sb append orig.piotr
-        dests foreach { sb append _.piotr }
+    dests foreach { case (orig, dests) =>
+      if (first) first = false
+      else sb append " "
+      sb append orig.piotr
+      dests foreach { sb append _.piotr }
     }
     sb.toString
   }

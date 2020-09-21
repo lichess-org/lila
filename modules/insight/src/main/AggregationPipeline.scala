@@ -62,15 +62,14 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         lazy val timeVarianceIdDispatcher =
           TimeVariance.all.reverse
             .drop(1)
-            .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)) {
-              case (acc, tvi) =>
-                $doc(
-                  "$cond" -> $arr(
-                    $doc("$lte" -> $arr("$" + F.moves("v"), tvi.intFactored)),
-                    tvi.intFactored,
-                    acc
-                  )
+            .foldLeft[BSONValue](BSONInteger(TimeVariance.VeryVariable.intFactored)) { case (acc, tvi) =>
+              $doc(
+                "$cond" -> $arr(
+                  $doc("$lte" -> $arr("$" + F.moves("v"), tvi.intFactored)),
+                  tvi.intFactored,
+                  acc
                 )
+              )
             }
         def dimensionGroupId(dim: Dimension[_]): BSONValue =
           dim match {

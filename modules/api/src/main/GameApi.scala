@@ -183,9 +183,8 @@ final private[api] class GameApi(
       else fuccess(List.fill(games.size)(none[Analysis]))
     allAnalysis flatMap { analysisOptions =>
       (games map gameRepo.initialFen).sequenceFu map { initialFens =>
-        games zip analysisOptions zip initialFens map {
-          case ((g, analysisOption), initialFen) =>
-            gameToJson(g, analysisOption, initialFen, checkToken(withFlags))
+        games zip analysisOptions zip initialFens map { case ((g, analysisOption), initialFen) =>
+          gameToJson(g, analysisOption, initialFen, checkToken(withFlags))
         }
       }
     }

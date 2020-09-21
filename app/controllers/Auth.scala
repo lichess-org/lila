@@ -40,12 +40,12 @@ final class Auth(
   private def goodReferrer(referrer: String): Boolean =
     referrer.nonEmpty &&
       !sillyLoginReferrers(referrer) && Try {
-      val url = Url.parse(referrer)
-      url.schemeOption.fold(true)(scheme => scheme == "http" || scheme == "https") &&
-      url.hostOption.fold(true)(host =>
-        s".${host.value}".endsWith(s".${AbsoluteUrl.parse(env.net.baseUrl.value).host.value}")
-      )
-    }.getOrElse(false)
+        val url = Url.parse(referrer)
+        url.schemeOption.fold(true)(scheme => scheme == "http" || scheme == "https") &&
+        url.hostOption.fold(true)(host =>
+          s".${host.value}".endsWith(s".${AbsoluteUrl.parse(env.net.baseUrl.value).host.value}")
+        )
+      }.getOrElse(false)
 
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit
       ctx: Context
@@ -106,39 +106,38 @@ final class Auth(
               ),
             usernameOrEmail =>
               HasherRateLimit(usernameOrEmail, ctx.req) { chargeIpLimiter =>
-                api.loadLoginForm(usernameOrEmail) flatMap {
-                  loginForm =>
-                    loginForm
-                      .bindFromRequest()
-                      .fold(
-                        err => {
-                          chargeIpLimiter(1)
-                          negotiate(
-                            html = fuccess {
-                              err.errors match {
-                                case List(FormError("", List(err), _)) if is2fa(err) => Ok(err)
-                                case _                                               => Unauthorized(html.auth.login(err, referrer))
-                              }
-                            },
-                            api = _ =>
-                              Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
-                          )
-                        },
-                        result =>
-                          result.toOption match {
-                            case None => InternalServerError("Authentication error").fuccess
-                            case Some(u) if u.disabled =>
-                              negotiate(
-                                html = redirectTo(routes.Account.reopen().url).fuccess,
-                                api = _ => Unauthorized(jsonError("This account is closed.")).fuccess
-                              )
-                            case Some(u) =>
-                              env.user.repo.email(u.id) foreach {
-                                _ foreach { garbageCollect(u, _) }
-                              }
-                              authenticateUser(u, Some(redirectTo))
-                          }
-                      )
+                api.loadLoginForm(usernameOrEmail) flatMap { loginForm =>
+                  loginForm
+                    .bindFromRequest()
+                    .fold(
+                      err => {
+                        chargeIpLimiter(1)
+                        negotiate(
+                          html = fuccess {
+                            err.errors match {
+                              case List(FormError("", List(err), _)) if is2fa(err) => Ok(err)
+                              case _                                               => Unauthorized(html.auth.login(err, referrer))
+                            }
+                          },
+                          api = _ =>
+                            Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
+                        )
+                      },
+                      result =>
+                        result.toOption match {
+                          case None => InternalServerError("Authentication error").fuccess
+                          case Some(u) if u.disabled =>
+                            negotiate(
+                              html = redirectTo(routes.Account.reopen().url).fuccess,
+                              api = _ => Unauthorized(jsonError("This account is closed.")).fuccess
+                            )
+                          case Some(u) =>
+                            env.user.repo.email(u.id) foreach {
+                              _ foreach { garbageCollect(u, _) }
+                            }
+                            authenticateUser(u, Some(redirectTo))
+                        }
+                    )
                 }
               }(rateLimitedFu)
           )
@@ -247,22 +246,21 @@ final class Auth(
             err => BadRequest(html.auth.checkYourEmail(userEmail.some, err.some)).fuccess,
             email =>
               env.user.repo.named(userEmail.username) flatMap {
-                _.fold(Redirect(routes.Auth.signup()).fuccess) {
-                  user =>
-                    env.user.repo.mustConfirmEmail(user.id) flatMap {
-                      case false => Redirect(routes.Auth.login()).fuccess
-                      case _ =>
-                        val newUserEmail = userEmail.copy(email = EmailAddress(email))
-                        EmailConfirmRateLimit(newUserEmail, ctx.req) {
-                          lila.mon.email.send.fix.increment()
-                          env.user.repo.setEmail(user.id, newUserEmail.email) >>
-                            env.security.emailConfirm.send(user, newUserEmail.email) inject {
+                _.fold(Redirect(routes.Auth.signup()).fuccess) { user =>
+                  env.user.repo.mustConfirmEmail(user.id) flatMap {
+                    case false => Redirect(routes.Auth.login()).fuccess
+                    case _ =>
+                      val newUserEmail = userEmail.copy(email = EmailAddress(email))
+                      EmailConfirmRateLimit(newUserEmail, ctx.req) {
+                        lila.mon.email.send.fix.increment()
+                        env.user.repo.setEmail(user.id, newUserEmail.email) >>
+                          env.security.emailConfirm.send(user, newUserEmail.email) inject {
                             Redirect(routes.Auth.checkYourEmail()) withCookies
                               lila.security.EmailConfirm.cookie
                                 .make(env.lilaCookie, user, newUserEmail.email)(ctx.req)
                           }
-                        }(rateLimitedFu)
-                    }
+                      }(rateLimitedFu)
+                  }
                 }
               }
           )

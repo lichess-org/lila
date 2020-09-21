@@ -48,19 +48,16 @@ final class UserSpyApi(
       val ips = distinctRecent(infos.map(_.datedIp))
       val fps = distinctRecent(infos.flatMap(_.datedFp))
       fetchOtherUsers(user, ips.map(_.value).toSet, fps.map(_.value).toSet, maxOthers) zip
-        ip2proxy.keepProxies(ips.map(_.value).toList) map {
-        case otherUsers ~ proxies =>
-          val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) {
-            case (acc, other) =>
-              other.ips.foldLeft(acc) {
-                case (acc, ip) => acc.updated(ip, acc.getOrElse(ip, Set.empty) + other.user)
-              }
+        ip2proxy.keepProxies(ips.map(_.value).toList) map { case otherUsers ~ proxies =>
+          val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) { case (acc, other) =>
+            other.ips.foldLeft(acc) { case (acc, ip) =>
+              acc.updated(ip, acc.getOrElse(ip, Set.empty) + other.user)
+            }
           }
-          val othersByFp = otherUsers.foldLeft(Map.empty[FingerHash, Set[User]]) {
-            case (acc, other) =>
-              other.fps.foldLeft(acc) {
-                case (acc, fp) => acc.updated(fp, acc.getOrElse(fp, Set.empty) + other.user)
-              }
+          val othersByFp = otherUsers.foldLeft(Map.empty[FingerHash, Set[User]]) { case (acc, other) =>
+            other.fps.foldLeft(acc) { case (acc, fp) =>
+              acc.updated(fp, acc.getOrElse(fp, Set.empty) + other.user)
+            }
           }
           UserSpy(
             ips = ips.map { ip =>
@@ -84,7 +81,7 @@ final class UserSpyApi(
             })).toList,
             otherUsers = otherUsers
           )
-      }
+        }
     }
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =

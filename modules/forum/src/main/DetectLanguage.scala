@@ -44,10 +44,9 @@ final class DetectLanguage(
               .sortBy(-_.confidence)
               .headOption map (_.language) flatMap Lang.get
         }
-      } recover {
-        case e: Exception =>
-          lila.log("DetectLanguage").warn(e.getMessage, e)
-          defaultLang.some
+      } recover { case e: Exception =>
+        lila.log("DetectLanguage").warn(e.getMessage, e)
+        defaultLang.some
       }
 }
 

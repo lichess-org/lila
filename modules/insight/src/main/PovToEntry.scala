@@ -44,8 +44,7 @@ final private class PovToEntry(
     else
       lila.game.Pov.ofUserId(game, userId) ?? { pov =>
         gameRepo.initialFen(game) zip
-          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map {
-          case (fen, an) =>
+          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map { case (fen, an) =>
             for {
               boards <-
                 chess.Replay
@@ -72,7 +71,7 @@ final private class PovToEntry(
                 }.toMap
               }
             )
-        }
+          }
       }
 
   private def pgnMoveToRole(pgn: String): Role =

@@ -13,12 +13,10 @@ final class Debouncer[A: Manifest](length: FiniteDuration, effect: A => Unit)(im
 
   private var delayed: Option[A] = none
 
-  def ready: Receive = {
-
-    case a: A =>
-      effect(a)
-      context.system.scheduler.scheduleOnce(length, self, DelayEnd)
-      context become delay
+  def ready: Receive = { case a: A =>
+    effect(a)
+    context.system.scheduler.scheduleOnce(length, self, DelayEnd)
+    context become delay
   }
 
   def delay: Receive = {

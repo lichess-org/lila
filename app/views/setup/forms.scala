@@ -77,9 +77,8 @@ object forms {
                 renderRadios(form("level"), lila.setup.AiConfig.levelChoices)
               ),
               div(cls := "ai_info")(
-                ratings.toList.map {
-                  case (level, _) =>
-                    div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
+                ratings.toList.map { case (level, _) =>
+                  div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
                 }
               )
             )
@@ -147,15 +146,14 @@ object forms {
             if (ctx.blind) submitButton("Create the game")
             else
               div(cls := "color-submits")(
-                translatedSideChoices.map {
-                  case (key, name, _) =>
-                    submitButton(
-                      (typ == "hook") option disabled,
-                      title := name,
-                      cls := s"color-submits__button button button-metal $key",
-                      st.name := "color",
-                      value := key
-                    )(i)
+                translatedSideChoices.map { case (key, name, _) =>
+                  submitButton(
+                    (typ == "hook") option disabled,
+                    title := name,
+                    cls := s"color-submits__button button button-metal $key",
+                    st.name := "color",
+                    value := key
+                  )(i)
                 }
               )
           )
