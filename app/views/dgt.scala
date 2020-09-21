@@ -46,7 +46,7 @@ object dgt {
     )
 
   def play(token: AccessToken)(implicit ctx: Context) =
-    layout("play", embedJsUnsafeLoadThen(s"""lichessDgt.playPage("${token.id.value}")"""))(
+    layout("play", embedJsUnsafeLoadThen(s"""LichessDgt.playPage("${token.id.value}")"""))(
       div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
       div(cls := "dgt__play__help")(
         h2(iconTag("", "If a move is not detected")),
@@ -62,7 +62,7 @@ object dgt {
     )
 
   def config(token: Option[lila.oauth.AccessToken])(implicit ctx: Context) =
-    layout("config", embedJsUnsafeLoadThen("lichessDgt.configPage()"))(
+    layout("config", embedJsUnsafeLoadThen("LichessDgt.configPage()"))(
       div(cls := "account")(
         h1("DGT - configure"),
         form(action := routes.DgtCtrl.generateToken(), method := "post")(
