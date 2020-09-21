@@ -93,7 +93,7 @@ case class Hook(
       member = lila.pool.PoolMember(
         userId = user.??(_.id),
         sri = sri,
-        rating = rating | lila.rating.Glicko.defaultIntRating,
+        rating = rating | lila.rating.Glicko.default.intRating,
         ratingRange = realRatingRange,
         lame = user.??(_.lame),
         blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
