@@ -4,6 +4,13 @@
   h1 {
     color: $c-accent;
   }
+  &__play__help {
+    margin-top: 3rem;
+    h2 {
+      font-size: 1.4em;
+      margin-bottom: 1rem;
+    }
+  }
 }
 
 #dgt-play-zone {
