@@ -1,4 +1,4 @@
-const fs = require('fs-extra');
+const fs = require('fs').promises;
 const parseString = require('xml2js').parseString;
 
 const baseDir = 'translation/source';
@@ -42,5 +42,5 @@ ${objs.map(dbCode).join('\n')}
 }
 `;
 
-  fs.writeFile('modules/i18n/src/main/I18nKeys.scala', code);
+  return fs.writeFile('modules/i18n/src/main/I18nKeys.scala', code);
 });
