@@ -358,7 +358,7 @@ final class Challenge(
                 }).fuccess
               case _ =>
                 api.sendRematchOf(g, me) map {
-                  case true => Ok
+                  case true => jsonOkResult
                   case _    => BadRequest(jsonError("Sorry, couldn't create the rematch."))
                 }
             }
