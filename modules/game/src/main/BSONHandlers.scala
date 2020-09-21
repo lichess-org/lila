@@ -241,7 +241,7 @@ object BSONHandlers {
 
     def readsWithPlayerIds(r: BSON.Reader, playerIds: String): LightGame = {
       val (whiteId, blackId)   = playerIds splitAt 4
-      val winC                 = r boolO F.winnerColor map Color.apply
+      val winC                 = r boolO F.winnerColor map Color.fromWhite
       val uids                 = ~r.getO[List[lila.user.User.ID]](F.playerUids)
       val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
       def makePlayer(field: String, color: Color, id: Player.ID, uid: Player.UserId): Player = {

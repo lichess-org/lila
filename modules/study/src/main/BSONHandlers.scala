@@ -33,7 +33,7 @@ object BSONHandlers {
     implicitly[BSONHandler[List[StudyTopic]]].as[StudyTopics](StudyTopics.apply, _.value)
 
   implicit private val PosBSONHandler = tryHandler[Pos](
-    { case BSONString(v) => Pos.posAt(v) toTry s"No such pos: $v" },
+    { case BSONString(v) => Pos.fromKey(v) toTry s"No such pos: $v" },
     x => BSONString(x.key)
   )
 

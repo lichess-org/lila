@@ -62,8 +62,7 @@ private object PgnStorage {
         )
       }
 
-    private def chessPos(sq: Integer): Option[Pos] =
-      Pos.posAt(JavaSquare.file(sq) + 1, JavaSquare.rank(sq) + 1)
+    private def chessPos(sq: Integer): Option[Pos] = Pos(sq)
     private def chessRole(role: JavaRole): Role =
       role match {
         case JavaRole.PAWN   => Pawn
@@ -73,7 +72,8 @@ private object PgnStorage {
         case JavaRole.QUEEN  => Queen
         case JavaRole.KING   => King
       }
-    private def chessPiece(piece: JavaPiece): Piece = Piece(Color(piece.white), chessRole(piece.role))
+    private def chessPiece(piece: JavaPiece): Piece =
+      Piece(Color.fromWhite(piece.white), chessRole(piece.role))
   }
 
   case class Decoded(

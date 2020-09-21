@@ -61,7 +61,8 @@ case class Game(
 
   def opponent(c: Color): Player = player(!c)
 
-  lazy val naturalOrientation = if (variant.racingKings) White else Color(whitePlayer before blackPlayer)
+  lazy val naturalOrientation =
+    if (variant.racingKings) White else Color.fromWhite(whitePlayer before blackPlayer)
 
   def turnColor = chess.player
 
@@ -516,7 +517,7 @@ case class Game(
   def onePlayerHasMoved    = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def startColor = Color(chess.startedAtTurn % 2 == 0)
+  def startColor = Color.fromPly(chess.startedAtTurn)
 
   def playerMoves(color: Color): Int =
     if (color == startColor) (playedTurns + 1) / 2

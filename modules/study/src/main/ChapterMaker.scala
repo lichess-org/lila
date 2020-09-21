@@ -197,7 +197,7 @@ private[study] object ChapterMaker {
   trait ChapterData {
     def orientation: String
     def mode: String
-    def realOrientation = chess.Color(orientation) | chess.White
+    def realOrientation = chess.Color.fromName(orientation) | chess.White
     def isPractice      = mode == Mode.Practice.key
     def isGamebook      = mode == Mode.Gamebook.key
     def isConceal       = mode == Mode.Conceal.key

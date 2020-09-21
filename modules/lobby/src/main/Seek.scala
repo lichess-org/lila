@@ -61,7 +61,7 @@ case class Seek(
         ),
         "mode"  -> realMode.id,
         "days"  -> daysPerTurn,
-        "color" -> chess.Color(color).??(_.name),
+        "color" -> chess.Color.fromName(color).??(_.name),
         "perf" -> Json.obj(
           "icon" -> perfType.map(_.iconChar.toString),
           "name" -> perfType.map(_.trans)

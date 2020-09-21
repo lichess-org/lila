@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._
 
+import chess.White
 import chess.format.FEN
 import lila.api.Context
 import lila.app._
@@ -94,7 +95,7 @@ final class Analyse(
     Action.async { implicit req =>
       env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
         case Some((game, initialFen)) =>
-          val pov = Pov(game, chess.Color(color == "white"))
+          val pov = Pov(game, chess.Color.fromName(color) | White)
           env.api.roundApi.embed(
             pov,
             lila.api.Mobile.Api.currentVersion,

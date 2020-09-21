@@ -63,7 +63,7 @@ final class Challenge(
           }
           else
             (c.challengerUserId ?? env.user.repo.named) map { user =>
-              Ok(html.challenge.theirs(c, json, user, get("color") flatMap chess.Color.apply))
+              Ok(html.challenge.theirs(c, json, user, get("color") flatMap chess.Color.fromName))
             },
         api = _ => Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
@@ -82,7 +82,7 @@ final class Challenge(
   def accept(id: String, color: Option[String]) =
     Open { implicit ctx =>
       OptionFuResult(api byId id) { c =>
-        val cc = color flatMap chess.Color.apply
+        val cc = color flatMap chess.Color.fromName
         isForMe(c) ?? api
           .accept(c, ctx.me, HTTPRequest sid ctx.req, cc)
           .flatMap {

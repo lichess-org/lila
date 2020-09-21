@@ -58,8 +58,8 @@ object AnaMove {
   def parse(o: JsObject) =
     for {
       d    <- o obj "d"
-      orig <- d str "orig" flatMap chess.Pos.posAt
-      dest <- d str "dest" flatMap chess.Pos.posAt
+      orig <- d str "orig" flatMap chess.Pos.fromKey
+      dest <- d str "dest" flatMap chess.Pos.fromKey
       fen  <- d str "fen"
       path <- d str "path"
     } yield AnaMove(

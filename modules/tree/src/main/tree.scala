@@ -36,7 +36,7 @@ sealed trait Node {
   def moveOption: Option[Uci.WithSan]
 
   // who's color plays next
-  def color = chess.Color(ply % 2 == 0)
+  def color = chess.Color.fromPly(ply)
 
   def mainlineNodeList: List[Node] =
     dropFirstChild :: children.headOption.fold(List.empty[Node])(_.mainlineNodeList)

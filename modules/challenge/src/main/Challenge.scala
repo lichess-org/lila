@@ -174,7 +174,7 @@ object Challenge {
   def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
     Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
 
-  def randomColor = chess.Color(lila.common.ThreadLocalRandom.nextBoolean())
+  def randomColor = chess.Color.fromWhite(lila.common.ThreadLocalRandom.nextBoolean())
 
   def make(
       variant: Variant,
