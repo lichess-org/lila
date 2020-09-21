@@ -1,7 +1,7 @@
 import { Chess } from 'chessops/chess';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
-import { makeSan, makeSanAndPlay, parseSan } from 'chessops/san';
-import { Move, NormalMove } from 'chessops/types';
+import { makeSan, parseSan } from 'chessops/san';
+import { NormalMove } from 'chessops/types';
 import { board } from 'chessops/debug';
 import { defaultSetup, makeUci, parseUci } from 'chessops';
 
@@ -198,7 +198,7 @@ export default function (token: string) {
     const response = await fetch('/api/stream/event', {
       headers: { 'Authorization': 'Bearer ' + token }
     });
-    const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
+    const reader = response.body!.pipeThrough(new TextDecoderStream()).getReader();
     while (true) {
       const { value, done } = await reader.read();
       if (done) break;
@@ -206,12 +206,12 @@ export default function (token: string) {
       //Update connection status
       eventSteamStatus = { connected: true, lastEvent: time.getTime() };
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
-      var JSONArray = value.split('\n');
-      for (let i = 0; i < JSONArray.length; i++) {
+      var jsonArray = value.split('\n');
+      for (let i = 0; i < jsonArray.length; i++) {
         //Skip empty elements that may have happened witht the .split('\n')
-        if (JSONArray[i].length > 2) {
+        if (jsonArray[i].length > 2) {
           try {
-            var data = JSON.parse(JSONArray[i]);
+            var data = JSON.parse(jsonArray[i]);
             //JSON data found, let's check if this is a game that started. field type is mandatory except on http 4xx
             if (data.type == "gameStart") {
               if (verbose) console.log('connectToEventStream - gameStart event arrived. GameId: ' + data.game.id);
@@ -300,12 +300,12 @@ export default function (token: string) {
       //Update connection status
       gameConnectionMap.set(gameId, { connected: true, lastEvent: time.getTime() });
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
-      var JSONArray = value.split('\n');
-      for (let i = 0; i < JSONArray.length; i++) {
+      var jsonArray = value!.split('\n');
+      for (let i = 0; i < jsonArray.length; i++) {
         //Skip empty elements that may have happened witht the .split('\n')
-        if (JSONArray[i].length > 2) {
+        if (jsonArray[i].length > 2) {
           try {
-            var data = JSON.parse(JSONArray[i]);
+            var data = JSON.parse(jsonArray[i]);
             //The first line is always of type gameFull.
             if (data.type == "gameFull") {
               if (!verbose) console.clear();
@@ -524,7 +524,7 @@ export default function (token: string) {
     else
       currentGameColor = 'black';
     //Send the position to LiveChess for synchronization
-    sendBoardToLiveChess(gameChessBoardMap.get(currentGameId));
+    sendBoardToLiveChess(gameChessBoardMap.get(currentGameId)!);
   }
 
   /**
@@ -552,7 +552,7 @@ export default function (token: string) {
     //for (let [gameId, networkState] of gameConnectionMap) {
     //    if (gameConnectionMap.get(gameId).connected && gameStateMap.get(gameId).status == "started") {    
     for (var i = 0; i < keys.length; i++) {
-      if (gameConnectionMap.get(keys[i]).connected && gameStateMap.get(keys[i]).status == "started") {
+      if (gameConnectionMap.get(keys[i])?.connected && gameStateMap.get(keys[i])?.status == "started") {
         //Game is good for commands
         var gameInfo = gameInfoMap.get(keys[i]);
         //var gameState = gameStateMap.get(keys[i]);
@@ -648,7 +648,7 @@ export default function (token: string) {
    * @param wtime Remaining time for white
    * @param btime Remaining time for black
    */
-  function announcePlay(lastMove: { player: string, move: string, by: string }, wtime: number, btime: number) {
+  function announcePlay(lastMove: { player: string, move: string, by: string }) {
     //ttsSay(lastMove.player);
     //Now play it using text to speech library
     var moveText: string;
@@ -670,7 +670,7 @@ export default function (token: string) {
     //Give feedback on running out of time
   }
 
-  function announceWinner(winner, status, message) {
+  function announceWinner(winner: string, status: string, message: string) {
     if (winner == 'white') {
       console.log('  ' + status + '  -  ' + message);
     }
