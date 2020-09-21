@@ -202,7 +202,7 @@ export function render(ctrl: RoundController): VNode | undefined {
         ctrl.autoScroll = () => autoScroll(el, ctrl);
         ctrl.autoScroll();
         window.addEventListener('load', ctrl.autoScroll);
-        $(window).one('blur', () => $(moveTag).first().append($('<i>')));
+        $(window).one('blur', () => $(moveTag).first().append($('<j>')));
       })
     }, renderMoves(ctrl));
   return ctrl.nvui ? undefined : h(rmovesTag, [
