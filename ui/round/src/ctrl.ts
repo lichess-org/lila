@@ -109,7 +109,7 @@ export default class RoundController {
 
     setTimeout(this.showExpiration, 350);
 
-    if (!document.referrer || document.referrer.indexOf('/service-worker.js') === -1)
+    if (!document.referrer?.includes('/service-worker.js'))
       setTimeout(this.showYourMoveNotification, 500);
 
     // at the end:
@@ -315,20 +315,20 @@ export default class RoundController {
   showYourMoveNotification = () => {
     const d = this.data;
     if (game.isPlayerTurn(d)) notify(() => {
-      let txt = this.trans('yourTurn'),
+      let txt = this.noarg('yourTurn'),
         opponent = renderUser.userTxt(this, d.opponent);
-      if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
+      if (this.ply < 1) txt = `${opponent}\njoined the game.\n${txt}`;
       else {
         let move = d.steps[d.steps.length - 1].san,
           turn = Math.floor((this.ply - 1) / 2) + 1;
-        move = turn + (this.ply % 2 === 1 ? '.' : '...') + ' ' + move;
-        txt = opponent + '\nplayed ' + move + '.\n' + txt;
+        move = `${turn}${this.ply % 2 === 1 ? '.' : '...'} ${move}`;
+        txt = `${opponent}\nplayed ${move}.\n${txt}`;
       }
       return txt;
     });
-    else if (this.isPlaying() && this.ply < 1) notify(() => {
-      return renderUser.userTxt(this, d.opponent) + '\njoined the game.';
-    });
+    else if (this.isPlaying() && this.ply < 1) notify(() => 
+      renderUser.userTxt(this, d.opponent) + '\njoined the game.'
+    );
   };
 
   playerByColor = (c: Color) =>
