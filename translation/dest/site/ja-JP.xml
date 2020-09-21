@@ -188,8 +188,8 @@
     <item quantity="other">あなたと %s 局対局</item>
   </plurals>
   <string name="cancel">キャンセル</string>
-  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White time out · Draw'">白時間切れ</string>
-  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black time out · Draw'">黒時間切れ</string>
+  <string name="whiteTimeOut">白時間切れ</string>
+  <string name="blackTimeOut">黒時間切れ</string>
   <string name="drawOfferSent">引き分けの申し込みを送信しました</string>
   <string name="drawOfferDeclined">引き分けの申し込みは拒否されました</string>
   <string name="drawOfferAccepted">引き分けの申し込みに合意しました</string>
