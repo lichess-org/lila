@@ -151,7 +151,7 @@ def lint_string(ctx, dest, source, allow_missing=0):
         ctx.notice("expected single line string")
 
     if western_punctuation(ctx.lang()) and ends_with_punctuation(source) and not ends_with_punctuation(dest):
-        ctx.warning("translation does not end with punctuation")
+        ctx.notice("translation does not end with punctuation")
 
     if re.match(r"\n", dest):
         ctx.error("has leading newlines")
