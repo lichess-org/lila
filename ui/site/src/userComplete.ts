@@ -1,6 +1,6 @@
-import debounce from 'debounce-promise';
 import * as xhr from 'common/xhr';
 import complete from 'common/complete';
+import debounce from 'debounce-promise';
 
 interface Result extends LightUser {
   online: boolean;
@@ -20,20 +20,24 @@ interface Opts {
 
 export default function(opts: Opts): void {
 
+  const debounced = debounce(
+    (term: string) =>
+      xhr.json(
+        xhr.url('/player/autocomplete', {
+          term,
+          friend: opts.friend ? 1 : 0,
+          tour: opts.tour,
+          swiss: opts.swiss,
+          object: 1
+        })
+      ).then(r => ({term, ...r})),
+    150);
+
   complete<Result>({
     input: opts.input,
-    fetch: debounce(
-      (term: string) =>
-        xhr.json(
-          xhr.url('/player/autocomplete', {
-            term,
-            friend: opts.friend ? 1 : 0,
-            tour: opts.tour,
-            swiss: opts.swiss,
-            object: 1
-          })
-        ).then(r => r.result),
-      150),
+    fetch: t => debounced(t).then(({term, result}) => 
+      t == term ? result : Promise.reject('Debounced ' + t)
+    ),
     render(o: Result) {
       const tag = opts.tag || 'a';
       return '<' + tag + ' class="complete-result ulpt user-link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
