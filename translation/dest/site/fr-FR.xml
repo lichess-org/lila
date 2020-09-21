@@ -199,8 +199,8 @@
     <item quantity="other">%s parties avec vous</item>
   </plurals>
   <string name="cancel">Annuler</string>
-  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White time out · Draw'">Temps blanc écoulé</string>
-  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black time out · Draw'">Temps noir écoulé</string>
+  <string name="whiteTimeOut">Temps blanc écoulé</string>
+  <string name="blackTimeOut">Temps noir écoulé</string>
   <string name="drawOfferSent">Proposition de nulle envoyée</string>
   <string name="drawOfferDeclined">Proposition de nulle refusée</string>
   <string name="drawOfferAccepted">Proposition de nulle acceptée</string>
