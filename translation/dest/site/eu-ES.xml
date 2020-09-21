@@ -199,8 +199,8 @@
     <item quantity="other">%s partida zure aurka</item>
   </plurals>
   <string name="cancel">Ezeztatu</string>
-  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when white's time has run out. Is followed by the end condition, for example&#10;'White time out. Draw'">Zuriaren denbora agortu egin da</string>
-  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when black's time has run out. Is followed by the end condition, for example&#10;'Black time out. Draw'">Beltzaren denbora agortu egin da</string>
+  <string name="whiteTimeOut">Zuriaren denbora agortu egin da</string>
+  <string name="blackTimeOut">Beltzaren denbora agortu egin da</string>
   <string name="drawOfferSent">Berdintzeko eskaintza bidali da</string>
   <string name="drawOfferDeclined">Berdintzeko eskaintzari uko egin zaio</string>
   <string name="drawOfferAccepted">Berdintzeko eskaintza onartu da</string>
