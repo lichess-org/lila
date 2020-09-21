@@ -152,11 +152,6 @@ export default rollupProject({
     input: 'src/tour-form.ts',
     output: 'tour-form'
   },
-  dgt: {
-    input: 'src/dgt/dgt.ts',
-    output: 'dgt',
-    name: 'lichessDgt'
-  },
   gameSearch: {
     input: 'src/gameSearch.ts',
     output: 'game-search'
