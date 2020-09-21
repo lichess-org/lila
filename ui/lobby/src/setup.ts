@@ -227,7 +227,10 @@ export default class Setup {
         return ajaxSubmit($(this).val() as string);
       }).prop('disabled', false);
       $form.on('submit', () => ajaxSubmit('random'));
-    } else $form.one('submit', $submits.hide);
+    } else $form.one('submit', () => {
+      $submits.hide();
+      $form.find('.color-submits').append(lichess.spinnerHtml);
+    });
     if (this.root.opts.blindMode) {
       $variantSelect[0]!.focus();
       $timeInput.add($incrementInput).on('change', () => {
