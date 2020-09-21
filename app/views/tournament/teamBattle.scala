@@ -18,7 +18,7 @@ object teamBattle {
       moreCss = cssTag("tournament.form"),
       moreJs = frag(
         jsAt("vendor/textcomplete.min.js"),
-        jsModule("team-battle-form")
+        jsModule("teamBattleForm")
       )
     )(
       main(cls := "page-small")(

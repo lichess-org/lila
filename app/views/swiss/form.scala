@@ -16,7 +16,7 @@ object form {
     views.html.base.layout(
       title = "New Swiss tournament",
       moreCss = cssTag("swiss.form"),
-      moreJs = jsModule("tour-form")
+      moreJs = jsModule("tourForm")
     ) {
       val fields = new SwissFields(form)
       main(cls := "page-small")(
@@ -49,7 +49,7 @@ object form {
     views.html.base.layout(
       title = swiss.name,
       moreCss = cssTag("swiss.form"),
-      moreJs = jsModule("tour-form")
+      moreJs = jsModule("tourForm")
     ) {
       val fields = new SwissFields(form)
       main(cls := "page-small")(

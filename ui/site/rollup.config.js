@@ -72,16 +72,16 @@ export default rollupProject({
     ],
   },
   tvEmbed: {
-    input: 'src/tv-embed.ts',
-    output: 'tv.embed',
+    input: 'src/tvEmbed.ts',
+    output: 'tvEmbed',
   },
   puzzleEmbed: {
-    input: 'src/puzzle-embed.ts',
+    input: 'src/puzzleEmbed.ts',
     output: 'puzzle.embed',
   },
   analyseEmbed: {
-    input: 'src/analyse-embed.ts',
-    output: 'analysis-board.embed',
+    input: 'src/analyseEmbed.ts',
+    output: 'analysisBoard.embed',
     name: 'analyseEmbed'
   },
   user: {
@@ -89,7 +89,7 @@ export default rollupProject({
     output: 'user',
   },
   modUser: {
-    input: 'src/mod-user.ts',
+    input: 'src/modUser.ts',
     output: 'mod.user',
   },
   clas: {
@@ -105,8 +105,8 @@ export default rollupProject({
     output: 'captcha',
   },
   expandText: {
-    input: 'src/expand-text.ts',
-    output: 'expand-text',
+    input: 'src/expandText.ts',
+    output: 'expandText',
   },
   team: {
     input: 'src/team.ts',
@@ -130,8 +130,8 @@ export default rollupProject({
     output: 'coach.show',
   },
   challengePage: {
-    input: 'src/challenge-page.ts',
-    output: 'challenge-page',
+    input: 'src/challengePage.ts',
+    output: 'challengePage',
     name: 'challengePageStart'
   },
   checkout: {
@@ -145,25 +145,25 @@ export default rollupProject({
     name: 'loginSignup'
   },
   teamBattleForm: {
-    input: 'src/team-battle-form.ts',
-    output: 'team-battle-form'
+    input: 'src/teamBattleForm.ts',
+    output: 'teamBattleForm'
   },
   tourForm: {
-    input: 'src/tour-form.ts',
-    output: 'tour-form'
+    input: 'src/tourForm.ts',
+    output: 'tourForm'
   },
   gameSearch: {
     input: 'src/gameSearch.ts',
-    output: 'game-search'
+    output: 'gameSearch'
   },
   userComplete: {
-    input: 'src/user-complete.ts',
-    output: 'user-complete',
+    input: 'src/userComplete.ts',
+    output: 'userComplete',
     name: 'UserComplete'
   },
   infiniteScroll: {
-    input: 'src/infinite-scroll.ts',
-    output: 'infinite-scroll',
+    input: 'src/infiniteScroll.ts',
+    output: 'infiniteScroll',
     name: 'InfiniteScroll'
   },
   flatpickr: {

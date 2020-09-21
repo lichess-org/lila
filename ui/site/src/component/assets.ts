@@ -36,7 +36,7 @@ export const loadModule = (name: string): Promise<void> => loadScript(jsModule(n
 
 export const userComplete = (): Promise<UserComplete> => {
   loadCssPath('complete');
-  return loadModule('user-complete').then(_ => window.UserComplete);
+  return loadModule('userComplete').then(_ => window.UserComplete);
 }
 
 export const hopscotch = () => {

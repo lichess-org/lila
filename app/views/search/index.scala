@@ -21,7 +21,7 @@ object index {
     views.html.base.layout(
       title = searchInXGames.txt(nbGames.localize, nbGames),
       moreJs = frag(
-        jsModule("game-search"),
+        jsModule("gameSearch"),
         infiniteScrollTag
       ),
       moreCss = cssTag("search")

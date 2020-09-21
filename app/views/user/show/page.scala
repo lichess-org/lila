@@ -86,7 +86,7 @@ object page {
           embedJsUnsafeLoadThen(s"lichess.ratingHistoryChart($ratingChart)")
         )
       },
-      withSearch option jsModule("game-search"),
+      withSearch option jsModule("gameSearch"),
       isGranted(_.UserSpy) option jsModule("mod.user")
     )
 

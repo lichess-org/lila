@@ -51,11 +51,11 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def roundTag                            = jsModule("round")
   def roundNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("round.nvui")
 
-  def analyseTag                            = jsModule("analysis-board")
-  def analyseNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("analysis-board.nvui")
+  def analyseTag                            = jsModule("analysisBoard")
+  def analyseNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("analysisBoard.nvui")
 
   def captchaTag          = jsModule("captcha")
-  def infiniteScrollTag   = jsModule("infinite-scroll")
+  def infiniteScrollTag   = jsModule("infiniteScroll")
   def chessgroundTag      = jsAt("javascripts/vendor/chessground.min.js")
   def cashTag             = jsAt("javascripts/vendor/cash.min.js")
   def fingerprintTag      = jsAt("javascripts/fipr.js")

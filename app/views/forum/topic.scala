@@ -77,7 +77,7 @@ object topic {
       moreJs = frag(
         jsModule("forum"),
         formWithCaptcha.isDefined option captchaTag,
-        jsModule("expand-text")
+        jsModule("expandText")
       ),
       moreCss = cssTag("forum"),
       openGraph = lila.app.ui
