@@ -22,7 +22,7 @@ final class Tv(
 
   def sides(gameId: String, color: String) =
     Open { implicit ctx =>
-      OptionFuResult(chess.Color(color) ?? { env.round.proxyRepo.pov(gameId, _) }) { pov =>
+      OptionFuResult(chess.Color.fromName(color) ?? { env.round.proxyRepo.pov(gameId, _) }) { pov =>
         env.game.crosstableApi.withMatchup(pov.game) map { ct =>
           Ok(html.tv.side.sides(pov, ct))
         }

@@ -23,7 +23,7 @@ sealed trait RootOrNode {
   def addChild(node: Node): RootOrNode
   def fullMoveNumber = 1 + ply / 2
   def mainline: List[Node]
-  def color = chess.Color(ply % 2 == 0)
+  def color = chess.Color.fromPly(ply)
   def moveOption: Option[Uci.WithSan]
 }
 

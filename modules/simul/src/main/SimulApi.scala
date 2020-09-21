@@ -234,7 +234,7 @@ final class SimulApi(
       case (pairing, number) =>
         for {
           user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
-          hostColor = simul.hostColor | chess.Color(number % 2 == 0)
+          hostColor = simul.hostColor | chess.Color.fromWhite(number % 2 == 0)
           whiteUser = hostColor.fold(host, user)
           blackUser = hostColor.fold(user, host)
           clock     = simul.clock.chessClockOf(hostColor)

@@ -31,7 +31,7 @@ object captcha {
           div(cls := "challenge")(
             views.html.board.bits.mini(
               chess.format.FEN(captcha.fen),
-              chess.Color(captcha.white)
+              chess.Color.fromWhite(captcha.white)
             ) {
               div(
                 dataMoves := safeJsonValue(Json.toJson(captcha.moves)),

@@ -2,7 +2,7 @@ package controllers
 
 import chess.format.Forsyth.SituationPlus
 import chess.format.{ FEN, Forsyth }
-import chess.Situation
+import chess.{ Black, Situation, White }
 import chess.variant.{ FromPosition, Standard, Variant }
 import play.api.libs.json.Json
 import play.api.mvc._
@@ -43,7 +43,7 @@ final class UserAnalysis(
         .filter(_.nonEmpty)
         .orElse(get("fen")) map FEN.apply
       val pov         = makePov(decodedFen, variant)
-      val orientation = get("color").flatMap(chess.Color.apply) | pov.color
+      val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
         EnableSharedArrayBuffer(Ok(html.board.userAnalysis(data, pov)))
@@ -65,8 +65,8 @@ final class UserAnalysis(
             situation = from.situation,
             turns = from.turns
           ),
-          whitePlayer = lila.game.Player.make(chess.White, none),
-          blackPlayer = lila.game.Player.make(chess.Black, none),
+          whitePlayer = lila.game.Player.make(White, none),
+          blackPlayer = lila.game.Player.make(Black, none),
           mode = chess.Mode.Casual,
           source = lila.game.Source.Api,
           pgnImport = None
@@ -79,7 +79,7 @@ final class UserAnalysis(
     Open { implicit ctx =>
       OptionFuResult(env.game.gameRepo game id) { g =>
         env.round.proxyRepo upgradeIfPresent g flatMap { game =>
-          val pov = Pov(game, chess.Color(color == "white"))
+          val pov = Pov(game, chess.Color.fromName(color) | White)
           negotiate(
             html =
               if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess

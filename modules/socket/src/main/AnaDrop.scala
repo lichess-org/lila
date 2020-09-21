@@ -46,7 +46,7 @@ object AnaDrop {
     for {
       d    <- o obj "d"
       role <- d str "role" flatMap chess.Role.allByName.get
-      pos  <- d str "pos" flatMap chess.Pos.posAt
+      pos  <- d str "pos" flatMap chess.Pos.fromKey
       variant = chess.variant.Variant orDefault ~d.str("variant")
       fen  <- d str "fen"
       path <- d str "path"

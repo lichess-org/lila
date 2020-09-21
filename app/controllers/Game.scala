@@ -84,7 +84,7 @@ final class Game(
             max = getInt("max", req) map (_ atLeast 1),
             rated = getBoolOpt("rated", req),
             perfType = (~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) }).toSet,
-            color = get("color", req) flatMap chess.Color.apply,
+            color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
             ongoing = getBool("ongoing", req),
             flags = requestPgnFlags(req, extended = false).copy(literate = false),

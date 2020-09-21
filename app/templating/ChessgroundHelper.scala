@@ -21,8 +21,8 @@ trait ChessgroundHelper {
         raw {
           if (ctx.pref.is3d) ""
           else {
-            def top(p: Pos)  = orient.fold(8 - p.y, p.y - 1) * 12.5
-            def left(p: Pos) = orient.fold(p.x - 1, 8 - p.x) * 12.5
+            def top(p: Pos)  = orient.fold(7 - p.rank.index, p.rank.index) * 12.5
+            def left(p: Pos) = orient.fold(p.file.index, 7 - p.rank.index) * 12.5
             val highlights = ctx.pref.highlight ?? lastMove.distinct.map { pos =>
               s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
             } mkString ""

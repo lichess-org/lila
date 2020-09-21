@@ -73,7 +73,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
 
   def pov(gameId: ID, color: String): Fu[Option[Pov]] =
-    Color(color) ?? (pov(gameId, _))
+    Color.fromName(color) ?? (pov(gameId, _))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
     game(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }
