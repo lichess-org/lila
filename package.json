@@ -54,6 +54,7 @@
     "ui/tournamentCalendar",
     "ui/tree",
     "ui/msg",
+    "ui/dgt",
     "ui/@build/rollupProject",
     "ui/@types/lichess",
     "ui/@types/cash"
