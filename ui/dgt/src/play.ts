@@ -593,7 +593,7 @@ export default function (token: string) {
         case "started":
           //Announce the last move
           if (me.id !== lastMove.by || announceAllMoves) {
-            announcePlay(lastMove, gameState.wtime, gameState.btime);
+            announcePlay(lastMove);
           }
           break;
         case "outoftime":
@@ -795,7 +795,7 @@ export default function (token: string) {
               await sleep(1000);
               //Repeat last game state announcement
               var gameState = gameStateMap.get(currentGameId);
-              announcePlay(lastMove, gameState.wtime, gameState.btime);
+              announcePlay(lastMove);
             }
           }
           else {
