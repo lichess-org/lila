@@ -199,8 +199,8 @@
     <item quantity="other">%s partier mot deg</item>
   </plurals>
   <string name="cancel">Avbryt</string>
-  <string name="whiteTimeOut" comment="whiteTimeOut&#10;&#10;Shows when White's time has run out. Is followed by the end condition, for example&#10;'White time out · Draw'">Tiden er ute for hvit</string>
-  <string name="blackTimeOut" comment="blackTimeOut&#10;&#10;Shows when Black's time has run out. Is followed by the end condition, for example&#10;'Black time out · Draw'">Tiden er ute for svart</string>
+  <string name="whiteTimeOut">Tiden er ute for hvit</string>
+  <string name="blackTimeOut">Tiden er ute for svart</string>
   <string name="drawOfferSent">Remistilbud sendt</string>
   <string name="drawOfferDeclined">Remistilbud avslått</string>
   <string name="drawOfferAccepted">Remistilbud godtatt</string>
