@@ -36,7 +36,12 @@ def western_punctuation(lang):
     return lang not in [
         "zh-TW", "zh-CN", "hi-IN", "ja-JP", "bn-BD", "ar-SA", "th-TH", "ne-NP",
         "ko-KR", "ur-PK", "hy-AM", "ml-IN", "ka-GE", "he-IL", "jbo-EN",
+        "fa-IR",
     ]
+
+
+def ends_with_punctuation(text):
+    return any(text.rstrip().endswith(char) for char in ".!?")
 
 
 def crowdin_q(text):
@@ -142,8 +147,8 @@ def lint_string(ctx, dest, source, allow_missing=0):
     if "\n" not in source and "\n" in dest:
         ctx.notice("expected single line string")
 
-    if western_punctuation(ctx.lang()) and source.rstrip().endswith(".") and not dest.rstrip().endswith("."):
-        ctx.warning("translation does not end with dot")
+    if western_punctuation(ctx.lang()) and ends_with_punctuation(source) and not ends_with_punctuation(dest):
+        ctx.warning("translation does not end with punctuation")
 
     if re.match(r"\n", dest):
         ctx.error("has leading newlines")
