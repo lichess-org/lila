@@ -38,7 +38,8 @@ def western_punctuation(lang):
     return lang not in [
         "zh-TW", "zh-CN", "hi-IN", "ja-JP", "bn-BD", "ar-SA", "th-TH", "ne-NP",
         "ko-KR", "ur-PK", "hy-AM", "ml-IN", "ka-GE", "he-IL", "jbo-EN",
-        "fa-IR",
+        "fa-IR", "or-IN", "el-GR", "ur-PK", "uk-UA", "my-MM", "ckb-IR",
+        "ta-IN", "sr-SP", "pa-IN", "mn-MN", "mk-MK",
     ]
 
 
