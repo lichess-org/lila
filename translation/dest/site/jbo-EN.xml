@@ -80,6 +80,7 @@
   <string name="averageRatingX">nilcre cnano fa li %s</string>
   <string name="recentGames">lo pu zi caxmati</string>
   <string name="topGames">lo crerai jvikei nunjvi</string>
+  <string name="masterDbExplanation">reki\'oki\'o lo marji caxmati poi la\'o my. FIDE my. terva\'i lo za\'u %1$s jvikei befi ke\'a zi\'e poi lo li %2$s na\'ardetri ke\'a lo gregori ku purci zi\'e poi lo li %3$s na\'ardetri ke\'a lo gregori ku balvi</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
   <string name="winPreventedBy50MoveRule">lo nunji\'a cu se fanta lo javni be tu\'a lo nunmu\'u muno mei</string>
   <string name="lossSavedBy50MoveRule">lo nuntolji\'a cu se zanfanta lo javni be tu\'a lo nunmu\'u muno mei</string>
