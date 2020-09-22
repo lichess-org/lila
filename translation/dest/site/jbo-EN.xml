@@ -22,6 +22,8 @@
   <string name="whiteIsVictorious">la blabi cu jinga</string>
   <string name="blackIsVictorious">la xekri cu jinga</string>
   <string name="youPlayTheWhitePieces">do se caxmati</string>
+  <string name="youPlayTheBlackPieces">do te caxmati</string>
+  <string name="itsYourTurn">ma kelka\'u do</string>
   <string name="kingInTheCenter">lo noltrunau cu zvati lo midju</string>
   <string name="threeChecks">ci nu ckape lo noltrunau</string>
   <string name="raceFinished">ca mulfa\'o lo nu bajyjvi</string>
