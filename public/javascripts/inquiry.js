@@ -10,7 +10,7 @@ $(function() {
   var nextStore = lichess.storage.makeBoolean('inquiry-auto-next');
 
   if (!nextStore.get()) {
-    $('#inquiry .switcher input').attr('checked', false);
+    $('#inquiry .switcher input').prop('checked', false);
     $('#inquiry input.auto-next').val('0');
   }
 
