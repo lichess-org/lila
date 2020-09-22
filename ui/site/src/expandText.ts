@@ -85,7 +85,7 @@ lichess.load.then(() => {
 
   function expand(a: Candidate) {
     const $iframe: any = $('<iframe>').addClass('analyse ' + a.type).attr('src', a.src);
-    $(a.element).replaceWith($('<div class="embed"></div>').html($iframe));
+    $(a.element).replaceWith($('<div class="embed">').prepend($iframe));
     return $iframe.on('load', function(this: HTMLIFrameElement) {
       if (this.contentDocument?.title.startsWith("404")) this.style.height = '100px';
     }).on('mouseenter', function(this: HTMLElement) {
