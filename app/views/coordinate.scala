@@ -16,10 +16,7 @@ object coordinate {
     views.html.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
       moreCss = cssTag("coordinate"),
-      moreJs = frag(
-        jsTag("vendor/sparkline.min.js"),
-        jsModule("coordinate")
-      ),
+      moreJs = jsModule("coordinate"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Chess board coordinates trainer",

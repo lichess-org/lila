@@ -16,7 +16,6 @@ object show {
       title = trans.puzzles.txt(),
       moreCss = cssTag("puzzle"),
       moreJs = frag(
-        jsTag("vendor/sparkline.min.js"),
         jsModule("puzzle"),
         embedJsUnsafeLoadThen(s"""LichessPuzzle(${safeJsonValue(
           Json.obj(

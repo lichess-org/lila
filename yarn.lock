@@ -28,6 +28,11 @@
   resolved "https://registry.yarnpkg.com/@badrap/result/-/result-0.2.6.tgz#868d1bc98145f346c465f3e3be45aea42d87aa66"
   integrity sha512-YmdWUHsWqsduDKt2sjzR+DFg+NriN+J6GAtDp5GpTC5wjqFnArY4V/00xdYNy9kJ0YlrBpN6OQZeM2dN0Kr1jw==
 
+"@fnando/sparkline@^0.3.10":
+  version "0.3.10"
+  resolved "https://registry.yarnpkg.com/@fnando/sparkline/-/sparkline-0.3.10.tgz#0cb6549a232af0f19f75b33d38fddd4f5ed9f086"
+  integrity sha512-Rwz2swatdSU5F4sCOvYG8EOWdjtLgq5d8nmnqlZ3PXdWJI9Zq9BRUvJ/9ygjajJG8qOyNpMFX3GEVFjZIuB1Jg==
+
 "@gulp-sourcemaps/identity-map@1.X":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@gulp-sourcemaps/identity-map/-/identity-map-1.0.2.tgz#1e6fe5d8027b1f285dc0d31762f566bccd73d5a9"

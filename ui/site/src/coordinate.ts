@@ -1,4 +1,5 @@
 import * as xhr from "common/xhr";
+import sparkline from "@fnando/sparkline";
 
 lichess.load.then(() => {
   $('#trainer').each(function(this: HTMLElement) {
@@ -56,20 +57,36 @@ lichess.load.then(() => {
       });
     });
 
-    var showCharts = function() {
-      var dark = $('body').hasClass('dark');
-      var theme = {
-        type: 'line',
-        width: '100%',
-        height: '80px',
-        lineColor: dark ? '#4444ff' : '#0000ff',
-        fillColor: dark ? '#222255' : '#ccccff'
-      };
+    function showCharts() {
       $side.find('.user_chart').each(function(this: HTMLElement) {
-        $(this).sparkline($(this).data('points'), theme);
+        const $svg = $('<svg class="sparkline" height="80px" stroke-width="3">')
+          .attr('width', $(this).width() + 'px')
+          .prependTo($(this).empty());
+        sparkline($svg[0], $(this).data('points'), {
+          interactive: true,
+          /* onmousemove(event, datapoint) { */
+          /*   var svg = findClosest(event.target, "svg"); */
+          /*   var tooltip = svg.nextElementSibling; */
+          /*   var date = new Date(datapoint.date).toUTCString().replace(/^.*?, (.*?) \d{2}:\d{2}:\d{2}.*?$/, "$1"); */
+
+
+          /*   tooltip.hidden = false; */
+          /*   tooltip.textContent = `${date}: $${datapoint.value.toFixed(2)} USD`; */
+          /*   tooltip.style.top = `${event.offsetY}px`; */
+          /*   tooltip.style.left = `${event.offsetX + 20}px`; */
+          /* }, */
+
+          /* onmouseout() { */
+          /*   var svg = findClosest(event.target, "svg"); */
+          /*   var tooltip = svg.nextElementSibling; */
+
+          /*   tooltip.hidden = true; */
+          /* } */
+          /* }; */
+        });
       });
-    };
-    showCharts();
+    }
+    requestAnimationFrame(showCharts);
 
     var centerRight = function() {
       $right.css('top', (256 - $right.height() / 2) + 'px');

@@ -1,8 +1,9 @@
-import { h, thunk } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import { numberFormat } from 'common/number';
-import { dataIcon } from '../util';
+import sparkline from "@fnando/sparkline";
 import { Controller, Puzzle, PuzzleGame, MaybeVNode } from '../interfaces';
+import { dataIcon } from '../util';
+import { h, thunk } from 'snabbdom';
+import { numberFormat } from 'common/number';
+import { VNode } from 'snabbdom/vnode';
 
 export function puzzleBox(ctrl: Controller): VNode {
   var data = ctrl.getData();
@@ -72,18 +73,15 @@ function ratingChart(ctrl: Controller, hash: string): VNode {
 
 function drawRatingChart(ctrl: Controller, vnode: VNode): void {
   const $el = $(vnode.elm as HTMLElement);
-  const dark = document.body.classList.contains('dark');
-  const points = ctrl.getData().user!.recent.map(function(r) {
-    return r[2] + r[1];
-  });
-  const redraw = () => $el['sparkline'](points, {
-    type: 'line',
-    width: Math.round($el.outerWidth()) + 'px',
-    height: '80px',
-    lineColor: dark ? '#4444ff' : '#0000ff',
-    fillColor: dark ? '#222255' : '#ccccff',
-    numberFormatter: (x: number) => x
-  });
+  const points = ctrl.getData().user!.recent.map(r => r[2] + r[1]);
+  const redraw = () => {
+    const $svg = $('<svg class="sparkline" height="80px" stroke-width="3">')
+      .attr('width', Math.round($el.outerWidth()) + 'px')
+      .prependTo($(vnode.elm).empty());
+    sparkline($svg[0], points, {
+      interactive: true,
+    })
+  };
   requestAnimationFrame(redraw);
   window.addEventListener('resize', redraw);
 }

@@ -356,7 +356,6 @@ interface CashStatic {
 
 interface Cash {
   powerTip(options?: PowerTip.Options | 'show' | 'hide'): Cash;
-  sparkline: any;
   clock: any;
 }
 
