@@ -57,6 +57,10 @@
   <string name="usingServerAnalysis">samtcise\'u lanli</string>
   <string name="loadingEngine">ca\'o samymo\'i</string>
   <string name="goDeeper">zenba lo ka condi</string>
+  <string name="showThreat">jarco lo gunta kelka\'u</string>
+  <string name="inLocalBrowser">kibyca\'o lanli</string>
+  <string name="toggleLocalEvaluation">pilno lo kibyca\'o lanli</string>
+  <string name="promoteVariation">lo cenba cu palbi\'o</string>
   <string name="move">kelka\'u</string>
   <string name="variantLoss">lo drata javni gunma nuntolji\'a</string>
   <string name="variantWin">lo drata javni gunma nunji\'a</string>
