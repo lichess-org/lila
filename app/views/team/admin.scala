@@ -74,7 +74,7 @@ object admin {
       moreCss = cssTag("team"),
       moreJs = embedJsUnsafeLoadThen("""
            |$('.copy-url-button').on('click', function(e) {
-           |$('#form3-message').val(function(i, x) {return x + $(e.target).data('copyurl') + '\n'})
+           |$('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') + '\n')
            |})
            |""".stripMargin)
     ) {
