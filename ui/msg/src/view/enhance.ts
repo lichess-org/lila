@@ -89,7 +89,7 @@ function expandGames(games: Expandable[]): void {
 function expand(exp: Expandable): void {
   const $iframe: any = $('<iframe>').attr('src', exp.link.src);
   $(exp.element).parent().parent().addClass('has-embed');
-  $(exp.element).replaceWith($('<div class="embed"></div>').html($iframe));
+  $(exp.element).replaceWith($('<div class="embed">').prepend($iframe));
   return $iframe
     .on('load', function(this: HTMLIFrameElement) {
       if (this.contentDocument?.title.startsWith("404"))
