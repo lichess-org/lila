@@ -203,6 +203,7 @@ export default class Setup {
           rating + parseInt(form.ratingRange_range_min.value),
           rating + parseInt(form.ratingRange_range_max.value)
         ].join('-');
+        save();
         const poolMember = this.hookToPoolMember(color, form);
         modal.close();
         if (poolMember) {
