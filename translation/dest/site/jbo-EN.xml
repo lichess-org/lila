@@ -33,6 +33,9 @@
   <string name="joinTheGame">fitytu\'i</string>
   <string name="whitePlays">la blabi pu\'o zukte</string>
   <string name="blackPlays">la xekri pu\'o zukte</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">lo bradi cu cliva .i ko denpa lo %s snidu fo lo nunji\'a be do</item>
+  </plurals>
   <string name="opponentLeftChoices">si\'au lo se jivna be do co\'u jundi ti .i ko zukte .e\'a pa me lo ka xusra lo du\'u do jinga kei kei jo\'u lo ka xusra tu\'a co\'u je mo\'u nai kei jo\'u lo ka denpa</string>
   <string name="makeYourOpponentResign">gau ku ge lo nunjvi cu tolcfa gi zo\'e xusra lo du\'u do jinga</string>
   <string name="forceResignation">karxusra lo ka jinga</string>
@@ -51,6 +54,7 @@
   <string name="computerAnalysisAvailable">pu se lanli lo skami</string>
   <string name="analysis">lo lanli te pruce cartu</string>
   <string name="depthX">se cisni li %s</string>
+  <string name="usingServerAnalysis">samtcise\'u lanli</string>
   <string name="loadingEngine">ca\'o samymo\'i</string>
   <string name="goDeeper">zenba lo ka condi</string>
   <string name="move">kelka\'u</string>
