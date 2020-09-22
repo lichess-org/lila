@@ -86,9 +86,9 @@ lichess.load.then(() => {
       });
     });
 
-    makeReady('form.fide_title select', el => {
-      $(el).on('change', () => $(el).parent('form').trigger('submit'));
-    });
+    makeReady('form.fide_title select', el => 
+      $(el).on('change', () => ($(el).parent('form')[0] as HTMLFormElement).submit())
+    );
 
     makeReady('#mz_others', el => {
       $(el).height($(el).height());
