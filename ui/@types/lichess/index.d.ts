@@ -40,11 +40,11 @@ interface Lichess {
   soundBox: SoundBoxI;
   miniBoard: {
     init(node: HTMLElement): void;
-    initAll(): void;
+    initAll(parent?: HTMLElement): void;
   };
   miniGame: {
     init(node: HTMLElement): string | null;
-    initAll(): void;
+    initAll(parent?: HTMLElement): void;
     update(node: HTMLElement, data: { fen: string, lm: string, wc?: number, bc?: number }): void;
     finish(node: HTMLElement, win?: Color): void;
   };
