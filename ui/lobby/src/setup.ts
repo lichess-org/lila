@@ -199,7 +199,7 @@ export default class Setup {
       const ajaxSubmit = (color: string) => {
         const form = $form[0] as HTMLFormElement;
         const rating = parseInt($modal.find('.ratings input').val() as string) || 1500;
-        form.ratingRange.value = [
+        if (form.ratingRange) form.ratingRange.value = [
           rating + parseInt(form.ratingRange_range_min.value),
           rating + parseInt(form.ratingRange_range_max.value)
         ].join('-');
