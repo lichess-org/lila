@@ -58,16 +58,18 @@ lichess.load.then(() => {
     return false;
   });
 
+  const getLocationHash = (a: HTMLAnchorElement) => a.href.replace(/.+(#\w+)$/, '$1');
+
   function userMod($zone: Cash) {
 
     lichess.contentLoaded($zone[0]);
 
     $('#mz_menu > a:not(.available)').each(function(this: HTMLAnchorElement) {
-      $(this).toggleClass('available', !!$(this.href).length);
+      $(this).toggleClass('available', !!$(getLocationHash(this)).length);
     });
     makeReady('#mz_menu', el => {
       $(el).find('a').each(function(this: HTMLAnchorElement, i: number) {
-        const id = this.href.replace(/.+(#\w+)$/, '$1'), n = '' + (i + 1);
+        const id = getLocationHash(this), n = '' + (i + 1);
         $(this).prepend(`<i>${n}</i>`);
         window.Mousetrap.bind(n, () => scrollTo(id));
       });
@@ -102,12 +104,12 @@ lichess.load.then(() => {
     });
     makeReady('#mz_identification .spy_filter', el => {
       $(el).find('.button').on('click', function(this: HTMLAnchorElement) {
-        xhr.text(this.href!, { method: 'post' });
+        xhr.text($(this).attr('href')!, { method: 'post' });
         $(this).parent().parent().toggleClass('blocked');
         return false;
       });
       $(el).find('tr').on('mouseenter', function(this: HTMLElement) {
-        const v = $(this).find('td:first').text();
+        const v = $(this).find('td:first-child').text();
         $('#mz_others tbody tr').each(function(this: HTMLElement) {
           $(this).toggleClass('none', !($(this).data('tags') || '').includes(v));
         });
