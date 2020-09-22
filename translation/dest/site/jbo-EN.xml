@@ -61,6 +61,8 @@
   <string name="inLocalBrowser">kibyca\'o lanli</string>
   <string name="toggleLocalEvaluation">pilno lo kibyca\'o lanli</string>
   <string name="promoteVariation">lo cenba cu palbi\'o</string>
+  <string name="makeMainLine">lo cenba cu palbi\'o lo malju</string>
+  <string name="deleteFromHere">vimcu ro lo balvi</string>
   <string name="move">kelka\'u</string>
   <string name="variantLoss">lo drata javni gunma nuntolji\'a</string>
   <string name="variantWin">lo drata javni gunma nunji\'a</string>
