@@ -63,10 +63,12 @@
   <string name="promoteVariation">lo cenba cu palbi\'o</string>
   <string name="makeMainLine">lo cenba cu palbi\'o lo malju</string>
   <string name="deleteFromHere">vimcu ro lo balvi</string>
+  <string name="forceVariation">bapli lo nu ti cenba</string>
   <string name="move">kelka\'u</string>
   <string name="variantLoss">lo drata javni gunma nuntolji\'a</string>
   <string name="variantWin">lo drata javni gunma nunji\'a</string>
   <string name="insufficientMaterial">lo\'i cabna keirmu\'u na banzu</string>
+  <string name="pawnMove">la paan. muvdu</string>
   <string name="capture">kavbu</string>
   <string name="close">cliva</string>
   <string name="winning">jivna kelka\'u</string>
