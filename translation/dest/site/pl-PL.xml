@@ -221,6 +221,8 @@
     <item quantity="other">%s partii z Tobą</item>
   </plurals>
   <string name="cancel">Anuluj</string>
+  <string name="whiteTimeOut">Upłynął czas białych</string>
+  <string name="blackTimeOut">Upłynął czas czarnych</string>
   <string name="drawOfferSent">Wysłano propozycję remisu</string>
   <string name="drawOfferDeclined">Odrzucono propozycję remisu</string>
   <string name="drawOfferAccepted">Przyjęto propozycję remisu</string>

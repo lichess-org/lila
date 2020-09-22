@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="ongoing">tenpo lon la tawa</string>
+  <string name="upcoming">pi tenpo kama</string>
+</resources>

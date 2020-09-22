@@ -49,7 +49,7 @@ Lozinka: %3$s</string>
   <string name="createDesc4">Ukoliko učenici već imaju korisnički račun, nemojte kreirati novi račun nego ih pozovite.</string>
   <string name="lichessUsername">Lichess korisničko ime</string>
   <string name="generateANewUsername">Generišite novo korisničko ime</string>
-  <string name="welcomeToClass">Dobro došli na Vaš čas.
+  <string name="welcomeToClass">Dobro došli na Vaš čas: %s.
 Evo linka za pristup času.</string>
   <string name="invitationToClass">Pozvani ste da se pridružite času %s kao student.</string>
   <string name="clickToViewInvitation">Kliknite na link da vidite pozivnicu:</string>

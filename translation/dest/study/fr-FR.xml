@@ -9,7 +9,7 @@
   <string name="whatAreStudies">Qu\'est-ce qu\'une étude?</string>
   <string name="allStudies">Toutes les études</string>
   <string name="studiesCreatedByX">Études créées par %s</string>
-  <string name="noneYet">Aucune étude</string>
+  <string name="noneYet">Aucune étude.</string>
   <string name="hot">Populaire(s)</string>
   <string name="dateAddedNewest">Date d\'ajout (dernier ajout)</string>
   <string name="dateAddedOldest">Date d\'ajout (premier ajout)</string>

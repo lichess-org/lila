@@ -199,6 +199,8 @@
     <item quantity="other">%s ludoj kun vi</item>
   </plurals>
   <string name="cancel">Nuligi</string>
+  <string name="whiteTimeOut">La tempo de blanko finiĝis</string>
+  <string name="blackTimeOut">La tempo de nigro finiĝis</string>
   <string name="drawOfferSent">Egalvenka propono estis sendita</string>
   <string name="drawOfferDeclined">Egalvenka propono estis malakceptita</string>
   <string name="drawOfferAccepted">Egalvenka propono estis akceptita</string>

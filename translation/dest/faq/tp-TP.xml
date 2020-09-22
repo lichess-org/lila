@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="fairPlay">musi pona</string>
+  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">musi</string>
+  <string name="positions">lon</string>
+  <string name="accounts">lipu sina</string>
+  <string name="noUpperCaseDot">ala.</string>
+  <string name="howToThreeDots">...nasin seme?</string>
+</resources>

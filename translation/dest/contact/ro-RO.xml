@@ -42,7 +42,7 @@
   <string name="reportBugInDiscord">Pe serverul de Discord Lichess</string>
   <string name="howToReportBug">Vă rugăm să descrieți cum arată eroarea, ce v-ați așteptat să se întâmple în schimb, și pașii pentru a reproduce eroarea.</string>
   <string name="illegalPawnCapture">Capturarea ilegală a pionului</string>
-  <string name="calledEnPassant">Se numeşte „en passant” şi este unul dintre regulile şahului.</string>
+  <string name="calledEnPassant">Se numește „en passant” și este una dintre regulile șahului.</string>
   <string name="tryEnPassant">Încearcă acest mic joc interactiv pentru a afla mai multe despre \"en passant\".</string>
   <string name="illegalCastling">Rocadă ilegală sau imposibilă</string>
   <string name="castlingPrevented">Rocada este împiedicata doar dacă regele trece printr-un pătrat controlat.</string>

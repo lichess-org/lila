@@ -199,6 +199,8 @@
     <item quantity="other">%s games with you</item>
   </plurals>
   <string name="cancel">Cancel</string>
+  <string name="whiteTimeOut">White time out</string>
+  <string name="blackTimeOut">Black time out</string>
   <string name="drawOfferSent">Draw offer sent</string>
   <string name="drawOfferDeclined">Draw offer declined</string>
   <string name="drawOfferAccepted">Draw offer accepted</string>

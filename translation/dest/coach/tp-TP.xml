@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="location">lon ona</string>
+  <string name="rating">nanpa pi pona jan</string>
+  <string name="aboutMe">sina jan seme?</string>
+</resources>

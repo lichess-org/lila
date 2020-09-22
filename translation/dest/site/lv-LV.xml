@@ -210,6 +210,8 @@
     <item quantity="other">%s savstarpējas spēles</item>
   </plurals>
   <string name="cancel">Atcelt</string>
+  <string name="whiteTimeOut">Baltajiem beidzās laiks</string>
+  <string name="blackTimeOut">Melnajiem beidzās laiks</string>
   <string name="drawOfferSent">Neizšķirta piedāvājums nosūtīts</string>
   <string name="drawOfferDeclined">Neizšķirta piedāvājums noraidīts</string>
   <string name="drawOfferAccepted">Neizšķirta piedāvājums pieņemts</string>

@@ -199,6 +199,8 @@
     <item quantity="other">%s partijen met u</item>
   </plurals>
   <string name="cancel">Annuleren</string>
+  <string name="whiteTimeOut">Tijd om voor wit</string>
+  <string name="blackTimeOut">Tijd om voor zwart</string>
   <string name="drawOfferSent">Remiseaanbod verstuurd</string>
   <string name="drawOfferDeclined">Remiseaanbod geweigerd</string>
   <string name="drawOfferAccepted">Remiseaanbod geaccepteerd</string>

@@ -188,6 +188,8 @@
     <item quantity="other">あなたと %s 局対局</item>
   </plurals>
   <string name="cancel">キャンセル</string>
+  <string name="whiteTimeOut">白時間切れ</string>
+  <string name="blackTimeOut">黒時間切れ</string>
   <string name="drawOfferSent">引き分けの申し込みを送信しました</string>
   <string name="drawOfferDeclined">引き分けの申し込みは拒否されました</string>
   <string name="drawOfferAccepted">引き分けの申し込みに合意しました</string>

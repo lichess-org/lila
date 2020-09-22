@@ -243,6 +243,8 @@
     <item quantity="other">%s مباراة معك</item>
   </plurals>
   <string name="cancel">إلغاء</string>
+  <string name="whiteTimeOut">انتهى وقت الأبيض</string>
+  <string name="blackTimeOut">انتهى وقت الأسود</string>
   <string name="drawOfferSent">تم ارسال عرض التعادل</string>
   <string name="drawOfferDeclined">تم رفض عرض التعادل</string>
   <string name="drawOfferAccepted">تم قبول عرض التعادل</string>

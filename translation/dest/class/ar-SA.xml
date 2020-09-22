@@ -31,9 +31,80 @@
   <string name="generateANewPassword">إنشاء كلمة مرور جديدة للطالب</string>
   <string name="invitedToXByY">دعوة إلى %1$s من قبل %2$s</string>
   <string name="realName">الاسم الحقيقي</string>
+  <string name="privateWillNeverBeShown">خاص. لن يظهر أبداً خارج الصف الدراسي. يساعد في تذكر من هو الطالب.</string>
   <string name="addStudent">أضف طالب</string>
+  <string name="lichessProfileXCreatedForY">حساب ليتشيس %1$s تم إنشاؤه ل%2$s.</string>
+  <string name="studentCredentials">التلميذ:  %1$s
+اسم المستخدم: %2$s
+كلمة المرور: %3$s</string>
+  <string name="inviteALichessAccount">دعوة حساب ليتشيس</string>
+  <string name="inviteDesc1">إذا كان لدى الطالب حساب ليتشيس، يمكنك دعوته إلى الصف.</string>
+  <string name="inviteDesc2">سيتلقون رسالة على ليتشيس مع رابط للانضمام إلى الفصل.</string>
+  <string name="inviteDesc3">هام: فقط قم بدعوة الطلاب الذين تعرفهم، والذين يرغبون في الانضمام إلى الفصل.</string>
+  <string name="inviteDesc4">لا ترسل دعوات غير مطلوبة إلى لاعبين عشوائيين.</string>
   <string name="createANewLichessAccount">إنشاء حساب مستخدم جديد</string>
+  <string name="createDesc1">إذا لم يكن لدى الطالب حساب ليتشيس حتى الآن، يمكنك إنشاء حساب لهم هنا.</string>
+  <string name="createDesc2">لا يطلب عنوان بريد إلكتروني. سيتم إنشاء كلمة مرور، وعليك إرسالها إلى الطالب، حتى يمكنهم تسجيل الدخول.</string>
+  <string name="createDesc3">هام: يجب ألا يملك للطالب حسابات متعددة.</string>
+  <string name="createDesc4">إذا كان لديهم واحد، استخدم نموذج الدعوة بدلاً من ذلك.</string>
+  <string name="lichessUsername">اسم المستخدم على ليتشيس</string>
+  <string name="generateANewUsername">إنشاء اسم مستخدم جديد</string>
+  <string name="welcomeToClass">مرحبا بك في فصلك: %s.
+إليك الرابط للوصول إلى الفصل.</string>
+  <string name="invitationToClass">أنت مدعو للانضمام إلى الفصل \"%s\" كطالب.</string>
+  <string name="clickToViewInvitation">انقر على الرابط لعرض الدعوة:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="zero">لا يوجد دعوات معلقة</item>
+    <item quantity="one">دعوة واحدة معلقة</item>
+    <item quantity="two">دعوتان معلقتان</item>
+    <item quantity="few">%s دعوات معلقة</item>
+    <item quantity="many">%s دعوة معلقة</item>
+    <item quantity="other">%s دعوة معلقة</item>
+  </plurals>
+  <string name="noPendingInvitations">لا يوجد دعوات معلقة</string>
+  <string name="onlyVisibleToTeachers">ظاهر فقط لمعلمى الفصل</string>
+  <string name="lastActiveDate">ناشط</string>
+  <string name="managed">تحت ادارة</string>
+  <string name="thisStudentAccountIsManaged">حساب الطالب هذا تحت ادارة</string>
+  <string name="upgradeFromManaged">الترقية من حساب مدار إلى مستقل</string>
+  <string name="release">أطلق</string>
+  <string name="releaseTheAccount">اطلق الحساب حتى يستطيع الطالب ادارة الحساب بشكل مستقل.</string>
+  <string name="releaseDesc1">لا يمكن إدارة حساب نم إطلاقه مرة اخرى. سيستطيع الطالب تبديل وضع الأطفال وتغيير كلمة المرور بنفسه.</string>
+  <string name="releaseDesc2">سيبقى الطالب في الفصل بعد إطلاق حسابه.</string>
+  <string name="realUniqueEmail">عنوان بريد إلكتروني حقيقي وفريد من نوعه للطالب. سوف نرسل له رسالة تأكيد بالبريد الإلكتروني، مع رابط لإطلاق الحساب.</string>
+  <string name="teachers">معلمون</string>
+  <plurals name="nbTeachers">
+    <item quantity="zero">لا يوجد معلم</item>
+    <item quantity="one">معلم واحد</item>
+    <item quantity="two">معلمان</item>
+    <item quantity="few">%s معلمون</item>
+    <item quantity="many">%s معلم</item>
+    <item quantity="other">%s معلم</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="zero">لا يوجد طلاب</item>
+    <item quantity="one">طالب واحد</item>
+    <item quantity="two">طالبان</item>
+    <item quantity="few">%s طلاب</item>
+    <item quantity="many">%s طالب</item>
+    <item quantity="other">%s طالب</item>
+  </plurals>
+  <string name="students">طلاب</string>
   <string name="progress">مستوي التقدم</string>
+  <string name="noStudents">لا يوجد تلاميذ في الفصل، حتى الآن.</string>
+  <string name="noRemovedStudents">لا يوجد طلاب محذوفين.</string>
+  <string name="overDays">على مدى الأيام</string>
+  <string name="timePlaying">وقت اللعب</string>
+  <string name="variantXOverLastY">%1$s خلال آخر %2$s</string>
   <string name="winrate">نسبة الفوز</string>
   <string name="na">غير متوفر</string>
+  <string name="news">أخبار الفصل</string>
+  <string name="editNews">تعديل الأخبار</string>
+  <string name="notifyAllStudents">إعلام جميع التلاميذ</string>
+  <string name="nothingHere">لا يوجد شيء هنا, حتى الآن.</string>
+  <string name="newsEdit1">جميع أخبار الفصل في مكان.</string>
+  <string name="newsEdit2">إضافة الأخبار الأخيرة في الأعلى. لا تقم بحذف الأخبار السابقة.</string>
+  <string name="newsEdit3">إفصل الأخبار ب ---
+سيعرض سطرا أفقيا.</string>
+  <string name="markdownAvailable">%s متاح لتركيبات الأكثر تطوراً.</string>
 </resources>

@@ -199,6 +199,8 @@
     <item quantity="other">%s giocate con te</item>
   </plurals>
   <string name="cancel">Annulla</string>
+  <string name="whiteTimeOut">Timeout bianco</string>
+  <string name="blackTimeOut">Timeout nero</string>
   <string name="drawOfferSent">Offerta di patta inviata</string>
   <string name="drawOfferDeclined">Offerta di patta rifiutata</string>
   <string name="drawOfferAccepted">Offerta di patta accettata</string>

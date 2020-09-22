@@ -199,6 +199,8 @@
     <item quantity="other">%s partidas contra você</item>
   </plurals>
   <string name="cancel">Cancelar</string>
+  <string name="whiteTimeOut">Tempo esgotado do branco</string>
+  <string name="blackTimeOut">Tempo esgotado das pretas</string>
   <string name="drawOfferSent">Proposta de empate enviada</string>
   <string name="drawOfferDeclined">Proposta de empate recusada</string>
   <string name="drawOfferAccepted">Proposta de empate aceita</string>

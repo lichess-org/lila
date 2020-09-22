@@ -199,6 +199,8 @@
     <item quantity="other">%s játék veled</item>
   </plurals>
   <string name="cancel">Mégse</string>
+  <string name="whiteTimeOut">Világos ideje lejárt</string>
+  <string name="blackTimeOut">Sötét ideje lejárt</string>
   <string name="drawOfferSent">Döntetlen felajánlás elküldve</string>
   <string name="drawOfferDeclined">Döntetlen felajánlás elutasítva</string>
   <string name="drawOfferAccepted">Döntetlen elfogadva</string>

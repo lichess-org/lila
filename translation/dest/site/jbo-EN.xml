@@ -21,6 +21,9 @@
   <string name="createAGame">cfagau su\'o nunjvi</string>
   <string name="whiteIsVictorious">la blabi cu jinga</string>
   <string name="blackIsVictorious">la xekri cu jinga</string>
+  <string name="youPlayTheWhitePieces">do se caxmati</string>
+  <string name="youPlayTheBlackPieces">do te caxmati</string>
+  <string name="itsYourTurn">ma kelka\'u do</string>
   <string name="kingInTheCenter">lo noltrunau cu zvati lo midju</string>
   <string name="threeChecks">ci nu ckape lo noltrunau</string>
   <string name="raceFinished">ca mulfa\'o lo nu bajyjvi</string>
@@ -30,6 +33,9 @@
   <string name="joinTheGame">fitytu\'i</string>
   <string name="whitePlays">la blabi pu\'o zukte</string>
   <string name="blackPlays">la xekri pu\'o zukte</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">lo bradi cu cliva .i ko denpa lo %s snidu fo lo nunji\'a be do</item>
+  </plurals>
   <string name="opponentLeftChoices">si\'au lo se jivna be do co\'u jundi ti .i ko zukte .e\'a pa me lo ka xusra lo du\'u do jinga kei kei jo\'u lo ka xusra tu\'a co\'u je mo\'u nai kei jo\'u lo ka denpa</string>
   <string name="makeYourOpponentResign">gau ku ge lo nunjvi cu tolcfa gi zo\'e xusra lo du\'u do jinga</string>
   <string name="forceResignation">karxusra lo ka jinga</string>
@@ -48,12 +54,21 @@
   <string name="computerAnalysisAvailable">pu se lanli lo skami</string>
   <string name="analysis">lo lanli te pruce cartu</string>
   <string name="depthX">se cisni li %s</string>
+  <string name="usingServerAnalysis">samtcise\'u lanli</string>
   <string name="loadingEngine">ca\'o samymo\'i</string>
   <string name="goDeeper">zenba lo ka condi</string>
+  <string name="showThreat">jarco lo gunta kelka\'u</string>
+  <string name="inLocalBrowser">kibyca\'o lanli</string>
+  <string name="toggleLocalEvaluation">pilno lo kibyca\'o lanli</string>
+  <string name="promoteVariation">lo cenba cu palbi\'o</string>
+  <string name="makeMainLine">lo cenba cu palbi\'o lo malju</string>
+  <string name="deleteFromHere">vimcu ro lo balvi</string>
+  <string name="forceVariation">bapli lo nu ti cenba</string>
   <string name="move">kelka\'u</string>
   <string name="variantLoss">lo drata javni gunma nuntolji\'a</string>
   <string name="variantWin">lo drata javni gunma nunji\'a</string>
   <string name="insufficientMaterial">lo\'i cabna keirmu\'u na banzu</string>
+  <string name="pawnMove">la paan. muvdu</string>
   <string name="capture">kavbu</string>
   <string name="close">cliva</string>
   <string name="winning">jivna kelka\'u</string>
@@ -63,6 +78,7 @@
   <string name="database">samdatni</string>
   <string name="whiteDrawBlack">lo labnunji\'a fa\'u lo nunynorji\'a fa\'u lo xeknunji\'a</string>
   <string name="averageRatingX">nilcre cnano fa li %s</string>
+  <string name="recentGames">lo pu zi caxmati</string>
   <string name="topGames">lo crerai jvikei nunjvi</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
   <string name="winPreventedBy50MoveRule">lo nunji\'a cu se fanta lo javni be tu\'a lo nunmu\'u muno mei</string>
