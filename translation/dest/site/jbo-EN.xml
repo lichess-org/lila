@@ -98,7 +98,10 @@
   <string name="deleteThisImportedGame">xu vimcu ti noi se nerbe\'i nunjvi</string>
   <string name="replayMode">rapli tadji</string>
   <string name="realtimeReplay">pu ca\'o</string>
+  <string name="byCPL">la cypycyc.</string>
   <string name="openStudy">kargau lo seltadni</string>
+  <string name="enable">fasnu</string>
+  <string name="bestMoveArrow">arco lo kelka\'u poi zanrai</string>
   <string name="cpus">lo mijykemructerci\'e</string>
   <string name="blunders">lo nu srera sai</string>
   <string name="mistakes">lo nu srera na\'oi</string>
