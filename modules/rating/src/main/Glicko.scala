@@ -84,14 +84,11 @@ case object Glicko {
   val defaultManaged       = Glicko(1200d, 400d, defaultVolatility)
   val defaultManagedPuzzle = Glicko(1000d, 400d, defaultVolatility)
 
+  // rating that can be lost or gained with a single game
+  val maxRatingDelta = 700
+
   val tau    = 0.75d
   val system = new RatingCalculator(default.volatility, tau, ratingPeriodsPerDay)
-
-  def range(rating: Double, deviation: Double) =
-    (
-      rating - (deviation * 2),
-      rating + (deviation * 2)
-    )
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
     system.previewDeviation(p.toRating, new DateTime, reverse)

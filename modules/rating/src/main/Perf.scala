@@ -30,8 +30,14 @@ case class Perf(
     )
 
   def add(r: Rating, date: DateTime): Option[Perf] = {
-    val glicko = Glicko(r.getRating, r.getRatingDeviation, r.getVolatility)
-    glicko.sanityCheck option add(glicko, date)
+    val newGlicko = Glicko(
+      rating = r.getRating
+        .atMost(glicko.rating + Glicko.maxRatingDelta)
+        .atLeast(glicko.rating - Glicko.maxRatingDelta),
+      deviation = r.getRatingDeviation,
+      volatility = r.getVolatility
+    )
+    newGlicko.sanityCheck option add(newGlicko, date)
   }
 
   def addOrReset(monitor: lila.mon.CounterPath, msg: => String)(r: Rating, date: DateTime): Perf =
