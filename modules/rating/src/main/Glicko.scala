@@ -72,16 +72,17 @@ case object Glicko {
   val maxDeviation              = 500d
 
   // past this, it might not stabilize ever again
-  val maxVolatility = 0.1d
+  val maxVolatility     = 0.1d
+  val defaultVolatility = 0.09d
 
   // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
   val ratingPeriodsPerDay = 0.21436d
 
-  val default = Glicko(1500d, maxDeviation, 0.9d)
+  val default = Glicko(1500d, maxDeviation, defaultVolatility)
 
   // managed is for students invited to a class
-  val defaultManaged       = Glicko(900d, 400d, 0.9d)
-  val defaultManagedPuzzle = Glicko(800d, 400d, 0.9d)
+  val defaultManaged       = Glicko(1200d, 400d, defaultVolatility)
+  val defaultManagedPuzzle = Glicko(1000d, 400d, defaultVolatility)
 
   val tau    = 0.75d
   val system = new RatingCalculator(default.volatility, tau, ratingPeriodsPerDay)
