@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Pyetjet më të shpeshta</string>
   <string name="whyIsLichessCalledLichess">Pse quhet Lichessi kështu?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess është kombinim live/light/libre dhe chess. Shqiptohet %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess është kombinim live/light/libre dhe chess. Shqiptohet %1$s.</string>
   <string name="leechess">li-qes</string>
   <string name="hearItPronouncedBySpecialist">Dëgjoni si shqiptohet nga një specialist.</string>
   <string name="whyLiveLightLibre">Live, sepse lojët luhen dhe shikohen në kohë reale 24/7; light (i lehtë) dhe libre (i lirë) për arsye se Lichessi është open-source dhe jo i ngarkuar me gjëra të panevojshme të cilat i rëndojne websitet tjera.</string>
@@ -28,12 +28,12 @@
   <string name="youCannotApply">Nuk është e mundur të aplikoni që të bëheni moderator. Nëse e shohim dikë që mendojmë se do të ishte moderator i mirë, ne do ti kontaktojmë ata direkt.</string>
   <string name="isCorrespondenceDifferent">A është loja me korrespondence ndryshe nga shahu normal?</string>
   <string name="youCanUseOpeningBookNoEngine">Në Lichess, dallimi kryesor në rregullat për shahun me korrespondenë është se lejohet hapja e librave. Përdorimi i makinave të shahut është ende e ndaluar dhe do të rezultojë në ndëshkim. Edhepse ICCF lejon përdorimin e makinave llogaritëse në korrespondencë, Lichessi nuk e lejon.</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Loja</string>
+  <string name="gameplay">Loja</string>
   <string name="howBulletBlitzEtcDecided">Si caktohen Bullet, Blit dhe kontrollat tjera të kohës?</string>
   <string name="basedOnGameDuration">Kontrollat e kohës në Lichess bazohen në zgjatjen e përafërt të lojës = %1$s
 Për shembull, kohëzgjatja e përafërt e një loje 5+3 është 5*60 + 40*3 =420 sekonda.</string>
   <string name="durationFormula">(koha fillestrare e orës) + 40 * (shtesa e orës)</string>
-  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">&lt;%1$s = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">Cilat variante mund ti luaj në Lichess?</string>
   <string name="lichessSupportChessAnd">Lichessi mundëson shah standard dhe %1$s.</string>
