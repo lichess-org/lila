@@ -157,8 +157,8 @@ case class Perfs(
   def updateStandard =
     copy(
       standard = {
-        val subs = List(bullet, blitz, rapid, classical, correspondence)
-        subs.maxBy(_.latest.fold(0L)(_.getMillis)).latest.fold(standard) { date =>
+        val subs = List(bullet, blitz, rapid, classical, correspondence).filterNot(_.provisional)
+        subs.maxByOption(_.latest.fold(0L)(_.getMillis)).flatMap(_.latest).fold(standard) { date =>
           val nb = subs.map(_.nb).sum
           val glicko = Glicko(
             rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
