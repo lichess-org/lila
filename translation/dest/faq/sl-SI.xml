@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">Odgovori na pogosto zastavljena vprašanja</string>
   <string name="frequentlyAskedQuestions">Pogosto zastavljena vprašanja</string>
   <string name="whyIsLichessCalledLichess">Zakaj se Lichess imenuje Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess je kombinacija live/light/ libre in šaha. Izgovarja se %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinacija live/light/ libre in šaha. Izgovarja se %1$s.</string>
   <string name="leechess">li-čes</string>
   <string name="hearItPronouncedBySpecialist">Slišite, da jo izgovori specialist.</string>
   <string name="whyLiveLightLibre">V živo, ker se igre igrajo in gledajo v realnem času 24/7; lahek in svoboden za dejstvo, da je Lichess odprtokoden in neobremenjen z lastniškimi smeti, ki težijo druge spletne strani.</string>
@@ -28,6 +28,6 @@
   <string name="youCannotApply">Če želite postati moderator, se ni mogoče prijaviti. Če vidimo nekoga, za katerega mislimo, da bi bil dober kot moderator, ga bomo kontaktirali neposredno.</string>
   <string name="isCorrespondenceDifferent">Ali se dopisni šah razlikuje od običajnega šaha?</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichess, je glavna razlika v pravilih ta, da je dovoljena uporaba otvoritvenih knjižnic. Uporaba računalniških motorjev je prepovedana in ima za posledico zaznamek za pomoč z računalnikom. Čeprav ICCF dovoljuje uporabo motorjev v dopisnem šahu jih Lichess ne.</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Igranje</string>
+  <string name="gameplay">Igranje</string>
   <string name="howBulletBlitzEtcDecided">Kako so izbrane Bullet, Blitz in druge časovne kontrole izbrane?</string>
 </resources>
