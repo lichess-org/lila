@@ -195,6 +195,8 @@
     <item quantity="other">%s skákir með þér</item>
   </plurals>
   <string name="cancel">Hætta við</string>
+  <string name="whiteTimeOut">Hvítur féll á tíma</string>
+  <string name="blackTimeOut">Svartur féll á tíma</string>
   <string name="drawOfferSent">boð um jafntefli sent</string>
   <string name="drawOfferDeclined">Boði um jafntefli hafnað</string>
   <string name="drawOfferAccepted">Boði um jafntefli samþykkt</string>
@@ -692,14 +694,19 @@
   <string name="quickPairing">Flýtival</string>
   <string name="lobby">Salur</string>
   <string name="anonymous">Nafnlaus</string>
+  <string name="yourScore">Stigin þín: %s</string>
   <string name="language">Tungumál</string>
+  <string name="background">Bakgrunnur</string>
   <string name="light">Ljós</string>
   <string name="dark">Dökkur</string>
   <string name="transparent">Gegnsær</string>
   <string name="backgroundImageUrl">URL á bakgrunnsmynd:</string>
+  <string name="boardTheme">Borðþema</string>
+  <string name="boardSize">Borðstærð</string>
   <string name="usernameAlreadyUsed">Þetta notandanafn er þegar í notkun, vinsamlegast veldu annað notandanafn.</string>
   <string name="usernamePrefixInvalid">Notandanafnið verður að byrja á bókstaf.</string>
   <string name="usernameSuffixInvalid">Notandanafnið verður að enda á bókstaf eða tölustaf.</string>
+  <string name="usernameUnacceptable">Þetta notendanafn er óviðunandi.</string>
   <string name="chessBasics">Grunnatriði</string>
   <string name="coaches">Þjálfarar</string>
   <string name="error.minLength">Lágmarks lengd er %s</string>
@@ -730,6 +737,7 @@
   <string name="xWasPlayed">%s var leikinn</string>
   <string name="findBetterMoveForWhite">Finndu betri leik fyrir hvítan</string>
   <string name="findBetterMoveForBlack">Finndu betri leik fyrir svartan</string>
+  <string name="resumeLearning">Halda áfram að læra</string>
   <string name="youCanDoBetter">Þú getur gert betur</string>
   <string name="tryAnotherMoveForWhite">Reyndu annan leik fyrir hvítan</string>
   <string name="tryAnotherMoveForBlack">Reyndu annan leik fyrir svartan</string>
@@ -739,6 +747,9 @@
   <string name="noMistakesFoundForBlack">Engin mistök fundust hjá svörtum</string>
   <string name="doneReviewingWhiteMistakes">Yfirferð mistaka hvíts lokið</string>
   <string name="doneReviewingBlackMistakes">Yfirferð mistaka svarts lokið</string>
+  <string name="doItAgain">Gera aftur</string>
+  <string name="reviewWhiteMistakes">Skoða mistök hvítrar</string>
+  <string name="reviewBlackMistakes">Skoða mistök svartrar</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekúnda</item>
     <item quantity="other">%s sekúndur</item>

@@ -2,12 +2,12 @@
 <resources>
   <string name="faqAbbreviation">ЧаПи</string>
   <string name="frequentlyAskedQuestions">Часті запитання</string>
-  <string name="whyIsLichessCalledLichess">Чому Lichess називається Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess — це комбінація live/light/libre і шахів. Вимовляється як %1$s.</string>
-  <string name="leechess">лі-чес</string>
+  <string name="whyIsLichessCalledLichess">Чому Lichess так називається?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess — це поєднання live/light/libre, тобто \"наживо\", \"легко\", \"вільно\" і \"chess\", тобто \"шахи\" англійською. Вимовляється %1$s.</string>
+  <string name="leechess">\"лі-чес\"</string>
   <string name="hearItPronouncedBySpecialist">Послухайте це у виконанні спеціаліста.</string>
-  <string name="whyLiveLightLibre">Живі, тому що ігри грають і спостерігають в режимі реального часу 24/7; легкі і вільні через той факт, що Lichess має відкритий вихідний код і не нагромаджений мотлохом, який пропагує інші веб-сайти.</string>
-  <string name="whyIsLilaCalledLila">Так само вихідний код Lichess, %1$s, означає li[chess in sca]la, тому що основа Lichess пишеться на %2$s, інтуїтивно зрозумілій мові програмування.</string>
+  <string name="whyLiveLightLibre">Наживо - тому що ігри граються та спостерігаються в режимі реального часу 24/7; легко та вільно - тому що Lichess має відкритий вихідний код і не захаращений пропрієтарним мотлохом, як на інших веб-сайтах.</string>
+  <string name="whyIsLilaCalledLila">А код Lichess, %1$s, означає \"li[chess in sca]la\" (Lichess на Scala), тому що рушій Lichess написаний на %2$s, інтуїтивній мові програмування.</string>
   <string name="howCanIContributeToLichess">Як я можу зробити свій внесок у Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess існує за гроші від пожертв гравців та зусиллями команди волонтерів.</string>
   <string name="findMoreAndSeeHowHelp">Ви можете дізнатися більше про %1$s (включаючи %2$s). Якщо Ви хочете допомогти Lichess, вклавши свій час та навички, там є також %3$s.</string>
@@ -25,9 +25,9 @@
   <string name="preventLeavingGameWithoutResigning">Що відбувається з гравцями, які залишають ігри не здавшись?</string>
   <string name="leavingGameWithoutResigningExplanation">Якщо ваш суперник часто відхиляє/залишає ігри, він отримує \"блокування ігор\", що означає, що йому заборонено брати участь в іграх. Це не зазначено публічно у обліковому записі. Якщо така поведінка продовжиться, тривалість заборони збільшиться, а довгострокова поведінка такого роду може призвести до закриття облікового запису.</string>
   <string name="howCanIBecomeModerator">Як я можу стати модератором?</string>
-  <string name="youCannotApply">Ми не приймаємо прохання стати модератором. Якщо ми бачимо того, хто на нашу думку був би хорошим модератором, ми зв\'яжемося з ними безпосередньо.</string>
+  <string name="youCannotApply">Ми не приймаємо заявок у модератори. Якщо ми побачимо когось, хто на нашу думку був би хорошим модератором, ми зв\'яжемося з ним безпосередньо.</string>
   <string name="isCorrespondenceDifferent">Заочні шахи відрізняються від звичайних?</string>
-  <string name="youCanUseOpeningBookNoEngine">На Lichess, головна відмінність правил для заочних шахів полягає в тому, що дозволена книга дебютів. Використання рушіїв все ще заборонене і призведе до позначення за зловживання допомогою рушія. Хоча ICCF дозволяє використовувати рушій у заочних іграх, на Lichess це не дозволено.</string>
+  <string name="youCanUseOpeningBookNoEngine">На Lichess головна відмінність правил для заочних шахів полягає в тому, що дозволена книга дебютів. Використання рушіїв все ще заборонене і призведе до покарання за користування рушієм. Хоча організація ICCF дозволяє використовувати рушії у заочних іграх, на Lichess так робити не можна.</string>
   <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Ігровий процес</string>
   <string name="howBulletBlitzEtcDecided">Як визначається контроль часу Куля, Бліц та інший?</string>
   <string name="basedOnGameDuration">Параметр часу Lichess базується на розрахунковій тривалості гри = %1$s

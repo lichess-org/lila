@@ -78,12 +78,21 @@
   <string name="database">samdatni</string>
   <string name="whiteDrawBlack">lo labnunji\'a fa\'u lo nunynorji\'a fa\'u lo xeknunji\'a</string>
   <string name="averageRatingX">nilcre cnano fa li %s</string>
-  <string name="recentGames">lo pu zi caxmati</string>
+  <string name="recentGames">lo pu zi nunjvi</string>
   <string name="topGames">lo crerai jvikei nunjvi</string>
+  <string name="masterDbExplanation">reki\'oki\'o lo marji caxmati poi la\'o my. FIDE my. terva\'i lo za\'u %1$s jvikei befi ke\'a zi\'e poi lo li %2$s na\'ardetri ke\'a lo gregori ku purci zi\'e poi lo li %3$s na\'ardetri ke\'a lo gregori ku balvi</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="other">la caxmat. selfri ba lo %s kelka\'u</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="other">ga lonu kavbu gi lonu la paan. muvdu poi bavla\'i cu selfri ba lo %s kelka\'u to vo\'a kraga\'igau la li muno kelka\'u kancu toi</item>
+  </plurals>
+  <string name="noGameFound">sispe\'i no nunjvi</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
   <string name="winPreventedBy50MoveRule">lo nunji\'a cu se fanta lo javni be tu\'a lo nunmu\'u muno mei</string>
   <string name="lossSavedBy50MoveRule">lo nuntolji\'a cu se zanfanta lo javni be tu\'a lo nunmu\'u muno mei</string>
   <string name="allSet">.i\'e</string>
+  <string name="importPgn">samymo\'i ra\'i la\'o my. PGN my.</string>
   <string name="delete">vimcu</string>
   <string name="deleteThisImportedGame">xu vimcu ti noi se nerbe\'i nunjvi</string>
   <string name="realtimeReplay">pu ca\'o</string>

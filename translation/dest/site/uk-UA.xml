@@ -118,7 +118,7 @@
   <string name="cpus">Процесори</string>
   <string name="memory">Пам\'ять</string>
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
-  <string name="removesTheDepthLimit">Видаляє обмеження на глибину. Ваш комп\'ютер може перегрітись</string>
+  <string name="removesTheDepthLimit">Знімає обмеження на глибину аналізу - ваш комп’ютер стане теплішим</string>
   <string name="blunder">Груба помилка</string>
   <string name="blunders">Грубі помилки</string>
   <string name="mistake">Помилка</string>
@@ -665,7 +665,7 @@
   <string name="error.email">Невірна адреса електронної пошти</string>
   <string name="error.email_acceptable">Ця адреса email неприйнятна</string>
   <string name="error.email_unique">Ця адреса електронної пошти вже використовується</string>
-  <string name="error.email_different">Це адреса електронної пошти вже використовується</string>
+  <string name="error.email_different">Це і так ваша адреса електронної пошти</string>
   <string name="ifRatingIsPlusMinusX">Якщо рейтинг ± %s</string>
   <string name="onlyFriends">Тільки друзям</string>
   <string name="menu">Меню</string>
@@ -816,7 +816,7 @@
   <string name="usernameCharsInvalid">Ім\'я користувача має містити тільки літери, цифри, символи підкреслення і тире.</string>
   <string name="usernameUnacceptable">Неприпустиме ім\'я користувача.</string>
   <string name="directlySupportLichess">Підтримка Lichess</string>
-  <string name="playChessInStyle">В шаховому стилі</string>
+  <string name="playChessInStyle">Грайте в шахи стильно</string>
   <string name="chessBasics">Шахові основи</string>
   <string name="coaches">Тренери</string>
   <string name="invalidPgn">Неприпустимий PGN</string>
@@ -898,15 +898,15 @@
   </plurals>
   <string name="sorry">Вибачте :(</string>
   <string name="weHadToTimeYouOutForAWhile">Нам довелося забанити вас на певний час.</string>
-  <string name="timeoutExpires">Тайм-аут закінчується через %s.</string>
+  <string name="timeoutExpires">Вам залишилося відпочивати ще %s.</string>
   <string name="why">Чому?</string>
   <string name="pleasantChessExperience">Ми хочемо, щоб усім було приємно грати у нас в шахи.</string>
   <string name="goodPractice">Щоб домігтися цього ефекту, ми повинні впевнитися, що всі гравці добре поводяться.</string>
-  <string name="potentialProblem">Якщи ми знайшли потенційну проблему, ми відображаємо це повідомлення.</string>
+  <string name="potentialProblem">Ми відображаємо це повідомлення при виявленні можливої проблеми.</string>
   <string name="howToAvoidThis">Як цього уникнути?</string>
   <string name="playEveryGame">Якщо почали грати, догравайте до кінця.</string>
   <string name="tryToWin">Грайте завжди на перемогу (чи принаймні на нічию).</string>
-  <string name="resignLostGames">Здайтеся в програшних іграх (не чекайте кінця таймера).</string>
+  <string name="resignLostGames">Здавайтеся в програних іграх (не чекайте кінця таймера).</string>
   <string name="temporaryInconvenience">Ми вибачаємося за тимчасові незручності,</string>
   <string name="wishYouGreatGames">і бажаємо чудових ігор на lichess.org.</string>
   <string name="thankYouForReading">Дякуємо, що прочитали!</string>
@@ -929,7 +929,7 @@
   <string name="puzzleDesc">Тренажер шахової тактики</string>
   <string name="important">Важливо</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваше запитання може мати відповідь %1$s</string>
-  <string name="inTheFAQ">в ЧаПи.</string>
+  <string name="inTheFAQ">в ЧаПах.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Щоб повідомити про нечесну гру чи погану поведінку, %1$s</string>
   <string name="useTheReportForm">використовуйте форму звіту</string>
   <string name="toRequestSupport">Для запиту підтримки %1$s</string>
