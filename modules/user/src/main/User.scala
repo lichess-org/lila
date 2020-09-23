@@ -90,7 +90,7 @@ case class User(
 
   private def bestOf(perfTypes: List[PerfType], nb: Int) =
     perfTypes.sortBy { pt =>
-      -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).fold(0)(_.roundSeconds))
+      -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).??(_.roundSeconds))
     } take nb
 
   def best8Perfs: List[PerfType] = bestOf(User.firstRow, 4) ::: bestOf(User.secondRow, 4)

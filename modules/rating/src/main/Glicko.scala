@@ -29,6 +29,8 @@ case class Glicko(
   def established          = !provisional
   def establishedIntRating = established option intRating
 
+  def clueless = deviation >= Glicko.cluelessDeviation
+
   def refund(points: Int) = copy(rating = rating + points)
 
   def sanityCheck =
@@ -66,6 +68,7 @@ case object Glicko {
   val variantRankableDeviation  = 65
   val standardRankableDeviation = 75
   val provisionalDeviation      = 110
+  val cluelessDeviation         = 230
   val maxDeviation              = 500d
 
   // past this, it might not stabilize ever again
