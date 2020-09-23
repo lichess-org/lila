@@ -25,7 +25,7 @@
   <string name="howDoYouMovePieces">Як Ви пересуваєте фігури?</string>
   <string name="clickTwoSquares">Натискання на дві клітинки</string>
   <string name="dragPiece">Перетягування фігури</string>
-  <string name="bothClicksAndDrag">Обидва</string>
+  <string name="bothClicksAndDrag">І так і так</string>
   <string name="premovesPlayingDuringOpponentTurn">Ходи на випередження (коли хід суперника)</string>
   <string name="takebacksWithOpponentApproval">Можливість переходити (за згоди суперника)</string>
   <string name="inCasualGamesOnly">Тільки у товариських іграх</string>
