@@ -816,7 +816,7 @@
   <string name="usernameCharsInvalid">Ім\'я користувача має містити тільки літери, цифри, символи підкреслення і тире.</string>
   <string name="usernameUnacceptable">Неприпустиме ім\'я користувача.</string>
   <string name="directlySupportLichess">Підтримка Lichess</string>
-  <string name="playChessInStyle">В шаховому стилі</string>
+  <string name="playChessInStyle">Грайте в шахи стильно</string>
   <string name="chessBasics">Шахові основи</string>
   <string name="coaches">Тренери</string>
   <string name="invalidPgn">Неприпустимий PGN</string>
@@ -898,7 +898,7 @@
   </plurals>
   <string name="sorry">Вибачте :(</string>
   <string name="weHadToTimeYouOutForAWhile">Нам довелося забанити вас на певний час.</string>
-  <string name="timeoutExpires">Тайм-аут закінчується через %s.</string>
+  <string name="timeoutExpires">Вам залишилося відпочивати ще %s.</string>
   <string name="why">Чому?</string>
   <string name="pleasantChessExperience">Ми хочемо, щоб усім було приємно грати у нас в шахи.</string>
   <string name="goodPractice">Щоб домігтися цього ефекту, ми повинні впевнитися, що всі гравці добре поводяться.</string>
