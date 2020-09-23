@@ -87,10 +87,12 @@
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="other">ga lonu kavbu gi lonu la paan. muvdu poi bavla\'i cu selfri ba lo %s kelka\'u to vo\'a kraga\'igau la li muno kelka\'u kancu toi</item>
   </plurals>
+  <string name="noGameFound">sispe\'i no nunjvi</string>
   <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
   <string name="winPreventedBy50MoveRule">lo nunji\'a cu se fanta lo javni be tu\'a lo nunmu\'u muno mei</string>
   <string name="lossSavedBy50MoveRule">lo nuntolji\'a cu se zanfanta lo javni be tu\'a lo nunmu\'u muno mei</string>
   <string name="allSet">.i\'e</string>
+  <string name="importPgn">samymo\'i ra\'i la\'o my. PGN my.</string>
   <string name="delete">vimcu</string>
   <string name="deleteThisImportedGame">xu vimcu ti noi se nerbe\'i nunjvi</string>
   <string name="realtimeReplay">pu ca\'o</string>
