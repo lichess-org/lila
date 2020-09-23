@@ -88,7 +88,8 @@
     <item quantity="other">ga lonu kavbu gi lonu la paan. muvdu poi bavla\'i cu selfri ba lo %s kelka\'u to vo\'a kraga\'igau la li muno kelka\'u kancu toi</item>
   </plurals>
   <string name="noGameFound">sispe\'i no nunjvi</string>
-  <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
+  <string name="openingExplorer">cfari kelka\'u sispe\'i</string>
+  <string name="xOpeningExplorer">cfari %s kelka\'u sispe\'i</string>
   <string name="winPreventedBy50MoveRule">lo nunji\'a cu se fanta lo javni be tu\'a lo nunmu\'u muno mei</string>
   <string name="lossSavedBy50MoveRule">lo nuntolji\'a cu se zanfanta lo javni be tu\'a lo nunmu\'u muno mei</string>
   <string name="allSet">.i\'e</string>
@@ -542,6 +543,7 @@
   <string name="doItAgain">za\'u re\'u zukte</string>
   <string name="reviewWhiteMistakes">catlu lo se srera be la blabi</string>
   <string name="reviewBlackMistakes">catlu lo se srera be la xekri</string>
+  <string name="opening">cfari kelka\'u</string>
   <string name="youCannotChallengeX">.i do na kakne lo ka talsa la\'o zoi. %s .zoi</string>
   <string name="xDoesNotAcceptChallenges">.i la\'o zoi. %s .zoi na fitytu\'i lo nuntalsa</string>
   <string name="playX">zukte la\'o zoi. %s .zoi</string>
