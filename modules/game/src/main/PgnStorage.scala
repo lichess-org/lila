@@ -26,12 +26,7 @@ private object PgnStorage {
 
   case object Huffman extends PgnStorage {
 
-    import org.lichess.compression.game.{
-      Encoder,
-      Square => JavaSquare,
-      Piece => JavaPiece,
-      Role => JavaRole
-    }
+    import org.lichess.compression.game.{ Encoder, Piece => JavaPiece, Role => JavaRole }
     import scala.jdk.CollectionConverters._
 
     def encode(pgnMoves: PgnMoves) =
