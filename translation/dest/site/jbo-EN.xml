@@ -96,6 +96,7 @@
   <string name="importPgn">samymo\'i ra\'i la\'o my. PGN my.</string>
   <string name="delete">vimcu</string>
   <string name="deleteThisImportedGame">xu vimcu ti noi se nerbe\'i nunjvi</string>
+  <string name="replayMode">rapli tadji</string>
   <string name="realtimeReplay">pu ca\'o</string>
   <string name="openStudy">kargau lo seltadni</string>
   <string name="cpus">lo mijykemructerci\'e</string>
@@ -219,6 +220,7 @@
     <item quantity="other">dunda %s snidu</item>
   </plurals>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ti tolvrude cenba lo nilcre</string>
+  <string name="openingExplorerAndTablebase">ge cfari kelka\'u sispe\'i gi ci\'erkei fanmo selcmi</string>
   <string name="takeback">nunmu\'u xruti</string>
   <string name="proposeATakeback">nunmu\'u xruti stidi</string>
   <string name="takebackPropositionSent">lo nunmu\'u xruti se stidi cu se benji</string>
