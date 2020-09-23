@@ -40,7 +40,7 @@ object gamesContent {
                 " • ",
                 permalink
               ),
-              div(cls := "search__rows")(
+              div(cls := "search__rows infinite-scroll")(
                 views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u),
                 pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
               )
