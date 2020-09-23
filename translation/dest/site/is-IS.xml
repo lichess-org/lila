@@ -739,6 +739,8 @@
   <string name="noMistakesFoundForBlack">Engin mistök fundust hjá svörtum</string>
   <string name="doneReviewingWhiteMistakes">Yfirferð mistaka hvíts lokið</string>
   <string name="doneReviewingBlackMistakes">Yfirferð mistaka svarts lokið</string>
+  <string name="reviewWhiteMistakes">Skoða mistök hvítrar</string>
+  <string name="reviewBlackMistakes">Skoða mistök svartrar</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekúnda</item>
     <item quantity="other">%s sekúndur</item>
