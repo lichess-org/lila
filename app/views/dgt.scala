@@ -38,10 +38,33 @@ object dgt {
         )
       ),
       p(
-        "If LiveChess is running on a different machine or different port,",
+        "If LiveChess is running on a different machine or different port, ",
         "you will need to set the IP address and port here in the ",
         a(href := routes.DgtCtrl.config())("Configuration Section"),
         "."
+      ),
+      st.section(
+        h2("DGT Board Limitations"),
+        br,      
+        p(
+          "The play page needs to remain open on your browser. ",
+          "It does not need to be visible, you can minimize it or set it side to side with the Lichess game page, ",
+          "but don't close it or the board will stop working. "
+        ),
+        p(
+          "The board will auto connect to any game that is already on course or any new game that starts. ",
+          "Ability to choose which game to play is coming soon.",
+        ),
+        p(
+          "Time controls for casual games: Classical, Correspondence and Rapid only.",
+          br,
+          "Time controls for rated games: Classical, Correspondence and some Rapids including 15+10 and 20+0"
+        )
+      ),
+      p(
+          "When ready, setup your board and then click ",
+          a(href := routes.DgtCtrl.play())("Play"),
+          "."                
       )
     )
 
