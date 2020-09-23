@@ -635,7 +635,7 @@
   <string name="keyEnterOrExitVariation">fara í/úr afbrigði</string>
   <string name="newTournament">Nýtt mót</string>
   <string name="tournamentHomeTitle">Skákmót með mismunandi tímaskorðum og afbrigðum</string>
-  <string name="tournamentHomeDescription">Tefldu í hröðum skákmótum! Skráðu þig til leiks í skipulögðum opinberum mótum, eða búðu til þitt eigið. 1-mínútu, hraðskák, klassísk tímamörk, Chess960, King of the Hill, Þrískák og fleiri möguleikar í boði fyrir botnlausa skemmtun.</string>
+  <string name="tournamentHomeDescription">Tefldu í hröðum skákmótum! Skráðu þig til leiks í skipulögðum opinberum mótum, eða búðu til þitt eigið. 1-mínútu, hraðskák, klassísk tímamörk, Chess960, Konungur Hóls, Þrískák og fleiri möguleikar í boði fyrir botnlausa skemmtun.</string>
   <string name="tournamentNotFound">Mót ekki fundið</string>
   <string name="tournamentDoesNotExist">Þetta mót er ekki til</string>
   <string name="tournamentMayHaveBeenCanceled">Því kann að hafa verið aflýst, ef allir leikmenn yfirgefa áður en það hefst.</string>
@@ -643,6 +643,7 @@
   <string name="weeklyPerfTypeRatingDistribution">Vikuleg %s stigadreyfing</string>
   <string name="yourPerfTypeRatingIsRating">%1$s skor þitt er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Þú ert betri en %1$s af %2$s leikmönnum</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er betra en %2$s af %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Þú hefur ekki skráð skor í %s.</string>
   <string name="cumulative">Uppsafnað</string>
   <string name="checkYourEmail">Gáðu í tölvupóstinn þinn</string>
@@ -681,7 +682,7 @@
   <string name="zeroAdvertisement">Engar auglýsingar</string>
   <string name="fullFeatured">Fullbúið</string>
   <string name="phoneAndTablet">Símar og spjaldtölvur</string>
-  <string name="bulletBlitzClassical">Bullet, Blitz, klassík</string>
+  <string name="bulletBlitzClassical">Hraðskák, Blitz, klassík</string>
   <string name="correspondenceChess">Bréfskák</string>
   <string name="onlineAndOfflinePlay">Tengd og ótengd spilun</string>
   <string name="viewTheSolution">Sjá lausn</string>
@@ -772,6 +773,7 @@
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
   <string name="edit">Breyta</string>
   <string name="rapid">Atskák</string>
+  <string name="ultraBulletDesc">Mjög fljótir leikir: minna en 30 sekúndur</string>
   <string name="bulletDesc">Mjög hraðar skákir: styttri en 3 mínútur</string>
   <string name="blitzDesc">Hraðar skákir: 3 til 8 mínútur</string>
   <string name="rapidDesc">Örar skákir: 8 til 25 mínútur</string>
