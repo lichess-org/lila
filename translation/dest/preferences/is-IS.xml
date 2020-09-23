@@ -19,6 +19,7 @@
   <string name="horizontalGreenProgressBars">Lárétt framvindustika</string>
   <string name="soundWhenTimeGetsCritical">Hljóð þegar lítill tími er eftir</string>
   <string name="giveMoreTime">Gefa meiri tíma</string>
+  <string name="gameBehavior">Framkoma við skákborðið</string>
   <string name="howDoYouMovePieces">Hvernig hreyfirðu menn?</string>
   <string name="clickTwoSquares">Veldu tvo reiti</string>
   <string name="dragPiece">Dragðu taflmann</string>
@@ -33,5 +34,8 @@
   <string name="moveConfirmation">Staðfesta leik</string>
   <string name="inCorrespondenceGames">Bréfaskákleikir</string>
   <string name="correspondenceAndUnlimited">Bréfaskipti og ótakmarkað</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Hrókunaraðferð</string>
+  <string name="castleByMovingTwoSquares">Færa kóng um tvo reiti</string>
+  <string name="castleByMovingOntoTheRook">Færa kóng á hrókinn</string>
   <string name="yourPreferencesHaveBeenSaved">Stillingar þínar voru vistaðar</string>
 </resources>
