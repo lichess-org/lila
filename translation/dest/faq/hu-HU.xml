@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">GYIK</string>
   <string name="frequentlyAskedQuestions">Gyakran ismételt kérdések</string>
   <string name="whyIsLichessCalledLichess">Miért hívják Lichess-nek a Lichess-t?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">A Lichess a \"live/light/libre\" (élő/tiszta/szabad) és \"chess\" (sakk) szavakbó ered. Ejtsd: %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">A Lichess a \"live/light/libre\" (élő/tiszta/szabad) és \"chess\" (sakk) szavakbó ered. Ejtsd: %1$s.</string>
   <string name="leechess">lí-csessz</string>
   <string name="hearItPronouncedBySpecialist">Így ejti egy hozzáértő.</string>
   <string name="whyLiveLightLibre">Élő, mert a játszmák valós időben játszhatók és követhetők 24/7; tiszta és szabad, mert nyílt forráskódra épül és mentes a többi weboldalon pestisként terjedő jogvédett szeméttől.</string>
@@ -28,12 +28,12 @@
   <string name="youCannotApply">Nincs lehetőség külön moderátornak jelentkezni. Ha valakit alkalmasnak találunk a feladatra, őt személyesen megkeressük.</string>
   <string name="isCorrespondenceDifferent">Van-e különbség a levelezési és hagyományos sakk között?</string>
   <string name="youCanUseOpeningBookNoEngine">A Lichess-en a legnagyobb különbség levelezési sakk szabályaiban, hogy megengedett a megnyitások könyvének használata. Sakkprogramok igénybevétele továbbra is tilos, aminek megszegéséért a felhasználót ezért megjelölik. Hiába lehet az ICCF-en, a Lichess-en nem.</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Játékmenet</string>
+  <string name="gameplay">Játékmenet</string>
   <string name="howBulletBlitzEtcDecided">Mi alapján történik a különböző játékidők (Bullet, Blitz, stb.) besorolása?</string>
   <string name="basedOnGameDuration">A Lichess-en ez a játszma hozzávetőleges hossza alapján történik = %1$s
 Például egy 5+3 játszma körülbelül 5 × 60 + 40 × 3 = 420 másodpercig tart.</string>
   <string name="durationFormula">(kiindulási idő) + 40 × (növekmény)</string>
-  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">&lt; %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Milyen variánsokat játszhatok a Lichess-en?</string>
   <string name="lichessSupportChessAnd">Lichess-en a hagyományos sakk mellett %1$s támogatott.</string>
@@ -52,7 +52,6 @@ A számítógépes elemzéshez a Lichess Stockfish-t használ.</string>
 Ritkán előfordul, hogy ezt nem kézenfekvő megállapítani (teljesen zárt állás, kényszerített patt). Alapesetben annak a javára döntünk, akinek még maradt játékideje.
 
 Megjegyzendő, hogy lehetséges csupán egy futóval vagy huszárral is mattot adni, ha az ellenfélnek van még figurája amivel eltorlaszolhatja a királyt.</string>
-  <string name="linkToFIDErules">FIDE szabálykönyv §6.9, PDF</string>
   <string name="discoveringEnPassant">Miért tud egy gyalog leütni egy másikat ha az már mellette áll? (en passant)</string>
   <string name="explainingEnPassant">Ez egy szabályos lépés, amit \"en passant\"-nak hívnak. A Wikipédia szócikk %1$s.
 
@@ -67,7 +66,6 @@ Lásd még az erről készült %3$s-t.</string>
   <string name="threefoldRepetition">Háromszori állásismétlés</string>
   <string name="threefoldRepetitionExplanation">Ha a táblán egy állás háromszor megismétlődik a játékosok döntetlent igényelhetnek %1$s szerint. A Lichess a hivatalos FIDE szabályokat követi, a %2$s 9.2 (d) bekezdés alapján.</string>
   <string name="threefoldRepetitionLowerCase">állásismétlés szabályai</string>
-  <string name="handBookPDF">szabálykönyv (PDF)</string>
   <string name="notRepeatedMoves">Nem is ismétlődtek meg a lépések. Miért lett a játszma mégis döntetlen?</string>
   <string name="repeatedPositionsThatMatters">A szabály %1$s ismétlődésén alapszik, nem lépésekén. Az ismétlődés nem szükségszerűen egymást követő lépésekből adódik.</string>
   <string name="positions">állások</string>
@@ -108,7 +106,7 @@ Alapvetően a Glicko-2 rendszer \"bizonytalansági sávot\" használ a játékos
 Vagyis a rendszer 90%-ban biztos abban, hogy a valódi értékszámod 800 és 2200 között van. Ez szinte csak hasraütés. Emiatt, ha valaki épp csak játszani kezdett, az értékszáma eleinte nagyokat tud változni, akár több száz pontot játszmánként. Ahogy gyűlnek a játszmák olyanok ellen akiknek pontos értékszáma van, a bizonytalanság csökken és a nyerhető/elbukható pontok száma egyre kevesebb lesz.
 
 Ugyanakkor, ha valaki sokáig nem játszik a bizonytalanság újra emelkedni fog. Ezáltal gyorsabban szerez/veszít pontokat, ha változás történt a sakktudásában.</string>
-  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Miért van kérdőjel (?) néhány értékszám mellett?</string>
+  <string name="whatIsProvisionalRating">Miért van kérdőjel (?) néhány értékszám mellett?</string>
   <string name="provisionalRatingExplanation">A kérdőjel a becsült értékszámokat jelöli. Ennek okai lehetnek:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">A játékos még nem játszott elegendő értékelt játszmát %1$s ellen azonos kategóriában.</string>
   <string name="similarOpponents">hasonló értékszámú ellenfelek</string>

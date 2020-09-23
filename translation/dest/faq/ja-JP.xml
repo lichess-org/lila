@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">よくある質問（FAQ）</string>
   <string name="whyIsLichessCalledLichess">Lichess の名前の由来は？</string>
-  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">「Lichess」はlive（ライブ）/light（軽い）/libre（自由） と chess の組み合わせです。発音は %1$s です。</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">「Lichess」はlive（ライブ）/light（軽い）/libre（自由） と chess の組み合わせです。発音は %1$s です。</string>
   <string name="leechess">リーチェス</string>
   <string name="hearItPronouncedBySpecialist">実際の発音をお聞きください。</string>
   <string name="whyLiveLightLibre">「ライブ」それは24時間無休で対戦・観戦できるから。「軽い」「自由」は Lichess がオープンソースで、他のサイトにありがちな誰かの権利とかにわずらわされないから。</string>
@@ -28,12 +28,12 @@
   <string name="youCannotApply">自分から申請してモデレーターになることはできません。当方から、適任だと思った人にコンタクトを取ります。</string>
   <string name="isCorrespondenceDifferent">通信戦のルールはふつうのチェスと違うのですか？</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess では通信戦のルール上の主な違いは序盤の定跡調査が認められていることです。エンジン（ソフト）の使用は禁止されており、使うとエンジン使用者の表示が付くことがあります。[通信戦の国際団体] ICCF はエンジンの使用を認めていますが、Lichess は認めません。</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">対局について</string>
+  <string name="gameplay">対局について</string>
   <string name="howBulletBlitzEtcDecided">ブレット、ブリッツなど持時間の区分の基準は？</string>
   <string name="basedOnGameDuration">Lichess の持時間は推定所要時間（%1$s）で分類されています。
   たとえば 5+3 （5分＋1手3秒）の対局の推定所要時間は 5 x 60 + 40 x 3 = 420秒です。</string>
   <string name="durationFormula">(初期持時間) + 40 x (1 手ごとの追加時間)</string>
-  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">＜ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">＜ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess にはどんなバリアント（変則ルール）がありますか？</string>
   <string name="lichessSupportChessAnd">通常のチェスと%1$sがあります。</string>
@@ -47,7 +47,6 @@
   <string name="lichessFollowFIDErules">一方のプレイヤーが時間切れになると、通常は負けになります。ただし、時間を残したプレイヤーがいかなる合法な手順でも相手のキングをメイトできない場合はドローになります（%1$s）。
  まれな場合には自動での判定が難しいことがあります（強制手順、フォートレスの存在など）。Lichess では常に時間を残した方に有利に判定しています。
  一方がビショップかナイト 1 個だけでも、他方にキング以外の駒が残っていればメイトの可能性があることに注意してください。</string>
-  <string name="linkToFIDErules">FIDE ハンドブック §6.9 (pdf)</string>
   <string name="discoveringEnPassant">ポーンがすでに通過したマスで取られてしまうのですが…？（アンパッサンについて）</string>
   <string name="explainingEnPassant">それは「アンパッサン (en passant)」というルールです。ウィキペディアの記事がまず%1$sになるでしょう。
 これは%2$sの第 3.7 (d) 項にあります。
@@ -59,7 +58,6 @@
   <string name="threefoldRepetition">同形三復について</string>
   <string name="threefoldRepetitionExplanation">同じ局面が 3 回起きたら、申し立てをすることで%1$sのドローになります。Lichess は FIDE の公式ルール、%2$sの第 9.2 (d) 項を実装しています。</string>
   <string name="threefoldRepetitionLowerCase">同形三復</string>
-  <string name="handBookPDF">ハンドブック (pdf)</string>
   <string name="notRepeatedMoves">同じ手は指していないのに、なぜ同形三復（repetition）でドローなのですか？</string>
   <string name="repeatedPositionsThatMatters">同形三復は同じ%1$sの繰り返しを言うのであって、同じ手ではありません。繰り返しが連続で起きる必要はないのです。</string>
   <string name="positions">局面</string>
@@ -93,7 +91,7 @@
   Glicko 方式ではレーティングの算出と表示に「信頼区間」を使います。Lichess を使い始めた人のレーティングは「1500 ± 700」となります。ここでは 1500 がレーティング、700 が信頼区間です。
   これはつまり「あなたのレーティングは 90% の確率で 800 と 2200 の間にある」ということです。ずいぶん幅がありますね。そのため、プレイを始めたばかりのプレイヤーのレーティングは非常に速く変動し、一度に数百点動くこともあります。しかしレーティングの安定した相手と何局も指すうちに信頼区間は狭まり、1 局の勝ち負けで動く点数も小さくなっていきます。
   もうひとつだいじな点は [プレイしないでいると] 時間とともに信頼区間が広くなることです。対局しなかった期間の棋力の変化に合わせて、点数の動きが速くなるようにしてあるのです。</string>
-  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">レーティングに「?」が付いているのは？</string>
+  <string name="whatIsProvisionalRating">レーティングに「?」が付いているのは？</string>
   <string name="provisionalRatingExplanation">「?」はレーティングが暫定であることを示します。理由はいろいろです。</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">まだそのカテゴリーで%1$sと十分な数のレート戦を指していないから。</string>
   <string name="similarOpponents">同レベルの相手</string>

@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">Veelgestelde vragen (FAQ)</string>
   <string name="frequentlyAskedQuestions">Veelgestelde vragen</string>
   <string name="whyIsLichessCalledLichess">Waarom heet Lichess Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess is een samentrekking van \'live/light/libre\' en \'chess\'. Het wordt uitgesproken als %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess is een samentrekking van \'live/light/libre\' en \'chess\'. Het wordt uitgesproken als %1$s.</string>
   <string name="leechess">lie-tjess</string>
   <string name="hearItPronouncedBySpecialist"> Hoor het uitgesproken door een specialist.</string>
   <string name="whyLiveLightLibre">Live, omdat voortdurend partijen worden gespeeld en bekeken; licht en vrij omdat Lichess open source is en niet gebukt gaat onder allerhande ballast die andere websites plaagt.</string>
@@ -28,12 +28,12 @@
   <string name="youCannotApply">Solliciteren om moderator te worden is niet mogelijk. Als we iemand zien van wie we denken dat hij geschikt zou zijn als moderator, zullen we direct contact met hem opnemen.</string>
   <string name="isCorrespondenceDifferent">Is correspondentieschaak anders dan standaard schaak?</string>
   <string name="youCanUseOpeningBookNoEngine">Op Lichess is het belangrijkste verschil in de regels voor correspondentieschaak dat een openingsboek is toegestaan. Het gebruik van engines is nog steeds verboden en leidt tot een overeenkomstige markering. Hoewel ICCF gebruik van engines in correspondentieschaak toestaat, doet Lichess dat niet.</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Spelregels</string>
+  <string name="gameplay">Spelregels</string>
   <string name="howBulletBlitzEtcDecided">Hoe worden bullet, blitz en andere speeltempo\'s bepaald?</string>
   <string name="basedOnGameDuration">Lichess speeltempo\'s zijn gebaseerd op de geschatte partijduur = %1$s
   Bijvoorbeeld, de geschatte duur van een 5+3 partij is 5 * 60 + 40 * 3 = 420 seconden.</string>
   <string name="durationFormula">(initiële kloktijd) + 40 * (increment)</string>
-  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">&lt; %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess ondersteunt standaard schaak en %1$s.</string>
@@ -52,7 +52,7 @@ De computeranalyse op Lichess wordt aangedreven door Stockfish.</string>
   In zeldzame gevallen kan het moeilijk zijn om dit automatisch te beslissen (geforceerde lijnen, vestingen). Standaard scharen we ons altijd aan de kant van de speler die niet in tijdnood is gekomen.
 
   Merk op dat het mogelijk kan zijn om met één paard of loper mat te zetten, als de tegenstander een stuk heeft dat de koning kan blokkeren.</string>
-  <string name="linkToFIDErules">FIDE-handboek §6.9, pdf</string>
+  <string name="fideHandbookX">FIDE handboek %s</string>
   <string name="discoveringEnPassant">Waarom kan een pion een andere pion slaan als hij die al gepasseerd is? (en passant)</string>
   <string name="explainingEnPassant">Dit is een geldige zet die bekend staat als \"en passant\" slaan. Het Wikipedia-artikel geeft een %1$s.
 
@@ -67,7 +67,6 @@ Het wordt beschreven in sectie 3. (d) van de %2$s:
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
   <string name="threefoldRepetitionExplanation">Als een stelling driemaal tot stand komt, kunnen spelers remise claimen door %1$s. Lichess volgt de officiële FIDE-regels, zoals beschreven in artikel 9.2 (d) van de %2$s.</string>
   <string name="threefoldRepetitionLowerCase">Driemaal dezelfde stelling</string>
-  <string name="handBookPDF">handboek (pdf)</string>
   <string name="notRepeatedMoves">We hebben geen zetten herhaald. Waarom werd de partij toch remise door zetherhaling?</string>
   <string name="repeatedPositionsThatMatters">Bij deze regel gaat het om herhaling van %1$s, niet zetten. De herhaling hoeft niet aaneengesloten te gebeuren.</string>
   <string name="positions">stellingen</string>
@@ -108,7 +107,7 @@ Het belangrijkste is dat Glicko-ratings gebruikmaken van \"betrouwbaarheidsinter
 In principe is het systeem 90% zeker dat je rating ergens tussen 800 en 2200 ligt. Het is dus ontzettend onzeker. Hierom, als een speler net begint, verandert zijn/haar rating enorm, mogelijk enkele honderden punten per keer. Maar na wat partijen tegen gevestigde spelers zal het betrouwbaarheidsinterval kleiner worden en neemt het aantal verdiende/verloren punten na elke partij af.
 
 Een ander punt is dat naarmate de tijd verstrijkt het betrouwbaarheidsinterval groter zal worden. Dit maakt het mogelijk om sneller punten te verdienen/verliezen, afhankelijk van je veranderingen in je vaardighedeniveau in die periode.</string>
-  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Waarom staat er een vraagteken naast een beoordeling?</string>
+  <string name="whatIsProvisionalRating">Waarom staat er een vraagteken naast een beoordeling?</string>
   <string name="provisionalRatingExplanation">Het vraagteken betekent dat de beoordeling voorlopig is. Redenen zijn:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">De speler heeft nog niet genoeg partijen met rating gespeeld tegen %1$s in de ratingcategorie.</string>
   <string name="similarOpponents">tegenstanders van gelijke sterkte</string>

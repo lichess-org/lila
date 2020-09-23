@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="whyIsLichessCalledLichess">Af hverju nafnið Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess er blanda af lifandi (e. live), létt (e. light), frítt (e. libre) og skák (e. chess). Orðið er borið fram %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess er blanda af lifandi (e. live), létt (e. light), frítt (e. libre) og skák (e. chess). Orðið er borið fram %1$s.</string>
   <string name="leechess">lí\'tjess</string>
 </resources>

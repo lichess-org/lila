@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">常见问题</string>
   <string name="frequentlyAskedQuestions">常见问题解答</string>
   <string name="whyIsLichessCalledLichess">为什么 Lichess 被称为 Lichess ？</string>
-  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
   <string name="leechess">lee-chess</string>
   <string name="hearItPronouncedBySpecialist">听一位专家发音。</string>
   <string name="whyLiveLightLibre">Live ，因为游戏全年无休实时的游玩与观看。 Light 和 Libre 代表 Lichess 开源且不被纠缠其它网站的专利垃圾打扰。</string>
@@ -26,12 +26,12 @@
   <string name="youCannotApply">无法申请成为仲裁人。 如果我们看到我们认为会成为很好的仲裁人的人，我们将直接与他们联系。</string>
   <string name="isCorrespondenceDifferent">通信赛是否不同于常规赛？</string>
   <string name="youCanUseOpeningBookNoEngine">在Lichess平台，通讯赛的主要区别是允许使用开局库，但仍然禁止使用引擎，否则结果将被标记为引擎援助。 尽管ICCF允许在通信中使用引擎，但Lichess不允许。</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">对弈</string>
+  <string name="gameplay">对弈</string>
   <string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何决定的？</string>
   <string name="basedOnGameDuration">Lichess时限基于预计的游戏持续时间 = %1$s
 。 例如，5+3的估计持续时间是 5 × 60 + 40 × 3 = 420 秒。</string>
   <string name="durationFormula">(时钟初始时间) + 40 × (加时)</string>
-  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$s秒 = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s秒 = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s秒 = %2$s</string>
   <string name="whatVariantsCanIplay">我可以在 Lichess上玩哪些变体？</string>
   <string name="lichessSupportChessAnd">Lichess支持标准国际象棋和 %1$s。</string>
@@ -50,7 +50,6 @@ Lichess上的电脑分析是基于Stockfish的。</string>
 在极少数情况下，这可能很难自动决定（强制线路、堡垒）。 默认情况下，我们总是与没有耗时的玩家站在一起。
 
 注意，如果对方一只棋子阻挡自己的王，那么单马或者单象也有可能实现将杀。</string>
-  <string name="linkToFIDErules">FIDE（世界国际象棋联合会）手册PDF章节§6.9</string>
   <string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？（吃过路兵）</string>
   <string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
 
@@ -65,7 +64,6 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="threefoldRepetition">三次重复局面</string>
   <string name="threefoldRepetitionExplanation">如果一个局面出现了三次，玩家可以根据%1$s提和。Lichess执行FIDE官方规则，这些规则在 %2$s第9.2(d)条中已有规定。</string>
   <string name="threefoldRepetitionLowerCase">三次重复局面</string>
-  <string name="handBookPDF">手册 (pdf)</string>
   <string name="notRepeatedMoves">我们没有重复着法。为什么对局仍然被判和？</string>
   <string name="repeatedPositionsThatMatters">三次重复局面是关于局面的%1$s重复，而不是着法。重复局面不一定会连续发生。</string>
   <string name="positions">位置</string>
@@ -84,7 +82,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
   <string name="lichessRatings">Lichess 排名</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么排名系统？</string>
-  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">为什么在分数旁边有一个问号 (?) ？</string>
+  <string name="whatIsProvisionalRating">为什么在分数旁边有一个问号 (?) ？</string>
   <string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
   <string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
   <string name="ratingLeaderboards">排行榜：</string>

@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Foire Aux Questions</string>
   <string name="whyIsLichessCalledLichess">Que signifie Lichess ?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess est une combinaison de live/light/libre et chess (échecs). Cela se prononce %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess est une combinaison de live/light/libre et chess (échecs). Cela se prononce %1$s.</string>
   <string name="leechess">li-tchèss</string>
   <string name="hearItPronouncedBySpecialist">Écoutez-le prononcé par un spécialiste.</string>
   <string name="whyLiveLightLibre">Live, parce que les jeux sont joués et regardés en temps réel 24 heures sur 24 et 7 jours sur 7 ; light et libre, parce que Lichess est un logiciel libre et non encombré par des logiciels malveillants qui affligent d\'autres sites web.</string>
@@ -28,12 +28,12 @@
   <string name="youCannotApply">Il n\'est pas possible de postuler pour devenir modérateur. Si nous rencontrons quelqu\'un qui nous semble être efficace comme modérateur, nous le contacterons directement.</string>
   <string name="isCorrespondenceDifferent">Les parties par correspondance sont-elle différentes de celles des échecs normaux ?</string>
   <string name="youCanUseOpeningBookNoEngine">Sur Lichess, la principale différence entre les règles des échecs par correspondance est qu\'un livre d\'ouverture est autorisé. L\'utilisation de moteurs est toujours interdite et entraînera le signalement d\'une assistance moteur. Bien que l\'ICCF autorise l\'utilisation des moteurs dans la correspondance, ce n\'est pas le cas du Lichess.</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Règles du jeu et jouabilité</string>
+  <string name="gameplay">Règles du jeu et jouabilité</string>
   <string name="howBulletBlitzEtcDecided">Comment sont décidés les bullet, blitz et autres cadences ?</string>
   <string name="basedOnGameDuration">Les contrôles de temps de lichess sont basés sur la durée estimée du jeu = %1$s
 Par exemple, la durée estimée d\'un jeu 5+3 est de 5 × 60 + 40 × 3 = 420 secondes.</string>
   <string name="durationFormula">(temps initial de l\'horloge) + 40 × (incrément de l\'horloge)</string>
-  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">&lt; %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Quelles variantes puis-je jouer sur Lichess ?</string>
   <string name="lichessSupportChessAnd">Lichess propose des échecs standards et des %1$s.</string>
@@ -52,7 +52,7 @@ L\'analyse informatique sur Lichess est réalisée par Stockfish.</string>
 Dans de rares cas, il peut être difficile de prendre une décision automatique (lignes forcées, forteresses). Par défaut, nous nous rangeons toujours du côté du joueur qui n\'a pas manqué de temps.
 
 Notez qu\'il peut être possible de mettre échec et mat avec un seul chevalier ou fou si l\'adversaire a une pièce qui pourrait bloquer le roi.</string>
-  <string name="linkToFIDErules">Manuel de la FIDE §6.9, PDF</string>
+  <string name="fideHandbookX">manuel de la FIDE %s</string>
   <string name="discoveringEnPassant">Pourquoi un pion peut-il capturer un autre pion alors qu\'il est déjà passé ? (en passant)</string>
   <string name="explainingEnPassant">Il s\'agit d\'un mouvement légal appelé \"en passant\". L\'article de Wikipedia donne un %1$s.
 
@@ -67,7 +67,6 @@ Voir les %3$s sur ce coup pour vous entraîner.</string>
   <string name="threefoldRepetition">Triple répétition</string>
   <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lichess applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 (d) des %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple répétition</string>
-  <string name="handBookPDF">manuel (pdf)</string>
   <string name="notRepeatedMoves">Nous n\'avons pas répété les coups. Pourquoi la partie a-t-elle quand même été déclarée nulle par répétition ?</string>
   <string name="repeatedPositionsThatMatters">La triple répétition concerne les %1$s répétés, pas les coups. La répétition ne doit pas nécessairement se faire de manière consécutive.</string>
   <string name="positions">positions</string>
@@ -108,7 +107,7 @@ Fondamentalement, les notations Glicko utilisent des \"intervalles de confiance\
 Fondamentalement, le système est sûr à 90 % que votre note se situe entre 800 et 2200. Il est incroyablement incertain. C\'est pourquoi, lorsqu\'un joueur débute, sa cote change de façon très importante, potentiellement de plusieurs centaines de points à la fois. Mais après quelques matchs contre des joueurs établis, l\'intervalle de confiance se réduit et le nombre de points gagnés/perdus après chaque match diminue.
 
 Il faut également noter que l\'intervalle de confiance augmente avec le temps. Cela vous permet de gagner/perdre des points plus rapidement pour correspondre à tout changement de votre niveau de compétence au cours de cette période.</string>
-  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Pourquoi y a-t-il un point d\'interrogation (?) à côté d\'un de mes classements ?</string>
+  <string name="whatIsProvisionalRating">Pourquoi y a-t-il un point d\'interrogation (?) à côté d\'un de mes classements ?</string>
   <string name="provisionalRatingExplanation">Le point d\'interrogation indique que le classement est provisoire. Les raisons comprennent :</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Le joueur n\'a pas encore terminé suffisamment de parties notées contre des %1$s dans la catégorie de notation.</string>
   <string name="similarOpponents">adversaires de niveau proche</string>
