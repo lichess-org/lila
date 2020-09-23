@@ -178,9 +178,13 @@ final class Api(
   def crosstable(u1: String, u2: String) =
     ApiRequest { req =>
       CrosstableRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
-        env.game.crosstableApi.fetchOrEmpty(u1, u2) map { ct =>
-          toApiResult {
-            lila.game.JsonView.crosstableWrites.writes(ct).some
+        env.game.crosstableApi.fetchOrEmpty(u1, u2) flatMap { ct =>
+          (ct.results.nonEmpty && getBool("matchup", req)).?? {
+            env.game.crosstableApi.getMatchup(u1, u2)
+          } map { matchup =>
+            toApiResult {
+              lila.game.JsonView.crosstable(ct, matchup).some
+            }
           }
         }
       }(fuccess(Limited))
