@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">ЧПП</string>
   <string name="frequentlyAskedQuestions">Често Поставени Прашања</string>
   <string name="whyIsLichessCalledLichess">Зошто Lichess се вика Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess е комбинација од од анг. „live/light/libre“ - во живо/лесно/слободно и анг. „chess“ - шах. Се изговара „%1$s“.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess е комбинација од од анг. „live/light/libre“ - во живо/лесно/слободно и анг. „chess“ - шах. Се изговара „%1$s“.</string>
   <string name="leechess">личес</string>
   <string name="hearItPronouncedBySpecialist">Слушнете како го изговара експерт.</string>
   <string name="whyLiveLightLibre">Живо, бидејќи партиите се играат и гледаат во живо 24/7; лесно и слободно бидејќи Lichess е отворен и слободен софтвер и не е натоварен со затворен, сомнителен софтвер кој го поседуваат компании, како други интернет страни.</string>
