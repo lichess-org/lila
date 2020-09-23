@@ -25,9 +25,9 @@
   <string name="preventLeavingGameWithoutResigning">Що відбувається з гравцями, які залишають ігри не здавшись?</string>
   <string name="leavingGameWithoutResigningExplanation">Якщо ваш суперник часто відхиляє/залишає ігри, він отримує \"блокування ігор\", що означає, що йому заборонено брати участь в іграх. Це не зазначено публічно у обліковому записі. Якщо така поведінка продовжиться, тривалість заборони збільшиться, а довгострокова поведінка такого роду може призвести до закриття облікового запису.</string>
   <string name="howCanIBecomeModerator">Як я можу стати модератором?</string>
-  <string name="youCannotApply">Ми не приймаємо прохання стати модератором. Якщо ми бачимо того, хто на нашу думку був би хорошим модератором, ми зв\'яжемося з ними безпосередньо.</string>
+  <string name="youCannotApply">Ми не приймаємо заявок у модератори. Якщо ми побачимо когось, хто на нашу думку був би хорошим модератором, ми зв\'яжемося з ним безпосередньо.</string>
   <string name="isCorrespondenceDifferent">Заочні шахи відрізняються від звичайних?</string>
-  <string name="youCanUseOpeningBookNoEngine">На Lichess, головна відмінність правил для заочних шахів полягає в тому, що дозволена книга дебютів. Використання рушіїв все ще заборонене і призведе до позначення за зловживання допомогою рушія. Хоча ICCF дозволяє використовувати рушій у заочних іграх, на Lichess це не дозволено.</string>
+  <string name="youCanUseOpeningBookNoEngine">На Lichess головна відмінність правил для заочних шахів полягає в тому, що дозволена книга дебютів. Використання рушіїв все ще заборонене і призведе до покарання за користування рушієм. Хоча організація ICCF дозволяє використовувати рушії у заочних іграх, на Lichess так робити не можна.</string>
   <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Ігровий процес</string>
   <string name="howBulletBlitzEtcDecided">Як визначається контроль часу Куля, Бліц та інший?</string>
   <string name="basedOnGameDuration">Параметр часу Lichess базується на розрахунковій тривалості гри = %1$s
