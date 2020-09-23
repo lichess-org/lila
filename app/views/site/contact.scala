@@ -209,7 +209,7 @@ object contact {
               "insufficient",
               insufficientMaterial(),
               frag(
-                p(a(href := "https://www.fide.com/FIDE/handbook/LawsOfChess.pdf")(fideMate()), "."),
+                p(a(href := faq.fideHandbookUrl)(fideMate()), "."),
                 p(knightMate())
               )
             ),
