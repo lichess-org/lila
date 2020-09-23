@@ -23,5 +23,5 @@
   <string name="date">Tarih</string>
   <string name="sortBy">Sıralama ölçütü</string>
   <string name="analysis">Analiz</string>
-  <string name="onlyAnalysed">Sadece bilgisayar analizi yapılmış oyunları göster</string>
+  <string name="onlyAnalysed">Sadece bilgisayar analizi müsait olan oyunlar</string>
 </resources>
