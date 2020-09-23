@@ -4,7 +4,6 @@ import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json._
 import play.api.libs.ws.JsonBodyReadables._
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent._
 import scala.concurrent.duration._
 
 import lila.common.IpAddress
@@ -16,17 +15,11 @@ trait Ip2Proxy {
   def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]]
 }
 
-final class Ip2ProxySkip(
-    ws: StandaloneWSClient,
-    cacheApi: lila.memo.CacheApi,
-) extends Ip2Proxy {
+final class Ip2ProxySkip extends Ip2Proxy {
 
-  def apply(ip: IpAddress): Fu[Boolean] = Future.successful(false)
+  def apply(ip: IpAddress): Fu[Boolean] = fuFalse
 
-  def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]] = {
-    val s: Set[IpAddress] = Set()
-    Future(s)(ExecutionContext.global)
-  }
+  def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]] = fuccess(Set.empty)
 }
 
 final class Ip2ProxyServer(
