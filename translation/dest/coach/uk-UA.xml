@@ -2,8 +2,8 @@
 <resources>
   <string name="lichessCoaches">Тренери Lichess</string>
   <string name="lichessCoach">Тренер Lichess</string>
-  <string name="areYouCoach">Ви чудовий шаховий тренер з титулом %s?</string>
-  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM або FM звання</string>
+  <string name="areYouCoach">Ви чудовий шаховий тренер з %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">національним або FIDE-званням</string>
   <string name="confirmTitle">Підтвердіть свій заголовок і ми розглянемо Вашу заявку.</string>
   <string name="sendApplication">Надішліть нам лист на адресу %s, і ми розглянемо Вашу заявку.</string>
   <string name="location">Місцезнаходження</string>
