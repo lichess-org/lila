@@ -83,14 +83,23 @@ export default function LichessLobby(opts: LobbyOpts) {
     $(this).addClass('active').siblings().removeClass('active');
     lichess.loadCssPath('lobby.setup');
     lobby.leavePool();
-    xhr.text(this.href)
-      .then(html => {
-        lobby.setup.prepareForm(modal($(html), 'game-setup', () =>
-          $startButtons.find('.active').removeClass('active')
-        ));
-        lichess.contentLoaded();
+    fetch(this.href, {
+      ...xhr.defaultInit,
+      headers: xhr.xhrHeader
+    }).then(res =>
+      res.text().then(text => {
+        if (res.ok) {
+          lobby.setup.prepareForm(modal($(text), 'game-setup', () =>
+            $startButtons.find('.active').removeClass('active')
+          ));
+          lichess.contentLoaded();
+        }
+        else {
+          alert(text);
+          lichess.reload();
+        }
       })
-      .catch(lichess.reload);
+    )
   }).on('click', e => e.preventDefault());
 
   if (['#ai', '#friend', '#hook'].includes(location.hash)) {
