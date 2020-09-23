@@ -78,7 +78,7 @@
   <string name="database">samdatni</string>
   <string name="whiteDrawBlack">lo labnunji\'a fa\'u lo nunynorji\'a fa\'u lo xeknunji\'a</string>
   <string name="averageRatingX">nilcre cnano fa li %s</string>
-  <string name="recentGames">lo pu zi caxmati</string>
+  <string name="recentGames">lo pu zi nunjvi</string>
   <string name="topGames">lo crerai jvikei nunjvi</string>
   <string name="masterDbExplanation">reki\'oki\'o lo marji caxmati poi la\'o my. FIDE my. terva\'i lo za\'u %1$s jvikei befi ke\'a zi\'e poi lo li %2$s na\'ardetri ke\'a lo gregori ku purci zi\'e poi lo li %3$s na\'ardetri ke\'a lo gregori ku balvi</string>
   <plurals name="mateInXHalfMoves">
