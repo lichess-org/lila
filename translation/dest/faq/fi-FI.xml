@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Usein kysyttyjä kysymyksiä</string>
   <string name="whyIsLichessCalledLichess">Miksi Lichessin nimi on Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess on sanojen live/light/libre ja chess yhdistelmä. Se lausutaan näin: %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess on sanojen live/light/libre ja chess yhdistelmä. Se lausutaan näin: %1$s.</string>
   <string name="leechess">li-tšes</string>
   <string name="hearItPronouncedBySpecialist">Kuuntele se asiantuntijan lausumana.</string>
   <string name="whyLiveLightLibre">Live, koska pelejä pelataan ja katsellaan reaaliajassa 24 tuntia päivässä; light (kevyt) ja libre (vapaa) siksi, että Lichess perustuu avoimelle lähdekoodille, eikä sitä rasita toisia nettisivuja turmeleva omisteinen roina.</string>
@@ -28,12 +28,12 @@
   <string name="youCannotApply">Moderaattoriksi ei voi hakea. Jos me huomaamme jonkun, joka meidän mielestämme olisi hyvä moderaattori, me otamme häneen suoraan yhteyttä.</string>
   <string name="isCorrespondenceDifferent">Onko kirjeshakki erilaista kuin tavallinen shakki?</string>
   <string name="youCanUseOpeningBookNoEngine">Lichessissä kirjeshakin sääntöjen suurin ero on se, että avauskirjojen käyttö on sallittu. Tietokoneanalyysi on kuitenkin kielletty, ja sen käyttö johtaa merkintään tietokoneavusta. Vaikka ICCF hyväksyy tietokoneanalyysin kirjeshakissa, Lichess ei hyväksy sitä.</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Pelaaminen</string>
+  <string name="gameplay">Pelaaminen</string>
   <string name="howBulletBlitzEtcDecided">Kuinka Bullet, Blitz ja muut aikakontrollit on määritelty?</string>
   <string name="basedOnGameDuration">Lichessin aikakontrollit perustuvat pelin arvioituun kestoon = %1$s
 Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</string>
   <string name="durationFormula">(aloitusaika minuutteina) + 40 × (lisäaika sekunteina)</string>
-  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$s s = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">Mitä variantteja voin pelata Lichessissä?</string>
   <string name="lichessSupportChessAnd">Lichessissä voi pelata tavallista shakkia ja %1$s.</string>
@@ -52,7 +52,6 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
  Harvoissa tapauksissa (pakotetut siirtosarjat, puolustuslinnakkeet) tämän määrittäminen automaattisesti voi olla vaikeaa. Oletusarvoisesti pidämme sen pelaajan puolta, jolta ei loppunut aika.
 
  Huomaa, että matinteko yhdellä ratsulla tai lähetillä voi olla mahdollista, jos vastapelaajalla on nappula, joka voisi viedä hänen kuninkaaltaan pakoruudun.</string>
-  <string name="linkToFIDErules">FIDE:n käsikirja §6.9, PDF</string>
   <string name="discoveringEnPassant">Miksi sotilas voi lyödä toisen sotilaan, kun se on jo kulkenut ohitse? (ohestalyönti)</string>
   <string name="explainingEnPassant">Tämä sallittu siirto tunnetaan ohestalyöntinä (\"en passant\"). Wikipediassa on %1$s ohestalyöntiin.
 
@@ -67,7 +66,6 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
   <string name="threefoldRepetitionExplanation">Jos asema toistuu kolmesti, pelaaja voi vaatia tasapelin %1$s perusteella. Lichess noudattaa FIDE:n virallisia sääntöjä, jotka on kuvattu %2$s kohdassa 9.2 (d).</string>
   <string name="threefoldRepetitionLowerCase">kolminkertaisen toiston</string>
-  <string name="handBookPDF">käsikirjan (PDF)</string>
   <string name="notRepeatedMoves">Me emme toistaneet siirtoja. Miksi peli silti päättyi tasapeliin toiston perusteella?</string>
   <string name="repeatedPositionsThatMatters">Kolminkertaisessa toistossa on kysymys %1$s toistumisesta, ei siirtojen. Toistumisen ei tarvitse tapahtua peräkkäin.</string>
   <string name="positions">aseman</string>
@@ -108,7 +106,7 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
  Järjestelmä on 90-prosenttisen varma, että sinun vahvuuslukusi on jossain 800:n ja 2200:n välillä. Se on äärimmäisen epävarma. Tämän takia juuri aloittelevan pelaajan vahvuusluku muuttuu hyvin dramaattisesti, mahdollisesti useita satoja pisteitä kerrallaan. Mutta kun hän on pelannut joitakin pelejä pitempiaikaisia pelaajia vastaan, luottamusintervalli kapenee, ja kunkin pelin jälkeen voitettujen tai hävittyjen pisteiden määrä vähenee.
 
  On myös huomattava, että ajan kuluessa luottamusintervalli kasvaa. Näin ollen pitemmän tauon jälkeen pisteiden voittaminen ja häviäminen eli vahvuusluvun korjautuminen vastaamaan tauon aikana muuttunutta taitotasoasi on tavallista nopeampaa.</string>
-  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Miksi joidenkin vahvuuslukujen vieressä on kysymysmerkki?</string>
+  <string name="whatIsProvisionalRating">Miksi joidenkin vahvuuslukujen vieressä on kysymysmerkki?</string>
   <string name="provisionalRatingExplanation">Kysymysmerkki tarkoittaa, että vahvuusluku on tilapäinen. Syynä voi olla:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Pelaaja ei ole vielä pelannut kyseisessä vahvuuslukukategoriassa tarpeeksi pisteytettyjä pelejä %1$s vastaan.</string>
   <string name="similarOpponents">vahvuudeltaan samankaltaisia pelaajia</string>
