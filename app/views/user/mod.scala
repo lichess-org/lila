@@ -1,6 +1,8 @@
 package views.html.user
 
 import controllers.routes
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -8,7 +10,6 @@ import lila.evaluation.Display
 import lila.playban.RageSit
 import lila.security.{ Permission, UserSpy }
 import lila.user.User
-import play.api.i18n.Lang
 
 object mod {
   private def mzSection(key: String) = div(id := s"mz_$key", cls := "mz-section")
@@ -484,13 +485,16 @@ object mod {
       max: Int
   )(implicit ctx: Context): Frag =
     mzSection("others")(
-      (max < 1000 && othersWithEmail.others.sizeIs >= max) option button(cls := "button more-others")(
-        "Load more users"
-      ),
       table(cls := "slist")(
         thead(
           tr(
-            th(pluralize("linked user", spy.otherUsers.size)),
+            th(
+              pluralize("linked user", spy.otherUsers.size),
+              (max < 1000 && true || othersWithEmail.others.sizeIs >= max) option frag(
+                nbsp,
+                a(cls := "more-others")("Load more")
+              )
+            ),
             th("Email"),
             sortNumberTh("Same"),
             th("Games"),
