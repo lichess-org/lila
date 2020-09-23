@@ -90,7 +90,7 @@ lichess.load.then(() => {
 
   $('.coach_picture form.upload input[type=file]').on('change', function(this: HTMLInputElement) {
     $('.picture_wrap').html(spinnerHtml);
-    $(this).parents('form').trigger('submit');
+    ($(this).parents('form')[0] as HTMLFormElement).submit();
   });
 
   const langInput = document.getElementById('form3-languages');

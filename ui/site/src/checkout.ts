@@ -62,7 +62,7 @@ export default function(publicKey: string) {
     var amount = cents / 100;
     var $form = $checkout.find('form.paypal_checkout.' + getFreq());
     $form.find('input.amount').val('' + amount);
-    $form.trigger('submit');
+    ($form[0] as HTMLFormElement).submit();
     $checkout.find('.service').html(lichess.spinnerHtml);
   });
 
