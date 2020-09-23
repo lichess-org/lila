@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">ЧаВо</string>
   <string name="frequentlyAskedQuestions">Часто задаваемые вопросы</string>
   <string name="whyIsLichessCalledLichess">Почему Lichess называется Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced" comment="Keep live/light/libre if a translation doesn't make sense in your language.&#10;&#10;Some further context on what these mean:&#10;&#10;Live, in that you can do games in real time. The way Lichess did this in 2010, at the time of founding, was particularly innovative.&#10;&#10;Light, in that it is lightweight (on hardware resources) and will run well on most computers and phones. A serious technical challenge.&#10;&#10;Libre, in the sense of 'free software' (as in freedom). More on this here: https://www.gnu.org/philosophy/free-sw.html">Lichess — это комбинация live/light/libre и chess. Живые, легковесные и свободные шахматы. Lichess произносится %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess — это комбинация live/light/libre и chess. Живые, легковесные и свободные шахматы. Lichess произносится %1$s.</string>
   <string name="leechess">личес</string>
   <string name="hearItPronouncedBySpecialist">Прослушайте это в исполнении диктора.</string>
   <string name="whyLiveLightLibre">Живые, потому что можно играть партии и смотреть игры в реальном времени 24/7. Легковесные и свободные, потому что разрабатываются на принципах свободного программного обеспечения и не завалены проприетарным хламом, как коммерческие проекты.</string>
@@ -28,12 +28,12 @@
   <string name="youCannotApply">Мы не принимаем заявки на просьбу стать модератором. Если мы видим, что кто-то, по нашему мнению, может стать хорошим модератором, мы сами с ним связываемся напрямую.</string>
   <string name="isCorrespondenceDifferent">Игра по переписке отличается от обычной игры?</string>
   <string name="youCanUseOpeningBookNoEngine">В Lichess основное отличие в правилах для игры по переписке заключается в том, что доступна книга дебютов. Использование компьютерных программ запрещено и может привести к блокировке за жульничество. Несмотря на то, что международной ассоциацией игры по переписке ICCF помощь компьютерных программ разрешена, на Lichess это не так.</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Описание игры</string>
+  <string name="gameplay">Описание игры</string>
   <string name="howBulletBlitzEtcDecided">Как определяется тип игры: пуля, блиц и т. д., в зависимости от контроля времени?</string>
   <string name="basedOnGameDuration">Контроль времени влияет на общее ожидаемое время на партию, равное %1$s
  Например, время партии с контролем 5+3 равно 5 × 60 + 40 × 3 = 420 секунд.</string>
   <string name="durationFormula">(начальное время) + 40 × (добавка)</string>
-  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$s с = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">В какие виды шахмат я могу играть на Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess поддерживает стандартные шахматы и ещё %1$s.</string>
@@ -52,7 +52,6 @@
  В редких случаях бывает трудно вынести решение автоматически (серия вынужденных ходов, крепость). По умолчанию мы принимаем сторону того игрока, чьё время не вышло.
 
  Имейте в виду, что мат возможен и одним конём, и слоном, если у соперника есть фигура или пешка, способная заблокировать его короля.</string>
-  <string name="linkToFIDErules">§6.9 правил ФИДЕ, формат pdf</string>
   <string name="discoveringEnPassant">Почему можно взять пешку, когда она уже прошла битое поле? (взятие на проходе)</string>
   <string name="explainingEnPassant">Это ход, известный как «взятие на проходе». Статья в Википедии даёт %1$s.
 
@@ -67,7 +66,6 @@
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
   <string name="threefoldRepetitionExplanation">Если позиция на доске повторилась три раза, любой из игроков может объявить ничью %1$s. В Lichess реализованы официальные правила ФИДЕ, как описано в статье 9.2 (d) of the %2$s.</string>
   <string name="threefoldRepetitionLowerCase">повторением позиции</string>
-  <string name="handBookPDF">правил (pdf)</string>
   <string name="notRepeatedMoves">Наши ходы не повторялись. Почему игра закончилась повторением?</string>
   <string name="repeatedPositionsThatMatters">Троекратное повторение связано с повторением %1$s на доске, а не сделанных ходов. К повторению позиции могут приводить разные ходы, не обязательно одинаковые.</string>
   <string name="positions">позиции</string>
@@ -108,7 +106,7 @@
  В этом случае система на 90 % уверена, что ваш рейтинг находится в пределах от 800 до 2200. Это просто невероятно неопределённое значение. И поэтому, когда игрок начинает играть первые партии, его рейтинг может очень сильно меняться, порой на сотни очков за раз. Но уже после нескольких игр против игроков с хорошо подтверждённым рейтингом, доверительный интервал рейтинга игрока начнёт сужаться, и число изменяющихся очков рейтинга будет уменьшаться с каждой новой игрой.
 
  Следует заметить, что доверительный интервал увеличивается, если игрок долго не играет, так как считается, что игрок не подтверждает свой рейтинг, а его уровень игры может меняться со временем.</string>
-  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Что означает вопросительный знак (?) рядом с рейтингом?</string>
+  <string name="whatIsProvisionalRating">Что означает вопросительный знак (?) рядом с рейтингом?</string>
   <string name="provisionalRatingExplanation">Вопросительный знак означает, что рейтинг «предварительный». Причины могут быть следующими:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Игрок ещё не сыграл достаточное число рейтинговых игр против %1$s в соответствующей категории игр.</string>
   <string name="similarOpponents">соперников равной силы</string>
