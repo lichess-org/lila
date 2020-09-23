@@ -1,7 +1,7 @@
 import { Chess } from 'chessops/chess';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
-import { NormalMove } from 'chessops/types';
+import { Move, NormalMove } from 'chessops/types';
 import { board } from 'chessops/debug';
 import { defaultSetup, makeUci, parseUci } from 'chessops';
 
@@ -163,7 +163,6 @@ export default function (token: string) {
         //Log raw data received
         if (verbose) console.log('/api/account Response:' + JSON.stringify(data));
         //Diplay Title + UserName . Title may be undefined
-        console.log("\n");
         console.log("┌─────────────────────────────────────────────────────┐");
         console.log("│ " + (typeof (data.title) == "undefined" ? '' : data.title) + ' ' + data.username);
         //Display performance ratings
@@ -206,7 +205,7 @@ export default function (token: string) {
       //Update connection status
       eventSteamStatus = { connected: true, lastEvent: time.getTime() };
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
-      var jsonArray = value.split('\n');
+      var jsonArray = (value) ? value.split('\n') : [];
       for (let i = 0; i < jsonArray.length; i++) {
         //Skip empty elements that may have happened witht the .split('\n')
         if (jsonArray[i].length > 2) {
@@ -739,12 +738,12 @@ export default function (token: string) {
           console.error(`Board with serial ${currentSerialnr} is not properly connected. Please fix`);
         //Send setup with stating position
 
-        if (gameStateMap.has(currentGameId) && gameConnectionMap.get(currentGameId).connected && gameStateMap.get(currentGameId).status == "started") {
+        if (gameStateMap.has(currentGameId) && gameConnectionMap.get(currentGameId)!.connected && gameStateMap.get(currentGameId).status == "started") {
           //There is a game in progress, setup the board as per lichess board
           if (currentGameId != DGTgameId) {
             //We know we have not synchronized yet
             if (verbose) console.info('There is a game in progress, calling liveChessBoardSetUp...');
-            sendBoardToLiveChess(gameChessBoardMap.get(currentGameId));
+            sendBoardToLiveChess(gameChessBoardMap.get(currentGameId)!);
           }
         }
       }
@@ -760,16 +759,16 @@ export default function (token: string) {
           //A move was received
           SANMove = String(message.param.san[message.param.san.length - 1]).trim();
           if (verbose) console.info('onmessage - SANMove = ' + SANMove);
-          var moveObject: NormalMove; //a move in chessops format
+          var moveObject: Move | undefined; //a move in chessops format
           moveObject = parseSan(localBoard, SANMove); //get move from DGT LiveChess
           //if valid move on local chessops
-          if (localBoard.isLegal(moveObject)) {
+          if ((moveObject) && localBoard.isLegal(moveObject)) {
             if (verbose) console.info('onmessage - Move is legal');
             //if received move.color == this.currentGameColor
             if (localBoard.turn == currentGameColor) {
               //This is a valid new move send it to lichess
               if (verbose) console.info('onmessage - Valid Move played: ' + SANMove)
-              await validateAndSendBoardMove(moveObject);
+              await validateAndSendBoardMove(<NormalMove>moveObject);
               //Update the lastSanMove
               lastSanMove = { player: localBoard.turn , move: SANMove, by: me.id }              
               //Play the move on local board to keep it in sync
@@ -785,7 +784,7 @@ export default function (token: string) {
             else {
               //Invalid Adjustment. Move was legal but does not match last move received from Lichess
               console.error('onmessage - Invalid Adjustment was made');
-              if (lastMove.move == makeUci(moveObject)) {
+              if (lastMove.move == makeUci(moveObject!)) {
                 console.error('onmessage - Played move has not been received by Lichess.');
               } else {
                 console.error('onmessage - Expected:' + lastMove.move + ' by ' + lastMove.player);
@@ -794,14 +793,13 @@ export default function (token: string) {
               announceInvalidMove();
               await sleep(1000);
               //Repeat last game state announcement
-              var gameState = gameStateMap.get(currentGameId);
               announcePlay(lastMove);
             }
           }
           else {
             //Move was valid on DGT Board but not ilegal on localBoard
             if (verbose) console.info('onmessage - Move is NOT legal');
-            if (lastMove.move == makeUci(moveObject)) {
+            if (lastMove.move == makeUci(moveObject!)) {
               //This is fine, the same last move was received again and seems ilegal
               if (verbose) console.warn('onmessage - Move received is the same as the last moved played: ' + SANMove)
             }
@@ -871,7 +869,7 @@ export default function (token: string) {
       //Store the gameId so we now we already synchronized
       DGTgameId = currentGameId;
       //Initialize localBoard too so it matched what was sent to LiveChess
-      localBoard = gameChessBoardMap.get(currentGameId).clone();
+      localBoard = chess.clone();
     }
     else {
       console.error("WebSocket is not open - cannot send setup command.");
@@ -887,7 +885,7 @@ export default function (token: string) {
   */
   async function validateAndSendBoardMove(boardMove: NormalMove) {
     //While there is not and active game, keep trying to find one so the move is not lost
-    while (!(gameStateMap.has(currentGameId) && gameConnectionMap.get(currentGameId).connected && gameStateMap.get(currentGameId).status == "started")) {
+    while (!(gameStateMap.has(currentGameId) && gameConnectionMap.get(currentGameId)!.connected && gameStateMap.get(currentGameId).status == "started")) {
       //Wait a few seconds to see if the games reconnects or starts and give some space to other code to run
       console.warn('validateAndSendBoardMove - Cannot send move while disconnected. Re-Trying in 2 seconds...')
       await sleep(2000);
