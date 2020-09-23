@@ -49,6 +49,7 @@ Ta wartość może być użyta jako wskaźnik siły gry. Im mniej setnych częś
 
 Analiza komputerowa dostępna na Lichess wspierana jest przez silnik szachowy Stockfish.</string>
   <string name="insufficientMaterial">Przegrana z powodu upłynięcia czasu gry, remis i niewystarczający materiał aby zamatować przeciwnika</string>
+  <string name="fideHandbookX">Przepisy gry w szachy FIDE %s</string>
   <string name="discoveringEnPassant">Dlaczego pion może zbić piona, który ruszył się o dwa pola do przodu i nie jest już pod biciem? (bicie w przelocie)</string>
   <string name="explainingEnPassant">To jest legalny ruch znany jako \"bicie w przelocie\". Wikipedia daje %1$s do zrozumienia tego posunięcia.
 
