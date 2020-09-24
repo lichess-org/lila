@@ -221,6 +221,8 @@
     <item quantity="other">%s партый з вамі</item>
   </plurals>
   <string name="cancel">Скасаваць</string>
+  <string name="whiteTimeOut">Час белых скончыўся</string>
+  <string name="blackTimeOut">Час чорных скончыўся</string>
   <string name="drawOfferSent">Прапанова нічыі даслана</string>
   <string name="drawOfferDeclined">Прапанова нічыі адхілена</string>
   <string name="drawOfferAccepted">Прапанова нічыі прынята</string>
