@@ -226,6 +226,7 @@
   <string name="inbox">lo selmri</string>
   <string name="chatRoom">se cusku kumfa</string>
   <string name="loginToChat">ko co\'a pilno lo jaspu te zu\'e lo nu tavla</string>
+  <string name="youHaveBeenTimedOut">ca\'o na curmi lo nu do ciska</string>
   <string name="spectatorRoom">catlu se cusku kumfa</string>
   <string name="composeMessage">ciska su\'o notci</string>
   <string name="noNewMessages">no cnino cu se mrilu</string>
@@ -249,6 +250,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">dunda %s snidu</item>
   </plurals>
+  <string name="thisAccountViolatedTos">lo se jaspu be ti cu zerjonse la .litces. zo\'e la\'o ly. Lichess Terms of Service ly.</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ti tolvrude cenba lo nilcre</string>
   <string name="openingExplorerAndTablebase">ge cfari kelka\'u sispe\'i gi ci\'erkei fanmo selcmi</string>
   <string name="takeback">nunmu\'u xruti</string>
@@ -278,6 +280,7 @@
   <string name="filterGames">kelci te sisku pagvimcu</string>
   <string name="reset">kraga\'igau</string>
   <string name="apply">.aktygau</string>
+  <string name="save">rejgau</string>
   <string name="leaderboard">raiste</string>
   <string name="pasteTheFenStringHere">vi ciska lo me la .fen. datni</string>
   <string name="pasteThePgnStringHere">vi ciska lo me pygyny datni</string>
@@ -382,6 +385,7 @@
   <string name="pleaseVotePuzzle">ko sidju mi\'a se zu\'e lo nu nilnei cuxna se pi\'o lo re strelka</string>
   <string name="thankYou">ki\'e</string>
   <string name="ratingX">nilcre fa li %s</string>
+  <string name="hidden">selmipri</string>
   <plurals name="playedXTimes">
     <item quantity="other">%s roi se kelci</item>
   </plurals>
