@@ -4,6 +4,7 @@ import akka.actor._
 import akka.stream.scaladsl._
 import play.api.i18n.Lang
 import play.api.libs.json._
+import scala.concurrent.duration._
 
 import lila.chat.Chat
 import lila.chat.UserLine
@@ -13,7 +14,6 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.BotConnected
 import lila.round.actorApi.round.QuietFlag
-import scala.concurrent.duration._
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
