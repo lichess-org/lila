@@ -41,9 +41,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       dataIcon := icon,
       cls := "text"
     )(
-      if (clueless) frag(nbsp, nbsp, nbsp, "?")
-      else if (nb > 0) frag(rating, provisional option "?")
-      else frag(nbsp, nbsp, nbsp, "-")
+      if (clueless) frag(nbsp, nbsp, nbsp, if (nb < 1) "-" else "?")
+      else frag(rating, provisional option "?")
     )
 
   def showPerfRating(perfType: PerfType, perf: Perf)(implicit lang: Lang): Frag =
