@@ -141,6 +141,10 @@
   <string name="xPostedInForumY">la\'o gy.%1$s.gy cusku fo la\'o gy.%2$s.gy noi snulinsi</string>
   <string name="latestForumPosts">lo jai prujbi ke snustu selsku</string>
   <string name="players">lo jvikei</string>
+  <string name="friends">pendo</string>
+  <string name="discussions">nuncasnu</string>
+  <string name="today">ca lo cabdei</string>
+  <string name="yesterday">ca lo prulamdei</string>
   <string name="minutesPerSide">lo poi\'i ro jivna zo\'u tu\'a ri ke\'a mentu</string>
   <string name="variant">lo drata javni gunma</string>
   <string name="variants">lo drata javni gunma</string>
@@ -160,6 +164,7 @@
   <string name="ratingStats">nilcre datni</string>
   <string name="username">lo japycme</string>
   <string name="usernameOrEmail">lo japcme jo nai lo samymrijudri</string>
+  <string name="changeUsername">galfi lo plicme</string>
   <string name="password">lo kikyvla</string>
   <string name="changePassword">cenba lo ka ma kau kikyvla</string>
   <string name="changeEmail">cenba lo ka pilno mo\'oi kau samymrijudri</string>
