@@ -23,7 +23,4 @@ const announce = (d: LichessAnnouncement) => {
   }
 };
 
-const initial = document.body.getAttribute('data-announce');
-if (initial) announce(JSON.parse(initial));
-
 export default announce;

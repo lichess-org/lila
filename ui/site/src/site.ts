@@ -159,6 +159,9 @@ lichess.load.then(() => {
         })
       }).then(reload);
 
+    const pageAnnounce = document.body.getAttribute('data-announce');
+    if (pageAnnounce) announce(JSON.parse(pageAnnounce));
+
     serviceWorker();
 
     // socket default receive handlers
