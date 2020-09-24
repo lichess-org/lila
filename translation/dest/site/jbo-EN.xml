@@ -276,6 +276,7 @@
   </plurals>
   <string name="viewTournament">zgana lo torneio</string>
   <string name="backToTournament">xruti tu\'a lo torneio</string>
+  <string name="thematic">rirci lo cfari keltcini</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">su\'o %s nunjvi je ke nilcre cnegau</item>
   </plurals>
@@ -296,12 +297,14 @@
   <string name="pasteThePgnStringHere">vi ciska lo me pygyny datni</string>
   <string name="fromPosition">nalcfa kelci</string>
   <string name="continueFromHere">di\'a ti kelci</string>
+  <string name="toStudy">tadni</string>
   <string name="importGame">jmina lo selkei</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s da seljmina selkei</item>
   </plurals>
   <string name="thisIsAChessCaptcha">←ti caxmati ciprkaptca</string>
   <string name="clickOnTheBoardToMakeYourMove">.i ko te zu\'e gi jarco lo ka remna gi ta\'i gi .iklki lo foldi gi zukte tu\'a lo kelka\'u</string>
+  <string name="captcha.fail">.e\'o ko caxmati namkei ti</string>
   <string name="notACheckmate">na caxmata</string>
   <string name="retry">troci xoi krefu</string>
   <string name="reconnecting">troci lo ka di\'a jorne</string>
