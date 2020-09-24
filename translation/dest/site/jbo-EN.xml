@@ -165,6 +165,8 @@
   <string name="username">lo japycme</string>
   <string name="usernameOrEmail">lo japcme jo nai lo samymrijudri</string>
   <string name="changeUsername">galfi lo plicme</string>
+  <string name="changeUsernameNotSame">lo ga\'elto\'a ku po\'o cenba .i mu\'a la miriam. co\'e la MIriam.</string>
+  <string name="changeUsernameDescription">galfi lo plicme pecai do .i lo nu go\'i cu nalrapli .ije lo ga\'elto\'a ku po\'o cenba</string>
   <string name="password">lo kikyvla</string>
   <string name="changePassword">cenba lo ka ma kau kikyvla</string>
   <string name="changeEmail">cenba lo ka pilno mo\'oi kau samymrijudri</string>
@@ -172,6 +174,7 @@
   <string name="passwordReset">lo nu pilno su\'o cnino kikyvla co\'a</string>
   <string name="forgotPassword">mi tolmo\'i lo du\'u ma kau kikyvla</string>
   <string name="rank">lo crelai</string>
+  <string name="rankX">crelai li %s</string>
   <string name="gamesPlayed">roi jvikei</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s roi jvikei do</item>
