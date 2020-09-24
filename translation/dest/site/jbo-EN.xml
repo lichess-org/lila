@@ -107,9 +107,13 @@
   <string name="cpus">lo mijykemructerci\'e</string>
   <string name="memory">mo\'isro</string>
   <string name="infiniteAnalysis">mulfau lanli</string>
-  <string name="blunders">lo nu srera sai</string>
-  <string name="mistakes">lo nu srera na\'oi</string>
-  <string name="inaccuracies">lo nu srera ru\'e</string>
+  <string name="removesTheDepthLimit">vimcu lo jimte be lo kelka\'u klani seri\'a lo nu lo skami cu glare</string>
+  <string name="blunder">lo mutce se srera</string>
+  <string name="blunders">lo mutce se srera</string>
+  <string name="mistake">lo se srera</string>
+  <string name="mistakes">lo se srera</string>
+  <string name="inaccuracy">lo milxe se srera</string>
+  <string name="inaccuracies">lo milxe se srera</string>
   <string name="moveTimes">lo kelka\'u ditcu</string>
   <string name="flipBoard">gapnifagau lo plita</string>
   <string name="threefoldRepetition">lo nu su\'o kelka\'u porsi xoi lamporsixu su\'o ci roi fasnu</string>
