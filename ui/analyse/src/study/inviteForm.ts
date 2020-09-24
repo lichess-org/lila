@@ -1,34 +1,19 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
 import { bind, titleNameToId, onInsert } from '../util';
-import { prop, Prop } from 'common';
+import { h } from 'snabbdom'
 import { modal } from '../modal';
+import { prop, Prop } from 'common';
 import { StudyMemberMap } from './interfaces';
+import { VNode } from 'snabbdom/vnode'
 
 export function makeCtrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void, trans: Trans) {
-  const open = prop(false);
-  let followings: string[] = [];
-  let spectators: string[] = [];
-  lichess.pubsub.on('socket.in.following_onlines', (us: string[]) => {
-    followings = us;
-    if (open()) redraw();
-  });
+  const open = prop(false),
+    spectators = prop<string[]>([]);
   return {
     open,
-    candidates() {
-      const existing = members();
-      return followings.concat(spectators).filter(function(elem, idx, arr) {
-        return arr.indexOf(elem) >= idx && // remove duplicates
-          !existing.hasOwnProperty(titleNameToId(elem)); // remove existing members
-      }).sort();
-    },
     members,
-    setSpectators(usernames: string[]) {
-      spectators = usernames;
-    },
+    spectators,
     toggle() {
       open(!open());
-      if (open()) send('following_onlines');
     },
     invite(titleName: string) {
       send("invite", titleNameToId(titleName));
@@ -40,7 +25,9 @@ export function makeCtrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab
 };
 
 export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
-  const candidates = ctrl.candidates();
+  const candidates = ctrl.spectators()
+    .filter(s => !ctrl.members()[titleNameToId(s)]) // remove existing members
+    .sort();
   return modal({
     class: 'study__invite',
     onClose() {

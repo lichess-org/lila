@@ -79,7 +79,7 @@ export function ctrl(opts: Opts) {
 
   lichess.pubsub.on('socket.in.crowd', d => {
     const names: string[] = d.users || [];
-    inviteForm.setSpectators(names);
+    inviteForm.spectators(names);
     spectatorIds = names.map(titleNameToId);
     updateOnline();
   });
