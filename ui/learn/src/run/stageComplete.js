@@ -1,6 +1,7 @@
 var m = require('mithril');
 var util = require('../util');
 var scoring = require('../score');
+var numberFormat = require('common/number').numberFormat;
 
 function makeStars(rank) {
   var stars = [];
@@ -55,7 +56,7 @@ module.exports = function(ctrl) {
 function spreadNumber(el, nbSteps, getDuration, previous) {
   var displayed;
   var display = function(prev, cur, it) {
-    var val = lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
+    var val = numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
     if (val !== displayed) {
       el.textContent = val;
       displayed = val;
