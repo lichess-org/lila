@@ -186,7 +186,6 @@
     <item quantity="other">Size garşy %s oýun</item>
   </plurals>
   <string name="cancel">Goýbolsun et</string>
-  <string name="timeOut">Gijikme</string>
   <string name="drawOfferSent">Deňlik teklibi iberildi</string>
   <string name="drawOfferDeclined">Deňlik teklibi ret edildi</string>
   <string name="drawOfferAccepted">Deňlik teklibi kabul edildi</string>

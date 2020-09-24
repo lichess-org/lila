@@ -188,7 +188,6 @@
     <item quantity="other">与您下了%s盘棋</item>
   </plurals>
   <string name="cancel">取消</string>
-  <string name="timeOut">超时</string>
   <string name="drawOfferSent">和棋请求已发送</string>
   <string name="drawOfferDeclined">和棋请求被拒绝</string>
   <string name="drawOfferAccepted">对方同意和棋</string>

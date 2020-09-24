@@ -199,7 +199,6 @@
     <item quantity="other">siz o\'ynagan o\'yinlar - %s</item>
   </plurals>
   <string name="cancel">Bekor</string>
-  <string name="timeOut">Vaqt tugadi</string>
   <string name="drawOfferSent">Durrang uchun taklif yuborildi</string>
   <string name="drawOfferDeclined">Durrang taklifi inkor qilindi</string>
   <string name="drawOfferAccepted">Durrang taklifi qabul qilindi</string>

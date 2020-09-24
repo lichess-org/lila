@@ -7,28 +7,28 @@ private object Chess960 {
   def isStartPosition(board: Board) =
     board valid {
 
-      def rankMatches(f: Option[Piece] => Boolean)(rank: Int) =
-        (1 to 8) forall { file =>
+      def rankMatches(f: Option[Piece] => Boolean)(rank: Rank) =
+        File.all forall { file =>
           f(board(file, rank))
         }
 
       rankMatches {
         case Some(Piece(White, King | Queen | Rook | Knight | Bishop)) => true
         case _                                                         => false
-      }(1) &&
+      }(Rank.First) &&
       rankMatches {
         case Some(Piece(White, Pawn)) => true
         case _                        => false
-      }(2) &&
-      List(3, 4, 5, 6).forall(rankMatches(_.isEmpty)) &&
+      }(Rank.Second) &&
+      List(Rank.Third, Rank.Fourth, Rank.Fifth, Rank.Sixth).forall(rankMatches(_.isEmpty)) &&
       rankMatches {
         case Some(Piece(Black, Pawn)) => true
         case _                        => false
-      }(7) &&
+      }(Rank.Seventh) &&
       rankMatches {
         case Some(Piece(Black, King | Queen | Rook | Knight | Bishop)) => true
         case _                                                         => false
-      }(8)
+      }(Rank.Eighth)
     }
 
   def fixVariantName(v: String) =

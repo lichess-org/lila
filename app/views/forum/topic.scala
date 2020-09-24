@@ -17,7 +17,7 @@ object topic {
       title = "New forum topic",
       moreCss = cssTag("forum"),
       moreJs = frag(
-        jsTag("forum-post.js"),
+        jsModule("forum"),
         captchaTag
       )
     ) {
@@ -75,9 +75,9 @@ object topic {
     views.html.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
-        jsTag("forum-post.js"),
+        jsModule("forum"),
         formWithCaptcha.isDefined option captchaTag,
-        jsAt("compiled/embed-analyse.js")
+        jsModule("expandText")
       ),
       moreCss = cssTag("forum"),
       openGraph = lila.app.ui
@@ -101,7 +101,7 @@ object topic {
           topic.name
         ),
         pager,
-        div(cls := "forum-topic__posts embed_analyse")(
+        div(cls := "forum-topic__posts expand-text")(
           posts.currentPageResults.map { p =>
             post.show(
               categ,
@@ -165,28 +165,27 @@ object topic {
               )
           )
         ),
-        formWithCaptcha.map {
-          case (form, captcha) =>
-            postForm(
-              cls := "form3 reply",
-              action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
-              novalidate
-            )(
-              form3.group(form("text"), trans.message()) { f =>
-                form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)
-              },
-              views.html.base.captcha(form, captcha),
-              form3.actions(
-                a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
-                isGranted(_.PublicMod) option
-                  form3.submit(
-                    frag("Reply as a mod"),
-                    nameValue = (form("modIcon").name, "true").some,
-                    icon = "".some
-                  ),
-                form3.submit(trans.reply())
-              )
+        formWithCaptcha.map { case (form, captcha) =>
+          postForm(
+            cls := "form3 reply",
+            action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
+            novalidate
+          )(
+            form3.group(form("text"), trans.message()) { f =>
+              form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)
+            },
+            views.html.base.captcha(form, captcha),
+            form3.actions(
+              a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
+              isGranted(_.PublicMod) option
+                form3.submit(
+                  frag("Reply as a mod"),
+                  nameValue = (form("modIcon").name, "true").some,
+                  icon = "".some
+                ),
+              form3.submit(trans.reply())
             )
+          )
         },
         pager
       )

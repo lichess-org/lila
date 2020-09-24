@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">为什么 Lichess 被称为 Lichess ？</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist"> 听一位专家发音。</string>
+  <string name="hearItPronouncedBySpecialist">听一位专家发音。</string>
   <string name="whyLiveLightLibre">Live ，因为游戏全年无休实时的游玩与观看。 Light 和 Libre 代表 Lichess 开源且不被纠缠其它网站的专利垃圾打扰。</string>
   <string name="whyIsLilaCalledLila">同样，Lichess源代码 %1$s，表示li[chess in sca]la，查看Lichess的主体是用 %2$s写的，这是一种直观的编程语言。</string>
   <string name="howCanIContributeToLichess">我可以如何为 Lichess 做出贡献？</string>
@@ -50,7 +50,6 @@ Lichess上的电脑分析是基于Stockfish的。</string>
 在极少数情况下，这可能很难自动决定（强制线路、堡垒）。 默认情况下，我们总是与没有耗时的玩家站在一起。
 
 注意，如果对方一只棋子阻挡自己的王，那么单马或者单象也有可能实现将杀。</string>
-  <string name="linkToFIDErules">FIDE（世界国际象棋联合会）手册PDF章节§6.9</string>
   <string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？（吃过路兵）</string>
   <string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
 
@@ -65,7 +64,6 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="threefoldRepetition">三次重复局面</string>
   <string name="threefoldRepetitionExplanation">如果一个局面出现了三次，玩家可以根据%1$s提和。Lichess执行FIDE官方规则，这些规则在 %2$s第9.2(d)条中已有规定。</string>
   <string name="threefoldRepetitionLowerCase">三次重复局面</string>
-  <string name="handBookPDF">手册 (pdf)</string>
   <string name="notRepeatedMoves">我们没有重复着法。为什么对局仍然被判和？</string>
   <string name="repeatedPositionsThatMatters">三次重复局面是关于局面的%1$s重复，而不是着法。重复局面不一定会连续发生。</string>
   <string name="positions">位置</string>

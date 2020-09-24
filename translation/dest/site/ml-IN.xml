@@ -197,7 +197,6 @@
     <item quantity="other">നിങ്ങളോടോത്തു %s കളികൾ</item>
   </plurals>
   <string name="cancel">ഒഴിവാക്കുക</string>
-  <string name="timeOut">സമയം കഴിഞ്ഞു</string>
   <string name="drawOfferSent">സമനിലാ വാഗ്ദാനം അയച്ചു</string>
   <string name="drawOfferDeclined">സമനിലാ വാഗ്ദാനം നിരസിക്കപ്പെട്ടു</string>
   <string name="drawOfferAccepted">സമനിലാ വാഗ്ദാനം സ്വീകരിക്കപ്പെട്ടു</string>

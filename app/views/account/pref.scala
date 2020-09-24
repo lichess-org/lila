@@ -26,8 +26,7 @@ object pref {
           input(
             st.id := s"$prefix$id",
             checked option st.checked,
-            cls := checked option "active",
-            `type` := "radio",
+            tpe := "radio",
             value := v._1.toString,
             name := field.name
           ),
@@ -147,6 +146,10 @@ object pref {
             setting(
               "Snap arrows to valid moves",
               radios(form("behavior.arrowSnap"), booleanChoices)
+            )(cls := "arrow-snap"),
+            setting(
+              "Say \"Good game, well played\" upon defeat or draw",
+              radios(form("behavior.courtesy"), booleanChoices)
             )(cls := "arrow-snap")
           ),
           categFieldset(PrefCateg.Privacy, categ)(

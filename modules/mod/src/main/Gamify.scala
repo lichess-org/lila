@@ -78,22 +78,21 @@ final class Gamify(
       .buildAsyncFuture { _ =>
         mixedLeaderboard(DateTime.now minusDays 1, none) zip
           mixedLeaderboard(DateTime.now minusWeeks 1, none) zip
-          mixedLeaderboard(DateTime.now minusMonths 1, none) map {
-          case ((daily, weekly), monthly) => Leaderboards(daily, weekly, monthly)
-        }
+          mixedLeaderboard(DateTime.now minusMonths 1, none) map { case ((daily, weekly), monthly) =>
+            Leaderboards(daily, weekly, monthly)
+          }
       }
   }
 
   private def mixedLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModMixed]] =
-    actionLeaderboard(after, before) zip reportLeaderboard(after, before) map {
-      case (actions, reports) =>
-        actions.map(_.modId) intersect reports.map(_.modId) map { modId =>
-          ModMixed(
-            modId,
-            action = actions.find(_.modId == modId) ?? (_.count),
-            report = reports.find(_.modId == modId) ?? (_.count)
-          )
-        } sortBy (-_.score)
+    actionLeaderboard(after, before) zip reportLeaderboard(after, before) map { case (actions, reports) =>
+      actions.map(_.modId) intersect reports.map(_.modId) map { modId =>
+        ModMixed(
+          modId,
+          action = actions.find(_.modId == modId) ?? (_.count),
+          report = reports.find(_.modId == modId) ?? (_.count)
+        )
+      } sortBy (-_.score)
     }
 
   private def dateRange(from: DateTime, toOption: Option[DateTime]) =
@@ -101,7 +100,7 @@ final class Gamify(
       $doc("$lt" -> to)
     }
 
-  private val notLichess = $doc("$ne" -> User.lichessId)
+  private val notHidden = $nin(User.lichessId, "slanchevbyarg")
 
   private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
     logRepo.coll
@@ -110,7 +109,7 @@ final class Gamify(
         Match(
           $doc(
             "date" -> dateRange(after, before),
-            "mod"  -> notLichess
+            "mod"  -> notHidden
           )
         ) -> List(
           GroupField("mod")("nb" -> SumAll),
@@ -135,7 +134,7 @@ final class Gamify(
           $doc(
             "atoms.0.at" -> dateRange(after, before),
             "room" $in Room.all, // required to make use of the mongodb index room+atoms.0.at
-            "processedBy" -> notLichess
+            "processedBy" -> notHidden
           )
         ) -> List(
           GroupField("processedBy")(

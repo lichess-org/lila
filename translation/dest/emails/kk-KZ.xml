@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Құрметті %s, lichess.org аккаунтыңызды растаңыз</string>
-  <string name="emailConfirm_click">Lichess аккаунтыңызға кіріп алу үшін сілтемені басыңыз:</string>
-  <string name="emailConfirm_ignore">Егер сіз Lichess-те тіркелмеген болсаңыз, бұл хабарламаға көңіл бөлмесеңіз де болады.</string>
-  <string name="passwordReset_subject">%s, lichess.org құпиясөзін қайта енгізіңіз</string>
-  <string name="passwordReset_intro">Бізге аккаунтыңыздың кұпиясөзін қайта енгізу туралы тапсырыс келді.</string>
+  <string name="emailConfirm_click">Личес аккаунтыңызды ашу үшін сілтемені басыңыз:</string>
+  <string name="emailConfirm_ignore">Егер сіз Личес-те тіркелмеген болсаңыз, осы хатқа көңіл бөлмесеңіз де болады.</string>
+  <string name="passwordReset_subject">%s, lichess.org құпиясөзін қайта орнатыңыз</string>
+  <string name="passwordReset_intro">Бізге аккаунтыңыздың кұпиясөзін қайта орнату туралы тапсырыс келді.</string>
   <string name="passwordReset_clickOrIgnore">Егер бұл тапсырысты сіз жіберген болсаңыз, төмендегі сілтемеге басыңыз. Кері жағдайда, осы хатты назарсыз қалдырсаңыз болады.</string>
-  <string name="emailChange_subject">%s, жаңа э-поштаңыздың мекенжайын растаңыз</string>
-  <string name="emailChange_intro">Сіз э-поштаңыздың мекенжайын өзгертуге тапсырыс жіберген едіңіз.</string>
-  <string name="emailChange_click">Сол э-поштаның мекенжайына баруға рұқсатыңыз бар екенін растау үшін төмендегі сілтемеге басыңыз:</string>
-  <string name="welcome_subject">%s, Lichess-ке қош келдіңіз</string>
+  <string name="emailChange_subject">%s, жаңа поштаңызды растаңыз</string>
+  <string name="emailChange_intro">Сіз поштаңызды ауыстыруға тапсырыс жіберген едіңіз.</string>
+  <string name="emailChange_click">Сол поштаға кіруге рұқсатыңыз бар екенін растау үшін төмендегі сілтемеге басыңыз:</string>
+  <string name="welcome_subject">%s, Личес-ке қош келдіңіз</string>
   <string name="welcome_text">https://lichess.org сайтында аккаунт жасау сәтті өтті.
 
-Сіздің куәлік парақшаңыз осында: %1$s. Оны өзгерту үшін мында кіріңіз: %2$s.
+Сіздің куәлік парақшаңыз осында: %1$s. Оны өзгерту үшін осында кіріңіз: %2$s.
 
-Тастарыңызды әрдайым қарсылас ханға жетіп алар түрде ойнатып, ойынның рақатына бөленіңіз!</string>
-  <string name="logInToLichess">%s, lichess.org сайтына кіріңіз</string>
+Ойынды пайдаға жаратып, шахмат тастарыңыздың жолы әрқашан ашық болсын!</string>
+  <string name="logInToLichess">%s, lichess.org аккаунтына кіріңіз</string>
   <string name="common_orPaste">(Басылмай жатыр ма? Браузердің жолағына көшіріп көріңіз!)</string>
-  <string name="common_note">Бұл хат э-пошта тарату қызметі сіздің пайдалану %s-на байланысты.</string>
-  <string name="common_contact">Бізбен байланыс құру үшін мына сілтемені қолданыңыз %s.</string>
+  <string name="common_note">Осы қызметтік хат сіздің %s сайтын пайдалануыңызға қатысты.</string>
+  <string name="common_contact">Бізбен байланысу үшін - %s.</string>
 </resources>

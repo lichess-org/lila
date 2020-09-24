@@ -1,5 +1,13 @@
-export default function boot(cfg, element) {
-  cfg.pools = [ // mirrors modules/pool/src/main/PoolList.scala
+import * as xhr from 'common/xhr';
+import main from './main';
+import modal from 'common/modal';
+import { LobbyOpts } from './interfaces';
+import { numberFormat } from 'common/number';
+
+export default function LichessLobby(opts: LobbyOpts) {
+
+  opts.element = document.querySelector('.lobby__app') as HTMLElement;
+  opts.pools = [ // mirrors modules/pool/src/main/PoolList.scala
     { id: "1+0", lim: 1, inc: 0, perf: "Bullet" },
     { id: "2+1", lim: 2, inc: 1, perf: "Bullet" },
     { id: "3+0", lim: 3, inc: 0, perf: "Blitz" },
@@ -12,8 +20,6 @@ export default function boot(cfg, element) {
     { id: "30+0", lim: 30, inc: 0, perf: "Classical" },
     { id: "30+20", lim: 30, inc: 20, perf: "Classical" }
   ];
-  const li = window.lichess;
-  let lobby;
   const nbRoundSpread = spreadNumber(
     document.querySelector('#nb_games_in_play > strong') as HTMLElement,
     8),
@@ -24,87 +30,82 @@ export default function boot(cfg, element) {
       const match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
       return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     };
-  li.socket = li.StrongSocket(
+  let lobby: any;
+  lichess.socket = new lichess.StrongSocket(
     '/lobby/socket/v5',
     false, {
-    receive(t: string, d: any) {
-      lobby.socketReceive(t, d);
-    },
+    receive(t: string, d: any) { lobby.socketReceive(t, d) },
     events: {
       n(_: string, msg: any) {
         nbUserSpread(msg.d);
-        setTimeout(() => nbRoundSpread(msg.r), li.socket.pingInterval() / 2);
+        setTimeout(() => nbRoundSpread(msg.r), lichess.socket.pingInterval() / 2);
       },
       reload_timeline() {
-        $.ajax({
-          url: '/timeline',
-          success: function(html) {
-            $('.timeline').html(html);
-            li.pubsub.emit('content_loaded');
-          }
+        xhr.text('/timeline').then(html => {
+          $('.timeline').html(html);
+          lichess.contentLoaded();
         });
       },
-      featured(o) {
+      featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
-        li.pubsub.emit('content_loaded');
+        lichess.contentLoaded();
       },
-      redirect(e) {
+      redirect(e: RedirectTo) {
         lobby.leavePool();
         lobby.setRedirecting();
-        li.redirect(e);
+        lichess.redirect(e);
       },
-      fen(e) {
-        li.StrongSocket.defaults.events.fen(e);
+      fen(e: any) {
         lobby.gameActivity(e.id);
       }
-    },
-    options: {
-      name: 'lobby'
     }
   });
-  li.StrongSocket.firstConnect.then(() => {
-    var gameId = getParameterByName('hook_like');
+  lichess.StrongSocket.firstConnect.then(() => {
+    const gameId = getParameterByName('hook_like');
     if (!gameId) return;
-    $.post(`/setup/hook/${li.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`);
+    const ratingRange = lobby.setup.stores.hook.get()?.ratingRange;
+    xhr.text(
+      `/setup/hook/${lichess.sri}/like/${gameId}?rr=${ratingRange || ''}`,
+      { method: 'post' });
     lobby.setTab('real_time');
     history.replaceState(null, '', '/');
   });
 
-  cfg.blindMode = $('body').hasClass('blind-mode');
-  cfg.trans = li.trans(cfg.i18n);
-  cfg.socketSend = li.socket.send;
-  cfg.element = element;
-  lobby = window.LichessLobby.start(cfg);
+  opts.blindMode = $('body').hasClass('blind-mode');
+  opts.trans = lichess.trans(opts.i18n);
+  opts.socketSend = lichess.socket.send;
+  lobby = main(opts);
 
   const $startButtons = $('.lobby__start'),
-    clickEvent = cfg.blindMode ? 'click' : 'mousedown';
+    clickEvent = opts.blindMode ? 'click' : 'mousedown';
 
-  $startButtons.find('a:not(.disabled)').on(clickEvent, function() {
+  $startButtons.find('a:not(.disabled)').on(clickEvent, function(this: HTMLAnchorElement) {
     $(this).addClass('active').siblings().removeClass('active');
-    li.loadCssPath('lobby.setup');
+    lichess.loadCssPath('lobby.setup');
     lobby.leavePool();
-    $.ajax({
-      url: $(this).attr('href'),
-      success: function(html) {
-        lobby.setup.prepareForm($.modal(html, 'game-setup', () => {
-          $startButtons.find('.active').removeClass('active');
-        }));
-        li.pubsub.emit('content_loaded');
-      },
-      error: function(res) {
-        if (res.status == 400) alert(res.responseText);
-        li.reload();
-      }
-    });
-    return false;
-  }).on('click', function() {
-    return false;
-  });
+    fetch(this.href, {
+      ...xhr.defaultInit,
+      headers: xhr.xhrHeader
+    }).then(res =>
+      res.text().then(text => {
+        if (res.ok) {
+          lobby.setup.prepareForm(modal($(text), 'game-setup', () =>
+            $startButtons.find('.active').removeClass('active')
+          ));
+          lichess.contentLoaded();
+        }
+        else {
+          alert(text);
+          lichess.reload();
+        }
+      })
+    )
+  }).on('click', e => e.preventDefault());
 
   if (['#ai', '#friend', '#hook'].includes(location.hash)) {
     $startButtons
       .find('.config_' + location.hash.replace('#', ''))
-      .each(function() {
+      .each(function(this: HTMLElement) {
         $(this).attr("href", $(this).attr("href") + location.search);
       }).trigger(clickEvent);
 
@@ -117,12 +118,12 @@ export default function boot(cfg, element) {
 
     history.replaceState(null, '', '/');
   }
-};
+}
 
 function spreadNumber(el: HTMLElement, nbSteps: number) {
   let previous: number, displayed: string;
   const display = (prev: number, cur: number, it: number) => {
-    const val = window.lichess.numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
+    const val = numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
     if (val !== displayed) {
       el.textContent = val;
       displayed = val;
@@ -136,7 +137,7 @@ function spreadNumber(el: HTMLElement, nbSteps: number) {
     timeouts = [];
     let prev = previous === 0 ? 0 : (previous || nb);
     previous = nb;
-    let interv = Math.abs(window.lichess.socket.pingInterval() / nbSteps);
+    let interv = Math.abs(lichess.socket.pingInterval() / nbSteps);
     for (let i = 0; i < nbSteps; i++)
       timeouts.push(setTimeout(() => display(prev, nb, i), Math.round(i * interv)));
   };

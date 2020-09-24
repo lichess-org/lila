@@ -1,7 +1,8 @@
 import { FormStore, toFormLines, makeStore } from './form';
+import modal from 'common/modal';
+import debounce from 'common/debounce';
+import * as xhr from 'common/xhr';
 import LobbyController from './ctrl';
-
-const li = window.lichess;
 
 export default class Setup {
 
@@ -11,9 +12,7 @@ export default class Setup {
     ai: FormStore;
   }
 
-  ratingRange = () => this.stores.hook.get()?.ratingRange;
-
-  constructor(makeStorage: (name: string) => LichessStorage, readonly root: LobbyController) {
+  constructor(readonly makeStorage: (name: string) => LichessStorage, readonly root: LobbyController) {
     this.stores = {
       hook: makeStore(makeStorage('lobby.setup.hook')),
       friend: makeStore(makeStorage('lobby.setup.friend')),
@@ -21,12 +20,11 @@ export default class Setup {
     };
   }
 
-  private save = (form: HTMLFormElement) => {
+  private save = (form: HTMLFormElement) =>
     this.stores[form.getAttribute('data-type')!].set(toFormLines(form));
-  }
 
   private sliderTimes = [
-    0, 1/4, 1/2, 3/4, 1, 3/2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+    0, 1 / 4, 1 / 2, 3 / 4, 1, 3 / 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
     17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180
   ];
 
@@ -72,94 +70,95 @@ export default class Setup {
     }
   }
 
-  private sliderInitVal = (v, f, max) => {
+  private sliderInitVal = (v: number, f: (x: number) => number, max: number) => {
     for (let i = 0; i < max; i++) {
       if (f(i) === v) return i;
     }
     return undefined;
   }
 
-  private hookToPoolMember = (color, data) => {
+  private hookToPoolMember = (color: string, form: HTMLFormElement) => {
+    const data = Array.from(new FormData(form).entries());
     const hash: any = {};
-    for (var i in data) hash[data[i].name] = data[i].value;
+    for (let i in data) hash[data[i][0]] = data[i][1];
     const valid = color == 'random' && hash.variant == 1 && hash.mode == 1 && hash.timeMode == 1,
-    id = parseFloat(hash.time) + '+' + parseInt(hash.increment);
+      id = parseFloat(hash.time) + '+' + parseInt(hash.increment);
     return (valid && this.root.pools.find(p => p.id === id)) ? {
-      id: id,
+      id,
       range: hash.ratingRange
     } : undefined;
   }
 
-  prepareForm = ($modal: JQuery) => {
+  prepareForm = ($modal: Cash) => {
     const self = this,
-    $form = $modal.find('form'),
-    $timeModeSelect = $form.find('#sf_timeMode'),
-    $modeChoicesWrap = $form.find('.mode_choice'),
-    $modeChoices = $modeChoicesWrap.find('input'),
-    $casual = $modeChoices.eq(0),
-    $rated = $modeChoices.eq(1),
-    $variantSelect = $form.find('#sf_variant'),
-    $fenPosition = $form.find(".fen_position"),
-    $fenInput = $fenPosition.find('input'),
-    forceFormPosition = !!$fenInput.val(),
-    $timeInput = $form.find('.time_choice [name=time]'),
-    $incrementInput = $form.find('.increment_choice [name=increment]'),
-    $daysInput = $form.find('.days_choice [name=days]'),
-    typ = $form.data('type'),
-    $ratings = $modal.find('.ratings > div'),
-    randomColorVariants = $form.data('random-color-variants').split(','),
-    $submits = $form.find('.color-submits__button'),
-    toggleButtons = function() {
-      const variantId = $variantSelect.val(),
-      timeMode = $timeModeSelect.val(),
-      rated = $rated.prop('checked'),
-      limit = $timeInput.val(),
-      inc = $incrementInput.val(),
-      // no rated variants with less than 30s on the clock
-      cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
-        (variantId != '1' && timeMode != '1');
-      if (cantBeRated && rated) {
-        $casual.click();
-        return toggleButtons();
-      }
-      $rated.prop('disabled', !!cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
-      const timeOk = timeMode != '1' || limit > 0 || inc > 0,
-      ratedOk = typ != 'hook' || !rated || timeMode != '0',
-      aiOk = typ != 'ai' || variantId != '3' || limit >= 1;
-      if (timeOk && ratedOk && aiOk) {
-        $submits.toggleClass('nope', false);
-        $submits.filter(':not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
-      } else $submits.toggleClass('nope', true);
-    },
-    save = function() {
-      self.save($form[0] as HTMLFormElement);
-    };
+      $form = $modal.find('form'),
+      $timeModeSelect = $form.find('#sf_timeMode'),
+      $modeChoicesWrap = $form.find('.mode_choice'),
+      $modeChoices = $modeChoicesWrap.find('input'),
+      $casual = $modeChoices.eq(0),
+      $rated = $modeChoices.eq(1),
+      $variantSelect = $form.find('#sf_variant'),
+      $fenPosition = $form.find(".fen_position"),
+      $fenInput = $fenPosition.find('input'),
+      forceFormPosition = !!$fenInput.val(),
+      $timeInput = $form.find('.time_choice [name=time]'),
+      $incrementInput = $form.find('.increment_choice [name=increment]'),
+      $daysInput = $form.find('.days_choice [name=days]'),
+      typ = $form.data('type'),
+      $ratings = $modal.find('.ratings > div'),
+      randomColorVariants = $form.data('random-color-variants').split(','),
+      $submits = $form.find('.color-submits__button'),
+      toggleButtons = () => {
+        const variantId = $variantSelect.val(),
+          timeMode = $timeModeSelect.val(),
+          rated = $rated.prop('checked'),
+          limit = parseFloat($timeInput.val() as string),
+          inc = parseFloat($incrementInput.val() as string),
+          // no rated variants with less than 30s on the clock
+          cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
+            (variantId != '1' && timeMode != '1');
+        if (cantBeRated && rated) {
+          $casual.trigger('click');
+          return toggleButtons();
+        }
+        $rated.prop('disabled', !!cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
+        const timeOk = timeMode != '1' || limit > 0 || inc > 0,
+          ratedOk = typ != 'hook' || !rated || timeMode != '0',
+          aiOk = typ != 'ai' || variantId != '3' || limit >= 1;
+        if (timeOk && ratedOk && aiOk) {
+          $submits.toggleClass('nope', false);
+          $submits.filter(':not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
+        } else $submits.toggleClass('nope', true);
+      },
+      save = function() {
+        self.save($form[0] as HTMLFormElement);
+      };
 
     const c = this.stores[typ].get();
     if (c) {
       Object.keys(c).forEach(k => {
-        $form[0].querySelectorAll(`[name="${k}"]`).forEach((input: HTMLInputElement) => {
-          if (input.type == 'checkbox') input.checked = true;
-          else if (input.type == 'radio') input.checked = input.value == c[k];
-          else if (k != 'fen' || !input.value) input.value = c[k];
+        $form.find(`[name="${k}"]`).each(function(this: HTMLInputElement) {
+          if (this.type == 'checkbox') this.checked = true;
+          else if (this.type == 'radio') this.checked = this.value == c[k];
+          else if (k != 'fen' || !this.value) this.value = c[k];
         });
       });
     }
 
     const showRating = () => {
       const timeMode = $timeModeSelect.val();
-      let key;
+      let key: string = 'correspondence';
       switch ($variantSelect.val()) {
         case '1':
         case '3':
           if (timeMode == '1') {
-            const time = $timeInput.val() * 60 + $incrementInput.val() * 40;
+            const time = parseFloat($timeInput.val() as string) * 60 + parseFloat($incrementInput.val() as string) * 40;
             if (time < 30) key = 'ultraBullet';
             else if (time < 180) key = 'bullet';
             else if (time < 480) key = 'blitz';
             else if (time < 1500) key = 'rapid';
             else key = 'classical';
-          } else key = 'correspondence';
+          }
           break;
         case '10':
           key = 'crazyhouse';
@@ -186,117 +185,137 @@ export default class Setup {
           key = "racingKings"
           break;
       }
-      $ratings.hide().filter('.' + key).show();
+      const $selected = $ratings.hide().filter('.' + key).show();
+      $modal.find('.ratings input').val($selected.find('strong').text());
       save();
     };
     if (typ == 'hook') {
       if ($form.data('anon')) {
-        $timeModeSelect.val(1)
+        $timeModeSelect.val('1')
           .children('.timeMode_2, .timeMode_0')
           .prop('disabled', true)
           .attr('title', this.root.trans('youNeedAnAccountToDoThat'));
       }
-      const ajaxSubmit = color => {
-        const poolMember = this.hookToPoolMember(color, $form.serializeArray());
-        $.modal.close();
+      const ajaxSubmit = (color: string) => {
+        const form = $form[0] as HTMLFormElement;
+        const rating = parseInt($modal.find('.ratings input').val() as string) || 1500;
+        if (form.ratingRange) form.ratingRange.value = [
+          rating + parseInt(form.ratingRange_range_min.value),
+          rating + parseInt(form.ratingRange_range_max.value)
+        ].join('-');
+        save();
+        const poolMember = this.hookToPoolMember(color, form);
+        modal.close();
         if (poolMember) {
           this.root.enterPool(poolMember);
           this.root.redraw();
         } else {
           this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
-          $.ajax({
-            url: $form.attr('action').replace(/sri-placeholder/, li.sri),
-            data: $form.serialize() + "&color=" + color,
-            type: 'post'
-          });
+          xhr.text(
+            $form.attr('action')!.replace(/sri-placeholder/, lichess.sri),
+            {
+              method: 'post',
+              body: (() => {
+                const data = new FormData($form[0] as HTMLFormElement)
+                data.append('color', color);
+                return data;
+              })()
+            });
         }
         return false;
       };
-      $submits.click(function(this: HTMLElement) {
-        return ajaxSubmit($(this).val());
+      $submits.on('click', function(this: HTMLElement) {
+        return ajaxSubmit($(this).val() as string);
       }).prop('disabled', false);
-      $form.submit(function() {
-        return ajaxSubmit('random');
-      });
-    } else $form.one('submit', function() {
-      $submits.hide().end().append(li.spinnerHtml);
+      $form.on('submit', () => ajaxSubmit('random'));
+    } else $form.one('submit', () => {
+      $submits.hide();
+      $form.find('.color-submits').append(lichess.spinnerHtml);
     });
     if (this.root.opts.blindMode) {
-      $variantSelect.focus();
-      $timeInput.add($incrementInput).on('change', function() {
+      $variantSelect[0]!.focus();
+      $timeInput.add($incrementInput).on('change', () => {
         toggleButtons();
         showRating();
       });
-    } else li.slider().done(function() {
-      $timeInput.add($incrementInput).each(function(this: HTMLElement) {
+    } else {
+      $timeInput.add($incrementInput).each(function(this: HTMLInputElement) {
         const $input = $(this),
           $value = $input.siblings('span'),
+          $range = $input.siblings('.range'),
           isTimeSlider = $input.parent().hasClass('time_choice'),
           showTime = (v: number) => {
-              if (v == 1 / 4) return '¼';
-              if (v == 1 / 2) return '½';
-              if (v == 3 / 4) return '¾';
-              return v;
-            },
+            if (v == 1 / 4) return '¼';
+            if (v == 1 / 2) return '½';
+            if (v == 3 / 4) return '¾';
+            return '' + v;
+          },
           valueToTime = (v: number) => (isTimeSlider ? self.sliderTime : self.sliderIncrement)(v),
-          show = (time: number) => $value.text(isTimeSlider ? showTime(time) : time);
-        show(parseFloat($input.val()));
-        $input.after($('<div>').slider({
-          value: self.sliderInitVal(parseFloat($input.val()), isTimeSlider ? self.sliderTime : self.sliderIncrement, 100),
-          min: 0,
-          max: isTimeSlider ? 38 : 30,
-          range: 'min',
-          step: 1,
-          slide: function(_, ui) {
-            const time = valueToTime(ui.value);
-            show(time);
-            $input.val(time);
-            showRating();
-            toggleButtons();
-          }
-        }));
-      });
-      $daysInput.each(function(this: HTMLElement) {
-        var $input = $(this),
-          $value = $input.siblings('span');
-        $value.text($input.val());
-        $input.after($('<div>').slider({
-          value: self.sliderInitVal(parseInt($input.val()), self.sliderDays, 20),
-          min: 1,
-          max: 7,
-          range: 'min',
-          step: 1,
-          slide: function(_, ui) {
-            const days = self.sliderDays(ui.value);
-            $value.text(days);
-            $input.attr('value', days);
-            save();
-          }
-        }));
-      });
-      $form.find('.rating-range').each(function(this: HTMLElement) {
-        const $this = $(this),
-        $input = $this.find("input"),
-        $span = $this.siblings("span.range"),
-        min = $input.data("min"),
-        max = $input.data("max"),
-        values = $input.val() ? $input.val().split("-") : [min, max];
-
-        $span.text(values.join('–'));
-        $this.slider({
-          range: true,
-          min: min,
-          max: max,
-          values: values,
-          step: 50,
-          slide: function(_, ui) {
-            $input.val(ui.values[0] + "-" + ui.values[1]);
-            $span.text(ui.values[0] + "–" + ui.values[1]);
-            save();
-          }
+          show = (time: number) => $value.text(isTimeSlider ? showTime(time) : '' + time);
+        show(parseFloat($input.val() as string));
+        $range.attr({
+          min: '0',
+          max: '' + (isTimeSlider ? 38 : 30),
+          value: '' + self.sliderInitVal(parseFloat($input.val() as string), isTimeSlider ? self.sliderTime : self.sliderIncrement, 100)
+        });
+        $range.on('input', () => {
+          const time = valueToTime(parseInt($range.val() as string));
+          show(time);
+          $input.val('' + time);
+          showRating();
+          toggleButtons();
         });
       });
-    });
+      $daysInput.each(function(this: HTMLInputElement) {
+        var $input = $(this),
+          $value = $input.siblings('span'),
+          $range = $input.siblings('.range');
+        $value.text($input.val() as string);
+        $range.attr({
+          min: '1',
+          max: '7',
+          value: '' + self.sliderInitVal(parseInt($input.val() as string), self.sliderDays, 20)
+        });
+        $range.on('input', () => {
+          const days = self.sliderDays(parseInt($range.val() as string));
+          $value.text('' + days);
+          $input.val('' + days);
+          save();
+        });
+      });
+      $form.find('.rating-range').each(function(this: HTMLDivElement) {
+        const $this = $(this),
+          $minInput = $this.find('.rating-range__min'),
+          $maxInput = $this.find('.rating-range__max'),
+          minStorage = self.makeStorage('lobby.ratingRange.min'),
+          maxStorage = self.makeStorage('lobby.ratingRange.max'),
+          update = (e?: Event) => {
+            const min = $minInput.val() as string,
+              max = $maxInput.val() as string;
+            minStorage.set(min);
+            maxStorage.set(max);
+            $this.find('.rating-min').text(`-${min.replace('-', '')}`);
+            $this.find('.rating-max').text(`+${max}`);
+            if (e) save();
+          };
+
+        $minInput.attr({
+          min: '-500',
+          max: '0',
+          step: '50',
+          value: minStorage.get() || '-500'
+        }).on('input', update);
+
+        $maxInput.attr({
+          min: '0',
+          max: '500',
+          step: '50',
+          value: maxStorage.get() || '500'
+        }).on('input', update);
+
+        update();
+      });
+    }
     $timeModeSelect.on('change', function(this: HTMLElement) {
       var timeMode = $(this).val();
       $form.find('.time_choice, .increment_choice').toggle(timeMode == '1');
@@ -305,42 +324,35 @@ export default class Setup {
       showRating();
     }).trigger('change');
 
-    var validateFen = li.debounce(function() {
+    var validateFen = debounce(() => {
       $fenInput.removeClass("success failure");
-      var fen = $fenInput.val();
-      if (fen) {
-        $.ajax({
-          url: $fenInput.parent().data('validate-url'),
-          data: {
-            fen: fen
-          },
-          success: function(data) {
-            $fenInput.addClass("success");
-            $fenPosition.find('.preview').html(data);
-            $fenPosition.find('a.board_editor').each(function(this: HTMLElement) {
-              $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
-            });
-            $submits.removeClass('nope');
-            li.pubsub.emit('content_loaded');
-          },
-          error: function() {
-            $fenInput.addClass("failure");
-            $fenPosition.find('.preview').html("");
-            $submits.addClass('nope');
-          }
-        });
-      }
+      var fen = $fenInput.val() as string;
+      if (fen) xhr.text(xhr.url($fenInput.parent().data('validate-url'), { fen }))
+        .then(data => {
+          $fenInput.addClass("success");
+          $fenPosition.find('.preview').html(data);
+          $fenPosition.find('a.board_editor').each(function(this: HTMLAnchorElement) {
+            this.href = this.href.replace(/editor\/.+$/, "editor/" + fen);
+          });
+          $submits.removeClass('nope');
+          lichess.contentLoaded();
+        })
+        .catch(() => {
+          $fenInput.addClass("failure");
+          $fenPosition.find('.preview').html("");
+          $submits.addClass('nope');
+        })
     }, 200);
     $fenInput.on('keyup', validateFen);
 
-    if (forceFormPosition) $variantSelect.val(3);
+    if (forceFormPosition) $variantSelect.val('' + 3);
     $variantSelect.on('change', function(this: HTMLElement) {
       var isFen = $(this).val() == '3';
       $fenPosition.toggle(isFen);
       $modeChoicesWrap.toggle(!isFen);
       if (isFen) {
-        $casual.click();
-        requestAnimationFrame(() => li.dispatchEvent(document.body, 'chessground.resize'));
+        $casual.trigger('click');
+        requestAnimationFrame(() => document.body.dispatchEvent(new Event('chessground.resize')));
       }
       showRating();
       toggleButtons();

@@ -20,7 +20,6 @@
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="eightVariants">An 8 eilstumm echedoù</string>
-  <string name="linkToFIDErules">Dornlevr ar FIDE §6.9, PDF</string>
   <string name="discoveringEnPassant">Perak e c\'hall ur pezh gwerin pakañ unan all daoust ma \'z eo tremenet hebioù dija? (en ur dremen)</string>
   <string name="officialRulesPDF">reolennoù ofisiel (PDF)</string>
   <string name="positions">lec\'hiadurioù</string>

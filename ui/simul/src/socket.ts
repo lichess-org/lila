@@ -13,7 +13,7 @@ export function makeSocket(send: SocketSend, ctrl: SimulCtrl) {
       ctrl.reload(data);
       ctrl.redraw();
     },
-    aborted: window.lichess.reload,
+    aborted: lichess.reload,
     hostGame(gameId: string) {
       ctrl.data.host.gameId = gameId;
       ctrl.redraw();

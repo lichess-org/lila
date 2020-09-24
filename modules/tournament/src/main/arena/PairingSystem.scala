@@ -68,16 +68,15 @@ final private[tournament] class PairingSystem(
 
   private def prepsToPairings(preps: List[Pairing.Prep]): Fu[List[Pairing]] =
     idGenerator.games(preps.size) map { ids =>
-      preps.zip(ids).map {
-        case (prep, id) =>
-          //color was chosen in prepWithColor function
-          prep.toPairing(id)
+      preps.zip(ids).map { case (prep, id) =>
+        //color was chosen in prepWithColor function
+        prep.toPairing(id)
       }
     }
 
   private def proximityPairings(tour: Tournament, players: List[RankedPlayer]): List[Pairing.Prep] =
-    addColorHistory(players) grouped 2 collect {
-      case List(p1, p2) => Pairing.prepWithColor(tour, p1, p2)
+    addColorHistory(players) grouped 2 collect { case List(p1, p2) =>
+      Pairing.prepWithColor(tour, p1, p2)
     } toList
 
   private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =

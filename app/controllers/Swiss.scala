@@ -51,7 +51,8 @@ final class Swiss(
               _ <- chat ?? { c =>
                 env.user.lightUserApi.preloadMany(c.chat.userIds)
               }
-            } yield Ok(html.swiss.show(swiss, json, chat))
+              isLocalMod <- canChat ?? canModChat(swiss)
+            } yield Ok(html.swiss.show(swiss, json, chat, isLocalMod))
           },
           api = _ =>
             swissOption.fold(notFoundJson("No such swiss tournament")) { swiss =>
@@ -256,11 +257,17 @@ final class Swiss(
     canHaveChat(swiss.roundInfo)
 
   private[controllers] def canHaveChat(swiss: SwissModel.RoundInfo)(implicit ctx: Context): Fu[Boolean] =
-    swiss.chatFor match {
-      case ChatFor.NONE                  => fuFalse
-      case _ if isGranted(_.ChatTimeout) => fuTrue
-      case ChatFor.LEADERS               => ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
-      case ChatFor.MEMBERS               => ctx.userId ?? { env.team.api.belongsTo(swiss.teamId, _) }
-      case _                             => fuTrue
+    ctx.noKid ?? {
+      swiss.chatFor match {
+        case ChatFor.NONE                  => fuFalse
+        case _ if isGranted(_.ChatTimeout) => fuTrue
+        case ChatFor.LEADERS               => ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
+        case ChatFor.MEMBERS               => ctx.userId ?? { env.team.api.belongsTo(swiss.teamId, _) }
+        case _                             => fuTrue
+      }
     }
+
+  private def canModChat(swiss: SwissModel)(implicit ctx: Context): Fu[Boolean] =
+    if (isGranted(_.ChatTimeout)) fuTrue
+    else ctx.userId ?? { env.team.cached.isLeader(swiss.teamId, _) }
 }

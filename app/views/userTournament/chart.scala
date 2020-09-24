@@ -24,7 +24,7 @@ object chart {
         ),
         p(cls := "box__pad")(
           "All averages on this page are ",
-          a(href := "http://dictionary.reference.com/help/faq/language/d72.html")("medians"),
+          a(href := "https://www.dictionary.com/e/average-vs-mean-vs-median-vs-mode/")("medians"),
           "."
         ),
         table(cls := "slist slist-pad perf-results")(
@@ -38,15 +38,14 @@ object chart {
             )
           ),
           tbody(
-            data.perfResults.map {
-              case (pt, res) =>
-                tr(
-                  th(iconTag(pt.iconChar, pt.trans)),
-                  td(res.nb.localize),
-                  td(res.points.median.map(_.toInt)),
-                  td(res.points.sum.localize),
-                  td(res.rankPercentMedian, "%")
-                )
+            data.perfResults.map { case (pt, res) =>
+              tr(
+                th(iconTag(pt.iconChar, pt.trans)),
+                td(res.nb.localize),
+                td(res.points.median.map(_.toInt)),
+                td(res.points.sum.localize),
+                td(res.rankPercentMedian, "%")
+              )
             },
             tr(
               th("Total"),

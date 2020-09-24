@@ -52,7 +52,7 @@ Paroli: %3$s</string>
   <string name="welcomeToClass">%s : sinfiga xush kelibsiz!</string>
   <string name="invitationToClass">Siz \"%s\" sinfiga oʻquvchi sifatida qoʻshilishga taklif qilindingiz.</string>
   <string name="clickToViewInvitation">Taklifni koʻrish uchun linkni bosing:</string>
-  <plurals name="nbPendingInvitations">
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
     <item quantity="one">Bitta kutilayotgan taklif</item>
     <item quantity="other">%s kutilayotgan takliflar</item>
   </plurals>

@@ -58,22 +58,20 @@ final class ClasProgressApi(
 
     val progressesFu = historyApi.progresses(users, perfType, days)
 
-    playStatsFu zip progressesFu map {
-      case (playStats, progresses) =>
-        ClasProgress(
-          perfType,
-          days,
-          users zip progresses map {
-            case (u, rating) =>
-              val playStat = playStats get u.id
-              u.id -> StudentProgress(
-                nb = playStat.??(_.nb),
-                rating = rating,
-                wins = playStat.??(_.wins),
-                millis = playStat.??(_.millis)
-              )
-          } toMap
-        )
+    playStatsFu zip progressesFu map { case (playStats, progresses) =>
+      ClasProgress(
+        perfType,
+        days,
+        users zip progresses map { case (u, rating) =>
+          val playStat = playStats get u.id
+          u.id -> StudentProgress(
+            nb = playStat.??(_.nb),
+            rating = rating,
+            wins = playStat.??(_.wins),
+            millis = playStat.??(_.millis)
+          )
+        } toMap
+      )
     }
   }
 

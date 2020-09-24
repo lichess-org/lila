@@ -69,7 +69,10 @@ object mine {
                     ctx.isAuth option div(
                       h2(cls := "ninja-title", "Or invite a Lichess user:"),
                       br,
-                      postForm(cls := "user-invite", action := routes.Challenge.toFriend(c.id))(
+                      postForm(
+                        cls := "user-invite complete-parent",
+                        action := routes.Challenge.toFriend(c.id)
+                      )(
                         input(
                           name := "username",
                           cls := "friend-autocomplete",

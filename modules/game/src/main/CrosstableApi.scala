@@ -15,21 +15,21 @@ final class CrosstableApi(
   import Crosstable.{ BSONFields => F }
 
   def apply(game: Game): Fu[Option[Crosstable]] =
-    game.twoUserIds ?? {
-      case (u1, u2) => apply(u1, u2) dmap some
+    game.twoUserIds ?? { case (u1, u2) =>
+      apply(u1, u2) dmap some
     }
 
   def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] =
-    game.twoUserIds ?? {
-      case (u1, u2) => withMatchup(u1, u2) dmap some
+    game.twoUserIds ?? { case (u1, u2) =>
+      withMatchup(u1, u2) dmap some
     }
 
   def apply(u1: User.ID, u2: User.ID): Fu[Crosstable] =
     justFetch(u1, u2) getOrElse create(u1, u2)
 
   def withMatchup(u1: User.ID, u2: User.ID): Fu[Crosstable.WithMatchup] =
-    apply(u1, u2) zip getMatchup(u1, u2) dmap {
-      case crosstable ~ matchup => Crosstable.WithMatchup(crosstable, matchup)
+    apply(u1, u2) zip getMatchup(u1, u2) dmap { case crosstable ~ matchup =>
+      Crosstable.WithMatchup(crosstable, matchup)
     }
 
   def justFetch(u1: User.ID, u2: User.ID): Fu[Option[Crosstable]] =
@@ -94,7 +94,7 @@ final class CrosstableApi(
 
   private val matchupProjection = $doc(F.lastPlayed -> false)
 
-  private def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
+  def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
     matchupColl.find(select(u1, u2), matchupProjection.some).one[Matchup]
 
   private def create(u1: User.ID, u2: User.ID): Fu[Crosstable] = {

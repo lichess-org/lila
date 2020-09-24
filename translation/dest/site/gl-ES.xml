@@ -188,7 +188,6 @@
     <item quantity="other">%s partidas contigo</item>
   </plurals>
   <string name="cancel">Cancelar</string>
-  <string name="timeOut">Tempo esgotado</string>
   <string name="drawOfferSent">Oferta de táboas enviada</string>
   <string name="drawOfferDeclined">Oferta de táboas rexeitada</string>
   <string name="drawOfferAccepted">Oferta de táboas aceptada</string>

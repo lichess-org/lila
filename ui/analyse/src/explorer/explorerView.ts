@@ -1,5 +1,6 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { numberFormat } from 'common/number';
 import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
 import { winnerOf } from './explorerUtil';
@@ -23,23 +24,23 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
   return {
     attrs: { 'data-fen': fen },
     hook: {
-      insert: vnode => {
+      insert(vnode: VNode) {
         const el = vnode.elm as HTMLElement;
         el.addEventListener('mouseover', e => {
-          ctrl.explorer.setHovering($(el).attr('data-fen'), $(e.target as HTMLElement).parents('tr').attr('data-uci'));
+          ctrl.explorer.setHovering($(el).attr('data-fen')!, $(e.target as HTMLElement).parents('tr').attr('data-uci'));
         });
         el.addEventListener('mouseout', _ => {
-          ctrl.explorer.setHovering($(el).attr('data-fen'), null);
+          ctrl.explorer.setHovering($(el).attr('data-fen')!, null);
         });
         el.addEventListener('mousedown', e => {
           const uci = $(e.target as HTMLElement).parents('tr').attr('data-uci');
           if (uci) ctrl.explorerMove(uci);
         });
       },
-      postpatch: (_, vnode) => {
+      postpatch(old: VNode) {
         setTimeout(() => {
-          const el = vnode.elm as HTMLElement;
-          ctrl.explorer.setHovering($(el).attr('data-fen'), $(el).find('tr:hover').attr('data-uci'));
+          const el = old.elm as HTMLElement;
+          ctrl.explorer.setHovering($(el).attr('data-fen')!, $(el).find('tr:hover').attr('data-uci'));
         }, 100);
       }
     }
@@ -66,7 +67,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
         }
       }, [
         h('td', move.san[0] === 'P' ? move.san.slice(1) : move.san),
-        h('td', window.lichess.numberFormat(move.white + move.draws + move.black)),
+        h('td', numberFormat(move.white + move.draws + move.black)),
         h('td', resultBar(move))
       ]);
     }))

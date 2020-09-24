@@ -149,7 +149,7 @@
   <string name="xPostedInForumY">%1$s a posté dans le forum %2$s</string>
   <string name="latestForumPosts">Derniers posts du forum</string>
   <string name="players">Joueurs</string>
-  <string name="friends">Ami·e·s</string>
+  <string name="friends">Amis</string>
   <string name="discussions">Conversations</string>
   <string name="today">Aujourd\'hui</string>
   <string name="yesterday">Hier</string>
@@ -199,7 +199,8 @@
     <item quantity="other">%s parties avec vous</item>
   </plurals>
   <string name="cancel">Annuler</string>
-  <string name="timeOut">Temps écoulé</string>
+  <string name="whiteTimeOut">Temps blanc écoulé</string>
+  <string name="blackTimeOut">Temps noir écoulé</string>
   <string name="drawOfferSent">Proposition de nulle envoyée</string>
   <string name="drawOfferDeclined">Proposition de nulle refusée</string>
   <string name="drawOfferAccepted">Proposition de nulle acceptée</string>

@@ -38,8 +38,8 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
     def current = challenges.head
 
     def refresh =
-      createFromDb andThen {
-        case Success(Some(captcha)) => add(captcha)
+      createFromDb andThen { case Success(Some(captcha)) =>
+        add(captcha)
       }
 
     // Private stuff
@@ -78,18 +78,17 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
       for {
         rewinded  <- rewind(moves)
         solutions <- solve(rewinded)
-        moves = rewinded.situation.destinations map {
-          case (from, dests) => from.key -> dests.mkString
+        moves = rewinded.situation.destinations map { case (from, dests) =>
+          from.key -> dests.mkString
         }
       } yield Captcha(game.id, fen(rewinded), rewinded.player.white, solutions, moves = moves)
 
     private def solve(game: ChessGame): Option[Captcha.Solutions] =
       game.situation.moves.view
-        .flatMap {
-          case (_, moves) =>
-            moves filter { move =>
-              (move.after situationOf !game.player).checkMate
-            }
+        .flatMap { case (_, moves) =>
+          moves filter { move =>
+            (move.after situationOf !game.player).checkMate
+          }
         }
         .to(List) map { move =>
         s"${move.orig} ${move.dest}"

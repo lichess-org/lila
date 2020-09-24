@@ -86,5 +86,5 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
   });
   area.addEventListener('send', send);
 
-  if (!window.lichess.hasTouchEvents) area.focus();
+  if (!('ontouchstart' in window)) area.focus();
 }

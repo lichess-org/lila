@@ -90,6 +90,12 @@ final class Tournament(
     Open { implicit ctx =>
       val page = getInt("page")
       repo byId id flatMap { tourOption =>
+        def loadChat(tour: Tour, json: JsObject) =
+          canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
+            .findMine(Chat.Id(tour.id), ctx.me)
+            .flatMap { c =>
+              env.user.lightUserApi.preloadMany(c.chat.userIds) inject c.some
+            }
         negotiate(
           html = tourOption
             .fold(tournamentNotFound.fuccess) { tour =>
@@ -106,13 +112,7 @@ final class Tournament(
                   socketVersion = version.some,
                   partial = false
                 )
-                chat <-
-                  canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
-                    .findMine(Chat.Id(tour.id), ctx.me)
-                    .dmap(some)
-                _ <- chat ?? { c =>
-                  env.user.lightUserApi.preloadMany(c.chat.userIds)
-                }
+                chat <- loadChat(tour, json)
                 _ <- tour.teamBattle ?? { b =>
                   env.team.cached.preloadSet(b.teams)
                 }
@@ -124,20 +124,23 @@ final class Tournament(
           api = _ =>
             tourOption
               .fold(notFoundJson("No such tournament")) { tour =>
-                get("playerInfo").?? { api.playerInfo(tour, _) } zip
-                  getBool("socketVersion").??(env.tournament version tour.id dmap some) flatMap {
-                  case (playerInfoExt, socketVersion) =>
-                    jsonView(
-                      tour = tour,
-                      page = page,
-                      me = ctx.me,
-                      getUserTeamIds = getUserTeamIds,
-                      getTeamName = env.team.getTeamName,
-                      playerInfoExt = playerInfoExt,
-                      socketVersion = socketVersion,
-                      partial = getBool("partial")
-                    )
-                } dmap { Ok(_) }
+                for {
+                  playerInfoExt <- get("playerInfo").?? { api.playerInfo(tour, _) }
+                  socketVersion <- getBool("socketVersion").??(env.tournament version tour.id dmap some)
+                  json <- jsonView(
+                    tour = tour,
+                    page = page,
+                    me = ctx.me,
+                    getUserTeamIds = getUserTeamIds,
+                    getTeamName = env.team.getTeamName,
+                    playerInfoExt = playerInfoExt,
+                    socketVersion = socketVersion,
+                    partial = getBool("partial")
+                  )
+                  chat <- loadChat(tour, json)
+                } yield Ok(json.add("chat" -> chat.map { c =>
+                  lila.chat.JsonView.mobile(chat = c.chat)
+                }))
               }
               .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
         ) dmap NoCache
@@ -407,10 +410,9 @@ final class Tournament(
 
   def categShields(k: String) =
     Open { implicit ctx =>
-      OptionFuOk(env.tournament.shieldApi.byCategKey(k)) {
-        case (categ, awards) =>
-          env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
-            html.tournament.shields.byCateg(categ, awards)
+      OptionFuOk(env.tournament.shieldApi.byCategKey(k)) { case (categ, awards) =>
+        env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
+          html.tournament.shields.byCateg(categ, awards)
       }
     }
 

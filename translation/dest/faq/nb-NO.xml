@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Hvorfor navnet Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess er sammensatt av live/light/libre og chess. Uttalen er %1$s.</string>
   <string name="leechess">li-tsjess</string>
-  <string name="hearItPronouncedBySpecialist"> Hør hvordan en spesialist uttaler det.</string>
+  <string name="hearItPronouncedBySpecialist">Hør hvordan en spesialist uttaler det.</string>
   <string name="whyLiveLightLibre">Live, fordi partiene spilles og ses på i sanntid døgnet rundt; light og libre fordi Lichess er åpen kildekode og ikke nedtynget av slikt proprietært skrot som hjemsøker andre nettsteder.</string>
   <string name="whyIsLilaCalledLila">Like ens står %1$s, kildekoden til Lichess, for li[chess in sca]la, ettersom det meste av Lichess er skrevet i %2$s, et intuitivt programmeringsspråk.</string>
   <string name="howCanIContributeToLichess">Hvordan kan jeg bidra til Lichess?</string>
@@ -52,7 +52,6 @@ Lichess bruker Stockfish til maskinanalyse.</string>
 Dette kan i sjeldne tilfeller være vanskelig å avgjøre automatisk (tvungne linjer, festninger). Da holder vi med spilleren der tiden ikke løp ut.
 
 Legg merke til at den kan være mulig å matte med en enkelt springer eller løper hvis motstanderen har en brikke som kan blokkere kongen.</string>
-  <string name="linkToFIDErules">FIDE-håndbok §6.9, pdf</string>
   <string name="discoveringEnPassant">Hvorfor kan en bonde slå en annen bonde når den allerede er passert? (en passant)</string>
   <string name="explainingEnPassant">Dette er et lovlig trekk kjent som \"en passant\". Wikipedia-artikkelen gir en %1$s.
 
@@ -67,7 +66,6 @@ Se mer om dette trekket i %3$s for å få litt øvelse med det.</string>
   <string name="threefoldRepetition">Trekkgjentakelse</string>
   <string name="threefoldRepetitionExplanation">Hvis en stilling oppstår tre ganger, kan spillerne kreve remis ved %1$s. Lichess implementerer de offisielle FIDE-reglene, som står omtalt i artikkel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trekkgjentakelse</string>
-  <string name="handBookPDF">håndboken (pdf)</string>
   <string name="notRepeatedMoves">Vi gjentok ikke trekk. Hvorfor ble partiet remis ved trekkgjentakelse?</string>
   <string name="repeatedPositionsThatMatters">Trekkgjentakelse dreier seg om gjentatte %1$s, ikke trekk. Gjentakelsene trenger ikke skje rett etter hverandre.</string>
   <string name="positions">stillinger</string>

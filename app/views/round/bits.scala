@@ -35,7 +35,6 @@ object bits {
       chessground = chessground,
       playing = playing,
       robots = robots,
-      deferJs = true,
       zoomable = true,
       csp = defaultCsp.withPeer.some
     )(body)
@@ -101,11 +100,10 @@ object bits {
         }
       ),
       div(cls := "now-playing")(
-        playing.partition(_.isMyTurn) pipe {
-          case (myTurn, otherTurn) =>
-            (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map {
-              views.html.game.mini(_)
-            }
+        playing.partition(_.isMyTurn) pipe { case (myTurn, otherTurn) =>
+          (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map {
+            views.html.game.mini(_)
+          }
         }
       )
     )

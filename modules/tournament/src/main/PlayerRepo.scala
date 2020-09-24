@@ -35,8 +35,8 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   ): Fu[RankedPlayers] =
     bestByTour(tourId, nb, skip).map { res =>
       res
-        .foldRight(List.empty[RankedPlayer] -> (res.size + skip)) {
-          case (p, (res, rank)) => (RankedPlayer(rank, p) :: res, rank - 1)
+        .foldRight(List.empty[RankedPlayer] -> (res.size + skip)) { case (p, (res, rank)) =>
+          (RankedPlayer(rank, p) :: res, rank - 1)
         }
         ._1
     }
@@ -88,8 +88,8 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
               } yield TeamLeader(id, magic)
             }
           } yield new RankedTeam(0, teamId, leaders)
-        }.sorted.zipWithIndex map {
-          case (rt, pos) => rt.updateRank(pos + 1)
+        }.sorted.zipWithIndex map { case (rt, pos) =>
+          rt.updateRank(pos + 1)
         }
       } map { ranked =>
       if (ranked.sizeIs == battle.teams.size) ranked
@@ -166,14 +166,13 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       }
 
   def teamVs(tourId: Tournament.ID, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
-    game.twoUserIds ?? {
-      case (w, b) =>
-        teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
-          import cats.implicits._
-          (m.get(w), m.get(b)).mapN((_, _)) ?? {
-            case (wt, bt) => TeamBattle.TeamVs(chess.Color.Map(wt, bt)).some
-          }
+    game.twoUserIds ?? { case (w, b) =>
+      teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
+        import cats.implicits._
+        (m.get(w), m.get(b)).mapN((_, _)) ?? { case (wt, bt) =>
+          TeamBattle.TeamVs(chess.Color.Map(wt, bt)).some
         }
+      }
     }
 
   def countActive(tourId: Tournament.ID): Fu[Int] =

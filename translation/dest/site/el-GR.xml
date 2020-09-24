@@ -199,7 +199,6 @@
     <item quantity="other">%s παιχνίδια με εσάς</item>
   </plurals>
   <string name="cancel">Ακύρωση</string>
-  <string name="timeOut">Τέλος χρόνου</string>
   <string name="drawOfferSent">Πρόταση ισοπαλίας εστάλη</string>
   <string name="drawOfferDeclined">Πρόταση ισοπαλίας μη αποδεκτή</string>
   <string name="drawOfferAccepted">Πρόταση ισοπαλίας αποδεκτή</string>

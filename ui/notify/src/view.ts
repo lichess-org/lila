@@ -1,7 +1,7 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
 import { Ctrl, NotifyData, Notification } from './interfaces'
+import { h } from 'snabbdom'
 import { renderers } from './renderers'
+import { VNode } from 'snabbdom/vnode'
 
 export default function(ctrl: Ctrl): VNode {
 
@@ -64,7 +64,8 @@ function clickHook(f: () => void) {
   };
 }
 
-const contentLoaded = () => window.lichess.pubsub.emit('content_loaded');
+const contentLoaded = (vnode: VNode) =>
+  lichess.contentLoaded(vnode.elm as HTMLElement);
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
   return h('div', {

@@ -16,10 +16,7 @@ object coordinate {
     views.html.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
       moreCss = cssTag("coordinate"),
-      moreJs = frag(
-        jsTag("vendor/sparkline.min.js"),
-        jsAt("compiled/coordinate.js")
-      ),
+      moreJs = jsModule("coordinate"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Chess board coordinates trainer",
@@ -50,7 +47,7 @@ object coordinate {
                 )
               )
           ),
-          form(cls := "color buttons", action := routes.Coordinate.color())(
+          form(cls := "color buttons", action := routes.Coordinate.color(), method := "post")(
             st.group(cls := "radio")(
               List(Color.BLACK, Color.RANDOM, Color.WHITE).map { id =>
                 div(
@@ -95,14 +92,13 @@ object coordinate {
       List(
         (trans.coordinates.averageScoreAsWhiteX, score.white),
         (trans.coordinates.averageScoreAsBlackX, score.black)
-      ).map {
-        case (averageScoreX, s) =>
-          div(cls := "chart_container")(
-            s.nonEmpty option frag(
-              p(averageScoreX(raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
-              div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
-            )
+      ).map { case (averageScoreX, s) =>
+        div(cls := "chart_container")(
+          s.nonEmpty option frag(
+            p(averageScoreX(raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
+            div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
           )
+        )
       }
     )
 }

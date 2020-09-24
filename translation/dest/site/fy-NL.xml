@@ -179,7 +179,6 @@
     <item quantity="other">%s spullen mei jo</item>
   </plurals>
   <string name="cancel">Annulearje</string>
-  <string name="timeOut">Tiid is ôfrûn</string>
   <string name="drawOfferSent">Remise oanbod stjoerd</string>
   <string name="drawOfferDeclined">Remise oanbod ôfslein</string>
   <string name="drawOfferAccepted">Remise oanbod akseptearre</string>

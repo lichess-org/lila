@@ -4,7 +4,7 @@ import RoundController from './ctrl';
 
 export default class MoveOn {
 
-  private storage = window.lichess.storage.makeBoolean(this.key);
+  private storage = lichess.storage.makeBoolean(this.key);
 
   constructor(private ctrl: RoundController, private key: string) { }
 
@@ -17,7 +17,6 @@ export default class MoveOn {
 
   private redirect = (href: string) => {
     this.ctrl.setRedirecting();
-    window.lichess.hasToReload = true;
     window.location.href = href;
   };
 

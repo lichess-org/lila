@@ -4,6 +4,6 @@ export default rollupProject({
   main: {
     name: 'LichessMsg',
     input: 'src/main.ts',
-    output: 'lichess.msg',
+    output: 'msg',
   },
 });

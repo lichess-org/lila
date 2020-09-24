@@ -13,28 +13,12 @@ object show {
 
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
-      activities: Vector[lila.activity.ActivityView],
-      following: Boolean
+      activities: Vector[lila.activity.ActivityView]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),
-      moreJs = frag(
-        jsTag("ads.js"),
-        embedJsUnsafe(
-          """
-$(function() {
-$('button.follow').click(function() {
-var klass = 'active';
-$(this).toggleClass(klass);
-$.ajax({
-url: '/rel/' + ($(this).hasClass('active') ? 'follow/' : 'unfollow/') + $(this).data('user'),
-method:'post'
-});
-});
-});"""
-        )
-      ),
+      moreJs = frag(jsTag("ads.js")),
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${s.titleName} streams chess",
@@ -95,7 +79,7 @@ method:'post'
               } getOrElse div(cls := "box embed")(div(cls := "nostream")(offline()))
           },
           div(cls := "box streamer")(
-            views.html.streamer.header(s, following.some),
+            views.html.streamer.header(s),
             div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
             a(cls := "ratings", href := routes.User.show(s.user.username))(
               s.user.best6Perfs.map { showPerfRating(s.user, _) }

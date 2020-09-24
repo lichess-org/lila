@@ -26,7 +26,7 @@ object communication {
         isGranted(_.UserSpy) option cssTag("mod.user")
       ),
       moreJs = frag(
-        isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
+        isGranted(_.UserSpy) option jsModule("mod.user")
       )
     ) {
       main(id := "communication", cls := "box box-pad")(
@@ -103,36 +103,35 @@ object communication {
         priv option frag(
           h2("Recent private chats"),
           div(cls := "player_chats")(
-            players.map {
-              case (pov, chat) =>
-                div(cls := "game")(
-                  a(
-                    href := routes.Round.player(pov.fullId),
-                    cls := List(
-                      "title"        -> true,
-                      "friend_title" -> pov.game.fromFriend
-                    ),
-                    title := pov.game.fromFriend.option("Friend game")
-                  )(
-                    usernameOrAnon(pov.opponent.userId),
-                    " – ",
-                    momentFromNowOnce(pov.game.movedAt)
+            players.map { case (pov, chat) =>
+              div(cls := "game")(
+                a(
+                  href := routes.Round.player(pov.fullId),
+                  cls := List(
+                    "title"        -> true,
+                    "friend_title" -> pov.game.fromFriend
                   ),
-                  div(cls := "chat")(
-                    chat.lines.map { line =>
-                      div(
-                        cls := List(
-                          "line"   -> true,
-                          "author" -> (line.author.toLowerCase == u.id)
-                        )
-                      )(
-                        userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
-                        nbsp,
-                        richText(line.text)
+                  title := pov.game.fromFriend.option("Friend game")
+                )(
+                  usernameOrAnon(pov.opponent.userId),
+                  " – ",
+                  momentFromNowOnce(pov.game.movedAt)
+                ),
+                div(cls := "chat")(
+                  chat.lines.map { line =>
+                    div(
+                      cls := List(
+                        "line"   -> true,
+                        "author" -> (line.author.toLowerCase == u.id)
                       )
-                    }
-                  )
+                    )(
+                      userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
+                      nbsp,
+                      richText(line.text)
+                    )
+                  }
                 )
+              )
             }
           ),
           div(cls := "threads")(

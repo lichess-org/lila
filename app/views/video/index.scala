@@ -45,7 +45,7 @@ object index {
         strong(count),
         " videos so far!"
       ),
-      div(cls := "list box__pad infinitescroll")(
+      div(cls := "list box__pad infinite-scroll")(
         videos.currentPageResults.map { bits.card(_, control) },
         videos.currentPageResults.sizeIs < 4 option div(cls := s"not_much nb_${videos.nbResults}")(
           if (videos.currentPageResults.isEmpty) "No videos for these tags:"

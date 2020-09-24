@@ -39,8 +39,8 @@ final private class ChapterMaker(
   private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     for {
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-      parsed <- PgnImport(pgn, contributors.flatten).toFuture recoverWith {
-        case e: Exception => fufail(ValidationException(e.getMessage))
+      parsed <- PgnImport(pgn, contributors.flatten).toFuture recoverWith { case e: Exception =>
+        fufail(ValidationException(e.getMessage))
       }
     } yield Chapter.make(
       studyId = study.id,
@@ -48,7 +48,7 @@ final private class ChapterMaker(
         parsed
           .tags(_.Black)
           .ifTrue {
-            data.name.value.isEmpty || Chapter.isDefaultName(data.name)
+            data.name.value.isEmpty || data.isDefaultName
           }
           .map { black =>
             Chapter.Name(s"$white - $black")
@@ -125,7 +125,7 @@ final private class ChapterMaker(
       root <- game2root(game, initialFen)
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true)
       name <- {
-        if (Chapter isDefaultName data.name)
+        if (data.isDefaultName)
           Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply
         else fuccess(data.name)
       }
@@ -173,8 +173,8 @@ final private class ChapterMaker(
     str match {
       case s if s.lengthIs == Game.gameIdSize => gameRepo game s
       case s if s.lengthIs == Game.fullIdSize => gameRepo game Game.takeGameId(s)
-      case UrlRegex(id)                     => parseGame(id)
-      case _                                => fuccess(none)
+      case UrlRegex(id)                       => parseGame(id)
+      case _                                  => fuccess(none)
     }
 }
 
@@ -197,7 +197,7 @@ private[study] object ChapterMaker {
   trait ChapterData {
     def orientation: String
     def mode: String
-    def realOrientation = chess.Color(orientation) | chess.White
+    def realOrientation = chess.Color.fromName(orientation) | chess.White
     def isPractice      = mode == Mode.Practice.key
     def isGamebook      = mode == Mode.Gamebook.key
     def isConceal       = mode == Mode.Conceal.key
@@ -211,7 +211,8 @@ private[study] object ChapterMaker {
       pgn: Option[String] = None,
       orientation: String = "white",
       mode: String = ChapterMaker.Mode.Normal.key,
-      initial: Boolean = false
+      initial: Boolean = false,
+      isDefaultName: Boolean = true,
   ) extends ChapterData {
 
     def manyGames =

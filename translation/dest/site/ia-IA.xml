@@ -188,7 +188,6 @@
     <item quantity="other">%s partitas con te</item>
   </plurals>
   <string name="cancel">Cancellar</string>
-  <string name="timeOut">Tempore finite</string>
   <string name="drawOfferSent">Proposition de partita nulle inviate</string>
   <string name="drawOfferDeclined">Proposition de partita nulle declinate</string>
   <string name="drawOfferAccepted">Proposition de partita nulle acceptate</string>

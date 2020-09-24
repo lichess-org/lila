@@ -28,7 +28,7 @@ export function styleSetting(): Setting<Style> {
       ['nato', 'Nato: knight takes foxtrot 3']
     ],
     default: 'anna', // all the rage in OTB blind chess tournaments
-    storage: window.lichess.storage.make('nvui.moveNotation')
+    storage: lichess.storage.make('nvui.moveNotation')
   });
 }
 

@@ -116,11 +116,11 @@ final class SimulApi(
           simul.start ?? { started =>
             userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
               started.pairings.zipWithIndex.map(makeGame(started, host)).sequenceFu map { games =>
-                games.headOption foreach {
-                  case (game, _) => socket.startSimul(simul, game)
+                games.headOption foreach { case (game, _) =>
+                  socket.startSimul(simul, game)
                 }
-                games.foldLeft(started) {
-                  case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
+                games.foldLeft(started) { case (s, (g, hostColor)) =>
+                  s.setPairingHostColor(g.id, hostColor)
                 }
               }
             } flatMap { s =>
@@ -234,7 +234,7 @@ final class SimulApi(
       case (pairing, number) =>
         for {
           user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
-          hostColor = simul.hostColor | chess.Color(number % 2 == 0)
+          hostColor = simul.hostColor | chess.Color.fromWhite(number % 2 == 0)
           whiteUser = hostColor.fold(host, user)
           blackUser = hostColor.fold(user, host)
           clock     = simul.clock.chessClockOf(hostColor)

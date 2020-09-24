@@ -10,7 +10,6 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
-import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel }
 import lila.user.{ User => UserModel }
 
@@ -284,11 +283,11 @@ final class Team(
 
   def subscribe(teamId: String) = {
     def doSub(req: Request[_], me: UserModel) =
-      Form(single("v" -> boolean))
+      Form(single("subscribe" -> optional(boolean)))
         .bindFromRequest()(req)
-        .fold(_ => funit, v => api.subscribe(teamId, me.id, v))
+        .fold(_ => funit, v => api.subscribe(teamId, me.id, ~v))
     AuthOrScopedBody(_.Team.Write)(
-      auth = ctx => me => doSub(ctx.body, me) inject Redirect(routes.Team.show(teamId)),
+      auth = ctx => me => doSub(ctx.body, me) inject jsonOkResult,
       scoped = req => me => doSub(req, me) inject jsonOkResult
     )
   }
@@ -332,18 +331,16 @@ final class Team(
       OptionFuRedirectUrl(for {
         requestOption <- api request requestId
         teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
-      } yield (teamOption, requestOption).mapN((_, _))) {
-        case (team, request) =>
-          implicit val req = ctx.body
-          forms.processRequest
-            .bindFromRequest()
-            .fold(
-              _ => fuccess(routes.Team.show(team.id).toString),
-              {
-                case (decision, url) =>
-                  api.processRequest(team, request, decision == "accept") inject url
-              }
-            )
+      } yield (teamOption, requestOption).mapN((_, _))) { case (team, request) =>
+        implicit val req = ctx.body
+        forms.processRequest
+          .bindFromRequest()
+          .fold(
+            _ => fuccess(routes.Team.show(team.id).toString),
+            { case (decision, url) =>
+              api.processRequest(team, request, decision == "accept") inject url
+            }
+          )
       }
     }
 
@@ -506,9 +503,13 @@ You received this because you are subscribed to messages of the team $url."""
 
   private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.countCreatedRecently(me) flatMap { count =>
-      if (count > 10 || (count > 3 && !Granter(_.Teacher)(me) && !Granter(_.ManageTeam)(me)))
-        Forbidden(views.html.site.message.teamCreateLimit).fuccess
-      else a
+      val allow =
+        isGranted(_.ManageTeam) ||
+          (isGranted(_.Verified) && count < 100) ||
+          (isGranted(_.Teacher) && count < 10) ||
+          count < 3
+      if (allow) a
+      else Forbidden(views.html.site.message.teamCreateLimit).fuccess
     }
 
   private def WithOwnedTeam(teamId: String)(f: TeamModel => Fu[Result])(implicit ctx: Context): Fu[Result] =

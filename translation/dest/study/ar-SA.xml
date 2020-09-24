@@ -16,6 +16,22 @@
   <string name="recentlyUpdated">تم تحديثه مؤخرا</string>
   <string name="mostPopular">الاكثر شعبية</string>
   <string name="addNewChapter">أضف فصلاً جديدا</string>
+  <plurals name="nbChapters">
+    <item quantity="zero">%s فصل</item>
+    <item quantity="one">%s فصل</item>
+    <item quantity="two">فصلان</item>
+    <item quantity="few">%s فصول</item>
+    <item quantity="many">%s فصل</item>
+    <item quantity="other">%s فصول</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="zero">%s مباراة</item>
+    <item quantity="one">%s مباراة</item>
+    <item quantity="two">مبارتان</item>
+    <item quantity="few">%s مبارايات</item>
+    <item quantity="many">%s مباراة</item>
+    <item quantity="other">%s مباراة</item>
+  </plurals>
   <string name="addMembers">إضافة أعضاء</string>
   <string name="inviteToTheStudy">دعوة الى دراسة</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">يرجى فقط إضافة اشخاص تعرفهم، ويريدون المشاركة في هذه الدراسة</string>
@@ -50,15 +66,15 @@
   <string name="chapterPgn">PGN الفصل</string>
   <string name="downloadGame">حمل لعبة</string>
   <string name="studyUrl">رابط الدراسة</string>
-  <string name="broadcastUrl">رابط البث</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">رابط البث</string>
   <string name="currentChapterUrl">رابط الفصل الحالي</string>
   <string name="currentGameUrl">رابط اللعبة الحالية</string>
-  <string name="youCanPasteThisInTheForumToEmbed">يمكنك لصق هذا في المنتدى لتضمينه</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">يمكنك لصق هذا في المنتدى لتضمينه</string>
   <string name="startAtInitialPosition">البدء من وضع البداية</string>
   <string name="startAtX">البدء من %s</string>
   <string name="embedInYourWebsite">ضمنه في موقع أو مدونة</string>
   <string name="readMoreAboutEmbedding">راجع المزيد عن التضمين</string>
-  <string name="onlyPublicStudiesCanBeEmbedded">يمكن تضمين الدراسات العامة فقط!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">يمكن تضمين الدراسات العامة فقط!</string>
   <string name="open">فتح</string>
   <string name="xBroughtToYouByY">%1$s مقدمة من %2$s</string>
   <string name="studyNotFound">لم يتم العثور على الدراسة</string>

@@ -27,10 +27,9 @@ final private class CheckMail(
       cache
         .get(domain)
         .withTimeoutDefault(2.seconds, true)
-        .recover {
-          case e: Exception =>
-            logger.warn(s"CheckMail $domain ${e.getMessage}", e)
-            true
+        .recover { case e: Exception =>
+          logger.warn(s"CheckMail $domain ${e.getMessage}", e)
+          true
         }
 
   // expensive

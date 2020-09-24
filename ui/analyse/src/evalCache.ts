@@ -1,4 +1,4 @@
-import { defined, prop, Prop } from 'common';
+import { defined, prop } from 'common';
 import throttle from 'common/throttle';
 
 export interface EvalCacheOpts {
@@ -14,7 +14,6 @@ export interface EvalCache {
   onCeval(): void
   fetch(path: Tree.Path, multiPv: number): void
   onCloudEval(serverEval): void
-  upgradable: Prop<boolean>
 }
 
 const evalPutMinDepth = 20;
@@ -72,6 +71,7 @@ function toCeval(e) {
 export function make(opts: EvalCacheOpts): EvalCache {
   const fetchedByFen = {};
   const upgradable = prop(false);
+  lichess.pubsub.on('socket.in.crowd', d => upgradable(d.nb > 2));
   return {
     onCeval: throttle(500, function() {
       const node = opts.getNode(), ev = node.ceval;
@@ -98,7 +98,6 @@ export function make(opts: EvalCacheOpts): EvalCache {
     onCloudEval(serverEval) {
       fetchedByFen[serverEval.fen] = serverEval;
       opts.receive(toCeval(serverEval), serverEval.path);
-    },
-    upgradable,
+    }
   };
 };

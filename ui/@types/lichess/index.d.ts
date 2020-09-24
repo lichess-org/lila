@@ -1,73 +1,60 @@
 interface Lichess {
-  // standalones/util.js
+  load: Promise<unknown>; // window.onload promise
+  info: any;
   requestIdleCallback(f: () => void): void;
-  dispatchEvent(el: HTMLElement | Window, eventName: string): void;
-  hasTouchEvents: boolean;
   sri: string;
-  isCol1(): boolean;
   storage: LichessStorageHelper;
-  tempStorage: LichessStorageHelper; // TODO: unused
+  tempStorage: LichessStorageHelper;
   once(key: string, mod?: 'always'): boolean;
-  debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
   powertip: any;
-  widget: unknown;
-  hoverable?: boolean;
-  isHoverable(): boolean;
+  widget: any;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
   soundUrl: string;
-  loadedCss: { [key: string]: boolean };
   loadCss(path: string): void;
   loadCssPath(path: string): void;
   jsModule(name: string): string;
-  loadScript(url: string, opts?: AssetUrlOpts): Promise<unknown>;
+  loadScript(url: string, opts?: AssetUrlOpts): Promise<void>;
+  loadModule(name: string): Promise<void>;
   hopscotch: any;
-  slider(): any;
-  makeChat(data: any, callback?: (chat: any) => void): void;
-  formAjax(form: JQuery): any;
-  numberFormat(n: number): string;
+  userComplete: () => Promise<UserComplete>;
+  slider(): Promise<void>;
+  makeChat(data: any): any;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
-  hasToReload: boolean;
-  redirect(o: string | { url: string, cookie: Cookie }): void;
+  contentLoaded(parent?: HTMLElement): void;
+  unload: {
+    expected: boolean;
+  };
+  watchers(el: HTMLElement): void;
+  redirect(o: RedirectTo): void;
   reload(): void;
   escapeHtml(str: string): string;
   announce(d: LichessAnnouncement): void;
 
-  // standalones/trans.js
   trans(i18n: { [key: string]: string | undefined }): Trans
+  quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
 
-  // main.js
   socket: any;
   sound: any;
-  soundBox: {
-    load(name: string, path: string): Promise<void>;
-    loadOggOrMp3(name: string, path: string): Promise<void>;
-    play(name: string): void;
-  };
-  userAutocomplete: any;
+  soundBox: SoundBoxI;
   miniBoard: {
     init(node: HTMLElement): void;
-    initAll(): void;
+    initAll(parent?: HTMLElement): void;
   };
   miniGame: {
-    init(node: HTMLElement, data?: string): string;
-    initAll(): void;
+    init(node: HTMLElement): string | null;
+    initAll(parent?: HTMLElement): void;
     update(node: HTMLElement, data: { fen: string, lm: string, wc?: number, bc?: number }): void;
     finish(node: HTMLElement, win?: Color): void;
   };
-  challengeApp: any;
   ab?: any;
 
   // socket.js
   StrongSocket: {
-    (url: string, version: number | false, cfg: any): any;
-    defaults: {
-      events: {
-        fen(e: any): void;
-      }
-    },
+    new(url: string, version: number | false, cfg?: any): any;
     firstConnect: Promise<(tpe: string, data: any) => void>
+    defaultParams: Record<string, any>;
   }
 
   // timeago.js
@@ -76,6 +63,7 @@ interface Lichess {
     format(date: number | Date): string;
     absolute(date: number | Date): string;
   }
+  timeagoLocale(a: number, b: number, c: number): any;
 
   // misc
   advantageChart: {
@@ -92,9 +80,29 @@ interface Lichess {
   playMusic(): any;
   quietMode?: boolean;
   keyboardMove?: any;
-  notifyApp: {
-    setMsgRead(user: string): void;
-  }
+}
+
+type RedirectTo = string | { url: string, cookie: Cookie };
+
+type UserComplete = (opts: UserCompleteOpts) => void;
+
+interface UserCompleteOpts {
+  input: HTMLInputElement,
+  tag?: 'a' | 'span';
+  minLength?: number;
+  populate?: (result: LightUser) => string;
+  onSelect?: (result: LightUser) => void;
+  focus?: boolean;
+  friend?: boolean;
+  tour?: string;
+  swiss?: string;
+}
+
+interface SoundBoxI {
+  loadOggOrMp3(name: string, path: string): void;
+  play(name: string): void;
+  getVolume(): number;
+  setVolume(v: number): void;
 }
 
 interface LichessSpeech {
@@ -119,7 +127,10 @@ interface Cookie {
 interface AssetUrlOpts {
   sameDomain?: boolean;
   noVersion?: boolean;
+  version?: string;
 }
+
+type Timeout = ReturnType<typeof setTimeout>;
 
 declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
 
@@ -160,7 +171,7 @@ interface LichessStorage {
 
 interface LichessBooleanStorage {
   get(): boolean;
-  set(v: boolean): boolean;
+  set(v: boolean): void;
   toggle(): void;
 }
 
@@ -182,6 +193,7 @@ interface Window {
   Mousetrap: any
   Chessground: any
   Highcharts: any
+  InfiniteScroll(selector: string): void;
   lichessReplayMusic: () => {
     jump(node: Tree.Node): void
   }
@@ -338,33 +350,20 @@ declare namespace Tree {
   }
 }
 
-interface JQueryStatic {
-  modal: LichessModal;
+interface CashStatic {
   powerTip: any;
 }
 
-interface LichessModal {
-  (html: string | JQuery, cls?: string, onClose?: () => void): JQuery;
-  close(): void;
-}
-
-interface JQuery {
-  powerTip(options?: PowerTip.Options | 'show' | 'hide'): JQuery;
-  typeahead: any;
-  sparkline: any;
+interface Cash {
+  powerTip(options?: PowerTip.Options | 'show' | 'hide'): Cash;
   clock: any;
-  watchers(): JQuery;
-  watchers(method: 'set', data: any): void;
-  highcharts(conf?: any): any;
-  slider(key: string, value: any): any;
-  slider(opts: any): any;
-  flatpickr(opts: any): any;
 }
 
 declare namespace PowerTip {
   type Placement = 'n' | 'e' | 's' | 'w' | 'nw' | 'ne' | 'sw' | 'se' | 'nw-alt' | 'ne-alt' | 'sw-alt' | 'se-alt';
 
   interface Options {
+    preRender?: (el: HTMLElement) => void;
     placement?: Placement;
     smartPlacement?: boolean;
     popupId?: string;
@@ -380,3 +379,7 @@ declare namespace PowerTip {
     closeEvents?: string[];
   }
 }
+
+declare module '@yaireo/tagify';
+
+declare var lichess: Lichess;

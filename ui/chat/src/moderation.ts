@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { numberFormat } from 'common/number';
 import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces'
 import { userModInfo } from './xhr'
 import { userLink, bind } from './util';
@@ -44,7 +45,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     open,
     close,
     timeout(reason: ModerationReason, text: string) {
-      data && window.lichess.pubsub.emit('socket.send', 'timeout', {
+      data && lichess.pubsub.emit('socket.send', 'timeout', {
         userId: data.id,
         reason: reason.key,
         text
@@ -65,7 +66,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   const perms = ctrl.permissions();
 
   const infos = data.history ? h('div.infos.block', [
-    window.lichess.numberFormat(data.games || 0) + ' games',
+    numberFormat(data.games || 0) + ' games',
     data.troll ? 'TROLL' : undefined,
     data.engine ? 'ENGINE' : undefined,
     data.booster ? 'BOOSTER' : undefined
@@ -104,7 +105,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       h('strong', 'Timeout history'),
       h('table', h('tbody.slist', {
         hook: {
-          insert: () => window.lichess.pubsub.emit('content_loaded')
+          insert() { lichess.contentLoaded() }
         }
       }, data.history.map(function(e) {
         return h('tr', [

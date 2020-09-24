@@ -190,7 +190,6 @@
     <item quantity="other">%s ludi tecum</item>
   </plurals>
   <string name="cancel">Anullare</string>
-  <string name="timeOut">Tempus est effectum</string>
   <string name="drawOfferSent">Missa est pacis conditio</string>
   <string name="drawOfferDeclined">Recusata est pacis conditio</string>
   <string name="drawOfferAccepted">Accepta est pacis conditio</string>

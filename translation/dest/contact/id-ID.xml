@@ -59,7 +59,7 @@
   <string name="ratedGame">Pastikan Anda memainkan permainan ber rating. Permainan santai tidak memengaruhi rating pemain.</string>
   <string name="errorPage">Halaman bermasalah</string>
   <string name="reportErrorPage">Jika Anda menghadapi halaman bermasalah, Anda dapat melaporkannya:</string>
-  <string name="banAppeal">Pertimbangan untuk larangan atau pembatasan IP</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Pertimbangan untuk larangan atau pembatasan IP</string>
   <string name="engineAppeal">Engine atau tanda curang</string>
   <string name="sendAppealTo">Anda dapat mengirim pertimbangan ke %s.</string>
   <string name="falsePositives">Kesalahan positif kadang-kadang terjadi setiap saat, dan kami menyesal tentang itu.</string>

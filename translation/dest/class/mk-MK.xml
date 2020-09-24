@@ -53,7 +53,7 @@
 Еве ви врска за пристап на часот.</string>
   <string name="invitationToClass">Поканети сте да се придружите на часот „%s“ како ученик.</string>
   <string name="clickToViewInvitation">Кликнете на врската за да ја видите поканата:</string>
-  <plurals name="nbPendingInvitations">
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
     <item quantity="one">Една покана во исчекување</item>
     <item quantity="other">%s покани во исчекување</item>
   </plurals>

@@ -221,7 +221,6 @@
     <item quantity="other">%s hier s Vami</item>
   </plurals>
   <string name="cancel">Zrušiť</string>
-  <string name="timeOut">Čas vypršal</string>
   <string name="drawOfferSent">Ponuka remízy odoslaná</string>
   <string name="drawOfferDeclined">Ponuka remízy odmietnutá</string>
   <string name="drawOfferAccepted">Ponuka remízy prijatá</string>

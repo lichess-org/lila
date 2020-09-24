@@ -199,7 +199,6 @@
     <item quantity="other">%s partier med dig</item>
   </plurals>
   <string name="cancel">Avbryt</string>
-  <string name="timeOut">Tiden är ute</string>
   <string name="drawOfferSent">Remierbjudande skickat</string>
   <string name="drawOfferDeclined">Remierbjudande avbrutet</string>
   <string name="drawOfferAccepted">Remierbjudande accepterat</string>

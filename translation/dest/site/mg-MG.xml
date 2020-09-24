@@ -95,7 +95,6 @@
     <item quantity="other">%s lalao niaraka taminao</item>
   </plurals>
   <string name="cancel">Cancel</string>
-  <string name="timeOut">Lany fotoana</string>
   <string name="drawOfferSent">Lasa ny fangatahana lalao sahala</string>
   <string name="drawOfferDeclined">Lavo ny fangatahana ny hahasahala ny lalao</string>
   <string name="drawOfferAccepted">Nekena ny fangatahana ny hahasahala ny lalao</string>

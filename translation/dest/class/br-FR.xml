@@ -53,7 +53,7 @@ Ger-tremen: %3$s</string>
 Amañ emañ al liamm evit mont ennañ.</string>
   <string name="invitationToClass">Pedet oc\'h da vezañ ezel eus ar c\'hlas \"%s\" evel studier.</string>
   <string name="clickToViewInvitation">Klikit war al liamm da welet ar bedadenn:</string>
-  <plurals name="nbPendingInvitations">
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
     <item quantity="one">Ur bedadenn o c\'hortoz ur respont</item>
     <item quantity="two">%s bedadenn o c\'hortoz ur respont</item>
     <item quantity="few">%s pedadenn o c\'hortoz ur respont</item>

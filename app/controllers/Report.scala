@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.AnyContentAsFormUrlEncoded
-
 import views._
 
 import lila.api.{ BodyContext, Context }
@@ -17,9 +16,6 @@ final class Report(
 ) extends LilaController(env) {
 
   private def api = env.report.api
-
-  private def getScore(implicit ctx: Context) =
-    ctx.me.flatMap(mod => env.report.modFilters.updateThreshold(mod, getInt("score")))
 
   def list =
     Secure(_.SeeReport) { implicit ctx => me =>
@@ -38,23 +34,21 @@ final class Report(
     api.countOpenByRooms zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
   private def renderList(room: String)(implicit ctx: Context) =
-    api.openAndRecentWithFilter(12, Room(room), getScore) zip
-      getCounts flatMap {
-      case (reports, counts ~ streamers ~ appeals) =>
+    api.openAndRecentWithFilter(12, Room(room)) zip
+      getCounts flatMap { case (reports, counts ~ streamers ~ appeals) =>
         (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
           Ok(html.report.list(reports, room, counts, streamers, appeals))
-    }
+      }
 
   def inquiry(id: String) =
     Secure(_.SeeReport) { _ => me =>
-      api.inquiries.toggle(AsMod(me), id) map {
-        case (prev, next) =>
-          next.fold(
-            Redirect {
-              if (prev.exists(_.isAppeal)) routes.Appeal.queue()
-              else routes.Report.list()
-            }
-          )(onInquiryStart)
+      api.inquiries.toggle(AsMod(me), id) map { case (prev, next) =>
+        next.fold(
+          Redirect {
+            if (prev.exists(_.isAppeal)) routes.Appeal.queue()
+            else routes.Report.list()
+          }
+        )(onInquiryStart)
       }
     }
 
@@ -99,12 +93,11 @@ final class Report(
                   }
                 else if (force) userC.modZoneOrRedirect(prev.user)
                 else
-                  api.inquiries.toggle(AsMod(me), prev.id) map {
-                    case (prev, next) =>
-                      next.fold(
-                        if (prev.exists(_.isAppeal)) Redirect(routes.Appeal.queue())
-                        else redirectToList
-                      )(onInquiryStart)
+                  api.inquiries.toggle(AsMod(me), prev.id) map { case (prev, next) =>
+                    next.fold(
+                      if (prev.exists(_.isAppeal)) Redirect(routes.Appeal.queue())
+                      else redirectToList
+                    )(onInquiryStart)
                   }
             }
         }
@@ -137,8 +130,8 @@ final class Report(
   def form =
     Auth { implicit ctx => _ =>
       get("username") ?? env.user.repo.named flatMap { user =>
-        env.report.forms.createWithCaptcha map {
-          case (form, captcha) => Ok(html.report.form(form, user, captcha))
+        env.report.forms.createWithCaptcha map { case (form, captcha) =>
+          Ok(html.report.form(form, user, captcha))
         }
       }
     }

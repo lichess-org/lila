@@ -1,0 +1,19 @@
+{
+  "name": "dgt",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org msg",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@build/rollupProject": "2.0.0",
+    "@types/lichess": "2.0.0"
+  },
+  "dependencies": {
+    "chessops": "^0.7.2"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
+  }
+}

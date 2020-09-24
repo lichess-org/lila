@@ -38,10 +38,9 @@ final class RatingChartApi(
   }
 
   private def ratingsMapToJson(user: User, ratingsMap: RatingsMap) =
-    ratingsMap.map {
-      case (days, rating) =>
-        val date = user.createdAt plusDays days
-        Json.arr(date.getYear, date.getMonthOfYear - 1, date.getDayOfMonth, rating)
+    ratingsMap.map { case (days, rating) =>
+      val date = user.createdAt plusDays days
+      Json.arr(date.getYear, date.getMonthOfYear - 1, date.getDayOfMonth, rating)
     }
 
   private def build(user: User): Fu[Option[String]] =

@@ -137,7 +137,7 @@ object appeal {
         cssTag("form3"),
         cssTag("appeal")
       ),
-      moreJs = embedJsUnsafe(
+      moreJs = embedJsUnsafeLoadThen(
         """$('select.appeal-presets').on('change', e => $('#form3-text').val(e.target.value))"""
       )
     )(body)
@@ -236,12 +236,11 @@ object appeal {
           div(
             select(cls := "appeal-presets")(
               option(st.value := "")("Presets"),
-              ps.value.map {
-                case ModPreset(name, text) =>
-                  option(
-                    st.value := text,
-                    st.title := text
-                  )(name)
+              ps.value.map { case ModPreset(name, text) =>
+                option(
+                  st.value := text,
+                  st.title := text
+                )(name)
               }
             ),
             isGranted(_.Presets) option a(href := routes.Mod.presets("appeal"))("Edit presets")

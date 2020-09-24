@@ -46,15 +46,9 @@ object bits {
           " found"
         )
       ),
-      div(cls := "list infinitescroll box__pad")(
+      div(cls := "list infinite-scroll box__pad")(
         videos.currentPageResults.map { card(_, control) },
-        videos.nextPage.map { next =>
-          div(cls := "pager none")(
-            a(rel := "next", href := s"${routes.Video.author(name)}?${control.queryString}&page=$next")(
-              "Next"
-            )
-          )
-        }
+        pagerNext(videos, np => s"${routes.Video.author(name)}?${control.queryString}&page=$np")
       )
     )
 

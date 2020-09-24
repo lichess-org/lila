@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">%s-tilastot</string>
   <string name="viewTheGames">Katso pelit</string>
-  <string name="provisional">tilapäinen</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">tilapäinen</string>
   <string name="notEnoughRatedGames">Ei ole pelattu riittävän montaa pisteytettyä peliä, jotta voitaisiin muodostaa luotettava vahvuusluku.</string>
   <string name="progressOverLastXGames">Kehitys viimeisten %s pelin aikana:</string>
   <string name="ratingDeviation">Vahvuuslukupoikkeama: %s.</string>
@@ -19,6 +19,7 @@
   <string name="notEnoughGames">Ei tarpeeksi pelattuja pelejä</string>
   <string name="highestRating">Korkein vahvuusluku: %s</string>
   <string name="lowestRating">Alin vahvuusluku: %s</string>
+  <string name="fromXToY">aikavälillä %1$s–%2$s</string>
   <string name="winningStreak">Voittoputki</string>
   <string name="losingStreak">Tappioputki</string>
   <string name="longestStreak">Pisin putki: %s</string>

@@ -199,7 +199,6 @@
     <item quantity="other">%s игри со тебе</item>
   </plurals>
   <string name="cancel">Откажи</string>
-  <string name="timeOut">Времето истече</string>
   <string name="drawOfferSent">Понуда за реми е испратена</string>
   <string name="drawOfferDeclined">Понудата за реми е одбиена</string>
   <string name="drawOfferAccepted">Понудата за реми е прифатена</string>

@@ -117,7 +117,6 @@
     <item quantity="other">%s timlilit akk kec</item>
   </plurals>
   <string name="cancel">Semmet</string>
-  <string name="timeOut">Akud uɣrid</string>
   <string name="drawOfferSent">Asumer n ilem yuzen</string>
   <string name="drawOfferDeclined">Asumer n ilem</string>
   <string name="drawOfferAccepted">Asumer n ilem iqbel</string>

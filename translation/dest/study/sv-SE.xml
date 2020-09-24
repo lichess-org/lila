@@ -62,10 +62,10 @@
   <string name="chapterPgn">Kapitel PGN</string>
   <string name="downloadGame">Ladda ner parti</string>
   <string name="studyUrl">Studie-URL</string>
-  <string name="broadcastUrl">Länk till direktsändning (URL)</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Länk till direktsändning (URL)</string>
   <string name="currentChapterUrl">Aktuell kapitel URL</string>
   <string name="currentGameUrl">Länk till aktuellt parti (URL)</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Du kan klistra in detta i forumet för att infoga</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Du kan klistra in detta i forumet för att infoga</string>
   <string name="startAtInitialPosition">Start vid ursprunglig position</string>
   <string name="startAtX">Börja på %s</string>
   <string name="embedInYourWebsite">Infoga på din hemsida eller blogg</string>

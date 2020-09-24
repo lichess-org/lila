@@ -43,8 +43,8 @@ final private[video] class Youtube(
                 }
               )
             )
-            .recover {
-              case e: Exception => logger.warn("update all youtube", e)
+            .recover { case e: Exception =>
+              logger.warn("update all youtube", e)
             }
         }
         .void

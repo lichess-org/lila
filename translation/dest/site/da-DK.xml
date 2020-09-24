@@ -199,7 +199,8 @@
     <item quantity="other">%s partier med dig</item>
   </plurals>
   <string name="cancel">Afbryd</string>
-  <string name="timeOut">Tiden er udløbet</string>
+  <string name="whiteTimeOut">Tid udløbet for hvid</string>
+  <string name="blackTimeOut">Tid udløbet for sort</string>
   <string name="drawOfferSent">Remistilbud afsendt</string>
   <string name="drawOfferDeclined">Remistilbud afslået</string>
   <string name="drawOfferAccepted">Remistilbud accepteret</string>

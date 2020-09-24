@@ -82,7 +82,7 @@ export default function(ctrl: Controller): VNode {
             $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
             changeColorHandle();
           }
-          window.lichess.dispatchEvent(document.body, 'chessground.resize');
+          document.body.dispatchEvent(new Event('chessground.resize'));
         }
         vnode.data!.gaugeOn = gaugeOn;
       }
@@ -93,7 +93,7 @@ export default function(ctrl: Controller): VNode {
       side.userBox(ctrl)
     ]),
     h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
-      hook: window.lichess.hasTouchEvents ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
+      hook: 'ontouchstart' in window ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       chessground(ctrl),
       ctrl.promotion.view()

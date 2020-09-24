@@ -199,7 +199,8 @@
     <item quantity="other">%s partier mot deg</item>
   </plurals>
   <string name="cancel">Avbryt</string>
-  <string name="timeOut">Tiden er ute</string>
+  <string name="whiteTimeOut">Tiden er ute for hvit</string>
+  <string name="blackTimeOut">Tiden er ute for svart</string>
   <string name="drawOfferSent">Remistilbud sendt</string>
   <string name="drawOfferDeclined">Remistilbud avslått</string>
   <string name="drawOfferAccepted">Remistilbud godtatt</string>

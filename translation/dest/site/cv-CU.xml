@@ -118,7 +118,6 @@
     <item quantity="other">Санпа %s вӑйӑ выљанӑ</item>
   </plurals>
   <string name="cancel">Пӑрахӑҫла</string>
-  <string name="timeOut">Вӑхӑт пӗтни</string>
   <string name="drawOfferSent">Парма-пар сӗннине йанӑ</string>
   <string name="drawOfferDeclined">Парма-пар сӗннине сирнӗ</string>
   <string name="drawOfferAccepted">Парма-пар сӗннине йышӑннӑ</string>

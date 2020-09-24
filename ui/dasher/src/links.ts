@@ -16,10 +16,10 @@ export default function(ctrl: DasherCtrl): VNode {
         linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
         noarg('profile')),
 
-      d.inbox ? h(
+      h(
         'a.text',
         linkCfg('/inbox', 'e'),
-        noarg('inbox')) : null,
+        noarg('inbox')),
 
       h(
         'a.text',
@@ -85,7 +85,7 @@ export default function(ctrl: DasherCtrl): VNode {
         'data-icon': 'K',
         title: 'Keyboard: z'
       },
-      hook: bind('click', () => window.lichess.pubsub.emit('zen'))
+      hook: bind('click', () => lichess.pubsub.emit('zen'))
     }, noarg('zenMode'))
   ]) : null;
 

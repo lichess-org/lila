@@ -221,7 +221,6 @@
     <item quantity="other">%s partijų su jumis</item>
   </plurals>
   <string name="cancel">Atšaukti</string>
-  <string name="timeOut">Baigėsi laikas</string>
   <string name="drawOfferSent">Lygiųjų pasiūlymas išsiųstas</string>
   <string name="drawOfferDeclined">Lygiųjų pasiūlymas atmestas</string>
   <string name="drawOfferAccepted">Lygiųjų pasiūlymas priimtas</string>

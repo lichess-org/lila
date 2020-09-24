@@ -145,7 +145,7 @@ function makeCg(preview: ChapterPreview): VNode {
     },
     hook: {
       insert(vnode) {
-        window.lichess.miniBoard.init(vnode.elm as HTMLElement);
+        lichess.miniBoard.init(vnode.elm as HTMLElement);
         vnode.data!.fen = preview.fen;
       },
       postpatch(old, vnode) {

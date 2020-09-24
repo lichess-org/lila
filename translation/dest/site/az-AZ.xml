@@ -195,7 +195,6 @@
     <item quantity="other">%s sizinle oyunlar</item>
   </plurals>
   <string name="cancel">İmtina</string>
-  <string name="timeOut">Vaxt bitdi</string>
   <string name="drawOfferSent">Heç-heçə təklifi göndərildi</string>
   <string name="drawOfferDeclined">Heç-heçə təklifi rədd edildi</string>
   <string name="drawOfferAccepted">Heç-heçə təklifi qəbul edildi</string>

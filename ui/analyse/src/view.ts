@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+
 import { VNode } from 'snabbdom/vnode'
 import { parseFen } from 'chessops/fen';
 import * as chessground from './ground';
@@ -18,7 +19,7 @@ import * as pgnExport from './pgnExport';
 import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
 import crazyView from './crazy/crazyView';
-import { view as keyboardView} from './keyboard';
+import { view as keyboardView } from './keyboard';
 import explorerView from './explorer/explorerView';
 import retroView from './retrospect/retroView';
 import practiceView from './practice/practiceView';
@@ -36,8 +37,6 @@ import relayIntro from './study/relay/relayIntroView';
 import renderPlayerBars from './study/playerBars';
 import serverSideUnderboard from './serverSideUnderboard';
 import * as gridHacks from './gridHacks';
-
-const li = window.lichess;
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
@@ -143,7 +142,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         h('button.button.button-thin.action.text', {
           attrs: dataIcon('G'),
           hook: bind('click', _ => {
-            const pgn = $('.copyables .pgn textarea').val();
+            const pgn = $('.copyables .pgn textarea').val() as string;
             if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn);
           }, ctrl.redraw)
         }, ctrl.trans.noarg('importPgn'))
@@ -177,7 +176,7 @@ function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
   let timeout = setTimeout(repeat, 500);
   control[action](ctrl);
   const eventName = e.type == 'touchstart' ? 'touchend' : 'mouseup';
-  document.addEventListener(eventName, () => clearTimeout(timeout), {once: true});
+  document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 }
 
 function controls(ctrl: AnalyseCtrl) {
@@ -208,29 +207,29 @@ function controls(ctrl: AnalyseCtrl) {
         }
       })
     ] : [
-      h('button.fbt', {
-        attrs: {
-          title: noarg('openingExplorerAndTablebase'),
-          'data-act': 'explorer',
-          'data-icon': ']'
-        },
-        class: {
-          hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
-          active: ctrl.explorer.enabled()
-        }
-      }),
-      ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.fbt', {
-        attrs: {
-          title: noarg('practiceWithComputer'),
-          'data-act': 'practice',
-          'data-icon': ''
-        },
-        class: {
-          hidden: menuIsOpen || !!ctrl.retro,
-          active: !!ctrl.practice
-        }
-      }) : null
-    ]),
+        h('button.fbt', {
+          attrs: {
+            title: noarg('openingExplorerAndTablebase'),
+            'data-act': 'explorer',
+            'data-icon': ']'
+          },
+          class: {
+            hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
+            active: ctrl.explorer.enabled()
+          }
+        }),
+        ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook() ? h('button.fbt', {
+          attrs: {
+            title: noarg('practiceWithComputer'),
+            'data-act': 'practice',
+            'data-icon': ''
+          },
+          class: {
+            hidden: menuIsOpen || !!ctrl.retro,
+            active: !!ctrl.practice
+          }
+        }) : null
+      ]),
     h('div.jumps', [
       jumpButton('W', 'first', canJumpPrev),
       jumpButton('Y', 'prev', canJumpPrev),
@@ -249,7 +248,7 @@ function controls(ctrl: AnalyseCtrl) {
 }
 
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
-  if (ctrl.data.pref.coords == 2){
+  if (ctrl.data.pref.coords == 2) {
     $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
     changeColorHandle();
   }
@@ -289,7 +288,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         forceInnerCoords(ctrl, needsInnerCoords);
       },
       postpatch(old, vnode) {
-        if (old.data!.gaugeOn !== gaugeOn) li.dispatchEvent(document.body, 'chessground.resize');
+        if (old.data!.gaugeOn !== gaugeOn) document.body.dispatchEvent(new Event('chessground.resize'));
         vnode.data!.gaugeOn = gaugeOn;
       }
     },
@@ -305,7 +304,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     study ? studyView.overboard(study) : null,
     intro || h(addChapterId(study, 'div.analyse__board.main-board'), {
-      hook: (window.lichess.hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
+      hook: ('ontouchstart' in window || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       ...(clocks || []),
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
@@ -332,39 +331,38 @@ export default function(ctrl: AnalyseCtrl): VNode {
     intro ? null : acplView(ctrl),
     ctrl.embed ? null : (
       ctrl.studyPractice ? studyPracticeView.side(study!) :
-      h('aside.analyse__side', {
-        hook: onInsert(elm => {
-          ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
-          $(elm).append($('.streamers').clone().removeClass('none'));
-        })
-      },
-        ctrl.studyPractice ? [studyPracticeView.side(study!)] : (
-          study ? [studyView.side(study)] : [
-            ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
-            (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back-to-game',
-              h('a.button.button-empty.text', {
-                attrs: {
-                  href: router.game(ctrl.data, ctrl.data.player.color),
-                  'data-icon': 'i'
-                }
-              }, ctrl.trans.noarg('backToGame'))
-            ) : null
-          ]
+        h('aside.analyse__side', {
+          hook: onInsert(elm => {
+            ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+            $(elm).append($('.streamers').clone().removeClass('none'));
+          })
+        },
+          ctrl.studyPractice ? [studyPracticeView.side(study!)] : (
+            study ? [studyView.side(study)] : [
+              ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
+              (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back-to-game',
+                h('a.button.button-empty.text', {
+                  attrs: {
+                    href: router.game(ctrl.data, ctrl.data.player.color),
+                    'data-icon': 'i'
+                  }
+                }, ctrl.trans.noarg('backToGame'))
+              ) : null
+            ]
+          )
         )
-      )
     ),
     study && study.relay && relayManager(study.relay),
     ctrl.opts.chat && h('section.mchat', {
       hook: onInsert(_ => {
-        if (ctrl.opts.chat.instance) ctrl.opts.chat.instance.destroy();
-        ctrl.opts.chat.parseMoves = true;
-        li.makeChat(ctrl.opts.chat, chat => {
-          ctrl.opts.chat.instance = chat;
-        });
+        const chatOpts = ctrl.opts.chat;
+        chatOpts.instance?.then(c => c.destroy());
+        chatOpts.parseMoves = true;
+        chatOpts.instance = lichess.makeChat(chatOpts);
       })
     }),
     ctrl.embed ? null : h('div.chat__members.none', {
-      hook: onInsert(el => $(el).watchers())
+      hook: onInsert(lichess.watchers)
     }, [h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators'), ' ', h('span.list')])
   ]);
 }

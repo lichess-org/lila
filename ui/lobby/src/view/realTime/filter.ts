@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+import * as xhr from 'common/xhr';
 import { bind } from '../util';
 import LobbyController from '../../ctrl';
 
@@ -6,7 +7,10 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
 
   const f = ctrl.filter.data?.form,
     $div = $(el),
-    $ratingRange = $div.find('.rating-range');
+    $ratingRange = $div.find('.rating-range'),
+    $rangeInput = $ratingRange.find('input[name="ratingRange"]'),
+    $minInput = $ratingRange.find('.rating-range__min'),
+    $maxInput = $ratingRange.find('.rating-range__max');
 
   if (f) Object.keys(f).forEach(k => {
     const input = $div.find(`input[name="${k}"]`)[0] as HTMLInputElement;
@@ -17,42 +21,38 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
 
   const save = () => ctrl.filter.save($div.find('form')[0] as HTMLFormElement);
 
-  function changeRatingRange(values) {
-    $ratingRange.find('input').val(values[0] + "-" + values[1]);
-    $ratingRange.siblings('.range').text(values[0] + "–" + values[1]);
-    save();
-  }
-  $div.find('input').change(save);
-  $div.find('button.reset').click(function() {
+  $div.find('input').on('change', save);
+  $div.find('button.reset').on('click', () => {
     ctrl.filter.set(null);
     ctrl.filter.open = false;
     ctrl.redraw();
   });
-  $div.find('button.apply').click(function() {
+  $div.find('button.apply').on('click', () => {
     ctrl.filter.open = false;
     ctrl.redraw();
   });
-  $ratingRange.each(function(this: HTMLElement) {
-    var $this = $(this);
-    window.lichess.slider().done(function() {
-      var $input = $this.find("input");
-      var $span = $this.siblings(".range");
-      var min = $input.data("min");
-      var max = $input.data("max");
-      var values = $input.val() ? $input.val().split("-") : [min, max];
-      $span.text(values.join('–'));
-      $this.slider({
-        range: true,
-        min: min,
-        max: max,
-        values: values,
-        step: 50,
-        slide(_, ui) {
-          changeRatingRange(ui.values);
-        }
-      });
-    });
-  });
+
+  function changeRatingRange(e?: Event) {
+    $minInput.attr('max', $maxInput.val() as string);
+    $maxInput.attr('min', $minInput.val() as string);
+    const txt = $minInput.val() + "-" + $maxInput.val();
+    $rangeInput.val(txt);
+    $ratingRange.siblings('.range').text(txt);
+    if (e) save();
+  }
+  const rangeValues = $rangeInput.val() ? ($rangeInput.val() as string).split("-") : [];
+
+  $minInput.attr({
+    step: '50',
+    value: rangeValues[0] || $minInput.attr('min')!
+  }).on('input', changeRatingRange);
+
+  $maxInput.attr({
+    step: '50',
+    value: rangeValues[1] || $maxInput.attr('max')!
+  }).on('input', changeRatingRange);
+
+  changeRatingRange();
 }
 
 export function toggle(ctrl: LobbyController, nbFiltered: number) {
@@ -71,21 +71,18 @@ export interface FilterNode extends HTMLElement {
   filterLoaded?: boolean;
 }
 
-export function render(ctrl: LobbyController) {
-  return h('div.hook__filters', {
+export const render = (ctrl: LobbyController) =>
+  h('div.hook__filters', {
     hook: {
       insert(vnode) {
         const el = vnode.elm as FilterNode;
         if (el.filterLoaded) return;
-        $.ajax({
-          url: '/setup/filter',
-          success(html) {
+        xhr.text('/setup/filter')
+          .then(html => {
             el.innerHTML = html;
             el.filterLoaded = true;
             initialize(ctrl, el);
-          }
-        });
+          });
       }
     }
   });
-}

@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-export function userLink(u: string, title?: string) {
+export function userLink(u: string, title?: string): VNode {
   const trunc = u.substring(0, 14);
   return h('a', {
     // can't be inlined because of thunks

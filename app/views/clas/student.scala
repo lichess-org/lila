@@ -124,20 +124,19 @@ object student {
         s" ($nbStudents/${lila.clas.Clas.maxStudents})"
       ),
       nbStudents > (lila.clas.Clas.maxStudents / 2) option maxStudentsWarning(clas),
-      created map {
-        case Student.WithPassword(student, password) =>
-          flashMessage(cls := "student-add__created")(
-            strong(
-              trans.clas.lichessProfileXCreatedForY(
-                userIdLink(student.userId.some, withOnline = false),
-                student.realName
-              ),
-              p(trans.clas.makeSureToCopy()),
-              pre(
-                trans.clas.studentCredentials(student.realName, usernameOrId(student.userId), password.value)
-              )
+      created map { case Student.WithPassword(student, password) =>
+        flashMessage(cls := "student-add__created")(
+          strong(
+            trans.clas.lichessProfileXCreatedForY(
+              userIdLink(student.userId.some, withOnline = false),
+              student.realName
+            ),
+            p(trans.clas.makeSureToCopy()),
+            pre(
+              trans.clas.studentCredentials(student.realName, usernameOrId(student.userId), password.value)
             )
           )
+        )
       },
       standardFlash(),
       (nbStudents <= lila.clas.Clas.maxStudents) option frag(
@@ -153,8 +152,12 @@ object student {
             )
           ),
           postForm(cls := "form3", action := routes.Clas.studentInvite(clas.id.value))(
-            form3.group(invite("username"), trans.clas.lichessUsername())(
-              form3.input(_, klass = "user-autocomplete")(created.isEmpty option autofocus)(dataTag := "span")
+            form3.group(invite("username"), trans.clas.lichessUsername())(field =>
+              div(cls := "complete-parent")(
+                form3.input(field, klass = "user-autocomplete")(created.isEmpty option autofocus)(
+                  dataTag := "span"
+                )
+              )
             ),
             realNameField(invite),
             form3.submit("Invite", icon = none)
@@ -222,13 +225,12 @@ object student {
               )
             ),
             tbody(
-              created map {
-                case Student.WithPassword(student, password) =>
-                  tr(
-                    td(student.realName),
-                    td(usernameOrId(student.userId)),
-                    td(password.value)
-                  )
+              created map { case Student.WithPassword(student, password) =>
+                tr(
+                  td(student.realName),
+                  td(usernameOrId(student.userId)),
+                  td(password.value)
+                )
               }
             )
           )

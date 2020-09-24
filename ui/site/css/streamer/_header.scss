@@ -25,21 +25,6 @@
     align-content: center;
   }
 
-  .follow {
-    @extend %flex-center-nowrap;
-
-    justify-content: center;
-
-    .active-yes,
-    &.active .active-no {
-      display: none;
-    }
-
-    &.active .active-yes {
-      display: block;
-    }
-  }
-
   h1 {
     @extend %roboto;
 
@@ -62,14 +47,13 @@
   }
 
   .services {
-    margin: 5px 0;
+    margin: .5em 0;
   }
 
-  .service {
-    display: flex;
+  .services li {
     font-size: 1.2em;
     white-space: nowrap;
-    padding: 5px 0;
+    padding: .3em 0;
   }
 
   .service.live {

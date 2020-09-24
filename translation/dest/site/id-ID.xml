@@ -188,7 +188,8 @@
     <item quantity="other">%s kali bermain dengan anda</item>
   </plurals>
   <string name="cancel">Batal</string>
-  <string name="timeOut">Waktu habis</string>
+  <string name="whiteTimeOut">Putih kehabisan waktu</string>
+  <string name="blackTimeOut">Hitam kehabisan waktu</string>
   <string name="drawOfferSent">Tawaran remis terkirim</string>
   <string name="drawOfferDeclined">Tawaran remis ditolak</string>
   <string name="drawOfferAccepted">Tawaran remis diterima</string>

@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">toki awen sona</string>
+  <string name="features">ken</string>
+  <string name="reopen">kama sin</string>
+  <string name="removedStudents">tenpo pini la weka</string>
+  <string name="lastActiveDate">tenpo pini la lon</string>
+  <string name="managed">jan pi pana sona li pana e pona</string>
+  <string name="release">jan pi pana sona o pini e pana e pona</string>
+  <string name="teachers">jan pi pana sona</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">jan pi pana sona %s</item>
+    <item quantity="other">jan pi pana sona %s</item>
+  </plurals>
+  <string name="students">jan pi kama sona</string>
+  <string name="progress">pali tawa</string>
+  <string name="winrate">nanpa pi pini pona</string>
+  <string name="na">jo ken ala</string>
+</resources>

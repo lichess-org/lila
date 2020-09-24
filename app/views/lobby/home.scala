@@ -21,9 +21,9 @@ object home {
         s"lichess.${if (netConfig.isProd) "org" else "dev"} • ${trans.freeOnlineChess.txt()}"
       },
       moreJs = frag(
-        jsModule("lobby", defer = true),
-        embedJsUnsafe(
-          s"""lichess=window.lichess||{};customWS=true;lichess_lobby=${safeJsonValue(
+        jsModule("lobby"),
+        embedJsUnsafeLoadThen(
+          s"""LichessLobby(${safeJsonValue(
             Json.obj(
               "data" -> data,
               "playban" -> playban.map { pb =>
@@ -34,21 +34,20 @@ object home {
               },
               "i18n" -> i18nJsObject(i18nKeys)
             )
-          )}"""
+          )})"""
         )
       ),
       moreCss = cssTag("lobby"),
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          image = staticUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = staticUrl("logo/lichess-tile.png").some,
+          image = assetUrl("logo/lichess-tile-wide.png").some,
+          twitterImage = assetUrl("logo/lichess-tile.png").some,
           title = "The best free, adless Chess server",
           url = netBaseUrl,
           description = trans.siteDescription.txt()
         )
-        .some,
-      deferJs = true
+        .some
     ) {
       main(
         cls := List(
@@ -96,9 +95,9 @@ object home {
         ),
         currentGame.map(bits.currentGameInfo) orElse
           playban.map(bits.playbanInfo) getOrElse {
-          if (ctx.blind) blindLobby(blindGames)
-          else bits.lobbyApp
-        },
+            if (ctx.blind) blindLobby(blindGames)
+            else bits.lobbyApp
+          },
         div(cls := "lobby__side")(
           ctx.blind option h2("Highlights"),
           ctx.noKid option st.section(cls := "lobby__streams")(

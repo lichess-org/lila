@@ -149,7 +149,6 @@
     <item quantity="other">%s Խաղեր՝ ձեր հետ</item>
   </plurals>
   <string name="cancel">Հերքել</string>
-  <string name="timeOut">Ժամանակը ավարտվեց</string>
   <string name="drawOfferSent">Ոչ-ոքի առաջարկը ուղարկված է</string>
   <string name="drawOfferDeclined">Ոչ-ոքի առաջարկը մերժվել է</string>
   <string name="drawOfferAccepted">Ոչ-ոքի առաջարկը ընդունվել է</string>

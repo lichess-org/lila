@@ -199,7 +199,6 @@
     <item quantity="other">आपके साथ %s खेल</item>
   </plurals>
   <string name="cancel">रद्द करें</string>
-  <string name="timeOut">समय समाप्ति</string>
   <string name="drawOfferSent">बराबरी पे खेल समाप्त करने का प्रस्ताव भेजा गया</string>
   <string name="drawOfferDeclined">बराबरी पे खेल समाप्त करने का प्रस्ताव अस्वीकारित किया गया</string>
   <string name="drawOfferAccepted">बराबरी पे खेल समाप्त करने का प्रस्ताव स्वीकारित किया गया</string>

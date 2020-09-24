@@ -10,7 +10,7 @@ object faq {
 
   import trans.faq._
 
-  private val fideHandbook = "https://www.fide.com/FIDE/handbook/LawsOfChess.pdf"
+  val fideHandbookUrl = "https://handbook.fide.com/chapter/E012018"
 
   private def question(id: String, title: String, answer: Frag*) =
     div(
@@ -27,7 +27,7 @@ object faq {
       active = "faq",
       moreCss = cssTag("faq")
     ) {
-      main(cls := "faq small-page box box-pad")(
+      div(cls := "faq small-page box box-pad")(
         h1(cls := "lichess_title")(frequentlyAskedQuestions()),
         h2("Lichess"),
         question(
@@ -147,7 +147,7 @@ object faq {
           "timeout",
           insufficientMaterial.txt(),
           p(
-            lichessFollowFIDErules(a(href := fideHandbook)(linkToFIDErules()))
+            lichessFollowFIDErules(a(href := fideHandbookUrl)(fideHandbookX("§6.9")))
           )
         ),
         question(
@@ -156,7 +156,7 @@ object faq {
           p(
             explainingEnPassant(
               a(href := "https://en.wikipedia.org/wiki/En_passant")(goodIntroduction()),
-              a(href := fideHandbook)(officialRulesPDF()),
+              a(href := fideHandbookUrl)(fideHandbookX("§3.7")),
               a(href := s"${routes.Learn.index()}#/15")(lichessTraining())
             )
           )
@@ -167,7 +167,7 @@ object faq {
           p(
             threefoldRepetitionExplanation(
               a(href := "https://en.wikipedia.org/wiki/Threefold_repetition")(threefoldRepetitionLowerCase()),
-              a(href := fideHandbook)(handBookPDF())
+              a(href := fideHandbookUrl)(fideHandbookX("§9.2"))
             )
           ),
           h4(notRepeatedMoves()),

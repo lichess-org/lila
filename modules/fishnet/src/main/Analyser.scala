@@ -25,8 +25,8 @@ final class Analyser(
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {
-      case true                 => fuFalse
-      case _ if game.analysable => fuFalse
+      case true                  => fuFalse
+      case _ if !game.analysable => fuFalse
       case _ =>
         limiter(sender, ignoreConcurrentCheck = false) flatMap { accepted =>
           accepted ?? {
@@ -94,19 +94,18 @@ final class Analyser(
     }
 
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
-    gameRepo.initialFen(game) zip uciMemo.get(game) map {
-      case (initialFen, moves) =>
-        makeWork(
-          game = Work.Game(
-            id = game.id,
-            initialFen = initialFen,
-            studyId = none,
-            variant = game.variant,
-            moves = moves take maxPlies mkString " "
-          ),
-          startPly = game.chess.startedAtTurn,
-          sender = sender
-        )
+    gameRepo.initialFen(game) zip uciMemo.get(game) map { case (initialFen, moves) =>
+      makeWork(
+        game = Work.Game(
+          id = game.id,
+          initialFen = initialFen,
+          studyId = none,
+          variant = game.variant,
+          moves = moves take maxPlies mkString " "
+        ),
+        startPly = game.chess.startedAtTurn,
+        sender = sender
+      )
     }
 
   private def makeWork(game: Work.Game, startPly: Int, sender: Work.Sender): Work.Analysis =

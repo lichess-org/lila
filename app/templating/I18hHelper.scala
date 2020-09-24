@@ -19,9 +19,9 @@ trait I18nHelper extends HasEnv with UserContext.ToLang {
   def i18nOptionJsObject(keys: Option[I18nKey]*)(implicit lang: Lang): JsObject =
     JsDump.keysToObject(keys.collect { case Some(k) => k.key }, lang)
 
-  def timeagoLocaleScript(implicit ctx: lila.api.Context): String = {
-    TimeagoLocales.js.get(ctx.lang.code) orElse
-      TimeagoLocales.js.get(ctx.lang.language) getOrElse
+  def timeagoLocaleScript(implicit lang: Lang): String = {
+    TimeagoLocales.js.get(lang.code) orElse
+      TimeagoLocales.js.get(lang.language) getOrElse
       ~TimeagoLocales.js.get("en")
   }
 

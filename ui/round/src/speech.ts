@@ -3,16 +3,13 @@ import { Step } from './interfaces';
 import viewStatus from 'game/view/status';
 
 export function setup(ctrl: RoundController) {
-  window.lichess.pubsub.on('speech.enabled', onSpeechChange(ctrl));
-  onSpeechChange(ctrl)(window.lichess.sound.speech());
+  lichess.pubsub.on('speech.enabled', onSpeechChange(ctrl));
+  onSpeechChange(ctrl)(lichess.sound.speech());
 }
 
 function onSpeechChange(ctrl: RoundController) {
   return function(enabled: boolean) {
-    if (!window.LichessSpeech && enabled)
-      window.lichess.loadScript(
-        window.lichess.jsModule('speech')
-      ).then(() => status(ctrl));
+    if (!window.LichessSpeech && enabled) lichess.loadModule('speech').then(() => status(ctrl));
     else if (window.LichessSpeech && !enabled) window.LichessSpeech = undefined;
   };
 }

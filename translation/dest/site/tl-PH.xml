@@ -199,7 +199,6 @@
     <item quantity="other">%s mga laro ko</item>
   </plurals>
   <string name="cancel">Ikansela</string>
-  <string name="timeOut">Naubos na ang oras</string>
   <string name="drawOfferSent">Naipadala na ang alok na tabla</string>
   <string name="drawOfferDeclined">Tinanggihan ang alok na tabla</string>
   <string name="drawOfferAccepted">Tinanggap ang alok na tabla</string>

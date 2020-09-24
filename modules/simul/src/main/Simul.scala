@@ -123,7 +123,7 @@ case class Simul(
 
   def playingPairings = pairings filterNot (_.finished)
 
-  def hostColor: Option[Color] = color flatMap chess.Color.apply
+  def hostColor: Option[Color] = color flatMap chess.Color.fromName
 
   def setPairingHostColor(gameId: String, hostColor: chess.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))

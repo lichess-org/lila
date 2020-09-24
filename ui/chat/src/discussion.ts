@@ -8,7 +8,7 @@ import { lineAction as modLineAction } from './moderation';
 import { userLink } from './util';
 import { flag } from './xhr'
 
-const whisperRegex = /^\/w(?:hisper)?\s/;
+const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
 export default function(ctrl: Ctrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];
@@ -33,7 +33,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
       hook: {
         insert(vnode) {
           const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
-            window.lichess.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
+            lichess.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
           });
           if (mod) $el.on('click', '.mod', (e: Event) =>
             mod.open((e.target as HTMLElement).parentNode as HTMLElement)
@@ -85,7 +85,7 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
 let mouchListener: EventListener;
 
 const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
-  const storage = window.lichess.tempStorage.make('chatInput');
+  const storage = lichess.tempStorage.make('chatInput');
   if(storage.get()){
     chatEl.value = storage.get()!;
     storage.remove();
@@ -99,7 +99,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
         pub = ctrl.opts.public;
       storage.set(el.value);
       if (e.which == 10 || e.which == 13) {
-        if (txt === '') $('.keyboard-move input').focus();
+        if (txt === '') $('.keyboard-move input').each(function(this: HTMLInputElement) { this.focus() });
         else {
           if (!ctrl.opts.kobold) spam.selfReport(txt);
           if (pub && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
@@ -198,7 +198,7 @@ function report(ctrl: Ctrl, line: HTMLElement) {
   );
 }
 
-function renderLine(ctrl: Ctrl, line: Line) {
+function renderLine(ctrl: Ctrl, line: Line): VNode {
 
   const textNode = renderText(line.t, ctrl.opts.parseMoves);
 
@@ -214,6 +214,7 @@ function renderLine(ctrl: Ctrl, line: Line) {
   return h('li', ctrl.moderation() ? [
     line.u ? modLineAction() : null,
     userNode,
+    ' ',
     textNode
   ] : [
     ctrl.data.userId && line.u && ctrl.data.userId != line.u ? h('i.flag', {
@@ -223,6 +224,7 @@ function renderLine(ctrl: Ctrl, line: Line) {
       }
     }) : null,
     userNode,
+    ' ',
     textNode
   ]);
 }

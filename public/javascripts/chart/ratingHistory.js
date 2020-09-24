@@ -28,8 +28,8 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
   var indexFilter = function(_, i) {
     return !singlePerfName || i === singlePerfIndex;
   };
-  lichess.loadScript('javascripts/chart/common.js').done(function() {
-    lichess.chartCommon('highstock').done(function() {
+  lichess.loadScript('javascripts/chart/common.js').then(function() {
+    lichess.chartCommon('highstock').then(function() {
       // support: Fx when user bio overflows
       var disabled = {
         enabled: false
@@ -56,7 +56,7 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
           'Dash', // Puzzle
           'Dash' // Ultrabullet
         ].filter(indexFilter);
-        $(this).highcharts('StockChart', {
+        Highcharts.stockChart(this, {
           yAxis: {
             title: noText
           },

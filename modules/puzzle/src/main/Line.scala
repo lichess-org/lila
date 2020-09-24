@@ -48,8 +48,8 @@ object Line {
             case List(Win(m))   => path :+ m
             case List(Retry(_)) => loop(siblings)
             case ahead =>
-              ahead.collectFirst {
-                case Win(m) => path :+ m
+              ahead.collectFirst { case Win(m) =>
+                path :+ m
               } | {
                 val children = ahead collect { case Node(m, _) => path :+ m }
                 loop(siblings ::: children)
@@ -57,10 +57,10 @@ object Line {
           }
       }
 
-    lines.collectFirst {
-      case Win(move) => List(move)
-    } | loop(lines collect {
-      case Node(move, _) => List(move)
+    lines.collectFirst { case Win(move) =>
+      List(move)
+    } | loop(lines collect { case Node(move, _) =>
+      List(move)
     })
 
   }

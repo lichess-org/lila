@@ -1,18 +1,14 @@
-import { EditorConfig } from './interfaces';
+import attributes from 'snabbdom/modules/attributes';
 import EditorCtrl from './ctrl';
+import eventlisteners from 'snabbdom/modules/eventlisteners';
+import klass from 'snabbdom/modules/class';
+import menuHover from 'common/menuHover';
+import props from 'snabbdom/modules/props';
 import view from './view';
-
+import { Chessground } from 'chessground';
+import { EditorConfig } from './interfaces';
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
-import props from 'snabbdom/modules/props';
-import eventlisteners from 'snabbdom/modules/eventlisteners';
-
-import { menuHover } from 'common/menuHover';
-import { Chessground } from 'chessground';
-
-menuHover();
 
 const patch = init([klass, attributes, props, eventlisteners]);
 
@@ -28,6 +24,8 @@ export default function LichessEditor(element: HTMLElement, config: EditorConfig
   const inner = document.createElement('div');
   element.appendChild(inner);
   vnode = patch(inner, view(ctrl));
+
+  menuHover();
 
   return {
     getFen: ctrl.getFen.bind(ctrl),

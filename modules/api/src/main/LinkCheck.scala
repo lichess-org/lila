@@ -35,7 +35,7 @@ final private class LinkCheck(
 
   import LinkCheck._
 
-  def apply(line: UserLine, source: PublicSource): Fu[Boolean] = {
+  def apply(line: UserLine, source: PublicSource): Fu[Boolean] =
     if (multipleLinks find line.text) fuFalse
     else
       line.text match {
@@ -45,7 +45,6 @@ final private class LinkCheck(
         case studyLinkR(id)      => withSource(source, studyLink)(id, line)
         case _                   => fuTrue
       }
-  }
 
   private def withSource(
       source: PublicSource,
@@ -91,11 +90,11 @@ final private class LinkCheck(
 
   private def studyLink(studyId: String, source: FullSource) = fuFalse
 
-  private val multipleLinks   = s"$domain.+$domain".r.unanchored
-  private val tournamentLinkR = s"$domain/tournament/(\\w+)".r.unanchored
-  private val simulLinkR      = s"$domain/simul/(\\w+)".r.unanchored
-  private val swissLinkR      = s"$domain/swiss/(\\w+)".r.unanchored
-  private val studyLinkR      = s"$domain/study/(\\w+)".r.unanchored
+  private val multipleLinks   = s"(?i)$domain.+$domain".r.unanchored
+  private val tournamentLinkR = s"(?i)$domain/tournament/(\\w+)".r.unanchored
+  private val simulLinkR      = s"(?i)$domain/simul/(\\w+)".r.unanchored
+  private val swissLinkR      = s"(?i)$domain/swiss/(\\w+)".r.unanchored
+  private val studyLinkR      = s"(?i)$domain/study/(\\w+)".r.unanchored
 }
 
 private object LinkCheck {

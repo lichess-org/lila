@@ -78,7 +78,7 @@ object Puzzle {
   import lila.db.BSON
   import BSON.BSONJodaDateTimeHandler
   implicit private val linesBSONHandler =
-    new BSONDocumentReader[Lines] with BSONDocumentWriter[Lines] with BSONHandler[Lines] {
+    new BSONDocumentReader[Lines] with BSONDocumentWriter[Lines] {
       private def readMove(move: String) =
         chess.Pos.doublePiotrToKey(move take 2) match {
           case Some(m) => s"$m${move drop 2}"
@@ -140,7 +140,7 @@ object Puzzle {
         fen = r str fen,
         lines = r.get[Lines](lines),
         depth = r int depth,
-        color = Color(r bool white),
+        color = Color.fromWhite(r bool white),
         date = r date date,
         perf = r.get[PuzzlePerf](perf),
         vote = r.get[AggregateVote](vote),

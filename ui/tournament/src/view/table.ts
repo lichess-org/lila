@@ -32,7 +32,7 @@ function featured(game: FeaturedGame): VNode {
       'data-state': `${game.fen},${game.orientation},${game.lastMove}`,
       'data-live': game.id
     },
-    hook: onInsert(window.lichess.powertip.manualUserIn)
+    hook: onInsert(lichess.powertip.manualUserIn)
   }, [
     featuredPlayer(game, opposite(game.orientation)),
     h('a.cg-wrap', {
@@ -71,11 +71,13 @@ function renderDuel(battle?: TeamBattle, duelTeams?: DuelTeams) {
   ]);
 }
 
+const initMiniGame = (node: VNode) => lichess.miniGame.initAll(node.elm as HTMLElement);
+
 export default function(ctrl: TournamentController): VNode {
   return h('div.tour__table', {
     hook: {
-      insert: window.lichess.miniGame.initAll,
-      postpatch: window.lichess.miniGame.initAll
+      insert: initMiniGame,
+      postpatch: initMiniGame
     }
   }, [
     ctrl.data.featured ? featured(ctrl.data.featured) : null,

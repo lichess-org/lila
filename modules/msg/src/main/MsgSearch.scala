@@ -1,6 +1,5 @@
 package lila.msg
 
-
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 

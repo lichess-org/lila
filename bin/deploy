@@ -62,9 +62,13 @@ SERVER_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/
 ARTIFACT_DIR = "/home/lichess-artifacts"
 
 
+def curl_cli(command, *, url="https://lichess.org/cli"):
+    return f"curl -X POST --data {shlex.quote(command)} {shlex.quote(url)} -H @.lila-cli"
+
+
 def asset_profile(ssh, *,
                   deploy_dir="/home/lichess-deploy",
-                  post="echo Reload assets on https://lichess.org/dev/cli",
+                  post=curl_cli("change asset version"),
                   asap=False):
     return {
         "ssh": ssh,
@@ -93,7 +97,7 @@ def server_profile(ssh, *,
     }
 
 PROFILES = {
-    "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post="echo Reload assets on https://lichess.dev/dev/cli", asap=True),
+    "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/cli"), asap=True),
     "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", asap=True),
     "ocean-server": server_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
     "ocean-assets": asset_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
@@ -143,13 +147,15 @@ def workflow_run_db(repo):
         print("Saved workflow run database.")
 
 
-def update_workflow_run_db(db, session, workflow_url):
-    print("Updating workflow runs ...")
+def update_workflow_run_db(db, session, workflow_url, *, silent=False):
+    if not silent:
+        print("Updating workflow runs ...")
     url = workflow_url
     new = 0
     synced = False
     while not synced:
-        print(f"- {url}")
+        if not silent:
+            print(f"- {url}")
         res = session.get(url)
         if res.status_code != 200:
             print(f"Unexpected response: {res.status_code} {res.text}")
@@ -167,7 +173,8 @@ def update_workflow_run_db(db, session, workflow_url):
             break
         url = res.links["next"]["url"]
 
-    print(f"Added/updated {new} workflow run(s).")
+    if not silent:
+        print(f"Added/updated {new} workflow run(s).")
     return new
 
 
@@ -185,7 +192,7 @@ def find_workflow_run(repo, session, workflow_url, wanted_commits):
                     continue
 
                 if run["status"] != "completed":
-                    print(f"- {run['html_url']} PENDING.")
+                    print(f"- {run['html_url']} PENDING (waiting {backoff}s)")
                     pending = True
                 elif run["conclusion"] != "success":
                     print(f"- {run['html_url']} FAILED.")
@@ -204,10 +211,9 @@ def find_workflow_run(repo, session, workflow_url, wanted_commits):
                     continue
 
             if pending:
-                print(f"Waiting {backoff}s for pending workflow run ...")
                 time.sleep(backoff)
                 backoff = min(backoff * 2, 30)
-                update_workflow_run_db(db, session, workflow_url)
+                update_workflow_run_db(db, session, workflow_url, silent=True)
                 continue
 
             raise DeployError("Did not find successful matching workflow run.")
@@ -240,6 +246,7 @@ def deploy_script(profile, session, run, url):
     deploy_dir = profile["deploy_dir"]
     artifact_unzipped = f"{ARTIFACT_DIR}/{profile['artifact_name']}-{run['id']:d}"
     artifact_zip = f"{artifact_unzipped}.zip"
+    deploy_prompt = f"read -n 1 -p {shlex.quote('PRESS ENTER TO RUN: ' + profile['post'])}"
 
     return [
         "echo \\# Downloading ...",
@@ -262,7 +269,7 @@ def deploy_script(profile, session, run, url):
         f"chown -R lichess:lichess {deploy_dir}",
         f"chmod -f +x {deploy_dir}/bin/lila || true",
         f"echo \"SSH: {profile['ssh']}\"",
-        f"echo \"Deploying immediately.\"" if profile["asap"] else f"/bin/bash -c \"read -n 1 -p 'PRESS ENTER TO RUN: {profile['post']}'\"",
+        f"echo {shlex.quote('Running: ' + profile['post'])}" if profile["asap"] else f"/bin/bash -c {shlex.quote(deploy_prompt)}",
         profile["post"],
         "echo",
         f"echo \\# Done.",

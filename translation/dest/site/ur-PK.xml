@@ -199,7 +199,6 @@
     <item quantity="other">آپکے ساتھ %s مقابلے</item>
   </plurals>
   <string name="cancel">مسترد</string>
-  <string name="timeOut">دورانیہ ختم ہو گیا</string>
   <string name="drawOfferSent">مقابلہ برابری پر ختم کرنے کی پیشکش بھیج دی گئی</string>
   <string name="drawOfferDeclined">مقابلہ برابری پر ختم کرنے کی پیشکش مسترد کردی گئی</string>
   <string name="drawOfferAccepted">مقابلہ برابری پر ختم کرنے کی پیشکش قبول کرلی گئي</string>
@@ -807,7 +806,6 @@
   <string name="youCannotChallengeX">آپ %s کو چیلینج نہیں کر سکتے.</string>
   <string name="xDoesNotAcceptChallenges">%s چیلنج قبول نہیں کرتے.</string>
   <string name="yourXRatingIsTooFarFromY">آپ کا درجہ %1$s %2$s سے بہت دور ہے.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">عارضی درجے کی وجہ سے آپ چیلینج نہیں بھیج سکتے.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s صرف اپنے دوستوں کے چیلنجز قبول کرتا ہے.</string>
   <string name="conditionalPremoves">مشروط پری مووز</string>
   <string name="addCurrentVariation">موجودہ لائن کو شامل کریں</string>

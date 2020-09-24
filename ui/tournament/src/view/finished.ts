@@ -11,10 +11,10 @@ import teamInfo from './teamInfo';
 import { numberRow } from './util';
 
 function confetti(data: TournamentData): VNode | undefined {
-  if (data.me && data.isRecentlyFinished && window.lichess.once('tournament.end.canvas.' + data.id))
+  if (data.me && data.isRecentlyFinished && lichess.once('tournament.end.canvas.' + data.id))
     return h('canvas#confetti', {
       hook: {
-        insert: _ => window.lichess.loadScript('javascripts/confetti.js')
+        insert: _ => lichess.loadScript('javascripts/confetti.js')
       }
     });
 }

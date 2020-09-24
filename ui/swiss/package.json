@@ -13,12 +13,11 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/jquery": "^2.0",
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
     "chat": "2.0.0",
-    "chessground": "^7.9.1",
+    "chessground": "^7.9.2",
     "common": "2.0.0",
     "game": "2.0.0",
     "snabbdom": "^0.7.4"

@@ -4,7 +4,7 @@ import SwissCtrl from './ctrl';
 import { isOutcome } from './util';
 
 // when the tournament no longer exists
-const onFail = () => window.lichess.reload();
+const onFail = () => lichess.reload();
 
 const join = (ctrl: SwissCtrl, password?: string) =>
   json(`/swiss/${ctrl.data.id}/join`, {

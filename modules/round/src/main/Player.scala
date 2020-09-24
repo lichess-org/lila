@@ -97,10 +97,10 @@ final private class Player(
             proxy.save(progress) >>-
               uciMemo.add(progress.game, moveOrDrop) >>-
               notifyMove(moveOrDrop, progress.game) >> {
-              if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
-              else
-                fuccess(progress.events)
-            }
+                if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
+                else
+                  fuccess(progress.events)
+              }
         }
     } else
       fufail(
@@ -126,12 +126,12 @@ final private class Player(
   ): Validated[String, MoveResult] =
     (uci match {
       case Uci.Move(orig, dest, prom) =>
-        game.chess(orig, dest, prom, metrics) map {
-          case (ncg, move) => ncg -> (Left(move): MoveOrDrop)
+        game.chess(orig, dest, prom, metrics) map { case (ncg, move) =>
+          ncg -> (Left(move): MoveOrDrop)
         }
       case Uci.Drop(role, pos) =>
-        game.chess.drop(role, pos, metrics) map {
-          case (ncg, drop) => ncg -> (Right(drop): MoveOrDrop)
+        game.chess.drop(role, pos, metrics) map { case (ncg, drop) =>
+          ncg -> (Right(drop): MoveOrDrop)
         }
     }).map {
       case (ncg, _) if ncg.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged

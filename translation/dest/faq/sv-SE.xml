@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Varför kallas Lichess för Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess är en kombination av \"live\"/\"light\"/\"libre\" och \"chess\". Det uttalas %1$s.</string>
   <string name="leechess">li-tjäss</string>
-  <string name="hearItPronouncedBySpecialist"> Hör det uttalas av en specialist.</string>
+  <string name="hearItPronouncedBySpecialist">Hör det uttalas av en specialist.</string>
   <string name="whyLiveLightLibre">Live, eftersom spel spelas och ses i realtid dygnet runt; light och libre för det faktum att Lichess är öppen källkod och ohämmad av proprietärt skräp som plågar andra webbplatser.</string>
   <string name="whyIsLilaCalledLila">På liknande sätt står källkoden för Lichess, %1$s, för li[chess i sca]la, då huvuddelen av Lichess är skrivet i %2$s, ett intuitivt programmeringsspråk.</string>
   <string name="howCanIContributeToLichess">Hur kan jag bidra till Lichess?</string>
@@ -52,23 +52,20 @@
   I sällsynta fall kan detta vara svårt att avgöra automatiskt (påtvingade linjer, fästningar). Som standard tar vi alltid sida med spelaren som inte fick slut på tid.
 
   Observera att det kan vara möjligt att matta med en enda springare eller löpare om motståndaren har en pjäs som kan blockera kungen.</string>
-  <string name="linkToFIDErules">FIDE handbok §6.9, pdf</string>
   <string name="discoveringEnPassant">Varför kan en bonde slå en annan bonde när den redan har passerat? (en passant)</string>
   <string name="explainingEnPassant">Detta är ett giltigt drag som kallas \"en passant\". Denna Wikipedia-artikel ger en %1$s.
 
-  Den beskrivs i avsnitt 3. (d) av %2$s:
-	
-  \"En bonde, som ockuperar en ruta på samma rad som och på en intilliggande fil till en motståndares bonde, som just har avancerat två rutor i ett drag från sin ursprungliga ruta, kan slå motståndarens bonde som om den senare hade flyttats endast en ruta. Detta slag är bara giltigt draget efter detta framsteg och kallas \'en passant\' slag.\"
-    
-  Se %3$s för detta drag för lite övning med det.
-  </string>
+Den beskrivs i avsnitt 3. (d) av %2$s:
+
+\"En bonde, som ockuperar en ruta på samma rad som och på en intilliggande fil till en motståndares bonde, som just har avancerat två rutor i ett drag från sin ursprungliga ruta, kan slå motståndarens bonde som om den senare hade flyttats endast en ruta. Detta slag är bara giltigt draget efter detta framsteg och kallas \'en passant\' slag.\"
+
+Se %3$s för detta drag för lite övning med det.</string>
   <string name="goodIntroduction">bra introduktion</string>
   <string name="officialRulesPDF">officiella regler (pdf)</string>
   <string name="lichessTraining">Lichess träning</string>
   <string name="threefoldRepetition">Dragupprepning</string>
   <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">dragupprepning</string>
-  <string name="handBookPDF">handbok (pdf)</string>
   <string name="notRepeatedMoves">Vi upprepade inte drag. Varför blev partiet ändå remi för dragupprepning?</string>
   <string name="repeatedPositionsThatMatters">Dragupprepning handlar om upprepade %1$s, inte drag. Upprepning behöver inte ske i följd.</string>
   <string name="positions">positioner</string>

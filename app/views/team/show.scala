@@ -1,16 +1,15 @@
 package views.html.team
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
+import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.common.String.html.{ richText, safeJsonValue }
 import lila.team.Team
-import lila.app.mashup.TeamInfo
-
-import controllers.routes
 
 object show {
 
@@ -39,8 +38,8 @@ object show {
           v    <- socketVersion
           chat <- chatOption
         } yield frag(
-          jsModule("chat"),
-          embedJsUnsafe(s"""lichess.team=${safeJsonValue(
+          jsModule("team"),
+          embedJsUnsafeLoadThen(s"""teamStart(${safeJsonValue(
             Json.obj(
               "id"            -> t.id,
               "socketVersion" -> v.value,
@@ -53,7 +52,7 @@ object show {
                 localMod = ctx.userId exists t.leaders.contains
               )
             )
-          )}""")
+          )})""")
         )
     ) {
       val enabledOrLeader = t.enabled || info.ledByMe || isGranted(_.Admin)
@@ -165,11 +164,11 @@ object show {
             t.enabled option div(cls := "team-show__members")(
               st.section(cls := "recent-members")(
                 h2(teamRecentMembers()),
-                div(cls := "userlist infinitescroll")(
-                  pagerNext(members, np => routes.Team.show(t.id, np).url),
+                div(cls := "userlist infinite-scroll")(
                   members.currentPageResults.map { member =>
                     div(cls := "paginated")(lightUserLink(member))
-                  }
+                  },
+                  pagerNext(members, np => routes.Team.show(t.id, np).url)
                 )
               )
             )

@@ -99,11 +99,10 @@ final class Env(
 
   def cli =
     new lila.common.Cli {
-      def process = {
-        case "puzzle" :: "disable" :: id :: Nil =>
-          id.toIntOption ?? { id =>
-            api.puzzle disable id inject "Done"
-          }
+      def process = { case "puzzle" :: "disable" :: id :: Nil =>
+        id.toIntOption ?? { id =>
+          api.puzzle disable id inject "Done"
+        }
       }
     }
 }

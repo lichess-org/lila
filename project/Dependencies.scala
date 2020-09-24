@@ -8,16 +8,16 @@ object Dependencies {
   val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "7.0.1"
   val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
   val jodaTime    = "joda-time"             % "joda-time"                       % "2.10.6"
-  val chess       = "org.lichess"          %% "scalachess"                      % "10.0.3"
+  val chess       = "org.lichess"          %% "scalachess"                      % "10.0.4"
   val compression = "org.lichess"          %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"       %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.19-THIB213"
   val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.6"
   val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "4.0.1"  % "compile"
   val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.21.1"
-  val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "2.3.0"
+  val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "2.3.1"
   val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.8.5"
-  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.3.3.RELEASE"
+  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.3.4.RELEASE"
   val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.51.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2"  % "provided"
   val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0"  % Test
@@ -42,7 +42,7 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "1.0.0-rc.2"
+    val version = "1.0.0"
 
     val driver = "org.reactivemongo" %% "reactivemongo"               % version
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
@@ -53,7 +53,7 @@ object Dependencies {
   object play {
     val version = "2.8.2-lila_0.7"
     val api     = "com.typesafe.play" %% "play"      % version
-    val json    = "com.typesafe.play" %% "play-json" % "2.9.0"
+    val json    = "com.typesafe.play" %% "play-json" % "2.9.1"
   }
 
   object playWs {
@@ -64,7 +64,7 @@ object Dependencies {
   }
 
   object kamon {
-    val version    = "2.1.4"
+    val version    = "2.1.6"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version

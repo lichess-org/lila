@@ -199,7 +199,8 @@
     <item quantity="other">%s pelejä kanssasi</item>
   </plurals>
   <string name="cancel">Peruuta</string>
-  <string name="timeOut">Aika loppui</string>
+  <string name="whiteTimeOut">Valkealta loppui aika</string>
+  <string name="blackTimeOut">Mustalta loppui aika</string>
   <string name="drawOfferSent">Tasapeliehdotus lähetetty</string>
   <string name="drawOfferDeclined">Tasapeliehdotus hylätty</string>
   <string name="drawOfferAccepted">Tasapeliehdotus hyväksytty</string>

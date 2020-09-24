@@ -28,7 +28,8 @@ final class Paginator[A] private[paginator] (
   /**
     * Returns the next page.
     */
-  def nextPage: Option[Int] = (currentPage < nbPages) option (currentPage + 1)
+  def nextPage: Option[Int] =
+    (currentPage < nbPages && currentPageResults.nonEmpty) option (currentPage + 1)
 
   /**
     * Returns the number of pages.

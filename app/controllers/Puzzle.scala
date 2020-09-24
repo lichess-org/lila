@@ -188,11 +188,10 @@ final class Puzzle(
             vote =>
               env.puzzle.api.vote.find(id, me) flatMap { v =>
                 env.puzzle.api.vote.update(id, me, v, vote == 1)
-              } map {
-                case (p, a) =>
-                  if (vote == 1) lila.mon.puzzle.vote.up.increment()
-                  else lila.mon.puzzle.vote.down.increment()
-                  Ok(Json.arr(a.value, p.vote.sum))
+              } map { case (p, a) =>
+                if (vote == 1) lila.mon.puzzle.vote.up.increment()
+                else lila.mon.puzzle.vote.down.increment()
+                Ok(Json.arr(a.value, p.vote.sum))
               }
           ) map (_ as JSON)
       }

@@ -18,16 +18,16 @@ final private[setup] class Processor(
     val pov = config pov ctx.me
     (gameRepo insertDenormalized pov.game) >>-
       onStart(pov.gameId) >> {
-      pov.game.player.isAi ?? fishnetPlayer(pov.game)
-    } inject pov
+        pov.game.player.isAi ?? fishnetPlayer(pov.game)
+      } inject pov
   }
 
   def apiAi(config: ApiAiConfig, me: User): Fu[Pov] = {
     val pov = config pov me.some
     (gameRepo insertDenormalized pov.game) >>-
       onStart(pov.gameId) >> {
-      pov.game.player.isAi ?? fishnetPlayer(pov.game)
-    } inject pov
+        pov.game.player.isAi ?? fishnetPlayer(pov.game)
+      } inject pov
   }
 
   def hook(

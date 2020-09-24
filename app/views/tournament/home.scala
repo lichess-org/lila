@@ -24,16 +24,13 @@ object home {
       wrapClass = "full-screen-force",
       moreJs = frag(
         infiniteScrollTag,
-        jsModule("tournamentSchedule"),
-        embedJsUnsafe(
-          s"""var app=LichessTournamentSchedule.app(document.querySelector('.tour-chart'), ${safeJsonValue(
-            Json.obj(
-              "data" -> json,
-              "i18n" -> bits.jsI18n
-            )
-          )});
-var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=app.update;"""
-        )
+        jsModule("tournament.schedule"),
+        embedJsUnsafeLoadThen(s"""LichessTournamentSchedule(${safeJsonValue(
+          Json.obj(
+            "data" -> json,
+            "i18n" -> bits.jsI18n
+          )
+        )})""")
       ),
       openGraph = lila.app.ui
         .OpenGraph(

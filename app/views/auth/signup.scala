@@ -13,7 +13,8 @@ object signup {
     views.html.base.layout(
       title = trans.signUp.txt(),
       moreJs = frag(
-        jsTag("signup.js"),
+        jsModule("login"),
+        embedJsUnsafeLoadThen("""loginSignup.signupStart()"""),
         views.html.base.recaptcha.script(form),
         fingerprintTag
       ),
@@ -47,8 +48,8 @@ object signup {
           "You must agree to the Lichess policies listed below:"
         )
       ),
-      agreements.map {
-        case (field, i18n) => form3.checkbox(form(field), i18n())
+      agreements.map { case (field, i18n) =>
+        form3.checkbox(form(field), i18n())
       }
     )
 

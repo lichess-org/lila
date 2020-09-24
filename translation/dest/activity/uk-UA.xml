@@ -9,13 +9,13 @@
     <item quantity="other">Підтримує lichess.org протягом %1$s місяців як %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Практиковано позицію %1$s в %2$s</item>
+    <item quantity="one">Виконано %1$s вправу в %2$s</item>
     <item quantity="few">Виконано %1$s вправи в %2$s</item>
     <item quantity="many">Виконано %1$s вправ в %2$s</item>
     <item quantity="other">Виконано %1$s вправ в %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Вирішено %s тактичний пазл</item>
+    <item quantity="one">Вирішено %s тактичну задачу</item>
     <item quantity="few">Вирішено %s тактичні задачі</item>
     <item quantity="many">Вирішено %s тактичних задач</item>
     <item quantity="other">Вирішені %s тактичні задачі</item>
@@ -58,7 +58,7 @@
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Додано %s нового підписника</item>
-    <item quantity="few">Отримано %s нових підписників</item>
+    <item quantity="few">Додано %s нових підписників</item>
     <item quantity="many">Додано %s нових підписників</item>
     <item quantity="other">Додано %s нових підписників</item>
   </plurals>

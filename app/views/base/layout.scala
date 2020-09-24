@@ -1,15 +1,13 @@
 package views.html.base
 
+import controllers.routes
 import play.api.i18n.Lang
-import play.api.libs.json.Json
 
 import lila.api.{ AnnounceStore, Context }
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.ContentSecurityPolicy
 import lila.common.String.html.safeJsonValue
-
-import controllers.routes
+import lila.common.{ ContentSecurityPolicy, Nonce }
 
 object layout {
 
@@ -36,7 +34,6 @@ object layout {
       link(
         id := "piece-sprite",
         href := assetUrl(s"piece-css/$ps.css"),
-        tpe := "text/css",
         rel := "stylesheet"
       )
   }
@@ -49,9 +46,9 @@ object layout {
         s"font/lichess.woff2"
       )}" as="font" type="font/woff2" crossorigin>""" +
         !ctx.pref.pieceNotationIsLetter ??
-          s"""<link rel="preload" href="${assetUrl(
-            s"font/lichess.chess.woff2"
-          )}" as="font" type="font/woff2" crossorigin>"""
+        s"""<link rel="preload" href="${assetUrl(
+          s"font/lichess.chess.woff2"
+        )}" as="font" type="font/woff2" crossorigin>"""
     }
   private val manifests = raw(
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""
@@ -62,14 +59,14 @@ object layout {
   private val favicons = raw {
     List(512, 256, 192, 128, 64)
       .map { px =>
-        s"""<link rel="icon" type="image/png" href="${staticUrl(
+        s"""<link rel="icon" type="image/png" href="${assetUrl(
           s"logo/lichess-favicon-$px.png"
         )}" sizes="${px}x$px">"""
       }
       .mkString(
         "",
         "",
-        s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl(
+        s"""<link id="favicon" rel="icon" type="image/png" href="${assetUrl(
           "logo/lichess-favicon-32.png"
         )}" sizes="32x32">"""
       )
@@ -129,23 +126,51 @@ object layout {
       )
     )
 
-  private lazy val botImage = img(
-    src := staticUrl("images/icons/bot.png"),
-    title := "Robot chess",
-    style :=
-      "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
-  )
+  private def botImage =
+    img(
+      src := assetUrl("images/icons/bot.png"),
+      title := "Robot chess",
+      style :=
+        "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
+    )
+
+  def lichessJsObject(nonce: Nonce)(implicit lang: Lang) =
+    embedJsUnsafe(
+      s"""lichess={load:new Promise(r=>{window.onload=r}),quantity:${lila.i18n
+        .JsQuantity(lang)}};$timeagoLocaleScript""",
+      nonce
+    )
+
+  private def loadScripts(moreJs: Frag, chessground: Boolean)(implicit ctx: Context) =
+    frag(
+      chessground option chessgroundTag,
+      ctx.requiresFingerprint option fingerprintTag,
+      ctx.nonce map lichessJsObject,
+      if (netConfig.minifiedAssets)
+        jsModule("lichess")
+      else
+        frag(
+          depsTag,
+          jsModule("site")
+        ),
+      moreJs,
+      ctx.pageData.inquiry.isDefined option jsTag("inquiry.js")
+    )
 
   private val spaceRegex              = """\s{2,}+""".r
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
   private val dataVapid         = attr("data-vapid")
   private val dataUser          = attr("data-user")
-  private val dataSoundSet      = attr("data-sound-set")
   private val dataSocketDomains = attr("data-socket-domains")
-  private val dataPreload       = attr("data-preload")
+  private val dataI18n          = attr("data-i18n")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
+  val dataSoundSet              = attr("data-sound-set")
+  val dataTheme                 = attr("data-theme")
+  val dataAssetUrl              = attr("data-asset-url")
+  val dataAssetVersion          = attr("data-asset-version")
+  val dataDev                   = attr("data-dev")
 
   def apply(
       title: String,
@@ -157,7 +182,6 @@ object layout {
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       chessground: Boolean = true,
       zoomable: Boolean = false,
-      deferJs: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = ""
   )(body: Frag)(implicit ctx: Context): Frag =
@@ -186,20 +210,20 @@ object layout {
             content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
             name := "description"
           ),
-          link(rel := "mask-icon", href := staticUrl("logo/lichess.svg"), color := "black"),
+          link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), color := "black"),
           favicons,
           !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
           noTranslate,
           openGraph.map(_.frags),
           link(
             href := routes.Blog.atom(),
-            `type` := "application/atom+xml",
+            tpe := "application/atom+xml",
             rel := "alternate",
             st.title := trans.blog.txt()
           ),
           ctx.transpBgImg map { img =>
             raw(
-              s"""<style type="text/css" id="bg-data">body.transp::before{background-image:url('$img');}</style>"""
+              s"""<style id="bg-data">body.transp::before{background-image:url('$img');}</style>"""
             )
           },
           fontPreload,
@@ -245,7 +269,7 @@ object layout {
           )(body),
           ctx.isAuth option div(
             id := "friend_box",
-            dataPreload := safeJsonValue(Json.obj("i18n" -> i18nJsObject(i18nKeys)))
+            dataI18n := safeJsonValue(i18nJsObject(i18nKeys))
           )(
             div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag("S"))),
             div(cls := "content_wrap none")(
@@ -253,22 +277,7 @@ object layout {
             )
           ),
           a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
-          chessground option jsTag("vendor/chessground.min.js"),
-          ctx.requiresFingerprint option fingerprintTag,
-          if (netConfig.minifiedAssets)
-            jsModule("site", defer = deferJs)
-          else
-            frag(
-              jsModule("deps", defer = deferJs),
-              jsModule("site", defer = deferJs)
-            ),
-          embedJsUnsafe(
-            s"""lichess=window.lichess||{};lichess.quantity=${lila.i18n.JsQuantity(
-              ctx.lang
-            )};$timeagoLocaleScript"""
-          ),
-          moreJs,
-          ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
+          loadScripts(moreJs, chessground)
         )
       )
     )

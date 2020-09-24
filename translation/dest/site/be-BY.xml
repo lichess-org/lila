@@ -221,7 +221,6 @@
     <item quantity="other">%s партый з вамі</item>
   </plurals>
   <string name="cancel">Скасаваць</string>
-  <string name="timeOut">Час скончыўся</string>
   <string name="drawOfferSent">Прапанова нічыі даслана</string>
   <string name="drawOfferDeclined">Прапанова нічыі адхілена</string>
   <string name="drawOfferAccepted">Прапанова нічыі прынята</string>
@@ -309,6 +308,7 @@
     <item quantity="many">Даць %s секунд</item>
     <item quantity="other">Даць %s секунд</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Гэты ўліковы запіс парушыў Умовы выкарыстання Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Гэты гулец штучна павялічвае свой рэйтынг</string>
   <string name="openingExplorerAndTablebase">База дэбютаў і эндшпіляў</string>
   <string name="takeback">Скасаваць ход</string>

@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import chess.{ Status => S, Color, Clock, Mode }
+import chess.{ Status => S, Color, Black, White, Clock, Mode }
 import controllers.routes
 import play.api.i18n.Lang
 
@@ -96,9 +96,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     player.aiLevel.fold[Frag](
       player.userId.flatMap(lightUser).fold[Frag](lila.user.User.anonymous) { user =>
         frag(
-          user.title ifTrue withTitle map Title.apply map { t =>
-            frag(userTitleTag(t), " ")
-          },
+          titleTag(user.title ifTrue withTitle map Title.apply),
           if (withRating) s"${user.name} (${lila.game.Namer ratingString player})"
           else user.name
         )
@@ -181,8 +179,14 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           case Some(_)                  => trans.blackLeftTheGame.txt()
           case None                     => trans.draw.txt()
         }
-      case S.Draw      => trans.draw.txt()
-      case S.Outoftime => trans.timeOut.txt()
+      case S.Draw => trans.draw.txt()
+      case S.Outoftime =>
+        (game.turnColor, game.loser) match {
+          case (White, Some(_)) => trans.whiteTimeOut.txt()
+          case (White, None)    => trans.whiteTimeOut.txt() + " • " + trans.draw.txt()
+          case (Black, Some(_)) => trans.blackTimeOut.txt()
+          case (Black, None)    => trans.blackTimeOut.txt() + " • " + trans.draw.txt()
+        }
       case S.NoStart =>
         val color = game.loser.fold(Color.white)(_.color).name.capitalize
         s"$color didn't move"
@@ -209,7 +213,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   // whiteUsername 1-0 blackUsername
   def gameSummary(whiteUserId: String, blackUserId: String, finished: Boolean, result: Option[Boolean]) = {
-    val res = if (finished) chess.Color.showResult(result map Color.apply) else "*"
+    val res = if (finished) chess.Color.showResult(result map Color.fromWhite) else "*"
     s"${usernameOrId(whiteUserId)} $res ${usernameOrId(blackUserId)}"
   }
 

@@ -72,12 +72,12 @@ object ServerEval {
                               chapterRepo.setGlyphs(
                                 node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
                               )(chapter, path + node) >> {
-                              chapter.root.nodeAt(path).flatMap { parent =>
-                                analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
-                                  parent.addChild(child).children.get(child.id)
-                                }
-                              } ?? { chapterRepo.setChild(chapter, path, _) }
-                            }
+                                chapter.root.nodeAt(path).flatMap { parent =>
+                                  analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
+                                    parent.addChild(child).children.get(child.id)
+                                  }
+                                } ?? { chapterRepo.setChild(chapter, path, _) }
+                              }
                           }
                       } inject path + node
                 } void
@@ -115,8 +115,8 @@ object ServerEval {
             case Nil => none
             case (g, m) :: rest =>
               rest
-                .foldLeft(makeBranch(g, m)) {
-                  case (node, (g, m)) => makeBranch(g, m) addChild node
+                .foldLeft(makeBranch(g, m)) { case (node, (g, m)) =>
+                  makeBranch(g, m) addChild node
                 } some
           }
       }

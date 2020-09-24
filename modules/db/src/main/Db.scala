@@ -20,8 +20,8 @@ final class AsyncDb(
     }
 
   private def db: Future[DB] =
-    connection flatMap {
-      case (conn, dbName) => conn database dbName.getOrElse("lichess")
+    connection flatMap { case (conn, dbName) =>
+      conn database dbName.getOrElse("lichess")
     }
 
   def apply(name: CollName) = new AsyncColl(() => db.dmap(_(name.value)))

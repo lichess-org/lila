@@ -8,11 +8,7 @@ import scala.util.{ Success, Try }
 
 import dsl._
 
-abstract class BSON[T]
-    extends BSONReadOnly[T]
-    with BSONHandler[T]
-    with BSONDocumentReader[T]
-    with BSONDocumentWriter[T] {
+abstract class BSON[T] extends BSONReadOnly[T] with BSONDocumentReader[T] with BSONDocumentWriter[T] {
 
   import BSON._
 
@@ -124,8 +120,8 @@ object BSON extends Handlers {
     }
   def debugArr(doc: Barr): String = doc.values.toList.map(debug).mkString("[", ", ", "]")
   def debugDoc(doc: Bdoc): String =
-    (doc.elements.toList map {
-      case BSONElement(k, v) => s"$k: ${debug(v)}"
+    (doc.elements.toList map { case BSONElement(k, v) =>
+      s"$k: ${debug(v)}"
     }).mkString("{", ", ", "}")
 
   def print(v: BSONValue): Unit = println(debug(v))

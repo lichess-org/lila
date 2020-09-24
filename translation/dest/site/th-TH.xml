@@ -188,7 +188,6 @@
     <item quantity="other">%s เกมเล่นกับคุณ</item>
   </plurals>
   <string name="cancel">ยกเลิก</string>
-  <string name="timeOut">หมดเวลา</string>
   <string name="drawOfferSent">ส่งการขอเสมอแล้ว</string>
   <string name="drawOfferDeclined">การขอเสมอถูกปฏิเสธ</string>
   <string name="drawOfferAccepted">ยอมรับการขอเสมอแล้ว</string>

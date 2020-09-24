@@ -75,7 +75,7 @@ case class Hook(
       .add("rating" -> rating)
       .add("variant" -> realVariant.exotic.option(realVariant.key))
       .add("ra" -> realMode.rated.option(1))
-      .add("c" -> chess.Color(color).map(_.name))
+      .add("c" -> chess.Color.fromName(color).map(_.name))
       .add("perf" -> perfType.map(_.trans))
 
   def randomColor = color == "random"
@@ -93,7 +93,7 @@ case class Hook(
       member = lila.pool.PoolMember(
         userId = user.??(_.id),
         sri = sri,
-        rating = rating | lila.rating.Glicko.defaultIntRating,
+        rating = rating | lila.rating.Glicko.default.intRating,
         ratingRange = realRatingRange,
         lame = user.??(_.lame),
         blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),

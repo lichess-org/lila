@@ -178,7 +178,6 @@
     <item quantity="other">%s თამაშები თქვენ წინააღმდეგ</item>
   </plurals>
   <string name="cancel">გაუქმება</string>
-  <string name="timeOut">დრო ამოიწერუა</string>
   <string name="drawOfferSent">ყაიმის შეთავაზება გაგზავნილია</string>
   <string name="drawOfferDeclined">ყაიმის შეთავაზება უარყოფილია</string>
   <string name="drawOfferAccepted">ყაიმის შეთავაზება მიღებულია</string>

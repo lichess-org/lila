@@ -18,6 +18,7 @@ import * as util from './util';
 import * as chessUtil from 'chess';
 import { defined, prop, Prop } from 'common';
 import throttle from 'common/throttle';
+import * as xhr from 'common/xhr';
 import { storedProp, StoredBooleanProp } from 'common/storage';
 import { make as makeSocket, Socket } from './socket';
 import { ForecastCtrl } from './forecast/interfaces';
@@ -40,8 +41,7 @@ import * as speech from './speech';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
-
-const li = window.lichess;
+import debounce from 'common/debounce';
 
 export default class AnalyseCtrl {
 
@@ -121,7 +121,7 @@ export default class AnalyseCtrl {
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
 
-    if (li.AnalyseNVUI) this.nvui = li.AnalyseNVUI(redraw) as NvuiPlugin;
+    if (lichess.AnalyseNVUI) this.nvui = lichess.AnalyseNVUI(redraw) as NvuiPlugin;
 
     this.instanciateEvalCache();
 
@@ -135,7 +135,7 @@ export default class AnalyseCtrl {
       const loc = window.location,
         intHash = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1)),
         plyStr = opts.initialPly === 'url' ? (intHash || '') : opts.initialPly;
-      // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
+      // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       if (intHash) window.history.pushState("", document.title, loc.pathname + loc.search);
       const mainline = treeOps.mainlineNodeList(this.tree.root);
       if (plyStr === 'last') this.initialPath = treePath.fromNodeList(mainline);
@@ -155,30 +155,30 @@ export default class AnalyseCtrl {
     this.studyPractice = this.study ? this.study.practice : undefined;
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
-    else if (location.hash === '#menu') li.requestIdleCallback(this.actionMenu.toggle);
+    else if (location.hash === '#menu') lichess.requestIdleCallback(this.actionMenu.toggle);
 
     keyboard.bind(this);
 
-    li.pubsub.on('jump', (ply: any) => {
+    lichess.pubsub.on('jump', (ply: any) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();
     });
 
-    li.pubsub.on('sound_set', (set: string) => {
+    lichess.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        li.loadScript('javascripts/music/replay.js').then(() => {
+        lichess.loadScript('javascripts/music/replay.js').then(() => {
           this.music = window.lichessReplayMusic();
         });
       if (this.music && set !== 'music') this.music = null;
     });
 
-    li.pubsub.on('analysis.change.trigger', this.onChange);
-    li.pubsub.on('analysis.chart.click', index => {
+    lichess.pubsub.on('analysis.change.trigger', this.onChange);
+    lichess.pubsub.on('analysis.chart.click', index => {
       this.jumpToIndex(index);
       this.redraw()
     });
 
-    li.sound && speech.setup();
+    lichess.sound && speech.setup();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -196,7 +196,7 @@ export default class AnalyseCtrl {
     else this.socket = makeSocket(this.opts.socketSend, this);
     this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath = this.synthetic || this.ongoing ? undefined :
-    treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
+      treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
   }
 
@@ -289,9 +289,9 @@ export default class AnalyseCtrl {
           color: undefined,
           dests: new Map(),
         } : {
-          color: movableColor,
-          dests: (movableColor === color && dests) || new Map(),
-        },
+            color: movableColor,
+            dests: (movableColor === color && dests) || new Map(),
+          },
         check: !!node.check,
         lastMove: this.uciToLastMove(node.uci)
       };
@@ -308,21 +308,21 @@ export default class AnalyseCtrl {
     return config;
   }
 
-  private sound = li.sound ? {
-    move: throttle(50, li.sound.move),
-    capture: throttle(50, li.sound.capture),
-    check: throttle(50, li.sound.check)
+  private sound = lichess.sound ? {
+    move: throttle(50, lichess.sound.move),
+    capture: throttle(50, lichess.sound.capture),
+    check: throttle(50, lichess.sound.check)
   } : {
-    move: $.noop,
-    capture: $.noop,
-    check: $.noop
-  };
+      move() {},
+      capture() {},
+      check() {}
+    };
 
   private onChange: () => void = throttle(300, () => {
-    li.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
+    lichess.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
   });
 
-  private updateHref: () => void = li.debounce(() => {
+  private updateHref: () => void = debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
   }, 750);
 
@@ -335,7 +335,7 @@ export default class AnalyseCtrl {
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
-    isForwardStep = pathChanged && path.length == this.path.length + 2;
+      isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
     this.showGround();
     if (pathChanged) {
@@ -365,7 +365,7 @@ export default class AnalyseCtrl {
       if (this.study) this.study.onJump();
     }
     if (this.music) this.music.jump(this.node);
-    li.pubsub.emit('ply', this.node.ply);
+    lichess.pubsub.emit('ply', this.node.ply);
   }
 
   userJump = (path: Tree.Path): void => {
@@ -417,21 +417,20 @@ export default class AnalyseCtrl {
 
   changePgn(pgn: string): void {
     this.redirecting = true;
-    $.ajax({
-      url: '/analysis/pgn',
+    xhr.json('/analysis/pgn', {
       method: 'post',
-      data: { pgn },
-      success: (data: AnalyseData) => {
+      body: xhr.form({ pgn })
+    })
+      .then((data: AnalyseData) => {
         this.reloadData(data, false);
         this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
         this.redraw();
-      },
-      error: error => {
+      })
+      .catch(error => {
         console.log(error);
         this.redirecting = false;
         this.redraw();
-      }
-    });
+      });
   }
 
   changeFen(fen: Fen): void {
@@ -738,7 +737,7 @@ export default class AnalyseCtrl {
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
     this.onToggleComputer();
-    li.pubsub.emit('analysis.comp.toggle', value);
+    lichess.pubsub.emit('analysis.comp.toggle', value);
   }
 
   mergeAnalysisData(data: ServerEvalData): void {
@@ -750,7 +749,7 @@ export default class AnalyseCtrl {
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     if (this.study) this.study.serverEval.onMergeAnalysisData();
-    li.pubsub.emit('analysis.server.progress', this.data);
+    lichess.pubsub.emit('analysis.server.progress', this.data);
     this.redraw();
   }
 

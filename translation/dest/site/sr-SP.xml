@@ -210,7 +210,6 @@
     <item quantity="other">%s игара са вама</item>
   </plurals>
   <string name="cancel">Откажи</string>
-  <string name="timeOut">Истекло време</string>
   <string name="drawOfferSent">Захтев за реми је послат</string>
   <string name="drawOfferDeclined">Предлог за реми је одбијен</string>
   <string name="drawOfferAccepted">Предлог за реми је прихваћен</string>

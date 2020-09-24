@@ -191,7 +191,6 @@
     <item quantity="other">%s өрөг таньтай тоглосон байна</item>
   </plurals>
   <string name="cancel">Цуцлах</string>
-  <string name="timeOut">Цаг дууслаа</string>
   <string name="drawOfferSent">Тэнцэх санал илгээлээ</string>
   <string name="drawOfferDeclined">Тэнцэх саналаас татгалзлаа</string>
   <string name="drawOfferAccepted">Тэнцэх саналыг зөвшөөрлөө</string>

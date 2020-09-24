@@ -50,7 +50,7 @@ object index {
         },
         st.section(
           h2(completed()),
-          div(cls := "infinitescroll")(
+          div(cls := "infinite-scroll")(
             pager.currentPageResults.map { show.widget(_, "paginated") },
             pagerNext(pager, np => addQueryParameter(url.url, "page", np))
           )

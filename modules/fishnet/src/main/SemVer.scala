@@ -4,14 +4,14 @@ package com.gilt.gfc.semver
 object SemVer {
   def apply(version: String): SemVer = {
     val bits = version.split("[\\.\\-]")
-    val (nums, extras) = bits.take(3).foldLeft((Nil: List[Long], Nil: List[String])) {
-      case ((num, extra), bit) =>
+    val (nums, extras) =
+      bits.take(3).foldLeft((Nil: List[Long], Nil: List[String])) { case ((num, extra), bit) =>
         import scala.util.control.Exception._
         allCatch opt bit.toLong match {
           case Some(long) => (long :: num, extra)
           case None       => (num, bit :: extra)
         }
-    }
+      }
     nums.reverse match {
       case x :: y :: z :: Nil =>
         SemVer(

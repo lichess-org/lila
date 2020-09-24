@@ -29,6 +29,7 @@ exports.rollupProject = (targets) => {
         }
       ],
       plugins: [
+        ...(target.plugins || []),
         resolve(),
         ...(target.js ? [] : [typescript()]),
         commonjs({

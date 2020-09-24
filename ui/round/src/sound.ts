@@ -1,7 +1,7 @@
 import throttle from 'common/throttle';
 
 function throttled(sound: string): () => void {
-  return throttle(100, () => window.lichess.sound[sound]())
+  return throttle(100, () => lichess.sound[sound]())
 }
 
 export const move = throttled('move');

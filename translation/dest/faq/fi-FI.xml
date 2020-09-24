@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Miksi Lichessin nimi on Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess on sanojen live/light/libre ja chess yhdistelmä. Se lausutaan näin: %1$s.</string>
   <string name="leechess">li-tšes</string>
-  <string name="hearItPronouncedBySpecialist"> Kuuntele se asiantuntijan lausumana.</string>
+  <string name="hearItPronouncedBySpecialist">Kuuntele se asiantuntijan lausumana.</string>
   <string name="whyLiveLightLibre">Live, koska pelejä pelataan ja katsellaan reaaliajassa 24 tuntia päivässä; light (kevyt) ja libre (vapaa) siksi, että Lichess perustuu avoimelle lähdekoodille, eikä sitä rasita toisia nettisivuja turmeleva omisteinen roina.</string>
   <string name="whyIsLilaCalledLila">Niin ikään Lichessin lähdekoodi, %1$s, tarkoittaa \"li[chess in sca]la\", sillä suurin osa Lichessistä on kirjoitettu %2$slla, intuitiivisella ohjelmointikielellä.</string>
   <string name="howCanIContributeToLichess">Kuinka voin tukea Lichessiä?</string>
@@ -52,23 +52,21 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
  Harvoissa tapauksissa (pakotetut siirtosarjat, puolustuslinnakkeet) tämän määrittäminen automaattisesti voi olla vaikeaa. Oletusarvoisesti pidämme sen pelaajan puolta, jolta ei loppunut aika.
 
  Huomaa, että matinteko yhdellä ratsulla tai lähetillä voi olla mahdollista, jos vastapelaajalla on nappula, joka voisi viedä hänen kuninkaaltaan pakoruudun.</string>
-  <string name="linkToFIDErules">FIDE:n käsikirja §6.9, PDF</string>
+  <string name="fideHandbookX">FIDEn käsikirja %s</string>
   <string name="discoveringEnPassant">Miksi sotilas voi lyödä toisen sotilaan, kun se on jo kulkenut ohitse? (ohestalyönti)</string>
   <string name="explainingEnPassant">Tämä sallittu siirto tunnetaan ohestalyöntinä (\"en passant\"). Wikipediassa on %1$s ohestalyöntiin.
- 
- Siirto on kuvattu %2$s kohdassa 3.7 (d):
 
-  \"Sotilas, joka uhkaa ruutua, jonka alkuruudustaan kaksi ruutua kerrallaan siirtynyt vastustajan sotilas on ylittänyt, voi lyödä tämän vastustajan sotilaan ikäänkuin se olisi siirtynyt vain yhden ruudun. Tämä lyönti on laillinen vain välittömästi vastauksena kahden ruudun siirtoon, ja tätä lyöntiä kutsutaan ohestalyönniksi (en passant).\"
+Siirto on kuvattu %2$s kohdassa 3.7 (d):
 
-  Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.
-  </string>
+\"Sotilas, joka uhkaa ruutua, jonka alkuruudustaan kaksi ruutua kerrallaan siirtynyt vastustajan sotilas on ylittänyt, voi lyödä tämän vastustajan sotilaan ikäänkuin se olisi siirtynyt vain yhden ruudun. Tämä lyönti on laillinen vain välittömästi vastauksena kahden ruudun siirtoon, ja tätä lyöntiä kutsutaan ohestalyönniksi (en passant).\"
+
+Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="goodIntroduction">hyvä johdanto</string>
   <string name="officialRulesPDF">virallisten sääntöjen (PDF)</string>
   <string name="lichessTraining">Lichess-harjoittelu</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
   <string name="threefoldRepetitionExplanation">Jos asema toistuu kolmesti, pelaaja voi vaatia tasapelin %1$s perusteella. Lichess noudattaa FIDE:n virallisia sääntöjä, jotka on kuvattu %2$s kohdassa 9.2 (d).</string>
   <string name="threefoldRepetitionLowerCase">kolminkertaisen toiston</string>
-  <string name="handBookPDF">käsikirjan (PDF)</string>
   <string name="notRepeatedMoves">Me emme toistaneet siirtoja. Miksi peli silti päättyi tasapeliin toiston perusteella?</string>
   <string name="repeatedPositionsThatMatters">Kolminkertaisessa toistossa on kysymys %1$s toistumisesta, ei siirtojen. Toistumisen ei tarvitse tapahtua peräkkäin.</string>
   <string name="positions">aseman</string>

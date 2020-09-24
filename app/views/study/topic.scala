@@ -17,7 +17,7 @@ object topic {
     views.html.base.layout(
       title = "Study topics",
       moreCss = frag(cssTag("study.index"), cssTag("form3"), cssTag("tagify")),
-      moreJs = frag(tagifyTag, jsTag("study/topic-form.js")),
+      moreJs = jsModule("study.topic.form"),
       wrapClass = "full-screen-force"
     ) {
       main(cls := "page-menu")(

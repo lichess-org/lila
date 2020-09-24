@@ -187,7 +187,6 @@
     <item quantity="other">%s những ván cờ với bạn</item>
   </plurals>
   <string name="cancel">Hủy bỏ</string>
-  <string name="timeOut">Hết giờ</string>
   <string name="drawOfferSent">Đã gửi đề nghị hòa</string>
   <string name="drawOfferDeclined">Từ chối hoà</string>
   <string name="drawOfferAccepted">Đồng ý hoà</string>
@@ -563,7 +562,7 @@
   <string name="shareGameURL">Chia sẻ liên kết game</string>
   <string name="error.required">Mục bắt buộc</string>
   <string name="error.email">Địa chỉ email này không hợp lệ</string>
-  <string name="error.email_acceptable">Địa chỉ email này không được chấp nhận</string>
+  <string name="error.email_acceptable">Địa chỉ email này không được chấp nhận.</string>
   <string name="error.email_unique">Địa chỉ email này đã được sử dụng</string>
   <string name="error.email_different">Đây đã là địa chỉ email hiện tại của bạn</string>
   <string name="ifRatingIsPlusMinusX">Nếu điểm hệ số thứ hạng trong phạm vi ± %s</string>
@@ -638,8 +637,8 @@
   <string name="cumulative">Tích luỹ</string>
   <string name="glicko2Rating">Chỉ số Glicko-2</string>
   <string name="checkYourEmail">Kiểm tra Email của bạn</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Chúng tôi gửi cho bạn một Email. Nhấn vào link trong Email để kích hoạt tài khoản của bạn</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nếu bạn không thấy ở trong Email, kiểm tra lại ở các nơi khác có thể có, như rác, thư rác, xã hội hay các thư mục khác</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Chúng tôi gửi cho bạn một Email. Nhấn vào link trong Email để kích hoạt tài khoản của bạn.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nếu bạn không thấy ở trong Email, kiểm tra lại ở các nơi khác có thể có, như rác, thư rác, xã hội hay các thư mục khác.</string>
   <string name="weHaveSentYouAnEmailTo">Chúng tôi đã gửi một email đến %s. Nhấp vào liên kết trong email để đặt lại mật khẩu của bạn.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Bằng cách đăng ký, bạn đồng ý bị ràng buộc bởi chúng tôi %s.</string>
   <string name="networkLagBetweenYouAndLichess">Hệ số lag giữa bạn và Lichess</string>

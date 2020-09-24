@@ -45,10 +45,9 @@ final class Streamer(
         OptionFuResult(api find username) { s =>
           WithVisibleStreamer(s) {
             for {
-              sws       <- env.streamer.liveStreamApi of s
-              activity  <- env.activity.read.recent(sws.user, 10)
-              following <- ctx.userId.??(env.relation.api.fetchFollows(_, sws.user.id))
-            } yield Ok(html.streamer.show(sws, activity, following))
+              sws      <- env.streamer.liveStreamApi of s
+              activity <- env.activity.read.recent(sws.user, 10)
+            } yield Ok(html.streamer.show(sws, activity))
           }
         }
       }
@@ -137,8 +136,8 @@ final class Streamer(
       AsStreamer { s =>
         ctx.body.body.file("picture") match {
           case Some(pic) =>
-            api.uploadPicture(s.streamer, pic) recover {
-              case e: lila.base.LilaException => BadRequest(html.streamer.picture(s, e.message.some))
+            api.uploadPicture(s.streamer, pic) recover { case e: lila.base.LilaException =>
+              BadRequest(html.streamer.picture(s, e.message.some))
             } inject Redirect(routes.Streamer.edit())
           case None => fuccess(Redirect(routes.Streamer.edit()))
         }

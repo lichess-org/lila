@@ -199,7 +199,6 @@
     <item quantity="other">%s partides amb tu</item>
   </plurals>
   <string name="cancel">Cancel·la</string>
-  <string name="timeOut">Temps exhaurit</string>
   <string name="drawOfferSent">S\'ha enviat l\'oferta de taules</string>
   <string name="drawOfferDeclined">S\'ha rebutjat l\'oferta de taules</string>
   <string name="drawOfferAccepted">S\'ha acceptat l\'oferta de taules</string>

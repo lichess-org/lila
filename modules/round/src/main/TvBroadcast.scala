@@ -55,8 +55,8 @@ final private class TvBroadcast extends Actor {
             "fen" -> s"$fen ${game.turnColor.letter}",
             "lm"  -> move
           )
-          .add("cw" -> game.clock.map(_.remainingTime(chess.White).roundSeconds))
-          .add("bw" -> game.clock.map(_.remainingTime(chess.Black).roundSeconds))
+          .add("wc" -> game.clock.map(_.remainingTime(chess.White).roundSeconds))
+          .add("bc" -> game.clock.map(_.remainingTime(chess.Black).roundSeconds))
       )
       queues.foreach(_ offer msg)
   }

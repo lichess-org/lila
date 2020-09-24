@@ -150,21 +150,20 @@ object teacherDashboard {
               )
             ),
             tbody(
-              students.sortBy(_.user.username).map {
-                case s @ Student.WithUser(_, user) =>
-                  val prog = progress(user)
-                  tr(
-                    studentTd(c, s),
-                    td(dataSort := user.perfs(progress.perfType).intRating, cls := "rating")(
-                      user.perfs(progress.perfType).showRatingProvisional
-                    ),
-                    td(dataSort := prog.ratingProgress)(
-                      ratingProgress(prog.ratingProgress) | trans.clas.na.txt()
-                    ),
-                    td(prog.nb),
-                    if (progress.isPuzzle) td(dataSort := prog.winRate)(prog.winRate, "%")
-                    else td(dataSort := prog.millis)(showPeriod(prog.period))
-                  )
+              students.sortBy(_.user.username).map { case s @ Student.WithUser(_, user) =>
+                val prog = progress(user)
+                tr(
+                  studentTd(c, s),
+                  td(dataSort := user.perfs(progress.perfType).intRating, cls := "rating")(
+                    user.perfs(progress.perfType).showRatingProvisional
+                  ),
+                  td(dataSort := prog.ratingProgress)(
+                    ratingProgress(prog.ratingProgress) | trans.clas.na.txt()
+                  ),
+                  td(prog.nb),
+                  if (progress.isPuzzle) td(dataSort := prog.winRate)(prog.winRate, "%")
+                  else td(dataSort := prog.millis)(showPeriod(prog.period))
+                )
               }
             )
           )
@@ -193,24 +192,23 @@ object teacherDashboard {
               )
             ),
             tbody(
-              students.sortBy(_.user.username).map {
-                case s @ Student.WithUser(_, user) =>
-                  val coord = coordScores.getOrElse(user.id, chess.Color.Map(0, 0))
-                  tr(
-                    studentTd(c, s),
-                    td(dataSort := basicCompletion.getOrElse(user.id, 0))(
-                      basicCompletion.getOrElse(user.id, 0).toString,
-                      "%"
-                    ),
-                    td(dataSort := practiceCompletion.getOrElse(user.id, 0))(
-                      practiceCompletion.getOrElse(user.id, 0).toString,
-                      "%"
-                    ),
-                    td(dataSort := coord.white, cls := "coords")(
-                      i(cls := "color-icon is white")(coord.white),
-                      i(cls := "color-icon is black")(coord.black)
-                    )
+              students.sortBy(_.user.username).map { case s @ Student.WithUser(_, user) =>
+                val coord = coordScores.getOrElse(user.id, chess.Color.Map(0, 0))
+                tr(
+                  studentTd(c, s),
+                  td(dataSort := basicCompletion.getOrElse(user.id, 0))(
+                    basicCompletion.getOrElse(user.id, 0).toString,
+                    "%"
+                  ),
+                  td(dataSort := practiceCompletion.getOrElse(user.id, 0))(
+                    practiceCompletion.getOrElse(user.id, 0).toString,
+                    "%"
+                  ),
+                  td(dataSort := coord.white, cls := "coords")(
+                    i(cls := "color-icon is white")(coord.white),
+                    i(cls := "color-icon is black")(coord.black)
                   )
+                )
               }
             )
           )
@@ -270,21 +268,20 @@ object teacherDashboard {
           )
         ),
         tbody(
-          students.sortBy(_.user.username).map {
-            case s @ Student.WithUser(student, user) =>
-              tr(
-                studentTd(c, s),
-                td(dataSort := user.perfs.bestRating, cls := "rating")(user.best3Perfs.map {
-                  showPerfRating(user, _)
-                }),
-                td(user.count.game.localize),
-                td(user.perfs.puzzle.nb),
-                td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce)),
-                td(
-                  dataSort := (if (student.managed) 1 else 0),
-                  student.managed option iconTag("5")(title := trans.clas.managed.txt())
-                )
+          students.sortBy(_.user.username).map { case s @ Student.WithUser(student, user) =>
+            tr(
+              studentTd(c, s),
+              td(dataSort := user.perfs.bestRating, cls := "rating")(user.best3Perfs.map {
+                showPerfRating(user, _)
+              }),
+              td(user.count.game.localize),
+              td(user.perfs.puzzle.nb),
+              td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce)),
+              td(
+                dataSort := (if (student.managed) 1 else 0),
+                student.managed option iconTag("5")(title := trans.clas.managed.txt())
               )
+            )
           }
         )
       )

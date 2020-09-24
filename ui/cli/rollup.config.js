@@ -4,6 +4,6 @@ export default rollupProject({
   main: {
     name: 'LichessCli',
     input: 'src/main.ts',
-    output: 'lichess.cli',
+    output: 'cli',
   },
 });

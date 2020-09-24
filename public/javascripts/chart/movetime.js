@@ -3,9 +3,9 @@ function toBlurArray(player) {
 }
 lichess.movetimeChart = function(data, trans) {
   if (!data.game.moveCentis) return; // imported games
-  lichess.loadScript('javascripts/chart/common.js').done(function() {
-    lichess.loadScript('javascripts/chart/division.js').done(function() {
-      lichess.chartCommon('highchart').done(function() {
+  lichess.loadScript('javascripts/chart/common.js').then(function() {
+    lichess.loadScript('javascripts/chart/division.js').then(function() {
+      lichess.chartCommon('highchart').then(function() {
         lichess.movetimeChart.render = function() {
           $('#movetimes-chart:not(.rendered)').each(function() {
             var $this = $(this).addClass('rendered');
@@ -61,7 +61,7 @@ lichess.movetimeChart = function(data, trans) {
             var noText = {
               text: null
             };
-            $this.highcharts({
+            this.highcharts = Highcharts.chart(this, {
               credits: disabled,
               legend: disabled,
               series: [{

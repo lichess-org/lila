@@ -36,7 +36,7 @@ export function bind(eventName: string, f: (e: Event) => void) {
 }
 
 export function bindMobileMousedown(f: (e: Event) => any) {
-  return bind(window.lichess.hasTouchEvents ? 'click' : 'mousedown', f);
+  return bind('ontouchstart' in window ? 'click' : 'mousedown', f);
 }
 
 export function spinner(): VNode {

@@ -53,7 +53,6 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def noBlind         = !blind
   def nonce           = pageData.nonce
   def hasClas         = pageData.hasClas
-  def hasInbox        = me.exists(u => !u.kid || hasClas)
 
   def currentTheme = lila.pref.Theme(pref.theme)
 

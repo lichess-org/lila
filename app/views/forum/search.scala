@@ -28,8 +28,7 @@ object search {
         strong(cls := "nb-results box__pad")(pager.nbResults, " posts found"),
         table(cls := "slist slist-pad search__results")(
           if (pager.nbResults > 0)
-            tbody(cls := "infinitescroll")(
-              pagerNextTable(pager, n => routes.ForumPost.search(text, n).url) | tr,
+            tbody(cls := "infinite-scroll")(
               pager.currentPageResults.map { view =>
                 tr(cls := "paginated")(
                   td(
@@ -48,7 +47,8 @@ object search {
                     authorLink(view.post)
                   )
                 )
-              }
+              },
+              pagerNextTable(pager, n => routes.ForumPost.search(text, n).url)
             )
           else tbody(tr(td("No forum post found")))
         )

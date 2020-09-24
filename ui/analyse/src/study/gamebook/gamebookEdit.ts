@@ -9,22 +9,23 @@ import * as control from '../../control';
 
 export function running(ctrl: AnalyseCtrl): boolean {
   return !!ctrl.study && ctrl.study.data.chapter.gamebook &&
-  !ctrl.gamebookPlay() && ctrl.study.vm.gamebookOverride !== 'analyse';
+    !ctrl.gamebookPlay() && ctrl.study.vm.gamebookOverride !== 'analyse';
 }
 
 export function render(ctrl: AnalyseCtrl): VNode {
 
   const study = ctrl.study!,
-  isMyMove = ctrl.turnColor() === ctrl.data.orientation,
-  isCommented = !!(ctrl.node.comments || []).find(c => c.text.length > 2),
-  hasVariation = ctrl.tree.parentNode(ctrl.path).children.length > 1;
+    isMyMove = ctrl.turnColor() === ctrl.data.orientation,
+    isCommented = !!(ctrl.node.comments || []).find(c => c.text.length > 2),
+    hasVariation = ctrl.tree.parentNode(ctrl.path).children.length > 1;
 
   let content: MaybeVNodes;
 
   const commentHook: Hooks = bind('click', () => {
     study.commentForm.start(study.vm.chapterId, ctrl.path, ctrl.node);
     study.vm.toolTab('comments');
-    window.lichess.requestIdleCallback(() => $('#comment-text').focus());
+    lichess.requestIdleCallback(() =>
+      $('#comment-text').each(function(this: HTMLTextAreaElement) { this.focus() }));
   }, ctrl.redraw);
 
   if (!ctrl.path) {
@@ -45,7 +46,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
         iconTag('c'),
         h('p', 'Introduce the gamebook with a comment')
       ]),
-      h('div.legend.todo', { class: { done: !!ctrl.node.children[0] }}, [
+      h('div.legend.todo', { class: { done: !!ctrl.node.children[0] } }, [
         iconTag('G'),
         h('p', 'Put the opponent\'s first move on the board.')
       ])
@@ -92,7 +93,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
   ];
 
   return h('div.gamebook-edit', {
-    hook: { insert: _ => window.lichess.loadCssPath('analyse.gamebook.edit') }
+    hook: { insert: _ => lichess.loadCssPath('analyse.gamebook.edit') }
   }, content);
 }
 

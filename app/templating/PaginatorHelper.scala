@@ -10,13 +10,15 @@ trait PaginatorHelper {
 
   def pagerNext(pager: lila.common.paginator.Paginator[_], url: Int => String): Option[Tag] =
     pager.nextPage.map { np =>
-      div(cls := "pager none")(a(rel := "next", href := url(np))("Next"))
+      div(cls := "pager")(pagerA(url(np)))
     }
 
   def pagerNextTable(pager: lila.common.paginator.Paginator[_], url: Int => String): Option[Tag] =
     pager.nextPage.map { np =>
-      tr(th(cls := "pager none")(a(rel := "next", href := url(np))("Next")))
+      tr(cls := "pager")(th(pagerA(url(np))))
     }
+
+  private def pagerA(url: String) = a(rel := "next", href := url)("Next")
 }
 
 final class RichPager(pager: Paginator[_]) {

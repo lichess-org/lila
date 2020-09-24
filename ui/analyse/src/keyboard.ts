@@ -2,6 +2,7 @@ import * as control from './control';
 import AnalyseCtrl from './ctrl';
 import { spinner } from './util';
 import { modal } from './modal';
+import * as xhr from 'common/xhr';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
@@ -82,7 +83,7 @@ export function bind(ctrl: AnalyseCtrl): void {
     const keyToMousedown = (key: string, selector: string) => {
       kbd.bind(key, preventing(() => {
         $(selector).each(function(this: HTMLElement) {
-          window.lichess.dispatchEvent(this, 'mousedown');
+          this.dispatchEvent(new Event('mousedown'));
         });
       }));
     };
@@ -95,8 +96,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
   return modal({
     class: 'keyboard-help',
     onInsert(el: HTMLElement) {
-      window.lichess.loadCssPath('analyse.keyboard')
-      $(el).find('.scrollable').load('/analysis/help?study=' + (ctrl.study ? 1 : 0));
+      lichess.loadCssPath('analyse.keyboard');
+      xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })).then(html => {
+        el.querySelector('.scrollable')!.innerHTML = html
+      });
     },
     onClose() {
       ctrl.keyboardHelp = false;

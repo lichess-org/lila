@@ -4,16 +4,16 @@ export default rollupProject({
   main: {
     name: 'LichessRound',
     input: 'src/main.ts',
-    output: 'lichess.round',
+    output: 'round',
   },
   keyboardMove: {
     name: 'KeyboardMove',
     input: 'src/plugins/keyboardMove.ts',
-    output: 'lichess.round.keyboardMove',
+    output: 'round.keyboard-move',
   },
   nvui: {
     name: 'NVUI',
     input: 'src/plugins/nvui.ts',
-    output: 'lichess.round.nvui',
+    output: 'round.nvui',
   },
 });

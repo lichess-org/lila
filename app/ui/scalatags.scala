@@ -11,23 +11,19 @@ import lila.user.Title
 
 // collection of lila attrs
 trait ScalatagsAttrs {
-  val dataAssetUrl     = attr("data-asset-url")
-  val dataAssetVersion = attr("data-asset-version")
-  val dataDev          = attr("data-dev")
-  val dataTheme        = attr("data-theme")
-  val dataTag          = attr("data-tag")
-  val dataIcon         = attr("data-icon")
-  val dataHref         = attr("data-href")
-  val dataCount        = attr("data-count")
-  val dataEnableTime   = attr("data-enable-time")
-  val datatime24h      = attr("data-time_24h")
-  val dataColor        = attr("data-color")
-  val dataFen          = attr("data-fen")
-  val dataRel          = attr("data-rel")
-  val novalidate       = attr("novalidate").empty
-  val datetimeAttr     = attr("datetime")
-  val dataBotAttr      = attr("data-bot").empty
-  val deferAttr        = attr("defer").empty
+  val dataTag        = attr("data-tag")
+  val dataIcon       = attr("data-icon")
+  val dataHref       = attr("data-href")
+  val dataCount      = attr("data-count")
+  val dataEnableTime = attr("data-enable-time")
+  val datatime24h    = attr("data-time_24h")
+  val dataColor      = attr("data-color")
+  val dataFen        = attr("data-fen")
+  val dataRel        = attr("data-rel")
+  val novalidate     = attr("novalidate").empty
+  val datetimeAttr   = attr("datetime")
+  val dataBotAttr    = attr("data-bot").empty
+  val deferAttr      = attr("defer").empty
   object frame {
     val scrolling       = attr("scrolling")
     val allowfullscreen = attr("allowfullscreen").empty
@@ -46,7 +42,7 @@ trait ScalatagsSnippets extends Cap {
   def iconTag(icon: String): Tag             = i(dataIcon := icon)
   def iconTag(icon: Char, text: Frag): Tag   = iconTag(icon.toString, text)
   def iconTag(icon: String, text: Frag): Tag = i(dataIcon := icon, cls := "text")(text)
-  val styleTag                               = tag("style")(tpe := "text/css")
+  val styleTag                               = tag("style")
   val ratingTag                              = tag("rating")
   val countTag                               = tag("count")
   val goodTag                                = tag("good")

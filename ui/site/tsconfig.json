@@ -1,8 +1,8 @@
 {
   "extends": "../tsconfig.base.json",
-  "include": ["src/*.ts", "src/*.js"],
+  "include": ["src/**/*.ts"],
   "compilerOptions": {
-    "allowJs": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "noImplicitReturns": false
   }
 }

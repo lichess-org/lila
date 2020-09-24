@@ -12,7 +12,7 @@ $(function() {
   var onPageReload = function() {
 
     $("#communication").append(
-      $('<a id="auto_refresh" class="button">Auto refresh</a>').click(function() {
+      $('<a id="auto_refresh" class="button">Auto refresh</a>').on('click', () => {
         autoRefreshEnabled = !autoRefreshEnabled;
         renderButton();
       })
@@ -38,7 +38,10 @@ $(function() {
     if (!autoRefreshEnabled || document.visibilityState === 'hidden' || autoRefreshOnHold) return;
 
     // Reload only the chat grid portions of the page
-    $("#comm-wrap").load("/mod/public-chat #communication", onPageReload);
+    fetch('/mod/public-chat').then(r => r.text()).then(html => {
+      $(html).find('#communication').appendTo($('#comm-wrap').empty());
+      onPageReload();
+    });
 
-  }, 4000);
+  }, 5000);
 });

@@ -69,9 +69,9 @@
   <string name="move">حرکت</string>
   <string name="variantLoss">حرکت بازنده</string>
   <string name="variantWin">حرکت برنده</string>
-  <string name="insufficientMaterial">مهره کافی نیست</string>
+  <string name="insufficientMaterial">مواد کافی وجود ندارد</string>
   <string name="pawnMove">حرکت پیاده</string>
-  <string name="capture">گرفتن مهره</string>
+  <string name="capture">بزن</string>
   <string name="close">بستن</string>
   <string name="winning">حرکت برنده</string>
   <string name="losing">حرکت بازنده</string>
@@ -195,7 +195,8 @@
     <item quantity="other">%s بازی با شما</item>
   </plurals>
   <string name="cancel">انصراف</string>
-  <string name="timeOut">وقت تمام شد</string>
+  <string name="whiteTimeOut">زمان سفید به اتمام رسید</string>
+  <string name="blackTimeOut">زمان سیاه به اتمام رسید</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
   <string name="drawOfferDeclined">پیشنهاد تساوی پذیرفته نشد</string>
   <string name="drawOfferAccepted">پیشنهاد تساوی پذیرفته شد</string>
@@ -578,6 +579,7 @@
   <string name="playOfflineComputer">بازی آفلاین با رایانه</string>
   <string name="opponent">حریف</string>
   <string name="learnMenu">یادگیری</string>
+  <string name="studyMenu">مرور کردن</string>
   <string name="practice">تمرین کردن</string>
   <string name="community">انجمن</string>
   <string name="tools">ابزارها</string>
@@ -612,6 +614,7 @@
   <string name="webmasters">وب مستر ها</string>
   <string name="about">درباره ما</string>
   <string name="aboutX">درباره %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s کاملا رایگان(%2$s)، آزاد، بدون تبلیغات و سرور متن باز است.</string>
   <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
   <string name="termsOfService">قوانین</string>
@@ -659,8 +662,10 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">.است %1$s شما %2$s ریتینگ</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">شما بهتر از %1$s بازیکن ها در %2$s هستید.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s بهتر از %2$s از بازیکنان %3$s میباشد.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">. ندارید %s چرا شما ریتینگ پایدار برای</string>
   <string name="yourRating">ریتینگ شما</string>
+  <string name="cumulative">تجمعی</string>
   <string name="checkYourEmail">ایمیل خود را چک کنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر ایمیل را مشاهده نمی کنید پوشه ی اسپم را بررسی کنید</string>
@@ -806,4 +811,24 @@
     <item quantity="one">و پیش حرکت %s را حفظ کنید</item>
     <item quantity="other">و پیش حرکت های %s را حفظ کنید</item>
   </plurals>
+  <string name="sorry">متاسفم :(</string>
+  <string name="why">چرا؟</string>
+  <string name="pleasantChessExperience">هدف ما مهیا ساختن تجربه لذت بخش شطرنج به همه افراد است.</string>
+  <string name="goodPractice">به همین منظور، ما باید اطمینان حاصل کنیم که تمام بازیکنان تمرین خوب را دنبال میکنند.</string>
+  <string name="potentialProblem">زمانی که مشکلی احتمالی شناسایی شد ، این پیام را نمایش می دهیم.</string>
+  <string name="howToAvoidThis">چگونه از این امر جلوگیری کنیم؟</string>
+  <string name="playEveryGame">هر بازی که استارت میزنید را بازی کنید.</string>
+  <string name="tryToWin">در هر بازی برای پیروزی (یا حداقل تساوی) تلاش کنید.</string>
+  <string name="resignLostGames">بازی های از دست رفته را انصراف دهید(نگذارید زمان تمام شود).</string>
+  <string name="temporaryInconvenience">ما برای این مشکل موقت عذرخواهی می کنیم،</string>
+  <string name="wishYouGreatGames">و برای شما بازیهای عالی در lichess.org آرزو می کنیم.</string>
+  <string name="thankYouForReading">از اینکه متن را خواندید متشکریم!</string>
+  <string name="lifetimeScore">امتیاز کل</string>
+  <string name="currentMatchScore">امتیاز بازی فعلی</string>
+  <string name="edit">ویرایش</string>
+  <string name="rapid">سریع</string>
+  <string name="classical">کلاسیک</string>
+  <string name="important">مهم!</string>
+  <string name="subscribe">مشترک شدن</string>
+  <string name="unsubscribe">لغو اشتراک</string>
 </resources>

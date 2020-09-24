@@ -59,7 +59,7 @@
   <string name="ratedGame">Make sure you played a rated game. Casual games do not affect the players ratings.</string>
   <string name="errorPage">Error page</string>
   <string name="reportErrorPage">If you faced an error page, you may report it:</string>
-  <string name="banAppeal">Appeal for a ban or IP restriction</string>
+  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Appeal for a ban or IP restriction</string>
   <string name="engineAppeal">Engine or cheat mark</string>
   <string name="sendAppealTo">You may send an appeal to %s.</string>
   <string name="falsePositives">False positives do happen sometimes, and we\'re sorry about that.</string>

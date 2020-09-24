@@ -199,7 +199,8 @@
     <item quantity="other">%s jogos contigo</item>
   </plurals>
   <string name="cancel">Cancelar</string>
-  <string name="timeOut">Tempo esgotado</string>
+  <string name="whiteTimeOut">Acabou o tempo das brancas</string>
+  <string name="blackTimeOut">Acabou o tempo das pretas</string>
   <string name="drawOfferSent">Proposta de empate enviada</string>
   <string name="drawOfferDeclined">Proposta de empate recusada</string>
   <string name="drawOfferAccepted">Proposta de empate aceite</string>

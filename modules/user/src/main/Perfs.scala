@@ -100,10 +100,9 @@ case class Perfs(
   def bestProgress: Int = bestProgressIn(PerfType.leaderboardable)
 
   def bestProgressIn(types: List[PerfType]): Int =
-    types.foldLeft(0) {
-      case (max, t) =>
-        val p = apply(t).progress
-        if (p > max) p else max
+    types.foldLeft(0) { case (max, t) =>
+      val p = apply(t).progress
+      if (p > max) p else max
     }
 
   lazy val perfsMap: Map[String, Perf] = Map(
@@ -151,15 +150,15 @@ case class Perfs(
     }
 
   def inShort =
-    perfs map {
-      case (name, perf) => s"$name:${perf.intRating}"
+    perfs map { case (name, perf) =>
+      s"$name:${perf.intRating}"
     } mkString ", "
 
   def updateStandard =
     copy(
       standard = {
-        val subs = List(bullet, blitz, rapid, classical, correspondence)
-        subs.maxBy(_.latest.fold(0L)(_.getMillis)).latest.fold(standard) { date =>
+        val subs = List(bullet, blitz, rapid, classical, correspondence).filterNot(_.provisional)
+        subs.maxByOption(_.latest.fold(0L)(_.getMillis)).flatMap(_.latest).fold(standard) { date =>
           val nb = subs.map(_.nb).sum
           val glicko = Glicko(
             rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,

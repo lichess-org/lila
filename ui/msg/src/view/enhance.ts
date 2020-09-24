@@ -5,7 +5,7 @@ export const isMoreThanText = (str: string) => /(\n|(@|\.)\w{2,})/.test(str);
 
 export const enhance = (str: string) =>
   expandMentions(
-    expandUrls(window.lichess.escapeHtml(str))
+    expandUrls(lichess.escapeHtml(str))
   ).replace(/\n/g, '<br>');
 
 const expandMentions = (html: string) =>
@@ -54,7 +54,7 @@ type LinkType = 'game';
 
 const domain = window.location.host;
 const gameRegex = new RegExp(`(?:https?://)${domain}/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$`);
-const notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer'];
+const notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer', 'timeline'];
 
 export function expandIFrames(el: HTMLElement) {
 
@@ -89,14 +89,14 @@ function expandGames(games: Expandable[]): void {
 function expand(exp: Expandable): void {
   const $iframe: any = $('<iframe>').attr('src', exp.link.src);
   $(exp.element).parent().parent().addClass('has-embed');
-  $(exp.element).replaceWith($('<div class="embed"></div>').html($iframe));
+  $(exp.element).replaceWith($('<div class="embed">').prepend($iframe));
   return $iframe
     .on('load', function(this: HTMLIFrameElement) {
       if (this.contentDocument?.title.startsWith("404"))
         (this.parentNode as HTMLElement).classList.add('not-found');
       scroller.auto();
     })
-    .on('mouseenter', function(this: HTMLIFrameElement) { $(this).focus() });
+    .on('mouseenter', function(this: HTMLIFrameElement) { this.focus() });
 }
 
 function parseLink(a: HTMLAnchorElement): Link | undefined {

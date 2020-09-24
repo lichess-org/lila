@@ -12,11 +12,10 @@ final class Msg(
 
   def home =
     Auth { implicit ctx => me =>
-      ctx.hasInbox ?? negotiate(
-        html =
-          inboxJson(me) map { json =>
-            Ok(views.html.msg.home(json))
-          },
+      negotiate(
+        html = inboxJson(me) map { json =>
+          Ok(views.html.msg.home(json))
+        },
         api = v =>
           {
             if (v >= 5) inboxJson(me)
@@ -29,7 +28,7 @@ final class Msg(
     Auth { implicit ctx => me =>
       if (username == "new") Redirect(get("user").fold(routes.Msg.home())(routes.Msg.convo(_))).fuccess
       else
-        ctx.hasInbox ?? env.msg.api.convoWith(me, username, before).flatMap {
+        env.msg.api.convoWith(me, username, before).flatMap {
           case None =>
             negotiate(
               html = Redirect(routes.Msg.home()).fuccess,
@@ -38,10 +37,9 @@ final class Msg(
           case Some(c) =>
             def newJson = inboxJson(me).map { _ + ("convo" -> env.msg.json.convo(c)) }
             negotiate(
-              html =
-                newJson map { json =>
-                  Ok(views.html.msg.home(json))
-                },
+              html = newJson map { json =>
+                Ok(views.html.msg.home(json))
+              },
               api = v =>
                 {
                   if (v >= 5) newJson
@@ -53,20 +51,16 @@ final class Msg(
 
   def search(q: String) =
     Auth { ctx => me =>
-      ctx.hasInbox ?? {
-        q.trim.some.filter(lila.user.User.couldBeUsername) match {
-          case None    => env.msg.json.searchResult(me)(env.msg.search.empty) map { Ok(_) }
-          case Some(q) => env.msg.search(me, q) flatMap env.msg.json.searchResult(me) map { Ok(_) }
-        }
+      q.trim.some.filter(lila.user.User.couldBeUsername) match {
+        case None    => env.msg.json.searchResult(me)(env.msg.search.empty) map { Ok(_) }
+        case Some(q) => env.msg.search(me, q) flatMap env.msg.json.searchResult(me) map { Ok(_) }
       }
     }
 
   def unreadCount =
     Auth { ctx => me =>
       JsonOk {
-        ctx.hasInbox ?? {
-          env.msg.api unreadCount me
-        }
+        env.msg.api unreadCount me
       }
     }
 
@@ -78,7 +72,7 @@ final class Msg(
 
   def compatCreate =
     AuthBody { implicit ctx => me =>
-      ctx.hasInbox ?? {
+      ctx.noKid ?? {
         env.msg.compat
           .create(me)(ctx.body)
           .fold(
@@ -96,14 +90,12 @@ final class Msg(
       // compat: reply
       auth = implicit ctx =>
         me =>
-          ctx.hasInbox ?? {
-            env.msg.compat
-              .reply(me, userId)(ctx.body)
-              .fold(
-                jsonFormError,
-                _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
-              )
-          },
+          env.msg.compat
+            .reply(me, userId)(ctx.body)
+            .fold(
+              jsonFormError,
+              _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
+            ),
       // new API: create/reply
       scoped = implicit req =>
         me =>

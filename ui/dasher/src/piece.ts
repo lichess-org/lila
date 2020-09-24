@@ -1,6 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
+import * as xhr from 'common/xhr';
 import { Redraw, Open, bind, header } from './util'
 
 type Piece = string;
@@ -20,7 +21,7 @@ export interface PieceCtrl {
   data: () => PieceDimData
   trans: Trans
   set(t: Piece): void
-    open: Open
+  open: Open
 }
 
 export function ctrl(data: PieceData, trans: Trans, dimension: () => keyof PieceData, redraw: Redraw, open: Open): PieceCtrl {
@@ -37,9 +38,11 @@ export function ctrl(data: PieceData, trans: Trans, dimension: () => keyof Piece
       const d = dimensionData();
       d.current = t;
       applyPiece(t, d.list, dimension() === 'd3');
-      $.post('/pref/pieceSet' + (dimension() === 'd3' ? '3d' : ''), {
-        set: t
-      }).fail(() => window.lichess.announce({msg: 'Failed to save piece set preference'}));
+      xhr.text('/pref/pieceSet' + (dimension() === 'd3' ? '3d' : ''), {
+        body: xhr.form({ set: t }),
+        method: 'post'
+      })
+        .catch(() => lichess.announce({ msg: 'Failed to save piece set  preference' }));
       redraw();
     },
     open
@@ -71,7 +74,7 @@ function pieceView(current: Piece, set: (t: Piece) => void, is3d: boolean) {
     class: { active: current === t }
   }, [
     h('piece', {
-      attrs: { style: `background-image:url(${window.lichess.assetUrl(pieceImage(t, is3d))})` }
+      attrs: { style: `background-image:url(${lichess.assetUrl(pieceImage(t, is3d))})` }
     })
   ]);
 }
@@ -80,7 +83,7 @@ function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
   if (is3d) {
     $('body').removeClass(list.join(' ')).addClass(t);
   } else {
-    const sprite = $('#piece-sprite');
-    sprite.attr('href', sprite.attr('href').replace(/\w+\.css/, t + '.css'));
+    const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
+    sprite.href = sprite.href.replace(/\w+\.css/, t + '.css');
   }
 }

@@ -7,6 +7,10 @@
     grid-gap: 0 $block-gap;
   }
 
+  .crunching {
+    margin: 3em 0 2em 0;
+  }
+
   .loading {
     .meat {
       position: relative;
@@ -360,10 +364,6 @@
       button {
         width: 100%;
       }
-    }
-
-    .help {
-      float: right;
     }
 
     .share a {

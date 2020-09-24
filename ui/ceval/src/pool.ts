@@ -39,7 +39,7 @@ class WebWorker extends AbstractWorker {
   worker: Worker;
 
   boot(): Promise<Protocol> {
-    this.worker = new Worker(window.lichess.assetUrl(this.url, {sameDomain: true}));
+    this.worker = new Worker(lichess.assetUrl(this.url, {sameDomain: true}));
     const protocol = new Protocol(this.send.bind(this), this.workerOpts);
     this.worker.addEventListener('message', e => {
       protocol.received(e.data);
@@ -72,13 +72,14 @@ class WebWorker extends AbstractWorker {
 }
 
 class ThreadedWasmWorker extends AbstractWorker {
-  static scripts: any = {};
+  static instances: {Stockfish?: any, StockfishMv?: any} = {};
+
   private sf?: any;
 
   boot(): Promise<Protocol> {
     const name = officialStockfish(this.workerOpts.variant) ? 'Stockfish' : 'StockfishMv';
-    if (!ThreadedWasmWorker.scripts[name]) ThreadedWasmWorker.scripts[name] = window.lichess.loadScript(this.url, {sameDomain: true});
-    return ThreadedWasmWorker.scripts[name].then(() => window[name]()).then((sf: any) => {
+    ThreadedWasmWorker.instances[name] ||= lichess.loadScript(this.url, {sameDomain: true}).then(_ => window[name]());
+    return ThreadedWasmWorker.instances[name].then((sf: any) => {
       this.sf = sf;
       const protocol = new Protocol(this.send.bind(this), this.workerOpts);
       sf.addMessageListener(protocol.received.bind(protocol));
@@ -88,11 +89,15 @@ class ThreadedWasmWorker extends AbstractWorker {
   }
 
   destroy() {
-    if (this.sf) this.sf.terminate();
+    // Terminated instances to not get freed reliably
+    // (https://github.com/ornicar/lila/issues/7334). So instead of
+    // destroying, just stop instances and keep them around for reuse.
+    this.send('stop');
+    this.sf = undefined;
   }
 
   send(cmd: string) {
-    if (this.sf) this.sf.postMessage(cmd);
+    this.sf?.postMessage(cmd);
   }
 }
 
@@ -139,12 +144,12 @@ export class Pool {
   }
 
   start(work: Work): void {
-    window.lichess.storage.fire('ceval.pool.start');
+    lichess.storage.fire('ceval.disable'); // disable on all other tabs
     this.getWorker().then(function(worker) {
       worker.start(work);
     }).catch(function(error) {
       console.log(error);
-      setTimeout(() => window.lichess.reload(), 10000);
+      setTimeout(() => lichess.reload(), 10000);
     });
   }
 

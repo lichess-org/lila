@@ -199,7 +199,8 @@
     <item quantity="other">%s partida zure aurka</item>
   </plurals>
   <string name="cancel">Ezeztatu</string>
-  <string name="timeOut">Denbora bukatuta</string>
+  <string name="whiteTimeOut">Zuriaren denbora agortu egin da</string>
+  <string name="blackTimeOut">Beltzaren denbora agortu egin da</string>
   <string name="drawOfferSent">Berdintzeko eskaintza bidali da</string>
   <string name="drawOfferDeclined">Berdintzeko eskaintzari uko egin zaio</string>
   <string name="drawOfferAccepted">Berdintzeko eskaintza onartu da</string>

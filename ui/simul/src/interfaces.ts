@@ -8,7 +8,7 @@ export interface SimulOpts {
   data: SimulData;
   userId?: string;
   element: HTMLElement;
-  $side: JQuery;
+  $side: Cash;
   socketVersion: number;
   chat: any;
   i18n: any;

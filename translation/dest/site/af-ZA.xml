@@ -199,7 +199,6 @@
     <item quantity="other">%s spelle teen jou</item>
   </plurals>
   <string name="cancel">Kanseleer</string>
-  <string name="timeOut">Tyd verstreke</string>
   <string name="drawOfferSent">Gelykop aanbod gestuur</string>
   <string name="drawOfferDeclined">Gelykop aanbod verwerp</string>
   <string name="drawOfferAccepted">Gelykop aanbod aanvaar</string>

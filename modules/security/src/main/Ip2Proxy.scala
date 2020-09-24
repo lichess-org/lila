@@ -8,20 +8,33 @@ import scala.concurrent.duration._
 
 import lila.common.IpAddress
 
-final class Ip2Proxy(
+trait Ip2Proxy {
+
+  def apply(ip: IpAddress): Fu[Boolean]
+
+  def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]]
+}
+
+final class Ip2ProxySkip extends Ip2Proxy {
+
+  def apply(ip: IpAddress): Fu[Boolean] = fuFalse
+
+  def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]] = fuccess(Set.empty)
+}
+
+final class Ip2ProxyServer(
     ws: StandaloneWSClient,
     cacheApi: lila.memo.CacheApi,
     checkUrl: String
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
-) {
+) extends Ip2Proxy {
 
   def apply(ip: IpAddress): Fu[Boolean] =
-    cache.get(ip).recover {
-      case e: Exception =>
-        logger.warn(s"Ip2Proxy $ip", e)
-        false
+    cache.get(ip).recover { case e: Exception =>
+      logger.warn(s"Ip2Proxy $ip", e)
+      false
     }
 
   def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]] =
@@ -29,15 +42,14 @@ final class Ip2Proxy(
       .map {
         _.view
           .zip(ips)
-          .collect {
-            case (true, ip) => ip
+          .collect { case (true, ip) =>
+            ip
           }
           .toSet
       }
-      .recover {
-        case e: Exception =>
-          logger.warn(s"Ip2Proxy $ips", e)
-          Set.empty
+      .recover { case e: Exception =>
+        logger.warn(s"Ip2Proxy $ips", e)
+        Set.empty
       }
 
   private def batch(ips: Seq[IpAddress]): Fu[Seq[Boolean]] =
@@ -62,8 +74,8 @@ final class Ip2Proxy(
                 else fufail(s"Ip2Proxy missing results for $ips -> $res")
               }
               .addEffect {
-                _.zip(ips) foreach {
-                  case (proxy, ip) => cache.put(ip, fuccess(proxy))
+                _.zip(ips) foreach { case (proxy, ip) =>
+                  cache.put(ip, fuccess(proxy))
                 }
               }
               .monSuccess(_.security.proxy.request)

@@ -199,7 +199,6 @@
     <item quantity="other">%s lojra me ju</item>
   </plurals>
   <string name="cancel">Anullo</string>
-  <string name="timeOut">Koha mbaroi</string>
   <string name="drawOfferSent">Oferta për barazim u dërgua</string>
   <string name="drawOfferDeclined">Oferta për barazim u hodh poshtë</string>
   <string name="drawOfferAccepted">Oferta për barazim u pranua</string>

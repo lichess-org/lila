@@ -87,15 +87,14 @@ object gamify {
                 )
               ),
               tbody(
-                leaderboards(period).zipWithIndex.map {
-                  case (m, i) =>
-                    tr(
-                      th(i + 1),
-                      th(userIdLink(m.modId.some, withOnline = false)),
-                      td(m.action.localize),
-                      td(m.report.localize),
-                      td(cls := "score")(m.score.localize)
-                    )
+                leaderboards(period).zipWithIndex.map { case (m, i) =>
+                  tr(
+                    th(i + 1),
+                    th(userIdLink(m.modId.some, withOnline = false)),
+                    td(m.action.localize),
+                    td(m.report.localize),
+                    td(cls := "score")(m.score.localize)
+                  )
                 }
               )
             )
@@ -109,7 +108,7 @@ object gamify {
       lang: Lang
   ) =
     div(cls := "champ")(
-      st.img(src := staticUrl(s"images/mod/$img.png")),
+      st.img(src := assetUrl(s"images/mod/$img.png")),
       h2("Mod of the ", period.name),
       champ.map { m =>
         frag(

@@ -199,7 +199,6 @@
     <item quantity="other">%s lîstikên bi te re</item>
   </plurals>
   <string name="cancel">Betal bike</string>
-  <string name="timeOut">Dem bihurî</string>
   <string name="drawOfferSent">Pêşniyara wekheviyê hate şandin</string>
   <string name="drawOfferDeclined">Teklîfa wekheviyê hate redkirin</string>
   <string name="drawOfferAccepted">Teklîfa wekheviyê hate qebûlkirin</string>

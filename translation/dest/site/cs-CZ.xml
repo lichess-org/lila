@@ -221,7 +221,8 @@
     <item quantity="other">%s partií s Vámi</item>
   </plurals>
   <string name="cancel">Zrušit</string>
-  <string name="timeOut">Čas vypršel</string>
+  <string name="whiteTimeOut">Bílému došel čas</string>
+  <string name="blackTimeOut">Černému došel čas</string>
   <string name="drawOfferSent">Nabídka remízy byla odeslána</string>
   <string name="drawOfferDeclined">Soupeř remízu odmítl</string>
   <string name="drawOfferAccepted">Soupeř remízu přijal</string>

@@ -188,7 +188,6 @@
     <item quantity="other">나와 %s번 대국 함</item>
   </plurals>
   <string name="cancel">취소</string>
-  <string name="timeOut">시간 초과</string>
   <string name="drawOfferSent">무승부를 요청했습니다</string>
   <string name="drawOfferDeclined">무승부 요청이 거절 되었습니다</string>
   <string name="drawOfferAccepted">무승부 요청이 승낙 됐습니다</string>

@@ -53,7 +53,7 @@ Hasło: %3$s</string>
 Oto link do klasy.</string>
   <string name="invitationToClass">Zostałeś zaproszony do dołączenia do klasy \"%s\" jako student.</string>
   <string name="clickToViewInvitation">Kliknij link, aby wyświetlić zaproszenie:</string>
-  <plurals name="nbPendingInvitations">
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
     <item quantity="one">Jedno oczekujące zaproszenie</item>
     <item quantity="few">%s oczekujące zaproszenia</item>
     <item quantity="many">%s oczekujących zaproszeń</item>

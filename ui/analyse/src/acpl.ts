@@ -48,7 +48,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
   return h('table', {
     hook: {
       insert(vnode) {
-        window.lichess.powertip.manualUserIn(vnode.elm);
+        lichess.powertip.manualUserIn(vnode.elm);
       }
     }
   }, [

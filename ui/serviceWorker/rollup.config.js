@@ -3,6 +3,6 @@ import { rollupProject } from '@build/rollupProject';
 export default rollupProject({
   main: {
     input: 'src/main.ts',
-    output: 'lichess.serviceWorker',
+    output: 'service-worker',
   },
 });

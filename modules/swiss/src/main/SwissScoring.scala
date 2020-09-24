@@ -28,8 +28,8 @@ final private class SwissScoring(
           (prevPlayers, pairings) <- fetchPlayers(swiss) zip fetchPairings(swiss)
           pairingMap = SwissPairing.toMap(pairings)
           sheets     = SwissSheet.many(swiss, prevPlayers, pairingMap)
-          withPoints = (prevPlayers zip sheets).map {
-            case (player, sheet) => player.copy(points = sheet.points)
+          withPoints = (prevPlayers zip sheets).map { case (player, sheet) =>
+            player.copy(points = sheet.points)
           }
           playerMap = SwissPlayer.toMap(withPoints)
           players = withPoints.map { p =>
@@ -53,22 +53,21 @@ final private class SwissScoring(
           _ <- SwissPlayer.fields { f =>
             prevPlayers
               .zip(players)
-              .withFilter {
-                case (a, b) => a != b
+              .withFilter { case (a, b) =>
+                a != b
               }
-              .map {
-                case (_, player) =>
-                  colls.player.update
-                    .one(
-                      $id(player.id),
-                      $set(
-                        f.points      -> player.points,
-                        f.tieBreak    -> player.tieBreak,
-                        f.performance -> player.performance,
-                        f.score       -> player.score
-                      )
+              .map { case (_, player) =>
+                colls.player.update
+                  .one(
+                    $id(player.id),
+                    $set(
+                      f.points      -> player.points,
+                      f.tieBreak    -> player.tieBreak,
+                      f.performance -> player.performance,
+                      f.score       -> player.score
                     )
-                    .void
+                  )
+                  .void
               }
               .sequenceFu
               .void

@@ -4,8 +4,6 @@ import { noteCtrl } from './note'
 import { moderationCtrl } from './moderation'
 import { prop } from 'common';
 
-const li = window.lichess;
-
 export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const data = opts.data;
@@ -23,14 +21,14 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   if (opts.noteId) allTabs.push('note');
   if (opts.plugin) allTabs.push(opts.plugin.tab.key);
 
-  const tabStorage = li.storage.make('chat.tab'),
+  const tabStorage = lichess.storage.make('chat.tab'),
     storedTab = tabStorage.get();
 
   let moderation: ModerationCtrl | undefined;
 
   const vm: ViewModel = {
     tab: allTabs.find(tab => tab === storedTab) || allTabs[0],
-    enabled: opts.alwaysEnabled || !li.storage.get('nochat'),
+    enabled: opts.alwaysEnabled || !lichess.storage.get('nochat'),
     placeholderKey: 'talkInChat',
     loading: false,
     timeout: opts.timeout,
@@ -39,7 +37,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   /* If discussion is disabled, and we have another chat tab,
    * then select that tab over discussion */
-  if (allTabs.length > 1 && vm.tab === 'discussion' && li.storage.get('nochat')) vm.tab = allTabs[1];
+  if (allTabs.length > 1 && vm.tab === 'discussion' && lichess.storage.get('nochat')) vm.tab = allTabs[1];
 
   const post = function(text: string): boolean {
     text = text.trim();
@@ -49,7 +47,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
     }
-    li.pubsub.emit('socket.send', 'talk', text);
+    lichess.pubsub.emit('socket.send', 'talk', text);
     return true;
   };
 
@@ -91,12 +89,12 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     redraw();
   }
 
-  const trans = li.trans(opts.i18n);
+  const trans = lichess.trans(opts.i18n);
 
   function instanciateModeration() {
     if (opts.permissions.timeout || opts.permissions.local) {
       moderation = moderationCtrl({
-        reasons: opts.timeoutReasons || ([{key: 'other', name: 'Inappropriate behavior'}]),
+        reasons: opts.timeoutReasons || ([{ key: 'other', name: 'Inappropriate behavior' }]),
         permissions: opts.permissions,
         redraw
       });
@@ -118,7 +116,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     redraw
   });
 
-  const subs: [string, PubsubCallback][]  = [
+  const subs: [string, PubsubCallback][] = [
     ['socket.in.message', onMessage],
     ['socket.in.chat_timeout', onTimeout],
     ['socket.in.chat_reinstate', onReinstate],
@@ -126,13 +124,13 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     ['chat.permissions', onPermissions],
     ['palantir.toggle', palantir.enabled]
   ];
-  subs.forEach(([eventName, callback]) => li.pubsub.on(eventName, callback));
+  subs.forEach(([eventName, callback]) => lichess.pubsub.on(eventName, callback));
 
   const destroy = () => {
-    subs.forEach(([eventName, callback]) => li.pubsub.off(eventName, callback));
+    subs.forEach(([eventName, callback]) => lichess.pubsub.off(eventName, callback));
   };
 
-  const emitEnabled = () => li.pubsub.emit('chat.enabled', vm.enabled);
+  const emitEnabled = () => lichess.pubsub.emit('chat.enabled', vm.enabled);
   emitEnabled();
 
   return {
@@ -144,7 +142,9 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       vm.tab = t;
       tabStorage.set(t);
       // It's a lame way to do it. Give me a break.
-      if (t === 'discussion') li.requestIdleCallback(() => $('.mchat__say').focus());
+      if (t === 'discussion') lichess.requestIdleCallback(() =>
+        $('.mchat__say').each(function(this: HTMLElement) { this.focus() })
+      );
       redraw();
     },
     moderation: () => moderation,
@@ -156,8 +156,8 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     setEnabled(v: boolean) {
       vm.enabled = v;
       emitEnabled();
-      if (!v) li.storage.set('nochat', '1');
-      else li.storage.remove('nochat');
+      if (!v) lichess.storage.set('nochat', '1');
+      else lichess.storage.remove('nochat');
       redraw();
     },
     redraw,

@@ -199,7 +199,8 @@
     <item quantity="other">%s Partien mit dir</item>
   </plurals>
   <string name="cancel">Abbrechen</string>
-  <string name="timeOut">Zeit abgelaufen</string>
+  <string name="whiteTimeOut">Zeitüberschreitung von Weiß</string>
+  <string name="blackTimeOut">Zeitüberschreitung von Schwarz</string>
   <string name="drawOfferSent">Remisangebot gesendet</string>
   <string name="drawOfferDeclined">Remisangebot abgelehnt</string>
   <string name="drawOfferAccepted">Remisangebot angenommen</string>

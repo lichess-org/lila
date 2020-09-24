@@ -62,7 +62,7 @@
   <string name="studyUrl">अध्ययन का URL</string>
   <string name="currentChapterUrl">वर्तमान अध्याय URL</string>
   <string name="currentGameUrl">वर्तमान अध्याय URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">आप अध्याय को जोड़ने के लिए इसे फ़ोरम में जोर सकते हैं</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">आप अध्याय को जोड़ने के लिए इसे फ़ोरम में जोर सकते हैं</string>
   <string name="startAtInitialPosition">प्रारंभिक स्थिति में शुरू करें</string>
   <string name="startAtX">%s से प्रारंभ करें</string>
   <string name="embedInYourWebsite">अपनी वेबसाइट अथवा ब्लॉग पर प्रकाशित करें</string>

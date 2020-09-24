@@ -13,7 +13,7 @@
   <string name="opponentName">Nomo de la kontraŭulo</string>
   <string name="loser">Perdanto</string>
   <string name="from">El</string>
-  <string name="to">Al</string>
+  <string name="to">ĝis</string>
   <string name="humanOrComputer">Ĉu la kontraŭulo de la ludanto estis homo aŭ komputilo</string>
   <string name="aiLevel">A.I. nivelo</string>
   <string name="source">Fonto</string>

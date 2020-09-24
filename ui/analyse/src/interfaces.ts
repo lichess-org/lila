@@ -5,6 +5,7 @@ import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import { RelayData } from './study/relay/interfaces';
 import AnalyseController from './ctrl';
+import { ChatCtrl } from 'chat';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
@@ -113,10 +114,13 @@ export interface AnalyseOpts {
   tagTypes?: string;
   practice?: StudyPracticeData;
   relay?: RelayData;
-  $side?: JQuery;
-  $underboard?: JQuery;
+  $side?: Cash;
+  $underboard?: Cash;
   i18n: any;
-  chat: any;
+  chat: {
+    parseMoves: boolean;
+    instance?: Promise<ChatCtrl>
+  };
 }
 
 export interface JustCaptured extends cg.Piece {

@@ -56,7 +56,7 @@ function makeConfig(ctrl: Controller): CgConfig {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: (window.lichess.storage.get('arrow.snap') || 1) != '0'
+      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0'
     },
     highlight: {
       lastMove: ctrl.pref.highlight,

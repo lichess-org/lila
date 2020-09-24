@@ -42,17 +42,16 @@ final private class RatingRefund(
             .list(40)
 
         def makeRefunds(games: List[Game]) =
-          games.foldLeft(Refunds(List.empty)) {
-            case (refs, g) =>
-              (for {
-                perf <- g.perfType
-                op   <- g.playerByUserId(sus.user.id) map g.opponent
-                if !op.provisional
-                victim <- op.userId
-                diff   <- op.ratingDiff
-                if diff < 0
-                rating <- op.rating
-              } yield refs.add(victim, perf, -diff, rating)) | refs
+          games.foldLeft(Refunds(List.empty)) { case (refs, g) =>
+            (for {
+              perf <- g.perfType
+              op   <- g.playerByUserId(sus.user.id) map g.opponent
+              if !op.provisional
+              victim <- op.userId
+              diff   <- op.ratingDiff
+              if diff < 0
+              rating <- op.rating
+            } yield refs.add(victim, perf, -diff, rating)) | refs
           }
 
         def pointsToRefund(ref: Refund, curRating: Int, perfs: PerfStat): Int = {
