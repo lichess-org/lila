@@ -175,11 +175,19 @@
   <string name="forgotPassword">mi tolmo\'i lo du\'u ma kau kikyvla</string>
   <string name="rank">lo crelai</string>
   <string name="rankX">crelai li %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">ningau lo se crelai ku di\'i nu\'i la\'u lo mentu be li %s</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="other">%s lo namkei</item>
+  </plurals>
   <string name="gamesPlayed">roi jvikei</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s roi jvikei do</item>
   </plurals>
   <string name="cancel">dicra</string>
+  <string name="whiteTimeOut">lo se caxmati cu xaksu lo temci</string>
+  <string name="blackTimeOut">lo te caxmati cu xaksu lo temci</string>
   <string name="drawOfferSent">lo se friti cu se benji</string>
   <string name="drawOfferDeclined">lo se friti cu se cpapro</string>
   <string name="drawOfferAccepted">lo se friti cu se fitytu\'i</string>
@@ -206,11 +214,14 @@
   <string name="thisGameIsRated">ti jai nu nilcre cenba</string>
   <string name="rematch">jvikei xoi krefu</string>
   <string name="rematchOfferSent">jungau co jivna be xoi krefu vau djica</string>
+  <string name="rematchOfferSentWhite">lo se caxmati cu friti lo rapli ci\'erkei</string>
+  <string name="rematchOfferSentBlack">lo te caxmati cu friti lo rapli ci\'erkei</string>
   <string name="rematchOfferAccepted">fitytu\'i co jivna be xoi krefu</string>
   <string name="rematchOfferCanceled">co\'u friti co jivna be xoi krefu</string>
   <string name="rematchOfferDeclined">fitytoltu\'i co jivna be xoi krefu</string>
   <string name="cancelRematchOffer">co\'u friti co jivna be xoi krefu</string>
   <string name="viewRematch">catlu lo spuda selkei</string>
+  <string name="confirmMove">bitydu\'a lo kelka\'u</string>
   <string name="play">jivna</string>
   <string name="inbox">lo selmri</string>
   <string name="chatRoom">se cusku kumfa</string>
@@ -357,7 +368,7 @@
   <string name="findTheBestMoveForWhite">ko visfa\'i lo xagrai se zukte be la blabi</string>
   <string name="findTheBestMoveForBlack">ko visfa\'i lo xagrai se zukte be la xekri</string>
   <string name="toTrackYourProgress">te zu\'e lo nu rejgau fo lo selzu\'e zo\'u</string>
-  <string name="puzzleId">kelseldanfu %s moi</string>
+  <string name="puzzleId">%s moi se namkei</string>
   <string name="puzzleOfTheDay">lo se namkei pe lo cabdei</string>
   <string name="clickToSolve">dafyja\'o djica na gi\'a .iklki</string>
   <string name="goodMove">pa xamgu se zukte</string>
