@@ -88,19 +88,32 @@
     <item quantity="other">ga lonu kavbu gi lonu la paan. muvdu poi bavla\'i cu selfri ba lo %s kelka\'u to vo\'a kraga\'igau la li muno kelka\'u kancu toi</item>
   </plurals>
   <string name="noGameFound">sispe\'i no nunjvi</string>
-  <string name="openingExplorer">cfari nunmu\'u ke lanli tutci je vreji</string>
+  <string name="openingExplorer">cfari kelka\'u sispe\'i</string>
+  <string name="xOpeningExplorer">cfari %s kelka\'u sispe\'i</string>
   <string name="winPreventedBy50MoveRule">lo nunji\'a cu se fanta lo javni be tu\'a lo nunmu\'u muno mei</string>
   <string name="lossSavedBy50MoveRule">lo nuntolji\'a cu se zanfanta lo javni be tu\'a lo nunmu\'u muno mei</string>
   <string name="allSet">.i\'e</string>
   <string name="importPgn">samymo\'i ra\'i la\'o my. PGN my.</string>
   <string name="delete">vimcu</string>
   <string name="deleteThisImportedGame">xu vimcu ti noi se nerbe\'i nunjvi</string>
+  <string name="replayMode">rapli tadji</string>
   <string name="realtimeReplay">pu ca\'o</string>
+  <string name="byCPL">la cypycyc.</string>
   <string name="openStudy">kargau lo seltadni</string>
+  <string name="enable">fasnu</string>
+  <string name="bestMoveArrow">arco lo kelka\'u poi zanrai</string>
+  <string name="evaluationGauge">arco lo se xamgu be lo ci\'erkei zazyfau</string>
+  <string name="multipleLines">xo linji</string>
   <string name="cpus">lo mijykemructerci\'e</string>
-  <string name="blunders">lo nu srera sai</string>
-  <string name="mistakes">lo nu srera na\'oi</string>
-  <string name="inaccuracies">lo nu srera ru\'e</string>
+  <string name="memory">mo\'isro</string>
+  <string name="infiniteAnalysis">mulfau lanli</string>
+  <string name="removesTheDepthLimit">vimcu lo jimte be lo kelka\'u klani seri\'a lo nu lo skami cu glare</string>
+  <string name="blunder">lo mutce se srera</string>
+  <string name="blunders">lo mutce se srera</string>
+  <string name="mistake">lo se srera</string>
+  <string name="mistakes">lo se srera</string>
+  <string name="inaccuracy">lo milxe se srera</string>
+  <string name="inaccuracies">lo milxe se srera</string>
   <string name="moveTimes">lo kelka\'u ditcu</string>
   <string name="flipBoard">gapnifagau lo plita</string>
   <string name="threefoldRepetition">lo nu su\'o kelka\'u porsi xoi lamporsixu su\'o ci roi fasnu</string>
@@ -128,6 +141,10 @@
   <string name="xPostedInForumY">la\'o gy.%1$s.gy cusku fo la\'o gy.%2$s.gy noi snulinsi</string>
   <string name="latestForumPosts">lo jai prujbi ke snustu selsku</string>
   <string name="players">lo jvikei</string>
+  <string name="friends">pendo</string>
+  <string name="discussions">nuncasnu</string>
+  <string name="today">ca lo cabdei</string>
+  <string name="yesterday">ca lo prulamdei</string>
   <string name="minutesPerSide">lo poi\'i ro jivna zo\'u tu\'a ri ke\'a mentu</string>
   <string name="variant">lo drata javni gunma</string>
   <string name="variants">lo drata javni gunma</string>
@@ -147,6 +164,9 @@
   <string name="ratingStats">nilcre datni</string>
   <string name="username">lo japycme</string>
   <string name="usernameOrEmail">lo japcme jo nai lo samymrijudri</string>
+  <string name="changeUsername">galfi lo plicme</string>
+  <string name="changeUsernameNotSame">lo ga\'elto\'a ku po\'o cenba .i mu\'a la miriam. co\'e la MIriam.</string>
+  <string name="changeUsernameDescription">galfi lo plicme pecai do .i lo nu go\'i cu nalrapli .ije lo ga\'elto\'a ku po\'o cenba</string>
   <string name="password">lo kikyvla</string>
   <string name="changePassword">cenba lo ka ma kau kikyvla</string>
   <string name="changeEmail">cenba lo ka pilno mo\'oi kau samymrijudri</string>
@@ -154,11 +174,20 @@
   <string name="passwordReset">lo nu pilno su\'o cnino kikyvla co\'a</string>
   <string name="forgotPassword">mi tolmo\'i lo du\'u ma kau kikyvla</string>
   <string name="rank">lo crelai</string>
+  <string name="rankX">crelai li %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">ningau lo se crelai ku di\'i nu\'i la\'u lo mentu be li %s</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="other">%s lo namkei</item>
+  </plurals>
   <string name="gamesPlayed">roi jvikei</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s roi jvikei do</item>
   </plurals>
   <string name="cancel">dicra</string>
+  <string name="whiteTimeOut">lo se caxmati cu xaksu lo temci</string>
+  <string name="blackTimeOut">lo te caxmati cu xaksu lo temci</string>
   <string name="drawOfferSent">lo se friti cu se benji</string>
   <string name="drawOfferDeclined">lo se friti cu se cpapro</string>
   <string name="drawOfferAccepted">lo se friti cu se fitytu\'i</string>
@@ -185,15 +214,19 @@
   <string name="thisGameIsRated">ti jai nu nilcre cenba</string>
   <string name="rematch">jvikei xoi krefu</string>
   <string name="rematchOfferSent">jungau co jivna be xoi krefu vau djica</string>
+  <string name="rematchOfferSentWhite">lo se caxmati cu friti lo rapli ci\'erkei</string>
+  <string name="rematchOfferSentBlack">lo te caxmati cu friti lo rapli ci\'erkei</string>
   <string name="rematchOfferAccepted">fitytu\'i co jivna be xoi krefu</string>
   <string name="rematchOfferCanceled">co\'u friti co jivna be xoi krefu</string>
   <string name="rematchOfferDeclined">fitytoltu\'i co jivna be xoi krefu</string>
   <string name="cancelRematchOffer">co\'u friti co jivna be xoi krefu</string>
   <string name="viewRematch">catlu lo spuda selkei</string>
+  <string name="confirmMove">bitydu\'a lo kelka\'u</string>
   <string name="play">jivna</string>
   <string name="inbox">lo selmri</string>
   <string name="chatRoom">se cusku kumfa</string>
   <string name="loginToChat">ko co\'a pilno lo jaspu te zu\'e lo nu tavla</string>
+  <string name="youHaveBeenTimedOut">ca\'o na curmi lo nu do ciska</string>
   <string name="spectatorRoom">catlu se cusku kumfa</string>
   <string name="composeMessage">ciska su\'o notci</string>
   <string name="noNewMessages">no cnino cu se mrilu</string>
@@ -217,7 +250,9 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">dunda %s snidu</item>
   </plurals>
+  <string name="thisAccountViolatedTos">lo se jaspu be ti cu zerjonse la .litces. zo\'e la\'o ly. Lichess Terms of Service ly.</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">ti tolvrude cenba lo nilcre</string>
+  <string name="openingExplorerAndTablebase">ge cfari kelka\'u sispe\'i gi ci\'erkei fanmo selcmi</string>
   <string name="takeback">nunmu\'u xruti</string>
   <string name="proposeATakeback">nunmu\'u xruti stidi</string>
   <string name="takebackPropositionSent">lo nunmu\'u xruti se stidi cu se benji</string>
@@ -245,6 +280,7 @@
   <string name="filterGames">kelci te sisku pagvimcu</string>
   <string name="reset">kraga\'igau</string>
   <string name="apply">.aktygau</string>
+  <string name="save">rejgau</string>
   <string name="leaderboard">raiste</string>
   <string name="pasteTheFenStringHere">vi ciska lo me la .fen. datni</string>
   <string name="pasteThePgnStringHere">vi ciska lo me pygyny datni</string>
@@ -335,7 +371,7 @@
   <string name="findTheBestMoveForWhite">ko visfa\'i lo xagrai se zukte be la blabi</string>
   <string name="findTheBestMoveForBlack">ko visfa\'i lo xagrai se zukte be la xekri</string>
   <string name="toTrackYourProgress">te zu\'e lo nu rejgau fo lo selzu\'e zo\'u</string>
-  <string name="puzzleId">kelseldanfu %s moi</string>
+  <string name="puzzleId">%s moi se namkei</string>
   <string name="puzzleOfTheDay">lo se namkei pe lo cabdei</string>
   <string name="clickToSolve">dafyja\'o djica na gi\'a .iklki</string>
   <string name="goodMove">pa xamgu se zukte</string>
@@ -349,6 +385,7 @@
   <string name="pleaseVotePuzzle">ko sidju mi\'a se zu\'e lo nu nilnei cuxna se pi\'o lo re strelka</string>
   <string name="thankYou">ki\'e</string>
   <string name="ratingX">nilcre fa li %s</string>
+  <string name="hidden">selmipri</string>
   <plurals name="playedXTimes">
     <item quantity="other">%s roi se kelci</item>
   </plurals>
@@ -542,6 +579,7 @@
   <string name="doItAgain">za\'u re\'u zukte</string>
   <string name="reviewWhiteMistakes">catlu lo se srera be la blabi</string>
   <string name="reviewBlackMistakes">catlu lo se srera be la xekri</string>
+  <string name="opening">cfari kelka\'u</string>
   <string name="youCannotChallengeX">.i do na kakne lo ka talsa la\'o zoi. %s .zoi</string>
   <string name="xDoesNotAcceptChallenges">.i la\'o zoi. %s .zoi na fitytu\'i lo nuntalsa</string>
   <string name="playX">zukte la\'o zoi. %s .zoi</string>

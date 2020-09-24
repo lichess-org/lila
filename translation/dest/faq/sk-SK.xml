@@ -10,6 +10,7 @@
   <string name="howCanIContributeToLichess">Ako môžem prispieť stránke Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess je poháňaný darmi od patrónov a úsilím tímu dobrovoľníkov.</string>
   <string name="findMoreAndSeeHowHelp">Viac informácii o %1$s (vrátane %2$s). Ak chcete pomôcť stránke Lichess, tým že ponúknete váš čas a zručnosti, existuje veľa %3$s.</string>
+  <string name="fideHandbookX">Príručka FIDE %s</string>
   <string name="threefoldRepetitionExplanation">Ak sa pozícia objaví trikrát, hráči môžu reklamovať remízu %1$s. Lichess uplatňuje oficiálne pravidlá FIDE, ako je opísané v článku 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trojnásobným opakovaním pozície</string>
   <string name="notRepeatedMoves">Neopakovali sme ťahy. Prečo bola partia napriek tomu ukončená remízou opakovaním ťahov?</string>
