@@ -102,7 +102,11 @@
   <string name="openStudy">kargau lo seltadni</string>
   <string name="enable">fasnu</string>
   <string name="bestMoveArrow">arco lo kelka\'u poi zanrai</string>
+  <string name="evaluationGauge">arco lo se xamgu be lo ci\'erkei zazyfau</string>
+  <string name="multipleLines">xo linji</string>
   <string name="cpus">lo mijykemructerci\'e</string>
+  <string name="memory">mo\'isro</string>
+  <string name="infiniteAnalysis">mulfau lanli</string>
   <string name="blunders">lo nu srera sai</string>
   <string name="mistakes">lo nu srera na\'oi</string>
   <string name="inaccuracies">lo nu srera ru\'e</string>
