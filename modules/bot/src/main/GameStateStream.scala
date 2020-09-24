@@ -98,7 +98,7 @@ final class GameStateStream(
       }
 
       def receive = {
-        case MoveGameEvent(g, _, _) if g.id == id => pushState(g)
+        case MoveGameEvent(g, _, _) if g.id == id && !g.finished => pushState(g)
         case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
           pushChatLine(username, text, chatId.value.lengthIs == Game.gameIdSize)
         case FinishGame(g, _, _) if g.id == id                          => onGameOver(g.some)
