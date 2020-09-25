@@ -286,6 +286,7 @@
   <string name="siteDescription">zifre je kibro ke caxmati seltcana .i .e\'e kelci la caxmati do\'e lo sampu krati .i na japtcu .i na viska lo gubnoi .i na nitcu lo kibykla se jmina .i .e\'e jvikei lo skami .a lo pendo .a lo jai cunso</string>
   <string name="xJoinedTeamY">la\'o gy.%1$s.gy. cmibi\'o la\'o gy.%2$s.gy</string>
   <string name="xCreatedTeamY">la\'o gy.%1$s.gy. cfagau la\'o gy.%2$s.gy. noi bende</string>
+  <string name="xStartedStreaming">la\'o my. %s my. cfagau lozu\'o strimgau</string>
   <string name="averageElo">nilcre cnano</string>
   <string name="location">lo stuzi</string>
   <string name="filterGames">kelci te sisku pagvimcu</string>
