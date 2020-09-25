@@ -604,6 +604,7 @@
   <string name="withFriends">fi\'o te jarco lo pendo</string>
   <string name="withEverybody">fi\'o te jarco ro da</string>
   <string name="kidMode">lo tadji pe le\'e verba</string>
+  <string name="kidModeExplanation">srana lonu tolckape .i ca lonu pilno lo tadji pe le\'e verba cu na zifre roloro nu samta\'a .i ka\'e bandu ga lo verba gi lo ve ckule .i</string>
   <string name="enableKidMode">pilno lo tadji pe le\'e verba</string>
   <string name="disableKidMode">sisti loza\'i pilno lo tadji pe le\'e verba</string>
   <string name="security">kamnu\'a</string>
@@ -676,13 +677,24 @@
   <string name="findBetterMoveForBlack">.e\'o ko visfa\'i lo zanmau se zukte be lo te caxmati</string>
   <string name="resumeLearning">di\'a cilre</string>
   <string name="youCanDoBetter">do ka\'e zukte lo xagmau</string>
+  <string name="tryAnotherMoveForWhite">.e\'o ko troci lo drata se zukte be lo se caxmati</string>
+  <string name="tryAnotherMoveForBlack">.e\'o ko troci lo drata se zukte be lo te caxmati</string>
   <string name="solution">lo danfu</string>
+  <string name="waitingForAnalysis">ca\'o denpa lomu\'e lanli</string>
   <string name="noMistakesFoundForWhite">na facki lo se srera be lo se caxmati</string>
   <string name="noMistakesFoundForBlack">na facki lo se srera be lo te caxmati</string>
+  <string name="doneReviewingWhiteMistakes">mo\'u catlu lo se srera be lo se caxmati</string>
+  <string name="doneReviewingBlackMistakes">mo\'u catlu lo se srera be lo te caxmati</string>
   <string name="doItAgain">za\'u re\'u zukte</string>
   <string name="reviewWhiteMistakes">catlu lo se srera be lo se caxmati</string>
   <string name="reviewBlackMistakes">catlu lo se srera be lo te caxmati</string>
+  <string name="advantage">prali</string>
+  <plurals name="nbSeconds">
+    <item quantity="other">snidu li %s</item>
+  </plurals>
   <string name="opening">cfari kelka\'u</string>
+  <string name="middlegame">nunjvi midju</string>
+  <string name="endgame">nunjvi fanmo</string>
   <string name="youCannotChallengeX">.i do na kakne lo ka talsa la\'o zoi. %s .zoi</string>
   <string name="xDoesNotAcceptChallenges">.i la\'o zoi. %s .zoi na fitytu\'i lo nuntalsa</string>
   <string name="playX">zukte la\'o zoi. %s .zoi</string>
