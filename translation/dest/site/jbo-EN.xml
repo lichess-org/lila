@@ -629,7 +629,11 @@
   <string name="transparent">guskli</string>
   <string name="backgroundImageUrl">lo .urli be lo vinti\'e pixra</string>
   <string name="boardGeometry">keirta\'o caltaicmaci</string>
+  <string name="boardTheme">keirta\'o staile</string>
+  <string name="boardSize">nilbra lo keirta\'o</string>
   <string name="pieceSet">keirmu\'u morna</string>
+  <string name="embedInYourWebsite">setca zo\'e lo kibystu po do</string>
+  <string name="usernameAlreadyUsed">ti noi japcme cu ca\'o se pilno .i .e\'o ko ciska lo drata .i</string>
   <string name="usernamePrefixInvalid">sarcu fa lo nu lo japcme cu se tolfa\'o lo vlale\'u</string>
   <string name="usernameSuffixInvalid">sarcu fa lo nu lo japcme cu se fanmo lo vlale\'u .a lo nacle\'u</string>
   <string name="usernameUnacceptable">ti noi japcme cu se tolzau</string>
