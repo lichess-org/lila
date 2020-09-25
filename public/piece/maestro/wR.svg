@@ -1,4 +1,4 @@
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
  <defs>
   <linearGradient id="linearGradient2472-2" x1="9.2407" x2="40.761" y1="27.266" y2="27.266" gradientTransform="matrix(1.0155 0 0 1.0103 -.38852 .48153)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#ece9df" offset="0"/>
@@ -12,11 +12,11 @@
  <path transform="matrix(1.031 0 0 1.0112 -12.232 280.17)" d="m46.199-268.38v7.7248l-5.0199 3.855 0.08645 12.546 4.4131 4.006 5.16e-4 5.4e-4v4.3227h2.8282v4.5444h2.6324v-4.5444h-3.3584v-4.3227l-5.17e-4 -5.4e-4 -3.883-4.006-0.08634-12.018 5.0029-4.3831v-7.7248z" clip-rule="evenodd" fill-rule="evenodd" filter="url(#filter1568-2)" image-rendering="optimizeQuality" opacity=".25" shape-rendering="geometricPrecision" style="mix-blend-mode:normal"/>
  <g fill="#fff">
   <path d="m12.466 16.03-0.04126-6.6749 4.3863-0.094748-1.9969 0.71094v5.3559l3.6462 0.66643z" style="mix-blend-mode:normal"/>
-  <path d="m13.536 17.152h2.8757l3.2382 3.1756h-2.3441z" style="mix-blend-mode:normal"/>
-  <path d="m17.596 21.536h6.5222l-4.3508 0.99949v8.5984l2.417 0.92249h-4.6368z" style="mix-blend-mode:normal"/>
-  <path d="m14.358 36.087 2.8757-2.9149h2.5374l-2.4166 2.9149z" style="mix-blend-mode:normal"/>
-  <path d="m13.488 37.224 0.0725 3.1993h3.6183l-0.04833-3.2704z" style="mix-blend-mode:normal"/>
-  <path d="m10.067 41.609h3.1313v2.6591l5.4598 0.98786h-8.5911z" style="mix-blend-mode:normal"/>
+  <path d="m13.44 17.173 2.9715-0.0213 3.2861 3.3247-2.4186-0.0213z" opacity=".8" style="mix-blend-mode:normal"/>
+  <path d="m17.596 21.536h6.5222l-4.3508 0.99949v8.5984l2.417 0.92249h-4.6368z" opacity=".9" style="mix-blend-mode:normal"/>
+  <path d="m14.358 36.087 2.8597-2.8297h2.5374l-2.4006 2.8297z" opacity=".7" style="mix-blend-mode:normal"/>
+  <path d="m13.518 37.299 0.0047 3.2144h3.6409l-0.0032-3.2252z" opacity=".7" style="mix-blend-mode:normal"/>
+  <path d="m10.067 41.609h3.1313v2.6591l5.4598 0.98786h-8.5911z" opacity=".7" style="mix-blend-mode:normal"/>
   <path d="m22.651 9.2999-0.01705 2.433c0.6576-1.2303 1.3626-2.1769 3.0262-2.4246z" style="mix-blend-mode:normal"/>
   <path d="m33.051 9.3125-0.01705 2.433c0.38835-1.5204 1.1111-2.3894 3.0262-2.4246z" style="mix-blend-mode:normal"/>
  </g>

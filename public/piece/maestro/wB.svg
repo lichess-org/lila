@@ -1,4 +1,5 @@
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)" sodipodi:docname="wB.svg" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <sodipodi:namedview bordercolor="#666666" borderopacity="1" gridtolerance="10" guidetolerance="10" inkscape:current-layer="svg57" inkscape:cx="99.94239" inkscape:cy="121.80626" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-height="1001" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="-9" inkscape:window-y="-9" inkscape:zoom="6.2113438" objecttolerance="10" pagecolor="#ffffff" showgrid="false"/>
  <defs>
   <linearGradient id="linearGradient1643" x1="9.2407" x2="40.761" y1="27.266" y2="27.266" gradientTransform="matrix(.98495 0 0 .98605 .37559 .64119)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#ece9df" offset="0"/>
@@ -11,6 +12,9 @@
   </filter>
   <linearGradient id="linearGradient2774-8" x1="5.6115" x2="25.919" y1="42.295" y2="42.295" gradientTransform="matrix(1.0856 0 0 .94062 -2.5551 2.0363)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient1643"/>
   <linearGradient id="linearGradient2776-7" x1="24.848" x2="45.155" y1="42.295" y2="42.295" gradientTransform="matrix(1.0856 0 0 .94062 -2.5551 2.0363)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient1643"/>
+  <filter id="filter1624-3" x="-.00021384" y="-.00019274" width="1.0004" height="1.0004" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.00030868449"/>
+  </filter>
  </defs>
  <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
   <g stroke="#000" stroke-linecap="round" stroke-width=".99998">
@@ -19,14 +23,13 @@
    <path d="m21.537 24.049h6.6265m-3.3133-3.0334v6.067" fill="none" image-rendering="optimizeQuality" stroke-linejoin="round"/>
   </g>
   <path transform="matrix(1.0334 0 0 1.0218 592.95 438.17)" d="m-549.75-422.16c3.4115 1.813 0.50125 4.9315-1.5259 5.2058 0.46165 0.19695 0.97797 0.31078 1.5259 0.31078 5.5278-1.76 1.3181-5.645 0-5.5166zm-0.68784 5.5183c3.0916 4.115 5.8477 8.459 8.7241 12.709l-4.8064 5.1992 1.6015 4.4227 3.0008 0.86255-1.866-4.6689 4.5724-5.8156-9.8594-12.698h-0.67839v-0.0107z" filter="url(#filter1616-8-6)" image-rendering="optimizeQuality" opacity=".25" style="mix-blend-mode:normal"/>
-  <path d="m24.484 34.713c-3.0872 0.01216-5.9083 0.23965-7.8798 1.5031 2.1814 1.5015 5.3093 2.0911 8.396 2.0342-7.1397-1.444 2.03-2.9656 4.8441-3.0007-1.5224-0.36742-3.7096-0.54321-5.3603-0.53645z" image-rendering="optimizeQuality" opacity=".2"/>
+  <path d="m24.484 34.713c-3.0872 0.01216-5.9083 0.23965-7.8798 1.5031 2.1814 1.5015 5.3093 2.0911 8.396 2.0342-7.1397-1.444 2.03-2.9656 4.8441-3.0007-1.5224-0.36742-3.7096-0.54321-5.3603-0.53645z" image-rendering="optimizeQuality" opacity=".2" style="opacity:.15"/>
   <path d="m16.605 36.216s2.4867-1.5643 8.2425-1.5644c5.7559-6.2e-5 8.2426 1.5644 8.2426 1.5644" fill="none" image-rendering="optimizeQuality" stroke="#000" stroke-width=".99998"/>
   <path d="m18.675 31.35s1.863-1.0209 6.1752-1.021c4.3122-6.1e-5 6.1751 1.021 6.1751 1.021" fill="none" image-rendering="optimizeQuality" stroke="#000" stroke-width=".99998"/>
  </g>
- <path d="m17.689 35.117 1.4292-3.3652s0.82-0.37863 1.9221-0.46247c0 0-1.1637 2.2501 1.9445 2.8258-2.204 0.09064-3.7351 0.55447-5.2959 1.0019z" fill="#fff"/>
- <path d="m20.911 30.133c-1.7933 0.3369-2.037 0.54908-2.0395 0.54106l-4.1708-5.2588 9.7353-12.431-7.5461 12.385z" fill="#fff"/>
+ <path d="m20.911 30.133c-1.7933 0.3369-2.037 0.54908-2.0395 0.54106l-4.1708-5.2588 9.7353-12.431-7.5461 12.385z" fill="#fff" opacity=".9"/>
  <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision" stroke="#000">
-  <path d="m24.484 38.253c-5.6169 6.1e-5 -8.3541-1.7704-8.3541-1.7704s2.737-1.7703 8.3541-1.7704c5.6169-6.1e-5 8.3541 1.7704 8.3541 1.7704s-2.737 1.7703-8.3541 1.7704z" image-rendering="optimizeQuality" opacity=".2" stroke="none"/>
+  <path d="m24.999 38.25c-5.6169 6.1e-5 -8.3541-1.7704-8.3541-1.7704s2.737-1.7703 8.3541-1.7704c5.6169-6.1e-5 8.3541 1.7704 8.3541 1.7704s-2.737 1.7703-8.3541 1.7704z" image-rendering="optimizeQuality" opacity=".2" stroke="none" style="opacity:.15"/>
   <path d="m22.65 38.25c-5.1931 6.2585-11.79-2.9152-18.533 3.4873l1.9679 3.6528c4.398-5.6719 18.915 5.2133 18.915-7.1401z" fill="url(#linearGradient2774-8)" image-rendering="optimizeQuality" stroke-linecap="round"/>
   <path d="m27.35 38.25c5.1931 6.2585 11.79-2.9152 18.532 3.4873l-1.9679 3.6528c-4.398-5.6719-18.915 5.2133-18.915-7.1401z" fill="url(#linearGradient2776-7)" image-rendering="optimizeQuality" stroke-linecap="round"/>
  </g>
@@ -35,4 +38,5 @@
   <path d="m45.242 41.863-0.4897 0.88855c-1.9053-2.3245-3.739-2.7553-5.3188-2.7602 0 0 3.0172-0.71713 5.8085 1.8717z"/>
   <path d="m23.671 11.46c-0.25001 0.06632-2.6033-2.4202 0.41766-3.9752-0.08906-0.0091-1.7573 2.1419-0.41766 3.9752z"/>
  </g>
+ <path transform="matrix(1.0007 0 0 .98931 -586.04 101.88)" d="m603.31-67.465 1.4282-3.4016s0.44387-0.26453 1.5286-0.44214c0 0-0.74558 2.2238 0.50763 3.042-2.1048 0.2869-2.0576 0.3958-3.4644 0.80164z" clip-rule="evenodd" fill="#fff" fill-rule="evenodd" filter="url(#filter1624-3)" image-rendering="optimizeQuality" opacity=".7" shape-rendering="geometricPrecision"/>
 </svg>
