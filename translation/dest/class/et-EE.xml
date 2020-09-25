@@ -68,6 +68,7 @@ Parool: %3$s</string>
     <item quantity="one">Õpilane</item>
     <item quantity="other">%s Õpilast</item>
   </plurals>
+  <string name="students">Õpilased</string>
   <string name="progress">Edenemine</string>
   <string name="noStudents">Klassis pole veel ühtegi õpilast.</string>
   <string name="noRemovedStudents">Mitte ühtegi eemaldatud õpilast.</string>
