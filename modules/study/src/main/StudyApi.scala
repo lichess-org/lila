@@ -379,10 +379,14 @@ final class StudyApi(
   def isContributor = studyRepo.isContributor _
   def isMember      = studyRepo.isMember _
 
-  private def onMembersChange(study: Study, to: Option[StudyMembers] = none) = {
-    (fuccess(to) orElse studyRepo.membersById(study.id)) foreach {
+  private def onMembersChange(
+      study: Study,
+      sendTo: Seq[User.ID] = none,
+      members: Option[StudyMembers] = none
+  ) = {
+    (fuccess(members) orElse studyRepo.membersById(study.id)) foreach {
       _ foreach { members =>
-        sendTo(study.id)(_.reloadMembers(members))
+        sendTo(study.id)(_.reloadMembers(members, sendTo))
       }
     }
     indexStudy(study)
