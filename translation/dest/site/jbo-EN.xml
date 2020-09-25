@@ -352,6 +352,7 @@
   <string name="advancedSettings">certu gaftercu\'a</string>
   <string name="safeTournamentName">.e\'o ko gasnu lonu na da\'asnu lo cmene be ti poi torneio</string>
   <string name="inappropriateNameWarning">.e\'unai lonu lo do jaspu ku cu\'urga\'o cu cumki lonu ba\'ucu\'i toltce da\'asnu</string>
+  <string name="showAdvancedSettings">arco lo certu gaftercu\'a</string>
   <string name="join">cmibi\'o</string>
   <string name="withdraw">ti\'ekla</string>
   <string name="points">lo kelnemka\'u</string>
@@ -373,6 +374,7 @@
   <string name="averageOpponent">lo se jivna nilcre cnano</string>
   <string name="membersOnly">lo cmima be la .litces. cu selte\'i</string>
   <string name="boardEditor">keltcini tiktci</string>
+  <string name="popularOpenings">selzaumi\'o cfari kelka\'u</string>
   <string name="startPosition">cfari keltcini</string>
   <string name="clearBoard">vimcu ro kelfoi zvati</string>
   <string name="savePosition">rejgau fo lo keltcini</string>
@@ -484,6 +486,7 @@
   <string name="xAnsweredY">la\'o zoi. %1$s .zoi dafsku fi zoi zoi. %2$s .zoi</string>
   <string name="xCommentedY">la\'o zoi. %1$s .zoi piksku fi zoi zoi. %2$s .zoi</string>
   <string name="victory">.ui lo nunji\'a</string>
+  <string name="defeat">nunterji\'a</string>
   <string name="timeline">citri</string>
   <string name="starting">cfari ti\'u li</string>
   <string name="allInformationIsPublicAndOptional">ro datni cu gubni gi\'e voi do na bilga lo ka benji ke\'a</string>
@@ -508,6 +511,8 @@
   <string name="playOfflineComputer">skami</string>
   <string name="opponent">lo se jivna</string>
   <string name="learnMenu">cilre</string>
+  <string name="studyMenu">tadni</string>
+  <string name="practice">crezenrapzu\'e</string>
   <string name="community">cecmu</string>
   <string name="tools">tutci</string>
   <string name="increment">ditcu se jmina</string>
@@ -526,13 +531,19 @@
   <string name="castling">nolraitru joi sonci kelka\'u</string>
   <string name="whiteCastlingKingside">lo blabi ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
   <string name="blackCastlingKingside">lo xekri ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
+  <plurals name="nbForumPosts">
+    <item quantity="other">%s lo snustu selsku</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">jvikei ze\'a la\'o temci. %s .temci</string>
   <string name="watchGames">zgana lo selkei</string>
   <string name="tpTimeSpentOnTV">jai se tivni ze\'a la\'o temci. %s .temci</string>
   <string name="watch">zgana</string>
   <string name="videoLibrary">kinsro</string>
+  <string name="streamersMenu">strimgau</string>
+  <string name="mobileApp">selbeifonxa samtci</string>
   <string name="webmasters">lo kibystuja\'a</string>
   <string name="about">srana la .litces.</string>
+  <string name="aboutX">srana %s</string>
   <string name="termsOfService">lo pilno terbilga</string>
   <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
   <string name="hostColorX">lo ralkei cu skari lo ka %s</string>
