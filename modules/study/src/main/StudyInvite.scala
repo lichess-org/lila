@@ -29,7 +29,7 @@ final private class StudyInvite(
       study: Study,
       invitedUsername: String,
       getIsPresent: User.ID => Fu[Boolean]
-  ): Funit =
+  ): Fu[User] =
     for {
       _       <- !study.isOwner(byUserId) ?? fufail[Unit]("Only study owner can invite")
       _       <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")
@@ -70,7 +70,7 @@ final private class StudyInvite(
         val notification = Notification.make(Notification.Notifies(invited.id), notificationContent)
         notifyApi.addNotification(notification)
       }(funit)
-    } yield ()
+    } yield invited
 
   def admin(study: Study, user: User): Funit =
     studyRepo.coll.update

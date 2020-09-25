@@ -1,11 +1,11 @@
 package lila.study
 
-import scala.concurrent.duration._
-import akka.stream.scaladsl._
-
 import actorApi.Who
+import akka.stream.scaladsl._
 import chess.Centis
 import chess.format.pgn.{ Glyph, Tags }
+import scala.concurrent.duration._
+
 import lila.chat.{ Chat, ChatApi }
 import lila.common.Bus
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
@@ -344,8 +344,9 @@ final class StudyApi(
     sequenceStudy(studyId) { study =>
       canActAsOwner(study, who.u) flatMap {
         _ ?? {
-          val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
-          studyRepo.setRole(study, userId, role) >>- onMembersChange(study)
+          val role    = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
+          val members = study.members.update(userId, _.copy(role = role))
+          studyRepo.setRole(study, userId, role) >>- onMembersChange(study, members, members.ids)
         }
       }
     }
@@ -358,10 +359,15 @@ final class StudyApi(
       onError: String => Unit
   ) =
     sequenceStudy(studyId) { study =>
-      inviter(byUserId, study, username, isPresent).addEffects(
-        err => onError(err.getMessage),
-        _ => onMembersChange(study)
-      )
+      inviter(byUserId, study, username, isPresent)
+        .addEffects(
+          err => onError(err.getMessage),
+          user => {
+            val members = study.members + StudyMember.make(user)
+            onMembersChange(study, members, members.ids)
+          }
+        )
+        .void
     }
 
   def kick(studyId: Study.Id, userId: User.ID)(who: Who) =
@@ -371,8 +377,9 @@ final class StudyApi(
           (isAdmin && !study.isOwner(userId)) || (study.isOwner(who.u) ^ (who.u == userId))
         }
         allowed ?? {
-          studyRepo.removeMember(study, userId)
-        } >>- onMembersChange(study, study.members.some)
+          studyRepo.removeMember(study, userId) >>-
+            onMembersChange(study, (study.members - userId), study.members.ids)
+        }
       }
     }
 
@@ -381,14 +388,10 @@ final class StudyApi(
 
   private def onMembersChange(
       study: Study,
-      sendTo: Seq[User.ID] = none,
-      members: Option[StudyMembers] = none
-  ) = {
-    (fuccess(members) orElse studyRepo.membersById(study.id)) foreach {
-      _ foreach { members =>
-        sendTo(study.id)(_.reloadMembers(members, sendTo))
-      }
-    }
+      members: StudyMembers,
+      sendToUserIds: Iterable[User.ID]
+  ): Unit = {
+    sendTo(study.id)(_.reloadMembers(members, sendToUserIds))
     indexStudy(study)
   }
 
