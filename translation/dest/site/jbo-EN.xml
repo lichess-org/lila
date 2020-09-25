@@ -352,6 +352,8 @@
   <string name="advancedSettings">certu gaftercu\'a</string>
   <string name="safeTournamentName">.e\'o ko gasnu lonu na da\'asnu lo cmene be ti poi torneio</string>
   <string name="inappropriateNameWarning">.e\'unai lonu lo do jaspu ku cu\'urga\'o cu cumki lonu ba\'ucu\'i toltce da\'asnu</string>
+  <string name="emptyTournamentName">lo cmene pe lo caxmati mispre cu tecycuxskicauzmi</string>
+  <string name="recommendNotTouching">.e\'unai</string>
   <string name="showAdvancedSettings">arco lo certu gaftercu\'a</string>
   <string name="join">cmibi\'o</string>
   <string name="withdraw">ti\'ekla</string>
@@ -468,6 +470,7 @@
   <string name="privacy">kamsivni</string>
   <string name="letOtherPlayersFollowYou">curmi lo nu lo drata jvikei cu catlu do</string>
   <string name="letOtherPlayersChallengeYou">curmi lo nu lo drata jvikei cu talsa do</string>
+  <string name="letOtherPlayersInviteYouToStudy">e\'ande lo drata lonu vi\'ecpe do lonu tadni</string>
   <string name="sound">sance</string>
   <string name="none">na go\'i</string>
   <string name="fast">sutra</string>
@@ -544,7 +547,9 @@
   <string name="webmasters">lo kibystuja\'a</string>
   <string name="about">srana la .litces.</string>
   <string name="aboutX">srana %s</string>
+  <string name="contribute">sidju</string>
   <string name="termsOfService">lo pilno terbilga</string>
+  <string name="sourceCode">samselpla</string>
   <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
   <string name="hostColorX">lo ralkei cu skari lo ka %s</string>
   <string name="noSimulExplanation">ti noi cabysi\'u nuntigni cu na zasti</string>
