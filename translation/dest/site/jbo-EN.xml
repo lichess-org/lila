@@ -15,12 +15,12 @@
   <string name="resign">randa</string>
   <string name="checkmate">caxmata</string>
   <string name="stalemate">caxpata</string>
-  <string name="white">la blabi</string>
-  <string name="black">la xekri</string>
+  <string name="white">se caxmati</string>
+  <string name="black">lo te caxmati</string>
   <string name="randomColor">lo cuxna be fi le se skari cu cunso</string>
   <string name="createAGame">cfagau su\'o nunjvi</string>
-  <string name="whiteIsVictorious">la blabi cu jinga</string>
-  <string name="blackIsVictorious">la xekri cu jinga</string>
+  <string name="whiteIsVictorious">lo se caxmati cu jinga</string>
+  <string name="blackIsVictorious">lo te caxmati cu jinga</string>
   <string name="youPlayTheWhitePieces">do se caxmati</string>
   <string name="youPlayTheBlackPieces">do te caxmati</string>
   <string name="itsYourTurn">ma kelka\'u do</string>
@@ -32,7 +32,7 @@
   <string name="yourOpponentWantsToPlayANewGameWithYou">lo se jivna be do cu friti lo ka za\'u re\'u jivna</string>
   <string name="joinTheGame">fitytu\'i</string>
   <string name="whitePlays">lo se caxmati pu\'o zukte</string>
-  <string name="blackPlays">la xekri pu\'o zukte</string>
+  <string name="blackPlays">lo te caxmati pu\'o zukte</string>
   <plurals name="opponentLeftCounter">
     <item quantity="other">lo bradi cu cliva .i ko denpa lo %s snidu fo lo nunji\'a be do</item>
   </plurals>
@@ -42,10 +42,10 @@
   <string name="forceDraw">xusra tu\'a co\'u je mo\'u nai</string>
   <string name="talkInChat">.e\'u do ga nai tavla gi xendo</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">lo pa moi be lo vitke be tu\'a lo .urli ba jivna do</string>
-  <string name="whiteResigned">la blabi pu randa</string>
-  <string name="blackResigned">la xekri pu randa</string>
-  <string name="whiteLeftTheGame">la blabi co\'u cliva lo nunjvi</string>
-  <string name="blackLeftTheGame">la xekri co\'u cliva lo nunjvi</string>
+  <string name="whiteResigned">lo se caxmati pu randa</string>
+  <string name="blackResigned">lo te caxmati pu randa</string>
+  <string name="whiteLeftTheGame">lo se caxmati co\'u cliva lo nunjvi</string>
+  <string name="blackLeftTheGame">lo te caxmati co\'u cliva lo nunjvi</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">ko benji di\'e noi .urli ku\'o lo voi do djica lo nu ke\'a zgana lo nunjvi</string>
   <string name="theComputerAnalysisHasFailed">lo proga cu fliba lo ka lanli</string>
   <string name="viewTheComputerAnalysis">zgana lo skami nunlanli te pruce</string>
@@ -193,10 +193,10 @@
   <string name="drawOfferDeclined">lo se friti cu se cpapro</string>
   <string name="drawOfferAccepted">lo se friti cu se fitytu\'i</string>
   <string name="drawOfferCanceled">lo se friti cu se nu\'osti</string>
-  <string name="whiteOffersDraw">la blabi cu friti lo nu no da cu jinga</string>
-  <string name="blackOffersDraw">la xekri cu friti lo nu no da cu jinga</string>
-  <string name="whiteDeclinesDraw">la blabi cu cpapro lo nu no da cu jinga</string>
-  <string name="blackDeclinesDraw">la xekri cu cpapro lo nu no da cu jinga</string>
+  <string name="whiteOffersDraw">lo se caxmati cu friti lo nu no da cu jinga</string>
+  <string name="blackOffersDraw">lo te caxmati cu friti lo nu no da cu jinga</string>
+  <string name="whiteDeclinesDraw">lo se caxmati cu cpapro lo nu no da cu jinga</string>
+  <string name="blackDeclinesDraw">lo te caxmati cu cpapro lo nu no da cu jinga</string>
   <string name="yourOpponentOffersADraw">lo se jvikei be do cu friti lo nu no da cu jinga</string>
   <string name="accept">fitytu\'i</string>
   <string name="decline">fitytoltu\'i</string>
@@ -371,7 +371,7 @@
   <string name="tournamentComplete">ba\'o grinunjvi</string>
   <string name="movesPlayed">se krefu lo kelka\'u</string>
   <string name="whiteWins">parbi co nu lo se caxmati cu jinga</string>
-  <string name="blackWins">parbi co nu la xekri cu jinga</string>
+  <string name="blackWins">parbi co nu lo te caxmati cu jinga</string>
   <string name="draws">parbi co nu no da cu jinga</string>
   <string name="averageOpponent">lo se jivna nilcre cnano</string>
   <string name="membersOnly">lo cmima be la .litces. cu selte\'i</string>
@@ -396,8 +396,8 @@
   <string name="activePlayers">keicfu</string>
   <string name="bewareTheGameIsRatedButHasNoClock">.o\'i lo selkei cu jai galfi lo nilcre gi\'e ku\'i na jai nu temjimte</string>
   <string name="yourPuzzleRatingX">li %s nilcre do la kelseldanfu</string>
-  <string name="findTheBestMoveForWhite">ko visfa\'i lo xagrai se zukte be la blabi</string>
-  <string name="findTheBestMoveForBlack">ko visfa\'i lo xagrai se zukte be la xekri</string>
+  <string name="findTheBestMoveForWhite">ko visfa\'i lo xagrai se zukte be lo se caxmati</string>
+  <string name="findTheBestMoveForBlack">ko visfa\'i lo xagrai se zukte be lo te caxmati</string>
   <string name="toTrackYourProgress">te zu\'e lo nu rejgau fo lo selzu\'e zo\'u</string>
   <string name="puzzleId">%s moi se namkei</string>
   <string name="puzzleOfTheDay">lo se namkei pe lo cabdei</string>
@@ -535,8 +535,8 @@
   <string name="onlyFriends">lo pendo ku po\'o</string>
   <string name="menu">cuxna uidje</string>
   <string name="castling">nolraitru joi sonci kelka\'u</string>
-  <string name="whiteCastlingKingside">lo blabi ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
-  <string name="blackCastlingKingside">lo xekri ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
+  <string name="whiteCastlingKingside">lo se caxmati ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
+  <string name="blackCastlingKingside">lo te caxmati ka\'e pei nolraitru joi sonci cmalu bo kelka\'u muvgau</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s lo snustu selsku</item>
   </plurals>
@@ -658,8 +658,8 @@
   <string name="hideBestMove">te mipri lo xagrai se zukte</string>
   <string name="getAHint">nu anci</string>
   <string name="evaluatingYourMove">ca\'o terva\'i lo kelka\'u be do</string>
-  <string name="whiteWinsGame">lo nu la blabi cu jinga</string>
-  <string name="blackWinsGame">lo nu la xekri cu jinga</string>
+  <string name="whiteWinsGame">lo nu lo se caxmati cu jinga</string>
+  <string name="blackWinsGame">lo nu lo te caxmati cu jinga</string>
   <string name="learnFromYourMistakes">cilre fo lo se srera be do</string>
   <string name="learnFromThisMistake">cilre fo ti noi se srera</string>
   <string name="skipThisMove">tolju\'i pa lo srera kelka\'u</string>
@@ -670,13 +670,16 @@
   <string name="resumeLearning">di\'a cilre</string>
   <string name="youCanDoBetter">do ka\'e zukte lo xagmau</string>
   <string name="solution">lo danfu</string>
-  <string name="noMistakesFoundForWhite">na facki lo se srera be la blabi</string>
-  <string name="noMistakesFoundForBlack">na facki lo se srera be la xekri</string>
+  <string name="noMistakesFoundForWhite">na facki lo se srera be lo se caxmati</string>
+  <string name="noMistakesFoundForBlack">na facki lo se srera be lo te caxmati</string>
   <string name="doItAgain">za\'u re\'u zukte</string>
-  <string name="reviewWhiteMistakes">catlu lo se srera be la blabi</string>
-  <string name="reviewBlackMistakes">catlu lo se srera be la xekri</string>
+  <string name="reviewWhiteMistakes">catlu lo se srera be lo se caxmati</string>
+  <string name="reviewBlackMistakes">catlu lo se srera be lo te caxmati</string>
   <string name="opening">cfari kelka\'u</string>
   <string name="youCannotChallengeX">.i do na kakne lo ka talsa la\'o zoi. %s .zoi</string>
   <string name="xDoesNotAcceptChallenges">.i la\'o zoi. %s .zoi na fitytu\'i lo nuntalsa</string>
   <string name="playX">zukte la\'o zoi. %s .zoi</string>
+  <string name="sorry">fau\'u</string>
+  <string name="weHadToTimeYouOutForAWhile">zasni fanta lo nu do jvikei</string>
+  <string name="why">paunai mu\'i ma</string>
 </resources>
