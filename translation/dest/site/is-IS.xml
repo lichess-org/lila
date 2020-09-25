@@ -776,6 +776,7 @@
   <string name="playEveryGame">Tefldu allar skákir sem þú byrjar.</string>
   <string name="tryToWin">Reyndu að vinna (eða amk. ná jafntefli) í öllum skákum sem þú teflir.</string>
   <string name="resignLostGames">Gefa tapaðar skákir (ekki láta tímann renna út).</string>
+  <string name="thankYouForReading">Takk fyrir að lesa!</string>
   <string name="agreementNice">Ég samþykki að ég muni alltaf koma vel fram við aðra leikmenn.</string>
   <string name="agreementAccount">Ég samþykki að ég muni ekki stofna marga reikninga.</string>
   <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum Lichess.</string>
