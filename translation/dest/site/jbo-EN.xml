@@ -529,6 +529,7 @@
   <string name="error.email">toldra kibytermri</string>
   <string name="error.email_acceptable">.e\'a nai pilno lo ti kibytermri</string>
   <string name="error.email_unique">su\'o da xa\'o pilno ti</string>
+  <string name="error.email_different">caku du lo samymri judri be do</string>
   <string name="ifRatingIsPlusMinusX">lo se nilcre be lo ke zmadu je mleca ke\'e be fo li su\'e %s</string>
   <string name="onlyFriends">lo pendo ku po\'o</string>
   <string name="menu">cuxna uidje</string>
@@ -552,6 +553,7 @@
   <string name="termsOfService">lo pilno terbilga</string>
   <string name="sourceCode">samselpla</string>
   <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
+  <string name="host">finti</string>
   <string name="hostColorX">lo ralkei cu skari lo ka %s</string>
   <string name="hostANewSimul">finti lo cabna nunjvi</string>
   <string name="noSimulFound">sispe\'i no cabna nunjvi</string>
@@ -562,6 +564,7 @@
   <string name="lichessTournaments">lo grinunjvi be bu\'u la .litces.</string>
   <string name="tournamentFAQ">lo cafne se reisku preti be lo kelcrxarena zei grinunjvi</string>
   <string name="tournamentOfficial">ca\'iselzau</string>
+  <string name="averageCentipawnLoss">cnano lo centi me la paan. cirko</string>
   <string name="newTournament">cnino grinunjvi</string>
   <string name="tournamentNotFound">na facki fi ti noi grinunjvi</string>
   <string name="tournamentDoesNotExist">ti noi grinunjvi cu na zasti</string>
