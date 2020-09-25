@@ -389,8 +389,9 @@
   <string name="loadPosition">jonse lo keltcini vreji</string>
   <string name="isPrivate">sivni</string>
   <string name="reportXToModerators">jungau lo .admine lo du\'u la\'oi %s malzu\'e</string>
+  <string name="profileCompletion">lo predatni sela\'u li 1 ce\'i cu mulno</string>
   <string name="profile">lo predatni</string>
-  <string name="editProfile">stika lo do velski</string>
+  <string name="editProfile">stika lo predatni be do</string>
   <string name="firstName">lo du\'acme</string>
   <string name="lastName">lo lazme\'e</string>
   <string name="biography">velski do fo do</string>
