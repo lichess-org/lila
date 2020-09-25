@@ -695,6 +695,7 @@
   <string name="opening">cfari kelka\'u</string>
   <string name="middlegame">nunjvi midju</string>
   <string name="endgame">nunjvi fanmo</string>
+  <string name="registerToSendChallenges">lonu do talsa cu selsa\'u lonu do cmisau .e\'o</string>
   <string name="youCannotChallengeX">.i do na kakne lo ka talsa la\'o zoi. %s .zoi</string>
   <string name="xDoesNotAcceptChallenges">.i la\'o zoi. %s .zoi na fitytu\'i lo nuntalsa</string>
   <string name="playX">zukte la\'o zoi. %s .zoi</string>
@@ -712,4 +713,9 @@
   <string name="wishYouGreatGames">.ije .a\'o pacna lonu lo nunkei be do cu mutce zdile</string>
   <string name="thankYouForReading">ki\'e</string>
   <string name="edit">galfi</string>
+  <string name="rapid">sutra tadji</string>
+  <string name="classical">fadni tadji</string>
+  <string name="important">vajni bi\'u</string>
+  <string name="subscribe">terbejbi\'o</string>
+  <string name="unsubscribe">to\'e terbejbi\'o</string>
 </resources>
