@@ -31,7 +31,7 @@
   <string name="newOpponent">cnino jivna</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">lo se jivna be do cu friti lo ka za\'u re\'u jivna</string>
   <string name="joinTheGame">fitytu\'i</string>
-  <string name="whitePlays">la blabi pu\'o zukte</string>
+  <string name="whitePlays">lo se caxmati pu\'o zukte</string>
   <string name="blackPlays">la xekri pu\'o zukte</string>
   <plurals name="opponentLeftCounter">
     <item quantity="other">lo bradi cu cliva .i ko denpa lo %s snidu fo lo nunji\'a be do</item>
@@ -370,7 +370,7 @@
   <string name="performance">lo selsmi nilcre</string>
   <string name="tournamentComplete">ba\'o grinunjvi</string>
   <string name="movesPlayed">se krefu lo kelka\'u</string>
-  <string name="whiteWins">parbi co nu la blabi cu jinga</string>
+  <string name="whiteWins">parbi co nu lo se caxmati cu jinga</string>
   <string name="blackWins">parbi co nu la xekri cu jinga</string>
   <string name="draws">parbi co nu no da cu jinga</string>
   <string name="averageOpponent">lo se jivna nilcre cnano</string>
@@ -650,14 +650,23 @@
     <item quantity="other">zukte .ei lo pa moi kelka\'u ba nu\'i la\'u lo snidu be li su\'e %s</item>
   </plurals>
   <string name="practiceWithComputer">crezenrapzu\'e se pi\'o lo skami</string>
+  <string name="anotherWasX">lo me zoi ly. %s ly. cu drata je xamgu</string>
+  <string name="bestWasX">lo me zoi ly. %s ly. cu zanrai</string>
   <string name="resumePractice">di\'a crezenrapzu\'e</string>
+  <string name="computerThinking">lo skami ca\'o rucyzu\'e</string>
   <string name="seeBestMove">viska lo xagrai se zukte</string>
   <string name="hideBestMove">te mipri lo xagrai se zukte</string>
+  <string name="getAHint">nu anci</string>
+  <string name="evaluatingYourMove">ca\'o terva\'i lo kelka\'u be do</string>
   <string name="whiteWinsGame">lo nu la blabi cu jinga</string>
   <string name="blackWinsGame">lo nu la xekri cu jinga</string>
   <string name="learnFromYourMistakes">cilre fo lo se srera be do</string>
   <string name="learnFromThisMistake">cilre fo ti noi se srera</string>
+  <string name="skipThisMove">tolju\'i pa lo srera kelka\'u</string>
   <string name="next">bavla\'i</string>
+  <string name="xWasPlayed">lo me zoi ly. %s ly. cu kelka\'u</string>
+  <string name="findBetterMoveForWhite">.e\'o ko visfa\'i lo zanmau se zukte be lo se caxmati</string>
+  <string name="findBetterMoveForBlack">.e\'o ko visfa\'i lo zanmau se zukte be lo te caxmati</string>
   <string name="resumeLearning">di\'a cilre</string>
   <string name="youCanDoBetter">do ka\'e zukte lo xagmau</string>
   <string name="solution">lo danfu</string>
