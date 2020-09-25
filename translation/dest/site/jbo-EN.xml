@@ -268,14 +268,14 @@
   <string name="takebackPropositionCanceled">co\'u kelka\'u xruti stidi</string>
   <string name="yourOpponentProposesATakeback">lo do kelkansa cu kelka\'u xruti stidi</string>
   <string name="bookmarkThisGame">gau tcita ti poi selkei</string>
-  <string name="tournament">lo torneio</string>
-  <string name="tournaments">lo torneio</string>
-  <string name="tournamentPoints">torneio pointo</string>
+  <string name="tournament">grinunjvi</string>
+  <string name="tournaments">grinunjvi</string>
+  <string name="tournamentPoints">grinunjvi kelnemka\'u</string>
   <plurals name="nbStudies">
     <item quantity="other">tadni nunkei %s lo co\'e</item>
   </plurals>
-  <string name="viewTournament">zgana lo torneio</string>
-  <string name="backToTournament">xruti tu\'a lo torneio</string>
+  <string name="viewTournament">zgana lo grinunjvi</string>
+  <string name="backToTournament">xruti tu\'a lo grinunjvi</string>
   <string name="thematic">rirci lo cfari keltcini</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">su\'o %s nunjvi je ke nilcre cnegau</item>
@@ -342,15 +342,15 @@
     <item quantity="other">mentu li me\'i %s</item>
   </plurals>
   <string name="required">jai se bilga</string>
-  <string name="openTournaments">zifre sezyjmina torneio</string>
+  <string name="openTournaments">zifre sezyjmina grinunjvi</string>
   <string name="duration">se mentu</string>
   <string name="winner">lo jinga</string>
   <string name="standing">lo crelai</string>
-  <string name="createANewTournament">zbasu pa cnino torneio</string>
-  <string name="tournamentCalendar">lo detcartu be fi su\'o loi torneio</string>
+  <string name="createANewTournament">zbasu pa cnino grinunjvi</string>
+  <string name="tournamentCalendar">lo detcartu be fi su\'o loi grinunjvi</string>
   <string name="conditionOfEntry">sarcu lozu\'o cmibi\'o</string>
   <string name="advancedSettings">certu gaftercu\'a</string>
-  <string name="safeTournamentName">.e\'o ko gasnu lonu na da\'asnu lo cmene be ti poi torneio</string>
+  <string name="safeTournamentName">.e\'o ko gasnu lonu na da\'asnu lo cmene be ti poi grinunjvi</string>
   <string name="inappropriateNameWarning">.e\'unai lonu lo do jaspu ku cu\'urga\'o cu cumki lonu ba\'ucu\'i toltce da\'asnu</string>
   <string name="emptyTournamentName">lo cmene pe lo caxmati mispre cu tecycuxskicauzmi</string>
   <string name="recommendNotTouching">.e\'unai</string>
@@ -362,7 +362,7 @@
   <string name="losses">lo nu cirko</string>
   <string name="winStreak">lo se pormei be lo te lamji be lo nunji\'a</string>
   <string name="createdBy">fi\'e la\'oi</string>
-  <string name="tournamentIsStarting">le torneio ca\'o cfari</string>
+  <string name="tournamentIsStarting">le grinunjvi ca\'o cfari</string>
   <string name="standByX">ko denpa doi la\'oi %s .i zi\'o ca\'o zbasu lo re mei be fi lo jvikei .i ko bredi</string>
   <string name="youArePlaying">do ca\'o jivna</string>
   <string name="winRate">lo parbi be lo se rapli be lo nunji\'a</string>
@@ -689,4 +689,8 @@
   <string name="playEveryGame">ko jvikei zo\'e roloro nunkei poi do cfagau .i</string>
   <string name="tryToWin">roroiku ko troci lonu jinga ja norji\'a .i</string>
   <string name="resignLostGames">roroiku ko randa fau lonu te jinga kei to ko na denpa toi</string>
+  <string name="temporaryInconvenience">faxycpe do ti noi zazyfau .i</string>
+  <string name="wishYouGreatGames">.ije .a\'o pacna lonu lo nunkei be do cu mutce zdile</string>
+  <string name="thankYouForReading">ki\'e</string>
+  <string name="edit">galfi</string>
 </resources>
