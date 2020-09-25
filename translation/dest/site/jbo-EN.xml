@@ -303,6 +303,7 @@
   <string name="continueFromHere">di\'a ti kelci</string>
   <string name="toStudy">tadni</string>
   <string name="importGame">jmina lo selkei</string>
+  <string name="importGameExplanation">lonu fukpu\'i lo me pygyny cu jalgre lonu cpacu lo fakli\'u nu rapli .e lo skami lanli .e lo nu samta\'a .e lo judrysni</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s da seljmina selkei</item>
   </plurals>
@@ -380,6 +381,7 @@
   <string name="averageOpponent">lo se jivna nilcre cnano</string>
   <string name="membersOnly">lo cmima be la .litces. cu selte\'i</string>
   <string name="boardEditor">keltcini tiktci</string>
+  <string name="setTheBoard">cuxna zo\'e lo\'i cumki keirta\'o</string>
   <string name="popularOpenings">selzaumi\'o cfari kelka\'u</string>
   <string name="startPosition">cfari keltcini</string>
   <string name="clearBoard">vimcu ro kelfoi zvati</string>
