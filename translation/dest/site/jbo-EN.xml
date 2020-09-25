@@ -463,6 +463,7 @@
   <string name="typePrivateNotesHere">ko ciska lo sivni pinka ti</string>
   <string name="invalidUsernameOrPassword">.i lo cmene .a lo japyvla cu na drani</string>
   <string name="incorrectPassword">na drani kikyvla</string>
+  <string name="invalidAuthenticationCode">lo dubyfa\'i jagri\'a poi remoi cu toldra</string>
   <string name="emailMeALink">samymri lo urli mi</string>
   <string name="currentPassword">lo cabna japyvla</string>
   <string name="newPassword">lo cnino japyvla</string>
@@ -552,6 +553,8 @@
   <string name="sourceCode">samselpla</string>
   <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
   <string name="hostColorX">lo ralkei cu skari lo ka %s</string>
+  <string name="hostANewSimul">finti lo cabna nunjvi</string>
+  <string name="noSimulFound">sispe\'i no cabna nunjvi</string>
   <string name="noSimulExplanation">ti noi cabysi\'u nuntigni cu na zasti</string>
   <string name="create">finti</string>
   <string name="lichessTournaments">lo grinunjvi be bu\'u la .litces.</string>
