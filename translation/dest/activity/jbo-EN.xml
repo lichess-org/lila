@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">lo ra\'arfau</string>
+  <string name="hostedALiveStream">strimgau</string>
   <plurals name="practicedNbPositions">
     <item quantity="other">crezenzu\'e se pi\'o %1$s lo nabmi be se ra\'a %2$s</item>
   </plurals>
