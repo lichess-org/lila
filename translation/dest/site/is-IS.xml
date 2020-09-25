@@ -707,9 +707,12 @@
   <string name="usernameAlreadyUsed">Þetta notandanafn er þegar í notkun, vinsamlegast veldu annað notandanafn.</string>
   <string name="usernamePrefixInvalid">Notandanafnið verður að byrja á bókstaf.</string>
   <string name="usernameSuffixInvalid">Notandanafnið verður að enda á bókstaf eða tölustaf.</string>
+  <string name="usernameCharsInvalid">Notendanafnið má aðeins innihalda bókstafi, tölustafi, undirstrik og bandstrik.</string>
   <string name="usernameUnacceptable">Þetta notendanafn er óviðunandi.</string>
   <string name="chessBasics">Grunnatriði</string>
   <string name="coaches">Þjálfarar</string>
+  <string name="invalidPgn">Ógilt PGN</string>
+  <string name="invalidFen">Ógilt FEN</string>
   <string name="error.minLength">Lágmarks lengd er %s</string>
   <string name="error.maxLength">Hámarks lengd er %s</string>
   <string name="error.min">Verður að hærri en eða jöfn %s</string>
@@ -718,6 +721,7 @@
   <string name="custom">Sérsniðinn</string>
   <string name="notifications">Tilkynningar</string>
   <string name="challenges">Áskoranir</string>
+  <string name="perfRatingX">Skákstig: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekúnda til að spila fyrsta leik</item>
     <item quantity="other">%s sekúndur til að spila fyrsta leik</item>
@@ -727,8 +731,10 @@
   <string name="bestWasX">Besti var %s</string>
   <string name="youBrowsedAway">Þú vafraðir í burtu</string>
   <string name="resumePractice">Halda áfram æfingu</string>
+  <string name="theGameIsADraw">Leikurinn endar í jafntefli.</string>
   <string name="seeBestMove">Sjá besta leik</string>
   <string name="hideBestMove">Fela besta leik</string>
+  <string name="getAHint">Fá vísbendingu</string>
   <string name="whiteWinsGame">Hvítt vinnur</string>
   <string name="blackWinsGame">Svartur vinnur</string>
   <string name="learnFromYourMistakes">Lærðu af mistökum þínum</string>
@@ -751,17 +757,20 @@
   <string name="doItAgain">Gera aftur</string>
   <string name="reviewWhiteMistakes">Skoða mistök hvítrar</string>
   <string name="reviewBlackMistakes">Skoða mistök svartrar</string>
+  <string name="advantage">Yfirhönd</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekúnda</item>
     <item quantity="other">%s sekúndur</item>
   </plurals>
   <string name="opening">Byrjun</string>
   <string name="middlegame">Miðtafl</string>
+  <string name="registerToSendChallenges">Skráðu þig inn til að senda áskorarnir.</string>
   <string name="youCannotChallengeX">Þú getur ekki skorað á %s.</string>
   <string name="xDoesNotAcceptChallenges">%s tekur ekki við áskorunum.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s samþykkir eingöngu áskoranir frá vinum.</string>
   <string name="playX">Leika %s</string>
   <string name="sorry">Afsakaðu :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Við þurftum að setja þig í stutt leikbann.</string>
   <string name="why">Afhverju?</string>
   <string name="howToAvoidThis">Hvernig er hægt að komast hjá þessu?</string>
   <string name="playEveryGame">Tefldu allar skákir sem þú byrjar.</string>

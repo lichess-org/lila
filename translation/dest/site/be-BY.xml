@@ -221,6 +221,8 @@
     <item quantity="other">%s партый з вамі</item>
   </plurals>
   <string name="cancel">Скасаваць</string>
+  <string name="whiteTimeOut">Час белых скончыўся</string>
+  <string name="blackTimeOut">Час чорных скончыўся</string>
   <string name="drawOfferSent">Прапанова нічыі даслана</string>
   <string name="drawOfferDeclined">Прапанова нічыі адхілена</string>
   <string name="drawOfferAccepted">Прапанова нічыі прынята</string>
@@ -927,6 +929,8 @@
   <string name="important">Важна</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваш запыт можа ужо мець адказ %1$s</string>
   <string name="inTheFAQ">у FAQ</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Каб паведаміць аб падмане ці дрэнных паводзінах карыстальніка, %1$s</string>
+  <string name="useTheReportForm">скарыстайцеся формай справаздачы</string>
   <string name="youCannotPostYetPlaySomeGames">Вы яшчэ не можаце публікаваць на формах. Згуляйце некалькі партый!</string>
   <string name="subscribe">Падпісацца</string>
   <string name="unsubscribe">Адпісацца</string>
