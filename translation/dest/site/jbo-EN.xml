@@ -571,6 +571,9 @@
   <string name="tournamentFAQ">lo cafne se reisku preti be lo kelcrxarena zei grinunjvi</string>
   <string name="tournamentOfficial">ca\'iselzau</string>
   <string name="averageCentipawnLoss">cnano lo centi me la paan. cirko</string>
+  <string name="keyboardShortcuts">lercu\'aca\'a midnoi</string>
+  <string name="keyMoveBackwardOrForward">crakla ja ti\'ekla</string>
+  <string name="keyGoToStartOrEnd">mulno crakla ja ti\'ekla</string>
   <string name="newTournament">cnino grinunjvi</string>
   <string name="tournamentNotFound">na facki fi ti noi grinunjvi</string>
   <string name="tournamentDoesNotExist">ti noi grinunjvi cu na zasti</string>
