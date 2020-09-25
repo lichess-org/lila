@@ -1,12 +1,13 @@
 package lila.team
 
+import actorApi._
 import org.joda.time.Period
-import scala.util.chaining._
 import play.api.libs.json.{ JsSuccess, Json }
 import reactivemongo.api.{ Cursor, ReadPreference }
+import scala.util.chaining._
 import scala.util.Try
 
-import actorApi._
+import lila.chat.ChatApi
 import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam }
@@ -25,7 +26,8 @@ final class TeamApi(
     notifier: Notifier,
     timeline: lila.hub.actors.Timeline,
     indexer: lila.hub.actors.TeamSearch,
-    modLog: ModlogApi
+    modLog: ModlogApi,
+    chatApi: ChatApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -39,23 +41,30 @@ final class TeamApi(
   def request(id: Team.ID) = requestRepo.coll.byId[Request](id)
 
   def create(setup: TeamSetup, me: User): Fu[Team] = {
-    val s = setup.trim
-    val team = Team.make(
-      name = s.name,
-      location = s.location,
-      description = s.description,
-      open = s.isOpen,
-      createdBy = me
-    )
-    teamRepo.coll.insert.one(team) >>
-      memberRepo.add(team.id, me.id) >>- {
-        cached invalidateTeamIds me.id
-        indexer ! InsertTeam(team)
-        timeline ! Propagate(
-          TeamCreate(me.id, team.id)
-        ).toFollowersOf(me.id)
-        Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
-      } inject team
+    val s      = setup.trim
+    val bestId = Team.nameToId(s.name)
+    chatApi.exists(bestId) map {
+      case true  => Team.randomId()
+      case false => bestId
+    } flatMap { id =>
+      val team = Team.make(
+        id = id,
+        name = s.name,
+        location = s.location,
+        description = s.description,
+        open = s.isOpen,
+        createdBy = me
+      )
+      teamRepo.coll.insert.one(team) >>
+        memberRepo.add(team.id, me.id) >>- {
+          cached invalidateTeamIds me.id
+          indexer ! InsertTeam(team)
+          timeline ! Propagate(
+            TeamCreate(me.id, team.id)
+          ).toFollowersOf(me.id)
+          Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
+        } inject team
+    }
   }
 
   def update(team: Team, edit: TeamEdit, me: User): Funit =

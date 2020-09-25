@@ -27,6 +27,8 @@ final class ChatApi(
 
   import Chat.{ chatIdBSONHandler, userChatBSONHandler }
 
+  def exists(id: String) = coll.exists($id(id))
+
   object userChat {
 
     // only use for public, multi-user chats - tournaments, simuls
