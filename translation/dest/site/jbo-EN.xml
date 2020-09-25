@@ -592,9 +592,13 @@
   <string name="downloadImported">kibycpa lo se nerbei</string>
   <string name="printFriendlyPDF">primi\'i mapti me la me pydyfy</string>
   <string name="crosstable">prula\'i nunkei</string>
+  <string name="letOtherPlayersMessageYou">curmi lo nu lo drata jvikei cu tavla do</string>
   <string name="withNobody">fi\'o te jarco no da</string>
   <string name="withFriends">fi\'o te jarco lo pendo</string>
   <string name="withEverybody">fi\'o te jarco ro da</string>
+  <string name="kidMode">lo tadji pe le\'e verba</string>
+  <string name="enableKidMode">pilno lo tadji pe le\'e verba</string>
+  <string name="disableKidMode">sisti loza\'i pilno lo tadji pe le\'e verba</string>
   <string name="security">kamnu\'a</string>
   <string name="playChessEverywhere">fe\'e ro roi ku jvikei lo caxmati</string>
   <string name="asFreeAsLichess">nonseldi\'a du\'i la .litces.</string>
