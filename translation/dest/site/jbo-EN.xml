@@ -602,15 +602,22 @@
   <string name="security">kamnu\'a</string>
   <string name="playChessEverywhere">fe\'e ro roi ku jvikei lo caxmati</string>
   <string name="asFreeAsLichess">nonseldi\'a du\'i la .litces.</string>
+  <string name="builtForTheLoveOfChessNotMoney">finti fi lo nunpa\'i be fi lo\'i caxmati .enai lo jdini</string>
   <string name="everybodyGetsAllFeaturesForFree">ro prenu cu te sabji ro tcila fi\'o nonseldi\'a</string>
   <string name="zeroAdvertisement">no gubnoi</string>
+  <string name="phoneAndTablet">mapti lo\'e samfonxa .a lo\'e ta\'orskami</string>
   <string name="correspondenceChess">lo masno caxmati</string>
+  <string name="onlineAndOfflinePlay">gu tolpo\'u gi samjo\'e</string>
   <string name="viewTheSolution">viska lo danfu</string>
   <string name="followAndChallengeFriends">catlu gi\'e talsa lo pendo</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">se sabji bau %s da</item>
   </plurals>
+  <string name="gameAnalysis">nunjvi lanli</string>
+  <string name="xHostsY">la\'o zoi. %1$s .zoi finti la\'o zoi. %2$s .zoi noi cabna cmicfu nunjvi</string>
+  <string name="xJoinsY">la\'o zoi. %1$s .zoi cmibi\'o loi te cusku be la\'o zoi. %2$s .zoi</string>
   <string name="xLikesY">la\'o zoi. %1$s .zoi nelci la\'o zoi. %2$s .zoi</string>
+  <string name="xCreatesStudyY">la\'o zoi. %1$s .zoi finti la\'o zoi. %2$s .zoi noi seltadni</string>
   <string name="quickPairing">selsutra jivna</string>
   <string name="lobby">lo depstu</string>
   <string name="anonymous">cmecau</string>
@@ -621,6 +628,7 @@
   <string name="dark">manku</string>
   <string name="transparent">guskli</string>
   <string name="backgroundImageUrl">lo .urli be lo vinti\'e pixra</string>
+  <string name="boardGeometry">keirta\'o caltaicmaci</string>
   <string name="pieceSet">keirmu\'u morna</string>
   <string name="usernamePrefixInvalid">sarcu fa lo nu lo japcme cu se tolfa\'o lo vlale\'u</string>
   <string name="usernameSuffixInvalid">sarcu fa lo nu lo japcme cu se fanmo lo vlale\'u .a lo nacle\'u</string>
