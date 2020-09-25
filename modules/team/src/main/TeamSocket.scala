@@ -25,7 +25,8 @@ final private class TeamSocket(
       localTimeout = Some { (roomId, modId, suspectId) =>
         cached.isLeader(roomId.value, modId) >>& !cached.isLeader(roomId.value, suspectId)
       },
-      chatBusChan = _.Team
+      chatBusChan = _.Team,
+      chatDbId = id => Team chatId id.value
     )
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("team-out").apply _

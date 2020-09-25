@@ -63,7 +63,8 @@ object RoomSocket {
       logger: Logger,
       publicSource: RoomId => PublicSource.type => Option[PublicSource],
       localTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None,
-      chatBusChan: BusChan.Select
+      chatBusChan: BusChan.Select,
+      chatDbId: Chat.Id => String = _.value
   )(implicit ec: ExecutionContext): Handler =
     ({
       case Protocol.In.ChatSay(roomId, userId, msg) =>
@@ -73,7 +74,7 @@ object RoomSocket {
           msg,
           publicSource(roomId)(PublicSource),
           chatBusChan
-        )
+        )(chatDbId)
       case Protocol.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
         lila.chat.ChatTimeout.Reason(reason) foreach { r =>
           localTimeout.?? { _(roomId, modId, suspect) } foreach { local =>
@@ -86,7 +87,7 @@ object RoomSocket {
               text = text,
               scope = scope,
               busChan = chatBusChan
-            )
+            )(chatDbId)
           }
         }
     }: Handler) orElse minRoomHandler(rooms, logger)

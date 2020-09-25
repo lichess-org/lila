@@ -49,7 +49,7 @@ final class BotPlayer(
         val source = d.room == "spectator" option {
           lila.hub.actorApi.shutup.PublicSource.Watcher(gameId)
         }
-        chatApi.userChat.write(chatId, me.id, d.text, publicSource = source, _.Round)
+        chatApi.userChat.write(chatId, me.id, d.text, publicSource = source, _.Round)(chatApi.defaultDbId)
       }
 
   def rematchAccept(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, accept = true)

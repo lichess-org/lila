@@ -155,7 +155,7 @@ final private class ChapterMaker(
         text = s"I'm studying this game on ${net.domain}/study/${study.id}",
         publicSource = none,
         _.Study
-      )
+      )(chatApi.defaultDbId)
     }
 
   private[study] def game2root(game: Game, initialFen: Option[FEN]): Fu[Node.Root] =
@@ -212,7 +212,7 @@ private[study] object ChapterMaker {
       orientation: String = "white",
       mode: String = ChapterMaker.Mode.Normal.key,
       initial: Boolean = false,
-      isDefaultName: Boolean = true,
+      isDefaultName: Boolean = true
   ) extends ChapterData {
 
     def manyGames =

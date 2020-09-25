@@ -7,6 +7,8 @@ import lila.user.User
 
 final class Messenger(api: ChatApi) {
 
+  implicit private val chatDbId = api.defaultDbId
+
   def system(game: Game, message: String): Unit =
     system(persistent = true)(game, message)
 

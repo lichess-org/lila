@@ -27,6 +27,8 @@ case class Team(
 
   def isChatFor(f: Team.ChatFor.type => Team.ChatFor) =
     chat == f(Team.ChatFor)
+
+  def chatId = Team chatId id
 }
 
 object Team {
@@ -34,6 +36,8 @@ object Team {
   val maxJoin = 100
 
   type ID = String
+
+  def chatId(id: ID) = s"t:$id"
 
   type ChatFor = Int
   object ChatFor {

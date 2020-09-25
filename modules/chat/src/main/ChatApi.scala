@@ -85,7 +85,7 @@ final class ChatApi(
         text: String,
         publicSource: Option[PublicSource],
         busChan: BusChan.Select
-    ): Funit =
+    )(implicit dbId: Chat.Id => String): Funit =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
           linkCheck(line, publicSource) flatMap {
@@ -94,7 +94,7 @@ final class ChatApi(
               funit
             case true =>
               pushLine(chatId, line) >>- {
-                if (publicSource.isDefined) cached invalidate chatId
+                if (publicSource.isDefined) cached invalidate Chat.Id(dbId(chatId))
                 shutup ! {
                   publicSource match {
                     case Some(source) => RecordPublicChat(userId, text, source)
@@ -117,7 +117,7 @@ final class ChatApi(
 
     def system(chatId: Chat.Id, text: String, busChan: BusChan.Select): Funit = {
       val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
-      pushLine(chatId, line) >>- {
+      pushLine(chatId, line)(defaultDbId) >>- {
         cached.invalidate(chatId)
         publish(chatId, actorApi.ChatLine(chatId, line), busChan)
       }
@@ -140,7 +140,7 @@ final class ChatApi(
         scope: ChatTimeout.Scope,
         text: String,
         busChan: BusChan.Select
-    ): Funit =
+    )(implicit dbId: Chat.Id => String): Funit =
       coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
         case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || scope == ChatTimeout.Scope.Local =>
           doTimeout(chat, mod, user, reason, scope, text, busChan)
@@ -162,7 +162,7 @@ final class ChatApi(
         scope: ChatTimeout.Scope,
         text: String,
         busChan: BusChan.Select
-    ): Funit = {
+    )(implicit dbId: Chat.Id => String): Funit = {
       val line = c.hasRecentLine(user) option UserLine(
         username = systemUserId,
         title = None,
@@ -172,7 +172,7 @@ final class ChatApi(
       )
       val c2   = c.markDeleted(user)
       val chat = line.fold(c2)(c2.add)
-      coll.update.one($id(chat.id), chat).void >>
+      coll.update.one($id(dbId(chat.id)), chat).void >>
         chatTimeout.add(c, mod, user, reason, scope) >>- {
           cached invalidate chat.id
           publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
@@ -252,7 +252,7 @@ final class ChatApi(
 
     def write(chatId: Chat.Id, color: Color, text: String, busChan: BusChan.Select): Funit =
       makeLine(chatId, color, text) ?? { line =>
-        pushLine(chatId, line) >>- {
+        pushLine(chatId, line)(defaultDbId) >>- {
           publish(chatId, actorApi.ChatLine(chatId, line), busChan)
           lila.mon.chat.message("anonPlayer", troll = false).increment()
         }
@@ -274,10 +274,12 @@ final class ChatApi(
 
   def removeAll(chatIds: List[Chat.Id]) = coll.delete.one($inIds(chatIds)).void
 
-  private def pushLine(chatId: Chat.Id, line: Line): Funit =
+  val defaultDbId = (id: Chat.Id) => id.value
+
+  private def pushLine(chatId: Chat.Id, line: Line)(implicit dbId: Chat.Id => String): Funit =
     coll.update
       .one(
-        $id(chatId),
+        $id(dbId(chatId)),
         $doc(
           "$push" -> $doc(
             Chat.BSONFields.lines -> $doc(
