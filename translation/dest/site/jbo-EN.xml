@@ -555,11 +555,13 @@
   <string name="simultaneousExhibitions">cabysi\'u nuntigni</string>
   <string name="host">finti</string>
   <string name="hostColorX">lo ralkei cu skari lo ka %s</string>
-  <string name="hostANewSimul">finti lo cabna nunjvi</string>
-  <string name="noSimulFound">sispe\'i no cabna nunjvi</string>
+  <string name="createdSimuls">puzi finti lo cabna cmicfu nunjvi</string>
+  <string name="hostANewSimul">finti lo cabna cmicfu nunjvi</string>
+  <string name="noSimulFound">sispe\'i no cabna cmicfu nunjvi</string>
   <string name="noSimulExplanation">ti noi cabysi\'u nuntigni cu na zasti</string>
-  <string name="returnToSimulHomepage">xrukla lo kibypapri pe lo\'i cabna nunjvi</string>
-  <string name="aboutSimul">lo cabna nunjvi zo\'u pa lo ci\'erkei cu cabna keijvi piso\'o loi ci\'erkei</string>
+  <string name="returnToSimulHomepage">xrukla lo kibypapri pe lo\'i cabna cmicfu nunjvi</string>
+  <string name="aboutSimul">lo cabna cmicfu nunjvi zo\'u pa lo ci\'erkei cu cabna keijvi piso\'o loi ci\'erkei</string>
+  <string name="aboutSimulRealLife">lo si\'o cabna cmicfu nunjvi cu zirli .i lo finti be lo cabna cmicfu nunjvi cu klama lo jubme lo jubme tezu\'e lonu pa lo kelka\'u ku mulno .i</string>
   <string name="create">finti</string>
   <string name="lichessTournaments">lo grinunjvi be bu\'u la .litces.</string>
   <string name="tournamentFAQ">lo cafne se reisku preti be lo kelcrxarena zei grinunjvi</string>
