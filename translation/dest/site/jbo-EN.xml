@@ -684,4 +684,9 @@
   <string name="why">paunai mu\'i ma</string>
   <string name="pleasantChessExperience">mi\'a zukte zo\'e lonu friti lo cnipu\'a caxmati selfri roloro prenu .i</string>
   <string name="goodPractice">semu\'i lonu go\'i ku mi\'a lacri roloro jvikei lonu clite .i</string>
+  <string name="potentialProblem">lonu ganse lo cumki nabmi cu selja\'e lonu arco ti poi notci .i</string>
+  <string name="howToAvoidThis">rivbi ti ma</string>
+  <string name="playEveryGame">ko jvikei zo\'e roloro nunkei poi do cfagau .i</string>
+  <string name="tryToWin">roroiku ko troci lonu jinga ja norji\'a .i</string>
+  <string name="resignLostGames">roroiku ko randa fau lonu te jinga kei to ko na denpa toi</string>
 </resources>
