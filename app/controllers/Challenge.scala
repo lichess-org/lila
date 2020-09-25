@@ -184,7 +184,7 @@ final class Challenge(
       }
     }
 
-  def apiStart(id: String) =
+  def apiStartClocks(id: String) =
     Action.async { req =>
       import cats.implicits._
       val scopes = List(OAuthScope.Challenge.Write)
