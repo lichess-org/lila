@@ -471,7 +471,7 @@
   <string name="privacy">kamsivni</string>
   <string name="letOtherPlayersFollowYou">curmi lo nu lo drata jvikei cu catlu do</string>
   <string name="letOtherPlayersChallengeYou">curmi lo nu lo drata jvikei cu talsa do</string>
-  <string name="letOtherPlayersInviteYouToStudy">e\'ande lo drata lonu vi\'ecpe do lonu tadni</string>
+  <string name="letOtherPlayersInviteYouToStudy">curmi lo nu lo drata jvikei cu vi\'ecpe do lonu tadni</string>
   <string name="sound">sance</string>
   <string name="none">na go\'i</string>
   <string name="fast">sutra</string>
@@ -589,6 +589,9 @@
   <string name="checkYourEmail">ko catlu lo se samymri be fi do</string>
   <string name="weHaveSentYouAnEmailClickTheLink">mi\'a samymri zo\'e goi ko\'a do .i .e\'o ko kli\'iki lo ve .uebjugau poi nenri ko\'a ku\'o ja\'e loza\'i narca\'acando .i</string>
   <string name="downloadRaw">kibycpa lo me la me pygyny.</string>
+  <string name="downloadImported">kibycpa lo se nerbei</string>
+  <string name="printFriendlyPDF">primi\'i mapti me la me pydyfy</string>
+  <string name="crosstable">prula\'i nunkei</string>
   <string name="withNobody">fi\'o te jarco no da</string>
   <string name="withFriends">fi\'o te jarco lo pendo</string>
   <string name="withEverybody">fi\'o te jarco ro da</string>
