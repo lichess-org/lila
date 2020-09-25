@@ -20,6 +20,6 @@ object embed {
         views.html.game.mini.noCtx(pov, tv = true, blank = true)
       ),
       cashTag,
-      jsModule("tv.embed")
+      jsModule("tvEmbed")
     )
 }
