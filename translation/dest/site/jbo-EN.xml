@@ -495,6 +495,7 @@
   <string name="starting">cfari ti\'u li</string>
   <string name="allInformationIsPublicAndOptional">ro datni cu gubni gi\'e voi do na bilga lo ka benji ke\'a</string>
   <string name="yourCityRegionOrDepartment">lo tcadu ja gugypau ja vipygu\'e be do</string>
+  <string name="biographyDescription">.e\'o ko tavla zo\'e do .a lo cinri be do be\'o .a lo do nelci poi srana lo\'e caxmati ku\'o .a lo do nelci poi cfari kelka\'u ku\'o .a ra\'ei</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">su\'e %s lerfu</item>
   </plurals>
