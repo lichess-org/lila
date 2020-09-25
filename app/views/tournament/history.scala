@@ -20,7 +20,9 @@ object history {
       main(cls := "page-menu arena-history")(
         st.nav(cls := "page-menu__menu subnav")(
           allFreqs.map { f =>
-            a(cls := freq.name.active(f.name), href := routes.Tournament.history(f.name))(f.name)
+            a(cls := freq.name.active(f.name), href := routes.Tournament.history(f.name))(
+              if (f == Freq.Weekend) "Elite" else f.name
+            )
           }
         ),
         div(cls := "page-menu__content box")(
