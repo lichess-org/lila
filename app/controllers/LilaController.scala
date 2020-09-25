@@ -226,20 +226,24 @@ abstract private[controllers] class LilaController(val env: Env)
   )(f: R => UserModel => Fu[Result])(req: R): Fu[Result] = {
     val scopes = OAuthScope select selectors
     env.security.api.oauthScoped(req, scopes) flatMap {
-      case Left(e @ lila.oauth.OAuthServer.MissingScope(available)) =>
-        lila.mon.user.oauth.request(false).increment()
-        OAuthServer
-          .responseHeaders(scopes, available) {
-            Unauthorized(jsonError(e.message))
-          }
-          .fuccess
-      case Left(e) =>
-        lila.mon.user.oauth.request(false).increment()
-        OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.fuccess
+      case Left(e) => handleScopedFail(scopes, e)
       case Right(scoped) =>
         lila.mon.user.oauth.request(true).increment()
         f(req)(scoped.user) map OAuthServer.responseHeaders(scopes, scoped.scopes)
     }
+  }
+
+  protected def handleScopedFail(scopes: Seq[OAuthScope], e: OAuthServer.AuthError) = e match {
+    case e @ lila.oauth.OAuthServer.MissingScope(available) =>
+      lila.mon.user.oauth.request(false).increment()
+      OAuthServer
+        .responseHeaders(scopes, available) {
+          Unauthorized(jsonError(e.message))
+        }
+        .fuccess
+    case e =>
+      lila.mon.user.oauth.request(false).increment()
+      OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.fuccess
   }
 
   protected def OAuthSecure(

@@ -11,6 +11,7 @@ import lila.app._
 import lila.challenge.{ Challenge => ChallengeModel }
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ AnonCookie, Pov }
+import lila.oauth.{ AccessToken, OAuthScope }
 import lila.socket.Socket.SocketVersion
 import lila.user.{ User => UserModel }
 
@@ -99,6 +100,7 @@ final class Challenge(
           }
       }
     }
+
   def apiAccept(id: String) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
       api.onlineByIdFor(id, me) flatMap {
@@ -157,6 +159,7 @@ final class Challenge(
         else notFound
       }
     }
+
   def apiCancel(id: String) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
       api.activeByIdBy(id, me) flatMap {
@@ -178,6 +181,31 @@ final class Challenge(
                 case None => notFoundJson()
               }
           }
+      }
+    }
+
+  def apiStart(id: String) =
+    Action.async { req =>
+      import cats.implicits._
+      val scopes = List(OAuthScope.Challenge.Write)
+      (get("token1", req) map AccessToken.Id, get("token2", req) map AccessToken.Id).mapN {
+        env.oAuth.server.authBoth(scopes)
+      } ?? {
+        _ flatMap {
+          case Left(e) => handleScopedFail(scopes, e)
+          case Right((u1, u2)) =>
+            env.game.gameRepo game id flatMap {
+              _ ?? { g =>
+                env.round.proxyRepo.upgradeIfPresent(g) dmap some dmap
+                  (_.filter(_.hasUserIds(u1.id, u2.id)))
+              }
+            } map {
+              _ ?? { game =>
+                env.round.tellRound(game.id, lila.round.actorApi.round.StartClock)
+                jsonOkResult
+              }
+            }
+        }
       }
     }
 

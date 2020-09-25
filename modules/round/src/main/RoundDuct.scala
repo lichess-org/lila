@@ -1,5 +1,7 @@
 package lila.round
 
+import actorApi._, round._
+import chess.{ Black, Centis, Color, White }
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
@@ -7,8 +9,6 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 import scala.util.chaining._
 
-import actorApi._, round._
-import chess.{ Black, Centis, Color, White }
 import lila.game.Game.{ FullId, PlayerId }
 import lila.game.{ Game, GameRepo, Pov, Event, Progress, Player => GamePlayer }
 import lila.hub.actorApi.round.{
@@ -426,6 +426,13 @@ final private[round] class RoundDuct(
             proxy save g inject List(Event.Reload)
           }
           else finisher.noStart(game)
+        }
+      }
+
+    case StartClock =>
+      handle { game =>
+        game.startClock ?? { g =>
+          proxy save g inject List(Event.Reload)
         }
       }
 

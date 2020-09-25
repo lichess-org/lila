@@ -54,8 +54,11 @@ case class Game(
 
   def player: Player = player(turnColor)
 
-  def playerByUserId(userId: String): Option[Player]   = players.find(_.userId contains userId)
-  def opponentByUserId(userId: String): Option[Player] = playerByUserId(userId) map opponent
+  def playerByUserId(userId: User.ID): Option[Player]   = players.find(_.userId contains userId)
+  def opponentByUserId(userId: User.ID): Option[Player] = playerByUserId(userId) map opponent
+
+  def hasUserIds(userId1: User.ID, userId2: User.ID) =
+    playerByUserId(userId1).isDefined && playerByUserId(userId2).isDefined
 
   def opponent(p: Player): Player = opponent(p.color)
 
@@ -445,7 +448,7 @@ case class Game(
 
   private def outoftimeClock(withGrace: Boolean): Boolean =
     clock ?? { c =>
-      started && playable && (bothPlayersHaveMoved || isSimul || isSwiss) && {
+      started && playable && (bothPlayersHaveMoved || isSimul || isSwiss || fromFriend) && {
         (!c.isRunning && !c.isInit) || c.outOfTime(turnColor, withGrace)
       }
     }
