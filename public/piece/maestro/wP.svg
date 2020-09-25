@@ -1,4 +1,5 @@
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)" sodipodi:docname="wP.svg" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <sodipodi:namedview bordercolor="#666666" borderopacity="1" gridtolerance="10" guidetolerance="10" inkscape:current-layer="svg38" inkscape:cx="-18.018909" inkscape:cy="100.28317" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-height="1001" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="-9" inkscape:window-y="-9" inkscape:zoom="2.1960417" objecttolerance="10" pagecolor="#ffffff" showgrid="false"/>
  <defs>
   <linearGradient id="linearGradient1643" x1="9.2407" x2="40.761" y1="27.266" y2="27.266" gradientTransform="matrix(.98495 0 0 .98605 .37559 .64119)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#ece9df" offset="0"/>
@@ -21,8 +22,8 @@
  </g>
  <g fill="#fff">
   <path d="m19.884 21.131c-0.52784 0.22541-4.585-7.6283 4.8675-9.7724 0.71694-0.11844 1.2513 0.64112 0.0079 1.0395 0 0-7.7396 3.3468-4.8755 8.7329z"/>
-  <path d="m12.504 45.203c-0.3242-1.2396-0.20367-3.9732 3.5127-8.0081-0.36972 2.4372-1.4768 5.3931 0.6873 8.0242z"/>
-  <path d="m17.282 28.059s-0.0256-2.9052 3.1061-3.1417c-1.0786 1.2115-1.4623 1.9057-0.93287 3.1739z"/>
+  <path d="m12.504 45.203c-0.3242-1.2396-0.20367-3.9732 3.5127-8.0081-0.36972 2.4372-1.4768 5.3931 0.6873 8.0242z" style="opacity:.7"/>
+  <path d="m17.282 28.059s-0.0256-2.9052 3.1061-3.1417c-1.0786 1.2115-1.4623 1.9057-0.93287 3.1739z" style="opacity:.9"/>
  </g>
  <path transform="matrix(.98092 0 0 .9722 -247.86 126.92)" d="m275.09-101.12c0.22763 6.0374 18.734 9.3143 16.553 17.682 1.2865-7.878-9.2816-10.089-8.8753-17.682z" clip-rule="evenodd" fill-rule="evenodd" filter="url(#filter1689-5)" image-rendering="optimizeQuality" opacity=".15" shape-rendering="geometricPrecision" style="mix-blend-mode:normal"/>
  <path transform="matrix(.98092 0 0 .9722 -248.05 125.84)" d="m278.37-118.34c4.9751 0.66261 6.5956 10.501 1.9202 13.454 0 0 3.4083 0.51166 3.9665 2.6881 0.16937 0.66034 0.46812 2.1809 0.46812 2.1809l2.2021 7.7e-4s-0.19634-1.5405-0.46912-2.1651c-0.88868-2.0348-4.6857-2.7708-4.6857-2.7708 1.871-1.1791 3.8981-4.2529 3.8981-6.3581 0.38818-4.551-5.5087-7.5475-7.3001-7.0296z" clip-rule="evenodd" fill-rule="evenodd" filter="url(#filter1657-4)" image-rendering="optimizeQuality" opacity=".25" shape-rendering="geometricPrecision" style="mix-blend-mode:normal"/>

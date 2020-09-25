@@ -1,8 +1,9 @@
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)" sodipodi:docname="bR.svg" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd">
+ <sodipodi:namedview bordercolor="#666666" borderopacity="1" gridtolerance="10" guidetolerance="10" inkscape:current-layer="svg58" inkscape:cx="94.488189" inkscape:cy="94.488189" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-height="1001" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="-9" inkscape:window-y="-9" inkscape:zoom="4.3920833" objecttolerance="10" pagecolor="#ffffff" showgrid="false"/>
  <defs>
   <linearGradient id="linearGradient2472-2" x1="9.2407" x2="40.761" y1="27.266" y2="27.266" gradientTransform="matrix(1.0155 0 0 1.0103 -.38852 .48153)" gradientUnits="userSpaceOnUse">
-   <stop stop-color="#534f4e" offset="0"/>
-   <stop stop-color="#131111" offset="1"/>
+   <stop stop-color="#635f5e" offset="0"/>
+   <stop stop-color="#131111" style="stop-color:#1f1f1f" offset="1"/>
   </linearGradient>
   <filter id="filter1568-3" x="-.11252" y="-.030292" width="1.225" height="1.0606" color-interpolation-filters="sRGB">
    <feGaussianBlur stdDeviation="0.46700248"/>

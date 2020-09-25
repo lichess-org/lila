@@ -20,11 +20,13 @@ object history {
       main(cls := "page-menu arena-history")(
         st.nav(cls := "page-menu__menu subnav")(
           allFreqs.map { f =>
-            a(cls := freq.name.active(f.name), href := routes.Tournament.history(f.name))(f.name)
+            a(cls := freq.name.active(f.name), href := routes.Tournament.history(f.name))(
+              nameOf(f)
+            )
           }
         ),
         div(cls := "page-menu__content box")(
-          h1(freq.name, " tournaments"),
+          h1(nameOf(freq), " tournaments"),
           div(cls := "arena-list")(
             table(cls := "slist slist-pad")(
               tbody(cls := "infinite-scroll")(
@@ -36,6 +38,8 @@ object history {
         )
       )
     }
+
+  private def nameOf(f: Freq) = if (f == Freq.Weekend) "Elite" else f.name
 
   private val allFreqs = List(
     Freq.Unique,

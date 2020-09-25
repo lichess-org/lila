@@ -9,7 +9,7 @@ export default rollupProject({
   keyboardMove: {
     name: 'KeyboardMove',
     input: 'src/plugins/keyboardMove.ts',
-    output: 'round.keyboard-move',
+    output: 'round.keyboardMove',
   },
   nvui: {
     name: 'NVUI',
