@@ -139,7 +139,7 @@
   <string name="signIn">Skrá inn</string>
   <string name="youNeedAnAccountToDoThat">Þú þarft aðgang til að geta þetta</string>
   <string name="signUp">Sækja um</string>
-  <string name="computersAreNotAllowedToPlay">Skákforrit eða skákmenn sem nota aðstoð skákforrita mega ekki tefla. Vinsamlegast ekki fá hjá frá tölvuforritum, gagnagrunnum eða öðrum spilurum meðan þú teflir</string>
+  <string name="computersAreNotAllowedToPlay">Skákforrit eða skákmenn sem nota aðstoð skákforrita mega ekki tefla. Vinsamlegast fáðu ekki hjálp frá skákforritum, gagnagrunnum eða öðrum spilurum meðan þú teflir. Mundu líka að við mælum sérstaklega á móti að búa til marga reikninga og sköpun of margra reikninga verður að banni.</string>
   <string name="games">Skákir</string>
   <string name="forum">Umræðukorkur</string>
   <string name="xPostedInForumY">%1$s póstað í spjalli %2$s</string>
