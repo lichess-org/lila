@@ -587,6 +587,8 @@
   <string name="cumulative">nitmau parbi</string>
   <string name="glicko2Rating">me la\'o ly. Glicko-2 ly. nilcre</string>
   <string name="checkYourEmail">ko catlu lo se samymri be fi do</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">mi\'a samymri zo\'e goi ko\'a do .i .e\'o ko kli\'iki lo ve .uebjugau poi nenri ko\'a ku\'o ja\'e loza\'i narca\'acando .i</string>
+  <string name="downloadRaw">kibycpa lo me la me pygyny.</string>
   <string name="withNobody">fi\'o te jarco no da</string>
   <string name="withFriends">fi\'o te jarco lo pendo</string>
   <string name="withEverybody">fi\'o te jarco ro da</string>
