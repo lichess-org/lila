@@ -2,6 +2,7 @@
 <resources>
   <string name="private">Preifat</string>
   <string name="myStudies">Fy astudiaethau</string>
+  <string name="allStudies">Pob astudiaethau</string>
   <string name="hot">Poeth</string>
   <string name="spectator">Ymwelwr</string>
   <string name="kick">Cicio</string>
