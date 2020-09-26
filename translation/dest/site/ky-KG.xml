@@ -112,6 +112,9 @@
   <string name="inaccuracies">Так эместик</string>
   <string name="moveTimes">Жүрүштөрдүн убактысы</string>
   <string name="flipBoard">Досканы оодаруу</string>
+  <string name="threefoldRepetition">Позициянын үч ирет кайталануусу</string>
+  <string name="claimADraw">Эч ким уткан жок дегенди сунуш кылуу</string>
+  <string name="offerDraw">Эч ким уткан жок дегенди сунуш кылуу</string>
   <string name="draw">Ничья</string>
   <string name="currentGames">Азыркы оюндар</string>
   <string name="logOut">Чыгыш</string>
