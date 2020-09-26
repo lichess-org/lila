@@ -1,5 +1,5 @@
-import { TournamentData } from './interfaces';
 import notify from 'common/notification';
+import { TournamentData } from './interfaces';
 
 let countDownTimeout: number | undefined;
 
@@ -28,18 +28,18 @@ function doCountDown(targetTime: number) {
 }
 
 export function end(data: TournamentData) {
-  if (!data.me) return;
-  if (!data.isRecentlyFinished) return;
-  if (!lichess.once('tournament.end.sound.' + data.id)) return;
+  if (
+    data.me &&
+    data.isRecentlyFinished &&
+    lichess.once('tournament.end.sound.' + data.id)
+  ) {
+    let key = 'Other';
+    if (data.me.rank < 4) key = '1st';
+    else if (data.me.rank < 11) key = '2nd';
+    else if (data.me.rank < 21) key = '3rd';
 
-  let key = 'Other';
-  if (data.me.rank < 4) key = '1st';
-  else if (data.me.rank < 11) key = '2nd';
-  else if (data.me.rank < 21) key = '3rd';
-
-  const soundName = 'tournament' + key;
-  lichess.sound.loadStandard(soundName);
-  lichess.sound.play(soundName);
+    lichess.sound.play('tournament' + key);
+  }
 }
 
 export function countDown(data: TournamentData) {
