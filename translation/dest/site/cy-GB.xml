@@ -516,6 +516,7 @@
   <string name="yourPerfTypeRatingIsRating">Dy raddfa %1$s di: %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Rwyt ti\'n well na %1$s o chwaraewyr %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Rwyt ti heb raddfa sefydledig %s.</string>
+  <string name="yourRating">Eich gradd</string>
   <string name="checkYourEmail">Gwiria dy e-bost</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Anfonwyd e-bost atoch. Cliciwch y dolen yn y neges e-bost i ysgogi eich cyfrif.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Os nad ydych yn gweld y neges, gwiriwch llefydd arall fel y sbwriel, spam ac ati.</string>
