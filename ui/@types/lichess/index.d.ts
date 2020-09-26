@@ -10,7 +10,6 @@ interface Lichess {
   widget: any;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
-  soundUrl: string;
   loadCss(path: string): void;
   loadCssPath(path: string): void;
   jsModule(name: string): string;
@@ -108,6 +107,7 @@ interface SoundI {
   say(text: any, cut?: boolean, force?: boolean): boolean;
   sayOrPlay(name: string, text: string): void;
   soundSet: string;
+  baseUrl: string;
 }
 
 interface LichessSpeech {

@@ -3,7 +3,7 @@ function lichessOrchestra() {
   const load = (instrument, index, filename) =>
     lichess.sound.loadOggOrMp3(
       `orchestra.${instrument}.${index}`,
-      `${lichess.soundUrl}/instrument/${instrument}/${filename}`
+      `${lichess.sound.baseUrl}/instrument/${instrument}/${filename}`
     );
 
   const volumes = {

@@ -1,5 +1,5 @@
 import pubsub from './pubsub';
-import { soundUrl } from './assets';
+import { assetUrl } from './assets';
 import { storage } from './storage';
 
 type Name = string;
@@ -11,6 +11,7 @@ const sound = new class {
   soundSet = $('body').data('sound-set');
   speechStorage = storage.makeBoolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
+  baseUrl = assetUrl('sound', { version: '000004' });
 
   constructor() {
     if (this.soundSet == 'music') setTimeout(this.publish, 500);
@@ -23,7 +24,7 @@ const sound = new class {
 
   loadStandard = (name: Name, soundSet?: string) => {
     const path = name[0].toUpperCase() + name.slice(1);
-    this.loadOggOrMp3(name, `${soundUrl}/${soundSet || this.soundSet}/${path}`);
+    this.loadOggOrMp3(name, `${this.baseUrl}/${soundSet || this.soundSet}/${path}`);
   }
 
   play(name: string, volume?: number) {

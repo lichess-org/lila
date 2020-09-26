@@ -7,8 +7,6 @@ export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
 
-export const soundUrl = assetUrl('sound', { version: '000003' });
-
 const loadedCss = new Map<string, true>();
 export const loadCss = (url: string) => {
   if (!loadedCss.has(url)) {
