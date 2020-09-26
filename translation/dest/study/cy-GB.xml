@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="private">Preifat</string>
   <string name="hot">Poeth</string>
   <string name="kick">Cicio</string>
   <string name="like">Hoffi</string>
+  <string name="newTag">Tag newydd</string>
+  <string name="playing">Yn chwarae</string>
   <string name="first">Cyntaf</string>
   <string name="next">Nesaf</string>
   <string name="last">Olaf</string>
@@ -11,7 +14,10 @@
   <string name="noPinnedComment">Dim</string>
   <string name="empty">Gwag</string>
   <string name="editor">Golygydd</string>
+  <string name="public">Cyhoeddus</string>
   <string name="nobody">Neb</string>
+  <string name="onlyMe">Dim ond fi</string>
+  <string name="members">Aelodau</string>
   <string name="start">Cychwyn</string>
   <string name="save">Cadw</string>
 </resources>
