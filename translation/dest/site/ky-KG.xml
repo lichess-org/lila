@@ -33,6 +33,10 @@
   <string name="joinTheGame">Оюрга кошулуу</string>
   <string name="whitePlays">Ак түстөгү оюнчу баштайт</string>
   <string name="blackPlays">Кара түстөгү оюнчу баштайт</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Каршылаш оюндан чыкты. Сиз %s секундтан кийин жеңишти талап кылсаңар болот.</item>
+    <item quantity="other">Каршылаш оюндан чыкты. Сиз %s секундтан кийин жеңишти талап кылсаңар болот.</item>
+  </plurals>
   <string name="opponentLeftChoices">Сиздин өнөктөшүңүз оюндан чыгып кетти, кутунуз же башка оюн тандаңыз</string>
   <string name="makeYourOpponentResign">Атаандашка утулуш эсептелинет</string>
   <string name="forceResignation">Утушту талап кылуу</string>
