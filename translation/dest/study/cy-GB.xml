@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hot">Poeth</string>
+  <string name="kick">Cicio</string>
+  <string name="like">Hoffi</string>
+  <string name="first">Cyntaf</string>
+  <string name="next">Nesaf</string>
+  <string name="last">Olaf</string>
+  <string name="cloneStudy">Clonio</string>
+  <string name="open">Agor</string>
+  <string name="noPinnedComment">Dim</string>
+  <string name="empty">Gwag</string>
+  <string name="nobody">Neb</string>
+  <string name="start">Cychwyn</string>
+  <string name="save">Cadw</string>
+</resources>
