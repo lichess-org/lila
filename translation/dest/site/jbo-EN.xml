@@ -598,6 +598,7 @@
   <string name="glicko2Rating">me la\'o ly. Glicko-2 ly. nilcre</string>
   <string name="checkYourEmail">ko catlu lo se samymri be fi do</string>
   <string name="weHaveSentYouAnEmailClickTheLink">mi\'a samymri zo\'e goi ko\'a do .i .e\'o ko kli\'iki lo ve .uebjugau poi nenri ko\'a ku\'o ja\'e loza\'i narca\'acando .i</string>
+  <string name="downloadAnnotated">kibycpa lo ckipinka</string>
   <string name="downloadRaw">kibycpa lo me la me pygyny.</string>
   <string name="downloadImported">kibycpa lo se nerbei</string>
   <string name="printFriendlyPDF">primi\'i mapti me la me pydyfy</string>
@@ -606,6 +607,7 @@
   <string name="withNobody">fi\'o te jarco no da</string>
   <string name="withFriends">fi\'o te jarco lo pendo</string>
   <string name="withEverybody">fi\'o te jarco ro da</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">mo\'u cmiveigau la\'o .ebu %s .ebu noi kibytermri</string>
   <string name="kidMode">lo tadji pe le\'e verba</string>
   <string name="kidModeExplanation">srana lonu tolckape .i ca lonu pilno lo tadji pe le\'e verba cu na zifre roloro nu samta\'a .i ka\'e bandu ga lo verba gi lo ve ckule .i</string>
   <string name="enableKidMode">pilno lo tadji pe le\'e verba</string>
