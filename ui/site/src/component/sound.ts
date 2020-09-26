@@ -44,8 +44,6 @@ const names = {
   error: 'Error'
 };
 
-const volumes = {
-};
 api.collection = memoize((k: string) => {
   let set = soundSet;
   if (set === 'music' || speechStorage.get()) {
@@ -53,7 +51,7 @@ api.collection = memoize((k: string) => {
     set = 'standard';
   }
   soundBox.loadOggOrMp3(k, `${soundUrl}/${set}/${names[k]}`);
-  return () => soundBox.play(k, volumes[k] || 1);
+  return () => soundBox.play(k);
 });
 const enabled = () => soundSet !== 'silent';
 api.load = (name, file) => {

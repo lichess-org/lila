@@ -1,6 +1,6 @@
 import { storage } from './storage';
 
-class SoundBox {
+const soundBox = new class {
 
   sounds = new Map(); // The loaded sounds and their instances
 
@@ -11,11 +11,8 @@ class SoundBox {
       src: ['ogg', 'mp3'].map(ext => `${path}.${ext}`)
     }));
 
-  play(name: string, volume: number = 1) {
-    const doPlay = () => {
-      this.sounds.get(name).volume(volume * this.getVolume());
-      this.sounds.get(name).play();
-    };
+  play(name: string) {
+    const doPlay = () => this.sounds.get(name).volume(this.getVolume()).play();
     if (window.Howler.ctx.state == "suspended") window.Howler.ctx.resume().then(doPlay);
     else doPlay();
   };
@@ -27,8 +24,7 @@ class SoundBox {
     const v = parseFloat(this.volume.get() || '');
     return v >= 0 ? v : 0.7;
   }
-}
 
-const soundBox = new SoundBox;
+};
 
 export default soundBox;
