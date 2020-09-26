@@ -43,10 +43,11 @@ final class SwissTrf(
       ranking: Ranking
   )(p: SwissPlayer, pairings: Map[SwissRound.Number, SwissPairing], sheet: SwissSheet): Bits =
     List(
-      3  -> "001",
-      8  -> ranking.getOrElse(p.userId, 0).toString,
-      47 -> p.userId,
-      84 -> f"${sheet.points.value}%1.1f"
+      3                    -> "001",
+      8                    -> ranking.getOrElse(p.userId, 0).toString,
+      (15 + p.userId.size) -> p.userId,
+      52                   -> p.rating.toString,
+      84                   -> f"${sheet.points.value}%1.1f"
     ) ::: {
       swiss.allRounds.zip(sheet.outcomes).flatMap { case (rn, outcome) =>
         val pairing = pairings get rn
