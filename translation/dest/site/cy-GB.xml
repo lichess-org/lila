@@ -639,4 +639,10 @@
   <string name="playX">Chwarae %s</string>
   <string name="sorry">Sori :(</string>
   <string name="why">Pam?</string>
+  <string name="edit">Addasu</string>
+  <string name="rapid">Chwim</string>
+  <string name="classical">Clasurol</string>
+  <string name="important">Pwysig</string>
+  <string name="subscribe">Tanysgrifio</string>
+  <string name="unsubscribe">Dad-danysgrifio</string>
 </resources>
