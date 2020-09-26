@@ -57,6 +57,7 @@
   <string name="videos">lo skina</string>
   <string name="playPeople">jivna lo prenu</string>
   <string name="playMachine">jivna lo minji</string>
+  <string name="letsGo">cfagau .ue\'i</string>
   <string name="awesome">xautce</string>
   <string name="excellent">xautce</string>
   <string name="greatJob">xautce</string>
@@ -69,6 +70,7 @@
   <string name="rightOn">.ui satci</string>
   <string name="yourScore">lo veljvilai be do</string>
   <string name="next">ranji</string>
+  <string name="backToMenu">xrukla</string>
   <string name="puzzleFailed">lo se namkei cu jai se fliba</string>
   <string name="retry">za\'u re\'u troci</string>
 </resources>
