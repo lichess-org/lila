@@ -111,6 +111,7 @@
   <string name="inaccuracy">Так эместик</string>
   <string name="inaccuracies">Так эместик</string>
   <string name="moveTimes">Жүрүштөрдүн убактысы</string>
+  <string name="flipBoard">Досканы оодаруу</string>
   <string name="draw">Ничья</string>
   <string name="currentGames">Азыркы оюндар</string>
   <string name="logOut">Чыгыш</string>
