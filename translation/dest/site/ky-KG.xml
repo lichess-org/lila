@@ -117,6 +117,7 @@
   <string name="offerDraw">Эч ким уткан жок дегенди сунуш кылуу</string>
   <string name="draw">Ничья</string>
   <string name="currentGames">Азыркы оюндар</string>
+  <string name="viewInFullSize">Кененирек көрүү</string>
   <string name="logOut">Чыгыш</string>
   <string name="signIn">Кирүү</string>
   <string name="signUp">Регистрация</string>
