@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Rhoddi</string>
+  <string name="otherAmount">Arall</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="update">Diweddaru</string>
+  <string name="date">Dyddiad</string>
+</resources>
