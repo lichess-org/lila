@@ -56,12 +56,12 @@ lichess.keyboardMove = function(opts: any) {
         clear();
       }
     } else if (submitOpts.yourMove && v.length > 1) {
-      setTimeout(lichess.sound.error, 500);
+      setTimeout(() => lichess.sound.play('error'), 500);
       opts.input.value = '';
     }
     else {
       const wrong = v.length && legalSans && !sanCandidates(v, legalSans).length;
-      if (wrong && !opts.input.classList.contains('wrong')) lichess.sound.error();
+      if (wrong && !opts.input.classList.contains('wrong')) lichess.sound.play('error');
       opts.input.classList.toggle('wrong', wrong);
     }
   };

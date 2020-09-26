@@ -36,8 +36,7 @@ interface Lichess {
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
 
   socket: any;
-  sound: any;
-  soundBox: SoundBoxI;
+  sound: SoundI;
   miniBoard: {
     init(node: HTMLElement): void;
     initAll(parent?: HTMLElement): void;
@@ -98,11 +97,17 @@ interface UserCompleteOpts {
   swiss?: string;
 }
 
-interface SoundBoxI {
+interface SoundI {
   loadOggOrMp3(name: string, path: string): void;
-  play(name: string): void;
+  loadStandard(name: string, soundSet?: string): void;
+  play(name: string, volume?: number): void;
   getVolume(): number;
   setVolume(v: number): void;
+  speech(v?: boolean): boolean;
+  changeSet(s: string): void;
+  say(text: any, cut?: boolean, force?: boolean): boolean;
+  sayOrPlay(name: string, text: string): void;
+  soundSet: string;
 }
 
 interface LichessSpeech {

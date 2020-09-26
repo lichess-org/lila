@@ -482,7 +482,7 @@ export default class RoundController {
     }
     if (!d.player.spectator && d.game.turns > 1) {
       const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
-      lichess.sound[key]();
+      lichess.sound.play(key);
       if (key != 'victory' && d.game.turns > 6 && !d.tournament && !d.swiss && lichess.storage.get('courtesy') == '1')
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
@@ -575,13 +575,13 @@ export default class RoundController {
 
   goBerserk = () => {
     this.socket.berserk();
-    lichess.sound.berserk();
+    lichess.sound.play('berserk');
   };
 
   setBerserk = (color: Color): void => {
     if (this.goneBerserk[color]) return;
     this.goneBerserk[color] = true;
-    if (color !== this.data.player.color) lichess.sound.berserk();
+    if (color !== this.data.player.color) lichess.sound.play('berserk');
     this.redraw();
   };
 
@@ -615,7 +615,7 @@ export default class RoundController {
     if (v && toSubmit) {
       if (this.moveToSubmit) this.actualSendMove('move', this.moveToSubmit);
       else this.actualSendMove('drop', this.dropToSubmit);
-      lichess.sound.confirmation();
+      lichess.sound.play('confirmation');
     } else this.jump(this.ply);
     this.cancelMove();
     if (toSubmit) this.setLoading(true, 300);
@@ -687,7 +687,7 @@ export default class RoundController {
   private delayedInit = () => {
     const d = this.data;
     if (this.isPlaying() && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
-      lichess.sound.genericNotify();
+      lichess.sound.play('genericNotify');
     }
     lichess.requestIdleCallback(() => {
       const d = this.data;

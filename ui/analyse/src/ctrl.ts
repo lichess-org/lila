@@ -178,7 +178,7 @@ export default class AnalyseCtrl {
       this.redraw()
     });
 
-    lichess.sound && speech.setup();
+    speech.setup();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -308,15 +308,13 @@ export default class AnalyseCtrl {
     return config;
   }
 
-  private sound = lichess.sound ? {
-    move: throttle(50, lichess.sound.move),
-    capture: throttle(50, lichess.sound.capture),
-    check: throttle(50, lichess.sound.check)
-  } : {
-      move() {},
-      capture() {},
-      check() {}
-    };
+  private throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
+
+  private sound = {
+    move: this.throttleSound('move'),
+    capture: this.throttleSound('capture'),
+    check: this.throttleSound('check')
+  };
 
   private onChange: () => void = throttle(300, () => {
     lichess.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);

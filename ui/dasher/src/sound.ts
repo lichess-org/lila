@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Redraw, Close, bind, header } from './util'
-import debounce from 'common/debounce';
+import throttle from 'common/throttle';
 import * as xhr from 'common/xhr';
 
 type Key = string;
@@ -15,8 +15,7 @@ export interface SoundData {
 
 export interface SoundCtrl {
   makeList(): Sound[];
-  api: any;
-  box: SoundBoxI;
+  api: SoundI;
   set(k: Key): void;
   volume(v: number): void;
   redraw: Redraw;
@@ -29,7 +28,6 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
   const list: Sound[] = raw.map(s => s.split(' '));
 
   const api = lichess.sound;
-  const box = lichess.soundBox;
 
   const postSet = (set: string) =>
     xhr.text(
@@ -45,7 +43,6 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
       return list.filter(s => s[0] != 'speech' || canSpeech);
     },
     api,
-    box,
     set(k: Key) {
       api.speech(k == 'speech');
       lichess.pubsub.emit('speech.enabled', api.speech());
@@ -56,15 +53,15 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
       }
       else {
         api.changeSet(k);
-        api.genericNotify();
+        api.play('genericNotify');
         postSet(k);
       }
       redraw();
     },
     volume(v: number) {
-      box.setVolume(v);
+      api.setVolume(v);
       // plays a move sound if speech is off
-      api.move('knight F 7');
+      api.sayOrPlay('move', 'knight F 7');
     },
     redraw,
     trans,
@@ -74,9 +71,9 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
 
 export function view(ctrl: SoundCtrl): VNode {
 
-  const current = ctrl.api.speech() ? 'speech' : ctrl.api.set();
+  const current = ctrl.api.speech() ? 'speech' : ctrl.api.soundSet;
 
-  return h('div.sub.sound.' + ctrl.api.set(), {
+  return h('div.sub.sound.' + current, {
     hook: {
       insert() {
         if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = ctrl.redraw;
@@ -91,13 +88,13 @@ export function view(ctrl: SoundCtrl): VNode {
           min: 0,
           max: 1,
           step: 0.01,
-          value: ctrl.box.getVolume(),
+          value: ctrl.api.getVolume(),
           orient: 'vertical'
         },
         hook: {
           insert(vnode) {
             const input = vnode.elm as HTMLInputElement,
-            setVolume = debounce(ctrl.volume, 50);
+            setVolume = throttle(150, ctrl.volume);
             $(input).on('input', () => setVolume(parseFloat(input.value)));
           }
         }

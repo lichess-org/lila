@@ -23,7 +23,7 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
       if (lichess.once('c-' + c.id)) {
         if (!lichess.quietMode && data.in.length <= 3) {
           opts.show();
-          lichess.sound.newChallenge();
+          lichess.sound.play('newChallenge');
         }
         const pushSubsribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
         !pushSubsribed && c.challenger && notify(showUser(c.challenger) + ' challenges you!');

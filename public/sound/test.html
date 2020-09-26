@@ -37,43 +37,24 @@
     </tbody>
   </table>
   <script>
-    function playSound(set, key) {
+    function playSound(set, name) {
       lichess.sound.changeSet(set);
-      lichess.sound[key]();
+      lichess.sound.play(name);
     }
     var soundSets = ["standard", "piano", "nes", "sfx", "futuristic", "robot"];
-    var soundNames = {
-      genericNotify: 'GenericNotify',
-      move: 'Move',
-      capture: 'Capture',
-      explode: 'Explosion',
-      lowtime: 'LowTime',
-      victory: 'Victory',
-      defeat: 'Defeat',
-      draw: 'Draw',
-      tournament1st: 'Tournament1st',
-      tournament2nd: 'Tournament2nd',
-      tournament3rd: 'Tournament3rd',
-      tournamentOther: 'TournamentOther',
-      berserk: 'Berserk',
-      check: 'Check',
-      newChallenge: 'NewChallenge',
-      newPM: 'NewPM',
-      confirmation: 'Confirmation',
-      error: 'Error'
-    };
+/*
     for (var i = 0; i <= 10; i++) soundNames['countDown' + i] = 'CountDown' + i;
     $.each(soundSets, function(i, soundSet) {
       $('#sets').append($('<th>').text(soundSet));
     });
-    for (const [soundKey, soundName] of Object.entries(soundNames)) {
-      console.log(i, soundKey, soundName);
+    */
+    for (const name of lichess.sound.basics) {
       var tr = $('<tr>').appendTo($('#sounds'));
       $.each(soundSets, function(i, soundSet) {
         var id = "soundSet_" + soundSet;
         $('<td>').append($("<button>").on('click', function() {
-          playSound(soundSet, soundKey);
-        }).text(soundName)).appendTo(tr);
+          playSound(soundSet, name);
+        }).text(name)).appendTo(tr);
       });
     }
     /*

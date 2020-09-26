@@ -3,13 +3,6 @@ import notify from 'common/notification';
 
 let countDownTimeout: number | undefined;
 
-export function init() {
-  lichess.sound.load('tournament1st', 'Tournament1st');
-  lichess.sound.load('tournament2nd', 'Tournament2nd');
-  lichess.sound.load('tournament3rd', 'Tournament3rd');
-  lichess.sound.load('tournamentOther', 'TournamentOther');
-}
-
 function doCountDown(targetTime: number) {
 
   let started = false;
@@ -19,7 +12,7 @@ function doCountDown(targetTime: number) {
 
     // always play the 0 sound before completing.
     let bestTick = Math.max(0, Math.round(secondsToStart));
-    if (bestTick <= 10) lichess.sound['countDown' + bestTick]();
+    if (bestTick <= 10) lichess.sound.play('countDown' + bestTick);
 
     if (bestTick > 0) {
       let nextTick = Math.min(10, bestTick - 1);
@@ -44,8 +37,9 @@ export function end(data: TournamentData) {
   else if (data.me.rank < 11) key = '2nd';
   else if (data.me.rank < 21) key = '3rd';
 
-  lichess.sound.load('tournament' + key, 'Tournament' + key);
-  lichess.sound['tournament' + key]();
+  const soundName = 'tournament' + key;
+  lichess.sound.loadStandard(soundName);
+  lichess.sound.play(soundName);
 }
 
 export function countDown(data: TournamentData) {
@@ -63,7 +57,7 @@ export function countDown(data: TournamentData) {
 
   // Preload countdown sounds.
   for (let i = 10; i >= 0; i--) {
-    lichess.sound.load('countDown' + i, 'CountDown' + i);
-    lichess.sound.collection('countDown' + i); // preload
+    const s = 'countDown' + i;
+    lichess.sound.loadStandard(s);
   }
 }

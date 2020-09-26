@@ -14,7 +14,6 @@ import { unload, redirect, reload } from "./component/reload";
 import announce from "./component/announce";
 import trans from "./component/trans";
 import sound from "./component/sound";
-import soundBox from "./component/soundbox";
 import * as miniBoard from "./component/mini-board";
 import * as miniGame from "./component/mini-game";
 import timeago from "./component/timeago";
@@ -51,7 +50,6 @@ export default function() {
   l.announce = announce;
   l.trans = trans;
   l.sound = sound;
-  l.soundBox = soundBox;
   l.miniBoard = miniBoard;
   l.miniGame = miniGame;
   l.timeago = timeago;

@@ -10,7 +10,6 @@ import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import * as xhr from './xhr';
 import * as speech from './speech';
-import { sound } from './sound';
 import { Role, Move, Outcome } from 'chessops/types';
 import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
 import { parseFen, makeFen } from 'chessops/fen';
@@ -31,6 +30,13 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
   vm.showAutoShapes = () => true;
+
+  const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
+  const sound = {
+    move: throttleSound('move'),
+    capture: throttleSound('capture'),
+    check: throttleSound('check')
+  };
 
   function setPath(path: Tree.Path): void {
     vm.path = path;
