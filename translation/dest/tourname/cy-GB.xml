@@ -5,4 +5,10 @@
   <string name="hourlyXArena">Arena %s Bob Awr</string>
   <string name="hourlyX">%s Bob Awr</string>
   <string name="dailyRapidArena">Arena Chwim Ddyddiol</string>
+  <string name="dailyRapid">Chwim Dyddiol</string>
+  <string name="dailyClassicalArena">Arena Glasurol Ddyddiol</string>
+  <string name="dailyClassical">Clasurol Dyddiol</string>
+  <string name="dailyXArena">Arena %s Ddyddiol</string>
+  <string name="dailyX">%s Ddyddiol</string>
+  <string name="xArena">Arena %s</string>
 </resources>
