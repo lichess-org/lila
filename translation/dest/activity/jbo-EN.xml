@@ -2,6 +2,9 @@
 <resources>
   <string name="activity">lo ra\'arfau</string>
   <string name="hostedALiveStream">strimgau</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="other">sarji la .litces. ze\'a nu\'i la\'u lo masti be li %1$s ta\'i lo nu me %2$s</item>
+  </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="other">crezenzu\'e se pi\'o %1$s lo nabmi be se ra\'a %2$s</item>
   </plurals>
@@ -10,6 +13,9 @@
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="other">jivna fo %1$s da ci\'e la\'o zoi. %2$s .zoi</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="other">lo nu selsku fi la\'o gy. %2$s .gy poi snustu cu zilkancu li %1$s</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="other">co\'a catlu %s da</item>
