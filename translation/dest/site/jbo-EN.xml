@@ -56,6 +56,7 @@
   <string name="depthX">se cisni li %s</string>
   <string name="usingServerAnalysis">samtcise\'u lanli</string>
   <string name="loadingEngine">ca\'o samymo\'i</string>
+  <string name="cloudAnalysis">samtcise\'u girzu lanli</string>
   <string name="goDeeper">zenba lo ka condi</string>
   <string name="showThreat">jarco lo gunta kelka\'u</string>
   <string name="inLocalBrowser">kibyca\'o lanli</string>
@@ -283,6 +284,10 @@
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">su\'o %s nunjvi je ke nilcre cnegau</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">su\'o %1$s %2$s nunjvi je ke nilcre cnegau</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">lo nilcre be do bei sera\'a %s cu zasni</string>
   <string name="mustBeInTeam">.i sarcu fa lo nu cmima la\'o zoi. %s .zoi noi bende</string>
   <string name="youAreNotInTeam">.i do na cmima la\'o zoi. %s .zoi noi bende</string>
   <string name="backToGame">xruti tu\'a lo nunjvi</string>
