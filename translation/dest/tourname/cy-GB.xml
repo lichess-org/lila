@@ -10,5 +10,8 @@
   <string name="dailyClassical">Clasurol Dyddiol</string>
   <string name="dailyXArena">Arena %s Ddyddiol</string>
   <string name="dailyX">%s Ddyddiol</string>
+  <string name="weeklyX">%s Wythnosol</string>
+  <string name="yearlyX">%s Blynyddol</string>
+  <string name="xShield">Tarian %s</string>
   <string name="xArena">Arena %s</string>
 </resources>
