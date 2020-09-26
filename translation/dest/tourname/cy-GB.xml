@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Arena Chwim Bob Awr</string>
+  <string name="hourlyRapid">Chwim Bob Awr</string>
+  <string name="hourlyXArena">Arena %s Bob Awr</string>
+  <string name="hourlyX">%s Bob Awr</string>
+  <string name="dailyRapidArena">Arena Chwim Ddyddiol</string>
+</resources>
