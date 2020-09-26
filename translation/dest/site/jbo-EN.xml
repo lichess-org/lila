@@ -610,6 +610,7 @@
   <string name="youHaveAlreadyRegisteredTheEmail">mo\'u cmiveigau la\'o .ebu %s .ebu noi kibytermri</string>
   <string name="kidMode">lo tadji pe le\'e verba</string>
   <string name="kidModeExplanation">srana lonu tolckape .i ca lonu pilno lo tadji pe le\'e verba cu na zifre roloro nu samta\'a .i ka\'e bandu ga lo verba gi lo ve ckule .i</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">ca lonu pilno lo tadji pe le\'e verba kukuku lo sinxa be la litces. cu se barna zoi ky. %s .ky. ja\'e lonu do krilacri ly. lonu le verba cu snura .i</string>
   <string name="enableKidMode">pilno lo tadji pe le\'e verba</string>
   <string name="disableKidMode">sisti loza\'i pilno lo tadji pe le\'e verba</string>
   <string name="security">kamnu\'a</string>
