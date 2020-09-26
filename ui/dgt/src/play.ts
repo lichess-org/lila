@@ -1,7 +1,7 @@
 import { Chess } from 'chessops/chess';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
-import { Move, NormalMove } from 'chessops/types';
+import { NormalMove } from 'chessops/types';
 import { board } from 'chessops/debug';
 import { defaultSetup, makeUci, parseUci } from 'chessops';
 
@@ -259,6 +259,7 @@ export default function (token: string) {
   gameFull Full game data. All values are immutable, except for the state field.
   gameState Current state of the game. Immutable values not included. Sent when a move is played, a draw is offered, or when the game ends.
   chatLine Chat message sent by a user in the room "player" or "spectator".
+  gameFinish new message to signal that game ended 
   The first line is always of type gameFull.
    
   Examples:
@@ -281,6 +282,8 @@ export default function (token: string) {
   {"type":"gameState","moves":"e2e4 e7e5 f1c4 d7d6 d1f3 b8c6 f3f7","wtime":900480,"btime":907720,"winc":10000,"binc":10000,"wdraw":false,"bdraw":false,"status":"mate"}
   Promotion
   {"type":"gameState","moves":"e2e4 b8c6 g1f3 c6d4 f1c4 e7e5 d2d3 d7d5 f3d4 f7f6 c4d5 f6f5 f2f3 g7g6 e1g1 c7c6 d5b3 d8d5 e4d5 a8b8 d4e6 f8b4 e6c7 e8e7 d5d6 e7f6 d6d7 b4f8 d7d8q","wtime":2147483647,"btime":2147483647,"winc":0,"binc":0,"wdraw":false,"bdraw":false,"status":"started"}
+  gameFinish
+  {"type":"gameFinish","game":{"id":"MhG878ij"}}
   @param {string} gameId - The alphanumeric identifier of the game to be tracked
    */
 
@@ -333,6 +336,11 @@ export default function (token: string) {
             else if (data.type == "chatLine") {
               //Received chat line
               //TODO
+            }
+            else if (data.type == "gameFinish") {
+              //Game Finished, disconnect gracefully
+              //TODO Handle this new event type
+
             }
             else if (response.status >= 400) {
               console.log('connectToGameStream - ' + data.error);
@@ -449,9 +457,10 @@ export default function (token: string) {
       for (let i = 0; i < moves.length; i++) {
         if (moves[i] != '') {
           //Make any move that may have been already played on the ChessBoard. Useful when reconnecting
-          var uciMove = parseUci(moves[i]);
-          if (uciMove && chess.isLegal(uciMove))
-            chess.play(uciMove);
+          var uciMove = <NormalMove>parseUci(moves[i]);
+          var normalizedMove = chess.normalizeMove(uciMove); //This is because chessops uses UCI_960
+          if (normalizedMove && chess.isLegal(normalizedMove))
+            chess.play(normalizedMove);
         }
       }
       //Store the ChessBoard on the ChessBoardMap
@@ -489,14 +498,15 @@ export default function (token: string) {
         for (let i = 0; i < moves.length; i++) {
           if (moves[i] != '') {
             //Make the new move
-            var uciMove = parseUci(moves[i]);
-            if (uciMove && chess.isLegal(uciMove)) {
+            var uciMove = <NormalMove>parseUci(moves[i]);
+            var normalizedMove = chess.normalizeMove(uciMove); //This is because chessops uses UCI_960
+            if (normalizedMove && chess.isLegal(normalizedMove)) {
               //This is a good chance to get the move in SAN format
               if (chess.turn == 'black')
-                lastSanMove = { player: 'black', move: makeSan(chess, uciMove), by: gameInfoMap.get(currentGameId).black.id };
+                lastSanMove = { player: 'black', move: makeSan(chess, normalizedMove), by: gameInfoMap.get(currentGameId).black.id };
               else
-                lastSanMove = { player: 'white', move: makeSan(chess, uciMove), by: gameInfoMap.get(currentGameId).white.id };
-              chess.play(uciMove);
+                lastSanMove = { player: 'white', move: makeSan(chess, normalizedMove), by: gameInfoMap.get(currentGameId).white.id };
+              chess.play(normalizedMove);
             }
           }
         }
@@ -515,8 +525,8 @@ export default function (token: string) {
   * Utility function to update which color is being played with the board
   */
   function attachCurrentGameIdToDGTBoard() {
-    //Every times a new game is connected clear the console
-    consoleOutput.innerHTML = "";
+    //Every times a new game is connected clear the console except on verbose
+    if (!verbose) consoleOutput.innerHTML = "";
     //
     if (me.id == gameInfoMap.get(currentGameId).white.id)
       currentGameColor = 'white';
@@ -664,7 +674,7 @@ export default function (token: string) {
     }
     else {
       console.log('<span class="dgt-black-move">' + moveText + ' by Black' + '</span>');
-    }    
+    }
     //TODO
     //Give feedback on running out of time
   }
@@ -714,6 +724,7 @@ export default function (token: string) {
       currentSerialnr = '0';
       //Set connection state to false
       isLiveChessConnected = false;
+      DGTgameId = '';
     };
 
     liveChessConnection.onmessage = async e => {
@@ -759,8 +770,8 @@ export default function (token: string) {
           //A move was received
           SANMove = String(message.param.san[message.param.san.length - 1]).trim();
           if (verbose) console.info('onmessage - SANMove = ' + SANMove);
-          var moveObject: Move | undefined; //a move in chessops format
-          moveObject = parseSan(localBoard, SANMove); //get move from DGT LiveChess
+          var moveObject: NormalMove | undefined; //a move in chessops format
+          moveObject = <NormalMove>parseSan(localBoard, SANMove); //get move from DGT LiveChess
           //if valid move on local chessops
           if ((moveObject) && localBoard.isLegal(moveObject)) {
             if (verbose) console.info('onmessage - Move is legal');
@@ -768,13 +779,13 @@ export default function (token: string) {
             if (localBoard.turn == currentGameColor) {
               //This is a valid new move send it to lichess
               if (verbose) console.info('onmessage - Valid Move played: ' + SANMove)
-              await validateAndSendBoardMove(<NormalMove>moveObject);
+              await validateAndSendBoardMove(moveObject);
               //Update the lastSanMove
-              lastSanMove = { player: localBoard.turn , move: SANMove, by: me.id }              
+              lastSanMove = { player: localBoard.turn, move: SANMove, by: me.id }
               //Play the move on local board to keep it in sync
               localBoard.play(moveObject);
             }
-            else if (lastMove.move == makeUci(moveObject)) {
+            else if (compareMoves(lastMove.move, moveObject)) {
               //This is a valid adjustment - Just making the move from Lichess
               if (verbose) console.info('onmessage - Valid Adjustment: ' + SANMove);
               //no need to send anything to Lichess moveObject required
@@ -784,7 +795,7 @@ export default function (token: string) {
             else {
               //Invalid Adjustment. Move was legal but does not match last move received from Lichess
               console.error('onmessage - Invalid Adjustment was made');
-              if (lastMove.move == makeUci(moveObject!)) {
+              if (compareMoves(lastMove.move, moveObject)) {
                 console.error('onmessage - Played move has not been received by Lichess.');
               } else {
                 console.error('onmessage - Expected:' + lastMove.move + ' by ' + lastMove.player);
@@ -797,11 +808,15 @@ export default function (token: string) {
             }
           }
           else {
-            //Move was valid on DGT Board but not ilegal on localBoard
+            //Move was valid on DGT Board but not legal on localBoard
             if (verbose) console.info('onmessage - Move is NOT legal');
-            if (lastMove.move == makeUci(moveObject!)) {
+            if (compareMoves(lastMove.move, moveObject!)) {
               //This is fine, the same last move was received again and seems ilegal
               if (verbose) console.warn('onmessage - Move received is the same as the last moved played: ' + SANMove)
+            }
+            else if (SANMove.startsWith('O-')){
+              //This is may be fine, sometimes castling triggers twice and second time is invalid
+              if (verbose) console.warn('onmessage - Caslting may be duplicated as the last moved played: ' + SANMove)
             }
             else {
               //Receiving a legal move on DGT Board but invalid move on localBoard signals a de-sycnhronization
@@ -864,15 +879,17 @@ export default function (token: string) {
       }
     }
     if (verbose) console.log("setUp -: " + JSON.stringify(setupMessage))
-    if (isLiveChessConnected) {
+    if (isLiveChessConnected && currentSerialnr != '0') {
       liveChessConnection.send(JSON.stringify(setupMessage))
       //Store the gameId so we now we already synchronized
       DGTgameId = currentGameId;
       //Initialize localBoard too so it matched what was sent to LiveChess
       localBoard = chess.clone();
+      if (verbose) console.log("setUp -: Sent.")
     }
     else {
-      console.error("WebSocket is not open - cannot send setup command.");
+      console.error("WebSocket is not open or is not ready to receive setup - cannot send setup command.");
+      console.error(`isLiveChessConnected: ${isLiveChessConnected} - DGTgameId: ${DGTgameId} - currentSerialnr: ${currentSerialnr} - currentGameId: ${currentGameId}`);
     }
   }
 
@@ -979,25 +996,65 @@ export default function (token: string) {
     speechSynthesis.speak(utterThis);
   }
 
+
+  function startingPosition(): Chess {
+    return Chess.fromSetup(defaultSetup()).unwrap();
+  }
+
+  /**
+   * Compare moves in different formats.
+   * Fixes issue in which chessops return UCI_960 for castling instead of plain UCI
+   * @param lastMove - the move a string received from lichess
+   * @param moveObject - the move in chessops format after applyng the SAN to localBoard
+   * @returns {Boolean} - True if the moves are the same
+   */
+  function compareMoves(lastMove: string, moveObject: NormalMove): boolean {
+    try {
+      var uciMove = makeUci(moveObject);
+      if (lastMove == uciMove) {
+        //its the same move
+        return true;
+      }
+      var castlingSide = localBoard.castlingSide(moveObject);
+      if (lastMove.length > 2 && castlingSide) {
+        //It was a castling so it still may be the same move
+        if (lastMove.startsWith(uciMove.substring(0, 2))) {
+          //it was the same starting position for the king
+          if (lastMove.startsWith('e1g1') || lastMove.startsWith('e1b1') || lastMove.startsWith('e8b8') || lastMove.startsWith('e8g8')) {
+            //and the last move looks like a castling too
+            return true
+          }
+
+        }
+      }
+    }
+    catch (err) {
+      console.warn("compareMoves - " + Error(err).message);
+    }
+    return false;
+  }
+
+
+
   function start() {
-      console.log("");
-      console.log("      ,....,                      ▄████▄   ██░ ██ ▓█████   ██████   ██████     ");
-      console.log("     ,::::::<                    ▒██▀ ▀█  ▓██░ ██▒▓█   ▀ ▒██    ▒ ▒██    ▒     ");
-      console.log("    ,::/^\\\"``.                   ▒▓█    ▄ ▒██▀▀██░▒███   ░ ▓██▄   ░ ▓██▄       ");
-      console.log("   ,::/, `   e`.                 ▒▓▓▄ ▄██▒░▓█ ░██ ▒▓█  ▄   ▒   ██▒  ▒   ██▒    ");
-      console.log("  ,::; |        '.               ▒ ▓███▀ ░░▓█▒░██▓░▒████▒▒██████▒▒▒██████▒▒    ");
-      console.log("  ,::|  \___,-.  c)               ░ ░▒ ▒  ░ ▒ ░░▒░▒░░ ▒░ ░▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░    ");
-      console.log("  ;::|     \\   '-'               ░  ▒    ▒ ░▒░ ░ ░ ░  ░░ ░▒  ░ ░░ ░▒  ░ ░      ");
-      console.log("  ;::|      \\                    ░         ░  ░░ ░   ░   ░  ░  ░  ░  ░  ░      ");
-      console.log("  ;::|   _.=`\\                   ░ ░       ░  ░  ░   ░  ░      ░        ░      ");
-      console.log("  `;:|.=` _.=`\\                  ░                                             ");
-      console.log("    '|_.=`   __\\                                                               ");
-      console.log("    `\\_..==`` /                 Lichess.org - DGT Electronic Board Connector   ");
-      console.log("     .'.___.-'.                Developed by Andres Cavallin and Juan Cavallin  ");
-      console.log("    /          \\                                                               ");
-      console.log("jgs('--......--')                                                             ");
-      console.log("   /'--......--'\\                                                              ");
-      console.log("   `\"--......--\"`                                                             ");
+    console.log("");
+    console.log("      ,....,                      ▄████▄   ██░ ██ ▓█████   ██████   ██████     ");
+    console.log("     ,::::::<                    ▒██▀ ▀█  ▓██░ ██▒▓█   ▀ ▒██    ▒ ▒██    ▒     ");
+    console.log("    ,::/^\\\"``.                   ▒▓█    ▄ ▒██▀▀██░▒███   ░ ▓██▄   ░ ▓██▄       ");
+    console.log("   ,::/, `   e`.                 ▒▓▓▄ ▄██▒░▓█ ░██ ▒▓█  ▄   ▒   ██▒  ▒   ██▒    ");
+    console.log("  ,::; |        '.               ▒ ▓███▀ ░░▓█▒░██▓░▒████▒▒██████▒▒▒██████▒▒    ");
+    console.log("  ,::|  \___,-.  c)               ░ ░▒ ▒  ░ ▒ ░░▒░▒░░ ▒░ ░▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░    ");
+    console.log("  ;::|     \\   '-'               ░  ▒    ▒ ░▒░ ░ ░ ░  ░░ ░▒  ░ ░░ ░▒  ░ ░      ");
+    console.log("  ;::|      \\                    ░         ░  ░░ ░   ░   ░  ░  ░  ░  ░  ░      ");
+    console.log("  ;::|   _.=`\\                   ░ ░       ░  ░  ░   ░  ░      ░        ░      ");
+    console.log("  `;:|.=` _.=`\\                  ░                                             ");
+    console.log("    '|_.=`   __\\                                                               ");
+    console.log("    `\\_..==`` /                 Lichess.org - DGT Electronic Board Connector   ");
+    console.log("     .'.___.-'.                Developed by Andres Cavallin and Juan Cavallin  ");
+    console.log("    /          \\                                  v1.0.0                       ");
+    console.log("jgs('--......--')                                                             ");
+    console.log("   /'--......--'\\                                                              ");
+    console.log("   `\"--......--\"`                                                             ");
   }
 
   /**
@@ -1009,11 +1066,5 @@ export default function (token: string) {
   lichessConnectionLoop();
   DGTliveChessConnectionLoop();
 
-
-  function startingPosition(): Chess {
-    return Chess.fromSetup(defaultSetup()).unwrap();
-    //const setup = parseFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1").unwrap();
-    //return Chess.fromSetup(setup).unwrap();
-  }
 
 }
