@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Preifat</string>
+  <string name="myStudies">Fy astudiaethau</string>
   <string name="hot">Poeth</string>
   <string name="spectator">Ymwelwr</string>
   <string name="kick">Cicio</string>
@@ -25,4 +26,5 @@
   <string name="members">Aelodau</string>
   <string name="start">Cychwyn</string>
   <string name="save">Cadw</string>
+  <string name="clearChat">Clirio\'r sgwrs</string>
 </resources>
