@@ -45,9 +45,6 @@ const names = {
 };
 
 const volumes = {
-  lowtime: 0.5,
-  explode: 0.35,
-  confirmation: 0.5
 };
 api.collection = memoize((k: string) => {
   let set = soundSet;
