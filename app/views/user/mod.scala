@@ -613,7 +613,7 @@ object mod {
               .map { ua =>
                 import ua.value.client._
                 tr(
-                  td(if (device.family == "Other") "Computer" else device.family),
+                  td(title := ua.value.ua)(if (device.family == "Other") "Computer" else device.family),
                   td(parts(os.family.some, os.major)),
                   td(parts(userAgent.family.some, userAgent.major)),
                   td(dataSort := ua.date.getMillis)(momentFromNowServer(ua.date)),
