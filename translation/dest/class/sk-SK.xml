@@ -86,6 +86,7 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="noStudents">Zatiaľ nie sú v triede žiadni žiaci.</string>
   <string name="noRemovedStudents">Žiadni odstránení študenti.</string>
   <string name="timePlaying">Odohraný čas</string>
+  <string name="variantXOverLastY">%1$s za posledných %2$s</string>
   <string name="winrate">Pomer výhier</string>
   <string name="na">Nedostupné</string>
   <string name="news">Novinky triedy</string>
@@ -93,4 +94,7 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="notifyAllStudents">Poslať notifikáciu všetkým študentom</string>
   <string name="nothingHere">Nič tu nie je, zatiaľ.</string>
   <string name="newsEdit1">Všetky novinky triedy v jednom poli.</string>
+  <string name="newsEdit3">Oddelujte novinky s ---
+To zobrazí horizontálnu čiaru.</string>
+  <string name="markdownAvailable">%s je dostupný pre viac pokročilý syntax.</string>
 </resources>
