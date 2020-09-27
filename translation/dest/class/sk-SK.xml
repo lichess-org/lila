@@ -69,6 +69,18 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="releaseTheAccount">Uvoľniť účet aby si ho študent mohol spravovať sám.</string>
   <string name="releaseDesc1">Uvoľnený účet nie je možné previesť späť na spravovaný. Študentovi bude umožnené zapnúť detský mód a vynulovať si heslo sám.</string>
   <string name="teachers">Učitelia</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Učiteľ</item>
+    <item quantity="few">%s učitelia</item>
+    <item quantity="many">%s učitelia</item>
+    <item quantity="other">%s učitelia</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Študent</item>
+    <item quantity="few">%s študentov</item>
+    <item quantity="many">%s študentov</item>
+    <item quantity="other">%s študentov</item>
+  </plurals>
   <string name="students">Študenti</string>
   <string name="progress">Pokrok</string>
   <string name="noStudents">Zatiaľ nie sú v triede žiadni žiaci.</string>
