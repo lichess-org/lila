@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Triedy</string>
-  <string name="teachClassesOfChessStudents">Vyučuj šachových študentov so súpravou nástrojov na Lichess výučbu!</string>
+  <string name="teachClassesOfChessStudents">Učte triedy šachových študentov so súpravou nástrojov na Lichess výučbu.</string>
   <string name="features">Funkcie</string>
   <string name="quicklyGenerateSafeUsernames">Rýchlo vygenerovať bezpečné prihlasovacie mená a heslá pre študentov</string>
   <string name="trackStudentProgress">Sledovať napredovanie študenta v partiách a šachových úlohách</string>
@@ -10,8 +10,8 @@
   <string name="applyToBeLichessTeacher">Uchádzať sa o post Lichess učiteľa</string>
   <string name="noClassesYet">Zatiaľ žiadne kurzy.</string>
   <string name="teachersX">Učitelia: %s</string>
-  <string name="newClass">Nový kurz</string>
-  <string name="closeClass">Uzavrieť kurz</string>
+  <string name="newClass">Nová trieda</string>
+  <string name="closeClass">Uzavrieť triedu</string>
   <string name="closedByX">Uzavreté užívateľom %s</string>
   <string name="reopen">Znovu otvoriť</string>
   <string name="removeStudent">Odstrániť študenta</string>
