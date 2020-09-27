@@ -173,15 +173,11 @@ object Player {
   type Win     = Option[Boolean]
   type Builder = Color => ID => UserId => Win => Player
 
-  private def safeRange(range: Range, name: String)(userId: Option[String])(v: Int): Option[Int] =
-    if (range contains v) Some(v)
-    else {
-      logger.warn(s"Player $userId $name=$v (range: ${range.min}-${range.max})")
-      None
-    }
+  private def safeRange(range: Range)(v: Int): Option[Int] =
+    range.contains(v) option v
 
-  private val ratingRange     = safeRange(0 to 4000, "rating") _
-  private val ratingDiffRange = safeRange(-1000 to 1000, "ratingDiff") _
+  private val ratingRange     = safeRange(0 to 4000) _
+  private val ratingDiffRange = safeRange(-1000 to 1000) _
 
   implicit val playerBSONHandler = new BSON[Builder] {
 
@@ -202,8 +198,8 @@ object Player {
                 lastDrawOffer = r intO lastDrawOffer,
                 proposeTakebackAt = r intD proposeTakebackAt,
                 userId = userId,
-                rating = r intO rating flatMap ratingRange(userId),
-                ratingDiff = r intO ratingDiff flatMap ratingDiffRange(userId),
+                rating = r intO rating flatMap ratingRange,
+                ratingDiff = r intO ratingDiff flatMap ratingDiffRange,
                 provisional = r boolD provisional,
                 blurs = r.getD[Blurs](blursBits, blursZero.zero),
                 berserk = r boolD berserk,
