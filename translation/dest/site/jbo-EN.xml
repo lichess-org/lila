@@ -566,6 +566,8 @@
   <string name="webmasters">lo kibystuja\'a</string>
   <string name="about">srana la .litces.</string>
   <string name="aboutX">srana %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">la\'o ky. %1$s .ky gu\'e nonseldi\'a %2$s gi gu\'e zifre gi gu\'e claxu venynoi gi fingubni caxmati samtcise\'u</string>
+  <string name="really">ba\'ucu\'i</string>
   <string name="contribute">sidju</string>
   <string name="termsOfService">lo pilno terbilga</string>
   <string name="sourceCode">samselpla</string>
@@ -626,6 +628,7 @@
   <string name="everybodyGetsAllFeaturesForFree">ro prenu cu te sabji ro tcila fi\'o nonseldi\'a</string>
   <string name="zeroAdvertisement">no gubnoi</string>
   <string name="phoneAndTablet">mapti lo\'e samfonxa .a lo\'e ta\'orskami</string>
+  <string name="bulletBlitzClassical">mutce sutra tadji .ije sutra tadji .ije fadni tadji</string>
   <string name="correspondenceChess">lo masno caxmati</string>
   <string name="onlineAndOfflinePlay">gu tolpo\'u gi samjo\'e</string>
   <string name="viewTheSolution">viska lo danfu</string>
