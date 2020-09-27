@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Prispieť</string>
+  <string name="lichessPatron">Lichess Patron</string>
+  <string name="freeAccount">Účet zdarma</string>
+  <string name="becomePatron">Staňte sa Lichess Patronom</string>
+  <string name="xBecamePatron">%s sa stal Lichess Patronom</string>
+  <string name="newPatrons">Noví Patronovia</string>
+  <string name="freeChess">Šachy zdarma pre všetkých, navždy!</string>
+  <string name="thankYou">Ďakujeme vám za váš príspevok!</string>
+  <string name="lifetime">Doživotne</string>
+  <string name="makeExtraDonation">Poskytnúť ďalší príspevok?</string>
+  <string name="monthly">Mesačne</string>
+  <string name="onetime">Jednorázovo</string>
+  <string name="otherAmount">Iné</string>
+  <string name="pleaseEnterAmount">Prosím, zadajte sumu v USD</string>
+  <string name="withCreditCard">Kreditná karta</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="currentStatus">Aktuálny stav</string>
+  <string name="nextPayment">Ďalšia platba</string>
+</resources>
