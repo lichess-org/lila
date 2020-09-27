@@ -691,18 +691,17 @@ POST  /mobile/unregister               controllers.Push.mobileUnregister
 POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
-GET   /thanks                          controllers.Page.thanks
 GET   /terms-of-service                controllers.Page.tos
-GET   /privacy                         controllers.Page.privacy
+GET   /privacy                         controllers.Page.bookmark(bookmark = "privacy")
 GET   /contact                         controllers.Main.contact
-GET   /about                           controllers.Page.about
+GET   /about                           controllers.Page.bookmark(bookmark = "about")
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source
 GET   /qa                              controllers.Main.movedPermanently(to: String = "/faq")
 GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
-GET   /how-to-cheat                    controllers.Page.bookmark(name = "how-to-cheat")
-GET   /ads                             controllers.Page.ads
+GET   /how-to-cheat                    controllers.Page.bookmark(bookmark = "how-to-cheat")
+GET   /ads                             controllers.Page.bookmark(bookmark = "ads")
 GET   /page/:bookmark                  controllers.Page.bookmark(bookmark: String)
 
 # Variants

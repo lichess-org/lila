@@ -7,13 +7,10 @@ final class Page(
     prismicC: Prismic
 ) extends LilaController(env) {
 
-  val thanks  = helpBookmark("thanks")
-  val help    = helpBookmark("help")
-  val about   = helpBookmark("about")
-  val tos     = helpBookmark("tos")
-  val privacy = helpBookmark("privacy")
-  val master  = helpBookmark("master")
-  val ads     = helpBookmark("ads")
+  val thanks = helpBookmark("thanks")
+  val help   = helpBookmark("help")
+  val tos    = helpBookmark("tos")
+  val master = helpBookmark("master")
 
   private def helpBookmark(name: String) =
     Open { implicit ctx =>

@@ -311,8 +311,8 @@ object contact {
                 p("Please do not email us about marketing, tracking, or advertising."),
                 br,
                 p(
-                  "We actively encourage everyone to ",
-                  a(href := routes.Page.ads())("block all ads and trackers.")
+                  "We encourage everyone to ",
+                  a(href := "/ads")("block all ads and trackers.")
                 )
               )
             ),

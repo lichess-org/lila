@@ -182,9 +182,9 @@ object home {
           a(href := "/contact")(trans.contact.contact()),
           a(href := "/mobile")(trans.mobileApp()),
           a(href := routes.Page.tos())(trans.termsOfService()),
-          a(href := routes.Page.privacy())(trans.privacy()),
-          a(href := routes.Page.source())(trans.sourceCode()),
-          a(href := routes.Page.ads())("Ads"),
+          a(href := "/privacy")(trans.privacy()),
+          a(href := "/source")(trans.sourceCode()),
+          a(href := "/ads")("Ads"),
           views.html.base.bits.connectLinks
         )
       )
