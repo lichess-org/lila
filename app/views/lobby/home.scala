@@ -86,10 +86,10 @@ object home {
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
             a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list().toString))(
-              trans.nbPlayers(nbPlaceholder)
+              trans.nbPlayers(strong(homepage.counters.members))
             ),
             a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games().toString))(
-              trans.nbGamesInPlay(nbPlaceholder)
+              trans.nbGamesInPlay(strong(homepage.counters.rounds))
             )
           )
         ),
@@ -218,6 +218,4 @@ object home {
     trans.custom,
     trans.anonymous
   ).map(_.key)
-
-  private val nbPlaceholder = strong("--,---")
 }
