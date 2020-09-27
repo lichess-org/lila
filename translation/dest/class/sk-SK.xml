@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lichess výučba</string>
+  <string name="lichessClasses">Triedy</string>
   <string name="teachClassesOfChessStudents">Vyučuj šachových študentov so súpravou nástrojov na Lichess výučbu!</string>
   <string name="features">Funkcie</string>
   <string name="quicklyGenerateSafeUsernames">Rýchlo vygenerovať bezpečné prihlasovacie mená a heslá pre študentov</string>
@@ -73,4 +73,10 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="progress">Pokrok</string>
   <string name="noStudents">Zatiaľ nie sú v triede žiadni žiaci.</string>
   <string name="noRemovedStudents">Žiadni odstránení študenti.</string>
+  <string name="timePlaying">Odohraný čas</string>
+  <string name="winrate">Pomer výhier</string>
+  <string name="na">Nedostupné</string>
+  <string name="editNews">Upraviť novinky</string>
+  <string name="notifyAllStudents">Poslať notifikáciu všetkým študentom</string>
+  <string name="nothingHere">Nič tu nie je, zatiaľ.</string>
 </resources>
