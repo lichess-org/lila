@@ -237,6 +237,7 @@
   <string name="filterGames">Hidlo gêmau</string>
   <string name="reset">Ailosod</string>
   <string name="apply">Defnyddio</string>
+  <string name="save">Cadw</string>
   <string name="leaderboard">Safle</string>
   <string name="pasteTheFenStringHere">Gludwch FEN yma</string>
   <string name="pasteThePgnStringHere">Gludwch PGN yma</string>
@@ -515,6 +516,7 @@
   <string name="yourPerfTypeRatingIsRating">Dy raddfa %1$s di: %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Rwyt ti\'n well na %1$s o chwaraewyr %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Rwyt ti heb raddfa sefydledig %s.</string>
+  <string name="yourRating">Eich gradd</string>
   <string name="checkYourEmail">Gwiria dy e-bost</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Anfonwyd e-bost atoch. Cliciwch y dolen yn y neges e-bost i ysgogi eich cyfrif.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Os nad ydych yn gweld y neges, gwiriwch llefydd arall fel y sbwriel, spam ac ati.</string>
@@ -636,5 +638,12 @@
   <string name="cannotChallengeDueToProvisionalXRating">Ni fedrwch herio gan bod eich graddfa %s yn un dros dro.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">Mae %s dim ond yn derbyn heriau gan ffrindiau.</string>
   <string name="playX">Chwarae %s</string>
+  <string name="sorry">Sori :(</string>
   <string name="why">Pam?</string>
+  <string name="edit">Addasu</string>
+  <string name="rapid">Chwim</string>
+  <string name="classical">Clasurol</string>
+  <string name="important">Pwysig</string>
+  <string name="subscribe">Tanysgrifio</string>
+  <string name="unsubscribe">Dad-danysgrifio</string>
 </resources>

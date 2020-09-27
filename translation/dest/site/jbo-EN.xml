@@ -16,7 +16,7 @@
   <string name="checkmate">caxmata</string>
   <string name="stalemate">caxpata</string>
   <string name="white">se caxmati</string>
-  <string name="black">lo te caxmati</string>
+  <string name="black">te caxmati</string>
   <string name="randomColor">lo cuxna be fi le se skari cu cunso</string>
   <string name="createAGame">cfagau su\'o nunjvi</string>
   <string name="whiteIsVictorious">lo se caxmati cu jinga</string>
@@ -56,6 +56,7 @@
   <string name="depthX">se cisni li %s</string>
   <string name="usingServerAnalysis">samtcise\'u lanli</string>
   <string name="loadingEngine">ca\'o samymo\'i</string>
+  <string name="cloudAnalysis">samtcise\'u girzu lanli</string>
   <string name="goDeeper">zenba lo ka condi</string>
   <string name="showThreat">jarco lo gunta kelka\'u</string>
   <string name="inLocalBrowser">kibyca\'o lanli</string>
@@ -271,6 +272,9 @@
   <string name="tournament">grinunjvi</string>
   <string name="tournaments">grinunjvi</string>
   <string name="tournamentPoints">grinunjvi kelnemka\'u</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s grinunjvi kelnemka\'u</item>
+  </plurals>
   <plurals name="nbStudies">
     <item quantity="other">tadni nunkei %s lo co\'e</item>
   </plurals>
@@ -280,6 +284,10 @@
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">su\'o %s nunjvi je ke nilcre cnegau</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">su\'o %1$s %2$s nunjvi je ke nilcre cnegau</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">lo nilcre be do bei sera\'a %s cu zasni</string>
   <string name="mustBeInTeam">.i sarcu fa lo nu cmima la\'o zoi. %s .zoi noi bende</string>
   <string name="youAreNotInTeam">.i do na cmima la\'o zoi. %s .zoi noi bende</string>
   <string name="backToGame">xruti tu\'a lo nunjvi</string>
@@ -300,6 +308,7 @@
   <string name="continueFromHere">di\'a ti kelci</string>
   <string name="toStudy">tadni</string>
   <string name="importGame">jmina lo selkei</string>
+  <string name="importGameExplanation">lonu fukpu\'i lo me pygyny cu jalgre lonu cpacu lo fakli\'u nu rapli .e lo skami lanli .e lo nu samta\'a .e lo judrysni</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s da seljmina selkei</item>
   </plurals>
@@ -373,9 +382,11 @@
   <string name="whiteWins">parbi co nu lo se caxmati cu jinga</string>
   <string name="blackWins">parbi co nu lo te caxmati cu jinga</string>
   <string name="draws">parbi co nu no da cu jinga</string>
+  <string name="nextXTournament">bavla\'i %s kelnemka\'u</string>
   <string name="averageOpponent">lo se jivna nilcre cnano</string>
   <string name="membersOnly">lo cmima be la .litces. cu selte\'i</string>
   <string name="boardEditor">keltcini tiktci</string>
+  <string name="setTheBoard">cuxna zo\'e lo\'i cumki keirta\'o</string>
   <string name="popularOpenings">selzaumi\'o cfari kelka\'u</string>
   <string name="startPosition">cfari keltcini</string>
   <string name="clearBoard">vimcu ro kelfoi zvati</string>
@@ -383,12 +394,17 @@
   <string name="loadPosition">jonse lo keltcini vreji</string>
   <string name="isPrivate">sivni</string>
   <string name="reportXToModerators">jungau lo .admine lo du\'u la\'oi %s malzu\'e</string>
+  <string name="profileCompletion">lo predatni sela\'u li 1 ce\'i cu mulno</string>
+  <string name="xRating">me la\'o ly. %s .ly. nilcre</string>
+  <string name="ifNoneLeaveEmpty">lonu noda co\'e cu krinu lonu curmi lonu kunti</string>
+  <string name="gameCompletionRate">%s ce\'i loinu ti jivna cu mulno</string>
   <string name="profile">lo predatni</string>
-  <string name="editProfile">stika lo do velski</string>
+  <string name="editProfile">stika lo predatni be do</string>
   <string name="firstName">lo du\'acme</string>
   <string name="lastName">lo lazme\'e</string>
   <string name="biography">velski do fo do</string>
   <string name="country">lo gugde</string>
+  <string name="socialMediaLinks">.urli lo kibro jikca predatni pesai do</string>
   <string name="watchLichessTV">mencti la\'o gy. Lichess TV .gy</string>
   <string name="previouslyOnLichessTV">lo purci nunkei pe lo la .litces. se tivni</string>
   <string name="onlinePlayers">lo cabna jvikei</string>
@@ -429,7 +445,7 @@
   <string name="autoSwitch">zmiku nungalfi</string>
   <string name="puzzles">lo namkei</string>
   <string name="latestUpdates">cnino nunstika</string>
-  <string name="tournamentWinners">lo jinga be fo lo torneio</string>
+  <string name="tournamentWinners">jinga fo lo grinunjvi</string>
   <string name="name">lo cmene</string>
   <string name="description">velski</string>
   <string name="no">na go\'i</string>
@@ -485,7 +501,7 @@
   <string name="difficultyEasy">frili</string>
   <string name="difficultyNormal">nornandu</string>
   <string name="difficultyHard">nandu</string>
-  <string name="xCompetesInY">la\'o zoi. %1$s .zoi jivna fi la\'o zoi. %2$s .zoi poi torneio</string>
+  <string name="xCompetesInY">la\'o zoi. %1$s .zoi jivna fi la\'o zoi. %2$s .zoi poi grinunjvi</string>
   <string name="xAskedY">la\'o zoi. %1$s .zoi retsku zoi zoi. %2$s .zoi</string>
   <string name="xAnsweredY">la\'o zoi. %1$s .zoi dafsku fi zoi zoi. %2$s .zoi</string>
   <string name="xCommentedY">la\'o zoi. %1$s .zoi piksku fi zoi zoi. %2$s .zoi</string>
@@ -550,6 +566,8 @@
   <string name="webmasters">lo kibystuja\'a</string>
   <string name="about">srana la .litces.</string>
   <string name="aboutX">srana %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">la\'o ky. %1$s .ky gu\'e nonseldi\'a %2$s gi gu\'e zifre gi gu\'e claxu venynoi gi fingubni caxmati samtcise\'u</string>
+  <string name="really">ba\'ucu\'i</string>
   <string name="contribute">sidju</string>
   <string name="termsOfService">lo pilno terbilga</string>
   <string name="sourceCode">samselpla</string>
@@ -570,7 +588,7 @@
   <string name="lichessTournaments">lo grinunjvi be bu\'u la .litces.</string>
   <string name="tournamentFAQ">lo cafne se reisku preti be lo kelcrxarena zei grinunjvi</string>
   <string name="tournamentOfficial">ca\'iselzau</string>
-  <string name="timeBeforeTournamentStarts">temci lo cabna lonu lo torneio ku cfari</string>
+  <string name="timeBeforeTournamentStarts">temci lo cabna lonu lo grinunjvi ku cfari</string>
   <string name="averageCentipawnLoss">cnano lo centi me la paan. cirko</string>
   <string name="keyboardShortcuts">lercu\'aca\'a midnoi</string>
   <string name="keyMoveBackwardOrForward">crakla ja ti\'ekla</string>
@@ -580,7 +598,7 @@
   <string name="newTournament">cnino grinunjvi</string>
   <string name="tournamentNotFound">na facki fi ti noi grinunjvi</string>
   <string name="tournamentDoesNotExist">ti noi grinunjvi cu na zasti</string>
-  <string name="returnToTournamentsHomepage">xrukla lo kibypapri pe lo\'i torneio</string>
+  <string name="returnToTournamentsHomepage">xrukla lo kibypapri pe lo\'i grinunjvi</string>
   <string name="yourPerfTypeRatingIsRating">nilcre do la\'o zoi. %1$s .zoi fa li %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">do cremau lo %1$s si\'e be loi kelci be la\'o zoi. %2$s .zoi</string>
   <string name="yourRating">nilcre do</string>
@@ -588,6 +606,7 @@
   <string name="glicko2Rating">me la\'o ly. Glicko-2 ly. nilcre</string>
   <string name="checkYourEmail">ko catlu lo se samymri be fi do</string>
   <string name="weHaveSentYouAnEmailClickTheLink">mi\'a samymri zo\'e goi ko\'a do .i .e\'o ko kli\'iki lo ve .uebjugau poi nenri ko\'a ku\'o ja\'e loza\'i narca\'acando .i</string>
+  <string name="downloadAnnotated">kibycpa lo ckipinka</string>
   <string name="downloadRaw">kibycpa lo me la me pygyny.</string>
   <string name="downloadImported">kibycpa lo se nerbei</string>
   <string name="printFriendlyPDF">primi\'i mapti me la me pydyfy</string>
@@ -596,7 +615,10 @@
   <string name="withNobody">fi\'o te jarco no da</string>
   <string name="withFriends">fi\'o te jarco lo pendo</string>
   <string name="withEverybody">fi\'o te jarco ro da</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">mo\'u cmiveigau la\'o .ebu %s .ebu noi kibytermri</string>
   <string name="kidMode">lo tadji pe le\'e verba</string>
+  <string name="kidModeExplanation">srana lonu tolckape .i ca lonu pilno lo tadji pe le\'e verba cu na zifre roloro nu samta\'a .i ka\'e bandu ga lo verba gi lo ve ckule .i</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">ca lonu pilno lo tadji pe le\'e verba kukuku lo sinxa be la litces. cu se barna zoi ky. %s .ky. ja\'e lonu do krilacri ly. lonu le verba cu snura .i</string>
   <string name="enableKidMode">pilno lo tadji pe le\'e verba</string>
   <string name="disableKidMode">sisti loza\'i pilno lo tadji pe le\'e verba</string>
   <string name="security">kamnu\'a</string>
@@ -605,7 +627,9 @@
   <string name="builtForTheLoveOfChessNotMoney">finti fi lo nunpa\'i be fi lo\'i caxmati .enai lo jdini</string>
   <string name="everybodyGetsAllFeaturesForFree">ro prenu cu te sabji ro tcila fi\'o nonseldi\'a</string>
   <string name="zeroAdvertisement">no gubnoi</string>
+  <string name="fullFeatured">kakne loi ti kakne</string>
   <string name="phoneAndTablet">mapti lo\'e samfonxa .a lo\'e ta\'orskami</string>
+  <string name="bulletBlitzClassical">mutce sutra tadji .ije sutra tadji .ije fadni tadji</string>
   <string name="correspondenceChess">lo masno caxmati</string>
   <string name="onlineAndOfflinePlay">gu tolpo\'u gi samjo\'e</string>
   <string name="viewTheSolution">viska lo danfu</string>
@@ -621,7 +645,7 @@
   <string name="quickPairing">selsutra jivna</string>
   <string name="lobby">lo depstu</string>
   <string name="anonymous">cmecau</string>
-  <string name="yourScore">veljvilai do fa li %s</string>
+  <string name="yourScore">do ci\'erkeilai li %s</string>
   <string name="language">lo bangu</string>
   <string name="background">lo vinti\'e</string>
   <string name="light">tolmanku</string>
@@ -636,16 +660,20 @@
   <string name="usernameAlreadyUsed">ti noi japcme cu ca\'o se pilno .i .e\'o ko ciska lo drata .i</string>
   <string name="usernamePrefixInvalid">sarcu fa lo nu lo japcme cu se tolfa\'o lo vlale\'u</string>
   <string name="usernameSuffixInvalid">sarcu fa lo nu lo japcme cu se fanmo lo vlale\'u .a lo nacle\'u</string>
+  <string name="usernameCharsInvalid">roloro pagbu be roloro japcme poi e\'akne cu gaga latmo lerfu gi nacle\'u giga nitlijbu\'i gi me la\'o ly. hyphen ly.</string>
   <string name="usernameUnacceptable">ti noi japcme cu se tolzau</string>
   <string name="directlySupportLichess">sarji la .litces.</string>
   <string name="playChessInStyle">selja\'i kelci lo caxmati</string>
   <string name="chessBasics">lo jicmu be lo caxmati</string>
   <string name="coaches">lo te\'ictu</string>
+  <string name="invalidFen">lo me la fen. cu toldra</string>
   <string name="error.min">.e\'anai dubme\'a li %s</string>
   <string name="error.max">.e\'anai dubmau li %s</string>
   <string name="error.unknown">srera da</string>
+  <string name="custom">cuxna</string>
   <string name="notifications">lo notci</string>
   <string name="challenges">lo talsa</string>
+  <string name="perfRatingX">nilcre fa li %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">zukte .ei lo pa moi kelka\'u ba nu\'i la\'u lo snidu be li su\'e %s</item>
   </plurals>
@@ -653,6 +681,7 @@
   <string name="anotherWasX">lo me zoi ly. %s ly. cu drata je xamgu</string>
   <string name="bestWasX">lo me zoi ly. %s ly. cu zanrai</string>
   <string name="resumePractice">di\'a crezenrapzu\'e</string>
+  <string name="theGameIsADraw">no da cu jinga</string>
   <string name="computerThinking">lo skami ca\'o rucyzu\'e</string>
   <string name="seeBestMove">viska lo xagrai se zukte</string>
   <string name="hideBestMove">te mipri lo xagrai se zukte</string>
@@ -669,15 +698,28 @@
   <string name="findBetterMoveForBlack">.e\'o ko visfa\'i lo zanmau se zukte be lo te caxmati</string>
   <string name="resumeLearning">di\'a cilre</string>
   <string name="youCanDoBetter">do ka\'e zukte lo xagmau</string>
+  <string name="tryAnotherMoveForWhite">.e\'o ko troci lo drata se zukte be lo se caxmati</string>
+  <string name="tryAnotherMoveForBlack">.e\'o ko troci lo drata se zukte be lo te caxmati</string>
   <string name="solution">lo danfu</string>
+  <string name="waitingForAnalysis">ca\'o denpa lomu\'e lanli</string>
   <string name="noMistakesFoundForWhite">na facki lo se srera be lo se caxmati</string>
   <string name="noMistakesFoundForBlack">na facki lo se srera be lo te caxmati</string>
+  <string name="doneReviewingWhiteMistakes">mo\'u catlu lo se srera be lo se caxmati</string>
+  <string name="doneReviewingBlackMistakes">mo\'u catlu lo se srera be lo te caxmati</string>
   <string name="doItAgain">za\'u re\'u zukte</string>
   <string name="reviewWhiteMistakes">catlu lo se srera be lo se caxmati</string>
   <string name="reviewBlackMistakes">catlu lo se srera be lo te caxmati</string>
+  <string name="advantage">prali</string>
+  <plurals name="nbSeconds">
+    <item quantity="other">snidu li %s</item>
+  </plurals>
   <string name="opening">cfari kelka\'u</string>
+  <string name="middlegame">nunjvi midju</string>
+  <string name="endgame">nunjvi fanmo</string>
+  <string name="registerToSendChallenges">lonu do talsa cu selsa\'u lonu do cmisau .e\'o</string>
   <string name="youCannotChallengeX">.i do na kakne lo ka talsa la\'o zoi. %s .zoi</string>
   <string name="xDoesNotAcceptChallenges">.i la\'o zoi. %s .zoi na fitytu\'i lo nuntalsa</string>
+  <string name="addCurrentVariation">jmina lo nu cenba</string>
   <string name="playX">zukte la\'o zoi. %s .zoi</string>
   <string name="sorry">fau\'u</string>
   <string name="weHadToTimeYouOutForAWhile">zasni fanta lo nu do jvikei</string>
@@ -692,5 +734,12 @@
   <string name="temporaryInconvenience">faxycpe do ti noi zazyfau .i</string>
   <string name="wishYouGreatGames">.ije .a\'o pacna lonu lo nunkei be do cu mutce zdile</string>
   <string name="thankYouForReading">ki\'e</string>
+  <string name="lifetimeScore">sumji ci\'erkeilai</string>
+  <string name="currentMatchScore">lampru nunjvi ci\'erkeilai</string>
   <string name="edit">galfi</string>
+  <string name="rapid">sutra tadji</string>
+  <string name="classical">fadni tadji</string>
+  <string name="important">vajni bi\'u</string>
+  <string name="subscribe">terbejbi\'o</string>
+  <string name="unsubscribe">to\'e terbejbi\'o</string>
 </resources>

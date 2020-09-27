@@ -21,6 +21,9 @@
   <string name="createAGame">Оюн куруу</string>
   <string name="whiteIsVictorious">Ак түстөгү оюнчу утту</string>
   <string name="blackIsVictorious">Кара түстөгү оюнчу утту</string>
+  <string name="youPlayTheWhitePieces">Сиз ак фигуралар менен ойнойсуз</string>
+  <string name="youPlayTheBlackPieces">Сиз кара фигуралар менен ойнойсуз</string>
+  <string name="itsYourTurn">Сиздин жүрүшүңүз!</string>
   <string name="kingInTheCenter">Хан ортодо</string>
   <string name="threeChecks">Үч шах</string>
   <string name="raceFinished">Гонка бүдтүү</string>
@@ -30,6 +33,10 @@
   <string name="joinTheGame">Оюрга кошулуу</string>
   <string name="whitePlays">Ак түстөгү оюнчу баштайт</string>
   <string name="blackPlays">Кара түстөгү оюнчу баштайт</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Каршылаш оюндан чыкты. Сиз %s секундтан кийин жеңишти талап кылсаңар болот.</item>
+    <item quantity="other">Каршылаш оюндан чыкты. Сиз %s секундтан кийин жеңишти талап кылсаңар болот.</item>
+  </plurals>
   <string name="opponentLeftChoices">Сиздин өнөктөшүңүз оюндан чыгып кетти, кутунуз же башка оюн тандаңыз</string>
   <string name="makeYourOpponentResign">Атаандашка утулуш эсептелинет</string>
   <string name="forceResignation">Утушту талап кылуу</string>
@@ -97,11 +104,20 @@
   <string name="cpus">Агымдар</string>
   <string name="memory">Эс-тутум</string>
   <string name="infiniteAnalysis">Чексиз анализ</string>
+  <string name="blunder">Одоно жаңылыштык</string>
   <string name="blunders">Одоно ката</string>
+  <string name="mistake">Жыңылыштык</string>
   <string name="mistakes">Жаңылыштык</string>
+  <string name="inaccuracy">Так эместик</string>
   <string name="inaccuracies">Так эместик</string>
+  <string name="moveTimes">Жүрүштөрдүн убактысы</string>
+  <string name="flipBoard">Досканы оодаруу</string>
+  <string name="threefoldRepetition">Позициянын үч ирет кайталануусу</string>
+  <string name="claimADraw">Эч ким уткан жок дегенди сунуш кылуу</string>
+  <string name="offerDraw">Эч ким уткан жок дегенди сунуш кылуу</string>
   <string name="draw">Ничья</string>
   <string name="currentGames">Азыркы оюндар</string>
+  <string name="viewInFullSize">Кененирек көрүү</string>
   <string name="logOut">Чыгыш</string>
   <string name="signIn">Кирүү</string>
   <string name="signUp">Регистрация</string>
