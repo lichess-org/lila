@@ -640,7 +640,7 @@
   <string name="quickPairing">selsutra jivna</string>
   <string name="lobby">lo depstu</string>
   <string name="anonymous">cmecau</string>
-  <string name="yourScore">veljvilai do fa li %s</string>
+  <string name="yourScore">do ci\'erkeilai li %s</string>
   <string name="language">lo bangu</string>
   <string name="background">lo vinti\'e</string>
   <string name="light">tolmanku</string>
@@ -675,6 +675,7 @@
   <string name="anotherWasX">lo me zoi ly. %s ly. cu drata je xamgu</string>
   <string name="bestWasX">lo me zoi ly. %s ly. cu zanrai</string>
   <string name="resumePractice">di\'a crezenrapzu\'e</string>
+  <string name="theGameIsADraw">no da cu jinga</string>
   <string name="computerThinking">lo skami ca\'o rucyzu\'e</string>
   <string name="seeBestMove">viska lo xagrai se zukte</string>
   <string name="hideBestMove">te mipri lo xagrai se zukte</string>
@@ -712,6 +713,7 @@
   <string name="registerToSendChallenges">lonu do talsa cu selsa\'u lonu do cmisau .e\'o</string>
   <string name="youCannotChallengeX">.i do na kakne lo ka talsa la\'o zoi. %s .zoi</string>
   <string name="xDoesNotAcceptChallenges">.i la\'o zoi. %s .zoi na fitytu\'i lo nuntalsa</string>
+  <string name="addCurrentVariation">jmina lo nu cenba</string>
   <string name="playX">zukte la\'o zoi. %s .zoi</string>
   <string name="sorry">fau\'u</string>
   <string name="weHadToTimeYouOutForAWhile">zasni fanta lo nu do jvikei</string>
@@ -726,6 +728,8 @@
   <string name="temporaryInconvenience">faxycpe do ti noi zazyfau .i</string>
   <string name="wishYouGreatGames">.ije .a\'o pacna lonu lo nunkei be do cu mutce zdile</string>
   <string name="thankYouForReading">ki\'e</string>
+  <string name="lifetimeScore">sumji ci\'erkeilai</string>
+  <string name="currentMatchScore">lampru nunjvi ci\'erkeilai</string>
   <string name="edit">galfi</string>
   <string name="rapid">sutra tadji</string>
   <string name="classical">fadni tadji</string>
