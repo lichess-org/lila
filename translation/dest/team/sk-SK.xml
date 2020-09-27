@@ -35,4 +35,6 @@
   <string name="teamTournamentOverview">Aréna turnaj, do ktorého sa môžu pripojiť iba členovia vášho tímu</string>
   <string name="messageAllMembers">Správa všetkým členom</string>
   <string name="messageAllMembersOverview">Poslať súkromnú správu každému členovi tímu</string>
+  <string name="teamsIlead">Tímy ktoré vediem</string>
+  <string name="leadersChat">Čet lídrov</string>
 </resources>
