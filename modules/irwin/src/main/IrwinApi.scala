@@ -152,7 +152,7 @@ final class IrwinApi(
     private var subs = Map.empty[SuspectId, Set[ModId]]
 
     def add(suspectId: SuspectId, modId: ModId): Unit =
-      subs.updated(suspectId, (~subs.get(suspectId)) + modId)
+      subs = subs.updated(suspectId, ~subs.get(suspectId) + modId)
 
     private[IrwinApi] def apply(report: IrwinReport): Funit =
       subs.get(report.suspectId) ?? { modIds =>
