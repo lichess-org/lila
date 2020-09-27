@@ -627,6 +627,7 @@
   <string name="builtForTheLoveOfChessNotMoney">finti fi lo nunpa\'i be fi lo\'i caxmati .enai lo jdini</string>
   <string name="everybodyGetsAllFeaturesForFree">ro prenu cu te sabji ro tcila fi\'o nonseldi\'a</string>
   <string name="zeroAdvertisement">no gubnoi</string>
+  <string name="fullFeatured">kakne loi ti kakne</string>
   <string name="phoneAndTablet">mapti lo\'e samfonxa .a lo\'e ta\'orskami</string>
   <string name="bulletBlitzClassical">mutce sutra tadji .ije sutra tadji .ije fadni tadji</string>
   <string name="correspondenceChess">lo masno caxmati</string>
@@ -669,6 +670,7 @@
   <string name="error.min">.e\'anai dubme\'a li %s</string>
   <string name="error.max">.e\'anai dubmau li %s</string>
   <string name="error.unknown">srera da</string>
+  <string name="custom">cuxna</string>
   <string name="notifications">lo notci</string>
   <string name="challenges">lo talsa</string>
   <string name="perfRatingX">nilcre fa li %s</string>
