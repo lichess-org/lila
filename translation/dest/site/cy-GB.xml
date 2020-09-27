@@ -644,6 +644,8 @@
   <string name="rapid">Chwim</string>
   <string name="classical">Clasurol</string>
   <string name="important">Pwysig</string>
+  <string name="tryTheContactPage">ceisiwch y tudalen cyswllt</string>
+  <string name="joinTheTeamXToPost">Ymuno\'r %1$s, i bostio mewn fforwm hyn</string>
   <string name="subscribe">Tanysgrifio</string>
   <string name="unsubscribe">Dad-danysgrifio</string>
 </resources>
