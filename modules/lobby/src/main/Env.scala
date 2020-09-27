@@ -49,7 +49,7 @@ final class Env(
 
   private lazy val biter = wire[Biter]
 
-  lazy val socket = wire[LobbySocket]
+  val socket = wire[LobbySocket]
 
   lila.common.Bus.subscribeFun("abortGame") { case lila.game.actorApi.AbortedBy(pov) =>
     abortListener(pov)
