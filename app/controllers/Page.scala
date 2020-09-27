@@ -23,9 +23,7 @@ final class Page(
       }
     }
 
-  val howToCheat = bookmark("how-to-cheat")
-
-  private def bookmark(name: String) =
+  def bookmark(name: String) =
     Open { implicit ctx =>
       pageHit
       OptionOk(prismicC getBookmark name) { case (doc, resolver) =>

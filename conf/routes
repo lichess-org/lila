@@ -701,8 +701,9 @@ GET   /source                          controllers.Page.source
 GET   /qa                              controllers.Main.movedPermanently(to: String = "/faq")
 GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
-GET   /how-to-cheat                    controllers.Page.howToCheat
+GET   /how-to-cheat                    controllers.Page.bookmark(name = "how-to-cheat")
 GET   /ads                             controllers.Page.ads
+GET   /page/:bookmark                  controllers.Page.bookmark(bookmark: String)
 
 # Variants
 GET   /variant                         controllers.Page.variantHome
