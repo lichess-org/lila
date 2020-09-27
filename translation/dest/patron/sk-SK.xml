@@ -18,4 +18,11 @@
   <string name="withPaypal">PayPal</string>
   <string name="currentStatus">Aktuálny stav</string>
   <string name="nextPayment">Ďalšia platba</string>
+  <string name="update">Aktualizovať</string>
+  <string name="changeMonthlyAmount">Zmeniť mesačnú sumu (%s)</string>
+  <string name="xOrY">%1$s alebo %2$s</string>
+  <string name="paymentHistory">História platieb</string>
+  <string name="paid">Zaplatené</string>
+  <string name="date">Dátum</string>
+  <string name="amount">Suma</string>
 </resources>
