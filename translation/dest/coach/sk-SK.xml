@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="location">Poloha</string>
+  <string name="languages">Jazyky</string>
+  <string name="rating">Rating</string>
+  <string name="availability">Dostupnosť</string>
+  <string name="aboutMe">O mne</string>
+  <string name="youtubeVideos">YouTube videá</string>
+</resources>
