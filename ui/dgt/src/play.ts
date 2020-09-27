@@ -10,10 +10,6 @@ export default function (token: string) {
   const root = document.getElementById('dgt-play-zone') as HTMLDivElement;
   const consoleOutput = document.getElementById('dgt-play-zone-log') as HTMLPreElement;
 
-  console.log(parseFen('rnbqkbnr/pppp1ppp/8/8/3pP3/2P5/PP3PPP/RNBQKBNR b KQkq - 1 3'));
-
-  // and your code in here.
-
   /**
    * CONFIGURATION VALUES
    */
@@ -78,6 +74,7 @@ export default function (token: string) {
   var currentSerialnr = '0'; //Public property to store the current serial number of the DGT Board in case there is more than one
   //subscription stores the information about the board being connected, most importantly the serialnr
   var subscription = { "id": 2, "call": "subscribe", "param": { "feed": "eboardevent", "id": 1, "param": { "serialnr": "" } } };
+  var lastLegalParam: { board: string, san: string[] }; //This can help prevent duplicate moves from LiveChess being detected as move from the other side, like a duplicate O-O
   /***
    * Bind console output to HTML pre Element
    */
@@ -185,11 +182,13 @@ export default function (token: string) {
 
     challenge Incoming challenge
     gameStart Start of a game
+    gameFinish to signal that game ended 
     When the stream opens, all current challenges and games are sent.
 
     Examples:
     {"type":"gameStart","game":{"id":"kjKzl2MO"}}
     {"type":"challenge","challenge":{"id":"WTr3JNcm","status":"created","challenger":{"id":"andrescavallin","name":"andrescavallin","title":null,"rating":1362,"provisional":true,"online":true,"lag":3},"destUser":{"id":"godking666","name":"Godking666","title":null,"rating":1910,"online":true,"lag":3},"variant":{"key":"standard","name":"Standard","short":"Std"},"rated":false,"speed":"rapid","timeControl":{"type":"clock","limit":900,"increment":10,"show":"15+10"},"color":"white","perf":{"icon":"#","name":"Rapid"}}}
+    {"type":"gameFinish","game":{"id":"MhG878ij"}}
  */
   async function connectToEventStream() {
     //Log intention
@@ -227,6 +226,11 @@ export default function (token: string) {
               //Challenge received
               //TODO
             }
+            else if (data.type == "gameFinish") {
+              //Game Finished
+              //TODO Handle this event
+
+            }
             else if (response.status >= 400) {
               console.warn('connectToEventStream - ' + data.error);
             }
@@ -259,7 +263,6 @@ export default function (token: string) {
   gameFull Full game data. All values are immutable, except for the state field.
   gameState Current state of the game. Immutable values not included. Sent when a move is played, a draw is offered, or when the game ends.
   chatLine Chat message sent by a user in the room "player" or "spectator".
-  gameFinish new message to signal that game ended 
   The first line is always of type gameFull.
    
   Examples:
@@ -282,8 +285,6 @@ export default function (token: string) {
   {"type":"gameState","moves":"e2e4 e7e5 f1c4 d7d6 d1f3 b8c6 f3f7","wtime":900480,"btime":907720,"winc":10000,"binc":10000,"wdraw":false,"bdraw":false,"status":"mate"}
   Promotion
   {"type":"gameState","moves":"e2e4 b8c6 g1f3 c6d4 f1c4 e7e5 d2d3 d7d5 f3d4 f7f6 c4d5 f6f5 f2f3 g7g6 e1g1 c7c6 d5b3 d8d5 e4d5 a8b8 d4e6 f8b4 e6c7 e8e7 d5d6 e7f6 d6d7 b4f8 d7d8q","wtime":2147483647,"btime":2147483647,"winc":0,"binc":0,"wdraw":false,"bdraw":false,"status":"started"}
-  gameFinish
-  {"type":"gameFinish","game":{"id":"MhG878ij"}}
   @param {string} gameId - The alphanumeric identifier of the game to be tracked
    */
 
@@ -336,11 +337,6 @@ export default function (token: string) {
             else if (data.type == "chatLine") {
               //Received chat line
               //TODO
-            }
-            else if (data.type == "gameFinish") {
-              //Game Finished, disconnect gracefully
-              //TODO Handle this new event type
-
             }
             else if (response.status >= 400) {
               console.log('connectToGameStream - ' + data.error);
@@ -591,13 +587,19 @@ export default function (token: string) {
       var gameState = gameStateMap.get(gameId);
       var lastMove = getLastUCIMove(gameId);
       console.log(""); //process.stdout.write("\n"); Changed to support browser
-      console.table({
+      /* Log before migrating to browser
+      if (verbose) console.table({
         'Title': { white: ((gameInfo.white.title !== null) ? gameInfo.white.title : '@'), black: ((gameInfo.black.title !== null) ? gameInfo.black.title : '@'), game: 'Id: ' + gameInfo.id },
         'Username': { white: gameInfo.white.name, black: gameInfo.black.name, game: 'Status: ' + gameState.status },
         'Rating': { white: gameInfo.white.rating, black: gameInfo.black.rating, game: gameInfo.variant.short + ' ' + (gameInfo.rated ? 'rated' : 'unrated') },
         'Timer': { white: formattedTimer(gameState.wtime), black: formattedTimer(gameState.btime), game: gameInfo.speed + ' ' + ((gameInfo.clock !== null) ? (String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''") : '∞') },
         'Last Move': { white: (lastMove.player == 'white' ? lastMove.move : '?'), black: (lastMove.player == 'black' ? lastMove.move : '?'), game: lastMove.player },
       });
+      */
+      var innerTable = `<table class="dgt-table"><tr><th> - </th><th>Title</th><th>Username</th><th>Rating</th><th>Timer</th><th>Last Move</th><th>gameId: ${gameInfo.id}}</th></tr>` +
+                       `<tr><td>White</td><td>${ (gameInfo.white.title !== null) ? gameInfo.white.title : '@'}</td><td>${gameInfo.white.name}</td><td>${gameInfo.white.rating}</td><td>${formattedTimer(gameState.wtime)}</td><td>${(lastMove.player == 'white' ? lastMove.move : '?')}</td><td>${gameInfo.speed + ' ' + ((gameInfo.clock !== null) ? (String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''") : '∞')}</td></tr>` + 
+                       `<tr><td>Black</td><td>${ (gameInfo.black.title !== null) ? gameInfo.black.title : '@'}</td><td>${gameInfo.black.name}</td><td>${gameInfo.black.rating}</td><td>${formattedTimer(gameState.btime)}</td><td>${(lastMove.player == 'black' ? lastMove.move : '?')}</td><td>Status: ${gameState.status}</td></tr>`
+      console.log(innerTable);
       switch (gameState.status) {
         case "started":
           //Announce the last move
@@ -766,10 +768,17 @@ export default function (token: string) {
         if (message.param.san.length == 0) {
           if (verbose) console.info('onmessage - san is empty')
         }
+        else if (lastLegalParam !== undefined && JSON.stringify(lastLegalParam.san) == JSON.stringify(message.param.san)) {
+          //Prevent duplicates since LiveChess may send the same move twice
+          //It looks like a duplicate, so just ignore it
+          if (verbose) console.info('onmessage - Duplicate position and san move received and will be ignored');
+        }
         else {
           //A move was received
           SANMove = String(message.param.san[message.param.san.length - 1]).trim();
           if (verbose) console.info('onmessage - SANMove = ' + SANMove);
+          //Store the postition too to help prevent duplicates
+          lastLegalParam = message.param;
           var moveObject: NormalMove | undefined; //a move in chessops format
           moveObject = <NormalMove>parseSan(localBoard, SANMove); //get move from DGT LiveChess
           //if valid move on local chessops
@@ -789,6 +798,7 @@ export default function (token: string) {
               //This is a valid adjustment - Just making the move from Lichess
               if (verbose) console.info('onmessage - Valid Adjustment: ' + SANMove);
               //no need to send anything to Lichess moveObject required
+              //lastSanMove will be updated once this move comes back from lichess
               //Play the move on local board to keep it in sync
               localBoard.play(moveObject);
             }
@@ -810,11 +820,11 @@ export default function (token: string) {
           else {
             //Move was valid on DGT Board but not legal on localBoard
             if (verbose) console.info('onmessage - Move is NOT legal');
-            if (compareMoves(lastMove.move, moveObject!)) {
-              //This is fine, the same last move was received again and seems ilegal
+            if (lastMove.move == SANMove) {
+              //This is fine, the same last move was received again and seems illegal
               if (verbose) console.warn('onmessage - Move received is the same as the last moved played: ' + SANMove)
             }
-            else if (SANMove.startsWith('O-')){
+            else if (SANMove.startsWith('O-')) {
               //This is may be fine, sometimes castling triggers twice and second time is invalid
               if (verbose) console.warn('onmessage - Caslting may be duplicated as the last moved played: ' + SANMove)
             }
@@ -1010,11 +1020,13 @@ export default function (token: string) {
    */
   function compareMoves(lastMove: string, moveObject: NormalMove): boolean {
     try {
+      if (verbose) console.log(`Comparing ${lastMove} with ${moveObject}`);
       var uciMove = makeUci(moveObject);
       if (lastMove == uciMove) {
         //its the same move
         return true;
       }
+      if (verbose) console.log('Moves look diffrent. Check if this is a castling mismatch.')
       var castlingSide = localBoard.castlingSide(moveObject);
       if (lastMove.length > 2 && castlingSide) {
         //It was a castling so it still may be the same move
@@ -1034,7 +1046,15 @@ export default function (token: string) {
     return false;
   }
 
-
+  /*
+  function opponent(): { color: string, id: string, name: string } {
+    //"white":{"id":"godking666","name":"Godking666","title":null,"rating":1761},"black":{"id":"andrescavallin","name":"andrescavallin","title":null
+    if (gameInfoMap.get(currentGameId).white.id == me.id)
+      return { color: 'black', id: gameInfoMap.get(currentGameId).black.id, name: gameInfoMap.get(currentGameId).black.name };
+    else
+      return { color: 'white', id: gameInfoMap.get(currentGameId).white.id, name: gameInfoMap.get(currentGameId).white.name };
+  }
+  */
 
   function start() {
     console.log("");
@@ -1051,7 +1071,7 @@ export default function (token: string) {
     console.log("    '|_.=`   __\\                                                               ");
     console.log("    `\\_..==`` /                 Lichess.org - DGT Electronic Board Connector   ");
     console.log("     .'.___.-'.                Developed by Andres Cavallin and Juan Cavallin  ");
-    console.log("    /          \\                                  v1.0.0                       ");
+    console.log("    /          \\                                  v1.0.1                       ");
     console.log("jgs('--......--')                                                             ");
     console.log("   /'--......--'\\                                                              ");
     console.log("   `\"--......--\"`                                                             ");
