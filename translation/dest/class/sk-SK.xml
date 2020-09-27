@@ -88,7 +88,9 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="timePlaying">Odohraný čas</string>
   <string name="winrate">Pomer výhier</string>
   <string name="na">Nedostupné</string>
+  <string name="news">Novinky triedy</string>
   <string name="editNews">Upraviť novinky</string>
   <string name="notifyAllStudents">Poslať notifikáciu všetkým študentom</string>
   <string name="nothingHere">Nič tu nie je, zatiaľ.</string>
+  <string name="newsEdit1">Všetky novinky triedy v jednom poli.</string>
 </resources>
