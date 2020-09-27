@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="twoFactorAuth">Dvojfaktorové overovanie</string>
+  <string name="twoFactorHelp">Dvojfaktorové overenie pridá ďalšiu vrstvu bezpečnosti k vášmu účtu.</string>
+  <string name="twoFactorApp">Stiahnite is aplikáciu pre dvojfaktorové overenie, napríklad Google Authenticator pre %1$s alebo %2$s.</string>
   <string name="authenticationCode">Overovací kód</string>
   <string name="enableTwoFactor">Zapnúť dvojfaktorové overovanie</string>
   <string name="disableTwoFactor">Vypnúť dvojfaktorové overenie</string>
