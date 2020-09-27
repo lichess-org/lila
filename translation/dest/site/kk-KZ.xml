@@ -199,6 +199,8 @@
     <item quantity="other">Сізбен %s ойын</item>
   </plurals>
   <string name="cancel">Болдыртпау</string>
+  <string name="whiteTimeOut">Ақтың уақыты бітті</string>
+  <string name="blackTimeOut">Қараның уақыты бітті</string>
   <string name="drawOfferSent">Тепе-теңдік сұрауда</string>
   <string name="drawOfferDeclined">Тепе-теңдікке келіспеді</string>
   <string name="drawOfferAccepted">Тепе-теңдікке келісті</string>
