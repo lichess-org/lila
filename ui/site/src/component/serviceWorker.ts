@@ -3,7 +3,7 @@ import { storage } from "./storage";
 
 export default function() {
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-    const workerUrl = new URL(assetUrl(jsModule('service-worker'), {
+    const workerUrl = new URL(assetUrl(jsModule('serviceWorker'), {
       sameDomain: true
     }), self.location.href);
     workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url')!);

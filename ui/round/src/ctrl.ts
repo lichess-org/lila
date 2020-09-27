@@ -109,7 +109,7 @@ export default class RoundController {
 
     setTimeout(this.showExpiration, 350);
 
-    if (!document.referrer?.includes('/service-worker.js'))
+    if (!document.referrer?.includes('/serviceWorker.'))
       setTimeout(this.showYourMoveNotification, 500);
 
     // at the end:

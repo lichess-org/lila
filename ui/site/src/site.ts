@@ -9,7 +9,7 @@ import moduleLaunchers from "./component/module-launchers";
 import OnlineFriends from "./component/friends";
 import powertip from "./component/powertip";
 import pubsub from "./component/pubsub";
-import serviceWorker from "./component/service-worker";
+import serviceWorker from "./component/serviceWorker";
 import StrongSocket from "./component/socket";
 import timeago from "./component/timeago";
 import topBar from "./component/top-bar";
