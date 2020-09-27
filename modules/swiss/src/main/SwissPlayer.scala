@@ -5,7 +5,7 @@ import lila.rating.Perf
 import lila.user.{ Perfs, User }
 
 case class SwissPlayer(
-    id: SwissPlayer.Id, // random
+    id: SwissPlayer.Id, // swissId:userId
     swissId: Swiss.Id,
     userId: User.ID,
     rating: Int,

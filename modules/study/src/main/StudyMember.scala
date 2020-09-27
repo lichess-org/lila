@@ -29,7 +29,7 @@ case class StudyMembers(members: StudyMember.MemberMap) {
   def -(userId: User.ID)     = copy(members = members - userId)
 
   def update(id: User.ID, f: StudyMember => StudyMember) = copy(
-    members = members.mapValues { m =>
+    members = members.view.mapValues { m =>
       if (m.id == id) f(m) else m
     }.toMap
   )
