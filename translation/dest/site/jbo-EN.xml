@@ -444,7 +444,7 @@
   <string name="autoSwitch">zmiku nungalfi</string>
   <string name="puzzles">lo namkei</string>
   <string name="latestUpdates">cnino nunstika</string>
-  <string name="tournamentWinners">lo jinga be fo lo grinunjvi</string>
+  <string name="tournamentWinners">jinga fo lo grinunjvi</string>
   <string name="name">lo cmene</string>
   <string name="description">velski</string>
   <string name="no">na go\'i</string>
@@ -667,6 +667,7 @@
   <string name="error.unknown">srera da</string>
   <string name="notifications">lo notci</string>
   <string name="challenges">lo talsa</string>
+  <string name="perfRatingX">nilcre fa li %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">zukte .ei lo pa moi kelka\'u ba nu\'i la\'u lo snidu be li su\'e %s</item>
   </plurals>
