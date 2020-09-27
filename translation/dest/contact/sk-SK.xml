@@ -36,11 +36,13 @@
   <string name="doNotMessageModerators">Neposielaj správy priamo moderátorom.</string>
   <string name="onlyReports">Nahlásenie hráča je účinné jedine cez nahlasovací formulár.</string>
   <string name="wantReportBug">Chcem nahlásiť chybu</string>
+  <string name="reportBugInDiscord">Na Lichess Discord serveri</string>
   <string name="illegalPawnCapture">Nedovolené zajatie pešiaka</string>
   <string name="illegalCastling">Nedovolené alebo nemožné hradenie</string>
   <string name="knightMate">Je možné dať mat iba s jazdcom alebo strelcom, ak súper má viac figúr na šachovnici než len kráľa.</string>
   <string name="errorPage">Chybová stránka</string>
   <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Požiadať o zabanovanie hráča alebo obmedzenie IP adresy</string>
+  <string name="otherRestriction">Iné obmedzenie</string>
   <string name="noneOfTheAbove">Žiadne z uvedených</string>
   <string name="sendEmailAt">Poslať nám email na %s.</string>
 </resources>
