@@ -39,7 +39,7 @@ final class IrwinApi(
       reportColl.update.one($id(report._id), report, upsert = true) >>
         markOrReport(report) >>
         notification(report) >>-
-        lila.mon.mod.irwin.ownerReport(report.owner).increment()
+        lila.mon.mod.irwin.ownerReport(report.owner).increment().pp
 
     def get(user: User): Fu[Option[IrwinReport]] =
       reportColl.find($id(user.id)).one[IrwinReport]

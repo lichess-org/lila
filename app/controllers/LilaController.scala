@@ -649,7 +649,7 @@ abstract private[controllers] class LilaController(val env: Env)
     fuccess(BadRequest(errorsAsJson(err)))
 
   protected def pageHit(req: RequestHeader): Unit =
-    if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment()
+    if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment().unit
 
   protected def pageHit(implicit ctx: lila.api.Context): Unit = pageHit(ctx.req)
 

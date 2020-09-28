@@ -4,6 +4,13 @@ import java.lang.Math.{ max, min }
 
 import ornicar.scalalib.Zero
 
+final class AugmentedAny(private val self: Any) extends AnyVal {
+
+  // sugar for -Wvalue-discard
+  @scala.annotation.nowarn
+  def unit: Unit = ()
+}
+
 final class PimpedBoolean(private val self: Boolean) extends AnyVal {
 
   /**

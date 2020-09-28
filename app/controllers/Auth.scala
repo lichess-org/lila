@@ -387,7 +387,7 @@ final class Auth(
                 env.security.store.closeAllSessionsOf(user.id) >>
                 env.push.webSubscriptionApi.unsubscribeByUser(user) >>
                 authenticateUser(user) >>-
-                lila.mon.user.auth.passwordResetConfirm("success").increment()
+                lila.mon.user.auth.passwordResetConfirm("success").increment().unit
             }(rateLimitedFu)
           }
       }
@@ -444,7 +444,7 @@ final class Auth(
         case Some(user) =>
           authLog(user.username, "-", "Magic link")
           authenticateUser(user) >>-
-            lila.mon.user.auth.magicLinkConfirm("success").increment()
+            lila.mon.user.auth.magicLinkConfirm("success").increment().unit
       }
     }
 

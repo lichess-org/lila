@@ -166,7 +166,7 @@ final class Env(
     // GC can be aborted by reverting the initial SB mark
     user.repo.isTroll(userId) foreach { troll =>
       if (troll) scheduler.scheduleOnce(1.second) {
-        closeAccount(userId, self = false)
+        closeAccount(userId, self = false).unit
       }
     }
   }

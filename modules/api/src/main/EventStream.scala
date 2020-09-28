@@ -86,26 +86,28 @@ final class EventStream(
             lastSetSeenAt = DateTime.now
           }
 
-          context.system.scheduler.scheduleOnce(6 second) {
-            if (online) {
-              // gotta send a message to check if the client has disconnected
-              queue offer None
-              self ! SetOnline
+          context.system.scheduler
+            .scheduleOnce(6 second) {
+              if (online) {
+                // gotta send a message to check if the client has disconnected
+                queue offer None
+                self ! SetOnline
+              }
             }
-          }
+            .unit
 
-        case StartGame(game) => queue offer gameJson("gameStart")(game).some
+        case StartGame(game) => queue.offer(gameJson("gameStart")(game).some).unit
 
-        case FinishGame(game, _, _) => queue offer gameJson("gameFinish")(game).some
+        case FinishGame(game, _, _) => queue.offer(gameJson("gameFinish")(game).some).unit
 
         case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
-          queue offer challengeJson("challenge")(c).some
+          queue.offer(challengeJson("challenge")(c).some).unit
 
         case lila.challenge.Event.Decline(c) if isMyChallenge(c) =>
-          queue offer challengeJson("challengeDeclined")(c).some
+          queue.offer(challengeJson("challengeDeclined")(c).some).unit
 
         case lila.challenge.Event.Cancel(c) if isMyChallenge(c) =>
-          queue offer challengeJson("challengeCanceled")(c).some
+          queue.offer(challengeJson("challengeCanceled")(c).some).unit
 
         // pretend like the rematch is a challenge
         case lila.hub.actorApi.round.RematchOffer(gameId) =>

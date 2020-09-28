@@ -94,24 +94,26 @@ final class GameStateStream(
             Bus.publish(Tell(init.game.id, BotConnected(as, v = false)), "roundSocket")
           }
         queue.complete()
-        lila.mon.bot.gameStream("stop").increment()
+        lila.mon.bot.gameStream("stop").increment().unit
       }
 
       def receive = {
-        case MoveGameEvent(g, _, _) if g.id == id && !g.finished => pushState(g)
+        case MoveGameEvent(g, _, _) if g.id == id && !g.finished => pushState(g).unit
         case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
-          pushChatLine(username, text, chatId.value.lengthIs == Game.gameIdSize)
-        case FinishGame(g, _, _) if g.id == id                          => onGameOver(g.some)
-        case AbortedBy(pov) if pov.gameId == id                         => onGameOver(pov.game.some)
-        case lila.game.actorApi.BoardDrawOffer(pov) if pov.gameId == id => pushState(pov.game)
+          pushChatLine(username, text, chatId.value.lengthIs == Game.gameIdSize).unit
+        case FinishGame(g, _, _) if g.id == id                          => onGameOver(g.some).unit
+        case AbortedBy(pov) if pov.gameId == id                         => onGameOver(pov.game.some).unit
+        case lila.game.actorApi.BoardDrawOffer(pov) if pov.gameId == id => pushState(pov.game).unit
         case SetOnline =>
           onlineApiUsers.setOnline(user.id)
-          context.system.scheduler.scheduleOnce(6 second) {
-            // gotta send a message to check if the client has disconnected
-            queue offer None
-            self ! SetOnline
-            Bus.publish(Tell(id, QuietFlag), "roundSocket")
-          }
+          context.system.scheduler
+            .scheduleOnce(6 second) {
+              // gotta send a message to check if the client has disconnected
+              queue offer None
+              self ! SetOnline
+              Bus.publish(Tell(id, QuietFlag), "roundSocket")
+            }
+            .unit
         case NewConnectionDetected =>
           newConnectionDetected = true
           self ! PoisonPill
