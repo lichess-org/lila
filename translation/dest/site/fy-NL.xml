@@ -266,6 +266,11 @@
   <string name="mustBeInTeam">Moast yn team %s sitte</string>
   <string name="youAreNotInTeam">Do bist net fan team %s</string>
   <string name="backToGame">Weromgean nei it spul</string>
+  <string name="siteDescription">Fergeese online skaakserver. Spylje skaak yn in skjinne interface. Gjin registraasje, gjin advertinsjes, gjin plugin nedich. Spylje skaak mei de kompjoeter, freonen of samar in tsjinstanner.</string>
+  <string name="xJoinedTeamY">%1$s is lid wurden fan team %2$s</string>
+  <string name="xCreatedTeamY">%1$s hat team %2$s oanmakke</string>
+  <string name="xStartedStreaming">%s is mei streamen úteinsetten</string>
+  <string name="averageElo">Gemiddelde rating</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
