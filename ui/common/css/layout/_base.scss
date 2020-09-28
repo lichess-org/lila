@@ -27,10 +27,6 @@ body {
   @media (hover: hover) {
     --hoverable: 1;
   }
-
-  @supports (display: grid) {
-    --grid: 1;
-  }
 }
 
 #main-wrap {

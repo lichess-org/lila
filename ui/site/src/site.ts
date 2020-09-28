@@ -121,13 +121,6 @@ lichess.load.then(() => {
       return false;
     });
 
-    if (!storage.get('grid')) setTimeout(() => {
-      if (getComputedStyle(document.body).getPropertyValue('--grid'))
-        storage.set('grid', '1');
-      else
-        xhr.text(assetUrl('oops/browser.html')).then(html => $('body').prepend(html))
-    }, 3000);
-
     /* A disgusting hack for a disgusting browser
      * Edge randomly fails to rasterize SVG on page load
      * A different SVG must be loaded so a new image can be rasterized */
