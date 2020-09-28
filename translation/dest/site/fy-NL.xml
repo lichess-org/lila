@@ -261,6 +261,10 @@
   <string name="yourPerfRatingIsTooHigh">Dyn %1$s rating (%2$s) is te heech</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Dyn wyklikse top %1$s rating (%2$s) is te heech</string>
   <string name="yourPerfRatingIsTooLow">Dyn %1$s rating (%2$s) is te leech</string>
+  <string name="ratedMoreThanInPerf">≥ %1$s yn %2$s</string>
+  <string name="ratedLessThanInPerf">≤ %1$s yn %2$s</string>
+  <string name="mustBeInTeam">Moast yn team %s sitte</string>
+  <string name="youAreNotInTeam">Do bist net fan team %s</string>
   <string name="backToGame">Weromgean nei it spul</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
