@@ -257,7 +257,10 @@
   <string name="viewTournament">Toernoai besjen</string>
   <string name="backToTournament">Weromgean nei it toernoai</string>
   <string name="thematic">Tematysk</string>
+  <string name="yourPerfRatingIsProvisional">Dyn %s rating is noch foarriedich</string>
   <string name="yourPerfRatingIsTooHigh">Dyn %1$s rating (%2$s) is te heech</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Dyn wyklikse top %1$s rating (%2$s) is te heech</string>
+  <string name="yourPerfRatingIsTooLow">Dyn %1$s rating (%2$s) is te leech</string>
   <string name="backToGame">Weromgean nei it spul</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
