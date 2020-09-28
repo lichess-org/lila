@@ -18,6 +18,7 @@
   <string name="lichessSupportChessAnd">Lichess podržava standardni šah i još osam %1$s.</string>
   <string name="eightVariants">8 varijanti šaha</string>
   <string name="insufficientMaterial">Gubljenje na vrijeme, remiziranje i nedovoljan materijal</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Pravilnik FIDE %s</string>
   <string name="discoveringEnPassant">Zašto pješak može uzeti pješaka kad je već prošao pokraj njega? (\"en passant\")</string>
   <string name="goodIntroduction">dobar uvod</string>
   <string name="officialRulesPDF">službena pravila (PDF)</string>
