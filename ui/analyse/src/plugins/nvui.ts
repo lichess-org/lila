@@ -186,8 +186,7 @@ function requestAnalysisButton(ctrl: AnalyseController, inProgress: Prop<boolean
       }).then(() => {
         inProgress(true);
         notify('Server-side analysis in progress')
-      })
-        .catch(() => notify('Cannot run server-side analysis'))
+      }, _ => notify('Cannot run server-side analysis'))
     )
   }, 'Request a computer analysis');
 }

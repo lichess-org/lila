@@ -336,8 +336,7 @@ export default class Setup {
           });
           $submits.removeClass('nope');
           lichess.contentLoaded();
-        })
-        .catch(() => {
+        }, _ => {
           $fenInput.addClass("failure");
           $fenPosition.find('.preview').html("");
           $submits.addClass('nope');

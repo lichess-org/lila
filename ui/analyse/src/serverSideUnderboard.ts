@@ -123,7 +123,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
         return false;
       }
-      formToXhr(this).then(startAdvantageChart).catch(lichess.reload);
+      formToXhr(this).then(startAdvantageChart, lichess.reload);
       return false;
     });
   }

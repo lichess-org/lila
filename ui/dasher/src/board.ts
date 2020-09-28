@@ -37,8 +37,7 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
         '/pref/is3d', {
         body: xhr.form({ is3d: v }),
         method: 'post'
-      }).then(lichess.reload)
-        .catch(() => lichess.announce({ msg: 'Failed to save geometry  preference' }));
+      }).then(lichess.reload, _ => lichess.announce({ msg: 'Failed to save geometry  preference' }));
       redraw();
     },
     readZoom,

@@ -46,8 +46,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
 
   const loadPage = (page: number) =>
     xhr.json(xhr.url('/notify', { page: page || 1 }))
-      .then(d => update(d, false))
-      .catch(() => lichess.announce({ msg: 'Failed to load notifications' }));
+      .then(d => update(d, false), _ => lichess.announce({ msg: 'Failed to load notifications' }));
 
   function nextPage() {
     if (!data || !data.pager.nextPage) return;

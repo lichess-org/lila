@@ -423,8 +423,7 @@ export default class AnalyseCtrl {
         this.reloadData(data, false);
         this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
         this.redraw();
-      })
-      .catch(error => {
+      }, error => {
         console.log(error);
         this.redirecting = false;
         this.redraw();
