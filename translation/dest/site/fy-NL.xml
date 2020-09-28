@@ -271,6 +271,7 @@
   <string name="xCreatedTeamY">%1$s hat team %2$s oanmakke</string>
   <string name="xStartedStreaming">%s is mei streamen úteinsetten</string>
   <string name="averageElo">Gemiddelde rating</string>
+  <string name="location">Lokaasje</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
