@@ -92,15 +92,13 @@ export function init(ctrl: RoundController) {
 
   for (let i = 1; i <= 5; i++) {
     const iStr = i.toString();
-    k.bind(iStr, (e: KeyboardEvent) => {
-      e.preventDefault();
+    k.bind(iStr, () => {
       if (!crazyKeys.includes(i)) {
         crazyKeys.push(i);
         setDrop();
       }
-    });
-    k.bind(iStr, (e: KeyboardEvent) => {
-      e.preventDefault();
+    })
+    .bind(iStr, () => {
       const idx = crazyKeys.indexOf(i);
       if (idx >= 0) {
         crazyKeys.splice(idx, 1);

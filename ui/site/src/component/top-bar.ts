@@ -7,7 +7,7 @@ export default function() {
   const initiatingHtml = `<div class="initiating">${spinnerHtml}</div>`,
     isVisible = (selector: string) => {
       const el = document.querySelector(selector),
-      display = el && window.getComputedStyle(el).display;
+        display = el && window.getComputedStyle(el).display;
       return display && display != 'none';
     };
 
@@ -137,12 +137,12 @@ export default function() {
       if ($('body').hasClass('clinput')) $input[0]!.focus();
     };
     $wrap.find('a').on('mouseover click', e => (e.type === 'mouseover' ? boot : toggle)());
-    window.Mousetrap.bind('/', () => {
-      $input.val('/');
-      requestAnimationFrame(() => toggle());
-      return false;
-    });
-    window.Mousetrap.bind('s', () => requestAnimationFrame(toggle));
+    window.Mousetrap
+      .bind('/', () => {
+        $input.val('/');
+        requestAnimationFrame(() => toggle());
+      })
+      .bind('s', () => requestAnimationFrame(toggle));
     if ($('body').hasClass('blind-mode')) $input.one('focus', toggle);
   }
 }

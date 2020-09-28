@@ -717,8 +717,8 @@ export default class RoundController {
           window.Mousetrap.bind('esc', () => {
             this.submitMove(false);
             this.chessground.cancelMove();
-          });
-          window.Mousetrap.bind('return', () => this.submitMove(true));
+          })
+          .bind('return', () => this.submitMove(true));
         }
         cevalSub.subscribe(this);
       }

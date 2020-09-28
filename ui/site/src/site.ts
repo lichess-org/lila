@@ -105,11 +105,6 @@ lichess.load.then(() => {
       return false;
     });
 
-    // still bind esc even in form fields
-    window.Mousetrap.prototype.stopCallback = (_: any, el: HTMLElement, combo: string) =>
-      combo != 'esc' && (
-        el.isContentEditable || el.tagName == 'INPUT' || el.tagName == 'SELECT' || el.tagName == 'TEXTAREA'
-      );
     window.Mousetrap.bind('esc', () => {
       const $oc = $('#modal-wrap .close');
       if ($oc.length) $oc.trigger('click');
@@ -117,7 +112,6 @@ lichess.load.then(() => {
         const $input = $(':focus');
         if ($input.length) $input.trigger('blur');
       }
-      return false;
     });
 
     /* A disgusting hack for a disgusting browser
