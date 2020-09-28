@@ -14,10 +14,9 @@ import StrongSocket from "./component/socket";
 import timeago from "./component/timeago";
 import topBar from "./component/top-bar";
 import watchers from "./component/watchers";
-import { assetUrl, userComplete } from "./component/assets";
+import { userComplete } from "./component/assets";
 import { reload } from "./component/reload";
 import { requestIdleCallback } from "./component/functions";
-import { storage } from "./component/storage";
 
 exportLichessGlobals();
 lichess.info = info;
