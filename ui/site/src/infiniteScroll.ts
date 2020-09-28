@@ -32,8 +32,7 @@ function register(el: HTMLElement, selector: string, backoff: number = 500) {
       dedupEntries(el);
       lichess.contentLoaded(el);
       setTimeout(() => register(el, selector, backoff * 1.05), backoff); // recursion with backoff
-    })
-    .catch(e => {
+    }, e => {
       console.log(e);
       nav.remove();
     });

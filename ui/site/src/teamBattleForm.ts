@@ -24,14 +24,14 @@ lichess.load.then(() => {
       id: 'team',
       match: /(^|\s)(.+)$/,
       index: 2,
-        search(term: string, callback: (res: any[]) => void) {
-          xhr.json(
-            xhr.url('/team/autocomplete', { term }), 
-            { cache: 'default' }
-          ).then(res => {
-            const current = textarea.value.split('\n').map(t => t.split(' ')[0]).slice(0, -1);
-            callback(res.filter(t => !current.includes(t.id)));
-          }).catch(() => callback([]))
+      search(term: string, callback: (res: any[]) => void) {
+        xhr.json(
+          xhr.url('/team/autocomplete', { term }), 
+          { cache: 'default' }
+        ).then(res => {
+          const current = textarea.value.split('\n').map(t => t.split(' ')[0]).slice(0, -1);
+          callback(res.filter(t => !current.includes(t.id)));
+        }, _ => callback([]));
       },
       template: (team: Team) => team.name + ', by ' + team.owner + ', with ' + team.members + ' members',
       replace: (team: Team) => '$1' + team.id + ' "' + team.name + '" by ' + team.owner + '\n'

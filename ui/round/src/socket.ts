@@ -66,7 +66,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         else reload(o, true);
       }
       else ctrl.reload(data);
-    });
+    }, lichess.reload);
   };
 
   const handlers: Handlers = {

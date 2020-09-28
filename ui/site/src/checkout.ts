@@ -98,7 +98,7 @@ export default function(publicKey: string) {
       } else {
         location.assign("/patron");
       }
-    }).catch(showError);
+    }, showError);
   });
 
   // Close Checkout on page navigation:
