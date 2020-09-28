@@ -9,6 +9,10 @@
   <string name="whyLiveLightLibre">\"Uživo\", zato što se pertije igraju i gledaju u stvarnom vremenu 24 sata sedmično; \"lahko\" i \"slobodno\" zato što Lichess radi na otvorenom kodu i neopterećen je vlasničkim procedurama koje muče druge sajtove.</string>
   <string name="whyIsLilaCalledLila">Slično tome, izvorni kod za Lichess, %1$s, skraćenica je od \"li[chess in Sca]la\", s obzirom na to da je većina Lichessa napisana u intuitivnom programskom jeziku %2$s.</string>
   <string name="howCanIContributeToLichess">Kako mogu doprinijeti Lichessu?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess je potpomognut donacijama patrona i trudom tima volontera.</string>
+  <string name="findMoreAndSeeHowHelp">Možete naći više o tome %1$s (uključujući %2$s). Ako želite pomoći Lichessu volontiranjem, postoji mnogo %3$s.</string>
+  <string name="beingAPatron">kako biti patron</string>
+  <string name="breakdownOfOurCosts">presjek naših troškova</string>
   <string name="otherWaysToHelp">drugi načini da pomognete</string>
   <string name="areThereWebsitesBasedOnLichess">Postoje li sajtovi zasnovani na Lichessu?</string>
   <string name="fairPlay">Fer-plej</string>
