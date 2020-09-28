@@ -15,13 +15,13 @@ import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind } from '../util';
 
-window.lichess.AnalyseNVUI = function(redraw: Redraw) {
+lichess.AnalyseNVUI = function(redraw: Redraw) {
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting(),
     analysisInProgress = prop(false);
 
-  window.lichess.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
+  lichess.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete')
   });
 
@@ -65,8 +65,9 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
             hook: {
               insert(vnode) {
                 const $form = $(vnode.elm as HTMLFormElement),
-                  $input = $form.find('.move').val('').focus();
-                $form.submit(onSubmit(ctrl, notify.set, moveStyle.get, $input));
+                  $input = $form.find('.move').val('');
+                $input[0]!.focus();
+                $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
               }
             }
           }, [
@@ -117,9 +118,9 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
   };
 }
 
-function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
+function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return function() {
-    let input = $input.val().trim();
+    let input = ($input.val() as string).trim();
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else notify('Invalid command');

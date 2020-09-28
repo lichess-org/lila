@@ -21,7 +21,7 @@
   <string name="createAGame">डाव मांडा</string>
   <string name="whiteIsVictorious">पांढरा विजयी ठरला</string>
   <string name="blackIsVictorious">काळा विजयी ठरला</string>
-  <string name="youPlayTheWhitePieces">तुम्ही पांढऱ्या बाजूने खेळा</string>
+  <string name="youPlayTheWhitePieces">तुम्ही पांढऱ्या सोंगट्यानी खेळा</string>
   <string name="youPlayTheBlackPieces">तुम्ही काळ्या बाजूने खेळा</string>
   <string name="itsYourTurn">तुमची चाल!</string>
   <string name="kingInTheCenter">मध्यस्थानी राजा</string>
@@ -45,7 +45,7 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">या युआरएलवर येणारे पहिले व्यक्ती तुमच्याबरोबर खेळणार.</string>
   <string name="whiteResigned">पांढर्याने हार मानली</string>
   <string name="blackResigned">काळ्याने हार मानली</string>
-  <string name="whiteLeftTheGame">पांढर्याने खेळ सोडला</string>
+  <string name="whiteLeftTheGame">पांढऱ्याने खेळ सोडला</string>
   <string name="blackLeftTheGame">काळ्याने खेळ सोडला</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">प्रेक्षकांना हा खेळ दाखवण्यासाठी हा URL पाठवा</string>
   <string name="theComputerAnalysisHasFailed">संगणक विश्लेषण अयशस्वी झाले आहे</string>
@@ -79,7 +79,7 @@
   <string name="unknown">अज्ञात</string>
   <string name="database">माहितीसंच</string>
   <string name="whiteDrawBlack">पांढरी / तह / काळी</string>
-  <string name="averageRatingX">सरासरी रेटिंग: %s</string>
+  <string name="averageRatingX">सरासरी दर्जा: %s</string>
   <string name="recentGames">अलीकडचे खेळ</string>
   <string name="topGames">शीर्ष खेळ</string>
   <string name="masterDbExplanation">%2$s s ते %3$s पर्यंत %1$s FIDE- रेट केलेल्या खेळाडूंचे दोन दशलक्ष खेळ</string>
@@ -117,8 +117,8 @@
   <string name="blunders">घोडचूका</string>
   <string name="mistake">चुक</string>
   <string name="mistakes">चुका</string>
-  <string name="inaccuracy">त्रुटी</string>
-  <string name="inaccuracies">त्रुटी</string>
+  <string name="inaccuracy">अयोग्य</string>
+  <string name="inaccuracies">अयोग्य चाली</string>
   <string name="moveTimes">चालीसाठी लागलेला वेळ</string>
   <string name="flipBoard">पटाला पलटा</string>
   <string name="threefoldRepetition">तीनदा पुनरावृत्ती</string>
@@ -169,9 +169,9 @@
     <item quantity="one">%s तास</item>
     <item quantity="other">%s तास</item>
   </plurals>
-  <string name="time">vel</string>
+  <string name="time">वेळ</string>
   <string name="rating">गुणांकन</string>
-  <string name="ratingStats">दर्जा आकडेवारी</string>
+  <string name="ratingStats">गुणांक आकडेवारी</string>
   <string name="username">वापरकर्त्याचे नाव</string>
   <string name="usernameOrEmail">वापरकर्त्याचे नाव किंवा पत्ता</string>
   <string name="changeUsername">नाव बदला</string>
@@ -199,7 +199,8 @@
     <item quantity="other">%s  तुमच्याशी खेळलेले डाव</item>
   </plurals>
   <string name="cancel">रद्द करा</string>
-  <string name="timeOut">वेळ समाप्त</string>
+  <string name="whiteTimeOut">पांढऱ्याची वेळ संपली</string>
+  <string name="blackTimeOut">काळ्याची वेळ संपली</string>
   <string name="drawOfferSent">डाव अनिर्णीत ठेवण्याचा प्रस्ताव पाठवला</string>
   <string name="drawOfferDeclined">डाव अनिर्णीत ठेवण्याचा प्रस्ताव नाकारला</string>
   <string name="drawOfferAccepted">डाव अनिर्णीत ठेवण्याचा प्रस्ताव स्वीकारला</string>
@@ -221,13 +222,13 @@
   <string name="unlimited">अमर्याद</string>
   <string name="mode">पध्दती</string>
   <string name="casual">अनौपचारिक</string>
-  <string name="rated">दर्जा दिला</string>
+  <string name="rated">औपचारिक</string>
   <string name="casualTournament">अनौपचारिक</string>
-  <string name="ratedTournament">दर्जाचे</string>
-  <string name="thisGameIsRated">या डावाचा दर्जा</string>
+  <string name="ratedTournament">औपचारिक</string>
+  <string name="thisGameIsRated">हा खेळ औपचारिक आहे</string>
   <string name="rematch">पुनः खेळा</string>
   <string name="rematchOfferSent">पुनः खेळण्याचा प्रस्ताव पाठवला</string>
-  <string name="rematchOfferSentWhite">पंढऱ्याकडून पुन्हा खेळण्याची विनंती</string>
+  <string name="rematchOfferSentWhite">पांढऱ्याने पुन्हा खेळण्याची विनंती केली</string>
   <string name="rematchOfferSentBlack">काळ्याकडून पुन्हा खेळण्याची विनंती</string>
   <string name="rematchOfferAccepted">पुनः खेळण्याचा प्रस्ताव स्वीकारला</string>
   <string name="rematchOfferCanceled">पुनः खेळण्याचा प्रस्ताव रद्द</string>
@@ -251,7 +252,7 @@
   <string name="spectators">प्रेक्षक</string>
   <plurals name="nbRated">
     <item quantity="one">%s दर्जेदार</item>
-    <item quantity="other">%s दर्जेदार</item>
+    <item quantity="other">%s औपचारिक</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s विजय</item>
@@ -270,13 +271,13 @@
     <item quantity="other">%s खेळतोय</item>
   </plurals>
   <string name="exportGames">खेळ निर्यात करा</string>
-  <string name="ratingRange">इलो श्रेणी</string>
+  <string name="ratingRange">Elo श्रेणी</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s सेकंद द्या</item>
     <item quantity="other">%s सेकंद द्या</item>
   </plurals>
   <string name="thisAccountViolatedTos">या खात्याने अटींचे उल्लंघन केले</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">हा खेळाडू कृत्रिमरित्या दर्जा वाढवितो / कमी करतो</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">हा खेळाडू कृत्रिमरित्या गुणांकन वाढवितो / कमी करतो</string>
   <string name="openingExplorerAndTablebase">उघडणी अन्वेषक नि साठा</string>
   <string name="takeback">चाल परत घ्या</string>
   <string name="proposeATakeback">चाल मागे घेण्यास विनंती करा</string>
@@ -302,11 +303,11 @@
   <string name="thematic">विषयगत</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s दर्जाचा खेळ</item>
-    <item quantity="other">≥ %s दर्जाचे खेळ</item>
+    <item quantity="other">≥ %s औपचारिक खेळ</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s दर्जाचा खेळ</item>
-    <item quantity="other">≥ %1$s %2$s दर्जाचे खेळ</item>
+    <item quantity="one">≥ %1$s %2$s औपचारिक खेळ</item>
+    <item quantity="other">≥ %1$s %2$s औपचारिक खेळ</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">आपल्याला आणखी %1$s %2$s-दर्जाचे गेम खेळण्याची आवश्यकता आहे</item>
@@ -317,7 +318,7 @@
     <item quantity="other">आपल्याला आणखी %s दर्जाचे गेम खेळण्याची आवश्यकता आहे</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">आपला %s दर्जा तात्पुरता आहे</string>
-  <string name="yourPerfRatingIsTooHigh">आपला %1$s दर्जा (%2$s) खूप जास्त आहे</string>
+  <string name="yourPerfRatingIsTooHigh">आपले %1$s गुणांकन (%2$s) खूप जास्त आहे</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">आपला साप्ताहिक %1$s दर्जा (%2$s) खूप जास्त आहे</string>
   <string name="yourPerfRatingIsTooLow">आपला %1$s दर्जा (%2$s) खूप कमी आहे</string>
   <string name="ratedMoreThanInPerf">दर्जा ≥ %1$s %2$s मध्ये</string>
@@ -393,7 +394,7 @@
   <string name="openTournaments">खुले क्रीडासत्र</string>
   <string name="duration">कालावधी</string>
   <string name="winner">विजेता</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">पद</string>
+  <string name="standing">पद</string>
   <string name="createANewTournament">नवीन क्रीडासत्र तयार करा</string>
   <string name="tournamentCalendar">क्रीडासत्र दिनदर्शिका</string>
   <string name="conditionOfEntry">प्रवेशाच्या आवश्यकता:</string>
@@ -604,7 +605,7 @@
   <string name="onlyFriends">फक्त मित्र</string>
   <string name="menu">मेनू</string>
   <string name="castling">किल्ल्यात</string>
-  <string name="whiteCastlingKingside">पांढरा ओ-ओ</string>
+  <string name="whiteCastlingKingside">पांढरा 0-0</string>
   <string name="blackCastlingKingside">काळा ओ-ओ</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s मंचातील प्रतिक्रिया</item>
@@ -657,7 +658,7 @@
   <string name="newTournament">नविन क्रीडासत्र</string>
   <string name="tournamentHomeTitle">विविध वेळ नियंत्रणे आणि प्रकार दर्शविणारे बुद्धीबळ क्रीडासत्र</string>
   <string name="tournamentHomeDescription">वेगवान-वेगवान बुद्धीबळ क्रीडासत्र खेळा! अधिकृत शेड्यूल टूर्नामेंटमध्ये सामील व्हा किंवा स्वतःचे तयार करा. बुलेट, ब्लीटझ, क्लासिकल, चेस 960, किंग ऑफ द हिल, थ्रीचेक आणि अंतहीन बुद्धिबळ मनोरंजनासाठी अधिक पर्याय उपलब्ध.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">क्रीडासत्र सापडले नाही</string>
+  <string name="tournamentNotFound">क्रीडासत्र सापडले नाही</string>
   <string name="tournamentDoesNotExist">हे क्रीडासत्र उपलब्ध नाही.</string>
   <string name="tournamentMayHaveBeenCanceled">जर सर्व खेळाडू क्रीडासत्र सुरू होण्यापूर्वी निघून गेले तर क्रीडासत्र रद्द होऊ शकते.</string>
   <string name="returnToTournamentsHomepage">क्रीडासत्राच्या मुख्य पृष्ठावर जा</string>
@@ -762,7 +763,7 @@
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
     <item quantity="other">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
   </plurals>
-  <string name="practiceWithComputer">कॉम्प्युटर सोबत सराव करा</string>
+  <string name="practiceWithComputer">संगणकासोबत सराव करा</string>
   <string name="anotherWasX">इतर %s</string>
   <string name="bestWasX">उत्तम %s</string>
   <string name="youBrowsedAway">आपण पुनर्वलोकण पूर्ण केले</string>
@@ -790,8 +791,8 @@
   <string name="waitingForAnalysis">विश्लेषणासाठी वाट पहा</string>
   <string name="noMistakesFoundForWhite">पांढऱ्याची चूक सापडली नाही</string>
   <string name="noMistakesFoundForBlack">काळ्याची चूक सापडली नाही</string>
-  <string name="doneReviewingWhiteMistakes">पांढऱ्याची समीक्षा झाली</string>
-  <string name="doneReviewingBlackMistakes">काळ्याची समीक्षा झाली</string>
+  <string name="doneReviewingWhiteMistakes">पांढऱ्याच्या चुकांची समीक्षा झाली</string>
+  <string name="doneReviewingBlackMistakes">काळ्याच्या चुकांची समीक्षा झाली</string>
   <string name="doItAgain">परत समीक्षा करा</string>
   <string name="reviewWhiteMistakes">पांढऱ्याच्या चुकांची समीक्षा करा</string>
   <string name="reviewBlackMistakes">काळ्याच्या चुकांची समीक्षा करा</string>
@@ -834,7 +835,7 @@
   <string name="thankYouForReading">वाचल्याबद्दल धन्यवाद!</string>
   <string name="lifetimeScore">आजीवन गुण</string>
   <string name="currentMatchScore">चालू डावाचे गुण</string>
-  <string name="agreementAssistance">मी खेळतांना इतर सहाय्य घेणार नाही (कॉम्प्युटर, पुस्तक, डेटाबेस किंवा इतर व्यक्ती).</string>
+  <string name="agreementAssistance">मी खेळतांना इतर सहाय्य घेणार नाही (संगणक, पुस्तक, डेटाबेस किंवा इतर व्यक्ती).</string>
   <string name="agreementNice">मी इतर खेळाडू सोबत आदरयुक्त व्यवहार ठेवील.</string>
   <string name="agreementAccount">मी एकापेक्षा जास्त खाती उघडणार नाही.</string>
   <string name="agreementPolicy">मी Lichess च्या सर्व नियमांचे पालन करेल.</string>

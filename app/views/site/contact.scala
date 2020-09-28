@@ -158,30 +158,29 @@ object contact {
             "trolling"          -> trolling(),
             "insults"           -> insults(),
             "some other reason" -> otherReason()
-          ).map {
-            case (reason, name) =>
-              Leaf(
-                reason,
-                frag("Report a player for ", name),
-                frag(
-                  p(
-                    a(href := routes.Report.form())(toReportAPlayer(name)),
-                    "."
-                  ),
-                  p(
-                    youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := "!"))
-                  ),
-                  p(
-                    doNotMessageModerators(),
-                    br,
-                    doNotReportInForum(),
-                    br,
-                    doNotSendReportEmails(),
-                    br,
-                    onlyReports()
-                  )
+          ).map { case (reason, name) =>
+            Leaf(
+              reason,
+              frag("Report a player for ", name),
+              frag(
+                p(
+                  a(href := routes.Report.form())(toReportAPlayer(name)),
+                  "."
+                ),
+                p(
+                  youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := "!"))
+                ),
+                p(
+                  doNotMessageModerators(),
+                  br,
+                  doNotReportInForum(),
+                  br,
+                  doNotSendReportEmails(),
+                  br,
+                  onlyReports()
                 )
               )
+            )
           }
         ),
         Branch(
@@ -210,7 +209,7 @@ object contact {
               "insufficient",
               insufficientMaterial(),
               frag(
-                p(a(href := "https://www.fide.com/FIDE/handbook/LawsOfChess.pdf")(fideMate()), "."),
+                p(a(href := faq.fideHandbookUrl)(fideMate()), "."),
                 p(knightMate())
               )
             ),
@@ -312,8 +311,8 @@ object contact {
                 p("Please do not email us about marketing, tracking, or advertising."),
                 br,
                 p(
-                  "We actively encourage everyone to ",
-                  a(href := routes.Page.ads())("block all ads and trackers.")
+                  "We encourage everyone to ",
+                  a(href := "/ads")("block all ads and trackers.")
                 )
               )
             ),

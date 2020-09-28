@@ -8,20 +8,26 @@
  * Copyright 2007-2019 Brian Cherne
  */
 
-type State = any;
+type State = {
+  timeoutId?: Timeout | void;
+  isActive?: boolean;
+  pX?: number;
+  pY?: number;
+  event?: string;
+};
 
-const menuHover = () => {
+export default function() {
 
   if ('ontouchstart' in window) return;
 
-  const interval = 100;
-  const sensitivity = 10;
+  const interval = 100,
+  sensitivity = 10;
 
   // current X and Y position of mouse, updated during mousemove tracking (shared across instances)
   let cX: number, cY: number;
 
   // saves the current pointer position coordinates based on the given mousemove event
-  const track = (ev: JQueryEventObject) => {
+  const track = (ev: MouseEvent) => {
     cX = ev.pageX;
     cY = ev.pageY;
   };
@@ -38,12 +44,11 @@ const menuHover = () => {
     const $el = $(this).removeClass('hover'),
       handler = () => $el.toggleClass('hover');
 
-
     // compares current and previous mouse positions
     const compare = () => {
       // compare mouse positions to see if pointer has slowed enough to trigger `over` function
-      if (Math.sqrt((state.pX - cX) * (state.pX - cX) + (state.pY - cY) * (state.pY - cY)) < sensitivity) {
-        $el.off(state.event, track);
+      if (Math.sqrt((state.pX! - cX) * (state.pX! - cX) + (state.pY! - cY) * (state.pY! - cY)) < sensitivity) {
+        $el.off(state.event!, track);
         delete state.timeoutId;
         // set hoverIntent state as active for this element (permits `out` handler to trigger)
         state.isActive = true;
@@ -57,7 +62,7 @@ const menuHover = () => {
     };
 
     // A private function for handling mouse 'hovering'
-    const handleHover = function(ev: JQueryEventObject) {
+    const handleHover = function(ev: MouseEvent) {
 
       // clear any existing timeout
       if (state.timeoutId) state.timeoutId = clearTimeout(state.timeoutId);
@@ -66,9 +71,9 @@ const menuHover = () => {
       const mousemove = state.event = 'mousemove';
 
       // handle the event, based on its type
-      if (ev.type == 'mouseenter') {
+      if (ev.type == 'mouseover') {
         // do nothing if already active or a button is pressed (dragging a piece)
-        if (state.isActive || (ev.originalEvent as MouseEvent).buttons) return;
+        if (state.isActive || ev.buttons) return;
         // set "previous" X and Y position based on initial entry point
         state.pX = ev.pageX; state.pY = ev.pageY;
         // update "current" X and Y position based on mousemove
@@ -86,8 +91,6 @@ const menuHover = () => {
       }
     };
 
-    $el.on('mouseenter', handleHover).on('mouseleave', handleHover);
+    $el.on('mouseover', handleHover).on('mouseleave', handleHover);
   });
 }
-
-export default menuHover;

@@ -1,9 +1,9 @@
 package lila.app
 package templating
 
-import play.api.i18n.Lang
 import controllers.routes
 import mashup._
+import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.LightUser
@@ -33,20 +33,27 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType.Crazyhouse
   )
 
-  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char)(implicit
-      lang: Lang
+  def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, clueless: Boolean, icon: Char)(
+      implicit lang: Lang
   ): Frag =
     span(
       title := s"$name rating over ${nb.localize} games",
       dataIcon := icon,
       cls := "text"
     )(
-      if (nb > 0) frag(rating, provisional option "?")
-      else frag(nbsp, nbsp, nbsp, "-")
+      if (clueless) frag(nbsp, nbsp, nbsp, if (nb < 1) "-" else "?")
+      else frag(rating, provisional option "?")
     )
 
   def showPerfRating(perfType: PerfType, perf: Perf)(implicit lang: Lang): Frag =
-    showPerfRating(perf.intRating, perfType.trans, perf.nb, perf.provisional, perfType.iconChar)
+    showPerfRating(
+      perf.intRating,
+      perfType.trans,
+      perf.nb,
+      perf.provisional,
+      perf.clueless,
+      perfType.iconChar
+    )
 
   def showPerfRating(u: User, perfType: PerfType)(implicit lang: Lang): Frag =
     showPerfRating(perfType, u perfs perfType)
@@ -55,12 +62,12 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     PerfType(perfKey) map { showPerfRating(u, _) }
 
   def showBestPerf(u: User)(implicit lang: Lang): Option[Frag] =
-    u.perfs.bestPerf map {
-      case (pt, perf) => showPerfRating(pt, perf)
+    u.perfs.bestPerf map { case (pt, perf) =>
+      showPerfRating(pt, perf)
     }
   def showBestPerfs(u: User, nb: Int)(implicit lang: Lang): List[Frag] =
-    u.perfs.bestPerfs(nb) map {
-      case (pt, perf) => showPerfRating(pt, perf)
+    u.perfs.bestPerfs(nb) map { case (pt, perf) =>
+      showPerfRating(pt, perf)
     }
 
   def showRatingDiff(diff: Int): Frag =
@@ -219,8 +226,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     withPerfRating match {
       case Some(perfType) => renderRating(user.perfs(perfType))
       case _ if withBestRating =>
-        user.perfs.bestPerf ?? {
-          case (_, perf) => renderRating(perf)
+        user.perfs.bestPerf ?? { case (_, perf) =>
+          renderRating(perf)
         }
       case _ => ""
     }
@@ -266,8 +273,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     val name      = user.titleUsername
     val nbGames   = user.count.game
     val createdAt = org.joda.time.format.DateTimeFormat forStyle "M-" print user.createdAt
-    val currentRating = user.perfs.bestPerf ?? {
-      case (pt, perf) => s" Current ${pt.trans} rating: ${perf.intRating}."
+    val currentRating = user.perfs.bestPerf ?? { case (pt, perf) =>
+      s" Current ${pt.trans} rating: ${perf.intRating}."
     }
     s"$name played $nbGames games since $createdAt.$currentRating"
   }

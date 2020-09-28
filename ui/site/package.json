@@ -8,21 +8,23 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@rollup/plugin-replace": "^2.3.3",
-    "rollup-plugin-copy": "^3.3.0",
-    "typescript": "^4.0.2"
+    "rollup-plugin-copy": "^3.3.0"
   },
   "dependencies": {
-    "chessops": "^0.7.0",
+    "@fnando/sparkline": "^0.3.10",
+    "@yaireo/tagify": "3.9.3",
+    "debounce-promise": "^3.1.2",
+    "flatpickr": "^4.6.6",
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
     "jquery-bar-rating": "^1.2.2",
-    "stockfish-mv.wasm": "^0.4.0",
+    "stockfish-mv.wasm": "^0.4.1",
     "stockfish.js": "^10.0.2",
-    "stockfish.wasm": "^0.8.0",
+    "stockfish.wasm": "^0.8.1",
     "tablesort": "^5.1"
   },
   "scripts": {
-    "deps": "cat ../../public/javascripts/vendor/jquery.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",
+    "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",
     "dev": "yarn run deps && rollup --config",
     "prod": "yarn run deps && rollup --config --config-prod && cat ../../public/compiled/deps.min.js ../../public/compiled/site.min.js > ../../public/compiled/lichess.min.js",
     "plugin-dev": "rollup --config --config-plugin",

@@ -31,21 +31,23 @@ interface Options {
   isAuth: boolean;
   debug?: boolean;
 }
+interface Params {
+  sri: Sri;
+  flag?: string;
+}
 interface Settings {
   receive?: (t: Tpe, d: Payload) => void;
   events: {
     [tpe: string]: (d: Payload | null, msg: MsgIn) => any;
   };
-  params: {
-    sri: Sri;
-  };
-  options: Options;
+  params?: Params;
+  options?: Partial<Options>;
 }
 
 // versioned events, acks, retries, resync
 export default class StrongSocket {
 
-  pubsub = window.lichess.pubsub;
+  pubsub = lichess.pubsub;
   settings: Settings;
   options: Options;
   version: number | false;
@@ -61,27 +63,36 @@ export default class StrongSocket {
   nbConnects: number = 0;
   storage: LichessStorage = makeStorage.make('surl8');
 
-  static defaults: Settings = {
-    events: {},
-    params: { sri },
-    options: {
-      idle: false,
-      pingMaxLag: 9000, // time to wait for pong before reseting the connection
-      pingDelay: 2500, // time between pong and ping
-      autoReconnectDelay: 3500,
-      protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
-      isAuth: document.body.hasAttribute('user')
-    }
+  static defaultOptions: Options = {
+    idle: false,
+    pingMaxLag: 9000, // time to wait for pong before reseting the connection
+    pingDelay: 2500, // time between pong and ping
+    autoReconnectDelay: 3500,
+    protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
+    isAuth: document.body.hasAttribute('user')
   };
+  static defaultParams: Params = {
+    sri: sri
+  }
 
   static resolveFirstConnect: (send: Send) => void;
   static firstConnect = new Promise<Send>(r => {
     StrongSocket.resolveFirstConnect = r;
   });
 
-  constructor(readonly url: string, version: number | false, settings?: any) {
-    this.settings = $.extend(true, {}, StrongSocket.defaults, settings);
-    this.options = this.settings.options;
+  constructor(readonly url: string, version: number | false, settings: Partial<Settings> = {}) {
+    this.settings = {
+      receive: settings.receive,
+      events: settings.events || {},
+      params: {
+        ...StrongSocket.defaultParams,
+        ...settings.params || {}
+      }
+    };
+    this.options = {
+      ...StrongSocket.defaultOptions,
+      ...settings.options || {}
+    };
     this.version = version;
     this.pubsub.on('socket.send', this.send);
     window.addEventListener('unload', this.destroy);

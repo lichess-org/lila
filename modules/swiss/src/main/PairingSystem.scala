@@ -12,8 +12,8 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
 ) {
 
   def apply(swiss: Swiss): Fu[List[SwissPairing.ByeOrPending]] =
-    rankingApi(swiss) flatMap { ranking =>
-      invoke(swiss, trf(swiss, ranking)) map reader(ranking.map(_.swap))
+    rankingApi(swiss) zip invoke(swiss, trf(swiss)) map { case (ranking, output) =>
+      reader(ranking.map(_.swap), output)
     }
 
   private def invoke(swiss: Swiss, input: Source[String, _]): Fu[List[String]] =
@@ -37,7 +37,7 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
       } else stdout.toList
     }
 
-  private def reader(rankingSwap: RankingSwap)(output: List[String]): List[SwissPairing.ByeOrPending] =
+  private def reader(rankingSwap: RankingSwap, output: List[String]): List[SwissPairing.ByeOrPending] =
     output
       .drop(1) // first line is the number of pairings
       .map(_ split ' ')

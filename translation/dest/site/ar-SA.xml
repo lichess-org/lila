@@ -243,7 +243,8 @@
     <item quantity="other">%s مباراة معك</item>
   </plurals>
   <string name="cancel">إلغاء</string>
-  <string name="timeOut">انتهى الوقت</string>
+  <string name="whiteTimeOut">انتهى وقت الأبيض</string>
+  <string name="blackTimeOut">انتهى وقت الأسود</string>
   <string name="drawOfferSent">تم ارسال عرض التعادل</string>
   <string name="drawOfferDeclined">تم رفض عرض التعادل</string>
   <string name="drawOfferAccepted">تم قبول عرض التعادل</string>
@@ -505,7 +506,7 @@
   <string name="openTournaments">المسابقات المفتوحة</string>
   <string name="duration">المدة</string>
   <string name="winner">الفائز</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">الترتيب</string>
+  <string name="standing">الترتيب</string>
   <string name="createANewTournament">ابدأ مسابقة جديدة</string>
   <string name="tournamentCalendar">جدول البطولات</string>
   <string name="conditionOfEntry">شروط الدخول:</string>
@@ -789,7 +790,7 @@
   <string name="newTournament">مسابقة جديدة</string>
   <string name="tournamentHomeTitle">مسابقات بانواع شطرنج مختلفة وساعات مختلفة</string>
   <string name="tournamentHomeDescription">العب مسابقات شطرنج بكل السرعات. انضم للمسابقات الرسمية المجدولة، أو ابدأ مسابقاتك الخاصة.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">المسابقة غير موجودة</string>
+  <string name="tournamentNotFound">المسابقة غير موجودة</string>
   <string name="tournamentDoesNotExist">هذه المسابقة غير موجودة</string>
   <string name="tournamentMayHaveBeenCanceled">إذا غادر جميع اللاعبين قبل بداية المسابقة قإنها تُلغى</string>
   <string name="returnToTournamentsHomepage">الرجوع إلى المسابقات</string>

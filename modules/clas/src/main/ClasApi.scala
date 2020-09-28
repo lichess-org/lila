@@ -304,8 +304,8 @@ ${clas.desc}""",
                 colls.invite.updateField($id(id), "accepted", true) >>
                 student.sendWelcomeMessage(invite.created.by, user, clas) inject
                 stu.some recoverWith lila.db.recoverDuplicateKey { _ =>
-                student.get(clas, user.id)
-              }
+                  student.get(clas, user.id)
+                }
             }
           }
         }

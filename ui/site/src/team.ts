@@ -11,11 +11,9 @@ interface TeamOpts {
 
 export default function(opts: TeamOpts) {
 
-  const li = window.lichess;
+  lichess.socket = new lichess.StrongSocket('/team/' + opts.id, opts.socketVersion);
 
-  li.socket = new li.StrongSocket('/team/' + opts.id, opts.socketVersion);
-
-  if (opts.chat) window.lichess.makeChat(opts.chat);
+  if (opts.chat) lichess.makeChat(opts.chat);
 
   $('#team-subscribe').on('change', function(this: HTMLInputElement) {
     $(this).parents('form').each(function(this: HTMLFormElement) {

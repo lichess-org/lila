@@ -86,18 +86,18 @@ object home {
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
             a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list().toString))(
-              trans.nbPlayers(nbPlaceholder)
+              trans.nbPlayers(strong(homepage.counters.members))
             ),
             a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games().toString))(
-              trans.nbGamesInPlay(nbPlaceholder)
+              trans.nbGamesInPlay(strong(homepage.counters.rounds))
             )
           )
         ),
         currentGame.map(bits.currentGameInfo) orElse
           playban.map(bits.playbanInfo) getOrElse {
-          if (ctx.blind) blindLobby(blindGames)
-          else bits.lobbyApp
-        },
+            if (ctx.blind) blindLobby(blindGames)
+            else bits.lobbyApp
+          },
         div(cls := "lobby__side")(
           ctx.blind option h2("Highlights"),
           ctx.noKid option st.section(cls := "lobby__streams")(
@@ -182,9 +182,9 @@ object home {
           a(href := "/contact")(trans.contact.contact()),
           a(href := "/mobile")(trans.mobileApp()),
           a(href := routes.Page.tos())(trans.termsOfService()),
-          a(href := routes.Page.privacy())(trans.privacy()),
-          a(href := routes.Page.source())(trans.sourceCode()),
-          a(href := routes.Page.ads())("Ads"),
+          a(href := "/privacy")(trans.privacy()),
+          a(href := "/source")(trans.sourceCode()),
+          a(href := "/ads")("Ads"),
           views.html.base.bits.connectLinks
         )
       )
@@ -218,6 +218,4 @@ object home {
     trans.custom,
     trans.anonymous
   ).map(_.key)
-
-  private val nbPlaceholder = strong("--,---")
 }

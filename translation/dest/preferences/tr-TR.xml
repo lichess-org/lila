@@ -21,7 +21,7 @@
   <string name="horizontalGreenProgressBars">Yeşil yatay ilerleme çubuğu</string>
   <string name="soundWhenTimeGetsCritical">Zaman azaldığında sesle uyarı</string>
   <string name="giveMoreTime">Süre ver</string>
-  <string name="gameBehavior">Oyun tercihleri</string>
+  <string name="gameBehavior">Oyun davranışı</string>
   <string name="howDoYouMovePieces">Taşları nasıl hareket ettirmek istersiniz?</string>
   <string name="clickTwoSquares">İki kareye tıklayarak</string>
   <string name="dragPiece">Taşı sürükleyerek</string>

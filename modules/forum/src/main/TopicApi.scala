@@ -38,11 +38,10 @@ final private[forum] class TopicApi(
           }
         }
       }
-      res <- data ?? {
-        case (categ, topic) =>
-          lila.mon.forum.topic.view.increment()
-          env.topicRepo incViews topic
-          env.postApi.paginator(topic, page, forUser) map { (categ, topic, _).some }
+      res <- data ?? { case (categ, topic) =>
+        lila.mon.forum.topic.view.increment()
+        env.topicRepo incViews topic
+        env.postApi.paginator(topic, page, forUser) map { (categ, topic, _).some }
       }
     } yield res
 
@@ -51,31 +50,30 @@ final private[forum] class TopicApi(
       data: ForumForm.TopicData,
       me: User
   ): Fu[Topic] =
-    env.topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap {
-      case (slug, lang) =>
-        val topic = Topic.make(
-          categId = categ.slug,
-          slug = slug,
-          name = noShouting(data.name),
-          userId = me.id,
-          troll = me.marks.troll,
-          hidden = categ.quiet || data.looksLikeVenting
-        )
-        val post = Post.make(
-          topicId = topic.id,
-          author = none,
-          userId = me.id,
-          troll = me.marks.troll,
-          hidden = topic.hidden,
-          text = spam.replace(data.post.text),
-          lang = lang map (_.language),
-          number = 1,
-          categId = categ.id,
-          modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
-        )
-        env.postRepo.coll.insert.one(post) >>
-          env.topicRepo.coll.insert.one(topic withPost post) >>
-          env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
+    env.topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { case (slug, lang) =>
+      val topic = Topic.make(
+        categId = categ.slug,
+        slug = slug,
+        name = noShouting(data.name),
+        userId = me.id,
+        troll = me.marks.troll,
+        hidden = categ.quiet || data.looksLikeVenting
+      )
+      val post = Post.make(
+        topicId = topic.id,
+        author = none,
+        userId = me.id,
+        troll = me.marks.troll,
+        hidden = topic.hidden,
+        text = spam.replace(data.post.text),
+        lang = lang map (_.language),
+        number = 1,
+        categId = categ.id,
+        modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
+      )
+      env.postRepo.coll.insert.one(post) >>
+        env.topicRepo.coll.insert.one(topic withPost post) >>
+        env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
           !categ.quiet ?? (indexer ! InsertPost(post))
           !categ.quiet ?? env.recent.invalidate()
           promotion.save(me, post.text)
@@ -130,8 +128,8 @@ final private[forum] class TopicApi(
     ) mapFutureList { topics =>
       env.postRepo.coll.optionsByOrderedIds[Post, String](topics.map(_ lastPostId forUser))(_.id) map {
         posts =>
-          topics zip posts map {
-            case topic ~ post => TopicView(categ, topic, post, env.postApi lastPageOf topic, forUser)
+          topics zip posts map { case topic ~ post =>
+            TopicView(categ, topic, post, env.postApi lastPageOf topic, forUser)
           }
       }
     }

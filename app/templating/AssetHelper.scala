@@ -51,34 +51,17 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def roundTag                            = jsModule("round")
   def roundNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("round.nvui")
 
-  def analyseTag                            = jsModule("analysis-board")
-  def analyseNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("analysis-board.nvui")
+  def analyseTag                            = jsModule("analysisBoard")
+  def analyseNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("analysisBoard.nvui")
 
-  def captchaTag = jsModule("captcha")
-
-  def jQueryTag           = jsAt("javascripts/vendor/jquery.min.js")
+  def captchaTag          = jsModule("captcha")
+  def infiniteScrollTag   = jsModule("infiniteScroll")
   def chessgroundTag      = jsAt("javascripts/vendor/chessground.min.js")
+  def cashTag             = jsAt("javascripts/vendor/cash.min.js")
   def fingerprintTag      = jsAt("javascripts/fipr.js")
-  def flatpickrTag        = jsAt("javascripts/vendor/flatpickr.min.js")
-  def infiniteScrollTag   = jsAt("javascripts/vendor/jquery.infinitescroll.min.js")
   def tagifyTag           = jsAt("vendor/tagify/tagify.min.js")
   def highchartsLatestTag = jsAt("vendor/highcharts-4.2.5/highcharts.js")
   def highchartsMoreTag   = jsAt("vendor/highcharts-4.2.5/highcharts-more.js")
-
-  def delayFlatpickrStartUTC(implicit ctx: Context) =
-    embedJsUnsafeLoadThen {
-      """setTimeout(() => $(".flatpickr").flatpickr(), 1000)"""
-    }
-
-  def delayFlatpickrStartLocal(implicit ctx: Context) =
-    embedJsUnsafeLoadThen {
-      """setTimeout(() => $(".flatpickr").flatpickr({
-  maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
-  dateFormat: 'Z',
-  altInput: true,
-  altFormat: 'Y-m-d h:i K'
-}), 1000)"""
-    }
 
   def prismicJs(implicit ctx: Context): Frag =
     raw {

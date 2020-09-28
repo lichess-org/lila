@@ -32,7 +32,7 @@ export default class EditorCtrl {
     this.cfg = cfg;
     this.options = cfg.options || {};
 
-    this.trans = window.lichess.trans(this.cfg.i18n);
+    this.trans = lichess.trans(this.cfg.i18n);
 
     this.selected = prop('pointer');
 

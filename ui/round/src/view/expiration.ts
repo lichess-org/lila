@@ -14,7 +14,7 @@ export default function(ctrl: RoundController): MaybeVNode {
     myTurn = isPlayerTurn(ctrl.data),
     emerg = myTurn && timeLeft < 8000;
   if (!rang && emerg) {
-    window.lichess.sound.lowtime();
+    lichess.sound.play('lowtime');
     rang = true;
   }
   const side = myTurn != ctrl.flip ? 'bottom' : 'top';

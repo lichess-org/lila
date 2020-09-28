@@ -7,7 +7,6 @@ import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 import { sanIrreversible } from './util';
 
-const li = window.lichess;
 
 function is64Bit(): boolean {
   const x64 = ['x86_64', 'x86-64', 'Win64','x64', 'amd64', 'AMD64'];
@@ -73,7 +72,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   const maxThreads = Math.min(Math.max((navigator.hardwareConcurrency || 1) - 1, 1), growableSharedMem ? 16 : initialAllocationMaxThreads);
   const threads = storedProp(storageKey('ceval.threads'), Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 4), maxThreads));
 
-  const maxHashSize = Math.min((navigator.deviceMemory || 0.25) * 1024 / 8, growableSharedMem ? 1024 : 16);
+  const maxHashSize = Math.min((navigator.deviceMemory || 0.5) * 1024 / 16, growableSharedMem ? 512 : 16);
   const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
 
   const minDepth = 6;
@@ -81,9 +80,8 @@ export default function(opts: CevalOpts): CevalCtrl {
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
-  const enableStorage = li.storage.makeBoolean(storageKey('client-eval-enabled'));
   const allowed = prop(true);
-  const enabled = prop(opts.possible && allowed() && enableStorage.get() && !document.hidden);
+  const enabled = prop(false);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
@@ -139,7 +137,7 @@ export default function(opts: CevalOpts): CevalCtrl {
     opts.emit(ev, work);
     if (ev.fen !== lastEmitFen) {
       lastEmitFen = ev.fen;
-      li.storage.fire('ceval.fen', ev.fen);
+      lichess.storage.fire('ceval.fen', ev.fen);
     }
   });
 
@@ -216,15 +214,6 @@ export default function(opts: CevalOpts): CevalCtrl {
     started = false;
   }
 
-  // ask other tabs if a game is in progress
-  if (enabled()) {
-    li.storage.fire('ceval.fen', 'start');
-    li.storage.make('round.ongoing').listen(_ => {
-      enabled(false);
-      opts.redraw();
-    });
-  }
-
   return {
     technology,
     start,
@@ -250,8 +239,6 @@ export default function(opts: CevalOpts): CevalCtrl {
       if (!opts.possible || !allowed()) return;
       stop();
       enabled(!enabled());
-      if (document.visibilityState !== 'hidden')
-        enableStorage.set(enabled());
     },
     curDepth: () => curEval ? curEval.depth : 0,
     effectiveMaxDepth,

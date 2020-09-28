@@ -28,7 +28,7 @@ object dgt {
         ),
         p(
           "You can download the software here: ",
-          a(href := "http://www.livechesscloud.com/software/")(s"LiveChess $liveChessVersion"),
+          a(href := "https://www.livechesscloud.com/software/")(s"LiveChess $liveChessVersion"),
           "."
         ),
         p(
@@ -38,21 +38,54 @@ object dgt {
         )
       ),
       p(
-        "If LiveChess is running on a different machine or different port,",
+        "If LiveChess is running on a different machine or different port, ",
         "you will need to set the IP address and port here in the ",
         a(href := routes.DgtCtrl.config())("Configuration Section"),
         "."
+      ),
+      st.section(
+        h2("DGT Board Limitations"),
+        br,      
+        p(
+          "The play page needs to remain open on your browser. ",
+          "It does not need to be visible, you can minimize it or set it side to side with the Lichess game page, ",
+          "but don't close it or the board will stop working. "
+        ),
+        p(
+          "The board will auto connect to any game that is already on course or any new game that starts. ",
+          "Ability to choose which game to play is coming soon.",
+        ),
+        p(
+          "Time controls for casual games: Classical, Correspondence and Rapid only.",
+          br,
+          "Time controls for rated games: Classical, Correspondence and some Rapids including 15+10 and 20+0"
+        )
+      ),
+      p(
+          "When ready, setup your board and then click ",
+          a(href := routes.DgtCtrl.play())("Play"),
+          "."                
       )
     )
 
   def play(token: AccessToken)(implicit ctx: Context) =
-    layout("play", embedJsUnsafeLoadThen(s"""lichessDgt.playPage("${token.id.value}")"""))(
-      h1("DGT - play"),
-      div(id := "dgt-play-zone")("Do the thing here.")
+    layout("play", embedJsUnsafeLoadThen(s"""LichessDgt.playPage("${token.id.value}")"""))(
+      div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
+      div(cls := "dgt__play__help")(
+        h2(iconTag("", "If a move is not detected")),
+        p(
+          "Check that you have made your opponent's move on the DGT board first. ",
+          "Revert your move. Play again. "
+        ),
+        p(
+          "As a last resort, setup the board identically as Lichess, then ",
+          a(href := routes.DgtCtrl.play())("Reload this page")
+        )
+      )
     )
 
   def config(token: Option[lila.oauth.AccessToken])(implicit ctx: Context) =
-    layout("config", embedJsUnsafeLoadThen("lichessDgt.configPage()"))(
+    layout("config", embedJsUnsafeLoadThen("LichessDgt.configPage()"))(
       div(cls := "account")(
         h1("DGT - configure"),
         form(action := routes.DgtCtrl.generateToken(), method := "post")(

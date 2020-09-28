@@ -65,15 +65,9 @@
     }
 
     .search,
-    input,
-    .twitter-typeahead {
+    input {
       height: 100%;
     }
-  }
-
-  .search .tt-menu .spinner {
-    float: none;
-    margin: 10px auto;
   }
 }
 

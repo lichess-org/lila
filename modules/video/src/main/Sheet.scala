@@ -61,8 +61,8 @@ final private[video] class Sheet(
                 api.video.save(video)
               case _ => funit
             }
-            .recover {
-              case e: Exception => logger.warn("sheet update", e)
+            .recover { case e: Exception =>
+              logger.warn("sheet update", e)
             }
         }
         .void >>

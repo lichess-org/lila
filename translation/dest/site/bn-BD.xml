@@ -199,7 +199,6 @@
     <item quantity="other">%s টি খেলা আপনার সঙ্গে</item>
   </plurals>
   <string name="cancel">বাতিল করুন</string>
-  <string name="timeOut">সময় শেষ</string>
   <string name="drawOfferSent">সমান অফার পাঠানো হয়েছে</string>
   <string name="drawOfferDeclined">সমান অফার প্রত্যাখ্যাত হয়েছে</string>
   <string name="drawOfferAccepted">সমান অফার গ্রহণ করা হয়েছে</string>
@@ -404,7 +403,7 @@
   <string name="openTournaments">উন্মুক্ত টুর্নামেন্টগুলো</string>
   <string name="duration">সময়কাল</string>
   <string name="winner">বিজয়ী</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">অপেক্ষারত</string>
+  <string name="standing">অপেক্ষারত</string>
   <string name="createANewTournament">নতুন টুর্নামেন্ট সৃষ্টি করুন</string>
   <string name="tournamentCalendar">টুর্নামেন্ট ক্যালেন্ডার</string>
   <string name="conditionOfEntry">এন্ট্রির শর্তাবলি:</string>
@@ -668,7 +667,7 @@
   <string name="newTournament">নতুন ক্রীড়া-প্রতিযোগিতা</string>
   <string name="tournamentHomeTitle">দাবা ক্রীড়া-প্রতিযোগিতা বিভিন্ন সময় নিয়ন্ত্রণ এবং বৈকল্পিক দেখানো হয়েছে</string>
   <string name="tournamentHomeDescription">দ্রুত-গুরূত্বপূর্ণ দাবা প্রতিযোগিতা খেলুন! একটি অফিসিয়াল সময়সূচী প্রতিযোগিতায় যোগ দিন অথবা নিজের তৈরি করুন. বুল্লেট, বিলটজ, ক্লাসিক্যাল, দাবা960, পাহাড়ের রাজা, তিনরেখা, এবং আরো অপশন রয়েছে দাবা মজার জন্য.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">ক্রীড়া-প্রতিযোগিতা খুজে পাওয়া যাইনি</string>
+  <string name="tournamentNotFound">ক্রীড়া-প্রতিযোগিতা খুজে পাওয়া যাইনি</string>
   <string name="tournamentDoesNotExist">এই ক্রীড়া-প্রতিযোগিতার অস্তিত্ব নেই.</string>
   <string name="tournamentMayHaveBeenCanceled">ক্রীড়া-প্রতিযোগিতা শুরু হওয়ার পূর্বে যদি সব খেলোয়াড় বেড়িয়ে যায়, হয়তো এটা বাতিল করা হতে পারে.</string>
   <string name="returnToTournamentsHomepage">ফিরেযান ক্রীড়া-প্রতিযোগিতার প্রথম পাতায়</string>
@@ -834,7 +833,6 @@
 দুঃখিত
 খেলা হতে বহিস্কৃত (এইধরনের সতর্কবার্তা প্রদানের কারন অতিরিক্ত গেম পরিত্যাগ করা, খেলার সময় শেষ না হওয়ার আগেই গেম পরিত্যাগ করা..... )</string>
   <string name="weHadToTimeYouOutForAWhile">আমাদের কিছুক্ষণের জন্য আপনাকে বিরতি হল।</string>
-  <string name="timeoutExpires">সময়সীমা শেষ হবে</string>
   <string name="why">কেন</string>
   <string name="pleasantChessExperience">আমাদের লক্ষ্য প্রত্যেকের জন্য একটি আনন্দদায়ক দাবা খেলার অভিজ্ঞতা দেয়া।</string>
   <string name="goodPractice">সেই লক্ষ্যে আমাদের অবশ্যই নিশ্চিত করতে হবে যে সমস্ত খেলোয়াড় ভাল অভ্যাস চর্চা করে।</string>

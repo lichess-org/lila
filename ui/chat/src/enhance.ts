@@ -1,5 +1,5 @@
 export function enhance(text: string, parseMoves: boolean): string {
-  const escaped = window.lichess.escapeHtml(text);
+  const escaped = lichess.escapeHtml(text);
   const linked = autoLink(escaped);
   const plied = parseMoves && linked === escaped ? addPlies(linked) : linked;
   return plied;

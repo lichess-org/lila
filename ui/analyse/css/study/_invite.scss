@@ -42,10 +42,9 @@
   }
 
   .input-wrapper {
+    // for user complete
     overflow: visible !important;
-  }
-
-  .tt-menu {
-    text-align: left;
+    position: relative;
+    display: inline-block;
   }
 }

@@ -188,7 +188,6 @@
     <item quantity="other">%s partidas contigo</item>
   </plurals>
   <string name="cancel">Cancelar</string>
-  <string name="timeOut">Tempo esgotado</string>
   <string name="drawOfferSent">Oferta de táboas enviada</string>
   <string name="drawOfferDeclined">Oferta de táboas rexeitada</string>
   <string name="drawOfferAccepted">Oferta de táboas aceptada</string>
@@ -367,7 +366,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="openTournaments">Torneos abertos</string>
   <string name="duration">Duración</string>
   <string name="winner">Gañador</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Posición</string>
+  <string name="standing">Posición</string>
   <string name="createANewTournament">Crear un novo torneo</string>
   <string name="tournamentCalendar">Calendario do torneo</string>
   <string name="conditionOfEntry">Condicións de participación:</string>
@@ -620,7 +619,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="newTournament">Novo torneo</string>
   <string name="tournamentHomeTitle">Torneo de xadrez con varios controis de tempo e variantes</string>
   <string name="tournamentHomeDescription">Xoga torneos de xadrez acelerados! Únete a un torneo oficial programado, ou crea un de teu. Bullet, Blitz, Estándar, Chess960, King of the Hill, Threecheck, e máis opcións dispoñibles para unha diversión xadrecística sen fin.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Torneo non atopado</string>
+  <string name="tournamentNotFound">Torneo non atopado</string>
   <string name="tournamentDoesNotExist">Este torneo non existe.</string>
   <string name="tournamentMayHaveBeenCanceled">Poida que fose cancelado, se todos os xogadores marcharon antes de que o torneo comezase.</string>
   <string name="returnToTournamentsHomepage">Voltar a páxina de torneos</string>

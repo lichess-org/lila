@@ -9,6 +9,7 @@ import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress, ThreadLoc
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.rating.{ Perf, PerfType }
+import lila.rating.Glicko
 
 final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -96,7 +97,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .find(
         $doc(
           F.enabled -> true,
-          F.marks $nin List(UserMark.Engine.key, UserMark.Boost.key)
+          F.marks $nin List(UserMark.Engine.key, UserMark.Boost.key),
+          "perfs.standard.gl.d" $lt Glicko.provisionalDeviation
         ) ++ $inIds(ids) ++ botSelect(false)
       )
       .sort($sort desc "perfs.standard.gl.r")

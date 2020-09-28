@@ -71,7 +71,7 @@ function toCeval(e) {
 export function make(opts: EvalCacheOpts): EvalCache {
   const fetchedByFen = {};
   const upgradable = prop(false);
-  window.lichess.pubsub.on('socket.in.crowd', d => upgradable(d.nb > 2));
+  lichess.pubsub.on('socket.in.crowd', d => upgradable(d.nb > 2));
   return {
     onCeval: throttle(500, function() {
       const node = opts.getNode(), ev = node.ceval;

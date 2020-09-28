@@ -21,7 +21,6 @@
     "node": ">=10"
   },
   "dependencies": {
-    "fs-extra": "^4.0.2",
     "xml2js": "^0.4.19"
   },
   "workspaces": [
@@ -54,7 +53,9 @@
     "ui/tournamentCalendar",
     "ui/tree",
     "ui/msg",
+    "ui/dgt",
     "ui/@build/rollupProject",
-    "ui/@types/lichess"
+    "ui/@types/lichess",
+    "ui/@types/cash"
   ]
 }

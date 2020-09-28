@@ -9,8 +9,6 @@ import LobbySocket from './socket';
 import Filter from './filter';
 import Setup from './setup';
 
-const li = window.lichess;
-
 export default class LobbyController {
 
   data: LobbyData;
@@ -40,8 +38,8 @@ export default class LobbyController {
     this.pools = opts.pools;
     this.playban = opts.playban;
     this.isBot = opts.data.me && opts.data.me.isBot;
-    this.filter = new Filter(li.storage.make('lobby.filter'), this);
-    this.setup = new Setup(li.storage.make, this);
+    this.filter = new Filter(lichess.storage.make('lobby.filter'), this);
+    this.setup = new Setup(lichess.storage.make, this);
 
     hookRepo.initAll(this);
     seekRepo.initAll(this);
@@ -53,7 +51,7 @@ export default class LobbyController {
       this.sort = this.stores.sort.get(),
       this.trans = opts.trans;
 
-    this.poolInStorage = li.storage.make('lobby.pool-in');
+    this.poolInStorage = lichess.storage.make('lobby.pool-in');
     this.poolInStorage.listen(_ => { // when another tab joins a pool
       this.leavePool();
       redraw();
@@ -63,7 +61,7 @@ export default class LobbyController {
     this.startWatching();
 
     if (this.playban) {
-      if (this.playban.remainingSecond < 86400) setTimeout(li.reload, this.playban.remainingSeconds * 1000);
+      if (this.playban.remainingSecond < 86400) setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
     }
     else {
       setInterval(() => {
@@ -73,7 +71,7 @@ export default class LobbyController {
       this.joinPoolFromLocationHash();
     }
 
-    li.pubsub.on('socket.open', () => {
+    lichess.pubsub.on('socket.open', () => {
       if (this.tab === 'real_time') {
         this.data.hooks = [];
         this.socket.realTimeIn();

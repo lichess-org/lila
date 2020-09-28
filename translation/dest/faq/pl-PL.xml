@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Dlaczego Lichess nosi nazwę Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess jest kombinacją słów live/light/libre i chess. Wymawiamy je %1$s.</string>
   <string name="leechess">li-czes</string>
-  <string name="hearItPronouncedBySpecialist"> Posłuchaj jak wymawia to ekspert.</string>
+  <string name="hearItPronouncedBySpecialist">Posłuchaj jak wymawia to ekspert.</string>
   <string name="whyLiveLightLibre">Live (na żywo), ponieważ partie rozgrywane są i oglądane w czasie rzeczywistym (24 godziny przez 7 dni w tygodniu); Light (lekkie), ponieważ Lichess nie jest obciążone zbędnymi wodotryskami, reklamami itp.; Libre (darmowe), ponieważ Lichess oparty jest o oprogramowanie typu open-source.</string>
   <string name="whyIsLilaCalledLila">Podobnie, kod źródłowy Lichess, %1$s, oznacza li[chess in sca]la, a to dlatego, że większość kodu Lichess napisanego jest w intuicyjnym języku programowania %2$s.</string>
   <string name="howCanIContributeToLichess">Jak mogę pomóc współtworzyć Lichess?</string>
@@ -30,12 +30,12 @@
   <string name="howCanIBecomeModerator">Jak mogę zostać moderatorem?</string>
   <string name="youCannotApply">Nie można zgłosić się do pełnienia funkcji moderatora. Jeśli zauważymy kogoś, kto naszym zdaniem byłby dobrym moderatorem, skontaktujemy się z nim bezpośrednio.</string>
   <string name="isCorrespondenceDifferent">Czy szachy korespondencyjne różnią się od zwykłych szachów?</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Rozgrywka</string>
+  <string name="gameplay">Rozgrywka</string>
   <string name="howBulletBlitzEtcDecided">W jaki sposób system decyduje czy partia jest typu Bullet, Blitz itd.?</string>
   <string name="basedOnGameDuration">Kontrole czasu na Lichess oparte są na szacowanym czasie trwania gry = %1$s
 Na przykład, szacowany czas trwania gry 5+3 wynosi 5 * 60 + 40 * 3 = 420 sekund.</string>
   <string name="durationFormula">(czas podstawowy) + 40 * (czas dodatkowy)</string>
-  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">W jakie warianty szachów mogę zagrać na Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess umożliwia grę w standardowe szachy oraz %1$s.</string>
@@ -49,7 +49,7 @@ Ta wartość może być użyta jako wskaźnik siły gry. Im mniej setnych częś
 
 Analiza komputerowa dostępna na Lichess wspierana jest przez silnik szachowy Stockfish.</string>
   <string name="insufficientMaterial">Przegrana z powodu upłynięcia czasu gry, remis i niewystarczający materiał aby zamatować przeciwnika</string>
-  <string name="linkToFIDErules">FIDE handbook §6.9, pdf</string>
+  <string name="fideHandbookX">Przepisy gry w szachy FIDE %s</string>
   <string name="discoveringEnPassant">Dlaczego pion może zbić piona, który ruszył się o dwa pola do przodu i nie jest już pod biciem? (bicie w przelocie)</string>
   <string name="explainingEnPassant">To jest legalny ruch znany jako \"bicie w przelocie\". Wikipedia daje %1$s do zrozumienia tego posunięcia.
 
@@ -66,7 +66,6 @@ Zobacz nasze %3$s, aby poćwiczyć ten specjalny ruch.</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="threefoldRepetitionExplanation">Jeśli pozycja występuje trzykrotnie, gracze mogą zgłosić remis poprzez %1$s. Lichess wprowadza oficjalne zasady FIDE, opisane w Artykule 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>
-  <string name="handBookPDF">podręcznik (pdf)</string>
   <string name="notRepeatedMoves">Nie powtórzyliśmy posunięć. Dlaczego gra mimo to została uznana za remisową?</string>
   <string name="repeatedPositionsThatMatters">Trzykrotne powtórzenie dotyczy powtarzania się %1$s, a nie ruchów. Powtórzenia nie muszą wystąpić jedno po drugim.</string>
   <string name="positions">pozycji</string>
@@ -100,7 +99,7 @@ Nie proś nas o przyznanie tytułu LM.</string>
   <string name="goldenZeeExplanation">ZugAddict przez 2 godziny próbował bez powodzenia pokonać 8 poziom A.I. w grze 1+0, streamując swoje zmagania. Thibault powiedział mu, że jeśli uda mu się to zrobić podczas streamu, dostanie wyjątkowe trofeum. Godzinę później Stockfish został pokonany, a obietnica została dotrzymana.</string>
   <string name="lichessRatings">Rankingi Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Jakiego systemu rankingowego używa Lichess?</string>
-  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Dlaczego obok rankingu wyświetlany jest znak zapytania?</string>
+  <string name="whatIsProvisionalRating">Dlaczego obok rankingu wyświetlany jest znak zapytania?</string>
   <string name="provisionalRatingExplanation">Znak zapytania oznacza, że ranking ma charakter tymczasowy. Powodem może być:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Gracz nie ukończył jeszcze wystarczająco dużo rankingowych partii przeciwko %1$s.</string>
   <string name="similarOpponents">przeciwnikom o podobnej sile gry</string>

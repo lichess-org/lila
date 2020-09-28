@@ -16,7 +16,8 @@ object show {
   def apply(
       s: Swiss,
       data: play.api.libs.json.JsObject,
-      chatOption: Option[lila.chat.UserChat.Mine]
+      chatOption: Option[lila.chat.UserChat.Mine],
+      isLocalMod: Boolean
   )(implicit ctx: Context): Frag = {
     val isDirector       = ctx.userId.has(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
@@ -24,7 +25,7 @@ object show {
       title = s"${s.name} #${s.id}",
       moreJs = frag(
         jsModule("swiss"),
-        hasScheduleInput option flatpickrTag,
+        hasScheduleInput option jsModule("flatpickr"),
         embedJsUnsafeLoadThen(s"""LichessSwiss.start(${safeJsonValue(
           Json
             .obj(
@@ -37,7 +38,8 @@ object show {
                   name = trans.chatRoom.txt(),
                   timeout = c.timeout,
                   public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}")
+                  resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
+                  localMod = isLocalMod
                 )
               }
             )

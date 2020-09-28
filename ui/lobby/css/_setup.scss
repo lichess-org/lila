@@ -50,8 +50,6 @@ $c-slider: $c-setup;
   .label_select {
     @extend %flex-center;
 
-    text-align: left;
-
     &.variant {
       margin-bottom: .5em;
     }
@@ -90,16 +88,29 @@ $c-slider: $c-setup;
     box-shadow: 0 0 13px $c-bad;
   }
 
-  .ui-slider {
-    margin: .5em 1em;
-  }
-
-  .slider {
-    padding-top: 5px;
-    text-align: left;
+  .range {
+    padding-top: 1em;
 
     span {
       font-weight: bold;
+    }
+
+    input {
+      font-size: 1.5em;
+      padding: .5em .5em 0 .5em;
+      width: 100%;
+    }
+  }
+
+  .rating-range {
+    @extend %flex-center-nowrap;
+    justify-content: center;
+    .rating-min, .rating-max {
+      flex: 0 0 7ch;
+    }
+    input {
+      width: 30%;
+      padding: .6em 0;
     }
   }
 

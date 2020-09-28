@@ -1,20 +1,22 @@
 package lila.lobby
 
+import actorApi._
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import actorApi._
 import lila.game.Pov
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.timeline._
 import lila.hub.Trouper
+import lila.i18n.defaultLang
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, Sri, Sris }
 import lila.user.User
-import lila.i18n.defaultLang
+
+case class LobbyCounters(members: Int, rounds: Int)
 
 final class LobbySocket(
     biter: Biter,
@@ -29,6 +31,9 @@ final class LobbySocket(
   import LobbySocket._
   import Protocol._
   type SocketController = PartialFunction[(String, JsObject), Unit]
+
+  private var lastCounters = LobbyCounters(0, 0)
+  def counters             = lastCounters
 
   val trouper: Trouper = new Trouper {
 
@@ -89,7 +94,7 @@ final class LobbySocket(
         send(Out.tellLobbyUsers(List(seek.user.id), gameStartRedirect(game pov creatorColor)))
         send(Out.tellLobbyUsers(List(userId), gameStartRedirect(game pov !creatorColor)))
 
-      case PoolApi.Pairings(pairings) => send(Protocol.Out.pairings(pairings))
+      case PoolApi.Pairings(pairings) => send(Out.pairings(pairings))
 
       case HookIds(ids) => tellActiveHookSubscribers(makeMessage("hli", ids mkString ""))
 
@@ -229,32 +234,36 @@ final class LobbySocket(
     }
 
   private val handler: Handler = {
-    case P.In.ConnectSris(cons) =>
-      cons foreach {
-        case (sri, userId) => getOrConnect(sri, userId)
-      }
-    case P.In.DisconnectSris(sris) => trouper ! LeaveBatch(sris)
 
-    case P.In.WsBoot =>
-      logger.warn("Remote socket boot")
-      lobby ! LeaveAll
-      trouper ! LeaveAll
+    case P.In.ConnectSris(cons) =>
+      cons foreach { case (sri, userId) =>
+        getOrConnect(sri, userId)
+      }
+
+    case P.In.DisconnectSris(sris) => trouper ! LeaveBatch(sris)
 
     case P.In.TellSri(sri, user, tpe, msg) if messagesHandled(tpe) =>
       getOrConnect(sri, user) foreach { member =>
         controller(member).applyOrElse(
           tpe -> msg,
-          {
-            case _ => logger.warn(s"Can't handle $tpe")
+          { case _ =>
+            logger.warn(s"Can't handle $tpe")
           }: SocketController
         )
       }
+
+    case In.Counters(m, r) => lastCounters = LobbyCounters(m, r)
+
+    case P.In.WsBoot =>
+      logger.warn("Remote socket boot")
+      lobby ! LeaveAll
+      trouper ! LeaveAll
   }
 
   private val messagesHandled: Set[String] =
     Set("join", "cancel", "joinSeek", "cancelSeek", "idle", "poolIn", "poolOut", "hookIn", "hookOut")
 
-  remoteSocketApi.subscribe("lobby-in", P.In.baseReader)(handler orElse remoteSocketApi.baseHandler)
+  remoteSocketApi.subscribe("lobby-in", In.reader)(handler orElse remoteSocketApi.baseHandler)
 
   private val send: String => Unit = remoteSocketApi.makeSender("lobby-out").apply _
 }
@@ -270,6 +279,19 @@ private object LobbySocket {
   }
 
   object Protocol {
+    object In {
+      case class Counters(members: Int, rounds: Int) extends P.In
+
+      val reader: P.In.Reader = raw =>
+        raw.path match {
+          case "counters" =>
+            import cats.implicits._
+            raw.get(2) { case Array(m, r) =>
+              (m.toIntOption, r.toIntOption).mapN(Counters)
+            }
+          case _ => P.In.baseReader(raw)
+        }
+    }
     object Out {
       def pairings(pairings: List[PoolApi.Pairing]) = {
         val redirs = for {

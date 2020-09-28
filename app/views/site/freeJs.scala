@@ -24,7 +24,7 @@ object freeJs {
     "palantir",
     "puzzle",
     "round",
-    "service-worker",
+    "serviceWorker",
     "simul",
     "site",
     "speech",

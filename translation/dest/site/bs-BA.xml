@@ -210,7 +210,6 @@
     <item quantity="other">%s odigranih partija s tobom</item>
   </plurals>
   <string name="cancel">Odustani</string>
-  <string name="timeOut">Vrijeme isteklo</string>
   <string name="drawOfferSent">Ponuda za remi poslana</string>
   <string name="drawOfferDeclined">Ponuda za remi odbijena</string>
   <string name="drawOfferAccepted">Ponuda za remi prihvaćena</string>
@@ -422,7 +421,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="openTournaments">Otvoreni turniri</string>
   <string name="duration">Trajanje</string>
   <string name="winner">Pobjednik</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Poredak</string>
+  <string name="standing">Poredak</string>
   <string name="createANewTournament">Kreiraj novi turnir</string>
   <string name="tournamentCalendar">Kalendar turnira</string>
   <string name="conditionOfEntry">Uslov za učestvovanje:</string>
@@ -691,7 +690,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="newTournament">Novi turnir</string>
   <string name="tournamentHomeTitle">Šahovski turniri sa različitim vremenskim kontrolama i varijantama</string>
   <string name="tournamentHomeDescription">Igrajte brze turnire! Pridružite se zvaničnom turniru ili kreirajte svoj turnir. Bullet, Blitz, Klasični šah, Šah 960, Kralj u centru, Tri šaha, i još više opcija za neograničenu šahovsku zabavu.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnir nije pronađen</string>
+  <string name="tournamentNotFound">Turnir nije pronađen</string>
   <string name="tournamentDoesNotExist">Ovaj turnir ne postoji.</string>
   <string name="tournamentMayHaveBeenCanceled">Turnir je možda bio otkazan, ako su ga svi igrači napustili prije početka.</string>
   <string name="returnToTournamentsHomepage">Povratak na početnu stranicu turnira</string>
@@ -703,7 +702,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Vaš %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji ste od %1$s od %2$s igrača.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">Bolji ste od %1$s od %2$s igrača.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemate utvrđen %s rejting.</string>
   <string name="yourRating">Vaš rejting</string>
   <string name="cumulative">Kumulativno</string>
@@ -889,11 +887,10 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="correspondenceDesc">Dopisne partije: jedan ili više dana po potezu</string>
   <string name="puzzleDesc">Vježbanje šahovske taktike</string>
   <string name="important">Važno</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Na Vaše pitanje neko je možda već odgovorio</string>
   <string name="inTheFAQ">u sekciji F.A.Q.</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">Da prijavite korisnika zbog varanja ili lošeg ponašanja,</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Da prijavite korisnika zbog varanja ili lošeg ponašanja, %1$s</string>
   <string name="useTheReportForm">koristite formular za prijavu</string>
-  <string name="toRequestSupport">Da zatražite podršku,</string>
+  <string name="toRequestSupport">Da zatražite podršku, %1$s</string>
   <string name="tryTheContactPage">pokušajte na stranici za kontakt</string>
   <string name="thisTopicIsArchived">Ova je tema arhivirana i na nju se više ne može odgovarati.</string>
   <string name="joinTheTeamXToPost">Pridružite se %1$su da biste objavljivali na ovom forumu</string>

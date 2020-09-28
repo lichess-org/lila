@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Lichess þjálfarar</string>
+  <string name="lichessCoach">Lichess Þjálfari</string>
+  <string name="areYouCoach">Ertu frábær þjálfari með %s?</string>
+  <string name="languages">Tungumál</string>
+  <string name="rating">Skákstig</string>
+  <string name="aboutMe">Um mig</string>
+  <string name="playingExperience">Spilareynsla</string>
+</resources>

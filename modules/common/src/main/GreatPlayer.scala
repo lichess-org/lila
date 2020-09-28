@@ -600,8 +600,8 @@ object GreatPlayer {
   )
 
   private val size = all.size
-  private val names: Vector[String] = all.view.map {
-    case (k, _) => k
+  private val names: Vector[String] = all.view.map { case (k, _) =>
+    k
   }.toVector
 
   def randomName: String = names(lila.common.ThreadLocalRandom nextInt size)

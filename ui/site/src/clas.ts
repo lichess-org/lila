@@ -4,14 +4,14 @@ import { loadScript } from './component/assets';
 import extendTablesortNumber from './component/tablesort-number';
 import * as xhr from 'common/xhr';
 
-window.lichess.load.then(() => {
+lichess.load.then(() => {
 
   $('table.sortable').each(function(this: HTMLElement) {
     tablesort(this, {
       descending: true
     });
   });
-  $('.name-regen').click(function(this: HTMLAnchorElement) {
+  $('.name-regen').on('click', function(this: HTMLAnchorElement) {
     xhr.text(this.href).then(name => $('#form3-create-username').val(name));
     return false;
   });

@@ -1,5 +1,7 @@
 package lila.round
 
+import actorApi._, round._
+import chess.{ Black, Centis, Color, White }
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
@@ -7,8 +9,6 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 import scala.util.chaining._
 
-import actorApi._, round._
-import chess.{ Black, Centis, Color, White }
 import lila.game.Game.{ FullId, PlayerId }
 import lila.game.{ Game, GameRepo, Pov, Event, Progress, Player => GamePlayer }
 import lila.hub.actorApi.round.{
@@ -152,15 +152,14 @@ final private[round] class RoundDuct(
       }
 
     case GetSocketStatus(promise) =>
-      whitePlayer.isLongGone zip blackPlayer.isLongGone map {
-        case (whiteIsGone, blackIsGone) =>
-          promise success SocketStatus(
-            version = version,
-            whiteOnGame = whitePlayer.isOnline,
-            whiteIsGone = whiteIsGone,
-            blackOnGame = blackPlayer.isOnline,
-            blackIsGone = blackIsGone
-          )
+      whitePlayer.isLongGone zip blackPlayer.isLongGone map { case (whiteIsGone, blackIsGone) =>
+        promise success SocketStatus(
+          version = version,
+          whiteOnGame = whitePlayer.isOnline,
+          whiteIsGone = whiteIsGone,
+          blackOnGame = blackPlayer.isOnline,
+          blackIsGone = blackIsGone
+        )
       }
 
     case HasUserId(userId, promise) =>
@@ -354,18 +353,16 @@ final private[round] class RoundDuct(
 
     case TakebackYes(playerId) =>
       handle(playerId) { pov =>
-        takebacker.yes(~takebackSituation)(pov) map {
-          case (events, situation) =>
-            takebackSituation = situation.some
-            events
+        takebacker.yes(~takebackSituation)(pov) map { case (events, situation) =>
+          takebackSituation = situation.some
+          events
         }
       }
     case TakebackNo(playerId) =>
       handle(playerId) { pov =>
-        takebacker.no(~takebackSituation)(pov) map {
-          case (events, situation) =>
-            takebackSituation = situation.some
-            events
+        takebacker.no(~takebackSituation)(pov) map { case (events, situation) =>
+          takebackSituation = situation.some
+          events
         }
       }
 
@@ -429,6 +426,13 @@ final private[round] class RoundDuct(
             proxy save g inject List(Event.Reload)
           }
           else finisher.noStart(game)
+        }
+      }
+
+    case StartClock =>
+      handle { game =>
+        game.startClock ?? { g =>
+          proxy save g inject List(Event.Reload)
         }
       }
 

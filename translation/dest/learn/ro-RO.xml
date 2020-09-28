@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">Învaţă şah</string>
+  <string name="learnChess">Învață șah</string>
   <string name="byPlaying">jucând!</string>
   <string name="menu">Meniu</string>
   <string name="progressX">Progres: %s</string>
   <string name="resetMyProgress">Resetează progresul meu</string>
   <string name="youWillLoseAllYourProgress">Vei pierde tot progresul!</string>
   <string name="play">joacă!</string>
-  <string name="chessPieces">Piese de şah</string>
+  <string name="chessPieces">Piese de șah</string>
   <string name="theRook">Turn</string>
   <string name="itMovesInStraightLines">Se mișcă în linii drepte</string>
   <string name="rookIntro">Turnul e o piesă puternică. Ești pregătit s-o mânuiești?</string>
@@ -69,7 +69,7 @@ Nu trebuie să promovezi.</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Ia piesele negre! Și nu le pierde pe ale tale.</string>
   <string name="captureComplete">Felicitări! Știi cum să lupți cu piesele șahului!</string>
   <string name="protection">Protecție</string>
-  <string name="keepYourPiecesSafe">Protejează-ţi piesele</string>
+  <string name="keepYourPiecesSafe">Protejează-ți piesele</string>
   <string name="protectionIntro">Identifică piesele pe care oponentul tău le atacă și protejează-le!</string>
   <string name="protectionComplete">Felicitări! O piesă care nu o pierde este o piesă câștigată!</string>
   <string name="escape">Ești atacat! Scăpa de amenințare!</string>
@@ -77,7 +77,7 @@ Nu trebuie să promovezi.</string>
 dar poți proteja!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Nu-i lăsa să ia vreo piesă neprotejată!</string>
   <string name="combat">Luptă</string>
-  <string name="captureAndDefendPieces">Capturează şi protejează piese</string>
+  <string name="captureAndDefendPieces">Capturează și protejează piese</string>
   <string name="combatIntro">Un bun războinic știe despre atac și apărare!</string>
   <string name="combatComplete">Felicitări! Știi cum să lupți cu piesele șahului!</string>
   <string name="checkInOne">Șah într-o mutare</string>
@@ -91,7 +91,7 @@ dar poți proteja!</string>
   <string name="escapeWithTheKing">Scăpa cu regele!</string>
   <string name="theKingCannotEscapeButBlock">Regele nu poate scăpa, dar poți bloca atacul!</string>
   <string name="youCanGetOutOfCheckByTaking">Poți ieși din șah capturând piesa care-ți atacă regele.</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">Calul dă şah prin apărările tale!</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Calul dă șah prin apărările tale!</string>
   <string name="escapeOrBlock">Evadează cu regele
 sau blochează atacul!</string>
   <string name="outOfCheckComplete">Felicitări! Regele tău nu poate fi capturat, asigură-te că-l poți apăra de șah!</string>
@@ -103,7 +103,7 @@ sau blochează atacul!</string>
   <string name="mateInOneComplete">Felicitări! Așa câștigi jocurile de șah!</string>
   <string name="intermediate">Intermediar</string>
   <string name="boardSetup">Pregătirea tablei</string>
-  <string name="howTheGameStarts">Cum incepe jocul</string>
+  <string name="howTheGameStarts">Cum începe jocul</string>
   <string name="boardSetupIntro">Cele două armate sunt față în față, gata pentru bătălie.</string>
   <string name="thisIsTheInitialPosition">Aceasta este poziția inițială
 a fiecărui joc de șah!
@@ -191,7 +191,7 @@ Pionul = 1</string>
 în două mutări!</string>
   <string name="checkInTwoComplete">Felicitări! Ai dat șah oponentului tău, forțându-i să-și apere regele!</string>
   <string name="whatNext">Ce urmează?</string>
-  <string name="youKnowHowToPlayChess">Știi cum să joci șah, felicitări! Vrei să devii un jucător mai putenic?</string>
+  <string name="youKnowHowToPlayChess">Știi cum să joci șah, felicitări! Vrei să devii un jucător mai puternic?</string>
   <string name="register">Înregistrează-te</string>
   <string name="getAFreeLichessAccount">Obține un cont de Lichess gratuit</string>
   <string name="practice">Practică</string>

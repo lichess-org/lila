@@ -54,14 +54,18 @@ case class Game(
 
   def player: Player = player(turnColor)
 
-  def playerByUserId(userId: String): Option[Player]   = players.find(_.userId contains userId)
-  def opponentByUserId(userId: String): Option[Player] = playerByUserId(userId) map opponent
+  def playerByUserId(userId: User.ID): Option[Player]   = players.find(_.userId contains userId)
+  def opponentByUserId(userId: User.ID): Option[Player] = playerByUserId(userId) map opponent
+
+  def hasUserIds(userId1: User.ID, userId2: User.ID) =
+    playerByUserId(userId1).isDefined && playerByUserId(userId2).isDefined
 
   def opponent(p: Player): Player = opponent(p.color)
 
   def opponent(c: Color): Player = player(!c)
 
-  lazy val naturalOrientation = if (variant.racingKings) White else Color(whitePlayer before blackPlayer)
+  lazy val naturalOrientation =
+    if (variant.racingKings) White else Color.fromWhite(whitePlayer before blackPlayer)
 
   def turnColor = chess.player
 
@@ -126,11 +130,11 @@ case class Game(
       // the last recorded time is in the history for turnColor.
       val noLastInc = finished && (history.size <= playedTurns) == (color != turnColor)
 
-      pairs map {
-        case (first, second) => {
-            val d = first - second
-            if (pairs.hasNext || !noLastInc) d + inc else d
-          } nonNeg
+      pairs map { case (first, second) =>
+        {
+          val d = first - second
+          if (pairs.hasNext || !noLastInc) d + inc else d
+        } nonNeg
       } toList
     }
   } orElse binaryMoveTimes.map { binary =>
@@ -324,8 +328,8 @@ case class Game(
     finishedOrAborted &&
       nonMandatory &&
       !boosted && ! {
-      hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
-    }
+        hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
+      }
 
   def playerCanProposeTakeback(color: Color) =
     started && playable && !isTournament && !isSimul &&
@@ -444,7 +448,7 @@ case class Game(
 
   private def outoftimeClock(withGrace: Boolean): Boolean =
     clock ?? { c =>
-      started && playable && (bothPlayersHaveMoved || isSimul || isSwiss) && {
+      started && playable && (bothPlayersHaveMoved || isSimul || isSwiss || fromFriend) && {
         (!c.isRunning && !c.isInit) || c.outOfTime(turnColor, withGrace)
       }
     }
@@ -516,7 +520,7 @@ case class Game(
   def onePlayerHasMoved    = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
-  def startColor = Color(chess.startedAtTurn % 2 == 0)
+  def startColor = Color.fromPly(chess.startedAtTurn)
 
   def playerMoves(color: Color): Int =
     if (color == startColor) (playedTurns + 1) / 2

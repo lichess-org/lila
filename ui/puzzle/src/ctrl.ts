@@ -10,7 +10,6 @@ import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import * as xhr from './xhr';
 import * as speech from './speech';
-import { sound } from './sound';
 import { Role, Move, Outcome } from 'chessops/types';
 import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
 import { parseFen, makeFen } from 'chessops/fen';
@@ -31,6 +30,13 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   // required by ceval
   vm.showComputer = () => vm.mode === 'view';
   vm.showAutoShapes = () => true;
+
+  const throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
+  const sound = {
+    move: throttleSound('move'),
+    capture: throttleSound('capture'),
+    check: throttleSound('check')
+  };
 
   function setPath(path: Tree.Path): void {
     vm.path = path;
@@ -363,7 +369,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     promotion.cancel();
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
-    window.lichess.pubsub.emit('ply', vm.node.ply);
+    lichess.pubsub.emit('ply', vm.node.ply);
   }
 
   function userJump(path: Tree.Path): void {
@@ -438,7 +444,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   // chessground is not displayed, and the first move is not fully applied.
   // Make sure chessground is fully shown when the page goes back to being visible.
   document.addEventListener('visibilitychange', function() {
-    window.lichess.requestIdleCallback(function() {
+    lichess.requestIdleCallback(function() {
       jump(vm.path);
     });
   });
@@ -466,7 +472,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     vote,
     getCeval,
     pref: opts.pref,
-    trans: window.lichess.trans(opts.i18n),
+    trans: lichess.trans(opts.i18n),
     outcome,
     toggleCeval,
     toggleThreatMode,

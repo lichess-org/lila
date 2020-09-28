@@ -19,8 +19,8 @@ final class JoinerTest extends Specification {
         destUser = None,
         rematchOf = None
       )
-      Joiner.createGame(challenge, None, None, None) must beLike {
-        case g: Game => g.chess.startedAtTurn must_== 0
+      Joiner.createGame(challenge, None, None, None) must beLike { case g: Game =>
+        g.chess.startedAtTurn must_== 0
       }
     }
     "started at turn from position" in {
@@ -35,8 +35,8 @@ final class JoinerTest extends Specification {
         destUser = None,
         rematchOf = None
       )
-      Joiner.createGame(challenge, None, None, None) must beLike {
-        case g: Game => g.chess.startedAtTurn must_== 6
+      Joiner.createGame(challenge, None, None, None) must beLike { case g: Game =>
+        g.chess.startedAtTurn must_== 6
       }
     }
   }

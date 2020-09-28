@@ -199,7 +199,8 @@
     <item quantity="other">%s partida zure aurka</item>
   </plurals>
   <string name="cancel">Ezeztatu</string>
-  <string name="timeOut">Denbora bukatuta</string>
+  <string name="whiteTimeOut">Zuriaren denbora agortu egin da</string>
+  <string name="blackTimeOut">Beltzaren denbora agortu egin da</string>
   <string name="drawOfferSent">Berdintzeko eskaintza bidali da</string>
   <string name="drawOfferDeclined">Berdintzeko eskaintzari uko egin zaio</string>
   <string name="drawOfferAccepted">Berdintzeko eskaintza onartu da</string>
@@ -393,7 +394,7 @@
   <string name="openTournaments">Txapelketa irekiak</string>
   <string name="duration">Iraupena</string>
   <string name="winner">Irabazlea</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Sailkapen-taula</string>
+  <string name="standing">Sailkapen-taula</string>
   <string name="createANewTournament">Txapelketa berria sortu</string>
   <string name="tournamentCalendar">Txapelketa-egutegia</string>
   <string name="conditionOfEntry">Parte hartzeko baldintza:</string>
@@ -657,7 +658,7 @@
   <string name="newTournament">Txapelketa berria</string>
   <string name="tournamentHomeTitle">Xake-txapelketak, aldaera eta denbora-kontrol batzuekin.</string>
   <string name="tournamentHomeDescription">Txapelketa azkarrak jokatu! Txapelketa batetara sartu, edo zeurea sortu.  Bullet, Blitz, Klasikoa, Xake960, Erregeatontorrean, Hiruxake eta aukera  gehiago, xake dibertsio amaigabea lortzeko.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Txapelketa ez da aurkitu</string>
+  <string name="tournamentNotFound">Txapelketa ez da aurkitu</string>
   <string name="tournamentDoesNotExist">Txapelketa hau ez dago</string>
   <string name="tournamentMayHaveBeenCanceled">Agian bertan behera geratu da, jokalari guztiak atera direlako hasi baino lehen.</string>
   <string name="returnToTournamentsHomepage">Txapelketako orrialde nagusira itzuli</string>

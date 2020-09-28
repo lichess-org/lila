@@ -14,7 +14,7 @@ object layout {
   object bits {
     val doctype                      = raw("<!DOCTYPE html>")
     def htmlTag(implicit lang: Lang) = html(st.lang := lang.code)
-    val topComment                   = raw("""<!-- Lichess is open source! See https://github.com/ornicar/lila -->""")
+    val topComment                   = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
     val charset                      = raw("""<meta charset="utf-8">""")
     val viewport = raw(
       """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
@@ -46,9 +46,9 @@ object layout {
         s"font/lichess.woff2"
       )}" as="font" type="font/woff2" crossorigin>""" +
         !ctx.pref.pieceNotationIsLetter ??
-          s"""<link rel="preload" href="${assetUrl(
-            s"font/lichess.chess.woff2"
-          )}" as="font" type="font/woff2" crossorigin>"""
+        s"""<link rel="preload" href="${assetUrl(
+          s"font/lichess.chess.woff2"
+        )}" as="font" type="font/woff2" crossorigin>"""
     }
   private val manifests = raw(
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""

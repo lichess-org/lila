@@ -44,10 +44,7 @@ object form {
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),
-      moreJs = frag(
-        flatpickrTag,
-        delayFlatpickrStartLocal
-      )
+      moreJs = jsModule("flatpickr")
     )(
       main(cls := "page-small box box-pad")(body)
     )

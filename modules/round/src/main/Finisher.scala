@@ -133,37 +133,35 @@ final private class Finisher(
           g.whitePlayer.userId,
           g.blackPlayer.userId
         )
-        .flatMap {
-          case (whiteO, blackO) =>
-            val finish = FinishGame(g, whiteO, blackO)
-            updateCountAndPerfs(finish) map { ratingDiffs =>
-              message foreach { messenger.system(g, _) }
-              gameRepo game g.id foreach { newGame =>
-                newGame foreach proxy.setFinishedGame
-                val newFinish = finish.copy(game = newGame | g)
-                Bus.publish(newFinish, "finishGame")
-                game.userIds foreach { userId =>
-                  Bus.publish(newFinish, s"userFinishGame:$userId")
-                }
+        .flatMap { case (whiteO, blackO) =>
+          val finish = FinishGame(g, whiteO, blackO)
+          updateCountAndPerfs(finish) map { ratingDiffs =>
+            message foreach { messenger.system(g, _) }
+            gameRepo game g.id foreach { newGame =>
+              newGame foreach proxy.setFinishedGame
+              val newFinish = finish.copy(game = newGame | g)
+              Bus.publish(newFinish, "finishGame")
+              game.userIds foreach { userId =>
+                Bus.publish(newFinish, s"userFinishGame:$userId")
               }
-              prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
             }
+            prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
+          }
         }
   }
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted) ?? {
       import cats.implicits._
-      (finish.white, finish.black).mapN((_, _)) ?? {
-        case (white, black) =>
-          crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, white, black) map {
-            case _ ~ ratingDiffs => ratingDiffs
-          }
+      (finish.white, finish.black).mapN((_, _)) ?? { case (white, black) =>
+        crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, white, black) map {
+          case _ ~ ratingDiffs => ratingDiffs
+        }
       } zip
         (finish.white ?? incNbGames(finish.game)) zip
-        (finish.black ?? incNbGames(finish.game)) map {
-        case ratingDiffs ~ _ ~ _ => ratingDiffs
-      }
+        (finish.black ?? incNbGames(finish.game)) map { case ratingDiffs ~ _ ~ _ =>
+          ratingDiffs
+        }
     }
 
   private def incNbGames(game: Game)(user: User): Funit =

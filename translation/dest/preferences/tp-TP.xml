@@ -5,6 +5,7 @@
   <string name="pieceDestinations">o lukin e pali ken</string>
   <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">o lukin e nimi pi lon mute</string>
   <string name="moveListWhilePlaying">lipu pi pali pi musi ni</string>
+  <string name="zenMode">nasin pi pilin pona</string>
   <string name="chessClock">ilo tenpo</string>
   <string name="tenthsOfSeconds">tenpo lili kipisi pi luka luka</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">tenpo lili awen li luka luka anu mute lili la</string>

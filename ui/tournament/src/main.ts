@@ -17,11 +17,11 @@ export default function(opts: TournamentOpts) {
   let vnode: VNode, ctrl: TournamentController;
 
   $('body').data('tournament-id', opts.data.id);
-  window.lichess.socket = new window.lichess.StrongSocket(
+  lichess.socket = new lichess.StrongSocket(
     `/tournament/${opts.data.id}/socket/v5`, opts.data.socketVersion, {
     receive: (t: string, d: any) => ctrl.socket.receive(t, d)
   });
-  opts.socketSend = window.lichess.socket.send;
+  opts.socketSend = lichess.socket.send;
   opts.element = document.querySelector('main.tour') as HTMLElement;
   opts.classes = opts.element.getAttribute('class');
   opts.$side = $('.tour__side').clone();

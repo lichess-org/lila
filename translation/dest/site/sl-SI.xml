@@ -221,7 +221,8 @@
     <item quantity="other">%s partij s teboj</item>
   </plurals>
   <string name="cancel">Prekliči</string>
-  <string name="timeOut">Čas je potekel</string>
+  <string name="whiteTimeOut">Belemu se je čas iztekel</string>
+  <string name="blackTimeOut">Črnemu se je čas iztekel</string>
   <string name="drawOfferSent">Predlog za remi poslan</string>
   <string name="drawOfferDeclined">Predlog za remi zavrnjen</string>
   <string name="drawOfferAccepted">Predlog za remi sprejet</string>
@@ -270,7 +271,7 @@
   <string name="send">Pošlji</string>
   <string name="incrementInSeconds">Dodan čas na potezo v sekundah</string>
   <string name="freeOnlineChess">Brezplačni internetni šah</string>
-  <string name="spectators">Seznam gledalcev:</string>
+  <string name="spectators">Gledalci:</string>
   <plurals name="nbRated">
     <item quantity="one">%s rangiran</item>
     <item quantity="two">%s rangirana</item>
@@ -309,7 +310,7 @@
     <item quantity="few">Dodaj %s sekunde</item>
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Ta račun je kršil pogoje uporabe Lichess-a</string>
+  <string name="thisAccountViolatedTos">Uporabnik tega računa je kršil pogoje uporabe Lichessa</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Igralec je umetno zvišal/znižal svoj rating</string>
   <string name="openingExplorerAndTablebase">Odpri brskalnik otvoritev &amp; baz</string>
   <string name="takeback">Popravek poteze</string>
@@ -449,7 +450,7 @@
   <string name="openTournaments">Odprti turnirji</string>
   <string name="duration">Trajanje</string>
   <string name="winner">Zmagovalec</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Lestvica</string>
+  <string name="standing">Lestvica</string>
   <string name="createANewTournament">Ustvari turnir</string>
   <string name="tournamentCalendar">Turnirski koledar</string>
   <string name="conditionOfEntry">Vstopni pogoji:</string>
@@ -726,7 +727,7 @@ v %3$s</string>
   <string name="newTournament">Nov turnir</string>
   <string name="tournamentHomeTitle">Turnir z možnostjo različnih variant in različnih igralnih časov</string>
   <string name="tournamentHomeDescription">Igraj turnirje z hitrim tempom! Pridruži se uradnemu turnirju ali ustvari svoj turnir. Hitropotezno, Pospešeno, Klasično, Šah960, Trojni šah in ostale možnosti so na voljo za neskončno šahovsko zabavo.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Turnir ni najden</string>
+  <string name="tournamentNotFound">Turnir ni najden</string>
   <string name="tournamentDoesNotExist">Ta turnir ne obstaja.</string>
   <string name="tournamentMayHaveBeenCanceled">Lahko je odpovedan, če so vsi igralci zapustili turnir preden se je začel.</string>
   <string name="returnToTournamentsHomepage">Vrni se na domačo stran turnirjev</string>

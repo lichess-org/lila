@@ -199,7 +199,6 @@
     <item quantity="other">%s spelle teen jou</item>
   </plurals>
   <string name="cancel">Kanseleer</string>
-  <string name="timeOut">Tyd verstreke</string>
   <string name="drawOfferSent">Gelykop aanbod gestuur</string>
   <string name="drawOfferDeclined">Gelykop aanbod verwerp</string>
   <string name="drawOfferAccepted">Gelykop aanbod aanvaar</string>
@@ -393,7 +392,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="openTournaments">Oop toernooie</string>
   <string name="duration">Duur</string>
   <string name="winner">Wenner</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Stand</string>
+  <string name="standing">Stand</string>
   <string name="createANewTournament">Skep \'n nuwe toernooi</string>
   <string name="tournamentCalendar">Toernooidagboek</string>
   <string name="conditionOfEntry">Inskrywing vereistes:</string>
@@ -658,7 +657,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="newTournament">Nuwe toernooi</string>
   <string name="tournamentHomeTitle">Skaaktoernooie met verskeie tydkontroles en variante</string>
   <string name="tournamentHomeDescription">Speel hoë-tempo skaak toernooie! Sluit aan by \'n amptelik geskeduleerde toernooi, of skep jou eie. Bullet, Blitz, klassiek, Skaak960, Heuwel Heerser, Trippelskaak, en meer beskikbare opsies vir oneindige skaak pret.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Toernooi nie te vinde</string>
+  <string name="tournamentNotFound">Toernooi nie te vinde</string>
   <string name="tournamentDoesNotExist">Dié toernooi bestaan nie.</string>
   <string name="tournamentMayHaveBeenCanceled">Dit kon gekanselleer wees, indien alle spelers die toernooi verlaat het voor die aanvang daarvan.</string>
   <string name="returnToTournamentsHomepage">Keer terug na die toernooie tuisblad</string>

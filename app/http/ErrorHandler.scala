@@ -34,10 +34,9 @@ final class ErrorHandler(
           )
         })
       else InternalServerError("Sorry, something went wrong.")
-    } recover {
-      case util.control.NonFatal(e) =>
-        lila.log("http").error(s"""Error handler exception on "${exception.getMessage}\"""", e)
-        InternalServerError("Sorry, something went very wrong.")
+    } recover { case util.control.NonFatal(e) =>
+      lila.log("http").error(s"""Error handler exception on "${exception.getMessage}\"""", e)
+      InternalServerError("Sorry, something went very wrong.")
     }
 
   override def onClientError(req: RequestHeader, statusCode: Int, msg: String): Fu[Result] =

@@ -49,7 +49,9 @@ final class Env(
 
   private val statsApi = wire[SwissStatsApi]
 
-  val api = wire[SwissApi]
+  val api: SwissApi = wire[SwissApi]
+
+  private def teamOf = api.teamOf _
 
   private lazy val socket = wire[SwissSocket]
 

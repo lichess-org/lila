@@ -38,8 +38,6 @@ import renderPlayerBars from './study/playerBars';
 import serverSideUnderboard from './serverSideUnderboard';
 import * as gridHacks from './gridHacks';
 
-const li = window.lichess;
-
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
   if (ctrl.data.game.status.id >= 30) switch (ctrl.data.game.winner) {
@@ -144,7 +142,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         h('button.button.button-thin.action.text', {
           attrs: dataIcon('G'),
           hook: bind('click', _ => {
-            const pgn = $('.copyables .pgn textarea').val();
+            const pgn = $('.copyables .pgn textarea').val() as string;
             if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn);
           }, ctrl.redraw)
         }, ctrl.trans.noarg('importPgn'))
@@ -360,11 +358,11 @@ export default function(ctrl: AnalyseCtrl): VNode {
         const chatOpts = ctrl.opts.chat;
         chatOpts.instance?.then(c => c.destroy());
         chatOpts.parseMoves = true;
-        chatOpts.instance = li.makeChat(chatOpts);
+        chatOpts.instance = lichess.makeChat(chatOpts);
       })
     }),
     ctrl.embed ? null : h('div.chat__members.none', {
-      hook: onInsert(window.lichess.watchers)
+      hook: onInsert(lichess.watchers)
     }, [h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators'), ' ', h('span.list')])
   ]);
 }

@@ -55,7 +55,7 @@ interface EmergSound {
 export class ClockController {
 
   emergSound: EmergSound = {
-    play: window.lichess.sound.lowtime,
+    play: () => lichess.sound.play('lowtime'),
     delay: 20000,
     playable: {
       white: true,

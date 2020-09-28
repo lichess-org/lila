@@ -9,8 +9,8 @@ export default function(publicKey: string) {
   };
   var min = 100, max = 100 * 100000;
 
-  if (location.hash === '#onetime') $('#freq_onetime').click();
-  if (location.hash === '#lifetime') $('#freq_lifetime').click();
+  if (location.hash === '#onetime') $('#freq_onetime').trigger('click');
+  if (location.hash === '#lifetime') $('#freq_lifetime').trigger('click');
 
   const getFreq = function() {
     return $checkout.find('group.freq input:checked').val();
@@ -19,7 +19,7 @@ export default function(publicKey: string) {
   // Other is selected but no amount specified
   // happens with backward button
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
-    $checkout.find('#plan_monthly_1000').click();
+    $checkout.find('#plan_monthly_1000').trigger('click');
 
   const selectAmountGroup = function() {
     var freq = getFreq();
@@ -30,9 +30,9 @@ export default function(publicKey: string) {
 
   $checkout.find('group.freq input').on('change', selectAmountGroup);
 
-  $checkout.find('group.amount .other label').on('click', function(this) {
+  $checkout.find('group.amount .other label').on('click', function(this: HTMLLabelElement) {
     let amount: number;
-    const raw: string = prompt($(this).attr('title')) || '';
+    const raw: string = prompt(this.title) || '';
     try {
       amount = parseFloat(raw.replace(',', '.').replace(/[^0-9\.]/gim, ''));
     } catch (e) {
@@ -41,7 +41,7 @@ export default function(publicKey: string) {
     var cents = Math.round(amount * 100);
     if (!cents) {
       $(this).text($(this).data('trans-other'));
-      $checkout.find('#plan_monthly_1000').click();
+      $checkout.find('#plan_monthly_1000').trigger('click');
       return false;
     }
     if (cents < min) cents = min;
@@ -61,9 +61,9 @@ export default function(publicKey: string) {
     if (!cents || cents < min || cents > max) return;
     var amount = cents / 100;
     var $form = $checkout.find('form.paypal_checkout.' + getFreq());
-    $form.find('input.amount').val(amount);
-    $form.submit();
-    $checkout.find('.service').html(window.lichess.spinnerHtml);
+    $form.find('input.amount').val('' + amount);
+    ($form[0] as HTMLFormElement).submit();
+    $checkout.find('.service').html(lichess.spinnerHtml);
   });
 
   let stripe = window.Stripe(publicKey);
@@ -81,7 +81,7 @@ export default function(publicKey: string) {
       amount = parseInt($input.data('amount'));
     }
     if (amount < min || amount > max) return;
-    $checkout.find('.service').html(window.lichess.spinnerHtml);
+    $checkout.find('.service').html(lichess.spinnerHtml);
 
     xhr.json("/patron/stripe-checkout", {
       method: "post",

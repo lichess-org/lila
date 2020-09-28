@@ -28,12 +28,12 @@
   <string name="youCannotApply">No se puede solicitar ser moderador. Si vemos a alguien que pensamos que sería un buen moderador, nos ponemos en contacto con él directamente.</string>
   <string name="isCorrespondenceDifferent">¿El ajedrez por correspondencia es diferente del ajedrez normal?</string>
   <string name="youCanUseOpeningBookNoEngine">En Lichess, la principal diferencia en las reglas del ajedrez por correspondencia es que se permite un libro de aperturas. El uso de motores sigue estando prohibido y dará lugar a que se etiquete al usuario como tramposo. Aunque la ICCF permite el uso del motor en partidas por correspondencia, Lichess no lo permite.</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Mecánica de juego</string>
+  <string name="gameplay">Mecánica de juego</string>
   <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>
   <string name="basedOnGameDuration">Los controles de tiempo de Lichess se basan en la duración estimada de una partida = %1$s
  Por ejemplo, la duración estimada de una partida de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
   <string name="durationFormula">(hora inicial del reloj) + 40 * (aumento del reloj)</string>
-  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">&lt; %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">¿Qué variantes puedo jugar en Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess soporta ajedrez estándar y %1$s.</string>
@@ -52,7 +52,7 @@
   En raras ocasiones esto puede ser difícil de decidir automáticamente (líneas forzadas, fortalezas). Por defecto, siempre estamos de parte del jugador que no se quedó sin tiempo.
 
   Ten en cuenta que es posible dar mate con un sólo caballo o alfil, siempre que el oponente tenga una pieza que pueda bloquear al rey.</string>
-  <string name="linkToFIDErules">Manual FIDE §6.9, pdf</string>
+  <string name="fideHandbookX">Manual de la FIDE %s</string>
   <string name="discoveringEnPassant">¿Por qué un peón puede capturar otro peón cuando ya está pasado? (en passant)</string>
   <string name="explainingEnPassant">Este movimiento es legal, y se llama \"captura al paso\". El artículo de Wikipedia da una %1$s al mismo.
 
@@ -68,7 +68,6 @@
   <string name="threefoldRepetition">Triple repetición</string>
   <string name="threefoldRepetitionExplanation">Si una posición ocurre tres veces, los jugadores pueden reclamar un empate por %1$s. Lichess implementa las reglas oficiales de la FIDE, de acuerdo con el Artículo 9.2 (d) del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple repetición</string>
-  <string name="handBookPDF">manual (pdf)</string>
   <string name="notRepeatedMoves">No hemos repetido movimientos, ¿por qué el juego sigue siendo tablas por repetición?</string>
   <string name="repeatedPositionsThatMatters">La triple repetición se da por repetición de %1$s, no de movimientos. La repetición no tiene ocurrir consecutivamente.</string>
   <string name="positions">posiciones</string>
@@ -109,7 +108,7 @@
   Básicamente, el sistema tiene un 90% de seguridad de que tu puntuación está entre 800 y 2200. Es increíblemente incierto. Debido a esto, cuando un jugador acaba de empezar, su puntuación cambiará de forma muy espectacular, potencialmente varios cientos de puntos a la vez. Pero después de algunas partidas contra jugadores establecidos, el intervalo de confianza se reducirá, y la cantidad de puntos ganados/perdidos después de cada partida disminuirá.
 
   Otro punto que hay que señalar es que, con el paso del tiempo, el intervalo de confianza aumentará. Esto te permite ganar o perder puntos más rápidamente para igualar cualquier cambio en tu nivel de habilidad en ese tiempo.</string>
-  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">¿Por qué hay un signo de interrogación (?) junto a una puntuación?</string>
+  <string name="whatIsProvisionalRating">¿Por qué hay un signo de interrogación (?) junto a una puntuación?</string>
   <string name="provisionalRatingExplanation">El signo de interrogación significa que la puntuación es provisional. Las razones incluyen:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">El jugador aún no ha finalizado suficientes partidas por puntos contra %1$s en la categoría de puntuación.</string>
   <string name="similarOpponents">oponentes de fuerza similar</string>

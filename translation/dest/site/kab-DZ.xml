@@ -117,7 +117,6 @@
     <item quantity="other">%s timlilit akk kec</item>
   </plurals>
   <string name="cancel">Semmet</string>
-  <string name="timeOut">Akud uɣrid</string>
   <string name="drawOfferSent">Asumer n ilem yuzen</string>
   <string name="drawOfferDeclined">Asumer n ilem</string>
   <string name="drawOfferAccepted">Asumer n ilem iqbel</string>
@@ -243,7 +242,7 @@
   <string name="openTournaments">Timzizelten ilden</string>
   <string name="duration">Tanzagt</string>
   <string name="winner">Amernay</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Abellez</string>
+  <string name="standing">Abellez</string>
   <string name="createANewTournament">Slal timenyugert</string>
   <string name="join">Ddukkel ed</string>
   <string name="withdraw">Eǧǧ</string>

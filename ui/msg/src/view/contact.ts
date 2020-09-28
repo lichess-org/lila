@@ -37,5 +37,5 @@ function renderDate(msg: LastMsg): VNode {
       title: msg.date.toLocaleString(),
       datetime: msg.date.getTime()
     }
-  }, window.lichess.timeago.format(msg.date));
+  }, lichess.timeago.format(msg.date));
 }

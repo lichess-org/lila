@@ -35,8 +35,8 @@ final class RelayPush(sync: RelaySync, api: RelayApi)(implicit
       .map { res =>
         SyncLog.event(res.moves, none)
       }
-      .recover {
-        case e: Exception => SyncLog.event(0, e.some)
+      .recover { case e: Exception =>
+        SyncLog.event(0, e.some)
       }
       .flatMap { event =>
         api.update(relay)(_.withSync(_ addLog event)).void

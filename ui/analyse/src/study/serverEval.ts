@@ -15,8 +15,6 @@ export interface ServerEvalCtrl {
   lastPly: Prop<number | false>;
 }
 
-const li = window.lichess;
-
 export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl {
 
   const requested = prop(false),
@@ -27,22 +25,17 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     chart.getSelectedPoints().forEach(p => p.select(false));
   }
 
-  li.pubsub.on('analysis.change', (_fen: string, _path: string, mainlinePly: number | false) => {
-    if (!li.advantageChart || lastPly() === mainlinePly) return;
+  lichess.pubsub.on('analysis.change', (_fen: string, _path: string, mainlinePly: number | false) => {
+    if (!lichess.advantageChart || lastPly() === mainlinePly) return;
     const lp = lastPly(typeof mainlinePly === 'undefined' ? lastPly() : mainlinePly),
-      el = chartEl();
-    if (el && window.Highcharts) {
-      const $chart = $(el);
-      if ($chart.length) {
-        const chart = $chart.highcharts();
-        if (chart) {
-          if (lp === false) unselect(chart);
-          else {
-            const point = chart.series[0].data[lp - 1 - root.tree.root.ply];
-            if (defined(point)) point.select();
-            else unselect(chart);
-          }
-        } else lastPly(false);
+      el = chartEl(),
+      chart = el && el['highcharts'];
+    if (chart) {
+      if (lp === false) unselect(chart);
+      else {
+        const point = chart.series[0].data[lp - 1 - root.tree.root.ply];
+        if (defined(point)) point.select();
+        else unselect(chart);
       }
     } else lastPly(false);
   });
@@ -55,7 +48,7 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     },
     chapterId,
     onMergeAnalysisData() {
-      if (li.advantageChart) li.advantageChart.update(root.data);
+      if (lichess.advantageChart) lichess.advantageChart.update(root.data);
     },
     request() {
       root.socket.send('requestAnalysis', chapterId());
@@ -77,9 +70,9 @@ export function view(ctrl: ServerEvalCtrl): VNode {
   return h('div.study__server-eval.ready.' + analysis.id, {
     hook: onInsert(el => {
       ctrl.lastPly(false);
-      li.requestIdleCallback(() => {
-        li.loadScript('javascripts/chart/acpl.js').then(() => {
-          li.advantageChart(ctrl.root.data, ctrl.root.trans, el);
+      lichess.requestIdleCallback(() => {
+        lichess.loadScript('javascripts/chart/acpl.js').then(() => {
+          lichess.advantageChart(ctrl.root.data, ctrl.root.trans, el);
           ctrl.chartEl(el);
         });
       });

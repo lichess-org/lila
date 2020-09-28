@@ -67,10 +67,9 @@ final private class PasswordHasher(
   }
 
   def check(bytes: HashedPassword, p: ClearPassword): Boolean =
-    bytes.parse ?? {
-      case (salt, encHash) =>
-        val hash = aes.decrypt(Aes.iv(salt), encHash)
-        BCrypt.bytesEqualSecure(hash, bHash(salt, p))
+    bytes.parse ?? { case (salt, encHash) =>
+      val hash = aes.decrypt(Aes.iv(salt), encHash)
+      BCrypt.bytesEqualSecure(hash, bHash(salt, p))
     }
 }
 
@@ -89,7 +88,7 @@ object PasswordHasher {
 
   private lazy val rateLimitPerUser = new RateLimit[String](
     credits = 10,
-    duration = 1.hour,
+    duration = 30 minutes,
     key = "password.hashes.user"
   )
 

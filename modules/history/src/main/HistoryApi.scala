@@ -46,15 +46,15 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
       (isStd && game.speed == Speed.Rapid).option("rapid"                   -> perfs.rapid),
       (isStd && game.speed == Speed.Classical).option("classical"           -> perfs.classical),
       (isStd && game.speed == Speed.Correspondence).option("correspondence" -> perfs.correspondence)
-    ).flatten.map {
-      case (k, p) => k -> p.intRating
+    ).flatten.map { case (k, p) =>
+      k -> p.intRating
     }
     val days = daysBetween(user.createdAt, game.movedAt)
     coll.update
       .one(
         $id(user.id),
-        $doc("$set" -> $doc(changes.map {
-          case (perf, rating) => (s"$perf.$days", $int(rating))
+        $doc("$set" -> $doc(changes.map { case (perf, rating) =>
+          (s"$perf.$days", $int(rating))
         })),
         upsert = true
       )
@@ -86,18 +86,17 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
       $doc(perfType.key -> true).some,
       ReadPreference.secondaryPreferred
     )(~_.string("_id")) map { hists =>
-      users zip hists map {
-        case (user, doc) =>
-          val current      = user.perfs(perfType).intRating
-          val previousDate = daysBetween(user.createdAt, DateTime.now minusDays days)
-          val previous =
-            doc.flatMap(_ child perfType.key).flatMap(RatingsMapReader.readOpt).fold(current) { hist =>
-              hist.foldLeft(hist.headOption.fold(current)(_._2)) {
-                case (_, (d, r)) if d < previousDate => r
-                case (acc, _)                        => acc
-              }
+      users zip hists map { case (user, doc) =>
+        val current      = user.perfs(perfType).intRating
+        val previousDate = daysBetween(user.createdAt, DateTime.now minusDays days)
+        val previous =
+          doc.flatMap(_ child perfType.key).flatMap(RatingsMapReader.readOpt).fold(current) { hist =>
+            hist.foldLeft(hist.headOption.fold(current)(_._2)) {
+              case (_, (d, r)) if d < previousDate => r
+              case (acc, _)                        => acc
             }
-          previous -> current
+          }
+        previous -> current
       }
     }
 
@@ -107,28 +106,27 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
 
     private val cache = cacheApi[(User.ID, PerfType), Int](256, "lastWeekTopRating") {
       _.expireAfterAccess(20 minutes)
-        .buildAsyncFuture {
-          case (userId, perf) =>
-            userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>
-              val currentRating = user.perfs(perf).intRating
-              val firstDay      = daysBetween(user.createdAt, DateTime.now minusWeeks 1)
-              val days          = firstDay to (firstDay + 6) toList
-              val project = BSONDocument {
-                ("_id" -> BSONBoolean(false)) :: days.map { d =>
-                  s"${perf.key}.$d" -> BSONBoolean(true)
-                }
+        .buildAsyncFuture { case (userId, perf) =>
+          userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>
+            val currentRating = user.perfs(perf).intRating
+            val firstDay      = daysBetween(user.createdAt, DateTime.now minusWeeks 1)
+            val days          = firstDay to (firstDay + 6) toList
+            val project = BSONDocument {
+              ("_id" -> BSONBoolean(false)) :: days.map { d =>
+                s"${perf.key}.$d" -> BSONBoolean(true)
               }
-              coll.find($id(user.id), project.some).one[Bdoc](ReadPreference.secondaryPreferred).map {
-                _.flatMap {
-                  _.child(perf.key) map {
-                    _.elements.foldLeft(currentRating) {
-                      case (max, BSONElement(_, BSONInteger(v))) if v > max => v
-                      case (max, _)                                         => max
-                    }
+            }
+            coll.find($id(user.id), project.some).one[Bdoc](ReadPreference.secondaryPreferred).map {
+              _.flatMap {
+                _.child(perf.key) map {
+                  _.elements.foldLeft(currentRating) {
+                    case (max, BSONElement(_, BSONInteger(v))) if v > max => v
+                    case (max, _)                                         => max
                   }
                 }
-              } dmap { _ | currentRating }
-            }
+              }
+            } dmap { _ | currentRating }
+          }
         }
     }
   }

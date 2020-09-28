@@ -164,11 +164,11 @@ object show {
             t.enabled option div(cls := "team-show__members")(
               st.section(cls := "recent-members")(
                 h2(teamRecentMembers()),
-                div(cls := "userlist infinitescroll")(
-                  pagerNext(members, np => routes.Team.show(t.id, np).url),
+                div(cls := "userlist infinite-scroll")(
                   members.currentPageResults.map { member =>
                     div(cls := "paginated")(lightUserLink(member))
-                  }
+                  },
+                  pagerNext(members, np => routes.Team.show(t.id, np).url)
                 )
               )
             )

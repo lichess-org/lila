@@ -33,7 +33,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
               key: p.g,
               href: `/${p.g}`
             },
-            hook: onInsert(window.lichess.powertip.manualGame)
+            hook: onInsert(lichess.powertip.manualGame)
           }, p.o ? '*' : (p.w === true ? '1' : (p.w === false ? '0' : '½')))))
           ).concat(
           [...Array(ctrl.data.nbRounds - player.sheet.length)].map(_ => h('r'))
@@ -48,7 +48,7 @@ const title = (str: string) => ({ attrs: { title: str } });
 
 let lastBody: MaybeVNodes | undefined;
 
-const preloadUserTips = (vn: VNode) => window.lichess.powertip.manualUserIn(vn.elm as HTMLElement);
+const preloadUserTips = (vn: VNode) => lichess.powertip.manualUserIn(vn.elm as HTMLElement);
 
 export default function standing(ctrl: SwissCtrl, pag: Pager, klass?: string): VNode {
   const tableBody = pag.currentPageResults ?

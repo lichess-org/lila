@@ -56,7 +56,7 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
   if (pref == 1) {
     const toggle = (ply: number) => el.classList.toggle('none', visible ? !visible(ply) : ply >= 2);
     toggle(ply);
-    window.lichess.pubsub.on('ply', toggle);
+    lichess.pubsub.on('ply', toggle);
   }
 
   addNag(el);
@@ -70,10 +70,10 @@ function eventPosition(e: MouchEvent): [number, number] | undefined {
 
 function addNag(el: HTMLElement) {
 
-  const storage = window.lichess.storage.makeBoolean('resize-nag');
+  const storage = lichess.storage.makeBoolean('resize-nag');
   if (storage.get()) return;
 
-  window.lichess.loadCssPath('nag-circle');
+  lichess.loadCssPath('nag-circle');
   el.title = 'Drag to resize';
   el.innerHTML = '<div class="nag-circle"></div>';
   for (const mousedownEvent of ['touchstart', 'mousedown']) {

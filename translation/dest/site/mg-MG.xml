@@ -95,7 +95,6 @@
     <item quantity="other">%s lalao niaraka taminao</item>
   </plurals>
   <string name="cancel">Cancel</string>
-  <string name="timeOut">Lany fotoana</string>
   <string name="drawOfferSent">Lasa ny fangatahana lalao sahala</string>
   <string name="drawOfferDeclined">Lavo ny fangatahana ny hahasahala ny lalao</string>
   <string name="drawOfferAccepted">Nekena ny fangatahana ny hahasahala ny lalao</string>
@@ -223,7 +222,7 @@
   <string name="openTournaments">Fifaninanana misokatra</string>
   <string name="duration">Halavany</string>
   <string name="winner">Mpandresy</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Miantona</string>
+  <string name="standing">Miantona</string>
   <string name="createANewTournament">Mamorona fifaninanana vaovao</string>
   <string name="join">Miditra</string>
   <string name="withdraw">Miala an-daharana</string>

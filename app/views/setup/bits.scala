@@ -1,12 +1,11 @@
 package views.html.setup
 
+import controllers.routes
 import play.api.data.{ Field, Form }
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 private object bits {
 
@@ -41,8 +40,8 @@ private object bits {
       renderLabel(form("variant"), trans.variant()),
       renderSelect(
         form("variant"),
-        variants.filter {
-          case (id, _, _) => ctx.noBlind || lila.game.Game.blindModeVariants.exists(_.id.toString == id)
+        variants.filter { case (id, _, _) =>
+          ctx.noBlind || lila.game.Game.blindModeVariants.exists(_.id.toString == id)
         }
       )
     )
@@ -53,39 +52,43 @@ private object bits {
       compare: (String, String) => Boolean = (a, b) => a == b
   ) =
     select(id := s"$prefix${field.id}", name := field.name)(
-      options.map {
-        case (value, name, title) =>
-          option(
-            st.value := value,
-            st.title := title,
-            field.value.exists(v => compare(v, value)) option selected
-          )(name)
+      options.map { case (value, name, title) =>
+        option(
+          st.value := value,
+          st.title := title,
+          field.value.exists(v => compare(v, value)) option selected
+        )(name)
       }
     )
 
   def renderRadios(field: Field, options: Seq[SelectChoice]) =
     st.group(cls := "radio")(
-      options.map {
-        case (key, name, hint) =>
-          div(
-            input(
-              tpe := "radio",
-              id := s"$prefix${field.id}_$key",
-              st.name := field.name,
-              value := key,
-              field.value.has(key) option checked
-            ),
-            label(
-              cls := "required",
-              title := hint,
-              `for` := s"$prefix${field.id}_$key"
-            )(name)
-          )
+      options.map { case (key, name, hint) =>
+        div(
+          input(
+            tpe := "radio",
+            id := s"$prefix${field.id}_$key",
+            st.name := field.name,
+            value := key,
+            field.value.has(key) option checked
+          ),
+          label(
+            cls := "required",
+            title := hint,
+            `for` := s"$prefix${field.id}_$key"
+          )(name)
+        )
       }
     )
 
   def renderInput(field: Field) =
     input(name := field.name, value := field.value, tpe := "hidden")
+
+  def renderDissociatedRange(field: Field) =
+    frag(
+      renderInput(field)(cls := "range-value"),
+      input(name := s"${field.name}_range", tpe := "range")(cls := "range")
+    )
 
   def renderLabel(field: Field, content: Frag) =
     label(`for` := s"$prefix${field.id}")(content)
@@ -109,17 +112,17 @@ private object bits {
         )
       else
         frag(
-          div(cls := "time_choice slider")(
+          div(cls := "time_choice range")(
             trans.minutesPerSide(),
             ": ",
             span(chess.Clock.Config(~form("time").value.map(x => (x.toDouble * 60).toInt), 0).limitString),
-            renderInput(form("time"))
+            renderDissociatedRange(form("time"))
           ),
-          div(cls := "increment_choice slider")(
+          div(cls := "increment_choice range")(
             trans.incrementInSeconds(),
             ": ",
             span(form("increment").value),
-            renderInput(form("increment"))
+            renderDissociatedRange(form("increment"))
           )
         ),
       div(cls := "correspondence")(
@@ -129,11 +132,11 @@ private object bits {
             renderSelect(form("days"), corresDaysChoices)
           )
         else
-          div(cls := "days_choice slider")(
+          div(cls := "days_choice range")(
             trans.daysPerTurn(),
             ": ",
             span(form("days").value),
-            renderInput(form("days"))
+            renderDissociatedRange(form("days"))
           )
       )
     )

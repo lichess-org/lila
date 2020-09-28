@@ -22,8 +22,8 @@
   <string name="fromXToY">de la %1$s la %2$s</string>
   <string name="winningStreak">Victorii consecutive</string>
   <string name="losingStreak">Înfrângeri consecutive</string>
-  <string name="longestStreak">Cele mai multe victorii consecutive: %s</string>
-  <string name="currentStreak">Victorii consecutive curente: %s</string>
+  <string name="longestStreak">Cea mai lungă secvență: %s</string>
+  <string name="currentStreak">Secvența curentă: %s</string>
   <string name="bestRated">Cele mai bune victorii oficiale</string>
   <string name="worstRated">Cele mai rele înfrângeri oficiale</string>
   <string name="gamesInARow">Meciuri jucate consecutiv</string>

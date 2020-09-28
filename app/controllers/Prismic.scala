@@ -33,10 +33,9 @@ final class Prismic(
       api.bookmarks.get(name) ?? getDocument map2 { (doc: io.prismic.Document) =>
         doc -> makeLinkResolver(api)
       }
-    } recover {
-      case e: Exception =>
-        logger.error(s"bookmark:$name", e)
-        none
+    } recover { case e: Exception =>
+      logger.error(s"bookmark:$name", e)
+      none
     }
 
   def getVariant(variant: chess.variant.Variant) =

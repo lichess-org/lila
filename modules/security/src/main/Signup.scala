@@ -68,27 +68,26 @@ final class Signup(
               fuccess(Signup.Bad(forms.signup.website.form fill data))
             case true =>
               signupRateLimit(data.username, if (data.recaptchaResponse.isDefined) 1 else 2) {
-                MustConfirmEmail(data.fingerPrint) flatMap {
-                  mustConfirm =>
-                    lila.mon.user.register.count(none)
-                    lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-                    val email = emailAddressValidator
-                      .validate(data.realEmail) err s"Invalid email ${data.email}"
-                    val passwordHash = authenticator passEnc User.ClearPassword(data.password)
-                    userRepo
-                      .create(
-                        data.username,
-                        passwordHash,
-                        email.acceptable,
-                        blind,
-                        none,
-                        mustConfirmEmail = mustConfirm.value
-                      )
-                      .orFail(s"No user could be created for ${data.username}")
-                      .addEffect { logSignup(req, _, email.acceptable, data.fingerPrint, none, mustConfirm) }
-                      .flatMap {
-                        confirmOrAllSet(email, mustConfirm, data.fingerPrint, none)
-                      }
+                MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
+                  lila.mon.user.register.count(none)
+                  lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
+                  val email = emailAddressValidator
+                    .validate(data.realEmail) err s"Invalid email ${data.email}"
+                  val passwordHash = authenticator passEnc User.ClearPassword(data.password)
+                  userRepo
+                    .create(
+                      data.username,
+                      passwordHash,
+                      email.acceptable,
+                      blind,
+                      none,
+                      mustConfirmEmail = mustConfirm.value
+                    )
+                    .orFail(s"No user could be created for ${data.username}")
+                    .addEffect { logSignup(req, _, email.acceptable, data.fingerPrint, none, mustConfirm) }
+                    .flatMap {
+                      confirmOrAllSet(email, mustConfirm, data.fingerPrint, none)
+                    }
                 }
               }
           }

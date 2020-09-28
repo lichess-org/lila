@@ -1,6 +1,7 @@
 package views.html.streamer
 
 import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -11,8 +12,12 @@ object picture {
 
   def apply(s: lila.streamer.Streamer.WithUser, error: Option[String] = None)(implicit ctx: Context) =
     views.html.base.layout(
-      title = xStreamerPicture.txt(),
-      moreJs = jsTag("streamer.form.js"),
+      title = xStreamerPicture.txt(s.user.username),
+      moreJs = embedJsUnsafeLoadThen("""
+$('.streamer-picture form.upload input[type=file]').on('change', function() {
+  $('.picture_wrap').html(lichess.spinnerHtml);
+  $(this).parents('form')[0].submit();
+})"""),
       moreCss = cssTag("streamer.form")
     ) {
       main(cls := "streamer-picture small-page box")(

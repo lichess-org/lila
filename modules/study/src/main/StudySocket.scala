@@ -314,10 +314,9 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def reloadMembers(members: StudyMembers)(studyId: Study.Id) = {
-    version("members", members)
-    send(RP.Out.tellRoomUsers(studyId, members.ids, makeMessage("reload")))
-  }
+  def reloadMembers(members: StudyMembers, sendTo: Iterable[User.ID])(studyId: Study.Id) =
+    send(RP.Out.tellRoomUsers(studyId, sendTo, makeMessage("members", members)))
+
   def setComment(pos: Position.Ref, comment: Comment, who: Who) =
     version(
       "setComment",

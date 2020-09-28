@@ -1,5 +1,3 @@
-const li = window.lichess;
-
 type State = 'off' | 'opening' | 'getting-media' | 'ready' | 'calling' | 'answering' | 'getting-stream' | 'on' | 'stopping';
 
 export function palantir(opts: PalantirOpts) {
@@ -19,7 +17,7 @@ export function palantir(opts: PalantirOpts) {
         devices.getUserMedia({video: false, audio: true}).then((s: any) => {
           myStream = s;
           setState('ready');
-          li.sound.say("Voice chat is ready.", true, true);
+          lichess.sound.say("Voice chat is ready.", true, true);
           ping();
         }, function(err) {
           log(`Failed to get local stream: ${err}`);
@@ -54,7 +52,7 @@ export function palantir(opts: PalantirOpts) {
       .on('stream', () => {
         log('call.stream');
         setState('on', call.peer);
-        li.sound.say("Connected", true, true);
+        lichess.sound.say("Connected", true, true);
       })
       .on('close', () => {
         log('call.close');
@@ -157,12 +155,12 @@ export function palantir(opts: PalantirOpts) {
   }
 
   function ping() {
-    if (state != 'off') li.pubsub.emit('socket.send', 'palantirPing');
+    if (state != 'off') lichess.pubsub.emit('socket.send', 'palantirPing');
   }
 
-  li.pubsub.on('socket.in.palantir', uids => uids.forEach(call));
-  li.pubsub.on('socket.in.palantirOff', li.reload); // remote disconnection
-  li.pubsub.on('palantir.toggle', v => { if (!v) stop() });
+  lichess.pubsub.on('socket.in.palantir', uids => uids.forEach(call));
+  lichess.pubsub.on('socket.in.palantirOff', lichess.reload); // remote disconnection
+  lichess.pubsub.on('palantir.toggle', v => { if (!v) stop() });
 
   start();
   setInterval(closeDisconnectedCalls, 1400);

@@ -1,13 +1,11 @@
 import * as xhr from 'common/xhr';
 
-const li = window.lichess
+lichess.load.then(() => {
 
-li.load.then(() => {
+  const arrowSnapStore = lichess.storage.make('arrow.snap');
+  const courtesyStore = lichess.storage.make('courtesy');
 
-  const arrowSnapStore = li.storage.make('arrow.snap');
-  const courtesyStore = li.storage.make('courtesy');
-
-  $('.security table form').submit(function(this: HTMLFormElement) {
+  $('.security table form').on('submit', function(this: HTMLFormElement) {
     xhr.text(this.action, { method: 'post' });
     $(this).parent().parent().remove();
     return false;
@@ -16,8 +14,8 @@ li.load.then(() => {
   $('form.autosubmit').each(function(this: HTMLFormElement) {
     const form = this,
       $form = $(form),
-      showSaved = () => $form.find('.saved').fadeIn();
-    $form.find('input').change(function(this: HTMLInputElement) {
+      showSaved = () => $form.find('.saved').show();
+    $form.find('input').on('change', function(this: HTMLInputElement) {
       if (this.name == 'behavior.arrowSnap') {
         arrowSnapStore.set(this.value);
         showSaved();
@@ -28,7 +26,7 @@ li.load.then(() => {
       }
       xhr.formToXhr(form).then(() => {
         showSaved();
-        li.storage.fire('reload-round-tabs');
+        lichess.storage.fire('reload-round-tabs');
       });
     });
   });

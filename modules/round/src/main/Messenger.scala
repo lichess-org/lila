@@ -28,7 +28,7 @@ final class Messenger(api: ChatApi) {
   def watcher(gameId: Game.Id, userId: User.ID, text: String) =
     api.userChat.write(watcherId(gameId), userId, text, PublicSource.Watcher(gameId.value).some, _.Round)
 
-  private val whisperCommands = List("/whisper ", "/w ")
+  private val whisperCommands = List("/whisper ", "/w ", "/W ")
 
   def owner(gameId: Game.Id, userId: User.ID, text: String): Unit =
     whisperCommands.collectFirst {

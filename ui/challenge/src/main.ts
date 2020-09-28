@@ -30,7 +30,7 @@ export default function LichessChallenge(element: Element, opts: ChallengeOpts) 
   if (opts.data) update(opts.data);
   else json('/challenge')
     .then(update)
-    .catch(() => window.lichess.announce({ msg: 'Failed to load challenges' }));
+    .catch(() => lichess.announce({ msg: 'Failed to load challenges' }));
 
   return {
     update

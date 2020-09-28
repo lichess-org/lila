@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import TournamentController from './ctrl';
-import { bind } from './view/util';
+import { bind, onInsert } from './view/util';
 
 export function button(ctrl: TournamentController): VNode {
   return h('button.fbt', {
@@ -17,25 +17,21 @@ export function button(ctrl: TournamentController): VNode {
 export function input(ctrl: TournamentController): VNode {
   return h('div.search',
     h('input', {
-      hook: {
-        insert(vnode) {
-          requestAnimationFrame(() => {
-            const el = vnode.elm as HTMLInputElement;
-            window.lichess.userAutocomplete($(el), {
-              tag: 'span',
-              swiss: ctrl.data.id,
-              focus: true,
-              minLength: 3,
-              onSelect(v: any) {
-                ctrl.jumpToPageOf(v.id || v);
-                $(el).typeahead('close');
-                el.value = '';
-                ctrl.redraw();
-              }
-            });
+      hook: onInsert((el: HTMLInputElement) =>
+        lichess.userComplete().then(uac => {
+          uac({
+            input: el,
+            swiss: ctrl.data.id,
+            tag: 'span',
+            focus: true,
+            onSelect(r) {
+              ctrl.jumpToPageOf(r.id);
+              ctrl.redraw();
+            }
           });
-        }
-      }
+          el.focus()
+        })
+      )
     })
   );
 }

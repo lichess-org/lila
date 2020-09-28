@@ -1,4 +1,4 @@
-window.lichess.load.then(() => {
+lichess.load.then(() => {
 
   const form = document.querySelector('.search__form') as HTMLFormElement,
     $form = $(form),
@@ -45,12 +45,12 @@ window.lichess.load.then(() => {
 
   var toggleAiLevel = function() {
     $form.find(".opponent select").each(function(this: HTMLSelectElement) {
-      $form[0].querySelector('.aiLevel')?.classList.toggle('none', this.value != "1");
-      $form[0].querySelector('.opponentName')?.classList.toggle('none', this.value == "1");
+      $form.find('.aiLevel').toggleClass('none', this.value != "1");
+      $form.find('.opponentName').toggleClass('none', this.value == "1");
     });
   };
   toggleAiLevel();
-  $form.find(".opponent select").change(toggleAiLevel);
+  $form.find(".opponent select").on('change', toggleAiLevel);
 
   function serialize() {
     const params = new URLSearchParams();
@@ -62,27 +62,17 @@ window.lichess.load.then(() => {
 
   const serialized = serialize();
   $result.find("a.permalink").each(function(this: HTMLAnchorElement) {
-    $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + serialized);
-  });
-  $result.find('.search__rows').each(function(this: HTMLTableRowElement) {
-    var $next = $(this).find(".pager a");
-    if (!$next.length) return;
-    $next.attr("href", $next.attr("href") + "&" + serialized);
-    $(this).infinitescroll({
-      navSelector: ".pager",
-      nextSelector: $next,
-      itemSelector: ".search__rows .paginated",
-      loading: {
-        msgText: "",
-        finishedMsg: "---"
-      }
-    }, function() {
-      $("#infscr-loading").remove();
-      window.lichess.pubsub.emit('content_loaded');
-    });
+    this.href = this.href.split('?')[0] + "?" + serialized;
   });
 
-  $form.submit(function() {
+  const updatePagerLink = () =>
+    $result.find('.infinite-scroll .pager a').each(function(this: HTMLAnchorElement) {
+      this.href = this.href + "&" + serialized;
+    });
+  updatePagerLink();
+  lichess.pubsub.on('content-loaded', updatePagerLink);
+
+  $form.on('submit', () => {
     $form.find("input,select").filter(function(this: HTMLInputElement) { return !this.value; }).attr("disabled", "disabled");
     $form.addClass('searching');
   });

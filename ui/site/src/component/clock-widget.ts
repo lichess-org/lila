@@ -1,5 +1,10 @@
 import widget from './widget';
 
+interface Opts {
+  pause?: boolean;
+  time: number;
+}
+
 export default function loadClockWidget() {
   widget("clock", {
     _create: function() {
@@ -8,7 +13,7 @@ export default function loadClockWidget() {
       this.render();
     },
 
-    set: function(opts) {
+    set: function(opts: Opts) {
       this.options = opts;
       this.target = this.options.time * 1000 + Date.now();
       this.render();
@@ -23,11 +28,11 @@ export default function loadClockWidget() {
       } else clearInterval(this.interval);
     },
 
-    pad: function(x) {
+    pad(x: number) {
       return (x < 10 ? '0' : '') + x;
     },
 
-    formatMs: function(msTime) {
+    formatMs: function(msTime: number) {
       const date = new Date(Math.max(0, msTime + 500)),
         hours = date.getUTCHours(),
         minutes = date.getUTCMinutes(),

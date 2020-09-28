@@ -19,7 +19,7 @@ object embed {
       div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
         views.html.game.mini.noCtx(pov, tv = true, blank = true)
       ),
-      jQueryTag,
-      jsModule("tv.embed")
+      cashTag,
+      jsModule("tvEmbed")
     )
 }

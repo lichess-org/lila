@@ -11,7 +11,7 @@ export const variants = () => xhr.json('/variant', { cache: 'default' });
 
 export const glyphs = () =>
   xhr.json(
-    window.lichess.assetUrl('glyphs.json', { noVersion: true }),
+    lichess.assetUrl('glyphs.json', { noVersion: true }),
     {
       cache: 'default',
       headers: {}
@@ -27,7 +27,7 @@ export const practiceComplete = (chapterId: string, nbMoves: number) =>
   });
 
 export const importPgn = (studyId: string, data: any) =>
-  xhr.json(`/study/${studyId}/import-pgn?sri=${window.lichess.sri}`, {
+  xhr.json(`/study/${studyId}/import-pgn?sri=${lichess.sri}`, {
     method: 'POST',
     body: xhr.form(data)
   });

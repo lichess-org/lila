@@ -1,15 +1,13 @@
 package views.html.setup
 
+import controllers.routes
 import play.api.data.Form
 import play.api.mvc.Call
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.rating.RatingRange
 import lila.user.User
-
-import controllers.routes
 
 object forms {
 
@@ -29,16 +27,27 @@ object forms {
             renderRadios(form("mode"), translatedModeChoices)
           ),
           ctx.noBlind option div(cls := "optional_config")(
-            div(cls := "rating-range-config slider")(
+            div(cls := "rating-range-config")(
               trans.ratingRange(),
-              ": ",
-              span(cls := "range")("? - ?"),
-              div(cls := "rating-range")(
-                renderInput(form("ratingRange"))(
-                  dataMin := RatingRange.min,
-                  dataMax := RatingRange.max
+              div(cls := "rating-range") {
+                val field = form("ratingRange")
+                frag(
+                  renderInput(field),
+                  input(
+                    name := s"${field.name}_range_min",
+                    tpe := "range",
+                    cls := "range rating-range__min"
+                  ),
+                  span(cls := "rating-min"),
+                  "/",
+                  span(cls := "rating-max"),
+                  input(
+                    name := s"${field.name}_range_max",
+                    tpe := "range",
+                    cls := "range rating-range__max"
+                  )
                 )
-              )
+              }
             )
           )
         )
@@ -68,9 +77,8 @@ object forms {
                 renderRadios(form("level"), lila.setup.AiConfig.levelChoices)
               ),
               div(cls := "ai_info")(
-                ratings.toList.map {
-                  case (level, _) =>
-                    div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
+                ratings.toList.map { case (level, _) =>
+                  div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("A.I.", level))
                 }
               )
             )
@@ -138,21 +146,21 @@ object forms {
             if (ctx.blind) submitButton("Create the game")
             else
               div(cls := "color-submits")(
-                translatedSideChoices.map {
-                  case (key, name, _) =>
-                    submitButton(
-                      (typ == "hook") option disabled,
-                      title := name,
-                      cls := s"color-submits__button button button-metal $key",
-                      st.name := "color",
-                      value := key
-                    )(i)
+                translatedSideChoices.map { case (key, name, _) =>
+                  submitButton(
+                    (typ == "hook") option disabled,
+                    title := name,
+                    cls := s"color-submits__button button button-metal $key",
+                    st.name := "color",
+                    value := key
+                  )(i)
                 }
               )
           )
         },
       ctx.me.ifFalse(ctx.blind).map { me =>
         div(cls := "ratings")(
+          form3.hidden("rating", "?"),
           lila.rating.PerfType.nonPuzzle.map { perfType =>
             div(cls := perfType.key)(
               trans.perfRatingX(

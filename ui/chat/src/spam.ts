@@ -1,9 +1,8 @@
 import * as xhr from 'common/xhr';
 
-export function skip(txt: string) {
-  return (suspLink(txt) || followMe(txt)) && !isKnownSpammer();
-}
-export function selfReport(txt: string) {
+export const skip = (txt: string) => (suspLink(txt) || followMe(txt)) && !isKnownSpammer();
+
+export const selfReport = (txt: string) => {
   if (isKnownSpammer()) return;
   const hasSuspLink = suspLink(txt);
   if (hasSuspLink) xhr.text(
@@ -11,10 +10,10 @@ export function selfReport(txt: string) {
     {method: 'post'}
   );
   if (hasSuspLink || followMe(txt))
-    window.lichess.storage.set('chat-spam', '1');
+    lichess.storage.set('chat-spam', '1');
 }
 
-const isKnownSpammer = () => window.lichess.storage.get('chat-spam') == '1'
+const isKnownSpammer = () => lichess.storage.get('chat-spam') == '1'
 
 const spamRegex = new RegExp([
   'xcamweb.com',
@@ -47,7 +46,5 @@ const spamRegex = new RegExp([
 const suspLink = (txt: string) => !!txt.match(spamRegex);
 const followMe = (txt: string) => txt.toLowerCase().includes('follow me');
 
-const teamUrlRegex = /lichess\.org\/team\//
-export function hasTeamUrl(txt: string) {
-  return !!txt.match(teamUrlRegex);
-}
+const teamUrlRegex = /lichess\.org\/team\//i;
+export const hasTeamUrl = (txt: string) => !!txt.match(teamUrlRegex);

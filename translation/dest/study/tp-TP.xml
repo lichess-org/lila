@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">sina wile e nimi pi sona ala</string>
+  <string name="noneYet">tenpo ni la ala</string>
+  <string name="hot">suli</string>
+  <plurals name="nbGames">
+    <item quantity="one">musi %s</item>
+    <item quantity="other">musi %s</item>
+  </plurals>
+  <string name="spectator">jan lukin</string>
+  <string name="kick">o weka e jan</string>
+  <string name="like">pona tawa mi</string>
+  <string name="newTag">nomo sona sin</string>
+  <string name="playing">musi</string>
+  <string name="first">o tawa e nanpa wan</string>
+  <string name="previous">monsi</string>
+  <string name="next">tawa</string>
+  <string name="last">o tawa monsi</string>
+  <string name="cloneStudy">o kama jo</string>
+  <string name="open">o tawa</string>
+  <string name="noPinnedComment">ala</string>
+  <string name="empty">ala</string>
+  <string name="editor">ilo pi kama ante</string>
+  <string name="public">ken lukin tawa jan ante</string>
+  <string name="unlisted">pi lukin ala tawa jan ale</string>
+  <string name="nobody">jan ala</string>
+  <string name="onlyMe">mi taso</string>
+  <string name="members">jan kulupu</string>
+  <string name="everyone">jan ala</string>
+  <string name="start">o open</string>
+  <string name="save">awen</string>
+</resources>

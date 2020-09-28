@@ -16,10 +16,7 @@ object form {
     views.html.base.layout(
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
-      moreJs = frag(
-        flatpickrTag,
-        jsTag("tournamentForm.js")
-      )
+      moreJs = jsModule("tourForm")
     ) {
       val fields = new TourFields(form, none)
       main(cls := "page-small")(
@@ -58,10 +55,7 @@ object form {
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
-      moreJs = frag(
-        flatpickrTag,
-        jsTag("tournamentForm.js")
-      )
+      moreJs = jsModule("tourForm")
     ) {
       val fields = new TourFields(form, tour.some)
       main(cls := "page-small")(

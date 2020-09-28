@@ -199,7 +199,6 @@
     <item quantity="other">%s mga laro ko</item>
   </plurals>
   <string name="cancel">Ikansela</string>
-  <string name="timeOut">Naubos na ang oras</string>
   <string name="drawOfferSent">Naipadala na ang alok na tabla</string>
   <string name="drawOfferDeclined">Tinanggihan ang alok na tabla</string>
   <string name="drawOfferAccepted">Tinanggap ang alok na tabla</string>
@@ -379,7 +378,7 @@
   <string name="openTournaments">Bukas na mga paligsahan</string>
   <string name="duration">Tagal</string>
   <string name="winner">Nanalo</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Katayuan</string>
+  <string name="standing">Katayuan</string>
   <string name="createANewTournament">Gumawa ng baong torneo</string>
   <string name="tournamentCalendar">Kalendaryo ng mga paligsahan</string>
   <string name="conditionOfEntry">Kondisyon para makapasok:</string>
@@ -627,7 +626,7 @@
   <string name="newTournament">Bagong torneo</string>
   <string name="tournamentHomeTitle">Paligsahan ng Chess tampok ang ibat-ibang pagkontrol sa oras at mga pagkakaiba-iba</string>
   <string name="tournamentHomeDescription">Maglaro ng mabilis sa mga paligsahn ng chess! Sumali sa opisyal na nakaiskedyul na mga paligsahan, o gumawa na iyong sarili. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, at marami pang magagamit para sa walang katapusang kasayahan ng chess.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Hindi mahanap ang torneo</string>
+  <string name="tournamentNotFound">Hindi mahanap ang torneo</string>
   <string name="tournamentDoesNotExist">Itong torneo nato ay hindi nag-eexist</string>
   <string name="tournamentMayHaveBeenCanceled">Ito ay maaring makansela, kung lahat ng mga manlalaro ay umalis bago magsimula ang paligsahan.</string>
   <string name="returnToTournamentsHomepage">Bumalik sa pahina ng home ng paligsahan</string>

@@ -157,12 +157,15 @@
       border-radius: $box-radius-size 0 0 $box-radius-size;
     }
 
-    .slider {
-      flex: 0 0 $slider-width;
-      margin: 1rem 1.3rem 1rem 1rem;
+    input[type="range"] {
+      flex: 0 0 1em;
+      width: 1em;
+      margin: 1rem;
+      writing-mode: bt-lr;
+      -webkit-appearance: slider-vertical;
     }
 
-    &.silent .slider {
+    &.silent input[type="range"] {
       opacity: 0.2;
     }
   }
@@ -194,7 +197,10 @@
     padding: 1.5rem;
   }
 
-  .board .slider {
-    margin-top: 1rem;
+  .board .range {
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+    width: 100%;
   }
 }

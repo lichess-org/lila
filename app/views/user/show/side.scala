@@ -33,10 +33,12 @@ object side {
         span(
           h3(perfType.trans),
           st.rating(
-            strong(
-              perf.glicko.intRating,
-              perf.provisional option "?"
-            ),
+            if (perf.glicko.clueless) strong("?")
+            else
+              strong(
+                perf.glicko.intRating,
+                perf.provisional option "?"
+              ),
             " ",
             ratingProgress(perf.progress),
             " ",

@@ -21,9 +21,10 @@
   <string name="youCannotApply">Není možné žádat o funkci moderátora. Pokud uvidíme někoho, o němž si myslíme, že by byl dobrým moderátorem, přímo jej kontaktujeme.</string>
   <string name="isCorrespondenceDifferent">Je korespondenční hra jiná než normální šachy?</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichess je hlavní rozdílem v pravidlech pro korespondenční šachy to, že je povoleno otevřít knihu. Použití počítačových programů pro rady je stále zakázáno a bude mít za následek označení hry za hru s pomocí. Přestože ICCF povoluje použití počítačových programů v korespondenčním šachu, Lichess ne.</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Hraní hry</string>
+  <string name="gameplay">Hraní hry</string>
   <string name="whatVariantsCanIplay">Jaké varianty mohu hrát na Lichess?</string>
   <string name="eightVariants">8 variant šachu</string>
+  <string name="fideHandbookX">FIDE příručka %s</string>
   <string name="goodIntroduction">dobré zahájení</string>
   <string name="positions">pozice</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Třikrát jsme zopakovali stejnou pozici. Proč hra neskončila remízou?</string>

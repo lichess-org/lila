@@ -42,7 +42,7 @@ export function ctrl(data: PieceData, trans: Trans, dimension: () => keyof Piece
         body: xhr.form({ set: t }),
         method: 'post'
       })
-        .catch(() => window.lichess.announce({ msg: 'Failed to save piece set  preference' }));
+        .catch(() => lichess.announce({ msg: 'Failed to save piece set  preference' }));
       redraw();
     },
     open
@@ -74,7 +74,7 @@ function pieceView(current: Piece, set: (t: Piece) => void, is3d: boolean) {
     class: { active: current === t }
   }, [
     h('piece', {
-      attrs: { style: `background-image:url(${window.lichess.assetUrl(pieceImage(t, is3d))})` }
+      attrs: { style: `background-image:url(${lichess.assetUrl(pieceImage(t, is3d))})` }
     })
   ]);
 }
@@ -83,7 +83,7 @@ function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
   if (is3d) {
     $('body').removeClass(list.join(' ')).addClass(t);
   } else {
-    const sprite = $('#piece-sprite');
-    sprite.attr('href', sprite.attr('href').replace(/\w+\.css/, t + '.css'));
+    const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
+    sprite.href = sprite.href.replace(/\w+\.css/, t + '.css');
   }
 }

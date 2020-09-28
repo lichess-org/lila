@@ -2,8 +2,6 @@ import * as xhr from 'common/xhr';
 import notify from 'common/notification';
 import { Ctrl, ChallengeOpts, ChallengeData, ChallengeUser } from './interfaces';
 
-const li = window.lichess;
-
 export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => void): Ctrl {
 
   let trans = (key: string) => key;
@@ -11,7 +9,7 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
 
   function update(d: ChallengeData) {
     data = d;
-    if (d.i18n) trans = li.trans(d.i18n).noarg;
+    if (d.i18n) trans = lichess.trans(d.i18n).noarg;
     opts.setCount(countActiveIn());
     notifyNew();
   }
@@ -22,12 +20,12 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
 
   function notifyNew() {
     data.in.forEach(c => {
-      if (li.once('c-' + c.id)) {
-        if (!li.quietMode && data.in.length <= 3) {
+      if (lichess.once('c-' + c.id)) {
+        if (!lichess.quietMode && data.in.length <= 3) {
           opts.show();
-          li.sound.newChallenge();
+          lichess.sound.play('newChallenge');
         }
-        const pushSubsribed = parseInt(li.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
+        const pushSubsribed = parseInt(lichess.storage.get('push-subscribed') || '0', 10) + 86400000 >= Date.now(); // 24h
         !pushSubsribed && c.challenger && notify(showUser(c.challenger) + ' challenges you!');
         opts.pulse();
       }
@@ -53,7 +51,7 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
           xhr.text(
             `/challenge/${id}/decline`,
             { method: 'post' }
-          ).catch(() => window.lichess.announce({ msg: 'Failed to send challenge decline' }));
+          ).catch(() => lichess.announce({ msg: 'Failed to send challenge decline' }));
         }
       });
     },
@@ -64,7 +62,7 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
           xhr.text(
             `/challenge/${id}/cancel`,
             { method: 'post' }
-          ).catch(() => window.lichess.announce({ msg: 'Failed to send challenge cancellation' }));
+          ).catch(() => lichess.announce({ msg: 'Failed to send challenge cancellation' }));
         }
       });
     },

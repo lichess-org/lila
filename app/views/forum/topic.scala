@@ -77,7 +77,7 @@ object topic {
       moreJs = frag(
         jsModule("forum"),
         formWithCaptcha.isDefined option captchaTag,
-        jsModule("expand-text")
+        jsModule("expandText")
       ),
       moreCss = cssTag("forum"),
       openGraph = lila.app.ui
@@ -165,28 +165,27 @@ object topic {
               )
           )
         ),
-        formWithCaptcha.map {
-          case (form, captcha) =>
-            postForm(
-              cls := "form3 reply",
-              action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
-              novalidate
-            )(
-              form3.group(form("text"), trans.message()) { f =>
-                form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)
-              },
-              views.html.base.captcha(form, captcha),
-              form3.actions(
-                a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
-                isGranted(_.PublicMod) option
-                  form3.submit(
-                    frag("Reply as a mod"),
-                    nameValue = (form("modIcon").name, "true").some,
-                    icon = "".some
-                  ),
-                form3.submit(trans.reply())
-              )
+        formWithCaptcha.map { case (form, captcha) =>
+          postForm(
+            cls := "form3 reply",
+            action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
+            novalidate
+          )(
+            form3.group(form("text"), trans.message()) { f =>
+              form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)
+            },
+            views.html.base.captcha(form, captcha),
+            form3.actions(
+              a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
+              isGranted(_.PublicMod) option
+                form3.submit(
+                  frag("Reply as a mod"),
+                  nameValue = (form("modIcon").name, "true").some,
+                  icon = "".some
+                ),
+              form3.submit(trans.reply())
             )
+          )
         },
         pager
       )

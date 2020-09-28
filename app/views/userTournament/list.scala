@@ -32,8 +32,7 @@ object list {
               th("Rank")
             )
           ),
-          tbody(cls := "infinitescroll")(
-            pagerNextTable(pager, np => routes.UserTournament.path(u.username, path, np).url),
+          tbody(cls := "infinite-scroll")(
             pager.currentPageResults.map { e =>
               tr(cls := List("paginated" -> true, "scheduled" -> e.tour.isScheduled))(
                 td(cls := "icon")(iconTag(tournamentIconChar(e.tour))),
@@ -53,7 +52,8 @@ object list {
                 td(cls := "score")(e.entry.score),
                 td(cls := "rank")(strong(e.entry.rank), " / ", e.tour.nbPlayers)
               )
-            }
+            },
+            pagerNextTable(pager, np => routes.UserTournament.path(u.username, path, np).url)
           )
         )
       )

@@ -27,6 +27,8 @@ final class ChatApi(
 
   import Chat.{ chatIdBSONHandler, userChatBSONHandler }
 
+  def exists(id: String) = coll.exists($id(id))
+
   object userChat {
 
     // only use for public, multi-user chats - tournaments, simuls
@@ -174,20 +176,20 @@ final class ChatApi(
       val chat = line.fold(c2)(c2.add)
       coll.update.one($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason, scope) >>- {
-        cached invalidate chat.id
-        publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
-        line foreach { l =>
-          publish(chat.id, actorApi.ChatLine(chat.id, l), busChan)
+          cached invalidate chat.id
+          publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
+          line foreach { l =>
+            publish(chat.id, actorApi.ChatLine(chat.id, l), busChan)
+          }
+          if (isMod(mod))
+            modActor ! lila.hub.actorApi.mod.ChatTimeout(
+              mod = mod.id,
+              user = user.id,
+              reason = reason.key,
+              text = text
+            )
+          else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
         }
-        if (isMod(mod))
-          modActor ! lila.hub.actorApi.mod.ChatTimeout(
-            mod = mod.id,
-            user = user.id,
-            reason = reason.key,
-            text = text
-          )
-        else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
-      }
     }
 
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Funit = {

@@ -130,46 +130,44 @@ private object I18nQuantity {
 
   import selectors._
 
-  private val langMap: Map[Language, Selector] = LangList.all.map {
+  private val langMap: Map[Language, Selector] = LangList.all.map { case (lang, _) =>
+    lang.language -> (lang.language match {
 
-    case (lang, _) =>
-      lang.language -> (lang.language match {
+      case "fr" | "ff" | "kab" => french
 
-        case "fr" | "ff" | "kab" => french
+      case "cs" | "sk" => czech
 
-        case "cs" | "sk" => czech
+      case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" => balkan
 
-        case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" => balkan
+      case "lv" => latvian
 
-        case "lv" => latvian
+      case "lt" => lithuanian
 
-        case "lt" => lithuanian
+      case "pl" => polish
 
-        case "pl" => polish
+      case "ro" | "mo" => romanian
 
-        case "ro" | "mo" => romanian
+      case "sl" => slovenian
 
-        case "sl" => slovenian
+      case "ar" => arabic
 
-        case "ar" => arabic
+      case "mk" => macedonian
 
-        case "mk" => macedonian
+      case "cy" | "br" => welsh
 
-        case "cy" | "br" => welsh
+      case "mt" => maltese
 
-        case "mt" => maltese
+      case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => two
 
-        case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => two
+      case "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" | "ti" | "wa" =>
+        selectors.zero
 
-        case "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" | "ti" | "wa" =>
-          selectors.zero
+      case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" |
+          "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" |
+          "tp" | "io" | "ia" =>
+        selectors.none
 
-        case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" |
-            "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" |
-            "tp" | "io" | "ia" =>
-          selectors.none
-
-        case _ => default
-      })
+      case _ => default
+    })
   }
 }

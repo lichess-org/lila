@@ -2,6 +2,7 @@ import { Attrs } from 'snabbdom/modules/attributes'
 import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 import { VNode } from 'snabbdom/vnode';
+import { numberFormat } from 'common/number';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return onInsert(el =>
@@ -55,7 +56,7 @@ export function numberRow(name: string, value: any, typ?: string) {
   return h('tr', [h('th', name), h('td',
     typ === 'raw' ? value : (typ === 'percent' ? (
       value[1] > 0 ? ratio2percent(value[0] / value[1]) : 0
-    ) : window.lichess.numberFormat(value))
+    ) : numberFormat(value))
   )]);
 }
 

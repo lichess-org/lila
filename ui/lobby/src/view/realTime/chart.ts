@@ -1,21 +1,17 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
 import LobbyController from '../../ctrl';
-import { Hook } from '../../interfaces';
 import { bind, perfIcons } from '../util';
+import { h } from 'snabbdom';
+import { Hook } from '../../interfaces';
+import { VNode } from 'snabbdom/vnode';
 
-function percents(v) {
-  return v + '%';
-}
+const percents = (v: number) => v + '%';
 
-function ratingLog(a) {
-  return Math.log(a / 150 + 1);
-}
+const ratingLog = (a: number) => Math.log(a / 150 + 1);
 
-function ratingY(e) {
+function ratingY(e: number) {
   const rating = Math.max(1000, Math.min(2200, e || 1500));
-  let ratio;
-  let mid = 2/5;
+  let ratio: number;
+  let mid = 2 / 5;
   if (rating == 1500) {
     ratio = mid;
   } else if (rating > 1500) {
@@ -28,10 +24,8 @@ function ratingY(e) {
 
 const clockMax = 2000;
 
-function clockX(dur) {
-  function durLog(a) {
-    return Math.log((a - 30) / 200 + 1);
-  }
+const clockX = (dur: number) => {
+  const durLog = (a: number) => Math.log((a - 30) / 200 + 1);
   return Math.round(durLog(Math.min(clockMax, dur || clockMax)) / durLog(clockMax) * 100);
 }
 
@@ -39,11 +33,12 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
   const bottom = Math.max(0, ratingY(hook.rating) - 2),
     left = Math.max(0, clockX(hook.t) - 2),
     klass = [
+      hook.id,
       'plot.new',
       hook.ra ? 'rated' : 'casual',
       hook.action === 'cancel' ? 'cancel' : ''
     ].join('.');
-  return h('span#' + hook.id + '.' + klass, {
+  return h('span#' + klass, {
     key: hook.id,
     attrs: {
       'data-icon': perfIcons[hook.perf],
@@ -54,19 +49,17 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
         $(vnode.elm as HTMLElement).powerTip({
           placement: hook.rating > 1800 ? 'se' : 'ne',
           closeDelay: 200,
-          popupId: 'hook'
-        }).data('powertipjq', $(renderHook(ctrl, hook)))
-          .on({
-            powerTipRender() {
-              $('#hook .inner-clickable').click(() => ctrl.clickHook(hook.id));
-            }
-          });
+          popupId: 'hook',
+          preRender() {
+            $('#hook').html(renderHook(ctrl, hook))
+              .find('.inner-clickable').on('click', () => ctrl.clickHook(hook.id));
+          }
+        });
         setTimeout(function() {
           (vnode.elm as HTMLElement).classList.remove('new');
         }, 20);
       },
       destroy(vnode) {
-        $(vnode.elm as HTMLElement).data('powertipjq', null);
         $.powerTip.destroy(vnode.elm as HTMLElement);
       }
     }
@@ -86,8 +79,7 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
   html += '<div class="inner-clickable">';
   html += `<div>${hook.clock}</div>`;
   html += '<i data-icon="' + perfIcons[hook.perf] + '"> ' + ctrl.trans(hook.ra ? 'rated' : 'casual') + '</i>';
-  html += '</div>';
-  html += '</div>';
+  html += '</div></div>';
   return html;
 }
 

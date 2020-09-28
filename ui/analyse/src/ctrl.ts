@@ -43,8 +43,6 @@ import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 import debounce from 'common/debounce';
 
-const li = window.lichess;
-
 export default class AnalyseCtrl {
 
   data: AnalyseData;
@@ -123,7 +121,7 @@ export default class AnalyseCtrl {
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
 
-    if (li.AnalyseNVUI) this.nvui = li.AnalyseNVUI(redraw) as NvuiPlugin;
+    if (lichess.AnalyseNVUI) this.nvui = lichess.AnalyseNVUI(redraw) as NvuiPlugin;
 
     this.instanciateEvalCache();
 
@@ -137,7 +135,7 @@ export default class AnalyseCtrl {
       const loc = window.location,
         intHash = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1)),
         plyStr = opts.initialPly === 'url' ? (intHash || '') : opts.initialPly;
-      // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
+      // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       if (intHash) window.history.pushState("", document.title, loc.pathname + loc.search);
       const mainline = treeOps.mainlineNodeList(this.tree.root);
       if (plyStr === 'last') this.initialPath = treePath.fromNodeList(mainline);
@@ -157,30 +155,30 @@ export default class AnalyseCtrl {
     this.studyPractice = this.study ? this.study.practice : undefined;
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
-    else if (location.hash === '#menu') li.requestIdleCallback(this.actionMenu.toggle);
+    else if (location.hash === '#menu') lichess.requestIdleCallback(this.actionMenu.toggle);
 
     keyboard.bind(this);
 
-    li.pubsub.on('jump', (ply: any) => {
+    lichess.pubsub.on('jump', (ply: any) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();
     });
 
-    li.pubsub.on('sound_set', (set: string) => {
+    lichess.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        li.loadScript('javascripts/music/replay.js').then(() => {
+        lichess.loadScript('javascripts/music/replay.js').then(() => {
           this.music = window.lichessReplayMusic();
         });
       if (this.music && set !== 'music') this.music = null;
     });
 
-    li.pubsub.on('analysis.change.trigger', this.onChange);
-    li.pubsub.on('analysis.chart.click', index => {
+    lichess.pubsub.on('analysis.change.trigger', this.onChange);
+    lichess.pubsub.on('analysis.chart.click', index => {
       this.jumpToIndex(index);
       this.redraw()
     });
 
-    li.sound && speech.setup();
+    speech.setup();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -310,18 +308,16 @@ export default class AnalyseCtrl {
     return config;
   }
 
-  private sound = li.sound ? {
-    move: throttle(50, li.sound.move),
-    capture: throttle(50, li.sound.capture),
-    check: throttle(50, li.sound.check)
-  } : {
-      move: $.noop,
-      capture: $.noop,
-      check: $.noop
-    };
+  private throttleSound = (name: string) => throttle(100, () => lichess.sound.play(name));
+
+  private sound = {
+    move: this.throttleSound('move'),
+    capture: this.throttleSound('capture'),
+    check: this.throttleSound('check')
+  };
 
   private onChange: () => void = throttle(300, () => {
-    li.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
+    lichess.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
   });
 
   private updateHref: () => void = debounce(() => {
@@ -367,7 +363,7 @@ export default class AnalyseCtrl {
       if (this.study) this.study.onJump();
     }
     if (this.music) this.music.jump(this.node);
-    li.pubsub.emit('ply', this.node.ply);
+    lichess.pubsub.emit('ply', this.node.ply);
   }
 
   userJump = (path: Tree.Path): void => {
@@ -739,7 +735,7 @@ export default class AnalyseCtrl {
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
     this.onToggleComputer();
-    li.pubsub.emit('analysis.comp.toggle', value);
+    lichess.pubsub.emit('analysis.comp.toggle', value);
   }
 
   mergeAnalysisData(data: ServerEvalData): void {
@@ -751,7 +747,7 @@ export default class AnalyseCtrl {
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     if (this.study) this.study.serverEval.onMergeAnalysisData();
-    li.pubsub.emit('analysis.server.progress', this.data);
+    lichess.pubsub.emit('analysis.server.progress', this.data);
     this.redraw();
   }
 

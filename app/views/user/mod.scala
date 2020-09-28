@@ -1,6 +1,8 @@
 package views.html.user
 
 import controllers.routes
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -8,7 +10,6 @@ import lila.evaluation.Display
 import lila.playban.RageSit
 import lila.security.{ Permission, UserSpy }
 import lila.user.User
-import play.api.i18n.Lang
 
 object mod {
   private def mzSection(key: String) = div(id := s"mz_$key", cls := "mz-section")
@@ -487,7 +488,13 @@ object mod {
       table(cls := "slist")(
         thead(
           tr(
-            th(pluralize("linked user", spy.otherUsers.size)),
+            th(
+              pluralize("linked user", spy.otherUsers.size),
+              (max < 1000 && true || othersWithEmail.others.sizeIs >= max) option frag(
+                nbsp,
+                a(cls := "more-others")("Load more")
+              )
+            ),
             th("Email"),
             sortNumberTh("Same"),
             th("Games"),
@@ -505,62 +512,58 @@ object mod {
           )
         ),
         tbody(
-          othersWithEmail.others.map {
-            case other @ UserSpy.OtherUser(o, _, _) =>
-              val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
-              val userNotes =
-                notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
-              tr(
-                dataTags := s"${other.ips.mkString(" ")} ${other.fps.mkString(" ")}",
-                cls := (o == u) option "same"
+          othersWithEmail.others.map { case other @ UserSpy.OtherUser(o, _, _) =>
+            val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
+            val userNotes =
+              notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
+            tr(
+              dataTags := s"${other.ips.mkString(" ")} ${other.fps.mkString(" ")}",
+              cls := (o == u) option "same"
+            )(
+              if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
+              else td,
+              if (dox) td(othersWithEmail emailValueOf o)
+              else td,
+              td(
+                // show prints and ips separately
+                dataSort := other.score + (other.ips.nonEmpty ?? 1000000) + (other.fps.nonEmpty ?? 3000000)
               )(
-                if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
-                else td,
-                if (dox) td(othersWithEmail emailValueOf o)
-                else td,
-                td(
-                  // show prints and ips separately
-                  dataSort := other.score + (other.ips.nonEmpty ?? 1000000) + (other.fps.nonEmpty ?? 3000000)
-                )(
-                  List(other.ips.size -> "IP", other.fps.size -> "Print")
-                    .collect {
-                      case (nb, name) if nb > 0 => s"$nb $name"
-                    }
-                    .mkString(", ")
-                ),
-                td(dataSort := o.count.game)(o.count.game.localize),
-                markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id))),
-                markTd(o.marks.alt ?? 1, alt),
-                markTd(o.marks.troll ?? 1, shadowban),
-                markTd(o.marks.boost ?? 1, boosting),
-                markTd(o.marks.engine ?? 1, engine),
-                markTd(o.disabled ?? 1, closed),
-                markTd(o.marks.reportban ?? 1, reportban),
-                userNotes.nonEmpty option {
-                  td(dataSort := userNotes.size)(
-                    a(href := s"${routes.User.show(o.username)}?notes")(
-                      notesText(
-                        title := s"Notes from ${userNotes.map(_.from).map(usernameOrId).mkString(", ")}",
-                        cls := "is-green"
-                      ),
-                      userNotes.size
-                    )
+                List(other.ips.size -> "IP", other.fps.size -> "Print")
+                  .collect {
+                    case (nb, name) if nb > 0 => s"$nb $name"
+                  }
+                  .mkString(", ")
+              ),
+              td(dataSort := o.count.game)(o.count.game.localize),
+              markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id))),
+              markTd(o.marks.alt ?? 1, alt),
+              markTd(o.marks.troll ?? 1, shadowban),
+              markTd(o.marks.boost ?? 1, boosting),
+              markTd(o.marks.engine ?? 1, engine),
+              markTd(o.disabled ?? 1, closed),
+              markTd(o.marks.reportban ?? 1, reportban),
+              userNotes.nonEmpty option {
+                td(dataSort := userNotes.size)(
+                  a(href := s"${routes.User.show(o.username)}?notes")(
+                    notesText(
+                      title := s"Notes from ${userNotes.map(_.from).map(usernameOrId).mkString(", ")}",
+                      cls := "is-green"
+                    ),
+                    userNotes.size
                   )
-                } getOrElse td(dataSort := 0),
-                td(dataSort := o.createdAt.getMillis)(momentFromNowServer(o.createdAt)),
-                td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer)),
-                isGranted(_.CloseAccount) option td(
-                  o.enabled option button(
-                    cls := "button button-empty button-thin button-red mark-alt",
-                    href := routes.Mod.alt(o.id, !o.marks.alt)
-                  )("ALT")
                 )
+              } getOrElse td(dataSort := 0),
+              td(dataSort := o.createdAt.getMillis)(momentFromNowServer(o.createdAt)),
+              td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer)),
+              isGranted(_.CloseAccount) option td(
+                o.enabled option button(
+                  cls := "button button-empty button-thin button-red mark-alt",
+                  href := routes.Mod.alt(o.id, !o.marks.alt)
+                )("ALT")
               )
+            )
           }
         )
-      ),
-      (max < 1000 && othersWithEmail.others.sizeIs >= max) option button(cls := "button more-others")(
-        "Load more users"
       )
     )
 
@@ -610,7 +613,7 @@ object mod {
               .map { ua =>
                 import ua.value.client._
                 tr(
-                  td(if (device.family == "Other") "Computer" else device.family),
+                  td(title := ua.value.ua)(if (device.family == "Other") "Computer" else device.family),
                   td(parts(os.family.some, os.major)),
                   td(parts(userAgent.family.some, userAgent.major)),
                   td(dataSort := ua.date.getMillis)(momentFromNowServer(ua.date)),

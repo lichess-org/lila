@@ -216,7 +216,7 @@ function makeChart(el, data) {
     }
   };
   if (theme.colors) chartConf.colors = theme.colors;
-  $(el).highcharts(chartConf);
+  Highcharts.chart(el, chartConf);
 }
 
 function empty(txt) {

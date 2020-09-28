@@ -1,12 +1,13 @@
 import * as xhr from 'common/xhr';
+import * as domData from 'common/data';
 
-window.lichess.load.then(() => {
+lichess.load.then(() => {
   setTimeout(() => {
     $('div.captcha').each(function(this: HTMLElement) {
       const $captcha = $(this),
         $board = $captcha.find('.mini-board'),
         $input = $captcha.find('input').val(''),
-        cg = $board.data('chessground'),
+        cg = domData.get($board[0]!, 'chessground'),
         fen = cg.getFen(),
         destsObj = $board.data('moves'),
         dests = new Map();
@@ -32,7 +33,7 @@ window.lichess.load.then(() => {
           xhr.url($captcha.data('check-url'), { solution })
         ).then(data => {
           $captcha.toggleClass('success', data == '1').toggleClass('failure', data != '1');
-          if (data == '1') $board.data('chessground').stop();
+          if (data == '1') domData.get($board[0]!, 'chessground').stop();
           else setTimeout(() =>
             cg.set({
               fen: fen,

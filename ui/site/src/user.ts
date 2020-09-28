@@ -1,20 +1,17 @@
 import * as xhr from 'common/xhr';
 import once from "./component/once";
 import { hopscotch } from "./component/assets";
-import loadInfiniteScroll from "./component/infinite-scroll";
 
-window.lichess.load.then(() => {
+lichess.load.then(() => {
 
   $(".user-show .note-zone-toggle").each(function(this: HTMLElement) {
-    $(this).click(function(this: HTMLElement) {
-      $(".user-show .note-zone").toggle();
-    });
-    if (location.search.includes('note')) $(this).click();
+    $(this).on('click', () => $(".user-show .note-zone").toggle());
+    if (location.search.includes('note')) $(this).trigger('click');
   });
 
   $(".user-show .claim_title_zone").each(function(this: HTMLElement) {
-    var $zone = $(this);
-    $zone.find('.actions a').click(function(this: HTMLAnchorElement) {
+    const $zone = $(this);
+    $zone.find('.actions a').on('click', function(this: HTMLAnchorElement) {
       xhr.text(this.href, { method: 'post' });
       $zone.remove();
       return false;
@@ -43,19 +40,17 @@ window.lichess.load.then(() => {
   $('.user-show .angles').each(function(this: HTMLElement) {
     const $angles = $(this),
       $content = $('.angle-content'),
-      browseTo = (path: string) => {
-        $('.angle-content .infinitescroll').infinitescroll('destroy');
+      browseTo = (path: string) =>
         xhr.text(path).then(html => {
           $content.html(html);
-          window.lichess.pubsub.emit('content_loaded');
+          lichess.contentLoaded($content[0]);
           history.replaceState({}, '', path);
-          loadInfiniteScroll('.angle-content .infinitescroll');
+          window.InfiniteScroll('.infinite-scroll');
         });
-      };
-    $angles.on('click', 'a', function(this: HTMLElement) {
+    $angles.on('click', 'a', function(this: HTMLAnchorElement) {
       $angles.find('.active').removeClass('active');
       $(this).addClass('active');
-      browseTo($(this).attr('href'));
+      browseTo(this.href);
       return false;
     });
     $('.user-show').on('click', '#games a', function(this: HTMLAnchorElement) {

@@ -59,19 +59,18 @@ private object BSONHandlers {
   }
 
   implicit val EntryIdHandler = tryHandler[Id](
-    {
-      case BSONString(value) =>
-        value split ':' match {
-          case Array(fen) => Success(Id(chess.variant.Standard, SmallFen raw fen))
-          case Array(variantId, fen) =>
-            Success(
-              Id(
-                variantId.toIntOption flatMap chess.variant.Variant.apply err s"Invalid evalcache variant $variantId",
-                SmallFen raw fen
-              )
+    { case BSONString(value) =>
+      value split ':' match {
+        case Array(fen) => Success(Id(chess.variant.Standard, SmallFen raw fen))
+        case Array(variantId, fen) =>
+          Success(
+            Id(
+              variantId.toIntOption flatMap chess.variant.Variant.apply err s"Invalid evalcache variant $variantId",
+              SmallFen raw fen
             )
-          case _ => lila.db.BSON.handlerBadValue(s"Invalid evalcache id $value")
-        }
+          )
+        case _ => lila.db.BSON.handlerBadValue(s"Invalid evalcache id $value")
+      }
     },
     x =>
       BSONString {

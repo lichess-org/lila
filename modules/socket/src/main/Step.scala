@@ -18,7 +18,7 @@ case class Step(
 ) {
 
   // who's color plays next
-  def color = chess.Color(ply % 2 == 0)
+  def color = chess.Color.fromPly(ply)
 
   def toJson = Step.stepJsonWriter writes this
 }
@@ -57,8 +57,8 @@ object Step {
       .add(
         "dests",
         dests.map {
-          _.map {
-            case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
+          _.map { case (orig, dests) =>
+            s"${orig.piotr}${dests.map(_.piotr).mkString}"
           }.mkString(" ")
         }
       )

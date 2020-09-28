@@ -60,10 +60,11 @@ final class Env(
 
   lazy val store = new Store(db(config.collection.security), cacheApi, net.ip)
 
-  lazy val ip2proxy = {
-    def mk = (url: String) => wire[Ip2Proxy]
-    mk(config.ip2ProxyUrl)
-  }
+  lazy val ip2proxy: Ip2Proxy =
+    if (config.ip2Proxy.enabled) {
+      def mk = (url: String) => wire[Ip2ProxyServer]
+      mk(config.ip2Proxy.url)
+    } else wire[Ip2ProxySkip]
 
   lazy val ugcArmedSetting = settingStore[Boolean](
     "ugcArmed",
@@ -140,16 +141,21 @@ final class Env(
 
   lazy val promotion = wire[PromotionApi]
 
-  scheduler.scheduleOnce(30 seconds)(disposableEmailDomain.refresh())
-  scheduler.scheduleWithFixedDelay(config.disposableEmail.refreshDelay, config.disposableEmail.refreshDelay) {
-    () =>
-      disposableEmailDomain.refresh()
+  if (config.disposableEmail.enabled) {
+    scheduler.scheduleOnce(30 seconds)(disposableEmailDomain.refresh())
+    scheduler.scheduleWithFixedDelay(config.disposableEmail.refreshDelay, config.disposableEmail.refreshDelay) {
+      () =>
+        disposableEmailDomain.refresh()
+    }
   }
 
   lazy val tor: Tor = wire[Tor]
-  scheduler.scheduleOnce(31 seconds)(tor.refresh(_ => funit))
-  scheduler.scheduleWithFixedDelay(config.tor.refreshDelay, config.tor.refreshDelay) { () =>
-    tor.refresh(firewall.unblockIps)
+
+  if (config.tor.enabled) {
+    scheduler.scheduleOnce(31 seconds)(tor.refresh(_ => funit))
+    scheduler.scheduleWithFixedDelay(config.tor.refreshDelay, config.tor.refreshDelay) { () =>
+      tor.refresh(firewall.unblockIps)
+    }
   }
 
   lazy val ipTrust: IpTrust = wire[IpTrust]
@@ -160,8 +166,7 @@ final class Env(
 
   def cli = wire[Cli]
 
-  Bus.subscribeFun("fishnet") {
-    case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
-      automaticEmail.onFishnetKey(userId, key)
+  Bus.subscribeFun("fishnet") { case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
+    automaticEmail.onFishnetKey(userId, key)
   }
 }

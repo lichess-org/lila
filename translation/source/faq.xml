@@ -52,7 +52,7 @@ The computer analysis on Lichess is powered by Stockfish.</string>
 In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
 
 Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
-  <string name="linkToFIDErules">FIDE handbook §6.9, PDF</string>
+  <string name="fideHandbookX">FIDE handbook %s</string>
   <string name="discoveringEnPassant">Why can a pawn capture another pawn when it is already passed? (en passant)</string>
   <string name="explainingEnPassant">This is a legal move known as "en passant". The Wikipedia article gives a %1$s.
 
@@ -67,7 +67,6 @@ See the %3$s on this move for some practice with it.</string>
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="threefoldRepetitionExplanation">If a position occurs three times, players can claim a draw by %1$s. Lichess implements the official FIDE rules, as described in Article 9.2 (d) of the %2$s.</string>
   <string name="threefoldRepetitionLowerCase">threefold repetition</string>
-  <string name="handBookPDF">handbook (PDF)</string>
   <string name="notRepeatedMoves">We did not repeat moves. Why was the game still drawn by repetition?</string>
   <string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
   <string name="positions">positions</string>

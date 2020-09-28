@@ -23,12 +23,12 @@ sealed trait Advice {
         case MateAdvice(seq, _, _, _) => seq.desc
         case CpAdvice(judgment, _, _) => judgment.toString
       }) + "." + {
-      withBestMove ?? {
-        info.variation.headOption ?? { move =>
-          s" $move was best."
+        withBestMove ?? {
+          info.variation.headOption ?? { move =>
+            s" $move was best."
+          }
         }
       }
-    }
 
   def evalComment: Option[String] = {
     List(prev.evalComment, info.evalComment).flatten mkString " → "

@@ -21,8 +21,8 @@ final class AnalysisRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def associateToGames(games: List[Game]): Fu[List[Analysis.Analyzed]] =
     byIds(games.map(_.id)) map { as =>
-      games zip as collect {
-        case (game, Some(analysis)) => Analysis.Analyzed(game, analysis)
+      games zip as collect { case (game, Some(analysis)) =>
+        Analysis.Analyzed(game, analysis)
       }
     }
 

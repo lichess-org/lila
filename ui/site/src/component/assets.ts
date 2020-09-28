@@ -7,10 +7,7 @@ export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
 
-export const soundUrl = assetUrl('sound', { version: '000003' });
-
-const loadedCss = new Map();
-
+const loadedCss = new Map<string, true>();
 export const loadCss = (url: string) => {
   if (!loadedCss.has(url)) {
     loadedCss.set(url, true);
@@ -27,8 +24,18 @@ export const loadCssPath = (key: string) =>
 export const jsModule = (name: string) =>
   `compiled/${name}${$('body').data('dev') ? '' : '.min'}.js`;
 
-export const loadScript = (url: string, opts: AssetUrlOpts = {}): Promise<void> =>
-  xhr.script(assetUrl(url, opts));
+const loadedScript = new Map<string, Promise<void>>();
+export const loadScript = (url: string, opts: AssetUrlOpts = {}): Promise<void> => {
+  if (!loadedScript.has(url)) loadedScript.set(url, xhr.script(assetUrl(url, opts)));
+  return loadedScript.get(url)!;
+}
+
+export const loadModule = (name: string): Promise<void> => loadScript(jsModule(name))
+
+export const userComplete = (): Promise<UserComplete> => {
+  loadCssPath('complete');
+  return loadModule('userComplete').then(_ => window.UserComplete);
+}
 
 export const hopscotch = () => {
   loadCss('vendor/hopscotch/dist/css/hopscotch.min.css');
@@ -36,8 +43,3 @@ export const hopscotch = () => {
     noVersion: true
   })
 };
-
-export const slider = () =>
-  loadScript(
-    'javascripts/vendor/jquery-ui.slider' + ('ontouchstart' in window ? '.touch' : '') + '.min.js'
-  );

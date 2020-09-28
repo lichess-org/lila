@@ -17,7 +17,6 @@
   },
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/jquery": "^2.0",
     "@types/lichess": "2.0.0"
   }
 }

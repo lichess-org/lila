@@ -24,12 +24,12 @@
   <string name="youCannotApply">Nije moguće podnijeti zahtjev za moderatora. Ako vidimo nekoga za koga mislimo da bi bio dobar moderator, kontaktirat ćemo ga izravno.</string>
   <string name="isCorrespondenceDifferent">Da li se dopisni šah razlikuje od uobičajenog šaha?</string>
   <string name="youCanUseOpeningBookNoEngine">Glavna razlika u pravilima dopisnog šaha na Lichess-u je upotreba knjige šahovskih otvaranja. Upotreba pomoćnih šahovskih programa i dalje je zabranjena te će rezultirati u označavanju korisnika za nedozvoljenu upotrebu šahovskih programa. Iako ICCF pravila dopuštaju upotrebu šahovskih programa, na Lichess-u to nije dozvoljeno.</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Stil igre</string>
+  <string name="gameplay">Stil igre</string>
   <string name="howBulletBlitzEtcDecided">Kako se određuju kontrole vremena za Bullet, Blitz i druge šahovske varijante?</string>
   <string name="basedOnGameDuration">Kontrole vremena na Lichess-u su temeljene na procijenjenom trajanju igre = %1$s
 Na primjer, procijenjeno trajanje 5+3 računa se kao 5 × 60 + 40 × 3 i iznosi 420 sekundi.</string>
   <string name="durationFormula">(inicijalno vrijeme sata) + 40 x (pomak sata)</string>
-  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">&lt; %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Koje varijente šaha mogu da igram na Lichess-u?</string>
   <string name="lichessSupportChessAnd">Lichess podržava standardni šah i %1$s.</string>
@@ -40,7 +40,6 @@ Na primjer, procijenjeno trajanje 5+3 računa se kao 5 × 60 + 40 × 3 i iznosi 
 U rijetkim slučajevima to se može teško odlučiti automatski (prisilne linije, tvrđave). Prema zadanim postavkama uvijek smo uz igrača kojem nije ponestalo vremena.
 
 Imajte na umu da je moguće izvesti mat sa jednim skakačem ili lovcem ako protivnik ima figuru koja bi mogla blokirati njegovog kralja.</string>
-  <string name="linkToFIDErules">FIDE priručnik §6.9, PDF</string>
   <string name="discoveringEnPassant">Zašto može pijun uzeti protivničkog pijuna kojeg je već prošao? (en passant)</string>
   <string name="explainingEnPassant">Ovaj potez važi u šahu i poznat je kao \"en passant\". Članak na Wikipediji daje %1$s poteza \"en passant\".
 
@@ -55,7 +54,6 @@ Da bi te prakticirali ovaj potez, pogledajte ovaj %3$s.</string>
   <string name="threefoldRepetition">Trostruko ponavljanje pozicije</string>
   <string name="threefoldRepetitionExplanation">Ako se pozicija uzastopno ponovi tri puta, igrači mogu proglasiti remi %1$s. Lichess koristi službena FIDE pravila, opisana u Članku 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trostruko ponavljanje pozicije</string>
-  <string name="handBookPDF">priručnik (PF)</string>
   <string name="notRepeatedMoves">Mi nismo ponavljani poteze. Zašto je igra bila proglašena remijem ponavljanja?</string>
   <string name="repeatedPositionsThatMatters">Trostruko ponavljanje se odnosi na ponavljanje %1$s, a ne poteza. Ponavljanje ne treba biti uzastopno.</string>
   <string name="positions">pozicije</string>

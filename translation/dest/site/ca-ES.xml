@@ -199,7 +199,6 @@
     <item quantity="other">%s partides amb tu</item>
   </plurals>
   <string name="cancel">Cancel·la</string>
-  <string name="timeOut">Temps exhaurit</string>
   <string name="drawOfferSent">S\'ha enviat l\'oferta de taules</string>
   <string name="drawOfferDeclined">S\'ha rebutjat l\'oferta de taules</string>
   <string name="drawOfferAccepted">S\'ha acceptat l\'oferta de taules</string>
@@ -393,7 +392,7 @@
   <string name="openTournaments">Tornejos oberts</string>
   <string name="duration">Durada</string>
   <string name="winner">Guanyador</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Resultats</string>
+  <string name="standing">Resultats</string>
   <string name="createANewTournament">Crea un nou torneig</string>
   <string name="tournamentCalendar">Calendari de tornejos</string>
   <string name="conditionOfEntry">Requisit d\'entrada:</string>
@@ -660,7 +659,7 @@ en %3$s</string>
   <string name="newTournament">Nou torneig</string>
   <string name="tournamentHomeTitle">Torneig d\'escacs amb diversos controls de temps i variants</string>
   <string name="tournamentHomeDescription">Juga tornejos d\'escacs ràpids! Uneix-te a un torneig programat o crea\'n un de propi. Bullet, Blitz, Classic, Chess960, King of the Hill, Threecheck i moltes més opcions perquè no s\'acabi la diversió dels escacs.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">No s\'ha trobat el torneig</string>
+  <string name="tournamentNotFound">No s\'ha trobat el torneig</string>
   <string name="tournamentDoesNotExist">Aquest torneig no existeix.</string>
   <string name="tournamentMayHaveBeenCanceled">Pot ser que s\'hagi cancel·lat, si tots els jugadors l\'han abandonat abans que comencés.</string>
   <string name="returnToTournamentsHomepage">Torna a la pàgina principal de tornejos</string>

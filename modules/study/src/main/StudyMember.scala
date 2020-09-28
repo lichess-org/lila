@@ -26,6 +26,13 @@ object StudyMember {
 case class StudyMembers(members: StudyMember.MemberMap) {
 
   def +(member: StudyMember) = copy(members = members + (member.id -> member))
+  def -(userId: User.ID)     = copy(members = members - userId)
+
+  def update(id: User.ID, f: StudyMember => StudyMember) = copy(
+    members = members.view.mapValues { m =>
+      if (m.id == id) f(m) else m
+    }.toMap
+  )
 
   def contains(userId: User.ID): Boolean = members contains userId
   def contains(user: User): Boolean      = contains(user.id)

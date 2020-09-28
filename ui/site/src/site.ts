@@ -1,33 +1,30 @@
+import * as miniBoard from "./component/mini-board";
+import * as miniGame from "./component/mini-game";
 import * as xhr from 'common/xhr';
-import exportLichessGlobals from "./site.lichess.globals";
-import StrongSocket from "./component/socket";
-import { reload } from "./component/reload";
 import announce from './component/announce';
+import exportLichessGlobals from "./site.lichess.globals";
+import info from "./component/info";
+import loadClockWidget from "./component/clock-widget";
 import moduleLaunchers from "./component/module-launchers";
-import pubsub from "./component/pubsub";
-import miniBoard from "./component/mini-board";
-import miniGame from "./component/mini-game";
-import { requestIdleCallback } from "./component/functions";
+import OnlineFriends from "./component/friends";
 import powertip from "./component/powertip";
+import pubsub from "./component/pubsub";
+import serviceWorker from "./component/serviceWorker";
+import StrongSocket from "./component/socket";
 import timeago from "./component/timeago";
 import topBar from "./component/top-bar";
-import userAutocomplete from "./component/user-autocomplete";
-import loadInfiniteScroll from "./component/infinite-scroll";
-import { storage } from "./component/storage";
-import { assetUrl } from "./component/assets";
-import serviceWorker from "./component/service-worker";
-import loadClockWidget from "./component/clock-widget";
-import info from "./component/info";
-import OnlineFriends from "./component/friends";
 import watchers from "./component/watchers";
+import { assetUrl, userComplete } from "./component/assets";
+import { reload } from "./component/reload";
+import { requestIdleCallback } from "./component/functions";
+import { storage } from "./component/storage";
 
 exportLichessGlobals();
-const li = window.lichess;
-li.info = info;
+lichess.info = info;
 
 loadClockWidget();
 
-li.load.then(() => {
+lichess.load.then(() => {
 
   moduleLaunchers();
 
@@ -37,11 +34,9 @@ li.load.then(() => {
     if (friendsEl) new OnlineFriends(friendsEl);
 
     $('#main-wrap')
-      .on('click', '.autoselect', function(this: HTMLElement) {
-        $(this).select();
-      })
+      .on('click', '.autoselect', function(this: HTMLInputElement) { this.select(); })
       .on('click', 'button.copy', function(this: HTMLElement) {
-        $('#' + $(this).data('rel')).select();
+        $('#' + $(this).data('rel')).each(function(this: HTMLInputElement) { this.select(); });
         document.execCommand('copy');
         $(this).attr('data-icon', 'E');
       });
@@ -60,7 +55,7 @@ li.load.then(() => {
       $p.toggleClass('shown');
       requestIdleCallback(() => {
         const handler = (e: Event) => {
-          if ($p[0].contains(e.target as HTMLElement)) return;
+          if ($p[0]!.contains(e.target as HTMLElement)) return;
           $p.removeClass('shown');
           $('html').off('click', handler);
         };
@@ -71,34 +66,36 @@ li.load.then(() => {
     powertip.watchMouse();
 
     timeago.updateRegularly(1000);
-    pubsub.on('content_loaded', timeago.findAndRender);
+    pubsub.on('content-loaded', timeago.findAndRender);
 
     setTimeout(() => {
-      if (!li.socket)
-        li.socket = new StrongSocket("/socket/v5", false);
+      if (!lichess.socket)
+        lichess.socket = new StrongSocket("/socket/v5", false);
     }, 300);
 
     topBar();
 
     window.addEventListener('resize', () => document.body.dispatchEvent(new Event('chessground.resize')));
 
-    $('.user-autocomplete').each(function(this: HTMLElement) {
-      const opts = {
-        focus: true,
-        friend: $(this).data('friend'),
-        tag: $(this).data('tag')
-      } as UserAutocompleteOpts;
-      if ($(this).attr('autofocus')) userAutocomplete($(this), opts);
-      else $(this).one('focus', function(this: HTMLElement) {
-        userAutocomplete($(this), opts);
-      });
+    $('.user-autocomplete').each(function(this: HTMLInputElement) {
+      const focus = !!this.autofocus;
+      const start = () => userComplete().then(uac =>
+        uac({
+          input: this,
+          friend: $(this).data('friend'),
+          tag: $(this).data('tag'),
+          focus
+        })
+      );
+      if (focus) start();
+      else $(this).one('focus', start);
     });
 
-    loadInfiniteScroll('.infinitescroll');
+    if (window.InfiniteScroll) window.InfiniteScroll('.infinite-scroll');
 
-    $('a.delete, input.delete').click(() => confirm('Delete?'));
-    $('input.confirm, button.confirm').click(function(this: HTMLElement) {
-      return confirm($(this).attr('title') || 'Confirm this action?');
+    $('a.delete, input.delete').on('click', () => confirm('Delete?'));
+    $('input.confirm, button.confirm').on('click', function(this: HTMLElement) {
+      return confirm(this.title || 'Confirm this action?');
     });
 
     $('#main-wrap').on('click', 'a.bookmark', function(this: HTMLAnchorElement) {
@@ -135,8 +132,8 @@ li.load.then(() => {
      * Edge randomly fails to rasterize SVG on page load
      * A different SVG must be loaded so a new image can be rasterized */
     if (navigator.userAgent.includes('Edge/')) setTimeout(() => {
-      const sprite = $('#piece-sprite');
-      sprite.attr('href', sprite.attr('href').replace('.css', '.external.css'));
+      const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
+      sprite.href = sprite.href.replace('.css', '.external.css');
     }, 1000);
 
     // prevent zoom when keyboard shows on iOS
@@ -147,8 +144,8 @@ li.load.then(() => {
 
     miniBoard.initAll();
     miniGame.initAll();
-    pubsub.on('content_loaded', miniBoard.initAll);
-    pubsub.on('content_loaded', miniGame.initAll);
+    pubsub.on('content-loaded', miniBoard.initAll);
+    pubsub.on('content-loaded', miniGame.initAll);
 
     const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
     if (chatMembers) watchers(chatMembers);
@@ -162,12 +159,15 @@ li.load.then(() => {
         })
       }).then(reload);
 
+    const pageAnnounce = document.body.getAttribute('data-announce');
+    if (pageAnnounce) announce(JSON.parse(pageAnnounce));
+
     serviceWorker();
 
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {
-      li.unload.expected = true;
-      li.redirect(d);
+      lichess.unload.expected = true;
+      lichess.redirect(d);
     });
     pubsub.on('socket.in.fen', e =>
       document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e))
@@ -186,7 +186,7 @@ li.load.then(() => {
         '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
         '<a class="text" href="' + url + '" data-icon="G">Resume</a>' +
         '</div></div>'
-      ).find('#announce .withdraw').click(function(this: HTMLAnchorElement) {
+      ).find('#announce .withdraw').on('click', function(this: HTMLAnchorElement) {
         xhr.text(this.href, { method: 'post' });
         $('#announce').remove();
         return false;

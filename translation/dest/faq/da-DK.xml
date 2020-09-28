@@ -28,12 +28,12 @@
   <string name="youCannotApply">Det er ikke muligt at ansøge om at blive moderator. Hvis vi ser nogen, som vi tror ville være en god moderator, vil du kontakte dem direkte.</string>
   <string name="isCorrespondenceDifferent">Er korrespondance anderledes end normal skak?</string>
   <string name="youCanUseOpeningBookNoEngine">På Lichess er den primære forskel i reglerne for korrespondance-skak, at en åbningsbog er tilladt. Brugen af computeranalyse er stadig forbudt og vil resultere i en anmærkning for computer-assistance. Selvom ICCF tillader computeranalyse i korrespondance, er dette ikke tilfælder på Lichess.</string>
-  <string name="gameplay" comment="gameplay&#10;&#10;A heading under https://lichess.org/faq (as with other strings under the FAQ file). You are free to translate it loosely.">Spilforløb</string>
+  <string name="gameplay">Spilforløb</string>
   <string name="howBulletBlitzEtcDecided">Hvordan afgøres forskellen mellem Bullet, Blitz og andre tidskontroller?</string>
   <string name="basedOnGameDuration">Tidskontroller på Lichess er baseret på en estimeret varighed af partiet = %1$s
   For eksempel er den estimeret varighed af et 5+3 parti 5 * 60 + 40 * 3 = 420 sekunder.</string>
   <string name="durationFormula">(starttid på uret) + 40 * (tillægstid)</string>
-  <string name="inferiorThanXsEqualYtimeControl" comment="inferiorThanXsEqualYtimeControl&#10;&#10;Used for several time controls:&#10;&#10;https://lichess.org/faq#time-controls&#10;&#10;%1$s is the number of seconds&#10;%2$s is the name of the time control (Bullet, Blitz, Rapid, etc)">≤ %1$ss = %2$s</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Hvilke varianter kan jeg spille på Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess understøtter standardskak og %1$s.</string>
@@ -52,22 +52,21 @@
   I sjældne tilfælde kan dette være vanskeligt at afgøre automatisk (fremtvungne linjer, fæstninger). Som udgangspunkt holder vi altid med den spiller, som ikke løb tør for tid.
 
   Bemærk at det kan være muligt at sætte mat med en enkelt springer eller løber, hvis modstanderen har en brik, som kan blokere kongen.</string>
-  <string name="linkToFIDErules">FIDE håndbog §6.9, pdf</string>
+  <string name="fideHandbookX">FIDE håndbog %s</string>
   <string name="discoveringEnPassant">Hvorfor kan en bonde tage en anden bonde, når den allerede er passeret? (en passant)</string>
   <string name="explainingEnPassant">Dette er et lovligt træk kendt som \"en passant\". Wikipedia-artiklen giver en %1$s.
 
-  Det beskrives i sektion 3.7 (d) af de %2$s:
+Det beskrives i sektion 3.7 (d) af de %2$s:
 
-  \"En bonde på et felt på samme række og på en tilstødende linje af en modstanders bonde, som netop er flyttet to felter frem i ét træk fra dens oprindelige felt, må tage denne bonde fra modstanderen, som om den blot havde flyttet ét felt. Det er kun tilladt at tage bonden på denne måde i trækket umiddelbart efter denne fremrykning, og det kaldes for at tage bonden ‘en passant’.
-    
-  Tjek %3$s for dette træk og for at øve det.  </string>
+\"En bonde på et felt på samme række og på en tilstødende linje af en modstanders bonde, som netop er flyttet to felter frem i ét træk fra dens oprindelige felt, må tage denne bonde fra modstanderen, som om den blot havde flyttet ét felt. Det er kun tilladt at tage bonden på denne måde i trækket umiddelbart efter denne fremrykning, og det kaldes for at tage bonden ‘en passant’.
+
+Tjek %3$s for dette træk og for at øve det.</string>
   <string name="goodIntroduction">god introduktion</string>
   <string name="officialRulesPDF">officielle regler (pdf)</string>
   <string name="lichessTraining">Lichess træning</string>
   <string name="threefoldRepetition">Trækgentagelse</string>
   <string name="threefoldRepetitionExplanation">Hvis en position forekommer tre gange, kan spillerne kræve remis ved %1$s. Lichess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trækgentagelse</string>
-  <string name="handBookPDF">håndbog (pdf)</string>
   <string name="notRepeatedMoves">Vi gentog ikke træk. Hvorfor endte partiet alligevel med remis ved trækgentagelse?</string>
   <string name="repeatedPositionsThatMatters">Trækgentagelse vedrører gentagende %1$s, ikke træk. Gentagelse behøver ikke at ske lige efter hinanden.</string>
   <string name="positions">positioner</string>
@@ -109,7 +108,7 @@ Her er en liste over FIDE-titler:</string>
   I udgangspunktet er systemet 90% sikker på, at din rating ligger et sted mellem 800 og 2200. Det er utroligt usikkert. Når en spiller starter vil deres rating derfor skifte dramatisk, potentielt flere hundrede point ad gangen. Men efter nogle partier mod etablerede spillere vil konfidensintervallet indsnævres, og antallet af point opnået/mistet efter hvert parti vil falde.
 
   Noget andet, som er værd at bemærke, er, at som tiden går vil konfidensintervallet øges. Dette gør det muligt for dig at vinde/tabe point hurtigere som et match til ændringer i dit færdighedsniveau over tid.</string>
-  <string name="whatIsProvisionalRating" comment="whatIsProvisionalRating&#10;&#10;If '(?)' looks off in your language, you do not have to include it.">Hvorfor er der et spørgsmålstegn (?) ved siden af en rating?</string>
+  <string name="whatIsProvisionalRating">Hvorfor er der et spørgsmålstegn (?) ved siden af en rating?</string>
   <string name="provisionalRatingExplanation">Spørgsmålstegnet betyder at ratingen er provisorisk. Årsager inkluderer:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Spilleren har endnu ikke afsluttet nok ratede partier mod %1$s i rating-kategorien.</string>
   <string name="similarOpponents">modstandere af tilsvarende styrke</string>

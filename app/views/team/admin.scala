@@ -1,11 +1,11 @@
 package views.html.team
 
+import controllers.routes
+import play.api.data.Form
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import play.api.data.Form
-
-import controllers.routes
 
 object admin {
 
@@ -16,7 +16,7 @@ object admin {
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("team"), cssTag("tagify")),
-      moreJs = frag(tagifyTag, jsTag("team-admin.js"))
+      moreJs = jsModule("team.admin")
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
@@ -73,18 +73,15 @@ object admin {
       title = title,
       moreCss = cssTag("team"),
       moreJs = embedJsUnsafeLoadThen("""
-           |$('.copy-url-button').on('click', function(e) {
-           |$('#form3-message').val(function(i, x) {return x + $(e.target).data('copyurl') + '\n'})
-           |})
-           |""".stripMargin)
+$('.copy-url-button').on('click', function(e) {
+$('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') + '\n')
+})""")
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
-          p(
-            messageAllMembersLongDescription()
-          ),
+          p(messageAllMembersLongDescription()),
           tours.nonEmpty option div(cls := "tournaments")(
             p(youWayWantToLinkOneOfTheseTournaments()),
             p(

@@ -199,7 +199,8 @@
     <item quantity="other">%s játék veled</item>
   </plurals>
   <string name="cancel">Mégse</string>
-  <string name="timeOut">Lejárt az idő</string>
+  <string name="whiteTimeOut">Világos ideje lejárt</string>
+  <string name="blackTimeOut">Sötét ideje lejárt</string>
   <string name="drawOfferSent">Döntetlen felajánlás elküldve</string>
   <string name="drawOfferDeclined">Döntetlen felajánlás elutasítva</string>
   <string name="drawOfferAccepted">Döntetlen elfogadva</string>
@@ -393,7 +394,7 @@
   <string name="openTournaments">Nyílt versenyek</string>
   <string name="duration">Időtartam</string>
   <string name="winner">Győztes</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Állás</string>
+  <string name="standing">Állás</string>
   <string name="createANewTournament">Új verseny indítása</string>
   <string name="tournamentCalendar">Versenynaptár</string>
   <string name="conditionOfEntry">Nevezés feltétele:</string>
@@ -657,7 +658,7 @@
   <string name="newTournament">Új torna</string>
   <string name="tournamentHomeTitle">A sakk bajnokságokban lehetőség van különböző időbeállítások és változatok beállítására</string>
   <string name="tournamentHomeDescription">Vegyél részt villám-versenyeken! Csatlakozz hivatalkos versenyekhez, vagy hozz létre te saját magad. Bullet, Blitz, Hagyományos, Sakk960, King of the Hill, Threecheck és mások elérhetők, hogy minél jobban élvezd a sakkot.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">A torna nem található.</string>
+  <string name="tournamentNotFound">A torna nem található.</string>
   <string name="tournamentDoesNotExist">Ez a torna nem létezik.</string>
   <string name="tournamentMayHaveBeenCanceled">Törölték, mivel az összes játékos kilépett mielőtt elkezdődöt volna a torna.</string>
   <string name="returnToTournamentsHomepage">Térj vissza a torna oldalára</string>

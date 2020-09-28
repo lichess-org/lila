@@ -1,15 +1,15 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
-import * as round from '../round';
-import throttle from 'common/throttle';
-import isCol1 from 'common/isCol1';
 import * as game from 'game';
+import * as round from '../round';
 import * as status from 'game/status';
-import { game as gameRoute } from 'game/router';
-import viewStatus from 'game/view/status';
 import * as util from '../util';
+import isCol1 from 'common/isCol1';
 import RoundController from '../ctrl';
+import throttle from 'common/throttle';
+import viewStatus from 'game/view/status';
+import { game as gameRoute } from 'game/router';
+import { h } from 'snabbdom'
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
+import { VNode } from 'snabbdom/vnode'
 
 const scrollMax = 99999, moveTag = 'u8t', indexTag = 'i5z', indexTagUC = indexTag.toUpperCase(), movesTag = 'l4x', rmovesTag = 'rm6', activeClass = 'a1t';
 
@@ -202,7 +202,7 @@ export function render(ctrl: RoundController): VNode | undefined {
         ctrl.autoScroll = () => autoScroll(el, ctrl);
         ctrl.autoScroll();
         window.addEventListener('load', ctrl.autoScroll);
-        $(window).one('blur', () => $(moveTag).first().append($('<i>')));
+        window.addEventListener('blur', () => $(moveTag).first().append('<j>'), { once: true });
       })
     }, renderMoves(ctrl));
   return ctrl.nvui ? undefined : h(rmovesTag, [

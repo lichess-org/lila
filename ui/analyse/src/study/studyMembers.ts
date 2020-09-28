@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { titleNameToId, bind, dataIcon, iconTag, onInsert, scrollTo } from '../util';
 import { prop, Prop } from 'common';
-import { ctrl as inviteFormCtrl } from './inviteForm';
+import { makeCtrl as inviteFormCtrl } from './inviteForm';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { NotifCtrl } from './notif';
 
@@ -20,9 +20,9 @@ interface Opts {
   trans: Trans;
 }
 
-function memberActivity(onIdle) {
-  let timeout;
-  let schedule = function() {
+function memberActivity(onIdle: () => void) {
+  let timeout: Timeout;
+  let schedule = () => {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(onIdle, 100);
   };
@@ -61,7 +61,7 @@ export function ctrl(opts: Opts) {
   function setActive(id: string) {
     if (opts.tab() !== 'members') return;
     if (active[id]) active[id]();
-    else active[id] = memberActivity(function() {
+    else active[id] = memberActivity(() => {
       delete (active[id]);
       opts.redraw();
     });
@@ -77,9 +77,9 @@ export function ctrl(opts: Opts) {
     if (opts.tab() === 'members') opts.redraw();
   }
 
-  window.lichess.pubsub.on('socket.in.crowd', d => {
+  lichess.pubsub.on('socket.in.crowd', d => {
     const names: string[] = d.users || [];
-    inviteForm.setSpectators(names);
+    inviteForm.spectators(names);
     spectatorIds = names.map(titleNameToId);
     updateOnline();
   });
@@ -97,7 +97,7 @@ export function ctrl(opts: Opts) {
       const wasContrib = myMember() && canContribute();
       dict(members);
       if (wasViewer && canContribute()) {
-        if (window.lichess.once('study-tour')) opts.startTour();
+        if (lichess.once('study-tour')) opts.startTour();
         opts.onBecomingContributor();
         opts.notif.set({
           text: opts.trans.noarg('youAreNowAContributor'),
@@ -118,7 +118,7 @@ export function ctrl(opts: Opts) {
     isOwner,
     canContribute,
     max,
-    setRole(id: string, role) {
+    setRole(id: string, role: string) {
       setActive(id);
       opts.send("setRole", {
         userId: id,
@@ -182,7 +182,6 @@ export function view(ctrl: StudyCtrl): VNode {
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
     if (isOwner && (member.user.id !== members.myId || ctrl.data.admin))
       return h('act', {
-        key: 'cfg-' + member.user.id,
         attrs: dataIcon('%'),
         hook: bind('click', _ => {
           members.confing(members.confing() === member.user.id ? null : member.user.id);
@@ -190,7 +189,6 @@ export function view(ctrl: StudyCtrl): VNode {
       });
     if (!isOwner && member.user.id === members.myId)
       return h('act.leave', {
-        key: 'leave',
         attrs: {
           'data-icon': 'F',
           title: ctrl.trans.noarg('leaveTheStudy')
@@ -229,17 +227,12 @@ export function view(ctrl: StudyCtrl): VNode {
     ]);
   };
 
-  var ordered = members.ordered();
+  const ordered: StudyMember[] = members.ordered();
 
   return h('div.study__members', {
-    hook: {
-      insert: _ => {
-        window.lichess.pubsub.emit('content_loaded');
-        window.lichess.pubsub.emit('chat.resize');
-      }
-    }
+    hook: onInsert(() => lichess.pubsub.emit('chat.resize'))
   }, [
-    ...ordered.map(function(member) {
+    ...ordered.map(member => {
       const confing = members.confing() === member.user.id;
       return [
         h('div', {
@@ -265,6 +258,7 @@ export function view(ctrl: StudyCtrl): VNode {
       ])
     ]) : null,
     (!members.canContribute() && ctrl.data.admin) ? h('form.admin', {
+      key: ':admin',
       attrs: {
         method: 'post',
         action: `/study/${ctrl.data.id}/admin`

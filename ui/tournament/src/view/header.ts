@@ -50,7 +50,7 @@ function image(d): VNode | undefined {
   if (hasFreq('shield', d) || hasFreq('marathon', d)) return;
   const s = d.spotlight;
   if (s && s.iconImg) return h('img.img', {
-    attrs: { src: window.lichess.assetUrl('images/' + s.iconImg) }
+    attrs: { src: lichess.assetUrl('images/' + s.iconImg) }
   });
   return h('i.img', {
     attrs: dataIcon((s && s.iconFont) || 'g')

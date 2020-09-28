@@ -24,7 +24,8 @@ object insight {
       title = s"${u.username}'s chess insights",
       moreJs = frag(
         highchartsLatestTag,
-        jsAt("vendor/multiple-select/multiple-select.js"),
+        jsAt("javascripts/vendor/jquery.min.js"),
+        jsAt("javascripts/vendor/multiple-select.min.js"),
         jsModule("insight"),
         jsTag("insight-refresh.js"),
         embedJsUnsafeLoadThen(

@@ -3,7 +3,6 @@
     "alwaysStrict": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
-    "noEmitOnError": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -12,6 +11,6 @@
     "target": "ES2016",
     "module": "commonjs",
     "lib": ["DOM", "ES2016", "DOM.iterable"],
-    "types": ["lichess", "jquery", "defer-promise"]
+    "types": ["lichess", "cash", "defer-promise"]
   }
 }

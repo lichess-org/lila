@@ -14,7 +14,7 @@ interface SubmitOpts {
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-window.lichess.keyboardMove = function(opts: any) {
+lichess.keyboardMove = function(opts: any) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
@@ -56,12 +56,12 @@ window.lichess.keyboardMove = function(opts: any) {
         clear();
       }
     } else if (submitOpts.yourMove && v.length > 1) {
-      setTimeout(window.lichess.sound.error, 500);
+      setTimeout(() => lichess.sound.play('error'), 500);
       opts.input.value = '';
     }
     else {
       const wrong = v.length && legalSans && !sanCandidates(v, legalSans).length;
-      if (wrong && !opts.input.classList.contains('wrong')) window.lichess.sound.error();
+      if (wrong && !opts.input.classList.contains('wrong')) lichess.sound.play('error');
       opts.input.classList.toggle('wrong', wrong);
     }
   };
@@ -99,12 +99,8 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
       force: e.which === 13
     });
   });
-  opts.input.addEventListener('focus', function() {
-    opts.ctrl.setFocus(true);
-  });
-  opts.input.addEventListener('blur', function() {
-    opts.ctrl.setFocus(false);
-  });
+  opts.input.addEventListener('focus', () => opts.ctrl.setFocus(true));
+  opts.input.addEventListener('blur', () => opts.ctrl.setFocus(false));
   // prevent default on arrow keys: they only replay moves
   opts.input.addEventListener('keydown', function(e: KeyboardEvent) {
     if (e.which > 36 && e.which < 41) {
@@ -157,7 +153,7 @@ function readClocks(clockCtrl: any | undefined) {
       simplePlural(date.getUTCSeconds(), 'second');
     return `${color}: ${msg}`;
   });
-  window.lichess.sound.say(msgs.join('. '));
+  lichess.sound.say(msgs.join('. '));
 }
 
 function simplePlural(nb: number, word: string) {

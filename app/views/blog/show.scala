@@ -11,7 +11,7 @@ object show {
   def apply(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
     views.html.base.layout(
       title = s"${~doc.getText("blog.title")} | Blog",
-      moreJs = jsModule("expand-text"),
+      moreJs = jsModule("expandText"),
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",

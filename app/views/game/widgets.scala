@@ -143,14 +143,13 @@ object widgets {
             aiRating(level)
           )
         } getOrElse {
-          (player.nameSplit.fold[Frag](anonSpan) {
-            case (name, rating) =>
-              frag(
-                span(name),
-                rating.map { r =>
-                  frag(br, r)
-                }
-              )
+          (player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
+            frag(
+              span(name),
+              rating.map { r =>
+                frag(br, r)
+              }
+            )
           })
         }
       }

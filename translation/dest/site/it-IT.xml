@@ -199,7 +199,8 @@
     <item quantity="other">%s giocate con te</item>
   </plurals>
   <string name="cancel">Annulla</string>
-  <string name="timeOut">Tempo scaduto</string>
+  <string name="whiteTimeOut">Timeout bianco</string>
+  <string name="blackTimeOut">Timeout nero</string>
   <string name="drawOfferSent">Offerta di patta inviata</string>
   <string name="drawOfferDeclined">Offerta di patta rifiutata</string>
   <string name="drawOfferAccepted">Offerta di patta accettata</string>
@@ -394,7 +395,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="openTournaments">Tornei aperti</string>
   <string name="duration">Durata</string>
   <string name="winner">Vincitore</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Classifica</string>
+  <string name="standing">Classifica</string>
   <string name="createANewTournament">Crea un nuovo torneo</string>
   <string name="tournamentCalendar">Elenco dei Tornei</string>
   <string name="conditionOfEntry">Condizioni di accesso:</string>
@@ -658,7 +659,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="newTournament">Nuovo torneo</string>
   <string name="tournamentHomeTitle">Torneo con diversi controlli del tempo e varianti</string>
   <string name="tournamentHomeDescription">Partecipa a frenetici tornei di scacchi! Unisciti a un torneo ufficiale programmato o creane uno. Bullet, Blitz, Classical, Chess960, King of the Hill, Three-check e altre opzioni per un divertimento scacchistico senza fine.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Torneo non trovato</string>
+  <string name="tournamentNotFound">Torneo non trovato</string>
   <string name="tournamentDoesNotExist">Questo torneo non esiste.</string>
   <string name="tournamentMayHaveBeenCanceled">Può essere stato annullato, se tutti i giocatori l\'hanno abbandonato prima che il torneo iniziasse.</string>
   <string name="returnToTournamentsHomepage">Torna alla pagina iniziale del torneo</string>

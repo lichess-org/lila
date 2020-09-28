@@ -1,6 +1,7 @@
 package views.html.streamer
 
 import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -75,7 +76,7 @@ object index {
               st.article(cls := "streamer")(widget(s.withoutStream, s.stream))
             }
           ),
-          div(cls := "list infinitescroll")(
+          div(cls := "list infinite-scroll")(
             (live.size % 2 == 1) option div(cls := "none"),
             pager.currentPageResults.map { s =>
               st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none))
@@ -88,9 +89,7 @@ object index {
                   "requests",
                   if (requests) 1 else 0
                 )
-            ).map {
-              frag(_, div(cls := "none")) // don't break the even/odd CSS flow
-            }
+            )
           )
         )
       )

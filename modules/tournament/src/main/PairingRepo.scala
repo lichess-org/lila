@@ -45,12 +45,11 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         .cursor[Bdoc]()
         .documentSource(max)
         .mapConcat(_.getAsOpt[List[User.ID]]("u").toList)
-        .scan(Map.empty[User.ID, User.ID]) {
-          case (acc, List(u1, u2)) =>
-            val b1   = userIds.contains(u1)
-            val b2   = !b1 || userIds.contains(u2)
-            val acc1 = if (!b1 || acc.contains(u1)) acc else acc.updated(u1, u2)
-            if (!b2 || acc.contains(u2)) acc1 else acc1.updated(u2, u1)
+        .scan(Map.empty[User.ID, User.ID]) { case (acc, List(u1, u2)) =>
+          val b1   = userIds.contains(u1)
+          val b2   = !b1 || userIds.contains(u2)
+          val acc1 = if (!b1 || acc.contains(u1)) acc else acc.updated(u1, u2)
+          if (!b2 || acc.contains(u2)) acc1 else acc1.updated(u2, u1)
         }
         .takeWhile(
           r => r.sizeIs < nbUsers,

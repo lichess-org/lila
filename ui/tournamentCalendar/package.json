@@ -13,7 +13,6 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/jquery": "^2.0",
     "@types/lichess": "2.0.0"
   },
   "dependencies": {

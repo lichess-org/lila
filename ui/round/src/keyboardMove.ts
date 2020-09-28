@@ -68,7 +68,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       const role = sanToRole[piece];
       if (!role || role == 'pawn') return;
       root.chessground.cancelMove();
-      sendPromotion(root, orig, dest, role, {premove: false});
+      sendPromotion(root, orig, dest, role, { premove: false });
     },
     update(step, yourMove: boolean = false) {
       if (handler) handler(step.fen, cgState.movable.dests, yourMove);
@@ -114,17 +114,14 @@ export function render(ctrl: KeyboardMove) {
         spellcheck: false,
         autocomplete: false
       },
-      hook: onInsert(input => {
-        window.lichess.loadScript(window.lichess.jsModule('round.keyboard-move')).then(() => {
-          ctrl.registerHandler(window.lichess.keyboardMove({
-            input,
-            ctrl
-          }));
-        });
-      })
+      hook: onInsert(input =>
+        lichess.loadModule('round.keyboardMove').then(() =>
+          ctrl.registerHandler(lichess.keyboardMove({ input, ctrl }))
+        )
+      )
     }),
     ctrl.hasFocus() ?
-    h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :
-    h('strong', 'Press <enter> to focus')
+      h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :
+      h('strong', 'Press <enter> to focus')
   ]);
 }

@@ -21,7 +21,7 @@ object index {
     views.html.base.layout(
       title = searchInXGames.txt(nbGames.localize, nbGames),
       moreJs = frag(
-        jsModule("game-search"),
+        jsModule("gameSearch"),
         infiniteScrollTag
       ),
       moreCss = cssTag("search")
@@ -83,9 +83,9 @@ object index {
                   " • ",
                   permalink
                 ),
-                div(cls := "search__rows")(
-                  pagerNext(pager, np => routes.Search.index(np).url),
-                  views.html.game.widgets(pager.currentPageResults)
+                div(cls := "search__rows infinite-scroll")(
+                  views.html.game.widgets(pager.currentPageResults),
+                  pagerNext(pager, np => routes.Search.index(np).url)
                 )
               )
             else

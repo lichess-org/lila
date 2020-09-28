@@ -191,7 +191,6 @@
     <item quantity="other">%s өрөг таньтай тоглосон байна</item>
   </plurals>
   <string name="cancel">Цуцлах</string>
-  <string name="timeOut">Цаг дууслаа</string>
   <string name="drawOfferSent">Тэнцэх санал илгээлээ</string>
   <string name="drawOfferDeclined">Тэнцэх саналаас татгалзлаа</string>
   <string name="drawOfferAccepted">Тэнцэх саналыг зөвшөөрлөө</string>
@@ -367,7 +366,7 @@
   <string name="openTournaments">Бүгдэд нээлттэй тэмцээнүүд</string>
   <string name="duration">Үргэлжлэх хугацаа</string>
   <string name="winner">Ялагч</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Оролцогчдын онооны жагсаалт</string>
+  <string name="standing">Оролцогчдын онооны жагсаалт</string>
   <string name="createANewTournament">Шинэ тэмцээн үүсгэх</string>
   <string name="tournamentCalendar">Тэмцээний хуанли</string>
   <string name="conditionOfEntry">Нэвтрэх нөхцөл:</string>
@@ -631,7 +630,7 @@
   <string name="newTournament">Шинэ тэмцээн</string>
   <string name="tournamentHomeTitle">Янз бүрийн цагын хязгаарлалт болон шатрын төрөлтэй тэмцээн</string>
   <string name="tournamentHomeDescription">Түргэн нүүдэлт шатрын тэмцээн! Албан ёсны хуваарьт тэмцээнүүдэд оролцох эсвэл та өөрөө тэмцээн зохион байгуулж болно.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Тэмцээн олдсонгүй</string>
+  <string name="tournamentNotFound">Тэмцээн олдсонгүй</string>
   <string name="tournamentDoesNotExist">Энэ тэмцээн олдсонгүй.</string>
   <string name="tournamentMayHaveBeenCanceled">Тэмцээн эхлэхээс өмнө бүх тоглогчид тэмцээнийг орхисон бол энэхүү тэмцээн цуцлагдсан болно.</string>
   <string name="returnToTournamentsHomepage">Тэмцээний үндсэн нүүр хуудас руу буцах</string>

@@ -139,7 +139,7 @@
   <string name="signIn">Skrá inn</string>
   <string name="youNeedAnAccountToDoThat">Þú þarft aðgang til að geta þetta</string>
   <string name="signUp">Sækja um</string>
-  <string name="computersAreNotAllowedToPlay">Skákforrit eða skákmenn sem nota aðstoð skákforrita mega ekki tefla. Vinsamlegast ekki fá hjá frá tölvuforritum, gagnagrunnum eða öðrum spilurum meðan þú teflir</string>
+  <string name="computersAreNotAllowedToPlay">Skákforrit eða skákmenn sem nota aðstoð skákforrita mega ekki tefla. Vinsamlegast fáðu ekki hjálp frá skákforritum, gagnagrunnum eða öðrum spilurum meðan þú teflir. Mundu líka að við mælum sérstaklega á móti að búa til marga reikninga og sköpun of margra reikninga verður að banni.</string>
   <string name="games">Skákir</string>
   <string name="forum">Umræðukorkur</string>
   <string name="xPostedInForumY">%1$s póstað í spjalli %2$s</string>
@@ -195,7 +195,8 @@
     <item quantity="other">%s skákir með þér</item>
   </plurals>
   <string name="cancel">Hætta við</string>
-  <string name="timeOut">Leikhlé</string>
+  <string name="whiteTimeOut">Hvítur féll á tíma</string>
+  <string name="blackTimeOut">Svartur féll á tíma</string>
   <string name="drawOfferSent">boð um jafntefli sent</string>
   <string name="drawOfferDeclined">Boði um jafntefli hafnað</string>
   <string name="drawOfferAccepted">Boði um jafntefli samþykkt</string>
@@ -382,7 +383,7 @@
   <string name="openTournaments">Opin mót</string>
   <string name="duration">Lengd</string>
   <string name="winner">Sigurvegari</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Staða</string>
+  <string name="standing">Staða</string>
   <string name="createANewTournament">Búa til nýtt mót</string>
   <string name="tournamentCalendar">Mótadagatal</string>
   <string name="conditionOfEntry">Skilyrði fyrir þátttöku:</string>
@@ -545,6 +546,7 @@
   <string name="starting">Hefst:</string>
   <string name="allInformationIsPublicAndOptional">Allar upplýsingar hér eru aðgengilegar öllum.</string>
   <string name="yourCityRegionOrDepartment">Staður og land.</string>
+  <string name="biographyDescription">Segðu frá sjálfum þér, áhugamálunum þínum, hvað þér finnst gaman í skák, uppáhalds opnununum þínum, spilurum , ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Hámark: %s stafir.</item>
     <item quantity="other">Hámark: %s stafir.</item>
@@ -634,14 +636,15 @@
   <string name="keyEnterOrExitVariation">fara í/úr afbrigði</string>
   <string name="newTournament">Nýtt mót</string>
   <string name="tournamentHomeTitle">Skákmót með mismunandi tímaskorðum og afbrigðum</string>
-  <string name="tournamentHomeDescription">Tefldu í hröðum skákmótum! Skráðu þig til leiks í skipulögðum opinberum mótum, eða búðu til þitt eigið. 1-mínútu, hraðskák, klassísk tímamörk, Chess960, King of the Hill, Þrískák og fleiri möguleikar í boði fyrir botnlausa skemmtun.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Mót ekki fundið</string>
+  <string name="tournamentHomeDescription">Tefldu í hröðum skákmótum! Skráðu þig til leiks í skipulögðum opinberum mótum, eða búðu til þitt eigið. 1-mínútu, hraðskák, klassísk tímamörk, Chess960, Konungur Hóls, Þrískák og fleiri möguleikar í boði fyrir botnlausa skemmtun.</string>
+  <string name="tournamentNotFound">Mót ekki fundið</string>
   <string name="tournamentDoesNotExist">Þetta mót er ekki til</string>
   <string name="tournamentMayHaveBeenCanceled">Því kann að hafa verið aflýst, ef allir leikmenn yfirgefa áður en það hefst.</string>
   <string name="returnToTournamentsHomepage">Aftur á heimasvæði móts</string>
   <string name="weeklyPerfTypeRatingDistribution">Vikuleg %s stigadreyfing</string>
   <string name="yourPerfTypeRatingIsRating">%1$s skor þitt er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Þú ert betri en %1$s af %2$s leikmönnum</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er betra en %2$s af %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Þú hefur ekki skráð skor í %s.</string>
   <string name="cumulative">Uppsafnað</string>
   <string name="checkYourEmail">Gáðu í tölvupóstinn þinn</string>
@@ -680,7 +683,7 @@
   <string name="zeroAdvertisement">Engar auglýsingar</string>
   <string name="fullFeatured">Fullbúið</string>
   <string name="phoneAndTablet">Símar og spjaldtölvur</string>
-  <string name="bulletBlitzClassical">Bullet, Blitz, klassík</string>
+  <string name="bulletBlitzClassical">Hraðskák, Blitz, klassík</string>
   <string name="correspondenceChess">Bréfskák</string>
   <string name="onlineAndOfflinePlay">Tengd og ótengd spilun</string>
   <string name="viewTheSolution">Sjá lausn</string>
@@ -693,16 +696,24 @@
   <string name="quickPairing">Flýtival</string>
   <string name="lobby">Salur</string>
   <string name="anonymous">Nafnlaus</string>
+  <string name="yourScore">Stigin þín: %s</string>
   <string name="language">Tungumál</string>
+  <string name="background">Bakgrunnur</string>
   <string name="light">Ljós</string>
   <string name="dark">Dökkur</string>
   <string name="transparent">Gegnsær</string>
   <string name="backgroundImageUrl">URL á bakgrunnsmynd:</string>
+  <string name="boardTheme">Borðþema</string>
+  <string name="boardSize">Borðstærð</string>
   <string name="usernameAlreadyUsed">Þetta notandanafn er þegar í notkun, vinsamlegast veldu annað notandanafn.</string>
   <string name="usernamePrefixInvalid">Notandanafnið verður að byrja á bókstaf.</string>
   <string name="usernameSuffixInvalid">Notandanafnið verður að enda á bókstaf eða tölustaf.</string>
+  <string name="usernameCharsInvalid">Notendanafnið má aðeins innihalda bókstafi, tölustafi, undirstrik og bandstrik.</string>
+  <string name="usernameUnacceptable">Þetta notendanafn er óviðunandi.</string>
   <string name="chessBasics">Grunnatriði</string>
   <string name="coaches">Þjálfarar</string>
+  <string name="invalidPgn">Ógilt PGN</string>
+  <string name="invalidFen">Ógilt FEN</string>
   <string name="error.minLength">Lágmarks lengd er %s</string>
   <string name="error.maxLength">Hámarks lengd er %s</string>
   <string name="error.min">Verður að hærri en eða jöfn %s</string>
@@ -711,6 +722,7 @@
   <string name="custom">Sérsniðinn</string>
   <string name="notifications">Tilkynningar</string>
   <string name="challenges">Áskoranir</string>
+  <string name="perfRatingX">Skákstig: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekúnda til að spila fyrsta leik</item>
     <item quantity="other">%s sekúndur til að spila fyrsta leik</item>
@@ -720,8 +732,10 @@
   <string name="bestWasX">Besti var %s</string>
   <string name="youBrowsedAway">Þú vafraðir í burtu</string>
   <string name="resumePractice">Halda áfram æfingu</string>
+  <string name="theGameIsADraw">Leikurinn endar í jafntefli.</string>
   <string name="seeBestMove">Sjá besta leik</string>
   <string name="hideBestMove">Fela besta leik</string>
+  <string name="getAHint">Fá vísbendingu</string>
   <string name="whiteWinsGame">Hvítt vinnur</string>
   <string name="blackWinsGame">Svartur vinnur</string>
   <string name="learnFromYourMistakes">Lærðu af mistökum þínum</string>
@@ -731,6 +745,7 @@
   <string name="xWasPlayed">%s var leikinn</string>
   <string name="findBetterMoveForWhite">Finndu betri leik fyrir hvítan</string>
   <string name="findBetterMoveForBlack">Finndu betri leik fyrir svartan</string>
+  <string name="resumeLearning">Halda áfram að læra</string>
   <string name="youCanDoBetter">Þú getur gert betur</string>
   <string name="tryAnotherMoveForWhite">Reyndu annan leik fyrir hvítan</string>
   <string name="tryAnotherMoveForBlack">Reyndu annan leik fyrir svartan</string>
@@ -740,28 +755,37 @@
   <string name="noMistakesFoundForBlack">Engin mistök fundust hjá svörtum</string>
   <string name="doneReviewingWhiteMistakes">Yfirferð mistaka hvíts lokið</string>
   <string name="doneReviewingBlackMistakes">Yfirferð mistaka svarts lokið</string>
+  <string name="doItAgain">Gera aftur</string>
+  <string name="reviewWhiteMistakes">Skoða mistök hvítrar</string>
+  <string name="reviewBlackMistakes">Skoða mistök svartrar</string>
+  <string name="advantage">Yfirhönd</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekúnda</item>
     <item quantity="other">%s sekúndur</item>
   </plurals>
   <string name="opening">Byrjun</string>
   <string name="middlegame">Miðtafl</string>
+  <string name="registerToSendChallenges">Skráðu þig inn til að senda áskorarnir.</string>
   <string name="youCannotChallengeX">Þú getur ekki skorað á %s.</string>
   <string name="xDoesNotAcceptChallenges">%s tekur ekki við áskorunum.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s samþykkir eingöngu áskoranir frá vinum.</string>
   <string name="playX">Leika %s</string>
   <string name="sorry">Afsakaðu :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Við þurftum að setja þig í stutt leikbann.</string>
   <string name="why">Afhverju?</string>
   <string name="howToAvoidThis">Hvernig er hægt að komast hjá þessu?</string>
   <string name="playEveryGame">Tefldu allar skákir sem þú byrjar.</string>
   <string name="tryToWin">Reyndu að vinna (eða amk. ná jafntefli) í öllum skákum sem þú teflir.</string>
-  <string name="resignLostGames">Gefa tapaðar skákir (ekki láta tímann renna út).</string>
+  <string name="resignLostGames">Gefðu tapaðar skákir (ekki láta tímann renna út).</string>
+  <string name="thankYouForReading">Takk fyrir að lesa!</string>
+  <string name="agreementAssistance">Ég samþykki að ég mun alls ekki fá hjálp á meðan ég tefli (frá skákforriti, skákbók, gagnagrunni eða annari manneskju).</string>
   <string name="agreementNice">Ég samþykki að ég muni alltaf koma vel fram við aðra leikmenn.</string>
   <string name="agreementAccount">Ég samþykki að ég muni ekki stofna marga reikninga.</string>
   <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum Lichess.</string>
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
   <string name="edit">Breyta</string>
   <string name="rapid">Atskák</string>
+  <string name="ultraBulletDesc">Mjög fljótir leikir: minna en 30 sekúndur</string>
   <string name="bulletDesc">Mjög hraðar skákir: styttri en 3 mínútur</string>
   <string name="blitzDesc">Hraðar skákir: 3 til 8 mínútur</string>
   <string name="rapidDesc">Örar skákir: 8 til 25 mínútur</string>

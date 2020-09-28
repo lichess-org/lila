@@ -140,7 +140,7 @@ object Puzzle {
         fen = r str fen,
         lines = r.get[Lines](lines),
         depth = r int depth,
-        color = Color(r bool white),
+        color = Color.fromWhite(r bool white),
         date = r date date,
         perf = r.get[PuzzlePerf](perf),
         vote = r.get[AggregateVote](vote),

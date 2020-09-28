@@ -10,17 +10,18 @@ interface Lichess {
   widget: any;
   spinnerHtml: string;
   assetUrl(url: string, opts?: AssetUrlOpts): string;
-  soundUrl: string;
   loadCss(path: string): void;
   loadCssPath(path: string): void;
   jsModule(name: string): string;
   loadScript(url: string, opts?: AssetUrlOpts): Promise<void>;
+  loadModule(name: string): Promise<void>;
   hopscotch: any;
+  userComplete: () => Promise<UserComplete>;
   slider(): Promise<void>;
   makeChat(data: any): any;
-  numberFormat(n: number): string;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub;
+  contentLoaded(parent?: HTMLElement): void;
   unload: {
     expected: boolean;
   };
@@ -34,16 +35,14 @@ interface Lichess {
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
 
   socket: any;
-  sound: any;
-  soundBox: SoundBoxI;
-  userAutocomplete($input: JQuery, opts?: UserAutocompleteOpts): Promise<void>;
+  sound: SoundI;
   miniBoard: {
     init(node: HTMLElement): void;
-    initAll(): void;
+    initAll(parent?: HTMLElement): void;
   };
   miniGame: {
     init(node: HTMLElement): string | null;
-    initAll(): void;
+    initAll(parent?: HTMLElement): void;
     update(node: HTMLElement, data: { fen: string, lm: string, wc?: number, bc?: number }): void;
     finish(node: HTMLElement, win?: Color): void;
   };
@@ -53,6 +52,7 @@ interface Lichess {
   StrongSocket: {
     new(url: string, version: number | false, cfg?: any): any;
     firstConnect: Promise<(tpe: string, data: any) => void>
+    defaultParams: Record<string, any>;
   }
 
   // timeago.js
@@ -82,21 +82,32 @@ interface Lichess {
 
 type RedirectTo = string | { url: string, cookie: Cookie };
 
-interface UserAutocompleteOpts {
+type UserComplete = (opts: UserCompleteOpts) => void;
+
+interface UserCompleteOpts {
+  input: HTMLInputElement,
   tag?: 'a' | 'span';
   minLength?: number;
-  onSelect?: (value: string | { id: string; name: string }) => void;
+  populate?: (result: LightUser) => string;
+  onSelect?: (result: LightUser) => void;
   focus?: boolean;
   friend?: boolean;
   tour?: string;
   swiss?: string;
 }
 
-interface SoundBoxI {
+interface SoundI {
   loadOggOrMp3(name: string, path: string): void;
-  play(name: string): void;
+  loadStandard(name: string, soundSet?: string): void;
+  play(name: string, volume?: number): void;
   getVolume(): number;
   setVolume(v: number): void;
+  speech(v?: boolean): boolean;
+  changeSet(s: string): void;
+  say(text: any, cut?: boolean, force?: boolean): boolean;
+  sayOrPlay(name: string, text: string): void;
+  soundSet: string;
+  baseUrl: string;
 }
 
 interface LichessSpeech {
@@ -187,6 +198,7 @@ interface Window {
   Mousetrap: any
   Chessground: any
   Highcharts: any
+  InfiniteScroll(selector: string): void;
   lichessReplayMusic: () => {
     jump(node: Tree.Node): void
   }
@@ -343,31 +355,20 @@ declare namespace Tree {
   }
 }
 
-interface JQueryStatic {
+interface CashStatic {
   powerTip: any;
 }
 
-interface LichessModal {
-  (html: string | JQuery, cls?: string, onClose?: () => void): JQuery;
-  close(): void;
-}
-
-interface JQuery {
-  powerTip(options?: PowerTip.Options | 'show' | 'hide'): JQuery;
-  typeahead: any;
-  sparkline: any;
+interface Cash {
+  powerTip(options?: PowerTip.Options | 'show' | 'hide'): Cash;
   clock: any;
-  highcharts(conf?: any): any;
-  slider(key: string, value: any): any;
-  slider(opts: any): any;
-  flatpickr(opts: any): any;
-  infinitescroll: any;
 }
 
 declare namespace PowerTip {
   type Placement = 'n' | 'e' | 's' | 'w' | 'nw' | 'ne' | 'sw' | 'se' | 'nw-alt' | 'ne-alt' | 'sw-alt' | 'se-alt';
 
   interface Options {
+    preRender?: (el: HTMLElement) => void;
     placement?: Placement;
     smartPlacement?: boolean;
     popupId?: string;
@@ -383,3 +384,7 @@ declare namespace PowerTip {
     closeEvents?: string[];
   }
 }
+
+declare module '@yaireo/tagify';
+
+declare var lichess: Lichess;

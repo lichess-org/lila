@@ -33,11 +33,6 @@ export default rollupProject({
             ].map(require.resolve),
             dest: '../../public/vendor/highcharts-4.2.5',
           },
-          // jquery-bar-rating
-          {
-            src: require.resolve('jquery-bar-rating/dist/jquery.barrating.min.js'),
-            dest: '../../public/vendor/bar-rating/dist',
-          },
           // stockfish.js
           {
             src: [
@@ -77,16 +72,16 @@ export default rollupProject({
     ],
   },
   tvEmbed: {
-    input: 'src/tv-embed.ts',
-    output: 'tv.embed',
+    input: 'src/tvEmbed.ts',
+    output: 'tvEmbed',
   },
   puzzleEmbed: {
-    input: 'src/puzzle-embed.ts',
+    input: 'src/puzzleEmbed.ts',
     output: 'puzzle.embed',
   },
   analyseEmbed: {
-    input: 'src/analyse-embed.ts',
-    output: 'analysis-board.embed',
+    input: 'src/analyseEmbed.ts',
+    output: 'analysisBoard.embed',
     name: 'analyseEmbed'
   },
   user: {
@@ -94,7 +89,7 @@ export default rollupProject({
     output: 'user',
   },
   modUser: {
-    input: 'src/mod-user.ts',
+    input: 'src/modUser.ts',
     output: 'mod.user',
   },
   clas: {
@@ -110,8 +105,8 @@ export default rollupProject({
     output: 'captcha',
   },
   expandText: {
-    input: 'src/expand-text.ts',
-    output: 'expand-text',
+    input: 'src/expandText.ts',
+    output: 'expandText',
   },
   team: {
     input: 'src/team.ts',
@@ -127,12 +122,16 @@ export default rollupProject({
     output: 'account',
   },
   coachForm: {
-    input: 'src/coach-form.ts',
-    output: 'coach-form',
+    input: 'src/coachForm.ts',
+    output: 'coach.form',
+  },
+  coachShow: {
+    input: 'src/coachShow.ts',
+    output: 'coach.show',
   },
   challengePage: {
-    input: 'src/challenge-page.ts',
-    output: 'challenge-page',
+    input: 'src/challengePage.ts',
+    output: 'challengePage',
     name: 'challengePageStart'
   },
   checkout: {
@@ -146,16 +145,34 @@ export default rollupProject({
     name: 'loginSignup'
   },
   teamBattleForm: {
-    input: 'src/team-battle-form.ts',
-    output: 'team-battle-form'
+    input: 'src/teamBattleForm.ts',
+    output: 'teamBattleForm'
   },
-  dgt: {
-    input: 'src/dgt/dgt.ts',
-    output: 'dgt',
-    name: 'lichessDgt'
+  tourForm: {
+    input: 'src/tourForm.ts',
+    output: 'tourForm'
   },
   gameSearch: {
     input: 'src/gameSearch.ts',
-    output: 'game-search'
+    output: 'gameSearch'
+  },
+  userComplete: {
+    input: 'src/userComplete.ts',
+    output: 'userComplete',
+    name: 'UserComplete'
+  },
+  infiniteScroll: {
+    input: 'src/infiniteScroll.ts',
+    output: 'infiniteScroll',
+    name: 'InfiniteScroll'
+  },
+  flatpickr: {
+    input: 'src/flatpickr.ts',
+    output: 'flatpickr',
+    name: 'LichessFlatpickr'
+  },
+  teamAdmin: {
+    input: 'src/teamAdmin.ts',
+    output: 'team.admin',
   }
 });

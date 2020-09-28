@@ -140,12 +140,11 @@ trait FormHelper { self: I18nHelper =>
           cls := "form-control"
         )(disabled option (st.disabled := true))(validationModifiers(field))(
           default map { option(value := "")(_) },
-          options.toSeq map {
-            case (value, name) =>
-              option(
-                st.value := value.toString,
-                field.value.has(value.toString) option selected
-              )(name)
+          options.toSeq map { case (value, name) =>
+            option(
+              st.value := value.toString,
+              field.value.has(value.toString) option selected
+            )(name)
           }
         ),
         disabled option hidden(field)
@@ -202,8 +201,8 @@ trait FormHelper { self: I18nHelper =>
         div(cls := "form-group is-invalid")(error(err))
       }
 
-    def flatpickr(field: Field, withTime: Boolean = true): Frag =
-      input(field, klass = "flatpickr")(
+    def flatpickr(field: Field, withTime: Boolean = true, utc: Boolean = false): Tag =
+      input(field, klass = s"flatpickr${if (utc) " flatpickr-utc" else ""}")(
         dataEnableTime := withTime,
         datatime24h := withTime
       )

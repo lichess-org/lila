@@ -59,8 +59,12 @@
   <string name="inLocalBrowser">sa bhrabhsálaí logánta</string>
   <string name="toggleLocalEvaluation">Scóránú meastóireachta logánta</string>
   <string name="promoteVariation">Cuir an líne seo chun tosaigh</string>
+  <string name="makeMainLine">Déan príomhlíne</string>
   <string name="deleteFromHere">Scrios as seo amach</string>
+  <string name="forceVariation">Athrú fórsa</string>
   <string name="move">Bog</string>
+  <string name="variantLoss">Teip malairte</string>
+  <string name="variantWin">Bua malartach</string>
   <string name="insufficientMaterial">Easpa maoine</string>
   <string name="pawnMove">Bogadh shaighdiúir</string>
   <string name="capture">Gabh</string>
@@ -137,7 +141,8 @@
   <string name="rankX">Áit: %s</string>
   <string name="gamesPlayed">Cluichí imeartha</string>
   <string name="cancel">Cealaigh</string>
-  <string name="timeOut">As am</string>
+  <string name="whiteTimeOut">Am an Bháin istigh</string>
+  <string name="blackTimeOut">Am an Duibh istigh</string>
   <string name="drawOfferSent">Tairiscint comhscóir seolta</string>
   <string name="drawOfferDeclined">Diúltaíodh an tairiscint comhscóir</string>
   <string name="drawOfferAccepted">Glacadh leis an tairiscint comhscóir</string>
@@ -170,6 +175,7 @@
   <string name="play">Imir</string>
   <string name="inbox">Bhosca</string>
   <string name="chatRoom">Seomra comhrá</string>
+  <string name="youHaveBeenTimedOut">Tá tú curtha ar fionraí ar feadh tréimhse.</string>
   <string name="spectatorRoom">Seomra lucht féachana</string>
   <string name="composeMessage">Cruthaigh teachtaireacht</string>
   <string name="subject">Ábhar</string>
@@ -310,6 +316,7 @@
   <string name="difficultyEasy">Éasca</string>
   <string name="difficultyNormal">Gnáth</string>
   <string name="difficultyHard">Deacair</string>
+  <string name="victory">Bua</string>
   <string name="yourCityRegionOrDepartment">Do chathair, réigiún nó cúige.</string>
   <string name="human">Duine</string>
   <string name="computer">Ríomhaire</string>
@@ -326,6 +333,7 @@
   <string name="blackCastlingKingside">Dubh O-O</string>
   <string name="tpTimeSpentPlaying">Am caite ag imirt: %s</string>
   <string name="watchGames">Féach ar chluichí</string>
+  <string name="tpTimeSpentOnTV">Am ar TV: %s</string>
   <string name="watch">Féach</string>
   <string name="about">Faoi</string>
   <string name="aboutX">Faoi %s</string>
@@ -344,6 +352,8 @@
   <string name="doItAgain">Déan arís é</string>
   <string name="advantage">Buntáiste</string>
   <string name="opening">Oscailt</string>
+  <string name="weHadToTimeYouOutForAWhile">Bhí orainn thú a chur ar fionraí ar feadh tréimhse.</string>
+  <string name="timeoutExpires">Beidh an tréimhse fionraithe thart %s.</string>
   <string name="why">Cén fáth?</string>
   <string name="classical">Clasaiceach</string>
   <string name="ultraBulletDesc">Cluichí ar luas gan chiall; níos lú ná 30 soicind</string>

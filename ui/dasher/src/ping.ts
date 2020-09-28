@@ -20,7 +20,7 @@ export function ctrl(trans: Trans, redraw: Redraw): PingCtrl {
     server: undefined
   };
 
-  const hub = window.lichess.pubsub;
+  const hub = lichess.pubsub;
 
   hub.emit('socket.send', 'moveLat', true);
   hub.on('socket.lag', lag => {

@@ -32,9 +32,9 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     { key: 'transp', name: trans.noarg('transparent') }
   ];
 
-  const announceFail = () => window.lichess.announce({ msg: 'Failed to save background preference' });
+  const announceFail = () => lichess.announce({ msg: 'Failed to save background preference' });
 
-  const reloadAllTheThings = () => { if (window.Highcharts) window.lichess.reload() }
+  const reloadAllTheThings = () => { if (window.Highcharts) lichess.reload() }
 
   return {
     list,
@@ -91,8 +91,8 @@ function imageInput(ctrl: BackgroundCtrl) {
       },
       hook: {
         insert: vnode => {
-          $(vnode.elm as HTMLElement).on('change keyup paste', debounce(function(this: HTMLElement) {
-            ctrl.setImage($(this).val());
+          $(vnode.elm as HTMLElement).on('change keyup paste', debounce(function(this: HTMLInputElement) {
+            ctrl.setImage(this.value as string);
           }, 200));
         }
       }
@@ -110,10 +110,10 @@ function applyBackground(data: BackgroundData, list: Background[]) {
 
   const prev = $('body').data('theme');
   $('body').data('theme', key);
-  $('link[href*=".' + prev + '."]').each(function(this: HTMLElement) {
-    var link = document.createElement('link');
+  $('link[href*=".' + prev + '."]').each(function(this: HTMLLinkElement) {
+    var link = document.createElement('link') as HTMLLinkElement;
     link.rel = 'stylesheet';
-    link.href = $(this).attr('href').replace('.' + prev + '.', '.' + key + '.');
+    link.href = this.href.replace('.' + prev + '.', '.' + key + '.');
     link.onload = () => setTimeout(() => this.remove(), 100);
     document.head.appendChild(link);
   });

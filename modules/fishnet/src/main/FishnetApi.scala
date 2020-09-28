@@ -47,10 +47,9 @@ final class FishnetApi(
       case Skill.Move                 => fufail(s"Can't acquire a move directly on lichess! $client")
       case Skill.Analysis | Skill.All => acquireAnalysis(client, slow)
     }).monSuccess(_.fishnet.acquire)
-      .recover {
-        case e: Exception =>
-          logger.error("Fishnet.acquire", e)
-          none
+      .recover { case e: Exception =>
+        logger.error("Fishnet.acquire", e)
+        none
       }
 
   private def acquireAnalysis(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
@@ -90,7 +89,8 @@ final class FishnetApi(
           fufail(WorkNotFound)
         case Some(work) if work isAcquiredBy client =>
           data.completeOrPartial match {
-            case complete: CompleteAnalysis => {
+            case complete: CompleteAnalysis =>
+              {
                 if (complete.weak && work.game.variant.standard) {
                   Monitor.weak(work, client, complete)
                   repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis(client))
@@ -99,12 +99,12 @@ final class FishnetApi(
                     monitor.analysis(work, client, complete)
                     repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
                   }
-              } recoverWith {
-                case e: Exception =>
-                  Monitor.failure(work, client, e)
-                  repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
+              } recoverWith { case e: Exception =>
+                Monitor.failure(work, client, e)
+                repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
               }
-            case partial: PartialAnalysis => {
+            case partial: PartialAnalysis =>
+              {
                 fuccess(work.game.studyId.isDefined) >>| socketExists(work.game.id)
               } flatMap {
                 case true =>

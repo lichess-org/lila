@@ -114,8 +114,8 @@ export interface AnalyseOpts {
   tagTypes?: string;
   practice?: StudyPracticeData;
   relay?: RelayData;
-  $side?: JQuery;
-  $underboard?: JQuery;
+  $side?: Cash;
+  $underboard?: Cash;
   i18n: any;
   chat: {
     parseMoves: boolean;

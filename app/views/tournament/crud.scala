@@ -1,6 +1,7 @@
 package views.html
 package tournament
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
@@ -9,8 +10,6 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.tournament.crud.CrudForm
 import lila.tournament.{ Tournament, TournamentForm }
-
-import controllers.routes
 
 object crud {
 
@@ -21,8 +20,7 @@ object crud {
       title = title,
       moreCss = cssTag(css),
       moreJs = frag(
-        flatpickrTag,
-        delayFlatpickrStartUTC,
+        jsModule("flatpickr"),
         evenMoreJs
       )
     ) {
@@ -71,7 +69,9 @@ object crud {
   private def inForm(form: Form[_], tour: Option[Tournament])(implicit ctx: Context) =
     frag(
       form3.split(
-        form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
+        form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(
+          form3.flatpickr(_, utc = true)
+        ),
         form3.group(
           form("name"),
           raw("Name"),
@@ -148,17 +148,7 @@ object crud {
               th()
             )
           ),
-          tbody(cls := "infinitescroll")(
-            tours.nextPage.map { n =>
-              frag(
-                tr(
-                  th(cls := "pager none")(
-                    a(rel := "next", href := routes.TournamentCrud.index(n))("Next")
-                  )
-                ),
-                tr()
-              )
-            },
+          tbody(cls := "infinite-scroll")(
             tours.currentPageResults.map { tour =>
               tr(cls := "paginated")(
                 td(
@@ -174,7 +164,8 @@ object crud {
                 td(showDateTimeUTC(tour.startsAt), " ", momentFromNow(tour.startsAt)),
                 td(a(href := routes.Tournament.show(tour.id), dataIcon := "v", title := "View on site"))
               )
-            }
+            },
+            pagerNextTable(tours, np => routes.TournamentCrud.index(np).url)
           )
         )
       )

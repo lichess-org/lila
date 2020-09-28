@@ -135,10 +135,9 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     }
 
   def badStripeSession[A: Writes](err: A) = BadRequest(jsonError(err))
-  def badStripeApiCall: PartialFunction[Throwable, Result] = {
-    case e: StripeException =>
-      logger.error("Plan.stripeCheckout", e)
-      badStripeSession("Stripe API call failed")
+  def badStripeApiCall: PartialFunction[Throwable, Result] = { case e: StripeException =>
+    logger.error("Plan.stripeCheckout", e)
+    badStripeSession("Stripe API call failed")
   }
 
   private def createStripeSession(checkout: Checkout, customerId: CustomerId) =

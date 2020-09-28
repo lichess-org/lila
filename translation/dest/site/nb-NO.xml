@@ -199,7 +199,8 @@
     <item quantity="other">%s partier mot deg</item>
   </plurals>
   <string name="cancel">Avbryt</string>
-  <string name="timeOut">Tiden er ute</string>
+  <string name="whiteTimeOut">Tiden er ute for hvit</string>
+  <string name="blackTimeOut">Tiden er ute for svart</string>
   <string name="drawOfferSent">Remistilbud sendt</string>
   <string name="drawOfferDeclined">Remistilbud avslått</string>
   <string name="drawOfferAccepted">Remistilbud godtatt</string>
@@ -393,7 +394,7 @@
   <string name="openTournaments">Åpne turneringer</string>
   <string name="duration">Varighet</string>
   <string name="winner">Vinner</string>
-  <string name="standing" comment="standing&#10;&#10;Used as a noun here. Refers to someone's current place in a tournament.">Resultatliste</string>
+  <string name="standing">Resultatliste</string>
   <string name="createANewTournament">Opprett en ny turnering</string>
   <string name="tournamentCalendar">Turneringskalender</string>
   <string name="conditionOfEntry">Betingelse for å delta:</string>
@@ -657,7 +658,7 @@
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturneringer med ulike tidskontroller og varianter</string>
   <string name="tournamentHomeDescription">Spill fartsfylte sjakkturneringer! Delta i offisielle, faste turneringer eller lag din egen. Lynsjakk, hurtigsjakk, og andre varianter er tilgjengelig for endeløs sjakkunderholdning.</string>
-  <string name="tournamentNotFound" comment="tournamentNotFound&#10;&#10;A 404 type of error specifically for tournaments, in case the tournament gets cancelled (for example, if no one enters it and it is abandoned), as these pages are deleted.">Finner ikke turneringen</string>
+  <string name="tournamentNotFound">Finner ikke turneringen</string>
   <string name="tournamentDoesNotExist">Turneringen eksisterer ikke.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avlyst fordi alle spillerne trakk seg før den startet.</string>
   <string name="returnToTournamentsHomepage">Tilbake til turneringsoversikt</string>

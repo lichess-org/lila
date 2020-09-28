@@ -15,16 +15,16 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/jquery": "^2.0",
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
     "@badrap/result": "^0.2.6",
+    "@yaireo/tagify": "3.9.3",
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",
     "chessground": "^7.9.2",
-    "chessops": "^0.6.0",
+    "chessops": "^0.7.2",
     "common": "2.0.0",
     "game": "2.0.0",
     "nvui": "2.0.0",

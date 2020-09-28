@@ -33,11 +33,7 @@ bad {
   color: $c-bad;
 }
 
-/* infinite scroll */
-.inf-more {
-  width: 100%;
-}
-
-#infscr-loading .spinner {
+.infinite-scroll .pager {
+  text-align: center;
   margin: 10px auto;
 }

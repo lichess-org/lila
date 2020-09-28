@@ -2,14 +2,14 @@ import { AnalyseApi, AnalyseOpts } from './interfaces';
 import { start } from './main';
 
 export default function(cfg: AnalyseOpts) {
-  const li = window.lichess, data = cfg.data;
+
   let analyse: AnalyseApi;
 
-  li.socket = new li.StrongSocket(
-    data.url.socket,
-    data.player.version, {
+  lichess.socket = new lichess.StrongSocket(
+    cfg.data.url.socket,
+    cfg.data.player.version, {
       params: {
-        userTv: data.userTv && data.userTv.id
+        userTv: cfg.data.userTv && cfg.data.userTv.id
       },
       receive(t: string, d: any) {
         analyse.socketReceive(t, d);
@@ -18,6 +18,6 @@ export default function(cfg: AnalyseOpts) {
   cfg.$side = $('.analyse__side').clone();
   cfg.$underboard = $('.analyse__underboard').clone();
   cfg.initialPly = 'url';
-  cfg.socketSend = li.socket.send;
+  cfg.socketSend = lichess.socket.send;
   analyse = start(cfg);
 };

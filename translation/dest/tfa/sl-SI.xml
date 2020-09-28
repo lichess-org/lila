@@ -4,8 +4,7 @@
   <string name="twoFactorHelp">Dvoja avtentikacija nudi dodaten nivo zaščite k vašemu računu.</string>
   <string name="twoFactorApp">Pridobite si aplikacijo za dvojno avtenikacijo, na primer Google Authenticator za %1$s ali %2$s.</string>
   <string name="scanTheCode">Z aplikacijo skenirajte QR kodo.</string>
-  <string name="enterPassword">Za namestitev, vpišite svoje geslo in avtentikacijsko kodo, ki jo ustvari aplikacija.
-Ko se boste prijavili, boste vsakokrat potrebovali avtentikacijsko kodo.</string>
+  <string name="enterPassword">Za namestitev, vpišite svoje geslo in avtentikacijsko kodo, ki jo ustvari aplikacija. Ko se boste prijavili, boste vsakokrat potrebovali avtentikacijsko kodo.</string>
   <string name="authenticationCode">Avtentikacijska koda</string>
   <string name="ifYouLoseAccess">Opomnik: Če boste izgubili dostop do kode za dvojno avtentikacijo, boste lahko ponastavili geslo preko email naslova.</string>
   <string name="enableTwoFactor">Omogočite dvojno avtentikacijo</string>

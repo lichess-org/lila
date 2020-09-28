@@ -11,7 +11,7 @@ export default function watchers(element: HTMLElement) {
 
   const listEl: HTMLElement | null = element.querySelector('.list');
   const numberEl: HTMLElement | null = element.querySelector('.number');
-  window.lichess.pubsub.on('socket.in.crowd', data => set(data.watchers || data));
+  lichess.pubsub.on('socket.in.crowd', data => set(data.watchers || data));
 
   const set = (data: Data) => {
     watchersData = data;

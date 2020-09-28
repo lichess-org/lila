@@ -119,8 +119,8 @@ object Event {
         enpassant = (move.capture ifTrue move.enpassant).map {
           Event.Enpassant(_, !move.color)
         },
-        castle = move.castle.map {
-          case (king, rook) => Castling(king, rook, move.color)
+        castle = move.castle.map { case (king, rook) =>
+          Castling(king, rook, move.color)
         },
         state = state,
         clock = clock,
@@ -188,12 +188,11 @@ object Event {
       else {
         val sb    = new java.lang.StringBuilder(128)
         var first = true
-        moves foreach {
-          case (orig, dests) =>
-            if (first) first = false
-            else sb append " "
-            sb append orig.key
-            dests foreach { sb append _.key }
+        moves foreach { case (orig, dests) =>
+          if (first) first = false
+          else sb append " "
+          sb append orig.key
+          dests foreach { sb append _.key }
         }
         JsString(sb.toString)
       }
@@ -201,8 +200,8 @@ object Event {
     def oldJson(moves: Map[Pos, List[Pos]]) =
       if (moves.isEmpty) JsNull
       else
-        moves.foldLeft(JsObject(Nil)) {
-          case (res, (o, d)) => res + (o.key -> JsString(d map (_.key) mkString))
+        moves.foldLeft(JsObject(Nil)) { case (res, (o, d)) =>
+          res + (o.key -> JsString(d map (_.key) mkString))
         }
   }
 

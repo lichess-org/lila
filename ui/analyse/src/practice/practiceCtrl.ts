@@ -182,7 +182,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     checkCevalOrTablebase();
   }
 
-  window.lichess.requestIdleCallback(checkCevalOrTablebase);
+  lichess.requestIdleCallback(checkCevalOrTablebase);
 
   return {
     onCeval: checkCeval,

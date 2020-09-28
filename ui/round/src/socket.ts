@@ -8,8 +8,6 @@ import * as sound from './sound';
 import RoundController from './ctrl';
 import { Untyped } from './interfaces';
 
-const li = window.lichess;
-
 export interface RoundSocket extends Untyped {
   send: SocketSend;
   handlers: Untyped;
@@ -62,9 +60,9 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       handlers[o.t](o.d);
     }
     else xhr.reload(ctrl).then(data => {
-      if (li.socket.getVersion() > data.player.version) {
+      if (lichess.socket.getVersion() > data.player.version) {
         // race condition! try to reload again
-        if (isRetry) li.reload(); // give up and reload the page
+        if (isRetry) lichess.reload(); // give up and reload the page
         else reload(o, true);
       }
       else ctrl.reload(data);
@@ -144,7 +142,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       }
     },
     simulEnd(simul: game.Simul) {
-      li.loadCssPath('modal');
+      lichess.loadCssPath('modal');
       modal($(
         '<p>Simul complete!</p><br /><br />' +
         `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a>`
@@ -152,7 +150,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     }
   };
 
-  li.pubsub.on('ab.rep', n => send('rep', { n }));
+  lichess.pubsub.on('ab.rep', n => send('rep', { n }));
 
   return {
     send,

@@ -77,7 +77,12 @@ object perfStat {
   ): Frag =
     st.section(cls := "glicko")(
       h2(
-        trans.perfRatingX(strong(decimal(perf.glicko.rating).toString)),
+        trans.perfRatingX(
+          strong(
+            if (perf.glicko.clueless) "?"
+            else decimal(perf.glicko.rating).toString
+          )
+        ),
         perf.glicko.provisional option frag(
           " ",
           span(

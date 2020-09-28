@@ -17,11 +17,12 @@ object home {
     views.html.base.layout(
       moreCss = cssTag("simul.list"),
       moreJs = embedJsUnsafeLoadThen(s"""
-lichess.StrongSocket.defaults.params.flag = 'simul';
-lichess.pubsub.on('socket.in.reload', () => {
-  $$('.simul-list__content').load('${routes.Simul
-        .homeReload()}', () => lichess.pubsub.emit('content_loaded'));
-})"""),
+lichess.StrongSocket.defaultParams.flag = 'simul';
+lichess.pubsub.on('socket.in.reload', () =>
+  fetch('${routes.Simul.homeReload()}').then(r => r.text()).then(html => {
+  $$('.simul-list__content').html(html);
+  lichess.contentLoaded();
+}))"""),
       title = trans.simultaneousExhibitions.txt(),
       openGraph = lila.app.ui
         .OpenGraph(

@@ -104,16 +104,15 @@ final class IrwinApi(
       )
 
     private[irwin] def fromTournamentLeaders(leaders: Map[Tournament, TournamentTop]): Funit =
-      lila.common.Future.applySequentially(leaders.toList) {
-        case (tour, top) =>
-          userRepo byIds top.value.zipWithIndex
-            .filter(_._2 <= tour.nbPlayers * 2 / 100)
-            .map(_._1.userId)
-            .take(20) flatMap { users =>
-            lila.common.Future.applySequentially(users) { user =>
-              insert(Suspect(user), _.Tournament)
-            }
+      lila.common.Future.applySequentially(leaders.toList) { case (tour, top) =>
+        userRepo byIds top.value.zipWithIndex
+          .filter(_._2 <= tour.nbPlayers * 2 / 100)
+          .map(_._1.userId)
+          .take(20) flatMap { users =>
+          lila.common.Future.applySequentially(users) { user =>
+            insert(Suspect(user), _.Tournament)
           }
+        }
       }
 
     private[irwin] def fromLeaderboard(leaders: List[User]): Funit =
@@ -153,7 +152,7 @@ final class IrwinApi(
     private var subs = Map.empty[SuspectId, Set[ModId]]
 
     def add(suspectId: SuspectId, modId: ModId): Unit =
-      subs.updated(suspectId, (~subs.get(suspectId)) + modId)
+      subs = subs.updated(suspectId, ~subs.get(suspectId) + modId)
 
     private[IrwinApi] def apply(report: IrwinReport): Funit =
       subs.get(report.suspectId) ?? { modIds =>

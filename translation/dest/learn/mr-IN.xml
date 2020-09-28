@@ -29,7 +29,7 @@
   <string name="theQueen">वझीर(राणी)</string>
   <string name="queenCombinesRookAndBishop">वझीर = हत्ती + उंट</string>
   <string name="queenIntro">सर्वात शक्तिशाली बुद्धीबळ गोटी आत प्रवेश करते. राणी साहेबांचा विजय असो!</string>
-  <string name="queenComplete">अभिनंदन! तुला वझीरबद्दल सर्व काही माहित झालाय. </string>
+  <string name="queenComplete">अभिनंदन! तुला वझीरबद्दल सर्व काही माहित झालाय.</string>
   <string name="theKing">राजा</string>
   <string name="theMostImportantPiece">सर्वात महत्वाची गोटी</string>
   <string name="kingIntro">आपण राजे आहात. आपण लढाईत मारला गेल्यास खेळ हरवला आहे.</string>
@@ -53,7 +53,7 @@
 पण कधीतरी प्याद्याला घोडा बनवण्यात फायदा असतो!</string>
   <string name="pawnsMoveForward">प्यादे सरळ पुढे चालतात,
 पण तिरकं मारतात!</string>
-  <string name="captureThenPromote">मारा मग, उन्नती(Promote) करा! </string>
+  <string name="captureThenPromote">मारा मग, उन्नती(Promote) करा!</string>
   <string name="useAllThePawns">सर्व प्यादे वापरा!
 उन्नती करण्याची गरज नाही.</string>
   <string name="aPawnOnTheSecondRank">मूळ घरातील प्यादा एकाच वेळी 2 चौरस चालू शकतो!</string>

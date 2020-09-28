@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Nodiad symbolau</string>
   <string name="pgnLetter">Llythyrau (T, B, C, E, M)</string>
   <string name="zenMode">Ffocysu</string>
+  <string name="displayBoardResizeHandle">Dangos trin ailfeintio\'r bwrdd</string>
   <string name="onlyOnInitialPosition">Dim ond yn y safle cychwynol</string>
   <string name="blindfoldChess">Gwyddbwyll ar ddall (darnau anweladwy)</string>
   <string name="chessClock">Cloc gwyddbwyll</string>
@@ -20,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Bâr cynydd gwyrdd llorweddol</string>
   <string name="soundWhenTimeGetsCritical">Sain cyn redeg allan o amser</string>
   <string name="giveMoreTime">Rhoi mwy o amser</string>
+  <string name="gameBehavior">Ymddygiad y gêm</string>
   <string name="howDoYouMovePieces">Sut mae symud darnau?</string>
   <string name="clickTwoSquares">Clicio dwy sgwar</string>
   <string name="dragPiece">Llusgo darn</string>

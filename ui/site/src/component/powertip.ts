@@ -13,12 +13,13 @@ const inCrosstable = (el: HTMLElement) =>
   document.querySelector('.crosstable')?.contains(el);
 
 function onPowertipPreRender(id: string, preload?: (url: string) => void) {
-  return function(this: HTMLElement) {
-    const url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
+  return function(el: HTMLAnchorElement) {
+    const url = ($(el).data('href') || el.href).replace(/\?.+$/, '');
     if (preload) preload(url);
     xhr.text(url + '/mini').then(html => {
-      $('#' + id).html(html);
-      window.lichess.pubsub.emit('content_loaded');
+      const el = document.getElementById(id) as HTMLElement;
+      el.innerHTML = html;
+      lichess.contentLoaded(el);
     });
   };
 };
@@ -31,12 +32,7 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) => {
     inCrosstable(el) ? 'n' : 's'
   );
   $(el).removeClass('ulpt').powerTip({
-    intentPollInterval: 200,
-    placement: pos,
-    smartPlacement: true,
-    closeDelay: 200
-  }).data('powertip', ' ').on({
-    powerTipRender: onPowertipPreRender('powerTip', (url: string) => {
+    preRender: onPowertipPreRender('powerTip', (url: string) => {
       const u = url.substr(3);
       const name = $(el).data('name') || $(el).html();
       $('#powerTip').html('<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + name + '</span></div></div><div class="upt__actions btn-rack">' +
@@ -44,32 +40,29 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) => {
         uptA('/inbox/new?user=' + u, 'c') +
         uptA('/?user=' + u + '#friend', 'U') +
         '<a class="btn-rack__btn relation-button" disabled></a></div>');
-    })
+    }),
+    placement: pos
   });
 };
 
 function gamePowertip(el: HTMLElement) {
   $(el).removeClass('glpt').powerTip({
-    intentPollInterval: 200,
+    preRender: onPowertipPreRender('miniGame', () => spinnerHtml),
     placement: inCrosstable(el) ? 'n' : 'w',
-    smartPlacement: true,
-    closeDelay: 200,
     popupId: 'miniGame'
-  }).on({
-    powerTipPreRender: onPowertipPreRender('miniGame')
-  }).data('powertip', spinnerHtml);
+  });
 };
 
-function powerTipWith(el: HTMLElement, ev, f) {
+function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) {
   if (isHoverable()) {
     f(el);
     $.powerTip.show(el, ev);
   }
 };
 
-function onIdleForAll(par: HTMLElement, sel, fun) {
+function onIdleForAll(par: HTMLElement, sel: string, f: (el: HTMLElement) => void) {
   requestIdleCallback(() =>
-    Array.prototype.forEach.call(par.querySelectorAll(sel), (el: HTMLElement) => fun(el)) // do not codegolf to `fun`
+    Array.prototype.forEach.call(par.querySelectorAll(sel), (el: HTMLElement) => f(el)) // do not codegolf to `f`
   )
 }
 
