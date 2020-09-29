@@ -39,8 +39,6 @@ object Clas {
       archived = none
     )
 
-  case class WithOwner(clas: Clas, teacher: Teacher)
-
   case class Id(value: String) extends AnyVal with StringValue
 
   case class Recorded(by: User.ID, at: DateTime)
