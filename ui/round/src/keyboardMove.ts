@@ -24,7 +24,7 @@ export interface KeyboardMove {
   jump(delta: number): void;
   justSelected(): boolean;
   clock(): ClockController | undefined;
-  resign(v: boolean): void;
+  resign(v: boolean, immediately?: boolean): void;
 }
 
 const sanToRole: { [key: string]: cg.Role } = {

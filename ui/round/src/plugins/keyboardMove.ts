@@ -1,5 +1,6 @@
-import { sanWriter, SanToUci } from './sanWriter';
 import { Dests } from '../interfaces';
+import { sanWriter, SanToUci } from './sanWriter';
+import { KeyboardMove } from '../keyboardMove';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
@@ -7,6 +8,10 @@ const crazyhouseRegex = /^\w?@[a-h][1-8]$/;
 const ambiguousPromotionCaptureRegex = /^([a-h]x?)?[a-h](1|8)$/;
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrq]$/;
 
+interface Opts {
+  input: HTMLInputElement;
+  ctrl: KeyboardMove;
+}
 interface SubmitOpts {
   force?: boolean;
   server?: boolean;
@@ -14,10 +19,12 @@ interface SubmitOpts {
 }
 type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-lichess.keyboardMove = function(opts: any) {
+lichess.keyboardMove = function(opts: Opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
+
+  const isKey = (v: string): v is Key => !!v.match(keyRegex);
 
   const submit: Submit = function(v: string, submitOpts: SubmitOpts) {
     // consider 0's as O's for castling
@@ -31,12 +38,12 @@ lichess.keyboardMove = function(opts: any) {
       // ambiguous castle
       if (v.toLowerCase() === 'o-o' && legalSans['O-O-O'] && !submitOpts.force) return;
       // ambiguous UCI
-      if (v.match(keyRegex) && opts.ctrl.hasSelected()) opts.ctrl.select(v);
+      if (isKey(v) && opts.ctrl.hasSelected()) opts.ctrl.select(v);
       // ambiguous promotion (also check legalSans[v] here because bc8 could mean Bc8)
       if (v.match(ambiguousPromotionCaptureRegex) && legalSans[v] && !submitOpts.force) return;
-      else opts.ctrl.san(foundUci.slice(0, 2), foundUci.slice(2));
+      else opts.ctrl.san(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key);
       clear();
-    } else if (legalSans && v.match(keyRegex)) {
+    } else if (legalSans && isKey(v)) {
       opts.ctrl.select(v);
       clear();
     } else if (legalSans && v.match(fileRegex)) {
@@ -44,11 +51,11 @@ lichess.keyboardMove = function(opts: any) {
     } else if (legalSans && v.match(promotionRegex)) {
       const foundUci = sanToUci(v.replace('=', '').slice(0, -1), legalSans);
       if (!foundUci) return;
-      opts.ctrl.promote(foundUci.slice(0, 2), foundUci.slice(2), v.slice(-1).toUpperCase());
+      opts.ctrl.promote(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key, v.slice(-1).toUpperCase());
       clear();
     } else if (v.match(crazyhouseRegex)) {
       if (v.length === 3) v = 'P' + v;
-      opts.ctrl.drop(v.slice(2), v[0].toUpperCase());
+      opts.ctrl.drop(v.slice(2) as Key, v[0].toUpperCase());
       clear();
     } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
       if ('clock' === v.toLowerCase()) {
@@ -62,7 +69,7 @@ lichess.keyboardMove = function(opts: any) {
     else {
       const wrong = v.length && legalSans && !sanCandidates(v, legalSans).length;
       if (wrong && !opts.input.classList.contains('wrong')) lichess.sound.play('error');
-      opts.input.classList.toggle('wrong', wrong);
+      opts.input.classList.toggle('wrong', !!wrong);
     }
   };
   const clear = function() {
@@ -105,7 +112,7 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
       if (e.which == 37) opts.ctrl.jump(-1);
       else if (e.which == 38) opts.ctrl.jump(-999);
       else if (e.which == 39) opts.ctrl.jump(1);
-      else  opts.ctrl.jump(999);
+      else opts.ctrl.jump(999);
       e.preventDefault();
     }
   });
@@ -147,7 +154,7 @@ function readClocks(clockCtrl: any | undefined) {
     const time = clockCtrl.millisOf(color);
     const date = new Date(time);
     const msg = (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') + ' ' +
-      simplePlural(date.getUTCMinutes(), 'minute') +  ' ' +
+      simplePlural(date.getUTCMinutes(), 'minute') + ' ' +
       simplePlural(date.getUTCSeconds(), 'second');
     return `${color}: ${msg}`;
   });
