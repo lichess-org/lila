@@ -597,8 +597,8 @@ export default function (token: string) {
       });
       */
       var innerTable = `<table class="dgt-table"><tr><th> - </th><th>Title</th><th>Username</th><th>Rating</th><th>Timer</th><th>Last Move</th><th>gameId: ${gameInfo.id}}</th></tr>` +
-                       `<tr><td>White</td><td>${ (gameInfo.white.title !== null) ? gameInfo.white.title : '@'}</td><td>${gameInfo.white.name}</td><td>${gameInfo.white.rating}</td><td>${formattedTimer(gameState.wtime)}</td><td>${(lastMove.player == 'white' ? lastMove.move : '?')}</td><td>${gameInfo.speed + ' ' + ((gameInfo.clock !== null) ? (String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''") : '∞')}</td></tr>` + 
-                       `<tr><td>Black</td><td>${ (gameInfo.black.title !== null) ? gameInfo.black.title : '@'}</td><td>${gameInfo.black.name}</td><td>${gameInfo.black.rating}</td><td>${formattedTimer(gameState.btime)}</td><td>${(lastMove.player == 'black' ? lastMove.move : '?')}</td><td>Status: ${gameState.status}</td></tr>`
+        `<tr><td>White</td><td>${(gameInfo.white.title !== null) ? gameInfo.white.title : '@'}</td><td>${gameInfo.white.name}</td><td>${gameInfo.white.rating}</td><td>${formattedTimer(gameState.wtime)}</td><td>${(lastMove.player == 'white' ? lastMove.move : '?')}</td><td>${gameInfo.speed + ' ' + ((gameInfo.clock !== null) ? (String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''") : '∞')}</td></tr>` +
+        `<tr><td>Black</td><td>${(gameInfo.black.title !== null) ? gameInfo.black.title : '@'}</td><td>${gameInfo.black.name}</td><td>${gameInfo.black.rating}</td><td>${formattedTimer(gameState.btime)}</td><td>${(lastMove.player == 'black' ? lastMove.move : '?')}</td><td>Status: ${gameState.status}</td></tr>`
       console.log(innerTable);
       switch (gameState.status) {
         case "started":
@@ -775,67 +775,76 @@ export default function (token: string) {
         }
         else {
           //A move was received
-          SANMove = String(message.param.san[message.param.san.length - 1]).trim();
-          if (verbose) console.info('onmessage - SANMove = ' + SANMove);
-          //Store the postition too to help prevent duplicates
+          //Get all the moves on the param.san that are not present on lastLegalParam.san
+          //it is possible to receive two new moves on the message. Don't assume only the last move is pending.
+          var movesToProcess = 1;
+          if (lastLegalParam !== undefined)
+            movesToProcess = message.param.san.length - lastLegalParam.san.length;
+          //Update the lastLegalParam object to to help prevent duplicates and detect when more than one move is received
           lastLegalParam = message.param;
-          var moveObject: NormalMove | undefined; //a move in chessops format
-          moveObject = <NormalMove>parseSan(localBoard, SANMove); //get move from DGT LiveChess
-          //if valid move on local chessops
-          if ((moveObject) && localBoard.isLegal(moveObject)) {
-            if (verbose) console.info('onmessage - Move is legal');
-            //if received move.color == this.currentGameColor
-            if (localBoard.turn == currentGameColor) {
-              //This is a valid new move send it to lichess
-              if (verbose) console.info('onmessage - Valid Move played: ' + SANMove)
-              await validateAndSendBoardMove(moveObject);
-              //Update the lastSanMove
-              lastSanMove = { player: localBoard.turn, move: SANMove, by: me.id }
-              //Play the move on local board to keep it in sync
-              localBoard.play(moveObject);
-            }
-            else if (compareMoves(lastMove.move, moveObject)) {
-              //This is a valid adjustment - Just making the move from Lichess
-              if (verbose) console.info('onmessage - Valid Adjustment: ' + SANMove);
-              //no need to send anything to Lichess moveObject required
-              //lastSanMove will be updated once this move comes back from lichess
-              //Play the move on local board to keep it in sync
-              localBoard.play(moveObject);
-            }
-            else {
-              //Invalid Adjustment. Move was legal but does not match last move received from Lichess
-              console.error('onmessage - Invalid Adjustment was made');
-              if (compareMoves(lastMove.move, moveObject)) {
-                console.error('onmessage - Played move has not been received by Lichess.');
-              } else {
-                console.error('onmessage - Expected:' + lastMove.move + ' by ' + lastMove.player);
-                console.error('onmessage - Detected:' + makeUci(moveObject) + ' by ' + localBoard.turn);
+          if (verbose && movesToProcess > 1) console.warn('onmessage - Multiple moves received on single message - movesToProcess: ' + movesToProcess);
+          for (let i = movesToProcess; i > 0; i--) {
+            //Get first move to process, usually the last since movesToProcess is usually 1
+            SANMove = String(message.param.san[message.param.san.length - i]).trim();
+            if (verbose) console.info('onmessage - SANMove = ' + SANMove);
+            var moveObject: NormalMove | undefined; //a move in chessops format
+            moveObject = <NormalMove>parseSan(localBoard, SANMove); //get move from DGT LiveChess
+            //if valid move on local chessops
+            if ((moveObject) && localBoard.isLegal(moveObject)) {
+              if (verbose) console.info('onmessage - Move is legal');
+              //if received move.color == this.currentGameColor
+              if (localBoard.turn == currentGameColor) {
+                //This is a valid new move send it to lichess
+                if (verbose) console.info('onmessage - Valid Move played: ' + SANMove)
+                await validateAndSendBoardMove(moveObject);
+                //Update the lastSanMove
+                lastSanMove = { player: localBoard.turn, move: SANMove, by: me.id }
+                //Play the move on local board to keep it in sync
+                localBoard.play(moveObject);
               }
-              announceInvalidMove();
-              await sleep(1000);
-              //Repeat last game state announcement
-              announcePlay(lastMove);
-            }
-          }
-          else {
-            //Move was valid on DGT Board but not legal on localBoard
-            if (verbose) console.info('onmessage - Move is NOT legal');
-            if (lastMove.move == SANMove) {
-              //This is fine, the same last move was received again and seems illegal
-              if (verbose) console.warn('onmessage - Move received is the same as the last moved played: ' + SANMove)
-            }
-            else if (SANMove.startsWith('O-')) {
-              //This is may be fine, sometimes castling triggers twice and second time is invalid
-              if (verbose) console.warn('onmessage - Caslting may be duplicated as the last moved played: ' + SANMove)
+              else if (compareMoves(lastMove.move, moveObject)) {
+                //This is a valid adjustment - Just making the move from Lichess
+                if (verbose) console.info('onmessage - Valid Adjustment: ' + SANMove);
+                //no need to send anything to Lichess moveObject required
+                //lastSanMove will be updated once this move comes back from lichess
+                //Play the move on local board to keep it in sync
+                localBoard.play(moveObject);
+              }
+              else {
+                //Invalid Adjustment. Move was legal but does not match last move received from Lichess
+                console.error('onmessage - Invalid Adjustment was made');
+                if (compareMoves(lastMove.move, moveObject)) {
+                  console.error('onmessage - Played move has not been received by Lichess.');
+                } else {
+                  console.error('onmessage - Expected:' + lastMove.move + ' by ' + lastMove.player);
+                  console.error('onmessage - Detected:' + makeUci(moveObject) + ' by ' + localBoard.turn);
+                }
+                announceInvalidMove();
+                await sleep(1000);
+                //Repeat last game state announcement
+                announcePlay(lastMove);
+              }
             }
             else {
-              //Receiving a legal move on DGT Board but invalid move on localBoard signals a de-sycnhronization
-              if (verbose) console.error('onmessage - invalidMove - Position Mismatch between DGT Board and internal in memory Board . SAN: ' + SANMove);
-              announceInvalidMove();
-              console.info(board(localBoard.board));
+              //Move was valid on DGT Board but not legal on localBoard
+              if (verbose) console.info('onmessage - Move is NOT legal');
+              if (lastMove.move == SANMove) {
+                //This is fine, the same last move was received again and seems illegal
+                if (verbose) console.warn('onmessage - Move received is the same as the last moved played: ' + SANMove)
+              }
+              else if (SANMove.startsWith('O-')) {
+                //This is may be fine, sometimes castling triggers twice and second time is invalid
+                if (verbose) console.warn('onmessage - Caslting may be duplicated as the last moved played: ' + SANMove)
+              }
+              else {
+                //Receiving a legal move on DGT Board but invalid move on localBoard signals a de-sycnhronization
+                if (verbose) console.error('onmessage - invalidMove - Position Mismatch between DGT Board and internal in memory Board . SAN: ' + SANMove);
+                announceInvalidMove();
+                console.info(board(localBoard.board));
+              }
             }
-          }
-        }
+          } //end for
+        } //end else - move was received
       }
       else if (message.response == 'feed') {
         //feed received but not san
@@ -1020,8 +1029,8 @@ export default function (token: string) {
    */
   function compareMoves(lastMove: string, moveObject: NormalMove): boolean {
     try {
-      if (verbose) console.log(`Comparing ${lastMove} with ${moveObject}`);
       var uciMove = makeUci(moveObject);
+      if (verbose) console.log(`Comparing ${lastMove} with ${uciMove}`);
       if (lastMove == uciMove) {
         //its the same move
         return true;
@@ -1032,7 +1041,7 @@ export default function (token: string) {
         //It was a castling so it still may be the same move
         if (lastMove.startsWith(uciMove.substring(0, 2))) {
           //it was the same starting position for the king
-          if (lastMove.startsWith('e1g1') || lastMove.startsWith('e1b1') || lastMove.startsWith('e8b8') || lastMove.startsWith('e8g8')) {
+          if (lastMove.startsWith('e1g1') || lastMove.startsWith('e1c1') || lastMove.startsWith('e8c8') || lastMove.startsWith('e8g8')) {
             //and the last move looks like a castling too
             return true
           }
@@ -1071,7 +1080,7 @@ export default function (token: string) {
     console.log("    '|_.=`   __\\                                                               ");
     console.log("    `\\_..==`` /                 Lichess.org - DGT Electronic Board Connector   ");
     console.log("     .'.___.-'.                Developed by Andres Cavallin and Juan Cavallin  ");
-    console.log("    /          \\                                  v1.0.1                       ");
+    console.log("    /          \\                                  v1.0.2                       ");
     console.log("jgs('--......--')                                                             ");
     console.log("   /'--......--'\\                                                              ");
     console.log("   `\"--......--\"`                                                             ");
