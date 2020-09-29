@@ -3,7 +3,7 @@ import throttle from 'common/throttle';
 import * as xhr from 'common/xhr';
 import { RoundData } from './interfaces';
 
-export const _reload = (ctrl: RoundController): Promise<RoundData> =>
+export const reload = (ctrl: RoundController): Promise<RoundData> =>
   xhr.json(ctrl.data.url.round);
 
 export const whatsNext = (ctrl: RoundController): Promise<{ next?: string }> =>
