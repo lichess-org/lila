@@ -283,6 +283,12 @@
   <string name="continueFromHere">Fan hjirwei fierder</string>
   <string name="toStudy">Studzje</string>
   <string name="importGame">Ymportear in partij</string>
+  <string name="importGameExplanation">Plak in spultsje PGN om in trochblêdbere werhelling,
+kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
+  <string name="thisIsAChessCaptcha">Dit is in skaak CAPTCHA.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klik op it boerd om in set te dwaan, en te bewizen datsto in minske bist.</string>
+  <string name="captcha.fail">Los de \'skaak- captcha\' op.</string>
+  <string name="notACheckmate">Dit is gjin skaakmat</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
