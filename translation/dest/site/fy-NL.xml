@@ -228,7 +228,7 @@
   <string name="recipient">Untfanger</string>
   <string name="send">Stjoer</string>
   <string name="incrementInSeconds">Bytelling yn sekonden</string>
-  <string name="freeOnlineChess">Fergees Online Skaken</string>
+  <string name="freeOnlineChess">Fergees Online Skake</string>
   <string name="spectators">Taskôgers</string>
   <plurals name="nbPlaying">
     <item quantity="one">%s Spyljende</item>
@@ -272,6 +272,10 @@
   <string name="xStartedStreaming">%s is mei streamen úteinsetten</string>
   <string name="averageElo">Gemiddelde rating</string>
   <string name="location">Lokaasje</string>
+  <string name="filterGames">Partijen skiftsje</string>
+  <string name="reset">Resette</string>
+  <string name="apply">Yntsjinje</string>
+  <string name="save">Bewarje</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
