@@ -5,12 +5,13 @@ import chess.format.{ FEN, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Castles, Centis, CheckCount, Clock, Color, Mode, MoveOrDrop, Speed, Status, Game => ChessGame }
+import org.joda.time.DateTime
+
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.rating.PerfType.Classical
 import lila.user.User
-import org.joda.time.DateTime
 
 case class Game(
     id: Game.ID,
@@ -449,7 +450,9 @@ case class Game(
   private def outoftimeClock(withGrace: Boolean): Boolean =
     clock ?? { c =>
       started && playable && (bothPlayersHaveMoved || isSimul || isSwiss || fromFriend) && {
-        (!c.isRunning && !c.isInit) || c.outOfTime(turnColor, withGrace)
+        c.outOfTime(turnColor, withGrace) || {
+          !c.isRunning && c.players.exists(_.elapsed.centis > 0)
+        }
       }
     }
 
