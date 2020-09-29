@@ -3,7 +3,7 @@ import * as xhr from 'common/xhr';
 export const assetUrl = (path: string, opts: AssetUrlOpts = {}) => {
   opts = opts || {};
   const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
-    version = opts.version || document.body.getAttribute('data-asset-version');
+    version = document.body.getAttribute('data-asset-version');
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
 
