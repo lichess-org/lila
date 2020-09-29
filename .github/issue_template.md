@@ -18,7 +18,7 @@ HOW TO REPORT A BUG:
 
 - Give the exact URL where the bug happened
 - List the exact steps to reproduce the bug
-- Describe what you expected to happened
+- Describe what you expected to happen
 - Describe what happened instead
 - List your operating system version and browser version
 - Add one or more screenshots if possible
