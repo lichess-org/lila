@@ -1,7 +1,8 @@
 import * as xhr from 'common/xhr';
+import throttle from 'common/throttle';
 import { Pool } from './interfaces';
 
-export const seeks = () => xhr.json('/lobby/seeks');
+export const seeks = throttle(2000, () => xhr.json('/lobby/seeks'));
 
 export const nowPlaying = () => xhr.json('/account/now-playing').then(o => o.nowPlaying);
 
