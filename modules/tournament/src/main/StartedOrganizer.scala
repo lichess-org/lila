@@ -15,15 +15,15 @@ final private class StartedOrganizer(
 
   override def preStart(): Unit = {
     context setReceiveTimeout 120.seconds
-    scheduleNext
+    scheduleNext()
   }
 
   implicit def ec = context.dispatcher
 
   case object Tick
 
-  def scheduleNext =
-    context.system.scheduler.scheduleOnce(2 seconds, self, Tick)
+  def scheduleNext(): Unit =
+    context.system.scheduler.scheduleOnce(2 seconds, self, Tick).unit
 
   def receive = {
 
@@ -47,10 +47,11 @@ final private class StartedOrganizer(
         .run()
         .addEffect { case (tours, users) =>
           lila.mon.tournament.started.update(tours)
-          lila.mon.tournament.waitingPlayers.record(users)
+          lila.mon.tournament.waitingPlayers.record(users).unit
         }
         .monSuccess(_.tournament.startedOrganizer.tick)
-        .addEffectAnyway(scheduleNext)
+        .addEffectAnyway(scheduleNext())
+        .unit
   }
 
   private def processTour(tour: Tournament): Fu[Int] =

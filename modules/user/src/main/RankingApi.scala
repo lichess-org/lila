@@ -226,14 +226,16 @@ final class RankingApi(
      */
     private def monitorRatingDistribution(perfId: Perf.ID)(nbUsersList: List[NbUsers]): Unit = {
       val total = nbUsersList.sum
-      (Stat.minRating to 2800 by Stat.group).toList.zip(nbUsersList).foldLeft(0) {
-        case (prev, (rating, nbUsers)) =>
+      (Stat.minRating to 2800 by Stat.group).toList
+        .zip(nbUsersList)
+        .foldLeft(0) { case (prev, (rating, nbUsers)) =>
           val acc = prev + nbUsers
           PerfType(perfId) foreach { pt =>
             lila.mon.rating.distribution(pt.key, rating).update(prev.toDouble / total)
           }
           acc
-      }
+        }
+        .unit
     }
   }
 }

@@ -15,13 +15,13 @@ final private class CreatedOrganizer(
 
   override def preStart(): Unit = {
     context setReceiveTimeout 15.seconds
-    context.system.scheduler.scheduleOnce(10 seconds, self, Tick)
+    context.system.scheduler.scheduleOnce(10 seconds, self, Tick).unit
   }
 
   case object Tick
 
-  def scheduleNext =
-    context.system.scheduler.scheduleOnce(2 seconds, self, Tick)
+  def scheduleNext(): Unit =
+    context.system.scheduler.scheduleOnce(2 seconds, self, Tick).unit
 
   def receive = {
 
@@ -43,6 +43,7 @@ final private class CreatedOrganizer(
         .toMat(Sink.ignore)(Keep.right)
         .run()
         .monSuccess(_.tournament.createdOrganizer.tick)
-        .addEffectAnyway(scheduleNext)
+        .addEffectAnyway(scheduleNext())
+        .unit
   }
 }

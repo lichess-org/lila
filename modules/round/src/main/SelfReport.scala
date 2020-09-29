@@ -46,7 +46,7 @@ final class SelfReport(
               .info(
                 s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
               )
-            user.filter(recent.isNew) ?? { u =>
+            user.filter(recent.isNew) foreach { u =>
               slackApi.selfReport(
                 typ = name,
                 path = fullId.value,
@@ -57,7 +57,7 @@ final class SelfReport(
           }
         if (name == "kb" || fullId.value == "________") fuccess(doLog())
         else
-          proxyRepo.pov(fullId.value) map {
+          proxyRepo.pov(fullId.value) flatMap {
             _ ?? { pov =>
               if (!known) doLog()
               if (Set("ceval", "rcb")(name)) fuccess {

@@ -176,8 +176,8 @@ final class ReportApi(
     }
 
   def maybeAutoPlaybanReport(userId: String): Funit =
-    userSpyApi.getUserIdsWithSameIpAndPrint(userId) map { ids =>
-      playbanApi.bans(ids.toList ::: List(userId)) map { bans =>
+    userSpyApi.getUserIdsWithSameIpAndPrint(userId) flatMap { ids =>
+      playbanApi.bans(ids.toList ::: List(userId)) flatMap { bans =>
         (bans.values.sum >= 80) ?? {
           userRepo.byId(userId) zip
             getLichessReporter zip
@@ -259,10 +259,9 @@ final class ReportApi(
           $or($id(id), relatedSelector)
         }
         accuracy.invalidate(reportSelector) >>
-          doProcessReport(reportSelector, mod.id).void >>- {
-            nbOpenCache.invalidateUnit()
-            lila.mon.mod.report.close.increment()
-          }
+          doProcessReport(reportSelector, mod.id).void >>-
+          nbOpenCache.invalidateUnit() >>-
+          lila.mon.mod.report.close.increment().unit
       }
 
   private def doProcessReport(selector: Bdoc, by: ModId): Funit =
@@ -320,7 +319,7 @@ final class ReportApi(
       .buildAsyncFuture { _ =>
         coll
           .countSel(selectOpenAvailableInRoom(none))
-          .addEffect(lila.mon.mod.report.unprocessed.update(_))
+          .addEffect(lila.mon.mod.report.unprocessed.update(_).unit)
       }
   }
 

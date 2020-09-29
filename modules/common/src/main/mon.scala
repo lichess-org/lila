@@ -61,6 +61,7 @@ object mon {
     }
     gauge("caffeine.eviction.count").withTag("name", name).update(stats.evictionCount.toDouble)
     gauge("caffeine.entry.count").withTag("name", name).update(cache.estimatedSize.toDouble)
+    ()
   }
   object mongoCache {
     def request(name: String, hit: Boolean) =
@@ -470,7 +471,7 @@ object mon {
       val out                  = counter("push.register.out").withoutTags()
     }
     object send {
-      private def send(tpe: String)(platform: String, success: Boolean): Unit =
+      private def send(tpe: String)(platform: String, success: Boolean): Unit = {
         counter("push.send")
           .withTags(
             Map(
@@ -480,6 +481,8 @@ object mon {
             )
           )
           .increment()
+        ()
+      }
       val move        = send("move") _
       val takeback    = send("takeback") _
       val corresAlarm = send("corresAlarm") _

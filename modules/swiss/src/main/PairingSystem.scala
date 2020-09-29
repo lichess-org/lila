@@ -27,7 +27,7 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
       val stderr  = new StringBuilder
       val status = lila.common.Chronometer.syncMon(_.swiss.bbpairing) {
         blocking {
-          command ! ProcessLogger(stdout append _, stderr append _)
+          command ! ProcessLogger(stdout append _, stderr append _ unit)
         }
       }
       if (status != 0) {

@@ -38,15 +38,15 @@ final class Env(
       import lila.hub.actorApi.shutup._
       def receive = {
         case RecordPublicForumMessage(userId, text) =>
-          api.publicForumMessage(userId, text)
+          api.publicForumMessage(userId, text).unit
         case RecordTeamForumMessage(userId, text) =>
-          api.teamForumMessage(userId, text)
+          api.teamForumMessage(userId, text).unit
         case RecordPrivateMessage(userId, toUserId, text) =>
-          api.privateMessage(userId, toUserId, text)
+          api.privateMessage(userId, toUserId, text).unit
         case RecordPrivateChat(chatId, userId, text) =>
-          api.privateChat(chatId, userId, text)
+          api.privateChat(chatId, userId, text).unit
         case RecordPublicChat(userId, text, source) =>
-          api.publicChat(userId, text, source)
+          api.publicChat(userId, text, source).unit
       }
     }),
     name = config.actorName

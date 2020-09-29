@@ -71,7 +71,7 @@ final class EvalCacheApi(
         logger.info(s"Invalid from ${trustedUser.user.username} $error ${input.fen}")
         funit
       case None =>
-        getEntry(input.id) map {
+        getEntry(input.id) flatMap {
           case None =>
             val entry = EvalCacheEntry(
               _id = input.id,
@@ -80,7 +80,7 @@ final class EvalCacheApi(
               usedAt = DateTime.now,
               updatedAt = DateTime.now
             )
-            coll.insert.one(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
+            coll.insert.one(entry).recover(lila.db.ignoreDuplicateKey).void >>-
               cache.put(input.id, fuccess(entry.some)) >>-
               upgrade.onEval(input, sri)
           case Some(oldEntry) =>

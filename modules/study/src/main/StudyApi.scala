@@ -159,16 +159,18 @@ final class StudyApi(
       case _ => fuccess(study -> none)
     }
 
-  private def scheduleTimeline(studyId: Study.Id) =
-    scheduler.scheduleOnce(1 minute) {
-      byId(studyId) foreach {
-        _.withFilter(_.isPublic) foreach { study =>
-          timeline ! (Propagate(
-            StudyCreate(study.ownerId, study.id.value, study.name.value)
-          ) toFollowersOf study.ownerId)
+  private def scheduleTimeline(studyId: Study.Id): Unit =
+    scheduler
+      .scheduleOnce(1 minute) {
+        byId(studyId) foreach {
+          _.withFilter(_.isPublic) foreach { study =>
+            timeline ! (Propagate(
+              StudyCreate(study.ownerId, study.id.value, study.name.value)
+            ) toFollowersOf study.ownerId)
+          }
         }
       }
-    }
+      .unit
 
   def talk(userId: User.ID, studyId: Study.Id, text: String) =
     byId(studyId) foreach {
@@ -239,7 +241,7 @@ final class StudyApi(
             chapterRepo.setChildren(parent.children)(chapter, position.path) >>
               (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
               (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
-              updateConceal(study, chapter, newPosition) >>- {
+              updateConceal(study, chapter, newPosition) >> {
                 sendTo(study.id)(
                   _.addNode(
                     position.ref,
@@ -250,7 +252,7 @@ final class StudyApi(
                     who
                   )
                 )
-                if (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path))
+                (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path)) ??
                   promote(study.id, position.ref + node, toMainline = true)(who)
               }
           }

@@ -449,7 +449,7 @@ final private[round] class RoundDuct(
               getPlayer(c).showMillisToGone foreach {
                 _ ?? { millis =>
                   if (millis <= 0) notifyGone(c, gone = true)
-                  else if (g.clock.exists(_.remainingTime(c).millis > millis + 3000)) notifyGoneIn(c, millis)
+                  else g.clock.exists(_.remainingTime(c).millis > millis + 3000) ?? notifyGoneIn(c, millis)
                 }
               }
             }
@@ -473,14 +473,14 @@ final private[round] class RoundDuct(
       } UserLagCache.put(user, lag)
     }
 
-  private def notifyGone(color: Color, gone: Boolean): Unit =
+  private def notifyGone(color: Color, gone: Boolean): Funit =
     proxy.withPov(color) { pov =>
       fuccess {
         socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
       }
     }
 
-  private def notifyGoneIn(color: Color, millis: Long): Unit =
+  private def notifyGoneIn(color: Color, millis: Long): Funit =
     proxy.withPov(color) { pov =>
       fuccess {
         socketSend(Protocol.Out.goneIn(FullId(pov.fullId), millis))
@@ -533,13 +533,13 @@ final private[round] class RoundDuct(
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
     case e: ClientError =>
       logger.info(s"Round client error $name: ${e.getMessage}")
-      lila.mon.round.error.client.increment()
+      lila.mon.round.error.client.increment().unit
     case e: FishnetError =>
       logger.info(s"Round fishnet error $name: ${e.getMessage}")
-      lila.mon.round.error.fishnet.increment()
+      lila.mon.round.error.fishnet.increment().unit
     case e: Exception =>
       logger.warn(s"$name: ${e.getMessage}")
-      lila.mon.round.error.other.increment()
+      lila.mon.round.error.other.increment().unit
   }
 
   def roomId = RoomId(gameId)

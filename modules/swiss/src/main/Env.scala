@@ -76,10 +76,10 @@ final class Env(
     "adjustBooster",
     "teamKick"
   ) {
-    case lila.game.actorApi.FinishGame(game, _, _)           => api.finishGame(game)
-    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId)
-    case lila.hub.actorApi.mod.MarkCheater(userId, true)     => api.kickLame(userId)
-    case lila.hub.actorApi.mod.MarkBooster(userId)           => api.kickLame(userId)
+    case lila.game.actorApi.FinishGame(game, _, _)           => api.finishGame(game).unit
+    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId).unit
+    case lila.hub.actorApi.mod.MarkCheater(userId, true)     => api.kickLame(userId).unit
+    case lila.hub.actorApi.mod.MarkBooster(userId)           => api.kickLame(userId).unit
   }
 
   ResilientScheduler(

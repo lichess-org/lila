@@ -97,10 +97,12 @@ final private class Monitor(
       lila.mon.fishnet.work("acquired", "user").update(c.user.acquired)
       lila.mon.fishnet.oldest("system").update(c.system.oldest)
       lila.mon.fishnet.oldest("user").update(c.user.oldest)
+      ()
     }
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     monitorClients() >> monitorStatus()
+    ()
   }
 }
 

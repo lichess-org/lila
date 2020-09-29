@@ -15,11 +15,16 @@ object ResilientScheduler {
   )(f: => Funit)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem): Unit = {
     val run = () => f
     def runAndScheduleNext(): Unit =
-      run() withTimeout atMost.value addEffectAnyway {
-        system.scheduler.scheduleOnce(every.value) { runAndScheduleNext() }
+      run()
+        .withTimeout(atMost.value)
+        .addEffectAnyway {
+          system.scheduler.scheduleOnce(every.value) { runAndScheduleNext() }.unit
+        }
+        .unit
+    system.scheduler
+      .scheduleOnce(initialDelay) {
+        runAndScheduleNext()
       }
-    system.scheduler.scheduleOnce(initialDelay) {
-      runAndScheduleNext()
-    }
+      .unit
   }
 }

@@ -19,12 +19,14 @@ final private[plan] class PlanNotifier(
   def onStart(user: User) =
     fuccess {
       system.scheduler.scheduleOnce(5 seconds) {
-        notifyApi.addNotification(
-          Notification.make(
-            Notifies(user.id),
-            lila.notify.PlanStart(user.id)
+        notifyApi
+          .addNotification(
+            Notification.make(
+              Notifies(user.id),
+              lila.notify.PlanStart(user.id)
+            )
           )
-        )
+          .unit
       }
       val msg = Propagate(lila.hub.actorApi.timeline.PlanStart(user.id))
       timeline ! (msg toFollowersOf user.id)

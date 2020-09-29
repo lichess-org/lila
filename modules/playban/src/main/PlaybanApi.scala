@@ -82,7 +82,7 @@ final class PlaybanApi(
         seconds = nowSeconds - game.movedAt.getSeconds
         if unreasonableTime.exists(seconds >= _)
       } yield save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor)) >>-
-        feedback.sitting(Pov(game, flaggerColor)) >>-
+        feedback.sitting(Pov(game, flaggerColor)) >>
         propagateSitting(game, userId)
 
     // flagged after waiting a short time;
@@ -97,7 +97,7 @@ final class PlaybanApi(
         } yield lastMovetime.toSeconds >= limit)
       } map { userId =>
         save(Outcome.SitMoving, userId, RageSit.imbalanceInc(game, flaggerColor)) >>-
-          feedback.sitting(Pov(game, flaggerColor)) >>-
+          feedback.sitting(Pov(game, flaggerColor)) >>
           propagateSitting(game, userId)
       }
 
@@ -140,7 +140,7 @@ final class PlaybanApi(
               .exists(_ < nowSeconds - game.movedAt.getSeconds)
               .option {
                 save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color)) >>-
-                  feedback.sitting(Pov(game, loser.color)) >>-
+                  feedback.sitting(Pov(game, loser.color)) >>
                   propagateSitting(game, loserId)
               }
               .getOrElse {
@@ -246,7 +246,7 @@ final class PlaybanApi(
         (delta < 0) ?? {
           if (record.rageSit.isTerrible) funit
           else if (record.rageSit.isVeryBad)
-            userRepo byId record.userId map {
+            userRepo byId record.userId flatMap {
               _ ?? { u =>
                 lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
                 Bus.publish(

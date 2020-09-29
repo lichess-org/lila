@@ -92,7 +92,7 @@ final class Env(
 
   Bus.subscribeFuns(
     "accountClose" -> { case lila.hub.actorApi.security.CloseAccount(userId) =>
-      gameRepo.allPlaying(userId) map {
+      gameRepo.allPlaying(userId) foreach {
         _ foreach { pov =>
           tellRound(pov.gameId, Resign(pov.playerId))
         }
@@ -102,7 +102,7 @@ final class Env(
       onStart(gameId)
     },
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
-      selfReport(userId, ip, fullId, name)
+      selfReport(userId, ip, fullId, name).unit
     }
   )
 

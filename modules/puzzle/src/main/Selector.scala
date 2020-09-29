@@ -70,7 +70,7 @@ final private[puzzle] class Selector(
       logger.info(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me
         .fold("?")(_.perfs.puzzle.intRating.toString)})")
     else
-      lila.mon.puzzle.selector.vote.record(1000 + puzzle.vote.sum)
+      lila.mon.puzzle.selector.vote.record(1000 + puzzle.vote.sum).unit
   }
 
   private def newPuzzleForUser(user: User, lastPlayed: PuzzleId): Fu[Option[Puzzle]] = {

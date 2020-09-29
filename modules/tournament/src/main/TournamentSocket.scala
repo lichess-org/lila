@@ -80,14 +80,16 @@ final private class TournamentSocket(
     )
 
   private lazy val tourHandler: Handler = { case Protocol.In.WaitingUsers(roomId, users) =>
-    allWaitingUsers.computeIfPresent(
-      roomId.value,
-      (_: Tournament.ID, cur: WaitingUsers.WithNext) => {
-        val newWaiting = cur.waiting.update(users)
-        cur.next.foreach(_ success newWaiting)
-        WaitingUsers.WithNext(newWaiting, none)
-      }
-    )
+    allWaitingUsers
+      .computeIfPresent(
+        roomId.value,
+        (_: Tournament.ID, cur: WaitingUsers.WithNext) => {
+          val newWaiting = cur.waiting.update(users)
+          cur.next.foreach(_ success newWaiting)
+          WaitingUsers.WithNext(newWaiting, none)
+        }
+      )
+      .unit
   }
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("tour-out").apply _

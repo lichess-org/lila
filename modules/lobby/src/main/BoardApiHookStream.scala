@@ -49,11 +49,13 @@ final class BoardApiHookStream(
         case actorApi.RemoveHook(_) => self ! PoisonPill
 
         case SetOnline =>
-          context.system.scheduler.scheduleOnce(3 second) {
-            // gotta send a message to check if the client has disconnected
-            queue offer None
-            self ! SetOnline
-          }
+          context.system.scheduler
+            .scheduleOnce(3 second) {
+              // gotta send a message to check if the client has disconnected
+              queue offer None
+              self ! SetOnline
+            }
+            .unit
       }
     }
 }

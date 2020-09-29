@@ -345,8 +345,8 @@ final class SwissApi(
           colls.player.delete.one(selId) flatMap { res =>
             (res.n == 1) ?? colls.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> -1)).void
           }
-      }.void >>- recomputeAndUpdateAll(id)
-    }
+      }.void
+    } >> recomputeAndUpdateAll(id)
 
   private[swiss] def finishGame(game: Game): Funit =
     game.swissId.map(Swiss.Id) ?? { swissId =>

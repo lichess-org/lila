@@ -7,13 +7,13 @@ import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.ws.StandaloneWSClient
+import Relay.Sync.Upstream
 import scala.concurrent.duration._
 
 import lila.base.LilaException
 import lila.memo.CacheApi
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
-import Relay.Sync.Upstream
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -28,13 +28,14 @@ final private class RelayFetch(
 
   override def preStart(): Unit = {
     context setReceiveTimeout 20.seconds
-    context.system.scheduler.scheduleOnce(10.seconds)(scheduleNext)
+    context.system.scheduler.scheduleOnce(10.seconds)(scheduleNext())
+    ()
   }
 
   case object Tick
 
-  def scheduleNext =
-    context.system.scheduler.scheduleOnce(500 millis, self, Tick)
+  def scheduleNext(): Unit =
+    context.system.scheduler.scheduleOnce(500 millis, self, Tick).unit
 
   def receive = {
 
@@ -59,8 +60,8 @@ final private class RelayFetch(
             logger.info(s"Finish for lack of start $relay")
             api.update(relay)(_.finish)
           } else fuccess(relay)
-        }.sequenceFu addEffectAnyway scheduleNext
-      }
+        }.sequenceFu addEffectAnyway scheduleNext()
+      }.unit
   }
 
   // no writing the relay; only reading!
@@ -69,7 +70,7 @@ final private class RelayFetch(
     else
       fetchGames(relay)
         .mon(_.relay.fetchTime(relay.official, relay.slug))
-        .addEffect(gs => lila.mon.relay.games(relay.official, relay.slug).update(gs.size))
+        .addEffect(gs => lila.mon.relay.games(relay.official, relay.slug).update(gs.size).unit)
         .flatMap { games =>
           sync(relay, games)
             .withTimeout(7 seconds, SyncResult.Timeout)

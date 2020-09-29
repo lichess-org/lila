@@ -57,17 +57,15 @@ final private class LobbyTrouper(
       }
 
     case SaveSeek(msg) =>
-      (seekApi insert msg.seek) >>- {
-        socket ! msg
-      }
+      seekApi.insert(msg.seek)
+      socket ! msg
 
     case CancelHook(sri) =>
       HookRepo bySri sri foreach remove
 
     case CancelSeek(seekId, user) =>
-      seekApi.removeBy(seekId, user.id) >>- {
-        socket ! RemoveSeek(seekId)
-      }
+      seekApi.removeBy(seekId, user.id)
+      socket ! RemoveSeek(seekId)
 
     case BiteHook(hookId, sri, user) =>
       NoPlayban(user) {
@@ -95,10 +93,9 @@ final private class LobbyTrouper(
 
     case msg @ JoinSeek(_, seek, game, _) =>
       onStart(game.id)
+      seekApi.archive(seek, game.id)
       socket ! msg
-      seekApi.archive(seek, game.id) >>- {
-        socket ! RemoveSeek(seek.id)
-      }
+      socket ! RemoveSeek(seek.id)
 
     case LeaveAll => remoteDisconnectAllAt = DateTime.now
 

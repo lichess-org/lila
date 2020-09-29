@@ -184,7 +184,7 @@ final class TournamentApi(
                         .mon(_.tournament.pairing.createInserts) >>
                         featureOneOf(tour, pairings, ranking)
                           .mon(_.tournament.pairing.createFeature) >>-
-                        lila.mon.tournament.pairing.batchSize.record(pairings.size)
+                        lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
                     }
               }
           }

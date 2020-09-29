@@ -42,7 +42,7 @@ final class TournamentShieldApi(
       }
     }
 
-  private[tournament] def clear() = cache.invalidateUnit()
+  private[tournament] def clear(): Unit = cache.invalidateUnit().unit
 
   private val cache = cacheApi.unit[History] {
     _.refreshAfterWrite(1 day)
