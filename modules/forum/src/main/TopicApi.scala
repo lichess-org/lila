@@ -40,7 +40,6 @@ final private[forum] class TopicApi(
       }
       res <- data ?? { case (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        env.topicRepo incViews topic
         env.postApi.paginator(topic, page, forUser) map { (categ, topic, _).some }
       }
     } yield res
