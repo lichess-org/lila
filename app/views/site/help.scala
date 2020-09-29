@@ -64,7 +64,7 @@ $('#asset-version-message').text(lichess.info.message);"""
             ),
             tr(
               td("Boot"),
-              td(momentFromNow(lila.common.Uptime.startedAt))
+              td(colspan := 3)(momentFromNow(lila.common.Uptime.startedAt))
             )
           )
         ),
