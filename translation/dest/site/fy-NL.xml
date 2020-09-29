@@ -323,6 +323,8 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="createANewTournament">Meitsje in nij toernoai</string>
   <string name="tournamentCalendar">Toernoai kalinder</string>
   <string name="conditionOfEntry">Tagongseasken:</string>
+  <string name="advancedSettings">Avansearre ynstellings</string>
+  <string name="safeTournamentName">Kies in feilige, net kontroversjele namme foar it toernoai.</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
