@@ -25,6 +25,7 @@
   <string name="preventLeavingGameWithoutResigning">Šta se čini s igračima koji napuste partije, a da ih ne predaju?</string>
   <string name="leavingGameWithoutResigningExplanation">Ako Vaš protivnik često otkazuje / napušta partije, dobije poruku \"igranje zabranjeno\", što znači da mu je privremeno zabranjeno igrati. To ne bude javno istaknuto na njegovom profilu. Ako se takvo ponašanje nastavi, povećava se trajanje zabrane, a produženo ponašanje takve prirode može dovesti do zatvaranja korisničkog računa.</string>
   <string name="howCanIBecomeModerator">Kako mogu postati moderator?</string>
+  <string name="youCannotApply">Nije moguće aplicirati da postanete moderator. Ako vidimo nekoga za koga mislimo da bi bio dobar kao moderator, direktno ćemo kontaktirati s njim.</string>
   <string name="isCorrespondenceDifferent">Je li dopisni šah različit od standardnog?</string>
   <string name="whatVariantsCanIplay">Koje varijante šaha mogu igrati na Lichessu?</string>
   <string name="lichessSupportChessAnd">Lichess podržava standardni šah i još osam %1$s.</string>
