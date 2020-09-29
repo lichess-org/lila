@@ -327,6 +327,13 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="safeTournamentName">Kies in feilige, net kontroversjele namme foar it toernoai.</string>
   <string name="inappropriateNameWarning">Sels by it fermoeden fan in mispleatste namme, kin jo account sluten wurde.</string>
   <string name="emptyTournamentName">Lit leech om it toernoai nei in opmerklike skaakspiler te ferneamen.</string>
+  <string name="recommendNotTouching">Wy riede oan dizze ynstellingen sa te litten.</string>
+  <string name="fewerPlayers">As jo tagongseasken ynstelle, sil jo toernoai minder spilers hawwe.</string>
+  <string name="showAdvancedSettings">Toan avansearre ynstellingen</string>
+  <string name="makePrivateTournament">Meitsje it toernoai privee, en behein de tagong mei in wachtwurd</string>
+  <string name="join">Meidwaan</string>
+  <string name="withdraw">Weromlûke</string>
+  <string name="points">Punten</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
