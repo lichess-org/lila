@@ -316,6 +316,13 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="list">List</string>
   <string name="graph">Grafyk</string>
   <string name="required">Fereaske.</string>
+  <string name="openTournaments">Iepen toernoaien</string>
+  <string name="duration">Doer</string>
+  <string name="winner">Winner</string>
+  <string name="standing">Posysje</string>
+  <string name="createANewTournament">Meitsje in nij toernoai</string>
+  <string name="tournamentCalendar">Toernoai kalinder</string>
+  <string name="conditionOfEntry">Tagongseasken:</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
