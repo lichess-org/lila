@@ -289,6 +289,14 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klik op it boerd om in set te dwaan, en te bewizen datsto in minske bist.</string>
   <string name="captcha.fail">Los de \'skaak- captcha\' op.</string>
   <string name="notACheckmate">Dit is gjin skaakmat</string>
+  <string name="whiteCheckmatesInOneMove">Skaakmat foar wyt yn ien set</string>
+  <string name="blackCheckmatesInOneMove">Skaakmat foar swart yn ien set</string>
+  <string name="retry">Op \'e nij besykje</string>
+  <string name="reconnecting">Op \'e nij ferbine</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s freon online</item>
+    <item quantity="other">%s freonen online</item>
+  </plurals>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
