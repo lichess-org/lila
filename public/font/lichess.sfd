@@ -91,17 +91,6 @@ Grid
 EndSplineSet
 BeginChars: 65538 112
 
-StartChar: .notdef
-Encoding: 0 -1 0
-AltUni2: 000000.ffffffff.0
-GlifName: _notdef
-Width: 512
-Flags: W
-LayerCount: 2
-Fore
-Validated: 1
-EndChar
-
 StartChar: uniE020
 Encoding: 57376 57376 1
 GlifName: uniE_020
