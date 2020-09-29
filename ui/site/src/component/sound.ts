@@ -11,7 +11,7 @@ const sound = new class {
   soundSet = $('body').data('sound-set');
   speechStorage = storage.makeBoolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
-  baseUrl = assetUrl('sound', { version: '000004' });
+  baseUrl = assetUrl('sound');
 
   constructor() {
     if (this.soundSet == 'music') setTimeout(this.publish, 500);
