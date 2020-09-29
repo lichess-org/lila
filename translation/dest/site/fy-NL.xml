@@ -334,6 +334,12 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="join">Meidwaan</string>
   <string name="withdraw">Weromlûke</string>
   <string name="points">Punten</string>
+  <string name="wins">Oerwinnings</string>
+  <string name="losses">Ferlern</string>
+  <string name="winStreak">Oerwinningsrige</string>
+  <string name="createdBy">Makke troch</string>
+  <string name="tournamentIsStarting">It toernoai begjint</string>
+  <string name="tournamentPairingsAreNowClosed">De toernoaipearings binne no sletten.</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
