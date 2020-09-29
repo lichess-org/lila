@@ -308,6 +308,12 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="unblock">Deblokkearje</string>
   <string name="followsYou">Folget dy</string>
   <string name="xStartedFollowingY">%1$s is begûn %2$s te folgjen</string>
+  <string name="more">Mear</string>
+  <string name="memberSince">Lid sûnt</string>
+  <string name="lastSeenActive">%s Foar it lêst sjoen</string>
+  <string name="challengeToPlay">Utdaagje foar in potsje</string>
+  <string name="player">Spiler</string>
+  <string name="list">List</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
