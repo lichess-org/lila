@@ -15,7 +15,9 @@
   <string name="breakdownOfOurCosts">presjek naših troškova</string>
   <string name="otherWaysToHelp">drugi načini da pomognete</string>
   <string name="areThereWebsitesBasedOnLichess">Postoje li sajtovi zasnovani na Lichessu?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess je zaista nadahnuo druge sajtove s otvorenim kodom koji upotrebljavaju naš %1$s, %2$s ili %3$s.</string>
   <string name="fairPlay">Fer-plej</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Zašto sam označen zbog vještačke manipulacije rejtingom (namjernim gubljenjem ili varanjem) ili korištenja pomoći računara?</string>
   <string name="howCanIBecomeModerator">Kako mogu postati moderator?</string>
   <string name="isCorrespondenceDifferent">Je li dopisni šah različit od standardnog?</string>
   <string name="whatVariantsCanIplay">Koje varijante šaha mogu igrati na Lichessu?</string>
@@ -33,6 +35,7 @@
   <string name="configure">konfigurirajte</string>
   <string name="accounts">Računi</string>
   <string name="titlesAvailableOnLichess">Koje titule postoje na Lichessu?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess priznaje sve FIDE titule stečene igrom na tabli (OTB), kao i %1$s. Evo spiska FIDE titula:</string>
   <string name="verificationForm">formular za verifikaciju</string>
   <string name="canIbecomeLM">Mogu li steći titulu Lichess majstora (LM)?</string>
   <string name="noUpperCaseDot">Ne.</string>
