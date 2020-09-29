@@ -94,6 +94,7 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
    * https://lichess.org/forum/lichess-feedback/keyboard-input-changed-today-maybe-a-bug
    */
   opts.input.addEventListener('keyup', (e: KeyboardEvent) => {
+    if (!e.isTrusted) return;
     const v = (e.target as HTMLInputElement).value;
     if (v.includes('/')) {
       focusChat();
