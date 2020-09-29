@@ -297,6 +297,17 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
     <item quantity="one">%s freon online</item>
     <item quantity="other">%s freonen online</item>
   </plurals>
+  <string name="noFriendsOnline">Gjin freonen online</string>
+  <string name="findFriends">Freonen fine</string>
+  <string name="favoriteOpponents">Favorite tsjinstanner</string>
+  <string name="follow">Folgje</string>
+  <string name="following">Folgjend</string>
+  <string name="unfollow">Net mear folgje</string>
+  <string name="block">Blokkearje</string>
+  <string name="blocked">Blokkearre</string>
+  <string name="unblock">Deblokkearje</string>
+  <string name="followsYou">Folget dy</string>
+  <string name="xStartedFollowingY">%1$s is begûn %2$s te folgjen</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
