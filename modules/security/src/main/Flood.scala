@@ -44,11 +44,11 @@ private object Flood {
     "Bye!"
   )
 
-  private case class Message(text: String, date: Instant)
+  private[security] case class Message(text: String, date: Instant)
 
   private type Messages = List[Message]
 
-  private def duplicateMessage(msg: Message, msgs: Messages): Boolean =
+  private[security] def duplicateMessage(msg: Message, msgs: Messages): Boolean =
     !passList.contains(msg.text) && msgs.headOption.?? { m =>
       similar(m.text, msg.text) || msgs.tail.headOption.?? { m2 =>
         similar(m2.text, msg.text)
