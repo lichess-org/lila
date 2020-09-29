@@ -276,6 +276,9 @@
   <string name="reset">Resette</string>
   <string name="apply">Yntsjinje</string>
   <string name="save">Bewarje</string>
+  <string name="leaderboard">Oanfierders</string>
+  <string name="pasteTheFenStringHere">Plak de FEN tekst hjirre</string>
+  <string name="pasteThePgnStringHere">Plak de PGN tekst hjirre</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
