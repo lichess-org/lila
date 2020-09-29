@@ -72,12 +72,12 @@ lichess.keyboardMove = function(opts: Opts) {
       opts.input.classList.toggle('wrong', !!wrong);
     }
   };
-  const clear = function() {
+  const clear = () => {
     opts.input.value = '';
     opts.input.classList.remove('wrong');
   };
   makeBindings(opts, submit, clear);
-  return function(fen: string, dests: Dests | undefined, yourMove: boolean) {
+  return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
     legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     submit(opts.input.value, {
       server: true,
@@ -93,7 +93,7 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
    * is not available yet. Reported by:
    * https://lichess.org/forum/lichess-feedback/keyboard-input-changed-today-maybe-a-bug
    */
-  opts.input.addEventListener('keyup', function(e: KeyboardEvent) {
+  opts.input.addEventListener('keyup', (e: KeyboardEvent) => {
     const v = (e.target as HTMLInputElement).value;
     if (v.includes('/')) {
       focusChat();
