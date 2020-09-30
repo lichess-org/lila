@@ -76,12 +76,15 @@ trait DateHelper { self: I18nHelper with StringHelper =>
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
-  def momentFromNow(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false): Frag = {
+  def momentFromNow(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false): Tag = {
     if (!alwaysRelative && (date.getMillis - nowMillis) > oneDayMillis) absClientDateTime(date)
     else timeTag(cls := s"timeago${once ?? " once"}", datetimeAttr := isoDate(date))
   }
 
-  def absClientDateTime(date: DateTime): Frag =
+  def momentFromNowWithPreload(date: DateTime, alwaysRelative: Boolean = false, once: Boolean = false): Frag =
+    momentFromNow(date, alwaysRelative, once)(momentFromNowServerText(date))
+
+  def absClientDateTime(date: DateTime): Tag =
     timeTag(cls := "timeago abs", datetimeAttr := isoDate(date))("-")
 
   def momentFromNowOnce(date: DateTime) = momentFromNow(date, once = true)
@@ -89,20 +92,25 @@ trait DateHelper { self: I18nHelper with StringHelper =>
   def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false) =
     momentFromNow(DateTime.now plusSeconds seconds, alwaysRelative)
 
-  def momentFromNowServer(date: DateTime): Frag = {
+  def momentFromNowServer(date: DateTime): Frag =
+    timeTag(title := showEnglishDateTime(date))(momentFromNowServerText(date))
+
+  def momentFromNowServerText(date: DateTime): Frag = {
     val (dateSec, nowSec) = (date.getMillis / 1000, nowSeconds)
-    val seconds           = (nowSec - dateSec) atLeast 0
+    val seconds           = (nowSec - dateSec).toInt atLeast 0
     val minutes           = seconds / 60
     val hours             = minutes / 60
     val days              = hours / 24
-    val years             = days / 365
-    val text =
-      if (minutes == 0) "Right now"
-      else if (hours == 0) s"$minutes minutes ago"
-      else if (days == 0) s"$hours hours ago"
-      else if (years == 0) s"$days days ago"
-      else s"${pluralize("year", years.toInt)} ago"
-    timeTag(title := showEnglishDateTime(date))(text)
+    lazy val weeks        = days / 7
+    lazy val months       = days / 30
+    lazy val years        = days / 365
+    if (minutes == 0) "right now"
+    else if (hours == 0) s"${pluralize("minute", minutes)} ago"
+    else if (days < 2) s"${pluralize("hour", hours)} ago"
+    else if (weeks == 0) s"${pluralize("day", days)} ago"
+    else if (months == 0) s"${pluralize("week", weeks)} ago"
+    else if (years == 0) s"${pluralize("month", months)} ago"
+    else s"${pluralize("year", years)} ago"
   }
 
   private val atomDateFormatter        = ISODateTimeFormat.dateTime

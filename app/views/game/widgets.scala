@@ -46,7 +46,7 @@ object widgets {
                     if (g.rated) trans.rated.txt() else trans.casual.txt()
                   )
               ),
-              g.pgnImport.flatMap(_.date).fold(momentFromNow(g.createdAt))(frag(_)),
+              g.pgnImport.flatMap(_.date).fold[Frag](momentFromNowWithPreload(g.createdAt))(frag(_)),
               g.tournamentId.map { tourId =>
                 frag(separator, tournamentLink(tourId))
               } orElse

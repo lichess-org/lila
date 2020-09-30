@@ -7,6 +7,7 @@ import play.api.i18n.Lang
 import scala.collection.mutable
 
 trait NumberHelper { self: I18nHelper =>
+
   private val formatters = mutable.AnyRefMap.empty[String, NumberFormat]
 
   private def formatter(implicit lang: Lang): NumberFormat =
