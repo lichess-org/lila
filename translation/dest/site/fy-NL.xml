@@ -383,6 +383,9 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="yourPuzzleRatingX">Dyn puzelscore: %s</string>
   <string name="findTheBestMoveForWhite">Fyn de bêste set foar wyt.</string>
   <string name="findTheBestMoveForBlack">Fyn de bêste set foar swart.</string>
+  <string name="toTrackYourProgress">Om dyn foarútgong te folgjen:</string>
+  <string name="puzzleId">Puzel %s</string>
+  <string name="puzzleOfTheDay">Puzel fan de dei</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
