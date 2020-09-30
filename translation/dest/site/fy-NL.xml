@@ -356,6 +356,9 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="boardEditor">Boerd-bewurker</string>
   <string name="setTheBoard">Boerd opsette</string>
   <string name="popularOpenings">Populêre iepeningen</string>
+  <string name="startPosition">Startposysje</string>
+  <string name="clearBoard">In leech boerd</string>
+  <string name="savePosition">Posysje bewarje</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
