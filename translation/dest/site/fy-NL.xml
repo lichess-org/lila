@@ -359,6 +359,8 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="startPosition">Startposysje</string>
   <string name="clearBoard">In leech boerd</string>
   <string name="savePosition">Posysje bewarje</string>
+  <string name="loadPosition">Posysje ynlade</string>
+  <string name="isPrivate">Privee</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
