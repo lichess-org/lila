@@ -11,7 +11,7 @@ import powertip from "./component/powertip";
 import pubsub from "./component/pubsub";
 import serviceWorker from "./component/serviceWorker";
 import StrongSocket from "./component/socket";
-import timeago from "./component/timeago";
+import * as timeago from "./component/timeago";
 import topBar from "./component/top-bar";
 import watchers from "./component/watchers";
 import { userComplete } from "./component/assets";

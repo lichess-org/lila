@@ -55,12 +55,7 @@ interface Lichess {
     defaultParams: Record<string, any>;
   }
 
-  // timeago.js
-  timeago: {
-    render(nodes: HTMLElement | HTMLElement[]): void;
-    format(date: number | Date): string;
-    absolute(date: number | Date): string;
-  }
+  timeago(date: number | Date): string;
   timeagoLocale(a: number, b: number, c: number): any;
 
   // misc

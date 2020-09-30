@@ -10,7 +10,7 @@ function timer(pov: NowPlaying) {
         (vnode.elm as HTMLElement).setAttribute('datetime', '' + date);
       }
     }
-  }, lichess.timeago.format(date));
+  }, lichess.timeago(date));
 }
 
 export default function(ctrl: LobbyController) {
