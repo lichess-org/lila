@@ -86,10 +86,10 @@ object home {
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
             a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list().toString))(
-              trans.nbPlayers(strong(homepage.counters.members))
+              trans.nbPlayers(strong(homepage.counters.members.localize))
             ),
             a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games().toString))(
-              trans.nbGamesInPlay(strong(homepage.counters.rounds))
+              trans.nbGamesInPlay(strong(homepage.counters.rounds.localize))
             )
           )
         ),
