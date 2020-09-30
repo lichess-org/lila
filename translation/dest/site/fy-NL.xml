@@ -386,6 +386,14 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="toTrackYourProgress">Om dyn foarútgong te folgjen:</string>
   <string name="puzzleId">Puzel %s</string>
   <string name="puzzleOfTheDay">Puzel fan de dei</string>
+  <string name="clickToSolve">Klik om op te lossen</string>
+  <string name="goodMove">Goede set</string>
+  <string name="butYouCanDoBetter">Mar it kin noch better.</string>
+  <string name="bestMove">Bêste set!</string>
+  <string name="keepGoing">Gean troch…</string>
+  <string name="puzzleFailed">Puzel mislearre</string>
+  <string name="butYouCanKeepTrying">Mar bliuw it besykjen.</string>
+  <string name="success">Súkses</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
