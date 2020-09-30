@@ -361,6 +361,9 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="savePosition">Posysje bewarje</string>
   <string name="loadPosition">Posysje ynlade</string>
   <string name="isPrivate">Privee</string>
+  <string name="reportXToModerators">Rapportearje %s oan tafersjoch-hâlders</string>
+  <string name="profileCompletion">Profyl foltôge: %s</string>
+  <string name="xRating">%s-rating</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
