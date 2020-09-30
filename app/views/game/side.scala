@@ -77,7 +77,10 @@ object side {
                     )
                 ),
                 game.pgnImport.flatMap(_.date).map(frag(_)) getOrElse {
-                  frag(if (game.isBeingPlayed) trans.playingRightNow() else momentFromNow(game.createdAt))
+                  frag(
+                    if (game.isBeingPlayed) trans.playingRightNow()
+                    else momentFromNowWithPreload(game.createdAt)
+                  )
                 }
               ),
               game.pgnImport.exists(_.date.isDefined) option small(
