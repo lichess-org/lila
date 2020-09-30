@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">Foghlaim ficheall</string>
+  <string name="byPlaying">trí imirt!</string>
+  <string name="menu">Roghchlár</string>
+  <string name="progressX">Forás%s</string>
 </resources>
