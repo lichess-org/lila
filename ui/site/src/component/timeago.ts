@@ -60,8 +60,7 @@ export const format = (date: DateLike) => formatDiff((Date.now() - toDate(date).
 export const findAndRender = (parent?: HTMLElement) =>
   requestAnimationFrame(() => {
     const now = Date.now();
-    const nodes = (parent || document).getElementsByClassName('timeago') as HTMLCollectionOf<ElementWithDate>;
-    for (let node of nodes) {
+    [].slice.call((parent || document).getElementsByClassName('timeago'), 0, 99).forEach((node: ElementWithDate) => {
       const cl = node.classList,
         abs = cl.contains('abs'),
         set = cl.contains('set');
@@ -78,7 +77,7 @@ export const findAndRender = (parent?: HTMLElement) =>
         node.textContent = formatDiff(diff);
         if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
       }
-    }
+    });
   });
 
 export const updateRegularly = (interval: number) => {
