@@ -374,6 +374,11 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="country">Lân</string>
   <string name="socialMediaLinks">Keppelingen nei sosjale media</string>
   <string name="inlineNotation">Ynboude notaasje</string>
+  <string name="watchLichessTV">Sjoch Lichess TV</string>
+  <string name="previouslyOnLichessTV">Earder op Lichess TV</string>
+  <string name="onlinePlayers">Online spilers</string>
+  <string name="activeToday">Hjoed aktyf</string>
+  <string name="activePlayers">Aktive spilers</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
