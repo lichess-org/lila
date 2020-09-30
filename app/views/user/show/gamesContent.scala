@@ -1,13 +1,13 @@
 package views.html.user.show
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.game.{ Game, Pov }
 import lila.user.User
-
-import controllers.routes
 
 object gamesContent {
 
@@ -32,13 +32,10 @@ object gamesContent {
       },
       div(cls := "search__result")(
         if (filterName == "search") {
-          val permalink = a(rel := "nofollow", href := routes.User.games(u.username, filterName))("Permalink")
           if (pager.nbResults > 0)
             frag(
               div(cls := "search__status")(
-                strong(pager.nbResults.localize, " games found"),
-                " • ",
-                permalink
+                strong(pager.nbResults.localize, " games found")
               ),
               div(cls := "search__rows infinite-scroll")(
                 views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u),
@@ -46,11 +43,7 @@ object gamesContent {
               )
             )
           else
-            div(cls := "search__status")(
-              strong("No game found"),
-              " • ",
-              permalink
-            )
+            div(cls := "search__status")(strong("No game found"))
         } else
           div(
             cls := List(
