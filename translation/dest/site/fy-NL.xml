@@ -404,6 +404,10 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
     <item quantity="other">%s kear spile</item>
   </plurals>
   <string name="fromGameLink">Fan partij %s</string>
+  <string name="continueTraining">Fierder traine</string>
+  <string name="retryThisPuzzle">Dizze puzel opnij besykje</string>
+  <string name="thisPuzzleIsCorrect">Dizze puzel is korrekt en ynteressant</string>
+  <string name="thisPuzzleIsWrong">Dizze puzel is ferkeard of saai</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
