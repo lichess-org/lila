@@ -395,6 +395,10 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="butYouCanKeepTrying">Mar bliuw it besykjen.</string>
   <string name="success">Súkses</string>
   <string name="wasThisPuzzleAnyGood">Wie dizze puzel goed?</string>
+  <string name="pleaseVotePuzzle">Help Lichess te ferbetterjen troch te stimmen, brûk it omheech of omleech pylkje:</string>
+  <string name="thankYou">Tankewol!</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">ferstoppe</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
