@@ -26,8 +26,8 @@
   <string name="itsYourTurn">نوبت شماست!</string>
   <string name="kingInTheCenter">شاه در مرکز</string>
   <string name="threeChecks">سه کیش</string>
-  <string name="raceFinished">رقابت به اتمام رسید</string>
-  <string name="variantEnding">اتمام بازی</string>
+  <string name="raceFinished">مسابقه تمام شد</string>
+  <string name="variantEnding">تمام شدن مسابقه</string>
   <string name="newOpponent">حریف جدید</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">حریف شما می خواهد که دوباره با شما بازی کند</string>
   <string name="joinTheGame">به بازی بپیوندید</string>
@@ -812,8 +812,6 @@
     <item quantity="other">و پیش حرکت های %s را حفظ کنید</item>
   </plurals>
   <string name="sorry">متاسفم :(</string>
-  <string name="weHadToTimeYouOutForAWhile">شما برای مدتی مسدود هستید.</string>
-  <string name="timeoutExpires">بازی منقضی شد.</string>
   <string name="why">چرا؟</string>
   <string name="pleasantChessExperience">هدف ما مهیا ساختن تجربه لذت بخش شطرنج به همه افراد است.</string>
   <string name="goodPractice">به همین منظور، ما باید اطمینان حاصل کنیم که تمام بازیکنان تمرین خوب را دنبال میکنند.</string>
@@ -827,7 +825,7 @@
   <string name="thankYouForReading">از اینکه متن را خواندید متشکریم!</string>
   <string name="lifetimeScore">امتیاز کل</string>
   <string name="currentMatchScore">امتیاز بازی فعلی</string>
-  <string name="agreementAssistance">من تضمین میکنم که در حین بازی ها کمک نگیرم ( از کامپیوتر شطرنج ، کتاب ، پایگاه داده و شخصی دیگر).</string>
+  <string name="agreementAssistance">من تضمین میکنم که در حین بازی ها کمک نگیرم ( از انجین ، کتاب ، پایگاه داده یا شخصی دیگر)</string>
   <string name="agreementNice">من تضمین میکنم که همیشه به بازیکن های دیگر احترام بگذارم.</string>
   <string name="agreementAccount">من تضمین می کنم که هیچ  وقت مولتی اکانت ( حساب اضافه ) تشکیل ندهم .</string>
   <string name="agreementPolicy">من تضمین میکنم که به تمام قوانین و خط مشی های لیچس پایبند باشم .</string>
@@ -843,6 +841,7 @@
   <string name="correspondenceDesc">بازی های مکاتبه ای : یک  یا چند روز برای هر حرکت</string>
   <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
   <string name="important">مهم!</string>
+  <string name="yourQuestionMayHaveBeenAnswered">سوال شما ممکن است تکراری باشد .</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
 </resources>
