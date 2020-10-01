@@ -411,6 +411,17 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatysk troch nei de folgjende partij nei in set</string>
   <string name="autoSwitch">Automatysk skeakelje</string>
   <string name="puzzles">Puzels</string>
+  <string name="latestUpdates">Lêste nijs</string>
+  <string name="tournamentWinners">Toernoai winners</string>
+  <string name="name">Namme</string>
+  <string name="description">Beskriuwing</string>
+  <string name="no">Nee</string>
+  <string name="yes">Ja</string>
+  <string name="help">Help:</string>
+  <string name="createANewTopic">Meitsje in nij ûnderwerp</string>
+  <string name="topics">Underwerpen</string>
+  <string name="posts">Berjochten</string>
+  <string name="lastPost">Lêste berjocht</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
