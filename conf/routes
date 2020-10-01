@@ -1,6 +1,3 @@
-# Accessibility
-POST  /toggle-blind-mode               controllers.Main.toggleBlindMode
-
 # Lobby
 GET   /                                controllers.Lobby.home
 GET   /lobby/seeks                     controllers.Lobby.seeks
@@ -717,6 +714,9 @@ GET   /dgt                             controllers.DgtCtrl.index
 GET   /dgt/play                        controllers.DgtCtrl.play
 GET   /dgt/config                      controllers.DgtCtrl.config
 POST  /dgt/config/token                controllers.DgtCtrl.generateToken
+
+# Accessibility
+POST  /toggle-blind-mode               controllers.Main.toggleBlindMode
 
 GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
