@@ -90,8 +90,7 @@ final private class Indexer(
       val perSecond  = 800
       gameRepo
         .sortedCursor(query, Query.sortChronological)
-        .documentSource()
-        .take(maxGames)
+        .documentSource(maxGames)
         .mapAsync(16)(toEntry)
         .via(LilaStream.collect)
         .zipWithIndex
