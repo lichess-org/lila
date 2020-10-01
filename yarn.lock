@@ -735,6 +735,13 @@ chessops@^0.7.2:
   dependencies:
     "@badrap/result" "^0.2.6"
 
+chessops@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.7.3.tgz#ecd38943fb0135625cd710c5ac68f1c624a147da"
+  integrity sha512-lMh+gibYSvpMYf4Tty3l3DO6XL+MpDynyCZN7UcGdVIsbfjGzGUAA6EJuNR4QTGrt4D8o5oqiNvdrtUtJ/lH+Q==
+  dependencies:
+    "@badrap/result" "^0.2.6"
+
 chokidar@^2.0.0:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.8.tgz#804b3a7b6a99358c3c5c61e71d8728f041cff917"
