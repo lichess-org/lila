@@ -94,7 +94,7 @@ function controls(ctrl: SwissCtrl, pag: Pager): VNode {
 }
 
 function nextRound(ctrl: SwissCtrl): VNode | undefined {
-  if (!ctrl.opts.schedule || ctrl.data.nbOngoing) return;
+  if (!ctrl.opts.schedule || ctrl.data.nbOngoing || ctrl.data.round == 0) return;
   return h('form.schedule-next-round', {
     class: {
       required: !ctrl.data.nextRound
