@@ -787,6 +787,7 @@
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
   <string name="edit">Breyta</string>
   <string name="rapid">Atskák</string>
+  <string name="classical">Hefðbundin Skák</string>
   <string name="ultraBulletDesc">Mjög fljótir leikir: minna en 30 sekúndur</string>
   <string name="bulletDesc">Mjög hraðar skákir: styttri en 3 mínútur</string>
   <string name="blitzDesc">Hraðar skákir: 3 til 8 mínútur</string>
