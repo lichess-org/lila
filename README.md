@@ -61,7 +61,7 @@ Feel free to use the [Lichess API](https://lichess.org/api) in your applications
 Credits
 -------
 
-See the [contributors](https://github.com/ornicar/lila/graphs/contributors) on this repository and [lichess.org/thanks](https://lichess.org/thanks).
+See the [contributors](https://github.com/ornicar/lila/graphs/contributors) on this repository.
 
 Supported browsers
 ------------------
