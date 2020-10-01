@@ -16,17 +16,17 @@ lichess.load.then(() => {
 
     var must = [{
       html: '<a href="/account/profile">Complete your lichess profile</a>',
-      check: function() {
+      check() {
         return $el.data('profile');
       }
     }, {
       html: 'Upload a profile picture',
-      check: function() {
+      check() {
         return $editor.find('img.picture').length;
       }
     }, {
       html: 'Fill in basic information',
-      check: function() {
+      check() {
         for (let name of ['profile.headline', 'languages']) {
           if (!$editor.find('[name="' + name + '"]').val()) return false;
         }
@@ -34,7 +34,7 @@ lichess.load.then(() => {
       }
     }, {
       html: 'Fill at least 3 description texts',
-      check: function() {
+      check() {
         return $editor.find('.panel.texts textarea').filter(function(this: HTMLTextAreaElement) {
           return !!$(this).val();
         }).length >= 3;
@@ -42,9 +42,9 @@ lichess.load.then(() => {
     }];
 
     return function() {
-      const points: Cash[] = [];
-      for (let o of must) if (!o.check()) points.push($('<li>').html(o.html));
-      $el.find('ul').html(points as any);
+      const points: Cash[] = must.filter(o => !o.check()).map(o => $('<li>').html(o.html));
+      const $ul = $el.find('ul').empty();
+      points.forEach(p => $ul.append(p));
       var fail = !!points.length;
       $overview.toggleClass('with-todo', fail);
       if (fail) $listed.prop('checked', false);
