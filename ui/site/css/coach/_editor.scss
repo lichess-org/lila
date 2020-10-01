@@ -114,13 +114,14 @@
 
   .status {
     opacity: 0;
-    transition: 0.5s;
+    @include transition();
     text-align: center;
     color: $c-good;
   }
 
   .status.saved {
     opacity: 1;
+    margin-bottom: 2em;
   }
 
   .reviews {
