@@ -1,5 +1,6 @@
 import * as miniBoard from "./component/mini-board";
 import * as miniGame from "./component/mini-game";
+import * as timeago from "./component/timeago";
 import * as xhr from 'common/xhr';
 import announce from './component/announce';
 import exportLichessGlobals from "./site.lichess.globals";
@@ -11,12 +12,11 @@ import powertip from "./component/powertip";
 import pubsub from "./component/pubsub";
 import serviceWorker from "./component/serviceWorker";
 import StrongSocket from "./component/socket";
-import * as timeago from "./component/timeago";
 import topBar from "./component/top-bar";
 import watchers from "./component/watchers";
-import { userComplete } from "./component/assets";
 import { reload } from "./component/reload";
 import { requestIdleCallback } from "./component/functions";
+import { userComplete } from "./component/assets";
 
 exportLichessGlobals();
 lichess.info = info;
@@ -28,6 +28,14 @@ lichess.load.then(() => {
   moduleLaunchers();
 
   requestAnimationFrame(() => {
+
+    miniBoard.initAll();
+    miniGame.initAll();
+    pubsub.on('content-loaded', miniBoard.initAll);
+    pubsub.on('content-loaded', miniGame.initAll);
+
+    timeago.updateRegularly(1000);
+    pubsub.on('content-loaded', timeago.findAndRender);
 
     const friendsEl = document.getElementById('friend_box');
     if (friendsEl) new OnlineFriends(friendsEl);
@@ -63,9 +71,6 @@ lichess.load.then(() => {
     });
 
     powertip.watchMouse();
-
-    timeago.updateRegularly(1000);
-    pubsub.on('content-loaded', timeago.findAndRender);
 
     setTimeout(() => {
       if (!lichess.socket)
@@ -127,11 +132,6 @@ lichess.load.then(() => {
       const el = document.querySelector('meta[name=viewport]') as HTMLElement;
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
-
-    miniBoard.initAll();
-    miniGame.initAll();
-    pubsub.on('content-loaded', miniBoard.initAll);
-    pubsub.on('content-loaded', miniGame.initAll);
 
     const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
     if (chatMembers) watchers(chatMembers);
