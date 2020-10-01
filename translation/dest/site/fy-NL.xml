@@ -422,6 +422,11 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="topics">Underwerpen</string>
   <string name="posts">Berjochten</string>
   <string name="lastPost">Lêste berjocht</string>
+  <string name="views">Sjoen</string>
+  <string name="replies">Antwurden</string>
+  <string name="replyToThisTopic">Antwurdzje op dit ûnderwerp</string>
+  <string name="reply">Antwurdzje</string>
+  <string name="message">Berjocht</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
