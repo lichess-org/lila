@@ -646,7 +646,9 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Þú ert betri en %1$s af %2$s leikmönnum</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er betra en %2$s af %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Þú hefur ekki skráð skor í %s.</string>
+  <string name="yourRating">Skákstigin þín</string>
   <string name="cumulative">Uppsafnað</string>
+  <string name="glicko2Rating">Glicko-2 skákstig</string>
   <string name="checkYourEmail">Gáðu í tölvupóstinn þinn</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Við sendum þér tölvupóst. Fylgdu hlekknum þar til þess að virkja aðganginn þinn.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ef þú sérð ekki póstinn, gáðu þá betur svo sem í ruslakistunni, ruslpóstinum eða öðrum möppum.</string>
