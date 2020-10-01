@@ -827,7 +827,7 @@
   <string name="thankYouForReading">از اینکه متن را خواندید متشکریم!</string>
   <string name="lifetimeScore">امتیاز کل</string>
   <string name="currentMatchScore">امتیاز بازی فعلی</string>
-  <string name="agreementAssistance">من تضمین میکنم که در حین بازی ها کمک نگیریم ( از کامپیوتر شطرنج ، کتاب ، پایگاه داده و شخصی دیگر).</string>
+  <string name="agreementAssistance">من تضمین میکنم که در حین بازی ها کمک نگیرم ( از کامپیوتر شطرنج ، کتاب ، پایگاه داده و شخصی دیگر).</string>
   <string name="agreementNice">من تضمین میکنم که همیشه به بازیکن های دیگر احترام بگذارم.</string>
   <string name="agreementAccount">من تضمین می کنم که هیچ  وقت مولتی اکانت ( حساب اضافه ) تشکیل ندهم .</string>
   <string name="agreementPolicy">من تضمین میکنم که به تمام قوانین و خط مشی های لیچس پایبند باشم .</string>
@@ -835,6 +835,13 @@
   <string name="edit">ویرایش</string>
   <string name="rapid">سریع</string>
   <string name="classical">کلاسیک</string>
+  <string name="ultraBulletDesc">بازی های سریع دیوانه وار : کمتر از 30 ثانیه</string>
+  <string name="bulletDesc">بازی های فوق سریع : کمتر از 3 دقیقه</string>
+  <string name="blitzDesc">بازی های سریع : 3 تا 8 دقیقه</string>
+  <string name="rapidDesc">بازی های رپید ( سرعتی ) : 8 تا 25 دقیقه</string>
+  <string name="classicalDesc">بازی های کلاسیک : 25 دقیقه یا بیشتر </string>
+  <string name="correspondenceDesc">بازی های مکاتبه ای : یک  یا چند روز برای هر حرکت</string>
+  <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
   <string name="important">مهم!</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
