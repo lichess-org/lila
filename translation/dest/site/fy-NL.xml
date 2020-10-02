@@ -446,6 +446,13 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="thisTopicIsNowClosed">Dit ûnderwerp is no sletten.</string>
   <string name="theming">Tema</string>
   <string name="blog">Blog</string>
+  <string name="questionsAndAnswers">Fragen &amp; Antwurden</string>
+  <string name="notes">Notysjes</string>
+  <string name="typePrivateNotesHere">Typ hjir privee oantekeningen</string>
+  <string name="invalidUsernameOrPassword">Unjildige brûkersnamme of wachtwurd</string>
+  <string name="incorrectPassword">Ferkeard wachtwurd</string>
+  <string name="invalidAuthenticationCode">Unjildige autentikaasjekoade</string>
+  <string name="emailMeALink">Email my in keppeling</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
