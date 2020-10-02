@@ -182,24 +182,28 @@ final class LobbySocket(
     case ("poolIn", o) if !member.bot =>
       HookPoolLimit(member, cost = 1, msg = s"poolIn $o") {
         for {
-          user <- member.user
-          d    <- o obj "d"
-          id   <- d str "id"
+          user     <- member.user
+          d        <- o obj "d"
+          id       <- d str "id"
+          perfType <- poolApi.poolPerfTypes get PoolConfig.Id(id)
           ratingRange = d str "range" flatMap RatingRange.apply
           blocking    = d str "blocking"
         } {
           lobby ! CancelHook(member.sri) // in case there's one...
-          poolApi.join(
-            PoolConfig.Id(id),
-            PoolApi.Joiner(
-              userId = user.id,
-              sri = member.sri,
-              ratingMap = user.perfMap.view.mapValues(_.rating).toMap,
-              ratingRange = ratingRange,
-              lame = user.lame,
-              blocking = user.blocking ++ blocking
+          userRepo.glicko(user.id, perfType) foreach { glicko =>
+            poolApi.join(
+              PoolConfig.Id(id),
+              PoolApi.Joiner(
+                userId = user.id,
+                sri = member.sri,
+                rating = glicko.establishedIntRating |
+                  lila.common.Maths.boxedNormalDistribution(glicko.intRating, glicko.intDeviation, 0.3),
+                ratingRange = ratingRange,
+                lame = user.lame,
+                blocking = user.blocking ++ blocking
+              )
             )
-          )
+          }
         }
       }
     // leaving a pool

@@ -36,8 +36,8 @@ object Spotlight {
     tour.perfType ?? { pt =>
       tour.schedule ?? { sched =>
         def playedSinceWeeks(weeks: Int) =
-          user.perfs(pt).latest ?? { l =>
-            l.plusWeeks(weeks).isAfterNow
+          user.perfs(pt).latest ?? {
+            _.plusWeeks(weeks).isAfterNow
           }
         sched.freq match {
           case Hourly                               => canMaybeJoinLimited(tour, user) && playedSinceWeeks(2)

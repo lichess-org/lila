@@ -14,6 +14,7 @@ object ThreadLocalRandom {
   def nextInt(n: Int): Int                = current.nextInt(n)
   def nextPositiveInt(): Int              = current.nextInt(Int.MaxValue)
   def nextLong(): Long                    = current.nextLong()
+  def nextGaussian(): Double              = current.nextGaussian()
   def nextChar(): Char = {
     val i = nextInt(62)
     if (i < 26) i + 65
