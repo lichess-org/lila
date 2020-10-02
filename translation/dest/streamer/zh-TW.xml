@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Lichess實況主</string>
+  <string name="lichessStreamer">Lichess實況主</string>
+  <string name="live">直播</string>
+  <string name="offline">離線</string>
+  <string name="currentlyStreaming">正在直播: %s</string>
+  <string name="lastStream">上次直播 %s</string>
+  <string name="becomeStreamer">成為Lichess實況主</string>
+  <string name="doYouHaveStream">您有Twitch或是Youtube的頻道嗎?</string>
+  <string name="hereWeGo">我們開始吧 ！</string>
+  <string name="allStreamers">所有的實況主</string>
+  <string name="editPage">編輯實況頁面</string>
+  <string name="yourPage">您的實況頁面</string>
+  <string name="downloadKit">下載實況工具</string>
+  <string name="xIsStreaming">%s正在實況</string>
+  <string name="rules">實況規則</string>
+  <string name="rule1">當您在Lichess直播時,請在您的直播關鍵詞上標記\"Lichess\"和分類\"Chess\"</string>
+  <string name="rule2">當您在直播與Lichess不相關的東西時,請移除這些關鍵詞</string>
+</resources>
