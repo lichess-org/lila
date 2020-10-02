@@ -34,7 +34,7 @@
   grid-area: clock-bot;
 }
 
-#{$rmoves-tag} {
+#{$rmoves-tag}, .col1-rmoves-preload {
   grid-area: moves;
 }
 
