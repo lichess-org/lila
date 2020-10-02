@@ -2,13 +2,6 @@ import * as xhr from 'common/xhr';
 import spinnerHtml from './spinner';
 import { requestIdleCallback } from './functions';
 
-let hoverable: boolean;
-function isHoverable() {
-  if (typeof hoverable === 'undefined')
-    hoverable = !('ontouchstart' in window) /* Firefox <= 63 */ || !!getComputedStyle(document.body).getPropertyValue('--hoverable');
-  return hoverable;
-}
-
 const inCrosstable = (el: HTMLElement) =>
   document.querySelector('.crosstable')?.contains(el);
 
@@ -54,7 +47,7 @@ function gamePowertip(el: HTMLElement) {
 };
 
 function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) {
-  if (isHoverable()) {
+  if (!('ontouchstart' in window)) {
     f(el);
     $.powerTip.show(el, ev);
   }

@@ -21,12 +21,6 @@ body {
     --main-margin: 1vw;
     margin-bottom: $block-gap;
   }
-
-
-  /* Feature detection for JS to read */
-  @media (hover: hover) {
-    --hoverable: 1;
-  }
 }
 
 #main-wrap {
