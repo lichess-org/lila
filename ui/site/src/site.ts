@@ -41,6 +41,9 @@ lichess.load.then(() => {
     const friendsEl = document.getElementById('friend_box');
     if (friendsEl) new OnlineFriends(friendsEl);
 
+    const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
+    if (chatMembers) watchers(chatMembers);
+
     $('#main-wrap')
       .on('click', '.autoselect', function(this: HTMLInputElement) { this.select(); })
       .on('click', 'button.copy', function(this: HTMLElement) {
@@ -133,9 +136,6 @@ lichess.load.then(() => {
       const el = document.querySelector('meta[name=viewport]') as HTMLElement;
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
-
-    const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
-    if (chatMembers) watchers(chatMembers);
 
     if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
       xhr.text('/toggle-blind-mode', {
