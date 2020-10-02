@@ -107,7 +107,6 @@ object mon {
         def candidates(id: String) = histogram("lobby.pool.wave.candidates").withTag("pool", id)
         def paired(id: String)     = histogram("lobby.pool.wave.paired").withTag("pool", id)
         def missed(id: String)     = histogram("lobby.pool.wave.missed").withTag("pool", id)
-        def wait(id: String)       = histogram("lobby.pool.wave.wait").withTag("pool", id)
         def ratingDiff(id: String) = histogram("lobby.pool.wave.ratingDiff").withTag("pool", id)
         def withRange(id: String)  = histogram("lobby.pool.wave.withRange").withTag("pool", id)
       }
