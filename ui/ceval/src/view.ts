@@ -1,14 +1,14 @@
-import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
-import { renderEval } from './util';
 import * as winningChances from './winningChances';
 import { defined } from 'common';
+import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-import { opposite, parseUci } from 'chessops/util';
 import { lichessVariantRules } from 'chessops/compat';
-import { parseFen } from 'chessops/fen';
 import { makeSanVariation } from 'chessops/san';
+import { opposite, parseUci } from 'chessops/util';
+import { parseFen } from 'chessops/fen';
+import { renderEval } from './util';
 import { setupPosition } from 'chessops/variant';
+import { VNode } from 'snabbdom/vnode';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -211,8 +211,9 @@ function getElUci(e: MouseEvent): string | undefined {
 }
 
 function checkHover(el: HTMLElement, instance: CevalCtrl): void {
-  lichess.requestIdleCallback(() =>
-    instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci') || undefined)
+  lichess.requestIdleCallback(
+    () => instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci') || undefined),
+    500
   );
 }
 

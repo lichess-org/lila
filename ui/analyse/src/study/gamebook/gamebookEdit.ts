@@ -1,11 +1,11 @@
+import * as control from '../../control';
+import AnalyseCtrl from '../../ctrl';
+import throttle from 'common/throttle';
+import { bind, iconTag } from '../../util';
 import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
-import { VNode } from 'snabbdom/vnode'
-import AnalyseCtrl from '../../ctrl';
-import { bind, iconTag } from '../../util';
 import { MaybeVNodes } from '../../interfaces';
-import throttle from 'common/throttle';
-import * as control from '../../control';
+import { VNode } from 'snabbdom/vnode'
 
 export function running(ctrl: AnalyseCtrl): boolean {
   return !!ctrl.study && ctrl.study.data.chapter.gamebook &&
@@ -24,8 +24,10 @@ export function render(ctrl: AnalyseCtrl): VNode {
   const commentHook: Hooks = bind('click', () => {
     study.commentForm.start(study.vm.chapterId, ctrl.path, ctrl.node);
     study.vm.toolTab('comments');
-    lichess.requestIdleCallback(() =>
-      $('#comment-text').each(function(this: HTMLTextAreaElement) { this.focus() }));
+    lichess.requestIdleCallback(
+      () => $('#comment-text').each(function(this: HTMLTextAreaElement) { this.focus() }),
+      500
+    );
   }, ctrl.redraw);
 
   if (!ctrl.path) {

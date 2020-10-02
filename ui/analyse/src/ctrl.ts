@@ -155,7 +155,7 @@ export default class AnalyseCtrl {
     this.studyPractice = this.study ? this.study.practice : undefined;
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice)) this.togglePractice();
-    else if (location.hash === '#menu') lichess.requestIdleCallback(this.actionMenu.toggle);
+    else if (location.hash === '#menu') lichess.requestIdleCallback(this.actionMenu.toggle, 500);
 
     keyboard.bind(this);
 

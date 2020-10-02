@@ -728,6 +728,6 @@ export default class RoundController {
       speech.setup(this);
 
       this.onChange();
-    });
+    }, 800);
   };
 }

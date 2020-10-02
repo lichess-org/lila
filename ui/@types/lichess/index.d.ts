@@ -1,7 +1,7 @@
 interface Lichess {
   load: Promise<unknown>; // window.onload promise
   info: any;
-  requestIdleCallback(f: () => void): void;
+  requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
   storage: LichessStorageHelper;
   tempStorage: LichessStorageHelper;

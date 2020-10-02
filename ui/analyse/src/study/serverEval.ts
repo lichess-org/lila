@@ -1,8 +1,8 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
 import AnalyseCtrl from '../ctrl';
-import { spinner, bind, onInsert } from '../util';
+import { h } from 'snabbdom'
 import { Prop, prop, defined } from 'common';
+import { spinner, bind, onInsert } from '../util';
+import { VNode } from 'snabbdom/vnode'
 
 export interface ServerEvalCtrl {
   requested: Prop<boolean>;
@@ -70,12 +70,13 @@ export function view(ctrl: ServerEvalCtrl): VNode {
   return h('div.study__server-eval.ready.' + analysis.id, {
     hook: onInsert(el => {
       ctrl.lastPly(false);
-      lichess.requestIdleCallback(() => {
+      lichess.requestIdleCallback(() =>
         lichess.loadScript('javascripts/chart/acpl.js').then(() => {
           lichess.advantageChart(ctrl.root.data, ctrl.root.trans, el);
           ctrl.chartEl(el);
-        });
-      });
+        }),
+        800
+      );
     })
   }, [h('div.study__message', spinner())]);
 }

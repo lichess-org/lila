@@ -61,8 +61,9 @@ function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) 
 };
 
 function onIdleForAll(par: HTMLElement, sel: string, f: (el: HTMLElement) => void) {
-  requestIdleCallback(() =>
-    Array.prototype.forEach.call(par.querySelectorAll(sel), (el: HTMLElement) => f(el)) // do not codegolf to `f`
+  requestIdleCallback(
+    () => Array.prototype.forEach.call(par.querySelectorAll(sel), (el: HTMLElement) => f(el)), // do not codegolf to `f`
+    800
   )
 }
 
