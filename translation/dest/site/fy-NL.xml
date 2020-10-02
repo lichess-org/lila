@@ -427,6 +427,10 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="replyToThisTopic">Antwurdzje op dit ûnderwerp</string>
   <string name="reply">Antwurdzje</string>
   <string name="message">Berjocht</string>
+  <string name="createTheTopic">Meitsje it ûnderwerp</string>
+  <string name="reportAUser">In brûker melde</string>
+  <string name="user">Brûker</string>
+  <string name="whatIsIheMatter">Wat is der oan de hân?</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
