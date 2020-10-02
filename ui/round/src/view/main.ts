@@ -1,16 +1,16 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
-import { plyStep } from '../round';
-import { renderTable } from './table';
-import * as promotion from '../promotion';
-import { render as renderGround } from '../ground';
-import { read as fenRead } from 'chessground/fen';
-import * as util from '../util';
 import * as keyboard from '../keyboard';
+import * as promotion from '../promotion';
+import * as util from '../util';
 import crazyView from '../crazy/crazyView';
-import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
+import { h } from 'snabbdom'
+import { plyStep } from '../round';
 import { Position, MaterialDiff, MaterialDiffSide, CheckCount } from '../interfaces';
+import { read as fenRead } from 'chessground/fen';
+import { render as keyboardMove } from '../keyboardMove';
+import { render as renderGround } from '../ground';
+import { renderTable } from './table';
+import { VNode } from 'snabbdom/vnode'
 
 function renderMaterial(material: MaterialDiffSide, score: number, position: Position, checks?: number) {
   const children: VNode[] = [];
@@ -27,13 +27,13 @@ function renderMaterial(material: MaterialDiffSide, score: number, position: Pos
   return h('div.material.material-' + position, children);
 }
 
-function wheel(ctrl: RoundController, e: WheelEvent): boolean {
-  if (ctrl.isPlaying()) return true;
-  e.preventDefault();
-  if (e.deltaY > 0) keyboard.next(ctrl);
-  else if (e.deltaY < 0) keyboard.prev(ctrl);
-  ctrl.redraw();
-  return false;
+function wheel(ctrl: RoundController, e: WheelEvent): void {
+  if (!ctrl.isPlaying()) {
+    e.preventDefault();
+    if (e.deltaY > 0) keyboard.next(ctrl);
+    else if (e.deltaY < 0) keyboard.prev(ctrl);
+    ctrl.redraw();
+  }
 }
 
 const emptyMaterialDiff: MaterialDiff = {

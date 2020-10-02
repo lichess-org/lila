@@ -1,22 +1,14 @@
 import { RoundData, Step } from './interfaces';
 
-export function firstPly(d: RoundData): number {
-  return d.steps[0].ply;
-}
+export const firstPly = (d: RoundData): number => d.steps[0].ply;
 
-export function lastPly(d: RoundData): number {
-  return lastStep(d).ply;
-}
+export const lastPly = (d: RoundData): number => lastStep(d).ply;
 
-export function lastStep(d: RoundData): Step {
-  return d.steps[d.steps.length - 1];
-}
+export const lastStep = (d: RoundData): Step => d.steps[d.steps.length - 1];
 
-export function plyStep(d: RoundData, ply: number): Step {
-  return d.steps[ply - firstPly(d)];
-}
+export const plyStep = (d: RoundData, ply: number): Step => d.steps[ply - firstPly(d)];
 
-export function massage(d: RoundData): void {
+export const massage = (d: RoundData): void => {
 
   if (d.clock) {
     d.clock.showTenths = d.pref.clockTenths;
