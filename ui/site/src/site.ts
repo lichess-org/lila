@@ -28,14 +28,15 @@ lichess.load.then(() => {
   moduleLaunchers();
 
   requestAnimationFrame(() => {
-
     miniBoard.initAll();
     miniGame.initAll();
     pubsub.on('content-loaded', miniBoard.initAll);
     pubsub.on('content-loaded', miniGame.initAll);
-
     timeago.updateRegularly(1000);
     pubsub.on('content-loaded', timeago.findAndRender);
+  });
+
+  requestIdleCallback(() => {
 
     const friendsEl = document.getElementById('friend_box');
     if (friendsEl) new OnlineFriends(friendsEl);
@@ -67,7 +68,7 @@ lichess.load.then(() => {
           $('html').off('click', handler);
         };
         $('html').on('click', handler);
-      });
+      }, 200);
     });
 
     powertip.watchMouse();
@@ -178,5 +179,5 @@ lichess.load.then(() => {
         return false;
       });
     });
-  });
+  }, 800);
 });
