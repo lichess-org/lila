@@ -453,6 +453,14 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="incorrectPassword">Ferkeard wachtwurd</string>
   <string name="invalidAuthenticationCode">Unjildige autentikaasjekoade</string>
   <string name="emailMeALink">Email my in keppeling</string>
+  <string name="currentPassword">Aktyf wachtwurd</string>
+  <string name="newPassword">Nij wachtwurd</string>
+  <string name="newPasswordAgain">Nij wachtwurd (nochris)</string>
+  <string name="clockInitialTime">Klok begjintiid</string>
+  <string name="clockIncrement">Tafoeging per set</string>
+  <string name="privacy">Privacy</string>
+  <string name="letOtherPlayersFollowYou">Oare spilers kinne dy folje</string>
+  <string name="letOtherPlayersChallengeYou">Oare spilers kinne dy útdaagje</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
