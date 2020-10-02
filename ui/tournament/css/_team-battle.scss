@@ -83,6 +83,10 @@ team {
   tr:hover {
     background: mix($c-primary, $c-bg-box, 30%) !important;
   }
+
+  td {
+    padding: 1rem 0.5rem;
+  }
 }
 
 .team-battle {
