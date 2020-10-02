@@ -50,11 +50,6 @@ function pnaclInfo() {
   };
 }
 
-function needsBoardHeightFix() {
-  var ffv = navigator.userAgent.split('Firefox/');
-  return !window.chrome && (!ffv[1] || parseInt(ffv[1]) < 61);
-}
-
 function localStorageInfo() {
   var intresting = [
     'client-eval-enabled',
@@ -105,7 +100,6 @@ var info = {
   },
   wasm: wasmInfo(),
   pnacl: pnaclInfo(),
-  needsBoardHeightFix: needsBoardHeightFix(),
   hasTouchEvents: 'ontouchstart' in window,
   animate: typeof document.createElement('div').animate,
   localStorage: localStorageInfo(),

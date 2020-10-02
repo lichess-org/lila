@@ -7,7 +7,6 @@ import { render as renderGround } from '../ground';
 import { read as fenRead } from 'chessground/fen';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
-import * as gridHacks from './gridHacks';
 import crazyView from '../crazy/crazyView';
 import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
@@ -59,8 +58,7 @@ export function main(ctrl: RoundController): VNode {
     util.noChecks;
 
   return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app.variant-' + d.game.variant.key, {
-    class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) },
-    hook: util.onInsert(gridHacks.start)
+    class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) }
   }, [
     h('div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: 'ontouchstart' in window ? undefined :

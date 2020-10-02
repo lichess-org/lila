@@ -69,9 +69,9 @@ Supported browsers
 | Name              | Version | Notes |
 | ----------------- | ------- | ----- |
 | Chromium / Chrome | last 10 | Full support |
-| Firefox           | 55+     | Full support (fastest local analysis since FF 79) |
-| Safari            | 10.1+   | Reasonable support |
+| Firefox           | 61+     | Full support (fastest local analysis since FF 79) |
 | Opera             | 55+     | Reasonable support |
+| Safari            | 11.1+   | Reasonable support |
 | Edge              | 17+     | Reasonable support |
 
 Older browsers (including any version of Internet Explorer) will not work.
