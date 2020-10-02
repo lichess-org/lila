@@ -33,6 +33,10 @@
   <string name="joinTheGame">Meidwaan oan it spul</string>
   <string name="whitePlays">Wyt oan set</string>
   <string name="blackPlays">Swart oan set</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Dyn tsjinstanner hat it spul ferlitten. Do kinst oer %s oanspraak op de winst meitsje.</item>
+    <item quantity="other">Dyn tsjinstanner hat it spul ferlitten. Do kinst oer %s sekonden oanspraak op de winst meitsje.</item>
+  </plurals>
   <string name="opponentLeftChoices">Dyn tsjinstanner is fuortgien. Kinst de oerwinning opeaskje, sizze dat it remise is of wachtsje.</string>
   <string name="makeYourOpponentResign">Lit dyn tsjinstander opjaan</string>
   <string name="forceResignation">Claim oerwinning</string>
@@ -430,7 +434,10 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="createTheTopic">Meitsje it ûnderwerp</string>
   <string name="reportAUser">In brûker melde</string>
   <string name="user">Brûker</string>
+  <string name="reason">Reden</string>
   <string name="whatIsIheMatter">Wat is der oan de hân?</string>
+  <string name="cheat">Falsk spul</string>
+  <string name="insult">Belediging</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
