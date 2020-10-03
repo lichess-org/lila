@@ -4,5 +4,6 @@
   <string name="totalGames">nanpa pi musi ale</string>
   <string name="victories">pini pona</string>
   <string name="defeats">pini ike</string>
+  <string name="losingStreak">kulupu pi pini ike</string>
   <string name="now">tenpo ni</string>
 </resources>
