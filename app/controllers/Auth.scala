@@ -35,25 +35,13 @@ final class Auth(
       }
     }
 
-  // allow relative and absolute redirects only to the same domain or
-  // subdomains, excluding /mobile (which is shown after logout)
-  private def goodReferrer(referrer: String): Boolean =
-    referrer.nonEmpty &&
-      !sillyLoginReferrers(referrer) && Try {
-        val url = Url.parse(referrer)
-        url.schemeOption.fold(true)(scheme => scheme == "http" || scheme == "https") &&
-        url.hostOption.fold(true)(host =>
-          s".${host.value}".endsWith(s".${AbsoluteUrl.parse(env.net.baseUrl.value).host.value}")
-        )
-      }.getOrElse(false)
-
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit
       ctx: Context
   ): Fu[Result] =
     api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = fuccess {
-          val redirectTo = get("referrer").filter(goodReferrer) orElse
+          val redirectTo = get("referrer").filter(env.api.util.goodReferrer) orElse
             ctxReq.session.get(api.AccessUri) getOrElse
             routes.Lobby.home().url
           result.fold(Redirect(redirectTo))(_(redirectTo))
@@ -77,12 +65,10 @@ final class Auth(
       }
   }
 
-  private def sillyLoginReferrers = Set("/login", "/signup", "/mobile")
-
   def login =
     Open { implicit ctx =>
-      val referrer = get("referrer").filter(goodReferrer)
-      referrer.filterNot(sillyLoginReferrers.contains) ifTrue ctx.isAuth match {
+      val referrer = get("referrer").filter(env.api.util.goodReferrer)
+      referrer ifTrue ctx.isAuth match {
         case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
         case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess
       }
@@ -95,7 +81,7 @@ final class Auth(
       def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
       Firewall {
         implicit val req = ctx.body
-        val referrer     = get("referrer").filterNot(sillyLoginReferrers.contains)
+        val referrer     = get("referrer").filterNot(env.api.util.sillyLoginReferrers.contains)
         api.usernameOrEmailForm
           .bindFromRequest()
           .fold(
