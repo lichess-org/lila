@@ -4,6 +4,7 @@
   <string name="features">ken</string>
   <string name="reopen">kama sin</string>
   <string name="removedStudents">tenpo pini la weka</string>
+  <string name="className">nimi kulupu</string>
   <string name="realName">nimi lon</string>
   <string name="lastActiveDate">tenpo pini la lon</string>
   <string name="managed">jan pi pana sona li pana e pona</string>
@@ -17,5 +18,6 @@
   <string name="progress">pali tawa</string>
   <string name="winrate">nanpa pi pini pona</string>
   <string name="na">jo ken ala</string>
+  <string name="news">kama sin kulupu</string>
   <string name="editNews">ante e kama sin</string>
 </resources>
