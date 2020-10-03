@@ -19,8 +19,7 @@ class ReferrerRedirectTest extends Specification {
       valid("ftp://lichess.org/tournament") must beFalse
       valid("https://evil.com") must beFalse
       valid("https://evil.com/foo") must beFalse
-      valid("http://evil.com") must beFalse
-      valid("http://evil.com/foo") must beFalse
+      valid("//evil.com") must beFalse
       valid("/\t/evil.com") must beFalse
     }
   }
