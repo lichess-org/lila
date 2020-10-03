@@ -73,6 +73,7 @@
   <string name="database">ilo jo pi lipu sona</string>
   <string name="whiteDrawBlack">walo / ala / pimeja</string>
   <string name="topGames">musi pona pona</string>
+  <string name="noGameFound">musi ala li lon</string>
   <string name="openingExplorer">ilo open</string>
   <string name="allSet">ali li pali a!</string>
   <string name="delete">weka</string>
@@ -115,6 +116,7 @@
   <string name="latestForumPosts">toki sin lon ma toki</string>
   <string name="players">jan musi</string>
   <string name="friends">jan pona</string>
+  <string name="discussions">toki</string>
   <string name="today">tenpo suno ni</string>
   <string name="yesterday">tenpo suno pini</string>
   <string name="minutesPerSide">tenpo tawa kule</string>
@@ -280,6 +282,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="nextXTournament">musi mute %s kama:</string>
   <string name="membersOnly">jan nimi taso</string>
   <string name="boardEditor">ilo pi ante e supa</string>
+  <string name="setTheBoard">o ante e supa musi</string>
   <string name="startPosition">musi lon open</string>
   <string name="clearBoard">supa musi sin</string>
   <string name="savePosition">o sona awen e musi lon open</string>
@@ -455,12 +458,15 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="coaches">jan pi sona pana</string>
   <string name="error.unknown">pakala</string>
   <string name="custom">nasin ante</string>
+  <string name="notifications">toki kama</string>
   <string name="bestWasX">pona pona li %s</string>
+  <string name="seeBestMove">o lukin e tawa pona</string>
   <string name="getAHint">o jo e sona lili</string>
   <string name="whiteWinsGame">walo li pini pona</string>
   <string name="blackWinsGame">pimeja li pini pona</string>
   <string name="learnFromYourMistakes">o kama sona kepeken pakala sina</string>
   <string name="next">tawa</string>
+  <string name="xWasPlayed">tawa li %s</string>
   <string name="solution">pali pona</string>
   <string name="doItAgain">o pali sin</string>
   <plurals name="nbSeconds">
