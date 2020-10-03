@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="victories">pini pona</string>
   <string name="defeats">pini ike</string>
   <string name="now">tenpo ni</string>
 </resources>
