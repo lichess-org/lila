@@ -690,6 +690,7 @@ POST  /push/subscribe                  controllers.Push.webSubscribe
 # Pages
 GET   /terms-of-service                controllers.Page.tos
 GET   /privacy                         controllers.Page.bookmark(bookmark = "privacy")
+GET   /thanks                          controllers.Page.bookmark(bookmark = "thanks")
 GET   /contact                         controllers.Main.contact
 GET   /about                           controllers.Page.bookmark(bookmark = "about")
 GET   /faq                             controllers.Main.faq
