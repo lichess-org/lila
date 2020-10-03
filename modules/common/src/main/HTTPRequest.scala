@@ -98,9 +98,7 @@ object HTTPRequest {
   def acceptsJson(req: RequestHeader)   = req.headers get HeaderNames.ACCEPT contains "application/json"
 
   def actionName(req: RequestHeader): String =
-    req.attrs.get(Router.Attrs.HandlerDef).fold("NoHandler") { handler =>
-      s"${handler.controller.drop(12)}.${handler.method}"
-    }
+    req.attrs.get(Router.Attrs.ActionName).getOrElse("NoHandler")
 
   private val ApiVersionHeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
 
