@@ -253,9 +253,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .find($id(userId), $doc(s"${F.perfs}.${perfType.key}.gl" -> true).some)
       .one[Bdoc]
       .dmap {
-        _.flatMap(_ child F.perfs).flatMap(_ child perfType.key).flatMap(_.getAsOpt[Glicko]("gl"))
+        _.flatMap(_ child F.perfs)
+          .flatMap(_ child perfType.key)
+          .flatMap(_.getAsOpt[Glicko]("gl")) | Glicko.default
       }
-      .dmap(_ | Glicko.default)
 
   def incNbGames(
       id: ID,
