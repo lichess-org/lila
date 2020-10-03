@@ -21,6 +21,8 @@
   <string name="noPinnedComment">ala</string>
   <string name="empty">ala</string>
   <string name="editor">ilo pi kama ante</string>
+  <string name="editStudy">ante e nasin pali</string>
+  <string name="visibility">lukin ala lukin</string>
   <string name="public">ken lukin tawa jan ante</string>
   <string name="unlisted">pi lukin ala tawa jan ale</string>
   <string name="nobody">jan ala</string>
