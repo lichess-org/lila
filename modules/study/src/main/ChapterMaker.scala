@@ -212,7 +212,7 @@ private[study] object ChapterMaker {
       orientation: String = "white",
       mode: String = ChapterMaker.Mode.Normal.key,
       initial: Boolean = false,
-      isDefaultName: Boolean = true,
+      isDefaultName: Boolean = true
   ) extends ChapterData {
 
     def manyGames =

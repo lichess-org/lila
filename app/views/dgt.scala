@@ -45,7 +45,7 @@ object dgt {
       ),
       st.section(
         h2("DGT Board Limitations"),
-        br,      
+        br,
         p(
           "The play page needs to remain open on your browser. ",
           "It does not need to be visible, you can minimize it or set it side to side with the Lichess game page, ",
@@ -53,7 +53,7 @@ object dgt {
         ),
         p(
           "The board will auto connect to any game that is already on course or any new game that starts. ",
-          "Ability to choose which game to play is coming soon.",
+          "Ability to choose which game to play is coming soon."
         ),
         p(
           "Time controls for casual games: Classical, Correspondence and Rapid only.",
@@ -62,9 +62,9 @@ object dgt {
         )
       ),
       p(
-          "When ready, setup your board and then click ",
-          a(href := routes.DgtCtrl.play())("Play"),
-          "."                
+        "When ready, setup your board and then click ",
+        a(href := routes.DgtCtrl.play())("Play"),
+        "."
       )
     )
 
