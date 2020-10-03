@@ -2,4 +2,5 @@
 <resources>
   <string name="ongoing">tenpo lon la tawa</string>
   <string name="upcoming">pi tenpo kama</string>
+  <string name="completed">pini</string>
 </resources>
