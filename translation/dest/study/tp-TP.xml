@@ -12,6 +12,7 @@
   <string name="spectator">jan lukin</string>
   <string name="contributor">jan pali</string>
   <string name="kick">o weka e jan</string>
+  <string name="leaveTheStudy">o tawa weka tan nasin sona ni</string>
   <string name="like">pona tawa mi</string>
   <string name="newTag">nomo sona sin</string>
   <string name="playing">musi</string>
@@ -27,6 +28,7 @@
   <string name="orientation">poka pi sinpin ona</string>
   <string name="analysisMode">nasin pilin</string>
   <string name="noPinnedComment">ala</string>
+  <string name="hideNextMoves">o lukin ala e tawa lon tenpo tawa</string>
   <string name="empty">ala</string>
   <string name="editor">ilo pi kama ante</string>
   <string name="editStudy">ante e nasin pali</string>
