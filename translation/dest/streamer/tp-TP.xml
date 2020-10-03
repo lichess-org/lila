@@ -2,5 +2,6 @@
 <resources>
   <string name="live">tenpo ni!</string>
   <string name="offline">lon ala</string>
+  <string name="hereWeGo">o open! </string>
   <string name="headline">toki lawa</string>
 </resources>
