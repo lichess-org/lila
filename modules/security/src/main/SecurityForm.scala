@@ -21,6 +21,8 @@ final class SecurityForm(
 
   private val recaptchaField = "g-recaptcha-response" -> optional(nonEmptyText)
 
+  private val passwordMinLength = 4
+
   case class Empty(captchaResponse: Option[String])
 
   val empty = Form(
@@ -87,7 +89,7 @@ final class SecurityForm(
       Form(
         mapping(
           "username"  -> username,
-          "password"  -> text(minLength = 4),
+          "password"  -> text(minLength = passwordMinLength),
           "email"     -> emailField,
           "agreement" -> agreement,
           "fp"        -> optional(nonEmptyText),
@@ -101,7 +103,7 @@ final class SecurityForm(
     val mobile = Form(
       mapping(
         "username" -> username,
-        "password" -> text(minLength = 4),
+        "password" -> text(minLength = passwordMinLength),
         "email"    -> emailField
       )(MobileSignupData.apply)(_ => None)
     )
@@ -120,7 +122,7 @@ final class SecurityForm(
 
   val newPassword = Form(
     single(
-      "password" -> text(minLength = 4)
+      "password" -> text(minLength = passwordMinLength)
     )
   )
 
@@ -130,8 +132,8 @@ final class SecurityForm(
 
   val passwdReset = Form(
     mapping(
-      "newPasswd1" -> nonEmptyText(minLength = 2),
-      "newPasswd2" -> nonEmptyText(minLength = 2)
+      "newPasswd1" -> nonEmptyText(minLength = passwordMinLength),
+      "newPasswd2" -> nonEmptyText(minLength = passwordMinLength)
     )(PasswordResetConfirm.apply)(PasswordResetConfirm.unapply).verifying(
       "the new passwords don't match",
       _.samePasswords
