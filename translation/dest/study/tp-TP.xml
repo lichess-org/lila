@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">sina wile e nimi pi sona ala</string>
+  <string name="myStudies">pali sona mi</string>
   <string name="noneYet">tenpo ni la ala</string>
   <string name="hot">suli</string>
   <plurals name="nbGames">
     <item quantity="one">musi %s</item>
     <item quantity="other">musi %s</item>
   </plurals>
+  <string name="addMembers">poka e jan kulupu</string>
   <string name="spectator">jan lukin</string>
+  <string name="contributor">jan pali</string>
   <string name="kick">o weka e jan</string>
   <string name="like">pona tawa mi</string>
   <string name="newTag">nomo sona sin</string>
@@ -17,6 +20,7 @@
   <string name="next">tawa</string>
   <string name="last">o tawa monsi</string>
   <string name="cloneStudy">o kama jo</string>
+  <string name="startAtX">open lon %s</string>
   <string name="open">o tawa</string>
   <string name="noPinnedComment">ala</string>
   <string name="empty">ala</string>
@@ -31,4 +35,5 @@
   <string name="everyone">jan ala</string>
   <string name="start">o open</string>
   <string name="save">awen</string>
+  <string name="clearChat">weka e toki lon tomo toki</string>
 </resources>
