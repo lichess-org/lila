@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Донирај</string>
+  <string name="lichessPatron">Lichess подржувач
+
+Луѓе кои донират на Lichess - https://lichess.org/patron</string>
+  <string name="freeAccount">Бесплатен акаунт</string>
+  <string name="becomePatron">Стани подржувач</string>
+  <string name="xBecamePatron">%s стани Lichess подржувач</string>
+  <string name="newPatrons">Нови подржувачи</string>
+  <string name="freeChess">Бесплатен шах за сите, засекогаш!</string>
+  <string name="noAdsNoSubs">Без реклами без претплатување; но open-source и страст.</string>
+  <string name="thankYou">Ви благодарам за донацијата!</string>
+  <string name="youHaveLifetime">Имате доживотен донатор акаунт. Тоа е неверојатно!</string>
+  <string name="patronUntil">Имате донаторски акаунт до %s.</string>
+</resources>
