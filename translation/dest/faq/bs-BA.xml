@@ -46,12 +46,23 @@ U rijetkim slučajevima to može biti teško odlučiti automatski (forsirane var
 Primijetite da je moguće matirati samim skakačem ili lovcem ako protivnik ima figuru koja mu može blokirati kralja.</string>
   <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Pravilnik FIDE %s</string>
   <string name="discoveringEnPassant">Zašto pješak može uzeti pješaka kad je već prošao pokraj njega? (\"en passant\")</string>
+  <string name="explainingEnPassant">Ovo je legalan potez poznat kao \"en passant\". Članak na Wikipediji na engleskom jeziku daje %1$s.
+
+Opisan je u odjeljku 3.7 (d) %2$s:
+
+\"Pješak koji zauzima polje na istom redu kao protivnički pješak koji je s početne pozicije upravo pomaknut za dva polja u jednom potezu i koji je na susjednoj liniji može uzeti tog protivničkog pješaka kao da je potonji pomaknut za samo jedno polje. To uzimanje legalno je samo u potezu koji slijedi neposredno nakon spomenutog pomicanja za dva polja i zove se uzimanje \'en passant\'.\"
+
+Pogledajte %3$s koja se odnosi na ovaj potez kako biste ga malo izvježbali.</string>
   <string name="goodIntroduction">dobar uvod</string>
   <string name="officialRulesPDF">službena pravila (PDF)</string>
   <string name="lichessTraining">Lichessov trening</string>
   <string name="threefoldRepetition">Trostruko ponavljanje pozicije</string>
+  <string name="threefoldRepetitionExplanation">Ako se neka pozicija ponovi tri puta, igrači mogu proglasiti remi zbog %1$s. Lichess primjenjuje službena pravila FIDE, kao što je opisano u članu 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trostruko ponavljanje pozicije</string>
+  <string name="notRepeatedMoves">Nismo ponavljali poteze. Zašto je partija i dalje neriješena zbog ponavljanja?</string>
+  <string name="repeatedPositionsThatMatters">Trostruko ponavljanje odnosi se na ponavljanje %1$s, ne poteza. Ponavljanje pozicije ne mora se dogoditi u uzastopnim potezima.</string>
   <string name="positions">pozicije</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Ponovili smo poziciju tri puta. Zašto partija nije bila neriješena?</string>
   <string name="configure">konfigurirajte</string>
   <string name="accounts">Računi</string>
   <string name="titlesAvailableOnLichess">Koje titule postoje na Lichessu?</string>
