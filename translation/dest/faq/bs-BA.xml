@@ -31,6 +31,13 @@
   <string name="lichessSupportChessAnd">Lichess podržava standardni šah i još osam %1$s.</string>
   <string name="eightVariants">8 varijanti šaha</string>
   <string name="whatIsACPL">Šta je prosječni gubitak centipješaka (ACPL)?</string>
+  <string name="acplExplanation">Centipješak je mjerna jedinica koja se koristi u šahu radi prikazivanja prednosti, a jednaka je stotom dijelu pješaka; dakle, 100 centipješaka = 1 pješak. Ove vrijednosti nemaju formalnu ulogu u partiji, ali su korisne igračima i ključne u računarskom šahu za vrednovanje pozicija.
+
+Najbolji računarski potez neće izgubiti nijedan centipješak, ali će lošiji potezi rezultirati pogoršanjem pozicije, što se mjeri centipješacima.
+
+Ova vrijednost može se upotrebljavati kao pokazatelj kvaliteta igre. Što manje centipješaka igrač /iz/gubi po potezu, to je njegova igra jača.
+
+Računarska analiza na Lichessu potpomognuta je Stockfishem.</string>
   <string name="insufficientMaterial">Gubljenje na vrijeme, remiziranje i nedovoljan materijal</string>
   <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Pravilnik FIDE %s</string>
   <string name="discoveringEnPassant">Zašto pješak može uzeti pješaka kad je već prošao pokraj njega? (\"en passant\")</string>
