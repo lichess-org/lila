@@ -248,9 +248,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def sortPerfDesc(perf: String) = $sort desc s"perfs.$perf.gl.r"
   val sortCreatedAtDesc          = $sort desc F.createdAt
 
-  def glicko(userId: ID, perfType: PerfType): Fu[Glicko] =
-    coll.primitiveOne[Glicko]($id(userId), s"${F.perfs}.${perfType.key}").dmap(_ | Glicko.default)
-
   def incNbGames(
       id: ID,
       rated: Boolean,

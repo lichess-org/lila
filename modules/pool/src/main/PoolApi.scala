@@ -3,7 +3,7 @@ package lila.pool
 import akka.actor._
 
 import lila.game.Game
-import lila.rating.{ PerfType, RatingRange }
+import lila.rating.RatingRange
 import lila.socket.Socket.{ Sri, Sris }
 import lila.user.User
 
@@ -25,12 +25,7 @@ final class PoolApi(
     )
   }.toMap
 
-  val poolPerfTypes: Map[PoolConfig.Id, PerfType] =
-    configs.map { config =>
-      config.id -> config.perfType
-    }.toMap
-
-  def join(poolId: PoolConfig.Id, joiner: Joiner): Unit =
+  def join(poolId: PoolConfig.Id, joiner: Joiner) =
     playbanApi.hasCurrentBan(joiner.userId) dforeach {
       case false =>
         actors foreach {
@@ -54,10 +49,10 @@ object PoolApi {
   case class Joiner(
       userId: User.ID,
       sri: Sri,
-      rating: Int,
+      ratingMap: Map[String, Int],
       ratingRange: Option[RatingRange],
       lame: Boolean,
-      blocking: Set[User.ID]
+      blocking: Set[String]
   ) {
 
     def is(member: PoolMember) = userId == member.userId

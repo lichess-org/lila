@@ -35,7 +35,7 @@ object PoolMember {
       userId = joiner.userId,
       sri = joiner.sri,
       lame = joiner.lame,
-      rating = joiner.rating,
+      rating = joiner.ratingMap.getOrElse(config.perfType.key, 1500),
       ratingRange = joiner.ratingRange,
       blocking = BlockedUsers(joiner.blocking),
       rageSitCounter = rageSit.counter / 10
