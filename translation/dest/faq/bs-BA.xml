@@ -63,6 +63,7 @@ Pogledajte %3$s koja se odnosi na ovaj potez kako biste ga malo izvježbali.</st
   <string name="repeatedPositionsThatMatters">Trostruko ponavljanje odnosi se na ponavljanje %1$s, ne poteza. Ponavljanje pozicije ne mora se dogoditi u uzastopnim potezima.</string>
   <string name="positions">pozicije</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Ponovili smo poziciju tri puta. Zašto partija nije bila neriješena?</string>
+  <string name="threeFoldHasToBeClaimed">Ponavljanje treba proglasiti jedan od igrača. To možete učiniti klikom na prikazano dugme ili nuđenjem remija prije Vašeg posljednjeg ponavljajućeg poteza. Neće biti važno ako protivnik odbije ponudu; trostruko ponavljanje bit će proglašeno u svakom slučaju. Također možete %1$s Lichess da automatski proglašava ponavljanje za Vas. Osim toga, petostruko ponavljanje okončava partiju istog trenutka.</string>
   <string name="configure">konfigurirajte</string>
   <string name="accounts">Računi</string>
   <string name="titlesAvailableOnLichess">Koje titule postoje na Lichessu?</string>
