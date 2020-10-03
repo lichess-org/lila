@@ -11,7 +11,19 @@
   <string name="languages">јазици</string>
   <string name="rating">рејтинг</string>
   <string name="hourlyRate">Цена за еден час</string>
+  <string name="availability">Достапност</string>
+  <string name="accepting">прифаќа студенти</string>
+  <string name="notAccepting">не прифаќа студенти во моментот</string>
+  <string name="sendPM">испрати приватна порака</string>
   <string name="aboutMe">За мене %s</string>
+  <string name="playingExperience">Играчко искуство</string>
+  <string name="teachingExperience">Искуство во тренирање</string>
+  <string name="otherExperiences">други искуства</string>
   <string name="bestSkills">најдобри вештини</string>
+  <string name="teachingMethod">начин на тренирање</string>
+  <string name="publicStudies">Јавни студии</string>
   <string name="youtubeVideos">Youtube видеа</string>
+  <string name="thankYouForReview">Ви благодариме за прегледот</string>
+  <string name="reviewCoach">Оцени го овој тренер</string>
+  <string name="describeExperienceWith">Опиши го твоето искуство со %s името на тренерот</string>
 </resources>
