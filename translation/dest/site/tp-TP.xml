@@ -401,6 +401,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tools">ilo musi</string>
   <string name="increment">tenpo poka</string>
   <string name="playOnline">o musi kepeken linja</string>
+  <string name="playOffline">musi lon ala ilo sona</string>
   <string name="onlyFriends">jan pona taso</string>
   <string name="menu">lipu open</string>
   <string name="whiteCastlingKingside">walo O-O</string>
@@ -429,6 +430,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="yourPerfTypeRatingIsRating">nanpa %1$s sina li nanpa %2$s</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">jan %1$s li pona mute. jan %2$s lon %3$s li pona lili.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">sina jo ala e nanpa %s</string>
+  <string name="yourRating">pona sina</string>
   <string name="cumulative">pi pali nanpa poka</string>
   <string name="glicko2Rating">nanpa Glicko-2</string>
   <string name="withNobody">tawa jan ala</string>
@@ -482,4 +484,5 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="important">suli</string>
   <string name="teamNamedX">kulupu %1$s</string>
   <string name="subscribe">o kama jo e sona</string>
+  <string name="unsubscribe">o pini e sona pi kama sin</string>
 </resources>
