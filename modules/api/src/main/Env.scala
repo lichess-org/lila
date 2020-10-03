@@ -79,7 +79,7 @@ final class Env(
 
   lazy val personalDataExport = wire[PersonalDataExport]
 
-  lazy val util = wire[Util]
+  lazy val referrerRedirect = wire[ReferrerRedirect]
 
   lazy val cli = wire[Cli]
 

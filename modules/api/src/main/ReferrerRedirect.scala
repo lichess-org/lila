@@ -5,17 +5,18 @@ import scala.util.Try
 
 import lila.common.config.BaseUrl
 
-final class Util(baseUrl: BaseUrl) {
+final class ReferrerRedirect(baseUrl: BaseUrl) {
 
   val sillyLoginReferrers = Set("/login", "/signup", "/mobile")
 
   private lazy val lilaHost = AbsoluteUrl.parse(baseUrl.value).host.value
 
+  private val validCharsRegex = """^[\w-\.:/\?&=@#%\[\]]+$""".r
+
   // allow relative and absolute redirects only to the same domain or
   // subdomains, excluding /mobile (which is shown after logout)
-  def goodReferrer(referrer: String): Boolean =
-    referrer.nonEmpty &&
-      !referrer.contains("\t") && // tab is ignored by the browser and allows injecting external URLs
+  def valid(referrer: String): Boolean =
+    validCharsRegex.matches(referrer) &&
       !sillyLoginReferrers(referrer) && Try {
         val url = Url.parse(referrer)
         url.schemeOption.fold(true)(scheme => scheme == "http" || scheme == "https") &&

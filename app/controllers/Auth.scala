@@ -1,12 +1,10 @@
 package controllers
 
-import io.lemonlabs.uri.{ AbsoluteUrl, Url }
 import ornicar.scalalib.Zero
 import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
 import scala.annotation.nowarn
-import scala.util.Try
 
 import lila.api.Context
 import lila.app._
@@ -41,7 +39,7 @@ final class Auth(
     api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = fuccess {
-          val redirectTo = get("referrer").filter(env.api.util.goodReferrer) orElse
+          val redirectTo = get("referrer").filter(env.api.referrerRedirect.valid) orElse
             ctxReq.session.get(api.AccessUri) getOrElse
             routes.Lobby.home().url
           result.fold(Redirect(redirectTo))(_(redirectTo))
@@ -67,7 +65,7 @@ final class Auth(
 
   def login =
     Open { implicit ctx =>
-      val referrer = get("referrer").filter(env.api.util.goodReferrer)
+      val referrer = get("referrer").filter(env.api.referrerRedirect.valid)
       referrer ifTrue ctx.isAuth match {
         case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
         case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess
@@ -81,7 +79,7 @@ final class Auth(
       def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
       Firewall {
         implicit val req = ctx.body
-        val referrer     = get("referrer").filterNot(env.api.util.sillyLoginReferrers.contains)
+        val referrer     = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers.contains)
         api.usernameOrEmailForm
           .bindFromRequest()
           .fold(

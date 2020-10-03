@@ -6,21 +6,27 @@ import lila.common.config.BaseUrl
 
 class ReferrerRedirectTest extends Specification {
 
-  def valid = new Util(BaseUrl("https://lichess.org")).goodReferrer _
+  def r = new ReferrerRedirect(BaseUrl("https://lichess.org"))
 
   "referrer" should {
     "be valid" in {
-      valid("/tournament") must beTrue
-      valid("/@/neio") must beTrue
-      valid("https://lichess.org/tournament") must beTrue
+      r.valid("/tournament") must beTrue
+      r.valid("/@/neio") must beTrue
+      r.valid("/@/Neio") must beTrue
+      r.valid("//lichess.org") must beTrue
+      r.valid("//foo.lichess.org") must beTrue
+      r.valid("https://lichess.org/tournament") must beTrue
+      r.valid("https://lichess.org/?a_a=b-b&C[]=#hash") must beTrue
     }
     "be invalid" in {
-      valid("") must beFalse
-      valid("ftp://lichess.org/tournament") must beFalse
-      valid("https://evil.com") must beFalse
-      valid("https://evil.com/foo") must beFalse
-      valid("//evil.com") must beFalse
-      valid("/\t/evil.com") must beFalse
+      r.valid("") must beFalse
+      r.valid("ftp://lichess.org/tournament") must beFalse
+      r.valid("https://evil.com") must beFalse
+      r.valid("https://evil.com/foo") must beFalse
+      r.valid("//evil.com") must beFalse
+      r.valid("//lichess.org.evil.com") must beFalse
+      r.valid("/\t/evil.com") must beFalse
+      r.valid("/ /evil.com") must beFalse
     }
   }
 }
