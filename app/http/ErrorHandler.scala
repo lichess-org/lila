@@ -21,7 +21,7 @@ final class ErrorHandler(
 
   override def onProdServerError(req: RequestHeader, exception: UsefulException) =
     Future {
-      val actionName = HTTPRequest actionName req
+      val actionName = "UnknownHandler"
       val client     = HTTPRequest clientName req
       lila.mon.http.error(actionName, client, req.method, 500).increment()
       lila.log("http").error(s"ERROR 500 $actionName", exception)

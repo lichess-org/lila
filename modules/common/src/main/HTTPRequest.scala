@@ -2,7 +2,6 @@ package lila.common
 
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
-import play.api.routing.Router
 
 object HTTPRequest {
 
@@ -96,11 +95,6 @@ object HTTPRequest {
 
   def acceptsNdJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/x-ndjson"
   def acceptsJson(req: RequestHeader)   = req.headers get HeaderNames.ACCEPT contains "application/json"
-
-  def actionName(req: RequestHeader): String =
-    req.attrs.get(Router.Attrs.HandlerDef).fold("NoHandler") { handler =>
-      s"${handler.controller.drop(12)}.${handler.method}"
-    }
 
   private val ApiVersionHeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
 

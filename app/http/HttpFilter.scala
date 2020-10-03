@@ -31,7 +31,7 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
     }
 
   private def monitoring(req: RequestHeader, startTime: Long, result: Result) = {
-    val actionName = HTTPRequest actionName req
+    val actionName = "UnknownHandler"
     val reqTime    = nowMillis - startTime
     val statusCode = result.header.status
     val client     = HTTPRequest clientName req

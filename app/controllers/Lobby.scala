@@ -24,7 +24,7 @@ final class Lobby(
     Open { implicit ctx =>
       pageHit
       negotiate(
-        html = env.pageCache { () =>
+        html = env.pageCache("home") { () =>
           keyPages.homeHtml.dmap { html =>
             NoCache(Ok(html))
           }

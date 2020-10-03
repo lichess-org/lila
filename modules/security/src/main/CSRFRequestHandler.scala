@@ -25,7 +25,7 @@ final class CSRFRequestHandler(net: NetConfig) {
   }
 
   private def monitor(tpe: String, req: RequestHeader) =
-    lila.mon.http.csrfError(tpe, actionName(req), clientName(req)).increment()
+    lila.mon.http.csrfError(tpe, "UnknownHandler", clientName(req)).increment()
 
   private val topDomain = s"://${net.domain}"
   private val subDomain = s".${net.domain}"
