@@ -249,7 +249,13 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   val sortCreatedAtDesc          = $sort desc F.createdAt
 
   def glicko(userId: ID, perfType: PerfType): Fu[Glicko] =
-    coll.primitiveOne[Glicko]($id(userId), s"${F.perfs}.${perfType.key}").dmap(_ | Glicko.default)
+    coll
+      .find($id(userId), $doc(s"${F.perfs}.${perfType.key}.gl" -> true).some)
+      .one[Bdoc]
+      .dmap {
+        _.flatMap(_ child F.perfs).flatMap(_ child perfType.key).flatMap(_.getAsOpt[Glicko]("gl"))
+      }
+      .dmap(_ | Glicko.default)
 
   def incNbGames(
       id: ID,
