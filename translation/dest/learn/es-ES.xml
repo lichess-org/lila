@@ -43,12 +43,12 @@
   <string name="pawnsMoveOneSquareOnly">Los peones sólo pueden mover una casilla, pero cuando alcanzan el otro extremo del tablero ¡promocionan a una pieza más fuerte!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">La mayoría de las veces, lo mejor es promocionar a dama pero ¡hay ocasiones en que un caballo puede ser útil!</string>
   <string name="pawnsMoveForward">Los peones avanzan en línea recta, ¡pero capturan en diagonal!</string>
-  <string name="captureThenPromote">¡Captura y luego promociona el peón!</string>
-  <string name="useAllThePawns">¡Utiliza todos los peones! No hace falta promocionar.</string>
+  <string name="captureThenPromote">¡Captura y, luego, promociona!</string>
+  <string name="useAllThePawns">¡Usa todos los peones! No hace falta promocionar.</string>
   <string name="aPawnOnTheSecondRank">¡Un peón en la segunda fila puede avanzar dos casillas en solo un movimiento!</string>
   <string name="grabAllTheStarsNoNeedToPromote">¡Captura todas las estrellas! No hace falta promocionar.</string>
   <string name="pawnComplete">¡Felicidades! Los peones no tienen secretos para ti.</string>
-  <string name="pawnPromotion">Promoción del peón</string>
+  <string name="pawnPromotion">Promoción del Peón</string>
   <string name="yourPawnReachedTheEndOfTheBoard">¡Tu peón ha llegado al final del tablero!</string>
   <string name="itNowPromotesToAStrongerPiece">Ahora promociona a una pieza más fuerte.</string>
   <string name="selectThePieceYouWant">¡Selecciona la pieza que quieras!</string>
