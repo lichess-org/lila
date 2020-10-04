@@ -621,15 +621,15 @@
   <string name="webmasters">Desarrolladores</string>
   <string name="about">Acerca de</string>
   <string name="aboutX">Acerca de %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor de ajedrez totalmente gratuito (%2$s) creado con código abierto, libre, sin publicidad.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor de ajedrez libre y gratuito (%2$s) de código abierto y sin publicidad.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="termsOfService">Condiciones del servicio</string>
   <string name="sourceCode">Código fuente</string>
-  <string name="simultaneousExhibitions">Exhibiciones simultáneas</string>
+  <string name="simultaneousExhibitions">Partidas simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Color del anfitrión: %s</string>
-  <string name="createdSimuls">Nuevas simultáneas creadas</string>
+  <string name="createdSimuls">Simultáneas nuevas</string>
   <string name="hostANewSimul">Crear una nueva simultánea</string>
   <string name="noSimulFound">Simultánea no encontrada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea no existe.</string>
@@ -669,7 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tu puntuación en %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores de %2$s.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s es mejor que %2$s de %3$s jugadores.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s es mejor que el %2$s de los jugadores de %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tienes una puntuación de %s  establecida.</string>
   <string name="yourRating">Tu puntuación</string>
   <string name="cumulative">Acumulado</string>
@@ -810,10 +810,10 @@
   <string name="yourXRatingIsTooFarFromY">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">No puedes enviar desafíos porque tu puntuación de %s es provisional.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s sólo acepta desafíos de sus amigos.</string>
-  <string name="conditionalPremoves">Premovimientos condicionales</string>
+  <string name="conditionalPremoves">Movimientos condicionales</string>
   <string name="addCurrentVariation">Añadir la variante actual</string>
   <string name="playVariationToCreateConditionalPremoves">Juega una variante para crear movimientos condicionales</string>
-  <string name="noConditionalPremoves">Sin movimientos anticipados condicionales</string>
+  <string name="noConditionalPremoves">Sin movimientos condicionales</string>
   <string name="playX">Jugar %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">y ahorra %s línea de premovimiento</item>
@@ -834,7 +834,7 @@
   <string name="wishYouGreatGames">y esperamos que disfrutes de lichess.org.</string>
   <string name="thankYouForReading">¡Gracias por tomarte el tiempo para leer esto!</string>
   <string name="lifetimeScore">Puntuación histórica</string>
-  <string name="currentMatchScore">Puntuación actual</string>
+  <string name="currentMatchScore">Resultados de este enfrentamiento</string>
   <string name="agreementAssistance">Me comprometo a no recibir ayuda externa durante mis partidas (de un ordenador, un libro, una base de datos u otra persona).</string>
   <string name="agreementNice">Me comprometo a respetar siempre a otros jugadores.</string>
   <string name="agreementAccount">Me comprometo a no crear múltiples cuentas.</string>
@@ -851,8 +851,8 @@
   <string name="correspondenceDesc">Partidas por correspondencia: uno o varios días por jugada</string>
   <string name="puzzleDesc">Entrenador de táctica de ajedrez</string>
   <string name="important">Importante</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Tu pregunta puede que ya tenga una respuesta %1$s</string>
-  <string name="inTheFAQ">en las Preguntas Frecuentes</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Puede que tu pregunta ya tenga respuesta %1$s</string>
+  <string name="inTheFAQ">en las preguntas frecuentes.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Para reportar a un usuario por fraude o mala conducta, %1$s</string>
   <string name="useTheReportForm">usar el formulario de informe</string>
   <string name="toRequestSupport">Para solicitar soporte, %1$s</string>
