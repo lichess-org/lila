@@ -240,7 +240,7 @@ object index {
         dd(
           serversAndDeveloper(userIdLink("thibault".some)),
           br,
-          a(href := "/costs", target := "_blank")(costBreakdown()),
+          a(href := routes.Main.costs(), targetBlank)(costBreakdown()),
           "."
         ),
         dt(officialNonProfit()),
@@ -254,11 +254,11 @@ object index {
       dl(
         dt(changeMonthlySupport()),
         dd(
-          changeOrContact(a(href := routes.Main.contact(), target := "_blank")(contactSupport()))
+          changeOrContact(a(href := routes.Main.contact(), targetBlank)(contactSupport()))
         ),
         dt(otherMethods()),
         dd(
-          a(href := assetUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), target := "_blank")(bankTransfers()),
+          a(href := assetUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), targetBlank)(bankTransfers()),
           ".",
           br,
           bitcoin(code("15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8"))
@@ -269,7 +269,7 @@ object index {
         dd(
           noPatronFeatures(),
           br,
-          a(href := routes.Plan.features(), target := "_blank")(featuresComparison()),
+          a(href := routes.Plan.features(), targetBlank)(featuresComparison()),
           "."
         )
       )

@@ -73,11 +73,7 @@ object show {
               sim.position map { pos =>
                 frag(
                   br,
-                  a(target := "_blank", rel := "noopener", href := pos.url)(
-                    strong(pos.eco),
-                    " ",
-                    pos.name
-                  ),
+                  a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
                   " • ",
                   a(href := routes.UserAnalysis.parseArg(pos.fen.replace(" ", "_")))(
                     trans.analysis()

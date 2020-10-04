@@ -49,7 +49,7 @@ object bits {
         case v => routes.Page.variant(v.key).url
       }),
       rel := "nofollow",
-      target := "_blank",
+      targetBlank,
       title := variant.title
     )(name)
 }

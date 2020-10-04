@@ -96,11 +96,7 @@ object side {
           tour.startsAt
         ),
         !tour.position.initial option p(
-          a(target := "_blank", rel := "noopener", href := tour.position.url)(
-            strong(tour.position.eco),
-            " ",
-            tour.position.name
-          ),
+          a(targetBlank, href := tour.position.url)(strong(tour.position.eco), " ", tour.position.name),
           separator,
           a(href := routes.UserAnalysis.parseArg(tour.position.fen.replace(" ", "_")))(trans.analysis())
         )

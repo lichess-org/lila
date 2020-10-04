@@ -60,8 +60,7 @@ object form {
         help = fullDescriptionHelp(
           a(
             href := "https://guides.github.com/features/mastering-markdown/",
-            target := "_blank",
-            rel := "noopener"
+            targetBlank
           )("Markdown"),
           20000.localize
         ).some

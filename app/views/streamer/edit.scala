@@ -29,13 +29,13 @@ object edit extends Context.ToLang {
           if (ctx.is(s.user))
             div(cls := "streamer-header")(
               if (s.streamer.hasPicture)
-                a(target := "_blank", href := routes.Streamer.picture(), title := changePicture.txt())(
+                a(targetBlank, href := routes.Streamer.picture(), title := changePicture.txt())(
                   bits.pic(s.streamer, s.user)
                 )
               else
                 div(cls := "picture-create")(
                   ctx.is(s.user) option
-                    a(target := "_blank", cls := "button", href := routes.Streamer.picture())(
+                    a(targetBlank, cls := "button", href := routes.Streamer.picture())(
                       uploadPicture()
                     )
                 ),
