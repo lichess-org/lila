@@ -32,13 +32,13 @@
   <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>
   <string name="basedOnGameDuration">Los controles de tiempo de Lichess se basan en la duración estimada de una partida = %1$s
  Por ejemplo, la duración estimada de una partida de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
-  <string name="durationFormula">(hora inicial del reloj) + 40 * (aumento del reloj)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
-  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="durationFormula">(tiempo inicial del reloj) + 40 × (incremento)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s s = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">¿Qué variantes puedo jugar en Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess soporta ajedrez estándar y %1$s.</string>
-  <string name="eightVariants">8 variantes de ajedrez</string>
-  <string name="whatIsACPL">¿Qué es la \"pérdida media de centipeón\"?</string>
+  <string name="eightVariants">otras 8 variantes</string>
+  <string name="whatIsACPL">¿Qué es la pérdida media en centipeones (PMC)?</string>
   <string name="acplExplanation">El centipeón es la unidad de medida utilizada en el ajedrez como representación de la ventaja. Un centipeón es igual a 1/100 de un peón. Por lo tanto 100 centipeones = 1 peón. Estos valores no juegan ningún papel formal en el juego, pero son útiles para los jugadores y esenciales en el ajedrez por computadora para evaluar las posiciones.
 
   El mejor movimiento de la computadora perderá cero centipeones, pero los movimientos menores darán como resultado una posición desfavorable, medida en centipeones.
