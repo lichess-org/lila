@@ -34,7 +34,7 @@
   <string name="whitePlays">पांढऱ्याची चाल</string>
   <string name="blackPlays">काळ्याची चाल</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">प्रतिस्पर्ध्याने गेम सोडला. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
+    <item quantity="one">प्रतिस्पर्ध्याने खेळ सोडला आहे. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
     <item quantity="other">प्रतिस्पर्ध्याने गेम सोडला. आपण %s सेकंदात विजयाचा दावा करू शकता.</item>
   </plurals>
   <string name="opponentLeftChoices">प्रतिस्पर्ध्याने खेळ सोडला आहे. तुम्ही विजयाचा दावा करू शकतात, नाही तर त्यांची वाट पाहू शकतात.</string>
@@ -43,7 +43,7 @@
   <string name="forceDraw">सामना अनिर्णित ठेवण्याची विनंती करा</string>
   <string name="talkInChat">गप्पांमध्ये बोला</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">या युआरएलवर येणारे पहिले व्यक्ती तुमच्याबरोबर खेळणार.</string>
-  <string name="whiteResigned">पांढर्याने हार मानली</string>
+  <string name="whiteResigned">पांढऱ्याने हार मानली</string>
   <string name="blackResigned">काळ्याने हार मानली</string>
   <string name="whiteLeftTheGame">पांढऱ्याने खेळ सोडला</string>
   <string name="blackLeftTheGame">काळ्याने खेळ सोडला</string>
