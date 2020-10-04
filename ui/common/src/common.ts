@@ -8,10 +8,6 @@ export const isEmpty = (a: any): boolean => !a || a.length === 0;
 
 export const notEmpty = (a: any): boolean => !isEmpty(a);
 
-/* export const foreach = <A>(a: A | undefined, f: (a: A) => void): void => { */
-/*   if (a) f(a); */
-/* } */
-
 export interface Prop<T> {
   (): T
   (v: T): T
