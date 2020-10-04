@@ -2,17 +2,17 @@
 <resources>
   <string name="private">Privat</string>
   <string name="myStudies">Mina studier</string>
-  <string name="studiesIContributeTo">Studium jag bidrar till</string>
+  <string name="studiesIContributeTo">Studier som jag bidrar till</string>
   <string name="myPublicStudies">Mina offentliga studier</string>
   <string name="myPrivateStudies">Mina privata studier</string>
-  <string name="myFavoriteStudies">Mina favoritstudium</string>
-  <string name="whatAreStudies">Vad är studium?</string>
+  <string name="myFavoriteStudies">Mina favoritstudier</string>
+  <string name="whatAreStudies">Vad är studier?</string>
   <string name="allStudies">Alla studier</string>
-  <string name="studiesCreatedByX">Studium skapade av %s</string>
-  <string name="noneYet">Inga än.</string>
-  <string name="hot">Heta</string>
-  <string name="dateAddedNewest">Tilläggningsdatum (nyast)</string>
-  <string name="dateAddedOldest">Tilläggningsdatum (äldst)</string>
+  <string name="studiesCreatedByX">Studier skapade av %s</string>
+  <string name="noneYet">Inga ännu.</string>
+  <string name="hot">Populära</string>
+  <string name="dateAddedNewest">Datum tillagd (nyaste)</string>
+  <string name="dateAddedOldest">Datum tillagd (nyaste)</string>
   <string name="recentlyUpdated">Nyligen uppdaterade</string>
   <string name="mostPopular">Populärast</string>
   <string name="addNewChapter">Lägg till ett nytt kapitel</string>
@@ -70,6 +70,7 @@
   <string name="startAtX">Börja på %s</string>
   <string name="embedInYourWebsite">Infoga på din hemsida eller blogg</string>
   <string name="readMoreAboutEmbedding">Läs mer om att infoga</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Endast offentliga studier kan läggas till!</string>
   <string name="open">Öppna</string>
   <string name="xBroughtToYouByY">%1$s gjord av %2$s</string>
   <string name="studyNotFound">Studien kan inte hittas</string>
