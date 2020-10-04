@@ -80,12 +80,12 @@
   <string name="analysisMode">Analysläge</string>
   <string name="pinnedChapterComment">Fastnålad kommentar till kapitlet</string>
   <string name="saveChapter">Spara kapitlet</string>
-  <string name="clearAnnotations">Rensa schacknotation</string>
-  <string name="deleteChapter">Radera kapitel</string>
-  <string name="deleteThisChapter">Ta bort detta kapitel? Det finns ingen återvändo!</string>
+  <string name="clearAnnotations">Rensa kommentarer</string>
+  <string name="deleteChapter">Ta bort kapitel</string>
+  <string name="deleteThisChapter">Vill du ta bort hela studien? Detta går inte att ångra!</string>
   <string name="clearAllCommentsInThisChapter">Rensa alla kommentarer, symboler och former i detta kapitel?</string>
   <string name="rightUnderTheBoard">Direkt under brädet</string>
-  <string name="noPinnedComment">Inget</string>
+  <string name="noPinnedComment">Ingen</string>
   <string name="normalAnalysis">Normal analys</string>
   <string name="hideNextMoves">Dölj nästa drag</string>
   <string name="interactiveLesson">Interaktiv lektion</string>
