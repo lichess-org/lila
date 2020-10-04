@@ -41,9 +41,9 @@
   <string name="xShieldArena">Torneo de escudo %s</string>
   <string name="xShield">Escudo %s</string>
   <string name="openingRapidArena">Torneo rápido de %s</string>
-  <string name="openingRapid">Rápido de %s</string>
-  <string name="xTeamBattle">Batalla por Equipos %s</string>
-  <string name="eliteXArena">Torneo %s de Élite</string>
-  <string name="eliteX">%s de Élite</string>
+  <string name="openingRapid">Rápida %s</string>
+  <string name="xTeamBattle">Batalla por equipos %s</string>
+  <string name="eliteXArena">Torneo %s de élite</string>
+  <string name="eliteX">%s de élite</string>
   <string name="xArena">Torneo %s</string>
 </resources>
