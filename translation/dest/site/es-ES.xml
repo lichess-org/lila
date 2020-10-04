@@ -276,7 +276,7 @@
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Esta cuenta ha violado los Términos de Servicio de Lichess</string>
+  <string name="thisAccountViolatedTos">Este usuario no cumple los términos de servicio de Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jugador incrementa o disminuye artificialmente su puntuación</string>
   <string name="openingExplorerAndTablebase">Explorador de aperturas y base de datos de finales</string>
   <string name="takeback">Deshacer jugada</string>
