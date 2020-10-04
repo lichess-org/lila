@@ -780,9 +780,30 @@ export default function (token: string) {
           var movesToProcess = 1;
           if (lastLegalParam !== undefined)
             movesToProcess = message.param.san.length - lastLegalParam.san.length;
+          //Check border case in which DGT Board LiveChess detects the wrong move while pieces are still on the air
+          if (movesToProcess > 1) {
+            if (verbose) console.warn('onmessage - Multiple moves received on single message - movesToProcess: ' + movesToProcess);
+            if (localBoard.turn == currentGameColor) {
+              //If more than one move is received when its the DGT board player's turn this may be a invalid move
+              //Move will be quarentined by 2.5 seconds
+              var quarentinedlastLegalParam = lastLegalParam;
+              await sleep(2500);
+              //Check if a different move was recevied and processed during quarentine
+              if (JSON.stringify(lastLegalParam.san) != JSON.stringify(quarentinedlastLegalParam.san)) {
+                //lastLegalParam was altered, this mean a new move was received from LiveChess during quarentine
+                console.warn('onmessage - Invalid moved quarentined and not sent to lichess. Newer move interpretration received.');
+                return;
+              }
+              //There is a chance that the same move came twice and quarentined twice before updating lastLegalParam
+              else if (lastLegalParam !== undefined && JSON.stringify(lastLegalParam.san) == JSON.stringify(message.param.san)) {
+                //It looks like a duplicate, so just ignore it
+                if (verbose) console.info('onmessage - Duplicate position and san move received after quarentine and will be ignored');
+                return;
+              }
+            }
+          }
           //Update the lastLegalParam object to to help prevent duplicates and detect when more than one move is received
           lastLegalParam = message.param;
-          if (verbose && movesToProcess > 1) console.warn('onmessage - Multiple moves received on single message - movesToProcess: ' + movesToProcess);
           for (let i = movesToProcess; i > 0; i--) {
             //Get first move to process, usually the last since movesToProcess is usually 1
             SANMove = String(message.param.san[message.param.san.length - i]).trim();
@@ -1080,7 +1101,7 @@ export default function (token: string) {
     console.log("    '|_.=`   __\\                                                               ");
     console.log("    `\\_..==`` /                 Lichess.org - DGT Electronic Board Connector   ");
     console.log("     .'.___.-'.                Developed by Andres Cavallin and Juan Cavallin  ");
-    console.log("    /          \\                                  v1.0.2                       ");
+    console.log("    /          \\                                  v1.0.3                       ");
     console.log("jgs('--......--')                                                             ");
     console.log("   /'--......--'\\                                                              ");
     console.log("   `\"--......--\"`                                                             ");
