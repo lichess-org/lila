@@ -22,14 +22,14 @@
   <string name="whiteIsVictorious">पांढरा विजयी ठरला</string>
   <string name="blackIsVictorious">काळा विजयी ठरला</string>
   <string name="youPlayTheWhitePieces">तुम्ही पांढऱ्या सोंगट्यानी खेळा</string>
-  <string name="youPlayTheBlackPieces">तुम्ही काळ्या बाजूने खेळा</string>
+  <string name="youPlayTheBlackPieces">तुम्ही काळ्या सोंगट्यानी खेळा</string>
   <string name="itsYourTurn">तुमची चाल!</string>
   <string name="kingInTheCenter">मध्यस्थानी राजा</string>
   <string name="threeChecks">तीन शह</string>
   <string name="raceFinished">शर्यंत समाप्त</string>
   <string name="variantEnding">प्रकार समाप्त</string>
-  <string name="newOpponent">नविन स्पर्धक</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">तुमचा स्पर्धक तुमच्याबरोबर नवा डाव खेळू इच्छितात</string>
+  <string name="newOpponent">नवा प्रतिस्पर्धी</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">तुमचा प्रतिस्पर्धी तुमच्याबरोबर नवा डाव खेळू इच्छितात</string>
   <string name="joinTheGame">खेळात दाखल व्हा</string>
   <string name="whitePlays">पांढऱ्याची चाल</string>
   <string name="blackPlays">काळ्याची चाल</string>
