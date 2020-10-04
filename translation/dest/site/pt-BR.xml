@@ -221,8 +221,8 @@
   <string name="standard">Padrão</string>
   <string name="unlimited">Ilimitado</string>
   <string name="mode">Modo</string>
-  <string name="casual">Amistoso</string>
-  <string name="rated">Valendo pontos</string>
+  <string name="casual">Amistosa</string>
+  <string name="rated">Ranqueada</string>
   <string name="casualTournament">Amistoso</string>
   <string name="ratedTournament">Ranqueado</string>
   <string name="thisGameIsRated">Esta partida vale pontos</string>
@@ -235,15 +235,15 @@
   <string name="rematchOfferDeclined">Oferta de revanche recusada</string>
   <string name="cancelRematchOffer">Cancelar oferta de revanche</string>
   <string name="viewRematch">Ver revanche</string>
-  <string name="confirmMove">Confirmar movimento</string>
+  <string name="confirmMove">Confirmar lance</string>
   <string name="play">Jogar</string>
-  <string name="inbox">Caixa de entrada</string>
+  <string name="inbox">Caixa postal</string>
   <string name="chatRoom">Sala de chat</string>
   <string name="loginToChat">Faça login para conversar</string>
   <string name="youHaveBeenTimedOut">Sua sessão expirou.</string>
   <string name="spectatorRoom">Sala do espectador</string>
   <string name="composeMessage">Escrever mensagem</string>
-  <string name="noNewMessages">Nenhuma mensagem nova</string>
+  <string name="noNewMessages">Nenhuma nova mensagem</string>
   <string name="subject">Assunto</string>
   <string name="recipient">Destinatário</string>
   <string name="send">Enviar</string>
@@ -348,22 +348,21 @@
     <item quantity="one">%s de partidas importadas</item>
     <item quantity="other">%s de partidas importadas</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Este é um CAPTCHA de xadrez.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer sua jogada, provando que é humano.</string>
-  <string name="captcha.fail">Falha no captchar
-Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o problema de xadrez proposto. O aviso informa ao usuário que ele deve resolver o problema proponto antes de prosseguir.</string>
+  <string name="thisIsAChessCaptcha">Este é um CAPTCHA enxadrístico.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer seu lance, provando que é humano.</string>
+  <string name="captcha.fail">Por favor, resolva o captcha enxadrístico.</string>
   <string name="notACheckmate">Não é xeque-mate.</string>
   <string name="whiteCheckmatesInOneMove">Xeque-mate em um lance para as brancas</string>
   <string name="blackCheckmatesInOneMove">Xeque-mate em um lance para as pretas</string>
   <string name="retry">Tentar novamente</string>
   <string name="reconnecting">Reconectando</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s amigo disponível</item>
-    <item quantity="other">%s amigos disponíveis</item>
+    <item quantity="one">%s amigo online</item>
+    <item quantity="other">%s amigos online</item>
   </plurals>
-  <string name="noFriendsOnline">Não há amigos online</string>
+  <string name="noFriendsOnline">Nenhum amigo online</string>
   <string name="findFriends">Encontrar amigos</string>
-  <string name="favoriteOpponents">Oponentes favoritos</string>
+  <string name="favoriteOpponents">Adversários favoritos</string>
   <string name="follow">Seguir</string>
   <string name="following">Seguindo</string>
   <string name="unfollow">Parar de seguir</string>
@@ -391,7 +390,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
     <item quantity="one">Menos que %s minutos</item>
     <item quantity="other">Menos que %s minutos</item>
   </plurals>
-  <string name="required">Requerido.</string>
+  <string name="required">Obrigatório.</string>
   <string name="openTournaments">Torneios abertos</string>
   <string name="duration">Duração</string>
   <string name="winner">Vencedor</string>
