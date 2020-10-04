@@ -202,6 +202,7 @@ function controls(ctrl: AnalyseCtrl) {
         attrs: {
           title: noarg('analysis'),
           target: '_blank',
+          rel: 'noopener',
           href: ctrl.studyPractice.analysisUrl(),
           'data-icon': 'A'
         }
