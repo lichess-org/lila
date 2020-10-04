@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Torneo Rápido por Hora</string>
-  <string name="hourlyRapid">Rápido por Hora</string>
-  <string name="hourlyXArena">Torneo %s por Hora</string>
-  <string name="hourlyX">%s por Hora</string>
+  <string name="hourlyRapidArena">Torneo rápido por hora</string>
+  <string name="hourlyRapid">Rápido por hora</string>
+  <string name="hourlyXArena">Torneo %s por hora</string>
+  <string name="hourlyX">%s por hora</string>
   <string name="dailyRapidArena">Torneo rápido diario</string>
   <string name="dailyRapid">Rápido diario</string>
   <string name="dailyClassicalArena">Torneo clásico diario</string>
