@@ -14,23 +14,23 @@
   <string name="dateAddedNewest">Datum tillagd (nyaste)</string>
   <string name="dateAddedOldest">Datum tillagd (nyaste)</string>
   <string name="recentlyUpdated">Nyligen uppdaterade</string>
-  <string name="mostPopular">Populärast</string>
+  <string name="mostPopular">Mest populära</string>
   <string name="addNewChapter">Lägg till ett nytt kapitel</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitel</item>
     <item quantity="other">%s Kapitel</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Parti</item>
-    <item quantity="other">%s Partier</item>
+    <item quantity="one">%s partier</item>
+    <item quantity="other">%s partier</item>
   </plurals>
   <string name="addMembers">Lägg till medlemmar</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s Medlem</item>
+    <item quantity="one">%s medlemmar</item>
     <item quantity="other">%s Medlemmar</item>
   </plurals>
-  <string name="inviteToTheStudy">Bjud in till studie</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Vänligen bjud endast in människor du känner, och som gärna vill vara med i denna studie.</string>
+  <string name="inviteToTheStudy">Bjud in till studien</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Viktigt: bjud bara in människor du känner och som aktivt vill gå med i studien.</string>
   <string name="searchByUsername">Sök efter användarnamn</string>
   <string name="spectator">Åskådare</string>
   <string name="contributor">Bidragsgivare</string>
