@@ -59,5 +59,6 @@
   <string name="yourScore">nanpa sina</string>
   <string name="next">ijo kama</string>
   <string name="backToMenu">o tawa lipu open</string>
+  <string name="puzzleFailed">sina pakala e musi!</string>
   <string name="retry">kama sin</string>
 </resources>

@@ -2,6 +2,7 @@
 <resources>
   <string name="search">alasa</string>
   <string name="advancedSearch">alasa pi sona mute</string>
+  <string name="opponentName">nimi pi jan ante</string>
   <string name="loser">jan li pini ike</string>
   <string name="from">tan</string>
   <string name="source">tan seme?</string>
