@@ -61,25 +61,40 @@ object appeal {
             case Some(Inquiry(mod, _)) if ctx.userId has mod =>
               frag(
                 postForm(action := routes.Report.inquiry(appeal.id))(
-                  submitButton(cls := "button button-metal button-thin")("Release this appeal")
+                  submitButton(
+                    title := "Put the appeal back into the TODO list",
+                    cls := "button button-metal button-thin"
+                  )("Release this appeal")
                 ),
                 if (appeal.isOpen)
                   frag(
                     postForm(action := routes.Appeal.act(suspect.user.username, "close"))(
-                      submitButton("Close")(cls := "button button-red button-thin")
+                      submitButton("Close")(
+                        title := "The user won't be able to post new replies",
+                        cls := "button button-red button-thin"
+                      )
                     ),
                     if (appeal.isMuted)
                       postForm(action := routes.Appeal.act(suspect.user.username, "open"))(
-                        submitButton("Un-mute")(cls := "button button-green button-thin")
+                        submitButton("Un-mute")(
+                          title := "Be notified about user replies again",
+                          cls := "button button-green button-thin"
+                        )
                       )
                     else
                       postForm(action := routes.Appeal.act(suspect.user.username, "mute"))(
-                        submitButton("Mute")(cls := "button button-red button-thin")
+                        submitButton("Mute")(
+                          title := "Don't be notified about user replies",
+                          cls := "button button-red button-thin"
+                        )
                       )
                   )
                 else
                   postForm(action := routes.Appeal.act(suspect.user.username, "open"))(
-                    submitButton("Open")(cls := "button button-green button-thin")
+                    submitButton("Open")(
+                      title := "Let the user post new replies",
+                      cls := "button button-green button-thin"
+                    )
                   )
               )
             case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
