@@ -39,20 +39,20 @@
   <string name="lichessSupportChessAnd">Lichess soporta ajedrez estándar y %1$s.</string>
   <string name="eightVariants">otras 8 variantes</string>
   <string name="whatIsACPL">¿Qué es la pérdida media en centipeones (PMC)?</string>
-  <string name="acplExplanation">El centipeón es la unidad de medida utilizada en el ajedrez como representación de la ventaja. Un centipeón es igual a 1/100 de un peón. Por lo tanto 100 centipeones = 1 peón. Estos valores no juegan ningún papel formal en el juego, pero son útiles para los jugadores y esenciales en el ajedrez por computadora para evaluar las posiciones.
+  <string name="acplExplanation">El centipeón es la unidad de medida utilizada en el ajedrez como representación de la ventaja. Un centipeón es igual a una centésima parte de un peón. Por lo tanto, 100 centipeones = 1 peón. Estos valores no juegan ningún papel formal en el juego, pero son útiles para los jugadores y esenciales en el ajedrez por ordenador para evaluar las posiciones.
 
-  El mejor movimiento de la computadora perderá cero centipeones, pero los movimientos menores darán como resultado una posición desfavorable, medida en centipeones.
+El mejor movimiento del ordenador perderá cero centipeones, pero los movimientos inferiores conllevarán un deterioro de la posición medido en centipeones.
 
-  Este valor puede ser usado como un indicador de la calidad del juego. Cuantos menos centipeones se pierda por movimiento, más fuerte es el juego.
+Este valor puede ser usado como un indicador de la fuerza de juego. Cuantos menos centipeones se pierdan por movimiento, más fuerte es el juego.
 
-  El análisis informático en Lichess es proporcionado por Stockfish.</string>
-  <string name="insufficientMaterial">Perdiendo por tiempo, empate y material insuficiente</string>
+El análisis informático en Lichess lo proporciona Stockfish.</string>
+  <string name="insufficientMaterial">Perder por tiempo, tablas y material insuficiente</string>
   <string name="lichessFollowFIDErules">En el caso de que un jugador se quede sin tiempo, ese jugador normalmente perderá la partida. Sin embargo, el juego se considera empate si la posición es tal que el oponente no puede dar mate al rey del jugador por cualquier posible serie de movimientos legales (%1$s).
 
   En raras ocasiones esto puede ser difícil de decidir automáticamente (líneas forzadas, fortalezas). Por defecto, siempre estamos de parte del jugador que no se quedó sin tiempo.
 
   Ten en cuenta que es posible dar mate con un sólo caballo o alfil, siempre que el oponente tenga una pieza que pueda bloquear al rey.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Manual de la FIDE %s</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">%s del manual de la FIDE</string>
   <string name="discoveringEnPassant">¿Por qué un peón puede capturar otro peón cuando ya está pasado? (en passant)</string>
   <string name="explainingEnPassant">Este movimiento es legal, y se llama \"captura al paso\". El artículo de Wikipedia da una %1$s al mismo.
 
