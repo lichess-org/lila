@@ -43,14 +43,14 @@ Contraseña: %3$s</string>
   <string name="inviteDesc3">Importante: invita solamente a estudiantes que conozcas, y que quieran unirse a la clase.</string>
   <string name="inviteDesc4">Nunca envíes invitaciones a jugadores que no las hayan pedido.</string>
   <string name="createANewLichessAccount">Crear una nueva cuenta de Lichess</string>
-  <string name="createDesc1">Si el estudiante todavía no tiene cuenta de Lichess, puedes crearle una aquí.</string>
-  <string name="createDesc2">No se requiere dirección de correo electrónico. Se generará una contraseña. Debe dársela a los estudiantes, así podrán iniciar sesión.</string>
+  <string name="createDesc1">Si el estudiante no tiene cuenta de Lichess, puedes crearle una aquí.</string>
+  <string name="createDesc2">No hace falta una dirección de correo electrónico. Se generará una contraseña y se la facilitarás al estudiante para que pueda entrar.</string>
   <string name="createDesc3">Importante: un estudiante no debe tener múltiples cuentas.</string>
-  <string name="createDesc4">Si ya poseen una, usa el formulario de invitación.</string>
+  <string name="createDesc4">Si ya tienen una, usa el formulario de invitación.</string>
   <string name="lichessUsername">Nombre de usuario de Lichess</string>
   <string name="generateANewUsername">Generar un nuevo nombre de usuario</string>
   <string name="welcomeToClass">Bienvenido a tu clase: %s.
-Aquí está el enlace de acceso.</string>
+Aquí está el enlace para acceder a la clase.</string>
   <string name="invitationToClass">Estás invitado a unirte a la clase \"%s\" como estudiante.</string>
   <string name="clickToViewInvitation">Haz clic en el enlace para ver la invitación:</string>
   <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
@@ -91,7 +91,8 @@ Aquí está el enlace de acceso.</string>
   <string name="notifyAllStudents">Notificar a todos los estudiantes</string>
   <string name="nothingHere">Aún no hay nada aquí.</string>
   <string name="newsEdit1">Todas las noticias de clase en un solo lugar.</string>
-  <string name="newsEdit2">Añade las noticias recientes en la parte superior. No elimina las noticias anteriores.</string>
-  <string name="newsEdit3">Separar noticias con --- mostrará una línea horizontal.</string>
+  <string name="newsEdit2">Añade las novedades más recientes en la parte superior. No elimines las novedades anteriores.</string>
+  <string name="newsEdit3">Separa las novedades con ---
+Mostrará una línea separadora horizontal.</string>
   <string name="markdownAvailable">%s está disponible para una sintaxis más avanzada.</string>
 </resources>
