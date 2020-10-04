@@ -65,7 +65,7 @@
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Transformar em linha principal</string>
   <string name="deleteFromHere">Excluir a partir daqui</string>
-  <string name="forceVariation">Variante forçada</string>
+  <string name="forceVariation">Forçar como variante</string>
   <string name="move">Movimentos</string>
   <string name="variantLoss">Derrota da variante</string>
   <string name="variantWin">Vitória da variante</string>
@@ -84,8 +84,8 @@
   <string name="topGames">Melhores partidas</string>
   <string name="masterDbExplanation">Duas milhões de partidas de jogadores com pontuação FIDE acima de %1$s, desde %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mate em %s jogada (meio movimento)</item>
-    <item quantity="other">Mate em %s jogadas (meio-movimentos)</item>
+    <item quantity="one">Mate em %s lance (meio-movimento)</item>
+    <item quantity="other">Mate em %s lances (meio-movimentos)</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Próxima captura ou movimento de peão em %s meio-movimento (distância até zerar o contador de 50 movimentos)</item>
@@ -175,7 +175,7 @@
   <string name="username">Nome de usuário</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
   <string name="changeUsername">Alterar nome de usuário</string>
-  <string name="changeUsernameNotSame">Pode-se apenas trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
+  <string name="changeUsernameNotSame">Pode-se apenas trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"fulanodetal\" para \"FulanoDeTal\".</string>
   <string name="changeUsernameDescription">Altere seu nome de usuário. Isso só pode ser feito uma vez e você poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="password">Senha</string>
   <string name="changePassword">Alterar senha</string>
@@ -199,8 +199,8 @@
     <item quantity="other">%s partidas contra você</item>
   </plurals>
   <string name="cancel">Cancelar</string>
-  <string name="whiteTimeOut">Tempo esgotado do branco</string>
-  <string name="blackTimeOut">Tempo esgotado das pretas</string>
+  <string name="whiteTimeOut">Tempo das brancas esgotado</string>
+  <string name="blackTimeOut">Tempo das pretas esgotado</string>
   <string name="drawOfferSent">Proposta de empate enviada</string>
   <string name="drawOfferDeclined">Proposta de empate recusada</string>
   <string name="drawOfferAccepted">Proposta de empate aceita</string>
@@ -221,9 +221,9 @@
   <string name="standard">Padrão</string>
   <string name="unlimited">Ilimitado</string>
   <string name="mode">Modo</string>
-  <string name="casual">Amigável</string>
+  <string name="casual">Amistoso</string>
   <string name="rated">Valendo pontos</string>
-  <string name="casualTournament">Casual</string>
+  <string name="casualTournament">Amistoso</string>
   <string name="ratedTournament">Ranqueado</string>
   <string name="thisGameIsRated">Esta partida vale pontos</string>
   <string name="rematch">Revanche</string>
