@@ -394,16 +394,16 @@
   <string name="openTournaments">Torneios abertos</string>
   <string name="duration">Duração</string>
   <string name="winner">Vencedor</string>
-  <string name="standing">Aguardando</string>
+  <string name="standing">Colocação</string>
   <string name="createANewTournament">Criar novo torneio</string>
   <string name="tournamentCalendar">Calendário do torneio</string>
   <string name="conditionOfEntry">Condição de participação:</string>
   <string name="advancedSettings">Configurações avançadas</string>
-  <string name="safeTournamentName">Escolha um nome seguro para o torneio.</string>
+  <string name="safeTournamentName">Escolha um nome incontroverso para o torneio.</string>
   <string name="inappropriateNameWarning">Até mesmo a menor indecência poderia ensejar o encerramento de sua conta.</string>
   <string name="emptyTournamentName">Deixe em branco para dar ao torneio o nome de um grande mestre aleatório.</string>
   <string name="recommendNotTouching">Recomendamos não mexer nisso.</string>
-  <string name="fewerPlayers">Se você definir as condições de participação, haverá menos jogadores no torneio.</string>
+  <string name="fewerPlayers">Se você restringir as condições de participação, haverá menos jogadores no torneio.</string>
   <string name="showAdvancedSettings">Exibir configurações avançadas</string>
   <string name="makePrivateTournament">Faça o torneio privado e restrinja o acesso com uma senha</string>
   <string name="join">Entrar</string>
@@ -467,19 +467,19 @@
   <string name="bestMove">Melhor jogada!</string>
   <string name="keepGoing">Continue...</string>
   <string name="puzzleFailed">Quebra-cabeça fracassado</string>
-  <string name="butYouCanKeepTrying">Mas você pode continuar a tentar.</string>
+  <string name="butYouCanKeepTrying">Mas você pode continuar tentando.</string>
   <string name="success">Sucesso</string>
   <string name="wasThisPuzzleAnyGood">Este quebra-cabeça foi bom?</string>
   <string name="pleaseVotePuzzle">Ajude o Lichess a melhorar através do seu voto, usando a seta para cima ou para baixo:</string>
   <string name="thankYou">Obrigado!</string>
-  <string name="ratingX">Classificação: %s</string>
+  <string name="ratingX">Rating: %s</string>
   <string name="hidden">oculto</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Jogado %s vezes</item>
+    <item quantity="one">Jogado %s vez</item>
     <item quantity="other">Jogado %s vezes</item>
   </plurals>
   <string name="fromGameLink">Do jogo %s</string>
-  <string name="continueTraining">Continuar o treino</string>
+  <string name="continueTraining">Continuar treinando</string>
   <string name="retryThisPuzzle">Tentar novamente este quebra-cabeça</string>
   <string name="thisPuzzleIsCorrect">O quebra-cabeça está correto e é interessante</string>
   <string name="thisPuzzleIsWrong">O quebra-cabeça está errado ou é chato</string>
@@ -516,7 +516,7 @@
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
   <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\"; informe-nos como chegou a esta conclusão. Sua denúncia será processada mais rapidamente se escrita em inglês.</string>
-  <string name="error.provideOneCheatedGameLink">Por favor forneça ao menos um link para um jogo onde cheat tenha sido utilizado.</string>
+  <string name="error.provideOneCheatedGameLink">Por favor forneça ao menos um link para um jogo com suspeita de trapaça.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
   <string name="theming">Customização</string>
@@ -563,13 +563,13 @@
   <string name="starting">Iniciando:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>
   <string name="yourCityRegionOrDepartment">Sua cidade, região ou divisão territorial.</string>
-  <string name="biographyDescription">Fale sobre você, o que você gosta no xadrez, suas aberturas favoritas, jogos, grandes jogadores de sua preferência…</string>
+  <string name="biographyDescription">Fale sobre você, o que você gosta no xadrez, suas aberturas favoritas, jogos, grandes jogadores de sua preferência...</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Máximo: %s caracteres.</item>
+    <item quantity="one">Máximo: %s caractere.</item>
     <item quantity="other">Máximo: %s caracteres.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s bloqueados</item>
+    <item quantity="one">%s bloqueado</item>
     <item quantity="other">%s bloqueados</item>
   </plurals>
   <string name="listBlockedPlayers">Sua lista de bloqueados</string>
@@ -577,9 +577,9 @@
   <string name="computer">Computador</string>
   <string name="side">Cor</string>
   <string name="clock">Relógio</string>
-  <string name="unauthorizedError">Acesso negado</string>
-  <string name="noInternetConnection">Sem conectividade. Você ainda pode jogar offline a partir do menu.</string>
-  <string name="connectedToLichess">Você está conectado a lichess.org</string>
+  <string name="unauthorizedError">Acesso negado.</string>
+  <string name="noInternetConnection">Sem conexão. Você ainda pode jogar offline a partir do menu.</string>
+  <string name="connectedToLichess">Você está conectado ao lichess.org</string>
   <string name="signedOut">Você fez logoff</string>
   <string name="loginSuccessful">Login efetuado</string>
   <string name="playOnTheBoardOffline">Jogar offline contra um amigo</string>
