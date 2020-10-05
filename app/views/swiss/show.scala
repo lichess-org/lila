@@ -1,20 +1,20 @@
 package views.html
 package swiss
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.swiss.Swiss
-
-import controllers.routes
+import lila.swiss.{ Swiss, SwissCondition }
 
 object show {
 
   def apply(
       s: Swiss,
+      verdicts: SwissCondition.All.WithVerdicts,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       isLocalMod: Boolean
@@ -66,7 +66,7 @@ object show {
     )(
       main(cls := "swiss")(
         st.aside(cls := "swiss__side")(
-          swiss.side(s, chatOption.isDefined)
+          swiss.side(s, verdicts, chatOption.isDefined)
         ),
         div(cls := "swiss__main")(div(cls := "box"))
       )

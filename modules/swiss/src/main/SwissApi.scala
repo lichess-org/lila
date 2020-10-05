@@ -27,6 +27,7 @@ final class SwissApi(
     rankingApi: SwissRankingApi,
     standingApi: SwissStandingApi,
     boardApi: SwissBoardApi,
+    verify: SwissCondition.Verify,
     chatApi: lila.chat.ChatApi,
     lightUserApi: lila.user.LightUserApi,
     roundSocket: lila.round.RoundSocket
@@ -73,7 +74,8 @@ final class SwissApi(
         description = data.description,
         chatFor = data.realChatFor,
         roundInterval = data.realRoundInterval,
-        password = data.password
+        password = data.password,
+        conditions = data.conditions.all
       )
     )
     colls.swiss.insert.one(addFeaturable(swiss)) >>-
@@ -99,7 +101,8 @@ final class SwissApi(
             roundInterval =
               if (data.roundInterval.isDefined) data.realRoundInterval
               else old.settings.roundInterval,
-            password = data.password
+            password = data.password,
+            conditions = data.conditions.all
           )
         ) pipe { s =>
           if (
@@ -127,6 +130,12 @@ final class SwissApi(
           }
         else funit
       } >>- socket.reload(swiss.id)
+    }
+
+  def verdicts(swiss: Swiss, me: Option[User]): Fu[SwissCondition.All.WithVerdicts] =
+    me match {
+      case None       => fuccess(swiss.settings.conditions.accepted)
+      case Some(user) => verify(swiss, user)
     }
 
   def join(id: Swiss.Id, me: User, isInTeam: TeamID => Boolean, password: Option[String]): Fu[Boolean] =

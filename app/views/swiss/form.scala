@@ -1,14 +1,14 @@
 package views.html.swiss
 
+import controllers.routes
 import play.api.data.Form
 
-import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
-import lila.tournament.TournamentForm
-import lila.swiss.{ Swiss, SwissForm }
 import lila.app.ui.ScalatagsTemplate._
 import lila.hub.LightTeam.TeamID
+import lila.swiss.{ Swiss, SwissCondition, SwissForm }
+import lila.tournament.TournamentForm
 
 object form {
 
@@ -35,6 +35,7 @@ object form {
               fields.chatFor,
               fields.password
             ),
+            condition(form, fields, swiss = none),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
@@ -68,6 +69,7 @@ object form {
               fields.chatFor,
               fields.password
             ),
+            condition(form, fields, swiss = swiss.some),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
@@ -82,6 +84,31 @@ object form {
         )
       )
     }
+
+  private def condition(form: Form[_], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
+    frag(
+      form3.split(
+        form3.group(form("conditions.nbRatedGame.nb"), frag("Minimum rated games"), half = true)(
+          form3.select(_, SwissCondition.DataForm.nbRatedGameChoices)
+        ),
+        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) ?? {
+          form3.checkbox(
+            form("conditions.titled"),
+            frag("Only titled players"),
+            help = frag("Require an official title to join the tournament").some,
+            half = true
+          )
+        }
+      ),
+      form3.split(
+        form3.group(form("conditions.minRating.rating"), frag("Minimum rating"), half = true)(
+          form3.select(_, SwissCondition.DataForm.minRatingChoices)
+        ),
+        form3.group(form("conditions.maxRating.rating"), frag("Maximum weekly rating"), half = true)(
+          form3.select(_, SwissCondition.DataForm.maxRatingChoices)
+        )
+      )
+    )
 }
 
 final private class SwissFields(form: Form[_])(implicit ctx: Context) {

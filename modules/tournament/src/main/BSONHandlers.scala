@@ -77,7 +77,7 @@ object BSONHandlers {
         position = position,
         mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
         password = r.strO("password"),
-        conditions = conditions,
+        conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty,
         teamBattle = r.getO[TeamBattle]("teamBattle"),
         noBerserk = r boolD "noBerserk",
         noStreak = r boolD "noStreak",

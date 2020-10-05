@@ -19,6 +19,7 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
+    historyApi: lila.history.HistoryApi,
     gameProxyRepo: lila.round.GameProxyRepo,
     roundSocket: lila.round.RoundSocket,
     mongoCache: lila.memo.MongoCache.Api,
@@ -48,6 +49,8 @@ final class Env(
   private val boardApi = wire[SwissBoardApi]
 
   private val statsApi = wire[SwissStatsApi]
+
+  lazy val verify = wire[SwissCondition.Verify]
 
   val api: SwissApi = wire[SwissApi]
 

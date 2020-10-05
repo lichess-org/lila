@@ -52,11 +52,11 @@
         opacity: 0.7;
       }
 
-      &.accepted {
+      &.accepted, .accepted {
         color: $c-good;
       }
 
-      &.refused {
+      &.refused, .refused {
         color: $c-bad;
       }
     }

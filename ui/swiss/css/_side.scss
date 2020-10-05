@@ -50,6 +50,20 @@
     time {
       opacity: 1;
     }
+
+    &.conditions {
+      &::before {
+        opacity: 0.7;
+      }
+
+      &.accepted, .accepted {
+        color: $c-good;
+      }
+
+      &.refused, .refused {
+        color: $c-bad;
+      }
+    }
   }
 
   .description {
