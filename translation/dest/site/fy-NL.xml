@@ -469,6 +469,11 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="slow">Stadich</string>
   <string name="insideTheBoard">Binnen it boerd</string>
   <string name="outsideTheBoard">Bûten it boerd</string>
+  <string name="onSlowGames">Allinnich by stadige partijen</string>
+  <string name="always">Altyd</string>
+  <string name="never">Nea</string>
+  <string name="difficultyEasy">Maklik</string>
+  <string name="difficultyNormal">Normaal</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
