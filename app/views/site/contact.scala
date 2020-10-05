@@ -391,7 +391,7 @@ object contact {
     a(makeLink(parent.id), cls := "back", dataIcon := "I", title := "Go back")
 
   def apply()(implicit ctx: Context) =
-    help.layout(
+    page.layout(
       title = trans.contact.contact.txt(),
       active = "contact",
       moreCss = cssTag("contact"),

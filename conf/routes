@@ -689,18 +689,15 @@ POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
 GET   /terms-of-service                controllers.Page.tos
-GET   /privacy                         controllers.Page.bookmark(bookmark = "privacy")
-GET   /thanks                          controllers.Page.bookmark(bookmark = "thanks")
+GET   /$bookmark<privacy|thanks|about|ads> controllers.Page.menuBookmark(bookmark: String)
 GET   /contact                         controllers.Main.contact
-GET   /about                           controllers.Page.bookmark(bookmark = "about")
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source
 GET   /qa                              controllers.Main.movedPermanently(to: String = "/faq")
 GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
-GET   /how-to-cheat                    controllers.Page.bookmark(bookmark = "how-to-cheat")
-GET   /ads                             controllers.Page.bookmark(bookmark = "ads")
-GET   /page/:bookmark                  controllers.Page.bookmark(bookmark: String)
+GET   /how-to-cheat                    controllers.Page.loneBookmark(bookmark = "how-to-cheat")
+GET   /page/:bookmark                  controllers.Page.loneBookmark(bookmark: String)
 
 # Variants
 GET   /variant                         controllers.Page.variantHome

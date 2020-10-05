@@ -9,7 +9,7 @@ object lag {
   import trans.lag._
 
   def apply()(implicit ctx: Context) =
-    help.layout(
+    page.layout(
       title = "Is Lichess lagging?",
       active = "lag",
       moreCss = cssTag("lag"),

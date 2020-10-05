@@ -58,7 +58,7 @@ final class Main(
     Open { implicit ctx =>
       pageHit
       fuccess {
-        html.site.help.webmasters
+        html.site.page.webmasters
       }
     }
 
