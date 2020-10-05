@@ -547,7 +547,7 @@ POST  /appeal                          controllers.Appeal.post
 GET   /appeal/queue                    controllers.Appeal.queue
 GET   /appeal/:username                controllers.Appeal.show(username: String)
 POST  /appeal/:username                controllers.Appeal.reply(username: String)
-POST  /appeal/:username/act/:action    controllers.Appeal.act(username: String, action: String)
+POST  /appeal/:username/mute           controllers.Appeal.mute(username: String)
 
 # Stats
 GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf: String)

@@ -1,10 +1,11 @@
 package controllers
 
+import play.api.mvc.Result
+import views._
+
 import lila.api.Context
 import lila.app._
 import lila.report.Suspect
-import play.api.mvc.Result
-import views._
 
 final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
 
@@ -68,28 +69,12 @@ final class Appeal(env: Env, reportC: => Report) extends LilaController(env) {
       }
     }
 
-  def act(username: String, action: String) =
+  def mute(username: String) =
     Secure(_.Appeals) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
-        val res = action match {
-          case "close" =>
-            for {
-              _ <- env.appeal.api.close(appeal)
-              _ <- env.mod.logApi.appealClose(me.id, suspect.user.id)
-              _ <- env.report.api.inquiries.toggle(lila.report.Mod(me), appeal.id)
-            } yield none
-          case "open" =>
-            env.appeal.api.open(appeal) inject Redirect(routes.Appeal.show(username)).flashSuccess.some
-          case "mute" =>
-            for {
-              _ <- env.appeal.api.mute(appeal)
-              _ <- env.report.api.inquiries.toggle(lila.report.Mod(me), appeal.id)
-            } yield none
-          case _ => funit inject none
-        }
-        res map {
-          _ | Redirect(routes.Appeal.queue())
-        }
+        env.appeal.api.toggleMute(appeal) >>
+          env.report.api.inquiries.toggle(lila.report.Mod(me), appeal.id) inject
+          Redirect(routes.Appeal.queue())
       }
     }
 
