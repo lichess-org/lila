@@ -18,7 +18,7 @@ object side {
   ) =
     frag(
       div(cls := "swiss__meta")(
-        st.section(dataIcon := s.perfType.map(_.iconChar.toString))(
+        st.section(dataIcon := s.perfType.iconChar.toString)(
           div(
             p(
               s.clock.show,
@@ -29,7 +29,7 @@ object side {
                   if (s.variant == chess.variant.KingOfTheHill) s.variant.shortName
                   else s.variant.name
                 )
-              } else s.perfType.map(_.trans),
+              } else s.perfType.trans,
               separator,
               if (s.settings.rated) trans.ratedTournament() else trans.casualTournament()
             ),
@@ -69,7 +69,7 @@ object side {
                     "accepted"       -> v.verdict.accepted,
                     "refused"        -> !v.verdict.accepted
                   )
-                )(s.perfType map v.condition.name)
+                )(v.condition.name(s.perfType))
               }
             )
           )

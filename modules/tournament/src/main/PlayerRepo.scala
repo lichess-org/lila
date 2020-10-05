@@ -7,8 +7,8 @@ import reactivemongo.api.bson._
 import BSONHandlers._
 import lila.db.dsl._
 import lila.hub.LightTeam.TeamID
-import lila.rating.Perf
-import lila.user.{ Perfs, User }
+import lila.rating.PerfType
+import lila.user.User
 
 final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -208,11 +208,11 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       coll.update.one(selectId(player._id), player).void
     }
 
-  def join(tourId: Tournament.ID, user: User, perfLens: Perfs => Perf, team: Option[TeamID]) =
+  def join(tourId: Tournament.ID, user: User, perfType: PerfType, team: Option[TeamID]) =
     find(tourId, user.id) flatMap {
       case Some(p) if p.withdraw => coll.update.one(selectId(p._id), $unset("w"))
       case Some(_)               => funit
-      case None                  => coll.insert.one(Player.make(tourId, user, perfLens, team))
+      case None                  => coll.insert.one(Player.make(tourId, user, perfType, team))
     } void
 
   def withdraw(tourId: Tournament.ID, userId: User.ID) =

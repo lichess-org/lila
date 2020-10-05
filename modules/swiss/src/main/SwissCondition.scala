@@ -144,21 +144,10 @@ object SwissCondition {
 
     def apply(swiss: Swiss, user: User)(implicit
         ec: scala.concurrent.ExecutionContext
-    ): Fu[All.WithVerdicts] = swiss.perfType.fold(fuccess(All.WithVerdicts(Nil))) {
-      apply(_, swiss.settings.conditions, user)
-    }
-
-    def apply(perf: PerfType, all: All, user: User)(implicit
-        ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] = {
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
-      all.withVerdicts(perf, getMaxRating)(user)
+      swiss.settings.conditions.withVerdicts(swiss.perfType, getMaxRating)(user)
     }
-
-    def canEnter(user: User)(swiss: Swiss)(implicit ec: scala.concurrent.ExecutionContext): Fu[Boolean] =
-      swiss.perfType ?? { perf =>
-        apply(perf, swiss.settings.conditions, user).dmap(_.accepted)
-      }
   }
 
   object BSONHandlers {

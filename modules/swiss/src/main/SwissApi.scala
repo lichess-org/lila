@@ -147,7 +147,7 @@ final class SwissApi(
           .flatMap { rejoin =>
             fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
               (swiss.isEnterable && isInTeam(swiss.teamId)) ?? {
-                colls.player.insert.one(SwissPlayer.make(swiss.id, me, swiss.perfLens)) zip
+                colls.player.insert.one(SwissPlayer.make(swiss.id, me, swiss.perfType)) zip
                   colls.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)) inject true
               }
             }

@@ -2,8 +2,8 @@ package lila.tournament
 
 import lila.common.LightUser
 import lila.hub.LightTeam.TeamID
-import lila.rating.Perf
-import lila.user.{ Perfs, User }
+import lila.rating.PerfType
+import lila.user.User
 
 private[tournament] case class Player(
     _id: Player.ID, // random
@@ -45,15 +45,15 @@ private[tournament] object Player {
   private[tournament] def make(
       tourId: Tournament.ID,
       user: User,
-      perfLens: Perfs => Perf,
+      perfType: PerfType,
       team: Option[TeamID]
   ): Player =
     new Player(
       _id = lila.common.ThreadLocalRandom.nextString(8),
       tourId = tourId,
       userId = user.id,
-      rating = perfLens(user.perfs).intRating,
-      provisional = perfLens(user.perfs).provisional,
+      rating = user.perfs(perfType).intRating,
+      provisional = user.perfs(perfType).provisional,
       team = team
     )
 }

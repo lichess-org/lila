@@ -95,9 +95,8 @@ final class SwissJson(
     }
 
   private def updatePlayerRating(swiss: Swiss, player: SwissPlayer, user: User): Funit =
-    swiss.perfType
-      .ifTrue(swiss.settings.rated)
-      .map(user.perfs.apply)
+    swiss.settings.rated
+      .option(user perfs swiss.perfType)
       .filter(_.intRating != player.rating)
       .?? { perf =>
         SwissPlayer.fields { f =>

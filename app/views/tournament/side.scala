@@ -22,7 +22,7 @@ object side {
   )(implicit ctx: Context) =
     frag(
       div(cls := "tour__meta")(
-        st.section(dataIcon := tour.perfType.map(_.iconChar.toString))(
+        st.section(dataIcon := tour.perfType.iconChar.toString)(
           div(
             p(
               tour.clock.show,
@@ -33,7 +33,7 @@ object side {
                   if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName
                   else tour.variant.name
                 )
-              } else tour.perfType.map(_.trans),
+              } else tour.perfType.trans,
               (!tour.position.initial) ?? s"$separator${trans.thematic.txt()}",
               separator,
               tour.durationString

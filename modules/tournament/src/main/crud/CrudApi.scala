@@ -113,11 +113,9 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10)),
       hasChat = data.hasChat
     ) pipe { tour =>
-      tour.perfType.fold(tour) { perfType =>
-        tour.copy(conditions =
-          data.conditions.convert(perfType, Map.empty)
-        ) // the CRUD form doesn't support team restrictions so Map.empty is fine
-      }
+      tour.copy(conditions =
+        data.conditions.convert(tour.perfType, Map.empty)
+      ) // the CRUD form doesn't support team restrictions so Map.empty is fine
     }
   }
 }

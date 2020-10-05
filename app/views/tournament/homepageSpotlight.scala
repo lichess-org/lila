@@ -1,10 +1,10 @@
 package views.html.tournament
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object homepageSpotlight {
 
@@ -43,9 +43,7 @@ object homepageSpotlight {
         )
       )
     } getOrElse a(href := routes.Tournament.show(tour.id), cls := s"little $tourClass")(
-      tour.perfType.fold(iconTag("g")(cls := "img")) { pt =>
-        iconTag(pt.iconChar)(cls := "img")
-      },
+      iconTag(tour.perfType.iconChar)(cls := "img"),
       span(cls := "content")(
         span(cls := "name")(tour.name()),
         span(cls := "more")(
