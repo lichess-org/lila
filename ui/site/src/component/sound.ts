@@ -42,7 +42,7 @@ const sound = new class {
       s = this.sounds.get(name);
     }
     const doPlay = () => s.volume(this.getVolume() * (volume || 1)).play();
-    if (window.Howler.ctx.state == "suspended") window.Howler.ctx.resume().then(doPlay);
+    if (window.Howler.ctx?.state === 'suspended') window.Howler.ctx.resume().then(doPlay);
     else doPlay();
   };
 
