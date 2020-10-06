@@ -3,7 +3,6 @@ package controllers
 import views._
 
 import lila.app._
-import lila.oauth.AccessToken
 
 final class OAuthToken(env: Env) extends LilaController(env) {
 
@@ -39,11 +38,13 @@ final class OAuthToken(env: Env) extends LilaController(env) {
         )
     }
 
-  def delete(id: String) =
+  def delete(publicId: String) =
     Auth { _ => me =>
-      val tokenId = AccessToken.Id(id)
-      tokenApi.deleteBy(tokenId, me) >>-
-        env.oAuth.server.deleteCached(tokenId) inject
+      tokenApi.deleteByPublicId(publicId, me) map {
+        _ foreach { token =>
+          env.oAuth.server.deleteCached(token.id)
+        }
+      } inject
         Redirect(routes.OAuthToken.index()).flashSuccess
     }
 }

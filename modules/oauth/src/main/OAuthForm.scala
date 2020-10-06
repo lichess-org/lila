@@ -3,6 +3,7 @@ package lila.oauth
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
+import reactivemongo.api.bson.BSONObjectID
 
 object OAuthForm {
 
@@ -26,6 +27,7 @@ object OAuthForm {
       def make(user: lila.user.User) =
         AccessToken(
           id = AccessToken.makeId,
+          publicId = BSONObjectID.generate(),
           clientId = PersonalToken.clientId,
           userId = user.id,
           createdAt = DateTime.now.some,

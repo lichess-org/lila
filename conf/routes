@@ -646,7 +646,7 @@ GET   /account/now-playing             controllers.Account.nowPlaying
 GET   /account/oauth/token             controllers.OAuthToken.index
 GET   /account/oauth/token/create      controllers.OAuthToken.create
 POST  /account/oauth/token/create      controllers.OAuthToken.createApply
-POST  /account/oauth/token/:id/delete  controllers.OAuthToken.delete(id: String)
+POST  /account/oauth/token/:id/delete  controllers.OAuthToken.delete(publicId: String)
 GET   /account/oauth/app               controllers.OAuthApp.index
 GET   /account/oauth/app/create        controllers.OAuthApp.create
 POST  /account/oauth/app/create        controllers.OAuthApp.createApply

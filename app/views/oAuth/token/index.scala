@@ -73,7 +73,7 @@ object index {
                 }
               ),
               td(cls := "action")(
-                postForm(action := routes.OAuthToken.delete(t.id.value))(
+                postForm(action := routes.OAuthToken.delete(t.publicId.stringify))(
                   submitButton(
                     cls := "button button-red button-empty confirm",
                     st.title := "Delete this access token"

@@ -1,11 +1,13 @@
 package lila.oauth
 
 import org.joda.time.DateTime
+import reactivemongo.api.bson._
 
 import lila.user.User
 
 case class AccessToken(
     id: AccessToken.Id,
+    publicId: BSONObjectID,
     clientId: String,
     userId: User.ID,
     createdAt: Option[DateTime] = None, // for personal access tokens
@@ -32,6 +34,7 @@ object AccessToken {
 
   object BSONFields {
     val id          = "access_token_id"
+    val publicId    = "_id"
     val clientId    = "client_id"
     val userId      = "user_id"
     val createdAt   = "create_date"
@@ -40,7 +43,6 @@ object AccessToken {
     val scopes      = "scopes"
   }
 
-  import reactivemongo.api.bson._
   import lila.db.BSON
   import lila.db.dsl._
   import BSON.BSONJodaDateTimeHandler
@@ -68,6 +70,7 @@ object AccessToken {
     def reads(r: BSON.Reader): AccessToken =
       AccessToken(
         id = r.get[Id](id),
+        publicId = r.get[BSONObjectID](publicId),
         clientId = r str clientId,
         userId = r str userId,
         createdAt = r.getO[DateTime](createdAt),
@@ -79,6 +82,7 @@ object AccessToken {
     def writes(w: BSON.Writer, o: AccessToken) =
       $doc(
         id          -> o.id,
+        publicId    -> o.publicId,
         clientId    -> o.clientId,
         userId      -> o.userId,
         createdAt   -> o.createdAt,
