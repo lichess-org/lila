@@ -199,6 +199,8 @@
     <item quantity="other">%s partier med dig</item>
   </plurals>
   <string name="cancel">Avbryt</string>
+  <string name="whiteTimeOut">Vits tid är slut</string>
+  <string name="blackTimeOut">Svarts tid är slut</string>
   <string name="drawOfferSent">Remierbjudande skickat</string>
   <string name="drawOfferDeclined">Remierbjudande avbrutet</string>
   <string name="drawOfferAccepted">Remierbjudande accepterat</string>
