@@ -257,6 +257,7 @@ object PerfType {
   def byVariant(variant: chess.variant.Variant): Option[PerfType] =
     variant match {
       case chess.variant.Standard      => none
+      case chess.variant.FromPosition  => none
       case chess.variant.Crazyhouse    => Crazyhouse.some
       case chess.variant.Chess960      => Chess960.some
       case chess.variant.KingOfTheHill => KingOfTheHill.some
