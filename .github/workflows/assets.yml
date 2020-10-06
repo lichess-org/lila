@@ -30,7 +30,7 @@ jobs:
         ssh-key: ${{ secrets.id_rsa_ab }}
         ref: master
         path: ab
-      continue-on-error: true
+      continue-on-error: false
       id: ab
     - run: yarn link --cwd "$GITHUB_WORKSPACE/ab" && yarn link ab --cwd ui/round
       if: steps.ab.outcome == 'success'
