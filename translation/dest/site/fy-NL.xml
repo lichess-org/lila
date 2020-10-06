@@ -225,7 +225,7 @@
   <string name="chatRoom">Petearkeamer</string>
   <string name="loginToChat">Ynlogge foar petear</string>
   <string name="youHaveBeenTimedOut">Do bist in skoft út it petear setten.</string>
-  <string name="spectatorRoom">Taskôgersromte</string>
+  <string name="spectatorRoom">Taskôgers-romte</string>
   <string name="composeMessage">Berjocht opstelle</string>
   <string name="noNewMessages">Gjin nije berjochten</string>
   <string name="subject">Underwerp</string>
@@ -233,7 +233,7 @@
   <string name="send">Stjoer</string>
   <string name="incrementInSeconds">Bytelling yn sekonden</string>
   <string name="freeOnlineChess">Fergees Online Skake</string>
-  <string name="spectators">Taskôgers</string>
+  <string name="spectators">Taskôgers:</string>
   <plurals name="nbPlaying">
     <item quantity="one">%s Spyljende</item>
     <item quantity="other">%s spyljende</item>
@@ -490,6 +490,10 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="yourCityRegionOrDepartment">Dym stêd, regio of provinsje.</string>
   <string name="biographyDescription">Fertel per dysels, dyn ynteressen, wat asto leuk fynst oan it skaken, dien favorite iepeningen, spilers, ...</string>
   <string name="listBlockedPlayers">List fan spilers dy asto blokkearre hast</string>
+  <string name="human">Minske</string>
+  <string name="computer">Kompjûter</string>
+  <string name="side">Side</string>
+  <string name="clock">Klok</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
