@@ -10,6 +10,11 @@
   }
 }
 
+.cg-wrap {
+  display: table; // part of hack to round to full pixel size in chrome
+}
+
 .mini-board, .mini-game .cg-wrap {
   @extend %square;
+  display: table;
 }
