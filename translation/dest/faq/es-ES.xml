@@ -101,38 +101,38 @@ No solicites el título de LM.</string>
   <string name="goldenZeeExplanation">ZugAddict estaba transmitiendo y durante las dos últimas horas había estado tratando de derrotar a la I.A. nivel 8 en una partida 1+0, sin éxito. Thibault le dijo que si lo hacía con éxito durante la transmisión, obtendría un trofeo único. Una hora después, venció a Stockfish y se cumplió la promesa.</string>
   <string name="lichessRatings">Puntuaciones de Lichess</string>
   <string name="whichRatingSystemUsedByLichess">¿Qué sistema de puntuación utiliza Lichess?</string>
-  <string name="ratingSystemUsedByLichess">Las puntuaciones se calculan utilizando el método de clasificación Glicko-2 desarrollado por Mark Glickman. Este es un método de puntuación  muy popular y es utilizado por un número significativo de organizaciones de ajedrez (FIDE como un contraejemplo notable, ya que todavía utilizan el sistema de puntuación Elo).
+  <string name="ratingSystemUsedByLichess">Las puntuaciones se calculan utilizando el método de clasificación Glicko-2 desarrollado por Mark Glickman. Es un método de puntuación muy popular y que utilizan muchas organizaciones de ajedrez (la FIDE es un contraejemplo notable, ya que todavía utilizan el sistema de puntuación Elo).
 
-  En síntesis, las puntuaciones de Glicko usan \"intervalos de confianza\" al calcular y representar tu puntuación. Cuando comienzas a utilizar por primera vez el sitio, tu valoración comienza en 1500 ± 700. El 1500 representa tu puntuación, y el 700 representa el intervalo de confianza.
+En síntesis, las puntuaciones de Glicko usan \"intervalos de confianza\" al calcular y representar tu puntuación. Cuando comienzas a utilizar por primera vez el la página, tu puntuación es de 1500 ± 700. El 1500 representa tu puntuación, y el 700 representa el intervalo de confianza, que es una medida de la incertidumbre que el sistema tiene sobre tu puntuación real.
 
-  Básicamente, el sistema tiene un 90% de seguridad de que tu puntuación está entre 800 y 2200. Es increíblemente incierto. Debido a esto, cuando un jugador acaba de empezar, su puntuación cambiará de forma muy espectacular, potencialmente varios cientos de puntos a la vez. Pero después de algunas partidas contra jugadores establecidos, el intervalo de confianza se reducirá, y la cantidad de puntos ganados/perdidos después de cada partida disminuirá.
+Básicamente, el sistema tiene un 90% de seguridad de que tu puntuación está entre 800 y 2200. Es un intervalo muy amplio y poco preciso (hay mucha incertidumbre). Por eso, cuando un jugador acaba de empezar, su puntuación cambiará de forma muy brusca, incluso puede que varios cientos de puntos cada vez. Pero después de algunas partidas contra jugadores más veteranos, el intervalo de confianza se irá reduciendo (el sistema tendrá cada vez más clara cuál es su puntuación exacta), y la cantidad de puntos ganados o perdidos después de cada partida disminuirá.
 
-  Otro punto que hay que señalar es que, con el paso del tiempo, el intervalo de confianza aumentará. Esto te permite ganar o perder puntos más rápidamente para igualar cualquier cambio en tu nivel de habilidad en ese tiempo.</string>
+Otro punto que cabe señalar es que, si pasa un tiempo sin jugar, el intervalo de confianza volverá aumentar. Esto te permite ganar o perder puntos más rápidamente para igualar cualquier cambio en tu fuerza de juego durante ese tiempo que has pasado sin jugar.</string>
   <string name="whatIsProvisionalRating">¿Por qué hay un signo de interrogación (?) junto a una puntuación?</string>
   <string name="provisionalRatingExplanation">El signo de interrogación significa que la puntuación es provisional. Las razones incluyen:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">El jugador aún no ha finalizado suficientes partidas por puntos contra %1$s en la categoría de puntuación.</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">El jugador aún no ha jugado suficientes partidas por puntos contra %1$s en la categoría.</string>
   <string name="similarOpponents">oponentes de fuerza similar</string>
   <string name="notPlayedRecently">El jugador no ha jugado suficientes partidas recientes. Dependiendo de la cantidad de partidas que hayas jugado, puede tardar alrededor de un año de inactividad para que tu puntuación vuelva a ser provisional.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Concretamente, significa que la desviación Glicko-2 es mayor que 110. La desviación es el nivel de confianza que tiene el sistema en la clasificación. Cuanto más baja sea la desviación, más estable será una puntuación.</string>
-  <string name="howDoLeaderoardsWork">¿Cómo funcionan los rangos y los tableros de liderazgo?</string>
+  <string name="howDoLeaderoardsWork">¿Cómo funcionan los rankings y el listado de líderes?</string>
   <string name="inOrderToAppearsYouMust">Para llegar al %1$s deberías:</string>
-  <string name="ratingLeaderboards">tablero de liderazgo</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">haber jugado al menos 30 partidas por puntos en una puntuación dada,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">haber jugado una partida por puntos en la última semana para esta puntuación,</string>
+  <string name="ratingLeaderboards">listado de líderes</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">haber jugado al menos 30 partidas por puntos en una modalidad dada,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">haber jugado una partida por puntos en la última semana para esta modalidad,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">tener una desviación de puntuación menor que %1$s, en ajedrez estándar, y menor que %2$s en variantes,</string>
   <string name="beInTopTen">estar entre los 10 primeros de esta clasificación.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segundo requisito es que los jugadores que ya no usan sus cuentas dejen de poblar los tableros de liderazgo.</string>
-  <string name="whyAreRatingHigher">¿Por qué son más altas las puntuaciones en comparación con otros sitios y organizaciones como FIDE, USCF y el CIC?</string>
+  <string name="whyAreRatingHigher">¿Por qué son más altas las puntuaciones en comparación con otras páginas y organizaciones como FIDE, USCF y el CIC?</string>
   <string name="whyAreRatingHigherExplanation">Lo mejor es no considerar las puntuaciones como cifras absolutas ni compararlas con otras organizaciones. Diferentes organizaciones tienen diferentes niveles de jugadores, diferentes sistemas de puntuación (Elo, Glicko, Glicko-2 o una versión modificada de los primeros). Estos factores pueden afectar drásticamente los números absolutos (puntuaciones).
 
   Es mejor pensar en las puntuaciones como figuras \"relativas\" (a diferencia de las \"figuras absolutas\"): dentro de un conjunto de jugadores, sus diferencias relativas en las puntuaciones te ayudarán a estimar quién gana/empata/pierde, y con qué frecuencia. Decir \"tengo puntuación X\" significa nada a menos que haya otros jugadores a los que comparar esa puntuación.</string>
-  <string name="howToHideRatingWhilePlaying">¿Cómo ocultar mis puntajes durante las partidas?</string>
+  <string name="howToHideRatingWhilePlaying">¿Cómo ocultar mis puntuaciones durante las partidas?</string>
   <string name="enableZenMode">Habilita el modo Zen en %1$so presionando %2$s durante una partida.</string>
   <string name="displayPreferences">preferencias de visualización</string>
-  <string name="connexionLostCanIGetMyRatingBack">He perdido un juego debido a un retraso/desconexión. ¿Puedo recuperar mis puntajes?</string>
+  <string name="connexionLostCanIGetMyRatingBack">He perdido un juego debido a un retraso/desconexión. ¿Puedo recuperar mis puntos?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadamente, no podemos devolver puntos en las partidas perdidas debido al retraso de red o desconexión, independientemente de si el problema estaba en tu lado o en el nuestro. Sin embargo, este último caso es muy extraño. También ten en cuenta que cuando Lichess se reinicia y pierdes por que se te haya acabado el tiempo debido a eso, abortamos el juego para prevenir una pérdida injusta.</string>
   <string name="howToThreeDots">Cómo...</string>
-  <string name="enableDisableNotificationPopUps">¿Activar o desactivar ventanas emergentes de notificación?</string>
+  <string name="enableDisableNotificationPopUps">¿Activar o desactivar las notificaciones emergentes?</string>
   <string name="viewSiteInformationPopUp">Ver ventana emergente de información del sitio</string>
   <string name="lichessCanOptionnalySendPopUps">Opcionalmente, Lichess puede enviar notificaciones emergentes, por ejemplo cuando sea tu turno o hayas recibido un mensaje privado.
 
