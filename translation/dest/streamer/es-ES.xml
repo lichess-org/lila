@@ -34,24 +34,24 @@ Colócala en el título de la transmisión en la página de Twitch o YouTube, no
 Si tu transmisión está en inglés, no hay necesidad de incluir una etiqueta de idioma.</string>
   <string name="twitchUsername">Tu nombre de usuario o URL de Twitch</string>
   <string name="optionalOrEmpty">Opcional. Déjalo vacío si no hay ninguno</string>
-  <string name="youtubeChannel">Tu ID de canal de YouTube o URL</string>
+  <string name="youtubeChannel">El ID o URL de tu canal de YouTube</string>
   <string name="streamerName">Tu nombre de presentador en Lichess</string>
   <plurals name="keepItShort">
-    <item quantity="one">Sea breve: máximo %s caracteres</item>
-    <item quantity="other">Sea breve: máximo %s caracteres</item>
+    <item quantity="one">Se breve: máximo %s carácter</item>
+    <item quantity="other">Se breve: máximo %s caracteres</item>
   </plurals>
   <string name="visibility">Visible en la página de presentadores</string>
-  <string name="whenApproved">Cuando sea aprobado por los moderadores</string>
+  <string name="whenApproved">Cuando lo aprueben los moderadores</string>
   <string name="headline">Encabezado</string>
   <string name="tellUsAboutTheStream">En una frase, cuéntanos sobre tu transmisión</string>
   <string name="longDescription">Descripción larga</string>
   <string name="xStreamerPicture">Imagen de presentador %s</string>
   <string name="changePicture">Cambia/elimina tu imagen</string>
-  <string name="uploadPicture">Subir una imagen</string>
-  <string name="deletePicture">Eliminar imagen</string>
+  <string name="uploadPicture">Subir una foto</string>
+  <string name="deletePicture">Borrar la foto</string>
   <string name="maxSize">Tamaño máximo: %s</string>
   <string name="installBlocker">¡Instala un bloqueador de malware!</string>
-  <string name="beSafe">Estate a salvo de los anuncios y rastreadores
+  <string name="beSafe">Mantente a salvo de los anuncios y rastreadores
 que infestan Twitch y YouTube.
 Lichess recomienda uBlock Origin
 que es gratis y de código abierto.</string>
