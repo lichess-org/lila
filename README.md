@@ -27,7 +27,7 @@ and relies on the [Play 2.8](https://www.playframework.com/) framework.
 [scalatags](https://www.lihaoyi.com/scalatags/) is used for templating.
 Pure chess logic is contained in the [scalachess](https://github.com/ornicar/scalachess) submodule.
 The server is fully asynchronous, making heavy use of Scala Futures and [Akka streams](https://akka.io).
-WebSocket connections are handled by a [seperate server](https://github.com/ornicar/lila-ws) that communicates using [redis](https://redis.io/).
+WebSocket connections are handled by a [separate server](https://github.com/ornicar/lila-ws) that communicates using [redis](https://redis.io/).
 Lichess talks to [Stockfish](https://stockfishchess.org/) deployed in an [AI cluster](https://github.com/niklasf/fishnet) of donated servers.
 It uses [MongoDB](https://mongodb.org) to store more than 1.7 billion games, which are indexed by [elasticsearch](https://github.com/elastic/elasticsearch).
 HTTP requests and WebSocket connections can be proxied by [nginx](https://nginx.org).
