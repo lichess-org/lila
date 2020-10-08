@@ -12,7 +12,7 @@
   <string name="toggleTheChat">채팅 끄기/켜기</string>
   <string name="toggleSound">음소거/음소거 해제</string>
   <string name="chat">채팅</string>
-  <string name="resign">기권하기</string>
+  <string name="resign">기권</string>
   <string name="checkmate">체크메이트</string>
   <string name="stalemate">스테일메이트</string>
   <string name="white">백색</string>
@@ -188,6 +188,8 @@
     <item quantity="other">나와 %s번 대국 함</item>
   </plurals>
   <string name="cancel">취소</string>
+  <string name="whiteTimeOut">백색 시간 초과</string>
+  <string name="blackTimeOut">흑색 시간 초과</string>
   <string name="drawOfferSent">무승부를 요청했습니다</string>
   <string name="drawOfferDeclined">무승부 요청이 거절 되었습니다</string>
   <string name="drawOfferAccepted">무승부 요청이 승낙 됐습니다</string>
@@ -257,6 +259,7 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">%s초 더 주기</item>
   </plurals>
+  <string name="thisAccountViolatedTos">이 계정은 Lichess 이용 약관을 위반했습니다.</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">이 플레이어는 비정상적인 방법으로 레이팅을 조작합니다</string>
   <string name="openingExplorerAndTablebase">오프닝 탐색 &amp; 테이블베이스</string>
   <string name="takeback">무르기</string>
@@ -809,7 +812,7 @@
   <string name="classicalDesc">클래시컬 게임: 25분 이상</string>
   <string name="puzzleDesc">체스 전술 트레이너</string>
   <string name="important">중요!</string>
-  <string name="yourQuestionMayHaveBeenAnswered">%1$s에 원하시는 답변이 있을 수 있습니다.</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">%1$s에 원하시는 답변이 있을 수 있습니다.</string>
   <string name="inTheFAQ">F.A.Q</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">%1$s에서 엔진 사용이나 부적절한 행동을 신고하십시오.</string>
   <string name="useTheReportForm">사용자 신고</string>
