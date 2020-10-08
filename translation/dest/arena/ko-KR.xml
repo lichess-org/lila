@@ -34,9 +34,9 @@
   <string name="otherRules">그 외 중요한 규칙</string>
   <string name="thereIsACountdown">당신의 첫 수에 카운트다운이 있습니다. 첫 수를 이 시간 내에 두지 않으면 게임에서 지게 됩니다.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="other">%s 수 내에 무승부로 게임이 끝나면 어떤 플레이어도 점수를 얻지 못합니다.</item>
+    <item quantity="other">%s수 내에 무승부로 게임이 끝나면 어떤 플레이어도 점수를 얻지 못합니다.</item>
   </plurals>
-  <string name="thisIsPrivate">이 토너먼트는 사설 토너먼트 입니다.</string>
+  <string name="thisIsPrivate">이 토너먼트는 비공개 토너먼트 입니다.</string>
   <string name="shareUrl">모두가 참여할 수 있게 이 URL을 공유해 주세요: %s</string>
   <string name="drawStreak">연속 무승부: 플레이어가 2게임 이상 연속으로 무승부를 기록할 경우, 첫 무승부 또는 %s수 이상을 두고 발생한 무승부에만 점수가 주어질 것입니다. 연속 무승부는 게임에서 승리하면 초기화됩니다.</string>
 </resources>
