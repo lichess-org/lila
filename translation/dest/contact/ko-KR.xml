@@ -33,4 +33,6 @@
   <string name="fideMate">FIDE 체스 규칙 6.9조에 따르면, 체크메이트가 어떤 합법적인 수에 의해서 가능할 경우 무승부가 아닙니다.</string>
   <string name="knightMate">상대방이 킹이 아닌 다른 기물을 가지고 있다면 나이트 하나 또는 비숍 하나로도 체크메이트가 가능합니다.</string>
   <string name="noRatingPoints">레이팅 포인트 미지급</string>
+  <string name="ratedGame">레이팅 게임을 했는지 다시 한번 확인하십시오. 캐주얼 게임은 레이팅에 영향을 미치지 않습니다.</string>
+  <string name="errorPage">에러 페이지</string>
 </resources>
