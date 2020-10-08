@@ -495,6 +495,13 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="side">Side</string>
   <string name="clock">Klok</string>
   <string name="unauthorizedError">Tagong wegere.</string>
+  <string name="noInternetConnection">Gjin ynternetferbining. Do kinst noch wol \'offline\' spylje fanút it menu.</string>
+  <string name="connectedToLichess">Do bist no ferbûn mei lichess.org</string>
+  <string name="signedOut">Do bist ôfmeld</string>
+  <string name="loginSuccessful">Do bist oanmeld</string>
+  <string name="playOnTheBoardOffline">Oan it boerd</string>
+  <string name="playOfflineComputer">Kompjûter</string>
+  <string name="opponent">Tsjinstanner</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
