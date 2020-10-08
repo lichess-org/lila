@@ -58,13 +58,11 @@ object replay {
         href := s"${routes.Game.exportOne(game.id)}?imported=1"
       )(trans.downloadImported()),
       ctx.noBlind option frag(
-        a(dataIcon := "=", cls := "text embed-howto", target := "_blank")(
-          trans.embedInYourWebsite()
-        ),
+        a(dataIcon := "=", cls := "text embed-howto")(trans.embedInYourWebsite()),
         a(
           dataIcon := "$",
           cls := "text",
-          target := "_blank",
+          targetBlank,
           href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
         )(
           "Share as a GIF"

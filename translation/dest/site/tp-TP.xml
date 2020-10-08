@@ -73,6 +73,7 @@
   <string name="database">ilo jo pi lipu sona</string>
   <string name="whiteDrawBlack">walo / ala / pimeja</string>
   <string name="topGames">musi pona pona</string>
+  <string name="noGameFound">musi ala li lon</string>
   <string name="openingExplorer">ilo open</string>
   <string name="allSet">ali li pali a!</string>
   <string name="delete">weka</string>
@@ -115,6 +116,7 @@
   <string name="latestForumPosts">toki sin lon ma toki</string>
   <string name="players">jan musi</string>
   <string name="friends">jan pona</string>
+  <string name="discussions">toki</string>
   <string name="today">tenpo suno ni</string>
   <string name="yesterday">tenpo suno pini</string>
   <string name="minutesPerSide">tenpo tawa kule</string>
@@ -130,6 +132,7 @@
   <string name="ratingStats">nanpa mute</string>
   <string name="username">nimi</string>
   <string name="usernameOrEmail">nimi</string>
+  <string name="changeUsername">o ante e nimi sina</string>
   <string name="password">nimi pi sona ala</string>
   <string name="changePassword">ante e nimi sina pi sona ala</string>
   <string name="changeEmail">ante e nimi sina pi pana toki</string>
@@ -140,6 +143,8 @@
   <string name="rankX">sona jan musi: %s</string>
   <string name="gamesPlayed">sina pini e musi ni</string>
   <string name="cancel">pali ala</string>
+  <string name="whiteTimeOut">tenpo walo li pini</string>
+  <string name="blackTimeOut">tenpo pimeja li pini</string>
   <string name="drawOfferSent">jan ante li wile ala wile pini sama...</string>
   <string name="drawOfferDeclined">jan ante li wile ala pini sama</string>
   <string name="drawOfferAccepted">jan ante li wile pini sama</string>
@@ -177,6 +182,7 @@
   <string name="play">o musi</string>
   <string name="inbox">poki toki</string>
   <string name="chatRoom">tomo toki</string>
+  <string name="loginToChat">o open la o toki</string>
   <string name="spectatorRoom">tomo lukin</string>
   <string name="composeMessage">o sitelen e toki</string>
   <string name="noNewMessages">toki sin li lon ala</string>
@@ -280,6 +286,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="nextXTournament">musi mute %s kama:</string>
   <string name="membersOnly">jan nimi taso</string>
   <string name="boardEditor">ilo pi ante e supa</string>
+  <string name="setTheBoard">o ante e supa musi</string>
   <string name="startPosition">musi lon open</string>
   <string name="clearBoard">supa musi sin</string>
   <string name="savePosition">o sona awen e musi lon open</string>
@@ -401,6 +408,8 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="tools">ilo musi</string>
   <string name="increment">tenpo poka</string>
   <string name="playOnline">o musi kepeken linja</string>
+  <string name="playOffline">musi lon ala ilo sona</string>
+  <string name="shareGameURL">o pana e nimi tawa musi</string>
   <string name="onlyFriends">jan pona taso</string>
   <string name="menu">lipu open</string>
   <string name="whiteCastlingKingside">walo O-O</string>
@@ -416,6 +425,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="contribute">o pana e ijo</string>
   <string name="sourceCode">lon pi pali ilo</string>
   <string name="host">jan suli</string>
+  <string name="hostColorX">kule pi jan lawa li %s</string>
   <string name="create">open</string>
   <string name="tournamentOfficial">suli</string>
   <string name="keyMoveBackwardOrForward">o tawa sinpin/monsi</string>
@@ -429,18 +439,22 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="yourPerfTypeRatingIsRating">nanpa %1$s sina li nanpa %2$s</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">jan %1$s li pona mute. jan %2$s lon %3$s li pona lili.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">sina jo ala e nanpa %s</string>
+  <string name="yourRating">pona sina</string>
   <string name="cumulative">pi pali nanpa poka</string>
   <string name="glicko2Rating">nanpa Glicko-2</string>
   <string name="withNobody">tawa jan ala</string>
   <string name="withFriends">tawa jan pona</string>
   <string name="withEverybody">tawa jan ale</string>
   <string name="kidMode">nasin pi jan lili</string>
+  <string name="enableKidMode">o ken e nasin pi jan lili </string>
   <string name="bulletBlitzClassical">nasin Bullet, Blitz, Classical</string>
   <string name="gameAnalysis">sona musi</string>
+  <string name="xLikesY">sona %2$s li pona tawa %1$s</string>
   <string name="xCreatesStudyY">jan %1$s li pali e ma sona. ma sona li nimi %2$s</string>
   <string name="quickPairing">kama jo musi kepeken tenpo lili</string>
   <string name="lobby">tomo awen</string>
   <string name="anonymous">jan pi nimi weka tawa sona sina</string>
+  <string name="yourScore">nanpa sina: %s</string>
   <string name="language">toki</string>
   <string name="background">sitelen weka</string>
   <string name="light">walo</string>
@@ -453,12 +467,17 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="coaches">jan pi sona pana</string>
   <string name="error.unknown">pakala</string>
   <string name="custom">nasin ante</string>
+  <string name="notifications">toki kama</string>
+  <string name="anotherWasX">nasin ante li %s</string>
   <string name="bestWasX">pona pona li %s</string>
+  <string name="seeBestMove">o lukin e tawa pona</string>
+  <string name="hideBestMove">o lukin ala e tawa pona</string>
   <string name="getAHint">o jo e sona lili</string>
   <string name="whiteWinsGame">walo li pini pona</string>
   <string name="blackWinsGame">pimeja li pini pona</string>
   <string name="learnFromYourMistakes">o kama sona kepeken pakala sina</string>
   <string name="next">tawa</string>
+  <string name="xWasPlayed">tawa li %s</string>
   <string name="solution">pali pona</string>
   <string name="doItAgain">o pali sin</string>
   <plurals name="nbSeconds">
@@ -482,4 +501,5 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="important">suli</string>
   <string name="teamNamedX">kulupu %1$s</string>
   <string name="subscribe">o kama jo e sona</string>
+  <string name="unsubscribe">o pini e sona pi kama sin</string>
 </resources>

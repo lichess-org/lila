@@ -18,7 +18,8 @@ module.exports = function(ctrl) {
       ]),
       m('p.share', ctrl.own ? m('a', {
         href: '/account/preferences/privacy',
-        target: '_blank'
+        target: '_blank',
+        rel: 'noopener',
       }, shareText) : shareText)
     ]),
     m('div.refresh', {

@@ -22,7 +22,7 @@ final class ModApi(
       _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
       _ <- logApi.alt(mod, sus, v)
     } yield {
-      if (v) notifier.reporters(mod, sus)
+      if (v) notifier.reporters(mod, sus).unit
     }
 
   def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit =
@@ -87,16 +87,16 @@ final class ModApi(
       }
     } >>
       reportApi.process(mod, sus, Set(Room.Comm)) >>- {
-        if (value) notifier.reporters(mod, sus)
+        if (value) notifier.reporters(mod, sus).unit
       } inject sus
   }
 
   def garbageCollect(sus: Suspect): Funit =
-    for {
-      mod <- reportApi.getLichessMod
-      _   <- setAlt(mod, sus, v = true)
-      _   <- setTroll(mod, sus, value = false)
-    } yield logApi.garbageCollect(mod, sus)
+    reportApi.getLichessMod flatMap { mod =>
+      setAlt(mod, sus, v = true) >>
+        setTroll(mod, sus, value = false) >>
+        logApi.garbageCollect(mod, sus)
+    }
 
   def disableTwoFactor(mod: String, username: String): Funit =
     withUser(username) { user =>
@@ -114,12 +114,12 @@ final class ModApi(
     withUser(username) { user =>
       title match {
         case None =>
-          userRepo.removeTitle(user.id) >>-
+          userRepo.removeTitle(user.id) >>
             logApi.removeTitle(mod, user.id) >>-
             lightUserApi.invalidate(user.id)
         case Some(t) =>
           Title.names.get(t) ?? { tFull =>
-            userRepo.addTitle(user.id, t) >>-
+            userRepo.addTitle(user.id, t) >>
               logApi.addTitle(mod, user.id, s"$t ($tFull)") >>-
               lightUserApi.invalidate(user.id)
           }
@@ -152,13 +152,13 @@ final class ModApi(
 
   def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit =
     (sus.user.marks.reportban != v) ?? {
-      userRepo.setReportban(sus.user.id, v) >>- logApi.reportban(mod, sus, v)
+      userRepo.setReportban(sus.user.id, v) >> logApi.reportban(mod, sus, v)
     }
 
   def setRankban(mod: Mod, sus: Suspect, v: Boolean): Funit =
     (sus.user.marks.rankban != v) ?? {
       if (v) Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
-      userRepo.setRankban(sus.user.id, v) >>- logApi.rankban(mod, sus, v)
+      userRepo.setRankban(sus.user.id, v) >> logApi.rankban(mod, sus, v)
     }
 
   def allMods =

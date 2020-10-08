@@ -108,9 +108,7 @@ cg-helper {
   position: absolute;
   width: 12.5%;
   padding-bottom: 12.5%;
-  display: table;
-
-  /* hack: round to full pixel size in chrome */
+  display: table; // hack to round to full pixel size in chrome
   bottom: 0;
 }
 

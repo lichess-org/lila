@@ -68,7 +68,7 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     upgradeMon.members.update(members.size)
     upgradeMon.evals.update(evals.size)
-    upgradeMon.expirable.update(expirableSris.count)
+    upgradeMon.expirable.update(expirableSris.count).unit
   }
 }
 

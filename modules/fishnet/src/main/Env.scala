@@ -94,8 +94,8 @@ final class Env(
     Props(new Actor {
       def receive = {
         case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
-          analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true))
-        case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser study req
+          analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true)).unit
+        case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser.study(req).unit
       }
     }),
     name = config.actorName
@@ -121,8 +121,8 @@ final class Env(
     }
 
   Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId)
-    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId)
-    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId)
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId).unit
+    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId).unit
+    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId).unit
   }
 }

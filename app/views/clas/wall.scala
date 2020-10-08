@@ -46,8 +46,7 @@ object wall {
               trans.clas.markdownAvailable(
                 a(
                   href := "https://guides.github.com/features/mastering-markdown/",
-                  target := "_blank",
-                  rel := "noopener"
+                  targetBlank
                 )(
                   "Markdown"
                 )

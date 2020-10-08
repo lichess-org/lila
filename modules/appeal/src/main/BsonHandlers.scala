@@ -9,8 +9,8 @@ private[appeal] object BsonHandlers {
 
   implicit val statusHandler = lila.db.dsl.quickHandler[Status](
     {
-      case BSONString(v) => Status(v) | Status.Closed
-      case _             => Status.Closed
+      case BSONString(v) => Status(v) | Status.Read
+      case _             => Status.Read
     },
     s => BSONString(s.key)
   )

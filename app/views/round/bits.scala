@@ -128,9 +128,6 @@ object bits {
   def roundAppPreload(pov: Pov, controls: Boolean)(implicit ctx: Context) =
     div(cls := "round__app")(
       div(cls := "round__app__board main-board")(chessground(pov)),
-      div(cls := "round__app__table"),
-      div(cls := "rclock rclock-top")(div(cls := "time")(nbsp)),
-      div(cls := "rclock rclock-bottom")(div(cls := "time")(nbsp)),
-      controls option div(cls := "rcontrols rcontrols-preload")
+      div(cls := "col1-rmoves-preload")
     )
 }

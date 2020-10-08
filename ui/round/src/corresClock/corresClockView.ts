@@ -4,13 +4,10 @@ import { Position } from '../interfaces';
 import { CorresClockController } from './corresClockCtrl';
 import { moretime } from '../view/button';
 
-function prefixInteger(num: number, length: number): string {
-  return (num / Math.pow(10, length)).toFixed(length).substr(2);
-}
+const prefixInteger = (num: number, length: number): string =>
+  (num / Math.pow(10, length)).toFixed(length).substr(2);
 
-function bold(x: string) {
-  return '<b>' + x + '</b>';
-}
+const bold = (x: string) => `<b>${x}</b>`;
 
 function formatClockTime(trans: Trans, time: Millis) {
   const date = new Date(time),

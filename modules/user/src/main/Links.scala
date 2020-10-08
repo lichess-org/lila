@@ -1,5 +1,7 @@
 package lila.user
 
+import io.lemonlabs.uri.Url
+
 object Links {
 
   def make(text: String): List[Link] = text.linesIterator.to(List).map(_.trim).flatMap(toLink)
@@ -10,7 +12,8 @@ object Links {
     line match {
       case UrlRegex(domain) =>
         Link(
-          site = Link.Site.allKnown find (_ matches domain) getOrElse Link.Site.Other(domain),
+          site = Link.Site.allKnown find (_ matches domain) getOrElse
+            Link.Site.Other(Url.parse(domain).toStringPunycode),
           url = if (line startsWith "http") line else s"https://$line"
         ).some
       case _ => none

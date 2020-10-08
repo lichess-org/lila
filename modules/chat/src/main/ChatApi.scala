@@ -104,7 +104,7 @@ final class ChatApi(
                   }
                 }
                 publish(chatId, actorApi.ChatLine(chatId, line), busChan)
-                lila.mon.chat.message(publicSource.fold("player")(_.parentName), line.troll).increment()
+                lila.mon.chat.message(publicSource.fold("player")(_.parentName), line.troll).increment().unit
               }
           }
         }
@@ -132,7 +132,7 @@ final class ChatApi(
     }
 
     def service(chatId: Chat.Id, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
-      (if (isVolatile) volatile _ else system _)(chatId, text, busChan)
+      (if (isVolatile) volatile _ else system _)(chatId, text, busChan).unit
 
     def timeout(
         chatId: Chat.Id,
@@ -146,7 +146,7 @@ final class ChatApi(
       coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
         case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || scope == ChatTimeout.Scope.Local =>
           doTimeout(chat, mod, user, reason, scope, text, busChan)
-        case _ => fuccess(none)
+        case _ => funit
       }
 
     def userModInfo(username: String): Fu[Option[UserModInfo]] =
@@ -256,7 +256,7 @@ final class ChatApi(
       makeLine(chatId, color, text) ?? { line =>
         pushLine(chatId, line) >>- {
           publish(chatId, actorApi.ChatLine(chatId, line), busChan)
-          lila.mon.chat.message("anonPlayer", troll = false).increment()
+          lila.mon.chat.message("anonPlayer", troll = false).increment().unit
         }
       }
 

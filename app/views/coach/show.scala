@@ -84,7 +84,7 @@ object show {
           profile.youtubeUrls.nonEmpty option st.section(cls := "coach-show__youtube")(
             h2(
               profile.youtubeChannel.map { url =>
-                a(href := url, target := "_blank", rel := "nofollow noopener")(youtubeVideos())
+                a(href := url, targetBlank, rel := "nofollow")(youtubeVideos())
               } getOrElse youtubeVideos()
             ),
             div(cls := "list")(

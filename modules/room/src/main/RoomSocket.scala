@@ -67,13 +67,15 @@ object RoomSocket {
   )(implicit ec: ExecutionContext): Handler =
     ({
       case Protocol.In.ChatSay(roomId, userId, msg) =>
-        chat.userChat.write(
-          Chat.Id(roomId.value),
-          userId,
-          msg,
-          publicSource(roomId)(PublicSource),
-          chatBusChan
-        )
+        chat.userChat
+          .write(
+            Chat.Id(roomId.value),
+            userId,
+            msg,
+            publicSource(roomId)(PublicSource),
+            chatBusChan
+          )
+          .unit
       case Protocol.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
         lila.chat.ChatTimeout.Reason(reason) foreach { r =>
           localTimeout.?? { _(roomId, modId, suspect) } foreach { local =>

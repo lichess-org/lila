@@ -58,13 +58,16 @@ final class OAuthServer(
     user2 <- auth2
   } yield (user1.user, user2.user)
 
+  def deleteCached(id: AccessToken.Id): Unit =
+    accessTokenCache.put(id, fuccess(none))
+
   private def reqToTokenId(req: RequestHeader): Option[AccessToken.Id] =
     req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) collect { case Array("Bearer", tokenStr) =>
       AccessToken.Id(tokenStr)
     }
 
   private val accessTokenCache =
-    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](16, "oauth.server.personal_access_token") {
+    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](32, "oauth.server.personal_access_token") {
       _.expireAfterWrite(5 minutes)
         .buildAsyncFuture(fetchAccessToken)
     }

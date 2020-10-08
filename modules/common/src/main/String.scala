@@ -55,7 +55,8 @@ object String {
       s.contains('\u200c') ||
       s.contains('\u200d') ||
       s.contains('\u200e') ||
-      s.contains('\u200f')
+      s.contains('\u200f') ||
+      s.contains('\u202e') // https://www.fileformat.info/info/unicode/char/202e/index.htm
 
   object base64 {
     import java.util.Base64

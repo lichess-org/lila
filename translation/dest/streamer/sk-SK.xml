@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Lichess streameri</string>
+  <string name="lichessStreamer">Lichess streamer</string>
+  <string name="live">NAŽIVO!</string>
+  <string name="offline">OFFLINE</string>
+  <string name="hereWeGo">Ideme na to!</string>
+  <string name="headline">Titulok</string>
+  <string name="longDescription">Dlhý popis</string>
+  <string name="changePicture">Zmeniť/zmazať váš obrázok</string>
+  <string name="uploadPicture">Nahrať obrázok</string>
+  <string name="deletePicture">Zmazať obrázok</string>
+  <string name="maxSize">Max veľkosť: %s</string>
+</resources>

@@ -40,9 +40,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
         'data-icon': 'L',
         title: noarg('decline')
       },
-      hook: util.bind('click', () => {
-        ctrl.socket.send('rematch-no');
-      })
+      hook: util.bind('click', () => ctrl.socket.send('rematch-no'))
     }, ctrl.nvui ? noarg('decline') : '') : null,
     h('button.fbt.rematch.white', {
       class: {

@@ -24,7 +24,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
         $id(pov.fullId),
         Forecast(
           _id = pov.fullId,
-          steps = steps,
+          steps = steps.filter(_.nonEmpty),
           date = DateTime.now
         ).truncate,
         upsert = true

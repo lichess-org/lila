@@ -20,7 +20,7 @@ object bits {
     )(name)
 
   def idToName(id: Swiss.Id): String = env.swiss.getName(id) getOrElse "Tournament"
-  def iconChar(swiss: Swiss): String = swiss.perfType.fold('g')(_.iconChar).toString
+  def iconChar(swiss: Swiss): String = swiss.perfType.iconChar.toString
 
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(
@@ -53,7 +53,7 @@ object bits {
                 span(cls := "setup")(
                   s.clock.show,
                   " • ",
-                  if (s.variant.exotic) s.variant.name else s.perfType.map(_.trans),
+                  if (s.variant.exotic) s.variant.name else s.perfType.trans,
                   " • ",
                   if (s.settings.rated) trans.ratedTournament() else trans.casualTournament(),
                   " • ",

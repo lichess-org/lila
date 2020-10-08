@@ -86,8 +86,7 @@ lichess.load.then(() => {
         .then(html => {
           $rels.replaceWith(html);
           $rels.removeClass('loading');
-        })
-        .catch(() => {
+        }, _ => {
           lichess.announce({ msg: 'Failed to send forum post reaction' });
         });
     }

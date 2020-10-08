@@ -45,7 +45,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
       xhr.text('/pref/bg', {
         body: xhr.form({ bg: c }),
         method: 'post'
-      }).then(reloadAllTheThings).catch(announceFail);
+      }).then(reloadAllTheThings, announceFail);
       applyBackground(data, list);
       redraw();
     },
@@ -55,7 +55,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
       xhr.text('/pref/bgImg', {
         body: xhr.form({ bgImg: i }),
         method: 'post'
-      }).then(reloadAllTheThings).catch(announceFail);
+      }).then(reloadAllTheThings, announceFail);
       applyBackground(data, list);
       redraw();
     },

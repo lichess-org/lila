@@ -1,8 +1,8 @@
-import tablesort from 'tablesort';
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
-import spinnerHtml from './component/spinner';
 import extendTablesortNumber from './component/tablesort-number';
+import spinnerHtml from './component/spinner';
+import tablesort from 'tablesort';
 
 lichess.load.then(() => {
 
@@ -86,7 +86,7 @@ lichess.load.then(() => {
       });
     });
 
-    makeReady('form.fide_title select', el => 
+    makeReady('form.fide_title select', el =>
       $(el).on('change', () => ($(el).parent('form')[0] as HTMLFormElement).submit())
     );
 
@@ -142,6 +142,7 @@ lichess.load.then(() => {
 
   if (location.search.startsWith('?mod')) $toggle.trigger('click');
 
-  window.Mousetrap.bind('m', () => $toggle.trigger('click'));
-  window.Mousetrap.bind('i', () => $zone.find('button.inquiry').trigger('click'));
+  window.Mousetrap
+    .bind('m', () => $toggle.trigger('click'))
+    .bind('i', () => $zone.find('button.inquiry').trigger('click'));
 });

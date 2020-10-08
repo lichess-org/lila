@@ -46,7 +46,7 @@ lazy val moduleCPDeps = moduleRefs map { sbt.ClasspathDependency(_, None) }
 
 lazy val api = module("api",
   moduleCPDeps,
-  Seq(play.api, play.json, hasher, kamon.core, kamon.influxdb, lettuce) ++ reactivemongo.bundle
+  Seq(play.api, play.json, hasher, kamon.core, kamon.influxdb, lettuce, specs2) ++ reactivemongo.bundle
 ).settings(
   aggregate in Runtime := false,
   aggregate in Test := true  // Test <: Runtime
@@ -170,7 +170,7 @@ lazy val mod = module("mod",
 
 lazy val user = smallModule("user",
   Seq(common, memo, db, hub, rating, socket),
-  Seq(hasher, specs2, autoconfig) ++ playWs.bundle ++ reactivemongo.bundle ++ macwire.bundle
+  Seq(hasher, specs2, autoconfig, scalaUri) ++ playWs.bundle ++ reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val game = module("game",

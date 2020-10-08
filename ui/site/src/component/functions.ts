@@ -1,4 +1,7 @@
-export const requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
+export const requestIdleCallback = (f: () => void, timeout?: number) => {
+  if (window.requestIdleCallback) window.requestIdleCallback(f, timeout && { timeout });
+  else requestAnimationFrame(f);
+}
 
 export const escapeHtml = (str: string) =>
   /[&<>"']/.test(str) ?

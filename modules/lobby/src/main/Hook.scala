@@ -97,7 +97,6 @@ case class Hook(
         ratingRange = realRatingRange,
         lame = user.??(_.lame),
         blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
-        since = createdAt,
         rageSitCounter = 0
       )
     )

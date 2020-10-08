@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">sina wile e nimi pi sona ala</string>
+  <string name="myStudies">pali sona mi</string>
   <string name="noneYet">tenpo ni la ala</string>
   <string name="hot">suli</string>
   <plurals name="nbGames">
     <item quantity="one">musi %s</item>
     <item quantity="other">musi %s</item>
   </plurals>
+  <string name="addMembers">poka e jan kulupu</string>
   <string name="spectator">jan lukin</string>
+  <string name="contributor">jan pali</string>
   <string name="kick">o weka e jan</string>
+  <string name="leaveTheStudy">o tawa weka tan nasin sona ni</string>
   <string name="like">pona tawa mi</string>
   <string name="newTag">nomo sona sin</string>
   <string name="playing">musi</string>
@@ -17,16 +21,26 @@
   <string name="next">tawa</string>
   <string name="last">o tawa monsi</string>
   <string name="cloneStudy">o kama jo</string>
+  <string name="downloadGame">o kama jo e musi</string>
+  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">nimi tawa nasin tawa lon tenpo ni</string>
+  <string name="startAtX">open lon %s</string>
   <string name="open">o tawa</string>
+  <string name="orientation">poka pi sinpin ona</string>
+  <string name="analysisMode">nasin pilin</string>
   <string name="noPinnedComment">ala</string>
+  <string name="hideNextMoves">o lukin ala e tawa lon tenpo tawa</string>
   <string name="empty">ala</string>
   <string name="editor">ilo pi kama ante</string>
+  <string name="editStudy">ante e nasin pali</string>
+  <string name="visibility">lukin ala lukin</string>
   <string name="public">ken lukin tawa jan ante</string>
   <string name="unlisted">pi lukin ala tawa jan ale</string>
+  <string name="allowCloning">jan li ken ala ken tu e ijo</string>
   <string name="nobody">jan ala</string>
   <string name="onlyMe">mi taso</string>
   <string name="members">jan kulupu</string>
   <string name="everyone">jan ala</string>
   <string name="start">o open</string>
   <string name="save">awen</string>
+  <string name="clearChat">weka e toki lon tomo toki</string>
 </resources>

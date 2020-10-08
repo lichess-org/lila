@@ -64,7 +64,7 @@ object home {
               span(cls := "setup")(
                 s.clock.show,
                 " • ",
-                if (s.variant.exotic) s.variant.name else s.perfType.map(_.trans),
+                if (s.variant.exotic) s.variant.name else s.perfType.trans,
                 " • ",
                 (if (s.settings.rated) trans.ratedTournament else trans.casualTournament)()
               )

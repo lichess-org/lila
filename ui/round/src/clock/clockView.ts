@@ -1,10 +1,10 @@
-import { h } from 'snabbdom'
-import { Hooks } from 'snabbdom/hooks'
 import * as button from '../view/button';
-import { bind, justIcon } from '../util';
 import * as game from 'game';
 import RoundController from '../ctrl';
+import { bind, justIcon } from '../util';
 import { ClockElements, ClockController, Millis } from './clockCtrl';
+import { h } from 'snabbdom'
+import { Hooks } from 'snabbdom/hooks'
 import { Player } from 'game';
 import { Position } from '../interfaces';
 
@@ -15,8 +15,8 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     isRunning = player.color === clock.times.activeColor;
   const update = (el: HTMLElement) => {
     const els = clock.elements[player.color],
-       millis = clock.millisOf(player.color),
-       isRunning = player.color === clock.times.activeColor;
+      millis = clock.millisOf(player.color),
+      isRunning = player.color === clock.times.activeColor;
     els.time = el;
     els.clock = el.parentElement!;
     el.innerHTML = formatClockTime(millis, clock.showTenths(millis), isRunning, clock.opts.nvui);
@@ -37,24 +37,21 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
       hook: timeHook
     })
   ] : [
-    clock.showBar && game.bothPlayersHavePlayed(ctrl.data) ? showBar(ctrl, player.color) : undefined,
-    h('div.time', {
-      attrs: { title: `${player.color} clock` },
-      class: {
-        hour: millis > 3600 * 1000
-      },
-      hook: timeHook
-    }),
-    renderBerserk(ctrl, player.color, position),
-    isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
-    tourRank(ctrl, player.color, position)
-  ]);
+      clock.showBar && game.bothPlayersHavePlayed(ctrl.data) ? showBar(ctrl, player.color) : undefined,
+      h('div.time', {
+        attrs: { title: `${player.color} clock` },
+        class: {
+          hour: millis > 3600 * 1000
+        },
+        hook: timeHook
+      }),
+      renderBerserk(ctrl, player.color, position),
+      isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
+      tourRank(ctrl, player.color, position)
+    ]);
 }
 
-function pad2(num: number): string {
-  return (num < 10 ? '0' : '') + num;
-}
-
+const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
@@ -86,15 +83,15 @@ function showBar(ctrl: RoundController, color: Color) {
     if (el.animate !== undefined) {
       let anim = clock.elements[color].barAnim;
       if (anim === undefined || !anim.effect ||
-          (anim.effect as KeyframeEffect).target !== el) {
+        (anim.effect as KeyframeEffect).target !== el) {
         anim = el.animate(
           [
             { transform: 'scale(1)' },
             { transform: 'scale(0, 1)' }
           ], {
-            duration: clock.barTime,
-            fill: "both"
-          }
+          duration: clock.barTime,
+          fill: "both"
+        }
         );
         clock.elements[color].barAnim = anim;
       }
@@ -152,6 +149,6 @@ function tourRank(ctrl: RoundController, color: Color, position: Position) {
   const d = ctrl.data, ranks = d.tournament?.ranks || d.swiss?.ranks;
   return (ranks && !showBerserk(ctrl, color)) ?
     h('div.tour-rank.' + position, {
-      attrs: {title: 'Current tournament rank'}
+      attrs: { title: 'Current tournament rank' }
     }, '#' + ranks[color]) : null;
 }

@@ -25,7 +25,6 @@ object LameName {
     "buttsex",
     "cancer",
     "cheat",
-    "cock",
     "coon",
     "cuck",
     "cunniling",

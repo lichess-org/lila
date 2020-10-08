@@ -96,6 +96,7 @@ function studyButton(ctrl: AnalyseCtrl) {
     attrs: {
       href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
       target: '_blank',
+      rel: 'noopener',
       'data-icon': '4'
     }
   }, ctrl.trans.noarg('openStudy'));
@@ -144,9 +145,13 @@ export function view(ctrl: AnalyseCtrl): VNode {
       ctrl.ongoing ? null : h('a.button.button-empty', {
         attrs: {
           href: d.userAnalysis ? '/editor?fen=' + ctrl.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen,
-          rel: 'nofollow',
-          target: ctrl.embed ? '_blank' : '',
-          'data-icon': 'm'
+          'data-icon': 'm',
+          ...(ctrl.embed ? {
+            target: '_blank',
+            rel: 'noopener nofollow',
+          } : {
+            rel: 'nofollow',
+          }),
         }
       }, noarg('boardEditor')),
       canContinue ? h('a.button.button-empty', {

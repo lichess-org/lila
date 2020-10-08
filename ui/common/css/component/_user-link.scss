@@ -32,7 +32,7 @@
     }
 
     &::before {
-      content: 'Ò';
+      content: "\e01a";
     }
 
     &.patron::before {

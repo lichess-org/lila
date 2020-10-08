@@ -7,6 +7,7 @@ import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
 import { Untyped } from './interfaces';
+import {defined} from 'common';
 
 export interface RoundSocket extends Untyped {
   send: SocketSend;
@@ -66,7 +67,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         else reload(o, true);
       }
       else ctrl.reload(data);
-    });
+    }, lichess.reload);
   };
 
   const handlers: Handlers = {
@@ -96,8 +97,9 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       }
     },
     crowd(o) {
-      game.setOnGame(ctrl.data, 'white', o['white']);
-      game.setOnGame(ctrl.data, 'black', o['black']);
+      ['white', 'black'].forEach(c => {
+        if (defined(o[c])) game.setOnGame(ctrl.data, c as Color, o[c]);
+      });
       ctrl.redraw();
     },
     endData: ctrl.endWithData,

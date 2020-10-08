@@ -142,8 +142,9 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       vm.tab = t;
       tabStorage.set(t);
       // It's a lame way to do it. Give me a break.
-      if (t === 'discussion') lichess.requestIdleCallback(() =>
-        $('.mchat__say').each(function(this: HTMLElement) { this.focus() })
+      if (t === 'discussion') lichess.requestIdleCallback(
+        () => $('.mchat__say').each(function(this: HTMLElement) { this.focus() }),
+        500
       );
       redraw();
     },

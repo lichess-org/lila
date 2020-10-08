@@ -115,13 +115,13 @@ final class RoundSocket(
       }
     case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
-      messenger.owner(id, color, msg)
+      messenger.owner(id, color, msg).unit
     case Protocol.In.PlayerChatSay(id, Left(userId), msg) =>
-      messenger.owner(id, userId, msg)
+      messenger.owner(id, userId, msg).unit
     case Protocol.In.WatcherChatSay(id, userId, msg) =>
-      messenger.watcher(id, userId, msg)
+      messenger.watcher(id, userId, msg).unit
     case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
-      messenger.timeout(Chat.Id(s"$roomId/w"), modId, suspect, reason, text)
+      messenger.timeout(Chat.Id(s"$roomId/w"), modId, suspect, reason, text).unit
     case Protocol.In.Berserk(gameId, userId) => tournamentActor ! Berserk(gameId.value, userId)
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines foreach {
@@ -199,7 +199,7 @@ final class RoundSocket(
     rounds.tellAll(RoundDuct.Tick)
   }
   system.scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds) { () =>
-    lila.mon.round.ductCount.update(rounds.size)
+    lila.mon.round.ductCount.update(rounds.size).unit
   }
 
   private val terminationDelay = new TerminationDelay(system.scheduler, 1 minute, finishRound)
@@ -363,16 +363,18 @@ object RoundSocket {
     private[this] val terminations = new ConcurrentHashMap[String, Cancellable](65536)
 
     def schedule(gameId: Game.Id): Unit =
-      terminations.compute(
-        gameId.value,
-        (id, canc) => {
-          Option(canc).foreach(_.cancel())
-          scheduler.scheduleOnce(duration) {
-            terminations remove id
-            terminate(Game.Id(id))
+      terminations
+        .compute(
+          gameId.value,
+          (id, canc) => {
+            Option(canc).foreach(_.cancel())
+            scheduler.scheduleOnce(duration) {
+              terminations remove id
+              terminate(Game.Id(id))
+            }
           }
-        }
-      )
+        )
+        .unit
 
     def cancel(gameId: Game.Id): Unit =
       Option(terminations remove gameId.value).foreach(_.cancel())

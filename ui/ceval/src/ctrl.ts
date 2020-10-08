@@ -100,14 +100,14 @@ export default function(opts: CevalOpts): CevalCtrl {
   });
 
   // adjusts maxDepth based on nodes per second
-  const npsRecorder = (function() {
+  const npsRecorder = (() => {
     const values: number[] = [];
     const applies = (ev: Tree.ClientEval) => {
       return ev.knps && ev.depth >= 16 &&
         typeof ev.cp !== 'undefined' && Math.abs(ev.cp) < 500 &&
         (ev.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1) >= 10;
     };
-    return function(ev: Tree.ClientEval) {
+    return (ev: Tree.ClientEval) => {
       if (!applies(ev)) return;
       values.push(ev.knps);
       if (values.length > 9) {

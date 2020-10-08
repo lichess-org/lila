@@ -221,6 +221,8 @@
     <item quantity="other">%s hier s Vami</item>
   </plurals>
   <string name="cancel">Zrušiť</string>
+  <string name="whiteTimeOut">Bielemu došiel čas</string>
+  <string name="blackTimeOut">Čiernemu došiel čas</string>
   <string name="drawOfferSent">Ponuka remízy odoslaná</string>
   <string name="drawOfferDeclined">Ponuka remízy odmietnutá</string>
   <string name="drawOfferAccepted">Ponuka remízy prijatá</string>
@@ -680,7 +682,7 @@
   <string name="tpTimeSpentOnTV">Čas strávený na TV: %s</string>
   <string name="watch">Sledovať</string>
   <string name="videoLibrary">Video knižnica</string>
-  <string name="streamersMenu">Strímeri</string>
+  <string name="streamersMenu">Streameri</string>
   <string name="mobileApp">Mobilná aplikácia</string>
   <string name="webmasters">Správcovia</string>
   <string name="about">Viac o</string>

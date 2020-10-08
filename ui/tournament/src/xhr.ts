@@ -30,7 +30,7 @@ export const loadPage = throttle(
     xhr.json(`/tournament/${ctrl.data.id}/standing/${p}`).then(data => {
       ctrl.loadPage(data);
       ctrl.redraw();
-    }).catch(onFail));
+    }, onFail));
 
 export const loadPageOf = (ctrl: TournamentController, userId: string) =>
   xhr.json(`/tournament/${ctrl.data.id}/page-of/${userId}`);
@@ -46,8 +46,7 @@ export const reloadNow = (ctrl: TournamentController) =>
     .then(data => {
       ctrl.reload(data);
       ctrl.redraw();
-    })
-    .catch(onFail);
+    }, onFail);
 
 export const reloadSoon = throttle(4000, reloadNow);
 
@@ -56,13 +55,11 @@ export const playerInfo = (ctrl: TournamentController, userId: string) =>
     .then(data => {
       ctrl.setPlayerInfoData(data);
       ctrl.redraw();
-    })
-    .catch(onFail);
+    }, onFail);
 
 export const teamInfo = (ctrl: TournamentController, teamId: string) =>
   xhr.json(`/tournament/${ctrl.data.id}/team/${teamId}`)
     .then(data => {
       ctrl.setTeamInfo(data);
       ctrl.redraw();
-    })
-    .catch(onFail);
+    }, onFail);

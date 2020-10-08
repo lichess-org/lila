@@ -2,11 +2,11 @@ package lila.game
 
 import akka.actor._
 import akka.pattern.pipe
+import cats.data.NonEmptyList
 import chess.format.pgn.{ Sans, Tags }
 import chess.format.{ pgn, Forsyth }
 import chess.{ Game => ChessGame }
 import scala.util.Success
-import cats.data.NonEmptyList
 
 import lila.common.Captcha
 import lila.hub.actorApi.captcha._
@@ -19,12 +19,12 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
 
     case AnyCaptcha => sender() ! Impl.current
 
-    case GetCaptcha(id: String) => Impl get id pipeTo sender()
+    case GetCaptcha(id: String) => Impl.get(id).pipeTo(sender()).unit
 
-    case actorApi.NewCaptcha => Impl.refresh
+    case actorApi.NewCaptcha => Impl.refresh.unit
 
     case ValidCaptcha(id: String, solution: String) =>
-      Impl get id map (_ valid solution) pipeTo sender()
+      Impl.get(id).map(_ valid solution).pipeTo(sender()).unit
   }
 
   private object Impl {

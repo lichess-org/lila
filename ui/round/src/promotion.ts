@@ -85,7 +85,7 @@ function finish(ctrl: RoundController, role: cg.Role) {
 export function cancel(ctrl: RoundController) {
   cancelPrePromotion(ctrl);
   ctrl.chessground.cancelPremove();
-  if (promoting) xhr.reload(ctrl).then(ctrl.reload);
+  if (promoting) xhr.reload(ctrl).then(ctrl.reload, lichess.reload);
   promoting = undefined;
 }
 

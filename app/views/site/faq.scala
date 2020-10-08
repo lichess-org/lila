@@ -22,7 +22,7 @@ object faq {
     )
 
   def apply()(implicit ctx: Context) =
-    help.layout(
+    page.layout(
       title = "Frequently Asked Questions",
       active = "faq",
       moreCss = cssTag("faq")

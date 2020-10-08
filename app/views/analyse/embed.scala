@@ -24,11 +24,11 @@ object embed {
         val url = routes.Round.watcher(pov.gameId, pov.color.name)
         frag(
           div(cls := "left")(
-            a(target := "_blank", href := url)(h1(titleGame(pov.game))),
+            a(targetBlank, href := url)(h1(titleGame(pov.game))),
             " ",
-            em("brought to you by ", a(target := "_blank", href := netBaseUrl)(netConfig.domain))
+            em("brought to you by ", a(targetBlank, href := netBaseUrl)(netConfig.domain))
           ),
-          a(target := "_blank", cls := "open", href := url)("Open")
+          a(targetBlank, cls := "open", href := url)("Open")
         )
       },
       views.html.base.layout.lichessJsObject(config.nonce)(config.lang),

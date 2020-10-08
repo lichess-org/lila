@@ -49,8 +49,7 @@ export default class EditorCtrl {
       cfg.positions.forEach(p => p.epd = p.fen.split(' ').splice(0, 4).join(' '));
     }
 
-    window.Mousetrap.bind('f', (e: Event) => {
-      e.preventDefault();
+    window.Mousetrap.bind('f', () => {
       if (this.chessground) this.chessground.toggleOrientation();
       redraw();
     });

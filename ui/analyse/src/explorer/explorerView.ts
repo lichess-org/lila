@@ -118,7 +118,7 @@ function openGame(ctrl: AnalyseCtrl, gameId: string) {
   fenParam = ctrl.node.ply > 0 ? ('?fen=' + ctrl.node.fen) : '';
   let url = '/' + gameId + '/' + orientation + fenParam;
   if (ctrl.explorer.config.data.db.selected() === 'masters') url = '/import/master' + url;
-  window.open(url, '_blank');
+  window.open(url, '_blank', 'noopener');
 }
 
 function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {

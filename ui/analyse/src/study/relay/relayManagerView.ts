@@ -36,7 +36,8 @@ function renderLog(ctrl: RelayCtrl) {
     const err = e.error && h('a', {
       attrs: {
         href: ctrl.data.sync.url,
-        target: '_blank'
+        target: '_blank',
+        rel: 'noopener nofollow',
       }
     }, e.error);
     return h('div' + (err ? '.err' : ''), {

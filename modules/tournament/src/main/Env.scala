@@ -79,10 +79,11 @@ final class Env(
   private lazy val apiCallbacks = TournamentApi.Callbacks(
     clearJsonViewCache = jsonView.clearCache,
     clearWinnersCache = winners.clearCache,
-    clearTrophyCache = tour => {
-      if (tour.isShield) scheduler.scheduleOnce(10 seconds) { shieldApi.clear() }
-      else if (Revolution is tour) scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }
-    },
+    clearTrophyCache = tour =>
+      {
+        if (tour.isShield) scheduler.scheduleOnce(10 seconds) { shieldApi.clear() }
+        else if (Revolution is tour) scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }.unit
+      }.unit,
     indexLeaderboard = leaderboardIndexer.indexOne
   )
 

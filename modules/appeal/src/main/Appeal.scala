@@ -1,7 +1,8 @@
 package lila.appeal
 
-import lila.user.User
 import org.joda.time.DateTime
+
+import lila.user.User
 
 case class Appeal(
     _id: User.ID,
@@ -11,7 +12,6 @@ case class Appeal(
     updatedAt: DateTime
 ) {
   def id       = _id
-  def isOpen   = status != Appeal.Status.Closed
   def isMuted  = status == Appeal.Status.Muted
   def isUnread = status == Appeal.Status.Unread
 
@@ -33,9 +33,9 @@ case class Appeal(
     )
   }
 
-  def close = copy(status = Appeal.Status.Closed)
-  def open  = copy(status = Appeal.Status.Read)
-  def mute  = copy(status = Appeal.Status.Muted)
+  def unread     = copy(status = Appeal.Status.Unread)
+  def read       = copy(status = Appeal.Status.Read)
+  def toggleMute = if (isMuted) read else copy(status = Appeal.Status.Muted)
 
   def isByMod(msg: AppealMsg) = msg.by != id
 }
@@ -48,9 +48,8 @@ object Appeal {
   object Status {
     case object Unread extends Status
     case object Read   extends Status
-    case object Closed extends Status
     case object Muted  extends Status
-    val all                = List[Status](Unread, Read, Closed, Muted)
+    val all                = List[Status](Unread, Read, Muted)
     def apply(key: String) = all.find(_.key == key)
   }
 

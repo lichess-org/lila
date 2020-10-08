@@ -11,7 +11,7 @@ import { h } from 'snabbdom'
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
 import { VNode } from 'snabbdom/vnode'
 
-const scrollMax = 99999, moveTag = 'u8t', indexTag = 'i5z', indexTagUC = indexTag.toUpperCase(), movesTag = 'l4x', rmovesTag = 'rm6', activeClass = 'a1t';
+const scrollMax = 99999, moveTag = 'u8t', indexTag = 'i5z', indexTagUC = indexTag.toUpperCase(), movesTag = 'l4x', rmovesTag = 'rm6';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
@@ -20,7 +20,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
     if (ctrl.ply < 3) st = 0;
     else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
     else {
-      const plyEl = movesEl.querySelector('.' + activeClass) as HTMLElement | undefined;
+      const plyEl = movesEl.querySelector('.a1t') as HTMLElement | undefined;
       if (plyEl) st = isCol1() ?
         plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2 :
         plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
@@ -36,7 +36,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
 function renderMove(step: Step, curPly: number, orEmpty: boolean) {
   return step ? h(moveTag, {
     class: {
-      [activeClass]: step.ply === curPly
+      a1t: step.ply === curPly
     }
   }, step.san[0] === 'P' ? step.san.slice(1) : step.san) : (orEmpty ? h(moveTag, '…') : undefined);
 }
@@ -201,8 +201,6 @@ export function render(ctrl: RoundController): VNode | undefined {
         });
         ctrl.autoScroll = () => autoScroll(el, ctrl);
         ctrl.autoScroll();
-        window.addEventListener('load', ctrl.autoScroll);
-        window.addEventListener('blur', () => $(moveTag).first().append('<j>'), { once: true });
       })
     }, renderMoves(ctrl));
   return ctrl.nvui ? undefined : h(rmovesTag, [

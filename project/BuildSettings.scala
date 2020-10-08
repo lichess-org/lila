@@ -89,11 +89,11 @@ object BuildSettings {
     // "-Wnumeric-widen",
     "-Wunused:imports",
     "-Wunused:locals",
-    "-Wunused:patvars"
+    "-Wunused:patvars",
     // "-Wunused:privates", // unfortunately doesn't work with macros
     // "-Wunused:implicits",
     // "-Wunused:params"
-    // "-Wvalue-discard",
+    "-Wvalue-discard"
   )
 
   val srcMain = Seq(

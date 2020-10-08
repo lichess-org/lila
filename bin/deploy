@@ -69,7 +69,7 @@ def curl_cli(command, *, url="https://lichess.org/cli"):
 def asset_profile(ssh, *,
                   deploy_dir="/home/lichess-deploy",
                   post=curl_cli("change asset version"),
-                  asap=False):
+                  stage=False):
     return {
         "ssh": ssh,
         "deploy_dir": deploy_dir,
@@ -78,13 +78,13 @@ def asset_profile(ssh, *,
         "artifact_name": "lila-assets",
         "symlinks": ["public"],
         "post": post,
-        "asap": asap,
+        "stage": stage,
     }
 
 def server_profile(ssh, *,
                    deploy_dir="/home/lichess-deploy",
                    post="systemctl restart lichess",
-                   asap=False):
+                   stage=False):
     return {
         "ssh": ssh,
         "deploy_dir": deploy_dir,
@@ -93,12 +93,12 @@ def server_profile(ssh, *,
         "artifact_name": "lila-server",
         "symlinks": ["lib", "bin"],
         "post": post,
-        "asap": asap,
+        "stage": stage,
     }
 
 PROFILES = {
-    "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/cli"), asap=True),
-    "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", asap=True),
+    "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/cli"), stage=True),
+    "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
     "ocean-server": server_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
     "ocean-assets": asset_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
 }
@@ -178,7 +178,7 @@ def update_workflow_run_db(db, session, workflow_url, *, silent=False):
     return new
 
 
-def find_workflow_run(repo, session, workflow_url, wanted_commits):
+def find_workflow_run(repo, session, workflow_url, wanted_commits, *, stage):
     with workflow_run_db(repo) as db:
         print("Searching workflow runs ...")
         backoff = 1
@@ -191,7 +191,11 @@ def find_workflow_run(repo, session, workflow_url, wanted_commits):
                 if run["head_commit"]["id"] not in wanted_commits or run["_workflow_url"] != workflow_url:
                     continue
 
-                if run["status"] != "completed":
+                if run["event"] == "pull_request" and not stage:
+                    # Not accepted in production, because pull request builds
+                    # do not have access to the secret store. Hence no ab.
+                    print(f"- {run['html_url']} PULL REQUEST (no ab)")
+                elif run["status"] != "completed":
                     print(f"- {run['html_url']} PENDING (waiting {backoff}s)")
                     pending = True
                 elif run["conclusion"] != "success":
@@ -269,7 +273,7 @@ def deploy_script(profile, session, run, url):
         f"chown -R lichess:lichess {deploy_dir}",
         f"chmod -f +x {deploy_dir}/bin/lila || true",
         f"echo \"SSH: {profile['ssh']}\"",
-        f"echo {shlex.quote('Running: ' + profile['post'])}" if profile["asap"] else f"/bin/bash -c {shlex.quote(deploy_prompt)}",
+        f"echo {shlex.quote('Running: ' + profile['post'])}" if profile["stage"] else f"/bin/bash -c {shlex.quote(deploy_prompt)}",
         profile["post"],
         "echo",
         f"echo \\# Done.",
@@ -291,7 +295,7 @@ def deploy(profile, repo, commit, github_api_token, dry_run):
     wanted_commits = set(find_commits(commit, profile["files"], wanted_hash))
     print(f"Found {len(wanted_commits)} matching commits.")
 
-    run = find_workflow_run(repo, session, profile["workflow_url"], wanted_commits)
+    run = find_workflow_run(repo, session, profile["workflow_url"], wanted_commits, stage=profile["stage"])
     url = artifact_url(session, run, profile["artifact_name"])
 
     print(f"Deploying {url} to {profile['ssh']}...")

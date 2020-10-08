@@ -81,9 +81,7 @@ final class TournamentApi(
       description = setup.description,
       hasChat = setup.hasChat | true
     ) pipe { tour =>
-      tour.perfType.fold(tour) { perfType =>
-        tour.copy(conditions = setup.conditions.convert(perfType, leaderTeams.view.map(_.pair).toMap))
-      }
+      tour.copy(conditions = setup.conditions.convert(tour.perfType, leaderTeams.view.map(_.pair).toMap))
     }
     tournamentRepo.insert(tour) >> {
       setup.teamBattleByTeam.orElse(tour.conditions.teamMember.map(_.teamId)).?? { teamId =>
@@ -122,13 +120,11 @@ final class TournamentApi(
       description = description,
       hasChat = data.hasChat | true
     ) pipe { tour =>
-      tour.perfType.fold(tour) { perfType =>
-        tour.copy(conditions =
-          conditions
-            .convert(perfType, leaderTeams.view.map(_.pair).toMap)
-            .copy(teamMember = old.conditions.teamMember) // can't change that
-        )
-      }
+      tour.copy(conditions =
+        conditions
+          .convert(tour.perfType, leaderTeams.view.map(_.pair).toMap)
+          .copy(teamMember = old.conditions.teamMember) // can't change that
+      )
     }
     tournamentRepo update tour void
   }
@@ -184,7 +180,7 @@ final class TournamentApi(
                         .mon(_.tournament.pairing.createInserts) >>
                         featureOneOf(tour, pairings, ranking)
                           .mon(_.tournament.pairing.createFeature) >>-
-                        lila.mon.tournament.pairing.batchSize.record(pairings.size)
+                        lila.mon.tournament.pairing.batchSize.record(pairings.size).unit
                     }
               }
           }
@@ -306,7 +302,7 @@ final class TournamentApi(
               _.accepted ?? {
                 pause.canJoin(me.id, tour) ?? {
                   def proceedWithTeam(team: Option[String]) =
-                    playerRepo.join(tour.id, me, tour.perfLens, team) >>
+                    playerRepo.join(tour.id, me, tour.perfType, team) >>
                       updateNbPlayers(tour.id) >>- {
                         socket.reload(tour.id)
                         publish()
@@ -438,7 +434,7 @@ final class TournamentApi(
         Game
       ] // if set, update the player performance. Leave to none to just recompute the sheet.
   )(userId: User.ID): Funit =
-    (tour.perfType.ifTrue(tour.mode.rated) ?? { userRepo.perfOf(userId, _) }) flatMap { perf =>
+    tour.mode.rated ?? { userRepo.perfOf(userId, tour.perfType) } flatMap { perf =>
       playerRepo.update(tour.id, userId) { player =>
         cached.sheet.update(tour, userId).map { sheet =>
           player.copy(

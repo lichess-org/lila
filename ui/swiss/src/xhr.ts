@@ -31,13 +31,13 @@ const reload = (ctrl: SwissCtrl) =>
   json(`/swiss/${ctrl.data.id}?page=${ctrl.focusOnMe ? '' : ctrl.page}&playerInfo=${ctrl.playerInfoId || ''}`).then(data => {
     ctrl.reload(data);
     ctrl.redraw();
-  }).catch(onFail);
+  }, onFail);
 
 const playerInfo = (ctrl: SwissCtrl, userId: string) =>
   json(`/swiss/${ctrl.data.id}/player/${userId}`).then(data => {
     ctrl.data.playerInfo = data;
     ctrl.redraw();
-  }).catch(onFail);
+  }, onFail);
 
 const readSheetMin = (str: string) =>
   str ? str.split('|').map(s =>

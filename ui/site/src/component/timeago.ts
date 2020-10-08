@@ -1,5 +1,11 @@
+type DateLike = Date | number | string;
+interface ElementWithDate extends Element {
+  lichessDate: Date;
+}
+
 // divisors for minutes, hours, days, weeks, months, years
-const DIVS = [60,
+const DIVS = [
+  60,
   60 * 60,
   60 * 60 * 24,
   60 * 60 * 24 * 7,
@@ -10,14 +16,13 @@ const LIMITS = [...DIVS];
 LIMITS[2] *= 2; // Show hours up to 2 days.
 
 // format Date / string / timestamp to Date instance.
-function toDate(input: any): Date {
-  return input instanceof Date ? input : (
-    new Date(isNaN(input) ? input : parseInt(input))
+const toDate = (input: DateLike): Date =>
+  input instanceof Date ? input : (
+    new Date(isNaN(input as any) ? input : parseInt(input as any))
   );
-}
 
 // format the diff second to *** time ago
-function formatDiff(diff) {
+const formatDiff = (diff: number): string => {
   let agoin = 0;
   if (diff < 0) {
     agoin = 1;
@@ -36,10 +41,10 @@ function formatDiff(diff) {
   return lichess.timeagoLocale(diff, i, totalSec)[agoin].replace('%s', diff);
 }
 
-let formatterInst;
+let formatterInst: (date: Date) => string;
 
-function formatter() {
-  return formatterInst = formatterInst || (
+const formatter = () =>
+  formatterInst = formatterInst || (
     window.Intl && Intl.DateTimeFormat ?
       new Intl.DateTimeFormat(document.documentElement.lang, {
         year: 'numeric',
@@ -48,48 +53,34 @@ function formatter() {
         hour: 'numeric',
         minute: 'numeric'
       }).format : d => d.toLocaleString()
-  )
-}
-
-function render(nodes: any[]) {
-  var cl, abs, set, str, diff, now = Date.now();
-  nodes.forEach(function(node) {
-    cl = node.classList,
-      abs = cl.contains('abs'),
-      set = cl.contains('set');
-    node.date = node.date || toDate(node.getAttribute('datetime'));
-    if (!set) {
-      str = formatter()(node.date);
-      if (abs) node.textContent = str;
-      else node.setAttribute('title', str);
-      cl.add('set');
-      if (abs || cl.contains('once')) cl.remove('timeago');
-    }
-    if (!abs) {
-      diff = (now - node.date) / 1000;
-      node.textContent = formatDiff(diff);
-      if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
-    }
-  });
-}
-
-const findAndRender = (parent?: HTMLElement) =>
-  requestAnimationFrame(() =>
-    render([].slice.call((parent || document).getElementsByClassName('timeago'), 0, 99))
   );
 
-const updateRegularly = (interval: number) => {
+export const format = (date: DateLike) => formatDiff((Date.now() - toDate(date).getTime()) / 1000);
+
+export const findAndRender = (parent?: HTMLElement) =>
+  requestAnimationFrame(() => {
+    const now = Date.now();
+    [].slice.call((parent || document).getElementsByClassName('timeago'), 0, 99).forEach((node: ElementWithDate) => {
+      const cl = node.classList,
+        abs = cl.contains('abs'),
+        set = cl.contains('set');
+      node.lichessDate = node.lichessDate || toDate(node.getAttribute('datetime')!);
+      if (!set) {
+        const str = formatter()(node.lichessDate);
+        if (abs) node.textContent = str;
+        else node.setAttribute('title', str);
+        cl.add('set');
+        if (abs || cl.contains('once')) cl.remove('timeago');
+      }
+      if (!abs) {
+        const diff = (now - node.lichessDate.getTime()) / 1000;
+        node.textContent = formatDiff(diff);
+        if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
+      }
+    });
+  });
+
+export const updateRegularly = (interval: number) => {
   findAndRender();
   setTimeout(() => updateRegularly(interval * 1.1), interval);
 }
-
-const timeago = {
-  render,
-  // relative
-  format: date => formatDiff((Date.now() - toDate(date).getTime()) / 1000),
-  absolute: date => formatter()(toDate(date)),
-  findAndRender,
-  updateRegularly
-};
-
-export default timeago;

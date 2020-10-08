@@ -49,7 +49,7 @@ final class LobbySocket(
       case GetSrisP(promise) =>
         promise success Sris(members.keySet.view.map(Sri.apply).toSet)
         lila.mon.lobby.socket.idle.update(idleSris.size)
-        lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size)
+        lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size).unit
 
       case Cleanup =>
         idleSris filterInPlace members.contains
@@ -75,14 +75,14 @@ final class LobbySocket(
           )
         )
 
-      case RemoveHook(hookId) => removedHookIds append hookId
+      case RemoveHook(hookId) => removedHookIds.append(hookId).unit
 
       case SendHookRemovals =>
         if (removedHookIds.nonEmpty) {
           tellActiveHookSubscribers(makeMessage("hrm", removedHookIds.toString))
           removedHookIds.clear()
         }
-        system.scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals)
+        system.scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals).unit
 
       case JoinHook(sri, hook, game, creatorColor) =>
         lila.mon.lobby.hook.join.increment()
@@ -182,24 +182,28 @@ final class LobbySocket(
     case ("poolIn", o) if !member.bot =>
       HookPoolLimit(member, cost = 1, msg = s"poolIn $o") {
         for {
-          user <- member.user
-          d    <- o obj "d"
-          id   <- d str "id"
+          user     <- member.user
+          d        <- o obj "d"
+          id       <- d str "id"
+          perfType <- poolApi.poolPerfTypes get PoolConfig.Id(id)
           ratingRange = d str "range" flatMap RatingRange.apply
           blocking    = d str "blocking"
         } {
           lobby ! CancelHook(member.sri) // in case there's one...
-          poolApi.join(
-            PoolConfig.Id(id),
-            PoolApi.Joiner(
-              userId = user.id,
-              sri = member.sri,
-              ratingMap = user.perfMap.view.mapValues(_.rating).toMap,
-              ratingRange = ratingRange,
-              lame = user.lame,
-              blocking = user.blocking ++ blocking
+          userRepo.glicko(user.id, perfType) foreach { glicko =>
+            poolApi.join(
+              PoolConfig.Id(id),
+              PoolApi.Joiner(
+                userId = user.id,
+                sri = member.sri,
+                rating = glicko.establishedIntRating |
+                  lila.common.Maths.boxedNormalDistribution(glicko.intRating, glicko.intDeviation, 0.3),
+                ratingRange = ratingRange,
+                lame = user.lame,
+                blocking = user.blocking ++ blocking
+              )
             )
-          )
+          }
         }
       }
     // leaving a pool

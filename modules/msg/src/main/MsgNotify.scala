@@ -53,16 +53,18 @@ final private class MsgNotify(
       .void
 
   private def schedule(threadId: MsgThread.Id): Unit =
-    delayed.compute(
-      threadId,
-      (id, canc) => {
-        Option(canc).foreach(_.cancel())
-        scheduler.scheduleOnce(delay) {
-          delayed remove id
-          doNotify(threadId)
+    delayed
+      .compute(
+        threadId,
+        (id, canc) => {
+          Option(canc).foreach(_.cancel())
+          scheduler.scheduleOnce(delay) {
+            delayed remove id
+            doNotify(threadId).unit
+          }
         }
-      }
-    )
+      )
+      .unit
 
   private def cancel(threadId: MsgThread.Id): Boolean =
     Option(delayed remove threadId).map(_.cancel()).isDefined

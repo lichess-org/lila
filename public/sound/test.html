@@ -41,14 +41,15 @@
       lichess.sound.changeSet(set);
       lichess.sound.play(name);
     }
-    var soundSets = ["standard", "piano", "nes", "sfx", "futuristic", "robot"];
+    const soundSets = ["standard", "piano", "nes", "sfx", "futuristic", "robot"],
+    basics = ['genericNotify', 'move', 'capture', 'explosion', 'lowTime', 'victory', 'defeat', 'draw', 'berserk', 'check', 'newChallenge', 'newPM', 'confirmation', 'error'];
 /*
     for (var i = 0; i <= 10; i++) soundNames['countDown' + i] = 'CountDown' + i;
     $.each(soundSets, function(i, soundSet) {
       $('#sets').append($('<th>').text(soundSet));
     });
     */
-    for (const name of lichess.sound.basics) {
+    for (const name of basics) {
       var tr = $('<tr>').appendTo($('#sounds'));
       $.each(soundSets, function(i, soundSet) {
         var id = "soundSet_" + soundSet;

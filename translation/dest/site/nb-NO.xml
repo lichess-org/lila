@@ -357,8 +357,8 @@
   <string name="retry">Prøv igjen</string>
   <string name="reconnecting">Gjenoppretter forbindelsen</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s venn er logget inn</item>
-    <item quantity="other">%s venner er logget inn</item>
+    <item quantity="one">%s venn online</item>
+    <item quantity="other">%s venner online</item>
   </plurals>
   <string name="noFriendsOnline">Ingen venner pålogget</string>
   <string name="findFriends">Finn venner</string>

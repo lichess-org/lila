@@ -1,14 +1,13 @@
 package lila.tournament
 
+import chess.Clock.{ Config => ClockConfig }
+import chess.{ Mode, Speed, StartingPosition }
 import org.joda.time.{ DateTime, Duration, Interval }
-import lila.common.ThreadLocalRandom
 import play.api.i18n.Lang
 import scala.util.chaining._
 
-import chess.Clock.{ Config => ClockConfig }
-import chess.{ Mode, Speed, StartingPosition }
 import lila.common.GreatPlayer
-import lila.game.PerfPicker
+import lila.common.ThreadLocalRandom
 import lila.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.User
@@ -107,8 +106,7 @@ case class Tournament(
 
   def speed = Speed(clock)
 
-  def perfType: Option[PerfType] = PerfPicker.perfType(speed, variant, none)
-  def perfLens                   = PerfPicker.mainOrDefault(speed, variant, none)
+  def perfType: PerfType = PerfType(variant, speed)
 
   def durationString =
     if (minutes < 60) s"${minutes}m"

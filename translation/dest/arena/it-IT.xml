@@ -45,4 +45,5 @@ Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più 
   <string name="thisIsPrivate">Questo torneo è privato</string>
   <string name="shareUrl">Condividi questo URL per permettere alle persone di unirsi: %s</string>
   <string name="drawStreak">Serie di patte: quando in un\'arena un giocatore pareggia in partite consecutive viene assegnato un punto solo per il primo pareggio o per ogni patta in cui sono state effettuate più di %s mosse. La serie di patte può essere interrotta solo da una vittoria, non da una sconfitta o da un\'ulteriore patta.</string>
+  <string name="history">Cronologia dell\'Arena</string>
 </resources>

@@ -59,8 +59,7 @@ trait ScalatagsSnippets extends Cap {
   val utcLink =
     a(
       href := "https://time.is/UTC",
-      target := "_blank",
-      rel := "noopener",
+      targetBlank,
       title := "Coordinated Universal Time"
     )("UTC")
 }
@@ -138,6 +137,15 @@ trait ScalatagsExtensions {
   implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)
 
   val emptyModifier: Modifier = (t: Builder) => {}
+
+  val targetBlank: Modifier = (t: Builder) => {
+    // Prevent tab nabbing when opening untrusted links. Apply also to trusted
+    // links, because there can be a small peformance advantage and lila does
+    // not use window.opener anywhere. Will not be overwritten by additional
+    // rels.
+    t.setAttr("rel", Builder.GenericAttrValueSource("noopener"))
+    t.setAttr("target", Builder.GenericAttrValueSource("_blank"))
+  }
 
   def ariaTitle(v: String) =
     new Modifier {

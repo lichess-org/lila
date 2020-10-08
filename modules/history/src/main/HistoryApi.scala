@@ -104,7 +104,7 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
 
     def apply(user: User, perf: PerfType): Fu[Int] = cache.get(user.id -> perf)
 
-    private val cache = cacheApi[(User.ID, PerfType), Int](256, "lastWeekTopRating") {
+    private val cache = cacheApi[(User.ID, PerfType), Int](1024, "lastWeekTopRating") {
       _.expireAfterAccess(20 minutes)
         .buildAsyncFuture { case (userId, perf) =>
           userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>

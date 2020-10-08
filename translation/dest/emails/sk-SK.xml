@@ -3,7 +3,7 @@
   <string name="emailConfirm_subject">Potvrďte svoj účet na lichess.org, %s</string>
   <string name="emailConfirm_click">Kliknite na tento odkaz pre potvrdenie vášho účtu Lichess:</string>
   <string name="emailConfirm_ignore">Ak ste sa nezaregistrovali na Lichess, ignorujte tento e-mail.</string>
-  <string name="passwordReset_subject">Obnovte vaše heslo na lichess.org, %s</string>
+  <string name="passwordReset_subject">Obnovte si vaše lichess.org heslo, %s</string>
   <string name="passwordReset_intro">Dostali sme žiadosť na obnovenie hesla k vášmu účtu.</string>
   <string name="passwordReset_clickOrIgnore">Ak ste vytvorili túto požiadavku, kliknite na odkaz nižšie. Ak nie, môžete ignorovať tento email.</string>
   <string name="emailChange_subject">Potvrďte novú emailovú adresu, %s</string>

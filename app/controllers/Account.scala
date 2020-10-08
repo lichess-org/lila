@@ -417,7 +417,7 @@ final class Account(
         case Some(user) =>
           env.report.api.reopenReports(lila.report.Suspect(user)) >>
             auth.authenticateUser(user) >>-
-            lila.mon.user.auth.reopenConfirm("success").increment()
+            lila.mon.user.auth.reopenConfirm("success").increment().unit
       }
     }
 

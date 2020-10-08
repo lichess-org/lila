@@ -23,7 +23,7 @@ export default function(ctrl: DasherCtrl): VNode {
 
       h(
         'a.text',
-        linkCfg('/account/preferences/game-display', '%', ctrl.opts.playing ? {target: '_blank'} : undefined),
+        linkCfg('/account/preferences/game-display', '%', ctrl.opts.playing ? {target: '_blank', rel: 'noopener'} : undefined),
         noarg('preferences')),
 
       !d.coach ? null : h(
@@ -104,16 +104,13 @@ export default function(ctrl: DasherCtrl): VNode {
   ]);
 }
 
-function linkCfg(href: string, icon: string, more: any = undefined): any {
-  const cfg: any = {
-    attrs: {
-      href,
-      'data-icon': icon
-    }
-  };
-  if (more) for(let i in more) cfg.attrs[i] = more[i];
-  return cfg;
-}
+const linkCfg = (href: string, icon: string, more?: Record<string, string>) => ({
+  attrs: {
+    href,
+    'data-icon': icon,
+    ...(more || {}),
+  }
+});
 
 function modeCfg(ctrl: DasherCtrl, m: Mode): any {
   return {

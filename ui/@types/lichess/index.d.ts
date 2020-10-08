@@ -1,7 +1,7 @@
 interface Lichess {
   load: Promise<unknown>; // window.onload promise
   info: any;
-  requestIdleCallback(f: () => void): void;
+  requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
   storage: LichessStorageHelper;
   tempStorage: LichessStorageHelper;
@@ -55,12 +55,7 @@ interface Lichess {
     defaultParams: Record<string, any>;
   }
 
-  // timeago.js
-  timeago: {
-    render(nodes: HTMLElement | HTMLElement[]): void;
-    format(date: number | Date): string;
-    absolute(date: number | Date): string;
-  }
+  timeago(date: number | Date): string;
   timeagoLocale(a: number, b: number, c: number): any;
 
   // misc

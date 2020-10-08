@@ -8,8 +8,8 @@ import reactivemongo.api.bson._
 import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress, ThreadLocalRandom }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.rating.{ Perf, PerfType }
 import lila.rating.Glicko
+import lila.rating.{ Perf, PerfType }
 
 final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -164,6 +164,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $id(userId) ++ (value < 0).??($doc(F.colorIt $gt -3)),
         $inc(F.colorIt -> value)
       )
+      .unit
 
   def lichess = byId(User.lichessId)
 
@@ -246,6 +247,16 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def sortPerfDesc(perf: String) = $sort desc s"perfs.$perf.gl.r"
   val sortCreatedAtDesc          = $sort desc F.createdAt
+
+  def glicko(userId: ID, perfType: PerfType): Fu[Glicko] =
+    coll
+      .find($id(userId), $doc(s"${F.perfs}.${perfType.key}.gl" -> true).some)
+      .one[Bdoc]
+      .dmap {
+        _.flatMap(_ child F.perfs)
+          .flatMap(_ child perfType.key)
+          .flatMap(_.getAsOpt[Glicko]("gl")) | Glicko.default
+      }
 
   def incNbGames(
       id: ID,

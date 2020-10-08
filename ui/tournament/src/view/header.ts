@@ -74,7 +74,8 @@ function title(ctrl: TournamentController) {
       h('a', {
         attrs: {
           href: d.greatPlayer.url,
-          target: '_blank'
+          target: '_blank',
+          rel: 'noopener',
         }
       }, d.greatPlayer.name),
       ' Arena'

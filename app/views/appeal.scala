@@ -59,27 +59,16 @@ object appeal {
                 submitButton(cls := "button")("Handle this appeal")
               )
             case Some(Inquiry(mod, _)) if ctx.userId has mod =>
-              frag(
-                postForm(action := routes.Report.inquiry(appeal.id))(
-                  submitButton(cls := "button button-metal button-thin")("Release this appeal")
-                ),
-                if (appeal.isOpen)
-                  frag(
-                    postForm(action := routes.Appeal.act(suspect.user.username, "close"))(
-                      submitButton("Close")(cls := "button button-red button-thin")
-                    ),
-                    if (appeal.isMuted)
-                      postForm(action := routes.Appeal.act(suspect.user.username, "open"))(
-                        submitButton("Un-mute")(cls := "button button-green button-thin")
-                      )
-                    else
-                      postForm(action := routes.Appeal.act(suspect.user.username, "mute"))(
-                        submitButton("Mute")(cls := "button button-red button-thin")
-                      )
+              postForm(action := routes.Appeal.mute(suspect.user.username))(
+                if (appeal.isMuted)
+                  submitButton("Un-mute")(
+                    title := "Be notified about user replies again",
+                    cls := "button button-green button-thin"
                   )
                 else
-                  postForm(action := routes.Appeal.act(suspect.user.username, "open"))(
-                    submitButton("Open")(cls := "button button-green button-thin")
+                  submitButton("Mute")(
+                    title := "Don't be notified about user replies",
+                    cls := "button button-red button-thin"
                   )
               )
             case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
@@ -153,13 +142,11 @@ object appeal {
   ) =
     frag(
       h1(
-        if (appeal.isOpen) "Ongoing appeal" else "Closed appeal",
-        asMod option frag(" : ", userIdLink(appeal.id.some))
+        "Appeal",
+        asMod option frag(" by ", userIdLink(appeal.id.some))
       ),
       standardFlash(),
-      !asMod option renderHelp,
       div(cls := "body")(
-        !asMod option renderStatus(appeal),
         appeal.msgs.map { msg =>
           div(cls := s"appeal__msg appeal__msg--${if (appeal isByMod msg) "mod" else "suspect"}")(
             div(cls := "appeal__msg__header")(
@@ -169,7 +156,7 @@ object appeal {
             div(cls := "appeal__msg__text")(richText(msg.text))
           )
         },
-        (asMod == inquiry) && appeal.isOpen option renderForm(
+        (asMod == inquiry) option renderForm(
           textForm,
           action =
             if (asMod) routes.Appeal.reply(appeal.id).url
@@ -178,16 +165,6 @@ object appeal {
           presets = presets ifTrue asMod
         )
       )
-    )
-
-  private def renderStatus(appeal: Appeal) =
-    div(cls := "appeal__status")(
-      appeal.status match {
-        case Appeal.Status.Closed => "The appeal is closed."
-        case Appeal.Status.Unread => "The appeal is being reviewed by the moderation team."
-        case Appeal.Status.Read   => "The appeal is open and awaiting your input."
-        case Appeal.Status.Muted  => "The appeal is on hold."
-      }
     )
 
   private def renderHelp =

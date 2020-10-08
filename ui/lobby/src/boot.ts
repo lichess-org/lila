@@ -20,12 +20,8 @@ export default function LichessLobby(opts: LobbyOpts) {
     { id: "30+0", lim: 30, inc: 0, perf: "Classical" },
     { id: "30+20", lim: 30, inc: 20, perf: "Classical" }
   ];
-  const nbRoundSpread = spreadNumber(
-    document.querySelector('#nb_games_in_play > strong') as HTMLElement,
-    8),
-    nbUserSpread = spreadNumber(
-      document.querySelector('#nb_connected_players > strong') as HTMLElement,
-      10),
+  const nbRoundSpread = spreadNumber('#nb_games_in_play > strong', 8),
+    nbUserSpread = spreadNumber('#nb_connected_players > strong', 10),
     getParameterByName = (name: string) => {
       const match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
       return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
@@ -120,14 +116,11 @@ export default function LichessLobby(opts: LobbyOpts) {
   }
 }
 
-function spreadNumber(el: HTMLElement, nbSteps: number) {
-  let previous: number, displayed: string;
+function spreadNumber(selector: string, nbSteps: number) {
+  const el = document.querySelector(selector) as HTMLElement;
+  let previous = parseInt(el.getAttribute('data-count')!);
   const display = (prev: number, cur: number, it: number) => {
-    const val = numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
-    if (val !== displayed) {
-      el.textContent = val;
-      displayed = val;
-    }
+    el.textContent = numberFormat(Math.round(((prev * (nbSteps - 1 - it)) + (cur * (it + 1))) / nbSteps));
   };
   let timeouts: number[] = [];
   return (nb: number, overrideNbSteps?: number) => {
@@ -135,9 +128,9 @@ function spreadNumber(el: HTMLElement, nbSteps: number) {
     if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
     timeouts.forEach(clearTimeout);
     timeouts = [];
-    let prev = previous === 0 ? 0 : (previous || nb);
+    const interv = Math.abs(lichess.socket.pingInterval() / nbSteps);
+    const prev = previous || nb;
     previous = nb;
-    let interv = Math.abs(lichess.socket.pingInterval() / nbSteps);
     for (let i = 0; i < nbSteps; i++)
       timeouts.push(setTimeout(() => display(prev, nb, i), Math.round(i * interv)));
   };

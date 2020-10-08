@@ -17,7 +17,7 @@ object embed {
     )(
       a(
         href := routes.Puzzle.daily(),
-        target := "_blank",
+        targetBlank,
         id := "daily-puzzle",
         cls := "embedded",
         title := trans.clickToSolve.txt()

@@ -42,3 +42,9 @@
   @import "moves-col1";
   @import "moves-col2";
 }
+
+@include breakpoint($mq-col1) {
+  .col1-rmoves-preload {
+    height: 2.5em;
+  }
+}

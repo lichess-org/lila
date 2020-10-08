@@ -1,5 +1,6 @@
 import * as miniBoard from "./component/mini-board";
 import * as miniGame from "./component/mini-game";
+import * as timeago from "./component/timeago";
 import * as xhr from 'common/xhr';
 import announce from './component/announce';
 import exportLichessGlobals from "./site.lichess.globals";
@@ -11,13 +12,11 @@ import powertip from "./component/powertip";
 import pubsub from "./component/pubsub";
 import serviceWorker from "./component/serviceWorker";
 import StrongSocket from "./component/socket";
-import timeago from "./component/timeago";
 import topBar from "./component/top-bar";
 import watchers from "./component/watchers";
-import { assetUrl, userComplete } from "./component/assets";
 import { reload } from "./component/reload";
 import { requestIdleCallback } from "./component/functions";
-import { storage } from "./component/storage";
+import { userComplete } from "./component/assets";
 
 exportLichessGlobals();
 lichess.info = info;
@@ -29,9 +28,21 @@ lichess.load.then(() => {
   moduleLaunchers();
 
   requestAnimationFrame(() => {
+    miniBoard.initAll();
+    miniGame.initAll();
+    pubsub.on('content-loaded', miniBoard.initAll);
+    pubsub.on('content-loaded', miniGame.initAll);
+    timeago.updateRegularly(1000);
+    pubsub.on('content-loaded', timeago.findAndRender);
+  });
+
+  requestIdleCallback(() => {
 
     const friendsEl = document.getElementById('friend_box');
     if (friendsEl) new OnlineFriends(friendsEl);
+
+    const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
+    if (chatMembers) watchers(chatMembers);
 
     $('#main-wrap')
       .on('click', '.autoselect', function(this: HTMLInputElement) { this.select(); })
@@ -60,13 +71,10 @@ lichess.load.then(() => {
           $('html').off('click', handler);
         };
         $('html').on('click', handler);
-      });
+      }, 200);
     });
 
     powertip.watchMouse();
-
-    timeago.updateRegularly(1000);
-    pubsub.on('content-loaded', timeago.findAndRender);
 
     setTimeout(() => {
       if (!lichess.socket)
@@ -106,11 +114,6 @@ lichess.load.then(() => {
       return false;
     });
 
-    // still bind esc even in form fields
-    window.Mousetrap.prototype.stopCallback = (_: any, el: HTMLElement, combo: string) =>
-      combo != 'esc' && (
-        el.isContentEditable || el.tagName == 'INPUT' || el.tagName == 'SELECT' || el.tagName == 'TEXTAREA'
-      );
     window.Mousetrap.bind('esc', () => {
       const $oc = $('#modal-wrap .close');
       if ($oc.length) $oc.trigger('click');
@@ -118,15 +121,7 @@ lichess.load.then(() => {
         const $input = $(':focus');
         if ($input.length) $input.trigger('blur');
       }
-      return false;
     });
-
-    if (!storage.get('grid')) setTimeout(() => {
-      if (getComputedStyle(document.body).getPropertyValue('--grid'))
-        storage.set('grid', '1');
-      else
-        xhr.text(assetUrl('oops/browser.html')).then(html => $('body').prepend(html))
-    }, 3000);
 
     /* A disgusting hack for a disgusting browser
      * Edge randomly fails to rasterize SVG on page load
@@ -141,14 +136,6 @@ lichess.load.then(() => {
       const el = document.querySelector('meta[name=viewport]') as HTMLElement;
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
-
-    miniBoard.initAll();
-    miniGame.initAll();
-    pubsub.on('content-loaded', miniBoard.initAll);
-    pubsub.on('content-loaded', miniGame.initAll);
-
-    const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
-    if (chatMembers) watchers(chatMembers);
 
     if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
       xhr.text('/toggle-blind-mode', {
@@ -192,5 +179,5 @@ lichess.load.then(() => {
         return false;
       });
     });
-  });
+  }, 800);
 });

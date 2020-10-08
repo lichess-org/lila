@@ -184,6 +184,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       coll
         .update(ordered = false, writeConcern = WriteConcern.Unacknowledged)
         .one(selector, $set(field -> value))
+        .unit
 
     def incField(selector: Bdoc, field: String, value: Int = 1) =
       coll.update.one(selector, $inc(field -> value))
@@ -192,6 +193,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       coll
         .update(ordered = false, writeConcern = WriteConcern.Unacknowledged)
         .one(selector, $inc(field -> value))
+        .unit
 
     def unsetField(selector: Bdoc, field: String, multi: Boolean = false) =
       coll.update.one(selector, $unset(field), multi = multi)

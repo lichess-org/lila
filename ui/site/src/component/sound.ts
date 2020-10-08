@@ -11,7 +11,9 @@ const sound = new class {
   soundSet = $('body').data('sound-set');
   speechStorage = storage.makeBoolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
-  baseUrl = assetUrl('sound', { version: '000004' });
+  baseUrl = assetUrl('sound', {
+    version: 'Iu1lae', // 6 random letters to update
+  });
 
   constructor() {
     if (this.soundSet == 'music') setTimeout(this.publish, 500);
@@ -40,7 +42,7 @@ const sound = new class {
       s = this.sounds.get(name);
     }
     const doPlay = () => s.volume(this.getVolume() * (volume || 1)).play();
-    if (window.Howler.ctx.state == "suspended") window.Howler.ctx.resume().then(doPlay);
+    if (window.Howler.ctx?.state === 'suspended') window.Howler.ctx.resume().then(doPlay);
     else doPlay();
   };
 

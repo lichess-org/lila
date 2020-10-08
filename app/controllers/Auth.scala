@@ -1,12 +1,10 @@
 package controllers
 
-import io.lemonlabs.uri.{ AbsoluteUrl, Url }
 import ornicar.scalalib.Zero
 import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
 import scala.annotation.nowarn
-import scala.util.Try
 
 import lila.api.Context
 import lila.app._
@@ -35,25 +33,13 @@ final class Auth(
       }
     }
 
-  // allow relative and absolute redirects only to the same domain or
-  // subdomains, excluding /mobile (which is shown after logout)
-  private def goodReferrer(referrer: String): Boolean =
-    referrer.nonEmpty &&
-      !sillyLoginReferrers(referrer) && Try {
-        val url = Url.parse(referrer)
-        url.schemeOption.fold(true)(scheme => scheme == "http" || scheme == "https") &&
-        url.hostOption.fold(true)(host =>
-          s".${host.value}".endsWith(s".${AbsoluteUrl.parse(env.net.baseUrl.value).host.value}")
-        )
-      }.getOrElse(false)
-
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit
       ctx: Context
   ): Fu[Result] =
     api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
       negotiate(
         html = fuccess {
-          val redirectTo = get("referrer").filter(goodReferrer) orElse
+          val redirectTo = get("referrer").filter(env.api.referrerRedirect.valid) orElse
             ctxReq.session.get(api.AccessUri) getOrElse
             routes.Lobby.home().url
           result.fold(Redirect(redirectTo))(_(redirectTo))
@@ -77,12 +63,10 @@ final class Auth(
       }
   }
 
-  private def sillyLoginReferrers = Set("/login", "/signup", "/mobile")
-
   def login =
     Open { implicit ctx =>
-      val referrer = get("referrer").filter(goodReferrer)
-      referrer.filterNot(sillyLoginReferrers.contains) ifTrue ctx.isAuth match {
+      val referrer = get("referrer").filter(env.api.referrerRedirect.valid)
+      referrer ifTrue ctx.isAuth match {
         case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
         case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess
       }
@@ -95,7 +79,7 @@ final class Auth(
       def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
       Firewall {
         implicit val req = ctx.body
-        val referrer     = get("referrer").filterNot(sillyLoginReferrers.contains)
+        val referrer     = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers.contains)
         api.usernameOrEmailForm
           .bindFromRequest()
           .fold(
@@ -387,7 +371,7 @@ final class Auth(
                 env.security.store.closeAllSessionsOf(user.id) >>
                 env.push.webSubscriptionApi.unsubscribeByUser(user) >>
                 authenticateUser(user) >>-
-                lila.mon.user.auth.passwordResetConfirm("success").increment()
+                lila.mon.user.auth.passwordResetConfirm("success").increment().unit
             }(rateLimitedFu)
           }
       }
@@ -444,7 +428,7 @@ final class Auth(
         case Some(user) =>
           authLog(user.username, "-", "Magic link")
           authenticateUser(user) >>-
-            lila.mon.user.auth.magicLinkConfirm("success").increment()
+            lila.mon.user.auth.magicLinkConfirm("success").increment().unit
       }
     }
 

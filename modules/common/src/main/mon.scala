@@ -61,6 +61,7 @@ object mon {
     }
     gauge("caffeine.eviction.count").withTag("name", name).update(stats.evictionCount.toDouble)
     gauge("caffeine.entry.count").withTag("name", name).update(cache.estimatedSize.toDouble)
+    ()
   }
   object mongoCache {
     def request(name: String, hit: Boolean) =
@@ -106,7 +107,6 @@ object mon {
         def candidates(id: String) = histogram("lobby.pool.wave.candidates").withTag("pool", id)
         def paired(id: String)     = histogram("lobby.pool.wave.paired").withTag("pool", id)
         def missed(id: String)     = histogram("lobby.pool.wave.missed").withTag("pool", id)
-        def wait(id: String)       = histogram("lobby.pool.wave.wait").withTag("pool", id)
         def ratingDiff(id: String) = histogram("lobby.pool.wave.ratingDiff").withTag("pool", id)
         def withRange(id: String)  = histogram("lobby.pool.wave.withRange").withTag("pool", id)
       }
@@ -470,7 +470,7 @@ object mon {
       val out                  = counter("push.register.out").withoutTags()
     }
     object send {
-      private def send(tpe: String)(platform: String, success: Boolean): Unit =
+      private def send(tpe: String)(platform: String, success: Boolean): Unit = {
         counter("push.send")
           .withTags(
             Map(
@@ -480,6 +480,8 @@ object mon {
             )
           )
           .increment()
+        ()
+      }
       val move        = send("move") _
       val takeback    = send("takeback") _
       val corresAlarm = send("corresAlarm") _

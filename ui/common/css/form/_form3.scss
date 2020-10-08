@@ -64,8 +64,12 @@ textarea.form-control {
   color: $c-font-dim;
 }
 
-.form-check div {
-  display: flex;
+.form-check {
+  @extend %flex-column;
+  justify-content: center;
+  div {
+    display: flex;
+  }
 }
 
 .form-check-input {

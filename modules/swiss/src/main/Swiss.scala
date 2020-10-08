@@ -5,7 +5,6 @@ import chess.Speed
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.game.PerfPicker
 import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
@@ -52,8 +51,7 @@ case class Swiss(
 
   def speed = Speed(clock)
 
-  def perfType: Option[PerfType] = PerfPicker.perfType(speed, variant, none)
-  def perfLens                   = PerfPicker.mainOrDefault(speed, variant, none)
+  def perfType: PerfType = PerfType(variant, speed)
 
   def estimatedDuration: FiniteDuration = {
     (clock.limit.toSeconds + clock.increment.toSeconds * 80 + 10) * settings.nbRounds
@@ -66,6 +64,10 @@ case class Swiss(
   }
 
   def roundInfo = Swiss.RoundInfo(teamId, settings.chatFor)
+
+  def withConditions(conditions: SwissCondition.All) = copy(
+    settings = settings.copy(conditions = conditions)
+  )
 
   lazy val looksLikePrize = lila.common.String.looksLikePrize(s"$name ${~settings.description}")
 }
@@ -91,6 +93,7 @@ object Swiss {
       description: Option[String] = None,
       chatFor: ChatFor = ChatFor.default,
       password: Option[String] = None,
+      conditions: SwissCondition.All,
       roundInterval: FiniteDuration
   ) {
     lazy val intervalSeconds = roundInterval.toSeconds.toInt

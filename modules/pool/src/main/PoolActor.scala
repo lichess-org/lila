@@ -17,7 +17,7 @@ final private class PoolActor(
 
   import PoolActor._
 
-  var members = Vector[PoolMember]()
+  var members = Vector.empty[PoolMember]
 
   var nextWave: Cancellable = _
 
@@ -63,6 +63,7 @@ final private class PoolActor(
     case RunWave =>
       nextWave.cancel()
       hookThieve.candidates(config.clock) pipeTo self
+      ()
 
     case HookThieve.PoolHooks(hooks) =>
       monitor.withRange(monId).record(members.count(_.hasRange))
@@ -87,9 +88,6 @@ final private class PoolActor(
       monitor.candidates(monId).record(candidates.size)
       monitor.paired(monId).record(pairedMembers.size)
       monitor.missed(monId).record(members.size)
-      pairedMembers.foreach { m =>
-        monitor.wait(monId).record(m.waitMillis)
-      }
       pairings.foreach { p =>
         monitor.ratingDiff(monId).record(p.ratingDiff)
       }

@@ -32,6 +32,7 @@ trait Lilaisms
   @inline implicit def toPimpedJsObject(jo: JsObject) = new PimpedJsObject(jo)
   @inline implicit def toPimpedJsValue(jv: JsValue)   = new PimpedJsValue(jv)
 
+  @inline implicit def toAugmentedAny(b: Any)      = new AugmentedAny(b)
   @inline implicit def toPimpedBoolean(b: Boolean) = new PimpedBoolean(b)
   @inline implicit def toPimpedInt(i: Int)         = new PimpedInt(i)
   @inline implicit def toPimpedLong(l: Long)       = new PimpedLong(l)

@@ -75,13 +75,16 @@ final private[round] class Drawer(
         lila.hub.actorApi.round.CorresDrawOfferEvent(pov.gameId),
         "offerEventCorres"
       )
-    if (lila.game.Game.isBoardCompatible(pov.game)) proxy.withPov(pov.color) { p =>
-      fuccess(
-        Bus.publish(
-          lila.game.actorApi.BoardDrawOffer(p),
-          s"boardDrawOffer:${pov.gameId}"
-        )
-      )
-    }
+    if (lila.game.Game.isBoardCompatible(pov.game))
+      proxy
+        .withPov(pov.color) { p =>
+          fuccess(
+            Bus.publish(
+              lila.game.actorApi.BoardDrawOffer(p),
+              s"boardDrawOffer:${pov.gameId}"
+            )
+          )
+        }
+        .unit
   }
 }

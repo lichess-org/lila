@@ -142,8 +142,8 @@ final class MsgApi(
         "lastMsg.read",
         true
       )
-      .map { res =>
-        if (res.nModified > 0) notifier.onRead(threadId, userId, contactId)
+      .flatMap { res =>
+        (res.nModified > 0) ?? notifier.onRead(threadId, userId, contactId)
       }
   }
 
@@ -233,8 +233,8 @@ final class MsgApi(
       ),
       "lastMsg.read",
       true
-    ) map { res =>
-      if (res.nModified > 0) notifier.onRead(threadId, me.id, contactId)
+    ) flatMap { res =>
+      (res.nModified > 0) ?? notifier.onRead(threadId, me.id, contactId)
     }
 
   def allMessagesOf(userId: User.ID): Fu[Vector[(User.ID, String, DateTime)]] =

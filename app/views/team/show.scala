@@ -33,17 +33,14 @@ object show {
           description = shorten(t.description, 152)
         )
         .some,
-      moreJs =
-        for {
-          v    <- socketVersion
-          chat <- chatOption
-        } yield frag(
-          jsModule("team"),
-          embedJsUnsafeLoadThen(s"""teamStart(${safeJsonValue(
-            Json.obj(
-              "id"            -> t.id,
-              "socketVersion" -> v.value,
-              "chat" -> views.html.chat.json(
+      moreJs = frag(
+        jsModule("team"),
+        embedJsUnsafeLoadThen(s"""teamStart(${safeJsonValue(
+          Json
+            .obj("id" -> t.id)
+            .add("socketVersion" -> socketVersion.map(_.value))
+            .add("chat" -> chatOption.map { chat =>
+              views.html.chat.json(
                 chat.chat,
                 name = if (t.isChatFor(_.LEADERS)) leadersChat.txt() else trans.chatRoom.txt(),
                 timeout = chat.timeout,
@@ -51,9 +48,9 @@ object show {
                 resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
                 localMod = ctx.userId exists t.leaders.contains
               )
-            )
-          )})""")
-        )
+            })
+        )})""")
+      )
     ) {
       val enabledOrLeader = t.enabled || info.ledByMe || isGranted(_.Admin)
       main(

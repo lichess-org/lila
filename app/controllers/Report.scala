@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.mvc.AnyContentAsFormUrlEncoded
+import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
 import views._
 
 import lila.api.{ BodyContext, Context }
@@ -42,17 +42,18 @@ final class Report(
 
   def inquiry(id: String) =
     Secure(_.SeeReport) { _ => me =>
-      api.inquiries.toggle(AsMod(me), id) map { case (prev, next) =>
-        next.fold(
-          Redirect {
-            if (prev.exists(_.isAppeal)) routes.Appeal.queue()
-            else routes.Report.list()
-          }
-        )(onInquiryStart)
+      api.inquiries.toggle(AsMod(me), id) flatMap { case (prev, next) =>
+        prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.unreadById) inject
+          next.fold(
+            Redirect {
+              if (prev.exists(_.isAppeal)) routes.Appeal.queue()
+              else routes.Report.list()
+            }
+          )(onInquiryStart)
       }
     }
 
-  private def onInquiryStart(inquiry: ReportModel) =
+  private def onInquiryStart(inquiry: ReportModel): Result =
     inquiry.room match {
       case Room.Comm => Redirect(routes.Mod.communicationPrivate(inquiry.user))
       case _         => modC.redirect(inquiry.user)
@@ -63,20 +64,20 @@ final class Report(
       me: UserModel,
       goTo: Option[Suspect],
       force: Boolean = false
-  )(implicit ctx: BodyContext[_]) = {
+  )(implicit ctx: BodyContext[_]): Fu[Result] =
     goTo.ifTrue(HTTPRequest isXhr ctx.req) match {
       case Some(suspect) => userC.renderModZoneActions(suspect.user.username)
       case None =>
-        val dataOpt = ctx.body.body match {
-          case AnyContentAsFormUrlEncoded(data) => data.some
-          case _                                => none
-        }
         inquiry match {
           case None =>
             goTo.fold(Redirect(routes.Report.list()).fuccess) { s =>
               userC.modZoneOrRedirect(s.user.username)
             }
           case Some(prev) =>
+            val dataOpt = ctx.body.body match {
+              case AnyContentAsFormUrlEncoded(data) => data.some
+              case _                                => none
+            }
             def thenGoTo =
               dataOpt.flatMap(_ get "then").flatMap(_.headOption) flatMap {
                 case "back"    => HTTPRequest referer ctx.req
@@ -84,30 +85,33 @@ final class Report(
                 case url       => url.some
               }
             thenGoTo match {
-              case Some(url) => api.inquiries.toggle(AsMod(me), prev.id) inject Redirect(url)
+              case Some(url) => Redirect(url).fuccess
               case _ =>
                 def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
-                if (dataOpt.flatMap(_ get "next").exists(_.headOption contains "1"))
+                if (prev.isAppeal) Redirect(routes.Appeal.queue()).fuccess
+                else if (dataOpt.flatMap(_ get "next").exists(_.headOption contains "1"))
                   api.inquiries.toggleNext(AsMod(me), prev.room) map {
                     _.fold(redirectToList)(onInquiryStart)
                   }
                 else if (force) userC.modZoneOrRedirect(prev.user)
                 else
                   api.inquiries.toggle(AsMod(me), prev.id) map { case (prev, next) =>
-                    next.fold(
-                      if (prev.exists(_.isAppeal)) Redirect(routes.Appeal.queue())
-                      else redirectToList
-                    )(onInquiryStart)
+                    next
+                      .fold(
+                        if (prev.exists(_.isAppeal)) Redirect(routes.Appeal.queue())
+                        else redirectToList
+                      )(onInquiryStart)
                   }
             }
         }
     }
-  }
 
   def process(id: String) =
     SecureBody(_.SeeReport) { implicit ctx => me =>
       api byId id flatMap { inquiry =>
-        api.process(AsMod(me), id) >> onInquiryClose(inquiry, me, none, force = true)
+        inquiry.filter(_.isAppeal).map(_.user).??(env.appeal.api.readById) >>
+          api.process(AsMod(me), id) >>
+          onInquiryClose(inquiry, me, none, force = true)
       }
     }
 

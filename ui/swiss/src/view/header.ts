@@ -51,7 +51,8 @@ export default function(ctrl: SwissCtrl): VNode {
         h('a', {
           attrs: {
             href: greatPlayer.url,
-            target: '_blank'
+            target: '_blank',
+            rel: 'noopener',
           }
         }, greatPlayer.name),
         ' Tournament'

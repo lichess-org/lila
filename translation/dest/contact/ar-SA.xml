@@ -11,6 +11,7 @@
   <string name="youCanLoginWithEmail">يمكنك تسجيل الدخول باستخدام عنوان البريد الإلكتروني الذي قمت بالتسجيل به</string>
   <string name="lost2FA">لقد فقدت الوصول إلى رموز المصادقة الثنائية الخاصة بي</string>
   <string name="doPasswordReset">أكمل إعادة تعيين كلمة المرور لإزالة المصادقة الثنائية</string>
+  <string name="accountSupport">أنا بحاجة إلى دعم تقني للحساب</string>
   <string name="wantTitle">أريد أن يتم عرض لقبي على Lichess</string>
   <string name="visitTitleConfirmation">لإظهار لقبك على ملفك الشخصي في Lichess، والمشاركة في بطولات حملة الألقاب، قم بزيارة صفحة تأكيد اللقب</string>
   <string name="wantCloseAccount">أريد إغلاق حسابي</string>

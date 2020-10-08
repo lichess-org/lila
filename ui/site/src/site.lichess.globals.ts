@@ -16,7 +16,7 @@ import trans from "./component/trans";
 import sound from "./component/sound";
 import * as miniBoard from "./component/mini-board";
 import * as miniGame from "./component/mini-game";
-import timeago from "./component/timeago";
+import { format as timeago } from "./component/timeago";
 import watchers from "./component/watchers";
 
 export default function() {

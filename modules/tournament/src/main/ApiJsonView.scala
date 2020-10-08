@@ -53,7 +53,7 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
         "startsAt"   -> tour.startsAt,
         "finishesAt" -> tour.finishesAt,
         "status"     -> tour.status.id,
-        "perf"       -> tour.perfType.map(perfJson)
+        "perf"       -> perfJson(tour.perfType)
       )
       .add("secondsToStart", tour.secondsToStart.some.filter(0 <))
       .add("hasMaxRating", tour.conditions.maxRating.isDefined)

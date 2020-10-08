@@ -1,8 +1,8 @@
 package lila.swiss
 
 import lila.common.LightUser
-import lila.rating.Perf
-import lila.user.{ Perfs, User }
+import lila.rating.PerfType
+import lila.user.User
 
 case class SwissPlayer(
     id: SwissPlayer.Id, // swissId:userId
@@ -37,14 +37,14 @@ object SwissPlayer {
   private[swiss] def make(
       swissId: Swiss.Id,
       user: User,
-      perfLens: Perfs => Perf
+      perf: PerfType
   ): SwissPlayer =
     new SwissPlayer(
       id = makeId(swissId, user.id),
       swissId = swissId,
       userId = user.id,
-      rating = perfLens(user.perfs).intRating,
-      provisional = perfLens(user.perfs).provisional,
+      rating = user.perfs(perf).intRating,
+      provisional = user.perfs(perf).provisional,
       points = Swiss.Points(0),
       tieBreak = Swiss.TieBreak(0),
       performance = none,

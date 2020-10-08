@@ -47,6 +47,6 @@ final private class Cleaner(
       .void
 
   system.scheduler.scheduleWithFixedDelay(15 seconds, 10 seconds) { () =>
-    cleanAnalysis
+    cleanAnalysis.unit
   }
 }

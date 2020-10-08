@@ -29,14 +29,27 @@ final class Flood(duration: FiniteDuration) {
     msgs.lift(floodNumber) ?? (_.date isAfter msg.date.minus(10000L))
 }
 
-private[security] object Flood {
+private object Flood {
 
-  case class Message(text: String, date: Instant)
+  // ui/chat/src/preset.ts
+  private val passList = Set(
+    "Hello",
+    "Good luck",
+    "Have fun!",
+    "You too!",
+    "Good game",
+    "Well played",
+    "Thank you",
+    "I've got to go",
+    "Bye!"
+  )
 
-  type Messages = List[Message]
+  private[security] case class Message(text: String, date: Instant)
 
-  def duplicateMessage(msg: Message, msgs: Messages): Boolean =
-    msgs.headOption ?? { m =>
+  private type Messages = List[Message]
+
+  private[security] def duplicateMessage(msg: Message, msgs: Messages): Boolean =
+    !passList.contains(msg.text) && msgs.headOption.?? { m =>
       similar(m.text, msg.text) || msgs.tail.headOption.?? { m2 =>
         similar(m2.text, msg.text)
       }

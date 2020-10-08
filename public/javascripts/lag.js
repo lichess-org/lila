@@ -213,7 +213,7 @@ lichess.load.then(() => {
     if (values.server <= 100 && values.network <= 500) c = 'nope-nope';
     else if (values.server <= 100) c = 'nope-yep';
     else c = 'yep';
-    $('.lag .answer span').hide().parent().find('.' + c).show();
+    $('.lag .answer span').addClass('none').parent().find('.' + c).removeClass('none');
   };
 
   lichess.StrongSocket.firstConnect.then(() => lichess.socket.send('moveLat', true));

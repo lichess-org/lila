@@ -72,9 +72,11 @@ final class Env(
   Bus.subscribeFuns(
     "finishGame" -> { case lila.game.actorApi.FinishGame(game, _, _) =>
       api finishGame game
+      ()
     },
     "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       api ejectCheater userId
+      ()
     },
     "simulGetHosts" -> { case lila.hub.actorApi.simul.GetHostIds(promise) =>
       promise completeWith api.currentHostIds

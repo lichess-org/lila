@@ -57,7 +57,7 @@ final class Env(
 
   val config = ApiConfig loadFrom appConfig
   import config.apiToken
-  import net.domain
+  import net.{ baseUrl, domain }
 
   lazy val pgnDump: PgnDump = wire[PgnDump]
 
@@ -78,6 +78,8 @@ final class Env(
   lazy val eventStream = wire[EventStream]
 
   lazy val personalDataExport = wire[PersonalDataExport]
+
+  lazy val referrerRedirect = wire[ReferrerRedirect]
 
   lazy val cli = wire[Cli]
 

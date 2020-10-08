@@ -60,9 +60,6 @@ final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
     }
   }
 
-  def incViews(topic: Topic) =
-    coll.incFieldUnchecked($id(topic.id), "views")
-
   def byCategQuery(categ: Categ)          = $doc("categId" -> categ.slug) ++ trollFilter
   def byCategNotStickyQuery(categ: Categ) = byCategQuery(categ) ++ notStickyQuery
 }

@@ -40,19 +40,19 @@ object Chronometer {
   case class FuLap[A](lap: Fu[Lap[A]]) extends AnyVal {
 
     def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) = {
-      lap.dforeach(_.logIfSlow(threshold, logger)(msg))
+      lap.dforeach(_.logIfSlow(threshold, logger)(msg).unit)
       this
     }
 
     def mon(path: lila.mon.TimerPath) = {
       lap dforeach { l =>
-        path(lila.mon).record(l.nanos)
+        path(lila.mon).record(l.nanos).unit
       }
       this
     }
 
     def log(logger: lila.log.Logger)(msg: A => String) = {
-      lap.dforeach(_.log(logger)(msg))
+      lap.dforeach(_.log(logger)(msg).unit)
       this
     }
 
@@ -67,7 +67,7 @@ object Chronometer {
 
     def mon(path: Try[A] => kamon.metric.Timer) = {
       lap.dforeach { l =>
-        path(l.result).record(l.nanos)
+        path(l.result).record(l.nanos).unit
       }
       this
     }

@@ -8,7 +8,6 @@ import * as control from '../control';
 import feedbackView from './feedback';
 import historyView from './history';
 import * as side from './side';
-import * as gridHacks from './gridHacks';
 import { onInsert, bind, bindMobileMousedown } from '../util';
 import { Controller } from '../interfaces';
 
@@ -76,7 +75,6 @@ export default function(ctrl: Controller): VNode {
     class: {'gauge-on': gaugeOn},
     hook: {
       postpatch(old, vnode) {
-        gridHacks.start(vnode.elm as HTMLElement)
         if (old.data!.gaugeOn !== gaugeOn) {
           if (ctrl.pref.coords == 2){
             $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);

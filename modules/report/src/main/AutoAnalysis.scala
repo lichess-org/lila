@@ -17,7 +17,7 @@ final class AutoAnalysis(
     if (candidate.isCheat) doItNow(candidate)
     else if (candidate.isPrint) fuccess {
       List(30, 90) foreach { minutes =>
-        system.scheduler.scheduleOnce(minutes minutes) { doItNow(candidate) }
+        system.scheduler.scheduleOnce(minutes minutes) { doItNow(candidate).unit }
       }
     }
     else funit

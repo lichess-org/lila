@@ -170,7 +170,7 @@ final class TeamApi(
       _ <-
         userOption
           .filter(_ => accept)
-          .??(user => doJoin(team, user) >>- notifier.acceptRequest(team, request))
+          .??(user => doJoin(team, user) >> notifier.acceptRequest(team, request))
     } yield ()
 
   def deleteRequestsByUserId(userId: User.ID) =

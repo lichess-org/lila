@@ -112,6 +112,6 @@ object timeline {
           a(cls := "text", dataIcon := "", href := routes.Streamer.show(id))(trans.xStartedStreaming(name))
       },
       " ",
-      momentFromNow(e.date)
+      momentFromNowWithPreload(e.date)
     )
 }

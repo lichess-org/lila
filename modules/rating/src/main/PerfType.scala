@@ -1,9 +1,9 @@
 package lila.rating
 
-import play.api.i18n.Lang
-
 import chess.Centis
 import chess.Speed
+import play.api.i18n.Lang
+
 import lila.i18n.I18nKeys
 
 sealed abstract class PerfType(
@@ -256,6 +256,8 @@ object PerfType {
 
   def byVariant(variant: chess.variant.Variant): Option[PerfType] =
     variant match {
+      case chess.variant.Standard      => none
+      case chess.variant.FromPosition  => none
       case chess.variant.Crazyhouse    => Crazyhouse.some
       case chess.variant.Chess960      => Chess960.some
       case chess.variant.KingOfTheHill => KingOfTheHill.some
@@ -264,8 +266,19 @@ object PerfType {
       case chess.variant.Atomic        => Atomic.some
       case chess.variant.Horde         => Horde.some
       case chess.variant.RacingKings   => RacingKings.some
-      case _                           => none
     }
+
+  def standardBySpeed(speed: Speed): PerfType = speed match {
+    case Speed.UltraBullet    => UltraBullet
+    case Speed.Bullet         => Bullet
+    case Speed.Blitz          => Blitz
+    case Speed.Rapid          => Rapid
+    case Speed.Classical      => Classical
+    case Speed.Correspondence => Correspondence
+  }
+
+  def apply(variant: chess.variant.Variant, speed: Speed): PerfType =
+    byVariant(variant) getOrElse standardBySpeed(speed)
 
   lazy val totalTimeRoughEstimation: Map[PerfType, Centis] = nonPuzzle.view
     .map { pt =>

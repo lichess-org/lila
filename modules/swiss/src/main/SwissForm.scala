@@ -3,10 +3,10 @@ package lila.swiss
 import chess.Clock.{ Config => ClockConfig }
 import chess.variant.Variant
 import org.joda.time.DateTime
-import play.api.Mode
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
+import play.api.Mode
 import scala.concurrent.duration._
 
 import lila.common.Form._
@@ -40,7 +40,8 @@ final class SwissForm(implicit mode: Mode) {
         "description"   -> optional(clean(nonEmptyText)),
         "chatFor"       -> optional(numberIn(chatForChoices.map(_._1))),
         "roundInterval" -> optional(numberIn(roundIntervals)),
-        "password"      -> optional(clean(nonEmptyText))
+        "password"      -> optional(clean(nonEmptyText)),
+        "conditions"    -> SwissCondition.DataForm.all
       )(SwissData.apply)(SwissData.unapply)
     )
 
@@ -57,7 +58,8 @@ final class SwissForm(implicit mode: Mode) {
       description = none,
       chatFor = Swiss.ChatFor.default.some,
       roundInterval = Swiss.RoundInterval.auto.some,
-      password = None
+      password = None,
+      conditions = SwissCondition.DataForm.AllSetup.default
     )
 
   def edit(s: Swiss) =
@@ -71,7 +73,8 @@ final class SwissForm(implicit mode: Mode) {
       description = s.settings.description,
       chatFor = s.settings.chatFor.some,
       roundInterval = s.settings.roundInterval.toSeconds.toInt.some,
-      password = s.settings.password
+      password = s.settings.password,
+      conditions = SwissCondition.DataForm.AllSetup(s.settings.conditions)
     )
 
   def nextRound =
@@ -146,7 +149,8 @@ object SwissForm {
       description: Option[String],
       chatFor: Option[Int],
       roundInterval: Option[Int],
-      password: Option[String]
+      password: Option[String],
+      conditions: SwissCondition.DataForm.AllSetup
   ) {
     def realVariant  = variant flatMap Variant.apply getOrElse Variant.default
     def realStartsAt = startsAt | DateTime.now.plusMinutes(10)

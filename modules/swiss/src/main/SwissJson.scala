@@ -2,6 +2,7 @@ package lila.swiss
 
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
+import play.api.i18n.Lang
 import play.api.libs.json._
 import scala.concurrent.ExecutionContext
 
@@ -33,10 +34,11 @@ final class SwissJson(
       swiss: Swiss,
       me: Option[User],
       isInTeam: Boolean,
+      verdicts: SwissCondition.All.WithVerdicts,
       reqPage: Option[Int] = None, // None = focus on me
       socketVersion: Option[SocketVersion] = None,
       playerInfo: Option[SwissPlayer.ViewExt] = None
-  ): Fu[JsObject] = {
+  )(implicit lang: Lang): Fu[JsObject] = {
     for {
       myInfo <- me.?? { fetchMyInfo(swiss, _) }
       page = reqPage orElse myInfo.map(_.page) getOrElse 1
@@ -47,8 +49,10 @@ final class SwissJson(
     } yield swissJsonBase(swiss) ++ Json
       .obj(
         "canJoin" -> {
-          (swiss.isNotFinished && myInfo.exists(_.player.absent)) ||
-          (myInfo.isEmpty && swiss.isEnterable && isInTeam)
+          {
+            (swiss.isNotFinished && myInfo.exists(_.player.absent)) ||
+            (myInfo.isEmpty && swiss.isEnterable && isInTeam)
+          } && verdicts.accepted
         },
         "standing" -> standing,
         "boards"   -> boards.map(boardJson)
@@ -91,9 +95,8 @@ final class SwissJson(
     }
 
   private def updatePlayerRating(swiss: Swiss, player: SwissPlayer, user: User): Funit =
-    swiss.perfType
-      .ifTrue(swiss.settings.rated)
-      .map(user.perfs.apply)
+    swiss.settings.rated
+      .option(user perfs swiss.perfType)
       .filter(_.intRating != player.rating)
       .?? { perf =>
         SwissPlayer.fields { f =>

@@ -83,5 +83,5 @@ final private class DuelStore {
         }
       )
     }
-  def remove(tour: Tournament): Unit = byTourId.remove(tour.id)
+  def remove(tour: Tournament): Unit = byTourId.remove(tour.id).unit
 }

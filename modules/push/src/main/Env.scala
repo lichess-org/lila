@@ -64,6 +64,10 @@ final class Env(
 
   private lazy val pushApi: PushApi = wire[PushApi]
 
+  private def logUnit(f: Fu[_]): Unit = {
+    f logFailure logger
+    ()
+  }
   lila.common.Bus.subscribeFun(
     "finishGame",
     "moveEventCorres",
@@ -73,15 +77,21 @@ final class Env(
     "corresAlarm",
     "offerEventCorres"
   ) {
-    case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game logFailure logger
+    case lila.game.actorApi.FinishGame(game, _, _) =>
+      logUnit { pushApi finish game }
     case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
-      pushApi move move logFailure logger
+      logUnit { pushApi move move }
     case lila.hub.actorApi.round.CorresTakebackOfferEvent(gameId) =>
-      pushApi takebackOffer gameId logFailure logger
-    case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId logFailure logger
-    case lila.msg.MsgThread.Unread(t)                         => pushApi newMsg t logFailure logger
-    case lila.challenge.Event.Create(c)                       => pushApi challengeCreate c logFailure logger
-    case lila.challenge.Event.Accept(c, joinerId)             => pushApi.challengeAccept(c, joinerId) logFailure logger
-    case lila.game.actorApi.CorresAlarmEvent(pov)             => pushApi corresAlarm pov logFailure logger
+      logUnit { pushApi takebackOffer gameId }
+    case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) =>
+      logUnit { pushApi drawOffer gameId }
+    case lila.msg.MsgThread.Unread(t) =>
+      logUnit { pushApi newMsg t }
+    case lila.challenge.Event.Create(c) =>
+      logUnit { pushApi challengeCreate c }
+    case lila.challenge.Event.Accept(c, joinerId) =>
+      logUnit { pushApi.challengeAccept(c, joinerId) }
+    case lila.game.actorApi.CorresAlarmEvent(pov) =>
+      logUnit { pushApi corresAlarm pov }
   }
 }

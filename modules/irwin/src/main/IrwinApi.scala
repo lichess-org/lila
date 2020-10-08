@@ -39,7 +39,7 @@ final class IrwinApi(
       reportColl.update.one($id(report._id), report, upsert = true) >>
         markOrReport(report) >>
         notification(report) >>-
-        lila.mon.mod.irwin.ownerReport(report.owner).increment()
+        lila.mon.mod.irwin.ownerReport(report.owner).increment().unit
 
     def get(user: User): Fu[Option[IrwinReport]] =
       reportColl.find($id(user.id)).one[IrwinReport]
@@ -62,7 +62,7 @@ final class IrwinApi(
     private def markOrReport(report: IrwinReport): Funit =
       if (report.activation >= thresholds.get().mark)
         modApi.autoMark(report.suspectId, ModId.irwin) >>-
-          lila.mon.mod.irwin.mark.increment()
+          lila.mon.mod.irwin.mark.increment().unit
       else if (report.activation >= thresholds.get().report) for {
         suspect <- getSuspect(report.suspectId.value)
         irwin   <- userRepo byId "irwin" orFail s"Irwin user not found" dmap Mod.apply
@@ -74,7 +74,7 @@ final class IrwinApi(
             text = s"${report.activation}% over ${report.games.size} games"
           )
         )
-      } yield lila.mon.mod.irwin.report.increment()
+      } yield lila.mon.mod.irwin.report.increment().unit
       else funit
   }
 

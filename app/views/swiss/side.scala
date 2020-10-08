@@ -1,22 +1,24 @@
 package views
 package html.swiss
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.markdownLinksOrRichText
-import lila.swiss.Swiss
-
-import controllers.routes
+import lila.swiss.{ Swiss, SwissCondition }
 
 object side {
 
   private val separator = " • "
 
-  def apply(s: Swiss, chat: Boolean)(implicit ctx: Context) =
+  def apply(s: Swiss, verdicts: SwissCondition.All.WithVerdicts, chat: Boolean)(implicit
+      ctx: Context
+  ) =
     frag(
       div(cls := "swiss__meta")(
-        st.section(dataIcon := s.perfType.map(_.iconChar.toString))(
+        st.section(dataIcon := s.perfType.iconChar.toString)(
           div(
             p(
               s.clock.show,
@@ -27,7 +29,7 @@ object side {
                   if (s.variant == chess.variant.KingOfTheHill) s.variant.shortName
                   else s.variant.name
                 )
-              } else s.perfType.map(_.trans),
+              } else s.perfType.trans,
               separator,
               if (s.settings.rated) trans.ratedTournament() else trans.casualTournament()
             ),
@@ -49,7 +51,29 @@ object side {
         },
         s.looksLikePrize option views.html.tournament.bits.userPrizeDisclaimer(s.createdBy),
         teamLink(s.teamId),
-        separator,
+        if (verdicts.relevant)
+          st.section(
+            dataIcon := "7",
+            cls := List(
+              "conditions" -> true,
+              "accepted"   -> (ctx.isAuth && verdicts.accepted),
+              "refused"    -> (ctx.isAuth && !verdicts.accepted)
+            )
+          )(
+            div(
+              verdicts.list.sizeIs < 2 option p(trans.conditionOfEntry()),
+              verdicts.list map { v =>
+                p(
+                  cls := List(
+                    "condition text" -> true,
+                    "accepted"       -> v.verdict.accepted,
+                    "refused"        -> !v.verdict.accepted
+                  )
+                )(v.condition.name(s.perfType))
+              }
+            )
+          )
+        else br,
         absClientDateTime(s.startsAt)
       ),
       chat option views.html.chat.frag

@@ -48,7 +48,7 @@ lichess.load.then(() => {
           ).then(res => {
             const current = currentUserIds();
             callback(res.result.filter(t => !current.includes(t.id)));
-          }).catch(() => callback([]))
+          }, _ => callback([]));
         },
         template: o =>
           '<span class="ulpt user-link' + (o.online ? ' online' : '') + '" href="/@/' + o.name + '">' +
