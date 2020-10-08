@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">친구와 게임하기</string>
   <string name="playWithTheMachine">체스 엔진과 게임하기</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대해 친구와 같이 체스를 두세요.</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
   <string name="gameOver">게임 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
   <string name="waiting">기다리는 중</string>
@@ -26,7 +26,7 @@
   <string name="itsYourTurn">당신이 둘 차례입니다!</string>
   <string name="kingInTheCenter">킹이 중앙에 도달함</string>
   <string name="threeChecks">세 번의 체크</string>
-  <string name="raceFinished">경주 완료</string>
+  <string name="raceFinished">킹이 보드 끝에 도달함</string>
   <string name="variantEnding">변형 게임 엔딩</string>
   <string name="newOpponent">새 상대</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">상대가 재대결을 원합니다</string>
