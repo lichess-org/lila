@@ -810,6 +810,7 @@
   <string name="blitzDesc">빠른 게임: 3에서 8분</string>
   <string name="rapidDesc">래피드 게임: 8 ~ 25분</string>
   <string name="classicalDesc">클래시컬 게임: 25분 이상</string>
+  <string name="correspondenceDesc">통신전: 한 수당 하루 또는 수 일</string>
   <string name="puzzleDesc">체스 전술 트레이너</string>
   <string name="important">중요!</string>
   <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">%1$s에 원하시는 답변이 있을 수 있습니다.</string>
