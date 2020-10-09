@@ -770,6 +770,7 @@
   <string name="registerToSendChallenges">Skráðu þig inn til að senda áskorarnir.</string>
   <string name="youCannotChallengeX">Þú getur ekki skorað á %s.</string>
   <string name="xDoesNotAcceptChallenges">%s tekur ekki við áskorunum.</string>
+  <string name="yourXRatingIsTooFarFromY">Það er of mikill munur á milli %1$sstiganna þína og skákstiganna %2$s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s samþykkir eingöngu áskoranir frá vinum.</string>
   <string name="playX">Leika %s</string>
   <string name="sorry">Afsakaðu :(</string>
@@ -794,7 +795,7 @@
   <string name="rapidDesc">Örar skákir: 8 til 25 mínútur</string>
   <string name="classicalDesc">Hefðbundnar skákir: 25 mínútur eða meira</string>
   <string name="important">Mikilvægt</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Spurningin þín gæti verið búin að fá svar %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Spurningin þín gæti verið búin að fá svar %1$s</string>
   <string name="inTheFAQ">í FAQ-ið</string>
   <string name="youCannotPostYetPlaySomeGames">Þú mátt ekki pósta enn. Spilaðu nokkra leiki!</string>
   <string name="subscribe">Gerast áskrifandi</string>
