@@ -174,7 +174,7 @@
   <string name="changeUsernameNotSame">Aðeins er hægt að víxla á hástöfum og lágstöfum. Til dæmis „ómarragnarsson” í „ÓmarraGNARsson”.</string>
   <string name="changeUsernameDescription">Skiptu um notendanafn. Þú getur aðeins gert þetta einu sinni og þú mátt bara víxla á hástöfum og lágstöfum.</string>
   <string name="password">Lykilorð</string>
-  <string name="changePassword">Skipta um lykilorð</string>
+  <string name="changePassword">Breyta um lykilorð</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
   <string name="email">Tölvupóstfang</string>
   <string name="passwordReset">Breyta lykilorði</string>
