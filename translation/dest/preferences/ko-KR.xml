@@ -12,6 +12,8 @@
   <string name="chessPieceSymbol">체스 말 기호</string>
   <string name="pgnLetter">글자 (K, Q, R, B, N)</string>
   <string name="zenMode">젠 모드</string>
+  <string name="displayBoardResizeHandle">보드 크기 재조정 핸들 보이기</string>
+  <string name="onlyOnInitialPosition">초기 상태에서만</string>
   <string name="blindfoldChess">눈을 가리고 체스 (기물이 보이지 않음)</string>
   <string name="chessClock">체스 시계</string>
   <string name="tenthsOfSeconds">1/10초 단위</string>
@@ -19,6 +21,7 @@
   <string name="horizontalGreenProgressBars">녹색 수평 진행 바</string>
   <string name="soundWhenTimeGetsCritical">시간이 위태로울 때 소리 재생</string>
   <string name="giveMoreTime">시간 더 주기</string>
+  <string name="gameBehavior">게임 동작</string>
   <string name="howDoYouMovePieces">기물을 어떻게 움직이나요?</string>
   <string name="clickTwoSquares">현재 위치와 원하는 위치에 클릭하기</string>
   <string name="dragPiece">드래그</string>

@@ -3,13 +3,11 @@ package paginator
 
 abstract class AdapterLike[A](implicit ec: scala.concurrent.ExecutionContext) {
 
-  /**
-    * Returns the total number of results.
+  /** Returns the total number of results.
     */
   def nbResults: Fu[Int]
 
-  /**
-    * Returns a slice of the results.
+  /** Returns a slice of the results.
     *
     * @param   offset    The number of elements to skip, starting from zero
     * @param   length    The maximum number of elements to return

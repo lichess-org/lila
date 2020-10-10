@@ -188,6 +188,8 @@
     <item quantity="other">与您下了%s盘棋</item>
   </plurals>
   <string name="cancel">取消</string>
+  <string name="whiteTimeOut">白方超时</string>
+  <string name="blackTimeOut">黑方超时</string>
   <string name="drawOfferSent">和棋请求已发送</string>
   <string name="drawOfferDeclined">和棋请求被拒绝</string>
   <string name="drawOfferAccepted">对方同意和棋</string>
@@ -802,7 +804,7 @@
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
   <string name="rapid">快棋</string>
-  <string name="classical">经典</string>
+  <string name="classical">慢棋</string>
   <string name="ultraBulletDesc">急速对战：少于 30 秒</string>
   <string name="bulletDesc">高速对战：少于 3 分钟</string>
   <string name="blitzDesc">快速对战：3 到 8 分钟</string>
@@ -811,7 +813,7 @@
   <string name="correspondenceDesc">非即时对战：每步一天或数天</string>
   <string name="puzzleDesc">国际象棋战术训练</string>
   <string name="important">重要</string>
-  <string name="yourQuestionMayHaveBeenAnswered">您的问题可能已经%1$s有了答案</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">您的问题可能已经%1$s有了答案</string>
   <string name="inTheFAQ">在问答集中</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">要举报用户作弊或不良行为，%1$s</string>
   <string name="useTheReportForm">请使用举报表单</string>

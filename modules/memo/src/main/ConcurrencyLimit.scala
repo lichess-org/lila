@@ -6,8 +6,7 @@ import play.api.mvc.Result
 import play.api.mvc.Results.TooManyRequests
 import scala.concurrent.duration.FiniteDuration
 
-/**
-  * only allow one stream at a time per key
+/** only allow one stream at a time per key
   */
 final class ConcurrencyLimit[K](
     name: String,

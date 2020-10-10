@@ -925,6 +925,8 @@ export default function (token: string) {
       DGTgameId = currentGameId;
       //Initialize localBoard too so it matched what was sent to LiveChess
       localBoard = chess.clone();
+      //Reset other DGT Board tracking variables otherwise last move from DGT may be incorrect
+      lastLegalParam = { board: "", san: [] };
       if (verbose) console.log("setUp -: Sent.")
     }
     else {
@@ -1101,7 +1103,7 @@ export default function (token: string) {
     console.log("    '|_.=`   __\\                                                               ");
     console.log("    `\\_..==`` /                 Lichess.org - DGT Electronic Board Connector   ");
     console.log("     .'.___.-'.                Developed by Andres Cavallin and Juan Cavallin  ");
-    console.log("    /          \\                                  v1.0.3                       ");
+    console.log("    /          \\                                  v1.0.4                       ");
     console.log("jgs('--......--')                                                             ");
     console.log("   /'--......--'\\                                                              ");
     console.log("   `\"--......--\"`                                                             ");

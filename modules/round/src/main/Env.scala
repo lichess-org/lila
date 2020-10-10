@@ -1,14 +1,14 @@
 package lila.round
 
+import actorApi.{ GetSocketStatus, SocketStatus }
 import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import scala.concurrent.duration._
 
-import actorApi.{ GetSocketStatus, SocketStatus }
-import lila.common.{ Bus, Uptime }
 import lila.common.config._
+import lila.common.{ Bus, Uptime }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
@@ -90,19 +90,23 @@ final class Env(
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
+  private def resignAllGamesOf(userId: User.ID) =
+    gameRepo allPlaying userId foreach {
+      _ foreach { pov => tellRound(pov.gameId, Resign(pov.playerId)) }
+    }
+
   Bus.subscribeFuns(
     "accountClose" -> { case lila.hub.actorApi.security.CloseAccount(userId) =>
-      gameRepo.allPlaying(userId) foreach {
-        _ foreach { pov =>
-          tellRound(pov.gameId, Resign(pov.playerId))
-        }
-      }
+      resignAllGamesOf(userId)
     },
     "gameStartId" -> { case Game.Id(gameId) =>
       onStart(gameId)
     },
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
       selfReport(userId, ip, fullId, name).unit
+    },
+    "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+      resignAllGamesOf(userId)
     }
   )
 

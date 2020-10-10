@@ -16,14 +16,7 @@ final class SelfReport(
 
   private val whitelist = Set("treehugger")
 
-  private object recent {
-    private val cache = new lila.memo.ExpireSetMemo(15 minutes)
-    def isNew(user: User): Boolean = {
-      val res = !cache.get(user.id)
-      cache.put(user.id)
-      res
-    }
-  }
+  private val onceEvery = lila.memo.OnceEvery(1 hour)
 
   def apply(
       userId: Option[User.ID],
@@ -46,7 +39,7 @@ final class SelfReport(
               .info(
                 s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
               )
-            user.filter(recent.isNew) foreach { u =>
+            user.filter(u => onceEvery(u.id)) foreach { u =>
               slackApi.selfReport(
                 typ = name,
                 path = fullId.value,

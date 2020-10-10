@@ -21,7 +21,7 @@ final class GarbageCollector(
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
-  private val done = new lila.memo.ExpireSetMemo(10 minutes)
+  private val justOnce = lila.memo.OnceEvery(10 minutes)
 
   private case class ApplyData(user: User, ip: IpAddress, email: EmailAddress, req: RequestHeader) {
     override def toString = s"${user.username} $ip ${email.value} $req"
@@ -98,8 +98,7 @@ final class GarbageCollector(
   private def isBadAccount(user: User) = user.lameOrTrollOrAlt
 
   private def collect(user: User, email: EmailAddress, msg: => String): Funit =
-    !done.get(user.id) ?? {
-      done put user.id
+    justOnce(user.id) ?? {
       val armed = isArmed()
       val wait  = (30 + ThreadLocalRandom.nextInt(300)).seconds
       val message =

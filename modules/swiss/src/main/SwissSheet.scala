@@ -71,7 +71,10 @@ final private class SwissSheetApi(colls: SwissColls)(implicit
   import lila.db.dsl._
   import BsonHandlers._
 
-  def source(swiss: Swiss): Source[(SwissPlayer, Map[SwissRound.Number, SwissPairing], SwissSheet), _] = {
+  def source(
+      swiss: Swiss,
+      sort: Bdoc
+  ): Source[(SwissPlayer, Map[SwissRound.Number, SwissPairing], SwissSheet), _] = {
     val readPreference =
       if (swiss.finishedAt.exists(_ isBefore DateTime.now.minusSeconds(10)))
         ReadPreference.secondaryPreferred
@@ -80,7 +83,7 @@ final private class SwissSheetApi(colls: SwissColls)(implicit
       .fields { f =>
         colls.player
           .find($doc(f.swissId -> swiss.id))
-          .sort($sort desc f.score)
+          .sort(sort)
       }
       .cursor[SwissPlayer](readPreference)
       .documentSource()

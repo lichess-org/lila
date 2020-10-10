@@ -72,7 +72,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   const maxThreads = Math.min(Math.max((navigator.hardwareConcurrency || 1) - 1, 1), growableSharedMem ? 16 : initialAllocationMaxThreads);
   const threads = storedProp(storageKey('ceval.threads'), Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 4), maxThreads));
 
-  const maxHashSize = Math.min((navigator.deviceMemory || 0.5) * 1024 / 16, growableSharedMem ? 512 : 16);
+  const maxHashSize = Math.min((navigator.deviceMemory || 0.25) * 1024 / 8, growableSharedMem ? 1024 : 16);
   const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
 
   const minDepth = 6;

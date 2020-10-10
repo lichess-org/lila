@@ -1,6 +1,7 @@
 package lila.user
 
 import io.lemonlabs.uri.Url
+import scala.util.Try
 
 object Links {
 
@@ -11,11 +12,13 @@ object Links {
   private def toLink(line: String): Option[Link] =
     line match {
       case UrlRegex(domain) =>
-        Link(
-          site = Link.Site.allKnown find (_ matches domain) getOrElse
-            Link.Site.Other(Url.parse(domain).toStringPunycode),
-          url = if (line startsWith "http") line else s"https://$line"
-        ).some
+        Link.Site.allKnown find (_ matches domain) orElse
+          Try(Url.parse(domain).toStringPunycode).toOption.map(Link.Site.Other) map { site =>
+            Link(
+              site = site,
+              url = if (line startsWith "http") line else s"https://$line"
+            )
+          }
       case _ => none
     }
 }

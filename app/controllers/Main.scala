@@ -97,8 +97,7 @@ final class Main(
       NoContent.fuccess
     }
 
-  /**
-    * Event monitoring endpoint
+  /** Event monitoring endpoint
     */
   def jsmon(event: String) =
     Action {

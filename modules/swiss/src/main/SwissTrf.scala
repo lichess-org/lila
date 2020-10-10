@@ -15,15 +15,17 @@ final class SwissTrf(
 
   private type Bits = List[(Int, String)]
 
-  def apply(swiss: Swiss): Source[String, _] = Source futureSource {
-    fetchPlayerIds(swiss) map { apply(swiss, _) }
+  def apply(swiss: Swiss, sorted: Boolean): Source[String, _] = Source futureSource {
+    fetchPlayerIds(swiss) map { apply(swiss, _, sorted) }
   }
 
-  def apply(swiss: Swiss, playerIds: PlayerIds): Source[String, _] =
-    tournamentLines(swiss) concat sheetApi
-      .source(swiss)
-      .map((playerLine(swiss, playerIds) _).tupled)
-      .map(formatLine)
+  def apply(swiss: Swiss, playerIds: PlayerIds, sorted: Boolean): Source[String, _] =
+    SwissPlayer.fields { f =>
+      tournamentLines(swiss) concat sheetApi
+        .source(swiss, sort = sorted.??($doc(f.rating -> -1)))
+        .map((playerLine(swiss, playerIds) _).tupled)
+        .map(formatLine)
+    }
 
   private def tournamentLines(swiss: Swiss) =
     Source(

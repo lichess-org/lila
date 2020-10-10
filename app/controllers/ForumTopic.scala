@@ -94,8 +94,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       }
     }
 
-  /**
-    * Returns a list of the usernames of people participating in a forum topic conversation
+  /** Returns a list of the usernames of people participating in a forum topic conversation
     */
   def participants(topicId: String) =
     Auth { _ => _ =>

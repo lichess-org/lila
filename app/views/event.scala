@@ -6,7 +6,7 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.richText
+import lila.common.String.html.markdownLinksOrRichText
 
 object event {
 
@@ -47,7 +47,7 @@ object event {
         h1(dataIcon := "", cls := "text")(e.title),
         h2(cls := "headline")(e.headline),
         e.description.map { d =>
-          p(cls := "desc")(richText(d))
+          p(cls := "desc")(markdownLinksOrRichText(d))
         },
         if (e.isFinished) p(cls := "desc")("The event is finished.")
         else if (e.isNow) a(href := e.url, cls := "button button-fat")(trans.eventInProgress())

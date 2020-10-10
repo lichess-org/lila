@@ -229,7 +229,7 @@ final class Swiss(
       env.swiss.api.byId(SwissId(id)) map {
         case None => NotFound("Tournament not found")
         case Some(swiss) =>
-          Ok.chunked(env.swiss trf swiss intersperse "\n")
+          Ok.chunked(env.swiss.trf(swiss, sorted = true) intersperse "\n")
             .withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=lichess_swiss_$id.trf")
       }
     }
