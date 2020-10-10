@@ -13,7 +13,7 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
 
   def apply(swiss: Swiss): Fu[List[SwissPairing.ByeOrPending]] =
     trf.fetchPlayerIds(swiss) flatMap { playerIds =>
-      invoke(swiss, trf(swiss, playerIds)) map {
+      invoke(swiss, trf(swiss, playerIds, sorted = false)) map {
         reader(playerIds.map(_.swap), _)
       }
     }
