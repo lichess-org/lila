@@ -13,8 +13,7 @@ final class AugmentedAny(private val self: Any) extends AnyVal {
 
 final class PimpedBoolean(private val self: Boolean) extends AnyVal {
 
-  /**
-    * Replaces scalaz boolean ops
+  /** Replaces scalaz boolean ops
     * so ?? works on Zero and not Monoid
     */
   def ??[A](a: => A)(implicit z: Zero[A]): A = if (self) a else z.zero

@@ -91,9 +91,9 @@ final class Env(
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
   private def resignAllGamesOf(userId: User.ID) =
-      gameRepo allPlaying userId foreach {
-        _ foreach { pov => tellRound(pov.gameId, Resign(pov.playerId)) }
-      }
+    gameRepo allPlaying userId foreach {
+      _ foreach { pov => tellRound(pov.gameId, Resign(pov.playerId)) }
+    }
 
   Bus.subscribeFuns(
     "accountClose" -> { case lila.hub.actorApi.security.CloseAccount(userId) =>

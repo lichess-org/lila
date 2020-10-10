@@ -3,8 +3,7 @@ package lila.memo
 import play.api.mvc.Result
 import scala.concurrent.duration.FiniteDuration
 
-/**
-  * only allow one future at a time per key
+/** only allow one future at a time per key
   */
 final class FutureConcurrencyLimit[K](
     key: String,

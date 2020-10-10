@@ -9,8 +9,7 @@ import CacheApi._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
-/**
-  * To avoid recomputing very expensive values after deploy
+/** To avoid recomputing very expensive values after deploy
   */
 final class MongoCache[K, V: BSONHandler] private (
     name: String,

@@ -2,8 +2,7 @@ package lila.evalCache
 
 import EvalCacheEntry._
 
-/**
-  * selects the evals to store
+/** selects the evals to store
   * for a given position
   */
 object EvalCacheSelector {

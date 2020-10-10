@@ -8,8 +8,7 @@ import com.roundeights.hasher.Implicits._
 
 import lila.common.config.Secret
 
-/**
-  * Encryption for bcrypt hashes.
+/** Encryption for bcrypt hashes.
   *
   * CTS reveals input length, which is fine for
   * this application.
