@@ -1,9 +1,9 @@
 package lila.playban
 
+import chess.Color
 import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 
-import chess.Color
 import lila.game.Game
 import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.{ User, UserRepo }
@@ -14,6 +14,8 @@ final private class SandbagWatch(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import SandbagWatch._
+
+  private val onceEvery = lila.memo.OnceEvery(1 hour)
 
   def apply(game: Game, loser: Color): Fu[Boolean] =
     game.rated ?? {
@@ -30,11 +32,13 @@ final private class SandbagWatch(
     }
 
   private def sendMessage(userId: User.ID): Funit =
-    userRepo byId userId flatMap {
-      _ ?? { u =>
-        lila.common.Bus
-          .publish(lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sandbagAuto.name), "autoWarning")
-        messenger.postPreset(u, MsgPreset.sandbagAuto).void
+    onceEvery(userId) ?? {
+      userRepo byId userId flatMap {
+        _ ?? { u =>
+          lila.common.Bus
+            .publish(lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sandbagAuto.name), "autoWarning")
+          messenger.postPreset(u, MsgPreset.sandbagAuto).void
+        }
       }
     }
 
