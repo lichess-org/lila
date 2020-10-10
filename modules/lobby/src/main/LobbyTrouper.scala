@@ -3,7 +3,6 @@ package lila.lobby
 import actorApi._
 import cats.implicits._
 import org.joda.time.DateTime
-import scala.annotation.nowarn
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
@@ -169,7 +168,7 @@ final private class LobbyTrouper(
   private object recentlyAbortedUserIdPairs {
     private val cache                                     = new lila.memo.ExpireSetMemo(1 hour)
     private def makeKey(u1: User.ID, u2: User.ID): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
-    @nowarn("cat=unused") def register(g: Game) =
+    def register(g: Game) =
       for {
         w <- g.whitePlayer.userId
         b <- g.blackPlayer.userId
