@@ -5,15 +5,15 @@ import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
 import scala.annotation.nowarn
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.common.{ EmailAddress, HTTPRequest }
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
+import lila.user.User.ClearPassword
 import lila.user.{ User => UserModel, PasswordHasher }
-import UserModel.ClearPassword
-import views._
 
 final class Auth(
     env: Env,
@@ -326,7 +326,7 @@ final class Auth(
                 )
               case _ =>
                 lila.mon.user.auth.passwordResetRequest("noEmail").increment()
-                BadRequest(renderPasswordReset(none, fail = true)).fuccess
+                Redirect(routes.Auth.passwordResetSent(data.realEmail.conceal)).fuccess
             }
         )
     }
