@@ -804,7 +804,7 @@
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
   <string name="rapid">快棋</string>
-  <string name="classical">经典</string>
+  <string name="classical">慢棋</string>
   <string name="ultraBulletDesc">急速对战：少于 30 秒</string>
   <string name="bulletDesc">高速对战：少于 3 分钟</string>
   <string name="blitzDesc">快速对战：3 到 8 分钟</string>
