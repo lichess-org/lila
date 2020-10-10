@@ -407,7 +407,7 @@ final class Auth(
                 }(rateLimitedFu)
               case _ =>
                 lila.mon.user.auth.magicLinkRequest("no_email").increment()
-                BadRequest(renderMagicLink(none, fail = true)).fuccess
+                Redirect(routes.Auth.magicLinkSent(data.realEmail.value)).fuccess
             }
         )
     }
