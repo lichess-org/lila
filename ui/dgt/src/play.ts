@@ -94,38 +94,42 @@ export default function (token: string) {
       console['old' + name] = console[name];
       //Rewire function
       console[name] = function () {
-        var output = "";
-        for (let i = 0; i < arguments.length; i++) {
-          let arg = arguments[i];
-          output += "<span class=\"log-" + (typeof arg) + " log-" + name + "\">";
-          if (
-            typeof arg === "object" &&
-            typeof JSON === "object" &&
-            typeof JSON.stringify === "function"
-          ) {
-            output += JSON.stringify(arg);
+        //Return a promise so execution is not delayed by string manipulation
+        return new Promise(resolve => {
+          var output = "";
+          for (let i = 0; i < arguments.length; i++) {
+            let arg = arguments[i];
+            output += "<span class=\"log-" + (typeof arg) + " log-" + name + "\">";
+            if (
+              typeof arg === "object" &&
+              typeof JSON === "object" &&
+              typeof JSON.stringify === "function"
+            ) {
+              output += JSON.stringify(arg);
+            } else {
+              output += arg;
+            }
+            output += "</span>&nbsp;";
+          }
+          if (output != "*" && output != ":")
+            output += "<br>";
+          if (autoScroll) {
+            const isScrolledToBottom = eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight <= eleOverflowLocator.scrollTop + 1;
+            eleLocator.innerHTML += output;
+            if (isScrolledToBottom) {
+              eleOverflowLocator.scrollTop = eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight;
+            }
           } else {
-            output += arg;
+            eleLocator.innerHTML += output;
           }
-          output += "</span>&nbsp;";
-        }
-        if (output != "*" && output != ":")
-          output += "<br>";
-        if (autoScroll) {
-          const isScrolledToBottom = eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight <= eleOverflowLocator.scrollTop + 1;
-          eleLocator.innerHTML += output;
-          if (isScrolledToBottom) {
-            eleOverflowLocator.scrollTop = eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight;
+          //Call original function
+          try {
+            console['old' + name].apply(undefined, arguments);
+          } catch {
+            console['olderror'].apply(undefined, ['Error when loggin']);
           }
-        } else {
-          eleLocator.innerHTML += output;
-        }
-        //Call original function
-        try {
-          console['old' + name].apply(undefined, arguments);
-        } catch {
-          console['olderror'].apply(undefined, ['Error when loggin']);
-        }
+          resolve();
+        });
       };
     }
   }
