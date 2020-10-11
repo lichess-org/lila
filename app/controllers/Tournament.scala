@@ -264,9 +264,12 @@ final class Tournament(
     key = "tournament.ip"
   )
 
-  private val rateLimitedCreation = fuccess(Redirect(routes.Tournament.home()))
-
-  private[controllers] def rateLimitCreation(me: UserModel, isPrivate: Boolean, req: RequestHeader)(
+  private[controllers] def rateLimitCreation(
+      me: UserModel,
+      isPrivate: Boolean,
+      req: RequestHeader,
+      fail: => Result
+  )(
       create: => Fu[Result]
   ): Fu[Result] = {
     val cost =
@@ -276,13 +279,13 @@ final class Tournament(
         isGranted(_.ManageTournament, me) ||
         me.isVerified ||
         isPrivate
-      ) 10
+      ) 5
       else 20
     CreateLimitPerUser(me.id, cost = cost) {
       CreateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = cost) {
         create
-      }(rateLimitedCreation)
-    }(rateLimitedCreation)
+      }(fail.fuccess)
+    }(fail.fuccess)
   }
 
   def create =
@@ -297,7 +300,7 @@ final class Tournament(
               .fold(
                 err => BadRequest(html.tournament.form.create(err, teams)).fuccess,
                 setup =>
-                  rateLimitCreation(me, setup.isPrivate, ctx.req) {
+                  rateLimitCreation(me, setup.isPrivate, ctx.req, Redirect(routes.Tournament.home())) {
                     api.createTournament(setup, me, teams) map { tour =>
                       Redirect {
                         if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
@@ -326,7 +329,7 @@ final class Tournament(
         .fold(
           jsonFormErrorDefaultLang,
           setup =>
-            rateLimitCreation(me, setup.isPrivate, req) {
+            rateLimitCreation(me, setup.isPrivate, req, rateLimited) {
               env.team.api.lightsByLeader(me.id) flatMap { teams =>
                 api.createTournament(setup, me, teams, andJoin = false) flatMap { tour =>
                   jsonView(
