@@ -94,38 +94,42 @@ export default function (token: string) {
       console['old' + name] = console[name];
       //Rewire function
       console[name] = function () {
-        var output = "";
-        for (let i = 0; i < arguments.length; i++) {
-          let arg = arguments[i];
-          output += "<span class=\"log-" + (typeof arg) + " log-" + name + "\">";
-          if (
-            typeof arg === "object" &&
-            typeof JSON === "object" &&
-            typeof JSON.stringify === "function"
-          ) {
-            output += JSON.stringify(arg);
+        //Return a promise so execution is not delayed by string manipulation
+        return new Promise(resolve => {
+          var output = "";
+          for (let i = 0; i < arguments.length; i++) {
+            let arg = arguments[i];
+            output += "<span class=\"log-" + (typeof arg) + " log-" + name + "\">";
+            if (
+              typeof arg === "object" &&
+              typeof JSON === "object" &&
+              typeof JSON.stringify === "function"
+            ) {
+              output += JSON.stringify(arg);
+            } else {
+              output += arg;
+            }
+            output += "</span>&nbsp;";
+          }
+          if (output != "*" && output != ":")
+            output += "<br>";
+          if (autoScroll) {
+            const isScrolledToBottom = eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight <= eleOverflowLocator.scrollTop + 1;
+            eleLocator.innerHTML += output;
+            if (isScrolledToBottom) {
+              eleOverflowLocator.scrollTop = eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight;
+            }
           } else {
-            output += arg;
+            eleLocator.innerHTML += output;
           }
-          output += "</span>&nbsp;";
-        }
-        if (output != "*" && output != ":")
-          output += "<br>";
-        if (autoScroll) {
-          const isScrolledToBottom = eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight <= eleOverflowLocator.scrollTop + 1;
-          eleLocator.innerHTML += output;
-          if (isScrolledToBottom) {
-            eleOverflowLocator.scrollTop = eleOverflowLocator.scrollHeight - eleOverflowLocator.clientHeight;
+          //Call original function
+          try {
+            console['old' + name].apply(undefined, arguments);
+          } catch {
+            console['olderror'].apply(undefined, ['Error when loggin']);
           }
-        } else {
-          eleLocator.innerHTML += output;
-        }
-        //Call original function
-        try {
-          console['old' + name].apply(undefined, arguments);
-        } catch {
-          console['olderror'].apply(undefined, ['Error when loggin']);
-        }
+          resolve();
+        });
       };
     }
   }
@@ -196,7 +200,10 @@ export default function (token: string) {
     const response = await fetch('/api/stream/event', {
       headers: { 'Authorization': 'Bearer ' + token }
     });
-    const reader = response.body!.pipeThrough(new TextDecoderStream()).getReader();
+    //Sadly TextDecoderStream is not supported on FireFox so a decoder is needed
+    //const reader = response.body!.pipeThrough(new TextDecoderStream()).getReader();
+    const reader = response.body!.getReader();
+    const decoder = new TextDecoder();
     while (true) {
       const { value, done } = await reader.read();
       if (done) break;
@@ -204,7 +211,7 @@ export default function (token: string) {
       //Update connection status
       eventSteamStatus = { connected: true, lastEvent: time.getTime() };
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
-      var jsonArray = (value) ? value.split('\n') : [];
+      var jsonArray = (value) ? decoder.decode(value).split('\n') : [];
       for (let i = 0; i < jsonArray.length; i++) {
         //Skip empty elements that may have happened witht the .split('\n')
         if (jsonArray[i].length > 2) {
@@ -294,7 +301,10 @@ export default function (token: string) {
     const response = await fetch('/api/board/game/stream/' + gameId, {
       headers: { 'Authorization': 'Bearer ' + token }
     });
-    const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
+    //Again, TextDecoderStream is not supported on FireFox
+    //const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
+    const reader = response.body!.getReader();
+    const decoder = new TextDecoder();
     while (reader) { //while (true)
       const { value, done } = await reader.read();
       if (done) break;
@@ -303,7 +313,7 @@ export default function (token: string) {
       //Update connection status
       gameConnectionMap.set(gameId, { connected: true, lastEvent: time.getTime() });
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
-      var jsonArray = value!.split('\n');
+      var jsonArray = decoder.decode(value)!.split('\n');
       for (let i = 0; i < jsonArray.length; i++) {
         //Skip empty elements that may have happened witht the .split('\n')
         if (jsonArray[i].length > 2) {
@@ -1103,7 +1113,7 @@ export default function (token: string) {
     console.log("    '|_.=`   __\\                                                               ");
     console.log("    `\\_..==`` /                 Lichess.org - DGT Electronic Board Connector   ");
     console.log("     .'.___.-'.                Developed by Andres Cavallin and Juan Cavallin  ");
-    console.log("    /          \\                                  v1.0.4                       ");
+    console.log("    /          \\                                  v1.0.5                       ");
     console.log("jgs('--......--')                                                             ");
     console.log("   /'--......--'\\                                                              ");
     console.log("   `\"--......--\"`                                                             ");
