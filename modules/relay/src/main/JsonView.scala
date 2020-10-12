@@ -1,13 +1,21 @@
 package lila.relay
 
+import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.json._
+import scala.concurrent.duration._
 
-import lila.common.Json.jodaWrites
 import lila.common.config.BaseUrl
+import lila.common.Json.jodaWrites
 
-final class JsonView(markup: RelayMarkup, baseUrl: BaseUrl) {
+final class JsonView(baseUrl: BaseUrl) {
 
   import JsonView._
+
+  private val markdown = new lila.common.Markdown
+  private val markdownCache: LoadingCache[String, String] = lila.memo.CacheApi.scaffeineNoScheduler
+    .expireAfterAccess(10 minutes)
+    .maximumSize(64)
+    .build(markdown.apply)
 
   implicit private val relayWrites = OWrites[Relay] { r =>
     Json
@@ -18,7 +26,7 @@ final class JsonView(markup: RelayMarkup, baseUrl: BaseUrl) {
         "description" -> r.description
       )
       .add("credit", r.credit)
-      .add("markup" -> r.markup.map(markup.apply))
+      .add("markup" -> r.markup.map(markdownCache.get))
       .add("startsAt" -> r.startsAt)
       .add("startedAt" -> r.startedAt)
       .add("official" -> r.official.option(true))

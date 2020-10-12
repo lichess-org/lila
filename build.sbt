@@ -98,7 +98,7 @@ lazy val coordinate = smallModule("coordinate",
 
 lazy val blog = module("blog",
   Seq(common, memo, timeline),
-  Seq(prismic, specs2) ++ flexmark.bundle ++ reactivemongo.bundle
+  Seq(prismic, specs2) ++ reactivemongo.bundle
 )
 
 lazy val evaluation = module("evaluation",
@@ -110,7 +110,8 @@ lazy val common = smallModule("common",
   Seq(),
   Seq(
     scalalib, chess, autoconfig,
-    kamon.core, scalatags, jodaForms, scaffeine, specs2, apacheText) ++ reactivemongo.bundle
+    kamon.core, scalatags, jodaForms, scaffeine, specs2, apacheText
+  ) ++ reactivemongo.bundle ++ flexmark.bundle
 )
 
 lazy val rating = module("rating",
@@ -285,7 +286,7 @@ lazy val study = module("study",
 
 lazy val relay = module("relay",
   Seq(common, study),
-  Seq(scalaUri) ++ flexmark.bundle ++ reactivemongo.bundle
+  Seq(scalaUri) ++ reactivemongo.bundle
 )
 
 lazy val studySearch = module("studySearch",
@@ -365,7 +366,7 @@ lazy val teamSearch = module("teamSearch",
 
 lazy val clas = module("clas",
   Seq(common, memo, db, user, security, msg, history, puzzle),
-  flexmark.bundle ++ reactivemongo.bundle
+  reactivemongo.bundle
 )
 
 lazy val bookmark = module("bookmark",
