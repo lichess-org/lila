@@ -54,6 +54,7 @@
   <string name="computerAnalysis">ilo sona li lukin e musi</string>
   <string name="computerAnalysisAvailable">ilo sona li ken pana e sona musi</string>
   <string name="analysis">sona musi</string>
+  <string name="usingServerAnalysis">kepeken ilo pana pi lipu sona</string>
   <string name="loadingEngine">ilo lawa li kama...</string>
   <string name="goDeeper">tawa anpa</string>
   <string name="showThreat">lukin e nasin moli</string>
