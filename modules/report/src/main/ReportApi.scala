@@ -74,7 +74,7 @@ final class ReportApi(
                   Bus.publish(lila.hub.actorApi.report.CheatReportCreated(report.user), "cheatReport")
               }
           } >>-
-          nbOpenCache.invalidateUnit()
+          maxScoreCache.invalidateUnit()
       }
     }
 
@@ -260,7 +260,7 @@ final class ReportApi(
         }
         accuracy.invalidate(reportSelector) >>
           doProcessReport(reportSelector, mod.id).void >>-
-          nbOpenCache.invalidateUnit() >>-
+          maxScoreCache.invalidateUnit() >>-
           lila.mon.mod.report.close.increment().unit
       }
 
@@ -314,16 +314,24 @@ final class ReportApi(
   private def selectOpenAvailableInRoom(room: Option[Room]) =
     selectOpenInRoom(room) ++ $doc("inquiry" $exists false)
 
-  private val nbOpenCache = cacheApi.unit[Int] {
+  private val maxScoreCache = cacheApi.unit[Int] {
     _.refreshAfterWrite(5 minutes)
       .buildAsyncFuture { _ =>
-        coll
-          .countSel(selectOpenAvailableInRoom(none))
+        coll // hits the best_open partial index
+          .primitiveOne[Int](
+            $doc(
+              "open" -> true,
+              "room" $in List(Room.Cheat, Room.Print, Room.Comm, Room.Other).flatMap(RoomBSONHandler.writeOpt)
+            ),
+            $sort desc "score",
+            "score"
+          )
+          .dmap(~_)
           .addEffect(lila.mon.mod.report.unprocessed.update(_).unit)
       }
   }
 
-  def nbOpen = nbOpenCache.getUnit
+  def maxScore = maxScoreCache.getUnit
 
   def recent(
       suspect: Suspect,

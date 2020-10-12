@@ -86,6 +86,19 @@
     height: inherit;
     line-height: inherit;
   }
+
+  .report-score {
+    &--low::after,
+    &--mid::after {
+      background: $c-bg-page;
+      color: $c-good;
+      text-shadow: none;
+      font-weight: normal;
+    }
+    &--mid::after {
+      color: $c-brag;
+    }
+  }
 }
 
 #user_tag {
