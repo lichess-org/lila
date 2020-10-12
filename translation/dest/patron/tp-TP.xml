@@ -2,6 +2,7 @@
 <resources>
   <string name="donate">o pana e mani</string>
   <string name="lifetime">tenpo kama ali</string>
+  <string name="monthly">wan lon tenpo mun</string>
   <string name="onetime">tenpo wan</string>
   <string name="otherAmount">ante</string>
   <string name="withPaypal">ilo PayPal</string>
