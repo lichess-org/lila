@@ -6,7 +6,6 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.markdownLinksOrRichText
 
 object event {
 
@@ -47,7 +46,7 @@ object event {
         h1(dataIcon := "", cls := "text")(e.title),
         h2(cls := "headline")(e.headline),
         e.description.map { d =>
-          p(cls := "desc")(markdownLinksOrRichText(d))
+          p(cls := "desc")(views.html.base.markdown(d))
         },
         if (e.isFinished) p(cls := "desc")("The event is finished.")
         else if (e.isNow) a(href := e.url, cls := "button button-fat")(trans.eventInProgress())
@@ -126,8 +125,8 @@ object event {
         help = raw("Keep it VERY short, so it fits on homepage").some
       )(form3.input(_)),
       form3
-        .group(form("description"), raw("Possibly long description"), help = raw("Link: [text](url)").some)(
-          form3.textarea(_)()
+        .group(form("description"), raw("Possibly long description"), help = raw("Markdown enabled").some)(
+          form3.textarea(_)(rows := 15)
         ),
       form3.group(
         form("url"),
