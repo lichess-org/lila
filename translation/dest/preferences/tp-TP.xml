@@ -21,5 +21,12 @@
   <string name="gameBehavior">nasin pali musi</string>
   <string name="howDoYouMovePieces">sina tawa seme e ijo?</string>
   <string name="clickTwoSquares">o pilin e selo tu</string>
+  <string name="dragPiece">o tawa e ijo</string>
   <string name="bothClicksAndDrag">ale</string>
+  <string name="premovesPlayingDuringOpponentTurn">tawa lon tenpo kama (sina tawa e ijo tenpo sama la jan ante li musi) </string>
+  <string name="takebacksWithOpponentApproval">o weka e tawa (la jan ante li pilin pona)</string>
+  <string name="inCasualGamesOnly">taso lon musi pi nanpa ala</string>
+  <string name="promoteToQueenAutomatically">o kama e lawa meli la ilo sona li tawa</string>
+  <string name="whenPremoving">tenpo sama la jan li pilin e tawa pi tenpo kama</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">tawa li sama lon tawa tu wan la o sama e musi</string>
 </resources>
