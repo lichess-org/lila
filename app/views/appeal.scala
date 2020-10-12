@@ -80,11 +80,11 @@ object appeal {
   def queue(
       appeals: List[Appeal],
       inquiries: Map[User.ID, Inquiry],
-      counts: lila.report.Room.Counts,
+      scores: lila.report.Room.Scores,
       streamers: Int,
       nbAppeals: Int
   )(implicit ctx: Context) =
-    views.html.report.list.layout("appeal", counts, streamers, nbAppeals)(
+    views.html.report.list.layout("appeal", scores, streamers, nbAppeals)(
       table(cls := "slist slist-pad see appeal-queue")(
         thead(
           tr(

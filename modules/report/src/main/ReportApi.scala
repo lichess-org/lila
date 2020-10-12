@@ -1,14 +1,14 @@
 package lila.report
 
+import com.softwaremill.macwire._
+import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import com.softwaremill.macwire._
 import lila.common.Bus
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
-import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
 
 final class ReportApi(
     val coll: Coll,
@@ -276,7 +276,7 @@ final class ReportApi(
       )
       .void
 
-  def autoInsultReport(userId: String, text: String, major: Boolean): Funit =
+  def autoInsultReport(userId: String, text: String): Funit =
     getSuspect(userId) zip getLichessReporter flatMap {
       case (Some(suspect), reporter) =>
         create(
@@ -286,7 +286,7 @@ final class ReportApi(
             reason = Reason.Comm,
             text = text
           ),
-          score => if (major) Report.Score(score.value atLeast thresholds.score()) else score
+          score => score
         )
       case _ => funit
     }
@@ -299,39 +299,46 @@ final class ReportApi(
       )
       .void
 
-  private val closedSelect: Bdoc   = $doc("open" -> false)
-  private def scoreThresholdSelect = $doc("score" $gte thresholds.score())
-  private val sortLastAtomAt       = $doc("atoms.0.at" -> -1)
+  private val closedSelect: Bdoc = $doc("open" -> false)
+  private val sortLastAtomAt     = $doc("atoms.0.at" -> -1)
 
   private def roomSelect(room: Option[Room]): Bdoc =
-    room.fold($doc("room" $ne Room.Xfiles.key)) { r =>
+    room.fold($doc("room" $in Room.allButXfiles)) { r =>
       $doc("room" -> r)
     }
 
   private def selectOpenInRoom(room: Option[Room]) =
-    $doc("open" -> true) ++ roomSelect(room) ++ scoreThresholdSelect
+    $doc("open" -> true) ++ roomSelect(room)
 
   private def selectOpenAvailableInRoom(room: Option[Room]) =
     selectOpenInRoom(room) ++ $doc("inquiry" $exists false)
 
-  private val maxScoreCache = cacheApi.unit[Int] {
+  private val maxScoreCache = cacheApi.unit[Room.Scores] {
     _.refreshAfterWrite(5 minutes)
       .buildAsyncFuture { _ =>
-        coll // hits the best_open partial index
-          .primitiveOne[Int](
-            $doc(
-              "open" -> true,
-              "room" $in List(Room.Cheat, Room.Print, Room.Comm, Room.Other).flatMap(RoomBSONHandler.writeOpt)
-            ),
-            $sort desc "score",
-            "score"
-          )
-          .dmap(~_)
-          .addEffect(lila.mon.mod.report.unprocessed.update(_).unit)
+        Room.all
+          .map { room =>
+            coll // hits the best_open partial index
+              .primitiveOne[Float](
+                selectOpenAvailableInRoom(room.some),
+                $sort desc "score",
+                "score"
+              )
+              .dmap(room -> _)
+          }
+          .sequenceFu
+          .dmap { scores =>
+            Room.Scores(scores.map { case (room, s) =>
+              room -> s.??(_.toInt)
+            }.toMap)
+          }
+          .addEffect { scores =>
+            lila.mon.mod.report.highest.update(scores.highest).unit
+          }
       }
   }
 
-  def maxScore = maxScoreCache.getUnit
+  def maxScores = maxScoreCache.getUnit
 
   def recent(
       suspect: Suspect,
@@ -407,7 +414,7 @@ final class ReportApi(
     findBest(1, selectOpenAvailableInRoom(room.some)).map(_.headOption)
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
-    userRepo byIdsSecondary (reports.map(_.user).distinct) map { users =>
+    userRepo byIdsSecondary reports.map(_.user).distinct map { users =>
       reports
         .flatMap { r =>
           users.find(_.id == r.user) map { u =>
@@ -461,22 +468,6 @@ final class ReportApi(
         }
         .void
   }
-
-  def countOpenByRooms: Fu[Room.Counts] =
-    coll
-      .aggregateList(maxDocs = 100) { framework =>
-        import framework._
-        Match(selectOpenAvailableInRoom(none)) -> List(
-          GroupField("room")("nb" -> SumAll)
-        )
-      }
-      .map { docs =>
-        Room.Counts(docs.flatMap { doc =>
-          doc.string("_id") flatMap Room.apply flatMap { room =>
-            doc.int("nb") map { room -> _ }
-          }
-        }.toMap)
-      }
 
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] =
     (nb > 0) ?? coll.find(selector).sort(sortLastAtomAt).cursor[Report]().list(nb)

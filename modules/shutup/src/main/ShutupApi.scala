@@ -46,8 +46,7 @@ final class ShutupApi(
       text: String,
       textType: TextType,
       source: Option[PublicSource] = None,
-      toUserId: Option[User.ID] = None,
-      major: Boolean = false
+      toUserId: Option[User.ID] = None
   ): Funit =
     userRepo isTroll userId flatMap {
       case true => funit
@@ -79,29 +78,28 @@ final class ShutupApi(
               )
               .flatMap {
                 case None             => fufail(s"can't find user record for $userId")
-                case Some(userRecord) => legiferate(userRecord, major)
+                case Some(userRecord) => legiferate(userRecord)
               }
               .recover(lila.db.ignoreDuplicateKey)
         }
     }
 
-  private def legiferate(userRecord: UserRecord, major: Boolean): Funit = {
-    major || userRecord.reports.exists(_.unacceptable)
-  } ?? {
-    reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, reportText(userRecord), major)
-    coll.update
-      .one(
-        $id(userRecord.userId),
-        $unset(
-          TextType.PublicForumMessage.key,
-          TextType.TeamForumMessage.key,
-          TextType.PrivateMessage.key,
-          TextType.PrivateChat.key,
-          TextType.PublicChat.key
+  private def legiferate(userRecord: UserRecord): Funit =
+    userRecord.reports.exists(_.unacceptable) ?? {
+      reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, reportText(userRecord))
+      coll.update
+        .one(
+          $id(userRecord.userId),
+          $unset(
+            TextType.PublicForumMessage.key,
+            TextType.TeamForumMessage.key,
+            TextType.PrivateMessage.key,
+            TextType.PrivateChat.key,
+            TextType.PublicChat.key
+          )
         )
-      )
-      .void
-  }
+        .void
+    }
 
   private def reportText(userRecord: UserRecord) =
     userRecord.reports
