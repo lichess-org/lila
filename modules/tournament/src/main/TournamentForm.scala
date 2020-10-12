@@ -59,7 +59,7 @@ final class TournamentForm {
       hasChat = tour.hasChat.some
     )
 
-  private val nameType = clean(text).verifying(
+  private def nameType(user: User) = clean(text).verifying(
     Constraints minLength 2,
     Constraints maxLength 30,
     Constraints.pattern(
@@ -67,7 +67,7 @@ final class TournamentForm {
       error = "error.unknown"
     ),
     Constraint[String] { (t: String) =>
-      if (t.toLowerCase contains "lichess")
+      if (t.toLowerCase.contains("lichess") && !user.isVerified && !user.isAdmin)
         validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
       else validation.Valid
     }
@@ -76,7 +76,7 @@ final class TournamentForm {
   private def form(user: User, leaderTeams: List[LeaderTeam]) =
     Form(
       mapping(
-        "name"           -> optional(nameType),
+        "name"           -> optional(nameType(user)),
         "clockTime"      -> numberInDouble(clockTimeChoices),
         "clockIncrement" -> numberIn(clockIncrementChoices),
         "minutes" -> {
