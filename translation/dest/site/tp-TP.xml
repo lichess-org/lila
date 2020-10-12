@@ -59,6 +59,9 @@
   <string name="goDeeper">tawa anpa</string>
   <string name="showThreat">lukin e nasin moli</string>
   <string name="inLocalBrowser">insa ilo sona pi jan ni</string>
+  <string name="toggleLocalEvaluation">o lon e kama sona musi lon ilo lukin ni</string>
+  <string name="promoteVariation">o lawa e nasin lili</string>
+  <string name="makeMainLine">o lawa e linja nasin</string>
   <string name="deleteFromHere">o weka tan ni</string>
   <string name="move">pali</string>
   <string name="variantLoss">pini ike pi musi ante</string>
