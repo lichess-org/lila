@@ -1,11 +1,11 @@
 package views.html.report
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.report.Report.WithSuspect
-
-import controllers.routes
 
 object list {
 
@@ -61,19 +61,19 @@ object list {
                 td(
                   r.inquiry match {
                     case None =>
-                      frag(
-                        if (r.processedBy.isDefined)
-                          postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
-                            submitButton(dataIcon := "G", cls := "text button button-metal")("Reopen")
-                          )
-                        else
+                      if (r.processedBy.isDefined)
+                        postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
+                          submitButton(dataIcon := "G", cls := "text button button-metal")("Reopen")
+                        )
+                      else
+                        frag(
                           postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
                             submitButton(dataIcon := "G", cls := "button button-metal")
                           ),
-                        postForm(action := routes.Report.process(r.id), cls := "cancel")(
-                          submitButton(cls := "button button-thin button-empty")("Dismiss")
+                          postForm(action := routes.Report.process(r.id), cls := "cancel")(
+                            submitButton(cls := "button button-thin button-empty")("Dismiss")
+                          )
                         )
-                      )
                     case Some(inquiry) =>
                       frag(
                         "Open by ",
