@@ -79,6 +79,11 @@ object SettingStore {
     implicit val userIdsBsonHandler = lila.db.dsl.isoHandler(userIdsIso)
     implicit val userIdsReader      = StringReader.fromIso(userIdsIso)
   }
+  object Ints {
+    val intsIso                  = lila.common.Iso.ints(",")
+    implicit val intsBsonHandler = lila.db.dsl.isoHandler(intsIso)
+    implicit val intsReader      = StringReader.fromIso(intsIso)
+  }
   object Regex {
     val regexIso                  = lila.common.Iso.string[Regex](_.r, _.toString)
     implicit val regexBsonHandler = lila.db.dsl.isoHandler(regexIso)

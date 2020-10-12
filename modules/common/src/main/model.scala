@@ -121,6 +121,7 @@ object Domain {
 
 case class Strings(value: List[String]) extends AnyVal
 case class UserIds(value: List[String]) extends AnyVal
+case class Ints(value: List[Int])       extends AnyVal
 
 case class Every(value: FiniteDuration)  extends AnyVal
 case class AtMost(value: FiniteDuration) extends AnyVal

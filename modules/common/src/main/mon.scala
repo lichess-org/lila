@@ -239,7 +239,7 @@ object mon {
   }
   object mod {
     object report {
-      val unprocessed            = gauge("mod.report.unprocessed").withoutTags()
+      val highest                = gauge("mod.report.highest").withoutTags()
       val close                  = counter("mod.report.close").withoutTags()
       def create(reason: String) = counter("mod.report.create").withTag("reason", reason)
     }

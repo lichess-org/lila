@@ -15,8 +15,6 @@ private class ReportConfig(
     @ConfigName("actor.name") val actorName: String
 )
 
-private case class Thresholds(score: () => Int, slack: () => Int)
-
 @Module
 final class Env(
     appConfig: Configuration,
@@ -43,20 +41,12 @@ final class Env(
 
   private lazy val reportColl = db(config.reportColl)
 
-  lazy val scoreThresholdSetting = settingStore[Int](
-    "reportScoreThreshold",
-    default = config.scoreThreshold,
-    text = "Report score threshold. Reports with lower scores are concealed to moderators".some
-  )
+  lazy val scoreThresholdsSetting = ReportThresholds makeScoreSetting settingStore
 
-  lazy val slackScoreThresholdSetting = settingStore[Int](
-    "slackScoreThreshold",
-    default = 80,
-    text = "Slack score threshold. Comm reports with higher scores are notified in slack".some
-  )
+  lazy val slackScoreThresholdSetting = ReportThresholds makeSlackSetting settingStore
 
   private val thresholds = Thresholds(
-    score = scoreThresholdSetting.get _,
+    score = scoreThresholdsSetting.get _,
     slack = slackScoreThresholdSetting.get _
   )
 
@@ -74,8 +64,8 @@ final class Env(
       def receive = {
         case lila.hub.actorApi.report.Cheater(userId, text) =>
           api.autoCheatReport(userId, text).unit
-        case lila.hub.actorApi.report.Shutup(userId, text, major) =>
-          api.autoInsultReport(userId, text, major).unit
+        case lila.hub.actorApi.report.Shutup(userId, text) =>
+          api.autoInsultReport(userId, text).unit
         case lila.hub.actorApi.report.Booster(winnerId, loserId) =>
           api.autoBoostReport(winnerId, loserId).unit
       }
