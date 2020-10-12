@@ -28,7 +28,7 @@ object event {
             span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt))
           ),
           st.form(cls := "box__top__actions", action := routes.Event.cloneE(event.id), method := "get")(
-            form3.submit("Clone", "".some, klass = "button-green")
+            form3.submit("Clone", "".some, klass = "button-green button-empty")
           )
         ),
         standardFlash(),
@@ -43,10 +43,15 @@ object event {
       moreJs = jsTag("event-countdown.js")
     ) {
       main(cls := "page-small event box box-pad")(
-        h1(dataIcon := "", cls := "text")(e.title),
-        h2(cls := "headline")(e.headline),
+        div(cls := "box__top")(
+          iconTag(""),
+          div(
+            h1(e.title),
+            strong(cls := "headline")(e.headline)
+          )
+        ),
         e.description.map { d =>
-          p(cls := "desc")(views.html.base.markdown(d))
+          div(cls := "desc")(views.html.base.markdown(d))
         },
         if (e.isFinished) p(cls := "desc")("The event is finished.")
         else if (e.isNow) a(href := e.url, cls := "button button-fat")(trans.eventInProgress())

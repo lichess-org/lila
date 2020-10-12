@@ -1,12 +1,27 @@
 .event {
-  h2 {
+  .box__top {
+    justify-content: normal;
+
+    i {
+      font-size: 6em;
+      margin-right: 3rem;
+    }
+
+    h1 {
+      letter-spacing: .5ch;
+    }
+  }
+
+  .headline {
     font-size: 1.5em;
-    margin-top: 3em;
-    text-align: center;
+    display: block;
+    margin-top: .5em;
+    letter-spacing: .5ch;
+    font-weight: normal;
   }
 
   .desc {
-    margin-top: 4em;
+    margin-top: 3em;
 
     img {
       max-width: 100%;
