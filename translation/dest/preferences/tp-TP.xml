@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">wile sina pi lipu ni</string>
+  <string name="gameDisplay">lukin musi</string>
+  <string name="pieceAnimation">lukin tawa ijo</string>
+  <string name="materialDifference">ante pi nanpa ijo</string>
   <string name="boardHighlights">o lukin e pali pini</string>
   <string name="pieceDestinations">o lukin e pali ken</string>
   <string name="boardCoordinates" comment="boardCoordinates&#10;&#10;Coordinates are always the Latin A-H.">o lukin e nimi pi lon mute</string>
   <string name="moveListWhilePlaying">lipu pi pali pi musi ni</string>
+  <string name="chessPieceSymbol">sitelen pi ijo musi</string>
   <string name="zenMode">nasin pi pilin pona</string>
+  <string name="displayBoardResizeHandle">o lukin e ilo pi ante pi suli supa </string>
+  <string name="onlyOnInitialPosition">taso lon lon open</string>
+  <string name="blindfoldChess">ijo musi pi lukin ala</string>
   <string name="chessClock">ilo tenpo</string>
   <string name="tenthsOfSeconds">tenpo lili kipisi pi luka luka</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.">tenpo lili awen li luka luka anu mute lili la</string>
   <string name="horizontalGreenProgressBars">laso jelo</string>
   <string name="soundWhenTimeGetsCritical">tenpo li lili la o kalama</string>
+  <string name="giveMoreTime">o pana e tenpo</string>
+  <string name="gameBehavior">nasin pali musi</string>
+  <string name="howDoYouMovePieces">sina tawa seme e ijo?</string>
+  <string name="clickTwoSquares">o pilin e selo tu</string>
+  <string name="dragPiece">o tawa e ijo</string>
   <string name="bothClicksAndDrag">ale</string>
+  <string name="premovesPlayingDuringOpponentTurn">tawa lon tenpo kama (sina tawa e ijo tenpo sama la jan ante li musi) </string>
+  <string name="takebacksWithOpponentApproval">o weka e tawa (la jan ante li pilin pona)</string>
+  <string name="inCasualGamesOnly">taso lon musi pi nanpa ala</string>
+  <string name="promoteToQueenAutomatically">o kama e lawa meli la ilo sona li tawa</string>
+  <string name="whenPremoving">tenpo sama la jan li pilin e tawa pi tenpo kama</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically" comment="claimDrawOnThreefoldRepetitionAutomatically&#10;&#10;Please remember that &quot;threefold repetition&quot; is not a repetition of moves, but a repetition of positions.">tawa li sama lon tawa tu wan la o sama e musi</string>
+  <string name="moveConfirmation">sina wile tawa la o sina wile toki e ni pi tenpo tu</string>
+  <string name="confirmResignationAndDrawOffers">o toki e ni: sina wile pini ike anu sina wile sama e musi. </string>
+  <string name="castleByMovingTwoSquares">o tawa e lawa mije lon ma pi weka tu</string>
+  <string name="inputMovesWithTheKeyboard">ilo sitelen la sina sitelen e pali</string>
+  <string name="yourPreferencesHaveBeenSaved">wile sina li pilin pona. </string>
 </resources>
