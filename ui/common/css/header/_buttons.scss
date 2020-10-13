@@ -88,8 +88,7 @@
   }
 
   .report-score {
-    &--low::after,
-    &--mid::after {
+    &:not(.report-score--high)::after {
       background: $c-bg-page;
       color: $c-good;
       text-shadow: none;
