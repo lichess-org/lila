@@ -1,7 +1,7 @@
 package lila.api
 
-import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
+import play.api.mvc.RequestHeader
 
 import lila.common.{ HTTPRequest, Nonce }
 import lila.pref.Pref
@@ -64,9 +64,10 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def currentSoundSet = lila.pref.SoundSet(pref.soundSet)
 
-  lazy val currentBg = if (pref.transp) "transp" else if (pref.dark) "dark" else "light"
-
-  def transpBgImg = currentBg == "transp" option pref.bgImgOrDefault
+  lazy val currentBg =
+    if (pref.bg == Pref.Bg.TRANSPARENT) "transp"
+    else if (pref.bg == Pref.Bg.LIGHT) "light"
+    else "dark"
 
   lazy val mobileApiVersion = Mobile.Api requestVersion req
 

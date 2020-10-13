@@ -1,0 +1,23 @@
+@if $theme-dark {
+  body.dark-board {
+    --dark-factor: 0.4;
+
+    cg-board {
+      background-color: rgba(0, 0, 0, var(--dark-factor));
+      background-blend-mode: darken;
+    }
+
+    &.coords-in coord {
+      color: #fff !important;
+      opacity: calc(1 - var(--dark-factor));
+    }
+
+    cg-board square {
+      opacity: calc(1 - var(--dark-factor));
+    }
+
+    cg-board piece {
+      filter: brightness(calc(1 - 0.6 * var(--dark-factor)));
+    }
+  }
+}

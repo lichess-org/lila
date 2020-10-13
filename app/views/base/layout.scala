@@ -221,7 +221,7 @@ object layout {
             rel := "alternate",
             st.title := trans.blog.txt()
           ),
-          ctx.transpBgImg map { img =>
+          ctx.currentBg == "transp" option ctx.pref.bgImgOrDefault map { img =>
             raw(
               s"""<style id="bg-data">body.transp::before{background-image:url('$img');}</style>"""
             )
@@ -233,6 +233,7 @@ object layout {
         st.body(
           cls := List(
             s"${ctx.currentBg} ${ctx.currentTheme.cssClass} ${ctx.currentTheme3d.cssClass} ${ctx.currentPieceSet3d.toString} coords-${ctx.pref.coordsClass}" -> true,
+            "dark-board"                                                                                                                                     -> (ctx.pref.bg == lila.pref.Pref.Bg.DARKBOARD),
             "piece-letter"                                                                                                                                   -> ctx.pref.pieceNotationIsLetter,
             "zen"                                                                                                                                            -> ctx.pref.isZen,
             "blind-mode"                                                                                                                                     -> ctx.blind,
