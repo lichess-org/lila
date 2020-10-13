@@ -32,7 +32,7 @@ build() {
   set -ev
   if [[ $1 == "css" ]]; then
     cd ui
-    gulp "css-$target"
+    yarn run gulp "css-$target"
   else
     cd ui/$1
     yarn run $target
