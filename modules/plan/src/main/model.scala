@@ -99,12 +99,12 @@ case class StripeCharge(id: ChargeId, amount: Cents, customer: CustomerId) {
 case class StripeInvoice(
     id: Option[String],
     amount_due: Int,
-    date: Long,
+    created: Long,
     paid: Boolean
 ) {
   def cents    = Cents(amount_due)
   def usd      = cents.usd
-  def dateTime = new DateTime(date * 1000)
+  def dateTime = new DateTime(created * 1000)
 }
 
 case class StripeCompletedSession(
