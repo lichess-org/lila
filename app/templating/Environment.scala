@@ -46,8 +46,11 @@ object Environment
 
   def isChatPanicEnabled = env.chat.panic.enabled
 
-  def blockingReportMaxScore: Int =
-    env.report.api.maxScores.dmap(_.highest).awaitOrElse(50.millis, "nbReports", 0)
+  def blockingReportScores: (Int, Int, Int) = (
+    env.report.api.maxScores.dmap(_.highest).awaitOrElse(50.millis, "nbReports", 0),
+    env.report.scoreThresholdsSetting.get().mid,
+    env.report.scoreThresholdsSetting.get().high
+  )
 
   val spinner: Frag = raw(
     """<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>"""

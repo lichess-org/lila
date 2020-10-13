@@ -293,18 +293,20 @@ object layout {
 
     private def reports(implicit ctx: Context) =
       isGranted(_.SeeReport) option {
-        val score = blockingReportMaxScore
-        a(
-          cls := List(
-            "link data-count report-score link-center" -> true,
-            "report-score--high"                       -> (score > 50),
-            "report-score--low"                        -> (score <= 40)
-          ),
-          title := "Moderation",
-          href := routes.Report.list(),
-          dataCount := score,
-          dataIcon := ""
-        )
+        blockingReportScores match {
+          case (score, mid, high) =>
+            a(
+              cls := List(
+                "link data-count report-score link-center" -> true,
+                "report-score--high"                       -> (score > high),
+                "report-score--low"                        -> (score <= mid)
+              ),
+              title := "Moderation",
+              href := routes.Report.list(),
+              dataCount := score,
+              dataIcon := ""
+            )
+        }
       }
 
     private def teamRequests(implicit ctx: Context) =
