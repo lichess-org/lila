@@ -95,7 +95,7 @@
       font-weight: normal;
     }
     &--low::after {
-      color: $c-good;
+      color: $c-good !important;
     }
   }
 }
