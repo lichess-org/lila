@@ -44,7 +44,9 @@ const spamRegex = new RegExp([
 ).join('|'));
 
 const suspLink = (txt: string) => !!txt.match(spamRegex);
-const followMe = (txt: string) => txt.toLowerCase().includes('follow me');
+
+const followMeRegex = /follow me|join my team/i;
+const followMe = (txt: string) => !!txt.match(followMeRegex);
 
 const teamUrlRegex = /lichess\.org\/team\//i;
 export const hasTeamUrl = (txt: string) => !!txt.match(teamUrlRegex);
