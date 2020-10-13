@@ -3,6 +3,8 @@ package lila.pref
 import play.api.data._
 import play.api.data.Forms._
 
+import lila.common.Form.{ numberIn, stringIn }
+
 object PrefForm {
 
   private def containedIn(choices: Seq[(Int, String)]): Int => Boolean =
@@ -17,7 +19,7 @@ object PrefForm {
   val pref = Form(
     mapping(
       "display" -> mapping(
-        "animation"     -> number.verifying(Set(0, 1, 2, 3) contains _),
+        "animation"     -> numberIn(Set(0, 1, 2, 3)),
         "captured"      -> booleanNumber,
         "highlight"     -> booleanNumber,
         "destination"   -> booleanNumber,
@@ -29,7 +31,7 @@ object PrefForm {
         "blindfold"     -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(DisplayData.unapply),
       "behavior" -> mapping(
-        "moveEvent"     -> optional(number.verifying(Set(0, 1, 2) contains _)),
+        "moveEvent"     -> optional(numberIn(Set(0, 1, 2))),
         "premove"       -> booleanNumber,
         "takeback"      -> checkedNumber(Pref.Takeback.choices),
         "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices),
@@ -49,7 +51,7 @@ object PrefForm {
       "challenge"    -> checkedNumber(Pref.Challenge.choices),
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
-      "insightShare" -> number.verifying(Set(0, 1, 2) contains _)
+      "insightShare" -> numberIn(Set(0, 1, 2))
     )(PrefData.apply)(PrefData.unapply)
   )
 
@@ -203,7 +205,7 @@ object PrefForm {
 
   val bg = Form(
     single(
-      "bg" -> text.verifying(List("light", "dark", "transp") contains _)
+      "bg" -> stringIn(Set("light", "dark", "darkBoard", "transp"))
     )
   )
 

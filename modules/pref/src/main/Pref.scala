@@ -62,7 +62,7 @@ case class Pref(
 
   def set(name: String, value: String): Option[Pref] =
     name match {
-      case "bg"    => value.toIntOption.map { bg => copy(bg = bg) }
+      case "bg"    => Pref.Bg.fromString.get(value).map { bg => copy(bg = bg) }
       case "bgImg" => copy(bgImg = value.some).some
       case "theme" =>
         Theme.allByName get value map { t =>

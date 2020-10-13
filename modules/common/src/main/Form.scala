@@ -46,6 +46,9 @@ object Form {
   def numberIn(choices: Options[Int]) =
     number.verifying(hasKey(choices, _))
 
+  def numberIn(choices: Set[Int]) =
+    number.verifying(choices.contains _)
+
   def numberIn(choices: Seq[Int]) =
     number.verifying(choices.contains _)
 
@@ -59,6 +62,9 @@ object Form {
 
   def stringIn(choices: Options[String]) =
     text.verifying(hasKey(choices, _))
+
+  def stringIn(choices: Set[String]) =
+    text.verifying(choices.contains _)
 
   def tolerantBoolean = of[Boolean](formatter.tolerantBooleanFormatter)
 

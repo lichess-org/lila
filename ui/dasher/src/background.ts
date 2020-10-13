@@ -29,6 +29,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
   const list: Background[] = [
     { key: 'light', name: trans.noarg('light') },
     { key: 'dark', name: trans.noarg('dark') },
+    { key: 'darkBoard', name: 'Dark Board' },
     { key: 'transp', name: trans.noarg('transparent') }
   ];
 
@@ -103,17 +104,21 @@ function imageInput(ctrl: BackgroundCtrl) {
 function applyBackground(data: BackgroundData, list: Background[]) {
 
   const key = data.current;
+  const cls = key == 'transp' ? 'dark transp' : (
+    key == 'darkBoard' ? 'dark dark-board' : key
+  )
 
   $('body')
-    .removeClass(list.map(b => b.key).join(' '))
-    .addClass(key === 'transp' ? 'transp dark' : key);
+    .removeClass([...list.map(b => b.key), 'dark-board'].join(' '))
+    .addClass(cls);
 
-  const prev = $('body').data('theme');
-  $('body').data('theme', key);
+  const prev = $('body').data('theme'),
+    theme = key == 'darkBoard' ? 'dark' : key;
+  $('body').data('theme', theme);
   $('link[href*=".' + prev + '."]').each(function(this: HTMLLinkElement) {
     var link = document.createElement('link') as HTMLLinkElement;
     link.rel = 'stylesheet';
-    link.href = this.href.replace('.' + prev + '.', '.' + key + '.');
+    link.href = this.href.replace('.' + prev + '.', '.' + theme + '.');
     link.onload = () => setTimeout(() => this.remove(), 100);
     document.head.appendChild(link);
   });
