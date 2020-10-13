@@ -52,11 +52,16 @@ final private class StripeClient(
       "description" -> user.username
     )
 
-  def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
-    getOne[StripeCustomer](
-      s"customers/${id.value}",
-      "expand[]" -> "subscriptions"
+  def createAnonCustomer(plan: StripePlan, data: Checkout): Fu[StripeCustomer] =
+    postOne[StripeCustomer](
+      "customers",
+      "plan"        -> plan.id,
+      "email"       -> data.email,
+      "description" -> "Anonymous"
     )
+
+  def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
+    getOne[StripeCustomer](s"customers/${id.value}")
 
   def updateSubscription(
       sub: StripeSubscription,
@@ -64,12 +69,15 @@ final private class StripeClient(
   ): Fu[StripeSubscription] =
     postOne[StripeSubscription](
       s"subscriptions/${sub.id}",
-      "plan"               -> plan.id,
-      "proration_behavior" -> "none"
+      "plan"    -> plan.id,
+      "prorate" -> false
     )
 
-  def deleteSubscription(sub: StripeSubscription): Fu[StripeSubscription] =
-    deleteOne[StripeSubscription](s"subscriptions/${sub.id}")
+  def cancelSubscription(sub: StripeSubscription): Fu[StripeSubscription] =
+    deleteOne[StripeSubscription](
+      s"subscriptions/${sub.id}",
+      "at_period_end" -> false
+    )
 
   def getEvent(id: String): Fu[Option[JsObject]] =
     getOne[JsObject](s"events/$id")
@@ -92,6 +100,15 @@ final private class StripeClient(
       "interval" -> "month",
       "name"     -> StripePlan.make(cents, freq).name
     )
+
+  //   def chargeAnonCard(data: Checkout): Funit =
+  //     postOne[StripePlan]("charges",
+  //       "amount" -> data.cents.value,
+  //       "currency" -> "usd",
+  //       "source" -> data.source.value,
+  //       "description" -> "Anon one-time",
+  //       "metadata" -> Map("email" -> data.email),
+  //       "receipt_email" -> data.email).void
 
   // charge without changing the customer plan
   def addOneTime(customer: StripeCustomer, amount: Cents): Funit =
@@ -136,11 +153,7 @@ final private class StripeClient(
   }
 
   private def request(url: String) =
-    ws.url(s"${config.endpoint}/$url")
-      .withHttpHeaders(
-        "Authorization"  -> s"Bearer ${config.secretKey.value}",
-        "Stripe-Version" -> apiVersion
-      )
+    ws.url(s"${config.endpoint}/$url").withHttpHeaders("Authorization" -> s"Bearer ${config.secretKey.value}")
 
   private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match {
@@ -182,8 +195,6 @@ final private class StripeClient(
 }
 
 object StripeClient {
-
-  val apiVersion = "2020-08-27"
 
   class StripeException(msg: String)         extends Exception(msg)
   class DeletedException(msg: String)        extends StripeException(msg)

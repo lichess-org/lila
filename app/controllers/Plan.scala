@@ -168,6 +168,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     ("slow", 20, 1.day)
   )
 
+  // update the stripe integration they said, it will be simple they said
+  // Actually they didn't, I was warned.
   def stripeCheckout =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
