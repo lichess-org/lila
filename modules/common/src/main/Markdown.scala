@@ -6,17 +6,18 @@ import com.vladsch.flexmark.ext.tables.TablesExtension
 import com.vladsch.flexmark.html.HtmlRenderer
 import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.data.MutableDataSet
+import scala.jdk.CollectionConverters._
 
 final class Markdown(autoLink: Boolean = false) {
 
   private type Text = String
   private type Html = String
 
-  private val extensions = java.util.Arrays.asList[Parser.ParserExtension](
-    TablesExtension.create(),
-    StrikethroughExtension.create()
-  )
-  if (autoLink) extensions.add(AutolinkExtension.create())
+  private val extensions: java.util.List[Parser.ParserExtension] = List(
+    TablesExtension.create().some,
+    StrikethroughExtension.create().some,
+    autoLink option AutolinkExtension.create()
+  ).flatten.asJava
 
   private val options = new MutableDataSet()
   options.set(Parser.EXTENSIONS, extensions)
