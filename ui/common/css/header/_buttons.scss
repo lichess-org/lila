@@ -90,12 +90,12 @@
   .report-score {
     &:not(.report-score--high)::after {
       background: $c-bg-page;
-      color: $c-good;
+      color: $c-brag;
       text-shadow: none;
       font-weight: normal;
     }
-    &--mid::after {
-      color: $c-brag;
+    &--low::after {
+      color: $c-good;
     }
   }
 }
