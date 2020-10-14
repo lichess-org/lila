@@ -22,7 +22,7 @@ object Dependencies {
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2"  % "provided"
   val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0"  % Test
   val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.11.0"
-  val specs2      = "org.specs2"           %% "specs2-core"                     % "4.10.4" % Test
+  val specs2      = "org.specs2"           %% "specs2-core"                     % "4.10.5" % Test
   val apacheText  = "org.apache.commons"    % "commons-text"                    % "1.9"
 
   object flexmark {
