@@ -3,7 +3,7 @@ daysUntilClose: 14
 exemptLabels:
   - prospect
   - foundational
-  - want
+  - wanted
   - bug
 staleLabel: stale
 markComment: >

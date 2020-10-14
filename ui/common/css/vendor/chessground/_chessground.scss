@@ -1,4 +1,5 @@
 @import "board-2d";
+@import "dark-board";
 
 cg-board {
   @extend %box-shadow, %abs-100;
