@@ -113,12 +113,12 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     .addClass(cls);
 
   const prev = $('body').data('theme'),
-    theme = key == 'darkBoard' ? 'dark' : key;
-  $('body').data('theme', theme);
+    sheet = key == 'darkBoard' ? 'dark' : key;
+  $('body').data('theme', sheet);
   $('link[href*=".' + prev + '."]').each(function(this: HTMLLinkElement) {
     var link = document.createElement('link') as HTMLLinkElement;
     link.rel = 'stylesheet';
-    link.href = this.href.replace('.' + prev + '.', '.' + theme + '.');
+    link.href = this.href.replace('.' + prev + '.', '.' + sheet + '.');
     link.onload = () => setTimeout(() => this.remove(), 100);
     document.head.appendChild(link);
   });
