@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">Algengar Spurningar</string>
   <string name="frequentlyAskedQuestions">Algengar spurningar</string>
   <string name="whyIsLichessCalledLichess">Af hverju nafnið Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess er blanda af lifandi (e. live), létt (e. light), frítt (e. libre) og skák (e. chess). Orðið er borið fram %1$s.</string>
   <string name="leechess">lí\'tjess</string>
+  <string name="hearItPronouncedBySpecialist">Heyra sérfræðing bera þetta fram.</string>
   <string name="whyLiveLightLibre">Live (í beinni), af því að skákir eru tefldir allan sólahringin; light (létt) og libre (frítt) vegna þess að lichess er opin uppspretta og óheftur af rusli sem hrjáir aðrar vefsíður.</string>
   <string name="howCanIContributeToLichess">Hvernig get ég hjálpað Lichess?</string>
   <string name="findMoreAndSeeHowHelp">Þú getur fundið meira um %1$s (þar á meðal %2$s). Ef þú vilt hjálpa Lichess með því að bjóða fram tímann þinn of færni, eru margir %3$s.</string>
   <string name="otherWaysToHelp">aðrar leiðir til að hjálpa</string>
+  <string name="isCorrespondenceDifferent">Er bréfskák öðruvísi en venjuleg skák?</string>
+  <string name="youCanUseOpeningBookNoEngine">Á Lichess er aðal munurinn í bréfskákreglum að byrjunabók er leyfð. Notkun skákforrita er samt bannað og mun leiða til þess að þú verður flaggaður fyrir skákforritaaðstoð. Þótt ICCF leyfa notkun véla í bréfaskiptum gerir Lichess það ekki.</string>
+  <string name="discoveringEnPassant">Af hverju má peð drepa annað peð þegar annað peðið hefur komist framhjá? (framhjáhlaup)</string>
 </resources>
