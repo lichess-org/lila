@@ -11,7 +11,7 @@ import lila.db.dsl._
 import lila.game.Game
 import lila.quote.Quote.quoteWriter
 import lila.socket.Socket.SocketVersion
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 final class SwissJson(
     colls: SwissColls,
@@ -19,6 +19,7 @@ final class SwissJson(
     rankingApi: SwissRankingApi,
     boardApi: SwissBoardApi,
     statsApi: SwissStatsApi,
+    userRepo: UserRepo,
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: ExecutionContext) {
 
@@ -116,20 +117,26 @@ final class SwissJson(
           .find($doc(f.swissId -> swiss.id))
           .sort($sort desc f.score)
           .cursor[SwissPlayer]()
-          .list(3) map { top3 =>
+          .list(3) flatMap { top3 =>
           // check that the winner is still correctly denormalized
-          top3.headOption.map(_.userId).filter(w => swiss.winnerId.fold(true)(w !=)) foreach {
-            colls.swiss.updateField($id(swiss.id), "winnerId", _).void
-          }
-          JsArray {
-            top3.map { player =>
-              playerJsonBase(
-                player,
-                lightUserApi.sync(player.userId) | LightUser.fallback(player.userId),
-                performance = true
-              )
+          top3.headOption
+            .map(_.userId)
+            .filter(w => swiss.winnerId.fold(true)(w !=))
+            .foreach {
+              colls.swiss.updateField($id(swiss.id), "winnerId", _).void
             }
-          }.some
+            .unit
+          userRepo.filterEngine(top3.map(_.userId)) map { engines =>
+            JsArray(
+              top3.map { player =>
+                playerJsonBase(
+                  player,
+                  lightUserApi.sync(player.userId) | LightUser.fallback(player.userId),
+                  performance = true
+                ).add("engine", engines(player.userId))
+              }
+            ).some
+          }
         }
       }
     }
