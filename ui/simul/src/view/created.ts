@@ -167,7 +167,7 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
         'data-icon': 'G'
       },
       hook: util.bind('click', () => xhr.start(ctrl.data.id))
-    }, 'Start') : h('a.button.button-red.text', {
+    }, `Start (${accepted.length})`) : h('a.button.button-red.text', {
       attrs: {
         'data-icon': 'L'
       },
