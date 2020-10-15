@@ -52,7 +52,8 @@ final class GameApiV2(
           realPlayers                  <- config.playerFile.??(realPlayerApi.apply)
           (game, initialFen, analysis) <- enrich(config.flags)(game)
           export <- config.format match {
-            case Format.JSON => toJson(game, initialFen, analysis, config.flags) dmap Json.stringify
+            case Format.JSON =>
+              toJson(game, initialFen, analysis, config.flags, realPlayers = realPlayers) dmap Json.stringify
             case Format.PGN =>
               pgnDump(
                 game,
@@ -248,7 +249,7 @@ final class GameApiV2(
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
     ) =>
-      toJson(game, initialFen, analysis, flags, teams) dmap { json =>
+      toJson(game, initialFen, analysis, flags, teams, realPlayers) dmap { json =>
         s"${Json.stringify(json)}\n"
       }
 
@@ -257,13 +258,14 @@ final class GameApiV2(
       initialFen: Option[FEN],
       analysisOption: Option[Analysis],
       withFlags: WithFlags,
-      teams: Option[GameTeams] = None
+      teams: Option[GameTeams] = None,
+      realPlayers: Option[RealPlayers] = None
   ): Fu[JsObject] =
     for {
       lightUsers <- gameLightUsers(g)
       pgn <-
         withFlags.pgnInJson ?? pgnDump
-          .apply(g, initialFen, analysisOption, withFlags)
+          .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
           .dmap(pgnDump.toPgnString)
           .dmap(some)
     } yield Json
