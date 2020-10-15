@@ -147,10 +147,12 @@ object Pref {
 
     val fromString = Map(
       "light"     -> LIGHT,
-      "dark"      -> LIGHT,
+      "dark"      -> DARK,
       "darkBoard" -> DARKBOARD,
       "transp"    -> TRANSPARENT
     )
+
+    val asString = fromString.map(_.swap)
   }
 
   object Tag {
