@@ -45,17 +45,20 @@ final private class StripeClient(
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 
+  private val expandSubscriptions = "expand[]" -> "subscriptions"
+
   def createCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
     postOne[StripeCustomer](
       "customers",
       "email"       -> data.email,
-      "description" -> user.username
+      "description" -> user.username,
+      expandSubscriptions
     )
 
   def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
     getOne[StripeCustomer](
       s"customers/${id.value}",
-      "expand[]" -> "subscriptions"
+      expandSubscriptions
     )
 
   def updateSubscription(
