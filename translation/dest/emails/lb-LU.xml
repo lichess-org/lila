@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="emailConfirm_subject">Bestäteg däi lichess.org-Kont,%s</string>
+  <string name="emailConfirm_click">Klick op de Link, fir däi Kont z\'aktivéieren:</string>
+  <string name="emailConfirm_ignore">Wann s du dech net bei Lichess ugemellt hues, kanns de dëse Message ignoréieren.</string>
+  <string name="passwordReset_subject">Setz däi lichess.org-Passwuert zréck, %s</string>
+</resources>
