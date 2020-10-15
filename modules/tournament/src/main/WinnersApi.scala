@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 import chess.variant.{ FromPosition, Standard, Variant }
 import lila.db.dsl._
 import Schedule.{ Freq, Speed }
+import lila.user.User
 
 case class Winner(
     tourId: String,
@@ -50,7 +51,7 @@ case class AllWinners(
     }
   ).flatten
 
-  def userIds =
+  lazy val userIds =
     List(hyperbullet, bullet, superblitz, blitz, rapid).flatMap(_.userIds) :::
       elite.map(_.userId) ::: marathon.map(_.userId) :::
       variants.values.toList.flatMap(_.userIds)
@@ -140,6 +141,9 @@ final class WinnersApi(
     if (tour.schedule.exists(_.freq.isDailyOrBetter))
       scheduler.scheduleOnce(5.seconds) { allCache.invalidate {}.unit }.unit
 
+  private[tournament] def clearAfterMarking(userId: User.ID): Funit = all map { winners =>
+    if (winners.userIds contains userId) allCache.invalidate {}.unit
+  }
 }
 
 object WinnersApi {

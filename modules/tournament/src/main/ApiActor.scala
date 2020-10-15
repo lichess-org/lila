@@ -8,7 +8,8 @@ import lila.game.actorApi.FinishGame
 final private[tournament] class ApiActor(
     api: TournamentApi,
     leaderboard: LeaderboardApi,
-    shieldApi: TournamentShieldApi
+    shieldApi: TournamentShieldApi,
+    winnersApi: WinnersApi
 ) extends Actor {
 
   implicit def ec = context.dispatcher
@@ -34,7 +35,8 @@ final private[tournament] class ApiActor(
         .flatMap {
           api.ejectLame(userId, _)
         } >>
-        shieldApi.clearAfterMarking(userId)
+        shieldApi.clearAfterMarking(userId) >>
+        winnersApi.clearAfterMarking(userId)
       ()
 
     case lila.hub.actorApi.mod.MarkBooster(userId) => api.ejectLame(userId, Nil).unit
