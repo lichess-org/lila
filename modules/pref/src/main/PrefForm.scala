@@ -205,7 +205,7 @@ object PrefForm {
 
   val bg = Form(
     single(
-      "bg" -> stringIn(Set("light", "dark", "darkBoard", "transp"))
+      "bg" -> stringIn(Pref.Bg.fromString.keySet)
     )
   )
 

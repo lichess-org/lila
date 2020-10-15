@@ -313,7 +313,8 @@ final class JsonView(
   }
 
   private val podiumJsonCache = cacheApi[Tournament.ID, Option[JsArray]](32, "tournament.podiumJson") {
-    _.expireAfterAccess(10 seconds)
+    _.expireAfterAccess(15 seconds)
+      .expireAfterWrite(1 minute)
       .maximumSize(256)
       .buildAsyncFuture { id =>
         tournamentRepo finishedById id flatMap {

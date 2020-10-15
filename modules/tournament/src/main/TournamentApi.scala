@@ -495,9 +495,7 @@ final class TournamentApi(
   def ejectLame(userId: User.ID, playedIds: List[Tournament.ID]): Funit =
     tournamentRepo.withdrawableIds(userId) flatMap { tourIds =>
       (tourIds ::: playedIds).distinct
-        .map {
-          ejectLame(_, userId)
-        }
+        .map { ejectLame(_, userId) }
         .sequenceFu
         .void
     }

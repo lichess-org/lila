@@ -7,7 +7,9 @@ import lila.game.actorApi.FinishGame
 
 final private[tournament] class ApiActor(
     api: TournamentApi,
-    leaderboard: LeaderboardApi
+    leaderboard: LeaderboardApi,
+    shieldApi: TournamentShieldApi,
+    winnersApi: WinnersApi
 ) extends Actor {
 
   implicit def ec = context.dispatcher
@@ -28,9 +30,14 @@ final private[tournament] class ApiActor(
     case lila.playban.SittingDetected(game, player) => api.sittingDetected(game, player).unit
 
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-      leaderboard.getAndDeleteRecent(userId, DateTime.now minusDays 3) foreach {
-        api.ejectLame(userId, _)
-      }
+      leaderboard
+        .getAndDeleteRecent(userId, DateTime.now minusDays 30)
+        .flatMap {
+          api.ejectLame(userId, _)
+        } >>
+        shieldApi.clearAfterMarking(userId) >>
+        winnersApi.clearAfterMarking(userId)
+      ()
 
     case lila.hub.actorApi.mod.MarkBooster(userId) => api.ejectLame(userId, Nil).unit
 

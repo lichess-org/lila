@@ -68,7 +68,7 @@ final class Dasher(env: Env) extends LilaController(env) {
                   }
                 ),
                 "background" -> Json.obj(
-                  "current" -> ctx.currentBg,
+                  "current" -> lila.pref.Pref.Bg.asString.get(ctx.pref.bg),
                   "image"   -> ctx.pref.bgImgOrDefault
                 ),
                 "board" -> Json.obj(
