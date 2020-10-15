@@ -22,4 +22,11 @@
   <string name="whiteIsVictorious">Wäiss gewënnt</string>
   <string name="blackIsVictorious">Schwaarz gewënnt</string>
   <string name="youPlayTheWhitePieces">Du spills déi wäiss Figuren</string>
+  <string name="youPlayTheBlackPieces">Du spills déi schwaarz Figuren</string>
+  <string name="itsYourTurn">Et ass un dir!</string>
+  <string name="kingInTheCenter">Kinnek am Zentrum</string>
+  <string name="threeChecks">Drëtt Kéier Schach</string>
+  <string name="raceFinished">Course eriwwer</string>
+  <string name="variantEnding">Enn vun der Variant</string>
+  <string name="newOpponent">Neie Géigner</string>
 </resources>
