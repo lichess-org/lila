@@ -15,4 +15,6 @@
 Hei ass deng Profilsäit: %1$s. Du kanns se hei personaliséieren: %2$s.
 
 Vill Spaass an Erfolleg!</string>
+  <string name="logInToLichess">Logg dech op lichess.org an, %s</string>
+  <string name="common_orPaste">(Klicke funktionnéiert net? Probéier de Link an däi Browser ze kopéieren!)</string>
 </resources>
