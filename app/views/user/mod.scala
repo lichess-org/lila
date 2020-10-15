@@ -271,7 +271,9 @@ object mod {
             ),
             br,
             a.msgs.map(_.text).map(shorten(_, 140)).map(p(_)),
-            a.msgs.size > 1 option frag("and", pluralize("more message", a.msgs.size - 1))
+            a.msgs.size > 1 option st.a(href := routes.Appeal.show(a.id))(
+              frag("and ", pluralize("more message", a.msgs.size - 1))
+            )
           )
         )
       }
