@@ -1,14 +1,15 @@
 package lila.study
 
-import play.api.libs.json._
-
 import chess.format.pgn.Glyphs
 import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
+import play.api.libs.json._
+import scala.concurrent.duration._
+
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
-import lila.{ tree => T }
 import lila.tree.Node.Comment
 import lila.user.User
+import lila.{ tree => T }
 
 object ServerEval {
 
@@ -17,8 +18,12 @@ object ServerEval {
       chapterRepo: ChapterRepo
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
+    private val onceEvery = lila.memo.OnceEvery(5 minutes)
+
     def apply(study: Study, chapter: Chapter, userId: User.ID): Funit =
-      chapter.serverEval.isEmpty ?? {
+      chapter.serverEval.fold(true) { eval =>
+        !eval.done && onceEvery(chapter.id.value)
+      } ?? {
         chapterRepo.startServerEval(chapter) >>- {
           fishnet ! StudyChapterRequest(
             studyId = study.id.value,
