@@ -103,7 +103,6 @@ export interface AnalysisSide {
 export interface AnalyseOpts {
   element: HTMLElement;
   data: AnalyseData;
-  initialPly?: number | string;
   userId: string | null;
   hunter: boolean;
   embed: boolean;

@@ -1,47 +1,47 @@
-import { Outcome, isNormal } from 'chessops/types';
-import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
+import * as cg from 'chessground/types';
+import * as chessUtil from 'chess';
+import * as game from 'game';
+import * as keyboard from './keyboard';
+import * as promotion from './promotion';
+import * as speech from './speech';
+import * as util from './util';
+import * as xhr from 'common/xhr';
+import debounce from 'common/debounce';
+import explorerCtrl from './explorer/explorerCtrl';
+import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
+import makeStudy from './study/studyCtrl';
+import throttle from 'common/throttle';
+import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
+import { Api as ChessgroundApi } from 'chessground/api';
+import { Autoplay, AutoplayDelay } from './autoplay';
+import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from 'tree';
+import { compute as computeAutoShapes } from './autoShape';
+import { Config as ChessgroundConfig } from 'chessground/config';
+import { Ctrl as ActionMenuCtrl } from './actionMenu';
+import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
+import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
+import { defined, prop, Prop } from 'common';
+import { DrawShape } from 'chessground/draw';
+import { ExplorerCtrl } from './explorer/interfaces';
+import { ForecastCtrl } from './forecast/interfaces';
 import { lichessVariantRules } from 'chessops/compat';
-import { Position, PositionError } from 'chessops/chess';
+import { make as makeEvalCache, EvalCache } from './evalCache';
+import { make as makeForecast } from './forecast/forecastCtrl';
+import { make as makeFork, ForkCtrl } from './fork';
+import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
+import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
+import { make as makeSocket, Socket } from './socket';
+import { nextGlyphSymbol } from './nodeFinder';
+import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
+import { Outcome, isNormal } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
+import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
-import { Api as ChessgroundApi } from 'chessground/api';
-import { DrawShape } from 'chessground/draw';
-import * as cg from 'chessground/types';
-import { Config as ChessgroundConfig } from 'chessground/config';
-import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from 'tree';
-import * as keyboard from './keyboard';
-import { Ctrl as ActionMenuCtrl } from './actionMenu';
-import { Autoplay, AutoplayDelay } from './autoplay';
-import * as promotion from './promotion';
-import * as util from './util';
-import * as chessUtil from 'chess';
-import { defined, prop, Prop } from 'common';
-import throttle from 'common/throttle';
-import * as xhr from 'common/xhr';
 import { storedProp, StoredBooleanProp } from 'common/storage';
-import { make as makeSocket, Socket } from './socket';
-import { ForecastCtrl } from './forecast/interfaces';
-import { make as makeForecast } from './forecast/forecastCtrl';
-import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
-import explorerCtrl from './explorer/explorerCtrl';
-import { ExplorerCtrl } from './explorer/interfaces';
-import * as game from 'game';
-import { valid as crazyValid } from './crazy/crazyCtrl';
-import makeStudy from './study/studyCtrl';
 import { StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
-import { make as makeFork, ForkCtrl } from './fork';
-import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
-import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
-import { make as makeEvalCache, EvalCache } from './evalCache';
-import { compute as computeAutoShapes } from './autoShape';
-import { nextGlyphSymbol } from './nodeFinder';
-import * as speech from './speech';
-import { AnalyseOpts, AnalyseData, ServerEvalData, Key, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
-import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
-import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
-import debounce from 'common/debounce';
+import { valid as crazyValid } from './crazy/crazyCtrl';
 
 export default class AnalyseCtrl {
 
@@ -131,17 +131,14 @@ export default class AnalyseCtrl {
 
     this.initialPath = treePath.root;
 
-    if (opts.initialPly) {
+    {
       const loc = window.location,
-        intHash = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1)),
-        plyStr = opts.initialPly === 'url' ? (intHash || '') : opts.initialPly;
-      // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
-      if (intHash) window.history.pushState("", document.title, loc.pathname + loc.search);
-      const mainline = treeOps.mainlineNodeList(this.tree.root);
-      if (plyStr === 'last') this.initialPath = treePath.fromNodeList(mainline);
-      else {
-        const ply = parseInt(plyStr as string);
-        if (ply) this.initialPath = treeOps.takePathWhile(mainline, n => n.ply <= ply);
+        hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1));
+      if (hashPly) {
+        // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
+        window.history.replaceState(null, '', loc.pathname + loc.search);
+        const mainline = treeOps.mainlineNodeList(this.tree.root);
+        this.initialPath = treeOps.takePathWhile(mainline, n => n.ply <= hashPly);
       }
     }
 
