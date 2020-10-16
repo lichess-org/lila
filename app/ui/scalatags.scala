@@ -136,8 +136,6 @@ trait ScalatagsExtensions {
   val emptyFrag: Frag                   = new RawFrag("")
   implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)
 
-  val emptyModifier: Modifier = (t: Builder) => {}
-
   val targetBlank: Modifier = (t: Builder) => {
     // Prevent tab nabbing when opening untrusted links. Apply also to trusted
     // links, because there can be a small peformance advantage and lila does
@@ -147,20 +145,15 @@ trait ScalatagsExtensions {
     t.setAttr("target", Builder.GenericAttrValueSource("_blank"))
   }
 
-  def ariaTitle(v: String) =
-    new Modifier {
-      def applyTo(t: Builder) = {
-        val value = Builder.GenericAttrValueSource(v)
-        t.setAttr("title", value)
-        t.setAttr("aria-label", value)
-      }
-    }
+  def ariaTitle(v: String): Modifier = (t: Builder) => {
+    val value = Builder.GenericAttrValueSource(v)
+    t.setAttr("title", value)
+    t.setAttr("aria-label", value)
+  }
 
-  def titleOrText(blind: Boolean, v: String): Modifier =
-    (t: Builder) => {
-      if (blind) t.addChild(v)
-      else t.setAttr("title", Builder.GenericAttrValueSource(v))
-    }
+  def titleOrText(blind: Boolean, v: String): Modifier = (t: Builder) =>
+    if (blind) t.addChild(v)
+    else t.setAttr("title", Builder.GenericAttrValueSource(v))
 
   def titleOrText(v: String)(implicit ctx: Context): Modifier = titleOrText(ctx.blind, v)
 }
