@@ -84,6 +84,7 @@ Pogledajte %3$s koja se odnosi na ovaj potez kako biste ga malo izvježbali.</st
   <string name="similarOpponents">protivnika slične jačine</string>
   <string name="notPlayedRecently">Igrač nije igrao dovoljno partija u skorije vrijeme. U zavisnosti od broja partija koje ste odigrali, možda će biti potrebna otprilike jedna godina neaktivnosti da Vaš rejting ponovo postane provizoran / privremen.</string>
   <string name="connexionLostCanIGetMyRatingBack">Izgubio sam partiju zbog kašnjenja konekcije ili njenog prekida. Mogu li mi biti vraćeni rejting-bodovi?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Nažalost, ne možemo Vam vratiti bodove za partije izgubljene zbog kašnjenja konekcije ili njenog prekida, nezavisno od toga je li problem bio do Vas ili do nas. Ovo potonje vrlo je rijetko, doduše. Također primijetite da, kad se Lichess restarta i usljed toga izgubite zbog isteka vremena, prekidamo partiju kako bismo spriječili nepravedan gubitak.</string>
   <string name="howToThreeDots">Kako...</string>
   <string name="enableDisableNotificationPopUps">Omogući ili onemogući skočne obavijesti?</string>
 </resources>
