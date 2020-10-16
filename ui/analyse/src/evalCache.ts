@@ -20,7 +20,7 @@ const evalPutMinDepth = 20;
 const evalPutMinNodes = 3e6;
 const evalPutMaxMoves = 10;
 
-function qualityCheck(ev): boolean {
+function qualityCheck(ev: Tree.ClientEval): boolean {
   // below 500k nodes, the eval might come from an imminent threefold repetition
   // and should therefore be ignored
   return ev.nodes > 500000 && (
@@ -29,7 +29,7 @@ function qualityCheck(ev): boolean {
 }
 
 // from client eval to server eval
-function toPutData(variant: VariantKey, ev) {
+function toPutData(variant: VariantKey, ev: Tree.ClientEval) {
   const data: any = {
     fen: ev.fen,
     knodes: Math.round(ev.nodes / 1000),
@@ -47,7 +47,7 @@ function toPutData(variant: VariantKey, ev) {
 }
 
 // from server eval to client eval
-function toCeval(e) {
+function toCeval(e: Tree.ServerEval) {
   const res: any = {
     fen: e.fen,
     nodes: e.knodes * 1000,
