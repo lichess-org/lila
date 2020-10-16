@@ -22,6 +22,7 @@ export interface BackgroundData {
 interface Background {
   key: string;
   name: string;
+  title?: string;
 }
 
 export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: Close): BackgroundCtrl {
@@ -29,7 +30,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
   const list: Background[] = [
     { key: 'light', name: trans.noarg('light') },
     { key: 'dark', name: trans.noarg('dark') },
-    { key: 'darkBoard', name: 'Dark Board' },
+    { key: 'darkBoard', name: 'Dark Board', title: 'Like Dark, but chess boards are also darker' },
     { key: 'transp', name: trans.noarg('transparent') }
   ];
 
@@ -73,7 +74,7 @@ export function view(ctrl: BackgroundCtrl): VNode {
     h('div.selector.large', ctrl.list.map(bg => {
       return h('a.text', {
         class: { active: cur === bg.key },
-        attrs: { 'data-icon': 'E' },
+        attrs: { 'data-icon': 'E', title: bg.title || '' },
         hook: bind('click', () => ctrl.set(bg.key))
       }, bg.name);
     })),
