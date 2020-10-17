@@ -32,13 +32,7 @@ object SimulForm {
   val colorDefault = "white"
 
   private def nameType(host: User) =
-    clean(text).verifying(
-      Constraints minLength 2,
-      Constraints maxLength 40,
-      Constraints.pattern(
-        regex = """[\p{L}\p{N}-\s:,;]+""".r,
-        error = "error.unknown"
-      ),
+    eventName(2, 40).verifying(
       Constraint[String] { (t: String) =>
         if (t.toLowerCase contains "lichess")
           validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))

@@ -5,7 +5,6 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.Constraints
 import play.api.Mode
 import scala.concurrent.duration._
 
@@ -18,16 +17,7 @@ final class SwissForm(implicit mode: Mode) {
   def form(minRounds: Int = 3) =
     Form(
       mapping(
-        "name" -> optional(
-          clean(text).verifying(
-            Constraints minLength 2,
-            Constraints maxLength 30,
-            Constraints.pattern(
-              regex = """[\p{L}\p{N}-\s:,;\+]+""".r,
-              error = "Invalid characters"
-            )
-          )
-        ),
+        "name" -> optional(eventName(2, 3)),
         "clock" -> mapping(
           "limit"     -> number.verifying(clockLimits.contains _),
           "increment" -> number(min = 0, max = 600)
