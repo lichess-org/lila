@@ -137,7 +137,7 @@ final class Streamer(
         ctx.body.body.file("picture") match {
           case Some(pic) =>
             api.uploadPicture(s.streamer, pic) recover { case e: Exception =>
-              BadRequest(html.streamer.picture(s, e.message.some))
+              BadRequest(html.streamer.picture(s, e.getMessage.some))
             } inject Redirect(routes.Streamer.edit())
           case None => fuccess(Redirect(routes.Streamer.edit()))
         }
