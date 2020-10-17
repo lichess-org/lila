@@ -272,6 +272,10 @@ declare namespace Tree {
     cp?: number;
     mate?: number;
     best?: Uci;
+    fen: Fen;
+    knodes: number;
+    depth: number;
+    pvs: PvData[];
   }
 
   export interface PvData {
