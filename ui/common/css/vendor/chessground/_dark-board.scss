@@ -2,7 +2,8 @@
   body.dark-board {
     --dark-factor: 0.4;
 
-    cg-board {
+    cg-board,
+    .is3d cg-board::before {
       background-color: rgba(0, 0, 0, var(--dark-factor));
       background-blend-mode: darken;
     }
