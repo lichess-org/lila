@@ -36,7 +36,9 @@ object Cents {
 
 case class StripeSubscriptions(data: List[StripeSubscription])
 
-case class StripePlan(id: String, name: String, amount: Cents) {
+case class StripeProduct(id: String, name: String)
+
+case class StripePlan(id: String, product: StripeProduct, amount: Cents) {
   def cents = amount
   def usd   = cents.usd
 }
@@ -46,7 +48,10 @@ object StripePlan {
       case Freq.Monthly =>
         StripePlan(
           id = s"monthly_${cents.value}",
-          name = s"Monthly ${cents.usd}",
+          product = StripeProduct(
+            id = s"monthly_${cents.value}",
+            name = s"Monthly ${cents.usd}"
+          ),
           amount = cents
         )
       case Freq.Onetime =>
