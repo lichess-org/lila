@@ -1,7 +1,6 @@
 package lila.tournament
 
 import chess.format.FEN
-import chess.StartingPosition
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
@@ -117,7 +116,7 @@ final class JsonView(
           )
           .add("spotlight" -> tour.spotlight)
           .add("berserkable" -> tour.berserkable)
-          .add("position" -> full.??(positionJson(tour.position)))
+          .add("position" -> tour.position.ifTrue(full).map(positionJson))
           .add("verdicts" -> verdicts.map(Condition.JSONHandlers.verdictsFor(_, lang)))
           .add("schedule" -> tour.schedule.map(scheduleJson))
           .add("private" -> tour.isPrivate)
@@ -522,25 +521,23 @@ object JsonView {
     )
   }
 
-  private[tournament] def positionJson(s: Either[StartingPosition, FEN]): Option[JsObject] = s match {
-    case Left(pos) if pos.initial => none
-    case Left(pos) =>
-      Json
-        .obj(
-          "eco"      -> pos.eco,
-          "name"     -> pos.name,
-          "wikiPath" -> pos.wikiPath,
-          "fen"      -> pos.fen
-        )
-        .some
-    case Right(fen) =>
-      Json
-        .obj(
-          "name" -> "Custom position",
-          "fen"  -> fen.value
-        )
-        .some
-  }
+  private[tournament] def positionJson(fen: FEN): JsObject =
+    Thematic.byFen(fen.value) match {
+      case Some(pos) =>
+        Json
+          .obj(
+            "eco"      -> pos.eco,
+            "name"     -> pos.name,
+            "wikiPath" -> pos.wikiPath,
+            "fen"      -> pos.fen
+          )
+      case None =>
+        Json
+          .obj(
+            "name" -> "Custom position",
+            "fen"  -> fen.value
+          )
+    }
 
   implicit private[tournament] val spotlightWrites: OWrites[Spotlight] = OWrites { s =>
     Json

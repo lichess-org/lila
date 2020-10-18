@@ -1,11 +1,11 @@
 package lila.tournament
 
 import akka.actor._
+import chess.format.FEN
+import chess.StartingPosition
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
 import scala.util.chaining._
-
-import chess.StartingPosition
 
 final private class TournamentScheduler(
     api: TournamentApi,
@@ -69,7 +69,6 @@ final private class TournamentScheduler(
 
     val isHalloween = today.getDayOfMonth == 31 && today.getMonthOfYear == OCTOBER
 
-    val std = StartingPosition.initial
     def opening(offset: Int) = {
       val positions = StartingPosition.featurable
       positions((today.getDayOfYear + offset) % positions.size)
@@ -84,7 +83,7 @@ final private class TournamentScheduler(
       List( // legendary tournaments!
         at(birthday.withYear(today.getYear), 12) map orNextYear map { date =>
           val yo = date.getYear - 2010
-          Schedule(Unique, Rapid, Standard, std, date) plan {
+          Schedule(Unique, Rapid, Standard, none, date) plan {
             _.copy(
               name = s"${date.getYear} Lichess Anniversary",
               minutes = 12 * 60,
@@ -114,7 +113,7 @@ Thank you all, you rock!"""
         secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY)   -> HyperBullet
       ).flatMap { case (day, speed) =>
         at(day, 17) filter farFuture.isAfter map { date =>
-          Schedule(Yearly, speed, Standard, std, date).plan
+          Schedule(Yearly, speed, Standard, none, date).plan
         }
       },
       List( // yearly variant tournaments!
@@ -128,7 +127,7 @@ Thank you all, you rock!"""
         secondWeekOf(AUGUST).withDayOfWeek(THURSDAY)   -> ThreeCheck
       ).flatMap { case (day, variant) =>
         at(day, 17) filter farFuture.isAfter map { date =>
-          Schedule(Yearly, SuperBlitz, variant, std, date).plan
+          Schedule(Yearly, SuperBlitz, variant, none, date).plan
         }
       },
       List(thisMonth, nextMonth).flatMap { month =>
@@ -143,7 +142,7 @@ Thank you all, you rock!"""
             month.lastWeek.withDayOfWeek(SUNDAY)    -> UltraBullet
           ).flatMap { case (day, speed) =>
             at(day, 17) map { date =>
-              Schedule(Monthly, speed, Standard, std, date).plan
+              Schedule(Monthly, speed, Standard, none, date).plan
             }
           },
           List( // monthly variant tournaments!
@@ -160,7 +159,7 @@ Thank you all, you rock!"""
                 Monthly,
                 if (variant == Chess960 || variant == Crazyhouse) Blitz else SuperBlitz,
                 variant,
-                std,
+                none,
                 date
               ).plan
             }
@@ -175,7 +174,7 @@ Thank you all, you rock!"""
             month.firstWeek.withDayOfWeek(SUNDAY)    -> UltraBullet
           ).flatMap { case (day, speed) =>
             at(day, 16) map { date =>
-              Schedule(Shield, speed, Standard, std, date) plan {
+              Schedule(Shield, speed, Standard, none, date) plan {
                 _.copy(
                   name = s"${speed.toString} Shield",
                   spotlight = Some(TournamentShield spotlight speed.toString)
@@ -194,7 +193,7 @@ Thank you all, you rock!"""
             month.thirdWeek.withDayOfWeek(SUNDAY)    -> ThreeCheck
           ).flatMap { case (day, variant) =>
             at(day, 16) map { date =>
-              Schedule(Shield, Blitz, variant, std, date) plan {
+              Schedule(Shield, Blitz, variant, none, date) plan {
                 _.copy(
                   name = s"${variant.name} Shield",
                   spotlight = Some(TournamentShield spotlight variant.name)
@@ -213,7 +212,7 @@ Thank you all, you rock!"""
         nextSaturday  -> HyperBullet
       ).flatMap { case (day, speed) =>
         at(day, 17) map { date =>
-          Schedule(Weekly, speed, Standard, std, date pipe orNextWeek).plan
+          Schedule(Weekly, speed, Standard, none, date pipe orNextWeek).plan
         }
       },
       List( // weekly variant tournaments!
@@ -231,7 +230,7 @@ Thank you all, you rock!"""
             Weekly,
             if (variant == Chess960 || variant == Crazyhouse) Blitz else SuperBlitz,
             variant,
-            std,
+            none,
             date pipe orNextWeek
           ).plan
         }
@@ -241,67 +240,67 @@ Thank you all, you rock!"""
         nextSunday   -> Bullet
       ).flatMap { case (day, speed) =>
         at(day, 17) map { date =>
-          Schedule(Weekend, speed, Standard, std, date pipe orNextWeek).plan
+          Schedule(Weekend, speed, Standard, none, date pipe orNextWeek).plan
         }
       },
       List( // daily tournaments!
         at(today, 16) map { date =>
-          Schedule(Daily, Bullet, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, Bullet, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 17) map { date =>
-          Schedule(Daily, SuperBlitz, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, SuperBlitz, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 18) map { date =>
-          Schedule(Daily, Blitz, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, Blitz, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 19) map { date =>
-          Schedule(Daily, Rapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, Rapid, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 20) map { date =>
-          Schedule(Daily, HyperBullet, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, HyperBullet, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 21) map { date =>
-          Schedule(Daily, UltraBullet, Standard, std, date pipe orTomorrow).plan
+          Schedule(Daily, UltraBullet, Standard, none, date pipe orTomorrow).plan
         }
       ).flatten,
       List( // daily variant tournaments!
         at(today, 20) map { date =>
-          Schedule(Daily, Blitz, Crazyhouse, std, date pipe orTomorrow).plan
+          Schedule(Daily, Blitz, Crazyhouse, none, date pipe orTomorrow).plan
         },
         at(today, 21) map { date =>
-          Schedule(Daily, Blitz, Chess960, std, date pipe orTomorrow).plan
+          Schedule(Daily, Blitz, Chess960, none, date pipe orTomorrow).plan
         },
         at(today, 22) map { date =>
-          Schedule(Daily, SuperBlitz, KingOfTheHill, std, date pipe orTomorrow).plan
+          Schedule(Daily, SuperBlitz, KingOfTheHill, none, date pipe orTomorrow).plan
         },
         at(today, 23) map { date =>
-          Schedule(Daily, SuperBlitz, Atomic, std, date pipe orTomorrow).plan
+          Schedule(Daily, SuperBlitz, Atomic, none, date pipe orTomorrow).plan
         },
         at(today, 0) map { date =>
-          Schedule(Daily, SuperBlitz, Antichess, std, date pipe orTomorrow).plan
+          Schedule(Daily, SuperBlitz, Antichess, none, date pipe orTomorrow).plan
         },
         at(tomorrow, 1) map { date =>
-          Schedule(Daily, SuperBlitz, ThreeCheck, std, date).plan
+          Schedule(Daily, SuperBlitz, ThreeCheck, none, date).plan
         },
         at(tomorrow, 2) map { date =>
-          Schedule(Daily, SuperBlitz, Horde, std, date).plan
+          Schedule(Daily, SuperBlitz, Horde, none, date).plan
         },
         at(tomorrow, 3) map { date =>
-          Schedule(Daily, SuperBlitz, RacingKings, std, date).plan
+          Schedule(Daily, SuperBlitz, RacingKings, none, date).plan
         }
       ).flatten,
       List( // eastern tournaments!
         at(today, 4) map { date =>
-          Schedule(Eastern, Bullet, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, Bullet, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 5) map { date =>
-          Schedule(Eastern, SuperBlitz, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, SuperBlitz, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 6) map { date =>
-          Schedule(Eastern, Blitz, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, Blitz, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 7) map { date =>
-          Schedule(Eastern, Rapid, Standard, std, date pipe orTomorrow).plan
+          Schedule(Eastern, Rapid, Standard, none, date pipe orTomorrow).plan
         }
       ).flatten,
       (if (isHalloween) // replace more thematic tournaments on halloween
@@ -321,16 +320,16 @@ Thank you all, you rock!"""
          )).flatMap { case (hour, opening) =>
         List(
           at(today, hour) map { date =>
-            Schedule(Hourly, Bullet, Standard, opening, date pipe orTomorrow).plan
+            Schedule(Hourly, Bullet, Standard, FEN(opening.fen).some, date pipe orTomorrow).plan
           },
           at(today, hour + 1) map { date =>
-            Schedule(Hourly, SuperBlitz, Standard, opening, date pipe orTomorrow).plan
+            Schedule(Hourly, SuperBlitz, Standard, FEN(opening.fen).some, date pipe orTomorrow).plan
           },
           at(today, hour + 2) map { date =>
-            Schedule(Hourly, Blitz, Standard, opening, date pipe orTomorrow).plan
+            Schedule(Hourly, Blitz, Standard, FEN(opening.fen).some, date pipe orTomorrow).plan
           },
           at(today, hour + 3) map { date =>
-            Schedule(Hourly, Rapid, Standard, opening, date pipe orTomorrow).plan
+            Schedule(Hourly, Rapid, Standard, FEN(opening.fen).some, date pipe orTomorrow).plan
           }
         ).flatten
       },
@@ -340,25 +339,25 @@ Thank you all, you rock!"""
         val hour = date.getHourOfDay
         List(
           at(date, hour) map { date =>
-            Schedule(Hourly, HyperBullet, Standard, std, date).plan
+            Schedule(Hourly, HyperBullet, Standard, none, date).plan
           },
           at(date, hour, 30) map { date =>
-            Schedule(Hourly, UltraBullet, Standard, std, date).plan
+            Schedule(Hourly, UltraBullet, Standard, none, date).plan
           },
           at(date, hour) map { date =>
-            Schedule(Hourly, Bullet, Standard, std, date).plan
+            Schedule(Hourly, Bullet, Standard, none, date).plan
           },
           at(date, hour, 30) map { date =>
-            Schedule(Hourly, Bullet, Standard, std, date).plan
+            Schedule(Hourly, Bullet, Standard, none, date).plan
           },
           at(date, hour) map { date =>
-            Schedule(Hourly, SuperBlitz, Standard, std, date).plan
+            Schedule(Hourly, SuperBlitz, Standard, none, date).plan
           },
           at(date, hour) map { date =>
-            Schedule(Hourly, Blitz, Standard, std, date).plan
+            Schedule(Hourly, Blitz, Standard, none, date).plan
           },
           at(date, hour) collect {
-            case date if hour % 2 == 0 => Schedule(Hourly, Rapid, Standard, std, date).plan
+            case date if hour % 2 == 0 => Schedule(Hourly, Rapid, Standard, none, date).plan
           }
         ).flatten
       },
@@ -390,13 +389,13 @@ Thank you all, you rock!"""
               val finalDate = date plusHours hourDelay
               if (speed == Bullet)
                 List(
-                  Schedule(Hourly, speed, Standard, std, finalDate, conditions).plan,
-                  Schedule(Hourly, speed, Standard, std, finalDate plusMinutes 30, conditions)
+                  Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan,
+                  Schedule(Hourly, speed, Standard, none, finalDate plusMinutes 30, conditions)
                     .plan(_.copy(clock = chess.Clock.Config(60, 1)))
                 )
               else
                 List(
-                  Schedule(Hourly, speed, Standard, std, finalDate, conditions).plan
+                  Schedule(Hourly, speed, Standard, none, finalDate, conditions).plan
                 )
             }
           }
@@ -418,11 +417,11 @@ Thank you all, you rock!"""
         }
         List(
           at(date, hour) map { date =>
-            Schedule(Hourly, speed, Crazyhouse, std, date).plan
+            Schedule(Hourly, speed, Crazyhouse, none, date).plan
           },
           at(date, hour, 30) collect {
             case date if speed == Bullet =>
-              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, Crazyhouse, std, date).plan
+              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, Crazyhouse, none, date).plan
           }
         ).flatten
       },
@@ -439,11 +438,11 @@ Thank you all, you rock!"""
         val variant = if (hour % 2 == 0) Atomic else Antichess
         List(
           at(date, hour) map { date =>
-            Schedule(Hourly, speed, variant, std, date).plan
+            Schedule(Hourly, speed, variant, none, date).plan
           },
           at(date, hour, 30) collect {
             case date if speed == Bullet =>
-              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, variant, std, date).plan
+              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, variant, none, date).plan
           }
         ).flatten
       }

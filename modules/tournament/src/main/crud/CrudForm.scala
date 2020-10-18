@@ -5,9 +5,9 @@ import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 
-import chess.StartingPosition
 import chess.variant.Variant
 import lila.common.Form._
+import chess.format.FEN
 
 object CrudForm {
 
@@ -24,7 +24,7 @@ object CrudForm {
       "clockIncrement" -> numberIn(clockIncrementChoices),
       "minutes"        -> number(min = 20, max = 1440),
       "variant"        -> number.verifying(Variant exists _),
-      "position"       -> text.verifying(TournamentForm.positions contains _),
+      "position"       -> optional(nonEmptyText),
       "date"           -> utcDate,
       "image"          -> stringIn(imageChoices),
       "headline"       -> text(minLength = 5, maxLength = 30),
@@ -44,7 +44,7 @@ object CrudForm {
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
     variant = chess.variant.Standard.id,
-    position = StartingPosition.initial.fen,
+    position = none,
     date = DateTime.now plusDays 7,
     image = "",
     headline = "",
@@ -63,7 +63,7 @@ object CrudForm {
       clockIncrement: Int,
       minutes: Int,
       variant: Int,
-      position: String,
+      position: Option[String],
       date: DateTime,
       image: String,
       headline: String,
@@ -76,6 +76,8 @@ object CrudForm {
   ) {
 
     def realVariant = Variant orDefault variant
+
+    def realPosition = position ifTrue realVariant.standard map FEN
 
     def validClock = (clockTime + clockIncrement) > 0
 

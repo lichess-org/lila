@@ -47,11 +47,7 @@ final class TournamentForm {
       waitMinutes = none,
       startDate = tour.startsAt.some,
       variant = tour.variant.id.toString.some,
-      position = tour.position match {
-        case Left(p) if p.initial => None
-        case Left(p)              => p.fen.some
-        case Right(f)             => f.value.some
-      },
+      position = tour.position.map(_.value),
       mode = none,
       rated = tour.mode.rated.some,
       password = tour.password,
@@ -141,11 +137,6 @@ object TournamentForm {
     validVariants.find { v =>
       v.key == from || from.toIntOption.exists(v.id ==)
     }
-
-  def startingPosition(fen: String, variant: Variant): Either[StartingPosition, FEN] =
-    if (variant.standard)
-      Thematic.byFen(fen).fold[Either[StartingPosition, FEN]](Right(FEN(fen)))(Left.apply)
-    else Left(StartingPosition.initial)
 }
 
 private[tournament] case class TournamentSetup(
@@ -173,6 +164,8 @@ private[tournament] case class TournamentSetup(
   def realMode = Mode(rated.orElse(mode.map(Mode.Rated.id ==)) | true)
 
   def realVariant = variant.flatMap(TournamentForm.guessVariant) | chess.variant.Standard
+
+  def realPosition = position ifTrue realVariant.standard map FEN
 
   def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
 

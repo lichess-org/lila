@@ -25,7 +25,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       clockIncrement = tour.clock.incrementSeconds,
       minutes = tour.minutes,
       variant = tour.variant.id,
-      position = tour.position.fen,
+      position = tour.position.map(_.value),
       date = tour.startsAt,
       image = ~tour.spotlight.flatMap(_.iconImg),
       headline = tour.spotlight.??(_.headline),
@@ -72,7 +72,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       clock = chess.Clock.Config(0, 0),
       minutes = 0,
       variant = chess.variant.Standard,
-      position = chess.StartingPosition.initial,
+      position = none,
       mode = chess.Mode.Rated,
       password = None,
       waitMinutes = 0,
@@ -97,7 +97,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
         freq = Schedule.Freq.Unique,
         speed = Schedule.Speed.fromClock(clock),
         variant = realVariant,
-        position = chess.StartingPosition.initial,
+        position = realPosition,
         at = date
       ).some,
       spotlight = Spotlight(
@@ -107,7 +107,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
         iconFont = none,
         iconImg = image.some.filter(_.nonEmpty)
       ).some,
-      position = TournamentForm.startingPosition(data.position, realVariant),
+      position = data.realPosition,
       noBerserk = !data.berserkable,
       noStreak = !data.streakable,
       teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10)),

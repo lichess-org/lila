@@ -2,7 +2,7 @@ package lila.tournament
 
 import chess.Clock.{ Config => ClockConfig }
 import chess.format.FEN
-import chess.{ Mode, Speed, StartingPosition }
+import chess.{ Mode, Speed }
 import org.joda.time.{ DateTime, Duration, Interval }
 import play.api.i18n.Lang
 import scala.util.chaining._
@@ -20,7 +20,7 @@ case class Tournament(
     clock: ClockConfig,
     minutes: Int,
     variant: chess.variant.Variant,
-    position: Either[StartingPosition, FEN],
+    position: Option[FEN],
     mode: Mode,
     password: Option[String] = None,
     conditions: Condition.All,
@@ -137,8 +137,6 @@ case class Tournament(
 
   def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
 
-  def initialPosition = position.left.exists(_.initial)
-
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
   override def toString = s"$id $startsAt ${name()(defaultLang)} $minutes minutes, $clock, $nbPlayers players"
@@ -158,7 +156,7 @@ object Tournament {
       clock: ClockConfig,
       minutes: Int,
       variant: chess.variant.Variant,
-      position: Either[StartingPosition, FEN],
+      position: Option[FEN],
       mode: Mode,
       password: Option[String],
       waitMinutes: Int,
@@ -172,9 +170,8 @@ object Tournament {
     Tournament(
       id = makeId,
       name = name | (position match {
-        case Left(pos) if pos.initial => GreatPlayer.randomName
-        case Left(pos)                => pos.shortName
-        case _                        => GreatPlayer.randomName
+        case Some(pos) => Thematic.byFen(pos).fold("Custom position")(_.shortName)
+        case None      => GreatPlayer.randomName
       }),
       status = Status.Created,
       clock = clock,
@@ -210,7 +207,7 @@ object Tournament {
       createdAt = DateTime.now,
       nbPlayers = 0,
       variant = sched.variant,
-      position = Left(sched.position),
+      position = sched.position,
       mode = Mode.Rated,
       conditions = sched.conditions,
       schedule = Some(sched),
