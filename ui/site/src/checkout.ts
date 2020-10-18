@@ -23,8 +23,8 @@ export default function(publicKey: string) {
 
   const selectAmountGroup = function() {
     var freq = getFreq();
-    $checkout.find('.amount_fixed').toggle(freq == 'lifetime');
-    $checkout.find('.amount_choice').toggle(freq != 'lifetime');
+    $checkout.find('.amount_fixed').toggleClass('none', freq != 'lifetime');
+    $checkout.find('.amount_choice').toggleClass('none', freq == 'lifetime');
   }
   selectAmountGroup();
 
