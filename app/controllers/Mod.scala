@@ -156,7 +156,7 @@ final class Mod(
         env.mod.impersonate.stop(me)
         Redirect(routes.User.show(me.username))
       }
-      else if (isGranted(_.Impersonate) || (isGranted(_.Admin) && username == "lichess"))
+      else if (isGranted(_.Impersonate) || (isGranted(_.Admin) && username.toLowerCase == "lichess"))
         OptionFuRedirect(env.user.repo named username) { user =>
           env.mod.impersonate.start(me, user)
           fuccess(routes.User.show(user.username))

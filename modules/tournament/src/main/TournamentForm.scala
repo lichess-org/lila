@@ -59,13 +59,7 @@ final class TournamentForm {
       hasChat = tour.hasChat.some
     )
 
-  private def nameType(user: User) = clean(text).verifying(
-    Constraints minLength 2,
-    Constraints maxLength 30,
-    Constraints.pattern(
-      regex = """[\p{L}\p{N}-\s:,;]+""".r,
-      error = "error.unknown"
-    ),
+  private def nameType(user: User) = eventName(2, 30).verifying(
     Constraint[String] { (t: String) =>
       if (t.toLowerCase.contains("lichess") && !user.isVerified && !user.isAdmin)
         validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
