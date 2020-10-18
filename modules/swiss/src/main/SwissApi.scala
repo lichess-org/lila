@@ -72,6 +72,7 @@ final class SwissApi(
         nbRounds = data.nbRounds,
         rated = data.rated | true,
         description = data.description,
+        position = data.realPosition,
         chatFor = data.realChatFor,
         roundInterval = data.realRoundInterval,
         password = data.password,
@@ -97,6 +98,9 @@ final class SwissApi(
             nbRounds = data.nbRounds,
             rated = data.rated | old.settings.rated,
             description = data.description orElse old.settings.description,
+            position =
+              if (old.isCreated || old.settings.position.isDefined) data.realPosition
+              else old.settings.position,
             chatFor = data.chatFor | old.settings.chatFor,
             roundInterval =
               if (data.roundInterval.isDefined) data.realRoundInterval

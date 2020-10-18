@@ -1,6 +1,7 @@
 package lila.swiss
 
 import chess.Clock.{ Config => ClockConfig }
+import chess.format.FEN
 import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.data._
@@ -28,6 +29,7 @@ final class SwissForm(implicit mode: Mode) {
         "rated"         -> optional(boolean),
         "nbRounds"      -> number(min = minRounds, max = 100),
         "description"   -> optional(clean(nonEmptyText)),
+        "position"      -> optional(lila.common.Form.fen.playableStrict),
         "chatFor"       -> optional(numberIn(chatForChoices.map(_._1))),
         "roundInterval" -> optional(numberIn(roundIntervals)),
         "password"      -> optional(clean(nonEmptyText)),
@@ -46,6 +48,7 @@ final class SwissForm(implicit mode: Mode) {
       rated = true.some,
       nbRounds = 7,
       description = none,
+      position = none,
       chatFor = Swiss.ChatFor.default.some,
       roundInterval = Swiss.RoundInterval.auto.some,
       password = None,
@@ -61,6 +64,7 @@ final class SwissForm(implicit mode: Mode) {
       rated = s.settings.rated.some,
       nbRounds = s.settings.nbRounds,
       description = s.settings.description,
+      position = s.settings.position,
       chatFor = s.settings.chatFor.some,
       roundInterval = s.settings.roundInterval.toSeconds.toInt.some,
       password = s.settings.password,
@@ -137,6 +141,7 @@ object SwissForm {
       rated: Option[Boolean],
       nbRounds: Int,
       description: Option[String],
+      position: Option[FEN],
       chatFor: Option[Int],
       roundInterval: Option[Int],
       password: Option[String],
@@ -160,5 +165,6 @@ object SwissForm {
         case i => i
       }
     }.seconds
+    def realPosition = position ifTrue realVariant.standard
   }
 }

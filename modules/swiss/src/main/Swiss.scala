@@ -8,6 +8,7 @@ import scala.concurrent.duration._
 import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
+import chess.format.FEN
 
 case class Swiss(
     _id: Swiss.Id,
@@ -91,6 +92,7 @@ object Swiss {
       nbRounds: Int,
       rated: Boolean,
       description: Option[String] = None,
+      position: Option[FEN],
       chatFor: ChatFor = ChatFor.default,
       password: Option[String] = None,
       conditions: SwissCondition.All,

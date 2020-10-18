@@ -3,7 +3,7 @@ import flatpickr from "flatpickr";
 lichess.load.then(() => {
 
   const $variant = $('#form3-variant'),
-    showPosition = () => $('.form3 .position').toggleClass('none', $variant.val() != '1');
+    showPosition = () => $('.form3 .position').toggleClass('none', !['1', 'standard'].includes($variant.val() as string));
 
   $variant.on('change', showPosition);
   showPosition();

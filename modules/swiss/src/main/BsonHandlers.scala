@@ -1,14 +1,15 @@
 package lila.swiss
 
-import scala.concurrent.duration._
-
 import chess.Clock.{ Config => ClockConfig }
+import chess.format.FEN
 import chess.variant.Variant
 import chess.{ Color, StartingPosition }
+import reactivemongo.api.bson._
+import scala.concurrent.duration._
+
 import lila.db.BSON
 import lila.db.dsl._
 import lila.user.User
-import reactivemongo.api.bson._
 
 private object BsonHandlers {
 
@@ -128,6 +129,7 @@ private object BsonHandlers {
         nbRounds = r.get[Int]("n"),
         rated = r.boolO("r") | true,
         description = r.strO("d"),
+        position = r.getO[FEN]("f"),
         chatFor = r.intO("c") | Swiss.ChatFor.default,
         roundInterval = (r.intO("i") | 60).seconds,
         password = r.strO("p"),
@@ -138,6 +140,7 @@ private object BsonHandlers {
         "n" -> s.nbRounds,
         "r" -> (!s.rated).option(false),
         "d" -> s.description,
+        "f" -> s.position,
         "c" -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
         "i" -> s.roundInterval.toSeconds.toInt,
         "p" -> s.password,

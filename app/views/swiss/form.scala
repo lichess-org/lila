@@ -26,7 +26,7 @@ object form {
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.rated, fields.variant),
             fields.clock,
-            fields.description,
+            form3.split(fields.description, fields.position),
             form3.split(
               fields.roundInterval,
               fields.startsAt
@@ -60,7 +60,7 @@ object form {
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.rated, fields.variant),
             fields.clock,
-            fields.description,
+            form3.split(fields.description, swiss.settings.position.isDefined option fields.position),
             form3.split(
               fields.roundInterval,
               swiss.isCreated option fields.startsAt
@@ -168,8 +168,17 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
       frag("Tournament description"),
       help = frag(
         "Anything special you want to tell the participants? Try to keep it short. Markdown links are available: [name](https://url)"
-      ).some
+      ).some,
+      half = true
     )(form3.textarea(_)(rows := 4))
+  def position =
+    form3.group(
+      form("position"),
+      trans.startPosition(),
+      klass = "position",
+      half = true,
+      help = views.html.tournament.form.positionInputHelp.some
+    )(form3.input(_))
   def startsAt =
     form3.group(
       form("startsAt"),
