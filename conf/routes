@@ -573,6 +573,7 @@ GET   /api/tournament/:id/teams        controllers.Api.tournamentTeams(id: Strin
 POST  /api/tournament                  controllers.Tournament.apiCreate
 POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId: String)
 GET   /api/swiss/:id/games             controllers.Api.swissGames(id: String)
+GET   /api/swiss/:id/results           controllers.Api.swissResults(id: String)
 GET   /api/simul                       controllers.Simul.apiList
 GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus

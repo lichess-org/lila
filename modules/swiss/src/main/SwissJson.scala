@@ -140,6 +140,21 @@ final class SwissJson(
         }
       }
     }
+
+  def playerResult(player: SwissPlayer, rank: Int): Fu[JsObject] =
+    lightUserApi.asyncFallback(player.userId) map { user =>
+      Json
+        .obj(
+          "rank"     -> rank,
+          "score"    -> player.score.value,
+          "tieBreak" -> player.tieBreak.value,
+          "rating"   -> player.rating,
+          "username" -> user.name
+        )
+        .add("title" -> user.title)
+        .add("performance" -> player.performance)
+        .add("absent" -> player.absent)
+    }
 }
 
 object SwissJson {

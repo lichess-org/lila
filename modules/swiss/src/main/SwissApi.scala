@@ -10,6 +10,7 @@ import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.chat.Chat
+import lila.common.config.MaxPerSecond
 import lila.common.{ Bus, GreatPlayer, LightUser }
 import lila.db.dsl._
 import lila.game.{ Game, Pov }
@@ -605,6 +606,18 @@ final class SwissApi(
       .flatMap {
         _.map { withdraw(_, user.id) }.sequenceFu.void
       }
+
+  def resultStream(swiss: Swiss, perSecond: MaxPerSecond, nb: Int): Source[(SwissPlayer, Long), _] =
+    SwissPlayer.fields { f =>
+      colls.player
+        .find($doc(f.swissId -> swiss.id))
+        .sort($sort desc f.score)
+        .batchSize(perSecond.value)
+        .cursor[SwissPlayer](ReadPreference.secondaryPreferred)
+        .documentSource(nb)
+        .throttle(perSecond.value, 1 second)
+        .zipWithIndex
+    }
 
   private def Sequencing[A: Zero](
       id: Swiss.Id

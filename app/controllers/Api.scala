@@ -314,6 +314,21 @@ final class Api(
       }
     }
 
+  def swissResults(id: String) =
+    Action.async { implicit req =>
+      env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
+        _ ?? { swiss =>
+          jsonStream {
+            env.swiss.api
+              .resultStream(swiss, MaxPerSecond(50), getInt("nb", req) | Int.MaxValue)
+              .mapAsync(8) { case (player, rank) =>
+                env.swiss.json.playerResult(player, rank.toInt)
+              }
+          }.fuccess
+        }
+      }
+    }
+
   def gamesByUsersStream =
     AnonOrScopedBody(parse.tolerantText)()(
       anon = gamesByUsers(300),
