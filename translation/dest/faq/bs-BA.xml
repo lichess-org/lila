@@ -28,6 +28,7 @@
   <string name="youCannotApply">Nije moguće aplicirati da postanete moderator. Ako vidimo nekoga za koga mislimo da bi bio dobar kao moderator, direktno ćemo kontaktirati s njim.</string>
   <string name="isCorrespondenceDifferent">Je li dopisni šah različit od standardnog?</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichessu, glavna razlika u pravilima za dopisni šah jest da je dozvoljeno upotrebljavati knjige o šahovskim otvaranjima i baze podataka o njima. Upotreba šahovskih programa i dalje je zabranjena i rezultirat će time da igrač bude označen zbog nje. Iako ICCF dozvoljava upotrebu programa u dopisnom šahu, to nije slučaj s Lichessom.</string>
+  <string name="durationFormula">(početno vrijeme) + 40 × (bonus vrijeme)</string>
   <string name="whatVariantsCanIplay">Koje varijante šaha mogu igrati na Lichessu?</string>
   <string name="lichessSupportChessAnd">Lichess podržava standardni šah i još osam %1$s.</string>
   <string name="eightVariants">8 varijanti šaha</string>
@@ -77,10 +78,18 @@ Pogledajte %3$s koja se odnosi na ovaj potez kako biste ga malo izvježbali.</st
   <string name="usernamesNotOffensive">Korisnička imena ne bi trebala biti uvredljiva, marketinška ili takva da označavaju drugu osobu. Možete pročitati više o %1$s.</string>
   <string name="guidelines">smjernicama</string>
   <string name="uniqueTrophies">Jedinstveni trofeji</string>
+  <string name="lichessRatings">Rejtinzi na Lichessu</string>
   <string name="whichRatingSystemUsedByLichess">Koji sistem rejtingovanja upotrebljava Lichess?</string>
   <string name="whatIsProvisionalRating">Zašto pored rejtinga stoji upitnik?</string>
   <string name="provisionalRatingExplanation">Upitnik znači da je rejting provizoran / privremen. Razlozi za to uključuju:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Igrač još nije završio dovoljno rejtingovanih partija protiv %1$s u datoj kategoriji rejtinga.</string>
   <string name="similarOpponents">protivnika slične jačine</string>
   <string name="notPlayedRecently">Igrač nije igrao dovoljno partija u skorije vrijeme. U zavisnosti od broja partija koje ste odigrali, možda će biti potrebna otprilike jedna godina neaktivnosti da Vaš rejting ponovo postane provizoran / privremen.</string>
+  <string name="howToHideRatingWhilePlaying">Kako da sakrijem rejting dok igram?</string>
+  <string name="enableZenMode">Omogućite zen-način u %1$s ili pritisnite %2$s tokom partije.</string>
+  <string name="displayPreferences">preferencama prikaza</string>
+  <string name="connexionLostCanIGetMyRatingBack">Izgubio sam partiju zbog kašnjenja konekcije ili njenog prekida. Mogu li mi biti vraćeni rejting-bodovi?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Nažalost, ne možemo Vam vratiti bodove za partije izgubljene zbog kašnjenja konekcije ili njenog prekida, nezavisno od toga je li problem bio do Vas ili do nas. Ovo potonje vrlo je rijetko, doduše. Također primijetite da, kad se Lichess restarta i usljed toga izgubite zbog isteka vremena, prekidamo partiju kako bismo spriječili nepravedan gubitak.</string>
+  <string name="howToThreeDots">Kako...</string>
+  <string name="enableDisableNotificationPopUps">Omogući ili onemogući skočne obavijesti?</string>
 </resources>

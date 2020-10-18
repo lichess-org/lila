@@ -76,7 +76,7 @@
   <string name="close">Zatvori</string>
   <string name="winning">Pobjeđuje</string>
   <string name="losing">Gubi</string>
-  <string name="drawn">Remizira</string>
+  <string name="drawn">Remi</string>
   <string name="unknown">Nepoznat ishod</string>
   <string name="database">Baza podataka</string>
   <string name="whiteDrawBlack">Bijeli / Remi / Crni</string>
@@ -890,7 +890,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="correspondenceDesc">Dopisne partije: jedan ili više dana po potezu</string>
   <string name="puzzleDesc">Vježbanje šahovske taktike</string>
   <string name="important">Važno</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Na Vaše pitanje možda već postoji odgovor %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Na Vaše pitanje možda već postoji odgovor %1$s</string>
   <string name="inTheFAQ">u sekciji F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Da prijavite korisnika zbog varanja ili lošeg ponašanja, %1$s</string>
   <string name="useTheReportForm">koristite formular za prijavu</string>

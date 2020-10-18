@@ -73,6 +73,7 @@
   <string name="startAtX">Započni na %s</string>
   <string name="embedInYourWebsite">Ugradi u svoju stranicu ili blog</string>
   <string name="readMoreAboutEmbedding">Pročitajte više o ugradnji</string>
+  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Samo javne studije mogu biti uključene!</string>
   <string name="open">Otvori</string>
   <string name="xBroughtToYouByY">%1$s vam je donio %2$s</string>
   <string name="studyNotFound">Studija nije pronađena</string>
