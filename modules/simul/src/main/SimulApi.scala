@@ -54,7 +54,7 @@ final class SimulApi(
       name = setup.name,
       clock = setup.clock,
       variants = setup.actualVariants,
-      position = setup.actualPosition,
+      position = setup.realPosition,
       host = me,
       color = setup.color,
       text = setup.text,
@@ -70,7 +70,7 @@ final class SimulApi(
       name = setup.name,
       clock = setup.clock,
       variants = setup.actualVariants,
-      position = setup.actualPosition,
+      position = setup.realPosition,
       color = setup.color.some,
       text = setup.text,
       team = setup.team
@@ -247,7 +247,7 @@ final class SimulApi(
                   if (simul.position.isEmpty) pairing.player.variant
                   else chess.variant.FromPosition
                 },
-                fen = simul.position.map(_.fen)
+                fen = simul.position.map(_.value)
               )
               .copy(clock = clock.start.some),
             whitePlayer = lila.game.Player.make(chess.White, whiteUser.some, perfPicker),

@@ -1,13 +1,16 @@
 package lila.simul
 
+import cats.implicits._
+import chess.format.FEN
 import chess.StartingPosition
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraint
 
 import lila.common.Form._
-import lila.user.User
 import lila.hub.LeaderTeam
+import lila.user.User
+import chess.format.Forsyth
 
 object SimulForm {
 
@@ -60,7 +63,7 @@ object SimulForm {
       clockIncrement = clockIncrementDefault,
       clockExtra = clockExtraDefault,
       variants = List(chess.variant.Standard.id),
-      position = StartingPosition.initial.fen.some,
+      position = none,
       color = colorDefault,
       text = "",
       team = none,
@@ -74,7 +77,7 @@ object SimulForm {
       clockIncrement = simul.clock.config.increment.roundSeconds,
       clockExtra = simul.clock.hostExtraMinutes,
       variants = simul.variants.map(_.id),
-      position = simul.position.map(_.fen),
+      position = simul.position,
       color = simul.color | "random",
       text = simul.text,
       team = simul.team,
@@ -103,7 +106,7 @@ object SimulForm {
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
-        "position" -> optional(nonEmptyText),
+        "position" -> optional(lila.common.Form.fen.playableStrict),
         "color"    -> stringIn(colorChoices),
         "text"     -> clean(text),
         "team"     -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
@@ -117,9 +120,6 @@ object SimulForm {
   }
   val positionDefault = StartingPosition.initial.fen
 
-  def startingPosition(fen: String, variant: chess.variant.Variant): StartingPosition =
-    Simul.fenIndex.get(fen).ifTrue(variant.standard) | StartingPosition.initial
-
   def setText = Form(single("text" -> text))
 
   case class Setup(
@@ -128,7 +128,7 @@ object SimulForm {
       clockIncrement: Int,
       clockExtra: Int,
       variants: List[Int],
-      position: Option[String],
+      position: Option[FEN],
       color: String,
       text: String,
       team: Option[String],
@@ -140,13 +140,8 @@ object SimulForm {
         hostExtraTime = clockExtra * 60
       )
 
-    def actualPosition =
-      position
-        .map {
-          startingPosition(_, chess.variant.Standard)
-        }
-        .filterNot(_.initial)
-
     def actualVariants = variants.flatMap { chess.variant.Variant(_) }
+
+    def realPosition = position.filterNot(Forsyth.initial === _.value)
   }
 }

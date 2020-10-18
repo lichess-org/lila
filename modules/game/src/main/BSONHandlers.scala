@@ -25,8 +25,6 @@ object BSONHandlers {
 
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  implicit val FENBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
-
   implicit private[game] val checkCountWriter = new BSONWriter[CheckCount] {
     def writeTry(cc: CheckCount) = Success(BSONArray(cc.white, cc.black))
   }

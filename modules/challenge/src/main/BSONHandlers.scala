@@ -84,7 +84,5 @@ private object BSONHandlers {
       }
   }
 
-  import lila.game.BSONHandlers.FENBSONHandler
-
   implicit val ChallengeBSONHandler = Macros.handler[Challenge]
 }

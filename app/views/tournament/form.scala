@@ -186,6 +186,18 @@ object form {
     form3.input(field)(
       tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
     )
+
+  val positionInputHelp = frag(
+    "Paste a valid FEN to start every game from a given position.",
+    br,
+    "It only works for standard games, not with variants.",
+    br,
+    "You can use the ",
+    a(href := routes.Editor.index(), target := "_blank")("board editor"),
+    " to generate a FEN position, then paste it here.",
+    br,
+    "Leave empty to start games from the normal initial position."
+  )
 }
 
 final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit ctx: Context) {
@@ -234,17 +246,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       trans.startPosition(),
       klass = "position",
       half = true,
-      help = frag(
-        "Paste a valid FEN to start every game from a given position.",
-        br,
-        "It only works for standard games, not with variants.",
-        br,
-        "You can use the ",
-        a(href := routes.Editor.index(), target := "_blank")("board editor"),
-        " to generate a FEN position, then paste it here.",
-        br,
-        "Leave empty to start games from the normal initial position."
-      ).some
+      help = tournament.form.positionInputHelp.some
     )(
       views.html.tournament.form.startingPosition(_, tour)
     )

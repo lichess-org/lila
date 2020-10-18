@@ -75,7 +75,10 @@ object form {
               form,
               "variants",
               translatedVariantChoicesWithVariants,
-              checks = form.value.??(_.variants.map(_.toString).toSet)
+              checks = form.value
+                .map(_.variants.map(_.toString))
+                .getOrElse(simul.??(_.variants.map(_.id.toString)))
+                .toSet
             )
           ),
           errMsg(f)
@@ -116,26 +119,8 @@ object form {
           trans.startPosition(),
           klass = "position",
           half = true,
-          help = frag("Custom starting position only works with the standard variant.").some
-        ) { field =>
-          st.select(
-            id := form3.id(field),
-            st.name := field.name,
-            cls := "form-control"
-          )(
-            option(
-              value := chess.StartingPosition.initial.fen,
-              field.value.has(chess.StartingPosition.initial.fen) option selected
-            )(chess.StartingPosition.initial.name),
-            chess.StartingPosition.categories.map { categ =>
-              optgroup(attr("label") := categ.name)(
-                categ.positions.map { v =>
-                  option(value := v.fen, field.value.has(v.fen) option selected)(v.fullName)
-                }
-              )
-            }
-          )
-        }
+          help = views.html.tournament.form.positionInputHelp.some
+        )(form3.input(_))
       ),
       form3.group(
         form("text"),

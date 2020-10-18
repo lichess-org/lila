@@ -84,7 +84,6 @@ object AiConfig extends BaseConfig {
 
   import lila.db.BSON
   import lila.db.dsl._
-  import lila.game.BSONHandlers.FENBSONHandler
 
   implicit private[setup] val aiConfigBSONHandler = new BSON[AiConfig] {
 

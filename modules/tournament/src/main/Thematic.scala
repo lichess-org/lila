@@ -3,7 +3,7 @@ package lila.tournament
 import chess.StartingPosition
 import chess.format.FEN
 
-private object Thematic {
+object Thematic {
 
   def byFen                                     = fenIndex.get _
   def byFen(fen: FEN): Option[StartingPosition] = byFen(fen.value)

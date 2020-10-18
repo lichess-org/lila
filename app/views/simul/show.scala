@@ -70,7 +70,7 @@ object show {
                 case Some("black") => trans.black()
                 case _             => trans.randomColor()
               }),
-              sim.position map { pos =>
+              sim.position.flatMap(lila.tournament.Thematic.byFen) map { pos =>
                 frag(
                   br,
                   a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
@@ -78,6 +78,12 @@ object show {
                   a(href := routes.UserAnalysis.parseArg(pos.fen.replace(" ", "_")))(
                     trans.analysis()
                   )
+                )
+              } orElse sim.position.map { fen =>
+                frag(
+                  br,
+                  "Custom position • ",
+                  a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
                 )
               }
             ),

@@ -8,6 +8,7 @@ import scala.util.{ Failure, Success, Try }
 
 import lila.common.Iso._
 import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
+import chess.format.FEN
 
 trait Handlers {
 
@@ -114,4 +115,6 @@ trait Handlers {
     isoHandler[NormalizedEmailAddress, String](normalizedEmailAddressIso)
 
   implicit val colorBoolHandler = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite, _.white)
+
+  implicit val FENHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 }
