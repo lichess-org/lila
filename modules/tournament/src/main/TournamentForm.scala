@@ -47,7 +47,7 @@ final class TournamentForm {
       waitMinutes = none,
       startDate = tour.startsAt.some,
       variant = tour.variant.id.toString.some,
-      position = tour.position.map(_.value),
+      position = tour.position,
       mode = none,
       rated = tour.mode.rated.some,
       password = tour.password,
@@ -80,7 +80,7 @@ final class TournamentForm {
         "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
         "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
-        "position"         -> optional(nonEmptyText),
+        "position"         -> optional(lila.common.Form.fen.playableStrict),
         "mode"             -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
         "rated"            -> optional(boolean),
         "password"         -> optional(clean(nonEmptyText)),
@@ -147,7 +147,7 @@ private[tournament] case class TournamentSetup(
     waitMinutes: Option[Int],
     startDate: Option[DateTime],
     variant: Option[String],
-    position: Option[String],
+    position: Option[FEN],
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],
@@ -165,7 +165,7 @@ private[tournament] case class TournamentSetup(
 
   def realVariant = variant.flatMap(TournamentForm.guessVariant) | chess.variant.Standard
 
-  def realPosition = position ifTrue realVariant.standard map FEN
+  def realPosition = position ifTrue realVariant.standard
 
   def clockConfig = chess.Clock.Config((clockTime * 60).toInt, clockIncrement)
 

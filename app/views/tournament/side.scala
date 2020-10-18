@@ -34,7 +34,7 @@ object side {
                   else tour.variant.name
                 )
               } else tour.perfType.trans,
-              (!tour.position.initial) ?? s"$separator${trans.thematic.txt()}",
+              tour.position.isDefined ?? s"$separator${trans.thematic.txt()}",
               separator,
               tour.durationString
             ),
@@ -92,14 +92,22 @@ object side {
         tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
         tour.noStreak option div(cls := "text", dataIcon := "Q")("No Arena streaks"),
         !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
-        (!tour.isStarted || (tour.isScheduled && !tour.position.initial)) option absClientDateTime(
+        (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientDateTime(
           tour.startsAt
         ),
-        !tour.position.initial option p(
-          a(targetBlank, href := tour.position.url)(strong(tour.position.eco), " ", tour.position.name),
-          separator,
-          a(href := routes.UserAnalysis.parseArg(tour.position.fen.replace(" ", "_")))(trans.analysis())
-        )
+        tour.startingPosition.map { pos =>
+          p(
+            a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
+            separator,
+            a(href := routes.UserAnalysis.parseArg(pos.fen.replace(" ", "_")))(trans.analysis())
+          )
+        } orElse tour.position.map { fen =>
+          p(
+            "Custom position",
+            separator,
+            a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
+          )
+        }
       ),
       streamers.nonEmpty option div(cls := "context-streamers")(
         streamers map views.html.streamer.bits.contextual

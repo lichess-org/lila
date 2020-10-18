@@ -1,5 +1,6 @@
 package lila.common
 
+import chess.format.FEN
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
 import play.api.data.format.{ Formatter, JodaFormats }
@@ -8,6 +9,7 @@ import play.api.data.JodaForms._
 import play.api.data.validation.{ Constraint, Constraints }
 import play.api.data.{ Field, FormError, Mapping }
 import scala.util.Try
+import chess.format.Forsyth
 
 object Form {
 
@@ -117,6 +119,12 @@ object Form {
       Constraint[A]("constraint.maxLength", length) { o =>
         if (from(o).lengthIs <= length) V.Valid else V.Invalid(V.ValidationError("error.maxLength", length))
       }
+  }
+
+  object fen {
+    implicit private val fenFormat = formatter.stringFormatter[FEN](_.value, FEN.apply)
+    val playableStrict = of[FEN](fenFormat)
+      .verifying("Invalid position", fen => (Forsyth <<< fen.value).exists(_.situation playable true))
   }
 
   def inTheFuture(m: Mapping[DateTime]) =
