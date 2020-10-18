@@ -26,10 +26,10 @@ final class AutoPairing(
       .make(
         chess = chess.Game(
           variantOption = Some {
-            if (tour.position.initial) tour.variant
+            if (tour.initialPosition) tour.variant
             else chess.variant.FromPosition
           },
-          fen = tour.position.some.filterNot(_.initial).map(_.fen)
+          fen = tour.position.fold(p => p.some.filterNot(_.initial).map(_.fen), f => f.value.some)
         ) pipe { g =>
           val turns = g.player.fold(0, 1)
           g.copy(

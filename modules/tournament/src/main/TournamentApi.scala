@@ -111,7 +111,7 @@ final class TournamentApi(
       startsAt = startDate | old.startsAt,
       password = data.password,
       position =
-        if (old.isCreated || !old.position.initial)
+        if (old.isCreated || !old.initialPosition)
           TournamentForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant)
         else old.position,
       noBerserk = !(~berserkable),
@@ -689,7 +689,7 @@ final class TournamentApi(
     if (v)
       tournamentRepo.byId(tourId) flatMap {
         _ ?? { tour =>
-          tournamentRepo.setSchedule(tour.id, Schedule.uniqueFor(tour).some)
+          tournamentRepo.setSchedule(tour.id, Schedule.uniqueFor(tour))
         }
       }
     else

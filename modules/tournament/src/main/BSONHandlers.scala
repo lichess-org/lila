@@ -1,13 +1,15 @@
 package lila.tournament
 
 import chess.Clock.{ Config => ClockConfig }
+import chess.format.FEN
 import chess.variant.Variant
 import chess.{ Mode, StartingPosition }
+import reactivemongo.api.bson._
+
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.PerfType
 import lila.user.User.lichessId
-import reactivemongo.api.bson._
 
 object BSONHandlers {
 
@@ -62,9 +64,11 @@ object BSONHandlers {
   implicit val tournamentHandler = new BSON[Tournament] {
     def reads(r: BSON.Reader) = {
       val variant = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
-      val position: StartingPosition = r.strO("fen").flatMap(Thematic.byFen) orElse
-        r.strO("eco").flatMap(Thematic.byEco) getOrElse // for BC
-        StartingPosition.initial
+      val position: Either[StartingPosition, FEN] =
+        r.strO("fen") map { f =>
+          Thematic.byFen(f).fold[Either[StartingPosition, FEN]](Right(FEN(f)))(Left(_))
+        } getOrElse
+          Left(r.strO("eco").flatMap(Thematic.byEco) | StartingPosition.initial)
       val startsAt   = r date "startsAt"
       val conditions = r.getO[Condition.All]("conditions") getOrElse Condition.All.empty
       Tournament(
@@ -85,7 +89,8 @@ object BSONHandlers {
           doc   <- r.getO[Bdoc]("schedule")
           freq  <- doc.getAsOpt[Schedule.Freq]("freq")
           speed <- doc.getAsOpt[Schedule.Speed]("speed")
-        } yield Schedule(freq, speed, variant, position, startsAt, conditions),
+          pos   <- position.left.toOption
+        } yield Schedule(freq, speed, variant, pos, startsAt, conditions),
         nbPlayers = r int "nbPlayers",
         createdAt = r date "createdAt",
         createdBy = r strO "createdBy" getOrElse lichessId,
@@ -99,13 +104,17 @@ object BSONHandlers {
     }
     def writes(w: BSON.Writer, o: Tournament) =
       $doc(
-        "_id"         -> o.id,
-        "name"        -> o.name,
-        "status"      -> o.status,
-        "clock"       -> o.clock,
-        "minutes"     -> o.minutes,
-        "variant"     -> o.variant.some.filterNot(_.standard).map(_.id),
-        "fen"         -> o.position.some.filterNot(_.initial).map(_.fen),
+        "_id"     -> o.id,
+        "name"    -> o.name,
+        "status"  -> o.status,
+        "clock"   -> o.clock,
+        "minutes" -> o.minutes,
+        "variant" -> o.variant.some.filterNot(_.standard).map(_.id),
+        "fen" -> (o.position match {
+          case Right(f)              => f.value.some
+          case Left(p) if !p.initial => p.fen.some
+          case _                     => none
+        }),
         "mode"        -> o.mode.some.filterNot(_.rated).map(_.id),
         "password"    -> o.password,
         "conditions"  -> o.conditions.ifNonEmpty,

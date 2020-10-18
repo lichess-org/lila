@@ -133,13 +133,15 @@ case class Schedule(
 object Schedule {
 
   def uniqueFor(tour: Tournament) =
-    Schedule(
-      freq = Freq.Unique,
-      speed = Speed fromClock tour.clock,
-      variant = tour.variant,
-      position = tour.position,
-      at = tour.startsAt
-    )
+    tour.position.left.toOption map { pos =>
+      Schedule(
+        freq = Freq.Unique,
+        speed = Speed fromClock tour.clock,
+        variant = tour.variant,
+        position = pos,
+        at = tour.startsAt
+      )
+    }
 
   case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament]) {
 

@@ -1,5 +1,7 @@
 package lila.tournament
 
+import chess.format.FEN
+import chess.StartingPosition
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
@@ -11,7 +13,6 @@ import lila.common.{ GreatPlayer, LightUser, Uptime }
 import lila.game.{ Game, LightPov }
 import lila.hub.LightTeam.TeamID
 import lila.memo.CacheApi._
-import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.socket.Socket.SocketVersion
 import lila.user.{ LightUserApi, User }
@@ -116,7 +117,7 @@ final class JsonView(
           )
           .add("spotlight" -> tour.spotlight)
           .add("berserkable" -> tour.berserkable)
-          .add("position" -> full.option(tour.position).filterNot(_.initial).map(positionJson))
+          .add("position" -> full.??(positionJson(tour.position)))
           .add("verdicts" -> verdicts.map(Condition.JSONHandlers.verdictsFor(_, lang)))
           .add("schedule" -> tour.schedule.map(scheduleJson))
           .add("private" -> tour.isPrivate)
@@ -521,13 +522,25 @@ object JsonView {
     )
   }
 
-  private[tournament] def positionJson(s: chess.StartingPosition) =
-    Json.obj(
-      "eco"      -> s.eco,
-      "name"     -> s.name,
-      "wikiPath" -> s.wikiPath,
-      "fen"      -> s.fen
-    )
+  private[tournament] def positionJson(s: Either[StartingPosition, FEN]): Option[JsObject] = s match {
+    case Left(pos) if pos.initial => none
+    case Left(pos) =>
+      Json
+        .obj(
+          "eco"      -> pos.eco,
+          "name"     -> pos.name,
+          "wikiPath" -> pos.wikiPath,
+          "fen"      -> pos.fen
+        )
+        .some
+    case Right(fen) =>
+      Json
+        .obj(
+          "name" -> "Custom position",
+          "fen"  -> fen.value
+        )
+        .some
+  }
 
   implicit private[tournament] val spotlightWrites: OWrites[Spotlight] = OWrites { s =>
     Json

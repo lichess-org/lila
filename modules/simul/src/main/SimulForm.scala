@@ -3,7 +3,7 @@ package lila.simul
 import chess.StartingPosition
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.{ Constraint, Constraints }
+import play.api.data.validation.Constraint
 
 import lila.common.Form._
 import lila.user.User
