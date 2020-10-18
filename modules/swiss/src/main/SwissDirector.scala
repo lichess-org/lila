@@ -88,7 +88,7 @@ final private class SwissDirector(
             if (swiss.settings.position.isEmpty) swiss.variant
             else chess.variant.FromPosition
           },
-          fen = swiss.settings.position.map(_.value)
+          fen = swiss.settings.position
         ) pipe { g =>
           val turns = g.player.fold(0, 1)
           g.copy(

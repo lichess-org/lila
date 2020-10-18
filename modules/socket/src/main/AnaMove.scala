@@ -19,7 +19,7 @@ case class AnaMove(
     orig: chess.Pos,
     dest: chess.Pos,
     variant: Variant,
-    fen: String,
+    fen: FEN,
     path: String,
     chapterId: Option[String],
     promotion: Option[chess.PromotableRole]
@@ -39,18 +39,13 @@ case class AnaMove(
           check = game.situation.check,
           dests = Some(movable ?? game.situation.destinations),
           opening = (game.turns <= 30 && Variant.openingSensibleVariants(variant)) ?? {
-            FullOpeningDB findByFen FEN(fen)
+            FullOpeningDB findByFen fen
           },
           drops = if (movable) game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData
         )
       }
     }
-
-  // def json(b: Branch): JsObject = Json.obj(
-  //   "node" -> b,
-  //   "path" -> path
-  // ).add("ch" -> chapterId)
 }
 
 object AnaMove {
@@ -60,7 +55,7 @@ object AnaMove {
       d    <- o obj "d"
       orig <- d str "orig" flatMap chess.Pos.fromKey
       dest <- d str "dest" flatMap chess.Pos.fromKey
-      fen  <- d str "fen"
+      fen  <- d str "fen" map FEN.apply
       path <- d str "path"
     } yield AnaMove(
       orig = orig,

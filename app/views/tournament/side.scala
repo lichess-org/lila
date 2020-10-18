@@ -99,13 +99,13 @@ object side {
           p(
             a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
             separator,
-            a(href := routes.UserAnalysis.parseArg(pos.fen.replace(" ", "_")))(trans.analysis())
+            views.html.base.bits.fenAnalysisLink(pos.fen)
           )
         } orElse tour.position.map { fen =>
           p(
             "Custom position",
             separator,
-            a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
+            views.html.base.bits.fenAnalysisLink(fen)
           )
         }
       ),

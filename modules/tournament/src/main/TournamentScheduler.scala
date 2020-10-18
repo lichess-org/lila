@@ -1,7 +1,6 @@
 package lila.tournament
 
 import akka.actor._
-import chess.format.FEN
 import chess.StartingPosition
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
@@ -320,16 +319,16 @@ Thank you all, you rock!"""
          )).flatMap { case (hour, opening) =>
         List(
           at(today, hour) map { date =>
-            Schedule(Hourly, Bullet, Standard, FEN(opening.fen).some, date pipe orTomorrow).plan
+            Schedule(Hourly, Bullet, Standard, opening.fen.some, date pipe orTomorrow).plan
           },
           at(today, hour + 1) map { date =>
-            Schedule(Hourly, SuperBlitz, Standard, FEN(opening.fen).some, date pipe orTomorrow).plan
+            Schedule(Hourly, SuperBlitz, Standard, opening.fen.some, date pipe orTomorrow).plan
           },
           at(today, hour + 2) map { date =>
-            Schedule(Hourly, Blitz, Standard, FEN(opening.fen).some, date pipe orTomorrow).plan
+            Schedule(Hourly, Blitz, Standard, opening.fen.some, date pipe orTomorrow).plan
           },
           at(today, hour + 3) map { date =>
-            Schedule(Hourly, Rapid, Standard, FEN(opening.fen).some, date pipe orTomorrow).plan
+            Schedule(Hourly, Rapid, Standard, opening.fen.some, date pipe orTomorrow).plan
           }
         ).flatten
       },

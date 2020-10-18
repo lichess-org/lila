@@ -1,17 +1,18 @@
 package views.html.board
 
+import chess.format.FEN
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 
-import controllers.routes
-
 object editor {
 
   def apply(
       sit: chess.Situation,
-      fen: String,
+      fen: FEN,
       positionsJson: String,
       animationDuration: scala.concurrent.duration.Duration
   )(implicit ctx: Context) =

@@ -1,5 +1,6 @@
 package lila.study
 
+import chess.format.FEN
 import play.api.data._
 import play.api.data.Forms._
 
@@ -13,7 +14,7 @@ object StudyForm {
       mapping(
         "gameId"      -> optional(nonEmptyText),
         "orientation" -> optional(nonEmptyText),
-        "fen"         -> optional(nonEmptyText),
+        "fen"         -> optional(lila.common.Form.fen.playable(strict = false)),
         "pgn"         -> optional(nonEmptyText),
         "variant"     -> optional(nonEmptyText),
         "as"          -> optional(nonEmptyText)
@@ -23,7 +24,7 @@ object StudyForm {
     case class Data(
         gameId: Option[String] = None,
         orientationStr: Option[String] = None,
-        fenStr: Option[String] = None,
+        fen: Option[FEN] = None,
         pgnStr: Option[String] = None,
         variantStr: Option[String] = None,
         asStr: Option[String] = None
@@ -42,7 +43,7 @@ object StudyForm {
           name = Chapter.Name(""),
           game = gameId,
           variant = variantStr,
-          fen = fenStr,
+          fen = fen,
           pgn = pgnStr,
           orientation = orientation.name,
           mode = ChapterMaker.Mode.Normal.key,

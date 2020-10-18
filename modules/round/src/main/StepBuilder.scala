@@ -1,10 +1,11 @@
 package lila.round
 
+import chess.format.FEN
 import chess.format.Forsyth
 import chess.variant.Variant
-import lila.socket.Step
-
 import play.api.libs.json._
+
+import lila.socket.Step
 
 object StepBuilder {
 
@@ -14,7 +15,7 @@ object StepBuilder {
       id: String,
       pgnMoves: Vector[String],
       variant: Variant,
-      initialFen: String
+      initialFen: FEN
   ): JsArray = {
     chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
       case (init, games, error) =>

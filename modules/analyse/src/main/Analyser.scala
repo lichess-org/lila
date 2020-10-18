@@ -1,6 +1,5 @@
 package lila.analyse
 
-import chess.format.FEN
 import lila.common.Bus
 import lila.game.actorApi.InsertGame
 import lila.game.{ Game, GameRepo }
@@ -51,7 +50,7 @@ final class Analyser(
                   analysis = analysis,
                   game = game,
                   variant = game.variant,
-                  initialFen = initialFen | FEN(game.variant.initialFen)
+                  initialFen = initialFen | game.variant.initialFen
                 )
               ),
               "roundSocket"

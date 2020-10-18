@@ -98,9 +98,7 @@ final private class Rematcher(
   private def returnGame(pov: Pov): Fu[Game] =
     for {
       initialFen <- gameRepo initialFen pov.game
-      situation = initialFen flatMap { fen =>
-        Forsyth <<< fen.value
-      }
+      situation = initialFen flatMap Forsyth.<<<
       pieces = pov.game.variant match {
         case Chess960 =>
           if (chess960 get pov.gameId) Chess960.pieces

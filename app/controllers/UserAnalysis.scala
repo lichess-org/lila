@@ -2,18 +2,18 @@ package controllers
 
 import chess.format.Forsyth.SituationPlus
 import chess.format.{ FEN, Forsyth }
-import chess.{ Black, Situation, White }
 import chess.variant.{ FromPosition, Standard, Variant }
+import chess.{ Black, Situation, White }
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.game.Pov
 import lila.round.Forecast.{ forecastJsonWriter, forecastStepJsonFormat }
 import lila.round.JsonView.WithFlags
-import views._
 
 final class UserAnalysis(
     env: Env,
@@ -28,9 +28,9 @@ final class UserAnalysis(
       case Array(key) => load("", Variant orDefault key)
       case Array(key, fen) =>
         Variant.byKey get key match {
-          case Some(variant)                   => load(fen, variant)
-          case _ if fen == Standard.initialFen => load(arg, Standard)
-          case _                               => load(arg, FromPosition)
+          case Some(variant)                              => load(fen, variant)
+          case _ if FEN.clean(fen) == Standard.initialFen => load(arg, Standard)
+          case _                                          => load(arg, FromPosition)
         }
       case _ => load("", Standard)
     }
@@ -39,9 +39,8 @@ final class UserAnalysis(
     Open { implicit ctx =>
       val decodedFen: Option[FEN] = lila.common.String
         .decodeUriPath(urlFen)
-        .map(_.replace('_', ' ').trim)
-        .filter(_.nonEmpty)
-        .orElse(get("fen")) map FEN.apply
+        .filter(_.trim.nonEmpty)
+        .orElse(get("fen")) map FEN.clean
       val pov         = makePov(decodedFen, variant)
       val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
       env.api.roundApi
@@ -52,8 +51,8 @@ final class UserAnalysis(
 
   private[controllers] def makePov(fen: Option[FEN], variant: Variant): Pov =
     makePov {
-      fen.filter(_.value.nonEmpty).flatMap { f =>
-        Forsyth.<<<@(variant, f.value)
+      fen.filter(_.value.nonEmpty).flatMap {
+        Forsyth.<<<@(variant, _)
       } | SituationPlus(Situation(variant), 1)
     }
 

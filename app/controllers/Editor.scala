@@ -1,11 +1,13 @@
 package controllers
 
-import chess.format.Forsyth
+
+import chess.format.{ FEN, Forsyth }
 import chess.Situation
 import play.api.libs.json._
+import views._
 
 import lila.app._
-import views._
+import lila.common.Json._
 
 final class Editor(env: Env) extends LilaController(env) {
 
@@ -56,16 +58,15 @@ final class Editor(env: Env) extends LilaController(env) {
     }
 
   private def readFen(fen: Option[String]): Situation =
-    fen.map(_.trim).filter(_.nonEmpty).flatMap(Forsyth.<<<).map(_.situation) | Situation(
-      chess.variant.Standard
-    )
+    fen.map(_.trim).filter(_.nonEmpty).map(FEN.clean).flatMap(Forsyth.<<<).map(_.situation) |
+      Situation(chess.variant.Standard)
 
   def game(id: String) =
     Open { implicit ctx =>
       OptionResult(env.game.gameRepo game id) { game =>
         Redirect {
           if (game.playable) routes.Round.watcher(game.id, "white")
-          else routes.Editor.load(get("fen") | (chess.format.Forsyth >> game.chess))
+          else routes.Editor.load(get("fen") | (chess.format.Forsyth >> game.chess).value)
         }
       }
     }

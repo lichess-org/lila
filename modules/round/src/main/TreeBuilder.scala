@@ -47,7 +47,7 @@ object TreeBuilder {
       clocks: Option[Vector[Centis]]
   ): Root = {
     val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? clocks
-    chess.Replay.gameMoveWhileValid(pgnMoves, initialFen.value, variant) match {
+    chess.Replay.gameMoveWhileValid(pgnMoves, initialFen, variant) match {
       case (init, games, error) =>
         error foreach logChessError(id)
         val openingOf: OpeningOf =
@@ -62,7 +62,7 @@ object TreeBuilder {
           ply = init.turns,
           fen = fen,
           check = init.situation.check,
-          opening = openingOf(FEN(fen)),
+          opening = openingOf(fen),
           clock = withClocks.flatMap(_.headOption),
           crazyData = init.situation.board.crazyData,
           eval = infos lift 0 map makeEval
@@ -77,7 +77,7 @@ object TreeBuilder {
             move = m,
             fen = fen,
             check = g.situation.check,
-            opening = openingOf(FEN(fen)),
+            opening = openingOf(fen),
             clock = withClocks flatMap (_ lift (g.turns - init.turns - 1)),
             crazyData = g.situation.board.crazyData,
             eval = info map makeEval,
@@ -94,8 +94,7 @@ object TreeBuilder {
           )
           advices.get(g.turns + 1).flatMap { adv =>
             games.lift(index - 1).map { case (fromGame, _) =>
-              val fromFen = FEN(Forsyth >> fromGame)
-              withAnalysisChild(id, branch, variant, fromFen, openingOf)(adv.info)
+              withAnalysisChild(id, branch, variant, Forsyth >> fromGame, openingOf)(adv.info)
             }
           } getOrElse branch
         }
@@ -124,12 +123,12 @@ object TreeBuilder {
         move = m,
         fen = fen,
         check = g.situation.check,
-        opening = openingOf(FEN(fen)),
+        opening = openingOf(fen),
         crazyData = g.situation.board.crazyData,
         eval = none
       )
     }
-    chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen.value, variant) match {
+    chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen, variant) match {
       case (_, games, error) =>
         error foreach logChessError(id)
         games.reverse match {

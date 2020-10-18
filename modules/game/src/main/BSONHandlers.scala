@@ -1,6 +1,5 @@
 package lila.game
 
-import chess.format.FEN
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{
   CheckCount,

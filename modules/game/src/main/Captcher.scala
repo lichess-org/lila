@@ -110,6 +110,6 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         case _        => Nil
       }
 
-    private def fen(game: ChessGame): String = Forsyth >> game takeWhile (_ != ' ')
+    private def fen(game: ChessGame): String = Forsyth exportBoard game.board
   }
 }

@@ -75,15 +75,13 @@ object show {
                   br,
                   a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
                   " • ",
-                  a(href := routes.UserAnalysis.parseArg(pos.fen.replace(" ", "_")))(
-                    trans.analysis()
-                  )
+                  views.html.base.bits.fenAnalysisLink(pos.fen)
                 )
               } orElse sim.position.map { fen =>
                 frag(
                   br,
                   "Custom position • ",
-                  a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
+                  views.html.base.bits.fenAnalysisLink(fen)
                 )
               }
             ),

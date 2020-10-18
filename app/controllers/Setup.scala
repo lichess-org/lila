@@ -35,11 +35,11 @@ final class Setup(
   def aiForm =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req) {
-        fuccess(forms aiFilled get("fen").map(FEN)) map { form =>
+        fuccess(forms aiFilled get("fen").map(FEN.clean)) map { form =>
           html.setup.forms.ai(
             form,
             env.fishnet.aiPerfApi.intRatings,
-            form("fen").value flatMap ValidFen(getBool("strict"))
+            form("fen").value map FEN.clean flatMap ValidFen(getBool("strict"))
           )
         }
       } else Redirect(s"${routes.Lobby.home()}#ai").fuccess
@@ -53,8 +53,8 @@ final class Setup(
   def friendForm(userId: Option[String]) =
     Open { implicit ctx =>
       if (HTTPRequest isXhr ctx.req)
-        fuccess(forms friendFilled get("fen").map(FEN)) flatMap { form =>
-          val validFen = form("fen").value flatMap ValidFen(strict = false)
+        fuccess(forms friendFilled get("fen").map(FEN.clean)) flatMap { form =>
+          val validFen = form("fen").value map FEN.clean flatMap ValidFen(strict = false)
           userId ?? env.user.repo.named flatMap {
             case None => Ok(html.setup.forms.friend(form, none, none, validFen)).fuccess
             case Some(user) =>
@@ -242,7 +242,7 @@ final class Setup(
 
   def validateFen =
     Open { implicit ctx =>
-      get("fen") flatMap ValidFen(getBool("strict")) match {
+      get("fen") map FEN.clean flatMap ValidFen(getBool("strict")) match {
         case None    => BadRequest.fuccess
         case Some(v) => Ok(html.board.bits.miniSpan(v.fen, v.color)).fuccess
       }

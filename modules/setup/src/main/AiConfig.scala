@@ -63,7 +63,7 @@ object AiConfig extends BaseConfig {
       days = d,
       level = level,
       color = Color(c) err "Invalid color " + c,
-      fen = fen map FEN
+      fen = fen map FEN.apply
     )
 
   val default = AiConfig(
@@ -96,7 +96,7 @@ object AiConfig extends BaseConfig {
         days = r int "d",
         level = r int "l",
         color = Color.White,
-        fen = r.getO[FEN]("f") filter (_.value.nonEmpty)
+        fen = r.getO[FEN]("f").filter(_.value.nonEmpty)
       )
 
     def writes(w: BSON.Writer, o: AiConfig) =

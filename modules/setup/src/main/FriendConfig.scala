@@ -38,7 +38,7 @@ object FriendConfig extends BaseHumanConfig {
       days = d,
       mode = m.fold(Mode.default)(Mode.orDefault),
       color = Color(c) err "Invalid color " + c,
-      fen = fen map FEN
+      fen = fen map FEN.apply
     )
 
   val default = FriendConfig(

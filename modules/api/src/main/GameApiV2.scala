@@ -292,7 +292,7 @@ final class GameApiV2(
         // .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
         })
       )
-      .add("initialFen" -> initialFen.map(_.value))
+      .add("initialFen" -> initialFen)
       .add("winner" -> g.winnerColor.map(_.name))
       .add("opening" -> g.opening.ifTrue(withFlags.opening))
       .add("moves" -> withFlags.moves.option(g.pgnMoves mkString " "))

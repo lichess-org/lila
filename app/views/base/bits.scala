@@ -1,5 +1,9 @@
 package views.html.base
 
+import chess.format.FEN
+import controllers.routes
+import play.api.i18n.Lang
+
 import lila.app.ui.ScalatagsTemplate._
 
 object bits {
@@ -40,4 +44,7 @@ z-index: 99;
       a(href := "https://www.youtube.com/channel/UCr6RfQga70yMM9-nuzAYTsA", rel := "nofollow")("YouTube"),
       a(href := "https://www.twitch.tv/lichessdotorg", rel := "nofollow")("Twitch")
     )
+
+  def fenAnalysisLink(fen: FEN)(implicit lang: Lang) =
+    a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
 }

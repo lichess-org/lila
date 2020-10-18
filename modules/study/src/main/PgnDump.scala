@@ -2,7 +2,7 @@ package lila.study
 
 import akka.stream.scaladsl._
 import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags }
-import chess.format.{ Forsyth, pgn => chessPgn }
+import chess.format.{ pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
 
 import lila.common.String.slugify
@@ -72,7 +72,7 @@ final class PgnDump(
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),
         Tag(_.Result, "*") // required for SCID to import
-      ) ::: List(annotatorTag(study)) ::: (chapter.root.fen.value != Forsyth.initial).??(
+      ) ::: List(annotatorTag(study)) ::: (!chapter.root.fen.initial).??(
         List(
           Tag(_.FEN, chapter.root.fen.value),
           Tag("SetUp", "1")

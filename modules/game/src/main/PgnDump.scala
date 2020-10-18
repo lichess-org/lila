@@ -29,7 +29,7 @@ final class PgnDump(
       else fuccess(Tags(Nil))
     tagsFuture map { ts =>
       val turns = flags.moves ?? {
-        val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
+        val fenSituation = ts.fen flatMap Forsyth.<<<
         val moves2 =
           if (fenSituation.exists(_.situation.color.black)) ".." +: game.pgnMoves
           else game.pgnMoves
@@ -136,7 +136,7 @@ final class PgnDump(
           ).some
         ).flatten ::: customStartPosition(game.variant).??(
           List(
-            Tag(_.FEN, initialFen.fold(Forsyth.initial)(_.value)),
+            Tag(_.FEN, (initialFen | Forsyth.initial).value),
             Tag("SetUp", "1")
           )
         )

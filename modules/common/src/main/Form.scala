@@ -1,6 +1,7 @@
 package lila.common
 
 import chess.format.FEN
+import chess.format.Forsyth
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
 import play.api.data.format.{ Formatter, JodaFormats }
@@ -9,7 +10,6 @@ import play.api.data.JodaForms._
 import play.api.data.validation.{ Constraint, Constraints }
 import play.api.data.{ Field, FormError, Mapping }
 import scala.util.Try
-import chess.format.Forsyth
 
 object Form {
 
@@ -123,8 +123,10 @@ object Form {
 
   object fen {
     implicit private val fenFormat = formatter.stringFormatter[FEN](_.value, FEN.apply)
-    val playableStrict = of[FEN](fenFormat)
-      .verifying("Invalid position", fen => (Forsyth <<< fen.value).exists(_.situation playable true))
+    val playableStrict             = playable(strict = true)
+    def playable(strict: Boolean) = of[FEN](fenFormat)
+      .transform[FEN](f => FEN(f.value.trim), identity)
+      .verifying("Invalid position", fen => (Forsyth <<< fen).exists(_.situation playable strict))
   }
 
   def inTheFuture(m: Mapping[DateTime]) =

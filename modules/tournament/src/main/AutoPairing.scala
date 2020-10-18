@@ -29,7 +29,7 @@ final class AutoPairing(
             if (tour.position.isEmpty) tour.variant
             else chess.variant.FromPosition
           },
-          fen = tour.position.map(_.value)
+          fen = tour.position
         ) pipe { g =>
           val turns = g.player.fold(0, 1)
           g.copy(

@@ -247,7 +247,7 @@ final class SimulApi(
                   if (simul.position.isEmpty) pairing.player.variant
                   else chess.variant.FromPosition
                 },
-                fen = simul.position.map(_.value)
+                fen = simul.position
               )
               .copy(clock = clock.start.some),
             whitePlayer = lila.game.Player.make(chess.White, whiteUser.some, perfPicker),

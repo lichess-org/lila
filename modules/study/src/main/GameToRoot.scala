@@ -11,7 +11,7 @@ private object GameToRoot {
       lila.round.TreeBuilder(
         game = game,
         analysis = none,
-        initialFen = initialFen | FEN(game.variant.initialFen),
+        initialFen = initialFen | game.variant.initialFen,
         withFlags = WithFlags(clocks = withClocks)
       )
     }

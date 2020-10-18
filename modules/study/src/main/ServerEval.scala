@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.Glyphs
-import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
+import chess.format.{ Forsyth, Uci, UciCharPair }
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -33,7 +33,7 @@ object ServerEval {
             moves = chess.format
               .UciDump(
                 moves = chapter.root.mainline.map(_.move.san),
-                initialFen = chapter.root.fen.value.some,
+                initialFen = chapter.root.fen.some,
                 variant = chapter.setup.variant
               )
               .toOption
@@ -113,7 +113,7 @@ object ServerEval {
       )
 
     private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] =
-      chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen.value, variant) match {
+      chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen, variant) match {
         case (_, games, error) =>
           error foreach { logger.info(_) }
           games.reverse match {
@@ -126,20 +126,18 @@ object ServerEval {
           }
       }
 
-    private def makeBranch(g: chess.Game, m: Uci.WithSan) = {
-      val fen = FEN(Forsyth >> g)
+    private def makeBranch(g: chess.Game, m: Uci.WithSan) =
       Node(
         id = UciCharPair(m.uci),
         ply = g.turns,
         move = m,
-        fen = fen,
+        fen = Forsyth >> g,
         check = g.situation.check,
         crazyData = g.situation.board.crazyData,
         clock = none,
         children = Node.emptyChildren,
         forceVariation = false
       )
-    }
   }
 
   case class Progress(chapterId: Chapter.Id, tree: T.Root, analysis: JsObject, division: chess.Division)

@@ -9,7 +9,7 @@ case class Puzzle(
     id: PuzzleId,
     gameId: String,
     history: List[String],
-    fen: String,
+    fen: FEN,
     lines: List[Line],
     depth: Int,
     color: Color,
@@ -21,11 +21,10 @@ case class Puzzle(
 ) {
 
   // ply after "initial move" when we start solving
-  def initialPly: Int = {
-    fen.split(' ').lastOption flatMap (_.toIntOption) map { move =>
-      move * 2 - color.fold(0, 1)
+  def initialPly: Int =
+    fen.fullMove ?? { fm =>
+      fm * 2 - color.fold(0, 1)
     }
-  } | 0
 
   // (1 - 3)/(1 + 3) = -0.5
   def enabled = vote.ratio > AggregateVote.minRatio || vote.nb < AggregateVote.minVotes
@@ -34,12 +33,11 @@ case class Puzzle(
 
   def initialMove: Uci.Move = history.lastOption flatMap Uci.Move.apply err s"Bad initial move $this"
 
-  def fenAfterInitialMove: Option[FEN] = {
+  def fenAfterInitialMove: Option[FEN] =
     for {
       sit1 <- Forsyth << fen
       sit2 <- sit1.move(initialMove).toOption.map(_.situationAfter)
-    } yield FEN(Forsyth >> sit2)
-  }
+    } yield Forsyth >> sit2
 }
 
 object Puzzle {
@@ -54,7 +52,7 @@ object Puzzle {
   def make(
       gameId: String,
       history: List[String],
-      fen: String,
+      fen: FEN,
       color: Color,
       lines: Lines,
       mate: Boolean
@@ -128,6 +126,7 @@ object Puzzle {
 
   implicit val puzzleBSONHandler = new BSON[Puzzle] {
 
+    import lila.db.dsl.FENHandler
     import BSONFields._
     import PuzzlePerf.puzzlePerfBSONHandler
     import AggregateVote.aggregatevoteBSONHandler
@@ -137,7 +136,7 @@ object Puzzle {
         id = r int id,
         gameId = r str gameId,
         history = r str history split ' ' toList,
-        fen = r str fen,
+        fen = r.get[FEN](fen),
         lines = r.get[Lines](lines),
         depth = r int depth,
         color = Color.fromWhite(r bool white),

@@ -16,7 +16,7 @@ object JsonHandlers {
 
   def writeEval(e: Eval, fen: FEN) =
     Json.obj(
-      "fen"    -> fen.value,
+      "fen"    -> fen,
       "knodes" -> e.knodes,
       "depth"  -> e.depth,
       "pvs"    -> e.pvs.toList.map(writePv)

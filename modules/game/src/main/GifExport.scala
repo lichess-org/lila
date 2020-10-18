@@ -9,6 +9,7 @@ import play.api.libs.ws.JsonBodyWritables._
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.BaseUrl
+import lila.common.Json._
 import lila.common.Maths
 
 final class GifExport(
@@ -45,7 +46,7 @@ final class GifExport(
 
   def gameThumbnail(game: Game): Fu[Source[ByteString, _]] = {
     val query = List(
-      "fen"         -> (Forsyth >> game.chess),
+      "fen"         -> (Forsyth >> game.chess).value,
       "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
       "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
       "orientation" -> game.naturalOrientation.name
@@ -104,7 +105,7 @@ final class GifExport(
   private def frames(game: Game, initialFen: Option[FEN]) = {
     Replay.gameMoveWhileValid(
       game.pgnMoves,
-      initialFen.map(_.value) | game.variant.initialFen,
+      initialFen | game.variant.initialFen,
       game.variant
     ) match {
       case (init, games, _) =>

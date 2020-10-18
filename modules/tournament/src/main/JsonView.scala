@@ -8,6 +8,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
+import lila.common.Json._
 import lila.common.{ GreatPlayer, LightUser, Uptime }
 import lila.game.{ Game, LightPov }
 import lila.hub.LightTeam.TeamID
@@ -522,7 +523,7 @@ object JsonView {
   }
 
   private[tournament] def positionJson(fen: FEN): JsObject =
-    Thematic.byFen(fen.value) match {
+    Thematic.byFen(fen) match {
       case Some(pos) =>
         Json
           .obj(
@@ -535,7 +536,7 @@ object JsonView {
         Json
           .obj(
             "name" -> "Custom position",
-            "fen"  -> fen.value
+            "fen"  -> fen
           )
     }
 

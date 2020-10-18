@@ -54,14 +54,12 @@ object side {
           div(
             a(targetBlank, href := pos.url)(strong(pos.eco), " ", pos.name),
             " • ",
-            a(href := routes.UserAnalysis.parseArg(pos.fen.replace(" ", "_")))(
-              trans.analysis()
-            )
+            views.html.base.bits.fenAnalysisLink(pos.fen)
           )
         } orElse s.settings.position.map { fen =>
           div(
             "Custom position • ",
-            a(href := routes.UserAnalysis.parseArg(fen.value.replace(" ", "_")))(trans.analysis())
+            views.html.base.bits.fenAnalysisLink(fen)
           )
         },
         teamLink(s.teamId),

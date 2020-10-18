@@ -1,15 +1,14 @@
 package lila.socket
 
-import chess.format.Uci
+import chess.format.{ FEN, Uci }
 import chess.Pos
 import chess.variant.Crazyhouse
-
 import play.api.libs.json._
 
 case class Step(
     ply: Int,
     move: Option[Step.Move],
-    fen: String,
+    fen: FEN,
     check: Boolean,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]],
@@ -45,6 +44,7 @@ object Step {
   }
 
   implicit val stepJsonWriter: Writes[Step] = Writes { step =>
+    import lila.common.Json._
     import step._
     Json
       .obj(

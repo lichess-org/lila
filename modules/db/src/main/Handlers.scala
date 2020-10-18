@@ -116,5 +116,5 @@ trait Handlers {
 
   implicit val colorBoolHandler = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite, _.white)
 
-  implicit val FENHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
+  implicit val FENHandler: BSONHandler[FEN] = stringAnyValHandler[FEN](_.value, FEN.apply)
 }

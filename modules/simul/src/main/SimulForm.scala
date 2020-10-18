@@ -10,7 +10,6 @@ import play.api.data.validation.Constraint
 import lila.common.Form._
 import lila.hub.LeaderTeam
 import lila.user.User
-import chess.format.Forsyth
 
 object SimulForm {
 
@@ -142,6 +141,6 @@ object SimulForm {
 
     def actualVariants = variants.flatMap { chess.variant.Variant(_) }
 
-    def realPosition = position.filterNot(Forsyth.initial === _.value)
+    def realPosition = position.filterNot(_.initial)
   }
 }

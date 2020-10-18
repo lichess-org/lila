@@ -28,7 +28,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
       val cached = if (isPartial) cachedFull - 0 else cachedFull
       def debug  = s"${work.game.variant.key} analysis for ${work.game.id} by ${client.fullId}"
       chess
-        .Replay(work.game.uciList, work.game.initialFen.map(_.value), work.game.variant)
+        .Replay(work.game.uciList, work.game.initialFen, work.game.variant)
         .fold(
           fufail(_),
           replay =>

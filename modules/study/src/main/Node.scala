@@ -333,7 +333,7 @@ object Node {
     def default(variant: chess.variant.Variant) =
       Root(
         ply = 0,
-        fen = FEN(variant.initialFen),
+        fen = variant.initialFen,
         check = false,
         clock = none,
         crazyData = variant.crazyhouse option Crazyhouse.Data.init,
@@ -343,7 +343,7 @@ object Node {
     def fromRoot(b: lila.tree.Root): Root =
       Root(
         ply = b.ply,
-        fen = FEN(b.fen),
+        fen = b.fen,
         check = b.check,
         clock = b.clock,
         crazyData = b.crazyData,
@@ -356,7 +356,7 @@ object Node {
       id = b.id,
       ply = b.ply,
       move = b.move,
-      fen = FEN(b.fen),
+      fen = b.fen,
       check = b.check,
       crazyData = b.crazyData,
       clock = b.clock,

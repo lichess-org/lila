@@ -123,7 +123,7 @@ object EvalCacheEntry {
       new SmallFen(str)
     }
     def validate(variant: Variant, fen: FEN): Option[SmallFen] =
-      Forsyth.<<@(variant, fen.value).exists(_ playable false) option make(variant, fen)
+      Forsyth.<<@(variant, fen).exists(_ playable false) option make(variant, fen)
   }
 
   case class Id(variant: Variant, smallFen: SmallFen)
