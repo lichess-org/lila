@@ -145,11 +145,22 @@ object event {
         .group(form("description"), raw("Possibly long description"), help = raw("Markdown enabled").some)(
           form3.textarea(_)(rows := 15)
         ),
-      form3.group(
-        form("url"),
-        raw("External URL"),
-        help = raw("What to redirect to when the event starts").some
-      )(form3.input(_)),
+      form3.split(
+        form3.group(
+          form("url"),
+          raw("External URL"),
+          help = raw("What to redirect to when the event starts").some,
+          half = true
+        )(form3.input(_)),
+        form3.checkbox(
+          form("countdown"),
+          frag("Show countdown"),
+          help = frag(
+            "Show a countdown on the event page before start. Unselect to redirect to the event URL immediately, even before the event has started."
+          ).some,
+          half = true
+        )
+      ),
       form3.split(
         form3.group(form("lang"), raw("Language"), half = true)(form3.select(_, lila.i18n.LangList.choices)),
         form3.group(
@@ -173,9 +184,9 @@ object event {
         form3.checkbox(form("enabled"), raw("Enabled"), help = raw("Display the event").some, half = true),
         form3.group(
           form("homepageHours"),
-          raw("Hours on homepage (0 to 24)"),
+          raw("Hours on homepage before the start (0 to 24)"),
           half = true,
-          help = raw("Ask on slack first!").some
+          help = raw("Go easy on this. The event will also remain on homepage while ongoing.").some
         )(form3.input(_, typ = "number"))
       ),
       form3.action(form3.submit(trans.apply()))
