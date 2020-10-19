@@ -5,8 +5,8 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.user.User
 import lila.memo.CacheApi._
+import lila.user.User
 
 final class PrefApi(
     coll: Coll,
@@ -22,15 +22,21 @@ final class PrefApi(
       .buildAsyncFuture(fetchPref)
   }
 
-  def saveTag(user: User, tag: Pref.Tag.type => String, value: String) =
-    coll.update
-      .one(
-        $id(user.id),
-        $set(s"tags.${tag(Pref.Tag)}" -> value),
-        upsert = true
-      )
-      .void
-      .recover(lila.db.ignoreDuplicateKey) >>- { cache invalidate user.id }
+  def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) = {
+    if (value)
+      coll.update
+        .one(
+          $id(user.id),
+          $set(s"tags.${tag(Pref.Tag)}" -> "1"),
+          upsert = true
+        )
+        .void
+        .recover(lila.db.ignoreDuplicateKey)
+    else
+      coll.update
+        .one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
+        .void >>- { cache invalidate user.id }
+  } >>- { cache invalidate user.id }
 
   def getPrefById(id: User.ID): Fu[Pref]    = cache get id dmap (_ getOrElse Pref.create(id))
   val getPref                               = getPrefById _
