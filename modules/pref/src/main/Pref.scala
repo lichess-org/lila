@@ -59,6 +59,7 @@ case class Pref(
   def coordsClass    = Coords classOf coords
 
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
+  def hasDgt             = tags contains Tag.dgt
 
   def set(name: String, value: String): Option[Pref] =
     name match {
@@ -157,6 +158,7 @@ object Pref {
 
   object Tag {
     val verifyTitle = "verifyTitle"
+    val dgt         = "dgt"
   }
 
   object Color {

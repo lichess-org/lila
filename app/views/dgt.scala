@@ -92,7 +92,14 @@ object dgt {
           st.section(
             h2("Lichess connectivity"),
             if (token.isDefined)
-              p(cls := "text", dataIcon := "E")("You have an OAuth token suitable for DGT play.")
+              p(cls := "text", dataIcon := "E")(
+                "You have an OAuth token suitable for DGT play.",
+                br,
+                br,
+                "A ",
+                strong("DGT board"),
+                " entry was added to your PLAY menu at the top."
+              )
             else
               frag(
                 p("No suitable OAuth token available yet."),

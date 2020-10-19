@@ -33,8 +33,10 @@ final class DgtCtrl(env: Env) extends LilaController(env) {
   def play =
     Auth { implicit ctx => me =>
       findToken(me) map {
-        case None    => Redirect(routes.DgtCtrl.config())
-        case Some(t) => Ok(views.html.dgt.play(t))
+        case None => Redirect(routes.DgtCtrl.config())
+        case Some(t) =>
+          if (!ctx.pref.hasDgt) env.pref.api.saveTag(me, _.dgt, true)
+          Ok(views.html.dgt.play(t))
       }
     }
 
