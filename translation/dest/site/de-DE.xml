@@ -851,7 +851,7 @@
   <string name="correspondenceDesc">Fernschachspiele: Ein oder mehrere Tage pro Zug</string>
   <string name="puzzleDesc">Schachtaktik-Trainer</string>
   <string name="important">Wichtig</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Deine Frage könnte bereits %1$s beantwortet worden sein</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Deine Frage könnte bereits %1$s beantwortet worden sein</string>
   <string name="inTheFAQ">in den F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Um einen Nutzer wegen Betrugs oder schlechten Verhaltens zu melden, %1$s</string>
   <string name="useTheReportForm">nutze das Meldeformular</string>
