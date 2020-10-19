@@ -80,7 +80,6 @@ final class Report(
             }
             def thenGoTo =
               dataOpt.flatMap(_ get "then").flatMap(_.headOption) flatMap {
-                case "back"    => HTTPRequest referer ctx.req
                 case "profile" => modC.userUrl(prev.user, mod = true).some
                 case url       => url.some
               }
