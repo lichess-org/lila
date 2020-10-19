@@ -38,7 +38,8 @@ const spamRegex = new RegExp([
   'badoogirls.com',
   'hide.su',
   'wyon.de',
-  'sexdatingcz.club'
+  'sexdatingcz.club',
+  'qps.ru'
 ].map(url =>
   url.replace(/\./g, '\\.').replace(/\//g, '\\/')
 ).join('|'));
