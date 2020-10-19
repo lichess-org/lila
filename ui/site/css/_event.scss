@@ -2,9 +2,13 @@
   .box__top {
     justify-content: normal;
 
-    i {
+    .img {
       font-size: 6em;
       margin-right: 3rem;
+    }
+
+    > div {
+      margin: 0;
     }
 
     h1 {
@@ -42,11 +46,11 @@
       list-style-type: none;
       padding: 1.5em;
       text-transform: uppercase;
-    }
 
-    li span {
-      display: block;
-      font-size: 4.5rem;
+      span {
+        display: block;
+        font-size: 4.5rem;
+      }
     }
   }
 }

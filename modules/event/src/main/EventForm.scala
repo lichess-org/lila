@@ -5,12 +5,20 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.i18n.Lang
 
+import lila.common.Form.stringIn
+import lila.common.Form.UTCDate._
 import lila.i18n.LangList
 import lila.user.User
 
 object EventForm {
 
-  import lila.common.Form.UTCDate._
+  val iconChoices = List(
+    ""                    -> "Microphone",
+    "lichess.event.png"   -> "Lichess",
+    "trophy.event.png"    -> "Trophy",
+    "offerspill.logo.png" -> "Offerspill"
+  )
+  val imageDefault = ""
 
   val form = Form(
     mapping(
@@ -26,7 +34,8 @@ object EventForm {
       "hostedBy" -> optional {
         lila.user.UserForm.historicalUsernameField
           .transform[User.ID](_.toLowerCase, identity)
-      }
+      },
+      "icon" -> stringIn(iconChoices)
     )(Data.apply)(Data.unapply)
   ) fill Data(
     title = "",
@@ -50,7 +59,8 @@ object EventForm {
       enabled: Boolean,
       startsAt: DateTime,
       finishesAt: DateTime,
-      hostedBy: Option[User.ID] = None
+      hostedBy: Option[User.ID] = None,
+      icon: String = ""
   ) {
 
     def update(event: Event) =
@@ -64,7 +74,8 @@ object EventForm {
         enabled = enabled,
         startsAt = startsAt,
         finishesAt = finishesAt,
-        hostedBy = hostedBy
+        hostedBy = hostedBy,
+        icon = icon.some.filter(_.nonEmpty)
       )
 
     def make(userId: String) =
@@ -81,7 +92,8 @@ object EventForm {
         finishesAt = finishesAt,
         createdBy = Event.UserId(userId),
         createdAt = DateTime.now,
-        hostedBy = hostedBy
+        hostedBy = hostedBy,
+        icon = icon.some.filter(_.nonEmpty)
       )
   }
 
@@ -98,7 +110,8 @@ object EventForm {
         enabled = event.enabled,
         startsAt = event.startsAt,
         finishesAt = event.finishesAt,
-        hostedBy = event.hostedBy
+        hostedBy = event.hostedBy,
+        icon = ~event.icon
       )
   }
 }

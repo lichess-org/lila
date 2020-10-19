@@ -1,10 +1,10 @@
 package views.html.lobby
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
 
 object bits {
 
@@ -172,7 +172,9 @@ object bits {
         "invert"                                     -> e.isNowOrSoon
       )
     )(
-      i(cls := "img", dataIcon := ""),
+      e.icon map { i =>
+        img(cls := "img", src := assetUrl(s"images/$i"))
+      } getOrElse i(cls := "img", dataIcon := ""),
       span(cls := "content")(
         span(cls := "name")(e.title),
         span(cls := "headline")(e.headline),

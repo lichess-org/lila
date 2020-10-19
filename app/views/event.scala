@@ -6,6 +6,7 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.event.EventForm
 
 object event {
 
@@ -44,7 +45,9 @@ object event {
     ) {
       main(cls := "page-small event box box-pad")(
         div(cls := "box__top")(
-          iconTag(""),
+          e.icon map { i =>
+            img(cls := "img", src := assetUrl(s"images/$i"))
+          } getOrElse i(cls := "img", dataIcon := ""),
           div(
             h1(e.title),
             strong(cls := "headline")(e.headline)
@@ -119,11 +122,20 @@ object event {
           form3.flatpickr(_, utc = true)
         )
       ),
-      form3.group(
-        form("title"),
-        raw("Short title"),
-        help = raw("Keep it VERY short, so it fits on homepage").some
-      )(form3.input(_)),
+      form3.split(
+        form3.group(
+          form("title"),
+          raw("Short title"),
+          help = raw("Keep it VERY short, so it fits on homepage").some,
+          half = true
+        )(form3.input(_)),
+        form3.group(
+          form("icon"),
+          frag("Icon"),
+          half = true,
+          help = frag("Displayed on the homepage button").some
+        )(form3.select(_, EventForm.iconChoices))
+      ),
       form3.group(
         form("headline"),
         raw("Short headline"),
