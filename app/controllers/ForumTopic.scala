@@ -1,11 +1,12 @@
 package controllers
 
+import cats.implicits._
+import play.api.libs.json._
 import scala.concurrent.duration._
+import views._
 
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
-import play.api.libs.json._
-import views._
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
 
@@ -17,7 +18,9 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       NoBot {
         NotForKids {
           OptionFuOk(env.forum.categRepo bySlug categSlug) { categ =>
-            forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(me), _) }
+            categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
+              forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic(me, inOwnTeam), _) }
+            }
           }
         }
       }
@@ -29,21 +32,23 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
         CategGrantWrite(categSlug) {
           implicit val req = ctx.body
           OptionFuResult(env.forum.categRepo bySlug categSlug) { categ =>
-            forms
-              .topic(me)
-              .bindFromRequest()
-              .fold(
-                err =>
-                  forms.anyCaptcha map { captcha =>
-                    BadRequest(html.forum.topic.form(categ, err, captcha))
-                  },
-                data =>
-                  CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-                    topicApi.makeTopic(categ, data, me) map { topic =>
-                      Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
-                    }
-                  }(rateLimitedFu)
-              )
+            categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
+              forms
+                .topic(me, inOwnTeam)
+                .bindFromRequest()
+                .fold(
+                  err =>
+                    forms.anyCaptcha map { captcha =>
+                      BadRequest(html.forum.topic.form(categ, err, captcha))
+                    },
+                  data =>
+                    CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+                      topicApi.makeTopic(categ, data, me) map { topic =>
+                        Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
+                      }
+                    }(rateLimitedFu)
+                )
+            }
           }
         }
       }
@@ -56,9 +61,12 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           for {
             unsub    <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
             canWrite <- isGrantedWrite(categSlug)
+            inOwnTeam <- ~(categ.team, ctx.me).mapN { case (teamId, me) =>
+              env.team.cached.isLeader(teamId, me.id)
+            }
             form <- ctx.me.ifTrue(
               !posts.hasNextPage && canWrite && topic.open && !topic.isOld
-            ) ?? { me => forms.postWithCaptcha(me) map some }
+            ) ?? { me => forms.postWithCaptcha(me, inOwnTeam) map some }
             canModCateg <- isGrantedMod(categ.slug)
             _           <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
           } yield html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)

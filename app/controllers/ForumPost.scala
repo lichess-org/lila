@@ -1,9 +1,10 @@
 package controllers
 
-import lila.app._
-import lila.common.{ HTTPRequest, IpAddress }
 import scala.concurrent.duration._
 import views._
+
+import lila.app._
+import lila.common.{ HTTPRequest, IpAddress }
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController {
 
@@ -27,26 +28,28 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             if (topic.closed) fuccess(BadRequest("This topic is closed"))
             else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
             else
-              forms
-                .post(me)
-                .bindFromRequest()
-                .fold(
-                  err =>
-                    for {
-                      captcha     <- forms.anyCaptcha
-                      unsub       <- env.timeline.status(s"forum:${topic.id}")(me.id)
-                      canModCateg <- isGrantedMod(categ.slug)
-                    } yield BadRequest(
-                      html.forum.topic
-                        .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
-                    ),
-                  data =>
-                    CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-                      postApi.makePost(categ, topic, data, me) map { post =>
-                        Redirect(routes.ForumPost.redirect(post.id))
-                      }
-                    }(rateLimitedFu)
-                )
+              categ.team.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
+                forms
+                  .post(me, inOwnTeam)
+                  .bindFromRequest()
+                  .fold(
+                    err =>
+                      for {
+                        captcha     <- forms.anyCaptcha
+                        unsub       <- env.timeline.status(s"forum:${topic.id}")(me.id)
+                        canModCateg <- isGrantedMod(categ.slug)
+                      } yield BadRequest(
+                        html.forum.topic
+                          .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
+                      ),
+                    data =>
+                      CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+                        postApi.makePost(categ, topic, data, me) map { post =>
+                          Redirect(routes.ForumPost.redirect(post.id))
+                        }
+                      }(rateLimitedFu)
+                  )
+              }
           }
         }
       }
@@ -55,18 +58,22 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
   def edit(postId: String) =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      forms
-        .postEdit(me)
-        .bindFromRequest()
-        .fold(
-          _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
-          data =>
-            CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-              postApi.editPost(postId, data.changes, me).map { post =>
-                Redirect(routes.ForumPost.redirect(post.id))
-              }
-            }(rateLimitedFu)
-        )
+      env.forum.postApi.teamIdOfPostId(postId) flatMap { teamId =>
+        teamId.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
+          forms
+            .postEdit(me, inOwnTeam)
+            .bindFromRequest()
+            .fold(
+              _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
+              data =>
+                CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+                  postApi.editPost(postId, data.changes, me).map { post =>
+                    Redirect(routes.ForumPost.redirect(post.id))
+                  }
+                }(rateLimitedFu)
+            )
+        }
+      }
     }
 
   def delete(categSlug: String, id: String) =

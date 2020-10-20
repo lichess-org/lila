@@ -1,5 +1,6 @@
 package lila.forum
 
+import lila.hub.LightTeam.TeamID
 import lila.user.User
 
 case class Categ(
@@ -7,7 +8,7 @@ case class Categ(
     name: String,
     desc: String,
     pos: Int,
-    team: Option[String] = None,
+    team: Option[TeamID] = None,
     nbTopics: Int,
     nbPosts: Int,
     lastPostId: String,

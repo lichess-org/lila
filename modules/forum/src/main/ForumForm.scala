@@ -13,39 +13,39 @@ final private[forum] class ForumForm(
 
   import ForumForm._
 
-  def postMapping(user: User) =
+  def postMapping(user: User, inOwnTeam: Boolean) =
     mapping(
-      "text"    -> userTextMapping(user),
+      "text"    -> userTextMapping(user, inOwnTeam),
       "gameId"  -> text,
       "move"    -> text,
       "modIcon" -> optional(boolean)
     )(PostData.apply)(PostData.unapply)
       .verifying(captchaFailMessage, validateCaptcha _)
 
-  def post(user: User) = Form(postMapping(user))
+  def post(user: User, inOwnTeam: Boolean) = Form(postMapping(user, inOwnTeam))
 
-  def postEdit(user: User) =
+  def postEdit(user: User, inOwnTeam: Boolean) =
     Form(
       mapping(
-        "changes" -> userTextMapping(user)
+        "changes" -> userTextMapping(user, inOwnTeam)
       )(PostEdit.apply)(PostEdit.unapply)
     )
 
-  def postWithCaptcha(user: User) = withCaptcha(post(user))
+  def postWithCaptcha(user: User, inOwnTeam: Boolean) = withCaptcha(post(user, inOwnTeam))
 
-  def topic(user: User) =
+  def topic(user: User, inOwnTeam: Boolean) =
     Form(
       mapping(
         "name" -> clean(text(minLength = 3, maxLength = 100)),
-        "post" -> postMapping(user)
+        "post" -> postMapping(user, inOwnTeam)
       )(TopicData.apply)(TopicData.unapply)
     )
 
-  private def userTextMapping(user: User) =
+  private def userTextMapping(user: User, inOwnTeam: Boolean) =
     clean(text(minLength = 3))
       .verifying(
         "You have reached the maximum amount of links per day, which you can post to the forum",
-        promotion.test(user) _
+        t => inOwnTeam || promotion.test(user)(t)
       )
 }
 
