@@ -18,7 +18,7 @@ final class SwissForm(implicit mode: Mode) {
   def form(minRounds: Int = 3) =
     Form(
       mapping(
-        "name" -> optional(eventName(2, 3)),
+        "name" -> optional(eventName(2, 30)),
         "clock" -> mapping(
           "limit"     -> number.verifying(clockLimits.contains _),
           "increment" -> number(min = 0, max = 600)
