@@ -30,6 +30,8 @@ interface Lichess {
   reload(): void;
   escapeHtml(str: string): string;
   announce(d: LichessAnnouncement): void;
+  studyTour(study: Study): void;
+  studyTourChapter(study: Study): void;
 
   trans(i18n: { [key: string]: string | undefined }): Trans
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
@@ -204,6 +206,13 @@ interface Window {
   };
 
   [key: string]: any; // TODO
+}
+
+interface Study{
+  userId?: string | null;
+  isContrib?: boolean;
+  isOwner?: boolean;
+  setTab(tab: string): void;
 }
 
 interface LightUser {

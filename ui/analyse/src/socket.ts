@@ -14,8 +14,13 @@ interface Handlers {
   [key: string]: any; // #TODO
 }
 
-interface Req {
-  [key: string]: any; // #TODO
+export interface Req {
+  ch?: string | undefined,
+  sticky?: boolean,
+  write?: boolean,
+  path: string,
+  variant?: VariantKey,
+  fen?: string,
 }
 
 export interface Socket {
@@ -58,7 +63,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     return undefined;
   };
 
-  function addStudyData(req, isWrite = false): void {
+  function addStudyData(req: Req, isWrite = false): void {
     var c = currentChapterId();
     if (c) {
       req.ch = c;
@@ -115,7 +120,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     if (obj.variant === 'standard') delete obj.variant;
   }
 
-  function sendAnaDests(req) {
+  function sendAnaDests(req: Req) {
     clearTimeout(anaDestsTimeout);
     if (anaDestsCache[req.path]) setTimeout(function() {
       handlers.dests(anaDestsCache[req.path]);
@@ -131,7 +136,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     }
   }
 
-  function sendAnaMove(req) {
+  function sendAnaMove(req: Req) {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
     addStudyData(req, true);
@@ -139,7 +144,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     anaMoveTimeout = setTimeout(() => sendAnaMove(req), 3000);
   }
 
-  function sendAnaDrop(req) {
+  function sendAnaDrop(req: Req) {
     clearTimeout(anaMoveTimeout);
     withoutStandardVariant(req);
     addStudyData(req, true);
