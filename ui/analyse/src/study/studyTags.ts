@@ -93,8 +93,8 @@ export function ctrl(root: AnalyseCtrl, getChapter: () => StudyChapter, types) {
   });
 
   return {
-    submit(name) {
-      return value => submit(name, value);
+    submit(name: string) {
+      return (value: string) => submit(name, value);
     },
     getChapter,
     types

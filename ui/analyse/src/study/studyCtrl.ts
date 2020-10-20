@@ -23,6 +23,7 @@ import { DescriptionCtrl } from './description';
 import RelayCtrl from './relay/relayCtrl';
 import { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
+import { Req } from '../socket';
 
 // data.position.path represents the server state
 // ctrl.path is the client state
@@ -128,7 +129,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     topics => send("setTopics", topics),
     () => data.topics || [], ctrl.trans, redraw);
 
-  function addChapterId(req) {
+  function addChapterId(req: Req) {
     req.ch = vm.chapterId;
     return req;
   }
