@@ -54,7 +54,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   const instance = ctrl.getCeval();
   const hovering = ctrl.explorer.hovering() || instance.hovering();
   const {
-    eval: nEval = {},
+    eval: nEval = {} as Partial<Tree.ServerEval>,
     fen: nFen,
     ceval: nCeval,
     threat: nThreat

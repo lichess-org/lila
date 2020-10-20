@@ -52,9 +52,9 @@ function toCeval(e: Tree.ServerEval) {
     fen: e.fen,
     nodes: e.knodes * 1000,
     depth: e.depth,
-    pvs: e.pvs.map(function(from) {
+    pvs: e.pvs.map(from => {
       const to: any = {
-        moves: from.moves.split(' ')
+        moves: (from.moves as any).split(' ') // moves come from servers as a single string
       };
       if (defined(from.cp)) to.cp = from.cp;
       else to.mate = from.mate;
