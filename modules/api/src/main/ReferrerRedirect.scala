@@ -20,6 +20,8 @@ final class ReferrerRedirect(baseUrl: BaseUrl) {
       !sillyLoginReferrers(referrer) && Try {
         val url = Url.parse(referrer)
         url.schemeOption.fold(true)(scheme => scheme == "http" || scheme == "https") &&
-        url.hostOption.fold(true)(host => s".${host.value}".endsWith(s".$lilaHost"))
+        url.hostOption.fold(true) { host =>
+          host.value != s"oauth.$lilaHost" && s".${host.value}".endsWith(s".$lilaHost")
+        }
       }.getOrElse(false)
 }
