@@ -14,8 +14,7 @@ object bits {
         tpe := "checkbox",
         cls := "mselect__toggle fullscreen-toggle",
         st.id := s"mselect-$id",
-        autocomplete := "off",
-        aria.label := "Other variants"
+        autocomplete := "off"
       ),
       label(`for` := s"mselect-$id", cls := "mselect__label")(current),
       label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
