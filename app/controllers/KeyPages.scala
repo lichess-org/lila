@@ -38,9 +38,11 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
   }
 
   def blacklisted(implicit ctx: Context): Result =
-    if (lila.api.Mobile.Api requested ctx.req) Results.Unauthorized(Json.obj("error" -> blacklistMessage))
-    else Results.Unauthorized(blacklistMessage)
-
-  private val blacklistMessage =
-    "Sorry, your IP address has been used to violate the ToS, and is now blacklisted."
+    if (lila.api.Mobile.Api requested ctx.req)
+      Results.Unauthorized(
+        Json.obj(
+          "error" -> html.site.message.blacklistedMessage
+        )
+      )
+    else Results.Unauthorized(html.site.message.blacklistedMessage)
 }
