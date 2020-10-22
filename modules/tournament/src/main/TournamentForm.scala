@@ -1,5 +1,6 @@
 package lila.tournament
 
+import cats.implicits._
 import chess.format.FEN
 import chess.{ Mode, StartingPosition }
 import org.joda.time.DateTime
@@ -81,7 +82,7 @@ final class TournamentForm {
         "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
         "position"         -> optional(lila.common.Form.fen.playableStrict),
-        "mode"             -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
+        "mode"             -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
         "rated"            -> optional(boolean),
         "password"         -> optional(clean(nonEmptyText)),
         "conditions"       -> Condition.DataForm.all(leaderTeams),
@@ -161,7 +162,9 @@ private[tournament] case class TournamentSetup(
 
   def validClock = (clockTime + clockIncrement) > 0
 
-  def realMode = Mode(rated.orElse(mode.map(Mode.Rated.id ==)) | true)
+  def realMode =
+    if (realPosition.isDefined) Mode.Casual
+    else Mode(rated.orElse(mode.map(Mode.Rated.id ===)) | true)
 
   def realVariant = variant.flatMap(TournamentForm.guessVariant) | chess.variant.Standard
 

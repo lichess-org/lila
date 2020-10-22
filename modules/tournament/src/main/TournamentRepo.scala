@@ -335,7 +335,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
           tour.streakable option "noStreak",
           tour.hasChat option "chat",
           tour.password.isEmpty option "password",
-          tour.conditions.list.isEmpty option "conditions"
+          tour.conditions.list.isEmpty option "conditions",
+          tour.position.isEmpty option "fen",
+          tour.variant.standard option "variant"
         ).flatten
       )
     )
@@ -347,6 +349,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     }
 
   def insert(tour: Tournament) = coll.insert.one(tour)
+
+  def insert(tours: Seq[Tournament]) = tours.nonEmpty ??
+    coll.insert(ordered = false).many(tours).void
 
   def remove(tour: Tournament) = coll.delete.one($id(tour.id))
 
