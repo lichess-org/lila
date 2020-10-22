@@ -60,7 +60,7 @@ object form {
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.rated, fields.variant),
             fields.clock,
-            form3.split(fields.description, swiss.settings.position.isDefined option fields.position),
+            form3.split(fields.description, fields.position),
             form3.split(
               fields.roundInterval,
               swiss.isCreated option fields.startsAt
