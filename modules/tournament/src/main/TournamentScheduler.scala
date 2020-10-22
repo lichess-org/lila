@@ -492,9 +492,8 @@ Thank you all, you rock!"""
 
     case ScheduleNowWith(dbScheds) =>
       try {
-        val newTourns = allWithConflicts(DateTime.now) map { _.build }
-        pruneConflicts(dbScheds, newTourns) foreach api.create
-
+        val newTourns = allWithConflicts(DateTime.now).map(_.build)
+        tournamentRepo.insert(pruneConflicts(dbScheds, newTourns))
       } catch {
         case e: org.joda.time.IllegalInstantException =>
           logger.error(s"failed to schedule all: ${e.getMessage}")
