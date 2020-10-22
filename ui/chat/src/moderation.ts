@@ -13,18 +13,18 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   const open = (line: HTMLElement) => {
     const userA = line.querySelector('a.user-link') as HTMLLinkElement;
     const text = (line.querySelector('t') as HTMLElement).innerText;
-    const id = userA.href.split('/')[4];
+    const username = userA.href.split('/')[4];
     if (opts.permissions.timeout) {
       loading = true;
-      userModInfo(id).then(d => {
-        data = {...d, text};
+      userModInfo(username).then(d => {
+        data = { ...d, text };
         loading = false;
         opts.redraw();
       });
     } else {
       data = {
-        id,
-        username: id,
+        id: username.toLowerCase(),
+        username,
         text
       };
     }
