@@ -63,7 +63,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
         $doc(
           "_id"  -> sessionId,
           "user" -> userId,
-          "ip" -> (HTTPRequest.lastRemoteAddress(req) match {
+          "ip" -> (HTTPRequest.ipAddress(req) match {
             // randomize stresser IPs to relieve mod tools
             case ip if ip == localIp =>
               IpAddress(s"127.0.${ThreadLocalRandom nextInt 256}.${ThreadLocalRandom nextInt 256}")

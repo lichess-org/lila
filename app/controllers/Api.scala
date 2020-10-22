@@ -65,7 +65,7 @@ final class Api(
   def usersByIds =
     Action.async(parse.tolerantText) { req =>
       val usernames = req.body.split(',').take(300).toList
-      val ip        = HTTPRequest lastRemoteAddress req
+      val ip        = HTTPRequest ipAddress req
       val cost      = usernames.size / 4
       UsersRateLimitPerIP(ip, cost = cost) {
         lila.mon.api.users.increment(cost.toLong)
@@ -111,7 +111,7 @@ final class Api(
   )
 
   private def UserGamesRateLimit(cost: Int, req: RequestHeader)(run: => Fu[ApiResult]) = {
-    val ip = HTTPRequest lastRemoteAddress req
+    val ip = HTTPRequest ipAddress req
     UserGamesRateLimitPerIP(ip, cost = cost) {
       UserGamesRateLimitPerUA(~HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
         UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
@@ -163,7 +163,7 @@ final class Api(
 
   def game(id: String) =
     ApiRequest { req =>
-      GameRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
+      GameRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
         lila.mon.api.game.increment(1)
         gameApi.one(id take lila.game.Game.gameIdSize, gameFlagsFromRequest(req)) map toApiResult
       }(fuccess(Limited))
@@ -177,7 +177,7 @@ final class Api(
 
   def crosstable(name1: String, name2: String) =
     ApiRequest { req =>
-      CrosstableRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
+      CrosstableRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
         import lila.user.User.normalize
         val (u1, u2) = (normalize(name1), normalize(name2))
         env.game.crosstableApi.fetchOrEmpty(u1, u2) flatMap { ct =>
@@ -228,7 +228,7 @@ final class Api(
             flags = gameC.requestPgnFlags(req, extended = false),
             perSecond = MaxPerSecond(20)
           )
-          GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(
+          GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
             env.api.gameApiV2.exportByTournament(config)
           ) { source =>
             val filename = env.api.gameApiV2.filename(tour, config.format)
@@ -299,7 +299,7 @@ final class Api(
             flags = gameC.requestPgnFlags(req, extended = false),
             perSecond = MaxPerSecond(20)
           )
-          GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(
+          GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
             env.api.gameApiV2.exportBySwiss(config)
           ) { source =>
             val filename = env.api.gameApiV2.filename(swiss, config.format)
@@ -371,7 +371,7 @@ final class Api(
   def activity(name: String) =
     ApiRequest { implicit req =>
       implicit val lang = reqLang
-      UserActivityRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
+      UserActivityRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
         lila.mon.api.activity.increment(1)
         env.user.repo named name flatMap {
           _ ?? { user =>
@@ -411,12 +411,12 @@ final class Api(
     }
 
   def jsonStream(makeSource: => Source[JsValue, _])(implicit req: RequestHeader): Result =
-    GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(makeSource)(sourceToNdJson)
+    GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(makeSource)(sourceToNdJson)
 
   def jsonStreamWithKeepAlive(
       makeSource: => Source[Option[JsValue], _]
   )(implicit req: RequestHeader): Result =
-    GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(makeSource)(sourceToNdJsonOption)
+    GlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(makeSource)(sourceToNdJsonOption)
 
   def sourceToNdJson(source: Source[JsValue, _]) =
     sourceToNdJsonString {
@@ -456,7 +456,7 @@ final class Api(
       req: RequestHeader,
       me: Option[lila.user.User]
   )(makeSource: => Source[T, _])(makeResult: Source[T, _] => Result): Result =
-    GlobalConcurrencyLimitPerIP.compose[T](HTTPRequest lastRemoteAddress req) flatMap { limitIp =>
+    GlobalConcurrencyLimitPerIP.compose[T](HTTPRequest ipAddress req) flatMap { limitIp =>
       GlobalConcurrencyLimitPerUserOption[T](me) map { limitUser =>
         makeResult(limitIp(limitUser(makeSource)))
       }

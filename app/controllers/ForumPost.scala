@@ -43,7 +43,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                           .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
                       ),
                     data =>
-                      CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+                      CreateRateLimit(HTTPRequest ipAddress ctx.req) {
                         postApi.makePost(categ, topic, data, me) map { post =>
                           Redirect(routes.ForumPost.redirect(post.id))
                         }
@@ -66,7 +66,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             .fold(
               _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
               data =>
-                CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+                CreateRateLimit(HTTPRequest ipAddress ctx.req) {
                   postApi.editPost(postId, data.changes, me).map { post =>
                     Redirect(routes.ForumPost.redirect(post.id))
                   }

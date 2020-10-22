@@ -326,7 +326,7 @@ final class Round(
     Open { implicit ctx =>
       OptionFuRedirect(env.round.proxyRepo.pov(fullId)) { pov =>
         if (isTheft(pov)) {
-          lila.log("round").warn(s"theft resign $fullId ${HTTPRequest.lastRemoteAddress(ctx.req)}")
+          lila.log("round").warn(s"theft resign $fullId ${HTTPRequest.ipAddress(ctx.req)}")
           fuccess(routes.Lobby.home())
         } else {
           env.round resign pov

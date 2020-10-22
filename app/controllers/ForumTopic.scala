@@ -42,7 +42,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
                       BadRequest(html.forum.topic.form(categ, err, captcha))
                     },
                   data =>
-                    CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+                    CreateRateLimit(HTTPRequest ipAddress ctx.req) {
                       topicApi.makeTopic(categ, data, me) map { topic =>
                         Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
                       }

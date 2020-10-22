@@ -50,7 +50,7 @@ object message {
     }
 
   def blacklistedMessage(implicit ctx: Context) =
-    s"Sorry, your IP address ${HTTPRequest lastRemoteAddress ctx.req} has been used to violate the ToS, and is now blacklisted."
+    s"Sorry, your IP address ${HTTPRequest ipAddress ctx.req} has been used to violate the ToS, and is now blacklisted."
 
   def privateStudy(study: lila.study.Study)(implicit ctx: Context) =
     apply(

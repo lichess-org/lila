@@ -26,7 +26,7 @@ final class Search(env: Env) extends LilaController(env) {
       NotForBots {
         val page = p atLeast 1
         Reasonable(page, 100) {
-          val ip           = HTTPRequest lastRemoteAddress ctx.req
+          val ip           = HTTPRequest ipAddress ctx.req
           val cost         = scala.math.sqrt(page.toDouble).toInt
           implicit def req = ctx.body
           env.game.cached.nbTotal flatMap { nbGames =>

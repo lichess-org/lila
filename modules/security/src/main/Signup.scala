@@ -37,7 +37,7 @@ final class Signup(
     case object YesBecauseUA           extends MustConfirmEmail(true)
 
     def apply(print: Option[FingerPrint])(implicit req: RequestHeader): Fu[MustConfirmEmail] = {
-      val ip = HTTPRequest lastRemoteAddress req
+      val ip = HTTPRequest ipAddress req
       store.recentByIpExists(ip) flatMap { ipExists =>
         if (ipExists) fuccess(YesBecauseIpExists)
         else if (HTTPRequest weirdUA req) fuccess(YesBecauseUA)
@@ -159,7 +159,7 @@ final class Signup(
       f: => Fu[Signup.Result]
   )(implicit req: RequestHeader): Fu[Signup.Result] =
     HasherRateLimit(username, req) { _ =>
-      signupRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = cost)(f)(rateLimitDefault)
+      signupRateLimitPerIP(HTTPRequest ipAddress req, cost = cost)(f)(rateLimitDefault)
     }(rateLimitDefault)
 
   private def logSignup(
@@ -175,7 +175,7 @@ final class Signup(
       email.value,
       s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)} api: ${apiVersion.??(_.value)}"
     )
-    val ip = HTTPRequest lastRemoteAddress req
+    val ip = HTTPRequest ipAddress req
     ipTrust.isSuspicious(ip) foreach { susp =>
       slack.signup(user, email, ip, fingerPrint.flatMap(_.hash).map(_.value), apiVersion, susp)
     }

@@ -54,7 +54,7 @@ final class RecaptchaGoogle(
         Map(
           "secret"   -> config.privateKey.value,
           "response" -> response,
-          "remoteip" -> HTTPRequest.lastRemoteAddress(req).value
+          "remoteip" -> HTTPRequest.ipAddress(req).value
         )
       ) flatMap {
       case res if res.status == 200 =>

@@ -27,7 +27,7 @@ sealed trait UserContext {
 
   def troll = me.??(_.marks.troll)
 
-  def ip = lila.common.HTTPRequest lastRemoteAddress req
+  def ip = lila.common.HTTPRequest ipAddress req
 
   def kid   = me.??(_.kid)
   def noKid = !kid

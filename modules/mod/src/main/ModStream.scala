@@ -18,7 +18,7 @@ final class ModStream {
           "t"           -> "signup",
           "username"    -> user.username,
           "email"       -> email.value,
-          "ip"          -> HTTPRequest.lastRemoteAddress(req).value,
+          "ip"          -> HTTPRequest.ipAddress(req).value,
           "suspIp"      -> suspIp,
           "userAgent"   -> HTTPRequest.userAgent(req),
           "fingerPrint" -> fp.map(_.value)

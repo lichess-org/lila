@@ -79,7 +79,7 @@ object MagicLink {
   )(default: => Fu[A]): Fu[A] =
     rateLimitPerUser(user.id, cost = 1) {
       rateLimitPerEmail(email.value, cost = 1) {
-        rateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
+        rateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
           run
         }(default)
       }(default)
