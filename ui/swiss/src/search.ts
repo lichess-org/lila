@@ -10,7 +10,7 @@ export function button(ctrl: TournamentController): VNode {
       'data-icon': ctrl.searching ? 'L' : 'y',
       title: 'Search tournament players'
     },
-    hook: bind('mousedown', ctrl.toggleSearch, ctrl.redraw)
+    hook: bind('click', ctrl.toggleSearch, ctrl.redraw)
   });
 }
 
