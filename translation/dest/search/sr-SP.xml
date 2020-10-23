@@ -2,4 +2,22 @@
 <resources>
   <string name="search">Претрага</string>
   <string name="advancedSearch">Напредна претрага</string>
+  <plurals name="xGamesFound">
+    <item quantity="one">Једна партија пронађена</item>
+    <item quantity="few">%s партије пронађене</item>
+    <item quantity="other">%s партија пронађено</item>
+  </plurals>
+  <string name="opponentName">Име противника</string>
+  <string name="loser">Губитник</string>
+  <string name="from">Од</string>
+  <string name="to">До</string>
+  <string name="aiLevel">Ниво уметне интелигенције</string>
+  <string name="source">Извор</string>
+  <string name="nbTurns">Број потеза</string>
+  <string name="result">Резултат</string>
+  <string name="winnerColor">Боја победника</string>
+  <string name="date">Датум</string>
+  <string name="sortBy">Сортирај по</string>
+  <string name="analysis">Анализа</string>
+  <string name="onlyAnalysed">Само партије у којима је анализа рачунара доступна</string>
 </resources>
