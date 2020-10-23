@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="frequentlyAskedQuestions">Често постављена питања</string>
+  <string name="whyIsLichessCalledLichess">Зашто се Lichess зове Lichess?</string>
+  <string name="leechess">ли-чес</string>
   <string name="gameplay">Ток игре</string>
+  <string name="eightVariants">8 варијанти шаха</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE приручник %s</string>
+  <string name="lichessTraining">Lichess тренинг</string>
 </resources>
