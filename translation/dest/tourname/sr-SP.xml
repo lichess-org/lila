@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="dailyRapidArena">Дневна рапид арена</string>
+  <string name="dailyRapid">Дневни рапид</string>
+  <string name="weeklyRapidArena">Седмична рапид арена</string>
+  <string name="weeklyRapid">Седмични рапид</string>
+  <string name="monthlyRapidArena">Месечна рапид арена</string>
+  <string name="monthlyRapid">Месечни рапид</string>
+  <string name="yearlyRapidArena">Годишња рапид арена</string>
+  <string name="yearlyRapid">Годишњи рапид</string>
+  <string name="eliteXArena">Елитна %s арена</string>
+  <string name="eliteX">Елитни %s</string>
+</resources>
