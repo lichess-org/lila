@@ -211,10 +211,13 @@ final class ChatApi(
       userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if user.enabled =>
           Writer cut t1 flatMap { t2 =>
-            (user.isBot || flood.allowMessage(userId, t2)) option {
+            val allow =
+              if (user.isBot) !lila.common.String.hasLinks(t2)
+              else flood.allowMessage(userId, t2)
+            allow option {
               UserLine(
                 user.username,
-                user.title.map(_.value),
+                user.title,
                 Writer preprocessUserInput t2,
                 troll = user.isTroll,
                 deleted = false
@@ -298,7 +301,7 @@ final class ChatApi(
 
     def preprocessUserInput(in: String) = multiline(spam.replace(noShouting(noPrivateUrl(in))))
 
-    def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
+    def cut(text: String) = Some(text.trim take Line.textMaxSize).filter(_.nonEmpty)
 
     private val gameUrlRegex   = (Pattern.quote(netDomain.value) + """\b/(\w{8})\w{4}\b""").r
     private val gameUrlReplace = Matcher.quoteReplacement(netDomain.value) + "/$1"

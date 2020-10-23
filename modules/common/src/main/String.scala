@@ -50,6 +50,8 @@ object String {
     }
   def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
 
+  def hasLinks = RawHtml.hasLinks _
+
   def hasZeroWidthChars(s: String) =
     s.contains('\u200b') ||
       s.contains('\u200c') ||
