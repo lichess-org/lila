@@ -50,6 +50,18 @@
       }
     }
 
+    table:first-child tr:nth-child(0),
+    table:first-child tr:nth-child(1),
+    table:first-child tr:nth-child(2),
+    table:first-child tr:nth-child(3),
+    table:first-child tr:nth-child(4),
+    table:first-child tr:nth-child(5),
+    table:first-child tr:nth-child(6),
+    table:first-child tr:nth-child(7),
+    table:first-child tr:nth-child(19) {
+      display: none!important;
+    }
+
     .action {
       text-align: right;
     }

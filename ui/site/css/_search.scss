@@ -6,6 +6,16 @@
       width: 100%;
     }
 
+    tr:nth-child(12),
+    tr:nth-child(13),
+    tr:nth-child(14),
+    tr:nth-child(15),
+    tr:nth-child(16),
+    tr:nth-child(18),
+    tr:nth-child(19) {
+      display: none!important;
+    }
+
     td {
       padding: .4em 0;
       text-align: right;
