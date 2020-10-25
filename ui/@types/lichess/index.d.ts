@@ -285,6 +285,8 @@ declare namespace Tree {
     knodes: number;
     depth: number;
     pvs: PvData[];
+    id: string;
+    path: string;
   }
 
   export interface PvData {

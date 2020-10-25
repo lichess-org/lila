@@ -12,6 +12,7 @@ import { TopicsCtrl } from './topics';
 import RelayCtrl from './relay/relayCtrl';
 import { ServerEvalCtrl } from './serverEval';
 import { MultiBoardCtrl } from './multiBoard';
+import { DrawShape } from 'chessground/draw';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -218,3 +219,35 @@ export interface ChapterPreviewPlayer {
   title?: string
   rating?: number
 }
+
+export interface D {
+  id: string
+  d: string
+  p: Position
+  w: Who 
+  l: L
+  n: Tree.Node
+  g: Tree.Glyph[]
+  s: DrawShape[]
+  c: Tree.Comment & Tree.Clock & undefined 
+  chapterId: string
+  ply: number
+  force: boolean
+  error: string
+  toMainline: boolean
+  relay: StudyChapterRelay
+  desc?: string | undefined
+  topics?: Topic[]
+  tags: TagArray[]
+}
+
+export interface Who{
+  u: string
+  s: string
+}
+
+interface L {
+  likes: number
+  me: boolean
+}
+

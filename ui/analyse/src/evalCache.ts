@@ -13,7 +13,7 @@ export interface EvalCacheOpts {
 export interface EvalCache {
   onCeval(): void
   fetch(path: Tree.Path, multiPv: number): void
-  onCloudEval(serverEval): void
+  onCloudEval(serverEval: Tree.ServerEval): void
 }
 
 const evalPutMinDepth = 20;

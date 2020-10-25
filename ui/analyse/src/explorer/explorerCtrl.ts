@@ -143,7 +143,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
       root.setAutoShapes();
     },
     fetchMasterOpening: (() => {
-      const masterCache = {};
+      const masterCache: { [fen: string]: OpeningData } = {};
       return (fen: Fen): Promise<OpeningData> => {
         if (masterCache[fen]) return Promise.resolve(masterCache[fen]);
         return xhr.opening({

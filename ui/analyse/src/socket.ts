@@ -1,6 +1,7 @@
 import { initial as initialBoardFen } from 'chessground/fen';
 import { ops as treeOps } from 'tree';
 import AnalyseCtrl from './ctrl';
+import { ServerEvalData} from './interfaces';
 
 type DestCache = {
   [fen: string]: DestCacheEntry
@@ -15,12 +16,16 @@ interface Handlers {
 }
 
 export interface Req {
-  ch?: string | undefined,
-  sticky?: boolean,
-  write?: boolean,
-  path: string,
-  variant?: VariantKey,
-  fen?: string,
+  ch?: string | undefined;
+  sticky?: boolean;
+  write?: boolean;
+  path: string;
+  variant?: VariantKey;
+  fen?: string;
+  jumpTo?: Tree.Path;
+  toMainline?: boolean;
+  force?: boolean; 
+  shapes?: Tree.Shape[]; 
 }
 
 export interface Socket {
@@ -101,17 +106,17 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       console.log(data);
       clearTimeout(anaDestsTimeout);
     },
-    fen(e) {
+    fen(e: Tree.ServerEval) {
       if (ctrl.forecast &&
         e.id === ctrl.data.game.id &&
         treeOps.last(ctrl.mainline)!.fen.indexOf(e.fen) !== 0) {
         ctrl.forecast.reloadToLastPly();
       }
     },
-    analysisProgress(data) {
+    analysisProgress(data: ServerEvalData) {
       ctrl.mergeAnalysisData(data);
     },
-    evalHit(e) {
+    evalHit(e: Tree.ServerEval) {
       ctrl.evalCache.onCloudEval(e);
     }
   };

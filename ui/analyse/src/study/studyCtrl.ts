@@ -17,7 +17,7 @@ import { ctrl as serverEvalCtrl } from './serverEval';
 import * as tours from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
-import { StudyCtrl, StudyVm, Tab, ToolTab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
+import { StudyCtrl, StudyVm, Tab, ToolTab, TagTypes, StudyData, StudyChapterMeta, ReloadData, D, Who } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
 import RelayCtrl from './relay/relayCtrl';
@@ -273,7 +273,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return undefined;
   }
 
-  function setMemberActive(who?: {u: string}) {
+  function setMemberActive(who?: Who){
     who && members.setActive(who.u);
     vm.updatedAt = Date.now();
   }
@@ -287,7 +287,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   const likeToggler = debounce(() => send("like", { liked: data.liked }), 1000);
 
   const socketHandlers = {
-    path(d) {
+    path(d: D) {
       const position = d.p,
         who = d.w;
       setMemberActive(who);
@@ -304,7 +304,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       ctrl.userJump(position.path);
       redraw();
     },
-    addNode(d) {
+    addNode(d: D) {
       const position = d.p,
         node = d.n,
         who = d.w,
@@ -331,7 +331,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       )) ctrl.jump(newPath);
       redraw();
     },
-    deleteNode(d) {
+    deleteNode(d: D) {
       const position = d.p,
         who = d.w;
       setMemberActive(who);
@@ -343,7 +343,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (vm.mode.sticky) ctrl.jump(ctrl.path);
       redraw();
     },
-    promote(d) {
+    promote(d: D) {
       const position = d.p,
         who = d.w;
       setMemberActive(who);
@@ -355,18 +355,18 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       redraw();
     },
     reload: xhrReload,
-    changeChapter(d) {
+    changeChapter(d: D) {
       setMemberActive(d.w);
       if (!vm.mode.sticky) vm.behind++;
       data.position = d.p;
       if (vm.mode.sticky) xhrReload();
       else redraw();
     },
-    updateChapter(d) {
+    updateChapter(d: D) {
       setMemberActive(d.w);
       xhrReload();
     },
-    descChapter(d) {
+    descChapter(d: D) {
       setMemberActive(d.w);
       if (d.w && d.w.s === lichess.sri) return;
       if (data.chapter.id === d.chapterId) {
@@ -375,19 +375,19 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       }
       redraw();
     },
-    descStudy(d) {
+    descStudy(d: D) {
       setMemberActive(d.w);
       if (d.w && d.w.s === lichess.sri) return;
       data.description = d.desc;
       studyDesc.set(d.desc);
       redraw();
     },
-    setTopics(d) {
+    setTopics(d: D) {
       setMemberActive(d.w);
       data.topics = d.topics;
       redraw();
     },
-    addChapter(d) {
+    addChapter(d: D) {
       setMemberActive(d.w);
       if (d.s && !vm.mode.sticky) vm.behind++;
       if (d.s) data.position = d.p;
@@ -397,12 +397,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       }
       xhrReload();
     },
-    members(d) {
+    members(d: D) {
       members.update(d);
       configureAnalysis();
       redraw();
     },
-    chapters(d) {
+    chapters(d: D) {
       chapters.list(d);
       if (!currentChapter()) {
         vm.chapterId = d[0].id;
@@ -410,7 +410,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       }
       redraw();
     },
-    shapes(d) {
+    shapes(d: D) {
       const position = d.p,
         who = d.w;
       setMemberActive(who);
@@ -420,10 +420,10 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
       redraw();
     },
-    validationError(d) {
+    validationError(d: D) {
       alert(d.error);
     },
-    setComment(d) {
+    setComment(d: D) {
       const position = d.p,
         who = d.w;
       setMemberActive(who);
@@ -431,13 +431,13 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       ctrl.tree.setCommentAt(d.c, position.path);
       redraw();
     },
-    setTags(d) {
+    setTags(d: D) {
       setMemberActive(d.w);
       if (d.chapterId !== vm.chapterId) return;
       data.chapter.tags = d.tags;
       redraw();
     },
-    deleteComment(d) {
+    deleteComment(d: D) {
       const position = d.p,
         who = d.w;
       setMemberActive(who);
@@ -445,7 +445,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       ctrl.tree.deleteCommentAt(d.id, position.path);
       redraw();
     },
-    glyphs(d) {
+    glyphs(d: D) {
       const position = d.p,
         who = d.w;
       setMemberActive(who);
@@ -453,7 +453,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       ctrl.tree.setGlyphsAt(d.g, position.path);
       redraw();
     },
-    clock(d) {
+    clock(d: D) {
       const position = d.p,
         who = d.w;
       setMemberActive(who);
@@ -461,7 +461,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       ctrl.tree.setClockAt(d.c, position.path);
       redraw();
     },
-    forceVariation(d) {
+    forceVariation(d: D) {
       const position = d.p,
         who = d.w;
       setMemberActive(who);
@@ -469,12 +469,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       ctrl.tree.forceVariationAt(position.path, d.force);
       redraw();
     },
-    conceal(d) {
+    conceal(d: D) {
       if (wrongChapter(d)) return;
       data.chapter.conceal = d.ply;
       redraw();
     },
-    liking(d) {
+    liking(d: D) {
       data.likes = d.l.likes;
       if (d.w && d.w.s === lichess.sri) data.liked = d.l.me;
       redraw();
