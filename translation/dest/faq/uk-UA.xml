@@ -52,6 +52,7 @@
 У рідкісних випадках це складно визначити автоматично (серія вимушених ходів, фортеця). За замовчуванням ми завжди на стороні гравця, який не вичерпав часу.
 
 Зверніть увагу, що можна поставити мат одним конем або слоном, якщо суперник має фігуру, яка може заблокувати короля.</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Правила ФІДЕ %s</string>
   <string name="discoveringEnPassant">Чому пішак може захопити іншого пішака, коли він вже пройшов? (взяття на проході)</string>
   <string name="explainingEnPassant">Це дозволений хід, відомий як \"взяття на проході\". Стаття Вікіпедії дає %1$s.
 
