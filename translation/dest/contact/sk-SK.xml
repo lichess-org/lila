@@ -47,6 +47,9 @@
   <string name="castlingPrevented">Rošáda je zakázaná, ak kráľ prechádza cez napadnuté pole.</string>
   <string name="castlingRules">Uistite sa, že poznáte pravidlá rošády</string>
   <string name="tryCastling">Vyskúšajte túto malú interaktívnu hru na precvičenie rošády v šachu</string>
+  <string name="castlingImported">Ak ste nharali partiu, alebo ste ju začali z pozície, uistite sa, že máte správne nastavené právo rošovať.</string>
+  <string name="insufficientMaterial">Nedostatočný matovací materiál</string>
+  <string name="fideMate">Podľa príručky FIDE o Pravidlách šachu §6.9, ak je mat možný hocijakou sekvenciou ťahov povolenou pravidlami, hra nie je remíza</string>
   <string name="knightMate">Je možné dať mat iba s jazdcom alebo strelcom, ak súper má viac figúr na šachovnici než len kráľa.</string>
   <string name="errorPage">Chybová stránka</string>
   <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Požiadať o zabanovanie hráča alebo obmedzenie IP adresy</string>
