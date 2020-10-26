@@ -13,6 +13,9 @@
   <string name="editPage">Upravenie stránky streamera</string>
   <string name="yourPage">Vaša streamerská stránka</string>
   <string name="downloadKit">Stiahnite si streamerskú súpravu</string>
+  <string name="xIsStreaming">%s streamuje</string>
+  <string name="rules">Pravidlá streamovania</string>
+  <string name="rule1">Zahrňte kľúčové slovo \"lichess.org\" v názve Vášho streamu a požite kategóriu \"Šach\" keď streamujete na Lichessi.</string>
   <string name="headline">Titulok</string>
   <string name="longDescription">Dlhý popis</string>
   <string name="changePicture">Zmeniť/zmazať váš obrázok</string>
