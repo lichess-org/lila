@@ -42,7 +42,7 @@
   <string name="reportBugInDiscord">Na Lichess Discord serveri</string>
   <string name="howToReportBug">Prosím opíšte ako bug vyzerá, čo ste očakávali aby sa miesto neho stalo a kroky ako bug zreprodukovať.</string>
   <string name="illegalPawnCapture">Nedovolené zajatie pešiaka</string>
-  <string name="calledEnPassant">Volá sa to \"en passant\" a je to jedno z pravidiel šachu.</string>
+  <string name="calledEnPassant">Volá sa to \"branie mimochodom\" a je to jedno z pravidiel šachu.</string>
   <string name="illegalCastling">Nedovolené alebo nemožné hradenie</string>
   <string name="knightMate">Je možné dať mat iba s jazdcom alebo strelcom, ak súper má viac figúr na šachovnici než len kráľa.</string>
   <string name="errorPage">Chybová stránka</string>
