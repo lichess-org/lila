@@ -26,4 +26,7 @@
   <string name="result">Toradh</string>
   <string name="winnerColor">Dath buaiteora</string>
   <string name="date">Dáta</string>
+  <string name="sortBy">Sórtáil de réir</string>
+  <string name="analysis">Anailís</string>
+  <string name="onlyAnalysed">Cluichí le anailís ríomhaire ar fáil dóibh amháin</string>
 </resources>
