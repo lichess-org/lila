@@ -19,6 +19,8 @@
   <string name="rule2">Odstráňte kľúčové slovo keď nestreamujete z Lichessu.</string>
   <string name="rule3">Lichess automaticky rozozná tvoj stream a poskytne ti nasledujúce výhody:</string>
   <string name="perks">Benefity streamovania s kľúčovým slovom</string>
+  <string name="perk1">Dostaneš ohnivú streamerskú ikonku na tvoj Lichess profil.</string>
+  <string name="perk3">Upozorníš svojich Lichess sledovateľov.</string>
   <string name="headline">Titulok</string>
   <string name="longDescription">Dlhý popis</string>
   <string name="changePicture">Zmeniť/zmazať váš obrázok</string>
