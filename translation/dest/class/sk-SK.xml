@@ -68,6 +68,8 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="release">Uvoľniť</string>
   <string name="releaseTheAccount">Uvoľniť účet aby si ho študent mohol spravovať sám.</string>
   <string name="releaseDesc1">Uvoľnený účet nie je možné previesť späť na spravovaný. Študentovi bude umožnené zapnúť detský mód a vynulovať si heslo sám.</string>
+  <string name="releaseDesc2">Študent ostane v triede po uvoľnení jeho účtu.</string>
+  <string name="realUniqueEmail">Skutočná, unikátna email adresa študenta. Pošleme na ňu potvrdzovací email s linkom na uvoľnenie účtu.</string>
   <string name="teachers">Učitelia</string>
   <plurals name="nbTeachers">
     <item quantity="one">Učiteľ</item>
@@ -94,6 +96,7 @@ Tu je link pre prístup ku kurzu.</string>
   <string name="notifyAllStudents">Poslať notifikáciu všetkým študentom</string>
   <string name="nothingHere">Nič tu nie je, zatiaľ.</string>
   <string name="newsEdit1">Všetky novinky triedy v jednom poli.</string>
+  <string name="newsEdit2">Pridajte nedávne správy na vrch. Nemažte predošlé správy.</string>
   <string name="newsEdit3">Oddelujte novinky s ---
 To zobrazí horizontálnu čiaru.</string>
   <string name="markdownAvailable">%s je dostupný pre viac pokročilý syntax.</string>
