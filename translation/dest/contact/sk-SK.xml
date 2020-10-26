@@ -13,6 +13,7 @@
   <string name="doPasswordReset">Dokonči obnovenie hesla na odstránenie druhého faktoru.</string>
   <string name="accountSupport">Potrebujem poradiť s účtom</string>
   <string name="wantTitle">Chcem aby sa môj titul zobrazoval na Lichess</string>
+  <string name="visitTitleConfirmation">Aby sa ukázal Váš titul na Lichess profile, a mohli by ste sa zúčastniť na Arénach pre titulovaných hráčov, navštívte potvrdzovaciu stránku</string>
   <string name="wantCloseAccount">Chcem deaktivovať svoj účet</string>
   <string name="closeYourAccount">Môžeš deaktivovať svoj účet na tejto stránke</string>
   <string name="doNotAskByEmail">Nežiadaj od nás aby sme ti zrušili účet cez email, neurobíme to.</string>
