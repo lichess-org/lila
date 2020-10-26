@@ -44,6 +44,9 @@
   <string name="illegalPawnCapture">Nedovolené zajatie pešiaka</string>
   <string name="calledEnPassant">Volá sa to \"branie mimochodom\" a je to jedno z pravidiel šachu.</string>
   <string name="illegalCastling">Nedovolené alebo nemožné hradenie</string>
+  <string name="castlingPrevented">Rošáda je zakázaná, ak kráľ prechádza cez napadnuté pole.</string>
+  <string name="castlingRules">Uistite sa, že poznáte pravidlá rošády</string>
+  <string name="tryCastling">Vyskúšajte túto malú interaktívnu hru na precvičenie rošády v šachu</string>
   <string name="knightMate">Je možné dať mat iba s jazdcom alebo strelcom, ak súper má viac figúr na šachovnici než len kráľa.</string>
   <string name="errorPage">Chybová stránka</string>
   <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Požiadať o zabanovanie hráča alebo obmedzenie IP adresy</string>
