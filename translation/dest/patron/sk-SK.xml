@@ -6,8 +6,10 @@
   <string name="becomePatron">Staňte sa Lichess Patronom</string>
   <string name="xBecamePatron">%s sa stal Lichess Patronom</string>
   <string name="newPatrons">Noví Patronovia</string>
-  <string name="freeChess">Šachy zdarma pre všetkých, navždy!</string>
+  <string name="freeChess">Šach zdarma pre všetkých, navždy!</string>
   <string name="thankYou">Ďakujeme vám za váš príspevok!</string>
+  <string name="youHaveLifetime">Si doživotným Patrónom. To je skvelé!</string>
+  <string name="patronUntil">Máš Patrón účet do %s.</string>
   <string name="lifetime">Doživotne</string>
   <string name="makeExtraDonation">Poskytnúť ďalší príspevok?</string>
   <string name="monthly">Mesačne</string>
