@@ -12,7 +12,7 @@
   <string name="hourlyRate">Hodinová sadzba</string>
   <string name="availability">Dostupnosť</string>
   <string name="accepting">Prijíma študentov</string>
-  <string name="notAccepting">Neprijíma študentov momentálne</string>
+  <string name="notAccepting">Momentálne neprijíma študentov</string>
   <string name="xCoachesStudents">%s trénuje šachových študentov</string>
   <string name="viewXProfile">Prezrieť si %s Lichess profil</string>
   <string name="sendPM">Poslať súkromnú správu</string>
@@ -24,4 +24,8 @@
   <string name="teachingMethod">Metodológia výučby</string>
   <string name="publicStudies">Verejné štúdie</string>
   <string name="youtubeVideos">YouTube videá</string>
+  <string name="thankYouForReview">Ďakujeme Vám za hodntotenie!</string>
+  <string name="xWillApproveIt">%s to schváli čo najskôr, alebo sa na to pozrie moderátor.</string>
+  <string name="reviewCoach">Ohodnoťte tohto trénera</string>
+  <string name="describeExperienceWith">Opíšte Vaše trénerské skúsenosti s %s</string>
 </resources>
