@@ -43,6 +43,7 @@ final private class LinkCheck(
         case simulLinkR(id)      => withSource(source, simulLink)(id, line)
         case swissLinkR(id)      => withSource(source, swissLink)(id, line)
         case studyLinkR(id)      => withSource(source, studyLink)(id, line)
+        case teamLinkR(id)       => withSource(source, teamLink)(id, line)
         case _                   => fuTrue
       }
 
@@ -90,11 +91,14 @@ final private class LinkCheck(
 
   private def studyLink(studyId: String, source: FullSource) = fuFalse
 
+  private def teamLink(teamId: String, source: FullSource) = fuFalse
+
   private val multipleLinks   = s"(?i)$domain.+$domain".r.unanchored
   private val tournamentLinkR = s"(?i)$domain/tournament/(\\w+)".r.unanchored
   private val simulLinkR      = s"(?i)$domain/simul/(\\w+)".r.unanchored
   private val swissLinkR      = s"(?i)$domain/swiss/(\\w+)".r.unanchored
   private val studyLinkR      = s"(?i)$domain/study/(\\w+)".r.unanchored
+  private val teamLinkR       = s"(?i)$domain/team/([\\w-]+)".r.unanchored
 }
 
 private object LinkCheck {
