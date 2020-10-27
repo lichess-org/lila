@@ -23,6 +23,7 @@
   <string name="perk3">Upozorníš svojich Lichess sledovateľov.</string>
   <string name="approved">Váš stream je schválený.</string>
   <string name="pendingReview">Váš stream je preskúmavaný moderátormi.</string>
+  <string name="requestReview">požiadať o preskúmanie moderátorom</string>
   <string name="headline">Titulok</string>
   <string name="longDescription">Dlhý popis</string>
   <string name="changePicture">Zmeniť/zmazať váš obrázok</string>
