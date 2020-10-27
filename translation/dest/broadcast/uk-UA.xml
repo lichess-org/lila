@@ -3,7 +3,7 @@
   <string name="broadcasts">Трансляція</string>
   <string name="liveBroadcasts">Онлайн трансляції турнірів</string>
   <string name="newBroadcast">Нова трансляція наживо</string>
-  <string name="ongoing">Тривають</string>
+  <string name="ongoing">Поточні</string>
   <string name="upcoming">Майбутні</string>
   <string name="completed">Завершені</string>
   <string name="eventName">Назва події</string>
