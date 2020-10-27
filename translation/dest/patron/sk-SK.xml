@@ -11,6 +11,7 @@
   <string name="youHaveLifetime">Si doživotným Patrónom. To je skvelé!</string>
   <string name="patronUntil">Máš Patrón účet do %s.</string>
   <string name="lifetime">Doživotne</string>
+  <string name="payLifetimeOnce">Zaplať %s raz. Buď Patrónom Lichessu navždy!</string>
   <string name="makeExtraDonation">Poskytnúť ďalší príspevok?</string>
   <string name="monthly">Mesačne</string>
   <string name="onetime">Jednorázovo</string>
