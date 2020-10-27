@@ -22,8 +22,10 @@
   <string name="perk1">Dostanete ohnivú streamerskú ikonku na Váš Lichess profil.</string>
   <string name="perk2">Dostanete sa na vrchol zoznamu streamerov.</string>
   <string name="perk3">Upozorníte svojich Lichess sledovateľov.</string>
+  <string name="perk4">Váš stream bude ukázaný vo vašich hrách, turnajoch a štúdiách.</string>
   <string name="approved">Váš stream je schválený.</string>
   <string name="pendingReview">Váš stream je preskúmavaný moderátormi.</string>
+  <string name="pleaseFillIn">Prosím vyplňte Vaše streamerské informácie a nahrajte obrázok.</string>
   <string name="requestReview">požiadať o preskúmanie moderátorom</string>
   <string name="twitchUsername">Vaše Twitch používateľské meno alebo link</string>
   <string name="whenApproved">Ak budete schválený moderátormi</string>
