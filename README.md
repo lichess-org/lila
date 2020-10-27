@@ -1,8 +1,6 @@
 [lishogi.org](https://lishogi.org) - WIP
 ========================================
 
-[![Twitter](https://img.shields.io/badge/Twitter-%40lichess-blue.svg)](https://twitter.com/lishogi)
-
 <img src="https://raw.githubusercontent.com/WandererXII/lishogi/master/public/images/whiteSite.png" alt="Lishogi homepage" title="Lichess comes with light and dark theme, this screenshot shows light." />
 
 
