@@ -22,5 +22,8 @@
   <string name="noUpperCaseDot">Nie.</string>
   <string name="uniqueTrophies">Unikátne trofeje</string>
   <string name="ownerUniqueTrophies">Táto trofej je unikátna v histórii Lichessu, nikto iný okrem %1$s ju nebude nikdy mať.</string>
+  <string name="wayOfBerserkExplanation">Aby ju dostal, hiimgosu sa vyzval, že bude besniť a vyhrá 100%% partií v %s.</string>
+  <string name="whichRatingSystemUsedByLichess">Aký ratingový systém používa Lichess?</string>
+  <string name="whatIsProvisionalRating">Prečo má niekto otáznik (?) vedľa ratingu?</string>
   <string name="similarOpponents">súperi podobnej sily</string>
 </resources>
