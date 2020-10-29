@@ -47,7 +47,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected val keyPages       = new KeyPages(env)
   protected val renderNotFound = keyPages.notFound _
-  protected val rateLimited    = Results.TooManyRequests
+  protected val rateLimited    = Results.TooManyRequests("Too many requests. Please retry in a moment.")
   protected val rateLimitedFu  = rateLimited.fuccess
 
   implicit protected def LilaFunitToResult(
