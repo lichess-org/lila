@@ -2,6 +2,7 @@
 <resources>
   <string name="learnChess">Шахмат ойнап,</string>
   <string name="byPlaying">үйреніңіз!</string>
+  <string name="menu">Мәзір</string>
   <string name="itMovesDiagonally">Ол қиғаш жүреді</string>
   <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш жейді!</string>
   <string name="yourScore">Ұпайыңыз</string>
