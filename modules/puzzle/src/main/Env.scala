@@ -47,6 +47,8 @@ final class Env(
 
   private lazy val gameJson = wire[GameJson]
 
+  val idMin = config.puzzleIdMin
+
   lazy val jsonView = wire[JsonView]
 
   lazy val api = new PuzzleApi(

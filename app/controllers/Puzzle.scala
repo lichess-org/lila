@@ -2,12 +2,12 @@ package controllers
 
 import play.api.libs.json._
 import scala.util.chaining._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
 import lila.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
-import views._
 
 final class Puzzle(
     env: Env,
@@ -64,11 +64,13 @@ final class Puzzle(
 
   def show(id: PuzzleId) =
     Open { implicit ctx =>
-      NoBot {
-        OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
-          renderShow(puzzle, "play")
+      if (id < env.puzzle.idMin) notFound
+      else
+        NoBot {
+          OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
+            renderShow(puzzle, "play")
+          }
         }
-      }
     }
 
   def load(id: PuzzleId) =
