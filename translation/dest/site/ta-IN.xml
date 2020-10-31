@@ -274,6 +274,7 @@
     <item quantity="one">%s நொடிகள் அளி</item>
     <item quantity="other">%s நொடிகள் அளி</item>
   </plurals>
+  <string name="thisAccountViolatedTos">இந்த கணக்கு Lichess சேவை விதிமுறைகள் மீறியது</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">இந்த ஆட்டக்காரர் தன் மதிப்பீட்டை செயற்கை முறையில் மாற்றியமைத்துள்ளார்</string>
   <string name="openingExplorerAndTablebase">உலாவியில் &amp; அட்டவணையை திறக்கிறது</string>
   <string name="takeback">மீட்சி</string>
@@ -301,6 +302,10 @@
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">%s முக்கியமான விளையாட்டு தேவை</item>
     <item quantity="other">%s முக்கியமான விளையாட்டுகள் தேவை</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">நீங்கள் இன்னும் %s மதிப்பிடப்பட்ட விளையாட்டை விளையாட வேண்டும்</item>
+    <item quantity="other">நீங்கள் இன்னும் %s மதிப்பிடப்பட்ட விளையாட்டுகளை விளையாட வேண்டும்</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">உங்கள் %s மதிப்பீடு தற்காலிகமானது</string>
   <string name="backToGame">ஆட்டத்துக்கு திரும்பிச்செல்</string>

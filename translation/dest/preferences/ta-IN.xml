@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">விருப்பங்கள்</string>
+  <string name="pgnLetter">எழுத்து (K, Q, R, B, N)</string>
   <string name="chessClock">செஸ் கடிகாரம்</string>
   <string name="yourPreferencesHaveBeenSaved">உங்கள் விருப்பங்களை சேமிக்கப்பட்டுள்ளது.</string>
 </resources>

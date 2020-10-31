@@ -45,4 +45,7 @@
   <string name="reportBugInDiscord">На Lichess Discord серверу</string>
   <string name="howToReportBug">Молимо Вас да опишете како проблем изледа, шта сте очекивали да се деси, и кораке како да се проузрокује.</string>
   <string name="illegalPawnCapture">Недозвољено једење пешака</string>
+  <string name="noneOfTheAbove">Ништа од наведеног</string>
+  <string name="sendEmailAt">Пошаљите нам мејл на адресу %s.</string>
+  <string name="explainYourRequest">Молимо објасните ваш захтев јасно и темељно. Напишите своје Lichess корисничко име и било које информације које нам могу помоћи да вам помогнемо.</string>
 </resources>
