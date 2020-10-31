@@ -18,7 +18,7 @@
   <string name="aConfirmationIsRequiredToJoin">Для вступления требуется подтверждение</string>
   <string name="joiningPolicy">Условия вступления</string>
   <plurals name="teamLeaders">
-    <item quantity="one">Лидер команды</item>
+    <item quantity="one">Руководитель клуба</item>
     <item quantity="few">Руководители клуба</item>
     <item quantity="many">Руководители клуба</item>
     <item quantity="other">Руководители клуба</item>
