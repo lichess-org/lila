@@ -39,7 +39,8 @@ const spamRegex = new RegExp([
   'hide.su',
   'wyon.de',
   'sexdatingcz.club',
-  'qps.ru'
+  'qps.ru',
+  'tiny.cc/'
 ].map(url =>
   url.replace(/\./g, '\\.').replace(/\//g, '\\/')
 ).join('|'));
