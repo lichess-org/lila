@@ -41,10 +41,14 @@ export default function (token: string) {
     "move": "move"
   }
   try {
-    var tempString = localStorage.getItem('dgt-speech-keywords');
-    keywords = tempString && JSON.parse(tempString);
+    if (JSON.parse(localStorage.getItem('dgt-speech-keywords')!).K.length > 0) {
+      keywords = JSON.parse(localStorage.getItem('dgt-speech-keywords')!);
+    }
+    else {
+      console.warn("JSON Object for Speech Keywords seems incompelte. Using English default.");
+    }
   } catch (error) {
-    console.error("Invalid JSON Object for Speech Keywords. Using English default.");
+    console.error("Invalid JSON Object for Speech Keywords. Using English default. " + Error(error).message);
   }
 
   //Lichess Integration with Board API
@@ -61,7 +65,7 @@ export default function (token: string) {
   var gameConnectionMap = new Map<string, { connected: boolean, lastEvent: number }>(); //A collection of key values to store the network status of a game
   var gameChessBoardMap = new Map<string, Chess>(); //A collection of chessops Boads representing the current board of the games
   var eventSteamStatus = { connected: false, lastEvent: time.getTime() }; //An object to store network status of the main eventStream
-  const keywordsBase = ["K", "Q", "R", "B", "N", "P", "x", "+", "#", "(=)", "O-O-O", "O-O", "white", "black", "wins by", "timeout", "resignation"]
+  const keywordsBase = ["white", "black", "K", "Q", "R", "B", "N", "P", "x", "+", "#", "(=)", "O-O-O", "O-O","wins by", "timeout", "resignation", "illegal", "move"]
   var lastSanMove: { player: string, move: string, by: string }; //Track last move in SAN format . This is because there is no easy way to keep history of san moves
   /**
    * Global Variables for DGT Board Connection (JACM)
@@ -723,7 +727,7 @@ export default function (token: string) {
     var moveText: string;
     if (announceMoveFormat && announceMoveFormat.toLowerCase() == "san" && lastSanMove) {
       moveText = lastSanMove.move;
-      ttsSay(raplaceKeywords(padBeforeNumbers(lastSanMove.move)));
+      ttsSay(replaceKeywords(padBeforeNumbers(lastSanMove.move)));
     }
     else {
       moveText = lastMove.move;
@@ -747,7 +751,7 @@ export default function (token: string) {
       console.log('  ' + status + '  -  ' + message);
     }
     //Now play message using text to speech library
-    ttsSay(message);
+    ttsSay(replaceKeywords(message.toLowerCase()));
   }
 
   function announceInvalidMove() {
@@ -758,7 +762,7 @@ export default function (token: string) {
       console.warn('  [ X X ]  - Illegal move by black.')
     }
     //Now play it using text to speech library
-    ttsSay('Illegal Move');
+    ttsSay(replaceKeywords('illegal move'));
   }
 
 
@@ -1068,11 +1072,11 @@ export default function (token: string) {
    * 
    * @returns {String} - The San move with words instead of letters
    */
-  function raplaceKeywords(sanMove) {
+  function replaceKeywords(sanMove) {
     var extendedSanMove = sanMove;
     for (let i = 0; i < keywordsBase.length; i++) {
       try {
-        extendedSanMove = extendedSanMove.replace(keywordsBase[i], ' ' + keywords[keywordsBase[i]] + ' ');
+        extendedSanMove = extendedSanMove.replace(keywordsBase[i], ' ' + keywords[keywordsBase[i]].toLowerCase() + ' ');
       } catch (error) {
         console.error(`raplaceKeywords - Error replacing keyword. ${keywordsBase[i]} . ${Error(error).message}`);
       }
@@ -1089,7 +1093,7 @@ export default function (token: string) {
   function padBeforeNumbers(moveString: string) {
     var paddedMoveString = "";
     for (let c of moveString) {
-      (Number.isInteger(+c)) ? paddedMoveString += ' ' + c : paddedMoveString += c;
+      (Number.isInteger(+c)) ? paddedMoveString += ` ${c} ` : paddedMoveString += c;
     }
     return paddedMoveString;
   }
@@ -1099,8 +1103,8 @@ export default function (token: string) {
    */
   async function ttsSay(text: string) {
     //Check Voice is disables
-    if (!speechSynthesisOn) return;
     if (verbose) console.log('TTS - for text: ' + text);
+    if (!speechSynthesisOn) return;
     var utterThis = new SpeechSynthesisUtterance(text);
     var selectedOption = voice;
     var availableVoices = speechSynthesis.getVoices();
@@ -1180,7 +1184,7 @@ export default function (token: string) {
     console.log("    '|_.=`   __\\                                                               ");
     console.log("    `\\_..==`` /                 Lichess.org - DGT Electronic Board Connector   ");
     console.log("     .'.___.-'.                Developed by Andres Cavallin and Juan Cavallin  ");
-    console.log("    /          \\                                  v1.0.6                       ");
+    console.log("    /          \\                                  v1.0.7                       ");
     console.log("jgs('--......--')                                                             ");
     console.log("   /'--......--'\\                                                              ");
     console.log("   `\"--......--\"`                                                             ");
