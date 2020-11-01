@@ -92,8 +92,8 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
   <string name="openingExplorer">开局浏览器</string>
   <string name="xOpeningExplorer">%s开局浏览器</string>
-  <string name="winPreventedBy50MoveRule">因50步和棋规则未赢</string>
-  <string name="lossSavedBy50MoveRule">因50步和棋规则未输</string>
+  <string name="winPreventedBy50MoveRule">因50回合规则未赢棋</string>
+  <string name="lossSavedBy50MoveRule">因50回合规则未输棋</string>
   <string name="allSet">一切就绪！</string>
   <string name="importPgn">导入PGN文件</string>
   <string name="delete">删除</string>
@@ -114,7 +114,7 @@
   <string name="blunders">漏着</string>
   <string name="mistake">错着</string>
   <string name="mistakes">错着</string>
-  <string name="inaccuracy">轻微失误</string>
+  <string name="inaccuracy">不精确</string>
   <string name="inaccuracies">轻微失误</string>
   <string name="moveTimes">走棋时间</string>
   <string name="flipBoard">翻转棋盘</string>
