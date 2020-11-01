@@ -23,7 +23,7 @@
   <string name="giveMoreTime">Süre ver</string>
   <string name="gameBehavior">Oyun davranışı</string>
   <string name="howDoYouMovePieces">Taşları nasıl hareket ettirmek istersiniz?</string>
-  <string name="clickTwoSquares">İki kareye tıklayarak</string>
+  <string name="clickTwoSquares">İki kareye tıkla</string>
   <string name="dragPiece">Taşı sürükleyerek</string>
   <string name="bothClicksAndDrag">Hem tıklayıp hem sürükleyerek</string>
   <string name="premovesPlayingDuringOpponentTurn">Ön hamleler (hamle sırası rakipteyken oynama)</string>
