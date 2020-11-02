@@ -75,6 +75,8 @@ Veure el capítol de %3$s sobre aquest moviment per practicar-lo.</string>
   <string name="configure">configurar</string>
   <string name="accounts">Comptes</string>
   <string name="titlesAvailableOnLichess">Quins títols hi ha a Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess reconeix tots els títols FIDE obtinguts OTB (sobre el tauler), així com %1$s.
+Aquí hi ha una llista de títols FIDE:</string>
   <string name="asWellAsManyNMtitles">diversos títols de mestre nacional</string>
   <string name="verificationForm">formulari de verificació</string>
   <string name="noUpperCaseDot">No.</string>
