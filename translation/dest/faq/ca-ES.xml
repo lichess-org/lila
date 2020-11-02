@@ -68,7 +68,9 @@ Veure el capítol de %3$s sobre aquest moviment per practicar-lo.</string>
   <string name="threefoldRepetitionExplanation">Si una posició es dóna tres vegades, els jugadors poden reclamar taules per %1$s. Lichess implementa les regles oficials de la FIDE, d\'acord amb l\'article 9.2 (d) del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple repetició</string>
   <string name="notRepeatedMoves">No hem repetit moviments. Per què la partida segueix sent taules per repetició?</string>
+  <string name="repeatedPositionsThatMatters">La triple repetició es dóna per la repetició de %1$s, no de moviments. La repetició no té perquè ocórrer consecutivament.</string>
   <string name="positions">posicions</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Hem repetit una posició tres vegades. Per què la partida no es declara taules?</string>
   <string name="configure">configurar</string>
   <string name="accounts">Comptes</string>
   <string name="titlesAvailableOnLichess">Quins títols hi ha a Lichess?</string>
