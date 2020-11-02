@@ -17,4 +17,5 @@
   <string name="areThereWebsitesBasedOnLichess">Hi ha pàgines web basades en Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sí. Lichess ha inspirat altres pàgines de codi obert que utilitzen el nostre %1$s, %2$s, o %3$s.</string>
   <string name="fairPlay">Joc net</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Per què estic marcat per manipulació artificial de la puntuació (perdre a propòsit o no guanyar netament) o per assistència informàtica?</string>
 </resources>
