@@ -43,7 +43,10 @@
   <string name="reportWebsiteIssue">Com un problema del lloc web de Lichess a Github</string>
   <string name="reportMobileIssue">Com un problema de l\'aplicació mòbil a Github</string>
   <string name="reportBugInDiscord">Al servidor Discord de Lichess</string>
+  <string name="howToReportBug">Si us plau, descriu com es veu l\'error, què esperaves que succeís, i els passos per a reproduir l\'error.</string>
   <string name="illegalPawnCapture">Captura de peo il·legal</string>
+  <string name="calledEnPassant">Es diu captura al pas i és una de les regles dels escacs.</string>
+  <string name="tryEnPassant">Prova aquest petit joc interactiu per aprendre més sobre la captura al pas.</string>
   <string name="illegalCastling">Enroc il·legal o impossible</string>
   <string name="castlingPrevented">L\'enroc només s\'evita si el rei passa per una plaça controlada.</string>
   <string name="castlingRules">Assegureu-vos d’entendre les regles de l’enroc</string>
