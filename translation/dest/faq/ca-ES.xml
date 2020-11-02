@@ -109,7 +109,10 @@ No sol·licitis el títol de LM.</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">haver jugat una partida puntuable en l\'última setmana per aquesta modalitat,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">tenir una desviació de puntuació menor que %1$s, en escacs estàndard, i menor que %2$s a les variants,</string>
   <string name="beInTopTen">estar al top 10 d\'aquesta classificació.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segon requisit és per a que els jugadors que ja no fan servir els seus comptes deixin de poblar la part alta de la classificació.</string>
+  <string name="whyAreRatingHigher">Per què són més altes les puntuacions en comparació amb altres pàgines i organitzacions com la FIDE, la USCF i ICC?</string>
   <string name="howToHideRatingWhilePlaying">Com ocultar les meves puntuacions durant les partides?</string>
   <string name="displayPreferences">preferències de visualització</string>
   <string name="howToThreeDots">Com...</string>
+  <string name="viewSiteInformationPopUp">Veure finestra emergent d\'informació del lloc</string>
 </resources>
