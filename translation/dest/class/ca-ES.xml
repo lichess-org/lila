@@ -27,7 +27,12 @@
   <string name="theyMustFirstApply">Primer cal sol·licitar ser professors de Lichess.</string>
   <string name="resetPassword">Restablir contrasenya</string>
   <string name="makeSureToCopy">Assegura\'t de copiar o escriure la contrasenya ara. No la podràs veure novament!</string>
+  <string name="passwordX">Contrasenya: %s</string>
+  <string name="generateANewPassword">Genera una contrasenya nova per l\'estudiant</string>
+  <string name="invitedToXByY">Invitat a %1$s per %2$s</string>
   <string name="realName">Nom real</string>
+  <string name="privateWillNeverBeShown">Privat. Mai es mostrarà fora de la classe. Ajuda a recordar qui és l\'estudiant.</string>
+  <string name="addStudent">Afegir estudiant</string>
   <string name="createANewLichessAccount">Crea un nou compte a Lichess</string>
   <string name="onlyVisibleToTeachers">Només visible pels mestres de la classe</string>
   <string name="managed">Gestionada</string>
