@@ -272,7 +272,9 @@ object Countries {
     // whatever
     C("EU", "European Union"),
     C("_adygea", "Adygea"),
+    C("_anarchist", "Anarchist"),
     C("_belarus-wrw", "Belarus White-red-white"),
+    C("_communist", "Communist"),
     C("_east-turkestan", "East Turkestan"),
     C("_lichess", "Lichess"),
     C("_pirate", "Pirate"),
