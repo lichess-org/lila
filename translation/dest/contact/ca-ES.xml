@@ -53,7 +53,10 @@
   <string name="tryCastling">Proveu aquest petit joc interactiu per practicar l\'enroc en els escacs</string>
   <string name="castlingImported">Si has importat el joc, o el vas iniciar des d\'una posició, assegura\'t de restablir correctament els drets de l\'enroc.</string>
   <string name="insufficientMaterial">Material insuficient per a fer mat</string>
+  <string name="noRatingPoints">No s\'han concedit punts</string>
+  <string name="ratedGame">Assegura\'t d\'haver jugat una partida puntuable. Les partides amistoses no afecten les puntuacions dels jugadors.</string>
   <string name="errorPage">Pàgina d\'error</string>
+  <string name="reportErrorPage">Si una pàgina et dóna error, la pots reportar:</string>
   <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apel·lació per prohibició o restricció de IP</string>
   <string name="engineAppeal">Motor o marca de trampa</string>
   <string name="sendAppealTo">Pots enviar una apel·lació a %s.</string>
