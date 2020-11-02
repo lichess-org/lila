@@ -558,7 +558,7 @@ object mod {
               td(dataSort := o.createdAt.getMillis)(momentFromNowServer(o.createdAt)),
               td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowServer)),
               isGranted(_.CloseAccount) option td(
-                o.enabled option button(
+                !o.marks.alt option button(
                   cls := "button button-empty button-thin button-red mark-alt",
                   href := routes.Mod.alt(o.id, !o.marks.alt)
                 )("ALT")
