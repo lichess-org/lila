@@ -39,4 +39,27 @@ Per exemple, la duració estimada d\'una partida de 5+3 és 5 × 60 + 40 × 3 = 
   <string name="lichessSupportChessAnd">Lichess suporta els escacs estàndard i %1$s.</string>
   <string name="eightVariants">8 variants més</string>
   <string name="whatIsACPL">Què és la pèrdua mitja en centipeons (PMC)?</string>
+  <string name="acplExplanation">El centipeó és la unitat de mesura utilitzada als escacs com a representació de l\'avantatge. Un centipeó és igual a una centèsima part d\'un peó. Llavors, 100 centipeons = 1 peó. Aquests valors no tenen cap paper formal al joc, però son útils pels jugadors i essencials pels motor d\'anàlisi per avaluar posicions.
+
+La millor jugada del motor d\'anàlisi perdrà zero centipeons, però els moviments inferiors comportaran un deteriorament de la posició mesurada en centipeons.
+
+Aquest valor es pot fer servir com un indicador de la força de joc. Quant menys centipeons es perdin per moviment, més fort serà el joc.
+
+El motor d\'anàlisi a Lichess el proporciona Stockfish.</string>
+  <string name="insufficientMaterial">Perdre per temps, taules i material insuficient</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">%s del manual de la FIDE</string>
+  <string name="goodIntroduction">bona introducció</string>
+  <string name="officialRulesPDF">regles oficials (PDF)</string>
+  <string name="lichessTraining">Entrenament de Lichess</string>
+  <string name="threefoldRepetition">Triple repetició</string>
+  <string name="threefoldRepetitionLowerCase">triple repetició</string>
+  <string name="positions">posicions</string>
+  <string name="configure">configurar</string>
+  <string name="accounts">Comptes</string>
+  <string name="titlesAvailableOnLichess">Quins títols hi ha a Lichess?</string>
+  <string name="verificationForm">formulari de verificació</string>
+  <string name="noUpperCaseDot">No.</string>
+  <string name="guidelines">pautes</string>
+  <string name="uniqueTrophies">Trofeus únics</string>
+  <string name="aHourlyBulletTournament">un torneig Bullet per hora</string>
 </resources>
