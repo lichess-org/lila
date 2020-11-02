@@ -23,6 +23,10 @@
   <string name="classDescription">Descripció de la classe</string>
   <string name="visibleByBothStudentsAndTeachers">Visible per a professors i estudiants de la classe</string>
   <string name="teachersOfTheClass">Professors de la classe</string>
+  <string name="addLichessUsernames">Afegeix noms d\'usuari de Lichess per a invitar-los com a professors. Un per línia.</string>
+  <string name="theyMustFirstApply">Primer cal sol·licitar ser professors de Lichess.</string>
+  <string name="resetPassword">Restablir contrasenya</string>
+  <string name="makeSureToCopy">Assegura\'t de copiar o escriure la contrasenya ara. No la podràs veure novament!</string>
   <string name="realName">Nom real</string>
   <string name="createANewLichessAccount">Crea un nou compte a Lichess</string>
   <string name="onlyVisibleToTeachers">Només visible pels mestres de la classe</string>
