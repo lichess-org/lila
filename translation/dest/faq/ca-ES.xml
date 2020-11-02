@@ -7,4 +7,14 @@
   <string name="leechess">liches</string>
   <string name="hearItPronouncedBySpecialist">Així és com ho pronuncia un especialista.</string>
   <string name="whyLiveLightLibre">En directe, perquè les partides es juguen i es veuen en temps real 24/7; lleuger i lliure perquè Lichess és de codi obert i sense la brossa propietària que abunda en altres pàgines.</string>
+  <string name="whyIsLilaCalledLila">De la mateixa manera, el codi font de Lichess, %1$s, significa li[escacs en sca]la, donat que la major part de Lichess està escrita en %2$s, un intuïtiu llenguatge de programació.</string>
+  <string name="howCanIContributeToLichess">Com puc contribuir a Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess es manté mitjançant donacions de patrocinadors i els esforços d\'un equip de voluntaris.</string>
+  <string name="findMoreAndSeeHowHelp">Pots aprendre més sobre %1$s (incloent un %2$s). Si vols ajudar a Lichess voluntàriament amb el teu temps i habilitats, hi ha moltes %3$s.</string>
+  <string name="beingAPatron">ser patró</string>
+  <string name="breakdownOfOurCosts">desglossament de les nostres despeses</string>
+  <string name="otherWaysToHelp">altres maneres d\'ajudar</string>
+  <string name="areThereWebsitesBasedOnLichess">Hi ha pàgines web basades en Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Sí. Lichess ha inspirat altres pàgines de codi obert que utilitzen el nostre %1$s, %2$s, o %3$s.</string>
+  <string name="fairPlay">Joc net</string>
 </resources>
