@@ -57,9 +57,15 @@ El motor d\'anàlisi a Lichess el proporciona Stockfish.</string>
   <string name="configure">configurar</string>
   <string name="accounts">Comptes</string>
   <string name="titlesAvailableOnLichess">Quins títols hi ha a Lichess?</string>
+  <string name="asWellAsManyNMtitles">diversos títols de mestre nacional</string>
   <string name="verificationForm">formulari de verificació</string>
   <string name="noUpperCaseDot">No.</string>
   <string name="guidelines">pautes</string>
   <string name="uniqueTrophies">Trofeus únics</string>
   <string name="aHourlyBulletTournament">un torneig Bullet per hora</string>
+  <string name="lichessRatings">Puntuacions de Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Quin sistema de puntuació fa servir Lichess?</string>
+  <string name="howToHideRatingWhilePlaying">Com ocultar les meves puntuacions durant les partides?</string>
+  <string name="displayPreferences">preferències de visualització</string>
+  <string name="howToThreeDots">Com...</string>
 </resources>
