@@ -37,4 +37,6 @@ Per exemple, la duració estimada d\'una partida de 5+3 és 5 × 60 + 40 × 3 = 
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">Quines variants puc jugar a Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess suporta els escacs estàndard i %1$s.</string>
+  <string name="eightVariants">8 variants més</string>
+  <string name="whatIsACPL">Què és la pèrdua mitja en centipeons (PMC)?</string>
 </resources>
