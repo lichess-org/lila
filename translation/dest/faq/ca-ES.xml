@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">Preguntes freqüents</string>
   <string name="frequentlyAskedQuestions">Preguntes Més Freqüents</string>
   <string name="whyIsLichessCalledLichess">Perquè Lichess es diu Lichess?</string>
 </resources>
