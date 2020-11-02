@@ -77,8 +77,14 @@ Veure el capítol de %3$s sobre aquest moviment per practicar-lo.</string>
   <string name="titlesAvailableOnLichess">Quins títols hi ha a Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess reconeix tots els títols FIDE obtinguts OTB (sobre el tauler), així com %1$s.
 Aquí hi ha una llista de títols FIDE:</string>
+  <string name="showYourTitle">Si tens un títol OTB, pots sol·licitar que es mostri en la teva compta completant el %1$s, incloent una imatge clara d\'un document/targeta d\'identificació i una foto teva portant el document/targeta.
+
+La verificació com a jugador titulat a Lichess dóna accés a jugar en els esdeveniments d\'Arena per a titulats.
+
+Finalment, hi ha un títol d\'honor %2$s.</string>
   <string name="asWellAsManyNMtitles">diversos títols de mestre nacional</string>
   <string name="verificationForm">formulari de verificació</string>
+  <string name="canIbecomeLM">Puc obtenir el títol de Mestre de Lichess (LM)?</string>
   <string name="noUpperCaseDot">No.</string>
   <string name="guidelines">pautes</string>
   <string name="uniqueTrophies">Trofeus únics</string>
