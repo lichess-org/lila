@@ -23,4 +23,10 @@
   <string name="ratingRefundExplanation">Un minut després de marcar a un jugador com a trampós, s\'agafen les seves últimes 40 partides puntuables dels tres últims dies. Si tu vas ser el seu oponent en aquestes partides, vas perdre punts en elles (bé perquè vas perdre, bé perquè vas empatar), y la teva puntuació no era provisional, llavors se\'t retornaran els punts. Aquest reemborsament està limitat per la teva màxima puntuació i per com hagi progressat la teva puntuació després d\'aquella partida.
 (Per exemple, si la teva puntuació ha pujat molt després d\'aquelles partides, pot ser que no se\'t retornin els punts o només se\'t retorni una part). La devolució en cap cas serà de més de 150 punts.</string>
   <string name="preventLeavingGameWithoutResigning">Què es fa amb els jugadors que abandonen partides sense rendir-se?</string>
+  <string name="leavingGameWithoutResigningExplanation">Si el teu oponent abandona habitualment partides se\'l marca com a \"prohibit jugar\", el que significa que està temporalment suspès per a jugar. Això no s\'indica públicament al seu perfil. Si persisteix en aquest comportament, la duració de la suspensió augmenta i pot implicar el tancament del seu compte.</string>
+  <string name="howCanIBecomeModerator">Com em puc convertir en moderador?</string>
+  <string name="youCannotApply">No es pot sol·licitar ser moderador. Si veiem a algú que considerem que seria un bon moderador, ens posarem en contacte amb ell directament.</string>
+  <string name="isCorrespondenceDifferent">Els escacs per correspondència son diferents dels escacs normals?</string>
+  <string name="youCanUseOpeningBookNoEngine">A Lichess, la principal diferència en les regles dels escacs per correspondència és que es permet un llibre d\'obertures. L\'ús de motors d\'anàlisi segueix estant prohibit i donarà a lloc a que s\'etiqueti l\'usuari com a trampós. Tot i que la ICC permet l\'ús del motor d\'anàlisi en partides per correspondència, Lichess no ho permet.</string>
+  <string name="gameplay">Mecànica de joc</string>
 </resources>
