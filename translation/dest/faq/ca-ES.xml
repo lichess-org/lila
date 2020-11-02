@@ -71,6 +71,7 @@ Veure el capítol de %3$s sobre aquest moviment per practicar-lo.</string>
   <string name="repeatedPositionsThatMatters">La triple repetició es dóna per la repetició de %1$s, no de moviments. La repetició no té perquè ocórrer consecutivament.</string>
   <string name="positions">posicions</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Hem repetit una posició tres vegades. Per què la partida no es declara taules?</string>
+  <string name="threeFoldHasToBeClaimed">Les taules per triple repetició han de ser reclamades per un dels jugadors. Pots fer-ho prement el botó que es mostra, o oferint taules abans de fer el moviment que causi la triple repetició, no importarà que el teu oponent rebutgi l\'oferta de taules, les taules per triple repetició seran reclamades igualment. També pots %1$s Lichess per a que reclami automàticament les repeticions per tu. A més, la cinquena repetició sempre acaba la partida immediatament.</string>
   <string name="configure">configurar</string>
   <string name="accounts">Comptes</string>
   <string name="titlesAvailableOnLichess">Quins títols hi ha a Lichess?</string>
