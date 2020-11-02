@@ -29,4 +29,12 @@
   <string name="isCorrespondenceDifferent">Els escacs per correspondència son diferents dels escacs normals?</string>
   <string name="youCanUseOpeningBookNoEngine">A Lichess, la principal diferència en les regles dels escacs per correspondència és que es permet un llibre d\'obertures. L\'ús de motors d\'anàlisi segueix estant prohibit i donarà a lloc a que s\'etiqueti l\'usuari com a trampós. Tot i que la ICC permet l\'ús del motor d\'anàlisi en partides per correspondència, Lichess no ho permet.</string>
   <string name="gameplay">Mecànica de joc</string>
+  <string name="howBulletBlitzEtcDecided">Com es decideixen els controls de temps a Bullet, Blitz i altres?</string>
+  <string name="basedOnGameDuration">Els controls de temps de Lichess es basen en la duració estimada d\'una partida = %1$s
+Per exemple, la duració estimada d\'una partida de 5+3 és 5 × 60 + 40 × 3 = 420 segons.</string>
+  <string name="durationFormula">(temps inicial del rellotge) + 40 × (increment)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s s = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
+  <string name="whatVariantsCanIplay">Quines variants puc jugar a Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess suporta els escacs estàndard i %1$s.</string>
 </resources>
