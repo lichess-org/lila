@@ -51,6 +51,8 @@
   <string name="castlingPrevented">L\'enroc només s\'evita si el rei passa per una plaça controlada.</string>
   <string name="castlingRules">Assegureu-vos d’entendre les regles de l’enroc</string>
   <string name="tryCastling">Proveu aquest petit joc interactiu per practicar l\'enroc en els escacs</string>
+  <string name="castlingImported">Si has importat el joc, o el vas iniciar des d\'una posició, assegura\'t de restablir correctament els drets de l\'enroc.</string>
+  <string name="insufficientMaterial">Material insuficient per a fer mat</string>
   <string name="errorPage">Pàgina d\'error</string>
   <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apel·lació per prohibició o restricció de IP</string>
   <string name="engineAppeal">Motor o marca de trampa</string>
