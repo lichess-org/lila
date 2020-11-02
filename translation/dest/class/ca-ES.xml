@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Classes de Lichess</string>
-  <string name="teachClassesOfChessStudents">Ensenya classes d\'escacs amb el conjunt d\'eines Lichess Classes.</string>
+  <string name="teachClassesOfChessStudents">Ensenyar classes d\'escacs amb el conjunt d\'eines Lichess Classes.</string>
   <string name="features">Característiques</string>
-  <string name="quicklyGenerateSafeUsernames">Genera ràpidament noms d\'usuari i contrasenyes pels estudiants</string>
+  <string name="quicklyGenerateSafeUsernames">Generar ràpidament noms d\'usuari i contrasenyes pels estudiants</string>
   <string name="trackStudentProgress">Seguir el progrés de l\'estudiant en partides i problemes</string>
   <string name="messageAllStudents">Enviar un missatge a tots els estudiants sobre nou material de classe</string>
   <string name="freeForAllForever">100% lliure i gratuït per a tothom, per sempre, sense publicitat ni rastrejadors</string>
+  <string name="applyToBeLichessTeacher">Sol·licitar ser Professor de Lichess</string>
+  <string name="noClassesYet">No hi ha classes encara.</string>
+  <string name="teachersX">Professors: %s</string>
+  <string name="newClass">Nova classe</string>
+  <string name="closeClass">Tancar classe</string>
+  <string name="closedByX">Tancat per %s</string>
+  <string name="reopen">Reobrir</string>
+  <string name="removeStudent">Eliminar estudiant</string>
+  <string name="removedStudents">Eliminat</string>
+  <string name="inviteTheStudentBack">Invitar novament a l\'estudiant</string>
+  <string name="sendAMessage">Enviar un missatge a tots els estudiants.</string>
+  <string name="aLinkToTheClassWillBeAdded">Al final del missatge s\'afegirà automàticament un enllaç a la classe, així que no cal que l\'incloguis.</string>
+  <string name="className">Nom de la classe</string>
+  <string name="classDescription">Descripció de la classe</string>
+  <string name="visibleByBothStudentsAndTeachers">Visible per a professors i estudiants de la classe</string>
+  <string name="teachersOfTheClass">Professors de la classe</string>
   <string name="realName">Nom real</string>
   <string name="createANewLichessAccount">Crea un nou compte a Lichess</string>
   <string name="onlyVisibleToTeachers">Només visible pels mestres de la classe</string>
