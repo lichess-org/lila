@@ -98,8 +98,17 @@ No sol·licitis el títol de LM.</string>
   <string name="ownerUniqueTrophies">Aquest trofeu és únic en la historia de Lichess, ningú altre excepte %1$s el podrà obtenir.</string>
   <string name="wayOfBerserkExplanation">Per obtenir-lo, hiimgosu es va reptar a fer berserk i guanyar el 100 %% partides de %s.</string>
   <string name="aHourlyBulletTournament">un torneig Bullet per hora</string>
+  <string name="goldenZeeExplanation">ZugAddict estava retransmetent i les dues últimes hores havia estat intentant de derrotar a la I.A. nivell 8 en una partida de 1+0, sense èxit. Thibault li va dir que si ho feia amb èxit durant la retransmissió, obtindria un trofeu únic. Una hora després, va guanyar a Stockfish i es va complir la promesa.</string>
   <string name="lichessRatings">Puntuacions de Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Quin sistema de puntuació fa servir Lichess?</string>
+  <string name="similarOpponents">oponents de similar força</string>
+  <string name="howDoLeaderoardsWork">Com funcionen les classificacions i els llistats?</string>
+  <string name="inOrderToAppearsYouMust">Per aconseguir aparèixer a la %1$s has de:</string>
+  <string name="ratingLeaderboards">llistat de líders</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">haver jugat un mínim de 30 partides puntuables en una modalitat,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">haver jugat una partida puntuable en l\'última setmana per aquesta modalitat,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">tenir una desviació de puntuació menor que %1$s, en escacs estàndard, i menor que %2$s a les variants,</string>
+  <string name="beInTopTen">estar al top 10 d\'aquesta classificació.</string>
   <string name="howToHideRatingWhilePlaying">Com ocultar les meves puntuacions durant les partides?</string>
   <string name="displayPreferences">preferències de visualització</string>
   <string name="howToThreeDots">Com...</string>
