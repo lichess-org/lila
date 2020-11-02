@@ -62,7 +62,6 @@ object RelayForm {
     "youtu.be",
     "lichess.org",
     "google.com",
-    "chess.com",
     "vk.com",
     "localhost",
     "chess-results.com",
