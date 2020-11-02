@@ -73,4 +73,26 @@ Aquí està l\'enllaç per a accedir a la classe.</string>
     <item quantity="one">%s professor</item>
     <item quantity="other">%s professors</item>
   </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">%s estudiant</item>
+    <item quantity="other">%s estudiants</item>
+  </plurals>
+  <string name="students">Estudiants</string>
+  <string name="progress">Progrés</string>
+  <string name="noStudents">Encara no hi ha estudiants a la classe.</string>
+  <string name="noRemovedStudents">No hi ha estudiants eliminats.</string>
+  <string name="overDays">Al llarg dels dies</string>
+  <string name="timePlaying">Temps jugat</string>
+  <string name="variantXOverLastY">%1$s sobre els últims %2$s</string>
+  <string name="winrate">Percentatge de victòries</string>
+  <string name="na">No disponible</string>
+  <string name="news">Novetats de la classe</string>
+  <string name="editNews">Editar les novetats</string>
+  <string name="notifyAllStudents">Notifica a tots els estudiants</string>
+  <string name="nothingHere">Encara no hi ha res aquí.</string>
+  <string name="newsEdit1">Totes les novetats de la classe en un sol lloc.</string>
+  <string name="newsEdit2">Afegeix les novetats més recents a la part superior. No eliminis les novetats anteriors.</string>
+  <string name="newsEdit3">Separa les novetats amb ---
+Mostrarà una línia separadora horitzontal.</string>
+  <string name="markdownAvailable">%s està disponible per a una sintaxis més avançada.</string>
 </resources>
