@@ -114,5 +114,6 @@ No sol·licitis el títol de LM.</string>
   <string name="howToHideRatingWhilePlaying">Com ocultar les meves puntuacions durant les partides?</string>
   <string name="displayPreferences">preferències de visualització</string>
   <string name="howToThreeDots">Com...</string>
+  <string name="enableDisableNotificationPopUps">Activar o desactivar les notificacions emergents?</string>
   <string name="viewSiteInformationPopUp">Veure finestra emergent d\'informació del lloc</string>
 </resources>
