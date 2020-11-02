@@ -33,6 +33,10 @@
   <string name="realName">Nom real</string>
   <string name="privateWillNeverBeShown">Privat. Mai es mostrarà fora de la classe. Ajuda a recordar qui és l\'estudiant.</string>
   <string name="addStudent">Afegir estudiant</string>
+  <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creat per %2$s.</string>
+  <string name="studentCredentials">Estudiant:  %1$s
+Nom d\'usuari: %2$s
+Contrasenya: %3$s</string>
   <string name="createANewLichessAccount">Crea un nou compte a Lichess</string>
   <string name="onlyVisibleToTeachers">Només visible pels mestres de la classe</string>
   <string name="managed">Gestionada</string>
