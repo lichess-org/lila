@@ -53,6 +53,7 @@
   <string name="tryCastling">Proveu aquest petit joc interactiu per practicar l\'enroc en els escacs</string>
   <string name="castlingImported">Si has importat el joc, o el vas iniciar des d\'una posició, assegura\'t de restablir correctament els drets de l\'enroc.</string>
   <string name="insufficientMaterial">Material insuficient per a fer mat</string>
+  <string name="fideMate">Segons les lleis de la FIDE §6.9, si un escac i mat és possible mitjançant una combinació de moviments legals, llavors la partida no és taules</string>
   <string name="noRatingPoints">No s\'han concedit punts</string>
   <string name="ratedGame">Assegura\'t d\'haver jugat una partida puntuable. Les partides amistoses no afecten les puntuacions dels jugadors.</string>
   <string name="errorPage">Pàgina d\'error</string>
