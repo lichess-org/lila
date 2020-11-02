@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Classes de Lichess</string>
+  <string name="teachClassesOfChessStudents">Ensenya classes d\'escacs amb el conjunt d\'eines Lichess Classes.</string>
+  <string name="features">Característiques</string>
+  <string name="quicklyGenerateSafeUsernames">Genera ràpidament noms d\'usuari i contrasenyes pels estudiants</string>
+  <string name="trackStudentProgress">Seguir el progrés de l\'estudiant en partides i problemes</string>
+  <string name="messageAllStudents">Enviar un missatge a tots els estudiants sobre nou material de classe</string>
+  <string name="freeForAllForever">100% lliure i gratuït per a tothom, per sempre, sense publicitat ni rastrejadors</string>
   <string name="realName">Nom real</string>
   <string name="createANewLichessAccount">Crea un nou compte a Lichess</string>
   <string name="onlyVisibleToTeachers">Només visible pels mestres de la classe</string>
