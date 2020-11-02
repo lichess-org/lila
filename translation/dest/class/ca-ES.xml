@@ -37,7 +37,18 @@
   <string name="studentCredentials">Estudiant:  %1$s
 Nom d\'usuari: %2$s
 Contrasenya: %3$s</string>
+  <string name="inviteALichessAccount">Invita un compte de Lichess</string>
+  <string name="inviteDesc1">Si l\'estudiant ja té un compte de Lichess, pots invitar-lo a la classe.</string>
+  <string name="inviteDesc2">Rebran un missatge a Lichess amb un enllaç per a unir-se a la classe.</string>
+  <string name="inviteDesc3">Important: invita només a estudiants que coneguis, y que vulguin unir-se a la classe.</string>
+  <string name="inviteDesc4">Mai enviïs invitacions a jugadors que no les hagin demanat.</string>
   <string name="createANewLichessAccount">Crea un nou compte a Lichess</string>
+  <string name="createDesc1">Si l\'estudiant no té un compte de Lichess, pots crear-li una aquí.</string>
+  <string name="createDesc2">No cal una direcció de correu electrònic. Es generarà una contrasenya i li facilitaràs a l\'estudiant per a que pugui entrar.</string>
+  <string name="createDesc3">Important: un estudiant no pot tenir múltiples comptes.</string>
+  <string name="createDesc4">Si ja tenen una, empra el formulari d\'invitació.</string>
+  <string name="lichessUsername">Nom d\'usuari de Lichess</string>
+  <string name="generateANewUsername">Genera un nou nom d\'usuari</string>
   <string name="onlyVisibleToTeachers">Només visible pels mestres de la classe</string>
   <string name="managed">Gestionada</string>
   <string name="thisStudentAccountIsManaged">Aquest compte d\'estudiant està gestionat</string>
