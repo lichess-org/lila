@@ -82,7 +82,7 @@
   <string name="averageRatingX">Puntuació mitjana: %s</string>
   <string name="recentGames">Partides recents</string>
   <string name="topGames">Millors partides</string>
-  <string name="masterDbExplanation">Dos mil·lions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
+  <string name="masterDbExplanation">Dos milions de partides OTB de jugadors amb ELO FIDE +%1$s de %2$s fins a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat en %s mig-moviment</item>
     <item quantity="other">Mat en %s mig-moviments</item>
@@ -731,7 +731,7 @@ en %3$s</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anònim</string>
   <string name="yourScore">El seu resultat: %s</string>
-  <string name="language">Llenguatge</string>
+  <string name="language">Llengua</string>
   <string name="background">Fons</string>
   <string name="light">Clar</string>
   <string name="dark">Fosc</string>
