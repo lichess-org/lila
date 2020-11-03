@@ -23,6 +23,8 @@
   <string name="losingStreak">Низ пораза</string>
   <string name="longestStreak">Најдужи низ: %s</string>
   <string name="currentStreak">Тренутни низ: %s</string>
+  <string name="bestRated">Најбоље рангиране победе</string>
+  <string name="worstRated">Најлошије рангирани порази</string>
   <string name="gamesInARow">Узастопно одиграних партија</string>
   <string name="lessThanOneHour">Мање од један сат између партија</string>
   <string name="maxTimePlaying">Највише времена проведено у игри</string>
