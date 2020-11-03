@@ -18,4 +18,21 @@
   <string name="threefoldRepetition">Троструко понављање</string>
   <string name="threefoldRepetitionExplanation">Ако се иста позиција појави три пута, играчи могу прогласити реми %1$s. Личес прихвата званична FIDE правилам као што је опсано у Article 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">троструким понављањем</string>
+  <string name="repeatedPositionsThatMatters">Троструко понављање је засновано на поновљеним %1$s, не потезима. Понављања не морају да се догоде узастопно.</string>
+  <string name="positions">позицијама</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Поновили смо позиције три пута. Зашто партија није завршена ремијем?</string>
+  <string name="accounts">Налози</string>
+  <string name="titlesAvailableOnLichess">Које све титуле постоје на Личесу?</string>
+  <string name="whichRatingSystemUsedByLichess">Који систем рејтинга користи Личес?</string>
+  <string name="whatIsProvisionalRating">Зашто упитник (?) стоји поред рејтинга?</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Играч није завршио довољно рангираних партија против %1$s у рангираној категорији.</string>
+  <string name="similarOpponents">противника сличне јачине</string>
+  <string name="howToHideRatingWhilePlaying">Како сакрити рејтинге током игре?</string>
+  <string name="howToThreeDots">Како...</string>
+  <string name="enableDisableNotificationPopUps">Укључити или искључити поп-ап обавештења?</string>
+  <string name="lichessCanOptionnalySendPopUps">Личес може да шаље поп-ап обавештења, на пример када је твој потез у партији или када примиш приватну поруку.
+
+Притисни икону катанца поред lichess.org адресе у URL бару свог претраживача.
+
+Онда изабери да ли желиш примати или блокирати обавештења од Личеса.</string>
 </resources>
