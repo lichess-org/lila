@@ -101,15 +101,19 @@ No sol·licitis el títol de LM.</string>
   <string name="goldenZeeExplanation">ZugAddict estava retransmetent i les dues últimes hores havia estat intentant de derrotar a la I.A. nivell 8 en una partida de 1+0, sense èxit. Thibault li va dir que si ho feia amb èxit durant la retransmissió, obtindria un trofeu únic. Una hora després, va guanyar a Stockfish i es va complir la promesa.</string>
   <string name="lichessRatings">Puntuacions de Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Quin sistema de puntuació fa servir Lichess?</string>
-  <string name="ratingSystemUsedByLichess">Les puntuacions es calculen utilitzat el mètode de classicicació Glicko-2 desenvolupar per Mark Glickman. És un mètode de puntuació molt popular i que utilitzen moltes organitzacions d\'escacs (la FIDE és un contraexemple notable, ja que encara utilitza el sistema de puntuació Elo).
+  <string name="ratingSystemUsedByLichess">Les puntuacions es calculen utilitzat el mètode de classificació Glicko-2 desenvolupar per Mark Glickman. És un mètode de puntuació molt popular i que utilitzen moltes organitzacions d\'escacs (la FIDE és un contraexemple notable, ja que encara utilitza el sistema de puntuació Elo).
 
-En resum, les puntuacions de Glicko utlitzen \"intervals de confiança\" al calcular i representar la teva puntuació. Quan comences a utilitzar la pàgina, la teva puntuació inicial és de 1500 ± 700. 1500 representa la teva puntuació i el 700 representa l\'interval de confiança, que és una mesura de la incertesa que el sistema té sobre la teva puntuació real.
+En resum, les puntuacions de Glicko utilitzen \"intervals de confiança\" al calcular i representar la teva puntuació. Quan comences a utilitzar la pàgina, la teva puntuació inicial és de 1500 ± 700. 1500 representa la teva puntuació i el 700 representa l\'interval de confiança, que és una mesura de la incertesa que el sistema té sobre la teva puntuació real.
 
 Bàsicament, el sistema té un 90% de seguretat que la teva puntuació està entre 800 i 2200. És un interval molt ampli i poc precís (hi ha molta incertesa). Per això, quan un jugador acaba de començar, la seva puntuació canviarà de forma molt brusca, fins i tot centenars de punts de cop. Però després d\'algunes partides contra jugadors més veterans, l\'interval de confiança s\'anirà reduint (el sistema tindrà cada vegada més clara quina és la teva puntuació exacta), i la quantitat de punts guanyats o perduts després de cada partida es reduirà.
 
 Un altre punt que cal destacar és que, al passar el temps, l\'interval de confiança tornarà a augmentar. Això et permet guanyar/perdre punts més ràpidament per a igualar qualsevol canvi de força de joc durant el temps que hagi passat.</string>
   <string name="whatIsProvisionalRating">Per què hi ha un signe d\'interrogació (?) al costat d\'una puntuació?</string>
+  <string name="provisionalRatingExplanation">El signe d\'interrogació significa que la puntuació és provisional. Les raons inclouen:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">El jugador encara no ha jugat suficients partides puntuables contra %1$s en aquesta modalitat.</string>
   <string name="similarOpponents">oponents de similar força</string>
+  <string name="notPlayedRecently">El jugador no ha jugat suficients partides recents. Depenent de la quantitat de partides que hagis jugat, pot tardar al voltant d\'un any d\'inactivitat per a que la teva puntuació torni a ser provisional.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Concretament, significa que la desviació Glicko-2 és major que 110. La desviació és el nivell de confiança que té el sistema en la classificació. Quant més baixa sigui la desviació, més estable serà una puntuació.</string>
   <string name="howDoLeaderoardsWork">Com funcionen les classificacions i els llistats?</string>
   <string name="inOrderToAppearsYouMust">Per aconseguir aparèixer a la %1$s has de:</string>
   <string name="ratingLeaderboards">llistat de líders</string>
@@ -119,8 +123,13 @@ Un altre punt que cal destacar és que, al passar el temps, l\'interval de confi
   <string name="beInTopTen">estar al top 10 d\'aquesta classificació.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segon requisit és per a que els jugadors que ja no fan servir els seus comptes deixin de poblar la part alta de la classificació.</string>
   <string name="whyAreRatingHigher">Per què són més altes les puntuacions en comparació amb altres pàgines i organitzacions com la FIDE, la USCF i ICC?</string>
+  <string name="whyAreRatingHigherExplanation">El millor és no pensar en les puntuacions en termes absoluts ni comparar-les amb altres organitzacions. Les organitzacions tenen diferents nivells de jugadors i diferents nivells de puntuació (Elo, Glicko, Glicko-2 o una versió modificada dels primers). Aquests factors poden afectar dràsticament els valors absoluts (puntuacions).
+
+És millor pensar en les puntuacions com figures \"relatives\" (a diferència de les \"figures absolutes\"): dintre d\'un conjunt de jugadors, les seves diferencies relatives en les puntuacions t\'ajudaran a estimar qui guanya/empata/perd i amb quina freqüència. Dir \"tinc una puntuació X\" no vol dir res excepte si hi ha altres jugadors amb els que comparar aquesta puntuació.</string>
   <string name="howToHideRatingWhilePlaying">Com ocultar les meves puntuacions durant les partides?</string>
+  <string name="enableZenMode">Habilita el mode Zen a les %1$s o prement %2$s durant una partida.</string>
   <string name="displayPreferences">preferències de visualització</string>
+  <string name="connexionLostCanIGetMyRatingBack">He perdut una partida degut a un retard/desconnexió. Puc recuperar els meus punts?</string>
   <string name="howToThreeDots">Com...</string>
   <string name="enableDisableNotificationPopUps">Activar o desactivar les notificacions emergents?</string>
   <string name="viewSiteInformationPopUp">Veure finestra emergent d\'informació del lloc</string>
