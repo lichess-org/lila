@@ -2,9 +2,7 @@ package lila.security
 
 import lila.common.constants.bannedYoutubeIds
 
-final class Spam(
-    spamKeywords: () => lila.common.Strings
-) {
+final class Spam(spamKeywords: () => lila.common.Strings) {
 
   def detect(text: String) =
     staticBlacklist.exists(text.contains) ||
@@ -21,7 +19,10 @@ final class Spam(
       "decodechess.com/ref/"
     )
 
-  private lazy val staticBlacklist = List("chess-bot.com") ::: bannedYoutubeIds ::: referBlacklist
+  private lazy val staticBlacklist = List(
+    "chess-bot.com",
+    "/auth/magic-link/login/"
+  ) ::: bannedYoutubeIds ::: referBlacklist
 
   def replace(text: String) =
     replacements.foldLeft(text) { case (t, (regex, rep)) =>
