@@ -76,6 +76,19 @@
   <string name="notPlayedEnoughRatedGamesAgainstX">Играч није завршио довољно рангираних партија против %1$s у рангираној категорији.</string>
   <string name="similarOpponents">противника сличне јачине</string>
   <string name="notPlayedRecently">Играч није одиграо довољно скоријих партија. Узев у обзир број одиграних партија, може бити потребно око годину дана неактивности како би твој рејтинг поново постао привремени.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Конкретно, то значи да је Глико-2 девијација већа од 110. Девијација је ниво поузданости коју систем има у рејтинг. Што је мања девијација, то је рејтинг стабилнији.</string>
+  <string name="howDoLeaderoardsWork">Како раде рангови и ранг листе?</string>
+  <string name="inOrderToAppearsYouMust">Како би се пласирао на %1$s, мораш:</string>
+  <string name="ratingLeaderboards">рејтинг ранг листа</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">одиграти барем 30 рангираних партија у одређеном рејтингу,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">одиграти рангирану игру у овом рејтингу унутар једне недеље,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">имати девијацију рејтинга мању од %1$s, у стандардном шаху, и мању од %2$s у варијантама,</string>
+  <string name="beInTopTen">бити у топ 10 у овом рејтингу.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Друга неопходност постоји како би неактивни налози престали да попуњавају ранг листе.</string>
+  <string name="whyAreRatingHigher">Зашто су рејтинзи виши у поређењу са другим сајтовима и организацијама као што су ФИДЕ, УСЦФ и ИЦЦ?</string>
+  <string name="whyAreRatingHigherExplanation">Најбоље је не гледати на рејтинга као апсолутне бројеве, нити их поредити са другим организацијама. Друге организације имају разне нивое играча, друге рејтинг системе (Ело, Глико, Глико-2, или модификовану верзију неких од ових). Ови фактори драстично утичу на апсолутне бројеве (рејтинг).
+
+Најбоље је гледати рејтинге као \"релативне\" бројеве (а не \"апсолутне\" бројеве): унутар једног скупа играча, њихове релативне разлике у рејтингу ће ти помоћи да одредиш ко ће победити/изгубити и колико често. Реченица \"Ја имам Х рејтинг\" не значи ништа ако немаш остале играче са којима можеш поредити тај рејтинг.</string>
   <string name="howToHideRatingWhilePlaying">Како сакрити рејтинге током игре?</string>
   <string name="howToThreeDots">Како...</string>
   <string name="enableDisableNotificationPopUps">Укључити или искључити поп-ап обавештења?</string>
