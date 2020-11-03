@@ -175,7 +175,7 @@
   <string name="username">Nom d\'usuari</string>
   <string name="usernameOrEmail">Nom d\'usuari o correu electrònic</string>
   <string name="changeUsername">Canviar nom d\'usuari</string>
-  <string name="changeUsernameNotSame">Només les lletres majúscules poden canviar. Per exemple \"johndoe\" a \"JohnDoe\".</string>
+  <string name="changeUsernameNotSame">Només es pot canviar entre majúscules i minúscules. Per exemple, de \"perecullera\" a \"PereCullera\".</string>
   <string name="changeUsernameDescription">Canvia el teu nom d\'usuari. Això es pot fer una única vegada i només canviant les lletres majúscules per minúscules.</string>
   <string name="password">Contrassenya</string>
   <string name="changePassword">Canvia la contrasenya</string>
