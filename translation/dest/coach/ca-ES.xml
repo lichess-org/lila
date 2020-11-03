@@ -12,4 +12,24 @@
   <string name="hourlyRate">Tarifa per hora</string>
   <string name="availability">Disponibilitat</string>
   <string name="accepting">Accepta estudiants</string>
+  <string name="notAccepting">Actualment, no accepta estudiants</string>
+  <string name="xCoachesStudents">%s entrena a estudiants d\'escacs</string>
+  <string name="viewXProfile">Veure el perfil de Lichess de %s</string>
+  <string name="sendPM">Enviar un missatge privat</string>
+  <string name="aboutMe">Sobre mi</string>
+  <string name="playingExperience">Experiència com a jugador</string>
+  <string name="teachingExperience">Experiència docent</string>
+  <string name="otherExperiences">Altres experiències</string>
+  <string name="bestSkills">Millors habilitats</string>
+  <string name="teachingMethod">Metodologia d\'ensenyament</string>
+  <string name="publicStudies">Estudis públics</string>
+  <string name="youtubeVideos">Vídeos de YouTube</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Una ressenya d\'estudiant</item>
+    <item quantity="other">%s ressenyes d\'estudiants</item>
+  </plurals>
+  <string name="thankYouForReview">Gràcies per la ressenya!</string>
+  <string name="xWillApproveIt">%s ho aprovarà molt aviat o un moderador ho revisarà.</string>
+  <string name="reviewCoach">Valora a aquest entrenador</string>
+  <string name="describeExperienceWith">Descriu la teva experiència de l\'entrenament amb %s</string>
 </resources>
