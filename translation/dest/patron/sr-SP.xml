@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="donate">Донирај</string>
+  <string name="freeAccount">Бесплатан налог</string>
+  <string name="freeChess">Бесплатан шах за све, заувек!</string>
+  <string name="thankYou">Хвала на донацији!</string>
+  <string name="weAreNonProfit">Ми смо непрофитно удружење јер верујемо да сви требају имати приступ бесплатној шаховској платформи светске класе.</string>
   <string name="monthly">Месечно</string>
+  <string name="otherAmount">Остало</string>
+  <string name="withCreditCard">Кредитна Картица</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Ми смо мали тим, па твоја подршка прави велику разлику!</string>
+  <string name="changeMonthlySupport">Могу ли изменити/укинути моју месечну подршку?</string>
+  <string name="changeOrContact">Да, у било ком тренутку, на овој страници.
+Или можеш %s.</string>
 </resources>
