@@ -7,4 +7,6 @@
   <string name="yesItWillBeFixedSoon">Sí. S\'arreglarà aviat!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">I ara, la resposta completa! La latència de la partida depèn de dos valors independents (com més baixos, millor):</string>
   <string name="lichessServerLatency">Latència del servidor Lichess</string>
+  <string name="lichessServerLatencyExplanation">El temps que es tarda en processar un moviment en el servidor. És el mateix per a tots els jugadors i només depèn de la càrrega del servidor. Com més jugadors hi hagi en un moment determinat més augmenta, però els desenvolupadors de Lichess fan tot el possible per a mantenir-lo baix. Poques vegades excedeix els 10ms.</string>
+  <string name="networkBetweenLichessAndYou">Connexió entre Lichess i tu</string>
 </resources>
