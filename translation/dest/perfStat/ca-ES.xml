@@ -16,4 +16,18 @@
   <string name="victories">Victòries</string>
   <string name="defeats">Derrotes</string>
   <string name="disconnections">Desconnexions</string>
+  <string name="notEnoughGames">No s\'han jugat suficients partides</string>
+  <string name="highestRating">Puntuació més alta: %s</string>
+  <string name="lowestRating">Puntuació més baixa: %s</string>
+  <string name="fromXToY">des de %1$s fins a %2$s</string>
+  <string name="winningStreak">Ratxa de victòries</string>
+  <string name="losingStreak">Ratxa de derrotes</string>
+  <string name="longestStreak">Ratxa més llarga: %s</string>
+  <string name="currentStreak">Ratxa actual: %s</string>
+  <string name="bestRated">Millors victòries puntuables</string>
+  <string name="worstRated">Pitjors derrotes puntuables</string>
+  <string name="gamesInARow">Partides jugades seguides</string>
+  <string name="lessThanOneHour">Menys d\'una hora entre partida i partida</string>
+  <string name="maxTimePlaying">Temps màxim jugant</string>
+  <string name="now">ara</string>
 </resources>
