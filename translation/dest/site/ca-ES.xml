@@ -212,7 +212,7 @@
   <string name="yourOpponentOffersADraw">El teu oponent t\'ofereix taules</string>
   <string name="accept">Accepta</string>
   <string name="decline">Rebutja</string>
-  <string name="playingRightNow">Jugant-se ara</string>
+  <string name="playingRightNow">En joc</string>
   <string name="eventInProgress">Jugant-se ara</string>
   <string name="finished">Acabat</string>
   <string name="finishesX">finalitza %s</string>
