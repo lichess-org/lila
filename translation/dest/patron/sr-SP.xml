@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Донирај</string>
-  <string name="lichessPatron">Lichess Патрон</string>
+  <string name="lichessPatron">Личес Патрон</string>
   <string name="freeAccount">Бесплатан налог</string>
-  <string name="becomePatron">Постани Lichess Патрон</string>
-  <string name="xBecamePatron">%s је постао Lichess Патрон</string>
+  <string name="becomePatron">Постани Личес Патрон</string>
+  <string name="xBecamePatron">%s је постао Личес Патрон</string>
   <string name="newPatrons">Нови Патрони</string>
   <string name="freeChess">Бесплатан шах за све, заувек!</string>
   <string name="thankYou">Хвала на донацији!</string>
@@ -12,8 +12,8 @@
   <string name="patronUntil">Имаш Патрон налог до %s.</string>
   <string name="weAreNonProfit">Ми смо непрофитно удружење јер верујемо да сви требају имати приступ бесплатној шаховској платформи светске класе.</string>
   <string name="lifetime">Доживотно</string>
-  <string name="payLifetimeOnce">Плати %s једном. Буди Lichess Патрон заувек!</string>
-  <string name="lifetimePatron">Доживотни Lichess Патрон</string>
+  <string name="payLifetimeOnce">Плати %s једном. Буди Личес Патрон заувек!</string>
+  <string name="lifetimePatron">Доживотни Личес Патрон</string>
   <string name="makeExtraDonation">Направи додатну донацију?</string>
   <string name="monthly">Месечно</string>
   <string name="recurringBilling">Поновно наплаћивање, обнављајући твоја Патрон крила сваког месеца.</string>
