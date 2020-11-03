@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">Lichess està tardant el respondre?</string>
+  <string name="measurementInProgressThreeDot">Mesurant latència...</string>
+  <string name="noAndYourNetworkIsGood">No, i la teva connexió és bona.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">No. I la teva connexió és dolenta.</string>
+  <string name="yesItWillBeFixedSoon">Sí. S\'arreglarà aviat!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">I ara, la resposta completa! La latència de la partida depèn de dos valors independents (com més baixos, millor):</string>
+  <string name="lichessServerLatency">Latència del servidor Lichess</string>
+</resources>
