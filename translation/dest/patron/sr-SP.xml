@@ -26,7 +26,7 @@
   <string name="changeMonthlySupport">Могу ли изменити/укинти моју месечну донацију?</string>
   <string name="changeOrContact">Да, у било ком тренутку, на овој страници.
 Или можеш %s.</string>
-  <string name="contactSupport">контактирати Lichess подршку</string>
+  <string name="contactSupport">контактирати Личес подршку</string>
   <string name="otherMethods">Остали методи донација?</string>
   <string name="patronFeatures">Да ли су неке могућности дозвољене само Патронима?</string>
   <string name="noPatronFeatures">Не, јер је Lichess потпуно бесплатан, заувек и за све. То је обећање.
