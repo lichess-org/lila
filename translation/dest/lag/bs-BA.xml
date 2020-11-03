@@ -9,4 +9,7 @@
   <string name="lichessServerLatency">Latencije Lichessovog servera</string>
   <string name="lichessServerLatencyExplanation">Vrijeme potrebno za obradu poteza na serveru. Ono je jednako kod svih i zavisi samo od opterećenosti servera. Što je više igrača, to je duže i vrijeme obrade, ali ljudi koji razvijaju Lichess rade najbolje što mogu da bi ga održali kratkim. Rijetko premašuje 10 milisekundi.</string>
   <string name="networkBetweenLichessAndYou">Mreža između Lichessa i Vas</string>
+  <string name="networkBetweenLichessAndYouExplanation">Vrijeme potrebno da potez s Vašeg računara bude poslan na Lichessov server i da dobijete odgovor. Specifično je u odnosu na Vašu udaljenost od Lichessa (Francuska) i kvalitet Vaše internetske konekcije. Ljudi koji razvijaju Lichess ne mogu popraviti Vaš Wi-Fi ili učiniti da svjetlost putuje brže.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Možete naći obje vrijednosti bilo kada klikom na Vaše korisničko ime u gornjoj alatnoj traci.</string>
+  <string name="lagCompensation">Kompenzacija za kašnjenje</string>
 </resources>
