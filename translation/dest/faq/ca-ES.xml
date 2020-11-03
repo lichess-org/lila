@@ -101,6 +101,14 @@ No sol·licitis el títol de LM.</string>
   <string name="goldenZeeExplanation">ZugAddict estava retransmetent i les dues últimes hores havia estat intentant de derrotar a la I.A. nivell 8 en una partida de 1+0, sense èxit. Thibault li va dir que si ho feia amb èxit durant la retransmissió, obtindria un trofeu únic. Una hora després, va guanyar a Stockfish i es va complir la promesa.</string>
   <string name="lichessRatings">Puntuacions de Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Quin sistema de puntuació fa servir Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Les puntuacions es calculen utilitzat el mètode de classicicació Glicko-2 desenvolupar per Mark Glickman. És un mètode de puntuació molt popular i que utilitzen moltes organitzacions d\'escacs (la FIDE és un contraexemple notable, ja que encara utilitza el sistema de puntuació Elo).
+
+En resum, les puntuacions de Glicko utlitzen \"intervals de confiança\" al calcular i representar la teva puntuació. Quan comences a utilitzar la pàgina, la teva puntuació inicial és de 1500 ± 700. 1500 representa la teva puntuació i el 700 representa l\'interval de confiança, que és una mesura de la incertesa que el sistema té sobre la teva puntuació real.
+
+Bàsicament, el sistema té un 90% de seguretat que la teva puntuació està entre 800 i 2200. És un interval molt ampli i poc precís (hi ha molta incertesa). Per això, quan un jugador acaba de començar, la seva puntuació canviarà de forma molt brusca, fins i tot centenars de punts de cop. Però després d\'algunes partides contra jugadors més veterans, l\'interval de confiança s\'anirà reduint (el sistema tindrà cada vegada més clara quina és la teva puntuació exacta), i la quantitat de punts guanyats o perduts després de cada partida es reduirà.
+
+Un altre punt que cal destacar és que, al passar el temps, l\'interval de confiança tornarà a augmentar. Això et permet guanyar/perdre punts més ràpidament per a igualar qualsevol canvi de força de joc durant el temps que hagi passat.</string>
+  <string name="whatIsProvisionalRating">Per què hi ha un signe d\'interrogació (?) al costat d\'una puntuació?</string>
   <string name="similarOpponents">oponents de similar força</string>
   <string name="howDoLeaderoardsWork">Com funcionen les classificacions i els llistats?</string>
   <string name="inOrderToAppearsYouMust">Per aconseguir aparèixer a la %1$s has de:</string>
