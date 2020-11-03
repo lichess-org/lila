@@ -3,6 +3,7 @@
   <string name="lichessStreamers">Личес стримери</string>
   <string name="lichessStreamer">Личес стример</string>
   <string name="live">УЖИВО!</string>
+  <string name="offline">ОФЛАЈН</string>
   <string name="currentlyStreaming">Тренутно стримује: %s</string>
   <string name="lastStream">Последњи стрим %s</string>
   <string name="becomeStreamer">Постани Личес стример</string>
@@ -21,4 +22,10 @@
   <string name="whenReady">Када будете спремни да постанете Личес стример, %s</string>
   <string name="requestReview">затражите проверу од стране модератора</string>
   <string name="twitchUsername">Твоје Твич корисничко име или УРЛ</string>
+  <string name="tellUsAboutTheStream">Реци нам нешто о свом стриму у једној реченици</string>
+  <string name="longDescription">Дужи опис</string>
+  <string name="changePicture">Измени/избриши своју слику</string>
+  <string name="uploadPicture">Постави слику</string>
+  <string name="deletePicture">Избриши слику</string>
+  <string name="maxSize">Максимална величина: %s</string>
 </resources>
