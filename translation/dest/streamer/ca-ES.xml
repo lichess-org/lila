@@ -50,4 +50,9 @@ Si la teva retransmissió està en anglès, no hi ha necessitat d\'incloure una 
   <string name="uploadPicture">Puja una imatge</string>
   <string name="deletePicture">Elimina la imatge</string>
   <string name="maxSize">Grandària màxima: %s</string>
+  <string name="installBlocker">Instal·la un bloquejador de programari maliciós!</string>
+  <string name="beSafe">Mantingues-te fora de perill d\'anuncis i rastrejadors 
+que infesten Twitch i YouTube.
+Lichess recomana uBlock Origina
+que és gratuït i de codi obert.</string>
 </resources>
