@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="perfStats">%s статистика</string>
+  <string name="viewTheGames">Погледај партије</string>
+  <string name="notEnoughRatedGames">Није одиграно довољно рангираних игара како би се оствари поуздан рејтинг.</string>
+  <string name="progressOverLastXGames">Напредак кроз задњих %s партија:</string>
 </resources>
