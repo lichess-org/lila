@@ -9,9 +9,18 @@
   <string name="areThereWebsitesBasedOnLichess">Постоје ли други сајтови засновани на Личесу?</string>
   <string name="fairPlay">Фер плеј</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Зашто сам обележен за манипулацију рејтинга (намерно губљење партија или бустовање) или асистенцију рачунара?</string>
+  <string name="cheatDetectionMethods">Личес има успешне методе детекције и врло опширан процес за прегледање свих доказа и доношење коначне одлуке. За процес је често потребан већи број модератора и много времена. Осим тога, нећемо ићи у пуно детаља о доказима и процесу доношења одлука за појединачне случајеве. Тиме би се у будућности лакше избегавала детекција, и започеле би многе непродутивне дебате. То време и труд су боље потрошени на неке битније случајеве. Корисници се могу жалити слањем мејла на %1$s, али донешене одлуке су ретко поништене.</string>
+  <string name="preventLeavingGameWithoutResigning">Шта је урађено поводом играча који напусте партију пре него што се предају?</string>
+  <string name="leavingGameWithoutResigningExplanation">Ако твој противник често напушта партије, он ће добити привремену забрану играња партија. Ово није јавно видљиво на њиховом профилу. Ако се оваквко понашање настави, дужина забране се све више продужује - док овакво понашање може довести и до затварања налога ако је превише често.</string>
   <string name="howCanIBecomeModerator">Како могу постати модератор?</string>
   <string name="youCannotApply">Није могуће пријавити се за посао модератора. Ако уочимо некога за кога мислимо да би ту улогу добро извршио, ми га директно контактирамо.</string>
   <string name="gameplay">Ток игре</string>
+  <string name="howBulletBlitzEtcDecided">Како су Булит, Блиц и остала времена одређена?</string>
+  <string name="basedOnGameDuration">Личес контроле времена су засноване на процењеном трајању партије = %1$s
+На пример, процењено трајање 5+3 партије је 5 × 60 + 40 × 3 = 420 секунди.</string>
+  <string name="durationFormula">(почетно време) + 40 × (инкремент сата)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Које варијанте могу играни на Личесу?</string>
   <string name="lichessSupportChessAnd">Личес подржава стандарни шах и %1$s.</string>
   <string name="eightVariants">8 варијанти шаха</string>
