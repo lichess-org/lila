@@ -49,6 +49,15 @@
   <string name="castlingPrevented">Рокада је забрањена само ако краљ пролази кроз контролисано поље.</string>
   <string name="castlingRules">Увери се да разумеш правила рокаде</string>
   <string name="tryCastling">Пробај ову малу интерактивну игру како би увежбао рокаду у шаху</string>
+  <string name="fideMate">По FIDE Laws of Chess §6.9, ако је мат могућ са било којим редоследом легалних потеза, партија није реми</string>
+  <string name="knightMate">Могуће је матирати уз помоћ само коња или ловца, ако противник има фигура сем краља.</string>
+  <string name="otherRestriction">Остале забране</string>
+  <string name="collaboration">Колаборације, легално, комерцијално</string>
+  <string name="monetizing">Монетизација Личеса</string>
+  <string name="buyingLichess">Куповина Личеса</string>
+  <string name="authorizationToUse">Ауторизација за коришћење Личеса</string>
+  <string name="welcomeToUse">Добродошли сте користити Личес за своје активности, чак и комерцијалне.</string>
+  <string name="videosAndBooks">Можеш га приказивати у својим снимцима, или штампати слике Личеса у својим књигама.</string>
   <string name="noneOfTheAbove">Ништа од наведеног</string>
   <string name="sendEmailAt">Пошаљите нам мејл на адресу %s.</string>
   <string name="explainYourRequest">Молимо објасните ваш захтев јасно и темељно. Напишите своје Lichess корисничко име и било које информације које нам могу помоћи да вам помогнемо.</string>
