@@ -24,8 +24,10 @@ final class Team(
 
   def all(page: Int) =
     Open { implicit ctx =>
-      paginator popularTeams page map {
-        html.team.list.all(_)
+      Reasonable(page) {
+        paginator popularTeams page map {
+          html.team.list.all(_)
+        }
       }
     }
 
@@ -39,14 +41,18 @@ final class Team(
 
   def show(id: String, page: Int) =
     Open { implicit ctx =>
-      OptionFuOk(api team id) { renderTeam(_, page) }
+      Reasonable(page) {
+        OptionFuOk(api team id) { renderTeam(_, page) }
+      }
     }
 
   def search(text: String, page: Int) =
     OpenBody { implicit ctx =>
-      if (text.trim.isEmpty) paginator popularTeams page map { html.team.list.all(_) }
-      else
-        env.teamSearch(text, page) map { html.team.list.search(text, _) }
+      Reasonable(page) {
+        if (text.trim.isEmpty) paginator popularTeams page map { html.team.list.all(_) }
+        else
+          env.teamSearch(text, page) map { html.team.list.search(text, _) }
+      }
     }
 
   private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
