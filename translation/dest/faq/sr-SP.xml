@@ -7,6 +7,8 @@
   <string name="howCanIContributeToLichess">Како могу допринети Личесу?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Личес покрећу донације наших патрона, као и труд нашег тима волонтера.</string>
   <string name="areThereWebsitesBasedOnLichess">Постоје ли други сајтови засновани на Личесу?</string>
+  <string name="fairPlay">Фер плеј</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Зашто сам обележен за манипулацију рејтинга (намерно губљење партија или бустовање) или асистенцију рачунара?</string>
   <string name="howCanIBecomeModerator">Како могу постати модератор?</string>
   <string name="youCannotApply">Није могуће пријавити се за посао модератора. Ако уочимо некога за кога мислимо да би ту улогу добро извршио, ми га директно контактирамо.</string>
   <string name="gameplay">Ток игре</string>
