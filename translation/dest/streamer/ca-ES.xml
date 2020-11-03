@@ -28,10 +28,10 @@
   <string name="pleaseFillIn">Si us plau, emplena la informació com a retransmissor i puja una foto.</string>
   <string name="whenReady">Quan estiguis llest per ser enumerat com a retransmissor de Lichess, %s</string>
   <string name="requestReview">sol·licita una revisió d\'un moderador</string>
-  <string name="anotherLanguage">Si la teva retransmissió està en un idioma diferent a l\'anglès, inclou la etiqueta d\'idioma correcta (%s), tancada entre claudàtors, a l\'inici del títol de la teva retransmissió.
-Per exemple, inclou \"[RU]\" per rus, \"[TR]\" per turc, \"[FR]\" per francès, etc.
+  <string name="anotherLanguage">Si la retransmissió és en un idioma diferent a l\'anglès, afegeix l\'etiqueta d\'idioma correcta (%s), tancada entre claudàtors, a l\'inici del títol de la retransmissió.
+Per exemple, afegeix \"[CA]\" pel català, \"[ES]\" pel castellà, \"[FR]\" per francès, etc.
 Col·loca-ho en el títol de la retransmissió a la pàgina de Twitch o de YouTube, no en la configuració de la retransmissió de Lichess.
-Si la teva retransmissió està en anglès, no hi ha necessitat d\'incloure una etiqueta d\'idioma.</string>
+Si la retransmissió és en anglès, no hi ha necessitat d\'afegir l\'etiqueta d\'idioma.</string>
   <string name="twitchUsername">El teu nom d\'usuari o URL de Twitch</string>
   <string name="optionalOrEmpty">Opcional. Deixa-ho en blanc si no hi ha cap</string>
   <string name="youtubeChannel">La teva ID o URL del teu canal de Youtube</string>
