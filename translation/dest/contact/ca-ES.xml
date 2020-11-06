@@ -43,12 +43,22 @@
   <string name="reportWebsiteIssue">Com un problema del lloc web de Lichess a Github</string>
   <string name="reportMobileIssue">Com un problema de l\'aplicació mòbil a Github</string>
   <string name="reportBugInDiscord">Al servidor Discord de Lichess</string>
+  <string name="howToReportBug">Si us plau, descriu com es veu l\'error, què esperaves que succeís, i els passos per a reproduir l\'error.</string>
   <string name="illegalPawnCapture">Captura de peo il·legal</string>
+  <string name="calledEnPassant">Es diu captura al pas i és una de les regles dels escacs.</string>
+  <string name="tryEnPassant">Prova aquest petit joc interactiu per aprendre més sobre la captura al pas.</string>
   <string name="illegalCastling">Enroc il·legal o impossible</string>
   <string name="castlingPrevented">L\'enroc només s\'evita si el rei passa per una plaça controlada.</string>
   <string name="castlingRules">Assegureu-vos d’entendre les regles de l’enroc</string>
   <string name="tryCastling">Proveu aquest petit joc interactiu per practicar l\'enroc en els escacs</string>
+  <string name="castlingImported">Si has importat el joc, o el vas iniciar des d\'una posició, assegura\'t de restablir correctament els drets de l\'enroc.</string>
+  <string name="insufficientMaterial">Material insuficient per a fer mat</string>
+  <string name="fideMate">Segons les lleis de la FIDE §6.9, si un escac i mat és possible mitjançant una combinació de moviments legals, llavors la partida no és taules</string>
+  <string name="knightMate">És possible fer escac i mat únicament amb un cavall o un alfil, si l\'oponent té alguna peça que bloquegi el rei.</string>
+  <string name="noRatingPoints">No s\'han concedit punts</string>
+  <string name="ratedGame">Assegura\'t d\'haver jugat una partida puntuable. Les partides amistoses no afecten les puntuacions dels jugadors.</string>
   <string name="errorPage">Pàgina d\'error</string>
+  <string name="reportErrorPage">Si una pàgina et dóna error, la pots reportar:</string>
   <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Apel·lació per prohibició o restricció de IP</string>
   <string name="engineAppeal">Motor o marca de trampa</string>
   <string name="sendAppealTo">Pots enviar una apel·lació a %s.</string>

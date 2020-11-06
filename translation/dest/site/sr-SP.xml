@@ -210,6 +210,8 @@
     <item quantity="other">%s игара са вама</item>
   </plurals>
   <string name="cancel">Откажи</string>
+  <string name="whiteTimeOut">Време истекло белом</string>
+  <string name="blackTimeOut">Време истекло црном</string>
   <string name="drawOfferSent">Захтев за реми је послат</string>
   <string name="drawOfferDeclined">Предлог за реми је одбијен</string>
   <string name="drawOfferAccepted">Предлог за реми је прихваћен</string>
@@ -291,6 +293,7 @@
     <item quantity="few">Додај %s секунде</item>
     <item quantity="other">Додај %s секунди</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Овај налог није поштовао Lichess услове коришћења</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ови играчи вештачки увећавају свој рејтинг</string>
   <string name="openingExplorerAndTablebase">Претраживач отварања &amp; база података</string>
   <string name="takeback">Повлачење потеза</string>
@@ -887,7 +890,7 @@
   <string name="correspondenceDesc">Дописна парија: један или више дана по потезу</string>
   <string name="puzzleDesc">Шаховски тренер тактике</string>
   <string name="important">Важно</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Ваше питање можда већ има одговор %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Ваше питање можда већ има одговор %1$s</string>
   <string name="inTheFAQ">у често постављеним питањима (F.A.Q.)</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Да бисте пријавили корисника због варања или лошег понашања, %1$s</string>
   <string name="useTheReportForm">користите образац за пријаву</string>

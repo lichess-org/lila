@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">Estadístiques de %s</string>
+  <string name="viewTheGames">Veure les partides</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">provisional</string>
+  <string name="notEnoughRatedGames">No s\'han jugat suficients partides puntuables per poder establir una puntuació fiable.</string>
+  <string name="progressOverLastXGames">Progressió en les últimes %s partides:</string>
+  <string name="ratingDeviation">Desviació de la puntuació: %s.</string>
+  <string name="ratingDeviationHelp">Un valor més baix significa que la puntuació és més estable. Per sobre de %s, la puntuació es considera provisional.</string>
+  <string name="totalGames">Partides totals</string>
+  <string name="ratedGames">Partides puntuables</string>
+  <string name="tournamentGames">Partides de torneig</string>
+  <string name="berserkedGames">Partides agilitzades (berserk)</string>
+  <string name="timeSpentPlaying">Temps dedicat a jugar</string>
+  <string name="averageOpponent">Mitjana dels oponents</string>
+  <string name="victories">Victòries</string>
+  <string name="defeats">Derrotes</string>
+  <string name="disconnections">Desconnexions</string>
+  <string name="notEnoughGames">No s\'han jugat suficients partides</string>
+  <string name="highestRating">Puntuació més alta: %s</string>
+  <string name="lowestRating">Puntuació més baixa: %s</string>
+  <string name="fromXToY">des de %1$s fins a %2$s</string>
+  <string name="winningStreak">Ratxa de victòries</string>
+  <string name="losingStreak">Ratxa de derrotes</string>
+  <string name="longestStreak">Ratxa més llarga: %s</string>
+  <string name="currentStreak">Ratxa actual: %s</string>
+  <string name="bestRated">Millors victòries puntuables</string>
+  <string name="worstRated">Pitjors derrotes puntuables</string>
+  <string name="gamesInARow">Partides jugades seguides</string>
+  <string name="lessThanOneHour">Menys d\'una hora entre partida i partida</string>
+  <string name="maxTimePlaying">Temps màxim jugant</string>
+  <string name="now">ara</string>
+</resources>

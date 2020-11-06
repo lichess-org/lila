@@ -1,2 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Entrenadors de Lichess</string>
+  <string name="lichessCoach">Entrenador de Lichess</string>
+  <string name="areYouCoach">Ets un gran entrenador d\'escacs amb un %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">Títol MN o FIDE</string>
+  <string name="confirmTitle">Confirma el teu títol aquí i revisarem la teva sol·licitud.</string>
+  <string name="sendApplication">Envia\'ns un correu electrònic a %s i revisarem la teva sol·licitud.</string>
+  <string name="location">Ubicació</string>
+  <string name="languages">Llengües</string>
+  <string name="rating">Puntuació</string>
+  <string name="hourlyRate">Tarifa per hora</string>
+  <string name="availability">Disponibilitat</string>
+  <string name="accepting">Accepta estudiants</string>
+  <string name="notAccepting">Actualment, no accepta estudiants</string>
+  <string name="xCoachesStudents">%s entrena a estudiants d\'escacs</string>
+  <string name="viewXProfile">Veure el perfil de Lichess de %s</string>
+  <string name="sendPM">Enviar un missatge privat</string>
+  <string name="aboutMe">Sobre mi</string>
+  <string name="playingExperience">Experiència com a jugador</string>
+  <string name="teachingExperience">Experiència docent</string>
+  <string name="otherExperiences">Altres experiències</string>
+  <string name="bestSkills">Millors habilitats</string>
+  <string name="teachingMethod">Metodologia d\'ensenyament</string>
+  <string name="publicStudies">Estudis públics</string>
+  <string name="youtubeVideos">Vídeos de YouTube</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Una ressenya d\'estudiant</item>
+    <item quantity="other">%s ressenyes d\'estudiants</item>
+  </plurals>
+  <string name="thankYouForReview">Gràcies per la ressenya!</string>
+  <string name="xWillApproveIt">%s ho aprovarà molt aviat o un moderador ho revisarà.</string>
+  <string name="reviewCoach">Valora a aquest entrenador</string>
+  <string name="describeExperienceWith">Descriu la teva experiència de l\'entrenament amb %s</string>
+</resources>

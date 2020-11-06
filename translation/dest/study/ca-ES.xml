@@ -96,7 +96,7 @@
   <string name="startFromCustomPosition">Començar a una posició personalitzada</string>
   <string name="loadAGameByUrl">Carregar una partida desde una URL</string>
   <string name="loadAPositionFromFen">Carregar una posició via codi FEN</string>
-  <string name="loadAGameFromPgn">Carregar una partida desde PGN</string>
+  <string name="loadAGameFromPgn">Carregar una partida PGN</string>
   <string name="automatic">Automàtic</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Enganxa el teu PGN aquí, fins a %s partida</item>

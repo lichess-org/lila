@@ -31,6 +31,11 @@
   <string name="similarOpponents">súperi podobnej sily</string>
   <string name="howDoLeaderoardsWork">Ako fungujú umiestnenia a rebríčky?</string>
   <string name="inOrderToAppearsYouMust">Aby ste sa dostali do %1$s, musíte:</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">odohrať aspoň 30 hodnotených hier v dotyčnom ratingu,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">odohrať hodnotenú hru v priebehu posledného týždňa v dotyčnom ratingu,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">mať ratingovú odchýlku nižšiu ako %1$s, v klasickom šachu a nižšiu ako %2$s vo variantách,</string>
+  <string name="beInTopTen">byť v top 10 v tomto ratingu.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Druhá požiadavka slúži aby hráči s neaktívnymi účtami nezaberali rebríčky.</string>
   <string name="whyAreRatingHigher">Prečo sú ratingy vyššie v porovnaním s inými stránkami a organizáciami ako FIDE, USCF a ICC?</string>
   <string name="enableZenMode">Povoľte Zen-mód v %1$s, alebo stlačením %2$s počas hry.</string>
   <string name="connexionLostCanIGetMyRatingBack">Prehral som hru kvôli lagu/odpojeniu. Môžem dostať ratingové body naspäť?</string>

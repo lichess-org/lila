@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Личес тренери</string>
+  <string name="lichessCoach">Личес тренер</string>
+  <string name="areYouCoach">Да ли си одличан тренер шаха са %s?</string>
+  <string name="confirmTitle">Потврди своју титулу овде и ми ћемо прегледати вашу пријаву.</string>
+  <string name="sendApplication">Пошаљи нам е-поруку на %s и ми ћемо прегледати вашу пријаву.</string>
+  <string name="location">Локација</string>
+  <string name="languages">Језици</string>
+  <string name="rating">Рејтинг</string>
+  <string name="availability">Доступност</string>
+  <string name="accepting">Прихвата студенте</string>
+  <string name="notAccepting">Не прихвата студенте у овом тренутку</string>
+  <string name="viewXProfile">Погледај %s Личес профил</string>
+  <string name="sendPM">Пошаљи приватну поруку</string>
+  <string name="aboutMe">О мени</string>
+  <string name="bestSkills">Најбоља умећа</string>
+  <string name="teachingMethod">Методологија учења</string>
+  <string name="publicStudies">Јавне студије</string>
+  <string name="youtubeVideos">Јутјуб снимци</string>
+  <string name="thankYouForReview">Хвала вам на рецензији!</string>
+  <string name="reviewCoach">Оцени овог тренера</string>
+  <string name="describeExperienceWith">Опиши своје тренерско искуство са %s</string>
+</resources>

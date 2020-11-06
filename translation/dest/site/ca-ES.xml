@@ -82,7 +82,7 @@
   <string name="averageRatingX">Puntuació mitjana: %s</string>
   <string name="recentGames">Partides recents</string>
   <string name="topGames">Millors partides</string>
-  <string name="masterDbExplanation">Dos mil·lions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
+  <string name="masterDbExplanation">Dos milions de partides OTB de jugadors amb ELO FIDE +%1$s de %2$s fins a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat en %s mig-moviment</item>
     <item quantity="other">Mat en %s mig-moviments</item>
@@ -175,7 +175,7 @@
   <string name="username">Nom d\'usuari</string>
   <string name="usernameOrEmail">Nom d\'usuari o correu electrònic</string>
   <string name="changeUsername">Canviar nom d\'usuari</string>
-  <string name="changeUsernameNotSame">Només les lletres majúscules poden canviar. Per exemple \"johndoe\" a \"JohnDoe\".</string>
+  <string name="changeUsernameNotSame">Només es pot canviar entre majúscules i minúscules. Per exemple, de \"perecullera\" a \"PereCullera\".</string>
   <string name="changeUsernameDescription">Canvia el teu nom d\'usuari. Això es pot fer una única vegada i només canviant les lletres majúscules per minúscules.</string>
   <string name="password">Contrassenya</string>
   <string name="changePassword">Canvia la contrasenya</string>
@@ -199,6 +199,8 @@
     <item quantity="other">%s partides amb tu</item>
   </plurals>
   <string name="cancel">Cancel·la</string>
+  <string name="whiteTimeOut">Les blanques han exhaurit el seu temps</string>
+  <string name="blackTimeOut">Les negres han exhaurit el seu temps</string>
   <string name="drawOfferSent">S\'ha enviat l\'oferta de taules</string>
   <string name="drawOfferDeclined">S\'ha rebutjat l\'oferta de taules</string>
   <string name="drawOfferAccepted">S\'ha acceptat l\'oferta de taules</string>
@@ -210,7 +212,7 @@
   <string name="yourOpponentOffersADraw">El teu oponent t\'ofereix taules</string>
   <string name="accept">Accepta</string>
   <string name="decline">Rebutja</string>
-  <string name="playingRightNow">Jugant-se ara</string>
+  <string name="playingRightNow">En joc</string>
   <string name="eventInProgress">Jugant-se ara</string>
   <string name="finished">Acabat</string>
   <string name="finishesX">finalitza %s</string>
@@ -729,7 +731,7 @@ en %3$s</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anònim</string>
   <string name="yourScore">El seu resultat: %s</string>
-  <string name="language">Llenguatge</string>
+  <string name="language">Llengua</string>
   <string name="background">Fons</string>
   <string name="light">Clar</string>
   <string name="dark">Fosc</string>
@@ -852,7 +854,7 @@ en %3$s</string>
   <string name="correspondenceDesc">Partides per correspondència: un o més dies per jugada</string>
   <string name="puzzleDesc">Entrenador de tàctica</string>
   <string name="important">Important</string>
-  <string name="yourQuestionMayHaveBeenAnswered">La teva pregunta ja pot estar resposta %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">La teva pregunta ja pot estar resposta %1$s</string>
   <string name="inTheFAQ">en les P.M.F.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Per reportar a un usuari per trampes o mal comportament, %1$s</string>
   <string name="useTheReportForm">utilitza el formulari</string>

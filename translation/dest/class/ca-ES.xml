@@ -1,13 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Classes de Lichess</string>
+  <string name="teachClassesOfChessStudents">Ensenyar classes d\'escacs amb el conjunt d\'eines Lichess Classes.</string>
+  <string name="features">Característiques</string>
+  <string name="quicklyGenerateSafeUsernames">Generar ràpidament noms d\'usuari i contrasenyes pels estudiants</string>
+  <string name="trackStudentProgress">Seguir el progrés de l\'estudiant en partides i problemes</string>
+  <string name="messageAllStudents">Enviar un missatge a tots els estudiants sobre nou material de classe</string>
+  <string name="freeForAllForever">100% lliure i gratuït per a tothom, per sempre, sense publicitat ni rastrejadors</string>
+  <string name="applyToBeLichessTeacher">Sol·licitar ser Professor de Lichess</string>
+  <string name="noClassesYet">No hi ha classes encara.</string>
+  <string name="teachersX">Professors: %s</string>
+  <string name="newClass">Nova classe</string>
+  <string name="closeClass">Tancar classe</string>
+  <string name="closedByX">Tancat per %s</string>
+  <string name="reopen">Reobrir</string>
+  <string name="removeStudent">Eliminar estudiant</string>
+  <string name="removedStudents">Eliminat</string>
+  <string name="inviteTheStudentBack">Invitar novament a l\'estudiant</string>
+  <string name="sendAMessage">Enviar un missatge a tots els estudiants.</string>
+  <string name="aLinkToTheClassWillBeAdded">Al final del missatge s\'afegirà automàticament un enllaç a la classe, així que no cal que l\'incloguis.</string>
+  <string name="className">Nom de la classe</string>
+  <string name="classDescription">Descripció de la classe</string>
+  <string name="visibleByBothStudentsAndTeachers">Visible per a professors i estudiants de la classe</string>
+  <string name="teachersOfTheClass">Professors de la classe</string>
+  <string name="addLichessUsernames">Afegeix noms d\'usuari de Lichess per a invitar-los com a professors. Un per línia.</string>
+  <string name="theyMustFirstApply">Primer cal sol·licitar ser professors de Lichess.</string>
+  <string name="resetPassword">Restablir contrasenya</string>
+  <string name="makeSureToCopy">Assegura\'t de copiar o escriure la contrasenya ara. No la podràs veure novament!</string>
+  <string name="passwordX">Contrasenya: %s</string>
+  <string name="generateANewPassword">Genera una contrasenya nova per l\'estudiant</string>
+  <string name="invitedToXByY">Invitat a %1$s per %2$s</string>
   <string name="realName">Nom real</string>
+  <string name="privateWillNeverBeShown">Privat. Mai es mostrarà fora de la classe. Ajuda a recordar qui és l\'estudiant.</string>
+  <string name="addStudent">Afegir estudiant</string>
+  <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creat per %2$s.</string>
+  <string name="studentCredentials">Estudiant:  %1$s
+Nom d\'usuari: %2$s
+Contrasenya: %3$s</string>
+  <string name="inviteALichessAccount">Invita un compte de Lichess</string>
+  <string name="inviteDesc1">Si l\'estudiant ja té un compte de Lichess, pots invitar-lo a la classe.</string>
+  <string name="inviteDesc2">Rebran un missatge a Lichess amb un enllaç per a unir-se a la classe.</string>
+  <string name="inviteDesc3">Important: invita només a estudiants que coneguis, y que vulguin unir-se a la classe.</string>
+  <string name="inviteDesc4">Mai enviïs invitacions a jugadors que no les hagin demanat.</string>
   <string name="createANewLichessAccount">Crea un nou compte a Lichess</string>
+  <string name="createDesc1">Si l\'estudiant no té un compte de Lichess, pots crear-li una aquí.</string>
+  <string name="createDesc2">No cal una direcció de correu electrònic. Es generarà una contrasenya i li facilitaràs a l\'estudiant per a que pugui entrar.</string>
+  <string name="createDesc3">Important: un estudiant no pot tenir múltiples comptes.</string>
+  <string name="createDesc4">Si ja tenen una, empra el formulari d\'invitació.</string>
+  <string name="lichessUsername">Nom d\'usuari de Lichess</string>
+  <string name="generateANewUsername">Genera un nou nom d\'usuari</string>
+  <string name="welcomeToClass">Benvigut a la teva classe: %s.
+Aquí està l\'enllaç per a accedir a la classe.</string>
+  <string name="invitationToClass">Estàs invitat a unir-te a la classe \"%s\" com a estudiant.</string>
+  <string name="clickToViewInvitation">Fes clic a l\'enllaç per a veure la invitació:</string>
+  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+    <item quantity="one">%s invitació pendent</item>
+    <item quantity="other">%s invitacions pendents</item>
+  </plurals>
+  <string name="noPendingInvitations">Ni hi ha invitacions pendents</string>
   <string name="onlyVisibleToTeachers">Només visible pels mestres de la classe</string>
+  <string name="lastActiveDate">Actiu</string>
   <string name="managed">Gestionada</string>
   <string name="thisStudentAccountIsManaged">Aquest compte d\'estudiant està gestionat</string>
   <string name="upgradeFromManaged">Actualitza de \"gestionat\" a \"autònom\"</string>
   <string name="release">Desvincula</string>
   <string name="releaseTheAccount">Desvincula el compte per tal que l\'estudiant pugui gestionar-lo de forma autònoma.</string>
   <string name="releaseDesc1">Un compte alliberat no pot ser gestionat de nou. L\'estudiant podrà desactivar el control parental i canviar la contrasenya tot sol.</string>
+  <string name="releaseDesc2">L\'estudiant romandrà en la classe després del alliberament del seu compte.</string>
+  <string name="realUniqueEmail">Direcció de correu electrònic real i única de l\'estudiant. Enviarem un correu electrònic de confirmació, amb un enllaç per a alliberar el compte.</string>
+  <string name="teachers">Professors</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">%s professor</item>
+    <item quantity="other">%s professors</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">%s estudiant</item>
+    <item quantity="other">%s estudiants</item>
+  </plurals>
+  <string name="students">Estudiants</string>
+  <string name="progress">Progrés</string>
+  <string name="noStudents">Encara no hi ha estudiants a la classe.</string>
+  <string name="noRemovedStudents">No hi ha estudiants eliminats.</string>
+  <string name="overDays">Al llarg dels dies</string>
+  <string name="timePlaying">Temps jugat</string>
+  <string name="variantXOverLastY">%1$s sobre els últims %2$s</string>
+  <string name="winrate">Percentatge de victòries</string>
+  <string name="na">No disponible</string>
+  <string name="news">Novetats de la classe</string>
+  <string name="editNews">Editar les novetats</string>
+  <string name="notifyAllStudents">Notifica a tots els estudiants</string>
+  <string name="nothingHere">Encara no hi ha res aquí.</string>
+  <string name="newsEdit1">Totes les novetats de la classe en un sol lloc.</string>
+  <string name="newsEdit2">Afegeix les novetats més recents a la part superior. No eliminis les novetats anteriors.</string>
+  <string name="newsEdit3">Separa les novetats amb ---
+Mostrarà una línia separadora horitzontal.</string>
+  <string name="markdownAvailable">%s està disponible per a una sintaxis més avançada.</string>
 </resources>

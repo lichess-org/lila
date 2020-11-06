@@ -1,4 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="donate">Донирај</string>
+  <string name="lichessPatron">Личес Патрон</string>
+  <string name="freeAccount">Бесплатан налог</string>
+  <string name="becomePatron">Постани Личес Патрон</string>
+  <string name="xBecamePatron">%s је постао Личес Патрон</string>
+  <string name="newPatrons">Нови Патрони</string>
+  <string name="freeChess">Бесплатан шах за све, заувек!</string>
+  <string name="thankYou">Хвала на донацији!</string>
+  <string name="youHaveLifetime">Имаш доживотни Патрон налог. То је врло страва!</string>
+  <string name="patronUntil">Имаш Патрон налог до %s.</string>
+  <string name="ifNotRenewed">Ако донација не буде обновљена, бићеш враћен на бесплатан налог.</string>
+  <string name="weAreNonProfit">Ми смо непрофитно удружење јер верујемо да сви требају имати приступ бесплатној шаховској платформи светске класе.</string>
+  <string name="weRelyOnSupport">За наш успех нам је неопходна ваша помоћ. Ако уживате у Личесу, молимо размислите о помагању путем донација којим постајете Патрон!</string>
+  <string name="lifetime">Доживотно</string>
+  <string name="payLifetimeOnce">Плати %s једном. Буди Личес Патрон заувек!</string>
+  <string name="lifetimePatron">Доживотни Личес Патрон</string>
+  <string name="makeExtraDonation">Направи додатну донацију?</string>
   <string name="monthly">Месечно</string>
+  <string name="recurringBilling">Поновно наплаћивање, обнављајући твоја Патрон крила сваког месеца.</string>
+  <string name="onetime">Једноктратно</string>
+  <string name="singleDonation">Једнократна донација која ти даје Патрон крила један месец.</string>
+  <string name="otherAmount">Остало</string>
+  <string name="pleaseEnterAmount">Молимо унесите износ у USD</string>
+  <string name="withCreditCard">Кредитна Картица</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Ми смо мали тим, па твоја подршка прави велику разлику!</string>
+  <string name="whereMoneyGoes">Куда сав новац иде?</string>
+  <string name="serversAndDeveloper">Пре свега, на моћне сервере.
+Након тога, плаћамо програмера: %s, оснивача Личеса.</string>
+  <string name="costBreakdown">Погледај детаљну поделу цена</string>
+  <string name="officialNonProfit">Да ли је Личес званично непрофитно удружење?</string>
+  <string name="actOfCreation">Да, ево и решења о регистрацији (на француском)</string>
+  <string name="changeMonthlySupport">Могу ли изменити/укинти моју месечну донацију?</string>
+  <string name="changeOrContact">Да, у било ком тренутку, на овој страници.
+Или можеш %s.</string>
+  <string name="contactSupport">контактирати Личес подршку</string>
+  <string name="otherMethods">Остали методи донација?</string>
+  <string name="bankTransfers">Такође прихватамо банковне трансфере</string>
+  <string name="bitcoin">А ево и наше биткоин адресе: %s</string>
+  <string name="patronFeatures">Да ли су неке могућности дозвољене само Патронима?</string>
+  <string name="noPatronFeatures">Не, јер је Lichess потпуно бесплатан, заувек и за све. То је обећање.
+Ипак, Патрони добијају права да се хвале својом новом кул иконом на профилу.</string>
+  <string name="featuresComparison">Погледај детаљно поређење могућности</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Личес Патрон један месец</item>
+    <item quantity="few">Личес Патрон %s месеца</item>
+    <item quantity="other">Личес Патрон %s месеци</item>
+  </plurals>
+  <string name="youSupportWith">Ти подржаваш lichess.org са %s месечно.</string>
+  <string name="currentStatus">Тренутни статус</string>
+  <string name="nextPayment">Следећа уплата</string>
+  <string name="makeAdditionalDonation">Направи додатну донацију сада</string>
+  <string name="changeMonthlyAmount">Промени месечну вредност (%s)</string>
+  <string name="xOrY">%1$s или %2$s</string>
+  <string name="decideHowMuch">Одлучи колико Личес теби вреди:</string>
+  <string name="stopPayments">Повуци своју кредитну картицу и обустави наплате:</string>
+  <string name="paymentHistory">Историја плаћања</string>
+  <string name="paid">Плаћено</string>
+  <string name="viewOthers">Погледај остале Личес Патроне</string>
+  <string name="date">Датум</string>
+  <string name="amount">Износ</string>
+  <string name="transactionCompleted">Твоја трансакција је завршена и рачун за твоју донацију је послат на твоју е-пошту.</string>
+  <string name="permanentPatron">Сада имаш трајни Патрон налог.</string>
+  <string name="nowLifetime">Сада си доживотни Личес Патрон!</string>
+  <string name="nowOneMonth">Сада си Личес Патрон један месец!</string>
+  <string name="downgradeNextMonth">За месец дана, нећете бити поново наплаћени, а ваш Личес налог ће се вратити на обичан налог.</string>
 </resources>
