@@ -38,4 +38,8 @@
   <string name="messageAllMembersLongDescription">Барлық топ мүшелеріне жеке хабар жіберу.
 Бұны сіз ойыншыларды жарысқа не топтар күресіне шақыру үшін қолдана аласыз.
 Сізден хабар алғысы келмейтін ойыншылар топтан шықса болады.</string>
+  <string name="teamsIlead">Менің жетекшілігімдегі топтар</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Сіз келе жатқан жарыстардың біріне қосыларсыз.</string>
+  <string name="usersWhoCanManageThisTeam">Осы топты басқару құзыреті бар ойыншылар</string>
+  <string name="leadersChat">Жетекшілер чаты</string>
 </resources>
