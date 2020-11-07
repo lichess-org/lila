@@ -19,6 +19,12 @@
   <string name="howBulletBlitzEtcDecided">Ako sa rozhoduje o Bullete, Blitzi a iných časových kontrolách?</string>
   <string name="basedOnGameDuration">Časové kontroly na Lichessi sú založené na odhadovanom trvaní partie = %1$s 
 Napríklad, odhadované trvanie 5+3 partie je 5 × 60 + 40 × 3 = 420 sekúnd.</string>
+  <string name="durationFormula">(počiatočný čas na hodinách) + 40 × (prídavok na hodinách)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Aké varianty môžem hrať na Lichessi?</string>
+  <string name="lichessSupportChessAnd">Lichess podporuje štandardný šach a %1$s.</string>
+  <string name="eightVariants">8 šachových variant</string>
   <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Príručka FIDE %s</string>
   <string name="threefoldRepetitionExplanation">Ak sa pozícia objaví trikrát, hráči môžu reklamovať remízu %1$s. Lichess uplatňuje oficiálne pravidlá FIDE, ako je opísané v článku 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trojnásobným opakovaním pozície</string>
