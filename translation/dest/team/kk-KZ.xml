@@ -32,4 +32,10 @@
   <string name="teamBattle">Топтар Күресі</string>
   <string name="teamBattleOverview">Бірнеше топтың күресі, әр ойыншы өз тобына ұпай жинайды</string>
   <string name="teamTournament">Топтық жарыс</string>
+  <string name="teamTournamentOverview">Алаң жарысы, тек сіздің тобыңыздың мүшелері қосыла алады</string>
+  <string name="messageAllMembers">Барлық топ мүшелеріне хабарлау</string>
+  <string name="messageAllMembersOverview">Әр топ мүшесіне жеке хабар жіберу</string>
+  <string name="messageAllMembersLongDescription">Барлық топ мүшелеріне жеке хабар жіберу.
+Бұны сіз ойыншыларды жарысқа не топтар күресіне шақыру үшін қолдана аласыз.
+Сізден хабар алғысы келмейтін ойыншылар топтан шықса болады.</string>
 </resources>
