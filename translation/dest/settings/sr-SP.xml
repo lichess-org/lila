@@ -4,7 +4,7 @@
   <string name="closeAccount">Затворите налог</string>
   <string name="closingIsDefinitive">Затварање је коначно. Нема повратка. Да ли сте сигурни?</string>
   <string name="cantOpenSimilarAccount">Нећеш моћи да отвориш нови налог са истим именом, чак и ако користиш друга велика или мала слова.</string>
-  <string name="changedMindDoNotCloseAccount">Предомислио сам се. Не мој затвор рачун</string>
-  <string name="closeAccountExplanation">Јесте ли сигурни? Затварање рачуна је трајна одлука. Више нећете моћи да се пријавите на свој рачун и ваша страница профила више неће бити доступна.</string>
+  <string name="changedMindDoNotCloseAccount">Предомислио сам се, не затварај мој налог</string>
+  <string name="closeAccountExplanation">Јесте ли сигурни? Затварање налога је трајна одлука. Више нећете моћи да се пријавите на свој налог и ваша страница профила више неће бити доступна.</string>
   <string name="thisAccountIsClosed">Овај налог је затворен</string>
 </resources>
