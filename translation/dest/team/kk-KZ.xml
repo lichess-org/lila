@@ -29,6 +29,7 @@
   </plurals>
   <string name="willBeReviewed">Сіздің қосылу сұранысыңызды топ жетекшісі қарайды.</string>
   <string name="beingReviewed">Сіздің қосылу сұранысыңызды топ жетекшісі қарап жатыр.</string>
-  <string name="teamBattle">Топтық Күресі</string>
+  <string name="teamBattle">Топтар Күресі</string>
   <string name="teamBattleOverview">Бірнеше топтың күресі, әр ойыншы өз тобына ұпай жинайды</string>
+  <string name="teamTournament">Топтық жарыс</string>
 </resources>
