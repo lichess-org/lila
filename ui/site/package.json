@@ -8,6 +8,7 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@rollup/plugin-replace": "^2.3.3",
+    "@types/fnando__sparkline": "^0.3.2",
     "rollup-plugin-copy": "^3.3.0"
   },
   "dependencies": {
