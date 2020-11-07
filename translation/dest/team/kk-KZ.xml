@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Топ</string>
   <string name="teams">Топтар</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s мүше</item>
+    <item quantity="other">%s мүше</item>
+  </plurals>
   <string name="allTeams">Барлық топтар</string>
-  <string name="myTeams">Менің тобым</string>
+  <string name="newTeam">Жаңа топ</string>
+  <string name="myTeams">Менің топтарым</string>
+  <string name="noTeamFound">Ешбір топ табылмады</string>
+  <string name="joinTeam">Топқа қосылу</string>
+  <string name="quitTeam">Топтан шығу</string>
+  <string name="anyoneCanJoin">Барлықтарға тегін</string>
+  <string name="aConfirmationIsRequiredToJoin">Қосылу растауды қажет етеді</string>
+  <string name="joiningPolicy">Қосылудың қағидасы</string>
+  <string name="teamBestPlayers">Ең үздік ойыншылар</string>
+  <string name="teamRecentMembers">Кейінгі мүшелер</string>
+  <string name="kickSomeone">Біреуді топтан шығарыңыз</string>
+  <string name="whoToKick">Топтан кімнің кеткенін қалайсыз?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s қосылу сұранысы</item>
+    <item quantity="other">%s қосылу сұранысы</item>
+  </plurals>
 </resources>
