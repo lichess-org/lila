@@ -11,16 +11,21 @@ type DestCacheEntry = {
 }
 
 interface Handlers {
-  [key: string]: any; // #TODO
+  [key: string]: any; // TODO
 }
 
+// TODO: Split into request types
 export interface Req {
-  ch?: string | undefined,
-  sticky?: boolean,
-  write?: boolean,
-  path: string,
-  variant?: VariantKey,
-  fen?: string,
+  ch?: string; // TODO: needs to be defined in studies before sending
+  sticky?: boolean;
+  write?: boolean;
+  path: string;
+  variant?: VariantKey;
+  fen?: string;
+  shapes?: Tree.Shape[];
+  jumpTo?: Tree.Path;
+  toMainline?: boolean;
+  force?: boolean;
 }
 
 export interface Socket {
