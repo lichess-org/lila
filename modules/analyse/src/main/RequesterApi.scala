@@ -10,12 +10,12 @@ final class RequesterApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   private val formatter = format.DateTimeFormat.forPattern("yyyy-MM-dd")
 
-  def save(analysis: Analysis): Funit =
+  def save(analysis: Analysis, value: Int): Funit =
     coll.update
       .one(
         $id(analysis.uid | "anonymous"),
         $inc("total"                         -> 1) ++
-          $inc(formatter.print(DateTime.now) -> 1) ++
+          $inc(formatter.print(DateTime.now) -> value) ++
           $set("last" -> analysis.id),
         upsert = true
       )
