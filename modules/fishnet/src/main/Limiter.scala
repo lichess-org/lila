@@ -1,7 +1,7 @@
 package lila.fishnet
 
-import scala.concurrent.duration._
 import reactivemongo.api.bson._
+import scala.concurrent.duration._
 
 import lila.common.IpAddress
 import lila.db.dsl._
@@ -41,12 +41,17 @@ final private class Limiter(
       case _ => fuFalse
     }
 
-  private val maxPerDay = 30
+  private val maxPerDay  = 25
+  private val maxPerWeek = 80
 
   private def perDayCheck(sender: Work.Sender) =
     sender match {
       case Work.Sender(_, _, mod, system) if mod || system => fuTrue
-      case Work.Sender(Some(userId), _, _, _)              => requesterApi.countToday(userId) map (_ < maxPerDay)
+      case Work.Sender(Some(userId), _, _, _) =>
+        requesterApi.countTodayAndThisWeek(userId) map { case (daily, weekly) =>
+          weekly < maxPerWeek &&
+            daily < (if (weekly < maxPerWeek / 2) maxPerDay else maxPerDay / 2)
+        }
       case Work.Sender(_, Some(ip), _, _) =>
         fuccess {
           RequestLimitPerIP(ip, cost = 1)(true)(false)
