@@ -40,11 +40,11 @@ final class Importer(env: Env) extends LilaController(env) {
             ImportRateLimitPerIP(HTTPRequest ipAddress req, cost = 1) {
               doImport(data, req, ctx.me) flatMap {
                 case Some(game) =>
-                  (data.analyse.isDefined && game.analysable) ?? {
+                  ctx.me.ifTrue(data.analyse.isDefined && game.analysable) ?? { me =>
                     env.fishnet.analyser(
                       game,
                       lila.fishnet.Work.Sender(
-                        userId = ctx.userId,
+                        userId = me.id,
                         ip = HTTPRequest.ipAddress(ctx.req).some,
                         mod = isGranted(_.Hunter) || isGranted(_.Relay),
                         system = false

@@ -26,16 +26,11 @@ final private class Limiter(
   private def concurrentCheck(sender: Work.Sender) =
     sender match {
       case Work.Sender(_, _, mod, system) if mod || system => fuTrue
-      case Work.Sender(Some(userId), _, _, _) =>
+      case Work.Sender(userId, ip, _, _) =>
         !analysisColl.exists(
-          $doc(
-            "sender.userId" -> userId
-          )
-        )
-      case Work.Sender(_, Some(ip), _, _) =>
-        !analysisColl.exists(
-          $doc(
-            "sender.ip" -> ip
+          $or(
+            $doc("sender.ip"     -> ip),
+            $doc("sender.userId" -> userId)
           )
         )
       case _ => fuFalse
@@ -47,14 +42,14 @@ final private class Limiter(
   private def perDayCheck(sender: Work.Sender) =
     sender match {
       case Work.Sender(_, _, mod, system) if mod || system => fuTrue
-      case Work.Sender(Some(userId), _, _, _) =>
-        requesterApi.countTodayAndThisWeek(userId) map { case (daily, weekly) =>
-          weekly < maxPerWeek &&
-            daily < (if (weekly < maxPerWeek / 2) maxPerDay else maxPerDay / 2)
-        }
-      case Work.Sender(_, Some(ip), _, _) =>
-        fuccess {
-          RequestLimitPerIP(ip, cost = 1)(true)(false)
+      case Work.Sender(userId, ip, _, _) =>
+        def perUser =
+          requesterApi.countTodayAndThisWeek(userId) map { case (daily, weekly) =>
+            weekly < maxPerWeek &&
+              daily < (if (weekly < maxPerWeek / 2) maxPerDay else maxPerDay / 2)
+          }
+        ip.fold(perUser) { ipAddress =>
+          RequestLimitPerIP(ipAddress, cost = 1)(perUser)(fuccess(false))
         }
       case _ => fuFalse
     }
