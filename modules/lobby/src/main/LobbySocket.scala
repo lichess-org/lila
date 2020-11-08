@@ -144,8 +144,8 @@ final class LobbySocket(
   lobby ! LobbyTrouper.SetSocket(trouper)
 
   private val poolLimitPerSri = new lila.memo.RateLimit[SriStr](
-    credits = 25,
-    duration = 1 minute,
+    credits = 14,
+    duration = 30 seconds,
     key = "lobby.hook_pool.member"
   )
 
