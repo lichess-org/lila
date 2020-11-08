@@ -154,7 +154,7 @@ final class LobbySocket(
 
   def controller(member: Member): SocketController = {
     case ("join", o) if !member.bot =>
-      HookPoolLimit(member, cost = 5, msg = s"join $o") {
+      HookPoolLimit(member, cost = 5, msg = s"join $o ${member.userId}") {
         o str "d" foreach { id =>
           lobby ! BiteHook(id, member.sri, member.user)
         }
