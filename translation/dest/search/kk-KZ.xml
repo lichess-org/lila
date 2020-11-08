@@ -2,4 +2,26 @@
 <resources>
   <string name="search">Іздеу</string>
   <string name="advancedSearch">Терең іздеу</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">%s ойында іздеу</item>
+    <item quantity="other">%s ойында іздеу</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Бір ойын табылды</item>
+    <item quantity="other">%s ойын табылды</item>
+  </plurals>
+  <string name="opponentName">Қарсыластың аты</string>
+  <string name="loser">Жеңілген</string>
+  <string name="from">Бастап</string>
+  <string name="to">Дейін</string>
+  <string name="humanOrComputer">Осылардың бірі: қарсылас – адам не компьютер</string>
+  <string name="aiLevel">Компьютер деңгейі</string>
+  <string name="source">Ойын түрі</string>
+  <string name="nbTurns">Жүрістер саны</string>
+  <string name="result">Нәтиже</string>
+  <string name="winnerColor">Жеңімпаз түсі</string>
+  <string name="date">Күні</string>
+  <string name="sortBy">Сұрыптау шарты</string>
+  <string name="analysis">Талдау</string>
+  <string name="onlyAnalysed">Тек компьютерлік талдауға бейім ойындар</string>
 </resources>

@@ -15,13 +15,37 @@
   <string name="areThereWebsitesBasedOnLichess">Sú nejaké webstránky založené na Lichessi?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Áno. Lichess vskutku inšpiroval iné open-source stránky, ktoré používajú náš %1$s, %2$s, alebo %3$s.</string>
   <string name="fairPlay">Fair Play</string>
+  <string name="gameplay">Hrateľnosť</string>
+  <string name="howBulletBlitzEtcDecided">Ako sa rozhoduje o Bullete, Blitzi a iných časových kontrolách?</string>
+  <string name="basedOnGameDuration">Časové kontroly na Lichessi sú založené na odhadovanom trvaní partie = %1$s 
+Napríklad, odhadované trvanie 5+3 partie je 5 × 60 + 40 × 3 = 420 sekúnd.</string>
+  <string name="durationFormula">(počiatočný čas na hodinách) + 40 × (prídavok na hodinách)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Aké varianty môžem hrať na Lichessi?</string>
+  <string name="lichessSupportChessAnd">Lichess podporuje štandardný šach a %1$s.</string>
+  <string name="eightVariants">8 šachových variant</string>
+  <string name="whatIsACPL">Čo je priemerná strata stotiny pešiaka (ACPL)?</string>
+  <string name="insufficientMaterial">Prehra na čas, remíza a nedostatočný materiál</string>
   <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Príručka FIDE %s</string>
+  <string name="officialRulesPDF">oficiálne pravidlá (PDF)</string>
+  <string name="lichessTraining">Lichess tréning</string>
+  <string name="threefoldRepetition">Trojnásobné opakovanie</string>
   <string name="threefoldRepetitionExplanation">Ak sa pozícia objaví trikrát, hráči môžu reklamovať remízu %1$s. Lichess uplatňuje oficiálne pravidlá FIDE, ako je opísané v článku 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trojnásobným opakovaním pozície</string>
   <string name="notRepeatedMoves">Neopakovali sme ťahy. Prečo bola partia napriek tomu ukončená remízou opakovaním ťahov?</string>
   <string name="repeatedPositionsThatMatters">Trojnásobné opakovanie ťahov sa týka opakovania %1$s, nie ťahov. Opakovanie sa nemusí vyskytnúť hneď po sebe.</string>
+  <string name="positions">pozície</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Zopakovali sme pozíciu trikrát. Prečo nebola partia vyhlásená za remízu?</string>
+  <string name="configure">konfigurovať</string>
   <string name="accounts">Účty</string>
+  <string name="titlesAvailableOnLichess">Aké tituly sú na Lichessi?</string>
+  <string name="verificationForm">overovací formulár</string>
+  <string name="canIbecomeLM">Môžem získať Lichess majster (LM) titul?</string>
   <string name="noUpperCaseDot">Nie.</string>
+  <string name="whatUsernameCanIchoose">Aké môže vyť moje používateľské meno?</string>
+  <string name="usernamesNotOffensive">Všeobecne, používateľské mená by nemali byť: urážlivé, vydávajúce sa za niekoho iného, alebo reklamné. Môžete si prečítať viac o %1$s.</string>
+  <string name="guidelines">pokyny</string>
   <string name="uniqueTrophies">Unikátne trofeje</string>
   <string name="ownerUniqueTrophies">Táto trofej je unikátna v histórii Lichessu, nikto iný okrem %1$s ju nebude nikdy mať.</string>
   <string name="wayOfBerserkExplanation">Aby ju dostal, hiimgosu sa vyzval, že bude besniť a vyhrá 100%% partií v %s.</string>
@@ -31,12 +55,14 @@
   <string name="similarOpponents">súperi podobnej sily</string>
   <string name="howDoLeaderoardsWork">Ako fungujú umiestnenia a rebríčky?</string>
   <string name="inOrderToAppearsYouMust">Aby ste sa dostali do %1$s, musíte:</string>
+  <string name="ratingLeaderboards">ratingový rebríček</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">odohrať aspoň 30 hodnotených hier v dotyčnom ratingu,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">odohrať hodnotenú hru v priebehu posledného týždňa v dotyčnom ratingu,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">mať ratingovú odchýlku nižšiu ako %1$s, v klasickom šachu a nižšiu ako %2$s vo variantách,</string>
   <string name="beInTopTen">byť v top 10 v tomto ratingu.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Druhá požiadavka slúži aby hráči s neaktívnymi účtami nezaberali rebríčky.</string>
   <string name="whyAreRatingHigher">Prečo sú ratingy vyššie v porovnaním s inými stránkami a organizáciami ako FIDE, USCF a ICC?</string>
+  <string name="howToHideRatingWhilePlaying">Ako skryť ratingy počas partie?</string>
   <string name="enableZenMode">Povoľte Zen-mód v %1$s, alebo stlačením %2$s počas hry.</string>
   <string name="connexionLostCanIGetMyRatingBack">Prehral som hru kvôli lagu/odpojeniu. Môžem dostať ratingové body naspäť?</string>
   <string name="howToThreeDots">Ako...</string>

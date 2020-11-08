@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Топ</string>
   <string name="teams">Топтар</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s мүше</item>
+    <item quantity="other">%s мүше</item>
+  </plurals>
   <string name="allTeams">Барлық топтар</string>
-  <string name="myTeams">Менің тобым</string>
+  <string name="newTeam">Жаңа топ</string>
+  <string name="myTeams">Менің топтарым</string>
+  <string name="noTeamFound">Ешбір топ табылмады</string>
+  <string name="joinTeam">Топқа қосылу</string>
+  <string name="quitTeam">Топтан шығу</string>
+  <string name="anyoneCanJoin">Барлықтарға тегін</string>
+  <string name="aConfirmationIsRequiredToJoin">Қосылу растауды қажет етеді</string>
+  <string name="joiningPolicy">Қосылудың қағидасы</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Топ жетекшісі</item>
+    <item quantity="other">Топ жетекшілері</item>
+  </plurals>
+  <string name="teamBestPlayers">Ең үздік ойыншылар</string>
+  <string name="teamRecentMembers">Кейінгі мүшелер</string>
+  <string name="kickSomeone">Біреуді топтан шығарыңыз</string>
+  <string name="whoToKick">Топтан кімнің кеткенін қалайсыз?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s қосылу сұранысы</item>
+    <item quantity="other">%s қосылу сұранысы</item>
+  </plurals>
+  <string name="willBeReviewed">Сіздің қосылу сұранысыңызды топ жетекшісі қарайды.</string>
+  <string name="beingReviewed">Сіздің қосылу сұранысыңызды топ жетекшісі қарап жатыр.</string>
+  <string name="teamBattle">Топтар Күресі</string>
+  <string name="teamBattleOverview">Бірнеше топтың күресі, әр ойыншы өз тобына ұпай жинайды</string>
+  <string name="teamTournament">Топтық жарыс</string>
+  <string name="teamTournamentOverview">Алаң жарысы, тек сіздің тобыңыздың мүшелері қосыла алады</string>
+  <string name="messageAllMembers">Барлық топ мүшелеріне хабарлау</string>
+  <string name="messageAllMembersOverview">Әр топ мүшесіне жеке хабар жіберу</string>
+  <string name="messageAllMembersLongDescription">Барлық топ мүшелеріне жеке хабар жіберу.
+Бұны сіз ойыншыларды жарысқа не топтар күресіне шақыру үшін қолдана аласыз.
+Сізден хабар алғысы келмейтін ойыншылар топтан шықса болады.</string>
+  <string name="teamsIlead">Менің жетекшілігімдегі топтар</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Сіз келе жатқан жарыстардың біріне қосыларсыз.</string>
+  <string name="usersWhoCanManageThisTeam">Осы топты басқару құзыреті бар ойыншылар</string>
+  <string name="leadersChat">Жетекшілер чаты</string>
 </resources>

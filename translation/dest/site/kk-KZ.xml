@@ -362,7 +362,7 @@
   </plurals>
   <string name="noFriendsOnline">Желіде достар жоқ</string>
   <string name="findFriends">Дос іздестіру</string>
-  <string name="favoriteOpponents">Қарсыластардың қалаулылары</string>
+  <string name="favoriteOpponents">Қалаулы қарсыластар</string>
   <string name="follow">Серік болу</string>
   <string name="following">Серіксіз</string>
   <string name="unfollow">Серік болмау</string>
@@ -851,7 +851,7 @@
   <string name="correspondenceDesc">Хат алмасып ойнау: бір жүріске бір не бірнеше күн</string>
   <string name="puzzleDesc">Шахмат тактикасын үйретуші</string>
   <string name="important">Ескерту</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Сіздің сұрағыңызға %1$s жауап табылар</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Сіздің сұрағыңызға %1$s жауап табылар</string>
   <string name="inTheFAQ">ЖҚС-да</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Бір қолданушының дөрекі қылығына не алдап ойнады деп шағымдану үшін %1$s</string>
   <string name="useTheReportForm">шағым үлгісін қолданыңыз</string>
