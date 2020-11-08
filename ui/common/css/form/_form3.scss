@@ -27,11 +27,10 @@
   }
 }
 
-
 .form-label {
   font-weight: bold;
   display: inline-block;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .form-control {
@@ -53,7 +52,7 @@ textarea.form-control {
 .form3 .error,
 .form-help {
   font-size: 90%;
-  margin-top: .25rem;
+  margin-top: 0.25rem;
 }
 
 .form3 .error {
@@ -73,7 +72,7 @@ textarea.form-control {
 }
 
 .form-check-input {
-  margin-right: .5rem;
+  margin-right: 0.5rem;
 }
 
 .form-check .form-label {
@@ -98,4 +97,19 @@ textarea.form-control {
   margin-bottom: 1rem;
   border: 0;
   border-top: $border;
+}
+
+.password-complexity-meter {
+  display: flex;
+  grid-gap: 0.25rem;
+  height: 0.35rem;
+
+  > * {
+    background-color: gray;
+    width: 25%;
+  }
+}
+
+.password-complexity-green {
+  background-color: green;
 }

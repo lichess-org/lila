@@ -29,3 +29,9 @@ RUNNING_PID
 /modules/*/.classpath
 /modules/*/.project
 /modules/*/.settings/
+
+.vscode
+.bloop
+.metals
+project/metals.sbt
+cs
