@@ -41,7 +41,7 @@
   <string name="makeYourOpponentResign">प्रतिस्पर्ध्याला हार मानायला लावा</string>
   <string name="forceResignation">विजयाचा दावा करा</string>
   <string name="forceDraw">सामना अनिर्णित ठेवण्याची विनंती करा</string>
-  <string name="talkInChat">गप्पांमध्ये बोला</string>
+  <string name="talkInChat">गप्पांमध्ये सभ्यतेने बोला!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">या युआरएलवर येणारे पहिले व्यक्ती तुमच्याबरोबर खेळणार.</string>
   <string name="whiteResigned">पांढऱ्याने हार मानली</string>
   <string name="blackResigned">काळ्याने हार मानली</string>
@@ -69,7 +69,7 @@
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार हरला</string>
   <string name="variantWin">प्रकार विजयी</string>
-  <string name="insufficientMaterial">अपर्याप्त सामग्री</string>
+  <string name="insufficientMaterial">अपर्याप्त सोंगट्या</string>
   <string name="pawnMove">प्याद्याच्या चाली</string>
   <string name="capture">ताब्यात घेतले</string>
   <string name="close">बंद</string>
