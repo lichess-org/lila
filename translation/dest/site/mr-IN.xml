@@ -366,8 +366,8 @@
   <string name="follow">अनुसरण करा</string>
   <string name="following">अनुयायी</string>
   <string name="unfollow">अनुसरण रद्द</string>
-  <string name="block">आडवा</string>
-  <string name="blocked">आडवलेला</string>
+  <string name="block">अडवा</string>
+  <string name="blocked">अडवलेले</string>
   <string name="unblock">आड दूर करा</string>
   <string name="followsYou">तुमचा अनुयायी</string>
   <string name="xStartedFollowingY">%1$s %2$sचे अनुयायी बनले</string>
@@ -390,8 +390,8 @@
     <item quantity="one">%s मिनिटापेक्षा कमी</item>
     <item quantity="other">%s मिनिटांपेक्षा कमी</item>
   </plurals>
-  <string name="required">गरजेचे आहे</string>
-  <string name="openTournaments">खुले क्रीडासत्र</string>
+  <string name="required">गरजेचे आहे.</string>
+  <string name="openTournaments">खुले क्रीडासत्रे</string>
   <string name="duration">कालावधी</string>
   <string name="winner">विजेता</string>
   <string name="standing">पद</string>
@@ -438,7 +438,7 @@
   <string name="isPrivate">खाजगी</string>
   <string name="reportXToModerators">सरपरिक्षकाकडे (moderator) %s तक्रार करा</string>
   <string name="profileCompletion">प्रोफाइल पूर्णता: %s</string>
-  <string name="xRating">%s दर्जा</string>
+  <string name="xRating">%s gunaankan</string>
   <string name="ifNoneLeaveEmpty">काहीही नसल्यास रिक्त सोडा</string>
   <string name="gameCompletionRate">गेम पूर्ण करण्याचा दर %s</string>
   <string name="profile">प्रोफाइल</string>
@@ -455,7 +455,7 @@
   <string name="activeToday">आज सक्रिय</string>
   <string name="activePlayers">सक्रिय बुद्धिबळपटू</string>
   <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेळाला दर्जा आहे पण त्याला काही वेळेचे बंधन नाही!</string>
-  <string name="yourPuzzleRatingX">आपले कोड्यांचा दर्जा: %s</string>
+  <string name="yourPuzzleRatingX">आपले कोड्यांचा गुणांकन: %s</string>
   <string name="findTheBestMoveForWhite">पांढर्‍यासाठी सर्वोत्कृष्ट चाल शोधा.</string>
   <string name="findTheBestMoveForBlack">काळ्यासाठी सर्वोत्कृष्ट चाल शोधा.</string>
   <string name="toTrackYourProgress">प्रगतीचा मागोवा घेण्यासाठी:</string>
@@ -472,7 +472,7 @@
   <string name="wasThisPuzzleAnyGood">कोडे चांगले होते का?</string>
   <string name="pleaseVotePuzzle">वर किंवा खाली बाण वापरून मतदानाद्वारे ळीचेस सुधारण्यास मदत करा:</string>
   <string name="thankYou">आभारी आहे</string>
-  <string name="ratingX">दर्जा: %s</string>
+  <string name="ratingX">गुणांकन: %s</string>
   <string name="hidden">लपवलेला</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s वेळा खेळला</item>
@@ -554,8 +554,8 @@
   <string name="xAskedY">%1$s विचारले %2$s</string>
   <string name="xAnsweredY">%1$s उत्तर दिले %2$s</string>
   <string name="xCommentedY">%1$s प्रतिक्रिया दिली %2$s</string>
-  <string name="victory">शाब्बास रे! पठ्ठ्या!!!</string>
-  <string name="defeat">हार</string>
+  <string name="victory">विजय</string>
+  <string name="defeat">पराभव</string>
   <string name="victoryVsYInZ">%1$s विरुद्ध %2$s खेळाचा प्रकार %3$s</string>
   <string name="defeatVsYInZ">%1$s विरुद्ध %2$s खेळाचा प्रकार %3$s</string>
   <string name="drawVsYInZ">%1$s विरुद्ध %2$s खेळाचा प्रकार %3$s</string>
@@ -606,7 +606,7 @@
   <string name="menu">मेनू</string>
   <string name="castling">किल्ल्यात</string>
   <string name="whiteCastlingKingside">पांढरा 0-0</string>
-  <string name="blackCastlingKingside">काळा ओ-ओ</string>
+  <string name="blackCastlingKingside">काळा O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s मंचातील प्रतिक्रिया</item>
     <item quantity="other">%s मंचातील प्रतिक्रिया</item>
@@ -625,7 +625,7 @@
   <string name="really">खरंच</string>
   <string name="contribute">हातभार लावा</string>
   <string name="termsOfService">सेवा अटी</string>
-  <string name="sourceCode">आज्ञावली</string>
+  <string name="sourceCode">सोर्स कोड</string>
   <string name="simultaneousExhibitions">एकाचवेळी प्रदर्शन</string>
   <string name="host">यजमान</string>
   <string name="hostColorX">यजमानाचा रंग: %s</string>
@@ -671,9 +671,9 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">तुम्ही %1$s पेक्षा उत्तम आहात %2$s खेळाडूंमध्ये.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s उत्तम आहे %3$s खेळाडूंमध्ये.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपल्याकडे %s रेटिंग नाही.</string>
-  <string name="yourRating">तुमचे रेटिंग</string>
+  <string name="yourRating">आपले गुणांकन</string>
   <string name="cumulative">एकत्रित</string>
-  <string name="glicko2Rating">Glicko-2 रेटिंग</string>
+  <string name="glicko2Rating">Glicko-2 गुणांकन</string>
   <string name="checkYourEmail">तुमचा ईमेल तपासा</string>
   <string name="weHaveSentYouAnEmailClickTheLink">आम्ही तुम्हाला ईमेल पाठवला आहे. दिलेल्या लिंक वर क्लिक करून आपले खाते सक्रिय करा.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">जर तुम्हाला ईमेल मिळाला नसेल, तर इतर ठिकाणी तपास, जसे की junk, spam, social, किंवा इतर फोल्डर्स.</string>
@@ -685,7 +685,7 @@
   <string name="downloadRaw">डाउनलोड raw</string>
   <string name="downloadImported">डाउनलोड imported</string>
   <string name="printFriendlyPDF">प्रिंट-friendly PDF</string>
-  <string name="crosstable">पटाची बाजू बदला</string>
+  <string name="crosstable">अभिलेख</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">गेममध्ये जाण्यासाठी आपण बोर्डवर स्क्रोल देखील करू शकता.</string>
   <string name="analysisShapesHowTo">पटावर वर्तुळे आणि बाण काढण्यासाठी शिफ्ट + क्लिक दाबा किंवा उजवे-क्लिक दाबा.</string>
   <string name="letOtherPlayersMessageYou">इतर खेळाडूंना संदेश पाठवू द्या</string>
@@ -758,7 +758,7 @@
   <string name="custom">इतर</string>
   <string name="notifications">Notifications</string>
   <string name="challenges">आव्हाने</string>
-  <string name="perfRatingX">दर्जा: %s</string>
+  <string name="perfRatingX">गुणांकन: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
     <item quantity="other">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
