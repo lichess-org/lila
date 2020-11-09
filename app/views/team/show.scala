@@ -8,7 +8,7 @@ import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.common.String.html.{ richText, safeJsonValue }
+import lila.common.String.html.{ markdownLinksOrRichText, richText, safeJsonValue }
 import lila.team.Team
 
 object show {
@@ -173,7 +173,7 @@ object show {
           div(cls := "team-show__content__col2")(
             standardFlash(),
             st.section(cls := "team-show__desc")(
-              richText(t.description),
+              markdownLinksOrRichText(t.description),
               t.location.map { loc =>
                 frag(br, trans.location(), ": ", richText(loc))
               }
