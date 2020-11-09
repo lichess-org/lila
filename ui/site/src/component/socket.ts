@@ -21,7 +21,7 @@ interface MsgOut extends MsgBase {
 interface MsgAck extends MsgOut {
   at: number;
 }
-type Send = (t: Tpe, d: Payload) => void;
+type Send = (t: Tpe, d: Payload, o?: any) => void;
 
 interface Options {
   idle: boolean;
@@ -101,7 +101,10 @@ export default class StrongSocket {
     this.connect();
   }
 
-  sign = (s: string) => this._sign = s;
+  sign = (s: string) => {
+    this._sign = s;
+    this.ackable.sign(s);
+  }
 
   connect = () => {
     this.destroy();
@@ -324,15 +327,18 @@ class Ackable {
 
   currentId = 1; // increment with each ackable message sent
   messages: MsgAck[] = [];
+  private _sign: string;
 
   constructor(readonly send: Send) {
     setInterval(this.resend, 1200);
   }
 
+  sign = (s: string) => this._sign = s;
+
   resend = () => {
     const resendCutoff = performance.now() - 2500;
     this.messages.forEach(m => {
-      if (m.at < resendCutoff) this.send(m.t, m.d);
+      if (m.at < resendCutoff) this.send(m.t, m.d, {sign: this._sign});
     });
   }
 
