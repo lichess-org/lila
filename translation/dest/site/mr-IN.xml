@@ -302,34 +302,34 @@
   <string name="backToTournament">क्रीडासत्रात परत जा</string>
   <string name="thematic">विषयगत</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s गुणांकित खेळ</item>
+    <item quantity="one">≥ %s दर्जाचा खेळ</item>
     <item quantity="other">≥ %s औपचारिक खेळ</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s औपचारिक खेळ</item>
+    <item quantity="one">≥ %1$s %2$s गुणांकित खेळ</item>
     <item quantity="other">≥ %1$s %2$s औपचारिक खेळ</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">आपल्याला आणखी %1$s %2$s-दर्जाचे गेम खेळण्याची आवश्यकता आहे</item>
-    <item quantity="other">आपल्याला आणखी %1$s %2$s-दर्जाचे गेम खेळण्याची आवश्यकता आहे</item>
+    <item quantity="one">आपल्याला आणखी %1$s %2$s-गुणांकित खेळ खेळण्याची आवश्यकता आहे</item>
+    <item quantity="other">आपल्याला आणखी %1$s %2$s-गुणांकित खेळ खेळण्याची आवश्यकता आहे</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">आपल्याला आणखी %s दर्जाचे गेम खेळण्याची आवश्यकता आहे</item>
-    <item quantity="other">आपल्याला आणखी %s दर्जाचे गेम खेळण्याची आवश्यकता आहे</item>
+    <item quantity="one">आपल्याला आणखी %s गुणांकित खेळ खेळण्याची आवश्यकता आहे</item>
+    <item quantity="other">आपल्याला आणखी %s गुणांकित खेळ खेळण्याची आवश्यकता आहे</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">आपला %s दर्जा तात्पुरता आहे</string>
+  <string name="yourPerfRatingIsProvisional">आपला %s गुणांकन तात्पुरते आहे</string>
   <string name="yourPerfRatingIsTooHigh">आपले %1$s गुणांकन (%2$s) खूप जास्त आहे</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">आपला साप्ताहिक %1$s दर्जा (%2$s) खूप जास्त आहे</string>
-  <string name="yourPerfRatingIsTooLow">आपला %1$s दर्जा (%2$s) खूप कमी आहे</string>
-  <string name="ratedMoreThanInPerf">दर्जा ≥ %1$s %2$s मध्ये</string>
-  <string name="ratedLessThanInPerf">दर्जा ≤ %1$s %2$s मध्ये</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">आपले साप्ताहिक %1$s गुणांकन (%2$s) खूप जास्त आहे</string>
+  <string name="yourPerfRatingIsTooLow">आपले %1$s गुणांकन (%2$s) खूप कमी आहे</string>
+  <string name="ratedMoreThanInPerf">गुणांकन ≥ %1$s %2$s मध्ये</string>
+  <string name="ratedLessThanInPerf">गुणांकन ≤ %1$s %2$s मध्ये</string>
   <string name="mustBeInTeam">%s संघात असणे आवश्यक आहे</string>
   <string name="youAreNotInTeam">तुम्ही %s संघात नाही</string>
   <string name="backToGame">खेळात परत या</string>
   <string name="siteDescription">विनामूल्य ऑनलाइन बुद्धीबळ सर्व्हर. सुरेख दृश्यात बुद्धिबळ खेळा. कोणतीही नोंदणी, जाहिराती आवश्यक नाही. संगणक, मित्र किंवा यादृच्छिक विरोधकांबरोबर बुद्धीबळ खेळा.</string>
   <string name="xJoinedTeamY">%1$s ने %2$s संघ जोडला</string>
   <string name="xCreatedTeamY">%1$s ने %2$s संघ बनवला</string>
-  <string name="xStartedStreaming">%s ने खेळाचा ओघ सुरू केला</string>
+  <string name="xStartedStreaming">%s ने खेळाचे प्रसारण सुरू केला</string>
   <string name="averageElo">सरासरी गुण</string>
   <string name="location">स्थळ</string>
   <string name="filterGames">चाळलेले खेळ</string>
@@ -339,7 +339,7 @@
   <string name="leaderboard">आघाडीचे खेळाडू</string>
   <string name="pasteTheFenStringHere">FEN टेक्स्ट येथे पेस्ट करा</string>
   <string name="pasteThePgnStringHere">PGN टेक्स्ट येथे पेस्ट करा</string>
-  <string name="fromPosition">या जागे पासून चालू करा</string>
+  <string name="fromPosition">ह्या रचनेतून</string>
   <string name="continueFromHere">येथून खेळायला सुरवात करा</string>
   <string name="toStudy">अभ्यास</string>
   <string name="importGame">खेळ मागवा</string>
@@ -352,8 +352,8 @@
   <string name="clickOnTheBoardToMakeYourMove">तुम्ही मनुष्य आहात हे सिद्धा करण्यासाठी पटावर क्लिक करून आपली चाल खेळा</string>
   <string name="captcha.fail">कृपया बुद्धिबळ कोडे सोडवा.</string>
   <string name="notACheckmate">ही शहमात नाही</string>
-  <string name="whiteCheckmatesInOneMove">पांढरा एका चालीत मात करणार</string>
-  <string name="blackCheckmatesInOneMove">काळा एका चालीत मात करणार</string>
+  <string name="whiteCheckmatesInOneMove">पांढरा एका चालीत शहमात करणार</string>
+  <string name="blackCheckmatesInOneMove">काळा एका चालीत शहमात करणार</string>
   <string name="retry">परत प्रयत्न करा</string>
   <string name="reconnecting">पुन्हा जोडणी करत आहोत</string>
   <plurals name="nbFriendsOnline">
@@ -363,7 +363,7 @@
   <string name="noFriendsOnline">कुठलेच मित्र उपस्थित नाही</string>
   <string name="findFriends">मित्र शोधा</string>
   <string name="favoriteOpponents">आवडणारे प्रतिस्पर्धी</string>
-  <string name="follow">अनुसरा</string>
+  <string name="follow">अनुसरण करा</string>
   <string name="following">अनुयायी</string>
   <string name="unfollow">अनुसरण रद्द</string>
   <string name="block">आडवा</string>
