@@ -3,6 +3,7 @@ import idleTimer from './idle-timer';
 import sri from './sri';
 import { reload } from './reload';
 import { storage as makeStorage } from './storage';
+import once from './once';
 
 type Sri = string;
 type Tpe = string;
@@ -62,6 +63,7 @@ export default class StrongSocket {
   autoReconnect: boolean = true;
   nbConnects: number = 0;
   storage: LichessStorage = makeStorage.make('surl8');
+  private _sign?: string;
 
   static defaultOptions: Options = {
     idle: false,
@@ -98,6 +100,8 @@ export default class StrongSocket {
     window.addEventListener('unload', this.destroy);
     this.connect();
   }
+
+  sign = (s: string) => this._sign = s;
 
   connect = () => {
     this.destroy();
@@ -154,6 +158,8 @@ export default class StrongSocket {
       msg.d = msg.d || {}; // can't ack message without data
       this.ackable.register(t, msg.d); // adds d.a, the ack ID we expect to get back
     }
+    if (t == 'move' && o.sign != this._sign && once('socket-sign'))
+        setTimeout(() => this.send('rep', { n: 'soc' }), 10000)
     const message = JSON.stringify(msg);
     this.debug("send " + message);
     try {
