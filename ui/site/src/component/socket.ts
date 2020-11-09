@@ -55,7 +55,7 @@ export default class StrongSocket {
   ws: WebSocket | undefined;
   pingSchedule: Timeout;
   connectSchedule: Timeout;
-  ackable: Ackable = new Ackable((t, d) => this.send(t, d));
+  ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
   lastPingTime: number = performance.now();
   pongCount: number = 0;
   averageLag: number = 0;
