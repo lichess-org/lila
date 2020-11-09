@@ -162,22 +162,16 @@ export default class StrongSocket {
       this.ackable.register(t, msg.d); // adds d.a, the ack ID we expect to get back
     }
 
-    if (t == 'move' && o.sign != this._sign && once('socket-sign', 'page')) {
-      let code = 'soc';
-      if (!o.sign) code = 'soc-no-opt';
-      else if (!this._sign) code = 'soc-no-this';
-      else code = `soc-vs-${o.sign}:${this._sign}`;
-      let stack = '';
-      try {
-        stack = (new Error).stack!.split('\n').slice(1)
-        .map(l => l.replace(/\s+/g, ' ').replace(/\/assets\/\w+\/compiled/, '').replace('at ', '')).join(' / ');
-      } catch (e) {
-        stack = e.message;
-      }
-      code += ' / ' + stack;
-      setTimeout(() => this.send('rep', { n: code }), 1000)
-    }
     const message = JSON.stringify(msg);
+    if (t == 'move' && o.sign != this._sign && once('socket-sign')) {
+      let stack: string;
+      try {
+        stack = (new Error).stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
+      } catch (e) {
+        stack = `${e.message} ${navigator.userAgent}`;
+      }
+      setTimeout(() => this.send('rep', { n: `soc: ${message} ${stack}` }), 10000)
+    }
     this.debug("send " + message);
     try {
       this.ws!.send(message);
