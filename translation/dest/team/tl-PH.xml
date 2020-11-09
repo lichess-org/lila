@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Koponan</string>
   <string name="teams">Mga Koponan</string>
   <plurals name="nbMembers">
     <item quantity="one">%s miyembro</item>
@@ -30,4 +31,8 @@
   <string name="beingReviewed">Ang iyong kahilingang sumali ay nirerepaso ng pinuno ng koponan.</string>
   <string name="teamBattle">Labanan ng Koponan</string>
   <string name="teamBattleOverview">Ang labanan ng madamihang koponan, bawat manlalaro ay gagawa ng puntos para sa kanilang koponan</string>
+  <string name="teamTournament">Paligsahan ng koponan</string>
+  <string name="teamTournamentOverview">Ang paligsahan sa Arena na tanging mga kasapi lamang ng iyong/inyong koponan ang maaaring sumali</string>
+  <string name="messageAllMembers">Hatidan ng mensahe ang lahat ng mga kasapi</string>
+  <string name="messageAllMembersOverview">Maghatid ng pribadong mensahe sa bawat kasapi ng koponan</string>
 </resources>
