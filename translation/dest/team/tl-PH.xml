@@ -35,4 +35,11 @@
   <string name="teamTournamentOverview">Ang paligsahan sa Arena na tanging mga kasapi lamang ng iyong/inyong koponan ang maaaring sumali</string>
   <string name="messageAllMembers">Hatidan ng mensahe ang lahat ng mga kasapi</string>
   <string name="messageAllMembersOverview">Maghatid ng pribadong mensahe sa bawat kasapi ng koponan</string>
+  <string name="messageAllMembersLongDescription">Maghatid ng pribadong mensahe sa LAHAT ng mga kasapi ng koponan.
+Maaari mong gamitin ito para tawagin ang lahat ng mga manlalaro na sumali sa isang paligsahan o kaya ay labanan sa koponan.
+Ang mga manlalaro na ayaw tumanggap ng mga mensahe mo ay maaaring lumisan sa iyong koponan.</string>
+  <string name="teamsIlead">Mga koponan na pinamumunuan ko</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Baka ibig mong i-link ang isa mga darating na mga paligsahan?</string>
+  <string name="usersWhoCanManageThisTeam">Ang mga gumagamit na maaaring mamahala sa koponang ito</string>
+  <string name="leadersChat">Chat ng mga pinuno</string>
 </resources>
