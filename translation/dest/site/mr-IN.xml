@@ -241,9 +241,9 @@
   <string name="chatRoom">गप्पांची खोली</string>
   <string name="loginToChat">सही (Sign in) करा</string>
   <string name="youHaveBeenTimedOut">तुम्हाला स्थगित करण्यात आलेले आहे.</string>
-  <string name="spectatorRoom">Drook kholli</string>
+  <string name="spectatorRoom">प्रेक्षक कक्ष</string>
   <string name="composeMessage">संदेश लिहा</string>
-  <string name="noNewMessages">Naveen sandesh nahit</string>
+  <string name="noNewMessages">नवीन संदेश नाहीत</string>
   <string name="subject">विषय</string>
   <string name="recipient">प्राप्तकर्ता</string>
   <string name="send">पाठवा</string>
@@ -251,7 +251,7 @@
   <string name="freeOnlineChess">विनामूल्य ऑनलाइन बुद्धिबळ</string>
   <string name="spectators">प्रेक्षक</string>
   <plurals name="nbRated">
-    <item quantity="one">%s दर्जेदार</item>
+    <item quantity="one">%s गुणांकित</item>
     <item quantity="other">%s औपचारिक</item>
   </plurals>
   <plurals name="nbWins">
@@ -263,30 +263,30 @@
     <item quantity="other">%s पराभव</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s अनिर्णीत</item>
+    <item quantity="one">%s बरोबरीत</item>
     <item quantity="other">%s अनिर्णीत</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s खेळतोय</item>
+    <item quantity="one">%s खेळताहेत</item>
     <item quantity="other">%s खेळतोय</item>
   </plurals>
   <string name="exportGames">खेळ निर्यात करा</string>
-  <string name="ratingRange">Elo श्रेणी</string>
+  <string name="ratingRange">गुणांकन व्याप्ती</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s सेकंद द्या</item>
     <item quantity="other">%s सेकंद द्या</item>
   </plurals>
-  <string name="thisAccountViolatedTos">या खात्याने अटींचे उल्लंघन केले</string>
+  <string name="thisAccountViolatedTos">या खात्याने Lichess अटींचे उल्लंघन केले</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">हा खेळाडू कृत्रिमरित्या गुणांकन वाढवितो / कमी करतो</string>
   <string name="openingExplorerAndTablebase">उघडणी अन्वेषक नि साठा</string>
   <string name="takeback">चाल परत घ्या</string>
   <string name="proposeATakeback">चाल मागे घेण्यास विनंती करा</string>
-  <string name="takebackPropositionSent">चाल मागे घेण्यास विनंती पाठवली</string>
-  <string name="takebackPropositionDeclined">चाल मागे घेण्याची विनंती अमान्य केली</string>
-  <string name="takebackPropositionAccepted">चाल मागे घेण्याची विनंती मान्य केली</string>
+  <string name="takebackPropositionSent">चाल मागे घेण्याची विनंती पाठवली</string>
+  <string name="takebackPropositionDeclined">चाल मागे घेण्याची विनंती नाकारली</string>
+  <string name="takebackPropositionAccepted">चाल मागे घेण्याची विनंती स्वीकारली</string>
   <string name="takebackPropositionCanceled">चाल मागे घेण्याची विनंती रद्द केली</string>
   <string name="yourOpponentProposesATakeback">प्रतिस्पर्ध्याने चाल मागे घेण्याची विनंती केली आहे</string>
-  <string name="bookmarkThisGame">Khelala bookamrk kara</string>
+  <string name="bookmarkThisGame">खेळाला चिन्हीत करा</string>
   <string name="tournament">क्रीडासत्र</string>
   <string name="tournaments">क्रीडासत्रे</string>
   <string name="tournamentPoints">क्रीडासत्रतील गुण</string>
@@ -302,7 +302,7 @@
   <string name="backToTournament">क्रीडासत्रात परत जा</string>
   <string name="thematic">विषयगत</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s दर्जाचा खेळ</item>
+    <item quantity="one">≥ %s गुणांकित खेळ</item>
     <item quantity="other">≥ %s औपचारिक खेळ</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
