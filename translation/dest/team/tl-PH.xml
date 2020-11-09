@@ -20,4 +20,14 @@
   </plurals>
   <string name="teamBestPlayers">Pinakamagaling na mga manlalaro</string>
   <string name="teamRecentMembers">Mga bagong miyembro</string>
+  <string name="kickSomeone">Sibakin ang isa mula sa koponan</string>
+  <string name="whoToKick">Sino ang gusto mong/nyong sibakin mula sa koponan?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s kahilingang sumali</item>
+    <item quantity="other">%s mga kahilingang sumali</item>
+  </plurals>
+  <string name="willBeReviewed">Ang iyong kahilingang sumali ay rerepasuhin ng pinuno ng koponan.</string>
+  <string name="beingReviewed">Ang iyong kahilingang sumali ay nirerepaso ng pinuno ng koponan.</string>
+  <string name="teamBattle">Labanan ng Koponan</string>
+  <string name="teamBattleOverview">Ang labanan ng madamihang koponan, bawat manlalaro ay gagawa ng puntos para sa kanilang koponan</string>
 </resources>
