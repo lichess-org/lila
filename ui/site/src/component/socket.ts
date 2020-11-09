@@ -1,9 +1,9 @@
 import * as xhr from 'common/xhr';
 import idleTimer from './idle-timer';
+import once from './once';
 import sri from './sri';
 import { reload } from './reload';
 import { storage as makeStorage } from './storage';
-import once from './once';
 
 type Sri = string;
 type Tpe = string;
@@ -158,9 +158,15 @@ export default class StrongSocket {
       msg.d = msg.d || {}; // can't ack message without data
       this.ackable.register(t, msg.d); // adds d.a, the ack ID we expect to get back
     }
-    if (t == 'move' && o.sign != this._sign && once('socket-sign'))
-        setTimeout(() => this.send('rep', { n: 'soc' }), 10000)
     const message = JSON.stringify(msg);
+    if (t == 'move' && o.sign != this._sign && once('socket-sign', 'page')) {
+      let code = 'soc';
+      if (!o.sign) code = 'soc-no-opt';
+      else if (!this._sign) code = 'soc-no-this';
+      else code = `soc-vs-${o.sign}:${this._sign}`;
+      code += ':' + message;
+      setTimeout(() => this.send('rep', { n: code }), 1000)
+    }
     this.debug("send " + message);
     try {
       this.ws!.send(message);
