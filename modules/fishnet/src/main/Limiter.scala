@@ -37,7 +37,7 @@ final private class Limiter(
     }
 
   private val maxPerDay  = 25
-  private val maxPerWeek = 80
+  private val maxPerWeek = 100
 
   private def perDayCheck(sender: Work.Sender) =
     sender match {
