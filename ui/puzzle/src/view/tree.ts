@@ -142,11 +142,13 @@ function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
 }
 
 export function renderMove(ctx: Ctx, node: Tree.Node): MaybeVNodes {
-  const ev = node.eval || node.ceval || {};
+  const ev = node.eval || node.ceval;
   return [
     node.san,
-    defined(ev.cp) ? renderEval(normalizeEval(ev.cp)) : (
-      defined(ev.mate) ? renderEval('#' + ev.mate) : null
+    ev && (
+      defined(ev.cp) ?
+        renderEval(normalizeEval(ev.cp)) :
+        (defined(ev.mate) ? renderEval('#' + ev.mate) : undefined)
     ),
     puzzleGlyph(ctx, node)
   ];

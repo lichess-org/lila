@@ -54,6 +54,8 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
 
 export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
 
+  lichess.socket.sign(ctrl.sign);
+
   function reload(o: Incoming, isRetry?: boolean) {
     // avoid reload if possible!
     if (o && o.t) {

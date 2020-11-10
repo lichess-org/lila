@@ -121,8 +121,6 @@ final class TournamentApi(
         description = description,
         hasChat = data.hasChat | true
       ) pipe { tour =>
-      println(tour.variant)
-      println(tour.position)
       tour.copy(conditions =
         conditions
           .convert(tour.perfType, leaderTeams.view.map(_.pair).toMap)

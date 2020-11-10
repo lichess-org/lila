@@ -23,7 +23,7 @@ final class Analyse(
         env.fishnet.analyser(
           game,
           lila.fishnet.Work.Sender(
-            userId = me.id.some,
+            userId = me.id,
             ip = HTTPRequest.ipAddress(ctx.req).some,
             mod = isGranted(_.Hunter) || isGranted(_.Relay),
             system = false

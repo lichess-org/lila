@@ -85,6 +85,11 @@ Pogledajte %3$s koja se odnosi na ovaj potez kako biste ga malo izvježbali.</st
   <string name="notPlayedEnoughRatedGamesAgainstX">Igrač još nije završio dovoljno rejtingovanih partija protiv %1$s u datoj kategoriji rejtinga.</string>
   <string name="similarOpponents">protivnika slične jačine</string>
   <string name="notPlayedRecently">Igrač nije igrao dovoljno partija u skorije vrijeme. U zavisnosti od broja partija koje ste odigrali, možda će biti potrebna otprilike jedna godina neaktivnosti da Vaš rejting ponovo postane provizoran / privremen.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Drugi je zahtjev radi toga da igrači koji više ne koriste svoje račune prestanu popunjavati tabele vodećih.</string>
+  <string name="whyAreRatingHigher">Zašto su rejtinzi viši u poređenju s onima na drugim sajtovima i organizacijama, kao što su FIDE, USCF i ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Najbolje je ne misliti o rejtinzima kao o apsolutnim brojevima ili ih porediti s drugim organizacijama. Različite organizacije imaju različite nivoe igrača, različite sisteme rejtingovanja (Elo, Glicko, Glicko-2 ili modificirana verzija navedenih). Ovi faktori mogu drastično utjecati na apsolutne brojeve (rejtinge).
+
+Najbolje je misliti o rejtinzima kao o \"relativnim\" brojkama (u kontrastu prema \"apsolutnim\"): unutar jednog kruga igrača njihove relativne razlike u rejtingu pomoći će Vam da procijenite ko će pobijediti / remizirati / izgubiti i koliko često. Reći \"Imam rejting X\" ne znači ništa ako nema drugih igrača sa čijim se rejtingom može uporediti Vaš.</string>
   <string name="howToHideRatingWhilePlaying">Kako da sakrijem rejting dok igram?</string>
   <string name="enableZenMode">Omogućite zen-način u %1$s ili pritisnite %2$s tokom partije.</string>
   <string name="displayPreferences">preferencama prikaza</string>

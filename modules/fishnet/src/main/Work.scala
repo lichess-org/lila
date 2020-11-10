@@ -55,7 +55,7 @@ object Work {
   }
 
   case class Sender(
-      userId: Option[String],
+      userId: lila.user.User.ID,
       ip: Option[IpAddress],
       mod: Boolean,
       system: Boolean
@@ -63,7 +63,7 @@ object Work {
 
     override def toString =
       if (system) lila.user.User.lichessId
-      else userId orElse ip.map(_.value) getOrElse "unknown"
+      else userId
   }
 
   case class Clock(wtime: Int, btime: Int, inc: Int)

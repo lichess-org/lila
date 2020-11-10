@@ -144,8 +144,8 @@ final class LobbySocket(
   lobby ! LobbyTrouper.SetSocket(trouper)
 
   private val poolLimitPerSri = new lila.memo.RateLimit[SriStr](
-    credits = 25,
-    duration = 1 minute,
+    credits = 14,
+    duration = 30 seconds,
     key = "lobby.hook_pool.member"
   )
 
@@ -154,7 +154,7 @@ final class LobbySocket(
 
   def controller(member: Member): SocketController = {
     case ("join", o) if !member.bot =>
-      HookPoolLimit(member, cost = 5, msg = s"join $o") {
+      HookPoolLimit(member, cost = 5, msg = s"join $o ${member.userId}") {
         o str "d" foreach { id =>
           lobby ! BiteHook(id, member.sri, member.user)
         }
