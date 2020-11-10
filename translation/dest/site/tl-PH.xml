@@ -531,6 +531,8 @@
   <string name="currentPassword">Kasalukuyang password</string>
   <string name="newPassword">Bagong password</string>
   <string name="newPasswordAgain">Bagong password (muli)</string>
+  <string name="clockInitialTime">Panimulang oras ng Orasan</string>
+  <string name="clockIncrement">Dagdag sa orasan</string>
   <string name="privacy">Pagiging Pribado</string>
   <string name="letOtherPlayersFollowYou">Hayaan ang ibang manlalaro na sundan ka</string>
   <string name="letOtherPlayersChallengeYou">Hayaan ang ibang manlalaro na hamunin ka</string>
@@ -581,6 +583,8 @@
   <string name="playOfflineComputer">Makina</string>
   <string name="opponent">Kalaban</string>
   <string name="learnMenu">Matuto</string>
+  <string name="studyMenu">Pagaralan</string>
+  <string name="practice">Magensayo</string>
   <string name="community">Komunidad</string>
   <string name="tools">Mga Kagamitan</string>
   <string name="increment">Pagdagdag</string>
@@ -609,8 +613,11 @@
   <string name="tpTimeSpentOnTV">Oras sa TV: %s</string>
   <string name="watch">Manood</string>
   <string name="videoLibrary">Lalagyan ng mga Video</string>
+  <string name="streamersMenu">Mga streamer</string>
   <string name="mobileApp">Aplikasyon sa Mobile</string>
   <string name="webmasters">Webmasters</string>
+  <string name="about">Patungkol</string>
+  <string name="aboutX">Tungkol sa %s</string>
   <string name="really">talaga</string>
   <string name="contribute">Mag-ambag</string>
   <string name="termsOfService">Termino ng Serbisyo</string>
@@ -659,6 +666,9 @@
   <string name="yourPerfTypeRatingIsRating">Ang iyong %1$s marka ay %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ikaw ay mas magaling kaysa sa %1$s ng %2$s mga manlalaro.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ikaw ay walang naitatag %s na marka.</string>
+  <string name="yourRating">Ang iyong grado</string>
+  <string name="cumulative">Naiipon</string>
+  <string name="glicko2Rating">Grado ng Glicko-2</string>
   <string name="checkYourEmail">Suriin ang iyong Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Kami ay nagpadala ng email sa iyo. I-click ang link sa email upang paganahin ang iyong akawnt.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kung wala kang nakikitang email, suriin ang ibang lugar kagaya ng junk, spam, mga sosyal, o ibang mga folder.</string>
@@ -803,4 +813,8 @@
     <item quantity="one">at i-save %s bago gumalaw na linya</item>
     <item quantity="other">at i-save %s bago gumalaw na mga linya</item>
   </plurals>
+  <string name="sorry">Pasensya na :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Kinailangan naming tapusin ang oras mo pansamantala.</string>
+  <string name="timeoutExpires">Ang pagtatapos ng oras ay magwawakas sa loob ng %s.</string>
+  <string name="why">Bakit?</string>
 </resources>
