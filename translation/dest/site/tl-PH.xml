@@ -848,4 +848,10 @@
   <string name="useTheReportForm">gamitin ang form na pang-sumbong</string>
   <string name="toRequestSupport">Para humiling ng suporta, %1$s</string>
   <string name="tryTheContactPage">subukan ang pahina ng kontak</string>
+  <string name="thisTopicIsArchived">Ang paksang ito ay naisa-baol na at hindi na maaaring sagutin.</string>
+  <string name="joinTheTeamXToPost">Sumali sa %1$s, para magpaskil sa forum na ito</string>
+  <string name="teamNamedX">%1$s koponan</string>
+  <string name="youCannotPostYetPlaySomeGames">Hindi ka pa maaaring magpaskil sa mga forum. Maglaro ng ilang mga laro!</string>
+  <string name="subscribe">Mag-subscribe</string>
+  <string name="unsubscribe">Mag-unsubscribe</string>
 </resources>
