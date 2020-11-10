@@ -30,8 +30,3 @@ RUNNING_PID
 /modules/*/.project
 /modules/*/.settings/
 
-.vscode
-.bloop
-.metals
-project/metals.sbt
-cs
