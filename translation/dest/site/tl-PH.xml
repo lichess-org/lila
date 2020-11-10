@@ -837,4 +837,6 @@
   <string name="ultraBulletDesc">Nakakabuwang na mabibilis na mga laro: mas mababa sa tatlumpung segundo</string>
   <string name="bulletDesc">Lubhang mabibilis na mga laro: mas mababa sa tatlong minuto</string>
   <string name="blitzDesc">Mabibilis na mga laro: tatlo hanggang walong minuto</string>
+  <string name="rapidDesc">Mabilisang mga laro: walo hanggang dalawmpu\'t limang minuto</string>
+  <string name="classicalDesc">Klasikong mga laro: dalawampu\'t limang minuto at higit pa</string>
 </resources>
