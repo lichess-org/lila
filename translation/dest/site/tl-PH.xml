@@ -825,4 +825,8 @@
   <string name="tryToWin">Subukan mong maipanalo (o maitabla man lamang) ang bawat larong nilalaro mo.</string>
   <string name="resignLostGames">Magbitiw sa mga talong laro (huwag hayaang maubos ang oras).</string>
   <string name="temporaryInconvenience">Humihingi kami ng paumanhin sa pansamantalang abala,</string>
+  <string name="wishYouGreatGames">at hiling ko para sa iyo na magkaroon ka ng mga dakilang laro sa lichess.org.</string>
+  <string name="thankYouForReading">Salamat sa pagbasa!</string>
+  <string name="lifetimeScore">Panghabambuhay na iskor</string>
+  <string name="currentMatchScore">Kasalukuyang iskor ng labanan</string>
 </resources>
