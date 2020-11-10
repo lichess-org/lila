@@ -50,7 +50,8 @@ textarea.form-control {
 }
 
 .form3 .error,
-.form-help {
+.form-help,
+.password-complexity-label {
   font-size: 90%;
   margin-top: 0.25rem;
 }
@@ -59,7 +60,8 @@ textarea.form-control {
   color: $c-error;
 }
 
-.form-help {
+.form-help,
+.password-complexity-label {
   color: $c-font-dim;
 }
 
