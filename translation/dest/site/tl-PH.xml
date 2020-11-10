@@ -294,6 +294,10 @@
     <item quantity="one">%s puntos ng paligsahan</item>
     <item quantity="other">%s mga puntos ng paligsahan</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s pagaaral</item>
+    <item quantity="other">%s mga pagaaral</item>
+  </plurals>
   <string name="viewTournament">Tingnan ang paligsahan</string>
   <string name="backToTournament">Bumalik sa paligsahan</string>
   <string name="thematic">Pangpakay</string>
@@ -325,6 +329,7 @@
   <string name="siteDescription">Libreng online na server ng chess. Maglaro ng Chess ngayon sa isang malinis na interface. Walang rehistrasyon, walang mga ad, walang plugin na kailangan. Maglaro ng Chess kasama ang kompyuter, mga kaibigan, o kahit sinong mga kalaban.</string>
   <string name="xJoinedTeamY">%1$s sumali sa koponan %2$s</string>
   <string name="xCreatedTeamY">%1$s nagawa na koponan %2$s</string>
+  <string name="xStartedStreaming">%s nagsimulang mag-stream</string>
   <string name="averageElo">Karaniwang marka</string>
   <string name="location">Lokasyon</string>
   <string name="filterGames">Salain ang mga laro</string>
@@ -336,6 +341,7 @@
   <string name="pasteThePgnStringHere">I-paste ang PGN na sulat dito</string>
   <string name="fromPosition">Mula sa posisyon</string>
   <string name="continueFromHere">Magpatuloy mula dito</string>
+  <string name="toStudy">Pagaralan</string>
   <string name="importGame">Magluwas ng laro</string>
   <string name="importGameExplanation">Kapag nagpaste ng isang PGN na laro makakakuha ng isang nabrobrowse na pag-ulit, isang pagsusuri ng kompyuter, isang chat ng laro at isang napapasa na URL.</string>
   <plurals name="nbImportedGames">
@@ -392,11 +398,14 @@
   <string name="createANewTournament">Gumawa ng baong torneo</string>
   <string name="tournamentCalendar">Kalendaryo ng mga paligsahan</string>
   <string name="conditionOfEntry">Kondisyon para makapasok:</string>
+  <string name="advancedSettings">Masulong na mga setting</string>
   <string name="safeTournamentName">Pumili ka ng angkop na pangalan ng paligsahan.</string>
   <string name="inappropriateNameWarning">Maaaring masara ang iyong account kapag naglagay ka ng kahit anong hindi naaangkop na bagay.</string>
   <string name="emptyTournamentName">Pabayaang walang laman upang pangalanan ang paligsahang ito sa isang Grandmaster.</string>
   <string name="recommendNotTouching">Payo naming huwag pakialaman ang mga ito.</string>
   <string name="fewerPlayers">Kung maglagay ka ng mga kondisyon upang makapasok, kakaunti ang mga maglalaro ng iyong paligsahan.</string>
+  <string name="showAdvancedSettings">Ipakita ang mga masulong na setting</string>
+  <string name="makePrivateTournament">Gawing pribado ang paligsahan, at higpitan ang access sa pamamagitan ng isang password</string>
   <string name="join">Sumali</string>
   <string name="withdraw">Umalis</string>
   <string name="points">Punto</string>
@@ -438,6 +447,7 @@
   <string name="lastName">Apelyido</string>
   <string name="biography">Talambuhay</string>
   <string name="country">Bansa</string>
+  <string name="socialMediaLinks">Mga link ng social media</string>
   <string name="inlineNotation">Nakalinyang notasyon</string>
   <string name="watchLichessTV">Tumingin sa Lichess TV</string>
   <string name="previouslyOnLichessTV">Ang Nakaraan sa Lichess TV</string>
@@ -463,6 +473,7 @@
   <string name="pleaseVotePuzzle">Tulungan ang Lichess na umunlad sa pagboto, gamit ang taas o baba na arrow:</string>
   <string name="thankYou">Salamat!</string>
   <string name="ratingX">Marka: %s</string>
+  <string name="hidden">nakatago</string>
   <plurals name="playedXTimes">
     <item quantity="one">Nalaro %s na oras</item>
     <item quantity="other">Nalaro %s na mga oras</item>
