@@ -199,6 +199,8 @@
     <item quantity="other">%s mga laro ko</item>
   </plurals>
   <string name="cancel">Ikansela</string>
+  <string name="whiteTimeOut">Puti oras na</string>
+  <string name="blackTimeOut">Itim oras na</string>
   <string name="drawOfferSent">Naipadala na ang alok na tabla</string>
   <string name="drawOfferDeclined">Tinanggihan ang alok na tabla</string>
   <string name="drawOfferAccepted">Tinanggap ang alok na tabla</string>
@@ -274,6 +276,7 @@
     <item quantity="one">Magbigay ng %s segundo</item>
     <item quantity="other">Magbigay ng %s mga segundo</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Ang account na ito ay lumabag sa Mga Palatuntunan ng Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ang manlalarong ito artipisyal na dagdagan/nababawasan ang marka</string>
   <string name="openingExplorerAndTablebase">Bubukas tagalakbay &amp; base ng talahanayan</string>
   <string name="takeback">Kunin muli</string>
@@ -327,6 +330,7 @@
   <string name="filterGames">Salain ang mga laro</string>
   <string name="reset">Ibalik</string>
   <string name="apply">Isumite</string>
+  <string name="save">I-save</string>
   <string name="leaderboard">Board ng Pinuno</string>
   <string name="pasteTheFenStringHere">I-paste ang FEN na sulat dito</string>
   <string name="pasteThePgnStringHere">I-paste ang PGN na sulat dito</string>
@@ -342,8 +346,14 @@
   <string name="clickOnTheBoardToMakeYourMove">I-click sa board para makagawa ng iyong galaw, at patunayan na ikaw ay tao.</string>
   <string name="captcha.fail">Pakilutas ang captcha ng chess.</string>
   <string name="notACheckmate">Hindi ito checkmate</string>
+  <string name="whiteCheckmatesInOneMove">Magmamate ang Puti sa isang tira</string>
+  <string name="blackCheckmatesInOneMove">Magmamate ang Itim sa isang tira</string>
   <string name="retry">Subukan muli</string>
   <string name="reconnecting">Muling Kumukonekta</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s kaibigan sa online</item>
+    <item quantity="other">%s mga kaibigan sa online</item>
+  </plurals>
   <string name="noFriendsOnline">Walang mga kaibigang online</string>
   <string name="findFriends">Maghanap ng Kaibigan</string>
   <string name="favoriteOpponents">Paboritong mga kalaban</string>
