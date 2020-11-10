@@ -16,7 +16,8 @@ object signup {
         jsModule("login"),
         embedJsUnsafeLoadThen("""loginSignup.signupStart()"""),
         views.html.base.recaptcha.script(form),
-        fingerprintTag
+        fingerprintTag,
+        jsAt("javascripts/vendor/zxcvbn.min.js"),
       ),
       moreCss = cssTag("auth"),
       csp = defaultCsp.withRecaptcha.some

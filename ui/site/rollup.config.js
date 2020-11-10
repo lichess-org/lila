@@ -121,6 +121,11 @@ export default rollupProject({
     input: 'src/account.ts',
     output: 'account',
   },
+  passwordComplexity: {
+    input: 'src/passwordComplexity.ts',
+    output: 'passwordComplexity',
+    name: 'passwordComplexity'
+  },
   coachForm: {
     input: 'src/coachForm.ts',
     output: 'coach.form',

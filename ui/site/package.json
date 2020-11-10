@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
+    "@types/zxcvbn": "^4.4.0",
     "@yaireo/tagify": "3.9.3",
     "debounce-promise": "^3.1.2",
     "flatpickr": "^4.6.6",

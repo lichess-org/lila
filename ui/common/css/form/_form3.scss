@@ -99,17 +99,18 @@ textarea.form-control {
   border-top: $border;
 }
 
+.password-complexity {
+  margin-bottom: 2rem;
+}
+
 .password-complexity-meter {
   display: flex;
   grid-gap: 0.25rem;
-  height: 0.35rem;
+  height: 0.4rem;
+  margin-top: 1rem;
 
   > * {
     background-color: gray;
     width: 25%;
   }
-}
-
-.password-complexity-green {
-  background-color: green;
 }

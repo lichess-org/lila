@@ -1,6 +1,7 @@
 import * as xhr from "common/xhr";
 import debounce from "common/debounce";
 import spinnerHtml from "./component/spinner";
+import { addPasswordChangeListener } from "./passwordComplexity";
 
 export function loginStart() {
   const selector = ".auth-login form";
@@ -62,30 +63,9 @@ export function signupStart() {
       .on("change keyup paste", () => {
         $exists.hide();
         usernameCheck();
-      }),
-    $passwordComplexityMeter = $form.find(
-      'div[class="password-complexity-meter"]'
-    ),
-    $password = $form
-      .find('input[name="password"]')
-      .on("change keyup paste", () => {
-        passwordComplexityCheck();
       });
 
-  const passwordComplexity = (password: string) => {};
-
-  const passwordComplexityCheck = debounce(() => {
-    const passwd = $password.val() as string;
-    var bar = $passwordComplexityMeter.find(
-      'span[id="password-complexity-bar-1"'
-    );
-    if (passwd.length >= 8) {
-      bar.addClass("password-complexity-green");
-    } else {
-      bar.removeClass("password-complexity-green");
-    }
-    console.log("PASSWORDCOMPLEXITYCHECK");
-  }, 300);
+  addPasswordChangeListener("form3-password");
 
   const usernameCheck = debounce(() => {
     const name = $username.val() as string;
@@ -93,7 +73,6 @@ export function signupStart() {
       xhr
         .json(xhr.url("/player/autocomplete", { term: name, exists: 1 }))
         .then((res) => $exists.toggle(res));
-    console.log("USERNAMECHECK");
   }, 300);
 
   $form.on("submit", () =>

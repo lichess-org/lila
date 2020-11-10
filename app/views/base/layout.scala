@@ -153,7 +153,9 @@ object layout {
           depsTag,
           jsModule("site")
         ),
+      span("start_more_js"),
       moreJs,
+      span("end_more_js"),
       ctx.pageData.inquiry.isDefined option jsTag("inquiry.js")
     )
 

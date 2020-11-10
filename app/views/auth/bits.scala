@@ -27,10 +27,7 @@ object bits {
         autocomplete := (if (register) "new-password" else "current-password")
       ),
       if (register)
-        div(cls := "password-complexity-meter")(
-          for ((index) <- 1 to 5)
-            yield span(id := s"password-complexity-bar-$index")
-        ),
+        form3.passwordComplexityMeter(),
       emailOption.map { email =>
         form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
           form3.input(_, typ = "email")(required)
