@@ -15,6 +15,8 @@ final private[puzzle] class Daily(
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
+  import BsonHandlers._
+
   private val cache =
     cacheApi.unit[Option[DailyPuzzle]] {
       _.refreshAfterWrite(30 minutes)
@@ -34,10 +36,8 @@ final private[puzzle] class Daily(
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle]] = {
     import makeTimeout.short
-    ~puzzle.fenAfterInitialMove.map { fen =>
-      renderer.actor ? RenderDaily(puzzle, fen, puzzle.initialMove.uci) map { case html: String =>
-        DailyPuzzle(html, puzzle.color, puzzle.id).some
-      }
+    renderer.actor ? RenderDaily(puzzle, puzzle.fenAfterInitialMove, puzzle.line.head.uci) map {
+      case html: String => DailyPuzzle(html, puzzle.color, puzzle.id).some
     }
   } recover { case e: Exception =>
     logger.warn("make daily", e)
@@ -54,9 +54,8 @@ final private[puzzle] class Daily(
 
   private def findNew =
     coll { c =>
-      c.find(
-        $doc(F.day $exists false, F.voteNb $gte 200)
-      ).sort($doc(F.voteRatio -> -1))
+      c.find($doc(F.day $exists false))
+        .sort($doc(F.vote -> -1))
         .one[Puzzle] flatMap {
         case Some(puzzle) =>
           c.update.one(
@@ -72,6 +71,6 @@ object Daily {
   type Try = () => Fu[Option[DailyPuzzle]]
 }
 
-case class DailyPuzzle(html: String, color: chess.Color, id: Int)
+case class DailyPuzzle(html: String, color: chess.Color, id: Puzzle.Id)
 
 case class RenderDaily(puzzle: Puzzle, fen: chess.format.FEN, lastMove: String)
