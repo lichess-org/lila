@@ -199,6 +199,8 @@
     <item quantity="other">%s mga laro ko</item>
   </plurals>
   <string name="cancel">Ikansela</string>
+  <string name="whiteTimeOut">Puti oras na</string>
+  <string name="blackTimeOut">Itim oras na</string>
   <string name="drawOfferSent">Naipadala na ang alok na tabla</string>
   <string name="drawOfferDeclined">Tinanggihan ang alok na tabla</string>
   <string name="drawOfferAccepted">Tinanggap ang alok na tabla</string>
@@ -274,6 +276,7 @@
     <item quantity="one">Magbigay ng %s segundo</item>
     <item quantity="other">Magbigay ng %s mga segundo</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Ang account na ito ay lumabag sa Mga Palatuntunan ng Lichess</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ang manlalarong ito artipisyal na dagdagan/nababawasan ang marka</string>
   <string name="openingExplorerAndTablebase">Bubukas tagalakbay &amp; base ng talahanayan</string>
   <string name="takeback">Kunin muli</string>
@@ -290,6 +293,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s puntos ng paligsahan</item>
     <item quantity="other">%s mga puntos ng paligsahan</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s pagaaral</item>
+    <item quantity="other">%s mga pagaaral</item>
   </plurals>
   <string name="viewTournament">Tingnan ang paligsahan</string>
   <string name="backToTournament">Bumalik sa paligsahan</string>
@@ -322,16 +329,19 @@
   <string name="siteDescription">Libreng online na server ng chess. Maglaro ng Chess ngayon sa isang malinis na interface. Walang rehistrasyon, walang mga ad, walang plugin na kailangan. Maglaro ng Chess kasama ang kompyuter, mga kaibigan, o kahit sinong mga kalaban.</string>
   <string name="xJoinedTeamY">%1$s sumali sa koponan %2$s</string>
   <string name="xCreatedTeamY">%1$s nagawa na koponan %2$s</string>
+  <string name="xStartedStreaming">%s nagsimulang mag-stream</string>
   <string name="averageElo">Karaniwang marka</string>
   <string name="location">Lokasyon</string>
   <string name="filterGames">Salain ang mga laro</string>
   <string name="reset">Ibalik</string>
   <string name="apply">Isumite</string>
+  <string name="save">I-save</string>
   <string name="leaderboard">Board ng Pinuno</string>
   <string name="pasteTheFenStringHere">I-paste ang FEN na sulat dito</string>
   <string name="pasteThePgnStringHere">I-paste ang PGN na sulat dito</string>
   <string name="fromPosition">Mula sa posisyon</string>
   <string name="continueFromHere">Magpatuloy mula dito</string>
+  <string name="toStudy">Pagaralan</string>
   <string name="importGame">Magluwas ng laro</string>
   <string name="importGameExplanation">Kapag nagpaste ng isang PGN na laro makakakuha ng isang nabrobrowse na pag-ulit, isang pagsusuri ng kompyuter, isang chat ng laro at isang napapasa na URL.</string>
   <plurals name="nbImportedGames">
@@ -342,8 +352,14 @@
   <string name="clickOnTheBoardToMakeYourMove">I-click sa board para makagawa ng iyong galaw, at patunayan na ikaw ay tao.</string>
   <string name="captcha.fail">Pakilutas ang captcha ng chess.</string>
   <string name="notACheckmate">Hindi ito checkmate</string>
+  <string name="whiteCheckmatesInOneMove">Magmamate ang Puti sa isang tira</string>
+  <string name="blackCheckmatesInOneMove">Magmamate ang Itim sa isang tira</string>
   <string name="retry">Subukan muli</string>
   <string name="reconnecting">Muling Kumukonekta</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s kaibigan sa online</item>
+    <item quantity="other">%s mga kaibigan sa online</item>
+  </plurals>
   <string name="noFriendsOnline">Walang mga kaibigang online</string>
   <string name="findFriends">Maghanap ng Kaibigan</string>
   <string name="favoriteOpponents">Paboritong mga kalaban</string>
@@ -382,11 +398,14 @@
   <string name="createANewTournament">Gumawa ng baong torneo</string>
   <string name="tournamentCalendar">Kalendaryo ng mga paligsahan</string>
   <string name="conditionOfEntry">Kondisyon para makapasok:</string>
+  <string name="advancedSettings">Masulong na mga setting</string>
   <string name="safeTournamentName">Pumili ka ng angkop na pangalan ng paligsahan.</string>
   <string name="inappropriateNameWarning">Maaaring masara ang iyong account kapag naglagay ka ng kahit anong hindi naaangkop na bagay.</string>
   <string name="emptyTournamentName">Pabayaang walang laman upang pangalanan ang paligsahang ito sa isang Grandmaster.</string>
   <string name="recommendNotTouching">Payo naming huwag pakialaman ang mga ito.</string>
   <string name="fewerPlayers">Kung maglagay ka ng mga kondisyon upang makapasok, kakaunti ang mga maglalaro ng iyong paligsahan.</string>
+  <string name="showAdvancedSettings">Ipakita ang mga masulong na setting</string>
+  <string name="makePrivateTournament">Gawing pribado ang paligsahan, at higpitan ang access sa pamamagitan ng isang password</string>
   <string name="join">Sumali</string>
   <string name="withdraw">Umalis</string>
   <string name="points">Punto</string>
@@ -428,6 +447,7 @@
   <string name="lastName">Apelyido</string>
   <string name="biography">Talambuhay</string>
   <string name="country">Bansa</string>
+  <string name="socialMediaLinks">Mga link ng social media</string>
   <string name="inlineNotation">Nakalinyang notasyon</string>
   <string name="watchLichessTV">Tumingin sa Lichess TV</string>
   <string name="previouslyOnLichessTV">Ang Nakaraan sa Lichess TV</string>
@@ -453,6 +473,7 @@
   <string name="pleaseVotePuzzle">Tulungan ang Lichess na umunlad sa pagboto, gamit ang taas o baba na arrow:</string>
   <string name="thankYou">Salamat!</string>
   <string name="ratingX">Marka: %s</string>
+  <string name="hidden">nakatago</string>
   <plurals name="playedXTimes">
     <item quantity="one">Nalaro %s na oras</item>
     <item quantity="other">Nalaro %s na mga oras</item>
@@ -510,6 +531,8 @@
   <string name="currentPassword">Kasalukuyang password</string>
   <string name="newPassword">Bagong password</string>
   <string name="newPasswordAgain">Bagong password (muli)</string>
+  <string name="clockInitialTime">Panimulang oras ng Orasan</string>
+  <string name="clockIncrement">Dagdag sa orasan</string>
   <string name="privacy">Pagiging Pribado</string>
   <string name="letOtherPlayersFollowYou">Hayaan ang ibang manlalaro na sundan ka</string>
   <string name="letOtherPlayersChallengeYou">Hayaan ang ibang manlalaro na hamunin ka</string>
@@ -560,6 +583,8 @@
   <string name="playOfflineComputer">Makina</string>
   <string name="opponent">Kalaban</string>
   <string name="learnMenu">Matuto</string>
+  <string name="studyMenu">Pagaralan</string>
+  <string name="practice">Magensayo</string>
   <string name="community">Komunidad</string>
   <string name="tools">Mga Kagamitan</string>
   <string name="increment">Pagdagdag</string>
@@ -588,8 +613,11 @@
   <string name="tpTimeSpentOnTV">Oras sa TV: %s</string>
   <string name="watch">Manood</string>
   <string name="videoLibrary">Lalagyan ng mga Video</string>
+  <string name="streamersMenu">Mga streamer</string>
   <string name="mobileApp">Aplikasyon sa Mobile</string>
   <string name="webmasters">Webmasters</string>
+  <string name="about">Patungkol</string>
+  <string name="aboutX">Tungkol sa %s</string>
   <string name="really">talaga</string>
   <string name="contribute">Mag-ambag</string>
   <string name="termsOfService">Termino ng Serbisyo</string>
@@ -638,6 +666,9 @@
   <string name="yourPerfTypeRatingIsRating">Ang iyong %1$s marka ay %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ikaw ay mas magaling kaysa sa %1$s ng %2$s mga manlalaro.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ikaw ay walang naitatag %s na marka.</string>
+  <string name="yourRating">Ang iyong grado</string>
+  <string name="cumulative">Naiipon</string>
+  <string name="glicko2Rating">Grado ng Glicko-2</string>
   <string name="checkYourEmail">Suriin ang iyong Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Kami ay nagpadala ng email sa iyo. I-click ang link sa email upang paganahin ang iyong akawnt.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kung wala kang nakikitang email, suriin ang ibang lugar kagaya ng junk, spam, mga sosyal, o ibang mga folder.</string>
@@ -782,4 +813,45 @@
     <item quantity="one">at i-save %s bago gumalaw na linya</item>
     <item quantity="other">at i-save %s bago gumalaw na mga linya</item>
   </plurals>
+  <string name="sorry">Pasensya na :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Kinailangan naming tapusin ang oras mo pansamantala.</string>
+  <string name="timeoutExpires">Ang pagtatapos ng oras ay magwawakas sa loob ng %s.</string>
+  <string name="why">Bakit?</string>
+  <string name="pleasantChessExperience">Nilalayon naming makapagbigay ng isang nakalulugod na karanasan sa ahedres para sa lahat.</string>
+  <string name="goodPractice">Sa ganoong kahulugan, kailangan naming siguruhin na ang lahat ng mga manlalaro ay susunod sa mabuting gawi.</string>
+  <string name="potentialProblem">Kapag ang isang potensyal na problema ay natuklasan, ipinapakita namin ang mensaheng ito.</string>
+  <string name="howToAvoidThis">Papaano ito maiiwasan?</string>
+  <string name="playEveryGame">Laruin ang bawat larong sisimulan mo.</string>
+  <string name="tryToWin">Subukan mong maipanalo (o maitabla man lamang) ang bawat larong nilalaro mo.</string>
+  <string name="resignLostGames">Magbitiw sa mga talong laro (huwag hayaang maubos ang oras).</string>
+  <string name="temporaryInconvenience">Humihingi kami ng paumanhin sa pansamantalang abala,</string>
+  <string name="wishYouGreatGames">at hiling ko para sa iyo na magkaroon ka ng mga dakilang laro sa lichess.org.</string>
+  <string name="thankYouForReading">Salamat sa pagbasa!</string>
+  <string name="lifetimeScore">Panghabambuhay na iskor</string>
+  <string name="currentMatchScore">Kasalukuyang iskor ng labanan</string>
+  <string name="agreementAssistance">Sumasang-ayon ako na hindi ako kailanman tatanggap ng ayuda sa panahon ng aking mga laro (mula sa isang kompyuter ng ahedres, aklat, database o sa ibang tao).</string>
+  <string name="agreementNice">Sumasang-ayon ako na lagi akong magiging magalang sa ibang mga manlalaro.</string>
+  <string name="agreementAccount">Sumasang-ayon ako na hindi ako lilikha ng maraming mga account.</string>
+  <string name="rapid">Mabilisan</string>
+  <string name="classical">Klasiko</string>
+  <string name="ultraBulletDesc">Nakakabuwang na mabibilis na mga laro: mas mababa sa tatlumpung segundo</string>
+  <string name="bulletDesc">Lubhang mabibilis na mga laro: mas mababa sa tatlong minuto</string>
+  <string name="blitzDesc">Mabibilis na mga laro: tatlo hanggang walong minuto</string>
+  <string name="rapidDesc">Mabilisang mga laro: walo hanggang dalawmpu\'t limang minuto</string>
+  <string name="classicalDesc">Klasikong mga laro: dalawampu\'t limang minuto at higit pa</string>
+  <string name="correspondenceDesc">Pagsusulatang mga laro: isa o maramihang araw bawat tira</string>
+  <string name="puzzleDesc">Tagahasa ng mga taktika sa ahedres</string>
+  <string name="important">Mahalaga</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Ang iyong katanungan ay maaaring mayroon ng kasagutan %1$s</string>
+  <string name="inTheFAQ">nasa F.A.Q.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Para isumbong ang isang manlalaro sa pandaraya o kasamaan ng ugali, %1$s</string>
+  <string name="useTheReportForm">gamitin ang form na pang-sumbong</string>
+  <string name="toRequestSupport">Para humiling ng suporta, %1$s</string>
+  <string name="tryTheContactPage">subukan ang pahina ng kontak</string>
+  <string name="thisTopicIsArchived">Ang paksang ito ay naisa-baol na at hindi na maaaring sagutin.</string>
+  <string name="joinTheTeamXToPost">Sumali sa %1$s, para magpaskil sa forum na ito</string>
+  <string name="teamNamedX">%1$s koponan</string>
+  <string name="youCannotPostYetPlaySomeGames">Hindi ka pa maaaring magpaskil sa mga forum. Maglaro ng ilang mga laro!</string>
+  <string name="subscribe">Mag-subscribe</string>
+  <string name="unsubscribe">Mag-unsubscribe</string>
 </resources>

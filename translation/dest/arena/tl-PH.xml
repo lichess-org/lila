@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Mga paligsahan sa arena</string>
   <string name="isItRated">Ito ba ay rated?</string>
   <string name="willBeNotified">Ikaw ay maabisuhan kapag ang paligsahan ay nagsimula na, kaya ligtas ang maglaro sa ibang tab habang naghihintay.</string>
   <string name="isRated">Itong paligsahan ay rated at makakaapekto ito sa iyong rating.</string>

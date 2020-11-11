@@ -12,6 +12,8 @@
   <string name="chessPieceSymbol">Taflmannatákn</string>
   <string name="pgnLetter">Bókstafir (K, Q, R, B, N)</string>
   <string name="zenMode">Lágmarka truflanir í leik</string>
+  <string name="displayBoardResizeHandle">Sýna tól til að stækka og minnka borðið</string>
+  <string name="onlyOnInitialPosition">Einungis í upphafsstöðu</string>
   <string name="blindfoldChess">Blindskák (ósýnilegir taflmenn)</string>
   <string name="chessClock">Skákklukka</string>
   <string name="tenthsOfSeconds">Sekúndutíundir</string>
@@ -34,8 +36,10 @@
   <string name="moveConfirmation">Staðfesta leik</string>
   <string name="inCorrespondenceGames">Bréfaskákleikir</string>
   <string name="correspondenceAndUnlimited">Bréfaskipti og ótakmarkað</string>
+  <string name="confirmResignationAndDrawOffers">Staðfesta uppgjöf og boð um jafntefli</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Hrókunaraðferð</string>
   <string name="castleByMovingTwoSquares">Færa kóng um tvo reiti</string>
   <string name="castleByMovingOntoTheRook">Færa kóng á hrókinn</string>
+  <string name="inputMovesWithTheKeyboard">Leika með lyklaborðinu</string>
   <string name="yourPreferencesHaveBeenSaved">Stillingar þínar voru vistaðar</string>
 </resources>
