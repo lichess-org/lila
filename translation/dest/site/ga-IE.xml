@@ -80,6 +80,7 @@
   <string name="topGames">Cluichí is fearr</string>
   <string name="masterDbExplanation">Dhá mhilliúin cluichí thar an mbord %1$s imreoirí le rátáil FIDE ó %2$s go %3$s</string>
   <string name="noGameFound">Ní bhfuarathas aon cluichí</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh leis an sainroghchlár.</string>
   <string name="allSet">Réidh le n-imeacht!</string>
   <string name="importPgn">Iompórtaigh PGN</string>
   <string name="delete">Scrios</string>
@@ -133,6 +134,8 @@
   <string name="ratingStats">Staitisticí rátála</string>
   <string name="username">Ainm úsáideora</string>
   <string name="usernameOrEmail">Ainm úsáideora</string>
+  <string name="changeUsername">Athraigh ainm an úsáideora</string>
+  <string name="changeUsernameDescription">Athraigh d\'ainm úsáideora. Ní féidir é seo a dhéanamh ach uair amháin agus ní féidir ach cás na litir ann a athrú.</string>
   <string name="password">Focal faire</string>
   <string name="changePassword">Athraigh pasfhocal</string>
   <string name="changeEmail">Athraigh ríomhphost</string>
@@ -254,6 +257,7 @@
   <string name="xStartedStreaming">Thosaigh %s ag streamáil</string>
   <string name="averageElo">Meánrátáil</string>
   <string name="location">Láthair</string>
+  <string name="apply">Deimhnigh</string>
   <string name="save">Sábháil</string>
   <string name="toStudy">Staidéar</string>
   <string name="importGame">Déan cluiche a iompórtáil</string>
@@ -426,6 +430,7 @@
   <string name="tools">Uirlisí</string>
   <string name="playOnline">Imir ar líne</string>
   <string name="playOffline">Imir as líne</string>
+  <string name="onlyFriends">Cairde amháin</string>
   <string name="castling">Caisleáil</string>
   <string name="whiteCastlingKingside">Bán O-O</string>
   <string name="blackCastlingKingside">Dubh O-O</string>
