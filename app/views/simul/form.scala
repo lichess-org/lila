@@ -50,7 +50,12 @@ object form {
             a(href := routes.Simul.show(simul.id))(trans.cancel()),
             form3.submit(trans.save(), icon = "g".some)
           )
-        )
+        ),
+          postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
+            submitButton(dataIcon := "j", cls := "text button button-red confirm")(
+              "Cancel the simul"
+            )
+          )
       )
     }
 
