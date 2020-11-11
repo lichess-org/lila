@@ -112,7 +112,7 @@ object HTTPRequest {
   def clientName(req: RequestHeader) =
     // the mobile app sends XHR headers
     if (isXhr(req)) apiVersion(req).fold("xhr") { v =>
-      s"api/$v"
+      s"mobile/$v"
     }
     else if (isCrawler(req)) "crawler"
     else "browser"
