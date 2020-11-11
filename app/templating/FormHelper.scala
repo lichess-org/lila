@@ -197,13 +197,11 @@ trait FormHelper { self: I18nHelper =>
       group(field, content)(input(_, typ = "password")(required)(modifiers))
 
     def passwordComplexityMeter(): Frag =
-      frag(
-        div(cls := "password-complexity")(
-          label(cls := "password-complexity-label")(""),
-          div(cls := "password-complexity-meter")(
-            for ((index) <- 1 to 4)
-              yield span()
-          )
+      div(cls := "password-complexity")(
+        label(cls := "password-complexity-label"),
+        div(cls := "password-complexity-meter")(
+          for (_ <- 1 to 4)
+            yield span()
         )
       )
 

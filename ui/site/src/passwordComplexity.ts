@@ -6,7 +6,7 @@ export function addPasswordChangeListener(id: string): void {
     updatePasswordComplexityMeter(passwordInput.value);
   });
   // Update the meter if script loaded after user has already typed something
-  if (passwordInput?.value){
+  if (passwordInput.value) {
     updatePasswordComplexityMeter(passwordInput.value);
   }
 }
@@ -24,11 +24,7 @@ function updateMeter(score: number): void {
   const children = meter?.children || [];
 
   for (var i = 0; i < children.length; i++) {
-    if (i < score) {
-      (children[i] as HTMLElement).style.backgroundColor = color;
-    } else {
-      (children[i] as HTMLElement).style.backgroundColor = "";
-    }
+    (children[i] as HTMLElement).style.backgroundColor = i < score ? color : "";
   }
 }
 
@@ -58,7 +54,7 @@ function updateLabel(
         break;
       case 2:
         suggestionLabel.textContent =
-          "Somewhat guessable, but still susceptible to being cracked.";
+          "Somewhat guessable, still susceptible to being cracked.";
         break;
       case 3:
         suggestionLabel.textContent =

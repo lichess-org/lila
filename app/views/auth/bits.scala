@@ -26,8 +26,7 @@ object bits {
       form3.passwordModified(password, trans.password())(
         autocomplete := (if (register) "new-password" else "current-password")
       ),
-      if (register)
-        form3.passwordComplexityMeter(),
+      register option form3.passwordComplexityMeter(),
       emailOption.map { email =>
         form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
           form3.input(_, typ = "email")(required)
