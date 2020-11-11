@@ -331,6 +331,7 @@
   <string name="pasteThePgnStringHere">Límdu PGN strengnum hér</string>
   <string name="fromPosition">Frá staðsetningu</string>
   <string name="continueFromHere">Halda áfram héðan</string>
+  <string name="toStudy">Greina</string>
   <string name="importGame">Hlaða inn leik</string>
   <string name="importGameExplanation">Límdu PGN leiks til að fá endursýningu sem hægt er að skoða
 í vafra, tölvugreiningu, spjall og deilanlega vefslóð.</string>
@@ -739,6 +740,7 @@
   <string name="seeBestMove">Sjá besta leik</string>
   <string name="hideBestMove">Fela besta leik</string>
   <string name="getAHint">Fá vísbendingu</string>
+  <string name="evaluatingYourMove">Greini leikinn þinn ...</string>
   <string name="whiteWinsGame">Hvítt vinnur</string>
   <string name="blackWinsGame">Svartur vinnur</string>
   <string name="learnFromYourMistakes">Lærðu af mistökum þínum</string>
