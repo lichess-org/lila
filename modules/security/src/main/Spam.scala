@@ -16,6 +16,7 @@ final class Spam(spamKeywords: () => lila.common.Strings) {
       "chess24.com?ref=",
       "chess.com/register?refId=",
       "chess.com/register?ref_id=",
+      "chess.com/membership?ref_id=",
       "decodechess.com/ref/"
     )
 
