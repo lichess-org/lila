@@ -21,7 +21,7 @@ object login {
       moreJs = frag(
         jsModule("login"),
         embedJsUnsafeLoadThen("""loginSignup.loginStart()""")
-      ),    
+      ),
       moreCss = cssTag("auth")
     ) {
       main(cls := "auth auth-login box box-pad")(
