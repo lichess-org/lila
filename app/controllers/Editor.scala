@@ -1,6 +1,5 @@
 package controllers
 
-
 import chess.format.{ FEN, Forsyth }
 import chess.Situation
 import play.api.libs.json._
