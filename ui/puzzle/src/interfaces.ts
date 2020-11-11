@@ -59,13 +59,14 @@ export interface Vm {
   nodeList: Tree.Node[];
   node: Tree.Node;
   mainline: Tree.Node[];
+  pov: Color;
   mode: 'play' | 'view' | 'try';
   loading: boolean;
   round: any;
   voted?: boolean | null;
   justPlayed?: Key;
   resultSent: boolean;
-  lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
+  lastFeedback: 'init' | 'fail' | 'win' | 'good';
   initialPath: Tree.Path;
   initialNode: Tree.Node;
   canViewSolution: boolean;
@@ -112,7 +113,6 @@ export interface PuzzleGame {
   rated: boolean;
   players: Array<{userId: string, name: string, color: Color}>;
   treeParts: Tree.Node[];
-  clock: string;
 }
 
 export interface PuzzleUser {
@@ -121,14 +121,10 @@ export interface PuzzleUser {
 }
 
 export interface Puzzle {
-  id: number;
-  enabled: boolean;
-  vote: number;
-  color: Color;
-  lines: Lines;
-  branch: any;
+  id: string;
+  solution: Tree.Node;
   rating: number;
-  attempts: number;
+  plays: number;
   initialPly: number;
 }
 
@@ -139,11 +135,6 @@ export interface PuzzleRound {
     win: boolean;
   };
   voted?: null | true | false;
-}
-
-export interface PuzzleVote {
-  0: true | false; // up/down
-  1: number; // new score
 }
 
 export interface Promotion {

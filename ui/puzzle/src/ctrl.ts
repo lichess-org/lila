@@ -1,24 +1,24 @@
-import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
-import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
-import keyboard from './keyboard';
-import { moveTestBuild, MoveTestFn } from './moveTest';
-import mergeSolution from './solution';
-import makePromotion from './promotion';
-import computeAutoShapes from './autoShape';
-import { defined, prop, Prop } from 'common';
-import { storedProp } from 'common/storage';
-import throttle from 'common/throttle';
-import * as xhr from './xhr';
 import * as speech from './speech';
-import { Role, Move, Outcome } from 'chessops/types';
-import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
-import { parseFen, makeFen } from 'chessops/fen';
-import { makeSanAndPlay } from 'chessops/san';
+import * as xhr from './xhr';
+import computeAutoShapes from './autoShape';
+import keyboard from './keyboard';
+import makePromotion from './promotion';
+import mergeSolution from './solution';
+import throttle from 'common/throttle';
+import { Api as CgApi } from 'chessground/api';
+import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Chess } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
-import { Api as CgApi } from 'chessground/api';
-import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, PuzzleVote, MoveTest } from './interfaces';
+import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
+import { defined, prop, Prop } from 'common';
+import { makeSanAndPlay } from 'chessops/san';
+import { moveTestBuild, MoveTestFn } from './moveTest';
+import { parseFen, makeFen } from 'chessops/fen';
+import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
+import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, MoveTest } from './interfaces';
+import { Role, Move, Outcome } from 'chessops/types';
+import { storedProp } from 'common/storage';
 
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
@@ -53,7 +53,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   function initiate(fromData: PuzzleData): void {
     data = fromData;
     tree = treeBuild(treeOps.reconstruct(data.game.treeParts));
-    var initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
+    const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
     // play | try | view
     vm.mode = 'play';
     vm.loading = false;
@@ -64,6 +64,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.lastFeedback = 'init';
     vm.initialPath = initialPath;
     vm.initialNode = tree.nodeAtPath(initialPath);
+    vm.pov = vm.initialNode.ply % 2 == 0 ? 'black' : 'white';
 
     setPath(treePath.init(initialPath));
     setTimeout(function() {
@@ -100,16 +101,16 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     const node = vm.node;
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
     const dests = chessgroundDests(position());
-    const movable = (vm.mode === 'view' || color === data.puzzle.color) ? {
+    const movable = (vm.mode === 'view' || color === vm.pov) ? {
       color: dests.size > 0 ? color : undefined,
       dests
     } : {
-      color: undefined,
-      dests: new Map(),
-    };
+        color: undefined,
+        dests: new Map(),
+      };
     const config = {
       fen: node.fen,
-      orientation: data.puzzle.color,
+      orientation: vm.pov,
       turnColor: color,
       movable: movable,
       premovable: {
@@ -119,8 +120,8 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       lastMove: uciToLastMove(node.uci)
     };
     if (node.ply >= vm.initialNode.ply) {
-      if (vm.mode !== 'view' && color !== data.puzzle.color) {
-        config.movable.color = data.puzzle.color;
+      if (vm.mode !== 'view' && color !== vm.pov) {
+        config.movable.color = vm.pov;
         config.premovable.enabled = true;
       }
     }
@@ -216,9 +217,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
         vm.mode = 'try';
         sendResult(false);
       }
-    } else if (progress === 'retry') {
-      vm.lastFeedback = 'retry';
-      revertUserMove();
     } else if (progress === 'win') {
       if (vm.mode !== 'view') {
         if (vm.mode === 'play') sendResult(true);
@@ -382,7 +380,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (!vm.canViewSolution) return;
     sendResult(false);
     vm.mode = 'view';
-    mergeSolution(vm.initialNode, data.puzzle.branch, data.puzzle.color);
+    mergeSolution(vm.initialNode, data.puzzle.solution, vm.pov);
     reorderChildren(vm.initialPath, true);
 
     // try and play the solution next move
@@ -415,10 +413,8 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (callToVote()) thanksUntil = Date.now() + 2000;
     nbToVoteCall(5);
     vm.voted = v;
-    xhr.vote(data.puzzle.id, v).then((res: PuzzleVote) => {
-      data.puzzle.vote = res[1];
-      redraw();
-    });
+    xhr.vote(data.puzzle.id, v);
+    redraw();
   });
 
   initiate(opts.data);

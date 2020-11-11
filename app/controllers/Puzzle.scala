@@ -58,18 +58,18 @@ final class Puzzle(
       }
     }
 
-  def show(id: Puz.Id) =
+  def show(id: String) =
     Open { implicit ctx =>
       NoBot {
-        OptionFuResult(env.puzzle.api.puzzle find id)(renderShow)
+        OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id))(renderShow)
       }
     }
 
-  def load(id: Puz.Id) =
+  def load(id: String) =
     Open { implicit ctx =>
       NoBot {
         XhrOnly {
-          OptionFuOk(env.puzzle.api.puzzle find id)(puzzleJson) map (_ as JSON)
+          OptionFuOk(env.puzzle.api.puzzle find Puz.Id(id))(puzzleJson _).dmap(_ as JSON)
         }
       }
     }
@@ -90,8 +90,7 @@ final class Puzzle(
       }
     }
 
-  // new API
-  def round2(id: Puz.Id) =
+  def round2(id: String) =
     OpenBody { implicit ctx =>
       NoBot {
         ???
@@ -133,7 +132,7 @@ final class Puzzle(
       }
     }
 
-  def vote(id: Puz.Id) =
+  def vote(id: String) =
     AuthBody { implicit ctx => me =>
       NoBot {
         ???

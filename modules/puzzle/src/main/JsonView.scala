@@ -59,13 +59,33 @@ final class JsonView(
         "id"         -> puzzle.id,
         "rating"     -> puzzle.glicko.intRating,
         "plays"      -> puzzle.plays,
-        "fen"        -> puzzle.fen,
-        "color"      -> puzzle.color.name,
         "initialPly" -> puzzle.initialPly,
-        "gameId"     -> puzzle.gameId,
-        "line"       -> puzzle.line.toList.map(_.uci).mkString(" "),
+        "solution"   -> makeSolution(puzzle).map(defaultNodeJsonWriter.writes),
         "vote"       -> puzzle.vote
       )
+
+  private def makeSolution(puzzle: Puzzle): Option[tree.Branch] = {
+    import chess.format._
+    val init = chess.Game(none, puzzle.fenAfterInitialMove.some).withTurns(puzzle.initialPly)
+    val (_, branchList) = puzzle.line.tail.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)) {
+      case ((prev, branches), uci) =>
+        val (game, move) =
+          prev(uci.orig, uci.dest, uci.promotion).fold(err => sys error s"puzzle ${puzzle.id} $err", identity)
+        val branch = tree.Branch(
+          id = UciCharPair(move.toUci),
+          ply = game.turns,
+          move = Uci.WithSan(move.toUci, game.pgnMoves.last),
+          fen = chess.format.Forsyth >> game,
+          check = game.situation.check,
+          crazyData = none
+        )
+        (game, branch :: branches)
+    }
+    branchList.foldLeft[Option[tree.Branch]](None) {
+      case (None, branch)        => branch.some
+      case (Some(child), branch) => Some(branch addChild child)
+    }
+  }
 }
 
 object JsonView {

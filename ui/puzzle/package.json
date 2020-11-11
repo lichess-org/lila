@@ -21,7 +21,7 @@
     "@fnando/sparkline": "^0.3.10",
     "ceval": "2.0.0",
     "chessground": "^7.9.2",
-    "chessops": "^0.7.2",
+    "chessops": "^0.7.3",
     "common": "2.0.0",
     "snabbdom": "^0.7.4",
     "tree": "2.0.0"

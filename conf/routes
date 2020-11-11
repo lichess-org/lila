@@ -87,11 +87,7 @@ POST  /training/batch                  controllers.Puzzle.batchSolve
 GET   /training/:id                    controllers.Puzzle.show(id: String)
 GET   /training/:id/load               controllers.Puzzle.load(id: String)
 POST  /training/:id/vote               controllers.Puzzle.vote(id: String)
-POST  /training/:id/round              controllers.Puzzle.round(id: String)
-# new UI
-POST  /training/:id/round2             controllers.Puzzle.round2(id: Int)
-# mobile app BC
-POST  /training/:id/attempt            controllers.Puzzle.round(id: Int)
+POST  /training/:id/round2             controllers.Puzzle.round2(id: String)
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
