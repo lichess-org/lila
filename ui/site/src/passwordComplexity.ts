@@ -1,10 +1,5 @@
 import zxcvbn from "zxcvbn";
 
-interface PasswordFeedback {
-  suggestions: string[];
-  warning: string;
-}
-
 export function addPasswordChangeListener(id: string): void {
   const passwordInput = document.getElementById(id) as HTMLInputElement;
   passwordInput.addEventListener("input", () => {
@@ -40,7 +35,7 @@ function updateMeter(score: number): void {
 function updateLabel(
   passwordLength: number,
   score: number,
-  feedback: PasswordFeedback
+  feedback: zxcvbn.ZXCVBNFeedback
 ): void {
   const suggestionLabel = document.querySelector(
     ".password-complexity-label"
