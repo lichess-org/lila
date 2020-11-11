@@ -1,17 +1,23 @@
+import zxcvbn from "zxcvbn";
+
 interface PasswordFeedback {
   suggestions: string[];
   warning: string;
 }
 
-export function addPasswordChangeListener(id: string) {
+export function addPasswordChangeListener(id: string): void {
   const passwordInput = document.getElementById(id) as HTMLInputElement;
   passwordInput.addEventListener("input", () => {
     updatePasswordComplexityMeter(passwordInput.value);
   });
+  // Update the meter if script loaded after user has already typed something
+  if (passwordInput?.value){
+    updatePasswordComplexityMeter(passwordInput.value);
+  }
 }
 
 function updatePasswordComplexityMeter(password: string): void {
-  const analysis = window.zxcvbn(password);
+  const analysis = zxcvbn(password);
   updateMeter(analysis.score);
   updateLabel(password.length, analysis.score, analysis.feedback);
 }
@@ -64,8 +70,10 @@ function updateLabel(
           "Decent password, would require many guesses to crack.";
         break;
       case 4:
-        suggestionLabel.textContent = "Strong password and secure password!";
+        suggestionLabel.textContent = "Strong and secure password!";
         break;
+      default:
+        suggestionLabel.textContent = "";
     }
   }
 }

@@ -14,9 +14,10 @@ object passwd {
       title = trans.changePassword.txt(),
       active = "password",
       evenMoreJs = frag(
-        jsModule("passwordComplexity"),
-        embedJsUnsafeLoadThen("""passwordComplexity.addPasswordChangeListener('form3-newPasswd1')"""),
-        jsAt("javascripts/vendor/zxcvbn.min.js"),
+        embedJsUnsafeLoadThen("""
+          lichess.loadModule('passwordComplexity').then(() =>
+            passwordComplexity.addPasswordChangeListener('form3-newPasswd1')
+          )""")
       )
     ) {
       div(cls := "account box box-pad")(

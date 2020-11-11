@@ -1,7 +1,6 @@
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
 import spinnerHtml from './component/spinner';
-import { addPasswordChangeListener } from "./passwordComplexity";
 
 export function loginStart() {
 
@@ -59,8 +58,6 @@ export function signupStart() {
         $exists.hide();
         usernameCheck();
       });
-
-  addPasswordChangeListener("form3-password");
 
   const usernameCheck = debounce(() => {
     const name = $username.val() as string;

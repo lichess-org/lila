@@ -17,7 +17,10 @@ object signup {
         embedJsUnsafeLoadThen("""loginSignup.signupStart()"""),
         views.html.base.recaptcha.script(form),
         fingerprintTag,
-        jsAt("javascripts/vendor/zxcvbn.min.js"),
+        embedJsUnsafeLoadThen("""
+          lichess.loadModule('passwordComplexity').then(() =>
+            passwordComplexity.addPasswordChangeListener('form3-password')
+          )""")
       ),
       moreCss = cssTag("auth"),
       csp = defaultCsp.withRecaptcha.some
