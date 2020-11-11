@@ -49,11 +49,11 @@
   <string name="pawnIntro">Τα πιόνια είναι αδύναμα, αλλά έχουν αρκετές δυνατότητες.</string>
   <string name="pawnsMoveOneSquareOnly">Τα πιόνια κινούνται σε ένα τετράγωνο μόνο.
 Αλλά όταν φθάσουν στην άλλη πλευρά της σκακιέρας, μπορούν να αντικατασταθούν με ένα ισχυρότερο κομμάτι!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Τις περισσότερες φορές η προώθηση σε βασίλισσα είναι το καλύτερο.
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Τις περισσότερες φορές η προαγωγή σε βασίλισσα είναι το καλύτερο.
 Αλλά μερικές φορές ένας ίππος μπορεί να είναι χρήσιμος!</string>
   <string name="pawnsMoveForward">Τα πιόνια κινούνται προς τα εμπρός,
 αλλά αιχμαλωτίζουν διαγώνια!</string>
-  <string name="captureThenPromote">Αιχμαλωτίστε, έπειτα προωθήστε!</string>
+  <string name="captureThenPromote">Αιχμαλωτίστε, έπειτα προάγετε!</string>
   <string name="useAllThePawns">Χρησιμοποιήστε όλα τα πιόνια!
 Δεν χρειάζεται προαγωγή.</string>
   <string name="aPawnOnTheSecondRank">Ένα πιόνι στην δεύτερη γραμμή μπορεί να κινηθεί 2 τετράγωνα αμέσως!</string>
@@ -81,7 +81,7 @@
   <string name="noEscape">Δεν υπάρχει διαφυγή,
 αλλά υπάρχει άμυνα!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Αποτρέψτε το χάσιμο
-ανυπερασπίστων κομματιών!</string>
+ανυπεράσπιστων κομματιών!</string>
   <string name="combat">Μάχη</string>
   <string name="captureAndDefendPieces">Αιχμαλωτίστε και υπερασπιστείτε πιόνια</string>
   <string name="combatIntro">Ο καλός παίκτης γνωρίζει τόσο την επίθεση όσο και την άμυνα!</string>
