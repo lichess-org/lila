@@ -16,8 +16,7 @@ private class PuzzleConfig(
     @ConfigName("collection.vote") val voteColl: CollName,
     @ConfigName("collection.head") val headColl: CollName,
     @ConfigName("api.token") val apiToken: Secret,
-    @ConfigName("animation.duration") val animationDuration: FiniteDuration,
-    @ConfigName("selector.puzzle_id_min") val puzzleIdMin: Int
+    @ConfigName("animation.duration") val animationDuration: FiniteDuration
 )
 
 case class RoundRepo(coll: lila.db.AsyncColl)
@@ -45,9 +44,7 @@ final class Env(
   private def voteColl   = db(config.voteColl)
   private def headColl   = db(config.headColl)
 
-  private lazy val gameJson = wire[GameJson]
-
-  val idMin = config.puzzleIdMin
+  private lazy val gameJson: GameJson = wire[GameJson]
 
   lazy val jsonView = wire[JsonView]
 
@@ -68,24 +65,6 @@ final class Env(
     puzzleColl = puzzleColl
   )
 
-  lazy val selector = new Selector(
-    puzzleColl = puzzleColl,
-    api = api,
-    puzzleIdMin = config.puzzleIdMin
-  )
-
-  lazy val batch = new PuzzleBatch(
-    puzzleColl = puzzleColl,
-    api = api,
-    finisher = finisher,
-    puzzleIdMin = config.puzzleIdMin
-  )
-
-  lazy val userInfos = new UserInfosApi(
-    roundColl = roundColl,
-    currentPuzzleId = api.head.currentPuzzleId
-  )
-
   lazy val forms = PuzzleForm
 
   lazy val daily = new Daily(
@@ -101,10 +80,8 @@ final class Env(
 
   def cli =
     new lila.common.Cli {
-      def process = { case "puzzle" :: "disable" :: id :: Nil =>
-        id.toIntOption ?? { id =>
-          api.puzzle disable id inject "Done"
-        }
+      def process = { case "puzzle" :: "delete" :: id :: Nil =>
+        api.puzzle delete Puzzle.Id(id) inject "Done"
       }
     }
 }

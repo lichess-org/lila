@@ -87,8 +87,8 @@ object BuildSettings {
     "-Wdead-code",
     "-Wextra-implicit",
     // "-Wnumeric-widen",
-    "-Wunused:imports",
-    "-Wunused:locals",
+    // "-Wunused:imports",
+    // "-Wunused:locals",
     "-Wunused:patvars",
     // "-Wunused:privates", // unfortunately doesn't work with macros
     // "-Wunused:implicits",

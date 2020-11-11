@@ -29,15 +29,15 @@ object show {
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id).url).some,
+          image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id.value).url).some,
           title = s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
+          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
           description = s"Lichess tactic trainer: " + puzzle.color
             .fold(
               trans.findTheBestMoveForWhite,
               trans.findTheBestMoveForBlack
             )
-            .txt() + s" Played by ${puzzle.attempts} players."
+            .txt() + s" Played by ${puzzle.plays} players."
         )
         .some,
       zoomable = true

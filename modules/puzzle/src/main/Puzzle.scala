@@ -1,9 +1,7 @@
 package lila.puzzle
 
 import cats.data.NonEmptyList
-import chess.Color
 import chess.format.{ FEN, Forsyth, Uci }
-import scala.util.{ Success, Try }
 
 import lila.rating.Glicko
 

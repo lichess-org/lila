@@ -81,14 +81,13 @@ GET   /training                        controllers.Puzzle.home
 GET   /training/new                    controllers.Puzzle.newPuzzle
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/frame                  controllers.Puzzle.frame
-GET   /training/export/png/:id.png     controllers.Export.legacyPuzzleThumbnail(id: Int)
-GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: Int)
+GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: String)
 GET   /training/batch                  controllers.Puzzle.batchSelect
 POST  /training/batch                  controllers.Puzzle.batchSolve
-GET   /training/:id                    controllers.Puzzle.show(id: Int)
-GET   /training/:id/load               controllers.Puzzle.load(id: Int)
-POST  /training/:id/vote               controllers.Puzzle.vote(id: Int)
-POST  /training/:id/round              controllers.Puzzle.round(id: Int)
+GET   /training/:id                    controllers.Puzzle.show(id: String)
+GET   /training/:id/load               controllers.Puzzle.load(id: String)
+POST  /training/:id/vote               controllers.Puzzle.vote(id: String)
+POST  /training/:id/round              controllers.Puzzle.round(id: String)
 # new UI
 POST  /training/:id/round2             controllers.Puzzle.round2(id: Int)
 # mobile app BC

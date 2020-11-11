@@ -23,93 +23,62 @@ final private[puzzle] class Finisher(
       result: Result,
       mobile: Boolean,
       isStudent: Boolean
-  ): Fu[(Round, Mode)] = {
-    val formerUserRating = user.perfs.puzzle.intRating
-    api.head.find(user) flatMap {
-      case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id || mobile =>
-        api.head.solved(user, puzzle.id) >> {
-          val userRating   = user.perfs.puzzle.toRating
-          val puzzleRating = puzzle.perf.toRating
-          updateRatings(userRating, puzzleRating, result.glicko)
-          val date = DateTime.now
-          val puzzlePerf =
-            puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating)
-          val userPerf =
-            user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
-          val round = new Round(
-            id = Round.Id(user.id, puzzle.id),
-            date = date,
-            result = result,
-            rating = formerUserRating,
-            ratingDiff = userPerf.intRating - formerUserRating
-          )
-          historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf)
-          (api.round upsert round) >> {
-            isStudent ?? api.round.addDenormalizedUser(round, user)
-          } >> {
-            puzzleColl {
-              _.update.one(
-                $id(puzzle.id),
-                $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
-                  $set(Puzzle.BSONFields.perf   -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
-              )
-            } zip userRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
-          } inject {
-            Bus.publish(
-              Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
-              "finishPuzzle"
-            )
-            round -> Mode.Rated
-          }
-        }
-      case _ =>
-        incPuzzleAttempts(puzzle) inject new Round(
-          id = Round.Id(user.id, puzzle.id),
-          date = DateTime.now,
-          result = result,
-          rating = formerUserRating,
-          ratingDiff = 0
-        ) -> Mode.Casual
-    }
-  }
-
-  /* offline solving from the mobile API
-   * avoid exploits by not updating the puzzle rating,
-   * only the user rating (we don't care about that one).
-   * Returns the user with updated puzzle rating */
-  def ratedUntrusted(puzzle: Puzzle, user: User, result: Result): Fu[User] = {
-    val formerUserRating = user.perfs.puzzle.intRating
-    val userRating       = user.perfs.puzzle.toRating
-    val puzzleRating     = puzzle.perf.toRating
-    updateRatings(userRating, puzzleRating, result.glicko)
-    val date = DateTime.now
-    val userPerf =
-      user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
-    val a = new Round(
-      id = Round.Id(user.id, puzzle.id),
-      date = date,
-      result = result,
-      rating = formerUserRating,
-      ratingDiff = userPerf.intRating - formerUserRating
-    )
-    (api.round add a) >>
-      userRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
-      Bus.publish(
-        Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
-        "finishPuzzle"
-      ) inject
-      user.copy(perfs = user.perfs.copy(puzzle = userPerf))
-  } recover lila.db.recoverDuplicateKey { _ =>
-    // logger.info(s"ratedUntrusted ${user.id} ${puzzle.id} duplicate round")
-    user // has already been solved!
-  }
+  ): Fu[(Round, Mode)] = ???
+  // val formerUserRating = user.perfs.puzzle.intRating
+  // api.head.find(user) flatMap {
+  //   case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id || mobile =>
+  //     api.head.solved(user, puzzle.id) >> {
+  //       val userRating   = user.perfs.puzzle.toRating
+  //       val puzzleRating = puzzle.perf.toRating
+  //       updateRatings(userRating, puzzleRating, result.glicko)
+  //       val date = DateTime.now
+  //       val puzzlePerf =
+  //         puzzle.perf.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id} user")(puzzleRating)
+  //       val userPerf =
+  //         user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, date)
+  //       val round = new Round(
+  //         id = Round.Id(user.id, puzzle.id),
+  //         date = date,
+  //         result = result,
+  //         rating = formerUserRating,
+  //         ratingDiff = userPerf.intRating - formerUserRating
+  //       )
+  //       historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf)
+  //       (api.round upsert round) >> {
+  //         isStudent ?? api.round.addDenormalizedUser(round, user)
+  //       } >> {
+  //         puzzleColl {
+  //           _.update.one(
+  //             $id(puzzle.id),
+  //             $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
+  //               $set(Puzzle.BSONFields.perf   -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
+  //           )
+  //         } zip userRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
+  //       } inject {
+  //         Bus.publish(
+  //           Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
+  //           "finishPuzzle"
+  //         )
+  //         round -> Mode.Rated
+  //       }
+  //     }
+  //   case _ =>
+  //     incPuzzleAttempts(puzzle) inject new Round(
+  //       id = Round.Id(user.id, puzzle.id),
+  //       date = DateTime.now,
+  //       result = result,
+  //       rating = formerUserRating,
+  //       ratingDiff = 0
+  //     ) -> Mode.Casual
+  // }
+  // }
 
   private val VOLATILITY = Glicko.default.volatility
   private val TAU        = 0.75d
   private val system     = new RatingCalculator(VOLATILITY, TAU)
 
-  def incPuzzleAttempts(puzzle: Puzzle): Funit =
-    puzzleColl.map(_.incFieldUnchecked($id(puzzle.id), Puzzle.BSONFields.attempts))
+  def incPuzzlePlays(puzzle: Puzzle): Funit =
+    puzzleColl.map(_.incFieldUnchecked($id(puzzle.id.value), Puzzle.BSONFields.plays))
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()

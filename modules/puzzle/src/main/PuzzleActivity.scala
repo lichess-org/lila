@@ -21,12 +21,13 @@ final class PuzzleActivity(
 ) {
 
   import PuzzleActivity._
-  import Round.RoundBSONHandler
+  import BsonHandlers._
+  import JsonView._
 
   def stream(config: Config): Source[String, _] =
     Source futureSource {
       roundColl.map {
-        _.find($doc("_id" $startsWith config.user.id))
+        _.find($doc("_id" $startsWith s"${config.user.id}${Round.idSep}"))
           .sort($sort desc "_id")
           .batchSize(config.perSecond.value)
           .cursor[Round](ReadPreference.secondaryPreferred)
@@ -44,7 +45,7 @@ final class PuzzleActivity(
 
   private def enrich(rounds: Seq[Round]): Fu[Seq[JsObject]] =
     puzzleColl {
-      _.primitiveMap[Int, Double](
+      _.primitiveMap[Puzzle.Id, Double](
         ids = rounds.map(_.id.puzzleId),
         field = "perf.gl.r",
         fieldExtractor = obj =>
@@ -59,8 +60,7 @@ final class PuzzleActivity(
             Json.obj(
               "id"           -> round.id.puzzleId,
               "date"         -> round.date,
-              "rating"       -> round.rating,
-              "ratingDiff"   -> round.ratingDiff,
+              "win"          -> round.win,
               "puzzleRating" -> puzzleRating.toInt
             )
           }
