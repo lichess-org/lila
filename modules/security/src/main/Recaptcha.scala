@@ -41,14 +41,22 @@ final class RecaptchaGoogle(
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Recaptcha {
 
-  private case class Response(
+  private case class GoodResponse(
       success: Boolean,
       hostname: String
   )
+  implicit private val goodReader = Json.reads[GoodResponse]
 
-  implicit private val responseReader = Json.reads[Response]
+  private case class BadResponse(
+      `error-codes`: List[String]
+  ) {
+    def missingInput      = `error-codes` contains "missing-input-response"
+    override def toString = `error-codes` mkString ","
+  }
+  implicit private val badReader = Json.reads[BadResponse]
 
   def verify(response: String, req: RequestHeader): Fu[Boolean] = {
+    val client = HTTPRequest clientName req
     ws.url(config.endpoint)
       .post(
         Map(
@@ -58,18 +66,29 @@ final class RecaptchaGoogle(
         )
       ) flatMap {
       case res if res.status == 200 =>
-        res.body[JsValue].validate[Response] match {
+        res.body[JsValue].validate[GoodResponse] match {
           case JsSuccess(res, _) =>
-            fuccess {
-              res.success && res.hostname == netDomain.value
-            }
+            lila.mon.security.recaptcha.hit(client, "success")
+            fuccess(res.success && res.hostname == netDomain.value)
           case JsError(err) =>
-            fufail(s"$err ${res.body}")
+            res.body[JsValue].validate[BadResponse].asOpt.pp match {
+              case Some(err) if err.missingInput =>
+                logger.warn(s"recaptcha missing ${HTTPRequest printClient req}")
+                lila.mon.security.recaptcha.hit(client, "missing")
+                fuccess(HTTPRequest.apiVersion(req).isDefined)
+              case Some(err) =>
+                lila.mon.security.recaptcha.hit(client, err.toString)
+                fuccess(false)
+              case _ =>
+                lila.mon.security.recaptcha.hit(client, "error")
+                logger.warn(s"recaptcha $err ${res.body}")
+                fuccess(false)
+            }
         }
-      case res => fufail(s"${res.status} ${res.body}")
-    } recover { case e: Exception =>
-      logger.info(s"recaptcha ${e.getMessage}")
-      true
+      case res =>
+        lila.mon.security.recaptcha.hit(client, res.status.toString)
+        logger.warn(s"recaptcha ${res.status} ${res.body}")
+        fuccess(false)
     }
   }
 }
