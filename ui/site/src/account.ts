@@ -6,7 +6,7 @@ lichess.load.then(() => {
   const courtesyStore = lichess.storage.make('courtesy');
 
   $('.security table form').on('submit', function(this: HTMLFormElement) {
-    xhr.text(this.action, { method: 'post' });  
+    xhr.text(this.action, { method: 'post' });
     $(this).parent().parent().remove();
     return false;
   });
