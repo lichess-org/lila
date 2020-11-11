@@ -16,7 +16,7 @@ mkdir -p public/compiled
 apps1="common"
 apps2="chess ceval game tree chat nvui"
 apps3="site swiss msg chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker dgt"
-site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText team forum account coachShow coachForm challengePage checkout login tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin"
+site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText team forum account coachShow coachForm challengePage checkout login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin"
 round_plugins="nvui keyboardMove"
 analyse_plugins="nvui studyTopicForm"
 

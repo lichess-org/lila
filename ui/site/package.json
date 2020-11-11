@@ -9,6 +9,7 @@
     "@build/rollupProject": "2.0.0",
     "@rollup/plugin-replace": "^2.3.3",
     "@types/fnando__sparkline": "^0.3.2",
+    "@types/zxcvbn": "^4.4.0",
     "rollup-plugin-copy": "^3.3.0"
   },
   "dependencies": {
@@ -22,7 +23,8 @@
     "stockfish-mv.wasm": "=0.4.0",
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "=0.8.0",
-    "tablesort": "^5.1"
+    "tablesort": "^5.1",
+    "zxcvbn": "^4.4.2"
   },
   "scripts": {
     "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",
