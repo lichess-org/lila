@@ -147,6 +147,7 @@
   <string name="username">Ainm úsáideora</string>
   <string name="usernameOrEmail">Ainm úsáideora</string>
   <string name="changeUsername">Athraigh ainm an úsáideora</string>
+  <string name="changeUsernameNotSame">Ní féidir ach cás na litreacha a athrú. Mar shampla ó \"seanog\" go \"SeanOg\".</string>
   <string name="changeUsernameDescription">Athraigh d\'ainm úsáideora. Ní féidir é seo a dhéanamh ach uair amháin agus ní féidir ach cás na litir ann a athrú.</string>
   <string name="password">Focal faire</string>
   <string name="changePassword">Athraigh pasfhocal</string>
@@ -175,6 +176,8 @@
   <string name="eventInProgress">Á imirt anois</string>
   <string name="finished">Críochnaithe</string>
   <string name="finishesX">ag críochnú %s</string>
+  <string name="abortGame">Éirigh as</string>
+  <string name="gameAborted">D\'éiríodh as an gcluiche</string>
   <string name="standard">Caighdeán</string>
   <string name="unlimited">Neamhtheoranta</string>
   <string name="mode">Modh</string>
@@ -192,9 +195,11 @@
   <string name="play">Imir</string>
   <string name="inbox">Bhosca</string>
   <string name="chatRoom">Seomra comhrá</string>
+  <string name="loginToChat">Sínigh isteach le teachtaireacht a sheoladh</string>
   <string name="youHaveBeenTimedOut">Tá tú curtha ar fionraí ar feadh tréimhse.</string>
   <string name="spectatorRoom">Seomra lucht féachana</string>
   <string name="composeMessage">Cruthaigh teachtaireacht</string>
+  <string name="noNewMessages">Níl aon teachtaireacht nua</string>
   <string name="subject">Ábhar</string>
   <string name="send">Seol</string>
   <string name="freeOnlineChess">Ficheall Shaor in Aisce Ar Líne</string>
