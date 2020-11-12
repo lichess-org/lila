@@ -851,7 +851,7 @@
   <string name="correspondenceDesc">Parties par correspondance : un jour ou plus par coup</string>
   <string name="puzzleDesc">Entraînement tactique</string>
   <string name="important">Important</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Votre question a peut-être déjà une réponse %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Votre question a peut-être déjà une réponse %1$s</string>
   <string name="inTheFAQ">dans la F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Pour signaler un utilisateur pour triche ou mauvais comportement, %1$s</string>
   <string name="useTheReportForm">utilisez le formulaire de signalement</string>
