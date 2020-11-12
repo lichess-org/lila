@@ -19,5 +19,5 @@ Bíodh spraoi agat, agus beidh do phíosaí teacht i gcónaí ar a mbealach chui
   <string name="logInToLichess">Logáil isteach go lichess.org %s</string>
   <string name="common_orPaste">(Cliceáil gan obair? Bain triail as é a chur isteach i do bhrabhsálaí!)</string>
   <string name="common_note">Is ríomhphost seirbhíse é seo a bhaineann le d\'úsáid %s.</string>
-  <string name="common_contact">Chun teagmháil a dhéanamh linn, bain úsáid asChun teagmháil a dhéanamh linn, bain úsáid as %s.</string>
+  <string name="common_contact">Chun teagmháil a dhéanamh linn, bain úsáid as %s.</string>
 </resources>

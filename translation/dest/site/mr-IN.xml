@@ -19,8 +19,8 @@
   <string name="black">काळा</string>
   <string name="randomColor">एच्छिक बाजू</string>
   <string name="createAGame">डाव मांडा</string>
-  <string name="whiteIsVictorious">पांढरा विजयी ठरला</string>
-  <string name="blackIsVictorious">काळा विजयी ठरला</string>
+  <string name="whiteIsVictorious">पांढऱ्याचा विजय झाला</string>
+  <string name="blackIsVictorious">काळ्याचा विजय झाला</string>
   <string name="youPlayTheWhitePieces">तुम्ही पांढऱ्या सोंगट्यानी खेळा</string>
   <string name="youPlayTheBlackPieces">तुम्ही काळ्या सोंगट्यानी खेळा</string>
   <string name="itsYourTurn">तुमची चाल!</string>
@@ -41,9 +41,9 @@
   <string name="makeYourOpponentResign">प्रतिस्पर्ध्याला हार मानायला लावा</string>
   <string name="forceResignation">विजयाचा दावा करा</string>
   <string name="forceDraw">सामना अनिर्णित ठेवण्याची विनंती करा</string>
-  <string name="talkInChat">गप्पांमध्ये सभ्यतेने बोला!</string>
+  <string name="talkInChat">कृपया गप्पांमध्ये सभ्यतेने बोला!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">या युआरएलवर येणारे पहिले व्यक्ती तुमच्याबरोबर खेळणार.</string>
-  <string name="whiteResigned">पांढऱ्याने हार मानली</string>
+  <string name="whiteResigned">पांढर्‍याने पराभव स्वीकारला</string>
   <string name="blackResigned">काळ्याने हार मानली</string>
   <string name="whiteLeftTheGame">पांढऱ्याने खेळ सोडला</string>
   <string name="blackLeftTheGame">काळ्याने खेळ सोडला</string>

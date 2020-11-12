@@ -49,7 +49,12 @@ Ta wartość może być użyta jako wskaźnik siły gry. Im mniej setnych częś
 
 Analiza komputerowa dostępna na Lichess wspierana jest przez silnik szachowy Stockfish.</string>
   <string name="insufficientMaterial">Przegrana z powodu upłynięcia czasu gry, remis i niewystarczający materiał aby zamatować przeciwnika</string>
-  <string name="fideHandbookX">Przepisy gry w szachy FIDE %s</string>
+  <string name="lichessFollowFIDErules">W przypadku gdy jednemu z graczy skończy się czas, gracz ten zazwyczaj przegrywa. Jednakże w przypadku gdy pozycja na szachownicy uniemożliwia przeciwnikowi doprowadzenie do zamatowania króla gracza żadną możliwą sekwencją ruchów (%1$s), gra jest remisowana.
+
+W rzadkich sytuacjach może to być trudne do automatycznego określenia (ruchy wymuszone, twierdze). Domyślnie zawsze stajemy po stronie gracza, któremu nie skończył się czas.
+
+Zauważ, że możliwe jest zamatowanie pojedynczym skoczkiem lub gońcem, jeżeli przeciwnik posiada bierkę, która może zablokować króla.</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Przepisy gry w szachy FIDE %s</string>
   <string name="discoveringEnPassant">Dlaczego pion może zbić piona, który ruszył się o dwa pola do przodu i nie jest już pod biciem? (bicie w przelocie)</string>
   <string name="explainingEnPassant">To jest legalny ruch znany jako \"bicie w przelocie\". Wikipedia daje %1$s do zrozumienia tego posunięcia.
 

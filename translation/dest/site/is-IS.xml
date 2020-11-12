@@ -211,6 +211,7 @@
   <string name="playingRightNow">Spilandi núna</string>
   <string name="eventInProgress">Spilandi þessa stundina</string>
   <string name="finished">Lokið</string>
+  <string name="finishesX">lýkur eftir %s</string>
   <string name="abortGame">Hverfa frá leik</string>
   <string name="gameAborted">Hætt við skák</string>
   <string name="standard">Staðlað</string>
@@ -330,6 +331,7 @@
   <string name="pasteThePgnStringHere">Límdu PGN strengnum hér</string>
   <string name="fromPosition">Frá staðsetningu</string>
   <string name="continueFromHere">Halda áfram héðan</string>
+  <string name="toStudy">Greina</string>
   <string name="importGame">Hlaða inn leik</string>
   <string name="importGameExplanation">Límdu PGN leiks til að fá endursýningu sem hægt er að skoða
 í vafra, tölvugreiningu, spjall og deilanlega vefslóð.</string>
@@ -595,7 +597,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Spilunartími: %s</string>
   <string name="watchGames">Horfa á leiki</string>
-  <string name="tpTimeSpentOnTV">Tími á sjónvarpi: %s</string>
+  <string name="tpTimeSpentOnTV">Tími í sjónvarpi: %s</string>
   <string name="watch">Horfa</string>
   <string name="videoLibrary">Myndbandasafn</string>
   <string name="mobileApp">App</string>
@@ -617,7 +619,7 @@
   <string name="aboutSimulImage">Af 50 andstæðingum vann Bobby 47, gerði jafntefli við 2 og tapaði gegn 1.</string>
   <string name="aboutSimulRealLife">Þessi hugmynd er fengin úr raunheimum. Þar myndi skákmaðurinn ganga frá borði til borð og leika einn leik í einu.</string>
   <string name="aboutSimulRules">Þegar hópskák hefst byrjar hver leikmaður leik við gestgjafann, sem fær að leika hvítt. Hópskákinni lýkur þegar allir leikir hafa klárast.</string>
-  <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Endurleikir, afturkallanir og aukatími er óvirkt.</string>
+  <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Endurleikir, afturkallanir og aukatími eru óvirk.</string>
   <string name="create">Opna</string>
   <string name="whenCreateSimul">Þegar þú stofnar til hópskákar spilarðu við marga leikmeinn í einu.</string>
   <string name="simulVariantsHint">Ef þú velur nokkur afbrigði fær hver andstæðingur að ákveða hvert þeirra hann vill leika.</string>
@@ -738,6 +740,7 @@
   <string name="seeBestMove">Sjá besta leik</string>
   <string name="hideBestMove">Fela besta leik</string>
   <string name="getAHint">Fá vísbendingu</string>
+  <string name="evaluatingYourMove">Greini leikinn þinn ...</string>
   <string name="whiteWinsGame">Hvítt vinnur</string>
   <string name="blackWinsGame">Svartur vinnur</string>
   <string name="learnFromYourMistakes">Lærðu af mistökum þínum</string>

@@ -489,19 +489,11 @@ final class TournamentApi(
       }.sequenceFu.void
     }
 
-  def ejectLame(userId: User.ID, playedIds: List[Tournament.ID]): Funit =
-    tournamentRepo.withdrawableIds(userId) flatMap { tourIds =>
-      (tourIds ::: playedIds).distinct
-        .map { ejectLame(_, userId) }
-        .sequenceFu
-        .void
-    }
-
   // withdraws the player and forfeits all pairings in ongoing tournaments
-  private def ejectLame(tourId: Tournament.ID, userId: User.ID): Funit =
-    Sequencing(tourId)(tournamentRepo.byId) { tour =>
+  private[tournament] def ejectLameFromEnterable(tourId: Tournament.ID, userId: User.ID): Funit =
+    Sequencing(tourId)(tournamentRepo.enterableById) { tour =>
       playerRepo.withdraw(tourId, userId) >> {
-        if (tour.isStarted)
+        tour.isStarted ?? {
           pairingRepo.findPlaying(tour.id, userId).map {
             _ foreach { currentPairing =>
               tellRound(currentPairing.gameId, AbortForce)
@@ -510,16 +502,24 @@ final class TournamentApi(
             pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
               lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour, none))
           }
-        else if (tour.isFinished && tour.winnerId.contains(userId))
+        }
+      } >>
+        updateNbPlayers(tour.id) >>-
+        socket.reload(tour.id) >>- publish()
+    }
+
+  // erases player from tournament and reassigns winner
+  private[tournament] def removePlayerAndRewriteHistory(tourId: Tournament.ID, userId: User.ID): Funit =
+    Sequencing(tourId)(tournamentRepo.finishedById) { tour =>
+      playerRepo.remove(tourId, userId) >> {
+        tour.winnerId.contains(userId) ?? {
           playerRepo winner tour.id flatMap {
             _ ?? { p =>
               tournamentRepo.setWinnerId(tour.id, p.userId)
             }
           }
-        else funit
-      } >>
-        updateNbPlayers(tour.id) >>-
-        socket.reload(tour.id) >>- publish()
+        }
+      }
     }
 
   private val tournamentTopNb = 20
