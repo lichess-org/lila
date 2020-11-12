@@ -3,7 +3,6 @@ import { bind, dataIcon } from '../util';
 import { Controller, MaybeVNode } from '../interfaces';
 
 function renderVote(ctrl: Controller): MaybeVNode {
-  var data = ctrl.getData();
   return h('div.vote', [
     h('a', {
       attrs: {

@@ -1,5 +1,5 @@
-import { path as pathOps } from 'tree';
 import { parseUci } from 'chessops/util';
+import { path as pathOps } from 'tree';
 import { Vm, Puzzle, MoveTest } from './interfaces';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
@@ -24,24 +24,22 @@ export function moveTestBuild(vm: Vm, puzzle: Puzzle): MoveTestFn {
     if (!pathOps.contains(vm.path, vm.initialPath)) return;
 
     const playedByColor = vm.node.ply % 2 === 1 ? 'white' : 'black';
-    if (playedByColor !== puzzle.color) return;
+    if (playedByColor !== vm.pov) return;
 
-    const nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(function(node) {
-      return {
-        uci: node.uci,
-        castle: node.san!.startsWith('O-O')
-      };
-    });
-
-    let progress = puzzle.lines;
+    const nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(node => ({
+      uci: node.uci,
+      castle: node.san!.startsWith('O-O')
+    }));
+    
+    let progress: MoveTestReturn;
     for (const i in nodes) {
-      const uci = nodes[i].uci!;
-      if (typeof progress === 'object' && progress[uci]) progress = progress[uci];
-      else if (typeof progress === 'object' && nodes[i].castle && isAltCastle(uci)) progress = progress[altCastles[uci]] || 'fail';
-      else progress = 'fail';
-      if (typeof progress === 'string') break;
+      const uci = nodes[i].uci!, solUci = puzzle.solution[i];
+      if (uci != solUci && (!nodes[i].castle || !isAltCastle(uci) || altCastles[uci] != solUci)) {
+        progress = 'fail';
+        break;
+      }
     }
-    if (typeof progress === 'string') {
+    if (progress) {
       vm.node.puzzle = progress;
       return progress;
     }

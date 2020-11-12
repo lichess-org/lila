@@ -63,7 +63,8 @@ final class JsonView(
         "rating"     -> puzzle.glicko.intRating,
         "plays"      -> puzzle.plays,
         "initialPly" -> puzzle.initialPly,
-        "solution"   -> makeSolution(puzzle).map(defaultNodeJsonWriter.writes),
+        "solution"   -> puzzle.line.tail.map(_.uci),
+        "branch"     -> makeSolution(puzzle).map(defaultNodeJsonWriter.writes),
         "vote"       -> puzzle.vote
       )
 

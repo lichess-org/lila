@@ -65,7 +65,7 @@ export interface Vm {
   voted?: boolean | null;
   justPlayed?: Key;
   resultSent: boolean;
-  lastFeedback: 'init' | 'fail' | 'win' | 'good';
+  lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
   initialPath: Tree.Path;
   initialNode: Tree.Node;
   canViewSolution: boolean;
@@ -121,7 +121,8 @@ export interface PuzzleUser {
 
 export interface Puzzle {
   id: string;
-  solution: Tree.Node;
+  solution: Uci[];
+  branch: Tree.Node;
   rating: number;
   plays: number;
   initialPly: number;
@@ -141,8 +142,6 @@ export interface Promotion {
   cancel(): void;
   view(): MaybeVNode;
 }
-
-export type Lines = { [uci: string]: Lines } | 'fail' | 'win';
 
 export interface MoveTest {
   move: Move,
