@@ -4,7 +4,6 @@ import { Controller, MaybeVNode } from '../interfaces';
 
 function renderVote(ctrl: Controller): MaybeVNode {
   var data = ctrl.getData();
-  if (!data.puzzle.enabled) return;
   return h('div.vote', [
     h('a', {
       attrs: {
@@ -14,11 +13,6 @@ function renderVote(ctrl: Controller): MaybeVNode {
       class: { active: ctrl.vm.voted === true },
       hook: bind('click', () => ctrl.vote(true))
     }),
-    h('span.count', {
-      attrs: {
-        title: 'Popularity'
-      }
-    }, '' + Math.max(0, data.puzzle.vote)),
     h('a', {
       attrs: {
         'data-icon': 'R',
@@ -32,7 +26,7 @@ function renderVote(ctrl: Controller): MaybeVNode {
 
 export default function(ctrl: Controller): MaybeVNode {
   const data = ctrl.getData();
-  const voteCall = !!data.user && ctrl.callToVote() && data.puzzle.enabled && data.voted === undefined;
+  const voteCall = !!data.user && ctrl.callToVote() && data.voted === undefined;
   return h('div.puzzle__feedback.after' + (voteCall ? '.call' : ''), [
     voteCall ? h('div.vote_call', [
       h('strong', ctrl.trans('wasThisPuzzleAnyGood')),

@@ -33,7 +33,10 @@ final class JsonView(
           "puzzle" -> puzzleJson(puzzle)
         )
         .add("user" -> user.map { u =>
-          Json.obj("rating" -> u.perfs.puzzle.intRating)
+          Json.obj(
+            "rating" -> u.perfs.puzzle.intRating,
+            "recent" -> JsArray()
+          )
         })
     }
   }

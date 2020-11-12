@@ -398,12 +398,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     startCeval();
   }
 
-  function recentHash(): string {
-    return 'ph' + data.puzzle.id + (data.user ? data.user.recent.reduce(function(h, r) {
-      return h + r[0];
-    }, '') : '');
-  }
-
   const nbToVoteCall = storedProp('puzzle.vote-call', 3);
   let thanksUntil: number | undefined;
 
@@ -458,7 +452,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     userJump,
     viewSolution,
     nextPuzzle,
-    recentHash,
     callToVote,
     thanks() {
       return !!thanksUntil && Date.now() < thanksUntil;

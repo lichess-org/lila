@@ -6,7 +6,6 @@ import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 import * as control from '../control';
 import feedbackView from './feedback';
-import historyView from './history';
 import * as side from './side';
 import { onInsert, bind, bindMobileMousedown } from '../util';
 import { Controller } from '../interfaces';
@@ -110,6 +109,5 @@ export default function(ctrl: Controller): VNode {
       feedbackView(ctrl)
     ]),
     controls(ctrl),
-    historyView(ctrl)
   ]);
 }

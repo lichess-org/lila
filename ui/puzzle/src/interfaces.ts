@@ -42,7 +42,6 @@ export interface Controller extends KeyboardController {
   makeCgOpts(): CgConfig;
   viewSolution(): void;
   nextPuzzle(): void;
-  recentHash(): string;
   callToVote(): boolean;
   thanks(): boolean;
   vote(v: boolean): void;
@@ -113,11 +112,11 @@ export interface PuzzleGame {
   rated: boolean;
   players: Array<{userId: string, name: string, color: Color}>;
   treeParts: Tree.Node[];
+  clock: string;
 }
 
 export interface PuzzleUser {
   rating: number;
-  recent: Array<[number, number, number]>;
 }
 
 export interface Puzzle {

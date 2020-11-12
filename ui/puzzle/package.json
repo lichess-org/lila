@@ -14,11 +14,9 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/fnando__sparkline": "^0.3.2",
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
-    "@fnando/sparkline": "^0.3.10",
     "ceval": "2.0.0",
     "chessground": "^7.9.2",
     "chessops": "^0.7.3",

@@ -1,7 +1,6 @@
-import sparkline from "@fnando/sparkline";
 import { Controller, Puzzle, PuzzleGame, MaybeVNode } from '../interfaces';
 import { dataIcon } from '../util';
-import { h, thunk } from 'snabbdom';
+import { h } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import { VNode } from 'snabbdom/vnode';
 
@@ -21,7 +20,7 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
       attrs: { href: '/training/' + puzzle.id }
     }, ctrl.trans('puzzleId', puzzle.id)),
     h('p', ctrl.trans.vdom('ratingX', ctrl.vm.mode === 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('strong', puzzle.rating))),
-    h('p', ctrl.trans.vdom('playedXTimes', h('strong', numberFormat(puzzle.attempts))))
+    h('p', ctrl.trans.vdom('playedXTimes', h('strong', numberFormat(puzzle.plays))))
   ])]);
 }
 
@@ -30,7 +29,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
     attrs: dataIcon(game.perf.icon)
   }, [h('div', [
     h('p', ctrl.trans.vdom('fromGameLink', h('a', {
-      attrs: { href: `/${game.id}/${puzzle.color}#${puzzle.initialPly}` }
+      attrs: { href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}` }
     }, '#' + game.id))),
     h('p', [
       game.clock, ' • ',
@@ -51,38 +50,11 @@ export function userBox(ctrl: Controller): MaybeVNode {
   const data = ctrl.getData();
   if (!data.user) return;
   const diff = ctrl.vm.round && ctrl.vm.round.ratingDiff;
-  const hash = ctrl.recentHash();
   return h('div.puzzle__side__user', [
     h('h2', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [
       data.user.rating,
       ...(diff >= 0 ? [' ', h('good.rp', '+' + diff)] : []),
       ...(diff < 0 ? [' ', h('bad.rp', '−' + (-diff))] : [])
-    ]))),
-    h('div', thunk('div.rating_chart.' + hash, ratingChart, [ctrl, hash]))
+    ])))
   ]);
-}
-
-function ratingChart(ctrl: Controller, hash: string): VNode {
-  return h('div.rating_chart.' + hash, {
-    hook: {
-      insert(vnode) { drawRatingChart(ctrl, vnode) },
-      postpatch(_, vnode) { drawRatingChart(ctrl, vnode) }
-    }
-  });
-}
-
-function drawRatingChart(ctrl: Controller, vnode: VNode): void {
-  const $el = $(vnode.elm as HTMLElement);
-  const points = ctrl.getData().user!.recent.map(r => r[2] + r[1]);
-  const localPuzzleMin = Math.min(...points); 
-  const redraw = () => {
-    const $svg = $('<svg class="sparkline" height="80px" stroke-width="3">')
-      .attr('width', Math.round($el.outerWidth()) + 'px')
-      .prependTo($(vnode.elm).empty());
-    sparkline($svg[0] as unknown as SVGSVGElement, points.map(r => r - localPuzzleMin), {
-      interactive: true,
-    })
-  };
-  requestAnimationFrame(redraw);
-  window.addEventListener('resize', redraw);
 }
