@@ -12,4 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">Kompüterinizdən bir gedişi Lichess serverinə göndərmək və cavabı geri almaq üçün keçən vaxt. Bu, Lichess (Fransa) ilə aranızdakı məsafədən və internet bağlantınızın keyfiyyətindən asılıdır. Lichess developer-ləri wifi və ya internet sürətinizi düzəldə bilməz.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Üst sətirddəki istifadəçi adınıza klikləyərək istənilən vaxt bu dəyərləri tapa bilərsiniz.</string>
   <string name="lagCompensation">Gecikmə kompensasiyası</string>
+  <string name="lagCompensationExplanation">Lichess şəbəkə gecikməsini kompensasiya edir. Bu, davamlı və ara sıra yaranan gecikmələri ehtiva edir. Vaxt nəzarəti və kompensasiya edilmiş gecikməyə əsaslanan məhdudiyyətlər və evristika mövcuddur ki, nəticə də hər iki oyunçu üçün insaflı olsun. Nəticədə rəqibinizdən daha yüksək şəbəkə gecikməsinə sahib olmaq bir handikap deyil!</string>
 </resources>
