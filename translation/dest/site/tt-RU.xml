@@ -90,6 +90,10 @@
   </plurals>
   <string name="noGameFound">Бер уен да табылмады</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Бәлки көйләүләрдә күбрәк уеннарны кабызырсыз?</string>
+  <string name="openingExplorer">Дебютлар базасы</string>
+  <string name="xOpeningExplorer">%s дебютлар базасы</string>
+  <string name="winPreventedBy50MoveRule">50 йөрү кайгыйдәсе буенча җиңеп булмый</string>
+  <string name="lossSavedBy50MoveRule">50 йөрү кагыйдәсе буенча җиңелеп булмый</string>
   <string name="infiniteAnalysis">Чиксез анализ</string>
   <string name="removesTheDepthLimit">Тикшерү чикләрен бетерә һәм компьютерыгызны җылыта</string>
   <string name="blunder">Зур хата</string>
