@@ -73,6 +73,11 @@
   <string name="capture">Алу</string>
   <string name="close">Ябу</string>
   <string name="winning">Җиңү</string>
+  <string name="losing">Җиңелү</string>
+  <string name="drawn">Тиңлек</string>
+  <string name="unknown">Билгесез</string>
+  <string name="database">Партияләр архивы</string>
+  <string name="whiteDrawBlack">Аклар / Тиңлек / Каралар</string>
   <string name="infiniteAnalysis">Чиксез анализ</string>
   <string name="removesTheDepthLimit">Тикшерү чикләрен бетерә һәм компьютерыгызны җылыта</string>
   <string name="blunder">Зур хата</string>
