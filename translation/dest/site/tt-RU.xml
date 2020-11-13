@@ -198,4 +198,18 @@
   <string name="blackOffersDraw">Каралар тиңлек тәкъдим итә</string>
   <string name="whiteDeclinesDraw">Аклар тиңлекне кире кага</string>
   <string name="blackDeclinesDraw">Каралар тиңлекне кире кага</string>
+  <string name="yourOpponentOffersADraw">Ярышучыгыз тиңлек тәкъдим итә</string>
+  <string name="accept">Кабул итү</string>
+  <string name="decline">Кире кагу</string>
+  <string name="playingRightNow">Хәзер уйнала</string>
+  <string name="eventInProgress">Хәзер уйнала</string>
+  <string name="finished">Тәмамланган</string>
+  <string name="finishesX">%s сон бетә</string>
+  <string name="abortGame">Уенны туктату</string>
+  <string name="gameAborted">Уен туктатылды</string>
+  <string name="standard">Стандартлы</string>
+  <string name="unlimited">Чиксез</string>
+  <string name="mode">Режим</string>
+  <string name="casual">Рейтингсыз</string>
+  <string name="rated">Рейтинглы</string>
 </resources>
