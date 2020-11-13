@@ -3,6 +3,7 @@
   <string name="emailConfirm_subject">%s lichess.org аккаунтыгызны раслагыз</string>
   <string name="emailConfirm_click">Lichess аккаунтыгызны башлау өчен сылтамага басыгыз:</string>
   <string name="emailConfirm_ignore">Әгәр дә \"Lichess\"та регистрация үтмәсәгез, бу хатка игътибар итмәгез.</string>
+  <string name="passwordReset_subject">%s, lichess.org серсүзегезне ташлап җибәрегез</string>
   <string name="passwordReset_intro">Сездән аккаунтыгызның серсүзен ташлап җибәрүгә сорау кабул иттек.</string>
   <string name="passwordReset_clickOrIgnore">Әгәр шундый тәлап иткән идегез, астагы сылтамага басыгыз. Ясамасагыз, бу хатка игътибар итмәгез.</string>
   <string name="emailChange_subject">%s, яңа email адресыгызны раслагыз</string>
@@ -14,4 +15,6 @@
 Уеныгыз күңелле булсын, һәм фигураларыгызга җиңу юлы гел ачык булсын!</string>
   <string name="logInToLichess">%s, lichess.org сайтына керү</string>
   <string name="common_orPaste">(Сылтама басылмый? Браузерның адрес панеленә күчереп карагыз!)</string>
+  <string name="common_note">Бу - сезнең %s кулланыуна бәйле булган хезмәтле хат.</string>
+  <string name="common_contact">Безнең белән бәйләнеш өчен: %s.</string>
 </resources>
