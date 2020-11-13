@@ -259,6 +259,8 @@
   <string name="retry">Кабатлау</string>
   <string name="reconnecting">Яңадан бәйләнешү</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="other">%s дус онлайн</item>
+    <item quantity="other">%s дус челтәрдә</item>
   </plurals>
+  <string name="noFriendsOnline">Челтәрдә дуслар юк</string>
+  <string name="findFriends">Дуслар эзләү</string>
 </resources>
