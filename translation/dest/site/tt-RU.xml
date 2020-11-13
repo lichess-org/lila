@@ -252,4 +252,13 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Бу шахматлы CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Кеше икәнегезне раслау өчен тактага басып, йөрү ясагыз.</string>
+  <string name="captcha.fail">Зинhaр, шахматлы капчаны чишегез.</string>
+  <string name="notACheckmate">Мат түгел</string>
+  <string name="whiteCheckmatesInOneMove">Аклар бер йөрүдә мат куялар</string>
+  <string name="blackCheckmatesInOneMove">Каралар бер йөрүдә мат куялар</string>
+  <string name="retry">Кабатлау</string>
+  <string name="reconnecting">Яңадан бәйләнешү</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">%s дус онлайн</item>
+  </plurals>
 </resources>
