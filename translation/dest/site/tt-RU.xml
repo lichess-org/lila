@@ -244,6 +244,22 @@
   <plurals name="nbWins">
     <item quantity="other">%s җиңү</item>
   </plurals>
+  <plurals name="nbLosses">
+    <item quantity="other">%s җиңелү</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="other">%s тиңлек</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="other">%s уйнала</item>
+  </plurals>
+  <string name="exportGames">Уеннарны экспортлау</string>
+  <string name="ratingRange">Рейтинг аралыгы</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="other">%s секунд бирү</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">Бу аккаунт Lichessның Куллану Шартларын бозды</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Бу уенче рейтингын юри арттыра/азайта</string>
   <string name="averageElo">Уртача рейтинг</string>
   <string name="location">Урын</string>
   <string name="filterGames">Уеннар фильтры</string>
