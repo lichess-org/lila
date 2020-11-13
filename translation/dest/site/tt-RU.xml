@@ -233,6 +233,17 @@
   <string name="spectatorRoom">Күзәтү бүлмәсе</string>
   <string name="composeMessage">Хат язу</string>
   <string name="noNewMessages">Яңа хатлар юк</string>
+  <string name="recipient">Алучы</string>
+  <string name="send">Җибәрү</string>
+  <string name="incrementInSeconds">Секунд кушыла</string>
+  <string name="freeOnlineChess">Түләүсез Онлайн Шахмат</string>
+  <string name="spectators">Күзәтүчеләр:</string>
+  <plurals name="nbRated">
+    <item quantity="other">%s рейтинглы</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="other">%s җиңү</item>
+  </plurals>
   <string name="averageElo">Уртача рейтинг</string>
   <string name="location">Урын</string>
   <string name="filterGames">Уеннар фильтры</string>
