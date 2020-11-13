@@ -2,4 +2,6 @@
 <resources>
   <string name="playWithAFriend">Дус белән уйнарга</string>
   <string name="playWithTheMachine">Компьютер белән уйнарга</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Бу сылтама белән уенга чакыру</string>
+  <string name="gameOver">Уен бетте</string>
 </resources>
