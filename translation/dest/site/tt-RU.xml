@@ -71,6 +71,8 @@
   <string name="insufficientMaterial">Материал җитми</string>
   <string name="pawnMove">Пешка йөрүе</string>
   <string name="capture">Алу</string>
+  <string name="close">Ябу</string>
+  <string name="winning">Җиңү</string>
   <string name="infiniteAnalysis">Чиксез анализ</string>
   <string name="removesTheDepthLimit">Тикшерү чикләрен бетерә һәм компьютерыгызны җылыта</string>
   <string name="blunder">Зур хата</string>
