@@ -21,8 +21,7 @@ final class Puzzle(
     env.puzzle.jsonView(
       puzzle = puzzle,
       user = ctx.me,
-      round = round,
-      mobileApi = ctx.mobileApiVersion
+      round = round
     )
 
   private def renderShow(puzzle: Puz)(implicit ctx: Context) =
@@ -90,10 +89,10 @@ final class Puzzle(
       }
     }
 
-  def round2(id: String) =
+  def round3(id: String) =
     OpenBody { implicit ctx =>
       NoBot {
-        ???
+        fuccess(Ok(Json.obj()))
         // implicit val req = ctx.body
         // OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
         //   lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "new")

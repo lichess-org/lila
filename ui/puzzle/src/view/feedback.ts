@@ -15,13 +15,12 @@ function viewSolution(ctrl: Controller): VNode {
 }
 
 function initial(ctrl: Controller): VNode {
-  var puzzleColor = ctrl.getData().puzzle.color;
   return h('div.puzzle__feedback.play', [
     h('div.player', [
-      h('div.no-square', h('piece.king.' + puzzleColor)),
+      h('div.no-square', h('piece.king.' + ctrl.vm.pov)),
       h('div.instruction', [
         h('strong', ctrl.trans.noarg('yourTurn')),
-        h('em', ctrl.trans.noarg(puzzleColor === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'))
+        h('em', ctrl.trans.noarg(ctrl.vm.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'))
       ])
     ]),
     viewSolution(ctrl)

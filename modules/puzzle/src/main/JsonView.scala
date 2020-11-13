@@ -19,13 +19,11 @@ final class JsonView(
   def apply(
       puzzle: Puzzle,
       user: Option[User],
-      mobileApi: Option[lila.common.ApiVersion],
       round: Option[Round] = None
   ): Fu[JsObject] = {
     gameJson(
       gameId = puzzle.gameId,
-      plies = puzzle.initialPly,
-      onlyLast = mobileApi.isDefined
+      plies = puzzle.initialPly
     ) map { gameJson =>
       Json
         .obj(
@@ -64,7 +62,6 @@ final class JsonView(
         "plays"      -> puzzle.plays,
         "initialPly" -> puzzle.initialPly,
         "solution"   -> puzzle.line.tail.map(_.uci),
-        "branch"     -> makeSolution(puzzle).map(defaultNodeJsonWriter.writes),
         "vote"       -> puzzle.vote
       )
 

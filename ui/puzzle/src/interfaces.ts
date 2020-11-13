@@ -111,7 +111,7 @@ export interface PuzzleGame {
   };
   rated: boolean;
   players: Array<{userId: string, name: string, color: Color}>;
-  treeParts: Tree.Node[];
+  pgn: San[];
   clock: string;
 }
 
@@ -122,7 +122,6 @@ export interface PuzzleUser {
 export interface Puzzle {
   id: string;
   solution: Uci[];
-  branch: Tree.Node;
   rating: number;
   plays: number;
   initialPly: number;

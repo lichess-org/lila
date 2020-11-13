@@ -13,13 +13,13 @@ final private class GameJson(
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(gameId: Game.ID, plies: Int, onlyLast: Boolean): Fu[JsObject] =
-    cache get CacheKey(gameId, plies, onlyLast)
+  def apply(gameId: Game.ID, plies: Int): Fu[JsObject] =
+    cache get CacheKey(gameId, plies)
 
-  def noCache(game: Game, plies: Int, onlyLast: Boolean): Fu[JsObject] =
-    generate(game, plies, onlyLast)
+  def noCache(game: Game, plies: Int): Fu[JsObject] =
+    generate(game, plies)
 
-  private case class CacheKey(gameId: Game.ID, plies: Int, onlyLast: Boolean)
+  private case class CacheKey(gameId: Game.ID, plies: Int)
 
   private val cache = cacheApi[CacheKey, JsObject](1024, "puzzle.gameJson") {
     _.expireAfterAccess(5 minutes)
@@ -29,13 +29,13 @@ final private class GameJson(
 
   private def generate(ck: CacheKey): Fu[JsObject] =
     ck match {
-      case CacheKey(gameId, plies, onlyLast) =>
+      case CacheKey(gameId, plies) =>
         gameRepo game gameId orFail s"Missing puzzle game $gameId!" flatMap {
-          generate(_, plies, onlyLast)
+          generate(_, plies)
         }
     }
 
-  private def generate(game: Game, plies: Int, onlyLast: Boolean): Fu[JsObject] =
+  private def generate(game: Game, plies: Int): Fu[JsObject] =
     lightUserApi preloadMany game.userIds map { _ =>
       val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
       val tree     = TreeBuilder(game, plies)
@@ -54,10 +54,7 @@ final private class GameJson(
               "color"  -> p.color.name
             )
           }),
-          "treeParts" -> {
-            if (onlyLast) tree.mainlineNodeList.lastOption.map(minimalNodeJsonWriter.writes)
-            else partitionTreeJsonWriter.writes(tree).some
-          }
+          "pgn" -> game.chess.pgnMoves.take(plies - 1)
         )
         .add("clock", game.clock.map(_.config.show))
     }

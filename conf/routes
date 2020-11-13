@@ -87,7 +87,7 @@ POST  /training/batch                  controllers.Puzzle.batchSolve
 GET   /training/:id                    controllers.Puzzle.show(id: String)
 GET   /training/:id/load               controllers.Puzzle.load(id: String)
 POST  /training/:id/vote               controllers.Puzzle.vote(id: String)
-POST  /training/:id/round2             controllers.Puzzle.round2(id: String)
+POST  /training/:id/round3             controllers.Puzzle.round3(id: String)
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help

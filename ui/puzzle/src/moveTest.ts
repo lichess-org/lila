@@ -31,30 +31,22 @@ export function moveTestBuild(vm: Vm, puzzle: Puzzle): MoveTestFn {
       castle: node.san!.startsWith('O-O')
     }));
     
-    let progress: MoveTestReturn;
+    console.log(puzzle);
     for (const i in nodes) {
       const uci = nodes[i].uci!, solUci = puzzle.solution[i];
-      if (uci != solUci && (!nodes[i].castle || !isAltCastle(uci) || altCastles[uci] != solUci)) {
-        progress = 'fail';
-        break;
-      }
-    }
-    if (progress) {
-      vm.node.puzzle = progress;
-      return progress;
+      console.log(i, uci, solUci);
+      if (uci != solUci && (!nodes[i].castle || !isAltCastle(uci) || altCastles[uci] != solUci)) 
+        return vm.node.puzzle = 'fail';
     }
 
-    const nextKey = Object.keys(progress)[0];
-    if (progress[nextKey] === 'win') {
-      vm.node.puzzle = 'win';
-      return 'win';
-    }
+    const nextUci = puzzle.solution[nodes.length];
+    if (!nextUci) return vm.node.puzzle = 'win';
 
     // from here we have a next move
     vm.node.puzzle = 'good';
 
     return {
-      move: parseUci(nextKey)!,
+      move: parseUci(nextUci)!,
       fen: vm.node.fen,
       path: vm.path
     };

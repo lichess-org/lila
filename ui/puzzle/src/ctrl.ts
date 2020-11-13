@@ -3,7 +3,7 @@ import * as xhr from './xhr';
 import computeAutoShapes from './autoShape';
 import keyboard from './keyboard';
 import makePromotion from './promotion';
-import mergeSolution from './solution';
+import { pgnToTree, mergeSolution } from './moveTree';
 import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
@@ -52,9 +52,8 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function initiate(fromData: PuzzleData): void {
     data = fromData;
-    tree = treeBuild(treeOps.reconstruct(data.game.treeParts));
+    tree = treeBuild(pgnToTree(data.game.pgn));
     const initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
-    // play | try | view
     vm.mode = 'play';
     vm.loading = false;
     vm.round = undefined;
@@ -64,7 +63,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.lastFeedback = 'init';
     vm.initialPath = initialPath;
     vm.initialNode = tree.nodeAtPath(initialPath);
-    vm.pov = vm.initialNode.ply % 2 == 0 ? 'black' : 'white';
+    vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
 
     setPath(treePath.init(initialPath));
     setTimeout(function() {
@@ -384,10 +383,10 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     reorderChildren(vm.initialPath, true);
 
     // try and play the solution next move
-    var next = vm.node.children[0];
+    const next = vm.node.children[0];
     if (next && next.puzzle === 'good') userJump(vm.path + next.id);
     else {
-      var firstGoodPath = treeOps.takePathWhile(vm.mainline, function(node) {
+      const firstGoodPath = treeOps.takePathWhile(vm.mainline, function(node) {
         return node.puzzle !== 'good';
       });
       if (firstGoodPath) userJump(firstGoodPath + tree.nodeAtPath(firstGoodPath).children[0].id);
