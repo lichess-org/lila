@@ -101,6 +101,13 @@
   <string name="replayMode">Кабат карау</string>
   <string name="realtimeReplay">Чын вакытта</string>
   <string name="byCPL">Хаталар буенча</string>
+  <string name="openStudy">Өйрәнүне ачу</string>
+  <string name="enable">Кабызылган</string>
+  <string name="bestMoveArrow">Иң яхшы йөрүне күрсәтү</string>
+  <string name="evaluationGauge">Бәяләу шкаласы</string>
+  <string name="multipleLines">Берничә вариант</string>
+  <string name="cpus">Процессорлар</string>
+  <string name="memory">Хәтер</string>
   <string name="infiniteAnalysis">Чиксез анализ</string>
   <string name="removesTheDepthLimit">Тикшерү чикләрен бетерә һәм компьютерыгызны җылыта</string>
   <string name="blunder">Зур хата</string>
