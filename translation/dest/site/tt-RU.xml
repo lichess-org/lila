@@ -10,4 +10,20 @@
   <string name="aiNameLevelAiLevel">%1$s дәрәҗәсе %2$s</string>
   <string name="level">Дәрәҗә</string>
   <string name="toggleTheChat">Чатны ачу/ябу</string>
+  <string name="toggleSound">Аваз күчү/сүндерү</string>
+  <string name="chat">Хәбәр җибәрү</string>
+  <string name="resign">Бирешү</string>
+  <string name="checkmate">Мат</string>
+  <string name="stalemate">Пат</string>
+  <string name="white">Ак</string>
+  <string name="black">Кара</string>
+  <string name="randomColor">Очраклы төс</string>
+  <string name="createAGame">Уен башларга</string>
+  <string name="whiteIsVictorious">Ак җиңде</string>
+  <string name="blackIsVictorious">Кара җиңде</string>
+  <string name="youPlayTheWhitePieces">Сез ак фигуралар белән уйныйсыз</string>
+  <string name="youPlayTheBlackPieces">Сез кара фигуралар белән уйныйсыз</string>
+  <string name="itsYourTurn">Сезнең йөрүегез!</string>
+  <string name="kingInTheCenter">Патша такта уртасында</string>
+  <string name="threeChecks">Өч шах</string>
 </resources>
