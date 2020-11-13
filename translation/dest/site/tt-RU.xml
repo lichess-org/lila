@@ -60,6 +60,14 @@
   <string name="goDeeper">Тирәңрәк</string>
   <string name="showThreat">Янауны күрсәтү</string>
   <string name="inLocalBrowser">браузерда</string>
+  <string name="toggleLocalEvaluation">Җирле анализ күчтерү</string>
+  <string name="promoteVariation">Вариантнын приоритетын күтәрү</string>
+  <string name="makeMainLine">Төп вариант итеп кую</string>
+  <string name="deleteFromHere">Бу урыннан бетерү</string>
+  <string name="forceVariation">Вариантны төп итү</string>
+  <string name="move">Йөрү</string>
+  <string name="variantLoss">Җиңелү юлы</string>
+  <string name="variantWin">Җиңү юлы</string>
   <string name="infiniteAnalysis">Чиксез анализ</string>
   <string name="removesTheDepthLimit">Тикшерү чикләрен бетерә һәм компьютерыгызны җылыта</string>
   <string name="blunder">Зур хата</string>
