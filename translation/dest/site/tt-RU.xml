@@ -177,4 +177,15 @@
   <string name="forgotPassword">Серсүзне оныттыгыз?</string>
   <string name="rank">Урын</string>
   <string name="rankX">Урын: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">Урын hәр %s минут саен яңартыла</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="other">%s күнегү</item>
+  </plurals>
+  <string name="gamesPlayed">Уеннар саны</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="other">Сезнең белән %s уен</item>
+  </plurals>
+  <string name="cancel">Булдыртмау</string>
 </resources>
