@@ -86,4 +86,14 @@
   <string name="computersAreNotAllowedToPlay">Компьютер булышы тыелган. Зинһар, уйнаганда, шахмат программалары, мәглүмәт базалары я башка уенчылар булышы белән файдаланмагыз. Күп аккаунтлар ясау киңәш ителми һәм кирәк булмаган күп аккаунтлар ясау сезне банга китерер.</string>
   <string name="games">Уеннар</string>
   <string name="forum">Форум</string>
+  <string name="xPostedInForumY">%1$s %2$s темасына язу җибәрде</string>
+  <string name="latestForumPosts">Соңгы форум язулары</string>
+  <string name="players">Уенчылар</string>
+  <string name="friends">Дуслар</string>
+  <string name="discussions">Әңгәмәләр</string>
+  <string name="today">Бүген</string>
+  <string name="yesterday">Кичә</string>
+  <string name="minutesPerSide">Һәр якка бирелгән вакыт</string>
+  <string name="variant">Вариант</string>
+  <string name="variants">Вариантлар</string>
 </resources>
