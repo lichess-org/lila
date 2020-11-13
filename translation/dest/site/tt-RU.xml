@@ -26,4 +26,34 @@
   <string name="itsYourTurn">Сезнең йөрүегез!</string>
   <string name="kingInTheCenter">Патша такта уртасында</string>
   <string name="threeChecks">Өч шах</string>
+  <string name="raceFinished">Ярыш бетте</string>
+  <string name="variantEnding">Уен бетте</string>
+  <string name="newOpponent">Яңа ярышучы</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Ярушычыгыз сезнең белән яңа уен уйнарга тели</string>
+  <string name="joinTheGame">Уенга кушылу</string>
+  <string name="whitePlays">Аклар йөри</string>
+  <string name="blackPlays">Каралар йөри</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">Ярышучыгыз уеннан чыкты. Сез җиңүегезне %s секундтан белдерә аласыз.</item>
+  </plurals>
+  <string name="opponentLeftChoices">Ярышучыгыз уеннан чыкты. Сез җиңүегезне я бер-берегезнең тигезлеген белдерә, я аны көтеп тора аласыз.</string>
+  <string name="makeYourOpponentResign">Җиңүегезне игълан итү</string>
+  <string name="forceResignation">Җиңүегезне игълан итү</string>
+  <string name="forceDraw">Тигезлек игълан итү</string>
+  <string name="talkInChat">Сөйләшкәндә әдәпле булыгыз!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Сылтамага кергән беренче кеше сезнең белән уйнар.</string>
+  <string name="whiteResigned">Аклар бирелде</string>
+  <string name="blackResigned">Каралар бирелде</string>
+  <string name="whiteLeftTheGame">Ак уеннан чыкты</string>
+  <string name="blackLeftTheGame">Кара уеннан чыкты</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Бу сылтама белән күзәтүчеләрне чакырыгыз</string>
+  <string name="theComputerAnalysisHasFailed">Компьютер тикшерүе хата очратты</string>
+  <string name="viewTheComputerAnalysis">Компьютер тикшерүен күрү</string>
+  <string name="requestAComputerAnalysis">Компьютер тикшеревен итү</string>
+  <string name="computerAnalysis">Компьютер тикшереве</string>
+  <string name="computerAnalysisAvailable">Компьютер тикшеревен итә аласыз</string>
+  <string name="analysis">Тикшерү тактасы</string>
+  <string name="depthX">Тирәнлек %s</string>
+  <string name="infiniteAnalysis">Чиксез анализ</string>
+  <string name="removesTheDepthLimit">Тикшерү чикләрен бетерә һәм компьютерыгызны җылыта</string>
 </resources>
