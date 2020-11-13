@@ -67,5 +67,20 @@
   <string name="threefoldRepetition">Өч тапкыр кабатлау</string>
   <string name="claimADraw">Тигез уен белдерү</string>
   <string name="offerDraw">Тигезлекне тәкъдим итү</string>
-  <string name="draw">Тигез уен</string>
+  <string name="draw">Тиңлек</string>
+  <plurals name="nbPlayers">
+    <item quantity="other">%s уенчы</item>
+  </plurals>
+  <string name="currentGames">Хәзерге уеннар</string>
+  <plurals name="nbGames">
+    <item quantity="other">%s уен</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="other">%s билгеләнгән</item>
+  </plurals>
+  <string name="viewInFullSize">Тулысынча күрү</string>
+  <string name="logOut">Чыгу</string>
+  <string name="signIn">Керү</string>
+  <string name="youNeedAnAccountToDoThat">Моның өчен аккаунт кирәк</string>
+  <string name="signUp">Теркәлү</string>
 </resources>
