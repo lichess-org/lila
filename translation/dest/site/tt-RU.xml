@@ -78,6 +78,8 @@
   <string name="unknown">Билгесез</string>
   <string name="database">Партияләр архивы</string>
   <string name="whiteDrawBlack">Аклар / Тиңлек / Каралар</string>
+  <string name="averageRatingX">Уртача рейтинг %s</string>
+  <string name="recentGames">Соңгы уеннар</string>
   <string name="infiniteAnalysis">Чиксез анализ</string>
   <string name="removesTheDepthLimit">Тикшерү чикләрен бетерә һәм компьютерыгызны җылыта</string>
   <string name="blunder">Зур хата</string>
