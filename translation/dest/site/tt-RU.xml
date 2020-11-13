@@ -244,4 +244,12 @@
   <string name="pasteThePgnStringHere">PGN текстын монда кертегез</string>
   <string name="fromPosition">Позициядән</string>
   <string name="continueFromHere">Бу җирдән дәвам итү</string>
+  <string name="toStudy">Өйрәнү</string>
+  <string name="importGame">Уенны импортлау</string>
+  <string name="importGameExplanation">Уенны яңадан күзәтү, компьютерлап анализлау, уен чатын hәм бүлешерлек URL алу өчен уеннын PGN йөкләгез.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="other">%s импортланган уен</item>
+  </plurals>
+  <string name="thisIsAChessCaptcha">Бу шахматлы CAPTCHA.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Кеше икәнегезне раслау өчен тактага басып, йөрү ясагыз.</string>
 </resources>
