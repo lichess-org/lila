@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">%s lichess.org аккаунтыгызны раслагыз</string>
-  <string name="emailConfirm_click">Lichess аккаунтыгызны ясау өчен сылтамага басыгыз:</string>
+  <string name="emailConfirm_click">Lichess аккаунтыгызны башлау өчен сылтамага басыгыз:</string>
   <string name="emailConfirm_ignore">Әгәр дә \"Lichess\"та регистрация үтмәсәгез, бу хатка игътибар итмәгез.</string>
+  <string name="passwordReset_intro">Сездән аккаунтыгызның серсүзен ташлап җибәрүгә сорау кабул иттек.</string>
+  <string name="passwordReset_clickOrIgnore">Әгәр шундый тәлап иткән идегез, астагы сылтамага басыгыз. Ясамасагыз, бу хатка игътибар итмәгез.</string>
 </resources>
