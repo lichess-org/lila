@@ -96,4 +96,21 @@
   <string name="minutesPerSide">Һәр якка бирелгән вакыт</string>
   <string name="variant">Вариант</string>
   <string name="variants">Вариантлар</string>
+  <string name="timeControl">Вакыт контроле</string>
+  <string name="realTime">Хәзерге вакытта</string>
+  <string name="correspondence">Хат алмашып уйнау</string>
+  <string name="daysPerTurn">Бер йөреш вакыты</string>
+  <string name="oneDay">Бер көн</string>
+  <plurals name="nbDays">
+    <item quantity="other">%s көн</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="other">%s сәгатъ</item>
+  </plurals>
+  <string name="time">Вакыт</string>
+  <string name="rating">Рейтинг</string>
+  <string name="ratingStats">Рейтинг статистикасы</string>
+  <string name="username">Кулланучы исеме</string>
+  <string name="usernameOrEmail">Кулланычы исеме я эл. почтасы</string>
+  <string name="changeUsername">Кулланучы исемен үзгәртү</string>
 </resources>
