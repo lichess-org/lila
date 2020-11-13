@@ -93,41 +93,39 @@ final class Puzzle(
     OpenBody { implicit ctx =>
       NoBot {
         fuccess(Ok(Json.obj()))
-        // implicit val req = ctx.body
-        // OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
-        //   lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "new")
-        //   env.puzzle.forms.round
-        //     .bindFromRequest()
-        //     .fold(
-        //       jsonFormError,
-        //       resultInt =>
-        //         ctx.me match {
-        //           case Some(me) =>
-        //             for {
-        //               isStudent <- env.clas.api.student.isStudent(me.id)
-        //               (round, mode) <- env.puzzle.finisher(
-        //                 puzzle = puzzle,
-        //                 user = me,
-        //                 result = Result(resultInt == 1),
-        //                 mobile = lila.api.Mobile.Api.requested(ctx.req),
-        //                 isStudent = isStudent
-        //               )
-        //               me2   <- if (mode.rated) env.user.repo byId me.id map (_ | me) else fuccess(me)
-        //               infos <- env.puzzle userInfos me2
-        //               voted <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
-        //             } yield Ok(
-        //               Json.obj(
-        //                 "user"  -> lila.puzzle.JsonView.infos(isOldMobile = false)(infos),
-        //                 "round" -> lila.puzzle.JsonView.round(round),
-        //                 "voted" -> voted
-        //               )
-        //             )
-        //           case None =>
-        //             env.puzzle.finisher.incPuzzleAttempts(puzzle)
-        //             Ok(Json.obj("user" -> false)).fuccess
-        //         }
-        //     ) map (_ as JSON)
-        // }
+        implicit val req = ctx.body
+        OptionFuResult(env.puzzle.api.puzzle find Puz.Id(id)) { puzzle =>
+          lila.mon.puzzle.round.attempt(ctx.isAuth).increment()
+          env.puzzle.forms.round
+            .bindFromRequest()
+            .fold(
+              jsonFormError,
+              resultInt =>
+                ctx.me match {
+                  case Some(me) =>
+                    for {
+                      isStudent <- env.clas.api.student.isStudent(me.id)
+                      round <- env.puzzle.finisher(
+                        puzzle = puzzle,
+                        user = me,
+                        result = Result(resultInt == 1),
+                        isStudent = isStudent
+                      )
+                      me2 <- env.user.repo.byId(me.id).dmap(_ | me)
+                      // infos <- env.puzzle userInfos me2
+                    } yield Ok(
+                      Json.obj(
+                        "user" -> env.puzzle.jsonView.userJson(me)
+                        // "round" -> lila.puzzle.JsonView.round(round)
+                      )
+                    )
+                  case None =>
+                    env.puzzle.finisher.incPuzzlePlays(puzzle)
+                    Ok(Json.obj("user" -> false)).fuccess
+                }
+            )
+            .dmap(_ as JSON)
+        }
       }
     }
 

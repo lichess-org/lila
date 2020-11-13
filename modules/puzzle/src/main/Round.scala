@@ -28,5 +28,6 @@ object Round {
     val win    = "w"
     val vote   = "v"
     val weight = "w"
+    val user   = "u" // student denormalization
   }
 }

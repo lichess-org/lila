@@ -6,14 +6,10 @@ import play.api.data.Forms._
 object PuzzleForm {
 
   val round = Form(
-    single(
-      "win" -> number
-    )
+    single("win" -> number)
   )
 
   val vote = Form(
-    single(
-      "vote" -> number
-    )
+    single("vote" -> number)
   )
 }

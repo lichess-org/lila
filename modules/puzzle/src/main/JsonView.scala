@@ -30,14 +30,15 @@ final class JsonView(
           "game"   -> gameJson,
           "puzzle" -> puzzleJson(puzzle)
         )
-        .add("user" -> user.map { u =>
-          Json.obj(
-            "rating" -> u.perfs.puzzle.intRating,
-            "recent" -> JsArray()
-          )
-        })
+        .add("user" -> user.map(userJson))
     }
   }
+
+  def userJson(u: User) =
+    Json.obj(
+      "rating" -> u.perfs.puzzle.intRating,
+      "recent" -> JsArray()
+    )
 
   def pref(p: lila.pref.Pref) =
     Json.obj(

@@ -31,23 +31,23 @@ final private[puzzle] class PuzzleApi(
 
     def find(user: User, puzzle: Puzzle): Fu[Option[Round]] =
       roundColl(_.byId[Round](Round.Id(user.id, puzzle.id).toString))
+
+    def upsert(a: Round) = roundColl(_.update.one($id(a.id), a, upsert = true))
+
+    def addDenormalizedUser(a: Round, user: User) = roundColl(
+      _.updateField($id(a.id), Round.BSONFields.user, user.id).void
+    )
+
+    //   def reset(user: User) =
+    //     roundColl {
+    //       _.delete.one(
+    //         $doc(
+    //           Round.BSONFields.id $startsWith s"${user.id}:"
+    //         )
+    //       )
+    //     }
+    // }
   }
-
-  //   def add(a: Round) = roundColl(_.insert.one(a))
-
-  //   def upsert(a: Round) = roundColl(_.update.one($id(a.id), a, upsert = true))
-
-  //   def addDenormalizedUser(a: Round, user: User) = roundColl(_.updateField($id(a.id), "u", user.id).void)
-
-  //   def reset(user: User) =
-  //     roundColl {
-  //       _.delete.one(
-  //         $doc(
-  //           Round.BSONFields.id $startsWith s"${user.id}:"
-  //         )
-  //       )
-  //     }
-  // }
 
   // object vote {
 
