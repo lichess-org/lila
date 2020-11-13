@@ -54,6 +54,12 @@
   <string name="computerAnalysisAvailable">Компьютер тикшеревен итә аласыз</string>
   <string name="analysis">Тикшерү тактасы</string>
   <string name="depthX">Тирәнлек %s</string>
+  <string name="usingServerAnalysis">Сервер анализын куллану</string>
+  <string name="loadingEngine">Движок йөкләнә...</string>
+  <string name="cloudAnalysis">Болыт анализы</string>
+  <string name="goDeeper">Тирәңрәк</string>
+  <string name="showThreat">Янауны күрсәтү</string>
+  <string name="inLocalBrowser">браузерда</string>
   <string name="infiniteAnalysis">Чиксез анализ</string>
   <string name="removesTheDepthLimit">Тикшерү чикләрен бетерә һәм компьютерыгызны җылыта</string>
   <string name="blunder">Зур хата</string>
