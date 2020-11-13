@@ -68,6 +68,7 @@
   <string name="move">Йөрү</string>
   <string name="variantLoss">Җиңелү юлы</string>
   <string name="variantWin">Җиңү юлы</string>
+  <string name="insufficientMaterial">Материал җитми</string>
   <string name="infiniteAnalysis">Чиксез анализ</string>
   <string name="removesTheDepthLimit">Тикшерү чикләрен бетерә һәм компьютерыгызны җылыта</string>
   <string name="blunder">Зур хата</string>
