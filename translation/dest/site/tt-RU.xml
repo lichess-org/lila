@@ -212,4 +212,20 @@
   <string name="mode">Режим</string>
   <string name="casual">Рейтингсыз</string>
   <string name="rated">Рейтинглы</string>
+  <string name="casualTournament">Рейтингсыз</string>
+  <string name="ratedTournament">Рейтинглы</string>
+  <string name="thisGameIsRated">Бу уен рейтинглы</string>
+  <string name="rematch">Яңадан уйнау</string>
+  <string name="rematchOfferSent">Яңадан уйнау тәкъдим ителде</string>
+  <string name="rematchOfferSentWhite">Аклар яңадан уйнарга сорый</string>
+  <string name="rematchOfferSentBlack">Каралар яңадан уйнарга сорый</string>
+  <string name="rematchOfferAccepted">Яңадан уйнау кабул ителде</string>
+  <string name="rematchOfferCanceled">Яңадан уйнау тәкъдиме туктатылды</string>
+  <string name="rematchOfferDeclined">Яңадан уйнау кабул ителмәде</string>
+  <string name="cancelRematchOffer">Яңадан уйнау тәкъдимен туктатырга</string>
+  <string name="viewRematch">Яңадан уйнауны күрү</string>
+  <string name="confirmMove">Йөрүне раслау</string>
+  <string name="play">Уйнау</string>
+  <string name="inbox">Хатлар</string>
+  <string name="chatRoom">Сөйләшү бүлмәсе</string>
 </resources>
