@@ -31,10 +31,8 @@ export function moveTestBuild(vm: Vm, puzzle: Puzzle): MoveTestFn {
       castle: node.san!.startsWith('O-O')
     }));
     
-    console.log(puzzle);
     for (const i in nodes) {
       const uci = nodes[i].uci!, solUci = puzzle.solution[i];
-      console.log(i, uci, solUci);
       if (uci != solUci && (!nodes[i].castle || !isAltCastle(uci) || altCastles[uci] != solUci)) 
         return vm.node.puzzle = 'fail';
     }

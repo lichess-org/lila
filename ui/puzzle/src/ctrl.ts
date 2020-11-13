@@ -3,7 +3,6 @@ import * as xhr from './xhr';
 import computeAutoShapes from './autoShape';
 import keyboard from './keyboard';
 import makePromotion from './promotion';
-import { pgnToTree, mergeSolution } from './moveTree';
 import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
@@ -16,6 +15,7 @@ import { makeSanAndPlay } from 'chessops/san';
 import { moveTestBuild, MoveTestFn } from './moveTest';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
+import { pgnToTree, mergeSolution } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, MoveTest } from './interfaces';
 import { Role, Move, Outcome } from 'chessops/types';
 import { storedProp } from 'common/storage';
@@ -23,7 +23,7 @@ import { storedProp } from 'common/storage';
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   let vm: Vm = {} as Vm;
-  var data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl, moveTest: MoveTestFn;
+  let data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl, moveTest: MoveTestFn;
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
 
@@ -76,7 +76,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     setTimeout(function() {
       vm.canViewSolution = true;
       redraw();
-    }, 5000);
+    }, 500 /* 0 */);
 
     moveTest = moveTestBuild(vm, data.puzzle);
 
@@ -176,38 +176,37 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   function addNode(node: Tree.Node, path: Tree.Path): void {
     const newPath = tree.addNode(node, path)!;
     jump(newPath);
-    reorderChildren(path);
-    redraw();
     withGround(g => g.playPremove());
 
     const progress = moveTest();
     if (progress) applyProgress(progress);
+    reorderChildren(path);
     redraw();
     speech.node(node, false);
   }
 
   function reorderChildren(path: Tree.Path, recursive?: boolean): void {
-    var node = tree.nodeAtPath(path);
-    node.children.sort(function(c1, _) {
-      if (c1.puzzle === 'fail') return 1;
-      if (c1.puzzle === 'retry') return 1;
-      if (c1.puzzle === 'good') return -1;
+    const node = tree.nodeAtPath(path);
+    node.children.sort((c1, _) => {
+      const p = c1.puzzle;
+      if (p == 'fail') return 1;
+      if (p == 'good' || p == 'win') return -1;
       return 0;
     });
-    if (recursive) node.children.forEach(function(child) {
-      reorderChildren(path + child.id, true);
-    });
+    if (recursive) node.children.forEach(child => 
+      reorderChildren(path + child.id, true)
+    );
   }
 
   function revertUserMove(): void {
-    setTimeout(function() {
+    setTimeout(() => {
       withGround(g => g.cancelPremove());
       userJump(treePath.init(vm.path));
       redraw();
-    }, 500);
+    }, 100);
   }
 
-  function applyProgress(progress: undefined | 'fail' | 'retry' | 'win' | 'good' | MoveTest): void {
+  function applyProgress(progress: undefined | 'fail' | 'win' | MoveTest): void {
     if (progress === 'fail') {
       vm.lastFeedback = 'fail';
       revertUserMove();
@@ -224,12 +223,12 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
         withGround(showGround); // to disable premoves
         startCeval();
       }
-    } else if (progress && typeof progress != 'string') {
+    } else if (progress) {
       vm.lastFeedback = 'good';
       setTimeout(() => {
         const pos = Chess.fromSetup(parseFen(progress.fen).unwrap()).unwrap();
         sendMoveAt(progress.path, pos, progress.move);
-      }, 500);
+      }, 100);
     }
   }
 
@@ -379,7 +378,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (!vm.canViewSolution) return;
     sendResult(false);
     vm.mode = 'view';
-    mergeSolution(vm.initialNode, data.puzzle.solution, vm.pov);
+    mergeSolution(tree, vm.initialPath, data.puzzle.solution, vm.pov);
     reorderChildren(vm.initialPath, true);
 
     // try and play the solution next move

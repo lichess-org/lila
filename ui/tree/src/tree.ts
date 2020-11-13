@@ -36,10 +36,8 @@ export interface TreeWrapper {
 
 export function build(root: Tree.Node): TreeWrapper {
 
-  function lastNode(): Tree.Node {
-    return ops.findInMainline(root, function(node: Tree.Node) {
-      return !node.children.length;
-    })!;
+  function lastNode(): MaybeNode {
+    return ops.findInMainline(root, (node: Tree.Node) => !node.children.length);
   }
 
   function nodeAtPath(path: Tree.Path): Tree.Node {
@@ -70,7 +68,7 @@ export function build(root: Tree.Node): TreeWrapper {
 
   function getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[] {
     var node, nodes = [];
-    for (var i in nodeList) {
+    for (let i in nodeList) {
       node = nodeList[i];
       if (node.ply <= ply && mainline[i].id !== node.id) break;
       if (node.ply > ply) nodes.push(node);
@@ -140,7 +138,7 @@ export function build(root: Tree.Node): TreeWrapper {
   }
 
   function addNodes(nodes: Tree.Node[], path: Tree.Path): Tree.Path | undefined {
-    var node = nodes[0];
+    const node = nodes[0];
     if (!node) return path;
     const newPath = addNode(node, path);
     return newPath ? addNodes(nodes.slice(1), newPath) : undefined;
@@ -209,7 +207,7 @@ export function build(root: Tree.Node): TreeWrapper {
   return {
     root,
     lastPly(): number {
-      return lastNode().ply;
+      return lastNode()?.ply || root.ply;
     },
     nodeAtPath,
     getNodeList,

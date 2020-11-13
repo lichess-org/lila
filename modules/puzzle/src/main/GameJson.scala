@@ -54,7 +54,7 @@ final private class GameJson(
               "color"  -> p.color.name
             )
           }),
-          "pgn" -> game.chess.pgnMoves.take(plies - 1)
+          "pgn" -> game.chess.pgnMoves.take(plies + 1)
         )
         .add("clock", game.clock.map(_.config.show))
     }

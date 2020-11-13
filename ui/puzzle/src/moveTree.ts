@@ -1,8 +1,10 @@
 import { Chess } from 'chessops/chess';
-import { makeSan, parseSan } from 'chessops/san';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
+import { makeSan, parseSan } from 'chessops/san';
 import { makeUci, parseUci } from 'chessops/util';
 import { scalachessCharPair } from 'chessops/compat';
+import { TreeWrapper } from 'tree';
+import { Move } from 'chessops/types';
 
 export function pgnToTree(pgn: San[]): Tree.Node {
   const pos = Chess.default();
@@ -16,37 +18,33 @@ export function pgnToTree(pgn: San[]): Tree.Node {
   pgn.forEach((san, i) => {
     const move = parseSan(pos, san)!;
     pos.play(move);
-    const nextNode = {
-      ply: i + 1,
-      fen: makeFen(pos.toSetup()),
-      id: scalachessCharPair(move),
-      uci: makeUci(move),
-      san: san,
-      children: []
-    };
+    const nextNode = makeNode(pos, move, i + 1, san);
     current.children.push(nextNode);
     current = nextNode;
   });
-  console.log(root);
   return root;
 }
 
-export function mergeSolution(node: Tree.Node, solution: Uci[], color: Color): void {
-  const pos = Chess.fromSetup(parseFen(node.fen).unwrap()).unwrap();
-  for (const uci of solution) {
+export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solution: Uci[], pov: Color): void {
+  const initialNode = root.nodeAtPath(initialPath);
+  const pos = Chess.fromSetup(parseFen(initialNode.fen).unwrap()).unwrap();
+  const fromPly = initialNode.ply;
+  const nodes = solution.map((uci, i) => {
     const move = parseUci(uci)!;
-    const san = makeSan(pos, move)!;
+    const san = makeSan(pos, move);
     pos.play(move);
-    const nextNode = {
-      ply: pos.fullmoves,
-      fen: makeFen(pos.toSetup()),
-      id: scalachessCharPair(move),
-      uci: makeUci(move),
-      san: san,
-      children: []
-    };
-    if (color == 'white' == (pos.fullmoves % 2 == 1)) node.puzzle = 'good';
-    node.children.push(nextNode);
-    node = nextNode;
-  };
+    const node = makeNode(pos, move, fromPly + i + 1, san);
+    if ((pov == 'white') == (node.ply % 2 == 1)) (node as any).puzzle = 'good';
+    return node;
+  });
+  root.addNodes(nodes, initialPath);
 }
+
+const makeNode = (pos: Chess, move: Move, ply: number, san: San) => ({
+  ply,
+  san,
+  fen: makeFen(pos.toSetup()),
+  id: scalachessCharPair(move),
+  uci: makeUci(move),
+  children: []
+});
