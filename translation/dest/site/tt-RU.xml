@@ -4,4 +4,10 @@
   <string name="playWithTheMachine">Компьютер белән уйнарга</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Бу сылтама белән уенга чакыру</string>
   <string name="gameOver">Уен бетте</string>
+  <string name="waitingForOpponent">Ярышучыны көтәбез</string>
+  <string name="waiting">Көтәбез</string>
+  <string name="yourTurn">Сез йөрисез</string>
+  <string name="aiNameLevelAiLevel">%1$s дәрәҗәсе %2$s</string>
+  <string name="level">Дәрәҗә</string>
+  <string name="toggleTheChat">Чатны ачу/ябу</string>
 </resources>
