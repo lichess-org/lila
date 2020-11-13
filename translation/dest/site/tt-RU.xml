@@ -188,4 +188,14 @@
     <item quantity="other">Сезнең белән %s уен</item>
   </plurals>
   <string name="cancel">Булдыртмау</string>
+  <string name="whiteTimeOut">Акларның вакыты чыкты</string>
+  <string name="blackTimeOut">Караларның вакыты чыкты</string>
+  <string name="drawOfferSent">Тиңлек тәкъдиме җибәрелде</string>
+  <string name="drawOfferDeclined">Тиңлек тәкъдиме кире кагылды</string>
+  <string name="drawOfferAccepted">Тиңлек тәкъдиме кабул ителде</string>
+  <string name="drawOfferCanceled">Тиңлек тәкъдиме туктатылды</string>
+  <string name="whiteOffersDraw">Аклар тиңлек тәкъдим итә</string>
+  <string name="blackOffersDraw">Каралар тиңлек тәкъдим итә</string>
+  <string name="whiteDeclinesDraw">Аклар тиңлекне кире кага</string>
+  <string name="blackDeclinesDraw">Каралар тиңлекне кире кага</string>
 </resources>
