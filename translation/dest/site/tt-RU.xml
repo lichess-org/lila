@@ -83,4 +83,7 @@
   <string name="signIn">Керү</string>
   <string name="youNeedAnAccountToDoThat">Моның өчен аккаунт кирәк</string>
   <string name="signUp">Теркәлү</string>
+  <string name="computersAreNotAllowedToPlay">Компьютер булышы тыелган. Зинһар, уйнаганда, шахмат программалары, мәглүмәт базалары я башка уенчылар булышы белән файдаланмагыз. Күп аккаунтлар ясау киңәш ителми һәм кирәк булмаган күп аккаунтлар ясау сезне банга китерер.</string>
+  <string name="games">Уеннар</string>
+  <string name="forum">Форум</string>
 </resources>
