@@ -228,4 +228,20 @@
   <string name="play">Уйнау</string>
   <string name="inbox">Хатлар</string>
   <string name="chatRoom">Сөйләшү бүлмәсе</string>
+  <string name="loginToChat">Чат куллану өчен керегез</string>
+  <string name="youHaveBeenTimedOut">Чаттан вакытлыча чыгарылдыгыз.</string>
+  <string name="spectatorRoom">Күзәтү бүлмәсе</string>
+  <string name="composeMessage">Хат язу</string>
+  <string name="noNewMessages">Яңа хатлар юк</string>
+  <string name="averageElo">Уртача рейтинг</string>
+  <string name="location">Урын</string>
+  <string name="filterGames">Уеннар фильтры</string>
+  <string name="reset">Яңадан</string>
+  <string name="apply">Саклау</string>
+  <string name="save">Саклау</string>
+  <string name="leaderboard">Лидерлар тактасы</string>
+  <string name="pasteTheFenStringHere">FEN текстын монда кертегез</string>
+  <string name="pasteThePgnStringHere">PGN текстын монда кертегез</string>
+  <string name="fromPosition">Позициядән</string>
+  <string name="continueFromHere">Бу җирдән дәвам итү</string>
 </resources>
