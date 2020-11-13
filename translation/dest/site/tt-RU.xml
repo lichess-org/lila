@@ -167,4 +167,14 @@
   <string name="username">Кулланучы исеме</string>
   <string name="usernameOrEmail">Кулланычы исеме я эл. почтасы</string>
   <string name="changeUsername">Кулланучы исемен үзгәртү</string>
+  <string name="changeUsernameNotSame">Хәрефләр регистрын гына үзгәртеп була. Мәсәлән, \"johndoe\"ны \"JohnDoe\"га.</string>
+  <string name="changeUsernameDescription">Кулланучы исемегезне үзгәртегез. Сез моны бер тапкыр гына ясый аласыз һәм хәрефләрнен зурлыгын гына үзгәртә аласыз.</string>
+  <string name="password">Серсүз</string>
+  <string name="changePassword">Серсүзне үзгәртү</string>
+  <string name="changeEmail">Emailны үзгәртү</string>
+  <string name="email">Email</string>
+  <string name="passwordReset">Серсүзне алыштыру</string>
+  <string name="forgotPassword">Серсүзне оныттыгыз?</string>
+  <string name="rank">Урын</string>
+  <string name="rankX">Урын: %s</string>
 </resources>
