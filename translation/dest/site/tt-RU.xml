@@ -233,6 +233,7 @@
   <string name="spectatorRoom">Күзәтү бүлмәсе</string>
   <string name="composeMessage">Хат язу</string>
   <string name="noNewMessages">Яңа хатлар юк</string>
+  <string name="subject">Хат темасы</string>
   <string name="recipient">Алучы</string>
   <string name="send">Җибәрү</string>
   <string name="incrementInSeconds">Секунд кушыла</string>
@@ -271,6 +272,15 @@
   <string name="bookmarkThisGame">Бу битне кыстыргычларга сакларга</string>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнирлар</string>
+  <string name="tournamentPoints">Турнир баллары</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s турнир баллары</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="other">%s өйрәнү</item>
+  </plurals>
+  <string name="viewTournament">Турнирны күрү</string>
+  <string name="backToTournament">Турнирга кайту</string>
   <string name="averageElo">Уртача рейтинг</string>
   <string name="location">Урын</string>
   <string name="filterGames">Уеннар фильтры</string>
