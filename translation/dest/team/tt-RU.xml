@@ -27,4 +27,9 @@
   <string name="willBeReviewed">Сезнең кушылу соравыгызны төркем җитәкчесе карап чыгачак.</string>
   <string name="beingReviewed">Сезнең кушылу соравыгызны төркем җитәкчесе карап чыга.</string>
   <string name="teamBattle">Төркемнәр ярышы</string>
+  <string name="teamBattleOverview">Төрле төркемнәр ярышы, һәр уенче үзенең төркеме өчен баллар җыя</string>
+  <string name="teamTournament">Төркем турниры</string>
+  <string name="teamTournamentOverview">Сезнең төркем уенчылары гына кушыла алган Арена турниры</string>
+  <string name="messageAllMembers">Төркемнең бөтен уенчыларына хәбәр җибәрү</string>
+  <string name="messageAllMembersOverview">Төркемнең һәр уенчына шәхси хәбәр җибәрү</string>
 </resources>
