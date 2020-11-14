@@ -32,4 +32,8 @@
   <string name="teamTournamentOverview">Сезнең төркем уенчылары гына кушыла алган Арена турниры</string>
   <string name="messageAllMembers">Төркемнең бөтен уенчыларына хәбәр җибәрү</string>
   <string name="messageAllMembersOverview">Төркемнең һәр уенчына шәхси хәбәр җибәрү</string>
+  <string name="messageAllMembersLongDescription">Төркемнең һәр уенчына шәхси хәбәр җибәрү.
+Сез моны уенчыларны турнирга я төркемнәр ярышына чакыру өчен итә аласыз.
+Сездән хәбәр алырга теләмәгән уенчылар төркемнән чыга ала.</string>
+  <string name="teamsIlead">Минем җитәкчелегемдә төркемнәр</string>
 </resources>
