@@ -281,6 +281,13 @@
   </plurals>
   <string name="viewTournament">Турнирны күрү</string>
   <string name="backToTournament">Турнирга кайту</string>
+  <string name="thematic">Тематик</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="other">≥ %s рейтинглы уен</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">≥ %1$s рейтинглы %2$s уен</item>
+  </plurals>
   <string name="averageElo">Уртача рейтинг</string>
   <string name="location">Урын</string>
   <string name="filterGames">Уеннар фильтры</string>
