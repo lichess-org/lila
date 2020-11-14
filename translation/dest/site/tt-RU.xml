@@ -261,6 +261,16 @@
   <string name="thisAccountViolatedTos">Бу аккаунт Lichessның Куллану Шартларын бозды</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Бу уенче рейтингын юри арттыра/азайта</string>
   <string name="openingExplorerAndTablebase">Дебютлар һәм эндшпилләр базасы</string>
+  <string name="takeback">Кире алырга</string>
+  <string name="proposeATakeback">Йөрүне кире алырга сорарга</string>
+  <string name="takebackPropositionSent">Йөрүне кире алу соралды</string>
+  <string name="takebackPropositionDeclined">Йөрүне кире алу кире кагылды</string>
+  <string name="takebackPropositionAccepted">Йөрүне кире алу кабул ителде</string>
+  <string name="takebackPropositionCanceled">Йөрүне кире алу тәкъдиме туктатылды</string>
+  <string name="yourOpponentProposesATakeback">Ярышучыгыз йөрүне кире алырга сорый</string>
+  <string name="bookmarkThisGame">Бу битне кыстыргычларга сакларга</string>
+  <string name="tournament">Турнир</string>
+  <string name="tournaments">Турнирлар</string>
   <string name="averageElo">Уртача рейтинг</string>
   <string name="location">Урын</string>
   <string name="filterGames">Уеннар фильтры</string>
