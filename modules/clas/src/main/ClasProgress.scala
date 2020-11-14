@@ -42,7 +42,7 @@ case class StudentProgress(
 final class ClasProgressApi(
     gameRepo: GameRepo,
     historyApi: lila.history.HistoryApi,
-    puzzleRoundRepo: lila.puzzle.RoundRepo,
+    puzzleColls: lila.puzzle.PuzzleColls,
     getStudentIds: () => Fu[Set[User.ID]]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -76,7 +76,7 @@ final class ClasProgressApi(
   }
 
   private def getPuzzleStats(userIds: List[User.ID], days: Int): Fu[Map[User.ID, PlayStats]] =
-    puzzleRoundRepo.coll.get.flatMap {
+    puzzleColls.round {
       _.aggregateList(
         maxDocs = Int.MaxValue,
         ReadPreference.secondaryPreferred

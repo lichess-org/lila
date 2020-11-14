@@ -24,7 +24,7 @@ final class AsyncDb(
       conn database dbName.getOrElse("lichess")
     }
 
-  def apply(name: CollName) = new AsyncColl(() => db.dmap(_(name.value)))
+  def apply(name: CollName) = new AsyncColl(name, () => db.dmap(_(name.value)))
 }
 
 final class Db(

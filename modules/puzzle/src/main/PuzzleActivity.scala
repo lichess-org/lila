@@ -13,8 +13,7 @@ import lila.db.dsl._
 import lila.user.User
 
 final class PuzzleActivity(
-    puzzleColl: AsyncColl,
-    roundColl: AsyncColl
+    colls: PuzzleColls
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
@@ -26,11 +25,11 @@ final class PuzzleActivity(
 
   def stream(config: Config): Source[String, _] =
     Source futureSource {
-      roundColl.map {
-        _.find($doc("_id" $startsWith s"${config.user.id}${Round.idSep}"))
+      colls.round.map {
+        _.find($doc("_id" $startsWith s"${config.user.id}${PuzzleRound.idSep}"))
           .sort($sort desc "_id")
           .batchSize(config.perSecond.value)
-          .cursor[Round](ReadPreference.secondaryPreferred)
+          .cursor[PuzzleRound](ReadPreference.secondaryPreferred)
           .documentSource()
           .take(config.max | Int.MaxValue)
           .grouped(config.perSecond.value)
@@ -43,8 +42,8 @@ final class PuzzleActivity(
       }
     }
 
-  private def enrich(rounds: Seq[Round]): Fu[Seq[JsObject]] =
-    puzzleColl {
+  private def enrich(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
+    colls.puzzle {
       _.primitiveMap[Puzzle.Id, Double](
         ids = rounds.map(_.id.puzzleId),
         field = "perf.gl.r",

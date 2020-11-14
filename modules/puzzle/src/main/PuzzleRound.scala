@@ -4,8 +4,8 @@ import org.joda.time.DateTime
 
 import lila.user.User
 
-case class Round(
-    id: Round.Id,
+case class PuzzleRound(
+    id: PuzzleRound.Id,
     date: DateTime,
     win: Boolean,
     vote: Option[Boolean],
@@ -13,7 +13,7 @@ case class Round(
     weight: Option[Int]
 ) {}
 
-object Round {
+object PuzzleRound {
 
   val idSep = ':'
 

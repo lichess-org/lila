@@ -7,19 +7,23 @@ import play.api.Configuration
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
+import lila.db.AsyncColl
 
 @Module
 private class PuzzleConfig(
     @ConfigName("mongodb.uri") val mongoUri: String,
     @ConfigName("collection.puzzle") val puzzleColl: CollName,
     @ConfigName("collection.round") val roundColl: CollName,
-    @ConfigName("collection.vote") val voteColl: CollName,
-    @ConfigName("collection.head") val headColl: CollName,
+    @ConfigName("collection.path") val pathColl: CollName,
     @ConfigName("api.token") val apiToken: Secret,
     @ConfigName("animation.duration") val animationDuration: FiniteDuration
 )
 
-case class RoundRepo(coll: lila.db.AsyncColl)
+case class PuzzleColls(
+    puzzle: AsyncColl,
+    round: AsyncColl,
+    path: AsyncColl
+)
 
 @Module
 final class Env(
@@ -38,45 +42,29 @@ final class Env(
 
   private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
 
-  private lazy val db    = mongo.asyncDb("puzzle", config.mongoUri)
-  private def puzzleColl = db(config.puzzleColl)
-  private def roundColl  = db(config.roundColl)
-  private def voteColl   = db(config.voteColl)
-  private def headColl   = db(config.headColl)
+  private lazy val db = mongo.asyncDb("puzzle", config.mongoUri)
+
+  lazy val colls = PuzzleColls(
+    puzzle = db(config.puzzleColl),
+    round = db(config.roundColl),
+    path = db(config.pathColl)
+  )
 
   private lazy val gameJson: GameJson = wire[GameJson]
 
   lazy val jsonView = wire[JsonView]
 
-  lazy val api = new PuzzleApi(
-    puzzleColl = puzzleColl,
-    roundColl = roundColl,
-    voteColl = voteColl,
-    headColl = headColl,
-    cacheApi = cacheApi
-  )
+  lazy val api: PuzzleApi = wire[PuzzleApi]
 
-  lazy val roundRepo = RoundRepo(roundColl)
+  lazy val cursorApi: PuzzleCursorApi = wire[PuzzleCursorApi]
 
-  lazy val finisher = new Finisher(
-    historyApi = historyApi,
-    userRepo = userRepo,
-    api = api,
-    puzzleColl = puzzleColl
-  )
+  lazy val finisher = wire[Finisher]
 
   lazy val forms = PuzzleForm
 
-  lazy val daily = new Daily(
-    puzzleColl,
-    renderer,
-    cacheApi = cacheApi
-  )
+  lazy val daily = wire[Daily]
 
-  lazy val activity = new PuzzleActivity(
-    puzzleColl = puzzleColl,
-    roundColl = roundColl
-  )
+  lazy val activity = wire[PuzzleActivity]
 
   def cli =
     new lila.common.Cli {

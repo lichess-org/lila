@@ -13,10 +13,10 @@ final private[puzzle] class Finisher(
     api: PuzzleApi,
     userRepo: UserRepo,
     historyApi: lila.history.HistoryApi,
-    puzzleColl: AsyncColl
+    colls: PuzzleColls
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(puzzle: Puzzle, user: User, result: Result, isStudent: Boolean): Fu[Round] =
+  def apply(puzzle: Puzzle, user: User, result: Result, isStudent: Boolean): Fu[PuzzleRound] =
     api.round.find(user, puzzle) flatMap { prevRound =>
       val now              = DateTime.now
       val formerUserRating = user.perfs.puzzle.intRating
@@ -29,8 +29,8 @@ final private[puzzle] class Finisher(
         user.perfs.puzzle.addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now)
       val round = prevRound
         .fold(
-          Round(
-            id = Round.Id(user.id, puzzle.id),
+          PuzzleRound(
+            id = PuzzleRound.Id(user.id, puzzle.id),
             date = now,
             win = result.win,
             vote = none,
@@ -62,7 +62,7 @@ final private[puzzle] class Finisher(
   private val system     = new RatingCalculator(VOLATILITY, TAU)
 
   def incPuzzlePlays(puzzle: Puzzle): Funit =
-    puzzleColl.map(_.incFieldUnchecked($id(puzzle.id.value), Puzzle.BSONFields.plays))
+    colls.puzzle.map(_.incFieldUnchecked($id(puzzle.id.value), Puzzle.BSONFields.plays))
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()

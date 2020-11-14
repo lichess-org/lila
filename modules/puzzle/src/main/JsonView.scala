@@ -19,7 +19,7 @@ final class JsonView(
   def apply(
       puzzle: Puzzle,
       user: Option[User],
-      round: Option[Round] = None
+      round: Option[PuzzleRound] = None
   ): Fu[JsObject] = {
     gameJson(
       gameId = puzzle.gameId,

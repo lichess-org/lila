@@ -5,12 +5,11 @@ import org.joda.time.DateTime
 import Puzzle.{ BSONFields => F }
 import scala.concurrent.duration._
 
-import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.memo.CacheApi._
 
 final private[puzzle] class Daily(
-    coll: AsyncColl,
+    colls: PuzzleColls,
     renderer: lila.hub.actors.Renderer,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -45,7 +44,7 @@ final private[puzzle] class Daily(
   }
 
   private def findCurrent =
-    coll {
+    colls.puzzle {
       _.find(
         $doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15))
       )
@@ -53,7 +52,7 @@ final private[puzzle] class Daily(
     }
 
   private def findNew =
-    coll { c =>
+    colls.puzzle { c =>
       c.find($doc(F.day $exists false))
         .sort($doc(F.vote -> -1))
         .one[Puzzle] flatMap {

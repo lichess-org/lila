@@ -7,7 +7,7 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
-import lila.puzzle.{ Result, Puzzle => Puz }
+import lila.puzzle.{ Result, PuzzleRound, Puzzle => Puz }
 
 final class Puzzle(
     env: Env,
@@ -16,7 +16,7 @@ final class Puzzle(
 
   private def renderJson(
       puzzle: Puz,
-      round: Option[lila.puzzle.Round] = None
+      round: Option[PuzzleRound] = None
   )(implicit ctx: Context): Fu[JsObject] =
     env.puzzle.jsonView(
       puzzle = puzzle,
@@ -50,10 +50,9 @@ final class Puzzle(
   def home =
     Open { implicit ctx =>
       NoBot {
-        ???
-        // env.puzzle.selector(ctx.me) flatMap { puzzle =>
-        //   renderShow(puzzle, if (ctx.isAuth) "play" else "try")
-        // }
+        env.puzzle.cursorApi.nextPuzzleFor(ctx.me.get) flatMap { puzzle =>
+          renderShow(puzzle)
+        }
       }
     }
 

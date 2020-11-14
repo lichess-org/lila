@@ -2,7 +2,6 @@ package lila.puzzle
 
 import chess.format.{ FEN, Uci }
 import reactivemongo.api.bson._
-
 import scala.util.Success
 
 import lila.db.BSON
@@ -37,15 +36,34 @@ private[puzzle] object BsonHandlers {
     )
   }
 
-  implicit val RoundIdHandler = tryHandler[Round.Id](
+  implicit val RoundIdHandler = tryHandler[PuzzleRound.Id](
     { case BSONString(v) =>
-      v split Round.idSep match {
-        case Array(userId, puzzleId) => Success(Round.Id(userId, Puzzle.Id(puzzleId)))
+      v split PuzzleRound.idSep match {
+        case Array(userId, puzzleId) => Success(PuzzleRound.Id(userId, Puzzle.Id(puzzleId)))
         case _                       => handlerBadValue(s"Invalid puzzle round id $v")
       }
     },
     id => BSONString(id.toString)
   )
 
-  implicit val RoundBSONHandler = Macros.handler[Round]
+  implicit val RoundHandler = new BSON[PuzzleRound] {
+    import PuzzleRound.BSONFields._
+    def reads(r: BSON.Reader) = PuzzleRound(
+      id = r.get[PuzzleRound.Id](id),
+      date = r.date(date),
+      win = r.bool(win),
+      vote = r.boolO(vote),
+      weight = r.intO(weight)
+    )
+    def writes(w: BSON.Writer, r: PuzzleRound) =
+      $doc(
+        id     -> r.id,
+        date   -> r.date,
+        win    -> r.win,
+        vote   -> r.vote,
+        weight -> r.weight
+      )
+  }
+
+  implicit val PathIdBSONHandler: BSONHandler[Puzzle.PathId] = stringIsoHandler(Puzzle.pathIdIso)
 }

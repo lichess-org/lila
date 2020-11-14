@@ -35,7 +35,7 @@ object Puzzle {
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  case class Line(initial: Uci.Move, first: Uci.Move, more: List[(Uci.Move, Uci.Move)])
+  case class PathId(value: String) extends AnyVal with StringValue
 
   case class UserResult(
       puzzleId: Id,
@@ -55,5 +55,6 @@ object Puzzle {
     val plays  = "plays"
   }
 
-  implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)
+  implicit val idIso     = lila.common.Iso.string[Id](Id.apply, _.value)
+  implicit val pathIdIso = lila.common.Iso.string[PathId](PathId.apply, _.value)
 }
