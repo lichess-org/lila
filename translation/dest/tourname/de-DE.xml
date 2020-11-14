@@ -24,7 +24,7 @@
   <string name="weeklyX">Wöchentliches %s</string>
   <string name="monthlyRapidArena">Monatliche Schnellschach-Arena</string>
   <string name="monthlyRapid">Monatliches Schnellschach</string>
-  <string name="monthlyClassicalArena">Monatliche Klassik-Arena</string>
+  <string name="monthlyClassicalArena">Monatliche Klassisch-Arena</string>
   <string name="monthlyClassical">Monatliches Klassisch</string>
   <string name="monthlyXArena">Monatliche %s-Arena</string>
   <string name="monthlyX">Monatliches %s</string>
@@ -36,7 +36,7 @@
   <string name="yearlyX">Jährliches %s</string>
   <string name="rapidShieldArena">Schnellschach Schild-Arena</string>
   <string name="rapidShield">Schnellschach Schild</string>
-  <string name="classicalShieldArena">Klassik Schild-Arena</string>
+  <string name="classicalShieldArena">Klassische Schild-Arena</string>
   <string name="classicalShield">Klassik Schild</string>
   <string name="xShieldArena">%s Schild-Arena</string>
   <string name="xShield">%s Schild</string>
