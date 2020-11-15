@@ -104,5 +104,14 @@
 не шабуылды бөгеңіз!</string>
   <string name="outOfCheckComplete">Құтты болсын! Патшаңыз қолға түспеуді үйренді!</string>
   <string name="mateInOne">Бір қадамды мат</string>
+  <string name="defeatTheOpponentsKing">Қарсыластың патшасын жеңіңіз</string>
+  <string name="mateInOneIntro">Қарсыластың шахтан құтылу жолы болмағанда, сіз жеңесіз.</string>
+  <string name="attackYourOpponentsKing">Қарсылас қорғана алмайтындай
+шабуыл жасаңыз!</string>
+  <string name="mateInOneComplete">Құтты болсын! Шахматта осылай жеңіске жетесіз!</string>
+  <string name="intermediate">Ортаңғы деңгей</string>
+  <string name="boardSetup">Тақтаны баптау</string>
+  <string name="howTheGameStarts">Ойын қалай басталады</string>
+  <string name="boardSetupIntro">Шайқасқа дайын екі әскер қарама-қарсы тұрады.</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
