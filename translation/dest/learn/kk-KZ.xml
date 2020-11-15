@@ -205,5 +205,15 @@
   <string name="register">Тіркеліңіз</string>
   <string name="getAFreeLichessAccount">Тегін Личес аккаунтын жасаңыз</string>
   <string name="practice">Жаттығыңыз</string>
+  <string name="learnCommonChessPositions">Әдеттегі шахмат күйлерін меңгеріңіз</string>
+  <string name="puzzles">Жұмбақтар</string>
+  <string name="exerciseYourTacticalSkills">Тактикалық ойлауды ұштаңыз</string>
+  <string name="videos">Видеолар</string>
+  <string name="watchInstructiveChessVideos">Шахмат үйрететін видео сабақтар</string>
+  <string name="playPeople">Адаммен ойнаңыз</string>
+  <string name="opponentsFromAroundTheWorld">Дүние жүзінен қосылған ойыншылар</string>
+  <string name="playMachine">Компьютермен ойнаңыз</string>
+  <string name="testYourSkillsWithTheComputer">Шамаңызды компьютер арқылы сынаңыз</string>
+  <string name="letsGo">Кеттік!</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
