@@ -288,6 +288,13 @@
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="other">≥ %1$s рейтинглы %2$s уен</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="other">Сезгә тагын %2$s рейтинглы %1$s уен уйнарга кирәк</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="other">Сезгә тагын %s рейтинглы уен уйнарга кирәк</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Сезнең %s рейтингыгыз әле фараз</string>
   <string name="averageElo">Уртача рейтинг</string>
   <string name="location">Урын</string>
   <string name="filterGames">Уеннар фильтры</string>
