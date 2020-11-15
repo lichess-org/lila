@@ -10,6 +10,11 @@
   <string name="whyIsLilaCalledLila">Личестің түбір коды – %1$s сөзі, li[chess in sca]la-дан құралады. %2$s програмдау тілінде Личестің негізгі бөлігі жазылған.</string>
   <string name="howCanIContributeToLichess">Лическе қалайша жәрдем көрсетсем болады?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Личестің тірегі – ақшалай жәрдем берушілер мен еріктілер тобы.</string>
+  <string name="findMoreAndSeeHowHelp">%1$s туралы көбірек білуіңізге болады (%2$s қоса). Егер Лическе ерікті ретінде уақыт пен қабілетіңізбен көмек көрсетем десеңіз, %3$s бар.</string>
+  <string name="beingAPatron">жәрдем беруші болу</string>
+  <string name="breakdownOfOurCosts">біздің шығындар тізімі</string>
+  <string name="otherWaysToHelp">көмектесудің басқа жолдары</string>
+  <string name="areThereWebsitesBasedOnLichess">Личес негізінде жасалған веб-сайттар бар ма?</string>
   <string name="howBulletBlitzEtcDecided">Буллит, Блитц пен басқа да уақыт қалыптарын қалай таңдауға болады?</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sс = %2$s</string>
   <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE нұсқаулығы %s</string>
