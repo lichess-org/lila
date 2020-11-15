@@ -3,6 +3,14 @@
   <string name="learnChess">Шахмат ойнап,</string>
   <string name="byPlaying">үйреніңіз!</string>
   <string name="menu">Мәзір</string>
+  <string name="progressX">Жетістік: %s</string>
+  <string name="resetMyProgress">Жетістігімді өшіру</string>
+  <string name="youWillLoseAllYourProgress">Бүкіл жетістігіңізден айырыласыз!</string>
+  <string name="play">ойнаңыз!</string>
+  <string name="chessPieces">Шахмат тастары</string>
+  <string name="theRook">Тура</string>
+  <string name="itMovesInStraightLines">Ол түзу жолмен жүреді</string>
+  <string name="rookIntro">Тура – мықты тас. Оны басқаруға дайынсыз ба?</string>
   <string name="itMovesDiagonally">Ол қиғаш жүреді</string>
   <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш жейді!</string>
   <string name="yourScore">Ұпайыңыз</string>
