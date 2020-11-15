@@ -110,7 +110,7 @@
 шабуыл жасаңыз!</string>
   <string name="mateInOneComplete">Құтты болсын! Шахматта осылай жеңіске жетесіз!</string>
   <string name="intermediate">Ортаңғы деңгей</string>
-  <string name="boardSetup">Тақтаны баптау</string>
+  <string name="boardSetup">Тақтаны дайындау</string>
   <string name="howTheGameStarts">Ойын қалай басталады</string>
   <string name="boardSetupIntro">Шайқасқа дайын екі әскер қарама-қарсы тұрады.</string>
   <string name="thisIsTheInitialPosition">Әр шахмат ойны
@@ -128,5 +128,8 @@
 Оның орны – уәзірдің қасында.</string>
   <string name="pawnsFormTheFrontLine">Сарбаздар алдыңғы сапты құрайды.
 Бір жүріс жасаңыз.</string>
+  <string name="boardSetupComplete">Құтты болсын! Енді шахмат тақтасын ойынға дайындауды білесіз.</string>
+  <string name="castling">Бекіну</string>
+  <string name="theSpecialKingMove">Патшаның ерекше жүрісі</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
