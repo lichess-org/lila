@@ -72,5 +72,7 @@
   <string name="captureComplete">Құтты болсын! Енді шахмат тастарымен шайқасуды білесіз!</string>
   <string name="protection">Қорғау</string>
   <string name="keepYourPiecesSafe">Өз тастарыңызды қорғаулы ұстаңыз</string>
+  <string name="protectionIntro">Қарсылас сіздің қай тасыңызға шауып тұрғанын тауып, оны қорғаңыз!</string>
+  <string name="protectionComplete">Құтты болсын! Жоғалтпаған тас – жеңіске жеткізетін тас!</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
