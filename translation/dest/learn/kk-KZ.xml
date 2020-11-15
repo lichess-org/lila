@@ -11,6 +11,9 @@
   <string name="theRook">Тура</string>
   <string name="itMovesInStraightLines">Ол түзу жолмен жүреді</string>
   <string name="rookIntro">Тура – мықты тас. Оны басқаруға дайынсыз ба?</string>
+  <string name="rookGoal">Тураға басып,
+жұлдыздарды жинап алыңыз!</string>
+  <string name="grabAllTheStars">Барлық жұлдыздарды жинап алыңыз!</string>
   <string name="itMovesDiagonally">Ол қиғаш жүреді</string>
   <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш жейді!</string>
   <string name="yourScore">Ұпайыңыз</string>
