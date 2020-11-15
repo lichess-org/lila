@@ -28,10 +28,12 @@ export function moveTestBuild(vm: Vm, puzzle: Puzzle): MoveTestFn {
 
     const nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(node => ({
       uci: node.uci,
-      castle: node.san!.startsWith('O-O')
+      castle: node.san!.startsWith('O-O'),
+      checkmate: node.san!.endsWith('#')
     }));
     
     for (const i in nodes) {
+      if (nodes[i].checkmate) return vm.node.puzzle = 'win';
       const uci = nodes[i].uci!, solUci = puzzle.solution[i];
       if (uci != solUci && (!nodes[i].castle || !isAltCastle(uci) || altCastles[uci] != solUci)) 
         return vm.node.puzzle = 'fail';

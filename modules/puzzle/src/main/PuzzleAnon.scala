@@ -33,7 +33,7 @@ final class PuzzleAnon(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: Exec
               Sample(1),
               Project($doc("puzzleId" -> "$ids", "_id" -> false)),
               Unwind("puzzleId"),
-              Limit(poolSize),
+              Sample(poolSize),
               PipelineOperator(
                 $doc(
                   "$lookup" -> $doc(
