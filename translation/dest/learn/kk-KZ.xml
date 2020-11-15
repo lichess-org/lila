@@ -51,5 +51,13 @@
   <string name="mostOfTheTimePromotingToAQueenIsBest">Көп жағдайда уәзірге айналдырған жақсы,
 Бірақ кейде ат болғаны одан да пайдалы!</string>
   <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш жейді!</string>
+  <string name="captureThenPromote">Басып алыңыз, кейін айналдырыңыз!</string>
+  <string name="useAllThePawns">Барлық сарбаздарды пайдаланыңыз!
+Айналдырудың қажеті жоқ.</string>
+  <string name="aPawnOnTheSecondRank">Екінші жолда тұрған сарбаз бірден 2 шаршы жүре алады!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Барлық жұлдыздарды жинап алыңыз!
+Айналдырудың қажеті жоқ.</string>
+  <string name="pawnComplete">Құтты болсын! Сарбаздардың бүкіл қыр-сырын білесіз.</string>
+  <string name="pawnPromotion">Сарбазды айналдыру</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
