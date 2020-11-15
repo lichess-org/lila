@@ -124,25 +124,34 @@ export default function() {
   { // cli
     const $wrap = $('#clinput');
     if (!$wrap.length) return;
-    let booted: boolean;
     const $input = $wrap.find('input');
+    let booted = false;
     const boot = () => {
       if (booted) return;
       booted = true;
-      loadModule('cli').then(() => window.LichessCli.app($wrap, toggle));
+      loadModule('cli').then(() => window.LichessCli.app($input[0]), () => booted = false);
     };
-    const toggle = () => {
-      boot();
-      $('body').toggleClass('clinput');
-      if ($('body').hasClass('clinput')) $input[0]!.focus();
-    };
-    $wrap.find('a').on('mouseover click', e => (e.type === 'mouseover' ? boot : toggle)());
+    $input.on({
+      blur() {
+        $input.val('');
+        $('body').removeClass('clinput');
+      },
+      focus() {
+        boot();
+        $('body').addClass('clinput');
+      }
+    });
+    $wrap.find('a').on({
+      mouseover: boot,
+      click() {
+        $('body').hasClass('clinput') ? $input[0]!.blur() : $input[0]!.focus();
+      }
+    });
     window.Mousetrap
       .bind('/', () => {
         $input.val('/');
-        requestAnimationFrame(() => toggle());
+        $input[0]!.focus();
       })
-      .bind('s', () => requestAnimationFrame(toggle));
-    if ($('body').hasClass('blind-mode')) $input.one('focus', toggle);
+      .bind('s', () => $input[0]!.focus());
   }
 }
