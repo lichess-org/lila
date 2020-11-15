@@ -168,5 +168,13 @@
   <string name="enPassantComplete">Құтты болсын! Енді сіз жолай басып алуды білесіз.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Ойындағы теңдік жағдайы</string>
+  <string name="stalemateIntro">Егер ойыншы шахқа ұрынбаса, онымен қатар, жүретін жолы болмаса, бұл пат деген сөз. Ойын нәтижесі – тепе-теңдік: ешкім жеңбеді де, жеңілмеді.</string>
+  <string name="stalemateGoal">Қараның патқа ұрынғаны:
+-Қараның жүретін жолы жоқ
+-Шах жоқ.</string>
+  <string name="stalemateComplete">Құтты болсын! Мат алудан гөрі, патқа ілінген жақсы!</string>
+  <string name="advanced">Қосымша</string>
+  <string name="pieceValue">Тастардың құны</string>
+  <string name="evaluatePieceStrength">Тас күшін бағалау</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
