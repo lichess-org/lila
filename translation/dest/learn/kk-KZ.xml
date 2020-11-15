@@ -48,6 +48,8 @@
   <string name="pawnIntro">Сарбаздар әлсіз, бірақ олардың жасырын күші бар.</string>
   <string name="pawnsMoveOneSquareOnly">Сарбаздар бір шаршы жүреді.
 Бірақ тақтаның қарсы тұсына жеткенде, олар күшті тасқа айналады!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Көп жағдайда уәзірге айналдырған жақсы,
+Бірақ кейде ат болғаны одан да пайдалы!</string>
   <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш жейді!</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
