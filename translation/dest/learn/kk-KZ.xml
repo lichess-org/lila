@@ -33,6 +33,11 @@
   <string name="theKing">Патша</string>
   <string name="theMostImportantPiece">Ең маңызды тас</string>
   <string name="kingIntro">Сіз патшасыз. Егер шайқаста құласаңыз, жалпы ойында жеңілесіз.</string>
+  <string name="theKingIsSlow">Патшаның қимылы - баяу.</string>
+  <string name="lastOne">Соңғысы!</string>
+  <string name="kingComplete">Енді басқарушыға басқарушы болдыңыз!</string>
+  <string name="theKnight">Ат</string>
+  <string name="itMovesInAnLShape">Ол \"Г\" пішіндес жолмен жүреді</string>
   <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш жейді!</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
