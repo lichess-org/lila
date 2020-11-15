@@ -385,9 +385,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     const next = vm.node.children[0];
     if (next && next.puzzle === 'good') userJump(vm.path + next.id);
     else {
-      const firstGoodPath = treeOps.takePathWhile(vm.mainline, function(node) {
-        return node.puzzle !== 'good';
-      });
+      const firstGoodPath = treeOps.takePathWhile(vm.mainline, node => node.puzzle != 'good');
       if (firstGoodPath) userJump(firstGoodPath + tree.nodeAtPath(firstGoodPath).children[0].id);
     }
 

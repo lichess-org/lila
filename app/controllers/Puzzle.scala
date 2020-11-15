@@ -14,10 +14,9 @@ final class Puzzle(
     apiC: => Api
 ) extends LilaController(env) {
 
-  private def renderJson(
-      puzzle: Puz,
-      round: Option[PuzzleRound] = None
-  )(implicit ctx: Context): Fu[JsObject] =
+  private def renderJson(puzzle: Puz, round: Option[PuzzleRound] = None)(implicit
+      ctx: Context
+  ): Fu[JsObject] =
     env.puzzle.jsonView(
       puzzle = puzzle,
       user = ctx.me,
@@ -25,6 +24,11 @@ final class Puzzle(
     )
 
   private def renderShow(puzzle: Puz)(implicit ctx: Context) =
+    ctx.me.?? { env.puzzle.api.round.find(_, puzzle) } flatMap {
+      renderShowWithRound(puzzle, _)
+    }
+
+  private def renderShowWithRound(puzzle: Puz, round: Option[PuzzleRound])(implicit ctx: Context) =
     ctx.me.?? { env.puzzle.api.round.find(_, puzzle) } flatMap { round =>
       renderJson(puzzle, round) map { json =>
         EnableSharedArrayBuffer(
@@ -41,7 +45,7 @@ final class Puzzle(
         }) { puzzle =>
           negotiate(
             html = renderShow(puzzle),
-            api = _ => puzzleJson(puzzle) map { Ok(_) }
+            api = _ => renderJson(puzzle, none) map { Ok(_) }
           ) map NoCache
         }
       }
@@ -50,8 +54,8 @@ final class Puzzle(
   def home =
     Open { implicit ctx =>
       NoBot {
-        env.puzzle.cursorApi.nextPuzzleFor(ctx.me.get) flatMap { puzzle =>
-          renderShow(puzzle)
+        nextPuzzleForMe flatMap {
+          renderShowWithRound(_, none)
         }
       }
     }
@@ -67,26 +71,28 @@ final class Puzzle(
     Open { implicit ctx =>
       NoBot {
         XhrOnly {
-          OptionFuOk(env.puzzle.api.puzzle find Puz.Id(id))(puzzleJson _).dmap(_ as JSON)
+          ???
+          // OptionFuOk(env.puzzle.api.puzzle find Puz.Id(id))(puzzleJson _).dmap(_ as JSON)
         }
       }
     }
-
-  private def puzzleJson(puzzle: Puz)(implicit ctx: Context) =
-    renderJson(puzzle, round = none)
 
   // XHR load next play puzzle
   def newPuzzle =
     Open { implicit ctx =>
       NoBot {
         XhrOnly {
-          ???
-          // env.puzzle.selector(ctx.me) flatMap puzzleJson map { json =>
-          //   Ok(json) as JSON
-          // }
+          nextPuzzleForMe flatMap { renderJson(_, none) } map { json =>
+            Ok(json) as JSON
+          }
         }
       }
     }
+
+  private def nextPuzzleForMe(implicit ctx: Context): Fu[Puz] = ctx.me match {
+    case None     => env.puzzle.anon.getOne orFail "Couldn't find a puzzle for anon!"
+    case Some(me) => env.puzzle.cursor.nextPuzzleFor(me)
+  }
 
   def round3(id: String) =
     OpenBody { implicit ctx =>
@@ -110,6 +116,7 @@ final class Puzzle(
                         result = Result(resultInt == 1),
                         isStudent = isStudent
                       )
+                      _ = env.puzzle.cursor.onRound(round)
                       me2 <- env.user.repo.byId(me.id).dmap(_ | me)
                       // infos <- env.puzzle userInfos me2
                     } yield Ok(

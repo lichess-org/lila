@@ -28,4 +28,5 @@ object ThreadLocalRandom {
     for (_ <- 0 until len) sb += nextChar()
     sb.result()
   }
+  def oneOf[A](vec: Vector[A]): Option[A] = vec lift nextInt(vec.size)
 }

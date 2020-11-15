@@ -1,7 +1,7 @@
 import { Chess } from 'chessops/chess';
 import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
-import { makeUci, parseUci } from 'chessops/util';
+import { makeSquare, makeUci, parseUci } from 'chessops/util';
 import { scalachessCharPair } from 'chessops/compat';
 import { TreeWrapper } from 'tree';
 import { Move } from 'chessops/types';
@@ -46,5 +46,6 @@ const makeNode = (pos: Chess, move: Move, ply: number, san: San) => ({
   fen: makeFen(pos.toSetup()),
   id: scalachessCharPair(move),
   uci: makeUci(move),
+  check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
   children: []
 });

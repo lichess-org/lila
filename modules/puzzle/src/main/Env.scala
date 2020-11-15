@@ -15,7 +15,6 @@ private class PuzzleConfig(
     @ConfigName("collection.puzzle") val puzzleColl: CollName,
     @ConfigName("collection.round") val roundColl: CollName,
     @ConfigName("collection.path") val pathColl: CollName,
-    @ConfigName("api.token") val apiToken: Secret,
     @ConfigName("animation.duration") val animationDuration: FiniteDuration
 )
 
@@ -56,7 +55,9 @@ final class Env(
 
   lazy val api: PuzzleApi = wire[PuzzleApi]
 
-  lazy val cursorApi: PuzzleCursorApi = wire[PuzzleCursorApi]
+  lazy val cursor: PuzzleCursorApi = wire[PuzzleCursorApi]
+
+  lazy val anon: PuzzleAnon = wire[PuzzleAnon]
 
   lazy val finisher = wire[Finisher]
 

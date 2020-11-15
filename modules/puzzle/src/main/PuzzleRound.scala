@@ -11,7 +11,10 @@ case class PuzzleRound(
     vote: Option[Boolean],
     // tags: List[RoundTag],
     weight: Option[Int]
-) {}
+) {
+
+  def userId = id.userId
+}
 
 object PuzzleRound {
 

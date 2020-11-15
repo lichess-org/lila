@@ -43,7 +43,7 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
   def nextPuzzleFor(user: User, isRetry: Boolean = false): Fu[Puzzle] =
     cursorOf(user) flatMap { cursor =>
       import NextPuzzleResult._
-      nextPuzzleResult(user, cursor).thenPp flatMap {
+      nextPuzzleResult(user, cursor.pp) flatMap {
         case PathMissing | PathEnded if !isRetry =>
           nextPathIdFor(user.id, cursor.previousPaths) flatMap {
             case None => fufail(s"No remaining puzzle path for ${user.id}")
@@ -69,7 +69,15 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
       _.aggregateOne() { framework =>
         import framework._
         Match($id(cursor.path)) -> List(
-          Project($doc("puzzleId" -> $doc("$arrayElemAt" -> $arr("$ids", 0)))),
+          // get the puzzle ID from cursor position
+          Project($doc("puzzleId" -> $doc("$arrayElemAt" -> $arr("$ids", cursor.positionInPath)))),
+          Project(
+            $doc(
+              "puzzleId" -> true,
+              "roundId"  -> $doc("$concat" -> $arr(s"${user.id}${PuzzleRound.idSep}", "$puzzleId"))
+            )
+          ),
+          // fetch the puzzle
           PipelineOperator(
             $doc(
               "$lookup" -> $doc(
@@ -80,19 +88,14 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
               )
             )
           ),
+          // look for existing round
           PipelineOperator(
             $doc(
               "$lookup" -> $doc(
-                "from" -> colls.round.name.value,
-                "let" -> $doc(
-                  "roundId" -> $doc("$concat" -> $arr(s"${user.id}${PuzzleRound.idSep}", "$puzzleId"))
-                ),
-                "pipeline" -> $arr(
-                  $doc("$match" -> $id("$$roundId")),
-                  // $doc("$match"   -> $id("thibault:313og")),
-                  $doc("$project" -> $doc("i" -> "$$roundId"))
-                ),
-                "as" -> "round"
+                "from"         -> colls.round.name.value,
+                "localField"   -> "roundId",
+                "foreignField" -> "_id",
+                "as"           -> "round"
               )
             )
           )
@@ -111,6 +114,15 @@ final class PuzzleCursorApi(colls: PuzzleColls, cacheApi: CacheApi, userRepo: Us
               }
           }
         }
+      }
+    }
+
+  def onRound(round: PuzzleRound): Unit =
+    cursors.getIfPresent(round.userId) foreach {
+      _ foreach { cursor =>
+        // yes, even if the completed puzzle was not the current cursor puzzle
+        // in that case we just skip a puzzle on the path, which doesn't matter
+        cursors.put(round.userId, fuccess(cursor.next))
       }
     }
 
