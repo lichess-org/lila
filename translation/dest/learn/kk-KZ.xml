@@ -186,5 +186,24 @@
   <string name="queenOverBishop">Ең бағалы тасты
 алыңыз!
 Уәзір &gt; Піл</string>
+  <string name="takeThePieceWithTheHighestValue">Ең бағалы тасты
+алыңыз!</string>
+  <string name="pieceValueComplete">Құтты болсын! Сіз тастар бағасын білесіз!
+Уәзір = 9
+Тура = 5
+Піл = 3
+Ат = 3
+Сарбаз = 1</string>
+  <string name="checkInTwo">Екі қадамды шах</string>
+  <string name="twoMovesToGiveCheck">Шах жасауға екі қадам</string>
+  <string name="checkInTwoIntro">Қарсыластың патшасына шах қою үшін дұрыс екі жүріс тізбегін табыңыз!</string>
+  <string name="checkInTwoGoal">Қарсылас патшасын
+екі жүріспен қорқытыңыз!</string>
+  <string name="checkInTwoComplete">Құтты болсын! Сіз қарсыласқа шах қойып, патшасын қорғауға мәжбүр еттіңіз!</string>
+  <string name="whatNext">Тағы не бар?</string>
+  <string name="youKnowHowToPlayChess">Енді шахмат ойнауды білесіз, құтты болсын! Одан да күшті ойыншы болғыңыз келе ме?</string>
+  <string name="register">Тіркеліңіз</string>
+  <string name="getAFreeLichessAccount">Тегін Личес аккаунтын жасаңыз</string>
+  <string name="practice">Жаттығыңыз</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
