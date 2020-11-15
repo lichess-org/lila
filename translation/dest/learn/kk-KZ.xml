@@ -215,5 +215,21 @@
   <string name="playMachine">Компьютермен ойнаңыз</string>
   <string name="testYourSkillsWithTheComputer">Шамаңызды компьютер арқылы сынаңыз</string>
   <string name="letsGo">Кеттік!</string>
+  <string name="stageX">%s деңгей</string>
+  <string name="awesome">Керемет!</string>
+  <string name="excellent">Өте жақсы!</string>
+  <string name="greatJob">Жолыңыз дұрыс!</string>
+  <string name="perfect">Жарайсыз!</string>
+  <string name="outstanding">Таң қаларлық!</string>
+  <string name="wayToGo">Жетістік!</string>
+  <string name="yesYesYes">Не деген ғажап!</string>
+  <string name="youreGoodAtThis">Жақсы нәтиже!</string>
+  <string name="nailedIt">Орындалды.</string>
+  <string name="rightOn">Дәл өзі!</string>
+  <string name="stageXComplete">%s деңгей аяқталды</string>
   <string name="yourScore">Ұпайыңыз</string>
+  <string name="next">Келесі</string>
+  <string name="backToMenu">Мәзірге оралу</string>
+  <string name="puzzleFailed">Жауабыңыз қате!</string>
+  <string name="retry">Қайта көру</string>
 </resources>
