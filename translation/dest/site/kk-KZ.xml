@@ -121,7 +121,7 @@
   <string name="inaccuracies">Жеңіл қате</string>
   <string name="moveTimes">Жүріс ұзақтығы</string>
   <string name="flipBoard">Тақтаны аудару</string>
-  <string name="threefoldRepetition">Үш мәрте қайталау</string>
+  <string name="threefoldRepetition">Үш реттік қайталау</string>
   <string name="claimADraw">Тепе-теңдікті сұрау</string>
   <string name="offerDraw">Тепе-теңдікке келісу</string>
   <string name="draw">Тепе-теңдік</string>
