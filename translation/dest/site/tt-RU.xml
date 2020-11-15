@@ -295,6 +295,14 @@
     <item quantity="other">Сезгә тагын %s рейтинглы уен уйнарга кирәк</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Сезнең %s рейтингыгыз әле фараз</string>
+  <string name="yourPerfRatingIsTooHigh">Сезнең %1$s рейтингыгыз (%2$s) артык югары</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Сезнең атналы %1$s рейтингыгыз (%2$s) артык югары</string>
+  <string name="yourPerfRatingIsTooLow">Сезнең %1$s рейтингыгыз (%2$s) кирәкледән кечкенәрәк</string>
+  <string name="ratedMoreThanInPerf">%2$s рейтингы ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s рейтингы ≤ %1$s</string>
+  <string name="mustBeInTeam">%s төркемендә булырга тиеш</string>
+  <string name="youAreNotInTeam">Сез %s төркемендә түгел</string>
+  <string name="backToGame">Уенга кайту</string>
   <string name="averageElo">Уртача рейтинг</string>
   <string name="location">Урын</string>
   <string name="filterGames">Уеннар фильтры</string>
