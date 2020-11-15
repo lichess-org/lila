@@ -59,5 +59,9 @@
 Айналдырудың қажеті жоқ.</string>
   <string name="pawnComplete">Құтты болсын! Сарбаздардың бүкіл қыр-сырын білесіз.</string>
   <string name="pawnPromotion">Сарбазды айналдыру</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Сарбаз тақтаның қарсы тұсына жетті!</string>
+  <string name="itNowPromotesToAStrongerPiece">Енді ол күшті тасқа айналады.</string>
+  <string name="selectThePieceYouWant">Керек тасты таңдаңыз!</string>
+  <string name="fundamentals">Негіздер</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
