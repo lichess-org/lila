@@ -14,7 +14,19 @@
   <string name="rookGoal">Тураға басып,
 жұлдыздарды жинап алыңыз!</string>
   <string name="grabAllTheStars">Барлық жұлдыздарды жинап алыңыз!</string>
+  <string name="theFewerMoves">Жүрістер саны аз болса,
+ұпайыңыз көп болады!</string>
+  <string name="useTwoRooks">Шапшаң болу үшін,
+Екі тураны пайдаланыңыз!</string>
+  <string name="rookComplete">Құтты болсын! Сіз тура тасын меңгердіңіз.</string>
+  <string name="theBishop">Піл</string>
   <string name="itMovesDiagonally">Ол қиғаш жүреді</string>
+  <string name="bishopIntro">Енді піл айдауды үйренейік!</string>
+  <string name="youNeedBothBishops">Бір ақ шаршылы піл,
+Бір қара шаршылы піл.
+Екеуі де керек!</string>
+  <string name="bishopComplete">Құтты болсын! Сіз піл басқаруды білесіз.</string>
+  <string name="theQueen">Уәзір</string>
   <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш жейді!</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
