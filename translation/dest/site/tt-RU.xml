@@ -337,4 +337,8 @@
   </plurals>
   <string name="noFriendsOnline">Челтәрдә дуслар юк</string>
   <string name="findFriends">Дуслар эзләү</string>
+  <string name="favoriteOpponents">Яраткан ярышучылар</string>
+  <string name="follow">Язылу</string>
+  <string name="following">Язылгансыз</string>
+  <string name="unfollow">Язылынмау</string>
 </resources>
