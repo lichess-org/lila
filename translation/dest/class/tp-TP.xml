@@ -2,7 +2,7 @@
 <resources>
   <string name="lichessClasses">toki awen sona</string>
   <string name="features">ken</string>
-  <string name="closeClass">o pini e kulupu </string>
+  <string name="closeClass">o pini e kulupu</string>
   <string name="reopen">kama sin</string>
   <string name="removedStudents">tenpo pini la weka</string>
   <string name="className">nimi kulupu</string>
