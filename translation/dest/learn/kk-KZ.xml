@@ -113,5 +113,18 @@
   <string name="boardSetup">Тақтаны баптау</string>
   <string name="howTheGameStarts">Ойын қалай басталады</string>
   <string name="boardSetupIntro">Шайқасқа дайын екі әскер қарама-қарсы тұрады.</string>
+  <string name="thisIsTheInitialPosition">Әр шахмат ойны
+осы бастапқы күйден басталады!
+Бір жүріс жасаңыз.</string>
+  <string name="firstPlaceTheRooks">Алдымен, тура тастарын қойыңыз!
+Олардың орны – бұрыштарда.</string>
+  <string name="thenPlaceTheKnights">Енді атты қойыңыз!
+Олардың орны – турадан кейін.</string>
+  <string name="placeTheBishops">Пілді қойыңыз!
+Олар аттан кейін тұрады.</string>
+  <string name="placeTheQueen">Уәзірді қойыңыз!
+Әр уәзір өз түсінде тұрады.</string>
+  <string name="placeTheKing">Патшаны қойыңыз!
+Оның орны – уәзірдің қасында.</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
