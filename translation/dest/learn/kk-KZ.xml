@@ -153,5 +153,11 @@
   <string name="findAWayToCastleQueenSide">Уәзір жаққа бекінудің
 жолын табыңыз!</string>
   <string name="castlingComplete">Құтты болсын! Ойында ылғи бекініп жүріңіз.</string>
+  <string name="enPassant">Жолай басу</string>
+  <string name="theSpecialPawnMove">Сарбаздың ерекше жүрісі</string>
+  <string name="enPassantIntro">Егер қарсыластың сарбазы екі шаршы жүрсе, ол бір шаршы жүргендей оны басып ала аласыз.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Қара сарбаз жаңа ғана
+екі шаршы жүрді!
+Оны жолай басып алыңыз.</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
