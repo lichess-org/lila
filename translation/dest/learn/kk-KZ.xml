@@ -39,6 +39,13 @@
   <string name="theKnight">Ат</string>
   <string name="itMovesInAnLShape">Ол \"Г\" пішіндес жолмен жүреді</string>
   <string name="knightIntro">Бұл сізге қиындау болар. Ат – сумақай тас.</string>
+  <string name="knightsHaveAFancyWay">Аттың жан-жаққа секіру жолы қызық!</string>
+  <string name="knightsCanJumpOverObstacles">Ат бөгетті аттап өтеді!
+Жұлдыздарды басыңыз не айналып өтіңіз!</string>
+  <string name="knightComplete">Құтты болсын! Сіз атты бағындырдыңыз.</string>
+  <string name="thePawn">Сарбаз</string>
+  <string name="itMovesForwardOnly">Ол тек ілгері жүреді</string>
+  <string name="pawnIntro">Сарбаздар әлсіз, бірақ олардың күші - бірлікте.</string>
   <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш жейді!</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
