@@ -38,6 +38,7 @@
   <string name="kingComplete">Енді басқарушыға басқарушы болдыңыз!</string>
   <string name="theKnight">Ат</string>
   <string name="itMovesInAnLShape">Ол \"Г\" пішіндес жолмен жүреді</string>
+  <string name="knightIntro">Бұл сізге қиындау болар. Ат – сумақай тас.</string>
   <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш жейді!</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
