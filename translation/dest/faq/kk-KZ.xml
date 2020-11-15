@@ -35,6 +35,9 @@
   <string name="durationFormula">(бастапқы уақыт) + 40 × (қосылғыш)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sс = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
+  <string name="whatVariantsCanIplay">Личесте қандай шахмат түрлерін ойнасам болады?</string>
+  <string name="lichessSupportChessAnd">Личесте әдеттегі шахмат пен %1$s бар.</string>
+  <string name="eightVariants">8 шахмат түрлері</string>
   <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE нұсқаулығы %s</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі апта ішінде сәйкес баға үшін бағаланатын ойынға қатысу,</string>
   <string name="displayPreferences">баптауларды көрсету</string>
