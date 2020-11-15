@@ -28,8 +28,13 @@
   <string name="youCannotApply">Модератор болуға өтініш беру мүмкін емес. Біреуді модертор болуға лайық деп көрсек, біз тікелей онымен хабарласамыз.</string>
   <string name="isCorrespondenceDifferent">Хат алмасып ойнау мен жай шахмат арасында айырмашылық бар ма?</string>
   <string name="youCanUseOpeningBookNoEngine">Личестегі хат алмасып ойнаудың басты ерекшелігі – бастаулар кітабын пайдалануы рұқсат. Компьютердің көмегін қолдану бұрынғыдай тыйым бола тұра, шектеу белгісіне шалдықтырады. ICCF хат алмасып ойнауда компьютердің көмегін рұқсат еткенімен, Личесте өзгеше.</string>
+  <string name="gameplay">Ойын</string>
   <string name="howBulletBlitzEtcDecided">Буллит, Блитц пен басқа да уақыт қалыптарын қалай таңдауға болады?</string>
+  <string name="basedOnGameDuration">Личесте уақыт қалыптары ойынның болжаулы ұзақтығына негізделген = %1$s
+Мысалы, 5+3 ойынның болжаулы ұзақтығы 5 × 60 + 40 × 3 = 420 секунд.</string>
+  <string name="durationFormula">(бастапқы уақыт) + 40 × (қосылғыш)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sс = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE нұсқаулығы %s</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі апта ішінде сәйкес баға үшін бағаланатын ойынға қатысу,</string>
   <string name="displayPreferences">баптауларды көрсету</string>
