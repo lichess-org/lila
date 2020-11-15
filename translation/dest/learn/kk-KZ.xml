@@ -131,5 +131,12 @@
   <string name="boardSetupComplete">Құтты болсын! Енді шахмат тақтасын ойынға дайындауды білесіз.</string>
   <string name="castling">Бекіну</string>
   <string name="theSpecialKingMove">Патшаның ерекше жүрісі</string>
+  <string name="castlingIntro">Патшаны қорғаулы жерге кіргізіп, тура тасын шабуылға даярлаңыз!</string>
+  <string name="castleKingSide">Патша-жақты бекіну үшін
+патшамен екі шаршы жүріңіз!</string>
+  <string name="castleQueenSide">Уәзір-жақты бекіну үшін
+патшамен екі шаршы жүріңіз!</string>
+  <string name="theKnightIsInTheWay">Ат кедергі болып тұр!
+Оны жылжытып, патша жаққа бекініңіз.</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
