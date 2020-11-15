@@ -45,7 +45,9 @@
   <string name="knightComplete">Құтты болсын! Сіз атты бағындырдыңыз.</string>
   <string name="thePawn">Сарбаз</string>
   <string name="itMovesForwardOnly">Ол тек ілгері жүреді</string>
-  <string name="pawnIntro">Сарбаздар әлсіз, бірақ олардың күші - бірлікте.</string>
+  <string name="pawnIntro">Сарбаздар әлсіз, бірақ олардың жасырын күші бар.</string>
+  <string name="pawnsMoveOneSquareOnly">Сарбаздар бір шаршы жүреді.
+Бірақ тақтаның қарсы тұсына жеткенде, олар күшті тасқа айналады!</string>
   <string name="pawnsMoveForward">Сарбаз тура жүреді, бірақ қиғаш жейді!</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
