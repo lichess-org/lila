@@ -11,4 +11,7 @@
   <plurals name="solvedNbPuzzles">
     <item quantity="other">%s тактикалык мәсәлә чиште</item>
   </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="other">%1$s %2$s уенын уйнады</item>
+  </plurals>
 </resources>
