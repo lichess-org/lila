@@ -303,6 +303,8 @@
   <string name="mustBeInTeam">%s төркемендә булырга тиеш</string>
   <string name="youAreNotInTeam">Сез %s төркемендә түгел</string>
   <string name="backToGame">Уенга кайту</string>
+  <string name="siteDescription">Түләүсез онлайн шахмат серверы. Уңайлы интерфейс. Рекламасыз, регистрация һәм программаны йөкләү кирәкми. Компьютер, дусларыгыз я очраклы каршыдаш белән уйнагыз.</string>
+  <string name="xJoinedTeamY">%1$s %2$s төркеменә кушылды</string>
   <string name="averageElo">Уртача рейтинг</string>
   <string name="location">Урын</string>
   <string name="filterGames">Уеннар фильтры</string>
