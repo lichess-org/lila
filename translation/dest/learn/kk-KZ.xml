@@ -174,7 +174,17 @@
 -Шах жоқ.</string>
   <string name="stalemateComplete">Құтты болсын! Мат алудан гөрі, патқа ілінген жақсы!</string>
   <string name="advanced">Қосымша</string>
-  <string name="pieceValue">Тастардың құны</string>
+  <string name="pieceValue">Тастардың бағасы</string>
   <string name="evaluatePieceStrength">Тас күшін бағалау</string>
+  <string name="pieceValueIntro">Тастың жүру еркіндігі көп болған сайын, бағасы да жоғары болады!
+Уәзір = 9
+Тура = 5
+Піл = 3
+Ат = 3
+Сарбаз = 1
+Патшаның бағасы жоқ! Одан айырылу жеңіліске тең.</string>
+  <string name="queenOverBishop">Ең бағалы тасты
+алыңыз!
+Уәзір &gt; Піл</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
