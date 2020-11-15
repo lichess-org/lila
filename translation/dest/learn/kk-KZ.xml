@@ -138,5 +138,20 @@
 патшамен екі шаршы жүріңіз!</string>
   <string name="theKnightIsInTheWay">Ат кедергі болып тұр!
 Оны жылжытып, патша жаққа бекініңіз.</string>
+  <string name="castleKingSideMovePiecesFirst">Патша жаққа бекініңіз!
+Алдымен жолдағы барлық тастарды алыңыз.</string>
+  <string name="castleQueenSideMovePiecesFirst">Уәзір жаққа бекініңіз!
+Алдымен жолдағы барлық тастарды алыңыз.</string>
+  <string name="youCannotCastleIfMoved">Егер де патша жүріп қойса,
+не тура жүріп қойса,
+сіз бекіне алмайсыз.</string>
+  <string name="youCannotCastleIfAttacked">Егер бекіну жолы шабуыл астында болса,
+сіз бекіне алмайсыз.
+Алдымен шахты бөгеңіз!</string>
+  <string name="findAWayToCastleKingSide">Патша жаққа бекінудің
+жолын табыңыз!</string>
+  <string name="findAWayToCastleQueenSide">Уәзір жаққа бекінудің
+жолын табыңыз!</string>
+  <string name="castlingComplete">Құтты болсын! Ойында ылғи бекініп жүріңіз.</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
