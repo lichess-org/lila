@@ -85,6 +85,14 @@
   <string name="combatIntro">Нағыз жауынгер шабуылды да, қорғануды да біледі!</string>
   <string name="combatComplete">Құтты болсын! Енді шахмат тастарымен шайқасуды білесіз!</string>
   <string name="checkInOne">Бір қадамды шах</string>
-  <string name="attackTheOpponentsKing">Қарсыластың патшасына шабуыл жасаңыз</string>
+  <string name="attackTheOpponentsKing">Қарсылас патшасына шабуыл жасаңыз</string>
+  <string name="checkInOneIntro">Қарсыласқа шах қою үшін оның патшасына шабыңыз. Ол патшаны қорғау міндет!</string>
+  <string name="checkInOneGoal">Қарсылас патшасына
+бір жүріспен соққы беріңіз!</string>
+  <string name="checkInOneComplete">Құтты болсын! Сіз қарсыласқа шах қойып, патшасын қорғауға мәжбүр еттіңіз!</string>
+  <string name="outOfCheck">Шахтан аулақ</string>
+  <string name="defendYourKing">Патшаңызды қорғаңыз</string>
+  <string name="outOfCheckIntro">Сізге шах қойды! Шабуылдан қашуыңыз не қорғануыңыз керек.</string>
+  <string name="escapeWithTheKing">Патшамен қашыңыз!</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
