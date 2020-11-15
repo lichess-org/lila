@@ -94,5 +94,15 @@
   <string name="defendYourKing">Патшаңызды қорғаңыз</string>
   <string name="outOfCheckIntro">Сізге шах қойды! Шабуылдан қашуыңыз не қорғануыңыз керек.</string>
   <string name="escapeWithTheKing">Патшамен қашыңыз!</string>
+  <string name="theKingCannotEscapeButBlock">Патша қаша алмайды,
+бірақ шабуылды бөгеп тастауыңызға болады!</string>
+  <string name="youCanGetOutOfCheckByTaking">Сіз шахтан құтылу үшін
+шабуыл жасап жатқан тасты басып алсаңыз болады.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Ат сіздің қорғаныңызды аттап,
+шах қоюға қабілетті!</string>
+  <string name="escapeOrBlock">Патшамен қашыңыз
+не шабуылды бөгеңіз!</string>
+  <string name="outOfCheckComplete">Құтты болсын! Патшаңыз қолға түспеуді үйренді!</string>
+  <string name="mateInOne">Бір қадамды мат</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
