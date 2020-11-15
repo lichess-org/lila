@@ -15,6 +15,9 @@
   <string name="breakdownOfOurCosts">біздің шығындар тізімі</string>
   <string name="otherWaysToHelp">көмектесудің басқа жолдары</string>
   <string name="areThereWebsitesBasedOnLichess">Личес негізінде жасалған веб-сайттар бар ма?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Иә. Личесте біздің %1$s, %2$s не %3$s қолданатын коды ашық басқа да сайттар бар.</string>
+  <string name="fairPlay">Адал ойын</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Рейтингті жасанды түрде өзгертті (sandbagging пен boosting) немесе компьютерден көмек алды деп мені неліктен белгілеп қойды?</string>
   <string name="howBulletBlitzEtcDecided">Буллит, Блитц пен басқа да уақыт қалыптарын қалай таңдауға болады?</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sс = %2$s</string>
   <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE нұсқаулығы %s</string>
