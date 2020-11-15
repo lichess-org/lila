@@ -63,5 +63,14 @@
   <string name="itNowPromotesToAStrongerPiece">Енді ол күшті тасқа айналады.</string>
   <string name="selectThePieceYouWant">Керек тасты таңдаңыз!</string>
   <string name="fundamentals">Негіздер</string>
+  <string name="capture">Басып алу</string>
+  <string name="takeTheEnemyPieces">Қарсыластың тастарын алыңыз</string>
+  <string name="captureIntro">Қарсыластың қорғаусыз тұрған тастарын тауып, басып алыңыз!</string>
+  <string name="takeTheBlackPieces">Қара тастарды басып алыңыз!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Қара тастарды ала отырып,
+өз тастарыңыздан айырылып қалмаңыз!</string>
+  <string name="captureComplete">Құтты болсын! Енді шахмат тастарымен шайқасуды білесіз!</string>
+  <string name="protection">Қорғау</string>
+  <string name="keepYourPiecesSafe">Өз тастарыңызды қорғаулы ұстаңыз</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
