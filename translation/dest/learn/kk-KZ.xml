@@ -74,5 +74,17 @@
   <string name="keepYourPiecesSafe">Өз тастарыңызды қорғаулы ұстаңыз</string>
   <string name="protectionIntro">Қарсылас сіздің қай тасыңызға шауып тұрғанын тауып, оны қорғаңыз!</string>
   <string name="protectionComplete">Құтты болсын! Жоғалтпаған тас – жеңіске жеткізетін тас!</string>
+  <string name="escape">Сіз шабуылға ұрындыңыз!
+Қауіптен құтылыңыз!</string>
+  <string name="noEscape">Бұл құтылу емес,
+бірақ сіз қорғана аласыз!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ешбір қорғалмаған тасты
+алуға жол бермеңіз!</string>
+  <string name="combat">Шайқас</string>
+  <string name="captureAndDefendPieces">Басып алыңыз да қорғаңыз</string>
+  <string name="combatIntro">Нағыз жауынгер шабуылды да, қорғануды да біледі!</string>
+  <string name="combatComplete">Құтты болсын! Енді шахмат тастарымен шайқасуды білесіз!</string>
+  <string name="checkInOne">Бір қадамды шах</string>
+  <string name="attackTheOpponentsKing">Қарсыластың патшасына шабуыл жасаңыз</string>
   <string name="yourScore">Ұпайыңыз</string>
 </resources>
