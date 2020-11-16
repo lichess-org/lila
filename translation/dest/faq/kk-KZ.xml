@@ -95,6 +95,9 @@
   <string name="ownerUniqueTrophies">Бұл олжа Личес тарихында ерекше орын алады, %1$s-дан басқа ешкім де оған ие болмады.</string>
   <string name="wayOfBerserkExplanation">Оған жету үшін, hiimgosu өзін берсеркке шақырып, %s-ның 100%% ойындарын жеңді.</string>
   <string name="aHourlyBulletTournament">сағат сайынғы Буллит жарысы</string>
+  <string name="goldenZeeExplanation">ZugAddict стрим жүргізе 2 сағат бойы 8-нші деңгейдегі Жасанды зият жүйесімен 1+0 қалыпта сәтсіз ойнады. Thibault оған стрим кезінде сәтті ойнасаң, ерекше олжа аласың деп уәде айтты. Бір сағаттан соң, ол Стокфиштің тас талқанын шығарып, уәдеге сай олжасын алған еді.</string>
+  <string name="lichessRatings">Личес рейтингтері</string>
+  <string name="whichRatingSystemUsedByLichess">Личес қандай рейтинг жүйесін қолданады?</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі апта ішінде сәйкес баға үшін бағаланатын ойынға қатысу,</string>
   <string name="displayPreferences">баптауларды көрсету</string>
 </resources>
