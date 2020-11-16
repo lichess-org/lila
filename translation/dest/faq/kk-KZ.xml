@@ -74,7 +74,16 @@
   <string name="configure">баптауында</string>
   <string name="accounts">Аккаунт</string>
   <string name="titlesAvailableOnLichess">Личесте қандай атақтар бар?</string>
-  <string name="lichessRecognizeAllOTBtitles">Личес ойыншының шынайы шахмат ойындар нәтижесінде алған бүкіл FIDE атақтарын, онымен қатар %1$s мойындайды. FIDE атақтардың тізімі:</string>
+  <string name="lichessRecognizeAllOTBtitles">Личес ойыншының шынайы шахмат ойындар нәтижесінде алған бүкіл FIDE атақтарын, онымен қатар, %1$s мойындайды. FIDE атақтардың тізімі:</string>
+  <string name="showYourTitle">Егер де ресми атағыңыз болса, растайтын құжаттың суреті мен осы құжатты ұстап тұрған өзіңіздің фотоңызды қосып, %1$s толтырыңыз, сонда бұл атағыңыз аккаунтта көрсетілетін болады.
+
+Атағын растаған ойыншылардың Атақтылар Алаңына жолы ашылады.
+
+Одан басқа, мәртебелі %2$s атағы бар.</string>
+  <string name="asWellAsManyNMtitles">көптеген ұлттық шебер атақтарын</string>
+  <string name="verificationForm">растау формасын</string>
+  <string name="canIbecomeLM">Личес Шебері (LM) атағын қалай алсам болады?</string>
+  <string name="noUpperCaseDot">Ала алмайсыз.</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі апта ішінде сәйкес баға үшін бағаланатын ойынға қатысу,</string>
   <string name="displayPreferences">баптауларды көрсету</string>
 </resources>
