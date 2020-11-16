@@ -109,6 +109,9 @@
   <string name="provisionalRatingExplanation">Сұрақ белгісі рейтингіңіз болжамалы екенін білдіреді. Бұның мағынасы келесіде:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Ойыншы %1$s жеткілікті мөлшерде ойнамаған.</string>
   <string name="similarOpponents">күші теңдес қарсыластармен</string>
+  <string name="notPlayedRecently">Ойыншының кейінгі ойындары аз. Егер ұзақ уақыт бойы ойнамай жүрсеңіз, рейтингіңіз қайтадан болжамалы болып кету мүмкін.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Бұл Glicko-2 ауытқуы 110-нан артық екенін білдіреді. Ауытқу деген жүйенің рейтингке деген сенімінің деңгейі. Ауытқу аз болған сайын рейтинг тұрақтанады.</string>
+  <string name="howDoLeaderoardsWork">Орын тағайындау мен Мықтылар тақтасы қалай жұмыс істейді?</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі апта ішінде сәйкес баға үшін бағаланатын ойынға қатысу,</string>
   <string name="displayPreferences">баптауларды көрсету</string>
 </resources>
