@@ -1,8 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">Жиі қойылатын сұрақтар</string>
+  <string name="frequentlyAskedQuestions">Жиі қойылатын сұрақтар</string>
+  <string name="whyIsLichessCalledLichess">Личес неге Личес деп аталады?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Личес деген live/light/libre деген сөз бен chess сөзінің қосындысы. Ол %1$s деп оқылады.</string>
+  <string name="leechess">ли-чес</string>
+  <string name="hearItPronouncedBySpecialist">Маманның айтуын тыңдаңыз.</string>
+  <string name="whyLiveLightLibre">\"Live\" дегеннің мағынасы – ойындарды шын уақытта 24/7 ойнап, көруге болады; \"light\" пен \"libre\" деген сөздер Личестің түбір коды ашық, онымен қатар басқа веб-сайттардағыдай жекешелендіру сияқты қоқыстан еркін екендігін білдіреді.</string>
+  <string name="whyIsLilaCalledLila">Личестің түбір коды – %1$s сөзі, li[chess in sca]la-дан құралады. %2$s програмдау тілінде Личестің негізгі бөлігі жазылған.</string>
+  <string name="howCanIContributeToLichess">Лическе қалайша жәрдем көрсетсем болады?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Личестің тірегі – ақшалай жәрдем берушілер мен еріктілер тобы.</string>
+  <string name="findMoreAndSeeHowHelp">%1$s туралы көбірек білуіңізге болады (%2$s қоса). Егер Лическе ерікті ретінде уақыт пен қабілетіңізбен көмек көрсетем десеңіз, %3$s бар.</string>
+  <string name="beingAPatron">жәрдем беруші болу</string>
+  <string name="breakdownOfOurCosts">біздің шығындар тізімі</string>
+  <string name="otherWaysToHelp">көмектесудің басқа жолдары</string>
+  <string name="areThereWebsitesBasedOnLichess">Личес негізінде жасалған веб-сайттар бар ма?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Иә. Личесте біздің %1$s, %2$s не %3$s қолданатын коды ашық басқа да сайттар бар.</string>
+  <string name="fairPlay">Адал ойын</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Рейтингті жасанды түрде өзгертті (sandbagging пен boosting) немесе компьютерден көмек алды деп мені неліктен белгілеп қойды?</string>
+  <string name="cheatDetectionMethods">Личес қолында күшті анықтау әдістер мен кемелденген процесстер бар, оларды қарастыру мен шешім қабылдауда қолданамыз. Процесс көптеген модераторларды қатыстырады, уақыты да созылу мүмкін. Аяғында жеке жағдайлар үшін оқиғаның не шешім қабылдау барысының толық ақпаратын бермейміз, тек қысқа белгі жібереміз. Бұл амалды болашақта ереже бұзушыларға құтылу жолын көрсетпеу мақсатында және нәтижесіз ұзақ дауды бастамау мақсатында жасап отырмыз. Бұл уақытты басқа маңызды оқиға қарастыруға жұмсаған жөн. Ойыншылар шешім туралы %1$s поштасына шағым жібере алады, бірақ әдетте шешім өзгермейді.</string>
+  <string name="whenAmIEligibleRatinRefund">Қандай жағдайда читер келтірген рейтинг шығынын өтеуге құқығым бар?</string>
+  <string name="ratingRefundExplanation">Ойыншы читер деп белгіленген соң, бір минут ішінде оның кейінгі 3 күнде болған 40 ойны алынады. Егер олардың арасында сізбен ойнаған ойны болса, сіздің рейтингіңіз кемісе (жеңіліс не тепе-теңдік салдарынан), сонымен қатар рейтингіңіз болжамалы емес болса, сіз рейтинг шығынын өтеп аласыз. Өтеудің деңгейі сіздің ең жоғары рейтинг пен ойыннан кейінгі рейтинг өзгерісіне қарай анықталады.
+(Мысалы, сіздің рейтингіңіз осы ойындардан кейін күрт артып кетсе, сіз өтеуді толық емес мөлшерде немесе мүлдем алмауыңыз мүмкін.) Өтеудің деңгейі ешқашан 150 ұпайдан аспайды.</string>
+  <string name="preventLeavingGameWithoutResigning">Берілмей ойыннан шығып жүретін ойыншыларға қандай шара қолданасыз?</string>
+  <string name="leavingGameWithoutResigningExplanation">Егер қарсыласыңыз ойынды үзіп не шығып кетіп жүрсе, ол \"ойны шектелген\" белгісін алады. Белгінің мағынасы – ойынға қатысуына уақытша рұқсаты жоқ. Бұл белгі оның куәлік бетінде көпшіліктен жасырулы. Егер ойыншының осындай қылығы жалғаса берсе, шектеу мерзімі де ұзара береді. Әдетінен ұзақ уақыт бойы айырылмай жүрсе, тіпті аккаунттың жабылуына шалдығады.</string>
+  <string name="howCanIBecomeModerator">Мен қалай модератор болсам екен?</string>
+  <string name="youCannotApply">Модератор болуға өтініш беру мүмкін емес. Біреуді модертор болуға лайық деп көрсек, біз тікелей онымен хабарласамыз.</string>
+  <string name="isCorrespondenceDifferent">Хат алмасып ойнау мен жай шахмат арасында айырмашылық бар ма?</string>
+  <string name="youCanUseOpeningBookNoEngine">Личестегі хат алмасып ойнаудың басты ерекшелігі – бастаулар кітабын пайдалануы рұқсат. Компьютердің көмегін қолдану бұрынғыдай тыйым бола тұра, шектеу белгісіне шалдықтырады. ICCF хат алмасып ойнауда компьютердің көмегін рұқсат еткенімен, Личесте өзгеше.</string>
+  <string name="gameplay">Ойын</string>
   <string name="howBulletBlitzEtcDecided">Буллит, Блитц пен басқа да уақыт қалыптарын қалай таңдауға болады?</string>
+  <string name="basedOnGameDuration">Личесте уақыт қалыптары ойынның болжаулы ұзақтығына негізделген = %1$s
+Мысалы, 5+3 ойынның болжаулы ұзақтығы 5 × 60 + 40 × 3 = 420 секунд.</string>
+  <string name="durationFormula">(бастапқы уақыт) + 40 × (қосылғыш)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sс = %2$s</string>
-  <string name="fideHandbookX">FIDE нұсқаулығы %s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
+  <string name="whatVariantsCanIplay">Личесте қандай шахмат түрлерін ойнасам болады?</string>
+  <string name="lichessSupportChessAnd">Личесте әдеттегі шахмат пен %1$s бар.</string>
+  <string name="eightVariants">8 шахмат түрлері</string>
+  <string name="whatIsACPL">Қателіктердің орташа мәні (ACPL – average centipawn loss) деген не?</string>
+  <string name="acplExplanation">Қателіктердің орташа мәнінің бірлігі сентипоун (\"centi\" - жүзден бір бөлік, \"pawn\" - сарбаз). Бұл шама ойыншының жетістік дәрежесін көрсетеді. Ойын кезінде бұл шама соншалықты маңызды емес, бірақ компьютер үшін ойын күйін бағалауда орны зор.
+
+Ең үздік компьютерлер ойын кезінде бірде-бір сентипоун жоғалтпайды, күші аздау компьютерлер біртіндеп күйдің нашарлауына шалдығады.
+
+Бұл шаманы ойынның сапасын бағалау үшін қолданады. Әр жүрісте неғұрлым аз сентипоун жоғалтса, соғұрлым ойны күшті екенін көрсетеді.
+Личестегі компьютерлік талдау Стокфиш негізінде жұмыс істейді.</string>
+  <string name="insufficientMaterial">Уақыт кетіру, тепе-теңдік пен тастар аздығы</string>
+  <string name="lichessFollowFIDErules">Ойыншы уақытты көп кетірген кезде, әдетте жеңіліске ұшырайды. Дегенмен, егер қарсылас заңды жүрістер жасай отыра шах қоюға жол табылмаса, тепе-теңдік деп жария етіледі (%1$s).
+
+Көп жағдайда бұны автоматты түрде шешу қиынға соғады. Әдетте, біз уақытты кетірмеген ойыншыны қолдаймыз.
+
+Бір атпен не пілмен мат қою мүмкін екенін ескеруіңіз жөн. Ол үшін қарсыластың патшаға бөгет болып тұрған тасы болу шарт.</string>
+  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE нұсқаулығы %s</string>
+  <string name="discoveringEnPassant">Бір сарбаз, қасынан басқа сарбаз өтіп болғанда, оны неге басып алуға қабілетті (жолай басу)?</string>
+  <string name="goodIntroduction">жақсы түсіндірме</string>
+  <string name="officialRulesPDF">ресми ережелер (PDF)</string>
+  <string name="lichessTraining">Личес жаттығулары</string>
+  <string name="threefoldRepetition">Үш реттік қайталау</string>
+  <string name="threefoldRepetitionLowerCase">үш реттік қайталау</string>
+  <string name="accounts">Аккаунт</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі апта ішінде сәйкес баға үшін бағаланатын ойынға қатысу,</string>
   <string name="displayPreferences">баптауларды көрсету</string>
 </resources>

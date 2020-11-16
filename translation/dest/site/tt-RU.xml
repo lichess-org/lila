@@ -233,6 +233,80 @@
   <string name="spectatorRoom">Күзәтү бүлмәсе</string>
   <string name="composeMessage">Хат язу</string>
   <string name="noNewMessages">Яңа хатлар юк</string>
+  <string name="subject">Хат темасы</string>
+  <string name="recipient">Алучы</string>
+  <string name="send">Җибәрү</string>
+  <string name="incrementInSeconds">Секунд кушыла</string>
+  <string name="freeOnlineChess">Түләүсез Онлайн Шахмат</string>
+  <string name="spectators">Күзәтүчеләр:</string>
+  <plurals name="nbRated">
+    <item quantity="other">%s рейтинглы</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="other">%s җиңү</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="other">%s җиңелү</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="other">%s тиңлек</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="other">%s уйнала</item>
+  </plurals>
+  <string name="exportGames">Уеннарны экспортлау</string>
+  <string name="ratingRange">Рейтинг аралыгы</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="other">%s секунд бирү</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">Бу аккаунт Lichessның Куллану Шартларын бозды</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Бу уенче рейтингын юри арттыра/азайта</string>
+  <string name="openingExplorerAndTablebase">Дебютлар һәм эндшпилләр базасы</string>
+  <string name="takeback">Кире алырга</string>
+  <string name="proposeATakeback">Йөрүне кире алырга сорарга</string>
+  <string name="takebackPropositionSent">Йөрүне кире алу соралды</string>
+  <string name="takebackPropositionDeclined">Йөрүне кире алу кире кагылды</string>
+  <string name="takebackPropositionAccepted">Йөрүне кире алу кабул ителде</string>
+  <string name="takebackPropositionCanceled">Йөрүне кире алу тәкъдиме туктатылды</string>
+  <string name="yourOpponentProposesATakeback">Ярышучыгыз йөрүне кире алырга сорый</string>
+  <string name="bookmarkThisGame">Бу битне кыстыргычларга сакларга</string>
+  <string name="tournament">Турнир</string>
+  <string name="tournaments">Турнирлар</string>
+  <string name="tournamentPoints">Турнир баллары</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s турнир баллары</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="other">%s өйрәнү</item>
+  </plurals>
+  <string name="viewTournament">Турнирны күрү</string>
+  <string name="backToTournament">Турнирга кайту</string>
+  <string name="thematic">Тематик</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="other">≥ %s рейтинглы уен</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="other">≥ %1$s рейтинглы %2$s уен</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="other">Сезгә тагын %2$s рейтинглы %1$s уен уйнарга кирәк</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="other">Сезгә тагын %s рейтинглы уен уйнарга кирәк</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Сезнең %s рейтингыгыз әле фараз</string>
+  <string name="yourPerfRatingIsTooHigh">Сезнең %1$s рейтингыгыз (%2$s) артык югары</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Сезнең атналы %1$s рейтингыгыз (%2$s) артык югары</string>
+  <string name="yourPerfRatingIsTooLow">Сезнең %1$s рейтингыгыз (%2$s) кирәкледән кечкенәрәк</string>
+  <string name="ratedMoreThanInPerf">%2$s рейтингы ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s рейтингы ≤ %1$s</string>
+  <string name="mustBeInTeam">%s төркемендә булырга тиеш</string>
+  <string name="youAreNotInTeam">Сез %s төркемендә түгел</string>
+  <string name="backToGame">Уенга кайту</string>
+  <string name="siteDescription">Түләүсез онлайн шахмат серверы. Уңайлы интерфейс. Рекламасыз, регистрация һәм программаны йөкләү кирәкми. Компьютер, дусларыгыз я очраклы каршыдаш белән уйнагыз.</string>
+  <string name="xJoinedTeamY">%1$s %2$s төркеменә кушылды</string>
+  <string name="xCreatedTeamY">%1$s %2$s төркемен ясады</string>
+  <string name="xStartedStreaming">%s стрим башлады</string>
   <string name="averageElo">Уртача рейтинг</string>
   <string name="location">Урын</string>
   <string name="filterGames">Уеннар фильтры</string>
@@ -263,4 +337,39 @@
   </plurals>
   <string name="noFriendsOnline">Челтәрдә дуслар юк</string>
   <string name="findFriends">Дуслар эзләү</string>
+  <string name="favoriteOpponents">Яраткан ярышучылар</string>
+  <string name="follow">Язылу</string>
+  <string name="following">Язылгансыз</string>
+  <string name="unfollow">Язылынмау</string>
+  <string name="block">Блоклау</string>
+  <string name="blocked">Блокланган</string>
+  <string name="unblock">Блоктан чыгару</string>
+  <string name="followsYou">Сезгә язылган</string>
+  <string name="xStartedFollowingY">%1$s %2$s исемле уенчыга язылган</string>
+  <plurals name="nbFollowers">
+    <item quantity="other">%s язылучы</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="other">%s язылганнары</item>
+  </plurals>
+  <string name="more">Тагын</string>
+  <string name="memberSince">Регистрация көне:</string>
+  <string name="lastSeenActive">%s кергән иде</string>
+  <string name="challengeToPlay">Уенга чакыру</string>
+  <string name="player">Уенчы</string>
+  <string name="list">Тезем</string>
+  <string name="graph">График</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="other">%s минуттан әзрәк</item>
+  </plurals>
+  <string name="required">Тәлап ителгән.</string>
+  <string name="openTournaments">Ачык турнирлар</string>
+  <string name="duration">Озаклыгы</string>
+  <string name="winner">Җиңүче</string>
+  <string name="standing">Урыны</string>
+  <string name="createANewTournament">Яңа турнир башлау</string>
+  <string name="tournamentCalendar">Турнир календаре</string>
+  <string name="conditionOfEntry">Керу тәлапләре:</string>
+  <string name="advancedSettings">Кушылма көйләүләр</string>
+  <string name="safeTournamentName">Турнир өчен куркынычсыз һәм имин исем сайлагыз.</string>
 </resources>

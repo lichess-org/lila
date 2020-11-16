@@ -71,7 +71,7 @@
   <string name="variantWin">Жеңу жолы</string>
   <string name="insufficientMaterial">Жеткіліксіз материал</string>
   <string name="pawnMove">Ер жүрісі</string>
-  <string name="capture">Алу</string>
+  <string name="capture">Басып алу</string>
   <string name="close">Жабу</string>
   <string name="winning">Ұтыс</string>
   <string name="losing">Ұтылыс</string>
@@ -88,8 +88,8 @@
     <item quantity="other">%s жарты жүрістік мат</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Келесі жеу немесе сарбаз жүрісі %s жартыжүрістен кейін (50-ші жүріске дейінгі қашықтық)</item>
-    <item quantity="other">%s жарты жүрістен кейін келесі алу немесе ер жүрісі жасалады (50 жүріс аяқталар аралығы)</item>
+    <item quantity="one">Келесі басып алу не сарбазбен жүру %s жартыжүрістен кейін (50-ші жүріске дейінгі қашықтық)</item>
+    <item quantity="other">Келесі басып алу не сарбазбен жүру %s жартыжүрістен кейін (50-ші жүріске дейінгі қашықтық)</item>
   </plurals>
   <string name="noGameFound">Ешбір ойын табылмады</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Баптаулар мәзірінен тағы ойындар қосайық па?</string>
@@ -121,7 +121,7 @@
   <string name="inaccuracies">Жеңіл қате</string>
   <string name="moveTimes">Жүріс ұзақтығы</string>
   <string name="flipBoard">Тақтаны аудару</string>
-  <string name="threefoldRepetition">Үш мәрте қайталау</string>
+  <string name="threefoldRepetition">Үш реттік қайталау</string>
   <string name="claimADraw">Тепе-теңдікті сұрау</string>
   <string name="offerDraw">Тепе-теңдікке келісу</string>
   <string name="draw">Тепе-теңдік</string>
@@ -156,8 +156,8 @@
   <string name="minutesPerSide">Әр түске берілген уақыт</string>
   <string name="variant">Түрі</string>
   <string name="variants">Түрі</string>
-  <string name="timeControl">Уақыт өлшемі</string>
-  <string name="realTime">Шынайы уақытта ойнау</string>
+  <string name="timeControl">Уақыт қалпы</string>
+  <string name="realTime">Шын уақытта</string>
   <string name="correspondence">Хат алмасып ойнау</string>
   <string name="daysPerTurn">Күн бір жүріске</string>
   <string name="oneDay">Бір күн</string>

@@ -927,7 +927,7 @@
   <string name="correspondenceDesc">Korešpondenčné partie: jeden alebo viac dní na ťah</string>
   <string name="puzzleDesc">Tréner taktických šachových pozícií</string>
   <string name="important">Dôležité</string>
-  <string name="yourQuestionMayHaveBeenAnswered">Tvoja otázka už možno bola zodpovedaná %1$s</string>
+  <string name="yourQuestionMayHaveBeenAnswered" comment="yourQuestionMayHaveBeenAnswered&#10;&#10;%1$s is simply the text 'in the F.A.Q.' - a separate string for translation. It was implemented like this for technical reasons.">Tvoja otázka už možno bola zodpovedaná %1$s</string>
   <string name="inTheFAQ">vo F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Pre nahlásenie užívateľa kôli podvádzaniu alebo zlému správaniu, %1$s</string>
   <string name="useTheReportForm">použi nahlasovací formulár</string>
