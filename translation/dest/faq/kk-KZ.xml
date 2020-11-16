@@ -131,4 +131,9 @@
   <string name="howToThreeDots">Қалайша...</string>
   <string name="enableDisableNotificationPopUps">Ескерту қалқымалы терезелерін қосайын ба, өшірейін бе?</string>
   <string name="viewSiteInformationPopUp">Сайттың жайлы қалқымалы терезені қарау</string>
+  <string name="lichessCanOptionnalySendPopUps">Личес таңдаулы түрде қалқымалы терезе түрінде ескерту жібере алады, мысалы, сіздің жүру кезегіңіз келгенде не жеке хабар түскенде.
+
+Браузердің URL жолағында lichess.org мекенжайының қасында орналасқан құлып таңбасын басыңыз.
+
+Кейін Личестің ескетулерін көрсету-көрсетпеуді таңдаңыз.</string>
 </resources>
