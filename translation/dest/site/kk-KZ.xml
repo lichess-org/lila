@@ -336,7 +336,7 @@
   <string name="reset">Қалпына келтіру</string>
   <string name="apply">Сақтау</string>
   <string name="save">Сақтау</string>
-  <string name="leaderboard">Мықтылар тақтасы</string>
+  <string name="leaderboard">Мықтылар қатары</string>
   <string name="pasteTheFenStringHere">FEN мәтінін осы жерге қойыңыз</string>
   <string name="pasteThePgnStringHere">PGN мәтінін осы жерге қойыңыз</string>
   <string name="fromPosition">Күйден бастап</string>
