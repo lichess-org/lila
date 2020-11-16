@@ -13,11 +13,13 @@ object I18nLangPicker {
       .orElse(bestFromRequestHeaders(req))
       .getOrElse(defaultLang)
 
-  def bestFromRequestHeaders(req: RequestHeader): Option[Lang] =
-    req.acceptLanguages.foldLeft(none[Lang]) {
-      case (None, lang) => findCloser(lang)
-      case (found, _)   => found
-    }
+  def bestFromRequestHeaders(req: RequestHeader): Option[Lang] = {
+    Some(defaultLang)
+    //req.acceptLanguages.foldLeft(none[Lang]) { // todo languages
+    //  case (None, lang) => findCloser(lang)
+    //  case (found, _)   => found
+    //}
+  }
 
   def allFromRequestHeaders(req: RequestHeader): List[Lang] =
     req.acceptLanguages.flatMap(findCloser).distinct.toList
@@ -39,5 +41,5 @@ object I18nLangPicker {
     if (Registry.langs contains to) Some(to)
     else
       defaultByLanguage.get(to.language) orElse
-        lichessCodes.get(to.language)
+        lishogiCodes.get(to.language)
 }

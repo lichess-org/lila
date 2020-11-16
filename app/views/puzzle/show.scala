@@ -17,10 +17,10 @@ object show {
       moreCss = cssTag("puzzle"),
       moreJs = frag(
         jsTag("vendor/sparkline.min.js"),
-        jsAt(s"compiled/lichess.puzzle${isProd ?? ".min"}.js"),
+        jsAt(s"compiled/lishogi.puzzle${isProd ?? ".min"}.js"),
         embedJsUnsafe(s"""
-lichess = lichess || {};
-lichess.puzzle = ${safeJsonValue(
+lishogi = lishogi || {};
+lishogi.puzzle = ${safeJsonValue(
           Json.obj(
             "data" -> data,
             "pref" -> pref,
@@ -32,10 +32,10 @@ lichess.puzzle = ${safeJsonValue(
       shogiground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id).url).some,
-          title = s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
-          description = s"Lichess tactic trainer: " + puzzle.color
+          image = cdnUrl(routes.Page.notSupported().url).some, // routes.Export.puzzleThumbnail(puzzle.id).url
+          title = s"Shogi tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
+          url = s"$netBaseUrl${routes.Page.notSupported().url}", // puzzle show
+          description = s"Lishogi tactic trainer: " + puzzle.color
             .fold(
               trans.findTheBestMoveForWhite,
               trans.findTheBestMoveForBlack

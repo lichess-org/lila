@@ -2,11 +2,11 @@
   "name": "lobby",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org lobby",
+  "description": "lishogi.org lobby",
   "main": "src/main.js",
   "keywords": [
     "chess",
-    "lichess",
+    "lishogi",
     "lobby",
     "seek"
   ],
@@ -15,11 +15,11 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/jquery": "^2.0",
-    "@types/lichess": "2.0.0"
+    "@types/lishogi": "2.0.0"
   },
   "dependencies": {
     "common": "2.0.0",
-    "shogiground": "file:/home/liskadan/lila/ui/shogiground",
+    "shogiground": "7.8.1",
     "snabbdom": "^0.7.4"
   },
   "scripts": {

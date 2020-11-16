@@ -1,41 +1,42 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
-import TournamentController from './ctrl';
-import { bind } from './view/util';
+import { h } from "snabbdom";
+import { VNode } from "snabbdom/vnode";
+import TournamentController from "./ctrl";
+import { bind } from "./view/util";
 
 export function button(ctrl: TournamentController): VNode {
-  return h('button.fbt', {
+  return h("button.fbt", {
     class: { active: ctrl.searching },
     attrs: {
-      'data-icon': ctrl.searching ? 'L' : 'y',
-      title: 'Search tournament players'
+      "data-icon": ctrl.searching ? "L" : "y",
+      title: "Search tournament players",
     },
-    hook: bind('mousedown', ctrl.toggleSearch, ctrl.redraw)
+    hook: bind("mousedown", ctrl.toggleSearch, ctrl.redraw),
   });
 }
 
 export function input(ctrl: TournamentController): VNode {
-  return h('div.search',
-    h('input', {
+  return h(
+    "div.search",
+    h("input", {
       hook: {
         insert(vnode) {
           requestAnimationFrame(() => {
             const el = vnode.elm as HTMLInputElement;
-            window.lichess.userAutocomplete($(el), {
-              tag: 'span',
+            window.lishogi.userAutocomplete($(el), {
+              tag: "span",
               tour: ctrl.data.id,
               focus: true,
               minLength: 3,
               onSelect(v) {
                 ctrl.jumpToPageOf(v.id || v);
-                $(el).typeahead('close');
-                el.value = '';
+                $(el).typeahead("close");
+                el.value = "";
                 ctrl.redraw();
-              }
+              },
             });
           });
-        }
-      }
+        },
+      },
     })
   );
 }

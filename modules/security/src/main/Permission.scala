@@ -61,18 +61,18 @@ object Permission {
   case object StudyAdmin            extends Permission("STUDY_ADMIN", "Study admin")
   case object ApiHog                extends Permission("API_HOG", "API hog")
 
-  case object LichessTeam
+  case object LishogiTeam
       extends Permission(
-        "LICHESS_TEAM",
+        "LISHOGI_TEAM",
         List(Prismic),
-        "Lichess team"
+        "Lishogi team"
       )
 
   case object Hunter
       extends Permission(
         "HUNTER",
         List(
-          LichessTeam,
+          LishogiTeam,
           ViewBlurs,
           MarkEngine,
           MarkBooster,
@@ -219,7 +219,7 @@ object Permission {
       Verified
     ),
     "Package" -> List(
-      LichessTeam,
+      LishogiTeam,
       Hunter,
       Shusher,
       Doxing,

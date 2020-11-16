@@ -102,13 +102,13 @@ final private[forum] class TopicApi(
       slug = slug,
       name = name,
       troll = false,
-      userId = User.lichessId,
+      userId = User.lishogiId,
       hidden = false
     )
     val post = Post.make(
       topicId = topic.id,
       author = none,
-      userId = User.lichessId.some,
+      userId = User.lishogiId.some,
       ip = none,
       troll = false,
       hidden = false,

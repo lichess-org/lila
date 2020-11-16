@@ -1,4 +1,4 @@
-package org.lichess.compression.game;
+package org.lishogi.compression.game;
 
 public enum Role {
     PAWN(0, ""),

@@ -39,7 +39,7 @@ final class PgnDump(
   def filename(study: Study): String = {
     val date = dateFormat.print(study.createdAt)
     fileR.replaceAllIn(
-      s"lichess_study_${slugify(study.name.value)}_by_${ownerName(study)}_${date}",
+      s"lishogi_study_${slugify(study.name.value)}_by_${ownerName(study)}_${date}",
       ""
     )
   }
@@ -47,7 +47,7 @@ final class PgnDump(
   def filename(study: Study, chapter: Chapter): String = {
     val date = dateFormat.print(chapter.createdAt)
     fileR.replaceAllIn(
-      s"lichess_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_${date}",
+      s"lishogi_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_${date}",
       ""
     )
   }
@@ -58,7 +58,7 @@ final class PgnDump(
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
   private def annotatorTag(study: Study) =
-    Tag(_.Annotator, s"https://lichess.org/@/${ownerName(study)}")
+    Tag(_.Annotator, s"https://lishogi.org/@/${ownerName(study)}")
 
   private def makeTags(study: Study, chapter: Chapter): Tags =
     Tags {

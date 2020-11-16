@@ -76,7 +76,7 @@ final class Env(
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv
   )
-  if (mode == Mode.Prod) system.scheduler.scheduleOnce(5 seconds)(influxEvent.start())
+  if (mode == Mode.Prod && false) system.scheduler.scheduleOnce(5 seconds)(influxEvent.start()) // yep...
 
   system.scheduler.scheduleWithFixedDelay(20 seconds, 10 seconds) { () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size)

@@ -1,20 +1,20 @@
-import view from './view/main';
+import view from "./view/main";
 
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode'
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
+import { init } from "snabbdom";
+import { VNode } from "snabbdom/vnode";
+import klass from "snabbdom/modules/class";
+import attributes from "snabbdom/modules/attributes";
 
-import { MsgOpts } from './interfaces'
-import { upgradeData } from './network'
-import MsgCtrl from './ctrl';
+import { MsgOpts } from "./interfaces";
+import { upgradeData } from "./network";
+import MsgCtrl from "./ctrl";
 
 const patch = init([klass, attributes]);
 
-export default function LichessMsg(element: HTMLElement, opts: MsgOpts) {
-
-  const appHeight = () => document.body.style.setProperty('--app-height', `${window.innerHeight}px`);
-  window.addEventListener('resize', appHeight);
+export default function LishogiMsg(element: HTMLElement, opts: MsgOpts) {
+  const appHeight = () =>
+    document.body.style.setProperty("--app-height", `${window.innerHeight}px`);
+  window.addEventListener("resize", appHeight);
   appHeight();
 
   let vnode: VNode, ctrl: MsgCtrl;
@@ -25,15 +25,15 @@ export default function LichessMsg(element: HTMLElement, opts: MsgOpts) {
 
   ctrl = new MsgCtrl(
     upgradeData(opts.data),
-    window.lichess.trans(opts.i18n),
+    window.lishogi.trans(opts.i18n),
     redraw
   );
 
   const blueprint = view(ctrl);
-  element.innerHTML = '';
+  element.innerHTML = "";
   vnode = patch(element, blueprint);
 
   redraw();
 }
 
-LichessMsg.default = LichessMsg; // TODO: remove bc after next deploy
+LishogiMsg.default = LishogiMsg; // TODO: remove bc after next deploy

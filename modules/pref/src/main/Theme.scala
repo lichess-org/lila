@@ -34,62 +34,30 @@ object Theme extends ThemeObject {
 
   private val colors: Map[String, HexColors] = Map(
     "blue"   -> (HexColor("dee3e6") -> HexColor("8ca2ad")),
-    "brown"  -> (HexColor("f0d9b5") -> HexColor("b58863")),
-    "green"  -> (HexColor("ffffdd") -> HexColor("86a666")),
-    "purple" -> (HexColor("9f90b0") -> HexColor("7d4a8d")),
-    "ic"     -> (HexColor("ececec") -> HexColor("c1c18e"))
+    "brown"  -> (HexColor("f0d9b5") -> HexColor("b58863"))
+    //"green"  -> (HexColor("ffffdd") -> HexColor("86a666")),
+    //"purple" -> (HexColor("9f90b0") -> HexColor("7d4a8d")),
+    //"ic"     -> (HexColor("ececec") -> HexColor("c1c18e"))
   )
 
   val all = List(
+    "solid-brown1",
+    "solid-wood1",
     "blue",
-    "blue2",
-    "blue3",
-    "blue-marble",
-    "canvas",
-    "wood",
-    "wood2",
-    "wood3",
-    "wood4",
-    "maple",
-    "maple2",
+    "dark-blue",
     "brown",
-    "leather",
-    "green",
-    "marble",
-    "green-plastic",
-    "grey",
-    "metal",
-    "olive",
-    "newspaper",
-    "purple",
-    "purple-diag",
-    "pink",
-    "ic"
+    "space1"
   ) map { name =>
     new Theme(name, colors.getOrElse(name, defaultHexColors))
   }
 
-  lazy val default = allByName get "brown" err "Can't find default theme D:"
+  lazy val default = allByName get "solid-brown1" err "Can't find default theme D:"
 }
 
 object Theme3d extends ThemeObject {
 
   val all = List(
-    "Black-White-Aluminium",
-    "Brushed-Aluminium",
-    "China-Blue",
-    "China-Green",
-    "China-Grey",
-    "China-Scarlet",
-    "Classic-Blue",
-    "Gold-Silver",
-    "Light-Wood",
-    "Power-Coated",
-    "Rosewood",
-    "Marble",
-    "Wax",
-    "Jade",
-    "Woodi"
+    "Woodi",
   ) map { name =>
     new Theme(name, Theme.defaultHexColors)
   }

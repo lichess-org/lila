@@ -6,33 +6,33 @@ object Fixtures {
     """
 <h2>YES! We did it. Crazyhouse is here!</h2>
 
-<p>It's everywhere. <strong>Lobby games, tournaments, simuls, and the analysis board; </strong>Crazyhouse is a first-class variant on lichess.org.</p>
+<p>It's everywhere. <strong>Lobby games, tournaments, simuls, and the analysis board; </strong>Crazyhouse is a first-class variant on lishogi.org.</p>
 
 <h2>What is crazyhouse?</h2>
 
 <p>It's a <em>very</em> exciting chess variant. In a crazyhouse game, either player can introduce a captured piece back onto the chessboard as their own. This is called <em>dropping</em> a piece.</p>
 
-<p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lichess/de5a66765de83e6c30865a558d067fda66459bd1_tuto1-arrow.png" width="530" height="359" /></p>
+<p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lishogi/de5a66765de83e6c30865a558d067fda66459bd1_tuto1-arrow.png" width="530" height="359" /></p>
 
 <p>In this example, White has two previously captured Black pieces in their <em>pocket</em>, a knight and a bishop. These pieces were captured by White earlier in the game. White can check the Black king by <strong><em>dropping</em></strong><strong> a bishop on c3!</strong></p>
 
-<p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lichess/a109d485184efb7600bdb2df9964ab50b2b3358b_tuto2-arrow.png" width="530" height="361" /></p>
+<p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lishogi/a109d485184efb7600bdb2df9964ab50b2b3358b_tuto2-arrow.png" width="530" height="361" /></p>
 
 <p>In turn Black can block the check by <strong>dropping a knight on e5!</strong></p>
 
-<p><a href="http://lichess.org/variant/crazyhouse"><strong>Read more about crazyhouse rules and strategies here</strong></a></p>
+<p><a href="http://lishogi.org/variant/crazyhouse"><strong>Read more about crazyhouse rules and strategies here</strong></a></p>
 
 <h2>Have great games!</h2>
 
-<p>To be honest, this was quite tough to implement, but also fun and totally worth it. The main challenge being that crazyhouse changes the very definition of what a <em>move</em> is; since now it can also be a drop. This change to a key concept of lichess required some rewiring of the program foundations.</p>
+<p>To be honest, this was quite tough to implement, but also fun and totally worth it. The main challenge being that crazyhouse changes the very definition of what a <em>move</em> is; since now it can also be a drop. This change to a key concept of lishogi required some rewiring of the program foundations.</p>
 
-<p><em>Please don't ask me for </em><a href="https://en.wikipedia.org/wiki/Bughouse_chess"><em>bughouse</em></a>. Lichess is a game for one board and two players. Now, someone should totally build a new bughouse website/app. It's impossible to integrate into lichess because it's radically unlike chess, structurally speaking.</p>
+<p><em>Please don't ask me for </em><a href="https://en.wikipedia.org/wiki/Bughouse_chess"><em>bughouse</em></a>. Lichess is a game for one board and two players. Now, someone should totally build a new bughouse website/app. It's impossible to integrate into lishogi because it's radically unlike chess, structurally speaking.</p>
 
 <h2>First crazyhouse tournament</h2>
 
-<p>What could be a better way to get started? <a href="http://lichess.org/tournament/crazy1st"><strong>Join the party!</strong></a></p>
+<p>What could be a better way to get started? <a href="http://lishogi.org/tournament/crazy1st"><strong>Join the party!</strong></a></p>
 
-<p><em>[EDIT] The first tournament is over. Second crazyhouse tournament: </em><a href="http://lichess.org/tournament/crazy2nd"><em><strong>Join here!</strong></em></a></p>
+<p><em>[EDIT] The first tournament is over. Second crazyhouse tournament: </em><a href="http://lishogi.org/tournament/crazy2nd"><em><strong>Join here!</strong></em></a></p>
 """
 
   def withYoutube =
@@ -41,7 +41,7 @@ object Fixtures {
 
 <h2>Introduction to Crazyhouse</h2>
 
-<h3>What is <a href="http://lichess.org/variant/crazyhouse">crazyhouse</a>, and how does it differ from chess?</h3>
+<h3>What is <a href="http://lishogi.org/variant/crazyhouse">crazyhouse</a>, and how does it differ from chess?</h3>
 
 <p><em>According to the wiki:<br>Crazyhouse (also known as Drop chess, Mad chess, Reinforcement chess, Turnabout chess and Schizo-chess) is a chess variant similar to bughouse chess, but with only two players. It effectively incorporates a rule from the game shogi, in which a player can introduce a captured piece back to the chessboard as his own.</em></p>
 
@@ -51,7 +51,7 @@ object Fixtures {
 
 <p>For those reasons, I'm willing to propose that becoming a proficient crazyhouse player can only help your chess vision: you'll see tactics more naturally, calculate more efficiently, and identify weaknesses more quickly. A lot of ideas can be carried over. But even if that's not the case, crazyhouse is an extremely fun game that can stand on its own merits! So let's see what it's all about.</p>
 
-<p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lichess/c13a4de82869df16e3cf6ae02dbb369fef1feb4c_knightpos744.jpg" width="744" height="391" /></p>
+<p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lishogi/c13a4de82869df16e3cf6ae02dbb369fef1feb4c_knightpos744.jpg" width="744" height="391" /></p>
 
 <h2>Basic Strategy and Motifs</h2>
 
@@ -121,11 +121,11 @@ object Fixtures {
 
 <li>If you identify a weakness but your pocket is empty, look to force exchanges. If your own position is weak, avoid exchanges until you're more solid.</li>
 
-<li>Avoid weakening squares of a certain color complex. Diags (pawns, bishops) can be dropped deep into your territory on your weak color complex. Try to create weaknesses in your opponent's pawn structure where you can infiltrate. Build pawn lattices into enemy territory (<a href="http://lichess.org/IqfmjHrW">like in this game</a>), preferably near the opponent's king. Expand your space wherever reasonably possible. </li>
+<li>Avoid weakening squares of a certain color complex. Diags (pawns, bishops) can be dropped deep into your territory on your weak color complex. Try to create weaknesses in your opponent's pawn structure where you can infiltrate. Build pawn lattices into enemy territory (<a href="http://lishogi.org/IqfmjHrW">like in this game</a>), preferably near the opponent's king. Expand your space wherever reasonably possible. </li>
 
 </ul>
 
-<p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lichess/d4d9512ed572781594bcc3968cbe21364ad21333_crazy3.jpg" width="190" height="192" /></p>
+<p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lishogi/d4d9512ed572781594bcc3968cbe21364ad21333_crazy3.jpg" width="190" height="192" /></p>
 
 <p>In this example, without the g-pawn, the dark squares, particularly g7, are weak. So white places a pawn on h6 to control that square, and will then look to exchange for more pieces, especially diagonals, to drop on black's dark kingside squares. Notice that a situation like this makes a queen trade highly desirable for white and losing for black, giving white even more control over the game.</p>
 
@@ -153,7 +153,7 @@ object Fixtures {
 
 <li>Knights can be used to smother mate. Smother mates are more common in z because of the ability to drop a Q or R to force a smothered king combined with the ability to drop the N onto the checking square.</li>
 
-<li>Knights are often strongest when placed on the fifth rank (as white) or the fourth rank (as black), as from there they observe key squares on the seventh (or second) rank. For example, I sometimes like placing a knight N@h5 with the idea of sacking on g7 to pull the king out. <a href="http://lichess.org/THYYswro#29">Example in this game at move 15</a>.</li>
+<li>Knights are often strongest when placed on the fifth rank (as white) or the fourth rank (as black), as from there they observe key squares on the seventh (or second) rank. For example, I sometimes like placing a knight N@h5 with the idea of sacking on g7 to pull the king out. <a href="http://lishogi.org/THYYswro#29">Example in this game at move 15</a>.</li>
 
 <li>Rooks should for the most part be kept in your pocket until you can exploit the back rank.</li>
 
@@ -173,7 +173,7 @@ object Fixtures {
 
 <li>Rooks are more or less of comparable value to minor pieces, unless the back rank is weak, in which case they increase in relative importance.</li>
 
-<li>If the 7th rank is weak and a rook is exposed, place two pawns side-by-side attacking the rook with ideas of Queening. <a href="http://lichess.org/Gpk2WwCD#29">Example on move 15 here</a>. Promoted pieces turn back into pawns when re-captured.</li>
+<li>If the 7th rank is weak and a rook is exposed, place two pawns side-by-side attacking the rook with ideas of Queening. <a href="http://lishogi.org/Gpk2WwCD#29">Example on move 15 here</a>. Promoted pieces turn back into pawns when re-captured.</li>
 
 <li>Sometimes it's not worth saving your queen if it weakens your squares or puts you on the defensive: in such cases it can be okay to just protect it with a bishop or continue your attack. For example, on move 10 <a href="http://ficsgames.org/cgi-bin/show.cgi?ID=382131253">in this game</a>, black sacs his Queen (in a safe position) so that he can begin an attack.</li>
 
@@ -201,33 +201,33 @@ object Fixtures {
 
 <ul>
 
-<li><a href="http://lichess.org/THYYswro/white#40">Pawn and knight</a></li>
+<li><a href="http://lishogi.org/THYYswro/white#40">Pawn and knight</a></li>
 
-<li><a href="http://lichess.org/PBCIKH6G/black#43">Two knights & pawn</a></li>
+<li><a href="http://lishogi.org/PBCIKH6G/black#43">Two knights & pawn</a></li>
 
-<li><a href="http://lichess.org/loeNxFMk/black#52">Diagonal & queen</a></li>
+<li><a href="http://lishogi.org/loeNxFMk/black#52">Diagonal & queen</a></li>
 
-<li><a href="http://lichess.org/zlen3fXC/white#50">Bishop & rook</a></li>
+<li><a href="http://lishogi.org/zlen3fXC/white#50">Bishop & rook</a></li>
 
-<li><a href="http://lichess.org/0PBzadZe/white#16">Pawn smother</a></li>
+<li><a href="http://lishogi.org/0PBzadZe/white#16">Pawn smother</a></li>
 
-<li><a href="http://lichess.org/Ix9npN7B/black#49">Knight & queen</a>. Play continues gxN Q@g2#, Kf1 Q@f2#, or Kh1 Q@g1 Rxg1 Nf2#.</li>
+<li><a href="http://lishogi.org/Ix9npN7B/black#49">Knight & queen</a>. Play continues gxN Q@g2#, Kf1 Q@f2#, or Kh1 Q@g1 Rxg1 Nf2#.</li>
 
-<li><a href="http://lichess.org/G5UBLNT4/white#86">Queen & knight</a></li>
+<li><a href="http://lishogi.org/G5UBLNT4/white#86">Queen & knight</a></li>
 
-<li><a href="http://lichess.org/xSp1YyCi/black#23">Knight & rook</a></li>
+<li><a href="http://lishogi.org/xSp1YyCi/black#23">Knight & rook</a></li>
 
-<li><a href="http://lichess.org/vDAmSwoR/white#68">Back rank spanker</a></li>
+<li><a href="http://lishogi.org/vDAmSwoR/white#68">Back rank spanker</a></li>
 
-<li><a href="http://lichess.org/RBYkTfFO/black#25">Pawn, bishop, & knight</a></li>
+<li><a href="http://lishogi.org/RBYkTfFO/black#25">Pawn, bishop, & knight</a></li>
 
-<li><a href="http://lichess.org/i3oGc2Xy/white#38">Protected pawn & rook</a></li>
+<li><a href="http://lishogi.org/i3oGc2Xy/white#38">Protected pawn & rook</a></li>
 
-<li><a href="http://lichess.org/DOgAUBQv/white#51">Two adjacent diags</a></li>
+<li><a href="http://lishogi.org/DOgAUBQv/white#51">Two adjacent diags</a></li>
 
-<li><a href="http://lichess.org/UzMyzMys/black#35">Smother mate</a></li>
+<li><a href="http://lishogi.org/UzMyzMys/black#35">Smother mate</a></li>
 
-<li><a href="http://lichess.org/xFA300uL/white#46">Knight & bishop</a></li>
+<li><a href="http://lishogi.org/xFA300uL/white#46">Knight & bishop</a></li>
 
 </ul>
 
@@ -243,7 +243,7 @@ object Fixtures {
 
 <p><em>Basic setup:</em> 1. d4 ... 2. g3 ... 3. Bg2 ... 4. h3 ... 5. Nf3 ... 6. Bg5 ... 7. 0-0 ... 8. Nbd2</p>
 
-<p><em>Illustrative Game:</em> <a href="http://lichess.org/THYYswro">lichess.org/THYYswro</a></p>
+<p><em>Illustrative Game:</em> <a href="http://lishogi.org/THYYswro">lishogi.org/THYYswro</a></p>
 
 <p><em>Themes:</em> Solidify and fortify your king before you attack. h3 is an important move so your opponent can't place a pawn there attacking your fianchettoed bishop. You start out a bit passive but extremely solid. Black will have a hard time breaking through while you use the time he's trying to drum something up to form an attack of your own on his likely more exposed kingside. Trade pieces in the center and then drop on the kingside. Often p@e5 to challenge the center or a pinned piece or p@h6 to pry open the king. You can allow the f3 knight to be captured, whereafter you'll often recapture with the e-pawn to build a nice box around your king. If they sac on h3, capture and then simply replace the pieces right back where they were. If no tension develops after the first 8 moves and there is no obvious attacking idea, bring a rook to c1 and break with c4 (or just play c4 immediately) to trade pawns and open things up.</p>
 
@@ -253,7 +253,7 @@ object Fixtures {
 
 <p><em>Basic setup:</em> 1. d4 ... 2. Nc3 ... 3. Bg5 ... 4. Nf3 ... 5. e3 (or e4, if allowed) ... 6. Be2/d3 ... 7. 0-0</p>
 
-<p><em>Illustrative Game:</em> <a href="http://lichess.org/LTdPNcHW">lichess.org/LTdPNcHW</a></p>
+<p><em>Illustrative Game:</em> <a href="http://lishogi.org/LTdPNcHW">lishogi.org/LTdPNcHW</a></p>
 
 <p><em>Themes:</em> Focus on the pin on the h4-d8 diagonal. Sometimes exchange for a second bishop which you can place behind the first on h4. Pile up on the pin. Option of trading on f6 for a pocket knight or on e7 for a pocket bishop. Try to advance e4-e5 if given the chance and claim space. If the black bishop goes to f5, challenge it with Bd3 and re-capture with the c pawn for a strong center; if it goes to g4, block the pin with Be2. If given the chance, exchange pawns in the center and place p@h6. In completely passive or dubious black systems where they're generating little or no counterplay it can be explosive to play e4, d4, and then after the minor pieces are deployed f4!? followed by 0-0 and f5.</p>
 
@@ -261,7 +261,7 @@ object Fixtures {
 
 <p><em>Basic setup:</em> 1. e4 ... 2. Nf3 ... 3. Bc4/b5/e2 ... 4. Bg5/f4 ... 5. Nc3 or Nbd2 followed by eventual c3 ... 6. 0-0</p>
 
-<p><em>Illustrative Game:</em> <a href="http://lichess.org/UA6ayvXz">lichess.org/UA6ayvXz</a></p>
+<p><em>Illustrative Game:</em> <a href="http://lishogi.org/UA6ayvXz">lishogi.org/UA6ayvXz</a></p>
 
 <p><em>Themes:</em> Develop, control the center, castle, and then immediately attack. I don't play e4 so much, but you can get a good feel for it by reviewing some of FICS's top-rated player's--tantheman's--white games. <a href="http://www.ficsgames.org/cgi-bin/search.cgi?Games=dsearch;statsdays=365;white=tantheman;variant=11;fyear=2000;tyear=2016;colors=1">Find them here</a>.<br></p>
 
@@ -269,7 +269,7 @@ object Fixtures {
 
 <p><em>Basic setup:</em> 1. b3 ... 2. Bb2 ... 3. e3 ... 4. d3 ... 5. Nf3 ... 6. Be2, stuff like that.</p>
 
-<p><em>Illustrative Game:</em> <a href="http://lichess.org/dkZPL3rf">lichess.org/dkZPL3rf</a></p>
+<p><em>Illustrative Game:</em> <a href="http://lishogi.org/dkZPL3rf">lishogi.org/dkZPL3rf</a></p>
 
 <p><em>Themes:</em> Throw your opponent off. Build a solid structure and ask your opponent how he's going to break through. Castle queenside occasionally. Break with c4 or throw your kingside pawns at him.</p>
 
@@ -283,19 +283,19 @@ object Fixtures {
 
 <p><em>Basic setup:</em> 1. e4 Nf6 2. e5 Nc6!? 3. exf6 gxf6! 4. ... d5 (can transpose with 2. ... d5 instead of Nc6) 5. ... Rg8 6. ...Bg4 7. ...e6</p>
 
-<p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lichess/9854ea498c5f49b19101ac5e40510b357d0bdbf2_croskysetup.jpg" width="510" height="319" /></p>
+<p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lishogi/9854ea498c5f49b19101ac5e40510b357d0bdbf2_croskysetup.jpg" width="510" height="319" /></p>
 
-<p><em>Illustrative Game:</em> <a href="http://lichess.org/W4lzqvxx">lichess.org/W4lzqvxx</a></p>
+<p><em>Illustrative Game:</em> <a href="http://lishogi.org/W4lzqvxx">lishogi.org/W4lzqvxx</a></p>
 
 <p><em>Themes:</em> Firstly, you build a strong center around your king. The pawn on f6 prevents a knight from coming to the key g5 and e5 squares where it could attack f7. Then your rook is coming to the g file where it's going to dictate play on the kingside and constantly pressure g2. You'll often have a pin on the h5-d1 diagonal where you can win your piece back by placing p@e4; otherwise, that pawn will often be placed p@h3. In return for the piece you get a pawn that you'll use to severely weaken white's position and tremendous pressure on his light square complex in the upper left quadrant of the board (near his king). Capturing the knight on f3 and then dropping N@h4 where it attacks both f3 and g2 is a common motif. Your king will always remain in the center where it's well-guarded. Be careful not to let your h-pawn fall or too much pressure to be dropped around your rook or your king will be come exposed quickly. All in all, you're offering to temporarily go down in material for an open, exciting game where you have immediate counterpunching chances that white will be hard-pressed to deal with without precise play.<br>A second variation deviates on move 3 with 3. ... exf6 instead of gxf6 and continues 4. ... d5, whereafter you develop normally. This is perfectly viable. You offer a knight for a pawn to achieve open lines and accelerated development.</p>
 
 <h4>Modified Modern</h4>
 
-<p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lichess/d302e21e46e2aa5d694ac8f442815ae18f760efa_setup2.jpg" width="192" height="192" /></p>
+<p class="block-img"><img alt="" src="https://d27t3nufpewl0w.cloudfront.net/lishogi/d302e21e46e2aa5d694ac8f442815ae18f760efa_setup2.jpg" width="192" height="192" /></p>
 
 <p><em>Basic setup:</em> 1. ...g6 2. ... Bg7 3. ...Nf6 4. ...h6 5. ...d5 6. ...Bg4 7. ... 0-0 8. ...Nbd7 or Nc6</p>
 
-<p><em>Illustrative Game:</em> <a href="http://lichess.org/Ix9npN7B">lichess.org/Ix9npN7B</a></p>
+<p><em>Illustrative Game:</em> <a href="http://lishogi.org/Ix9npN7B">lishogi.org/Ix9npN7B</a></p>
 
 <p>Themes: This is going to operate much like the modified Catalan I described above, except for black. You build a strong little box around your king (see image above), whereafter you break with d5. White will often push or place a pawn on e5, and you can either move the knight or use the tempo to start an attack or do something else constructive with the idea of allowing the capture on f6 so you can recapture with the e-pawn and build your box. Exchange in the center and drop on white's kingside. King safety is paramount; keep your box fortress stable with pawn drops as needed (p@e7, p@g5, etc.) and then counterpunch. When attacking pawns can often be placed p@e4 to challenge a pinned piece and gain central influence or p@h3 to open his king.</p>
 
@@ -303,7 +303,7 @@ object Fixtures {
 
 <p><em>Basic setup:</em> 1. ... Nf6 2. ... Nc6 3. ... d6 / 3. ...d5 / 3. ... e5. I prefer 3. ... d6 4. ... Bg4 5. ...e6 6. ... Be7 7. ... 0-0</p>
 
-<p><em>Illustrative Game:</em> <a href="http://lichess.org/Hjrcklag">lichess.org/Hjrcklag</a></p>
+<p><em>Illustrative Game:</em> <a href="http://lishogi.org/Hjrcklag">lishogi.org/Hjrcklag</a></p>
 
 <p><em>Themes:</em> Get your pieces out quickly and build a contained, modest setup staring down white's center without creating tension (d6 e6) or create immediate imbalances by breaking in the center with a quick d5/e5. Often castle kingside, sometimes leave it in the center.</p>
 
@@ -313,7 +313,7 @@ object Fixtures {
 
 <p><em>Basic setup:</em> 1. e4 e6 2. d4 d5</p>
 
-<p><em>Illustrative Game:</em> <a href="http://lichess.org/o36HZqS9">lichess.org/o36HZqS9</a></p>
+<p><em>Illustrative Game:</em> <a href="http://lishogi.org/o36HZqS9">lishogi.org/o36HZqS9</a></p>
 
 <p><em>Themes:</em> In the exchange varation (3. exd5 exd5), you're happy because your light square bishop gets active and you have open lines. In the advance variation (3. e5), you will not break with c5 or f6 as you might like to in standard chess. Instead you can continue by getting your knight to f5 (often via e7) and your bishop to e7. Because the f6 square is temporarily weak when your knight comes to e7, I actually prefer slightly varying the move order with 2. Ne7 before breaking with d5 so that your knight can immediately move after you break, uncovering the queen's defense of f6. You can also bring your knight to f6 first and move it to e4 after you break with d5 and he advances (or accept the capture on f6 with gxf6 and enter into Crosky Gambit territory!). The main advantage of this opening is that it discourages the Bishop from coming to c4 and peering down on f7.<br></p>
 
@@ -321,7 +321,7 @@ object Fixtures {
 
 <p><em>Basic setup:</em> 1. e4 d5 2. exd5 e6 3. dxe6 Bxe6 4. ... Nf6 5. ... Be7 or 1. d4 e5 2. dxe5 d6 3. exd6 Bxd6 4. ... Nf6 5. ... Bg4</p>
 
-<p><em>Illustrative Game:</em> <a href="http://lichess.org/YydlL3bB">lichess.org/YydlL3bB</a></p>
+<p><em>Illustrative Game:</em> <a href="http://lishogi.org/YydlL3bB">lishogi.org/YydlL3bB</a></p>
 
 <p><em>Themes:</em> Gambit a central pawn for compensation by way of accelerated development and open lines. Best played against weaker opponents who can be confidently outplayed, but can be a fun surprise weapon against strong players too if used sparingly.</p>
 
@@ -331,15 +331,15 @@ object Fixtures {
 
 <ul>
 
-<li><a href="https://www.youtube.com/watch?v=wbxgu7M-P1E">IM John Bartholomew plays the lichess Crazyhouse bullet arena</a></li>
+<li><a href="https://www.youtube.com/watch?v=wbxgu7M-P1E">IM John Bartholomew plays the lishogi Crazyhouse bullet arena</a></li>
 
-<li><a href="https://www.youtube.com/watch?v=Czy1va4lhZg">NM Chess Network plays a lichess blitz tournament</a></li>
+<li><a href="https://www.youtube.com/watch?v=Czy1va4lhZg">NM Chess Network plays a lishogi blitz tournament</a></li>
 
 <li><a href="https://www.youtube.com/watch?v=rrgrnlNEUOk">Lichess Master Atrophied explains Crazyhouse rules</a></li>
 
 <li><a href="https://www.youtube.com/watch?v=wn87NOBBNl4">Lichess Master Atrophied explains opening principles</a></li>
 
-<li><a href="http://lichess.org/games/search?perf=18&sort.field=d&sort.order=desc">Lichess Crazyhouse Games Database</a></li>
+<li><a href="http://lishogi.org/games/search?perf=18&sort.field=d&sort.order=desc">Lichess Crazyhouse Games Database</a></li>
 
 <li><a href="http://ficsgames.org/cgi-bin/search.cgi">FICS Crazyhouse Games Database (search for games by cheesybread or tantheman -- the very best!)</a></li>
 

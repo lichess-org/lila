@@ -39,7 +39,7 @@ object header {
               href := youTube.fullUrl
             )(youTube.minUrl)
           },
-          a(cls := "service lichess", href := routes.User.show(s.user.username))(
+          a(cls := "service lishogi", href := routes.User.show(s.user.username))(
             netDomain,
             routes.User.show(s.user.username).url
           )

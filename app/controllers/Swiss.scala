@@ -90,7 +90,7 @@ final class Swiss(
               data =>
                 tourC.rateLimitCreation(me, false, ctx.req) {
                   env.swiss.api.create(data, me, teamId) map { swiss =>
-                    Redirect(routes.Swiss.show(swiss.id.value))
+                    Redirect(routes.Page.notSupported())
                   }
                 }
             )
@@ -123,7 +123,7 @@ final class Swiss(
         env.team.cached.teamIds(me.id) flatMap { teamIds =>
           env.swiss.api.join(SwissId(id), me, teamIds.contains) flatMap { result =>
             negotiate(
-              html = Redirect(routes.Swiss.show(id)).fuccess,
+              html = Redirect(routes.Page.notSupported()).fuccess,
               api = _ =>
                 fuccess {
                   if (result) jsonOkResult
@@ -139,7 +139,7 @@ final class Swiss(
     Auth { implicit ctx => me =>
       env.swiss.api.withdraw(SwissId(id), me.id) >>
         negotiate(
-          html = Redirect(routes.Swiss.show(id)).fuccess,
+          html = Redirect(routes.Page.notSupported()).fuccess,
           api = _ => fuccess(jsonOkResult)
         )
     }
@@ -160,7 +160,7 @@ final class Swiss(
           .bindFromRequest()
           .fold(
             err => BadRequest(html.swiss.form.edit(swiss, err)).fuccess,
-            data => env.swiss.api.update(swiss, data) inject Redirect(routes.Swiss.show(id))
+            data => env.swiss.api.update(swiss, data) inject Redirect(routes.Page.notSupported())
           )
       }
     }
@@ -171,8 +171,8 @@ final class Swiss(
         implicit val req = ctx.body
         env.swiss.forms.nextRound.bindFromRequest()
           .fold(
-            _ => Redirect(routes.Swiss.show(id)).fuccess,
-            date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Swiss.show(id))
+            _ => Redirect(routes.Page.notSupported()).fuccess,
+            date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Page.notSupported())
           )
       }
     }
@@ -223,7 +223,7 @@ final class Swiss(
         case None => NotFound("Tournament not found")
         case Some(swiss) =>
           Ok.chunked(env.swiss trf swiss intersperse "\n")
-            .withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=lichess_swiss_$id.trf")
+            .withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=lishogi_swiss_$id.trf")
       }
     }
 
@@ -236,7 +236,7 @@ final class Swiss(
     WithSwiss(id) { swiss =>
       if (swiss.createdBy == me.id && !swiss.isFinished) f(swiss)
       else if (isGranted(_.ManageTournament)) f(swiss)
-      else Redirect(routes.Swiss.show(swiss.id.value)).fuccess
+      else Redirect(routes.Page.notSupported()).fuccess
     }
 
   private def canHaveChat(swiss: SwissModel)(implicit ctx: Context): Fu[Boolean] =

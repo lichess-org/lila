@@ -24,7 +24,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def povOpenGraph(pov: Pov) =
     lila.app.ui.OpenGraph(
-      image = cdnUrl(routes.Export.gameThumbnail(pov.gameId).url).some,
+      image = cdnUrl(routes.Page.notSupported().url).some, // routes.Export.gameThumbnail(pov.gameId).url
       title = titleGame(pov.game),
       url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color.name).url}",
       description = describePov(pov)
@@ -33,7 +33,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def titleGame(g: Game) = {
     val speed   = chess.Speed(g.clock.map(_.config)).name
     val variant = g.variant.exotic ?? s" ${g.variant.name}"
-    s"$speed$variant Chess • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
+    s"$speed$variant Shogi • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
   }
 
   def describePov(pov: Pov) = {
@@ -57,18 +57,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
       case (_, Some(l), Outoftime)                          => s"${playerText(l)} forfeits by time"
       case (Some(w), _, UnknownFinish)                      => s"${playerText(w)} won"
-      case (_, _, Draw | Stalemate | UnknownFinish)         => "Game is a draw"
+      case (Some(w), _, Stalemate)                          => s"${playerText(w)} won by stalemate"
+      case (_, _, Draw | UnknownFinish)                     => "Game is a draw"
       case (_, _, Aborted)                                  => "Game has been aborted"
       case (_, _, VariantEnd) =>
         game.variant match {
-          case chess.variant.KingOfTheHill => "King in the center"
-          case chess.variant.ThreeCheck    => "Three checks"
-          case chess.variant.Antichess     => "Lose all your pieces to win"
-          case chess.variant.Atomic        => "Explode or mate your opponent's king to win"
-          case chess.variant.Horde         => "Destroy the horde to win"
-          case chess.variant.RacingKings   => "Race to the eighth rank to win"
-          case chess.variant.Crazyhouse    => "Drop captured pieces on the board"
-          case _                           => "Variant ending"
+          case _ => "Perpetual check"
         }
       case _ => "Game is still being played"
     }
@@ -181,21 +175,21 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.Mate    => trans.checkmate.txt()
       case S.Resign =>
         game.loser match {
-          case Some(p) if p.color.white => trans.whiteResigned.txt()
-          case _                        => trans.blackResigned.txt()
+          case Some(p) if p.color.white => trans.blackResigned.txt() // swapped
+          case _                        => trans.whiteResigned.txt()
         }
       case S.UnknownFinish => trans.finished.txt()
       case S.Stalemate     => trans.stalemate.txt()
       case S.Timeout =>
         game.loser match {
-          case Some(p) if p.color.white => trans.whiteLeftTheGame.txt()
-          case Some(_)                  => trans.blackLeftTheGame.txt()
+          case Some(p) if p.color.white => trans.blackLeftTheGame.txt() // swapped
+          case Some(_)                  => trans.whiteLeftTheGame.txt()
           case None                     => trans.draw.txt()
         }
       case S.Draw      => trans.draw.txt()
       case S.Outoftime => trans.timeOut.txt()
       case S.NoStart => {
-        val color = game.loser.fold(Color.white)(_.color).name.capitalize
+        val color = game.loser.fold(Color.black)(_.color).name.capitalize // swapped
         s"$color didn't move"
       }
       case S.Cheat => "Cheat detected"

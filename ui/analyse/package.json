@@ -2,10 +2,10 @@
   "name": "analyse",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org analysis board",
+  "description": "lishogi.org analysis board",
   "keywords": [
     "chess",
-    "lichess",
+    "lishogi",
     "play",
     "replay",
     "analysis",
@@ -16,7 +16,7 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/jquery": "^2.0",
-    "@types/lichess": "2.0.0"
+    "@types/lishogi": "2.0.0"
   },
   "dependencies": {
     "@badrap/result": "^0.2.6",
@@ -27,8 +27,8 @@
     "game": "2.0.0",
     "nvui": "2.0.0",
     "shogi.js": "^2.0.3",
-    "shogiground": "file:/home/liskadan/lila/ui/shogiground",
-    "shogiutil": "file:/home/liskadan/lila/ui/shogiutil",
+    "shogiground": "7.8.1",
+    "shogiutil": "1.0.0",
     "snabbdom": "^0.7.4",
     "tree": "2.0.0"
   },

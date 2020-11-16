@@ -22,17 +22,16 @@ case class AnaMove(
     fen: String,
     path: String,
     chapterId: Option[String],
-    promotion: Option[chess.PromotableRole]
+    promotion: Boolean
 ) extends AnaAny {
 
-  def branch: Valid[Branch] =
+  def branch: Valid[Branch] = {
     chess.Game(variant.some, fen.some)(orig, dest, promotion) flatMap {
       case (game, move) =>
         game.pgnMoves.lastOption toValid "Moved but no last move!" map { san =>
-          val uci     = Uci(move).pp
+          val uci     = Uci(move)
           val movable = game.situation playable false
           val fen     = chess.format.Forsyth >> game
-          println("anaMove:" + game)
           Branch(
             id = UciCharPair(uci),
             ply = game.turns,
@@ -48,7 +47,7 @@ case class AnaMove(
           )
         }
     }
-
+  }
   // def json(b: Branch): JsObject = Json.obj(
   //   "node" -> b,
   //   "path" -> path
@@ -57,7 +56,7 @@ case class AnaMove(
 
 object AnaMove {
 
-  def parse(o: JsObject) =
+  def parse(o: JsObject) = {
     for {
       d    <- o obj "d"
       orig <- d str "orig" flatMap chess.Pos.posAt
@@ -71,6 +70,7 @@ object AnaMove {
       fen = fen,
       path = path,
       chapterId = d str "ch",
-      promotion = d str "promotion" flatMap chess.Role.promotable
+      promotion = (d \ "promotion").as[Boolean]
     )
+  }
 }

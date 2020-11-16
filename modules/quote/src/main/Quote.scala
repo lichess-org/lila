@@ -1581,11 +1581,11 @@ object Quote {
       "John Bartholomew"
     ),
     new Quote("Chess as a game is too serious; as a serious pursuit too frivolous.", "Moses Mendelssohn"),
-    // lichess facts
-    new Quote("All features for free; for everyone; forever.", "lichess.org"),
-    new Quote("We will never display ads.", "lichess.org"),
-    new Quote("We do not track you. It's a rare feature, nowadays.", "lichess.org"),
-    new Quote("Every chess player is a premium user.", "lichess.org"),
+    // lishogi facts
+    new Quote("All features for free; for everyone; forever.", "lishogi.org"),
+    new Quote("We will never display ads.", "lishogi.org"),
+    new Quote("We do not track you. It's a rare feature, nowadays.", "lishogi.org"),
+    new Quote("Every chess player is a premium user.", "lishogi.org"),
     new Quote("I never lose. I either win or learn.", "Nelson Mandela")
   )
 

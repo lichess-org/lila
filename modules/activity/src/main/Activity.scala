@@ -40,10 +40,10 @@ object Activity {
 
   case class WithUserId(activity: Activity, userId: User.ID)
 
-  // number of days since lichess
+  // number of days since lishogi
   case class Day(value: Int) extends AnyVal
   object Day {
-    val genesis = new DateTime(2010, 1, 1, 0, 0).withTimeAtStartOfDay
+    val genesis = new DateTime(2020, 9, 1, 0, 0).withTimeAtStartOfDay
     def today   = Day(Days.daysBetween(genesis, DateTime.now.withTimeAtStartOfDay).getDays)
     def recent(nb: Int): List[Day] =
       (0 to (nb - 1)).toList.map { delta =>

@@ -11,6 +11,7 @@ import lila.db.dsl._
 
 final class FishnetApi(
     repo: FishnetRepo,
+    moveDb: MoveDB,
     analysisBuilder: AnalysisBuilder,
     analysisColl: Coll,
     monitor: Monitor,
@@ -42,16 +43,20 @@ final class FishnetApi(
     case failure         => fuccess(failure)
   }
 
-  def acquire(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
+  def acquire(client: Client, slow: Boolean = false): Fu[Option[JsonApi.Work]] =
     (client.skill match {
-      case Skill.Move                 => fufail(s"Can't acquire a move directly on lichess! $client")
-      case Skill.Analysis | Skill.All => acquireAnalysis(client, slow)
+      case Skill.Move     => acquireMove(client)
+      case Skill.Analysis => acquireAnalysis(client, slow)
+      case Skill.All      => acquireMove(client) orElse acquireAnalysis(client, slow)
     }).monSuccess(_.fishnet.acquire)
       .recover {
         case e: Exception =>
           logger.error("Fishnet.acquire", e)
           none
       }
+
+  private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] =
+    moveDb.acquire(client) map { _ map JsonApi.moveFromWork }
 
   private def acquireAnalysis(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
     workQueue {
@@ -65,7 +70,7 @@ final class FishnetApi(
         )
         .sort(
           $doc(
-            "sender.system" -> 1, // user requests first, then lichess auto analysis
+            "sender.system" -> 1, // user requests first, then lishogi auto analysis
             "createdAt"     -> 1 // oldest requests first
           )
         )
@@ -76,6 +81,11 @@ final class FishnetApi(
           }
         }
     }.map { _ map JsonApi.analysisFromWork(config.analysisNodes) }
+
+  def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit =
+    fuccess {
+      moveDb.postResult(workId, client, data)
+    }
 
   def postAnalysis(
       workId: Work.Id,

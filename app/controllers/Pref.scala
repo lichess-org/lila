@@ -72,7 +72,7 @@ final class Pref(env: Env) extends LilaController(env) {
         _ => fuccess(Redirect(routes.User.show(me.username))),
         v =>
           api.saveTag(me, _.verifyTitle, if (v) "1" else "0") inject Redirect {
-            if (v) routes.Page.master() else routes.User.show(me.username)
+            if (v) routes.Page.notSupported() else routes.User.show(me.username) // master
           }
       )
     }

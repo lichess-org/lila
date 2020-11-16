@@ -18,8 +18,7 @@ private class FishnetConfig(
     @ConfigName("offline_mode") val offlineMode: Boolean,
     @ConfigName("analysis.nodes") val analysisNodes: Int,
     @ConfigName("move.plies") val movePlies: Int,
-    @ConfigName("client_min_version") val clientMinVersion: String,
-    @ConfigName("redis.uri") val redisUri: String
+    @ConfigName("client_min_version") val clientMinVersion: String
 )
 
 @Module
@@ -43,13 +42,6 @@ final class Env(
 
   private lazy val analysisColl = db(config.analysisColl)
 
-  private lazy val redis = new FishnetRedis(
-    RedisClient create RedisURI.create(config.redisUri),
-    "fishnet-in",
-    "fishnet-out",
-    shutdown
-  )
-
   private lazy val clientVersion = new Client.ClientVersion(config.clientMinVersion)
 
   private lazy val repo = new FishnetRepo(
@@ -57,6 +49,8 @@ final class Env(
     clientColl = db(config.clientColl),
     cacheApi = cacheApi
   )
+
+  private lazy val moveDb: MoveDB = wire[MoveDB]
 
   private lazy val monitor: Monitor = wire[Monitor]
 

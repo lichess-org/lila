@@ -18,10 +18,10 @@ object editor {
     views.html.base.layout(
       title = trans.boardEditor.txt(),
       moreJs = frag(
-        jsAt(s"compiled/lichess.editor${isProd ?? ".min"}.js"),
+        jsAt(s"compiled/lishogi.editor${isProd ?? ".min"}.js"),
         embedJsUnsafe(
           s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
-LichessEditor(document.getElementById('board-editor'), data);"""
+LishogiEditor(document.getElementById('board-editor'), data);"""
         )
       ),
       moreCss = cssTag("editor"),
@@ -29,9 +29,9 @@ LichessEditor(document.getElementById('board-editor'), data);"""
       zoomable = true,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Chess board editor",
+          title = "Shogi board editor",
           url = s"$netBaseUrl${routes.Editor.index().url}",
-          description = "Load opening positions or create your own chess position on a chess board editor"
+          description = "Load opening positions or create your own shogi position on a shogi board editor"
         )
         .some
     )(

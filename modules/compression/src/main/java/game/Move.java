@@ -1,4 +1,4 @@
-package org.lichess.compression.game;
+package org.lishogi.compression.game;
 
 final class Move implements Comparable<Move> {
     public static final int NORMAL = 0;

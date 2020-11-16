@@ -12,7 +12,7 @@ package object i18n extends PackageObject {
 
   private[i18n] def logger = lila.log("i18n")
 
-  private[i18n] val lichessCodes: Map[String, Lang] = Map(
+  private[i18n] val lishogiCodes: Map[String, Lang] = Map(
     "fp" -> Lang("frp", "IT"),
     "jb" -> Lang("jbo", "EN"),
     "kb" -> Lang("kab", "DZ"),

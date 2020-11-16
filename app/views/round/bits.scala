@@ -3,7 +3,7 @@ package round
 
 import scala.util.chaining._
 
-import chess.variant.{ Crazyhouse, Variant }
+import chess.variant.{ Standard, Variant }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -28,7 +28,7 @@ object bits {
       openGraph = openGraph,
       moreJs = moreJs,
       moreCss = frag(
-        cssTag { if (variant == Crazyhouse) "round.zh" else "round" },
+        cssTag { "round.zh" }, // if (variant == Standard) "round.zh" else "round" },
         ctx.blind option cssTag("round.nvui"),
         moreCss
       ),

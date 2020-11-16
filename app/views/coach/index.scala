@@ -24,7 +24,7 @@ object index {
       ctx: Context
   ) =
     views.html.base.layout(
-      title = lichessCoaches.txt(),
+      title = lishogiCoaches.txt(),
       moreCss = cssTag("coach"),
       moreJs = infiniteScrollTag
     ) {
@@ -36,7 +36,7 @@ object index {
       main(cls := "coach-list coach-full-page")(
         st.aside(cls := "coach-list__side coach-side")(
           p(
-            areYouCoach(a(href := "https://lichess.org/help/master")(nmOrFideTitle())),
+            areYouCoach(a(href := "https://lishogi.org/help/master")(nmOrFideTitle())),
             br,
             if (!ctx.me.exists(_.hasTitle)) a(href := routes.Main.verifyTitle())(confirmTitle())
             else sendApplication(contactEmailLink)
@@ -44,7 +44,7 @@ object index {
         ),
         div(cls := "coach-list__main coach-main box")(
           div(cls := "box__top")(
-            h1(lichessCoaches()),
+            h1(lishogiCoaches()),
             div(cls := "box__top__actions")(
               views.html.base.bits.mselect(
                 "coach-lang",

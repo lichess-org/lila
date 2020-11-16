@@ -17,7 +17,7 @@ object bits {
   ) =
     frag(
       jsTag("challenge.js", defer = true),
-      embedJsUnsafe(s"""lichess=window.lichess||{};customWs=true;lichess_challenge = ${safeJsonValue(
+      embedJsUnsafe(s"""lishogi=window.lishogi||{};customWs=true;lishogi_challenge = ${safeJsonValue(
         Json.obj(
           "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
           "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,

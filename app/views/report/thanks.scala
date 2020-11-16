@@ -48,7 +48,7 @@ $button.find('span').text('Blocked!');
         br,
         br,
         p(
-          a(href := routes.Lobby.home())("Return to Lichess homepage")
+          a(href := routes.Lobby.home())("Return to Lishogi homepage")
         )
       )
 

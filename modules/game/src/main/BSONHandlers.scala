@@ -1,7 +1,7 @@
 package lila.game
 
-import chess.format.FEN
-import chess.variant.{ Crazyhouse, Variant }
+import chess.format.{ FEN, Uci }
+import chess.variant.{ Standard, Variant }
 import chess.{
   CheckCount,
   Color,
@@ -11,6 +11,9 @@ import chess.{
   Status,
   Mode,
   UnmovedRooks,
+  Data,
+  Pocket,
+  Pockets,
   History => ChessHistory,
   Game => ChessGame
 }
@@ -41,12 +44,10 @@ object BSONHandlers {
     x => ByteArrayBSONHandler.writeTry(BinaryFormat.unmovedRooks write x).get
   )
 
-  implicit private[game] val crazyhouseDataBSONHandler = new BSON[Crazyhouse.Data] {
-
-    import Crazyhouse._
+  implicit private[game] val crazyhouseDataBSONHandler = new BSON[Data] {
 
     def reads(r: BSON.Reader) =
-      Crazyhouse.Data(
+      Data(
         pockets = {
           val (white, black) = {
             r.str("p").view.flatMap(chess.Piece.fromChar).to(List)
@@ -59,7 +60,7 @@ object BSONHandlers {
         promoted = r.str("t").view.flatMap(chess.Pos.piotr).to(Set)
       )
 
-    def writes(w: BSON.Writer, o: Crazyhouse.Data) =
+    def writes(w: BSON.Writer, o: Data) =
       BSONDocument(
         "p" -> {
           o.pockets.white.roles.map(_.forsythUpper).mkString +
@@ -90,16 +91,14 @@ object BSONHandlers {
       val playedPlies = plies - startedAtTurn
       val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
 
-      val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, playedPlies) } | {
-        val clm      = r.get[CastleLastMove](F.castleLastMove)
+      val decoded = {
         val pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies)
         PgnStorage.Decoded(
           pgnMoves = pgnMoves,
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
           positionHashes = r.getO[chess.PositionHash](F.positionHashes) | Array.empty,
-          unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
-          lastMove = clm.lastMove,
-          castles = clm.castles,
+          lastMove = r strO F.historyLastMove flatMap Uci.apply,
+          checkCount = r.intsD(F.checkCount),
           halfMoveClock = pgnMoves.reverse.indexWhere(san =>
             san.contains("x") || san.headOption.exists(_.isLower)
           ) atLeast 0
@@ -111,17 +110,16 @@ object BSONHandlers {
             pieces = decoded.pieces,
             history = ChessHistory(
               lastMove = decoded.lastMove,
-              castles = decoded.castles,
               halfMoveClock = decoded.halfMoveClock,
               positionHashes = decoded.positionHashes,
-              unmovedRooks = decoded.unmovedRooks,
-              checkCount = if (gameVariant.threeCheck) {
-                val counts = r.intsD(F.checkCount)
-                CheckCount(~counts.headOption, ~counts.lastOption)
-              } else Game.emptyCheckCount
+              checkCount = CheckCount(~decoded.checkCount.headOption, ~decoded.checkCount.lastOption)
+              //checkCount = if (gameVariant.threeCheck) {
+              //  val counts = r.intsD(F.checkCount)
+              //  CheckCount(~counts.headOption, ~counts.lastOption)
+              //} else Game.emptyCheckCount
             ),
             variant = gameVariant,
-            crazyData = gameVariant.crazyhouse option r.get[Crazyhouse.Data](F.crazyData)
+            crazyData = (gameVariant.standard || gameVariant.fromPosition) option r.get[Data](F.crazyData)
           ),
           color = turnColor
         ),
@@ -205,7 +203,7 @@ object BSONHandlers {
         F.simulId           -> o.metadata.simulId,
         F.analysed          -> w.boolO(o.metadata.analysed)
       ) ++ {
-        if (o.variant.standard)
+        if (false)
           $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.pgnMoves take Game.maxPlies))
         else {
           val f = PgnStorage.OldBin
@@ -213,16 +211,8 @@ object BSONHandlers {
             F.oldPgn         -> f.encode(o.pgnMoves take Game.maxPlies),
             F.binaryPieces   -> BinaryFormat.piece.write(o.board.pieces),
             F.positionHashes -> o.history.positionHashes,
-            F.unmovedRooks   -> o.history.unmovedRooks,
-            F.castleLastMove -> CastleLastMove.castleLastMoveBSONHandler
-              .writeTry(
-                CastleLastMove(
-                  castles = o.history.castles,
-                  lastMove = o.history.lastMove
-                )
-              )
-              .toOption,
-            F.checkCount -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
+            F.historyLastMove -> o.history.lastMove.map(_.uci),
+            F.checkCount -> o.history.checkCount,
             F.crazyData  -> o.board.crazyData
           )
         }

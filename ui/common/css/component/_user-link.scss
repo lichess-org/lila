@@ -3,12 +3,30 @@
   color: $c-font;
   &.online .line {
     &::before {
-      content: '';
+      content: "";
     }
     color: $c-good;
-    opacity: .9;
+    opacity: 0.9;
     &.patron {
       opacity: 1;
+    }
+  }
+  .player-color {
+    font-size: 1.2em;
+    @if $theme-light {
+      &.white::before {
+        content: "\2617"; // ☗
+      }
+      &.black::before {
+        content: "\2616"; // ☖
+      }
+    } @else {
+      &.white::before {
+        content: "\2616";
+      }
+      &.black::before {
+        content: "\2617";
+      }
     }
   }
   .line {
@@ -23,13 +41,13 @@
       opacity: 0.8;
     }
     &::before {
-      content: 'Ò';
+      content: "Ò";
     }
     &.patron::before {
-      content: '' !important;
+      content: "" !important;
     }
     &.moderator::before {
-      content: '';
+      content: "";
     }
   }
   .title {

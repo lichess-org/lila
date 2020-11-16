@@ -2,11 +2,11 @@
   "name": "game",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org game",
+  "description": "lishogi.org game",
   "main": "game.js",
   "keywords": [
     "chess",
-    "lichess",
+    "lishogi",
     "play",
     "replay"
   ],
@@ -18,7 +18,7 @@
     "prod": "yarn run compile"
   },
   "devDependencies": {
-    "@types/lichess": "2.0.0",
+    "@types/lishogi": "2.0.0",
     "typescript": "^3"
   }
 }

@@ -1,26 +1,71 @@
-import { dragNewPiece } from 'shogiground/drag';
-import { readDrops } from 'chess';
-import AnalyseCtrl from '../ctrl';
-import * as cg from 'shogiground/types';
-import { Api as ShogigroundApi } from 'shogiground/api';
+import { dragNewPiece } from "shogiground/drag";
+import { readDrops } from "chess";
+import AnalyseCtrl from "../ctrl";
+import * as cg from "shogiground/types";
+import { Api as ShogigroundApi } from "shogiground/api";
+
+// @ts-ignore
+import { Shogi } from "shogiutil/vendor/Shogi.js";
 
 export function drag(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.shogiground.state.movable.color !== color) return;
   const el = e.target as HTMLElement;
-  const role = el.getAttribute('data-role') as cg.Role,
-    number = el.getAttribute('data-nb');
-  if (!role || !color || number === '0') return;
+  const role = el.getAttribute("data-role") as cg.Role,
+    number = el.getAttribute("data-nb");
+  if (!role || !color || number === "0") return;
   e.stopPropagation();
   e.preventDefault();
   dragNewPiece(ctrl.shogiground.state, { color, role }, e);
 }
 
-export function valid(shogiground: ShogigroundApi, possibleDrops: string | undefined | null, piece: cg.Piece, pos: Key): boolean {
-
+export function valid(
+  shogiground: ShogigroundApi,
+  possibleDrops: string | undefined | null,
+  piece: cg.Piece,
+  pos: Key
+): boolean {
   if (piece.color !== shogiground.state.movable.color) return false;
 
-  if (piece.role === 'pawn' && (pos[1] === '1' || pos[1] === '9')) return false; //todo
+  // You can't place pawn on a file where you already have a pawn
+  if (piece.role === "pawn") {
+    for (const [k, v] of shogiground.state.pieces.entries()) {
+      if (
+        v.role === "pawn" &&
+        v.color === piece.color &&
+        pos[0] === k[0] &&
+        pos != k
+      ) {
+        return false;
+      }
+    }
+  }
+
+  if (
+    (piece.role === "pawn" || piece.role === "lance") &&
+    ((pos[1] === "1" && piece.color === "black") ||
+      (pos[1] === "9" && piece.color === "white"))
+  )
+    return false;
+  if (
+    piece.role === "knight" &&
+    (((pos[1] === "1" || pos[1] === "2") && piece.color === "black") ||
+      ((pos[1] === "9" || pos[1] === "8") && piece.color === "white"))
+  )
+    return false;
+
+  if (piece.role === "pawn") {
+    let mfen = shogiground.getFen();
+    mfen += " " + piece.color[0];
+    const s = Shogi.drop(mfen, "Pawn", pos);
+    console.log(s);
+    if (s.winner) {
+      alert(
+        "Checkmating with a pawn is an illegal move, illegal moves lose you the game when you play in real life."
+      );
+      return false;
+    }
+  }
 
   const drops = readDrops(possibleDrops);
 

@@ -4,6 +4,7 @@ import scala.concurrent.duration._
 
 final private class Monitor(
     repo: FishnetRepo,
+    moveDb: MoveDB,
     cacheApi: lila.memo.CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -111,6 +112,10 @@ object Monitor {
   case class Status(user: StatusFor, system: StatusFor)
 
   private val monResult = lila.mon.fishnet.client.result
+
+  private[fishnet] def move(work: Work.Move, client: Client) = {
+    monResult.success(client.userId.value).increment()
+  }
 
   private def success(work: Work.Analysis, client: Client) = {
 

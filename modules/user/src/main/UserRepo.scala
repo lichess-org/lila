@@ -164,7 +164,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $inc(F.colorIt -> value)
       )
 
-  def lichess = byId(User.lichessId)
+  def lishogi = byId(User.lishogiId)
 
   val irwinId = "irwin"
   def irwin   = byId(irwinId)

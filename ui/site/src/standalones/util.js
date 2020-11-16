@@ -1,30 +1,41 @@
-lichess = window.lichess || {};
+lishogi = window.lishogi || {};
 
-lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
-lichess.dispatchEvent = (el, eventName) => el.dispatchEvent(new Event(eventName));
+lishogi.requestIdleCallback = (
+  window.requestIdleCallback || window.setTimeout
+).bind(window);
+lishogi.dispatchEvent = (el, eventName) =>
+  el.dispatchEvent(new Event(eventName));
 
-lichess.hasTouchEvents = 'ontouchstart' in window;
+lishogi.hasTouchEvents = "ontouchstart" in window;
 
 // Unique id for the current document/navigation. Should be different after
 // each page load and for each tab. Should be unpredictable and secret while
 // in use.
 try {
   const data = window.crypto.getRandomValues(new Uint8Array(9));
-  lichess.sri = btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
-} catch(_) {
-  lichess.sri = Math.random().toString(36).slice(2, 12);
+  lishogi.sri = btoa(String.fromCharCode(...data)).replace(/[/+]/g, "_");
+} catch (_) {
+  lishogi.sri = Math.random().toString(36).slice(2, 12);
 }
 
-lichess.isCol1 = (() => {
-  let isCol1Cache = 'init'; // 'init' | 'rec' | boolean
+lishogi.isCol1 = (() => {
+  let isCol1Cache = "init"; // 'init' | 'rec' | boolean
   return () => {
-    if (typeof isCol1Cache == 'string') {
-      if (isCol1Cache == 'init') { // only once
-        window.addEventListener('resize', () => { isCol1Cache = 'rec' }); // recompute on resize
-        if (navigator.userAgent.indexOf('Edge/') > -1) // edge gets false positive on page load, fix later
-          requestAnimationFrame(() => { isCol1Cache = 'rec' });
+    if (typeof isCol1Cache == "string") {
+      if (isCol1Cache == "init") {
+        // only once
+        window.addEventListener("resize", () => {
+          isCol1Cache = "rec";
+        }); // recompute on resize
+        if (navigator.userAgent.indexOf("Edge/") > -1)
+          // edge gets false positive on page load, fix later
+          requestAnimationFrame(() => {
+            isCol1Cache = "rec";
+          });
       }
-      isCol1Cache = !!getComputedStyle(document.body).getPropertyValue('--col1');
+      isCol1Cache = !!getComputedStyle(document.body).getPropertyValue(
+        "--col1"
+      );
     }
     return isCol1Cache;
   };
@@ -33,57 +44,63 @@ lichess.isCol1 = (() => {
 {
   const buildStorage = (storage) => {
     const api = {
-      get: k => storage.getItem(k),
+      get: (k) => storage.getItem(k),
       set: (k, v) => storage.setItem(k, v),
-      fire: (k, v) => storage.setItem(k, JSON.stringify({
-        sri: lichess.sri,
-        nonce: Math.random(), // ensure item changes
-        value: v
-      })),
-      remove: k => storage.removeItem(k),
-      make: k => ({
+      fire: (k, v) =>
+        storage.setItem(
+          k,
+          JSON.stringify({
+            sri: lishogi.sri,
+            nonce: Math.random(), // ensure item changes
+            value: v,
+          })
+        ),
+      remove: (k) => storage.removeItem(k),
+      make: (k) => ({
         get: () => api.get(k),
-        set: v => api.set(k, v),
-        fire: v => api.fire(k, v),
+        set: (v) => api.set(k, v),
+        fire: (v) => api.fire(k, v),
         remove: () => api.remove(k),
-        listen: f => window.addEventListener('storage', e => {
-          if (e.key !== k || e.storageArea !== storage || e.newValue === null) return;
-          let parsed;
-          try {
-            parsed = JSON.parse(e.newValue);
-          } catch(_) {
-            return;
-          }
-          // check sri, because Safari fires events also in the original
-          // document when there are multiple tabs
-          if (parsed.sri && parsed.sri !== lichess.sri) f(parsed);
-        })
+        listen: (f) =>
+          window.addEventListener("storage", (e) => {
+            if (e.key !== k || e.storageArea !== storage || e.newValue === null)
+              return;
+            let parsed;
+            try {
+              parsed = JSON.parse(e.newValue);
+            } catch (_) {
+              return;
+            }
+            // check sri, because Safari fires events also in the original
+            // document when there are multiple tabs
+            if (parsed.sri && parsed.sri !== lishogi.sri) f(parsed);
+          }),
       }),
-      makeBoolean: k => ({
+      makeBoolean: (k) => ({
         get: () => api.get(k) == 1,
-        set: v => api.set(k, v ? 1 : 0),
-        toggle: () => api.set(k, api.get(k) == 1 ? 0 : 1)
-      })
+        set: (v) => api.set(k, v ? 1 : 0),
+        toggle: () => api.set(k, api.get(k) == 1 ? 0 : 1),
+      }),
     };
     return api;
   };
 
-
-  lichess.storage = buildStorage(window.localStorage);
-  lichess.tempStorage = buildStorage(window.sessionStorage);
+  lishogi.storage = buildStorage(window.localStorage);
+  lishogi.tempStorage = buildStorage(window.sessionStorage);
 }
 
-lichess.once = (key, mod) => {
-  if (mod === 'always') return true;
-  if (!lichess.storage.get(key)) {
-    lichess.storage.set(key, 1);
+lishogi.once = (key, mod) => {
+  if (mod === "always") return true;
+  if (!lishogi.storage.get(key)) {
+    lishogi.storage.set(key, 1);
     return true;
   }
   return false;
 };
-lichess.debounce = (func, wait, immediate) => {
-  let timeout, lastBounce = 0;
-  return function() {
+lishogi.debounce = (func, wait, immediate) => {
+  let timeout,
+    lastBounce = 0;
+  return function () {
     let context = this,
       args = arguments,
       elapsed = performance.now() - lastBounce;
@@ -97,76 +114,90 @@ lichess.debounce = (func, wait, immediate) => {
     else timeout = setTimeout(later, wait);
   };
 };
-lichess.powertip = (() => {
-
+lishogi.powertip = (() => {
   function containedIn(el, container) {
     return container && container.contains(el);
   }
   function inCrosstable(el) {
-    return containedIn(el, document.querySelector('.crosstable'));
+    return containedIn(el, document.querySelector(".crosstable"));
   }
 
   function onPowertipPreRender(id, preload) {
-    return function() {
-      let url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
+    return function () {
+      let url = ($(this).data("href") || $(this).attr("href")).replace(
+        /\?.+$/,
+        ""
+      );
       if (preload) preload(url);
       $.ajax({
-        url: url + '/mini',
-        success: function(html) {
-          $('#' + id).html(html);
-          lichess.pubsub.emit('content_loaded');
-        }
+        url: url + "/mini",
+        success: function (html) {
+          $("#" + id).html(html);
+          lishogi.pubsub.emit("content_loaded");
+        },
       });
     };
-  };
+  }
 
-  let uptA = (url, icon) => '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
+  let uptA = (url, icon) =>
+    '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
 
   let userPowertip = (el, pos) => {
-    pos = pos || el.getAttribute('data-pt-pos') || (
-      inCrosstable(el) ? 'n' : 's'
-    );
-    $(el).removeClass('ulpt').powerTip({
-      intentPollInterval: 200,
-      placement: pos,
-      smartPlacement: true,
-      mouseOnToPopup: true,
-      closeDelay: 200
-    }).data('powertip', ' ').on({
-      powerTipRender: onPowertipPreRender('powerTip', (url) => {
-        const u = url.substr(3);
-        const name = $(el).data('name') || $(el).html();
-        $('#powerTip').html('<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + name + '</span></div></div><div class="upt__actions btn-rack">' +
-          uptA('/@/' + u + '/tv', '1') +
-          uptA('/inbox/new?user=' + u, 'c') +
-          uptA('/?user=' + u + '#friend', 'U') +
-          '<a class="btn-rack__btn relation-button" disabled></a></div>');
+    pos =
+      pos || el.getAttribute("data-pt-pos") || (inCrosstable(el) ? "n" : "s");
+    $(el)
+      .removeClass("ulpt")
+      .powerTip({
+        intentPollInterval: 200,
+        placement: pos,
+        smartPlacement: true,
+        mouseOnToPopup: true,
+        closeDelay: 200,
       })
-    });
+      .data("powertip", " ")
+      .on({
+        powerTipRender: onPowertipPreRender("powerTip", (url) => {
+          const u = url.substr(3);
+          const name = $(el).data("name") || $(el).html();
+          $("#powerTip").html(
+            '<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' +
+              name +
+              '</span></div></div><div class="upt__actions btn-rack">' +
+              uptA("/@/" + u + "/tv", "1") +
+              uptA("/inbox/new?user=" + u, "c") +
+              uptA("/?user=" + u + "#friend", "U") +
+              '<a class="btn-rack__btn relation-button" disabled></a></div>'
+          );
+        }),
+      });
   };
 
   function gamePowertip(el) {
-    $(el).removeClass('glpt').powerTip({
-      intentPollInterval: 200,
-      placement: inCrosstable(el) ? 'n' : 'w',
-      smartPlacement: true,
-      mouseOnToPopup: true,
-      closeDelay: 200,
-      popupId: 'miniGame'
-    }).on({
-      powerTipPreRender: onPowertipPreRender('miniGame')
-    }).data('powertip', lichess.spinnerHtml);
-  };
+    $(el)
+      .removeClass("glpt")
+      .powerTip({
+        intentPollInterval: 200,
+        placement: inCrosstable(el) ? "n" : "w",
+        smartPlacement: true,
+        mouseOnToPopup: true,
+        closeDelay: 200,
+        popupId: "miniGame",
+      })
+      .on({
+        powerTipPreRender: onPowertipPreRender("miniGame"),
+      })
+      .data("powertip", lishogi.spinnerHtml);
+  }
 
   function powerTipWith(el, ev, f) {
-    if (lichess.isHoverable()) {
+    if (lishogi.isHoverable()) {
       f(el);
       $.powerTip.show(el, ev);
     }
-  };
+  }
 
   function onIdleForAll(par, sel, fun) {
-    lichess.requestIdleCallback(function() {
+    lishogi.requestIdleCallback(function () {
       Array.prototype.forEach.call(par.querySelectorAll(sel), fun);
     });
   }
@@ -175,108 +206,143 @@ lichess.powertip = (() => {
     mouseover(e) {
       var t = e.target,
         cl = t.classList;
-      if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
-      else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
+      if (cl.contains("ulpt")) powerTipWith(t, e, userPowertip);
+      else if (cl.contains("glpt")) powerTipWith(t, e, gamePowertip);
     },
     manualGameIn(parent) {
-      onIdleForAll(parent, '.glpt', gamePowertip);
+      onIdleForAll(parent, ".glpt", gamePowertip);
     },
     manualGame: gamePowertip,
     manualUserIn(parent) {
-      onIdleForAll(parent, '.ulpt', (el) => userPowertip(el));
-    }
+      onIdleForAll(parent, ".ulpt", (el) => userPowertip(el));
+    },
   };
 })();
-lichess.widget = (name, prototype) => {
-  var constructor = $[name] = function(options, element) {
+lishogi.widget = (name, prototype) => {
+  var constructor = ($[name] = function (options, element) {
     this.element = $(element);
     $.data(element, name, this);
     this.options = options;
     this._create();
-  };
+  });
   constructor.prototype = prototype;
-  $.fn[name] = function(method) {
+  $.fn[name] = function (method) {
     var returnValue = this;
     var args = Array.prototype.slice.call(arguments, 1);
-    if (typeof method === 'string') this.each(function() {
-      var instance = $.data(this, name);
-      if (!instance) return;
-      if (!$.isFunction(instance[method]) || method.charAt(0) === "_")
-        return $.error("no such method '" + method + "' for " + name + " widget instance");
-      returnValue = instance[method].apply(instance, args);
-    });
-    else this.each(function() {
-      if (!$.data(this, name)) $.data(this, name, new constructor(method, this));
-    });
+    if (typeof method === "string")
+      this.each(function () {
+        var instance = $.data(this, name);
+        if (!instance) return;
+        if (!$.isFunction(instance[method]) || method.charAt(0) === "_")
+          return $.error(
+            "no such method '" + method + "' for " + name + " widget instance"
+          );
+        returnValue = instance[method].apply(instance, args);
+      });
+    else
+      this.each(function () {
+        if (!$.data(this, name))
+          $.data(this, name, new constructor(method, this));
+      });
     return returnValue;
   };
 };
-lichess.isHoverable = () => {
-  if (typeof lichess.hoverable === 'undefined')
-    lichess.hoverable = !lichess.hasTouchEvents /* Firefox <= 63 */ || !!getComputedStyle(document.body).getPropertyValue('--hoverable');
-  return lichess.hoverable;
+lishogi.isHoverable = () => {
+  if (typeof lishogi.hoverable === "undefined")
+    lishogi.hoverable =
+      !lishogi.hasTouchEvents /* Firefox <= 63 */ ||
+      !!getComputedStyle(document.body).getPropertyValue("--hoverable");
+  return lishogi.hoverable;
 };
-lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
-lichess.assetUrl = (path, opts) => {
+lishogi.spinnerHtml =
+  '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
+lishogi.assetUrl = (path, opts) => {
   opts = opts || {};
-  const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
-    version = document.body.getAttribute('data-asset-version');
-  return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
+  const baseUrl = opts.sameDomain
+      ? ""
+      : document.body.getAttribute("data-asset-url"),
+    version = document.body.getAttribute("data-asset-version");
+  return (
+    baseUrl + "/assets" + (opts.noVersion ? "" : "/_" + version) + "/" + path
+  );
 };
-lichess.loadedCss = {};
-lichess.loadCss = function(url) {
-  if (lichess.loadedCss[url]) return;
-  lichess.loadedCss[url] = true;
-  $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', lichess.assetUrl(url)));
+lishogi.loadedCss = {};
+lishogi.loadCss = function (url) {
+  if (lishogi.loadedCss[url]) return;
+  lishogi.loadedCss[url] = true;
+  $("head").append(
+    $('<link rel="stylesheet" type="text/css" />').attr(
+      "href",
+      lishogi.assetUrl(url)
+    )
+  );
 };
-lichess.loadCssPath = function(key) {
-  lichess.loadCss('css/' + key + '.' + $('body').data('theme') + '.' + ($('body').data('dev') ? 'dev' : 'min') + '.css');
-}
-lichess.compiledScript = function(name) {
-  return 'compiled/lichess.' + name + ($('body').data('dev') ? '' : '.min') + '.js';
-}
-lichess.loadScript = function(url, opts) {
+lishogi.loadCssPath = function (key) {
+  lishogi.loadCss(
+    "css/" +
+      key +
+      "." +
+      $("body").data("theme") +
+      "." +
+      ($("body").data("dev") ? "dev" : "min") +
+      ".css"
+  );
+};
+lishogi.compiledScript = function (name) {
+  return (
+    "compiled/lishogi." + name + ($("body").data("dev") ? "" : ".min") + ".js"
+  );
+};
+lishogi.loadScript = function (url, opts) {
   return $.ajax({
     dataType: "script",
     cache: true,
-    url: lichess.assetUrl(url, opts)
+    url: lishogi.assetUrl(url, opts),
   });
 };
-lichess.hopscotch = function(f) {
-  lichess.loadCss('vendor/hopscotch/dist/css/hopscotch.min.css');
-  lichess.loadScript('vendor/hopscotch/dist/js/hopscotch.min.js', {noVersion:true}).done(f);
-}
-lichess.slider = function() {
-  return lichess.loadScript(
-    'javascripts/vendor/jquery-ui.slider' + (lichess.hasTouchEvents ? '.touch' : '') + '.min.js'
+lishogi.hopscotch = function (f) {
+  lishogi.loadCss("vendor/hopscotch/dist/css/hopscotch.min.css");
+  lishogi
+    .loadScript("vendor/hopscotch/dist/js/hopscotch.min.js", {
+      noVersion: true,
+    })
+    .done(f);
+};
+lishogi.slider = function () {
+  return lishogi.loadScript(
+    "javascripts/vendor/jquery-ui.slider" +
+      (lishogi.hasTouchEvents ? ".touch" : "") +
+      ".min.js"
   );
 };
-lichess.makeChat = function(data, callback) {
-  requestAnimationFrame(function() {
-    data.loadCss = lichess.loadCssPath;
-    (callback || $.noop)(LichessChat(document.querySelector('.mchat'), data));
+lishogi.makeChat = function (data, callback) {
+  requestAnimationFrame(function () {
+    data.loadCss = lishogi.loadCssPath;
+    (callback || $.noop)(LishogiChat(document.querySelector(".mchat"), data));
   });
 };
-lichess.formAjax = $form => ({
-  url: $form.attr('action'),
-  method: $form.attr('method') || 'post',
-  data: $form.serialize()
+lishogi.formAjax = ($form) => ({
+  url: $form.attr("action"),
+  method: $form.attr("method") || "post",
+  data: $form.serialize(),
 });
 
-lichess.numberFormat = (function() {
+lishogi.numberFormat = (function () {
   var formatter = false;
-  return function(n) {
-    if (formatter === false) formatter = (window.Intl && Intl.NumberFormat) ? new Intl.NumberFormat() : null;
+  return function (n) {
+    if (formatter === false)
+      formatter =
+        window.Intl && Intl.NumberFormat ? new Intl.NumberFormat() : null;
     if (formatter === null) return n;
     return formatter.format(n);
   };
 })();
-lichess.idleTimer = function(delay, onIdle, onWakeUp) {
-  var events = ['mousemove', 'touchstart'];
+lishogi.idleTimer = function (delay, onIdle, onWakeUp) {
+  var events = ["mousemove", "touchstart"];
   var listening = false;
   var active = true;
   var lastSeenActive = performance.now();
-  var onActivity = function() {
+  var onActivity = function () {
     if (!active) {
       // console.log('Wake up');
       onWakeUp();
@@ -285,23 +351,23 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
     lastSeenActive = performance.now();
     stopListening();
   };
-  var startListening = function() {
+  var startListening = function () {
     if (!listening) {
-      events.forEach(function(e) {
+      events.forEach(function (e) {
         document.addEventListener(e, onActivity);
       });
       listening = true;
     }
   };
-  var stopListening = function() {
+  var stopListening = function () {
     if (listening) {
-      events.forEach(function(e) {
+      events.forEach(function (e) {
         document.removeEventListener(e, onActivity);
       });
       listening = false;
     }
   };
-  setInterval(function() {
+  setInterval(function () {
     if (active && performance.now() - lastSeenActive > delay) {
       // console.log('Idle mode');
       onIdle();
@@ -310,7 +376,7 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
     startListening();
   }, 10000);
 };
-lichess.pubsub = (function() {
+lishogi.pubsub = (function () {
   var subs = [];
   return {
     on(name, cb) {
@@ -330,74 +396,74 @@ lichess.pubsub = (function() {
       if (!subs[name]) return;
       const args = Array.prototype.slice.call(arguments, 1);
       for (let i in subs[name]) subs[name][i].apply(null, args);
-    }
+    },
   };
 })();
-lichess.hasToReload = false;
-lichess.redirectInProgress = false;
-lichess.redirect = function(obj) {
+lishogi.hasToReload = false;
+lishogi.redirectInProgress = false;
+lishogi.redirect = function (obj) {
   var url;
   if (typeof obj == "string") url = obj;
   else {
     url = obj.url;
     if (obj.cookie) {
-      var domain = document.domain.replace(/^.+(\.[^.]+\.[^.]+)$/, '$1');
+      var domain = document.domain.replace(/^.+(\.[^.]+\.[^.]+)$/, "$1");
       var cookie = [
-        encodeURIComponent(obj.cookie.name) + '=' + obj.cookie.value,
-        '; max-age=' + obj.cookie.maxAge,
-        '; path=/',
-        '; domain=' + domain
-      ].join('');
+        encodeURIComponent(obj.cookie.name) + "=" + obj.cookie.value,
+        "; max-age=" + obj.cookie.maxAge,
+        "; path=/",
+        "; domain=" + domain,
+      ].join("");
       document.cookie = cookie;
     }
   }
-  var href = '//' + location.host + '/' + url.replace(/^\//, '');
-  lichess.redirectInProgress = href;
+  var href = "//" + location.host + "/" + url.replace(/^\//, "");
+  lishogi.redirectInProgress = href;
   location.href = href;
 };
-lichess.reload = function() {
-  if (lichess.redirectInProgress) return;
-  lichess.hasToReload = true;
-  lichess.socket.disconnect();
+lishogi.reload = function () {
+  if (lishogi.redirectInProgress) return;
+  lishogi.hasToReload = true;
+  lishogi.socket.disconnect();
   if (location.hash) location.reload();
   else location.href = location.href;
 };
-lichess.escapeHtml = function(str) {
-  return /[&<>"']/.test(str) ?
-    str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/'/g, '&#39;')
-    .replace(/"/g, '&quot;') :
-    str;
+lishogi.escapeHtml = function (str) {
+  return /[&<>"']/.test(str)
+    ? str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/'/g, "&#39;")
+        .replace(/"/g, "&quot;")
+    : str;
 };
-$.modal = function(html, cls, onClose) {
+$.modal = function (html, cls, onClose) {
   $.modal.close();
-  if (!html.clone) html = $('<div>' + html + '</div>');
+  if (!html.clone) html = $("<div>" + html + "</div>");
   var $wrap = $('<div id="modal-wrap">')
-    .html(html.clone().removeClass('none'))
+    .html(html.clone().removeClass("none"))
     .prepend('<span class="close" data-icon="L"></span>');
   var $overlay = $('<div id="modal-overlay">')
     .addClass(cls)
-    .data('onClose', onClose)
+    .data("onClose", onClose)
     .html($wrap);
-  $wrap.find('.close').on('click', $.modal.close);
-  $overlay.on('click', function() {
+  $wrap.find(".close").on("click", $.modal.close);
+  $overlay.on("click", function () {
     // disgusting hack
     // dragging slider out of a modal closes the modal
-    if (!$('.ui-slider-handle.ui-state-focus').length) $.modal.close();
+    if (!$(".ui-slider-handle.ui-state-focus").length) $.modal.close();
   });
-  $wrap.on('click', function(e) {
+  $wrap.on("click", function (e) {
     e.stopPropagation();
   });
-  $('body').addClass('overlayed').prepend($overlay);
+  $("body").addClass("overlayed").prepend($overlay);
   return $wrap;
 };
-$.modal.close = function() {
-  $('body').removeClass('overlayed');
-  $('#modal-overlay').each(function() {
-    ($(this).data('onClose') || $.noop)();
+$.modal.close = function () {
+  $("body").removeClass("overlayed");
+  $("#modal-overlay").each(function () {
+    ($(this).data("onClose") || $.noop)();
     $(this).remove();
   });
 };

@@ -27,20 +27,20 @@ final object RawHtml {
   private[this] val urlPattern = (
     """(?i)\b[a-z](?>""" +                                     // pull out first char for perf.
       """ttp(?<=http)s?://(\w[-\w.~!$&';=:@]{0,100})|""" +     // http(s) links
-      """(?<![/@.-].)(?:\w{1,15}+\.){1,3}(?>com|org|edu))""" + // "lichess.org", etc
+      """(?<![/@.-].)(?:\w{1,15}+\.){1,3}(?>com|org|edu))""" + // "lishogi.org", etc
       """([/?#][-–—\w/.~!$&'()*+,;=:#?@%]{0,300}+)?""" +       // path, params
       """(?![\w/~$&*+=#@%])"""                                 // neg lookahead
   ).r.pattern
 
   private[this] val USER_LINK = """/@/([\w-]{2,30}+)?""".r
 
-  final private[this] val DOMAIN      = "lichess.org"
+  final private[this] val DOMAIN      = "lishogi.org"
   final private[this] val linkReplace = DOMAIN + "/@/$1"
 
-  // Matches a lichess username with an '@' prefix if it is used as a single
+  // Matches a lishogi username with an '@' prefix if it is used as a single
   // word (i.e. preceded and followed by space or appropriate punctuation):
   // Yes: everyone says @ornicar is a pretty cool guy
-  // No: contact@lichess.org, @1, http://example.com/@happy0, @lichess.org
+  // No: contact@lishogi.org, @1, http://example.com/@happy0, @lishogi.org
   // TODO(isaac): support @user/<subpath> syntax
   val atUsernameRegex = """@(?<![\w@#/]@)([\w-]{2,30}+)(?![@\w-]|\.\w)""".r
 

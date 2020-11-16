@@ -271,7 +271,7 @@ final class Api(
   def tournamentsByOwner(name: String) =
     Action.async { implicit req =>
       implicit val lang = reqLang
-      (name != "lichess") ?? env.user.repo.named(name) flatMap {
+      (name != "lishogi") ?? env.user.repo.named(name) flatMap {
         _ ?? { user =>
           val nb = getInt("nb", req) | Int.MaxValue
           jsonStream {
@@ -311,7 +311,7 @@ final class Api(
   def gamesByUsersStream =
     AnonOrScopedBody(parse.tolerantText)()(
       anon = gamesByUsers(300),
-      scoped = req => u => gamesByUsers(if (u.id == "lichess4545") 900 else 500)(req)
+      scoped = req => u => gamesByUsers(if (u.id == "lishogi4545") 900 else 500)(req)
     )
 
   def cloudEval =

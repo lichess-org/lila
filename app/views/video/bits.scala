@@ -33,7 +33,7 @@ object bits {
       ctx: Context
   ) =
     layout(
-      title = s"$name • Free Chess Videos",
+      title = s"$name • Free Shogi Videos",
       control = control
     )(
       div(cls := "box__top")(
@@ -61,7 +61,7 @@ object bits {
   def notFound(control: lila.video.UserControl)(implicit ctx: Context) =
     layout(title = "Video not found", control = control)(
       div(cls := "content_box_top")(
-        a(cls := "is4 text lichess_title", dataIcon := "i", href := routes.Video.index())("Video library")
+        a(cls := "is4 text lishogi_title", dataIcon := "i", href := routes.Video.index())("Video library")
       ),
       div(cls := "not_found")(
         h1("Video Not Found!"),
@@ -79,9 +79,9 @@ object bits {
     )
 
   def tags(ts: List[lila.video.TagNb], control: lila.video.UserControl)(implicit ctx: Context) =
-    layout(title = s"Tags • Free Chess Videos", control = control)(
+    layout(title = s"Tags • Free Shogi Videos", control = control)(
       div(cls := "box__top")(
-        h1(cls := "lichess_title")(
+        h1(cls := "lishogi_title")(
           a(cls := "text", dataIcon := "i", href := s"${routes.Video.index()}?${control.queryString}")(
             "All ",
             ts.size,

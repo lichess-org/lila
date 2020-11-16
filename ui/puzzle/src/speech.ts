@@ -1,22 +1,22 @@
 export function setup(): void {
-  window.lichess.pubsub.on('speech.enabled', onSpeechChange);
-  onSpeechChange(window.lichess.sound.speech());
+  window.lishogi.pubsub.on("speech.enabled", onSpeechChange);
+  onSpeechChange(window.lishogi.sound.speech());
 }
 
 function onSpeechChange(enabled: boolean): void {
-  if (!window.LichessSpeech && enabled)
-    window.lichess.loadScript(window.lichess.compiledScript('speech'));
-  else if (window.LichessSpeech && !enabled) window.LichessSpeech = undefined;
+  if (!window.LishogiSpeech && enabled)
+    window.lishogi.loadScript(window.lishogi.compiledScript("speech"));
+  else if (window.LishogiSpeech && !enabled) window.LishogiSpeech = undefined;
 }
 
 export function node(n: Tree.Node, cut: boolean): void {
-  withSpeech(s => s.step(n, cut));
+  withSpeech((s) => s.step(n, cut));
 }
 
 export function success(): void {
-  withSpeech(s => s.say('Success!', false));
+  withSpeech((s) => s.say("Success!", false));
 }
 
-function withSpeech(f: (speech: LichessSpeech) => void): void {
-  if (window.LichessSpeech) f(window.LichessSpeech);
+function withSpeech(f: (speech: LishogiSpeech) => void): void {
+  if (window.LishogiSpeech) f(window.LishogiSpeech);
 }

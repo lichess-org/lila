@@ -102,7 +102,7 @@ final class Env(
             logApi.chatTimeout(mod, user, reason, text)
           case lila.hub.actorApi.security.GCImmediateSb(userId) =>
             reportApi getSuspect userId orFail s"No such suspect $userId" flatMap { sus =>
-              reportApi.getLichessMod map { mod =>
+              reportApi.getLishogiMod map { mod =>
                 api.setTroll(mod, sus, true)
               }
             }
@@ -111,7 +111,7 @@ final class Env(
               api.garbageCollect(sus) >> publicChat.delete(sus)
             }
           case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
-            logApi.modMessage(User.lichessId, userId, subject)
+            logApi.modMessage(User.lishogiId, userId, subject)
         }
       }),
       name = config.actorName

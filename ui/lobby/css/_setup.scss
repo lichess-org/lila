@@ -12,7 +12,7 @@ $c-slider: $c-setup;
     margin: 1.5rem 0;
   }
   form > div {
-    padding: .5em 1em;
+    padding: 0.5em 1em;
   }
   group.radio {
     margin: 0 auto 1em auto;
@@ -41,14 +41,14 @@ $c-slider: $c-setup;
     @extend %flex-center;
     text-align: left;
     &.variant {
-      margin-bottom: .5em;
+      margin-bottom: 0.5em;
     }
     label {
       flex: 0 0 33%;
       text-align: right;
     }
     select {
-      margin-left: .8em;
+      margin-left: 0.8em;
       font-weight: bold;
     }
   }
@@ -57,7 +57,7 @@ $c-slider: $c-setup;
     .board_editor {
       display: block;
       width: 50%;
-      margin: .5em auto 0 auto;
+      margin: 0.5em auto 0 auto;
     }
     .fen_form {
       @extend %flex-center-nowrap;
@@ -75,7 +75,7 @@ $c-slider: $c-setup;
     border-color: $c-bad;
   }
   .ui-slider {
-    margin: .5em 1em;
+    margin: 0.5em 1em;
   }
   .slider {
     padding-top: 5px;
@@ -99,7 +99,7 @@ $c-slider: $c-setup;
     margin: 1em auto;
     text-align: center;
     &__button {
-      margin: 0 .5em;
+      margin: 0 0.5em;
       width: 64px;
       height: 64px;
       padding: 7px;
@@ -111,17 +111,17 @@ $c-slider: $c-setup;
         background-size: 50px 50px;
       }
       &.white i {
-        background-image: img-url('../piece/cburnett/wK.svg');
+        background-image: img-url("../images/blackPiece.svg");
       }
       &.black i {
-        background-image: img-url('../piece/cburnett/bK.svg');
+        background-image: img-url("../images/whitePiece.svg");
       }
       &.random {
         width: 85px;
         height: 85px;
         padding: 10px;
         i {
-          background-image: img-url('wbK.svg');
+          background-image: img-url("bwPiece.svg");
           background-size: 65px 65px;
           width: 65px;
           height: 65px;

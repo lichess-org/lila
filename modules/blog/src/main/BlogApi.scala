@@ -18,7 +18,7 @@ final class BlogApi(
       page: Int,
       maxPerPage: MaxPerPage,
       ref: Option[String]
-  ): Fu[Option[Paginator[Document]]] =
+  ): Fu[Option[Paginator[Document]]] = {
     api
       .forms(collection)
       .ref(ref | api.master.ref)
@@ -28,7 +28,7 @@ final class BlogApi(
       .submit()
       .fold(_ => none, some _)
       .dmap2 { PrismicPaginator(_, page, maxPerPage) }
-
+  }
   def recent(
       prismic: BlogApi.Context,
       page: Int,
@@ -51,7 +51,7 @@ final class BlogApi(
       .ref(prismic.ref)
       .query(s"[[date.year(my.$collection.date, $year)]]")
       .orderings(s"[my.$collection.date desc]")
-      .pageSize(100) // prismic max
+      .pageSize(100) // prismic maximum
       .submit()
       .fold(_ => Nil, _.results flatMap MiniPost.fromDocument(collection, "wide"))
   }

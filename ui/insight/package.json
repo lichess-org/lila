@@ -2,11 +2,11 @@
   "name": "insight",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org chess insights",
+  "description": "lishogi.org chess insights",
   "main": "src/main.js",
   "keywords": [
     "chess",
-    "lichess",
+    "lishogi",
     "insight",
     "analysis"
   ],

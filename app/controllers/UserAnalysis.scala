@@ -3,7 +3,7 @@ package controllers
 import chess.format.Forsyth.SituationPlus
 import chess.format.{ FEN, Forsyth }
 import chess.Situation
-import chess.variant.{ FromPosition, Standard, Variant }
+import chess.variant.{ FromPosition, Standard, Variant, Crazyhouse }
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -25,12 +25,15 @@ final class UserAnalysis(
 
   def parseArg(arg: String) =
     arg.split("/", 2) match {
-      case Array(key) => load("", Variant orDefault key)
+      //case Array(key) => load("", Variant orDefault key)
+      case Array(key) => load("", Standard)
       case Array(key, fen) =>
         Variant.byKey get key match {
-          case Some(variant)                   => load(fen, variant)
+          //case Some(variant)                   => load(fen, variant)
+          case Some(variant)                   => load(fen, Standard)
           case _ if fen == Standard.initialFen => load(arg, Standard)
           case _                               => load(arg, FromPosition)
+          //case _                               => load(arg, Standard)
         }
       case _ => load("", Standard)
     }

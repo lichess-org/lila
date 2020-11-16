@@ -6,11 +6,12 @@ var cg = new chessground.controller();
 
 module.exports = {
   instance: cg,
+  ab: "abcdef",
   set: function (opts) {
     var check = opts.shogi.instance.check;
     cg.set({
       fen: opts.shogi.fen(),
-      lastMove: null,
+      lastMove: opts.lastMoves,
       selected: null,
       orientation: opts.orientation,
       coordinates: true,
@@ -143,10 +144,21 @@ module.exports = {
     //cg.setShapes(shapes);
   },
   setShapes: function (shapes) {
-    cg.setShapes(shapes);
+    if (shapes) cg.setShapes(shapes);
   },
   resetShapes: function () {
     cg.setShapes([]);
+  },
+  lastMoves: function (moves) {
+    cg.data.lastMove = moves;
+  },
+  newPieces: function (arr) {
+    if (!arr) return;
+    for (var i of arr) {
+      if (!!i[0] && !!i[1] && !!i[2])
+        cg.apiNewPiece({ role: i[0], color: i[1] }, i[2]);
+    }
+    cg.data.lastMove = null;
   },
   select: cg.selectSquare,
 };

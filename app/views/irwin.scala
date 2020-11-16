@@ -39,7 +39,7 @@ object irwin {
             ),
             div(cls := "box__top__actions")(
               a(
-                href := "https://monitor.lichess.ovh/dashboard/db/lichess-moderation",
+                href := "https://monitor.lishogi.ovh/dashboard/db/lishogi-moderation",
                 cls := "button button-empty"
               )("Monitoring")
             )

@@ -122,7 +122,7 @@ final class LobbySocket(
     private def tellActiveHookSubscribers(msg: JsObject): Unit =
       send(P.Out.tellSris(hookSubscriberSris diff idleSris map Sri.apply, msg))
 
-    private def gameStartRedirect(pov: Pov) =
+    private def gameStartRedirect(pov: Pov) = {
       makeMessage(
         "redirect",
         Json
@@ -132,6 +132,7 @@ final class LobbySocket(
           )
           .add("cookie" -> lila.game.AnonCookie.json(pov))
       )
+    }
 
     private def quit(sri: Sri): Unit = {
       members -= sri.value

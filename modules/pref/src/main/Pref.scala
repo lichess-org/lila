@@ -114,7 +114,7 @@ case class Pref(
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
     theme == "brown" &&
-      pieceSet == "cburnett" &&
+      pieceSet == "orangain" &&
       is2d &&
       animation == Animation.NONE &&
       highlight &&
@@ -123,7 +123,7 @@ case class Pref(
 
 object Pref {
 
-  val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"
+  val defaultBgImg = "//lishogi1.org/assets/images/background/landscape.jpg"
 
   trait BooleanPref {
     val NO      = 0
@@ -393,8 +393,8 @@ object Pref {
     pieceSet3d = PieceSet3d.default.name,
     soundSet = SoundSet.default.name,
     blindfold = Blindfold.NO,
-    autoQueen = AutoQueen.PREMOVE,
-    autoThreefold = AutoThreefold.TIME,
+    autoQueen = AutoQueen.NEVER,
+    autoThreefold = AutoThreefold.NEVER,
     takeback = Takeback.ALWAYS,
     moretime = Moretime.ALWAYS,
     clockBar = true,
@@ -405,7 +405,7 @@ object Pref {
     follow = true,
     highlight = true,
     destination = true,
-    coords = Coords.INSIDE,
+    coords = Coords.OUTSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
     challenge = Challenge.ALWAYS,

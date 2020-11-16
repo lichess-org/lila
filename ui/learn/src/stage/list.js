@@ -1,47 +1,55 @@
 var categs = [
   {
-    key: "chess-pieces",
-    name: "chessPieces",
+    key: "introduction",
+    name: "introduction",
+    stages: [require("./intro")],
+  },
+  {
+    key: "shogi-pieces",
+    name: "shogiPieces",
     stages: [
-      require("./rook"),
-      require("./bishop"),
       require("./king"),
+      require("./gold"),
+      require("./silver"),
       require("./knight"),
+      require("./lance"),
+      require("./bishop"),
+      require("./rook"),
       require("./pawn"),
     ],
   },
-  {
-    key: "fundamentals",
-    name: "fundamentals",
-    stages: [
-      require("./capture"),
-      require("./protection"),
-      require("./combat"),
-      require("./check1"),
-      require("./outOfCheck.js"),
-      require("./checkmate1"),
-    ],
-  },
-  {
-    key: "intermediate",
-    name: "intermediate",
-    stages: [
-      require("./setup"),
-      require("./castling"),
-      require("./enpassant"),
-      require("./stalemate"),
-    ],
-  },
-  {
-    key: "advanced",
-    name: "advanced",
-    stages: [
-      require("./value"),
-      // require('./draw'),
-      // require('./fork'),
-      require("./check2"),
-    ],
-  },
+  //{
+  //  key: "fundamentals",
+  //  name: "fundamentals",
+  //  stages: [
+  //    require("./capture"),
+  //    require("./protection"),
+  //    require("./combat"),
+  //    require("./check1"),
+  //    require("./outOfCheck.js"),
+  //    require("./checkmate1"),
+  //  ],
+  //},
+  //{
+  //  key: "intermediate",
+  //  name: "intermediate",
+  //  stages: [
+  //    require("./setup"),
+  //    require("./castling"),
+  //    require("./enpassant"),
+  //    require("./stalemate"),
+  //  ],
+  //},
+  //{
+  //  key: "advanced",
+  //  name: "advanced",
+  //  stages: [
+  //    require("./value"),
+  //    // require('./draw'),
+  //    // require('./fork'),
+  //    require("./check2"),
+  //  ],
+  //},
 ];
 
 var stageId = 1;

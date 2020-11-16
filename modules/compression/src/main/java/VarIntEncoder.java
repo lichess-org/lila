@@ -1,4 +1,4 @@
-package org.lichess.compression;
+package org.lishogi.compression;
 
 public class VarIntEncoder {
     public static void writeSigned(int[] values, BitWriter writer) {

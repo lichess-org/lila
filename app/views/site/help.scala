@@ -33,9 +33,9 @@ object help {
       moreCss = frag(cssTag("source")),
       contentCls = "page",
       moreJs = embedJsUnsafe(
-        """$('#asset-version-date').text(lichess.info.date);
-$('#asset-version-commit').attr('href', 'https://github.com/ornicar/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit);
-$('#asset-version-message').text(lichess.info.message);"""
+        """$('#asset-version-date').text(lishogi.info.date);
+$('#asset-version-commit').attr('href', 'https://github.com/ornicar/lila/commits/' + lishogi.info.commit).find('pre').text(lishogi.info.commit);
+$('#asset-version-message').text(lishogi.info.message);"""
       )
     )(
       frag(
@@ -75,7 +75,7 @@ $('#asset-version-message').text(lichess.info.message);"""
   }
 
   def webmasters()(implicit ctx: Context) = {
-    val baseUrl = "https://lichess.org"
+    val baseUrl = "https://lishogi.org"
     val parameters = frag(
       p("Parameters:"),
       ul(
@@ -93,7 +93,7 @@ $('#asset-version-message').text(lichess.info.message);"""
         div(cls := "box box-pad developers body") {
           val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
-            h1(id := "embed-tv")("Embed Lichess TV in your site"),
+            h1(id := "embed-tv")("Embed Lishogi TV in your site"),
             div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=wood" $args></iframe>""")),
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
@@ -166,17 +166,17 @@ $('#asset-version-message').text(lichess.info.message);"""
           h1("HTTP API"),
           p(
             raw(
-              """Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
+              """Lishogi exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
             )
           )
         ),
         br,
         div(cls := "box box-pad developers body")(
-          h1(id := "widgets")("Lichess Widgets"),
-          p("Let your website/blog visitors know that you're playing on lichess!"),
+          h1(id := "widgets")("Lishogi Widgets"),
+          p("Let your website/blog visitors know that you're playing on lishogi!"),
           p(
             raw(
-              """See <a href="https://rubenwardy.com/lichess_widgets/" class="blue">https://rubenwardy.com/lichess_widgets/</a> for widgets with your username and rating."""
+              """See <a href="https://rubenwardy.com/lishogi_widgets/" class="blue">https://rubenwardy.com/lishogi_widgets/</a> for widgets with your username and rating."""
             )
           )
         )
@@ -201,23 +201,23 @@ $('#asset-version-message').text(lichess.info.message);"""
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
-          a(activeCls("about"), href := routes.Page.about())(trans.aboutX("lichess.org")),
-          a(activeCls("faq"), href := routes.Main.faq())(trans.faq.faqAbbreviation()),
+          a(activeCls("about"), href := routes.Page.about())(trans.aboutX("lishogi.org")),
+          //a(activeCls("faq"), href := routes.Main.faq())(trans.faq.faqAbbreviation()),
           a(activeCls("contact"), href := routes.Main.contact())(trans.contact.contact()),
           a(activeCls("tos"), href := routes.Page.tos())(trans.termsOfService()),
           a(activeCls("privacy"), href := routes.Page.privacy())(trans.privacy()),
-          a(activeCls("master"), href := routes.Page.master())("Title verification"),
+          //a(activeCls("master"), href := routes.Page.master())("Title verification"),
           sep,
           a(activeCls("source"), href := routes.Page.source())(trans.sourceCode()),
           a(activeCls("help"), href := routes.Page.help())(trans.contribute()),
           a(activeCls("thanks"), href := routes.Page.thanks())(trans.thankYou()),
+          //sep,
+          //a(activeCls("webmasters"), href := routes.Main.webmasters())(trans.webmasters()),
+          //a(activeCls("database"), href := "https://database.lishogi.org")(trans.database(), external),
+          //a(activeCls("api"), href := routes.Api.index())("API", external),
           sep,
-          a(activeCls("webmasters"), href := routes.Main.webmasters())(trans.webmasters()),
-          a(activeCls("database"), href := "https://database.lichess.org")(trans.database(), external),
-          a(activeCls("api"), href := routes.Api.index())("API", external),
-          sep,
-          a(activeCls("lag"), href := routes.Main.lag())(trans.lag.isLichessLagging()),
-          a(activeCls("ads"), href := routes.Page.ads())("Block ads")
+          a(activeCls("lag"), href := routes.Main.lag())(trans.lag.isLishogiLagging()),
+          //a(activeCls("ads"), href := routes.Page.ads())("Block ads")
         ),
         div(cls := s"page-menu__content $contentCls")(body)
       )

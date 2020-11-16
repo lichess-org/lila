@@ -20,7 +20,6 @@ private object PgnStorage {
     }
 
     def decode(bytes: ByteArray, plies: Int): PgnMoves = {
-      println("OldBin decode")
       monitor(_.game.pgn.decode("old")) {
         format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector
       }
@@ -29,7 +28,7 @@ private object PgnStorage {
 
   case object Huffman extends PgnStorage {
 
-    import org.lichess.compression.game.{
+    import org.lishogi.compression.game.{
       Encoder,
       Square => JavaSquare,
       Piece => JavaPiece,
@@ -50,22 +49,12 @@ private object PgnStorage {
         println("Decode huffman was called")
         println(bytes.value)
         val decoded      = Encoder.decode(bytes.value, plies)
-        val unmovedRooks = decoded.unmovedRooks.asScala.view.flatMap(chessPos).to(Set)
         Decoded(
           pgnMoves = decoded.pgnMoves.toVector,
           pieces = Standard.pieces,
-          // pieces = decoded.pieces.asScala.view.flatMap {
-          //   case (k, v) => chessPos(k).map(_ -> chessPiece(v))
-          // }.toMap,
+          checkCount = List(0, 0),
           positionHashes = decoded.positionHashes,
-          unmovedRooks = UnmovedRooks(unmovedRooks),
           lastMove = Option(decoded.lastUci) flatMap Uci.apply,
-          castles = Castles(
-            whiteKingSide = unmovedRooks(Pos.H1),
-            whiteQueenSide = unmovedRooks(Pos.A1),
-            blackKingSide = unmovedRooks(Pos.H8),
-            blackQueenSide = unmovedRooks(Pos.A8)
-          ),
           halfMoveClock = decoded.halfMoveClock
         )
       }
@@ -88,9 +77,8 @@ private object PgnStorage {
       pgnMoves: PgnMoves,
       pieces: PieceMap,
       positionHashes: PositionHash, // irrelevant after game ends
-      unmovedRooks: UnmovedRooks,   // irrelevant after game ends
+      checkCount: List[Int],
       lastMove: Option[Uci],
-      castles: Castles,  // irrelevant after game ends
       halfMoveClock: Int // irrelevant after game ends
   )
 

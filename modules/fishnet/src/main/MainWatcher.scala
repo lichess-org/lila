@@ -6,7 +6,7 @@ import lila.common.Bus
 import lila.hub.actorApi.slack.{ Victory, Warning }
 import lila.memo.ExpireSetMemo
 
-// slack alerts for lichess analysis nodes
+// slack alerts for lishogi analysis nodes
 final private class MainWatcher(
     repo: FishnetRepo
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
@@ -28,7 +28,7 @@ final private class MainWatcher(
     }
 
   private def watch: Funit =
-    repo.lichessClients map { clients =>
+    repo.lishogiClients map { clients =>
       clients foreach { client =>
         client.instance foreach { instance =>
           if (!instance.seenRecently) alert(client)

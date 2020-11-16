@@ -2,7 +2,7 @@
   "name": "chat",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org chat ui",
+  "description": "lishogi.org chat ui",
   "main": "dist/main.js",
   "types": "dist/main",
   "author": "Thibault Duplessis",
@@ -18,6 +18,6 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/jquery": "^2.0",
-    "@types/lichess": "2.0.0"
+    "@types/lishogi": "2.0.0"
   }
 }

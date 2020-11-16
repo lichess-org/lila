@@ -16,7 +16,7 @@ object layout {
   object bits {
     val doctype                      = raw("<!DOCTYPE html>")
     def htmlTag(implicit lang: Lang) = html(st.lang := lang.code)
-    val topComment                   = raw("""<!-- Lichess is open source! See https://github.com/ornicar/lila -->""")
+    val topComment                   = raw("""<!-- Lishogi is open source! See https://github.com/WandererXII/lila -->""")
     val charset                      = raw("""<meta charset="utf-8">""")
     val viewport = raw(
       """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
@@ -46,15 +46,15 @@ object layout {
   private def fontPreload(implicit ctx: Context) =
     raw {
       s"""<link rel="preload" href="${assetUrl(
-        s"font/lichess.woff2"
+        s"font/lishogi.woff2"
       )}" as="font" type="font/woff2" crossorigin>""" +
         !ctx.pref.pieceNotationIsLetter ??
           s"""<link rel="preload" href="${assetUrl(
-            s"font/lichess.chess.woff2"
+            s"font/lishogi.chess.woff2"
           )}" as="font" type="font/woff2" crossorigin>"""
     }
   private val manifests = raw(
-    """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""
+    """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lishogi">"""
   )
 
   private val jsLicense = raw("""<link rel="jslicense" href="/source">""")
@@ -62,10 +62,10 @@ object layout {
   private val favicons = raw {
     List(512, 256, 192, 128, 64).map { px =>
       s"""<link rel="icon" type="image/png" href="${staticUrl(
-        s"logo/lichess-favicon-$px.png"
+        s"logo/lishogi-favicon-$px.png"
       )}" sizes="${px}x${px}">"""
     }.mkString("", "", s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl(
-      "logo/lichess-favicon-32.png"
+      "logo/lishogi-favicon-32.png"
     )}" sizes="32x32">""")
   }
   private def blindModeForm(implicit ctx: Context) =
@@ -166,9 +166,9 @@ object layout {
           metaCsp(csp),
           metaThemeColor,
           st.headTitle {
-            if (ctx.blind) "lichess"
-            else if (isProd && !isStage) fullTitle | s"$title • lichess.org"
-            else s"[dev] ${fullTitle | s"$title • lichess.dev"}"
+            if (ctx.blind) "lishogi"
+            else if (isProd && !isStage) fullTitle | s"$title • lishogi.org"
+            else s"[dev] ${fullTitle | s"$title • lishogi.dev"}"
           },
           cssTag("site"),
           ctx.pref.is3d option cssTag("board-3d"),
@@ -181,7 +181,7 @@ object layout {
             content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
             name := "description"
           ),
-          link(rel := "mask-icon", href := staticUrl("logo/lichess.svg"), color := "black"),
+          link(rel := "mask-icon", href := staticUrl("logo/lishogi.svg"), color := "black"),
           favicons,
           !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
           noTranslate,
@@ -251,14 +251,14 @@ object layout {
           shogiground option jsTag("vendor/shogiground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,
           if (isProd)
-            jsAt(s"compiled/lichess.site.min.js", defer = deferJs)
+            jsAt(s"compiled/lishogi.site.min.js", defer = deferJs)
           else
             frag(
-              jsAt(s"compiled/lichess.deps.js", defer = deferJs),
-              jsAt(s"compiled/lichess.site.js", defer = deferJs)
+              jsAt(s"compiled/lishogi.deps.js", defer = deferJs),
+              jsAt(s"compiled/lishogi.site.js", defer = deferJs)
             ),
           moreJs,
-          embedJsUnsafe(s"""lichess.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
+          embedJsUnsafe(s"""lishogi.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
           ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
         )
       )
@@ -301,7 +301,7 @@ object layout {
             if (ctx.kid) span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
             a(href := "/")(
-              "lichess",
+              "lishogi",
               span(if (isProd && !isStage) ".org" else ".dev")
             )
           ),

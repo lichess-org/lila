@@ -1,7 +1,7 @@
 package lila.challenge
 
 import chess.format.FEN
-import chess.variant.{ FromPosition, Horde, RacingKings, Variant }
+import chess.variant.{ FromPosition, Variant }
 import chess.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
@@ -86,8 +86,8 @@ case class Challenge(
 
   def notableInitialFen: Option[FEN] =
     variant match {
-      case FromPosition | Horde | RacingKings => initialFen
-      case _                                  => none
+      case FromPosition => initialFen
+      case _            => none
     }
 
   def isOpen = ~open

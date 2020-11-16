@@ -31,7 +31,7 @@ object form {
           postForm(cls := "form3", action := routes.Tournament.create())(
             fields.name,
             form3.split(fields.rated, fields.variant),
-            fields.startPosition,
+            //fields.startPosition,
             fields.clock,
             form3.split(fields.minutes, fields.waitMinutes),
             fields.description,

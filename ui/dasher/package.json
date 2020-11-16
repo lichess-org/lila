@@ -2,7 +2,7 @@
   "name": "dasher",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org multipurpose dropdown",
+  "description": "lishogi.org multipurpose dropdown",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
@@ -12,7 +12,7 @@
     "@build/rollupProject": "2.0.0",
     "@types/jquery": "^2.0",
     "@types/jqueryui": "^1.11",
-    "@types/lichess": "2.0.0"
+    "@types/lishogi": "2.0.0"
   },
   "scripts": {
     "dev": "rollup --config",

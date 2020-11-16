@@ -267,15 +267,7 @@ final class User(
                   "blitz"         -> leaderboards.blitz,
                   "rapid"         -> leaderboards.rapid,
                   "classical"     -> leaderboards.classical,
-                  "ultraBullet"   -> leaderboards.ultraBullet,
-                  "crazyhouse"    -> leaderboards.crazyhouse,
-                  "chess960"      -> leaderboards.chess960,
-                  "kingOfTheHill" -> leaderboards.kingOfTheHill,
-                  "threeCheck"    -> leaderboards.threeCheck,
-                  "antichess"     -> leaderboards.antichess,
-                  "atomic"        -> leaderboards.atomic,
-                  "horde"         -> leaderboards.horde,
-                  "racingKings"   -> leaderboards.racingKings
+                  "ultraBullet"   -> leaderboards.ultraBullet // todo variant
                 )
               )
             }

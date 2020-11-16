@@ -271,7 +271,12 @@ final class PlanApi(
       )
       .void >>- lightUserApi.invalidate(user.id)
 
-  def giveMonth(user: User): Funit =
+  def giveMonth(user: User): Funit = {
+    val charge = Charge.make(
+        userId = Some(user.id),
+        cents = Cents(420)
+      )
+    addCharge(charge)
     userRepo.setPlan(
       user,
       lila.user.Plan(
@@ -291,6 +296,7 @@ final class PlanApi(
         upsert = true
       )
       .void >>- lightUserApi.invalidate(user.id)
+  }
 
   private val recentChargeUserIdsNb = 100
   private val recentChargeUserIdsCache = cacheApi.unit[List[User.ID]] {

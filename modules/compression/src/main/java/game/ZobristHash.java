@@ -1,4 +1,4 @@
-package org.lichess.compression.game;
+package org.lishogi.compression.game;
 
 class ZobristHash {
     public static int hashBoard(Board board) {

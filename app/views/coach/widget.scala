@@ -28,7 +28,7 @@ object widget {
           height := size,
           cls := "picture",
           src := dbImageUrl(path.value),
-          alt := s"${c.user.titleUsername} Lichess coach picture"
+          alt := s"${c.user.titleUsername} Lishogi coach picture"
         )
       }
       .getOrElse {
@@ -37,7 +37,7 @@ object widget {
           height := size,
           cls := "default picture",
           src := staticUrl("images/placeholder.png"),
-          alt := "Default Lichess coach picture"
+          alt := "Default Lishogi coach picture"
         )
       }
 

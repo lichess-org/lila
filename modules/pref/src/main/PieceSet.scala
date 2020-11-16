@@ -24,34 +24,14 @@ sealed trait PieceSetObject {
 
 object PieceSet extends PieceSetObject {
 
-  val default = new PieceSet("cburnett")
+  val default = new PieceSet("kanji_light")
 
   val all = List(
     default.name,
-    "merida",
-    "alpha",
-    "pirouetti",
-    "chessnut",
-    "chess7",
-    "reillycraig",
-    "companion",
-    "riohacha",
-    "kosal",
-    "leipzig",
-    "fantasy",
-    "spatial",
-    "california",
-    "pixel",
-    "maestro",
-    "fresca",
-    "cardinal",
-    "gioco",
-    "tatiana",
-    "staunty",
-    "dubrovny",
-    "icpieces",
-    "shapes",
-    "letter"
+    "kanji_brown",
+    "orangain",
+    "international",
+    "kanji_red_wood"
   ) map { name =>
     new PieceSet(name)
   }
@@ -62,17 +42,7 @@ object PieceSet3d extends PieceSetObject {
   val default = new PieceSet("Basic")
 
   val all = List(
-    default.name,
-    "Wood",
-    "Metal",
-    "RedVBlue",
-    "ModernJade",
-    "ModernWood",
-    "Glass",
-    "Trimmed",
-    "Experimental",
-    "Staunton",
-    "CubesAndPi"
+    default.name
   ) map { name =>
     new PieceSet(name)
   }

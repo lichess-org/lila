@@ -1,6 +1,6 @@
 package views.html.analyse
 
-import chess.variant.Crazyhouse
+import chess.variant.Standard
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
@@ -66,7 +66,7 @@ object replay {
           dataIcon := "$",
           cls := "text",
           target := "_blank",
-          href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
+          href := cdnUrl(routes.Page.notSupported().url) // routes.Export.gif(pov.gameId, pov.color.name).url
         )(
           "Share as a GIF"
         )
@@ -77,13 +77,13 @@ object replay {
       title = titleOf(pov),
       moreCss = frag(
         cssTag("analyse.round"),
-        pov.game.variant == Crazyhouse option cssTag("analyse.zh"),
+        cssTag("analyse.zh"), //pov.game.variant == Standard option cssTag("analyse.zh"),
         ctx.blind option cssTag("round.nvui")
       ),
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJsUnsafe(s"""lichess=lichess||{};lichess.analyse=${safeJsonValue(
+        embedJsUnsafe(s"""lishogi=lishogi||{};lishogi.analyse=${safeJsonValue(
           Json.obj(
             "data"   -> data,
             "i18n"   -> jsI18n(),
@@ -119,18 +119,18 @@ object replay {
           !ctx.blind option frag(
             div(cls := "analyse__underboard")(
               div(cls := "analyse__underboard__panels")(
-                game.analysable option div(cls := "computer-analysis")(
-                  if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
-                  else
-                    postForm(
-                      cls := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
-                      action := routes.Analyse.requestAnalysis(gameId)
-                    )(
-                      submitButton(cls := "button text")(
-                        span(cls := "is3 text", dataIcon := "")(trans.requestAComputerAnalysis())
-                      )
-                    )
-                ),
+                //game.analysable option div(cls := "computer-analysis")(
+                //  if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
+                //  else
+                //    postForm(
+                //      cls := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
+                //      action := routes.Analyse.requestAnalysis(gameId)
+                //    )(
+                //      submitButton(cls := "button text")(
+                //        span(cls := "is3 text", dataIcon := "")(trans.requestAComputerAnalysis())
+                //      )
+                //    )
+                //),
                 div(cls := "move-times")(
                   game.turns > 1 option div(id := "movetimes-chart")
                 ),
@@ -142,12 +142,12 @@ object replay {
                       spellcheck := false,
                       cls := "copyable autoselect analyse__underboard__fen"
                     )
-                  ),
-                  div(cls := "pgn-options")(
-                    strong("PGN"),
-                    pgnLinks
-                  ),
-                  div(cls := "pgn")(pgn)
+                  )
+                  // div(cls := "pgn-options")(
+                  //   strong("PGN"),
+                  //   pgnLinks
+                  // ),
+                  // div(cls := "pgn")(pgn)
                 ),
                 cross.map { c =>
                   div(cls := "ctable")(

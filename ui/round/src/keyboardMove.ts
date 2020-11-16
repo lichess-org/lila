@@ -1,13 +1,17 @@
-import { h } from 'snabbdom'
-import * as cg from 'shogiground/types';
-import { Step, Redraw } from './interfaces';
-import RoundController from './ctrl';
-import { ClockController } from './clock/clockCtrl';
-import { valid as crazyValid } from './crazy/crazyCtrl';
-import { sendPromotion } from './promotion'
-import { onInsert } from './util'
+import { h } from "snabbdom";
+import * as cg from "shogiground/types";
+import { Step, Redraw } from "./interfaces";
+import RoundController from "./ctrl";
+import { ClockController } from "./clock/clockCtrl";
+import { valid as crazyValid } from "./crazy/crazyCtrl";
+import { sendPromotion } from "./promotion";
+import { onInsert } from "./util";
 
-export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
+export type KeyboardMoveHandler = (
+  fen: Fen,
+  dests?: cg.Dests,
+  yourMove?: boolean
+) => void;
 
 export interface KeyboardMove {
   drop(key: cg.Key, piece: string): void;
@@ -27,19 +31,23 @@ export interface KeyboardMove {
 }
 
 const sanToRole: { [key: string]: cg.Role } = {
-  P: 'pawn',
-  L: 'lance',
-  N: 'knight',
-  S: 'silver',
-  G: 'gold',
-  B: 'bishop',
-  R: 'rook',
-  K: 'king',
-  H: 'horse',
-  D: 'dragon'
+  P: "pawn",
+  L: "lance",
+  N: "knight",
+  S: "silver",
+  G: "gold",
+  B: "bishop",
+  R: "rook",
+  K: "king",
+  H: "horse",
+  D: "dragon",
 };
 
-export function ctrl(root: RoundController, step: Step, redraw: Redraw): KeyboardMove {
+export function ctrl(
+  root: RoundController,
+  step: Step,
+  redraw: Redraw
+): KeyboardMove {
   let focus = false;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
@@ -61,7 +69,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       // Square occupied
       if (!role || !crazyData || cgState.pieces[key]) return;
       // Piece not in Pocket
-      if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
+      if (!crazyData.pockets[color === "white" ? 0 : 1][role]) return;
       if (!crazyValid(root.data, root, role, key)) return;
       root.shogiground.cancelMove();
       root.shogiground.newPiece({ role, color }, key);
@@ -105,28 +113,32 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     justSelected() {
       return Date.now() - lastSelect < 500;
     },
-    clock: () => root.clock
+    clock: () => root.clock,
   };
 }
 
 export function render(ctrl: KeyboardMove) {
-  return h('div.keyboard-move', [
-    h('input', {
+  return h("div.keyboard-move", [
+    h("input", {
       attrs: {
         spellcheck: false,
-        autocomplete: false
+        autocomplete: false,
       },
-      hook: onInsert(el => {
-        window.lichess.loadScript('compiled/lichess.round.keyboardMove.min.js').then(() => {
-          ctrl.registerHandler(window.lichess.keyboardMove({
-            input: el,
-            ctrl
-          }));
-        });
-      })
+      hook: onInsert((el) => {
+        window.lishogi
+          .loadScript("compiled/lishogi.round.keyboardMove.min.js")
+          .then(() => {
+            ctrl.registerHandler(
+              window.lishogi.keyboardMove({
+                input: el,
+                ctrl,
+              })
+            );
+          });
+      }),
     }),
-    ctrl.hasFocus() ?
-      h('em', 'Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat') :
-      h('strong', 'Press <enter> to focus')
+    ctrl.hasFocus()
+      ? h("em", "Enter SAN (Nc3) or UCI (b1c3) moves, or type / to focus chat")
+      : h("strong", "Press <enter> to focus"),
   ]);
 }

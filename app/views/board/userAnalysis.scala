@@ -2,7 +2,7 @@ package views.html.board
 
 import play.api.libs.json.{ JsObject, Json }
 
-import chess.variant.Crazyhouse
+import chess.variant.Standard
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -19,14 +19,14 @@ object userAnalysis {
       title = trans.analysis.txt(),
       moreCss = frag(
         cssTag("analyse.free"),
-        pov.game.variant == Crazyhouse option cssTag("analyse.zh"),
+        cssTag("analyse.zh"), // pov.game.variant == Standard option cssTag("analyse.zh"),
         withForecast option cssTag("analyse.forecast"),
         ctx.blind option cssTag("round.nvui")
       ),
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJsUnsafe(s"""lichess=lichess||{};lichess.user_analysis=${safeJsonValue(
+        embedJsUnsafe(s"""lishogi=lishogi||{};lishogi.user_analysis=${safeJsonValue(
           Json.obj(
             "data" -> data,
             "i18n" -> userAnalysisI18n(withForecast = withForecast),
@@ -41,9 +41,9 @@ object userAnalysis {
       shogiground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Chess analysis board",
+          title = "Shogi analysis board",
           url = s"$netBaseUrl${routes.UserAnalysis.index().url}",
-          description = "Analyse chess positions and variations on an interactive chess board"
+          description = "Analyse shogi positions and variations on an interactive shogi board"
         )
         .some,
       zoomable = true
@@ -53,7 +53,8 @@ object userAnalysis {
           views.html.base.bits.mselect(
             "analyse-variant",
             span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
-            chess.variant.Variant.all.filter(chess.variant.FromPosition.!=).map { v =>
+            //chess.variant.Variant.all.filter(chess.variant.FromPosition.!=).map { v =>
+            chess.variant.Variant.all.filter(chess.variant.Standard.==).map { v =>
               a(
                 dataIcon := iconByVariant(v),
                 cls := (pov.game.variant == v).option("current"),
@@ -61,7 +62,7 @@ object userAnalysis {
               )(v.name)
             }
           )
-        ),
+        ), //todo variant
         div(cls := "analyse__board main-board")(shogigroundBoard),
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")

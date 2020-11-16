@@ -1,4 +1,4 @@
-package org.lichess.compression.game;
+package org.lishogi.compression.game;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,8 +11,8 @@ import java.util.regex.Matcher;
 import java.nio.ByteBuffer;
 import java.io.*;
 
-import org.lichess.compression.BitReader;
-import org.lichess.compression.BitWriter;
+import org.lishogi.compression.BitReader;
+import org.lishogi.compression.BitWriter;
 
 public class Encoder {
     private static final ThreadLocal<MoveList> moveList = new ThreadLocal<MoveList>() {

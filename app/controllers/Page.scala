@@ -7,19 +7,42 @@ final class Page(
     prismicC: Prismic
 ) extends LilaController(env) {
 
-  val thanks  = helpBookmark("thanks")
-  val help    = helpBookmark("help")
-  val about   = helpBookmark("about")
-  val tos     = helpBookmark("tos")
-  val privacy = helpBookmark("privacy")
-  val master  = helpBookmark("master")
-  val ads     = helpBookmark("ads")
+  val thanks  = helpDocument("thanks")
+  val help    = helpDocument("help")
+  val about   = helpDocument("about")
+  val tos     = helpDocument("tos")
+  val privacy = helpDocument("privacy")
+  val source = helpDocument("source")
+  val master  = helpDocument("master")
+  val ads     = helpDocument("ads")
+  val patron  = singleDocument("patron")
+  val notSupported = singleDocument("404")
 
   private def helpBookmark(name: String) =
     Open { implicit ctx =>
       pageHit
       OptionOk(prismicC getBookmark name) {
         case (doc, resolver) => views.html.site.help.page(name, doc, resolver)
+      }
+    }
+
+  private def helpDocument(uid: String) =
+    Open { implicit ctx =>
+      pageHit
+      OptionOk(prismicC.getPage("doc", uid)) {
+        case (doc, resolver) => {
+          views.html.site.help.page(uid, doc, resolver)
+          }
+      }
+    }
+
+  private def singleDocument(uid: String) = 
+    Open { implicit ctx =>
+      pageHit
+      OptionOk(prismicC.getPage("doc", uid)) {
+        case (doc, resolver) => {
+          views.html.site.page(doc, resolver)
+          }
       }
     }
 
@@ -30,14 +53,6 @@ final class Page(
       pageHit
       OptionOk(prismicC getBookmark name) {
         case (doc, resolver) => views.html.site.page(doc, resolver)
-      }
-    }
-
-  def source =
-    Open { implicit ctx =>
-      pageHit
-      OptionOk(prismicC getBookmark "source") {
-        case (doc, resolver) => views.html.site.help.source(doc, resolver)
       }
     }
 

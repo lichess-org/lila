@@ -12,6 +12,6 @@
     "target": "ES2016",
     "module": "commonjs",
     "lib": ["DOM", "ES2016"],
-    "types": ["lichess", "jquery", "defer-promise"]
+    "types": ["lishogi", "jquery", "defer-promise"]
   }
 }

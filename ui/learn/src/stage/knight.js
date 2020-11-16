@@ -1,5 +1,6 @@
 var util = require("../util");
 var arrow = util.arrow;
+var circle = util.circle;
 
 module.exports = {
   key: "knight",
@@ -11,22 +12,37 @@ module.exports = {
   levels: [
     {
       goal: "knightsHaveAFancyWay",
-      fen: "9/9/9/9/9/9/3N5/9/9 w -",
-      apples: "c5 d7",
+      fen: "9/9/9/9/9/9/9/9/1N7 w -",
+      apples: "c3 b5",
       nbMoves: 2,
-      shapes: [arrow("d3c5"), arrow("c5d7")],
+      shapes: [arrow("b1c3"), arrow("c3b5")],
     },
     {
-      goal: "grabAllTheStars",
+      goal: "knightPromotion",
       fen: "9/9/9/9/9/9/9/1N7/9 w -",
-      apples: "c3 d4 e2 f3 f7 g5 h8",
-      nbMoves: 8,
+      apples: "c4 b6 c8 d8 d7",
+      nbMoves: 5,
     },
     {
-      goal: "grabAllTheStars",
-      fen: "9/2N6/9/9/9/9/9/9/9 w -",
-      apples: "b6 d5 d7 e6 f4",
-      nbMoves: 5,
+      goal: "knightSummary",
+      fen: "9/9/9/9/9/4N4/9/9/9 w -",
+      apples: "f6",
+      nbMoves: 1,
+      shapes: [circle("f6"), circle("d6")],
+    },
+    {
+      goal: "pknightSummary",
+      fen: "9/9/9/9/9/4M4/9/9/9 w -",
+      apples: "e6",
+      nbMoves: 2,
+      shapes: [
+        circle("d4"),
+        circle("d5"),
+        circle("e5"),
+        circle("f5"),
+        circle("f4"),
+        circle("e3"),
+      ],
     },
   ].map(util.toLevel),
   complete: "knightComplete",

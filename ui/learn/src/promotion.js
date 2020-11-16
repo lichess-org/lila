@@ -20,7 +20,16 @@ function start(orig, dest, callback) {
         ["1", "2", "3"].includes(orig[1])) &&
         piece.color === "black"))
   ) {
-    console.log("PROMTOED");
+    if (
+      (["pawn", "lance"].includes(piece.role) &&
+        ((dest[1] === "9" && piece.color === "white") ||
+          (dest[1] === "1" && piece.color === "black"))) ||
+      (piece.role === "knight" &&
+        ((["8", "9"].includes(dest[1]) && piece.color === "white") ||
+          (["1", "2"].includes(dest[1]) && piece.color === "black")))
+    ) {
+      return false;
+    }
     promoting = {
       orig: orig,
       dest: dest,
@@ -43,23 +52,20 @@ function finish(role) {
 function renderPromotion(ctrl, dest, pieces, color, orientation, explain) {
   if (!promoting) return;
 
-  var left = (9 - key2pos(dest)[0]) * 11.11 - 0.29;
-  if (orientation === "white") left = key2pos(dest)[0] * 11.11;
+  var left = (9 - key2pos(dest)[0]) * 11.11 + 0.29;
+  if (orientation === "white") left = (key2pos(dest)[0] - 1) * 11.11 - 0.29;
 
   var vertical = color === orientation ? "top" : "bottom";
 
   return m("div#promotion-choice." + vertical, [
     pieces.map(function (serverRole, i) {
+      var top = (i + key2pos(dest)[1]) * 11.11 - 0.29;
+      if (orientation === "white")
+        top = (i + 9 - key2pos(dest)[1]) * 11.11 + 0.29;
       return m(
         "square",
         {
-          style:
-            vertical +
-            ": " +
-            (i + key2pos(dest[1])) * 11.11 +
-            "%;left: " +
-            left +
-            "%",
+          style: vertical + ": " + top + "%;left: " + left + "%",
           onclick: function (e) {
             e.stopPropagation();
             finish(serverRole);
@@ -68,15 +74,6 @@ function renderPromotion(ctrl, dest, pieces, color, orientation, explain) {
         m("piece." + serverRole + "." + color)
       );
     }),
-    explain ? renderExplanation(ctrl, pieces) : null,
-  ]);
-}
-
-function renderExplanation(ctrl, pieces) {
-  return m("div.explanation", [
-    m("h2", ctrl.trans.noarg("promotion")),
-    m("p", ctrl.trans.noarg("yourPieceReachedThePromotionZone")),
-    m("p", ctrl.trans.noarg("itNowPromotesToAStrongerPiece")),
   ]);
 }
 

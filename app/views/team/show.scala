@@ -39,8 +39,8 @@ object show {
           v    <- socketVersion
           chat <- chatOption
         } yield frag(
-          jsAt(s"compiled/lichess.chat${isProd ?? ".min"}.js"),
-          embedJsUnsafe(s"""lichess.team=${safeJsonValue(
+          jsAt(s"compiled/lishogi.chat${isProd ?? ".min"}.js"),
+          embedJsUnsafe(s"""lishogi.team=${safeJsonValue(
             Json.obj(
               "id"            -> t.id,
               "socketVersion" -> v.value,
@@ -125,7 +125,7 @@ object show {
                   )
                 ),
                 a(
-                  href := s"${routes.Swiss.form(t.id)}",
+                  href := s"${routes.Page.notSupported()}",
                   cls := "button button-empty text",
                   dataIcon := "g"
                 )(

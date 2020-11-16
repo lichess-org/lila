@@ -1,0 +1,18 @@
+$board-image-path: "../images/board";
+
+$board-files: (
+  "blue": "svg/blue.svg",
+  "dark-blue": "svg/db.svg",
+  "brown": "svg/brown.svg",
+  "solid-brown1": "svg/solid-brown1.svg",
+  "blue2": "blue2.jpg",
+  "solid-wood1": "solid-wood1.png",
+  "space1": "space1.png",
+  "space2": "space2.png",
+);
+
+@each $color, $file in $board-files {
+  .#{$color} .is2d cg-board {
+    background-image: url(../images/board/#{$file});
+  }
+}

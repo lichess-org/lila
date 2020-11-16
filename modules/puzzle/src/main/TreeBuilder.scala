@@ -40,5 +40,5 @@ object TreeBuilder {
 
   private val logChessError = (id: Game.ID) =>
     (err: String) =>
-      logger.warn(s"TreeBuilder https://lichess.org/$id ${err.linesIterator.toList.headOption}")
+      logger.warn(s"TreeBuilder https://lishogi.org/$id ${err.linesIterator.toList.headOption}")
 }

@@ -50,8 +50,8 @@ object Work {
       variant: Variant,
       moves: String
   ) {
-
     def uciList: List[Uci] = ~(Uci readList moves)
+    def ply                = if (moves.isEmpty) 0 else moves.count(' '.==) + 1
   }
 
   case class Sender(
@@ -62,7 +62,7 @@ object Work {
   ) {
 
     override def toString =
-      if (system) lila.user.User.lichessId
+      if (system) lila.user.User.lishogiId
       else userId orElse ip.map(_.value) getOrElse "unknown"
   }
 
@@ -72,8 +72,35 @@ object Work {
       _id: Work.Id, // random
       game: Game,
       level: Int,
-      clock: Option[Work.Clock]
-  )
+      clock: Option[Work.Clock],
+      tries: Int,
+      lastTryByKey: Option[Client.Key],
+      acquired: Option[Acquired],
+      createdAt: DateTime
+  ) extends Work {
+    def skill = Client.Skill.Move
+
+    def assignTo(client: Client) =
+      copy(
+        acquired = Acquired(
+          clientKey = client.key,
+          userId = client.userId,
+          date = DateTime.now
+        ).some,
+        lastTryByKey = client.key.some,
+        tries = tries + 1
+      )
+
+    def timeout = copy(acquired = none)
+    def invalid = copy(acquired = none)
+
+    def isOutOfTries = tries >= 3
+
+    def similar(to: Move) = game.id == to.game.id && game.moves == to.game.moves
+
+    override def toString =
+      s"id:$id game:${game.id} variant:${game.variant.key} level:$level tries:$tries created:$createdAt acquired:$acquired"
+  }
 
   case class Analysis(
       _id: Work.Id, // random

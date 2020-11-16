@@ -63,7 +63,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
 
   private def empty =
     Tournament.make(
-      by = Left(User.lichessId),
+      by = Left(User.lishogiId),
       name = none,
       clock = chess.Clock.Config(0, 0),
       minutes = 0,

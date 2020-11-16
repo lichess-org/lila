@@ -83,7 +83,7 @@ object bits {
       )
     )
 
-  def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] =
+  def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] ={
     posts.nonEmpty option
       div(cls := "lobby__blog lobby__box")(
         a(cls := "lobby__box__top", href := routes.Blog.index())(
@@ -102,7 +102,7 @@ object bits {
             )
           }
         )
-      )
+      )}
 
   def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) =
     nopeInfo(

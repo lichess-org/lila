@@ -8,14 +8,6 @@ import lila.rating.{ Glicko, Perf, PerfType }
 
 case class Perfs(
     standard: Perf,
-    chess960: Perf,
-    kingOfTheHill: Perf,
-    threeCheck: Perf,
-    antichess: Perf,
-    atomic: Perf,
-    horde: Perf,
-    racingKings: Perf,
-    crazyhouse: Perf,
     ultraBullet: Perf,
     bullet: Perf,
     blitz: Perf,
@@ -28,14 +20,6 @@ case class Perfs(
   def perfs =
     List(
       "standard"       -> standard,
-      "chess960"       -> chess960,
-      "kingOfTheHill"  -> kingOfTheHill,
-      "threeCheck"     -> threeCheck,
-      "antichess"      -> antichess,
-      "atomic"         -> atomic,
-      "horde"          -> horde,
-      "racingKings"    -> racingKings,
-      "crazyhouse"     -> crazyhouse,
       "ultraBullet"    -> ultraBullet,
       "bullet"         -> bullet,
       "blitz"          -> blitz,
@@ -104,14 +88,6 @@ case class Perfs(
     }
 
   lazy val perfsMap: Map[String, Perf] = Map(
-    "chess960"       -> chess960,
-    "kingOfTheHill"  -> kingOfTheHill,
-    "threeCheck"     -> threeCheck,
-    "antichess"      -> antichess,
-    "atomic"         -> atomic,
-    "horde"          -> horde,
-    "racingKings"    -> racingKings,
-    "crazyhouse"     -> crazyhouse,
     "ultraBullet"    -> ultraBullet,
     "bullet"         -> bullet,
     "blitz"          -> blitz,
@@ -136,14 +112,6 @@ case class Perfs(
       case PerfType.Rapid          => rapid
       case PerfType.Classical      => classical
       case PerfType.Correspondence => correspondence
-      case PerfType.Chess960       => chess960
-      case PerfType.KingOfTheHill  => kingOfTheHill
-      case PerfType.ThreeCheck     => threeCheck
-      case PerfType.Antichess      => antichess
-      case PerfType.Atomic         => atomic
-      case PerfType.Horde          => horde
-      case PerfType.RacingKings    => racingKings
-      case PerfType.Crazyhouse     => crazyhouse
       case PerfType.Puzzle         => puzzle
     }
 
@@ -185,7 +153,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p)
+    Perfs(p, p, p, p, p, p, p, p)
   }
 
   val defaultManaged = {
@@ -204,15 +172,7 @@ case object Perfs {
 
   def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] =
     variant match {
-      case chess.variant.Standard      => Some(_.standard)
-      case chess.variant.Chess960      => Some(_.chess960)
-      case chess.variant.KingOfTheHill => Some(_.kingOfTheHill)
-      case chess.variant.ThreeCheck    => Some(_.threeCheck)
-      case chess.variant.Antichess     => Some(_.antichess)
-      case chess.variant.Atomic        => Some(_.atomic)
-      case chess.variant.Horde         => Some(_.horde)
-      case chess.variant.RacingKings   => Some(_.racingKings)
-      case chess.variant.Crazyhouse    => Some(_.crazyhouse)
+      case chess.variant.Standard      => Some(_.standard) // todo variant
       case _                           => none
     }
 
@@ -234,14 +194,6 @@ case object Perfs {
       @inline def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default
       Perfs(
         standard = perf("standard"),
-        chess960 = perf("chess960"),
-        kingOfTheHill = perf("kingOfTheHill"),
-        threeCheck = perf("threeCheck"),
-        antichess = perf("antichess"),
-        atomic = perf("atomic"),
-        horde = perf("horde"),
-        racingKings = perf("racingKings"),
-        crazyhouse = perf("crazyhouse"),
         ultraBullet = perf("ultraBullet"),
         bullet = perf("bullet"),
         blitz = perf("blitz"),
@@ -257,14 +209,6 @@ case object Perfs {
     def writes(w: BSON.Writer, o: Perfs) =
       reactivemongo.api.bson.BSONDocument(
         "standard"       -> notNew(o.standard),
-        "chess960"       -> notNew(o.chess960),
-        "kingOfTheHill"  -> notNew(o.kingOfTheHill),
-        "threeCheck"     -> notNew(o.threeCheck),
-        "antichess"      -> notNew(o.antichess),
-        "atomic"         -> notNew(o.atomic),
-        "horde"          -> notNew(o.horde),
-        "racingKings"    -> notNew(o.racingKings),
-        "crazyhouse"     -> notNew(o.crazyhouse),
         "ultraBullet"    -> notNew(o.ultraBullet),
         "bullet"         -> notNew(o.bullet),
         "blitz"          -> notNew(o.blitz),
@@ -280,16 +224,8 @@ case object Perfs {
       bullet: List[User.LightPerf],
       blitz: List[User.LightPerf],
       rapid: List[User.LightPerf],
-      classical: List[User.LightPerf],
-      crazyhouse: List[User.LightPerf],
-      chess960: List[User.LightPerf],
-      kingOfTheHill: List[User.LightPerf],
-      threeCheck: List[User.LightPerf],
-      antichess: List[User.LightPerf],
-      atomic: List[User.LightPerf],
-      horde: List[User.LightPerf],
-      racingKings: List[User.LightPerf]
+      classical: List[User.LightPerf]
   )
 
-  val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)
+  val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil)
 }

@@ -5,7 +5,7 @@ $img-path: "../images";
 
 $viewport-min-width: 320px;
 
-$block-gap: 2vmin;
+$block-gap: 3vmin;
 $block-gap-half: 1vmin;
 
 $block-gap-h: 2vh;
@@ -26,4 +26,6 @@ $site-header-height: var(--site-header-height);
 
 $site-header-margin: var(--site-header-margin);
 
-$site-header-outer-height: calc(#{$site-header-height} + #{$site-header-margin});
+$site-header-outer-height: calc(
+  #{$site-header-height} + #{$site-header-margin}
+);

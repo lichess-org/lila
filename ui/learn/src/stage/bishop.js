@@ -1,5 +1,6 @@
 var util = require("../util");
 var arrow = util.arrow;
+var circle = util.circle;
 
 module.exports = {
   key: "bishop",
@@ -23,28 +24,42 @@ module.exports = {
       nbMoves: 6,
     },
     {
-      goal: "grabAllTheStars",
-      fen: "9/9/9/9/9/3B4/9/9/9 w -",
-      apples: "a1 b6 c1 e3 f6 g5",
-      nbMoves: 6,
+      goal: "bishopPromotion",
+      fen: "9/9/9/9/9/9/2B6/9/9 w -",
+      apples: "h8 g8 b3",
+      nbMoves: 3,
     },
     {
-      goal: "grabAllTheStars",
-      fen: "9/9/9/9/9/2B5/9/9/9 w -",
-      apples: "a4 b1 b3 c2 d3 e2",
-      nbMoves: 6,
+      goal: "bishopSummary",
+      fen: "9/9/9/9/4B4/9/9/9/9 w -",
+      apples: "a1",
+      nbMoves: 1,
+      shapes: [
+        arrow("e5i9", "green"),
+        arrow("e5i1", "green"),
+        arrow("e5a1", "green"),
+        arrow("e5a9", "green"),
+      ],
     },
     {
-      goal: "youNeedBothBishops",
-      fen: "9/9/9/9/9/9/9/9/2B2B2 w - -",
-      apples: "d3 d4 d5 e3 e4 e5",
-      nbMoves: 6,
-    },
-    {
-      goal: "grabAllTheStars",
-      fen: "9/4B4/9/9/9/9/2B6/9/9 w -",
-      apples: "a3 c2 f8 g6 g7 h9 i5 i8",
-      nbMoves: 11,
+      goal: "horseSummary",
+      fen: "9/9/9/9/4H4/9/9/9/9 w -",
+      apples: "b8 b7",
+      nbMoves: 2,
+      shapes: [
+        arrow("e5i9"),
+        arrow("e5i1"),
+        arrow("e5a1"),
+        arrow("e5a9"),
+        circle("e6"),
+        circle("f6"),
+        circle("f5"),
+        circle("f4"),
+        circle("e4"),
+        circle("d4"),
+        circle("d5"),
+        circle("d6"),
+      ],
     },
   ].map(util.toLevel),
   complete: "bishopComplete",

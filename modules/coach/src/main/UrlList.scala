@@ -30,7 +30,7 @@ object UrlList {
 
     case class StudyId(value: String) extends AnyVal
 
-    private val UrlRegex = """(?:lichess\.org)/study/(\w{8})""".r.unanchored
+    private val UrlRegex = """(?:lishogi\.org)/study/(\w{8})""".r.unanchored
 
     def apply(text: String): List[StudyId] =
       text.linesIterator.toList.view.map(_.trim).filter(_.nonEmpty) flatMap toId take max to List

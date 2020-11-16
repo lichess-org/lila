@@ -1,10 +1,11 @@
-/// <reference types="lichess" />
-import { Color, Role, Square, Move, SquareName } from './types';
+/// <reference types="lishogi" />
+import { Color, Role, Square, Move, SquareName } from "./types";
 export declare const FILES: string[];
 export declare const RANKS: string[];
 export declare const initialFen = "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1";
 export declare function defined<A>(v: A | undefined): v is A;
 export declare function opposite(color: Color): Color;
+export declare function isImpasse(fen: string): boolean;
 export declare function roleToChar(role: Role): string;
 export declare function charToRole(ch: string): Role | undefined;
 export declare function promotesTo(role: Role): Role;
@@ -13,8 +14,11 @@ export declare function parseUci(str: string): Move | undefined;
 export declare function squareRank(square: Square): number;
 export declare function squareFile(square: Square): number;
 export declare function makeSquare(square: Square): SquareName;
-export declare function validFen(fen: String): boolean;
+export declare function validFen(fen: string): boolean;
+export declare function switchColorSfen(sfen: string): string;
 export declare function shogiToChessUci(uci: Uci): Uci;
 export declare function chessToShogiUsi(uci: Uci): Uci;
 export declare function fixSfen(fen: string): string;
 export declare function breakSfen(fen: string): string;
+export declare function displaySfen(fen: string): string;
+export declare function undisplaySfen(fen: string): string;

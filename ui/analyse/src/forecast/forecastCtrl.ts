@@ -1,16 +1,19 @@
-import { prop } from 'common';
-import { ForecastCtrl, ForecastData, ForecastStep } from './interfaces';
-import { AnalyseData } from '../interfaces';
+import { prop } from "common";
+import { ForecastCtrl, ForecastData, ForecastStep } from "./interfaces";
+import { AnalyseData } from "../interfaces";
 
-export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): ForecastCtrl {
-
+export function make(
+  cfg: ForecastData,
+  data: AnalyseData,
+  redraw: () => void
+): ForecastCtrl {
   const saveUrl = `/${data.game.id}${data.player.id}/forecasts`;
 
   let forecasts = cfg.steps || [];
   const loading = prop(false);
 
   function keyOf(fc: ForecastStep[]): string {
-    return fc.map(node => node.ply + ':' + node.uci).join(',');
+    return fc.map((node) => node.ply + ":" + node.uci).join(",");
   }
 
   function contains(fc1: ForecastStep[], fc2: ForecastStep[]): boolean {
@@ -18,7 +21,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   }
 
   function findStartingWithNode(node: ForecastStep): ForecastStep[][] {
-    return forecasts.filter(function(fc) {
+    return forecasts.filter(function (fc) {
       return contains(fc, [node]);
     });
   }
@@ -35,7 +38,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
 
   function truncate(fc: ForecastStep[]): ForecastStep[] {
     if (cfg.onMyTurn)
-    return (fc.length % 2 !== 1 ? fc.slice(0, -1) : fc).slice(0, 30);
+      return (fc.length % 2 !== 1 ? fc.slice(0, -1) : fc).slice(0, 30);
     // must end with player move
     return (fc.length % 2 !== 0 ? fc.slice(0, -1) : fc).slice(0, 30);
   }
@@ -46,16 +49,20 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
 
   function fixAll() {
     // remove contained forecasts
-    forecasts = forecasts.filter(function(fc, i) {
-      return forecasts.filter(function(f, j) {
-        return i !== j && contains(f, fc)
-      }).length === 0;
+    forecasts = forecasts.filter(function (fc, i) {
+      return (
+        forecasts.filter(function (f, j) {
+          return i !== j && contains(f, fc);
+        }).length === 0
+      );
     });
     // remove colliding forecasts
-    forecasts = forecasts.filter(function(fc, i) {
-      return forecasts.filter(function(f, j) {
-        return i < j && collides(f, fc)
-      }).length === 0;
+    forecasts = forecasts.filter(function (fc, i) {
+      return (
+        forecasts.filter(function (f, j) {
+          return i < j && collides(f, fc);
+        }).length === 0
+      );
     });
   }
 
@@ -64,30 +71,30 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   function reloadToLastPly() {
     loading(true);
     redraw();
-    history.replaceState(null, '', '#last');
-    window.lichess.reload();
-  };
+    history.replaceState(null, "", "#last");
+    window.lishogi.reload();
+  }
 
   function isCandidate(fc: ForecastStep[]): boolean {
     fc = truncate(fc);
     if (!isLongEnough(fc)) return false;
-    var collisions = forecasts.filter(function(f) {
+    var collisions = forecasts.filter(function (f) {
       return contains(f, fc);
     });
     if (collisions.length) return false;
     return true;
-  };
+  }
 
   function save() {
     if (cfg.onMyTurn) return;
     loading(true);
     redraw();
     $.ajax({
-      method: 'POST',
+      method: "POST",
       url: saveUrl,
       data: JSON.stringify(forecasts),
-      contentType: 'application/json'
-    }).then(function(data) {
+      contentType: "application/json",
+    }).then(function (data) {
       if (data.reload) reloadToLastPly();
       else {
         loading(false);
@@ -95,22 +102,26 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
       }
       redraw();
     });
-  };
+  }
 
   function playAndSave(node: ForecastStep) {
     if (!cfg.onMyTurn) return;
     loading(true);
     redraw();
     $.ajax({
-      method: 'POST',
-      url: saveUrl + '/' + node.uci,
-      data: JSON.stringify(findStartingWithNode(node).filter(function(fc) {
-        return fc.length > 1;
-      }).map(function(fc) {
-        return fc.slice(1);
-      })),
-      contentType: 'application/json'
-    }).then(function(data) {
+      method: "POST",
+      url: saveUrl + "/" + node.uci,
+      data: JSON.stringify(
+        findStartingWithNode(node)
+          .filter(function (fc) {
+            return fc.length > 1;
+          })
+          .map(function (fc) {
+            return fc.slice(1);
+          })
+      ),
+      contentType: "application/json",
+    }).then(function (data) {
       if (data.reload) reloadToLastPly();
       else {
         loading(false);
@@ -130,8 +141,8 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     },
     isCandidate,
     removeIndex(index) {
-      forecasts = forecasts.filter((_, i) => i !== index)
-        save();
+      forecasts = forecasts.filter((_, i) => i !== index);
+      save();
     },
     list: () => forecasts,
     truncate,
@@ -139,6 +150,6 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     onMyTurn: !!cfg.onMyTurn,
     findStartingWithNode,
     playAndSave,
-    reloadToLastPly
+    reloadToLastPly,
   };
 }

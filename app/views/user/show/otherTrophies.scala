@@ -86,7 +86,7 @@ object otherTrophies {
         a(
           href := routes.Coach.show(info.user.username),
           cls := "trophy award icon3d coach",
-          ariaTitle(trans.coach.lichessCoach.txt())
+          ariaTitle(trans.coach.lishogiCoach.txt())
         )(":"),
       (info.isStreamer && ctx.noKid) option
         a(
@@ -95,7 +95,7 @@ object otherTrophies {
             "trophy award icon3d streamer" -> true,
             "streaming"                    -> isStreaming(info.user.id)
           ),
-          ariaTitle(if (isStreaming(info.user.id)) "Live now!" else "Lichess Streamer")
+          ariaTitle(if (isStreaming(info.user.id)) "Live now!" else "Lishogi Streamer")
         )("")
     )
 

@@ -16,7 +16,7 @@ object bits {
     a(
       dataIcon := "g",
       cls := "text",
-      href := routes.Swiss.show(swissId.value).url
+      href := routes.Page.notSupported().url
     )(name)
 
   def idToName(id: Swiss.Id): String = env.swiss.getName(id) getOrElse "Tournament"
@@ -48,7 +48,7 @@ object bits {
           )(
             td(cls := "icon")(iconTag(iconChar(s))),
             td(cls := "header")(
-              a(href := routes.Swiss.show(s.id.value))(
+              a(href := routes.Page.notSupported())(
                 span(cls := "name")(s.name),
                 span(cls := "setup")(
                   s.clock.show,

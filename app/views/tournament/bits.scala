@@ -44,9 +44,9 @@ object bits {
 
   def userPrizeDisclaimer =
     div(cls := "tour__prize")(
-      "This tournament is NOT organized by Lichess.",
+      "This tournament is NOT organized by Lishogi.",
       br,
-      "If it has prizes, Lichess is NOT responsible for paying them."
+      "If it has prizes, Lishogi is NOT responsible for paying them."
     )
 
   def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)

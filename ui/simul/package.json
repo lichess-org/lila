@@ -2,11 +2,11 @@
   "name": "simul",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org simul",
+  "description": "lishogi.org simul",
   "main": "src/main.js",
   "keywords": [
     "chess",
-    "lichess",
+    "lishogi",
     "simul"
   ],
   "author": "Thibault Duplessis",

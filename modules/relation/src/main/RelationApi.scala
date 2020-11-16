@@ -180,7 +180,7 @@ final class RelationApi(
     }
 
   def block(u1: ID, u2: ID): Funit =
-    (u1 != u2 && u2 != User.lichessId) ?? {
+    (u1 != u2 && u2 != User.lishogiId) ?? {
       fetchBlocks(u1, u2) flatMap {
         case true => funit
         case _ =>

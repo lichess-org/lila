@@ -55,17 +55,17 @@ final class PgnDump(
   private def rating(p: Player) = p.rating.fold("?")(_.toString)
 
   def player(p: Player, u: Option[LightUser]) =
-    p.aiLevel.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))("lichess AI level " + _)
+    p.aiLevel.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))("lishogi AI level " + _)
 
   private val customStartPosition: Set[chess.variant.Variant] =
-    Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
+    Set(chess.variant.FromPosition)
 
   private def eventOf(game: Game) = {
     val perf = game.perfType.fold("Standard")(_.trans(lila.i18n.defaultLang))
     game.tournamentId.map { id =>
-      s"${game.mode} $perf tournament https://lichess.org/tournament/$id"
+      s"${game.mode} $perf tournament https://lishogi.org/tournament/$id"
     } orElse game.simulId.map { id =>
-      s"$perf simul https://lichess.org/simul/$id"
+      s"$perf simul https://lishogi.org/simul/$id"
     } getOrElse {
       s"${game.mode} $perf game"
     }

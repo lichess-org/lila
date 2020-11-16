@@ -32,7 +32,7 @@ final private class SandbagWatch(
   private def sendMessage(userId: User.ID): Funit =
     userRepo byId userId map {
       _ ?? { u =>
-        lila.log("sandbag").info(s"https://lichess.org/@/${u.username}")
+        lila.log("sandbag").info(s"https://lishogi.org/@/${u.username}")
         lila.common.Bus
           .publish(lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sandbagAuto.name), "autoWarning")
         messenger.postPreset(u, MsgPreset.sandbagAuto).void

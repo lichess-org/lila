@@ -1,8 +1,9 @@
 package lila.study
 
+import chess.{ Data => ChessData}
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ FEN, Uci, UciCharPair }
-import chess.variant.Crazyhouse
+import chess.variant.Standard
 
 import chess.Centis
 import lila.tree.Eval.Score
@@ -14,7 +15,7 @@ sealed trait RootOrNode {
   val check: Boolean
   val shapes: Shapes
   val clock: Option[Centis]
-  val crazyData: Option[Crazyhouse.Data]
+  val crazyData: Option[ChessData]
   val children: Node.Children
   val comments: Comments
   val gamebook: Option[Gamebook]
@@ -39,7 +40,7 @@ case class Node(
     glyphs: Glyphs = Glyphs.empty,
     score: Option[Score] = None,
     clock: Option[Centis],
-    crazyData: Option[Crazyhouse.Data],
+    crazyData: Option[ChessData],
     children: Node.Children,
     forceVariation: Boolean
 ) extends RootOrNode {
@@ -250,7 +251,7 @@ object Node {
       glyphs: Glyphs = Glyphs.empty,
       score: Option[Score] = None,
       clock: Option[Centis],
-      crazyData: Option[Crazyhouse.Data],
+      crazyData: Option[ChessData],
       children: Children
   ) extends RootOrNode {
 
@@ -338,7 +339,7 @@ object Node {
         fen = FEN(variant.initialFen),
         check = false,
         clock = none,
-        crazyData = variant.crazyhouse option Crazyhouse.Data.init,
+        crazyData = Some(ChessData.init),
         children = emptyChildren
       )
 

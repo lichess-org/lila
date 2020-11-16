@@ -10,8 +10,8 @@ import lila.i18n.{ enLang, I18nKeys => trans, I18nLangPicker, LangList }
 final class Dasher(env: Env) extends LilaController(env) {
 
   private val translationsBase = List(
-    trans.networkLagBetweenYouAndLichess,
-    trans.timeToProcessAMoveOnLichessServer,
+    trans.networkLagBetweenYouAndLishogi,
+    trans.timeToProcessAMoveOnLishogiServer,
     trans.sound,
     trans.background,
     trans.light,

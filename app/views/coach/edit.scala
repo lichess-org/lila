@@ -143,9 +143,9 @@ object edit {
               form3.group(
                 form("profile.otherExperience"),
                 raw("Other experiences"),
-                help = raw("E.g. as chess commentator, or teaching other domains").some
+                help = raw("E.g. as shogi commentator, or teaching other domains").some
               )(form3.textarea(_)(rows := 8)),
-              form3.group(form("profile.skills"), raw("Best skills in chess and teaching"))(
+              form3.group(form("profile.skills"), raw("Best skills in shogi and teaching"))(
                 form3.textarea(_)(rows := 8)
               ),
               form3.group(
@@ -157,8 +157,8 @@ object edit {
             div(cls := "panel contents")(
               form3.group(
                 form("profile.publicStudies"),
-                raw("Featured public Lichess studies"),
-                help = raw("Up to 6 Lichess study URLs, one per line").some
+                raw("Featured public Lishogi studies"),
+                help = raw("Up to 6 Lishogi study URLs, one per line").some
               )(form3.textarea(_)()),
               form3.group(form("profile.youtubeChannel"), raw("URL of your Youtube channel"))(form3.input(_)),
               form3.group(

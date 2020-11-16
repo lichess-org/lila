@@ -132,7 +132,7 @@ object student {
         case Student.WithPassword(student, password) =>
           flashMessage(cls := "student-add__created")(
             strong(
-              trans.clas.lichessProfileXCreatedForY(
+              trans.clas.lishogiProfileXCreatedForY(
                 userIdLink(student.userId.some, withOnline = false),
                 student.realName
               ),
@@ -147,7 +147,7 @@ object student {
       (nbStudents <= lila.clas.Clas.maxStudents) option frag(
         div(cls := "student-add__choice")(
           div(cls := "info")(
-            h2(trans.clas.inviteALichessAccount()),
+            h2(trans.clas.inviteALishogiAccount()),
             p(trans.clas.inviteDesc1()),
             p(trans.clas.inviteDesc2()),
             p(
@@ -157,7 +157,7 @@ object student {
             )
           ),
           postForm(cls := "form3", action := routes.Clas.studentInvite(c.id.value))(
-            form3.group(invite("username"), trans.clas.lichessUsername())(
+            form3.group(invite("username"), trans.clas.lishogiUsername())(
               form3.input(_, klass = "user-autocomplete")(created.isEmpty option autofocus)(dataTag := "span")
             ),
             realNameField(invite),
@@ -167,7 +167,7 @@ object student {
         div(cls := "student-add__or")("~ or ~"),
         div(cls := "student-add__choice")(
           div(cls := "info")(
-            h2(trans.clas.createANewLichessAccount()),
+            h2(trans.clas.createANewLishogiAccount()),
             p(trans.clas.createDesc1()),
             p(trans.clas.createDesc2()),
             p(strong(trans.clas.createDesc3()), br, trans.clas.createDesc4())
@@ -175,7 +175,7 @@ object student {
           postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
             form3.group(
               create("create-username"),
-              trans.clas.lichessUsername(),
+              trans.clas.lishogiUsername(),
               help = a(cls := "name-regen", href := s"${routes.Clas.studentForm(c.id.value)}?gen=1")(
                 trans.clas.generateANewUsername()
               ).some

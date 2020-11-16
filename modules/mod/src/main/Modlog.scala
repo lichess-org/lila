@@ -12,7 +12,7 @@ case class Modlog(
     date: DateTime = DateTime.now
 ) {
 
-  def isLichess = mod == lila.user.User.lichessId
+  def isLishogi = mod == lila.user.User.lishogiId
 
   def showAction =
     action match {

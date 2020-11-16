@@ -15,7 +15,9 @@ object pref {
   private def categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg) =
     div(cls := List("none" -> (categ != active)))
 
-  private def setting(name: Frag, body: Frag) = st.section(h2(name), body)
+  private def setting(name: Frag, body: Frag, display: Boolean = true) = {
+    if(display) st.section(h2(name), body) else st.section(style:="display:none;")(h2(name), body)
+  }
 
   private def radios(field: play.api.data.Field, options: Iterable[(Any, String)], prefix: String = "ir") =
     st.group(cls := "radio")(
@@ -50,11 +52,12 @@ object pref {
           categFieldset(PrefCateg.GameDisplay, categ)(
             setting(
               pieceAnimation(),
-              radios(form("display.animation"), translatedAnimationChoices)
+              radios(form("display.animation"), translatedAnimationChoices),
             ),
             setting(
               materialDifference(),
-              radios(form("display.captured"), booleanChoices)
+              radios(form("display.captured"), booleanChoices),
+              false
             ),
             setting(
               boardHighlights(),
@@ -74,7 +77,8 @@ object pref {
             ),
             setting(
               pgnPieceNotation(),
-              radios(form("display.pieceNotation"), translatedPieceNotationChoices)
+              radios(form("display.pieceNotation"), translatedPieceNotationChoices),
+              false
             ),
             setting(
               zenMode(),
@@ -122,11 +126,13 @@ object pref {
             ),
             setting(
               promoteToQueenAutomatically(),
-              radios(form("behavior.autoQueen"), translatedAutoQueenChoices)
+              radios(form("behavior.autoQueen"), translatedAutoQueenChoices),
+              false
             ),
             setting(
               claimDrawOnThreefoldRepetitionAutomatically(),
-              radios(form("behavior.autoThreefold"), translatedAutoThreefoldChoices)
+              radios(form("behavior.autoThreefold"), translatedAutoThreefoldChoices),
+              false
             ),
             setting(
               moveConfirmation(),
@@ -138,11 +144,13 @@ object pref {
             ),
             setting(
               castleByMovingTheKingTwoSquaresOrOntoTheRook(),
-              radios(form("behavior.rookCastle"), translatedRookCastleChoices)
+              radios(form("behavior.rookCastle"), translatedRookCastleChoices),
+              false
             ),
             setting(
               inputMovesWithTheKeyboard(),
-              radios(form("behavior.keyboardMove"), booleanChoices)
+              radios(form("behavior.keyboardMove"), booleanChoices),
+              false
             )
           ),
           categFieldset(PrefCateg.Privacy, categ)(
@@ -164,7 +172,8 @@ object pref {
             ),
             setting(
               trans.shareYourInsightsData(),
-              radios(form("insightShare"), translatedInsightShareChoices)
+              radios(form("insightShare"), translatedInsightShareChoices),
+              false
             )
           ),
           p(cls := "saved text none", dataIcon := "E")(yourPreferencesHaveBeenSaved())

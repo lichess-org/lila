@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import scala.concurrent.duration._
+import org.joda.time.DateTime
 
 import chess.{ Black, Clock, White }
 
@@ -9,7 +10,7 @@ import lila.game.{ Game, GameRepo, UciMemo }
 import ornicar.scalalib.Random.approximately
 
 final class Player(
-    redis: FishnetRedis,
+    moveDb: MoveDB,
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     val maxPlies: Int
@@ -21,7 +22,7 @@ final class Player(
   def apply(game: Game): Funit =
     game.aiLevel ?? { level =>
       Future.delay(delayFor(game) | 0.millis) {
-        makeWork(game, level) addEffect redis.request void
+        makeWork(game, level) addEffect moveDb.add void
       }
     } recover {
       case e: Exception => logger.info(e.getMessage)
@@ -60,16 +61,18 @@ final class Player(
               variant = game.variant,
               moves = moves mkString " "
             ),
-            level =
-              if (level < 3 && game.clock.exists(_.config.limit.toSeconds < 60)) 3
-              else level,
+            level = level,
             clock = game.clock.map { clk =>
               Work.Clock(
                 wtime = clk.remainingTime(White).centis,
                 btime = clk.remainingTime(Black).centis,
                 inc = clk.incrementSeconds
               )
-            }
+            },
+            tries = 0,
+          lastTryByKey = none,
+          acquired = none,
+          createdAt = DateTime.now
           )
       }
       else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")

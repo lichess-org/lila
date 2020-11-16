@@ -134,7 +134,7 @@ case class Tournament(
       )
     }
 
-  def nonLichessCreatedBy = (createdBy != User.lichessId) option createdBy
+  def nonLishogiCreatedBy = (createdBy != User.lishogiId) option createdBy
 
   def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
 
@@ -204,7 +204,7 @@ object Tournament {
       status = Status.Created,
       clock = Schedule clockFor sched,
       minutes = minutes,
-      createdBy = User.lichessId,
+      createdBy = User.lishogiId,
       createdAt = DateTime.now,
       nbPlayers = 0,
       variant = sched.variant,
@@ -215,7 +215,7 @@ object Tournament {
       startsAt = sched.at plusSeconds scala.util.Random.nextInt(60)
     )
 
-  def tournamentUrl(tourId: String): String = s"https://lichess.org/tournament/$tourId"
+  def tournamentUrl(tourId: String): String = s"https://lishogi.org/tournament/$tourId"
 
   def makeId = Random nextString 8
 

@@ -2,13 +2,14 @@ package lila.game
 
 import play.api.libs.json._
 
-import chess.variant.Crazyhouse
+import chess.variant.Standard
 import chess.{
   Centis,
   PromotableRole,
   Pos,
   Color,
   Situation,
+  Data,
   Move => ChessMove,
   Drop => ChessDrop,
   Clock => ChessClock,
@@ -48,7 +49,7 @@ object Event {
         clock: Option[ClockEvent],
         possibleMoves: Map[Pos, List[Pos]],
         possibleDrops: Option[List[Pos]],
-        crazyData: Option[Crazyhouse.Data]
+        crazyData: Option[Data]
     )(extra: JsObject) = {
       extra ++ Json
         .obj(
@@ -77,15 +78,16 @@ object Event {
       fen: String,
       check: Boolean,
       threefold: Boolean,
-      promotion: Option[Promotion],
+      promotion: Boolean,
       enpassant: Option[Enpassant],
       castle: Option[Castling],
       state: State,
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
       possibleDrops: Option[List[Pos]],
-      crazyData: Option[Crazyhouse.Data]
+      crazyData: Option[Data]
   ) extends Event {
+    val promS = {if(promotion) "+" else ""}
     def typ = "move"
     def data = {
       MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
@@ -94,7 +96,7 @@ object Event {
             "uci" -> s"${orig.key}${dest.key}",
             "san" -> san
           )
-          .add("promotion" -> promotion.map(_.data))
+          .add("promotion" -> promotion)
           .add("enpassant" -> enpassant.map(_.data))
           .add("castle" -> castle.map(_.data))
       }
@@ -107,7 +109,7 @@ object Event {
         situation: Situation,
         state: State,
         clock: Option[ClockEvent],
-        crazyData: Option[Crazyhouse.Data]
+        crazyData: Option[Data]
     ): Move =
       Move(
         orig = move.orig,
@@ -116,7 +118,7 @@ object Event {
         fen = chess.format.Forsyth.exportBoard(situation.board),
         check = situation.check,
         threefold = situation.threefoldRepetition,
-        promotion = move.promotion.map { Promotion(_, move.dest) },
+        promotion = move.promotion,
         enpassant = (move.capture ifTrue move.enpassant).map {
           Event.Enpassant(_, !move.color)
         },
@@ -141,7 +143,7 @@ object Event {
       state: State,
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
-      crazyData: Option[Crazyhouse.Data],
+      crazyData: Option[Data],
       possibleDrops: Option[List[Pos]]
   ) extends Event {
     def typ = "drop"
@@ -161,7 +163,7 @@ object Event {
         situation: Situation,
         state: State,
         clock: Option[ClockEvent],
-        crazyData: Option[Crazyhouse.Data]
+        crazyData: Option[Data]
     ): Drop =
       Drop(
         role = drop.piece.role,
@@ -242,14 +244,14 @@ object Event {
     override def only = Some(color)
   }
 
-  case class Promotion(role: PromotableRole, pos: Pos) extends Event {
-    def typ = "promotion"
-    def data =
-      Json.obj(
-        "key"        -> pos.key,
-        "pieceClass" -> role.toString.toLowerCase
-      )
-  }
+  //case class Promotion(role: PromotableRole, pos: Pos) extends Event {
+  //  def typ = "promotion"
+  //  def data =
+  //    Json.obj(
+  //      "key"        -> pos.key,
+  //      "pieceClass" -> role.toString.toLowerCase
+  //    )
+  //}
 
   case class PlayerMessage(line: PlayerLine) extends Event {
     def typ            = "message"

@@ -1,4 +1,4 @@
-package org.lichess.compression;
+package org.lishogi.compression;
 
 class BitOps {
     static int[] getBitMasks() {

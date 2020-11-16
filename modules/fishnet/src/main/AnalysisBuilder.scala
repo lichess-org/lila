@@ -40,7 +40,7 @@ final private class AnalysisBuilder(evalCache: FishnetEvalCache)(implicit
                 infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
                 startPly = work.startPly,
                 uid = work.sender.userId,
-                by = !client.lichess option client.userId.value,
+                by = !client.lishogi option client.userId.value,
                 date = DateTime.now
               )
             ) match {

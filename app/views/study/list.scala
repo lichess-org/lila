@@ -140,7 +140,7 @@ object list {
           topic.value
         )
       },
-      a(cls := "text", dataIcon := "", href := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(
+      a(cls := "text", dataIcon := "", href := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lishogi-way")(
         trans.study.whatAreStudies()
       )
     )

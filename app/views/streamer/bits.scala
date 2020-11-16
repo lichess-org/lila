@@ -39,7 +39,7 @@ object bits extends Context.ToLang {
           height := size,
           cls := "picture",
           src := dbImageUrl(path.value),
-          alt := s"${u.titleUsername} Lichess streamer picture"
+          alt := s"${u.titleUsername} Lishogi streamer picture"
         )
       case _ =>
         img(
@@ -47,7 +47,7 @@ object bits extends Context.ToLang {
           height := size,
           cls := "default picture",
           src := staticUrl("images/placeholder.png"),
-          alt := "Default Lichess streamer picture"
+          alt := "Default Lishogi streamer picture"
         )
     }
 
@@ -69,7 +69,7 @@ object bits extends Context.ToLang {
         cls := active.active("requests"),
         href := s"${routes.Streamer.index()}?requests=1"
       )("Approval requests"),
-      a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")(
+      a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lishogi-streamer-community")(
         "Streamer community"
       ),
       a(href := "/about")(downloadKit())

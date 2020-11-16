@@ -20,7 +20,7 @@ object edit extends Context.ToLang {
   )(implicit ctx: Context) = {
 
     views.html.base.layout(
-      title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
+      title = s"${s.user.titleUsername} ${lishogiStreamer.txt()}",
       moreCss = cssTag("streamer.form"),
       moreJs = jsTag("streamer.form.js")
     ) {

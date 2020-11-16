@@ -10,7 +10,7 @@ case class OpenGraph(
     `type`: String = "website",
     image: Option[String] = None,
     twitterImage: Option[String] = None,
-    siteName: String = "lichess.org",
+    siteName: String = "lishogi.org",
     more: List[(String, String)] = Nil
 ) {
 

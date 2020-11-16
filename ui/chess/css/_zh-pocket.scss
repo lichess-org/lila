@@ -1,14 +1,15 @@
 .pocket {
   @extend %box-radius;
   display: flex;
+  justify-content: center;
   width: 62.5%;
   @include breakpoint($mq-col2-uniboard) {
     width: 100%;
-    box-shadow: 0 3px 5px rgba(0,0,0,0.3) inset;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
     background: #888;
   }
   &-c1 {
-    flex: 0 0 20%;
+    flex: 0 0 14%;
     max-width: 10vmin;
   }
   &-c2 {
@@ -16,8 +17,8 @@
   }
   piece {
     display: block;
-    width: 100%!important;
-    height: 100%!important;
+    width: 100% !important;
+    height: 100% !important;
     @include transition();
     &::after {
       @extend %active, %box-radius;
@@ -25,12 +26,12 @@
       bottom: 0;
       right: 0;
       position: absolute;
-      line-height: .9em;
-      padding: 3px .3em;
+      line-height: 0.9em;
+      padding: 3px 0.3em;
       font-weight: bold;
       font-size: 1.1em;
     }
-    &[data-nb='0'] {
+    &[data-nb="0"] {
       cursor: auto;
       opacity: 0.1;
       &::after {

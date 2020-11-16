@@ -78,8 +78,8 @@ final private class FirebasePush(
   // the request
   private def transform(obj: JsObject): JsObject =
     JsObject(obj.fields.collect {
-      case (k, v: JsString) => s"lichess.$k" -> v
-      case (k, v: JsNumber) => s"lichess.$k" -> JsString(v.toString)
+      case (k, v: JsString) => s"lishogi.$k" -> v
+      case (k, v: JsNumber) => s"lishogi.$k" -> JsString(v.toString)
     })
 }
 

@@ -137,7 +137,7 @@ object event {
         form3.group(form("lang"), raw("Language"), half = true)(form3.select(_, lila.i18n.LangList.choices)),
         form3.group(
           form("hostedBy"),
-          raw("Hosted by Lichess user"),
+          raw("Hosted by Lishogi user"),
           help = raw("Username that must not be featured while the event is ongoing").some,
           half = true
         ) { f =>

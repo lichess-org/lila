@@ -14,7 +14,7 @@ object bits {
 
   def daily(p: lila.puzzle.Puzzle, fen: String, lastMove: String) =
     a(
-      href := routes.Puzzle.daily(),
+      href := routes.Page.notSupported(), // puzzle daily
       cls := "mini-board cg-wrap parse-fen is2d",
       dataColor := p.color.name,
       dataFen := fen,

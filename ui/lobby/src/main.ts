@@ -1,19 +1,18 @@
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode'
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
-import { Shogiground } from 'shogiground';
-import { LobbyOpts, Tab } from './interfaces';
-import LobbyController from './ctrl';
+import { init } from "snabbdom";
+import { VNode } from "snabbdom/vnode";
+import klass from "snabbdom/modules/class";
+import attributes from "snabbdom/modules/attributes";
+import { Shogiground } from "shogiground";
+import { LobbyOpts, Tab } from "./interfaces";
+import LobbyController from "./ctrl";
 
 export const patch = init([klass, attributes]);
 
-import makeCtrl from './ctrl';
-import view from './view/main';
-import boot from './boot';
+import makeCtrl from "./ctrl";
+import view from "./view/main";
+import boot from "./boot";
 
 export function start(opts: LobbyOpts) {
-
   let vnode: VNode, ctrl: LobbyController;
 
   function redraw() {
@@ -23,7 +22,7 @@ export function start(opts: LobbyOpts) {
   ctrl = new makeCtrl(opts, redraw);
 
   const blueprint = view(ctrl);
-  opts.element.innerHTML = '';
+  opts.element.innerHTML = "";
   vnode = patch(opts.element, blueprint);
 
   return {
@@ -37,14 +36,14 @@ export function start(opts: LobbyOpts) {
     enterPool: ctrl.enterPool,
     leavePool: ctrl.leavePool,
     setup: ctrl.setup,
-    redraw: ctrl.redraw
+    redraw: ctrl.redraw,
   };
 }
 
-// that's for the rest of lichess to access shogiground
+// that's for the rest of lishogi to access shogiground
 // without having to include it a second time
 window.Shogiground = Shogiground;
 
 window.onload = function () {
-  boot(window['lichess_lobby'], document.querySelector('.lobby__app'));
+  boot(window["lishogi_lobby"], document.querySelector(".lobby__app"));
 };

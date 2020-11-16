@@ -9,6 +9,8 @@ var renderPromotion = require("../promotion").view;
 var renderProgress = require("../progress").view;
 var makeStars = require("../progress").makeStars;
 
+var i = 0;
+
 function renderFailed(ctrl) {
   return m(
     "div.result.failed",
@@ -38,9 +40,28 @@ function renderCompleted(ctrl, level) {
   );
 }
 
+function renderInfo(ctrl) {
+  if (!ctrl.level.blueprint.text) return;
+  return m("div.info-intro", [
+    m("div.buttons", [
+      m(
+        "a.nextOne",
+        {
+          onclick: function (e) {
+            e.stopPropagation();
+            ctrl.level.complete();
+          },
+        },
+        [ctrl.level.blueprint.text]
+      ),
+    ]),
+  ]);
+}
+
 module.exports = function (ctrl) {
   var stage = ctrl.stage;
   var level = ctrl.level;
+  console.log("CTRL:", ctrl);
 
   return m(
     "div",
@@ -64,6 +85,7 @@ module.exports = function (ctrl) {
         ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,
         chessground.view(ground.instance),
         renderPromotion(ctrl, level),
+        renderInfo(ctrl),
       ]),
       m("div.learn__table", [
         m("div.wrap", [

@@ -177,7 +177,7 @@ final class ClasApi(
         data: ClasForm.NewStudent,
         teacher: User
     ): Fu[(User, ClearPassword)] = {
-      val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
+      val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lishogi.org")
       val password = Student.password.generate
       lila.mon.clas.studentCreate(teacher.id)
       userRepo

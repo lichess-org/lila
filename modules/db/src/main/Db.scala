@@ -23,7 +23,7 @@ final class AsyncDb(
 
   private def db: Future[DefaultDB] =
     connection flatMap {
-      case (conn, dbName) => conn database dbName.getOrElse("lichess")
+      case (conn, dbName) => conn database dbName.getOrElse("lishogi")
     }
 
   def apply(name: CollName) = new AsyncColl(() => db.dmap(_(name.value)))
@@ -43,7 +43,7 @@ final class Db(
       .flatMap { parsedUri =>
         driver
           .connect(parsedUri, name.some)
-          .flatMap(_ database parsedUri.db.getOrElse("lichess"))
+          .flatMap(_ database parsedUri.db.getOrElse("lishogi"))
       }
       .await(5.seconds, s"db:$name")
   ) { lap =>

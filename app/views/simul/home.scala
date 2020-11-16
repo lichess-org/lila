@@ -17,10 +17,10 @@ object home {
     views.html.base.layout(
       moreCss = cssTag("simul.list"),
       moreJs = embedJsUnsafe(s"""$$(function() {
-  lichess.StrongSocket.defaults.params.flag = 'simul';
-  lichess.pubsub.on('socket.in.reload', () => {
+  lishogi.StrongSocket.defaults.params.flag = 'simul';
+  lishogi.pubsub.on('socket.in.reload', () => {
     $$('.simul-list__content').load('${routes.Simul
-        .homeReload()}', () => lichess.pubsub.emit('content_loaded'));
+        .homeReload()}', () => lishogi.pubsub.emit('content_loaded'));
   });
 });"""),
       title = trans.simultaneousExhibitions.txt(),

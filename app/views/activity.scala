@@ -46,7 +46,7 @@ object activity {
     div(cls := "entry plan")(
       iconTag(""),
       div(
-        trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index())("Patron"))
+        trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index())("Patron")) // patron
       )
     )
 
@@ -67,7 +67,7 @@ object activity {
   private def onePractice(tup: (lila.practice.PracticeStudy, Int))(implicit ctx: Context) =
     tup match {
       case (study, nb) =>
-        val href = routes.Practice.show("-", study.slug, study.id.value)
+        val href = routes.Page.notSupported() // show("-", study.slug, study.id.value)
         frag(
           trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
           br

@@ -25,8 +25,8 @@ object page {
       title = s"${u.username} : ${trans.activity.activity.txt()}",
       openGraph = lila.app.ui
         .OpenGraph(
-          image = staticUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = staticUrl("logo/lichess-tile.png").some,
+          image = staticUrl("logo/lishogi-tile-wide.png").some,
+          twitterImage = staticUrl("logo/lishogi-tile.png").some,
           title = u.titleUsernameWithBestRating,
           url = s"$netBaseUrl${routes.User.show(u.username).url}",
           description = describeUser(u)
@@ -84,7 +84,7 @@ object page {
       info.ratingChart.map { ratingChart =>
         frag(
           jsTag("chart/ratingHistory.js"),
-          embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);")
+          embedJsUnsafe(s"lishogi.ratingHistoryChart($ratingChart);")
         )
       },
       withSearch option frag(jsTag("search.js")),

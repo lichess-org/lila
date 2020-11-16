@@ -11,13 +11,13 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi:
       val location = geoApi orUnknown ip
       if (location == Location.unknown || location == Location.tor) fuTrue
       else if (isUndetectedProxy(location)) fuTrue
-      else proxyApi(ip)
+      else fuTrue // proxyApi(ip)
     }
 
   def isSuspicious(ipData: UserSpy.IPData): Fu[Boolean] =
     isSuspicious(ipData.ip.value)
 
-  /* lichess blacklist of proxies that ip2proxy doesn't know about */
+  /* lishogi blacklist of proxies that ip2proxy doesn't know about */
   private def isUndetectedProxy(location: Location): Boolean =
     location.shortCountry == "Iran" ||
       location.shortCountry == "United Arab Emirates" || (location match {

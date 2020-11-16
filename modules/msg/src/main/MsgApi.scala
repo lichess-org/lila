@@ -149,7 +149,7 @@ final class MsgApi(
     systemPost(dest.id, preset.text)
 
   def systemPost(destId: User.ID, text: String) =
-    post(User.lichessId, destId, text, multi = true)
+    post(User.lishogiId, destId, text, multi = true)
 
   def multiPost(orig: User, destSource: Source[User.ID, _], text: String): Funit =
     destSource

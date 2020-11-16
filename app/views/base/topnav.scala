@@ -21,7 +21,7 @@ object topnav {
           "/",
           frag(
             span(cls := "play")(trans.play()),
-            span(cls := "home")("lichess.org")
+            span(cls := "home")("lishogi.org")
           )
         ),
         div(role := "group")(
@@ -29,33 +29,32 @@ object topnav {
           else a(href := "/?any#friend")(trans.playWithAFriend()),
           ctx.noBot option frag(
             a(href := routes.Tournament.home())(trans.arena.arenaTournaments()),
-            a(href := routes.Swiss.home())(trans.swiss.swissTournaments()),
             a(href := routes.Simul.home())(trans.simultaneousExhibitions())
           )
         )
       ),
       st.section(
-        linkTitle(routes.Puzzle.home().toString, trans.learnMenu()),
+        linkTitle(routes.Learn.index().toString, trans.learnMenu()),
         div(role := "group")(
           ctx.noBot option frag(
             a(href := routes.Learn.index())(trans.chessBasics()),
-            a(href := routes.Puzzle.home())(trans.puzzles()),
-            a(href := routes.Practice.index())(trans.practice()),
+            a(href := routes.Page.notSupported())(trans.puzzles()), // puzzle
+            //a(href := routes.Practice.index())(trans.practice()),
             a(href := routes.Coordinate.home())(trans.coordinates.coordinates())
           ),
           a(href := routes.Study.allDefault(1))(trans.studyMenu()),
-          ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
-          canSeeClasMenu option a(href := routes.Clas.index())(trans.clas.lichessClasses())
+          //ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
+          //canSeeClasMenu option a(href := routes.Clas.index())(trans.clas.lishogiClasses())
         )
       ),
       st.section(
         linkTitle(routes.Tv.index().toString, trans.watch()),
         div(role := "group")(
-          a(href := routes.Tv.index())("Lichess TV"),
+          a(href := routes.Tv.index())("Lishogi TV"),
           a(href := routes.Tv.games())(trans.currentGames()),
-          ctx.noKid option a(href := routes.Streamer.index())(trans.streamersMenu()),
-          a(href := routes.Relay.index())(trans.broadcast.broadcasts()),
-          ctx.noBot option a(href := routes.Video.index())(trans.videoLibrary())
+          //ctx.noKid option a(href := routes.Streamer.index())(trans.streamersMenu()),
+          //a(href := routes.Relay.index())(trans.broadcast.broadcasts()),
+          //.noBot option a(href := routes.Video.index())(trans.videoLibrary())
         )
       ),
       st.section(
@@ -70,10 +69,10 @@ object topnav {
         linkTitle(routes.UserAnalysis.index().toString, trans.tools()),
         div(role := "group")(
           a(href := routes.UserAnalysis.index())(trans.analysis()),
-          a(href := s"${routes.UserAnalysis.index()}#explorer")(trans.openingExplorer()),
+          //a(href := s"${routes.UserAnalysis.index()}#explorer")(trans.openingExplorer()),
           a(href := routes.Editor.index())(trans.boardEditor()),
-          a(href := routes.Importer.importGame())(trans.importGame()),
-          a(href := routes.Search.index())(trans.search.advancedSearch())
+          //a(href := routes.Importer.importGame())(trans.importGame()),
+          //a(href := routes.Search.index())(trans.search.advancedSearch())
         )
       )
     )

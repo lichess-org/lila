@@ -85,8 +85,8 @@ final class NoteApi(
     }
   }
 
-  def lichessWrite(to: User, text: String) =
-    userRepo.lichess flatMap {
+  def lishogiWrite(to: User, text: String) =
+    userRepo.lishogi flatMap {
       _ ?? {
         write(to, text, _, true, false)
       }

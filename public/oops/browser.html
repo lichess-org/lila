@@ -39,7 +39,7 @@
       height: 100px;
       margin: 0 auto 35px;
       display: block;
-      background: url(//lichess1.org/assets/images/browsers-bg.png) no-repeat;
+      background: url(//lishogi.org/assets/images/browsers-bg.png) no-repeat;
       background-size: auto 200px;
     }
     #upgrade .chrome span {
@@ -72,13 +72,16 @@
     }
   </style>
   <h1>Outdated browser</h1>
-  <p>You must get a better browser to continue using Lichess.</p>
+  <p>You must get a better browser to continue using Lishogi.</p>
   <div class="browsers">
     <a class="firefox browser" href="http://www.mozilla.org/firefox/new/">
       <span></span>
       FIREFOX
     </a>
-    <a class="chrome browser" href="https://www.google.com/chrome/browser/desktop/">
+    <a
+      class="chrome browser"
+      href="https://www.google.com/chrome/browser/desktop/"
+    >
       <span></span>
       CHROME
     </a>
@@ -86,9 +89,12 @@
   <div class="footer">
     <span>The latest versions of Opera, Safari and Edge also work.</span>
     <span>|</span>
-    <a href="https://lichess.org/blog/XMvcJSwAADkA0hPE/lichess-v2-is-here">Why this change?</a>
+    <a href="https://lichess.org/blog/XMvcJSwAADkA0hPE/lichess-v2-is-here"
+      >Why this change?</a
+    >
   </div>
 </div>
 <script>
-  if (getComputedStyle(document.body).getPropertyValue('--grid')) document.getElementById('upgrade').remove();
+  if (getComputedStyle(document.body).getPropertyValue("--grid"))
+    document.getElementById("upgrade").remove();
 </script>

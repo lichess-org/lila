@@ -30,9 +30,9 @@ final private class StripeClient(
       "line_items[][currency]" -> "usd",
       "line_items[][description]" -> {
         if (data.checkout.amount.value >= 25000)
-          s"Lifetime Patron status on lichess.org. <3 Your support makes a huge difference!"
+          s"Lifetime Patron status on lishogi.org. <3 Your support makes a huge difference!"
         else
-          s"One month of Patron status on lichess.org. <3 Your support makes a huge difference!"
+          s"One month of Patron status on lishogi.org. <3 Your support makes a huge difference!"
       }
     )
     postOne[StripeSession]("checkout/sessions", args: _*)

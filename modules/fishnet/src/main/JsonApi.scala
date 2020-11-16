@@ -63,6 +63,17 @@ object JsonApi {
         stockfish: BaseEngine
     ) extends Request
 
+    case class PostMove(
+        fishnet: Fishnet,
+        stockfish: FullEngine,
+        move: MoveResult
+    ) extends Request
+        with Result {}
+
+    case class MoveResult(bestmove: String) {
+      def uci: Option[Uci] = Uci(bestmove)
+    }
+
     case class PostAnalysis(
         fishnet: Fishnet,
         stockfish: FullEngine,
@@ -156,6 +167,16 @@ object JsonApi {
     val game: Game
   }
 
+  case class Move(
+      id: String,
+      level: Int,
+      game: Game,
+      clock: Option[Work.Clock]
+  ) extends Work
+
+  def moveFromWork(m: Work.Move) =
+    Move(m.id.value, m.level, fromGame(m.game), m.clock)
+
   case class Analysis(
       id: String,
       game: Game,
@@ -181,6 +202,8 @@ object JsonApi {
     implicit val FullEngineReads    = Json.reads[Request.FullEngine]
     implicit val FishnetReads       = Json.reads[Request.Fishnet]
     implicit val AcquireReads       = Json.reads[Request.Acquire]
+    implicit val MoveResultReads    = Json.reads[Request.MoveResult]
+    implicit val PostMoveReads      = Json.reads[Request.PostMove]
     implicit val ScoreReads         = Json.reads[Request.Evaluation.Score]
     implicit val uciListReads = Reads.of[String] map { str =>
       ~Uci.readList(str)
@@ -210,7 +233,8 @@ object JsonApi {
     implicit val FENWrites = Writes[FEN] { fen =>
       JsString(fen.value)
     }
-    implicit val GameWrites: Writes[Game] = Json.writes[Game]
+    implicit val ClockWrites: Writes[Work.Clock] = Json.writes[Work.Clock]
+    implicit val GameWrites: Writes[Game]        = Json.writes[Game]
     implicit val WorkIdWrites = Writes[Work.Id] { id =>
       JsString(id.value)
     }
@@ -224,6 +248,15 @@ object JsonApi {
             ),
             "nodes"         -> a.nodes,
             "skipPositions" -> a.skipPositions
+          )
+        case m: Move =>
+          Json.obj(
+            "work" -> Json.obj(
+              "type"  -> "move",
+              "id"    -> m.id,
+              "level" -> m.level,
+              "clock" -> m.clock
+            )
           )
       }) ++ Json.toJson(work.game).as[JsObject]
     }

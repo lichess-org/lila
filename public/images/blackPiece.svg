@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 8 8"
+   shape-rendering="crispEdges"
+   version="1.1"
+   id="svg20"
+   sodipodi:docname="blackPiece.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+  <metadata
+     id="metadata26">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs24" />
+  <sodipodi:namedview
+     inkscape:document-rotation="0"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="711"
+     id="namedview22"
+     showgrid="false"
+     inkscape:zoom="32"
+     inkscape:cx="3.4173608"
+     inkscape:cy="4.3951624"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <g
+     transform="matrix(0,0.8888875,-0.8888875,0,7.1111,0.88636807)"
+     id="g40-3-9" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="Layer 1">
+    <g
+       id="g854">
+      <text
+         id="text931"
+         y="7.7676826"
+         x="-0.29475579"
+         style="font-style:normal;font-weight:normal;font-size:9.83355px;font-family:sans-serif;fill:#f9f9f9;fill-opacity:1;stroke:none;stroke-width:0.999997"
+         xml:space="preserve"
+         transform="scale(0.99634326,1.0036702)"><tspan
+           style="fill:#f9f9f9;stroke-width:0.999997"
+           y="7.7676826"
+           x="-0.29475579"
+           id="tspan929"
+           sodipodi:role="line">☖</tspan></text>
+      <text
+         id="text927"
+         y="7.4448972"
+         x="0.090066701"
+         style="font-style:normal;font-weight:normal;font-size:8.97689px;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+         xml:space="preserve"><tspan
+           style="stroke-width:1"
+           y="7.4448972"
+           x="0.090066701"
+           id="tspan925"
+           sodipodi:role="line">☗</tspan></text>
+    </g>
+  </g>
+</svg>

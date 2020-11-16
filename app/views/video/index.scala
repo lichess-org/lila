@@ -17,12 +17,12 @@ object index {
       s"${if (control.filter.tags.nonEmpty) control.filter.tags.mkString(" + ") + " • " else ""}"
 
     layout(
-      title = s"${tagString}Free Chess Videos",
+      title = s"${tagString}Free Shogi Videos",
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"${tagString}free, carefully curated chess videos",
+          title = s"${tagString}free, carefully curated shogi videos",
           description =
-            s"${videos.nbResults} curated chess videos${if (tagString.nonEmpty) " matching the tags " + tagString
+            s"${videos.nbResults} curated shogi videos${if (tagString.nonEmpty) " matching the tags " + tagString
             else " • "}free for all",
           url = s"$netBaseUrl${routes.Video.index()}?${control.queryString}"
         )
@@ -32,7 +32,7 @@ object index {
       div(cls := "box__top")(
         h1(
           if (control.filter.tags.nonEmpty) frag(pluralize("video", videos.nbResults), " found")
-          else "Chess videos"
+          else "Shogi videos"
         ),
         bits.searchForm(control.query)
       ),

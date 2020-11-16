@@ -13,9 +13,9 @@ object calendar {
     views.html.base.layout(
       title = "Tournament calendar",
       moreJs = frag(
-        jsAt(s"compiled/lichess.tournamentCalendar${isProd ?? ".min"}.js"),
+        jsAt(s"compiled/lishogi.tournamentCalendar${isProd ?? ".min"}.js"),
         embedJsUnsafe(
-          s"""LichessTournamentCalendar.app(document.getElementById('tournament-calendar'), ${safeJsonValue(
+          s"""LishogiTournamentCalendar.app(document.getElementById('tournament-calendar'), ${safeJsonValue(
             Json.obj(
               "data" -> json,
               "i18n" -> bits.jsI18n

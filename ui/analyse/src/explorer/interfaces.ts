@@ -1,14 +1,14 @@
-import { Prop } from 'common';
-import { StoredProp, StoredJsonProp } from 'common/storage';
+import { Prop } from "common";
+import { StoredProp, StoredJsonProp } from "common/storage";
 
 export interface Hovering {
   fen: Fen;
   uci: Uci;
 }
 
-export type ExplorerDb = 'lichess' | 'masters';
+export type ExplorerDb = "lishogi" | "masters";
 
-export type ExplorerSpeed = 'bullet' | 'blitz' | 'rapid' | 'classical';
+export type ExplorerSpeed = "bullet" | "blitz" | "rapid" | "classical";
 
 export interface ExplorerConfigData {
   open: Prop<boolean>;
@@ -71,9 +71,9 @@ interface OpeningPlayer {
 
 export interface TablebaseData extends ExplorerData {
   moves: TablebaseMoveStats[];
-  wdl: number | null,
-  dtz: number | null,
-  dtm: number | null,
+  wdl: number | null;
+  dtz: number | null;
+  dtm: number | null;
   checkmate: boolean;
   stalemate: boolean;
   variant_win: boolean;

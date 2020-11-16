@@ -152,15 +152,15 @@ Allow: /
       Ok {
         Json.obj(
           "name"             -> env.net.domain.value,
-          "short_name"       -> "Lichess",
+          "short_name"       -> "Lishogi",
           "start_url"        -> "/",
           "display"          -> "standalone",
           "background_color" -> "#161512",
           "theme_color"      -> "#161512",
-          "description"      -> "The (really) free, no-ads, open source chess server.",
+          "description"      -> "The (really) free, no-ads, open source shogi server.",
           "icons" -> List(32, 64, 128, 192, 256, 512, 1024).map { size =>
             Json.obj(
-              "src"   -> s"//${env.net.assetDomain.value}/assets/logo/lichess-favicon-$size.png",
+              "src"   -> s"//${env.net.assetDomain.value}/assets/logo/lishogi-favicon-$size.png",
               "sizes" -> s"${size}x${size}",
               "type"  -> "image/png"
             )

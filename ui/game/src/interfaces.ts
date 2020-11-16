@@ -37,9 +37,18 @@ export interface Status {
   name: StatusName;
 }
 
-export type StatusName = 'started' | 'aborted' | 'mate' | 'resign' |
-                         'stalemate' | 'timeout' | 'draw' | 'outoftime' |
-                         'noStart' | 'cheat' | 'variantEnd';
+export type StatusName =
+  | "started"
+  | "aborted"
+  | "mate"
+  | "resign"
+  | "stalemate"
+  | "timeout"
+  | "draw"
+  | "outoftime"
+  | "noStart"
+  | "cheat"
+  | "variantEnd";
 
 export type StatusId = number;
 
@@ -118,7 +127,7 @@ export interface CorrespondenceClock {
   black: number;
 }
 
-export type Source = 'import' | 'lobby' | 'pool' | 'friend';
+export type Source = "import" | "lobby" | "pool" | "friend";
 
 export interface PlayerUser {
   id: string;
@@ -128,7 +137,7 @@ export interface PlayerUser {
   title?: string;
   perfs: {
     [key: string]: Perf;
-  }
+  };
 }
 
 export interface Perf {
@@ -160,7 +169,7 @@ export interface Hold {
   sd: number;
 }
 
-export type ContinueMode = 'friend' | 'ai';
+export type ContinueMode = "friend" | "ai";
 
 export interface GameView {
   status(ctrl: Ctrl): string;

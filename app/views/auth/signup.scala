@@ -54,7 +54,7 @@ object signup {
     div(cls := "agreement")(
       error option p(
         strong(cls := "error")(
-          "You must agree to the Lichess policies listed below:"
+          "You must agree to the Lishogi policies listed below:"
         )
       ),
       agreements.map {

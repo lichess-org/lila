@@ -25,7 +25,7 @@ object form {
       main(cls := "page-small")(
         div(cls := "swiss__form tour__form box box-pad")(
           h1("New Swiss tournament"),
-          postForm(cls := "form3", action := routes.Swiss.create(teamId))(
+          postForm(cls := "form3", action := routes.Page.notSupported())(
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.rated, fields.variant),
             fields.clock,
@@ -60,7 +60,7 @@ object form {
       main(cls := "page-small")(
         div(cls := "swiss__form box box-pad")(
           h1("Edit ", swiss.name),
-          postForm(cls := "form3", action := routes.Swiss.update(swiss.id.value))(
+          postForm(cls := "form3", action := routes.Page.notSupported())(
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.rated, fields.variant),
             fields.clock,
@@ -74,11 +74,11 @@ object form {
             ),
             form3.globalError(form),
             form3.actions(
-              a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
+              a(href := routes.Page.notSupported()),
               form3.submit(trans.save(), icon = "g".some)
             )
           ),
-          postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id.value))(
+          postForm(cls := "terminate", action := routes.Page.notSupported())(
             submitButton(dataIcon := "j", cls := "text button button-red confirm")(
               "Cancel the tournament"
             )
@@ -161,7 +161,7 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
           Swiss.ChatFor.NONE    -> "No chat",
           Swiss.ChatFor.LEADERS -> "Only team leaders",
           Swiss.ChatFor.MEMBERS -> "Only team members",
-          Swiss.ChatFor.ALL     -> "All Lichess players"
+          Swiss.ChatFor.ALL     -> "All Lishogi players"
         )
       )
     }

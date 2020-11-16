@@ -21,7 +21,7 @@ case class MsgThread(
 
   def isPriority =
     !lastMsg.read && {
-      user1 == User.lichessId || user2 == User.lichessId
+      user1 == User.lishogiId || user2 == User.lishogiId
     }
 }
 

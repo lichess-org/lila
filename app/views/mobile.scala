@@ -23,7 +23,7 @@ object mobile {
               div(cls := "apk")(
                 raw(~apkDoc.getHtml("doc.content", resolver))
               ),
-              h2(trans.asFreeAsLichess()),
+              h2(trans.asFreeAsLishogi()),
               ul(cls := "block")(
                 li(trans.builtForTheLoveOfChessNotMoney()),
                 li(trans.everybodyGetsAllFeaturesForFree()),
@@ -40,7 +40,7 @@ object mobile {
                 li(trans.puzzles()),
                 li(trans.gameAnalysis()),
                 li(trans.boardEditor()),
-                li("Lichess TV"),
+                li("Lishogi TV"),
                 li(trans.followAndChallengeFriends()),
                 li(trans.availableInNbLanguages.pluralSame(80))
               )
@@ -51,7 +51,7 @@ object mobile {
                 width := "268",
                 height := "513",
                 src := staticUrl("images/mobile/nexus5-playing.png"),
-                alt := "Lichess mobile on nexus 5"
+                alt := "Lishogi mobile on nexus 5"
               ),
               img(
                 cls := "qrcode",

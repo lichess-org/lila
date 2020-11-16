@@ -1,18 +1,18 @@
 %base-font-fallback {
-  font-family: 'Noto Sans', Sans-Serif;
+  font-family: "Noto Sans", Sans-Serif;
 }
 %base-font {
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
 }
 %roboto {
-  font-family: 'Roboto';
+  font-family: "Roboto";
 }
 %roboto-fat {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-weight: 600;
 }
 %chess-font {
-  font-family: 'Noto Chess', 'Noto Sans';
+  font-family: "Noto Sans"; // shogi font sometimes?
 }
 %san {
   @extend %chess-font;
@@ -32,7 +32,6 @@
   @extend %page-link-font !optional;
   @extend %page-text-shadow !optional;
 }
-
 
 %metal {
   @include metal;
@@ -58,7 +57,7 @@
   @extend %active-inset-shadow;
   background: $c-accent;
   color: #fff;
-  text-shadow: 0 1px 1px black!important;
+  text-shadow: 0 1px 1px black !important;
 }
 %active-hover {
   background: mix(white, $c-accent, 20%);
@@ -68,7 +67,7 @@
   @extend %active-inset-shadow;
   background: $c-shade;
   color: $c-font-clearer;
-  text-shadow: 1px 1px 1px $c-font-shadow!important;
+  text-shadow: 1px 1px 1px $c-font-shadow !important;
   font-weight: bold;
 }
 
@@ -76,7 +75,7 @@
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
 }
 %popup-shadow {
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 %button-shadow {
   box-shadow: 0 2px 5px 0 hsla(0, 0, 0%, 0.225);
@@ -96,7 +95,7 @@
   background: $c-bg-page;
   border: 1px solid $c-bg-low;
   display: inline-block;
-  padding: .5em;
+  padding: 0.5em;
   &:checked {
     background: $c-secondary-dimmer;
     border-color: $c-secondary-dim;
@@ -165,7 +164,7 @@
 %data-icon {
   font-size: 1.2em;
   vertical-align: middle;
-  font-family: 'lichess';
+  font-family: "lishogi";
   font-style: normal;
   font-weight: normal;
   text-transform: none;
@@ -185,7 +184,7 @@
   bottom: 0;
   right: 0;
   background: $c-page-mask;
-  z-index: z('fullscreen-mask');
+  z-index: z("fullscreen-mask");
 }
 %link-overlay {
   position: absolute;
@@ -193,7 +192,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: z('link-overlay');
+  z-index: z("link-overlay");
 }
 %abs-100 {
   position: absolute;

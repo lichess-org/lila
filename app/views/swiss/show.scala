@@ -23,9 +23,9 @@ object show {
     views.html.base.layout(
       title = s"${s.name} #${s.id}",
       moreJs = frag(
-        jsAt(s"compiled/lichess.swiss${isProd ?? ".min"}.js"),
+        jsAt(s"compiled/lishogi.swiss${isProd ?? ".min"}.js"),
         hasScheduleInput option flatpickrTag,
-        embedJsUnsafe(s"""LichessSwiss.start(${safeJsonValue(
+        embedJsUnsafe(s"""LishogiSwiss.start(${safeJsonValue(
           Json
             .obj(
               "data"   -> data,
@@ -52,7 +52,7 @@ object show {
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${s.name}: ${s.variant.name} ${s.clock.show} #${s.id}",
-          url = s"$netBaseUrl${routes.Swiss.show(s.id.value).url}",
+          url = s"$netBaseUrl${routes.Page.notSupported().url}",
           description =
             s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} swiss tournament " +
               s"organized by ${teamIdToName(s.teamId)}. " +

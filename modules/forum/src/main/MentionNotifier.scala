@@ -17,7 +17,7 @@ final class MentionNotifier(
     relationApi: RelationApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val forbidden = Set("lichess", "thibault")
+  private val forbidden = Set("lishogi", "thibault")
 
   def notifyMentionedUsers(post: Post, topic: Topic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>

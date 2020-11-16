@@ -9,16 +9,16 @@ case class Analysis(
     studyId: Option[String],
     infos: List[Info],
     startPly: Int,
-    uid: Option[String], // requester lichess ID
-    by: Option[String],  // analyser lichess ID
+    uid: Option[String], // requester lishogi ID
+    by: Option[String],  // analyser lishogi ID
     date: DateTime
 ) {
 
-  def requestedBy = uid | "lichess"
+  def requestedBy = uid | "lishogi"
 
-  def providedBy = by | "lichess"
+  def providedBy = by | "lishogi"
 
-  def providedByLichess = by exists (_ startsWith "lichess-")
+  def providedByLishogi = by exists (_ startsWith "lishogi-")
 
   lazy val infoAdvices: InfoAdvices = {
     (Info.start(startPly) :: infos) sliding 2 collect {

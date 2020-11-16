@@ -102,7 +102,7 @@ final class Game(
                 Ok.chunked(source)
                   .withHeaders(
                     noProxyBufferHeader,
-                    CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
+                    CONTENT_DISPOSITION -> s"attachment; filename=lishogi_${user.username}_$date.${format.toString.toLowerCase}"
                   )
                   .as(gameContentType(config))
             }

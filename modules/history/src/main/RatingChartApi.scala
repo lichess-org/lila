@@ -54,15 +54,7 @@ final class RatingChartApi(
             Blitz,
             Rapid,
             Classical,
-            Correspondence,
-            Chess960,
-            KingOfTheHill,
-            ThreeCheck,
-            Antichess,
-            Atomic,
-            Horde,
-            RacingKings,
-            Crazyhouse,
+            Correspondence, // todo variant
             Puzzle,
             UltraBullet
           ) map { pt =>

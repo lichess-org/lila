@@ -2,10 +2,10 @@
   "name": "round",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org round",
+  "description": "lishogi.org round",
   "keywords": [
     "chess",
-    "lichess",
+    "lishogi",
     "play",
     "replay"
   ],
@@ -13,15 +13,16 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0"
+    "@types/lishogi": "2.0.0"
   },
   "dependencies": {
     "chat": "2.0.0",
     "common": "2.0.0",
     "game": "2.0.0",
     "nvui": "2.0.0",
-    "shogiground": "file:/home/liskadan/lila/ui/shogiground",
-    "snabbdom": "^0.7.4"
+    "snabbdom": "^0.7.4",
+    "shogiground": "7.8.1",
+    "shogiutil": "1.0.0"
   },
   "scripts": {
     "dev": "rollup --config",

@@ -85,9 +85,9 @@ object Mailgun {
   object txt {
 
     def serviceNote(implicit lang: Lang): String = s"""
-${trans.common_note("https://lichess.org").render}
+${trans.common_note("https://lishogi.org").render}
 
-${trans.common_contact("https://lichess.org/contact").render}"""
+${trans.common_contact("https://lishogi.org/contact").render}"""
   }
 
   object html {
@@ -101,8 +101,8 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
       div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
     def metaName(cont: String) = meta(itemprop := "name", content := cont)
     val publisher              = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
-    val noteContact = a(itemprop := "url", href := "https://lichess.org/contact")(
-      span(itemprop := "name")("lichess.org/contact")
+    val noteContact = a(itemprop := "url", href := "https://lishogi.org/contact")(
+      span(itemprop := "name")("lishogi.org/contact")
     )
 
     def serviceNote(implicit lang: Lang) =
@@ -122,8 +122,8 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
 
     val noteLink = a(
       itemprop := "url",
-      href := "https://lichess.org/"
-    )(span(itemprop := "name")("lichess.org"))
+      href := "https://lishogi.org/"
+    )(span(itemprop := "name")("lishogi.org"))
 
     def url(u: String)(implicit lang: Lang) =
       frag(

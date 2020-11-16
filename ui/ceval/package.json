@@ -2,12 +2,12 @@
   "name": "ceval",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org local computer analysis",
+  "description": "lishogi.org local computer analysis",
   "main": "dist/src/main.js",
   "types": "dist/src/main",
   "keywords": [
     "chess",
-    "lichess",
+    "lishogi",
     "play",
     "replay"
   ],
@@ -21,7 +21,7 @@
   "devDependencies": {
     "@types/defer-promise": "1.0.0",
     "@types/jquery": "^2.0",
-    "@types/lichess": "2.0.0",
+    "@types/lishogi": "2.0.0",
     "typescript": "^3"
   },
   "dependencies": {

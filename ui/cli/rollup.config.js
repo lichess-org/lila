@@ -1,9 +1,9 @@
-import { rollupProject } from '@build/rollupProject';
+import { rollupProject } from "@build/rollupProject";
 
 export default rollupProject({
   main: {
-    name: 'LichessCli',
-    input: 'src/main.ts',
-    output: 'lichess.cli',
+    name: "LishogiCli",
+    input: "src/main.ts",
+    output: "lishogi.cli",
   },
 });

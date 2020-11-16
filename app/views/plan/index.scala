@@ -24,9 +24,9 @@ object index {
       title = becomePatron.txt(),
       moreCss = cssTag("plan"),
       moreJs = frag(
-        script(src := "https://js.stripe.com/v3/"),
+        //script(src := "https://js.stripe.com/v3/"),
         jsTag("checkout.js"),
-        embedJsUnsafe(s"""lichess.checkout("$stripePublicKey");""")
+        embedJsUnsafe(s"""lishogi.checkout("$stripePublicKey");""")
       ),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -75,8 +75,8 @@ object index {
           div(cls := "box__pad")(
             div(cls := "wrapper")(
               div(cls := "text")(
-                p(weAreNonProfit()),
-                p(weRelyOnSupport())
+                p(weRelyOnSupport()),
+                p("If you don't receive a confirmation by the system immediately, do not worry, within 24 hourse you will get your icon:). Donations through Patreon will be handled manually within 24 hours.")
               ),
               div(cls := "content")(
                 div(
@@ -90,14 +90,14 @@ object index {
   <input type="hidden" name="custom" value="${~ctx.userId}">
   <input type="hidden" name="amount" class="amount" value="">
   <input type="hidden" name="cmd" value="_xclick">
-  <input type="hidden" name="business" value="Q3H72BENTXL4G">
-  <input type="hidden" name="item_name" value="lichess.org one-time">
+  <input type="hidden" name="business" value="RMMTS2XRNK4CS">
+  <input type="hidden" name="item_name" value="lishogi.org one-time">
   <input type="hidden" name="button_subtype" value="services">
   <input type="hidden" name="no_note" value="1">
   <input type="hidden" name="no_shipping" value="1">
   <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
+  <input type="hidden" name="return" value="https://lishogi.org/patron/thanks">
+  <input type="hidden" name="cancel_return" value="https://lishogi.org/patron">
   <input type="hidden" name="lc" value="US">
   <input type="hidden" name="currency_code" value="USD">
 </form>
@@ -105,13 +105,13 @@ object index {
   <input type="hidden" name="custom" value="${~ctx.userId}">
   <input type="hidden" name="a3" class="amount" value="">
   <input type="hidden" name="cmd" value="_xclick-subscriptions">
-  <input type="hidden" name="business" value="Q3H72BENTXL4G">
-  <input type="hidden" name="item_name" value="lichess.org monthly">
+  <input type="hidden" name="business" value="RMMTS2XRNK4CS">
+  <input type="hidden" name="item_name" value="lishogi.org monthly">
   <input type="hidden" name="no_note" value="1">
   <input type="hidden" name="no_shipping" value="1">
   <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
+  <input type="hidden" name="return" value="https://lishogi.org/patron/thanks">
+  <input type="hidden" name="cancel_return" value="https://lishogi.org/patron">
   <input type="hidden" name="src" value="1">
   <input type="hidden" name="p3" value="1">
   <input type="hidden" name="t3" value="M">
@@ -122,14 +122,14 @@ object index {
   <input type="hidden" name="custom" value="${~ctx.userId}">
   <input type="hidden" name="amount" class="amount" value="">
   <input type="hidden" name="cmd" value="_xclick">
-  <input type="hidden" name="business" value="Q3H72BENTXL4G">
-  <input type="hidden" name="item_name" value="lichess.org lifetime">
+  <input type="hidden" name="business" value="RMMTS2XRNK4CS">
+  <input type="hidden" name="item_name" value="lishogi.org lifetime">
   <input type="hidden" name="button_subtype" value="services">
   <input type="hidden" name="no_note" value="1">
   <input type="hidden" name="no_shipping" value="1">
   <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
+  <input type="hidden" name="return" value="https://lishogi.org/patron/thanks">
+  <input type="hidden" name="cancel_return" value="https://lishogi.org/patron">
   <input type="hidden" name="lc" value="US">
   <input type="hidden" name="currency_code" value="USD">
 </form>"""),
@@ -207,10 +207,7 @@ object index {
                     )
                   ),
                   div(cls := "service")(
-                    if (ctx.isAuth)
-                      button(cls := "stripe button")(withCreditCard())
-                    else
-                      a(cls := "stripe button", href := routes.Auth.login())(withCreditCard()),
+                    a(cls := "patreon button", href := "https://www.patreon.com/lishogi", target := "_blank")("Patreon"),
                     button(cls := "paypal button")(withPaypal())
                   )
                 )
@@ -235,22 +232,19 @@ object index {
 
   private def faq(implicit lang: Lang) =
     div(cls := "faq")(
-      dl(
-        dt(whereMoneyGoes()),
-        dd(
-          serversAndDeveloper(userIdLink("thibault".some)),
-          br,
-          a(href := "/costs", target := "_blank")(costBreakdown()),
-          "."
-        ),
-        dt(officialNonProfit()),
-        dd(
-          a(
-            href := "https://www.journal-officiel.gouv.fr/associations/detail-annonce/associations_b/20160025/818"
-          )(actOfCreation()),
-          "."
-        )
-      ),
+      //dl(
+      //  dt(whereMoneyGoes()),
+      //  dd(
+      //    serversAndDeveloper(userIdLink("thibault".some))
+      //  ),
+      //  dt(officialNonProfit()),
+      //  dd(
+      //    a(
+      //      href := "https://www.journal-officiel.gouv.fr/associations/detail-annonce/associations_b/20160025/818"
+      //    )(actOfCreation()),
+      //    "."
+      //  )
+      //),
       dl(
         dt(changeMonthlySupport()),
         dd(
@@ -258,10 +252,7 @@ object index {
         ),
         dt(otherMethods()),
         dd(
-          a(href := staticUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), target := "_blank")(bankTransfers()),
-          ".",
-          br,
-          bitcoin(code("15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8"))
+          bitcoin(code("13kg1w1K3TXr1y82cDQHKAGQJphz4qGUDH"))
         )
       ),
       dl(

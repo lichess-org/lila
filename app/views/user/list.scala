@@ -47,21 +47,13 @@ object list {
           div(cls := "community__leaders")(
             h2(trans.leaderboard()),
             div(cls := "leaderboards")(
-              userTopPerf(leaderboards.bullet, PerfType.Bullet),
+              userTopPerf(leaderboards.bullet, PerfType.Bullet), // todo variant
               userTopPerf(leaderboards.blitz, PerfType.Blitz),
               userTopPerf(leaderboards.rapid, PerfType.Rapid),
               userTopPerf(leaderboards.classical, PerfType.Classical),
               userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet),
               userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some),
               tournamentWinners(tourneyWinners),
-              userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse),
-              userTopPerf(leaderboards.chess960, PerfType.Chess960),
-              userTopPerf(leaderboards.antichess, PerfType.Antichess),
-              userTopPerf(leaderboards.atomic, PerfType.Atomic),
-              userTopPerf(leaderboards.threeCheck, PerfType.ThreeCheck),
-              userTopPerf(leaderboards.kingOfTheHill, PerfType.KingOfTheHill),
-              userTopPerf(leaderboards.horde, PerfType.Horde),
-              userTopPerf(leaderboards.racingKings, PerfType.RacingKings)
             )
           )
         )

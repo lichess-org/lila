@@ -1,10 +1,10 @@
-package org.lichess.compression.clock;
+package org.lishogi.compression.clock;
 
 import java.util.Arrays;
 
-import org.lichess.compression.BitReader;
-import org.lichess.compression.BitWriter;
-import org.lichess.compression.VarIntEncoder;
+import org.lishogi.compression.BitReader;
+import org.lishogi.compression.BitWriter;
+import org.lishogi.compression.VarIntEncoder;
 
 /*
  * startTime is the initial clock time in centiseconds

@@ -1,5 +1,6 @@
 var util = require("../util");
 var arrow = util.arrow;
+var circle = util.circle;
 
 module.exports = {
   key: "king",
@@ -18,15 +19,25 @@ module.exports = {
     },
     {
       goal: "grabAllTheStars",
-      fen: "9/9/9/9/9/9/9/9/4K4 w -",
-      apples: "c2 d3 e2 e3",
+      fen: "9/9/9/5K3/9/9/9/9/9 w -",
+      apples: "d7 e8 f7 f8",
       nbMoves: 4,
     },
     {
-      goal: "lastOne",
+      goal: "kingSummary",
       fen: "9/9/9/9/4K4/9/9/9/9 w -",
-      apples: "b5 c5 d6 e3 f3 g4",
-      nbMoves: 8,
+      apples: "e7",
+      nbMoves: 2,
+      shapes: [
+        circle("e6"),
+        circle("f6"),
+        circle("f5"),
+        circle("f4"),
+        circle("e4"),
+        circle("d4"),
+        circle("d5"),
+        circle("d6"),
+      ],
     },
   ].map(function (s, i) {
     s = util.toLevel(s, i);

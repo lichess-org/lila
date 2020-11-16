@@ -170,7 +170,7 @@ final private class PovToEntry(
             !board.hasPiece(chess.Piece(color, chess.Lance))
           }
         case _ =>
-          logger.warn(s"https://lichess.org/${from.pov.gameId} missing endgame board")
+          logger.warn(s"https://lishogi.org/${from.pov.gameId} missing endgame board")
           false
       }
     }

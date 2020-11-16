@@ -2,10 +2,10 @@
   "name": "editor",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org board editor",
+  "description": "lishogi.org board editor",
   "keywords": [
     "chess",
-    "lichess.org",
+    "lishogi.org",
     "board",
     "editor"
   ],
@@ -16,9 +16,9 @@
   },
   "dependencies": {
     "common": "2.0.0",
-    "shogiground": "file:/home/liskadan/lila/ui/shogiground",
-    "shogiutil": "file:/home/liskadan/lila/ui/shogiutil",
-    "snabbdom": "^0.7.4"
+    "snabbdom": "^0.7.4",
+    "shogiground": "7.8.1",
+    "shogiutil": "1.0.0"
   },
   "scripts": {
     "dev": "rollup --config",

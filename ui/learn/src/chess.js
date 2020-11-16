@@ -5,26 +5,26 @@ const { roleToSan } = require("./util");
 module.exports = function (fen, appleKeys) {
   var shogi = Shogi.init(fen);
   var oldShogi;
-  console.log(shogi);
 
   // adds enemy pawns on apples, for collisions
   if (appleKeys) {
     var color = shogi.player === "white" ? "black" : "white";
     appleKeys.forEach(function (key) {
-      console.log("updateApple", color);
       shogi = Shogi.init(Shogi.place(shogi.fen, "pawn", color, key));
-      console.log(shogi.fen);
     });
   }
 
   function updateShogi(s) {
-    console.log("UPDATING WITH ", s);
     oldShogi = shogi;
     shogi = s;
   }
 
   function undo() {
     shogi = oldShogi;
+  }
+
+  function placePiece(role, color, key) {
+    shogi = Shogi.init(Shogi.place(shogi.fen, role, color, key));
   }
 
   function getSquarePiece(key) {
@@ -44,9 +44,7 @@ module.exports = function (fen, appleKeys) {
   function setColor(c) {
     var turn = c === "white" ? "w" : "b";
     var newFen = util.setFenTurn(shogi.fen, turn);
-    console.log("setColor:");
     updateShogi(Shogi.init(newFen));
-    console.log(shogi.fen);
   }
 
   function filterPieces(c) {
@@ -88,6 +86,9 @@ module.exports = function (fen, appleKeys) {
       if (opts.illegal) return Shogi.getUnsafeDests(shogi.fen);
       return shogi.dests;
     },
+    pockets: function () {
+      return shogi.crazyhouse;
+    },
     color: function (c) {
       if (c) setColor(c);
       else return getColor();
@@ -96,9 +97,7 @@ module.exports = function (fen, appleKeys) {
       return shogi.fen;
     },
     move: function (orig, dest, prom) {
-      console.log("move:");
       updateShogi(Shogi.move(shogi.fen, orig, dest, prom ? prom : "")); // valid?
-      console.log(shogi.fen);
       return { from: orig, to: dest, promotion: prom };
     },
     occupation: function () {
@@ -123,13 +122,12 @@ module.exports = function (fen, appleKeys) {
       ];
       const moves = shogi.dests[orig];
       const dest = moves[Math.floor(Math.random() * moves.length)];
-      console.log("randomMove");
       updateShogi(Shogi.move(shogi.fen, orig, dest));
-      console.log(shogi.fen);
       return { orig: orig, dest: dest };
     },
     get: getSquarePiece,
     undo: undo,
+    place: placePiece,
     instance: shogi,
   };
 };

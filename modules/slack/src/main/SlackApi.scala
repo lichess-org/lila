@@ -69,7 +69,7 @@ final class SlackApi(
             username = "Tournament name alert",
             icon = "children_crossing",
             text =
-              s"${userLink(userName)} created ${link(s"https://lichess.org/tournament/$tourId", s"$tourName Arena")}",
+              s"${userLink(userName)} created ${link(s"https://lishogi.org/tournament/$tourId", s"$tourName Arena")}",
             channel = rooms.tavern
           )
         )
@@ -161,7 +161,7 @@ final class SlackApi(
   def broadcastError(id: String, name: String, error: String): Funit =
     client(
       SlackMessage(
-        username = "lichess error",
+        username = "lishogi error",
         icon = "lightning",
         text = s"${broadcastLink(id, name)}: $error",
         channel = rooms.broadcast
@@ -171,7 +171,7 @@ final class SlackApi(
   def publishError(msg: String): Funit =
     client(
       SlackMessage(
-        username = "lichess error",
+        username = "lishogi error",
         icon = "lightning",
         text = linkifyUsers(msg),
         channel = rooms.general
@@ -181,7 +181,7 @@ final class SlackApi(
   def publishWarning(msg: String): Funit =
     client(
       SlackMessage(
-        username = "lichess warning",
+        username = "lishogi warning",
         icon = "thinking_face",
         text = linkifyUsers(msg),
         channel = rooms.general
@@ -191,7 +191,7 @@ final class SlackApi(
   def publishVictory(msg: String): Funit =
     client(
       SlackMessage(
-        username = "lichess victory",
+        username = "lishogi victory",
         icon = "tada",
         text = linkifyUsers(msg),
         channel = rooms.general
@@ -201,24 +201,24 @@ final class SlackApi(
   def publishInfo(msg: String): Funit =
     client(
       SlackMessage(
-        username = "lichess info",
-        icon = "lichess",
+        username = "lishogi info",
+        icon = "lishogi",
         text = linkifyUsers(msg),
         channel = rooms.general
       )
     )
 
   private def link(url: String, name: String)         = s"<$url|$name>"
-  private def lichessLink(path: String, name: String) = s"<https://lichess.org$path|$name>"
-  private def userLink(name: String): String          = lichessLink(s"/@/$name?mod", name)
+  private def lishogiLink(path: String, name: String) = s"<https://lishogi.org$path|$name>"
+  private def userLink(name: String): String          = lishogiLink(s"/@/$name?mod", name)
   private def userLink(user: User): String            = userLink(user.username)
-  private def gameLink(id: String)                    = lichessLink(s"/$id", s"#$id")
-  private def userNotesLink(name: String)             = lichessLink(s"/@/$name?notes", "notes")
-  private def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
-  private val chatPanicLink                           = lichessLink("mod/chat-panic", "Chat Panic")
+  private def gameLink(id: String)                    = lishogiLink(s"/$id", s"#$id")
+  private def userNotesLink(name: String)             = lishogiLink(s"/@/$name?notes", "notes")
+  private def broadcastLink(id: String, name: String) = lishogiLink(s"/broadcast/-/$id", name)
+  private val chatPanicLink                           = lishogiLink("mod/chat-panic", "Chat Panic")
 
   private val userRegex   = lila.common.String.atUsernameRegex.pattern
-  private val userReplace = link("https://lichess.org/@/$1?mod", "$1")
+  private val userReplace = link("https://lishogi.org/@/$1?mod", "$1")
 
   private def linkifyUsers(msg: String) =
     userRegex matcher msg replaceAll userReplace
@@ -260,8 +260,8 @@ final class SlackApi(
     client(
       SlackMessage(
         username = "deployment",
-        icon = "lichess",
-        text = "Lichess is being updated! Brace for impact.",
+        icon = "lishogi",
+        text = "Lishogi is being updated! Brace for impact.",
         channel = rooms.general
       )
     )
@@ -276,13 +276,13 @@ final class SlackApi(
   ) =
     client(
       SlackMessage(
-        username = "lichess",
+        username = "lishogi",
         icon = "musical_note",
         text = {
           val link      = userLink(user.username)
-          val emailLink = lichessLink(s"/mod/search?q=${email.value}", email.value)
-          val ipLink    = lichessLink(s"/mod/search?q=$ip", ip.value)
-          val fpLink    = fp.fold("none")(print => lichessLink(s"/mod/print/$print", print))
+          val emailLink = lishogiLink(s"/mod/search?q=${email.value}", email.value)
+          val ipLink    = lishogiLink(s"/mod/search?q=$ip", ip.value)
+          val fpLink    = fp.fold("none")(print => lishogiLink(s"/mod/print/$print", print))
           s"$link EMAIL: $emailLink IP: $ipLink FP: $fpLink${susp ?? " *proxy*"}${apiVersion
             .??(v => s" API v$v")}"
         },
@@ -304,7 +304,7 @@ private object SlackApi {
   }
 
   object stage {
-    val name = "stage.lichess.org"
+    val name = "stage.lishogi.org"
     val icon = "volcano"
   }
 }

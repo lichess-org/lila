@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.{ Black, CheckCount, Clock, Color, White }
+import chess.{ Black, CheckCount, Clock, Color, White, Data }
 import Game.BSONFields._
 import reactivemongo.api.bson._
 import scala.util.Try
@@ -62,26 +62,25 @@ object GameDiff {
         case (x, y, z) => ByteArrayBSONHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
       }
 
-    if (a.variant.standard) dTry(huffmanPgn, _.pgnMoves, writeBytes compose PgnStorage.Huffman.encode)
+    if (false) dTry(huffmanPgn, _.pgnMoves, writeBytes compose PgnStorage.Huffman.encode)
     else {
       val f = PgnStorage.OldBin
       dTry(oldPgn, _.pgnMoves, writeBytes compose f.encode)
       dTry(binaryPieces, _.board.pieces, writeBytes compose BinaryFormat.piece.write)
       d(positionHashes, _.history.positionHashes, w.bytes)
-      dTry(unmovedRooks, _.history.unmovedRooks, writeBytes compose BinaryFormat.unmovedRooks.write)
-      dTry(castleLastMove, makeCastleLastMove, CastleLastMove.castleLastMoveBSONHandler.writeTry)
+      d(historyLastMove, _.history.lastMove.map(_.uci) | "", w.str)
       // since variants are always OldBin
-      if (a.variant.threeCheck)
+      if (a.variant.standard || a.variant.fromPosition)
         dOpt(
           checkCount,
           _.history.checkCount,
           (o: CheckCount) => o.nonEmpty ?? { BSONHandlers.checkCountWriter writeOpt o }
         )
-      if (a.variant.crazyhouse)
+      if (a.variant.standard || a.variant.fromPosition)
         dOpt(
           crazyData,
           _.board.crazyData,
-          (o: Option[chess.variant.Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write
+          (o: Option[Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write
         )
     }
     d(turns, _.turns, w.int)

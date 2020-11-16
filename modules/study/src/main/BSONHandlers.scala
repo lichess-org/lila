@@ -2,8 +2,8 @@ package lila.study
 
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags }
 import chess.format.{ FEN, Uci, UciCharPair }
-import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, Pos, PromotableRole, Role }
+import chess.variant.{ Standard, Variant }
+import chess.{ Centis, Pos, PromotableRole, Role, Data, Pockets, Pocket }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
@@ -89,7 +89,7 @@ object BSONHandlers {
   implicit private val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   implicit val CommentAuthorBSONHandler = quickHandler[Comment.Author](
     {
-      case BSONString(lila.user.User.lichessId | "l") => Comment.Author.Lichess
+      case BSONString(lila.user.User.lishogiId | "l") => Comment.Author.Lishogi
       case BSONString(name)                           => Comment.Author.External(name)
       case doc: Bdoc => {
           for {
@@ -102,7 +102,7 @@ object BSONHandlers {
     {
       case Comment.Author.User(id, name) => $doc("id" -> id, "name" -> name)
       case Comment.Author.External(name) => BSONString(s"${name.trim}")
-      case Comment.Author.Lichess        => BSONString("l")
+      case Comment.Author.Lishogi        => BSONString("l")
       case Comment.Author.Unknown        => BSONString("")
     }
   )
@@ -113,19 +113,19 @@ object BSONHandlers {
 
   implicit val GamebookBSONHandler = Macros.handler[Gamebook]
 
-  implicit private def CrazyDataBSONHandler: BSON[Crazyhouse.Data] =
-    new BSON[Crazyhouse.Data] {
-      private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
-      private def readPocket(p: String)             = Crazyhouse.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
+  implicit private def CrazyDataBSONHandler: BSON[Data] =
+    new BSON[Data] {
+      private def writePocket(p: Pocket) = p.roles.map(_.forsyth).mkString
+      private def readPocket(p: String)             = Pocket(p.view.flatMap(chess.Role.forsyth).toList)
       def reads(r: Reader) =
-        Crazyhouse.Data(
+        Data(
           promoted = r.getsD[Pos]("o").toSet,
-          pockets = Crazyhouse.Pockets(
+          pockets = Pockets(
             white = readPocket(r.strD("w")),
             black = readPocket(r.strD("b"))
           )
         )
-      def writes(w: Writer, s: Crazyhouse.Data) =
+      def writes(w: Writer, s: Data) =
         $doc(
           "o" -> w.listO(s.promoted.toList),
           "w" -> w.strO(writePocket(s.pockets.white)),
@@ -187,7 +187,7 @@ object BSONHandlers {
         gamebook = r.getO[Gamebook]("ga"),
         glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
         score = r.getO[Score]("e"),
-        crazyData = r.getO[Crazyhouse.Data]("z"),
+        crazyData = r.getO[Data]("z"),
         clock = r.getO[Centis]("l"),
         children =
           try {
@@ -231,7 +231,7 @@ object BSONHandlers {
         glyphs = r.getO[Glyphs]("g") | Glyphs.empty,
         score = r.getO[Score]("e"),
         clock = r.getO[Centis]("l"),
-        crazyData = r.getO[Crazyhouse.Data]("z"),
+        crazyData = r.getO[Data]("z"),
         children = r.get[Node.Children]("n")
       )
     def writes(w: Writer, s: Root) =

@@ -9,7 +9,7 @@ object FormCompatLayer {
 
   private type FormData = Map[String, Seq[String]]
 
-  def apply(pref: Pref, req: Request[_]): FormData =
+  def apply(pref: Pref, req: Request[_]): FormData = {
     reqToFormData(req) pipe
       moveToAndRename(
         "clock",
@@ -47,6 +47,7 @@ object FormCompatLayer {
           "blindfold"
         )
       )
+  }
 
   private def addMissing(path: String, default: String)(data: FormData): FormData =
     data.updated(path, data.get(path).filter(_.nonEmpty) | List(default))

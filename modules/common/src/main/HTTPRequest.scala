@@ -22,12 +22,13 @@ object HTTPRequest {
   def isProgrammatic(req: RequestHeader) =
     !isSynchronousHttp(req) || isFishnet(req) || isApi(req) || req.headers
       .get(HeaderNames.ACCEPT)
-      .exists(_ startsWith "application/vnd.lichess.v")
+      .exists(_ startsWith "application/vnd.lishogi.v")
 
   private val appOrigins = Set(
     "capacitor://localhost", // ios
     "ionic://localhost",     // ios
     "http://localhost",      // android
+    "http://192.168.1.154",
     "http://localhost:8080", // local dev
     "file://"                // old app
   )
@@ -102,7 +103,7 @@ object HTTPRequest {
       s"${handler.controller.drop(12)}.${handler.method}"
     }
 
-  private val ApiVersionHeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
+  private val ApiVersionHeaderPattern = """application/vnd\.lishogi\.v(\d++)\+json""".r
 
   def apiVersion(req: RequestHeader): Option[ApiVersion] = {
     req.headers.get(HeaderNames.ACCEPT) flatMap {

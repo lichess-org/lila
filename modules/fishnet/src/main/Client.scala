@@ -9,7 +9,7 @@ import org.joda.time.DateTime
 
 case class Client(
     _id: Client.Key,                   // API key used to authenticate and assign move or analysis
-    userId: Client.UserId,             // lichess user ID
+    userId: Client.UserId,             // lishogi user ID
     skill: Client.Skill,               // what can this client do
     instance: Option[Client.Instance], // last seen instance
     enabled: Boolean,
@@ -25,7 +25,7 @@ case class Client(
       copy(instance = newInstance.some)
     }
 
-  def lichess = userId.value == lila.user.User.lichessId
+  def lishogi = userId.value == lila.user.User.lishogiId
 
   def offline = key == Client.offline.key
 

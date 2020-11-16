@@ -40,8 +40,8 @@ object watcher {
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJsUnsafe(s"""lichess=window.lichess||{};customWS=true;onload=function(){
-LichessRound.boot(${safeJsonValue(
+        embedJsUnsafe(s"""lishogi=window.lishogi||{};customWS=true;onload=function(){
+LishogiRound.boot(${safeJsonValue(
           Json.obj(
             "data" -> data,
             "i18n" -> jsI18n(pov.game),

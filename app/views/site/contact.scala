@@ -31,16 +31,10 @@ object contact {
     frag(
       ul(
         li(
-          a(href := routes.ForumCateg.show("lichess-feedback"))(reportBugInForum())
+          a(href := routes.ForumCateg.show("lishogi-feedback"))(reportBugInForum())
         ),
         li(
-          a(href := "https://github.com/ornicar/lila/issues")(reportWebsiteIssue())
-        ),
-        li(
-          a(href := "https://github.com/veloce/lichobile/issues")(reportMobileIssue())
-        ),
-        li(
-          a(href := "https://discord.gg/hy5jqSs")(reportBugInDiscord())
+          a(href := "https://github.com/WandererXII/lila/issues")(reportWebsiteIssue())
         )
       ),
       p(howToReportBug())
@@ -89,11 +83,11 @@ object contact {
               "dns",
               "\"This site can’t be reached\"",
               frag(
-                p("If you can't reach Lichess, and your browser says something like:"),
+                p("If you can't reach Lishogi, and your browser says something like:"),
                 ul(
                   li("This site can't be reached."),
-                  li(strong("lichess.org"), "’s server IP address could not be found."),
-                  li("We can’t connect to the server at lichess.org.")
+                  li(strong("lishogi.org"), "’s server IP address could not be found."),
+                  li("We can’t connect to the server at lishogi.org.")
                 ),
                 p("Then you have a ", strong("DNS issue"), "."),
                 p(
@@ -115,7 +109,7 @@ object contact {
               "title",
               wantTitle(),
               p(
-                a(href := routes.Page.master())(visitTitleConfirmation()),
+                a(href := routes.Page.notSupported())(visitTitleConfirmation()), // master
                 "."
               )
             ),
@@ -187,32 +181,6 @@ object contact {
           wantReportBug(),
           List(
             Leaf(
-              "enpassant",
-              illegalPawnCapture(),
-              frag(
-                p(calledEnPassant()),
-                p(a(href := "/learn#/15")(tryEnPassant()), ".")
-              )
-            ),
-            Leaf(
-              "castling",
-              illegalCastling(),
-              frag(
-                p(castlingPrevented()),
-                p(a(href := "https://en.wikipedia.org/wiki/Castling#Requirements")(castlingRules()), "."),
-                p(a(href := "/learn#/15")(tryCastling()), "."),
-                p(castlingImported())
-              )
-            ),
-            Leaf(
-              "insufficient",
-              insufficientMaterial(),
-              frag(
-                p(a(href := "https://www.fide.com/FIDE/handbook/LawsOfChess.pdf")(fideMate()), "."),
-                p(knightMate())
-              )
-            ),
-            Leaf(
               "casual",
               noRatingPoints(),
               p(ratedGame())
@@ -231,8 +199,8 @@ object contact {
               frag(
                 p(s"Please report security issues to $contactEmail."),
                 p(
-                  "Like all contributions to Lichess, security reviews and pentesting are appreciated. ",
-                  "Note that Lichess is built by volunteers and we currently do not have a bug bounty program."
+                  "Like all contributions to Lishogi, security reviews and pentesting are appreciated. ",
+                  "Note that Lishogi is built by volunteers and we currently do not have a bug bounty program."
                 ),
                 p(
                   "Vulnerabilities are relevant even when they are not directly exploitable, ",
@@ -304,27 +272,6 @@ object contact {
           collaboration(),
           List(
             Leaf(
-              "monetize",
-              monetizing(),
-              frag(
-                p("We are not interested in any way of monetizing Lichess."),
-                p(
-                  "We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users."
-                ),
-                p("Please do not email us about marketing, tracking, or advertising."),
-                br,
-                p(
-                  "We actively encourage everyone to ",
-                  a(href := routes.Page.ads())("block all ads and trackers.")
-                )
-              )
-            ),
-            Leaf(
-              "buy",
-              buyingLichess(),
-              p("We are not selling, to anyone, for any price. Ever.")
-            ),
-            Leaf(
               "authorize",
               authorizationToUse(),
               frag(
@@ -337,7 +284,7 @@ object contact {
               "gdpr",
               "GDPR",
               frag(
-                p("If you are a European citizen, you may request the deletion of your Lichess account."),
+                p("If you are a European citizen, you may request the deletion of your Lishogi account."),
                 p(
                   "First, ",
                   a(href := routes.Account.close())("close your account"),
@@ -402,7 +349,7 @@ object contact {
       contentCls = "page box box-pad"
     )(
       frag(
-        h1(contactLichess()),
+        h1(contactLishogi()),
         div(cls := "contact")(
           renderedMenu
         )

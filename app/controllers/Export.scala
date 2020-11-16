@@ -40,7 +40,7 @@ final class Export(env: Env) extends LilaController(env) {
 
   def legacyGameThumbnail(id: String) =
     Action {
-      MovedPermanently(routes.Export.gameThumbnail(id).url)
+      MovedPermanently(routes.Page.notSupported().url) // routes.Export.gameThumbnail(id).url
     }
 
   def gameThumbnail(id: String) =
@@ -56,7 +56,7 @@ final class Export(env: Env) extends LilaController(env) {
 
   def legacyPuzzleThumbnail(id: Int) =
     Action {
-      MovedPermanently(routes.Export.puzzleThumbnail(id).url)
+      MovedPermanently(routes.Page.notSupported().url) // routes.Export.puzzleThumbnail(id).url
     }
 
   def puzzleThumbnail(id: Int) =

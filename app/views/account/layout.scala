@@ -35,7 +35,7 @@ object layout {
             trans.editProfile()
           ),
           isGranted(_.Coach) option a(activeCls("coach"), href := routes.Coach.edit())(
-            trans.coach.lichessCoach()
+            trans.coach.lishogiCoach()
           ),
           div(cls := "sep"),
           a(activeCls("password"), href := routes.Account.passwd())(
@@ -54,7 +54,7 @@ object layout {
             trans.security()
           ),
           div(cls := "sep"),
-          a(href := routes.Plan.index())(trans.patron.lichessPatron()),
+          a(href := routes.Plan.index())(trans.patron.lishogiPatron()),
           div(cls := "sep"),
           a(activeCls("oauth.token"), href := routes.OAuthToken.index())(
             "API Access tokens"

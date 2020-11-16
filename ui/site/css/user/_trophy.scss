@@ -13,7 +13,7 @@
   }
 }
 .trophy.award {
-  font-family: 'lichess';
+  font-family: "lishogi";
   speak: none;
   line-height: 100%;
 }
@@ -28,7 +28,8 @@
     filter: drop-shadow(0 0 6px $c-brag);
   }
 }
-.trophy, .shield-trophy {
+.trophy,
+.shield-trophy {
   transition: transform 0.2s;
   &:not(.patron):hover {
     transform: translateY(-3px);
@@ -45,7 +46,8 @@
   font-size: 65px;
 }
 .fire-trophy {
-  &, &:hover {
+  &,
+  &:hover {
     color: if($theme-light, $c-font-dim, $c-font-clear);
   }
   opacity: 0.9;
@@ -80,7 +82,7 @@
   }
   &.marathonTopHundred {
     text-shadow: none;
-    color: #cd4606!important;
+    color: #cd4606 !important;
   }
   &.bongcloudWarrior {
     filter: hue-rotate(70deg);
@@ -100,7 +102,7 @@
   height: 40px;
   font-size: 39px;
   color: $c-font-dimmer;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 }
 .trophy.streaming {
   @extend %fire-trophy-shadow;
@@ -124,7 +126,7 @@
   height: 60px;
   background-size: contain;
   background-repeat: no-repeat;
-  font-family: 'lichess';
+  font-family: "lishogi";
   text-align: center;
 }
 .shield-trophy {
@@ -132,7 +134,7 @@
   background-image: url(../images/trophy/shield-gold.png);
   font-size: 30px;
   line-height: 60px;
-  color: #333!important;
+  color: #333 !important;
   text-shadow: 0 0 6px #fff;
   margin-top: -20px;
   filter: drop-shadow(0 0 6px $c-brag);
@@ -141,7 +143,7 @@
   background-image: url(../images/trophy/round-star.png);
   font-size: 24px;
   line-height: 68px;
-  color: #fff!important;
+  color: #fff !important;
   text-shadow: 0 0 4px #444;
   margin-top: -18px;
 }

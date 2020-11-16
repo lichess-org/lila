@@ -2,10 +2,10 @@
   "name": "tournament",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org arena tournament",
+  "description": "lishogi.org arena tournament",
   "keywords": [
     "chess",
-    "lichess",
+    "lishogi",
     "arena",
     "tournament"
   ],
@@ -14,7 +14,7 @@
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/jquery": "^2.0",
-    "@types/lichess": "2.0.0"
+    "@types/lishogi": "2.0.0"
   },
   "dependencies": {
     "chat": "2.0.0",

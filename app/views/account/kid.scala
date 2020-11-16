@@ -22,7 +22,7 @@ object kid {
         br,
         br,
         if (managed)
-          p("Your account is managed. Ask your chess teacher about lifting kid mode.")
+          p("Your account is managed. Ask your shogi teacher about lifting kid mode.")
         else
           postForm(cls := "form3", action := s"${routes.Account.kidPost()}?v=${!u.kid}")(
             form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "off"),
@@ -35,7 +35,7 @@ object kid {
           ),
         br,
         br,
-        p(trans.inKidModeTheLichessLogoGetsIconX(span(cls := "kiddo", title := trans.kidMode.txt())(":)")))
+        p(trans.inKidModeTheLishogiLogoGetsIconX(span(cls := "kiddo", title := trans.kidMode.txt())(":)")))
       )
     }
 }

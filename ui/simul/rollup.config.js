@@ -1,10 +1,10 @@
-import { rollupProject } from '@build/rollupProject';
+import { rollupProject } from "@build/rollupProject";
 
 export default rollupProject({
   main: {
-    name: 'LichessSimul',
-    input: 'src/main.js',
-    output: 'lichess.simul',
+    name: "LishogiSimul",
+    input: "src/main.js",
+    output: "lishogi.simul",
     js: true,
   },
 });

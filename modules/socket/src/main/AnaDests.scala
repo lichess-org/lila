@@ -40,7 +40,7 @@ case class AnaDests(
 
 object AnaDests {
 
-  private val initialDests = "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
+  private val initialDests = "aj fonp uD gpo vE clm wF dmln sB qponmlr ir tC enmo yH zI AJ xG"
 
   def parse(o: JsObject) =
     for {

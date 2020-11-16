@@ -90,7 +90,7 @@ final class LiveStreamApi(
   //       List(
   //         Stream.Twitch.Stream(
   //           "thibault",
-  //           "[RU] test stream on lichess.org",
+  //           "[RU] test stream on lishogi.org",
   //           Streamer(
   //             _id = Streamer.Id("thibault"),
   //             listed = Streamer.Listed(true),

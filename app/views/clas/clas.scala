@@ -18,10 +18,10 @@ object clas {
         cssTag("page"),
         cssTag("clas")
       ),
-      title = trans.clas.lichessClasses.txt()
+      title = trans.clas.lishogiClasses.txt()
     ) {
       main(cls := "page-small box box-pad page clas-home")(
-        h1(trans.clas.lichessClasses()),
+        h1(trans.clas.lishogiClasses()),
         div(cls := "clas-home__doc body")(
           p(trans.clas.teachClassesOfChessStudents()),
           h2(trans.clas.features()),
@@ -34,17 +34,17 @@ object clas {
         ),
         div(cls := "clas-home__onboard")(
           postForm(action := routes.Clas.becomeTeacher())(
-            submitButton(cls := "button button-fat")(trans.clas.applyToBeLichessTeacher())
+            submitButton(cls := "button button-fat")(trans.clas.applyToBeLishogiTeacher())
           )
         )
       )
     }
 
   def teacherIndex(classes: List[Clas])(implicit ctx: Context) =
-    bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
+    bits.layout(trans.clas.lishogiClasses.txt(), Right("classes"))(
       cls := "clas-index",
       div(cls := "box__top")(
-        h1(trans.clas.lichessClasses()),
+        h1(trans.clas.lishogiClasses()),
         a(
           href := routes.Clas.form(),
           cls := "new button button-empty",
@@ -59,9 +59,9 @@ object clas {
     )
 
   def studentIndex(classes: List[Clas])(implicit ctx: Context) =
-    bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
+    bits.layout(trans.clas.lishogiClasses.txt(), Right("classes"))(
       cls := "clas-index",
-      div(cls := "box__top")(h1(trans.clas.lichessClasses())),
+      div(cls := "box__top")(h1(trans.clas.lishogiClasses())),
       renderClasses(classes)
     )
 
@@ -149,7 +149,7 @@ object clas {
             form("teachers"),
             trans.clas.teachersOfTheClass(),
             help = frag(
-              trans.clas.addLichessUsernames(),
+              trans.clas.addLishogiUsernames(),
               br,
               trans.clas.theyMustFirstApply()
             ).some

@@ -3,8 +3,8 @@ package lila.game
 import play.api.libs.json._
 
 import chess.format.{ FEN, Forsyth }
-import chess.variant.Crazyhouse
-import chess.{ Clock, Color }
+import chess.variant.Standard
+import chess.{ Clock, Color, Data, Pocket }
 import lila.common.Json.jodaWrites
 
 final class JsonView(rematches: Rematches) {
@@ -70,9 +70,9 @@ object JsonView {
   // }
   // implicit val crosstableWithMatchupWrites = Json.writes[Crosstable.WithMatchup]
 
-  implicit val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>
+  implicit val crazyhousePocketWriter: OWrites[Pocket] = OWrites { v =>
     JsObject(
-      Crazyhouse.storableRoles.flatMap { role =>
+      Data.storableRoles.flatMap { role =>
         Some(v.roles.count(role ==)).filter(0 <).map { count =>
           role.name -> JsNumber(count)
         }
@@ -80,7 +80,7 @@ object JsonView {
     )
   }
 
-  implicit val crazyhouseDataWriter: OWrites[chess.variant.Crazyhouse.Data] = OWrites { v =>
+  implicit val crazyhouseDataWriter: OWrites[Data] = OWrites { v =>
     Json.obj("pockets" -> List(v.pockets.white, v.pockets.black))
   }
 

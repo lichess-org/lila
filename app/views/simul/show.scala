@@ -23,8 +23,8 @@ object show {
       moreCss = cssTag("simul.show"),
       title = sim.fullName,
       moreJs = frag(
-        jsAt(s"compiled/lichess.simul${isProd ?? ".min"}.js"),
-        embedJsUnsafe(s"""lichess.simul=${safeJsonValue(
+        jsAt(s"compiled/lishogi.simul${isProd ?? ".min"}.js"),
+        embedJsUnsafe(s"""lishogi.simul=${safeJsonValue(
           Json.obj(
             "data"          -> data,
             "i18n"          -> bits.jsI18n(),

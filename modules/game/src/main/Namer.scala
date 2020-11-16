@@ -17,7 +17,7 @@ object Namer {
     }
 
   def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean = false): String =
-    player.aiLevel.fold(
+    (player.aiLevel.fold(
       user.fold(player.name | "Anon.") { u =>
         player.rating.ifTrue(withRating).fold(u.titleName) { r =>
           s"${u.titleName} ($r)"
@@ -25,7 +25,7 @@ object Namer {
       }
     ) { level =>
       s"A.I. level $level"
-    }
+    })
 
   def gameVsTextBlocking(game: Game, withRatings: Boolean = false)(implicit
       lightUser: LightUser.GetterSync

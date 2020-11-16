@@ -1,4 +1,4 @@
-package org.lichess.compression.game;
+package org.lishogi.compression.game;
 
 import java.util.Set;
 import java.util.HashSet;

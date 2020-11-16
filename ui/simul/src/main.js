@@ -1,22 +1,21 @@
-var m = require('mithril');
+var m = require("mithril");
 
-var ctrl = require('./ctrl');
-var view = require('./view/main');
+var ctrl = require("./ctrl");
+var view = require("./view/main");
 
-module.exports = function(opts) {
-
+module.exports = function (opts) {
   var controller = new ctrl(opts);
 
   m.module(opts.element, {
-    controller: function() {
+    controller: function () {
       return controller;
     },
-    view: view
+    view: view,
   });
 
   return {
-    socketReceive: controller.socket.receive
+    socketReceive: controller.socket.receive,
   };
 };
 
-window.LichessChat = require('chat').default;
+window.LishogiChat = require("chat").default;

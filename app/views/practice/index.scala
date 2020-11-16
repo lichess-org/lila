@@ -11,7 +11,7 @@ object index {
 
   def apply(data: lila.practice.UserPractice)(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Practice chess positions",
+      title = "Practice shogi positions",
       moreCss = cssTag("practice.index"),
       moreJs = embedJsUnsafe(s"""$$('.do-reset').on('click', function() {
 if (confirm('You will lose your practice progress!')) this.parentNode.submit();
@@ -20,7 +20,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
         .OpenGraph(
           title = "Practice your chess",
           description = "Learn how to master the most common chess positions",
-          url = s"$netBaseUrl${routes.Practice.index()}"
+          url = s"$netBaseUrl${routes.Page.notSupported()}" // index
         )
         .some
     ) {
@@ -33,7 +33,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
             div(cls := "text")("Progress: ", data.progressPercent, "%"),
             div(cls := "bar", style := s"width: ${data.progressPercent}%")
           ),
-          postForm(action := routes.Practice.reset())(
+          postForm(action := routes.Page.notSupported())( // reset
             if (ctx.isAuth) (data.nbDoneChapters > 0) option a(cls := "do-reset")("Reset my progress")
             else a(href := routes.Auth.signup())("Sign up to save your progress")
           )
@@ -47,7 +47,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
                   val prog = data.progressOn(stud.id)
                   a(
                     cls := s"study ${if (prog.complete) "done" else "ongoing"}",
-                    href := routes.Practice.show(section.id, stud.slug, stud.id.value)
+                    href := routes.Page.notSupported()// section.id, stud.slug, stud.id.value) //show
                   )(
                     ctx.isAuth option span(cls := "ribbon-wrapper")(
                       span(cls := "ribbon")(prog.done, " / ", prog.total)

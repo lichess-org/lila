@@ -247,7 +247,7 @@ final class PlaybanApi(
           else if (record.rageSit.isVeryBad)
             userRepo byId record.userId map {
               _ ?? { u =>
-                lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
+                lila.log("ragesit").info(s"https://lishogi.org/@/${u.username} ${record.rageSit.counterView}")
                 Bus.publish(
                   lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sittingAuto.name),
                   "autoWarning"

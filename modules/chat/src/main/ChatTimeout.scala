@@ -69,7 +69,7 @@ object ChatTimeout {
   sealed abstract class Reason(val key: String, val name: String)
 
   object Reason {
-    case object PublicShaming extends Reason("shaming", "public shaming; please use lichess.org/report")
+    case object PublicShaming extends Reason("shaming", "public shaming; please use lishogi.org/report")
     case object Insult        extends Reason("insult", "disrespecting other players")
     case object Spam          extends Reason("spam", "spamming the chat")
     case object Other         extends Reason("other", "inappropriate behavior")

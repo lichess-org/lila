@@ -7,10 +7,11 @@ object AnonCookie {
   val name   = "rk2"
   val maxAge = 604800 // one week
 
-  def json(pov: Pov): Option[JsObject] =
+  def json(pov: Pov): Option[JsObject] = {
     !pov.player.userId.isDefined option Json.obj(
       "name"   -> name,
       "maxAge" -> maxAge,
       "value"  -> pov.playerId
     )
+  }
 }

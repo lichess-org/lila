@@ -54,7 +54,7 @@ object embed {
           jsAt("compiled/embed-analyse.js"),
           analyseTag,
           embedJsUnsafe(
-            s"""lichess.startEmbeddedAnalyse(${safeJsonValue(
+            s"""lishogi.startEmbeddedAnalyse(${safeJsonValue(
               Json.obj(
                 "data"  -> data,
                 "embed" -> true,

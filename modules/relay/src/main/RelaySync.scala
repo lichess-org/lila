@@ -40,14 +40,14 @@ final private class RelaySync(
    * If the source contains several games, use their index to match them with the study chapter.
    * If the source contains only one game, use the player tags (and site) to match with the study chapter.
    * So the TCEC style - one game per file, reusing the file for all games - is supported.
-   * lichess will create a new chapter when the game player tags differ.
+   * lishogi will create a new chapter when the game player tags differ.
    */
   private def findCorrespondingChapter(
       game: RelayGame,
       chapters: List[Chapter],
       nbGames: Int
   ): Option[Chapter] =
-    if (nbGames == 1 || game.looksLikeLichess) chapters find game.staticTagsMatch
+    if (nbGames == 1 || game.looksLikeLishogi) chapters find game.staticTagsMatch
     else chapters.find(_.relay.exists(_.index == game.index))
 
   private def updateChapter(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
@@ -135,7 +135,7 @@ final private class RelaySync(
       studyApi.analysisRequest(
         studyId = studyId,
         chapterId = chapterId,
-        userId = "lichess"
+        userId = "lishogi"
       )
 
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =

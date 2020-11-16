@@ -11,31 +11,37 @@
     transition: all 1s;
   }
   @keyframes soft-hue {
-    50%{
+    50% {
       filter: hue-rotate(-20deg);
     }
   }
   @keyframes soft-grow {
-    50%{
+    50% {
       transform: scale(1.08);
     }
   }
   @keyframes apple-appear {
     0% {
-      opacity: 0.5; transform: scale(0) rotate(-360deg);
+      opacity: 0.5;
+      transform: scale(0) rotate(-360deg);
     }
     100% {
-      opacity: 1; transform: scale(1) rotate(0);
+      opacity: 1;
+      transform: scale(1) rotate(0);
     }
   }
   .apple {
     background-image: url(../images/learn/star.png);
     animation: 0.6s ease-in-out 0s 1 forwards apple-appear,
-    1.7s ease-in-out 0.7s infinite none soft-grow,
-    0.7s ease-in-out 0.7s infinite none soft-hue;
+      1.7s ease-in-out 0.7s infinite none soft-grow,
+      0.7s ease-in-out 0.7s infinite none soft-hue;
   }
   square.has-item.move-dest {
-    background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
+    background: radial-gradient(
+      transparent 0%,
+      transparent 80%,
+      rgba(20, 85, 0, 0.3) 80%
+    );
   }
   .cg-board square.move-dest.drag-over,
   .cg-board square.move-dest:hover {
@@ -56,7 +62,7 @@
   @keyframes rankGlow {
     50% {
       background-color: rgba(255, 255, 255, 0.5);
-      box-shadow: 0 0 40px rgba(255,255,255,0.7);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.7);
     }
   }
   .highlight-2nd-rank & .cg-board::after,
@@ -64,11 +70,11 @@
   .highlight-7th-rank & .cg-board::after {
     width: 100%;
     height: calc(100% / 9);
-    content: '';
+    content: "";
     position: absolute;
     bottom: calc(100% / 9);
     left: 0;
-    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
     background-color: rgba(255, 255, 255, 0.2);
     animation: 1s rankGlow ease-in-out infinite;
   }
@@ -97,36 +103,70 @@
   }
 
   .cg-board piece.wriggle::after {
-    content: '!';
+    content: "!";
   }
   .cg-board piece.wriggle::after {
-    content: '!';
+    content: "!";
     font-size: 40px;
     font-weight: bold;
     color: #fff;
-    text-shadow: rgba(0,0,0,0.8) 0 0 3px;
+    text-shadow: rgba(0, 0, 0, 0.8) 0 0 3px;
   }
 
   .piece-values .cg-board piece::before {
-    position:absolute;
+    position: absolute;
     top: 14px;
     right: 4px;
     color: #fff;
-    text-shadow: 0 0 9px rgba(0,0,0,1), 0 0 4px rgba(0,0,0,1);
+    text-shadow: 0 0 9px rgba(0, 0, 0, 1), 0 0 4px rgba(0, 0, 0, 1);
     font-size: 30px;
     font-weight: bold;
   }
   .piece-values .cg-board piece.queen::before {
-    content: '9';
+    content: "9";
   }
   .piece-values .cg-board piece.rook::before {
-    content: '5';
+    content: "5";
   }
   .piece-values .cg-board piece.bishop::before,
   .piece-values .cg-board piece.knight::before {
-    content: '3';
+    content: "3";
   }
   .piece-values .cg-board piece.pawn::before {
-    content: '1';
+    content: "1";
+  }
+  .spare {
+    background: #333;
+  }
+  .no-sqaure {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+  }
+  .spare.no-square > piece {
+    height: 100%;
+    padding-left: 64px;
+  }
+  .info-intro {
+    position: absolute;
+    background: white;
+    min-height: 20%;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    top: 19%;
+    left: 20%;
+    border: 2px solid black;
+    text-align: center;
+  }
+  .info-intro > p {
+    color: black;
+    font-size: 1.3em;
+  }
+  .info-intro.buttons {
+    margin: 1em;
   }
 }

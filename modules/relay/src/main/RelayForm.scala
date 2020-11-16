@@ -56,11 +56,12 @@ object RelayForm {
     "twitch.com",
     "youtube.com",
     "youtu.be",
-    "lichess.org",
+    "lishogi.org",
     "google.com",
     "chess.com",
     "vk.com",
     "localhost",
+    "192.168.1.154",
     "chess-results.com",
     "chessgames.com"
   )

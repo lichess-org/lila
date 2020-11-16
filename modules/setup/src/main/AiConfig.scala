@@ -21,7 +21,7 @@ case class AiConfig(
 
   def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen.map(_.value)).some
 
-  def game(user: Option[User]) =
+  def game(user: Option[User]) = {
     fenGame { chessGame =>
       val perfPicker = lila.game.PerfPicker.mainOrDefault(
         chess.Speed(chessGame.clock.map(_.config)),
@@ -46,6 +46,7 @@ case class AiConfig(
         )
         .sloppy
     } start
+  }
 
   def pov(user: Option[User]) = Pov(game(user), creatorColor)
 

@@ -19,7 +19,7 @@ object features {
         .OpenGraph(
           title = title,
           url = s"$netBaseUrl${routes.Plan.features().url}",
-          description = "All of Lichess features are free for all and forever. We do it for the chess!"
+          description = "All of Lishogi features are free for all and forever. We do it for the shogi!"
         )
         .some
     ) {
@@ -36,69 +36,67 @@ object features {
               a(href := routes.Simul.home())("simultaneous exhibitions")
             ),
             tr(unlimited)(
-              "Correspondence chess with conditional premoves"
+              "Correspondence shogi with conditional premoves"
             ),
             tr(check)(
-              "Standard chess and ",
-              a(href := routes.Page.variantHome())("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
+              "Standard shogi",
+              //a(href := routes.Page.variantHome())("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
-            tr(custom("30 per day"))(
-              s"Deep $engineName server analysis"
-            ),
+  
             tr(unlimited)(
               s"Instant local $engineName analysis"
             ),
+            // tr(unlimited)(
+            //   a(href := "https://lishogi.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(
+            //     "Cloud engine analysis"
+            //   )
+            // ),
+            // tr(unlimited)(
+            //   a(href := "https://lishogi.org/blog/WFvLpiQAACMA8e9D/learn-from-your-mistakes")(
+            //     "Learn from your mistakes"
+            //   )
+            // ),
             tr(unlimited)(
-              a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(
-                "Cloud engine analysis"
-              )
-            ),
-            tr(unlimited)(
-              a(href := "https://lichess.org/blog/WFvLpiQAACMA8e9D/learn-from-your-mistakes")(
-                "Learn from your mistakes"
-              )
-            ),
-            tr(unlimited)(
-              a(href := "https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(
+              a(href := "https://lishogi.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lishogi-way")(
                 "Studies (shared and persistent analysis)"
               )
             ),
-            tr(unlimited)(
-              a(href := "https://lichess.org/blog/VmZbaigAABACtXQC/chess-insights")(
-                "Chess insights (detailed analysis of your play)"
-              )
-            ),
+            // tr(unlimited)(
+            //   a(href := "https://lishogi.org/blog/VmZbaigAABACtXQC/chess-insights")(
+            //     "Chess insights (detailed analysis of your play)"
+            //   )
+            // ),
             tr(check)(
-              a(href := routes.Learn.index())("All chess basics lessons")
+              a(href := routes.Learn.index())("All shogi basics lessons")
             ),
             tr(unlimited)(
-              a(href := routes.Puzzle.home())("Tactical puzzles from user games")
+              a(href := routes.Page.notSupported())("Tactical puzzles from user games - coming soon")
             ),
-            tr(unlimited)(
-              a(href := s"${routes.UserAnalysis.index()}#explorer")("Opening explorer"),
-              " (62 million games!)"
-            ),
-            tr(unlimited)(
-              a(href := s"${routes.UserAnalysis.parseArg("QN4n1/6r1/3k4/8/b2K4/8/8/8_b_-_-")}#explorer")(
-                "7-piece endgame tablebase"
-              )
-            ),
-            tr(check)(
-              "Download/Upload any game as PGN"
-            ),
-            tr(unlimited)(
-              a(href := routes.Search.index(1))("Advanced search"),
-              " through Lichess 1.5 billion games"
-            ),
-            tr(unlimited)(
-              a(href := routes.Video.index())("Chess video library")
-            ),
+            //tr(unlimited)(
+            //  a(href := s"${routes.UserAnalysis.index()}#explorer")("Opening explorer"),
+            //  " (62 million games!)"
+            //),
+            //tr(unlimited)(
+            //  a(href := s"${routes.UserAnalysis.parseArg("QN4n1/6r1/3k4/8/b2K4/8/8/8_b_-_-")}#explorer")(
+            //    "7-piece endgame tablebase"
+            //  )
+            //),
+            //tr(check)(
+            //  "Download/Upload any game as PGN"
+            //),
+            //tr(unlimited)(
+            //  a(href := routes.Search.index(1))("Advanced search"),
+            //  " through Lishogi 1.5 billion games"
+            //),
+            //tr(unlimited)(
+            //  a(href := routes.Video.index())("Chess video library")
+            //),
             tr(check)(
               "Forum, teams, messaging, friends, challenges"
             ),
             tr(check)(
               "Available in ",
-              a(href := "https://crowdin.com/project/lichess")("80+ languages")
+              a(href := "https://crowdin.com/project/lishogi")("80+ languages")
             ),
             tr(check)(
               "Light/dark theme, custom boards, pieces and background"
@@ -113,44 +111,44 @@ object features {
               strong("All features to come, forever")
             )
           ),
-          header(h1(dataIcon := "")("Mobile")),
-          tbody(
-            tr(unlimited)(
-              "Online and offline games, with 8 variants"
-            ),
-            tr(unlimited)(
-              "Bullet, Blitz, Rapid, Classical and Correspondence chess"
-            ),
-            tr(unlimited)(
-              a(href := routes.Tournament.home())("Arena tournaments")
-            ),
-            tr(check)(
-              s"Board editor and analysis board with $engineName"
-            ),
-            tr(unlimited)(
-              a(href := routes.Puzzle.home())("Tactics puzzles")
-            ),
-            tr(check)(
-              "Available in 80+ languages"
-            ),
-            tr(check)(
-              "Light and dark theme, custom boards and pieces"
-            ),
-            tr(check)(
-              "iPhone & Android phones and tablets, landscape support"
-            ),
-            tr(check)(
-              strong("Zero ads, no tracking")
-            ),
-            tr(check)(
-              strong("All features to come, forever")
-            )
-          ),
-          header(h1("Support Lichess")),
+          //header(h1(dataIcon := "")("Mobile")),
+          //tbody(
+          //  tr(unlimited)(
+          //    "Online and offline games, with 8 variants"
+          //  ),
+          //  tr(unlimited)(
+          //    "Bullet, Blitz, Rapid, Classical and Correspondence chess"
+          //  ),
+          //  tr(unlimited)(
+          //    a(href := routes.Tournament.home())("Arena tournaments")
+          //  ),
+          //  tr(check)(
+          //    s"Board editor and analysis board with $engineName"
+          //  ),
+          //  tr(unlimited)(
+          //    a(href := routes.Puzzle.home())("Tactics puzzles")
+          //  ),
+          //  tr(check)(
+          //    "Available in 80+ languages"
+          //  ),
+          //  tr(check)(
+          //    "Light and dark theme, custom boards and pieces"
+          //  ),
+          //  tr(check)(
+          //    "iPhone & Android phones and tablets, landscape support"
+          //  ),
+          //  tr(check)(
+          //    strong("Zero ads, no tracking")
+          //  ),
+          //  tr(check)(
+          //    strong("All features to come, forever")
+          //  )
+          //),
+          header(h1("Support Lishogi")),
           tbody(cls := "support")(
             st.tr(
               th(
-                "Contribute to Lichess and",
+                "Contribute to Lishogi and",
                 br,
                 "get a cool looking Patron icon"
               ),
@@ -167,14 +165,14 @@ object features {
         p(cls := "explanation")(
           strong("Yes, both accounts have the same features!"),
           br,
-          "That is because Lichess is built for the love of chess.",
+          "That is because Lishogi is built for the love of shogi.",
           br,
-          "We believe every chess player deserves the best, and so:",
+          "We believe every shogi player deserves the best, and so:",
           br,
           br,
           strong("all features are free for everybody, forever!"),
           br,
-          "If you love Lichess, ",
+          "If you love Lishogi, ",
           a(cls := "button", href := routes.Plan.index())("Support us with a Patron account!")
         )
       )
@@ -182,7 +180,7 @@ object features {
 
   private def header(name: Frag)(implicit lang: Lang) =
     thead(
-      st.tr(th(name), th(trans.patron.freeAccount()), th(trans.patron.lichessPatron()))
+      st.tr(th(name), th(trans.patron.freeAccount()), th(trans.patron.lishogiPatron()))
     )
 
   private val unlimited = span(dataIcon := "E", cls := "is is-green text unlimited")("Unlimited")
@@ -195,7 +193,7 @@ object features {
 
   private def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
 
-  private val title = "Lichess features"
+  private val title = "Lishogi features"
 
   private val engineName = "Stockfish 11+"
 }

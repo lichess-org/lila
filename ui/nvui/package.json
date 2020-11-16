@@ -2,12 +2,12 @@
   "name": "nvui",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org non-visual user interface",
+  "description": "lishogi.org non-visual user interface",
   "main": "dist/main.js",
   "types": "dist/main",
   "keywords": [
     "chess",
-    "lichess",
+    "lishogi",
     "non-visual",
     "blind",
     "accessibility"
@@ -20,7 +20,7 @@
     "prod": "yarn run compile"
   },
   "devDependencies": {
-    "@types/lichess": "2.0.0",
+    "@types/lishogi": "2.0.0",
     "typescript": "^3"
   },
   "dependencies": {

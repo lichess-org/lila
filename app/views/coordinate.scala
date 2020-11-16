@@ -22,10 +22,10 @@ object coordinate {
       ),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = "Chess board coordinates trainer",
+          title = "Shogi board coordinates trainer",
           url = s"$netBaseUrl${routes.Coordinate.home().url}",
           description =
-            "Knowing the chessboard coordinates is a very important chess skill. A square name appears on the board and you must click on the correct square."
+            "Knowing the shogiboard coordinates is a very important shogi skill. A square name appears on the board and you must click on the correct square."
         )
         .some,
       zoomable = true
@@ -71,14 +71,15 @@ object coordinate {
           div(cls := "next_coord", id := "next_coord0"),
           div(cls := "next_coord", id := "next_coord1"),
           div(cls := "next_coord", id := "next_coord2"),
-          shogigroundBoard
+          shogigroundBoard,
+          div(cls := "bottom_color")
         ),
         div(cls := "coord-trainer__table")(
           div(cls := "explanation")(
-            p(trans.coordinates.knowingTheChessBoard()),
+            p(trans.coordinates.knowingTheShogiBoard()),
             ul(
-              li(trans.coordinates.mostChessCourses()),
-              li(trans.coordinates.talkToYourChessFriends()),
+              li(trans.coordinates.mostShogiCourses()),
+              li(trans.coordinates.talkToYourShogiFriends()),
               li(trans.coordinates.youCanAnalyseAGameMoreEffectively())
             ),
             p(trans.coordinates.aSquareNameAppears())
@@ -93,8 +94,8 @@ object coordinate {
   def scoreCharts(score: lila.coordinate.Score)(implicit ctx: Context) =
     frag(
       List(
-        (trans.coordinates.averageScoreAsWhiteX, score.white),
-        (trans.coordinates.averageScoreAsBlackX, score.black)
+        (trans.coordinates.averageScoreAsWhiteX, score.black), // swapped
+        (trans.coordinates.averageScoreAsBlackX, score.white)
       ).map {
         case (averageScoreX, s) =>
           div(cls := "chart_container")(

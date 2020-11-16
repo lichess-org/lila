@@ -72,7 +72,7 @@ object widgets {
                   g.winner.map { winner =>
                     frag(
                       ", ",
-                      winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+                      winner.color.fold(trans.blackIsVictorious(), trans.whiteIsVictorious()) // swapped
                     )
                   }
                 )

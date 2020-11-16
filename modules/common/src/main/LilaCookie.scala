@@ -25,7 +25,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
 
   def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(
       implicit req: RequestHeader
-  ): Cookie =
+  ): Cookie ={
     Cookie(
       name,
       value,
@@ -35,6 +35,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
       baker.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
       httpOnly | baker.httpOnly
     )
+  }
 
   def discard(name: String) =
     DiscardingCookie(name, "/", cookieDomain.some, baker.httpOnly)

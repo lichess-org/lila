@@ -25,13 +25,13 @@ object insight {
       moreJs = frag(
         highchartsLatestTag,
         jsAt("vendor/multiple-select/multiple-select.js"),
-        jsAt(s"compiled/lichess.insight${isProd ?? ".min"}.js"),
+        jsAt(s"compiled/lishogi.insight${isProd ?? ".min"}.js"),
         jsTag("insight-refresh.js"),
         jsTag("insight-tour.js"),
         embedJsUnsafe(s"""
 $$(function() {
-lichess = lichess || {};
-lichess.insight = LichessInsight(document.getElementById('insight'), ${safeJsonValue(
+lishogi = lishogi || {};
+lishogi.insight = LishogiInsight(document.getElementById('insight'), ${safeJsonValue(
           Json.obj(
             "ui"              -> ui,
             "initialQuestion" -> question,
@@ -44,8 +44,8 @@ lichess.insight = LichessInsight(document.getElementById('insight'), ${safeJsonV
               "stale"   -> stale,
               "shareId" -> prefId
             ),
-            "pageUrl" -> routes.Insight.index(u.username).url,
-            "postUrl" -> routes.Insight.json(u.username).url
+            "pageUrl" -> routes.Page.notSupported().url,
+            "postUrl" -> routes.Page.notSupported().url
           )
         )});
 });""")
@@ -89,7 +89,7 @@ lichess.insight = LichessInsight(document.getElementById('insight'), ${safeJsonV
     )
 
   def refreshForm(u: User, action: String) =
-    postForm(cls := "insight-refresh", st.action := routes.Insight.refresh(u.username))(
+    postForm(cls := "insight-refresh", st.action := routes.Page.notSupported())(
       button(dataIcon := "E", cls := "button text")(action),
       div(cls := "crunching none")(
         spinner,

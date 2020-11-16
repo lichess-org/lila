@@ -22,7 +22,7 @@ object bits {
         main(cls := "page-menu")(
           st.nav(cls := "page-menu__menu subnav")(
             a(cls := active.toOption.map(_.active("classes")), href := routes.Clas.index())(
-              trans.clas.lichessClasses()
+              trans.clas.lishogiClasses()
             ),
             active.left.toOption.map { clas =>
               frag(

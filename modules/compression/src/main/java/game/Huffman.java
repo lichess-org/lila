@@ -1,7 +1,7 @@
-package org.lichess.compression.game;
+package org.lishogi.compression.game;
 
-import org.lichess.compression.BitReader;
-import org.lichess.compression.BitWriter;
+import org.lishogi.compression.BitReader;
+import org.lishogi.compression.BitWriter;
 
 class Huffman {
     public static void write(int value, BitWriter writer) {

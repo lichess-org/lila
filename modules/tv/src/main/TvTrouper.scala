@@ -28,8 +28,9 @@ final private[tv] class TvTrouper(
 
   private var channelChampions = Map[Tv.Channel, Tv.Champion]()
 
-  private def forward[A](channel: Tv.Channel, msg: Any) =
+  private def forward[A](channel: Tv.Channel, msg: Any) = {
     channelTroupers get channel foreach { _ ! msg }
+  }
 
   protected val process: Trouper.Receive = {
 

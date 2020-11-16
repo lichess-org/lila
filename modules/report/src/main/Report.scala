@@ -78,7 +78,7 @@ case class Report(
 
   def boostWith: Option[User.ID] =
     (reason == Reason.Boost) ?? {
-      atoms.toList.filter(_.byLichess).map(_.text).flatMap(_.linesIterator).collectFirst {
+      atoms.toList.filter(_.byLishogi).map(_.text).flatMap(_.linesIterator).collectFirst {
         case Report.farmWithRegex(userId)    => userId
         case Report.sandbagWithRegex(userId) => userId
       }
@@ -107,9 +107,9 @@ object Report {
   ) {
     def simplifiedText = text.linesIterator.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 
-    def byHuman = !byLichess && by != ReporterId.irwin
+    def byHuman = !byLishogi && by != ReporterId.irwin
 
-    def byLichess = by == ReporterId.lichess
+    def byLishogi = by == ReporterId.lishogi
   }
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
@@ -133,7 +133,7 @@ object Report {
       text: String
   ) extends Reason.WithReason {
     def scored(score: Score) = Candidate.Scored(this, score)
-    def isAutomatic          = reporter.id == ReporterId.lichess
+    def isAutomatic          = reporter.id == ReporterId.lishogi
     def isAutoComm           = isAutomatic && isComm
     def isCoachReview        = isOther && text.contains("COACH REVIEW")
     def isCommFlag           = text contains Reason.Comm.flagText

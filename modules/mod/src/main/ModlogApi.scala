@@ -66,7 +66,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
   def selfCloseAccount(user: User.ID, openReports: List[Report]) =
     add {
       Modlog(
-        ModId.lichess.value,
+        ModId.lishogi.value,
         user.some,
         Modlog.selfCloseAccount,
         details = openReports.map(r => s"${r.reason.name} report").mkString(", ").some.filter(_.nonEmpty)
@@ -181,7 +181,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
 
   def cheatDetected(user: User.ID, gameId: String) =
     add {
-      Modlog("lichess", user.some, Modlog.cheatDetected, details = s"game $gameId".some)
+      Modlog("lishogi", user.some, Modlog.cheatDetected, details = s"game $gameId".some)
     }
 
   def cli(by: User.ID, command: String) =
@@ -213,7 +213,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
     coll.ext
       .find(
         $or(
-          $doc("mod"    -> $ne("lichess")),
+          $doc("mod"    -> $ne("lishogi")),
           $doc("action" -> $nin("selfCloseAccount", "modMessage"))
         )
       )
@@ -243,7 +243,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
-    !m.isLichess ?? {
+    !m.isLishogi ?? {
       coll.insert.one(m) >> slackMonitor(m)
     }
   }

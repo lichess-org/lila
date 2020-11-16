@@ -24,7 +24,6 @@ object inquiry {
             case "game"       => routes.Round.watcher(id, "white")
             case "relay"      => routes.Relay.show("-", id)
             case "tournament" => routes.Tournament.show(id)
-            case "swiss"      => routes.Swiss.show(id)
             case _            => s"/${m.group(1)}/$id"
           }
           Regex.quoteReplacement(s"$netBaseUrl$path ${m.group(3)}")

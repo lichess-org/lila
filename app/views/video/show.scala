@@ -16,7 +16,7 @@ object show {
       control: lila.video.UserControl
   )(implicit ctx: Context) =
     layout(
-      title = s"${video.title} • Free Chess Videos",
+      title = s"${video.title} • Free Shogi Videos",
       control = control,
       openGraph = lila.app.ui
         .OpenGraph(
@@ -33,7 +33,7 @@ object show {
           iframe(
             id := "ytplayer",
             tpe := "text/html",
-            src := s"https://www.youtube.com/embed/${video.id}?autoplay=1&origin=https://lichess.org&start=${video.startTime}",
+            src := s"https://www.youtube.com/embed/${video.id}?autoplay=1&origin=https://lishogi.org&start=${video.startTime}",
             st.frameborder := "0",
             frame.allowfullscreen
           )

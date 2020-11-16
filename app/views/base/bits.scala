@@ -18,7 +18,7 @@ object bits {
     )
 
   lazy val stage = a(
-    href := "https://lichess.org",
+    href := "https://lishogi.org",
     style := """
 background: #7f1010;
 color: #fff;
@@ -30,12 +30,12 @@ border-top-right-radius: 3px;
 z-index: 99;
 """
   )(
-    "This is an empty Lichess preview website, go to lichess.org instead"
+    "This is an empty Lishogi preview website, go to lishogi.org instead"
   )
 
   val connectLinks =
     div(cls := "connect-links")(
-      a(href := "https://twitter.com/lichess", rel := "nofollow")("Twitter"),
+      a(href := "https://twitter.com/lishogi", rel := "nofollow")("Twitter"),
       a(href := "https://discord.gg/hy5jqSs", rel := "nofollow")("Discord"),
       a(href := "https://www.youtube.com/channel/UCr6RfQga70yMM9-nuzAYTsA", rel := "nofollow")("YouTube")
     )

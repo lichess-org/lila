@@ -1,4 +1,4 @@
-package org.lichess.compression;
+package org.lishogi.compression;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;

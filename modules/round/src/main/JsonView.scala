@@ -204,7 +204,7 @@ final class JsonView(
           )
           .add("evalPut" -> me.??(evalCache.shouldPut))
           .add("tv" -> tv.collect {
-            case OnLichessTv(channel, flip) => Json.obj("channel" -> channel, "flip" -> flip)
+            case OnLishogiTv(channel, flip) => Json.obj("channel" -> channel, "flip" -> flip)
           })
           .add("userTv" -> tv.collect {
             case OnUserTv(userId) => Json.obj("id" -> userId)

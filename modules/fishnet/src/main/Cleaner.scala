@@ -11,6 +11,7 @@ import lila.db.dsl._
 
 final private class Cleaner(
     repo: FishnetRepo,
+    moveDb: MoveDB,
     analysisColl: Coll,
     system: akka.actor.ActorSystem
 )(implicit
@@ -46,6 +47,19 @@ final private class Cleaner(
       .run()
       .void
 
+  private def cleanMoves: Unit =
+    moveDb.clean map { moves =>
+      moves foreach { move =>
+        logger.info(s"Timeout move $move")
+        move.acquired foreach { ack =>
+          Monitor.timeout(ack.userId)
+        }
+      }
+    }
+
+  system.scheduler.scheduleWithFixedDelay(10 seconds, 5 seconds) { () =>
+    cleanMoves
+  }
   system.scheduler.scheduleWithFixedDelay(15 seconds, 10 seconds) { () =>
     cleanAnalysis
   }

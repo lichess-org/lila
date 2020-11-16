@@ -13,9 +13,9 @@ object msg {
     views.html.base.layout(
       moreCss = frag(cssTag("msg")),
       moreJs = frag(
-        jsAt(s"compiled/lichess.msg${isProd ?? ".min"}.js"),
+        jsAt(s"compiled/lishogi.msg${isProd ?? ".min"}.js"),
         embedJsUnsafe(
-          s"""$$(() =>LichessMsg(document.querySelector('.msg-app'), ${safeJsonValue(
+          s"""$$(() =>LishogiMsg(document.querySelector('.msg-app'), ${safeJsonValue(
             Json.obj(
               "data" -> json,
               "i18n" -> jsI18n
@@ -23,7 +23,7 @@ object msg {
           )}))"""
         )
       ),
-      title = "Lichess Inbox"
+      title = "Lishogi Inbox"
     ) {
       main(cls := "box msg-app")
     }

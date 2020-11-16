@@ -58,7 +58,7 @@ module.exports = {
     );
   },
   withLinebreaks: function (text) {
-    return m.trust(lichess.escapeHtml(text).replace(/\n/g, "<br>"));
+    return m.trust(lishogi.escapeHtml(text).replace(/\n/g, "<br>"));
   },
   decomposeUci: function (uci) {
     return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];

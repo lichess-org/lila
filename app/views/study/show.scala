@@ -24,7 +24,7 @@ object show {
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJsUnsafe(s"""lichess=window.lichess||{};lichess.study=${safeJsonValue(
+        embedJsUnsafe(s"""lishogi=window.lishogi||{};lishogi.study=${safeJsonValue(
           Json.obj(
             "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
             "data"     -> data.analysis,

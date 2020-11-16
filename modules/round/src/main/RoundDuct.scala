@@ -187,7 +187,7 @@ final private[round] class RoundDuct(
             lila
               .log("cheat")
               .info(
-                s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
+                s"hold alert $ip https://lishogi.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd"
               )
             lila.mon.cheat.holdAlert.increment()
             gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void
@@ -405,7 +405,7 @@ final private[round] class RoundDuct(
     case WsBoot =>
       handle { game =>
         game.playable ?? {
-          messenger.system(game, "Lichess has been updated! Sorry for the inconvenience.")
+          messenger.system(game, "Lishogi has been updated! Sorry for the inconvenience.")
           val progress = moretimer.give(game, Color.all, MoretimeDuration(20 seconds))
           proxy save progress inject progress.events
         }

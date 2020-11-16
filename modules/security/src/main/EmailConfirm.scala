@@ -57,7 +57,7 @@ $url
 ${trans.common_orPaste.txt()}
 
 ${Mailgun.txt.serviceNote}
-${trans.emailConfirm_ignore.txt("https://lichess.org")}
+${trans.emailConfirm_ignore.txt("https://lishogi.org")}
 """,
         htmlBody = emailMessage(
           pDesc(trans.emailConfirm_click()),

@@ -10,7 +10,7 @@ object faq {
 
   import trans.faq._
 
-  private val fideHandbook = "https://www.fide.com/FIDE/handbook/LawsOfChess.pdf"
+  private val fideHandbook = "http://www.shogi.net/fesa/pdf/FESA%20rules.pdf"
 
   private def question(id: String, title: String, answer: Frag*) =
     div(
@@ -28,54 +28,32 @@ object faq {
       moreCss = cssTag("faq")
     ) {
       main(cls := "faq small-page box box-pad")(
-        h1(cls := "lichess_title")(frequentlyAskedQuestions()),
-        h2("Lichess"),
-        question(
-          "name",
-          whyIsLichessCalledLichess.txt(),
-          p(
-            lichessCombinationLiveLightLibrePronounced(em(leechess())),
-            " ",
-            a(href := "https://www.youtube.com/watch?v=KRpPqcrdE-o")(hearItPronouncedBySpecialist())
-          ),
-          p(
-            whyLiveLightLibre()
-          ),
-          p(
-            whyIsLilaCalledLila(
-              a(href := "https://github.com/ornicar/lila")("lila"),
-              a(href := "https://www.scala-lang.org/")("Scala")
-            )
-          )
-        ),
+        h1(cls := "lishogi_title")(frequentlyAskedQuestions()),
+        h2("Lishogi"),
         question(
           "contributing",
-          howCanIContributeToLichess.txt(),
-          p(lichessPoweredByDonationsAndVolunteers()),
+          howCanIContributeToLishogi.txt(),
+          p(lishogiPoweredByDonationsAndVolunteers()),
           p(
-            findMoreAndSeeHowHelp(
-              a(href := routes.Plan.index())(beingAPatron()),
-              a(href := routes.Main.costs())(breakdownOfOurCosts()),
-              a(href := routes.Page.help())(otherWaysToHelp())
-            )
+            a(href := routes.Page.patron())(beingAPatron()), // patron
           )
         ),
-        question(
-          "sites_based_on_Lichess",
-          areThereWebsitesBasedOnLichess.txt(),
-          p(
-            yesLichessInspiredOtherOpenSourceWebsites(
-              a(href := "/source")(trans.sourceCode()),
-              a(href := "/api")("API"),
-              a(href := "https://database.lichess.org")(trans.database())
-            )
-          ),
-          ul(
-            li(a(href := "https://blitztactics.com/about")("Blitz Tactics")),
-            li(a(href := "https://tailuge.github.io/chess-o-tron/html/blunder-bomb.html")("Blunder Bomb")),
-            li(a(href := "https://lidraughts.org")("lidraughts.org"))
-          )
-        ),
+        // question(
+        //   "sites_based_on_Lichess",
+        //   areThereWebsitesBasedOnLishogi.txt(),
+        //   p(
+        //     yesLishogiInspiredOtherOpenSourceWebsites(
+        //       a(href := "/source")(trans.sourceCode()),
+        //       a(href := "/api")("API"),
+        //       a(href := "https://database.lishogi.org")(trans.database())
+        //     )
+        //   ),
+        //   ul(
+        //     li(a(href := "https://blitztactics.com/about")("Blitz Tactics")),
+        //     li(a(href := "https://tailuge.github.io/chess-o-tron/html/blunder-bomb.html")("Blunder Bomb")),
+        //     li(a(href := "https://lidraughts.org")("lidraughts.org"))
+        //   )
+        // ),
         h2(fairPlay()),
         question(
           "marks",
@@ -127,90 +105,23 @@ object faq {
             li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
           )
         ),
-        question(
-          "variants",
-          whatVariantsCanIplay.txt(),
-          p(
-            lichessSupportChessAnd(
-              a(href := routes.Page.variantHome())(eightVariants())
-            )
-          )
-        ),
-        question(
-          "acpl",
-          whatIsACPL.txt(),
-          p(
-            acplExplanation()
-          )
-        ),
-        question(
-          "timeout",
-          insufficientMaterial.txt(),
-          p(
-            lichessFollowFIDErules(a(href := fideHandbook)(linkToFIDErules()))
-          )
-        ),
-        question(
-          "en-passant",
-          discoveringEnPassant.txt(),
-          p(
-            explainingEnPassant(
-              a(href := "https://en.wikipedia.org/wiki/En_passant")(goodIntroduction()),
-              a(href := fideHandbook)(officialRulesPDF()),
-              a(href := s"${routes.Learn.index()}#/15")(lichessTraining())
-            )
-          )
-        ),
-        question(
-          "threefold",
-          threefoldRepetition.txt(),
-          p(
-            threefoldRepetitionExplanation(
-              a(href := "https://en.wikipedia.org/wiki/Threefold_repetition")(threefoldRepetitionLowerCase()),
-              a(href := fideHandbook)(handBookPDF())
-            )
-          ),
-          h4(notRepeatedMoves()),
-          p(
-            repeatedPositionsThatMatters(
-              em(positions())
-            )
-          ),
-          h4(weRepeatedthreeTimesPosButNoDraw()),
-          p(
-            threeFoldHasToBeClaimed(
-              a(href := routes.Pref.form("game-behavior"))(configure())
-            )
-          )
-        ),
+        //question( // todo variant
+        //  "variants",
+        //  whatVariantsCanIplay.txt(),
+        //  p(
+        //    lishogiSupportChessAnd(
+        //      a(href := routes.Page.variantHome())(eightVariants())
+        //    )
+        //  )
+        //),
+        // question(
+        //   "timeout",
+        //   insufficientMaterial.txt(),
+        //   p(
+        //     lishogiFollowFIDErules(a(href := fideHandbook)(linkToFIDErules()))
+        //   )
+        // ),
         h2(accounts()),
-        question(
-          "titles",
-          titlesAvailableOnLichess.txt(),
-          p(
-            lichessRecognizeAllOTBtitles(
-              a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")(
-                asWellAsManyNMtitles()
-              )
-            )
-          ),
-          ul(
-            li("Grandmaster (GM)"),
-            li("International Master (IM)"),
-            li("FIDE Master (FM)"),
-            li("Candidate Master (CM)"),
-            li("Woman Grandmaster (WGM)"),
-            li("Woman International Master (WIM)"),
-            li("Woman FIDE Master (WFM)"),
-            li("Woman Candidate Master (WCM)")
-          ),
-          p(
-            showYourTitle(
-              a(href := routes.Main.verifyTitle())(verificationForm()),
-              a(href := "#lm")("Lichess master (LM)")
-            )
-          )
-        ),
         question(
           "lm",
           canIbecomeLM.txt(),
@@ -226,36 +137,12 @@ object faq {
             )
           )
         ),
-        question(
-          "trophies",
-          uniqueTrophies.txt(),
-          h4("The way of Berserk"),
-          p(
-            ownerUniqueTrophies(
-              a(href := "https://lichess.org/@/hiimgosu")("hiimgosu")
-            )
-          ),
-          p(
-            wayOfBerserkExplanation(
-              a(href := "https://lichess.org/tournament/cDyjj1nL")(aHourlyBulletTournament())
-            )
-          ),
-          h4("The Golden Zee"),
-          p(
-            ownerUniqueTrophies(
-              a(href := "https://lichess.org/@/ZugAddict")("ZugAddict")
-            )
-          ),
-          p(
-            goldenZeeExplanation()
-          )
-        ),
-        h2(lichessRatings()),
+        h2(lishogiRatings()),
         question(
           "ratings",
-          whichRatingSystemUsedByLichess.txt(),
+          whichRatingSystemUsedByLishogi.txt(),
           p(
-            ratingSystemUsedByLichess()
+            ratingSystemUsedByLishogi()
           )
         ),
         question(
@@ -329,7 +216,7 @@ object faq {
           enableDisableNotificationPopUps.txt(),
           p(img(src := assetUrl("images/connection-info.png"), alt := viewSiteInformationPopUp.txt())),
           p(
-            lichessCanOptionnalySendPopUps()
+            lishogiCanOptionnalySendPopUps()
           )
         )
       )

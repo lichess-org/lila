@@ -49,14 +49,14 @@ object index {
         div(cls := "oauth-made box")(
           h1(id := "made")("My OAuth Apps"),
           p(cls := "box__pad")(
-            "Want to build something that integrates with and extends Lichess? ",
+            "Want to build something that integrates with and extends Lishogi? ",
             a(href := routes.OAuthApp.create())("Register a new OAuth App"),
-            " to get started developing with the Lichess API.",
+            " to get started developing with the Lishogi API.",
             br,
             br,
             "Here's a ",
-            a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-authorization-code")(
-              "Lichess OAuth app example"
+            a(href := "https://github.com/lishogi-org/api/tree/master/example/oauth-authorization-code")(
+              "Lishogi OAuth app example"
             ),
             ", and the ",
             a(href := routes.Api.index())("API documentation"),

@@ -56,7 +56,7 @@ final class Reopen(
       val url = s"$baseUrl/account/reopen/login/$token"
       mailgun send Mailgun.Message(
         to = email,
-        subject = s"Reopen your lichess.org account: ${user.username}",
+        subject = s"Reopen your lishogi.org account: ${user.username}",
         text = s"""
 ${trans.passwordReset_clickOrIgnore.txt()}
 

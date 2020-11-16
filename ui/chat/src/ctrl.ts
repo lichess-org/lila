@@ -1,13 +1,21 @@
-import { Ctrl, ChatOpts, Line, Tab, ViewModel, Redraw, Permissions, ModerationCtrl } from './interfaces'
-import { presetCtrl } from './preset'
-import { noteCtrl } from './note'
-import { moderationCtrl } from './moderation'
-import { prop } from 'common';
+import {
+  Ctrl,
+  ChatOpts,
+  Line,
+  Tab,
+  ViewModel,
+  Redraw,
+  Permissions,
+  ModerationCtrl,
+} from "./interfaces";
+import { presetCtrl } from "./preset";
+import { noteCtrl } from "./note";
+import { moderationCtrl } from "./moderation";
+import { prop } from "common";
 
-const li = window.lichess;
+const li = window.lishogi;
 
-export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
-
+export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
   const data = opts.data;
   data.domVersion = 1; // increment to force redraw
   const maxLines = 200;
@@ -16,43 +24,44 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   const palantir = {
     instance: undefined,
     loaded: false,
-    enabled: prop(!!data.palantir)
+    enabled: prop(!!data.palantir),
   };
 
-  const allTabs: Tab[] = ['discussion'];
-  if (opts.noteId) allTabs.push('note');
+  const allTabs: Tab[] = ["discussion"];
+  if (opts.noteId) allTabs.push("note");
   if (opts.plugin) allTabs.push(opts.plugin.tab.key);
 
-  const tabStorage = li.storage.make('chat.tab'),
+  const tabStorage = li.storage.make("chat.tab"),
     storedTab = tabStorage.get();
 
   let moderation: ModerationCtrl | undefined;
 
   const vm: ViewModel = {
-    tab: allTabs.find(tab => tab === storedTab) || allTabs[0],
-    enabled: opts.alwaysEnabled || !li.storage.get('nochat'),
-    placeholderKey: 'talkInChat',
+    tab: allTabs.find((tab) => tab === storedTab) || allTabs[0],
+    enabled: opts.alwaysEnabled || !li.storage.get("nochat"),
+    placeholderKey: "talkInChat",
     loading: false,
     timeout: opts.timeout,
-    writeable: opts.writeable
+    writeable: opts.writeable,
   };
 
   /* If discussion is disabled, and we have another chat tab,
    * then select that tab over discussion */
-  if (allTabs.length > 1 && vm.tab === 'discussion' && li.storage.get('nochat')) vm.tab = allTabs[1];
+  if (allTabs.length > 1 && vm.tab === "discussion" && li.storage.get("nochat"))
+    vm.tab = allTabs[1];
 
-  const post = function(text: string): void {
+  const post = function (text: string): void {
     text = text.trim();
     if (!text) return;
     if (text.length > 140) {
-      alert('Max length: 140 chars. ' + text.length + ' chars used.');
+      alert("Max length: 140 chars. " + text.length + " chars used.");
       return;
     }
-    li.pubsub.emit('socket.send', 'talk', text);
+    li.pubsub.emit("socket.send", "talk", text);
   };
 
-  const onTimeout = function(userId: string) {
-    data.lines.forEach(l => {
+  const onTimeout = function (userId: string) {
+    data.lines.forEach((l) => {
       if (l.u && l.u.toLowerCase() == userId) l.d = true;
     });
     if (userId == data.userId) vm.timeout = true;
@@ -60,14 +69,14 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     redraw();
   };
 
-  const onReinstate = function(userId: string) {
+  const onReinstate = function (userId: string) {
     if (userId == data.userId) {
       vm.timeout = false;
       redraw();
     }
   };
 
-  const onMessage = function(line: Line) {
+  const onMessage = function (line: Line) {
     data.lines.push(line);
     const nb = data.lines.length;
     if (nb > maxLines) {
@@ -77,52 +86,56 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     redraw();
   };
 
-  const onWriteable = function(v: boolean) {
+  const onWriteable = function (v: boolean) {
     vm.writeable = v;
     redraw();
-  }
+  };
 
-  const onPermissions = function(obj: Permissions) {
+  const onPermissions = function (obj: Permissions) {
     let p: keyof Permissions;
     for (p in obj) opts.permissions[p] = obj[p];
     instanciateModeration();
     redraw();
-  }
+  };
 
   const trans = li.trans(opts.i18n);
 
   function instanciateModeration() {
     if (opts.permissions.timeout || opts.permissions.local) {
       moderation = moderationCtrl({
-        reasons: opts.timeoutReasons || ([{key: 'other', name: 'Inappropriate behavior'}]),
+        reasons: opts.timeoutReasons || [
+          { key: "other", name: "Inappropriate behavior" },
+        ],
         permissions: opts.permissions,
-        redraw
+        redraw,
       });
-      opts.loadCss('chat.mod');
+      opts.loadCss("chat.mod");
     }
   }
   instanciateModeration();
 
-  const note = opts.noteId ? noteCtrl({
-    id: opts.noteId,
-    text: opts.noteText,
-    trans,
-    redraw
-  }) : undefined;
+  const note = opts.noteId
+    ? noteCtrl({
+        id: opts.noteId,
+        text: opts.noteText,
+        trans,
+        redraw,
+      })
+    : undefined;
 
   const preset = presetCtrl({
     initialGroup: opts.preset,
     post,
-    redraw
+    redraw,
   });
 
-  const subs: [string, PubsubCallback][]  = [
-    ['socket.in.message', onMessage],
-    ['socket.in.chat_timeout', onTimeout],
-    ['socket.in.chat_reinstate', onReinstate],
-    ['chat.writeable', onWriteable],
-    ['chat.permissions', onPermissions],
-    ['palantir.toggle', palantir.enabled]
+  const subs: [string, PubsubCallback][] = [
+    ["socket.in.message", onMessage],
+    ["socket.in.chat_timeout", onTimeout],
+    ["socket.in.chat_reinstate", onReinstate],
+    ["chat.writeable", onWriteable],
+    ["chat.permissions", onPermissions],
+    ["palantir.toggle", palantir.enabled],
   ];
   subs.forEach(([eventName, callback]) => li.pubsub.on(eventName, callback));
 
@@ -130,7 +143,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     subs.forEach(([eventName, callback]) => li.pubsub.off(eventName, callback));
   };
 
-  const emitEnabled = () => li.pubsub.emit('chat.enabled', vm.enabled);
+  const emitEnabled = () => li.pubsub.emit("chat.enabled", vm.enabled);
   emitEnabled();
 
   return {
@@ -142,7 +155,8 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       vm.tab = t;
       tabStorage.set(t);
       // It's a lame way to do it. Give me a break.
-      if (t === 'discussion') li.requestIdleCallback(() => $('.mchat__say').focus());
+      if (t === "discussion")
+        li.requestIdleCallback(() => $(".mchat__say").focus());
       redraw();
     },
     moderation: () => moderation,
@@ -154,12 +168,12 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     setEnabled(v: boolean) {
       vm.enabled = v;
       emitEnabled();
-      if (!v) li.storage.set('nochat', '1');
-      else li.storage.remove('nochat');
+      if (!v) li.storage.set("nochat", "1");
+      else li.storage.remove("nochat");
       redraw();
     },
     redraw,
     palantir,
-    destroy
+    destroy,
   };
-};
+}

@@ -24,15 +24,15 @@ object home {
       wrapClass = "full-screen-force",
       moreJs = frag(
         infiniteScrollTag,
-        jsAt(s"compiled/lichess.tournamentSchedule${isProd ?? ".min"}.js"),
+        jsAt(s"compiled/lishogi.tournamentSchedule${isProd ?? ".min"}.js"),
         embedJsUnsafe(
-          s"""var app=LichessTournamentSchedule.app(document.querySelector('.tour-chart'), ${safeJsonValue(
+          s"""var app=LishogiTournamentSchedule.app(document.querySelector('.tour-chart'), ${safeJsonValue(
             Json.obj(
               "data" -> json,
               "i18n" -> bits.jsI18n
             )
           )});
-var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=app.update;"""
+var d=lishogi.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=app.update;"""
         )
       ),
       openGraph = lila.app.ui
@@ -69,7 +69,7 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
             br,
             a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ())
           ),
-          h2(trans.lichessTournaments()),
+          h2(trans.lishogiTournaments()),
           div(cls := "scheduled")(
             scheduled.map { tour =>
               tour.schedule.filter(s => s.freq != lila.tournament.Schedule.Freq.Hourly) map { s =>

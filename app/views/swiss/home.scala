@@ -50,7 +50,7 @@ object home {
           tr(
             td(cls := "icon")(iconTag(bits.iconChar(s))),
             td(cls := "header")(
-              a(href := routes.Swiss.show(s.id.value))(
+              a(href := routes.Page.notSupported())(
                 span(cls := "name")(s.name),
                 trans.by(span(cls := "team")(teamIdToName(s.teamId)))
               )
@@ -254,7 +254,7 @@ object home {
       i("?"),
       p(
         strong("What about other tournament systems?"),
-        "We don't plan to add more tournament systems to Lichess at the moment."
+        "We don't plan to add more tournament systems to Lishogi at the moment."
       )
     )
   )

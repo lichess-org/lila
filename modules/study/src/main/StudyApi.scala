@@ -143,7 +143,7 @@ final class StudyApi(
           studyRepo.insert(study) >>
             chatApi.userChat.system(
               Chat.Id(study.id.value),
-              s"Cloned from lichess.org/study/${prev.id}",
+              s"Cloned from lishogi.org/study/${prev.id}",
               _.Study
             ) inject study.some
         }

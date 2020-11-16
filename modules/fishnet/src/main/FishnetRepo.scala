@@ -45,12 +45,12 @@ final private class FishnetRepo(
         )
       )
       .list[Client]()
-  def lichessClients =
+  def lishogiClients =
     clientColl.ext
       .find(
         $doc(
           "enabled" -> true,
-          "userId" $startsWith "lichess-"
+          "userId" $startsWith "lishogi-"
         )
       )
       .list[Client]()

@@ -101,7 +101,7 @@ final class GarbageCollector(
       val message =
         s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed ?? " [SIMULATION]"}"
       logger.info(message)
-      noteApi.lichessWrite(user, s"Garbage collected because of $msg")
+      noteApi.lishogiWrite(user, s"Garbage collected because of $msg")
       slack.garbageCollector(message) >>- {
         if (armed) {
           doInitialSb(user)

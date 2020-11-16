@@ -93,7 +93,7 @@ final class ModApi(
 
   def garbageCollect(sus: Suspect): Funit =
     for {
-      mod <- reportApi.getLichessMod
+      mod <- reportApi.getLishogiMod
       _   <- setAlt(mod, sus, true)
       _   <- setTroll(mod, sus, false)
     } yield logApi.garbageCollect(mod, sus)

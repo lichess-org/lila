@@ -163,54 +163,6 @@ object TournamentShield {
           iconChar = '+'
         )
 
-    case object Chess960
-        extends Category(
-          of = Right(chess.variant.Chess960),
-          iconChar = '\''
-        )
-
-    case object KingOfTheHill
-        extends Category(
-          of = Right(chess.variant.KingOfTheHill),
-          iconChar = '('
-        )
-
-    case object Antichess
-        extends Category(
-          of = Right(chess.variant.Antichess),
-          iconChar = '@'
-        )
-
-    case object Atomic
-        extends Category(
-          of = Right(chess.variant.Atomic),
-          iconChar = '>'
-        )
-
-    case object ThreeCheck
-        extends Category(
-          of = Right(chess.variant.ThreeCheck),
-          iconChar = '.'
-        )
-
-    case object Horde
-        extends Category(
-          of = Right(chess.variant.Horde),
-          iconChar = '_'
-        )
-
-    case object RacingKings
-        extends Category(
-          of = Right(chess.variant.RacingKings),
-          iconChar = ''
-        )
-
-    case object Crazyhouse
-        extends Category(
-          of = Right(chess.variant.Crazyhouse),
-          iconChar = ''
-        )
-
     val all: List[Category] = List(
       Bullet,
       SuperBlitz,
@@ -218,15 +170,7 @@ object TournamentShield {
       Rapid,
       Classical,
       HyperBullet,
-      UltraBullet,
-      Crazyhouse,
-      Chess960,
-      KingOfTheHill,
-      ThreeCheck,
-      Antichess,
-      Atomic,
-      Horde,
-      RacingKings
+      UltraBullet
     )
 
     def of(t: Tournament): Option[Category] = all.find(_ matches t)

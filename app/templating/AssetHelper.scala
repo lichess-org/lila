@@ -57,15 +57,15 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  def roundTag = jsAt(s"compiled/lichess.round${isProd ?? ".min"}.js", defer = true)
+  def roundTag = jsAt(s"compiled/lishogi.round${isProd ?? ".min"}.js", defer = true)
   def roundNvuiTag(implicit ctx: Context) =
     ctx.blind option
-      jsAt(s"compiled/lichess.round.nvui.min.js", defer = true)
+      jsAt(s"compiled/lishogi.round.nvui.min.js", defer = true)
 
-  def analyseTag = jsAt(s"compiled/lichess.analyse${isProd ?? ".min"}.js")
+  def analyseTag = jsAt(s"compiled/lishogi.analyse${isProd ?? ".min"}.js")
   def analyseNvuiTag(implicit ctx: Context) =
     ctx.blind option
-      jsAt(s"compiled/lichess.analyse.nvui.min.js")
+      jsAt(s"compiled/lishogi.analyse.nvui.min.js")
 
   def captchaTag = jsAt(s"compiled/captcha.js")
 
@@ -113,7 +113,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def prismicJs(implicit ctx: Context): Frag =
     raw {
       isGranted(_.Prismic) ?? {
-        embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
+        embedJsUnsafe("""window.prismic={endpoint:'https://lishogi.prismic.io/api/v2'}""").render ++
           """<script type="text/javascript" src="//static.cdn.prismic.io/prismic.min.js"></script>"""
       }
     }

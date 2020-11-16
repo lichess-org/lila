@@ -163,7 +163,6 @@ case class Game(
       moveOrDrop: MoveOrDrop,
       blur: Boolean = false
   ): Progress = {
-    println("Game update called" + game + "!~!" + moveOrDrop)
     def copyPlayer(player: Player) =
       if (blur && moveOrDrop.fold(_.color, _.color) == player.color)
         player.copy(
@@ -223,11 +222,12 @@ case class Game(
     Progress(this, updated, events)
   }
 
-  def lastMoveKeys: Option[String] =
+  def lastMoveKeys: Option[String] = {
     history.lastMove map {
-      case Uci.Drop(target, _) => s"$target$target"
+      case Uci.Drop(target, pos) => s"${target.forsyth}*$pos" // changed
       case m: Uci.Move         => m.keys
     }
+  }
 
   def updatePlayer(color: Color, f: Player => Player) =
     color.fold(
@@ -314,7 +314,8 @@ case class Game(
 
   def playerCanOfferDraw(color: Color) =
     started && playable &&
-      turns >= 2 &&
+      turns >= 8 &&
+      chess.situation.impasse &&
       !player(color).isOfferingDraw &&
       !opponent(color).isAi &&
       !playerHasOfferedDraw(color)
@@ -632,40 +633,21 @@ object Game {
 
   val analysableVariants: Set[Variant] = Set(
     chess.variant.Standard,
-    chess.variant.Crazyhouse,
-    chess.variant.Chess960,
-    chess.variant.KingOfTheHill,
-    chess.variant.ThreeCheck,
-    chess.variant.Antichess,
     chess.variant.FromPosition,
-    chess.variant.Horde,
-    chess.variant.Atomic,
-    chess.variant.RacingKings
   )
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
 
-  val variantsWhereWhiteIsBetter: Set[Variant] = Set(
-    chess.variant.ThreeCheck,
-    chess.variant.Atomic,
-    chess.variant.Horde,
-    chess.variant.RacingKings,
-    chess.variant.Antichess
-  )
+  val variantsWhereWhiteIsBetter: Set[Variant] = Set()
 
   val blindModeVariants: Set[Variant] = Set(
     chess.variant.Standard,
-    chess.variant.Chess960,
-    chess.variant.KingOfTheHill,
-    chess.variant.ThreeCheck,
     chess.variant.FromPosition
   )
 
   val hordeWhitePawnsSince = new DateTime(2015, 4, 11, 10, 0)
 
-  def isOldHorde(game: Game) =
-    game.variant == chess.variant.Horde &&
-      game.createdAt.isBefore(Game.hordeWhitePawnsSince)
+  def isOldHorde(game: Game) = false
 
   def allowRated(variant: Variant, clock: Option[Clock.Config]) =
     variant.standard || {
@@ -770,8 +752,7 @@ object Game {
     val clock             = "c"
     val positionHashes    = "ph"
     val checkCount        = "cc"
-    val castleLastMove    = "cl"
-    val unmovedRooks      = "ur"
+    val historyLastMove    = "cl"
     val daysPerTurn       = "cd"
     val moveTimes         = "mt"
     val whiteClockHistory = "cw"

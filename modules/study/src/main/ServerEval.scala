@@ -57,7 +57,7 @@ object ServerEval {
                     info.eval.score
                       .ifTrue {
                         node.score.isEmpty ||
-                        advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
+                        advOpt.isDefined && node.comments.findBy(Comment.Author.Lishogi).isEmpty
                       }
                       .?? { score =>
                         chapterRepo.setScore(score.some)(chapter, path + node) >>
@@ -66,7 +66,7 @@ object ServerEval {
                               node.comments + Comment(
                                 Comment.Id.make,
                                 Comment.Text(adv.makeComment(false, true)),
-                                Comment.Author.Lichess
+                                Comment.Author.Lishogi
                               )
                             )(chapter, path + node) >>
                               chapterRepo.setGlyphs(

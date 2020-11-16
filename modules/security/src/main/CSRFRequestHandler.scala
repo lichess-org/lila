@@ -30,8 +30,8 @@ final class CSRFRequestHandler(net: NetConfig) {
   private val topDomain = s"://${net.domain}"
   private val subDomain = s".${net.domain}"
 
-  // origin = "https://lichess.org"
-  // domain = "lichess.org"
+  // origin = "https://lishogi.org"
+  // domain = "lishogi.org"
   private def isSubdomain(origin: String) =
     origin.endsWith(subDomain) || origin.endsWith(topDomain)
 }

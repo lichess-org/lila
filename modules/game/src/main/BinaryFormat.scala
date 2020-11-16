@@ -6,7 +6,7 @@ import scala.util.Try
 import chess.variant.Variant
 import chess.{ ToOptionOpsFromOption => _, _ }
 import chess.format.Uci
-import org.lichess.compression.clock.{ Encoder => ClockEncoder }
+import org.lishogi.compression.clock.{ Encoder => ClockEncoder }
 
 import lila.db.ByteArray
 

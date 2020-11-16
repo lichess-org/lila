@@ -31,15 +31,7 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
   def add(user: User, game: Game, perfs: Perfs): Funit = {
     val isStd = game.ratingVariant.standard
     val changes = List(
-      isStd.option("standard"                                               -> perfs.standard),
-      game.ratingVariant.chess960.option("chess960"                         -> perfs.chess960),
-      game.ratingVariant.kingOfTheHill.option("kingOfTheHill"               -> perfs.kingOfTheHill),
-      game.ratingVariant.threeCheck.option("threeCheck"                     -> perfs.threeCheck),
-      game.ratingVariant.antichess.option("antichess"                       -> perfs.antichess),
-      game.ratingVariant.atomic.option("atomic"                             -> perfs.atomic),
-      game.ratingVariant.horde.option("horde"                               -> perfs.horde),
-      game.ratingVariant.racingKings.option("racingKings"                   -> perfs.racingKings),
-      game.ratingVariant.crazyhouse.option("crazyhouse"                     -> perfs.crazyhouse),
+      isStd.option("standard"                                               -> perfs.standard), // todo variant
       (isStd && game.speed == Speed.UltraBullet).option("ultraBullet"       -> perfs.ultraBullet),
       (isStd && game.speed == Speed.Bullet).option("bullet"                 -> perfs.bullet),
       (isStd && game.speed == Speed.Blitz).option("blitz"                   -> perfs.blitz),

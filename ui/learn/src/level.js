@@ -56,6 +56,7 @@ module.exports = function (blueprint, opts) {
   };
 
   var detectSuccess = function () {
+    console.log(blueprint, vm);
     if (blueprint.success) return blueprint.success(assertData());
     else return !items.hasItem("apple");
   };
@@ -167,6 +168,8 @@ module.exports = function (blueprint, opts) {
       },
     },
     shapes: blueprint.shapes,
+    events: blueprint.events,
+    lastMoves: blueprint.lastMoves,
   });
 
   return {
@@ -180,5 +183,6 @@ module.exports = function (blueprint, opts) {
         setTimeout(scenario.opponent, 1000);
     },
     onComplete: opts.onComplete,
+    complete: complete,
   };
 };

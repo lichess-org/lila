@@ -19,18 +19,11 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     else none
 
   val topBarSortedPerfTypes: List[PerfType] = List(
-    PerfType.Bullet,
-    PerfType.Chess960,
+    PerfType.Bullet, // todo variant
     PerfType.Blitz,
-    PerfType.KingOfTheHill,
     PerfType.Rapid,
-    PerfType.ThreeCheck,
     PerfType.Classical,
-    PerfType.Antichess,
     PerfType.Correspondence,
-    PerfType.Atomic,
-    PerfType.Horde,
-    PerfType.Crazyhouse
   )
 
   def showPerfRating(rating: Int, name: String, nb: Int, provisional: Boolean, icon: Char)(implicit
@@ -283,8 +276,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   val lineIcon: Frag = i(cls := "line")
   def patronIcon(implicit lang: Lang): Frag =
-    i(cls := "line patron", title := trans.patron.lichessPatron.txt())
-  val moderatorIcon: Frag                                                  = i(cls := "line moderator", title := "Lichess Mod")
+    i(cls := "line patron", title := trans.patron.lishogiPatron.txt())
+  val moderatorIcon: Frag                                                  = i(cls := "line moderator", title := "Lishogi Mod")
   private def lineIcon(patron: Boolean)(implicit lang: Lang): Frag         = if (patron) patronIcon else lineIcon
   private def lineIcon(user: Option[LightUser])(implicit lang: Lang): Frag = lineIcon(user.??(_.isPatron))
   def lineIcon(user: LightUser)(implicit lang: Lang): Frag                 = lineIcon(user.isPatron)
