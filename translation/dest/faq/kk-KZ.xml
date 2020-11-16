@@ -63,10 +63,13 @@
   <string name="goodIntroduction">жақсы түсіндірме</string>
   <string name="officialRulesPDF">ресми ережелер (PDF)</string>
   <string name="lichessTraining">Личес жаттығулары</string>
-  <string name="threefoldRepetition">Үш реттік қайталау</string>
+  <string name="threefoldRepetition">Үш реттік қайталану</string>
   <string name="threefoldRepetitionExplanation">Егер тақта күйі үш рет қайталанса, %1$s-ды негіз етіп, ойыншылар тепе-теңдікті сұрауға құқылы. Личес, %2$s-тың 9.2 (d) бабында жазылғандай, FIDE ережесін ұстанады.</string>
-  <string name="threefoldRepetitionLowerCase">үш реттік қайталау</string>
-  <string name="notRepeatedMoves">Біз жүрістерді қайталамадық. Ойын неге қайталаудан тепе-теңдік болып аяқталды?</string>
+  <string name="threefoldRepetitionLowerCase">үш реттік қайталану</string>
+  <string name="notRepeatedMoves">Біз жүрістерді қайталамадық. Ойын неге қайталанудан тепе-теңдік болып аяқталды?</string>
+  <string name="repeatedPositionsThatMatters">Үш реттік қайталану деп %1$sн меңзейді, жүрістерді емес. Қайталану бірінен соң бірі болу міндетті емес.</string>
+  <string name="positions">тақта күйі</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Біз күйді үш рет қайталадық. Ойын неге тепе-теңдік болып тоқталмады?</string>
   <string name="accounts">Аккаунт</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі апта ішінде сәйкес баға үшін бағаланатын ойынға қатысу,</string>
   <string name="displayPreferences">баптауларды көрсету</string>
