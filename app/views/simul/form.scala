@@ -51,11 +51,11 @@ object form {
             form3.submit(trans.save(), icon = "g".some)
           )
         ),
-          postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
-            submitButton(dataIcon := "j", cls := "text button button-red confirm")(
-              "Cancel the simul"
-            )
+        postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
+          submitButton(dataIcon := "j", cls := "text button button-red confirm")(
+            "Cancel the simul"
           )
+        )
       )
     }
 
