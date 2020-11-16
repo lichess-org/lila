@@ -126,5 +126,9 @@
   <string name="howToHideRatingWhilePlaying">Рейтингті ойын кезінде қалай жасырсам болады?</string>
   <string name="enableZenMode">%1$s-ге кіріп Zen қалпын қосыңыз немесе ойын кезінде %2$s басыңыз.</string>
   <string name="displayPreferences">баптауларды көрсету</string>
-  <string name="connexionLostCanIGetMyRatingBack">Желінің ажырауы/кідірісі кесірінен ойын үзілді. Рейтинг ұпайларын қайтара аласыз ба?</string>
+  <string name="connexionLostCanIGetMyRatingBack">Желінің ажырауы/кідірісі кесірінен ойын тоқталды. Рейтинг ұпайларын қайтара аласыз ба?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Өкінішке орай, бұл ажырау не кідіріс кімнің жағынан болғанына қарамастан, біз осы жайтта ұпайды қайтара алмаймыз. Біздің жағымыздан туындаған ажырау мен кідіріс – мүлдем сирек болатын жағдай. Онымен қатар, Личес жүйесінің қайта қосылуынан сіз уақыт жоғалтсаңыз, әділсіз шығын болмағандай біз ойынды үзіп тастаймыз.</string>
+  <string name="howToThreeDots">Қалайша...</string>
+  <string name="enableDisableNotificationPopUps">Ескерту қалқымалы терезелерін қосайын ба, өшірейін бе?</string>
+  <string name="viewSiteInformationPopUp">Сайттың жайлы қалқымалы терезені қарау</string>
 </resources>
