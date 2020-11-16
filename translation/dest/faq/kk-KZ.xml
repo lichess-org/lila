@@ -70,7 +70,10 @@
   <string name="repeatedPositionsThatMatters">Үш реттік қайталану деп %1$sн меңзейді, жүрістерді емес. Қайталану бірінен соң бірі болу міндетті емес.</string>
   <string name="positions">тақта күйі</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Біз күйді үш рет қайталадық. Ойын неге тепе-теңдік болып тоқталмады?</string>
+  <string name="threeFoldHasToBeClaimed">Қайталануды ойыншылардың бірі жариялау керек. Ол үшін сәйкес батырмаға басыңыз немесе тепе-теңдікті соңғы қайталану болар алдында сұраңыз, сонда қарсыласыңыз келіспесе де, ойын үш реттік қайталану негізінде тепе-теңдікпен тоқталады. Сонымен қатар, Личес %1$s қайталануды автоматты түрде жариялауды қоса аласыз. Одан бөлек, бес реттік қайталану болып қалса, ол ешбір шартсыз ойынды тоқтады.</string>
+  <string name="configure">баптауында</string>
   <string name="accounts">Аккаунт</string>
+  <string name="titlesAvailableOnLichess">Личесте қандай атақтар бар?</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі апта ішінде сәйкес баға үшін бағаланатын ойынға қатысу,</string>
   <string name="displayPreferences">баптауларды көрсету</string>
 </resources>
