@@ -84,6 +84,15 @@
   <string name="verificationForm">растау формасын</string>
   <string name="canIbecomeLM">Личес Шебері (LM) атағын қалай алсам болады?</string>
   <string name="noUpperCaseDot">Ала алмайсыз.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Бұл атақ – бейресми. Оның тек Личес ішінде заңды күші бар.
+Өз қалауымызша тек аса көзге түскен ойыншыларды, Личестің жақсы азаматтарын ғана осы атақпен марапаттаймыз. Сіз Личес Шебері атағын таңдамайсыз, Личес Шебері атағы сізді таңдайды. Сіз лайықты болсаңыз, сізге растау хатын жіберетін боламыз.
+
+Личес Шебері атағын сұрамыңыз.</string>
+  <string name="whatUsernameCanIchoose">Менің аккаунт атым қандай болу керек?</string>
+  <string name="usernamesNotOffensive">Жалпы, аккаунт атында қорлау, басқа біреудің аты, жарнама сияқты белгілер болмау керек. %1$s туралы оқысаңыз болады.</string>
+  <string name="guidelines">нұсқаулық</string>
+  <string name="uniqueTrophies">Ерекше олжалар</string>
+  <string name="ownerUniqueTrophies">Бұл олжа Личес тарихында ерекше орын алады, %1$s-дан басқа ешкім де оған ие болмады.</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі апта ішінде сәйкес баға үшін бағаланатын ойынға қатысу,</string>
   <string name="displayPreferences">баптауларды көрсету</string>
 </resources>
