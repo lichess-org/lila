@@ -27,10 +27,10 @@
   <string name="kingInTheCenter">Roue e kreiz</string>
   <string name="threeChecks">Tri bec\'h d\'ar roue</string>
   <string name="raceFinished">Echu ar redadeg</string>
-  <string name="variantEnding">Fin dre eilstumm</string>
+  <string name="variantEnding">Fin ar variant</string>
   <string name="newOpponent">Enebour nevez</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Hoc\'h enebour en deus c\'hoant da c\'hoari enep deoc\'h adarre</string>
-  <string name="joinTheGame">Kejañ ouzh ar c\'hoari</string>
+  <string name="joinTheGame">Kregiñ ganti</string>
   <string name="whitePlays">D\'ar re wenn da c\'hoari</string>
   <string name="blackPlays">D\'ar re zu da c\'hoari</string>
   <plurals name="opponentLeftCounter">
@@ -778,6 +778,7 @@
   <string name="downloadImported">Enkargañ enporzhiet</string>
   <string name="printFriendlyPDF">PDF da voullañ</string>
   <string name="crosstable">Roll-istor ar c\'hrogadoù</string>
+  <string name="analysisShapesHowTo">Pouezit war shift+klik pe klik-dehou da dresañ kelc\'hioù ha biroù war an tablez.</string>
   <string name="letOtherPlayersMessageYou">Aotreañ ar c\'hoarierien da gas kemennadennoù deoc\'h</string>
   <string name="withNobody">Gant den ebet</string>
   <string name="withFriends">Gant ma mignoned</string>
@@ -924,6 +925,7 @@
   <string name="temporaryInconvenience">Hon digarezit evit an diaezamant berrbad,</string>
   <string name="wishYouGreatGames">hag e hetomp krogadoù mat deoc\'h war lichess.org.</string>
   <string name="thankYouForReading">Mersi da vezañ lennet!</string>
+  <string name="lifetimeScore">Disoc\'h hollek</string>
   <string name="currentMatchScore">Taolenn an disoc\'hoù etrezoc\'h</string>
   <string name="agreementAssistance">Biken ne vin sikouret e-pad ma c\'hrogadoù (na gant un urzhiataer echedoù, na gant ul levr, un diaz roadennoù pe un den all).</string>
   <string name="agreementNice">Prometiñ a ran bezañ bepred hegarat ouzh ar c\'hoarierien all.</string>
