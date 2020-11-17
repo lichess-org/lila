@@ -224,6 +224,8 @@
     <item quantity="other">%s krogad a-enep deoc\'h</item>
   </plurals>
   <string name="cancel">Nullañ</string>
+  <string name="whiteTimeOut">Amzer ebet ken evit ar re wenn</string>
+  <string name="blackTimeOut">Amzer ebet ken evit ar re zu</string>
   <string name="drawOfferSent">Kinnig rampo kaset</string>
   <string name="drawOfferDeclined">Kinnig rampo nac\'het</string>
   <string name="drawOfferAccepted">Kinnig rampo asantet</string>
