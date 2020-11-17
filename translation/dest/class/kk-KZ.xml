@@ -67,4 +67,22 @@
   <string name="releaseTheAccount">Аккаунтты босатыңыз, шәкірт оны дара өзі басқаратын болады.</string>
   <string name="releaseDesc1">Босатылған аккаунт қайттан басқарулы күйге ауыса алмайды. Шәкірт Личестің балалық нұсқасын қосуға, құпиясөзді қайта орнатуға қабілетті болады.</string>
   <string name="releaseDesc2">Шәкірт аккаунты босатылған соң Мектепте хабар келеді.</string>
+  <string name="realUniqueEmail">Шәкірттің шын поштасы. Оған аккаунтты босатуды растайтын хат жіберетін боламыз.</string>
+  <string name="teachers">Ұстаздар</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Ұстаз</item>
+    <item quantity="other">%s ұстаз</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Шәкірт</item>
+    <item quantity="other">%s шәкірт</item>
+  </plurals>
+  <string name="students">Шәкірттер</string>
+  <string name="progress">Жетістік</string>
+  <string name="noStudents">Мектепте әзірше шәкірт жоқ.</string>
+  <string name="noRemovedStudents">Шығарылған шәкірт жоқ.</string>
+  <string name="overDays">Бірнеше күнде</string>
+  <string name="timePlaying">Ойнау уақыты</string>
+  <string name="variantXOverLastY">%1$s, кейінгі %2$s-де</string>
+  <string name="winrate">Жеңіс үлесі</string>
 </resources>
