@@ -23,4 +23,12 @@
   <string name="classDescription">Мектеп сипаттамасы</string>
   <string name="visibleByBothStudentsAndTeachers">Мектептің ұстаздары мен шәкірттеріне бірдей көрінеді</string>
   <string name="teachersOfTheClass">Мектеп ұстаздары</string>
+  <string name="addLichessUsernames">Ұстаздарды шақыру үшін олардың аккаунт аттарын жазыңыз. Әр жолған бір-бірден.</string>
+  <string name="theyMustFirstApply">Олар алдымен Личес Ұстазы болуға сұраныс жіберуі тиіс.</string>
+  <string name="resetPassword">Құпиясөзді қайта орнату</string>
+  <string name="makeSureToCopy">Құпиясөзді көшіріп жазып алыңыз. Оны осыдан кейін қарай алмайсыз!</string>
+  <string name="passwordX">Құпиясөз: %s</string>
+  <string name="generateANewPassword">Шәкіртке жаңа құпиясөз құру</string>
+  <string name="invitedToXByY">%1$s-не %2$s шақырған</string>
+  <string name="realName">Шын аты</string>
 </resources>
